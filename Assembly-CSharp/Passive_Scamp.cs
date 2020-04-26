@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class Passive_Scamp : Passive
@@ -19,7 +18,7 @@ public class Passive_Scamp : Passive
 
 	public float m_orbMaxSpawnDist = 10f;
 
-	public int m_orbEnergyGainOnTrigger = 0xF;
+	public int m_orbEnergyGainOnTrigger = 15;
 
 	public StandardEffectInfo m_orbTriggerEffect;
 
@@ -45,6 +44,6 @@ public class Passive_Scamp : Passive
 
 	public int GetMaxSuitShield()
 	{
-		return this.m_shieldEffectData.m_absorbAmount;
+		return m_shieldEffectData.m_absorbAmount;
 	}
 }

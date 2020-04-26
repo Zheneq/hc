@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class TimeMultiplierAdjuster : MonoBehaviour, IGameEventListener
@@ -7,7 +6,7 @@ public class TimeMultiplierAdjuster : MonoBehaviour, IGameEventListener
 
 	public void Start()
 	{
-		this.m_plugin = base.GetComponent<PKFxRenderingPlugin>();
+		m_plugin = GetComponent<PKFxRenderingPlugin>();
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.GametimeScaleChange);
 	}
 
@@ -18,34 +17,21 @@ public class TimeMultiplierAdjuster : MonoBehaviour, IGameEventListener
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType == GameEventManager.EventType.GametimeScaleChange)
+		if (eventType != GameEventManager.EventType.GametimeScaleChange)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_plugin != null)
 			{
-				switch (4)
+				while (true)
 				{
-				case 0:
-					continue;
+					m_plugin.m_TimeMultiplier = GameTime.scale;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TimeMultiplierAdjuster.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
-			if (this.m_plugin != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_plugin.m_TimeMultiplier = GameTime.scale;
-			}
+			return;
 		}
 	}
 }

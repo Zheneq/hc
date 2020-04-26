@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 public class UNetMessage
 {
@@ -10,42 +10,17 @@ public class UNetMessage
 
 	public byte[] Serialize()
 	{
-		if (this.Bytes != null)
+		if (Bytes != null)
 		{
-			for (;;)
+			if (NumBytes + 1 >= 9)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UNetMessage.Serialize()).MethodHandle;
-			}
-			if (this.NumBytes + 1 >= 9)
-			{
-				byte[] array = new byte[this.NumBytes + 1];
+				byte[] array = new byte[NumBytes + 1];
 				array[0] = 0;
-				Buffer.BlockCopy(this.Bytes, 0, array, 1, this.NumBytes);
+				Buffer.BlockCopy(Bytes, 0, array, 1, NumBytes);
 				return array;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		Log.Error("BinaryMessage.Serialize invalid message numBytes={0}", new object[]
-		{
-			this.NumBytes
-		});
+		Log.Error("BinaryMessage.Serialize invalid message numBytes={0}", NumBytes);
 		return null;
 	}
 
@@ -55,28 +30,12 @@ public class UNetMessage
 		{
 			if (rawData.Length >= 9)
 			{
-				this.NumBytes = rawData.Length - 1;
-				this.Bytes = new byte[this.NumBytes];
-				Buffer.BlockCopy(rawData, 1, this.Bytes, 0, this.NumBytes);
+				NumBytes = rawData.Length - 1;
+				Bytes = new byte[NumBytes];
+				Buffer.BlockCopy(rawData, 1, Bytes, 0, NumBytes);
 				return;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UNetMessage.Deserialize(byte[])).MethodHandle;
-			}
 		}
-		Log.Error("BinaryMessage.Deserialize invalid message bytes {0}", new object[]
-		{
-			(rawData == null) ? -1 : rawData.Length
-		});
+		Log.Error("BinaryMessage.Deserialize invalid message bytes {0}", (rawData == null) ? (-1) : rawData.Length);
 	}
 }

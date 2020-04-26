@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class LineSequence : Sequence
@@ -9,7 +8,7 @@ public class LineSequence : Sequence
 	[JointPopup("FX attach joint on the caster")]
 	public JointPopupProperty m_fxCasterJoint;
 
-	public Sequence.ReferenceModelType m_fxCasterJointReferenceType;
+	public ReferenceModelType m_fxCasterJointReferenceType;
 
 	[Header("-- Whether to use target position of sequence as start position instead of joint on caster")]
 	public bool m_useTargetPosAsStartPosition;
@@ -21,7 +20,7 @@ public class LineSequence : Sequence
 	[JointPopup("FX attach joint on the target")]
 	public JointPopupProperty m_fxTargetJoint;
 
-	public Sequence.ReferenceModelType m_fxTargetJointReferenceType;
+	public ReferenceModelType m_fxTargetJointReferenceType;
 
 	[Header("-- Whether to keep line visible if target ragdolls")]
 	public bool m_canBeVisibleIfTargetRagdolled;
@@ -32,7 +31,7 @@ public class LineSequence : Sequence
 
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
 	[AnimEventPicker]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	public float m_duration = -1f;
 
@@ -43,7 +42,7 @@ public class LineSequence : Sequence
 
 	protected GameObject m_fx;
 
-	public Sequence.PhaseTimingParameters m_phaseTimingParameters;
+	public PhaseTimingParameters m_phaseTimingParameters;
 
 	protected Vector3 m_fixedStartPos;
 
@@ -51,667 +50,368 @@ public class LineSequence : Sequence
 
 	protected const string c_endPointAttr = "endPoint";
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams iParams in extraParams)
+		foreach (IExtraSequenceParams iParams in extraParams)
 		{
-			base.OverridePhaseTimingParams(this.m_phaseTimingParameters, iParams);
+			OverridePhaseTimingParams(m_phaseTimingParameters, iParams);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
+			m_fixedStartPos = base.TargetPos;
+			if (m_fixedTargetPosUseGroundHeight)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-		}
-		this.m_fixedStartPos = base.TargetPos;
-		if (this.m_fixedTargetPosUseGroundHeight)
-		{
-			for (;;)
-			{
-				switch (4)
+				if (Board.Get() != null)
 				{
-				case 0:
-					continue;
+					m_fixedStartPos.y = Board.Get().BaselineHeight;
 				}
-				break;
 			}
-			if (Board.\u000E() != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_fixedStartPos.y = (float)Board.\u000E().BaselineHeight;
-			}
+			m_fixedStartPos.y += m_fixedTargetPosYOffset;
+			return;
 		}
-		this.m_fixedStartPos.y = this.m_fixedStartPos.y + this.m_fixedTargetPosYOffset;
 	}
 
 	public override void FinishSetup()
 	{
-		if (this.m_startEvent == null && this.m_phaseTimingParameters.ShouldSequenceBeActive())
+		if (m_startEvent == null && m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
-			this.SpawnFX();
+			SpawnFX();
 		}
 	}
 
 	internal override void OnTurnStart(int currentTurn)
 	{
-		this.m_phaseTimingParameters.OnTurnStart(currentTurn);
+		m_phaseTimingParameters.OnTurnStart(currentTurn);
 	}
 
 	internal override void OnAbilityPhaseStart(AbilityPriority abilityPhase)
 	{
-		this.m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
-		if (this.m_startEvent == null)
+		m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
+		if (m_startEvent == null)
 		{
-			for (;;)
+			if (m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase))
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.OnAbilityPhaseStart(AbilityPriority)).MethodHandle;
-			}
-			if (this.m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.SpawnFX();
+				SpawnFX();
 			}
 		}
-		if (this.m_phaseTimingParameters.ShouldStopSequence(abilityPhase))
+		if (!m_phaseTimingParameters.ShouldStopSequence(abilityPhase))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(m_fx != null))
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (this.m_fx != null)
+			while (true)
 			{
-				for (;;)
+				if ((bool)m_fx)
 				{
-					switch (4)
+					while (true)
 					{
-					case 0:
-						continue;
+						m_fx.SetActive(false);
+						m_despawnTime = GameTime.time;
+						return;
 					}
-					break;
 				}
-				if (this.m_fx)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_fx.SetActive(false);
-					this.m_despawnTime = GameTime.time;
-				}
+				return;
 			}
 		}
 	}
 
 	private void Update()
 	{
-		this.OnUpdate();
+		OnUpdate();
 	}
 
 	protected virtual void OnUpdate()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!m_phaseTimingParameters.ShouldSequenceBeActive())
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.OnUpdate()).MethodHandle;
-			}
-			if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
-			{
-				for (;;)
+				if (m_fx != null)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_fx != null)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Caster != null)
 					{
-						for (;;)
+						if (m_fx != null && m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_fx != null && this.m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.\u000E());
+							m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 						}
 					}
 				}
-				bool flag = this.m_fx != null;
-				if (this.m_fx != null)
+				bool flag = m_fx != null;
+				if (m_fx != null)
 				{
-					bool flag2 = this.ShouldHideForCaster();
-					bool flag3 = this.ShouldHideForTarget();
-					bool flag4;
+					bool flag2 = ShouldHideForCaster();
+					bool flag3 = ShouldHideForTarget();
+					int num;
 					if (!flag2)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag4 = !flag3;
+						num = ((!flag3) ? 1 : 0);
 					}
 					else
 					{
-						flag4 = false;
+						num = 0;
 					}
-					flag = flag4;
+					flag = ((byte)num != 0);
 				}
 				if (!flag)
 				{
-					base.SetSequenceVisibility(false);
+					SetSequenceVisibility(false);
 				}
 				else
 				{
-					base.ProcessSequenceVisibility();
+					ProcessSequenceVisibility();
 				}
-				if (this.m_fx != null)
+				if (m_fx != null)
 				{
-					for (;;)
+					if (!m_useTargetPosAsStartPosition)
 					{
-						switch (3)
+						if (!(m_fxCasterJoint.m_jointObject != null))
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_useTargetPosAsStartPosition)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!(this.m_fxCasterJoint.m_jointObject != null))
-						{
-							goto IL_176;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							goto IL_0176;
 						}
 					}
-					Vector3 lineStartPos = this.GetLineStartPos();
-					Sequence.SetAttribute(this.m_fx, "startPoint", lineStartPos);
-					IL_176:
-					if (this.m_fxTargetJoint.m_jointObject != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						Vector3 lineEndPos = this.GetLineEndPos();
-						Sequence.SetAttribute(this.m_fx, "endPoint", lineEndPos);
-					}
+					Vector3 lineStartPos = GetLineStartPos();
+					Sequence.SetAttribute(m_fx, "startPoint", lineStartPos);
+					goto IL_0176;
 				}
-				if (this.m_despawnTime < GameTime.time)
+				goto IL_01af;
+				IL_01af:
+				if (!(m_despawnTime < GameTime.time))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_despawnTime > 0f)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UnityEngine.Object.Destroy(this.m_fx);
-						this.m_fx = null;
-					}
+					return;
 				}
+				while (true)
+				{
+					if (m_despawnTime > 0f)
+					{
+						while (true)
+						{
+							Object.Destroy(m_fx);
+							m_fx = null;
+							return;
+						}
+					}
+					return;
+				}
+				IL_0176:
+				if (m_fxTargetJoint.m_jointObject != null)
+				{
+					Vector3 lineEndPos = GetLineEndPos();
+					Sequence.SetAttribute(m_fx, "endPoint", lineEndPos);
+				}
+				goto IL_01af;
 			}
 		}
 	}
 
 	protected virtual Vector3 GetLineStartPos()
 	{
-		if (this.m_useTargetPosAsStartPosition)
+		if (m_useTargetPosAsStartPosition)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_fixedStartPos;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.GetLineStartPos()).MethodHandle;
-			}
-			return this.m_fixedStartPos;
 		}
-		if (this.m_fxCasterJoint.m_jointObject != null)
+		if (m_fxCasterJoint.m_jointObject != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_fxCasterJoint.m_jointObject.transform.position;
 				}
-				break;
 			}
-			return this.m_fxCasterJoint.m_jointObject.transform.position;
 		}
 		return Vector3.zero;
 	}
 
 	protected virtual Vector3 GetLineEndPos()
 	{
-		if (this.m_fxTargetJoint.m_jointObject != null)
+		if (m_fxTargetJoint.m_jointObject != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.GetLineEndPos()).MethodHandle;
-			}
-			Vector3 result = this.m_fxTargetJoint.m_jointObject.transform.position;
-			bool flag = base.Target.\u0012();
-			if (this.m_useTargetDeathPosIfRagdolled)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (flag)
+				default:
 				{
-					result = base.Target.LastDeathPosition;
-					result.y += this.m_targetDeathPosYOffset;
+					Vector3 result = m_fxTargetJoint.m_jointObject.transform.position;
+					bool flag = false;
+					flag = base.Target.IsModelAnimatorDisabled();
+					if (m_useTargetDeathPosIfRagdolled)
+					{
+						if (flag)
+						{
+							result = base.Target.LastDeathPosition;
+							result.y += m_targetDeathPosYOffset;
+						}
+					}
+					return result;
+				}
 				}
 			}
-			return result;
 		}
 		return Vector3.zero;
 	}
 
 	protected virtual bool ShouldHideForCaster()
 	{
-		bool result;
-		if (!this.m_useTargetPosAsStartPosition && this.m_fxCasterJointReferenceType == Sequence.ReferenceModelType.Actor)
+		int result;
+		if (!m_useTargetPosAsStartPosition && m_fxCasterJointReferenceType == ReferenceModelType.Actor)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.ShouldHideForCaster()).MethodHandle;
-			}
-			result = base.ShouldHideForActorIfAttached(base.Caster);
+			result = (ShouldHideForActorIfAttached(base.Caster) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected virtual bool ShouldHideForTarget()
 	{
-		return !this.m_canBeVisibleIfTargetRagdolled && this.m_fxTargetJointReferenceType == Sequence.ReferenceModelType.Actor && base.ShouldHideForActorIfAttached(base.Target);
+		return !m_canBeVisibleIfTargetRagdolled && m_fxTargetJointReferenceType == ReferenceModelType.Actor && ShouldHideForActorIfAttached(base.Target);
 	}
 
 	protected virtual void SpawnFX()
 	{
-		if (!this.m_fxCasterJoint.IsInitialized())
+		if (!m_fxCasterJoint.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.SpawnFX()).MethodHandle;
-			}
-			GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_fxCasterJointReferenceType);
+			GameObject referenceModel = GetReferenceModel(base.Caster, m_fxCasterJointReferenceType);
 			if (referenceModel != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_fxCasterJoint.Initialize(referenceModel);
+				m_fxCasterJoint.Initialize(referenceModel);
 			}
 		}
-		if (!this.m_fxTargetJoint.IsInitialized())
+		if (!m_fxTargetJoint.IsInitialized())
 		{
-			GameObject referenceModel2 = base.GetReferenceModel(base.Target, this.m_fxTargetJointReferenceType);
+			GameObject referenceModel2 = GetReferenceModel(base.Target, m_fxTargetJointReferenceType);
 			if (referenceModel2 != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_fxTargetJoint.Initialize(referenceModel2);
+				m_fxTargetJoint.Initialize(referenceModel2);
 			}
 		}
-		if (this.m_fxPrefab != null)
+		if (m_fxPrefab != null)
 		{
-			for (;;)
+			if (m_useTargetPosAsStartPosition)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_fx = InstantiateFX(m_fxPrefab, m_fixedStartPos, default(Quaternion));
 			}
-			if (this.m_useTargetPosAsStartPosition)
+			else if (m_fxCasterJoint != null)
 			{
-				for (;;)
+				if (m_fxCasterJoint.m_jointObject != null)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Quaternion rotation = default(Quaternion);
-				this.m_fx = base.InstantiateFX(this.m_fxPrefab, this.m_fixedStartPos, rotation, true, true);
-			}
-			else if (this.m_fxCasterJoint != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_fxCasterJoint.m_jointObject != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Vector3 position = this.m_fxCasterJoint.m_jointObject.transform.position;
-					Quaternion rotation2 = default(Quaternion);
-					this.m_fx = base.InstantiateFX(this.m_fxPrefab, position, rotation2, true, true);
+					Vector3 position = m_fxCasterJoint.m_jointObject.transform.position;
+					m_fx = InstantiateFX(m_fxPrefab, position, default(Quaternion));
 				}
 				else
 				{
-					Log.Error("LineSequence::SpawnFx() - m_fxCasterJoint.m_jointObject is NULL! Caster: {0} Target: {1}", new object[]
-					{
-						base.Caster.DisplayName,
-						base.Target.DisplayName
-					});
+					Log.Error("LineSequence::SpawnFx() - m_fxCasterJoint.m_jointObject is NULL! Caster: {0} Target: {1}", base.Caster.DisplayName, base.Target.DisplayName);
 				}
 			}
 			else
 			{
-				Log.Error("LineSequence::SpawnFx() - m_fxCasterJoint is NULL! Caster: {0} Target: {1}", new object[]
-				{
-					base.Caster.DisplayName,
-					base.Target.DisplayName
-				});
+				Log.Error("LineSequence::SpawnFx() - m_fxCasterJoint is NULL! Caster: {0} Target: {1}", base.Caster.DisplayName, base.Target.DisplayName);
 			}
 		}
 		for (int i = 0; i < base.Targets.Length; i++)
 		{
 			if (base.Targets[i] != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Vector3 targetHitPosition = base.GetTargetHitPosition(i);
+				Vector3 targetHitPosition = GetTargetHitPosition(i);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
 				hitDirection.Normalize();
 				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, hitDirection);
-				base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
+				base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
+			if (!string.IsNullOrEmpty(m_audioEvent))
 			{
-			case 0:
-				continue;
+				AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 			}
-			break;
-		}
-		if (!string.IsNullOrEmpty(this.m_audioEvent))
-		{
-			for (;;)
+			if (m_duration > 0f)
 			{
-				switch (3)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						m_despawnTime = GameTime.time + m_duration;
+						return;
+					}
 				}
-				break;
 			}
-			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
-		}
-		if (this.m_duration > 0f)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_despawnTime = GameTime.time + this.m_duration;
-		}
-		else
-		{
-			this.m_despawnTime = -1f;
+			m_despawnTime = -1f;
+			return;
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
+		if (!m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_startEvent == parameter)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				SpawnFX();
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
-			if (this.m_startEvent == parameter)
-			{
-				this.SpawnFX();
-			}
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		this.DestroyFx();
+		DestroyFx();
 	}
 
 	protected virtual void DestroyFx()
 	{
-		if (this.m_fx != null)
+		if (!(m_fx != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.DestroyFx()).MethodHandle;
-			}
-			UnityEngine.Object.Destroy(this.m_fx.gameObject);
-			this.m_fx = null;
+			return;
+		}
+		while (true)
+		{
+			Object.Destroy(m_fx.gameObject);
+			m_fx = null;
+			return;
 		}
 	}
 
 	public void ForceHideLine()
 	{
-		this.DestroyFx();
+		DestroyFx();
 	}
 }

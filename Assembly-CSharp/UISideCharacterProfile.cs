@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,346 +29,180 @@ public class UISideCharacterProfile : MonoBehaviour
 
 	public ActorData GetActor()
 	{
-		return this.m_actorData;
+		return m_actorData;
 	}
 
 	private void Awake()
 	{
-		this.SetCurrentActorArrowActive(false);
-		if (this.m_playerHandleText != null)
+		SetCurrentActorArrowActive(false);
+		if (m_playerHandleText != null)
 		{
-			this.m_playerHandleText.gameObject.SetActiveIfNeeded(false);
+			m_playerHandleText.gameObject.SetActiveIfNeeded(false);
 		}
-		if (this.m_hitbox != null)
+		if (m_hitbox != null)
 		{
-			UIEventTriggerUtils.AddListener(this.m_hitbox.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.DoClick));
+			UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerClick, DoClick);
 		}
 	}
 
 	public void DoClick(BaseEventData data)
 	{
-		if (this.m_actorData != null && GameFlowData.Get().SetActiveOwnedActor_FCFS(this.m_actorData))
+		if (!(m_actorData != null) || !GameFlowData.Get().SetActiveOwnedActor_FCFS(m_actorData))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.DoClick(BaseEventData)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.HudLockIn);
+			return;
 		}
 	}
 
 	public void Update()
 	{
-		if (this.m_actorData != null)
+		ActorTurnSM actorTurnSM;
+		int num;
+		if (m_actorData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.Update()).MethodHandle;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ActorTurnSM actorTurnSM = this.m_actorData.\u000E();
+				actorTurnSM = m_actorData.GetActorTurnSM();
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (actorTurnSM != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData != null)
 					{
-						for (;;)
+						if (m_actorData.GetTeam() == activeOwnedActorData.GetTeam())
 						{
-							switch (6)
+							if (activeOwnedActorData == m_actorData)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_actorData.\u000E() == activeOwnedActorData.\u000E())
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							bool flag;
-							if (activeOwnedActorData == this.m_actorData)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (actorTurnSM.CurrentState != TurnStateEnum.RESOLVING)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									flag = (actorTurnSM.CurrentState != TurnStateEnum.WAITING);
-									goto IL_EC;
+									num = ((actorTurnSM.CurrentState != TurnStateEnum.WAITING) ? 1 : 0);
+									goto IL_00ec;
 								}
 							}
-							flag = false;
-							IL_EC:
-							bool currentActorArrowActive = flag;
-							this.SetCurrentActorArrowActive(currentActorArrowActive);
-							goto IL_125;
+							num = 0;
+							goto IL_00ec;
 						}
 					}
 				}
 				if (activeOwnedActorData != null)
 				{
-					for (;;)
+					if (m_actorData.GetTeam() != activeOwnedActorData.GetTeam())
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_actorData.\u000E() != activeOwnedActorData.\u000E())
-					{
-						this.SetCurrentActorArrowActive(false);
+						SetCurrentActorArrowActive(false);
 					}
 				}
-				IL_125:
-				UIManager.SetGameObjectActive(this.m_hasLockedInIndicator, actorTurnSM.CurrentState == TurnStateEnum.CONFIRMED, null);
+				goto IL_0125;
 			}
 		}
-		if (this.m_currentCharacterArrow != null && this.m_currentCharacterArrow.gameObject.activeSelf)
+		goto IL_013a;
+		IL_00ec:
+		bool currentActorArrowActive = (byte)num != 0;
+		SetCurrentActorArrowActive(currentActorArrowActive);
+		goto IL_0125;
+		IL_0125:
+		UIManager.SetGameObjectActive(m_hasLockedInIndicator, actorTurnSM.CurrentState == TurnStateEnum.CONFIRMED);
+		goto IL_013a;
+		IL_013a:
+		if (!(m_currentCharacterArrow != null) || !m_currentCharacterArrow.gameObject.activeSelf)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.SetAlphaForImage(this.m_currentCharacterArrow, 0.75f + 0.25f * Mathf.Cos(6f * Time.time));
+			return;
+		}
+		while (true)
+		{
+			SetAlphaForImage(m_currentCharacterArrow, 0.75f + 0.25f * Mathf.Cos(6f * Time.time));
+			return;
 		}
 	}
 
 	public void SetCurrentActorArrowActive(bool active)
 	{
-		if (this.m_currentCharacterArrow != null)
+		if (m_currentCharacterArrow != null)
 		{
-			for (;;)
+			if (m_currentCharacterArrow.gameObject.activeSelf != active)
 			{
-				switch (7)
+				m_currentCharacterArrow.gameObject.SetActive(active);
+				if (m_childAnchor != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.SetCurrentActorArrowActive(bool)).MethodHandle;
-			}
-			if (this.m_currentCharacterArrow.gameObject.activeSelf != active)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_currentCharacterArrow.gameObject.SetActive(active);
-				if (this.m_childAnchor != null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (active)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						Vector2 offsetMin = new Vector2(this.m_activeActorSideOffset, 0f);
-						Vector2 offsetMax = new Vector2(this.m_activeActorSideOffset, 0f);
-						this.m_childAnchor.offsetMin = offsetMin;
-						this.m_childAnchor.offsetMax = offsetMax;
+						Vector2 offsetMin = new Vector2(m_activeActorSideOffset, 0f);
+						Vector2 offsetMax = new Vector2(m_activeActorSideOffset, 0f);
+						m_childAnchor.offsetMin = offsetMin;
+						m_childAnchor.offsetMax = offsetMax;
 					}
 					else
 					{
-						this.m_childAnchor.offsetMin = Vector2.zero;
-						this.m_childAnchor.offsetMax = Vector2.zero;
+						m_childAnchor.offsetMin = Vector2.zero;
+						m_childAnchor.offsetMax = Vector2.zero;
 					}
 				}
 			}
 		}
-		if (this.m_sideHealthBar != null)
+		if (!(m_sideHealthBar != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_sideHealthBar.SetHealthBarColorForActiveActor(active);
+			return;
+		}
+		while (true)
+		{
+			m_sideHealthBar.SetHealthBarColorForActiveActor(active);
+			return;
 		}
 	}
 
 	public void SetAlpha(float newAlpha)
 	{
-		if (this.m_currentAlpha == Mathf.Clamp(newAlpha, 0f, 1f))
+		if (m_currentAlpha != Mathf.Clamp(newAlpha, 0f, 1f))
 		{
-			return;
+			m_currentAlpha = newAlpha;
+			m_currentAlpha = Mathf.Clamp(m_currentAlpha, 0f, 1f);
+			SetAlphaForImage(m_characterIcon, m_currentAlpha);
 		}
-		this.m_currentAlpha = newAlpha;
-		this.m_currentAlpha = Mathf.Clamp(this.m_currentAlpha, 0f, 1f);
-		this.SetAlphaForImage(this.m_characterIcon, this.m_currentAlpha);
 	}
 
 	private void SetAlphaForImage(Image uiImage, float alpha)
 	{
-		if (uiImage != null)
+		if (!(uiImage != null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.SetAlphaForImage(Image, float)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			Color color = uiImage.color;
 			color.a = alpha;
 			uiImage.color = color;
+			return;
 		}
 	}
 
 	public void Setup(ActorData forActor, string hotKeyText, bool showNameLabel)
 	{
-		if (this.m_actorData == forActor && forActor != null)
+		if (m_actorData == forActor && forActor != null)
 		{
 			return;
 		}
-		this.m_actorData = forActor;
-		bool flag;
+		m_actorData = forActor;
+		int num;
 		if (forActor != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.Setup(ActorData, string, bool)).MethodHandle;
-			}
-			flag = GameFlowData.Get().IsActorDataOwned(forActor);
+			num = (GameFlowData.Get().IsActorDataOwned(forActor) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
+		bool flag = (byte)num != 0;
 		if (forActor != null)
 		{
-			for (;;)
+			if (m_playerHandleText != null)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_playerHandleText != null)
-			{
-				this.m_playerHandleText.text = forActor.DisplayName;
-				Graphic playerHandleText = this.m_playerHandleText;
+				m_playerHandleText.text = forActor.DisplayName;
+				TextMeshProUGUI playerHandleText = m_playerHandleText;
 				Color color;
-				if (flag2)
+				if (flag)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					color = Color.white;
 				}
 				else
@@ -377,61 +210,30 @@ public class UISideCharacterProfile : MonoBehaviour
 					color = Color.cyan;
 				}
 				playerHandleText.color = color;
-				this.m_playerHandleText.gameObject.SetActiveIfNeeded(showNameLabel);
+				m_playerHandleText.gameObject.SetActiveIfNeeded(showNameLabel);
 			}
 		}
-		this.m_hotkeyText.text = hotKeyText;
-		if (this.m_hitbox != null)
+		m_hotkeyText.text = hotKeyText;
+		if (m_hitbox != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_hitbox.gameObject.SetActiveIfNeeded(flag2);
+			m_hitbox.gameObject.SetActiveIfNeeded(flag);
 		}
-		if (this.m_characterIcon != null)
+		if (m_characterIcon != null)
 		{
-			for (;;)
+			if (m_actorData != null)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_actorData != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_characterIcon.sprite = this.m_actorData.\u000E();
+				m_characterIcon.sprite = m_actorData.GetAliveHUDIcon();
 			}
 		}
-		this.SetAlpha(1f);
-		if (this.m_sideHealthBar != null)
+		SetAlpha(1f);
+		if (!(m_sideHealthBar != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_sideHealthBar.SetActor(forActor);
+			return;
+		}
+		while (true)
+		{
+			m_sideHealthBar.SetActor(forActor);
+			return;
 		}
 	}
 }

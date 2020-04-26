@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,31 +28,18 @@ public class ScampHoloBlobs : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampHoloBlobs.Start()).MethodHandle;
-			}
-			this.m_abilityName = "ScampHoloBlobs";
+			m_abilityName = "ScampHoloBlobs";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.m_syncComp = base.GetComponent<Scamp_SyncComponent>();
-		ConeTargetingInfo coneTargetInfo = this.m_coneTargetInfo;
-		base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, coneTargetInfo.m_widthAngleDeg, coneTargetInfo.m_radiusInSquares, coneTargetInfo.m_backwardsOffset, coneTargetInfo.m_penetrateLos, true, true, false, false, -1, false);
+		m_syncComp = GetComponent<Scamp_SyncComponent>();
+		ConeTargetingInfo coneTargetInfo = m_coneTargetInfo;
+		base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, coneTargetInfo.m_widthAngleDeg, coneTargetInfo.m_radiusInSquares, coneTargetInfo.m_backwardsOffset, coneTargetInfo.m_penetrateLos, true);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -62,50 +48,37 @@ public class ScampHoloBlobs : Ability
 
 	public float GetDamageToShieldMult()
 	{
-		return this.m_damageToShieldMult;
+		return m_damageToShieldMult;
 	}
 
 	public int GetMaxShields()
 	{
-		return this.m_maxShields;
+		return m_maxShields;
 	}
 
 	public int GetShieldDuration()
 	{
-		return this.m_shieldDuration;
+		return m_shieldDuration;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_directHitDamage);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_directHitDamage);
+		return numbers;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		bool result;
-		if (this.m_syncComp != null)
+		int result;
+		if (m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampHoloBlobs.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
-			result = this.m_syncComp.m_suitWasActiveOnTurnStart;
+			result = (m_syncComp.m_suitWasActiveOnTurnStart ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 }

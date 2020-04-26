@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Timers;
 
 public class ScheduledTask
@@ -11,67 +11,63 @@ public class ScheduledTask
 
 	internal bool IsOneShot;
 
-	public ScheduledTask(Action action, TimeSpan timeSpan, bool isOneShot) : this(action, (int)timeSpan.TotalMilliseconds, isOneShot)
+	public ScheduledTask(Action action, TimeSpan timeSpan, bool isOneShot)
+		: this(action, (int)timeSpan.TotalMilliseconds, isOneShot)
 	{
 	}
 
 	public ScheduledTask(Action action, int timeoutMs, bool isOneShot)
 	{
-		this.Action = action;
-		this.Timer = new Timer
+		Action = action;
+		Timer = new Timer
 		{
-			Interval = (double)timeoutMs
+			Interval = timeoutMs
 		};
-		this.Timer.Elapsed += this.TimerElapsed;
-		this.IsOneShot = isOneShot;
+		Timer.Elapsed += TimerElapsed;
+		IsOneShot = isOneShot;
 	}
 
 	private void TimerElapsed(object sender, ElapsedEventArgs e)
 	{
-		this.Timer.Stop();
-		if (this.IsOneShot)
+		Timer.Stop();
+		if (IsOneShot)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScheduledTask.TimerElapsed(object, ElapsedEventArgs)).MethodHandle;
-			}
-			this.Timer.Elapsed -= this.TimerElapsed;
-			this.Timer = null;
-			if (this.TaskComplete != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					Timer.Elapsed -= TimerElapsed;
+					Timer = null;
+					if (TaskComplete != null)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								break;
+							default:
+								TaskComplete(this, EventArgs.Empty);
+								Action();
+								return;
+							}
+						}
+					}
+					return;
 				}
-				this.TaskComplete(this, EventArgs.Empty);
-				this.Action();
 			}
 		}
-		else
-		{
-			this.Action();
-			this.Timer.Start();
-		}
+		Action();
+		Timer.Start();
 	}
 
 	public void Cancel()
 	{
-		this.Timer.Stop();
-		this.Timer.Elapsed -= this.TimerElapsed;
-		this.Timer = null;
+		Timer.Stop();
+		Timer.Elapsed -= TimerElapsed;
+		Timer = null;
 	}
 }

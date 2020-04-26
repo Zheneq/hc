@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,6 +5,8 @@ using UnityEngine.UI;
 
 public class UITeamSizeButton : MonoBehaviour
 {
+	public delegate void NotifyClickDelegate(UITeamSizeButton m_ref);
+
 	public Button m_btnHitBox;
 
 	public Image m_background;
@@ -14,7 +15,7 @@ public class UITeamSizeButton : MonoBehaviour
 
 	public TextMeshProUGUI m_textLabel;
 
-	public UITeamSizeButton.NotifyClickDelegate m_callback;
+	public NotifyClickDelegate m_callback;
 
 	private bool m_isChecked;
 
@@ -26,116 +27,92 @@ public class UITeamSizeButton : MonoBehaviour
 
 	public bool IsChecked()
 	{
-		return this.m_isChecked;
+		return m_isChecked;
 	}
 
 	private void Start()
 	{
-		UIEventTriggerUtils.AddListener(this.m_btnHitBox.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.BtnClicked));
-		UIEventTriggerUtils.AddListener(this.m_btnHitBox.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.BtnEnter));
-		UIEventTriggerUtils.AddListener(this.m_btnHitBox.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.BtnExit));
-		this.SetChecked(this.IsChecked());
+		UIEventTriggerUtils.AddListener(m_btnHitBox.gameObject, EventTriggerType.PointerClick, BtnClicked);
+		UIEventTriggerUtils.AddListener(m_btnHitBox.gameObject, EventTriggerType.PointerEnter, BtnEnter);
+		UIEventTriggerUtils.AddListener(m_btnHitBox.gameObject, EventTriggerType.PointerExit, BtnExit);
+		SetChecked(IsChecked());
 	}
 
 	public int GetTeam()
 	{
-		return this.m_team;
+		return m_team;
 	}
 
 	public void SetTeam(int teamNum)
 	{
-		this.m_team = teamNum;
+		m_team = teamNum;
 	}
 
 	public int GetIndex()
 	{
-		return this.m_index;
+		return m_index;
 	}
 
 	public void SetIndex(int indexNum)
 	{
-		this.m_index = indexNum;
+		m_index = indexNum;
 	}
 
 	public void BtnEnter(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_hover, true, null);
-		this.m_textLabel.color = Color.white;
+		UIManager.SetGameObjectActive(m_hover, true);
+		m_textLabel.color = Color.white;
 	}
 
 	public void BtnExit(BaseEventData data)
 	{
-		if (!this.IsChecked())
+		if (IsChecked())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITeamSizeButton.BtnExit(BaseEventData)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_hover, false, null);
-			this.m_textLabel.color = Color.white;
+			return;
+		}
+		while (true)
+		{
+			UIManager.SetGameObjectActive(m_hover, false);
+			m_textLabel.color = Color.white;
+			return;
 		}
 	}
 
 	public void BtnClicked(BaseEventData data)
 	{
-		if (this.m_callback != null)
+		if (m_callback == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (Clickable)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_callback(this);
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITeamSizeButton.BtnClicked(BaseEventData)).MethodHandle;
-			}
-			if (this.Clickable)
-			{
-				this.m_callback(this);
-			}
+			return;
 		}
 	}
 
 	public void SetChecked(bool isChecked)
 	{
-		this.m_isChecked = isChecked;
-		UIManager.SetGameObjectActive(this.m_background, this.m_isChecked, null);
-		UIManager.SetGameObjectActive(this.m_hover, this.m_isChecked, null);
-		if (this.m_isChecked)
+		m_isChecked = isChecked;
+		UIManager.SetGameObjectActive(m_background, m_isChecked);
+		UIManager.SetGameObjectActive(m_hover, m_isChecked);
+		if (m_isChecked)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_textLabel.color = Color.white;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITeamSizeButton.SetChecked(bool)).MethodHandle;
-			}
-			this.m_textLabel.color = Color.white;
 		}
-		else
-		{
-			this.m_textLabel.color = Color.white;
-		}
+		m_textLabel.color = Color.white;
 	}
-
-	public delegate void NotifyClickDelegate(UITeamSizeButton m_ref);
 }

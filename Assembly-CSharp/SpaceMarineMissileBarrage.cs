@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,240 +24,151 @@ public class SpaceMarineMissileBarrage : Ability
 
 	public GameObject m_missileSequence;
 
-	public int m_missileLaunchAnimIndex = 0xB;
+	public int m_missileLaunchAnimIndex = 11;
 
 	private AbilityMod_SpaceMarineMissileBarrage m_abilityMod;
 
 	private void Start()
 	{
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, this.m_radius, this.m_penetrateLineOfSight, true, false, this.m_missiles);
+		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, m_radius, m_penetrateLineOfSight, true, false, m_missiles);
 		AbilityUtil_Targeter targeter = base.Targeter;
-		bool affectsEnemies = true;
-		bool affectsAllies = false;
-		bool affectsCaster;
-		if (base.GetModdedEffectForSelf() != null)
+		int affectsCaster;
+		if (GetModdedEffectForSelf() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.Setup()).MethodHandle;
-			}
-			affectsCaster = base.GetModdedEffectForSelf().m_applyEffect;
+			affectsCaster = (GetModdedEffectForSelf().m_applyEffect ? 1 : 0);
 		}
 		else
 		{
-			affectsCaster = false;
+			affectsCaster = 0;
 		}
-		targeter.SetAffectedGroups(affectsEnemies, affectsAllies, affectsCaster);
+		targeter.SetAffectedGroups(true, false, (byte)affectsCaster != 0);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.ModdedDamage()));
-		this.ModdedEffectOnTargets().ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Enemy);
-		base.AppendTooltipNumbersFromBaseModEffects(ref list, AbilityTooltipSubject.Enemy, AbilityTooltipSubject.Ally, AbilityTooltipSubject.Self);
-		return list;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, ModdedDamage()));
+		ModdedEffectOnTargets().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		AppendTooltipNumbersFromBaseModEffects(ref numbers, AbilityTooltipSubject.Enemy);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		int numActorsInRange = base.Targeter.GetNumActorsInRange();
-		dictionary.Add(AbilityTooltipSymbol.Damage, this.ModdedDamage() + this.ModdedExtraDamagePerTarget() * (numActorsInRange - 1));
+		dictionary.Add(AbilityTooltipSymbol.Damage, ModdedDamage() + ModdedExtraDamagePerTarget() * (numActorsInRange - 1));
 		return dictionary;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SpaceMarineMissileBarrage abilityMod_SpaceMarineMissileBarrage = modAsBase as AbilityMod_SpaceMarineMissileBarrage;
-		base.AddTokenInt(tokens, "DelayTurns", string.Empty, 1, false);
-		base.AddTokenInt(tokens, "Missiles", string.Empty, this.m_missiles, false);
-		string name = "Damage";
+		AddTokenInt(tokens, "DelayTurns", string.Empty, 1);
+		AddTokenInt(tokens, "Missiles", string.Empty, m_missiles);
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_SpaceMarineMissileBarrage)
+		if ((bool)abilityMod_SpaceMarineMissileBarrage)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
-			val = abilityMod_SpaceMarineMissileBarrage.m_damageMod.GetModifiedValue(this.m_damage);
+			val = abilityMod_SpaceMarineMissileBarrage.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
 		{
-			val = this.m_damage;
+			val = m_damage;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnTargets, "EffectOnTargets", null, true);
+		AddTokenInt(tokens, "Damage", empty, val);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnTargets, "EffectOnTargets");
 	}
 
 	public override bool CanTriggerAnimAtIndexForTaunt(int animIndex)
 	{
-		bool result;
-		if (animIndex != this.m_missileLaunchAnimIndex)
+		int result;
+		if (animIndex != m_missileLaunchAnimIndex)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.CanTriggerAnimAtIndexForTaunt(int)).MethodHandle;
-			}
-			result = base.CanTriggerAnimAtIndexForTaunt(animIndex);
+			result = (base.CanTriggerAnimAtIndexForTaunt(animIndex) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_SpaceMarineMissileBarrage))
+		if (abilityMod.GetType() != typeof(AbilityMod_SpaceMarineMissileBarrage))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_SpaceMarineMissileBarrage);
-			this.Setup();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_SpaceMarineMissileBarrage);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 
 	public int ModdedDamage()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damage) : this.m_damage;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_damageMod.GetModifiedValue(m_damage) : m_damage;
 	}
 
 	public int ModdedMissileActiveDuration()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.ModdedMissileActiveDuration()).MethodHandle;
-			}
 			result = 1;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_activeDurationMod.GetModifiedValue(1);
+			result = m_abilityMod.m_activeDurationMod.GetModifiedValue(1);
 		}
 		return result;
 	}
 
 	public StandardEffectInfo ModdedEffectOnTargets()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			if (m_abilityMod.m_missileHitEffectOverride.m_applyEffect)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.ModdedEffectOnTargets()).MethodHandle;
-			}
-			if (this.m_abilityMod.m_missileHitEffectOverride.m_applyEffect)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_abilityMod.m_missileHitEffectOverride;
 					}
-					break;
 				}
-				return this.m_abilityMod.m_missileHitEffectOverride;
 			}
 		}
-		return this.m_effectOnTargets;
+		return m_effectOnTargets;
 	}
 
 	public int ModdedExtraDamagePerTarget()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.ModdedExtraDamagePerTarget()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_extraDamagePerTarget.GetModifiedValue(0);
+			result = m_abilityMod.m_extraDamagePerTarget.GetModifiedValue(0);
 		}
 		return result;
 	}

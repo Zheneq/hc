@@ -1,4 +1,3 @@
-﻿using System;
 using System.Reflection;
 using System.Threading;
 
@@ -9,24 +8,18 @@ public static class AsyncPumpExt
 		AsyncPump asyncPump = context as AsyncPump;
 		if (asyncPump != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					asyncPump.Post(callback, state, methodInfo);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SynchronizationContext.Post(SendOrPostCallback, object, MethodBase)).MethodHandle;
-			}
-			asyncPump.Post(callback, state, methodInfo);
 		}
-		else
-		{
-			context.Post(callback, state);
-		}
+		context.Post(callback, state);
 	}
 }

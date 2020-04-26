@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,60 +48,25 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 
 	private void Start()
 	{
-		if (this.m_disabled != null)
+		if (m_disabled != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.Start()).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_disabled, false, null);
+			UIManager.SetGameObjectActive(m_disabled, false);
 		}
-		this.m_selectedModIndex = -1;
-		this.m_selectedVfxSwapIndex = 0;
-		this.m_buttonHitBox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, new TooltipPopulateCall(this.ShowAbilityTooltip), null);
+		m_selectedModIndex = -1;
+		m_selectedVfxSwapIndex = 0;
+		m_buttonHitBox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, ShowAbilityTooltip);
 	}
 
 	public bool ShowAbilityTooltip(UITooltipBase tooltip)
 	{
-		if (this.m_theAbility != null)
+		if (m_theAbility != null)
 		{
-			for (;;)
+			if (!(m_theAbility.ability == null))
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.ShowAbilityTooltip(UITooltipBase)).MethodHandle;
-			}
-			if (!(this.m_theAbility.ability == null))
-			{
-				UIAbilityTooltip uiabilityTooltip = (UIAbilityTooltip)tooltip;
-				string movieAssetName = "Video/AbilityPreviews/" + this.m_theAbility.ability.m_previewVideo;
-				uiabilityTooltip.Setup(this.m_theAbility.ability, this.m_selectedMod, movieAssetName);
+				UIAbilityTooltip uIAbilityTooltip = (UIAbilityTooltip)tooltip;
+				string movieAssetName = "Video/AbilityPreviews/" + m_theAbility.ability.m_previewVideo;
+				uIAbilityTooltip.Setup(m_theAbility.ability, m_selectedMod, movieAssetName);
 				return true;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -110,240 +74,163 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 
 	public AbilityData.AbilityEntry GetAbilityEntry()
 	{
-		return this.m_theAbility;
+		return m_theAbility;
 	}
 
 	public AbilityMod GetSelectedMod()
 	{
-		return this.m_selectedMod;
+		return m_selectedMod;
 	}
 
 	public void SetSelectedMod(AbilityMod theMod)
 	{
-		this.m_selectedMod = theMod;
-		if (this.m_selectedMod != null)
+		m_selectedMod = theMod;
+		if (m_selectedMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_selectedModIcon.sprite = m_selectedMod.m_iconSprite;
+					UIManager.SetGameObjectActive(m_selectedModIcon, true);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.SetSelectedMod(AbilityMod)).MethodHandle;
-			}
-			this.m_selectedModIcon.sprite = this.m_selectedMod.m_iconSprite;
-			UIManager.SetGameObjectActive(this.m_selectedModIcon, true, null);
 		}
-		else
-		{
-			this.m_selectedModIcon.sprite = null;
-			UIManager.SetGameObjectActive(this.m_selectedModIcon, false, null);
-		}
+		m_selectedModIcon.sprite = null;
+		UIManager.SetGameObjectActive(m_selectedModIcon, false);
 	}
 
 	public int GetSelectedModIndex()
 	{
-		return this.m_selectedModIndex;
+		return m_selectedModIndex;
 	}
 
 	public void SetSelectedModIndex(int modIndex)
 	{
-		this.m_selectedModIndex = modIndex;
+		m_selectedModIndex = modIndex;
 	}
 
 	public CharacterAbilityVfxSwap GetSelectedVfxSwap()
 	{
-		return this.m_selectedVfxSwap;
+		return m_selectedVfxSwap;
 	}
 
 	public void SetSelectedVfxSwap(CharacterAbilityVfxSwap theSwap)
 	{
-		this.m_selectedVfxSwap = theSwap;
+		m_selectedVfxSwap = theSwap;
 	}
 
 	public int GetSelectedVfxSwapIndex()
 	{
-		return this.m_selectedVfxSwapIndex;
+		return m_selectedVfxSwapIndex;
 	}
 
 	public void SetSelectedVfxSwapIndex(int vfxSwapIndex)
 	{
-		this.m_selectedVfxSwapIndex = vfxSwapIndex;
+		m_selectedVfxSwapIndex = vfxSwapIndex;
 	}
 
 	private void SetHotKeyText(string text)
 	{
-		for (int i = 0; i < this.m_hotkey.Length; i++)
+		for (int i = 0; i < m_hotkey.Length; i++)
 		{
-			this.m_hotkey[i].text = text;
+			m_hotkey[i].text = text;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.SetHotKeyText(string)).MethodHandle;
+			return;
 		}
 	}
 
 	public void RefreshHotkey()
 	{
-		if (this.m_theAbility != null)
+		if (m_theAbility == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.RefreshHotkey()).MethodHandle;
-			}
-			this.m_theAbility.InitHotkey();
-			this.SetHotKeyText(this.m_theAbility.hotkey);
+			return;
+		}
+		while (true)
+		{
+			m_theAbility.InitHotkey();
+			SetHotKeyText(m_theAbility.hotkey);
+			return;
 		}
 	}
 
 	private void SetAbilityIconSprite(Sprite sprite)
 	{
-		for (int i = 0; i < this.m_abilityIcon.Length; i++)
+		for (int i = 0; i < m_abilityIcon.Length; i++)
 		{
-			this.m_abilityIcon[i].sprite = sprite;
+			m_abilityIcon[i].sprite = sprite;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.SetAbilityIconSprite(Sprite)).MethodHandle;
+			return;
 		}
 	}
 
 	public void Setup(AbilityData.AbilityEntry theAbilityEntry)
 	{
-		this.m_theAbility = theAbilityEntry;
-		if (this.m_theAbility != null)
+		m_theAbility = theAbilityEntry;
+		if (m_theAbility != null)
 		{
-			for (;;)
+			if (m_theAbility.ability != null)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.Setup(AbilityData.AbilityEntry)).MethodHandle;
-			}
-			if (this.m_theAbility.ability != null)
-			{
-				UIManager.SetGameObjectActive(base.gameObject, true, null);
-				this.SetHotKeyText(theAbilityEntry.hotkey.ToString());
-				this.SetAbilityIconSprite(theAbilityEntry.ability.sprite);
-				UIManager.SetGameObjectActive(this.m_freeActionIcon, theAbilityEntry.ability.IsFreeAction(), null);
+				UIManager.SetGameObjectActive(base.gameObject, true);
+				SetHotKeyText(theAbilityEntry.hotkey.ToString());
+				SetAbilityIconSprite(theAbilityEntry.ability.sprite);
+				UIManager.SetGameObjectActive(m_freeActionIcon, theAbilityEntry.ability.IsFreeAction());
 				int num = UIBaseButton.PhaseIndexForUIPhase(UIQueueListPanel.GetUIPhaseFromAbilityPriority(theAbilityEntry.ability.RunPriority));
-				for (int i = 0; i < this.m_phaseIndicators.Length; i++)
+				for (int i = 0; i < m_phaseIndicators.Length; i++)
 				{
-					UIManager.SetGameObjectActive(this.m_phaseIndicators[i], i == num, null);
+					UIManager.SetGameObjectActive(m_phaseIndicators[i], i == num);
 				}
-				for (;;)
+				while (true)
 				{
-					switch (1)
+					Color color;
+					if (theAbilityEntry.ability.GetPhaseString() == StringUtil.TR("Blast", "Global"))
 					{
-					case 0:
-						continue;
+						color = m_blastColor;
 					}
-					break;
-				}
-				Color color;
-				if (theAbilityEntry.ability.GetPhaseString() == StringUtil.TR("Blast", "Global"))
-				{
-					color = this.m_blastColor;
-				}
-				else if (theAbilityEntry.ability.GetPhaseString() == StringUtil.TR("Dash", "Global"))
-				{
-					for (;;)
+					else if (theAbilityEntry.ability.GetPhaseString() == StringUtil.TR("Dash", "Global"))
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						color = m_dashColor;
 					}
-					color = this.m_dashColor;
-				}
-				else if (theAbilityEntry.ability.GetPhaseString() == StringUtil.TR("Prep", "Global"))
-				{
-					for (;;)
+					else if (theAbilityEntry.ability.GetPhaseString() == StringUtil.TR("Prep", "Global"))
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						color = m_prepColor;
 					}
-					color = this.m_prepColor;
+					else
+					{
+						color = m_blastColor;
+					}
+					m_defaultBG.color = new Color(color.r, color.g, color.b, m_bgAlpha);
+					m_selectedBG.color = new Color(color.r, color.g, color.b, m_selBgAlpha);
+					return;
 				}
-				else
-				{
-					color = this.m_blastColor;
-				}
-				this.m_defaultBG.color = new Color(color.r, color.g, color.b, this.m_bgAlpha);
-				this.m_selectedBG.color = new Color(color.r, color.g, color.b, this.m_selBgAlpha);
-				return;
 			}
 		}
-		UIManager.SetGameObjectActive(base.gameObject, false, null);
+		UIManager.SetGameObjectActive(base.gameObject, false);
 	}
 
 	public void SetCallback(_ButtonSwapSprite.ButtonClickCallback callbackFunc)
 	{
-		this.m_buttonHitBox.callback = callbackFunc;
+		m_buttonHitBox.callback = callbackFunc;
 	}
 
 	public void SetSelected(bool selected, bool forceAnimation = false)
 	{
-		if (this.m_selectBtn != null)
+		if (!(m_selectBtn != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.SetSelected(bool, bool)).MethodHandle;
-			}
-			this.m_selectBtn.SetSelected(selected, forceAnimation, string.Empty, string.Empty);
+			return;
+		}
+		while (true)
+		{
+			m_selectBtn.SetSelected(selected, forceAnimation, string.Empty, string.Empty);
+			return;
 		}
 	}
 }

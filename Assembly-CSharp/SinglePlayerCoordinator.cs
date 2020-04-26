@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class SinglePlayerCoordinator : MonoBehaviour
@@ -23,129 +22,82 @@ public class SinglePlayerCoordinator : MonoBehaviour
 
 	public static SinglePlayerCoordinator Get()
 	{
-		return SinglePlayerCoordinator.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		SinglePlayerCoordinator.s_instance = this;
-		for (int i = 0; i < this.m_script.Length; i++)
+		s_instance = this;
+		for (int i = 0; i < m_script.Length; i++)
 		{
-			this.m_script[i].m_stateIndex = i;
+			m_script[i].m_stateIndex = i;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			GameFlowData.s_onGameStateChanged += OnGameStateChanged;
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerCoordinator.Awake()).MethodHandle;
-		}
-		GameFlowData.s_onGameStateChanged += this.OnGameStateChanged;
 	}
 
 	private void OnDestroy()
 	{
 		if (ChatterManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerCoordinator.OnDestroy()).MethodHandle;
-			}
 			ChatterManager.Get().EnableChatter = true;
 		}
-		GameFlowData.s_onGameStateChanged -= this.OnGameStateChanged;
-		SinglePlayerCoordinator.s_instance = null;
+		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
+		s_instance = null;
 	}
 
 	private void Start()
 	{
-		this.m_forbiddenSquares.Initialize();
-		foreach (SinglePlayerState singlePlayerState in this.m_script)
+		m_forbiddenSquares.Initialize();
+		SinglePlayerState[] script = m_script;
+		foreach (SinglePlayerState singlePlayerState in script)
 		{
 			singlePlayerState.Initialize();
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerCoordinator.Start()).MethodHandle;
+			return;
 		}
 	}
 
 	private void OnGameStateChanged(GameState newState)
 	{
-		if (newState == GameState.EndingGame)
+		if (newState != GameState.EndingGame)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerCoordinator.OnGameStateChanged(GameState)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			UITutorialPanel.Get().ClearAll();
-			if (this.m_chatTextAtEndOfMatch != null)
+			if (m_chatTextAtEndOfMatch == null)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				if (m_chatTextAtEndOfMatch.Length <= 0)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (this.m_chatTextAtEndOfMatch.Length > 0)
+				while (true)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					foreach (SinglePlayerScriptedChat singlePlayerScriptedChat in this.m_chatTextAtEndOfMatch)
+					SinglePlayerScriptedChat[] chatTextAtEndOfMatch = m_chatTextAtEndOfMatch;
+					foreach (SinglePlayerScriptedChat singlePlayerScriptedChat in chatTextAtEndOfMatch)
 					{
 						UITutorialPanel.Get().QueueDialogue(singlePlayerScriptedChat.m_text, singlePlayerScriptedChat.m_audioEvent, singlePlayerScriptedChat.m_displaySeconds, singlePlayerScriptedChat.m_sender);
 					}
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						break;
 					}
 				}
 			}

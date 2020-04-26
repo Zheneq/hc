@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,354 +58,198 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		ClaymoreMultiRadiusCone claymoreMultiRadiusCone = targetAbility as ClaymoreMultiRadiusCone;
 		if (claymoreMultiRadiusCone != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_coneAngleMod, "ConeWidthAngle", string.Empty, claymoreMultiRadiusCone.m_coneWidthAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneInnerRadiusMod, "ConeLengthInner", string.Empty, claymoreMultiRadiusCone.m_coneLengthInner, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneMiddleRadiusMod, "ConeLengthMiddle", string.Empty, claymoreMultiRadiusCone.m_coneLengthMiddle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneOuterRadiusMod, "ConeLengthOuter", string.Empty, claymoreMultiRadiusCone.m_coneLengthOuter, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_innerDamageMod, "DamageAmountInner", string.Empty, claymoreMultiRadiusCone.m_damageAmountInner, true, false);
-			AbilityMod.AddToken(tokens, this.m_middleDamageMod, "DamageAmountMiddle", string.Empty, claymoreMultiRadiusCone.m_damageAmountMiddle, true, false);
-			AbilityMod.AddToken(tokens, this.m_outerDamageMod, "DamageAmountOuter", string.Empty, claymoreMultiRadiusCone.m_damageAmountOuter, true, false);
-			AbilityMod.AddToken(tokens, this.m_bonusDamageIfEnemyLowHealthMod, "BonusDamageIfEnemyHealthBelow", string.Empty, claymoreMultiRadiusCone.m_bonusDamageIfEnemyLowHealth, true, false);
-			AbilityMod.AddToken(tokens, this.m_enemyHealthThreshForBonusMod, "EnemyHealthThreshForBonus", string.Empty, claymoreMultiRadiusCone.m_enemyHealthThreshForBonus, true, false, true);
-			AbilityMod.AddToken(tokens, this.m_bonusDamageIfCasterLowHealthMod, "BonusDamageIfCasterHealthBelow", string.Empty, claymoreMultiRadiusCone.m_bonusDamageIfCasterLowHealth, true, false);
-			AbilityMod.AddToken(tokens, this.m_casterHealthThreshForBonusMod, "CasterHealthThreshForBonus", string.Empty, claymoreMultiRadiusCone.m_casterHealthThreshForBonus, true, false, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectInnerMod, "EffectInner", claymoreMultiRadiusCone.m_effectInner, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectMiddleMod, "EffectMiddle", claymoreMultiRadiusCone.m_effectMiddle, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOuterMod, "EffectOuter", claymoreMultiRadiusCone.m_effectOuter, true);
-			AbilityMod.AddToken(tokens, this.m_innerTpGain, "TpGainInner", string.Empty, claymoreMultiRadiusCone.m_tpGainInner, true, false);
-			AbilityMod.AddToken(tokens, this.m_middleTpGain, "TpGainMiddle", string.Empty, claymoreMultiRadiusCone.m_tpGainMiddle, true, false);
-			AbilityMod.AddToken(tokens, this.m_outerTpGain, "TpGainOuter", string.Empty, claymoreMultiRadiusCone.m_tpGainOuter, true, false);
+			AbilityMod.AddToken(tokens, m_coneAngleMod, "ConeWidthAngle", string.Empty, claymoreMultiRadiusCone.m_coneWidthAngle);
+			AbilityMod.AddToken(tokens, m_coneInnerRadiusMod, "ConeLengthInner", string.Empty, claymoreMultiRadiusCone.m_coneLengthInner);
+			AbilityMod.AddToken(tokens, m_coneMiddleRadiusMod, "ConeLengthMiddle", string.Empty, claymoreMultiRadiusCone.m_coneLengthMiddle);
+			AbilityMod.AddToken(tokens, m_coneOuterRadiusMod, "ConeLengthOuter", string.Empty, claymoreMultiRadiusCone.m_coneLengthOuter);
+			AbilityMod.AddToken(tokens, m_innerDamageMod, "DamageAmountInner", string.Empty, claymoreMultiRadiusCone.m_damageAmountInner);
+			AbilityMod.AddToken(tokens, m_middleDamageMod, "DamageAmountMiddle", string.Empty, claymoreMultiRadiusCone.m_damageAmountMiddle);
+			AbilityMod.AddToken(tokens, m_outerDamageMod, "DamageAmountOuter", string.Empty, claymoreMultiRadiusCone.m_damageAmountOuter);
+			AbilityMod.AddToken(tokens, m_bonusDamageIfEnemyLowHealthMod, "BonusDamageIfEnemyHealthBelow", string.Empty, claymoreMultiRadiusCone.m_bonusDamageIfEnemyLowHealth);
+			AbilityMod.AddToken(tokens, m_enemyHealthThreshForBonusMod, "EnemyHealthThreshForBonus", string.Empty, claymoreMultiRadiusCone.m_enemyHealthThreshForBonus, true, false, true);
+			AbilityMod.AddToken(tokens, m_bonusDamageIfCasterLowHealthMod, "BonusDamageIfCasterHealthBelow", string.Empty, claymoreMultiRadiusCone.m_bonusDamageIfCasterLowHealth);
+			AbilityMod.AddToken(tokens, m_casterHealthThreshForBonusMod, "CasterHealthThreshForBonus", string.Empty, claymoreMultiRadiusCone.m_casterHealthThreshForBonus, true, false, true);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectInnerMod, "EffectInner", claymoreMultiRadiusCone.m_effectInner);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectMiddleMod, "EffectMiddle", claymoreMultiRadiusCone.m_effectMiddle);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOuterMod, "EffectOuter", claymoreMultiRadiusCone.m_effectOuter);
+			AbilityMod.AddToken(tokens, m_innerTpGain, "TpGainInner", string.Empty, claymoreMultiRadiusCone.m_tpGainInner);
+			AbilityMod.AddToken(tokens, m_middleTpGain, "TpGainMiddle", string.Empty, claymoreMultiRadiusCone.m_tpGainMiddle);
+			AbilityMod.AddToken(tokens, m_outerTpGain, "TpGainOuter", string.Empty, claymoreMultiRadiusCone.m_tpGainOuter);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ClaymoreMultiRadiusCone claymoreMultiRadiusCone = base.GetTargetAbilityOnAbilityData(abilityData) as ClaymoreMultiRadiusCone;
+		ClaymoreMultiRadiusCone claymoreMultiRadiusCone = GetTargetAbilityOnAbilityData(abilityData) as ClaymoreMultiRadiusCone;
 		bool flag = claymoreMultiRadiusCone != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat coneAngleMod = this.m_coneAngleMod;
-		string prefix = "[ConeWidthAngle]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat coneAngleMod = m_coneAngleMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClaymoreMultiRadiusCone.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = claymoreMultiRadiusCone.m_coneWidthAngle;
 		}
 		else
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(coneAngleMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat coneInnerRadiusMod = this.m_coneInnerRadiusMod;
-		string prefix2 = "[ConeLengthInner]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(coneAngleMod, "[ConeWidthAngle]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat coneInnerRadiusMod = m_coneInnerRadiusMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = claymoreMultiRadiusCone.m_coneLengthInner;
 		}
 		else
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(coneInnerRadiusMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyFloat coneMiddleRadiusMod = this.m_coneMiddleRadiusMod;
-		string prefix3 = "[ConeLengthMiddle]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(coneInnerRadiusMod, "[ConeLengthInner]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyFloat coneMiddleRadiusMod = m_coneMiddleRadiusMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = claymoreMultiRadiusCone.m_coneLengthMiddle;
 		}
 		else
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(coneMiddleRadiusMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyFloat coneOuterRadiusMod = this.m_coneOuterRadiusMod;
-		string prefix4 = "[ConeLengthOuter]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(coneMiddleRadiusMod, "[ConeLengthMiddle]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyFloat coneOuterRadiusMod = m_coneOuterRadiusMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = claymoreMultiRadiusCone.m_coneLengthOuter;
 		}
 		else
 		{
 			baseVal4 = 0f;
 		}
-		text = str4 + base.PropDesc(coneOuterRadiusMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_penetrateLineOfSightMod, "[PenetrateLineOfSight]", flag, flag && claymoreMultiRadiusCone.m_penetrateLineOfSight);
-		text += base.PropDesc(this.m_innerDamageMod, "[DamageAmountInner]", flag, (!flag) ? 0 : claymoreMultiRadiusCone.m_damageAmountInner);
-		string str5 = text;
-		AbilityModPropertyInt middleDamageMod = this.m_middleDamageMod;
-		string prefix5 = "[DamageAmountMiddle]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(coneOuterRadiusMod, "[ConeLengthOuter]", flag, baseVal4);
+		empty += PropDesc(m_penetrateLineOfSightMod, "[PenetrateLineOfSight]", flag, flag && claymoreMultiRadiusCone.m_penetrateLineOfSight);
+		empty += PropDesc(m_innerDamageMod, "[DamageAmountInner]", flag, flag ? claymoreMultiRadiusCone.m_damageAmountInner : 0);
+		string str5 = empty;
+		AbilityModPropertyInt middleDamageMod = m_middleDamageMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = claymoreMultiRadiusCone.m_damageAmountMiddle;
 		}
 		else
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(middleDamageMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt outerDamageMod = this.m_outerDamageMod;
-		string prefix6 = "[DamageAmountOuter]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(middleDamageMod, "[DamageAmountMiddle]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt outerDamageMod = m_outerDamageMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = claymoreMultiRadiusCone.m_damageAmountOuter;
 		}
 		else
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(outerDamageMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyInt bonusDamageIfEnemyLowHealthMod = this.m_bonusDamageIfEnemyLowHealthMod;
-		string prefix7 = "[BonusDamageIfEnemyHealthBelow]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(outerDamageMod, "[DamageAmountOuter]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyInt bonusDamageIfEnemyLowHealthMod = m_bonusDamageIfEnemyLowHealthMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = claymoreMultiRadiusCone.m_bonusDamageIfEnemyLowHealth;
 		}
 		else
 		{
 			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(bonusDamageIfEnemyLowHealthMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyFloat enemyHealthThreshForBonusMod = this.m_enemyHealthThreshForBonusMod;
-		string prefix8 = "[EnemyHealthThreshForBonus]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(bonusDamageIfEnemyLowHealthMod, "[BonusDamageIfEnemyHealthBelow]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyFloat enemyHealthThreshForBonusMod = m_enemyHealthThreshForBonusMod;
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = claymoreMultiRadiusCone.m_enemyHealthThreshForBonus;
 		}
 		else
 		{
 			baseVal8 = 0f;
 		}
-		text = str8 + base.PropDesc(enemyHealthThreshForBonusMod, prefix8, showBaseVal8, baseVal8);
-		text += base.PropDesc(this.m_bonusDamageIfCasterLowHealthMod, "[BonusDamageIfCasterHealthBelow]", flag, (!flag) ? 0 : claymoreMultiRadiusCone.m_bonusDamageIfCasterLowHealth);
-		string str9 = text;
-		AbilityModPropertyFloat casterHealthThreshForBonusMod = this.m_casterHealthThreshForBonusMod;
-		string prefix9 = "[CasterHealthThreshForBonus]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(enemyHealthThreshForBonusMod, "[EnemyHealthThreshForBonus]", flag, baseVal8);
+		empty += PropDesc(m_bonusDamageIfCasterLowHealthMod, "[BonusDamageIfCasterHealthBelow]", flag, flag ? claymoreMultiRadiusCone.m_bonusDamageIfCasterLowHealth : 0);
+		string str9 = empty;
+		AbilityModPropertyFloat casterHealthThreshForBonusMod = m_casterHealthThreshForBonusMod;
 		float baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = claymoreMultiRadiusCone.m_casterHealthThreshForBonus;
 		}
 		else
 		{
 			baseVal9 = 0f;
 		}
-		text = str9 + base.PropDesc(casterHealthThreshForBonusMod, prefix9, showBaseVal9, baseVal9);
-		if (this.m_applyBonusPerThresholdReached)
+		empty = str9 + PropDesc(casterHealthThreshForBonusMod, "[CasterHealthThreshForBonus]", flag, baseVal9);
+		if (m_applyBonusPerThresholdReached)
 		{
-			for (;;)
+			if (m_casterHealthThreshForBonusMod.operation != 0 && m_bonusDamageIfCasterLowHealthMod.operation != 0)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_casterHealthThreshForBonusMod.operation != AbilityModPropertyFloat.ModOp.Ignore && this.m_bonusDamageIfCasterLowHealthMod.operation != AbilityModPropertyInt.ModOp.Ignore)
-			{
-				text += "\t{applied per [threshold]% below max hp}";
+				empty += "\t{applied per [threshold]% below max hp}";
 			}
 		}
-		string str10 = text;
-		AbilityModPropertyInt innerTpGain = this.m_innerTpGain;
-		string prefix10 = "[TpGainInner]";
-		bool showBaseVal10 = flag;
+		string str10 = empty;
+		AbilityModPropertyInt innerTpGain = m_innerTpGain;
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = claymoreMultiRadiusCone.m_tpGainInner;
 		}
 		else
 		{
 			baseVal10 = 0;
 		}
-		text = str10 + base.PropDesc(innerTpGain, prefix10, showBaseVal10, baseVal10);
-		text += base.PropDesc(this.m_middleTpGain, "[TpGainMiddle]", flag, (!flag) ? 0 : claymoreMultiRadiusCone.m_tpGainMiddle);
-		string str11 = text;
-		AbilityModPropertyInt outerTpGain = this.m_outerTpGain;
-		string prefix11 = "[TpGainOuter]";
-		bool showBaseVal11 = flag;
+		empty = str10 + PropDesc(innerTpGain, "[TpGainInner]", flag, baseVal10);
+		empty += PropDesc(m_middleTpGain, "[TpGainMiddle]", flag, flag ? claymoreMultiRadiusCone.m_tpGainMiddle : 0);
+		string str11 = empty;
+		AbilityModPropertyInt outerTpGain = m_outerTpGain;
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = claymoreMultiRadiusCone.m_tpGainOuter;
 		}
 		else
 		{
 			baseVal11 = 0;
 		}
-		text = str11 + base.PropDesc(outerTpGain, prefix11, showBaseVal11, baseVal11);
-		text += base.PropDesc(this.m_effectInnerMod, "[EffectInner]", flag, (!flag) ? null : claymoreMultiRadiusCone.m_effectInner);
-		string str12 = text;
-		AbilityModPropertyEffectInfo effectMiddleMod = this.m_effectMiddleMod;
-		string prefix12 = "[EffectMiddle]";
-		bool showBaseVal12 = flag;
-		StandardEffectInfo baseVal12;
+		empty = str11 + PropDesc(outerTpGain, "[TpGainOuter]", flag, baseVal11);
+		empty += PropDesc(m_effectInnerMod, "[EffectInner]", flag, (!flag) ? null : claymoreMultiRadiusCone.m_effectInner);
+		string str12 = empty;
+		AbilityModPropertyEffectInfo effectMiddleMod = m_effectMiddleMod;
+		object baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = claymoreMultiRadiusCone.m_effectMiddle;
 		}
 		else
 		{
 			baseVal12 = null;
 		}
-		text = str12 + base.PropDesc(effectMiddleMod, prefix12, showBaseVal12, baseVal12);
-		string str13 = text;
-		AbilityModPropertyEffectInfo effectOuterMod = this.m_effectOuterMod;
-		string prefix13 = "[EffectOuter]";
-		bool showBaseVal13 = flag;
-		StandardEffectInfo baseVal13;
+		empty = str12 + PropDesc(effectMiddleMod, "[EffectMiddle]", flag, (StandardEffectInfo)baseVal12);
+		string str13 = empty;
+		AbilityModPropertyEffectInfo effectOuterMod = m_effectOuterMod;
+		object baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = claymoreMultiRadiusCone.m_effectOuter;
 		}
 		else
 		{
 			baseVal13 = null;
 		}
-		return str13 + base.PropDesc(effectOuterMod, prefix13, showBaseVal13, baseVal13);
+		return str13 + PropDesc(effectOuterMod, "[EffectOuter]", flag, (StandardEffectInfo)baseVal13);
 	}
 }

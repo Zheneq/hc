@@ -1,63 +1,50 @@
-﻿using System;
-
 public class SlashCommand_EnableProfanityFilter : SlashCommand
 {
-	public SlashCommand_EnableProfanityFilter() : base("/profanityfilter", SlashCommandType.InFrontEnd)
+	public SlashCommand_EnableProfanityFilter()
+		: base("/profanityfilter", SlashCommandType.InFrontEnd)
 	{
 	}
 
 	public override void OnSlashCommand(string arguments)
 	{
-		if (!arguments.IsNullOrEmpty())
+		if (arguments.IsNullOrEmpty())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (ClientGameManager.Get() == null)
 			{
-				switch (6)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_EnableProfanityFilter.OnSlashCommand(string)).MethodHandle;
-			}
-			if (!(ClientGameManager.Get() == null))
-			{
-				TextConsole.Message message = default(TextConsole.Message);
-				message.MessageType = ConsoleMessageType.SystemMessage;
-				if (arguments.EqualsIgnoreCase(StringUtil.TR("on", "SlashCommand")))
-				{
-					Options_UI.Get().SetEnableProfanityFilter(true);
-					message.Text = StringUtil.TR("ProfanityFilterEnabled", "SlashCommand");
-					TextConsole.Get().Write(message, null);
-				}
-				else if (arguments.EqualsIgnoreCase(StringUtil.TR("off", "SlashCommand")))
-				{
-					for (;;)
+					switch (2)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
+					default:
+						return;
+					case 0:
 						break;
 					}
-					Options_UI.Get().SetEnableProfanityFilter(false);
-					message.Text = StringUtil.TR("ProfanityFilterDisabled", "SlashCommand");
-					TextConsole.Get().Write(message, null);
 				}
+			}
+			TextConsole.Message message = default(TextConsole.Message);
+			message.MessageType = ConsoleMessageType.SystemMessage;
+			if (arguments.EqualsIgnoreCase(StringUtil.TR("on", "SlashCommand")))
+			{
+				Options_UI.Get().SetEnableProfanityFilter(true);
+				message.Text = StringUtil.TR("ProfanityFilterEnabled", "SlashCommand");
+				TextConsole.Get().Write(message);
 				return;
 			}
-			for (;;)
+			if (!arguments.EqualsIgnoreCase(StringUtil.TR("off", "SlashCommand")))
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
+			}
+			while (true)
+			{
+				Options_UI.Get().SetEnableProfanityFilter(false);
+				message.Text = StringUtil.TR("ProfanityFilterDisabled", "SlashCommand");
+				TextConsole.Get().Write(message);
+				return;
 			}
 		}
 	}

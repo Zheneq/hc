@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace TMPro
@@ -29,11 +29,11 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_spriteAsset;
+				return m_spriteAsset;
 			}
 			set
 			{
-				this.LoadSpriteAsset(value);
+				LoadSpriteAsset(value);
 			}
 		}
 
@@ -41,69 +41,36 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_inlineGraphic;
+				return m_inlineGraphic;
 			}
 			set
 			{
-				if (this.m_inlineGraphic != value)
+				if (!(m_inlineGraphic != value))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.set_inlineGraphic(InlineGraphic)).MethodHandle;
-					}
-					this.m_inlineGraphic = value;
+					return;
+				}
+				while (true)
+				{
+					m_inlineGraphic = value;
+					return;
 				}
 			}
 		}
 
-		public CanvasRenderer canvasRenderer
-		{
-			get
-			{
-				return this.m_inlineGraphicCanvasRenderer;
-			}
-		}
+		public CanvasRenderer canvasRenderer => m_inlineGraphicCanvasRenderer;
 
-		public UIVertex[] uiVertex
-		{
-			get
-			{
-				return this.m_uiVertex;
-			}
-		}
+		public UIVertex[] uiVertex => m_uiVertex;
 
 		private void Awake()
 		{
 			if (!TMP_Settings.warningsDisabled)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.Awake()).MethodHandle;
-				}
 				Debug.LogWarning("InlineGraphicManager component is now Obsolete and has been removed from [" + base.gameObject.name + "] along with its InlineGraphic child.", this);
 			}
-			if (this.inlineGraphic.gameObject != null)
+			if (inlineGraphic.gameObject != null)
 			{
-				UnityEngine.Object.DestroyImmediate(this.inlineGraphic.gameObject);
-				this.inlineGraphic = null;
+				UnityEngine.Object.DestroyImmediate(inlineGraphic.gameObject);
+				inlineGraphic = null;
 			}
 			UnityEngine.Object.DestroyImmediate(this);
 		}
@@ -125,196 +92,125 @@ namespace TMPro
 		{
 			if (spriteAsset == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.LoadSpriteAsset(TMP_SpriteAsset)).MethodHandle;
-				}
-				if (TMP_Settings.defaultSpriteAsset != null)
-				{
-					spriteAsset = TMP_Settings.defaultSpriteAsset;
-				}
-				else
-				{
-					spriteAsset = (Resources.Load("Sprite Assets/Default Sprite Asset") as TMP_SpriteAsset);
-				}
+				spriteAsset = ((!(TMP_Settings.defaultSpriteAsset != null)) ? (Resources.Load("Sprite Assets/Default Sprite Asset") as TMP_SpriteAsset) : TMP_Settings.defaultSpriteAsset);
 			}
-			this.m_spriteAsset = spriteAsset;
-			this.m_inlineGraphic.texture = this.m_spriteAsset.spriteSheet;
-			if (this.m_textComponent != null && this.m_isInitialized)
+			m_spriteAsset = spriteAsset;
+			m_inlineGraphic.texture = m_spriteAsset.spriteSheet;
+			if (!(m_textComponent != null) || !m_isInitialized)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_textComponent.havePropertiesChanged = true;
-				this.m_textComponent.SetVerticesDirty();
+				return;
+			}
+			while (true)
+			{
+				m_textComponent.havePropertiesChanged = true;
+				m_textComponent.SetVerticesDirty();
+				return;
 			}
 		}
 
 		public void AddInlineGraphicsChild()
 		{
-			if (this.m_inlineGraphic != null)
+			if (m_inlineGraphic != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.AddInlineGraphicsChild()).MethodHandle;
-				}
-				return;
 			}
 			GameObject gameObject = new GameObject("Inline Graphic");
-			this.m_inlineGraphic = gameObject.AddComponent<InlineGraphic>();
-			this.m_inlineGraphicRectTransform = gameObject.GetComponent<RectTransform>();
-			this.m_inlineGraphicCanvasRenderer = gameObject.GetComponent<CanvasRenderer>();
-			this.m_inlineGraphicRectTransform.SetParent(base.transform, false);
-			this.m_inlineGraphicRectTransform.localPosition = Vector3.zero;
-			this.m_inlineGraphicRectTransform.anchoredPosition3D = Vector3.zero;
-			this.m_inlineGraphicRectTransform.sizeDelta = Vector2.zero;
-			this.m_inlineGraphicRectTransform.anchorMin = Vector2.zero;
-			this.m_inlineGraphicRectTransform.anchorMax = Vector2.one;
-			this.m_textComponent = base.GetComponent<TMP_Text>();
+			m_inlineGraphic = gameObject.AddComponent<InlineGraphic>();
+			m_inlineGraphicRectTransform = gameObject.GetComponent<RectTransform>();
+			m_inlineGraphicCanvasRenderer = gameObject.GetComponent<CanvasRenderer>();
+			m_inlineGraphicRectTransform.SetParent(base.transform, false);
+			m_inlineGraphicRectTransform.localPosition = Vector3.zero;
+			m_inlineGraphicRectTransform.anchoredPosition3D = Vector3.zero;
+			m_inlineGraphicRectTransform.sizeDelta = Vector2.zero;
+			m_inlineGraphicRectTransform.anchorMin = Vector2.zero;
+			m_inlineGraphicRectTransform.anchorMax = Vector2.one;
+			m_textComponent = GetComponent<TMP_Text>();
 		}
 
 		public void AllocatedVertexBuffers(int size)
 		{
-			if (this.m_inlineGraphic == null)
+			if (m_inlineGraphic == null)
 			{
-				this.AddInlineGraphicsChild();
-				this.LoadSpriteAsset(this.m_spriteAsset);
+				AddInlineGraphicsChild();
+				LoadSpriteAsset(m_spriteAsset);
 			}
-			if (this.m_uiVertex == null)
+			if (m_uiVertex == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.AllocatedVertexBuffers(int)).MethodHandle;
-				}
-				this.m_uiVertex = new UIVertex[4];
+				m_uiVertex = new UIVertex[4];
 			}
 			int num = size * 4;
-			if (num > this.m_uiVertex.Length)
+			if (num <= m_uiVertex.Length)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_uiVertex = new UIVertex[Mathf.NextPowerOfTwo(num)];
+				return;
+			}
+			while (true)
+			{
+				m_uiVertex = new UIVertex[Mathf.NextPowerOfTwo(num)];
+				return;
 			}
 		}
 
 		public void UpdatePivot(Vector2 pivot)
 		{
-			if (this.m_inlineGraphicRectTransform == null)
+			if (m_inlineGraphicRectTransform == null)
 			{
-				this.m_inlineGraphicRectTransform = this.m_inlineGraphic.GetComponent<RectTransform>();
+				m_inlineGraphicRectTransform = m_inlineGraphic.GetComponent<RectTransform>();
 			}
-			this.m_inlineGraphicRectTransform.pivot = pivot;
+			m_inlineGraphicRectTransform.pivot = pivot;
 		}
 
 		public void ClearUIVertex()
 		{
-			if (this.uiVertex != null)
+			if (uiVertex == null)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				if (uiVertex.Length > 0)
 				{
-					switch (5)
+					while (true)
 					{
-					case 0:
-						continue;
+						Array.Clear(uiVertex, 0, uiVertex.Length);
+						m_inlineGraphicCanvasRenderer.Clear();
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.ClearUIVertex()).MethodHandle;
-				}
-				if (this.uiVertex.Length > 0)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Array.Clear(this.uiVertex, 0, this.uiVertex.Length);
-					this.m_inlineGraphicCanvasRenderer.Clear();
-				}
+				return;
 			}
 		}
 
 		public void DrawSprite(UIVertex[] uiVertices, int spriteCount)
 		{
-			if (this.m_inlineGraphicCanvasRenderer == null)
+			if (m_inlineGraphicCanvasRenderer == null)
 			{
-				this.m_inlineGraphicCanvasRenderer = this.m_inlineGraphic.GetComponent<CanvasRenderer>();
+				m_inlineGraphicCanvasRenderer = m_inlineGraphic.GetComponent<CanvasRenderer>();
 			}
-			this.m_inlineGraphicCanvasRenderer.SetVertices(uiVertices, spriteCount * 4);
-			this.m_inlineGraphic.UpdateMaterial();
+			m_inlineGraphicCanvasRenderer.SetVertices(uiVertices, spriteCount * 4);
+			m_inlineGraphic.UpdateMaterial();
 		}
 
 		public TMP_Sprite GetSprite(int index)
 		{
-			if (this.m_spriteAsset == null)
+			if (m_spriteAsset == null)
 			{
 				Debug.LogWarning("No Sprite Asset is assigned.", this);
 				return null;
 			}
-			if (this.m_spriteAsset.spriteInfoList != null)
+			if (m_spriteAsset.spriteInfoList != null)
 			{
-				for (;;)
+				if (index <= m_spriteAsset.spriteInfoList.Count - 1)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.GetSprite(int)).MethodHandle;
-				}
-				if (index <= this.m_spriteAsset.spriteInfoList.Count - 1)
-				{
-					return this.m_spriteAsset.spriteInfoList[index];
+					return m_spriteAsset.spriteInfoList[index];
 				}
 			}
 			Debug.LogWarning("Sprite index exceeds the number of sprites in this Sprite Asset.", this);
@@ -323,34 +219,21 @@ namespace TMPro
 
 		public int GetSpriteIndexByHashCode(int hashCode)
 		{
-			if (this.m_spriteAsset == null || this.m_spriteAsset.spriteInfoList == null)
+			if (m_spriteAsset == null || m_spriteAsset.spriteInfoList == null)
 			{
 				Debug.LogWarning("No Sprite Asset is assigned.", this);
 				return -1;
 			}
-			return this.m_spriteAsset.spriteInfoList.FindIndex((TMP_Sprite item) => item.hashCode == hashCode);
+			return m_spriteAsset.spriteInfoList.FindIndex((TMP_Sprite item) => item.hashCode == hashCode);
 		}
 
 		public int GetSpriteIndexByIndex(int index)
 		{
-			if (!(this.m_spriteAsset == null))
+			if (!(m_spriteAsset == null))
 			{
-				for (;;)
+				if (m_spriteAsset.spriteInfoList != null)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.GetSpriteIndexByIndex(int)).MethodHandle;
-				}
-				if (this.m_spriteAsset.spriteInfoList != null)
-				{
-					return this.m_spriteAsset.spriteInfoList.FindIndex((TMP_Sprite item) => item.id == index);
+					return m_spriteAsset.spriteInfoList.FindIndex((TMP_Sprite item) => item.id == index);
 				}
 			}
 			Debug.LogWarning("No Sprite Asset is assigned.", this);
@@ -359,7 +242,7 @@ namespace TMPro
 
 		public void SetUIVertex(UIVertex[] uiVertex)
 		{
-			this.m_uiVertex = uiVertex;
+			m_uiVertex = uiVertex;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class ControlpadAimingConfig
@@ -43,85 +42,64 @@ public class ControlpadAimingConfig
 
 	public void SetupRotation(ControlpadInputValue clockwiseInputType, ControlpadInputSign clockwiseSign, ControlpadInputValue antiClockwiseInputType, ControlpadInputSign antiClockwiseSign)
 	{
-		this.m_rotateClockwise = clockwiseInputType;
-		this.m_rotateClockwiseSign = clockwiseSign;
-		this.m_rotateAntiClockwise = antiClockwiseInputType;
-		this.m_rotateAntiClockwiseSign = antiClockwiseSign;
-		if (clockwiseInputType == antiClockwiseInputType)
+		m_rotateClockwise = clockwiseInputType;
+		m_rotateClockwiseSign = clockwiseSign;
+		m_rotateAntiClockwise = antiClockwiseInputType;
+		m_rotateAntiClockwiseSign = antiClockwiseSign;
+		if (clockwiseInputType != antiClockwiseInputType)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadAimingConfig.SetupRotation(ControlpadInputValue, ControlpadInputSign, ControlpadInputValue, ControlpadInputSign)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (clockwiseSign == antiClockwiseSign)
 			{
 				Debug.LogError("SetupRotation- Setting up control pad to rotate both directions on same input.  Likely user error in SetupRotation call.");
 			}
+			return;
 		}
 	}
 
 	public void SetupDepthMovement(ControlpadInputValue forwardInputType, ControlpadInputSign forwardSign, ControlpadInputValue backwardInputType, ControlpadInputSign backwardSign)
 	{
-		this.m_depthForward = forwardInputType;
-		this.m_depthForwardSign = forwardSign;
-		this.m_depthBackward = backwardInputType;
-		this.m_depthBackwardSign = backwardSign;
-		if (forwardInputType == backwardInputType)
+		m_depthForward = forwardInputType;
+		m_depthForwardSign = forwardSign;
+		m_depthBackward = backwardInputType;
+		m_depthBackwardSign = backwardSign;
+		if (forwardInputType != backwardInputType)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadAimingConfig.SetupDepthMovement(ControlpadInputValue, ControlpadInputSign, ControlpadInputValue, ControlpadInputSign)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (forwardSign == backwardSign)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					Debug.LogError("SetupDepthMovement- Setting up control pad to move depth both directions on same input.  Likely user error in SetupDepthMovement call.");
+					return;
 				}
-				Debug.LogError("SetupDepthMovement- Setting up control pad to move depth both directions on same input.  Likely user error in SetupDepthMovement call.");
 			}
+			return;
 		}
 	}
 
 	public void SetupPositionMovement(ControlpadInputValue positionUp, ControlpadInputSign positionUpSign, ControlpadInputValue positionDown, ControlpadInputSign positionDownSign, ControlpadInputValue positionRight, ControlpadInputSign positionRightSign, ControlpadInputValue positionLeft, ControlpadInputSign positionLeftSign)
 	{
-		this.m_translationUp = positionUp;
-		this.m_translationUpSign = positionUpSign;
-		this.m_translationDown = positionDown;
-		this.m_translationDownSign = positionDownSign;
-		this.m_translationRight = positionRight;
-		this.m_translationRightSign = positionRightSign;
-		this.m_translationLeft = positionLeft;
-		this.m_translationLeftSign = positionLeftSign;
+		m_translationUp = positionUp;
+		m_translationUpSign = positionUpSign;
+		m_translationDown = positionDown;
+		m_translationDownSign = positionDownSign;
+		m_translationRight = positionRight;
+		m_translationRightSign = positionRightSign;
+		m_translationLeft = positionLeft;
+		m_translationLeftSign = positionLeftSign;
 	}
 
 	public void SetupSpeeds(ControlpadAimingSpeed rotationSpeed, ControlpadAimingSpeed depthSpeed, ControlpadAimingSpeed positionTranslationSpeed)
 	{
-		this.m_rotationSpeed = rotationSpeed;
-		this.m_depthSpeed = depthSpeed;
-		this.m_translationSpeed = positionTranslationSpeed;
+		m_rotationSpeed = rotationSpeed;
+		m_depthSpeed = depthSpeed;
+		m_translationSpeed = positionTranslationSpeed;
 	}
 }

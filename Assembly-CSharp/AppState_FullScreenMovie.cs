@@ -1,12 +1,18 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AppState_FullScreenMovie : AppState
 {
+	public enum AppStates
+	{
+		LandingPage,
+		PostGameLoadingScreen,
+		None
+	}
+
 	private static AppState_FullScreenMovie s_instance;
 
-	private AppState_FullScreenMovie.AppStates m_nextAppState;
+	private AppStates m_nextAppState;
 
 	private AppState m_lastAppState;
 
@@ -16,7 +22,7 @@ public class AppState_FullScreenMovie : AppState
 
 	public static AppState_FullScreenMovie Get()
 	{
-		return AppState_FullScreenMovie.s_instance;
+		return s_instance;
 	}
 
 	public static void Create()
@@ -26,47 +32,25 @@ public class AppState_FullScreenMovie : AppState
 
 	private void Awake()
 	{
-		AppState_FullScreenMovie.s_instance = this;
+		s_instance = this;
 	}
 
-	public void Enter(Queue<string> movieNames, AppState_FullScreenMovie.AppStates nextAppState)
+	public void Enter(Queue<string> movieNames, AppStates nextAppState)
 	{
-		this.m_movieNames = new Queue<string>(movieNames);
-		this.m_nextAppState = nextAppState;
-		this.m_lastAppState = AppState.GetCurrent();
-		if (FullScreenMovie.Get())
+		m_movieNames = new Queue<string>(movieNames);
+		m_nextAppState = nextAppState;
+		m_lastAppState = AppState.GetCurrent();
+		if ((bool)FullScreenMovie.Get())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FullScreenMovie.Enter(Queue<string>, AppState_FullScreenMovie.AppStates)).MethodHandle;
-			}
-			this.m_moviePlayer = FullScreenMovie.Get().GetMovieTexture();
+			m_moviePlayer = FullScreenMovie.Get().GetMovieTexture();
 			FullScreenMovie.Get().SetVisible(true);
 		}
-		if (this.m_moviePlayer)
+		if ((bool)m_moviePlayer)
 		{
-			for (;;)
+			if (m_movieNames.Count > 0)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_movieNames.Count > 0)
-			{
-				string movieAssetName = this.m_movieNames.Dequeue();
-				this.m_moviePlayer.Play(movieAssetName, false, false, true);
+				string movieAssetName = m_movieNames.Dequeue();
+				m_moviePlayer.Play(movieAssetName, false);
 			}
 		}
 		base.Enter();
@@ -74,130 +58,85 @@ public class AppState_FullScreenMovie : AppState
 
 	protected override void OnLeave()
 	{
-		if (this.m_moviePlayer)
+		if ((bool)m_moviePlayer)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FullScreenMovie.OnLeave()).MethodHandle;
-			}
-			this.m_moviePlayer = null;
+			m_moviePlayer = null;
 		}
-		if (UIScreenManager.Get() != null && FullScreenMovie.Get())
+		if (!(UIScreenManager.Get() != null) || !FullScreenMovie.Get())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			FullScreenMovie.Get().SetVisible(false);
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_moviePlayer)
+		if ((bool)m_moviePlayer)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FullScreenMovie.Update()).MethodHandle;
-			}
-			if (this.m_moviePlayer.MovieState != PlayRawImageMovieTexture.MovieStates.Invalid && this.m_moviePlayer.MovieState != PlayRawImageMovieTexture.MovieStates.Done)
-			{
-				if (!Input.GetKeyUp(KeyCode.Escape))
-				{
-					goto IL_8F;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (m_moviePlayer.MovieState != 0 && m_moviePlayer.MovieState != PlayRawImageMovieTexture.MovieStates.Done)
+					{
+						if (!Input.GetKeyUp(KeyCode.Escape))
+						{
+							return;
+						}
+					}
+					if (m_movieNames.Count > 0)
+					{
+						string movieAssetName = m_movieNames.Dequeue();
+						m_moviePlayer.Play(movieAssetName, false);
+					}
+					else
+					{
+						Finish();
+					}
+					return;
 				}
 			}
-			if (this.m_movieNames.Count > 0)
-			{
-				string movieAssetName = this.m_movieNames.Dequeue();
-				this.m_moviePlayer.Play(movieAssetName, false, false, true);
-			}
-			else
-			{
-				this.Finish();
-			}
-			IL_8F:;
 		}
-		else
-		{
-			this.Finish();
-		}
+		Finish();
 	}
 
 	private void Finish()
 	{
-		if (this.m_nextAppState == AppState_FullScreenMovie.AppStates.LandingPage)
+		if (m_nextAppState == AppStates.LandingPage)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					AppState_LandingPage.Get().Enter();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FullScreenMovie.Finish()).MethodHandle;
-			}
-			AppState_LandingPage.Get().Enter();
 		}
-		else if (this.m_nextAppState == AppState_FullScreenMovie.AppStates.PostGameLoadingScreen)
+		if (m_nextAppState == AppStates.PostGameLoadingScreen)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					AppState_FrontendLoadingScreen.Get().Enter(null);
+					return;
 				}
-				break;
 			}
-			AppState_FrontendLoadingScreen.Get().Enter(null, AppState_FrontendLoadingScreen.NextState.GoToLandingPage);
 		}
-		else
-		{
-			this.m_lastAppState.Enter();
-		}
-	}
-
-	public enum AppStates
-	{
-		LandingPage,
-		PostGameLoadingScreen,
-		None
+		m_lastAppState.Enter();
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,32 +11,29 @@ public class ClientBarrierStartData
 
 	public ClientBarrierStartData(int barrierGUID, List<ServerClientUtils.SequenceStartData> sequenceStartDataList, BarrierSerializeInfo gameplayInfo)
 	{
-		this.m_barrierGUID = barrierGUID;
-		this.m_sequenceStartDataList = sequenceStartDataList;
-		this.m_barrierGameplayInfo = gameplayInfo;
+		m_barrierGUID = barrierGUID;
+		m_sequenceStartDataList = sequenceStartDataList;
+		m_barrierGameplayInfo = gameplayInfo;
 	}
 
 	public void ExecuteBarrierStart()
 	{
-		using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = this.m_sequenceStartDataList.GetEnumerator())
+		using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = m_sequenceStartDataList.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ServerClientUtils.SequenceStartData sequenceStartData = enumerator.Current;
-				sequenceStartData.CreateSequencesFromData(new SequenceSource.ActorDelegate(this.OnClientBarrierStartSequenceHitActor), new SequenceSource.Vector3Delegate(this.OnClientBarrierStartSequenceHitPosition));
+				ServerClientUtils.SequenceStartData current = enumerator.Current;
+				current.CreateSequencesFromData(OnClientBarrierStartSequenceHitActor, OnClientBarrierStartSequenceHitPosition);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientBarrierStartData.ExecuteBarrierStart()).MethodHandle;
 			}
 		}
 	}

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,350 +17,207 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 
 	private void Start()
 	{
-		this.Initialize();
+		Initialize();
 	}
 
 	private void Initialize()
 	{
-		this.m_actorModelData = base.GetComponent<ActorModelData>();
-		this.m_spawnedCrystalVfxList = new List<AttachedActorVFXInfo>();
-		if (this.m_actorModelData != null)
+		m_actorModelData = GetComponent<ActorModelData>();
+		m_spawnedCrystalVfxList = new List<AttachedActorVFXInfo>();
+		if (m_actorModelData != null)
 		{
-			for (;;)
+			if (m_actorModelData.m_parentActorData != null)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiOrbVfxController.Initialize()).MethodHandle;
-			}
-			if (this.m_actorModelData.m_parentActorData != null)
-			{
-				this.m_syncComp = this.m_actorModelData.m_parentActorData.GetComponent<Sensei_SyncComponent>();
-				this.m_owner = this.m_actorModelData.m_parentActorData;
+				m_syncComp = m_actorModelData.m_parentActorData.GetComponent<Sensei_SyncComponent>();
+				m_owner = m_actorModelData.m_parentActorData;
 			}
 		}
-		for (int i = 0; i < this.m_jointToVfxList.Count; i++)
+		for (int i = 0; i < m_jointToVfxList.Count; i++)
 		{
-			AdditionalAttachedActorVfx.JointToVfx jointToVfx = this.m_jointToVfxList[i];
+			AdditionalAttachedActorVfx.JointToVfx jointToVfx = m_jointToVfxList[i];
 			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(jointToVfx.m_vfxCommonPrefab, base.gameObject, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "MartyrCrystalVfx_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				attachedActorVFXInfo.SetInstanceLocalPosition(jointToVfx.m_localOffset);
-				this.m_spawnedCrystalVfxList.Add(attachedActorVFXInfo);
+				m_spawnedCrystalVfxList.Add(attachedActorVFXInfo);
 			}
 			else if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Debug.LogWarning("Failed to spawn vfx on joint in " + base.GetType().ToString());
+				Debug.LogWarning("Failed to spawn vfx on joint in " + GetType().ToString());
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void Update()
 	{
-		ActorData actorData;
-		if (this.m_actorModelData != null)
+		object obj;
+		if (m_actorModelData != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiOrbVfxController.Update()).MethodHandle;
-			}
-			actorData = this.m_actorModelData.m_parentActorData;
+			obj = m_actorModelData.m_parentActorData;
 		}
 		else
 		{
-			actorData = null;
+			obj = null;
 		}
-		ActorData actorData2 = actorData;
-		bool flag;
-		if (!(actorData2 == null))
+		ActorData actorData = (ActorData)obj;
+		int num;
+		if (!(actorData == null))
 		{
-			if (actorData2.\u0018())
+			if (actorData.IsVisibleToClient())
 			{
-				for (;;)
+				if (!(actorData.GetActorModelData() == null))
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(actorData2.\u000E() == null))
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag = actorData2.\u000E().IsVisibleToClient();
+					num = (actorData.GetActorModelData().IsVisibleToClient() ? 1 : 0);
 				}
 				else
 				{
-					flag = true;
+					num = 1;
 				}
-			}
-			else
-			{
-				flag = false;
-			}
-		}
-		else
-		{
-			flag = true;
-		}
-		bool flag2 = flag;
-		bool flag3;
-		if (actorData2 != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag3 = actorData2.\u0012();
-		}
-		else
-		{
-			flag3 = false;
-		}
-		bool flag4 = flag3;
-		bool flag5;
-		if (!(actorData2 == null))
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (GameFlowData.Get() != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (GameFlowData.Get().activeOwnedActorData != null)
-				{
-					flag5 = (GameFlowData.Get().activeOwnedActorData.\u000E() == actorData2.\u000E());
-					goto IL_10B;
-				}
-			}
-			flag5 = false;
-			IL_10B:;
-		}
-		else
-		{
-			flag5 = true;
-		}
-		bool sameTeamAsClientActor = flag5;
-		int num2;
-		if (this.m_syncComp == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			int num;
-			if (this.m_showOrbsInFrontEnd)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num = this.m_spawnedCrystalVfxList.Count;
 			}
 			else
 			{
 				num = 0;
 			}
-			num2 = num;
 		}
 		else
 		{
-			num2 = this.GetNumOrbs();
+			num = 1;
 		}
-		int i = 0;
-		while (i < this.m_spawnedCrystalVfxList.Count)
+		bool flag = (byte)num != 0;
+		int num2;
+		if (actorData != null)
 		{
-			AttachedActorVFXInfo attachedActorVFXInfo = this.m_spawnedCrystalVfxList[i];
-			if (!flag2)
+			num2 = (actorData.IsModelAnimatorDisabled() ? 1 : 0);
+		}
+		else
+		{
+			num2 = 0;
+		}
+		bool flag2 = (byte)num2 != 0;
+		int num3;
+		if (!(actorData == null))
+		{
+			if (GameFlowData.Get() != null)
 			{
-				goto IL_188;
-			}
-			for (;;)
-			{
-				switch (5)
+				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
-				case 0:
+					num3 = ((GameFlowData.Get().activeOwnedActorData.GetTeam() == actorData.GetTeam()) ? 1 : 0);
+					goto IL_010e;
+				}
+			}
+			num3 = 0;
+		}
+		else
+		{
+			num3 = 1;
+		}
+		goto IL_010e;
+		IL_010e:
+		bool sameTeamAsClientActor = (byte)num3 != 0;
+		int num4 = 0;
+		if (m_syncComp == null)
+		{
+			int num5;
+			if (m_showOrbsInFrontEnd)
+			{
+				num5 = m_spawnedCrystalVfxList.Count;
+			}
+			else
+			{
+				num5 = 0;
+			}
+			num4 = num5;
+		}
+		else
+		{
+			num4 = GetNumOrbs();
+		}
+		AttachedActorVFXInfo attachedActorVFXInfo;
+		int actorVisible;
+		for (int i = 0; i < m_spawnedCrystalVfxList.Count; attachedActorVFXInfo.UpdateVisibility((byte)actorVisible != 0, sameTeamAsClientActor), i++)
+		{
+			attachedActorVFXInfo = m_spawnedCrystalVfxList[i];
+			if (flag)
+			{
+				if (!flag2)
+				{
+					actorVisible = ((i < num4) ? 1 : 0);
 					continue;
 				}
-				break;
 			}
-			if (flag4)
-			{
-				goto IL_188;
-			}
-			bool actorVisible = i < num2;
-			IL_189:
-			attachedActorVFXInfo.UpdateVisibility(actorVisible, sameTeamAsClientActor);
-			i++;
-			continue;
-			IL_188:
-			actorVisible = false;
-			goto IL_189;
+			actorVisible = 0;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		if (this.m_spawnedCrystalVfxList != null)
+		if (m_spawnedCrystalVfxList == null)
 		{
-			for (int i = 0; i < this.m_spawnedCrystalVfxList.Count; i++)
-			{
-				this.m_spawnedCrystalVfxList[i].DestroyVfx();
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiOrbVfxController.OnDestroy()).MethodHandle;
-			}
-			this.m_spawnedCrystalVfxList.Clear();
+			return;
+		}
+		for (int i = 0; i < m_spawnedCrystalVfxList.Count; i++)
+		{
+			m_spawnedCrystalVfxList[i].DestroyVfx();
+		}
+		while (true)
+		{
+			m_spawnedCrystalVfxList.Clear();
+			return;
 		}
 	}
 
 	private int GetNumOrbs()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return Mathf.Max(0, m_syncComp.m_syncCurrentNumOrbs + m_syncComp.m_clientOrbNumAdjust);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiOrbVfxController.GetNumOrbs()).MethodHandle;
-			}
-			return Mathf.Max(0, (int)this.m_syncComp.m_syncCurrentNumOrbs + this.m_syncComp.m_clientOrbNumAdjust);
 		}
 		return 0;
 	}
 
 	public Vector3 GetSpawnPosAndAdvanceCounter()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			if (m_spawnedCrystalVfxList.Count > 0)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiOrbVfxController.GetSpawnPosAndAdvanceCounter()).MethodHandle;
-			}
-			if (this.m_spawnedCrystalVfxList.Count > 0)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						int value = GetNumOrbs() - 1;
+						value = Mathf.Clamp(value, 0, m_spawnedCrystalVfxList.Count - 1);
+						Vector3 instancePosition = m_spawnedCrystalVfxList[value].GetInstancePosition();
+						m_syncComp.m_clientOrbNumAdjust--;
+						return instancePosition;
 					}
-					break;
+					}
 				}
-				int num = this.GetNumOrbs() - 1;
-				num = Mathf.Clamp(num, 0, this.m_spawnedCrystalVfxList.Count - 1);
-				Vector3 instancePosition = this.m_spawnedCrystalVfxList[num].GetInstancePosition();
-				this.m_syncComp.m_clientOrbNumAdjust--;
-				return instancePosition;
 			}
 		}
-		return this.m_owner.\u0015();
+		return m_owner.GetTravelBoardSquareWorldPositionForLos();
 	}
 }

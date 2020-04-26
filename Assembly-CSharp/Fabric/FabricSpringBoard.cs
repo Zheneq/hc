@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 namespace Fabric
@@ -12,51 +11,38 @@ namespace Fabric
 
 		public FabricSpringBoard()
 		{
-			FabricSpringBoard._isPresent = true;
+			_isPresent = true;
 		}
 
 		private void OnEnable()
 		{
-			FabricSpringBoard._isPresent = true;
+			_isPresent = true;
 		}
 
 		private void Awake()
 		{
-			this.Load();
+			Load();
 		}
 
 		public void Load()
 		{
-			FabricManager fabricManagerInEditor = FabricSpringBoard.GetFabricManagerInEditor();
-			if (!fabricManagerInEditor)
+			FabricManager fabricManagerInEditor = GetFabricManagerInEditor();
+			if ((bool)fabricManagerInEditor)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				GameObject gameObject = Resources.Load(_fabricManagerPrefabPath, typeof(GameObject)) as GameObject;
+				if ((bool)gameObject)
 				{
-					switch (6)
+					while (true)
 					{
-					case 0:
-						continue;
+						Object.Instantiate(gameObject);
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FabricSpringBoard.Load()).MethodHandle;
-				}
-				GameObject gameObject = Resources.Load(this._fabricManagerPrefabPath, typeof(GameObject)) as GameObject;
-				if (gameObject)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UnityEngine.Object.Instantiate<GameObject>(gameObject);
-				}
+				return;
 			}
 		}
 
@@ -67,19 +53,6 @@ namespace Fabric
 			{
 				if (array[i].gameObject != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FabricSpringBoard.GetFabricManagerInEditor()).MethodHandle;
-					}
 					if (array[i].hideFlags != HideFlags.HideInHierarchy)
 					{
 						return array[i];

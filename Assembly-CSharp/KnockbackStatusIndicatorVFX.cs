@@ -1,133 +1,74 @@
-﻿using System;
 using UnityEngine;
 
 public class KnockbackStatusIndicatorVFX : AttachedActorVFXInfo
 {
 	private StatusType m_status;
 
-	public KnockbackStatusIndicatorVFX(GameObject vfxInstance, ActorData actor, JointPopupProperty vfxJoint, string vfxParentObjectName) : base(vfxInstance, actor, vfxJoint, false, vfxParentObjectName, AttachedActorVFXInfo.FriendOrFoeVisibility.Both)
+	public KnockbackStatusIndicatorVFX(GameObject vfxInstance, ActorData actor, JointPopupProperty vfxJoint, string vfxParentObjectName)
+		: base(vfxInstance, actor, vfxJoint, false, vfxParentObjectName, FriendOrFoeVisibility.Both)
 	{
-		this.m_status = StatusType.KnockedBack;
+		m_status = StatusType.KnockedBack;
 	}
 
 	public override void UpdateVisibility(bool actorVisible, bool sameTeamAsClientActor)
 	{
-		if (this.m_vfxInstance != null)
+		if (!(m_vfxInstance != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(m_attachParentObject != null))
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackStatusIndicatorVFX.UpdateVisibility(bool, bool)).MethodHandle;
-			}
-			if (this.m_attachParentObject != null)
-			{
-				for (;;)
+				if (!(m_actor != null))
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (this.m_actor != null)
+				while (true)
 				{
-					for (;;)
+					if (!(m_actor.GetActorStatus() != null))
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						return;
 					}
-					if (this.m_actor.\u000E() != null)
+					while (true)
 					{
-						for (;;)
+						if (!(m_actor.GetActorMovement() != null))
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							return;
 						}
-						if (this.m_actor.\u000E() != null)
+						while (true)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							bool flag = this.m_actor != null && !this.m_actor.\u0012();
-							bool flag2 = this.m_actor.\u000E().HasStatus(this.m_status, false);
-							bool flag3;
+							bool flag = m_actor != null && !m_actor.IsModelAnimatorDisabled();
+							bool flag2 = m_actor.GetActorStatus().HasStatus(m_status, false);
+							int num;
 							if (actorVisible)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag2)
 								{
-									for (;;)
+									if (flag && m_actor.KnockbackMoveStarted)
 									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (flag && this.m_actor.KnockbackMoveStarted)
-									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										flag3 = !this.m_actor.\u000E().AmMoving();
-										goto IL_12C;
+										num = ((!m_actor.GetActorMovement().AmMoving()) ? 1 : 0);
+										goto IL_012c;
 									}
 								}
 							}
-							flag3 = false;
-							IL_12C:
-							bool flag4 = flag3;
-							if (this.m_vfxInstance.activeSelf != flag4)
+							num = 0;
+							goto IL_012c;
+							IL_012c:
+							bool flag3 = (byte)num != 0;
+							if (m_vfxInstance.activeSelf != flag3)
 							{
-								for (;;)
+								while (true)
 								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
+									m_vfxInstance.SetActive(flag3);
+									return;
 								}
-								this.m_vfxInstance.SetActive(flag4);
 							}
+							return;
 						}
 					}
 				}

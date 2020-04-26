@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class NPCBrain_Adaptive : NPCBrain
@@ -40,65 +39,52 @@ public class NPCBrain_Adaptive : NPCBrain
 	{
 		get
 		{
-			return this.m_isReplacingHuman;
+			return m_isReplacingHuman;
 		}
 		set
 		{
-			this.m_isReplacingHuman = value;
+			m_isReplacingHuman = value;
 		}
 	}
 
 	public override NPCBrain Create(BotController bot, Transform destination)
 	{
-		NPCBrain_Adaptive npcbrain_Adaptive = bot.gameObject.AddComponent<NPCBrain_Adaptive>();
-		npcbrain_Adaptive.m_botDifficulty = this.m_botDifficulty;
-		npcbrain_Adaptive.m_inactiveUntilPlayerEncountered = this.m_inactiveUntilPlayerEncountered;
-		npcbrain_Adaptive.m_playerEncountered = false;
-		npcbrain_Adaptive.m_evasionScoreTweak = this.m_evasionScoreTweak;
-		npcbrain_Adaptive.m_damageScoreTweak = this.m_damageScoreTweak;
-		npcbrain_Adaptive.m_healingScoreTweak = this.m_healingScoreTweak;
-		npcbrain_Adaptive.m_shieldingScoreTweak = this.m_shieldingScoreTweak;
-		npcbrain_Adaptive.m_multipleEnemyTweak = this.m_multipleEnemyTweak;
-		npcbrain_Adaptive.m_multipleAllyTweak = this.m_multipleAllyTweak;
-		npcbrain_Adaptive.m_allowedAbilities = this.m_allowedAbilities;
-		this.MakeFSM(npcbrain_Adaptive);
+		NPCBrain_Adaptive nPCBrain_Adaptive = bot.gameObject.AddComponent<NPCBrain_Adaptive>();
+		nPCBrain_Adaptive.m_botDifficulty = m_botDifficulty;
+		nPCBrain_Adaptive.m_inactiveUntilPlayerEncountered = m_inactiveUntilPlayerEncountered;
+		nPCBrain_Adaptive.m_playerEncountered = false;
+		nPCBrain_Adaptive.m_evasionScoreTweak = m_evasionScoreTweak;
+		nPCBrain_Adaptive.m_damageScoreTweak = m_damageScoreTweak;
+		nPCBrain_Adaptive.m_healingScoreTweak = m_healingScoreTweak;
+		nPCBrain_Adaptive.m_shieldingScoreTweak = m_shieldingScoreTweak;
+		nPCBrain_Adaptive.m_multipleEnemyTweak = m_multipleEnemyTweak;
+		nPCBrain_Adaptive.m_multipleAllyTweak = m_multipleAllyTweak;
+		nPCBrain_Adaptive.m_allowedAbilities = m_allowedAbilities;
+		MakeFSM(nPCBrain_Adaptive);
 		if (GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.EnableTeamAIOutput))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain_Adaptive.Create(BotController, Transform)).MethodHandle;
-			}
-			npcbrain_Adaptive.m_sendReasoningToTeamChat = true;
+			nPCBrain_Adaptive.m_sendReasoningToTeamChat = true;
 		}
-		return npcbrain_Adaptive;
+		return nPCBrain_Adaptive;
 	}
 
 	public static NPCBrain Create(BotController bot, Transform destination, BotDifficulty botDifficulty, bool canTaunt)
 	{
-		NPCBrain_Adaptive npcbrain_Adaptive = bot.gameObject.AddComponent<NPCBrain_Adaptive>();
-		npcbrain_Adaptive.m_botDifficulty = botDifficulty;
-		npcbrain_Adaptive.m_canTaunt = canTaunt;
-		npcbrain_Adaptive.m_inactiveUntilPlayerEncountered = false;
-		npcbrain_Adaptive.m_playerEncountered = false;
-		npcbrain_Adaptive.MakeFSM(npcbrain_Adaptive);
+		NPCBrain_Adaptive nPCBrain_Adaptive = bot.gameObject.AddComponent<NPCBrain_Adaptive>();
+		nPCBrain_Adaptive.m_botDifficulty = botDifficulty;
+		nPCBrain_Adaptive.m_canTaunt = canTaunt;
+		nPCBrain_Adaptive.m_inactiveUntilPlayerEncountered = false;
+		nPCBrain_Adaptive.m_playerEncountered = false;
+		nPCBrain_Adaptive.MakeFSM(nPCBrain_Adaptive);
 		if (GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.EnableTeamAIOutput))
 		{
-			npcbrain_Adaptive.m_sendReasoningToTeamChat = true;
+			nPCBrain_Adaptive.m_sendReasoningToTeamChat = true;
 		}
-		return npcbrain_Adaptive;
+		return nPCBrain_Adaptive;
 	}
 
 	public void SendDecisionToTeamChat(bool val)
 	{
-		this.m_sendReasoningToTeamChat = val;
+		m_sendReasoningToTeamChat = val;
 	}
 }

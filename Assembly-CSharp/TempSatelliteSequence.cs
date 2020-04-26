@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public abstract class TempSatelliteSequence : Sequence
@@ -9,6 +8,6 @@ public abstract class TempSatelliteSequence : Sequence
 
 	public GameObject GetTempSatellite()
 	{
-		return this.m_tempSatelliteInstance;
+		return m_tempSatelliteInstance;
 	}
 }

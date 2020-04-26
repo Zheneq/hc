@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class BazookaGirlLockOnEffectSequence : Sequence
@@ -15,73 +14,41 @@ public class BazookaGirlLockOnEffectSequence : Sequence
 
 	private void Update()
 	{
-		if (this.m_trackingEffectPrefab)
+		if (!m_trackingEffectPrefab)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!m_initialized)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlLockOnEffectSequence.Update()).MethodHandle;
-			}
-			if (this.m_initialized)
-			{
-				for (;;)
+				if (!(m_trackingEffectVFX == null))
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (this.m_trackingEffectVFX == null)
+				while (true)
 				{
-					for (;;)
+					if (!base.Target)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						return;
 					}
-					if (base.Target)
+					while (true)
 					{
-						for (;;)
+						if (!m_fxJoint.IsInitialized())
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							m_fxJoint.Initialize(base.Target.gameObject);
 						}
-						if (!this.m_fxJoint.IsInitialized())
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_fxJoint.Initialize(base.Target.gameObject);
-						}
-						this.m_trackingEffectVFX = base.InstantiateFX(this.m_trackingEffectPrefab);
-						base.AttachToBone(this.m_trackingEffectVFX, this.m_fxJoint.m_jointObject);
-						this.m_trackingEffectVFX.transform.localPosition = Vector3.zero;
-						this.m_trackingEffectVFX.transform.localRotation = Quaternion.identity;
-						AudioManager.PostEvent(this.m_audioEventApply, this.m_trackingEffectVFX.gameObject);
-						base.Source.OnSequenceHit(this, base.Target, null, ActorModelData.RagdollActivation.HealthBased, true);
+						m_trackingEffectVFX = InstantiateFX(m_trackingEffectPrefab);
+						AttachToBone(m_trackingEffectVFX, m_fxJoint.m_jointObject);
+						m_trackingEffectVFX.transform.localPosition = Vector3.zero;
+						m_trackingEffectVFX.transform.localRotation = Quaternion.identity;
+						AudioManager.PostEvent(m_audioEventApply, m_trackingEffectVFX.gameObject);
+						base.Source.OnSequenceHit(this, base.Target, null);
+						return;
 					}
 				}
 			}
@@ -90,22 +57,14 @@ public class BazookaGirlLockOnEffectSequence : Sequence
 
 	private void OnDisable()
 	{
-		if (this.m_trackingEffectVFX)
+		if (!m_trackingEffectVFX)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlLockOnEffectSequence.OnDisable()).MethodHandle;
-			}
-			UnityEngine.Object.Destroy(this.m_trackingEffectVFX);
+			return;
+		}
+		while (true)
+		{
+			Object.Destroy(m_trackingEffectVFX);
+			return;
 		}
 	}
 }

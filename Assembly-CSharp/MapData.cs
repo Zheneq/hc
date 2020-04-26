@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class MapData
@@ -19,6 +19,6 @@ public class MapData
 
 	public string GetDisplayName()
 	{
-		return StringUtil.TR_MapName(this.Name);
+		return StringUtil.TR_MapName(Name);
 	}
 }

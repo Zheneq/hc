@@ -1,8 +1,8 @@
-﻿using System;
+using LobbyGameClientMessages;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,6 +10,57 @@ using UnityEngine.UI;
 
 public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 {
+	public enum OverviewStat
+	{
+		TimePlayed,
+		MatchesWon,
+		WinPercentage,
+		NumBadges,
+		DamageEfficiency,
+		AverageTakedownsPerLife,
+		AverageTakedownsPerMatch,
+		AverageDeathsPerMatch,
+		AverageDamageDonePerTurn,
+		AverageSupportDonePerTurn,
+		AverageDamageTakenPerTurn
+	}
+
+	private class SeasonBucket
+	{
+		public int Season
+		{
+			get;
+			private set;
+		}
+
+		public PersistedStatBucket StatBucket
+		{
+			get;
+			private set;
+		}
+
+		public string DisplayString
+		{
+			get;
+			private set;
+		}
+
+		public SeasonBucket(SeasonTemplate season, PersistedStatBucket statBucket)
+		{
+			Season = season.Index;
+			StatBucket = statBucket;
+			if (Season == ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason)
+			{
+				DisplayString = StringUtil.TR("CurrentSeason", "Global");
+			}
+			else
+			{
+				DisplayString = season.GetDisplayName();
+			}
+			DisplayString = DisplayString + ": " + StringUtil.TR_PersistedStatBucketName(statBucket);
+		}
+	}
+
 	public TextMeshProUGUI m_numTankGames;
 
 	public ImageFilledSloped m_numTankWins;
@@ -42,9 +93,9 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 
 	public UIPlayerProgressDropdownList m_seasonBucketDropdown;
 
-	private UIPlayerProgressOverview.OverviewStat m_overviewStat;
+	private OverviewStat m_overviewStat;
 
-	private List<UIPlayerProgressOverview.SeasonBucket> m_seasonBuckets;
+	private List<SeasonBucket> m_seasonBuckets;
 
 	private int m_currentSeasonBucket = -1;
 
@@ -56,98 +107,63 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 
 	private void Start()
 	{
-		this.m_freelancerComparisonDropdownBtn.m_button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OpenFreelancerComparisonDropdown);
-		this.m_seasonBucketDropdownBtn.m_button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OpenSeasonBucketDropdown);
-		this.SetupFreelancerRankings();
+		m_freelancerComparisonDropdownBtn.m_button.spriteController.callback = OpenFreelancerComparisonDropdown;
+		m_seasonBucketDropdownBtn.m_button.spriteController.callback = OpenSeasonBucketDropdown;
+		SetupFreelancerRankings();
 	}
 
 	private void OnDisable()
 	{
-		this.m_freelancerComparisonDropdown.SetVisible(false);
+		m_freelancerComparisonDropdown.SetVisible(false);
 	}
 
 	private void OnDestroy()
 	{
-		this.m_isDestroyed = true;
+		m_isDestroyed = true;
 	}
 
 	public void Setup(PersistedAccountData playerData, List<PersistedCharacterData> characterData)
 	{
-		if (playerData != null)
+		if (playerData == null)
 		{
-			for (;;)
+			return;
+		}
+		int i;
+		while (true)
+		{
+			if (characterData == null)
 			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressOverview.Setup(PersistedAccountData, List<PersistedCharacterData>)).MethodHandle;
-			}
-			if (characterData != null)
-			{
-				int i = 0;
-				if (UIPlayerProgressOverview.<>f__am$cache0 == null)
-				{
-					for (;;)
+					switch (5)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIPlayerProgressOverview.<>f__am$cache0 = ((PersistedCharacterData x) => x.ExperienceComponent.Matches);
-				}
-				using (IEnumerator<PersistedCharacterData> enumerator = characterData.OrderByDescending(UIPlayerProgressOverview.<>f__am$cache0).Take(this.m_mostUsedHeroDisplays.Length).GetEnumerator())
-				{
-					while (enumerator.MoveNext())
-					{
-						PersistedCharacterData persistedCharacterData = enumerator.Current;
-						if (persistedCharacterData.ExperienceComponent.Matches > 0)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_mostUsedHeroDisplays[i].Setup(persistedCharacterData);
-							i++;
-						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				while (i < this.m_mostUsedHeroDisplays.Length)
-				{
-					this.m_mostUsedHeroDisplays[i].Setup(null);
-					i++;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
+			}
+			i = 0;
+			
+			using (IEnumerator<PersistedCharacterData> enumerator = characterData.OrderByDescending(((PersistedCharacterData x) => x.ExperienceComponent.Matches)).Take(m_mostUsedHeroDisplays.Length).GetEnumerator())
+			{
+				while (enumerator.MoveNext())
+				{
+					PersistedCharacterData current = enumerator.Current;
+					if (current.ExperienceComponent.Matches > 0)
+					{
+						m_mostUsedHeroDisplays[i].Setup(current);
+						i++;
+					}
+				}
+			}
+			for (; i < m_mostUsedHeroDisplays.Length; i++)
+			{
+				m_mostUsedHeroDisplays[i].Setup(null);
+			}
+			while (true)
+			{
 				int num = 0;
 				int num2 = 0;
 				int num3 = 0;
@@ -155,207 +171,114 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 				{
 					while (enumerator2.MoveNext())
 					{
-						PersistedCharacterData persistedCharacterData2 = enumerator2.Current;
-						if (!persistedCharacterData2.CharacterType.IsValidForHumanGameplay())
+						PersistedCharacterData current2 = enumerator2.Current;
+						if (!current2.CharacterType.IsValidForHumanGameplay())
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
-							CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(persistedCharacterData2.CharacterType);
-							if (characterResourceLink)
+							CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(current2.CharacterType);
+							if ((bool)characterResourceLink)
 							{
 								if (characterResourceLink.m_characterRole == CharacterRole.Assassin)
 								{
-									num2 += persistedCharacterData2.ExperienceComponent.Matches;
+									num2 += current2.ExperienceComponent.Matches;
 								}
 								else if (characterResourceLink.m_characterRole == CharacterRole.Tank)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									num += persistedCharacterData2.ExperienceComponent.Matches;
+									num += current2.ExperienceComponent.Matches;
 								}
 								else if (characterResourceLink.m_characterRole == CharacterRole.Support)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									num3 += persistedCharacterData2.ExperienceComponent.Matches;
+									num3 += current2.ExperienceComponent.Matches;
 								}
 							}
 						}
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				int num4 = num2 + num + num3;
-				this.m_numTankGames.text = num.ToString();
-				this.m_numTankWins.fillAmount = (float)num / (float)num4;
-				this.m_numAssassinGames.text = num2.ToString();
-				this.m_numAssassinWins.fillAmount = (float)num2 / (float)num4;
-				this.m_numSupportGames.text = num3.ToString();
-				this.m_numSupportWins.fillAmount = (float)num3 / (float)num4;
+				m_numTankGames.text = num.ToString();
+				m_numTankWins.fillAmount = (float)num / (float)num4;
+				m_numAssassinGames.text = num2.ToString();
+				m_numAssassinWins.fillAmount = (float)num2 / (float)num4;
+				m_numSupportGames.text = num3.ToString();
+				m_numSupportWins.fillAmount = (float)num3 / (float)num4;
 				bool flag = GameManager.Get() != null && GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
 				int num5 = 0;
 				using (List<PersistedCharacterData>.Enumerator enumerator3 = characterData.GetEnumerator())
 				{
 					while (enumerator3.MoveNext())
 					{
-						PersistedCharacterData persistedCharacterData3 = enumerator3.Current;
-						if (!persistedCharacterData3.CharacterType.IsValidForHumanGameplay())
+						PersistedCharacterData current3 = enumerator3.Current;
+						if (!current3.CharacterType.IsValidForHumanGameplay())
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
 							if (!flag)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (GameWideData.Get().GetCharacterResourceLink(persistedCharacterData3.CharacterType).m_isHidden)
+								if (GameWideData.Get().GetCharacterResourceLink(current3.CharacterType).m_isHidden)
 								{
 									continue;
 								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
-							num5 += persistedCharacterData3.ExperienceComponent.Level - 1;
+							num5 += current3.ExperienceComponent.Level - 1;
 						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
-				UIManager.SetGameObjectActive(this.m_rankDisplayContainer, false, null);
+				UIManager.SetGameObjectActive(m_rankDisplayContainer, false);
 				ClientGameManager.Get().RequestRankedLeaderboardOverview(GameType.Ranked, delegate(RankedLeaderboardOverviewResponse overviewResponse)
 				{
 					if (overviewResponse.Success)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
 							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIPlayerProgressOverview.<Setup>c__AnonStorey0.<>m__0(RankedLeaderboardOverviewResponse)).MethodHandle;
-						}
-						if (!this.m_isDestroyed)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
 								break;
-							}
-							UIManager.SetGameObjectActive(this.m_rankDisplayContainer, true, null);
-							for (i = 0; i < this.m_rankDisplays.Length; i++)
-							{
-								this.m_rankDisplays[i].Setup((UIRankDisplayType)i, overviewResponse.TierInfoPerGroupSize);
-							}
-							for (;;)
-							{
-								switch (2)
+							default:
+								if (!m_isDestroyed)
 								{
-								case 0:
-									continue;
+									while (true)
+									{
+										switch (3)
+										{
+										case 0:
+											break;
+										default:
+											UIManager.SetGameObjectActive(m_rankDisplayContainer, true);
+											for (i = 0; i < m_rankDisplays.Length; i++)
+											{
+												m_rankDisplays[i].Setup((UIRankDisplayType)i, overviewResponse.TierInfoPerGroupSize);
+											}
+											while (true)
+											{
+												switch (2)
+												{
+												default:
+													return;
+												case 0:
+													break;
+												}
+											}
+										}
+									}
 								}
-								break;
+								return;
 							}
 						}
 					}
 				});
-				if (this.m_freelancerComparisonDropdown.Initialize())
+				if (m_freelancerComparisonDropdown.Initialize())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					IEnumerator enumerator4 = Enum.GetValues(typeof(UIPlayerProgressOverview.OverviewStat)).GetEnumerator();
+					IEnumerator enumerator4 = Enum.GetValues(typeof(OverviewStat)).GetEnumerator();
 					try
 					{
 						while (enumerator4.MoveNext())
 						{
-							object obj = enumerator4.Current;
-							UIPlayerProgressOverview.OverviewStat overviewStat = (UIPlayerProgressOverview.OverviewStat)obj;
-							this.m_freelancerComparisonDropdown.AddOption((int)overviewStat, StringUtil.TR("FreelancerOverviewCategory_" + overviewStat, "Global"), CharacterType.None);
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							OverviewStat overviewStat = (OverviewStat)enumerator4.Current;
+							m_freelancerComparisonDropdown.AddOption((int)overviewStat, StringUtil.TR("FreelancerOverviewCategory_" + overviewStat, "Global"));
 						}
 					}
 					finally
@@ -363,89 +286,54 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 						IDisposable disposable;
 						if ((disposable = (enumerator4 as IDisposable)) != null)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									disposable.Dispose();
+									goto end_IL_0429;
 								}
-								break;
 							}
-							disposable.Dispose();
 						}
+						end_IL_0429:;
 					}
-					this.m_freelancerComparisonDropdown.AddHitbox(this.m_freelancerComparisonDropdownBtn.m_button.spriteController.gameObject);
-					this.m_freelancerComparisonDropdown.SetSelectCallback(delegate(int overviewStatTypeInt)
+					m_freelancerComparisonDropdown.AddHitbox(m_freelancerComparisonDropdownBtn.m_button.spriteController.gameObject);
+					m_freelancerComparisonDropdown.SetSelectCallback(delegate(int overviewStatTypeInt)
 					{
-						this.m_overviewStat = (UIPlayerProgressOverview.OverviewStat)overviewStatTypeInt;
-						this.SetupBucketDropdown();
-						this.SetupFreelancerRankings();
+						m_overviewStat = (OverviewStat)overviewStatTypeInt;
+						SetupBucketDropdown();
+						SetupFreelancerRankings();
 					});
 				}
-				if (this.m_seasonBucketDropdown.Initialize())
+				if (m_seasonBucketDropdown.Initialize())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_seasonBuckets = new List<UIPlayerProgressOverview.SeasonBucket>();
+					m_seasonBuckets = new List<SeasonBucket>();
 					List<SeasonTemplate> list = new List<SeasonTemplate>();
 					for (i = 0; i < SeasonWideData.Get().m_seasons.Count; i++)
 					{
 						if (!SeasonWideData.Get().m_seasons[i].IsTutorial)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(SeasonWideData.Get().m_seasons[i]);
 						}
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Reverse();
-					foreach (SeasonTemplate season in list)
+					foreach (SeasonTemplate item in list)
 					{
 						IEnumerator enumerator6 = Enum.GetValues(typeof(PersistedStatBucket)).GetEnumerator();
 						try
 						{
 							while (enumerator6.MoveNext())
 							{
-								object obj2 = enumerator6.Current;
-								PersistedStatBucket persistedStatBucket = (PersistedStatBucket)obj2;
+								PersistedStatBucket persistedStatBucket = (PersistedStatBucket)enumerator6.Current;
 								if (persistedStatBucket.IsTracked())
 								{
-									UIPlayerProgressOverview.SeasonBucket seasonBucket = new UIPlayerProgressOverview.SeasonBucket(season, persistedStatBucket);
-									this.m_seasonBucketDropdown.AddOption(this.m_seasonBuckets.Count, seasonBucket.DisplayString, CharacterType.None);
-									this.m_seasonBuckets.Add(seasonBucket);
+									SeasonBucket seasonBucket = new SeasonBucket(item, persistedStatBucket);
+									m_seasonBucketDropdown.AddOption(m_seasonBuckets.Count, seasonBucket.DisplayString);
+									m_seasonBuckets.Add(seasonBucket);
 								}
-							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						finally
@@ -453,503 +341,244 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 							IDisposable disposable2;
 							if ((disposable2 = (enumerator6 as IDisposable)) != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										disposable2.Dispose();
+										goto end_IL_05de;
 									}
-									break;
 								}
-								disposable2.Dispose();
 							}
+							end_IL_05de:;
 						}
 					}
-					this.m_seasonBucketDropdown.AddHitbox(this.m_seasonBucketDropdownBtn.m_button.spriteController.gameObject);
-					this.m_seasonBucketDropdown.SetSelectCallback(delegate(int bucketIndex)
+					m_seasonBucketDropdown.AddHitbox(m_seasonBucketDropdownBtn.m_button.spriteController.gameObject);
+					m_seasonBucketDropdown.SetSelectCallback(delegate(int bucketIndex)
 					{
-						this.m_currentSeasonBucket = bucketIndex;
-						this.SetupFreelancerRankings();
+						m_currentSeasonBucket = bucketIndex;
+						SetupFreelancerRankings();
 					});
-					this.SetupBucketDropdown();
+					SetupBucketDropdown();
 				}
-				if (this.m_freelancerComparisonList == null)
+				if (m_freelancerComparisonList != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_freelancerComparisonList = new List<UIFreelancerComparisonItem>();
-					this.m_freelancerComparisonList.AddRange(this.m_freelancerComparisonGrid.GetComponentsInChildren<UIFreelancerComparisonItem>(true));
-					this.m_freelancerComparisonMap = new Dictionary<CharacterType, UIFreelancerComparisonItem>();
+					return;
+				}
+				while (true)
+				{
+					m_freelancerComparisonList = new List<UIFreelancerComparisonItem>();
+					m_freelancerComparisonList.AddRange(m_freelancerComparisonGrid.GetComponentsInChildren<UIFreelancerComparisonItem>(true));
+					m_freelancerComparisonMap = new Dictionary<CharacterType, UIFreelancerComparisonItem>();
 					i = 0;
 					CharacterResourceLink[] characterResourceLinks = GameWideData.Get().m_characterResourceLinks;
-					int j = 0;
-					while (j < characterResourceLinks.Length)
+					foreach (CharacterResourceLink characterResourceLink2 in characterResourceLinks)
 					{
-						CharacterResourceLink characterResourceLink2 = characterResourceLinks[j];
-						if (characterResourceLink2.m_characterType.IsValidForHumanGameplay() && characterResourceLink2.m_allowForPlayers)
+						if (!characterResourceLink2.m_characterType.IsValidForHumanGameplay() || !characterResourceLink2.m_allowForPlayers)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!flag && characterResourceLink2.m_isHidden)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							else
-							{
-								CharacterConfig characterConfig = GameManager.Get().GameplayOverrides.GetCharacterConfig(characterResourceLink2.m_characterType);
-								if (characterConfig.AllowForPlayers && !characterConfig.IsHidden)
-								{
-									UIFreelancerComparisonItem uifreelancerComparisonItem;
-									if (i < this.m_freelancerComparisonList.Count)
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										uifreelancerComparisonItem = this.m_freelancerComparisonList[i];
-									}
-									else
-									{
-										uifreelancerComparisonItem = UnityEngine.Object.Instantiate<UIFreelancerComparisonItem>(this.m_freelancerComparisonPrefab);
-										uifreelancerComparisonItem.transform.SetParent(this.m_freelancerComparisonGrid.transform);
-										uifreelancerComparisonItem.transform.localPosition = Vector3.zero;
-										uifreelancerComparisonItem.transform.localScale = Vector3.one;
-										this.m_freelancerComparisonList.Add(uifreelancerComparisonItem);
-									}
-									UIManager.SetGameObjectActive(uifreelancerComparisonItem, true, null);
-									uifreelancerComparisonItem.Setup(characterResourceLink2);
-									this.m_freelancerComparisonMap.Add(characterResourceLink2.m_characterType, uifreelancerComparisonItem);
-									i++;
-								}
-							}
+							continue;
 						}
-						IL_7F6:
-						j++;
-						continue;
-						goto IL_7F6;
+						if (!flag && characterResourceLink2.m_isHidden)
+						{
+							continue;
+						}
+						CharacterConfig characterConfig = GameManager.Get().GameplayOverrides.GetCharacterConfig(characterResourceLink2.m_characterType);
+						if (!characterConfig.AllowForPlayers || characterConfig.IsHidden)
+						{
+							continue;
+						}
+						UIFreelancerComparisonItem uIFreelancerComparisonItem;
+						if (i < m_freelancerComparisonList.Count)
+						{
+							uIFreelancerComparisonItem = m_freelancerComparisonList[i];
+						}
+						else
+						{
+							uIFreelancerComparisonItem = UnityEngine.Object.Instantiate(m_freelancerComparisonPrefab);
+							uIFreelancerComparisonItem.transform.SetParent(m_freelancerComparisonGrid.transform);
+							uIFreelancerComparisonItem.transform.localPosition = Vector3.zero;
+							uIFreelancerComparisonItem.transform.localScale = Vector3.one;
+							m_freelancerComparisonList.Add(uIFreelancerComparisonItem);
+						}
+						UIManager.SetGameObjectActive(uIFreelancerComparisonItem, true);
+						uIFreelancerComparisonItem.Setup(characterResourceLink2);
+						m_freelancerComparisonMap.Add(characterResourceLink2.m_characterType, uIFreelancerComparisonItem);
+						i++;
 					}
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						break;
 					}
 				}
-				return;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
 
 	private void SetupFreelancerRankings()
 	{
-		this.m_freelancerComparisonDropdownBtn.Setup(StringUtil.TR("FreelancerOverviewCategory_" + this.m_overviewStat, "Global"), CharacterType.None);
-		for (int i = 0; i < this.m_freelancerComparisonList.Count; i++)
+		m_freelancerComparisonDropdownBtn.Setup(StringUtil.TR("FreelancerOverviewCategory_" + m_overviewStat, "Global"));
+		for (int i = 0; i < m_freelancerComparisonList.Count; i++)
 		{
-			this.m_freelancerComparisonList[i].SetupNewStat(this.m_overviewStat);
+			m_freelancerComparisonList[i].SetupNewStat(m_overviewStat);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
+			if (m_currentSeasonBucket < 0)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressOverview.SetupFreelancerRankings()).MethodHandle;
-		}
-		if (this.m_currentSeasonBucket < 0)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_seasonBucketDropdownBtn, false, null);
-		}
-		else
-		{
-			this.m_seasonBucketDropdownBtn.Setup(this.m_seasonBuckets[this.m_currentSeasonBucket].DisplayString, CharacterType.None);
-			UIManager.SetGameObjectActive(this.m_seasonBucketDropdownBtn, true, null);
-			ClientGameManager clientGameManager = ClientGameManager.Get();
-			int season = this.m_seasonBuckets[this.m_currentSeasonBucket].Season;
-			PersistedStatBucket statBucket = this.m_seasonBuckets[this.m_currentSeasonBucket].StatBucket;
-			if (this.m_overviewStat == UIPlayerProgressOverview.OverviewStat.NumBadges)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				bool flag = season == ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
-				using (Dictionary<CharacterType, PersistedCharacterData>.ValueCollection.Enumerator enumerator = clientGameManager.GetAllPlayerCharacterData().Values.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
-					{
-						PersistedCharacterData persistedCharacterData = enumerator.Current;
-						if (!this.m_freelancerComparisonMap.ContainsKey(persistedCharacterData.CharacterType))
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						else
-						{
-							Dictionary<PersistedStatBucket, Dictionary<int, int>> dictionary;
-							if (flag)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								dictionary = persistedCharacterData.ExperienceComponent.BadgesEarned;
-							}
-							else
-							{
-								if (!persistedCharacterData.ExperienceComponent.BadgesEarnedBySeason.ContainsKey(season))
-								{
-									continue;
-								}
-								dictionary = persistedCharacterData.ExperienceComponent.BadgesEarnedBySeason[season];
-							}
-							if (dictionary.ContainsKey(statBucket))
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_freelancerComparisonMap[persistedCharacterData.CharacterType].Adjust(dictionary[statBucket].Values.Sum());
-							}
-						}
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
+				UIManager.SetGameObjectActive(m_seasonBucketDropdownBtn, false);
 			}
 			else
 			{
-				bool flag2 = season == ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
-				using (Dictionary<CharacterType, PersistedCharacterData>.ValueCollection.Enumerator enumerator2 = clientGameManager.GetAllPlayerCharacterData().Values.GetEnumerator())
+				m_seasonBucketDropdownBtn.Setup(m_seasonBuckets[m_currentSeasonBucket].DisplayString);
+				UIManager.SetGameObjectActive(m_seasonBucketDropdownBtn, true);
+				ClientGameManager clientGameManager = ClientGameManager.Get();
+				int season = m_seasonBuckets[m_currentSeasonBucket].Season;
+				PersistedStatBucket statBucket = m_seasonBuckets[m_currentSeasonBucket].StatBucket;
+				if (m_overviewStat == OverviewStat.NumBadges)
 				{
-					while (enumerator2.MoveNext())
+					bool flag = season == ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
+					using (Dictionary<CharacterType, PersistedCharacterData>.ValueCollection.Enumerator enumerator = clientGameManager.GetAllPlayerCharacterData().Values.GetEnumerator())
 					{
-						PersistedCharacterData persistedCharacterData2 = enumerator2.Current;
-						if (!this.m_freelancerComparisonMap.ContainsKey(persistedCharacterData2.CharacterType))
+						while (enumerator.MoveNext())
 						{
-							for (;;)
+							PersistedCharacterData current = enumerator.Current;
+							if (!m_freelancerComparisonMap.ContainsKey(current.CharacterType))
 							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						else
-						{
-							Dictionary<PersistedStatBucket, PersistedStats> dictionary2;
-							if (flag2)
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								dictionary2 = persistedCharacterData2.ExperienceComponent.PersistedStatsDictionary;
 							}
 							else
 							{
-								if (!persistedCharacterData2.ExperienceComponent.PersistedStatsDictionaryBySeason.ContainsKey(season))
+								Dictionary<PersistedStatBucket, Dictionary<int, int>> dictionary;
+								if (flag)
 								{
-									continue;
-								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								dictionary2 = persistedCharacterData2.ExperienceComponent.PersistedStatsDictionaryBySeason[season];
-							}
-							if (dictionary2.ContainsKey(statBucket))
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.m_overviewStat == UIPlayerProgressOverview.OverviewStat.DamageEfficiency)
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.m_freelancerComparisonMap[persistedCharacterData2.CharacterType].CombineStats(dictionary2[statBucket].DamageEfficiency);
-								}
-								else if (this.m_overviewStat == UIPlayerProgressOverview.OverviewStat.AverageTakedownsPerLife)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									PersistedStatEntry copy = dictionary2[statBucket].TotalPlayerAssists.GetCopy();
-									copy.NumGamesInSum += dictionary2[statBucket].TotalDeaths.Sum;
-									this.m_freelancerComparisonMap[persistedCharacterData2.CharacterType].CombineStats(copy);
-								}
-								else if (this.m_overviewStat == UIPlayerProgressOverview.OverviewStat.AverageTakedownsPerMatch)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.m_freelancerComparisonMap[persistedCharacterData2.CharacterType].CombineStats(dictionary2[statBucket].TotalPlayerAssists);
-								}
-								else if (this.m_overviewStat == UIPlayerProgressOverview.OverviewStat.AverageDeathsPerMatch)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.m_freelancerComparisonMap[persistedCharacterData2.CharacterType].CombineStats(dictionary2[statBucket].TotalDeaths);
-								}
-								else if (this.m_overviewStat == UIPlayerProgressOverview.OverviewStat.AverageDamageDonePerTurn)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.m_freelancerComparisonMap[persistedCharacterData2.CharacterType].CombineStats(dictionary2[statBucket].DamagePerTurn);
-								}
-								else if (this.m_overviewStat == UIPlayerProgressOverview.OverviewStat.AverageSupportDonePerTurn)
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.m_freelancerComparisonMap[persistedCharacterData2.CharacterType].CombineStats(dictionary2[statBucket].SupportPerTurn);
-								}
-								else if (this.m_overviewStat == UIPlayerProgressOverview.OverviewStat.AverageDamageTakenPerTurn)
-								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.m_freelancerComparisonMap[persistedCharacterData2.CharacterType].CombineStats(dictionary2[statBucket].DamageTakenPerTurn);
-								}
-								else if (this.m_overviewStat == UIPlayerProgressOverview.OverviewStat.TimePlayed)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.m_freelancerComparisonMap[persistedCharacterData2.CharacterType].CombineStats(dictionary2[statBucket].SecondsPlayed);
+									dictionary = current.ExperienceComponent.BadgesEarned;
 								}
 								else
 								{
-									if (this.m_overviewStat != UIPlayerProgressOverview.OverviewStat.MatchesWon)
+									if (!current.ExperienceComponent.BadgesEarnedBySeason.ContainsKey(season))
 									{
-										if (this.m_overviewStat != UIPlayerProgressOverview.OverviewStat.WinPercentage)
-										{
-											continue;
-										}
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
+										continue;
 									}
-									this.m_freelancerComparisonMap[persistedCharacterData2.CharacterType].CombineStats(dictionary2[statBucket].MatchesWon);
+									dictionary = current.ExperienceComponent.BadgesEarnedBySeason[season];
+								}
+								if (dictionary.ContainsKey(statBucket))
+								{
+									m_freelancerComparisonMap[current.CharacterType].Adjust(dictionary[statBucket].Values.Sum());
 								}
 							}
 						}
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-			}
-		}
-		List<UIFreelancerComparisonItem> freelancerComparisonList = this.m_freelancerComparisonList;
-		if (UIPlayerProgressOverview.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIPlayerProgressOverview.<>f__am$cache1 = delegate(UIFreelancerComparisonItem x, UIFreelancerComparisonItem y)
-			{
-				int num = x.GetValue().CompareTo(y.GetValue());
-				int result;
-				if (num == 0)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIPlayerProgressOverview.<SetupFreelancerRankings>m__1(UIFreelancerComparisonItem, UIFreelancerComparisonItem)).MethodHandle;
-					}
-					result = y.m_characterName.text.CompareTo(x.m_characterName.text);
 				}
 				else
 				{
-					result = num;
+					bool flag2 = season == ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
+					using (Dictionary<CharacterType, PersistedCharacterData>.ValueCollection.Enumerator enumerator2 = clientGameManager.GetAllPlayerCharacterData().Values.GetEnumerator())
+					{
+						while (enumerator2.MoveNext())
+						{
+							PersistedCharacterData current2 = enumerator2.Current;
+							if (!m_freelancerComparisonMap.ContainsKey(current2.CharacterType))
+							{
+							}
+							else
+							{
+								Dictionary<PersistedStatBucket, PersistedStats> dictionary2;
+								if (flag2)
+								{
+									dictionary2 = current2.ExperienceComponent.PersistedStatsDictionary;
+								}
+								else
+								{
+									if (!current2.ExperienceComponent.PersistedStatsDictionaryBySeason.ContainsKey(season))
+									{
+										continue;
+									}
+									dictionary2 = current2.ExperienceComponent.PersistedStatsDictionaryBySeason[season];
+								}
+								if (dictionary2.ContainsKey(statBucket))
+								{
+									if (m_overviewStat == OverviewStat.DamageEfficiency)
+									{
+										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].DamageEfficiency);
+									}
+									else if (m_overviewStat == OverviewStat.AverageTakedownsPerLife)
+									{
+										PersistedStatEntry copy = dictionary2[statBucket].TotalPlayerAssists.GetCopy();
+										copy.NumGamesInSum += dictionary2[statBucket].TotalDeaths.Sum;
+										m_freelancerComparisonMap[current2.CharacterType].CombineStats(copy);
+									}
+									else if (m_overviewStat == OverviewStat.AverageTakedownsPerMatch)
+									{
+										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].TotalPlayerAssists);
+									}
+									else if (m_overviewStat == OverviewStat.AverageDeathsPerMatch)
+									{
+										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].TotalDeaths);
+									}
+									else if (m_overviewStat == OverviewStat.AverageDamageDonePerTurn)
+									{
+										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].DamagePerTurn);
+									}
+									else if (m_overviewStat == OverviewStat.AverageSupportDonePerTurn)
+									{
+										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].SupportPerTurn);
+									}
+									else if (m_overviewStat == OverviewStat.AverageDamageTakenPerTurn)
+									{
+										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].DamageTakenPerTurn);
+									}
+									else if (m_overviewStat == OverviewStat.TimePlayed)
+									{
+										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].SecondsPlayed);
+									}
+									else
+									{
+										if (m_overviewStat != OverviewStat.MatchesWon)
+										{
+											if (m_overviewStat != OverviewStat.WinPercentage)
+											{
+												continue;
+											}
+										}
+										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].MatchesWon);
+									}
+								}
+							}
+						}
+					}
 				}
-				return result;
-			};
-		}
-		freelancerComparisonList.Sort(UIPlayerProgressOverview.<>f__am$cache1);
-		float value = this.m_freelancerComparisonList[this.m_freelancerComparisonList.Count - 1].GetValue();
-		for (int j = 0; j < this.m_freelancerComparisonList.Count; j++)
-		{
-			this.m_freelancerComparisonList[j].transform.SetAsFirstSibling();
-			this.m_freelancerComparisonList[j].SetupDisplay(value);
+			}
+			List<UIFreelancerComparisonItem> freelancerComparisonList = m_freelancerComparisonList;
+			
+			freelancerComparisonList.Sort(delegate(UIFreelancerComparisonItem x, UIFreelancerComparisonItem y)
+				{
+					int num = x.GetValue().CompareTo(y.GetValue());
+					int result;
+					if (num == 0)
+					{
+						result = y.m_characterName.text.CompareTo(x.m_characterName.text);
+					}
+					else
+					{
+						result = num;
+					}
+					return result;
+				});
+			float value = m_freelancerComparisonList[m_freelancerComparisonList.Count - 1].GetValue();
+			for (int j = 0; j < m_freelancerComparisonList.Count; j++)
+			{
+				m_freelancerComparisonList[j].transform.SetAsFirstSibling();
+				m_freelancerComparisonList[j].SetupDisplay(value);
+			}
+			return;
 		}
 	}
 
@@ -965,308 +594,139 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 			{
 				while (enumerator.MoveNext())
 				{
-					KeyValuePair<PersistedStatBucket, PersistedStats> keyValuePair = enumerator.Current;
-					if (keyValuePair.Key != PersistedStatBucket.DoNotPersist && keyValuePair.Key != PersistedStatBucket.None)
+					KeyValuePair<PersistedStatBucket, PersistedStats> current = enumerator.Current;
+					if (current.Key != PersistedStatBucket.DoNotPersist && current.Key != 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressOverview.GetStatsList(PersistedCharacterData)).MethodHandle;
-						}
-						list.Add(keyValuePair.Value);
+						list.Add(current.Value);
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return list;
 		}
-		return list;
 	}
 
 	private void OpenFreelancerComparisonDropdown(BaseEventData data)
 	{
-		this.m_freelancerComparisonDropdown.Toggle();
-		this.m_freelancerComparisonDropdown.HighlightCurrentOption((int)this.m_overviewStat);
+		m_freelancerComparisonDropdown.Toggle();
+		m_freelancerComparisonDropdown.HighlightCurrentOption((int)m_overviewStat);
 	}
 
 	private void OpenSeasonBucketDropdown(BaseEventData data)
 	{
-		this.m_seasonBucketDropdown.Toggle();
-		this.m_seasonBucketDropdown.HighlightCurrentOption(this.m_currentSeasonBucket);
+		m_seasonBucketDropdown.Toggle();
+		m_seasonBucketDropdown.HighlightCurrentOption(m_currentSeasonBucket);
 	}
 
 	private void SetupBucketDropdown()
 	{
-		bool[] shouldShow = new bool[this.m_seasonBuckets.Count];
+		bool[] shouldShow = new bool[m_seasonBuckets.Count];
 		int activeSeason = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
-		UIPlayerProgressOverview.OverviewStat overviewStat = this.m_overviewStat;
-		if (overviewStat != UIPlayerProgressOverview.OverviewStat.NumBadges)
+		OverviewStat overviewStat = m_overviewStat;
+		if (overviewStat == OverviewStat.NumBadges)
 		{
-			List<PersistedCharacterData> list = new List<PersistedCharacterData>();
-			list.AddRange(ClientGameManager.Get().GetAllPlayerCharacterData().Values);
-			int i = 0;
-			IL_3C9:
-			while (i < this.m_seasonBuckets.Count)
+			Dictionary<string, bool> dictionary = new Dictionary<string, bool>();
+			foreach (PersistedCharacterData value in ClientGameManager.Get().GetAllPlayerCharacterData().Values)
 			{
-				int j = 0;
-				while (j < list.Count)
+				foreach (KeyValuePair<PersistedStatBucket, Dictionary<int, int>> item in value.ExperienceComponent.BadgesEarned)
 				{
-					Dictionary<PersistedStatBucket, PersistedStats> dictionary;
-					if (this.m_seasonBuckets[i].Season == activeSeason)
+					PersistedStatBucket key = item.Key;
+					int num = item.Value.Values.Sum();
+					if (num > 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						dictionary = list[j].ExperienceComponent.PersistedStatsDictionary;
-						goto IL_36C;
+						dictionary[activeSeason + key.ToString()] = true;
 					}
-					if (list[j].ExperienceComponent.PersistedStatsDictionaryBySeason.ContainsKey(this.m_seasonBuckets[i].Season))
-					{
-						dictionary = list[j].ExperienceComponent.PersistedStatsDictionaryBySeason[this.m_seasonBuckets[i].Season];
-						goto IL_36C;
-					}
-					IL_3A3:
-					j++;
-					continue;
-					IL_36C:
-					if (dictionary.ContainsKey(this.m_seasonBuckets[i].StatBucket))
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						shouldShow[i] = true;
-						IL_3C3:
-						i++;
-						goto IL_3C9;
-					}
-					goto IL_3A3;
 				}
-				for (;;)
+				using (Dictionary<int, Dictionary<PersistedStatBucket, Dictionary<int, int>>>.Enumerator enumerator3 = value.ExperienceComponent.BadgesEarnedBySeason.GetEnumerator())
 				{
-					switch (5)
+					while (enumerator3.MoveNext())
 					{
-					case 0:
-						continue;
+						KeyValuePair<int, Dictionary<PersistedStatBucket, Dictionary<int, int>>> current3 = enumerator3.Current;
+						int key2 = current3.Key;
+						using (Dictionary<PersistedStatBucket, Dictionary<int, int>>.Enumerator enumerator4 = current3.Value.GetEnumerator())
+						{
+							while (enumerator4.MoveNext())
+							{
+								KeyValuePair<PersistedStatBucket, Dictionary<int, int>> current4 = enumerator4.Current;
+								PersistedStatBucket key3 = current4.Key;
+								int num2 = current4.Value.Values.Sum();
+								if (num2 > 0)
+								{
+									dictionary[key2 + key3.ToString()] = true;
+								}
+							}
+						}
 					}
-					goto IL_3C3;
 				}
 			}
-			for (;;)
+			for (int i = 0; i < m_seasonBuckets.Count; i++)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				int season = m_seasonBuckets[i].Season;
+				PersistedStatBucket statBucket = m_seasonBuckets[i].StatBucket;
+				shouldShow[i] = dictionary.ContainsKey(season + statBucket.ToString());
 			}
 		}
 		else
 		{
-			Dictionary<string, bool> dictionary2 = new Dictionary<string, bool>();
-			foreach (PersistedCharacterData persistedCharacterData in ClientGameManager.Get().GetAllPlayerCharacterData().Values)
+			List<PersistedCharacterData> list = new List<PersistedCharacterData>();
+			list.AddRange(ClientGameManager.Get().GetAllPlayerCharacterData().Values);
+			for (int j = 0; j < m_seasonBuckets.Count; j++)
 			{
-				foreach (KeyValuePair<PersistedStatBucket, Dictionary<int, int>> keyValuePair in persistedCharacterData.ExperienceComponent.BadgesEarned)
+				int num3 = 0;
+				while (true)
 				{
-					PersistedStatBucket key = keyValuePair.Key;
-					int num = keyValuePair.Value.Values.Sum();
-					if (num > 0)
+					if (num3 < list.Count)
 					{
-						dictionary2[activeSeason + key.ToString()] = true;
-					}
-				}
-				using (Dictionary<int, Dictionary<PersistedStatBucket, Dictionary<int, int>>>.Enumerator enumerator3 = persistedCharacterData.ExperienceComponent.BadgesEarnedBySeason.GetEnumerator())
-				{
-					while (enumerator3.MoveNext())
-					{
-						KeyValuePair<int, Dictionary<PersistedStatBucket, Dictionary<int, int>>> keyValuePair2 = enumerator3.Current;
-						int key2 = keyValuePair2.Key;
-						using (Dictionary<PersistedStatBucket, Dictionary<int, int>>.Enumerator enumerator4 = keyValuePair2.Value.GetEnumerator())
+						Dictionary<PersistedStatBucket, PersistedStats> dictionary2;
+						if (m_seasonBuckets[j].Season == activeSeason)
 						{
-							while (enumerator4.MoveNext())
-							{
-								KeyValuePair<PersistedStatBucket, Dictionary<int, int>> keyValuePair3 = enumerator4.Current;
-								PersistedStatBucket key3 = keyValuePair3.Key;
-								int num2 = keyValuePair3.Value.Values.Sum();
-								if (num2 > 0)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!true)
-									{
-										RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressOverview.SetupBucketDropdown()).MethodHandle;
-									}
-									dictionary2[key2 + key3.ToString()] = true;
-								}
-							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
+							dictionary2 = list[num3].ExperienceComponent.PersistedStatsDictionary;
 						}
-					}
-					for (;;)
-					{
-						switch (5)
+						else
 						{
-						case 0:
-							continue;
+							if (!list[num3].ExperienceComponent.PersistedStatsDictionaryBySeason.ContainsKey(m_seasonBuckets[j].Season))
+							{
+								goto IL_03a3;
+							}
+							dictionary2 = list[num3].ExperienceComponent.PersistedStatsDictionaryBySeason[m_seasonBuckets[j].Season];
 						}
-						break;
-					}
-				}
-			}
-			for (int k = 0; k < this.m_seasonBuckets.Count; k++)
-			{
-				int season = this.m_seasonBuckets[k].Season;
-				PersistedStatBucket statBucket = this.m_seasonBuckets[k].StatBucket;
-				shouldShow[k] = dictionary2.ContainsKey(season + statBucket.ToString());
-			}
-		}
-		this.m_seasonBucketDropdown.CheckOptionDisplayState((int seasonBucketIndex) => shouldShow[seasonBucketIndex]);
-		int num3 = 0;
-		if (!this.m_seasonBucketDropdown.IsOptionVisible(this.m_currentSeasonBucket))
-		{
-			this.m_currentSeasonBucket = -1;
-		}
-		for (int l = 0; l < shouldShow.Length; l++)
-		{
-			if (shouldShow[l])
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
+						if (dictionary2.ContainsKey(m_seasonBuckets[j].StatBucket))
+						{
+							shouldShow[j] = true;
+							break;
+						}
+						goto IL_03a3;
 					}
 					break;
+					IL_03a3:
+					num3++;
 				}
-				if (this.m_currentSeasonBucket < 0)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_currentSeasonBucket = l;
-				}
-				num3++;
 			}
 		}
-		for (;;)
+		m_seasonBucketDropdown.CheckOptionDisplayState((int seasonBucketIndex) => shouldShow[seasonBucketIndex]);
+		int num4 = 0;
+		if (!m_seasonBucketDropdown.IsOptionVisible(m_currentSeasonBucket))
 		{
-			switch (7)
+			m_currentSeasonBucket = -1;
+		}
+		for (int k = 0; k < shouldShow.Length; k++)
+		{
+			if (!shouldShow[k])
 			{
-			case 0:
 				continue;
 			}
-			break;
+			if (m_currentSeasonBucket < 0)
+			{
+				m_currentSeasonBucket = k;
+			}
+			num4++;
 		}
-		this.m_seasonBucketDropdownBtn.m_button.SetDisabled(num3 < 2);
-	}
-
-	public enum OverviewStat
-	{
-		TimePlayed,
-		MatchesWon,
-		WinPercentage,
-		NumBadges,
-		DamageEfficiency,
-		AverageTakedownsPerLife,
-		AverageTakedownsPerMatch,
-		AverageDeathsPerMatch,
-		AverageDamageDonePerTurn,
-		AverageSupportDonePerTurn,
-		AverageDamageTakenPerTurn
-	}
-
-	private class SeasonBucket
-	{
-		public SeasonBucket(SeasonTemplate season, PersistedStatBucket statBucket)
+		while (true)
 		{
-			this.Season = season.Index;
-			this.StatBucket = statBucket;
-			if (this.Season == ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressOverview.SeasonBucket..ctor(SeasonTemplate, PersistedStatBucket)).MethodHandle;
-				}
-				this.DisplayString = StringUtil.TR("CurrentSeason", "Global");
-			}
-			else
-			{
-				this.DisplayString = season.GetDisplayName();
-			}
-			this.DisplayString = this.DisplayString + ": " + StringUtil.TR_PersistedStatBucketName(statBucket);
+			m_seasonBucketDropdownBtn.m_button.SetDisabled(num4 < 2);
+			return;
 		}
-
-		public int Season { get; private set; }
-
-		public PersistedStatBucket StatBucket { get; private set; }
-
-		public string DisplayString { get; private set; }
 	}
 }

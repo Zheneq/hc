@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetSelect_FanLaser : GenericAbility_TargetSelectBase
@@ -34,33 +33,32 @@ public class TargetSelect_FanLaser : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u0019.\u0012(), "on every hit actor, number of laser hits on target", true) + base.GetContextUsageStr(ContextKeys.\u001A.\u0012(), "on every hit actor, 1 if in laser end AoE, 0 otherwise", true);
+		return GetContextUsageStr(ContextKeys._0019.GetName(), "on every hit actor, number of laser hits on target") + GetContextUsageStr(ContextKeys._001A.GetName(), "on every hit actor, 1 if in laser end AoE, 0 otherwise");
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u0019.\u0012());
-		names.Add(ContextKeys.\u001A.\u0012());
+		names.Add(ContextKeys._0019.GetName());
+		names.Add(ContextKeys._001A.GetName());
 	}
 
 	public override void Initialize()
 	{
-		this.m_laserInfo.affectsEnemies = this.m_includeEnemies;
-		this.m_laserInfo.affectsAllies = this.m_includeAllies;
-		this.m_laserInfo.affectsCaster = this.m_includeCaster;
-		this.m_laserInfo.penetrateLos = this.m_ignoreLos;
+		m_laserInfo.affectsEnemies = m_includeEnemies;
+		m_laserInfo.affectsAllies = m_includeAllies;
+		m_laserInfo.affectsCaster = m_includeCaster;
+		m_laserInfo.penetrateLos = m_ignoreLos;
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)
 	{
-		AbilityUtil_Targeter_NekoDiscsFan abilityUtil_Targeter_NekoDiscsFan = new AbilityUtil_Targeter_NekoDiscsFan(ability, this.m_targeterMinAngle, this.m_targeterMaxAngle, this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance, this.m_laserInfo.range, this.m_laserInfo.width, this.m_laserEndAoeRadius, this.m_laserInfo.maxTargets, this.m_laserCount, this.m_ignoreLos, 0f, this.m_startAngleOffset);
-		abilityUtil_Targeter_NekoDiscsFan.SetFixedAngle(this.m_changeAngleByCursorDistance, this.m_angleInBetween);
+		AbilityUtil_Targeter_NekoDiscsFan abilityUtil_Targeter_NekoDiscsFan = new AbilityUtil_Targeter_NekoDiscsFan(ability, m_targeterMinAngle, m_targeterMaxAngle, m_targeterMinInterpDistance, m_targeterMaxInterpDistance, m_laserInfo.range, m_laserInfo.width, m_laserEndAoeRadius, m_laserInfo.maxTargets, m_laserCount, m_ignoreLos, 0f, m_startAngleOffset);
+		abilityUtil_Targeter_NekoDiscsFan.SetFixedAngle(m_changeAngleByCursorDistance, m_angleInBetween);
 		abilityUtil_Targeter_NekoDiscsFan.SetUseHitActorPosForLaserEnd(false);
 		abilityUtil_Targeter_NekoDiscsFan.SetShowEndSquareHighlight(false);
-		abilityUtil_Targeter_NekoDiscsFan.SetAffectedGroups(this.m_includeEnemies, this.m_includeAllies, this.m_includeCaster);
-		return new List<AbilityUtil_Targeter>
-		{
-			abilityUtil_Targeter_NekoDiscsFan
-		};
+		abilityUtil_Targeter_NekoDiscsFan.SetAffectedGroups(m_includeEnemies, m_includeAllies, m_includeCaster);
+		List<AbilityUtil_Targeter> list = new List<AbilityUtil_Targeter>();
+		list.Add(abilityUtil_Targeter_NekoDiscsFan);
+		return list;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Runtime.InteropServices;
 using UnityEngine.Networking;
 
@@ -7,61 +6,39 @@ public class Soldier_SyncComponent : NetworkBehaviour
 	[SyncVar]
 	public sbyte m_lastPrimaryUsedMode;
 
-	private void UNetVersion()
-	{
-	}
-
 	public sbyte Networkm_lastPrimaryUsedMode
 	{
 		get
 		{
-			return this.m_lastPrimaryUsedMode;
+			return m_lastPrimaryUsedMode;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<sbyte>(value, ref this.m_lastPrimaryUsedMode, 1U);
+			SetSyncVar(value, ref m_lastPrimaryUsedMode, 1u);
 		}
+	}
+
+	private void UNetVersion()
+	{
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			writer.WritePackedUInt32((uint)this.m_lastPrimaryUsedMode);
+			writer.WritePackedUInt32((uint)m_lastPrimaryUsedMode);
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Soldier_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_lastPrimaryUsedMode);
+			writer.WritePackedUInt32((uint)m_lastPrimaryUsedMode);
 		}
 		if (!flag)
 		{
@@ -74,26 +51,22 @@ public class Soldier_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_lastPrimaryUsedMode = (sbyte)reader.ReadPackedUInt32();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Soldier_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
-			this.m_lastPrimaryUsedMode = (sbyte)reader.ReadPackedUInt32();
-			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			this.m_lastPrimaryUsedMode = (sbyte)reader.ReadPackedUInt32();
+			m_lastPrimaryUsedMode = (sbyte)reader.ReadPackedUInt32();
 		}
 	}
 }

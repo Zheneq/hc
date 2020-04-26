@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 
 public abstract class ThreadedJob
@@ -13,20 +13,16 @@ public abstract class ThreadedJob
 	{
 		get
 		{
-			object lockObject = this.m_lockObject;
-			bool threadFunctionReturned;
-			lock (lockObject)
+			lock (m_lockObject)
 			{
-				threadFunctionReturned = this.m_threadFunctionReturned;
+				return m_threadFunctionReturned;
 			}
-			return threadFunctionReturned;
 		}
 		set
 		{
-			object lockObject = this.m_lockObject;
-			lock (lockObject)
+			lock (m_lockObject)
 			{
-				this.m_threadFunctionReturned = value;
+				m_threadFunctionReturned = value;
 			}
 		}
 	}
@@ -35,57 +31,36 @@ public abstract class ThreadedJob
 	{
 		get
 		{
-			bool result;
-			if (this.m_thread != null)
+			int result;
+			if (m_thread != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ThreadedJob.get_IsThreadAlive()).MethodHandle;
-				}
-				result = this.m_thread.IsAlive;
+				result = (m_thread.IsAlive ? 1 : 0);
 			}
 			else
 			{
-				result = false;
+				result = 0;
 			}
-			return result;
+			return (byte)result != 0;
 		}
 	}
 
 	internal void StartThread()
 	{
-		this.ThreadFunctionReturned = false;
-		this.m_thread = new Thread(new ThreadStart(this.Run));
-		this.m_thread.Start();
+		ThreadFunctionReturned = false;
+		m_thread = new Thread(Run);
+		m_thread.Start();
 	}
 
 	internal void Abort()
 	{
-		if (this.m_thread != null)
+		if (m_thread == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThreadedJob.Abort()).MethodHandle;
-			}
-			this.m_thread.Abort();
+			return;
+		}
+		while (true)
+		{
+			m_thread.Abort();
+			return;
 		}
 	}
 
@@ -97,23 +72,15 @@ public abstract class ThreadedJob
 
 	internal virtual void Update()
 	{
-		if (this.ThreadFunctionReturned)
+		if (!ThreadFunctionReturned)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThreadedJob.Update()).MethodHandle;
-			}
-			this.OnThreadFunctionReturned();
-			this.ThreadFunctionReturned = false;
+			return;
+		}
+		while (true)
+		{
+			OnThreadFunctionReturned();
+			ThreadFunctionReturned = false;
+			return;
 		}
 	}
 
@@ -121,7 +88,7 @@ public abstract class ThreadedJob
 	{
 		try
 		{
-			this.ThreadFunction();
+			ThreadFunction();
 		}
 		catch (ThreadAbortException exception)
 		{
@@ -131,6 +98,6 @@ public abstract class ThreadedJob
 		{
 			Log.Exception(exception2);
 		}
-		this.ThreadFunctionReturned = true;
+		ThreadFunctionReturned = true;
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace LobbyGameClientMessages
 {
@@ -29,119 +29,74 @@ namespace LobbyGameClientMessages
 
 		public int CompareTo(RankedScoreboardEntry other)
 		{
-			bool flag = this.Tier <= 0;
+			bool flag = Tier <= 0;
 			bool flag2 = other.Tier <= 0;
 			if (flag != flag2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RankedScoreboardEntry.CompareTo(RankedScoreboardEntry)).MethodHandle;
-				}
-				int result;
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					result = 1;
-				}
-				else
-				{
-					result = -1;
-				}
-				return result;
-			}
-			bool flag3;
-			if (this.Tier != 1)
-			{
-				for (;;)
-				{
-					switch (2)
+					default:
 					{
-					case 0:
-						continue;
+						int result;
+						if (flag)
+						{
+							result = 1;
+						}
+						else
+						{
+							result = -1;
+						}
+						return result;
 					}
-					break;
+					}
 				}
-				flag3 = (this.Tier == 2);
+			}
+			int num;
+			if (Tier != 1)
+			{
+				num = ((Tier == 2) ? 1 : 0);
 			}
 			else
 			{
-				flag3 = true;
+				num = 1;
 			}
-			bool flag4 = flag3;
-			bool flag5 = other.Tier == 1 || other.Tier == 2;
-			if (flag4 != flag5)
+			bool flag3 = (byte)num != 0;
+			bool flag4 = other.Tier == 1 || other.Tier == 2;
+			if (flag3 != flag4)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				int result2;
-				if (flag4)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					result2 = -1;
-				}
-				else
-				{
-					result2 = 1;
-				}
-				return result2;
-			}
-			if (!flag4)
-			{
-				for (;;)
-				{
-					switch (1)
+					default:
 					{
-					case 0:
-						continue;
+						int result2;
+						if (flag3)
+						{
+							result2 = -1;
+						}
+						else
+						{
+							result2 = 1;
+						}
+						return result2;
 					}
-					break;
+					}
 				}
-				if (this.Tier != other.Tier)
+			}
+			if (!flag3)
+			{
+				if (Tier != other.Tier)
 				{
 					int result3;
-					if (this.Tier < other.Tier)
+					if (Tier < other.Tier)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result3 = -1;
 					}
 					else
@@ -151,164 +106,133 @@ namespace LobbyGameClientMessages
 					return result3;
 				}
 			}
-			if (this.TierPoints != other.TierPoints)
+			if (TierPoints != other.TierPoints)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				int result4;
-				if (this.TierPoints > other.TierPoints)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						int result4;
+						if (TierPoints > other.TierPoints)
+						{
+							result4 = -1;
+						}
+						else
+						{
+							result4 = 1;
+						}
+						return result4;
 					}
-					result4 = -1;
+					}
 				}
-				else
-				{
-					result4 = 1;
-				}
-				return result4;
 			}
-			if (this.WinStreak != other.WinStreak)
+			if (WinStreak != other.WinStreak)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				int result5;
-				if (this.WinStreak > other.WinStreak)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						int result5;
+						if (WinStreak > other.WinStreak)
+						{
+							result5 = -1;
+						}
+						else
+						{
+							result5 = 1;
+						}
+						return result5;
 					}
-					result5 = -1;
+					}
 				}
-				else
-				{
-					result5 = 1;
-				}
-				return result5;
 			}
-			if (this.WinCount != other.WinCount)
+			if (WinCount != other.WinCount)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				int result6;
-				if (this.WinCount > other.WinCount)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						int result6;
+						if (WinCount > other.WinCount)
+						{
+							result6 = -1;
+						}
+						else
+						{
+							result6 = 1;
+						}
+						return result6;
 					}
-					result6 = -1;
+					}
 				}
-				else
-				{
-					result6 = 1;
-				}
-				return result6;
 			}
-			if (this.MatchCount != other.MatchCount)
+			if (MatchCount != other.MatchCount)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				int result7;
-				if (this.MatchCount < other.MatchCount)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						int result7;
+						if (MatchCount < other.MatchCount)
+						{
+							result7 = -1;
+						}
+						else
+						{
+							result7 = 1;
+						}
+						return result7;
 					}
-					result7 = -1;
+					}
 				}
-				else
-				{
-					result7 = 1;
-				}
-				return result7;
 			}
-			return other.LastMatch.CompareTo(this.LastMatch);
+			return other.LastMatch.CompareTo(LastMatch);
 		}
 
-		public static RankedScoreboardEntry? \u001D(MatchmakingQueueConfig \u001D, RankedData \u000E)
+		public static RankedScoreboardEntry? _001D(MatchmakingQueueConfig _001D, RankedData _000E)
 		{
-			if (\u000E != null)
+			if (_000E != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						RankedScoreboardEntry value = default(RankedScoreboardEntry);
+						value.Handle = _000E.Handle;
+						value.Tier = _000E.GetPlayerFacingTier(_001D);
+						value.AccountID = _000E.AccountId;
+						value.TierPoints = _000E.GetPlayerFacingTierPoints(_001D);
+						value.InstanceId = _000E.DivisionId;
+						value.LastMatch = _000E.LastMatch;
+						value.WinCount = _000E.Wins;
+						value.WinStreak = _000E.WinStreak;
+						value.MatchCount = _000E.MatchCount;
+						value.YesterdaysPoints = _000E.YesterdaysPoints;
+						value.YesterdaysTier = _000E.YesterdaysTier;
+						return value;
 					}
-					break;
+					}
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RankedScoreboardEntry.\u001D(MatchmakingQueueConfig, RankedData)).MethodHandle;
-				}
-				return new RankedScoreboardEntry?(new RankedScoreboardEntry
-				{
-					Handle = \u000E.Handle,
-					Tier = \u000E.GetPlayerFacingTier(\u001D),
-					AccountID = \u000E.AccountId,
-					TierPoints = \u000E.GetPlayerFacingTierPoints(\u001D),
-					InstanceId = \u000E.DivisionId,
-					LastMatch = \u000E.LastMatch,
-					WinCount = \u000E.Wins,
-					WinStreak = \u000E.WinStreak,
-					MatchCount = \u000E.MatchCount,
-					YesterdaysPoints = \u000E.YesterdaysPoints,
-					YesterdaysTier = \u000E.YesterdaysTier
-				});
 			}
 			return null;
 		}

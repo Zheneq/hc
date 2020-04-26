@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UIVideoOverlayPanel : MonoBehaviour
@@ -11,67 +10,50 @@ public class UIVideoOverlayPanel : MonoBehaviour
 
 	private void Update()
 	{
-		PlayRawImageMovieTexture videoPlayer = this.GetVideoPlayer();
-		if (videoPlayer)
+		PlayRawImageMovieTexture videoPlayer = GetVideoPlayer();
+		if (!videoPlayer)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIVideoOverlayPanel.Update()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (videoPlayer.MovieState == PlayRawImageMovieTexture.MovieStates.Done)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					UILandingPageFullScreenMenus.Get().SetVideoContainerVisible(false);
+					return;
 				}
-				UILandingPageFullScreenMenus.Get().SetVideoContainerVisible(false);
 			}
+			return;
 		}
 	}
 
 	public PlayRawImageMovieTexture GetVideoPlayer()
 	{
-		if (this.m_videoPlacement)
+		if ((bool)m_videoPlacement)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_videoPlacement.GetComponentInChildren<PlayRawImageMovieTexture>();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIVideoOverlayPanel.GetVideoPlayer()).MethodHandle;
-			}
-			return this.m_videoPlacement.GetComponentInChildren<PlayRawImageMovieTexture>();
 		}
 		return null;
 	}
 
 	public void PlayVideo(string movieAssetName)
 	{
-		PlayRawImageMovieTexture videoPlayer = this.GetVideoPlayer();
-		if (videoPlayer)
+		PlayRawImageMovieTexture videoPlayer = GetVideoPlayer();
+		if ((bool)videoPlayer)
 		{
 			bool loop = false;
-			videoPlayer.Play(movieAssetName, loop, false, true);
+			videoPlayer.Play(movieAssetName, loop);
 		}
 	}
 }

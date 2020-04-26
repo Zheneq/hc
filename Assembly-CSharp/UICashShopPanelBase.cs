@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -36,267 +35,205 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 
 	private void Initialize()
 	{
-		if (this.m_isInitialized)
+		if (m_isInitialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanelBase.Initialize()).MethodHandle;
-			}
-			return;
 		}
-		this.m_isInitialized = true;
-		this.m_purchaseableItems = this.GetPurchasableItems();
+		m_isInitialized = true;
+		m_purchaseableItems = GetPurchasableItems();
 		if (HitchDetector.Get() != null)
 		{
-			for (;;)
+			HitchDetector.Get().AddNewLayoutGroup(m_itemsGrid);
+		}
+		m_pageNum = 0;
+		m_itemBtns = m_itemsGrid.GetComponentsInChildren<UICashShopItemBtn>(true);
+		m_numberOfPages = m_purchaseableItems.Length / m_itemBtns.Length;
+		if (m_purchaseableItems.Length % m_itemBtns.Length > 0)
+		{
+			m_numberOfPages++;
+		}
+		if (m_pageMarkers == null)
+		{
+			m_pageMarkers = new List<UIStorePageIndicator>();
+		}
+		for (int i = m_pageMarkers.Count; i < m_numberOfPages; i++)
+		{
+			UIStorePageIndicator uIStorePageIndicator = Object.Instantiate(m_pageItemPrefab);
+			uIStorePageIndicator.transform.SetParent(m_pageListContainer.transform);
+			uIStorePageIndicator.transform.localScale = Vector3.one;
+			uIStorePageIndicator.transform.localPosition = Vector3.zero;
+			uIStorePageIndicator.SetSelected(i == 0);
+			uIStorePageIndicator.m_hitbox.callback = PageClicked;
+			uIStorePageIndicator.m_hitbox.RegisterScrollListener(OnScroll);
+			uIStorePageIndicator.SetPageNumber(i + 1);
+			m_pageMarkers.Add(uIStorePageIndicator);
+		}
+		int num;
+		for (num = m_numberOfPages; num < m_pageMarkers.Count; num++)
+		{
+			Object.Destroy(m_pageMarkers[num].gameObject);
+			m_pageMarkers.RemoveAt(num);
+			num--;
+		}
+		m_nextPage.transform.parent.SetAsLastSibling();
+		m_prevPage.callback = ClickedOnPrevPage;
+		m_nextPage.callback = ClickedOnNextPage;
+		UIManager.SetGameObjectActive(m_pageListContainer, m_numberOfPages > 1);
+		for (int j = 0; j < m_itemBtns.Length; j++)
+		{
+			m_itemBtns[j].m_selectableBtn.spriteController.RegisterScrollListener(OnScroll);
+			StaggerComponent.SetStaggerComponent(m_itemBtns[j].gameObject, true);
+			UICashShopItemBtn obj = m_itemBtns[j];
+			object item;
+			if (j < m_purchaseableItems.Length)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			HitchDetector.Get().AddNewLayoutGroup(this.m_itemsGrid);
-		}
-		this.m_pageNum = 0;
-		this.m_itemBtns = this.m_itemsGrid.GetComponentsInChildren<UICashShopItemBtn>(true);
-		this.m_numberOfPages = this.m_purchaseableItems.Length / this.m_itemBtns.Length;
-		if (this.m_purchaseableItems.Length % this.m_itemBtns.Length > 0)
-		{
-			this.m_numberOfPages++;
-		}
-		if (this.m_pageMarkers == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_pageMarkers = new List<UIStorePageIndicator>();
-		}
-		for (int i = this.m_pageMarkers.Count; i < this.m_numberOfPages; i++)
-		{
-			UIStorePageIndicator uistorePageIndicator = UnityEngine.Object.Instantiate<UIStorePageIndicator>(this.m_pageItemPrefab);
-			uistorePageIndicator.transform.SetParent(this.m_pageListContainer.transform);
-			uistorePageIndicator.transform.localScale = Vector3.one;
-			uistorePageIndicator.transform.localPosition = Vector3.zero;
-			uistorePageIndicator.SetSelected(i == 0);
-			uistorePageIndicator.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PageClicked);
-			uistorePageIndicator.m_hitbox.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-			uistorePageIndicator.SetPageNumber(i + 1);
-			this.m_pageMarkers.Add(uistorePageIndicator);
-		}
-		for (int j = this.m_numberOfPages; j < this.m_pageMarkers.Count; j++)
-		{
-			UnityEngine.Object.Destroy(this.m_pageMarkers[j].gameObject);
-			this.m_pageMarkers.RemoveAt(j);
-			j--;
-		}
-		this.m_nextPage.transform.parent.SetAsLastSibling();
-		this.m_prevPage.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ClickedOnPrevPage);
-		this.m_nextPage.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ClickedOnNextPage);
-		UIManager.SetGameObjectActive(this.m_pageListContainer, this.m_numberOfPages > 1, null);
-		for (int k = 0; k < this.m_itemBtns.Length; k++)
-		{
-			this.m_itemBtns[k].m_selectableBtn.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-			StaggerComponent.SetStaggerComponent(this.m_itemBtns[k].gameObject, true, true);
-			UICashShopItemBtn uicashShopItemBtn = this.m_itemBtns[k];
-			UIPurchaseableItem item;
-			if (k < this.m_purchaseableItems.Length)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				item = this.m_purchaseableItems[k];
+				item = m_purchaseableItems[j];
 			}
 			else
 			{
 				item = null;
 			}
-			uicashShopItemBtn.Setup(item);
+			obj.Setup((UIPurchaseableItem)item);
 		}
 	}
 
 	protected void Reinitialize()
 	{
-		this.m_isInitialized = false;
-		this.Initialize();
+		m_isInitialized = false;
+		Initialize();
 	}
 
 	protected virtual void Start()
 	{
-		this.Initialize();
-		Image component = base.GetComponent<Image>();
-		if (component != null)
+		Initialize();
+		Image component = GetComponent<Image>();
+		if (!(component != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanelBase.Start()).MethodHandle;
-			}
-			UIEventTriggerUtils.AddListener(component.gameObject, EventTriggerType.Scroll, new UIEventTriggerUtils.EventDelegate(this.OnScroll));
+			return;
+		}
+		while (true)
+		{
+			UIEventTriggerUtils.AddListener(component.gameObject, EventTriggerType.Scroll, OnScroll);
+			return;
 		}
 	}
 
 	private void OnScroll(BaseEventData data)
 	{
 		PointerEventData pointerEventData = data as PointerEventData;
-		if (pointerEventData.scrollDelta.y > 0f)
+		Vector2 scrollDelta = pointerEventData.scrollDelta;
+		if (scrollDelta.y > 0f)
 		{
-			this.ClickedOnPrevPage(null);
+			ClickedOnPrevPage(null);
+			return;
 		}
-		else if (pointerEventData.scrollDelta.y < 0f)
+		Vector2 scrollDelta2 = pointerEventData.scrollDelta;
+		if (!(scrollDelta2.y < 0f))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanelBase.OnScroll(BaseEventData)).MethodHandle;
-			}
-			this.ClickedOnNextPage(null);
+			return;
+		}
+		while (true)
+		{
+			ClickedOnNextPage(null);
+			return;
 		}
 	}
 
 	public void ClickedOnPrevPage(BaseEventData data)
 	{
-		if (this.m_pageNum - 1 < 0)
+		if (m_pageNum - 1 < 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanelBase.ClickedOnPrevPage(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
-		this.m_pageNum--;
+		m_pageNum--;
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.GenericSmall);
-		this.ShowPage(this.m_pageNum);
+		ShowPage(m_pageNum);
 	}
 
 	public void ClickedOnNextPage(BaseEventData data)
 	{
-		if (this.m_pageNum + 1 >= this.m_numberOfPages)
+		if (m_pageNum + 1 >= m_numberOfPages)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanelBase.ClickedOnNextPage(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.GenericSmall);
-		this.m_pageNum++;
-		this.ShowPage(this.m_pageNum);
+		m_pageNum++;
+		ShowPage(m_pageNum);
 	}
 
 	private void ShowPage(int pageNum)
 	{
-		for (int i = 0; i < this.m_pageMarkers.Count; i++)
+		for (int i = 0; i < m_pageMarkers.Count; i++)
 		{
-			this.m_pageMarkers[i].SetSelected(i == pageNum);
+			m_pageMarkers[i].SetSelected(i == pageNum);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
+			m_pageNum = pageNum;
+			int num = m_itemBtns.Length * pageNum;
+			for (int j = 0; j < m_itemBtns.Length; j++)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanelBase.ShowPage(int)).MethodHandle;
-		}
-		this.m_pageNum = pageNum;
-		int num = this.m_itemBtns.Length * pageNum;
-		for (int j = 0; j < this.m_itemBtns.Length; j++)
-		{
-			UIPurchaseableItem item = null;
-			int num2 = j + num;
-			if (num2 < this.m_purchaseableItems.Length)
-			{
-				for (;;)
+				UIPurchaseableItem item = null;
+				int num2 = j + num;
+				if (num2 < m_purchaseableItems.Length)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					item = m_purchaseableItems[num2];
 				}
-				item = this.m_purchaseableItems[num2];
+				m_itemBtns[j].Setup(item);
 			}
-			this.m_itemBtns[j].Setup(item);
+			return;
 		}
 	}
 
 	public void PageClicked(BaseEventData data)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.GenericSmall);
-		for (int i = 0; i < this.m_pageMarkers.Count; i++)
+		int num = 0;
+		while (true)
 		{
-			if (this.m_pageMarkers[i].m_hitbox.gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
+			if (num < m_pageMarkers.Count)
 			{
-				this.ShowPage(i);
-				break;
+				if (m_pageMarkers[num].m_hitbox.gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
+				{
+					break;
+				}
+				num++;
+				continue;
 			}
+			return;
 		}
+		ShowPage(num);
 	}
 
 	protected void RefreshPage()
 	{
-		this.ShowPage(this.m_pageNum);
+		ShowPage(m_pageNum);
 	}
 }

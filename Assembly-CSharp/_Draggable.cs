@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,245 +17,168 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
 	public static GameObject GetDraggedObject()
 	{
-		return _Draggable.m_draggingObject;
+		return m_draggingObject;
 	}
 
 	private void CopyChildrenImages(Image sourceImage, Image parent)
 	{
-		if (!(parent == null))
+		if (parent == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (sourceImage == null)
 			{
-				switch (7)
+				while (true)
 				{
-				case 0:
+					switch (3)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
+			}
+			Image[] componentsInChildren = sourceImage.GetComponentsInChildren<Image>();
+			for (int i = 0; i < componentsInChildren.Length; i++)
+			{
+				Image component = componentsInChildren[i].GetComponent<Image>();
+				if (component.gameObject == sourceImage.gameObject)
+				{
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_Draggable.CopyChildrenImages(Image, Image)).MethodHandle;
-			}
-			if (!(sourceImage == null))
-			{
-				Image[] componentsInChildren = sourceImage.GetComponentsInChildren<Image>();
-				for (int i = 0; i < componentsInChildren.Length; i++)
+				GameObject gameObject = new GameObject();
+				gameObject.transform.SetParent(parent.transform, false);
+				gameObject.transform.SetAsLastSibling();
+				Image image = gameObject.AddComponent<Image>();
+				CanvasGroup canvasGroup = gameObject.AddComponent<CanvasGroup>();
+				canvasGroup.blocksRaycasts = false;
+				image.sprite = component.sprite;
+				image.color = component.color;
+				if (m_CopyChildrenImages)
 				{
-					Image component = componentsInChildren[i].GetComponent<Image>();
-					if (!(component.gameObject == sourceImage.gameObject))
-					{
-						GameObject gameObject = new GameObject();
-						gameObject.transform.SetParent(parent.transform, false);
-						gameObject.transform.SetAsLastSibling();
-						Image image = gameObject.AddComponent<Image>();
-						CanvasGroup canvasGroup = gameObject.AddComponent<CanvasGroup>();
-						canvasGroup.blocksRaycasts = false;
-						image.sprite = component.sprite;
-						image.color = component.color;
-						if (this.m_CopyChildrenImages)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.CopyChildrenImages(component, image);
-						}
-						image.SetNativeSize();
-					}
+					CopyChildrenImages(component, image);
 				}
-				for (;;)
+				image.SetNativeSize();
+			}
+			while (true)
+			{
+				switch (4)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
+				default:
+					return;
+				case 0:
 					break;
 				}
-				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
-		Canvas canvas = _Draggable.FindInParents<Canvas>(base.gameObject);
+		Canvas canvas = FindInParents<Canvas>(base.gameObject);
 		if (canvas == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_Draggable.OnBeginDrag(PointerEventData)).MethodHandle;
-			}
-			return;
 		}
-		Image component = base.GetComponent<Image>();
-		this.m_DraggingIcon = new GameObject("icon");
-		this.m_DraggingIcon.transform.SetParent(canvas.transform, false);
-		this.m_DraggingIcon.transform.SetAsLastSibling();
-		Image image = this.m_DraggingIcon.AddComponent<Image>();
-		CanvasGroup canvasGroup = this.m_DraggingIcon.AddComponent<CanvasGroup>();
+		Image component = GetComponent<Image>();
+		m_DraggingIcon = new GameObject("icon");
+		m_DraggingIcon.transform.SetParent(canvas.transform, false);
+		m_DraggingIcon.transform.SetAsLastSibling();
+		Image image = m_DraggingIcon.AddComponent<Image>();
+		CanvasGroup canvasGroup = m_DraggingIcon.AddComponent<CanvasGroup>();
 		canvasGroup.blocksRaycasts = false;
 		image.sprite = component.sprite;
-		if (this.m_CopyChildrenImages)
+		if (m_CopyChildrenImages)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.CopyChildrenImages(component, image);
+			CopyChildrenImages(component, image);
 		}
 		image.SetNativeSize();
-		if (this.dragOnSurfaces)
+		if (dragOnSurfaces)
 		{
-			this.m_DraggingPlane = (base.transform as RectTransform);
+			m_DraggingPlane = (base.transform as RectTransform);
 		}
 		else
 		{
-			this.m_DraggingPlane = (canvas.transform as RectTransform);
+			m_DraggingPlane = (canvas.transform as RectTransform);
 		}
-		_Draggable.m_draggingObject = base.gameObject;
-		this.SetDraggedPosition(eventData);
+		m_draggingObject = base.gameObject;
+		SetDraggedPosition(eventData);
 	}
 
 	public void OnDrag(PointerEventData data)
 	{
-		if (this.m_DraggingIcon != null)
+		if (!(m_DraggingIcon != null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_Draggable.OnDrag(PointerEventData)).MethodHandle;
-			}
-			this.SetDraggedPosition(data);
+			return;
+		}
+		while (true)
+		{
+			SetDraggedPosition(data);
+			return;
 		}
 	}
 
 	private void SetDraggedPosition(PointerEventData data)
 	{
-		if (this.dragOnSurfaces)
+		if (dragOnSurfaces)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_Draggable.SetDraggedPosition(PointerEventData)).MethodHandle;
-			}
 			if (data.pointerEnter != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (data.pointerEnter.transform as RectTransform != null)
 				{
-					this.m_DraggingPlane = (data.pointerEnter.transform as RectTransform);
+					m_DraggingPlane = (data.pointerEnter.transform as RectTransform);
 				}
 			}
 		}
-		RectTransform component = this.m_DraggingIcon.GetComponent<RectTransform>();
-		Vector3 position;
-		if (RectTransformUtility.ScreenPointToWorldPointInRectangle(this.m_DraggingPlane, data.position, data.pressEventCamera, out position))
+		RectTransform component = m_DraggingIcon.GetComponent<RectTransform>();
+		if (!RectTransformUtility.ScreenPointToWorldPointInRectangle(m_DraggingPlane, data.position, data.pressEventCamera, out Vector3 worldPoint))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			component.position = position;
-			component.rotation = this.m_DraggingPlane.rotation;
+			return;
+		}
+		while (true)
+		{
+			component.position = worldPoint;
+			component.rotation = m_DraggingPlane.rotation;
+			return;
 		}
 	}
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		if (this.m_DraggingIcon != null)
+		if (m_DraggingIcon != null)
 		{
-			UnityEngine.Object.Destroy(this.m_DraggingIcon);
+			Object.Destroy(m_DraggingIcon);
 		}
-		_Draggable.m_draggingObject = null;
+		m_draggingObject = null;
 	}
 
 	public static T FindInParents<T>(GameObject go) where T : Component
 	{
 		if (go == null)
 		{
-			return (T)((object)null);
+			return (T)null;
 		}
 		T component = go.GetComponent<T>();
-		if (component != null)
+		if ((Object)component != (Object)null)
 		{
 			return component;
 		}
 		Transform parent = go.transform.parent;
 		while (parent != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_Draggable.FindInParents(GameObject)).MethodHandle;
-			}
-			if (!(component == null))
+			if (!((Object)component == (Object)null))
 			{
 				break;
 			}

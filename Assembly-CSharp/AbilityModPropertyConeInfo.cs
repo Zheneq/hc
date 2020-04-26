@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -23,20 +23,16 @@ public class AbilityModPropertyConeInfo
 	{
 		if (info != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return info.GetModifiedCopy(this);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyConeInfo.GetModifiedValue(ConeTargetingInfo)).MethodHandle;
-			}
-			return info.GetModifiedCopy(this);
 		}
 		if (Application.isEditor)
 		{

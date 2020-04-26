@@ -1,76 +1,61 @@
-﻿using System;
-
 public class ArcherHealProjectileSequence : ArcingProjectileSequence
 {
 	private Archer_SyncComponent m_syncComp;
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
 		base.Initialize(extraParams);
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		int num = 0;
+		IExtraSequenceParams extraSequenceParams;
+		while (true)
 		{
-			if (extraSequenceParams is Sequence.ActorIndexExtraParam)
+			if (num < extraParams.Length)
 			{
-				for (;;)
+				extraSequenceParams = extraParams[num];
+				if (extraSequenceParams is ActorIndexExtraParam)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealProjectileSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
-				Sequence.ActorIndexExtraParam actorIndexExtraParam = extraSequenceParams as Sequence.ActorIndexExtraParam;
-				ActorData actorData = GameFlowData.Get().FindActorByActorIndex((int)actorIndexExtraParam.m_actorIndex);
-				if (actorData != null)
-				{
-					this.m_syncComp = actorData.GetComponent<Archer_SyncComponent>();
-				}
-				break;
+				num++;
+				continue;
 			}
+			return;
+		}
+		while (true)
+		{
+			ActorIndexExtraParam actorIndexExtraParam = extraSequenceParams as ActorIndexExtraParam;
+			ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndexExtraParam.m_actorIndex);
+			if (actorData != null)
+			{
+				m_syncComp = actorData.GetComponent<Archer_SyncComponent>();
+			}
+			return;
 		}
 	}
 
 	protected override void SpawnFX()
 	{
 		base.SpawnFX();
-		if (base.Target != null && this.m_syncComp != null)
+		if (!(base.Target != null) || !(m_syncComp != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_syncComp.ActorHasExpendedHealReaction(base.Target))
 			{
-				switch (3)
+				while (true)
 				{
-				case 0:
-					continue;
+					m_syncComp.ChangeVfxForHealReaction(base.Target);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealProjectileSequence.SpawnFX()).MethodHandle;
-			}
-			if (this.m_syncComp.ActorHasExpendedHealReaction(base.Target))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_syncComp.ChangeVfxForHealReaction(base.Target);
-			}
+			return;
 		}
 	}
 
 	protected override Team GetFoFObservingTeam()
 	{
-		return base.Caster.\u0012();
+		return base.Caster.GetOpposingTeam();
 	}
 }

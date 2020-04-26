@@ -1,11 +1,25 @@
-﻿using System;
 using UnityEngine;
 
 public class SimpleTimingSequence : Sequence
 {
+	public class ExtraParams : IExtraSequenceParams
+	{
+		public float hitDelayTime = -1f;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			stream.Serialize(ref hitDelayTime);
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			stream.Serialize(ref hitDelayTime);
+		}
+	}
+
 	[AnimEventPicker]
 	[Tooltip("Animation Event to listen for to play the on hit")]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	public float m_hitDelay;
 
@@ -18,206 +32,107 @@ public class SimpleTimingSequence : Sequence
 
 	private float m_hitTime;
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (extraSequenceParams is SimpleTimingSequence.ExtraParams)
+			if (!(extraSequenceParams is ExtraParams))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleTimingSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
-				SimpleTimingSequence.ExtraParams extraParams2 = extraSequenceParams as SimpleTimingSequence.ExtraParams;
-				if (extraParams2.hitDelayTime > 0f)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_hitDelay = extraParams2.hitDelayTime;
-				}
+				continue;
+			}
+			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
+			if (extraParams2.hitDelayTime > 0f)
+			{
+				m_hitDelay = extraParams2.hitDelayTime;
 			}
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			if (this.m_startEvent == null)
+			return;
+		}
+		if (m_startEvent == null)
+		{
+			if (!m_calledOnHitForNullStartEvent)
 			{
-				for (;;)
+				StartHits();
+				m_calledOnHitForNullStartEvent = true;
+			}
+		}
+		if (m_hitsDone)
+		{
+			return;
+		}
+		while (true)
+		{
+			if (m_hitTime > 0f && GameTime.time > m_hitTime)
+			{
+				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleTimingSequence.Update()).MethodHandle;
-				}
-				if (!this.m_calledOnHitForNullStartEvent)
-				{
-					this.StartHits();
-					this.m_calledOnHitForNullStartEvent = true;
+					DoSequenceHits();
+					return;
 				}
 			}
-			if (!this.m_hitsDone)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_hitTime > 0f && GameTime.time > this.m_hitTime)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.DoSequenceHits();
-				}
-			}
+			return;
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_startEvent == parameter)
+		if (m_startEvent == parameter)
 		{
-			this.StartHits();
+			StartHits();
 		}
 	}
 
 	private void StartHits()
 	{
-		if (this.m_hitDelay <= 0f)
+		if (m_hitDelay <= 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					DoSequenceHits();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleTimingSequence.StartHits()).MethodHandle;
-			}
-			this.DoSequenceHits();
 		}
-		else if (this.m_hitTime == 0f)
+		if (m_hitTime == 0f)
 		{
-			this.m_hitTime = GameTime.time + this.m_hitDelay;
+			m_hitTime = GameTime.time + m_hitDelay;
 		}
 	}
 
 	protected virtual void DoSequenceHits()
 	{
-		base.Source.OnSequenceHit(this, base.TargetPos, null);
+		base.Source.OnSequenceHit(this, base.TargetPos);
 		if (base.Targets != null)
 		{
-			for (;;)
+			ActorData[] targets = base.Targets;
+			foreach (ActorData actorData in targets)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleTimingSequence.DoSequenceHits()).MethodHandle;
-			}
-			foreach (ActorData actorData in base.Targets)
-			{
-				base.Source.OnSequenceHit(this, actorData, Sequence.CreateImpulseInfoWithActorForward(actorData), ActorModelData.RagdollActivation.HealthBased, true);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				base.Source.OnSequenceHit(this, actorData, Sequence.CreateImpulseInfoWithActorForward(actorData));
 			}
 		}
-		if (!string.IsNullOrEmpty(this.m_onHitAudioEvent))
+		if (!string.IsNullOrEmpty(m_onHitAudioEvent))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject gameObject = null;
 			if (base.Caster != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = base.Caster.gameObject;
 			}
 			if (gameObject != null)
 			{
-				AudioManager.PostEvent(this.m_onHitAudioEvent, gameObject);
+				AudioManager.PostEvent(m_onHitAudioEvent, gameObject);
 			}
 		}
-		this.m_hitsDone = true;
-	}
-
-	public class ExtraParams : Sequence.IExtraSequenceParams
-	{
-		public float hitDelayTime = -1f;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.hitDelayTime);
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.hitDelayTime);
-		}
+		m_hitsDone = true;
 	}
 }

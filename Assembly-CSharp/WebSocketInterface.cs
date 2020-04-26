@@ -1,9 +1,9 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
-using Newtonsoft.Json;
 
 public class WebSocketInterface
 {
@@ -35,52 +35,29 @@ public class WebSocketInterface
 
 	protected int m_maxSendBufferSize;
 
-	public WebSocketInterface(WebSocketMessageFactory factory)
+	public float ConnectionTimeout
 	{
-		this.m_overallConnectionTimer = new Stopwatch();
-		this.m_reconnectDelayTimer = new Stopwatch();
-		this.Logger = Log.LogInstance;
-		this.MessageFactory = factory;
-		this.ConnectionTimeout = 30f;
-		this.HttpPostHandler = new Action<string, string, Action<string, string>>(this.HttpPost);
-		this.m_heartbeatPeriod = TimeSpan.Zero;
-		this.m_heartbeatTimeout = TimeSpan.Zero;
-		this.m_isCompressed = false;
-		this.m_isRaw = false;
-		this.m_isBinary = true;
-		this.m_maxMessageSize = 0;
-		this.m_maxMessagesPerSecond = 0;
-		this.m_maxSendBufferSize = 0x100000;
-		this.m_maxWaitTime = TimeSpan.FromSeconds(10.0);
+		get;
+		set;
 	}
-
-	public float ConnectionTimeout { get; set; }
 
 	public TimeSpan HeartbeatTimeout
 	{
 		get
 		{
-			return this.m_heartbeatTimeout;
+			return m_heartbeatTimeout;
 		}
 		set
 		{
-			this.m_heartbeatTimeout = value;
-			if (this.m_webSocket != null)
+			m_heartbeatTimeout = value;
+			if (m_webSocket == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.set_HeartbeatTimeout(TimeSpan)).MethodHandle;
-				}
-				this.m_webSocket.HeartbeatTimeout = value;
+				return;
+			}
+			while (true)
+			{
+				m_webSocket.HeartbeatTimeout = value;
+				return;
 			}
 		}
 	}
@@ -89,27 +66,19 @@ public class WebSocketInterface
 	{
 		get
 		{
-			return this.m_heartbeatPeriod;
+			return m_heartbeatPeriod;
 		}
 		set
 		{
-			this.m_heartbeatPeriod = value;
-			if (this.m_webSocket != null)
+			m_heartbeatPeriod = value;
+			if (m_webSocket == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.set_HeartbeatPeriod(TimeSpan)).MethodHandle;
-				}
-				this.m_webSocket.HeartbeatPeriod = value;
+				return;
+			}
+			while (true)
+			{
+				m_webSocket.HeartbeatPeriod = value;
+				return;
 			}
 		}
 	}
@@ -118,27 +87,19 @@ public class WebSocketInterface
 	{
 		get
 		{
-			return this.m_isCompressed;
+			return m_isCompressed;
 		}
 		set
 		{
-			this.m_isCompressed = value;
-			if (this.m_webSocket != null)
+			m_isCompressed = value;
+			if (m_webSocket == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.set_IsCompressed(bool)).MethodHandle;
-				}
-				this.m_webSocket.IsCompressed = value;
+				return;
+			}
+			while (true)
+			{
+				m_webSocket.IsCompressed = value;
+				return;
 			}
 		}
 	}
@@ -147,27 +108,19 @@ public class WebSocketInterface
 	{
 		get
 		{
-			return this.m_isRaw;
+			return m_isRaw;
 		}
 		set
 		{
-			this.m_isRaw = value;
-			if (this.m_webSocket != null)
+			m_isRaw = value;
+			if (m_webSocket == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.set_IsRaw(bool)).MethodHandle;
-				}
-				this.m_webSocket.IsRaw = value;
+				return;
+			}
+			while (true)
+			{
+				m_webSocket.IsRaw = value;
+				return;
 			}
 		}
 	}
@@ -176,27 +129,19 @@ public class WebSocketInterface
 	{
 		get
 		{
-			return this.m_isBinary;
+			return m_isBinary;
 		}
 		set
 		{
-			this.m_isBinary = value;
-			if (this.m_webSocket != null)
+			m_isBinary = value;
+			if (m_webSocket == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.set_IsBinary(bool)).MethodHandle;
-				}
-				this.m_webSocket.IsBinary = value;
+				return;
+			}
+			while (true)
+			{
+				m_webSocket.IsBinary = value;
+				return;
 			}
 		}
 	}
@@ -205,14 +150,14 @@ public class WebSocketInterface
 	{
 		get
 		{
-			return this.m_maxWaitTime;
+			return m_maxWaitTime;
 		}
 		set
 		{
-			this.m_maxWaitTime = value;
-			if (this.m_webSocket != null)
+			m_maxWaitTime = value;
+			if (m_webSocket != null)
 			{
-				this.m_webSocket.MaxWaitTime = value;
+				m_webSocket.MaxWaitTime = value;
 			}
 		}
 	}
@@ -221,14 +166,14 @@ public class WebSocketInterface
 	{
 		get
 		{
-			return this.m_maxMessageSize;
+			return m_maxMessageSize;
 		}
 		set
 		{
-			this.m_maxMessageSize = value;
-			if (this.m_webSocket != null)
+			m_maxMessageSize = value;
+			if (m_webSocket != null)
 			{
-				this.m_webSocket.MaxMessageSize = value;
+				m_webSocket.MaxMessageSize = value;
 			}
 		}
 	}
@@ -237,27 +182,19 @@ public class WebSocketInterface
 	{
 		get
 		{
-			return this.m_maxMessagesPerSecond;
+			return m_maxMessagesPerSecond;
 		}
 		set
 		{
-			this.m_maxMessagesPerSecond = value;
-			if (this.m_webSocket != null)
+			m_maxMessagesPerSecond = value;
+			if (m_webSocket == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.set_MaxMessagesPerSecond(int)).MethodHandle;
-				}
-				this.m_webSocket.MaxMessagesPerSecond = value;
+				return;
+			}
+			while (true)
+			{
+				m_webSocket.MaxMessagesPerSecond = value;
+				return;
 			}
 		}
 	}
@@ -266,301 +203,188 @@ public class WebSocketInterface
 	{
 		get
 		{
-			return this.m_maxSendBufferSize;
+			return m_maxSendBufferSize;
 		}
 		set
 		{
-			this.m_maxSendBufferSize = value;
-			if (this.m_webSocket != null)
+			m_maxSendBufferSize = value;
+			if (m_webSocket != null)
 			{
-				this.m_webSocket.MaxSendBufferSize = value;
+				m_webSocket.MaxSendBufferSize = value;
 			}
 		}
 	}
 
-	public WebSocket WebSocket
-	{
-		get
-		{
-			return this.m_webSocket;
-		}
-	}
+	public WebSocket WebSocket => m_webSocket;
 
 	public WebSocket.SocketState State
 	{
 		get
 		{
-			WebSocket.SocketState result;
-			if (this.m_webSocket != null)
+			int result;
+			if (m_webSocket != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.get_State()).MethodHandle;
-				}
-				result = this.m_webSocket.State;
+				result = (int)m_webSocket.State;
 			}
 			else
 			{
-				result = WebSocket.SocketState.Unknown;
+				result = 0;
 			}
-			return result;
+			return (WebSocket.SocketState)result;
 		}
 	}
 
-	public LogInstance Logger { get; set; }
-
-	public WebSocketMessageFactory MessageFactory { get; private set; }
-
-	public string ServerAddress
+	public LogInstance Logger
 	{
-		get
-		{
-			return this.m_serverAddress;
-		}
+		get;
+		set;
+	}
+
+	public WebSocketMessageFactory MessageFactory
+	{
+		get;
+		private set;
+	}
+
+	public string ServerAddress => m_serverAddress;
+
+	public WebSocketInterface(WebSocketMessageFactory factory)
+	{
+		m_overallConnectionTimer = new Stopwatch();
+		m_reconnectDelayTimer = new Stopwatch();
+		Logger = Log.LogInstance;
+		MessageFactory = factory;
+		ConnectionTimeout = 30f;
+		HttpPostHandler = HttpPost;
+		m_heartbeatPeriod = TimeSpan.Zero;
+		m_heartbeatTimeout = TimeSpan.Zero;
+		m_isCompressed = false;
+		m_isRaw = false;
+		m_isBinary = true;
+		m_maxMessageSize = 0;
+		m_maxMessagesPerSecond = 0;
+		m_maxSendBufferSize = 1048576;
+		m_maxWaitTime = TimeSpan.FromSeconds(10.0);
 	}
 
 	public void InitializeSocket(string serverAddress, int defaultPort, string defaultPath)
 	{
 		if (serverAddress.IndexOf("://") == -1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.InitializeSocket(string, int, string)).MethodHandle;
-			}
 			serverAddress = "ws://" + serverAddress;
 		}
 		Uri uri = new Uri(serverAddress);
 		UriBuilder uriBuilder = new UriBuilder();
 		uriBuilder.Scheme = uri.Scheme;
 		uriBuilder.Host = uri.Host;
-		UriBuilder uriBuilder2 = uriBuilder;
 		int port;
 		if (uri.Port > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!uri.IsDefaultPort)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				port = uri.Port;
-				goto IL_8E;
+				goto IL_008e;
 			}
 		}
 		port = defaultPort;
-		IL_8E:
-		uriBuilder2.Port = port;
+		goto IL_008e;
+		IL_008e:
+		uriBuilder.Port = port;
 		uriBuilder.Path = ((!(uri.AbsolutePath != "/")) ? ("/" + defaultPath) : uri.AbsolutePath);
-		this.m_serverAddress = uriBuilder.ToString();
-		this.m_webSocket = new WebSocket(this.MessageFactory, this.m_serverAddress);
-		this.m_webSocket.HeartbeatPeriod = this.m_heartbeatPeriod;
-		this.m_webSocket.HeartbeatTimeout = this.m_heartbeatTimeout;
-		this.m_webSocket.IsCompressed = this.m_isCompressed;
-		this.m_webSocket.IsRaw = this.m_isRaw;
-		this.m_webSocket.IsBinary = this.m_isBinary;
-		this.m_webSocket.MaxMessageSize = this.m_maxMessageSize;
-		this.m_webSocket.MaxSendBufferSize = this.m_maxSendBufferSize;
-		this.m_webSocket.MaxMessagesPerSecond = this.m_maxMessagesPerSecond;
-		this.m_webSocket.MaxWaitTime = this.m_maxWaitTime;
-		this.m_webSocket.OnMessage += this.HandleMessage;
-		this.m_webSocket.IsAsync = false;
-		this.SetMinSocketLogLevel(Log.Level.Nothing);
+		m_serverAddress = uriBuilder.ToString();
+		m_webSocket = new WebSocket(MessageFactory, m_serverAddress);
+		m_webSocket.HeartbeatPeriod = m_heartbeatPeriod;
+		m_webSocket.HeartbeatTimeout = m_heartbeatTimeout;
+		m_webSocket.IsCompressed = m_isCompressed;
+		m_webSocket.IsRaw = m_isRaw;
+		m_webSocket.IsBinary = m_isBinary;
+		m_webSocket.MaxMessageSize = m_maxMessageSize;
+		m_webSocket.MaxSendBufferSize = m_maxSendBufferSize;
+		m_webSocket.MaxMessagesPerSecond = m_maxMessagesPerSecond;
+		m_webSocket.MaxWaitTime = m_maxWaitTime;
+		m_webSocket.OnMessage += HandleMessage;
+		m_webSocket.IsAsync = false;
+		SetMinSocketLogLevel(Log.Level.Nothing);
 	}
 
 	public void SetMinSocketLogLevel(Log.Level level)
 	{
-		if (this.m_webSocket != null)
+		if (m_webSocket == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.SetMinSocketLogLevel(Log.Level)).MethodHandle;
-			}
-			this.m_webSocket.SetMinSocketLogLevel(level);
+			return;
+		}
+		while (true)
+		{
+			m_webSocket.SetMinSocketLogLevel(level);
+			return;
 		}
 	}
 
 	public virtual void Connect()
 	{
-		if (!this.m_overallConnectionTimer.IsRunning)
+		if (!m_overallConnectionTimer.IsRunning)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.Connect()).MethodHandle;
-			}
-			this.m_overallConnectionTimer.Start();
+			m_overallConnectionTimer.Start();
 		}
-		if (this.State == WebSocket.SocketState.Closed)
+		if (State != WebSocket.SocketState.Closed)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.Logger.Info("Connecting to {0}", new object[]
-			{
-				this.m_serverAddress
-			});
-			this.m_webSocket.Connect();
+			return;
+		}
+		while (true)
+		{
+			Logger.Info("Connecting to {0}", m_serverAddress);
+			m_webSocket.Connect();
+			return;
 		}
 	}
 
 	public virtual void Disconnect()
 	{
-		this.m_overallConnectionTimer.Reset();
-		if (this.m_webSocket != null)
+		m_overallConnectionTimer.Reset();
+		if (m_webSocket == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.Disconnect()).MethodHandle;
-			}
-			this.m_webSocket.Close();
+			return;
+		}
+		while (true)
+		{
+			m_webSocket.Close();
+			return;
 		}
 	}
 
 	public void Reconnect()
 	{
-		this.m_reconnectDelayTimer.Reset();
-		this.m_reconnectDelayTimer.Start();
+		m_reconnectDelayTimer.Reset();
+		m_reconnectDelayTimer.Start();
 	}
 
 	public virtual void Update()
 	{
-		if (this.m_reconnectDelayTimer.IsRunning)
+		if (m_reconnectDelayTimer.IsRunning)
 		{
-			for (;;)
+			if (m_reconnectDelayTimer.Elapsed >= TimeSpan.FromSeconds(1.0))
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.Update()).MethodHandle;
-			}
-			if (this.m_reconnectDelayTimer.Elapsed >= TimeSpan.FromSeconds(1.0))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_reconnectDelayTimer.Reset();
-				this.Connect();
+				m_reconnectDelayTimer.Reset();
+				Connect();
 			}
 		}
-		if (this.m_overallConnectionTimer.IsRunning)
+		if (m_overallConnectionTimer.IsRunning)
 		{
-			for (;;)
+			if (m_overallConnectionTimer.Elapsed >= TimeSpan.FromSeconds(ConnectionTimeout) && m_webSocket != null)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_overallConnectionTimer.Elapsed >= TimeSpan.FromSeconds((double)this.ConnectionTimeout) && this.m_webSocket != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.Logger.Error("Connection timed out to {0} (elapsed time: {1})", new object[]
-				{
-					this.m_webSocket.ConnectionAddress,
-					this.m_overallConnectionTimer.Elapsed
-				});
-				this.m_webSocket.Close();
-				this.m_webSocket = null;
+				Logger.Error("Connection timed out to {0} (elapsed time: {1})", m_webSocket.ConnectionAddress, m_overallConnectionTimer.Elapsed);
+				m_webSocket.Close();
+				m_webSocket = null;
 			}
 		}
-		if (this.m_webSocket != null)
+		if (m_webSocket == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_webSocket.Update();
+			return;
+		}
+		while (true)
+		{
+			m_webSocket.Update();
+			return;
 		}
 	}
 
@@ -570,83 +394,48 @@ public class WebSocketInterface
 
 	public bool SendMessage(WebSocketMessage message)
 	{
-		if (this.m_webSocket != null)
+		if (m_webSocket != null)
 		{
-			for (;;)
+			if (m_webSocket.State == WebSocket.SocketState.Open)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.SendMessage(WebSocketMessage)).MethodHandle;
-			}
-			if (this.m_webSocket.State == WebSocket.SocketState.Open)
-			{
-				this.m_webSocket.Send(message);
+				m_webSocket.Send(message);
 				return true;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
 	}
 
-	protected bool SendRequestMessage<ResponseType, ResponseHandlerType>(WebSocketMessage request, Action<ResponseType> callback, WebSocketMessageDispatcher<ResponseHandlerType> dispatcher) where ResponseType : WebSocketResponseMessage, new() where ResponseHandlerType : class
+	protected bool SendRequestMessage<ResponseType, ResponseHandlerType>(WebSocketMessage request, Action<ResponseType> callback, WebSocketMessageDispatcher<ResponseHandlerType> dispatcher) where ResponseType : WebSocketResponseMessage, new()where ResponseHandlerType : class
 	{
 		if (callback != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.SendRequestMessage(WebSocketMessage, Action<ResponseType>, WebSocketMessageDispatcher<ResponseHandlerType>)).MethodHandle;
-			}
 			Action<ResponseHandlerType, ResponseType> messageDelegate = delegate(ResponseHandlerType r, ResponseType m)
 			{
 				callback(m);
 			};
-			dispatcher.RegisterMessageDelegate<ResponseType>(messageDelegate, request.RequestId);
+			dispatcher.RegisterMessageDelegate(messageDelegate, request.RequestId);
 		}
-		if (!this.SendMessage(request))
+		if (!SendMessage(request))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (callback != null)
+					{
+						ResponseType val = new ResponseType();
+						val.Success = false;
+						val.ErrorMessage = "Failed to send request";
+						ResponseType obj = val;
+						callback(obj);
+						dispatcher.UnregisterMessageDelegate<ResponseType>(request.RequestId);
+					}
+					return false;
 				}
-				break;
 			}
-			if (callback != null)
-			{
-				ResponseType responseType = Activator.CreateInstance<ResponseType>();
-				responseType.Success = false;
-				responseType.ErrorMessage = "Failed to send request";
-				ResponseType obj = responseType;
-				callback(obj);
-				dispatcher.UnregisterMessageDelegate<ResponseType>(request.RequestId);
-			}
-			return false;
 		}
 		return true;
 	}
@@ -656,52 +445,48 @@ public class WebSocketInterface
 		try
 		{
 			string arg = JsonConvert.SerializeObject(request);
-			this.HttpPostHandler(url, arg, delegate(string messageJson, string error)
+			HttpPostHandler(url, arg, delegate(string messageJson, string error)
 			{
 				try
 				{
 					if (!error.IsNullOrEmpty())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								throw new Exception(error);
 							}
-							break;
 						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.<SendHttpRequest>c__AnonStorey1.<>m__0(string, string)).MethodHandle;
-						}
-						throw new Exception(error);
 					}
 					if (messageJson.IsNullOrEmpty())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								throw new Exception("Empty response from server");
 							}
-							break;
 						}
-						throw new Exception("Empty response from server");
 					}
 					ResponseType arg3 = JsonConvert.DeserializeObject<ResponseType>(messageJson);
 					callback(arg3, null);
 				}
 				catch (Exception arg4)
 				{
-					callback((ResponseType)((object)null), arg4);
+					callback((ResponseType)null, arg4);
 				}
 			});
 		}
 		catch (Exception arg2)
 		{
-			callback((ResponseType)((object)null), arg2);
+			callback((ResponseType)null, arg2);
 		}
 	}
 
@@ -709,12 +494,12 @@ public class WebSocketInterface
 	{
 		try
 		{
-			UTF8Encoding utf8Encoding = new UTF8Encoding();
-			byte[] postBytes = utf8Encoding.GetBytes(postString);
+			UTF8Encoding uTF8Encoding = new UTF8Encoding();
+			byte[] postBytes = uTF8Encoding.GetBytes(postString);
 			HttpWebRequest httpRequest = (HttpWebRequest)WebRequest.Create(url);
 			httpRequest.Proxy = null;
 			httpRequest.Method = "POST";
-			httpRequest.ContentLength = (long)postBytes.Length;
+			httpRequest.ContentLength = postBytes.Length;
 			httpRequest.BeginGetRequestStream(delegate(IAsyncResult getRequestStreamAr)
 			{
 				try

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,15 +16,16 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 
 	public bool m_clampMaxRangeToFreePos;
 
-	public AbilityUtil_Targeter_BounceBomb(Ability ability, BounceBombInfo bombInfo, int bombCount, float bombAngleInBetween, bool explodeOnEndOfPath = false, bool alignBombsInLine = false, bool clampMaxRangeToFreePos = false) : base(ability)
+	public AbilityUtil_Targeter_BounceBomb(Ability ability, BounceBombInfo bombInfo, int bombCount, float bombAngleInBetween, bool explodeOnEndOfPath = false, bool alignBombsInLine = false, bool clampMaxRangeToFreePos = false)
+		: base(ability)
 	{
-		this.m_bombInfo = bombInfo;
-		this.m_bombCount = bombCount;
-		this.m_bombAngleInBetween = bombAngleInBetween;
-		this.m_explodeOnEndOfPath = explodeOnEndOfPath;
-		this.m_alignBombInLine = alignBombsInLine;
-		this.m_clampMaxRangeToFreePos = clampMaxRangeToFreePos;
-		this.m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
+		m_bombInfo = bombInfo;
+		m_bombCount = bombCount;
+		m_bombAngleInBetween = bombAngleInBetween;
+		m_explodeOnEndOfPath = explodeOnEndOfPath;
+		m_alignBombInLine = alignBombsInLine;
+		m_clampMaxRangeToFreePos = clampMaxRangeToFreePos;
+		m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
@@ -32,19 +33,6 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BounceBomb.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -52,191 +40,94 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 			vector = currentTarget.AimDirection;
 		}
 		Vector3 vec = vector;
-		float num = this.m_bombInfo.width * Board.\u000E().squareSize;
-		if (this.m_highlights != null)
+		float num = m_bombInfo.width * Board.Get().squareSize;
+		if (m_highlights != null)
 		{
-			for (;;)
+			if (m_highlights.Count >= 2 * m_bombCount)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_highlights.Count >= 2 * this.m_bombCount)
-			{
-				goto IL_127;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_0127;
 			}
 		}
-		this.m_highlights = new List<GameObject>();
-		for (int i = 0; i < this.m_bombCount; i++)
+		m_highlights = new List<GameObject>();
+		for (int i = 0; i < m_bombCount; i++)
 		{
-			this.m_highlights.Add(HighlightUtils.Get().CreateBouncingLaserCursor(Vector3.zero, new List<Vector3>
+			m_highlights.Add(HighlightUtils.Get().CreateBouncingLaserCursor(Vector3.zero, new List<Vector3>
 			{
 				Vector3.zero
 			}, num));
 		}
-		for (;;)
+		for (int j = 0; j < m_bombCount; j++)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_bombInfo.shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
 		}
-		for (int j = 0; j < this.m_bombCount; j++)
+		goto IL_0127;
+		IL_0127:
+		ClearActorsInRange();
+		float maxDistancePerBounce = m_bombInfo.maxDistancePerBounce;
+		float num2 = m_bombInfo.maxTotalDistance;
+		if (m_clampMaxRangeToFreePos)
 		{
-			this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_bombInfo.shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		IL_127:
-		base.ClearActorsInRange();
-		float maxDistancePerBounce = this.m_bombInfo.maxDistancePerBounce;
-		float num2 = this.m_bombInfo.maxTotalDistance;
-		if (this.m_clampMaxRangeToFreePos)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			float a = (targetingActor.\u0016() - currentTarget.FreePos).magnitude / Board.\u000E().squareSize;
+			float a = (targetingActor.GetTravelBoardSquareWorldPosition() - currentTarget.FreePos).magnitude / Board.Get().squareSize;
 			num2 = Mathf.Min(a, num2);
 		}
 		float num3 = VectorUtils.HorizontalAngle_Deg(vec);
-		float num4 = num3 - 0.5f * (float)(this.m_bombCount - 1) * this.m_bombAngleInBetween;
-		int k = 0;
-		while (k < this.m_bombCount)
+		float num4 = num3 - 0.5f * (float)(m_bombCount - 1) * m_bombAngleInBetween;
+		for (int k = 0; k < m_bombCount; k++)
 		{
-			int index = k + this.m_bombCount;
-			float num5 = num4 + (float)k * this.m_bombAngleInBetween;
+			int index = k + m_bombCount;
+			float num5 = num4 + (float)k * m_bombAngleInBetween;
 			Vector3 aimDirection = VectorUtils.AngleDegreesToVector(num5);
 			float num6 = 1f;
-			if (this.m_alignBombInLine)
+			if (m_alignBombInLine)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num7 = Mathf.Abs(num5 - num3);
 				if (num7 < 80f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num6 = 1f / Mathf.Cos(0.0174532924f * num7);
+					num6 = 1f / Mathf.Cos((float)Math.PI / 180f * num7);
 				}
 			}
-			List<Vector3> list;
-			Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary = this.m_bombInfo.FindBounceHitActors(aimDirection, targetingActor, out list, null, num6 * maxDistancePerBounce, num6 * num2, false);
-			Vector3 adjustedStartPosition = this.m_bombInfo.GetAdjustedStartPosition(aimDirection, targetingActor);
+			List<Vector3> bounceEndPoints;
+			Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary = m_bombInfo.FindBounceHitActors(aimDirection, targetingActor, out bounceEndPoints, null, num6 * maxDistancePerBounce, num6 * num2, false);
+			Vector3 adjustedStartPosition = m_bombInfo.GetAdjustedStartPosition(aimDirection, targetingActor);
 			Vector3 originalStart = adjustedStartPosition + new Vector3(0f, 0.1f - BoardSquare.s_LoSHeightOffset, 0f);
-			UIBouncingLaserCursor component = this.m_highlights[k].GetComponent<UIBouncingLaserCursor>();
-			component.OnUpdated(originalStart, list, num);
-			if (dictionary.Count > 0)
+			UIBouncingLaserCursor component = m_highlights[k].GetComponent<UIBouncingLaserCursor>();
+			component.OnUpdated(originalStart, bounceEndPoints, num);
+			if (dictionary.Count <= 0)
 			{
-				goto IL_2D8;
-			}
-			for (;;)
-			{
-				switch (7)
+				if (!m_explodeOnEndOfPath)
 				{
-				case 0:
+					m_highlights[index].SetActive(false);
 					continue;
 				}
-				break;
 			}
-			if (this.m_explodeOnEndOfPath)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_2D8;
-				}
-			}
-			else
-			{
-				this.m_highlights[index].SetActive(false);
-			}
-			IL_411:
-			k++;
-			continue;
-			IL_2D8:
-			Vector3 vector2 = list[list.Count - 1];
-			BoardSquare boardSquare = Board.\u000E().\u000E(vector2);
+			Vector3 vector2 = bounceEndPoints[bounceEndPoints.Count - 1];
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(vector2);
 			Vector3 vector3 = vector2;
-			if (boardSquare != null && boardSquare.\u0016())
+			if (boardSquare != null && boardSquare.IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2 = boardSquare.ToVector3();
-				vector3 = AreaEffectUtils.GetCenterOfShape(this.m_bombInfo.shape, vector2, boardSquare);
+				vector3 = AreaEffectUtils.GetCenterOfShape(m_bombInfo.shape, vector2, boardSquare);
 			}
-			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_bombInfo.shape, vector3, boardSquare, false, targetingActor, targetingActor.\u0012(), null);
-			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
+			List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_bombInfo.shape, vector3, boardSquare, false, targetingActor, targetingActor.GetOpposingTeam(), null);
+			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 			Vector3 damageOrigin = vector3;
-			foreach (ActorData actor in actorsInShape)
+			foreach (ActorData item in actors)
 			{
-				base.AddActorInRange(actor, damageOrigin, targetingActor, AbilityTooltipSubject.Primary, true);
+				AddActorInRange(item, damageOrigin, targetingActor, AbilityTooltipSubject.Primary, true);
 			}
-			vector3.y = (float)Board.\u000E().BaselineHeight + 0.1f;
-			this.m_highlights[index].transform.position = vector3;
-			this.m_highlights[index].SetActive(true);
-			goto IL_411;
+			vector3.y = (float)Board.Get().BaselineHeight + 0.1f;
+			m_highlights[index].transform.position = vector3;
+			m_highlights[index].SetActive(true);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,109 +29,66 @@ namespace AbilityContextNamespace
 
 		public List<NumericContextOperand> m_baseAddModifierOverrides;
 
-		public OnHitIntField \u001D(OnHitIntField \u001D)
+		public OnHitIntField _001D(OnHitIntField _001D)
 		{
-			OnHitIntField copy = \u001D.GetCopy();
-			if (this.m_useConditionOverride)
+			OnHitIntField copy = _001D.GetCopy();
+			if (m_useConditionOverride)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SingleOnHitIntFieldMod.\u001D(OnHitIntField)).MethodHandle;
-				}
-				copy.m_conditions = this.m_conditionOverride.\u001D();
+				copy.m_conditions = m_conditionOverride._001D();
 			}
-			copy.m_baseValue = this.m_baseValueMod.GetModifiedValue(\u001D.m_baseValue);
-			copy.m_minValue = this.m_minValueMod.GetModifiedValue(\u001D.m_minValue);
-			copy.m_maxValue = this.m_maxValueMod.GetModifiedValue(\u001D.m_maxValue);
-			copy.m_baseAddTotalMinValue = this.m_baseAddTotalMinValueMod.GetModifiedValue(\u001D.m_baseAddTotalMinValue);
-			copy.m_baseAddTotalMaxValue = this.m_baseAddTotalMaxValueMod.GetModifiedValue(\u001D.m_baseAddTotalMaxValue);
-			if (this.m_useBaseAddModifierOverrides)
+			copy.m_baseValue = m_baseValueMod.GetModifiedValue(_001D.m_baseValue);
+			copy.m_minValue = m_minValueMod.GetModifiedValue(_001D.m_minValue);
+			copy.m_maxValue = m_maxValueMod.GetModifiedValue(_001D.m_maxValue);
+			copy.m_baseAddTotalMinValue = m_baseAddTotalMinValueMod.GetModifiedValue(_001D.m_baseAddTotalMinValue);
+			copy.m_baseAddTotalMaxValue = m_baseAddTotalMaxValueMod.GetModifiedValue(_001D.m_baseAddTotalMaxValue);
+			if (m_useBaseAddModifierOverrides)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				copy.m_baseAddModifiers = new List<NumericContextOperand>();
-				for (int i = 0; i < this.m_baseAddModifierOverrides.Count; i++)
+				for (int i = 0; i < m_baseAddModifierOverrides.Count; i++)
 				{
-					copy.m_baseAddModifiers.Add(this.m_baseAddModifierOverrides[i].GetCopy());
+					copy.m_baseAddModifiers.Add(m_baseAddModifierOverrides[i].GetCopy());
 				}
 			}
 			return copy;
 		}
 
-		public string \u001D(OnHitIntField \u001D)
+		public string GetDesc(OnHitIntField _001D)
 		{
 			string text = string.Empty;
-			if (\u001D != null)
+			if (_001D != null)
 			{
-				for (;;)
+				if (m_useConditionOverride)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SingleOnHitIntFieldMod.\u001D(OnHitIntField)).MethodHandle;
-				}
-				if (this.m_useConditionOverride)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += "* Using Condition override *\n";
-					text += this.m_conditionOverride.\u001D("    ");
+					text += m_conditionOverride._001D("    ");
 				}
-				text += AbilityModHelper.GetModPropertyDesc(this.m_baseValueMod, "[BaseValue]", true, \u001D.m_baseValue);
-				text += AbilityModHelper.GetModPropertyDesc(this.m_minValueMod, "[MinValue]", true, \u001D.m_minValue);
-				text += AbilityModHelper.GetModPropertyDesc(this.m_maxValueMod, "[MaxValue]", true, \u001D.m_maxValue);
-				text += AbilityModHelper.GetModPropertyDesc(this.m_baseAddTotalMinValueMod, "[BaseAddTotalMinValue]", true, \u001D.m_baseAddTotalMinValue);
-				text += AbilityModHelper.GetModPropertyDesc(this.m_baseAddTotalMaxValueMod, "[BaseAddTotalMaxValue]", true, \u001D.m_baseAddTotalMaxValue);
-				if (this.m_useBaseAddModifierOverrides)
+				text += AbilityModHelper.GetModPropertyDesc(m_baseValueMod, "[BaseValue]", true, _001D.m_baseValue);
+				text += AbilityModHelper.GetModPropertyDesc(m_minValueMod, "[MinValue]", true, _001D.m_minValue);
+				text += AbilityModHelper.GetModPropertyDesc(m_maxValueMod, "[MaxValue]", true, _001D.m_maxValue);
+				text += AbilityModHelper.GetModPropertyDesc(m_baseAddTotalMinValueMod, "[BaseAddTotalMinValue]", true, _001D.m_baseAddTotalMinValue);
+				text += AbilityModHelper.GetModPropertyDesc(m_baseAddTotalMaxValueMod, "[BaseAddTotalMaxValue]", true, _001D.m_baseAddTotalMaxValue);
+				if (m_useBaseAddModifierOverrides)
 				{
 					text += "* Using Base Add Modifier Overrides *\n";
-					if (this.m_baseAddModifierOverrides.Count > 0)
+					if (m_baseAddModifierOverrides.Count > 0)
 					{
 						text += "+ Base Add Modifiers\n";
-						using (List<NumericContextOperand>.Enumerator enumerator = this.m_baseAddModifierOverrides.GetEnumerator())
+						using (List<NumericContextOperand>.Enumerator enumerator = m_baseAddModifierOverrides.GetEnumerator())
 						{
 							while (enumerator.MoveNext())
 							{
-								NumericContextOperand numericContextOperand = enumerator.Current;
-								text += numericContextOperand.GetInEditorDesc("    ");
+								NumericContextOperand current = enumerator.Current;
+								text += current.GetInEditorDesc("    ");
 							}
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return text;
 								}
-								break;
 							}
 						}
 					}
@@ -140,112 +97,65 @@ namespace AbilityContextNamespace
 			return text;
 		}
 
-		public void \u001D(List<TooltipTokenEntry> \u001D, OnHitIntField \u000E, string \u0012)
+		public void AddTokens_zq(List<TooltipTokenEntry> _001D, OnHitIntField _000E, string _0012)
 		{
-			if (\u000E != null)
+			if (_000E == null)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				AbilityMod.AddToken(_001D, m_baseValueMod, _0012 + "_Base", string.Empty, _000E.m_baseValue);
+				AbilityMod.AddToken(_001D, m_minValueMod, _0012 + "_Min", string.Empty, _000E.m_minValue);
+				AbilityMod.AddToken(_001D, m_maxValueMod, _0012 + "_Max", string.Empty, _000E.m_maxValue);
+				AbilityMod.AddToken(_001D, m_baseAddTotalMinValueMod, _0012 + "_BaseAddTotalMin", string.Empty, _000E.m_baseAddTotalMinValue);
+				AbilityMod.AddToken(_001D, m_baseAddTotalMaxValueMod, _0012 + "_BaseAddTotalMax", string.Empty, _000E.m_baseAddTotalMaxValue);
+				if (!m_useBaseAddModifierOverrides)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (!true)
+				while (true)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SingleOnHitIntFieldMod.\u001D(List<TooltipTokenEntry>, OnHitIntField, string)).MethodHandle;
-				}
-				AbilityMod.AddToken(\u001D, this.m_baseValueMod, \u0012 + "_Base", string.Empty, \u000E.m_baseValue, true, false);
-				AbilityMod.AddToken(\u001D, this.m_minValueMod, \u0012 + "_Min", string.Empty, \u000E.m_minValue, true, false);
-				AbilityMod.AddToken(\u001D, this.m_maxValueMod, \u0012 + "_Max", string.Empty, \u000E.m_maxValue, true, false);
-				AbilityMod.AddToken(\u001D, this.m_baseAddTotalMinValueMod, \u0012 + "_BaseAddTotalMin", string.Empty, \u000E.m_baseAddTotalMinValue, true, false);
-				AbilityMod.AddToken(\u001D, this.m_baseAddTotalMaxValueMod, \u0012 + "_BaseAddTotalMax", string.Empty, \u000E.m_baseAddTotalMaxValue, true, false);
-				if (this.m_useBaseAddModifierOverrides)
-				{
-					for (;;)
+					if (m_baseAddModifierOverrides == null)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						return;
 					}
-					if (this.m_baseAddModifierOverrides != null)
+					while (true)
 					{
-						for (;;)
+						for (int i = 0; i < m_baseAddModifierOverrides.Count; i++)
 						{
-							switch (3)
+							NumericContextOperand numericContextOperand = m_baseAddModifierOverrides[i];
+							if (numericContextOperand.m_contextName.IsNullOrEmpty())
 							{
-							case 0:
 								continue;
 							}
-							break;
-						}
-						for (int i = 0; i < this.m_baseAddModifierOverrides.Count; i++)
-						{
-							NumericContextOperand numericContextOperand = this.m_baseAddModifierOverrides[i];
-							if (!numericContextOperand.m_contextName.IsNullOrEmpty())
+							int num = Mathf.RoundToInt(numericContextOperand.m_modifier.value);
+							if (num > 0)
 							{
-								int num = Mathf.RoundToInt(numericContextOperand.m_modifier.value);
-								if (num > 0)
+								_001D.Add(new TooltipTokenInt(_0012 + "_Add_" + i + "_Main", string.Empty, num));
+							}
+							if (numericContextOperand.m_additionalModifiers == null)
+							{
+								continue;
+							}
+							for (int j = 0; j < numericContextOperand.m_additionalModifiers.Count; j++)
+							{
+								int num2 = Mathf.RoundToInt(numericContextOperand.m_additionalModifiers[j].value);
+								if (num2 > 0)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									\u001D.Add(new TooltipTokenInt(string.Concat(new object[]
-									{
-										\u0012,
-										"_Add_",
-										i,
-										"_Main"
-									}), string.Empty, num));
-								}
-								if (numericContextOperand.m_additionalModifiers != null)
-								{
-									for (int j = 0; j < numericContextOperand.m_additionalModifiers.Count; j++)
-									{
-										int num2 = Mathf.RoundToInt(numericContextOperand.m_additionalModifiers[j].value);
-										if (num2 > 0)
-										{
-											\u001D.Add(new TooltipTokenInt(string.Concat(new object[]
-											{
-												\u0012,
-												"_Add_",
-												i,
-												"_Extra_",
-												j
-											}), string.Empty, num2));
-										}
-									}
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
+									_001D.Add(new TooltipTokenInt(_0012 + "_Add_" + i + "_Extra_" + j, string.Empty, num2));
 								}
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
+							default:
+								return;
 							case 0:
-								continue;
+								break;
 							}
-							break;
 						}
 					}
 				}

@@ -1,16 +1,27 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public interface IBitStream
 {
-	bool isReading { get; }
+	bool isReading
+	{
+		get;
+	}
 
-	bool isWriting { get; }
+	bool isWriting
+	{
+		get;
+	}
 
-	uint Position { get; }
+	uint Position
+	{
+		get;
+	}
 
-	NetworkWriter Writer { get; }
+	NetworkWriter Writer
+	{
+		get;
+	}
 
 	void Serialize(ref bool value);
 

@@ -1,5 +1,3 @@
-﻿using System;
-
 public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 {
 	public override string GetDebugItemName()
@@ -14,36 +12,19 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 
 	public override string GetDebugItemValue()
 	{
+		object result;
 		if (Options_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_SetExtraLowGraphicsQuality.GetDebugItemValue()).MethodHandle;
-			}
 			if (Options_UI.Get().GetCurrentGraphicsQuality() == GraphicsQuality.VeryLow)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return "on";
+				result = "on";
+				goto IL_004c;
 			}
 		}
-		return "off";
+		result = "off";
+		goto IL_004c;
+		IL_004c:
+		return (string)result;
 	}
 
 	public override string GetSlashCommand()
@@ -58,27 +39,18 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 
 	public override void OnIncreaseClick()
 	{
-		if (base.CheatEnabled)
+		if (!base.CheatEnabled)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(Options_UI.Get() == null))
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				Options_UI.Get().SetPendingGraphicsQuality((Options_UI.Get().GetCurrentGraphicsQuality() != GraphicsQuality.VeryLow) ? GraphicsQuality.VeryLow : GraphicsQuality.Low);
+				Options_UI.Get().ApplyCurrentSettings();
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_SetExtraLowGraphicsQuality.OnIncreaseClick()).MethodHandle;
-			}
-			if (Options_UI.Get() == null)
-			{
-				return;
-			}
-			Options_UI.Get().SetPendingGraphicsQuality((Options_UI.Get().GetCurrentGraphicsQuality() != GraphicsQuality.VeryLow) ? GraphicsQuality.VeryLow : GraphicsQuality.Low);
-			Options_UI.Get().ApplyCurrentSettings();
+			return;
 		}
 	}
 
@@ -86,21 +58,17 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 	{
 		if (arguments.EqualsIgnoreCase("lowgraphics"))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					OnIncreaseClick();
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_SetExtraLowGraphicsQuality.OnSlashCommand(string)).MethodHandle;
-			}
-			this.OnIncreaseClick();
-			return true;
 		}
 		return false;
 	}

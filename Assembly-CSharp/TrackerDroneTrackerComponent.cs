@@ -1,4 +1,3 @@
-﻿using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -16,55 +15,82 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 
 	private SyncListInt m_trackedActorIndex = new SyncListInt();
 
-	private static int kListm_trackedActorIndex = 0x600898CE;
+	private static int kListm_trackedActorIndex;
+
+	public bool Networkm_droneActive
+	{
+		get
+		{
+			return m_droneActive;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_droneActive, 1u);
+		}
+	}
+
+	public int Networkm_boardX
+	{
+		get
+		{
+			return m_boardX;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_boardX, 2u);
+		}
+	}
+
+	public int Networkm_boardY
+	{
+		get
+		{
+			return m_boardY;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_boardY, 4u);
+		}
+	}
 
 	static TrackerDroneTrackerComponent()
 	{
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(TrackerDroneTrackerComponent), TrackerDroneTrackerComponent.kListm_trackedActorIndex, new NetworkBehaviour.CmdDelegate(TrackerDroneTrackerComponent.InvokeSyncListm_trackedActorIndex));
+		kListm_trackedActorIndex = 1611176142;
+		NetworkBehaviour.RegisterSyncListDelegate(typeof(TrackerDroneTrackerComponent), kListm_trackedActorIndex, InvokeSyncListm_trackedActorIndex);
 		NetworkCRC.RegisterBehaviour("TrackerDroneTrackerComponent", 0);
 	}
 
 	internal bool DroneIsActive()
 	{
-		BoardSquare x = Board.\u000E().\u0016(this.m_boardX, this.m_boardY);
-		bool result;
-		if (this.m_droneActive)
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(m_boardX, m_boardY);
+		int result;
+		if (m_droneActive)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.DroneIsActive()).MethodHandle;
-			}
-			result = (x != null);
+			result = ((boardSquare != null) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	internal int BoardX()
 	{
-		return this.m_boardX;
+		return m_boardX;
 	}
 
 	internal int BoardY()
 	{
-		return this.m_boardY;
+		return m_boardY;
 	}
 
 	internal bool IsTrackingActor(int index)
 	{
-		return this.m_trackedActorIndex.Contains(index);
+		return m_trackedActorIndex.Contains(index);
 	}
 
 	[Server]
@@ -73,9 +99,11 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		if (!NetworkServer.active)
 		{
 			Debug.LogWarning("[Server] function 'System.Void TrackerDroneTrackerComponent::UpdateDroneActiveFlag(System.Boolean)' called on client");
-			return;
 		}
-		this.Networkm_droneActive = isActive;
+		else
+		{
+			Networkm_droneActive = isActive;
+		}
 	}
 
 	[Server]
@@ -83,24 +111,20 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Debug.LogWarning("[Server] function 'System.Void TrackerDroneTrackerComponent::UpdateDroneBoardPos(System.Int32,System.Int32)' called on client");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.UpdateDroneBoardPos(int, int)).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void TrackerDroneTrackerComponent::UpdateDroneBoardPos(System.Int32,System.Int32)' called on client");
-			return;
 		}
-		this.Networkm_boardX = x;
-		this.Networkm_boardY = y;
+		Networkm_boardX = x;
+		Networkm_boardY = y;
 	}
 
 	[Server]
@@ -108,34 +132,26 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Debug.LogWarning("[Server] function 'System.Void TrackerDroneTrackerComponent::AddTrackedActorByIndex(System.Int32)' called on client");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.AddTrackedActorByIndex(int)).MethodHandle;
-			}
-			Debug.LogWarning("[Server] function 'System.Void TrackerDroneTrackerComponent::AddTrackedActorByIndex(System.Int32)' called on client");
+		}
+		if (m_trackedActorIndex.Contains(actorIndex))
+		{
 			return;
 		}
-		if (!this.m_trackedActorIndex.Contains(actorIndex))
+		while (true)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_trackedActorIndex.Add(actorIndex);
+			m_trackedActorIndex.Add(actorIndex);
+			return;
 		}
 	}
 
@@ -145,35 +161,29 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		if (!NetworkServer.active)
 		{
 			Debug.LogWarning("[Server] function 'System.Void TrackerDroneTrackerComponent::RemoveTrackedActorByIndex(System.Int32)' called on client");
-			return;
 		}
-		this.m_trackedActorIndex.Remove(actorIndex);
+		else
+		{
+			m_trackedActorIndex.Remove(actorIndex);
+		}
 	}
 
 	private void Update()
 	{
-		if (GameFlowData.Get().IsInDecisionState())
+		if (!GameFlowData.Get().IsInDecisionState())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.Update()).MethodHandle;
-			}
-			this.SanityCheckTrackerDroneState();
+			return;
+		}
+		while (true)
+		{
+			SanityCheckTrackerDroneState();
+			return;
 		}
 	}
 
 	public void SanityCheckTrackerDroneState()
 	{
-		SatelliteController component = base.GetComponent<SatelliteController>();
+		SatelliteController component = GetComponent<SatelliteController>();
 		if (component == null)
 		{
 			return;
@@ -181,90 +191,53 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		PersistentSatellite satellite = component.GetSatellite(0);
 		if (satellite == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.SanityCheckTrackerDroneState()).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_droneActive)
+		if (m_droneActive)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!satellite.IsVisible())
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				satellite.OverrideVisibility(true);
-			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(satellite.transform);
-			if (!(boardSquare == null))
-			{
-				for (;;)
+				default:
 				{
-					switch (5)
+					if (!satellite.IsVisible())
 					{
-					case 0:
-						continue;
+						satellite.OverrideVisibility(true);
 					}
-					break;
+					BoardSquare boardSquare = Board.Get().GetBoardSquare(satellite.transform);
+					if (!(boardSquare == null))
+					{
+						if (boardSquare.x == BoardX())
+						{
+							if (boardSquare.y == BoardY())
+							{
+								return;
+							}
+						}
+					}
+					float x = (float)BoardX() * Board.Get().squareSize;
+					float z = (float)BoardY() * Board.Get().squareSize;
+					Vector3 position = satellite.transform.position;
+					Vector3 targetPosition = new Vector3(x, position.y, z);
+					satellite.TeleportToLocation(targetPosition);
+					return;
 				}
-				if (boardSquare.x == this.BoardX())
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (boardSquare.y == this.BoardY())
-					{
-						goto IL_127;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
-			float x = (float)this.BoardX() * Board.\u000E().squareSize;
-			float z = (float)this.BoardY() * Board.\u000E().squareSize;
-			Vector3 targetPosition = new Vector3(x, satellite.transform.position.y, z);
-			satellite.TeleportToLocation(targetPosition);
-			IL_127:;
 		}
-		else if (satellite.IsVisible())
+		if (satellite.IsVisible())
 		{
 			satellite.OverrideVisibility(false);
 		}
@@ -274,167 +247,81 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 	{
 	}
 
-	public bool Networkm_droneActive
-	{
-		get
-		{
-			return this.m_droneActive;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<bool>(value, ref this.m_droneActive, 1U);
-		}
-	}
-
-	public int Networkm_boardX
-	{
-		get
-		{
-			return this.m_boardX;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_boardX, 2U);
-		}
-	}
-
-	public int Networkm_boardY
-	{
-		get
-		{
-			return this.m_boardY;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_boardY, 4U);
-		}
-	}
-
 	protected static void InvokeSyncListm_trackedActorIndex(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("SyncList m_trackedActorIndex called on server.");
-			return;
 		}
-		((TrackerDroneTrackerComponent)obj).m_trackedActorIndex.HandleMsg(reader);
+		else
+		{
+			((TrackerDroneTrackerComponent)obj).m_trackedActorIndex.HandleMsg(reader);
+		}
 	}
 
 	private void Awake()
 	{
-		this.m_trackedActorIndex.InitializeBehaviour(this, TrackerDroneTrackerComponent.kListm_trackedActorIndex);
+		m_trackedActorIndex.InitializeBehaviour(this, kListm_trackedActorIndex);
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					writer.Write(m_droneActive);
+					writer.WritePackedUInt32((uint)m_boardX);
+					writer.WritePackedUInt32((uint)m_boardY);
+					SyncListInt.WriteInstance(writer, m_trackedActorIndex);
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
-			writer.Write(this.m_droneActive);
-			writer.WritePackedUInt32((uint)this.m_boardX);
-			writer.WritePackedUInt32((uint)this.m_boardY);
-			SyncListInt.WriteInstance(writer, this.m_trackedActorIndex);
-			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_droneActive);
+			writer.Write(m_droneActive);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_boardX);
+			writer.WritePackedUInt32((uint)m_boardX);
 		}
-		if ((base.syncVarDirtyBits & 4U) != 0U)
+		if ((base.syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_boardY);
+			writer.WritePackedUInt32((uint)m_boardY);
 		}
-		if ((base.syncVarDirtyBits & 8U) != 0U)
+		if ((base.syncVarDirtyBits & 8) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListInt.WriteInstance(writer, this.m_trackedActorIndex);
+			SyncListInt.WriteInstance(writer, m_trackedActorIndex);
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -444,59 +331,28 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			this.m_droneActive = reader.ReadBoolean();
-			this.m_boardX = (int)reader.ReadPackedUInt32();
-			this.m_boardY = (int)reader.ReadPackedUInt32();
-			SyncListInt.ReadReference(reader, this.m_trackedActorIndex);
+			m_droneActive = reader.ReadBoolean();
+			m_boardX = (int)reader.ReadPackedUInt32();
+			m_boardY = (int)reader.ReadPackedUInt32();
+			SyncListInt.ReadReference(reader, m_trackedActorIndex);
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
-			this.m_droneActive = reader.ReadBoolean();
+			m_droneActive = reader.ReadBoolean();
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_boardX = (int)reader.ReadPackedUInt32();
+			m_boardX = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_boardY = (int)reader.ReadPackedUInt32();
+			m_boardY = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)
 		{
-			SyncListInt.ReadReference(reader, this.m_trackedActorIndex);
+			SyncListInt.ReadReference(reader, m_trackedActorIndex);
 		}
 	}
 }

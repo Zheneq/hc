@@ -1,9 +1,10 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class _ToggleSwap : MonoBehaviour
 {
+	public delegate void NotifyChanged(_ToggleSwap btn);
+
 	public _ButtonSwapSprite m_onButton;
 
 	public _ButtonSwapSprite m_offButton;
@@ -12,144 +13,95 @@ public class _ToggleSwap : MonoBehaviour
 
 	public RectTransform m_offContainer;
 
-	public _ToggleSwap.NotifyChanged changedNotify;
+	public NotifyChanged changedNotify;
 
 	private bool m_isOn;
 
 	public bool IsChecked()
 	{
-		return this.m_isOn;
+		return m_isOn;
 	}
 
 	private void Awake()
 	{
-		if (this.m_onButton != null)
+		if (m_onButton != null)
 		{
-			this.m_onButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ToggleButton);
+			m_onButton.callback = ToggleButton;
 		}
-		if (this.m_offButton != null)
+		if (m_offButton != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ToggleSwap.Awake()).MethodHandle;
-			}
-			this.m_offButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ToggleButton);
+			m_offButton.callback = ToggleButton;
 		}
-		if (this.m_onContainer != null)
+		if (m_onContainer != null)
 		{
-			UIManager.SetGameObjectActive(this.m_onContainer.gameObject, this.m_isOn, null);
+			UIManager.SetGameObjectActive(m_onContainer.gameObject, m_isOn);
 		}
-		if (this.m_offContainer != null)
+		if (!(m_offContainer != null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_offContainer.gameObject, !this.m_isOn, null);
+			return;
+		}
+		while (true)
+		{
+			UIManager.SetGameObjectActive(m_offContainer.gameObject, !m_isOn);
+			return;
 		}
 	}
 
 	public void ToggleButton(BaseEventData data)
 	{
-		this.SetOn(!this.m_isOn, true);
+		SetOn(!m_isOn, true);
 	}
 
 	public void SetOn(bool isOn, bool doNotify = false)
 	{
-		if (this.m_isOn == isOn)
+		if (m_isOn == isOn)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ToggleSwap.SetOn(bool, bool)).MethodHandle;
-			}
+		}
+		m_isOn = isOn;
+		UIManager.SetGameObjectActive(m_onContainer.gameObject, isOn);
+		if (m_offContainer != null)
+		{
+			UIManager.SetGameObjectActive(m_offContainer.gameObject, !isOn);
+		}
+		if (!doNotify)
+		{
 			return;
 		}
-		this.m_isOn = isOn;
-		UIManager.SetGameObjectActive(this.m_onContainer.gameObject, isOn, null);
-		if (this.m_offContainer != null)
+		while (true)
 		{
-			for (;;)
+			if (changedNotify != null)
 			{
-				switch (4)
+				while (true)
 				{
-				case 0:
-					continue;
+					changedNotify(this);
+					return;
 				}
-				break;
 			}
-			UIManager.SetGameObjectActive(this.m_offContainer.gameObject, !isOn, null);
-		}
-		if (doNotify)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.changedNotify != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.changedNotify(this);
-			}
+			return;
 		}
 	}
 
 	public void SetClickable(bool canBeClicked)
 	{
-		this.m_onButton.SetClickable(canBeClicked);
-		if (this.m_offButton != null)
+		m_onButton.SetClickable(canBeClicked);
+		if (!(m_offButton != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ToggleSwap.SetClickable(bool)).MethodHandle;
-			}
-			this.m_offButton.SetClickable(canBeClicked);
+			return;
+		}
+		while (true)
+		{
+			m_offButton.SetClickable(canBeClicked);
+			return;
 		}
 	}
-
-	public delegate void NotifyChanged(_ToggleSwap btn);
 }

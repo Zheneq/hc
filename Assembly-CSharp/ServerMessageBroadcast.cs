@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 public class ServerMessageBroadcast
 {
@@ -8,6 +8,6 @@ public class ServerMessageBroadcast
 
 	public ServerMessageBroadcast()
 	{
-		this.Message = new ServerMessage();
+		Message = new ServerMessage();
 	}
 }

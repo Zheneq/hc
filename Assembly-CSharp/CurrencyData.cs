@@ -1,5 +1,5 @@
-﻿using System;
 using Newtonsoft.Json;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -14,22 +14,15 @@ public class CurrencyData
 	[HideInInspector]
 	public int m_TotalSpent;
 
-	public CurrencyData()
-	{
-		this.m_Type = CurrencyType.ISO;
-		this.m_Amount = 0;
-		this.m_TotalSpent = 0;
-	}
-
 	public CurrencyType Type
 	{
 		get
 		{
-			return this.m_Type;
+			return m_Type;
 		}
 		set
 		{
-			this.m_Type = value;
+			m_Type = value;
 		}
 	}
 
@@ -37,11 +30,11 @@ public class CurrencyData
 	{
 		get
 		{
-			return this.m_Amount;
+			return m_Amount;
 		}
 		set
 		{
-			this.m_Amount = value;
+			m_Amount = value;
 		}
 	}
 
@@ -49,16 +42,23 @@ public class CurrencyData
 	{
 		get
 		{
-			return this.m_TotalSpent;
+			return m_TotalSpent;
 		}
 		set
 		{
-			this.m_TotalSpent = value;
+			m_TotalSpent = value;
 		}
+	}
+
+	public CurrencyData()
+	{
+		m_Type = CurrencyType.ISO;
+		m_Amount = 0;
+		m_TotalSpent = 0;
 	}
 
 	public override string ToString()
 	{
-		return string.Format("{0}: {1:N0}", this.m_Type.ToString(), this.m_Amount);
+		return $"{m_Type.ToString()}: {m_Amount:N0}";
 	}
 }

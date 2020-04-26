@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,216 +15,135 @@ public class UINameplateOvercon : MonoBehaviour
 
 	private void Awake()
 	{
-		this.m_canvasGroup = base.GetComponent<CanvasGroup>();
-		if (this.m_canvasGroup != null)
+		m_canvasGroup = GetComponent<CanvasGroup>();
+		if (!(m_canvasGroup != null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplateOvercon.Awake()).MethodHandle;
-			}
-			this.m_canvasGroup.blocksRaycasts = false;
-			this.m_canvasGroup.interactable = false;
+			return;
+		}
+		while (true)
+		{
+			m_canvasGroup.blocksRaycasts = false;
+			m_canvasGroup.interactable = false;
+			return;
 		}
 	}
 
 	public void Initialize(ActorData actor, UIOverconData.NameToOverconEntry entry)
 	{
-		this.m_initialized = true;
+		m_initialized = true;
 		if (entry != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplateOvercon.Initialize(ActorData, UIOverconData.NameToOverconEntry)).MethodHandle;
-			}
-			if (this.m_foregroundImg != null && !string.IsNullOrEmpty(entry.m_staticSpritePath))
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				Sprite sprite = Resources.Load(entry.m_staticSpritePath, typeof(Sprite)) as Sprite;
-				if (sprite != null)
-				{
-					for (;;)
+				default:
+					if (m_foregroundImg != null && !string.IsNullOrEmpty(entry.m_staticSpritePath))
 					{
-						switch (4)
+						Sprite sprite = Resources.Load(entry.m_staticSpritePath, typeof(Sprite)) as Sprite;
+						if (sprite != null)
 						{
-						case 0:
-							continue;
+							m_foregroundImg.sprite = sprite;
+							Color color = m_foregroundImg.color;
+							color.a = entry.m_initialAlpha;
+							m_foregroundImg.color = color;
 						}
-						break;
-					}
-					this.m_foregroundImg.sprite = sprite;
-					Color color = this.m_foregroundImg.color;
-					color.a = entry.m_initialAlpha;
-					this.m_foregroundImg.color = color;
-				}
-				else if (Application.isEditor)
-				{
-					Debug.LogWarning("Did not find overcon sprite at: " + entry.m_staticSpritePath);
-				}
-			}
-			if (!string.IsNullOrEmpty(entry.m_customPrefabPath))
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_customPrefabParent != null)
-				{
-					GameObject gameObject = Resources.Load(entry.m_customPrefabPath, typeof(GameObject)) as GameObject;
-					if (gameObject != null)
-					{
-						GameObject gameObject2 = UnityEngine.Object.Instantiate<GameObject>(gameObject);
-						if (gameObject2 != null)
+						else if (Application.isEditor)
 						{
-							for (;;)
+							Debug.LogWarning("Did not find overcon sprite at: " + entry.m_staticSpritePath);
+						}
+					}
+					if (!string.IsNullOrEmpty(entry.m_customPrefabPath))
+					{
+						if (m_customPrefabParent != null)
+						{
+							GameObject gameObject = Resources.Load(entry.m_customPrefabPath, typeof(GameObject)) as GameObject;
+							if (gameObject != null)
 							{
-								switch (3)
+								GameObject gameObject2 = Object.Instantiate(gameObject);
+								if (gameObject2 != null)
 								{
-								case 0:
-									continue;
+									gameObject2.transform.SetParent(m_customPrefabParent.transform);
+									gameObject2.transform.localPosition = new Vector3(0f, entry.m_customPrefabHeightOffset, 0f);
 								}
-								break;
 							}
-							gameObject2.transform.SetParent(this.m_customPrefabParent.transform);
-							gameObject2.transform.localPosition = new Vector3(0f, entry.m_customPrefabHeightOffset, 0f);
+							else if (Application.isEditor)
+							{
+								Debug.LogWarning("Did not find overcon prefab at: " + entry.m_customPrefabPath);
+							}
 						}
 					}
-					else if (Application.isEditor)
-					{
-						Debug.LogWarning("Did not find overcon prefab at: " + entry.m_customPrefabPath);
-					}
+					m_timeToDestroy = Time.time + ((!(entry.m_ageInSeconds <= 0f)) ? entry.m_ageInSeconds : 8f);
+					return;
 				}
 			}
-			this.m_timeToDestroy = Time.time + ((entry.m_ageInSeconds > 0f) ? entry.m_ageInSeconds : 8f);
 		}
-		else
-		{
-			this.m_timeToDestroy = Time.time;
-		}
+		m_timeToDestroy = Time.time;
 	}
 
 	public void SetCanvasGroupVisibility(bool visible)
 	{
-		if (this.m_canvasGroup != null)
+		if (!(m_canvasGroup != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplateOvercon.SetCanvasGroupVisibility(bool)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (visible)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						m_canvasGroup.alpha = 1f;
+						m_canvasGroup.blocksRaycasts = true;
+						m_canvasGroup.interactable = true;
+						return;
 					}
-					break;
 				}
-				this.m_canvasGroup.alpha = 1f;
-				this.m_canvasGroup.blocksRaycasts = true;
-				this.m_canvasGroup.interactable = true;
 			}
-			else
-			{
-				this.m_canvasGroup.alpha = 0f;
-				this.m_canvasGroup.blocksRaycasts = false;
-				this.m_canvasGroup.interactable = false;
-			}
+			m_canvasGroup.alpha = 0f;
+			m_canvasGroup.blocksRaycasts = false;
+			m_canvasGroup.interactable = false;
+			return;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		if (this.m_customPrefabParent != null)
+		if (!(m_customPrefabParent != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplateOvercon.OnDestroy()).MethodHandle;
-			}
-			UnityEngine.Object.Destroy(this.m_customPrefabParent);
+			return;
+		}
+		while (true)
+		{
+			Object.Destroy(m_customPrefabParent);
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (Time.time >= m_timeToDestroy)
 			{
-				switch (1)
+				while (true)
 				{
-				case 0:
-					continue;
+					Object.Destroy(base.gameObject);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplateOvercon.Update()).MethodHandle;
-			}
-			if (Time.time >= this.m_timeToDestroy)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UnityEngine.Object.Destroy(base.gameObject);
-			}
+			return;
 		}
 	}
 }

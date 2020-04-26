@@ -1,7 +1,7 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.Threading;
-using Newtonsoft.Json;
 
 public class LogInstance
 {
@@ -9,94 +9,117 @@ public class LogInstance
 
 	private object m_lock;
 
-	public LogInstance()
+	public bool TrackRepeats
 	{
-		if (LogInstance.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LogInstance..ctor()).MethodHandle;
-			}
-			LogInstance.<>f__am$cache0 = delegate(Log.Message A_0)
-			{
-			};
-		}
-		this.OnLogMessage = LogInstance.<>f__am$cache0;
-		base..ctor();
-		this.m_lock = new object();
+		get;
+		set;
 	}
 
-	public bool TrackRepeats { get; set; }
+	private Action<Log.Message> OnLogMessageHolder;
+	private event Action<Log.Message> OnLogMessage
+	{
+		add
+		{
+			Action<Log.Message> action = this.OnLogMessageHolder;
+			Action<Log.Message> action2;
+			do
+			{
+				action2 = action;
+				action = Interlocked.CompareExchange(ref this.OnLogMessageHolder, (Action<Log.Message>)Delegate.Combine(action2, value), action);
+			}
+			while ((object)action != action2);
+			while (true)
+			{
+				return;
+			}
+		}
+		remove
+		{
+			Action<Log.Message> action = this.OnLogMessageHolder;
+			Action<Log.Message> action2;
+			do
+			{
+				action2 = action;
+				action = Interlocked.CompareExchange(ref this.OnLogMessageHolder, (Action<Log.Message>)Delegate.Remove(action2, value), action);
+			}
+			while ((object)action != action2);
+			while (true)
+			{
+				return;
+			}
+		}
+	}
+
+	public LogInstance()
+	{
+		
+		this.OnLogMessageHolder = delegate
+			{
+			};
+		
+		m_lock = new object();
+	}
 
 	public void AddLogHandler(Action<Log.Message> handler)
 	{
-		this.OnLogMessage += handler;
+		OnLogMessage += handler;
 	}
 
 	public void RemoveLogHandler(Action<Log.Message> handler)
 	{
-		this.OnLogMessage -= handler;
+		OnLogMessage -= handler;
 	}
 
 	[Conditional("HYDROGEN_DEBUG")]
-	public void \u001D(Log.Category \u001D, string \u000E, params object[] \u0012)
+	public void _001D(Log.Category _001D, string _000E, params object[] _0012)
 	{
-		this.Write(Log.Level.\u001D, \u001D, \u000E, \u0012);
+		Write(Log.Level._001D, _001D, _000E, _0012);
 	}
 
 	public void Info(Log.Category category, string message, params object[] args)
 	{
-		this.Write(Log.Level.Info, category, message, args);
+		Write(Log.Level.Info, category, message, args);
 	}
 
 	public void Warning(Log.Category category, string message, params object[] args)
 	{
-		this.Write(Log.Level.Warning, category, message, args);
+		Write(Log.Level.Warning, category, message, args);
 	}
 
 	public void Notice(Log.Category category, string message, params object[] args)
 	{
-		this.Write(Log.Level.Notice, category, message, args);
+		Write(Log.Level.Notice, category, message, args);
 	}
 
 	[Conditional("HYDROGEN_DEBUG")]
-	public void \u001D(string \u001D, params object[] \u000E)
+	public void _001D(string _001D, params object[] _000E)
 	{
-		this.Write(Log.Level.\u001D, Log.Category.None, \u001D, \u000E);
+		Write(Log.Level._001D, Log.Category.None, _001D, _000E);
 	}
 
 	public void Info(string message, params object[] args)
 	{
-		this.Write(Log.Level.Info, Log.Category.None, message, args);
+		Write(Log.Level.Info, Log.Category.None, message, args);
 	}
 
 	public void Warning(string message, params object[] args)
 	{
-		this.Write(Log.Level.Warning, Log.Category.None, message, args);
+		Write(Log.Level.Warning, Log.Category.None, message, args);
 	}
 
 	public void Notice(string message, params object[] args)
 	{
-		this.Write(Log.Level.Notice, Log.Category.None, message, args);
+		Write(Log.Level.Notice, Log.Category.None, message, args);
 	}
 
 	public void Error(string message, params object[] args)
 	{
-		this.Write(Log.Level.Error, Log.Category.Error, message, args);
+		Write(Log.Level.Error, Log.Category.Error, message, args);
 	}
 
 	public void Critical(string message, params object[] args)
 	{
-		this.Write(Log.Level.Critical, Log.Category.Error, message, args);
+		Write(Log.Level.Critical, Log.Category.Error, message, args);
 	}
 
 	public void Exception(string message, params object[] args)
@@ -126,18 +149,17 @@ public class LogInstance
 		{
 		}
 		string formattedMessage = Log.Message.Format(message, args);
-		Log.Message obj2 = new Log.Message
-		{
-			level = Log.Level.Error,
-			category = Log.Category.Error,
-			message = message,
-			formattedMessage = formattedMessage,
-			timestamp = DateTime.Now,
-			exception = ex,
-			file = file,
-			line = line
-		};
-		this.OnLogMessage(obj2);
+		Log.Message message2 = default(Log.Message);
+		message2.level = Log.Level.Error;
+		message2.category = Log.Category.Error;
+		message2.message = message;
+		message2.formattedMessage = formattedMessage;
+		message2.timestamp = DateTime.Now;
+		message2.exception = ex;
+		message2.file = file;
+		message2.line = line;
+		Log.Message obj2 = message2;
+		this.OnLogMessageHolder(obj2);
 	}
 
 	public void Exception(Exception exception)
@@ -145,76 +167,52 @@ public class LogInstance
 		JsonSerializationException ex = exception as JsonSerializationException;
 		if (ex != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Exception(ex.ToReadableString());
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LogInstance.Exception(System.Exception)).MethodHandle;
-			}
-			this.Exception(ex.ToReadableString(), new object[0]);
-			return;
 		}
 		if (exception.InnerException != null)
 		{
 			exception = exception.InnerException;
 		}
-		this.Exception(exception.ToReadableString(), new object[0]);
+		Exception(exception.ToReadableString());
 	}
 
 	public void Write(Log.Level level, Log.Category category, string message, params object[] args)
 	{
-		this.Write(level, category, null, 0, message.Trim(), args);
+		Write(level, category, null, 0, message.Trim(), args);
 	}
 
 	public void Write(Log.Level level, Log.Category category, string fileName, int lineNumber, string message, params object[] args)
 	{
-		object @lock = this.m_lock;
-		lock (@lock)
+		lock (m_lock)
 		{
 			string text = Log.Message.Format(message, args);
-			if (this.TrackRepeats)
+			if (!TrackRepeats)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LogInstance.Write(Log.Level, Log.Category, string, int, string, object[])).MethodHandle;
-				}
-				if (this.m_lastLogEventArgs.formattedMessage == text)
-				{
-					this.m_lastLogEventArgs.repeatCount = this.m_lastLogEventArgs.repeatCount + 1;
-					this.m_lastLogEventArgs.timestamp = DateTime.Now;
-					return;
-				}
+				goto IL_0073;
 			}
-			if (this.m_lastLogEventArgs.repeatCount > 0)
+			if (!(m_lastLogEventArgs.formattedMessage == text))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.OnLogMessage(this.m_lastLogEventArgs);
+				goto IL_0073;
 			}
-			this.m_lastLogEventArgs = new Log.Message
+			m_lastLogEventArgs.repeatCount++;
+			m_lastLogEventArgs.timestamp = DateTime.Now;
+			goto end_IL_000d;
+			IL_0073:
+			if (m_lastLogEventArgs.repeatCount > 0)
+			{
+				this.OnLogMessageHolder(m_lastLogEventArgs);
+			}
+			m_lastLogEventArgs = new Log.Message
 			{
 				level = level,
 				category = category,
@@ -224,86 +222,27 @@ public class LogInstance
 				file = fileName,
 				line = lineNumber
 			};
-			this.Write(this.m_lastLogEventArgs);
+			Write(m_lastLogEventArgs);
+			end_IL_000d:;
 		}
 	}
 
 	public void Write(Log.Message message)
 	{
-		this.OnLogMessage(message);
+		this.OnLogMessageHolder(message);
 	}
 
 	public void Update()
 	{
-		if (this.m_lastLogEventArgs.repeatCount > 0 && DateTime.Now - this.m_lastLogEventArgs.timestamp > TimeSpan.FromSeconds(1.0))
+		if (m_lastLogEventArgs.repeatCount <= 0 || !(DateTime.Now - m_lastLogEventArgs.timestamp > TimeSpan.FromSeconds(1.0)))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LogInstance.Update()).MethodHandle;
-			}
-			this.OnLogMessage(this.m_lastLogEventArgs);
-			this.m_lastLogEventArgs = default(Log.Message);
+			return;
 		}
-	}
-
-	private event Action<Log.Message> OnLogMessage
-	{
-		add
+		while (true)
 		{
-			Action<Log.Message> action = this.OnLogMessage;
-			Action<Log.Message> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange<Action<Log.Message>>(ref this.OnLogMessage, (Action<Log.Message>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LogInstance.add_OnLogMessage(Action<Log.Message>)).MethodHandle;
-			}
-		}
-		remove
-		{
-			Action<Log.Message> action = this.OnLogMessage;
-			Action<Log.Message> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange<Action<Log.Message>>(ref this.OnLogMessage, (Action<Log.Message>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LogInstance.remove_OnLogMessage(Action<Log.Message>)).MethodHandle;
-			}
+			this.OnLogMessageHolder(m_lastLogEventArgs);
+			m_lastLogEventArgs = default(Log.Message);
+			return;
 		}
 	}
 }

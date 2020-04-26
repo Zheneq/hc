@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -55,130 +54,162 @@ public class Sensei_SyncComponent : NetworkBehaviour
 
 	private bool m_lastEnemyDashAudioSwitchState;
 
+	public sbyte Networkm_syncCurrentNumOrbs
+	{
+		get
+		{
+			return m_syncCurrentNumOrbs;
+		}
+		[param: In]
+		set
+		{
+			ref sbyte syncCurrentNumOrbs = ref m_syncCurrentNumOrbs;
+			if (NetworkServer.localClientActive)
+			{
+				if (!base.syncVarHookGuard)
+				{
+					base.syncVarHookGuard = true;
+					HookSetNumOrbs(value);
+					base.syncVarHookGuard = false;
+				}
+			}
+			SetSyncVar(value, ref syncCurrentNumOrbs, 1u);
+		}
+	}
+
+	public sbyte Networkm_syncTurnsForSecondYingYangDash
+	{
+		get
+		{
+			return m_syncTurnsForSecondYingYangDash;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_syncTurnsForSecondYingYangDash, 2u);
+		}
+	}
+
+	public bool Networkm_syncLastYingYangDashedToAlly
+	{
+		get
+		{
+			return m_syncLastYingYangDashedToAlly;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_syncLastYingYangDashedToAlly, 4u);
+		}
+	}
+
+	public float Networkm_syncBideExtraDamagePct
+	{
+		get
+		{
+			return m_syncBideExtraDamagePct;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_syncBideExtraDamagePct, 8u);
+		}
+	}
+
+	public sbyte Networkm_lastPrimaryUsedMode
+	{
+		get
+		{
+			return m_lastPrimaryUsedMode;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_lastPrimaryUsedMode, 16u);
+		}
+	}
+
 	private void HookSetNumOrbs(sbyte value)
 	{
-		this.Networkm_syncCurrentNumOrbs = value;
-		this.m_clientOrbNumAdjust = 0;
+		Networkm_syncCurrentNumOrbs = value;
+		m_clientOrbNumAdjust = 0;
 	}
 
 	private void Start()
 	{
-		this.m_owner = base.GetComponent<ActorData>();
-		if (this.m_owner != null)
+		m_owner = GetComponent<ActorData>();
+		if (m_owner != null)
 		{
-			this.m_abilityData = this.m_owner.GetComponent<AbilityData>();
-			if (this.m_abilityData != null)
+			m_abilityData = m_owner.GetComponent<AbilityData>();
+			if (m_abilityData != null)
 			{
-				this.m_yingYangDashAbility = (this.m_abilityData.GetAbilityOfType(typeof(SenseiYingYangDash)) as SenseiYingYangDash);
-				this.m_yingYangDashActionType = this.m_abilityData.GetActionTypeOfAbility(this.m_yingYangDashAbility);
+				m_yingYangDashAbility = (m_abilityData.GetAbilityOfType(typeof(SenseiYingYangDash)) as SenseiYingYangDash);
+				m_yingYangDashActionType = m_abilityData.GetActionTypeOfAbility(m_yingYangDashAbility);
 			}
-			if (this.m_yingYangDashAbility != null)
+			if (m_yingYangDashAbility != null)
 			{
-				List<GameObject> prefabs = new List<GameObject>
-				{
-					this.m_canDashToAllyVfxPrefab,
-					this.m_canDashToEnemyVfxPrefab
-				};
-				this.InstantiateVfxIndicators(this.m_dashIndicatorsSetA, this.m_canDashToAllyVfxJoint, this.m_canDashToAllyVfxLocalOffset, prefabs);
-				this.InstantiateVfxIndicators(this.m_dashIndicatorsSetB, this.m_canDashToEnemyVfxJoint, this.m_canDashToEnemyLocalOffset, prefabs);
-				this.SetAllyAudioSwitch(false);
-				this.SetEnemyAudioSwitch(false);
+				List<GameObject> list = new List<GameObject>();
+				list.Add(m_canDashToAllyVfxPrefab);
+				list.Add(m_canDashToEnemyVfxPrefab);
+				List<GameObject> prefabs = list;
+				InstantiateVfxIndicators(m_dashIndicatorsSetA, m_canDashToAllyVfxJoint, m_canDashToAllyVfxLocalOffset, prefabs);
+				InstantiateVfxIndicators(m_dashIndicatorsSetB, m_canDashToEnemyVfxJoint, m_canDashToEnemyLocalOffset, prefabs);
+				SetAllyAudioSwitch(false);
+				SetEnemyAudioSwitch(false);
 			}
 		}
 	}
 
 	private void SetAllyAudioSwitch(bool isOn)
 	{
-		string eventName = "ablty/general/switch/defend_on_off";
-		AudioManager.EventAction eventAction = AudioManager.EventAction.SetSwitch;
 		object parameter;
 		if (isOn)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.SetAllyAudioSwitch(bool)).MethodHandle;
-			}
 			parameter = "defend_on";
 		}
 		else
 		{
 			parameter = "defend_off";
 		}
-		AudioManager.PostEvent(eventName, eventAction, parameter, this.m_owner.gameObject);
-		this.m_lastAllyDashAudioSwitchState = isOn;
+		AudioManager.PostEvent("ablty/general/switch/defend_on_off", AudioManager.EventAction.SetSwitch, parameter, m_owner.gameObject);
+		m_lastAllyDashAudioSwitchState = isOn;
 	}
 
 	private void SetEnemyAudioSwitch(bool isOn)
 	{
-		string eventName = "ablty/general/switch/attack_on_off";
-		AudioManager.EventAction eventAction = AudioManager.EventAction.SetSwitch;
 		object parameter;
 		if (isOn)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.SetEnemyAudioSwitch(bool)).MethodHandle;
-			}
 			parameter = "attack_on";
 		}
 		else
 		{
 			parameter = "attack_off";
 		}
-		AudioManager.PostEvent(eventName, eventAction, parameter, this.m_owner.gameObject);
-		this.m_lastEnemyDashAudioSwitchState = isOn;
+		AudioManager.PostEvent("ablty/general/switch/attack_on_off", AudioManager.EventAction.SetSwitch, parameter, m_owner.gameObject);
+		m_lastEnemyDashAudioSwitchState = isOn;
 	}
 
 	private void InstantiateVfxIndicators(List<AttachedActorVFXInfo> listToAddTo, JointPopupProperty joint, Vector3 localOffset, List<GameObject> prefabs)
 	{
 		for (int i = 0; i < prefabs.Count; i++)
 		{
-			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(prefabs[i], this.m_owner, joint, false, "SenseiDashIndicator_" + i, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
+			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(prefabs[i], m_owner, joint, false, "SenseiDashIndicator_" + i, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.InstantiateVfxIndicators(List<AttachedActorVFXInfo>, JointPopupProperty, Vector3, List<GameObject>)).MethodHandle;
-				}
 				attachedActorVFXInfo.SetInstanceLocalPosition(localOffset);
 			}
 			listToAddTo.Add(attachedActorVFXInfo);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
@@ -190,245 +221,133 @@ public class Sensei_SyncComponent : NetworkBehaviour
 
 	private void Update()
 	{
-		if (this.m_owner != null)
+		if (!(m_owner != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(m_yingYangDashAbility != null))
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.Update()).MethodHandle;
-			}
-			if (this.m_yingYangDashAbility != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				bool flag = this.m_owner.\u0018();
+				bool flag = m_owner.IsVisibleToClient();
 				if (flag)
 				{
-					for (;;)
+					if (m_owner.GetActorModelData() != null)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_owner.\u000E() != null)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag = this.m_owner.\u000E().IsVisibleToClient();
+						flag = m_owner.GetActorModelData().IsVisibleToClient();
 					}
 				}
-				bool flag2;
-				if (!this.m_owner.\u000E())
+				int num;
+				if (!m_owner.IsDead())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag2 = this.m_owner.\u0012();
+					num = (m_owner.IsModelAnimatorDisabled() ? 1 : 0);
 				}
 				else
 				{
-					flag2 = true;
+					num = 1;
 				}
-				bool flag3 = flag2;
-				bool flag4 = this.m_abilityData.GetCooldownRemaining(this.m_yingYangDashActionType) <= 0;
-				bool flag5;
-				if (!flag3)
+				bool flag2 = (byte)num != 0;
+				bool flag3 = m_abilityData.GetCooldownRemaining(m_yingYangDashActionType) <= 0;
+				int num2;
+				if (!flag2)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag5 = flag4;
+					num2 = (flag3 ? 1 : 0);
 				}
 				else
 				{
-					flag5 = false;
+					num2 = 0;
 				}
-				bool flag6 = flag5;
-				bool flag7;
+				bool flag4 = (byte)num2 != 0;
+				int num3;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag7 = flag6;
+					num3 = (flag4 ? 1 : 0);
 				}
 				else
 				{
-					flag7 = false;
+					num3 = 0;
 				}
-				bool flag8 = flag7;
-				bool flag9;
-				if (flag6)
+				bool flag5 = (byte)num3 != 0;
+				int num4;
+				if (flag4)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag9 = this.m_yingYangDashAbility.CanTargetAlly();
+					num4 = (m_yingYangDashAbility.CanTargetAlly() ? 1 : 0);
 				}
 				else
 				{
-					flag9 = false;
+					num4 = 0;
 				}
-				bool flag10 = flag9;
-				bool flag11;
-				if (flag6)
+				bool flag6 = (byte)num4 != 0;
+				int num5;
+				if (flag4)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag11 = this.m_yingYangDashAbility.CanTargetEnemy();
+					num5 = (m_yingYangDashAbility.CanTargetEnemy() ? 1 : 0);
 				}
 				else
 				{
-					flag11 = false;
+					num5 = 0;
 				}
-				bool flag12 = flag11;
-				if (this.m_lastAllyDashAudioSwitchState != flag10)
+				bool flag7 = (byte)num5 != 0;
+				if (m_lastAllyDashAudioSwitchState != flag6)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.SetAllyAudioSwitch(flag10);
+					SetAllyAudioSwitch(flag6);
 				}
-				if (this.m_lastEnemyDashAudioSwitchState != flag12)
+				if (m_lastEnemyDashAudioSwitchState != flag7)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.SetEnemyAudioSwitch(flag12);
+					SetEnemyAudioSwitch(flag7);
 				}
-				if (flag8)
+				if (flag5)
 				{
-					for (;;)
+					if (!flag6)
 					{
-						switch (2)
+						if (!flag7)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!flag10)
-					{
-						if (!flag12)
-						{
-							goto IL_20D;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							goto IL_020d;
 						}
 					}
-					if (flag10 && flag12)
+					if (flag6 && flag7)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								SetIndicatorVisibility(m_dashIndicatorsSetA, true, false);
+								SetIndicatorVisibility(m_dashIndicatorsSetB, false, true);
+								return;
 							}
-							break;
 						}
-						this.SetIndicatorVisibility(this.m_dashIndicatorsSetA, true, false);
-						this.SetIndicatorVisibility(this.m_dashIndicatorsSetB, false, true);
 					}
-					else if (flag10)
+					if (flag6)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								SetIndicatorVisibility(m_dashIndicatorsSetA, true, false);
+								SetIndicatorVisibility(m_dashIndicatorsSetB, true, false);
+								return;
 							}
-							break;
 						}
-						this.SetIndicatorVisibility(this.m_dashIndicatorsSetA, true, false);
-						this.SetIndicatorVisibility(this.m_dashIndicatorsSetB, true, false);
 					}
-					else
-					{
-						this.SetIndicatorVisibility(this.m_dashIndicatorsSetA, false, true);
-						this.SetIndicatorVisibility(this.m_dashIndicatorsSetB, false, true);
-					}
+					SetIndicatorVisibility(m_dashIndicatorsSetA, false, true);
+					SetIndicatorVisibility(m_dashIndicatorsSetB, false, true);
 					return;
 				}
-				IL_20D:
-				this.SetIndicatorVisibility(this.m_dashIndicatorsSetA, false, false);
-				this.SetIndicatorVisibility(this.m_dashIndicatorsSetB, false, false);
+				goto IL_020d;
+				IL_020d:
+				SetIndicatorVisibility(m_dashIndicatorsSetA, false, false);
+				SetIndicatorVisibility(m_dashIndicatorsSetB, false, false);
+				return;
 			}
 		}
 	}
@@ -437,244 +356,71 @@ public class Sensei_SyncComponent : NetworkBehaviour
 	{
 	}
 
-	public sbyte Networkm_syncCurrentNumOrbs
-	{
-		get
-		{
-			return this.m_syncCurrentNumOrbs;
-		}
-		[param: In]
-		set
-		{
-			uint dirtyBit = 1U;
-			if (NetworkServer.localClientActive)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.set_Networkm_syncCurrentNumOrbs(sbyte)).MethodHandle;
-				}
-				if (!base.syncVarHookGuard)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					base.syncVarHookGuard = true;
-					this.HookSetNumOrbs(value);
-					base.syncVarHookGuard = false;
-				}
-			}
-			base.SetSyncVar<sbyte>(value, ref this.m_syncCurrentNumOrbs, dirtyBit);
-		}
-	}
-
-	public sbyte Networkm_syncTurnsForSecondYingYangDash
-	{
-		get
-		{
-			return this.m_syncTurnsForSecondYingYangDash;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<sbyte>(value, ref this.m_syncTurnsForSecondYingYangDash, 2U);
-		}
-	}
-
-	public bool Networkm_syncLastYingYangDashedToAlly
-	{
-		get
-		{
-			return this.m_syncLastYingYangDashedToAlly;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<bool>(value, ref this.m_syncLastYingYangDashedToAlly, 4U);
-		}
-	}
-
-	public float Networkm_syncBideExtraDamagePct
-	{
-		get
-		{
-			return this.m_syncBideExtraDamagePct;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<float>(value, ref this.m_syncBideExtraDamagePct, 8U);
-		}
-	}
-
-	public sbyte Networkm_lastPrimaryUsedMode
-	{
-		get
-		{
-			return this.m_lastPrimaryUsedMode;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<sbyte>(value, ref this.m_lastPrimaryUsedMode, 0x10U);
-		}
-	}
-
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					writer.WritePackedUInt32((uint)m_syncCurrentNumOrbs);
+					writer.WritePackedUInt32((uint)m_syncTurnsForSecondYingYangDash);
+					writer.Write(m_syncLastYingYangDashedToAlly);
+					writer.Write(m_syncBideExtraDamagePct);
+					writer.WritePackedUInt32((uint)m_lastPrimaryUsedMode);
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
-			writer.WritePackedUInt32((uint)this.m_syncCurrentNumOrbs);
-			writer.WritePackedUInt32((uint)this.m_syncTurnsForSecondYingYangDash);
-			writer.Write(this.m_syncLastYingYangDashedToAlly);
-			writer.Write(this.m_syncBideExtraDamagePct);
-			writer.WritePackedUInt32((uint)this.m_lastPrimaryUsedMode);
-			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_syncCurrentNumOrbs);
+			writer.WritePackedUInt32((uint)m_syncCurrentNumOrbs);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_syncTurnsForSecondYingYangDash);
+			writer.WritePackedUInt32((uint)m_syncTurnsForSecondYingYangDash);
 		}
-		if ((base.syncVarDirtyBits & 4U) != 0U)
+		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_syncLastYingYangDashedToAlly);
+			writer.Write(m_syncLastYingYangDashedToAlly);
 		}
-		if ((base.syncVarDirtyBits & 8U) != 0U)
+		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_syncBideExtraDamagePct);
+			writer.Write(m_syncBideExtraDamagePct);
 		}
-		if ((base.syncVarDirtyBits & 0x10U) != 0U)
+		if ((base.syncVarDirtyBits & 0x10) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_lastPrimaryUsedMode);
+			writer.WritePackedUInt32((uint)m_lastPrimaryUsedMode);
 		}
 		if (!flag)
 		{
@@ -687,91 +433,47 @@ public class Sensei_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_syncCurrentNumOrbs = (sbyte)reader.ReadPackedUInt32();
+					m_syncTurnsForSecondYingYangDash = (sbyte)reader.ReadPackedUInt32();
+					m_syncLastYingYangDashedToAlly = reader.ReadBoolean();
+					m_syncBideExtraDamagePct = reader.ReadSingle();
+					m_lastPrimaryUsedMode = (sbyte)reader.ReadPackedUInt32();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
-			this.m_syncCurrentNumOrbs = (sbyte)reader.ReadPackedUInt32();
-			this.m_syncTurnsForSecondYingYangDash = (sbyte)reader.ReadPackedUInt32();
-			this.m_syncLastYingYangDashedToAlly = reader.ReadBoolean();
-			this.m_syncBideExtraDamagePct = reader.ReadSingle();
-			this.m_lastPrimaryUsedMode = (sbyte)reader.ReadPackedUInt32();
-			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.HookSetNumOrbs((sbyte)reader.ReadPackedUInt32());
+			HookSetNumOrbs((sbyte)reader.ReadPackedUInt32());
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_syncTurnsForSecondYingYangDash = (sbyte)reader.ReadPackedUInt32();
+			m_syncTurnsForSecondYingYangDash = (sbyte)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_syncLastYingYangDashedToAlly = reader.ReadBoolean();
+			m_syncLastYingYangDashedToAlly = reader.ReadBoolean();
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_syncBideExtraDamagePct = reader.ReadSingle();
+			m_syncBideExtraDamagePct = reader.ReadSingle();
 		}
-		if ((num & 0x10) != 0)
+		if ((num & 0x10) == 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_lastPrimaryUsedMode = (sbyte)reader.ReadPackedUInt32();
+			return;
+		}
+		while (true)
+		{
+			m_lastPrimaryUsedMode = (sbyte)reader.ReadPackedUInt32();
+			return;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ public class ScampErraticCore : Ability
 	public bool m_ignoreLos;
 
 	[Separator("On Hit", true)]
-	public int m_damage = 0xA;
+	public int m_damage = 10;
 
 	public StandardEffectInfo m_enemyHitEffect;
 
@@ -21,30 +20,17 @@ public class ScampErraticCore : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampErraticCore.Start()).MethodHandle;
-			}
-			this.m_abilityName = "ScampErraticCore";
+			m_abilityName = "ScampErraticCore";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.m_syncComp = base.GetComponent<Scamp_SyncComponent>();
-		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, this.m_radius, this.m_ignoreLos, this.IncludeEnemies(), false, -1);
+		m_syncComp = GetComponent<Scamp_SyncComponent>();
+		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, m_radius, m_ignoreLos, IncludeEnemies());
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -53,62 +39,36 @@ public class ScampErraticCore : Ability
 
 	public bool IncludeEnemies()
 	{
-		bool result;
-		if (this.m_damage <= 0)
+		int result;
+		if (m_damage <= 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampErraticCore.IncludeEnemies()).MethodHandle;
-			}
-			result = this.m_enemyHitEffect.m_applyEffect;
+			result = (m_enemyHitEffect.m_applyEffect ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_damage);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_damage);
+		return numbers;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		bool result;
-		if (this.m_syncComp != null)
+		int result;
+		if (m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampErraticCore.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
-			result = this.m_syncComp.m_suitWasActiveOnTurnStart;
+			result = (m_syncComp.m_suitWasActiveOnTurnStart ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 }

@@ -1,5 +1,3 @@
-﻿using System;
-
 public struct UNetMessageHeader
 {
 	public const int SIZE = 8;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,235 +32,130 @@ public class AbilityMod_SoldierGrenade : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SoldierGrenade soldierGrenade = targetAbility as SoldierGrenade;
-		if (soldierGrenade != null)
+		if (!(soldierGrenade != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, soldierGrenade.m_damageAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", soldierGrenade.m_enemyHitEffect);
+			AbilityMod.AddToken(tokens, m_allyHealAmountMod, "AllyHealAmount", string.Empty, soldierGrenade.m_allyHealAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_allyHitEffectMod, "AllyHitEffect", soldierGrenade.m_allyHitEffect);
+			if (!m_useAdditionalShapeOverride || m_additionalShapeToDamageOverride == null)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierGrenade.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, soldierGrenade.m_damageAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", soldierGrenade.m_enemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_allyHealAmountMod, "AllyHealAmount", string.Empty, soldierGrenade.m_allyHealAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allyHitEffectMod, "AllyHitEffect", soldierGrenade.m_allyHitEffect, true);
-			if (this.m_useAdditionalShapeOverride && this.m_additionalShapeToDamageOverride != null)
-			{
-				for (;;)
+				for (int i = 0; i < m_additionalShapeToDamageOverride.Count; i++)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int i = 0; i < this.m_additionalShapeToDamageOverride.Count; i++)
-				{
-					SoldierGrenade.ShapeToDamage shapeToDamage = this.m_additionalShapeToDamageOverride[i];
+					SoldierGrenade.ShapeToDamage shapeToDamage = m_additionalShapeToDamageOverride[i];
 					AbilityMod.AddToken_IntDiff(tokens, shapeToDamage.m_shape.ToString() + "_Damage", string.Empty, shapeToDamage.m_damage, true, soldierGrenade.m_damageAmount);
 				}
+				return;
 			}
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SoldierGrenade soldierGrenade = base.GetTargetAbilityOnAbilityData(abilityData) as SoldierGrenade;
+		SoldierGrenade soldierGrenade = GetTargetAbilityOnAbilityData(abilityData) as SoldierGrenade;
 		bool flag = soldierGrenade != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyShape shapeMod = this.m_shapeMod;
-		string prefix = "[Shape]";
-		bool showBaseVal = flag;
-		AbilityAreaShape baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyShape shapeMod = m_shapeMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierGrenade.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			baseVal = soldierGrenade.m_shape;
+			baseVal = (int)soldierGrenade.m_shape;
 		}
 		else
 		{
-			baseVal = AbilityAreaShape.SingleSquare;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(shapeMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_penetrateLosMod, "[PenetrateLos]", flag, flag && soldierGrenade.m_penetrateLos);
-		if (this.m_useAdditionalShapeOverride)
+		empty = str + PropDesc(shapeMod, "[Shape]", flag, (AbilityAreaShape)baseVal);
+		empty += PropDesc(m_penetrateLosMod, "[PenetrateLos]", flag, flag && soldierGrenade.m_penetrateLos);
+		if (m_useAdditionalShapeOverride)
 		{
-			for (;;)
+			if (m_additionalShapeToDamageOverride != null)
 			{
-				switch (2)
+				empty += "Using Layered Shape Override, entries:\n";
+				for (int i = 0; i < m_additionalShapeToDamageOverride.Count; i++)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_additionalShapeToDamageOverride != null)
-			{
-				for (;;)
-				{
-					switch (1)
+					string text = empty;
+					object[] obj = new object[6]
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text += "Using Layered Shape Override, entries:\n";
-				for (int i = 0; i < this.m_additionalShapeToDamageOverride.Count; i++)
-				{
-					string text2 = text;
-					object[] array = new object[6];
-					array[0] = text2;
-					array[1] = "Shape: ";
-					array[2] = this.m_additionalShapeToDamageOverride[i].m_shape;
-					array[3] = " Damage: ";
-					int num = 4;
-					int damage = this.m_additionalShapeToDamageOverride[i].m_damage;
+						text,
+						"Shape: ",
+						m_additionalShapeToDamageOverride[i].m_shape,
+						" Damage: ",
+						null,
+						null
+					};
+					int damage = m_additionalShapeToDamageOverride[i].m_damage;
 					int baseVal2;
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						baseVal2 = soldierGrenade.m_damageAmount;
 					}
 					else
 					{
 						baseVal2 = 0;
 					}
-					array[num] = AbilityModHelper.GetDiffString(damage, baseVal2, AbilityModPropertyInt.ModOp.Override);
-					array[5] = "\n";
-					text = string.Concat(array);
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					obj[4] = AbilityModHelper.GetDiffString(damage, baseVal2, AbilityModPropertyInt.ModOp.Override);
+					obj[5] = "\n";
+					empty = string.Concat(obj);
 				}
 			}
 		}
-		string str2 = text;
-		AbilityModPropertyInt damageAmountMod = this.m_damageAmountMod;
-		string prefix2 = "[DamageAmount]";
-		bool showBaseVal2 = flag;
+		string str2 = empty;
+		AbilityModPropertyInt damageAmountMod = m_damageAmountMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = soldierGrenade.m_damageAmount;
 		}
 		else
 		{
 			baseVal3 = 0;
 		}
-		text = str2 + base.PropDesc(damageAmountMod, prefix2, showBaseVal2, baseVal3);
-		string str3 = text;
-		AbilityModPropertyEffectInfo enemyHitEffectMod = this.m_enemyHitEffectMod;
-		string prefix3 = "[EnemyHitEffect]";
-		bool showBaseVal3 = flag;
-		StandardEffectInfo baseVal4;
+		empty = str2 + PropDesc(damageAmountMod, "[DamageAmount]", flag, baseVal3);
+		string str3 = empty;
+		AbilityModPropertyEffectInfo enemyHitEffectMod = m_enemyHitEffectMod;
+		object baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = soldierGrenade.m_enemyHitEffect;
 		}
 		else
 		{
 			baseVal4 = null;
 		}
-		text = str3 + base.PropDesc(enemyHitEffectMod, prefix3, showBaseVal3, baseVal4);
-		string str4 = text;
-		AbilityModPropertyInt allyHealAmountMod = this.m_allyHealAmountMod;
-		string prefix4 = "[AllyHealAmount]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(enemyHitEffectMod, "[EnemyHitEffect]", flag, (StandardEffectInfo)baseVal4);
+		string str4 = empty;
+		AbilityModPropertyInt allyHealAmountMod = m_allyHealAmountMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = soldierGrenade.m_allyHealAmount;
 		}
 		else
 		{
 			baseVal5 = 0;
 		}
-		text = str4 + base.PropDesc(allyHealAmountMod, prefix4, showBaseVal4, baseVal5);
-		string str5 = text;
-		AbilityModPropertyEffectInfo allyHitEffectMod = this.m_allyHitEffectMod;
-		string prefix5 = "[AllyHitEffect]";
-		bool showBaseVal5 = flag;
-		StandardEffectInfo baseVal6;
+		empty = str4 + PropDesc(allyHealAmountMod, "[AllyHealAmount]", flag, baseVal5);
+		string str5 = empty;
+		AbilityModPropertyEffectInfo allyHitEffectMod = m_allyHitEffectMod;
+		object baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = soldierGrenade.m_allyHitEffect;
 		}
 		else
 		{
 			baseVal6 = null;
 		}
-		return str5 + base.PropDesc(allyHitEffectMod, prefix5, showBaseVal5, baseVal6);
+		return str5 + PropDesc(allyHitEffectMod, "[AllyHitEffect]", flag, (StandardEffectInfo)baseVal6);
 	}
 }

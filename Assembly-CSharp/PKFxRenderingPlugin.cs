@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,44 +25,13 @@ public class PKFxRenderingPlugin : PKFxCamera
 	{
 		base.BaseInitialize();
 		yield return base.WaitForPack(true);
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxRenderingPlugin.<Start>c__Iterator0.MoveNext()).MethodHandle;
-		}
 		if (Application.isEditor && QualitySettings.desiredColorSpace != ColorSpace.Linear)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogWarning("[PKFX] Current rendering not in linear space. Colors may not be accurate.\nTo properly set the color space, go to \"Player Settings\">\"Other Settings\">\"Color Space\"");
 		}
 		bool isDepthCopyEnabled;
 		if (!this.m_EnableSoftParticles)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			isDepthCopyEnabled = this.m_EnableDistortion;
 		}
 		else
@@ -72,41 +41,14 @@ public class PKFxRenderingPlugin : PKFxCamera
 		this.m_IsDepthCopyEnabled = isDepthCopyEnabled;
 		if (this.m_EnableDistortion)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!SystemInfo.supportsImageEffects)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogWarning("[PKFX] Image effects not supported, distortions disabled.");
 				this.m_EnableDistortion = false;
 			}
 		}
 		if (this.m_UseSceneMesh && this.m_SceneMeshPkmmPath.Length > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (PKFxManager.LoadPkmmAsSceneMesh(this.m_SceneMeshPkmmPath))
 			{
 				Debug.Log("[PKFX] Scene Mesh loaded");
@@ -118,15 +60,6 @@ public class PKFxRenderingPlugin : PKFxCamera
 		}
 		if (!this.m_EnableDistortion)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_EnableSoftParticles)
 			{
 				goto IL_197;
@@ -136,60 +69,15 @@ public class PKFxRenderingPlugin : PKFxCamera
 		IL_197:
 		if (this.m_IsDepthCopyEnabled)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_EnableDistortion)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_Camera.actualRenderingPath == RenderingPath.Forward)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.SetupDistortionPass();
 					if (this.m_EnableDistortion)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_Camera.actualRenderingPath == RenderingPath.Forward)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_PostFx = base.gameObject.AddComponent<PKFxDistortionEffect>();
 							this.m_PostFx.m_MaterialDistortion = this.m_DistortionMat;
 							this.m_PostFx.m_MaterialBlur = ((!this.m_EnableBlur) ? null : this.m_DistBlurMat);
@@ -203,39 +91,12 @@ public class PKFxRenderingPlugin : PKFxCamera
 		}
 		if (this.m_BoundShaders != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < this.m_BoundShaders.Count; i++)
 			{
 				if (this.m_BoundShaders[i] != null && !string.IsNullOrEmpty(this.m_BoundShaders[i].m_ShaderName))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!string.IsNullOrEmpty(this.m_BoundShaders[i].m_ShaderGroup))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_BoundShaders[i].m_LoadedShaderId = PKFxManager.LoadShader(this.m_BoundShaders[i].GetDesc());
 						this.m_BoundShaders[i].UpdateShaderConstants(true);
 					}
@@ -258,43 +119,12 @@ public class PKFxRenderingPlugin : PKFxCamera
 	{
 		if (this.m_BoundShaders != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxRenderingPlugin.LateUpdate()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_BoundShaders.Count; i++)
 			{
 				if (this.m_BoundShaders[i] != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!string.IsNullOrEmpty(this.m_BoundShaders[i].m_ShaderName))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!string.IsNullOrEmpty(this.m_BoundShaders[i].m_ShaderGroup))
 						{
 							this.m_BoundShaders[i].UpdateShaderConstants(false);

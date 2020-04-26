@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +9,7 @@ public class UIPlayerReadyIcon : MonoBehaviour
 
 	public void SetReady(bool isReady)
 	{
-		this.m_readyGlow.enabled = isReady;
-		this.m_readyDefault.enabled = !isReady;
+		m_readyGlow.enabled = isReady;
+		m_readyDefault.enabled = !isReady;
 	}
 }

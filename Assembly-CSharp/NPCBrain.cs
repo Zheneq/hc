@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,19 +23,6 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 	{
 		if (base.GetComponent<BotController>() == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain.Start()).MethodHandle;
-			}
 			base.name += " [Prime]";
 			base.enabled = false;
 		}
@@ -46,33 +33,11 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 		GameEventManager.Get().RemoveAllListenersFrom(this);
 		if (this.m_allocatedStateTableParent != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain.OnDestroy()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_allocatedStateTableParent);
 			this.m_allocatedStateTableParent = null;
 		}
 		if (this.fsm != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.fsm.DestroyAllStates();
 		}
 	}
@@ -82,19 +47,6 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 		bool result;
 		if (this.fsm != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain.CanTransistion(Transition)).MethodHandle;
-			}
 			result = this.fsm.CanTransistion(trans);
 		}
 		else
@@ -108,19 +60,6 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 	{
 		if (this != null && this.fsm != null && base.enabled)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			this.fsm.OnGameEvent(eventType, args);
 		}
 	}
@@ -164,42 +103,11 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 	{
 		if (this.fsm != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain.<FSMTakeTurn>c__Iterator1.MoveNext()).MethodHandle;
-			}
 			yield return base.StartCoroutine(this.fsm.TakeTurn());
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		else
 		{
 			yield return base.StartCoroutine(this.DecideTurn());
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		yield break;
 	}

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -10,6 +10,16 @@ using WebSocketSharp;
 
 public class WebSocket : IDisposable
 {
+	public enum SocketState
+	{
+		Unknown,
+		Accepting,
+		Connecting,
+		Open,
+		Closing,
+		Closed
+	}
+
 	private WebSocketSharp.WebSocket m_webSocket;
 
 	private HttpSocket m_httpSocket;
@@ -22,159 +32,21 @@ public class WebSocket : IDisposable
 
 	private static TimeSpan m_messagesRateLimiterPeriod = TimeSpan.FromSeconds(5.0);
 
-	private WebSocket(WebSocketMessageFactory factory)
+	public SocketState State
 	{
-		if (global::WebSocket.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket..ctor(WebSocketMessageFactory)).MethodHandle;
-			}
-			global::WebSocket.<>f__am$cache0 = delegate(WebSocketMessage A_0)
-			{
-			};
-		}
-		this.OnMessage = global::WebSocket.<>f__am$cache0;
-		base..ctor();
-		this.State = global::WebSocket.SocketState.Closed;
-		this.HeartbeatPeriod = TimeSpan.Zero;
-		this.HeartbeatTimeout = TimeSpan.Zero;
-		this.MessageFactory = factory;
-		this.m_lock = new object();
-		this.m_heartbeatSendTimer = new Stopwatch();
-		this.m_messagesRateLimiter = new LeakyBucket(0.0, global::WebSocket.m_messagesRateLimiterPeriod);
+		get;
+		private set;
 	}
-
-	public WebSocket(WebSocketMessageFactory factory, string address) : this(factory, new WebSocketSharp.WebSocket(address, new string[0]), address)
-	{
-	}
-
-	public WebSocket(WebSocketMessageFactory factory, WebSocketSharp.WebSocket webSocket, string address) : this(factory)
-	{
-		if (address.IndexOf("://") == -1)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket..ctor(WebSocketMessageFactory, WebSocketSharp.WebSocket, string)).MethodHandle;
-			}
-			address = "ws://" + address;
-		}
-		this.ConnectionAddress = address;
-		this.m_webSocket = webSocket;
-		this.MaxWaitTime = TimeSpan.FromSeconds(10.0);
-		this.MaxSendBufferSize = 0x100000;
-		this.MaxMessageSize = 0;
-		this.MaxMessagesPerSecond = 0;
-		this.IsAsync = false;
-		this.m_webSocket.OnOpen += this.HandleOpen;
-		this.m_webSocket.OnClose += this.HandleClose;
-		this.m_webSocket.OnError += this.HandleError;
-		this.m_webSocket.OnMessage += this.HandleMessage;
-		this.m_webSocket.EmitOnPing = true;
-		if (this.m_webSocket.SslConfiguration != null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_webSocket.SslConfiguration.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(global::WebSocket.ValidateServerCertificate);
-			this.m_webSocket.SslConfiguration.ClientCertificateSelectionCallback = null;
-		}
-	}
-
-	public WebSocket(WebSocketMessageFactory factory, HttpSocket httpSocket) : this(factory)
-	{
-		this.ConnectionAddress = httpSocket.ConnectionAddress;
-		this.ForwardedConnectionAddress = httpSocket.ForwardedConnectionAddress;
-		this.m_httpSocket = httpSocket;
-	}
-
-	public event Action<WebSocketMessage> OnMessage
-	{
-		add
-		{
-			Action<WebSocketMessage> action = this.OnMessage;
-			Action<WebSocketMessage> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange<Action<WebSocketMessage>>(ref this.OnMessage, (Action<WebSocketMessage>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.add_OnMessage(Action<WebSocketMessage>)).MethodHandle;
-			}
-		}
-		remove
-		{
-			Action<WebSocketMessage> action = this.OnMessage;
-			Action<WebSocketMessage> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange<Action<WebSocketMessage>>(ref this.OnMessage, (Action<WebSocketMessage>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.remove_OnMessage(Action<WebSocketMessage>)).MethodHandle;
-			}
-		}
-	}
-
-	public global::WebSocket.SocketState State { get; private set; }
 
 	public bool IsAsync
 	{
 		get
 		{
-			return this.m_webSocket.EnableAsyncIO;
+			return m_webSocket.EnableAsyncIO;
 		}
 		set
 		{
-			this.m_webSocket.EnableAsyncIO = value;
+			m_webSocket.EnableAsyncIO = value;
 		}
 	}
 
@@ -182,34 +54,21 @@ public class WebSocket : IDisposable
 	{
 		get
 		{
-			return this.m_webSocket.Compression == CompressionMethod.Deflate;
+			return m_webSocket.Compression == CompressionMethod.Deflate;
 		}
 		set
 		{
-			WebSocketSharp.WebSocket webSocket = this.m_webSocket;
-			CompressionMethod compression;
+			WebSocketSharp.WebSocket webSocket = m_webSocket;
+			int compression;
 			if (value)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.set_IsCompressed(bool)).MethodHandle;
-				}
-				compression = CompressionMethod.Deflate;
+				compression = 1;
 			}
 			else
 			{
-				compression = CompressionMethod.None;
+				compression = 0;
 			}
-			webSocket.Compression = compression;
+			webSocket.Compression = (CompressionMethod)compression;
 		}
 	}
 
@@ -217,11 +76,11 @@ public class WebSocket : IDisposable
 	{
 		get
 		{
-			return this.m_webSocket.WaitTime;
+			return m_webSocket.WaitTime;
 		}
 		set
 		{
-			this.m_webSocket.WaitTime = value;
+			m_webSocket.WaitTime = value;
 		}
 	}
 
@@ -229,236 +88,339 @@ public class WebSocket : IDisposable
 	{
 		get
 		{
-			return this.m_webSocket.MaxSendBufferSize;
+			return m_webSocket.MaxSendBufferSize;
 		}
 		set
 		{
-			this.m_webSocket.MaxSendBufferSize = value;
+			m_webSocket.MaxSendBufferSize = value;
 		}
 	}
 
-	public int MaxMessageSize { get; set; }
+	public int MaxMessageSize
+	{
+		get;
+		set;
+	}
 
 	public int MaxMessagesPerSecond
 	{
 		get
 		{
-			return (int)this.m_messagesRateLimiter.LeakRate.AmountPerSecond;
+			return (int)m_messagesRateLimiter.LeakRate.AmountPerSecond;
 		}
 		set
 		{
-			this.m_messagesRateLimiter.LeakRate = new Rate((double)value * global::WebSocket.m_messagesRateLimiterPeriod.TotalSeconds, global::WebSocket.m_messagesRateLimiterPeriod);
+			m_messagesRateLimiter.LeakRate = new Rate((double)value * m_messagesRateLimiterPeriod.TotalSeconds, m_messagesRateLimiterPeriod);
 		}
 	}
 
-	public bool IsRaw { get; set; }
-
-	public bool IsBinary { get; set; }
-
-	public TimeSpan HeartbeatPeriod { get; set; }
-
-	public TimeSpan HeartbeatTimeout { get; set; }
-
-	public long RoundtripTime { get; set; }
-
-	public bool IsOutbound { get; private set; }
-
-	public string ConnectionAddress { get; private set; }
-
-	public string ForwardedConnectionAddress { get; private set; }
-
-	public string LastErrorMessage { get; private set; }
-
-	public int LastMaxMesssageSize { get; private set; }
-
-	public Type LastMaxMesssageType { get; private set; }
-
-	public int LastMesssageSize { get; private set; }
-
-	public Type LastMesssageType { get; private set; }
-
-	public Uri Url
+	public bool IsRaw
 	{
-		get
+		get;
+		set;
+	}
+
+	public bool IsBinary
+	{
+		get;
+		set;
+	}
+
+	public TimeSpan HeartbeatPeriod
+	{
+		get;
+		set;
+	}
+
+	public TimeSpan HeartbeatTimeout
+	{
+		get;
+		set;
+	}
+
+	public long RoundtripTime
+	{
+		get;
+		set;
+	}
+
+	public bool IsOutbound
+	{
+		get;
+		private set;
+	}
+
+	public string ConnectionAddress
+	{
+		get;
+		private set;
+	}
+
+	public string ForwardedConnectionAddress
+	{
+		get;
+		private set;
+	}
+
+	public string LastErrorMessage
+	{
+		get;
+		private set;
+	}
+
+	public int LastMaxMesssageSize
+	{
+		get;
+		private set;
+	}
+
+	public Type LastMaxMesssageType
+	{
+		get;
+		private set;
+	}
+
+	public int LastMesssageSize
+	{
+		get;
+		private set;
+	}
+
+	public Type LastMesssageType
+	{
+		get;
+		private set;
+	}
+
+	public Uri Url => m_webSocket.Url;
+
+	public WebSocketMessageFactory MessageFactory
+	{
+		get;
+		private set;
+	}
+
+	private Action<WebSocketMessage> OnMessageHolder;
+	public event Action<WebSocketMessage> OnMessage
+	{
+		add
 		{
-			return this.m_webSocket.Url;
+			Action<WebSocketMessage> action = this.OnMessageHolder;
+			Action<WebSocketMessage> action2;
+			do
+			{
+				action2 = action;
+				action = Interlocked.CompareExchange(ref this.OnMessageHolder, (Action<WebSocketMessage>)Delegate.Combine(action2, value), action);
+			}
+			while ((object)action != action2);
+			while (true)
+			{
+				return;
+			}
+		}
+		remove
+		{
+			Action<WebSocketMessage> action = this.OnMessageHolder;
+			Action<WebSocketMessage> action2;
+			do
+			{
+				action2 = action;
+				action = Interlocked.CompareExchange(ref this.OnMessageHolder, (Action<WebSocketMessage>)Delegate.Remove(action2, value), action);
+			}
+			while ((object)action != action2);
+			while (true)
+			{
+				return;
+			}
 		}
 	}
 
-	public WebSocketMessageFactory MessageFactory { get; private set; }
+	private WebSocket(WebSocketMessageFactory factory)
+	{
+		
+		this.OnMessageHolder = delegate
+			{
+			};
+		
+		State = SocketState.Closed;
+		HeartbeatPeriod = TimeSpan.Zero;
+		HeartbeatTimeout = TimeSpan.Zero;
+		MessageFactory = factory;
+		m_lock = new object();
+		m_heartbeatSendTimer = new Stopwatch();
+		m_messagesRateLimiter = new LeakyBucket(0.0, m_messagesRateLimiterPeriod);
+	}
+
+	public WebSocket(WebSocketMessageFactory factory, string address)
+		: this(factory, new WebSocketSharp.WebSocket(address), address)
+	{
+	}
+
+	public WebSocket(WebSocketMessageFactory factory, WebSocketSharp.WebSocket webSocket, string address)
+		: this(factory)
+	{
+		if (address.IndexOf("://") == -1)
+		{
+			address = "ws://" + address;
+		}
+		ConnectionAddress = address;
+		m_webSocket = webSocket;
+		MaxWaitTime = TimeSpan.FromSeconds(10.0);
+		MaxSendBufferSize = 1048576;
+		MaxMessageSize = 0;
+		MaxMessagesPerSecond = 0;
+		IsAsync = false;
+		m_webSocket.OnOpen += HandleOpen;
+		m_webSocket.OnClose += HandleClose;
+		m_webSocket.OnError += HandleError;
+		m_webSocket.OnMessage += HandleMessage;
+		m_webSocket.EmitOnPing = true;
+		if (m_webSocket.SslConfiguration == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			m_webSocket.SslConfiguration.ServerCertificateValidationCallback = ValidateServerCertificate;
+			m_webSocket.SslConfiguration.ClientCertificateSelectionCallback = null;
+			return;
+		}
+	}
+
+	public WebSocket(WebSocketMessageFactory factory, HttpSocket httpSocket)
+		: this(factory)
+	{
+		ConnectionAddress = httpSocket.ConnectionAddress;
+		ForwardedConnectionAddress = httpSocket.ForwardedConnectionAddress;
+		m_httpSocket = httpSocket;
+	}
 
 	public static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
 	{
-		Thread.Sleep(0x1F4);
+		Thread.Sleep(500);
 		return true;
 	}
 
 	public void Accept()
 	{
-		object @lock = this.m_lock;
-		lock (@lock)
+		lock (m_lock)
 		{
-			this.State = global::WebSocket.SocketState.Accepting;
-			this.IsOutbound = false;
+			State = SocketState.Accepting;
+			IsOutbound = false;
 		}
 	}
 
 	public void Connect()
 	{
-		object @lock = this.m_lock;
-		lock (@lock)
+		lock (m_lock)
 		{
-			this.State = global::WebSocket.SocketState.Connecting;
-			this.m_webSocket.ConnectAsync();
-			this.IsOutbound = true;
+			State = SocketState.Connecting;
+			m_webSocket.ConnectAsync();
+			IsOutbound = true;
 		}
 	}
 
 	public void Close()
 	{
 		CloseStatusCode statusCode = CloseStatusCode.Normal;
-		string message = (!this.IsOutbound) ? "Server connection closed" : "Client connection closed";
-		this.Close(statusCode, message);
+		string message = (!IsOutbound) ? "Server connection closed" : "Client connection closed";
+		Close(statusCode, message);
 	}
 
 	public void Close(CloseStatusCode statusCode, string message)
 	{
 		if (message == null)
 		{
-			for (;;)
+			object obj;
+			if (IsOutbound)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.Close(CloseStatusCode, string)).MethodHandle;
-			}
-			string text;
-			if (this.IsOutbound)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text = "Client connection closed";
+				obj = "Client connection closed";
 			}
 			else
 			{
-				text = "Server connection closed";
+				obj = "Server connection closed";
 			}
-			message = text;
+			message = (string)obj;
 		}
-		object @lock = this.m_lock;
-		lock (@lock)
+		lock (m_lock)
 		{
-			if (this.State == global::WebSocket.SocketState.Open)
+			if (State == SocketState.Open)
 			{
-				this.State = global::WebSocket.SocketState.Closing;
-				this.m_webSocket.CloseAsync(statusCode, message);
+				State = SocketState.Closing;
+				m_webSocket.CloseAsync(statusCode, message);
 			}
-			else if (this.State == global::WebSocket.SocketState.Connecting)
+			else if (State == SocketState.Connecting)
 			{
-				this.State = global::WebSocket.SocketState.Closing;
-				this.m_webSocket.CloseAsync(statusCode, message);
-				this.HandleClose(this, new CloseEventArgs(statusCode, message));
+				State = SocketState.Closing;
+				m_webSocket.CloseAsync(statusCode, message);
+				HandleClose(this, new CloseEventArgs(statusCode, message));
 			}
 		}
 	}
 
 	public void Dispose()
 	{
-		this.Close();
+		Close();
 	}
 
 	public void Update()
 	{
-		object @lock = this.m_lock;
-		lock (@lock)
+		lock (m_lock)
 		{
-			if (this.State == global::WebSocket.SocketState.Open)
+			if (State == SocketState.Open)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.Update()).MethodHandle;
-				}
-				if (this.HeartbeatPeriod != TimeSpan.Zero)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					if (this.HeartbeatTimeout != TimeSpan.Zero)
-					{
-						for (;;)
+					default:
+						if (HeartbeatPeriod != TimeSpan.Zero)
 						{
-							switch (4)
+							while (true)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_webSocket.LastReceiveTime > this.HeartbeatTimeout && this.m_heartbeatSendTimer.IsRunning)
-						{
-							for (;;)
-							{
-								switch (3)
+								switch (7)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									if (HeartbeatTimeout != TimeSpan.Zero)
+									{
+										if (m_webSocket.LastReceiveTime > HeartbeatTimeout && m_heartbeatSendTimer.IsRunning)
+										{
+											if (m_heartbeatSendTimer.Elapsed > HeartbeatPeriod)
+											{
+												WebSocketSharp.ErrorEventArgs args = new WebSocketSharp.ErrorEventArgs("Timed out waiting for a heartbeat response", new TimeoutException("Timed out waiting for a heartbeat response"));
+												HandleError(this, args);
+												Close(CloseStatusCode.PingTimeout, "Timed out waiting for a heartbeat response");
+												return;
+											}
+										}
+									}
+									if (m_webSocket.LastReceiveTime > HeartbeatPeriod && !m_heartbeatSendTimer.IsRunning)
+									{
+										while (true)
+										{
+											switch (4)
+											{
+											case 0:
+												break;
+											default:
+												m_webSocket.Ping(TimeSpan.Zero);
+												m_heartbeatSendTimer.Start();
+												return;
+											}
+										}
+									}
+									return;
 								}
-								break;
-							}
-							if (this.m_heartbeatSendTimer.Elapsed > this.HeartbeatPeriod)
-							{
-								WebSocketSharp.ErrorEventArgs args = new WebSocketSharp.ErrorEventArgs("Timed out waiting for a heartbeat response", new TimeoutException("Timed out waiting for a heartbeat response"));
-								this.HandleError(this, args);
-								this.Close(CloseStatusCode.PingTimeout, "Timed out waiting for a heartbeat response");
-								goto IL_143;
 							}
 						}
-					}
-					if (this.m_webSocket.LastReceiveTime > this.HeartbeatPeriod && !this.m_heartbeatSendTimer.IsRunning)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_webSocket.Ping(TimeSpan.Zero);
-						this.m_heartbeatSendTimer.Start();
+						return;
 					}
 				}
 			}
-			IL_143:;
 		}
 	}
 
@@ -466,31 +428,26 @@ public class WebSocket : IDisposable
 	{
 		try
 		{
-			object @lock = this.m_lock;
-			lock (@lock)
+			lock (m_lock)
 			{
-				if (this.State != global::WebSocket.SocketState.Connecting && this.State != global::WebSocket.SocketState.Accepting)
+				if (State != SocketState.Connecting && State != SocketState.Accepting)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							m_webSocket.CloseAsync(CloseStatusCode.Normal);
+							return;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.HandleOpen(object, EventArgs)).MethodHandle;
-					}
-					this.m_webSocket.CloseAsync(CloseStatusCode.Normal);
-					return;
 				}
-				this.State = global::WebSocket.SocketState.Open;
+				State = SocketState.Open;
 			}
 			WebSocketMessage obj = new ConnectionOpenedNotification();
-			this.OnMessage(obj);
+			this.OnMessageHolder(obj);
 		}
 		catch (Exception exception)
 		{
@@ -502,43 +459,39 @@ public class WebSocket : IDisposable
 	{
 		try
 		{
-			object @lock = this.m_lock;
-			lock (@lock)
+			lock (m_lock)
 			{
-				if (this.State == global::WebSocket.SocketState.Closed)
+				if (State == SocketState.Closed)
 				{
 					return;
 				}
-				this.State = global::WebSocket.SocketState.Closed;
-				if (this.m_heartbeatSendTimer.IsRunning)
+				State = SocketState.Closed;
+				if (m_heartbeatSendTimer.IsRunning)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							m_heartbeatSendTimer.Reset();
+							goto end_IL_000d;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.HandleClose(object, CloseEventArgs)).MethodHandle;
-					}
-					this.m_heartbeatSendTimer.Reset();
 				}
+				end_IL_000d:;
 			}
 			string text = args.Reason;
-			if (text.IsNullOrEmpty() && !this.LastErrorMessage.IsNullOrEmpty())
+			if (text.IsNullOrEmpty() && !LastErrorMessage.IsNullOrEmpty())
 			{
-				text = this.LastErrorMessage;
+				text = LastErrorMessage;
 			}
-			WebSocketMessage obj = new ConnectionClosedNotification
-			{
-				Reason = text,
-				Code = (CloseStatusCode)args.Code
-			};
-			this.OnMessage(obj);
+			ConnectionClosedNotification connectionClosedNotification = new ConnectionClosedNotification();
+			connectionClosedNotification.Reason = text;
+			connectionClosedNotification.Code = (CloseStatusCode)args.Code;
+			WebSocketMessage obj = connectionClosedNotification;
+			this.OnMessageHolder(obj);
 		}
 		catch (Exception exception)
 		{
@@ -550,12 +503,11 @@ public class WebSocket : IDisposable
 	{
 		try
 		{
-			this.LastErrorMessage = args.Message;
-			WebSocketMessage obj = new ConnectionErrorNotification
-			{
-				ErrorMessage = args.Message
-			};
-			this.OnMessage(obj);
+			LastErrorMessage = args.Message;
+			ConnectionErrorNotification connectionErrorNotification = new ConnectionErrorNotification();
+			connectionErrorNotification.ErrorMessage = args.Message;
+			WebSocketMessage obj = connectionErrorNotification;
+			this.OnMessageHolder(obj);
 		}
 		catch (Exception exception)
 		{
@@ -567,157 +519,132 @@ public class WebSocket : IDisposable
 	{
 		try
 		{
-			object @lock = this.m_lock;
-			lock (@lock)
+			lock (m_lock)
 			{
-				if (this.m_heartbeatSendTimer.IsRunning)
+				if (m_heartbeatSendTimer.IsRunning)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							if (args.Type == Opcode.Pong)
+							{
+								RoundtripTime = m_heartbeatSendTimer.ElapsedMilliseconds;
+							}
+							m_heartbeatSendTimer.Reset();
+							goto end_IL_000d;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.HandleMessage(object, MessageEventArgs)).MethodHandle;
-					}
-					if (args.Type == Opcode.Pong)
-					{
-						this.RoundtripTime = this.m_heartbeatSendTimer.ElapsedMilliseconds;
-					}
-					this.m_heartbeatSendTimer.Reset();
 				}
+				end_IL_000d:;
 			}
-			if (this.MaxMessageSize != 0 && args.RawData.Length > this.MaxMessageSize)
+			if (MaxMessageSize != 0 && args.RawData.Length > MaxMessageSize)
 			{
-				string message = string.Format("Message size {0}", args.RawData.Length);
+				string message = $"Message size {args.RawData.Length}";
 				WebSocketSharp.ErrorEventArgs args2 = new WebSocketSharp.ErrorEventArgs(message, new Exception(message));
-				this.HandleError(this, args2);
-				this.Close(CloseStatusCode.TooBig, message);
+				HandleError(this, args2);
+				Close(CloseStatusCode.TooBig, message);
 			}
 			else
 			{
-				if (this.MaxMessagesPerSecond != 0)
+				if (MaxMessagesPerSecond != 0)
 				{
-					for (;;)
+					if (!m_messagesRateLimiter.TryAdd())
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_messagesRateLimiter.TryAdd(1.0))
-					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+							{
+								string message2 = $"Message rate {(m_messagesRateLimiter.CurrentPoints + 1.0) / m_messagesRateLimiterPeriod.TotalSeconds:F2}/sec";
+								WebSocketSharp.ErrorEventArgs args3 = new WebSocketSharp.ErrorEventArgs(message2, new Exception(message2));
+								HandleError(this, args3);
+								Close(CloseStatusCode.TooBig, message2);
+								return;
 							}
-							break;
+							}
 						}
-						string message2 = string.Format("Message rate {0:F2}/sec", (this.m_messagesRateLimiter.CurrentPoints + 1.0) / global::WebSocket.m_messagesRateLimiterPeriod.TotalSeconds);
-						WebSocketSharp.ErrorEventArgs args3 = new WebSocketSharp.ErrorEventArgs(message2, new Exception(message2));
-						this.HandleError(this, args3);
-						this.Close(CloseStatusCode.TooBig, message2);
-						return;
 					}
 				}
 				if (args.Type != Opcode.Ping && args.Type != Opcode.Pong)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!args.Data.IsNullOrEmpty())
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						if (args.Type == Opcode.Text)
-						{
-							WebSocketMessage obj;
-							if (this.IsRaw)
+						default:
+							if (!args.Data.IsNullOrEmpty())
 							{
-								for (;;)
+								while (true)
 								{
-									switch (1)
+									switch (3)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										if (args.Type == Opcode.Text)
+										{
+											WebSocketMessage obj;
+											if (IsRaw)
+											{
+												TextMessageNotification textMessageNotification = new TextMessageNotification();
+												textMessageNotification.Data = args.Data;
+												obj = textMessageNotification;
+											}
+											else
+											{
+												obj = MessageFactory.DeserializeFromText(args.Data);
+											}
+											if (!IsOutbound)
+											{
+												IsBinary = false;
+											}
+											this.OnMessageHolder(obj);
+										}
+										else if (args.Type == Opcode.Binary)
+										{
+											while (true)
+											{
+												switch (2)
+												{
+												case 0:
+													break;
+												default:
+												{
+													WebSocketMessage obj2;
+													if (IsRaw)
+													{
+														BinaryMessageNotification binaryMessageNotification = new BinaryMessageNotification();
+														binaryMessageNotification.RawData = args.RawData;
+														obj2 = binaryMessageNotification;
+													}
+													else
+													{
+														obj2 = MessageFactory.DeserializeFromBytes(args.RawData);
+													}
+													if (!IsOutbound)
+													{
+														IsBinary = true;
+													}
+													this.OnMessageHolder(obj2);
+													return;
+												}
+												}
+											}
+										}
+										return;
 									}
-									break;
 								}
-								obj = new TextMessageNotification
-								{
-									Data = args.Data
-								};
 							}
-							else
-							{
-								obj = this.MessageFactory.DeserializeFromText(args.Data);
-							}
-							if (!this.IsOutbound)
-							{
-								this.IsBinary = false;
-							}
-							this.OnMessage(obj);
-						}
-						else if (args.Type == Opcode.Binary)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							WebSocketMessage obj2;
-							if (this.IsRaw)
-							{
-								obj2 = new BinaryMessageNotification
-								{
-									RawData = args.RawData
-								};
-							}
-							else
-							{
-								obj2 = this.MessageFactory.DeserializeFromBytes(args.RawData);
-							}
-							if (!this.IsOutbound)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.IsBinary = true;
-							}
-							this.OnMessage(obj2);
+							return;
 						}
 					}
 				}
@@ -731,36 +658,31 @@ public class WebSocket : IDisposable
 
 	public void HandleHttpRequest(object sender, EventArgs args)
 	{
-		if (this.m_httpSocket == null)
+		if (m_httpSocket == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					throw new ArgumentNullException();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.HandleHttpRequest(object, EventArgs)).MethodHandle;
-			}
-			throw new ArgumentNullException();
 		}
 		try
 		{
-			object @lock = this.m_lock;
-			lock (@lock)
+			lock (m_lock)
 			{
-				this.State = global::WebSocket.SocketState.Open;
+				State = SocketState.Open;
 			}
-			if (this.m_httpSocket.Message == null)
+			if (m_httpSocket.Message == null)
 			{
 				throw new Exception("Failed to read message from HTTP request");
 			}
-			this.OnMessage(this.m_httpSocket.Message);
-			this.m_httpSocket.WaitForSend();
+			this.OnMessageHolder(m_httpSocket.Message);
+			m_httpSocket.WaitForSend();
 		}
 		catch (Exception exception)
 		{
@@ -770,246 +692,200 @@ public class WebSocket : IDisposable
 
 	public void Send(WebSocketMessage message)
 	{
-		object @lock = this.m_lock;
-		lock (@lock)
+		lock (m_lock)
 		{
-			if (this.m_webSocket != null)
+			if (m_webSocket != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.Send(WebSocketMessage)).MethodHandle;
-				}
-				int lastMesssageSize;
-				if (this.IsBinary)
-				{
-					byte[] array = this.MessageFactory.SerializeToBytes(message);
-					lastMesssageSize = array.Length;
-					this.m_webSocket.Send(array);
-				}
-				else
-				{
-					string text = this.MessageFactory.SerializeToText(message);
-					lastMesssageSize = text.Length;
-					this.m_webSocket.Send(text);
-				}
-				this.LastMesssageSize = lastMesssageSize;
-				this.LastMesssageType = message.GetType();
-				if (this.LastMesssageSize > this.LastMaxMesssageSize)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						int num = 0;
+						if (IsBinary)
+						{
+							byte[] array = MessageFactory.SerializeToBytes(message);
+							num = array.Length;
+							m_webSocket.Send(array);
+						}
+						else
+						{
+							string text = MessageFactory.SerializeToText(message);
+							num = text.Length;
+							m_webSocket.Send(text);
+						}
+						LastMesssageSize = num;
+						LastMesssageType = message.GetType();
+						if (LastMesssageSize > LastMaxMesssageSize)
+						{
+							while (true)
+							{
+								switch (6)
+								{
+								case 0:
+									break;
+								default:
+									LastMaxMesssageSize = LastMesssageSize;
+									LastMaxMesssageType = LastMesssageType;
+									return;
+								}
+							}
+						}
+						return;
 					}
-					this.LastMaxMesssageSize = this.LastMesssageSize;
-					this.LastMaxMesssageType = this.LastMesssageType;
+					}
 				}
 			}
-			else if (this.m_httpSocket != null)
+			if (m_httpSocket != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						m_httpSocket.Send(message);
+						return;
 					}
-					break;
 				}
-				this.m_httpSocket.Send(message);
 			}
 		}
 	}
 
 	public void Send(string data)
 	{
-		object @lock = this.m_lock;
-		lock (@lock)
+		lock (m_lock)
 		{
-			if (this.m_webSocket != null)
+			if (m_webSocket != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						m_webSocket.Send(data);
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.Send(string)).MethodHandle;
-				}
-				this.m_webSocket.Send(data);
 			}
-			else if (this.m_httpSocket != null)
+			if (m_httpSocket != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						m_httpSocket.Send(data);
+						return;
 					}
-					break;
 				}
-				this.m_httpSocket.Send(data);
 			}
 		}
 	}
 
 	public void Send(byte[] data)
 	{
-		object @lock = this.m_lock;
-		lock (@lock)
+		lock (m_lock)
 		{
-			if (this.m_webSocket != null)
+			if (m_webSocket != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						m_webSocket.Send(data);
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.Send(byte[])).MethodHandle;
-				}
-				this.m_webSocket.Send(data);
 			}
 		}
 	}
 
-	public static void Broadcast(WebSocketMessage message, IEnumerable<global::WebSocket> webSockets)
+	public static void Broadcast(WebSocketMessage message, IEnumerable<WebSocket> webSockets)
 	{
-		if (webSockets.IsNullOrEmpty<global::WebSocket>())
+		if (webSockets.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.Broadcast(WebSocketMessage, IEnumerable<global::WebSocket>)).MethodHandle;
-			}
-			return;
 		}
 		MemoryStream memoryStream = null;
 		MemoryStream memoryStream2 = null;
 		Dictionary<CompressionMethod, Stream> cache = null;
 		Dictionary<CompressionMethod, Stream> cache2 = null;
-		IEnumerator<global::WebSocket> enumerator = webSockets.GetEnumerator();
+		IEnumerator<WebSocket> enumerator = webSockets.GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())
 			{
-				global::WebSocket webSocket = enumerator.Current;
-				if (webSocket != null)
+				WebSocket current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					lock (current.m_lock)
 					{
-						switch (6)
+						if (current.State == SocketState.Open)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					object @lock = webSocket.m_lock;
-					lock (@lock)
-					{
-						if (webSocket.State == global::WebSocket.SocketState.Open)
-						{
-							for (;;)
+							if (current.IsBinary)
 							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (webSocket.IsBinary)
-							{
-								for (;;)
+								while (true)
 								{
 									switch (7)
 									{
 									case 0:
-										continue;
-									}
-									break;
-								}
-								if (memoryStream == null)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
 										break;
+									default:
+										if (memoryStream == null)
+										{
+											memoryStream = new MemoryStream(current.MessageFactory.SerializeToBytes(message));
+											cache = new Dictionary<CompressionMethod, Stream>();
+										}
+										current.m_webSocket.Send(Opcode.Binary, memoryStream, cache);
+										goto end_IL_005f;
 									}
-									memoryStream = new MemoryStream(webSocket.MessageFactory.SerializeToBytes(message));
-									cache = new Dictionary<CompressionMethod, Stream>();
 								}
-								webSocket.m_webSocket.Send(Opcode.Binary, memoryStream, cache);
-								continue;
 							}
 						}
-						if (webSocket.State == global::WebSocket.SocketState.Open)
+						if (current.State == SocketState.Open)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
 								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!webSocket.IsBinary)
-							{
-								if (memoryStream2 == null)
-								{
-									for (;;)
+									break;
+								default:
+									if (!current.IsBinary)
 									{
-										switch (1)
+										if (memoryStream2 == null)
 										{
-										case 0:
-											continue;
+											memoryStream2 = new MemoryStream(Encoding.UTF8.GetBytes(current.MessageFactory.SerializeToText(message)));
+											cache2 = new Dictionary<CompressionMethod, Stream>();
 										}
-										break;
+										current.m_webSocket.Send(Opcode.Text, memoryStream2, cache2);
 									}
-									memoryStream2 = new MemoryStream(Encoding.UTF8.GetBytes(webSocket.MessageFactory.SerializeToText(message)));
-									cache2 = new Dictionary<CompressionMethod, Stream>();
+									goto end_IL_005f;
 								}
-								webSocket.m_webSocket.Send(Opcode.Text, memoryStream2, cache2);
 							}
 						}
+						end_IL_005f:;
 					}
 				}
 			}
@@ -1018,168 +894,148 @@ public class WebSocket : IDisposable
 		{
 			if (enumerator != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						enumerator.Dispose();
+						goto end_IL_0141;
 					}
-					break;
 				}
-				enumerator.Dispose();
 			}
+			end_IL_0141:;
 		}
 	}
 
-	public static void Broadcast(string data, IEnumerable<global::WebSocket> webSockets)
+	public static void Broadcast(string data, IEnumerable<WebSocket> webSockets)
 	{
-		if (webSockets.IsNullOrEmpty<global::WebSocket>())
+		if (!webSockets.IsNullOrEmpty())
 		{
-			return;
-		}
-		MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(data));
-		Dictionary<CompressionMethod, Stream> cache = new Dictionary<CompressionMethod, Stream>();
-		IEnumerator<global::WebSocket> enumerator = webSockets.GetEnumerator();
-		try
-		{
-			while (enumerator.MoveNext())
+			MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(data));
+			Dictionary<CompressionMethod, Stream> cache = new Dictionary<CompressionMethod, Stream>();
+			IEnumerator<WebSocket> enumerator = webSockets.GetEnumerator();
+			try
 			{
-				global::WebSocket webSocket = enumerator.Current;
-				if (webSocket != null)
+				while (enumerator.MoveNext())
 				{
-					for (;;)
+					WebSocket current = enumerator.Current;
+					if (current != null)
 					{
-						switch (1)
+						lock (current.m_lock)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.Broadcast(string, IEnumerable<global::WebSocket>)).MethodHandle;
-					}
-					object @lock = webSocket.m_lock;
-					lock (@lock)
-					{
-						if (webSocket.State == global::WebSocket.SocketState.Open)
-						{
-							for (;;)
+							if (current.State == SocketState.Open)
 							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (webSocket.IsBinary)
-							{
-								for (;;)
+								while (true)
 								{
 									switch (1)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										if (current.IsBinary)
+										{
+											while (true)
+											{
+												switch (1)
+												{
+												case 0:
+													break;
+												default:
+													throw new Exception("Cannot broadcast text messages on a binary socket");
+												}
+											}
+										}
+										current.m_webSocket.Send(Opcode.Text, stream, cache);
+										goto end_IL_005c;
 									}
-									break;
 								}
-								throw new Exception("Cannot broadcast text messages on a binary socket");
 							}
-							webSocket.m_webSocket.Send(Opcode.Text, stream, cache);
+							end_IL_005c:;
 						}
 					}
 				}
 			}
-		}
-		finally
-		{
-			if (enumerator != null)
+			finally
 			{
-				for (;;)
+				if (enumerator != null)
 				{
-					switch (7)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (7)
+						{
+						case 0:
+							break;
+						default:
+							enumerator.Dispose();
+							goto end_IL_00b7;
+						}
 					}
-					break;
 				}
-				enumerator.Dispose();
+				end_IL_00b7:;
 			}
 		}
 	}
 
-	public static void Broadcast(byte[] data, IEnumerable<global::WebSocket> webSockets)
+	public static void Broadcast(byte[] data, IEnumerable<WebSocket> webSockets)
 	{
-		if (webSockets.IsNullOrEmpty<global::WebSocket>())
+		if (webSockets.IsNullOrEmpty())
 		{
 			return;
 		}
 		MemoryStream stream = new MemoryStream(data);
 		Dictionary<CompressionMethod, Stream> cache = new Dictionary<CompressionMethod, Stream>();
-		using (IEnumerator<global::WebSocket> enumerator = webSockets.GetEnumerator())
+		using (IEnumerator<WebSocket> enumerator = webSockets.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				global::WebSocket webSocket = enumerator.Current;
-				if (webSocket != null)
+				WebSocket current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					lock (current.m_lock)
 					{
-						switch (7)
+						if (current.State == SocketState.Open)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.Broadcast(byte[], IEnumerable<global::WebSocket>)).MethodHandle;
-					}
-					object @lock = webSocket.m_lock;
-					lock (@lock)
-					{
-						if (webSocket.State == global::WebSocket.SocketState.Open)
-						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
 								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!webSocket.IsBinary)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
 									break;
+								default:
+									if (!current.IsBinary)
+									{
+										while (true)
+										{
+											switch (3)
+											{
+											case 0:
+												break;
+											default:
+												throw new Exception("Cannot broadcast binary messages on a text socket");
+											}
+										}
+									}
+									current.m_webSocket.Send(Opcode.Binary, stream, cache);
+									goto end_IL_0054;
 								}
-								throw new Exception("Cannot broadcast binary messages on a text socket");
 							}
-							webSocket.m_webSocket.Send(Opcode.Binary, stream, cache);
 						}
+						end_IL_0054:;
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
@@ -1192,7 +1048,7 @@ public class WebSocket : IDisposable
 		case Log.Level.Everything:
 			logLevel = LogLevel.Trace;
 			break;
-		case Log.Level.\u001D:
+		case Log.Level._001D:
 			logLevel = LogLevel.Debug;
 			break;
 		case Log.Level.Info:
@@ -1210,42 +1066,24 @@ public class WebSocket : IDisposable
 		}
 		if (logLevel != (LogLevel)(-1))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(global::WebSocket.SetMinSocketLogLevel(Log.Level)).MethodHandle;
-			}
-			this.m_webSocket.Logger.Output = new Action<LogData, string>(this.HandleLogMessage);
-			this.m_webSocket.Logger.Level = logLevel;
-		}
-		else
-		{
-			Logger logger = this.m_webSocket.Logger;
-			if (global::WebSocket.<>f__am$cache1 == null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					m_webSocket.Logger.Output = HandleLogMessage;
+					m_webSocket.Logger.Level = logLevel;
+					return;
 				}
-				global::WebSocket.<>f__am$cache1 = delegate(LogData A_0, string A_1)
-				{
-				};
 			}
-			logger.Output = global::WebSocket.<>f__am$cache1;
 		}
+		Logger logger = m_webSocket.Logger;
+		
+		logger.Output = delegate
+			{
+			};
 	}
 
 	public void HandleLogMessage(LogData data, string unused)
@@ -1253,6 +1091,8 @@ public class WebSocket : IDisposable
 		Log.Level level;
 		switch (data.Level)
 		{
+		default:
+			return;
 		case LogLevel.Trace:
 		case LogLevel.Debug:
 		case LogLevel.Info:
@@ -1265,19 +1105,7 @@ public class WebSocket : IDisposable
 		case LogLevel.Fatal:
 			level = Log.Level.Error;
 			break;
-		default:
-			return;
 		}
-		Log.Write(level, Log.Category.WebSocketClient, string.Empty, 0, data.Message, new object[0]);
-	}
-
-	public enum SocketState
-	{
-		Unknown,
-		Accepting,
-		Connecting,
-		Open,
-		Closing,
-		Closed
+		Log.Write(level, Log.Category.WebSocketClient, string.Empty, 0, data.Message);
 	}
 }

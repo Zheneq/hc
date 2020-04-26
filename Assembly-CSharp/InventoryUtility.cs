@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 
@@ -6,16 +6,16 @@ public static class InventoryUtility
 {
 	public static double GetRandomNumber(double minimum, double maximum)
 	{
-		RNGCryptoServiceProvider rngcryptoServiceProvider = new RNGCryptoServiceProvider();
+		RNGCryptoServiceProvider rNGCryptoServiceProvider = new RNGCryptoServiceProvider();
 		byte[] array = new byte[8];
-		rngcryptoServiceProvider.GetNonZeroBytes(array);
-		double num = BitConverter.ToUInt64(array, 0) / 1.8446744073709552E+19;
+		rNGCryptoServiceProvider.GetNonZeroBytes(array);
+		double num = (double)BitConverter.ToUInt64(array, 0) / 1.8446744073709552E+19;
 		return num * (maximum - minimum) + minimum;
 	}
 
 	public static int GetRandomNumber(int minimum, int maximum)
 	{
-		return (int)InventoryUtility.GetRandomNumber((double)minimum, (double)maximum);
+		return (int)GetRandomNumber((double)minimum, (double)maximum);
 	}
 
 	public static int RollWeights(float[] weights)
@@ -27,44 +27,24 @@ public static class InventoryUtility
 			array[i] = num + weights[i];
 			num += weights[i];
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
+			float num2 = (float)GetRandomNumber(0.0, num);
+			int result = 0;
+			int num3 = 0;
+			while (true)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryUtility.RollWeights(float[])).MethodHandle;
-		}
-		float num2 = (float)InventoryUtility.GetRandomNumber(0.0, (double)num);
-		int result = 0;
-		for (int j = 0; j < array.Length; j++)
-		{
-			if (num2 <= array[j])
-			{
-				for (;;)
+				if (num3 < array.Length)
 				{
-					switch (2)
+					if (num2 <= array[num3])
 					{
-					case 0:
-						continue;
+						result = num3;
+						break;
 					}
-					break;
+					num3++;
+					continue;
 				}
-				result = j;
-				return result;
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
+				break;
 			}
 			return result;
 		}
@@ -100,6 +80,8 @@ public static class InventoryUtility
 			return StringUtil.TR("AbilityEffect", "Rewards");
 		case InventoryItemType.Experience:
 			return StringUtil.TR("Experience", "Inventory");
+		case InventoryItemType.FreelancerExpBonus:
+			return StringUtil.TR("FreelancerExpBonus", "Global");
 		case InventoryItemType.Overcon:
 			return StringUtil.TR("Overcon", "Inventory");
 		case InventoryItemType.Faction:
@@ -108,8 +90,6 @@ public static class InventoryUtility
 			return StringUtil.TR("Unlock", "Inventory");
 		case InventoryItemType.Conveyance:
 			return StringUtil.TR("Unlock", "Inventory");
-		case InventoryItemType.FreelancerExpBonus:
-			return StringUtil.TR("FreelancerExpBonus", "Global");
 		case InventoryItemType.LoadingScreenBackground:
 			return StringUtil.TR("LoadingScreenBackground", "Inventory");
 		default:
@@ -131,8 +111,9 @@ public static class InventoryUtility
 			return "#9936ff";
 		case InventoryItemRarity.Legendary:
 			return "#ff8004";
+		default:
+			return string.Empty;
 		}
-		return string.Empty;
 	}
 
 	public static string GetRarityString(this InventoryItemRarity itemRarity)
@@ -149,8 +130,9 @@ public static class InventoryUtility
 			return StringUtil.TR("Epic", "Rarity");
 		case InventoryItemRarity.Legendary:
 			return StringUtil.TR("Legendary", "Rarity");
+		default:
+			return string.Empty;
 		}
-		return string.Empty;
 	}
 
 	public static void PlaySound(this InventoryItemRarity itemRarity)
@@ -159,18 +141,20 @@ public static class InventoryUtility
 		{
 		case InventoryItemRarity.Uncommon:
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.LockboxUnlockUncommon);
-			return;
+			break;
 		case InventoryItemRarity.Rare:
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.LockboxUnlockRare);
-			return;
+			break;
 		case InventoryItemRarity.Epic:
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.LockboxUnlockEpic);
-			return;
+			break;
 		case InventoryItemRarity.Legendary:
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.LockboxUnlockLegendary);
-			return;
+			break;
+		default:
+			UIFrontEnd.PlaySound(FrontEndButtonSounds.LockboxUnlock);
+			break;
 		}
-		UIFrontEnd.PlaySound(FrontEndButtonSounds.LockboxUnlock);
 	}
 
 	public static List<InventoryItem> MergeByTemplateId(this List<InventoryItem> targetItems, List<InventoryItem> sourceItems, bool forceStack = false)
@@ -185,98 +169,52 @@ public static class InventoryUtility
 				{
 					if (!forceStack)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(List<InventoryItem>.MergeByTemplateId(List<InventoryItem>, bool)).MethodHandle;
-						}
 						if (!inventoryItem.IsStackable())
 						{
-							goto IL_7B;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							goto IL_007b;
 						}
 					}
 					inventoryItem.Count += sourceItem.Count;
 					continue;
 				}
-				IL_7B:
+				goto IL_007b;
+				IL_007b:
 				targetItems.Add((InventoryItem)sourceItem.Clone());
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return targetItems;
 				}
-				break;
 			}
 		}
-		return targetItems;
 	}
 
 	public static List<InventoryItemWithData> MergeByTemplateId(this List<InventoryItemWithData> targetItems, List<InventoryItemWithData> sourceItems, bool forceStack = false)
 	{
-		using (List<InventoryItemWithData>.Enumerator enumerator = sourceItems.GetEnumerator())
+		foreach (InventoryItemWithData sourceItem in sourceItems)
 		{
-			while (enumerator.MoveNext())
+			InventoryItemWithData inventoryItemWithData = targetItems.Find((InventoryItemWithData i) => i.Item.TemplateId == sourceItem.Item.TemplateId);
+			if (inventoryItemWithData != null)
 			{
-				InventoryItemWithData sourceItem = enumerator.Current;
-				InventoryItemWithData inventoryItemWithData = targetItems.Find((InventoryItemWithData i) => i.Item.TemplateId == sourceItem.Item.TemplateId);
-				if (inventoryItemWithData != null)
+				if (!forceStack)
 				{
-					if (!forceStack)
+					if (!inventoryItemWithData.Item.IsStackable())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(List<InventoryItemWithData>.MergeByTemplateId(List<InventoryItemWithData>, bool)).MethodHandle;
-						}
-						if (!inventoryItemWithData.Item.IsStackable())
-						{
-							goto IL_A4;
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
+						goto IL_00a4;
 					}
-					inventoryItemWithData.Item.Count += sourceItem.Item.Count;
-					inventoryItemWithData.IsoGained += sourceItem.IsoGained;
-					continue;
 				}
-				IL_A4:
-				targetItems.Add(new InventoryItemWithData((InventoryItem)sourceItem.Item.Clone(), sourceItem.IsoGained));
+				inventoryItemWithData.Item.Count += sourceItem.Item.Count;
+				inventoryItemWithData.IsoGained += sourceItem.IsoGained;
+				continue;
 			}
+			goto IL_00a4;
+			IL_00a4:
+			targetItems.Add(new InventoryItemWithData((InventoryItem)sourceItem.Item.Clone(), sourceItem.IsoGained));
 		}
 		return targetItems;
 	}
@@ -285,108 +223,23 @@ public static class InventoryUtility
 	{
 		if (itemType != InventoryItemType.TitleID)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryUtility.IsInventoryItemTypeCollectable(InventoryItemType)).MethodHandle;
-			}
 			if (itemType != InventoryItemType.BannerID)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (itemType != InventoryItemType.Skin && itemType != InventoryItemType.Texture)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (itemType != InventoryItemType.Style)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (itemType != InventoryItemType.Taunt)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (itemType != InventoryItemType.Mod)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (itemType != InventoryItemType.ChatEmoji)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (itemType != InventoryItemType.Overcon)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (itemType != InventoryItemType.AbilityVfxSwap)
 										{
 											return false;
-										}
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 								}

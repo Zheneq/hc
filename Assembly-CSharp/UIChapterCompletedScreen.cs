@@ -1,15 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UIChapterCompletedScreen : MonoBehaviour
 {
-	public UIChapterCompletedScreen.Takeover m_completedTakeover;
+	[Serializable]
+	public class Takeover
+	{
+		public RectTransform m_container;
 
-	public UIChapterCompletedScreen.Takeover m_unlockedTakeover;
+		public Animator m_animController;
+
+		public TextMeshProUGUI m_ChapterTitleTextLabel;
+
+		public _SelectableBtn m_nextChapter;
+
+		public _SelectableBtn m_okBtn;
+
+		public QuestReward[] m_questRewards;
+
+		internal int m_chapter;
+	}
+
+	private struct PendingTakeover
+	{
+		public Takeover m_takeover;
+
+		public int m_season;
+
+		public int m_chapter;
+
+		public PendingTakeover(Takeover takeover, int season, int chapter)
+		{
+			m_takeover = takeover;
+			m_season = season;
+			m_chapter = chapter;
+		}
+	}
+
+	public Takeover m_completedTakeover;
+
+	public Takeover m_unlockedTakeover;
 
 	public TextMeshProUGUI m_seasonsBlurb;
 
@@ -32,9 +66,9 @@ public class UIChapterCompletedScreen : MonoBehaviour
 
 	public RectTransform[] m_levelContainers;
 
-	private UIChapterCompletedScreen.Takeover m_currentTakeover;
+	private Takeover m_currentTakeover;
 
-	private Queue<UIChapterCompletedScreen.PendingTakeover> m_pendingTakeovers;
+	private Queue<PendingTakeover> m_pendingTakeovers;
 
 	private bool m_active;
 
@@ -52,79 +86,45 @@ public class UIChapterCompletedScreen : MonoBehaviour
 
 	private void Awake()
 	{
-		this.m_pendingTakeovers = new Queue<UIChapterCompletedScreen.PendingTakeover>();
+		m_pendingTakeovers = new Queue<PendingTakeover>();
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIChapterCompletedScreen.Awake()).MethodHandle;
-			}
-			ClientGameManager.Get().OnChapterUnlockNotification += this.ChapterUnlocked;
-			ClientGameManager.Get().OnChapterCompleteNotification += this.ChapterCompleted;
-			ClientGameManager.Get().OnSeasonCompleteNotification += this.HandleSeasonStatusNotification;
+			ClientGameManager.Get().OnChapterUnlockNotification += ChapterUnlocked;
+			ClientGameManager.Get().OnChapterCompleteNotification += ChapterCompleted;
+			ClientGameManager.Get().OnSeasonCompleteNotification += HandleSeasonStatusNotification;
 		}
-		this.m_completedTakeover.m_nextChapter.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnNextChapterClicked);
-		this.m_completedTakeover.m_okBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OkButtonClicked);
-		this.m_unlockedTakeover.m_nextChapter.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnNextChapterClicked);
-		this.m_unlockedTakeover.m_okBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnNextChapterClicked);
-		this.m_completedTakeover.m_nextChapter.spriteController.m_ignoreDialogboxes = true;
-		this.m_completedTakeover.m_okBtn.spriteController.m_ignoreDialogboxes = true;
-		this.m_unlockedTakeover.m_nextChapter.spriteController.m_ignoreDialogboxes = true;
-		this.m_unlockedTakeover.m_okBtn.spriteController.m_ignoreDialogboxes = true;
-		this.m_okBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.EndOfSeasonOkClicked);
-		this.m_okBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.DialogBoxButton;
+		m_completedTakeover.m_nextChapter.spriteController.callback = OnNextChapterClicked;
+		m_completedTakeover.m_okBtn.spriteController.callback = OkButtonClicked;
+		m_unlockedTakeover.m_nextChapter.spriteController.callback = OnNextChapterClicked;
+		m_unlockedTakeover.m_okBtn.spriteController.callback = OnNextChapterClicked;
+		m_completedTakeover.m_nextChapter.spriteController.m_ignoreDialogboxes = true;
+		m_completedTakeover.m_okBtn.spriteController.m_ignoreDialogboxes = true;
+		m_unlockedTakeover.m_nextChapter.spriteController.m_ignoreDialogboxes = true;
+		m_unlockedTakeover.m_okBtn.spriteController.m_ignoreDialogboxes = true;
+		m_okBtn.spriteController.callback = EndOfSeasonOkClicked;
+		m_okBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.DialogBoxButton;
 	}
 
 	private void OnDestroy()
 	{
-		if (ClientGameManager.Get() != null)
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIChapterCompletedScreen.OnDestroy()).MethodHandle;
-			}
-			ClientGameManager.Get().OnChapterUnlockNotification -= this.ChapterUnlocked;
-			ClientGameManager.Get().OnChapterCompleteNotification -= this.ChapterCompleted;
-			ClientGameManager.Get().OnSeasonCompleteNotification -= this.HandleSeasonStatusNotification;
+			return;
+		}
+		while (true)
+		{
+			ClientGameManager.Get().OnChapterUnlockNotification -= ChapterUnlocked;
+			ClientGameManager.Get().OnChapterCompleteNotification -= ChapterCompleted;
+			ClientGameManager.Get().OnSeasonCompleteNotification -= HandleSeasonStatusNotification;
+			return;
 		}
 	}
 
 	private void OnNextChapterClicked(BaseEventData data)
 	{
-		ClientGameManager.Get().SendSeasonStatusConfirm(SeasonStatusConfirmed.DialogType.\u000E);
+		ClientGameManager.Get().SendSeasonStatusConfirm(SeasonStatusConfirmed.DialogType._000E);
 		if (UIFrontEnd.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIChapterCompletedScreen.OnNextChapterClicked(BaseEventData)).MethodHandle;
-			}
 			if (UIFrontEnd.Get().m_frontEndNavPanel != null)
 			{
 				UIFrontEnd.Get().m_frontEndNavPanel.SeasonsBtnClicked(null);
@@ -132,708 +132,462 @@ public class UIChapterCompletedScreen : MonoBehaviour
 		}
 		if (UISeasonsPanel.Get() != null)
 		{
-			UISeasonsPanel.Get().SelectChapter(this.m_currentTakeover.m_chapter);
+			UISeasonsPanel.Get().SelectChapter(m_currentTakeover.m_chapter);
 		}
-		this.Close();
+		Close();
 	}
 
 	private void OkButtonClicked(BaseEventData data)
 	{
-		this.Close();
+		Close();
 	}
 
 	private void EndOfSeasonOkClicked(BaseEventData data)
 	{
-		UIAnimationEventManager.Get().PlayAnimation(this.m_EndOfSeasonAnimator, "EndOfSeasonDefaultOUT", delegate
+		UIAnimationEventManager.Get().PlayAnimation(m_EndOfSeasonAnimator, "EndOfSeasonDefaultOUT", delegate
 		{
-			this.m_WaitingToDisplayEndOfSeasonTakeover = false;
-			UIManager.SetGameObjectActive(this.m_EndOfSeasonContainer, false, null);
-			this.m_endSeasonNotification = null;
-			ClientGameManager.Get().SendSeasonStatusConfirm(SeasonStatusConfirmed.DialogType.\u001D);
-		}, string.Empty, 0, 0f, true, false, null, null);
+			m_WaitingToDisplayEndOfSeasonTakeover = false;
+			UIManager.SetGameObjectActive(m_EndOfSeasonContainer, false);
+			m_endSeasonNotification = null;
+			ClientGameManager.Get().SendSeasonStatusConfirm(SeasonStatusConfirmed.DialogType._001D);
+		}, string.Empty);
 	}
 
 	private void DisplayEndOfSeason()
 	{
-		if (!this.m_EndOfSeasonContainer.gameObject.activeSelf)
+		if (!m_EndOfSeasonContainer.gameObject.activeSelf)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIChapterCompletedScreen.DisplayEndOfSeason()).MethodHandle;
-			}
-			SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(this.m_endSeasonNotification.SeasonEndedIndex);
-			if (seasonTemplate != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (seasonTemplate.IsTutorial)
+				default:
 				{
-					this.m_WaitingToDisplayEndOfSeasonTakeover = false;
-					this.m_endSeasonNotification = null;
-					UINewUserFlowManager.MarkSeasonsNew(true);
-					if (UIFrontEnd.Get().m_frontEndNavPanel != null)
+					SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(m_endSeasonNotification.SeasonEndedIndex);
+					if (seasonTemplate != null)
 					{
-						for (;;)
+						if (seasonTemplate.IsTutorial)
 						{
-							switch (6)
+							m_WaitingToDisplayEndOfSeasonTakeover = false;
+							m_endSeasonNotification = null;
+							UINewUserFlowManager.MarkSeasonsNew(true);
+							if (UIFrontEnd.Get().m_frontEndNavPanel != null)
 							{
-							case 0:
-								continue;
+								ClientGameManager.Get().PreventNextAccountStatusCheck();
+								UIFrontEnd.Get().m_frontEndNavPanel.LandingPageBtnClicked(null);
 							}
-							break;
+							UINewUserFlowManager.OnTutorialSeasonEnded();
+							m_pendingTakeovers.Clear();
+							return;
 						}
-						ClientGameManager.Get().PreventNextAccountStatusCheck();
-						UIFrontEnd.Get().m_frontEndNavPanel.LandingPageBtnClicked(null);
 					}
-					UINewUserFlowManager.OnTutorialSeasonEnded();
-					this.m_pendingTakeovers.Clear();
-					return;
-				}
-			}
-			this.m_reactorLevelAtStart = this.m_endSeasonNotification.TotalSeasonLevel - this.m_endSeasonNotification.SeasonLevelEarnedFromEnded;
-			UIManager.SetGameObjectActive(this.m_EndOfSeasonContainer, true, null);
-			UIFrontEnd.PlaySound(FrontEndButtonSounds.SeasonTransitionIntro);
-			this.m_SeasonEndTitle.text = string.Empty;
-			this.m_SeasonLevelsTitle.text = string.Format(StringUtil.TR("SeasonLevel", "Seasons"), this.m_endSeasonNotification.SeasonEndedIndex);
-			this.m_SeasonLevelsGained.text = "0";
-			this.m_ReactorLevelsGained.text = this.m_reactorLevelAtStart.ToString();
-			AnimatorClipInfo[] currentAnimatorClipInfo = this.m_EndOfSeasonAnimator.GetCurrentAnimatorClipInfo(0);
-			for (int i = 0; i < currentAnimatorClipInfo.Length; i++)
-			{
-				if (currentAnimatorClipInfo[i].clip.name == "EndOfSeasonDefaultIN")
-				{
-					for (;;)
+					m_reactorLevelAtStart = m_endSeasonNotification.TotalSeasonLevel - m_endSeasonNotification.SeasonLevelEarnedFromEnded;
+					UIManager.SetGameObjectActive(m_EndOfSeasonContainer, true);
+					UIFrontEnd.PlaySound(FrontEndButtonSounds.SeasonTransitionIntro);
+					m_SeasonEndTitle.text = string.Empty;
+					m_SeasonLevelsTitle.text = string.Format(StringUtil.TR("SeasonLevel", "Seasons"), m_endSeasonNotification.SeasonEndedIndex);
+					m_SeasonLevelsGained.text = "0";
+					m_ReactorLevelsGained.text = m_reactorLevelAtStart.ToString();
+					AnimatorClipInfo[] currentAnimatorClipInfo = m_EndOfSeasonAnimator.GetCurrentAnimatorClipInfo(0);
+					for (int i = 0; i < currentAnimatorClipInfo.Length; i++)
 					{
-						switch (1)
+						if (currentAnimatorClipInfo[i].clip.name == "EndOfSeasonDefaultIN")
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (currentAnimatorClipInfo[i].clip.events.Length == 7)
-					{
-						for (int j = 0; j < currentAnimatorClipInfo[i].clip.events.Length; j++)
-						{
-							this.SeasonLevelUpAnimTimes[j] = currentAnimatorClipInfo[i].clip.events[j].time / currentAnimatorClipInfo[i].clip.length;
-						}
-						for (;;)
-						{
-							switch (3)
+							if (currentAnimatorClipInfo[i].clip.events.Length == 7)
 							{
-							case 0:
-								continue;
+								for (int j = 0; j < currentAnimatorClipInfo[i].clip.events.Length; j++)
+								{
+									SeasonLevelUpAnimTimes[j] = currentAnimatorClipInfo[i].clip.events[j].time / currentAnimatorClipInfo[i].clip.length;
+								}
 							}
-							break;
 						}
 					}
-				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_playingSeasonPoints = false;
-			this.m_playingReactorPoints = false;
-			if (seasonTemplate != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				int num = 0;
-				this.m_SeasonEndTitle.text = seasonTemplate.GetSeasonEndHeader();
-				for (int k = 0; k < this.m_levelContainers.Length; k++)
-				{
-					UIManager.SetGameObjectActive(this.m_levelContainers[k], !seasonTemplate.IsTutorial, null);
-				}
-				List<SeasonTemplate.SeasonEndRewards> list = new List<SeasonTemplate.SeasonEndRewards>();
-				if (this.m_endSeasonNotification.SeasonLevelEarnedFromEnded >= 2)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					list.Add(seasonTemplate.EndRewards);
-					using (List<SeasonTemplate.ConditionalSeasonEndRewards>.Enumerator enumerator = seasonTemplate.ConditionalEndRewards.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							SeasonTemplate.ConditionalSeasonEndRewards conditionalSeasonEndRewards = enumerator.Current;
-							if (QuestWideData.AreConditionsMet(conditionalSeasonEndRewards.Prerequisites.Conditions, conditionalSeasonEndRewards.Prerequisites.LogicStatement, false))
-							{
-								list.Add(conditionalSeasonEndRewards);
-							}
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-					}
-				}
-				using (List<SeasonTemplate.SeasonEndRewards>.Enumerator enumerator2 = list.GetEnumerator())
-				{
-					while (enumerator2.MoveNext())
-					{
-						SeasonTemplate.SeasonEndRewards seasonEndRewards = enumerator2.Current;
-						foreach (QuestItemReward questItemReward in seasonEndRewards.ItemRewards)
-						{
-							if (num < this.m_questRewards.Length)
+						default:
+							m_playingSeasonPoints = false;
+							m_playingReactorPoints = false;
+							if (seasonTemplate != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (1)
 									{
 									case 0:
-										continue;
-									}
-									break;
-								}
-								InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(questItemReward.ItemTemplateId);
-								UIManager.SetGameObjectActive(this.m_questRewards[num], true, null);
-								this.m_questRewards[num].SetupHack(itemTemplate, itemTemplate.IconPath, questItemReward.Amount);
-								num++;
-							}
-						}
-						using (List<QuestCurrencyReward>.Enumerator enumerator4 = seasonEndRewards.CurrencyRewards.GetEnumerator())
-						{
-							while (enumerator4.MoveNext())
-							{
-								QuestCurrencyReward currencyReward = enumerator4.Current;
-								if (num < this.m_questRewards.Length)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
 										break;
-									}
-									UIManager.SetGameObjectActive(this.m_questRewards[num], true, null);
-									this.m_questRewards[num].Setup(currencyReward, 0);
-									num++;
-								}
-							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						using (List<QuestUnlockReward>.Enumerator enumerator5 = seasonEndRewards.UnlockRewards.GetEnumerator())
-						{
-							while (enumerator5.MoveNext())
-							{
-								QuestUnlockReward questUnlockReward = enumerator5.Current;
-								if (num < this.m_questRewards.Length)
-								{
-									for (;;)
+									default:
 									{
-										switch (7)
+										int num = 0;
+										m_SeasonEndTitle.text = seasonTemplate.GetSeasonEndHeader();
+										for (int k = 0; k < m_levelContainers.Length; k++)
 										{
-										case 0:
-											continue;
+											UIManager.SetGameObjectActive(m_levelContainers[k], !seasonTemplate.IsTutorial);
 										}
-										break;
+										List<SeasonTemplate.SeasonEndRewards> list = new List<SeasonTemplate.SeasonEndRewards>();
+										if (m_endSeasonNotification.SeasonLevelEarnedFromEnded >= 2)
+										{
+											list.Add(seasonTemplate.EndRewards);
+											using (List<SeasonTemplate.ConditionalSeasonEndRewards>.Enumerator enumerator = seasonTemplate.ConditionalEndRewards.GetEnumerator())
+											{
+												while (enumerator.MoveNext())
+												{
+													SeasonTemplate.ConditionalSeasonEndRewards current = enumerator.Current;
+													if (QuestWideData.AreConditionsMet(current.Prerequisites.Conditions, current.Prerequisites.LogicStatement))
+													{
+														list.Add(current);
+													}
+												}
+											}
+										}
+										using (List<SeasonTemplate.SeasonEndRewards>.Enumerator enumerator2 = list.GetEnumerator())
+										{
+											while (enumerator2.MoveNext())
+											{
+												SeasonTemplate.SeasonEndRewards current2 = enumerator2.Current;
+												foreach (QuestItemReward itemReward in current2.ItemRewards)
+												{
+													if (num < m_questRewards.Length)
+													{
+														InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(itemReward.ItemTemplateId);
+														UIManager.SetGameObjectActive(m_questRewards[num], true);
+														m_questRewards[num].SetupHack(itemTemplate, itemTemplate.IconPath, itemReward.Amount);
+														num++;
+													}
+												}
+												using (List<QuestCurrencyReward>.Enumerator enumerator4 = current2.CurrencyRewards.GetEnumerator())
+												{
+													while (enumerator4.MoveNext())
+													{
+														QuestCurrencyReward current4 = enumerator4.Current;
+														if (num < m_questRewards.Length)
+														{
+															UIManager.SetGameObjectActive(m_questRewards[num], true);
+															m_questRewards[num].Setup(current4, 0);
+															num++;
+														}
+													}
+												}
+												using (List<QuestUnlockReward>.Enumerator enumerator5 = current2.UnlockRewards.GetEnumerator())
+												{
+													while (enumerator5.MoveNext())
+													{
+														QuestUnlockReward current5 = enumerator5.Current;
+														if (num < m_questRewards.Length)
+														{
+															UIManager.SetGameObjectActive(m_questRewards[num], true);
+															m_questRewards[num].SetupHack(current5.resourceString);
+															num++;
+														}
+													}
+												}
+											}
+										}
+										for (int l = num; l < m_questRewards.Length; l++)
+										{
+											UIManager.SetGameObjectActive(m_questRewards[l], false);
+										}
+										while (true)
+										{
+											switch (3)
+											{
+											default:
+												return;
+											case 0:
+												break;
+											}
+										}
 									}
-									UIManager.SetGameObjectActive(this.m_questRewards[num], true, null);
-									this.m_questRewards[num].SetupHack(questUnlockReward.resourceString, 0);
-									num++;
+									}
 								}
 							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
+							return;
 						}
 					}
-					for (;;)
+				}
+				}
+			}
+		}
+		AnimatorStateInfo currentAnimatorStateInfo = m_EndOfSeasonAnimator.GetCurrentAnimatorStateInfo(0);
+		if (!currentAnimatorStateInfo.IsName("EndOfSeasonDefaultIN"))
+		{
+			return;
+		}
+		while (true)
+		{
+			if (SeasonLevelUpAnimTimes[0] <= currentAnimatorStateInfo.normalizedTime)
+			{
+				if (currentAnimatorStateInfo.normalizedTime < SeasonLevelUpAnimTimes[1])
+				{
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				for (int l = num; l < this.m_questRewards.Length; l++)
-				{
-					UIManager.SetGameObjectActive(this.m_questRewards[l], false, null);
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-		}
-		else
-		{
-			AnimatorStateInfo currentAnimatorStateInfo = this.m_EndOfSeasonAnimator.GetCurrentAnimatorStateInfo(0);
-			if (currentAnimatorStateInfo.IsName("EndOfSeasonDefaultIN"))
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.SeasonLevelUpAnimTimes[0] <= currentAnimatorStateInfo.normalizedTime)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (currentAnimatorStateInfo.normalizedTime < this.SeasonLevelUpAnimTimes[1])
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						float num2 = (currentAnimatorStateInfo.normalizedTime - this.SeasonLevelUpAnimTimes[0]) / (this.SeasonLevelUpAnimTimes[1] - this.SeasonLevelUpAnimTimes[0]);
-						this.m_SeasonLevelsGained.text = Mathf.FloorToInt((float)this.m_endSeasonNotification.SeasonLevelEarnedFromEnded * num2).ToString();
-						if (!this.m_playingSeasonPoints)
+						default:
 						{
-							UIFrontEnd.PlayLoopingSound(FrontEndButtonSounds.SeasonTransitionSeasonPoints);
-							this.m_playingSeasonPoints = true;
-						}
-						return;
-					}
-				}
-				if (this.SeasonLevelUpAnimTimes[1] <= currentAnimatorStateInfo.normalizedTime)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (currentAnimatorStateInfo.normalizedTime < this.SeasonLevelUpAnimTimes[3])
-					{
-						this.m_SeasonLevelsGained.text = this.m_endSeasonNotification.SeasonLevelEarnedFromEnded.ToString();
-						this.m_ReactorLevelsGained.text = this.m_reactorLevelAtStart.ToString();
-						if (this.m_playingSeasonPoints)
-						{
-							for (;;)
+							float num2 = (currentAnimatorStateInfo.normalizedTime - SeasonLevelUpAnimTimes[0]) / (SeasonLevelUpAnimTimes[1] - SeasonLevelUpAnimTimes[0]);
+							m_SeasonLevelsGained.text = Mathf.FloorToInt((float)m_endSeasonNotification.SeasonLevelEarnedFromEnded * num2).ToString();
+							if (!m_playingSeasonPoints)
 							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
+								UIFrontEnd.PlayLoopingSound(FrontEndButtonSounds.SeasonTransitionSeasonPoints);
+								m_playingSeasonPoints = true;
 							}
-							UIFrontEnd.StopLoopingSound(FrontEndButtonSounds.SeasonTransitionSeasonPoints);
-							this.m_playingSeasonPoints = false;
+							return;
 						}
-						return;
-					}
-				}
-				if (this.SeasonLevelUpAnimTimes[3] <= currentAnimatorStateInfo.normalizedTime)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
 						}
-						break;
 					}
-					if (currentAnimatorStateInfo.normalizedTime < this.SeasonLevelUpAnimTimes[4])
-					{
-						float num3 = (currentAnimatorStateInfo.normalizedTime - this.SeasonLevelUpAnimTimes[3]) / (this.SeasonLevelUpAnimTimes[4] - this.SeasonLevelUpAnimTimes[3]);
-						this.m_SeasonLevelsGained.text = Mathf.FloorToInt((float)this.m_endSeasonNotification.SeasonLevelEarnedFromEnded * (1f - num3)).ToString();
-						this.m_ReactorLevelsGained.text = Mathf.FloorToInt((float)this.m_endSeasonNotification.SeasonLevelEarnedFromEnded * num3 + (float)this.m_reactorLevelAtStart).ToString();
-						if (!this.m_playingReactorPoints)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							UIFrontEnd.PlayLoopingSound(FrontEndButtonSounds.SeasonTransitionReactorPoints);
-							this.m_playingReactorPoints = true;
-						}
-						return;
-					}
-				}
-				this.m_SeasonLevelsGained.text = "0";
-				this.m_ReactorLevelsGained.text = this.m_endSeasonNotification.TotalSeasonLevel.ToString();
-				if (this.m_playingReactorPoints)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIFrontEnd.StopLoopingSound(FrontEndButtonSounds.SeasonTransitionReactorPoints);
-					this.m_playingReactorPoints = false;
 				}
 			}
+			if (SeasonLevelUpAnimTimes[1] <= currentAnimatorStateInfo.normalizedTime)
+			{
+				if (currentAnimatorStateInfo.normalizedTime < SeasonLevelUpAnimTimes[3])
+				{
+					m_SeasonLevelsGained.text = m_endSeasonNotification.SeasonLevelEarnedFromEnded.ToString();
+					m_ReactorLevelsGained.text = m_reactorLevelAtStart.ToString();
+					if (m_playingSeasonPoints)
+					{
+						while (true)
+						{
+							UIFrontEnd.StopLoopingSound(FrontEndButtonSounds.SeasonTransitionSeasonPoints);
+							m_playingSeasonPoints = false;
+							return;
+						}
+					}
+					return;
+				}
+			}
+			if (SeasonLevelUpAnimTimes[3] <= currentAnimatorStateInfo.normalizedTime)
+			{
+				if (currentAnimatorStateInfo.normalizedTime < SeasonLevelUpAnimTimes[4])
+				{
+					float num3 = (currentAnimatorStateInfo.normalizedTime - SeasonLevelUpAnimTimes[3]) / (SeasonLevelUpAnimTimes[4] - SeasonLevelUpAnimTimes[3]);
+					m_SeasonLevelsGained.text = Mathf.FloorToInt((float)m_endSeasonNotification.SeasonLevelEarnedFromEnded * (1f - num3)).ToString();
+					m_ReactorLevelsGained.text = Mathf.FloorToInt((float)m_endSeasonNotification.SeasonLevelEarnedFromEnded * num3 + (float)m_reactorLevelAtStart).ToString();
+					if (!m_playingReactorPoints)
+					{
+						while (true)
+						{
+							UIFrontEnd.PlayLoopingSound(FrontEndButtonSounds.SeasonTransitionReactorPoints);
+							m_playingReactorPoints = true;
+							return;
+						}
+					}
+					return;
+				}
+			}
+			m_SeasonLevelsGained.text = "0";
+			m_ReactorLevelsGained.text = m_endSeasonNotification.TotalSeasonLevel.ToString();
+			if (m_playingReactorPoints)
+			{
+				while (true)
+				{
+					UIFrontEnd.StopLoopingSound(FrontEndButtonSounds.SeasonTransitionReactorPoints);
+					m_playingReactorPoints = false;
+					return;
+				}
+			}
+			return;
 		}
 	}
 
 	public bool IsCurrentlyDisplaying()
 	{
-		return this.m_active || (this.m_WaitingToDisplayEndOfSeasonTakeover && this.m_EndOfSeasonContainer.gameObject.activeSelf);
+		return m_active || (m_WaitingToDisplayEndOfSeasonTakeover && m_EndOfSeasonContainer.gameObject.activeSelf);
 	}
 
 	public void HandleSeasonStatusNotification(SeasonStatusNotification notification)
 	{
-		if (this.m_WaitingToDisplayEndOfSeasonTakeover && this.m_endSeasonNotification.SeasonEndedIndex == notification.SeasonEndedIndex)
+		if (m_WaitingToDisplayEndOfSeasonTakeover && m_endSeasonNotification.SeasonEndedIndex == notification.SeasonEndedIndex)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIChapterCompletedScreen.HandleSeasonStatusNotification(SeasonStatusNotification)).MethodHandle;
-			}
+		}
+		m_WaitingToDisplayEndOfSeasonTakeover = true;
+		m_endSeasonNotification = notification;
+		if (!SeasonWideData.Get().GetSeasonTemplate(notification.SeasonEndedIndex).IsTutorial)
+		{
 			return;
 		}
-		this.m_WaitingToDisplayEndOfSeasonTakeover = true;
-		this.m_endSeasonNotification = notification;
-		if (SeasonWideData.Get().GetSeasonTemplate(notification.SeasonEndedIndex).IsTutorial)
+		while (true)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UINewReward.Get().NotifyNewRewardReceived(RewardUtils.GetSeasonsUnlockedReward(), CharacterType.None, -1, -1);
+			UINewReward.Get().NotifyNewRewardReceived(RewardUtils.GetSeasonsUnlockedReward());
+			return;
 		}
 	}
 
-	private void Display(UIChapterCompletedScreen.PendingTakeover takeoverToDisplay)
+	private void Display(PendingTakeover takeoverToDisplay)
 	{
-		this.m_active = true;
-		this.m_currentTakeover = takeoverToDisplay.m_takeover;
-		this.m_currentTakeover.m_chapter = takeoverToDisplay.m_chapter;
-		UIManager.SetGameObjectActive(takeoverToDisplay.m_takeover.m_container, true, null);
-		bool flag;
-		if (takeoverToDisplay.m_takeover == this.m_unlockedTakeover)
+		m_active = true;
+		m_currentTakeover = takeoverToDisplay.m_takeover;
+		m_currentTakeover.m_chapter = takeoverToDisplay.m_chapter;
+		UIManager.SetGameObjectActive(takeoverToDisplay.m_takeover.m_container, true);
+		int num;
+		if (takeoverToDisplay.m_takeover == m_unlockedTakeover)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIChapterCompletedScreen.Display(UIChapterCompletedScreen.PendingTakeover)).MethodHandle;
-			}
-			flag = (takeoverToDisplay.m_chapter == 1);
+			num = ((takeoverToDisplay.m_chapter == 1) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
-		if (flag2)
+		bool flag = (byte)num != 0;
+		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			takeoverToDisplay.m_takeover.m_ChapterTitleTextLabel.text = StringUtil.TR("SeasonUnlocked", "Seasons");
-			UIManager.SetGameObjectActive(this.m_seasonsBlurb, true, null);
+			UIManager.SetGameObjectActive(m_seasonsBlurb, true);
 		}
 		else
 		{
 			takeoverToDisplay.m_takeover.m_ChapterTitleTextLabel.text = string.Format(StringUtil.TR("ChapterUnlocked", "Seasons"), takeoverToDisplay.m_chapter);
-			UIManager.SetGameObjectActive(this.m_seasonsBlurb, false, null);
+			UIManager.SetGameObjectActive(m_seasonsBlurb, false);
 		}
 		SeasonChapter seasonChapter = SeasonWideData.Get().GetSeasonTemplate(takeoverToDisplay.m_season).Chapters[takeoverToDisplay.m_chapter - 1];
-		int num = 0;
-		if (!flag2)
+		int num2 = 0;
+		if (!flag)
 		{
 			using (List<QuestItemReward>.Enumerator enumerator = seasonChapter.ItemRewards.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					QuestItemReward questItemReward = enumerator.Current;
-					if (num < takeoverToDisplay.m_takeover.m_questRewards.Length)
+					QuestItemReward current = enumerator.Current;
+					if (num2 < takeoverToDisplay.m_takeover.m_questRewards.Length)
 					{
-						InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(questItemReward.ItemTemplateId);
-						UIManager.SetGameObjectActive(takeoverToDisplay.m_takeover.m_questRewards[num], true, null);
-						takeoverToDisplay.m_takeover.m_questRewards[num].SetupHack(itemTemplate, itemTemplate.IconPath, questItemReward.Amount);
-						num++;
+						InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(current.ItemTemplateId);
+						UIManager.SetGameObjectActive(takeoverToDisplay.m_takeover.m_questRewards[num2], true);
+						takeoverToDisplay.m_takeover.m_questRewards[num2].SetupHack(itemTemplate, itemTemplate.IconPath, current.Amount);
+						num2++;
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			using (List<QuestCurrencyReward>.Enumerator enumerator2 = seasonChapter.CurrencyRewards.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
 				{
-					QuestCurrencyReward currencyReward = enumerator2.Current;
-					if (num < takeoverToDisplay.m_takeover.m_questRewards.Length)
+					QuestCurrencyReward current2 = enumerator2.Current;
+					if (num2 < takeoverToDisplay.m_takeover.m_questRewards.Length)
 					{
-						UIManager.SetGameObjectActive(takeoverToDisplay.m_takeover.m_questRewards[num], true, null);
-						takeoverToDisplay.m_takeover.m_questRewards[num].Setup(currencyReward, 0);
-						num++;
+						UIManager.SetGameObjectActive(takeoverToDisplay.m_takeover.m_questRewards[num2], true);
+						takeoverToDisplay.m_takeover.m_questRewards[num2].Setup(current2, 0);
+						num2++;
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			using (List<QuestUnlockReward>.Enumerator enumerator3 = seasonChapter.UnlockRewards.GetEnumerator())
 			{
 				while (enumerator3.MoveNext())
 				{
-					QuestUnlockReward questUnlockReward = enumerator3.Current;
-					if (num < takeoverToDisplay.m_takeover.m_questRewards.Length)
+					QuestUnlockReward current3 = enumerator3.Current;
+					if (num2 < takeoverToDisplay.m_takeover.m_questRewards.Length)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIManager.SetGameObjectActive(takeoverToDisplay.m_takeover.m_questRewards[num], true, null);
-						takeoverToDisplay.m_takeover.m_questRewards[num].SetupHack(questUnlockReward.resourceString, 0);
-						num++;
+						UIManager.SetGameObjectActive(takeoverToDisplay.m_takeover.m_questRewards[num2], true);
+						takeoverToDisplay.m_takeover.m_questRewards[num2].SetupHack(current3.resourceString);
+						num2++;
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
-		for (int i = num; i < takeoverToDisplay.m_takeover.m_questRewards.Length; i++)
+		for (int i = num2; i < takeoverToDisplay.m_takeover.m_questRewards.Length; i++)
 		{
-			UIManager.SetGameObjectActive(takeoverToDisplay.m_takeover.m_questRewards[i], false, null);
+			UIManager.SetGameObjectActive(takeoverToDisplay.m_takeover.m_questRewards[i], false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void Close()
 	{
-		this.m_active = false;
-		this.m_currentTakeover.m_animController.Play("ChapterCompletedDefaultOUT");
+		m_active = false;
+		m_currentTakeover.m_animController.Play("ChapterCompletedDefaultOUT");
 	}
 
 	private void Update()
 	{
-		if (!this.m_WaitingToDisplayEndOfSeasonTakeover && this.m_pendingTakeovers.Count == 0)
+		if (!m_WaitingToDisplayEndOfSeasonTakeover && m_pendingTakeovers.Count == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIChapterCompletedScreen.Update()).MethodHandle;
-			}
+		}
+		if (m_active)
+		{
 			return;
 		}
-		if (!this.m_active)
+		while (true)
 		{
-			for (;;)
+			if (UIFrontEnd.Get() == null)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!(UIFrontEnd.Get() == null))
+			while (true)
 			{
-				for (;;)
+				if (UISeasonsPanel.Get() == null || UINewReward.Get().IsActive() || UIFrontEnd.Get().m_playerPanel.IsUpdatingExperience())
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (!(UISeasonsPanel.Get() == null) && !UINewReward.Get().IsActive() && !UIFrontEnd.Get().m_playerPanel.IsUpdatingExperience())
+				while (true)
 				{
-					for (;;)
+					if (UIFrontendLoadingScreen.Get().IsVisible())
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						return;
 					}
-					if (!UIFrontendLoadingScreen.Get().IsVisible())
+					while (true)
 					{
-						for (;;)
+						if (QuestOfferPanel.Get().IsActive())
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							return;
 						}
-						if (!QuestOfferPanel.Get().IsActive())
+						while (true)
 						{
-							for (;;)
+							if (UIFactionsIntroduction.Get().IsActive())
 							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!UIFactionsIntroduction.Get().IsActive())
-							{
-								if (this.m_WaitingToDisplayEndOfSeasonTakeover)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.DisplayEndOfSeason();
-									return;
-								}
-								this.Display(this.m_pendingTakeovers.Dequeue());
 								return;
 							}
+							if (m_WaitingToDisplayEndOfSeasonTakeover)
+							{
+								while (true)
+								{
+									switch (5)
+									{
+									case 0:
+										break;
+									default:
+										DisplayEndOfSeason();
+										return;
+									}
+								}
+							}
+							Display(m_pendingTakeovers.Dequeue());
+							return;
 						}
 					}
 				}
@@ -843,45 +597,11 @@ public class UIChapterCompletedScreen : MonoBehaviour
 
 	private void ChapterUnlocked(int season, int chapter)
 	{
-		this.m_pendingTakeovers.Enqueue(new UIChapterCompletedScreen.PendingTakeover(this.m_unlockedTakeover, season, chapter));
+		m_pendingTakeovers.Enqueue(new PendingTakeover(m_unlockedTakeover, season, chapter));
 	}
 
 	private void ChapterCompleted(int season, int chapter)
 	{
-		this.m_pendingTakeovers.Enqueue(new UIChapterCompletedScreen.PendingTakeover(this.m_completedTakeover, season, chapter));
-	}
-
-	[Serializable]
-	public class Takeover
-	{
-		public RectTransform m_container;
-
-		public Animator m_animController;
-
-		public TextMeshProUGUI m_ChapterTitleTextLabel;
-
-		public _SelectableBtn m_nextChapter;
-
-		public _SelectableBtn m_okBtn;
-
-		public QuestReward[] m_questRewards;
-
-		internal int m_chapter;
-	}
-
-	private struct PendingTakeover
-	{
-		public UIChapterCompletedScreen.Takeover m_takeover;
-
-		public int m_season;
-
-		public int m_chapter;
-
-		public PendingTakeover(UIChapterCompletedScreen.Takeover takeover, int season, int chapter)
-		{
-			this.m_takeover = takeover;
-			this.m_season = season;
-			this.m_chapter = chapter;
-		}
+		m_pendingTakeovers.Enqueue(new PendingTakeover(m_completedTakeover, season, chapter));
 	}
 }

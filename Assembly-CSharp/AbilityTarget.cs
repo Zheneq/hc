@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -13,22 +12,11 @@ public class AbilityTarget
 
 	private static AbilityTarget s_abilityTargetForTargeterUpdate = new AbilityTarget();
 
-	private AbilityTarget()
-	{
-	}
-
-	private AbilityTarget(GridPos targetPos, Vector3 freePos, Vector3 dir)
-	{
-		this.m_freePos = freePos;
-		this.m_gridPos = targetPos;
-		this.m_dir = dir;
-	}
-
 	public Vector3 FreePos
 	{
 		get
 		{
-			return this.m_freePos;
+			return m_freePos;
 		}
 		private set
 		{
@@ -39,7 +27,7 @@ public class AbilityTarget
 	{
 		get
 		{
-			return this.m_gridPos;
+			return m_gridPos;
 		}
 		private set
 		{
@@ -50,18 +38,29 @@ public class AbilityTarget
 	{
 		get
 		{
-			return this.m_dir;
+			return m_dir;
 		}
 		private set
 		{
 		}
 	}
 
+	private AbilityTarget()
+	{
+	}
+
+	private AbilityTarget(GridPos targetPos, Vector3 freePos, Vector3 dir)
+	{
+		m_freePos = freePos;
+		m_gridPos = targetPos;
+		m_dir = dir;
+	}
+
 	public void SetPosAndDir(GridPos gridPos, Vector3 freePos, Vector3 dir)
 	{
-		this.m_gridPos = gridPos;
-		this.m_freePos = freePos;
-		this.m_dir = dir;
+		m_gridPos = gridPos;
+		m_freePos = freePos;
+		m_dir = dir;
 	}
 
 	public void SetValuesFromBoardSquare(BoardSquare targetSquare, Vector3 currentWorldPos)
@@ -69,47 +68,34 @@ public class AbilityTarget
 		Vector3 dir = targetSquare.ToVector3() - currentWorldPos;
 		dir.y = 0f;
 		dir.Normalize();
-		this.SetPosAndDir(targetSquare.\u001D(), targetSquare.ToVector3(), dir);
+		SetPosAndDir(targetSquare.GetGridPos(), targetSquare.ToVector3(), dir);
 	}
 
 	internal void OnSerializeHelper(IBitStream stream)
 	{
-		Vector3 dir = this.m_dir;
-		Vector3 freePos = this.m_freePos;
-		this.m_gridPos.OnSerializeHelper(stream);
-		stream.Serialize(ref dir);
-		stream.Serialize(ref freePos);
-		this.m_dir = dir;
-		this.m_freePos = freePos;
+		Vector3 value = m_dir;
+		Vector3 value2 = m_freePos;
+		m_gridPos.OnSerializeHelper(stream);
+		stream.Serialize(ref value);
+		stream.Serialize(ref value2);
+		m_dir = value;
+		m_freePos = value2;
 	}
 
 	public Vector3 GetWorldGridPos()
 	{
-		Vector3 result = new Vector3(this.GridPos.worldX, (float)this.GridPos.height, this.GridPos.worldY);
+		Vector3 result = new Vector3(GridPos.worldX, GridPos.height, GridPos.worldY);
 		return result;
 	}
 
 	public static AbilityTarget CreateAbilityTargetFromInterface()
 	{
-		Vector3 playerClampedPos = Board.\u000E().PlayerClampedPos;
-		Vector3 playerLookDir = Board.\u000E().PlayerLookDir;
+		Vector3 playerClampedPos = Board.Get().PlayerClampedPos;
+		Vector3 playerLookDir = Board.Get().PlayerLookDir;
 		GridPos targetPos;
-		if (Board.\u000E().PlayerClampedSquare != null)
+		if (Board.Get().PlayerClampedSquare != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTarget.CreateAbilityTargetFromInterface()).MethodHandle;
-			}
-			targetPos = Board.\u000E().PlayerClampedSquare.\u001D();
+			targetPos = Board.Get().PlayerClampedSquare.GetGridPos();
 		}
 		else
 		{
@@ -123,35 +109,22 @@ public class AbilityTarget
 
 	public AbilityTarget GetCopy()
 	{
-		return new AbilityTarget(this.GridPos, this.FreePos, this.AimDirection);
+		return new AbilityTarget(GridPos, FreePos, AimDirection);
 	}
 
 	public static AbilityTarget GetAbilityTargetForTargeterUpdate()
 	{
-		return AbilityTarget.s_abilityTargetForTargeterUpdate;
+		return s_abilityTargetForTargeterUpdate;
 	}
 
 	public static void UpdateAbilityTargetForForTargeterUpdate()
 	{
-		Vector3 playerClampedPos = Board.\u000E().PlayerClampedPos;
-		Vector3 playerLookDir = Board.\u000E().PlayerLookDir;
+		Vector3 playerClampedPos = Board.Get().PlayerClampedPos;
+		Vector3 playerLookDir = Board.Get().PlayerLookDir;
 		GridPos gridPos;
-		if (Board.\u000E().PlayerClampedSquare != null)
+		if (Board.Get().PlayerClampedSquare != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTarget.UpdateAbilityTargetForForTargeterUpdate()).MethodHandle;
-			}
-			gridPos = Board.\u000E().PlayerClampedSquare.\u001D();
+			gridPos = Board.Get().PlayerClampedSquare.GetGridPos();
 		}
 		else
 		{
@@ -160,35 +133,22 @@ public class AbilityTarget
 			gridPos.y = -1;
 			gridPos.height = -1;
 		}
-		AbilityTarget.s_abilityTargetForTargeterUpdate.SetPosAndDir(gridPos, playerClampedPos, playerLookDir);
+		s_abilityTargetForTargeterUpdate.SetPosAndDir(gridPos, playerClampedPos, playerLookDir);
 	}
 
 	public static AbilityTarget CreateAbilityTargetFromActor(ActorData targetActor, ActorData casterActor)
 	{
-		Vector3 vector = targetActor.\u0016() - casterActor.\u0016();
+		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - casterActor.GetTravelBoardSquareWorldPosition();
 		if (vector != Vector3.zero)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTarget.CreateAbilityTargetFromActor(ActorData, ActorData)).MethodHandle;
-			}
 			vector.Normalize();
 		}
-		return new AbilityTarget(targetActor.\u000E(), targetActor.\u0016(), vector);
+		return new AbilityTarget(targetActor.GetGridPosWithIncrementedHeight(), targetActor.GetTravelBoardSquareWorldPosition(), vector);
 	}
 
 	public static AbilityTarget CreateSimpleAbilityTarget(ActorData casterActor)
 	{
-		return new AbilityTarget(casterActor.\u000E(), casterActor.\u0016(), Vector3.zero);
+		return new AbilityTarget(casterActor.GetGridPosWithIncrementedHeight(), casterActor.GetTravelBoardSquareWorldPosition(), Vector3.zero);
 	}
 
 	public static AbilityTarget CreateAbilityTargetFromBoardSquare(BoardSquare targetSquare, Vector3 currentWorldPos)
@@ -196,7 +156,7 @@ public class AbilityTarget
 		Vector3 dir = targetSquare.ToVector3() - currentWorldPos;
 		dir.y = 0f;
 		dir.Normalize();
-		return new AbilityTarget(targetSquare.\u001D(), targetSquare.ToVector3(), dir);
+		return new AbilityTarget(targetSquare.GetGridPos(), targetSquare.ToVector3(), dir);
 	}
 
 	public static AbilityTarget CreateAbilityTargetFromTwoBoardSquares(BoardSquare targetSquare, BoardSquare targetSquare2, Vector3 currentWorldPos)
@@ -205,12 +165,11 @@ public class AbilityTarget
 		Vector3 dir = vector - currentWorldPos;
 		dir.y = 0f;
 		dir.Normalize();
-		return new AbilityTarget(new GridPos
-		{
-			x = -1,
-			y = -1,
-			height = -1
-		}, vector, dir);
+		GridPos targetPos = default(GridPos);
+		targetPos.x = -1;
+		targetPos.y = -1;
+		targetPos.height = -1;
+		return new AbilityTarget(targetPos, vector, dir);
 	}
 
 	public static AbilityTarget CreateAbilityTargetFromWorldPos(Vector3 targetWorldPos, Vector3 casterWorldPos)
@@ -219,35 +178,13 @@ public class AbilityTarget
 		dir.y = 0f;
 		if (dir.magnitude > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTarget.CreateAbilityTargetFromWorldPos(Vector3, Vector3)).MethodHandle;
-			}
 			dir.Normalize();
 		}
-		BoardSquare boardSquare = Board.\u000E().\u0013(targetWorldPos.x, targetWorldPos.z);
+		BoardSquare boardSquare = Board.Get()._0013(targetWorldPos.x, targetWorldPos.z);
 		GridPos targetPos;
-		if (boardSquare)
+		if ((bool)boardSquare)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			targetPos = boardSquare.\u001D();
+			targetPos = boardSquare.GetGridPos();
 		}
 		else
 		{
@@ -262,42 +199,29 @@ public class AbilityTarget
 	public static List<AbilityTarget> CreateAbilityTargetsFromActorDataList(List<ActorData> playerList, ActorData casterActor)
 	{
 		Vector3 vector = new Vector3(0f, 0f, 0f);
-		foreach (ActorData actorData in playerList)
+		foreach (ActorData player in playerList)
 		{
-			vector += actorData.\u0016();
+			vector += player.GetTravelBoardSquareWorldPosition();
 		}
 		vector /= (float)playerList.Count;
-		Vector3 vector2 = vector - casterActor.\u0016();
+		Vector3 vector2 = vector - casterActor.GetTravelBoardSquareWorldPosition();
 		vector2.y = 0f;
 		vector2.Normalize();
 		bool flag = false;
 		if (vector2 == Vector3.zero)
 		{
-			Vector3 rhs = playerList[0].\u0016() - casterActor.\u0016();
+			Vector3 rhs = playerList[0].GetTravelBoardSquareWorldPosition() - casterActor.GetTravelBoardSquareWorldPosition();
 			rhs.Normalize();
 			vector2 = Vector3.Cross(Vector3.up, rhs);
 			flag = true;
 		}
-		BoardSquare boardSquare = Board.\u000E().\u0015(vector.x, vector.z);
+		BoardSquare boardSquareUnsafe = Board.Get().GetBoardSquareUnsafe(vector.x, vector.z);
 		List<AbilityTarget> list = new List<AbilityTarget>();
-		AbilityTarget item = new AbilityTarget(boardSquare.\u001D(), vector, vector2);
+		AbilityTarget item = new AbilityTarget(boardSquareUnsafe.GetGridPos(), vector, vector2);
 		list.Add(item);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTarget.CreateAbilityTargetsFromActorDataList(List<ActorData>, ActorData)).MethodHandle;
-			}
-			AbilityTarget item2 = new AbilityTarget(boardSquare.\u001D(), vector, -vector2);
+			AbilityTarget item2 = new AbilityTarget(boardSquareUnsafe.GetGridPos(), vector, -vector2);
 			list.Add(item2);
 		}
 		return list;
@@ -312,77 +236,66 @@ public class AbilityTarget
 
 	public static List<AbilityTarget> AbilityTargetList(AbilityTarget onlyTarget)
 	{
-		return new List<AbilityTarget>
-		{
-			onlyTarget
-		};
+		List<AbilityTarget> list = new List<AbilityTarget>();
+		list.Add(onlyTarget);
+		return list;
 	}
 
 	internal static void SerializeAbilityTargetList(List<AbilityTarget> targetList, NetworkWriter stream)
 	{
-		AbilityTarget.SerializeAbilityTargetList(targetList, new NetworkWriterAdapter(stream));
+		SerializeAbilityTargetList(targetList, new NetworkWriterAdapter(stream));
 	}
 
 	internal static void SerializeAbilityTargetList(List<AbilityTarget> targetList, IBitStream stream)
 	{
-		byte b = checked((byte)targetList.Count);
-		stream.Serialize(ref b);
-		for (int i = 0; i < targetList.Count; i++)
+		checked
 		{
-			AbilityTarget abilityTarget = targetList[i];
-			checked
+			byte value = (byte)targetList.Count;
+			stream.Serialize(ref value);
+			for (int i = 0; i < targetList.Count; i = unchecked(i + 1))
 			{
-				short num = (short)abilityTarget.GridPos.x;
-				short num2 = (short)abilityTarget.GridPos.y;
-				Vector3 dir = abilityTarget.m_dir;
-				Vector3 freePos = abilityTarget.m_freePos;
-				stream.Serialize(ref num);
-				stream.Serialize(ref num2);
-				stream.Serialize(ref dir);
-				stream.Serialize(ref freePos);
+				AbilityTarget abilityTarget = targetList[i];
+				short value2 = (short)abilityTarget.GridPos.x;
+				short value3 = (short)abilityTarget.GridPos.y;
+				Vector3 value4 = abilityTarget.m_dir;
+				Vector3 value5 = abilityTarget.m_freePos;
+				stream.Serialize(ref value2);
+				stream.Serialize(ref value3);
+				stream.Serialize(ref value4);
+				stream.Serialize(ref value5);
 			}
-		}
-		for (;;)
-		{
-			switch (3)
+			while (true)
 			{
-			case 0:
-				continue;
+				return;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTarget.SerializeAbilityTargetList(List<AbilityTarget>, IBitStream)).MethodHandle;
 		}
 	}
 
 	internal static List<AbilityTarget> DeSerializeAbilityTargetList(NetworkReader stream)
 	{
-		return AbilityTarget.DeSerializeAbilityTargetList(new NetworkReaderAdapter(stream));
+		return DeSerializeAbilityTargetList(new NetworkReaderAdapter(stream));
 	}
 
 	internal static List<AbilityTarget> DeSerializeAbilityTargetList(IBitStream stream)
 	{
 		List<AbilityTarget> list = new List<AbilityTarget>();
-		byte b = 0;
-		stream.Serialize(ref b);
-		for (int i = 0; i < (int)b; i++)
+		byte value = 0;
+		stream.Serialize(ref value);
+		for (int i = 0; i < value; i++)
 		{
-			short num = -1;
-			short num2 = -1;
-			Vector3 zero = Vector3.zero;
-			Vector3 zero2 = Vector3.zero;
-			stream.Serialize(ref num);
-			stream.Serialize(ref num2);
-			stream.Serialize(ref zero);
-			stream.Serialize(ref zero2);
-			AbilityTarget item = new AbilityTarget(new GridPos
-			{
-				x = (int)num,
-				y = (int)num2,
-				height = (int)Board.\u000E().\u000E((int)num, (int)num2)
-			}, zero2, zero);
+			short value2 = -1;
+			short value3 = -1;
+			Vector3 value4 = Vector3.zero;
+			Vector3 value5 = Vector3.zero;
+			stream.Serialize(ref value2);
+			stream.Serialize(ref value3);
+			stream.Serialize(ref value4);
+			stream.Serialize(ref value5);
+			GridPos targetPos = default(GridPos);
+			targetPos.x = value2;
+			targetPos.y = value3;
+			targetPos.height = (int)Board.Get().GetSquareHeight(value2, value3);
+			AbilityTarget item = new AbilityTarget(targetPos, value5, value4);
 			list.Add(item);
 		}
 		return list;
@@ -391,26 +304,13 @@ public class AbilityTarget
 	public ActorData GetCurrentBestActorTarget()
 	{
 		ActorData result = null;
-		GridPos gridPos = this.GridPos;
-		BoardSquare boardSquare = Board.\u000E().\u000E(gridPos);
-		if (boardSquare != null)
+		GridPos gridPos = GridPos;
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
+		if (boardSquareSafe != null)
 		{
-			for (;;)
+			if (boardSquareSafe.occupant != null)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTarget.GetCurrentBestActorTarget()).MethodHandle;
-			}
-			if (boardSquare.occupant != null)
-			{
-				result = boardSquare.occupant.GetComponent<ActorData>();
+				result = boardSquareSafe.occupant.GetComponent<ActorData>();
 			}
 		}
 		return result;
@@ -418,15 +318,6 @@ public class AbilityTarget
 
 	public string GetDebugString()
 	{
-		return string.Concat(new object[]
-		{
-			"[GridPos= ",
-			this.m_gridPos.ToStringWithCross(),
-			" | FreePos= (",
-			this.m_freePos.x,
-			", ",
-			this.m_freePos.z,
-			")]"
-		});
+		return "[GridPos= " + m_gridPos.ToStringWithCross() + " | FreePos= (" + m_freePos.x + ", " + m_freePos.z + ")]";
 	}
 }

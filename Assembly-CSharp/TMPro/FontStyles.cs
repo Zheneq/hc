@@ -1,12 +1,10 @@
-﻿using System;
-
 namespace TMPro
 {
 	public enum FontStyles
 	{
-		Normal,
-		Bold,
-		Italic,
+		Normal = 0,
+		Bold = 1,
+		Italic = 2,
 		Underline = 4,
 		LowerCase = 8,
 		UpperCase = 0x10,

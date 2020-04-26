@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -62,59 +61,33 @@ public class BlasterKnockbackCone : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Knockback Cone";
+			m_abilityName = "Knockback Cone";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.m_overchargeAbility = base.GetAbilityOfType<BlasterOvercharge>();
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_StretchCone(this, this.GetMinLength(), this.GetMaxLength(), this.GetMinAngle(), this.GetMaxAngle(), this.m_stretchStyle, this.GetConeBackwardOffset(), this.PenetrateLineOfSight());
+		m_overchargeAbility = GetAbilityOfType<BlasterOvercharge>();
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_StretchCone(this, GetMinLength(), GetMaxLength(), GetMinAngle(), GetMaxAngle(), m_stretchStyle, GetConeBackwardOffset(), PenetrateLineOfSight());
 		AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = base.Targeter as AbilityUtil_Targeter_StretchCone;
-		abilityUtil_Targeter_StretchCone.InitKnockbackData(this.GetKnockbackDistance(), this.m_knockbackType, this.GetKnockbackDistanceOnSelf(), this.m_knockbackTypeOnSelf);
-		abilityUtil_Targeter_StretchCone.SetExtraKnockbackDist(this.GetExtraKnockbackDistOnOvercharged());
-		abilityUtil_Targeter_StretchCone.m_useExtraKnockbackDistDelegate = delegate(ActorData caster)
+		abilityUtil_Targeter_StretchCone.InitKnockbackData(GetKnockbackDistance(), m_knockbackType, GetKnockbackDistanceOnSelf(), m_knockbackTypeOnSelf);
+		abilityUtil_Targeter_StretchCone.SetExtraKnockbackDist(GetExtraKnockbackDistOnOvercharged());
+		abilityUtil_Targeter_StretchCone.m_useExtraKnockbackDistDelegate = delegate
 		{
-			bool result;
-			if (this.m_syncComp != null)
+			int result;
+			if (m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.<SetupTargeter>m__0(ActorData)).MethodHandle;
-				}
-				result = (this.m_syncComp.m_overchargeBuffs > 0);
+				result = ((m_syncComp.m_overchargeBuffs > 0) ? 1 : 0);
 			}
 			else
 			{
-				result = false;
+				result = 0;
 			}
-			return result;
+			return (byte)result != 0;
 		};
 	}
 
@@ -125,124 +98,72 @@ public class BlasterKnockbackCone : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetMaxLength();
+		return GetMaxLength();
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedEnemyEffectNormal = ((!this.m_abilityMod) ? this.m_enemyEffectNormal : this.m_abilityMod.m_enemyEffectNormalMod.GetModifiedValue(this.m_enemyEffectNormal));
+		m_cachedEnemyEffectNormal = ((!m_abilityMod) ? m_enemyEffectNormal : m_abilityMod.m_enemyEffectNormalMod.GetModifiedValue(m_enemyEffectNormal));
 		StandardEffectInfo cachedEnemyEffectOvercharged;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.SetCachedFields()).MethodHandle;
-			}
-			cachedEnemyEffectOvercharged = this.m_abilityMod.m_enemyEffectOverchargedMod.GetModifiedValue(this.m_enemyEffectOvercharged);
+			cachedEnemyEffectOvercharged = m_abilityMod.m_enemyEffectOverchargedMod.GetModifiedValue(m_enemyEffectOvercharged);
 		}
 		else
 		{
-			cachedEnemyEffectOvercharged = this.m_enemyEffectOvercharged;
+			cachedEnemyEffectOvercharged = m_enemyEffectOvercharged;
 		}
-		this.m_cachedEnemyEffectOvercharged = cachedEnemyEffectOvercharged;
+		m_cachedEnemyEffectOvercharged = cachedEnemyEffectOvercharged;
 	}
 
 	public float GetMinLength()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetMinLength()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_minLengthMod.GetModifiedValue(this.m_minLength);
+			result = m_abilityMod.m_minLengthMod.GetModifiedValue(m_minLength);
 		}
 		else
 		{
-			result = this.m_minLength;
+			result = m_minLength;
 		}
 		return result;
 	}
 
 	public float GetMaxLength()
 	{
-		return (!this.m_abilityMod) ? this.m_maxLength : this.m_abilityMod.m_maxLengthMod.GetModifiedValue(this.m_maxLength);
+		return (!m_abilityMod) ? m_maxLength : m_abilityMod.m_maxLengthMod.GetModifiedValue(m_maxLength);
 	}
 
 	public float GetMinAngle()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetMinAngle()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_minAngleMod.GetModifiedValue(this.m_minAngle);
+			result = m_abilityMod.m_minAngleMod.GetModifiedValue(m_minAngle);
 		}
 		else
 		{
-			result = this.m_minAngle;
+			result = m_minAngle;
 		}
 		return result;
 	}
 
 	public float GetMaxAngle()
 	{
-		return (!this.m_abilityMod) ? this.m_maxAngle : this.m_abilityMod.m_maxAngleMod.GetModifiedValue(this.m_maxAngle);
+		return (!m_abilityMod) ? m_maxAngle : m_abilityMod.m_maxAngleMod.GetModifiedValue(m_maxAngle);
 	}
 
 	public float GetConeBackwardOffset()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetConeBackwardOffset()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
+			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
 		}
 		else
 		{
-			result = this.m_coneBackwardOffset;
+			result = m_coneBackwardOffset;
 		}
 		return result;
 	}
@@ -250,58 +171,32 @@ public class BlasterKnockbackCone : Ability
 	public bool PenetrateLineOfSight()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.PenetrateLineOfSight()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(this.m_penetrateLineOfSight);
+			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
 		}
 		else
 		{
-			result = this.m_penetrateLineOfSight;
+			result = m_penetrateLineOfSight;
 		}
 		return result;
 	}
 
 	public int GetDamageAmountNormal()
 	{
-		return (!this.m_abilityMod) ? this.m_damageAmountNormal : this.m_abilityMod.m_damageAmountNormalMod.GetModifiedValue(this.m_damageAmountNormal);
+		return (!m_abilityMod) ? m_damageAmountNormal : m_abilityMod.m_damageAmountNormalMod.GetModifiedValue(m_damageAmountNormal);
 	}
 
 	public StandardEffectInfo GetEnemyEffectNormal()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyEffectNormal != null)
+		if (m_cachedEnemyEffectNormal != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetEnemyEffectNormal()).MethodHandle;
-			}
-			result = this.m_cachedEnemyEffectNormal;
+			result = m_cachedEnemyEffectNormal;
 		}
 		else
 		{
-			result = this.m_enemyEffectNormal;
+			result = m_enemyEffectNormal;
 		}
 		return result;
 	}
@@ -309,26 +204,13 @@ public class BlasterKnockbackCone : Ability
 	public StandardEffectInfo GetEnemyEffectOvercharged()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyEffectOvercharged != null)
+		if (m_cachedEnemyEffectOvercharged != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetEnemyEffectOvercharged()).MethodHandle;
-			}
-			result = this.m_cachedEnemyEffectOvercharged;
+			result = m_cachedEnemyEffectOvercharged;
 		}
 		else
 		{
-			result = this.m_enemyEffectOvercharged;
+			result = m_enemyEffectOvercharged;
 		}
 		return result;
 	}
@@ -336,26 +218,13 @@ public class BlasterKnockbackCone : Ability
 	public float GetKnockbackDistance()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetKnockbackDistance()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(this.m_knockbackDistance);
+			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
 		}
 		else
 		{
-			result = this.m_knockbackDistance;
+			result = m_knockbackDistance;
 		}
 		return result;
 	}
@@ -363,26 +232,13 @@ public class BlasterKnockbackCone : Ability
 	public float GetExtraKnockbackDistOnOvercharged()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetExtraKnockbackDistOnOvercharged()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_extraKnockbackDistOnOverchargedMod.GetModifiedValue(this.m_extraKnockbackDistOnOvercharged);
+			result = m_abilityMod.m_extraKnockbackDistOnOverchargedMod.GetModifiedValue(m_extraKnockbackDistOnOvercharged);
 		}
 		else
 		{
-			result = this.m_extraKnockbackDistOnOvercharged;
+			result = m_extraKnockbackDistOnOvercharged;
 		}
 		return result;
 	}
@@ -390,138 +246,88 @@ public class BlasterKnockbackCone : Ability
 	public float GetKnockbackDistanceOnSelf()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetKnockbackDistanceOnSelf()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_knockbackDistanceOnSelfMod.GetModifiedValue(this.m_knockbackDistanceOnSelf);
+			result = m_abilityMod.m_knockbackDistanceOnSelfMod.GetModifiedValue(m_knockbackDistanceOnSelf);
 		}
 		else
 		{
-			result = this.m_knockbackDistanceOnSelf;
+			result = m_knockbackDistanceOnSelf;
 		}
 		return result;
 	}
 
 	public bool OverchargeAsFreeActionAfterCast()
 	{
-		return (!this.m_abilityMod) ? this.m_overchargeAsFreeActionAfterCast : this.m_abilityMod.m_overchargeAsFreeActionAfterCastMod.GetModifiedValue(this.m_overchargeAsFreeActionAfterCast);
+		return (!m_abilityMod) ? m_overchargeAsFreeActionAfterCast : m_abilityMod.m_overchargeAsFreeActionAfterCastMod.GetModifiedValue(m_overchargeAsFreeActionAfterCast);
 	}
 
 	public int GetCurrentModdedDamage()
 	{
-		if (this.AmOvercharged(base.ActorData))
+		if (AmOvercharged(base.ActorData))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetDamageAmountNormal() + m_overchargeAbility.GetExtraDamage() + GetMultiStackOverchargeDamage();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetCurrentModdedDamage()).MethodHandle;
-			}
-			return this.GetDamageAmountNormal() + this.m_overchargeAbility.GetExtraDamage() + this.GetMultiStackOverchargeDamage();
 		}
-		return this.GetDamageAmountNormal();
+		return GetDamageAmountNormal();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_BlasterKnockbackCone abilityMod_BlasterKnockbackCone = modAsBase as AbilityMod_BlasterKnockbackCone;
-		string name = "Damage";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_BlasterKnockbackCone)
+		if ((bool)abilityMod_BlasterKnockbackCone)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
-			val = abilityMod_BlasterKnockbackCone.m_damageAmountNormalMod.GetModifiedValue(this.m_damageAmountNormal);
+			val = abilityMod_BlasterKnockbackCone.m_damageAmountNormalMod.GetModifiedValue(m_damageAmountNormal);
 		}
 		else
 		{
-			val = this.m_damageAmountNormal;
+			val = m_damageAmountNormal;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
+		AddTokenInt(tokens, "Damage", empty, val);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_BlasterKnockbackCone)
+		if ((bool)abilityMod_BlasterKnockbackCone)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			effectInfo = abilityMod_BlasterKnockbackCone.m_enemyEffectNormalMod.GetModifiedValue(this.m_enemyEffectNormal);
+			effectInfo = abilityMod_BlasterKnockbackCone.m_enemyEffectNormalMod.GetModifiedValue(m_enemyEffectNormal);
 		}
 		else
 		{
-			effectInfo = this.m_enemyEffectNormal;
+			effectInfo = m_enemyEffectNormal;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyEffectNormal", this.m_enemyEffectNormal, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyEffectNormal", m_enemyEffectNormal);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_BlasterKnockbackCone)
+		if ((bool)abilityMod_BlasterKnockbackCone)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			effectInfo2 = abilityMod_BlasterKnockbackCone.m_enemyEffectOverchargedMod.GetModifiedValue(this.m_enemyEffectOvercharged);
+			effectInfo2 = abilityMod_BlasterKnockbackCone.m_enemyEffectOverchargedMod.GetModifiedValue(m_enemyEffectOvercharged);
 		}
 		else
 		{
-			effectInfo2 = this.m_enemyEffectOvercharged;
+			effectInfo2 = m_enemyEffectOvercharged;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EnemyEffectOvercharged", this.m_enemyEffectOvercharged, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EnemyEffectOvercharged", m_enemyEffectOvercharged);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.GetCurrentModdedDamage())
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, GetCurrentModdedDamage()));
+		return list;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetCurrentModdedDamage());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetCurrentModdedDamage());
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -530,32 +336,10 @@ public class BlasterKnockbackCone : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				dictionary[AbilityTooltipSymbol.Damage] = this.GetCurrentModdedDamage();
+				dictionary[AbilityTooltipSymbol.Damage] = GetCurrentModdedDamage();
 			}
 		}
 		return dictionary;
@@ -563,125 +347,68 @@ public class BlasterKnockbackCone : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_BlasterKnockbackCone))
+		if (abilityMod.GetType() != typeof(AbilityMod_BlasterKnockbackCone))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_BlasterKnockbackCone);
-			this.SetupTargeter();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_BlasterKnockbackCone);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
-	public override Ability.MovementAdjustment GetMovementAdjustment()
+	public override MovementAdjustment GetMovementAdjustment()
 	{
-		if (base.ActorData.\u000E().IsKnockbackImmune(true))
+		if (base.ActorData.GetActorStatus().IsKnockbackImmune())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return MovementAdjustment.ReducedMovement;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetMovementAdjustment()).MethodHandle;
-			}
-			return Ability.MovementAdjustment.ReducedMovement;
 		}
-		AbilityData abilityData = base.ActorData.\u000E();
+		AbilityData abilityData = base.ActorData.GetAbilityData();
 		List<AbilityData.AbilityEntry> queuedOrAimingAbilities = abilityData.GetQueuedOrAimingAbilities();
 		using (List<AbilityData.AbilityEntry>.Enumerator enumerator = queuedOrAimingAbilities.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				AbilityData.AbilityEntry abilityEntry = enumerator.Current;
-				Card_Standard_Ability card_Standard_Ability = abilityEntry.ability as Card_Standard_Ability;
+				AbilityData.AbilityEntry current = enumerator.Current;
+				Card_Standard_Ability card_Standard_Ability = current.ability as Card_Standard_Ability;
 				if (card_Standard_Ability != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (card_Standard_Ability.m_applyEffect)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						StatusType[] statusChanges = card_Standard_Ability.m_effect.m_statusChanges;
-						int i = 0;
-						while (i < statusChanges.Length)
+						int num = 0;
+						while (num < statusChanges.Length)
 						{
-							StatusType statusType = statusChanges[i];
+							StatusType statusType = statusChanges[num];
 							if (statusType != StatusType.KnockbackImmune)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (statusType != StatusType.Unstoppable)
 								{
-									i++;
+									num++;
 									continue;
 								}
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
-							return Ability.MovementAdjustment.ReducedMovement;
+							return MovementAdjustment.ReducedMovement;
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return base.GetMovementAdjustment();
@@ -689,66 +416,31 @@ public class BlasterKnockbackCone : Ability
 
 	private bool AmOvercharged(ActorData caster)
 	{
-		if (this.m_syncComp == null)
+		if (m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.AmOvercharged(ActorData)).MethodHandle;
-			}
-			this.m_syncComp = base.GetComponent<Blaster_SyncComponent>();
+			m_syncComp = GetComponent<Blaster_SyncComponent>();
 		}
-		return this.m_syncComp.m_overchargeBuffs > 0;
+		return m_syncComp.m_overchargeBuffs > 0;
 	}
 
 	private int GetMultiStackOverchargeDamage()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			if (m_syncComp.m_overchargeBuffs > 1 && m_overchargeAbility != null)
 			{
-				switch (5)
+				if (m_overchargeAbility.GetExtraDamageForMultiCast() > 0)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetMultiStackOverchargeDamage()).MethodHandle;
-			}
-			if (this.m_syncComp.m_overchargeBuffs > 1 && this.m_overchargeAbility != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_overchargeAbility.GetExtraDamageForMultiCast() > 0)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return m_overchargeAbility.GetExtraDamageForMultiCast();
 						}
-						break;
 					}
-					return this.m_overchargeAbility.GetExtraDamageForMultiCast();
 				}
 			}
 		}

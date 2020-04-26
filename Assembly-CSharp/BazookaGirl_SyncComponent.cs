@@ -1,4 +1,3 @@
-﻿using System;
 using System.Runtime.InteropServices;
 using UnityEngine.Networking;
 
@@ -10,20 +9,16 @@ public class BazookaGirl_SyncComponent : NetworkBehaviour
 	[SyncVar]
 	public int m_basicAttackConsecutiveTurns;
 
-	private void UNetVersion()
-	{
-	}
-
 	public int Networkm_basicAttackLastCastTurn
 	{
 		get
 		{
-			return this.m_basicAttackLastCastTurn;
+			return m_basicAttackLastCastTurn;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<int>(value, ref this.m_basicAttackLastCastTurn, 1U);
+			SetSyncVar(value, ref m_basicAttackLastCastTurn, 1u);
 		}
 	}
 
@@ -31,93 +26,57 @@ public class BazookaGirl_SyncComponent : NetworkBehaviour
 	{
 		get
 		{
-			return this.m_basicAttackConsecutiveTurns;
+			return m_basicAttackConsecutiveTurns;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<int>(value, ref this.m_basicAttackConsecutiveTurns, 2U);
+			SetSyncVar(value, ref m_basicAttackConsecutiveTurns, 2u);
 		}
+	}
+
+	private void UNetVersion()
+	{
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					writer.WritePackedUInt32((uint)m_basicAttackLastCastTurn);
+					writer.WritePackedUInt32((uint)m_basicAttackConsecutiveTurns);
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirl_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
-			writer.WritePackedUInt32((uint)this.m_basicAttackLastCastTurn);
-			writer.WritePackedUInt32((uint)this.m_basicAttackConsecutiveTurns);
-			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_basicAttackLastCastTurn);
+			writer.WritePackedUInt32((uint)m_basicAttackLastCastTurn);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_basicAttackConsecutiveTurns);
+			writer.WritePackedUInt32((uint)m_basicAttackConsecutiveTurns);
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -127,40 +86,27 @@ public class BazookaGirl_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_basicAttackLastCastTurn = (int)reader.ReadPackedUInt32();
+					m_basicAttackConsecutiveTurns = (int)reader.ReadPackedUInt32();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirl_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
-			this.m_basicAttackLastCastTurn = (int)reader.ReadPackedUInt32();
-			this.m_basicAttackConsecutiveTurns = (int)reader.ReadPackedUInt32();
-			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_basicAttackLastCastTurn = (int)reader.ReadPackedUInt32();
+			m_basicAttackLastCastTurn = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
 		{
-			this.m_basicAttackConsecutiveTurns = (int)reader.ReadPackedUInt32();
+			m_basicAttackConsecutiveTurns = (int)reader.ReadPackedUInt32();
 		}
 	}
 }

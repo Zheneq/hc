@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,111 +16,58 @@ public class _InputFieldCursorFix : MonoBehaviour
 
 	private void Awake()
 	{
-		this.m_inputField = base.gameObject.GetComponent<InputField>();
-		this.m_theScalar = base.gameObject.GetComponentInParent<CanvasScaler>();
-		this.m_originalYScaleAmt = this.m_inputField.textComponent.transform.localScale.y;
+		m_inputField = base.gameObject.GetComponent<InputField>();
+		m_theScalar = base.gameObject.GetComponentInParent<CanvasScaler>();
+		Vector3 localScale = m_inputField.textComponent.transform.localScale;
+		m_originalYScaleAmt = localScale.y;
 	}
 
 	public void Update()
 	{
-		if (this.m_caretObject == null)
+		if (m_caretObject == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_InputFieldCursorFix.Update()).MethodHandle;
-			}
 			if (base.gameObject.transform.Find(base.gameObject.name + " Input Caret") != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_caretObject = (base.gameObject.transform.Find(base.gameObject.name + " Input Caret").transform as RectTransform);
+				m_caretObject = (base.gameObject.transform.Find(base.gameObject.name + " Input Caret").transform as RectTransform);
 			}
 		}
-		if (this.m_theScalar == null)
+		if (m_theScalar == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_theScalar = base.gameObject.GetComponentInParent<CanvasScaler>();
+			m_theScalar = base.gameObject.GetComponentInParent<CanvasScaler>();
 		}
-		if (this.m_theCanvas == null)
+		if (m_theCanvas == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_theCanvas = this.m_theScalar.GetComponent<Canvas>();
+			m_theCanvas = m_theScalar.GetComponent<Canvas>();
 		}
-		if (this.m_caretObject != null && this.m_theScalar != null)
+		if (!(m_caretObject != null) || !(m_theScalar != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(m_theCanvas != null))
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (this.m_theCanvas != null)
+			while (true)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Vector3 localScale = this.m_caretObject.transform.localScale;
+				Vector3 localScale = m_caretObject.transform.localScale;
 				float num = localScale.y;
-				if (this.m_theCanvas.renderMode == RenderMode.ScreenSpaceCamera)
+				if (m_theCanvas.renderMode == RenderMode.ScreenSpaceCamera)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num = (this.m_theScalar.referenceResolution.y / (float)Screen.height + this.m_theScalar.referenceResolution.x / (float)Screen.width) * 0.5f;
+					Vector2 referenceResolution = m_theScalar.referenceResolution;
+					float num2 = referenceResolution.y / (float)Screen.height;
+					Vector2 referenceResolution2 = m_theScalar.referenceResolution;
+					num = (num2 + referenceResolution2.x / (float)Screen.width) * 0.5f;
 				}
-				else if (this.m_theCanvas.renderMode == RenderMode.ScreenSpaceOverlay)
+				else if (m_theCanvas.renderMode == RenderMode.ScreenSpaceOverlay)
 				{
-					num = 1f / this.m_theScalar.transform.localScale.y;
+					Vector3 localScale2 = m_theScalar.transform.localScale;
+					num = 1f / localScale2.y;
 				}
-				num *= this.m_originalYScaleAmt;
-				this.m_caretObject.transform.localScale = new Vector3(localScale.x, num, localScale.z);
+				num *= m_originalYScaleAmt;
+				m_caretObject.transform.localScale = new Vector3(localScale.x, num, localScale.z);
+				return;
 			}
 		}
 	}

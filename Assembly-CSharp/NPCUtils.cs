@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,94 +13,57 @@ public static class NPCUtils
 		{
 			list.Add(idealSquare);
 		}
-		IL_12E:
 		while (list.Count > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!(boardSquare == null))
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					return boardSquare;
-				}
-			}
-			else
+			if (boardSquare == null)
 			{
 				BoardSquare boardSquare2 = list[0];
 				list.RemoveAt(0);
 				list2.Add(boardSquare2);
-				if (SpawnPointManager.Get().CanSpawnOnSquare(component, boardSquare2, false))
+				if (SpawnPointManager.Get().CanSpawnOnSquare(component, boardSquare2))
 				{
 					boardSquare = boardSquare2;
 				}
-				else if (list.Count + list2.Count < 0x31)
+				else if (list.Count + list2.Count < 49)
 				{
-					List<BoardSquare> list3 = new List<BoardSquare>();
-					Board.\u000E().\u0015(boardSquare2.x, boardSquare2.y, ref list3);
-					using (List<BoardSquare>.Enumerator enumerator = list3.GetEnumerator())
+					List<BoardSquare> result = new List<BoardSquare>();
+					Board.Get().GetAllAdjacentSquares(boardSquare2.x, boardSquare2.y, ref result);
+					using (List<BoardSquare>.Enumerator enumerator = result.GetEnumerator())
 					{
-						while (enumerator.MoveNext())
+						while (true)
 						{
-							BoardSquare item = enumerator.Current;
-							if (list.Count + list2.Count >= 0x31)
+							if (!enumerator.MoveNext())
 							{
-								for (;;)
+								break;
+							}
+							BoardSquare current = enumerator.Current;
+							if (list.Count + list2.Count >= 49)
+							{
+								while (true)
 								{
 									switch (5)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										goto end_IL_00aa;
 									}
-									break;
 								}
-								if (!true)
-								{
-									RuntimeMethodHandle runtimeMethodHandle = methodof(NPCUtils.FindOpenSquareToSpawnOn(BoardSquare, Transform)).MethodHandle;
-								}
-								goto IL_12E;
 							}
-							if (!list.Contains(item))
+							if (!list.Contains(current))
 							{
-								for (;;)
+								if (!list2.Contains(current))
 								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!list2.Contains(item))
-								{
-									list.Add(item);
+									list.Add(current);
 								}
 							}
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
+						end_IL_00aa:;
 					}
 				}
+				continue;
 			}
+			break;
 		}
 		return boardSquare;
 	}

@@ -1,8 +1,26 @@
-﻿using System;
 using UnityEngine;
 
 public class ProximityMineGroundSequence : Sequence
 {
+	public class ExtraParams : IExtraSequenceParams
+	{
+		public float explosionRadius;
+
+		public bool visibleToEnemies;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			stream.Serialize(ref explosionRadius);
+			stream.Serialize(ref visibleToEnemies);
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			stream.Serialize(ref explosionRadius);
+			stream.Serialize(ref visibleToEnemies);
+		}
+	}
+
 	private GameObject m_triggerBorder;
 
 	private GameObject m_explosionBorder;
@@ -30,206 +48,127 @@ public class ProximityMineGroundSequence : Sequence
 
 	private void ShowVFXForState()
 	{
-		bool active = this.CanShow();
-		if (this.m_explosionBorder != null)
+		bool active = CanShow();
+		if (m_explosionBorder != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProximityMineGroundSequence.ShowVFXForState()).MethodHandle;
-			}
-			this.m_explosionBorder.SetActive(active);
+			m_explosionBorder.SetActive(active);
 		}
-		this.m_mineArmed.SetActive(active);
+		m_mineArmed.SetActive(active);
 	}
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			ProximityMineGroundSequence.ExtraParams extraParams2 = extraSequenceParams as ProximityMineGroundSequence.ExtraParams;
+			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ProximityMineGroundSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
-				this.m_explosionRadius = extraParams2.explosionRadius;
-				this.m_visibleToEnemies = extraParams2.visibleToEnemies;
+				m_explosionRadius = extraParams2.explosionRadius;
+				m_visibleToEnemies = extraParams2.visibleToEnemies;
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			m_triggerBorder = null;
+			m_explosionBorder = null;
+			m_effectField = null;
+			m_createdVFX = false;
+			return;
 		}
-		this.m_triggerBorder = null;
-		this.m_explosionBorder = null;
-		this.m_effectField = null;
-		this.m_createdVFX = false;
 	}
 
 	private bool ShouldShowTriggerBorder()
 	{
 		if (GameFlowData.Get().LocalPlayerData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProximityMineGroundSequence.ShouldShowTriggerBorder()).MethodHandle;
-			}
-			return false;
 		}
-		bool flag = this.m_visibleToEnemies || GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.\u000E());
+		bool flag = m_visibleToEnemies || GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.GetTeam());
 		bool flag2 = !GameFlowData.Get().IsOwnerTargeting();
-		bool result;
+		int result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = flag2;
+			result = (flag2 ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private bool ShouldShowExplosionBorder()
 	{
 		if (GameFlowData.Get().LocalPlayerData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProximityMineGroundSequence.ShouldShowExplosionBorder()).MethodHandle;
-			}
-			return false;
 		}
-		bool flag;
-		if (!this.m_visibleToEnemies)
+		int num;
+		if (!m_visibleToEnemies)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag = GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.\u000E());
+			num = (GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.GetTeam()) ? 1 : 0);
 		}
 		else
 		{
-			flag = true;
+			num = 1;
 		}
-		bool flag2 = flag;
-		bool flag3 = !GameFlowData.Get().IsOwnerTargeting();
-		bool result;
-		if (flag2)
+		bool flag = (byte)num != 0;
+		bool flag2 = !GameFlowData.Get().IsOwnerTargeting();
+		int result;
+		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = flag3;
+			result = (flag2 ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private bool CanShow()
 	{
 		if (GameFlowData.Get().LocalPlayerData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProximityMineGroundSequence.CanShow()).MethodHandle;
-			}
-			return false;
 		}
-		bool result;
-		if (!this.m_visibleToEnemies)
+		int result;
+		if (!m_visibleToEnemies)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.\u000E());
+			result = (GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.GetTeam()) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private bool ShouldShowEffectField()
@@ -239,173 +178,91 @@ public class ProximityMineGroundSequence : Sequence
 
 	private void Update()
 	{
-		if (!this.m_createdVFX)
+		if (!m_createdVFX)
 		{
-			for (;;)
+			if (m_initialized && GameFlowData.Get().LocalPlayerData != null)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProximityMineGroundSequence.Update()).MethodHandle;
-			}
-			if (this.m_initialized && GameFlowData.Get().LocalPlayerData != null)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				bool flag = GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.\u000E());
-				Vector3 position = new Vector3(base.TargetPos.x, base.TargetPos.y + 0.1f, base.TargetPos.z);
-				GameObject gameObject;
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					gameObject = this.m_nonEnemyBorderPrefab;
-				}
-				else
-				{
-					gameObject = this.m_enemyBorderPrefab;
-				}
-				GameObject gameObject2 = gameObject;
-				if (gameObject2 != null)
-				{
-					for (;;)
+					default:
 					{
-						switch (5)
+						bool flag = GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.GetTeam());
+						Vector3 targetPos = base.TargetPos;
+						float x = targetPos.x;
+						Vector3 targetPos2 = base.TargetPos;
+						float y = targetPos2.y + 0.1f;
+						Vector3 targetPos3 = base.TargetPos;
+						Vector3 position = new Vector3(x, y, targetPos3.z);
+						GameObject gameObject;
+						if (flag)
 						{
-						case 0:
-							continue;
+							gameObject = m_nonEnemyBorderPrefab;
 						}
-						break;
-					}
-					this.m_explosionBorder = base.InstantiateFX(gameObject2, position, Quaternion.identity, true, true);
-					HighlightUtils.SetParticleSystemScale(this.m_explosionBorder, this.m_explosionRadius);
-				}
-				this.m_mineArmed = base.InstantiateFX(this.m_mineArmedPrefab, position, Quaternion.identity, true, true);
-				if (this.m_mineArmed.GetComponent<FriendlyEnemyVFXSelector>() != null)
-				{
-					for (;;)
-					{
-						switch (3)
+						else
 						{
-						case 0:
-							continue;
+							gameObject = m_enemyBorderPrefab;
 						}
-						break;
+						GameObject gameObject2 = gameObject;
+						if (gameObject2 != null)
+						{
+							m_explosionBorder = InstantiateFX(gameObject2, position, Quaternion.identity);
+							HighlightUtils.SetParticleSystemScale(m_explosionBorder, m_explosionRadius);
+						}
+						m_mineArmed = InstantiateFX(m_mineArmedPrefab, position, Quaternion.identity);
+						if (m_mineArmed.GetComponent<FriendlyEnemyVFXSelector>() != null)
+						{
+							m_mineArmed.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
+						}
+						AudioManager.PostEvent(m_audioEventArm, m_mineArmed.gameObject);
+						m_createdVFX = true;
+						ShowVFXForState();
+						return;
 					}
-					this.m_mineArmed.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.\u000E());
+					}
 				}
-				AudioManager.PostEvent(this.m_audioEventArm, this.m_mineArmed.gameObject);
-				this.m_createdVFX = true;
-				this.ShowVFXForState();
-				return;
 			}
 		}
-		if (this.m_createdVFX && this.m_initialized)
+		if (!m_createdVFX || !m_initialized)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.ShowVFXForState();
+			return;
+		}
+		while (true)
+		{
+			ShowVFXForState();
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_triggerBorder != null)
+		if (m_triggerBorder != null)
 		{
-			UnityEngine.Object.Destroy(this.m_triggerBorder);
-			this.m_triggerBorder = null;
+			Object.Destroy(m_triggerBorder);
+			m_triggerBorder = null;
 		}
-		if (this.m_explosionBorder != null)
+		if (m_explosionBorder != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProximityMineGroundSequence.OnDisable()).MethodHandle;
-			}
-			UnityEngine.Object.Destroy(this.m_explosionBorder);
-			this.m_explosionBorder = null;
+			Object.Destroy(m_explosionBorder);
+			m_explosionBorder = null;
 		}
-		if (this.m_effectField != null)
+		if (m_effectField != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UnityEngine.Object.Destroy(this.m_effectField);
-			this.m_effectField = null;
+			Object.Destroy(m_effectField);
+			m_effectField = null;
 		}
-		if (this.m_mineArmed != null)
+		if (!(m_mineArmed != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UnityEngine.Object.Destroy(this.m_mineArmed);
-			this.m_mineArmed = null;
+			return;
 		}
-	}
-
-	public class ExtraParams : Sequence.IExtraSequenceParams
-	{
-		public float explosionRadius;
-
-		public bool visibleToEnemies;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
+		while (true)
 		{
-			stream.Serialize(ref this.explosionRadius);
-			stream.Serialize(ref this.visibleToEnemies);
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.explosionRadius);
-			stream.Serialize(ref this.visibleToEnemies);
+			Object.Destroy(m_mineArmed);
+			m_mineArmed = null;
+			return;
 		}
 	}
 }

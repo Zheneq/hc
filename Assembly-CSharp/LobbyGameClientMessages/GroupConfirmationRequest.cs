@@ -1,10 +1,16 @@
-﻿using System;
+using System;
 
 namespace LobbyGameClientMessages
 {
 	[Serializable]
 	public class GroupConfirmationRequest : WebSocketMessage
 	{
+		public enum JoinType
+		{
+			_001D,
+			_000E
+		}
+
 		public long GroupId;
 
 		public string LeaderName;
@@ -19,12 +25,6 @@ namespace LobbyGameClientMessages
 
 		public TimeSpan ExpirationTime;
 
-		public GroupConfirmationRequest.JoinType Type;
-
-		public enum JoinType
-		{
-			\u001D,
-			\u000E
-		}
+		public JoinType Type;
 	}
 }

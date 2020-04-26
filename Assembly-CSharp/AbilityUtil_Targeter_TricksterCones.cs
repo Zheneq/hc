@@ -1,10 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 {
+	public delegate int GetCurrentNumberOfConesDelegate();
+
+	public delegate Vector3 GetClampedTargetPosDelegate(AbilityTarget currentTarget, ActorData caster);
+
+	public delegate List<Vector3> GetConeInfoDelegate(AbilityTarget currentTarget, Vector3 freeTargetPos, ActorData caster);
+
+	public delegate Vector3 DamageOriginDelegate(AbilityTarget currentTarget, Vector3 defaultOrigin, ActorData actorToAdd, ActorData caster);
+
 	public ConeTargetingInfo m_coneInfo;
 
 	private int m_maxCones;
@@ -21,510 +28,272 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 
 	private List<ISquareInsideChecker> m_squarePosCheckerList = new List<ISquareInsideChecker>();
 
-	private AbilityUtil_Targeter_TricksterCones.GetCurrentNumberOfConesDelegate GetCurrentNumberOfCones;
+	private GetCurrentNumberOfConesDelegate GetCurrentNumberOfCones;
 
-	private AbilityUtil_Targeter_TricksterCones.GetClampedTargetPosDelegate GetClampedTargetPos;
+	private GetClampedTargetPosDelegate GetClampedTargetPos;
 
-	private AbilityUtil_Targeter_TricksterCones.GetConeInfoDelegate GetConeOrigins;
+	private GetConeInfoDelegate GetConeOrigins;
 
-	private AbilityUtil_Targeter_TricksterCones.GetConeInfoDelegate GetConeDirections;
+	private GetConeInfoDelegate GetConeDirections;
 
-	public AbilityUtil_Targeter_TricksterCones.DamageOriginDelegate m_customDamageOriginDelegate;
+	public DamageOriginDelegate m_customDamageOriginDelegate;
 
 	private Dictionary<ActorData, Vector3> m_tempActorToDamageOrigins = new Dictionary<ActorData, Vector3>();
 
-	public AbilityUtil_Targeter_TricksterCones(Ability ability, ConeTargetingInfo coneTargetingInfo, int maxCones, AbilityUtil_Targeter_TricksterCones.GetCurrentNumberOfConesDelegate numConesDelegate, AbilityUtil_Targeter_TricksterCones.GetConeInfoDelegate coneOriginsDelegate, AbilityUtil_Targeter_TricksterCones.GetConeInfoDelegate coneDirectionsDelegate, AbilityUtil_Targeter_TricksterCones.GetClampedTargetPosDelegate clampedTargetPosDelegate, bool showHitIndicatorLine, bool useCasterPosForLoS) : base(ability)
+	public AbilityUtil_Targeter_TricksterCones(Ability ability, ConeTargetingInfo coneTargetingInfo, int maxCones, GetCurrentNumberOfConesDelegate numConesDelegate, GetConeInfoDelegate coneOriginsDelegate, GetConeInfoDelegate coneDirectionsDelegate, GetClampedTargetPosDelegate clampedTargetPosDelegate, bool showHitIndicatorLine, bool useCasterPosForLoS)
+		: base(ability)
 	{
-		this.m_coneInfo = coneTargetingInfo;
-		this.m_maxCones = maxCones;
-		this.m_useCasterPosForLoS = useCasterPosForLoS;
-		this.GetCurrentNumberOfCones = numConesDelegate;
-		this.GetClampedTargetPos = clampedTargetPosDelegate;
-		this.GetConeOrigins = coneOriginsDelegate;
-		this.GetConeDirections = coneDirectionsDelegate;
-		base.SetAffectedGroups(this.m_coneInfo.m_affectsEnemies, this.m_coneInfo.m_affectsAllies, this.m_coneInfo.m_affectsCaster);
-		this.m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForCone();
-		this.m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
-		for (int i = 0; i < this.m_maxCones; i++)
+		m_coneInfo = coneTargetingInfo;
+		m_maxCones = maxCones;
+		m_useCasterPosForLoS = useCasterPosForLoS;
+		GetCurrentNumberOfCones = numConesDelegate;
+		GetClampedTargetPos = clampedTargetPosDelegate;
+		GetConeOrigins = coneOriginsDelegate;
+		GetConeDirections = coneDirectionsDelegate;
+		SetAffectedGroups(m_coneInfo.m_affectsEnemies, m_coneInfo.m_affectsAllies, m_coneInfo.m_affectsCaster);
+		m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForCone();
+		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
+		for (int i = 0; i < m_maxCones; i++)
 		{
-			this.m_squarePosCheckerList.Add(new SquareInsideChecker_Cone());
+			m_squarePosCheckerList.Add(new SquareInsideChecker_Cone());
 		}
-		this.m_showHitIndicatorLine = showHitIndicatorLine;
+		m_showHitIndicatorLine = showHitIndicatorLine;
 	}
 
 	public override void StartConfirmedTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.StartConfirmedTargeting(currentTarget, targetingActor);
-		if (this.m_highlights != null && this.m_highlights.Count == this.m_maxCones * 2)
+		if (m_highlights == null || m_highlights.Count != m_maxCones * 2)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			for (int i = m_maxCones; i < m_highlights.Count; i++)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_highlights[i].SetActive(false);
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TricksterCones.StartConfirmedTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
-			for (int i = this.m_maxCones; i < this.m_highlights.Count; i++)
-			{
-				this.m_highlights[i].SetActive(false);
-			}
+			return;
 		}
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		base.ClearActorsInRange();
-		float squareSize = Board.\u000E().squareSize;
-		float radiusInWorld = (this.m_coneInfo.m_radiusInSquares + this.m_coneInfo.m_backwardsOffset) * squareSize;
-		if (this.m_highlights != null)
+		ClearActorsInRange();
+		float squareSize = Board.Get().squareSize;
+		float radiusInWorld = (m_coneInfo.m_radiusInSquares + m_coneInfo.m_backwardsOffset) * squareSize;
+		if (m_highlights != null)
 		{
-			for (;;)
+			if (m_highlights.Count >= m_maxCones * 2)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TricksterCones.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
-			if (this.m_highlights.Count >= this.m_maxCones * 2)
-			{
-				goto IL_FF;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_00ff;
 			}
 		}
-		this.m_highlights = new List<GameObject>();
-		for (int i = 0; i < this.m_maxCones; i++)
+		m_highlights = new List<GameObject>();
+		for (int i = 0; i < m_maxCones; i++)
 		{
-			this.m_highlights.Add(HighlightUtils.Get().CreateConeCursor(radiusInWorld, this.m_coneInfo.m_widthAngleDeg));
+			m_highlights.Add(HighlightUtils.Get().CreateConeCursor(radiusInWorld, m_coneInfo.m_widthAngleDeg));
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		for (int j = 0; j < this.m_maxCones; j++)
+		for (int j = 0; j < m_maxCones; j++)
 		{
 			GameObject item = HighlightUtils.Get().CreateDynamicLineSegmentMesh(1f, 0.3f, true, Color.cyan);
-			this.m_highlights.Add(item);
+			m_highlights.Add(item);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		IL_FF:
-		bool flag;
+		goto IL_00ff;
+		IL_00ff:
+		int num;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag = (GameFlowData.Get().activeOwnedActorData == targetingActor);
+			num = ((GameFlowData.Get().activeOwnedActorData == targetingActor) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool active = flag;
-		int num = this.GetCurrentNumberOfCones();
-		for (int k = 0; k < this.m_maxCones; k++)
+		bool active = (byte)num != 0;
+		int num2 = GetCurrentNumberOfCones();
+		for (int k = 0; k < m_maxCones; k++)
 		{
-			if (k < num)
+			if (k < num2)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_highlights[k].SetActive(true);
-				this.m_highlights[this.m_maxCones + k].SetActive(active);
+				m_highlights[k].SetActive(true);
+				m_highlights[m_maxCones + k].SetActive(active);
 			}
 			else
 			{
-				this.m_highlights[k].SetActive(false);
-				this.m_highlights[this.m_maxCones + k].SetActive(false);
+				m_highlights[k].SetActive(false);
+				m_highlights[m_maxCones + k].SetActive(false);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
+			Vector3 freeTargetPos = GetClampedTargetPos(currentTarget, targetingActor);
+			List<Vector3> list = GetConeOrigins(currentTarget, freeTargetPos, targetingActor);
+			List<Vector3> list2 = GetConeDirections(currentTarget, freeTargetPos, targetingActor);
+			m_tempActorToDamageOrigins.Clear();
+			Dictionary<ActorData, Vector3> tempActorToDamageOrigins = m_tempActorToDamageOrigins;
+			m_actorToHitCount.Clear();
+			m_actorToCoverCount.Clear();
+			for (int l = 0; l < num2; l++)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		Vector3 freeTargetPos = this.GetClampedTargetPos(currentTarget, targetingActor);
-		List<Vector3> list = this.GetConeOrigins(currentTarget, freeTargetPos, targetingActor);
-		List<Vector3> list2 = this.GetConeDirections(currentTarget, freeTargetPos, targetingActor);
-		this.m_tempActorToDamageOrigins.Clear();
-		Dictionary<ActorData, Vector3> tempActorToDamageOrigins = this.m_tempActorToDamageOrigins;
-		this.m_actorToHitCount.Clear();
-		this.m_actorToCoverCount.Clear();
-		int l = 0;
-		while (l < num)
-		{
-			if (l >= this.m_maxCones)
-			{
-				for (;;)
+				if (l < m_maxCones)
 				{
-					switch (6)
+					Vector3 vector = list[l];
+					Vector3 vector2 = list2[l];
+					vector2.y = 0f;
+					float magnitude = vector2.magnitude;
+					vector2.Normalize();
+					float num3 = VectorUtils.HorizontalAngle_Deg(vector2);
+					List<ActorData> actors = AreaEffectUtils.GetActorsInCone(vector, num3, m_coneInfo.m_widthAngleDeg, m_coneInfo.m_radiusInSquares, m_coneInfo.m_backwardsOffset, m_coneInfo.m_penetrateLos, targetingActor, GetAffectedTeams(), null);
+					TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+					if (actors.Contains(targetingActor))
 					{
-					case 0:
-						continue;
+						actors.Remove(targetingActor);
 					}
-					goto IL_6EE;
-				}
-			}
-			else
-			{
-				Vector3 vector = list[l];
-				Vector3 vector2 = list2[l];
-				vector2.y = 0f;
-				float magnitude = vector2.magnitude;
-				vector2.Normalize();
-				float num2 = VectorUtils.HorizontalAngle_Deg(vector2);
-				List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector, num2, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, this.m_coneInfo.m_penetrateLos, targetingActor, base.GetAffectedTeams(), null, false, default(Vector3));
-				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
-				if (actorsInCone.Contains(targetingActor))
-				{
-					for (;;)
+					foreach (ActorData item2 in actors)
 					{
-						switch (2)
+						ActorCover actorCover = item2.GetActorCover();
+						bool flag = actorCover.IsInCoverWrt(vector);
+						if (tempActorToDamageOrigins.ContainsKey(item2))
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					actorsInCone.Remove(targetingActor);
-				}
-				foreach (ActorData actorData in actorsInCone)
-				{
-					ActorCover actorCover = actorData.\u000E();
-					bool flag2 = actorCover.IsInCoverWrt(vector);
-					if (tempActorToDamageOrigins.ContainsKey(actorData))
-					{
-						Dictionary<ActorData, int> dictionary;
-						ActorData key;
-						(dictionary = this.m_actorToHitCount)[key = actorData] = dictionary[key] + 1;
-						Dictionary<ActorData, int> dictionary2 = dictionary = this.m_actorToCoverCount;
-						ActorData key3;
-						ActorData key2 = key3 = actorData;
-						int num3 = dictionary[key3];
-						int num4;
-						if (flag2)
-						{
-							for (;;)
+							m_actorToHitCount[item2]++;
+							Dictionary<ActorData, int> actorToCoverCount;
+							Dictionary<ActorData, int> dictionary = actorToCoverCount = m_actorToCoverCount;
+							ActorData key;
+							ActorData key2 = key = item2;
+							int num4 = actorToCoverCount[key];
+							int num5;
+							if (flag)
 							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
+								num5 = 1;
 							}
-							num4 = 1;
+							else
+							{
+								num5 = 0;
+							}
+							dictionary[key2] = num4 + num5;
+							if (actorCover != null)
+							{
+								if (!actorCover.IsInCoverWrt(tempActorToDamageOrigins[item2]))
+								{
+									if (actorCover.IsInCoverWrt(vector))
+									{
+										tempActorToDamageOrigins[item2] = vector;
+									}
+								}
+							}
 						}
 						else
 						{
-							num4 = 0;
-						}
-						dictionary2[key2] = num3 + num4;
-						if (actorCover != null)
-						{
-							for (;;)
+							m_actorToHitCount[item2] = 1;
+							Dictionary<ActorData, int> actorToCoverCount2 = m_actorToCoverCount;
+							int value;
+							if (flag)
 							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
+								value = 1;
 							}
-							if (!actorCover.IsInCoverWrt(tempActorToDamageOrigins[actorData]))
+							else
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (actorCover.IsInCoverWrt(vector))
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									tempActorToDamageOrigins[actorData] = vector;
-								}
+								value = 0;
 							}
+							actorToCoverCount2[item2] = value;
+							tempActorToDamageOrigins[item2] = vector;
 						}
+					}
+					if (m_affectsTargetingActor)
+					{
+						AddActorInRange(targetingActor, vector, targetingActor, AbilityTooltipSubject.Tertiary);
+					}
+					float d = m_coneInfo.m_backwardsOffset * squareSize;
+					Vector3 position = vector - vector2 * d;
+					position.y = HighlightUtils.GetHighlightHeight();
+					m_highlights[l].transform.position = position;
+					m_highlights[l].transform.rotation = Quaternion.LookRotation(vector2);
+					if (m_showHitIndicatorLine)
+					{
+						m_highlights[m_maxCones + l].transform.position = position;
+						m_highlights[m_maxCones + l].transform.rotation = Quaternion.LookRotation(vector2);
+					}
+					else if (m_highlights[m_maxCones + l].activeSelf)
+					{
+						m_highlights[m_maxCones + l].SetActive(false);
+					}
+					Color color;
+					if (actors.Count > 0)
+					{
+						color = Color.red;
 					}
 					else
 					{
-						this.m_actorToHitCount[actorData] = 1;
-						Dictionary<ActorData, int> actorToCoverCount = this.m_actorToCoverCount;
-						ActorData key4 = actorData;
-						int value;
-						if (flag2)
+						color = Color.cyan;
+					}
+					Color color2 = color;
+					HighlightUtils.Get().AdjustDynamicLineSegmentMesh(m_highlights[m_maxCones + l], magnitude / Board.Get().squareSize, color2);
+					if (l == num2 - 1)
+					{
+						if (l < m_squarePosCheckerList.Count - 1)
 						{
-							for (;;)
+							for (int m = l; m < m_squarePosCheckerList.Count; m++)
 							{
-								switch (3)
+								SquareInsideChecker_Cone squareInsideChecker_Cone = m_squarePosCheckerList[m] as SquareInsideChecker_Cone;
+								squareInsideChecker_Cone.UpdateConeProperties(vector, m_coneInfo.m_widthAngleDeg, m_coneInfo.m_radiusInSquares, m_coneInfo.m_backwardsOffset, num3, targetingActor);
+								if (m_useCasterPosForLoS)
 								{
-								case 0:
-									continue;
+									squareInsideChecker_Cone.SetLosPosOverride(true, targetingActor.GetTravelBoardSquareWorldPositionForLos(), true);
 								}
-								break;
 							}
-							value = 1;
-						}
-						else
-						{
-							value = 0;
-						}
-						actorToCoverCount[key4] = value;
-						tempActorToDamageOrigins[actorData] = vector;
-					}
-				}
-				if (this.m_affectsTargetingActor)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
 							continue;
 						}
-						break;
 					}
-					base.AddActorInRange(targetingActor, vector, targetingActor, AbilityTooltipSubject.Tertiary, false);
-				}
-				float d = this.m_coneInfo.m_backwardsOffset * squareSize;
-				Vector3 position = vector - vector2 * d;
-				position.y = HighlightUtils.GetHighlightHeight();
-				this.m_highlights[l].transform.position = position;
-				this.m_highlights[l].transform.rotation = Quaternion.LookRotation(vector2);
-				if (this.m_showHitIndicatorLine)
-				{
-					for (;;)
+					SquareInsideChecker_Cone squareInsideChecker_Cone2 = m_squarePosCheckerList[l] as SquareInsideChecker_Cone;
+					squareInsideChecker_Cone2.UpdateConeProperties(vector, m_coneInfo.m_widthAngleDeg, m_coneInfo.m_radiusInSquares, m_coneInfo.m_backwardsOffset, num3, targetingActor);
+					if (m_useCasterPosForLoS)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						squareInsideChecker_Cone2.SetLosPosOverride(true, targetingActor.GetTravelBoardSquareWorldPositionForLos(), true);
 					}
-					this.m_highlights[this.m_maxCones + l].transform.position = position;
-					this.m_highlights[this.m_maxCones + l].transform.rotation = Quaternion.LookRotation(vector2);
-				}
-				else if (this.m_highlights[this.m_maxCones + l].activeSelf)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_highlights[this.m_maxCones + l].SetActive(false);
-				}
-				Color color;
-				if (actorsInCone.Count > 0)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					color = Color.red;
-				}
-				else
-				{
-					color = Color.cyan;
-				}
-				Color color2 = color;
-				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_highlights[this.m_maxCones + l], magnitude / Board.\u000E().squareSize, color2);
-				if (l != num - 1)
-				{
-					goto IL_671;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (l >= this.m_squarePosCheckerList.Count - 1)
-				{
-					goto IL_671;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int m = l; m < this.m_squarePosCheckerList.Count; m++)
-				{
-					SquareInsideChecker_Cone squareInsideChecker_Cone = this.m_squarePosCheckerList[m] as SquareInsideChecker_Cone;
-					squareInsideChecker_Cone.UpdateConeProperties(vector, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, num2, targetingActor);
-					if (this.m_useCasterPosForLoS)
-					{
-						squareInsideChecker_Cone.SetLosPosOverride(true, targetingActor.\u0015(), true);
-					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				IL_6CB:
-				l++;
-				continue;
-				IL_671:
-				SquareInsideChecker_Cone squareInsideChecker_Cone2 = this.m_squarePosCheckerList[l] as SquareInsideChecker_Cone;
-				squareInsideChecker_Cone2.UpdateConeProperties(vector, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, num2, targetingActor);
-				if (this.m_useCasterPosForLoS)
-				{
-					squareInsideChecker_Cone2.SetLosPosOverride(true, targetingActor.\u0015(), true);
-					goto IL_6CB;
-				}
-				goto IL_6CB;
-			}
-		}
-		IL_6EE:
-		foreach (KeyValuePair<ActorData, Vector3> keyValuePair in tempActorToDamageOrigins)
-		{
-			ActorData key5 = keyValuePair.Key;
-			Vector3 vector3 = keyValuePair.Value;
-			if (this.m_customDamageOriginDelegate != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				vector3 = this.m_customDamageOriginDelegate(currentTarget, vector3, key5, targetingActor);
-			}
-			for (int n = 0; n < this.m_actorToHitCount[key5]; n++)
-			{
-				AbilityTooltipSubject subjectType = (key5.\u000E() != targetingActor.\u000E()) ? AbilityTooltipSubject.Primary : AbilityTooltipSubject.Secondary;
-				base.AddActorInRange(key5, vector3, targetingActor, subjectType, true);
-				ActorHitContext actorHitContext = this.m_actorContextVars[key5];
-				actorHitContext.\u0015.\u0016(ContextKeys.\u0019.\u0012(), this.m_actorToHitCount[key5]);
-			}
-		}
-		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
 					continue;
 				}
 				break;
 			}
-			base.ResetSquareIndicatorIndexToUse();
-			for (int num5 = 0; num5 < num; num5++)
+			foreach (KeyValuePair<ActorData, Vector3> item3 in tempActorToDamageOrigins)
 			{
-				for (;;)
+				ActorData key3 = item3.Key;
+				Vector3 vector3 = item3.Value;
+				if (m_customDamageOriginDelegate != null)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					vector3 = m_customDamageOriginDelegate(currentTarget, vector3, key3, targetingActor);
 				}
-				if (num5 >= this.m_maxCones)
+				for (int n = 0; n < m_actorToHitCount[key3]; n++)
 				{
-					break;
+					AbilityTooltipSubject subjectType = (key3.GetTeam() != targetingActor.GetTeam()) ? AbilityTooltipSubject.Primary : AbilityTooltipSubject.Secondary;
+					AddActorInRange(key3, vector3, targetingActor, subjectType, true);
+					ActorHitContext actorHitContext = m_actorContextVars[key3];
+					actorHitContext._0015.SetInt(ContextKeys._0019.GetHash(), m_actorToHitCount[key3]);
 				}
-				Vector3 coneStart = list[num5];
-				Vector3 vec = list2[num5];
-				vec.y = 0f;
-				vec.Normalize();
-				float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vec);
-				AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, coneStart, coneCenterAngleDegrees, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, targetingActor, this.m_coneInfo.m_penetrateLos, this.m_squarePosCheckerList);
 			}
-			base.HideUnusedSquareIndicators();
+			if (!(targetingActor == GameFlowData.Get().activeOwnedActorData))
+			{
+				return;
+			}
+			while (true)
+			{
+				ResetSquareIndicatorIndexToUse();
+				for (int num6 = 0; num6 < num2; num6++)
+				{
+					if (num6 >= m_maxCones)
+					{
+						break;
+					}
+					Vector3 coneStart = list[num6];
+					Vector3 vec = list2[num6];
+					vec.y = 0f;
+					vec.Normalize();
+					float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vec);
+					AreaEffectUtils.OperateOnSquaresInCone(m_indicatorHandler, coneStart, coneCenterAngleDegrees, m_coneInfo.m_widthAngleDeg, m_coneInfo.m_radiusInSquares, m_coneInfo.m_backwardsOffset, targetingActor, m_coneInfo.m_penetrateLos, m_squarePosCheckerList);
+				}
+				HideUnusedSquareIndicators();
+				return;
+			}
 		}
 	}
-
-	public delegate int GetCurrentNumberOfConesDelegate();
-
-	public delegate Vector3 GetClampedTargetPosDelegate(AbilityTarget currentTarget, ActorData caster);
-
-	public delegate List<Vector3> GetConeInfoDelegate(AbilityTarget currentTarget, Vector3 freeTargetPos, ActorData caster);
-
-	public delegate Vector3 DamageOriginDelegate(AbilityTarget currentTarget, Vector3 defaultOrigin, ActorData actorToAdd, ActorData caster);
 }

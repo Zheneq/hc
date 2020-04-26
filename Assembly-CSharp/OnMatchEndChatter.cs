@@ -1,16 +1,22 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
 public class OnMatchEndChatter : ScriptableObject, IChatterData
 {
+	public enum MatchResultType
+	{
+		Victory,
+		Defeat
+	}
+
 	public ChatterData m_baseData = new ChatterData();
 
-	public OnMatchEndChatter.MatchResultType m_matchResult;
+	public MatchResultType m_matchResult;
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -22,131 +28,74 @@ public class OnMatchEndChatter : ScriptableObject, IChatterData
 	{
 		if (!ChatterData.ShouldPlayChatter(this, eventType, args, component))
 		{
-			for (;;)
+			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return false;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnMatchEndChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
-			return false;
 		}
 		GameEventManager.MatchEndedArgs matchEndedArgs = args as GameEventManager.MatchEndedArgs;
 		if (matchEndedArgs == null)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				Log.Error("Missing args for Match Ended game event.");
+				return false;
 			}
-			Log.Error("Missing args for Match Ended game event.", new object[0]);
-			return false;
 		}
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().GameConfig != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameConfig.GameType == GameType.Tutorial)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return false;
 						}
-						break;
 					}
-					return false;
 				}
 			}
 		}
 		ActorData component2 = component.gameObject.GetComponent<ActorData>();
-		Team team = component2.\u000E();
-		bool flag;
+		Team team = component2.GetTeam();
+		int num;
 		if (matchEndedArgs.result == GameResult.TeamAWon)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (team == Team.TeamA)
 			{
-				flag = true;
-				goto IL_E3;
+				num = 1;
+				goto IL_00e3;
 			}
 		}
 		if (matchEndedArgs.result == GameResult.TeamBWon)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag = (team == Team.TeamB);
+			num = ((team == Team.TeamB) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		IL_E3:
-		bool flag2 = flag;
-		if (flag2 != (this.m_matchResult == OnMatchEndChatter.MatchResultType.Victory))
+		goto IL_00e3;
+		IL_00e3:
+		bool flag = (byte)num != 0;
+		if (flag != (m_matchResult == MatchResultType.Victory))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
 		return true;
-	}
-
-	public enum MatchResultType
-	{
-		Victory,
-		Defeat
 	}
 }

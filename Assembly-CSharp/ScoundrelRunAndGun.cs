@@ -1,10 +1,9 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoundrelRunAndGun : Ability
 {
-	public int m_damageAmount = 0x14;
+	public int m_damageAmount = 20;
 
 	public float m_damageRadius = 5f;
 
@@ -17,61 +16,43 @@ public class ScoundrelRunAndGun : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelRunAndGun.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Run and Gun";
+			m_abilityName = "Run and Gun";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		base.ClearTargeters();
-		if (this.GetExpectedNumberOfTargeters() < 2)
+		ClearTargeters();
+		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					base.Targeter = new AbilityUtil_Targeter_ChargeAoE(this, m_damageRadius, m_damageRadius, m_damageRadius, -1, false, m_penetrateLineOfSight);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelRunAndGun.SetupTargeter()).MethodHandle;
-			}
-			base.Targeter = new AbilityUtil_Targeter_ChargeAoE(this, this.m_damageRadius, this.m_damageRadius, this.m_damageRadius, -1, false, this.m_penetrateLineOfSight);
 		}
-		else
+		ClearTargeters();
+		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 		{
-			base.ClearTargeters();
-			for (int i = 0; i < this.GetExpectedNumberOfTargeters(); i++)
+			base.Targeters.Add(new AbilityUtil_Targeter_ChargeAoE(this, m_damageRadius, m_damageRadius, m_damageRadius, -1, false, m_penetrateLineOfSight));
+			base.Targeters[i].SetUseMultiTargetUpdate(true);
+		}
+		while (true)
+		{
+			switch (7)
 			{
-				base.Targeters.Add(new AbilityUtil_Targeter_ChargeAoE(this, this.m_damageRadius, this.m_damageRadius, this.m_damageRadius, -1, false, this.m_penetrateLineOfSight));
-				base.Targeters[i].SetUseMultiTargetUpdate(true);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
@@ -79,65 +60,48 @@ public class ScoundrelRunAndGun : Ability
 
 	private int ModdedDamageAmount()
 	{
-		int num = this.m_damageAmount;
-		if (this.m_abilityMod != null)
+		int num = m_damageAmount;
+		if (m_abilityMod != null)
 		{
-			num = Mathf.Max(0, this.m_abilityMod.m_damageMod.GetModifiedValue(num));
+			num = Mathf.Max(0, m_abilityMod.m_damageMod.GetModifiedValue(num));
 		}
 		return num;
 	}
 
 	private int GetTechPointGainWithNoHits()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_abilityMod.m_techPointGainWithNoHits.GetModifiedValue(0);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelRunAndGun.GetTechPointGainWithNoHits()).MethodHandle;
-			}
-			return this.m_abilityMod.m_techPointGainWithNoHits.GetModifiedValue(0);
 		}
 		return 0;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (this.GetTechPointGainWithNoHits() > 0)
+		if (GetTechPointGainWithNoHits() > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelRunAndGun.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			if (base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy) == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return GetTechPointGainWithNoHits();
 					}
-					break;
 				}
-				return this.GetTechPointGainWithNoHits();
 			}
 		}
 		return 0;
@@ -145,15 +109,15 @@ public class ScoundrelRunAndGun : Ability
 
 	public override bool StatusAdjustAdditionalTechPointForTargeting()
 	{
-		return this.m_energyRefundAffectedByBuff;
+		return m_energyRefundAffectedByBuff;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ScoundrelRunAndGun))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_ScoundrelRunAndGun);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_ScoundrelRunAndGun);
+			SetupTargeter();
 		}
 		else
 		{
@@ -163,51 +127,37 @@ public class ScoundrelRunAndGun : Ability
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, this.m_damageAmount)
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_damageAmount));
+		return list;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
-		Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, this.ModdedDamageAmount(), AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
-		return result;
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
+		Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, ModdedDamageAmount());
+		return symbolToValue;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, this.m_damageAmount, false);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, m_damageAmount);
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
 		int result = 1;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			if (m_abilityMod.m_numTargeters > 1)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelRunAndGun.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
-			if (this.m_abilityMod.m_numTargeters > 1)
-			{
-				result = this.m_abilityMod.m_numTargeters;
+				result = m_abilityMod.m_numTargeters;
 			}
 		}
 		return result;
@@ -215,130 +165,59 @@ public class ScoundrelRunAndGun : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null) && boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null) && boardSquareSafe.IsBaselineHeight())
 		{
-			if (!(boardSquare == caster.\u0012()))
+			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 			{
-				bool result;
-				if (this.GetExpectedNumberOfTargeters() < 2)
+				bool flag = true;
+				if (GetExpectedNumberOfTargeters() < 2)
 				{
-					result = (KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false) != null);
+					return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false) != null;
+				}
+				BoardSquare boardSquare;
+				if (targetIndex == 0)
+				{
+					boardSquare = caster.GetCurrentBoardSquare();
 				}
 				else
 				{
-					BoardSquare boardSquare2;
-					if (targetIndex == 0)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						boardSquare2 = caster.\u0012();
-					}
-					else
-					{
-						boardSquare2 = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos);
-					}
-					bool flag = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, boardSquare2, false) != null;
-					float squareSize = Board.\u000E().squareSize;
-					float num = Vector3.Distance(boardSquare2.ToVector3(), boardSquare.ToVector3());
-					bool flag2;
-					if (num >= this.m_abilityMod.m_minDistanceBetweenSteps * squareSize)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag2 = (num <= this.m_abilityMod.m_maxDistanceBetweenSteps * squareSize);
-					}
-					else
-					{
-						flag2 = false;
-					}
-					bool flag3 = flag2;
-					if (flag && flag3)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_abilityMod.m_minDistanceBetweenAnySteps > 0f)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							for (int i = 0; i < targetIndex; i++)
-							{
-								BoardSquare boardSquare3 = Board.\u000E().\u000E(currentTargets[i].GridPos);
-								flag3 &= (Vector3.Distance(boardSquare3.ToVector3(), boardSquare.ToVector3()) >= this.m_abilityMod.m_minDistanceBetweenAnySteps * squareSize);
-							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-					}
-					bool flag4;
-					if (flag)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag4 = flag3;
-					}
-					else
-					{
-						flag4 = false;
-					}
-					result = flag4;
+					boardSquare = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
 				}
-				return result;
-			}
-			for (;;)
-			{
-				switch (5)
+				bool flag2 = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, boardSquare, false) != null;
+				float squareSize = Board.Get().squareSize;
+				float num = Vector3.Distance(boardSquare.ToVector3(), boardSquareSafe.ToVector3());
+				int num2;
+				if (num >= m_abilityMod.m_minDistanceBetweenSteps * squareSize)
 				{
-				case 0:
-					continue;
+					num2 = ((num <= m_abilityMod.m_maxDistanceBetweenSteps * squareSize) ? 1 : 0);
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelRunAndGun.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
+				else
+				{
+					num2 = 0;
+				}
+				bool flag3 = (byte)num2 != 0;
+				if (flag2 && flag3)
+				{
+					if (m_abilityMod.m_minDistanceBetweenAnySteps > 0f)
+					{
+						for (int i = 0; i < targetIndex; i++)
+						{
+							BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos);
+							flag3 &= (Vector3.Distance(boardSquareSafe2.ToVector3(), boardSquareSafe.ToVector3()) >= m_abilityMod.m_minDistanceBetweenAnySteps * squareSize);
+						}
+					}
+				}
+				int result;
+				if (flag2)
+				{
+					result = (flag3 ? 1 : 0);
+				}
+				else
+				{
+					result = 0;
+				}
+				return (byte)result != 0;
 			}
 		}
 		return false;

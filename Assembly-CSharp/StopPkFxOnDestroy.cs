@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class StopPkFxOnDestroy : MonoBehaviour
@@ -13,57 +12,39 @@ public class StopPkFxOnDestroy : MonoBehaviour
 
 	private void OnApplicationQuit()
 	{
-		this.s_quitting = true;
+		s_quitting = true;
 	}
 
 	private void OnDisable()
 	{
-		if (!this.s_quitting)
+		if (s_quitting)
 		{
-			PKFxFX[] componentsInChildren = base.GetComponentsInChildren<PKFxFX>(true);
-			foreach (PKFxFX pkfxFX in componentsInChildren)
+			return;
+		}
+		PKFxFX[] componentsInChildren = GetComponentsInChildren<PKFxFX>(true);
+		PKFxFX[] array = componentsInChildren;
+		foreach (PKFxFX pKFxFX in array)
+		{
+			if (!(pKFxFX != null))
 			{
-				if (pkfxFX != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(StopPkFxOnDestroy.OnDisable()).MethodHandle;
-					}
-					if (this.m_killEffect)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						pkfxFX.KillEffect();
-					}
-					else
-					{
-						pkfxFX.TerminateEffect();
-					}
-				}
+				continue;
 			}
-			for (;;)
+			if (m_killEffect)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
+				pKFxFX.KillEffect();
+			}
+			else
+			{
+				pKFxFX.TerminateEffect();
+			}
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
@@ -71,64 +52,45 @@ public class StopPkFxOnDestroy : MonoBehaviour
 
 	private void Start()
 	{
-		this.m_hasStarted = true;
+		m_hasStarted = true;
 	}
 
 	private void StartEffects()
 	{
-		PKFxFX[] componentsInChildren = base.GetComponentsInChildren<PKFxFX>(true);
-		foreach (PKFxFX pkfxFX in componentsInChildren)
+		PKFxFX[] componentsInChildren = GetComponentsInChildren<PKFxFX>(true);
+		PKFxFX[] array = componentsInChildren;
+		foreach (PKFxFX pKFxFX in array)
 		{
-			if (pkfxFX != null)
+			if (pKFxFX != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(StopPkFxOnDestroy.StartEffects()).MethodHandle;
-				}
-				pkfxFX.StartEffect();
+				pKFxFX.StartEffect();
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void OnEnable()
 	{
-		if (this.m_restartOnEnable)
+		if (!m_restartOnEnable)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_hasStarted)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				StartEffects();
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StopPkFxOnDestroy.OnEnable()).MethodHandle;
-			}
-			if (this.m_hasStarted)
-			{
-				this.StartEffects();
-			}
+			return;
 		}
 	}
 }

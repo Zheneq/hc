@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -26,11 +26,11 @@ public class GamePack
 
 	public string GetEditionName()
 	{
-		return StringUtil.TR_GamePackEditionName(this.Index);
+		return StringUtil.TR_GamePackEditionName(Index);
 	}
 
 	public string GetDescription()
 	{
-		return StringUtil.TR_GamePackDescription(this.Index);
+		return StringUtil.TR_GamePackDescription(Index);
 	}
 }

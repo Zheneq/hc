@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 namespace TMPro
@@ -9,13 +8,13 @@ namespace TMPro
 
 		public const float FLOAT_MIN = -32767f;
 
-		public const int INT_MAX = 0x7FFFFFFF;
+		public const int INT_MAX = int.MaxValue;
 
-		public const int INT_MIN = -0x7FFFFFFF;
+		public const int INT_MIN = -2147483647;
 
 		public const float FLOAT_UNSET = -32767f;
 
-		public const int INT_UNSET = -0x7FFF;
+		public const int INT_UNSET = -32767;
 
 		public static Vector2 MAX_16BIT = new Vector2(32767f, 32767f);
 

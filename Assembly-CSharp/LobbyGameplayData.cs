@@ -1,8 +1,8 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
 
 [Serializable]
 public class LobbyGameplayData
@@ -33,86 +33,67 @@ public class LobbyGameplayData
 
 	public LobbyFactionData FactionData;
 
+	[JsonIgnore]
+	public IFreelancerSetQueryInterface FreelancerSetQueryInterface => new LobbyGameplayFreelancerSetQueryInterface(this);
+
 	public LobbyGameplayData()
 	{
-		this.CharacterData = new Dictionary<CharacterType, LobbyCharacterGameplayData>();
-		this.CardData = new Dictionary<CardType, LobbyCardGameplayData>();
-		this.GameBalanceVars = new GameBalanceVars();
-		this.BannedWords = new BannedWords();
-		this.LootMatrixPackData = new LobbyLootMatrixPackData();
-		this.GamePackData = new LobbyGamePackData();
-		this.GGPackData = new LobbyGGPackData();
-		this.InventoryData = new LobbyInventoryData();
-		this.StoreData = new LobbyStoreData();
-		this.QuestData = new LobbyQuestData();
-		this.SeasonData = new LobbySeasonData();
-		this.FactionData = new LobbyFactionData();
+		CharacterData = new Dictionary<CharacterType, LobbyCharacterGameplayData>();
+		CardData = new Dictionary<CardType, LobbyCardGameplayData>();
+		GameBalanceVars = new GameBalanceVars();
+		BannedWords = new BannedWords();
+		LootMatrixPackData = new LobbyLootMatrixPackData();
+		GamePackData = new LobbyGamePackData();
+		GGPackData = new LobbyGGPackData();
+		InventoryData = new LobbyInventoryData();
+		StoreData = new LobbyStoreData();
+		QuestData = new LobbyQuestData();
+		SeasonData = new LobbySeasonData();
+		FactionData = new LobbyFactionData();
 	}
 
 	public static LobbyGameplayData Get()
 	{
-		return LobbyGameplayData.s_instance;
+		return s_instance;
 	}
 
 	public static void Set(LobbyGameplayData instance)
 	{
-		LobbyGameplayData.s_instance = instance;
+		s_instance = instance;
 	}
 
 	public CharacterModInfo GetDefaultAbilityMods(CharacterType characterType)
 	{
-		LobbyCharacterGameplayData characterData = this.GetCharacterData(characterType);
-		CharacterModInfo result;
+		LobbyCharacterGameplayData characterData = GetCharacterData(characterType);
 		if (characterData != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return characterData.GetDefaultModInfo();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetDefaultAbilityMods(CharacterType)).MethodHandle;
-			}
-			result = characterData.GetDefaultModInfo();
 		}
-		else
-		{
-			result = default(CharacterModInfo);
-		}
-		return result;
+		return default(CharacterModInfo);
 	}
 
 	public LobbyCharacterGameplayData GetCharacterData(CharacterType characterType)
 	{
-		LobbyCharacterGameplayData result = null;
-		this.CharacterData.TryGetValue(characterType, out result);
-		return result;
+		LobbyCharacterGameplayData value = null;
+		CharacterData.TryGetValue(characterType, out value);
+		return value;
 	}
 
 	public string GetCharacterDisplayName(CharacterType characterType)
 	{
-		LobbyCharacterGameplayData characterData = this.GetCharacterData(characterType);
+		LobbyCharacterGameplayData characterData = GetCharacterData(characterType);
 		string result;
 		if (characterData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetCharacterDisplayName(CharacterType)).MethodHandle;
-			}
 			result = characterData.DisplayName;
 		}
 		else
@@ -124,23 +105,10 @@ public class LobbyGameplayData
 
 	public CharacterConfig GetDefaultCharacterConfig(CharacterType characterType)
 	{
-		LobbyCharacterGameplayData characterData = this.GetCharacterData(characterType);
+		LobbyCharacterGameplayData characterData = GetCharacterData(characterType);
 		CharacterConfig characterConfig;
 		if (characterData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetDefaultCharacterConfig(CharacterType)).MethodHandle;
-			}
 			characterConfig = characterData.CharacterConfig;
 		}
 		else
@@ -155,448 +123,262 @@ public class LobbyGameplayData
 
 	public LobbyCardGameplayData GetCardData(CardType cardType)
 	{
-		LobbyCardGameplayData result = null;
-		this.CardData.TryGetValue(cardType, out result);
-		return result;
+		LobbyCardGameplayData value = null;
+		CardData.TryGetValue(cardType, out value);
+		return value;
 	}
 
 	public CharacterCardInfo GetDefaultCardInfo()
 	{
 		CharacterCardInfo result = default(CharacterCardInfo);
-		IEnumerable<LobbyCardGameplayData> values = this.CardData.Values;
-		if (LobbyGameplayData.<>f__am$cache0 == null)
-		{
-			for (;;)
+		Dictionary<CardType, LobbyCardGameplayData>.ValueCollection values = CardData.Values;
+		
+		result.PrepCard = values.SingleOrDefault(delegate(LobbyCardGameplayData c)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetDefaultCardInfo()).MethodHandle;
-			}
-			LobbyGameplayData.<>f__am$cache0 = delegate(LobbyCardGameplayData c)
-			{
-				bool result2;
+				int result4;
 				if (c.RunPhase == AbilityRunPhase.Prep)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(LobbyGameplayData.<GetDefaultCardInfo>m__0(LobbyCardGameplayData)).MethodHandle;
-					}
-					result2 = c.IsDefault;
+					result4 = (c.IsDefault ? 1 : 0);
 				}
 				else
 				{
-					result2 = false;
+					result4 = 0;
 				}
-				return result2;
-			};
-		}
-		result.PrepCard = values.SingleOrDefault(LobbyGameplayData.<>f__am$cache0).CardType;
-		IEnumerable<LobbyCardGameplayData> values2 = this.CardData.Values;
-		if (LobbyGameplayData.<>f__am$cache1 == null)
-		{
-			for (;;)
+				return (byte)result4 != 0;
+			}).CardType;
+		Dictionary<CardType, LobbyCardGameplayData>.ValueCollection values2 = CardData.Values;
+		
+		result.CombatCard = values2.SingleOrDefault(delegate(LobbyCardGameplayData c)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameplayData.<>f__am$cache1 = delegate(LobbyCardGameplayData c)
-			{
-				bool result2;
+				int result3;
 				if (c.RunPhase == AbilityRunPhase.Combat)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(LobbyGameplayData.<GetDefaultCardInfo>m__1(LobbyCardGameplayData)).MethodHandle;
-					}
-					result2 = c.IsDefault;
+					result3 = (c.IsDefault ? 1 : 0);
 				}
 				else
 				{
-					result2 = false;
+					result3 = 0;
 				}
-				return result2;
-			};
-		}
-		result.CombatCard = values2.SingleOrDefault(LobbyGameplayData.<>f__am$cache1).CardType;
-		result.DashCard = this.CardData.Values.SingleOrDefault(delegate(LobbyCardGameplayData c)
+				return (byte)result3 != 0;
+			}).CardType;
+		result.DashCard = CardData.Values.SingleOrDefault(delegate(LobbyCardGameplayData c)
 		{
-			bool result2;
+			int result2;
 			if (c.RunPhase == AbilityRunPhase.Dash)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(LobbyGameplayData.<GetDefaultCardInfo>m__2(LobbyCardGameplayData)).MethodHandle;
-				}
-				result2 = c.IsDefault;
+				result2 = (c.IsDefault ? 1 : 0);
 			}
 			else
 			{
-				result2 = false;
+				result2 = 0;
 			}
-			return result2;
+			return (byte)result2 != 0;
 		}).CardType;
 		return result;
 	}
 
 	public CardType GetDefaultCardType(AbilityRunPhase runPhase)
 	{
-		return this.CardData.Values.SingleOrDefault(delegate(LobbyCardGameplayData c)
+		return CardData.Values.SingleOrDefault(delegate(LobbyCardGameplayData c)
 		{
-			bool result;
+			int result;
 			if (c.RunPhase == runPhase)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.<GetDefaultCardType>c__AnonStorey0.<>m__0(LobbyCardGameplayData)).MethodHandle;
-				}
-				result = c.IsDefault;
+				result = (c.IsDefault ? 1 : 0);
 			}
 			else
 			{
-				result = false;
+				result = 0;
 			}
-			return result;
+			return (byte)result != 0;
 		}).CardType;
 	}
 
 	public LobbyInventoryItemTemplate GetItemTemplate(int itemTemplateId)
 	{
-		LobbyInventoryItemTemplate lobbyInventoryItemTemplate = null;
-		this.InventoryData.ItemTemplates.TryGetValue(itemTemplateId, out lobbyInventoryItemTemplate);
-		if (lobbyInventoryItemTemplate == null)
+		LobbyInventoryItemTemplate value = null;
+		InventoryData.ItemTemplates.TryGetValue(itemTemplateId, out value);
+		if (value == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					throw new ArgumentException($"Invalid itemTemplateId {itemTemplateId}");
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetItemTemplate(int)).MethodHandle;
-			}
-			throw new ArgumentException(string.Format("Invalid itemTemplateId {0}", itemTemplateId));
 		}
-		return lobbyInventoryItemTemplate;
+		return value;
 	}
 
 	public KarmaTemplate GetKarmaTemplate(int karmaTemplateId)
 	{
-		KarmaTemplate karmaTemplate = (from x in this.InventoryData.KarmaTemplates
-		where x.Index == karmaTemplateId
-		select x).Single<KarmaTemplate>();
+		KarmaTemplate karmaTemplate = InventoryData.KarmaTemplates.Where((KarmaTemplate x) => x.Index == karmaTemplateId).Single();
 		if (karmaTemplate != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetKarmaTemplate(int)).MethodHandle;
-			}
 			if (karmaTemplate.IsValid())
 			{
 				return karmaTemplate;
 			}
 		}
-		throw new InvalidOperationException(string.Format("Invalid karmaTemplateId={0}", karmaTemplateId));
+		throw new InvalidOperationException($"Invalid karmaTemplateId={karmaTemplateId}");
 	}
 
 	public LootTable GetLootTable(int lootTableId)
 	{
-		LootTable lootTable = (from x in this.InventoryData.LootTables
-		where x.Index == lootTableId
-		select x).Single<LootTable>();
+		LootTable lootTable = InventoryData.LootTables.Where((LootTable x) => x.Index == lootTableId).Single();
 		if (lootTable != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetLootTable(int)).MethodHandle;
-			}
 			if (lootTable.IsValid())
 			{
 				return lootTable;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		throw new InvalidOperationException(string.Format("Invalid lootTableId={0}", lootTableId));
+		throw new InvalidOperationException($"Invalid lootTableId={lootTableId}");
 	}
 
 	public int GetDefaultItemValue()
 	{
-		return this.InventoryData.DefaultItemValue;
+		return InventoryData.DefaultItemValue;
 	}
 
 	public int GetCharacterItemDropBalance()
 	{
-		return this.InventoryData.CharacterItemDropBalance;
+		return InventoryData.CharacterItemDropBalance;
 	}
 
 	public FactionCompetition GetFactionCompetition(int competitionId)
 	{
 		if (0 < competitionId)
 		{
-			if (competitionId <= this.FactionData.m_factionCompetitions.Count)
+			if (competitionId <= FactionData.m_factionCompetitions.Count)
 			{
-				return this.FactionData.m_factionCompetitions[competitionId - 1];
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetFactionCompetition(int)).MethodHandle;
+				return FactionData.m_factionCompetitions[competitionId - 1];
 			}
 		}
-		throw new ArgumentException(string.Format("Invalid Faction competitionId={0}", competitionId));
+		throw new ArgumentException($"Invalid Faction competitionId={competitionId}");
 	}
 
 	public FactionGroup GetFactionGroup(int factionID)
 	{
-		for (int i = 0; i < this.FactionData.m_factionGroups.Count; i++)
+		for (int i = 0; i < FactionData.m_factionGroups.Count; i++)
 		{
-			if (this.FactionData.m_factionGroups[i].FactionGroupID == factionID)
+			if (FactionData.m_factionGroups[i].FactionGroupID != factionID)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetFactionGroup(int)).MethodHandle;
-				}
-				return this.FactionData.m_factionGroups[i];
-			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
 				continue;
 			}
-			break;
+			while (true)
+			{
+				return FactionData.m_factionGroups[i];
+			}
 		}
-		return new FactionGroup();
+		while (true)
+		{
+			return new FactionGroup();
+		}
 	}
 
 	public Faction GetFaction(int competitionId, int factionId)
 	{
 		if (0 < competitionId)
 		{
-			for (;;)
+			if (competitionId <= FactionData.m_factionCompetitions.Count && 0 <= factionId)
 			{
-				switch (7)
+				if (factionId < FactionData.m_factionCompetitions[competitionId - 1].Factions.Count)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetFaction(int, int)).MethodHandle;
-			}
-			if (competitionId <= this.FactionData.m_factionCompetitions.Count && 0 <= factionId)
-			{
-				if (factionId < this.FactionData.m_factionCompetitions[competitionId - 1].Factions.Count)
-				{
-					return this.FactionData.m_factionCompetitions[competitionId - 1].Factions[factionId];
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return FactionData.m_factionCompetitions[competitionId - 1].Factions[factionId];
 				}
 			}
 		}
-		throw new ArgumentException(string.Format("Invalid Faction competitionId={0} factionId={1}", competitionId, factionId));
+		throw new ArgumentException($"Invalid Faction competitionId={competitionId} factionId={factionId}");
 	}
 
 	public virtual void LoadFromFile(string dirName)
 	{
 		string fileName = Path.Combine(dirName, "LobbyCharacterData.json");
-		this.LoadFromFile(fileName, this.CharacterData);
+		LoadFromFile(fileName, CharacterData);
 		string fileName2 = Path.Combine(dirName, "LobbyCardData.json");
-		this.LoadFromFile(fileName2, this.CardData);
+		LoadFromFile(fileName2, CardData);
 		string fileName3 = Path.Combine(dirName, "GameBalanceVars.json");
-		this.LoadFromFile(fileName3, this.GameBalanceVars);
+		LoadFromFile(fileName3, GameBalanceVars);
 		string fileName4 = Path.Combine(dirName, "BannedWords.json");
-		this.LoadFromFile(fileName4, this.BannedWords);
+		LoadFromFile(fileName4, BannedWords);
 		string fileName5 = Path.Combine(dirName, "LootMatrixPackData.json");
-		this.LoadFromFile(fileName5, this.LootMatrixPackData);
+		LoadFromFile(fileName5, LootMatrixPackData);
 		string fileName6 = Path.Combine(dirName, "GamePackData.json");
-		this.LoadFromFile(fileName6, this.GamePackData);
+		LoadFromFile(fileName6, GamePackData);
 		string fileName7 = Path.Combine(dirName, "GGPackData.json");
-		this.LoadFromFile(fileName7, this.GGPackData);
+		LoadFromFile(fileName7, GGPackData);
 		string fileName8 = Path.Combine(dirName, "LobbyInventoryData.json");
-		this.LoadFromFile(fileName8, this.InventoryData);
+		LoadFromFile(fileName8, InventoryData);
 		string fileName9 = Path.Combine(dirName, "LobbyStoreData.json");
-		this.LoadFromFile(fileName9, this.StoreData);
+		LoadFromFile(fileName9, StoreData);
 		string fileName10 = Path.Combine(dirName, "LobbyQuestData.json");
-		this.LoadFromFile(fileName10, this.QuestData);
+		LoadFromFile(fileName10, QuestData);
 		string fileName11 = Path.Combine(dirName, "LobbySeasonData.json");
-		this.LoadFromFile(fileName11, this.SeasonData);
+		LoadFromFile(fileName11, SeasonData);
 		string fileName12 = Path.Combine(dirName, "LobbyFactionData.json");
-		this.LoadFromFile(fileName12, this.FactionData);
+		LoadFromFile(fileName12, FactionData);
 	}
 
 	public virtual void SaveToFile(string dirName)
 	{
 		string fileName = Path.Combine(dirName, "LobbyCharacterData.json");
-		this.SaveToFile(fileName, this.CharacterData);
+		SaveToFile(fileName, CharacterData);
 		string fileName2 = Path.Combine(dirName, "LobbyCardData.json");
-		this.SaveToFile(fileName2, this.CardData);
+		SaveToFile(fileName2, CardData);
 		string fileName3 = Path.Combine(dirName, "GameBalanceVars.json");
-		this.SaveToFile(fileName3, this.GameBalanceVars);
+		SaveToFile(fileName3, GameBalanceVars);
 		string fileName4 = Path.Combine(dirName, "BannedWords.json");
-		this.SaveToFile(fileName4, this.BannedWords);
+		SaveToFile(fileName4, BannedWords);
 		string fileName5 = Path.Combine(dirName, "LootMatrixPackData.json");
-		this.SaveToFile(fileName5, this.LootMatrixPackData);
+		SaveToFile(fileName5, LootMatrixPackData);
 		string fileName6 = Path.Combine(dirName, "GamePackData.json");
-		this.SaveToFile(fileName6, this.GamePackData);
+		SaveToFile(fileName6, GamePackData);
 		string fileName7 = Path.Combine(dirName, "GGPackData.json");
-		this.SaveToFile(fileName7, this.GGPackData);
+		SaveToFile(fileName7, GGPackData);
 		string fileName8 = Path.Combine(dirName, "LobbyInventoryData.json");
-		this.SaveToFile(fileName8, this.InventoryData);
+		SaveToFile(fileName8, InventoryData);
 		string fileName9 = Path.Combine(dirName, "LobbyStoreData.json");
-		this.SaveToFile(fileName9, this.StoreData);
+		SaveToFile(fileName9, StoreData);
 		string fileName10 = Path.Combine(dirName, "LobbyQuestData.json");
-		this.SaveToFile(fileName10, this.QuestData);
+		SaveToFile(fileName10, QuestData);
 		string fileName11 = Path.Combine(dirName, "LobbySeasonData.json");
-		this.SaveToFile(fileName11, this.SeasonData);
+		SaveToFile(fileName11, SeasonData);
 		string fileName12 = Path.Combine(dirName, "LobbyFactionData.json");
-		this.SaveToFile(fileName12, this.FactionData);
+		SaveToFile(fileName12, FactionData);
 	}
 
 	public virtual void LoadFromFile(string fileName, object obj)
 	{
+		string text = "{}";
 		FileInfo fileInfo = new FileInfo(fileName);
 		if (!fileInfo.Exists)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.LoadFromFile(string, object)).MethodHandle;
-			}
-			return;
 		}
-		string value = File.ReadAllText(fileName);
-		JsonSerializerSettings settings = new JsonSerializerSettings
-		{
-			ObjectCreationHandling = ObjectCreationHandling.Replace
-		};
-		JsonConvert.PopulateObject(value, obj, settings);
+		text = File.ReadAllText(fileName);
+		JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
+		jsonSerializerSettings.ObjectCreationHandling = ObjectCreationHandling.Replace;
+		JsonSerializerSettings settings = jsonSerializerSettings;
+		JsonConvert.PopulateObject(text, obj, settings);
 	}
 
 	public virtual void SaveToFile(string fileName, object obj)
 	{
 		string contents = JsonConvert.SerializeObject(obj, Formatting.Indented);
 		File.WriteAllText(fileName, contents);
-	}
-
-	[JsonIgnore]
-	public IFreelancerSetQueryInterface FreelancerSetQueryInterface
-	{
-		get
-		{
-			return new LobbyGameplayFreelancerSetQueryInterface(this);
-		}
 	}
 }

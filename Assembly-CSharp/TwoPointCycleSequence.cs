@@ -1,8 +1,14 @@
-﻿using System;
 using UnityEngine;
 
 public class TwoPointCycleSequence : Sequence
 {
+	public enum CycleType
+	{
+		CasterToTarget,
+		TargetToCaster,
+		PingPong
+	}
+
 	[Tooltip("Main FX prefab.")]
 	public GameObject m_fxPrefab;
 
@@ -11,9 +17,9 @@ public class TwoPointCycleSequence : Sequence
 
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
 	[AnimEventPicker]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
-	public TwoPointCycleSequence.CycleType m_cycleType = TwoPointCycleSequence.CycleType.TargetToCaster;
+	public CycleType m_cycleType = CycleType.TargetToCaster;
 
 	[AudioEvent(false)]
 	public string m_audioEvent;
@@ -26,265 +32,155 @@ public class TwoPointCycleSequence : Sequence
 
 	public override void FinishSetup()
 	{
-		if (this.m_startEvent == null)
+		if (!(m_startEvent == null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.FinishSetup()).MethodHandle;
-			}
-			this.SpawnFX();
+			return;
+		}
+		while (true)
+		{
+			SpawnFX();
+			return;
 		}
 	}
 
 	private float GetCyclePosition()
 	{
 		float num = 0f;
-		if (this.m_cycleType == TwoPointCycleSequence.CycleType.PingPong)
+		if (m_cycleType == CycleType.PingPong)
 		{
-			for (;;)
+			m_parameterizedPosition += m_projectileSpeed * GameTime.deltaTime;
+			if (m_parameterizedPosition > 1f)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_parameterizedPosition = 0f;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.GetCyclePosition()).MethodHandle;
-			}
-			this.m_parameterizedPosition += this.m_projectileSpeed * GameTime.deltaTime;
-			if (this.m_parameterizedPosition > 1f)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_parameterizedPosition = 0f;
-			}
-			num = this.m_parameterizedPosition * 2f;
+			num = m_parameterizedPosition * 2f;
 			if (num > 1f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 2f - num;
 			}
 		}
-		else if (this.m_cycleType == TwoPointCycleSequence.CycleType.CasterToTarget)
+		else if (m_cycleType == CycleType.CasterToTarget)
 		{
-			this.m_parameterizedPosition += this.m_projectileSpeed * GameTime.deltaTime;
-			if (this.m_parameterizedPosition > 1f)
+			m_parameterizedPosition += m_projectileSpeed * GameTime.deltaTime;
+			if (m_parameterizedPosition > 1f)
 			{
-				this.m_parameterizedPosition = 0f;
+				m_parameterizedPosition = 0f;
 			}
-			num = this.m_parameterizedPosition;
+			num = m_parameterizedPosition;
 		}
-		else if (this.m_cycleType == TwoPointCycleSequence.CycleType.TargetToCaster)
+		else if (m_cycleType == CycleType.TargetToCaster)
 		{
-			this.m_parameterizedPosition -= this.m_projectileSpeed * GameTime.deltaTime;
-			if (this.m_parameterizedPosition < 0f)
+			m_parameterizedPosition -= m_projectileSpeed * GameTime.deltaTime;
+			if (m_parameterizedPosition < 0f)
 			{
-				this.m_parameterizedPosition = 1f;
+				m_parameterizedPosition = 1f;
 			}
-			num = this.m_parameterizedPosition;
+			num = m_parameterizedPosition;
 		}
 		return num;
 	}
 
 	private void UpdatePosition()
 	{
-		if (this.m_fx != null)
+		if (!(m_fx != null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.UpdatePosition()).MethodHandle;
-			}
-			float cyclePosition = this.GetCyclePosition();
-			Vector3 position = this.m_fxJoint.m_jointObject.transform.position;
-			Vector3 targetHitPosition = base.GetTargetHitPosition(0);
+			return;
+		}
+		while (true)
+		{
+			float cyclePosition = GetCyclePosition();
+			Vector3 position = m_fxJoint.m_jointObject.transform.position;
+			Vector3 targetHitPosition = GetTargetHitPosition(0);
 			Vector3 a = targetHitPosition - position;
 			Vector3 vector = position + a * cyclePosition;
-			Vector3 vector2 = vector - this.m_fx.transform.position;
-			this.m_fx.transform.position = vector;
-			this.m_fx.transform.rotation = Quaternion.LookRotation(vector2.normalized);
+			Vector3 vector2 = vector - m_fx.transform.position;
+			m_fx.transform.position = vector;
+			m_fx.transform.rotation = Quaternion.LookRotation(vector2.normalized);
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.Update()).MethodHandle;
-			}
-			this.UpdatePosition();
-			base.ProcessSequenceVisibility();
+			return;
+		}
+		while (true)
+		{
+			UpdatePosition();
+			ProcessSequenceVisibility();
+			return;
 		}
 	}
 
 	private void SpawnFX()
 	{
-		if (!this.m_fxJoint.IsInitialized())
+		if (!m_fxJoint.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.SpawnFX()).MethodHandle;
-			}
-			this.m_fxJoint.Initialize(base.Caster.gameObject);
+			m_fxJoint.Initialize(base.Caster.gameObject);
 		}
-		if (this.m_fxPrefab != null)
+		if (m_fxPrefab != null)
 		{
-			Vector3 position = this.m_fxJoint.m_jointObject.transform.position;
+			Vector3 position = m_fxJoint.m_jointObject.transform.position;
 			Quaternion rotation = default(Quaternion);
-			Vector3 targetPosition = base.GetTargetPosition(0, false);
+			Vector3 targetPosition = GetTargetPosition(0);
 			Vector3 lookRotation = targetPosition - position;
 			lookRotation.y = 0f;
 			lookRotation.Normalize();
 			rotation.SetLookRotation(lookRotation);
-			this.m_fx = base.InstantiateFX(this.m_fxPrefab, position, rotation, true, true);
+			m_fx = InstantiateFX(m_fxPrefab, position, rotation);
 		}
 		for (int i = 0; i < base.Targets.Length; i++)
 		{
 			if (base.Targets[i] != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Vector3 targetHitPosition = base.GetTargetHitPosition(i);
+				Vector3 targetHitPosition = GetTargetHitPosition(i);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
 				hitDirection.Normalize();
 				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, hitDirection);
-				base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
+				base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
+			if (!string.IsNullOrEmpty(m_audioEvent))
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!string.IsNullOrEmpty(this.m_audioEvent))
-		{
-			for (;;)
-			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
+					return;
 				}
-				break;
 			}
-			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
+			return;
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_startEvent == parameter)
+		if (!(m_startEvent == parameter))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
-			this.SpawnFX();
+			return;
+		}
+		while (true)
+		{
+			SpawnFX();
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_fx != null)
+		if (!(m_fx != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.OnDisable()).MethodHandle;
-			}
-			UnityEngine.Object.Destroy(this.m_fx.gameObject);
-			this.m_fx = null;
+			return;
 		}
-	}
-
-	public enum CycleType
-	{
-		CasterToTarget,
-		TargetToCaster,
-		PingPong
+		while (true)
+		{
+			Object.Destroy(m_fx.gameObject);
+			m_fx = null;
+			return;
+		}
 	}
 }

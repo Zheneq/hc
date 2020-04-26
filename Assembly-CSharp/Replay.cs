@@ -1,12 +1,21 @@
-﻿using System;
+using LobbyGameClientMessages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using LobbyGameClientMessages;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [Serializable]
 public class Replay
 {
+	[Serializable]
+	public struct Message
+	{
+		public float timestamp;
+
+		public byte[] data;
+	}
+
 	public string m_gameplayOverrides_Serialized;
 
 	public string m_gameInfo_Serialized;
@@ -19,7 +28,7 @@ public class Replay
 
 	public int m_playerInfo_Index = -1;
 
-	public List<Replay.Message> m_messages = new List<Replay.Message>();
+	public List<Message> m_messages = new List<Message>();
 
 	private float m_initialMessageTimestamp;
 
@@ -29,211 +38,143 @@ public class Replay
 
 	public void RecordRawNetworkMessage(byte[] data, int dataSize)
 	{
-		if (this.m_initialMessageTimestamp == 0f)
+		if (m_initialMessageTimestamp == 0f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Replay.RecordRawNetworkMessage(byte[], int)).MethodHandle;
-			}
-			this.m_initialMessageTimestamp = GameTime.time;
+			m_initialMessageTimestamp = GameTime.time;
 		}
-		Replay.Message item = default(Replay.Message);
-		item.timestamp = GameTime.time - this.m_initialMessageTimestamp;
+		Message item = default(Message);
+		item.timestamp = GameTime.time - m_initialMessageTimestamp;
 		item.data = new byte[dataSize];
 		Array.Copy(data, item.data, dataSize);
-		this.m_messages.Add(item);
+		m_messages.Add(item);
 	}
 
-	public List<Replay.Message> GetRawNetworkMessages(uint startSeqNum, uint endSeqNum)
+	public List<Message> GetRawNetworkMessages(uint startSeqNum, uint endSeqNum)
 	{
 		int num = 0;
-		SortedList<uint, Replay.Message> sortedList = new SortedList<uint, Replay.Message>();
-		for (int i = this.m_messages.Count - 1; i >= 0; i--)
+		SortedList<uint, Message> sortedList = new SortedList<uint, Message>();
+		int num2 = m_messages.Count - 1;
+		while (true)
 		{
-			Replay.Message message = this.m_messages[i];
-			int j = message.data.Length;
-			int num2 = 0;
-			while (j > 0)
+			if (num2 >= 0)
 			{
-				uint num3 = UNetUtil.ReadUInt32(message.data, num2);
-				ushort num4 = UNetUtil.ReadUInt16(message.data, num2 + 4);
-				short num5 = UNetUtil.ReadInt16(message.data, num2 + 6);
-				int num6 = (int)(8 + num4);
-				if (startSeqNum <= num3 && num3 <= endSeqNum)
+				Message message = m_messages[num2];
+				int num3 = message.data.Length;
+				int num4 = 0;
+				while (num3 > 0)
 				{
-					for (;;)
+					uint num5 = UNetUtil.ReadUInt32(message.data, num4);
+					ushort num6 = UNetUtil.ReadUInt16(message.data, num4 + 4);
+					short num7 = UNetUtil.ReadInt16(message.data, num4 + 6);
+					int num8 = 8 + num6;
+					if (startSeqNum <= num5 && num5 <= endSeqNum)
 					{
-						switch (5)
+						if (num7 != 37)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(Replay.GetRawNetworkMessages(uint, uint)).MethodHandle;
-					}
-					if (num5 != 0x25)
-					{
-						for (;;)
-						{
-							switch (3)
+							if (num7 != 51)
 							{
-							case 0:
-								continue;
+								Message value = default(Message);
+								value.data = new byte[num8];
+								Buffer.BlockCopy(message.data, num4, value.data, 0, num8);
+								sortedList.Add(num5, value);
 							}
-							break;
 						}
-						if (num5 != 0x33)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							Replay.Message value = default(Replay.Message);
-							value.data = new byte[num6];
-							Buffer.BlockCopy(message.data, num2, value.data, 0, num6);
-							sortedList.Add(num3, value);
-						}
+						num++;
 					}
-					num++;
+					num4 += num8;
+					num3 -= num8;
 				}
-				num2 += num6;
-				j -= num6;
-			}
-			for (;;)
-			{
-				switch (2)
+				if (num == endSeqNum - startSeqNum + 1)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if ((long)num == (long)((ulong)(endSeqNum - startSeqNum + 1U)))
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
-				IL_146:
-				return sortedList.Values.ToList<Replay.Message>();
-			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
+				num2--;
 				continue;
 			}
-			goto IL_146;
+			break;
 		}
+		return sortedList.Values.ToList();
 	}
 
 	public void StartPlayback()
 	{
-		LobbyGameInfo gameInfo = JsonUtility.FromJson<LobbyGameInfo>(this.m_gameInfo_Serialized);
+		LobbyGameInfo gameInfo = JsonUtility.FromJson<LobbyGameInfo>(m_gameInfo_Serialized);
 		if (gameInfo.GameConfig.GameType == GameType.Tutorial)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("ReplayIssue", "FrontEnd"), StringUtil.TR("InvalidReplay", "FrontEnd"), StringUtil.TR("Ok", "Global"));
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Replay.StartPlayback()).MethodHandle;
-			}
-			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("ReplayIssue", "FrontEnd"), StringUtil.TR("InvalidReplay", "FrontEnd"), StringUtil.TR("Ok", "Global"), null, -1, false);
-			return;
 		}
-		GameFlowData.s_onGameStateChanged += this.PlaybackOnGameStateChanged;
-		GameManager.Get().SetGameplayOverridesForCurrentGame(JsonUtility.FromJson<LobbyGameplayOverrides>(this.m_gameplayOverrides_Serialized));
+		GameFlowData.s_onGameStateChanged += PlaybackOnGameStateChanged;
+		GameManager.Get().SetGameplayOverridesForCurrentGame(JsonUtility.FromJson<LobbyGameplayOverrides>(m_gameplayOverrides_Serialized));
 		GameManager.Get().SetGameInfo(gameInfo);
-		GameManager.Get().SetTeamInfo(JsonUtility.FromJson<LobbyTeamInfo>(this.m_teamInfo_Serialized));
-		GameManager.Get().SetPlayerInfo(GameManager.Get().TeamInfo.TeamPlayerInfo[this.m_playerInfo_Index]);
+		GameManager.Get().SetTeamInfo(JsonUtility.FromJson<LobbyTeamInfo>(m_teamInfo_Serialized));
+		GameManager.Get().SetPlayerInfo(GameManager.Get().TeamInfo.TeamPlayerInfo[m_playerInfo_Index]);
 		ClientGameManager.Get().Replay_SetGameStatus(GameStatus.Launched);
 		ClientGameManager.Get().QueryPlayerMatchData(delegate(PlayerMatchDataResponse response)
 		{
 			if (response.Success)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(Replay.<StartPlayback>c__AnonStorey0.<>m__0(PlayerMatchDataResponse)).MethodHandle;
-				}
-				for (int i = 0; i < response.MatchData.Count; i++)
-				{
-					if (response.MatchData[i].GameServerProcessCode == gameInfo.GameServerProcessCode)
+						break;
+					default:
 					{
-						for (;;)
+						for (int i = 0; i < response.MatchData.Count; i++)
 						{
-							switch (6)
+							if (response.MatchData[i].GameServerProcessCode == gameInfo.GameServerProcessCode)
 							{
-							case 0:
-								continue;
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										break;
+									default:
+										m_matchData = response.MatchData[i];
+										return;
+									}
+								}
 							}
-							break;
 						}
-						this.m_matchData = response.MatchData[i];
-						return;
+						while (true)
+						{
+							switch (5)
+							{
+							default:
+								return;
+							case 0:
+								break;
+							}
+						}
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
 					}
-					break;
 				}
 			}
 		});
-		Log.Info("Starting playback of replay, version: {0}", new object[]
-		{
-			this.m_versionFull
-		});
+		Log.Info("Starting playback of replay, version: {0}", m_versionFull);
 	}
 
 	private void PlayMessage()
 	{
-		ClientGameManager.Get().Connection.TransportReceive(this.m_messages[this.m_messageReadIndex].data, this.m_messages[this.m_messageReadIndex].data.Length, 0);
-		this.m_messageReadIndex++;
-		if (this.m_messageReadIndex == this.m_messages.Count)
+		NetworkConnection connection = ClientGameManager.Get().Connection;
+		Message message = m_messages[m_messageReadIndex];
+		byte[] data = message.data;
+		Message message2 = m_messages[m_messageReadIndex];
+		connection.TransportReceive(data, message2.data.Length, 0);
+		m_messageReadIndex++;
+		if (m_messageReadIndex == m_messages.Count)
 		{
 			UIGameOverScreen.Get().HandleMatchResultsNotification(new MatchResultsNotification());
 		}
@@ -241,56 +182,48 @@ public class Replay
 
 	public void PlaybackUpdate()
 	{
-		if (ClientGameManager.Get() != null)
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (ClientGameManager.Get().Connection == null)
 			{
-				switch (7)
+				return;
+			}
+			while (true)
+			{
+				if (!AppState.IsInGame())
 				{
-				case 0:
-					continue;
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Replay.PlaybackUpdate()).MethodHandle;
-			}
-			if (ClientGameManager.Get().Connection != null)
-			{
-				for (;;)
+				if (m_initialMessageTimestamp == 0f)
 				{
-					switch (1)
+					m_initialMessageTimestamp = GameTime.time;
+				}
+				while (true)
+				{
+					if (m_messageReadIndex < m_messages.Count)
 					{
-					case 0:
+						Message message = m_messages[m_messageReadIndex];
+						if (!(message.timestamp < GameTime.time - m_initialMessageTimestamp))
+						{
+							break;
+						}
+						PlayMessage();
 						continue;
 					}
-					break;
+					return;
 				}
-				if (AppState.IsInGame())
+				while (true)
 				{
-					if (this.m_initialMessageTimestamp == 0f)
+					switch (5)
 					{
-						this.m_initialMessageTimestamp = GameTime.time;
-					}
-					while (this.m_messageReadIndex < this.m_messages.Count)
-					{
-						if (this.m_messages[this.m_messageReadIndex].timestamp >= GameTime.time - this.m_initialMessageTimestamp)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								return;
-							}
-						}
-						else
-						{
-							this.PlayMessage();
-						}
+					default:
+						return;
+					case 0:
+						break;
 					}
 				}
 			}
@@ -299,85 +232,47 @@ public class Replay
 
 	public void PlaybackFastForward(ReplayTimestamp target)
 	{
-		while (this.m_messageReadIndex < this.m_messages.Count && ReplayTimestamp.Current() < target)
+		while (m_messageReadIndex < m_messages.Count && ReplayTimestamp.Current() < target)
 		{
-			for (;;)
+			if (!AsyncPump.Current.BreakRequested())
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				PlayMessage();
+				continue;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Replay.PlaybackFastForward(ReplayTimestamp)).MethodHandle;
-			}
-			if (AsyncPump.Current.BreakRequested())
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_59;
-				}
-			}
-			else
-			{
-				this.PlayMessage();
-			}
+			break;
 		}
-		IL_59:
-		this.m_initialMessageTimestamp = GameTime.time - this.m_messages[this.m_messageReadIndex - 1].timestamp;
+		float time = GameTime.time;
+		Message message = m_messages[m_messageReadIndex - 1];
+		m_initialMessageTimestamp = time - message.timestamp;
 	}
 
 	public void PlaybackRestart()
 	{
-		this.m_messageReadIndex = 0;
-		this.m_initialMessageTimestamp = GameTime.time;
+		m_messageReadIndex = 0;
+		m_initialMessageTimestamp = GameTime.time;
 	}
 
 	public void FinishPlayback()
 	{
-		GameFlowData.s_onGameStateChanged -= this.PlaybackOnGameStateChanged;
+		GameFlowData.s_onGameStateChanged -= PlaybackOnGameStateChanged;
 	}
 
 	private void PlaybackOnGameStateChanged(GameState newState)
 	{
-		if (newState == GameState.StartingGame)
+		if (newState != GameState.StartingGame)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Replay.PlaybackOnGameStateChanged(GameState)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			ClientGameManager.Get().Replay_SetGameStatus(GameStatus.Loaded);
 			ClientGameManager.Get().Replay_SetGameStatus(GameStatus.Started);
+			return;
 		}
 	}
 
 	public PersistedCharacterMatchData GetMatchData()
 	{
-		return this.m_matchData;
-	}
-
-	[Serializable]
-	public struct Message
-	{
-		public float timestamp;
-
-		public byte[] data;
+		return m_matchData;
 	}
 }

@@ -1,58 +1,30 @@
-﻿using System;
-
 public static class ServerTypeExtensions
 {
 	public static bool NeedsMaster(this ProcessType serverType)
 	{
-		bool result;
+		int result;
 		if (serverType != ProcessType.DirectoryServer)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessType.NeedsMaster()).MethodHandle;
-			}
-			result = (serverType == ProcessType.MatchmakingServer);
+			result = ((serverType == ProcessType.MatchmakingServer) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public static bool UsesInterconnect(this ProcessType serverType)
 	{
-		bool result;
+		int result;
 		if (serverType >= ProcessType.DirectoryServer)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessType.UsesInterconnect()).MethodHandle;
-			}
-			result = (serverType <= ProcessType.LoadTestServer);
+			result = ((serverType <= ProcessType.LoadTestServer) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 }

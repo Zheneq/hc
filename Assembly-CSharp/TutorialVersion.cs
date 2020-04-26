@@ -1,10 +1,8 @@
-﻿using System;
-
 public enum TutorialVersion
 {
-	None,
-	Prologue1,
-	NewPlayerSolo,
-	CargoShip_Tutorial1,
+	None = 0,
+	Prologue1 = 1,
+	NewPlayerSolo = 2,
+	CargoShip_Tutorial1 = 3,
 	Latest = 3
 }

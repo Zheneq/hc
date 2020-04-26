@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -10,7 +10,7 @@ public class OnPowerUpChatter : ScriptableObject, IChatterData
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -22,71 +22,42 @@ public class OnPowerUpChatter : ScriptableObject, IChatterData
 	{
 		if (args is GameEventManager.PowerUpActivatedArgs)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnPowerUpChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
-			GameEventManager.PowerUpActivatedArgs powerUpActivatedArgs = args as GameEventManager.PowerUpActivatedArgs;
-			if (!(powerUpActivatedArgs.byActor == null))
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (!(GameFlowData.Get().activeOwnedActorData != powerUpActivatedArgs.byActor))
+				default:
 				{
-					if (this.m_requiredPowerupType != PowerUp.PowerUpCategory.NoCategory)
+					GameEventManager.PowerUpActivatedArgs powerUpActivatedArgs = args as GameEventManager.PowerUpActivatedArgs;
+					if (!(powerUpActivatedArgs.byActor == null))
 					{
-						for (;;)
+						if (!(GameFlowData.Get().activeOwnedActorData != powerUpActivatedArgs.byActor))
 						{
-							switch (3)
+							if (m_requiredPowerupType != 0)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_requiredPowerupType != powerUpActivatedArgs.powerUp.m_chatterCategory)
-						{
-							for (;;)
-							{
-								switch (7)
+								if (m_requiredPowerupType != powerUpActivatedArgs.powerUp.m_chatterCategory)
 								{
-								case 0:
-									continue;
+									while (true)
+									{
+										switch (7)
+										{
+										case 0:
+											break;
+										default:
+											return false;
+										}
+									}
 								}
-								break;
 							}
-							return false;
+							return ChatterData.ShouldPlayChatter(this, eventType, args, component);
 						}
 					}
-					return ChatterData.ShouldPlayChatter(this, eventType, args, component);
+					return false;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
-			return false;
 		}
 		return false;
 	}

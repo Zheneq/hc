@@ -1,9 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityMod : MonoBehaviour
 {
+	public enum TagOverrideType
+	{
+		Ignore,
+		Override,
+		Append
+	}
+
 	[Header("-- ID (only need to be unique among mods of the same ability)")]
 	public int m_abilityScopeId;
 
@@ -18,7 +25,7 @@ public class AbilityMod : MonoBehaviour
 
 	public bool m_defaultEquip;
 
-	[TextArea(1, 0x14)]
+	[TextArea(1, 20)]
 	public string m_tooltip = string.Empty;
 
 	public string m_flavorText = string.Empty;
@@ -112,7 +119,7 @@ public class AbilityMod : MonoBehaviour
 	public Ability[] m_chainAbilityOverrides;
 
 	[Header("-- Ability Tag Override")]
-	public AbilityMod.TagOverrideType m_tagsModType;
+	public TagOverrideType m_tagsModType;
 
 	public List<AbilityTags> m_abilityTagsInMod = new List<AbilityTags>();
 
@@ -135,25 +142,12 @@ public class AbilityMod : MonoBehaviour
 
 	public string GetName()
 	{
-		string text = StringUtil.TR_AbilityModName(this.GetTargetAbilityType().ToString(), this.m_name);
+		string text = StringUtil.TR_AbilityModName(GetTargetAbilityType().ToString(), m_name);
 		if (text.Length == 0)
 		{
-			for (;;)
+			if (m_name.Length > 0)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.GetName()).MethodHandle;
-			}
-			if (this.m_name.Length > 0)
-			{
-				text = this.m_name;
+				text = m_name;
 			}
 		}
 		return text;
@@ -161,170 +155,107 @@ public class AbilityMod : MonoBehaviour
 
 	public string GetFullTooltip(Ability ability)
 	{
-		string text = StringUtil.TR_AbilityModFinalTooltip(this.GetTargetAbilityType().ToString(), this.m_name);
+		string text = StringUtil.TR_AbilityModFinalTooltip(GetTargetAbilityType().ToString(), m_name);
 		if (text.Length == 0)
 		{
-			for (;;)
+			if (m_tooltip.Length > 0)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.GetFullTooltip(Ability)).MethodHandle;
-			}
-			if (this.m_tooltip.Length > 0)
-			{
-				text = this.m_tooltip;
+				text = m_tooltip;
 			}
 		}
-		return TooltipTokenEntry.GetTooltipWithSubstitutes(text, this.GetTooltipTokenEntries(ability), false);
+		return TooltipTokenEntry.GetTooltipWithSubstitutes(text, GetTooltipTokenEntries(ability));
 	}
 
 	public string GetUnlocalizedFullTooltip(Ability ability)
 	{
-		if (string.IsNullOrEmpty(this.m_debugUnlocalizedTooltip))
+		if (string.IsNullOrEmpty(m_debugUnlocalizedTooltip))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return TooltipTokenEntry.GetTooltipWithSubstitutes(m_tooltip, GetTooltipTokenEntries(ability));
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.GetUnlocalizedFullTooltip(Ability)).MethodHandle;
-			}
-			return TooltipTokenEntry.GetTooltipWithSubstitutes(this.m_tooltip, this.GetTooltipTokenEntries(ability), false);
 		}
-		return TooltipTokenEntry.GetTooltipWithSubstitutes(this.m_debugUnlocalizedTooltip, this.GetTooltipTokenEntries(ability), false);
+		return TooltipTokenEntry.GetTooltipWithSubstitutes(m_debugUnlocalizedTooltip, GetTooltipTokenEntries(ability));
 	}
 
 	public virtual OnHitAuthoredData GenModImpl_GetModdedOnHitData(OnHitAuthoredData onHitDataFromBase)
 	{
-		Log.Error("Please implement GenModImpl_GetModdedOnHitData in derived class " + base.GetType(), new object[0]);
+		Log.Error("Please implement GenModImpl_GetModdedOnHitData in derived class " + GetType());
 		return onHitDataFromBase;
 	}
 
 	public virtual void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
 	{
-		Log.Error("Please implement GenModImpl_SetTargetSelectMod in derived class " + base.GetType(), new object[0]);
+		Log.Error("Please implement GenModImpl_SetTargetSelectMod in derived class " + GetType());
 	}
 
 	public virtual List<StatusType> GetStatusTypesForTooltip()
 	{
-		if (this.m_savedStatusTypesForTooltips != null)
+		if (m_savedStatusTypesForTooltips != null)
 		{
-			for (;;)
+			if (m_savedStatusTypesForTooltips.Count != 0)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.GetStatusTypesForTooltip()).MethodHandle;
-			}
-			if (this.m_savedStatusTypesForTooltips.Count != 0)
-			{
-				return this.m_savedStatusTypesForTooltips;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return m_savedStatusTypesForTooltips;
 			}
 		}
-		return TooltipTokenEntry.GetStatusTypesFromTooltip(this.m_tooltip);
+		return TooltipTokenEntry.GetStatusTypesFromTooltip(m_tooltip);
 	}
 
 	public ChainAbilityAdditionalModInfo GetChainModInfoAtIndex(int chainIndex)
 	{
-		using (List<ChainAbilityAdditionalModInfo>.Enumerator enumerator = this.m_chainAbilityModInfo.GetEnumerator())
+		using (List<ChainAbilityAdditionalModInfo>.Enumerator enumerator = m_chainAbilityModInfo.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ChainAbilityAdditionalModInfo chainAbilityAdditionalModInfo = enumerator.Current;
-				if (chainAbilityAdditionalModInfo.m_chainAbilityIndex == chainIndex)
+				ChainAbilityAdditionalModInfo current = enumerator.Current;
+				if (current.m_chainAbilityIndex == chainIndex)
 				{
-					return chainAbilityAdditionalModInfo;
+					return current;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_000c;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.GetChainModInfoAtIndex(int)).MethodHandle;
-			}
+			end_IL_000c:;
 		}
 		return null;
 	}
 
 	public int GetModdedTechPointForInteraction(TechPointInteractionType interactionType, int baseAmount)
 	{
-		foreach (TechPointInteractionMod techPointInteractionMod in this.m_techPointInteractionMods)
+		TechPointInteractionMod[] techPointInteractionMods = m_techPointInteractionMods;
+		foreach (TechPointInteractionMod techPointInteractionMod in techPointInteractionMods)
 		{
 			if (techPointInteractionMod.interactionType == interactionType)
 			{
 				return techPointInteractionMod.modAmount.GetModifiedValue(baseAmount);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return baseAmount;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.GetModdedTechPointForInteraction(TechPointInteractionType, int)).MethodHandle;
-		}
-		return baseAmount;
 	}
 
 	public bool EquippableForGameType()
 	{
 		bool result = true;
-		if (this.m_gameTypeReq == AbilityModGameTypeReq.ExcludeFromRanked)
+		if (m_gameTypeReq == AbilityModGameTypeReq.ExcludeFromRanked)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.EquippableForGameType()).MethodHandle;
-			}
-			ModStrictness requiredModStrictnessForGameSubType = AbilityMod.GetRequiredModStrictnessForGameSubType();
+			ModStrictness requiredModStrictnessForGameSubType = GetRequiredModStrictnessForGameSubType();
 			if (requiredModStrictnessForGameSubType == ModStrictness.Ranked)
 			{
 				result = false;
@@ -338,134 +269,65 @@ public class AbilityMod : MonoBehaviour
 		ModStrictness result = ModStrictness.AllModes;
 		if (GameManager.Get().GameConfig != null)
 		{
-			for (;;)
+			if (!GameManager.Get().GameConfig.SubTypes.IsNullOrEmpty())
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.GetRequiredModStrictnessForGameSubType()).MethodHandle;
-			}
-			if (!GameManager.Get().GameConfig.SubTypes.IsNullOrEmpty<GameSubType>())
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameConfig.InstanceSubType != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.StricterMods))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ModStrictness.Ranked;
 					}
-					return result;
+					goto IL_019c;
 				}
 			}
 		}
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().GroupInfo != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameType selectedQueueType = ClientGameManager.Get().GroupInfo.SelectedQueueType;
-				int subTypeMask = (int)ClientGameManager.Get().GroupInfo.SubTypeMask;
+				int subTypeMask = ClientGameManager.Get().GroupInfo.SubTypeMask;
 				if (selectedQueueType == GameType.Ranked)
 				{
-					for (;;)
+					result = ModStrictness.Ranked;
+					goto IL_019c;
+				}
+				Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(selectedQueueType);
+				using (Dictionary<ushort, GameSubType>.Enumerator enumerator = gameTypeSubTypes.GetEnumerator())
+				{
+					while (enumerator.MoveNext())
 					{
-						switch (7)
+						KeyValuePair<ushort, GameSubType> current = enumerator.Current;
+						if ((current.Key & subTypeMask) != 0 && current.Value.HasMod(GameSubType.SubTypeMods.StricterMods))
+						{
+							while (true)
+							{
+								switch (5)
+								{
+								case 0:
+									break;
+								default:
+									return ModStrictness.Ranked;
+								}
+							}
+						}
+					}
+					while (true)
+					{
+						switch (2)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					result = ModStrictness.Ranked;
-				}
-				else
-				{
-					Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(selectedQueueType);
-					using (Dictionary<ushort, GameSubType>.Enumerator enumerator = gameTypeSubTypes.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							KeyValuePair<ushort, GameSubType> keyValuePair = enumerator.Current;
-							if (((int)keyValuePair.Key & subTypeMask) != 0 && keyValuePair.Value.HasMod(GameSubType.SubTypeMods.StricterMods))
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								result = ModStrictness.Ranked;
-								goto IL_18A;
-							}
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+							return result;
 						}
 					}
 				}
-				IL_18A:
-				return result;
 			}
 		}
-		Log.Error("Failed to check mod strictness for unknown game type on client.", new object[0]);
+		Log.Error("Failed to check mod strictness for unknown game type on client.");
+		goto IL_019c;
+		IL_019c:
 		return result;
 	}
 
@@ -478,184 +340,85 @@ public class AbilityMod : MonoBehaviour
 		List<TooltipTokenEntry> list = new List<TooltipTokenEntry>();
 		try
 		{
-			this.AddModSpecificTooltipTokens(list, ability);
+			AddModSpecificTooltipTokens(list, ability);
 		}
 		catch (Exception ex)
 		{
-			Debug.LogError(string.Concat(new string[]
-			{
-				"Exception while trying to add mod specific tooltip tokens for ",
-				this.GetDebugIdentifier(string.Empty),
-				" | ",
-				this.GetTargetAbilityType().ToString(),
-				"\nStackTrace:\n",
-				ex.StackTrace
-			}));
+			Debug.LogError("Exception while trying to add mod specific tooltip tokens for " + GetDebugIdentifier(string.Empty) + " | " + GetTargetAbilityType().ToString() + "\nStackTrace:\n" + ex.StackTrace);
 		}
 		if (ability != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.GetTooltipTokenEntries(Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(list, this.m_techPointCostMod, "EnergyCost", "energy cost", ability.m_techPointsCost, true, false);
-			AbilityMod.AddToken(list, this.m_maxCooldownMod, "MaxCooldown", "max cooldown", ability.m_cooldown, true, false);
-			AbilityMod.AddToken(list, this.m_maxStocksMod, "MaxStocks", "max stocks", ability.m_maxStocks, true, false);
-			AbilityMod.AddToken(list, this.m_stockRefreshDurationMod, "StockRefreshDur", "stock refresh duration", ability.m_stockRefreshDuration, true, false);
+			AddToken(list, m_techPointCostMod, "EnergyCost", "energy cost", ability.m_techPointsCost);
+			AddToken(list, m_maxCooldownMod, "MaxCooldown", "max cooldown", ability.m_cooldown);
+			AddToken(list, m_maxStocksMod, "MaxStocks", "max stocks", ability.m_maxStocks);
+			AddToken(list, m_stockRefreshDurationMod, "StockRefreshDur", "stock refresh duration", ability.m_stockRefreshDuration);
 			if (ability.m_targetData != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ability.m_targetData.Length > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					AbilityMod.AddToken(list, this.m_targetDataMinRangeMod, "TargetDataMinRange", "min range of targeter when using square based targeters", ability.m_targetData[0].m_minRange, true, false, false);
-					AbilityMod.AddToken(list, this.m_targetDataMaxRangeMod, "TargetDataMaxRange", "MAX range of targeter when using square based targeters", ability.m_targetData[0].m_range, true, false, false);
+					AddToken(list, m_targetDataMinRangeMod, "TargetDataMinRange", "min range of targeter when using square based targeters", ability.m_targetData[0].m_minRange);
+					AddToken(list, m_targetDataMaxRangeMod, "TargetDataMaxRange", "MAX range of targeter when using square based targeters", ability.m_targetData[0].m_range);
 				}
 			}
-			if (this.m_useTargetDataOverrides)
+			if (m_useTargetDataOverrides)
 			{
-				for (;;)
+				if (m_targetDataOverrides != null)
 				{
-					switch (2)
+					if (m_targetDataOverrides.Length > 0)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_targetDataOverrides != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_targetDataOverrides.Length > 0)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ability.m_targetData.Length > 0)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							AbilityMod.AddToken_IntDiff(list, "BM_TargetDataMaxRange_0", string.Empty, Mathf.RoundToInt(this.m_targetDataOverrides[0].m_range), false, 0);
-							AbilityMod.AddToken_IntDiff(list, "BM_TargetDataMaxRange_0_Diff", string.Empty, Mathf.RoundToInt(this.m_targetDataOverrides[0].m_range - ability.m_targetData[0].m_range), false, 0);
+							AddToken_IntDiff(list, "BM_TargetDataMaxRange_0", string.Empty, Mathf.RoundToInt(m_targetDataOverrides[0].m_range), false, 0);
+							AddToken_IntDiff(list, "BM_TargetDataMaxRange_0_Diff", string.Empty, Mathf.RoundToInt(m_targetDataOverrides[0].m_range - ability.m_targetData[0].m_range), false, 0);
 						}
 					}
 				}
 			}
-			AbilityMod.AddToken_EffectInfo(list, this.m_effectToSelfOnCast, "BM_EffectToSelf", null, true);
-			AbilityMod.AddToken_EffectInfo(list, this.m_effectToTargetAllyOnHit, "BM_EffectToAllyHit", null, true);
-			AbilityMod.AddToken_EffectInfo(list, this.m_effectToTargetEnemyOnHit, "BM_EffetToEnemyHit", null, true);
-			int num = Mathf.RoundToInt(100f * this.m_effectTriggerChance);
+			AddToken_EffectInfo(list, m_effectToSelfOnCast, "BM_EffectToSelf");
+			AddToken_EffectInfo(list, m_effectToTargetAllyOnHit, "BM_EffectToAllyHit");
+			AddToken_EffectInfo(list, m_effectToTargetEnemyOnHit, "BM_EffetToEnemyHit");
+			int num = Mathf.RoundToInt(100f * m_effectTriggerChance);
 			if (num > 0)
 			{
-				for (;;)
+				if (num < 100)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (num < 0x64)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(new TooltipTokenInt("BM_EffectApplyChance", "chance to apply effects on base mod", num));
 				}
 			}
-			this.AddTokensForTechPointInteractions(list, ability);
-			if (this.m_cooldownReductionsOnSelf != null)
+			AddTokensForTechPointInteractions(list, ability);
+			if (m_cooldownReductionsOnSelf != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_cooldownReductionsOnSelf.AddTooltipTokens(list, "OnSelf");
+				m_cooldownReductionsOnSelf.AddTooltipTokens(list, "OnSelf");
 			}
-			if (this.m_chainAbilityModInfo != null)
+			if (m_chainAbilityModInfo != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				using (List<ChainAbilityAdditionalModInfo>.Enumerator enumerator = this.m_chainAbilityModInfo.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
-					{
-						ChainAbilityAdditionalModInfo chainAbilityAdditionalModInfo = enumerator.Current;
-						chainAbilityAdditionalModInfo.AddTooltipTokens(list, ability, this, "ChainMod");
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						using (List<ChainAbilityAdditionalModInfo>.Enumerator enumerator = m_chainAbilityModInfo.GetEnumerator())
+						{
+							while (enumerator.MoveNext())
+							{
+								ChainAbilityAdditionalModInfo current = enumerator.Current;
+								current.AddTooltipTokens(list, ability, this, "ChainMod");
+							}
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									break;
+								default:
+									return list;
+								}
+							}
+						}
+					}
 					}
 				}
 			}
@@ -665,182 +428,102 @@ public class AbilityMod : MonoBehaviour
 
 	public string AssembleFinalTooltip(Ability targetAbility)
 	{
-		return TooltipTokenEntry.GetTooltipWithSubstitutes(this.m_tooltip, this.GetTooltipTokenEntries(targetAbility), false);
+		return TooltipTokenEntry.GetTooltipWithSubstitutes(m_tooltip, GetTooltipTokenEntries(targetAbility));
 	}
 
 	public void SetUnlocalizedTooltipAndStatusTypes(Ability targetAbility)
 	{
-		this.m_debugUnlocalizedTooltip = this.AssembleFinalTooltip(targetAbility);
-		this.m_savedStatusTypesForTooltips = TooltipTokenEntry.GetStatusTypesFromTooltip(this.m_tooltip);
+		m_debugUnlocalizedTooltip = AssembleFinalTooltip(targetAbility);
+		m_savedStatusTypesForTooltips = TooltipTokenEntry.GetStatusTypesFromTooltip(m_tooltip);
 	}
 
 	private void AddTokensForTechPointInteractions(List<TooltipTokenEntry> tokens, Ability ability)
 	{
-		if (this.m_techPointInteractionMods != null)
+		if (m_techPointInteractionMods == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.AddTokensForTechPointInteractions(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			bool flag = false;
 			if (ability != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ability.m_techPointInteractions != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 				}
 			}
-			foreach (TechPointInteractionMod techPointInteractionMod in this.m_techPointInteractionMods)
+			TechPointInteractionMod[] techPointInteractionMods = m_techPointInteractionMods;
+			foreach (TechPointInteractionMod techPointInteractionMod in techPointInteractionMods)
 			{
 				int baseVal = 0;
 				if (flag)
 				{
-					for (;;)
+					TechPointInteraction[] techPointInteractions = ability.m_techPointInteractions;
+					int num = 0;
+					while (true)
 					{
-						switch (4)
+						if (num < techPointInteractions.Length)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					foreach (TechPointInteraction techPointInteraction in ability.m_techPointInteractions)
-					{
-						if (techPointInteraction.m_type == techPointInteractionMod.interactionType)
-						{
-							for (;;)
+							TechPointInteraction techPointInteraction = techPointInteractions[num];
+							if (techPointInteraction.m_type == techPointInteractionMod.interactionType)
 							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
+								baseVal = techPointInteraction.m_amount;
 								break;
 							}
-							baseVal = techPointInteraction.m_amount;
-							goto IL_C4;
-						}
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
+							num++;
 							continue;
 						}
 						break;
 					}
 				}
-				IL_C4:
-				AbilityMod.AddToken(tokens, techPointInteractionMod.modAmount, techPointInteractionMod.interactionType.ToString(), "Energy Gain", baseVal, true, false);
+				AddToken(tokens, techPointInteractionMod.modAmount, techPointInteractionMod.interactionType.ToString(), "Energy Gain", baseVal);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public static void AddToken(List<TooltipTokenEntry> entries, AbilityModPropertyInt modProp, string tokenName, string desc, int baseVal, bool addCompare = true, bool addForZeroBase = false)
 	{
-		if (modProp != null)
+		if (modProp == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (modProp.operation == AbilityModPropertyInt.ModOp.Ignore)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.AddToken(List<TooltipTokenEntry>, AbilityModPropertyInt, string, string, int, bool, bool)).MethodHandle;
-			}
-			if (modProp.operation != AbilityModPropertyInt.ModOp.Ignore)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int modifiedValue = modProp.GetModifiedValue(baseVal);
 				entries.Add(new TooltipTokenInt(tokenName + "_Final", desc + " | Final Value", Mathf.Abs(modifiedValue)));
-				if (addCompare)
+				if (!addCompare)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					return;
+				}
+				while (true)
+				{
 					if (baseVal == 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!addForZeroBase)
 						{
 							return;
 						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					int val = Mathf.Abs(modifiedValue - baseVal);
 					entries.Add(new TooltipTokenInt(tokenName + "_Diff", desc + " | Difference", val));
+					return;
 				}
 			}
 		}
@@ -848,120 +531,66 @@ public class AbilityMod : MonoBehaviour
 
 	public static void AddToken(List<TooltipTokenEntry> entries, AbilityModPropertyFloat modProp, string tokenName, string desc, float baseVal, bool addCompare = true, bool addDecimal = false, bool addAsPct = false)
 	{
-		if (modProp != null && modProp.operation != AbilityModPropertyFloat.ModOp.Ignore)
+		if (modProp == null || modProp.operation == AbilityModPropertyFloat.ModOp.Ignore)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.AddToken(List<TooltipTokenEntry>, AbilityModPropertyFloat, string, string, float, bool, bool, bool)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			float modifiedValue = modProp.GetModifiedValue(baseVal);
 			entries.Add(new TooltipTokenInt(tokenName + "_Final", desc + " | Final Value", Mathf.RoundToInt(modifiedValue)));
 			if (addCompare && baseVal != 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int val = Mathf.Abs(Mathf.RoundToInt(modifiedValue - baseVal));
 				entries.Add(new TooltipTokenInt(tokenName + "_Diff", desc + " | Difference", val));
 			}
 			if (addDecimal)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				entries.Add(new TooltipTokenFloat(tokenName + "_Decimal", desc + " | As Decimal Num", modifiedValue));
 			}
 			if (addAsPct)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					entries.Add(new TooltipTokenPct(tokenName + "_Pct", desc + " | as percent", Mathf.RoundToInt(100f * modifiedValue)));
+					return;
 				}
-				entries.Add(new TooltipTokenPct(tokenName + "_Pct", desc + " | as percent", Mathf.RoundToInt(100f * modifiedValue)));
 			}
+			return;
 		}
 	}
 
 	public static void AddToken_IntDiff(List<TooltipTokenEntry> tokens, string name, string desc, int val, bool addDiff, int otherVal)
 	{
-		if (val > 0)
+		if (val <= 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.AddToken_IntDiff(List<TooltipTokenEntry>, string, string, int, bool, int)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			tokens.Add(new TooltipTokenInt(name, desc + " | Final Value", val));
-			if (addDiff)
+			if (!addDiff)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				if (otherVal <= 0)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (otherVal > 0)
+				while (true)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num = Mathf.Abs(val - otherVal);
 					if (num > 0)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							tokens.Add(new TooltipTokenInt(name + "_Diff", desc + " | Difference", num));
+							return;
 						}
-						tokens.Add(new TooltipTokenInt(name + "_Diff", desc + " | Difference", num));
 					}
+					return;
 				}
 			}
 		}
@@ -969,377 +598,239 @@ public class AbilityMod : MonoBehaviour
 
 	public static void AddToken_LaserInfo(List<TooltipTokenEntry> tokens, AbilityModPropertyLaserInfo laserInfoMod, string tokenName, LaserTargetingInfo baseLaserInfo = null, bool compareWithBase = true)
 	{
-		if (laserInfoMod != null)
+		if (laserInfoMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.AddToken_LaserInfo(List<TooltipTokenEntry>, AbilityModPropertyLaserInfo, string, LaserTargetingInfo, bool)).MethodHandle;
-			}
-			bool flag;
+			return;
+		}
+		while (true)
+		{
+			int num;
 			if (compareWithBase)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag = (baseLaserInfo != null);
+				num = ((baseLaserInfo != null) ? 1 : 0);
 			}
 			else
 			{
-				flag = false;
+				num = 0;
 			}
-			bool flag2 = flag;
+			bool flag = (byte)num != 0;
 			AbilityModPropertyFloat rangeMod = laserInfoMod.m_rangeMod;
 			string tokenName2 = tokenName + "_Range";
-			string desc = "laser range";
 			float baseVal;
-			if (flag2)
+			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = baseLaserInfo.range;
 			}
 			else
 			{
 				baseVal = 0f;
 			}
-			AbilityMod.AddToken(tokens, rangeMod, tokenName2, desc, baseVal, flag2, false, false);
+			AddToken(tokens, rangeMod, tokenName2, "laser range", baseVal, flag);
 			AbilityModPropertyFloat widthMod = laserInfoMod.m_widthMod;
 			string tokenName3 = tokenName + "_Width";
-			string desc2 = "laser width";
 			float baseVal2;
-			if (flag2)
+			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = baseLaserInfo.width;
 			}
 			else
 			{
 				baseVal2 = 0f;
 			}
-			AbilityMod.AddToken(tokens, widthMod, tokenName3, desc2, baseVal2, flag2, false, false);
+			AddToken(tokens, widthMod, tokenName3, "laser width", baseVal2, flag);
 			AbilityModPropertyInt maxTargetsMod = laserInfoMod.m_maxTargetsMod;
 			string tokenName4 = tokenName + "_MaxTargets";
-			string desc3 = "laser max targets";
 			int baseVal3;
-			if (flag2)
+			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = baseLaserInfo.maxTargets;
 			}
 			else
 			{
 				baseVal3 = 0;
 			}
-			AbilityMod.AddToken(tokens, maxTargetsMod, tokenName4, desc3, baseVal3, flag2, false);
+			AddToken(tokens, maxTargetsMod, tokenName4, "laser max targets", baseVal3, flag);
+			return;
 		}
 	}
 
 	public static void AddToken_ConeInfo(List<TooltipTokenEntry> tokens, AbilityModPropertyConeInfo coneInfoMod, string tokenName, ConeTargetingInfo baseConeInfo = null, bool compareWithBase = true)
 	{
-		if (coneInfoMod != null)
+		if (coneInfoMod == null)
 		{
-			bool flag;
-			if (compareWithBase)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.AddToken_ConeInfo(List<TooltipTokenEntry>, AbilityModPropertyConeInfo, string, ConeTargetingInfo, bool)).MethodHandle;
-				}
-				flag = (baseConeInfo != null);
-			}
-			else
-			{
-				flag = false;
-			}
-			bool flag2 = flag;
-			AbilityModPropertyFloat radiusMod = coneInfoMod.m_radiusMod;
-			string tokenName2 = tokenName + "_Radius";
-			string desc = "cone radius";
-			float baseVal;
-			if (flag2)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				baseVal = baseConeInfo.m_radiusInSquares;
-			}
-			else
-			{
-				baseVal = 0f;
-			}
-			AbilityMod.AddToken(tokens, radiusMod, tokenName2, desc, baseVal, flag2, false, false);
-			AbilityMod.AddToken(tokens, coneInfoMod.m_widthAngleMod, tokenName + "_Width", "cone width angle", (!flag2) ? 0f : baseConeInfo.m_widthAngleDeg, flag2, false, false);
+			return;
 		}
+		int num;
+		if (compareWithBase)
+		{
+			num = ((baseConeInfo != null) ? 1 : 0);
+		}
+		else
+		{
+			num = 0;
+		}
+		bool flag = (byte)num != 0;
+		AbilityModPropertyFloat radiusMod = coneInfoMod.m_radiusMod;
+		string tokenName2 = tokenName + "_Radius";
+		float baseVal;
+		if (flag)
+		{
+			baseVal = baseConeInfo.m_radiusInSquares;
+		}
+		else
+		{
+			baseVal = 0f;
+		}
+		AddToken(tokens, radiusMod, tokenName2, "cone radius", baseVal, flag);
+		AddToken(tokens, coneInfoMod.m_widthAngleMod, tokenName + "_Width", "cone width angle", (!flag) ? 0f : baseConeInfo.m_widthAngleDeg, flag);
 	}
 
 	public static void AddToken_EffectInfo(List<TooltipTokenEntry> entries, StandardEffectInfo effectInfo, string tokenName, StandardEffectInfo baseVal = null, bool compareWithBase = true)
 	{
-		if (effectInfo != null)
+		if (effectInfo == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!effectInfo.m_applyEffect)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.AddToken_EffectInfo(List<TooltipTokenEntry>, StandardEffectInfo, string, StandardEffectInfo, bool)).MethodHandle;
-			}
-			if (effectInfo.m_applyEffect)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				bool flag;
+				int num;
 				if (compareWithBase && baseVal != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag = baseVal.m_applyEffect;
+					num = (baseVal.m_applyEffect ? 1 : 0);
 				}
 				else
 				{
-					flag = false;
+					num = 0;
 				}
-				bool flag2 = flag;
-				effectInfo.m_effectData.AddTooltipTokens(entries, tokenName, flag2, (!flag2) ? null : baseVal.m_effectData);
+				bool flag = (byte)num != 0;
+				effectInfo.m_effectData.AddTooltipTokens(entries, tokenName, flag, (!flag) ? null : baseVal.m_effectData);
+				return;
 			}
 		}
 	}
 
 	public static void AddToken_EffectMod(List<TooltipTokenEntry> entries, AbilityModPropertyEffectInfo modProp, string tokenName, StandardEffectInfo baseVal = null, bool compareWithBase = true)
 	{
-		if (modProp != null)
+		if (modProp == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (modProp.operation != 0 && modProp.effectInfo.m_applyEffect)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				AddToken_EffectInfo(entries, modProp.effectInfo, tokenName, baseVal, compareWithBase);
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.AddToken_EffectMod(List<TooltipTokenEntry>, AbilityModPropertyEffectInfo, string, StandardEffectInfo, bool)).MethodHandle;
-			}
-			if (modProp.operation != AbilityModPropertyEffectInfo.ModOp.Ignore && modProp.effectInfo.m_applyEffect)
-			{
-				AbilityMod.AddToken_EffectInfo(entries, modProp.effectInfo, tokenName, baseVal, compareWithBase);
-				return;
-			}
+			return;
 		}
 	}
 
 	public static void AddToken_EffectMod(List<TooltipTokenEntry> entries, AbilityModPropertyEffectData modProp, string tokenName, StandardActorEffectData baseVal = null, bool compareWithBase = true)
 	{
-		if (modProp != null)
+		if (modProp == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (modProp.operation == AbilityModPropertyEffectData.ModOp.Ignore)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.AddToken_EffectMod(List<TooltipTokenEntry>, AbilityModPropertyEffectData, string, StandardActorEffectData, bool)).MethodHandle;
-			}
-			if (modProp.operation != AbilityModPropertyEffectData.ModOp.Ignore)
-			{
-				for (;;)
+				if (modProp.effectData == null)
 				{
-					switch (4)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (6)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
 					}
-					break;
 				}
-				if (modProp.effectData != null)
-				{
-					modProp.effectData.AddTooltipTokens(entries, tokenName, compareWithBase, baseVal);
-					return;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				modProp.effectData.AddTooltipTokens(entries, tokenName, compareWithBase, baseVal);
+				return;
 			}
 		}
 	}
 
 	public static void AddToken_BarrierMod(List<TooltipTokenEntry> entries, AbilityModPropertyBarrierDataV2 modProp, string tokenName, StandardBarrierData baseVal)
 	{
-		if (modProp != null && baseVal != null)
+		if (modProp == null || baseVal == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (modProp.operation == AbilityModPropertyBarrierDataV2.ModOp.Ignore)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			if (modProp.barrierModData == null)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.AddToken_BarrierMod(List<TooltipTokenEntry>, AbilityModPropertyBarrierDataV2, string, StandardBarrierData)).MethodHandle;
-			}
-			if (modProp.operation != AbilityModPropertyBarrierDataV2.ModOp.Ignore)
-			{
-				if (modProp.barrierModData != null)
-				{
-					StandardBarrierData modifiedCopy = modProp.barrierModData.GetModifiedCopy(baseVal);
-					modifiedCopy.AddTooltipTokens(entries, tokenName, true, baseVal);
-					return;
-				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
+			StandardBarrierData modifiedCopy = modProp.barrierModData.GetModifiedCopy(baseVal);
+			modifiedCopy.AddTooltipTokens(entries, tokenName, true, baseVal);
+			return;
 		}
 	}
 
 	public static void AddToken_GroundFieldMod(List<TooltipTokenEntry> entries, AbilityModPropertyGroundEffectField modProp, string tokenName, GroundEffectField baseVal)
 	{
-		if (modProp != null)
+		if (modProp == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (baseVal == null)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.AddToken_GroundFieldMod(List<TooltipTokenEntry>, AbilityModPropertyGroundEffectField, string, GroundEffectField)).MethodHandle;
-			}
-			if (baseVal != null)
-			{
-				for (;;)
+				if (modProp.operation == AbilityModPropertyGroundEffectField.ModOp.Ignore)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (modProp.operation != AbilityModPropertyGroundEffectField.ModOp.Ignore)
+				while (true)
 				{
-					for (;;)
+					if (modProp.groundFieldModData == null)
 					{
-						switch (3)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (4)
+							{
+							default:
+								return;
+							case 0:
+								break;
+							}
 						}
-						break;
 					}
-					if (modProp.groundFieldModData != null)
-					{
-						GroundEffectField modifiedCopy = modProp.groundFieldModData.GetModifiedCopy(baseVal);
-						modifiedCopy.AddTooltipTokens(entries, tokenName, true, baseVal);
-						return;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					GroundEffectField modifiedCopy = modProp.groundFieldModData.GetModifiedCopy(baseVal);
+					modifiedCopy.AddTooltipTokens(entries, tokenName, true, baseVal);
+					return;
 				}
 			}
 		}
@@ -1347,653 +838,299 @@ public class AbilityMod : MonoBehaviour
 
 	public string GetAutogenDesc(AbilityData abilityData = null)
 	{
-		Ability targetAbilityOnAbilityData = this.GetTargetAbilityOnAbilityData(abilityData);
+		Ability targetAbilityOnAbilityData = GetTargetAbilityOnAbilityData(abilityData);
 		bool flag = targetAbilityOnAbilityData != null;
-		string text = string.Empty;
+		string str = string.Empty;
 		string color = "lime";
-		if (this.m_useRunPriorityOverride)
+		if (m_useRunPriorityOverride)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.GetAutogenDesc(AbilityData)).MethodHandle;
-			}
-			text += InEditorDescHelper.ColoredString("[Run Phase Override] = " + this.m_runPriorityOverride.ToString() + "\n", color, false);
+			str += InEditorDescHelper.ColoredString("[Run Phase Override] = " + m_runPriorityOverride.ToString() + "\n", color);
 		}
-		text += this.PropDesc(this.m_techPointCostMod, InEditorDescHelper.ColoredString("[TechPoint Cost]", color, false), flag, (!flag) ? 0 : targetAbilityOnAbilityData.m_techPointsCost);
-		string str = text;
-		AbilityModPropertyInt maxCooldownMod = this.m_maxCooldownMod;
-		string prefix = InEditorDescHelper.ColoredString("[Max Cooldown]", color, false);
-		bool showBaseVal = flag;
+		str += PropDesc(m_techPointCostMod, InEditorDescHelper.ColoredString("[TechPoint Cost]", color), flag, flag ? targetAbilityOnAbilityData.m_techPointsCost : 0);
+		string str2 = str;
+		AbilityModPropertyInt maxCooldownMod = m_maxCooldownMod;
+		string prefix = InEditorDescHelper.ColoredString("[Max Cooldown]", color);
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = targetAbilityOnAbilityData.m_cooldown;
 		}
 		else
 		{
 			baseVal = 0;
 		}
-		text = str + this.PropDesc(maxCooldownMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt maxStocksMod = this.m_maxStocksMod;
-		string prefix2 = InEditorDescHelper.ColoredString("[Max Stock]", color, false);
-		bool showBaseVal2 = flag;
+		str = str2 + PropDesc(maxCooldownMod, prefix, flag, baseVal);
+		string str3 = str;
+		AbilityModPropertyInt maxStocksMod = m_maxStocksMod;
+		string prefix2 = InEditorDescHelper.ColoredString("[Max Stock]", color);
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = targetAbilityOnAbilityData.m_maxStocks;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + this.PropDesc(maxStocksMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt stockRefreshDurationMod = this.m_stockRefreshDurationMod;
-		string prefix3 = InEditorDescHelper.ColoredString("[Stock Refresh Duration]", color, false);
-		bool showBaseVal3 = flag;
+		str = str3 + PropDesc(maxStocksMod, prefix2, flag, baseVal2);
+		string str4 = str;
+		AbilityModPropertyInt stockRefreshDurationMod = m_stockRefreshDurationMod;
+		string prefix3 = InEditorDescHelper.ColoredString("[Stock Refresh Duration]", color);
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = targetAbilityOnAbilityData.m_stockRefreshDuration;
 		}
 		else
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + this.PropDesc(stockRefreshDurationMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyBool refillAllStockOnRefreshMod = this.m_refillAllStockOnRefreshMod;
-		string prefix4 = InEditorDescHelper.ColoredString("[Refill All Stock on Refresh]", color, false);
-		bool showBaseVal4 = flag;
-		bool baseVal4;
+		str = str4 + PropDesc(stockRefreshDurationMod, prefix3, flag, baseVal3);
+		string str5 = str;
+		AbilityModPropertyBool refillAllStockOnRefreshMod = m_refillAllStockOnRefreshMod;
+		string prefix4 = InEditorDescHelper.ColoredString("[Refill All Stock on Refresh]", color);
+		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal4 = targetAbilityOnAbilityData.m_refillAllStockOnRefresh;
+			baseVal4 = (targetAbilityOnAbilityData.m_refillAllStockOnRefresh ? 1 : 0);
 		}
 		else
 		{
-			baseVal4 = false;
+			baseVal4 = 0;
 		}
-		text = str4 + this.PropDesc(refillAllStockOnRefreshMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyBool isFreeActionMod = this.m_isFreeActionMod;
-		string prefix5 = InEditorDescHelper.ColoredString("[Free Action Override]", color, false);
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		str = str5 + PropDesc(refillAllStockOnRefreshMod, prefix4, flag, (byte)baseVal4 != 0);
+		string str6 = str;
+		AbilityModPropertyBool isFreeActionMod = m_isFreeActionMod;
+		string prefix5 = InEditorDescHelper.ColoredString("[Free Action Override]", color);
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal5 = targetAbilityOnAbilityData.m_freeAction;
+			baseVal5 = (targetAbilityOnAbilityData.m_freeAction ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + this.PropDesc(isFreeActionMod, prefix5, showBaseVal5, baseVal5);
-		text += this.PropDesc(this.m_autoQueueIfValidMod, InEditorDescHelper.ColoredString("[Auto Queue if Valid]", color, false), false, false);
-		text += this.PropDesc(this.m_targetDataMaxRangeMod, InEditorDescHelper.ColoredString("[TargetData Max Range]", color, false), false, 0f);
-		text += this.PropDesc(this.m_targetDataMinRangeMod, InEditorDescHelper.ColoredString("[TargetData Min Range]", color, false), false, 0f);
-		text += this.PropDesc(this.m_targetDataCheckLosMod, InEditorDescHelper.ColoredString("[TargetData Check LoS]", color, false), false, false);
-		if (this.m_useTargetDataOverrides)
+		str = str6 + PropDesc(isFreeActionMod, prefix5, flag, (byte)baseVal5 != 0);
+		str += PropDesc(m_autoQueueIfValidMod, InEditorDescHelper.ColoredString("[Auto Queue if Valid]", color));
+		str += PropDesc(m_targetDataMaxRangeMod, InEditorDescHelper.ColoredString("[TargetData Max Range]", color));
+		str += PropDesc(m_targetDataMinRangeMod, InEditorDescHelper.ColoredString("[TargetData Min Range]", color));
+		str += PropDesc(m_targetDataCheckLosMod, InEditorDescHelper.ColoredString("[TargetData Check LoS]", color));
+		if (m_useTargetDataOverrides)
 		{
-			for (;;)
+			if (m_targetDataOverrides != null)
 			{
-				switch (3)
+				str += InEditorDescHelper.ColoredString("Using Target Data override, with " + m_targetDataOverrides.Length + " entries:\n", color);
+				TargetData[] targetDataOverrides = m_targetDataOverrides;
+				foreach (TargetData targetData in targetDataOverrides)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_targetDataOverrides != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text += InEditorDescHelper.ColoredString("Using Target Data override, with " + this.m_targetDataOverrides.Length + " entries:\n", color, false);
-				foreach (TargetData targetData in this.m_targetDataOverrides)
-				{
-					string str6 = text;
-					string str7 = "    [Paradigm] ";
-					string str8;
+					string str7 = str;
+					object str8;
 					if (targetData.m_targetingParadigm > (Ability.TargetingParadigm)0)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						str8 = targetData.m_targetingParadigm.ToString();
 					}
 					else
 					{
 						str8 = "INVALID";
 					}
-					text = str6 + str7 + str8;
-					string text2 = text;
-					text = string.Concat(new object[]
-					{
-						text2,
-						", [Range (without range mods)] ",
-						targetData.m_minRange,
-						" to ",
-						targetData.m_range
-					});
-					text = text + ", [Require Los] = " + targetData.m_checkLineOfSight.ToString() + "\n";
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					str = str7 + "    [Paradigm] " + (string)str8;
+					string text = str;
+					str = text + ", [Range (without range mods)] " + targetData.m_minRange + " to " + targetData.m_range;
+					str = str + ", [Require Los] = " + targetData.m_checkLineOfSight + "\n";
 				}
 			}
 		}
 		bool flag2 = false;
-		if (this.m_effectToSelfOnCast != null)
+		if (m_effectToSelfOnCast != null)
 		{
-			for (;;)
+			if (m_effectToSelfOnCast.m_applyEffect)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_effectToSelfOnCast.m_applyEffect)
-			{
-				text += InEditorDescHelper.ColoredString("Applies effect to Self on Cast:\n", color, false);
-				text = text + this.m_effectToSelfOnCast.m_effectData.GetInEditorDescription(string.Empty, true, false, null) + "\n";
+				str += InEditorDescHelper.ColoredString("Applies effect to Self on Cast:\n", color);
+				str = str + m_effectToSelfOnCast.m_effectData.GetInEditorDescription(string.Empty) + "\n";
 				flag2 = true;
 			}
 		}
-		if (this.m_effectToTargetEnemyOnHit != null)
+		if (m_effectToTargetEnemyOnHit != null)
 		{
-			for (;;)
+			if (m_effectToTargetEnemyOnHit.m_applyEffect)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_effectToTargetEnemyOnHit.m_applyEffect)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text += InEditorDescHelper.ColoredString("Applies effect to Targeted Enemy on Hit:\n", color, false);
-				text = text + this.m_effectToTargetEnemyOnHit.m_effectData.GetInEditorDescription(string.Empty, true, false, null) + "\n";
+				str += InEditorDescHelper.ColoredString("Applies effect to Targeted Enemy on Hit:\n", color);
+				str = str + m_effectToTargetEnemyOnHit.m_effectData.GetInEditorDescription(string.Empty) + "\n";
 				flag2 = true;
 			}
 		}
-		if (this.m_effectToTargetAllyOnHit != null)
+		if (m_effectToTargetAllyOnHit != null)
 		{
-			for (;;)
+			if (m_effectToTargetAllyOnHit.m_applyEffect)
 			{
-				switch (4)
+				str += InEditorDescHelper.ColoredString("Applies effect to Targeted Ally on Hit:\n", color);
+				str = str + m_effectToTargetAllyOnHit.m_effectData.GetInEditorDescription(string.Empty) + "\n";
+				if (m_useAllyEffectForTargetedCaster)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_effectToTargetAllyOnHit.m_applyEffect)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text += InEditorDescHelper.ColoredString("Applies effect to Targeted Ally on Hit:\n", color, false);
-				text = text + this.m_effectToTargetAllyOnHit.m_effectData.GetInEditorDescription(string.Empty, true, false, null) + "\n";
-				if (this.m_useAllyEffectForTargetedCaster)
-				{
-					text += "\t(also applies to self if targeted)\n";
+					str += "\t(also applies to self if targeted)\n";
 				}
 				flag2 = true;
 			}
 		}
-		if (this.m_effectTriggerChance < 1f)
+		if (m_effectTriggerChance < 1f)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				for (;;)
+				str += InEditorDescHelper.ColoredString($"        {m_effectTriggerChance * 100f}% of the time", color);
+				if (m_effectTriggerChanceMultipliedPerHit)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					str += InEditorDescHelper.ColoredString(" (per hit)", color);
 				}
-				text += InEditorDescHelper.ColoredString(string.Format("        {0}% of the time", this.m_effectTriggerChance * 100f), color, false);
-				if (this.m_effectTriggerChanceMultipliedPerHit)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					text += InEditorDescHelper.ColoredString(" (per hit)", color, false);
-				}
-				text += "\n";
+				str += "\n";
 			}
 		}
-		if (this.m_cooldownReductionsOnSelf != null && this.m_cooldownReductionsOnSelf.HasCooldownReduction())
+		if (m_cooldownReductionsOnSelf != null && m_cooldownReductionsOnSelf.HasCooldownReduction())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text += InEditorDescHelper.ColoredString("Cooldown Reductions on Cast:\n", color, false);
-			text += this.m_cooldownReductionsOnSelf.GetDescription(abilityData);
+			str += InEditorDescHelper.ColoredString("Cooldown Reductions on Cast:\n", color);
+			str += m_cooldownReductionsOnSelf.GetDescription(abilityData);
 		}
-		if (this.m_techPointInteractionMods != null)
+		if (m_techPointInteractionMods != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag3 = false;
 			if (targetAbilityOnAbilityData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetAbilityOnAbilityData.m_techPointInteractions != null)
 				{
 					flag3 = true;
 				}
 			}
-			foreach (TechPointInteractionMod techPointInteractionMod in this.m_techPointInteractionMods)
+			TechPointInteractionMod[] techPointInteractionMods = m_techPointInteractionMods;
+			foreach (TechPointInteractionMod techPointInteractionMod in techPointInteractionMods)
 			{
 				int baseVal6 = 0;
 				if (flag3)
 				{
-					foreach (TechPointInteraction techPointInteraction in targetAbilityOnAbilityData.m_techPointInteractions)
+					TechPointInteraction[] techPointInteractions = targetAbilityOnAbilityData.m_techPointInteractions;
+					int num = 0;
+					while (true)
 					{
-						if (techPointInteraction.m_type == techPointInteractionMod.interactionType)
+						if (num < techPointInteractions.Length)
 						{
-							for (;;)
+							TechPointInteraction techPointInteraction = techPointInteractions[num];
+							if (techPointInteraction.m_type == techPointInteractionMod.interactionType)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
+								baseVal6 = techPointInteraction.m_amount;
 								break;
 							}
-							baseVal6 = techPointInteraction.m_amount;
-							goto IL_64F;
-						}
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
+							num++;
 							continue;
 						}
 						break;
 					}
 				}
-				IL_64F:
-				text += InEditorDescHelper.ColoredString(AbilityModHelper.GetTechPointModDesc(techPointInteractionMod, flag3, baseVal6), color, false);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				str += InEditorDescHelper.ColoredString(AbilityModHelper.GetTechPointModDesc(techPointInteractionMod, flag3, baseVal6), color);
 			}
 		}
-		if (this.m_useActionAnimTypeOverride)
+		if (m_useActionAnimTypeOverride)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text += InEditorDescHelper.ColoredString("Using Action Anim Type Override, " + this.m_actionAnimTypeOverride.ToString() + "\n\n", color, false);
+			str += InEditorDescHelper.ColoredString("Using Action Anim Type Override, " + m_actionAnimTypeOverride.ToString() + "\n\n", color);
 		}
-		if (this.m_useMovementAdjustmentOverride)
+		if (m_useMovementAdjustmentOverride)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text += InEditorDescHelper.ColoredString("Using Movement Adjustment Override, " + this.m_movementAdjustmentOverride.ToString() + "\n\n", color, false);
+			str += InEditorDescHelper.ColoredString("Using Movement Adjustment Override, " + m_movementAdjustmentOverride.ToString() + "\n\n", color);
 		}
-		if (this.m_chainAbilityModInfo != null)
+		if (m_chainAbilityModInfo != null)
 		{
-			using (List<ChainAbilityAdditionalModInfo>.Enumerator enumerator = this.m_chainAbilityModInfo.GetEnumerator())
+			using (List<ChainAbilityAdditionalModInfo>.Enumerator enumerator = m_chainAbilityModInfo.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ChainAbilityAdditionalModInfo chainAbilityAdditionalModInfo = enumerator.Current;
-					text += chainAbilityAdditionalModInfo.GetDescription(abilityData, targetAbilityOnAbilityData, this);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					ChainAbilityAdditionalModInfo current = enumerator.Current;
+					str += current.GetDescription(abilityData, targetAbilityOnAbilityData, this);
 				}
 			}
 		}
-		if (this.m_useChainAbilityOverrides)
+		if (m_useChainAbilityOverrides)
 		{
-			for (;;)
+			str += InEditorDescHelper.ColoredString("Using Chain Ability Override\n", color);
+			Ability[] chainAbilityOverrides = m_chainAbilityOverrides;
+			foreach (Ability ability in chainAbilityOverrides)
 			{
-				switch (5)
+				if (!(ability != null))
 				{
-				case 0:
 					continue;
 				}
-				break;
-			}
-			text += InEditorDescHelper.ColoredString("Using Chain Ability Override\n", color, false);
-			foreach (Ability ability in this.m_chainAbilityOverrides)
-			{
-				if (ability != null)
+				str = str + "    Chain Ability: " + ability.m_abilityName + "\n";
+				if (ability.m_abilityName == "Base Ability")
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					text = text + "    Chain Ability: " + ability.m_abilityName + "\n";
-					if (ability.m_abilityName == "Base Ability")
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						text += "        (Please give a name to this ability for easier identification)\n";
-					}
+					str += "        (Please give a name to this ability for easier identification)\n";
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
-		if (this.m_tagsModType != AbilityMod.TagOverrideType.Ignore)
+		if (m_tagsModType != 0)
 		{
-			for (;;)
+			str += InEditorDescHelper.ColoredString("Using Tag Mods, type = " + m_tagsModType.ToString() + ":\n", color);
+			foreach (AbilityTags item in m_abilityTagsInMod)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text += InEditorDescHelper.ColoredString("Using Tag Mods, type = " + this.m_tagsModType.ToString() + ":\n", color, false);
-			foreach (AbilityTags abilityTags in this.m_abilityTagsInMod)
-			{
-				text = text + "    " + abilityTags.ToString() + "\n";
+				str = str + "    " + item.ToString() + "\n";
 			}
 		}
-		if (this.m_statModsWhileEquipped != null)
+		if (m_statModsWhileEquipped != null)
 		{
-			for (;;)
+			if (m_statModsWhileEquipped.Length > 0)
 			{
-				switch (2)
+				str += InEditorDescHelper.ColoredString("Stat Mods while Equipped:\n", color);
+				AbilityStatMod[] statModsWhileEquipped = m_statModsWhileEquipped;
+				foreach (AbilityStatMod abilityStatMod in statModsWhileEquipped)
 				{
-				case 0:
-					continue;
+					str = str + "    " + abilityStatMod.ToString() + "\n";
 				}
-				break;
-			}
-			if (this.m_statModsWhileEquipped.Length > 0)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text += InEditorDescHelper.ColoredString("Stat Mods while Equipped:\n", color, false);
-				foreach (AbilityStatMod abilityStatMod in this.m_statModsWhileEquipped)
-				{
-					text = text + "    " + abilityStatMod.ToString() + "\n";
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text += "\n";
+				str += "\n";
 			}
 		}
-		if (this.m_useStatusWhenRequestedOverride)
+		if (m_useStatusWhenRequestedOverride)
 		{
-			for (;;)
+			if (m_statusWhenRequestedOverride.Count > 0)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_statusWhenRequestedOverride.Count > 0)
-			{
-				text += InEditorDescHelper.ColoredString("Buff/Debuff Status on ability request (in Decision):\n", color, false);
-				using (List<StatusType>.Enumerator enumerator3 = this.m_statusWhenRequestedOverride.GetEnumerator())
+				str += InEditorDescHelper.ColoredString("Buff/Debuff Status on ability request (in Decision):\n", color);
+				using (List<StatusType>.Enumerator enumerator3 = m_statusWhenRequestedOverride.GetEnumerator())
 				{
 					while (enumerator3.MoveNext())
 					{
-						StatusType statusType = enumerator3.Current;
-						text = text + "    [ " + InEditorDescHelper.ColoredString(statusType.ToString(), "cyan", false) + " ]\n";
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						str = str + "    [ " + InEditorDescHelper.ColoredString(enumerator3.Current.ToString()) + " ]\n";
 					}
 				}
-				text += "\n";
+				str += "\n";
 			}
 		}
-		if (this.beginningOfModSpecificData)
+		if (beginningOfModSpecificData)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text += "Meow! (Beginning of Mod Specific Data checkbox does nothing)";
+			str += "Meow! (Beginning of Mod Specific Data checkbox does nothing)";
 		}
-		if (text.Length > 0)
+		if (str.Length > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text += "\n";
+			str += "\n";
 		}
 		string str9 = string.Empty;
 		try
 		{
-			str9 = this.ModSpecificAutogenDesc(abilityData);
+			str9 = ModSpecificAutogenDesc(abilityData);
 		}
 		catch (Exception ex)
 		{
 			if (Application.isEditor)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						Debug.LogError("Exception while trying to generate mod specific description. StackTrace:\n" + ex.StackTrace);
+						goto end_IL_0a5d;
 					}
-					break;
 				}
-				Debug.LogError("Exception while trying to generate mod specific description. StackTrace:\n" + ex.StackTrace);
 			}
+			end_IL_0a5d:;
 		}
-		return text + str9;
+		return str + str9;
 	}
 
 	protected virtual string ModSpecificAutogenDesc(AbilityData abilityData)
@@ -2006,35 +1143,22 @@ public class AbilityMod : MonoBehaviour
 		if (abilityData != null)
 		{
 			List<Ability> abilitiesAsList = abilityData.GetAbilitiesAsList();
-			foreach (Ability ability in abilitiesAsList)
+			foreach (Ability item in abilitiesAsList)
 			{
-				if (ability != null)
+				if (item != null)
 				{
-					for (;;)
+					if (item.GetType() == GetTargetAbilityType())
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.GetTargetAbilityOnAbilityData(AbilityData)).MethodHandle;
-					}
-					if (ability.GetType() == this.GetTargetAbilityType())
-					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return item;
 							}
-							break;
 						}
-						return ability;
 					}
 				}
 			}
@@ -2106,163 +1230,82 @@ public class AbilityMod : MonoBehaviour
 	{
 	}
 
-	public List<int> \u001D(Ability \u001D)
+	public List<int> _001D(Ability _001D)
 	{
 		List<int> list = new List<int>();
-		if (\u001D != null)
+		if (_001D != null)
 		{
-			int techPointsCost = \u001D.m_techPointsCost;
-			int modifiedValue = this.m_techPointCostMod.GetModifiedValue(techPointsCost);
+			int techPointsCost = _001D.m_techPointsCost;
+			int modifiedValue = m_techPointCostMod.GetModifiedValue(techPointsCost);
 			if (techPointsCost != modifiedValue)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.\u001D(Ability)).MethodHandle;
-				}
 				list.Add(modifiedValue);
 				list.Add(Mathf.Abs(techPointsCost - modifiedValue));
 			}
 		}
-		this.AppendTooltipCheckNumbersFromTargetDataEntresi(\u001D, list);
-		this.AppendTooltipCheckNumbersFromTechPointInteractions(\u001D, list);
-		if (this.m_maxCooldownMod.operation != AbilityModPropertyInt.ModOp.Ignore)
+		AppendTooltipCheckNumbersFromTargetDataEntresi(_001D, list);
+		AppendTooltipCheckNumbersFromTechPointInteractions(_001D, list);
+		if (m_maxCooldownMod.operation != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			int num = (int)Mathf.Abs(this.m_maxCooldownMod.value);
+			int num = (int)Mathf.Abs(m_maxCooldownMod.value);
 			if (num != 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(num);
 			}
-			if (\u001D != null)
+			if (_001D != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				int modifiedValue2 = this.m_maxCooldownMod.GetModifiedValue(\u001D.m_cooldown);
-				int num2 = \u001D.m_cooldown - modifiedValue2;
+				int modifiedValue2 = m_maxCooldownMod.GetModifiedValue(_001D.m_cooldown);
+				int num2 = _001D.m_cooldown - modifiedValue2;
 				if (num2 != 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(Mathf.Abs(num2));
 					list.Add(Mathf.Abs(modifiedValue2));
 				}
 			}
 		}
-		this.AppendModSpecificTooltipCheckNumbers(\u001D, list);
+		AppendModSpecificTooltipCheckNumbers(_001D, list);
 		return list;
 	}
 
 	private void AppendTooltipCheckNumbersFromTargetDataEntresi(Ability ability, List<int> numbers)
 	{
-		if (ability != null)
+		if (!(ability != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (ability.m_targetData == null)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.AppendTooltipCheckNumbersFromTargetDataEntresi(Ability, List<int>)).MethodHandle;
-			}
-			if (ability.m_targetData != null)
-			{
-				for (;;)
+				if (ability.m_targetData.Length <= 0)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (ability.m_targetData.Length > 0)
+				while (true)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float minRange = ability.m_targetData[0].m_minRange;
 					float range = ability.m_targetData[0].m_range;
-					float modifiedValue = this.m_targetDataMinRangeMod.GetModifiedValue(minRange);
-					float modifiedValue2 = this.m_targetDataMaxRangeMod.GetModifiedValue(range);
+					float modifiedValue = m_targetDataMinRangeMod.GetModifiedValue(minRange);
+					float modifiedValue2 = m_targetDataMaxRangeMod.GetModifiedValue(range);
 					int num = Mathf.Abs(Mathf.RoundToInt(minRange - modifiedValue));
 					int num2 = Mathf.Abs(Mathf.RoundToInt(range - modifiedValue2));
 					if (num > 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						numbers.Add(num);
 					}
 					if (num2 > 0)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							numbers.Add(num2);
+							return;
 						}
-						numbers.Add(num2);
 					}
+					return;
 				}
 			}
 		}
@@ -2270,111 +1313,62 @@ public class AbilityMod : MonoBehaviour
 
 	private void AppendTooltipCheckNumbersFromTechPointInteractions(Ability ability, List<int> numbers)
 	{
-		if (ability != null)
+		if (!(ability != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.AppendTooltipCheckNumbersFromTechPointInteractions(Ability, List<int>)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			Dictionary<TechPointInteractionType, int> dictionary = new Dictionary<TechPointInteractionType, int>();
 			if (ability.m_techPointInteractions != null)
 			{
-				for (;;)
+				TechPointInteraction[] techPointInteractions = ability.m_techPointInteractions;
+				for (int i = 0; i < techPointInteractions.Length; i++)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				foreach (TechPointInteraction techPointInteraction in ability.m_techPointInteractions)
-				{
+					TechPointInteraction techPointInteraction = techPointInteractions[i];
 					if (!dictionary.ContainsKey(techPointInteraction.m_type))
 					{
-						for (;;)
+						int amount = techPointInteraction.m_amount;
+						amount = GetModdedTechPointForInteraction(techPointInteraction.m_type, amount);
+						if (amount > 0)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						int num = techPointInteraction.m_amount;
-						num = this.GetModdedTechPointForInteraction(techPointInteraction.m_type, num);
-						if (num > 0)
-						{
-							dictionary.Add(techPointInteraction.m_type, num);
+							dictionary.Add(techPointInteraction.m_type, amount);
 						}
 					}
 				}
 			}
-			foreach (TechPointInteractionMod techPointInteractionMod in this.m_techPointInteractionMods)
+			TechPointInteractionMod[] techPointInteractionMods = m_techPointInteractionMods;
+			foreach (TechPointInteractionMod techPointInteractionMod in techPointInteractionMods)
 			{
-				if (!dictionary.ContainsKey(techPointInteractionMod.interactionType))
+				if (dictionary.ContainsKey(techPointInteractionMod.interactionType))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					int moddedTechPointForInteraction = this.GetModdedTechPointForInteraction(techPointInteractionMod.interactionType, 0);
-					if (moddedTechPointForInteraction > 0)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						dictionary.Add(techPointInteractionMod.interactionType, moddedTechPointForInteraction);
-					}
+					continue;
+				}
+				int moddedTechPointForInteraction = GetModdedTechPointForInteraction(techPointInteractionMod.interactionType, 0);
+				if (moddedTechPointForInteraction > 0)
+				{
+					dictionary.Add(techPointInteractionMod.interactionType, moddedTechPointForInteraction);
 				}
 			}
 			using (Dictionary<TechPointInteractionType, int>.Enumerator enumerator = dictionary.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					KeyValuePair<TechPointInteractionType, int> keyValuePair = enumerator.Current;
-					if (keyValuePair.Value > 0)
+					KeyValuePair<TechPointInteractionType, int> current = enumerator.Current;
+					if (current.Value > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						numbers.Add(keyValuePair.Value);
+						numbers.Add(current.Value);
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}
@@ -2382,45 +1376,20 @@ public class AbilityMod : MonoBehaviour
 
 	public string GetDebugIdentifier(string colorString = "")
 	{
-		string text = string.Concat(new object[]
-		{
-			"Mod[ ",
-			this.m_abilityScopeId,
-			" ] ",
-			this.m_name,
-			" "
-		});
+		string text = "Mod[ " + m_abilityScopeId + " ] " + m_name + " ";
 		if (colorString.Length > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return "<color=" + colorString + ">" + text + "</color>";
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod.GetDebugIdentifier(string)).MethodHandle;
-			}
-			return string.Concat(new string[]
-			{
-				"<color=",
-				colorString,
-				">",
-				text,
-				"</color>"
-			});
 		}
 		return text;
-	}
-
-	public enum TagOverrideType
-	{
-		Ignore,
-		Override,
-		Append
 	}
 }

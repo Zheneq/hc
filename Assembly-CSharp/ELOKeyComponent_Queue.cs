@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class ELOKeyComponent_Queue : ELOKeyComponent
@@ -7,139 +6,83 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
 
 	private bool m_isInGeneralMode = true;
 
-	public override ELOKeyComponent.KeyModeEnum KeyMode
-	{
-		get
-		{
-			return ELOKeyComponent.KeyModeEnum.SPECIFICSvsGENERAL;
-		}
-	}
+	public override KeyModeEnum KeyMode => KeyModeEnum.SPECIFICSvsGENERAL;
 
-	public override ELOKeyComponent.BinaryModePhaseEnum BinaryModePhase
+	public override BinaryModePhaseEnum BinaryModePhase
 	{
 		get
 		{
-			ELOKeyComponent.BinaryModePhaseEnum result;
-			if (this.m_isInGeneralMode)
+			int result;
+			if (m_isInGeneralMode)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Queue.get_BinaryModePhase()).MethodHandle;
-				}
-				result = ELOKeyComponent.BinaryModePhaseEnum.PRIMARY;
+				result = 0;
 			}
 			else
 			{
-				result = ELOKeyComponent.BinaryModePhaseEnum.SECONDARY;
+				result = 1;
 			}
-			return result;
+			return (BinaryModePhaseEnum)result;
 		}
 	}
 
-	public static uint PhaseWidth
-	{
-		get
-		{
-			return 2U;
-		}
-	}
+	public static uint PhaseWidth => 2u;
 
-	public GameType GameType
-	{
-		get
-		{
-			return this.m_gameType;
-		}
-	}
+	public GameType GameType => m_gameType;
 
 	public override char GetComponentChar()
 	{
-		if (this.m_isInGeneralMode)
+		if (m_isInGeneralMode)
 		{
 			return '-';
 		}
-		if (this.m_gameType != GameType.PvP)
+		if (m_gameType != GameType.PvP)
 		{
-			for (;;)
+			if (m_gameType != GameType.NewPlayerPvP)
 			{
-				switch (7)
+				if (m_gameType == GameType.Ranked)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Queue.GetComponentChar()).MethodHandle;
-			}
-			if (this.m_gameType == GameType.NewPlayerPvP)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (this.m_gameType == GameType.Ranked)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return 'r';
 						}
-						break;
 					}
-					return 'r';
 				}
-				if (this.m_gameType == GameType.Custom)
+				if (m_gameType == GameType.Custom)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return 'm';
 						}
-						break;
 					}
-					return 'm';
 				}
-				if (this.m_gameType == GameType.Coop)
+				if (m_gameType == GameType.Coop)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return 'c';
 						}
-						break;
 					}
-					return 'c';
 				}
-				if (this.m_gameType == GameType.Solo)
+				if (m_gameType == GameType.Solo)
 				{
 					return 's';
 				}
-				if (this.m_gameType == GameType.Casual)
+				if (m_gameType == GameType.Casual)
 				{
 					return 'z';
 				}
@@ -151,90 +94,51 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
 
 	public override char GetPhaseChar()
 	{
-		char result;
-		if (this.m_isInGeneralMode)
+		int result;
+		if (m_isInGeneralMode)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Queue.GetPhaseChar()).MethodHandle;
-			}
-			result = '0';
+			result = 48;
 		}
 		else
 		{
-			result = 'Q';
+			result = 81;
 		}
-		return result;
+		return (char)result;
 	}
 
 	public override string GetPhaseDescription()
 	{
-		string result;
-		if (this.m_isInGeneralMode)
+		object result;
+		if (m_isInGeneralMode)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Queue.GetPhaseDescription()).MethodHandle;
-			}
 			result = "all";
 		}
 		else
 		{
-			result = this.GameType.ToString();
+			result = GameType.ToString();
 		}
-		return result;
+		return (string)result;
 	}
 
-	public override void Initialize(ELOKeyComponent.BinaryModePhaseEnum phase, GameType gameType, bool isCasual)
+	public override void Initialize(BinaryModePhaseEnum phase, GameType gameType, bool isCasual)
 	{
-		this.m_isInGeneralMode = (phase == ELOKeyComponent.BinaryModePhaseEnum.PRIMARY);
-		this.m_gameType = ((!isCasual) ? gameType : GameType.Casual);
+		m_isInGeneralMode = (phase == BinaryModePhaseEnum.PRIMARY);
+		m_gameType = ((!isCasual) ? gameType : GameType.Casual);
 	}
 
 	public override void Initialize(List<MatchmakingQueueConfig.EloKeyFlags> flags, GameType gameType, bool isCasual)
 	{
-		this.m_isInGeneralMode = !flags.Contains(MatchmakingQueueConfig.EloKeyFlags.QUEUE);
-		GameType gameType2;
+		m_isInGeneralMode = !flags.Contains(MatchmakingQueueConfig.EloKeyFlags.QUEUE);
+		int gameType2;
 		if (isCasual)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Queue.Initialize(List<MatchmakingQueueConfig.EloKeyFlags>, GameType, bool)).MethodHandle;
-			}
-			gameType2 = GameType.Casual;
+			gameType2 = 15;
 		}
 		else
 		{
-			gameType2 = gameType;
+			gameType2 = (int)gameType;
 		}
-		this.m_gameType = gameType2;
+		m_gameType = (GameType)gameType2;
 	}
 
 	public override bool MatchesFlag(MatchmakingQueueConfig.EloKeyFlags flag)

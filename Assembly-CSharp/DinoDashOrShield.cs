@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DinoDashOrShield : GenericAbility_Container
@@ -18,7 +17,7 @@ public class DinoDashOrShield : GenericAbility_Container
 	public TechPointInteraction[] m_dashTechPointInteractions;
 
 	[Separator("[Dash]: Movement Adjust", true)]
-	public Ability.MovementAdjustment m_dashMovementAdjust = Ability.MovementAdjustment.NoMovement;
+	public MovementAdjustment m_dashMovementAdjust = MovementAdjustment.NoMovement;
 
 	[Separator("[Dash]: Shielding per enemy hit", true)]
 	public int m_shieldPerEnemyHit;
@@ -56,283 +55,169 @@ public class DinoDashOrShield : GenericAbility_Container
 
 	public override string GetOnHitDataDesc()
 	{
-		return base.GetOnHitDataDesc() + "\n-- On Hit Data for dash --\n" + this.m_dashOnHitData.GetInEditorDesc();
+		return base.GetOnHitDataDesc() + "\n-- On Hit Data for dash --\n" + m_dashOnHitData.GetInEditorDesc();
 	}
 
 	public override List<GenericAbility_TargetSelectBase> GetRelevantTargetSelectCompForEditor()
 	{
 		List<GenericAbility_TargetSelectBase> relevantTargetSelectCompForEditor = base.GetRelevantTargetSelectCompForEditor();
-		if (this.m_targetSelectForDash != null)
+		if (m_targetSelectForDash != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetRelevantTargetSelectCompForEditor()).MethodHandle;
-			}
-			relevantTargetSelectCompForEditor.Add(this.m_targetSelectForDash);
+			relevantTargetSelectCompForEditor.Add(m_targetSelectForDash);
 		}
 		return relevantTargetSelectCompForEditor;
 	}
 
 	public void ResetTargetersForStanceChange()
 	{
-		this.SetupTargetersAndCachedVars();
+		SetupTargetersAndCachedVars();
 	}
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Dino_SyncComponent>();
-		this.SetCachedFields();
+		m_syncComp = GetComponent<Dino_SyncComponent>();
+		SetCachedFields();
 		base.SetupTargetersAndCachedVars();
-		if (base.Targeter is AbilityUtil_Targeter_LaserChargeReverseCones)
+		if (!(base.Targeter is AbilityUtil_Targeter_LaserChargeReverseCones))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.SetupTargetersAndCachedVars()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			AbilityUtil_Targeter_LaserChargeReverseCones abilityUtil_Targeter_LaserChargeReverseCones = base.Targeter as AbilityUtil_Targeter_LaserChargeReverseCones;
-			GenericAbility_TargetSelectBase targetSelectComp = this.GetTargetSelectComp();
+			GenericAbility_TargetSelectBase targetSelectComp = GetTargetSelectComp();
 			abilityUtil_Targeter_LaserChargeReverseCones.SetAffectedGroups(targetSelectComp.IncludeEnemies(), targetSelectComp.IncludeAllies(), true);
-			abilityUtil_Targeter_LaserChargeReverseCones.m_includeCasterDelegate = new AbilityUtil_Targeter_LaserChargeReverseCones.IncludeCasterDelegate(this.TargeterIncludeCaster);
+			abilityUtil_Targeter_LaserChargeReverseCones.m_includeCasterDelegate = TargeterIncludeCaster;
+			return;
 		}
 	}
 
 	private bool TargeterIncludeCaster(ActorData caster, List<ActorData> actorsSoFar)
 	{
-		bool result;
-		if (this.GetShieldPerEnemyHit() > 0)
+		int result;
+		if (GetShieldPerEnemyHit() > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.TargeterIncludeCaster(ActorData, List<ActorData>)).MethodHandle;
-			}
-			result = (actorsSoFar.Count > 0);
+			result = ((actorsSoFar.Count > 0) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
 	{
-		if (this.IsInReadyStance())
+		if (!IsInReadyStance())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (GetShieldPerEnemyHit() > 0)
 			{
-				switch (6)
+				while (true)
 				{
-				case 0:
-					continue;
+					SetShieldPerEnemyHitTargetingNumbers(targetActor, caster, GetShieldPerEnemyHit(), actorHitContext, results);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
-			}
-			if (this.GetShieldPerEnemyHit() > 0)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				DinoDashOrShield.SetShieldPerEnemyHitTargetingNumbers(targetActor, caster, this.GetShieldPerEnemyHit(), actorHitContext, results);
-			}
+			return;
 		}
 	}
 
 	public static void SetShieldPerEnemyHitTargetingNumbers(ActorData targetActor, ActorData caster, int shieldPerEnemyHit, Dictionary<ActorData, ActorHitContext> actorHitContext, TargetingNumberUpdateScratch results)
 	{
-		if (shieldPerEnemyHit > 0)
+		if (shieldPerEnemyHit <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(targetActor == caster))
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.SetShieldPerEnemyHitTargetingNumbers(ActorData, ActorData, int, Dictionary<ActorData, ActorHitContext>, TargetingNumberUpdateScratch)).MethodHandle;
-			}
-			if (targetActor == caster)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = 0;
 				using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorHitContext.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						KeyValuePair<ActorData, ActorHitContext> keyValuePair = enumerator.Current;
-						ActorData key = keyValuePair.Key;
-						if (key.\u000E() != caster.\u000E())
+						KeyValuePair<ActorData, ActorHitContext> current = enumerator.Current;
+						ActorData key = current.Key;
+						if (key.GetTeam() != caster.GetTeam())
 						{
-							for (;;)
+							if (current.Value._0012)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (keyValuePair.Value.\u0012)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num++;
 							}
 						}
 					}
-					for (;;)
+				}
+				if (num <= 0)
+				{
+					return;
+				}
+				int num2 = shieldPerEnemyHit * num;
+				if (results.m_absorb >= 0)
+				{
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				if (num > 0)
-				{
-					int num2 = shieldPerEnemyHit * num;
-					if (results.m_absorb >= 0)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+							results.m_absorb += num2;
+							return;
 						}
-						results.m_absorb += num2;
-					}
-					else
-					{
-						results.m_absorb = num2;
 					}
 				}
+				results.m_absorb = num2;
+				return;
 			}
 		}
 	}
 
 	public override bool ShouldUpdateDrawnTargetersOnQueueChange()
 	{
-		return this.FullyChargeUpLayerCone();
+		return FullyChargeUpLayerCone();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedShieldEffect;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.SetCachedFields()).MethodHandle;
-			}
-			cachedShieldEffect = this.m_abilityMod.m_shieldEffectMod.GetModifiedValue(this.m_shieldEffect);
+			cachedShieldEffect = m_abilityMod.m_shieldEffectMod.GetModifiedValue(m_shieldEffect);
 		}
 		else
 		{
-			cachedShieldEffect = this.m_shieldEffect;
+			cachedShieldEffect = m_shieldEffect;
 		}
-		this.m_cachedShieldEffect = cachedShieldEffect;
-		if (this.m_abilityMod != null)
+		m_cachedShieldEffect = cachedShieldEffect;
+		if (m_abilityMod != null)
 		{
-			this.m_cachedDashOnHitData = this.m_abilityMod.m_dashOnHitDataMod.\u001D(this.m_dashOnHitData);
+			m_cachedDashOnHitData = m_abilityMod.m_dashOnHitDataMod._001D(m_dashOnHitData);
 		}
 		else
 		{
-			this.m_cachedDashOnHitData = this.m_dashOnHitData;
+			m_cachedDashOnHitData = m_dashOnHitData;
 		}
 	}
 
 	public int GetShieldPerEnemyHit()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetShieldPerEnemyHit()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(this.m_shieldPerEnemyHit);
+			result = m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(m_shieldPerEnemyHit);
 		}
 		else
 		{
-			result = this.m_shieldPerEnemyHit;
+			result = m_shieldPerEnemyHit;
 		}
 		return result;
 	}
@@ -340,26 +225,13 @@ public class DinoDashOrShield : GenericAbility_Container
 	public int GetShieldDuration()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetShieldDuration()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_shieldDurationMod.GetModifiedValue(this.m_shieldDuration);
+			result = m_abilityMod.m_shieldDurationMod.GetModifiedValue(m_shieldDuration);
 		}
 		else
 		{
-			result = this.m_shieldDuration;
+			result = m_shieldDuration;
 		}
 		return result;
 	}
@@ -367,58 +239,32 @@ public class DinoDashOrShield : GenericAbility_Container
 	public StandardEffectInfo GetShieldEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedShieldEffect != null)
+		if (m_cachedShieldEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetShieldEffect()).MethodHandle;
-			}
-			result = this.m_cachedShieldEffect;
+			result = m_cachedShieldEffect;
 		}
 		else
 		{
-			result = this.m_shieldEffect;
+			result = m_shieldEffect;
 		}
 		return result;
 	}
 
 	public int GetHealIfNoDash()
 	{
-		return (!(this.m_abilityMod != null)) ? this.m_healIfNoDash : this.m_abilityMod.m_healIfNoDashMod.GetModifiedValue(this.m_healIfNoDash);
+		return (!(m_abilityMod != null)) ? m_healIfNoDash : m_abilityMod.m_healIfNoDashMod.GetModifiedValue(m_healIfNoDash);
 	}
 
 	public int GetCdrIfNoDash()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetCdrIfNoDash()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_cdrIfNoDashMod.GetModifiedValue(this.m_cdrIfNoDash);
+			result = m_abilityMod.m_cdrIfNoDashMod.GetModifiedValue(m_cdrIfNoDash);
 		}
 		else
 		{
-			result = this.m_cdrIfNoDash;
+			result = m_cdrIfNoDash;
 		}
 		return result;
 	}
@@ -426,249 +272,201 @@ public class DinoDashOrShield : GenericAbility_Container
 	public int GetDelayedCooldown()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetDelayedCooldown()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_delayedCooldownMod.GetModifiedValue(this.m_delayedCooldown);
+			result = m_abilityMod.m_delayedCooldownMod.GetModifiedValue(m_delayedCooldown);
 		}
 		else
 		{
-			result = this.m_delayedCooldown;
+			result = m_delayedCooldown;
 		}
 		return result;
 	}
 
 	public bool FullyChargeUpLayerCone()
 	{
-		return (!(this.m_abilityMod != null)) ? this.m_fullyChargeUpLayerCone : this.m_abilityMod.m_fullyChargeUpLayerConeMod.GetModifiedValue(this.m_fullyChargeUpLayerCone);
+		return (!(m_abilityMod != null)) ? m_fullyChargeUpLayerCone : m_abilityMod.m_fullyChargeUpLayerConeMod.GetModifiedValue(m_fullyChargeUpLayerCone);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		this.m_dashOnHitData.AddTooltipTokens(tokens);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_shieldEffect, "ShieldEffect", this.m_shieldEffect, true);
-		base.AddTokenInt(tokens, "HealIfNoDash", string.Empty, this.m_healIfNoDash, false);
-		base.AddTokenInt(tokens, "CdrIfNoDash", string.Empty, this.m_cdrIfNoDash, false);
-		base.AddTokenInt(tokens, "DelayedCooldown", string.Empty, this.m_delayedCooldown, false);
+		m_dashOnHitData.AddTooltipTokens(tokens);
+		AbilityMod.AddToken_EffectInfo(tokens, m_shieldEffect, "ShieldEffect", m_shieldEffect);
+		AddTokenInt(tokens, "HealIfNoDash", string.Empty, m_healIfNoDash);
+		AddTokenInt(tokens, "CdrIfNoDash", string.Empty, m_cdrIfNoDash);
+		AddTokenInt(tokens, "DelayedCooldown", string.Empty, m_delayedCooldown);
 	}
 
 	public override bool UseCustomAbilityIconColor()
 	{
-		bool result;
-		if (this.m_syncComp != null)
+		int result;
+		if (m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.UseCustomAbilityIconColor()).MethodHandle;
-			}
-			result = this.m_syncComp.m_dashOrShieldInReadyStance;
+			result = (m_syncComp.m_dashOrShieldInReadyStance ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public override Color GetCustomAbilityIconColor(ActorData actor)
 	{
-		if (this.UseCustomAbilityIconColor())
+		if (UseCustomAbilityIconColor())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_iconColorWhileActive;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetCustomAbilityIconColor(ActorData)).MethodHandle;
-			}
-			return this.m_iconColorWhileActive;
 		}
 		return base.GetCustomAbilityIconColor(actor);
 	}
 
 	public override GenericAbility_TargetSelectBase GetTargetSelectComp()
 	{
-		if (this.IsInReadyStance())
+		if (IsInReadyStance())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_targetSelectForDash;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetTargetSelectComp()).MethodHandle;
-			}
-			return this.m_targetSelectForDash;
 		}
 		return base.GetTargetSelectComp();
 	}
 
 	public override AbilityPriority GetRunPriority()
 	{
-		if (this.IsInReadyStance())
+		if (IsInReadyStance())
 		{
 			return AbilityPriority.Evasion;
 		}
 		return base.GetRunPriority();
 	}
 
-	public override Ability.MovementAdjustment GetMovementAdjustment()
+	public override MovementAdjustment GetMovementAdjustment()
 	{
-		if (this.IsInReadyStance())
+		if (IsInReadyStance())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_dashMovementAdjust;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetMovementAdjustment()).MethodHandle;
-			}
-			return this.m_dashMovementAdjust;
 		}
 		return base.GetMovementAdjustment();
 	}
 
 	public override TechPointInteraction[] GetBaseTechPointInteractions()
 	{
-		if (this.IsInReadyStance())
+		if (IsInReadyStance())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_dashTechPointInteractions;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetBaseTechPointInteractions()).MethodHandle;
-			}
-			return this.m_dashTechPointInteractions;
 		}
 		return base.GetBaseTechPointInteractions();
 	}
 
 	public override OnHitAuthoredData GetOnHitAuthoredData()
 	{
-		if (this.IsInReadyStance())
+		if (IsInReadyStance())
 		{
-			return this.m_cachedDashOnHitData;
+			return m_cachedDashOnHitData;
 		}
 		return base.GetOnHitAuthoredData();
 	}
 
 	public override bool IsFreeAction()
 	{
-		return !this.IsInReadyStance() && base.IsFreeAction();
+		if (IsInReadyStance())
+		{
+			return false;
+		}
+		return base.IsFreeAction();
 	}
 
 	public override ActorModelData.ActionAnimationType GetActionAnimType()
 	{
-		if (this.IsInReadyStance())
+		if (IsInReadyStance())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_dashAnimIndex;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetActionAnimType()).MethodHandle;
-			}
-			return this.m_dashAnimIndex;
 		}
 		return base.GetActionAnimType();
 	}
 
 	public override int GetCooldownForUIDisplay()
 	{
-		return this.GetDelayedCooldown();
+		return GetDelayedCooldown();
 	}
 
 	public bool IsInReadyStance()
 	{
-		return this.m_syncComp != null && this.m_syncComp.m_dashOrShieldInReadyStance;
+		return m_syncComp != null && m_syncComp.m_dashOrShieldInReadyStance;
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		this.m_abilityMod = (abilityMod as AbilityMod_DinoDashOrShield);
+		m_abilityMod = (abilityMod as AbilityMod_DinoDashOrShield);
 	}
 
 	protected override void GenModImpl_ClearModRef()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 
 	protected override void SetTargetSelectModReference()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_targetSelectComp.SetTargetSelectMod(m_abilityMod.m_initialCastTargetSelectMod);
+					m_targetSelectForDash.SetTargetSelectMod(m_abilityMod.m_dashTargetSelectMod);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.SetTargetSelectModReference()).MethodHandle;
-			}
-			this.m_targetSelectComp.SetTargetSelectMod(this.m_abilityMod.m_initialCastTargetSelectMod);
-			this.m_targetSelectForDash.SetTargetSelectMod(this.m_abilityMod.m_dashTargetSelectMod);
 		}
-		else
-		{
-			this.m_targetSelectComp.ClearTargetSelectMod();
-			this.m_targetSelectForDash.ClearTargetSelectMod();
-		}
+		m_targetSelectComp.ClearTargetSelectMod();
+		m_targetSelectForDash.ClearTargetSelectMod();
 	}
 }

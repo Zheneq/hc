@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,75 +32,49 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 
 	public AbilityMod_GremlinsMultiTargeterBasicAttack GetMod()
 	{
-		return this.m_abilityMod;
+		return m_abilityMod;
 	}
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "MultiTargeter Basic Attack";
+			m_abilityName = "MultiTargeter Basic Attack";
 		}
-		this.m_bombInfoComp = base.GetComponent<GremlinsLandMineInfoComponent>();
-		base.ResetTooltipAndTargetingNumbers();
-		this.SetupTargeter();
+		m_bombInfoComp = GetComponent<GremlinsLandMineInfoComponent>();
+		ResetTooltipAndTargetingNumbers();
+		SetupTargeter();
 	}
 
 	public AbilityAreaShape GetBombShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsMultiTargeterBasicAttack.GetBombShape()).MethodHandle;
-			}
-			result = this.m_bombShape;
+			result = m_bombShape;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_bombShapeMod.GetModifiedValue(this.m_bombShape);
+			result = m_abilityMod.m_bombShapeMod.GetModifiedValue(m_bombShape);
 		}
 		return result;
 	}
 
 	public float GetMinDistBetweenBombs()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_minDistBetweenBombsMod.GetModifiedValue(this.m_minDistanceBetweenBombs) : this.m_minDistanceBetweenBombs;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_minDistBetweenBombsMod.GetModifiedValue(m_minDistanceBetweenBombs) : m_minDistanceBetweenBombs;
 	}
 
 	public bool UseShapeForDeadzone()
 	{
 		bool result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsMultiTargeterBasicAttack.UseShapeForDeadzone()).MethodHandle;
-			}
-			result = this.m_useShapeForDeadzone;
+			result = m_useShapeForDeadzone;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_useShapeForDeadzoneMod.GetModifiedValue(this.m_useShapeForDeadzone);
+			result = m_abilityMod.m_useShapeForDeadzoneMod.GetModifiedValue(m_useShapeForDeadzone);
 		}
 		return result;
 	}
@@ -109,217 +82,136 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 	public AbilityAreaShape GetDeadzoneShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsMultiTargeterBasicAttack.GetDeadzoneShape()).MethodHandle;
-			}
-			result = this.m_deadZoneShape;
+			result = m_deadZoneShape;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_deadzoneShapeMod.GetModifiedValue(this.m_deadZoneShape);
+			result = m_abilityMod.m_deadzoneShapeMod.GetModifiedValue(m_deadZoneShape);
 		}
 		return result;
 	}
 
 	private int ModdedDirectHitDamagePerShot(int shotIndex)
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			if (m_abilityMod.m_directHitDamagePerShot.Count > shotIndex)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsMultiTargeterBasicAttack.ModdedDirectHitDamagePerShot(int)).MethodHandle;
-			}
-			if (this.m_abilityMod.m_directHitDamagePerShot.Count > shotIndex)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (shotIndex >= 0)
 				{
-					return this.m_abilityMod.m_directHitDamagePerShot[shotIndex].GetModifiedValue(this.m_bombInfoComp.m_directHitDamageAmount);
+					return m_abilityMod.m_directHitDamagePerShot[shotIndex].GetModifiedValue(m_bombInfoComp.m_directHitDamageAmount);
 				}
 			}
 		}
-		return this.m_bombInfoComp.m_directHitDamageAmount;
+		return m_bombInfoComp.m_directHitDamageAmount;
 	}
 
 	private float ModdedMaxAngleWithFirst()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			return this.m_abilityMod.m_maxAngleWithFirst.GetModifiedValue(this.m_maxAngleWithFirst);
+			return m_abilityMod.m_maxAngleWithFirst.GetModifiedValue(m_maxAngleWithFirst);
 		}
-		return this.m_maxAngleWithFirst;
+		return m_maxAngleWithFirst;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_GremlinsMultiTargeterBasicAttack))
+		if (abilityMod.GetType() != typeof(AbilityMod_GremlinsMultiTargeterBasicAttack))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsMultiTargeterBasicAttack.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_GremlinsMultiTargeterBasicAttack);
-			this.SetupTargeter();
-			this.ResetTargetingNumbersForMines();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_GremlinsMultiTargeterBasicAttack);
+			SetupTargeter();
+			ResetTargetingNumbersForMines();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
-		this.ResetTargetingNumbersForMines();
+		m_abilityMod = null;
+		SetupTargeter();
+		ResetTargetingNumbersForMines();
 	}
 
 	private void SetupTargeter()
 	{
-		if (this.m_bombInfoComp == null)
+		if (m_bombInfoComp == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsMultiTargeterBasicAttack.SetupTargeter()).MethodHandle;
-			}
-			this.m_bombInfoComp = base.GetComponent<GremlinsLandMineInfoComponent>();
+			m_bombInfoComp = GetComponent<GremlinsLandMineInfoComponent>();
 		}
-		if (this.GetExpectedNumberOfTargeters() > 1)
+		if (GetExpectedNumberOfTargeters() > 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			base.ClearTargeters();
-			float num = this.ModdedMaxAngleWithFirst();
-			for (int i = 0; i < this.GetExpectedNumberOfTargeters(); i++)
-			{
-				AbilityUtil_Targeter_GremlinsBombInCone abilityUtil_Targeter_GremlinsBombInCone = new AbilityUtil_Targeter_GremlinsBombInCone(this, this.GetBombShape(), this.m_penetrateLos, AbilityUtil_Targeter_GremlinsBombInCone.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Possible);
-				abilityUtil_Targeter_GremlinsBombInCone.SetTooltipSubjectTypes(AbilityTooltipSubject.Primary, AbilityTooltipSubject.Primary);
-				if (num < 180f)
+					break;
+				default:
 				{
-					for (;;)
+					ClearTargeters();
+					float num = ModdedMaxAngleWithFirst();
+					for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 					{
-						switch (2)
+						AbilityUtil_Targeter_GremlinsBombInCone abilityUtil_Targeter_GremlinsBombInCone = new AbilityUtil_Targeter_GremlinsBombInCone(this, GetBombShape(), m_penetrateLos);
+						abilityUtil_Targeter_GremlinsBombInCone.SetTooltipSubjectTypes();
+						if (num < 180f)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_useAngleIndicators)
-					{
-						for (;;)
-						{
-							switch (3)
+							if (m_useAngleIndicators)
 							{
-							case 0:
-								continue;
+								abilityUtil_Targeter_GremlinsBombInCone.SetAngleIndicatorConfig(true, num, m_indicatorLineLength);
 							}
+						}
+						abilityUtil_Targeter_GremlinsBombInCone.SetUseMultiTargetUpdate(true);
+						base.Targeters.Add(abilityUtil_Targeter_GremlinsBombInCone);
+					}
+					while (true)
+					{
+						switch (7)
+						{
+						default:
+							return;
+						case 0:
 							break;
 						}
-						abilityUtil_Targeter_GremlinsBombInCone.SetAngleIndicatorConfig(true, num, this.m_indicatorLineLength);
 					}
 				}
-				abilityUtil_Targeter_GremlinsBombInCone.SetUseMultiTargetUpdate(true);
-				base.Targeters.Add(abilityUtil_Targeter_GremlinsBombInCone);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
 				}
-				break;
 			}
 		}
-		else
-		{
-			AbilityUtil_Targeter_GremlinsBombInCone abilityUtil_Targeter_GremlinsBombInCone2 = new AbilityUtil_Targeter_GremlinsBombInCone(this, this.GetBombShape(), this.m_penetrateLos, AbilityUtil_Targeter_GremlinsBombInCone.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Possible);
-			abilityUtil_Targeter_GremlinsBombInCone2.SetTooltipSubjectTypes(AbilityTooltipSubject.Primary, AbilityTooltipSubject.Primary);
-			base.Targeter = abilityUtil_Targeter_GremlinsBombInCone2;
-		}
+		AbilityUtil_Targeter_GremlinsBombInCone abilityUtil_Targeter_GremlinsBombInCone2 = new AbilityUtil_Targeter_GremlinsBombInCone(this, GetBombShape(), m_penetrateLos);
+		abilityUtil_Targeter_GremlinsBombInCone2.SetTooltipSubjectTypes();
+		base.Targeter = abilityUtil_Targeter_GremlinsBombInCone2;
 	}
 
 	private void ResetTargetingNumbersForMines()
 	{
-		AbilityData component = base.GetComponent<AbilityData>();
-		if (component != null)
+		AbilityData component = GetComponent<AbilityData>();
+		if (!(component != null))
 		{
-			GremlinsDropMines gremlinsDropMines = component.GetAbilityOfType(typeof(GremlinsDropMines)) as GremlinsDropMines;
-			if (gremlinsDropMines != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsMultiTargeterBasicAttack.ResetTargetingNumbersForMines()).MethodHandle;
-				}
-				gremlinsDropMines.ResetNameplateTargetingNumbers();
-			}
+			return;
+		}
+		GremlinsDropMines gremlinsDropMines = component.GetAbilityOfType(typeof(GremlinsDropMines)) as GremlinsDropMines;
+		if (!(gremlinsDropMines != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			gremlinsDropMines.ResetNameplateTargetingNumbers();
+			return;
 		}
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		return Mathf.Max(1, base.GetNumTargets());
+		return Mathf.Max(1, GetNumTargets());
 	}
 
 	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
@@ -334,35 +226,22 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		if (this.m_bombInfoComp != null)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		if (m_bombInfoComp != null)
 		{
-			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_bombInfoComp.m_directHitDamageAmount);
-			if (this.m_bombInfoComp.m_directHitDamageAmount != this.m_bombInfoComp.m_directHitSubsequentDamageAmount)
+			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_bombInfoComp.m_directHitDamageAmount);
+			if (m_bombInfoComp.m_directHitDamageAmount != m_bombInfoComp.m_directHitSubsequentDamageAmount)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsMultiTargeterBasicAttack.CalculateAbilityTooltipNumbers()).MethodHandle;
-				}
-				AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.m_bombInfoComp.m_directHitSubsequentDamageAmount);
+				AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_bombInfoComp.m_directHitSubsequentDamageAmount);
 			}
 		}
-		return result;
+		return numbers;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> _001D()
 	{
 		List<int> list = new List<int>();
-		GremlinsLandMineInfoComponent component = base.GetComponent<GremlinsLandMineInfoComponent>();
+		GremlinsLandMineInfoComponent component = GetComponent<GremlinsLandMineInfoComponent>();
 		if (component != null)
 		{
 			list.Add(component.m_directHitDamageAmount);
@@ -374,208 +253,106 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
-		BoardSquare y = Board.\u000E().\u000E(base.Targeters[0].LastUpdatingGridPos);
-		int i = 0;
-		while (i <= currentTargeterIndex)
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeters[0].LastUpdatingGridPos);
+		for (int i = 0; i <= currentTargeterIndex; i++)
 		{
-			if (i <= 0)
+			if (i > 0)
 			{
-				goto IL_98;
-			}
-			for (;;)
-			{
-				switch (1)
+				BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(base.Targeters[i].LastUpdatingGridPos);
+				if (boardSquareSafe2 == null)
 				{
-				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsMultiTargeterBasicAttack.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
-			BoardSquare x = Board.\u000E().\u000E(base.Targeters[i].LastUpdatingGridPos);
-			if (!(x == null))
-			{
-				for (;;)
+				if (boardSquareSafe2 == boardSquareSafe)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(x == y))
-				{
-					goto IL_98;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					continue;
 				}
 			}
-			IL_C4:
-			i++;
-			continue;
-			IL_98:
-			Ability.AddNameplateValueForOverlap(ref result, base.Targeters[i], targetActor, currentTargeterIndex, this.ModdedDirectHitDamagePerShot(i), this.GetSubsequentHitDamage(), AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
-			goto IL_C4;
+			Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeters[i], targetActor, currentTargeterIndex, ModdedDirectHitDamagePerShot(i), GetSubsequentHitDamage());
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return symbolToValue;
 		}
-		return result;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		GremlinsLandMineInfoComponent component = base.GetComponent<GremlinsLandMineInfoComponent>();
+		GremlinsLandMineInfoComponent component = GetComponent<GremlinsLandMineInfoComponent>();
 		if (component != null)
 		{
-			base.AddTokenInt(tokens, "Damage_DirectHit", string.Empty, component.m_directHitDamageAmount, false);
-			base.AddTokenInt(tokens, "Damage_MoveOverHit", string.Empty, component.m_damageAmount, false);
-			base.AddTokenInt(tokens, "MineDuration", string.Empty, component.m_mineDuration, false);
+			AddTokenInt(tokens, "Damage_DirectHit", string.Empty, component.m_directHitDamageAmount);
+			AddTokenInt(tokens, "Damage_MoveOverHit", string.Empty, component.m_damageAmount);
+			AddTokenInt(tokens, "MineDuration", string.Empty, component.m_mineDuration);
 		}
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null) && boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null) && boardSquareSafe.IsBaselineHeight())
 		{
-			for (;;)
+			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 			{
-				switch (3)
+				if (UseShapeForDeadzone())
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsMultiTargeterBasicAttack.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
-			if (boardSquare == caster.\u0012())
-			{
-				for (;;)
-				{
-					switch (5)
+					if (AreaEffectUtils.IsSquareInShape(boardSquareSafe, GetDeadzoneShape(), caster.GetTravelBoardSquareWorldPosition(), caster.GetCurrentBoardSquare(), true, caster))
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (this.UseShapeForDeadzone())
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (AreaEffectUtils.IsSquareInShape(boardSquare, this.GetDeadzoneShape(), caster.\u0016(), caster.\u0012(), true, caster))
-					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return false;
 							}
-							break;
 						}
-						return false;
 					}
 				}
 				if (targetIndex > 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					bool flag = true;
-					Vector3 from = Board.\u000E().\u000E(currentTargets[0].GridPos).ToVector3() - caster.\u0016();
-					Vector3 to = boardSquare.ToVector3() - caster.\u0016();
-					if (Mathf.RoundToInt(Vector3.Angle(from, to)) > (int)this.ModdedMaxAngleWithFirst())
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						flag = false;
-					}
-					if (flag)
-					{
-						for (;;)
+						default:
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						float num = this.GetMinDistBetweenBombs() * Board.\u000E().squareSize;
-						for (int i = 0; i < targetIndex; i++)
-						{
-							BoardSquare boardSquare2 = Board.\u000E().\u000E(currentTargets[i].GridPos);
-							if (boardSquare2 == boardSquare)
+							bool flag = true;
+							Vector3 from = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos).ToVector3() - caster.GetTravelBoardSquareWorldPosition();
+							Vector3 to = boardSquareSafe.ToVector3() - caster.GetTravelBoardSquareWorldPosition();
+							if (Mathf.RoundToInt(Vector3.Angle(from, to)) > (int)ModdedMaxAngleWithFirst())
 							{
 								flag = false;
-								break;
 							}
-							Vector3 vector = boardSquare.ToVector3() - boardSquare2.ToVector3();
-							vector.y = 0f;
-							float magnitude = vector.magnitude;
-							if (magnitude < num)
+							if (flag)
 							{
-								for (;;)
+								float num = GetMinDistBetweenBombs() * Board.Get().squareSize;
+								for (int i = 0; i < targetIndex; i++)
 								{
-									switch (4)
+									BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos);
+									if (boardSquareSafe2 == boardSquareSafe)
 									{
-									case 0:
-										continue;
+										flag = false;
+										break;
 									}
-									break;
+									Vector3 vector = boardSquareSafe.ToVector3() - boardSquareSafe2.ToVector3();
+									vector.y = 0f;
+									float magnitude = vector.magnitude;
+									if (magnitude < num)
+									{
+										flag = false;
+										break;
+									}
 								}
-								flag = false;
-								break;
 							}
+							return flag;
+						}
 						}
 					}
-					return flag;
 				}
 				return true;
 			}
@@ -585,6 +362,6 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 
 	public int GetSubsequentHitDamage()
 	{
-		return Mathf.Max(0, this.m_bombInfoComp.m_directHitSubsequentDamageAmount);
+		return Mathf.Max(0, m_bombInfoComp.m_directHitSubsequentDamageAmount);
 	}
 }

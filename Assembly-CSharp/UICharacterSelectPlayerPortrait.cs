@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -34,44 +33,34 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 
 	private CharacterType m_charType;
 
-	public bool IsSelected
-	{
-		get
-		{
-			return this.m_isSelected;
-		}
-	}
+	public bool IsSelected => m_isSelected;
 
 	public CharacterType CharType
 	{
 		get
 		{
-			if (this.m_isOutsideGame)
+			if (m_isOutsideGame)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_charType;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.get_CharType()).MethodHandle;
-				}
-				return this.m_charType;
 			}
-			return this.m_playerInfo.CharacterType;
+			return m_playerInfo.CharacterType;
 		}
 	}
 
 	private void Start()
 	{
-		UIManager.SetGameObjectActive(this.m_selectedArrows, false, null);
-		UIEventTriggerUtils.AddListener(this.m_hitbox.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnPortraitClick));
-		this.m_cogBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnCogBtnClick);
+		UIManager.SetGameObjectActive(m_selectedArrows, false);
+		UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerClick, OnPortraitClick);
+		m_cogBtn.spriteController.callback = OnCogBtnClick;
 	}
 
 	public bool SetArrowsSelected(bool setArrowsVisible)
@@ -79,531 +68,318 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		bool flag = setArrowsVisible;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.SetArrowsSelected(bool)).MethodHandle;
-			}
-			if (this.m_selectedArrows.gameObject.activeSelf)
+			if (m_selectedArrows.gameObject.activeSelf)
 			{
 				flag = false;
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_selectedArrows, flag, null);
-		this.m_isSelected = flag;
+		UIManager.SetGameObjectActive(m_selectedArrows, flag);
+		m_isSelected = flag;
 		return flag;
 	}
 
 	private bool IsClickable()
 	{
-		if (this.m_isOutsideGame)
+		if (m_isOutsideGame)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return !m_isMainCharacter;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.IsClickable()).MethodHandle;
-			}
-			return !this.m_isMainCharacter;
 		}
 		bool flag = true;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().PlayerInfo != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameManager.Get().GameStatus == GameStatus.LoadoutSelecting)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 						}
-						else if (this.m_playerInfo == null)
+						else if (m_playerInfo == null)
 						{
 							flag = false;
 						}
-						else if (this.m_playerInfo.PlayerId == GameManager.Get().PlayerInfo.PlayerId)
+						else if (m_playerInfo.PlayerId == GameManager.Get().PlayerInfo.PlayerId)
 						{
 							flag = (GameManager.Get().PlayerInfo.ReadyState != ReadyState.Ready);
 						}
 						else
 						{
-							if (GameManager.Get().PlayerInfo.IsGameOwner)
+							if (!GameManager.Get().PlayerInfo.IsGameOwner)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!this.m_playerInfo.IsNPCBot)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!this.m_playerInfo.IsRemoteControlled)
-									{
-										goto IL_14A;
-									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-								return true;
+								goto IL_014a;
 							}
-							IL_14A:
-							flag = false;
+							if (!m_playerInfo.IsNPCBot)
+							{
+								if (!m_playerInfo.IsRemoteControlled)
+								{
+									goto IL_014a;
+								}
+							}
+							flag = true;
 						}
 					}
 				}
 			}
 		}
+		goto IL_014c;
+		IL_014a:
+		flag = false;
+		goto IL_014c;
+		IL_014c:
 		return flag;
 	}
 
 	public void OnPortraitClick(BaseEventData data)
 	{
-		if (this.IsClickable())
+		if (!IsClickable())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_isOutsideGame)
 			{
-				switch (5)
+				UICharacterScreen.Get().m_partyListPanel.NotifyOutOfGamePortraitClicked(this, m_charType);
+				return;
+			}
+			if (m_playerInfo != null)
+			{
+				if (!m_playerInfo.IsNPCBot)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.OnPortraitClick(BaseEventData)).MethodHandle;
-			}
-			if (this.m_isOutsideGame)
-			{
-				UICharacterScreen.Get().m_partyListPanel.NotifyOutOfGamePortraitClicked(this, this.m_charType);
-			}
-			else
-			{
-				if (this.m_playerInfo != null)
-				{
-					if (!this.m_playerInfo.IsNPCBot)
+					if (!m_playerInfo.IsRemoteControlled)
 					{
-						if (!this.m_playerInfo.IsRemoteControlled)
-						{
-							goto IL_8A;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
+						goto IL_008a;
 					}
-					UICharacterScreen.Get().m_partyListPanel.NotifyBotPortraitClicked(this, this.m_playerInfo);
-					return;
 				}
-				IL_8A:
-				UICharacterScreen.Get().m_partyListPanel.NotifyPlayerPortraitClicked(this.m_playerInfo);
+				UICharacterScreen.Get().m_partyListPanel.NotifyBotPortraitClicked(this, m_playerInfo);
+				return;
 			}
+			goto IL_008a;
+			IL_008a:
+			UICharacterScreen.Get().m_partyListPanel.NotifyPlayerPortraitClicked(m_playerInfo);
+			return;
 		}
 	}
 
 	public void OnCogBtnClick(BaseEventData data)
 	{
-		if (this.IsClickable())
+		if (!IsClickable())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!m_isOutsideGame)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.OnCogBtnClick(BaseEventData)).MethodHandle;
-			}
-			if (this.m_isOutsideGame)
-			{
-				for (;;)
+				if (m_isMainCharacter)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (!this.m_isMainCharacter)
+				while (true)
 				{
-					for (;;)
+					if ((!(AppState_GroupCharacterSelect.Get() == AppState.GetCurrent()) && !(AppState_LandingPage.Get() == AppState.GetCurrent())) ? AppState_CharacterSelect.IsReady() : AppState_GroupCharacterSelect.Get().IsReady())
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					bool flag;
-					if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent() || AppState_LandingPage.Get() == AppState.GetCurrent())
-					{
-						flag = AppState_GroupCharacterSelect.Get().IsReady();
-					}
-					else
-					{
-						flag = AppState_CharacterSelect.IsReady();
-					}
-					if (flag)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
+							default:
+								return;
 							case 0:
-								continue;
+								break;
 							}
-							break;
 						}
-						return;
 					}
 					if (!UICharacterScreen.Get().m_partyListPanel.NotifySwapMainCharacter())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
+							default:
+								return;
 							case 0:
-								continue;
+								break;
 							}
-							break;
 						}
-						return;
 					}
 					UIFrontEnd.PlaySound(FrontEndButtonSounds.GenericSmall);
 					CharacterType characterTypeToDisplay = UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay;
 					UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 					{
-						ClientRequestToServerSelectCharacter = new CharacterType?(this.m_charType)
+						ClientRequestToServerSelectCharacter = m_charType
 					});
 					UICharacterSelectPlayerPortrait[] allyPortraits = UICharacterScreen.Get().m_partyListPanel.m_allyPortraits;
 					for (int i = 1; i < allyPortraits.Length; i++)
 					{
 						if (this == allyPortraits[i])
 						{
-							ClientGameManager.Get().UpdateRemoteCharacter(characterTypeToDisplay, i - 1, null);
-							goto IL_138;
+							ClientGameManager.Get().UpdateRemoteCharacter(characterTypeToDisplay, i - 1);
+							return;
 						}
 					}
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						break;
 					}
 				}
-				IL_138:;
 			}
 		}
 	}
 
 	public void SetEnabled(bool enabled)
 	{
-		UIManager.SetGameObjectActive(base.gameObject, enabled, null);
+		UIManager.SetGameObjectActive(base.gameObject, enabled);
 	}
 
 	public void Setup(LobbyPlayerInfo info)
 	{
-		this.m_playerInfo = info;
-		this.m_isOutsideGame = false;
-		UIManager.SetGameObjectActive(this.m_cogBtn, false, null);
+		m_playerInfo = info;
+		m_isOutsideGame = false;
+		UIManager.SetGameObjectActive(m_cogBtn, false);
 		if (info != null)
 		{
 			if (info.CharacterType == CharacterType.None)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.Setup(LobbyPlayerInfo)).MethodHandle;
-				}
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(CharacterType.Gremlins);
-				this.m_characterImage.sprite = characterResourceLink.GetCharacterSelectIconBW();
+				m_characterImage.sprite = characterResourceLink.GetCharacterSelectIconBW();
 			}
 			else
 			{
 				CharacterResourceLink characterResourceLink2 = GameWideData.Get().GetCharacterResourceLink(info.CharacterType);
-				this.m_characterImage.sprite = characterResourceLink2.GetCharacterSelectIcon();
+				m_characterImage.sprite = characterResourceLink2.GetCharacterSelectIcon();
 			}
-			UIManager.SetGameObjectActive(this.m_characterImage, true, null);
+			UIManager.SetGameObjectActive(m_characterImage, true);
 			if (!info.IsNPCBot)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (info.IsRemoteControlled)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
-				{
-					UIManager.SetGameObjectActive(this.m_readyImage, info.ReadyState == ReadyState.Ready, null);
-					UIManager.SetGameObjectActive(this.m_notReadyImage, info.ReadyState != ReadyState.Ready, null);
-					foreach (Image component in this.m_stars)
-					{
-						UIManager.SetGameObjectActive(component, false, null);
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_177;
-					}
-				}
-			}
-			UIManager.SetGameObjectActive(this.m_readyImage, true, null);
-			UIManager.SetGameObjectActive(this.m_notReadyImage, false, null);
-			for (int j = 0; j < 5; j++)
-			{
-				Component component2 = this.m_stars[j];
-				bool doActive;
 				if (!info.IsRemoteControlled)
 				{
-					for (;;)
+					UIManager.SetGameObjectActive(m_readyImage, info.ReadyState == ReadyState.Ready);
+					UIManager.SetGameObjectActive(m_notReadyImage, info.ReadyState != ReadyState.Ready);
+					Image[] stars = m_stars;
+					foreach (Image component in stars)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						UIManager.SetGameObjectActive(component, false);
 					}
-					doActive = (j <= (int)info.Difficulty);
+					goto IL_0177;
+				}
+			}
+			UIManager.SetGameObjectActive(m_readyImage, true);
+			UIManager.SetGameObjectActive(m_notReadyImage, false);
+			for (int j = 0; j < 5; j++)
+			{
+				Image component2 = m_stars[j];
+				int doActive;
+				if (!info.IsRemoteControlled)
+				{
+					doActive = ((j <= (int)info.Difficulty) ? 1 : 0);
 				}
 				else
 				{
-					doActive = false;
+					doActive = 0;
 				}
-				UIManager.SetGameObjectActive(component2, doActive, null);
+				UIManager.SetGameObjectActive(component2, (byte)doActive != 0);
 			}
-			IL_177:
-			Component partyLeaderImage = this.m_partyLeaderImage;
-			bool doActive2;
-			if (info.IsGameOwner)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				doActive2 = (GameManager.Get().GameConfig.GameType == GameType.Custom);
-			}
-			else
-			{
-				doActive2 = false;
-			}
-			UIManager.SetGameObjectActive(partyLeaderImage, doActive2, null);
-			this.m_playerName.text = info.GetHandle();
+			goto IL_0177;
 		}
-		else
+		UIManager.SetGameObjectActive(m_characterImage, false);
+		UIManager.SetGameObjectActive(m_readyImage, false);
+		UIManager.SetGameObjectActive(m_notReadyImage, false);
+		UIManager.SetGameObjectActive(m_partyLeaderImage, false);
+		m_playerName.text = StringUtil.TR("Empty", "Global");
+		Image[] stars2 = m_stars;
+		foreach (Image component3 in stars2)
 		{
-			UIManager.SetGameObjectActive(this.m_characterImage, false, null);
-			UIManager.SetGameObjectActive(this.m_readyImage, false, null);
-			UIManager.SetGameObjectActive(this.m_notReadyImage, false, null);
-			UIManager.SetGameObjectActive(this.m_partyLeaderImage, false, null);
-			this.m_playerName.text = StringUtil.TR("Empty", "Global");
-			foreach (Image component3 in this.m_stars)
+			UIManager.SetGameObjectActive(component3, false);
+		}
+		while (true)
+		{
+			switch (2)
 			{
-				UIManager.SetGameObjectActive(component3, false, null);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
+		IL_0177:
+		Image partyLeaderImage = m_partyLeaderImage;
+		int doActive2;
+		if (info.IsGameOwner)
+		{
+			doActive2 = ((GameManager.Get().GameConfig.GameType == GameType.Custom) ? 1 : 0);
+		}
+		else
+		{
+			doActive2 = 0;
+		}
+		UIManager.SetGameObjectActive(partyLeaderImage, (byte)doActive2 != 0);
+		m_playerName.text = info.GetHandle();
 	}
 
 	public void Setup(CharacterType charType, bool isMainCharacter)
 	{
-		Component cogBtn = this.m_cogBtn;
-		bool doActive;
+		_SelectableBtn cogBtn = m_cogBtn;
+		int doActive;
 		if (!isMainCharacter)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.Setup(CharacterType, bool)).MethodHandle;
-			}
-			doActive = charType.IsValidForHumanGameplay();
+			doActive = (charType.IsValidForHumanGameplay() ? 1 : 0);
 		}
 		else
 		{
-			doActive = false;
+			doActive = 0;
 		}
-		UIManager.SetGameObjectActive(cogBtn, doActive, null);
-		this.m_isMainCharacter = isMainCharacter;
-		this.m_isOutsideGame = true;
-		this.m_charType = charType;
+		UIManager.SetGameObjectActive(cogBtn, (byte)doActive != 0);
+		m_isMainCharacter = isMainCharacter;
+		m_isOutsideGame = true;
+		m_charType = charType;
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()) && !(clientGameManager == null))
+		if (AppState.GetCurrent() == AppState_CharacterSelect.Get() || clientGameManager == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (clientGameManager.IsPlayerAccountDataAvailable())
 			{
-				if (charType != CharacterType.None)
+				if (charType != 0)
 				{
 					CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(charType);
-					this.m_characterImage.sprite = characterResourceLink.GetCharacterSelectIcon();
-					UIManager.SetGameObjectActive(this.m_characterImage, true, null);
-					this.m_playerName.text = clientGameManager.Handle;
+					m_characterImage.sprite = characterResourceLink.GetCharacterSelectIcon();
+					UIManager.SetGameObjectActive(m_characterImage, true);
+					m_playerName.text = clientGameManager.Handle;
 				}
 				else
 				{
-					UIManager.SetGameObjectActive(this.m_characterImage, false, null);
-					this.m_playerName.text = StringUtil.TR("Empty", "Global");
+					UIManager.SetGameObjectActive(m_characterImage, false);
+					m_playerName.text = StringUtil.TR("Empty", "Global");
 				}
-				UIManager.SetGameObjectActive(this.m_readyImage, false, null);
-				UIManager.SetGameObjectActive(this.m_notReadyImage, false, null);
-				UIManager.SetGameObjectActive(this.m_partyLeaderImage, false, null);
-				foreach (Image component in this.m_stars)
+				UIManager.SetGameObjectActive(m_readyImage, false);
+				UIManager.SetGameObjectActive(m_notReadyImage, false);
+				UIManager.SetGameObjectActive(m_partyLeaderImage, false);
+				Image[] stars = m_stars;
+				foreach (Image component in stars)
 				{
-					UIManager.SetGameObjectActive(component, false, null);
+					UIManager.SetGameObjectActive(component, false);
 				}
-				return;
 			}
+			return;
 		}
 	}
 }

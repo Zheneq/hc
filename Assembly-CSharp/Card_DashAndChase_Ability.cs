@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,76 +31,65 @@ public class Card_DashAndChase_Ability : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_DashAndChase_Ability.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Card_DashAndChase_Ability";
+			m_abilityName = "Card_DashAndChase_Ability";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Charge(this, this.m_targetShape, this.m_targetShapePenetratesLoS, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, this.CanIncludeEnemy(), this.CanIncludeAlly())
-		{
-			m_forceChase = this.m_chaseTarget
-		};
+		AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge = new AbilityUtil_Targeter_Charge(this, m_targetShape, m_targetShapePenetratesLoS, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, CanIncludeEnemy(), CanIncludeAlly());
+		abilityUtil_Targeter_Charge.m_forceChase = m_chaseTarget;
+		base.Targeter = abilityUtil_Targeter_Charge;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return !this.RequireTargetActor() || base.HasTargetableActorsInDecision(caster, this.CanIncludeEnemy(), this.CanIncludeAlly(), false, Ability.ValidateCheckPath.CanBuildPath, true, false, false);
+		if (RequireTargetActor())
+		{
+			return HasTargetableActorsInDecision(caster, CanIncludeEnemy(), CanIncludeAlly(), false, ValidateCheckPath.CanBuildPath, true, false);
+		}
+		return true;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		bool result = true;
-		if (this.RequireTargetActor())
+		if (RequireTargetActor())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_DashAndChase_Ability.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
-			result = false;
-			List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, this.CanIncludeAlly(), this.CanIncludeEnemy());
-			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_targetShape, target, this.m_targetShapePenetratesLoS, caster, relevantTeams, null);
-			foreach (ActorData targetActor in actorsInShape)
-			{
-				bool flag = base.CanTargetActorInDecision(caster, targetActor, this.CanIncludeEnemy(), this.CanIncludeAlly(), false, Ability.ValidateCheckPath.CanBuildPath, true, false, false);
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = true;
 					break;
+				default:
+				{
+					result = false;
+					List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, CanIncludeAlly(), CanIncludeEnemy());
+					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_targetShape, target, m_targetShapePenetratesLoS, caster, relevantTeams, null);
+					{
+						foreach (ActorData item in actorsInShape)
+						{
+							if (CanTargetActorInDecision(caster, item, CanIncludeEnemy(), CanIncludeAlly(), false, ValidateCheckPath.CanBuildPath, true, false))
+							{
+								while (true)
+								{
+									switch (7)
+									{
+									case 0:
+										break;
+									default:
+										return true;
+									}
+								}
+							}
+						}
+						return result;
+					}
+				}
 				}
 			}
 		}
@@ -115,10 +103,10 @@ public class Card_DashAndChase_Ability : Ability
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "MaxTargetsHit", string.Empty, this.m_maxTargetsHit, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_chaserEffect, "ChaserEffect", this.m_chaserEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyTargetEffect, "EnemyTargetEffect", this.m_enemyTargetEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_allyTargetEffect, "AllyTargetEffect", this.m_allyTargetEffect, true);
+		AddTokenInt(tokens, "MaxTargetsHit", string.Empty, m_maxTargetsHit);
+		AbilityMod.AddToken_EffectInfo(tokens, m_chaserEffect, "ChaserEffect", m_chaserEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyTargetEffect, "EnemyTargetEffect", m_enemyTargetEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_allyTargetEffect, "AllyTargetEffect", m_allyTargetEffect);
 	}
 
 	internal override ActorData.MovementType GetMovementType()
@@ -128,16 +116,16 @@ public class Card_DashAndChase_Ability : Ability
 
 	public bool RequireTargetActor()
 	{
-		return this.m_requireTargetActor;
+		return m_requireTargetActor;
 	}
 
 	public bool CanIncludeEnemy()
 	{
-		return this.m_canIncludeEnemy;
+		return m_canIncludeEnemy;
 	}
 
 	public bool CanIncludeAlly()
 	{
-		return this.m_canIncludeAlly;
+		return m_canIncludeAlly;
 	}
 }

@@ -1,12 +1,10 @@
-﻿using System;
-
 public class AppState_ReplaySelection : AppState
 {
 	private static AppState_ReplaySelection s_instance;
 
 	public static AppState_ReplaySelection Get()
 	{
-		return AppState_ReplaySelection.s_instance;
+		return s_instance;
 	}
 
 	public static void Create()
@@ -16,7 +14,7 @@ public class AppState_ReplaySelection : AppState
 
 	private void Awake()
 	{
-		AppState_ReplaySelection.s_instance = this;
+		s_instance = this;
 	}
 
 	protected override void OnEnter()

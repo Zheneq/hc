@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,94 +43,33 @@ public class CharacterColor
 		string result = string.Empty;
 		if (type == StyleLevelType.Advanced)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterColor.GetIconResourceStringForStyleLevelType(StyleLevelType)).MethodHandle;
-			}
 			result = "skin_advancedIcon";
 		}
 		else if (type == StyleLevelType.Expert)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = "skin_expertIcon";
 		}
 		else if (type == StyleLevelType.Mastery)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = "skin_MasteryIcon";
 		}
 		return result;
 	}
 
-	public int \u001D()
+	public int _001D()
 	{
 		int result = 0;
-		if (this.m_colorUnlockData != null && this.m_colorUnlockData.m_unlockData != null)
+		if (m_colorUnlockData != null && m_colorUnlockData.m_unlockData != null)
 		{
-			for (;;)
+			if (m_colorUnlockData.m_unlockData.UnlockConditions != null)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterColor.\u001D()).MethodHandle;
-			}
-			if (this.m_colorUnlockData.m_unlockData.UnlockConditions != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				foreach (GameBalanceVars.UnlockCondition unlockCondition in this.m_colorUnlockData.m_unlockData.UnlockConditions)
+				GameBalanceVars.UnlockCondition[] unlockConditions = m_colorUnlockData.m_unlockData.UnlockConditions;
+				foreach (GameBalanceVars.UnlockCondition unlockCondition in unlockConditions)
 				{
 					if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.Purchase)
 					{
 						return unlockCondition.typeSpecificData2;
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

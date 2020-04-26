@@ -1,9 +1,16 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ClientReactionResults
 {
+	public enum ExtraFlags
+	{
+		None = 0,
+		ClientExecuteOnFirstDamagingHit = 1,
+		TriggerOnFirstDamageIfReactOnAttacker = 2,
+		TriggerOnFirstDamageOnReactionCaster = 4
+	}
+
 	private ClientEffectResults m_effectResults;
 
 	private List<ServerClientUtils.SequenceStartData> m_seqStartDataList;
@@ -14,57 +21,44 @@ public class ClientReactionResults
 
 	public ClientReactionResults(ClientEffectResults effectResults, List<ServerClientUtils.SequenceStartData> seqStartDataList, byte extraFlags)
 	{
-		this.m_effectResults = effectResults;
-		this.m_seqStartDataList = seqStartDataList;
-		this.m_extraFlags = extraFlags;
+		m_effectResults = effectResults;
+		m_seqStartDataList = seqStartDataList;
+		m_extraFlags = extraFlags;
 	}
 
 	public bool HasSequencesToStart()
 	{
-		if (this.m_seqStartDataList == null)
+		if (m_seqStartDataList == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientReactionResults.HasSequencesToStart()).MethodHandle;
-			}
-			return false;
 		}
-		if (this.m_seqStartDataList.Count == 0)
+		if (m_seqStartDataList.Count == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			return false;
-		}
-		foreach (ServerClientUtils.SequenceStartData sequenceStartData in this.m_seqStartDataList)
-		{
-			if (sequenceStartData != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					return false;
 				}
-				if (sequenceStartData.HasSequencePrefab())
+			}
+		}
+		foreach (ServerClientUtils.SequenceStartData seqStartData in m_seqStartDataList)
+		{
+			if (seqStartData != null)
+			{
+				if (seqStartData.HasSequencePrefab())
 				{
 					return true;
 				}
@@ -75,148 +69,110 @@ public class ClientReactionResults
 
 	public bool HasUnexecutedReactionOnActor(ActorData actor)
 	{
-		return this.m_effectResults.HasUnexecutedHitOnActor(actor);
+		return m_effectResults.HasUnexecutedHitOnActor(actor);
 	}
 
 	public bool ReactionHitsDone()
 	{
-		bool result;
-		if (this.PlayedReaction())
+		int result;
+		if (PlayedReaction())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientReactionResults.ReactionHitsDone()).MethodHandle;
-			}
-			result = this.m_effectResults.DoneHitting();
+			result = (m_effectResults.DoneHitting() ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool PlayedReaction()
 	{
-		return this.m_playedReaction;
+		return m_playedReaction;
 	}
 
 	public void PlayReaction()
 	{
-		if (!this.m_playedReaction)
+		if (m_playedReaction)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			m_playedReaction = true;
+			if (HasSequencesToStart())
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientReactionResults.PlayReaction()).MethodHandle;
-			}
-			this.m_playedReaction = true;
-			if (this.HasSequencesToStart())
-			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = this.m_seqStartDataList.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
-					{
-						ServerClientUtils.SequenceStartData sequenceStartData = enumerator.Current;
-						sequenceStartData.CreateSequencesFromData(new SequenceSource.ActorDelegate(this.OnReactionHitActor), new SequenceSource.Vector3Delegate(this.OnReactionHitPosition));
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = m_seqStartDataList.GetEnumerator())
+						{
+							while (enumerator.MoveNext())
+							{
+								ServerClientUtils.SequenceStartData current = enumerator.Current;
+								current.CreateSequencesFromData(OnReactionHitActor, OnReactionHitPosition);
+							}
+							while (true)
+							{
+								switch (7)
+								{
+								default:
+									return;
+								case 0:
+									break;
+								}
+							}
+						}
+					}
 					}
 				}
 			}
-			else
+			if (ClientAbilityResults.LogMissingSequences)
 			{
-				if (ClientAbilityResults.\u001D)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Log.Warning(ClientAbilityResults.s_clientHitResultHeader + this.GetDebugDescription() + ": no Sequence to start, executing results directly", new object[0]);
-				}
-				this.m_effectResults.RunClientEffectHits();
+				Log.Warning(ClientAbilityResults.s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
 			}
+			m_effectResults.RunClientEffectHits();
+			return;
 		}
 	}
 
 	internal void OnReactionHitActor(ActorData target)
 	{
-		this.m_effectResults.OnEffectHitActor(target);
+		m_effectResults.OnEffectHitActor(target);
 	}
 
 	internal void OnReactionHitPosition(Vector3 position)
 	{
-		this.m_effectResults.OnEffectHitPosition(position);
+		m_effectResults.OnEffectHitPosition(position);
 	}
 
 	internal byte GetExtraFlags()
 	{
-		return this.m_extraFlags;
+		return m_extraFlags;
 	}
 
 	internal ActorData GetCaster()
 	{
-		return this.m_effectResults.GetCaster();
+		return m_effectResults.GetCaster();
 	}
 
 	internal Dictionary<ActorData, ClientActorHitResults> GetActorHitResults()
 	{
-		return this.m_effectResults.GetActorHitResults();
+		return m_effectResults.GetActorHitResults();
 	}
 
 	internal Dictionary<Vector3, ClientPositionHitResults> GetPosHitResults()
 	{
-		return this.m_effectResults.GetPosHitResults();
+		return m_effectResults.GetPosHitResults();
 	}
 
 	internal string GetDebugDescription()
 	{
-		return this.m_effectResults.GetDebugDescription();
-	}
-
-	public enum ExtraFlags
-	{
-		None,
-		ClientExecuteOnFirstDamagingHit,
-		TriggerOnFirstDamageIfReactOnAttacker,
-		TriggerOnFirstDamageOnReactionCaster = 4
+		return m_effectResults.GetDebugDescription();
 	}
 }

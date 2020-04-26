@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -23,32 +23,19 @@ public class AbilityModPropertyLaserInfo
 	{
 		if (info != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return info.GetModifiedCopy(this);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyLaserInfo.GetModifiedValue(LaserTargetingInfo)).MethodHandle;
-			}
-			return info.GetModifiedCopy(this);
 		}
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("null passed in to generate modified modded LaserTargetingInfo, returning an instance with default values");
 		}
 		return new LaserTargetingInfo();
@@ -56,36 +43,36 @@ public class AbilityModPropertyLaserInfo
 
 	public float GetRange(LaserTargetingInfo info)
 	{
-		return this.m_rangeMod.GetModifiedValue(info.range);
+		return m_rangeMod.GetModifiedValue(info.range);
 	}
 
 	public float GetWidth(LaserTargetingInfo info)
 	{
-		return this.m_widthMod.GetModifiedValue(info.width);
+		return m_widthMod.GetModifiedValue(info.width);
 	}
 
 	public int GetMaxTargets(LaserTargetingInfo info)
 	{
-		return this.m_maxTargetsMod.GetModifiedValue(info.maxTargets);
+		return m_maxTargetsMod.GetModifiedValue(info.maxTargets);
 	}
 
 	public bool GetPenetrateLos(LaserTargetingInfo info)
 	{
-		return this.m_penetrateLosOverride.GetModifiedValue(info.penetrateLos);
+		return m_penetrateLosOverride.GetModifiedValue(info.penetrateLos);
 	}
 
 	public bool GetAffectsEnemy(LaserTargetingInfo info)
 	{
-		return this.m_affectsEnemyOverride.GetModifiedValue(info.affectsEnemies);
+		return m_affectsEnemyOverride.GetModifiedValue(info.affectsEnemies);
 	}
 
 	public bool GetAffectsAlly(LaserTargetingInfo info)
 	{
-		return this.m_affectsAllyOverride.GetModifiedValue(info.affectsAllies);
+		return m_affectsAllyOverride.GetModifiedValue(info.affectsAllies);
 	}
 
 	public bool GetAffectsCaster(LaserTargetingInfo info)
 	{
-		return this.m_affectsCasterOverride.GetModifiedValue(info.affectsCaster);
+		return m_affectsCasterOverride.GetModifiedValue(info.affectsCaster);
 	}
 }

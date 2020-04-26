@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -18,24 +17,24 @@ public class UICharacterTauntsPanel : MonoBehaviour
 
 	public void Start()
 	{
-		this.m_purchasePanel.m_isoButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PurchaseWithIso);
+		m_purchasePanel.m_isoButton.spriteController.callback = PurchaseWithIso;
 	}
 
 	public CharacterResourceLink GetDisplayedCharacter()
 	{
-		return this.m_charLink;
+		return m_charLink;
 	}
 
 	public void Setup(CharacterType characterType)
 	{
-		this.Setup(GameWideData.Get().GetCharacterResourceLink(characterType), false);
+		Setup(GameWideData.Get().GetCharacterResourceLink(characterType));
 	}
 
 	public void Setup(CharacterResourceLink characterLink, bool sameCharacter = false)
 	{
-		this.m_lastButtonClicked = null;
-		this.m_charLink = characterLink;
-		UITauntButton[] componentsInChildren = this.m_tauntsGrid.GetComponentsInChildren<UITauntButton>(true);
+		m_lastButtonClicked = null;
+		m_charLink = characterLink;
+		UITauntButton[] componentsInChildren = m_tauntsGrid.GetComponentsInChildren<UITauntButton>(true);
 		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(characterLink.m_characterType);
 		AbilityData component = characterLink.ActorDataPrefab.GetComponent<AbilityData>();
 		List<int> list = new List<int>();
@@ -43,319 +42,211 @@ public class UICharacterTauntsPanel : MonoBehaviour
 		{
 			list.Add(i);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
+			list.Sort((int first, int second) => characterLink.m_taunts[first].m_actionForTaunt - characterLink.m_taunts[second].m_actionForTaunt);
+			int num = 0;
+			for (int j = 0; j < componentsInChildren.Length; j++)
 			{
-			case 0:
+				int num2;
+				bool isUnlocked;
+				if (num < list.Count)
+				{
+					num2 = list[num];
+					if (!characterLink.m_taunts[num2].m_isHidden)
+					{
+						if (componentsInChildren.Length > j)
+						{
+							if (playerCharacterData != null)
+							{
+								if (playerCharacterData.CharacterComponent != null && playerCharacterData.CharacterComponent.Taunts != null && playerCharacterData.CharacterComponent.Taunts.Count > num2)
+								{
+									isUnlocked = playerCharacterData.CharacterComponent.Taunts[num2].Unlocked;
+									goto IL_0191;
+								}
+							}
+							isUnlocked = false;
+							goto IL_0191;
+						}
+					}
+					else
+					{
+						j--;
+					}
+					goto IL_01b8;
+				}
+				UIManager.SetGameObjectActive(componentsInChildren[j], false);
 				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterTauntsPanel.Setup(CharacterResourceLink, bool)).MethodHandle;
-		}
-		list.Sort((int first, int second) => characterLink.m_taunts[first].m_actionForTaunt - characterLink.m_taunts[second].m_actionForTaunt);
-		int num = 0;
-		for (int j = 0; j < componentsInChildren.Length; j++)
-		{
-			if (num < list.Count)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				int num2 = list[num];
-				if (!characterLink.m_taunts[num2].m_isHidden)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (componentsInChildren.Length > j)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (playerCharacterData == null)
-						{
-							goto IL_18E;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (playerCharacterData.CharacterComponent == null || playerCharacterData.CharacterComponent.Taunts == null || playerCharacterData.CharacterComponent.Taunts.Count <= num2)
-						{
-							goto IL_18E;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						bool isUnlocked = playerCharacterData.CharacterComponent.Taunts[num2].Unlocked;
-						IL_191:
-						componentsInChildren[j].Setup(characterLink, num2, component, isUnlocked);
-						UIManager.SetGameObjectActive(componentsInChildren[j], true, null);
-						goto IL_1B0;
-						IL_18E:
-						isUnlocked = false;
-						goto IL_191;
-					}
-					IL_1B0:;
-				}
-				else
-				{
-					j--;
-				}
+				IL_0191:
+				componentsInChildren[j].Setup(characterLink, num2, component, isUnlocked);
+				UIManager.SetGameObjectActive(componentsInChildren[j], true);
+				goto IL_01b8;
+				IL_01b8:
 				num++;
 			}
-			else
+			while (true)
 			{
-				UIManager.SetGameObjectActive(componentsInChildren[j], false, null);
+				switch (7)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
 	public void SetVisible(bool isVisible)
 	{
-		UIManager.SetGameObjectActive(base.gameObject, isVisible, null);
+		UIManager.SetGameObjectActive(base.gameObject, isVisible);
 	}
 
 	private void OnEnable()
 	{
-		UICharacterTauntsPanel.m_activeTauntsPanels.Add(this);
+		m_activeTauntsPanels.Add(this);
 	}
 
 	private void OnDisable()
 	{
-		UICharacterTauntsPanel.m_activeTauntsPanels.Remove(this);
-		if (this.m_purchasePanel != null)
+		m_activeTauntsPanels.Remove(this);
+		if (!(m_purchasePanel != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterTauntsPanel.OnDisable()).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_purchasePanel, false, null);
+			return;
+		}
+		while (true)
+		{
+			UIManager.SetGameObjectActive(m_purchasePanel, false);
+			return;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		UICharacterTauntsPanel.m_activeTauntsPanels.Remove(this);
+		m_activeTauntsPanels.Remove(this);
 	}
 
 	private void PurchaseWithIso(BaseEventData data)
 	{
-		this.Purchase(CurrencyType.ISO);
+		Purchase(CurrencyType.ISO);
 	}
 
 	private void Purchase(CurrencyType currencyType)
 	{
-		if (this.m_lastButtonClicked == null)
+		if (m_lastButtonClicked == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterTauntsPanel.Purchase(CurrencyType)).MethodHandle;
-			}
-			return;
 		}
-		UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
-		uipurchaseableItem.m_itemType = PurchaseItemType.Taunt;
-		uipurchaseableItem.m_charLink = this.m_lastButtonClicked.m_charLink;
-		uipurchaseableItem.m_tauntIndex = this.m_lastButtonClicked.m_tauntIndex;
-		uipurchaseableItem.m_currencyType = currencyType;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+		uIPurchaseableItem.m_itemType = PurchaseItemType.Taunt;
+		uIPurchaseableItem.m_charLink = m_lastButtonClicked.m_charLink;
+		uIPurchaseableItem.m_tauntIndex = m_lastButtonClicked.m_tauntIndex;
+		uIPurchaseableItem.m_currencyType = currencyType;
+		UIStorePanel.Get().OpenPurchaseDialog(uIPurchaseableItem);
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.StorePurchased);
 	}
 
 	public static void RefreshActivePanels(CharacterResourceLink characterLink, int tauntIndex)
 	{
-		for (int i = 0; i < UICharacterTauntsPanel.m_activeTauntsPanels.Count; i++)
+		for (int i = 0; i < m_activeTauntsPanels.Count; i++)
 		{
-			if (UICharacterTauntsPanel.m_activeTauntsPanels[i].m_charLink.m_characterType == characterLink.m_characterType)
+			if (m_activeTauntsPanels[i].m_charLink.m_characterType != characterLink.m_characterType)
 			{
-				UITauntButton lastButtonClicked = UICharacterTauntsPanel.m_activeTauntsPanels[i].m_lastButtonClicked;
-				if (lastButtonClicked != null)
+				continue;
+			}
+			UITauntButton lastButtonClicked = m_activeTauntsPanels[i].m_lastButtonClicked;
+			if (lastButtonClicked != null)
+			{
+				if (lastButtonClicked.m_tauntIndex == tauntIndex)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterTauntsPanel.RefreshActivePanels(CharacterResourceLink, int)).MethodHandle;
-					}
-					if (lastButtonClicked.m_tauntIndex == tauntIndex)
-					{
-						lastButtonClicked.SetUnlocked();
-						UIManager.SetGameObjectActive(UICharacterTauntsPanel.m_activeTauntsPanels[i].m_purchasePanel, false, null);
-						goto IL_C9;
-					}
-				}
-				UITauntButton[] componentsInChildren = UICharacterTauntsPanel.m_activeTauntsPanels[i].m_tauntsGrid.GetComponentsInChildren<UITauntButton>();
-				for (int j = 0; j < componentsInChildren.Length; j++)
-				{
-					if (componentsInChildren[j].m_tauntIndex == tauntIndex)
-					{
-						componentsInChildren[j].SetUnlocked();
-					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					lastButtonClicked.SetUnlocked();
+					UIManager.SetGameObjectActive(m_activeTauntsPanels[i].m_purchasePanel, false);
+					continue;
 				}
 			}
-			IL_C9:;
+			UITauntButton[] componentsInChildren = m_activeTauntsPanels[i].m_tauntsGrid.GetComponentsInChildren<UITauntButton>();
+			for (int j = 0; j < componentsInChildren.Length; j++)
+			{
+				if (componentsInChildren[j].m_tauntIndex == tauntIndex)
+				{
+					componentsInChildren[j].SetUnlocked();
+				}
+			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public void Select(UITauntButton newButton)
 	{
-		if (this.m_lastButtonClicked != null)
+		if (m_lastButtonClicked != null)
 		{
-			this.m_lastButtonClicked.m_hitbox.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+			m_lastButtonClicked.m_hitbox.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
 		}
 		newButton.m_hitbox.selectableButton.SetSelected(true, false, string.Empty, string.Empty);
-		this.m_lastButtonClicked = newButton;
-		if (GameManager.Get().GameStatus != GameStatus.LoadoutSelecting)
+		m_lastButtonClicked = newButton;
+		if (GameManager.Get().GameStatus == GameStatus.LoadoutSelecting)
 		{
-			if (newButton.GetIsoCost() > 0)
+			return;
+		}
+		if (newButton.GetIsoCost() > 0)
+		{
+			if (!newButton.IsUnlocked())
 			{
-				for (;;)
+				while (true)
 				{
-					switch (1)
+					switch (3)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterTauntsPanel.Select(UITauntButton)).MethodHandle;
-				}
-				if (!newButton.IsUnlocked())
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					this.m_purchasePanel.Setup(newButton.GetIsoCost(), 0, 0f, false);
-					UIManager.SetGameObjectActive(this.m_purchasePanel, true, null);
-					GameBalanceVars.TauntUnlockData tauntUnlockData = GameBalanceVars.Get().GetCharacterUnlockData(newButton.m_charLink.m_characterType).tauntUnlockData[newButton.m_tauntIndex];
-					bool flag = GameBalanceVarsExtensions.MeetsPurchaseabilityConditions(tauntUnlockData);
-					this.m_purchasePanel.SetDisabled(!flag);
-					if (!flag)
+					default:
 					{
-						for (;;)
+						m_purchasePanel.Setup(newButton.GetIsoCost(), 0, 0f);
+						UIManager.SetGameObjectActive(m_purchasePanel, true);
+						GameBalanceVars.TauntUnlockData tauntUnlockData = GameBalanceVars.Get().GetCharacterUnlockData(newButton.m_charLink.m_characterType).tauntUnlockData[newButton.m_tauntIndex];
+						bool flag = GameBalanceVarsExtensions.MeetsPurchaseabilityConditions(tauntUnlockData);
+						m_purchasePanel.SetDisabled(!flag);
+						if (!flag)
 						{
-							switch (3)
+							if (!tauntUnlockData.PurchaseDescription.IsNullOrEmpty())
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!tauntUnlockData.PurchaseDescription.IsNullOrEmpty())
-						{
-							for (;;)
-							{
-								switch (6)
+								while (true)
 								{
-								case 0:
-									continue;
+									switch (6)
+									{
+									case 0:
+										break;
+									default:
+										m_purchasePanel.SetupTooltip(tauntUnlockData.GetPurchaseDescription());
+										return;
+									}
 								}
-								break;
 							}
-							this.m_purchasePanel.SetupTooltip(tauntUnlockData.GetPurchaseDescription());
-							goto IL_150;
 						}
+						m_purchasePanel.SetupTooltip(string.Empty);
+						return;
 					}
-					this.m_purchasePanel.SetupTooltip(string.Empty);
-					IL_150:
-					return;
+					}
 				}
 			}
-			UIManager.SetGameObjectActive(this.m_purchasePanel, false, null);
 		}
+		UIManager.SetGameObjectActive(m_purchasePanel, false);
 	}
 }

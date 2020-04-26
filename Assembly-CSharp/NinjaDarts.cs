@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +22,7 @@ public class NinjaDarts : Ability
 	public float m_targeterMaxInterpDistance = 4f;
 
 	[Separator("On Hit Stuff", true)]
-	public int m_damage = 0xA;
+	public int m_damage = 10;
 
 	public int m_extraDamagePerSubseqHit;
 
@@ -74,71 +73,27 @@ public class NinjaDarts : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.Start()).MethodHandle;
-			}
-			this.m_abilityName = "NinjaDarts";
+			m_abilityName = "NinjaDarts";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		if (this.m_syncComp == null)
+		SetCachedFields();
+		if (m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.SetupTargeter()).MethodHandle;
-			}
-			this.m_syncComp = base.GetComponent<Ninja_SyncComponent>();
+			m_syncComp = GetComponent<Ninja_SyncComponent>();
 		}
-		AbilityUtil_Targeter abilityUtil_Targeter = AbilityCommon_FanLaser.CreateTargeter_SingleClick(this, this.GetLaserCount(), this.GetLaserInfo(), this.GetAngleInBetween(), this.ChangeAngleByCursorDistance(), this.GetTargeterMinAngle(), this.GetTargeterMaxAngle(), this.GetTargeterMinInterpDistance(), this.GetTargeterMaxInterpDistance());
-		if (this.ChangeAngleByCursorDistance())
+		AbilityUtil_Targeter abilityUtil_Targeter = AbilityCommon_FanLaser.CreateTargeter_SingleClick(this, GetLaserCount(), GetLaserInfo(), GetAngleInBetween(), ChangeAngleByCursorDistance(), GetTargeterMinAngle(), GetTargeterMaxAngle(), GetTargeterMinInterpDistance(), GetTargeterMaxInterpDistance());
+		if (ChangeAngleByCursorDistance())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityUtil_Targeter is AbilityUtil_Targeter_ThiefFanLaser)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser = abilityUtil_Targeter as AbilityUtil_Targeter_ThiefFanLaser;
-				abilityUtil_Targeter_ThiefFanLaser.m_customDamageOriginDelegate = new AbilityUtil_Targeter_ThiefFanLaser.CustomDamageOriginDelegate(this.GetCustomDamageOriginForTargeter);
+				abilityUtil_Targeter_ThiefFanLaser.m_customDamageOriginDelegate = GetCustomDamageOriginForTargeter;
 			}
 		}
 		base.Targeter = abilityUtil_Targeter;
@@ -146,33 +101,20 @@ public class NinjaDarts : Ability
 
 	private Vector3 GetCustomDamageOriginForTargeter(ActorData potentialActor, ActorData caster, Vector3 defaultPos)
 	{
-		if (this.IgnoreCoverOnTargets())
+		if (IgnoreCoverOnTargets())
 		{
-			for (;;)
+			if (ActorIsMarked(potentialActor))
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetCustomDamageOriginForTargeter(ActorData, ActorData, Vector3)).MethodHandle;
-			}
-			if (this.ActorIsMarked(potentialActor))
-			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return potentialActor.GetTravelBoardSquareWorldPosition();
 					}
-					break;
 				}
-				return potentialActor.\u0016();
 			}
 		}
 		return defaultPos;
@@ -190,151 +132,89 @@ public class NinjaDarts : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLaserInfo().range;
+		return GetLaserInfo().range;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "LaserCount", string.Empty, this.m_laserCount, false);
-		base.AddTokenInt(tokens, "Damage", string.Empty, this.m_damage, false);
-		base.AddTokenInt(tokens, "ExtraDamagePerSubseqHit", string.Empty, this.m_extraDamagePerSubseqHit, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemySingleHitEffect, "EnemySingleHitEffect", this.m_enemySingleHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyMultiHitEffect, "EnemyMultiHitEffect", this.m_enemyMultiHitEffect, true);
-		base.AddTokenInt(tokens, "EnemyExtraEffectHitCount", string.Empty, this.m_enemyExtraEffectHitCount, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyExtraHitEffectForHitCount, "EnemyExtraHitEffectForHitCount", this.m_enemyExtraHitEffectForHitCount, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_allySingleHitEffect, "AllySingleHitEffect", this.m_allySingleHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_allyMultiHitEffect, "AllyMultiHitEffect", this.m_allyMultiHitEffect, true);
-		base.AddTokenInt(tokens, "EnergyPerDartHit", string.Empty, this.m_energyPerDartHit, false);
-		base.AddTokenInt(tokens, "CdrOnMiss", string.Empty, this.m_cdrOnMiss, false);
+		AddTokenInt(tokens, "LaserCount", string.Empty, m_laserCount);
+		AddTokenInt(tokens, "Damage", string.Empty, m_damage);
+		AddTokenInt(tokens, "ExtraDamagePerSubseqHit", string.Empty, m_extraDamagePerSubseqHit);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemySingleHitEffect, "EnemySingleHitEffect", m_enemySingleHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyMultiHitEffect, "EnemyMultiHitEffect", m_enemyMultiHitEffect);
+		AddTokenInt(tokens, "EnemyExtraEffectHitCount", string.Empty, m_enemyExtraEffectHitCount);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyExtraHitEffectForHitCount, "EnemyExtraHitEffectForHitCount", m_enemyExtraHitEffectForHitCount);
+		AbilityMod.AddToken_EffectInfo(tokens, m_allySingleHitEffect, "AllySingleHitEffect", m_allySingleHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_allyMultiHitEffect, "AllyMultiHitEffect", m_allyMultiHitEffect);
+		AddTokenInt(tokens, "EnergyPerDartHit", string.Empty, m_energyPerDartHit);
+		AddTokenInt(tokens, "CdrOnMiss", string.Empty, m_cdrOnMiss);
 	}
 
 	private void SetCachedFields()
 	{
 		LaserTargetingInfo cachedLaserInfo;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.SetCachedFields()).MethodHandle;
-			}
-			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
+			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
 		{
-			cachedLaserInfo = this.m_laserInfo;
+			cachedLaserInfo = m_laserInfo;
 		}
-		this.m_cachedLaserInfo = cachedLaserInfo;
+		m_cachedLaserInfo = cachedLaserInfo;
 		StandardEffectInfo cachedEnemySingleHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedEnemySingleHitEffect = this.m_abilityMod.m_enemySingleHitEffectMod.GetModifiedValue(this.m_enemySingleHitEffect);
+			cachedEnemySingleHitEffect = m_abilityMod.m_enemySingleHitEffectMod.GetModifiedValue(m_enemySingleHitEffect);
 		}
 		else
 		{
-			cachedEnemySingleHitEffect = this.m_enemySingleHitEffect;
+			cachedEnemySingleHitEffect = m_enemySingleHitEffect;
 		}
-		this.m_cachedEnemySingleHitEffect = cachedEnemySingleHitEffect;
+		m_cachedEnemySingleHitEffect = cachedEnemySingleHitEffect;
 		StandardEffectInfo cachedEnemyMultiHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedEnemyMultiHitEffect = this.m_abilityMod.m_enemyMultiHitEffectMod.GetModifiedValue(this.m_enemyMultiHitEffect);
+			cachedEnemyMultiHitEffect = m_abilityMod.m_enemyMultiHitEffectMod.GetModifiedValue(m_enemyMultiHitEffect);
 		}
 		else
 		{
-			cachedEnemyMultiHitEffect = this.m_enemyMultiHitEffect;
+			cachedEnemyMultiHitEffect = m_enemyMultiHitEffect;
 		}
-		this.m_cachedEnemyMultiHitEffect = cachedEnemyMultiHitEffect;
+		m_cachedEnemyMultiHitEffect = cachedEnemyMultiHitEffect;
 		StandardEffectInfo cachedEnemyExtraHitEffectForHitCount;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedEnemyExtraHitEffectForHitCount = this.m_abilityMod.m_enemyExtraHitEffectForHitCountMod.GetModifiedValue(this.m_enemyExtraHitEffectForHitCount);
+			cachedEnemyExtraHitEffectForHitCount = m_abilityMod.m_enemyExtraHitEffectForHitCountMod.GetModifiedValue(m_enemyExtraHitEffectForHitCount);
 		}
 		else
 		{
-			cachedEnemyExtraHitEffectForHitCount = this.m_enemyExtraHitEffectForHitCount;
+			cachedEnemyExtraHitEffectForHitCount = m_enemyExtraHitEffectForHitCount;
 		}
-		this.m_cachedEnemyExtraHitEffectForHitCount = cachedEnemyExtraHitEffectForHitCount;
+		m_cachedEnemyExtraHitEffectForHitCount = cachedEnemyExtraHitEffectForHitCount;
 		StandardEffectInfo cachedAllySingleHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedAllySingleHitEffect = this.m_abilityMod.m_allySingleHitEffectMod.GetModifiedValue(this.m_allySingleHitEffect);
+			cachedAllySingleHitEffect = m_abilityMod.m_allySingleHitEffectMod.GetModifiedValue(m_allySingleHitEffect);
 		}
 		else
 		{
-			cachedAllySingleHitEffect = this.m_allySingleHitEffect;
+			cachedAllySingleHitEffect = m_allySingleHitEffect;
 		}
-		this.m_cachedAllySingleHitEffect = cachedAllySingleHitEffect;
-		this.m_cachedAllyMultiHitEffect = ((!this.m_abilityMod) ? this.m_allyMultiHitEffect : this.m_abilityMod.m_allyMultiHitEffectMod.GetModifiedValue(this.m_allyMultiHitEffect));
+		m_cachedAllySingleHitEffect = cachedAllySingleHitEffect;
+		m_cachedAllyMultiHitEffect = ((!m_abilityMod) ? m_allyMultiHitEffect : m_abilityMod.m_allyMultiHitEffectMod.GetModifiedValue(m_allyMultiHitEffect));
 	}
 
 	public LaserTargetingInfo GetLaserInfo()
 	{
 		LaserTargetingInfo result;
-		if (this.m_cachedLaserInfo != null)
+		if (m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetLaserInfo()).MethodHandle;
-			}
-			result = this.m_cachedLaserInfo;
+			result = m_cachedLaserInfo;
 		}
 		else
 		{
-			result = this.m_laserInfo;
+			result = m_laserInfo;
 		}
 		return result;
 	}
@@ -342,26 +222,13 @@ public class NinjaDarts : Ability
 	public int GetLaserCount()
 	{
 		int num;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetLaserCount()).MethodHandle;
-			}
-			num = this.m_abilityMod.m_laserCountMod.GetModifiedValue(this.m_laserCount);
+			num = m_abilityMod.m_laserCountMod.GetModifiedValue(m_laserCount);
 		}
 		else
 		{
-			num = this.m_laserCount;
+			num = m_laserCount;
 		}
 		int b = num;
 		return Mathf.Max(1, b);
@@ -369,32 +236,19 @@ public class NinjaDarts : Ability
 
 	public float GetAngleInBetween()
 	{
-		return (!this.m_abilityMod) ? this.m_angleInBetween : this.m_abilityMod.m_angleInBetweenMod.GetModifiedValue(this.m_angleInBetween);
+		return (!m_abilityMod) ? m_angleInBetween : m_abilityMod.m_angleInBetweenMod.GetModifiedValue(m_angleInBetween);
 	}
 
 	public bool ChangeAngleByCursorDistance()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.ChangeAngleByCursorDistance()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_changeAngleByCursorDistanceMod.GetModifiedValue(this.m_changeAngleByCursorDistance);
+			result = m_abilityMod.m_changeAngleByCursorDistanceMod.GetModifiedValue(m_changeAngleByCursorDistance);
 		}
 		else
 		{
-			result = this.m_changeAngleByCursorDistance;
+			result = m_changeAngleByCursorDistance;
 		}
 		return result;
 	}
@@ -402,26 +256,13 @@ public class NinjaDarts : Ability
 	public float GetTargeterMinAngle()
 	{
 		float num;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetTargeterMinAngle()).MethodHandle;
-			}
-			num = this.m_abilityMod.m_targeterMinAngleMod.GetModifiedValue(this.m_targeterMinAngle);
+			num = m_abilityMod.m_targeterMinAngleMod.GetModifiedValue(m_targeterMinAngle);
 		}
 		else
 		{
-			num = this.m_targeterMinAngle;
+			num = m_targeterMinAngle;
 		}
 		float a = num;
 		return Mathf.Max(a, 0f);
@@ -429,33 +270,20 @@ public class NinjaDarts : Ability
 
 	public float GetTargeterMaxAngle()
 	{
-		float b = (!this.m_abilityMod) ? this.m_targeterMaxAngle : this.m_abilityMod.m_targeterMaxAngleMod.GetModifiedValue(this.m_targeterMaxAngle);
+		float b = (!m_abilityMod) ? m_targeterMaxAngle : m_abilityMod.m_targeterMaxAngleMod.GetModifiedValue(m_targeterMaxAngle);
 		return Mathf.Max(1f, b);
 	}
 
 	public float GetTargeterMinInterpDistance()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetTargeterMinInterpDistance()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_targeterMinInterpDistanceMod.GetModifiedValue(this.m_targeterMinInterpDistance);
+			result = m_abilityMod.m_targeterMinInterpDistanceMod.GetModifiedValue(m_targeterMinInterpDistance);
 		}
 		else
 		{
-			result = this.m_targeterMinInterpDistance;
+			result = m_targeterMinInterpDistance;
 		}
 		return result;
 	}
@@ -463,26 +291,13 @@ public class NinjaDarts : Ability
 	public float GetTargeterMaxInterpDistance()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetTargeterMaxInterpDistance()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_targeterMaxInterpDistanceMod.GetModifiedValue(this.m_targeterMaxInterpDistance);
+			result = m_abilityMod.m_targeterMaxInterpDistanceMod.GetModifiedValue(m_targeterMaxInterpDistance);
 		}
 		else
 		{
-			result = this.m_targeterMaxInterpDistance;
+			result = m_targeterMaxInterpDistance;
 		}
 		return result;
 	}
@@ -490,26 +305,13 @@ public class NinjaDarts : Ability
 	public int GetDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetDamage()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damage);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
 		{
-			result = this.m_damage;
+			result = m_damage;
 		}
 		return result;
 	}
@@ -517,26 +319,13 @@ public class NinjaDarts : Ability
 	public int GetExtraDamagePerSubseqHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetExtraDamagePerSubseqHit()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_extraDamagePerSubseqHitMod.GetModifiedValue(this.m_extraDamagePerSubseqHit);
+			result = m_abilityMod.m_extraDamagePerSubseqHitMod.GetModifiedValue(m_extraDamagePerSubseqHit);
 		}
 		else
 		{
-			result = this.m_extraDamagePerSubseqHit;
+			result = m_extraDamagePerSubseqHit;
 		}
 		return result;
 	}
@@ -544,26 +333,13 @@ public class NinjaDarts : Ability
 	public StandardEffectInfo GetEnemySingleHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemySingleHitEffect != null)
+		if (m_cachedEnemySingleHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetEnemySingleHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedEnemySingleHitEffect;
+			result = m_cachedEnemySingleHitEffect;
 		}
 		else
 		{
-			result = this.m_enemySingleHitEffect;
+			result = m_enemySingleHitEffect;
 		}
 		return result;
 	}
@@ -571,26 +347,13 @@ public class NinjaDarts : Ability
 	public StandardEffectInfo GetEnemyMultiHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyMultiHitEffect != null)
+		if (m_cachedEnemyMultiHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetEnemyMultiHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedEnemyMultiHitEffect;
+			result = m_cachedEnemyMultiHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyMultiHitEffect;
+			result = m_enemyMultiHitEffect;
 		}
 		return result;
 	}
@@ -598,58 +361,32 @@ public class NinjaDarts : Ability
 	public int GetEnemyExtraEffectHitCount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetEnemyExtraEffectHitCount()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_enemyExtraEffectHitCountMod.GetModifiedValue(this.m_enemyExtraEffectHitCount);
+			result = m_abilityMod.m_enemyExtraEffectHitCountMod.GetModifiedValue(m_enemyExtraEffectHitCount);
 		}
 		else
 		{
-			result = this.m_enemyExtraEffectHitCount;
+			result = m_enemyExtraEffectHitCount;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetEnemyExtraHitEffectForHitCount()
 	{
-		return (this.m_cachedEnemyExtraHitEffectForHitCount == null) ? this.m_enemyExtraHitEffectForHitCount : this.m_cachedEnemyExtraHitEffectForHitCount;
+		return (m_cachedEnemyExtraHitEffectForHitCount == null) ? m_enemyExtraHitEffectForHitCount : m_cachedEnemyExtraHitEffectForHitCount;
 	}
 
 	public StandardEffectInfo GetAllySingleHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllySingleHitEffect != null)
+		if (m_cachedAllySingleHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetAllySingleHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedAllySingleHitEffect;
+			result = m_cachedAllySingleHitEffect;
 		}
 		else
 		{
-			result = this.m_allySingleHitEffect;
+			result = m_allySingleHitEffect;
 		}
 		return result;
 	}
@@ -657,26 +394,13 @@ public class NinjaDarts : Ability
 	public StandardEffectInfo GetAllyMultiHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllyMultiHitEffect != null)
+		if (m_cachedAllyMultiHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetAllyMultiHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedAllyMultiHitEffect;
+			result = m_cachedAllyMultiHitEffect;
 		}
 		else
 		{
-			result = this.m_allyMultiHitEffect;
+			result = m_allyMultiHitEffect;
 		}
 		return result;
 	}
@@ -684,26 +408,13 @@ public class NinjaDarts : Ability
 	public int GetEnergyPerDartHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetEnergyPerDartHit()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_energyPerDartHitMod.GetModifiedValue(this.m_energyPerDartHit);
+			result = m_abilityMod.m_energyPerDartHitMod.GetModifiedValue(m_energyPerDartHit);
 		}
 		else
 		{
-			result = this.m_energyPerDartHit;
+			result = m_energyPerDartHit;
 		}
 		return result;
 	}
@@ -711,26 +422,13 @@ public class NinjaDarts : Ability
 	public int GetCdrOnMiss()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetCdrOnMiss()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_cdrOnMissMod.GetModifiedValue(this.m_cdrOnMiss);
+			result = m_abilityMod.m_cdrOnMissMod.GetModifiedValue(m_cdrOnMiss);
 		}
 		else
 		{
-			result = this.m_cdrOnMiss;
+			result = m_cdrOnMiss;
 		}
 		return result;
 	}
@@ -738,26 +436,13 @@ public class NinjaDarts : Ability
 	public bool ApplyDeathmarkEffect()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.ApplyDeathmarkEffect()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_applyDeathmarkEffectMod.GetModifiedValue(this.m_applyDeathmarkEffect);
+			result = m_abilityMod.m_applyDeathmarkEffectMod.GetModifiedValue(m_applyDeathmarkEffect);
 		}
 		else
 		{
-			result = this.m_applyDeathmarkEffect;
+			result = m_applyDeathmarkEffect;
 		}
 		return result;
 	}
@@ -765,26 +450,13 @@ public class NinjaDarts : Ability
 	public bool IgnoreCoverOnTargets()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.IgnoreCoverOnTargets()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_ignoreCoverOnTargetsMod.GetModifiedValue(this.m_ignoreCoverOnTargets);
+			result = m_abilityMod.m_ignoreCoverOnTargetsMod.GetModifiedValue(m_ignoreCoverOnTargets);
 		}
 		else
 		{
-			result = this.m_ignoreCoverOnTargets;
+			result = m_ignoreCoverOnTargets;
 		}
 		return result;
 	}
@@ -793,101 +465,74 @@ public class NinjaDarts : Ability
 	{
 		if (numHits > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.CalcDamageFromNumHits(int)).MethodHandle;
-			}
-			int num = this.GetDamage();
-			if (this.GetExtraDamagePerSubseqHit() > 0 && numHits > 1)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					int num = GetDamage();
+					if (GetExtraDamagePerSubseqHit() > 0 && numHits > 1)
+					{
+						num += GetExtraDamagePerSubseqHit() * (numHits - 1);
+					}
+					return num;
 				}
-				num += this.GetExtraDamagePerSubseqHit() * (numHits - 1);
+				}
 			}
-			return num;
 		}
 		return 0;
 	}
 
 	public bool ActorIsMarked(ActorData actor)
 	{
-		bool result;
-		if (this.m_syncComp != null)
+		int result;
+		if (m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.ActorIsMarked(ActorData)).MethodHandle;
-			}
-			result = this.m_syncComp.ActorHasDeathmark(actor);
+			result = (m_syncComp.ActorHasDeathmark(actor) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetDamage());
-		this.GetEnemySingleHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		this.GetEnemyMultiHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetDamage());
+		GetEnemySingleHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		GetEnemyMultiHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
 		int tooltipSubjectCountOnActor = base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary);
-		int damage = this.CalcDamageFromNumHits(tooltipSubjectCountOnActor);
-		results.m_damage = damage;
+		int num = results.m_damage = CalcDamageFromNumHits(tooltipSubjectCountOnActor);
 		return true;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (this.GetEnergyPerDartHit() > 0)
+		if (GetEnergyPerDartHit() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					int tooltipSubjectCountTotalWithDuplicates = base.Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary);
+					return tooltipSubjectCountTotalWithDuplicates * GetEnergyPerDartHit();
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
-			int tooltipSubjectCountTotalWithDuplicates = base.Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary);
-			return tooltipSubjectCountTotalWithDuplicates * this.GetEnergyPerDartHit();
 		}
 		return 0;
 	}
@@ -896,42 +541,20 @@ public class NinjaDarts : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			for (;;)
+			if (m_syncComp != null)
 			{
-				switch (2)
+				if (m_syncComp.m_deathmarkOnTriggerDamage > 0 && m_syncComp.ActorHasDeathmark(targetActor))
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
-			if (this.m_syncComp != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_syncComp.m_deathmarkOnTriggerDamage > 0 && this.m_syncComp.ActorHasDeathmark(targetActor))
-				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return "\n+ " + AbilityUtils.CalculateDamageForTargeter(base.ActorData, targetActor, this, m_syncComp.m_deathmarkOnTriggerDamage, false);
 						}
-						break;
 					}
-					return "\n+ " + AbilityUtils.CalculateDamageForTargeter(base.ActorData, targetActor, this, this.m_syncComp.m_deathmarkOnTriggerDamage, false).ToString();
 				}
 			}
 		}
@@ -940,41 +563,33 @@ public class NinjaDarts : Ability
 
 	public float CalculateDistanceFromFanAngleDegrees(float fanAngleDegrees)
 	{
-		return AbilityCommon_FanLaser.CalculateDistanceFromFanAngleDegrees(fanAngleDegrees, this.GetTargeterMaxAngle(), this.GetTargeterMinInterpDistance(), this.GetTargeterMaxInterpDistance());
+		return AbilityCommon_FanLaser.CalculateDistanceFromFanAngleDegrees(fanAngleDegrees, GetTargeterMaxAngle(), GetTargeterMinInterpDistance(), GetTargeterMaxInterpDistance());
 	}
 
 	public override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
 	{
-		min = this.GetTargeterMinInterpDistance() * Board.\u000E().squareSize;
-		max = this.GetTargeterMaxInterpDistance() * Board.\u000E().squareSize;
+		min = GetTargeterMinInterpDistance() * Board.Get().squareSize;
+		max = GetTargeterMaxInterpDistance() * Board.Get().squareSize;
 		return true;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_NinjaDarts))
+		if (abilityMod.GetType() != typeof(AbilityMod_NinjaDarts))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_NinjaDarts);
-			this.SetupTargeter();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_NinjaDarts);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 }

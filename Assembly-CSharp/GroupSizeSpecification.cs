@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class GroupSizeSpecification
 {
 	public RequirementCollection Restrictions;
 
-	public int MaxTierBreadthPerGame = 0xA;
+	public int MaxTierBreadthPerGame = 10;
 }

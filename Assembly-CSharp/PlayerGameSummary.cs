@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -175,421 +175,333 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 
 	public bool IsInTeamA()
 	{
-		return this.Team == 0;
+		return Team == 0;
 	}
 
 	public bool IsInTeamB()
 	{
-		return this.Team == 1;
+		return Team == 1;
 	}
 
 	public bool IsSpectator()
 	{
-		return this.Team == 3;
+		return Team == 3;
 	}
 
 	public GameResult ResultForWin()
 	{
-		GameResult result;
-		if (this.IsInTeamA())
+		int result;
+		if (IsInTeamA())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.ResultForWin()).MethodHandle;
-			}
-			result = GameResult.TeamAWon;
+			result = 2;
 		}
 		else
 		{
-			result = GameResult.TeamBWon;
+			result = 3;
 		}
-		return result;
+		return (GameResult)result;
 	}
 
 	public int GetTotalGainedXPAccount()
 	{
-		return this.BaseXPGainedAccount + this.GGXPGainedAccount + this.PlayWithFriendXPGainedAccount + this.QuestXPGainedAccount + this.FirstWinXpGainedAccount + this.QueueTimeXpGainedAccount + this.FreelancerOwnedXPAmount;
+		return BaseXPGainedAccount + GGXPGainedAccount + PlayWithFriendXPGainedAccount + QuestXPGainedAccount + FirstWinXpGainedAccount + QueueTimeXpGainedAccount + FreelancerOwnedXPAmount;
 	}
 
 	public int GetTotalGainedXPCharacter()
 	{
-		return this.BaseXPGainedCharacter + this.GGXPGainedCharacter + this.ConsumableXPGainedCharacter + this.PlayWithFriendXPGainedCharacter + this.QuestXPGainedCharacter + this.FirstWinXpGainedCharacter + this.QueueTimeXpGainedCharacter + this.FreelancerOwnedXPAmount;
+		return BaseXPGainedCharacter + GGXPGainedCharacter + ConsumableXPGainedCharacter + PlayWithFriendXPGainedCharacter + QuestXPGainedCharacter + FirstWinXpGainedCharacter + QueueTimeXpGainedCharacter + FreelancerOwnedXPAmount;
 	}
 
 	public int GetTotalGainedISO()
 	{
-		return this.BaseISOGained + this.GGISOGained;
+		return BaseISOGained + GGISOGained;
 	}
 
 	public int GetTotalGainedFreelancerCurrency()
 	{
-		return this.BaseFreelancerCurrencyGained + this.WinFreelancerCurrencyGained + this.GGFreelancerCurrencyGained + this.EventBonusFreelancerCurrencyGained;
+		return BaseFreelancerCurrencyGained + WinFreelancerCurrencyGained + GGFreelancerCurrencyGained + EventBonusFreelancerCurrencyGained;
 	}
 
 	public int GetContribution()
 	{
-		return this.TotalPlayerDamage + this.TotalPlayerAbsorb + this.GetTotalHealingFromAbility();
+		return TotalPlayerDamage + TotalPlayerAbsorb + GetTotalHealingFromAbility();
 	}
 
 	public int GetTotalHealingFromAbility()
 	{
-		IEnumerable<AbilityGameSummary> abilityGameSummaryList = this.AbilityGameSummaryList;
-		if (PlayerGameSummary.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetTotalHealingFromAbility()).MethodHandle;
-			}
-			PlayerGameSummary.<>f__am$cache0 = ((AbilityGameSummary a) => a.TotalHealing);
-		}
-		return abilityGameSummaryList.Select(PlayerGameSummary.<>f__am$cache0).Sum();
+		List<AbilityGameSummary> abilityGameSummaryList = AbilityGameSummaryList;
+		
+		return abilityGameSummaryList.Select(((AbilityGameSummary a) => a.TotalHealing)).Sum();
 	}
 
 	public float? GetNumLives()
 	{
-		if (this.TotalGameTurns > 0)
+		if (TotalGameTurns > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return Math.Max(1f, NumDeaths + 1);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetNumLives()).MethodHandle;
-			}
-			return new float?(Math.Max(1f, (float)(this.NumDeaths + 1)));
 		}
 		return null;
 	}
 
 	public float? GetDamageDealtPerTurn()
 	{
-		if (this.TotalGameTurns > 0)
+		if (TotalGameTurns > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return (float)TotalPlayerDamage / (float)TotalGameTurns;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetDamageDealtPerTurn()).MethodHandle;
-			}
-			return new float?((float)this.TotalPlayerDamage / (float)this.TotalGameTurns);
 		}
 		return null;
 	}
 
 	public float? GetTeamEnergyBoostedByMePerTurn()
 	{
-		if (this.TotalGameTurns > 0)
+		if (TotalGameTurns > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return (float)TeamExtraEnergyByEnergizedFromMe / (float)TotalGameTurns;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetTeamEnergyBoostedByMePerTurn()).MethodHandle;
-			}
-			return new float?((float)this.TeamExtraEnergyByEnergizedFromMe / (float)this.TotalGameTurns);
 		}
 		return null;
 	}
 
 	public float? GetTeamDamageSwingByMePerTurn()
 	{
-		if (this.TotalGameTurns > 0)
+		if (TotalGameTurns > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return (float)GetTotalTeamDamageAdjustedByMe() / (float)TotalGameTurns;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetTeamDamageSwingByMePerTurn()).MethodHandle;
-			}
-			return new float?((float)this.GetTotalTeamDamageAdjustedByMe() / (float)this.TotalGameTurns);
 		}
 		return null;
 	}
 
 	public float? GetDamageTakenPerLife()
 	{
-		float? numLives = this.GetNumLives();
-		if (numLives != null)
+		float? numLives = GetNumLives();
+		if (numLives.HasValue)
 		{
-			return new float?((float)this.TotalPlayerDamageReceived / numLives.Value);
+			return (float)TotalPlayerDamageReceived / numLives.Value;
 		}
 		return null;
 	}
 
 	public float GetBoostedDamagePerTurn()
 	{
-		if (this.TotalGameTurns > 0)
+		if (TotalGameTurns > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return (float)MyOutgoingExtraDamageFromEmpowered / (float)TotalGameTurns;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetBoostedDamagePerTurn()).MethodHandle;
-			}
-			return (float)this.MyOutgoingExtraDamageFromEmpowered / (float)this.TotalGameTurns;
 		}
 		return 0f;
 	}
 
 	public int GetTotalTeamDamageAdjustedByMe()
 	{
-		return this.TeamOutgoingDamageIncreasedByEmpoweredFromMe + this.TeamIncomingDamageReducedByWeakenedFromMe;
+		return TeamOutgoingDamageIncreasedByEmpoweredFromMe + TeamIncomingDamageReducedByWeakenedFromMe;
 	}
 
 	public string ToPlayerInfoString()
 	{
-		return string.Format("- - - - - - - - - -\n[User Name] {0}\n[Account Id] {1}\n[Character Played] {2}\n[Skin] {3}\n[Team] {4}\n", new object[]
-		{
-			this.InGameName,
-			this.AccountId,
-			this.CharacterPlayed,
-			this.CharacterSkinIndex,
-			this.Team
-		});
+		return $"- - - - - - - - - -\n[User Name] {InGameName}\n[Account Id] {AccountId}\n[Character Played] {CharacterPlayed}\n[Skin] {CharacterSkinIndex}\n[Team] {Team}\n";
 	}
 
 	public float? GetTankingPerLife()
 	{
-		float? numLives = this.GetNumLives();
-		if (numLives != null)
+		float? numLives = GetNumLives();
+		if (numLives.HasValue)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return (float)(TotalPlayerDamageReceived + NetDamageAvoidedByEvades + MyIncomingDamageReducedByCover) / numLives.Value;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetTankingPerLife()).MethodHandle;
-			}
-			return new float?((float)(this.TotalPlayerDamageReceived + this.NetDamageAvoidedByEvades + this.MyIncomingDamageReducedByCover) / numLives.Value);
 		}
 		return null;
 	}
 
 	public float? GetTeamMitigation()
 	{
-		float num = (float)(this.TeamIncomingDamageReducedByWeakenedFromMe + this.TotalTeamDamageReceived);
+		float num = TeamIncomingDamageReducedByWeakenedFromMe + TotalTeamDamageReceived;
 		if (num == 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetTeamMitigation()).MethodHandle;
-			}
-			return null;
 		}
-		float num2 = (float)(this.EffectiveHealing + this.TotalPlayerAbsorb + this.TeamIncomingDamageReducedByWeakenedFromMe);
-		return new float?(num2 / num);
+		float num2 = EffectiveHealing + TotalPlayerAbsorb + TeamIncomingDamageReducedByWeakenedFromMe;
+		return num2 / num;
 	}
 
 	public float? GetSupportPerTurn()
 	{
-		float num = (float)(this.EffectiveHealing + this.TotalPlayerAbsorb);
-		float num2 = (float)this.TotalGameTurns;
+		float num = EffectiveHealing + TotalPlayerAbsorb;
+		float num2 = TotalGameTurns;
 		if (num2 == 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetSupportPerTurn()).MethodHandle;
-			}
-			return null;
 		}
-		return new float?(num / num2);
+		return num / num2;
 	}
 
 	public float? GetDamageDonePerLife()
 	{
-		float? numLives = this.GetNumLives();
-		if (numLives != null)
+		float? numLives = GetNumLives();
+		if (numLives.HasValue)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return (float)TotalPlayerDamage / numLives.Value;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetDamageDonePerLife()).MethodHandle;
-			}
-			return new float?((float)this.TotalPlayerDamage / numLives.Value);
 		}
 		return null;
 	}
 
 	public float? GetNetDamageDodgedPerLife()
 	{
-		float? numLives = this.GetNumLives();
-		if (numLives != null)
+		float? numLives = GetNumLives();
+		if (numLives.HasValue)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return (float)NetDamageAvoidedByEvades / numLives.Value;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetNetDamageDodgedPerLife()).MethodHandle;
-			}
-			return new float?((float)this.NetDamageAvoidedByEvades / numLives.Value);
 		}
 		return null;
 	}
 
 	public float? GetIncomingDamageMitigatedByCoverPerLife()
 	{
-		float? numLives = this.GetNumLives();
-		if (numLives != null)
+		float? numLives = GetNumLives();
+		if (numLives.HasValue)
 		{
-			return new float?((float)this.MyIncomingDamageReducedByCover / numLives.Value);
+			return (float)MyIncomingDamageReducedByCover / numLives.Value;
 		}
 		return null;
 	}
 
 	public float? GetAvgLifeSpan()
 	{
-		float? numLives = this.GetNumLives();
-		if (numLives != null)
+		float? numLives = GetNumLives();
+		if (numLives.HasValue)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return (float)Math.Max(1, TotalGameTurns) / numLives.Value;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetAvgLifeSpan()).MethodHandle;
-			}
-			return new float?((float)Math.Max(1, this.TotalGameTurns) / numLives.Value);
 		}
 		return null;
 	}
 
 	public float? GetDamageTakenPerTurn()
 	{
-		if (this.TotalGameTurns > 0)
+		if (TotalGameTurns > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return (float)TotalPlayerDamageReceived / (float)TotalGameTurns;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetDamageTakenPerTurn()).MethodHandle;
-			}
-			return new float?((float)this.TotalPlayerDamageReceived / (float)this.TotalGameTurns);
 		}
 		return null;
 	}
 
 	public float GetMovementDeniedPerTurn()
 	{
-		if (this.TotalGameTurns > 0)
+		if (TotalGameTurns > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return MovementDeniedByMe / (float)TotalGameTurns;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetMovementDeniedPerTurn()).MethodHandle;
-			}
-			return this.MovementDeniedByMe / (float)this.TotalGameTurns;
 		}
 		return 0f;
 	}
@@ -598,271 +510,248 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 	{
 		if (TypeOfStat == StatDisplaySettings.StatType.IncomingDamageDodgeByEvade)
 		{
-			return this.GetNetDamageDodgedPerLife();
+			return GetNetDamageDodgedPerLife();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.IncomingDamageReducedByCover)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetIncomingDamageMitigatedByCoverPerLife();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetStat(StatDisplaySettings.StatType)).MethodHandle;
-			}
-			return this.GetIncomingDamageMitigatedByCoverPerLife();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalAssists)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return NumAssists;
 				}
-				break;
 			}
-			return new float?((float)this.NumAssists);
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalDeaths)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return NumDeaths;
 				}
-				break;
 			}
-			return new float?((float)this.NumDeaths);
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalBadgePoints)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return TotalBadgePoints;
 				}
-				break;
 			}
-			return new float?(this.TotalBadgePoints);
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.MovementDenied)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetMovementDeniedPerTurn();
 				}
-				break;
 			}
-			return new float?(this.GetMovementDeniedPerTurn());
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.EnergyGainPerTurn)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return EnergyGainPerTurn;
 				}
-				break;
 			}
-			return new float?(this.EnergyGainPerTurn);
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamagePerTurn)
 		{
-			return this.GetDamageDealtPerTurn();
+			return GetDamageDealtPerTurn();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.NetBoostedOutgoingDamage)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetBoostedDamagePerTurn();
 				}
-				break;
 			}
-			return new float?(this.GetBoostedDamagePerTurn());
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamageEfficiency)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return DamageEfficiency;
 				}
-				break;
 			}
-			return new float?(this.DamageEfficiency);
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.KillParticipation)
 		{
-			return new float?(this.KillParticipation);
+			return KillParticipation;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.EffectiveHealAndAbsorb)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetSupportPerTurn();
 				}
-				break;
 			}
-			return this.GetSupportPerTurn();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TeamDamageAdjustedByMe)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetTeamDamageSwingByMePerTurn();
 				}
-				break;
 			}
-			return this.GetTeamDamageSwingByMePerTurn();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TeamExtraEnergyByEnergizedFromMe)
 		{
-			return this.GetTeamEnergyBoostedByMePerTurn();
+			return GetTeamEnergyBoostedByMePerTurn();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamageTakenPerLife)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetDamageTakenPerLife();
 				}
-				break;
 			}
-			return this.GetDamageTakenPerLife();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.EnemiesSightedPerLife)
 		{
-			return new float?(this.EnemiesSightedPerTurn);
+			return EnemiesSightedPerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalTurns)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return TotalGameTurns;
 				}
-				break;
 			}
-			return new float?((float)this.TotalGameTurns);
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalTeamDamageReceived)
 		{
-			return new float?((float)this.TotalTeamDamageReceived);
+			return TotalTeamDamageReceived;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TankingPerLife)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetTankingPerLife();
 				}
-				break;
 			}
-			return this.GetTankingPerLife();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TeamMitigation)
 		{
-			return this.GetTeamMitigation();
+			return GetTeamMitigation();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.SupportPerTurn)
 		{
-			return this.GetSupportPerTurn();
+			return GetSupportPerTurn();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamageDonePerLife)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetDamageDonePerLife();
 				}
-				break;
 			}
-			return this.GetDamageDonePerLife();
 		}
-		if (TypeOfStat == StatDisplaySettings.StatType.DamageTakenPerTurn)
+		switch (TypeOfStat)
 		{
-			return this.GetDamageTakenPerTurn();
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.AvgLifeSpan)
-		{
-			for (;;)
+		case StatDisplaySettings.StatType.DamageTakenPerTurn:
+			return GetDamageTakenPerTurn();
+		case StatDisplaySettings.StatType.AvgLifeSpan:
+			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return GetAvgLifeSpan();
 			}
-			return this.GetAvgLifeSpan();
+		default:
+			return null;
 		}
-		return null;
 	}
 
 	public float? GetFreelancerStat(int FreelancerStatIndex)
 	{
 		if (-1 < FreelancerStatIndex)
 		{
-			for (;;)
+			if (FreelancerStatIndex < FreelancerStats.Count)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetFreelancerStat(int)).MethodHandle;
-			}
-			if (FreelancerStatIndex < this.FreelancerStats.Count)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return FreelancerStats[FreelancerStatIndex];
 					}
-					break;
 				}
-				return new float?((float)this.FreelancerStats[FreelancerStatIndex]);
 			}
 		}
 		return null;

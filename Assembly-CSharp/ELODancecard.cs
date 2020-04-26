@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class ELODancecard
@@ -17,135 +17,91 @@ public class ELODancecard
 
 	public bool m_playedLastTurn;
 
-	public static ELODancecard Create(long accountId, long groupId, byte groupSize)
+	public string LogString
 	{
-		if (groupSize == 0)
+		get
 		{
-			for (;;)
+			if (m_turnsAsBot == 0)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELODancecard.Create(long, long, byte)).MethodHandle;
-			}
-			Log.Error("ELODancecard: Bad group size of zero for accountId {0}, groupId {1}!", new object[]
-			{
-				accountId,
-				groupId
-			});
-			byte b;
-			if (groupId == 0L)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return $"account #{m_accountId} {m_turnsAsPlayer} turns";
 					}
-					break;
 				}
-				b = 1;
+			}
+			if (m_turnsAsPlayer == 0)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						break;
+					default:
+						return $"{m_botDifficulty} bot {m_turnsAsBot} turns";
+					}
+				}
+			}
+			return $"account #{m_accountId} {m_turnsAsPlayer} turns, {m_turnsAsBot} turns as {m_botDifficulty} bot";
+		}
+	}
+
+	public static ELODancecard Create(long accountId, long groupId, byte groupSize)
+	{
+		if (groupSize == 0)
+		{
+			Log.Error("ELODancecard: Bad group size of zero for accountId {0}, groupId {1}!", accountId, groupId);
+			int num;
+			if (groupId == 0)
+			{
+				num = 1;
 			}
 			else
 			{
-				b = 2;
+				num = 2;
 			}
-			groupSize = b;
+			groupSize = (byte)num;
 		}
-		return new ELODancecard
-		{
-			m_accountId = accountId,
-			m_groupId = groupId,
-			m_groupSize = groupSize
-		};
+		ELODancecard eLODancecard = new ELODancecard();
+		eLODancecard.m_accountId = accountId;
+		eLODancecard.m_groupId = groupId;
+		eLODancecard.m_groupSize = groupSize;
+		return eLODancecard;
 	}
 
 	public static ELODancecard Create(long accountId, bool isBot, BotDifficulty dif)
 	{
-		ELODancecard elodancecard = new ELODancecard
-		{
-			m_accountId = accountId
-		};
-		elodancecard.Increment(isBot, dif);
-		return elodancecard;
+		ELODancecard eLODancecard = new ELODancecard();
+		eLODancecard.m_accountId = accountId;
+		ELODancecard eLODancecard2 = eLODancecard;
+		eLODancecard2.Increment(isBot, dif);
+		return eLODancecard2;
 	}
 
 	public void Increment(bool isBot, BotDifficulty dif)
 	{
 		if (isBot)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELODancecard.Increment(bool, BotDifficulty)).MethodHandle;
-			}
-			this.m_turnsAsBot += 1U;
-			this.m_botDifficulty = dif;
-			this.m_playedLastTurn = false;
-		}
-		else
-		{
-			this.m_turnsAsPlayer += 1U;
-			this.m_playedLastTurn = true;
-		}
-	}
-
-	public string LogString
-	{
-		get
-		{
-			if (this.m_turnsAsBot == 0U)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					m_turnsAsBot++;
+					m_botDifficulty = dif;
+					m_playedLastTurn = false;
+					return;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ELODancecard.get_LogString()).MethodHandle;
-				}
-				return string.Format("account #{0} {1} turns", this.m_accountId, this.m_turnsAsPlayer);
 			}
-			if (this.m_turnsAsPlayer == 0U)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return string.Format("{0} bot {1} turns", this.m_botDifficulty, this.m_turnsAsBot);
-			}
-			return string.Format("account #{0} {1} turns, {2} turns as {3} bot", new object[]
-			{
-				this.m_accountId,
-				this.m_turnsAsPlayer,
-				this.m_turnsAsBot,
-				this.m_botDifficulty
-			});
 		}
+		m_turnsAsPlayer++;
+		m_playedLastTurn = true;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class NanoSmithBoltInfoComponent : MonoBehaviour
@@ -15,6 +14,6 @@ public class NanoSmithBoltInfoComponent : MonoBehaviour
 
 	public float m_boltLaserRangeOverride = -1f;
 
-	[TextArea(1, 0xA)]
+	[TextArea(1, 10)]
 	public string m_notes;
 }

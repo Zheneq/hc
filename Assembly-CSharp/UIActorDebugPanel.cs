@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,99 +13,71 @@ public class UIActorDebugPanel : MonoBehaviour
 
 	public static UIActorDebugPanel Get()
 	{
-		return UIActorDebugPanel.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		UIManager.SetGameObjectActive(this, false, null);
-		UIActorDebugPanel.s_instance = this;
+		UIManager.SetGameObjectActive(this, false);
+		s_instance = this;
 	}
 
 	public void OnActorDestroyed(ActorData actor)
 	{
-		if (this.m_actorLabels.ContainsKey(actor))
+		if (m_actorLabels.ContainsKey(actor))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIActorDebugPanel.OnActorDestroyed(ActorData)).MethodHandle;
-			}
-			UIActorDebugLabel uiactorDebugLabel = this.m_actorLabels[actor];
-			uiactorDebugLabel.m_label.text = string.Empty;
-			this.m_actorLabels.Remove(actor);
-			UnityEngine.Object.Destroy(uiactorDebugLabel);
+			UIActorDebugLabel uIActorDebugLabel = m_actorLabels[actor];
+			uIActorDebugLabel.m_label.text = string.Empty;
+			m_actorLabels.Remove(actor);
+			Object.Destroy(uIActorDebugLabel);
 		}
-		if (this.m_shouldDisplay.ContainsKey(actor))
+		if (m_shouldDisplay.ContainsKey(actor))
 		{
-			this.m_shouldDisplay.Remove(actor);
+			m_shouldDisplay.Remove(actor);
 		}
 	}
 
 	public void Reset()
 	{
-		using (Dictionary<ActorData, UIActorDebugLabel>.ValueCollection.Enumerator enumerator = this.m_actorLabels.Values.GetEnumerator())
+		using (Dictionary<ActorData, UIActorDebugLabel>.ValueCollection.Enumerator enumerator = m_actorLabels.Values.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				UIActorDebugLabel uiactorDebugLabel = enumerator.Current;
-				UnityEngine.Object.Destroy(uiactorDebugLabel.gameObject);
+				UIActorDebugLabel current = enumerator.Current;
+				Object.Destroy(current.gameObject);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_0015;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIActorDebugPanel.Reset()).MethodHandle;
-			}
+			end_IL_0015:;
 		}
-		this.m_actorLabels.Clear();
-		this.m_shouldDisplay.Clear();
+		m_actorLabels.Clear();
+		m_shouldDisplay.Clear();
 	}
 
 	public void SetActorValue(ActorData actorData, string key, string displayStr)
 	{
-		this.m_shouldDisplay[actorData] = true;
-		UIActorDebugLabel uiactorDebugLabel;
-		if (!this.m_actorLabels.ContainsKey(actorData))
+		m_shouldDisplay[actorData] = true;
+		UIActorDebugLabel uIActorDebugLabel = null;
+		if (!m_actorLabels.ContainsKey(actorData))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIActorDebugPanel.SetActorValue(ActorData, string, string)).MethodHandle;
-			}
-			uiactorDebugLabel = UnityEngine.Object.Instantiate<UIActorDebugLabel>(this.m_actorDebugLabelPrefab);
-			uiactorDebugLabel.Setup(actorData);
-			uiactorDebugLabel.transform.SetParent(base.transform);
-			this.m_actorLabels[actorData] = uiactorDebugLabel;
+			uIActorDebugLabel = Object.Instantiate(m_actorDebugLabelPrefab);
+			uIActorDebugLabel.Setup(actorData);
+			uIActorDebugLabel.transform.SetParent(base.transform);
+			m_actorLabels[actorData] = uIActorDebugLabel;
 		}
 		else
 		{
-			uiactorDebugLabel = this.m_actorLabels[actorData];
+			uIActorDebugLabel = m_actorLabels[actorData];
 		}
-		uiactorDebugLabel.SetEntry(key, displayStr);
-		UIManager.SetGameObjectActive(this, true, null);
+		uIActorDebugLabel.SetEntry(key, displayStr);
+		UIManager.SetGameObjectActive(this, true);
 	}
 }

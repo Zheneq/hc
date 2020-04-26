@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -64,47 +64,16 @@ public class ActorVFX : NetworkBehaviour
 		}
 		if (HighlightUtils.Get().m_onDeathVFXPrefab != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.Awake()).MethodHandle;
-			}
 			this.m_onDeathVfxContainer = new DurationActorVFXInfo(HighlightUtils.Get().m_onDeathVFXPrefab, HighlightUtils.Get().m_onDeathVFXDuration, null);
 			this.m_durationBasedVfxList.Add(this.m_onDeathVfxContainer);
 		}
 		if (HighlightUtils.Get().m_onRespawnVFXPrefab != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_onRespawnVFXContainer = new DurationActorVFXInfo(HighlightUtils.Get().m_onRespawnVFXPrefab, HighlightUtils.Get().m_onRespawnVFXDuration, null);
 			this.m_durationBasedVfxList.Add(this.m_onRespawnVFXContainer);
 		}
 		if (HighlightUtils.Get().m_knockbackHitWhileUnstoppableVFXPrefab != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_onKnockbackWhileUnstoppableContainer = new DurationActorVFXInfo(HighlightUtils.Get().m_knockbackHitWhileUnstoppableVFXPrefab, HighlightUtils.Get().m_knockbackHitWhileUnstoppableVFXDuration, base.gameObject);
 			this.m_durationBasedVfxList.Add(this.m_onKnockbackWhileUnstoppableContainer);
 		}
@@ -120,32 +89,10 @@ public class ActorVFX : NetworkBehaviour
 		{
 			if (HighlightUtils.Get().m_statusVfxPrefabToJoint != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.Start()).MethodHandle;
-				}
 				foreach (StatusVfxPrefabToJoint statusVfxPrefabToJoint2 in HighlightUtils.Get().m_statusVfxPrefabToJoint)
 				{
 					if (statusVfxPrefabToJoint2.m_status != StatusType.INVALID)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (statusVfxPrefabToJoint2.m_status != StatusType.NUM)
 						{
 							StatusIndicatorVFX statusIndicatorVFX = new StatusIndicatorVFX(statusVfxPrefabToJoint2.m_statusVfxPrefab, this.m_actorData, statusVfxPrefabToJoint2.m_status, statusVfxPrefabToJoint2.m_vfxJoint, statusVfxPrefabToJoint2.m_alignToRootOrientation, "AttachedStatusVfx_" + statusVfxPrefabToJoint2.m_status.ToString());
@@ -156,30 +103,12 @@ public class ActorVFX : NetworkBehaviour
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (HighlightUtils.Get().m_knockedBackVFXPrefab != null)
 			{
 				KnockbackStatusIndicatorVFX knockbackStatusIndicatorVFX = new KnockbackStatusIndicatorVFX(HighlightUtils.Get().m_knockedBackVFXPrefab, this.m_actorData, HighlightUtils.Get().m_knockedBackVfxJoint, "AttachedStatusVfx_KnockedBack");
 				if (knockbackStatusIndicatorVFX.HasVfxInstance())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_statusIndicatorVFXList.Add(knockbackStatusIndicatorVFX);
 				}
 			}
@@ -192,44 +121,22 @@ public class ActorVFX : NetworkBehaviour
 		bool sameTeamAsClientActor = false;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.LateUpdate()).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				sameTeamAsClientActor = (GameFlowData.Get().activeOwnedActorData.\u000E() == this.m_actorData.\u000E());
+				sameTeamAsClientActor = (GameFlowData.Get().activeOwnedActorData.GetTeam() == this.m_actorData.GetTeam());
 			}
 			else
 			{
-				sameTeamAsClientActor = (this.m_actorData.\u000E() == Team.TeamA);
+				sameTeamAsClientActor = (this.m_actorData.GetTeam() == Team.TeamA);
 			}
 		}
-		bool flag = actorData.\u000E();
-		bool flag2 = actorData.\u0012();
-		bool flag3 = actorData.\u0018();
+		bool flag = actorData.IsDead();
+		bool flag2 = actorData.IsModelAnimatorDisabled();
+		bool flag3 = actorData.IsVisibleToClient();
 		bool flag4;
-		if (actorData.\u000E() != null)
+		if (actorData.GetActorMovement() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag4 = actorData.\u000E().InChargeState();
+			flag4 = actorData.GetActorMovement().InChargeState();
 		}
 		else
 		{
@@ -239,15 +146,6 @@ public class ActorVFX : NetworkBehaviour
 		bool flag6;
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag6 = HUD_UI.Get().MainHUDElementsVisible();
 		}
 		else
@@ -258,15 +156,6 @@ public class ActorVFX : NetworkBehaviour
 		bool flag8;
 		if (CameraManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag8 = CameraManager.Get().InCinematic();
 		}
 		else
@@ -276,63 +165,18 @@ public class ActorVFX : NetworkBehaviour
 		bool flag9 = flag8;
 		if (this.m_chaseMouseover != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().gameState != GameState.EndingGame)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				BoardSquare playerFreeSquare = Board.\u000E().PlayerFreeSquare;
-				bool flag10 = playerFreeSquare == actorData.\u0012();
+				BoardSquare playerFreeSquare = Board.Get().PlayerFreeSquare;
+				bool flag10 = playerFreeSquare == actorData.GetCurrentBoardSquare();
 				if (flag10)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ActorTurnSM.IsClientDecidingMovement())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ActorData.WouldSquareBeChasedByClient(playerFreeSquare, false))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_chaseMouseover.SetActive(true);
-							this.m_chaseMouseover.transform.position = actorData.\u000E("hip_JNT");
+							this.m_chaseMouseover.transform.position = actorData.GetBonePosition("hip_JNT");
 							goto IL_1E7;
 						}
 					}
@@ -343,74 +187,20 @@ public class ActorVFX : NetworkBehaviour
 		IL_1E7:
 		if (this.m_moveMouseover != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().gameState != GameState.EndingGame)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				BoardSquare playerFreeSquare2 = Board.\u000E().PlayerFreeSquare;
-				bool flag11 = playerFreeSquare2 == actorData.\u0012();
+				BoardSquare playerFreeSquare2 = Board.Get().PlayerFreeSquare;
+				bool flag11 = playerFreeSquare2 == actorData.GetCurrentBoardSquare();
 				if (!this.m_chaseMouseover.activeSelf)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag11)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ActorTurnSM.IsClientDecidingMovement())
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (ActorData.WouldSquareBeChasedByClient(playerFreeSquare2, true))
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_moveMouseover.SetActive(true);
-								this.m_moveMouseover.transform.position = actorData.\u000E("hip_JNT");
+								this.m_moveMouseover.transform.position = actorData.GetBonePosition("hip_JNT");
 								goto IL_2CC;
 							}
 						}
@@ -422,71 +212,26 @@ public class ActorVFX : NetworkBehaviour
 		IL_2CC:
 		if (this.m_concealedVFX != null)
 		{
-			if (actorData.\u0016())
+			if (actorData.IsHiddenInBrush())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.CanBeSeenInBrush() && flag3)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
 						this.m_concealedVFX.SetActive(true);
-						this.m_concealedVFX.transform.position = actorData.\u000E(0f);
+						this.m_concealedVFX.transform.position = actorData.GetNameplatePosition(0f);
 						goto IL_3A7;
 					}
 				}
 			}
-			if (actorData.\u000E().IsInvisibleToEnemies(false))
+			if (actorData.GetActorStatus().IsInvisibleToEnemies(false))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag3)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_concealedVFX.SetActive(true);
-						this.m_concealedVFX.transform.position = actorData.\u000E(0f);
+						this.m_concealedVFX.transform.position = actorData.GetNameplatePosition(0f);
 						goto IL_3A7;
 					}
 				}
@@ -503,15 +248,6 @@ public class ActorVFX : NetworkBehaviour
 				footstepVFX.m_vfxObj.SetActive(active);
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = 0; j < this.m_statusIndicatorVFXList.Count; j++)
 		{
 			AttachedActorVFXInfo attachedActorVFXInfo = this.m_statusIndicatorVFXList[j];
@@ -521,27 +257,9 @@ public class ActorVFX : NetworkBehaviour
 				{
 					goto IL_464;
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2 || flag9)
 				{
 					goto IL_464;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				bool flag12 = !flag5;
 				IL_465:
@@ -554,97 +272,25 @@ public class ActorVFX : NetworkBehaviour
 			}
 			IL_471:;
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int k = 0; k < this.m_durationBasedVfxList.Count; k++)
 		{
 			DurationActorVFXInfo durationActorVFXInfo = this.m_durationBasedVfxList[k];
 			if (durationActorVFXInfo != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				durationActorVFXInfo.OnUpdate();
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		bool flag13;
 		if (flag3)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag2)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag5)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_actorData.IgnoreForAbilityHits)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag13 = flag7;
 							goto IL_52A;
 						}
@@ -674,42 +320,11 @@ public class ActorVFX : NetworkBehaviour
 				ActorVFX.FootstepVFX footstepVFX = enumerator.Current;
 				if (footstepVFX != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.OnTurnTick()).MethodHandle;
-					}
 					if (footstepVFX.m_vfxObj != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UnityEngine.Object.Destroy(footstepVFX.m_vfxObj);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_footstepsVFX.Clear();
@@ -740,15 +355,6 @@ public class ActorVFX : NetworkBehaviour
 			IL_D9:
 			if (brushMoveVFX.m_vfxObj != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UnityEngine.Object.Destroy(brushMoveVFX.m_vfxObj);
 			}
 			this.m_brushMoveVFX.RemoveAt(i);
@@ -764,32 +370,10 @@ public class ActorVFX : NetworkBehaviour
 	{
 		if (!this.m_spawnedBaseCircles)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.SpawnBaseCircles()).MethodHandle;
-			}
-			float d = HighlightUtils.Get().m_baseCircleSizeInSquares * Board.\u000E().squareSize;
+			float d = HighlightUtils.Get().m_baseCircleSizeInSquares * Board.Get().squareSize;
 			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(HighlightUtils.Get().m_friendBaseCirclePrefab, this.m_actorData, HighlightUtils.Get().m_baseCircleJoint, false, "BaseCircleVFX_Friendly", AttachedActorVFXInfo.FriendOrFoeVisibility.FriendlyOnly);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				attachedActorVFXInfo.SetInstanceScale(d * Vector3.one);
 				attachedActorVFXInfo.SetInstanceLocalPosition(HighlightUtils.Get().m_circlePrefabHeight * Vector3.up);
 				this.m_friendBaseCircleContainer = attachedActorVFXInfo;
@@ -797,15 +381,6 @@ public class ActorVFX : NetworkBehaviour
 			AttachedActorVFXInfo attachedActorVFXInfo2 = new AttachedActorVFXInfo(HighlightUtils.Get().m_enemyBaseCirclePrefab, this.m_actorData, HighlightUtils.Get().m_baseCircleJoint, false, "BaseCircleVFX_Enemy", AttachedActorVFXInfo.FriendOrFoeVisibility.EnemyOnly);
 			if (attachedActorVFXInfo2.HasVfxInstance())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				attachedActorVFXInfo2.SetInstanceScale(d * Vector3.one);
 				attachedActorVFXInfo2.SetInstanceLocalPosition(HighlightUtils.Get().m_circlePrefabHeight * Vector3.up);
 				this.m_enemyBaseCircleContainer = attachedActorVFXInfo2;
@@ -818,61 +393,21 @@ public class ActorVFX : NetworkBehaviour
 	{
 		if (this.m_chaseMouseover != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.OnDestroy()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_chaseMouseover);
 			this.m_chaseMouseover = null;
 		}
 		if (this.m_moveMouseover != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UnityEngine.Object.Destroy(this.m_moveMouseover);
 			this.m_moveMouseover = null;
 		}
 		if (this.m_concealedVFX != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UnityEngine.Object.Destroy(this.m_concealedVFX);
 			this.m_concealedVFX = null;
 		}
 		if (this.m_footstepsVFX != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<ActorVFX.FootstepVFX>.Enumerator enumerator = this.m_footstepsVFX.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -880,26 +415,8 @@ public class ActorVFX : NetworkBehaviour
 					ActorVFX.FootstepVFX footstepVFX = enumerator.Current;
 					if (footstepVFX != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UnityEngine.Object.Destroy(footstepVFX.m_vfxObj);
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_footstepsVFX.Clear();
@@ -913,53 +430,17 @@ public class ActorVFX : NetworkBehaviour
 					ActorVFX.BrushMoveVFX brushMoveVFX = enumerator2.Current;
 					if (brushMoveVFX != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (brushMoveVFX.m_vfxObj != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UnityEngine.Object.Destroy(brushMoveVFX.m_vfxObj);
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_brushMoveVFX.Clear();
 		}
 		if (this.m_statusIndicatorVFXList != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<AttachedActorVFXInfo>.Enumerator enumerator3 = this.m_statusIndicatorVFXList.GetEnumerator())
 			{
 				while (enumerator3.MoveNext())
@@ -970,15 +451,6 @@ public class ActorVFX : NetworkBehaviour
 						attachedActorVFXInfo.DestroyVfx();
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			this.m_statusIndicatorVFXList.Clear();
 		}
@@ -987,26 +459,8 @@ public class ActorVFX : NetworkBehaviour
 			DurationActorVFXInfo durationActorVFXInfo = this.m_durationBasedVfxList[i];
 			if (durationActorVFXInfo != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				durationActorVFXInfo.DestroyVfx();
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		if (this.m_friendBaseCircleContainer != null)
 		{
@@ -1015,15 +469,6 @@ public class ActorVFX : NetworkBehaviour
 		}
 		if (this.m_enemyBaseCircleContainer != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_enemyBaseCircleContainer.DestroyVfx();
 			this.m_enemyBaseCircleContainer = null;
 		}
@@ -1038,31 +483,9 @@ public class ActorVFX : NetworkBehaviour
 			ActorData activeOwnedActorData = gameFlowData.activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.BeingChasedByClient()).MethodHandle;
-				}
 				ActorData actorData = this.m_actorData;
-				if (activeOwnedActorData.\u0012() == actorData)
+				if (activeOwnedActorData.GetQueuedChaseTarget() == actorData)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 			}
@@ -1076,44 +499,13 @@ public class ActorVFX : NetworkBehaviour
 		PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
 		if (localPlayerData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.OnMove(BoardSquarePathInfo, BoardSquarePathInfo)).MethodHandle;
-			}
 			if (this.BeingChasedByClient())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData actorData = this.m_actorData;
 				bool flag;
-				if (actorData.\u000E(localPlayerData, false, false))
+				if (actorData.SomeVisibilityCheckB_zq(localPlayerData, false, false))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag = !actorData.\u000E(localPlayerData, false);
+					flag = !actorData.SomeVisibilityCheckA_zq(localPlayerData, false);
 				}
 				else
 				{
@@ -1121,15 +513,6 @@ public class ActorVFX : NetworkBehaviour
 				}
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorVFX.FootstepVFX item = new ActorVFX.FootstepVFX(square, this.m_actorData);
 					this.m_footstepsVFX.Add(item);
 				}
@@ -1138,85 +521,22 @@ public class ActorVFX : NetworkBehaviour
 		BrushCoordinator brushCoordinator = BrushCoordinator.Get();
 		if (square != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (prevNode != null && brushCoordinator && FogOfWar.GetClientFog() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare square2 = prevNode.square;
 				bool flag2 = brushCoordinator.IsRegionFunctioning(square.BrushRegion);
 				bool flag3 = brushCoordinator.IsRegionFunctioning(square2.BrushRegion);
 				if (flag2 != flag3)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (BoardSquarePathInfo.IsConnectionTypeConventional(prevNode.connectionType))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!moveToNode.m_visibleToEnemies)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!prevNode.m_visibleToEnemies)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.m_actorData.\u000E() != localPlayerData.GetTeamViewing())
+								if (this.m_actorData.GetTeam() != localPlayerData.GetTeamViewing())
 								{
 									goto IL_1A2;
-								}
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
@@ -1229,15 +549,6 @@ public class ActorVFX : NetworkBehaviour
 		IL_1A2:
 		if (this.m_hitInCoverVfxContainer != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_hitInCoverVfxContainer.HideVfx();
 		}
 	}
@@ -1246,22 +557,9 @@ public class ActorVFX : NetworkBehaviour
 	{
 		ActorData actorData = this.m_actorData;
 		bool flag;
-		if (actorData.\u0016())
+		if (actorData.IsHiddenInBrush())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.CanBeSeenInBrush()).MethodHandle;
-			}
-			flag = !BrushCoordinator.Get().IsRegionFunctioning(actorData.\u0018());
+			flag = !BrushCoordinator.Get().IsRegionFunctioning(actorData.GetTravelBoardSquareBrushRegion());
 		}
 		else
 		{
@@ -1272,15 +570,6 @@ public class ActorVFX : NetworkBehaviour
 		bool flag3;
 		if (!component.HasStatus(StatusType.CantHideInBrush, false))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag3 = component.HasStatus(StatusType.Revealed, false);
 		}
 		else
@@ -1289,19 +578,10 @@ public class ActorVFX : NetworkBehaviour
 		}
 		bool flag4 = flag3;
 		bool flag5 = CaptureTheFlag.IsActorRevealedByFlag_Client(actorData);
-		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(actorData.\u0016(), GameplayData.Get().m_distanceCanSeeIntoBrush, true, null, actorData.\u0012(), null, false, default(Vector3));
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(actorData.GetTravelBoardSquareWorldPosition(), GameplayData.Get().m_distanceCanSeeIntoBrush, true, null, actorData.GetOpposingTeam(), null, false, default(Vector3));
 		bool flag6;
 		if (actorsInRadius.Count > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag6 = true;
 		}
 		else
@@ -1309,22 +589,13 @@ public class ActorVFX : NetworkBehaviour
 			flag6 = false;
 		}
 		bool flag7 = false;
-		List<ActorData> actorsInBrushRegion = BrushCoordinator.Get().GetActorsInBrushRegion(actorData.\u0018());
+		List<ActorData> actorsInBrushRegion = BrushCoordinator.Get().GetActorsInBrushRegion(actorData.GetTravelBoardSquareBrushRegion());
 		if (actorsInBrushRegion != null)
 		{
 			foreach (ActorData actorData2 in actorsInBrushRegion)
 			{
-				if (actorData2.\u000E() != actorData.\u000E())
+				if (actorData2.GetTeam() != actorData.GetTeam())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag7 = true;
 					break;
 				}
@@ -1333,15 +604,6 @@ public class ActorVFX : NetworkBehaviour
 		bool result;
 		if (!flag2 && !flag4 && !flag5 && !flag6)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = flag7;
 		}
 		else
@@ -1365,66 +627,26 @@ public class ActorVFX : NetworkBehaviour
 	{
 		if (container != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.ShowDurationVfxWithDirection(DurationActorVFXInfo, Vector3, Vector3, ActorData)).MethodHandle;
-			}
 			Vector3 vector = hitOrigin - actorPos;
 			vector.y = 0f;
 			vector.Normalize();
 			if (vector == Vector3.zero)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (caster != null)
 				{
-					for (;;)
+					if (caster.GetCurrentBoardSquare() != null)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (caster.\u0012() != null)
-					{
-						vector = caster.\u0016() - actorPos;
+						vector = caster.GetTravelBoardSquareWorldPosition() - actorPos;
 						vector.y = 0f;
 						vector.Normalize();
 					}
 				}
 				if (vector == Vector3.zero)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector = Vector3.forward;
 				}
 			}
-			container.ShowVfx(this.m_actorData.\u0018(), vector);
+			container.ShowVfx(this.m_actorData.IsVisibleToClient(), vector);
 		}
 	}
 
@@ -1432,20 +654,7 @@ public class ActorVFX : NetworkBehaviour
 	{
 		if (this.m_onDeathVfxContainer != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.ShowOnDeathVfx(Vector3)).MethodHandle;
-			}
-			this.m_onDeathVfxContainer.ShowVfxAtPosition(actorPos, this.m_actorData.\u0018(), Vector3.zero);
+			this.m_onDeathVfxContainer.ShowVfxAtPosition(actorPos, this.m_actorData.IsVisibleToClient(), Vector3.zero);
 		}
 	}
 
@@ -1453,32 +662,10 @@ public class ActorVFX : NetworkBehaviour
 	{
 		if (this.m_onRespawnVFXContainer != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.ShowOnRespawnVfx()).MethodHandle;
-			}
-			this.m_onRespawnVFXContainer.ShowVfxAtPosition(this.m_actorData.\u0016(), true, Vector3.zero);
+			this.m_onRespawnVFXContainer.ShowVfxAtPosition(this.m_actorData.GetTravelBoardSquareWorldPosition(), true, Vector3.zero);
 			PlayerData playerData;
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				playerData = GameFlowData.Get().LocalPlayerData;
 			}
 			else
@@ -1488,16 +675,7 @@ public class ActorVFX : NetworkBehaviour
 			PlayerData playerData2 = playerData;
 			if (playerData2 != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				bool flag = this.m_actorData.\u000E() == playerData2.GetTeamViewing();
+				bool flag = this.m_actorData.GetTeam() == playerData2.GetTeamViewing();
 				AudioManager.PostEvent((!flag) ? "ui/ingame/resurrection/enemy" : "ui/ingame/resurrection/ally", base.gameObject);
 			}
 		}
@@ -1509,8 +687,7 @@ public class ActorVFX : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
-		return result;
+		return false;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
@@ -1528,32 +705,10 @@ public class ActorVFX : NetworkBehaviour
 			this.m_square = square;
 			if (HighlightUtils.Get().m_footstepsVFXPrefab != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.FootstepVFX..ctor(BoardSquare, ActorData)).MethodHandle;
-				}
 				if (FogOfWar.GetClientFog() != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_vfxObj = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.Get().m_footstepsVFXPrefab);
-					this.m_vfxObj.transform.position = square.\u001D() + new Vector3(0f, 0.1f, 0f);
+					this.m_vfxObj.transform.position = square.GetWorldPosition() + new Vector3(0f, 0.1f, 0f);
 					this.m_vfxObj.transform.rotation = runner.transform.rotation;
 					bool active = FogOfWar.GetClientFog().IsVisible(this.m_square);
 					this.m_vfxObj.SetActive(active);
@@ -1576,32 +731,10 @@ public class ActorVFX : NetworkBehaviour
 			this.m_vfxObj = null;
 			if (gameObject != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorVFX.BrushMoveVFX..ctor(BoardSquare, BoardSquare, bool)).MethodHandle;
-				}
 				BoardSquare boardSquare = moveToSquare;
 				BoardSquare boardSquare2 = prevSquare;
 				if (!movingIntoBrush)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquare = prevSquare;
 					boardSquare2 = moveToSquare;
 				}
@@ -1614,15 +747,6 @@ public class ActorVFX : NetworkBehaviour
 				this.m_vfxObj = UnityEngine.Object.Instantiate<GameObject>(gameObject);
 				if (this.m_vfxObj != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_vfxObj.transform.position = position;
 					this.m_vfxObj.transform.rotation = Quaternion.LookRotation(vector2);
 				}

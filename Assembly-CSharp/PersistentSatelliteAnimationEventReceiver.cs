@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class PersistentSatelliteAnimationEventReceiver : MonoBehaviour, IAnimationEvents
@@ -7,80 +6,72 @@ public class PersistentSatelliteAnimationEventReceiver : MonoBehaviour, IAnimati
 
 	public void Setup(PersistentSatellite persistentSatellite)
 	{
-		this.m_persistentSatellite = persistentSatellite;
+		m_persistentSatellite = persistentSatellite;
 	}
 
-	public void NewEvent(UnityEngine.Object eventObject)
+	public void NewEvent(Object eventObject)
 	{
-		if (this.m_persistentSatellite == null)
+		if (m_persistentSatellite == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error(string.Concat(this, " NewEvent called before setup"));
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteAnimationEventReceiver.NewEvent(UnityEngine.Object)).MethodHandle;
-			}
-			Log.Error(this + " NewEvent called before setup", new object[0]);
-			return;
 		}
 		if (eventObject == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			return;
 		}
-		this.m_persistentSatellite.OnAnimationEvent(eventObject);
+		m_persistentSatellite.OnAnimationEvent(eventObject);
 	}
 
-	public void VFXEvent(UnityEngine.Object eventObject)
+	public void VFXEvent(Object eventObject)
 	{
-		this.NewEvent(eventObject);
+		NewEvent(eventObject);
 	}
 
-	public void GameplayEvent(UnityEngine.Object eventObject)
+	public void GameplayEvent(Object eventObject)
 	{
-		this.NewEvent(eventObject);
+		NewEvent(eventObject);
 	}
 
 	public void OnAnimationEvent(GameObject eventObject)
 	{
-		this.m_persistentSatellite.OnAnimationEvent(eventObject);
+		m_persistentSatellite.OnAnimationEvent(eventObject);
 	}
 
 	public void AudioEvent(string eventName)
 	{
-		if (this.m_persistentSatellite == null)
+		if (m_persistentSatellite == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error(string.Concat(this, " NewEvent called before Start"));
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteAnimationEventReceiver.AudioEvent(string)).MethodHandle;
-			}
-			Log.Error(this + " NewEvent called before Start", new object[0]);
-			return;
 		}
-		AudioManager.PostEvent(eventName, this.m_persistentSatellite.gameObject);
+		AudioManager.PostEvent(eventName, m_persistentSatellite.gameObject);
 	}
 }

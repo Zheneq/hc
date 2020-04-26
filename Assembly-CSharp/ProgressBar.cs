@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,30 +35,15 @@ public class ProgressBar
 
 	private int borderSize = 1;
 
-	public ProgressBar(Rect rect, float minValue, float maxValue)
-	{
-		this.m_rect = rect;
-		this.m_minValue = minValue;
-		this.m_maxValue = maxValue;
-		this.m_currentValue = this.m_maxValue;
-		this.m_horizontal = false;
-		this.m_visible = true;
-		this.m_barColor = Color.green;
-		this.m_backgroundColor = Color.white;
-		this.m_textures = new List<Texture2D>();
-		this.m_hasBorder = false;
-		this.m_hasMarkerBorder = false;
-	}
-
 	public Rect rect
 	{
 		get
 		{
-			return this.m_rect;
+			return m_rect;
 		}
 		set
 		{
-			this.m_rect = value;
+			m_rect = value;
 		}
 	}
 
@@ -67,11 +51,11 @@ public class ProgressBar
 	{
 		get
 		{
-			return this.m_minValue;
+			return m_minValue;
 		}
 		set
 		{
-			this.m_minValue = value;
+			m_minValue = value;
 		}
 	}
 
@@ -79,11 +63,11 @@ public class ProgressBar
 	{
 		get
 		{
-			return this.m_maxValue;
+			return m_maxValue;
 		}
 		set
 		{
-			this.m_maxValue = value;
+			m_maxValue = value;
 		}
 	}
 
@@ -91,11 +75,11 @@ public class ProgressBar
 	{
 		get
 		{
-			return this.m_horizontal;
+			return m_horizontal;
 		}
 		set
 		{
-			this.m_horizontal = value;
+			m_horizontal = value;
 		}
 	}
 
@@ -103,11 +87,11 @@ public class ProgressBar
 	{
 		get
 		{
-			return this.m_shrinkInward;
+			return m_shrinkInward;
 		}
 		set
 		{
-			this.m_shrinkInward = value;
+			m_shrinkInward = value;
 		}
 	}
 
@@ -115,11 +99,11 @@ public class ProgressBar
 	{
 		get
 		{
-			return this.m_colorShiftValue;
+			return m_colorShiftValue;
 		}
 		set
 		{
-			this.m_colorShiftValue = value;
+			m_colorShiftValue = value;
 		}
 	}
 
@@ -127,11 +111,11 @@ public class ProgressBar
 	{
 		get
 		{
-			return this.m_currentValue;
+			return m_currentValue;
 		}
 		set
 		{
-			this.m_currentValue = value;
+			m_currentValue = value;
 		}
 	}
 
@@ -139,11 +123,11 @@ public class ProgressBar
 	{
 		get
 		{
-			return this.m_visible;
+			return m_visible;
 		}
 		set
 		{
-			this.m_visible = value;
+			m_visible = value;
 		}
 	}
 
@@ -151,11 +135,11 @@ public class ProgressBar
 	{
 		get
 		{
-			return this.m_progressText;
+			return m_progressText;
 		}
 		set
 		{
-			this.m_progressText = value;
+			m_progressText = value;
 		}
 	}
 
@@ -163,11 +147,11 @@ public class ProgressBar
 	{
 		get
 		{
-			return this.m_barColor;
+			return m_barColor;
 		}
 		set
 		{
-			this.m_barColor = value;
+			m_barColor = value;
 		}
 	}
 
@@ -175,11 +159,11 @@ public class ProgressBar
 	{
 		get
 		{
-			return this.m_colorShiftColor;
+			return m_colorShiftColor;
 		}
 		set
 		{
-			this.m_colorShiftColor = value;
+			m_colorShiftColor = value;
 		}
 	}
 
@@ -187,11 +171,11 @@ public class ProgressBar
 	{
 		get
 		{
-			return this.m_backgroundColor;
+			return m_backgroundColor;
 		}
 		set
 		{
-			this.m_backgroundColor = value;
+			m_backgroundColor = value;
 		}
 	}
 
@@ -199,11 +183,11 @@ public class ProgressBar
 	{
 		get
 		{
-			return this.m_hasBorder;
+			return m_hasBorder;
 		}
 		set
 		{
-			this.m_hasBorder = value;
+			m_hasBorder = value;
 		}
 	}
 
@@ -211,12 +195,27 @@ public class ProgressBar
 	{
 		get
 		{
-			return this.m_hasMarkerBorder;
+			return m_hasMarkerBorder;
 		}
 		set
 		{
-			this.m_hasMarkerBorder = value;
+			m_hasMarkerBorder = value;
 		}
+	}
+
+	public ProgressBar(Rect rect, float minValue, float maxValue)
+	{
+		m_rect = rect;
+		m_minValue = minValue;
+		m_maxValue = maxValue;
+		m_currentValue = m_maxValue;
+		m_horizontal = false;
+		m_visible = true;
+		m_barColor = Color.green;
+		m_backgroundColor = Color.white;
+		m_textures = new List<Texture2D>();
+		m_hasBorder = false;
+		m_hasMarkerBorder = false;
 	}
 
 	private GUIStyle CreateColorStyle(Color styleColor)
@@ -225,204 +224,149 @@ public class ProgressBar
 		texture2D.SetPixel(1, 1, styleColor);
 		texture2D.wrapMode = TextureWrapMode.Repeat;
 		texture2D.Apply();
-		this.m_textures.Add(texture2D);
-		return new GUIStyle
-		{
-			normal = 
-			{
-				background = texture2D
-			},
-			alignment = TextAnchor.MiddleCenter,
-			fontSize = 0x18
-		};
+		m_textures.Add(texture2D);
+		GUIStyle gUIStyle = new GUIStyle();
+		gUIStyle.normal.background = texture2D;
+		gUIStyle.alignment = TextAnchor.MiddleCenter;
+		gUIStyle.fontSize = 24;
+		return gUIStyle;
 	}
 
 	private void ClearTextures()
 	{
-		using (List<Texture2D>.Enumerator enumerator = this.m_textures.GetEnumerator())
+		using (List<Texture2D>.Enumerator enumerator = m_textures.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				Texture2D obj = enumerator.Current;
-				UnityEngine.Object.DestroyImmediate(obj);
+				Texture2D current = enumerator.Current;
+				Object.DestroyImmediate(current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_000e;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProgressBar.ClearTextures()).MethodHandle;
-			}
+			end_IL_000e:;
 		}
-		this.m_textures.Clear();
+		m_textures.Clear();
 	}
 
 	public void Draw()
 	{
-		this.ClearTextures();
-		if (this.m_visible)
+		ClearTextures();
+		if (!m_visible)
 		{
-			GUI.depth = 0xA;
-			GUI.Box(this.m_rect, string.Empty, this.CreateColorStyle(this.m_backgroundColor));
-			float num = this.m_currentValue / (this.m_maxValue - this.m_minValue);
-			num = Mathf.Clamp(num, 0f, this.m_maxValue);
-			float num2 = 1f - num;
-			Color styleColor = this.m_barColor;
-			if (this.m_currentValue < this.m_colorShiftValue)
+			return;
+		}
+		GUI.depth = 10;
+		GUI.Box(m_rect, string.Empty, CreateColorStyle(m_backgroundColor));
+		float value = m_currentValue / (m_maxValue - m_minValue);
+		value = Mathf.Clamp(value, 0f, m_maxValue);
+		float num = 1f - value;
+		Color styleColor = m_barColor;
+		if (m_currentValue < m_colorShiftValue)
+		{
+			styleColor = m_colorShiftColor;
+		}
+		if (m_horizontal)
+		{
+			int num2 = (int)(m_rect.width * value);
+			Rect position;
+			if (!m_shrinkInward)
 			{
-				styleColor = this.m_colorShiftColor;
+				position = new Rect(m_rect.x, m_rect.y, num2, m_rect.height);
 			}
-			if (this.m_horizontal)
+			else
 			{
-				int num3 = (int)(this.m_rect.width * num);
-				Rect position;
-				if (this.m_shrinkInward)
+				int num3 = (int)(m_rect.width * num / 2f);
+				position = new Rect(m_rect.x + (float)num3, m_rect.y, num2, m_rect.height);
+			}
+			GUI.Box(position, string.Empty, CreateColorStyle(styleColor));
+		}
+		else
+		{
+			int num4 = (int)(m_rect.height * value);
+			Rect position2;
+			if (!m_shrinkInward)
+			{
+				position2 = new Rect(m_rect.x, m_rect.y + (m_rect.height - (float)num4), m_rect.width, num4);
+			}
+			else
+			{
+				int num5 = (int)(m_rect.height * num / 2f);
+				position2 = new Rect(m_rect.x, m_rect.y + (float)num5, m_rect.width, num4);
+			}
+			GUI.Box(position2, string.Empty, CreateColorStyle(styleColor));
+		}
+		GUI.Box(style: CreateColorStyle(new Color(1f, 1f, 1f, 0f)), position: m_rect, text: m_progressText);
+		if (m_hasBorder)
+		{
+			Rect position3 = new Rect(m_rect.x - (float)borderSize, m_rect.y - (float)borderSize, m_rect.width + (float)(2 * borderSize), borderSize);
+			GUI.Box(position3, string.Empty, CreateColorStyle(Color.black));
+			position3 = new Rect(m_rect.x - (float)borderSize, m_rect.y - (float)borderSize, borderSize, m_rect.height + (float)(2 * borderSize));
+			GUI.Box(position3, string.Empty, CreateColorStyle(Color.black));
+			position3 = new Rect(m_rect.x - (float)borderSize, m_rect.y + m_rect.height, m_rect.width + (float)(2 * borderSize), borderSize);
+			GUI.Box(position3, string.Empty, CreateColorStyle(Color.black));
+			position3 = new Rect(m_rect.x + m_rect.width, m_rect.y - (float)borderSize, borderSize, m_rect.height + (float)(2 * borderSize));
+			GUI.Box(position3, string.Empty, CreateColorStyle(Color.black));
+		}
+		if (!m_hasMarkerBorder)
+		{
+			return;
+		}
+		while (true)
+		{
+			float num6 = 1f;
+			Color styleColor2 = Color.yellow;
+			if (m_currentValue / m_maxValue <= 0.25f)
+			{
+				num6 = 0.25f;
+				styleColor2 = Color.red;
+			}
+			else if (m_currentValue / m_maxValue <= 0.5f)
+			{
+				num6 = 0.5f;
+				styleColor2 = Color.red;
+			}
+			if (num6 == 1f)
+			{
+				return;
+			}
+			while (true)
+			{
+				if (m_horizontal)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ProgressBar.Draw()).MethodHandle;
-					}
-					int num4 = (int)(this.m_rect.width * num2 / 2f);
-					position = new Rect(this.m_rect.x + (float)num4, this.m_rect.y, (float)num3, this.m_rect.height);
-				}
-				else
-				{
-					position = new Rect(this.m_rect.x, this.m_rect.y, (float)num3, this.m_rect.height);
-				}
-				GUI.Box(position, string.Empty, this.CreateColorStyle(styleColor));
-			}
-			else
-			{
-				int num5 = (int)(this.m_rect.height * num);
-				Rect position2;
-				if (this.m_shrinkInward)
-				{
-					int num6 = (int)(this.m_rect.height * num2 / 2f);
-					position2 = new Rect(this.m_rect.x, this.m_rect.y + (float)num6, this.m_rect.width, (float)num5);
-				}
-				else
-				{
-					position2 = new Rect(this.m_rect.x, this.m_rect.y + (this.m_rect.height - (float)num5), this.m_rect.width, (float)num5);
-				}
-				GUI.Box(position2, string.Empty, this.CreateColorStyle(styleColor));
-			}
-			Color styleColor2 = new Color(1f, 1f, 1f, 0f);
-			GUI.Box(this.m_rect, this.m_progressText, this.CreateColorStyle(styleColor2));
-			if (this.m_hasBorder)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Rect position3 = new Rect(this.m_rect.x - (float)this.borderSize, this.m_rect.y - (float)this.borderSize, this.m_rect.width + (float)(2 * this.borderSize), (float)this.borderSize);
-				GUI.Box(position3, string.Empty, this.CreateColorStyle(Color.black));
-				position3 = new Rect(this.m_rect.x - (float)this.borderSize, this.m_rect.y - (float)this.borderSize, (float)this.borderSize, this.m_rect.height + (float)(2 * this.borderSize));
-				GUI.Box(position3, string.Empty, this.CreateColorStyle(Color.black));
-				position3 = new Rect(this.m_rect.x - (float)this.borderSize, this.m_rect.y + this.m_rect.height, this.m_rect.width + (float)(2 * this.borderSize), (float)this.borderSize);
-				GUI.Box(position3, string.Empty, this.CreateColorStyle(Color.black));
-				position3 = new Rect(this.m_rect.x + this.m_rect.width, this.m_rect.y - (float)this.borderSize, (float)this.borderSize, this.m_rect.height + (float)(2 * this.borderSize));
-				GUI.Box(position3, string.Empty, this.CreateColorStyle(Color.black));
-			}
-			if (this.m_hasMarkerBorder)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				float num7 = 1f;
-				Color styleColor3 = Color.yellow;
-				if (this.m_currentValue / this.m_maxValue <= 0.25f)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num7 = 0.25f;
-					styleColor3 = Color.red;
-				}
-				else if (this.m_currentValue / this.m_maxValue <= 0.5f)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num7 = 0.5f;
-					styleColor3 = Color.red;
-				}
-				if (num7 != 1f)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_horizontal)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+						{
+							Rect position4 = new Rect(m_rect.x - (float)(2 * borderSize), m_rect.y - (float)(2 * borderSize), m_rect.width * num6 + (float)(2 * borderSize), borderSize);
+							GUI.Box(position4, string.Empty, CreateColorStyle(styleColor2));
+							position4 = new Rect(m_rect.x - (float)(2 * borderSize), m_rect.y - (float)(2 * borderSize), borderSize, m_rect.height + (float)(4 * borderSize));
+							GUI.Box(position4, string.Empty, CreateColorStyle(styleColor2));
+							position4 = new Rect(m_rect.x - (float)(2 * borderSize), m_rect.y + m_rect.height + (float)borderSize, m_rect.width * num6 + (float)(2 * borderSize), borderSize);
+							GUI.Box(position4, string.Empty, CreateColorStyle(styleColor2));
+							return;
 						}
-						Rect position4 = new Rect(this.m_rect.x - (float)(2 * this.borderSize), this.m_rect.y - (float)(2 * this.borderSize), this.m_rect.width * num7 + (float)(2 * this.borderSize), (float)this.borderSize);
-						GUI.Box(position4, string.Empty, this.CreateColorStyle(styleColor3));
-						position4 = new Rect(this.m_rect.x - (float)(2 * this.borderSize), this.m_rect.y - (float)(2 * this.borderSize), (float)this.borderSize, this.m_rect.height + (float)(4 * this.borderSize));
-						GUI.Box(position4, string.Empty, this.CreateColorStyle(styleColor3));
-						position4 = new Rect(this.m_rect.x - (float)(2 * this.borderSize), this.m_rect.y + this.m_rect.height + (float)this.borderSize, this.m_rect.width * num7 + (float)(2 * this.borderSize), (float)this.borderSize);
-						GUI.Box(position4, string.Empty, this.CreateColorStyle(styleColor3));
-					}
-					else
-					{
-						Rect position5 = new Rect(this.m_rect.x - (float)(2 * this.borderSize), this.m_rect.y + this.m_rect.height * (1f - num7) + (float)(2 * this.borderSize), (float)this.borderSize, this.m_rect.height * num7);
-						GUI.Box(position5, string.Empty, this.CreateColorStyle(styleColor3));
-						position5 = new Rect(this.m_rect.x + this.m_rect.width + (float)this.borderSize, this.m_rect.y + this.m_rect.height * (1f - num7) + (float)(2 * this.borderSize), (float)this.borderSize, this.m_rect.height * num7);
-						GUI.Box(position5, string.Empty, this.CreateColorStyle(styleColor3));
-						position5 = new Rect(this.m_rect.x - (float)(2 * this.borderSize), this.m_rect.y + this.m_rect.height + (float)this.borderSize, this.m_rect.width + (float)(4 * this.borderSize), (float)this.borderSize);
-						GUI.Box(position5, string.Empty, this.CreateColorStyle(styleColor3));
+						}
 					}
 				}
+				Rect position5 = new Rect(m_rect.x - (float)(2 * borderSize), m_rect.y + m_rect.height * (1f - num6) + (float)(2 * borderSize), borderSize, m_rect.height * num6);
+				GUI.Box(position5, string.Empty, CreateColorStyle(styleColor2));
+				position5 = new Rect(m_rect.x + m_rect.width + (float)borderSize, m_rect.y + m_rect.height * (1f - num6) + (float)(2 * borderSize), borderSize, m_rect.height * num6);
+				GUI.Box(position5, string.Empty, CreateColorStyle(styleColor2));
+				position5 = new Rect(m_rect.x - (float)(2 * borderSize), m_rect.y + m_rect.height + (float)borderSize, m_rect.width + (float)(4 * borderSize), borderSize);
+				GUI.Box(position5, string.Empty, CreateColorStyle(styleColor2));
+				return;
 			}
 		}
 	}

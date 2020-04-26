@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.EventSystems;
 
 public class UITooltipClickObject : UITooltipObject
@@ -11,84 +10,53 @@ public class UITooltipClickObject : UITooltipObject
 
 	private void Awake()
 	{
-		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnMouseClick));
+		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerClick, OnMouseClick);
 	}
 
 	private void OnMouseClick(BaseEventData data)
 	{
-		if (!base.IsSetup())
+		if (!IsSetup())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipClickObject.OnMouseClick(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
 		PointerEventData pointerEventData = data as PointerEventData;
 		bool flag = false;
-		if (this.m_leftClickEnabled && pointerEventData.button == PointerEventData.InputButton.Left)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag = true;
-		}
-		else if (this.m_rightClickEnabled && pointerEventData.button == PointerEventData.InputButton.Right)
+		if (m_leftClickEnabled && pointerEventData.button == PointerEventData.InputButton.Left)
 		{
 			flag = true;
 		}
-		else if (this.m_middleClickEnabled)
+		else if (m_rightClickEnabled && pointerEventData.button == PointerEventData.InputButton.Right)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			flag = true;
+		}
+		else if (m_middleClickEnabled)
+		{
 			if (pointerEventData.button == PointerEventData.InputButton.Middle)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 		}
 		if (!flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			return;
 		}
 		UITooltipManager.Get().ShowMenu(this);
 	}

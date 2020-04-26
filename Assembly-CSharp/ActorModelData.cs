@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,15 +7,147 @@ using UnityEngine.Rendering;
 
 public class ActorModelData : MonoBehaviour, IGameEventListener
 {
+	[Serializable]
+	public class PersistentVFXInfo
+	{
+		public GameObject m_vfxPrefab;
+
+		[JointPopup("FX attach joint (or start position for projectiles).")]
+		public JointPopupProperty m_fxJoint;
+
+		[HideInInspector]
+		public GameObject m_vfxInstance;
+	}
+
+	public enum ActionAnimationType
+	{
+		None,
+		Ability1,
+		Ability2,
+		Ability3,
+		Ability4,
+		Ability5,
+		Ability6,
+		Ability7,
+		Ability8,
+		Ability9,
+		Ability10,
+		Item1,
+		Item2,
+		Item3,
+		Item4,
+		Item5,
+		Item6,
+		Item7,
+		Item8,
+		Item9,
+		Item10
+	}
+
+	[Serializable]
+	public class CullModeSettings
+	{
+		public string m_targetMaterialSearchPtn = string.Empty;
+
+		public bool m_forStealth;
+
+		public CullMode m_desiredCullMode;
+	}
+
+	internal enum RagdollActivation
+	{
+		None,
+		HealthBased
+	}
+
+	internal class ImpulseInfo
+	{
+		private Vector3 m_position;
+
+		internal bool IsExplosion => ExplosionRadius > 0f;
+
+		internal float ExplosionRadius
+		{
+			get;
+			set;
+		}
+
+		internal Vector3 ExplosionCenter => m_position;
+
+		internal float ExplosionMagnitude
+		{
+			get;
+			set;
+		}
+
+		internal Vector3 HitPosition => m_position;
+
+		internal Vector3 HitImpulse
+		{
+			get;
+			set;
+		}
+
+		internal ImpulseInfo(float explosionRadius, Vector3 explosionCenter)
+		{
+			ExplosionRadius = explosionRadius;
+			m_position = explosionCenter;
+			ExplosionMagnitude = TheatricsManager.GetRagdollImpactForce();
+		}
+
+		internal ImpulseInfo(Vector3 hitPosition, Vector3 hitDirection)
+		{
+			hitDirection.y = Mathf.Max(0.75f, hitDirection.y);
+			float d = TheatricsManager.GetRagdollImpactForce();
+			if (hitDirection.sqrMagnitude > 0f)
+			{
+				hitDirection.Normalize();
+			}
+			else
+			{
+				if (Application.isEditor)
+				{
+					Log.Warning("Ragdoll impulse has 0 vector as impulse direction");
+				}
+				hitDirection = Vector3.up;
+				d = 0.1f;
+			}
+			m_position = hitPosition;
+			HitImpulse = hitDirection * d;
+		}
+
+		public string GetDebugString()
+		{
+			string empty = string.Empty;
+			string text;
+			if (IsExplosion)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						text = empty;
+						return text + "Explosion Type Impulse, Radius= " + ExplosionRadius + " | Magnitude = " + ExplosionMagnitude + " | Center= " + ExplosionCenter;
+					}
+				}
+			}
+			text = empty;
+			return string.Concat(text, "Impulse FromPos= ", HitPosition, " | Magnitude= ", HitImpulse.magnitude, " | ImpulseDir= ", HitImpulse.normalized);
+		}
+	}
+
 	public const int MIN_ANIMATION_INDEX = 1;
 
-	public const int MAX_ANIMATION_INDEX = 0x14;
+	public const int MAX_ANIMATION_INDEX = 20;
 
 	public Sprite m_characterPortrait;
 
 	internal ActorData m_parentActorData;
 
-	public ActorModelData.PersistentVFXInfo[] m_persistentVFX;
+	public PersistentVFXInfo[] m_persistentVFX;
 
 	[HideInInspector]
 	public TauntCameraSet m_abilityCameraShotSequences;
@@ -71,13 +203,13 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	private string m_rendererDefaultMaterialsCacheKey;
 
 	[Header("-- for setting cull mode on particular materials when entering/exiting stealth modes")]
-	public List<ActorModelData.CullModeSettings> m_stealthShaderCullModeSettings;
+	public List<CullModeSettings> m_stealthShaderCullModeSettings;
 
 	[HideInInspector]
-	public float[] m_camStartEventDelays = new float[0x15];
+	public float[] m_camStartEventDelays = new float[21];
 
 	[HideInInspector]
-	public float[] m_tauntCamStartEventDelays = new float[0x15];
+	public float[] m_tauntCamStartEventDelays = new float[21];
 
 	[HideInInspector]
 	public List<int> m_animatorStateNameHashes;
@@ -193,307 +325,181 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 
 	private bool m_forceHideRenderers;
 
-	internal Dictionary<int, string> GetAnimatorStateNameHashToNameMap()
+	internal float Alpha
 	{
-		return this.m_animatorStateNameHashToName;
+		get;
+		set;
 	}
 
-	internal float Alpha { get; set; }
+	internal Dictionary<int, string> GetAnimatorStateNameHashToNameMap()
+	{
+		return m_animatorStateNameHashToName;
+	}
 
 	private void Awake()
 	{
-		this.m_needsStandingIdleBoundingBox = true;
-		this.m_modelAnimator = base.GetComponentInChildren<Animator>();
-		AnimatorControllerParameter[] parameters = this.m_modelAnimator.parameters;
+		m_needsStandingIdleBoundingBox = true;
+		m_modelAnimator = GetComponentInChildren<Animator>();
+		AnimatorControllerParameter[] parameters = m_modelAnimator.parameters;
 		for (int i = 0; i < parameters.Length; i++)
 		{
-			if (!this.m_hasRandomValueParameter)
+			if (!m_hasRandomValueParameter)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.Awake()).MethodHandle;
-				}
 				if (parameters[i].name == "RandomValue")
 				{
-					this.m_hasRandomValueParameter = true;
+					m_hasRandomValueParameter = true;
 				}
 			}
-			if (!this.m_hasTurnStartParameter)
+			if (m_hasTurnStartParameter)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (parameters[i].name == "TurnStart")
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_hasTurnStartParameter = true;
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		if (this.m_savedAnimData != null)
-		{
-			float[] savedCamStartEventDelays = this.m_savedAnimData.m_savedCamStartEventDelays;
-			float[] savedTauntCamStartEventDelays = this.m_savedAnimData.m_savedTauntCamStartEventDelays;
-			List<int> savedAnimatorStateNameHashes = this.m_savedAnimData.m_savedAnimatorStateNameHashes;
-			List<string> savedAnimatorStateNames = this.m_savedAnimData.m_savedAnimatorStateNames;
-			if (savedCamStartEventDelays != null)
+			if (parameters[i].name == "TurnStart")
 			{
-				for (;;)
+				m_hasTurnStartParameter = true;
+			}
+		}
+		while (true)
+		{
+			float[] savedTauntCamStartEventDelays;
+			List<int> savedAnimatorStateNameHashes;
+			List<string> savedAnimatorStateNames;
+			if (m_savedAnimData != null)
+			{
+				float[] savedCamStartEventDelays = m_savedAnimData.m_savedCamStartEventDelays;
+				savedTauntCamStartEventDelays = m_savedAnimData.m_savedTauntCamStartEventDelays;
+				savedAnimatorStateNameHashes = m_savedAnimData.m_savedAnimatorStateNameHashes;
+				savedAnimatorStateNames = m_savedAnimData.m_savedAnimatorStateNames;
+				if (savedCamStartEventDelays != null)
 				{
-					switch (6)
+					if (savedCamStartEventDelays.Length == 21)
 					{
-					case 0:
-						continue;
+						m_camStartEventDelays = new float[21];
+						Array.Copy(savedCamStartEventDelays, m_camStartEventDelays, 21);
+						goto IL_0153;
 					}
-					break;
 				}
-				if (savedCamStartEventDelays.Length == 0x15)
+				Log.Error(base.name + " saved CamStartEventDelays is null or has mismatched number of entries");
+				goto IL_0153;
+			}
+			goto IL_01c3;
+			IL_01c3:
+			Animator[] componentsInChildren = base.gameObject.GetComponentsInChildren<Animator>();
+			Animator[] array = componentsInChildren;
+			foreach (Animator animator in array)
+			{
+				animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+			}
+			while (true)
+			{
+				m_animatorStateNameHashToName = new Dictionary<int, string>(m_animatorStateNameHashes.Count);
+				for (int k = 0; k < m_animatorStateNameHashes.Count; k++)
 				{
-					for (;;)
+					m_animatorStateNameHashToName[m_animatorStateNameHashes[k]] = m_animatorStateNames[k];
+				}
+				while (true)
+				{
+					m_projector = base.gameObject.GetComponentInChildren<Projector>();
+					PersistentVFXInfo[] persistentVFX = m_persistentVFX;
+					foreach (PersistentVFXInfo persistentVFXInfo in persistentVFX)
 					{
-						switch (5)
+						if (persistentVFXInfo.m_vfxPrefab != null)
 						{
-						case 0:
-							continue;
+							persistentVFXInfo.m_fxJoint.Initialize(base.gameObject);
+							persistentVFXInfo.m_vfxInstance = UnityEngine.Object.Instantiate(persistentVFXInfo.m_vfxPrefab);
+							persistentVFXInfo.m_vfxInstance.transform.parent = persistentVFXInfo.m_fxJoint.m_jointObject.transform;
+							persistentVFXInfo.m_vfxInstance.transform.localPosition = Vector3.zero;
+							persistentVFXInfo.m_vfxInstance.transform.localRotation = Quaternion.identity;
+							persistentVFXInfo.m_vfxInstance.transform.localScale = Vector3.one;
 						}
-						break;
 					}
-					this.m_camStartEventDelays = new float[0x15];
-					Array.Copy(savedCamStartEventDelays, this.m_camStartEventDelays, 0x15);
-					goto IL_153;
+					while (true)
+					{
+						m_renderers = base.gameObject.GetComponentsInChildren<Renderer>();
+						if (s_stealthMaterialPlaneVectorIDs[0] == 0)
+						{
+							s_stealthMaterialPlaneVectorIDs[0] = Shader.PropertyToID("_StealthPlane0");
+							s_stealthMaterialPlaneVectorIDs[1] = Shader.PropertyToID("_StealthPlane1");
+							s_stealthMaterialPlaneVectorIDs[2] = Shader.PropertyToID("_StealthPlane2");
+							s_stealthMaterialPlaneVectorIDs[3] = Shader.PropertyToID("_StealthPlane3");
+							s_materialPropertyIDTeam = Shader.PropertyToID("_Team");
+							s_materialPropertyIDStealthFade = Shader.PropertyToID("_StealthFade");
+							s_materialPropertyIDBrush = Shader.PropertyToID("_StealthBrush");
+							s_materialPropertyIDStealthMoving = Shader.PropertyToID("_StealthMoving");
+							s_materialPropertyIDStealthBroken = Shader.PropertyToID("_StealthBroken");
+							s_materialPropertyIDVisibleToClient = Shader.PropertyToID("_VisibleToClient");
+						}
+						s_materialPropertyIDCullMode = Shader.PropertyToID("_Cull");
+						materialColorProperty = Shader.PropertyToID("_Color");
+						materialOutlineProperty = Shader.PropertyToID("_Outline");
+						materialOutlineColorProperty = Shader.PropertyToID("_OutlineColor");
+						m_alphaUpdateMarkedDirty = true;
+						return;
+					}
 				}
 			}
-			Log.Error(base.name + " saved CamStartEventDelays is null or has mismatched number of entries", new object[0]);
-			IL_153:
-			if (savedTauntCamStartEventDelays != null && savedTauntCamStartEventDelays.Length == 0x15)
+			IL_0153:
+			if (savedTauntCamStartEventDelays != null && savedTauntCamStartEventDelays.Length == 21)
 			{
-				this.m_tauntCamStartEventDelays = new float[0x15];
-				Array.Copy(savedTauntCamStartEventDelays, this.m_tauntCamStartEventDelays, 0x15);
+				m_tauntCamStartEventDelays = new float[21];
+				Array.Copy(savedTauntCamStartEventDelays, m_tauntCamStartEventDelays, 21);
 			}
 			else
 			{
-				Log.Error(base.name + " saved Taunt CamStartEventDelays is null or has mismatched number of entries", new object[0]);
+				Log.Error(base.name + " saved Taunt CamStartEventDelays is null or has mismatched number of entries");
 			}
 			if (savedAnimatorStateNameHashes != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_animatorStateNameHashes = new List<int>(savedAnimatorStateNameHashes);
+				m_animatorStateNameHashes = new List<int>(savedAnimatorStateNameHashes);
 			}
 			if (savedAnimatorStateNames != null)
 			{
-				this.m_animatorStateNames = new List<string>(savedAnimatorStateNames);
+				m_animatorStateNames = new List<string>(savedAnimatorStateNames);
 			}
+			goto IL_01c3;
 		}
-		Animator[] componentsInChildren = base.gameObject.GetComponentsInChildren<Animator>();
-		foreach (Animator animator in componentsInChildren)
-		{
-			animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.m_animatorStateNameHashToName = new Dictionary<int, string>(this.m_animatorStateNameHashes.Count);
-		for (int k = 0; k < this.m_animatorStateNameHashes.Count; k++)
-		{
-			this.m_animatorStateNameHashToName[this.m_animatorStateNameHashes[k]] = this.m_animatorStateNames[k];
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.m_projector = base.gameObject.GetComponentInChildren<Projector>();
-		foreach (ActorModelData.PersistentVFXInfo persistentVFXInfo in this.m_persistentVFX)
-		{
-			if (persistentVFXInfo.m_vfxPrefab != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				persistentVFXInfo.m_fxJoint.Initialize(base.gameObject);
-				persistentVFXInfo.m_vfxInstance = UnityEngine.Object.Instantiate<GameObject>(persistentVFXInfo.m_vfxPrefab);
-				persistentVFXInfo.m_vfxInstance.transform.parent = persistentVFXInfo.m_fxJoint.m_jointObject.transform;
-				persistentVFXInfo.m_vfxInstance.transform.localPosition = Vector3.zero;
-				persistentVFXInfo.m_vfxInstance.transform.localRotation = Quaternion.identity;
-				persistentVFXInfo.m_vfxInstance.transform.localScale = Vector3.one;
-			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.m_renderers = base.gameObject.GetComponentsInChildren<Renderer>();
-		if (ActorModelData.s_stealthMaterialPlaneVectorIDs[0] == 0)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			ActorModelData.s_stealthMaterialPlaneVectorIDs[0] = Shader.PropertyToID("_StealthPlane0");
-			ActorModelData.s_stealthMaterialPlaneVectorIDs[1] = Shader.PropertyToID("_StealthPlane1");
-			ActorModelData.s_stealthMaterialPlaneVectorIDs[2] = Shader.PropertyToID("_StealthPlane2");
-			ActorModelData.s_stealthMaterialPlaneVectorIDs[3] = Shader.PropertyToID("_StealthPlane3");
-			ActorModelData.s_materialPropertyIDTeam = Shader.PropertyToID("_Team");
-			ActorModelData.s_materialPropertyIDStealthFade = Shader.PropertyToID("_StealthFade");
-			ActorModelData.s_materialPropertyIDBrush = Shader.PropertyToID("_StealthBrush");
-			ActorModelData.s_materialPropertyIDStealthMoving = Shader.PropertyToID("_StealthMoving");
-			ActorModelData.s_materialPropertyIDStealthBroken = Shader.PropertyToID("_StealthBroken");
-			ActorModelData.s_materialPropertyIDVisibleToClient = Shader.PropertyToID("_VisibleToClient");
-		}
-		ActorModelData.s_materialPropertyIDCullMode = Shader.PropertyToID("_Cull");
-		ActorModelData.materialColorProperty = Shader.PropertyToID("_Color");
-		ActorModelData.materialOutlineProperty = Shader.PropertyToID("_Outline");
-		ActorModelData.materialOutlineColorProperty = Shader.PropertyToID("_OutlineColor");
-		this.m_alphaUpdateMarkedDirty = true;
 	}
 
 	private void Start()
 	{
-		this.m_shroudInstances = base.GetComponentsInChildren<ShroudInstance>();
-		if (this.m_shroudInstances.Length > 0)
+		m_shroudInstances = GetComponentsInChildren<ShroudInstance>();
+		if (m_shroudInstances.Length > 0)
 		{
-			this.m_dirtyRenderersCache = true;
+			m_dirtyRenderersCache = true;
 		}
 		else
 		{
-			this.CacheRenderers();
+			CacheRenderers();
 		}
-		PKFxFX[] componentsInChildren = base.GetComponentsInChildren<PKFxFX>();
+		PKFxFX[] componentsInChildren = GetComponentsInChildren<PKFxFX>();
 		if (componentsInChildren != null)
 		{
-			for (;;)
+			foreach (PKFxFX pKFxFX in componentsInChildren)
 			{
-				switch (5)
+				if (pKFxFX.m_PlayOnStart)
 				{
-				case 0:
-					continue;
+					m_popcornFXPlayOnStartComponents.Add(pKFxFX);
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.Start()).MethodHandle;
-			}
-			foreach (PKFxFX pkfxFX in componentsInChildren)
-			{
-				if (pkfxFX.m_PlayOnStart)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_popcornFXPlayOnStartComponents.Add(pkfxFX);
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.TheatricsAbilitiesEnd);
-		this.m_forceUpdateVisibility = true;
-		if (base.GetComponentInChildren<AnimationEventReceiver>() == null)
+		m_forceUpdateVisibility = true;
+		if (GetComponentInChildren<AnimationEventReceiver>() == null)
 		{
-			string format = "{0} does not have an Animation Event Receiver on its model.  Please update the prefab.";
-			object arg;
-			if (this.m_parentActorData != null)
+			string arg;
+			if (m_parentActorData != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				arg = this.m_parentActorData.name;
+				arg = m_parentActorData.name;
 			}
 			else
 			{
 				arg = string.Empty;
 			}
-			Log.Error(string.Format(format, arg), new object[0]);
+			Log.Error($"{arg} does not have an Animation Event Receiver on its model.  Please update the prefab.");
 		}
-		this.SetMaterialFloatTeam();
-		this.InitJointsAndRigidBodies();
-		this.InitCachedJointForRagdoll();
+		SetMaterialFloatTeam();
+		InitJointsAndRigidBodies();
+		InitCachedJointForRagdoll();
 	}
 
 	private void SetMaterialFloatTeam()
@@ -501,130 +507,75 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		float num;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialFloatTeam()).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
+				if (m_parentActorData.GetOpposingTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_parentActorData.\u0012() == GameFlowData.Get().activeOwnedActorData.\u000E())
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 1f;
-					goto IL_76;
+					goto IL_0076;
 				}
 			}
 		}
 		num = 0f;
-		IL_76:
+		goto IL_0076;
+		IL_0076:
 		float value = num;
-		this.SetMaterialFloat(ActorModelData.s_materialPropertyIDTeam, value);
+		SetMaterialFloat(s_materialPropertyIDTeam, value);
 	}
 
 	public void DelayEnablingOfShroudInstances()
 	{
-		ShroudInstance[] componentsInChildren = base.GetComponentsInChildren<ShroudInstance>();
-		this.m_shroudInstancesToEnable = new bool[componentsInChildren.Length];
+		ShroudInstance[] componentsInChildren = GetComponentsInChildren<ShroudInstance>();
+		m_shroudInstancesToEnable = new bool[componentsInChildren.Length];
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
-			this.m_shroudInstancesToEnable[i] = componentsInChildren[i].enabled;
+			m_shroudInstancesToEnable[i] = componentsInChildren[i].enabled;
 			componentsInChildren[i].enabled = false;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.DelayEnablingOfShroudInstances()).MethodHandle;
+			return;
 		}
 	}
 
 	public void ImpartWindImpulse(Vector3 direction)
 	{
-		for (int i = 0; i < this.m_shroudInstances.Length; i++)
+		for (int i = 0; i < m_shroudInstances.Length; i++)
 		{
-			this.m_shroudInstances[i].ImpartWindImpulse(direction);
+			m_shroudInstances[i].ImpartWindImpulse(direction);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ImpartWindImpulse(Vector3)).MethodHandle;
+			return;
 		}
 	}
 
 	public void InitJointsAndRigidBodies()
 	{
 		Joint[] componentsInChildren = base.gameObject.GetComponentsInChildren<Joint>();
-		foreach (Joint joint in componentsInChildren)
+		Joint[] array = componentsInChildren;
+		foreach (Joint joint in array)
 		{
-			joint.enablePreprocessing = this.m_enableRagdollPreprocessing;
+			joint.enablePreprocessing = m_enableRagdollPreprocessing;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
+			Rigidbody[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<Rigidbody>();
+			Rigidbody[] array2 = componentsInChildren2;
+			foreach (Rigidbody rigidbody in array2)
 			{
-			case 0:
-				continue;
+				rigidbody.maxDepenetrationVelocity = m_maxDepenetrationVelocity;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.InitJointsAndRigidBodies()).MethodHandle;
-		}
-		Rigidbody[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<Rigidbody>();
-		foreach (Rigidbody rigidbody in componentsInChildren2)
-		{
-			rigidbody.maxDepenetrationVelocity = this.m_maxDepenetrationVelocity;
-		}
-		for (;;)
-		{
-			switch (4)
+			while (true)
 			{
-			case 0:
-				continue;
+				switch (4)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
 			}
-			break;
 		}
 	}
 
@@ -643,35 +594,18 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			if (rigidbody2.mass > num)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.InitCachedJointForRagdoll()).MethodHandle;
-				}
 				rigidbody = rigidbody2;
 				num = rigidbody2.mass;
 			}
 		}
-		if (rigidbody != null)
+		if (!(rigidbody != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_cachedRigidbodyForRagdollImpulse = rigidbody;
+			return;
+		}
+		while (true)
+		{
+			m_cachedRigidbodyForRagdollImpulse = rigidbody;
+			return;
 		}
 	}
 
@@ -679,35 +613,13 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (GameEventManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.OnDestroy()).MethodHandle;
-			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.TheatricsAbilitiesEnd);
 		}
-		if (this.m_appearanceNameToCachedRendererMaterials != null)
+		if (m_appearanceNameToCachedRendererMaterials != null)
 		{
-			for (;;)
+			for (int i = 0; i < m_appearanceNameToCachedRendererMaterials.Count; i++)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			for (int i = 0; i < this.m_appearanceNameToCachedRendererMaterials.Count; i++)
-			{
-				List<Material[]> list = this.m_appearanceNameToCachedRendererMaterials.Values.ElementAt(i);
+				List<Material[]> list = m_appearanceNameToCachedRendererMaterials.Values.ElementAt(i);
 				for (int j = 0; j < list.Count; j++)
 				{
 					Material[] array = list[j];
@@ -715,344 +627,206 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					{
 						UnityEngine.Object.Destroy(array[k]);
 					}
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							goto end_IL_0081;
 						}
+						continue;
+						end_IL_0081:
 						break;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						goto end_IL_0098;
 					}
+					continue;
+					end_IL_0098:
 					break;
 				}
 			}
-			this.m_appearanceNameToCachedRendererMaterials.Clear();
+			m_appearanceNameToCachedRendererMaterials.Clear();
 		}
-		this.m_parentActorData = null;
+		m_parentActorData = null;
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
 		if (eventType != GameEventManager.EventType.TheatricsAbilitiesEnd)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
 			}
 		}
-		else
-		{
-			this.SetCameraTransparency(1f, 1f, 0f);
-		}
+		SetCameraTransparency(1f, 1f, 0f);
 	}
 
 	internal void OnMovementAnimatorUpdate(BoardSquarePathInfo.ConnectionType movementType)
 	{
-		if (BrushCoordinator.Get() != null)
+		if (!(BrushCoordinator.Get() != null))
 		{
-			if (!(GameFlowData.Get().activeOwnedActorData == null))
+			return;
+		}
+		if (!(GameFlowData.Get().activeOwnedActorData == null))
+		{
+			if (GameFlowData.Get().activeOwnedActorData.GetOpposingTeam() == m_parentActorData.GetTeam())
 			{
-				for (;;)
+				if (movementType == BoardSquarePathInfo.ConnectionType.Flight)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
+					return;
+				}
+				if (movementType == BoardSquarePathInfo.ConnectionType.Teleport)
+				{
+					return;
+				}
+			}
+		}
+		bool flag = m_parentActorData.IsHiddenInBrush();
+		BoardSquarePathInfo previousTravelBoardSquarePathInfo = m_parentActorData.GetActorMovement().GetPreviousTravelBoardSquarePathInfo();
+		int num;
+		if (previousTravelBoardSquarePathInfo != null)
+		{
+			num = ((previousTravelBoardSquarePathInfo.m_visibleToEnemies || previousTravelBoardSquarePathInfo.m_moverHasGameplayHitHere) ? 1 : 0);
+		}
+		else
+		{
+			num = 0;
+		}
+		if (num != 0 && flag && m_stealthBrushTransitionParameter.EaseFinished())
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
 					break;
-				}
-				if (!true)
+				default:
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.OnMovementAnimatorUpdate(BoardSquarePathInfo.ConnectionType)).MethodHandle;
+					m_stealthBrushTransitionParameter = new EasedOutFloatQuad(1f);
+					Eased<float> stealthBrushTransitionParameter = m_stealthBrushTransitionParameter;
+					float duration;
+					if (m_parentActorData.GetActorMovement().IsPast2ndToLastSquare())
+					{
+						duration = m_stealthMoveStoppedHightlightFadeDuration;
+					}
+					else
+					{
+						duration = m_stealthMoveHightlightFadeDuration;
+					}
+					stealthBrushTransitionParameter.EaseTo(0f, duration);
+					return;
 				}
-				if (GameFlowData.Get().activeOwnedActorData.\u0012() == this.m_parentActorData.\u000E())
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (movementType == BoardSquarePathInfo.ConnectionType.Flight)
-					{
-						return;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (movementType == BoardSquarePathInfo.ConnectionType.Teleport)
-					{
-						return;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
-			bool flag = this.m_parentActorData.\u0016();
-			BoardSquarePathInfo previousTravelBoardSquarePathInfo = this.m_parentActorData.\u000E().GetPreviousTravelBoardSquarePathInfo();
-			bool flag2;
-			if (previousTravelBoardSquarePathInfo != null)
+		}
+		BoardSquarePathInfo nextTravelBoardSquarePathInfo = m_parentActorData.GetActorMovement().GetNextTravelBoardSquarePathInfo();
+		object obj;
+		if (nextTravelBoardSquarePathInfo == null)
+		{
+			obj = null;
+		}
+		else
+		{
+			obj = nextTravelBoardSquarePathInfo.square;
+		}
+		BoardSquare boardSquare = (BoardSquare)obj;
+		int num2;
+		if (boardSquare != null)
+		{
+			num2 = (BrushCoordinator.Get().IsRegionFunctioning(boardSquare.BrushRegion) ? 1 : 0);
+		}
+		else
+		{
+			num2 = 0;
+		}
+		bool flag2 = (byte)num2 != 0;
+		if (!flag || flag2)
+		{
+			return;
+		}
+		while (true)
+		{
+			if (m_stealthBrushTransitionParameter.GetEndValue() == 0f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag2 = (previousTravelBoardSquarePathInfo.m_visibleToEnemies || previousTravelBoardSquarePathInfo.m_moverHasGameplayHitHere);
+				m_stealthBrushTransitionParameter = new EasedInFloatQuad(m_stealthBrushTransitionParameter);
+				m_stealthBrushTransitionParameter.EaseTo(1f, m_stealthMoveHightlightFadeDuration);
 			}
-			else
-			{
-				flag2 = false;
-			}
-			bool flag3 = flag2;
-			if (flag3 && flag && this.m_stealthBrushTransitionParameter.EaseFinished())
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_stealthBrushTransitionParameter = new EasedOutFloatQuad(1f);
-				Eased<float> stealthBrushTransitionParameter = this.m_stealthBrushTransitionParameter;
-				float endValue = 0f;
-				float duration;
-				if (this.m_parentActorData.\u000E().IsPast2ndToLastSquare())
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					duration = this.m_stealthMoveStoppedHightlightFadeDuration;
-				}
-				else
-				{
-					duration = this.m_stealthMoveHightlightFadeDuration;
-				}
-				stealthBrushTransitionParameter.EaseTo(endValue, duration);
-			}
-			else
-			{
-				BoardSquarePathInfo nextTravelBoardSquarePathInfo = this.m_parentActorData.\u000E().GetNextTravelBoardSquarePathInfo();
-				BoardSquare boardSquare;
-				if (nextTravelBoardSquarePathInfo == null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					boardSquare = null;
-				}
-				else
-				{
-					boardSquare = nextTravelBoardSquarePathInfo.square;
-				}
-				BoardSquare boardSquare2 = boardSquare;
-				bool flag4;
-				if (boardSquare2 != null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag4 = BrushCoordinator.Get().IsRegionFunctioning(boardSquare2.BrushRegion);
-				}
-				else
-				{
-					flag4 = false;
-				}
-				bool flag5 = flag4;
-				if (flag && !flag5)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_stealthBrushTransitionParameter.GetEndValue() == 0f)
-					{
-						this.m_stealthBrushTransitionParameter = new EasedInFloatQuad(this.m_stealthBrushTransitionParameter);
-						this.m_stealthBrushTransitionParameter.EaseTo(1f, this.m_stealthMoveHightlightFadeDuration);
-					}
-				}
-			}
+			return;
 		}
 	}
 
 	internal void OnMovementAnimatorStop()
 	{
-		this.m_stealthBrushTransitionParameter.EaseTo(0f, this.m_stealthMoveStoppedHightlightFadeDuration);
+		m_stealthBrushTransitionParameter.EaseTo(0f, m_stealthMoveStoppedHightlightFadeDuration);
 	}
 
-	public unsafe bool DiffForSyncCharacterPrefab(ActorModelData other, ref List<string> diffDescriptions)
+	public bool DiffForSyncCharacterPrefab(ActorModelData other, ref List<string> diffDescriptions)
 	{
 		bool result = true;
-		if (this.m_characterPortrait != other.m_characterPortrait)
+		if (m_characterPortrait != other.m_characterPortrait)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.DiffForSyncCharacterPrefab(ActorModelData, List<string>*)).MethodHandle;
-			}
 			diffDescriptions.Add("\tCharacter Portrait different");
 			result = false;
 		}
-		if (this.m_cameraVertOffset == other.m_cameraVertOffset)
+		if (m_cameraVertOffset == other.m_cameraVertOffset)
 		{
-			for (;;)
+			if (m_cameraVertCoverOffset == other.m_cameraVertCoverOffset)
 			{
-				switch (1)
+				if (m_cameraHorzOffset == other.m_cameraHorzOffset)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_cameraVertCoverOffset == other.m_cameraVertCoverOffset)
-			{
-				for (;;)
-				{
-					switch (3)
+					if (m_stealthParameterStopPKFX == other.m_stealthParameterStopPKFX)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_cameraHorzOffset == other.m_cameraHorzOffset)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_stealthParameterStopPKFX == other.m_stealthParameterStopPKFX)
-					{
-						goto IL_A4;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						goto IL_00a4;
 					}
 				}
 			}
 		}
 		diffDescriptions.Add("\tCamera Offsets different");
 		result = false;
-		IL_A4:
-		if (this.m_persistentVFX.Length != other.m_persistentVFX.Length)
+		goto IL_00a4;
+		IL_00a4:
+		if (m_persistentVFX.Length != other.m_persistentVFX.Length)
 		{
 			diffDescriptions.Add("\tPersistent VFX different");
 			result = false;
 		}
 		else
 		{
-			int i = 0;
-			while (i < this.m_persistentVFX.Length)
+			int num = 0;
+			while (true)
 			{
-				if (!(this.m_persistentVFX[i].m_vfxPrefab.name != other.m_persistentVFX[i].m_vfxPrefab.name) && !(this.m_persistentVFX[i].m_fxJoint.m_joint != other.m_persistentVFX[i].m_fxJoint.m_joint))
+				if (num < m_persistentVFX.Length)
 				{
-					for (;;)
+					if (!(m_persistentVFX[num].m_vfxPrefab.name != other.m_persistentVFX[num].m_vfxPrefab.name) && !(m_persistentVFX[num].m_fxJoint.m_joint != other.m_persistentVFX[num].m_fxJoint.m_joint))
 					{
-						switch (3)
+						if (!(m_persistentVFX[num].m_fxJoint.m_jointCharacter != other.m_persistentVFX[num].m_fxJoint.m_jointCharacter))
 						{
-						case 0:
+							num++;
 							continue;
 						}
-						break;
 					}
-					if (!(this.m_persistentVFX[i].m_fxJoint.m_jointCharacter != other.m_persistentVFX[i].m_fxJoint.m_jointCharacter))
-					{
-						i++;
-						continue;
-					}
+					diffDescriptions.Add("\tPersistent VFX different");
+					result = false;
 				}
-				diffDescriptions.Add("\tPersistent VFX different");
-				return false;
-			}
-			for (;;)
-			{
-				switch (4)
+				else
 				{
-				case 0:
-					continue;
 				}
 				break;
 			}
@@ -1062,392 +836,206 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 
 	public bool IsVisibleToClient()
 	{
-		return this.m_visibleToClient;
+		return m_visibleToClient;
 	}
 
 	public bool HasAnimatorControllerParamater(string paramName)
 	{
 		bool result = false;
-		this.m_modelAnimator = base.GetComponentInChildren<Animator>();
-		AnimatorControllerParameter[] parameters = this.m_modelAnimator.parameters;
-		for (int i = 0; i < parameters.Length; i++)
+		m_modelAnimator = GetComponentInChildren<Animator>();
+		AnimatorControllerParameter[] parameters = m_modelAnimator.parameters;
+		int num = 0;
+		while (true)
 		{
-			if (parameters[i].name == paramName)
+			if (num < parameters.Length)
 			{
-				for (;;)
+				if (parameters[num].name == paramName)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
+					result = true;
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.HasAnimatorControllerParamater(string)).MethodHandle;
-				}
-				result = true;
-				return result;
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
+				num++;
 				continue;
 			}
-			return result;
+			break;
 		}
+		return result;
 	}
 
 	public bool HasTurnStartParameter()
 	{
-		return this.m_hasTurnStartParameter;
+		return m_hasTurnStartParameter;
 	}
 
 	private void CacheRenderers()
 	{
-		List<string> list = new List<string>
+		List<string> list = new List<string>();
+		list.Add("Hydrogen/TGP/Toony");
+		list.Add("Hydrogen/TGP/Toony_Metal");
+		list.Add("Hydrogen/TGP/Toony_Alpha");
+		list.Add("Hydrogen/DigitalSorceress");
+		list.Add("Hydrogen/DigitalSorceressHair");
+		list.Add("Hydrogen/Spark");
+		list.Add("Hydrogen/Spark2");
+		list.Add("Hydrogen/TGP/Environment_Metal_Alpha");
+		list.Add("Hydrogen/Trickster");
+		list.Add("Hydrogen/Trickster_Environment_Metal");
+		list.Add("Hydrogen/Trickster_Environment_Metal_Alpha");
+		List<string> list2 = list;
+		m_dirtyRenderersCache = false;
+		if (m_renderers == null)
 		{
-			"Hydrogen/TGP/Toony",
-			"Hydrogen/TGP/Toony_Metal",
-			"Hydrogen/TGP/Toony_Alpha",
-			"Hydrogen/DigitalSorceress",
-			"Hydrogen/DigitalSorceressHair",
-			"Hydrogen/Spark",
-			"Hydrogen/Spark2",
-			"Hydrogen/TGP/Environment_Metal_Alpha",
-			"Hydrogen/Trickster",
-			"Hydrogen/Trickster_Environment_Metal",
-			"Hydrogen/Trickster_Environment_Metal_Alpha"
-		};
-		this.m_dirtyRenderersCache = false;
-		if (this.m_renderers == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.CacheRenderers()).MethodHandle;
-			}
-			this.m_renderers = base.gameObject.GetComponentsInChildren<Renderer>();
+			m_renderers = base.gameObject.GetComponentsInChildren<Renderer>();
 		}
 		else
 		{
-			List<Renderer> list2 = new List<Renderer>();
-			for (int i = 0; i < this.m_renderers.Length; i++)
+			List<Renderer> list3 = new List<Renderer>();
+			for (int i = 0; i < m_renderers.Length; i++)
 			{
-				list2.Add(this.m_renderers[i]);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				list3.Add(m_renderers[i]);
 			}
 			Renderer[] componentsInChildren = base.gameObject.GetComponentsInChildren<Renderer>();
 			for (int j = 0; j < componentsInChildren.Length; j++)
 			{
-				if (!list2.Contains(componentsInChildren[j]))
+				if (!list3.Contains(componentsInChildren[j]))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					list2.Add(componentsInChildren[j]);
+					list3.Add(componentsInChildren[j]);
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_renderers = list2.ToArray();
+			m_renderers = list3.ToArray();
 		}
-		this.m_rendererDefaultColors = new List<Color[]>(this.m_renderers.Length);
-		List<Material[]> list3 = new List<Material[]>(this.m_renderers.Length);
-		foreach (Renderer renderer in this.m_renderers)
+		m_rendererDefaultColors = new List<Color[]>(m_renderers.Length);
+		List<Material[]> list4 = new List<Material[]>(m_renderers.Length);
+		Renderer[] renderers = m_renderers;
+		foreach (Renderer renderer in renderers)
 		{
 			if (renderer == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				continue;
 			}
-			else
+			Color[] array = new Color[renderer.sharedMaterials.Length];
+			for (int l = 0; l < renderer.sharedMaterials.Length; l++)
 			{
-				Color[] array = new Color[renderer.sharedMaterials.Length];
-				for (int l = 0; l < renderer.sharedMaterials.Length; l++)
+				if (renderer.sharedMaterials[l] != null)
 				{
-					if (renderer.sharedMaterials[l] != null)
+					if (renderer.sharedMaterials[l].HasProperty(materialColorProperty))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (renderer.sharedMaterials[l].HasProperty(ActorModelData.materialColorProperty))
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							array[l] = renderer.sharedMaterials[l].color;
-						}
-						else
-						{
-							array[l] = Color.white;
-						}
-						if (!list.Contains(renderer.sharedMaterials[l].shader.name))
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							string stealthReplacementShaderStr;
-							if (base.gameObject.name.Contains("trickster"))
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								stealthReplacementShaderStr = "Hydrogen/Trickster";
-							}
-							else
-							{
-								stealthReplacementShaderStr = list[0];
-							}
-							this.m_stealthReplacementShaderStr = stealthReplacementShaderStr;
-						}
+						array[l] = renderer.sharedMaterials[l].color;
 					}
 					else
 					{
 						array[l] = Color.white;
 					}
-				}
-				for (;;)
-				{
-					switch (6)
+					if (list2.Contains(renderer.sharedMaterials[l].shader.name))
 					{
-					case 0:
 						continue;
 					}
-					break;
+					object stealthReplacementShaderStr;
+					if (base.gameObject.name.Contains("trickster"))
+					{
+						stealthReplacementShaderStr = "Hydrogen/Trickster";
+					}
+					else
+					{
+						stealthReplacementShaderStr = list2[0];
+					}
+					m_stealthReplacementShaderStr = (string)stealthReplacementShaderStr;
 				}
-				this.m_rendererDefaultColors.Add(array);
-				Material[] array2 = new Material[renderer.sharedMaterials.Length];
-				for (int m = 0; m < array2.Length; m++)
+				else
 				{
-					Material material = new Material(renderer.sharedMaterials[m]);
-					array2[m] = material;
-					this.m_rendererDefaultMaterialsCacheKey = material.shader.name;
+					array[l] = Color.white;
 				}
-				list3.Add(array2);
 			}
-		}
-		for (;;)
-		{
-			switch (7)
+			m_rendererDefaultColors.Add(array);
+			Material[] array2 = new Material[renderer.sharedMaterials.Length];
+			for (int m = 0; m < array2.Length; m++)
 			{
-			case 0:
-				continue;
+				m_rendererDefaultMaterialsCacheKey = (array2[m] = new Material(renderer.sharedMaterials[m])).shader.name;
 			}
-			break;
+			list4.Add(array2);
 		}
-		this.m_appearanceNameToCachedRendererMaterials[this.m_rendererDefaultMaterialsCacheKey] = list3;
-		if (!string.IsNullOrEmpty(this.m_stealthReplacementShaderStr))
+		while (true)
 		{
-			for (;;)
+			m_appearanceNameToCachedRendererMaterials[m_rendererDefaultMaterialsCacheKey] = list4;
+			if (!string.IsNullOrEmpty(m_stealthReplacementShaderStr))
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_stealthReplacementShader = Shader.Find(m_stealthReplacementShaderStr);
 			}
-			this.m_stealthReplacementShader = Shader.Find(this.m_stealthReplacementShaderStr);
+			m_alphaUpdateMarkedDirty = true;
+			return;
 		}
-		this.m_alphaUpdateMarkedDirty = true;
 	}
 
 	internal void InitializeFaceActorModelData()
 	{
-		this.m_isFace = true;
-		this.DestroyRagdoll();
+		m_isFace = true;
+		DestroyRagdoll();
 		int layer = LayerMask.NameToLayer("Face");
-		foreach (Transform transform in base.gameObject.GetComponentsInChildren<Transform>(true))
+		Transform[] componentsInChildren = base.gameObject.GetComponentsInChildren<Transform>(true);
+		foreach (Transform transform in componentsInChildren)
 		{
 			transform.gameObject.layer = layer;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (4)
+			SkinnedMeshRenderer[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+			foreach (SkinnedMeshRenderer skinnedMeshRenderer in componentsInChildren2)
 			{
-			case 0:
-				continue;
+				skinnedMeshRenderer.shadowCastingMode = ShadowCastingMode.Off;
+				skinnedMeshRenderer.receiveShadows = false;
+				skinnedMeshRenderer.lightProbeUsage = LightProbeUsage.Off;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.InitializeFaceActorModelData()).MethodHandle;
-		}
-		foreach (SkinnedMeshRenderer skinnedMeshRenderer in base.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>(true))
-		{
-			skinnedMeshRenderer.shadowCastingMode = ShadowCastingMode.Off;
-			skinnedMeshRenderer.receiveShadows = false;
-			skinnedMeshRenderer.lightProbeUsage = LightProbeUsage.Off;
-		}
-		for (;;)
-		{
-			switch (6)
+			while (true)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		base.gameObject.layer = layer;
-		if (this.m_projector != null)
-		{
-			for (;;)
-			{
-				switch (6)
+				base.gameObject.layer = layer;
+				if (m_projector != null)
 				{
-				case 0:
-					continue;
+					m_projector.enabled = false;
 				}
-				break;
+				base.gameObject.SetActive(false);
+				return;
 			}
-			this.m_projector.enabled = false;
 		}
-		base.gameObject.SetActive(false);
 	}
 
 	public float GetCameraHorzOffset()
 	{
-		return this.m_cameraHorzOffset;
+		return m_cameraHorzOffset;
 	}
 
 	public float GetCameraVertOffset(bool forceStandingOffset)
 	{
+		float num = 0f;
 		if (!forceStandingOffset)
 		{
-			for (;;)
+			if (m_parentActorData.GetActorCover().HasAnyCover())
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetCameraVertOffset(bool)).MethodHandle;
-			}
-			if (this.m_parentActorData.\u000E().HasAnyCover(false))
-			{
-				return this.m_cameraVertCoverOffset;
+				return m_cameraVertCoverOffset;
 			}
 		}
-		return this.m_cameraVertOffset;
+		return m_cameraVertOffset;
 	}
 
 	public float GetModelSize()
 	{
-		if (this.m_renderers != null)
+		if (m_renderers != null)
 		{
-			if (this.m_renderers.Length >= 1)
+			if (m_renderers.Length >= 1)
 			{
-				Bounds bounds = this.m_renderers[0].bounds;
-				foreach (Renderer renderer in this.m_renderers)
+				Bounds bounds = m_renderers[0].bounds;
+				Renderer[] renderers = m_renderers;
+				foreach (Renderer renderer in renderers)
 				{
 					if (renderer != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bounds.Encapsulate(renderer.bounds);
 					}
 				}
-				for (;;)
+				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					Vector3 size = bounds.size;
+					return Mathf.Max(size.x, Mathf.Max(size.y, size.z));
 				}
-				Vector3 size = bounds.size;
-				return Mathf.Max(size.x, Mathf.Max(size.y, size.z));
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetModelSize()).MethodHandle;
 			}
 		}
 		return 2f;
@@ -1456,97 +1044,53 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	private void DestroyRagdoll()
 	{
 		Joint[] componentsInChildren = base.gameObject.GetComponentsInChildren<Joint>();
-		foreach (Joint obj in componentsInChildren)
+		Joint[] array = componentsInChildren;
+		foreach (Joint obj in array)
 		{
 			UnityEngine.Object.Destroy(obj);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (4)
+			Collider[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<Collider>();
+			Collider[] array2 = componentsInChildren2;
+			foreach (Collider obj2 in array2)
 			{
-			case 0:
-				continue;
+				UnityEngine.Object.Destroy(obj2);
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.DestroyRagdoll()).MethodHandle;
-		}
-		Collider[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<Collider>();
-		foreach (Collider obj2 in componentsInChildren2)
-		{
-			UnityEngine.Object.Destroy(obj2);
-		}
-		for (;;)
-		{
-			switch (7)
+			while (true)
 			{
-			case 0:
-				continue;
+				Rigidbody[] componentsInChildren3 = base.gameObject.GetComponentsInChildren<Rigidbody>();
+				Rigidbody[] array3 = componentsInChildren3;
+				foreach (Rigidbody obj3 in array3)
+				{
+					UnityEngine.Object.Destroy(obj3);
+				}
+				while (true)
+				{
+					switch (5)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
+				}
 			}
-			break;
-		}
-		Rigidbody[] componentsInChildren3 = base.gameObject.GetComponentsInChildren<Rigidbody>();
-		foreach (Rigidbody obj3 in componentsInChildren3)
-		{
-			UnityEngine.Object.Destroy(obj3);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
 	internal string GetCurrentAnimatorStateName()
 	{
 		string result = "[UNKNOWN: Please save .controller]";
-		Animator modelAnimator = this.GetModelAnimator();
+		Animator modelAnimator = GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetCurrentAnimatorStateName()).MethodHandle;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
-				string text;
-				if (this.m_animatorStateNameHashToName.TryGetValue(currentAnimatorStateInfo.shortNameHash, out text))
+				if (m_animatorStateNameHashToName.TryGetValue(currentAnimatorStateInfo.shortNameHash, out string value))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = text;
+					result = value;
 				}
 			}
 		}
@@ -1555,34 +1099,21 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 
 	internal int GetCurrentAnimatorStateHash()
 	{
-		Animator modelAnimator = this.GetModelAnimator();
+		Animator modelAnimator = GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetCurrentAnimatorStateHash()).MethodHandle;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return modelAnimator.GetCurrentAnimatorStateInfo(0).shortNameHash;
 					}
-					break;
 				}
-				return modelAnimator.GetCurrentAnimatorStateInfo(0).shortNameHash;
 			}
 		}
 		return 0;
@@ -1590,115 +1121,57 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 
 	public string GetAnimatorHashToString(int hash)
 	{
-		string result;
-		if (this.m_animatorStateNameHashToName.TryGetValue(hash, out result))
+		if (m_animatorStateNameHashToName.TryGetValue(hash, out string value))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return value;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetAnimatorHashToString(int)).MethodHandle;
-			}
-			return result;
 		}
 		return "UNKNOWN";
 	}
 
 	internal bool IsPlayingAttackAnim()
 	{
-		bool flag;
-		return this.IsPlayingAttackAnim(out flag);
+		bool endingAttack;
+		return IsPlayingAttackAnim(out endingAttack);
 	}
 
 	public bool IsPlayingChargeEnd()
 	{
 		bool result = false;
-		Animator modelAnimator = this.GetModelAnimator();
+		Animator modelAnimator = GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsPlayingChargeEnd()).MethodHandle;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				result = (modelAnimator.GetCurrentAnimatorStateInfo(0).tagHash == ActorModelData.s_animHashChargeEnd);
+				result = (modelAnimator.GetCurrentAnimatorStateInfo(0).tagHash == s_animHashChargeEnd);
 			}
 		}
 		return result;
 	}
 
-	internal unsafe bool IsPlayingAttackAnim(out bool endingAttack)
+	internal bool IsPlayingAttackAnim(out bool endingAttack)
 	{
 		endingAttack = false;
-		Animator modelAnimator = this.GetModelAnimator();
+		Animator modelAnimator = GetModelAnimator();
 		if (!(modelAnimator == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsPlayingAttackAnim(bool*)).MethodHandle;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
 				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
 				bool flag = modelAnimator.IsInTransition(0);
-				if (currentAnimatorStateInfo.tagHash != ActorModelData.s_animHashAttack)
+				if (currentAnimatorStateInfo.tagHash != s_animHashAttack)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (currentAnimatorStateInfo.tagHash != ActorModelData.s_animHashChargeEnd)
+					if (currentAnimatorStateInfo.tagHash != s_animHashChargeEnd)
 					{
 						return false;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				endingAttack = flag;
@@ -1710,106 +1183,62 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 
 	internal bool IsPlayingIdleAnim(bool excludeCover = false)
 	{
-		Animator modelAnimator = this.GetModelAnimator();
+		Animator modelAnimator = GetModelAnimator();
 		if (modelAnimator == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsPlayingIdleAnim(bool)).MethodHandle;
-			}
-			return true;
 		}
 		if (modelAnimator.layerCount < 1)
 		{
 			return false;
 		}
 		AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
-		bool result;
-		if (currentAnimatorStateInfo.tagHash == ActorModelData.s_animHashIdle || currentAnimatorStateInfo.shortNameHash == ActorModelData.s_animHashIdle)
+		int result;
+		if (currentAnimatorStateInfo.tagHash == s_animHashIdle || currentAnimatorStateInfo.shortNameHash == s_animHashIdle)
 		{
 			if (excludeCover)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				result = !this.m_parentActorData.\u000E().HasAnyCover(false);
+				result = ((!m_parentActorData.GetActorCover().HasAnyCover()) ? 1 : 0);
 			}
 			else
 			{
-				result = true;
+				result = 1;
 			}
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	internal bool IsPlayingDamageAnim()
 	{
-		Animator modelAnimator = this.GetModelAnimator();
+		Animator modelAnimator = GetModelAnimator();
 		if (!(modelAnimator == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsPlayingDamageAnim()).MethodHandle;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
 				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
-				bool result;
-				if (currentAnimatorStateInfo.tagHash != ActorModelData.s_animHashDamage && currentAnimatorStateInfo.shortNameHash != ActorModelData.s_animHashDamage)
+				int result;
+				if (currentAnimatorStateInfo.tagHash != s_animHashDamage && currentAnimatorStateInfo.shortNameHash != s_animHashDamage)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = (currentAnimatorStateInfo.tagHash == ActorModelData.s_animHashDamageNoInterrupt);
+					result = ((currentAnimatorStateInfo.tagHash == s_animHashDamageNoInterrupt) ? 1 : 0);
 				}
 				else
 				{
-					result = true;
+					result = 1;
 				}
-				return result;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return (byte)result != 0;
 			}
 		}
 		return false;
@@ -1817,133 +1246,65 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 
 	internal bool CanPlayDamageReactAnim()
 	{
-		Animator modelAnimator = this.GetModelAnimator();
+		Animator modelAnimator = GetModelAnimator();
+		int result;
 		if (!(modelAnimator == null))
 		{
 			if (modelAnimator.layerCount >= 1)
 			{
 				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
-				bool flag;
-				if (currentAnimatorStateInfo.tagHash != ActorModelData.s_animHashIdle)
+				int num;
+				if (currentAnimatorStateInfo.tagHash != s_animHashIdle)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag = (currentAnimatorStateInfo.shortNameHash == ActorModelData.s_animHashIdle);
+					num = ((currentAnimatorStateInfo.shortNameHash == s_animHashIdle) ? 1 : 0);
 				}
 				else
 				{
-					flag = true;
+					num = 1;
 				}
-				bool flag2 = flag;
-				bool flag3;
-				if (currentAnimatorStateInfo.tagHash != ActorModelData.s_animHashDamage)
+				bool flag = (byte)num != 0;
+				int num2;
+				if (currentAnimatorStateInfo.tagHash != s_animHashDamage)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag3 = (currentAnimatorStateInfo.shortNameHash == ActorModelData.s_animHashDamage);
+					num2 = ((currentAnimatorStateInfo.shortNameHash == s_animHashDamage) ? 1 : 0);
 				}
 				else
 				{
-					flag3 = true;
+					num2 = 1;
 				}
-				bool flag4 = flag3;
+				bool flag2 = (byte)num2 != 0;
+				if (!flag)
+				{
+					if (!flag2)
+					{
+						result = 0;
+						goto IL_00c5;
+					}
+				}
 				if (!flag2)
 				{
-					if (!flag4)
-					{
-						return false;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				bool result;
-				if (!flag4)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = !modelAnimator.IsInTransition(0);
+					result = ((!modelAnimator.IsInTransition(0)) ? 1 : 0);
 				}
 				else
 				{
-					result = true;
+					result = 1;
 				}
-				return result;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.CanPlayDamageReactAnim()).MethodHandle;
+				goto IL_00c5;
 			}
 		}
 		return false;
+		IL_00c5:
+		return (byte)result != 0;
 	}
 
 	internal bool IsPlayingKnockdownAnim()
 	{
-		Animator modelAnimator = this.GetModelAnimator();
+		Animator modelAnimator = GetModelAnimator();
 		if (!(modelAnimator == null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsPlayingKnockdownAnim()).MethodHandle;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
-				return modelAnimator.GetCurrentAnimatorStateInfo(0).tagHash == ActorModelData.s_animHashKnockdown;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return modelAnimator.GetCurrentAnimatorStateInfo(0).tagHash == s_animHashKnockdown;
 			}
 		}
 		return false;
@@ -1952,296 +1313,173 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	private void StoreRigidBodyOffsets()
 	{
 		Rigidbody[] componentsInChildren = base.gameObject.GetComponentsInChildren<Rigidbody>();
-		foreach (Rigidbody rigidbody in componentsInChildren)
+		Rigidbody[] array = componentsInChildren;
+		foreach (Rigidbody rigidbody in array)
 		{
-			this.m_initialBoneOffsetMap[rigidbody.gameObject] = rigidbody.transform.localPosition;
-			this.m_initialBoneRotationOffsetMap[rigidbody.gameObject] = rigidbody.transform.localRotation;
-			this.m_initialBoneScaleOffsetMap[rigidbody.gameObject] = rigidbody.transform.localScale;
+			m_initialBoneOffsetMap[rigidbody.gameObject] = rigidbody.transform.localPosition;
+			m_initialBoneRotationOffsetMap[rigidbody.gameObject] = rigidbody.transform.localRotation;
+			m_initialBoneScaleOffsetMap[rigidbody.gameObject] = rigidbody.transform.localScale;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.StoreRigidBodyOffsets()).MethodHandle;
+			return;
 		}
 	}
 
 	private void ResetRigidBodyOffsets()
 	{
 		Rigidbody[] componentsInChildren = base.gameObject.GetComponentsInChildren<Rigidbody>();
-		foreach (Rigidbody rigidbody in componentsInChildren)
+		Rigidbody[] array = componentsInChildren;
+		foreach (Rigidbody rigidbody in array)
 		{
-			if (this.m_initialBoneOffsetMap.ContainsKey(rigidbody.gameObject))
+			if (m_initialBoneOffsetMap.ContainsKey(rigidbody.gameObject))
 			{
-				rigidbody.transform.localPosition = this.m_initialBoneOffsetMap[rigidbody.gameObject];
-				rigidbody.transform.localRotation = this.m_initialBoneRotationOffsetMap[rigidbody.gameObject];
-				rigidbody.transform.localScale = this.m_initialBoneScaleOffsetMap[rigidbody.gameObject];
+				rigidbody.transform.localPosition = m_initialBoneOffsetMap[rigidbody.gameObject];
+				rigidbody.transform.localRotation = m_initialBoneRotationOffsetMap[rigidbody.gameObject];
+				rigidbody.transform.localScale = m_initialBoneScaleOffsetMap[rigidbody.gameObject];
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ResetRigidBodyOffsets()).MethodHandle;
+			return;
 		}
 	}
 
 	internal Renderer GetModelRenderer(int index = 0)
 	{
-		if (this.m_renderers != null)
+		object result;
+		if (m_renderers != null)
 		{
-			if (this.m_renderers.Length > index)
+			if (m_renderers.Length > index)
 			{
-				return this.m_renderers[index];
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetModelRenderer(int)).MethodHandle;
+				result = m_renderers[index];
+				goto IL_0031;
 			}
 		}
-		return null;
+		result = null;
+		goto IL_0031;
+		IL_0031:
+		return (Renderer)result;
 	}
 
 	internal int GetNumModelRenderers()
 	{
 		int result;
-		if (this.m_renderers == null)
+		if (m_renderers == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetNumModelRenderers()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
 		{
-			result = this.m_renderers.Length;
+			result = m_renderers.Length;
 		}
 		return result;
 	}
 
 	public Animator GetModelAnimator()
 	{
-		if (this.m_modelAnimator == null)
+		if (m_modelAnimator == null)
 		{
 			if (NetworkClient.active)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetModelAnimator()).MethodHandle;
-				}
-				Log.Error(this + " has a NULL model Animator", new object[0]);
+				Log.Error(string.Concat(this, " has a NULL model Animator"));
 			}
 		}
-		else if (this.m_modelAnimator.layerCount == 0)
+		else if (m_modelAnimator.layerCount == 0)
 		{
-			for (;;)
+			m_modelAnimator = GetComponentInChildren<Animator>();
+			object str;
+			if (m_parentActorData == null)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_modelAnimator = base.GetComponentInChildren<Animator>();
-			string str;
-			if (this.m_parentActorData == null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str = "NULL";
 			}
 			else
 			{
-				str = this.m_parentActorData.ToString();
+				str = m_parentActorData.ToString();
 			}
-			string str2 = " model Animator had zero layers! Refreshing... layers: ";
-			string str3;
-			if (this.m_modelAnimator == null)
+			object str2;
+			if (m_modelAnimator == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				str3 = "NULL";
+				str2 = "NULL";
 			}
 			else
 			{
-				str3 = this.m_modelAnimator.layerCount.ToString();
+				str2 = m_modelAnimator.layerCount.ToString();
 			}
-			Log.Error(str + str2 + str3, new object[0]);
+			Log.Error((string)str + " model Animator had zero layers! Refreshing... layers: " + (string)str2);
 		}
-		return this.m_modelAnimator;
+		return m_modelAnimator;
 	}
 
 	public void Setup(ActorData parentActorData)
 	{
 		Vector3 localScale = base.transform.localScale;
-		this.m_parentActorData = parentActorData;
+		m_parentActorData = parentActorData;
 		base.transform.parent = parentActorData.transform;
 		base.transform.localPosition = Vector3.zero;
 		base.transform.localScale = localScale;
-		GameObject gameObject = base.gameObject.FindInChildren("root_JNT", 0);
+		GameObject gameObject = base.gameObject.FindInChildren("root_JNT");
 		if (gameObject != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.Setup(ActorData)).MethodHandle;
-			}
-			this.m_rootBoneTransform = gameObject.transform;
+			m_rootBoneTransform = gameObject.transform;
 		}
-		gameObject = base.gameObject.FindInChildren("hip_JNT", 0);
+		gameObject = base.gameObject.FindInChildren("hip_JNT");
 		if (gameObject != null)
 		{
-			this.m_hipBoneTransform = gameObject.transform;
+			m_hipBoneTransform = gameObject.transform;
 		}
-		gameObject = base.gameObject.FindInChildren("floor_JNT", 0);
+		gameObject = base.gameObject.FindInChildren("floor_JNT");
 		if (gameObject != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_floorBoneTransform = gameObject.transform;
+			m_floorBoneTransform = gameObject.transform;
 		}
-		this.StoreRigidBodyOffsets();
+		StoreRigidBodyOffsets();
 	}
 
 	private void UpdateFloorBone()
 	{
-		if (this.m_rootBoneTransform != null)
+		if (!(m_rootBoneTransform != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_hipBoneTransform != null && m_floorBoneTransform != null)
 			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					Vector3 position = m_floorBoneTransform.position;
+					Vector3 position2 = m_rootBoneTransform.transform.position;
+					float y = position2.y;
+					Vector3 position3 = m_hipBoneTransform.transform.position;
+					position.y = Mathf.Min(y, position3.y);
+					m_floorBoneTransform.position = position;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateFloorBone()).MethodHandle;
-			}
-			if (this.m_hipBoneTransform != null && this.m_floorBoneTransform != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Vector3 position = this.m_floorBoneTransform.position;
-				position.y = Mathf.Min(this.m_rootBoneTransform.transform.position.y, this.m_hipBoneTransform.transform.position.y);
-				this.m_floorBoneTransform.position = position;
-			}
+			return;
 		}
 	}
 
 	private void UpdateRandomValueForAnimator()
 	{
 		float num = 0.25f;
-		if (this.m_modelAnimator != null && this.m_lastAnimatorRandomSetTime + num < Time.time)
+		if (!(m_modelAnimator != null) || !(m_lastAnimatorRandomSetTime + num < Time.time))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_hasRandomValueParameter)
 			{
-				switch (4)
+				while (true)
 				{
-				case 0:
-					continue;
+					m_lastAnimatorRandomSetTime = Time.time;
+					m_modelAnimator.SetFloat("RandomValue", UnityEngine.Random.value);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateRandomValueForAnimator()).MethodHandle;
-			}
-			if (this.m_hasRandomValueParameter)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_lastAnimatorRandomSetTime = Time.time;
-				this.m_modelAnimator.SetFloat("RandomValue", UnityEngine.Random.value);
-			}
+			return;
 		}
 	}
 
@@ -2253,288 +1491,162 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (CameraManager.Get().ShotSequence == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsInCinematicCam()).MethodHandle;
-			}
+		}
+		if (CameraManager.Get().ShotSequence.Actor != m_parentActorData)
+		{
 			return false;
 		}
-		return !(CameraManager.Get().ShotSequence.Actor != this.m_parentActorData);
+		return true;
 	}
 
 	public void ForceUpdateVisibility()
 	{
-		this.UpdateVisibility();
-		this.UpdateSelectionOutline();
+		UpdateVisibility();
+		UpdateSelectionOutline();
 	}
 
 	private void Update()
 	{
 		bool flag = false;
-		if (this.m_shroudInstancesToEnable != null)
+		if (m_shroudInstancesToEnable != null)
 		{
-			for (int i = 0; i < this.m_shroudInstancesToEnable.Length; i++)
+			for (int i = 0; i < m_shroudInstancesToEnable.Length; i++)
 			{
-				this.m_shroudInstances[i].enabled = this.m_shroudInstancesToEnable[i];
+				m_shroudInstances[i].enabled = m_shroudInstancesToEnable[i];
 				flag = true;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.Update()).MethodHandle;
-			}
-			this.m_shroudInstancesToEnable = null;
+			m_shroudInstancesToEnable = null;
 		}
-		if (this.m_dirtyRenderersCache && !flag)
+		if (m_dirtyRenderersCache && !flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.CacheRenderers();
+			CacheRenderers();
 		}
-		if (this.m_parentActorData == null)
+		if (m_parentActorData == null)
 		{
-			Log.Error("Setup was not called for ActorModelData on " + base.gameObject.name, new object[0]);
+			Log.Error("Setup was not called for ActorModelData on " + base.gameObject.name);
 			return;
 		}
-		if (!this.m_attemptedToCreateBaseCircle)
+		if (!m_attemptedToCreateBaseCircle)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			ActorVFX actorVFX = this.m_parentActorData.\u000E();
+			ActorVFX actorVFX = m_parentActorData.GetActorVFX();
 			if (actorVFX != null)
 			{
-				for (;;)
+				actorVFX.SpawnBaseCircles();
+			}
+			m_attemptedToCreateBaseCircle = true;
+		}
+		if (!m_parentActorData.IsModelAnimatorDisabled())
+		{
+			UpdateFloorBone();
+		}
+		UpdateRandomValueForAnimator();
+		UpdateStealth();
+		UpdateVisibility();
+		UpdateSelectionOutline();
+		if (!m_isFace)
+		{
+			UpdateCameraTransparency();
+		}
+		bool flag2 = IsPlayingIdleAnim(true);
+		if (m_needsStandingIdleBoundingBox)
+		{
+			if (flag2)
+			{
+				goto IL_0176;
+			}
+		}
+		if (m_rendererBoundsApprox.size == Vector3.zero)
+		{
+			goto IL_0176;
+		}
+		goto IL_0280;
+		IL_0280:
+		if (m_activeRigidbodies == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			if (!(Camera.main != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				Vector3 position = Camera.main.transform.position;
+				float num = Camera.main.farClipPlane * Camera.main.farClipPlane;
+				for (int j = 0; j < m_activeRigidbodies.Length; j++)
+				{
+					Rigidbody rigidbody = m_activeRigidbodies[j];
+					if (!(rigidbody != null))
+					{
+						continue;
+					}
+					if (rigidbody.IsSleeping())
+					{
+						continue;
+					}
+					Vector3 position2 = rigidbody.position;
+					if (float.IsNaN(position2.x))
+					{
+						rigidbody.isKinematic = true;
+						rigidbody.detectCollisions = false;
+						rigidbody.transform.localPosition = new Vector3(-10000f, 0f, 0f);
+						rigidbody.Sleep();
+						continue;
+					}
+					float num2 = Vector3.SqrMagnitude(rigidbody.position - position);
+					if (num2 > num)
+					{
+						rigidbody.isKinematic = true;
+						rigidbody.detectCollisions = false;
+						rigidbody.Sleep();
+					}
+				}
+				while (true)
 				{
 					switch (3)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
-				actorVFX.SpawnBaseCircles();
-			}
-			this.m_attemptedToCreateBaseCircle = true;
-		}
-		if (!this.m_parentActorData.\u0012())
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.UpdateFloorBone();
-		}
-		this.UpdateRandomValueForAnimator();
-		this.UpdateStealth();
-		this.UpdateVisibility();
-		this.UpdateSelectionOutline();
-		if (!this.m_isFace)
-		{
-			this.UpdateCameraTransparency();
-		}
-		bool flag2 = this.IsPlayingIdleAnim(true);
-		if (this.m_needsStandingIdleBoundingBox)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (flag2)
-			{
-				goto IL_176;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
-		if (!(this.m_rendererBoundsApprox.size == Vector3.zero))
+		IL_0176:
+		if (GetNumModelRenderers() > 0)
 		{
-			goto IL_280;
+			m_needsStandingIdleBoundingBox = !flag2;
+			float num3 = 0.95f * Board.Get().squareSize;
+			float num4 = 4f;
+			m_rendererBoundsApprox.size = new Vector3(num3, num4, num3);
+			m_rendererBoundsApprox.center = new Vector3(0f, 0.5f * num4, 0f);
 		}
-		for (;;)
+		if (!m_isFace)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		IL_176:
-		if (this.GetNumModelRenderers() > 0)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_needsStandingIdleBoundingBox = !flag2;
-			float num = 0.95f * Board.\u000E().squareSize;
-			float num2 = 4f;
-			this.m_rendererBoundsApprox.size = new Vector3(num, num2, num);
-			this.m_rendererBoundsApprox.center = new Vector3(0f, 0.5f * num2, 0f);
-		}
-		if (!this.m_isFace)
-		{
-			this.m_rendererBoundsApproxCollider = base.gameObject.AddComponent<BoxCollider>();
-			this.m_rendererBoundsApproxCollider.center = this.m_rendererBoundsApprox.center;
-			this.m_rendererBoundsApproxCollider.size = this.m_rendererBoundsApprox.size;
+			m_rendererBoundsApproxCollider = base.gameObject.AddComponent<BoxCollider>();
+			m_rendererBoundsApproxCollider.center = m_rendererBoundsApprox.center;
+			m_rendererBoundsApproxCollider.size = m_rendererBoundsApprox.size;
 			Collider[] componentsInChildren = base.gameObject.GetComponentsInChildren<Collider>();
-			foreach (Collider collider in componentsInChildren)
+			Collider[] array = componentsInChildren;
+			foreach (Collider collider in array)
 			{
 				collider.gameObject.layer = ActorData.Layer;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		IL_280:
-		if (this.m_activeRigidbodies != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (Camera.main != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Vector3 position = Camera.main.transform.position;
-				float num3 = Camera.main.farClipPlane * Camera.main.farClipPlane;
-				for (int k = 0; k < this.m_activeRigidbodies.Length; k++)
-				{
-					Rigidbody rigidbody = this.m_activeRigidbodies[k];
-					if (rigidbody != null)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!rigidbody.IsSleeping())
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (float.IsNaN(rigidbody.position.x))
-							{
-								rigidbody.isKinematic = true;
-								rigidbody.detectCollisions = false;
-								rigidbody.transform.localPosition = new Vector3(-10000f, 0f, 0f);
-								rigidbody.Sleep();
-							}
-							else
-							{
-								float num4 = Vector3.SqrMagnitude(rigidbody.position - position);
-								if (num4 > num3)
-								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									rigidbody.isKinematic = true;
-									rigidbody.detectCollisions = false;
-									rigidbody.Sleep();
-								}
-							}
-						}
-					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-		}
+		goto IL_0280;
 	}
 
 	internal void SetMaterialShader(Shader shader, bool overrideDefault = false)
@@ -2542,129 +1654,90 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		string name = shader.name;
 		if (overrideDefault)
 		{
-			this.m_rendererDefaultMaterialsCacheKey = name;
+			m_rendererDefaultMaterialsCacheKey = name;
 		}
-		if (this.m_appearanceNameToCachedRendererMaterials.ContainsKey(name))
+		if (m_appearanceNameToCachedRendererMaterials.ContainsKey(name))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialShader(Shader, bool)).MethodHandle;
-			}
-			List<Material[]> list = this.m_appearanceNameToCachedRendererMaterials[name];
-			for (int i = 0; i < this.m_renderers.Length; i++)
+			List<Material[]> list = m_appearanceNameToCachedRendererMaterials[name];
+			for (int i = 0; i < m_renderers.Length; i++)
 			{
 				Material[] array = list[i];
-				Renderer renderer = this.m_renderers[i];
+				Renderer renderer = m_renderers[i];
 				for (int j = 0; j < renderer.materials.Length; j++)
 				{
 					array[j].shaderKeywords = renderer.materials[j].shaderKeywords;
 					UnityEngine.Object.Destroy(renderer.materials[j]);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						goto end_IL_00a5;
 					}
+					continue;
+					end_IL_00a5:
 					break;
 				}
 				renderer.materials = array;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		else
 		{
-			List<Material[]> list = new List<Material[]>(this.m_renderers.Length);
-			for (int k = 0; k < this.m_renderers.Length; k++)
+			List<Material[]> list = new List<Material[]>(m_renderers.Length);
+			int num = 0;
+			while (num < m_renderers.Length)
 			{
-				Renderer renderer2 = this.m_renderers[k];
+				Renderer renderer2 = m_renderers[num];
 				Material[] array2 = new Material[renderer2.sharedMaterials.Length];
-				for (int l = 0; l < array2.Length; l++)
+				for (int k = 0; k < array2.Length; k++)
 				{
-					array2[l] = new Material(renderer2.sharedMaterials[l])
-					{
-						shader = shader,
-						shaderKeywords = renderer2.sharedMaterials[l].shaderKeywords
-					};
+					Material material = new Material(renderer2.sharedMaterials[k]);
+					material.shader = shader;
+					material.shaderKeywords = renderer2.sharedMaterials[k].shaderKeywords;
+					array2[k] = material;
 				}
-				for (;;)
+				while (true)
 				{
-					switch (6)
+					list.Add(array2);
+					for (int l = 0; l < renderer2.materials.Length; l++)
 					{
-					case 0:
-						continue;
+						UnityEngine.Object.Destroy(renderer2.materials[l]);
 					}
-					break;
-				}
-				list.Add(array2);
-				for (int m = 0; m < renderer2.materials.Length; m++)
-				{
-					UnityEngine.Object.Destroy(renderer2.materials[m]);
-				}
-				for (;;)
-				{
-					switch (1)
+					while (true)
 					{
-					case 0:
+						switch (1)
+						{
+						case 0:
+							break;
+						default:
+							goto end_IL_018e;
+						}
 						continue;
+						end_IL_018e:
+						break;
 					}
-					break;
+					renderer2.materials = array2;
+					num++;
+					goto IL_01a7;
 				}
-				renderer2.materials = array2;
+				IL_01a7:;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_appearanceNameToCachedRendererMaterials[name] = list;
+			m_appearanceNameToCachedRendererMaterials[name] = list;
 		}
-		this.m_alphaUpdateMarkedDirty = true;
+		m_alphaUpdateMarkedDirty = true;
 	}
 
 	public void ResetMaterialsToDefaults()
 	{
-		if (this.m_appearanceNameToCachedRendererMaterials.ContainsKey(this.m_rendererDefaultMaterialsCacheKey))
+		if (m_appearanceNameToCachedRendererMaterials.ContainsKey(m_rendererDefaultMaterialsCacheKey))
 		{
-			for (;;)
+			List<Material[]> list = m_appearanceNameToCachedRendererMaterials[m_rendererDefaultMaterialsCacheKey];
+			for (int i = 0; i < m_renderers.Length; i++)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ResetMaterialsToDefaults()).MethodHandle;
-			}
-			List<Material[]> list = this.m_appearanceNameToCachedRendererMaterials[this.m_rendererDefaultMaterialsCacheKey];
-			for (int i = 0; i < this.m_renderers.Length; i++)
-			{
-				Renderer renderer = this.m_renderers[i];
+				Renderer renderer = m_renderers[i];
 				if (renderer != null)
 				{
 					Material[] materials = list[i];
@@ -2672,91 +1745,33 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					{
 						UnityEngine.Object.Destroy(renderer.materials[j]);
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					renderer.materials = materials;
 				}
 			}
-			for (;;)
+			DisableMaterialKeyword(c_stealthShaderKeyword);
+			SetMaterialFloatTeam();
+			if (m_stealthShaderCullModeSettings != null)
 			{
-				switch (3)
+				for (int k = 0; k < m_stealthShaderCullModeSettings.Count; k++)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.DisableMaterialKeyword(this.c_stealthShaderKeyword);
-			this.SetMaterialFloatTeam();
-			if (this.m_stealthShaderCullModeSettings != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int k = 0; k < this.m_stealthShaderCullModeSettings.Count; k++)
-				{
-					ActorModelData.CullModeSettings cullModeSettings = this.m_stealthShaderCullModeSettings[k];
+					CullModeSettings cullModeSettings = m_stealthShaderCullModeSettings[k];
 					if (!cullModeSettings.m_forStealth)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.SetMaterialFloatByNameMatch(ActorModelData.s_materialPropertyIDCullMode, (float)cullModeSettings.m_desiredCullMode, cullModeSettings.m_targetMaterialSearchPtn);
+						SetMaterialFloatByNameMatch(s_materialPropertyIDCullMode, (float)cullModeSettings.m_desiredCullMode, cullModeSettings.m_targetMaterialSearchPtn);
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
-		this.m_alphaUpdateMarkedDirty = true;
+		m_alphaUpdateMarkedDirty = true;
 	}
 
 	private void SetLayer(int newLayer, int oldLayer)
 	{
-		for (int i = 0; i < this.m_renderers.Length; i++)
+		for (int i = 0; i < m_renderers.Length; i++)
 		{
-			Renderer renderer = this.m_renderers[i];
+			Renderer renderer = m_renderers[i];
 			if (renderer.gameObject.layer == oldLayer)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetLayer(int, int)).MethodHandle;
-				}
 				renderer.gameObject.layer = newLayer;
 			}
 		}
@@ -2764,84 +1779,62 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 
 	private void SetMaterialFloat(int propertyID, float value)
 	{
-		for (int i = 0; i < this.m_renderers.Length; i++)
+		int num = 0;
+		while (num < m_renderers.Length)
 		{
-			Renderer renderer = this.m_renderers[i];
-			foreach (Material material in renderer.materials)
+			Renderer renderer = m_renderers[num];
+			Material[] materials = renderer.materials;
+			foreach (Material material in materials)
 			{
 				material.SetFloat(propertyID, value);
 			}
-			for (;;)
+			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				num++;
+				goto IL_0047;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialFloat(int, float)).MethodHandle;
-			}
+			IL_0047:;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void SetMaterialFloatByNameMatch(int propertyID, float value, string searchPtn)
 	{
-		for (int i = 0; i < this.m_renderers.Length; i++)
+		for (int i = 0; i < m_renderers.Length; i++)
 		{
-			Renderer renderer = this.m_renderers[i];
+			Renderer renderer = m_renderers[i];
 			Material[] materials = renderer.materials;
-			int j = 0;
-			while (j < materials.Length)
+			foreach (Material material in materials)
 			{
-				Material material = materials[j];
-				if (string.IsNullOrEmpty(searchPtn))
+				if (!string.IsNullOrEmpty(searchPtn))
 				{
-					goto IL_4E;
-				}
-				if (material.name.IndexOf(searchPtn) >= 0)
-				{
-					for (;;)
+					if (material.name.IndexOf(searchPtn) < 0)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						continue;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialFloatByNameMatch(int, float, string)).MethodHandle;
-						goto IL_4E;
-					}
-					goto IL_4E;
 				}
-				IL_57:
-				j++;
-				continue;
-				IL_4E:
 				material.SetFloat(propertyID, value);
-				goto IL_57;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_0061;
 				}
+				continue;
+				end_IL_0061:
 				break;
 			}
 		}
@@ -2849,10 +1842,11 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 
 	private void SetMinMaterialFloat(int propertyId, float value)
 	{
-		for (int i = 0; i < this.m_renderers.Length; i++)
+		for (int i = 0; i < m_renderers.Length; i++)
 		{
-			Renderer renderer = this.m_renderers[i];
-			foreach (Material material in renderer.materials)
+			Renderer renderer = m_renderers[i];
+			Material[] materials = renderer.materials;
+			foreach (Material material in materials)
 			{
 				material.SetFloat(propertyId, Mathf.Max(value, material.GetFloat(propertyId)));
 			}
@@ -2861,132 +1855,108 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 
 	private void SetMaterialVector(int id, Vector4 value)
 	{
-		for (int i = 0; i < this.m_renderers.Length; i++)
+		int num = 0;
+		while (num < m_renderers.Length)
 		{
-			Renderer renderer = this.m_renderers[i];
-			foreach (Material material in renderer.materials)
+			Renderer renderer = m_renderers[num];
+			Material[] materials = renderer.materials;
+			foreach (Material material in materials)
 			{
 				material.SetVector(id, value);
 			}
-			for (;;)
+			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				num++;
+				goto IL_0049;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialVector(int, Vector4)).MethodHandle;
-			}
+			IL_0049:;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	internal void EnableMaterialKeyword(string keyword)
 	{
-		for (int i = 0; i < this.m_renderers.Length; i++)
+		int num = 0;
+		while (num < m_renderers.Length)
 		{
-			Renderer renderer = this.m_renderers[i];
-			foreach (Material material in renderer.materials)
+			Renderer renderer = m_renderers[num];
+			Material[] materials = renderer.materials;
+			foreach (Material material in materials)
 			{
 				material.EnableKeyword(keyword);
 			}
-			for (;;)
+			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				num++;
+				goto IL_0046;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.EnableMaterialKeyword(string)).MethodHandle;
-			}
+			IL_0046:;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	internal void DisableMaterialKeyword(string keyword)
 	{
-		for (int i = 0; i < this.m_renderers.Length; i++)
+		int num = 0;
+		while (num < m_renderers.Length)
 		{
-			Renderer renderer = this.m_renderers[i];
-			foreach (Material material in renderer.materials)
+			Renderer renderer = m_renderers[num];
+			Material[] materials = renderer.materials;
+			foreach (Material material in materials)
 			{
 				material.DisableKeyword(keyword);
 			}
-			for (;;)
+			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				num++;
+				goto IL_0046;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.DisableMaterialKeyword(string)).MethodHandle;
-			}
+			IL_0046:;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	internal void SetMaterialKeywordOnAllCachedMaterials(string keyword, bool enable)
 	{
-		foreach (KeyValuePair<string, List<Material[]>> keyValuePair in this.m_appearanceNameToCachedRendererMaterials)
+		foreach (KeyValuePair<string, List<Material[]>> appearanceNameToCachedRendererMaterial in m_appearanceNameToCachedRendererMaterials)
 		{
-			List<Material[]> value = keyValuePair.Value;
+			List<Material[]> value = appearanceNameToCachedRendererMaterial.Value;
 			for (int i = 0; i < value.Count; i++)
 			{
-				foreach (Material material in value[i])
+				Material[] array = value[i];
+				foreach (Material material in array)
 				{
 					if (material != null)
 					{
 						if (enable)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialKeywordOnAllCachedMaterials(string, bool)).MethodHandle;
-							}
 							material.EnableKeyword(keyword);
 						}
 						else
@@ -2995,98 +1965,68 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 						}
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						goto end_IL_0082;
 					}
+					continue;
+					end_IL_0082:
 					break;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
 
 	private void SetMaterialRenderQueue(int renderQueue)
 	{
-		for (int i = 0; i < this.m_renderers.Length; i++)
+		for (int i = 0; i < m_renderers.Length; i++)
 		{
-			Renderer renderer = this.m_renderers[i];
+			Renderer renderer = m_renderers[i];
 			Material[] materials = renderer.materials;
 			for (int j = 0; j < materials.Length; j++)
 			{
 				Material material = materials[j];
-				Material material2 = material;
 				int renderQueue2;
 				if (renderQueue < -1)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialRenderQueue(int)).MethodHandle;
-					}
 					renderQueue2 = renderer.sharedMaterials[j].renderQueue;
 				}
 				else
 				{
 					renderQueue2 = renderQueue;
 				}
-				material2.renderQueue = renderQueue2;
+				material.renderQueue = renderQueue2;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void ScaleMaterialColorToSDR(int propertyId)
 	{
-		for (int i = 0; i < this.m_renderers.Length; i++)
+		for (int i = 0; i < m_renderers.Length; i++)
 		{
-			Renderer renderer = this.m_renderers[i];
-			foreach (Material material in renderer.materials)
+			Renderer renderer = m_renderers[i];
+			Material[] materials = renderer.materials;
+			foreach (Material material in materials)
 			{
 				Color color = material.GetColor(propertyId);
 				float maxColorComponent = color.maxColorComponent;
 				if (maxColorComponent > 1f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ScaleMaterialColorToSDR(int)).MethodHandle;
-					}
 					material.SetColor(propertyId, color * 1f / maxColorComponent);
 				}
 			}
@@ -3095,590 +2035,344 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 
 	private void KillPopcornFXPlayOnStart()
 	{
-		this.m_stealthPKFXStopped = true;
-		for (int i = 0; i < this.m_popcornFXPlayOnStartComponents.Count; i++)
+		m_stealthPKFXStopped = true;
+		for (int i = 0; i < m_popcornFXPlayOnStartComponents.Count; i++)
 		{
-			PKFxFX pkfxFX = this.m_popcornFXPlayOnStartComponents.ElementAt(i);
-			pkfxFX.KillEffect();
+			PKFxFX pKFxFX = m_popcornFXPlayOnStartComponents.ElementAt(i);
+			pKFxFX.KillEffect();
 		}
 	}
 
 	public void RestartPopcornFXPlayOnStart()
 	{
-		if (this.m_visibleToClient)
+		if (!m_visibleToClient)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			m_stealthPKFXStopped = false;
+			for (int i = 0; i < m_popcornFXPlayOnStartComponents.Count; i++)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				PKFxFX pKFxFX = m_popcornFXPlayOnStartComponents.ElementAt(i);
+				pKFxFX.StartEffect();
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.RestartPopcornFXPlayOnStart()).MethodHandle;
-			}
-			this.m_stealthPKFXStopped = false;
-			for (int i = 0; i < this.m_popcornFXPlayOnStartComponents.Count; i++)
-			{
-				PKFxFX pkfxFX = this.m_popcornFXPlayOnStartComponents.ElementAt(i);
-				pkfxFX.StartEffect();
-			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	internal void EnableRendererAndUpdateVisibility()
 	{
-		foreach (Renderer renderer in this.m_renderers)
+		Renderer[] renderers = m_renderers;
+		foreach (Renderer renderer in renderers)
 		{
 			if (renderer != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.EnableRendererAndUpdateVisibility()).MethodHandle;
-				}
 				renderer.enabled = true;
 			}
 		}
-		if (this.m_shroudInstances != null)
+		if (m_shroudInstances != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			foreach (ShroudInstance shroudInstance in this.m_shroudInstances)
+			ShroudInstance[] shroudInstances = m_shroudInstances;
+			foreach (ShroudInstance shroudInstance in shroudInstances)
 			{
 				shroudInstance.enabled = true;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		this.m_visibleToClient = true;
-		this.m_forceHideRenderers = false;
-		this.UpdateVisibility();
-		if (this.m_visibleToClient)
+		m_visibleToClient = true;
+		m_forceHideRenderers = false;
+		UpdateVisibility();
+		if (!m_visibleToClient)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.SetPersistentVfxActive(true);
+			return;
+		}
+		while (true)
+		{
+			SetPersistentVfxActive(true);
+			return;
 		}
 	}
 
 	internal void DisableAndHideRenderers()
 	{
-		foreach (Renderer renderer in this.m_renderers)
+		Renderer[] renderers = m_renderers;
+		foreach (Renderer renderer in renderers)
 		{
 			if (renderer != null)
 			{
 				renderer.enabled = false;
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
+			if (m_shroudInstances != null)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.DisableAndHideRenderers()).MethodHandle;
-		}
-		if (this.m_shroudInstances != null)
-		{
-			for (;;)
-			{
-				switch (6)
+				ShroudInstance[] shroudInstances = m_shroudInstances;
+				foreach (ShroudInstance shroudInstance in shroudInstances)
 				{
-				case 0:
-					continue;
+					shroudInstance.enabled = false;
 				}
-				break;
 			}
-			foreach (ShroudInstance shroudInstance in this.m_shroudInstances)
-			{
-				shroudInstance.enabled = false;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			m_forceHideRenderers = true;
+			return;
 		}
-		this.m_forceHideRenderers = true;
 	}
 
 	internal void SetDefaultRendererAlpha(float alpha)
 	{
-		if (this.m_rendererDefaultColors != null)
+		if (m_rendererDefaultColors == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			for (int i = 0; i < m_rendererDefaultColors.Count; i++)
 			{
-				switch (5)
+				for (int j = 0; j < m_rendererDefaultColors[i].Length; j++)
 				{
-				case 0:
-					continue;
+					m_rendererDefaultColors[i][j].a = alpha;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetDefaultRendererAlpha(float)).MethodHandle;
-			}
-			for (int i = 0; i < this.m_rendererDefaultColors.Count; i++)
-			{
-				for (int j = 0; j < this.m_rendererDefaultColors[i].Length; j++)
-				{
-					this.m_rendererDefaultColors[i][j].a = alpha;
-				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						goto end_IL_0057;
 					}
+					continue;
+					end_IL_0057:
 					break;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	internal void CacheDefaultRendererAlphas()
 	{
-		if (this.m_rendererDefaultColors != null)
+		if (m_rendererDefaultColors == null)
 		{
-			this.m_cachedRendererAlphas = new List<float>();
-			for (int i = 0; i < this.m_rendererDefaultColors.Count; i++)
+			return;
+		}
+		m_cachedRendererAlphas = new List<float>();
+		int num = 0;
+		while (num < m_rendererDefaultColors.Count)
+		{
+			for (int i = 0; i < m_rendererDefaultColors[num].Length; i++)
 			{
-				for (int j = 0; j < this.m_rendererDefaultColors[i].Length; j++)
-				{
-					this.m_cachedRendererAlphas.Add(this.m_rendererDefaultColors[i][j].a);
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.CacheDefaultRendererAlphas()).MethodHandle;
-				}
+				m_cachedRendererAlphas.Add(m_rendererDefaultColors[num][i].a);
 			}
+			while (true)
+			{
+				num++;
+				goto IL_006e;
+			}
+			IL_006e:;
 		}
 	}
 
 	internal void RestoreDefaultRendererAlphas()
 	{
-		if (this.m_rendererDefaultColors != null && this.m_cachedRendererAlphas != null)
+		if (m_rendererDefaultColors != null && m_cachedRendererAlphas != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.RestoreDefaultRendererAlphas()).MethodHandle;
-			}
 			int num = 0;
-			for (int i = 0; i < this.m_rendererDefaultColors.Count; i++)
+			for (int i = 0; i < m_rendererDefaultColors.Count; i++)
 			{
-				for (int j = 0; j < this.m_rendererDefaultColors[i].Length; j++)
+				for (int j = 0; j < m_rendererDefaultColors[i].Length; j++)
 				{
-					this.m_rendererDefaultColors[i][j].a = this.m_cachedRendererAlphas[num++];
+					m_rendererDefaultColors[i][j].a = m_cachedRendererAlphas[num++];
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						goto end_IL_0075;
 					}
+					continue;
+					end_IL_0075:
 					break;
 				}
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		this.m_cachedRendererAlphas = null;
+		m_cachedRendererAlphas = null;
 	}
 
 	internal void SetCameraTransparency(float startTransparency, float transparencyTime, float fadeStartDelayDuration)
 	{
-		this.m_cameraTransparency = startTransparency;
-		this.m_cameraTransparencyStartValue = startTransparency;
-		this.m_cameraTransparencyTime = transparencyTime;
-		this.m_cameraTransparencyLastChangeSetTime = Time.time + fadeStartDelayDuration;
+		m_cameraTransparency = startTransparency;
+		m_cameraTransparencyStartValue = startTransparency;
+		m_cameraTransparencyTime = transparencyTime;
+		m_cameraTransparencyLastChangeSetTime = Time.time + fadeStartDelayDuration;
 	}
 
 	internal void SetMasterSkinVfxInst(GameObject vfxInst)
 	{
-		if (this.m_masterSkinVfxInst != null)
+		if (m_masterSkinVfxInst != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMasterSkinVfxInst(GameObject)).MethodHandle;
-			}
-			Log.Warning("Setting master skin vfx instance when there is existing entry", new object[0]);
+			Log.Warning("Setting master skin vfx instance when there is existing entry");
 		}
-		this.m_masterSkinVfxInst = vfxInst;
+		m_masterSkinVfxInst = vfxInst;
 	}
 
 	private void UpdateVisibility()
 	{
-		bool flag2;
-		if (this.m_isFace)
+		bool flag = false;
+		if (m_isFace)
 		{
-			bool flag;
+			int num;
 			if (CameraManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateVisibility()).MethodHandle;
-				}
-				flag = CameraManager.Get().InFaceShot(this.m_parentActorData);
+				num = (CameraManager.Get().InFaceShot(m_parentActorData) ? 1 : 0);
 			}
 			else
 			{
-				flag = false;
+				num = 0;
 			}
-			flag2 = flag;
+			flag = ((byte)num != 0);
 		}
 		else
 		{
-			flag2 = (!this.m_forceHideRenderers && this.m_parentActorData.\u0018() && this.m_cameraTransparency > 0f);
+			flag = (!m_forceHideRenderers && m_parentActorData.IsVisibleToClient() && m_cameraTransparency > 0f);
 		}
-		if (this.m_visibleToClient == flag2)
+		if (m_visibleToClient == flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!this.m_forceUpdateVisibility)
+			if (!m_forceUpdateVisibility)
 			{
 				return;
 			}
 		}
-		this.m_forceUpdateVisibility = false;
-		this.m_visibleToClient = flag2;
-		if (this.m_shroudInstances != null)
+		m_forceUpdateVisibility = false;
+		m_visibleToClient = flag;
+		if (m_shroudInstances != null)
 		{
-			foreach (ShroudInstance shroudInstance in this.m_shroudInstances)
+			ShroudInstance[] shroudInstances = m_shroudInstances;
+			foreach (ShroudInstance shroudInstance in shroudInstances)
 			{
 				if (shroudInstance != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					shroudInstance.enabled = flag2;
+					shroudInstance.enabled = flag;
 				}
 			}
 		}
-		if (this.m_renderers != null)
+		if (m_renderers != null)
 		{
-			foreach (Renderer renderer in this.m_renderers)
+			Renderer[] renderers = m_renderers;
+			foreach (Renderer renderer in renderers)
 			{
 				if (renderer != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					renderer.enabled = flag2;
+					renderer.enabled = flag;
 				}
 			}
 		}
-		if (this.m_projector != null)
+		if (m_projector != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_projector.enabled = flag2;
+			m_projector.enabled = flag;
 		}
-		ParticleSystem[] componentsInChildren = base.GetComponentsInChildren<ParticleSystem>();
-		foreach (ParticleSystem particleSystem in componentsInChildren)
+		ParticleSystem[] componentsInChildren = GetComponentsInChildren<ParticleSystem>();
+		ParticleSystem[] array = componentsInChildren;
+		foreach (ParticleSystem particleSystem in array)
 		{
-			if (!flag2)
+			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				particleSystem.Clear();
 			}
-			particleSystem.emission.enabled = flag2;
+			ParticleSystem.EmissionModule emission = particleSystem.emission;
+			emission.enabled = flag;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			SetPersistentVfxActive(flag);
+			return;
 		}
-		this.SetPersistentVfxActive(flag2);
 	}
 
 	private void SetPersistentVfxActive(bool active)
 	{
-		foreach (ActorModelData.PersistentVFXInfo persistentVFXInfo in this.m_persistentVFX)
+		PersistentVFXInfo[] persistentVFX = m_persistentVFX;
+		foreach (PersistentVFXInfo persistentVFXInfo in persistentVFX)
 		{
-			if (persistentVFXInfo != null)
+			if (persistentVFXInfo == null)
 			{
-				for (;;)
+				continue;
+			}
+			if (persistentVFXInfo.m_vfxInstance != null)
+			{
+				if (persistentVFXInfo.m_vfxInstance.activeSelf != active)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetPersistentVfxActive(bool)).MethodHandle;
-				}
-				if (persistentVFXInfo.m_vfxInstance != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (persistentVFXInfo.m_vfxInstance.activeSelf != active)
-					{
-						persistentVFXInfo.m_vfxInstance.SetActive(active);
-					}
+					persistentVFXInfo.m_vfxInstance.SetActive(active);
 				}
 			}
 		}
-		if (this.m_masterSkinVfxInst != null)
+		if (!(m_masterSkinVfxInst != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_masterSkinVfxInst.gameObject.SetActiveIfNeeded(active);
+			return;
+		}
+		while (true)
+		{
+			m_masterSkinVfxInst.gameObject.SetActiveIfNeeded(active);
+			return;
 		}
 	}
 
 	private void UpdateStealth()
 	{
-		if (this.m_isFace)
+		if (m_isFace)
 		{
 			return;
 		}
-		bool flag;
-		if (!this.m_parentActorData.\u000E().HasStatus(StatusType.Revealed, false))
+		int num;
+		if (!m_parentActorData.GetActorStatus().HasStatus(StatusType.Revealed, false))
 		{
-			for (;;)
+			if (!CaptureTheFlag.IsActorRevealedByFlag_Client(m_parentActorData))
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateStealth()).MethodHandle;
-			}
-			if (!CaptureTheFlag.IsActorRevealedByFlag_Client(this.m_parentActorData))
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag = this.m_parentActorData.VisibleTillEndOfPhase;
-				goto IL_5D;
+				num = (m_parentActorData.VisibleTillEndOfPhase ? 1 : 0);
+				goto IL_005d;
 			}
 		}
-		flag = true;
-		IL_5D:
-		bool flag2 = flag;
-		bool flag3 = this.m_parentActorData.\u000E().IsInvisibleToEnemies(false);
+		num = 1;
+		goto IL_005d;
+		IL_005d:
+		bool flag = (byte)num != 0;
+		bool flag2 = m_parentActorData.GetActorStatus().IsInvisibleToEnemies(false);
 		List<Plane> list = null;
-		if (this.m_stealthBrushTransitionParameter <= 0f)
+		if (!((float)m_stealthBrushTransitionParameter > 0f))
 		{
-			for (;;)
+			if (m_stealthBrushTransitionParameter.GetEndValue() != 1f)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_stealthBrushTransitionParameter.GetEndValue() != 1f)
-			{
-				goto IL_14A;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_014a;
 			}
 		}
 		if (BrushCoordinator.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			BoardSquare boardSquare = this.m_parentActorData.\u000E();
+			BoardSquare travelBoardSquare = m_parentActorData.GetTravelBoardSquare();
 			Vector3 vector;
-			if (boardSquare)
+			if ((bool)travelBoardSquare)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				vector = boardSquare.ToVector3();
+				vector = travelBoardSquare.ToVector3();
 			}
 			else
 			{
@@ -3686,1039 +2380,478 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			Vector3 center = vector;
 			Bounds bounds = new Bounds(center, new Vector3(0.1f, 0.1f, 0.1f));
-			bounds.Encapsulate(this.m_parentActorData.PreviousBoardSquarePosition);
+			bounds.Encapsulate(m_parentActorData.PreviousBoardSquarePosition);
 			list = BrushCoordinator.Get().CalcIntersectingBrushSidePlanes(bounds);
 		}
-		IL_14A:
-		int num;
-		if (list != null)
+		goto IL_014a;
+		IL_05ac:
+		bool flag3;
+		if (m_stealthPKFXStopped && !flag3)
 		{
-			for (;;)
+			if (m_stealthBrushTransitionParameter.GetEndValue() != 1f)
 			{
-				switch (2)
+				if (m_stealthBrokenParameter.GetEndValue() != 1f)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num = list.Count;
-		}
-		else
-		{
-			num = 0;
-		}
-		int num2 = num;
-		int num3 = this.m_parentActorData.\u0018();
-		bool flag4 = num3 >= 0;
-		bool flag5 = BrushCoordinator.Get() != null && this.m_parentActorData.\u0016();
-		bool flag6;
-		if (flag4 && BrushCoordinator.Get() != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag6 = !BrushCoordinator.Get().IsRegionFunctioning(num3);
-		}
-		else
-		{
-			flag6 = false;
-		}
-		bool flag7 = flag6;
-		bool flag8;
-		if (!flag5)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag8 = (num2 > 0);
-		}
-		else
-		{
-			flag8 = true;
-		}
-		bool flag9 = flag8;
-		if (!flag2)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!flag3 && !flag5)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_0734;
 				}
 			}
-			else
+			if (1f - Mathf.Max(m_stealthBrushTransitionParameter, m_stealthBrokenParameter) <= m_stealthParameterStartPKFX)
 			{
-				if (this.m_stealthBrokenParameter.GetEndValue() == 1f)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_stealthBrokenParameter.EaseTo(0f, 0.0166666675f);
-				}
-				if (flag3)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_stealthFadeParameter.GetEndValue() == 0f)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_stealthFadeParameter.EaseTo(1f, this.m_stealthFadeDuration);
-					}
-				}
-				if (!flag9)
-				{
-					goto IL_3DD;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_stealthBrushParameter.GetEndValue() == 0f)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_stealthBrushParameter.EaseTo(1f, 0.0166666675f);
-					goto IL_3DD;
-				}
-				goto IL_3DD;
+				RestartPopcornFXPlayOnStart();
 			}
 		}
-		if (this.m_stealthFadeParameter.GetEndValue() != 1f)
+		goto IL_0734;
+		IL_0734:
+		if (!m_stealthShaderEnabled)
 		{
-			if (flag7)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (flag9)
-				{
-					goto IL_323;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_stealthBrushParameter.GetEndValue() == 1f)
-				{
-					this.m_stealthBrushParameter.EaseTo(0f, 0.0166666675f);
-					goto IL_323;
-				}
-				goto IL_323;
-			}
+			return;
 		}
-		if (this.m_stealthShaderEnabled)
+		int num2;
+		while (true)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_stealthBrokenParameter.GetEndValue() == 0f)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_stealthBrokenParameter.EaseTo(1f, this.m_stealthBrokenEaseDuration);
-				if (this.m_stealthFadeParameter.GetEndValue() == 1f)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_stealthFadeParameter.EaseTo(0f, this.m_stealthBrokenEaseDuration);
-				}
-				if (this.m_stealthBrushParameter.GetEndValue() == 0f)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_stealthBrushParameter.EaseTo(0f, this.m_stealthBrokenEaseDuration);
-				}
-			}
-		}
-		IL_323:
-		IL_3DD:
-		bool flag10;
-		if (this.m_stealthBrushParameter.GetEndValue() == 1f)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag10 = (this.m_stealthBrokenParameter <= 0.99f);
-		}
-		else
-		{
-			flag10 = false;
-		}
-		bool flag11 = flag10;
-		bool flag12 = this.m_stealthFadeParameter.GetEndValue() == 1f;
-		if (!flag12)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (flag11)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (this.m_stealthShaderEnabled && this.m_stealthFadeParameter.GetEndValue() == 0f && this.m_stealthFadeParameter.EaseFinished())
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_stealthBrushParameter.GetEndValue() == 0f)
-					{
-						if (this.m_stealthBrushParameter.EaseFinished())
-						{
-							goto IL_6E4;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					if (this.m_stealthBrokenParameter.GetEndValue() != 1f)
-					{
-						goto IL_6F1;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_stealthBrushParameter.EaseFinished())
-					{
-						goto IL_6F1;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					IL_6E4:
-					this.ResetMaterialsToDefaults();
-					this.m_stealthShaderEnabled = false;
-				}
-				IL_6F1:
-				if (Mathf.Min(this.m_stealthFadeParameter, 1f - this.m_stealthBrushTransitionParameter) <= this.m_stealthParameterStartPKFX && this.m_stealthPKFXStopped)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.RestartPopcornFXPlayOnStart();
-					goto IL_734;
-				}
-				goto IL_734;
-			}
-		}
-		if (!this.m_stealthShaderEnabled)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_stealthReplacementShader != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.SetMaterialShader(this.m_stealthReplacementShader, false);
-				this.ScaleMaterialColorToSDR(ActorModelData.materialOutlineColorProperty);
-				this.SetMinMaterialFloat(ActorModelData.materialOutlineProperty, 1E-05f);
-			}
-			this.EnableMaterialKeyword(this.c_stealthShaderKeyword);
-			this.SetMaterialRenderQueue(0xBB8);
-			this.SetMaterialFloatTeam();
-			if (this.m_stealthShaderCullModeSettings != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int i = 0; i < this.m_stealthShaderCullModeSettings.Count; i++)
-				{
-					ActorModelData.CullModeSettings cullModeSettings = this.m_stealthShaderCullModeSettings[i];
-					if (cullModeSettings.m_forStealth)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.SetMaterialFloatByNameMatch(ActorModelData.s_materialPropertyIDCullMode, (float)cullModeSettings.m_desiredCullMode, cullModeSettings.m_targetMaterialSearchPtn);
-					}
-				}
-			}
-			this.m_stealthShaderEnabled = true;
-		}
-		if (Mathf.Max(this.m_stealthFadeParameter, 1f - this.m_stealthBrushTransitionParameter) >= this.m_stealthParameterStopPKFX)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!flag12)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.m_parentActorData.\u0016())
-				{
-					goto IL_5AC;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (!this.m_stealthPKFXStopped)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.KillPopcornFXPlayOnStart();
-				goto IL_63D;
-			}
-		}
-		IL_5AC:
-		if (this.m_stealthPKFXStopped && !flag12)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_stealthBrushTransitionParameter.GetEndValue() != 1f)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_stealthBrokenParameter.GetEndValue() != 1f)
-				{
-					goto IL_63D;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (1f - Mathf.Max(this.m_stealthBrushTransitionParameter, this.m_stealthBrokenParameter) <= this.m_stealthParameterStartPKFX)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.RestartPopcornFXPlayOnStart();
-			}
-		}
-		IL_63D:
-		IL_734:
-		if (this.m_stealthShaderEnabled)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.SetMaterialFloat(ActorModelData.s_materialPropertyIDStealthFade, this.m_stealthFadeParameter);
-			this.SetMaterialFloat(ActorModelData.s_materialPropertyIDBrush, this.m_stealthBrushParameter);
-			this.SetMaterialFloat(ActorModelData.s_materialPropertyIDStealthMoving, this.m_stealthBrushTransitionParameter);
-			this.SetMaterialFloat(ActorModelData.s_materialPropertyIDStealthBroken, this.m_stealthBrokenParameter);
-			int propertyID = ActorModelData.s_materialPropertyIDVisibleToClient;
+			SetMaterialFloat(s_materialPropertyIDStealthFade, m_stealthFadeParameter);
+			SetMaterialFloat(s_materialPropertyIDBrush, m_stealthBrushParameter);
+			SetMaterialFloat(s_materialPropertyIDStealthMoving, m_stealthBrushTransitionParameter);
+			SetMaterialFloat(s_materialPropertyIDStealthBroken, m_stealthBrokenParameter);
+			int propertyID = s_materialPropertyIDVisibleToClient;
 			float value;
-			if (this.m_parentActorData.\u0018())
+			if (m_parentActorData.IsVisibleToClient())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				value = 1f;
 			}
 			else
 			{
 				value = 0f;
 			}
-			this.SetMaterialFloat(propertyID, value);
-			for (int j = 0; j < ActorModelData.s_stealthMaterialPlaneVectorIDs.Length; j++)
+			SetMaterialFloat(propertyID, value);
+			for (int i = 0; i < s_stealthMaterialPlaneVectorIDs.Length; i++)
 			{
-				if (num2 > j)
+				if (num2 > i)
 				{
-					Plane plane = list[j];
-					this.SetMaterialVector(ActorModelData.s_stealthMaterialPlaneVectorIDs[j], new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance - (1f - this.m_parentActorData.\u000E().speed) * this.m_stealthStoppedPlaneOffset));
+					Plane plane = list[i];
+					int id = s_stealthMaterialPlaneVectorIDs[i];
+					Vector3 normal = plane.normal;
+					float x = normal.x;
+					Vector3 normal2 = plane.normal;
+					float y = normal2.y;
+					Vector3 normal3 = plane.normal;
+					SetMaterialVector(id, new Vector4(x, y, normal3.z, plane.distance - (1f - m_parentActorData.GetModelAnimator().speed) * m_stealthStoppedPlaneOffset));
 				}
 				else
 				{
-					this.SetMaterialVector(ActorModelData.s_stealthMaterialPlaneVectorIDs[j], Vector4.zero);
+					SetMaterialVector(s_stealthMaterialPlaneVectorIDs[i], Vector4.zero);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
+		IL_03dd:
+		int num3;
+		if (m_stealthBrushParameter.GetEndValue() == 1f)
+		{
+			num3 = (((float)m_stealthBrokenParameter <= 0.99f) ? 1 : 0);
+		}
+		else
+		{
+			num3 = 0;
+		}
+		bool flag4 = (byte)num3 != 0;
+		flag3 = (m_stealthFadeParameter.GetEndValue() == 1f);
+		if (!flag3)
+		{
+			if (!flag4)
+			{
+				if (m_stealthShaderEnabled && m_stealthFadeParameter.GetEndValue() == 0f && m_stealthFadeParameter.EaseFinished())
+				{
+					if (m_stealthBrushParameter.GetEndValue() == 0f)
+					{
+						if (m_stealthBrushParameter.EaseFinished())
+						{
+							goto IL_06e4;
+						}
+					}
+					if (m_stealthBrokenParameter.GetEndValue() == 1f)
+					{
+						if (m_stealthBrushParameter.EaseFinished())
+						{
+							goto IL_06e4;
+						}
+					}
+				}
+				goto IL_06f1;
+			}
+		}
+		if (!m_stealthShaderEnabled)
+		{
+			if (m_stealthReplacementShader != null)
+			{
+				SetMaterialShader(m_stealthReplacementShader);
+				ScaleMaterialColorToSDR(materialOutlineColorProperty);
+				SetMinMaterialFloat(materialOutlineProperty, 1E-05f);
+			}
+			EnableMaterialKeyword(c_stealthShaderKeyword);
+			SetMaterialRenderQueue(3000);
+			SetMaterialFloatTeam();
+			if (m_stealthShaderCullModeSettings != null)
+			{
+				for (int j = 0; j < m_stealthShaderCullModeSettings.Count; j++)
+				{
+					CullModeSettings cullModeSettings = m_stealthShaderCullModeSettings[j];
+					if (cullModeSettings.m_forStealth)
+					{
+						SetMaterialFloatByNameMatch(s_materialPropertyIDCullMode, (float)cullModeSettings.m_desiredCullMode, cullModeSettings.m_targetMaterialSearchPtn);
+					}
+				}
+			}
+			m_stealthShaderEnabled = true;
+		}
+		if (Mathf.Max(m_stealthFadeParameter, 1f - (float)m_stealthBrushTransitionParameter) >= m_stealthParameterStopPKFX)
+		{
+			if (!flag3)
+			{
+				if (!m_parentActorData.IsHiddenInBrush())
+				{
+					goto IL_05ac;
+				}
+			}
+			if (!m_stealthPKFXStopped)
+			{
+				KillPopcornFXPlayOnStart();
+				goto IL_0734;
+			}
+		}
+		goto IL_05ac;
+		IL_06f1:
+		if (Mathf.Min(m_stealthFadeParameter, 1f - (float)m_stealthBrushTransitionParameter) <= m_stealthParameterStartPKFX && m_stealthPKFXStopped)
+		{
+			RestartPopcornFXPlayOnStart();
+		}
+		goto IL_0734;
+		IL_014a:
+		int num4;
+		if (list != null)
+		{
+			num4 = list.Count;
+		}
+		else
+		{
+			num4 = 0;
+		}
+		num2 = num4;
+		int travelBoardSquareBrushRegion = m_parentActorData.GetTravelBoardSquareBrushRegion();
+		bool flag5 = travelBoardSquareBrushRegion >= 0;
+		bool flag6 = BrushCoordinator.Get() != null && m_parentActorData.IsHiddenInBrush();
+		int num5;
+		if (flag5 && BrushCoordinator.Get() != null)
+		{
+			num5 = ((!BrushCoordinator.Get().IsRegionFunctioning(travelBoardSquareBrushRegion)) ? 1 : 0);
+		}
+		else
+		{
+			num5 = 0;
+		}
+		bool flag7 = (byte)num5 != 0;
+		int num6;
+		if (!flag6)
+		{
+			num6 = ((num2 > 0) ? 1 : 0);
+		}
+		else
+		{
+			num6 = 1;
+		}
+		bool flag8 = (byte)num6 != 0;
+		if (!flag)
+		{
+			if (flag2 || flag6)
+			{
+				if (m_stealthBrokenParameter.GetEndValue() == 1f)
+				{
+					m_stealthBrokenParameter.EaseTo(0f, 0.0166666675f);
+				}
+				if (flag2)
+				{
+					if (m_stealthFadeParameter.GetEndValue() == 0f)
+					{
+						m_stealthFadeParameter.EaseTo(1f, m_stealthFadeDuration);
+					}
+				}
+				if (flag8)
+				{
+					if (m_stealthBrushParameter.GetEndValue() == 0f)
+					{
+						m_stealthBrushParameter.EaseTo(1f, 0.0166666675f);
+					}
+				}
+				goto IL_03dd;
+			}
+		}
+		if (m_stealthFadeParameter.GetEndValue() != 1f)
+		{
+			if (!flag7)
+			{
+				if (!flag8)
+				{
+					if (m_stealthBrushParameter.GetEndValue() == 1f)
+					{
+						m_stealthBrushParameter.EaseTo(0f, 0.0166666675f);
+					}
+				}
+				goto IL_03dd;
+			}
+		}
+		if (m_stealthShaderEnabled)
+		{
+			if (m_stealthBrokenParameter.GetEndValue() == 0f)
+			{
+				m_stealthBrokenParameter.EaseTo(1f, m_stealthBrokenEaseDuration);
+				if (m_stealthFadeParameter.GetEndValue() == 1f)
+				{
+					m_stealthFadeParameter.EaseTo(0f, m_stealthBrokenEaseDuration);
+				}
+				if (m_stealthBrushParameter.GetEndValue() == 0f)
+				{
+					m_stealthBrushParameter.EaseTo(0f, m_stealthBrokenEaseDuration);
+				}
+			}
+		}
+		goto IL_03dd;
+		IL_06e4:
+		ResetMaterialsToDefaults();
+		m_stealthShaderEnabled = false;
+		goto IL_06f1;
 	}
 
 	private bool IsAnimatingStealthActivation()
 	{
-		bool result;
-		if (this.m_stealthShaderEnabled)
+		int result;
+		if (m_stealthShaderEnabled)
 		{
-			for (;;)
+			if (!m_parentActorData.IsHiddenInBrush() && m_stealthFadeParameter.GetEndValue() == 1f)
 			{
-				switch (2)
+				if (!Mathf.Approximately(m_stealthFadeParameter, 1f))
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsAnimatingStealthActivation()).MethodHandle;
-			}
-			if (!this.m_parentActorData.\u0016() && this.m_stealthFadeParameter.GetEndValue() == 1f)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!Mathf.Approximately(this.m_stealthFadeParameter, 1f))
-				{
-					result = true;
-					goto IL_8B;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					result = 1;
+					goto IL_008e;
 				}
 			}
-			result = !Mathf.Approximately(this.m_stealthBrushTransitionParameter, 0f);
-			IL_8B:;
+			result = ((!Mathf.Approximately(m_stealthBrushTransitionParameter, 0f)) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		goto IL_008e;
+		IL_008e:
+		return (byte)result != 0;
 	}
 
 	private void UpdateSelectionOutline()
 	{
 		bool flag = false;
-		bool flag2 = this.m_parentActorData.\u000E();
-		bool flag3 = this.m_parentActorData.\u0018();
-		bool drawingInConfirm = false;
+		bool flag2 = m_parentActorData.IsDead();
+		bool flag3 = m_parentActorData.IsVisibleToClient();
+		bool updatingInConfirm = false;
 		if (flag3)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateSelectionOutline()).MethodHandle;
-			}
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_renderers != null)
+				if (m_renderers != null)
 				{
 					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-					bool flag4;
-					if (!this.m_parentActorData.BeingTargetedByClientAbility(out flag4, out drawingInConfirm))
+					if (m_parentActorData.BeingTargetedByClientAbility(out bool _, out updatingInConfirm))
 					{
-						for (;;)
+						goto IL_009d;
+					}
+					if (activeOwnedActorData != null)
+					{
+						if (activeOwnedActorData.ShouldForceTargetOutlineForActor(m_parentActorData))
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!(activeOwnedActorData != null))
-						{
-							goto IL_9F;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!activeOwnedActorData.ShouldForceTargetOutlineForActor(this.m_parentActorData))
-						{
-							goto IL_9F;
+							goto IL_009d;
 						}
 					}
-					flag = true;
 				}
 			}
 		}
-		IL_9F:
+		goto IL_009f;
+		IL_009d:
+		flag = true;
+		goto IL_009f;
+		IL_009f:
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Camera.main != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PlayerSelectionEffect component = Camera.main.GetComponent<PlayerSelectionEffect>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.m_drawSelection = true;
-					component.SetDrawingInConfirm(drawingInConfirm);
+					component.SetDrawingInConfirm(updatingInConfirm);
 				}
 			}
 		}
-		if (flag != this.m_showingOutline)
+		if (flag == m_showingOutline)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			int num = LayerMask.NameToLayer("ActorSelected");
 			int num2 = LayerMask.NameToLayer("Actor");
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.SetMaterialFloatTeam();
-				this.SetLayer(num, num2);
+				SetMaterialFloatTeam();
+				SetLayer(num, num2);
 			}
 			else
 			{
-				this.SetLayer(num2, num);
+				SetLayer(num2, num);
 			}
-			this.m_showingOutline = flag;
-			PlayerSelectionEffect playerSelectionEffect;
+			m_showingOutline = flag;
+			object obj;
 			if (Camera.main != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				playerSelectionEffect = Camera.main.GetComponent<PlayerSelectionEffect>();
+				obj = Camera.main.GetComponent<PlayerSelectionEffect>();
 			}
 			else
 			{
-				playerSelectionEffect = null;
+				obj = null;
 			}
-			PlayerSelectionEffect playerSelectionEffect2 = playerSelectionEffect;
-			if (playerSelectionEffect2 != null)
+			PlayerSelectionEffect playerSelectionEffect = (PlayerSelectionEffect)obj;
+			if (playerSelectionEffect != null)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					playerSelectionEffect.SetDrawingInConfirm(updatingInConfirm);
+					return;
 				}
-				playerSelectionEffect2.SetDrawingInConfirm(drawingInConfirm);
 			}
+			return;
 		}
 	}
 
 	private void UpdateAlphaForRenderer(Renderer curRenderer, int curRendererIndex)
 	{
-		if (!(curRenderer == null))
+		if (curRenderer == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_rendererDefaultColors == null)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateAlphaForRenderer(Renderer, int)).MethodHandle;
-			}
-			if (this.m_rendererDefaultColors == null)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
-			else
+			Material[] materials = curRenderer.materials;
+			if (curRenderer == null)
 			{
-				Material[] materials = curRenderer.materials;
-				if (curRenderer == null)
-				{
-					return;
-				}
-				for (int i = 0; i < materials.Length; i++)
-				{
-					if (this.m_rendererDefaultColors.Count <= curRendererIndex)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					else if (materials[i] != null)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (materials[i].HasProperty(ActorModelData.materialColorProperty))
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							Color color = this.m_rendererDefaultColors[curRendererIndex][i];
-							if (this.m_rendererDefaultColors[curRendererIndex][i].a == 1f)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								color.a = this.Alpha;
-							}
-							else
-							{
-								color.a = this.m_rendererDefaultColors[curRendererIndex][i].a;
-							}
-							materials[i].color = color;
-						}
-					}
-				}
 				return;
 			}
+			for (int i = 0; i < materials.Length; i++)
+			{
+				if (m_rendererDefaultColors.Count <= curRendererIndex)
+				{
+					continue;
+				}
+				if (!(materials[i] != null))
+				{
+					continue;
+				}
+				if (!materials[i].HasProperty(materialColorProperty))
+				{
+					continue;
+				}
+				Color color = m_rendererDefaultColors[curRendererIndex][i];
+				if (m_rendererDefaultColors[curRendererIndex][i].a == 1f)
+				{
+					color.a = Alpha;
+				}
+				else
+				{
+					color.a = m_rendererDefaultColors[curRendererIndex][i].a;
+				}
+				materials[i].color = color;
+			}
+			return;
 		}
 	}
 
 	private void UpdateCameraTransparency()
 	{
-		if (Time.time >= this.m_cameraTransparencyLastChangeSetTime)
+		if (Time.time >= m_cameraTransparencyLastChangeSetTime)
 		{
-			this.m_cameraTransparency += (1f - this.m_cameraTransparencyStartValue) * Time.deltaTime / this.m_cameraTransparencyTime;
-			this.m_cameraTransparency = Mathf.Min(1f, this.m_cameraTransparency);
+			m_cameraTransparency += (1f - m_cameraTransparencyStartValue) * Time.deltaTime / m_cameraTransparencyTime;
+			m_cameraTransparency = Mathf.Min(1f, m_cameraTransparency);
 		}
-		if (this.Alpha != this.m_cameraTransparency)
+		if (Alpha == m_cameraTransparency)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_alphaUpdateMarkedDirty)
 			{
-				switch (6)
+				Alpha = m_cameraTransparency;
+				m_alphaUpdateMarkedDirty = false;
+				for (int i = 0; i < m_renderers.Length; i++)
 				{
-				case 0:
-					continue;
+					UpdateAlphaForRenderer(m_renderers[i], i);
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateCameraTransparency()).MethodHandle;
-			}
-			if (this.m_alphaUpdateMarkedDirty)
-			{
-				this.Alpha = this.m_cameraTransparency;
-				this.m_alphaUpdateMarkedDirty = false;
-				for (int i = 0; i < this.m_renderers.Length; i++)
-				{
-					this.UpdateAlphaForRenderer(this.m_renderers[i], i);
-				}
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
+			return;
 		}
 	}
 
 	internal float GetCamStartEventDelay(int animationIndex, bool useTauntCamAltTime)
 	{
+		float num = 0f;
 		if (useTauntCamAltTime)
 		{
-			for (;;)
+			if (m_tauntCamStartEventDelays != null)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetCamStartEventDelay(int, bool)).MethodHandle;
-			}
-			if (this.m_tauntCamStartEventDelays != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (animationIndex >= 0)
 				{
-					for (;;)
+					if (animationIndex < m_tauntCamStartEventDelays.Length)
 					{
-						switch (1)
+						if (m_tauntCamStartEventDelays[animationIndex] > 0f)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (animationIndex < this.m_tauntCamStartEventDelays.Length)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_tauntCamStartEventDelays[animationIndex] > 0f)
-						{
-							return this.m_tauntCamStartEventDelays[animationIndex];
+							return m_tauntCamStartEventDelays[animationIndex];
 						}
 					}
 				}
 			}
 		}
 		float result;
-		if (animationIndex >= 0 && animationIndex < this.m_camStartEventDelays.Length)
+		if (animationIndex >= 0 && animationIndex < m_camStartEventDelays.Length)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = this.m_camStartEventDelays[animationIndex];
+			result = m_camStartEventDelays[animationIndex];
 		}
 		else
 		{
@@ -4727,160 +2860,94 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		return result;
 	}
 
-	internal void EnableRagdoll(bool ragDollOn, ActorModelData.ImpulseInfo impulseInfo = null)
+	internal void EnableRagdoll(bool ragDollOn, ImpulseInfo impulseInfo = null)
 	{
-		Animator modelAnimator = this.GetModelAnimator();
+		Animator modelAnimator = GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.EnableRagdoll(bool, ActorModelData.ImpulseInfo)).MethodHandle;
-			}
 			modelAnimator.enabled = !ragDollOn;
 		}
-		foreach (SkinnedMeshRenderer skinnedMeshRenderer in base.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>())
+		SkinnedMeshRenderer[] componentsInChildren = base.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+		foreach (SkinnedMeshRenderer skinnedMeshRenderer in componentsInChildren)
 		{
 			if (skinnedMeshRenderer.enabled)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				skinnedMeshRenderer.updateWhenOffscreen = ragDollOn;
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
+			int layer = LayerMask.NameToLayer("DeadActor");
+			int layer2 = LayerMask.NameToLayer("Actor");
+			Rigidbody[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<Rigidbody>();
+			Rigidbody[] array = componentsInChildren2;
+			foreach (Rigidbody rigidbody in array)
 			{
-			case 0:
-				continue;
+				rigidbody.isKinematic = !ragDollOn;
+				rigidbody.detectCollisions = ragDollOn;
+				if (ragDollOn)
+				{
+					rigidbody.WakeUp();
+				}
+				else
+				{
+					rigidbody.Sleep();
+				}
 			}
-			break;
-		}
-		int layer = LayerMask.NameToLayer("DeadActor");
-		int layer2 = LayerMask.NameToLayer("Actor");
-		Rigidbody[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<Rigidbody>();
-		foreach (Rigidbody rigidbody in componentsInChildren2)
-		{
-			rigidbody.isKinematic = !ragDollOn;
-			rigidbody.detectCollisions = ragDollOn;
+			object activeRigidbodies;
 			if (ragDollOn)
 			{
-				rigidbody.WakeUp();
+				activeRigidbodies = componentsInChildren2;
 			}
 			else
 			{
-				rigidbody.Sleep();
+				activeRigidbodies = null;
 			}
-		}
-		Rigidbody[] activeRigidbodies;
-		if (ragDollOn)
-		{
-			for (;;)
+			m_activeRigidbodies = (Rigidbody[])activeRigidbodies;
+			Collider[] componentsInChildren3 = base.gameObject.GetComponentsInChildren<Collider>();
+			Collider[] array2 = componentsInChildren3;
+			foreach (Collider collider in array2)
 			{
-				switch (1)
+				collider.enabled = ragDollOn;
+				if (ragDollOn)
 				{
-				case 0:
-					continue;
+					collider.gameObject.layer = layer;
 				}
-				break;
-			}
-			activeRigidbodies = componentsInChildren2;
-		}
-		else
-		{
-			activeRigidbodies = null;
-		}
-		this.m_activeRigidbodies = activeRigidbodies;
-		Collider[] componentsInChildren3 = base.gameObject.GetComponentsInChildren<Collider>();
-		foreach (Collider collider in componentsInChildren3)
-		{
-			collider.enabled = ragDollOn;
-			if (ragDollOn)
-			{
-				collider.gameObject.layer = layer;
-			}
-			else
-			{
-				collider.gameObject.layer = layer2;
-			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (this.m_rendererBoundsApproxCollider != null)
-		{
-			for (;;)
-			{
-				switch (7)
+				else
 				{
-				case 0:
-					continue;
+					collider.gameObject.layer = layer2;
 				}
-				break;
 			}
-			this.m_rendererBoundsApproxCollider.enabled = !ragDollOn;
-		}
-		if (ragDollOn)
-		{
-			this.ApplyImpulseOnRagdoll(impulseInfo, componentsInChildren2);
-		}
-		else
-		{
-			this.ResetRigidBodyOffsets();
+			while (true)
+			{
+				if (m_rendererBoundsApproxCollider != null)
+				{
+					m_rendererBoundsApproxCollider.enabled = !ragDollOn;
+				}
+				if (ragDollOn)
+				{
+					ApplyImpulseOnRagdoll(impulseInfo, componentsInChildren2);
+				}
+				else
+				{
+					ResetRigidBodyOffsets();
+				}
+				return;
+			}
 		}
 	}
 
-	internal void ApplyImpulseOnRagdoll(ActorModelData.ImpulseInfo impulseInfo, Rigidbody[] rigidBodies)
+	internal void ApplyImpulseOnRagdoll(ImpulseInfo impulseInfo, Rigidbody[] rigidBodies)
 	{
-		if (impulseInfo != null)
+		if (impulseInfo == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ApplyImpulseOnRagdoll(ActorModelData.ImpulseInfo, Rigidbody[])).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Log.Info("Applying impulse on " + base.gameObject.name + ", impulse info:" + impulseInfo.GetDebugString(), new object[0]);
+				Log.Info("Applying impulse on " + base.gameObject.name + ", impulse info:" + impulseInfo.GetDebugString());
 			}
 			if (rigidBodies == null)
 			{
@@ -4888,397 +2955,150 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			if (impulseInfo.IsExplosion)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (TheatricsManager.RagdollOnlyApplyForceAtSingleJoint() && this.m_cachedRigidbodyForRagdollImpulse != null)
-				{
-					Vector3 a = this.m_parentActorData.\u0018() - impulseInfo.ExplosionCenter;
-					a.y = Mathf.Max(0.75f, a.y);
-					float magnitude = a.magnitude;
-					if (magnitude > 0.1f)
+						break;
+					default:
 					{
-						for (;;)
+						if (TheatricsManager.RagdollOnlyApplyForceAtSingleJoint() && m_cachedRigidbodyForRagdollImpulse != null)
 						{
-							switch (3)
+							Vector3 a = m_parentActorData.GetHipJointRigidBodyPosition() - impulseInfo.ExplosionCenter;
+							a.y = Mathf.Max(0.75f, a.y);
+							float magnitude = a.magnitude;
+							if (magnitude > 0.1f)
 							{
-							case 0:
-								continue;
+								a.Normalize();
 							}
-							break;
-						}
-						a.Normalize();
-					}
-					else
-					{
-						a = Vector3.up;
-					}
-					if (Application.isEditor)
-					{
-						Log.Info("Applying impulse on " + this.m_cachedRigidbodyForRagdollImpulse.name + ", impulse info:" + impulseInfo.GetDebugString(), new object[0]);
-					}
-					this.m_cachedRigidbodyForRagdollImpulse.AddForce(impulseInfo.ExplosionMagnitude * a, ForceMode.Impulse);
-				}
-				else
-				{
-					float num;
-					if (rigidBodies.Length > 0)
-					{
-						for (;;)
-						{
-							switch (1)
+							else
 							{
-							case 0:
-								continue;
+								a = Vector3.up;
 							}
-							break;
+							if (Application.isEditor)
+							{
+								Log.Info("Applying impulse on " + m_cachedRigidbodyForRagdollImpulse.name + ", impulse info:" + impulseInfo.GetDebugString());
+							}
+							m_cachedRigidbodyForRagdollImpulse.AddForce(impulseInfo.ExplosionMagnitude * a, ForceMode.Impulse);
+							return;
 						}
-						num = 1f / (float)rigidBodies.Length;
-					}
-					else
-					{
-						num = 1f;
-					}
-					float num2 = num;
-					foreach (Rigidbody rigidbody in rigidBodies)
-					{
-						Vector3 vector = rigidbody.ClosestPointOnBounds(impulseInfo.ExplosionCenter);
-						Vector3 a2 = vector - impulseInfo.ExplosionCenter;
-						a2.y = Mathf.Max(0.75f, a2.y);
-						float sqrMagnitude = a2.sqrMagnitude;
-						if (sqrMagnitude > 0.1f)
+						float num;
+						if (rigidBodies.Length > 0)
 						{
-							a2.Normalize();
+							num = 1f / (float)rigidBodies.Length;
 						}
 						else
 						{
-							a2 = Vector3.up;
+							num = 1f;
 						}
-						float num3 = 1f;
-						float d = Mathf.Clamp(num2 * num3 * impulseInfo.ExplosionMagnitude, 1f, 3000f);
-						rigidbody.AddForceAtPosition(a2 * d, vector, ForceMode.Impulse);
-					}
-					for (;;)
-					{
-						switch (6)
+						float num2 = num;
+						Rigidbody[] array = rigidBodies;
+						foreach (Rigidbody rigidbody in array)
 						{
-						case 0:
-							continue;
+							Vector3 vector = rigidbody.ClosestPointOnBounds(impulseInfo.ExplosionCenter);
+							Vector3 a2 = vector - impulseInfo.ExplosionCenter;
+							a2.y = Mathf.Max(0.75f, a2.y);
+							float sqrMagnitude = a2.sqrMagnitude;
+							if (sqrMagnitude > 0.1f)
+							{
+								a2.Normalize();
+							}
+							else
+							{
+								sqrMagnitude = 0.1f;
+								a2 = Vector3.up;
+							}
+							float num3 = 1f;
+							float d = Mathf.Clamp(num2 * num3 * impulseInfo.ExplosionMagnitude, 1f, 3000f);
+							rigidbody.AddForceAtPosition(a2 * d, vector, ForceMode.Impulse);
 						}
-						break;
-					}
-					if (Application.isEditor)
-					{
-						Log.Info(string.Concat(new object[]
+						while (true)
 						{
-							"Applying impulse on ALL rigidbodies, Impulse on each = ",
-							num2 * impulseInfo.ExplosionMagnitude,
-							" (total impulse = ",
-							impulseInfo.ExplosionMagnitude,
-							")"
-						}), new object[0]);
+							switch (6)
+							{
+							case 0:
+								break;
+							default:
+								if (Application.isEditor)
+								{
+									Log.Info("Applying impulse on ALL rigidbodies, Impulse on each = " + num2 * impulseInfo.ExplosionMagnitude + " (total impulse = " + impulseInfo.ExplosionMagnitude + ")");
+								}
+								return;
+							}
+						}
+					}
 					}
 				}
 			}
-			else
+			if (TheatricsManager.RagdollOnlyApplyForceAtSingleJoint())
 			{
-				if (TheatricsManager.RagdollOnlyApplyForceAtSingleJoint())
+				if (m_cachedRigidbodyForRagdollImpulse != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_cachedRigidbodyForRagdollImpulse != null)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (Application.isEditor)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							Log.Info("Applying impulse on " + this.m_cachedRigidbodyForRagdollImpulse.name + ", impulse info:" + impulseInfo.GetDebugString(), new object[0]);
-						}
-						this.m_cachedRigidbodyForRagdollImpulse.AddForce(impulseInfo.HitImpulse, ForceMode.Impulse);
-						return;
-					}
-				}
-				float num4 = float.MaxValue;
-				Rigidbody rigidbody2;
-				if (rigidBodies.Length > 0)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					rigidbody2 = rigidBodies[0];
-				}
-				else
-				{
-					rigidbody2 = null;
-				}
-				Rigidbody rigidbody3 = rigidbody2;
-				Vector3 position = impulseInfo.HitPosition;
-				Vector3 hitPosition = impulseInfo.HitPosition;
-				foreach (Rigidbody rigidbody4 in rigidBodies)
-				{
-					Vector3 vector2 = rigidbody4.ClosestPointOnBounds(hitPosition);
-					float sqrMagnitude2 = (vector2 - hitPosition).sqrMagnitude;
-					if (sqrMagnitude2 < num4)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+							if (Application.isEditor)
+							{
+								Log.Info("Applying impulse on " + m_cachedRigidbodyForRagdollImpulse.name + ", impulse info:" + impulseInfo.GetDebugString());
+							}
+							m_cachedRigidbodyForRagdollImpulse.AddForce(impulseInfo.HitImpulse, ForceMode.Impulse);
+							return;
 						}
-						num4 = sqrMagnitude2;
-						rigidbody3 = rigidbody4;
-						position = vector2;
 					}
 				}
-				if (rigidbody3 != null)
+			}
+			float num4 = float.MaxValue;
+			object obj;
+			if (rigidBodies.Length > 0)
+			{
+				obj = rigidBodies[0];
+			}
+			else
+			{
+				obj = null;
+			}
+			Rigidbody rigidbody2 = (Rigidbody)obj;
+			Vector3 position = impulseInfo.HitPosition;
+			Vector3 hitPosition = impulseInfo.HitPosition;
+			Rigidbody[] array2 = rigidBodies;
+			foreach (Rigidbody rigidbody3 in array2)
+			{
+				Vector3 vector2 = rigidbody3.ClosestPointOnBounds(hitPosition);
+				float sqrMagnitude2 = (vector2 - hitPosition).sqrMagnitude;
+				if (sqrMagnitude2 < num4)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					rigidbody3.AddForceAtPosition(impulseInfo.HitImpulse, position, ForceMode.Impulse);
-					if (Application.isEditor)
-					{
-						Log.Info(string.Concat(new object[]
-						{
-							"Applying impulse on rigidbody ",
-							rigidbody3.name,
-							", with impulse magnitude ",
-							impulseInfo.HitImpulse.magnitude
-						}), new object[0]);
-					}
+					num4 = sqrMagnitude2;
+					rigidbody2 = rigidbody3;
+					position = vector2;
 				}
+			}
+			if (!(rigidbody2 != null))
+			{
+				return;
+			}
+			while (true)
+			{
+				rigidbody2.AddForceAtPosition(impulseInfo.HitImpulse, position, ForceMode.Impulse);
+				if (Application.isEditor)
+				{
+					Log.Info("Applying impulse on rigidbody " + rigidbody2.name + ", with impulse magnitude " + impulseInfo.HitImpulse.magnitude);
+				}
+				return;
 			}
 		}
 	}
 
 	private void OnDrawGizmos()
 	{
-		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
+		if (CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			return;
+			Gizmos.color = Color.red;
+			Gizmos.DrawWireCube(m_rendererBoundsApprox.center + base.transform.position, m_rendererBoundsApprox.size);
 		}
-		Gizmos.color = Color.red;
-		Gizmos.DrawWireCube(this.m_rendererBoundsApprox.center + base.transform.position, this.m_rendererBoundsApprox.size);
-	}
-
-	[Serializable]
-	public class PersistentVFXInfo
-	{
-		public GameObject m_vfxPrefab;
-
-		[JointPopup("FX attach joint (or start position for projectiles).")]
-		public JointPopupProperty m_fxJoint;
-
-		[HideInInspector]
-		public GameObject m_vfxInstance;
-	}
-
-	public enum ActionAnimationType
-	{
-		None,
-		Ability1,
-		Ability2,
-		Ability3,
-		Ability4,
-		Ability5,
-		Ability6,
-		Ability7,
-		Ability8,
-		Ability9,
-		Ability10,
-		Item1,
-		Item2,
-		Item3,
-		Item4,
-		Item5,
-		Item6,
-		Item7,
-		Item8,
-		Item9,
-		Item10
-	}
-
-	[Serializable]
-	public class CullModeSettings
-	{
-		public string m_targetMaterialSearchPtn = string.Empty;
-
-		public bool m_forStealth;
-
-		public CullMode m_desiredCullMode;
-	}
-
-	internal enum RagdollActivation
-	{
-		None,
-		HealthBased
-	}
-
-	internal class ImpulseInfo
-	{
-		private Vector3 m_position;
-
-		internal ImpulseInfo(float explosionRadius, Vector3 explosionCenter)
-		{
-			this.ExplosionRadius = explosionRadius;
-			this.m_position = explosionCenter;
-			this.ExplosionMagnitude = TheatricsManager.GetRagdollImpactForce();
-		}
-
-		internal ImpulseInfo(Vector3 hitPosition, Vector3 hitDirection)
-		{
-			hitDirection.y = Mathf.Max(0.75f, hitDirection.y);
-			float d = TheatricsManager.GetRagdollImpactForce();
-			if (hitDirection.sqrMagnitude > 0f)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ImpulseInfo..ctor(Vector3, Vector3)).MethodHandle;
-				}
-				hitDirection.Normalize();
-			}
-			else
-			{
-				if (Application.isEditor)
-				{
-					Log.Warning("Ragdoll impulse has 0 vector as impulse direction", new object[0]);
-				}
-				hitDirection = Vector3.up;
-				d = 0.1f;
-			}
-			this.m_position = hitPosition;
-			this.HitImpulse = hitDirection * d;
-		}
-
-		public string GetDebugString()
-		{
-			string text = string.Empty;
-			if (this.IsExplosion)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ImpulseInfo.GetDebugString()).MethodHandle;
-				}
-				string text2 = text;
-				text = string.Concat(new object[]
-				{
-					text2,
-					"Explosion Type Impulse, Radius= ",
-					this.ExplosionRadius,
-					" | Magnitude = ",
-					this.ExplosionMagnitude,
-					" | Center= ",
-					this.ExplosionCenter
-				});
-			}
-			else
-			{
-				string text2 = text;
-				text = string.Concat(new object[]
-				{
-					text2,
-					"Impulse FromPos= ",
-					this.HitPosition,
-					" | Magnitude= ",
-					this.HitImpulse.magnitude,
-					" | ImpulseDir= ",
-					this.HitImpulse.normalized
-				});
-			}
-			return text;
-		}
-
-		internal bool IsExplosion
-		{
-			get
-			{
-				return this.ExplosionRadius > 0f;
-			}
-		}
-
-		internal float ExplosionRadius { get; set; }
-
-		internal Vector3 ExplosionCenter
-		{
-			get
-			{
-				return this.m_position;
-			}
-		}
-
-		internal float ExplosionMagnitude { get; set; }
-
-		internal Vector3 HitPosition
-		{
-			get
-			{
-				return this.m_position;
-			}
-		}
-
-		internal Vector3 HitImpulse { get; set; }
 	}
 }

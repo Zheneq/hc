@@ -1,22 +1,22 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class DecidingMovementState : TurnState
 {
-	public DecidingMovementState(ActorTurnSM masterSM) : base(masterSM)
+	public DecidingMovementState(ActorTurnSM masterSM)
+		: base(masterSM)
 	{
 	}
 
 	public override void OnEnter()
 	{
-		AbilityData component = this.m_SM.GetComponent<AbilityData>();
-		if (component)
+		AbilityData component = m_SM.GetComponent<AbilityData>();
+		if ((bool)component)
 		{
 			component.ClearSelectedAbility();
 		}
-		ActorMovement component2 = this.m_SM.GetComponent<ActorMovement>();
-		if (component2)
+		ActorMovement component2 = m_SM.GetComponent<ActorMovement>();
+		if ((bool)component2)
 		{
 			component2.UpdateSquaresCanMoveTo();
 		}
@@ -26,56 +26,58 @@ public class DecidingMovementState : TurnState
 	{
 		switch (msg)
 		{
+		case TurnMessage.CANCEL_BUTTON_CLICKED:
+		case TurnMessage.ABILITY_REQUEST_REJECTED:
+		case TurnMessage.MOVEMENT_ACCEPTED:
+		case TurnMessage.MOVEMENT_REJECTED:
+		case TurnMessage.PICK_RESPAWN:
+		case TurnMessage.PICKED_RESPAWN:
+		case TurnMessage.CANCEL_SINGLE_ABILITY:
+		case TurnMessage.CANCEL_MOVEMENT:
+			break;
+		case TurnMessage.ABILITY_REQUEST_ACCEPTED:
+			break;
 		case TurnMessage.BEGIN_RESOLVE:
-			this.m_SM.NextState = TurnStateEnum.RESOLVING;
+			m_SM.NextState = TurnStateEnum.RESOLVING;
+			break;
+		case TurnMessage.SELECTED_ABILITY:
+			m_SM.NextState = TurnStateEnum.TARGETING_ACTION;
+			break;
+		case TurnMessage.RESPAWN:
+			m_SM.NextState = TurnStateEnum.RESPAWNING;
 			break;
 		case TurnMessage.MOVEMENT_RESOLVED:
-			Log.Error(this.m_SM.GetComponent<ActorData>().DisplayName + "Received a 'Movement Resolved' message in the DecidingMovement state, which is unexpected.", new object[0]);
-			this.m_SM.NextState = TurnStateEnum.WAITING;
+			Log.Error(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'Movement Resolved' message in the DecidingMovement state, which is unexpected.");
+			m_SM.NextState = TurnStateEnum.WAITING;
 			break;
 		case TurnMessage.CLIENTS_RESOLVED_ABILITIES:
 			if (NetworkServer.active)
 			{
-				Log.Error(this.m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the DecidingMovement state, which is unexpected.", new object[0]);
+				Log.Error(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the DecidingMovement state, which is unexpected.");
 			}
 			else
 			{
-				Log.Warning(this.m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the DecidingMovement state, which is unexpected.", new object[0]);
+				Log.Warning(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the DecidingMovement state, which is unexpected.");
 			}
-			this.m_SM.NextState = TurnStateEnum.WAITING;
-			break;
-		case TurnMessage.SELECTED_ABILITY:
-			this.m_SM.NextState = TurnStateEnum.TARGETING_ACTION;
-			break;
-		case TurnMessage.RESPAWN:
-			this.m_SM.NextState = TurnStateEnum.RESPAWNING;
-			break;
-		case TurnMessage.MOVE_BUTTON_CLICKED:
-			this.m_SM.NextState = TurnStateEnum.DECIDING;
-			break;
-		case TurnMessage.DONE_BUTTON_CLICKED:
-			this.m_SM.NextState = TurnStateEnum.CONFIRMED;
-			if (SinglePlayerManager.Get())
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DecidingMovementState.OnMsg(TurnMessage, int)).MethodHandle;
-				}
-				SinglePlayerManager.Get().OnActorLockInEntered(this.m_SM.GetComponent<ActorData>());
-			}
+			m_SM.NextState = TurnStateEnum.WAITING;
 			break;
 		case TurnMessage.DISCONNECTED:
-			this.m_SM.NextState = TurnStateEnum.CONFIRMED;
+			m_SM.NextState = TurnStateEnum.CONFIRMED;
 			break;
+		case TurnMessage.MOVE_BUTTON_CLICKED:
+			m_SM.NextState = TurnStateEnum.DECIDING;
+			break;
+		case TurnMessage.DONE_BUTTON_CLICKED:
+			m_SM.NextState = TurnStateEnum.CONFIRMED;
+			if (!SinglePlayerManager.Get())
+			{
+				break;
+			}
+			while (true)
+			{
+				SinglePlayerManager.Get().OnActorLockInEntered(m_SM.GetComponent<ActorData>());
+				return;
+			}
 		}
 	}
 
@@ -83,63 +85,24 @@ public class DecidingMovementState : TurnState
 	{
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
+			if (GameFlowData.Get().activeOwnedActorData.GetComponent<ActorTurnSM>() == m_SM)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DecidingMovementState.Update()).MethodHandle;
-			}
-			if (GameFlowData.Get().activeOwnedActorData.GetComponent<ActorTurnSM>() == this.m_SM)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Input.GetMouseButtonUp(0))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Input.GetMouseButtonUp(1))
 					{
-						goto IL_B4;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						goto IL_00b4;
 					}
 				}
-				if (InterfaceManager.Get().ShouldHandleMouseClick() && !this.m_SM.HandledMouseInput)
+				if (InterfaceManager.Get().ShouldHandleMouseClick() && !m_SM.HandledMouseInput)
 				{
-					this.m_SM.HandledMouseInput = true;
-					this.m_SM.SelectMovementSquare();
+					m_SM.HandledMouseInput = true;
+					m_SM.SelectMovementSquare();
 				}
 			}
 		}
-		IL_B4:
-		this.m_SM.UpdateEndTurnKey();
+		goto IL_00b4;
+		IL_00b4:
+		m_SM.UpdateEndTurnKey();
 	}
 }

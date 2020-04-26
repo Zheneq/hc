@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +5,7 @@ public class CardEnergyLeechAOE : Ability
 {
 	public bool m_penetrateLineOfSight;
 
-	public int m_energyLeeched = 0xA;
+	public int m_energyLeeched = 10;
 
 	public AbilityAreaShape m_shape = AbilityAreaShape.Three_x_Three_NoCorners;
 
@@ -17,11 +16,11 @@ public class CardEnergyLeechAOE : Ability
 
 	private void Start()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, this.m_shape, this.m_penetrateLineOfSight, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, m_shape, m_penetrateLineOfSight);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "EnergyLeeched", string.Empty, this.m_energyLeeched, false);
+		AddTokenInt(tokens, "EnergyLeeched", string.Empty, m_energyLeeched);
 	}
 }

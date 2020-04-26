@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,390 +49,213 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SenseiYingYangDash senseiYingYangDash = targetAbility as SenseiYingYangDash;
-		if (senseiYingYangDash != null)
+		if (!(senseiYingYangDash != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SenseiYingYangDash.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_secondCastTurnsMod, "SecondCastTurns", string.Empty, senseiYingYangDash.m_secondCastTurns, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, senseiYingYangDash.m_damage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", senseiYingYangDash.m_enemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraDamageForDiffTeamSecondDashMod, "ExtraDamageForDiffTeamSecondDash", string.Empty, senseiYingYangDash.m_extraDamageForDiffTeamSecondDash, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageForLowHealthMod, "ExtraDamageForLowHealth", string.Empty, senseiYingYangDash.m_extraDamageForLowHealth, true, false);
-			AbilityMod.AddToken(tokens, this.m_enemyLowHealthThreshMod, "EnemyLowHealthThresh", string.Empty, senseiYingYangDash.m_enemyLowHealthThresh, true, false, true);
-			AbilityMod.AddToken(tokens, this.m_healOnAllyMod, "HealOnAlly", string.Empty, senseiYingYangDash.m_healOnAlly, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allyHitEffectMod, "AllyHitEffect", senseiYingYangDash.m_allyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraHealOnAllyForDiffTeamSecondDashMod, "ExtraHealOnAllyForDiffTeamSecondDash", string.Empty, senseiYingYangDash.m_extraHealOnAllyForDiffTeamSecondDash, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraHealOnAllyForLowHealthMod, "ExtraHealOnAllyForLowHealth", string.Empty, senseiYingYangDash.m_extraHealOnAllyForLowHealth, true, false);
-			AbilityMod.AddToken(tokens, this.m_allyLowHealthThreshMod, "AllyLowHealthThresh", string.Empty, senseiYingYangDash.m_allyLowHealthThresh, true, false, true);
-			AbilityMod.AddToken(tokens, this.m_cdrIfNoSecondDashMod, "CdrIfNoSecondDash", string.Empty, senseiYingYangDash.m_cdrIfNoSecondDash, true, false);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_secondCastTurnsMod, "SecondCastTurns", string.Empty, senseiYingYangDash.m_secondCastTurns);
+			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, senseiYingYangDash.m_damage);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", senseiYingYangDash.m_enemyHitEffect);
+			AbilityMod.AddToken(tokens, m_extraDamageForDiffTeamSecondDashMod, "ExtraDamageForDiffTeamSecondDash", string.Empty, senseiYingYangDash.m_extraDamageForDiffTeamSecondDash);
+			AbilityMod.AddToken(tokens, m_extraDamageForLowHealthMod, "ExtraDamageForLowHealth", string.Empty, senseiYingYangDash.m_extraDamageForLowHealth);
+			AbilityMod.AddToken(tokens, m_enemyLowHealthThreshMod, "EnemyLowHealthThresh", string.Empty, senseiYingYangDash.m_enemyLowHealthThresh, true, false, true);
+			AbilityMod.AddToken(tokens, m_healOnAllyMod, "HealOnAlly", string.Empty, senseiYingYangDash.m_healOnAlly);
+			AbilityMod.AddToken_EffectMod(tokens, m_allyHitEffectMod, "AllyHitEffect", senseiYingYangDash.m_allyHitEffect);
+			AbilityMod.AddToken(tokens, m_extraHealOnAllyForDiffTeamSecondDashMod, "ExtraHealOnAllyForDiffTeamSecondDash", string.Empty, senseiYingYangDash.m_extraHealOnAllyForDiffTeamSecondDash);
+			AbilityMod.AddToken(tokens, m_extraHealOnAllyForLowHealthMod, "ExtraHealOnAllyForLowHealth", string.Empty, senseiYingYangDash.m_extraHealOnAllyForLowHealth);
+			AbilityMod.AddToken(tokens, m_allyLowHealthThreshMod, "AllyLowHealthThresh", string.Empty, senseiYingYangDash.m_allyLowHealthThresh, true, false, true);
+			AbilityMod.AddToken(tokens, m_cdrIfNoSecondDashMod, "CdrIfNoSecondDash", string.Empty, senseiYingYangDash.m_cdrIfNoSecondDash);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SenseiYingYangDash senseiYingYangDash = base.GetTargetAbilityOnAbilityData(abilityData) as SenseiYingYangDash;
+		SenseiYingYangDash senseiYingYangDash = GetTargetAbilityOnAbilityData(abilityData) as SenseiYingYangDash;
 		bool flag = senseiYingYangDash != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyShape chooseDestShapeMod = this.m_chooseDestShapeMod;
-		string prefix = "[ChooseDestShape]";
-		bool showBaseVal = flag;
-		AbilityAreaShape baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyShape chooseDestShapeMod = m_chooseDestShapeMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SenseiYingYangDash.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			baseVal = senseiYingYangDash.m_chooseDestShape;
+			baseVal = (int)senseiYingYangDash.m_chooseDestShape;
 		}
 		else
 		{
-			baseVal = AbilityAreaShape.SingleSquare;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(chooseDestShapeMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt secondCastTurnsMod = this.m_secondCastTurnsMod;
-		string prefix2 = "[SecondCastTurns]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(chooseDestShapeMod, "[ChooseDestShape]", flag, (AbilityAreaShape)baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt secondCastTurnsMod = m_secondCastTurnsMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = senseiYingYangDash.m_secondCastTurns;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(secondCastTurnsMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyBool secondDashAllowBothTeamsMod = this.m_secondDashAllowBothTeamsMod;
-		string prefix3 = "[SecondDashAllowBothTeams]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		empty = str2 + PropDesc(secondCastTurnsMod, "[SecondCastTurns]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyBool secondDashAllowBothTeamsMod = m_secondDashAllowBothTeamsMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal3 = senseiYingYangDash.m_secondDashAllowBothTeams;
+			baseVal3 = (senseiYingYangDash.m_secondDashAllowBothTeams ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(secondDashAllowBothTeamsMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix4 = "[Damage]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(secondDashAllowBothTeamsMod, "[SecondDashAllowBothTeams]", flag, (byte)baseVal3 != 0);
+		string str4 = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = senseiYingYangDash.m_damage;
 		}
 		else
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(damageMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyEffectInfo enemyHitEffectMod = this.m_enemyHitEffectMod;
-		string prefix5 = "[EnemyHitEffect]";
-		bool showBaseVal5 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str4 + PropDesc(damageMod, "[Damage]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyEffectInfo enemyHitEffectMod = m_enemyHitEffectMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = senseiYingYangDash.m_enemyHitEffect;
 		}
 		else
 		{
 			baseVal5 = null;
 		}
-		text = str5 + base.PropDesc(enemyHitEffectMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt extraDamageForDiffTeamSecondDashMod = this.m_extraDamageForDiffTeamSecondDashMod;
-		string prefix6 = "[ExtraDamageForDiffTeamSecondDash]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(enemyHitEffectMod, "[EnemyHitEffect]", flag, (StandardEffectInfo)baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt extraDamageForDiffTeamSecondDashMod = m_extraDamageForDiffTeamSecondDashMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = senseiYingYangDash.m_extraDamageForDiffTeamSecondDash;
 		}
 		else
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(extraDamageForDiffTeamSecondDashMod, prefix6, showBaseVal6, baseVal6);
-		text += base.PropDesc(this.m_extraDamageForLowHealthMod, "[ExtraDamageForLowHealth]", flag, (!flag) ? 0 : senseiYingYangDash.m_extraDamageForLowHealth);
-		string str7 = text;
-		AbilityModPropertyFloat enemyLowHealthThreshMod = this.m_enemyLowHealthThreshMod;
-		string prefix7 = "[EnemyLowHealthThresh]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(extraDamageForDiffTeamSecondDashMod, "[ExtraDamageForDiffTeamSecondDash]", flag, baseVal6);
+		empty += PropDesc(m_extraDamageForLowHealthMod, "[ExtraDamageForLowHealth]", flag, flag ? senseiYingYangDash.m_extraDamageForLowHealth : 0);
+		string str7 = empty;
+		AbilityModPropertyFloat enemyLowHealthThreshMod = m_enemyLowHealthThreshMod;
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = senseiYingYangDash.m_enemyLowHealthThresh;
 		}
 		else
 		{
 			baseVal7 = 0f;
 		}
-		text = str7 + base.PropDesc(enemyLowHealthThreshMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyBool reverseHealthThreshForEnemyMod = this.m_reverseHealthThreshForEnemyMod;
-		string prefix8 = "[ReverseHealthThreshForEnemy]";
-		bool showBaseVal8 = flag;
-		bool baseVal8;
+		empty = str7 + PropDesc(enemyLowHealthThreshMod, "[EnemyLowHealthThresh]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyBool reverseHealthThreshForEnemyMod = m_reverseHealthThreshForEnemyMod;
+		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal8 = senseiYingYangDash.m_reverseHealthThreshForEnemy;
+			baseVal8 = (senseiYingYangDash.m_reverseHealthThreshForEnemy ? 1 : 0);
 		}
 		else
 		{
-			baseVal8 = false;
+			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(reverseHealthThreshForEnemyMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyInt healOnAllyMod = this.m_healOnAllyMod;
-		string prefix9 = "[HealOnAlly]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(reverseHealthThreshForEnemyMod, "[ReverseHealthThreshForEnemy]", flag, (byte)baseVal8 != 0);
+		string str9 = empty;
+		AbilityModPropertyInt healOnAllyMod = m_healOnAllyMod;
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = senseiYingYangDash.m_healOnAlly;
 		}
 		else
 		{
 			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(healOnAllyMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyEffectInfo allyHitEffectMod = this.m_allyHitEffectMod;
-		string prefix10 = "[AllyHitEffect]";
-		bool showBaseVal10 = flag;
-		StandardEffectInfo baseVal10;
+		empty = str9 + PropDesc(healOnAllyMod, "[HealOnAlly]", flag, baseVal9);
+		string str10 = empty;
+		AbilityModPropertyEffectInfo allyHitEffectMod = m_allyHitEffectMod;
+		object baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = senseiYingYangDash.m_allyHitEffect;
 		}
 		else
 		{
 			baseVal10 = null;
 		}
-		text = str10 + base.PropDesc(allyHitEffectMod, prefix10, showBaseVal10, baseVal10);
-		string str11 = text;
-		AbilityModPropertyInt extraHealOnAllyForDiffTeamSecondDashMod = this.m_extraHealOnAllyForDiffTeamSecondDashMod;
-		string prefix11 = "[ExtraHealOnAllyForDiffTeamSecondDash]";
-		bool showBaseVal11 = flag;
+		empty = str10 + PropDesc(allyHitEffectMod, "[AllyHitEffect]", flag, (StandardEffectInfo)baseVal10);
+		string str11 = empty;
+		AbilityModPropertyInt extraHealOnAllyForDiffTeamSecondDashMod = m_extraHealOnAllyForDiffTeamSecondDashMod;
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = senseiYingYangDash.m_extraHealOnAllyForDiffTeamSecondDash;
 		}
 		else
 		{
 			baseVal11 = 0;
 		}
-		text = str11 + base.PropDesc(extraHealOnAllyForDiffTeamSecondDashMod, prefix11, showBaseVal11, baseVal11);
-		string str12 = text;
-		AbilityModPropertyInt extraHealOnAllyForLowHealthMod = this.m_extraHealOnAllyForLowHealthMod;
-		string prefix12 = "[ExtraHealOnAllyForLowHealth]";
-		bool showBaseVal12 = flag;
+		empty = str11 + PropDesc(extraHealOnAllyForDiffTeamSecondDashMod, "[ExtraHealOnAllyForDiffTeamSecondDash]", flag, baseVal11);
+		string str12 = empty;
+		AbilityModPropertyInt extraHealOnAllyForLowHealthMod = m_extraHealOnAllyForLowHealthMod;
 		int baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = senseiYingYangDash.m_extraHealOnAllyForLowHealth;
 		}
 		else
 		{
 			baseVal12 = 0;
 		}
-		text = str12 + base.PropDesc(extraHealOnAllyForLowHealthMod, prefix12, showBaseVal12, baseVal12);
-		string str13 = text;
-		AbilityModPropertyFloat allyLowHealthThreshMod = this.m_allyLowHealthThreshMod;
-		string prefix13 = "[AllyLowHealthThresh]";
-		bool showBaseVal13 = flag;
+		empty = str12 + PropDesc(extraHealOnAllyForLowHealthMod, "[ExtraHealOnAllyForLowHealth]", flag, baseVal12);
+		string str13 = empty;
+		AbilityModPropertyFloat allyLowHealthThreshMod = m_allyLowHealthThreshMod;
 		float baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = senseiYingYangDash.m_allyLowHealthThresh;
 		}
 		else
 		{
 			baseVal13 = 0f;
 		}
-		text = str13 + base.PropDesc(allyLowHealthThreshMod, prefix13, showBaseVal13, baseVal13);
-		string str14 = text;
-		AbilityModPropertyBool reverseHealthThreshForAllyMod = this.m_reverseHealthThreshForAllyMod;
-		string prefix14 = "[ReverseHealthThreshForAlly]";
-		bool showBaseVal14 = flag;
-		bool baseVal14;
+		empty = str13 + PropDesc(allyLowHealthThreshMod, "[AllyLowHealthThresh]", flag, baseVal13);
+		string str14 = empty;
+		AbilityModPropertyBool reverseHealthThreshForAllyMod = m_reverseHealthThreshForAllyMod;
+		int baseVal14;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal14 = senseiYingYangDash.m_reverseHealthThreshForAlly;
+			baseVal14 = (senseiYingYangDash.m_reverseHealthThreshForAlly ? 1 : 0);
 		}
 		else
 		{
-			baseVal14 = false;
+			baseVal14 = 0;
 		}
-		text = str14 + base.PropDesc(reverseHealthThreshForAllyMod, prefix14, showBaseVal14, baseVal14);
-		string str15 = text;
-		AbilityModPropertyInt cdrIfNoSecondDashMod = this.m_cdrIfNoSecondDashMod;
-		string prefix15 = "[CdrIfNoSecondDash]";
-		bool showBaseVal15 = flag;
+		empty = str14 + PropDesc(reverseHealthThreshForAllyMod, "[ReverseHealthThreshForAlly]", flag, (byte)baseVal14 != 0);
+		string str15 = empty;
+		AbilityModPropertyInt cdrIfNoSecondDashMod = m_cdrIfNoSecondDashMod;
 		int baseVal15;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = senseiYingYangDash.m_cdrIfNoSecondDash;
 		}
 		else
 		{
 			baseVal15 = 0;
 		}
-		return str15 + base.PropDesc(cdrIfNoSecondDashMod, prefix15, showBaseVal15, baseVal15);
+		return str15 + PropDesc(cdrIfNoSecondDashMod, "[CdrIfNoSecondDash]", flag, baseVal15);
 	}
 }

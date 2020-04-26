@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,161 +39,94 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		RampartAoeBuffDebuff rampartAoeBuffDebuff = targetAbility as RampartAoeBuffDebuff;
-		if (rampartAoeBuffDebuff != null)
+		if (!(rampartAoeBuffDebuff != null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartAoeBuffDebuff.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_baseSelfHealMod, "BaseSelfHeal", string.Empty, rampartAoeBuffDebuff.m_baseSelfHeal, true, false);
-			AbilityMod.AddToken(tokens, this.m_selfHealAmountPerHitMod, "SelfHealAmountPerHit", string.Empty, rampartAoeBuffDebuff.m_selfHealAmountPerHit, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_selfHitEffectMod, "SelfHitEffect", rampartAoeBuffDebuff.m_selfHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allyHitEffectMod, "AllyHitEffect", rampartAoeBuffDebuff.m_allyHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", rampartAoeBuffDebuff.m_enemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_damageToEnemiesMod, "DamageToEnemies", string.Empty, rampartAoeBuffDebuff.m_damageToEnemies, true, false);
-			AbilityMod.AddToken(tokens, this.m_healingToAlliesMod, "HealingToAllies", string.Empty, rampartAoeBuffDebuff.m_healingToAllies, true, false);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_baseSelfHealMod, "BaseSelfHeal", string.Empty, rampartAoeBuffDebuff.m_baseSelfHeal);
+			AbilityMod.AddToken(tokens, m_selfHealAmountPerHitMod, "SelfHealAmountPerHit", string.Empty, rampartAoeBuffDebuff.m_selfHealAmountPerHit);
+			AbilityMod.AddToken_EffectMod(tokens, m_selfHitEffectMod, "SelfHitEffect", rampartAoeBuffDebuff.m_selfHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_allyHitEffectMod, "AllyHitEffect", rampartAoeBuffDebuff.m_allyHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", rampartAoeBuffDebuff.m_enemyHitEffect);
+			AbilityMod.AddToken(tokens, m_damageToEnemiesMod, "DamageToEnemies", string.Empty, rampartAoeBuffDebuff.m_damageToEnemies);
+			AbilityMod.AddToken(tokens, m_healingToAlliesMod, "HealingToAllies", string.Empty, rampartAoeBuffDebuff.m_healingToAllies);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		RampartAoeBuffDebuff rampartAoeBuffDebuff = base.GetTargetAbilityOnAbilityData(abilityData) as RampartAoeBuffDebuff;
+		RampartAoeBuffDebuff rampartAoeBuffDebuff = GetTargetAbilityOnAbilityData(abilityData) as RampartAoeBuffDebuff;
 		bool flag = rampartAoeBuffDebuff != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_shapeMod, "[Shape]", flag, (!flag) ? AbilityAreaShape.SingleSquare : rampartAoeBuffDebuff.m_shape);
-		string str = text;
-		AbilityModPropertyBool penetrateLosMod = this.m_penetrateLosMod;
-		string prefix = "[PenetrateLos]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string empty = string.Empty;
+		empty += PropDesc(m_shapeMod, "[Shape]", flag, flag ? rampartAoeBuffDebuff.m_shape : AbilityAreaShape.SingleSquare);
+		string str = empty;
+		AbilityModPropertyBool penetrateLosMod = m_penetrateLosMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartAoeBuffDebuff.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			baseVal = rampartAoeBuffDebuff.m_penetrateLos;
+			baseVal = (rampartAoeBuffDebuff.m_penetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(penetrateLosMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_baseSelfHealMod, "[BaseSelfHeal]", flag, (!flag) ? 0 : rampartAoeBuffDebuff.m_baseSelfHeal);
-		string str2 = text;
-		AbilityModPropertyInt selfHealAmountPerHitMod = this.m_selfHealAmountPerHitMod;
-		string prefix2 = "[SelfHealAmountPerHit]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(penetrateLosMod, "[PenetrateLos]", flag, (byte)baseVal != 0);
+		empty += PropDesc(m_baseSelfHealMod, "[BaseSelfHeal]", flag, flag ? rampartAoeBuffDebuff.m_baseSelfHeal : 0);
+		string str2 = empty;
+		AbilityModPropertyInt selfHealAmountPerHitMod = m_selfHealAmountPerHitMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rampartAoeBuffDebuff.m_selfHealAmountPerHit;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(selfHealAmountPerHitMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_selfHealCountEnemyHitMod, "[SelfHealCountEnemyHit]", flag, flag && rampartAoeBuffDebuff.m_selfHealCountEnemyHit);
-		string str3 = text;
-		AbilityModPropertyBool selfHealCountAllyHitMod = this.m_selfHealCountAllyHitMod;
-		string prefix3 = "[SelfHealCountAllyHit]";
-		bool showBaseVal3 = flag;
-		bool baseVal3;
+		empty = str2 + PropDesc(selfHealAmountPerHitMod, "[SelfHealAmountPerHit]", flag, baseVal2);
+		empty += PropDesc(m_selfHealCountEnemyHitMod, "[SelfHealCountEnemyHit]", flag, flag && rampartAoeBuffDebuff.m_selfHealCountEnemyHit);
+		string str3 = empty;
+		AbilityModPropertyBool selfHealCountAllyHitMod = m_selfHealCountAllyHitMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal3 = rampartAoeBuffDebuff.m_selfHealCountAllyHit;
+			baseVal3 = (rampartAoeBuffDebuff.m_selfHealCountAllyHit ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(selfHealCountAllyHitMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_includeCasterMod, "[IncludeCaster]", flag, flag && rampartAoeBuffDebuff.m_includeCaster);
-		string str4 = text;
-		AbilityModPropertyEffectInfo selfHitEffectMod = this.m_selfHitEffectMod;
-		string prefix4 = "[SelfHitEffect]";
-		bool showBaseVal4 = flag;
-		StandardEffectInfo baseVal4;
+		empty = str3 + PropDesc(selfHealCountAllyHitMod, "[SelfHealCountAllyHit]", flag, (byte)baseVal3 != 0);
+		empty += PropDesc(m_includeCasterMod, "[IncludeCaster]", flag, flag && rampartAoeBuffDebuff.m_includeCaster);
+		string str4 = empty;
+		AbilityModPropertyEffectInfo selfHitEffectMod = m_selfHitEffectMod;
+		object baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = rampartAoeBuffDebuff.m_selfHitEffect;
 		}
 		else
 		{
 			baseVal4 = null;
 		}
-		text = str4 + base.PropDesc(selfHitEffectMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyEffectInfo allyHitEffectMod = this.m_allyHitEffectMod;
-		string prefix5 = "[AllyHitEffect]";
-		bool showBaseVal5 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str4 + PropDesc(selfHitEffectMod, "[SelfHitEffect]", flag, (StandardEffectInfo)baseVal4);
+		string str5 = empty;
+		AbilityModPropertyEffectInfo allyHitEffectMod = m_allyHitEffectMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = rampartAoeBuffDebuff.m_allyHitEffect;
 		}
 		else
 		{
 			baseVal5 = null;
 		}
-		text = str5 + base.PropDesc(allyHitEffectMod, prefix5, showBaseVal5, baseVal5);
-		text += base.PropDesc(this.m_enemyHitEffectMod, "[EnemyHitEffect]", flag, (!flag) ? null : rampartAoeBuffDebuff.m_enemyHitEffect);
-		text += base.PropDesc(this.m_damageToEnemiesMod, "[DamageToEnemies]", flag, (!flag) ? 0 : rampartAoeBuffDebuff.m_damageToEnemies);
-		return text + base.PropDesc(this.m_healingToAlliesMod, "[HealingToAllies]", flag, (!flag) ? 0 : rampartAoeBuffDebuff.m_healingToAllies);
+		empty = str5 + PropDesc(allyHitEffectMod, "[AllyHitEffect]", flag, (StandardEffectInfo)baseVal5);
+		empty += PropDesc(m_enemyHitEffectMod, "[EnemyHitEffect]", flag, (!flag) ? null : rampartAoeBuffDebuff.m_enemyHitEffect);
+		empty += PropDesc(m_damageToEnemiesMod, "[DamageToEnemies]", flag, flag ? rampartAoeBuffDebuff.m_damageToEnemies : 0);
+		return empty + PropDesc(m_healingToAlliesMod, "[HealingToAllies]", flag, flag ? rampartAoeBuffDebuff.m_healingToAllies : 0);
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,13 +15,13 @@ namespace TMPro
 		public void OnSelect(BaseEventData eventData)
 		{
 			Debug.Log("Scrollbar selected");
-			this.isSelected = true;
+			isSelected = true;
 		}
 
 		public void OnDeselect(BaseEventData eventData)
 		{
 			Debug.Log("Scrollbar De-Selected");
-			this.isSelected = false;
+			isSelected = false;
 		}
 	}
 }

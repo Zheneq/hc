@@ -1,8 +1,18 @@
-﻿using System;
 using UnityEngine;
 
 public class MoveState
 {
+	public enum LinkType
+	{
+		None,
+		Run,
+		Unused1,
+		Unused2,
+		KnockBack,
+		Charge,
+		Vault
+	}
+
 	protected BoardSquarePathInfo m_pathSquareInfo;
 
 	protected ActorMovement m_owner;
@@ -29,46 +39,42 @@ public class MoveState
 
 	private static float s_timeout = 4f;
 
+	public string stateName
+	{
+		get;
+		set;
+	}
+
 	public MoveState(ActorMovement owner, BoardSquarePathInfo aesheticPath)
 	{
-		this.m_owner = owner;
-		this.m_ownerActorData = owner.GetComponent<ActorData>();
-		this.m_done = false;
-		this.m_updatePath = false;
-		this.m_animator = this.m_ownerActorData.\u000E();
-		this.m_pathSquareInfo = aesheticPath;
-		this.m_connectionType = this.m_pathSquareInfo.connectionType;
-		if (this.m_animator != null && this.m_animator.layerCount > 0)
+		m_owner = owner;
+		m_ownerActorData = owner.GetComponent<ActorData>();
+		m_done = false;
+		m_updatePath = false;
+		m_animator = m_ownerActorData.GetModelAnimator();
+		m_pathSquareInfo = aesheticPath;
+		m_connectionType = m_pathSquareInfo.connectionType;
+		if (!(m_animator != null) || m_animator.layerCount <= 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MoveState..ctor(ActorMovement, BoardSquarePathInfo)).MethodHandle;
-			}
-			AnimatorStateInfo currentAnimatorStateInfo = this.m_animator.GetCurrentAnimatorStateInfo(0);
-			this.m_curAnimHash = currentAnimatorStateInfo.fullPathHash;
-			this.m_curAnimTag = currentAnimatorStateInfo.tagHash;
+			return;
+		}
+		while (true)
+		{
+			AnimatorStateInfo currentAnimatorStateInfo = m_animator.GetCurrentAnimatorStateInfo(0);
+			m_curAnimHash = currentAnimatorStateInfo.fullPathHash;
+			m_curAnimTag = currentAnimatorStateInfo.tagHash;
+			return;
 		}
 	}
 
-	public string stateName { get; set; }
-
 	internal BoardSquarePathInfo GetAestheticPath()
 	{
-		return this.m_pathSquareInfo;
+		return m_pathSquareInfo;
 	}
 
 	public bool IsOnLastSegment()
 	{
-		return this.m_pathSquareInfo.next == null;
+		return m_pathSquareInfo.next == null;
 	}
 
 	public virtual void Setup()
@@ -77,83 +83,62 @@ public class MoveState
 
 	public void Update()
 	{
-		this.m_timeInAnim += Time.deltaTime;
-		this.UpdateAnimInfo();
-		this.UpdateState();
-		this.UpdateTimeout();
+		m_timeInAnim += Time.deltaTime;
+		UpdateAnimInfo();
+		UpdateState();
+		UpdateTimeout();
 	}
 
 	private void UpdateTimeout()
 	{
-		if (this.m_timeInAnim > MoveState.s_timeout)
+		if (!(m_timeInAnim > s_timeout))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MoveState.UpdateTimeout()).MethodHandle;
-			}
-			this.m_done = true;
-			this.m_updatePath = true;
-			this.m_forceAnimReset = true;
-			this.m_owner.m_actor.SetTransformPositionToSquare(this.m_pathSquareInfo.square);
+			return;
+		}
+		while (true)
+		{
+			m_done = true;
+			m_updatePath = true;
+			m_forceAnimReset = true;
+			m_owner.m_actor.SetTransformPositionToSquare(m_pathSquareInfo.square);
+			return;
 		}
 	}
 
 	private void UpdateAnimInfo()
 	{
-		int curAnimHash = this.m_curAnimHash;
-		int curAnimTag = this.m_curAnimTag;
-		if (!(this.m_animator == null))
+		int curAnimHash = m_curAnimHash;
+		int curAnimTag = m_curAnimTag;
+		if (m_animator == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_animator.layerCount < 1)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			AnimatorStateInfo currentAnimatorStateInfo = m_animator.GetCurrentAnimatorStateInfo(0);
+			if (m_animator.IsInTransition(0))
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MoveState.UpdateAnimInfo()).MethodHandle;
+				AnimatorStateInfo nextAnimatorStateInfo = m_animator.GetNextAnimatorStateInfo(0);
+				m_curAnimHash = nextAnimatorStateInfo.fullPathHash;
+				m_curAnimTag = nextAnimatorStateInfo.tagHash;
 			}
-			if (this.m_animator.layerCount >= 1)
+			else
 			{
-				AnimatorStateInfo currentAnimatorStateInfo = this.m_animator.GetCurrentAnimatorStateInfo(0);
-				if (this.m_animator.IsInTransition(0))
-				{
-					AnimatorStateInfo nextAnimatorStateInfo = this.m_animator.GetNextAnimatorStateInfo(0);
-					this.m_curAnimHash = nextAnimatorStateInfo.fullPathHash;
-					this.m_curAnimTag = nextAnimatorStateInfo.tagHash;
-				}
-				else
-				{
-					this.m_curAnimHash = currentAnimatorStateInfo.fullPathHash;
-					this.m_curAnimTag = currentAnimatorStateInfo.tagHash;
-				}
-				if (this.m_curAnimHash != curAnimHash)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_timeInAnim = 0f;
-					this.OnAnimChange(curAnimHash, curAnimTag, this.m_curAnimHash, this.m_curAnimTag);
-				}
+				m_curAnimHash = currentAnimatorStateInfo.fullPathHash;
+				m_curAnimTag = currentAnimatorStateInfo.tagHash;
+			}
+			if (m_curAnimHash == curAnimHash)
+			{
+				return;
+			}
+			while (true)
+			{
+				m_timeInAnim = 0f;
+				OnAnimChange(curAnimHash, curAnimTag, m_curAnimHash, m_curAnimTag);
 				return;
 			}
 		}
@@ -165,16 +150,5 @@ public class MoveState
 
 	protected virtual void UpdateState()
 	{
-	}
-
-	public enum LinkType
-	{
-		None,
-		Run,
-		Unused1,
-		Unused2,
-		KnockBack,
-		Charge,
-		Vault
 	}
 }

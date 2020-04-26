@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -18,65 +17,49 @@ public class UILootMatrixPurchaseScreen : MonoBehaviour
 
 	public static UILootMatrixPurchaseScreen Get()
 	{
-		return UILootMatrixPurchaseScreen.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		UILootMatrixPurchaseScreen.s_instance = this;
-		UIManager.SetGameObjectActive(this.m_purchaseContainer, false, null);
-		this.m_cancelBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CancelBtnClicked);
+		s_instance = this;
+		UIManager.SetGameObjectActive(m_purchaseContainer, false);
+		m_cancelBtn.spriteController.callback = CancelBtnClicked;
 	}
 
 	public void PackClicked(UILootMatrixPurchaseButton btn)
 	{
-		if (btn != null)
+		if (!(btn != null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixPurchaseScreen.PackClicked(UILootMatrixPurchaseButton)).MethodHandle;
-			}
-			UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
-			uipurchaseableItem.m_itemType = PurchaseItemType.LootMatrixPack;
-			uipurchaseableItem.m_lootMatrixPack = btn.PackRef;
-			UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+			return;
+		}
+		while (true)
+		{
+			UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+			uIPurchaseableItem.m_itemType = PurchaseItemType.LootMatrixPack;
+			uIPurchaseableItem.m_lootMatrixPack = btn.PackRef;
+			UIStorePanel.Get().OpenPurchaseDialog(uIPurchaseableItem);
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.StorePurchased);
+			return;
 		}
 	}
 
 	private void CancelBtnClicked(BaseEventData data)
 	{
-		this.SetVisible(false);
+		SetVisible(false);
 	}
 
 	public void SetVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_purchaseContainer, visible, null);
-		if (visible)
+		UIManager.SetGameObjectActive(m_purchaseContainer, visible);
+		if (!visible)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixPurchaseScreen.SetVisible(bool)).MethodHandle;
-			}
-			this.Setup();
+			return;
+		}
+		while (true)
+		{
+			Setup();
+			return;
 		}
 	}
 
@@ -84,92 +67,47 @@ public class UILootMatrixPurchaseScreen : MonoBehaviour
 	{
 		List<LootMatrixPack> list = new List<LootMatrixPack>();
 		int maxMatrixes = GameWideData.Get().m_lootMatrixPackData.m_lootMatrixPacks.Length;
-		int i = 0;
-		while (i < GameWideData.Get().m_lootMatrixPackData.m_lootMatrixPacks.Length)
+		for (int i = 0; i < GameWideData.Get().m_lootMatrixPackData.m_lootMatrixPacks.Length; i++)
 		{
 			LootMatrixPack lootMatrixPack = GameWideData.Get().m_lootMatrixPackData.m_lootMatrixPacks[i];
 			bool flag = lootMatrixPack.IsInEvent();
-			if (!flag)
+			if (flag)
 			{
-				goto IL_70;
-			}
-			for (;;)
-			{
-				switch (6)
+				if (!lootMatrixPack.EventHidden)
 				{
-				case 0:
-					continue;
+					goto IL_0086;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixPurchaseScreen.Setup()).MethodHandle;
-			}
-			if (!lootMatrixPack.EventHidden)
-			{
-				goto IL_86;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_70;
-			}
-			IL_8D:
-			i++;
-			continue;
-			IL_70:
 			if (flag || lootMatrixPack.NonEventHidden)
 			{
-				goto IL_8D;
+				continue;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			IL_86:
+			goto IL_0086;
+			IL_0086:
 			list.Add(lootMatrixPack);
-			goto IL_8D;
 		}
 		list.Sort((LootMatrixPack x, LootMatrixPack y) => x.SortOrder * maxMatrixes + x.Index - (y.SortOrder * maxMatrixes + y.Index));
-		for (int j = 0; j < this.DisplayPacks.Length; j++)
+		for (int j = 0; j < DisplayPacks.Length; j++)
 		{
 			if (j < list.Count)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.DisplayPacks[j], true, null);
-				this.DisplayPacks[j].Setup(list[j]);
+				UIManager.SetGameObjectActive(DisplayPacks[j], true);
+				DisplayPacks[j].Setup(list[j]);
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.DisplayPacks[j], false, null);
+				UIManager.SetGameObjectActive(DisplayPacks[j], false);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 }

@@ -1,9 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BazookaGirlDelayedMissile : Ability
 {
+	[Serializable]
+	public class ShapeToHitInfo : ShapeToDataBase
+	{
+		public int m_damage;
+
+		public StandardEffectInfo m_onExplosionEffect;
+	}
+
 	[Header("-- On Cast Hit Effect")]
 	public StandardEffectInfo m_onCastEnemyHitEffect;
 
@@ -19,13 +27,13 @@ public class BazookaGirlDelayedMissile : Ability
 
 	public bool m_penetrateLineOfSight;
 
-	public List<BazookaGirlDelayedMissile.ShapeToHitInfo> m_additionalShapeToHitInfo = new List<BazookaGirlDelayedMissile.ShapeToHitInfo>();
+	public List<ShapeToHitInfo> m_additionalShapeToHitInfo = new List<ShapeToHitInfo>();
 
 	[Header("-- Fake Markers (when using multi-click version), valid when positive")]
 	public int m_useFakeMarkerIndexStart = -1;
 
 	[Header("-- Anim")]
-	public int m_explosionAnimationIndex = 0xB;
+	public int m_explosionAnimationIndex = 11;
 
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
@@ -40,309 +48,208 @@ public class BazookaGirlDelayedMissile : Ability
 
 	private List<AbilityAreaShape> m_additionalShapes = new List<AbilityAreaShape>();
 
-	private List<BazookaGirlDelayedMissile.ShapeToHitInfo> m_cachedShapeToHitInfo = new List<BazookaGirlDelayedMissile.ShapeToHitInfo>();
+	private List<ShapeToHitInfo> m_cachedShapeToHitInfo = new List<ShapeToHitInfo>();
 
 	private StandardEffectInfo m_cachedOnExplosionEffect;
 
 	private void Start()
 	{
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	public int GetDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissile.GetDamageAmount()).MethodHandle;
-			}
-			result = this.m_damage;
+			result = m_damage;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damage);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetOnCastEnemyHitEffect()
 	{
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_onCastEnemyHitEffect;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissile.GetOnCastEnemyHitEffect()).MethodHandle;
-			}
-			return this.m_onCastEnemyHitEffect;
 		}
-		return this.m_abilityMod.m_effectOnEnemyOnCastOverride.GetModifiedValue(this.m_onCastEnemyHitEffect);
+		return m_abilityMod.m_effectOnEnemyOnCastOverride.GetModifiedValue(m_onCastEnemyHitEffect);
 	}
 
 	public AbilityAreaShape GetShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissile.GetShape()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_shapeMod.GetModifiedValue(this.m_shape);
+			result = m_abilityMod.m_shapeMod.GetModifiedValue(m_shape);
 		}
 		else
 		{
-			result = this.m_shape;
+			result = m_shape;
 		}
 		return result;
 	}
 
 	public bool UseAdditionalShapes()
 	{
-		if (this.m_abilityMod != null && this.m_abilityMod.m_useAdditionalShapeToHitInfoOverride)
+		if (m_abilityMod != null && m_abilityMod.m_useAdditionalShapeToHitInfoOverride)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_abilityMod.m_additionalShapeToHitInfoMod.Count > 0;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissile.UseAdditionalShapes()).MethodHandle;
-			}
-			return this.m_abilityMod.m_additionalShapeToHitInfoMod.Count > 0;
 		}
-		return this.m_additionalShapeToHitInfo.Count > 0;
+		return m_additionalShapeToHitInfo.Count > 0;
 	}
 
-	public List<BazookaGirlDelayedMissile.ShapeToHitInfo> GetShapeToHitInfo()
+	public List<ShapeToHitInfo> GetShapeToHitInfo()
 	{
-		return this.m_cachedShapeToHitInfo;
+		return m_cachedShapeToHitInfo;
 	}
 
 	public int GetUseFakeMarkerIndexStart()
 	{
-		return (!this.m_abilityMod) ? this.m_useFakeMarkerIndexStart : this.m_abilityMod.m_useFakeMarkerIndexStartMod.GetModifiedValue(this.m_useFakeMarkerIndexStart);
+		return (!m_abilityMod) ? m_useFakeMarkerIndexStart : m_abilityMod.m_useFakeMarkerIndexStartMod.GetModifiedValue(m_useFakeMarkerIndexStart);
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedOnExplosionEffect = ((!this.m_abilityMod) ? this.m_effectOnHit : this.m_abilityMod.m_onExplosionEffectMod.GetModifiedValue(this.m_effectOnHit));
+		m_cachedOnExplosionEffect = ((!m_abilityMod) ? m_effectOnHit : m_abilityMod.m_onExplosionEffectMod.GetModifiedValue(m_effectOnHit));
 	}
 
 	public StandardEffectInfo GetOnExplosionEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedOnExplosionEffect != null)
+		if (m_cachedOnExplosionEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissile.GetOnExplosionEffect()).MethodHandle;
-			}
-			result = this.m_cachedOnExplosionEffect;
+			result = m_cachedOnExplosionEffect;
 		}
 		else
 		{
-			result = this.m_effectOnHit;
+			result = m_effectOnHit;
 		}
 		return result;
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		if (this.m_abilityMod != null && this.m_abilityMod.m_useAdditionalShapeToHitInfoOverride)
+		SetCachedFields();
+		if (m_abilityMod != null && m_abilityMod.m_useAdditionalShapeToHitInfoOverride)
 		{
-			this.m_cachedShapeToHitInfo = new List<BazookaGirlDelayedMissile.ShapeToHitInfo>();
-			using (List<AbilityMod_BazookaGirlDelayedMissile.ShapeToHitInfoMod>.Enumerator enumerator = this.m_abilityMod.m_additionalShapeToHitInfoMod.GetEnumerator())
+			m_cachedShapeToHitInfo = new List<ShapeToHitInfo>();
+			using (List<AbilityMod_BazookaGirlDelayedMissile.ShapeToHitInfoMod>.Enumerator enumerator = m_abilityMod.m_additionalShapeToHitInfoMod.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					AbilityMod_BazookaGirlDelayedMissile.ShapeToHitInfoMod shapeToHitInfoMod = enumerator.Current;
-					BazookaGirlDelayedMissile.ShapeToHitInfo shapeToHitInfo = new BazookaGirlDelayedMissile.ShapeToHitInfo();
-					shapeToHitInfo.m_shape = shapeToHitInfoMod.m_shape;
-					shapeToHitInfo.m_damage = shapeToHitInfoMod.m_damageMod.GetModifiedValue(this.m_damage);
-					shapeToHitInfo.m_onExplosionEffect = shapeToHitInfoMod.m_onExplosionEffectInfo.GetModifiedValue(this.m_effectOnHit);
-					this.m_cachedShapeToHitInfo.Add(shapeToHitInfo);
+					AbilityMod_BazookaGirlDelayedMissile.ShapeToHitInfoMod current = enumerator.Current;
+					ShapeToHitInfo shapeToHitInfo = new ShapeToHitInfo();
+					shapeToHitInfo.m_shape = current.m_shape;
+					shapeToHitInfo.m_damage = current.m_damageMod.GetModifiedValue(m_damage);
+					shapeToHitInfo.m_onExplosionEffect = current.m_onExplosionEffectInfo.GetModifiedValue(m_effectOnHit);
+					m_cachedShapeToHitInfo.Add(shapeToHitInfo);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						goto end_IL_0047;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissile.SetupTargeter()).MethodHandle;
-				}
+				end_IL_0047:;
 			}
 		}
 		else
 		{
-			this.m_cachedShapeToHitInfo = new List<BazookaGirlDelayedMissile.ShapeToHitInfo>(this.m_additionalShapeToHitInfo);
+			m_cachedShapeToHitInfo = new List<ShapeToHitInfo>(m_additionalShapeToHitInfo);
 		}
-		this.m_cachedShapeToHitInfo.Sort();
-		if (this.UseAdditionalShapes())
+		m_cachedShapeToHitInfo.Sort();
+		if (UseAdditionalShapes())
 		{
-			this.m_additionalShapes.Clear();
-			List<BazookaGirlDelayedMissile.ShapeToHitInfo> shapeToHitInfo2 = this.GetShapeToHitInfo();
-			using (List<BazookaGirlDelayedMissile.ShapeToHitInfo>.Enumerator enumerator2 = shapeToHitInfo2.GetEnumerator())
+			m_additionalShapes.Clear();
+			List<ShapeToHitInfo> shapeToHitInfo2 = GetShapeToHitInfo();
+			using (List<ShapeToHitInfo>.Enumerator enumerator2 = shapeToHitInfo2.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
 				{
-					BazookaGirlDelayedMissile.ShapeToHitInfo shapeToHitInfo3 = enumerator2.Current;
-					this.m_additionalShapes.Add(shapeToHitInfo3.m_shape);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					ShapeToHitInfo current2 = enumerator2.Current;
+					m_additionalShapes.Add(current2.m_shape);
 				}
 			}
 		}
-		base.ClearTargeters();
-		if (this.GetExpectedNumberOfTargeters() < 2)
+		ClearTargeters();
+		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			if (this.UseAdditionalShapes())
+			if (UseAdditionalShapes())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				List<AbilityAreaShape> list = new List<AbilityAreaShape>();
-				list.Add(this.GetShape());
-				list.AddRange(this.m_additionalShapes);
-				List<AbilityTooltipSubject> subjects = new List<AbilityTooltipSubject>
-				{
-					AbilityTooltipSubject.Primary
-				};
-				base.Targeter = new AbilityUtil_Targeter_MultipleShapes(this, list, subjects, this.m_penetrateLineOfSight, true, false, false);
-			}
-			else
-			{
-				base.Targeter = new AbilityUtil_Targeter_BazookaGirlDelayedMissile(this, this.GetShape(), this.m_penetrateLineOfSight, false, AbilityAreaShape.SingleSquare, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false);
-			}
-		}
-		else
-		{
-			for (int i = 0; i < this.GetExpectedNumberOfTargeters(); i++)
-			{
-				AbilityUtil_Targeter_BazookaGirlDelayedMissile abilityUtil_Targeter_BazookaGirlDelayedMissile = new AbilityUtil_Targeter_BazookaGirlDelayedMissile(this, this.GetShape(), this.m_penetrateLineOfSight, false, AbilityAreaShape.SingleSquare, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false);
-				if (this.GetUseFakeMarkerIndexStart() > 0)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					if (i >= this.GetUseFakeMarkerIndexStart())
+					default:
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						abilityUtil_Targeter_BazookaGirlDelayedMissile.SetTooltipSubjectTypes(AbilityTooltipSubject.Quaternary, AbilityTooltipSubject.Quaternary, AbilityTooltipSubject.None);
-						abilityUtil_Targeter_BazookaGirlDelayedMissile.SetAffectedGroups(false, false, false);
+						List<AbilityAreaShape> list = new List<AbilityAreaShape>();
+						list.Add(GetShape());
+						list.AddRange(m_additionalShapes);
+						List<AbilityTooltipSubject> list2 = new List<AbilityTooltipSubject>();
+						list2.Add(AbilityTooltipSubject.Primary);
+						List<AbilityTooltipSubject> subjects = list2;
+						base.Targeter = new AbilityUtil_Targeter_MultipleShapes(this, list, subjects, m_penetrateLineOfSight);
+						return;
+					}
 					}
 				}
-				base.Targeters.Add(abilityUtil_Targeter_BazookaGirlDelayedMissile);
-				base.Targeters[i].SetUseMultiTargetUpdate(true);
 			}
+			base.Targeter = new AbilityUtil_Targeter_BazookaGirlDelayedMissile(this, GetShape(), m_penetrateLineOfSight, false, AbilityAreaShape.SingleSquare);
+			return;
+		}
+		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
+		{
+			AbilityUtil_Targeter_BazookaGirlDelayedMissile abilityUtil_Targeter_BazookaGirlDelayedMissile = new AbilityUtil_Targeter_BazookaGirlDelayedMissile(this, GetShape(), m_penetrateLineOfSight, false, AbilityAreaShape.SingleSquare);
+			if (GetUseFakeMarkerIndexStart() > 0)
+			{
+				if (i >= GetUseFakeMarkerIndexStart())
+				{
+					abilityUtil_Targeter_BazookaGirlDelayedMissile.SetTooltipSubjectTypes(AbilityTooltipSubject.Quaternary, AbilityTooltipSubject.Quaternary);
+					abilityUtil_Targeter_BazookaGirlDelayedMissile.SetAffectedGroups(false, false, false);
+				}
+			}
+			base.Targeters.Add(abilityUtil_Targeter_BazookaGirlDelayedMissile);
+			base.Targeters[i].SetUseMultiTargetUpdate(true);
 		}
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
 		int result = 1;
-		if (this.m_abilityMod != null && this.m_abilityMod.m_useTargetDataOverrides)
+		if (m_abilityMod != null && m_abilityMod.m_useTargetDataOverrides)
 		{
-			for (;;)
+			if (m_abilityMod.m_targetDataOverrides.Length > 1)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissile.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
-			if (this.m_abilityMod.m_targetDataOverrides.Length > 1)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				result = this.m_abilityMod.m_targetDataOverrides.Length;
+				result = m_abilityMod.m_targetDataOverrides.Length;
 			}
 		}
 		return result;
@@ -350,10 +257,9 @@ public class BazookaGirlDelayedMissile : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, this.m_damage)
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_damage));
+		return list;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -365,64 +271,53 @@ public class BazookaGirlDelayedMissile : Ability
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (base.Targeter is AbilityUtil_Targeter_MultipleShapes)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissile.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
-				List<AbilityUtil_Targeter_MultipleShapes.HitActorContext> hitActorContext = (base.Targeter as AbilityUtil_Targeter_MultipleShapes).GetHitActorContext();
-				using (List<AbilityUtil_Targeter_MultipleShapes.HitActorContext>.Enumerator enumerator = hitActorContext.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
+						break;
+					default:
 					{
-						AbilityUtil_Targeter_MultipleShapes.HitActorContext hitActorContext2 = enumerator.Current;
-						if (hitActorContext2.m_actor == targetActor)
+						List<AbilityUtil_Targeter_MultipleShapes.HitActorContext> hitActorContext = (base.Targeter as AbilityUtil_Targeter_MultipleShapes).GetHitActorContext();
+						using (List<AbilityUtil_Targeter_MultipleShapes.HitActorContext>.Enumerator enumerator = hitActorContext.GetEnumerator())
 						{
-							for (;;)
+							while (enumerator.MoveNext())
 							{
-								switch (4)
+								AbilityUtil_Targeter_MultipleShapes.HitActorContext current = enumerator.Current;
+								if (current.m_actor == targetActor)
+								{
+									while (true)
+									{
+										switch (4)
+										{
+										case 0:
+											break;
+										default:
+											dictionary[AbilityTooltipSymbol.Damage] = GetDamageForShapeIndex(current.m_hitShapeIndex);
+											return dictionary;
+										}
+									}
+								}
+							}
+							while (true)
+							{
+								switch (7)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return dictionary;
 								}
-								break;
 							}
-							dictionary[AbilityTooltipSymbol.Damage] = this.GetDamageForShapeIndex(hitActorContext2.m_hitShapeIndex);
-							goto IL_C7;
 						}
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
-				IL_C7:;
 			}
-			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
+			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				dictionary[AbilityTooltipSymbol.Damage] = this.GetDamageAmount();
+				dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmount();
 			}
 			return dictionary;
 		}
@@ -433,124 +328,62 @@ public class BazookaGirlDelayedMissile : Ability
 	{
 		AbilityMod_BazookaGirlDelayedMissile abilityMod_BazookaGirlDelayedMissile = modAsBase as AbilityMod_BazookaGirlDelayedMissile;
 		StandardEffectInfo effectInfo;
-		if (abilityMod_BazookaGirlDelayedMissile)
+		if ((bool)abilityMod_BazookaGirlDelayedMissile)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissile.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
-			effectInfo = abilityMod_BazookaGirlDelayedMissile.m_effectOnEnemyOnCastOverride.GetModifiedValue(this.m_onCastEnemyHitEffect);
+			effectInfo = abilityMod_BazookaGirlDelayedMissile.m_effectOnEnemyOnCastOverride.GetModifiedValue(m_onCastEnemyHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_onCastEnemyHitEffect;
+			effectInfo = m_onCastEnemyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "OnCastEnemyHitEffect", this.m_onCastEnemyHitEffect, true);
-		string name = "Damage";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "OnCastEnemyHitEffect", m_onCastEnemyHitEffect);
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_BazookaGirlDelayedMissile)
+		if ((bool)abilityMod_BazookaGirlDelayedMissile)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val = abilityMod_BazookaGirlDelayedMissile.m_damageMod.GetModifiedValue(this.m_damage);
+			val = abilityMod_BazookaGirlDelayedMissile.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
 		{
-			val = this.m_damage;
+			val = m_damage;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
+		AddTokenInt(tokens, "Damage", empty, val);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_BazookaGirlDelayedMissile)
+		if ((bool)abilityMod_BazookaGirlDelayedMissile)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			effectInfo2 = abilityMod_BazookaGirlDelayedMissile.m_onExplosionEffectMod.GetModifiedValue(this.m_effectOnHit);
+			effectInfo2 = abilityMod_BazookaGirlDelayedMissile.m_onExplosionEffectMod.GetModifiedValue(m_effectOnHit);
 		}
 		else
 		{
-			effectInfo2 = this.m_effectOnHit;
+			effectInfo2 = m_effectOnHit;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EffectOnHit", this.m_effectOnHit, true);
-		for (int i = 0; i < this.m_additionalShapeToHitInfo.Count; i++)
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EffectOnHit", m_effectOnHit);
+		for (int i = 0; i < m_additionalShapeToHitInfo.Count; i++)
 		{
-			base.AddTokenInt(tokens, "Damage_ExtraLayer_" + i, string.Empty, this.m_additionalShapeToHitInfo[i].m_damage, false);
+			AddTokenInt(tokens, "Damage_ExtraLayer_" + i, string.Empty, m_additionalShapeToHitInfo[i].m_damage);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private int GetDamageForShapeIndex(int index)
 	{
-		int result = this.GetDamageAmount();
-		List<BazookaGirlDelayedMissile.ShapeToHitInfo> shapeToHitInfo = this.GetShapeToHitInfo();
+		int result = GetDamageAmount();
+		List<ShapeToHitInfo> shapeToHitInfo = GetShapeToHitInfo();
 		if (index > 0)
 		{
-			for (;;)
+			if (UseAdditionalShapes())
 			{
-				switch (4)
+				if (index <= m_additionalShapes.Count)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissile.GetDamageForShapeIndex(int)).MethodHandle;
-			}
-			if (this.UseAdditionalShapes())
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (index <= this.m_additionalShapes.Count)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = shapeToHitInfo[index - 1].m_damage;
 				}
 			}
@@ -560,57 +393,36 @@ public class BazookaGirlDelayedMissile : Ability
 
 	public override bool CanTriggerAnimAtIndexForTaunt(int animIndex)
 	{
-		bool result;
-		if (animIndex != this.m_explosionAnimationIndex)
+		int result;
+		if (animIndex != m_explosionAnimationIndex)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissile.CanTriggerAnimAtIndexForTaunt(int)).MethodHandle;
-			}
-			result = base.CanTriggerAnimAtIndexForTaunt(animIndex);
+			result = (base.CanTriggerAnimAtIndexForTaunt(animIndex) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_BazookaGirlDelayedMissile))
+		if (abilityMod.GetType() != typeof(AbilityMod_BazookaGirlDelayedMissile))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissile.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_BazookaGirlDelayedMissile);
-			this.SetupTargeter();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_BazookaGirlDelayedMissile);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
@@ -618,16 +430,8 @@ public class BazookaGirlDelayedMissile : Ability
 		List<Vector3> list = new List<Vector3>();
 		foreach (AbilityTarget target in targets)
 		{
-			list.AddRange(AreaEffectUtils.BuildShapeCornersList(this.GetShape(), target));
+			list.AddRange(AreaEffectUtils.BuildShapeCornersList(GetShape(), target));
 		}
 		return list;
-	}
-
-	[Serializable]
-	public class ShapeToHitInfo : ShapeToDataBase
-	{
-		public int m_damage;
-
-		public StandardEffectInfo m_onExplosionEffect;
 	}
 }

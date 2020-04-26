@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +15,6 @@ public class UIFactionProgressBar : MonoBehaviour
 
 	private void Awake()
 	{
-		UIManager.SetGameObjectActive(this.m_WhiteShineBar, false, null);
+		UIManager.SetGameObjectActive(m_WhiteShineBar, false);
 	}
 }

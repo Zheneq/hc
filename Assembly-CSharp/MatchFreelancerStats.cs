@@ -1,198 +1,296 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class MatchFreelancerStats : ICloneable, StatDisplaySettings.IPersistatedStatValueSupplier
 {
-	public PersistedStatBucket PersistedStatBucket { get; set; }
+	public PersistedStatBucket PersistedStatBucket
+	{
+		get;
+		set;
+	}
 
-	public CharacterType CharacterType { get; set; }
+	public CharacterType CharacterType
+	{
+		get;
+		set;
+	}
 
-	public int ActiveSeason { get; set; }
+	public int ActiveSeason
+	{
+		get;
+		set;
+	}
 
-	public float TotalAssists { get; set; }
+	public float TotalAssists
+	{
+		get;
+		set;
+	}
 
-	public float TotalDeaths { get; set; }
+	public float TotalDeaths
+	{
+		get;
+		set;
+	}
 
-	public float? TotalBadgePoints { get; set; }
+	public float? TotalBadgePoints
+	{
+		get;
+		set;
+	}
 
-	public float EnergyGainPerTurn { get; set; }
+	public float EnergyGainPerTurn
+	{
+		get;
+		set;
+	}
 
-	public float? DamagePerTurn { get; set; }
+	public float? DamagePerTurn
+	{
+		get;
+		set;
+	}
 
-	public float NetBoostedOutgoingDamage { get; set; }
+	public float NetBoostedOutgoingDamage
+	{
+		get;
+		set;
+	}
 
-	public float DamageEfficiency { get; set; }
+	public float DamageEfficiency
+	{
+		get;
+		set;
+	}
 
-	public float KillParticipation { get; set; }
+	public float KillParticipation
+	{
+		get;
+		set;
+	}
 
-	public float TeamDamageAdjustedByMe { get; set; }
+	public float TeamDamageAdjustedByMe
+	{
+		get;
+		set;
+	}
 
-	public float TeamExtraEnergyByEnergizedFromMe { get; set; }
+	public float TeamExtraEnergyByEnergizedFromMe
+	{
+		get;
+		set;
+	}
 
-	public float MovementDenied { get; set; }
+	public float MovementDenied
+	{
+		get;
+		set;
+	}
 
-	public float? DamageTakenPerLife { get; set; }
+	public float? DamageTakenPerLife
+	{
+		get;
+		set;
+	}
 
-	public float IncomingDamageDodgeByEvade { get; set; }
+	public float IncomingDamageDodgeByEvade
+	{
+		get;
+		set;
+	}
 
-	public float IncomingDamageReducedByCover { get; set; }
+	public float IncomingDamageReducedByCover
+	{
+		get;
+		set;
+	}
 
-	public float EnemiesSightedPerTurn { get; set; }
+	public float EnemiesSightedPerTurn
+	{
+		get;
+		set;
+	}
 
-	public float TotalTurns { get; set; }
+	public float TotalTurns
+	{
+		get;
+		set;
+	}
 
-	public float TotalTeamDamageReceived { get; set; }
+	public float TotalTeamDamageReceived
+	{
+		get;
+		set;
+	}
 
-	public float? TankingPerLife { get; set; }
+	public float? TankingPerLife
+	{
+		get;
+		set;
+	}
 
-	public float? TeamMitigation { get; set; }
+	public float? TeamMitigation
+	{
+		get;
+		set;
+	}
 
-	public float? SupportPerTurn { get; set; }
+	public float? SupportPerTurn
+	{
+		get;
+		set;
+	}
 
-	public float? DamageDonePerLife { get; set; }
+	public float? DamageDonePerLife
+	{
+		get;
+		set;
+	}
 
-	public float? DamageTakenPerTurn { get; set; }
+	public float? DamageTakenPerTurn
+	{
+		get;
+		set;
+	}
 
-	public float? MMR { get; set; }
+	public float? MMR
+	{
+		get;
+		set;
+	}
 
-	public int? Freelancer0 { get; set; }
+	public int? Freelancer0
+	{
+		get;
+		set;
+	}
 
-	public int? Freelancer1 { get; set; }
+	public int? Freelancer1
+	{
+		get;
+		set;
+	}
 
-	public int? Freelancer2 { get; set; }
+	public int? Freelancer2
+	{
+		get;
+		set;
+	}
 
-	public int? Freelancer3 { get; set; }
+	public int? Freelancer3
+	{
+		get;
+		set;
+	}
 
 	public float? GetStat(StatDisplaySettings.StatType Type)
 	{
 		switch (Type)
 		{
-		case StatDisplaySettings.StatType.TotalAssists:
-			return new float?(this.TotalAssists);
-		case StatDisplaySettings.StatType.TotalDeaths:
-			return new float?(this.TotalDeaths);
-		case StatDisplaySettings.StatType.TotalBadgePoints:
-			return this.TotalBadgePoints;
-		case StatDisplaySettings.StatType.EnergyGainPerTurn:
-			return new float?(this.EnergyGainPerTurn);
-		case StatDisplaySettings.StatType.DamagePerTurn:
-			return this.DamagePerTurn;
-		case StatDisplaySettings.StatType.NetBoostedOutgoingDamage:
-			if (this.TotalTurns > 0f)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return new float?(this.NetBoostedOutgoingDamage / this.TotalTurns);
-			}
-			return null;
+		case StatDisplaySettings.StatType.AvgLifeSpan:
+			return TotalTurns / (TotalDeaths + 1f);
+		case StatDisplaySettings.StatType.DamageDonePerLife:
+			return DamageDonePerLife;
 		case StatDisplaySettings.StatType.DamageEfficiency:
-			return new float?(this.DamageEfficiency);
-		case StatDisplaySettings.StatType.KillParticipation:
-			return new float?(this.KillParticipation);
+			return DamageEfficiency;
+		case StatDisplaySettings.StatType.DamagePerTurn:
+			return DamagePerTurn;
+		case StatDisplaySettings.StatType.DamageTakenPerLife:
+			return DamageTakenPerLife;
+		case StatDisplaySettings.StatType.DamageTakenPerTurn:
+			return DamageTakenPerTurn;
 		case StatDisplaySettings.StatType.EffectiveHealAndAbsorb:
-			return this.SupportPerTurn;
-		case StatDisplaySettings.StatType.TeamDamageAdjustedByMe:
-			if (this.TotalTurns > 0f)
+			return SupportPerTurn;
+		case StatDisplaySettings.StatType.EnemiesSightedPerLife:
+			return EnemiesSightedPerTurn;
+		case StatDisplaySettings.StatType.EnergyGainPerTurn:
+			return EnergyGainPerTurn;
+		case StatDisplaySettings.StatType.IncomingDamageDodgeByEvade:
+			return IncomingDamageDodgeByEvade / (TotalDeaths + 1f);
+		case StatDisplaySettings.StatType.IncomingDamageReducedByCover:
+			return IncomingDamageReducedByCover / (TotalDeaths + 1f);
+		case StatDisplaySettings.StatType.KillParticipation:
+			return KillParticipation;
+		case StatDisplaySettings.StatType.MMR:
+			if (!MMR.HasValue)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return new float?(this.TeamDamageAdjustedByMe / this.TotalTurns);
+				return null;
 			}
-			return null;
-		case StatDisplaySettings.StatType.TeamExtraEnergyByEnergizedFromMe:
-			if (this.TotalTurns > 0f)
+			if (!(MMR.Value <= 0f))
 			{
-				return new float?(this.TeamExtraEnergyByEnergizedFromMe / this.TotalTurns);
+				if (MMR.Value != 1500f)
+				{
+					return MMR;
+				}
 			}
 			return null;
 		case StatDisplaySettings.StatType.MovementDenied:
-			if (this.TotalTurns > 0f)
+			if (TotalTurns > 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return MovementDenied / TotalTurns;
 					}
-					break;
 				}
-				return new float?(this.MovementDenied / this.TotalTurns);
 			}
 			return null;
-		case StatDisplaySettings.StatType.DamageTakenPerLife:
-			return this.DamageTakenPerLife;
-		case StatDisplaySettings.StatType.IncomingDamageDodgeByEvade:
-			return new float?(this.IncomingDamageDodgeByEvade / (this.TotalDeaths + 1f));
-		case StatDisplaySettings.StatType.IncomingDamageReducedByCover:
-			return new float?(this.IncomingDamageReducedByCover / (this.TotalDeaths + 1f));
-		case StatDisplaySettings.StatType.EnemiesSightedPerLife:
-			return new float?(this.EnemiesSightedPerTurn);
-		case StatDisplaySettings.StatType.TotalTurns:
-			return new float?(this.TotalTurns);
-		case StatDisplaySettings.StatType.TotalTeamDamageReceived:
-			return new float?(this.TotalTeamDamageReceived);
-		case StatDisplaySettings.StatType.TankingPerLife:
-			return this.TankingPerLife;
-		case StatDisplaySettings.StatType.TeamMitigation:
-			return this.TeamMitigation;
+		case StatDisplaySettings.StatType.NetBoostedOutgoingDamage:
+			if (TotalTurns > 0f)
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						break;
+					default:
+						return NetBoostedOutgoingDamage / TotalTurns;
+					}
+				}
+			}
+			return null;
 		case StatDisplaySettings.StatType.SupportPerTurn:
-			return this.SupportPerTurn;
-		case StatDisplaySettings.StatType.DamageDonePerLife:
-			return this.DamageDonePerLife;
-		case StatDisplaySettings.StatType.DamageTakenPerTurn:
-			return this.DamageTakenPerTurn;
-		case StatDisplaySettings.StatType.MMR:
-			if (this.MMR == null)
+			return SupportPerTurn;
+		case StatDisplaySettings.StatType.TankingPerLife:
+			return TankingPerLife;
+		case StatDisplaySettings.StatType.TeamDamageAdjustedByMe:
+			if (TotalTurns > 0f)
 			{
-				return null;
-			}
-			if (this.MMR.Value > 0f)
-			{
-				for (;;)
+				while (true)
 				{
-					switch (7)
+					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return TeamDamageAdjustedByMe / TotalTurns;
 					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MatchFreelancerStats.GetStat(StatDisplaySettings.StatType)).MethodHandle;
-				}
-				if (this.MMR.Value != 1500f)
-				{
-					return this.MMR;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return null;
-		case StatDisplaySettings.StatType.AvgLifeSpan:
-			return new float?(this.TotalTurns / (this.TotalDeaths + 1f));
+		case StatDisplaySettings.StatType.TeamExtraEnergyByEnergizedFromMe:
+			if (TotalTurns > 0f)
+			{
+				return TeamExtraEnergyByEnergizedFromMe / TotalTurns;
+			}
+			return null;
+		case StatDisplaySettings.StatType.TeamMitigation:
+			return TeamMitigation;
+		case StatDisplaySettings.StatType.TotalAssists:
+			return TotalAssists;
+		case StatDisplaySettings.StatType.TotalBadgePoints:
+			return TotalBadgePoints;
+		case StatDisplaySettings.StatType.TotalDeaths:
+			return TotalDeaths;
+		case StatDisplaySettings.StatType.TotalTeamDamageReceived:
+			return TotalTeamDamageReceived;
+		case StatDisplaySettings.StatType.TotalTurns:
+			return TotalTurns;
 		default:
 			return null;
 		}
@@ -200,26 +298,15 @@ public class MatchFreelancerStats : ICloneable, StatDisplaySettings.IPersistated
 
 	public float? GetFreelancerStat(int FreelancerStatIndex)
 	{
-		if (FreelancerStatIndex == 0)
+		switch (FreelancerStatIndex)
 		{
-			int? freelancer = this.Freelancer0;
+		case 0:
+		{
+			int? freelancer3 = Freelancer0;
 			float? result;
-			if (freelancer != null)
+			if (freelancer3.HasValue)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MatchFreelancerStats.GetFreelancerStat(int)).MethodHandle;
-				}
-				result = new float?((float)freelancer.Value);
+				result = freelancer3.Value;
 			}
 			else
 			{
@@ -227,57 +314,39 @@ public class MatchFreelancerStats : ICloneable, StatDisplaySettings.IPersistated
 			}
 			return result;
 		}
-		if (FreelancerStatIndex == 1)
+		case 1:
 		{
-			int? freelancer2 = this.Freelancer1;
-			return (freelancer2 == null) ? null : new float?((float)freelancer2.Value);
+			int? freelancer2 = Freelancer1;
+			return (!freelancer2.HasValue) ? null : new float?(freelancer2.Value);
 		}
-		if (FreelancerStatIndex == 2)
-		{
-			for (;;)
+		case 2:
+			while (true)
 			{
-				switch (6)
+				int? freelancer4 = Freelancer2;
+				float? result2;
+				if (freelancer4.HasValue)
 				{
-				case 0:
-					continue;
+					result2 = freelancer4.Value;
 				}
-				break;
-			}
-			int? freelancer3 = this.Freelancer2;
-			float? result2;
-			if (freelancer3 != null)
-			{
-				for (;;)
+				else
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					result2 = null;
 				}
-				result2 = new float?((float)freelancer3.Value);
+				return result2;
 			}
-			else
-			{
-				result2 = null;
-			}
-			return result2;
-		}
-		if (FreelancerStatIndex == 3)
+		case 3:
 		{
-			int? freelancer4 = this.Freelancer3;
-			return (freelancer4 == null) ? null : new float?((float)freelancer4.Value);
+			int? freelancer = Freelancer3;
+			return (!freelancer.HasValue) ? null : new float?(freelancer.Value);
 		}
-		Log.Error("Unknown freelancer stat index: {0}", new object[]
-		{
-			FreelancerStatIndex
-		});
-		return null;
+		default:
+			Log.Error("Unknown freelancer stat index: {0}", FreelancerStatIndex);
+			return null;
+		}
 	}
 
 	public object Clone()
 	{
-		return base.MemberwiseClone();
+		return MemberwiseClone();
 	}
 }

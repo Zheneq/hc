@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LobbyGameClientProxyInfo : ICloneable
@@ -15,28 +15,28 @@ public class LobbyGameClientProxyInfo : ICloneable
 
 	public bool IsHigherPriorityThan(LobbyGameClientProxyInfo other)
 	{
-		if (this.AssignmentTime > other.AssignmentTime)
+		if (AssignmentTime > other.AssignmentTime)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientProxyInfo.IsHigherPriorityThan(LobbyGameClientProxyInfo)).MethodHandle;
-			}
-			return true;
 		}
-		return this.AssignmentTime >= other.AssignmentTime && this.AccountId < other.AccountId;
+		if (AssignmentTime < other.AssignmentTime)
+		{
+			return false;
+		}
+		return AccountId < other.AccountId;
 	}
 
 	public object Clone()
 	{
-		return base.MemberwiseClone();
+		return MemberwiseClone();
 	}
 }

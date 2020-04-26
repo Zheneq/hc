@@ -1,315 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class FreelancerStats : NetworkBehaviour
 {
-	[Header("-- Whether to skip for localization for stat descriptions --")]
-	public bool m_ignoreForLocalization;
-
-	public List<string> m_name;
-
-	public List<string> m_descriptions;
-
-	private SyncListInt m_values = new SyncListInt();
-
-	private string m_freelancerTypeStr = "[unset]";
-
-	private static int kListm_values = 0x52B8632;
-
-	static FreelancerStats()
-	{
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(FreelancerStats), FreelancerStats.kListm_values, new NetworkBehaviour.CmdDelegate(FreelancerStats.InvokeSyncListm_values));
-		NetworkCRC.RegisterBehaviour("FreelancerStats", 0);
-	}
-
-	private void Start()
-	{
-		ActorData component = base.GetComponent<ActorData>();
-		if (component != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.Start()).MethodHandle;
-			}
-			this.m_freelancerTypeStr = component.m_characterType.ToString();
-		}
-	}
-
-	public override void OnStartServer()
-	{
-		while (this.m_values.Count < 4)
-		{
-			this.m_values.Add(0);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.OnStartServer()).MethodHandle;
-		}
-	}
-
-	public virtual string GetDisplayNameOfStat(int statIndex)
-	{
-		if (statIndex >= 0)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.GetDisplayNameOfStat(int)).MethodHandle;
-			}
-			if (statIndex < this.m_name.Count)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return StringUtil.TR_FreelancerStatName(this.m_freelancerTypeStr, statIndex);
-			}
-		}
-		Log.Warning(string.Format("Calling GetDisplayNameOfStat of freelancer {0} for stat index {1}, but the index is out-of-bounds.", this.m_freelancerTypeStr, statIndex), new object[0]);
-		return string.Empty;
-	}
-
-	public virtual string GetDisplayNameOfStat(Enum statEnum)
-	{
-		return this.GetDisplayNameOfStat(Convert.ToInt32(statEnum));
-	}
-
-	public virtual string GetLocalizedDescriptionOfStat(int statIndex)
-	{
-		if (statIndex >= 0)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.GetLocalizedDescriptionOfStat(int)).MethodHandle;
-			}
-			if (statIndex < this.m_descriptions.Count)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return StringUtil.TR_FreelancerStatDescription(this.m_freelancerTypeStr, statIndex);
-			}
-		}
-		Log.Warning(string.Format("Calling GetLocalizedDescriptionOfStat of freelancer {0} for stat index {1}, but the index is out-of-bounds.", this.m_freelancerTypeStr, statIndex), new object[0]);
-		return string.Empty;
-	}
-
-	public virtual string GetLocalizedDescriptionOfStat(Enum statEnum)
-	{
-		return this.GetLocalizedDescriptionOfStat(Convert.ToInt32(statEnum));
-	}
-
-	public virtual int GetValueOfStat(int statIndex)
-	{
-		if (statIndex >= 0)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.GetValueOfStat(int)).MethodHandle;
-			}
-			if (statIndex < this.m_values.Count)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return this.m_values[statIndex];
-			}
-		}
-		Debug.LogError(string.Format("Calling GetValueOfStat for stat index {0}, but the index is out-of-bounds.", statIndex));
-		return 0;
-	}
-
-	public virtual int GetValueOfStat(Enum statEnum)
-	{
-		return this.GetValueOfStat(Convert.ToInt32(statEnum));
-	}
-
-	public virtual int GetNumStats()
-	{
-		if (this.m_values == null)
-		{
-			return 0;
-		}
-		return this.m_values.Count;
-	}
-
-	private void UNetVersion()
-	{
-	}
-
-	protected static void InvokeSyncListm_values(NetworkBehaviour obj, NetworkReader reader)
-	{
-		if (!NetworkClient.active)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.InvokeSyncListm_values(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("SyncList m_values called on server.");
-			return;
-		}
-		((FreelancerStats)obj).m_values.HandleMsg(reader);
-	}
-
-	private void Awake()
-	{
-		this.m_values.InitializeBehaviour(this, FreelancerStats.kListm_values);
-	}
-
-	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
-	{
-		if (forceAll)
-		{
-			SyncListInt.WriteInstance(writer, this.m_values);
-			return true;
-		}
-		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
-			if (!flag)
-			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
-				flag = true;
-			}
-			SyncListInt.WriteInstance(writer, this.m_values);
-		}
-		if (!flag)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
-		}
-		return flag;
-	}
-
-	public override void OnDeserialize(NetworkReader reader, bool initialState)
-	{
-		if (initialState)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
-			SyncListInt.ReadReference(reader, this.m_values);
-			return;
-		}
-		int num = (int)reader.ReadPackedUInt32();
-		if ((num & 1) != 0)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			SyncListInt.ReadReference(reader, this.m_values);
-		}
-	}
-
 	public enum GeneralStats
 	{
 		STAT0,
@@ -581,5 +276,221 @@ public class FreelancerStats : NetworkBehaviour
 		DamageDoneByThrowShieldAndKnockback,
 		DamageMitigatedFromWeakenedAndDodgedDashAoe,
 		NumKnockbackTargetsWithUlt
+	}
+
+	[Header("-- Whether to skip for localization for stat descriptions --")]
+	public bool m_ignoreForLocalization;
+
+	public List<string> m_name;
+
+	public List<string> m_descriptions;
+
+	private SyncListInt m_values = new SyncListInt();
+
+	private string m_freelancerTypeStr = "[unset]";
+
+	private static int kListm_values;
+
+	static FreelancerStats()
+	{
+		kListm_values = 86738482;
+		NetworkBehaviour.RegisterSyncListDelegate(typeof(FreelancerStats), kListm_values, InvokeSyncListm_values);
+		NetworkCRC.RegisterBehaviour("FreelancerStats", 0);
+	}
+
+	private void Start()
+	{
+		ActorData component = GetComponent<ActorData>();
+		if (!(component != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			m_freelancerTypeStr = component.m_characterType.ToString();
+			return;
+		}
+	}
+
+	public override void OnStartServer()
+	{
+		while (m_values.Count < 4)
+		{
+			m_values.Add(0);
+		}
+		while (true)
+		{
+			return;
+		}
+	}
+
+	public virtual string GetDisplayNameOfStat(int statIndex)
+	{
+		if (statIndex >= 0)
+		{
+			if (statIndex < m_name.Count)
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						break;
+					default:
+						return StringUtil.TR_FreelancerStatName(m_freelancerTypeStr, statIndex);
+					}
+				}
+			}
+		}
+		Log.Warning($"Calling GetDisplayNameOfStat of freelancer {m_freelancerTypeStr} for stat index {statIndex}, but the index is out-of-bounds.");
+		return string.Empty;
+	}
+
+	public virtual string GetDisplayNameOfStat(Enum statEnum)
+	{
+		return GetDisplayNameOfStat(Convert.ToInt32(statEnum));
+	}
+
+	public virtual string GetLocalizedDescriptionOfStat(int statIndex)
+	{
+		if (statIndex >= 0)
+		{
+			if (statIndex < m_descriptions.Count)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						return StringUtil.TR_FreelancerStatDescription(m_freelancerTypeStr, statIndex);
+					}
+				}
+			}
+		}
+		Log.Warning($"Calling GetLocalizedDescriptionOfStat of freelancer {m_freelancerTypeStr} for stat index {statIndex}, but the index is out-of-bounds.");
+		return string.Empty;
+	}
+
+	public virtual string GetLocalizedDescriptionOfStat(Enum statEnum)
+	{
+		return GetLocalizedDescriptionOfStat(Convert.ToInt32(statEnum));
+	}
+
+	public virtual int GetValueOfStat(int statIndex)
+	{
+		if (statIndex >= 0)
+		{
+			if (statIndex < m_values.Count)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						return m_values[statIndex];
+					}
+				}
+			}
+		}
+		Debug.LogError($"Calling GetValueOfStat for stat index {statIndex}, but the index is out-of-bounds.");
+		return 0;
+	}
+
+	public virtual int GetValueOfStat(Enum statEnum)
+	{
+		return GetValueOfStat(Convert.ToInt32(statEnum));
+	}
+
+	public virtual int GetNumStats()
+	{
+		if (m_values == null)
+		{
+			return 0;
+		}
+		return m_values.Count;
+	}
+
+	private void UNetVersion()
+	{
+	}
+
+	protected static void InvokeSyncListm_values(NetworkBehaviour obj, NetworkReader reader)
+	{
+		if (!NetworkClient.active)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					break;
+				default:
+					Debug.LogError("SyncList m_values called on server.");
+					return;
+				}
+			}
+		}
+		((FreelancerStats)obj).m_values.HandleMsg(reader);
+	}
+
+	private void Awake()
+	{
+		m_values.InitializeBehaviour(this, kListm_values);
+	}
+
+	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
+	{
+		if (forceAll)
+		{
+			SyncListInt.WriteInstance(writer, m_values);
+			return true;
+		}
+		bool flag = false;
+		if ((base.syncVarDirtyBits & 1) != 0)
+		{
+			if (!flag)
+			{
+				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				flag = true;
+			}
+			SyncListInt.WriteInstance(writer, m_values);
+		}
+		if (!flag)
+		{
+			writer.WritePackedUInt32(base.syncVarDirtyBits);
+		}
+		return flag;
+	}
+
+	public override void OnDeserialize(NetworkReader reader, bool initialState)
+	{
+		if (initialState)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					break;
+				default:
+					SyncListInt.ReadReference(reader, m_values);
+					return;
+				}
+			}
+		}
+		int num = (int)reader.ReadPackedUInt32();
+		if ((num & 1) == 0)
+		{
+			return;
+		}
+		while (true)
+		{
+			SyncListInt.ReadReference(reader, m_values);
+			return;
+		}
 	}
 }

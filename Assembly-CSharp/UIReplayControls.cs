@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,46 +13,33 @@ public class UIReplayControls : MonoBehaviour
 
 	private void Start()
 	{
-		this.m_playBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PlayClicked);
-		this.m_pauseBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PauseClicked);
-		this.m_rewindBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.RewindClicked);
-		this.m_fastForwardBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.FFClicked);
-		UIManager.SetGameObjectActive(this.m_playBtn, false, null);
+		m_playBtn.spriteController.callback = PlayClicked;
+		m_pauseBtn.spriteController.callback = PauseClicked;
+		m_rewindBtn.spriteController.callback = RewindClicked;
+		m_fastForwardBtn.spriteController.callback = FFClicked;
+		UIManager.SetGameObjectActive(m_playBtn, false);
 		if (ReplayPlayManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIReplayControls.Start()).MethodHandle;
-			}
 			if (ReplayPlayManager.Get().IsPlayback())
 			{
-				UIManager.SetGameObjectActive(base.gameObject, true, null);
+				UIManager.SetGameObjectActive(base.gameObject, true);
 				return;
 			}
 		}
-		UIManager.SetGameObjectActive(base.gameObject, false, null);
+		UIManager.SetGameObjectActive(base.gameObject, false);
 	}
 
 	private void PlayClicked(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_playBtn, false, null);
-		UIManager.SetGameObjectActive(this.m_pauseBtn, true, null);
+		UIManager.SetGameObjectActive(m_playBtn, false);
+		UIManager.SetGameObjectActive(m_pauseBtn, true);
 		ReplayPlayManager.Get().Resume();
 	}
 
 	private void PauseClicked(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_playBtn, true, null);
-		UIManager.SetGameObjectActive(this.m_pauseBtn, false, null);
+		UIManager.SetGameObjectActive(m_playBtn, true);
+		UIManager.SetGameObjectActive(m_pauseBtn, false);
 		ReplayPlayManager.Get().Pause();
 	}
 
@@ -77,6 +63,6 @@ public class UIReplayControls : MonoBehaviour
 
 	private void Update()
 	{
-		this.m_fastForwardBtn.SetDisabled(ReplayPlayManager.Get().IsFastForward());
+		m_fastForwardBtn.SetDisabled(ReplayPlayManager.Get().IsFastForward());
 	}
 }

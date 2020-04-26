@@ -1,27 +1,25 @@
-﻿using System;
-
 namespace AbilityContextNamespace
 {
 	public class ContextNameKeyPair
 	{
-		private string \u001D;
+		private string name;
 
-		private int \u000E;
+		private int hash;
 
-		public ContextNameKeyPair(string \u001D)
+		public ContextNameKeyPair(string name)
 		{
-			this.\u001D = \u001D;
-			this.\u000E = ContextVars.\u0015(\u001D);
+			this.name = name;
+			hash = ContextVars.GetHash(name);
 		}
 
-		public int \u0012()
+		public int GetHash()
 		{
-			return this.\u000E;
+			return hash;
 		}
 
-		public string \u0012()
+		public string GetName()
 		{
-			return this.\u001D;
+			return name;
 		}
 	}
 }

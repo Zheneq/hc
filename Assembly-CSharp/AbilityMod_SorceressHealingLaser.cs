@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,226 +35,126 @@ public class AbilityMod_SorceressHealingLaser : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SorceressHealingLaser sorceressHealingLaser = targetAbility as SorceressHealingLaser;
-		if (sorceressHealingLaser != null)
+		if (!(sorceressHealingLaser != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SorceressHealingLaser.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_damageMod, "DamageAmount", string.Empty, sorceressHealingLaser.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_minDamageMod, "MinDamageAmount", string.Empty, sorceressHealingLaser.m_minDamageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageChangePerHitMod, "DamageChangePerHit", string.Empty, sorceressHealingLaser.m_damageChangePerHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_selfHealMod, "SelfHealAmount", string.Empty, sorceressHealingLaser.m_selfHealAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_allyHealMod, "AllyHealAmount", string.Empty, sorceressHealingLaser.m_allyHealAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_minHealMod, "MinHealAmount", string.Empty, sorceressHealingLaser.m_minHealAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_healChangePerHitMod, "HealChangePerHit", string.Empty, sorceressHealingLaser.m_healChangePerHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_allyTechPointGain, "AllyTechPointGain", string.Empty, 0, true, false);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, sorceressHealingLaser.m_damageAmount);
+			AbilityMod.AddToken(tokens, m_minDamageMod, "MinDamageAmount", string.Empty, sorceressHealingLaser.m_minDamageAmount);
+			AbilityMod.AddToken(tokens, m_damageChangePerHitMod, "DamageChangePerHit", string.Empty, sorceressHealingLaser.m_damageChangePerHit);
+			AbilityMod.AddToken(tokens, m_selfHealMod, "SelfHealAmount", string.Empty, sorceressHealingLaser.m_selfHealAmount);
+			AbilityMod.AddToken(tokens, m_allyHealMod, "AllyHealAmount", string.Empty, sorceressHealingLaser.m_allyHealAmount);
+			AbilityMod.AddToken(tokens, m_minHealMod, "MinHealAmount", string.Empty, sorceressHealingLaser.m_minHealAmount);
+			AbilityMod.AddToken(tokens, m_healChangePerHitMod, "HealChangePerHit", string.Empty, sorceressHealingLaser.m_healChangePerHit);
+			AbilityMod.AddToken(tokens, m_allyTechPointGain, "AllyTechPointGain", string.Empty, 0);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SorceressHealingLaser sorceressHealingLaser = base.GetTargetAbilityOnAbilityData(abilityData) as SorceressHealingLaser;
+		SorceressHealingLaser sorceressHealingLaser = GetTargetAbilityOnAbilityData(abilityData) as SorceressHealingLaser;
 		bool flag = sorceressHealingLaser != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt selfHealMod = this.m_selfHealMod;
-		string prefix = "[Self Heal]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt selfHealMod = m_selfHealMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SorceressHealingLaser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = sorceressHealingLaser.m_selfHealAmount;
 		}
 		else
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(selfHealMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt allyHealMod = this.m_allyHealMod;
-		string prefix2 = "[Ally Heal]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(selfHealMod, "[Self Heal]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt allyHealMod = m_allyHealMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sorceressHealingLaser.m_allyHealAmount;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(allyHealMod, prefix2, showBaseVal2, baseVal2);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_minHealMod, "[Min Heal]", flag, (!flag) ? 0 : sorceressHealingLaser.m_minHealAmount);
-		string str3 = text;
-		AbilityModPropertyInt healChangePerHitMod = this.m_healChangePerHitMod;
-		string prefix3 = "[Heal Change Per Hit]";
-		bool showBaseVal3 = flag;
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(allyHealMod, "[Ally Heal]", flag, baseVal2);
+		empty += AbilityModHelper.GetModPropertyDesc(m_minHealMod, "[Min Heal]", flag, flag ? sorceressHealingLaser.m_minHealAmount : 0);
+		string str3 = empty;
+		AbilityModPropertyInt healChangePerHitMod = m_healChangePerHitMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sorceressHealingLaser.m_healChangePerHit;
 		}
 		else
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + AbilityModHelper.GetModPropertyDesc(healChangePerHitMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_allyTechPointGain, "[Ally Tech Point Gain]", flag, 0);
-		string str4 = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix4 = "[Damage]";
-		bool showBaseVal4 = flag;
+		empty = str3 + AbilityModHelper.GetModPropertyDesc(healChangePerHitMod, "[Heal Change Per Hit]", flag, baseVal3);
+		empty += PropDesc(m_allyTechPointGain, "[Ally Tech Point Gain]", flag);
+		string str4 = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sorceressHealingLaser.m_damageAmount;
 		}
 		else
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + AbilityModHelper.GetModPropertyDesc(damageMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt minDamageMod = this.m_minDamageMod;
-		string prefix5 = "[Min Damage]";
-		bool showBaseVal5 = flag;
+		empty = str4 + AbilityModHelper.GetModPropertyDesc(damageMod, "[Damage]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyInt minDamageMod = m_minDamageMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = sorceressHealingLaser.m_minDamageAmount;
 		}
 		else
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + AbilityModHelper.GetModPropertyDesc(minDamageMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt damageChangePerHitMod = this.m_damageChangePerHitMod;
-		string prefix6 = "[Damage Change Per Hit]";
-		bool showBaseVal6 = flag;
+		empty = str5 + AbilityModHelper.GetModPropertyDesc(minDamageMod, "[Min Damage]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt damageChangePerHitMod = m_damageChangePerHitMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = sorceressHealingLaser.m_damageChangePerHit;
 		}
 		else
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + AbilityModHelper.GetModPropertyDesc(damageChangePerHitMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyFloat laserWidthMod = this.m_laserWidthMod;
-		string prefix7 = "[Laser Width]";
-		bool showBaseVal7 = flag;
+		empty = str6 + AbilityModHelper.GetModPropertyDesc(damageChangePerHitMod, "[Damage Change Per Hit]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyFloat laserWidthMod = m_laserWidthMod;
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = sorceressHealingLaser.m_width;
 		}
 		else
 		{
 			baseVal7 = 0f;
 		}
-		text = str7 + AbilityModHelper.GetModPropertyDesc(laserWidthMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyFloat laserRangeMod = this.m_laserRangeMod;
-		string prefix8 = "[Laser Range]";
-		bool showBaseVal8 = flag;
+		empty = str7 + AbilityModHelper.GetModPropertyDesc(laserWidthMod, "[Laser Width]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyFloat laserRangeMod = m_laserRangeMod;
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = sorceressHealingLaser.m_distance;
 		}
 		else
 		{
 			baseVal8 = 0f;
 		}
-		return str8 + AbilityModHelper.GetModPropertyDesc(laserRangeMod, prefix8, showBaseVal8, baseVal8);
+		return str8 + AbilityModHelper.GetModPropertyDesc(laserRangeMod, "[Laser Range]", flag, baseVal8);
 	}
 }

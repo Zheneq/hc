@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LoreArticle
@@ -17,11 +17,11 @@ public class LoreArticle
 
 	public string GetTitle()
 	{
-		return StringUtil.TR_LoreTitle(this.Index);
+		return StringUtil.TR_LoreTitle(Index);
 	}
 
 	public string GetArticleText()
 	{
-		return StringUtil.TR_LoreArticleText(this.Index);
+		return StringUtil.TR_LoreArticleText(Index);
 	}
 }

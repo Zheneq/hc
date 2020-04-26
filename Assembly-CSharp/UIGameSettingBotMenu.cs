@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -15,29 +14,29 @@ public class UIGameSettingBotMenu : UITooltipBase
 
 	public void Awake()
 	{
-		for (int i = 0; i < this.m_botSelection.Length; i++)
+		for (int i = 0; i < m_botSelection.Length; i++)
 		{
-			UIEventTriggerUtils.AddListener(this.m_botSelection[i].gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.BotMenuItemClicked));
-			UIEventTriggerUtils.AddListener(this.m_botSelection[i].gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.BotMenuItemEnter));
-			UIEventTriggerUtils.AddListener(this.m_botSelection[i].gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.BotMenuItemExit));
+			UIEventTriggerUtils.AddListener(m_botSelection[i].gameObject, EventTriggerType.PointerClick, BotMenuItemClicked);
+			UIEventTriggerUtils.AddListener(m_botSelection[i].gameObject, EventTriggerType.PointerEnter, BotMenuItemEnter);
+			UIEventTriggerUtils.AddListener(m_botSelection[i].gameObject, EventTriggerType.PointerExit, BotMenuItemExit);
 		}
 	}
 
 	public void Setup(UITeamMemberEntry entry, Image button)
 	{
-		this.m_teamMemberEntry = entry;
-		if (this.m_playerList == null)
+		m_teamMemberEntry = entry;
+		if (m_playerList == null)
 		{
-			this.m_playerList = new List<LobbyPlayerInfo>();
+			m_playerList = new List<LobbyPlayerInfo>();
 		}
-		this.m_playerList.Clear();
+		m_playerList.Clear();
 		int num = 0;
 		int num2 = 0;
 		if (entry.m_playerInfo.IsRemoteControlled)
 		{
 			num2 = entry.m_playerInfo.ControllingPlayerId;
-			this.m_playerList.Add(null);
-			this.m_botSelection[0].text = StringUtil.TR("Bot", "Global");
+			m_playerList.Add(null);
+			m_botSelection[0].text = StringUtil.TR("Bot", "Global");
 			num = 1;
 		}
 		GameManager gameManager = GameManager.Get();
@@ -45,155 +44,102 @@ public class UIGameSettingBotMenu : UITooltipBase
 		{
 			while (enumerator.MoveNext())
 			{
-				LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-				if (!lobbyPlayerInfo.IsNPCBot)
+				LobbyPlayerInfo current = enumerator.Current;
+				if (!current.IsNPCBot)
 				{
-					for (;;)
+					if (!current.IsRemoteControlled && num2 != current.PlayerId)
 					{
-						switch (5)
+						if (!current.IsSpectator)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingBotMenu.Setup(UITeamMemberEntry, Image)).MethodHandle;
-					}
-					if (!lobbyPlayerInfo.IsRemoteControlled && num2 != lobbyPlayerInfo.PlayerId)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!lobbyPlayerInfo.IsSpectator)
-						{
-							this.m_playerList.Add(lobbyPlayerInfo);
-							this.m_botSelection[num].text = lobbyPlayerInfo.GetHandle();
-							UIManager.SetGameObjectActive(this.m_botSelection[num], true, null);
+							m_playerList.Add(current);
+							m_botSelection[num].text = current.GetHandle();
+							UIManager.SetGameObjectActive(m_botSelection[num], true);
 							num++;
 						}
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		for (int i = num; i < this.m_botSelection.Length; i++)
+		for (int i = num; i < m_botSelection.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_botSelection[i], false, null);
+			UIManager.SetGameObjectActive(m_botSelection[i], false);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void BotMenuItemEnter(BaseEventData data)
 	{
-		for (int i = 0; i < this.m_botSelection.Length; i++)
+		int num = 0;
+		while (true)
 		{
-			if (this.m_botSelection[i].gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
+			if (num < m_botSelection.Length)
 			{
-				this.m_botSelection[i].color = Color.white;
+				if (m_botSelection[num].gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
+				{
+					break;
+				}
+				num++;
+				continue;
+			}
+			return;
+		}
+		m_botSelection[num].color = Color.white;
+	}
+
+	private void BotMenuItemExit(BaseEventData data)
+	{
+		ClearButtonSelections((data as PointerEventData).pointerCurrentRaycast.gameObject);
+	}
+
+	private void ClearButtonSelections(GameObject gObj)
+	{
+		for (int i = 0; i < m_botSelection.Length; i++)
+		{
+			if (m_botSelection[i].gameObject != gObj)
+			{
+				m_botSelection[i].color = Color.grey;
+			}
+		}
+		while (true)
+		{
+			switch (6)
+			{
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
 	}
 
-	private void BotMenuItemExit(BaseEventData data)
-	{
-		this.ClearButtonSelections((data as PointerEventData).pointerCurrentRaycast.gameObject);
-	}
-
-	private void ClearButtonSelections(GameObject gObj)
-	{
-		for (int i = 0; i < this.m_botSelection.Length; i++)
-		{
-			if (this.m_botSelection[i].gameObject != gObj)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingBotMenu.ClearButtonSelections(GameObject)).MethodHandle;
-				}
-				this.m_botSelection[i].color = Color.grey;
-			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-	}
-
 	private void BotMenuItemClicked(BaseEventData data)
 	{
-		for (int i = 0; i < this.m_botSelection.Length; i++)
+		for (int i = 0; i < m_botSelection.Length; i++)
 		{
-			if (this.m_botSelection[i].gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
+			if (m_botSelection[i].gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingBotMenu.BotMenuItemClicked(BaseEventData)).MethodHandle;
-				}
-				this.m_teamMemberEntry.SetControllingPlayerInfo(this.m_playerList[i]);
+				m_teamMemberEntry.SetControllingPlayerInfo(m_playerList[i]);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			SetVisible(false);
+			return;
 		}
-		base.SetVisible(false);
 	}
 
 	private void OnDisable()
 	{
-		this.ClearButtonSelections(null);
-		this.m_teamMemberEntry.ClearSelection(null);
+		ClearButtonSelections(null);
+		m_teamMemberEntry.ClearSelection(null);
 	}
 }

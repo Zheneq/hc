@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,11 +11,11 @@ public class ClericGiantAoE : Ability
 	public int m_maxTargets = -1;
 
 	[Header("-- On Hit Damage/Heal/Effect")]
-	public int m_damageAmount = 0x1E;
+	public int m_damageAmount = 30;
 
 	public float m_damageDecreasePerSquare = 2f;
 
-	public int m_healAmount = 0x1E;
+	public int m_healAmount = 30;
 
 	public float m_healDecreasePerSquare = 2f;
 
@@ -33,96 +32,70 @@ public class ClericGiantAoE : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericGiantAoE.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Giant AoE";
+			m_abilityName = "Giant AoE";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, this.GetAoeRadius(), this.PenetrateLoS(), true, true, this.GetMaxTargets());
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, GetAoeRadius(), PenetrateLoS(), true, true, GetMaxTargets());
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedEnemyHitEffect = this.m_enemyHitEffect;
-		this.m_cachedAllyHitEffect = this.m_allyHitEffect;
+		m_cachedEnemyHitEffect = m_enemyHitEffect;
+		m_cachedAllyHitEffect = m_allyHitEffect;
 	}
 
 	public float GetAoeRadius()
 	{
-		return this.m_aoeRadius;
+		return m_aoeRadius;
 	}
 
 	public bool PenetrateLoS()
 	{
-		return this.m_penetrateLoS;
+		return m_penetrateLoS;
 	}
 
 	public int GetMaxTargets()
 	{
-		return this.m_maxTargets;
+		return m_maxTargets;
 	}
 
 	public int GetDamageAmount()
 	{
-		return this.m_damageAmount;
+		return m_damageAmount;
 	}
 
 	public float GetDamageDecreasePerSquare()
 	{
-		return this.m_damageDecreasePerSquare;
+		return m_damageDecreasePerSquare;
 	}
 
 	public int GetHealAmount()
 	{
-		return this.m_healAmount;
+		return m_healAmount;
 	}
 
 	public float GetHealDecreasePerSquare()
 	{
-		return this.m_healDecreasePerSquare;
+		return m_healDecreasePerSquare;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffect != null)
+		if (m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericGiantAoE.GetEnemyHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedEnemyHitEffect;
+			result = m_cachedEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyHitEffect;
+			result = m_enemyHitEffect;
 		}
 		return result;
 	}
@@ -130,55 +103,41 @@ public class ClericGiantAoE : Ability
 	public StandardEffectInfo GetAllyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllyHitEffect != null)
+		if (m_cachedAllyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericGiantAoE.GetAllyHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedAllyHitEffect;
+			result = m_cachedAllyHitEffect;
 		}
 		else
 		{
-			result = this.m_allyHitEffect;
+			result = m_allyHitEffect;
 		}
 		return result;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "MaxTargets", string.Empty, this.m_maxTargets, false);
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, this.m_damageAmount, false);
-		base.AddTokenInt(tokens, "HealAmount", string.Empty, this.m_healAmount, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffect, "EnemyHitEffect", this.m_enemyHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_allyHitEffect, "AllyHitEffect", this.m_allyHitEffect, true);
+		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, m_damageAmount);
+		AddTokenInt(tokens, "HealAmount", string.Empty, m_healAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_allyHitEffect, "AllyHitEffect", m_allyHitEffect);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.m_damageAmount),
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, this.m_healAmount)
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damageAmount));
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, m_healAmount));
+		return list;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		int num = Mathf.RoundToInt((targetActor.\u0015() - base.ActorData.\u0015()).magnitude / Board.\u000E().squareSize);
+		int num = Mathf.RoundToInt((targetActor.GetTravelBoardSquareWorldPositionForLos() - base.ActorData.GetTravelBoardSquareWorldPositionForLos()).magnitude / Board.Get().squareSize);
 		num = Mathf.Max(0, num - 1);
-		int value = this.GetDamageAmount() - Mathf.RoundToInt((float)num * this.GetDamageDecreasePerSquare());
-		int value2 = this.GetHealAmount() - Mathf.RoundToInt((float)num * this.GetHealDecreasePerSquare());
+		int value = GetDamageAmount() - Mathf.RoundToInt((float)num * GetDamageDecreasePerSquare());
+		int value2 = GetHealAmount() - Mathf.RoundToInt((float)num * GetHealDecreasePerSquare());
 		dictionary[AbilityTooltipSymbol.Damage] = value;
 		dictionary[AbilityTooltipSymbol.Healing] = value2;
 		return dictionary;

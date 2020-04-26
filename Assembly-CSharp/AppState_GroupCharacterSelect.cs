@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AppState_GroupCharacterSelect : AppState
@@ -27,91 +27,44 @@ public class AppState_GroupCharacterSelect : AppState
 
 	public static AppState_GroupCharacterSelect Get()
 	{
-		return AppState_GroupCharacterSelect.s_instance;
+		return s_instance;
 	}
 
 	private bool IsSelfReady()
 	{
-		if (this.m_readyForSoloGame)
+		if (m_readyForSoloGame)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.IsSelfReady()).MethodHandle;
-			}
-			return true;
 		}
 		if (ClientGameManager.Get() != null && ClientGameManager.Get().GroupInfo != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < ClientGameManager.Get().GroupInfo.Members.Count; i++)
 			{
-				if (ClientGameManager.Get().GroupInfo.Members[i].AccountID == ClientGameManager.Get().GetPlayerAccountData().AccountId)
+				if (ClientGameManager.Get().GroupInfo.Members[i].AccountID != ClientGameManager.Get().GetPlayerAccountData().AccountId)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!ClientGameManager.Get().GroupInfo.Members[i].IsReady)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (ClientGameManager.Get().PlayerInfo != null)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (ClientGameManager.Get().PlayerInfo.IsSpectator)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									return true;
-								}
-							}
-						}
-						break;
-					}
-					return true;
+					continue;
 				}
+				if (!ClientGameManager.Get().GroupInfo.Members[i].IsReady)
+				{
+					if (ClientGameManager.Get().PlayerInfo == null)
+					{
+						break;
+					}
+					if (!ClientGameManager.Get().PlayerInfo.IsSpectator)
+					{
+						break;
+					}
+				}
+				return true;
 			}
 		}
 		return false;
@@ -126,7 +79,7 @@ public class AppState_GroupCharacterSelect : AppState
 	{
 		UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 		{
-			ClientRequestedGameType = new GameType?(gameType)
+			ClientRequestedGameType = gameType
 		});
 		ClientGameManager.Get().RequestLoadouts(AbilityMod.GetRequiredModStrictnessForGameSubType() == ModStrictness.Ranked);
 	}
@@ -138,80 +91,41 @@ public class AppState_GroupCharacterSelect : AppState
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager != null && clientGameManager.GameTypeAvailabilies != null)
 		{
-			for (;;)
+			foreach (KeyValuePair<GameType, GameTypeAvailability> gameTypeAvailabily in clientGameManager.GameTypeAvailabilies)
 			{
-				switch (2)
+				GameType key = gameTypeAvailabily.Key;
+				DateTime? paroleTimeout = gameTypeAvailabily.Value.ParoleTimeout;
+				if (paroleTimeout.HasValue)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.CheckForQueueParole()).MethodHandle;
-			}
-			foreach (KeyValuePair<GameType, GameTypeAvailability> keyValuePair in clientGameManager.GameTypeAvailabilies)
-			{
-				GameType key = keyValuePair.Key;
-				DateTime? paroleTimeout = keyValuePair.Value.ParoleTimeout;
-				if (paroleTimeout != null)
-				{
-					for (;;)
+					if (!m_paroleTimesWarned.ContainsKey(key))
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!AppState_GroupCharacterSelect.m_paroleTimesWarned.ContainsKey(key))
-					{
-						AppState_GroupCharacterSelect.m_paroleTimesWarned[key] = paroleTimeout.Value;
+						m_paroleTimesWarned[key] = paroleTimeout.Value;
 						localizationArg_TimeSpan = LocalizationArg_TimeSpan.Create(paroleTimeout.Value - DateTime.UtcNow);
 						localizationArg_GameType = LocalizationArg_GameType.Create(key);
 						break;
 					}
-					if (AppState_GroupCharacterSelect.m_paroleTimesWarned[key] != paroleTimeout.Value)
+					if (m_paroleTimesWarned[key] != paroleTimeout.Value)
 					{
-						AppState_GroupCharacterSelect.m_paroleTimesWarned[key] = paroleTimeout.Value;
+						m_paroleTimesWarned[key] = paroleTimeout.Value;
 						localizationArg_TimeSpan = LocalizationArg_TimeSpan.Create(paroleTimeout.Value - DateTime.UtcNow);
 						localizationArg_GameType = LocalizationArg_GameType.Create(key);
 						break;
 					}
 				}
-				else if (AppState_GroupCharacterSelect.m_paroleTimesWarned.ContainsKey(keyValuePair.Key))
+				else if (m_paroleTimesWarned.ContainsKey(gameTypeAvailabily.Key))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					AppState_GroupCharacterSelect.m_paroleTimesWarned.Remove(keyValuePair.Key);
+					m_paroleTimesWarned.Remove(gameTypeAvailabily.Key);
 				}
 			}
 		}
-		if (localizationArg_TimeSpan != null)
+		if (localizationArg_TimeSpan == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("RecentlyLeftGame", "Global"), LocalizationPayload.Create("RecentlyLeftGameDesc", "Global", new LocalizationArg[]
-			{
-				localizationArg_GameType,
-				localizationArg_TimeSpan
-			}).ToString(), StringUtil.TR("Ok", "Global"), null, -1, false);
+			return;
+		}
+		while (true)
+		{
+			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("RecentlyLeftGame", "Global"), LocalizationPayload.Create("RecentlyLeftGameDesc", "Global", localizationArg_GameType, localizationArg_TimeSpan).ToString(), StringUtil.TR("Ok", "Global"));
+			return;
 		}
 	}
 
@@ -223,76 +137,46 @@ public class AppState_GroupCharacterSelect : AppState
 
 	public void ReEnter(bool wasRequeued)
 	{
-		this.m_wasRequeued = wasRequeued;
-		this.Enter();
+		m_wasRequeued = wasRequeued;
+		Enter();
 	}
 
 	public bool InQueue()
 	{
-		if (!this.m_inQueue)
+		int result;
+		if (!m_inQueue)
 		{
-			for (;;)
+			if (!m_wasRequeued)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.InQueue()).MethodHandle;
-			}
-			if (!this.m_wasRequeued)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return this.m_pendingJoinQueueRequest;
+				result = (m_pendingJoinQueueRequest ? 1 : 0);
+				goto IL_0036;
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_0036;
+		IL_0036:
+		return (byte)result != 0;
 	}
 
 	public bool IsReady()
 	{
-		bool result;
-		if (!this.IsSelfReady())
+		int result;
+		if (!IsSelfReady())
 		{
-			if (this.m_inQueue)
+			if (m_inQueue)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.IsReady()).MethodHandle;
-				}
-				result = !this.m_pendingLeaveQueueRequest;
+				result = ((!m_pendingLeaveQueueRequest) ? 1 : 0);
 			}
 			else
 			{
-				result = false;
+				result = 0;
 			}
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public void CreateGame(GameType gameType, string mapName = null)
@@ -306,200 +190,114 @@ public class AppState_GroupCharacterSelect : AppState
 		{
 			if (gameType != GameType.Coop)
 			{
-				goto IL_6B;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.CreateGame(GameType, string)).MethodHandle;
+				goto IL_006b;
 			}
 		}
 		selectedBotSkillTeamA = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay;
 		selectedBotSkillTeamB = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay;
-		IL_6B:
+		goto IL_006b;
+		IL_006b:
 		ClientGameManager.Get().CreateGame(gameConfig, ReadyState.Ready, selectedBotSkillTeamA, selectedBotSkillTeamB, delegate(CreateGameResponse response)
 		{
 			if (!response.Success)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_GroupCharacterSelect.<CreateGame>c__AnonStorey0.<>m__0(CreateGameResponse)).MethodHandle;
-				}
-				string description;
-				if (response.LocalizedFailure != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					description = response.LocalizedFailure.ToString();
-				}
-				else if (!response.ErrorMessage.IsNullOrEmpty())
-				{
-					description = string.Format("{0}#NeedsLocalization", response.ErrorMessage);
-				}
-				else
-				{
-					description = StringUtil.TR("UnknownErrorTryAgain", "Frontend");
-				}
-				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"), null, -1, false);
-				if (gameConfig.GameType != GameType.Practice)
-				{
-					for (;;)
+					default:
 					{
-						switch (6)
+						string description;
+						if (response.LocalizedFailure == null)
 						{
-						case 0:
-							continue;
+							description = (response.ErrorMessage.IsNullOrEmpty() ? StringUtil.TR("UnknownErrorTryAgain", "Frontend") : $"{response.ErrorMessage}#NeedsLocalization");
 						}
-						break;
+						else
+						{
+							description = response.LocalizedFailure.ToString();
+						}
+						UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"));
+						if (gameConfig.GameType != GameType.Practice)
+						{
+							if (gameConfig.GameType != GameType.Solo)
+							{
+								if (gameConfig.GameType != GameType.Coop)
+								{
+									return;
+								}
+								if (!gameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
+								{
+									return;
+								}
+							}
+						}
+						m_readyForSoloGame = false;
+						return;
 					}
-					if (gameConfig.GameType != GameType.Solo)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (gameConfig.GameType != GameType.Coop)
-						{
-							return;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!gameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
-						{
-							return;
-						}
 					}
 				}
-				this.m_readyForSoloGame = false;
 			}
 		});
 	}
 
 	public void NotifyDroppedGroup()
 	{
-		if (UICharacterSelectScreenController.Get() != null)
+		if (!(UICharacterSelectScreenController.Get() != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.NotifyDroppedGroup()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			UICharacterSelectScreenController.Get().NotifyDroppedGroup();
+			return;
 		}
 	}
 
 	public void NotifyJoinedNewGroup()
 	{
-		if (this.m_inQueue)
+		if (!m_inQueue)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.NotifyJoinedNewGroup()).MethodHandle;
-			}
-			this.NotifyQueueDrop();
+			return;
+		}
+		while (true)
+		{
+			NotifyQueueDrop();
+			return;
 		}
 	}
 
 	public void NotifyQueueDrop()
 	{
-		this.m_pendingLeaveQueueRequest = false;
-		this.m_inQueue = false;
-		UICharacterSelectScreenController uicharacterSelectScreenController = UICharacterSelectScreenController.Get();
-		if (uicharacterSelectScreenController != null)
+		m_pendingLeaveQueueRequest = false;
+		m_inQueue = false;
+		UICharacterSelectScreenController uICharacterSelectScreenController = UICharacterSelectScreenController.Get();
+		if (uICharacterSelectScreenController != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.NotifyQueueDrop()).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(uicharacterSelectScreenController.m_readyBtn, true, null);
+			UIManager.SetGameObjectActive(uICharacterSelectScreenController.m_readyBtn, true);
 			UICharacterSelectWorldObjects.Get().SetCharacterReady(0, false);
-			uicharacterSelectScreenController.m_readyBtn.spriteController.SetClickable(true);
-			UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, false, null);
+			uICharacterSelectScreenController.m_readyBtn.spriteController.SetClickable(true);
+			UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, false);
 			NavigationBar.Get().m_cancelBtn.spriteController.SetClickable(false);
 			NavigationBar.Get().m_searchQueueText.text = string.Empty;
 			UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 			{
-				ClientRequestToServerSelectCharacter = new CharacterType?(UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay)
+				ClientRequestToServerSelectCharacter = UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay
 			});
 		}
-		UICharacterSelectWorldObjects uicharacterSelectWorldObjects = UICharacterSelectWorldObjects.Get();
-		if (uicharacterSelectWorldObjects != null)
+		UICharacterSelectWorldObjects uICharacterSelectWorldObjects = UICharacterSelectWorldObjects.Get();
+		if (!(uICharacterSelectWorldObjects != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (!ClientGameManager.Get().GroupInfo.InAGroup)
 			{
-				uicharacterSelectWorldObjects.m_ringAnimations[0].PlayAnimation("ReadyOut");
+				uICharacterSelectWorldObjects.m_ringAnimations[0].PlayAnimation("ReadyOut");
 			}
+			return;
 		}
 	}
 
@@ -507,47 +305,39 @@ public class AppState_GroupCharacterSelect : AppState
 	{
 		if (!response.Success)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIDialogPopupManager.OpenOneButtonDialog(string.Empty, response.ErrorMessage, StringUtil.TR("Ok", "Global"));
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.HandlePlayerInfoUpdateResponse(PlayerInfoUpdateResponse)).MethodHandle;
-			}
-			UIDialogPopupManager.OpenOneButtonDialog(string.Empty, response.ErrorMessage, StringUtil.TR("Ok", "Global"), null, -1, false);
+		}
+		if (response.PlayerInfo == null || response.PlayerInfo.PlayerId != GameManager.Get().PlayerInfo.PlayerId)
+		{
 			return;
 		}
-		if (response.PlayerInfo != null && response.PlayerInfo.PlayerId == GameManager.Get().PlayerInfo.PlayerId)
+		while (true)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UICharacterSelectScreenController.Get().UpdateCharacters(response.PlayerInfo, null, GameManager.Get().GameplayOverrides);
+			return;
 		}
 	}
 
 	private void HandleGameLaunched(GameType gameType)
 	{
-		this.m_pendingLeaveQueueRequest = false;
-		this.m_inQueue = false;
+		m_pendingLeaveQueueRequest = false;
+		m_inQueue = false;
 		AppState_GameLoading.Get().Enter(gameType);
 	}
 
 	private void HandleGameStopped(GameResult gameResult)
 	{
-		UIDialogPopupManager.OpenOneButtonDialog(string.Empty, StringUtil.TR("FailedStartGameServer", "Frontend"), StringUtil.TR("Ok", "Global"), null, -1, false);
+		UIDialogPopupManager.OpenOneButtonDialog(string.Empty, StringUtil.TR("FailedStartGameServer", "Frontend"), StringUtil.TR("Ok", "Global"));
 	}
 
 	public void UpdateReadyState(bool ready)
@@ -562,388 +352,247 @@ public class AppState_GroupCharacterSelect : AppState
 		{
 			if (groupInfo.Members[i].AccountID == ClientGameManager.Get().GetPlayerAccountData().AccountId)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.UpdateReadyState(bool)).MethodHandle;
-				}
 				groupInfo.Members[i].IsReady = ready;
 				break;
 			}
 		}
-		BotDifficulty? allyDifficulty = new BotDifficulty?((BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay);
-		BotDifficulty? enemyDifficulty = new BotDifficulty?((BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay);
+		BotDifficulty? allyDifficulty = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay;
+		BotDifficulty? enemyDifficulty = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay;
 		if (ready)
 		{
-			for (;;)
+			if (enemyDifficulty.HasValue)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (enemyDifficulty != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PlayerPrefs.SetInt("CoopDifficulty", (int)(1 + enemyDifficulty.Value));
 			}
 		}
-		ReadyState readyState;
+		int num;
 		if (ready)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			readyState = ReadyState.Ready;
+			num = 3;
 		}
 		else
 		{
-			readyState = ReadyState.Accepted;
+			num = 1;
 		}
-		ReadyState readyState2 = readyState;
+		ReadyState readyState = (ReadyState)num;
 		if (groupInfo.SelectedQueueType != GameType.Practice)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (groupInfo.SelectedQueueType != GameType.Solo)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (groupInfo.InAGroup)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!groupInfo.IsLeader)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_13B;
-						}
+						goto IL_013b;
 					}
 				}
 				if (groupInfo.SelectedQueueType.IsQueueable())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (ready)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						if (!this.m_inQueue)
-						{
-							for (;;)
+						default:
+							if (ready)
 							{
-								switch (7)
+								while (true)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (groupInfo.IsLeader)
-							{
-								for (;;)
-								{
-									switch (2)
+									switch (4)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										if (!m_inQueue)
+										{
+											while (true)
+											{
+												switch (7)
+												{
+												case 0:
+													break;
+												default:
+													if (groupInfo.IsLeader)
+													{
+														while (true)
+														{
+															switch (2)
+															{
+															case 0:
+																break;
+															default:
+																clientGameManager.UpdateReadyState(readyState, allyDifficulty, enemyDifficulty, HandlePlayerGroupInfoUpdateResponse);
+																return;
+															}
+														}
+													}
+													JoinQueue(ClientGameManager.Get().GroupInfo.SelectedQueueType);
+													return;
+												}
+											}
+										}
+										return;
 									}
-									break;
 								}
-								clientGameManager.UpdateReadyState(readyState2, allyDifficulty, enemyDifficulty, new Action<PlayerInfoUpdateResponse>(this.HandlePlayerGroupInfoUpdateResponse));
 							}
-							else
+							if (m_inQueue)
 							{
-								this.JoinQueue(ClientGameManager.Get().GroupInfo.SelectedQueueType);
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										break;
+									default:
+										Log.Info("Sending Leave Queue Request because setting myself not ready");
+										LeaveQueue();
+										return;
+									}
+								}
 							}
+							clientGameManager.UpdateReadyState(readyState, allyDifficulty, enemyDifficulty, HandlePlayerGroupInfoUpdateResponse);
+							return;
 						}
 					}
-					else if (this.m_inQueue)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						Log.Info("Sending Leave Queue Request because setting myself not ready", new object[0]);
-						this.LeaveQueue();
-					}
-					else
-					{
-						clientGameManager.UpdateReadyState(readyState2, allyDifficulty, enemyDifficulty, new Action<PlayerInfoUpdateResponse>(this.HandlePlayerGroupInfoUpdateResponse));
-					}
-					return;
 				}
-				Log.Error("Don't know what to do with a ready change when you're the leader of a group for a {0} game", new object[]
-				{
-					groupInfo.SelectedQueueType
-				});
+				Log.Error("Don't know what to do with a ready change when you're the leader of a group for a {0} game", groupInfo.SelectedQueueType);
 				return;
 			}
 		}
-		IL_13B:
+		goto IL_013b;
+		IL_013b:
 		if (!ready)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (groupInfo.InAGroup)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_pendingLeaveQueueRequest = true;
+				m_pendingLeaveQueueRequest = true;
 			}
 		}
 		if (groupInfo.SelectedQueueType != GameType.Practice)
 		{
 			if (groupInfo.SelectedQueueType != GameType.Solo)
 			{
-				goto IL_195;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_0195;
 			}
 		}
-		this.m_readyForSoloGame = true;
-		UICharacterScreen.Get().DoRefreshFunctions(0x80);
-		IL_195:
-		clientGameManager.UpdateReadyState(readyState2, allyDifficulty, enemyDifficulty, new Action<PlayerInfoUpdateResponse>(this.HandlePlayerGroupInfoUpdateResponse));
+		m_readyForSoloGame = true;
+		UICharacterScreen.Get().DoRefreshFunctions(128);
+		goto IL_0195;
+		IL_0195:
+		clientGameManager.UpdateReadyState(readyState, allyDifficulty, enemyDifficulty, HandlePlayerGroupInfoUpdateResponse);
 	}
 
 	public void HandlePlayerGroupInfoUpdateResponse(PlayerInfoUpdateResponse response)
 	{
 		if (!response.Success)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.HandlePlayerGroupInfoUpdateResponse(PlayerInfoUpdateResponse)).MethodHandle;
-			}
-			Log.Info("HandlePlayerGroupInfoUpdateResponse failed response", new object[0]);
-			if (response.LocalizedFailure != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, response.LocalizedFailure.ToString(), StringUtil.TR("Ok", "Global"), null, -1, false);
-			}
-			else if (!response.ErrorMessage.IsNullOrEmpty())
-			{
-				for (;;)
-				{
-					switch (2)
+				default:
+					Log.Info("HandlePlayerGroupInfoUpdateResponse failed response");
+					if (response.LocalizedFailure != null)
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								break;
+							default:
+								UIDialogPopupManager.OpenOneButtonDialog(string.Empty, response.LocalizedFailure.ToString(), StringUtil.TR("Ok", "Global"));
+								return;
+							}
+						}
 					}
-					break;
+					if (!response.ErrorMessage.IsNullOrEmpty())
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								break;
+							default:
+								UIDialogPopupManager.OpenOneButtonDialog(string.Empty, $"{response.ErrorMessage}#NeedsLocalization", StringUtil.TR("Ok", "Global"));
+								return;
+							}
+						}
+					}
+					UIDialogPopupManager.OpenOneButtonDialog(string.Empty, StringUtil.TR("UnknownErrorTryAgain", "Frontend"), StringUtil.TR("Ok", "Global"));
+					return;
 				}
-				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, string.Format("{0}#NeedsLocalization", response.ErrorMessage), StringUtil.TR("Ok", "Global"), null, -1, false);
 			}
-			else
-			{
-				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, StringUtil.TR("UnknownErrorTryAgain", "Frontend"), StringUtil.TR("Ok", "Global"), null, -1, false);
-			}
-			return;
 		}
 		if (response.OriginalPlayerInfoUpdate != null)
 		{
-			if (response.OriginalPlayerInfoUpdate.ContextualReadyState != null)
+			if (!response.OriginalPlayerInfoUpdate.ContextualReadyState.HasValue)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				ContextualReadyState value = response.OriginalPlayerInfoUpdate.ContextualReadyState.Value;
+				if (value.ReadyState != ReadyState.Ready)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (response.OriginalPlayerInfoUpdate.ContextualReadyState.Value.ReadyState == ReadyState.Ready)
+				while (true)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().GroupInfo.SelectedQueueType != GameType.Practice)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ClientGameManager.Get().GroupInfo.SelectedQueueType != GameType.Solo)
 						{
-							goto IL_189;
+							return;
 						}
 					}
-					this.CreateGame(ClientGameManager.Get().GroupInfo.SelectedQueueType, null);
+					CreateGame(ClientGameManager.Get().GroupInfo.SelectedQueueType);
+					return;
 				}
 			}
-			IL_189:;
 		}
-		else
-		{
-			Log.Error("HandlePlayerGroupInfoUpdateResponse :: OriginalPlayerInfoUpdate is null for player {0}!! This should never happen!", new object[]
-			{
-				ClientGameManager.Get().Handle
-			});
-		}
+		Log.Error("HandlePlayerGroupInfoUpdateResponse :: OriginalPlayerInfoUpdate is null for player {0}!! This should never happen!", ClientGameManager.Get().Handle);
 	}
 
 	private void LeaveQueue()
 	{
-		if (this.m_pendingLeaveQueueRequest)
+		if (m_pendingLeaveQueueRequest)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.LeaveQueue()).MethodHandle;
-			}
-			return;
 		}
-		this.m_pendingLeaveQueueRequest = true;
+		m_pendingLeaveQueueRequest = true;
 		ClientGameManager.Get().LobbyInterface.LeaveQueue(delegate(LeaveMatchmakingQueueResponse response)
 		{
-			this.m_pendingLeaveQueueRequest = false;
+			m_pendingLeaveQueueRequest = false;
 			if (response.Success)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						m_inQueue = false;
+						if (IsReady())
+						{
+							UICharacterSelectScreenController.Get().SetReady(false);
+						}
+						return;
 					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_GroupCharacterSelect.<LeaveQueue>m__0(LeaveMatchmakingQueueResponse)).MethodHandle;
-				}
-				this.m_inQueue = false;
-				if (this.IsReady())
-				{
-					UICharacterSelectScreenController.Get().SetReady(false, true);
 				}
 			}
 		});
@@ -951,44 +600,31 @@ public class AppState_GroupCharacterSelect : AppState
 
 	public void ForceJoinQueue()
 	{
-		this.m_pendingLeaveQueueRequest = false;
-		this.m_inQueue = true;
+		m_pendingLeaveQueueRequest = false;
+		m_inQueue = true;
 		NavigationBar.Get().UpdateStatusMessage();
 	}
 
-	public unsafe bool CanJoinQueue(out string reason)
+	public bool CanJoinQueue(out string reason)
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		LobbyPlayerGroupInfo groupInfo = clientGameManager.GroupInfo;
 		GameType selectedQueueType = groupInfo.SelectedQueueType;
 		if (selectedQueueType.IsQueueable())
 		{
-			for (;;)
+			if (!groupInfo.InAGroup && m_inQueue)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.CanJoinQueue(string*)).MethodHandle;
-			}
-			if (!groupInfo.InAGroup && this.m_inQueue)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						reason = StringUtil.TR("AlreadyQueued", "Frontend");
+						return false;
 					}
-					break;
 				}
-				reason = StringUtil.TR("AlreadyQueued", "Frontend");
-				return false;
 			}
 		}
 		reason = string.Empty;
@@ -997,25 +633,21 @@ public class AppState_GroupCharacterSelect : AppState
 
 	public void JoinQueue(GameType gameType)
 	{
-		if (this.m_inQueue)
+		if (m_inQueue)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("Error", "Global"), StringUtil.TR("CantJoinAlreadyQueued", "Frontend"), StringUtil.TR("Ok", "Global"));
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.JoinQueue(GameType)).MethodHandle;
-			}
-			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("Error", "Global"), StringUtil.TR("CantJoinAlreadyQueued", "Frontend"), StringUtil.TR("Ok", "Global"), null, -1, false);
-			return;
 		}
-		if (this.m_pendingJoinQueueRequest)
+		if (m_pendingJoinQueueRequest)
 		{
 			return;
 		}
@@ -1024,123 +656,79 @@ public class AppState_GroupCharacterSelect : AppState
 		BotDifficulty? enemyDifficulty = null;
 		if (!gameType.IsHumanVsHumanGame())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			allyDifficulty = new BotDifficulty?((BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay);
-			enemyDifficulty = new BotDifficulty?((BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay);
+			allyDifficulty = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay;
+			enemyDifficulty = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay;
 		}
-		this.m_pendingJoinQueueRequest = true;
+		m_pendingJoinQueueRequest = true;
 		clientGameManager.JoinQueue(gameType, allyDifficulty, enemyDifficulty, delegate(JoinMatchmakingQueueResponse response)
 		{
-			this.m_pendingJoinQueueRequest = false;
+			m_pendingJoinQueueRequest = false;
 			if (response.Success)
 			{
-				this.ForceJoinQueue();
+				ForceJoinQueue();
 			}
 			else
 			{
 				string description;
 				if (response.LocalizedFailure != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_GroupCharacterSelect.<JoinQueue>m__1(JoinMatchmakingQueueResponse)).MethodHandle;
-					}
 					description = response.LocalizedFailure.ToString();
 				}
 				else if (response.ErrorMessage.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					description = StringUtil.TR("UnknownErrorTryAgain", "Global");
 				}
 				else
 				{
-					description = string.Format("{0}#NeedsLocalization", response.ErrorMessage);
+					description = $"{response.ErrorMessage}#NeedsLocalization";
 				}
-				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"), null, -1, false);
+				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"));
 			}
 		});
 	}
 
 	public void NotifyEnteredCharacterSelect()
 	{
-		this.m_pendingLeaveQueueRequest = false;
-		this.m_inQueue = false;
-		this.m_readyForSoloGame = false;
+		m_pendingLeaveQueueRequest = false;
+		m_inQueue = false;
+		m_readyForSoloGame = false;
 	}
 
 	public void NotifyEnteredRankModeDraft()
 	{
-		this.m_inQueue = false;
+		m_inQueue = false;
 	}
 
 	protected override void OnEnter()
 	{
 		GameManager gameManager = GameManager.Get();
-		this.m_receivedGameInfoNotification = false;
-		this.m_gameSelecting = false;
-		this.m_readyForSoloGame = false;
+		m_receivedGameInfoNotification = false;
+		m_gameSelecting = false;
+		m_readyForSoloGame = false;
 		AudioManager.GetMixerSnapshotManager().SetMix_Menu();
-		AppState_GroupCharacterSelect.ShowScreen();
+		ShowScreen();
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		clientGameManager.OnQueueStatusNotification += this.HandleQueueStatusNotification;
-		clientGameManager.OnDisconnectedFromLobbyServer += this.HandleDisconnectedFromLobbyServer;
-		clientGameManager.OnGameInfoNotification += this.HandleGameInfoNotification;
-		clientGameManager.OnLobbyStatusNotification += this.HandleStatusNotification;
-		clientGameManager.OnServerQueueConfigurationUpdateNotification += this.HandleGameTypesAvailability;
-		gameManager.OnGameAssembling += this.HandleGameAssembling;
-		gameManager.OnGameSelecting += this.HandleGameSelecting;
-		gameManager.OnGameLaunched += this.HandleGameLaunched;
-		gameManager.OnGameStopped += this.HandleGameStopped;
-		if (this.m_wasRequeued)
+		clientGameManager.OnQueueStatusNotification += HandleQueueStatusNotification;
+		clientGameManager.OnDisconnectedFromLobbyServer += HandleDisconnectedFromLobbyServer;
+		clientGameManager.OnGameInfoNotification += HandleGameInfoNotification;
+		clientGameManager.OnLobbyStatusNotification += HandleStatusNotification;
+		clientGameManager.OnServerQueueConfigurationUpdateNotification += HandleGameTypesAvailability;
+		gameManager.OnGameAssembling += HandleGameAssembling;
+		gameManager.OnGameSelecting += HandleGameSelecting;
+		gameManager.OnGameLaunched += HandleGameLaunched;
+		gameManager.OnGameStopped += HandleGameStopped;
+		if (m_wasRequeued)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.OnEnter()).MethodHandle;
-			}
-			this.m_inQueue = true;
-			this.m_wasRequeued = false;
-			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("Requeued", "Global"), StringUtil.TR("SomeoneDroppedReaddedQueue", "Global"), StringUtil.TR("Ok", "Global"), null, -1, false);
-			UICharacterSelectScreenController.Get().SetReady(true, true);
+			m_inQueue = true;
+			m_wasRequeued = false;
+			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("Requeued", "Global"), StringUtil.TR("SomeoneDroppedReaddedQueue", "Global"), StringUtil.TR("Ok", "Global"));
+			UICharacterSelectScreenController.Get().SetReady(true);
 		}
 		else
 		{
-			this.CheckForPreviousGame();
+			CheckForPreviousGame();
 		}
-		this.CheckForQueueParole();
+		CheckForQueueParole();
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.FrontEndSelectionChatterCue, null);
 	}
 
@@ -1149,49 +737,31 @@ public class AppState_GroupCharacterSelect : AppState
 		GameManager gameManager = GameManager.Get();
 		UIFrontEnd.Get().m_frontEndNavPanel.SetPlayMenuCatgeoryVisible(true);
 		UICharacterSelectScreenController.Get().QuickPlaySetup(gameManager.GameInfo);
-		UICharacterSelectScreenController.Get().QuickPlayUpdateCharacters(gameManager.GameplayOverrides, false, false);
+		UICharacterSelectScreenController.Get().QuickPlayUpdateCharacters(gameManager.GameplayOverrides);
 		UICharacterSelectScreen.Get().SetGameSettingsButtonVisibility(false);
 		UICharacterSelectScreenController.Get().NotifyGroupUpdate();
-		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.GroupCharacterSelect, false);
-		if (ClientGameManager.Get() != null)
+		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.GroupCharacterSelect);
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (ClientGameManager.Get().GroupInfo == null)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.ShowScreen()).MethodHandle;
-			}
-			if (ClientGameManager.Get().GroupInfo != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().GroupInfo.SelectedQueueType == GameType.Ranked)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						UICharacterSelectScreenController.Get().SetupForRanked(true);
+						return;
 					}
-					UICharacterSelectScreenController.Get().SetupForRanked(true);
 				}
+				return;
 			}
 		}
 	}
@@ -1214,102 +784,46 @@ public class AppState_GroupCharacterSelect : AppState
 
 	private void HandleDisconnectedFromLobbyServer(string lastLobbyErrorMessage)
 	{
-		this.m_inQueue = false;
-		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage, false);
+		m_inQueue = false;
+		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage);
 	}
 
 	private void HandleGameAssembling()
 	{
-		bool flag;
+		int num;
 		if (!AppState.IsInGame() && GameManager.Get().GameInfo != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.HandleGameAssembling()).MethodHandle;
-			}
 			if (GameManager.Get().GameInfo.IsCustomGame)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag = (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped);
-				goto IL_68;
+				num = ((GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped) ? 1 : 0);
+				goto IL_0068;
 			}
 		}
-		flag = false;
-		IL_68:
-		bool flag2 = flag;
+		num = 0;
+		goto IL_0068;
+		IL_0068:
+		bool flag = (byte)num != 0;
 		if (GameManager.Get().GameInfo.AcceptTimeout != TimeSpan.Zero)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		if (flag2)
+		if (!flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			AppState_CharacterSelect.Get().Enter();
+			return;
 		}
 	}
 
 	private void HandleGameInfoNotification(GameInfoNotification notification)
 	{
-		this.m_receivedGameInfoNotification = true;
-		if (this.m_receivedGameInfoNotification && this.m_gameSelecting)
+		m_receivedGameInfoNotification = true;
+		if (m_receivedGameInfoNotification && m_gameSelecting)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.HandleGameInfoNotification(GameInfoNotification)).MethodHandle;
-			}
 			if (UIMatchStartPanel.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIMatchStartPanel.Get().HandleGameStatusChanged(notification);
 			}
 			if (ClientGameManager.Get().GroupInfo.SelectedQueueType != GameType.Ranked)
@@ -1317,21 +831,17 @@ public class AppState_GroupCharacterSelect : AppState
 				AppState_CharacterSelect.Get().Enter();
 			}
 		}
-		if (notification.GameInfo.GameConfig.GameType == GameType.Coop)
+		if (notification.GameInfo.GameConfig.GameType != GameType.Coop)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 			{
-				SelectedEnemyBotDifficulty = new int?((int)notification.GameInfo.SelectedBotSkillTeamB)
+				SelectedEnemyBotDifficulty = (int)notification.GameInfo.SelectedBotSkillTeamB
 			});
+			return;
 		}
 	}
 
@@ -1340,26 +850,13 @@ public class AppState_GroupCharacterSelect : AppState
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager.GroupInfo.SelectedQueueType.IsQueueable() && !GameManager.Get().GameInfo.IsCustomGame)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.HandleGameSelecting()).MethodHandle;
-			}
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.NotifyMatchFound);
 			WinUtils.FlashWindow();
 			WinUtils.BringApplicationToFront();
-			QuestListPanel.Get().SetVisible(false, false, false);
-			this.m_gameSelecting = true;
+			QuestListPanel.Get().SetVisible(false);
+			m_gameSelecting = true;
 		}
-		if (this.m_receivedGameInfoNotification && this.m_gameSelecting)
+		if (m_receivedGameInfoNotification && m_gameSelecting)
 		{
 			AppState_CharacterSelect.Get().Enter();
 		}
@@ -1373,129 +870,95 @@ public class AppState_GroupCharacterSelect : AppState
 	protected override void OnLeave()
 	{
 		GameManager gameManager = GameManager.Get();
-		gameManager.OnGameLaunched -= this.HandleGameLaunched;
+		gameManager.OnGameLaunched -= HandleGameLaunched;
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		clientGameManager.OnQueueStatusNotification -= this.HandleQueueStatusNotification;
-		clientGameManager.OnDisconnectedFromLobbyServer -= this.HandleDisconnectedFromLobbyServer;
-		clientGameManager.OnGameInfoNotification -= this.HandleGameInfoNotification;
-		clientGameManager.OnLobbyStatusNotification -= this.HandleStatusNotification;
-		clientGameManager.OnServerQueueConfigurationUpdateNotification -= this.HandleGameTypesAvailability;
-		gameManager.OnGameAssembling -= this.HandleGameAssembling;
-		gameManager.OnGameSelecting -= this.HandleGameSelecting;
-		gameManager.OnGameLaunched -= this.HandleGameLaunched;
-		gameManager.OnGameStopped -= this.HandleGameStopped;
-		this.m_readyForSoloGame = false;
-		if (this.m_messageBox != null)
+		clientGameManager.OnQueueStatusNotification -= HandleQueueStatusNotification;
+		clientGameManager.OnDisconnectedFromLobbyServer -= HandleDisconnectedFromLobbyServer;
+		clientGameManager.OnGameInfoNotification -= HandleGameInfoNotification;
+		clientGameManager.OnLobbyStatusNotification -= HandleStatusNotification;
+		clientGameManager.OnServerQueueConfigurationUpdateNotification -= HandleGameTypesAvailability;
+		gameManager.OnGameAssembling -= HandleGameAssembling;
+		gameManager.OnGameSelecting -= HandleGameSelecting;
+		gameManager.OnGameLaunched -= HandleGameLaunched;
+		gameManager.OnGameStopped -= HandleGameStopped;
+		m_readyForSoloGame = false;
+		if (m_messageBox != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.OnLeave()).MethodHandle;
-			}
-			this.m_messageBox.Close();
-			this.m_messageBox = null;
+			m_messageBox.Close();
+			m_messageBox = null;
 		}
-		UICharacterScreen.Get().DoRefreshFunctions(0x80);
+		UICharacterScreen.Get().DoRefreshFunctions(128);
 	}
 
 	private void CheckForPreviousGame()
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (clientGameManager != null)
+		if (!(clientGameManager != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!clientGameManager.IsRegistered)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GroupCharacterSelect.CheckForPreviousGame()).MethodHandle;
-			}
-			if (clientGameManager.IsRegistered)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (clientGameManager.IsReady)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (5)
+						clientGameManager.RequestPreviousGameInfo(delegate(PreviousGameInfoResponse response)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					clientGameManager.RequestPreviousGameInfo(delegate(PreviousGameInfoResponse response)
-					{
-						if (AppState.GetCurrent() != this)
-						{
-							for (;;)
+							if (AppState.GetCurrent() != this)
 							{
-								switch (3)
+								while (true)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_GroupCharacterSelect.<CheckForPreviousGame>m__2(PreviousGameInfoResponse)).MethodHandle;
-							}
-							return;
-						}
-						if (response.PreviousGameInfo != null)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (response.PreviousGameInfo.IsQueuedGame || response.PreviousGameInfo.IsCustomGame)
-							{
-								if (response.PreviousGameInfo.GameConfig.TotalHumanPlayers >= 2)
-								{
-									this.PromptToRejoinGame(response.PreviousGameInfo);
-									return;
-								}
-								for (;;)
-								{
-									switch (7)
+									switch (3)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										return;
 									}
-									break;
 								}
 							}
-						}
-					});
+							if (response.PreviousGameInfo != null)
+							{
+								while (true)
+								{
+									switch (6)
+									{
+									case 0:
+										break;
+									default:
+										if (response.PreviousGameInfo.IsQueuedGame || response.PreviousGameInfo.IsCustomGame)
+										{
+											if (response.PreviousGameInfo.GameConfig.TotalHumanPlayers < 2)
+											{
+												while (true)
+												{
+													switch (7)
+													{
+													default:
+														return;
+													case 0:
+														break;
+													}
+												}
+											}
+											PromptToRejoinGame(response.PreviousGameInfo);
+										}
+										return;
+									}
+								}
+							}
+						});
+						return;
+					}
 				}
+				return;
 			}
 		}
 	}
@@ -1503,21 +966,21 @@ public class AppState_GroupCharacterSelect : AppState
 	private void PromptToRejoinGame(LobbyGameInfo previousGameInfo)
 	{
 		UINewUserFlowManager.HideDisplay();
-		this.m_messageBox = UIDialogPopupManager.OpenTwoButtonDialog(StringUtil.TR("Reconnect", "Global"), string.Format(StringUtil.TR("ReconnectUnderDevelopment", "Global"), previousGameInfo.GameConfig.GameType.GetDisplayName()), StringUtil.TR("Reconnect", "Global"), StringUtil.TR("Cancel", "Global"), delegate(UIDialogBox UIDialogBox)
+		m_messageBox = UIDialogPopupManager.OpenTwoButtonDialog(StringUtil.TR("Reconnect", "Global"), string.Format(StringUtil.TR("ReconnectUnderDevelopment", "Global"), previousGameInfo.GameConfig.GameType.GetDisplayName()), StringUtil.TR("Reconnect", "Global"), StringUtil.TR("Cancel", "Global"), delegate
 		{
-			Log.Info("Attempting to reconnect!", new object[0]);
-			ClientGameManager.Get().RejoinGame(true, null);
-			this.m_messageBox = null;
-		}, delegate(UIDialogBox UIDialogBox)
+			Log.Info("Attempting to reconnect!");
+			ClientGameManager.Get().RejoinGame(true);
+			m_messageBox = null;
+		}, delegate
 		{
-			Log.Info("Decided not to reconnect!", new object[0]);
-			ClientGameManager.Get().RejoinGame(false, null);
-			this.m_messageBox = null;
-		}, false, false);
+			Log.Info("Decided not to reconnect!");
+			ClientGameManager.Get().RejoinGame(false);
+			m_messageBox = null;
+		});
 	}
 
 	private void Awake()
 	{
-		AppState_GroupCharacterSelect.s_instance = this;
+		s_instance = this;
 	}
 }

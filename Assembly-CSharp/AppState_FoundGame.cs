@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 public class AppState_FoundGame : AppState
 {
@@ -8,7 +8,7 @@ public class AppState_FoundGame : AppState
 
 	public static AppState_FoundGame Get()
 	{
-		return AppState_FoundGame.s_instance;
+		return s_instance;
 	}
 
 	public static void Create()
@@ -18,7 +18,7 @@ public class AppState_FoundGame : AppState
 
 	private void Awake()
 	{
-		AppState_FoundGame.s_instance = this;
+		s_instance = this;
 	}
 
 	protected override void OnEnter()
@@ -27,100 +27,75 @@ public class AppState_FoundGame : AppState
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (gameManager.GameInfo == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					throw new Exception("GameInfo must be set before entering app state");
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FoundGame.OnEnter()).MethodHandle;
-			}
-			throw new Exception("GameInfo must be set before entering app state");
 		}
 		if (gameManager.GameInfo.AcceptTimeout == TimeSpan.Zero)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					throw new Exception("Accept timeout is zero");
 				}
-				break;
 			}
-			throw new Exception("Accept timeout is zero");
 		}
 		WinUtils.FlashWindow();
-		gameManager.OnGameSelecting += this.HandleGameSelecting;
-		gameManager.OnGameStopped += this.HandleGameStopped;
-		clientGameManager.OnDisconnectedFromLobbyServer += this.HandleDisconnectedFromLobbyServer;
-		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.FoundGame, false);
+		gameManager.OnGameSelecting += HandleGameSelecting;
+		gameManager.OnGameStopped += HandleGameStopped;
+		clientGameManager.OnDisconnectedFromLobbyServer += HandleDisconnectedFromLobbyServer;
+		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.FoundGame);
 	}
 
 	protected override void OnLeave()
 	{
-		if (this.m_messageBox != null)
+		if (m_messageBox != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FoundGame.OnLeave()).MethodHandle;
-			}
-			this.m_messageBox.Close();
-			this.m_messageBox = null;
+			m_messageBox.Close();
+			m_messageBox = null;
 		}
 		GameManager gameManager = GameManager.Get();
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		gameManager.OnGameSelecting -= this.HandleGameSelecting;
-		gameManager.OnGameStopped -= this.HandleGameStopped;
-		clientGameManager.OnDisconnectedFromLobbyServer -= this.HandleDisconnectedFromLobbyServer;
-		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.None, false);
+		gameManager.OnGameSelecting -= HandleGameSelecting;
+		gameManager.OnGameStopped -= HandleGameStopped;
+		clientGameManager.OnDisconnectedFromLobbyServer -= HandleDisconnectedFromLobbyServer;
+		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.None);
 	}
 
 	protected void Update()
 	{
 		if (base.Elapsed == 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FoundGame.Update()).MethodHandle;
-			}
+		}
+		if (!((double)base.Elapsed > GameManager.Get().GameInfo.AcceptTimeout.TotalSeconds))
+		{
 			return;
 		}
-		if ((double)base.Elapsed > GameManager.Get().GameInfo.AcceptTimeout.TotalSeconds)
+		while (true)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.OnCancelClicked();
+			OnCancelClicked();
+			return;
 		}
 	}
 
@@ -145,6 +120,6 @@ public class AppState_FoundGame : AppState
 
 	private void HandleDisconnectedFromLobbyServer(string lastLobbyErrorMessage)
 	{
-		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage, false);
+		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage);
 	}
 }

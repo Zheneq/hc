@@ -1,9 +1,9 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
-using Newtonsoft.Json;
 using WebSocketSharp.Net;
 using WebSocketSharp.Server;
 
@@ -23,357 +23,220 @@ public class HttpSocket
 
 	private int m_timeoutMs;
 
+	public WebSocketMessage Message => m_requestMessage;
+
+	public int MaxMessageSize
+	{
+		get;
+		set;
+	}
+
+	public HttpListenerRequest Request => m_requestArgs.Request;
+
+	public HttpListenerResponse Response => m_requestArgs.Response;
+
+	public string ConnectionAddress
+	{
+		get;
+		private set;
+	}
+
+	public string ForwardedConnectionAddress
+	{
+		get;
+		private set;
+	}
+
+	public WebSocketMessageFactory MessageFactory
+	{
+		get;
+		private set;
+	}
+
 	public HttpSocket(WebSocketMessageFactory factory)
 	{
-		this.m_event = new ManualResetEvent(false);
-		this.m_lock = new object();
-		this.m_timeoutMs = 0xEA60;
-		this.m_serializer = DefaultJsonSerializer.Get();
-		this.MaxMessageSize = 0x100000;
-		this.MessageFactory = factory;
+		m_event = new ManualResetEvent(false);
+		m_lock = new object();
+		m_timeoutMs = 60000;
+		m_serializer = DefaultJsonSerializer.Get();
+		MaxMessageSize = 1048576;
+		MessageFactory = factory;
 	}
-
-	public WebSocketMessage Message
-	{
-		get
-		{
-			return this.m_requestMessage;
-		}
-	}
-
-	public int MaxMessageSize { get; set; }
-
-	public HttpListenerRequest Request
-	{
-		get
-		{
-			return this.m_requestArgs.Request;
-		}
-	}
-
-	public HttpListenerResponse Response
-	{
-		get
-		{
-			return this.m_requestArgs.Response;
-		}
-	}
-
-	public string ConnectionAddress { get; private set; }
-
-	public string ForwardedConnectionAddress { get; private set; }
-
-	public WebSocketMessageFactory MessageFactory { get; private set; }
 
 	public void HandleRequest(HttpRequestEventArgs requestArgs)
 	{
 		int num = (int)requestArgs.Request.ContentLength64;
-		if (this.MaxMessageSize > 0)
+		if (MaxMessageSize > 0)
 		{
-			for (;;)
+			if (num > MaxMessageSize)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HttpSocket.HandleRequest(HttpRequestEventArgs)).MethodHandle;
-			}
-			if (num > this.MaxMessageSize)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						throw new Exception("Invalid HTTP request input stream length");
 					}
-					break;
 				}
-				throw new Exception("Invalid HTTP request input stream length");
 			}
 		}
-		this.m_requestArgs = requestArgs;
-		string[] array = requestArgs.Request.Url.Query.Split(new char[]
-		{
-			'?',
-			'&'
-		});
-		string text = "{\n";
-		string text2 = null;
+		m_requestArgs = requestArgs;
+		string[] array = requestArgs.Request.Url.Query.Split('?', '&');
+		string str = "{\n";
+		string text = null;
 		Dictionary<string, string> dictionary = new Dictionary<string, string>();
-		foreach (string text3 in array)
+		string[] array2 = array;
+		foreach (string text2 in array2)
 		{
-			if (text3.IsNullOrEmpty())
+			if (text2.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				continue;
+			}
+			string[] array3 = text2.Split('=');
+			string text3 = array3[0];
+			object obj;
+			if (array3.Length > 1)
+			{
+				obj = array3[1];
 			}
 			else
 			{
-				string[] array3 = text3.Split(new char[]
-				{
-					'='
-				});
-				string text4 = array3[0];
-				string text5;
-				if (array3.Length > 1)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					text5 = array3[1];
-				}
-				else
-				{
-					text5 = "True";
-				}
-				string text6 = text5;
-				text += string.Format("\"{0}\" : \"{1}\", ", text4, text6);
-				if (text4 == "messageType")
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					text2 = text6;
-				}
-				if (text4 == "formatted")
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (text6.ToLower() == "true")
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_serializer = FormattedJsonSerializer.Get();
-					}
-				}
-				if (text4 == "timeoutMs")
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_timeoutMs = Convert.ToInt32(text6);
-					if (this.m_timeoutMs > 0xEA60)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_timeoutMs = 0xEA60;
-					}
-					if (this.m_timeoutMs < -1)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_timeoutMs = -1;
-					}
-				}
-				dictionary.Add(text4, text6);
+				obj = "True";
 			}
-		}
-		for (;;)
-		{
-			switch (6)
+			string text4 = (string)obj;
+			str += $"\"{text3}\" : \"{text4}\", ";
+			if (text3 == "messageType")
 			{
-			case 0:
-				continue;
+				text = text4;
 			}
-			break;
-		}
-		text += "\n}";
-		this.ConnectionAddress = requestArgs.Request.RemoteEndPoint.ToString();
-		this.ForwardedConnectionAddress = requestArgs.Request.Headers["X-Forwarded-For"];
-		string text7 = new StreamReader(requestArgs.Request.InputStream).ReadToEnd();
-		if (text7.IsNullOrEmpty())
-		{
-			for (;;)
+			if (text3 == "formatted")
 			{
-				switch (7)
+				if (text4.ToLower() == "true")
 				{
-				case 0:
-					continue;
+					m_serializer = FormattedJsonSerializer.Get();
 				}
-				break;
 			}
-			text7 = text;
-		}
-		if (!text2.IsNullOrEmpty())
-		{
-			for (;;)
+			if (text3 == "timeoutMs")
 			{
-				switch (2)
+				m_timeoutMs = Convert.ToInt32(text4);
+				if (m_timeoutMs > 60000)
 				{
-				case 0:
-					continue;
+					m_timeoutMs = 60000;
 				}
-				break;
+				if (m_timeoutMs < -1)
+				{
+					m_timeoutMs = -1;
+				}
 			}
-			this.m_requestMessage = this.MessageFactory.DeserializeFromText(text2, text7);
+			dictionary.Add(text3, text4);
 		}
-		else
+		while (true)
 		{
-			this.m_requestMessage = new HttpRequestMessage
+			str += "\n}";
+			ConnectionAddress = requestArgs.Request.RemoteEndPoint.ToString();
+			ForwardedConnectionAddress = requestArgs.Request.Headers["X-Forwarded-For"];
+			string text5 = new StreamReader(requestArgs.Request.InputStream).ReadToEnd();
+			if (text5.IsNullOrEmpty())
+			{
+				text5 = str;
+			}
+			if (!text.IsNullOrEmpty())
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						m_requestMessage = MessageFactory.DeserializeFromText(text, text5);
+						return;
+					}
+				}
+			}
+			m_requestMessage = new HttpRequestMessage
 			{
 				Method = requestArgs.Request.HttpMethod,
 				Url = requestArgs.Request.Url,
 				QueryParams = dictionary,
-				RequestData = text7,
-				Serializer = this.m_serializer
+				RequestData = text5,
+				Serializer = m_serializer
 			};
+			return;
 		}
 	}
 
 	public void Send(object message)
 	{
-		object @lock = this.m_lock;
-		lock (@lock)
+		lock (m_lock)
 		{
-			if (this.m_responseSent)
+			if (m_responseSent)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HttpSocket.Send(object)).MethodHandle;
-				}
+			}
+			HttpResponseMessage httpResponseMessage = message as HttpResponseMessage;
+			if (httpResponseMessage != null)
+			{
+				byte[] bytes = Encoding.UTF8.GetBytes(httpResponseMessage.ResponseData);
+				Response.ContentType = httpResponseMessage.ContentType;
+				Response.StatusCode = httpResponseMessage.StatusCode;
+				Response.ContentLength64 = bytes.Length;
+				Response.OutputStream.Write(bytes, 0, bytes.Length);
 			}
 			else
 			{
-				HttpResponseMessage httpResponseMessage = message as HttpResponseMessage;
-				if (httpResponseMessage != null)
+				WebSocketMessage webSocketMessage = message as WebSocketMessage;
+				string s;
+				if (webSocketMessage != null)
 				{
-					byte[] bytes = Encoding.UTF8.GetBytes(httpResponseMessage.ResponseData);
-					this.Response.ContentType = httpResponseMessage.ContentType;
-					this.Response.StatusCode = httpResponseMessage.StatusCode;
-					this.Response.ContentLength64 = (long)bytes.Length;
-					this.Response.OutputStream.Write(bytes, 0, bytes.Length);
+					StringWriter stringWriter = new StringWriter();
+					m_serializer.Serialize(stringWriter, webSocketMessage);
+					s = stringWriter.ToString();
 				}
 				else
 				{
-					WebSocketMessage webSocketMessage = message as WebSocketMessage;
-					string s;
-					if (webSocketMessage != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						StringWriter stringWriter = new StringWriter();
-						this.m_serializer.Serialize(stringWriter, webSocketMessage);
-						s = stringWriter.ToString();
-					}
-					else
-					{
-						s = message.ToString();
-					}
-					byte[] bytes2 = Encoding.UTF8.GetBytes(s);
-					this.Response.ContentType = "text/json";
-					this.Response.StatusCode = 0xC8;
-					this.Response.ContentLength64 = (long)bytes2.Length;
-					this.Response.OutputStream.Write(bytes2, 0, bytes2.Length);
+					s = message.ToString();
 				}
-				this.Response.OutputStream.Close();
-				this.m_responseSent = true;
-				this.m_event.Set();
+				byte[] bytes2 = Encoding.UTF8.GetBytes(s);
+				Response.ContentType = "text/json";
+				Response.StatusCode = 200;
+				Response.ContentLength64 = bytes2.Length;
+				Response.OutputStream.Write(bytes2, 0, bytes2.Length);
 			}
+			Response.OutputStream.Close();
+			m_responseSent = true;
+			m_event.Set();
 		}
 	}
 
 	public void WaitForSend()
 	{
-		bool flag = !this.m_event.WaitOne(this.m_timeoutMs);
-		if (flag)
+		if (m_event.WaitOne(m_timeoutMs))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			lock (m_lock)
 			{
-				switch (5)
+				if (!m_responseSent)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HttpSocket.WaitForSend()).MethodHandle;
-			}
-			object @lock = this.m_lock;
-			lock (@lock)
-			{
-				if (!this.m_responseSent)
-				{
-					this.Response.StatusCode = 0x198;
-					this.m_responseSent = true;
+					Response.StatusCode = 408;
+					m_responseSent = true;
 				}
 			}
+			return;
 		}
 	}
 }

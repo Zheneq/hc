@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,21 +7,39 @@ using UnityEngine.UI;
 
 public class UI_NewTextList : MonoBehaviour
 {
+	private class TextItem
+	{
+		public TextMeshProUGUI theText;
+
+		public TextMeshProUGUI originalText;
+
+		public float timeDisplayed;
+	}
+
+	private class PendingMessages
+	{
+		public TextMeshProUGUI m_textMeshPro;
+
+		public ScrollRect m_scrollRect;
+
+		public float m_paddingTextAmount;
+	}
+
 	public TextMeshProUGUI m_textPrefab;
 
-	public const int m_maxNumberEntries = 0x50;
+	public const int m_maxNumberEntries = 80;
 
 	public int m_numLinesToDisplayRecent = 4;
 
 	public VerticalLayoutGroup m_recentlyAddedContainer;
 
-	private const int kMessageLengthLimit = 0xC350;
+	private const int kMessageLengthLimit = 50000;
 
 	private List<float> m_textPadding;
 
 	private List<TextMeshProUGUI> m_textList;
 
-	private List<UI_NewTextList.TextItem> m_recentlyAddedText;
+	private List<TextItem> m_recentlyAddedText;
 
 	private RectTransform m_rectTransform;
 
@@ -45,64 +63,56 @@ public class UI_NewTextList : MonoBehaviour
 
 	private TextMeshProUGUI m_hoveredText;
 
-	private Queue<UI_NewTextList.PendingMessages> m_lastMessagesAdded = new Queue<UI_NewTextList.PendingMessages>();
+	private Queue<PendingMessages> m_lastMessagesAdded = new Queue<PendingMessages>();
 
 	private void Awake()
 	{
-		this.Init();
-		this.m_parent = base.GetComponentInParent<UITextConsole>();
+		Init();
+		m_parent = GetComponentInParent<UITextConsole>();
 	}
 
 	private void Init()
 	{
-		if (this.initialized)
+		if (initialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.Init()).MethodHandle;
-			}
-			return;
 		}
-		this.initialized = true;
-		this.m_textList = new List<TextMeshProUGUI>();
-		this.m_textPadding = new List<float>();
-		this.m_recentlyAddedText = new List<UI_NewTextList.TextItem>();
-		foreach (TextMeshProUGUI textMeshProUGUI in this.m_recentlyAddedContainer.GetComponentsInChildren<TextMeshProUGUI>(true))
+		initialized = true;
+		m_textList = new List<TextMeshProUGUI>();
+		m_textPadding = new List<float>();
+		m_recentlyAddedText = new List<TextItem>();
+		TextMeshProUGUI[] componentsInChildren = m_recentlyAddedContainer.GetComponentsInChildren<TextMeshProUGUI>(true);
+		foreach (TextMeshProUGUI textMeshProUGUI in componentsInChildren)
 		{
 			UnityEngine.Object.Destroy(textMeshProUGUI.gameObject);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			m_rectTransform = GetComponent<RectTransform>();
+			m_lastEmojiTag = string.Empty;
+			m_lastEmojiEntry = null;
+			return;
 		}
-		this.m_rectTransform = base.GetComponent<RectTransform>();
-		this.m_lastEmojiTag = string.Empty;
-		this.m_lastEmojiEntry = null;
 	}
 
 	public void SetTextAlpha(float newAlpha)
 	{
-		this.Init();
-		using (List<TextMeshProUGUI>.Enumerator enumerator = this.m_textList.GetEnumerator())
+		Init();
+		using (List<TextMeshProUGUI>.Enumerator enumerator = m_textList.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				TextMeshProUGUI textMeshProUGUI = enumerator.Current;
-				CanvasGroup component = textMeshProUGUI.GetComponent<CanvasGroup>();
+				TextMeshProUGUI current = enumerator.Current;
+				CanvasGroup component = current.GetComponent<CanvasGroup>();
 				if (component != null)
 				{
 					component.alpha = newAlpha;
@@ -110,51 +120,36 @@ public class UI_NewTextList : MonoBehaviour
 				}
 				else
 				{
-					Color color = textMeshProUGUI.color;
+					Color color = current.color;
 					color.a = newAlpha;
-					textMeshProUGUI.color = color;
+					current.color = color;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_0014;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.SetTextAlpha(float)).MethodHandle;
-			}
+			end_IL_0014:;
 		}
-		UIManager.SetGameObjectActive(this.m_recentlyAddedContainer, 1f - newAlpha > 0.1f, null);
-		this.currentAlpha = newAlpha;
+		UIManager.SetGameObjectActive(m_recentlyAddedContainer, 1f - newAlpha > 0.1f);
+		currentAlpha = newAlpha;
 	}
 
 	private void UpdateLastMessages()
 	{
-		while (this.m_lastMessagesAdded.Count > 0)
+		while (m_lastMessagesAdded.Count > 0)
 		{
-			UI_NewTextList.PendingMessages pendingMessages = this.m_lastMessagesAdded.Dequeue();
+			PendingMessages pendingMessages = m_lastMessagesAdded.Dequeue();
 			float num = 0f;
-			float textChatHeight = this.GetTextChatHeight();
+			float textChatHeight = GetTextChatHeight();
 			if (pendingMessages.m_scrollRect != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.UpdateLastMessages()).MethodHandle;
-				}
 				num = (pendingMessages.m_scrollRect.gameObject.transform as RectTransform).rect.height;
 			}
 			pendingMessages.m_textMeshPro.CalculateLayoutInputVertical();
@@ -164,831 +159,546 @@ public class UI_NewTextList : MonoBehaviour
 			pendingMessages.m_textMeshPro.rectTransform.anchoredPosition = new Vector2(0f, Mathf.Min(preferredHeight + pendingMessages.m_paddingTextAmount, num2) - num3);
 			if (num2 > 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num2 < preferredHeight + pendingMessages.m_paddingTextAmount)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.ShiftChatEntries(num2);
+					ShiftChatEntries(num2);
 				}
 				else
 				{
-					this.ShiftChatEntries(preferredHeight + pendingMessages.m_paddingTextAmount);
+					ShiftChatEntries(preferredHeight + pendingMessages.m_paddingTextAmount);
 				}
 			}
-			Vector2 sizeDelta = this.m_rectTransform.sizeDelta;
+			Vector2 sizeDelta = m_rectTransform.sizeDelta;
 			sizeDelta.y = Mathf.Max(textChatHeight + preferredHeight + pendingMessages.m_paddingTextAmount, num);
-			this.m_rectTransform.sizeDelta = sizeDelta;
-			this.m_textList.Add(pendingMessages.m_textMeshPro);
-			this.m_textPadding.Add(pendingMessages.m_paddingTextAmount);
+			m_rectTransform.sizeDelta = sizeDelta;
+			m_textList.Add(pendingMessages.m_textMeshPro);
+			m_textPadding.Add(pendingMessages.m_paddingTextAmount);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void UpdateRecentlyAddedText()
 	{
-		for (int i = 0; i < this.m_recentlyAddedText.Count; i++)
+		for (int i = 0; i < m_recentlyAddedText.Count; i++)
 		{
-			if (this.m_recentlyAddedText[i].theText != null)
+			if (!(m_recentlyAddedText[i].theText != null))
 			{
-				for (;;)
+				continue;
+			}
+			float num = currentAlpha;
+			CanvasGroup component = m_recentlyAddedText[i].theText.GetComponent<CanvasGroup>();
+			if (Time.time - m_recentlyAddedText[i].timeDisplayed >= UIScreenManager.Get().m_chatRecentChatDisplayTime)
+			{
+				num = currentAlpha;
+			}
+			else
+			{
+				num = 1f;
+			}
+			if (component != null)
+			{
+				component.alpha = num;
+				int blocksRaycasts;
+				if (m_recentlyAddedContainer.isActiveAndEnabled && num > 0.1f)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.UpdateRecentlyAddedText()).MethodHandle;
-				}
-				float num = this.currentAlpha;
-				CanvasGroup component = this.m_recentlyAddedText[i].theText.GetComponent<CanvasGroup>();
-				if (Time.time - this.m_recentlyAddedText[i].timeDisplayed >= UIScreenManager.Get().m_chatRecentChatDisplayTime)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num = this.currentAlpha;
+					blocksRaycasts = ((UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd) ? 1 : 0);
 				}
 				else
 				{
-					num = 1f;
+					blocksRaycasts = 0;
 				}
-				if (component != null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					component.alpha = num;
-					CanvasGroup canvasGroup = component;
-					bool blocksRaycasts;
-					if (this.m_recentlyAddedContainer.isActiveAndEnabled && num > 0.1f)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						blocksRaycasts = (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd);
-					}
-					else
-					{
-						blocksRaycasts = false;
-					}
-					canvasGroup.blocksRaycasts = blocksRaycasts;
-				}
-				else
-				{
-					Color color = this.m_recentlyAddedText[i].theText.color;
-					color.a = num;
-					this.m_recentlyAddedText[i].theText.color = color;
-				}
+				component.blocksRaycasts = ((byte)blocksRaycasts != 0);
+			}
+			else
+			{
+				Color color = m_recentlyAddedText[i].theText.color;
+				color.a = num;
+				m_recentlyAddedText[i].theText.color = color;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void UpdateRecentlyAddedTextLines()
 	{
 		int num = 0;
-		for (int i = 0; i < this.m_recentlyAddedText.Count; i++)
+		for (int i = 0; i < m_recentlyAddedText.Count; i++)
 		{
-			if (num >= this.m_numLinesToDisplayRecent)
+			if (num >= m_numLinesToDisplayRecent)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.UpdateRecentlyAddedTextLines()).MethodHandle;
-				}
-				UnityEngine.Object.Destroy(this.m_recentlyAddedText[i].theText.gameObject);
-				this.m_recentlyAddedText.RemoveAt(i);
+				UnityEngine.Object.Destroy(m_recentlyAddedText[i].theText.gameObject);
+				m_recentlyAddedText.RemoveAt(i);
 				i--;
+				continue;
 			}
-			else
+			TextMeshProUGUI originalText = m_recentlyAddedText[i].originalText;
+			int lineCount = originalText.textInfo.lineCount;
+			if (num + lineCount > m_numLinesToDisplayRecent)
 			{
-				TextMeshProUGUI originalText = this.m_recentlyAddedText[i].originalText;
-				int lineCount = originalText.textInfo.lineCount;
-				if (num + lineCount > this.m_numLinesToDisplayRecent)
+				int firstCharacterIndex = originalText.textInfo.lineInfo[lineCount - (m_numLinesToDisplayRecent - num)].firstCharacterIndex;
+				int index = originalText.textInfo.characterInfo[firstCharacterIndex].index;
+				if (index <= 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					int firstCharacterIndex = originalText.textInfo.lineInfo[lineCount - (this.m_numLinesToDisplayRecent - num)].firstCharacterIndex;
-					int index = (int)originalText.textInfo.characterInfo[firstCharacterIndex].index;
-					if (index <= 0)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num = this.m_numLinesToDisplayRecent;
-						i--;
-						goto IL_1C8;
-					}
-					string text = string.Empty;
-					try
-					{
-						text = originalText.text.Substring(index);
-					}
-					catch (ArgumentOutOfRangeException innerException)
-					{
-						throw new Exception(string.Format("UpdateRecentlyAddedTextLines substring issue. Text = \"{0}\". Index = {1}", originalText.text, index), innerException);
-					}
-					if (text.Contains("</color>"))
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!text.Contains("<color"))
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							int num2 = originalText.text.LastIndexOf("<color=");
-							int num3 = originalText.text.IndexOf(">", num2);
-							text = originalText.text.Substring(num2, num3 - num2 + 1) + text;
-						}
-					}
-					this.m_recentlyAddedText[i].theText.text = text;
+					num = m_numLinesToDisplayRecent;
+					i--;
+					continue;
 				}
-				num += lineCount;
+				string empty = string.Empty;
+				try
+				{
+					empty = originalText.text.Substring(index);
+				}
+				catch (ArgumentOutOfRangeException innerException)
+				{
+					throw new Exception($"UpdateRecentlyAddedTextLines substring issue. Text = \"{originalText.text}\". Index = {index}", innerException);
+				}
+				if (empty.Contains("</color>"))
+				{
+					if (!empty.Contains("<color"))
+					{
+						int num2 = originalText.text.LastIndexOf("<color=");
+						int num3 = originalText.text.IndexOf(">", num2);
+						empty = originalText.text.Substring(num2, num3 - num2 + 1) + empty;
+					}
+				}
+				m_recentlyAddedText[i].theText.text = empty;
 			}
-			IL_1C8:;
+			num += lineCount;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void UpdateLinkMessages()
 	{
-		if (this.m_parent.IsHovered())
+		if (m_parent.IsHovered())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.UpdateLinkMessages()).MethodHandle;
-			}
-			Canvas componentInParent = base.GetComponentInParent<Canvas>();
-			if (componentInParent == null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				Log.Info("Why is there no canvas in this parent of this object?", new object[0]);
-				return;
-			}
-			Camera worldCamera = componentInParent.worldCamera;
-			int num = -1;
-			TextMeshProUGUI textMeshProUGUI = null;
-			for (int i = 0; i < this.m_recentlyAddedText.Count; i++)
-			{
-				if (Time.time - this.m_recentlyAddedText[i].timeDisplayed < UIScreenManager.Get().m_chatRecentChatDisplayTime)
+				default:
 				{
-					CanvasGroup component = this.m_recentlyAddedText[i].theText.GetComponent<CanvasGroup>();
-					if (component == null)
+					Canvas componentInParent = GetComponentInParent<Canvas>();
+					if (componentInParent == null)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (2)
+							switch (3)
 							{
 							case 0:
-								continue;
-							}
-							break;
-						}
-						Log.Info("Canvas Group is null", new object[0]);
-					}
-					else if (!component.blocksRaycasts)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					else
-					{
-						num = TMP_TextUtilities.FindIntersectingLink(this.m_recentlyAddedText[i].theText, Input.mousePosition, worldCamera);
-						if (num >= 0)
-						{
-							textMeshProUGUI = this.m_recentlyAddedText[i].theText;
-							break;
-						}
-					}
-				}
-			}
-			if (this.currentAlpha >= 1f)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (textMeshProUGUI == null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					for (int j = 0; j < this.m_textList.Count; j++)
-					{
-						CanvasGroup component2 = this.m_textList[j].GetComponent<CanvasGroup>();
-						if (component2 == null)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
 								break;
-							}
-							Log.Info("Canvas Group is null", new object[0]);
-						}
-						else if (component2.blocksRaycasts)
-						{
-							num = TMP_TextUtilities.FindIntersectingLink(this.m_textList[j], Input.mousePosition, worldCamera);
-							if (num >= 0)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								textMeshProUGUI = this.m_textList[j];
-								break;
+							default:
+								Log.Info("Why is there no canvas in this parent of this object?");
+								return;
 							}
 						}
 					}
-				}
-			}
-			if (!(this.m_hoveredText != textMeshProUGUI))
-			{
-				if (this.m_hoveredLink == num)
-				{
-					goto IL_4E3;
-				}
-				for (;;)
-				{
-					switch (1)
+					Camera worldCamera = componentInParent.worldCamera;
+					int num = -1;
+					TextMeshProUGUI textMeshProUGUI = null;
+					for (int i = 0; i < m_recentlyAddedText.Count; i++)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			this.ClearPreviousLinkHover();
-			this.m_hoveredText = textMeshProUGUI;
-			this.m_hoveredLink = num;
-			if (textMeshProUGUI != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (num >= 0)
-				{
-					if (textMeshProUGUI.textInfo.linkInfo[num].GetLinkID().StartsWith("emoji-"))
-					{
-						for (;;)
+						if (Time.time - m_recentlyAddedText[i].timeDisplayed < UIScreenManager.Get().m_chatRecentChatDisplayTime)
 						{
-							switch (1)
+							CanvasGroup component = m_recentlyAddedText[i].theText.GetComponent<CanvasGroup>();
+							if (component == null)
 							{
-							case 0:
-								continue;
+								Log.Info("Canvas Group is null");
 							}
-							break;
-						}
-						string text = textMeshProUGUI.textInfo.linkInfo[num].GetLinkID().Substring(6);
-						text = text.Substring(0, text.LastIndexOf(':') + 1);
-						if (!(this.m_lastEmojiTag != text))
-						{
-							for (;;)
+							else if (!component.blocksRaycasts)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!(this.m_lastEmojiEntry != textMeshProUGUI))
-							{
-								goto IL_364;
-							}
-						}
-						int index = ChatEmojiManager.Get().GetAllEmojisIndicesInString(text)[0];
-						this.m_lastEmojiTag = text;
-						this.m_lastEmojiText = ChatEmojiManager.Get().m_emojiList[index].GetHowToUnlock();
-						this.m_lastEmojiTagLoc = ChatEmojiManager.Get().m_emojiList[index].GetEmojiTag();
-						this.m_lastEmojiEntry = textMeshProUGUI;
-						IL_364:
-						UITooltipHoverObject component3 = textMeshProUGUI.GetComponent<UITooltipHoverObject>();
-						if (component3 != null)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							component3.Refresh();
-						}
-					}
-					else if (textMeshProUGUI.text.Contains("</link>"))
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						TMP_LinkInfo tmp_LinkInfo = textMeshProUGUI.textInfo.linkInfo[num];
-						int num2 = tmp_LinkInfo.linkIdFirstCharacterIndex + tmp_LinkInfo.linkIdLength + 1;
-						string text2 = textMeshProUGUI.text.Substring(Mathf.Clamp(num2, 0, textMeshProUGUI.text.Length - 1), tmp_LinkInfo.linkTextLength);
-						string text3 = textMeshProUGUI.text.Substring(0, num2);
-						string text4 = textMeshProUGUI.text.Substring(Mathf.Clamp(num2 + tmp_LinkInfo.linkTextLength, 0, textMeshProUGUI.text.Length - 1));
-						while (!text4.StartsWith("</link>"))
-						{
-							if (text4.Length <= 0)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									goto IL_49B;
-								}
 							}
 							else
 							{
-								text2 += text4[0];
-								text4 = text4.Substring(1);
-							}
-						}
-						IL_49B:
-						if (text4.Length > 0)
-						{
-							for (;;)
-							{
-								switch (6)
+								num = TMP_TextUtilities.FindIntersectingLink(m_recentlyAddedText[i].theText, Input.mousePosition, worldCamera);
+								if (num >= 0)
 								{
-								case 0:
-									continue;
+									textMeshProUGUI = m_recentlyAddedText[i].theText;
+									break;
 								}
-								break;
 							}
-							textMeshProUGUI.text = string.Concat(new string[]
-							{
-								text3,
-								"<u>",
-								text2,
-								"</u>",
-								text4
-							});
 						}
 					}
+					if (currentAlpha >= 1f)
+					{
+						if (textMeshProUGUI == null)
+						{
+							for (int j = 0; j < m_textList.Count; j++)
+							{
+								CanvasGroup component2 = m_textList[j].GetComponent<CanvasGroup>();
+								if (component2 == null)
+								{
+									Log.Info("Canvas Group is null");
+								}
+								else if (component2.blocksRaycasts)
+								{
+									num = TMP_TextUtilities.FindIntersectingLink(m_textList[j], Input.mousePosition, worldCamera);
+									if (num >= 0)
+									{
+										textMeshProUGUI = m_textList[j];
+										break;
+									}
+								}
+							}
+						}
+					}
+					if (!(m_hoveredText != textMeshProUGUI))
+					{
+						if (m_hoveredLink == num)
+						{
+							return;
+						}
+					}
+					ClearPreviousLinkHover();
+					m_hoveredText = textMeshProUGUI;
+					m_hoveredLink = num;
+					if (textMeshProUGUI != null)
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								break;
+							default:
+								if (num >= 0)
+								{
+									if (textMeshProUGUI.textInfo.linkInfo[num].GetLinkID().StartsWith("emoji-"))
+									{
+										while (true)
+										{
+											UITooltipHoverObject component3;
+											switch (1)
+											{
+											case 0:
+												break;
+											default:
+												{
+													string text = textMeshProUGUI.textInfo.linkInfo[num].GetLinkID().Substring(6);
+													text = text.Substring(0, text.LastIndexOf(':') + 1);
+													if (!(m_lastEmojiTag != text))
+													{
+														if (!(m_lastEmojiEntry != textMeshProUGUI))
+														{
+															goto IL_0364;
+														}
+													}
+													int index = ChatEmojiManager.Get().GetAllEmojisIndicesInString(text)[0];
+													m_lastEmojiTag = text;
+													m_lastEmojiText = ChatEmojiManager.Get().m_emojiList[index].GetHowToUnlock();
+													m_lastEmojiTagLoc = ChatEmojiManager.Get().m_emojiList[index].GetEmojiTag();
+													m_lastEmojiEntry = textMeshProUGUI;
+													goto IL_0364;
+												}
+												IL_0364:
+												component3 = textMeshProUGUI.GetComponent<UITooltipHoverObject>();
+												if (component3 != null)
+												{
+													while (true)
+													{
+														switch (7)
+														{
+														case 0:
+															break;
+														default:
+															component3.Refresh();
+															return;
+														}
+													}
+												}
+												return;
+											}
+										}
+									}
+									if (textMeshProUGUI.text.Contains("</link>"))
+									{
+										while (true)
+										{
+											switch (2)
+											{
+											case 0:
+												break;
+											default:
+											{
+												TMP_LinkInfo tMP_LinkInfo = textMeshProUGUI.textInfo.linkInfo[num];
+												int num2 = tMP_LinkInfo.linkIdFirstCharacterIndex + tMP_LinkInfo.linkIdLength + 1;
+												string text2 = textMeshProUGUI.text.Substring(Mathf.Clamp(num2, 0, textMeshProUGUI.text.Length - 1), tMP_LinkInfo.linkTextLength);
+												string text3 = textMeshProUGUI.text.Substring(0, num2);
+												string text4 = textMeshProUGUI.text.Substring(Mathf.Clamp(num2 + tMP_LinkInfo.linkTextLength, 0, textMeshProUGUI.text.Length - 1));
+												while (!text4.StartsWith("</link>"))
+												{
+													if (text4.Length <= 0)
+													{
+														break;
+													}
+													text2 += text4[0];
+													text4 = text4.Substring(1);
+												}
+												if (text4.Length > 0)
+												{
+													while (true)
+													{
+														switch (6)
+														{
+														case 0:
+															break;
+														default:
+															textMeshProUGUI.text = text3 + "<u>" + text2 + "</u>" + text4;
+															return;
+														}
+													}
+												}
+												return;
+											}
+											}
+										}
+									}
+								}
+								return;
+							}
+						}
+					}
+					return;
+				}
 				}
 			}
-			IL_4E3:;
 		}
-		else
-		{
-			this.ClearPreviousLinkHover();
-		}
+		ClearPreviousLinkHover();
 	}
 
 	public void RefreshTextSizes()
 	{
-		List<TextMeshProUGUI> list = new List<TextMeshProUGUI>(this.m_textList);
-		for (int i = 0; i < this.m_recentlyAddedText.Count; i++)
+		List<TextMeshProUGUI> list = new List<TextMeshProUGUI>(m_textList);
+		for (int i = 0; i < m_recentlyAddedText.Count; i++)
 		{
-			list.Add(this.m_recentlyAddedText[i].theText);
+			list.Add(m_recentlyAddedText[i].theText);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
+			for (int j = 0; j < list.Count; j++)
 			{
-			case 0:
-				continue;
+				list[j].text += " ";
+				list[j].text = list[j].text.Substring(0, list[j].text.Length - 1);
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.RefreshTextSizes()).MethodHandle;
-		}
-		for (int j = 0; j < list.Count; j++)
-		{
-			TextMeshProUGUI textMeshProUGUI = list[j];
-			textMeshProUGUI.text += " ";
-			list[j].text = list[j].text.Substring(0, list[j].text.Length - 1);
-		}
-		for (;;)
-		{
-			switch (5)
+			while (true)
 			{
-			case 0:
-				continue;
+				switch (5)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
 			}
-			break;
 		}
 	}
 
 	private bool EmojiTooltipSetup(UITooltipBase tooltip)
 	{
-		if (this.m_lastEmojiTag.IsNullOrEmpty())
+		if (m_lastEmojiTag.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.EmojiTooltipSetup(UITooltipBase)).MethodHandle;
-			}
-			return false;
 		}
-		(tooltip as UITitledTooltip).Setup(this.m_lastEmojiTagLoc, this.m_lastEmojiText, string.Empty);
+		(tooltip as UITitledTooltip).Setup(m_lastEmojiTagLoc, m_lastEmojiText, string.Empty);
 		return true;
 	}
 
 	private void Update()
 	{
-		this.UpdateLastMessages();
-		this.UpdateRecentlyAddedText();
-		this.UpdateRecentlyAddedTextLines();
-		this.UpdateLinkMessages();
+		UpdateLastMessages();
+		UpdateRecentlyAddedText();
+		UpdateRecentlyAddedTextLines();
+		UpdateLinkMessages();
 	}
 
 	private float GetTextChatHeight()
 	{
 		float num = 0f;
-		for (int i = 0; i < this.m_textList.Count; i++)
+		for (int i = 0; i < m_textList.Count; i++)
 		{
-			num += this.m_textList[i].preferredHeight;
-			num += this.m_textPadding[i];
+			num += m_textList[i].preferredHeight;
+			num += m_textPadding[i];
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return num;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.GetTextChatHeight()).MethodHandle;
-		}
-		return num;
 	}
 
 	private void ClearPreviousLinkHover()
 	{
-		if (this.m_lastEmojiEntry != null && !this.m_lastEmojiTag.IsNullOrEmpty())
+		if (m_lastEmojiEntry != null && !m_lastEmojiTag.IsNullOrEmpty())
 		{
-			this.m_lastEmojiTag = string.Empty;
-			UITooltipHoverObject component = this.m_lastEmojiEntry.GetComponent<UITooltipHoverObject>();
+			m_lastEmojiTag = string.Empty;
+			UITooltipHoverObject component = m_lastEmojiEntry.GetComponent<UITooltipHoverObject>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.ClearPreviousLinkHover()).MethodHandle;
-				}
 				component.Refresh();
 			}
 		}
-		if (!(this.m_hoveredText == null))
+		if (m_hoveredText == null)
 		{
-			if (this.m_hoveredLink >= 0)
-			{
-				TMP_LinkInfo tmp_LinkInfo = this.m_hoveredText.textInfo.linkInfo[this.m_hoveredLink];
-				int num = Mathf.Clamp(tmp_LinkInfo.linkIdFirstCharacterIndex + tmp_LinkInfo.linkIdLength + 1, 0, this.m_hoveredText.text.Length - 1);
-				int num2 = Mathf.Clamp(num + tmp_LinkInfo.linkTextLength + 7, 0, this.m_hoveredText.text.Length - 1);
-				string text = this.m_hoveredText.text.Substring(num, Mathf.Max(num2 - num, 0));
-				if (text.StartsWith("<u>"))
-				{
-					string str = this.m_hoveredText.text.Substring(0, num);
-					string text2 = this.m_hoveredText.text.Substring(num2);
-					while (text2.Length > 0)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (text2.StartsWith("</link>"))
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_1AB;
-							}
-						}
-						else
-						{
-							text += text2[0];
-							text2 = text2.Substring(1);
-						}
-					}
-					IL_1AB:
-					if (text.EndsWith("</u>"))
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						string str2 = text.Substring(3, text.Length - 7);
-						this.m_hoveredText.text = str + str2 + text2;
-					}
-				}
-				this.m_hoveredLink = -1;
-				this.m_hoveredText = null;
-				return;
-			}
-			for (;;)
+			return;
+		}
+		if (m_hoveredLink < 0)
+		{
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
+					break;
+				}
+			}
+		}
+		TMP_LinkInfo tMP_LinkInfo = m_hoveredText.textInfo.linkInfo[m_hoveredLink];
+		int num = Mathf.Clamp(tMP_LinkInfo.linkIdFirstCharacterIndex + tMP_LinkInfo.linkIdLength + 1, 0, m_hoveredText.text.Length - 1);
+		int num2 = Mathf.Clamp(num + tMP_LinkInfo.linkTextLength + 7, 0, m_hoveredText.text.Length - 1);
+		string text = m_hoveredText.text.Substring(num, Mathf.Max(num2 - num, 0));
+		if (text.StartsWith("<u>"))
+		{
+			string str = m_hoveredText.text.Substring(0, num);
+			string text2 = m_hoveredText.text.Substring(num2);
+			while (text2.Length > 0)
+			{
+				if (!text2.StartsWith("</link>"))
+				{
+					text += text2[0];
+					text2 = text2.Substring(1);
 					continue;
 				}
 				break;
 			}
+			if (text.EndsWith("</u>"))
+			{
+				string str2 = text.Substring(3, text.Length - 7);
+				m_hoveredText.text = str + str2 + text2;
+			}
 		}
+		m_hoveredLink = -1;
+		m_hoveredText = null;
 	}
 
 	public void NotifyVisible(bool visible)
 	{
-		if (!visible)
+		if (visible)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			for (int i = 0; i < m_recentlyAddedText.Count; i++)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_recentlyAddedText[i].timeDisplayed = Time.time;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.NotifyVisible(bool)).MethodHandle;
-			}
-			for (int i = 0; i < this.m_recentlyAddedText.Count; i++)
-			{
-				this.m_recentlyAddedText[i].timeDisplayed = Time.time;
-			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public void HideRecentText()
 	{
-		for (int i = 0; i < this.m_recentlyAddedText.Count; i++)
+		for (int i = 0; i < m_recentlyAddedText.Count; i++)
 		{
-			this.m_recentlyAddedText[i].timeDisplayed = 0f;
+			m_recentlyAddedText[i].timeDisplayed = 0f;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.HideRecentText()).MethodHandle;
+			return;
 		}
 	}
 
 	public TextMeshProUGUI AddEntry(string newEntry, Color textColor, bool addToRecentlyAdded, float paddingTextAmount = 0f, ScrollRect scrollRect = null, List<int> allowedEmojis = null)
 	{
-		if (newEntry.Length > 0xC350)
+		if (newEntry.Length > 50000)
 		{
 			newEntry = StringUtil.TR("MessageTooLong", "Global");
 		}
-		if (this.m_textPrefab == null)
+		if (m_textPrefab == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.AddEntry(string, Color, bool, float, ScrollRect, List<int>)).MethodHandle;
-			}
-			return null;
 		}
-		this.Init();
-		if (this.m_textList.Count > 0x50)
+		Init();
+		if (m_textList.Count > 80)
 		{
-			float y = this.m_textList[0].preferredHeight + this.m_textPadding[0];
-			UnityEngine.Object.Destroy(this.m_textList[0].gameObject);
-			this.m_textList.RemoveAt(0);
-			this.m_textPadding.RemoveAt(0);
-			for (int i = 0; i < this.m_textList.Count; i++)
+			float y = m_textList[0].preferredHeight + m_textPadding[0];
+			UnityEngine.Object.Destroy(m_textList[0].gameObject);
+			m_textList.RemoveAt(0);
+			m_textPadding.RemoveAt(0);
+			for (int i = 0; i < m_textList.Count; i++)
 			{
-				this.m_textList[i].rectTransform.anchoredPosition = this.m_textList[i].rectTransform.anchoredPosition + new Vector2(0f, y);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_textList[i].rectTransform.anchoredPosition = m_textList[i].rectTransform.anchoredPosition + new Vector2(0f, y);
 			}
 		}
-		TextMeshProUGUI textMeshProUGUI = UnityEngine.Object.Instantiate<TextMeshProUGUI>(this.m_textPrefab);
+		TextMeshProUGUI textMeshProUGUI = UnityEngine.Object.Instantiate(m_textPrefab);
 		textMeshProUGUI.transform.SetParent(base.transform);
 		textMeshProUGUI.color = textColor;
 		textMeshProUGUI.text = newEntry;
 		textMeshProUGUI.rectTransform.localScale = new Vector3(1f, 1f, 1f);
 		textMeshProUGUI.rectTransform.localPosition = Vector3.zero;
 		textMeshProUGUI.rectTransform.anchoredPosition = new Vector2(0f, 0f);
-		textMeshProUGUI.rectTransform.offsetMax = new Vector2(0f, textMeshProUGUI.rectTransform.offsetMax.y);
-		UIManager.SetGameObjectActive(textMeshProUGUI, true, null);
-		this.m_lastMessagesAdded.Enqueue(new UI_NewTextList.PendingMessages
+		RectTransform rectTransform = textMeshProUGUI.rectTransform;
+		Vector2 offsetMax = textMeshProUGUI.rectTransform.offsetMax;
+		rectTransform.offsetMax = new Vector2(0f, offsetMax.y);
+		UIManager.SetGameObjectActive(textMeshProUGUI, true);
+		m_lastMessagesAdded.Enqueue(new PendingMessages
 		{
 			m_textMeshPro = textMeshProUGUI,
 			m_paddingTextAmount = paddingTextAmount,
@@ -998,16 +708,16 @@ public class UI_NewTextList : MonoBehaviour
 		UITooltipHoverObject component = textMeshProUGUI.GetComponent<UITooltipHoverObject>();
 		if (component != null)
 		{
-			component.Setup(TooltipType.Titled, new TooltipPopulateCall(this.EmojiTooltipSetup), null);
+			component.Setup(TooltipType.Titled, EmojiTooltipSetup);
 		}
-		TextMeshProUGUI textMeshProUGUI2 = UnityEngine.Object.Instantiate<TextMeshProUGUI>(this.m_textPrefab);
-		textMeshProUGUI2.transform.SetParent(this.m_recentlyAddedContainer.transform);
+		TextMeshProUGUI textMeshProUGUI2 = UnityEngine.Object.Instantiate(m_textPrefab);
+		textMeshProUGUI2.transform.SetParent(m_recentlyAddedContainer.transform);
 		textMeshProUGUI2.color = textColor;
 		textMeshProUGUI2.text = newEntry;
 		textMeshProUGUI2.rectTransform.localScale = new Vector3(1f, 1f, 1f);
 		textMeshProUGUI2.rectTransform.localPosition = Vector3.zero;
-		UIManager.SetGameObjectActive(textMeshProUGUI2, true, null);
-		this.m_recentlyAddedText.Insert(0, new UI_NewTextList.TextItem
+		UIManager.SetGameObjectActive(textMeshProUGUI2, true);
+		m_recentlyAddedText.Insert(0, new TextItem
 		{
 			theText = textMeshProUGUI2,
 			originalText = textMeshProUGUI,
@@ -1016,39 +726,21 @@ public class UI_NewTextList : MonoBehaviour
 		CanvasGroup component2 = textMeshProUGUI2.GetComponent<CanvasGroup>();
 		if (component2 != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CanvasGroup canvasGroup = component2;
 			float alpha;
 			if (addToRecentlyAdded)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				alpha = 1f;
 			}
 			else
 			{
-				alpha = this.currentAlpha;
+				alpha = currentAlpha;
 			}
 			canvasGroup.alpha = alpha;
 			Color color = textMeshProUGUI2.color;
 			color.a = 1f;
 			textMeshProUGUI2.color = color;
-			component2.blocksRaycasts = (this.m_recentlyAddedContainer.gameObject.activeSelf && UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd);
+			component2.blocksRaycasts = (m_recentlyAddedContainer.gameObject.activeSelf && UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd);
 		}
 		else
 		{
@@ -1056,20 +748,11 @@ public class UI_NewTextList : MonoBehaviour
 			float a;
 			if (addToRecentlyAdded)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				a = 1f;
 			}
 			else
 			{
-				a = this.currentAlpha;
+				a = currentAlpha;
 			}
 			color2.a = a;
 			textMeshProUGUI2.color = color2;
@@ -1078,56 +761,47 @@ public class UI_NewTextList : MonoBehaviour
 		UITooltipHoverObject component3 = textMeshProUGUI2.GetComponent<UITooltipHoverObject>();
 		if (component3 != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			component3.Setup(TooltipType.Titled, new TooltipPopulateCall(this.EmojiTooltipSetup), null);
+			component3.Setup(TooltipType.Titled, EmojiTooltipSetup);
 		}
 		component2 = textMeshProUGUI.GetComponent<CanvasGroup>();
 		if (component2 != null)
 		{
-			component2.alpha = this.currentAlpha;
+			component2.alpha = currentAlpha;
 			Color color3 = textMeshProUGUI.color;
 			color3.a = 1f;
 			textMeshProUGUI.color = color3;
-			component2.blocksRaycasts = !this.m_recentlyAddedContainer.gameObject.activeSelf;
+			component2.blocksRaycasts = !m_recentlyAddedContainer.gameObject.activeSelf;
 		}
 		else
 		{
 			Color color4 = textMeshProUGUI.color;
-			color4.a = this.currentAlpha;
+			color4.a = currentAlpha;
 			textMeshProUGUI.color = color4;
 		}
-		UIEventTriggerUtils.AddListener(textMeshProUGUI.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnTextClicked));
-		UIEventTriggerUtils.AddListener(textMeshProUGUI2.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnTextClicked));
+		UIEventTriggerUtils.AddListener(textMeshProUGUI.gameObject, EventTriggerType.PointerClick, OnTextClicked);
+		UIEventTriggerUtils.AddListener(textMeshProUGUI2.gameObject, EventTriggerType.PointerClick, OnTextClicked);
 		return textMeshProUGUI;
 	}
 
 	private void ShiftChatEntries(float amountToShift)
 	{
-		for (int i = 0; i < this.m_textList.Count; i++)
+		for (int i = 0; i < m_textList.Count; i++)
 		{
-			Vector3 localPosition = this.m_textList[i].rectTransform.localPosition;
+			Vector3 localPosition = m_textList[i].rectTransform.localPosition;
 			localPosition.y += amountToShift;
-			this.m_textList[i].rectTransform.localPosition = localPosition;
+			m_textList[i].rectTransform.localPosition = localPosition;
 		}
 	}
 
 	public void RemoveEntry(TextMeshProUGUI entry)
 	{
-		this.m_textList.Remove(entry);
+		m_textList.Remove(entry);
 		UnityEngine.Object.Destroy(entry.gameObject);
 	}
 
 	public int NumEntires()
 	{
-		return this.m_textList.Count;
+		return m_textList.Count;
 	}
 
 	public void OnTextClicked(BaseEventData data)
@@ -1135,377 +809,239 @@ public class UI_NewTextList : MonoBehaviour
 		PointerEventData pointerEventData = data as PointerEventData;
 		TextMeshProUGUI component = pointerEventData.pointerPress.GetComponent<TextMeshProUGUI>();
 		int num = -1;
-		if (this.m_parent.IsHovered())
+		if (m_parent.IsHovered())
 		{
-			for (;;)
+			if (m_camera == null)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_camera = GetComponentInParent<Canvas>().worldCamera;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_NewTextList.OnTextClicked(BaseEventData)).MethodHandle;
-			}
-			if (this.m_camera == null)
-			{
-				this.m_camera = base.GetComponentInParent<Canvas>().worldCamera;
-			}
-			num = TMP_TextUtilities.FindIntersectingLink(component, Input.mousePosition, this.m_camera);
+			num = TMP_TextUtilities.FindIntersectingLink(component, Input.mousePosition, m_camera);
 		}
 		if (num < 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			List<RaycastResult> list = new List<RaycastResult>();
-			EventSystem.current.RaycastAll(pointerEventData, list);
-			for (int i = 0; i < list.Count; i++)
-			{
-				if (list[i].gameObject != component.gameObject)
+					break;
+				default:
 				{
-					for (;;)
+					List<RaycastResult> list = new List<RaycastResult>();
+					EventSystem.current.RaycastAll(pointerEventData, list);
+					for (int i = 0; i < list.Count; i++)
+					{
+						if (list[i].gameObject != component.gameObject)
+						{
+							EventTrigger component2 = list[i].gameObject.GetComponent<EventTrigger>();
+							if (component2 != null)
+							{
+								int num2 = 0;
+								while (true)
+								{
+									if (num2 >= component2.triggers.Count)
+									{
+										break;
+									}
+									EventTrigger.Entry entry = component2.triggers[num2];
+									if (entry.eventID == EventTriggerType.PointerClick)
+									{
+										pointerEventData.pointerPress = list[i].gameObject;
+										entry.callback.Invoke(pointerEventData);
+										break;
+									}
+									num2++;
+								}
+							}
+						}
+					}
+					while (true)
 					{
 						switch (2)
 						{
+						default:
+							return;
 						case 0:
-							continue;
-						}
-						break;
-					}
-					EventTrigger component2 = list[i].gameObject.GetComponent<EventTrigger>();
-					if (component2 != null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						for (int j = 0; j < component2.triggers.Count; j++)
-						{
-							EventTrigger.Entry entry = component2.triggers[j];
-							if (entry.eventID == EventTriggerType.PointerClick)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								pointerEventData.pointerPress = list[i].gameObject;
-								entry.callback.Invoke(pointerEventData);
-								goto IL_17C;
-							}
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							break;
 						}
 					}
 				}
-				IL_17C:;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
 				}
-				break;
 			}
-			return;
 		}
 		if (component.textInfo.linkInfo[num].GetLinkID() == "name")
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			string linkText = component.textInfo.linkInfo[num].GetLinkText();
-			if (Input.GetMouseButtonUp(1))
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (this.m_textList.Count > 0)
+				default:
 				{
-					float num2 = Mathf.Abs(this.m_textList[this.m_textList.Count - 1].rectTransform.localPosition.y - component.rectTransform.localPosition.y);
-					if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
+					string linkText = component.textInfo.linkInfo[num].GetLinkText();
+					if (Input.GetMouseButtonUp(1))
 					{
-						for (;;)
+						if (m_textList.Count > 0)
 						{
-							switch (4)
+							Vector3 localPosition = m_textList[m_textList.Count - 1].rectTransform.localPosition;
+							float y = localPosition.y;
+							Vector3 localPosition2 = component.rectTransform.localPosition;
+							float num3 = Mathf.Abs(y - localPosition2.y);
+							if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (UIFrontEnd.Get() != null)
-						{
-							for (;;)
-							{
-								switch (1)
+								if (UIFrontEnd.Get() != null)
 								{
-								case 0:
-									continue;
+									if (UIFrontEnd.Get().m_frontEndChatConsole != null)
+									{
+										while (true)
+										{
+											switch (3)
+											{
+											case 0:
+												break;
+											default:
+											{
+												float num4 = num3;
+												Vector3 localPosition3 = (base.transform as RectTransform).localPosition;
+												num3 = num4 + localPosition3.y;
+												UIFrontEnd.Get().m_frontEndChatConsole.DisplayMenu(linkText, num3);
+												return;
+											}
+											}
+										}
+									}
 								}
-								break;
 							}
-							if (UIFrontEnd.Get().m_frontEndChatConsole != null)
+							if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 							{
-								for (;;)
+								while (true)
 								{
-									switch (3)
+									switch (2)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										if (HUD_UI.Get() != null && HUD_UI.Get().m_textConsole != null)
+										{
+											while (true)
+											{
+												switch (7)
+												{
+												case 0:
+													break;
+												default:
+													if (currentAlpha < 1f && m_recentlyAddedText.Count > 0)
+													{
+														Vector3 localPosition4 = m_recentlyAddedText[m_recentlyAddedText.Count - 1].originalText.rectTransform.localPosition;
+														float y2 = localPosition4.y;
+														Vector3 localPosition5 = component.rectTransform.localPosition;
+														num3 = Mathf.Abs(y2 - localPosition5.y);
+														num3 -= m_rectTransform.rect.height * 0.75f;
+													}
+													HUD_UI.Get().m_textConsole.DisplayIngameMenu(linkText, num3);
+													return;
+												}
+											}
+										}
+										return;
 									}
-									break;
 								}
-								num2 += (base.transform as RectTransform).localPosition.y;
-								UIFrontEnd.Get().m_frontEndChatConsole.DisplayMenu(linkText, num2);
-								goto IL_3FD;
+							}
+							return;
+						}
+					}
+					if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
+					{
+						if (UIFrontEnd.Get() != null && UIFrontEnd.Get().m_frontEndChatConsole != null)
+						{
+							while (true)
+							{
+								switch (3)
+								{
+								case 0:
+									break;
+								default:
+									UIFrontEnd.Get().m_frontEndChatConsole.SetupWhisper(linkText);
+									return;
+								}
 							}
 						}
 					}
 					if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (HUD_UI.Get() != null && HUD_UI.Get().m_textConsole != null)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.currentAlpha < 1f && this.m_recentlyAddedText.Count > 0)
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								num2 = Mathf.Abs(this.m_recentlyAddedText[this.m_recentlyAddedText.Count - 1].originalText.rectTransform.localPosition.y - component.rectTransform.localPosition.y);
-								num2 -= this.m_rectTransform.rect.height * 0.75f;
-							}
-							HUD_UI.Get().m_textConsole.DisplayIngameMenu(linkText, num2);
-						}
-					}
-					IL_3FD:
-					goto IL_4B5;
-				}
-			}
-			if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (UIFrontEnd.Get() != null && UIFrontEnd.Get().m_frontEndChatConsole != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIFrontEnd.Get().m_frontEndChatConsole.SetupWhisper(linkText);
-					goto IL_4B5;
-				}
-			}
-			if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (HUD_UI.Get() != null && HUD_UI.Get().m_textConsole != null)
-				{
-					HUD_UI.Get().m_textConsole.SetupWhisper(linkText);
-				}
-			}
-			IL_4B5:;
-		}
-		else if (component.textInfo.linkInfo[num].GetLinkID().StartsWith("invite:"))
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			string arguments = component.textInfo.linkInfo[num].GetLinkID().Substring(7);
-			bool flag = false;
-			if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (GameManager.Get() != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (GameManager.Get().GameInfo != null)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
 							case 0:
-								continue;
-							}
-							break;
-						}
-						if (GameManager.Get().GameInfo.GameConfig != null)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
 								break;
-							}
-							if (GameManager.Get().GameInfo.GameConfig.GameType == GameType.Custom)
-							{
-								for (;;)
+							default:
+								if (HUD_UI.Get() != null && HUD_UI.Get().m_textConsole != null)
 								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
+									HUD_UI.Get().m_textConsole.SetupWhisper(linkText);
 								}
-								flag = true;
+								return;
 							}
 						}
 					}
+					return;
 				}
-			}
-			if (flag)
-			{
-				SlashCommands.Get().RunSlashCommand("/invitetogame", arguments);
-			}
-			else
-			{
-				SlashCommands.Get().RunSlashCommand("/invite", arguments);
+				}
 			}
 		}
-		else if (component.textInfo.linkInfo[num].GetLinkID().StartsWith("channel:"))
+		if (component.textInfo.linkInfo[num].GetLinkID().StartsWith("invite:"))
 		{
-			for (;;)
+			while (true)
 			{
-				switch (4)
+				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					string arguments = component.textInfo.linkInfo[num].GetLinkID().Substring(7);
+					bool flag = false;
+					if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
+					{
+						if (GameManager.Get() != null)
+						{
+							if (GameManager.Get().GameInfo != null)
+							{
+								if (GameManager.Get().GameInfo.GameConfig != null)
+								{
+									if (GameManager.Get().GameInfo.GameConfig.GameType == GameType.Custom)
+									{
+										flag = true;
+									}
+								}
+							}
+						}
+					}
+					if (flag)
+					{
+						SlashCommands.Get().RunSlashCommand("/invitetogame", arguments);
+					}
+					else
+					{
+						SlashCommands.Get().RunSlashCommand("/invite", arguments);
+					}
+					return;
 				}
-				break;
+				}
 			}
+		}
+		if (!component.textInfo.linkInfo[num].GetLinkID().StartsWith("channel:"))
+		{
+			return;
+		}
+		while (true)
+		{
 			string channelName = component.textInfo.linkInfo[num].GetLinkID().Substring(8);
 			if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UIFrontEnd.Get() != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UIFrontEnd.Get().m_frontEndChatConsole != null)
 					{
 						UIFrontEnd.Get().m_frontEndChatConsole.ChangeChannel(channelName);
@@ -1513,49 +1049,22 @@ public class UI_NewTextList : MonoBehaviour
 					}
 				}
 			}
-			if (UIManager.Get().CurrentState == UIManager.ClientState.InGame && HUD_UI.Get() != null)
+			if (UIManager.Get().CurrentState != UIManager.ClientState.InGame || !(HUD_UI.Get() != null))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				return;
+			}
+			while (true)
+			{
 				if (HUD_UI.Get().m_textConsole != null)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						HUD_UI.Get().m_textConsole.ChangeChannel(channelName);
+						return;
 					}
-					HUD_UI.Get().m_textConsole.ChangeChannel(channelName);
 				}
+				return;
 			}
 		}
-	}
-
-	private class TextItem
-	{
-		public TextMeshProUGUI theText;
-
-		public TextMeshProUGUI originalText;
-
-		public float timeDisplayed;
-	}
-
-	private class PendingMessages
-	{
-		public TextMeshProUGUI m_textMeshPro;
-
-		public ScrollRect m_scrollRect;
-
-		public float m_paddingTextAmount;
 	}
 }

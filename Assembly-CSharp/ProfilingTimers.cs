@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -20,43 +20,14 @@ public class ProfilingTimers
 
 	private int m_lastId;
 
-	public ProfilingTimers()
-	{
-		this.m_methodTimers = new Dictionary<MethodBase, ProfilingTimer>();
-		this.m_messageTimers = new Dictionary<string, ProfilingTimer>();
-		this.m_databasesTimers = new Dictionary<string, ProfilingTimer>();
-		this.m_unknownMethods = new Dictionary<string, UnknownMethod>();
-		this.m_stopwatch = new Stopwatch();
-		this.m_stopwatch.Start();
-		this.DefaultMethod = base.GetType().GetMethod("UnknownMethod");
-		this.m_lastId = 0;
-	}
-
-	public static ProfilingTimers Get()
-	{
-		if (ProfilingTimers.s_instance == null)
-		{
-			ProfilingTimers.s_instance = new ProfilingTimers();
-		}
-		return ProfilingTimers.s_instance;
-	}
-
-	~ProfilingTimers()
-	{
-		ProfilingTimers.s_instance = null;
-	}
-
 	public ProfilingTimer[] MethodTimers
 	{
 		get
 		{
-			object methodTimers = this.m_methodTimers;
-			ProfilingTimer[] result;
-			lock (methodTimers)
+			lock (m_methodTimers)
 			{
-				result = this.m_methodTimers.Values.ToArray<ProfilingTimer>();
+				return m_methodTimers.Values.ToArray();
 			}
-			return result;
 		}
 	}
 
@@ -64,13 +35,10 @@ public class ProfilingTimers
 	{
 		get
 		{
-			object messageTimers = this.m_messageTimers;
-			ProfilingTimer[] result;
-			lock (messageTimers)
+			lock (m_messageTimers)
 			{
-				result = this.m_messageTimers.Values.ToArray<ProfilingTimer>();
+				return m_messageTimers.Values.ToArray();
 			}
-			return result;
 		}
 	}
 
@@ -78,99 +46,79 @@ public class ProfilingTimers
 	{
 		get
 		{
-			object databasesTimers = this.m_databasesTimers;
-			ProfilingTimer[] result;
-			lock (databasesTimers)
+			lock (m_databasesTimers)
 			{
-				result = this.m_databasesTimers.Values.ToArray<ProfilingTimer>();
+				return m_databasesTimers.Values.ToArray();
 			}
-			return result;
 		}
 	}
 
-	private MethodBase DefaultMethod { get; set; }
-
-	public long RecentElapsedTicks { get; private set; }
-
-	public long Frequency
+	private MethodBase DefaultMethod
 	{
-		get
+		get;
+		set;
+	}
+
+	public long RecentElapsedTicks
+	{
+		get;
+		private set;
+	}
+
+	public long Frequency => Stopwatch.Frequency;
+
+	public ProfilingTimers()
+	{
+		m_methodTimers = new Dictionary<MethodBase, ProfilingTimer>();
+		m_messageTimers = new Dictionary<string, ProfilingTimer>();
+		m_databasesTimers = new Dictionary<string, ProfilingTimer>();
+		m_unknownMethods = new Dictionary<string, UnknownMethod>();
+		m_stopwatch = new Stopwatch();
+		m_stopwatch.Start();
+		DefaultMethod = GetType().GetMethod("UnknownMethod");
+		m_lastId = 0;
+	}
+
+	public static ProfilingTimers Get()
+	{
+		if (s_instance == null)
 		{
-			return Stopwatch.Frequency;
+			s_instance = new ProfilingTimers();
 		}
+		return s_instance;
+	}
+
+	~ProfilingTimers()
+	{
+		s_instance = null;
 	}
 
 	public void OnMethodExecuted(string methodName, long ticks)
 	{
-		object methodTimers = this.m_methodTimers;
-		lock (methodTimers)
+		lock (m_methodTimers)
 		{
-			UnknownMethod unknownMethod = this.m_unknownMethods.TryGetValue(methodName);
+			UnknownMethod unknownMethod = m_unknownMethods.TryGetValue(methodName);
 			if (unknownMethod == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ProfilingTimers.OnMethodExecuted(string, long)).MethodHandle;
-				}
 				unknownMethod = new UnknownMethod();
-				this.m_unknownMethods.Add(methodName, unknownMethod);
+				m_unknownMethods.Add(methodName, unknownMethod);
 			}
-			ProfilingTimer profilingTimer = this.m_methodTimers.TryGetValue(unknownMethod);
+			ProfilingTimer profilingTimer = m_methodTimers.TryGetValue(unknownMethod);
 			if (profilingTimer == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				profilingTimer = new ProfilingTimer(methodName, this.m_lastId++);
-				this.m_methodTimers.Add(unknownMethod, profilingTimer);
+				profilingTimer = new ProfilingTimer(methodName, m_lastId++);
+				m_methodTimers.Add(unknownMethod, profilingTimer);
 			}
-			float num = (float)ticks / (float)this.Frequency;
+			float num = (float)ticks / (float)Frequency;
 			if (DateTime.UtcNow - profilingTimer.LastWarning > TimeSpan.FromMinutes(1.0))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num >= 1f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Log.Warning("Method {0} ran for {1} seconds", new object[]
-					{
-						profilingTimer.Name,
-						num
-					});
+					Log.Warning("Method {0} ran for {1} seconds", profilingTimer.Name, num);
 					profilingTimer.LastWarning = DateTime.UtcNow;
 				}
 			}
-			profilingTimer.Increment(ticks, 0L, false);
+			profilingTimer.Increment(ticks, 0L);
 		}
 	}
 
@@ -178,71 +126,26 @@ public class ProfilingTimers
 	{
 		if (methodInfo == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProfilingTimers.OnMethodExecuted(MethodBase, long)).MethodHandle;
-			}
-			methodInfo = this.DefaultMethod;
+			methodInfo = DefaultMethod;
 		}
-		object methodTimers = this.m_methodTimers;
-		lock (methodTimers)
+		lock (m_methodTimers)
 		{
-			ProfilingTimer profilingTimer = this.m_methodTimers.TryGetValue(methodInfo);
+			ProfilingTimer profilingTimer = m_methodTimers.TryGetValue(methodInfo);
 			if (profilingTimer == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				profilingTimer = new ProfilingTimer(ProfilingTimers.GetMethodName(methodInfo), this.m_lastId++);
-				this.m_methodTimers.Add(methodInfo, profilingTimer);
+				profilingTimer = new ProfilingTimer(GetMethodName(methodInfo), m_lastId++);
+				m_methodTimers.Add(methodInfo, profilingTimer);
 			}
-			float num = (float)ticks / (float)this.Frequency;
+			float num = (float)ticks / (float)Frequency;
 			if (DateTime.UtcNow - profilingTimer.LastWarning > TimeSpan.FromMinutes(1.0))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num >= 1f)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Log.Warning("Method {0} ran for {1} seconds", new object[]
-					{
-						profilingTimer.Name,
-						num
-					});
+					Log.Warning("Method {0} ran for {1} seconds", profilingTimer.Name, num);
 					profilingTimer.LastWarning = DateTime.UtcNow;
 				}
 			}
-			profilingTimer.Increment(ticks, 0L, false);
+			profilingTimer.Increment(ticks, 0L);
 		}
 	}
 
@@ -250,58 +153,39 @@ public class ProfilingTimers
 	{
 		if (message == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProfilingTimers.OnMessageDeserialized(WebSocketMessage)).MethodHandle;
-			}
-			return;
 		}
 		string name = message.GetType().Name;
-		object messageTimers = this.m_messageTimers;
-		lock (messageTimers)
+		lock (m_messageTimers)
 		{
-			ProfilingTimer profilingTimer = this.m_messageTimers.TryGetValue(name);
+			ProfilingTimer profilingTimer = m_messageTimers.TryGetValue(name);
 			if (profilingTimer == null)
 			{
-				profilingTimer = new ProfilingTimer(name, this.m_lastId++);
-				this.m_messageTimers.Add(name, profilingTimer);
+				profilingTimer = new ProfilingTimer(name, m_lastId++);
+				m_messageTimers.Add(name, profilingTimer);
 			}
-			profilingTimer.Increment(message.DeserializationTicks, message.SerializedLength, false);
+			profilingTimer.Increment(message.DeserializationTicks, message.SerializedLength);
 		}
 	}
 
 	public void OnDatabaseQueryExecuted(string queryType, long executionTicks, long queryResultSize, bool skipped)
 	{
-		object databasesTimers = this.m_databasesTimers;
-		lock (databasesTimers)
+		lock (m_databasesTimers)
 		{
-			ProfilingTimer profilingTimer = this.m_databasesTimers.TryGetValue(queryType);
+			ProfilingTimer profilingTimer = m_databasesTimers.TryGetValue(queryType);
 			if (profilingTimer == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ProfilingTimers.OnDatabaseQueryExecuted(string, long, long, bool)).MethodHandle;
-				}
-				profilingTimer = new ProfilingTimer(queryType, this.m_lastId++);
-				this.m_databasesTimers.Add(queryType, profilingTimer);
+				profilingTimer = new ProfilingTimer(queryType, m_lastId++);
+				m_databasesTimers.Add(queryType, profilingTimer);
 			}
 			profilingTimer.Increment(executionTicks, queryResultSize, skipped);
 		}
@@ -309,67 +193,46 @@ public class ProfilingTimers
 
 	public void Update()
 	{
-		object methodTimers = this.m_methodTimers;
-		lock (methodTimers)
+		lock (m_methodTimers)
 		{
-			using (Dictionary<MethodBase, ProfilingTimer>.ValueCollection.Enumerator enumerator = this.m_methodTimers.Values.GetEnumerator())
+			using (Dictionary<MethodBase, ProfilingTimer>.ValueCollection.Enumerator enumerator = m_methodTimers.Values.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ProfilingTimer profilingTimer = enumerator.Current;
-					profilingTimer.Update();
+					ProfilingTimer current = enumerator.Current;
+					current.Update();
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						goto end_IL_0020;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ProfilingTimers.Update()).MethodHandle;
-				}
+				end_IL_0020:;
 			}
-			using (Dictionary<string, ProfilingTimer>.ValueCollection.Enumerator enumerator2 = this.m_messageTimers.Values.GetEnumerator())
+			using (Dictionary<string, ProfilingTimer>.ValueCollection.Enumerator enumerator2 = m_messageTimers.Values.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
 				{
-					ProfilingTimer profilingTimer2 = enumerator2.Current;
-					profilingTimer2.Update();
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					ProfilingTimer current2 = enumerator2.Current;
+					current2.Update();
 				}
 			}
-			using (Dictionary<string, ProfilingTimer>.ValueCollection.Enumerator enumerator3 = this.m_databasesTimers.Values.GetEnumerator())
+			using (Dictionary<string, ProfilingTimer>.ValueCollection.Enumerator enumerator3 = m_databasesTimers.Values.GetEnumerator())
 			{
 				while (enumerator3.MoveNext())
 				{
-					ProfilingTimer profilingTimer3 = enumerator3.Current;
-					profilingTimer3.Update();
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					ProfilingTimer current3 = enumerator3.Current;
+					current3.Update();
 				}
 			}
-			this.RecentElapsedTicks = this.m_stopwatch.ElapsedTicks;
-			this.m_stopwatch.Reset();
-			this.m_stopwatch.Start();
+			RecentElapsedTicks = m_stopwatch.ElapsedTicks;
+			m_stopwatch.Reset();
+			m_stopwatch.Start();
 		}
 	}
 
@@ -378,51 +241,30 @@ public class ProfilingTimers
 		string fullName = method.ReflectedType.FullName;
 		int num = fullName.IndexOf("+<");
 		string arg;
-		string arg3;
+		string arg2;
 		if (num >= 0)
 		{
 			arg = fullName.Substring(0, num);
 			int num2 = num + 2;
 			int num3 = fullName.IndexOf(">", num2);
-			if (num3 == num2)
+			if (num3 != num2)
 			{
-				string separator = ",";
-				IEnumerable<ParameterInfo> parameters = method.GetParameters();
-				if (ProfilingTimers.<>f__am$cache0 == null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ProfilingTimers.GetMethodName(MethodBase)).MethodHandle;
-					}
-					ProfilingTimers.<>f__am$cache0 = ((ParameterInfo p) => p.ParameterType.Name);
-				}
-				string arg2 = string.Join(separator, parameters.Select(ProfilingTimers.<>f__am$cache0).ToArray<string>());
-				arg3 = string.Format("UnknownMethod({0})", arg2);
-			}
-			else if (num3 >= 0)
-			{
-				arg3 = fullName.Substring(num2, num3 - num2);
+				arg2 = ((num3 < 0) ? fullName.Substring(num2) : fullName.Substring(num2, num3 - num2));
 			}
 			else
 			{
-				arg3 = fullName.Substring(num2);
+				ParameterInfo[] parameters = method.GetParameters();
+				
+				string arg3 = string.Join(",", parameters.Select(((ParameterInfo p) => p.ParameterType.Name)).ToArray());
+				arg2 = $"UnknownMethod({arg3})";
 			}
 		}
 		else
 		{
 			arg = method.ReflectedType.Name;
-			arg3 = method.Name;
+			arg2 = method.Name;
 		}
-		return string.Format("{0}.{1}", arg, arg3);
+		return $"{arg}.{arg2}";
 	}
 
 	public void UnknownMethod()

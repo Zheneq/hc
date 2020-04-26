@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,19 +51,19 @@ public class NekoFlipDash : Ability
 	public StandardEffectInfo m_effectOnSelf;
 
 	[Separator("On Enemy Hit", true)]
-	public int m_damage = 0x14;
+	public int m_damage = 20;
 
-	public int m_discDirectDamage = 0x19;
+	public int m_discDirectDamage = 25;
 
-	public int m_discReturnTripDamage = 0xA;
+	public int m_discReturnTripDamage = 10;
 
-	public int m_discReturnTripSubsequentHitDamage = 0xA;
+	public int m_discReturnTripSubsequentHitDamage = 10;
 
 	public bool m_returnTripIgnoreCover = true;
 
 	public StandardEffectInfo m_enemyHitEffect;
 
-	public int m_explodingTargetDiscDamage = 0x19;
+	public int m_explodingTargetDiscDamage = 25;
 
 	[Header("-- Other Abilities --")]
 	public int m_discsReturningThisTurnExtraDamage;
@@ -105,76 +104,41 @@ public class NekoFlipDash : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Flip Dash";
+			m_abilityName = "Flip Dash";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		this.m_syncComp = base.GetComponent<Neko_SyncComponent>();
-		this.m_throwDiscTargeterIndex = -1;
-		this.m_dashTargeterIndex = 0;
-		this.m_landingTargeterIndex = 1;
-		if (this.m_throwDiscFromStart)
+		SetCachedFields();
+		m_syncComp = GetComponent<Neko_SyncComponent>();
+		m_throwDiscTargeterIndex = -1;
+		m_dashTargeterIndex = 0;
+		m_landingTargeterIndex = 1;
+		if (m_throwDiscFromStart)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.Setup()).MethodHandle;
-			}
-			this.m_throwDiscTargeterIndex = 0;
-			this.m_dashTargeterIndex = 1;
-			this.m_landingTargeterIndex = 2;
-			AbilityUtil_Targeter_NekoDisc item = new AbilityUtil_Targeter_NekoDisc(this, this.GetLaserWidth(), this.GetLaserLength(), this.GetLaserAoeRadius(), false, this.GetDiscMaxTargets(), false, false);
+			m_throwDiscTargeterIndex = 0;
+			m_dashTargeterIndex = 1;
+			m_landingTargeterIndex = 2;
+			AbilityUtil_Targeter_NekoDisc item = new AbilityUtil_Targeter_NekoDisc(this, GetLaserWidth(), GetLaserLength(), GetLaserAoeRadius(), false, GetDiscMaxTargets());
 			base.Targeters.Add(item);
 		}
-		float chargeRadiusAtStart = this.GetChargeRadiusAtStart();
+		float chargeRadiusAtStart = GetChargeRadiusAtStart();
 		float radiusAroundEnd;
-		if (this.GetExplosionRadiusAtTargetedDisc() > 0f && this.m_explodeTargetedDisc)
+		if (GetExplosionRadiusAtTargetedDisc() > 0f && m_explodeTargetedDisc)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			radiusAroundEnd = this.GetExplosionRadiusAtTargetedDisc();
+			radiusAroundEnd = GetExplosionRadiusAtTargetedDisc();
 		}
 		else
 		{
-			radiusAroundEnd = this.GetChargeRadiusAtEnd();
+			radiusAroundEnd = GetChargeRadiusAtEnd();
 		}
-		AbilityUtil_Targeter_NekoCharge item2 = new AbilityUtil_Targeter_NekoCharge(this, chargeRadiusAtStart, radiusAroundEnd, this.GetChargeRadius(), 0, false, false);
+		AbilityUtil_Targeter_NekoCharge item2 = new AbilityUtil_Targeter_NekoCharge(this, chargeRadiusAtStart, radiusAroundEnd, GetChargeRadius(), 0, false, false);
 		base.Targeters.Add(item2);
-		AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, false, false);
+		AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, false);
 		abilityUtil_Targeter_Charge.SetUseMultiTargetUpdate(true);
 		base.Targeters.Add(abilityUtil_Targeter_Charge);
 	}
@@ -186,23 +150,10 @@ public class NekoFlipDash : Ability
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		int max = this.GetTargetData().Length;
+		int max = GetTargetData().Length;
 		int value;
-		if (this.m_throwDiscFromStart)
+		if (m_throwDiscFromStart)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
 			value = 3;
 		}
 		else
@@ -214,188 +165,110 @@ public class NekoFlipDash : Ability
 
 	private void SetCachedFields()
 	{
-		this.m_cachedEffectOnSelf = ((!this.m_abilityMod) ? this.m_effectOnSelf : this.m_abilityMod.m_effectOnSelfMod.GetModifiedValue(this.m_effectOnSelf));
+		m_cachedEffectOnSelf = ((!m_abilityMod) ? m_effectOnSelf : m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf));
 		StandardEffectInfo cachedEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.SetCachedFields()).MethodHandle;
-			}
-			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			cachedEnemyHitEffect = this.m_enemyHitEffect;
+			cachedEnemyHitEffect = m_enemyHitEffect;
 		}
-		this.m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
 	}
 
 	public float GetDashTargetRange()
 	{
-		return (!this.m_abilityMod) ? this.m_dashTargetRange : this.m_abilityMod.m_dashTargetRangeMod.GetModifiedValue(this.m_dashTargetRange);
+		return (!m_abilityMod) ? m_dashTargetRange : m_abilityMod.m_dashTargetRangeMod.GetModifiedValue(m_dashTargetRange);
 	}
 
 	public bool CanTargetDiscs()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.CanTargetDiscs()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_canTargetDiscsMod.GetModifiedValue(this.m_canTargetDiscs);
+			result = m_abilityMod.m_canTargetDiscsMod.GetModifiedValue(m_canTargetDiscs);
 		}
 		else
 		{
-			result = this.m_canTargetDiscs;
+			result = m_canTargetDiscs;
 		}
 		return result;
 	}
 
 	public bool CanTargetEnemies()
 	{
-		return (!this.m_abilityMod) ? this.m_canTargetEnemies : this.m_abilityMod.m_canTargetEnemiesMod.GetModifiedValue(this.m_canTargetEnemies);
+		return (!m_abilityMod) ? m_canTargetEnemies : m_abilityMod.m_canTargetEnemiesMod.GetModifiedValue(m_canTargetEnemies);
 	}
 
 	public float GetMaxDistanceFromTarget()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetMaxDistanceFromTarget()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_maxDistanceFromTargetMod.GetModifiedValue(this.m_maxDistanceFromTarget);
+			result = m_abilityMod.m_maxDistanceFromTargetMod.GetModifiedValue(m_maxDistanceFromTarget);
 		}
 		else
 		{
-			result = this.m_maxDistanceFromTarget;
+			result = m_maxDistanceFromTarget;
 		}
 		return result;
 	}
 
 	public float GetMinDistanceFromTarget()
 	{
-		return (!this.m_abilityMod) ? this.m_minDistanceFromTarget : this.m_abilityMod.m_minDistanceFromTargetMod.GetModifiedValue(this.m_minDistanceFromTarget);
+		return (!m_abilityMod) ? m_minDistanceFromTarget : m_abilityMod.m_minDistanceFromTargetMod.GetModifiedValue(m_minDistanceFromTarget);
 	}
 
 	public float GetMaxAngleChange()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetMaxAngleChange()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_maxAngleChangeMod.GetModifiedValue(this.m_maxAngleChange);
+			result = m_abilityMod.m_maxAngleChangeMod.GetModifiedValue(m_maxAngleChange);
 		}
 		else
 		{
-			result = this.m_maxAngleChange;
+			result = m_maxAngleChange;
 		}
 		return result;
 	}
 
 	public float GetLaserWidth()
 	{
-		return (!this.m_abilityMod) ? this.m_laserWidth : this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
+		return (!m_abilityMod) ? m_laserWidth : m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 	}
 
 	public float GetLaserLength()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetLaserLength()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_laserLengthMod.GetModifiedValue(this.m_laserLength);
+			result = m_abilityMod.m_laserLengthMod.GetModifiedValue(m_laserLength);
 		}
 		else
 		{
-			result = this.m_laserLength;
+			result = m_laserLength;
 		}
 		return result;
 	}
 
 	public float GetLaserAoeRadius()
 	{
-		return (!this.m_abilityMod) ? this.m_aoeRadiusAtLaserEnd : this.m_abilityMod.m_aoeRadiusAtLaserEndMod.GetModifiedValue(this.m_aoeRadiusAtLaserEnd);
+		return (!m_abilityMod) ? m_aoeRadiusAtLaserEnd : m_abilityMod.m_aoeRadiusAtLaserEndMod.GetModifiedValue(m_aoeRadiusAtLaserEnd);
 	}
 
 	public float GetDiscReturnEndRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetDiscReturnEndRadius()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(this.m_discReturnEndRadius);
+			result = m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(m_discReturnEndRadius);
 		}
 		else
 		{
-			result = this.m_discReturnEndRadius;
+			result = m_discReturnEndRadius;
 		}
 		return result;
 	}
@@ -403,63 +276,37 @@ public class NekoFlipDash : Ability
 	public float GetChargeRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetChargeRadius()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_chargeRadiusMod.GetModifiedValue(this.m_chargeRadius);
+			result = m_abilityMod.m_chargeRadiusMod.GetModifiedValue(m_chargeRadius);
 		}
 		else
 		{
-			result = this.m_chargeRadius;
+			result = m_chargeRadius;
 		}
 		return result;
 	}
 
 	public float GetChargeRadiusAtStart()
 	{
-		return (!this.m_abilityMod) ? this.m_chargeRadiusAtStart : this.m_abilityMod.m_chargeRadiusAtStartMod.GetModifiedValue(this.m_chargeRadiusAtStart);
+		return (!m_abilityMod) ? m_chargeRadiusAtStart : m_abilityMod.m_chargeRadiusAtStartMod.GetModifiedValue(m_chargeRadiusAtStart);
 	}
 
 	public float GetChargeRadiusAtEnd()
 	{
-		return (!this.m_abilityMod) ? this.m_chargeRadiusAtEnd : this.m_abilityMod.m_chargeRadiusAtEndMod.GetModifiedValue(this.m_chargeRadiusAtEnd);
+		return (!m_abilityMod) ? m_chargeRadiusAtEnd : m_abilityMod.m_chargeRadiusAtEndMod.GetModifiedValue(m_chargeRadiusAtEnd);
 	}
 
 	public float GetExplosionRadiusAtTargetedDisc()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetExplosionRadiusAtTargetedDisc()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_explosionRadiusAtTargetedDiscMod.GetModifiedValue(this.m_explosionRadiusAtTargetedDisc);
+			result = m_abilityMod.m_explosionRadiusAtTargetedDiscMod.GetModifiedValue(m_explosionRadiusAtTargetedDisc);
 		}
 		else
 		{
-			result = this.m_explosionRadiusAtTargetedDisc;
+			result = m_explosionRadiusAtTargetedDisc;
 		}
 		return result;
 	}
@@ -467,58 +314,32 @@ public class NekoFlipDash : Ability
 	public bool ContinueToEndIfTargetEvades()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.ContinueToEndIfTargetEvades()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_continueToEndIfTargetEvadesMod.GetModifiedValue(this.m_continueToEndIfTargetEvades);
+			result = m_abilityMod.m_continueToEndIfTargetEvadesMod.GetModifiedValue(m_continueToEndIfTargetEvades);
 		}
 		else
 		{
-			result = this.m_continueToEndIfTargetEvades;
+			result = m_continueToEndIfTargetEvades;
 		}
 		return result;
 	}
 
 	public bool LeaveDiscAtStartSquare()
 	{
-		return (!this.m_abilityMod) ? this.m_leaveDiscAtStartSquare : this.m_abilityMod.m_leaveDiscAtStartSquareMod.GetModifiedValue(this.m_leaveDiscAtStartSquare);
+		return (!m_abilityMod) ? m_leaveDiscAtStartSquare : m_abilityMod.m_leaveDiscAtStartSquareMod.GetModifiedValue(m_leaveDiscAtStartSquare);
 	}
 
 	public bool ThrowDiscFromStart()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.ThrowDiscFromStart()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_throwDiscFromStartMod.GetModifiedValue(this.m_throwDiscFromStart);
+			result = m_abilityMod.m_throwDiscFromStartMod.GetModifiedValue(m_throwDiscFromStart);
 		}
 		else
 		{
-			result = this.m_throwDiscFromStart;
+			result = m_throwDiscFromStart;
 		}
 		return result;
 	}
@@ -526,26 +347,13 @@ public class NekoFlipDash : Ability
 	public bool CanMoveAfterEvade()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.CanMoveAfterEvade()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_canMoveAfterEvadeMod.GetModifiedValue(this.m_canMoveAfterEvade);
+			result = m_abilityMod.m_canMoveAfterEvadeMod.GetModifiedValue(m_canMoveAfterEvade);
 		}
 		else
 		{
-			result = this.m_canMoveAfterEvade;
+			result = m_canMoveAfterEvade;
 		}
 		return result;
 	}
@@ -553,26 +361,13 @@ public class NekoFlipDash : Ability
 	public bool ExplodeTargetedDisc()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.ExplodeTargetedDisc()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_explodeTargetedDiscMod.GetModifiedValue(this.m_explodeTargetedDisc);
+			result = m_abilityMod.m_explodeTargetedDiscMod.GetModifiedValue(m_explodeTargetedDisc);
 		}
 		else
 		{
-			result = this.m_explodeTargetedDisc;
+			result = m_explodeTargetedDisc;
 		}
 		return result;
 	}
@@ -580,26 +375,13 @@ public class NekoFlipDash : Ability
 	public int GetDiscMaxTargets()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetDiscMaxTargets()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_discMaxTargetsMod.GetModifiedValue(this.m_discMaxTargets);
+			result = m_abilityMod.m_discMaxTargetsMod.GetModifiedValue(m_discMaxTargets);
 		}
 		else
 		{
-			result = this.m_discMaxTargets;
+			result = m_discMaxTargets;
 		}
 		return result;
 	}
@@ -607,26 +389,13 @@ public class NekoFlipDash : Ability
 	public StandardEffectInfo GetEffectOnSelf()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectOnSelf != null)
+		if (m_cachedEffectOnSelf != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetEffectOnSelf()).MethodHandle;
-			}
-			result = this.m_cachedEffectOnSelf;
+			result = m_cachedEffectOnSelf;
 		}
 		else
 		{
-			result = this.m_effectOnSelf;
+			result = m_effectOnSelf;
 		}
 		return result;
 	}
@@ -634,251 +403,164 @@ public class NekoFlipDash : Ability
 	public int GetDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetDamage()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damage);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
 		{
-			result = this.m_damage;
+			result = m_damage;
 		}
 		return result;
 	}
 
 	public int GetDiscDirectDamage()
 	{
-		return (!this.m_abilityMod) ? this.m_discDirectDamage : this.m_abilityMod.m_discDirectDamageMod.GetModifiedValue(this.m_discDirectDamage);
+		return (!m_abilityMod) ? m_discDirectDamage : m_abilityMod.m_discDirectDamageMod.GetModifiedValue(m_discDirectDamage);
 	}
 
 	public int GetDiscReturnTripDamage()
 	{
-		return (!this.m_abilityMod) ? this.m_discReturnTripDamage : this.m_abilityMod.m_discReturnTripDamageMod.GetModifiedValue(this.m_discReturnTripDamage);
+		return (!m_abilityMod) ? m_discReturnTripDamage : m_abilityMod.m_discReturnTripDamageMod.GetModifiedValue(m_discReturnTripDamage);
 	}
 
 	public int GetDiscReturnTripSubsequentHitDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetDiscReturnTripSubsequentHitDamage()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_discReturnTripSubsequentHitDamageMod.GetModifiedValue(this.m_discReturnTripSubsequentHitDamage);
+			result = m_abilityMod.m_discReturnTripSubsequentHitDamageMod.GetModifiedValue(m_discReturnTripSubsequentHitDamage);
 		}
 		else
 		{
-			result = this.m_discReturnTripSubsequentHitDamage;
+			result = m_discReturnTripSubsequentHitDamage;
 		}
 		return result;
 	}
 
 	public bool ReturnTripIgnoreCover()
 	{
-		return (!this.m_abilityMod) ? this.m_returnTripIgnoreCover : this.m_abilityMod.m_returnTripIgnoreCoverMod.GetModifiedValue(this.m_returnTripIgnoreCover);
+		return (!m_abilityMod) ? m_returnTripIgnoreCover : m_abilityMod.m_returnTripIgnoreCoverMod.GetModifiedValue(m_returnTripIgnoreCover);
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffect != null)
+		if (m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetEnemyHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedEnemyHitEffect;
+			result = m_cachedEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyHitEffect;
+			result = m_enemyHitEffect;
 		}
 		return result;
 	}
 
 	public int GetExplodingTargetDiscDamage()
 	{
-		return (!this.m_abilityMod) ? this.m_explodingTargetDiscDamage : this.m_abilityMod.m_explodingTargetDiscDamageMod.GetModifiedValue(this.m_explodingTargetDiscDamage);
+		return (!m_abilityMod) ? m_explodingTargetDiscDamage : m_abilityMod.m_explodingTargetDiscDamageMod.GetModifiedValue(m_explodingTargetDiscDamage);
 	}
 
 	public int GetDiscsReturningThisTurnExtraDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetDiscsReturningThisTurnExtraDamage()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_discsReturningThisTurnExtraDamageMod.GetModifiedValue(this.m_discsReturningThisTurnExtraDamage);
+			result = m_abilityMod.m_discsReturningThisTurnExtraDamageMod.GetModifiedValue(m_discsReturningThisTurnExtraDamage);
 		}
 		else
 		{
-			result = this.m_discsReturningThisTurnExtraDamage;
+			result = m_discsReturningThisTurnExtraDamage;
 		}
 		return result;
 	}
 
 	public int GetCdrIfHasReturnDiscHit()
 	{
-		return (!this.m_abilityMod) ? this.m_cdrIfHasReturnDiscHit : this.m_abilityMod.m_cdrIfHasReturnDiscHitMod.GetModifiedValue(this.m_cdrIfHasReturnDiscHit);
+		return (!m_abilityMod) ? m_cdrIfHasReturnDiscHit : m_abilityMod.m_cdrIfHasReturnDiscHitMod.GetModifiedValue(m_cdrIfHasReturnDiscHit);
 	}
 
 	public int GetCdrOnEnlargeDiscIfCastSameTurn()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.GetCdrOnEnlargeDiscIfCastSameTurn()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_cdrOnEnlargeDiscIfCastSameTurnMod.GetModifiedValue(this.m_cdrOnEnlargeDiscIfCastSameTurn);
+			result = m_abilityMod.m_cdrOnEnlargeDiscIfCastSameTurnMod.GetModifiedValue(m_cdrOnEnlargeDiscIfCastSameTurn);
 		}
 		else
 		{
-			result = this.m_cdrOnEnlargeDiscIfCastSameTurn;
+			result = m_cdrOnEnlargeDiscIfCastSameTurn;
 		}
 		return result;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "DiscMaxTargets", string.Empty, this.m_discMaxTargets, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnSelf, "EffectOnSelf", this.m_effectOnSelf, true);
-		base.AddTokenInt(tokens, "Damage", string.Empty, this.m_damage, false);
-		base.AddTokenInt(tokens, "DiscDirectDamage", string.Empty, this.m_discDirectDamage, false);
-		base.AddTokenInt(tokens, "DiscReturnTripDamage", string.Empty, this.m_discReturnTripDamage, false);
-		base.AddTokenInt(tokens, "DiscReturnTripSubsequentHitDamage", string.Empty, this.m_discReturnTripSubsequentHitDamage, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffect, "EnemyHitEffect", this.m_enemyHitEffect, true);
-		base.AddTokenInt(tokens, "ExplodingTargetDiscDamage", string.Empty, this.m_explodingTargetDiscDamage, false);
-		base.AddTokenInt(tokens, "DiscsReturningThisTurnExtraDamage", string.Empty, this.m_discsReturningThisTurnExtraDamage, false);
-		base.AddTokenInt(tokens, "CdrIfHasReturnDiscHit", string.Empty, this.m_cdrIfHasReturnDiscHit, false);
-		base.AddTokenInt(tokens, "CdrOnEnlargeDiscIfCastSameTurn", string.Empty, this.m_cdrOnEnlargeDiscIfCastSameTurn, false);
+		AddTokenInt(tokens, "DiscMaxTargets", string.Empty, m_discMaxTargets);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnSelf, "EffectOnSelf", m_effectOnSelf);
+		AddTokenInt(tokens, "Damage", string.Empty, m_damage);
+		AddTokenInt(tokens, "DiscDirectDamage", string.Empty, m_discDirectDamage);
+		AddTokenInt(tokens, "DiscReturnTripDamage", string.Empty, m_discReturnTripDamage);
+		AddTokenInt(tokens, "DiscReturnTripSubsequentHitDamage", string.Empty, m_discReturnTripSubsequentHitDamage);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
+		AddTokenInt(tokens, "ExplodingTargetDiscDamage", string.Empty, m_explodingTargetDiscDamage);
+		AddTokenInt(tokens, "DiscsReturningThisTurnExtraDamage", string.Empty, m_discsReturningThisTurnExtraDamage);
+		AddTokenInt(tokens, "CdrIfHasReturnDiscHit", string.Empty, m_cdrIfHasReturnDiscHit);
+		AddTokenInt(tokens, "CdrOnEnlargeDiscIfCastSameTurn", string.Empty, m_cdrOnEnlargeDiscIfCastSameTurn);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.CanTargetDiscs() && this.m_syncComp != null)
+		if (CanTargetDiscs() && m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
-			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
+			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
 			using (List<BoardSquare>.Enumerator enumerator = activeDiscSquares.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					BoardSquare dest = enumerator.Current;
-					if (caster.\u000E().CanMoveToBoardSquare(dest))
+					BoardSquare current = enumerator.Current;
+					if (caster.GetActorMovement().CanMoveToBoardSquare(current))
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
-			if (!this.CanTargetEnemies())
+			if (!CanTargetEnemies())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				return false;
 			}
 		}
-		if (this.CanTargetEnemies())
+		if (CanTargetEnemies())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return HasTargetableActorsInDecision(caster, true, false, false, ValidateCheckPath.CanBuildPath, true, false);
 				}
-				break;
 			}
-			return base.HasTargetableActorsInDecision(caster, true, false, false, Ability.ValidateCheckPath.CanBuildPath, true, false, false);
 		}
 		return base.CustomCanCastValidation(caster);
 	}
@@ -887,290 +569,124 @@ public class NekoFlipDash : Ability
 	{
 		bool flag = false;
 		bool flag2 = false;
-		if (targetIndex == this.m_dashTargeterIndex)
+		BoardSquare boardSquareSafe;
+		bool flag3;
+		if (targetIndex == m_dashTargeterIndex)
 		{
-			for (;;)
+			boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			if (CanTargetEnemies())
 			{
-				switch (7)
+				if (boardSquareSafe != null && boardSquareSafe.OccupantActor != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-			if (this.CanTargetEnemies())
-			{
-				for (;;)
-				{
-					switch (7)
+					if (CanTargetActorInDecision(caster, boardSquareSafe.OccupantActor, true, false, false, ValidateCheckPath.CanBuildPath, true, false))
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (boardSquare != null && boardSquare.OccupantActor != null)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (base.CanTargetActorInDecision(caster, boardSquare.OccupantActor, true, false, false, Ability.ValidateCheckPath.CanBuildPath, true, false, false))
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 						flag2 = true;
-						goto IL_1F8;
+						goto IL_033d;
 					}
 				}
 			}
-			if (this.CanTargetDiscs())
+			if (CanTargetDiscs())
 			{
-				for (;;)
+				if (m_syncComp != null)
 				{
-					switch (4)
+					List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
+					if (activeDiscSquares.Contains(boardSquareSafe))
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_syncComp != null)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
-					if (activeDiscSquares.Contains(boardSquare))
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
-						float num = boardSquare.HorizontalDistanceInSquaresTo(caster.\u0012());
-						if (num <= this.GetRangeInSquares(this.m_dashTargeterIndex))
+						float num = boardSquareSafe.HorizontalDistanceInSquaresTo(caster.GetCurrentBoardSquare());
+						if (!(num > GetRangeInSquares(m_dashTargeterIndex)))
 						{
-							for (;;)
+							if (!(num < GetMinRangeInSquares(m_dashTargeterIndex)))
 							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (num >= base.GetMinRangeInSquares(this.m_dashTargeterIndex))
-							{
-								int num2;
-								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false, out num2);
-								goto IL_150;
-							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
+								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out int _);
+								goto IL_033d;
 							}
 						}
 						flag2 = false;
 					}
-					IL_150:
-					goto IL_1F8;
+					goto IL_033d;
 				}
 			}
-			if (!this.CanTargetEnemies())
+			if (!CanTargetEnemies())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.CanTargetDiscs())
+				if (!CanTargetDiscs())
 				{
 					flag = true;
-					bool flag3;
-					if (this.GetDashTargetRange() > 0f)
+					flag3 = false;
+					if (GetDashTargetRange() > 0f)
 					{
-						for (;;)
+						if (boardSquareSafe != null)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (boardSquare != null)
-						{
-							float num3 = boardSquare.HorizontalDistanceInSquaresTo(caster.\u0012());
-							flag3 = (num3 <= this.GetDashTargetRange());
-							goto IL_1D2;
+							float num2 = boardSquareSafe.HorizontalDistanceInSquaresTo(caster.GetCurrentBoardSquare());
+							flag3 = (num2 <= GetDashTargetRange());
+							goto IL_01d2;
 						}
 					}
 					flag3 = base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
-					IL_1D2:
-					bool flag4;
-					if (flag3)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						int num4;
-						flag4 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false, out num4);
-					}
-					else
-					{
-						flag4 = false;
-					}
-					flag2 = flag4;
+					goto IL_01d2;
 				}
 			}
-			IL_1F8:;
 		}
 		else
 		{
-			if (targetIndex != this.m_landingTargeterIndex)
+			if (targetIndex != m_landingTargeterIndex)
 			{
 				return true;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = true;
-			BoardSquare boardSquare2 = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos);
-			BoardSquare boardSquare3 = Board.\u000E().\u000E(target.GridPos);
-			if (boardSquare3 != null && boardSquare3.\u0016())
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
+			BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
+			if (boardSquareSafe3 != null && boardSquareSafe3.IsBaselineHeight())
 			{
-				for (;;)
+				if (boardSquareSafe3 != boardSquareSafe2)
 				{
-					switch (1)
+					if (boardSquareSafe3 != caster.GetCurrentBoardSquare())
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (boardSquare3 != boardSquare2)
-				{
-					for (;;)
-					{
-						switch (5)
+						float num3 = boardSquareSafe3.HorizontalDistanceInSquaresTo(boardSquareSafe2);
+						Vector3 to = boardSquareSafe3.ToVector3() - boardSquareSafe2.ToVector3();
+						Vector3 from = boardSquareSafe2.ToVector3() - caster.GetCurrentBoardSquare().ToVector3();
+						float num4 = Vector3.Angle(from, to);
+						if (num3 >= m_minDistanceFromTarget)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (boardSquare3 != caster.\u0012())
-					{
-						for (;;)
-						{
-							switch (1)
+							if (num3 <= m_maxDistanceFromTarget && num4 <= m_maxAngleChange)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						float num5 = boardSquare3.HorizontalDistanceInSquaresTo(boardSquare2);
-						Vector3 to = boardSquare3.ToVector3() - boardSquare2.ToVector3();
-						Vector3 from = boardSquare2.ToVector3() - caster.\u0012().ToVector3();
-						float num6 = Vector3.Angle(from, to);
-						if (num5 >= this.m_minDistanceFromTarget)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (num5 <= this.m_maxDistanceFromTarget && num6 <= this.m_maxAngleChange)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								int num7;
-								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare3, boardSquare2, false, out num7);
+								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false, out int _);
 							}
 						}
 					}
 				}
 			}
 		}
+		goto IL_033d;
+		IL_01d2:
+		int num5;
+		if (flag3)
+		{
+			num5 = (KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out int _) ? 1 : 0);
+		}
+		else
+		{
+			num5 = 0;
+		}
+		flag2 = ((byte)num5 != 0);
+		goto IL_033d;
+		IL_033d:
 		return flag2 && flag;
 	}
 
 	public override bool CanOverrideMoveStartSquare()
 	{
-		return this.CanMoveAfterEvade();
+		return CanMoveAfterEvade();
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Far, this.GetExplodingTargetDiscDamage()),
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.HighPower, this.GetDamage()),
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, this.GetDiscDirectDamage())
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Far, GetExplodingTargetDiscDamage()));
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.HighPower, GetDamage()));
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, GetDiscDirectDamage()));
+		return list;
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -1180,34 +696,26 @@ public class NekoFlipDash : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLaserLength() + this.GetLaserAoeRadius();
+		return GetLaserLength() + GetLaserAoeRadius();
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_NekoFlipDash))
+		if (abilityMod.GetType() != typeof(AbilityMod_NekoFlipDash))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_NekoFlipDash);
-			this.Setup();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_NekoFlipDash);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

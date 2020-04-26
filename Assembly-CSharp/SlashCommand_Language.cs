@@ -1,9 +1,9 @@
-﻿using System;
 using I2.Loc;
 
 public class SlashCommand_Language : SlashCommand
 {
-	public SlashCommand_Language() : base("/language", SlashCommandType.Everywhere)
+	public SlashCommand_Language()
+		: base("/language", SlashCommandType.Everywhere)
 	{
 		base.PublicFacing = false;
 	}
@@ -12,35 +12,31 @@ public class SlashCommand_Language : SlashCommand
 	{
 		if (!arguments.IsNullOrEmpty())
 		{
-			if (LocalizationManager.HasLanguage(arguments, true, true))
+			if (LocalizationManager.HasLanguage(arguments))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						LocalizationManager.CurrentLanguage = arguments;
+						string text = $"Language changed to: {LocalizationManager.CurrentLanguage}";
+						TextConsole.Get().Write(text);
+						ClientGameManager.Get().SetNewSessionLanguage(LocalizationManager.CurrentLanguageCode);
+						return;
 					}
-					break;
+					}
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_Language.OnSlashCommand(string)).MethodHandle;
-				}
-				LocalizationManager.CurrentLanguage = arguments;
-				string text = string.Format("Language changed to: {0}", LocalizationManager.CurrentLanguage);
-				TextConsole.Get().Write(text, ConsoleMessageType.SystemMessage);
-				ClientGameManager.Get().SetNewSessionLanguage(LocalizationManager.CurrentLanguageCode);
 			}
-			else
-			{
-				TextConsole.Get().Write(string.Format("Unrecognized Language: {0}", arguments), ConsoleMessageType.SystemMessage);
-			}
+			TextConsole.Get().Write($"Unrecognized Language: {arguments}");
 		}
 		else
 		{
-			string text2 = string.Format("Current Language: {0}", LocalizationManager.CurrentLanguage);
-			TextConsole.Get().Write(text2, ConsoleMessageType.SystemMessage);
+			string text2 = $"Current Language: {LocalizationManager.CurrentLanguage}";
+			TextConsole.Get().Write(text2);
 		}
 	}
 }

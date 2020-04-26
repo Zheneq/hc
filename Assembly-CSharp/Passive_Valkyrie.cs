@@ -1,5 +1,3 @@
-﻿using System;
-
 public class Passive_Valkyrie : Passive
 {
 	private Valkyrie_SyncComponent m_syncComp;
@@ -18,5 +16,9 @@ public class Passive_Valkyrie : Passive
 
 	private int m_lastGuardCastTurn = -1;
 
-	public int DamageThroughGuardCoverThisTurn { get; private set; }
+	public int DamageThroughGuardCoverThisTurn
+	{
+		get;
+		private set;
+	}
 }

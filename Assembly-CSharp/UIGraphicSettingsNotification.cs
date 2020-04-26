@@ -1,9 +1,10 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UIGraphicSettingsNotification : MonoBehaviour
 {
+	public delegate void CloseCallback();
+
 	public RectTransform m_graphicSettingsContainer;
 
 	public _SelectableBtn m_closeBtn;
@@ -12,95 +13,59 @@ public class UIGraphicSettingsNotification : MonoBehaviour
 
 	private static bool s_isVisible;
 
-	private static UIGraphicSettingsNotification.CloseCallback m_callback;
+	private static CloseCallback m_callback;
 
 	private void Awake()
 	{
-		UIGraphicSettingsNotification.s_instance = this;
-		UIManager.SetGameObjectActive(this.m_graphicSettingsContainer, false, null);
-		this.m_closeBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseClicked);
+		s_instance = this;
+		UIManager.SetGameObjectActive(m_graphicSettingsContainer, false);
+		m_closeBtn.spriteController.callback = CloseClicked;
 	}
 
 	public void CloseClicked(BaseEventData data)
 	{
-		if (UIGraphicSettingsNotification.m_callback != null)
+		if (m_callback != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGraphicSettingsNotification.CloseClicked(BaseEventData)).MethodHandle;
-			}
-			UIGraphicSettingsNotification.m_callback();
+			m_callback();
 		}
-		UIGraphicSettingsNotification.SetVisible(false, null);
+		SetVisible(false, null);
 	}
 
-	public static void SetVisible(bool visible, UIGraphicSettingsNotification.CloseCallback callback)
+	public static void SetVisible(bool visible, CloseCallback callback)
 	{
-		UIGraphicSettingsNotification.s_isVisible = visible;
-		UIGraphicSettingsNotification.m_callback = callback;
-		if (visible)
+		s_isVisible = visible;
+		m_callback = callback;
+		if (!visible)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (s_instance == null)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				Log.Warning("Called to display Graphic Settings Notification Visible while HUD has not been loaded in yet");
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGraphicSettingsNotification.SetVisible(bool, UIGraphicSettingsNotification.CloseCallback)).MethodHandle;
-			}
-			if (UIGraphicSettingsNotification.s_instance == null)
-			{
-				Log.Warning("Called to display Graphic Settings Notification Visible while HUD has not been loaded in yet", new object[0]);
-			}
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_graphicSettingsContainer != null)
+		if (!(m_graphicSettingsContainer != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_graphicSettingsContainer.gameObject.activeSelf != s_isVisible)
 			{
-				switch (4)
+				while (true)
 				{
-				case 0:
-					continue;
+					UIManager.SetGameObjectActive(m_graphicSettingsContainer, s_isVisible);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGraphicSettingsNotification.Update()).MethodHandle;
-			}
-			if (this.m_graphicSettingsContainer.gameObject.activeSelf != UIGraphicSettingsNotification.s_isVisible)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_graphicSettingsContainer, UIGraphicSettingsNotification.s_isVisible, null);
-			}
+			return;
 		}
 	}
-
-	public delegate void CloseCallback();
 }

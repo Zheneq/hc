@@ -1,30 +1,54 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class PersistedCharacterData : ICloneable
 {
-	public PersistedCharacterData(CharacterType characterType)
+	public SchemaVersion<CharacterSchemaChange> SchemaVersion
 	{
-		this.CharacterType = characterType;
-		this.SchemaVersion = new SchemaVersion<CharacterSchemaChange>();
-		this.CharacterComponent = new CharacterComponent();
-		this.ExperienceComponent = new ExperienceComponent();
+		get;
+		set;
 	}
 
-	public SchemaVersion<CharacterSchemaChange> SchemaVersion { get; set; }
+	public DateTime CreateDate
+	{
+		get;
+		set;
+	}
 
-	public DateTime CreateDate { get; set; }
+	public DateTime UpdateDate
+	{
+		get;
+		set;
+	}
 
-	public DateTime UpdateDate { get; set; }
+	public CharacterType CharacterType
+	{
+		get;
+		set;
+	}
 
-	public CharacterType CharacterType { get; set; }
+	public CharacterComponent CharacterComponent
+	{
+		get;
+		set;
+	}
 
-	public CharacterComponent CharacterComponent { get; set; }
+	public ExperienceComponent ExperienceComponent
+	{
+		get;
+		set;
+	}
 
-	public ExperienceComponent ExperienceComponent { get; set; }
+	public PersistedCharacterData(CharacterType characterType)
+	{
+		CharacterType = characterType;
+		SchemaVersion = new SchemaVersion<CharacterSchemaChange>();
+		CharacterComponent = new CharacterComponent();
+		ExperienceComponent = new ExperienceComponent();
+	}
 
 	public object Clone()
 	{
-		return base.MemberwiseClone();
+		return MemberwiseClone();
 	}
 }

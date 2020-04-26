@@ -1,8 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public interface IQueueRequirementSystemInfo
 {
+	IFreelancerSetQueryInterface FreelancerSetQueryInterface
+	{
+		get;
+	}
+
+	List<SeasonTemplate> Seasons
+	{
+		get;
+	}
+
 	DateTime GetCurrentUTCTime();
 
 	EnvironmentType GetEnvironmentType();
@@ -12,10 +22,6 @@ public interface IQueueRequirementSystemInfo
 	GameLeavingPenalty GetGameLeavingPenaltyForGameType(GameType gameType);
 
 	IEnumerable<QueueRequirement> GetQueueRequirements(GameType gameType);
-
-	IFreelancerSetQueryInterface FreelancerSetQueryInterface { get; }
-
-	List<SeasonTemplate> Seasons { get; }
 
 	bool IsCharacterAllowed(CharacterType characterType, GameType gameType, GameSubType gameSubType);
 }

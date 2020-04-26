@@ -1,5 +1,3 @@
-﻿using System;
-
 public class NumericHitResultScratch
 {
 	public int m_damage;
@@ -12,9 +10,9 @@ public class NumericHitResultScratch
 
 	public void Reset()
 	{
-		this.m_damage = 0;
-		this.m_healing = 0;
-		this.m_energyGain = 0;
-		this.m_energyLoss = 0;
+		m_damage = 0;
+		m_healing = 0;
+		m_energyGain = 0;
+		m_energyLoss = 0;
 	}
 }

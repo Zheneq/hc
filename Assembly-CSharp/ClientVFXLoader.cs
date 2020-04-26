@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -63,19 +63,6 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 	{
 		if (!this.IsPreloadQueueEmpty())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientVFXLoader.HandleOnGameStarted()).MethodHandle;
-			}
 			Log.Error("PKFX preloading did not finish before starting game", new object[0]);
 		}
 	}
@@ -84,30 +71,8 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_preloadingCoroutine == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientVFXLoader.PreloadQueuedPKFX()).MethodHandle;
-			}
 			if (this.m_preloadedPKFXPaths.Count > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_preloadingCoroutine = this.PreloadOnePKFXPerFrame();
 				base.StartCoroutine(this.m_preloadingCoroutine);
 			}
@@ -118,19 +83,6 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 	{
 		if (!string.IsNullOrEmpty(pathRelativeToStreamingAssets))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientVFXLoader.QueuePKFXDirectoryForPreload(string)).MethodHandle;
-			}
 			try
 			{
 				pathRelativeToStreamingAssets = pathRelativeToStreamingAssets.Replace("\\\\", "/");
@@ -141,42 +93,15 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 					{
 						if (text.EndsWith(".pkfx", StringComparison.OrdinalIgnoreCase))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num = text.IndexOf("packfx", StringComparison.OrdinalIgnoreCase);
 							if (num >= 0)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								string text2 = text.Substring(num + "packfx".Length);
 								if (!string.IsNullOrEmpty(text2))
 								{
 									while (text2[0] == Path.DirectorySeparatorChar || text2[0] == Path.AltDirectorySeparatorChar)
 									{
 										text2 = text2.Substring(1);
-									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									text2 = text2.Replace("\\\\", "/");
 									text2 = text2.Replace("\\", "/");
@@ -197,15 +122,6 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 						Log.Error("Invalid empty or null string", new object[0]);
 					}
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			catch (Exception exception)
 			{
@@ -220,15 +136,6 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 			object obj;
 			if (pathRelativeToStreamingAssets == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = "NULL";
 			}
 			else
@@ -249,19 +156,6 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 			PKFxManager.m_preloadedPKFXPaths.Add(path);
 			yield return null;
 			this.m_nextIndexToPreload++;
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ClientVFXLoader.<PreloadOnePKFXPerFrame>c__Iterator0.MoveNext()).MethodHandle;
 		}
 		this.m_preloadingCoroutine = null;
 		this.m_preloadedPKFXPaths.Clear();

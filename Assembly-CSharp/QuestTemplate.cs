@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -68,47 +68,34 @@ public class QuestTemplate
 	{
 		if (resetIndex)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestTemplate.ResetToDefaultValuesForNewEntry(bool)).MethodHandle;
-			}
-			this.Index = 0;
+			Index = 0;
 		}
-		this.DisplayName = string.Empty;
-		this.Description = string.Empty;
-		this.FlavorText = string.Empty;
-		this.TypeDisplayName = string.Empty;
-		this.LongDescription = string.Empty;
-		this.IconFilename = string.Empty;
-		this.ChallengeIconFileName = string.Empty;
-		this.Enabled = false;
-		this.LocalizeWhenDisabled = false;
-		this.OneTimeOnly = false;
-		this.AbandonDateTime = string.Empty;
-		this.CantManuallyAbandon = false;
-		this.BroadcastFirstCompletions = false;
-		this.HideCompletion = false;
-		this.AssociatedRibbon = 0;
-		this.DisplayRewardNotification = false;
-		this.Prerequisites = new QuestPrerequisites();
-		this.Objectives = new List<QuestObjective>();
-		this.RequiredObjectiveCount = 0;
-		this.CosmeticRequiredObjectiveCount = 0;
-		this.ObjectiveCountType = RequiredObjectiveCountType.SumCompletedObjectivesOnly;
-		this.Rewards = new QuestRewards();
-		this.ConditionalRewards = new ConditionalQuestRewards[0];
-		this.AchievmentType = AchievementType.None;
-		this.AchievementRarity = AchievementRarity.Common;
-		this.AchievementPoints = 0;
-		this.AchievementPrevious = 0;
+		DisplayName = string.Empty;
+		Description = string.Empty;
+		FlavorText = string.Empty;
+		TypeDisplayName = string.Empty;
+		LongDescription = string.Empty;
+		IconFilename = string.Empty;
+		ChallengeIconFileName = string.Empty;
+		Enabled = false;
+		LocalizeWhenDisabled = false;
+		OneTimeOnly = false;
+		AbandonDateTime = string.Empty;
+		CantManuallyAbandon = false;
+		BroadcastFirstCompletions = false;
+		HideCompletion = false;
+		AssociatedRibbon = 0;
+		DisplayRewardNotification = false;
+		Prerequisites = new QuestPrerequisites();
+		Objectives = new List<QuestObjective>();
+		RequiredObjectiveCount = 0;
+		CosmeticRequiredObjectiveCount = 0;
+		ObjectiveCountType = RequiredObjectiveCountType.SumCompletedObjectivesOnly;
+		Rewards = new QuestRewards();
+		ConditionalRewards = new ConditionalQuestRewards[0];
+		AchievmentType = AchievementType.None;
+		AchievementRarity = AchievementRarity.Common;
+		AchievementPoints = 0;
+		AchievementPrevious = 0;
 	}
 }

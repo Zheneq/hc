@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
 using I2.Loc;
 using LobbyGameClientMessages;
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -91,79 +91,58 @@ public class UICharacterGeneralPanel : MonoBehaviour
 
 	public void SetVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this, visible, null);
+		UIManager.SetGameObjectActive(this, visible);
 	}
 
 	private void Update()
 	{
-		if (this.m_needResetScrollbar)
+		if (!m_needResetScrollbar)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!m_descriptionScrollRect.verticalScrollbar.gameObject.activeSelf)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.Update()).MethodHandle;
-			}
-			if (this.m_descriptionScrollRect.verticalScrollbar.gameObject.activeSelf)
-			{
-				for (;;)
+				if (m_descriptionScrollRect.verticalScrollbar.value != 1f)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_needResetScrollbar = false;
+					m_descriptionScrollRect.verticalScrollbar.value = 1f;
 				}
-				if (this.m_descriptionScrollRect.verticalScrollbar.value != 1f)
-				{
-					this.m_needResetScrollbar = false;
-					this.m_descriptionScrollRect.verticalScrollbar.value = 1f;
-				}
+				return;
 			}
 		}
 	}
 
 	private void Init()
 	{
-		if (this.m_articleButtons == null)
+		if (m_articleButtons != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.Init()).MethodHandle;
-			}
-			this.m_articleButtons = new List<UIArticleSelectButton>(this.m_articlesGrid.GetComponentsInChildren<UIArticleSelectButton>(true));
-			using (List<UIArticleSelectButton>.Enumerator enumerator = this.m_articleButtons.GetEnumerator())
+			return;
+		}
+		while (true)
+		{
+			m_articleButtons = new List<UIArticleSelectButton>(m_articlesGrid.GetComponentsInChildren<UIArticleSelectButton>(true));
+			using (List<UIArticleSelectButton>.Enumerator enumerator = m_articleButtons.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					UIArticleSelectButton uiarticleSelectButton = enumerator.Current;
-					uiarticleSelectButton.m_hitbox.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
+					UIArticleSelectButton current = enumerator.Current;
+					current.m_hitbox.RegisterScrollListener(OnScroll);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}
@@ -171,61 +150,31 @@ public class UICharacterGeneralPanel : MonoBehaviour
 
 	private void Awake()
 	{
-		this.Init();
-		this.m_rewardTooltipObj.Setup(TooltipType.RewardList, new TooltipPopulateCall(this.PopulateTooltip), null);
-		UIManager.SetGameObjectActive(this.m_articlesContainer, LocalizationManager.CurrentLanguageCode != "zh", null);
-		if (this.m_buyHeroContainer != null)
+		Init();
+		m_rewardTooltipObj.Setup(TooltipType.RewardList, PopulateTooltip);
+		UIManager.SetGameObjectActive(m_articlesContainer, LocalizationManager.CurrentLanguageCode != "zh");
+		if (!(m_buyHeroContainer != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.Awake()).MethodHandle;
-			}
-			this.m_buyInGameButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyInGameClicked);
-			this.m_buyForCashButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyForCashClicked);
-			this.m_buyForTokenButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyForTokenClicked);
+			return;
+		}
+		while (true)
+		{
+			m_buyInGameButton.spriteController.callback = BuyInGameClicked;
+			m_buyForCashButton.spriteController.callback = BuyForCashClicked;
+			m_buyForTokenButton.spriteController.callback = BuyForTokenClicked;
+			return;
 		}
 	}
 
 	private bool PopulateTooltip(UITooltipBase tooltip)
 	{
-		if (this.m_rewards != null)
+		if (m_rewards != null)
 		{
-			for (;;)
+			if (m_rewards.Count != 0)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.PopulateTooltip(UITooltipBase)).MethodHandle;
-			}
-			if (this.m_rewards.Count != 0)
-			{
-				UIRewardListTooltip uirewardListTooltip = tooltip as UIRewardListTooltip;
-				uirewardListTooltip.Setup(this.m_rewards, this.m_expDataLevel, UIRewardListTooltip.RewardsType.Character, false);
+				UIRewardListTooltip uIRewardListTooltip = tooltip as UIRewardListTooltip;
+				uIRewardListTooltip.Setup(m_rewards, m_expDataLevel, UIRewardListTooltip.RewardsType.Character);
 				return true;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -233,32 +182,19 @@ public class UICharacterGeneralPanel : MonoBehaviour
 
 	private void Start()
 	{
-		if (this.m_descriptionScrollRect != null)
+		if (m_descriptionScrollRect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.Start()).MethodHandle;
-			}
-			_MouseEventPasser mouseEventPasser = this.m_description.gameObject.AddComponent<_MouseEventPasser>();
-			mouseEventPasser.AddNewHandler(this.m_descriptionScrollRect);
-			mouseEventPasser = this.m_descriptionScrollRect.verticalScrollbar.handleRect.gameObject.AddComponent<_MouseEventPasser>();
-			mouseEventPasser.AddNewHandler(this.m_descriptionScrollRect);
-			this.m_descriptionScrollRect.scrollSensitivity = 75f;
+			_MouseEventPasser mouseEventPasser = m_description.gameObject.AddComponent<_MouseEventPasser>();
+			mouseEventPasser.AddNewHandler(m_descriptionScrollRect);
+			mouseEventPasser = m_descriptionScrollRect.verticalScrollbar.handleRect.gameObject.AddComponent<_MouseEventPasser>();
+			mouseEventPasser.AddNewHandler(m_descriptionScrollRect);
+			m_descriptionScrollRect.scrollSensitivity = 75f;
 		}
-		this.m_twitterBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.TwitterBtnClicked);
+		m_twitterBtn.spriteController.callback = TwitterBtnClicked;
 		if (ClientGameManager.Get() != null)
 		{
-			ClientGameManager.Get().OnCharacterDataUpdated += this.OnCharacterDataUpdated;
-			ClientGameManager.Get().OnBankBalanceChange += this.HandleBankBalanceChange;
+			ClientGameManager.Get().OnCharacterDataUpdated += OnCharacterDataUpdated;
+			ClientGameManager.Get().OnBankBalanceChange += HandleBankBalanceChange;
 		}
 	}
 
@@ -266,345 +202,225 @@ public class UICharacterGeneralPanel : MonoBehaviour
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			ClientGameManager.Get().OnCharacterDataUpdated -= this.OnCharacterDataUpdated;
-			ClientGameManager.Get().OnBankBalanceChange -= this.HandleBankBalanceChange;
+			ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterDataUpdated;
+			ClientGameManager.Get().OnBankBalanceChange -= HandleBankBalanceChange;
 		}
 	}
 
 	public void OnCharacterDataUpdated(PersistedCharacterData newData)
 	{
-		if (newData.CharacterType == this.m_characterType)
+		if (newData.CharacterType != m_characterType)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.OnCharacterDataUpdated(PersistedCharacterData)).MethodHandle;
-			}
-			this.Setup(this.m_characterType);
+			return;
+		}
+		while (true)
+		{
+			Setup(m_characterType);
+			return;
 		}
 	}
 
 	public void Setup(CharacterType characterType)
 	{
-		if (characterType.IsValidForHumanGameplay())
+		if (!characterType.IsValidForHumanGameplay())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.Setup(CharacterType)).MethodHandle;
-			}
-			this.Setup(GameWideData.Get().GetCharacterResourceLink(characterType));
+			return;
+		}
+		while (true)
+		{
+			Setup(GameWideData.Get().GetCharacterResourceLink(characterType));
+			return;
 		}
 	}
 
 	public void Setup(CharacterResourceLink charLink)
 	{
-		this.m_charLink = charLink;
-		if (!(this.m_charLink == null))
+		m_charLink = charLink;
+		if (m_charLink == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!m_charLink.m_characterType.IsValidForHumanGameplay())
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.Setup(CharacterResourceLink)).MethodHandle;
-			}
-			if (!this.m_charLink.m_characterType.IsValidForHumanGameplay())
-			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
+			}
+			Init();
+			GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
+			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(charLink.m_characterType);
+			object obj;
+			if (playerCharacterData != null)
+			{
+				obj = playerCharacterData.ExperienceComponent;
 			}
 			else
 			{
-				this.Init();
-				GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
-				PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(charLink.m_characterType);
-				ExperienceComponent experienceComponent;
-				if (playerCharacterData != null)
+				obj = null;
+			}
+			ExperienceComponent experienceComponent = (ExperienceComponent)obj;
+			m_characterType = charLink.m_characterType;
+			m_name.text = charLink.GetDisplayName();
+			m_description.text = charLink.GetCharSelectAboutDescription();
+			RectTransform obj2 = m_description.transform as RectTransform;
+			Vector2 sizeDelta = (m_description.transform as RectTransform).sizeDelta;
+			float x = sizeDelta.x;
+			Vector2 preferredValues = m_description.GetPreferredValues();
+			obj2.sizeDelta = new Vector2(x, preferredValues.y);
+			m_needResetScrollbar = true;
+			if (experienceComponent != null)
+			{
+				m_levelLabel.text = string.Format(StringUtil.TR("LevelLabel", "Global"), experienceComponent.Level);
+				m_takedownsLabel.text = experienceComponent.Kills.ToString();
+				m_matchesWonLabel.text = experienceComponent.Wins.ToString();
+				m_gamesPlayedLabel.text = experienceComponent.Matches.ToString();
+				if (experienceComponent.Level > 0 && experienceComponent.Level < gameBalanceVars.MaxCharacterLevel)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					experienceComponent = playerCharacterData.ExperienceComponent;
+					int num = gameBalanceVars.CharacterExperienceToLevel(experienceComponent.Level);
+					m_experienceSlider.fillAmount = (float)playerCharacterData.ExperienceComponent.XPProgressThroughLevel / (float)num;
+					UIManager.SetGameObjectActive(m_experienceSlider, true);
+					m_expAmountText.text = playerCharacterData.ExperienceComponent.XPProgressThroughLevel + " / " + num;
 				}
 				else
 				{
-					experienceComponent = null;
+					UIManager.SetGameObjectActive(m_experienceSlider, false);
+					m_expAmountText.text = StringUtil.TR("MAX", "Global");
 				}
-				ExperienceComponent experienceComponent2 = experienceComponent;
-				this.m_characterType = charLink.m_characterType;
-				this.m_name.text = charLink.GetDisplayName();
-				this.m_description.text = charLink.GetCharSelectAboutDescription();
-				(this.m_description.transform as RectTransform).sizeDelta = new Vector2((this.m_description.transform as RectTransform).sizeDelta.x, this.m_description.GetPreferredValues().y);
-				this.m_needResetScrollbar = true;
-				if (experienceComponent2 != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_levelLabel.text = string.Format(StringUtil.TR("LevelLabel", "Global"), experienceComponent2.Level);
-					this.m_takedownsLabel.text = experienceComponent2.Kills.ToString();
-					this.m_matchesWonLabel.text = experienceComponent2.Wins.ToString();
-					this.m_gamesPlayedLabel.text = experienceComponent2.Matches.ToString();
-					if (experienceComponent2.Level > 0 && experienceComponent2.Level < gameBalanceVars.MaxCharacterLevel)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						int num = gameBalanceVars.CharacterExperienceToLevel(experienceComponent2.Level);
-						this.m_experienceSlider.fillAmount = (float)playerCharacterData.ExperienceComponent.XPProgressThroughLevel / (float)num;
-						UIManager.SetGameObjectActive(this.m_experienceSlider, true, null);
-						this.m_expAmountText.text = playerCharacterData.ExperienceComponent.XPProgressThroughLevel + " / " + num;
-					}
-					else
-					{
-						UIManager.SetGameObjectActive(this.m_experienceSlider, false, null);
-						this.m_expAmountText.text = StringUtil.TR("MAX", "Global");
-					}
-					this.m_expDataLevel = experienceComponent2.Level;
-				}
-				else
-				{
-					this.m_expDataLevel = 1;
-				}
-				if (charLink.m_characterRole == CharacterRole.Assassin)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_roleIcon.sprite = this.m_assassinIcon;
-				}
-				else if (charLink.m_characterRole == CharacterRole.Support)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_roleIcon.sprite = this.m_supportIcon;
-				}
-				else if (charLink.m_characterRole == CharacterRole.Tank)
-				{
-					this.m_roleIcon.sprite = this.m_tankIcon;
-				}
-				else
+				m_expDataLevel = experienceComponent.Level;
+			}
+			else
+			{
+				m_expDataLevel = 1;
+			}
+			if (charLink.m_characterRole == CharacterRole.Assassin)
+			{
+				m_roleIcon.sprite = m_assassinIcon;
+			}
+			else if (charLink.m_characterRole == CharacterRole.Support)
+			{
+				m_roleIcon.sprite = m_supportIcon;
+			}
+			else
+			{
+				if (charLink.m_characterRole != CharacterRole.Tank)
 				{
 					if (charLink.m_characterType.IsWillFill())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
+							default:
+								return;
 							case 0:
-								continue;
+								break;
 							}
-							break;
 						}
-						return;
 					}
 					throw new Exception("No icon for " + charLink.m_characterRole);
 				}
-				this.m_healthFill.Setup(charLink.m_statHealth);
-				this.m_damageFill.Setup(charLink.m_statDamage);
-				this.m_survivalFill.Setup(charLink.m_statSurvival);
-				this.m_difficultyFill.Setup(charLink.m_statDifficulty);
-				UIManager.SetGameObjectActive(this.m_twitterBtn, !charLink.m_twitterHandle.IsNullOrEmpty(), null);
-				for (int i = 0; i < this.m_twitterHandleLabel.Length; i++)
+				m_roleIcon.sprite = m_tankIcon;
+			}
+			m_healthFill.Setup(charLink.m_statHealth);
+			m_damageFill.Setup(charLink.m_statDamage);
+			m_survivalFill.Setup(charLink.m_statSurvival);
+			m_difficultyFill.Setup(charLink.m_statDifficulty);
+			UIManager.SetGameObjectActive(m_twitterBtn, !charLink.m_twitterHandle.IsNullOrEmpty());
+			for (int i = 0; i < m_twitterHandleLabel.Length; i++)
+			{
+				m_twitterHandleLabel[i].text = "@" + charLink.m_twitterHandle;
+			}
+			m_rewards = RewardUtils.GetCharacterRewards(charLink);
+			for (int j = 0; j < gameBalanceVars.RepeatingCharacterLevelRewards.Length; j++)
+			{
+				if (gameBalanceVars.RepeatingCharacterLevelRewards[j].charType == (int)charLink.m_characterType && gameBalanceVars.RepeatingCharacterLevelRewards[j].repeatingLevel > 0)
 				{
-					this.m_twitterHandleLabel[i].text = "@" + charLink.m_twitterHandle;
+					RewardUtils.RewardData rewardData = new RewardUtils.RewardData();
+					rewardData.Amount = gameBalanceVars.RepeatingCharacterLevelRewards[j].reward.Amount;
+					InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(gameBalanceVars.RepeatingCharacterLevelRewards[j].reward.ItemTemplateId);
+					rewardData.Name = itemTemplate.GetDisplayName();
+					rewardData.SpritePath = itemTemplate.IconPath;
+					rewardData.Level = gameBalanceVars.RepeatingCharacterLevelRewards[j].startLevel;
+					rewardData.InventoryTemplate = itemTemplate;
+					rewardData.repeatLevels = gameBalanceVars.RepeatingCharacterLevelRewards[j].repeatingLevel;
+					rewardData.isRepeating = true;
+					m_rewards.Add(rewardData);
 				}
-				this.m_rewards = RewardUtils.GetCharacterRewards(charLink, null);
-				for (int j = 0; j < gameBalanceVars.RepeatingCharacterLevelRewards.Length; j++)
+			}
+			while (true)
+			{
+				UIManager.SetGameObjectActive(m_rewardContainer, false);
+				int num2 = 0;
+				while (true)
 				{
-					if (gameBalanceVars.RepeatingCharacterLevelRewards[j].charType == (int)charLink.m_characterType && gameBalanceVars.RepeatingCharacterLevelRewards[j].repeatingLevel > 0)
+					if (num2 < m_rewards.Count)
 					{
-						for (;;)
+						if (m_rewards[num2].Level <= m_expDataLevel)
 						{
-							switch (4)
+							if (!m_rewards[num2].isRepeating)
 							{
-							case 0:
+								num2++;
 								continue;
 							}
-							break;
 						}
-						RewardUtils.RewardData rewardData = new RewardUtils.RewardData();
-						rewardData.Amount = gameBalanceVars.RepeatingCharacterLevelRewards[j].reward.Amount;
-						InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(gameBalanceVars.RepeatingCharacterLevelRewards[j].reward.ItemTemplateId);
-						rewardData.Name = itemTemplate.GetDisplayName();
-						rewardData.SpritePath = itemTemplate.IconPath;
-						rewardData.Level = gameBalanceVars.RepeatingCharacterLevelRewards[j].startLevel;
-						rewardData.InventoryTemplate = itemTemplate;
-						rewardData.repeatLevels = gameBalanceVars.RepeatingCharacterLevelRewards[j].repeatingLevel;
-						rewardData.isRepeating = true;
-						this.m_rewards.Add(rewardData);
+						UIManager.SetGameObjectActive(m_rewardContainer, true);
+						m_nextRewardIcon.sprite = Resources.Load<Sprite>(m_rewards[num2].SpritePath);
+						UIManager.SetGameObjectActive(m_nextRewardFG, m_rewards[num2].Foreground != null);
+						m_nextRewardFG.sprite = m_rewards[num2].Foreground;
 					}
-				}
-				for (;;)
-				{
-					switch (5)
+					else
 					{
-					case 0:
-						continue;
 					}
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_rewardContainer, false, null);
-				int k = 0;
-				while (k < this.m_rewards.Count)
+				m_bioText.text = charLink.GetCharBio();
+				List<LoreArticle> articlesByCharacter = LoreWideData.Get().GetArticlesByCharacter(charLink.m_characterType);
+				articlesByCharacter.Sort(delegate(LoreArticle a, LoreArticle b)
 				{
-					if (this.m_rewards[k].Level <= this.m_expDataLevel)
+					DateTime value = Convert.ToDateTime(a.DatePublished);
+					return Convert.ToDateTime(a.DatePublished).CompareTo(value);
+				});
+				int k;
+				for (k = 0; k < articlesByCharacter.Count; k++)
+				{
+					UIArticleSelectButton uIArticleSelectButton;
+					if (k < m_articleButtons.Count)
 					{
-						if (!this.m_rewards[k].isRepeating)
-						{
-							k++;
-							continue;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
+						uIArticleSelectButton = m_articleButtons[k];
 					}
-					UIManager.SetGameObjectActive(this.m_rewardContainer, true, null);
-					this.m_nextRewardIcon.sprite = Resources.Load<Sprite>(this.m_rewards[k].SpritePath);
-					UIManager.SetGameObjectActive(this.m_nextRewardFG, this.m_rewards[k].Foreground != null, null);
-					this.m_nextRewardFG.sprite = this.m_rewards[k].Foreground;
-					IL_5C9:
-					this.m_bioText.text = charLink.GetCharBio();
-					List<LoreArticle> articlesByCharacter = LoreWideData.Get().GetArticlesByCharacter(charLink.m_characterType);
-					articlesByCharacter.Sort(delegate(LoreArticle a, LoreArticle b)
+					else
 					{
-						DateTime value = Convert.ToDateTime(a.DatePublished);
-						return Convert.ToDateTime(a.DatePublished).CompareTo(value);
-					});
-					int l;
-					for (l = 0; l < articlesByCharacter.Count; l++)
-					{
-						UIArticleSelectButton uiarticleSelectButton;
-						if (l < this.m_articleButtons.Count)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							uiarticleSelectButton = this.m_articleButtons[l];
-						}
-						else
-						{
-							uiarticleSelectButton = UnityEngine.Object.Instantiate<UIArticleSelectButton>(this.m_articleSelectButtonPrefab);
-							uiarticleSelectButton.transform.SetParent(this.m_articlesGrid.transform);
-							uiarticleSelectButton.transform.localPosition = Vector3.zero;
-							uiarticleSelectButton.transform.localScale = Vector3.one;
-							uiarticleSelectButton.m_hitbox.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-							this.m_articleButtons.Add(uiarticleSelectButton);
-						}
-						uiarticleSelectButton.Setup(articlesByCharacter[l]);
-						UIManager.SetGameObjectActive(uiarticleSelectButton, true, null);
+						uIArticleSelectButton = UnityEngine.Object.Instantiate(m_articleSelectButtonPrefab);
+						uIArticleSelectButton.transform.SetParent(m_articlesGrid.transform);
+						uIArticleSelectButton.transform.localPosition = Vector3.zero;
+						uIArticleSelectButton.transform.localScale = Vector3.one;
+						uIArticleSelectButton.m_hitbox.RegisterScrollListener(OnScroll);
+						m_articleButtons.Add(uIArticleSelectButton);
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					while (l < this.m_articleButtons.Count)
-					{
-						UIManager.SetGameObjectActive(this.m_articleButtons[l], false, null);
-						l++;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					LayoutRebuilder.ForceRebuildLayoutImmediate(this.m_bottomScrollRect.transform as RectTransform);
-					this.m_bottomScrollRect.verticalNormalizedPosition = 1f;
-					this.m_descriptionScrollRect.verticalNormalizedPosition = 1f;
-					this.m_rewardTooltipObj.Refresh();
-					this.UpdateBuyButtons();
-					return;
+					uIArticleSelectButton.Setup(articlesByCharacter[k]);
+					UIManager.SetGameObjectActive(uIArticleSelectButton, true);
 				}
-				for (;;)
+				for (; k < m_articleButtons.Count; k++)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_5C9;
+					UIManager.SetGameObjectActive(m_articleButtons[k], false);
+				}
+				while (true)
+				{
+					LayoutRebuilder.ForceRebuildLayoutImmediate(m_bottomScrollRect.transform as RectTransform);
+					m_bottomScrollRect.verticalNormalizedPosition = 1f;
+					m_descriptionScrollRect.verticalNormalizedPosition = 1f;
+					m_rewardTooltipObj.Refresh();
+					UpdateBuyButtons();
+					return;
 				}
 			}
 		}
@@ -612,210 +428,168 @@ public class UICharacterGeneralPanel : MonoBehaviour
 
 	public void TwitterBtnClicked(BaseEventData data)
 	{
-		Application.OpenURL("http://twitter.com/" + this.m_charLink.m_twitterHandle);
+		Application.OpenURL("http://twitter.com/" + m_charLink.m_twitterHandle);
 	}
 
 	public void OnScroll(BaseEventData data)
 	{
-		this.m_bottomScrollRect.OnScroll((PointerEventData)data);
+		m_bottomScrollRect.OnScroll((PointerEventData)data);
 	}
 
 	public CharacterResourceLink GetDisplayedCharacter()
 	{
-		return this.m_charLink;
+		return m_charLink;
 	}
 
 	private void HandleBankBalanceChange(CurrencyData data)
 	{
-		if (data.m_Type == CurrencyType.UnlockFreelancerToken)
+		if (data.m_Type != CurrencyType.UnlockFreelancerToken)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.HandleBankBalanceChange(CurrencyData)).MethodHandle;
-			}
-			this.UpdateBuyButtons();
+			return;
+		}
+		while (true)
+		{
+			UpdateBuyButtons();
+			return;
 		}
 	}
 
 	private void UpdateBuyButtons()
 	{
-		if (this.m_buyHeroContainer == null)
+		if (m_buyHeroContainer == null)
 		{
 			return;
 		}
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (!(this.m_charLink == null))
+		if (m_charLink == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (clientGameManager == null)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			if (!clientGameManager.IsPlayerCharacterDataAvailable(m_charLink.m_characterType))
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.UpdateBuyButtons()).MethodHandle;
-			}
-			if (!(clientGameManager == null))
-			{
-				if (clientGameManager.IsPlayerCharacterDataAvailable(this.m_charLink.m_characterType))
-				{
-					PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_charLink.m_characterType);
-					if (!clientGameManager.HasPurchasedGame && !playerCharacterData.CharacterComponent.Unlocked && UICashShopPanel.Get().IsVisible())
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						int unlockFreelancerCurrencyPrice = this.m_charLink.m_charUnlockData.GetUnlockFreelancerCurrencyPrice();
-						for (int i = 0; i < this.m_buyInGameLabels.Length; i++)
-						{
-							this.m_buyInGameLabels[i].text = "<sprite name=credit>" + unlockFreelancerCurrencyPrice;
-						}
-						UIManager.SetGameObjectActive(this.m_buyInGameButton, unlockFreelancerCurrencyPrice > 0, null);
-						string accountCurrency = HydrogenConfig.Get().Ticket.AccountCurrency;
-						float freelancerPrice = CommerceClient.Get().GetFreelancerPrice(this.m_charLink.m_characterType, accountCurrency);
-						string localizedPriceString = UIStorePanel.GetLocalizedPriceString(freelancerPrice, accountCurrency);
-						for (int j = 0; j < this.m_buyForCashLabels.Length; j++)
-						{
-							this.m_buyForCashLabels[j].text = localizedPriceString;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIManager.SetGameObjectActive(this.m_buyForCashButton, freelancerPrice > 0f, null);
-						bool flag = ClientGameManager.Get().PlayerWallet.GetValue(CurrencyType.UnlockFreelancerToken).m_Amount > 0;
-						UIManager.SetGameObjectActive(this.m_buyForTokenButton, flag, null);
-						Component buyHeroContainer = this.m_buyHeroContainer;
-						bool doActive;
-						if (unlockFreelancerCurrencyPrice <= 0)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (freelancerPrice <= 0f)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								doActive = flag;
-								goto IL_1EC;
-							}
-						}
-						doActive = true;
-						IL_1EC:
-						UIManager.SetGameObjectActive(buyHeroContainer, doActive, null);
-					}
-					else
-					{
-						UIManager.SetGameObjectActive(this.m_buyHeroContainer, false, null);
-					}
-					return;
-				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
+			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_charLink.m_characterType);
+			if (!clientGameManager.HasPurchasedGame && !playerCharacterData.CharacterComponent.Unlocked && UICashShopPanel.Get().IsVisible())
+			{
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						break;
+					default:
+					{
+						int unlockFreelancerCurrencyPrice = m_charLink.m_charUnlockData.GetUnlockFreelancerCurrencyPrice();
+						for (int i = 0; i < m_buyInGameLabels.Length; i++)
+						{
+							m_buyInGameLabels[i].text = "<sprite name=credit>" + unlockFreelancerCurrencyPrice;
+						}
+						UIManager.SetGameObjectActive(m_buyInGameButton, unlockFreelancerCurrencyPrice > 0);
+						string accountCurrency = HydrogenConfig.Get().Ticket.AccountCurrency;
+						float freelancerPrice = CommerceClient.Get().GetFreelancerPrice(m_charLink.m_characterType, accountCurrency);
+						string localizedPriceString = UIStorePanel.GetLocalizedPriceString(freelancerPrice, accountCurrency);
+						for (int j = 0; j < m_buyForCashLabels.Length; j++)
+						{
+							m_buyForCashLabels[j].text = localizedPriceString;
+						}
+						while (true)
+						{
+							RectTransform buyHeroContainer;
+							int doActive;
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+								{
+									UIManager.SetGameObjectActive(m_buyForCashButton, freelancerPrice > 0f);
+									bool flag = ClientGameManager.Get().PlayerWallet.GetValue(CurrencyType.UnlockFreelancerToken).m_Amount > 0;
+									UIManager.SetGameObjectActive(m_buyForTokenButton, flag);
+									buyHeroContainer = m_buyHeroContainer;
+									if (unlockFreelancerCurrencyPrice <= 0)
+									{
+										if (!(freelancerPrice > 0f))
+										{
+											doActive = (flag ? 1 : 0);
+											goto IL_01ec;
+										}
+									}
+									doActive = 1;
+									goto IL_01ec;
+								}
+								IL_01ec:
+								UIManager.SetGameObjectActive(buyHeroContainer, (byte)doActive != 0);
+								return;
+							}
+						}
+					}
+					}
+				}
+			}
+			UIManager.SetGameObjectActive(m_buyHeroContainer, false);
+			return;
 		}
 	}
 
 	private void BuyInGameClicked(BaseEventData data)
 	{
-		UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
-		uipurchaseableItem.m_itemType = PurchaseItemType.Character;
-		uipurchaseableItem.m_charLink = this.m_charLink;
-		uipurchaseableItem.m_currencyType = CurrencyType.FreelancerCurrency;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, new UIStorePanel.PurchaseCharacterCallback(this.PurchaseCharacterResponseHandler));
+		UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+		uIPurchaseableItem.m_itemType = PurchaseItemType.Character;
+		uIPurchaseableItem.m_charLink = m_charLink;
+		uIPurchaseableItem.m_currencyType = CurrencyType.FreelancerCurrency;
+		UIStorePanel.Get().OpenPurchaseDialog(uIPurchaseableItem, PurchaseCharacterResponseHandler);
 	}
 
 	private void BuyForCashClicked(BaseEventData data)
 	{
-		UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
-		uipurchaseableItem.m_itemType = PurchaseItemType.Character;
-		uipurchaseableItem.m_charLink = this.m_charLink;
-		uipurchaseableItem.m_purchaseForCash = true;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, new UIStorePanel.PurchaseCharacterCallback(this.PurchaseCharacterResponseHandler));
+		UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+		uIPurchaseableItem.m_itemType = PurchaseItemType.Character;
+		uIPurchaseableItem.m_charLink = m_charLink;
+		uIPurchaseableItem.m_purchaseForCash = true;
+		UIStorePanel.Get().OpenPurchaseDialog(uIPurchaseableItem, PurchaseCharacterResponseHandler);
 	}
 
 	private void BuyForTokenClicked(BaseEventData data)
 	{
-		ClientGameManager.Get().PurchaseCharacter(CurrencyType.UnlockFreelancerToken, this.m_charLink.m_characterType, delegate(PurchaseCharacterResponse response)
+		ClientGameManager.Get().PurchaseCharacter(CurrencyType.UnlockFreelancerToken, m_charLink.m_characterType, delegate(PurchaseCharacterResponse response)
 		{
-			this.PurchaseCharacterResponseHandler(response.Success, response.Result, response.CharacterType);
+			PurchaseCharacterResponseHandler(response.Success, response.Result, response.CharacterType);
 		});
 	}
 
 	private void PurchaseCharacterResponseHandler(bool success, PurchaseResult result, CharacterType characterType)
 	{
-		if (success && result == PurchaseResult.Success)
+		if (!success || result != PurchaseResult.Success)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (characterType == m_charLink.m_characterType)
 			{
-				switch (6)
+				while (true)
 				{
-				case 0:
-					continue;
+					UIManager.SetGameObjectActive(m_buyHeroContainer, false);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.PurchaseCharacterResponseHandler(bool, PurchaseResult, CharacterType)).MethodHandle;
-			}
-			if (characterType == this.m_charLink.m_characterType)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_buyHeroContainer, false, null);
-			}
+			return;
 		}
 	}
 }

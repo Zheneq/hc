@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class UIStoreCashShopStoreItemPanel : UICashShopPanelBase
@@ -10,49 +9,22 @@ public class UIStoreCashShopStoreItemPanel : UICashShopPanelBase
 		for (int i = 0; i < storeItemsForPurchase.Length; i++)
 		{
 			string accountCurrency = HydrogenConfig.Get().Ticket.AccountCurrency;
-			if (storeItemsForPurchase[i].Prices.GetPrice(accountCurrency) > 0f)
+			if (!(storeItemsForPurchase[i].Prices.GetPrice(accountCurrency) <= 0f) && GameBalanceVarsExtensions.MeetsVisibilityConditions(storeItemsForPurchase[i]))
 			{
-				if (GameBalanceVarsExtensions.MeetsVisibilityConditions(storeItemsForPurchase[i]))
-				{
-					list.Add(new UIPurchaseableItem
-					{
-						m_purchaseForCash = true,
-						m_itemType = PurchaseItemType.InventoryItem,
-						m_inventoryTemplateId = storeItemsForPurchase[i].m_itemTemplateId,
-						m_overlayText = storeItemsForPurchase[i].m_overlayText,
-						m_sortOrder = storeItemsForPurchase[i].m_sortOrder * storeItemsForPurchase.Length + i
-					});
-				}
+				UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+				uIPurchaseableItem.m_purchaseForCash = true;
+				uIPurchaseableItem.m_itemType = PurchaseItemType.InventoryItem;
+				uIPurchaseableItem.m_inventoryTemplateId = storeItemsForPurchase[i].m_itemTemplateId;
+				uIPurchaseableItem.m_overlayText = storeItemsForPurchase[i].m_overlayText;
+				uIPurchaseableItem.m_sortOrder = storeItemsForPurchase[i].m_sortOrder * storeItemsForPurchase.Length + i;
+				list.Add(uIPurchaseableItem);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			
+			list.Sort(((UIPurchaseableItem a, UIPurchaseableItem b) => a.m_sortOrder - b.m_sortOrder));
+			return list.ToArray();
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreCashShopStoreItemPanel.GetPurchasableItems()).MethodHandle;
-		}
-		List<UIPurchaseableItem> list2 = list;
-		if (UIStoreCashShopStoreItemPanel.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIStoreCashShopStoreItemPanel.<>f__am$cache0 = ((UIPurchaseableItem a, UIPurchaseableItem b) => a.m_sortOrder - b.m_sortOrder);
-		}
-		list2.Sort(UIStoreCashShopStoreItemPanel.<>f__am$cache0);
-		return list.ToArray();
 	}
 }

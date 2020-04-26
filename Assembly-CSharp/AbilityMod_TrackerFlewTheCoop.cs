@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,54 +33,33 @@ public class AbilityMod_TrackerFlewTheCoop : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		TrackerFlewTheCoop x = targetAbility as TrackerFlewTheCoop;
-		if (x != null)
+		if (!(x != null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TrackerFlewTheCoop.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken_EffectInfo(tokens, this.m_additionalEffectOnSelf, "Effect_AdditionalOnSelf", null, true);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken_EffectInfo(tokens, m_additionalEffectOnSelf, "Effect_AdditionalOnSelf");
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		TrackerFlewTheCoop trackerFlewTheCoop = base.GetTargetAbilityOnAbilityData(abilityData) as TrackerFlewTheCoop;
+		TrackerFlewTheCoop trackerFlewTheCoop = GetTargetAbilityOnAbilityData(abilityData) as TrackerFlewTheCoop;
 		bool flag = trackerFlewTheCoop != null;
-		string str = string.Empty;
-		str += AbilityModHelper.GetModPropertyDesc(this.m_landingShapeMod, "[Landing Shape]", flag, (!flag) ? AbilityAreaShape.SingleSquare : trackerFlewTheCoop.m_hookshotShape);
-		str += AbilityModHelper.GetModEffectInfoDesc(this.m_additionalEffectOnSelf, "[Additional Effect on Self]", string.Empty, flag, null);
-		if (this.m_addVisionAroundStartSquare)
+		string empty = string.Empty;
+		empty += AbilityModHelper.GetModPropertyDesc(m_landingShapeMod, "[Landing Shape]", flag, flag ? trackerFlewTheCoop.m_hookshotShape : AbilityAreaShape.SingleSquare);
+		empty += AbilityModHelper.GetModEffectInfoDesc(m_additionalEffectOnSelf, "[Additional Effect on Self]", string.Empty, flag);
+		if (m_addVisionAroundStartSquare)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TrackerFlewTheCoop.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			str += "* Adding Vision on Starting Square\n";
-			str = str + "[Vision Radius] = " + InEditorDescHelper.ColoredString(this.m_visionRadius.ToString(), "cyan", false) + "\n";
-			str = str + "[Vision Duration] = " + InEditorDescHelper.ColoredString(this.m_visionDuration.ToString(), "cyan", false) + "\n";
-			str = str + "[Vision Brush Reveal Type] = " + InEditorDescHelper.ColoredString(this.m_brushRevealType.ToString(), "cyan", false) + "\n";
+			empty += "* Adding Vision on Starting Square\n";
+			empty = empty + "[Vision Radius] = " + InEditorDescHelper.ColoredString(m_visionRadius.ToString()) + "\n";
+			empty = empty + "[Vision Duration] = " + InEditorDescHelper.ColoredString(m_visionDuration.ToString()) + "\n";
+			empty = empty + "[Vision Brush Reveal Type] = " + InEditorDescHelper.ColoredString(m_brushRevealType.ToString()) + "\n";
 		}
-		str += base.PropDesc(this.m_extraDroneDamageDuration, "[For this many turns:", flag, 0);
-		str += base.PropDesc(this.m_extraDroneDamage, "[Extra Drone Damage]", flag, 0);
-		return str + base.PropDesc(this.m_extraDroneUntrackedDamage, "[Extra Drone Untracked Damage]", flag, 0);
+		empty += PropDesc(m_extraDroneDamageDuration, "[For this many turns:", flag);
+		empty += PropDesc(m_extraDroneDamage, "[Extra Drone Damage]", flag);
+		return empty + PropDesc(m_extraDroneUntrackedDamage, "[Extra Drone Untracked Damage]", flag);
 	}
 }

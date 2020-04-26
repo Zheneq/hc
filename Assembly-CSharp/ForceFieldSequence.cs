@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class ForceFieldSequence : Sequence
@@ -16,104 +15,67 @@ public class ForceFieldSequence : Sequence
 
 	private void Update()
 	{
-		if (this.m_forceFieldPrefab)
+		if ((bool)m_forceFieldPrefab)
 		{
-			for (;;)
+			if (m_initialized && m_forceFieldVFX == null && (bool)base.Target)
 			{
-				switch (3)
+				Vector3 bonePosition = base.Target.GetBonePosition("upperRoot_JNT");
+				m_forceFieldVFX = Object.Instantiate(m_forceFieldPrefab, bonePosition, Quaternion.identity);
+				m_forceFieldVFX.transform.parent = base.transform;
+				ActorData[] targets = base.Targets;
+				foreach (ActorData target in targets)
 				{
-				case 0:
-					continue;
+					base.Source.OnSequenceHit(this, target, null);
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ForceFieldSequence.Update()).MethodHandle;
-			}
-			if (this.m_initialized && this.m_forceFieldVFX == null && base.Target)
-			{
-				Vector3 position = base.Target.\u000E("upperRoot_JNT");
-				this.m_forceFieldVFX = UnityEngine.Object.Instantiate<Transform>(this.m_forceFieldPrefab, position, Quaternion.identity);
-				this.m_forceFieldVFX.transform.parent = base.transform;
-				foreach (ActorData target in base.Targets)
+				if (m_shieldStart != null)
 				{
-					base.Source.OnSequenceHit(this, target, null, ActorModelData.RagdollActivation.HealthBased, true);
+					base.Target.GetComponent<AudioSource>().PlayOneShot(m_shieldStart);
 				}
-				if (this.m_shieldStart != null)
+				if (!string.IsNullOrEmpty(m_startAudioEvent))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					base.Target.GetComponent<AudioSource>().PlayOneShot(this.m_shieldStart);
-				}
-				if (!string.IsNullOrEmpty(this.m_startAudioEvent))
-				{
-					AudioManager.PostEvent(this.m_startAudioEvent, this.m_forceFieldVFX.gameObject);
+					AudioManager.PostEvent(m_startAudioEvent, m_forceFieldVFX.gameObject);
 				}
 			}
 		}
-		if (this.m_forceFieldVFX != null)
+		if (!(m_forceFieldVFX != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!base.Target)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (base.Target)
+			while (true)
 			{
-				for (;;)
+				Renderer[] componentsInChildren = m_forceFieldVFX.GetComponentsInChildren<Renderer>();
+				Renderer[] array = componentsInChildren;
+				foreach (Renderer renderer in array)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					renderer.enabled = base.Target.GetActorModelDataRenderer().enabled;
 				}
-				Renderer[] componentsInChildren = this.m_forceFieldVFX.GetComponentsInChildren<Renderer>();
-				foreach (Renderer renderer in componentsInChildren)
-				{
-					renderer.enabled = base.Target.\u000E().enabled;
-				}
-				Vector3 position2 = base.Target.\u000E("upperRoot_JNT");
-				this.m_forceFieldVFX.position = position2;
+				Vector3 bonePosition2 = base.Target.GetBonePosition("upperRoot_JNT");
+				m_forceFieldVFX.position = bonePosition2;
+				return;
 			}
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_forceFieldVFX)
+		if (!m_forceFieldVFX)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ForceFieldSequence.OnDisable()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (base.Target != null && base.Target.GetComponent<AudioSource>() != null)
 			{
-				base.Target.GetComponent<AudioSource>().PlayOneShot(this.m_shieldEnd);
+				base.Target.GetComponent<AudioSource>().PlayOneShot(m_shieldEnd);
 			}
-			UnityEngine.Object.Destroy(this.m_forceFieldVFX.gameObject);
+			Object.Destroy(m_forceFieldVFX.gameObject);
+			return;
 		}
 	}
 }

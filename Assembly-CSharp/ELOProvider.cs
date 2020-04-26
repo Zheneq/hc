@@ -1,24 +1,53 @@
-﻿using System;
-
 public interface ELOProvider
 {
-	float ELO { get; }
+	float ELO
+	{
+		get;
+	}
 
-	long GroupId { get; }
+	long GroupId
+	{
+		get;
+	}
 
-	Team Team { get; set; }
+	Team Team
+	{
+		get;
+		set;
+	}
 
-	CharacterType SelectedCharacter { get; }
+	CharacterType SelectedCharacter
+	{
+		get;
+	}
 
-	CharacterRole SelectedRole { get; }
+	CharacterRole SelectedRole
+	{
+		get;
+	}
 
-	bool IsNPCBot { get; }
+	bool IsNPCBot
+	{
+		get;
+	}
 
-	bool IsCollisionNoob { get; }
+	bool IsCollisionNoob
+	{
+		get;
+	}
 
-	int LossStreak { get; }
+	int LossStreak
+	{
+		get;
+	}
 
-	string LanguageCode { get; }
+	string LanguageCode
+	{
+		get;
+	}
 
-	Region? Region { get; }
+	Region? Region
+	{
+		get;
+	}
 }

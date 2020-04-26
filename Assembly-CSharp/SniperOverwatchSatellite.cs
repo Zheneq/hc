@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class SniperOverwatchSatellite : TempSatellite
@@ -9,88 +8,52 @@ public class SniperOverwatchSatellite : TempSatellite
 
 	public override void TriggerAttack(GameObject attackTarget)
 	{
-		this.m_modelAnimator.SetTrigger("StartAttack");
-		this.m_attackTarget = attackTarget;
+		m_modelAnimator.SetTrigger("StartAttack");
+		m_attackTarget = attackTarget;
 	}
 
 	public override void TriggerSpawn()
 	{
-		this.m_modelAnimator.SetTrigger("Spawn");
+		m_modelAnimator.SetTrigger("Spawn");
 	}
 
 	public override void TriggerDespawn()
 	{
-		this.m_modelAnimator.SetTrigger("Despawn");
-		this.m_timeDespawnTriggered = Time.time;
+		m_modelAnimator.SetTrigger("Despawn");
+		m_timeDespawnTriggered = Time.time;
 	}
 
 	private void Update()
 	{
-		AnimatorStateInfo currentAnimatorStateInfo = this.m_modelAnimator.GetCurrentAnimatorStateInfo(0);
+		AnimatorStateInfo currentAnimatorStateInfo = m_modelAnimator.GetCurrentAnimatorStateInfo(0);
 		if (currentAnimatorStateInfo.IsTag("Despawn"))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatchSatellite.Update()).MethodHandle;
-			}
 			if (currentAnimatorStateInfo.normalizedTime >= 1f)
 			{
-				goto IL_6C;
+				goto IL_006c;
 			}
 		}
-		if (this.m_timeDespawnTriggered > 0f && Time.time - this.m_timeDespawnTriggered >= 10f)
+		if (m_timeDespawnTriggered > 0f && Time.time - m_timeDespawnTriggered >= 10f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			goto IL_006c;
 		}
-		else
+		if (!currentAnimatorStateInfo.IsTag("Attack"))
 		{
-			if (!currentAnimatorStateInfo.IsTag("Attack"))
+			return;
+		}
+		while (true)
+		{
+			if (m_attackTarget != null)
 			{
-				return;
-			}
-			for (;;)
-			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
+					base.transform.rotation = Quaternion.LookRotation((m_attackTarget.transform.position - base.transform.position).normalized);
+					return;
 				}
-				break;
-			}
-			if (this.m_attackTarget != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				base.transform.rotation = Quaternion.LookRotation((this.m_attackTarget.transform.position - base.transform.position).normalized);
-				return;
 			}
 			return;
 		}
-		IL_6C:
-		UnityEngine.Object.Destroy(base.gameObject);
+		IL_006c:
+		Object.Destroy(base.gameObject);
 	}
 }

@@ -1,15 +1,41 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SoldierProjectilesInLineSequence : Sequence
 {
+	public class HitAreaExtraParams : IExtraSequenceParams
+	{
+		public Vector3 fromPos;
+
+		public Vector3 toPos;
+
+		public float areaWidthInSquares;
+
+		public bool ignoreStartEvent;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			stream.Serialize(ref fromPos);
+			stream.Serialize(ref toPos);
+			stream.Serialize(ref areaWidthInSquares);
+			stream.Serialize(ref ignoreStartEvent);
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			stream.Serialize(ref fromPos);
+			stream.Serialize(ref toPos);
+			stream.Serialize(ref areaWidthInSquares);
+			stream.Serialize(ref ignoreStartEvent);
+		}
+	}
+
 	[Header("-- Projectile Info --")]
 	public GenericSequenceProjectileAuthoredInfo m_projectileInfo;
 
 	[AnimEventPicker]
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	[Header("-- Projectile Placement --")]
 	public float m_distBetweenProjectile = 1.5f;
@@ -40,71 +66,46 @@ public class SoldierProjectilesInLineSequence : Sequence
 
 	private bool m_startProjectileUpdate;
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			SoldierProjectilesInLineSequence.HitAreaExtraParams hitAreaExtraParams = extraSequenceParams as SoldierProjectilesInLineSequence.HitAreaExtraParams;
+			HitAreaExtraParams hitAreaExtraParams = extraSequenceParams as HitAreaExtraParams;
 			if (hitAreaExtraParams != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierProjectilesInLineSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
-				this.m_didSetDataFromExtraParams = true;
-				this.m_fromPos = hitAreaExtraParams.fromPos;
-				this.m_toPos = hitAreaExtraParams.toPos;
-				this.m_areaWidthInSquares = hitAreaExtraParams.areaWidthInSquares;
-				this.m_ignoreStartEvent = hitAreaExtraParams.ignoreStartEvent;
+				m_didSetDataFromExtraParams = true;
+				m_fromPos = hitAreaExtraParams.fromPos;
+				m_toPos = hitAreaExtraParams.toPos;
+				m_areaWidthInSquares = hitAreaExtraParams.areaWidthInSquares;
+				m_ignoreStartEvent = hitAreaExtraParams.ignoreStartEvent;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public override void FinishSetup()
 	{
 		bool flag = false;
-		if (this.m_didSetDataFromExtraParams)
+		if (m_didSetDataFromExtraParams)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierProjectilesInLineSequence.FinishSetup()).MethodHandle;
-			}
-			Vector3 vector = this.m_toPos - this.m_fromPos;
+			Vector3 vector = m_toPos - m_fromPos;
 			vector.y = 0f;
 			float magnitude = vector.magnitude;
 			vector.Normalize();
 			Vector3 normalized = Vector3.Cross(vector, Vector3.up).normalized;
-			float squareSize = Board.\u000E().squareSize;
-			float num = 0.5f * this.m_areaWidthInSquares * squareSize;
-			float num2 = this.m_maxVariationForDistBetween * squareSize;
-			float num3 = Mathf.Max(0.3f, this.m_distBetweenProjectile * Board.\u000E().squareSize);
+			float squareSize = Board.Get().squareSize;
+			float num = 0.5f * m_areaWidthInSquares * squareSize;
+			float num2 = m_maxVariationForDistBetween * squareSize;
+			float num3 = Mathf.Max(0.3f, m_distBetweenProjectile * Board.Get().squareSize);
 			int num4 = Mathf.CeilToInt(magnitude / num3);
 			if (num4 > 0)
 			{
@@ -112,218 +113,108 @@ public class SoldierProjectilesInLineSequence : Sequence
 				List<ActorData> list = new List<ActorData>();
 				for (int i = 0; i <= num4; i++)
 				{
-					Vector3 vector2 = this.m_fromPos + vector * ((float)i * num3);
+					Vector3 vector2 = m_fromPos + vector * ((float)i * num3);
 					List<ActorData> list2 = new List<ActorData>();
 					if (base.Targets != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int j = 0; j < base.Targets.Length; j++)
 						{
 							ActorData actorData = base.Targets[j];
-							if (!list.Contains(actorData))
+							if (list.Contains(actorData))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								Vector3 rhs = actorData.\u0016() - vector2;
-								rhs.y = 0f;
-								if (i != num4)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (Vector3.Dot(vector, rhs) > 0f)
-									{
-										goto IL_18D;
-									}
-								}
-								list2.Add(actorData);
-								list.Add(actorData);
+								continue;
 							}
-							IL_18D:;
+							Vector3 rhs = actorData.GetTravelBoardSquareWorldPosition() - vector2;
+							rhs.y = 0f;
+							if (i != num4)
+							{
+								if (!(Vector3.Dot(vector, rhs) <= 0f))
+								{
+									continue;
+								}
+							}
+							list2.Add(actorData);
+							list.Add(actorData);
 						}
 					}
 					Vector3 vector3 = vector2;
-					Vector3 vector4 = vector3;
-					vector4.y += this.m_startHeightFromFloor * Board.\u000E().squareSize;
-					vector4 -= this.m_backwardsOffset * Board.\u000E().squareSize * vector;
-					vector3 += UnityEngine.Random.Range(-num, num) * normalized;
-					vector3 += UnityEngine.Random.Range(-num2, num2) * vector;
-					vector3.y = (float)Board.\u000E().BaselineHeight;
-					GenericSequenceProjectileInfo genericSequenceProjectileInfo = new GenericSequenceProjectileInfo(this, this.m_projectileInfo, vector4, vector3, list2.ToArray());
-					genericSequenceProjectileInfo.m_startDelay = Mathf.Clamp((float)i * this.m_timeBetweenSpawns + UnityEngine.Random.Range(0f, this.m_timeMaxVariation), 0f, 3f);
+					Vector3 startPos = vector3;
+					startPos.y += m_startHeightFromFloor * Board.Get().squareSize;
+					startPos -= m_backwardsOffset * Board.Get().squareSize * vector;
+					vector3 += Random.Range(0f - num, num) * normalized;
+					vector3 += Random.Range(0f - num2, num2) * vector;
+					vector3.y = Board.Get().BaselineHeight;
+					GenericSequenceProjectileInfo genericSequenceProjectileInfo = new GenericSequenceProjectileInfo(this, m_projectileInfo, startPos, vector3, list2.ToArray());
+					genericSequenceProjectileInfo.m_startDelay = Mathf.Clamp((float)i * m_timeBetweenSpawns + Random.Range(0f, m_timeMaxVariation), 0f, 3f);
 					if (i == num4)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						genericSequenceProjectileInfo.m_positionForSequenceHit = base.TargetPos;
 					}
-					this.m_projectilesList.Add(genericSequenceProjectileInfo);
+					m_projectilesList.Add(genericSequenceProjectileInfo);
 				}
 			}
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			base.CallHitSequenceOnTargets(base.TargetPos, 1f, null, true);
+			CallHitSequenceOnTargets(base.TargetPos);
 		}
-		if (!(this.m_startEvent == null))
+		if (!(m_startEvent == null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!this.m_ignoreStartEvent)
+			if (!m_ignoreStartEvent)
 			{
 				return;
 			}
 		}
-		this.m_startProjectileUpdate = true;
+		m_startProjectileUpdate = true;
 	}
 
 	private void OnDisable()
 	{
-		foreach (GenericSequenceProjectileInfo genericSequenceProjectileInfo in this.m_projectilesList)
+		foreach (GenericSequenceProjectileInfo projectiles in m_projectilesList)
 		{
-			if (genericSequenceProjectileInfo != null)
+			if (projectiles != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierProjectilesInLineSequence.OnDisable()).MethodHandle;
-				}
-				genericSequenceProjectileInfo.OnSequenceDisable();
+				projectiles.OnSequenceDisable();
 			}
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_startEvent == parameter)
+		if (!(m_startEvent == parameter))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierProjectilesInLineSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
-			this.m_startProjectileUpdate = true;
+			return;
+		}
+		while (true)
+		{
+			m_startProjectileUpdate = true;
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		base.ProcessSequenceVisibility();
-		if (this.m_startProjectileUpdate)
+		ProcessSequenceVisibility();
+		if (!m_startProjectileUpdate)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			for (int i = 0; i < m_projectilesList.Count; i++)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_projectilesList[i].OnUpdate();
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierProjectilesInLineSequence.Update()).MethodHandle;
-			}
-			for (int i = 0; i < this.m_projectilesList.Count; i++)
-			{
-				this.m_projectilesList[i].OnUpdate();
-			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-		}
-	}
-
-	public class HitAreaExtraParams : Sequence.IExtraSequenceParams
-	{
-		public Vector3 fromPos;
-
-		public Vector3 toPos;
-
-		public float areaWidthInSquares;
-
-		public bool ignoreStartEvent;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.fromPos);
-			stream.Serialize(ref this.toPos);
-			stream.Serialize(ref this.areaWidthInSquares);
-			stream.Serialize(ref this.ignoreStartEvent);
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.fromPos);
-			stream.Serialize(ref this.toPos);
-			stream.Serialize(ref this.areaWidthInSquares);
-			stream.Serialize(ref this.ignoreStartEvent);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class QuestConfigOverride
@@ -11,6 +11,6 @@ public class QuestConfigOverride
 
 	public QuestConfigOverride Clone()
 	{
-		return (QuestConfigOverride)base.MemberwiseClone();
+		return (QuestConfigOverride)MemberwiseClone();
 	}
 }

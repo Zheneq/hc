@@ -1,7 +1,5 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIStoreGamePanel : UIStoreBasePanel
@@ -25,79 +23,49 @@ public class UIStoreGamePanel : UIStoreBasePanel
 		GridLayoutGroup[] componentsInChildren = base.gameObject.GetComponentsInChildren<GridLayoutGroup>(true);
 		if (componentsInChildren != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreGamePanel.Awake()).MethodHandle;
-			}
 			if (componentsInChildren.Length > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HitchDetector.Get() != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					HitchDetector.Get().AddNewLayoutGroup(componentsInChildren[0]);
 				}
 			}
 		}
-		this.Setup();
-		this.m_buyMainPackBtn.spriteController.callback = delegate(BaseEventData x)
+		Setup();
+		m_buyMainPackBtn.spriteController.callback = delegate
 		{
-			if (!GameWideData.Get().m_gamePackData.m_gamePacks.IsNullOrEmpty<GamePack>())
+			if (!GameWideData.Get().m_gamePackData.m_gamePacks.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						UIPurchaseableItem item = new UIPurchaseableItem
+						{
+							m_itemType = PurchaseItemType.Game,
+							m_gamePack = GameWideData.Get().m_gamePackData.m_gamePacks[0]
+						};
+						UIStorePanel.Get().OpenPurchaseDialog(item);
+						UIFrontEnd.PlaySound(FrontEndButtonSounds.StorePurchased);
+						return;
 					}
-					break;
+					}
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIStoreGamePanel.<Awake>m__0(BaseEventData)).MethodHandle;
-				}
-				UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
-				uipurchaseableItem.m_itemType = PurchaseItemType.Game;
-				uipurchaseableItem.m_gamePack = GameWideData.Get().m_gamePackData.m_gamePacks[0];
-				UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
-				UIFrontEnd.PlaySound(FrontEndButtonSounds.StorePurchased);
 			}
 		};
-		this.m_upgradePacksBtn.spriteController.callback = delegate(BaseEventData x)
+		m_upgradePacksBtn.spriteController.callback = delegate
 		{
-			UIManager.SetGameObjectActive(this.m_mainPack, false, null);
-			UIManager.SetGameObjectActive(this.m_upgradePacks, true, null);
+			UIManager.SetGameObjectActive(m_mainPack, false);
+			UIManager.SetGameObjectActive(m_upgradePacks, true);
 		};
-		this.m_backBtn.spriteController.callback = delegate(BaseEventData x)
+		m_backBtn.spriteController.callback = delegate
 		{
-			UIManager.SetGameObjectActive(this.m_mainPack, true, null);
-			UIManager.SetGameObjectActive(this.m_upgradePacks, false, null);
+			UIManager.SetGameObjectActive(m_mainPack, true);
+			UIManager.SetGameObjectActive(m_upgradePacks, false);
 		};
 	}
 
@@ -108,68 +76,50 @@ public class UIStoreGamePanel : UIStoreBasePanel
 	private void OnEnable()
 	{
 		bool hasPurchasedGame = ClientGameManager.Get().HasPurchasedGame;
-		UIManager.SetGameObjectActive(this.m_mainPack, !hasPurchasedGame, null);
-		UIManager.SetGameObjectActive(this.m_upgradePacks, hasPurchasedGame, null);
-		UIManager.SetGameObjectActive(this.m_backBtn, !hasPurchasedGame, null);
+		UIManager.SetGameObjectActive(m_mainPack, !hasPurchasedGame);
+		UIManager.SetGameObjectActive(m_upgradePacks, hasPurchasedGame);
+		UIManager.SetGameObjectActive(m_backBtn, !hasPurchasedGame);
 	}
 
 	public void Setup()
 	{
-		this.m_gameItemList = this.m_upgradePacks.GetComponentsInChildren<UIStoreGameItem>();
+		m_gameItemList = m_upgradePacks.GetComponentsInChildren<UIStoreGameItem>();
 		GamePackData gamePackData = GameWideData.Get().m_gamePackData;
-		for (int i = 0; i < this.m_gameItemList.Length; i++)
+		for (int i = 0; i < m_gameItemList.Length; i++)
 		{
 			if (i + 1 < gamePackData.m_gamePacks.Length)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreGamePanel.Setup()).MethodHandle;
-				}
-				this.m_gameItemList[i].Setup(gamePackData.m_gamePacks[i + 1]);
+				m_gameItemList[i].Setup(gamePackData.m_gamePacks[i + 1]);
 			}
 			else
 			{
-				this.m_gameItemList[i].Setup(null);
+				m_gameItemList[i].Setup(null);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
+			HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
+			string accountCurrency = hydrogenConfig.Ticket.AccountCurrency;
+			if (!GameWideData.Get().m_gamePackData.m_gamePacks.IsNullOrEmpty())
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
-		string accountCurrency = hydrogenConfig.Ticket.AccountCurrency;
-		if (!GameWideData.Get().m_gamePackData.m_gamePacks.IsNullOrEmpty<GamePack>())
-		{
-			for (;;)
-			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (5)
+					{
+					case 0:
+						break;
+					default:
+					{
+						float originalPrice;
+						float gamePackPrice = CommerceClient.Get().GetGamePackPrice(gamePackData.m_gamePacks[0].ProductCode, accountCurrency, out originalPrice);
+						m_mainPackPrice.text = UIStorePanel.GetLocalizedPriceString(gamePackPrice, accountCurrency);
+						return;
+					}
+					}
 				}
-				break;
 			}
-			float num;
-			float gamePackPrice = CommerceClient.Get().GetGamePackPrice(gamePackData.m_gamePacks[0].ProductCode, accountCurrency, out num);
-			this.m_mainPackPrice.text = UIStorePanel.GetLocalizedPriceString(gamePackPrice, accountCurrency);
-		}
-		else
-		{
-			this.m_mainPackPrice.text = string.Empty;
+			m_mainPackPrice.text = string.Empty;
+			return;
 		}
 	}
 
@@ -177,10 +127,10 @@ public class UIStoreGamePanel : UIStoreBasePanel
 	{
 		if (selectedGameItem != null)
 		{
-			UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
-			uipurchaseableItem.m_itemType = PurchaseItemType.Game;
-			uipurchaseableItem.m_gamePack = selectedGameItem.GetGamePackReference();
-			UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+			UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+			uIPurchaseableItem.m_itemType = PurchaseItemType.Game;
+			uIPurchaseableItem.m_gamePack = selectedGameItem.GetGamePackReference();
+			UIStorePanel.Get().OpenPurchaseDialog(uIPurchaseableItem);
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.StorePurchased);
 		}
 	}

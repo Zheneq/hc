@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class BuildNormalPathNodePool
@@ -9,34 +8,32 @@ public class BuildNormalPathNodePool
 
 	public BuildNormalPathNodePool()
 	{
-		this.m_allocatedInstances = new List<BoardSquarePathInfo>(0x1C2);
+		m_allocatedInstances = new List<BoardSquarePathInfo>(450);
 	}
 
 	public BoardSquarePathInfo GetAllocatedNode()
 	{
-		if (this.m_nextEntryIndex < this.m_allocatedInstances.Count)
+		if (m_nextEntryIndex < m_allocatedInstances.Count)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					BoardSquarePathInfo boardSquarePathInfo = m_allocatedInstances[m_nextEntryIndex];
+					InitNodeValues(boardSquarePathInfo);
+					m_nextEntryIndex++;
+					return boardSquarePathInfo;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BuildNormalPathNodePool.GetAllocatedNode()).MethodHandle;
-			}
-			BoardSquarePathInfo boardSquarePathInfo = this.m_allocatedInstances[this.m_nextEntryIndex];
-			this.InitNodeValues(boardSquarePathInfo);
-			this.m_nextEntryIndex++;
-			return boardSquarePathInfo;
 		}
 		BoardSquarePathInfo boardSquarePathInfo2 = new BoardSquarePathInfo();
-		this.m_allocatedInstances.Add(boardSquarePathInfo2);
-		this.m_nextEntryIndex++;
+		m_allocatedInstances.Add(boardSquarePathInfo2);
+		m_nextEntryIndex++;
 		return boardSquarePathInfo2;
 	}
 
@@ -47,11 +44,11 @@ public class BuildNormalPathNodePool
 
 	public void ResetAvailableNodeIndex()
 	{
-		this.m_nextEntryIndex = 0;
+		m_nextEntryIndex = 0;
 	}
 
 	public int GetNextAvailableIndex()
 	{
-		return this.m_nextEntryIndex;
+		return m_nextEntryIndex;
 	}
 }

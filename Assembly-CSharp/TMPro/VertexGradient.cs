@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace TMPro
@@ -16,18 +16,18 @@ namespace TMPro
 
 		public VertexGradient(Color color)
 		{
-			this.topLeft = color;
-			this.topRight = color;
-			this.bottomLeft = color;
-			this.bottomRight = color;
+			topLeft = color;
+			topRight = color;
+			bottomLeft = color;
+			bottomRight = color;
 		}
 
 		public VertexGradient(Color color0, Color color1, Color color2, Color color3)
 		{
-			this.topLeft = color0;
-			this.topRight = color1;
-			this.bottomLeft = color2;
-			this.bottomRight = color3;
+			topLeft = color0;
+			topRight = color1;
+			bottomLeft = color2;
+			bottomRight = color3;
 		}
 	}
 }

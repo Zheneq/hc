@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,7 +34,7 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 
 	public override void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
 	{
-		targetSelect.SetTargetSelectMod(this.m_targetSelectMod);
+		targetSelect.SetTargetSelectMod(m_targetSelectMod);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
@@ -43,172 +43,93 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 		if (fireborgDualCones != null)
 		{
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			AbilityMod.AddToken(tokens, this.m_extraDamageIfOverlapMod, "ExtraDamageIfOverlap", string.Empty, fireborgDualCones.m_extraDamageIfOverlap, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageNonOverlapMod, "ExtraDamageNonOverlap", string.Empty, fireborgDualCones.m_extraDamageNonOverlap, true, false);
+			AbilityMod.AddToken(tokens, m_extraDamageIfOverlapMod, "ExtraDamageIfOverlap", string.Empty, fireborgDualCones.m_extraDamageIfOverlap);
+			AbilityMod.AddToken(tokens, m_extraDamageNonOverlapMod, "ExtraDamageNonOverlap", string.Empty, fireborgDualCones.m_extraDamageNonOverlap);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		FireborgDualCones fireborgDualCones = base.GetTargetAbilityOnAbilityData(abilityData) as FireborgDualCones;
+		FireborgDualCones fireborgDualCones = GetTargetAbilityOnAbilityData(abilityData) as FireborgDualCones;
 		bool flag = fireborgDualCones != null;
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (fireborgDualCones != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FireborgDualCones.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, fireborgDualCones.m_targetSelectComp, "-- Target Select --");
-			text += base.PropDesc(this.m_extraDamageIfOverlapMod, "[ExtraDamageIfOverlap]", flag, (!flag) ? 0 : fireborgDualCones.m_extraDamageIfOverlap);
+			text += GetTargetSelectModDesc(m_targetSelectMod, fireborgDualCones.m_targetSelectComp, "-- Target Select --");
+			text += PropDesc(m_extraDamageIfOverlapMod, "[ExtraDamageIfOverlap]", flag, flag ? fireborgDualCones.m_extraDamageIfOverlap : 0);
 			string str = text;
-			AbilityModPropertyInt extraDamageNonOverlapMod = this.m_extraDamageNonOverlapMod;
-			string prefix = "[ExtraDamageNonOverlap]";
-			bool showBaseVal = flag;
+			AbilityModPropertyInt extraDamageNonOverlapMod = m_extraDamageNonOverlapMod;
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = fireborgDualCones.m_extraDamageNonOverlap;
 			}
 			else
 			{
 				baseVal = 0;
 			}
-			text = str + base.PropDesc(extraDamageNonOverlapMod, prefix, showBaseVal, baseVal);
-			text += base.PropDesc(this.m_igniteTargetIfOverlapHitMod, "[IgniteTargetIfOverlapHit]", flag, flag && fireborgDualCones.m_igniteTargetIfOverlapHit);
+			text = str + PropDesc(extraDamageNonOverlapMod, "[ExtraDamageNonOverlap]", flag, baseVal);
+			text += PropDesc(m_igniteTargetIfOverlapHitMod, "[IgniteTargetIfOverlapHit]", flag, flag && fireborgDualCones.m_igniteTargetIfOverlapHit);
 			string str2 = text;
-			AbilityModPropertyBool igniteTargetIfSuperheatedMod = this.m_igniteTargetIfSuperheatedMod;
-			string prefix2 = "[IgniteTargetIfSuperheated]";
-			bool showBaseVal2 = flag;
-			bool baseVal2;
+			AbilityModPropertyBool igniteTargetIfSuperheatedMod = m_igniteTargetIfSuperheatedMod;
+			int baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				baseVal2 = fireborgDualCones.m_igniteTargetIfSuperheated;
+				baseVal2 = (fireborgDualCones.m_igniteTargetIfSuperheated ? 1 : 0);
 			}
 			else
 			{
-				baseVal2 = false;
+				baseVal2 = 0;
 			}
-			text = str2 + base.PropDesc(igniteTargetIfSuperheatedMod, prefix2, showBaseVal2, baseVal2);
+			text = str2 + PropDesc(igniteTargetIfSuperheatedMod, "[IgniteTargetIfSuperheated]", flag, (byte)baseVal2 != 0);
 			string str3 = text;
-			AbilityModPropertyBool groundFireOnAllIfNormalMod = this.m_groundFireOnAllIfNormalMod;
-			string prefix3 = "[GroundFireOnAllIfNormal]";
-			bool showBaseVal3 = flag;
-			bool baseVal3;
+			AbilityModPropertyBool groundFireOnAllIfNormalMod = m_groundFireOnAllIfNormalMod;
+			int baseVal3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				baseVal3 = fireborgDualCones.m_groundFireOnAllIfNormal;
+				baseVal3 = (fireborgDualCones.m_groundFireOnAllIfNormal ? 1 : 0);
 			}
 			else
 			{
-				baseVal3 = false;
+				baseVal3 = 0;
 			}
-			text = str3 + base.PropDesc(groundFireOnAllIfNormalMod, prefix3, showBaseVal3, baseVal3);
+			text = str3 + PropDesc(groundFireOnAllIfNormalMod, "[GroundFireOnAllIfNormal]", flag, (byte)baseVal3 != 0);
 			string str4 = text;
-			AbilityModPropertyBool groundFireOnOverlapIfNormalMod = this.m_groundFireOnOverlapIfNormalMod;
-			string prefix4 = "[GroundFireOnOverlapIfNormal]";
-			bool showBaseVal4 = flag;
-			bool baseVal4;
+			AbilityModPropertyBool groundFireOnOverlapIfNormalMod = m_groundFireOnOverlapIfNormalMod;
+			int baseVal4;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				baseVal4 = fireborgDualCones.m_groundFireOnOverlapIfNormal;
+				baseVal4 = (fireborgDualCones.m_groundFireOnOverlapIfNormal ? 1 : 0);
 			}
 			else
 			{
-				baseVal4 = false;
+				baseVal4 = 0;
 			}
-			text = str4 + base.PropDesc(groundFireOnOverlapIfNormalMod, prefix4, showBaseVal4, baseVal4);
+			text = str4 + PropDesc(groundFireOnOverlapIfNormalMod, "[GroundFireOnOverlapIfNormal]", flag, (byte)baseVal4 != 0);
 			string str5 = text;
-			AbilityModPropertyBool groundFireOnAllIfSuperheatedMod = this.m_groundFireOnAllIfSuperheatedMod;
-			string prefix5 = "[GroundFireOnAllIfSuperheated]";
-			bool showBaseVal5 = flag;
-			bool baseVal5;
+			AbilityModPropertyBool groundFireOnAllIfSuperheatedMod = m_groundFireOnAllIfSuperheatedMod;
+			int baseVal5;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				baseVal5 = fireborgDualCones.m_groundFireOnAllIfSuperheated;
+				baseVal5 = (fireborgDualCones.m_groundFireOnAllIfSuperheated ? 1 : 0);
 			}
 			else
 			{
-				baseVal5 = false;
+				baseVal5 = 0;
 			}
-			text = str5 + base.PropDesc(groundFireOnAllIfSuperheatedMod, prefix5, showBaseVal5, baseVal5);
+			text = str5 + PropDesc(groundFireOnAllIfSuperheatedMod, "[GroundFireOnAllIfSuperheated]", flag, (byte)baseVal5 != 0);
 			string str6 = text;
-			AbilityModPropertyBool groundFireOnOverlapIfSuperheatedMod = this.m_groundFireOnOverlapIfSuperheatedMod;
-			string prefix6 = "[GroundFireOnOverlapIfSuperheated]";
-			bool showBaseVal6 = flag;
-			bool baseVal6;
+			AbilityModPropertyBool groundFireOnOverlapIfSuperheatedMod = m_groundFireOnOverlapIfSuperheatedMod;
+			int baseVal6;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				baseVal6 = fireborgDualCones.m_groundFireOnOverlapIfSuperheated;
+				baseVal6 = (fireborgDualCones.m_groundFireOnOverlapIfSuperheated ? 1 : 0);
 			}
 			else
 			{
-				baseVal6 = false;
+				baseVal6 = 0;
 			}
-			text = str6 + base.PropDesc(groundFireOnOverlapIfSuperheatedMod, prefix6, showBaseVal6, baseVal6);
+			text = str6 + PropDesc(groundFireOnOverlapIfSuperheatedMod, "[GroundFireOnOverlapIfSuperheated]", flag, (byte)baseVal6 != 0);
 		}
 		return text;
 	}

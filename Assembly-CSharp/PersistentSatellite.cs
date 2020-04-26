@@ -1,8 +1,13 @@
-﻿using System;
 using UnityEngine;
 
 public class PersistentSatellite : MonoBehaviour
 {
+	public enum SatelliteMoveStartType
+	{
+		Normal,
+		Alt
+	}
+
 	internal Animator m_modelAnimator;
 
 	private SatelliteController m_ownerController;
@@ -35,8 +40,8 @@ public class PersistentSatellite : MonoBehaviour
 
 	private void Awake()
 	{
-		this.m_modelAnimator = base.GetComponentInChildren<Animator>();
-		this.m_renderer = base.GetComponentInChildren<Renderer>();
+		m_modelAnimator = GetComponentInChildren<Animator>();
+		m_renderer = GetComponentInChildren<Renderer>();
 	}
 
 	private void Start()
@@ -45,103 +50,51 @@ public class PersistentSatellite : MonoBehaviour
 		GameObject gameObject2 = gameObject.transform.GetChild(0).gameObject;
 		if (gameObject2.GetComponent<PersistentSatelliteAnimationEventReceiver>() == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatellite.Start()).MethodHandle;
-			}
 			PersistentSatelliteAnimationEventReceiver persistentSatelliteAnimationEventReceiver = gameObject2.AddComponent<PersistentSatelliteAnimationEventReceiver>();
 			persistentSatelliteAnimationEventReceiver.Setup(this);
 		}
-		this.m_ownerAnimationEventReceiver = this.m_ownerController.gameObject.GetComponentInChildren<AnimationEventReceiver>();
+		m_ownerAnimationEventReceiver = m_ownerController.gameObject.GetComponentInChildren<AnimationEventReceiver>();
 	}
 
 	public bool IsVisible()
 	{
-		return this.m_renderer.enabled;
+		return m_renderer.enabled;
 	}
 
 	public void OverrideVisibility(bool shouldBeVisible)
 	{
-		if (this.m_renderer.enabled != shouldBeVisible)
+		if (m_renderer.enabled == shouldBeVisible)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatellite.OverrideVisibility(bool)).MethodHandle;
-			}
-			this.m_renderer.enabled = shouldBeVisible;
+			return;
+		}
+		while (true)
+		{
+			m_renderer.enabled = shouldBeVisible;
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		this.UpdateAnimatorParameterDistToGoal();
-		Vector3 lhs = this.m_targetPosition - base.transform.position;
+		UpdateAnimatorParameterDistToGoal();
+		Vector3 lhs = m_targetPosition - base.transform.position;
 		if (!Mathf.Approximately(lhs.magnitude, 0f))
 		{
-			for (;;)
+			if (m_timeTillVisibleForSpawnAndRun > 0f)
 			{
-				switch (5)
+				m_timeTillVisibleForSpawnAndRun -= Time.deltaTime;
+				if (m_timeTillVisibleForSpawnAndRun <= 0f)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatellite.Update()).MethodHandle;
-			}
-			if (this.m_timeTillVisibleForSpawnAndRun > 0f)
-			{
-				this.m_timeTillVisibleForSpawnAndRun -= Time.deltaTime;
-				if (this.m_timeTillVisibleForSpawnAndRun <= 0f)
-				{
-					this.m_renderer.enabled = true;
+					m_renderer.enabled = true;
 				}
 			}
-			if (this.m_timeTillVisibleForSpawnAndRun <= 0f)
+			if (m_timeTillVisibleForSpawnAndRun <= 0f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Vector3 vector = base.transform.position + lhs.normalized * Time.deltaTime * this.m_movementSpeed;
-				Vector3 rhs = this.m_targetPosition - vector;
+				Vector3 vector = base.transform.position + lhs.normalized * Time.deltaTime * m_movementSpeed;
+				Vector3 rhs = m_targetPosition - vector;
 				if (Vector3.Dot(lhs, rhs) < 0f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					base.transform.position = this.m_targetPosition;
+					base.transform.position = m_targetPosition;
 				}
 				else
 				{
@@ -150,296 +103,215 @@ public class PersistentSatellite : MonoBehaviour
 				}
 			}
 		}
-		else if (this.m_timeTillVisibleForSpawnAndRun > 0f)
+		else if (m_timeTillVisibleForSpawnAndRun > 0f)
 		{
-			this.m_timeTillVisibleForSpawnAndRun = 0f;
-			this.m_renderer.enabled = true;
+			m_timeTillVisibleForSpawnAndRun = 0f;
+			m_renderer.enabled = true;
 		}
-		if (this.m_modelAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+		if (!m_modelAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_attackTarget != null)
 			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
+					base.transform.rotation = Quaternion.LookRotation((m_attackTarget.transform.position - base.transform.position).normalized);
+					return;
 				}
-				break;
 			}
-			if (this.m_attackTarget != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				base.transform.rotation = Quaternion.LookRotation((this.m_attackTarget.transform.position - base.transform.position).normalized);
-			}
+			return;
 		}
 	}
 
 	public void OnAssignedToInitialBoardSquare()
 	{
-		this.TeleportToLocation(this.m_ownerController.transform.position);
-		if (!this.m_visibleAtStart)
+		TeleportToLocation(m_ownerController.transform.position);
+		if (m_visibleAtStart)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_renderer != null)
 			{
-				switch (1)
+				while (true)
 				{
-				case 0:
-					continue;
+					m_renderer.enabled = false;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatellite.OnAssignedToInitialBoardSquare()).MethodHandle;
-			}
-			if (this.m_renderer != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_renderer.enabled = false;
-			}
+			return;
 		}
 	}
 
 	public void OnRespawn()
 	{
-		this.TeleportToLocation(this.m_ownerController.transform.position);
-		if (this.m_hideOnRespawn)
+		TeleportToLocation(m_ownerController.transform.position);
+		if (m_hideOnRespawn)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_renderer.enabled = false;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatellite.OnRespawn()).MethodHandle;
-			}
-			this.m_renderer.enabled = false;
 		}
-		else
-		{
-			this.TriggerSpawn();
-		}
+		TriggerSpawn();
 	}
 
 	public void OnActorDeath()
 	{
-		if (this.m_hideOnDeath)
+		if (m_hideOnDeath)
 		{
-			this.m_renderer.enabled = false;
+			m_renderer.enabled = false;
 		}
-		else if (this.m_playDespawnAnimOnDeath)
+		else
 		{
-			for (;;)
+			if (!m_playDespawnAnimOnDeath)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatellite.OnActorDeath()).MethodHandle;
+				TriggerDespawn();
+				return;
 			}
-			this.TriggerDespawn();
 		}
 	}
 
 	public void TeleportToLocation(Vector3 targetPosition)
 	{
-		this.m_targetPosition = targetPosition;
-		base.transform.position = this.m_targetPosition;
+		m_targetPosition = targetPosition;
+		base.transform.position = m_targetPosition;
 	}
 
-	public void OnAnimationEvent(UnityEngine.Object eventObject)
+	public void OnAnimationEvent(Object eventObject)
 	{
-		this.m_ownerAnimationEventReceiver.ProcessAnimationEvent(eventObject, base.gameObject);
+		m_ownerAnimationEventReceiver.ProcessAnimationEvent(eventObject, base.gameObject);
 	}
 
 	public void Setup(SatelliteController ownerController)
 	{
-		this.m_ownerController = ownerController;
-		this.m_targetPosition = ownerController.transform.position;
+		m_ownerController = ownerController;
+		m_targetPosition = ownerController.transform.position;
 		base.transform.position = ownerController.transform.position;
-		this.TriggerSpawn();
+		TriggerSpawn();
 	}
 
 	public void TriggerSpawn()
 	{
-		this.m_modelAnimator.SetTrigger("Spawn");
+		m_modelAnimator.SetTrigger("Spawn");
 	}
 
 	public void TriggerDespawn()
 	{
-		this.m_modelAnimator.SetTrigger("Despawn");
+		m_modelAnimator.SetTrigger("Despawn");
 	}
 
 	public bool IsMoving()
 	{
-		return (this.m_targetPosition - base.transform.position).magnitude > 0.01f;
+		return (m_targetPosition - base.transform.position).magnitude > 0.01f;
 	}
 
 	private void UpdateAnimatorParameterDistToGoal()
 	{
-		Vector3 vector = this.m_targetPosition - base.transform.position;
-		this.m_modelAnimator.SetFloat("DistToGoal", vector.magnitude);
+		Vector3 vector = m_targetPosition - base.transform.position;
+		m_modelAnimator.SetFloat("DistToGoal", vector.magnitude);
 	}
 
-	public string GetMoveStartAnimTrigger(PersistentSatellite.SatelliteMoveStartType moveStartType, bool visible)
+	public string GetMoveStartAnimTrigger(SatelliteMoveStartType moveStartType, bool visible)
 	{
-		if (moveStartType == PersistentSatellite.SatelliteMoveStartType.Alt)
+		if (moveStartType == SatelliteMoveStartType.Alt)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatellite.GetMoveStartAnimTrigger(PersistentSatellite.SatelliteMoveStartType, bool)).MethodHandle;
-			}
-			string result;
-			if (visible)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					object result;
+					if (visible)
+					{
+						result = "StartAltRun";
+					}
+					else
+					{
+						result = "StartSpawnAndAltRun";
+					}
+					return (string)result;
 				}
-				result = "StartAltRun";
+				}
 			}
-			else
-			{
-				result = "StartSpawnAndAltRun";
-			}
-			return result;
 		}
-		string result2;
+		object result2;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result2 = "StartRun";
 		}
 		else
 		{
 			result2 = "StartSpawnAndRun";
 		}
-		return result2;
+		return (string)result2;
 	}
 
 	public void AltMoveToPosition(Vector3 targetPos)
 	{
-		this.MoveToPosition(targetPos, PersistentSatellite.SatelliteMoveStartType.Alt);
+		MoveToPosition(targetPos, SatelliteMoveStartType.Alt);
 	}
 
-	public void MoveToPosition(Vector3 targetPos, PersistentSatellite.SatelliteMoveStartType moveStartType = PersistentSatellite.SatelliteMoveStartType.Normal)
+	public void MoveToPosition(Vector3 targetPos, SatelliteMoveStartType moveStartType = SatelliteMoveStartType.Normal)
 	{
-		if (this.IsVisible())
+		if (IsVisible())
 		{
-			this.m_modelAnimator.SetTrigger(this.GetMoveStartAnimTrigger(moveStartType, true));
+			m_modelAnimator.SetTrigger(GetMoveStartAnimTrigger(moveStartType, true));
 		}
 		else
 		{
-			this.m_modelAnimator.SetTrigger(this.GetMoveStartAnimTrigger(moveStartType, false));
-			Vector3 vector = this.m_ownerController.transform.position;
-			if (this.m_startOffsetDistanceWhenInvisible > 0f)
+			m_modelAnimator.SetTrigger(GetMoveStartAnimTrigger(moveStartType, false));
+			Vector3 position = m_ownerController.transform.position;
+			if (m_startOffsetDistanceWhenInvisible > 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatellite.MoveToPosition(Vector3, PersistentSatellite.SatelliteMoveStartType)).MethodHandle;
-				}
-				Vector3 a = targetPos - this.m_ownerController.transform.position;
+				Vector3 a = targetPos - m_ownerController.transform.position;
 				a.y = 0f;
 				if (a.magnitude == 0f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					a = Vector3.forward;
 				}
 				else
 				{
 					a.Normalize();
 				}
-				vector -= a * this.m_startOffsetDistanceWhenInvisible;
+				position -= a * m_startOffsetDistanceWhenInvisible;
 			}
-			this.TeleportToLocation(vector);
-			if (this.m_spawnAndRunDelay > 0f)
+			TeleportToLocation(position);
+			if (m_spawnAndRunDelay > 0f)
 			{
-				this.m_timeTillVisibleForSpawnAndRun = this.m_spawnAndRunDelay;
+				m_timeTillVisibleForSpawnAndRun = m_spawnAndRunDelay;
 			}
 			else
 			{
-				this.m_timeTillVisibleForSpawnAndRun = 0f;
-				this.m_renderer.enabled = true;
+				m_timeTillVisibleForSpawnAndRun = 0f;
+				m_renderer.enabled = true;
 			}
 		}
-		this.m_targetPosition = targetPos;
-		this.UpdateAnimatorParameterDistToGoal();
+		m_targetPosition = targetPos;
+		UpdateAnimatorParameterDistToGoal();
 	}
 
 	public void TriggerAttack(GameObject attackTarget)
 	{
-		this.m_modelAnimator.SetTrigger("StartAttack");
-		this.m_attackTarget = attackTarget;
-	}
-
-	public enum SatelliteMoveStartType
-	{
-		Normal,
-		Alt
+		m_modelAnimator.SetTrigger("StartAttack");
+		m_attackTarget = attackTarget;
 	}
 }

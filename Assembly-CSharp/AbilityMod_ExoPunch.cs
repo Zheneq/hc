@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,215 +42,123 @@ public class AbilityMod_ExoPunch : AbilityMod
 		ExoPunch exoPunch = targetAbility as ExoPunch;
 		if (exoPunch != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, exoPunch.m_coneWidthAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, exoPunch.m_coneBackwardOffset, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneLengthMod, "ConeLength", string.Empty, exoPunch.m_coneLength, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxTargetsMod, "MaxTargets", string.Empty, exoPunch.m_maxTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_knockbackDistanceMod, "KnockbackDistance", string.Empty, exoPunch.m_knockbackDistance, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, exoPunch.m_damageAmount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_targetHitEffectMod, "TargetHitEffect", exoPunch.m_targetHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_nearDistThresholdMod, "NearDistThreshold", string.Empty, exoPunch.m_nearDistThreshold, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_nearEnemyExtraDamageMod, "NearEnemyExtraDamage", string.Empty, exoPunch.m_nearEnemyExtraDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_nearEnemyExtraEffectMod, "NearEnemyExtraEffect", exoPunch.m_nearEnemyExtraEffect, true);
+			AbilityMod.AddToken(tokens, m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, exoPunch.m_coneWidthAngle);
+			AbilityMod.AddToken(tokens, m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, exoPunch.m_coneBackwardOffset);
+			AbilityMod.AddToken(tokens, m_coneLengthMod, "ConeLength", string.Empty, exoPunch.m_coneLength);
+			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, exoPunch.m_maxTargets);
+			AbilityMod.AddToken(tokens, m_knockbackDistanceMod, "KnockbackDistance", string.Empty, exoPunch.m_knockbackDistance);
+			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, exoPunch.m_damageAmount);
+			AbilityMod.AddToken_EffectMod(tokens, m_targetHitEffectMod, "TargetHitEffect", exoPunch.m_targetHitEffect);
+			AbilityMod.AddToken(tokens, m_nearDistThresholdMod, "NearDistThreshold", string.Empty, exoPunch.m_nearDistThreshold);
+			AbilityMod.AddToken(tokens, m_nearEnemyExtraDamageMod, "NearEnemyExtraDamage", string.Empty, exoPunch.m_nearEnemyExtraDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_nearEnemyExtraEffectMod, "NearEnemyExtraEffect", exoPunch.m_nearEnemyExtraEffect);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ExoPunch exoPunch = base.GetTargetAbilityOnAbilityData(abilityData) as ExoPunch;
+		ExoPunch exoPunch = GetTargetAbilityOnAbilityData(abilityData) as ExoPunch;
 		bool flag = exoPunch != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_coneWidthAngleMod, "[ConeWidthAngle]", flag, (!flag) ? 0f : exoPunch.m_coneWidthAngle);
-		string str = text;
-		AbilityModPropertyFloat coneBackwardOffsetMod = this.m_coneBackwardOffsetMod;
-		string prefix = "[ConeBackwardOffset]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDesc(m_coneWidthAngleMod, "[ConeWidthAngle]", flag, (!flag) ? 0f : exoPunch.m_coneWidthAngle);
+		string str = empty;
+		AbilityModPropertyFloat coneBackwardOffsetMod = m_coneBackwardOffsetMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoPunch.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = exoPunch.m_coneBackwardOffset;
 		}
 		else
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(coneBackwardOffsetMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_coneLengthMod, "[ConeLength]", flag, (!flag) ? 0f : exoPunch.m_coneLength);
-		string str2 = text;
-		AbilityModPropertyBool penetrateLineOfSightMod = this.m_penetrateLineOfSightMod;
-		string prefix2 = "[PenetrateLineOfSight]";
-		bool showBaseVal2 = flag;
-		bool baseVal2;
+		empty = str + PropDesc(coneBackwardOffsetMod, "[ConeBackwardOffset]", flag, baseVal);
+		empty += PropDesc(m_coneLengthMod, "[ConeLength]", flag, (!flag) ? 0f : exoPunch.m_coneLength);
+		string str2 = empty;
+		AbilityModPropertyBool penetrateLineOfSightMod = m_penetrateLineOfSightMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal2 = exoPunch.m_penetrateLineOfSight;
+			baseVal2 = (exoPunch.m_penetrateLineOfSight ? 1 : 0);
 		}
 		else
 		{
-			baseVal2 = false;
+			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(penetrateLineOfSightMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt maxTargetsMod = this.m_maxTargetsMod;
-		string prefix3 = "[MaxTargets]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(penetrateLineOfSightMod, "[PenetrateLineOfSight]", flag, (byte)baseVal2 != 0);
+		string str3 = empty;
+		AbilityModPropertyInt maxTargetsMod = m_maxTargetsMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = exoPunch.m_maxTargets;
 		}
 		else
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(maxTargetsMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyFloat knockbackDistanceMod = this.m_knockbackDistanceMod;
-		string prefix4 = "[KnockbackDistance]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(maxTargetsMod, "[MaxTargets]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyFloat knockbackDistanceMod = m_knockbackDistanceMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = exoPunch.m_knockbackDistance;
 		}
 		else
 		{
 			baseVal4 = 0f;
 		}
-		text = str4 + base.PropDesc(knockbackDistanceMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_knockbackTypeMod, "[KnockbackType]", flag, (!flag) ? KnockbackType.AwayFromSource : exoPunch.m_knockbackType);
-		string str5 = text;
-		AbilityModPropertyInt damageAmountMod = this.m_damageAmountMod;
-		string prefix5 = "[DamageAmount]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(knockbackDistanceMod, "[KnockbackDistance]", flag, baseVal4);
+		empty += PropDesc(m_knockbackTypeMod, "[KnockbackType]", flag, (!flag) ? KnockbackType.AwayFromSource : exoPunch.m_knockbackType);
+		string str5 = empty;
+		AbilityModPropertyInt damageAmountMod = m_damageAmountMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = exoPunch.m_damageAmount;
 		}
 		else
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(damageAmountMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyEffectInfo targetHitEffectMod = this.m_targetHitEffectMod;
-		string prefix6 = "[TargetHitEffect]";
-		bool showBaseVal6 = flag;
-		StandardEffectInfo baseVal6;
+		empty = str5 + PropDesc(damageAmountMod, "[DamageAmount]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyEffectInfo targetHitEffectMod = m_targetHitEffectMod;
+		object baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = exoPunch.m_targetHitEffect;
 		}
 		else
 		{
 			baseVal6 = null;
 		}
-		text = str6 + base.PropDesc(targetHitEffectMod, prefix6, showBaseVal6, baseVal6);
-		text += base.PropDesc(this.m_nearDistThresholdMod, "[NearDistThreshold]", flag, (!flag) ? 0f : exoPunch.m_nearDistThreshold);
-		string str7 = text;
-		AbilityModPropertyInt nearEnemyExtraDamageMod = this.m_nearEnemyExtraDamageMod;
-		string prefix7 = "[NearEnemyExtraDamage]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(targetHitEffectMod, "[TargetHitEffect]", flag, (StandardEffectInfo)baseVal6);
+		empty += PropDesc(m_nearDistThresholdMod, "[NearDistThreshold]", flag, (!flag) ? 0f : exoPunch.m_nearDistThreshold);
+		string str7 = empty;
+		AbilityModPropertyInt nearEnemyExtraDamageMod = m_nearEnemyExtraDamageMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = exoPunch.m_nearEnemyExtraDamage;
 		}
 		else
 		{
 			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(nearEnemyExtraDamageMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyEffectInfo nearEnemyExtraEffectMod = this.m_nearEnemyExtraEffectMod;
-		string prefix8 = "[NearEnemyExtraEffect]";
-		bool showBaseVal8 = flag;
-		StandardEffectInfo baseVal8;
+		empty = str7 + PropDesc(nearEnemyExtraDamageMod, "[NearEnemyExtraDamage]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyEffectInfo nearEnemyExtraEffectMod = m_nearEnemyExtraEffectMod;
+		object baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = exoPunch.m_nearEnemyExtraEffect;
 		}
 		else
 		{
 			baseVal8 = null;
 		}
-		return str8 + base.PropDesc(nearEnemyExtraEffectMod, prefix8, showBaseVal8, baseVal8);
+		return str8 + PropDesc(nearEnemyExtraEffectMod, "[NearEnemyExtraEffect]", flag, (StandardEffectInfo)baseVal8);
 	}
 }

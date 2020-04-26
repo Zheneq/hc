@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.EventSystems;
 
 public class UITrustWarEndDialog : UIDialogBox
@@ -15,28 +14,20 @@ public class UITrustWarEndDialog : UIDialogBox
 
 	public void Start()
 	{
-		if (this.m_Button != null)
+		if (!(m_Button != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITrustWarEndDialog.Start()).MethodHandle;
-			}
-			this.m_Button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ButtonClicked);
+			return;
+		}
+		while (true)
+		{
+			m_Button.spriteController.callback = ButtonClicked;
+			return;
 		}
 	}
 
 	public void ButtonClicked(BaseEventData data)
 	{
-		this.Close();
+		Close();
 	}
 
 	public void Setup()

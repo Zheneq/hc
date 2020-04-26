@@ -1,8 +1,14 @@
-﻿using System;
 using UnityEngine;
 
 public class AttachedActorVFXInfo
 {
+	public enum FriendOrFoeVisibility
+	{
+		Both,
+		FriendlyOnly,
+		EnemyOnly
+	}
+
 	protected GameObject m_vfxInstance;
 
 	protected FriendlyEnemyVFXSelector m_fofSelector;
@@ -21,73 +27,59 @@ public class AttachedActorVFXInfo
 
 	protected Team m_casterTeam = Team.Invalid;
 
-	protected AttachedActorVFXInfo.FriendOrFoeVisibility m_friendOrFoeVisibility;
+	protected FriendOrFoeVisibility m_friendOrFoeVisibility;
 
-	public AttachedActorVFXInfo(GameObject vfxPrefab, ActorData actor, JointPopupProperty vfxJoint, bool alignToRootOrientation, string parentObjectName, AttachedActorVFXInfo.FriendOrFoeVisibility fofVisibility)
+	public AttachedActorVFXInfo(GameObject vfxPrefab, ActorData actor, JointPopupProperty vfxJoint, bool alignToRootOrientation, string parentObjectName, FriendOrFoeVisibility fofVisibility)
 	{
-		this.m_actor = actor;
-		this.Initialize(vfxPrefab, (!(actor != null)) ? null : actor.gameObject, vfxJoint, alignToRootOrientation, parentObjectName, fofVisibility);
+		m_actor = actor;
+		Initialize(vfxPrefab, (!(actor != null)) ? null : actor.gameObject, vfxJoint, alignToRootOrientation, parentObjectName, fofVisibility);
 	}
 
-	public AttachedActorVFXInfo(GameObject vfxPrefab, GameObject attachedObject, JointPopupProperty vfxJoint, bool alignToRootOrientation, string parentObjectName, AttachedActorVFXInfo.FriendOrFoeVisibility fofVisibility)
+	public AttachedActorVFXInfo(GameObject vfxPrefab, GameObject attachedObject, JointPopupProperty vfxJoint, bool alignToRootOrientation, string parentObjectName, FriendOrFoeVisibility fofVisibility)
 	{
-		this.Initialize(vfxPrefab, attachedObject, vfxJoint, alignToRootOrientation, parentObjectName, fofVisibility);
+		Initialize(vfxPrefab, attachedObject, vfxJoint, alignToRootOrientation, parentObjectName, fofVisibility);
 	}
 
-	private void Initialize(GameObject vfxPrefab, GameObject attachedToObject, JointPopupProperty vfxJoint, bool alignToRootOrientation, string parentObjectName, AttachedActorVFXInfo.FriendOrFoeVisibility fofVisibility)
+	private void Initialize(GameObject vfxPrefab, GameObject attachedToObject, JointPopupProperty vfxJoint, bool alignToRootOrientation, string parentObjectName, FriendOrFoeVisibility fofVisibility)
 	{
-		this.m_vfxInstance = null;
-		this.m_attachedToObject = attachedToObject;
-		this.m_joint = new JointPopupProperty();
-		this.m_joint.m_joint = vfxJoint.m_joint;
-		this.m_joint.m_jointCharacter = vfxJoint.m_jointCharacter;
-		this.m_alignToRootOrientation = alignToRootOrientation;
-		this.m_parentObjectName = parentObjectName;
-		this.m_friendOrFoeVisibility = fofVisibility;
-		if (attachedToObject != null)
+		m_vfxInstance = null;
+		m_attachedToObject = attachedToObject;
+		m_joint = new JointPopupProperty();
+		m_joint.m_joint = vfxJoint.m_joint;
+		m_joint.m_jointCharacter = vfxJoint.m_jointCharacter;
+		m_alignToRootOrientation = alignToRootOrientation;
+		m_parentObjectName = parentObjectName;
+		m_friendOrFoeVisibility = fofVisibility;
+		if (!(attachedToObject != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(vfxPrefab != null))
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.Initialize(GameObject, GameObject, JointPopupProperty, bool, string, AttachedActorVFXInfo.FriendOrFoeVisibility)).MethodHandle;
-			}
-			if (vfxPrefab != null)
-			{
-				for (;;)
+				m_joint.Initialize(attachedToObject);
+				if (m_joint.m_jointObject != null)
 				{
-					switch (3)
+					m_vfxInstance = Object.Instantiate(vfxPrefab);
+					if (m_vfxInstance != null)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_joint.Initialize(attachedToObject);
-				if (this.m_joint.m_jointObject != null)
-				{
-					this.m_vfxInstance = UnityEngine.Object.Instantiate<GameObject>(vfxPrefab);
-					if (this.m_vfxInstance != null)
-					{
-						this.m_vfxInstance.SetActive(false);
-						GameObject gameObject = new GameObject(this.m_parentObjectName);
-						gameObject.transform.parent = this.m_joint.m_jointObject.transform;
+						m_vfxInstance.SetActive(false);
+						GameObject gameObject = new GameObject(m_parentObjectName);
+						gameObject.transform.parent = m_joint.m_jointObject.transform;
 						gameObject.transform.localPosition = Vector3.zero;
 						gameObject.transform.localScale = Vector3.one;
 						gameObject.transform.localRotation = Quaternion.identity;
-						this.m_attachParentObject = gameObject;
-						this.m_vfxInstance.transform.parent = gameObject.transform;
-						this.m_vfxInstance.transform.localPosition = Vector3.zero;
-						this.m_vfxInstance.transform.localScale = Vector3.one;
-						this.m_vfxInstance.transform.localRotation = Quaternion.identity;
-						this.m_fofSelector = this.m_vfxInstance.GetComponent<FriendlyEnemyVFXSelector>();
+						m_attachParentObject = gameObject;
+						m_vfxInstance.transform.parent = gameObject.transform;
+						m_vfxInstance.transform.localPosition = Vector3.zero;
+						m_vfxInstance.transform.localScale = Vector3.one;
+						m_vfxInstance.transform.localRotation = Quaternion.identity;
+						m_fofSelector = m_vfxInstance.GetComponent<FriendlyEnemyVFXSelector>();
 					}
 					else
 					{
@@ -96,242 +88,157 @@ public class AttachedActorVFXInfo
 				}
 				else
 				{
-					Log.Warning("Did not find joint for vfx, on actor " + attachedToObject.name, new object[0]);
+					Log.Warning("Did not find joint for vfx, on actor " + attachedToObject.name);
 				}
+				return;
 			}
 		}
 	}
 
 	public virtual void DestroyVfx()
 	{
-		if (this.m_vfxInstance != null)
+		if (m_vfxInstance != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.DestroyVfx()).MethodHandle;
-			}
-			this.m_fofSelector = null;
-			UnityEngine.Object.Destroy(this.m_vfxInstance);
-			this.m_vfxInstance = null;
+			m_fofSelector = null;
+			Object.Destroy(m_vfxInstance);
+			m_vfxInstance = null;
 		}
-		if (this.m_attachParentObject != null)
+		if (m_attachParentObject != null)
 		{
-			UnityEngine.Object.Destroy(this.m_attachParentObject);
-			this.m_attachParentObject = null;
+			Object.Destroy(m_attachParentObject);
+			m_attachParentObject = null;
 		}
 	}
 
 	public virtual void UpdateVisibility(bool actorVisible, bool sameTeamAsClientActor)
 	{
-		if (this.m_vfxInstance != null)
+		if (!(m_vfxInstance != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(m_attachParentObject != null))
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.UpdateVisibility(bool, bool)).MethodHandle;
-			}
-			if (this.m_attachParentObject != null)
-			{
-				for (;;)
+				int num;
+				if (m_friendOrFoeVisibility != 0)
 				{
-					switch (2)
+					if (m_friendOrFoeVisibility != FriendOrFoeVisibility.FriendlyOnly || !sameTeamAsClientActor)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				bool flag;
-				if (this.m_friendOrFoeVisibility != AttachedActorVFXInfo.FriendOrFoeVisibility.Both)
-				{
-					for (;;)
-					{
-						switch (5)
+						if (m_friendOrFoeVisibility == FriendOrFoeVisibility.EnemyOnly)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_friendOrFoeVisibility != AttachedActorVFXInfo.FriendOrFoeVisibility.FriendlyOnly || !sameTeamAsClientActor)
-					{
-						if (this.m_friendOrFoeVisibility == AttachedActorVFXInfo.FriendOrFoeVisibility.EnemyOnly)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag = !sameTeamAsClientActor;
+							num = ((!sameTeamAsClientActor) ? 1 : 0);
 						}
 						else
 						{
-							flag = false;
+							num = 0;
 						}
-						goto IL_7C;
+						goto IL_007c;
 					}
 				}
-				flag = true;
-				IL_7C:
-				bool flag2 = flag;
-				bool flag3 = actorVisible && flag2;
-				if (this.m_vfxInstance.activeSelf != flag3)
+				num = 1;
+				goto IL_007c;
+				IL_007c:
+				bool flag = (byte)num != 0;
+				bool flag2 = actorVisible && flag;
+				if (m_vfxInstance.activeSelf != flag2)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_vfxInstance.SetActive(flag3);
+					m_vfxInstance.SetActive(flag2);
 				}
-				if (flag3 && this.m_alignToRootOrientation)
+				if (flag2 && m_alignToRootOrientation)
 				{
-					this.m_vfxInstance.transform.rotation = this.m_attachedToObject.transform.rotation;
+					m_vfxInstance.transform.rotation = m_attachedToObject.transform.rotation;
 				}
-				if (this.m_fofSelector != null && flag3 && this.m_casterTeam != Team.Invalid)
+				if (m_fofSelector != null && flag2 && m_casterTeam != Team.Invalid)
 				{
-					this.m_fofSelector.Setup(this.m_casterTeam);
+					m_fofSelector.Setup(m_casterTeam);
 				}
+				return;
 			}
 		}
 	}
 
 	public void SetCasterTeam(Team team)
 	{
-		this.m_casterTeam = team;
+		m_casterTeam = team;
 	}
 
 	public bool HasVfxInstance()
 	{
-		return this.m_vfxInstance != null;
+		return m_vfxInstance != null;
 	}
 
 	public void SetInstanceScale(Vector3 scale)
 	{
-		if (this.m_vfxInstance != null)
+		if (!(m_vfxInstance != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.SetInstanceScale(Vector3)).MethodHandle;
-			}
-			this.m_vfxInstance.transform.localScale = scale;
+			return;
+		}
+		while (true)
+		{
+			m_vfxInstance.transform.localScale = scale;
+			return;
 		}
 	}
 
 	public void SetInstanceLocalPosition(Vector3 localPosition)
 	{
-		if (this.m_vfxInstance != null)
+		if (!(m_vfxInstance != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.SetInstanceLocalPosition(Vector3)).MethodHandle;
-			}
-			this.m_vfxInstance.transform.localPosition = localPosition;
+			return;
+		}
+		while (true)
+		{
+			m_vfxInstance.transform.localPosition = localPosition;
+			return;
 		}
 	}
 
 	public Vector3 GetInstancePosition()
 	{
-		if (this.m_vfxInstance != null)
+		if (m_vfxInstance != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_vfxInstance.transform.position;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.GetInstancePosition()).MethodHandle;
-			}
-			return this.m_vfxInstance.transform.position;
 		}
 		return Vector3.zero;
 	}
 
 	public void SetInstanceLayer(int layer)
 	{
-		if (this.m_vfxInstance != null)
+		if (!(m_vfxInstance != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.SetInstanceLayer(int)).MethodHandle;
-			}
-			this.m_vfxInstance.transform.gameObject.SetLayerRecursively(layer);
+			return;
+		}
+		while (true)
+		{
+			m_vfxInstance.transform.gameObject.SetLayerRecursively(layer);
+			return;
 		}
 	}
 
 	public void RestartEffects()
 	{
-		if (this.m_vfxInstance != null)
+		if (m_vfxInstance != null)
 		{
-			foreach (PKFxFX pkfxFX in this.m_vfxInstance.GetComponentsInChildren<PKFxFX>())
+			PKFxFX[] componentsInChildren = m_vfxInstance.GetComponentsInChildren<PKFxFX>();
+			foreach (PKFxFX pKFxFX in componentsInChildren)
 			{
-				pkfxFX.TerminateEffect();
-				pkfxFX.StartEffect();
+				pKFxFX.TerminateEffect();
+				pKFxFX.StartEffect();
 			}
 		}
-	}
-
-	public enum FriendOrFoeVisibility
-	{
-		Both,
-		FriendlyOnly,
-		EnemyOnly
 	}
 }

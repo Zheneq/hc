@@ -1,5 +1,3 @@
-﻿using System;
-
 public enum StatusType
 {
 	INVALID = -1,

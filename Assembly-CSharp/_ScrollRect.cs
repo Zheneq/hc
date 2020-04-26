@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -8,22 +7,18 @@ public class _ScrollRect : ScrollRect
 
 	public override void OnDrag(PointerEventData eventData)
 	{
-		if (this.m_ignoreOnDrag)
+		if (m_ignoreOnDrag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ScrollRect.OnDrag(PointerEventData)).MethodHandle;
-			}
-			return;
 		}
 		base.OnDrag(eventData);
 	}

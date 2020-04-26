@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,12 +12,12 @@ public class SpaceMarinePrimaryAttack : Ability
 	public ConeTargetingInfo m_coneTargetInfo;
 
 	[Separator("Enemy Hit: Laser", true)]
-	public int m_damageAmount = 0x12;
+	public int m_damageAmount = 18;
 
 	public int m_extraDamageToClosestTarget;
 
 	[Separator("Enemy Hit: Cone", true)]
-	public int m_coneDamageAmount = 0x12;
+	public int m_coneDamageAmount = 18;
 
 	public StandardEffectInfo m_coneEnemyHitEffect;
 
@@ -35,23 +34,22 @@ public class SpaceMarinePrimaryAttack : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Piston Punch";
+			m_abilityName = "Piston Punch";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		LaserTargetingInfo laserTargetInfo = this.GetLaserTargetInfo();
-		ConeTargetingInfo coneTargetInfo = this.GetConeTargetInfo();
-		base.Targeter = new AbilityUtil_Targeter_SpaceMarineBasicAttack(this, laserTargetInfo.width, laserTargetInfo.range, laserTargetInfo.maxTargets, coneTargetInfo.m_widthAngleDeg, coneTargetInfo.m_radiusInSquares, laserTargetInfo.penetrateLos)
-		{
-			AddConeOnFirstLaserHit = this.AddConeOnFirstHitTarget(),
-			LengthIgnoreWorldGeo = this.m_laserLengthIgnoreWorldGeo
-		};
+		SetCachedFields();
+		LaserTargetingInfo laserTargetInfo = GetLaserTargetInfo();
+		ConeTargetingInfo coneTargetInfo = GetConeTargetInfo();
+		AbilityUtil_Targeter_SpaceMarineBasicAttack abilityUtil_Targeter_SpaceMarineBasicAttack = new AbilityUtil_Targeter_SpaceMarineBasicAttack(this, laserTargetInfo.width, laserTargetInfo.range, laserTargetInfo.maxTargets, coneTargetInfo.m_widthAngleDeg, coneTargetInfo.m_radiusInSquares, laserTargetInfo.penetrateLos);
+		abilityUtil_Targeter_SpaceMarineBasicAttack.AddConeOnFirstLaserHit = AddConeOnFirstHitTarget();
+		abilityUtil_Targeter_SpaceMarineBasicAttack.LengthIgnoreWorldGeo = m_laserLengthIgnoreWorldGeo;
+		base.Targeter = abilityUtil_Targeter_SpaceMarineBasicAttack;
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -61,84 +59,49 @@ public class SpaceMarinePrimaryAttack : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLaserTargetInfo().range;
+		return GetLaserTargetInfo().range;
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedLaserTargetInfo = ((!this.m_abilityMod) ? this.m_laserTargetInfo : this.m_abilityMod.m_laserTargetInfoMod.GetModifiedValue(this.m_laserTargetInfo));
+		m_cachedLaserTargetInfo = ((!m_abilityMod) ? m_laserTargetInfo : m_abilityMod.m_laserTargetInfoMod.GetModifiedValue(m_laserTargetInfo));
 		ConeTargetingInfo cachedConeTargetInfo;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.SetCachedFields()).MethodHandle;
-			}
-			cachedConeTargetInfo = this.m_abilityMod.m_coneTargetInfoMod.GetModifiedValue(this.m_coneTargetInfo);
+			cachedConeTargetInfo = m_abilityMod.m_coneTargetInfoMod.GetModifiedValue(m_coneTargetInfo);
 		}
 		else
 		{
-			cachedConeTargetInfo = this.m_coneTargetInfo;
+			cachedConeTargetInfo = m_coneTargetInfo;
 		}
-		this.m_cachedConeTargetInfo = cachedConeTargetInfo;
+		m_cachedConeTargetInfo = cachedConeTargetInfo;
 		StandardEffectInfo cachedConeEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedConeEnemyHitEffect = this.m_abilityMod.m_coneEnemyHitEffectMod.GetModifiedValue(this.m_coneEnemyHitEffect);
+			cachedConeEnemyHitEffect = m_abilityMod.m_coneEnemyHitEffectMod.GetModifiedValue(m_coneEnemyHitEffect);
 		}
 		else
 		{
-			cachedConeEnemyHitEffect = this.m_coneEnemyHitEffect;
+			cachedConeEnemyHitEffect = m_coneEnemyHitEffect;
 		}
-		this.m_cachedConeEnemyHitEffect = cachedConeEnemyHitEffect;
+		m_cachedConeEnemyHitEffect = cachedConeEnemyHitEffect;
 	}
 
 	public LaserTargetingInfo GetLaserTargetInfo()
 	{
-		return (this.m_cachedLaserTargetInfo == null) ? this.m_laserTargetInfo : this.m_cachedLaserTargetInfo;
+		return (m_cachedLaserTargetInfo == null) ? m_laserTargetInfo : m_cachedLaserTargetInfo;
 	}
 
 	public bool AddConeOnFirstHitTarget()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.AddConeOnFirstHitTarget()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_addConeOnFirstHitTargetMod.GetModifiedValue(this.m_addConeOnFirstHitTarget);
+			result = m_abilityMod.m_addConeOnFirstHitTargetMod.GetModifiedValue(m_addConeOnFirstHitTarget);
 		}
 		else
 		{
-			result = this.m_addConeOnFirstHitTarget;
+			result = m_addConeOnFirstHitTarget;
 		}
 		return result;
 	}
@@ -146,203 +109,118 @@ public class SpaceMarinePrimaryAttack : Ability
 	public ConeTargetingInfo GetConeTargetInfo()
 	{
 		ConeTargetingInfo result;
-		if (this.m_cachedConeTargetInfo != null)
+		if (m_cachedConeTargetInfo != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.GetConeTargetInfo()).MethodHandle;
-			}
-			result = this.m_cachedConeTargetInfo;
+			result = m_cachedConeTargetInfo;
 		}
 		else
 		{
-			result = this.m_coneTargetInfo;
+			result = m_coneTargetInfo;
 		}
 		return result;
 	}
 
 	public int GetLaserDamage()
 	{
-		return (!this.m_abilityMod) ? this.m_damageAmount : this.m_abilityMod.m_baseDamageMod.GetModifiedValue(this.m_damageAmount);
+		return (!m_abilityMod) ? m_damageAmount : m_abilityMod.m_baseDamageMod.GetModifiedValue(m_damageAmount);
 	}
 
 	public int GetExtraDamageToClosestTarget()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.GetExtraDamageToClosestTarget()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_extraDamageOnClosestMod.GetModifiedValue(this.m_extraDamageToClosestTarget);
+			result = m_abilityMod.m_extraDamageOnClosestMod.GetModifiedValue(m_extraDamageToClosestTarget);
 		}
 		else
 		{
-			result = this.m_extraDamageToClosestTarget;
+			result = m_extraDamageToClosestTarget;
 		}
 		return result;
 	}
 
 	public int GetConeDamageAmount()
 	{
-		return (!this.m_abilityMod) ? this.m_coneDamageAmount : this.m_abilityMod.m_coneDamageAmountMod.GetModifiedValue(this.m_coneDamageAmount);
+		return (!m_abilityMod) ? m_coneDamageAmount : m_abilityMod.m_coneDamageAmountMod.GetModifiedValue(m_coneDamageAmount);
 	}
 
 	public StandardEffectInfo GetConeEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedConeEnemyHitEffect != null)
+		if (m_cachedConeEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.GetConeEnemyHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedConeEnemyHitEffect;
+			result = m_cachedConeEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_coneEnemyHitEffect;
+			result = m_coneEnemyHitEffect;
 		}
 		return result;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_damageAmount);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.m_coneDamageAmount);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_damageAmount);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_coneDamageAmount);
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (base.Targeter is AbilityUtil_Targeter_SpaceMarineBasicAttack)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				int num = this.GetLaserDamage();
+				int num = GetLaserDamage();
 				AbilityUtil_Targeter_SpaceMarineBasicAttack abilityUtil_Targeter_SpaceMarineBasicAttack = base.Targeter as AbilityUtil_Targeter_SpaceMarineBasicAttack;
 				List<ActorData> lastLaserHitActors = abilityUtil_Targeter_SpaceMarineBasicAttack.GetLastLaserHitActors();
 				if (lastLaserHitActors.Count > 0 && lastLaserHitActors[0] == targetActor)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num += this.GetExtraDamageToClosestTarget();
+					num += GetExtraDamageToClosestTarget();
 				}
 				results.m_damage = num;
 			}
 		}
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			results.m_damage = this.GetConeDamageAmount();
+			results.m_damage = GetConeDamageAmount();
 		}
 		return true;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "BaseDamage", string.Empty, this.m_damageAmount, false);
-		base.AddTokenInt(tokens, "TotalDamage_Closest", string.Empty, this.m_damageAmount + this.m_extraDamageToClosestTarget, false);
-		base.AddTokenInt(tokens, "ExtraDamageOnClosest", string.Empty, this.m_extraDamageToClosestTarget, false);
-		base.AddTokenInt(tokens, "ConeDamageAmount", string.Empty, this.m_coneDamageAmount, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_coneEnemyHitEffect, "ConeEnemyHitEffect", this.m_coneEnemyHitEffect, true);
+		AddTokenInt(tokens, "BaseDamage", string.Empty, m_damageAmount);
+		AddTokenInt(tokens, "TotalDamage_Closest", string.Empty, m_damageAmount + m_extraDamageToClosestTarget);
+		AddTokenInt(tokens, "ExtraDamageOnClosest", string.Empty, m_extraDamageToClosestTarget);
+		AddTokenInt(tokens, "ConeDamageAmount", string.Empty, m_coneDamageAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, m_coneEnemyHitEffect, "ConeEnemyHitEffect", m_coneEnemyHitEffect);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SpaceMarinePrimaryAttack))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_abilityMod = (abilityMod as AbilityMod_SpaceMarinePrimaryAttack);
+					SetupTargeter();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_SpaceMarinePrimaryAttack);
-			this.SetupTargeter();
 		}
-		else
-		{
-			Debug.LogError("Trying to apply wrong type of ability mod");
-		}
+		Debug.LogError("Trying to apply wrong type of ability mod");
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 }

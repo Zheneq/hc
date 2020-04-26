@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine.EventSystems;
 
@@ -18,14 +17,14 @@ public class UISingleInputLineInputDialogBox : UIDialogBox
 
 	public TMP_InputField m_descriptionBoxInputField;
 
-	private UIDialogBox.DialogButtonCallback firstButtonCallback;
+	private DialogButtonCallback firstButtonCallback;
 
-	private UIDialogBox.DialogButtonCallback secondButtonCallback;
+	private DialogButtonCallback secondButtonCallback;
 
 	public override void ClearCallback()
 	{
-		this.firstButtonCallback = null;
-		this.secondButtonCallback = null;
+		firstButtonCallback = null;
+		secondButtonCallback = null;
 	}
 
 	protected override void CloseCallback()
@@ -34,123 +33,66 @@ public class UISingleInputLineInputDialogBox : UIDialogBox
 
 	public void FirstButtonClicked(BaseEventData data)
 	{
-		if (this.firstButtonCallback != null)
+		if (firstButtonCallback != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISingleInputLineInputDialogBox.FirstButtonClicked(BaseEventData)).MethodHandle;
-			}
-			this.firstButtonCallback(this);
+			firstButtonCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);
 	}
 
 	public void SecondButtonClicked(BaseEventData data)
 	{
-		if (this.secondButtonCallback != null)
+		if (secondButtonCallback != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISingleInputLineInputDialogBox.SecondButtonClicked(BaseEventData)).MethodHandle;
-			}
-			this.secondButtonCallback(this);
+			secondButtonCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);
 	}
 
 	public void Start()
 	{
-		if (this.m_secondButton != null)
+		if (m_secondButton != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISingleInputLineInputDialogBox.Start()).MethodHandle;
-			}
-			this.m_secondButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SecondButtonClicked);
+			m_secondButton.spriteController.callback = SecondButtonClicked;
 		}
-		if (this.m_firstButton != null)
+		if (m_firstButton != null)
 		{
-			this.m_firstButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.FirstButtonClicked);
+			m_firstButton.spriteController.callback = FirstButtonClicked;
 		}
-		this.m_descriptionBoxInputField.Select();
+		m_descriptionBoxInputField.Select();
 	}
 
 	private void SetFirstButtonLabels(string text)
 	{
-		for (int i = 0; i < this.m_firstButtonLabel.Length; i++)
+		for (int i = 0; i < m_firstButtonLabel.Length; i++)
 		{
-			this.m_firstButtonLabel[i].text = text;
+			m_firstButtonLabel[i].text = text;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISingleInputLineInputDialogBox.SetFirstButtonLabels(string)).MethodHandle;
+			return;
 		}
 	}
 
 	private void SetSecondButtonLabels(string text)
 	{
-		for (int i = 0; i < this.m_secondButtonLabel.Length; i++)
+		for (int i = 0; i < m_secondButtonLabel.Length; i++)
 		{
-			this.m_secondButtonLabel[i].text = text;
+			m_secondButtonLabel[i].text = text;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISingleInputLineInputDialogBox.SetSecondButtonLabels(string)).MethodHandle;
+			return;
 		}
 	}
 
-	public void Setup(string Title, string Description, string LeftButtonLabel, string RightButtonLabel, UIDialogBox.DialogButtonCallback sendCallback = null, UIDialogBox.DialogButtonCallback cancelCallback = null)
+	public void Setup(string Title, string Description, string LeftButtonLabel, string RightButtonLabel, DialogButtonCallback sendCallback = null, DialogButtonCallback cancelCallback = null)
 	{
-		this.m_Title.text = Title;
-		this.m_Info.text = Description;
-		this.firstButtonCallback = sendCallback;
-		this.secondButtonCallback = cancelCallback;
-		this.SetFirstButtonLabels(LeftButtonLabel);
-		this.SetSecondButtonLabels(RightButtonLabel);
+		m_Title.text = Title;
+		m_Info.text = Description;
+		firstButtonCallback = sendCallback;
+		secondButtonCallback = cancelCallback;
+		SetFirstButtonLabels(LeftButtonLabel);
+		SetSecondButtonLabels(RightButtonLabel);
 	}
 }

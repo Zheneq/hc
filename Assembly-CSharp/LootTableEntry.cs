@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LootTableEntry
@@ -19,64 +19,47 @@ public class LootTableEntry
 
 	public bool IsValid()
 	{
-		bool result;
-		if (this.Index > 0)
+		int result;
+		if (Index > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LootTableEntry.IsValid()).MethodHandle;
-			}
-			result = (this.Type != LootTableEntryType.None);
+			result = ((Type != LootTableEntryType.None) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool Roll(float chance)
 	{
 		if (chance <= 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LootTableEntry.Roll(float)).MethodHandle;
-			}
-			return false;
 		}
 		if (chance >= 100f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			return true;
 		}
-		return this.RollChance(chance);
+		return RollChance(chance);
 	}
 
 	private bool RollChance(float chance)
@@ -86,13 +69,6 @@ public class LootTableEntry
 
 	public override string ToString()
 	{
-		return string.Format("{0}, Index={1}, Weight={2}, Amount=({3} ~ {4})", new object[]
-		{
-			this.Type,
-			this.Index,
-			this.Weight,
-			this.MinValue,
-			this.MaxValue
-		});
+		return $"{Type}, Index={Index}, Weight={Weight}, Amount=({MinValue} ~ {MaxValue})";
 	}
 }

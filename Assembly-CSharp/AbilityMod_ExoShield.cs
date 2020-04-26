@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,143 +38,84 @@ public class AbilityMod_ExoShield : AbilityMod
 		ExoShield exoShield = targetAbility as ExoShield;
 		if (exoShield != null)
 		{
-			AbilityMod.AddToken_EffectMod(tokens, this.m_absorbEffectMod, "AbsorbEffect", exoShield.m_absorbEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraAbsorbIfSiegingMod, "ExtraAbsorbIfSieging", string.Empty, exoShield.m_extraAbsorbIfSieging, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrIfShieldNotUsedMod, "CdrIfShieldNotUsed", string.Empty, exoShield.m_cdrIfShieldNotUsed, true, false);
-			AbilityMod.AddToken(tokens, this.m_shieldLostPerEnergyGainMod, "ShieldLostPerEnergyGain", string.Empty, exoShield.m_shieldLostPerEnergyGain, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxShieldLostForEnergyGainMod, "MaxShieldLostForEnergyGain", string.Empty, exoShield.m_maxShieldLostForEnergyGain, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxTechPointsCostMod, "MaxTechPointsCost", string.Empty, exoShield.m_maxTechPointsCost, true, false);
-			AbilityMod.AddToken(tokens, this.m_minTechPointsForCastMod, "MinTechPointsForCast", string.Empty, exoShield.m_minTechPointsForCast, true, false);
+			AbilityMod.AddToken_EffectMod(tokens, m_absorbEffectMod, "AbsorbEffect", exoShield.m_absorbEffect);
+			AbilityMod.AddToken(tokens, m_extraAbsorbIfSiegingMod, "ExtraAbsorbIfSieging", string.Empty, exoShield.m_extraAbsorbIfSieging);
+			AbilityMod.AddToken(tokens, m_cdrIfShieldNotUsedMod, "CdrIfShieldNotUsed", string.Empty, exoShield.m_cdrIfShieldNotUsed);
+			AbilityMod.AddToken(tokens, m_shieldLostPerEnergyGainMod, "ShieldLostPerEnergyGain", string.Empty, exoShield.m_shieldLostPerEnergyGain);
+			AbilityMod.AddToken(tokens, m_maxShieldLostForEnergyGainMod, "MaxShieldLostForEnergyGain", string.Empty, exoShield.m_maxShieldLostForEnergyGain);
+			AbilityMod.AddToken(tokens, m_maxTechPointsCostMod, "MaxTechPointsCost", string.Empty, exoShield.m_maxTechPointsCost);
+			AbilityMod.AddToken(tokens, m_minTechPointsForCastMod, "MinTechPointsForCast", string.Empty, exoShield.m_minTechPointsForCast);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ExoShield exoShield = base.GetTargetAbilityOnAbilityData(abilityData) as ExoShield;
+		ExoShield exoShield = GetTargetAbilityOnAbilityData(abilityData) as ExoShield;
 		bool flag = exoShield != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyEffectData absorbEffectMod = this.m_absorbEffectMod;
-		string prefix = "[AbsorbEffect]";
-		bool showBaseVal = flag;
-		StandardActorEffectData baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyEffectData absorbEffectMod = m_absorbEffectMod;
+		object baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoShield.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = exoShield.m_absorbEffect;
 		}
 		else
 		{
 			baseVal = null;
 		}
-		text = str + base.PropDesc(absorbEffectMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt extraAbsorbIfSiegingMod = this.m_extraAbsorbIfSiegingMod;
-		string prefix2 = "[ExtraAbsorbIfSieging]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(absorbEffectMod, "[AbsorbEffect]", flag, (StandardActorEffectData)baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt extraAbsorbIfSiegingMod = m_extraAbsorbIfSiegingMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = exoShield.m_extraAbsorbIfSieging;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(extraAbsorbIfSiegingMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt cdrIfShieldNotUsedMod = this.m_cdrIfShieldNotUsedMod;
-		string prefix3 = "[CdrIfShieldNotUsed]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(extraAbsorbIfSiegingMod, "[ExtraAbsorbIfSieging]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyInt cdrIfShieldNotUsedMod = m_cdrIfShieldNotUsedMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = exoShield.m_cdrIfShieldNotUsed;
 		}
 		else
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(cdrIfShieldNotUsedMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_shieldLostPerEnergyGainMod, "[ShieldLostPerEnergyGain]", flag, (!flag) ? 0 : exoShield.m_shieldLostPerEnergyGain);
-		string str4 = text;
-		AbilityModPropertyInt maxShieldLostForEnergyGainMod = this.m_maxShieldLostForEnergyGainMod;
-		string prefix4 = "[MaxShieldLostForEnergyGain]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(cdrIfShieldNotUsedMod, "[CdrIfShieldNotUsed]", flag, baseVal3);
+		empty += PropDesc(m_shieldLostPerEnergyGainMod, "[ShieldLostPerEnergyGain]", flag, flag ? exoShield.m_shieldLostPerEnergyGain : 0);
+		string str4 = empty;
+		AbilityModPropertyInt maxShieldLostForEnergyGainMod = m_maxShieldLostForEnergyGainMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = exoShield.m_maxShieldLostForEnergyGain;
 		}
 		else
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(maxShieldLostForEnergyGainMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_maxTechPointsCostMod, "[MaxTechPointsCost]", flag, (!flag) ? 0 : exoShield.m_maxTechPointsCost);
-		text += base.PropDesc(this.m_minTechPointsForCastMod, "[MinTechPointsForCast]", flag, (!flag) ? 0 : exoShield.m_minTechPointsForCast);
-		string str5 = text;
-		AbilityModPropertyBool freeActionWhileAnchoredMod = this.m_freeActionWhileAnchoredMod;
-		string prefix5 = "[FreeActionWhileAnchored]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(maxShieldLostForEnergyGainMod, "[MaxShieldLostForEnergyGain]", flag, baseVal4);
+		empty += PropDesc(m_maxTechPointsCostMod, "[MaxTechPointsCost]", flag, flag ? exoShield.m_maxTechPointsCost : 0);
+		empty += PropDesc(m_minTechPointsForCastMod, "[MinTechPointsForCast]", flag, flag ? exoShield.m_minTechPointsForCast : 0);
+		string str5 = empty;
+		AbilityModPropertyBool freeActionWhileAnchoredMod = m_freeActionWhileAnchoredMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal5 = exoShield.m_freeActionWhileAnchored;
+			baseVal5 = (exoShield.m_freeActionWhileAnchored ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(freeActionWhileAnchoredMod, prefix5, showBaseVal5, baseVal5);
-		return text + base.PropDesc(this.m_targeterShapeMod, "[TargeterShape]", flag, (!flag) ? AbilityAreaShape.SingleSquare : exoShield.m_targeterShape);
+		empty = str5 + PropDesc(freeActionWhileAnchoredMod, "[FreeActionWhileAnchored]", flag, (byte)baseVal5 != 0);
+		return empty + PropDesc(m_targeterShapeMod, "[TargeterShape]", flag, flag ? exoShield.m_targeterShape : AbilityAreaShape.SingleSquare);
 	}
 }

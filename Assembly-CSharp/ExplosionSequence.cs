@@ -1,17 +1,38 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class ExplosionSequence : Sequence
 {
+	public class ExtraParams : IExtraSequenceParams
+	{
+		public float radius;
+
+		public Team team;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			int value = (int)team;
+			stream.Serialize(ref radius);
+			stream.Serialize(ref value);
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			int value = -1;
+			stream.Serialize(ref radius);
+			stream.Serialize(ref value);
+			team = (Team)value;
+		}
+	}
+
 	public GameObject m_explosionPrefab;
 
 	public GameObject m_hitPrefab;
 
 	[AnimEventPicker]
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	public float m_initialShotDelay = 0.25f;
 
@@ -48,200 +69,93 @@ public class ExplosionSequence : Sequence
 	protected override void Start()
 	{
 		base.Start();
-		this.m_duration = 0f;
-		this.m_created = false;
-		this.m_hitsSpawned = false;
-		this.m_hitEffects = new List<GameObject>();
-		this.m_hitsSpawned = false;
+		m_duration = 0f;
+		m_created = false;
+		m_hitsSpawned = false;
+		m_hitEffects = new List<GameObject>();
+		m_hitsSpawned = false;
 	}
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			ExplosionSequence.ExtraParams extraParams2 = extraSequenceParams as ExplosionSequence.ExtraParams;
+			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ExplosionSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
-				this.m_radius = extraParams2.radius;
-				this.m_team = extraParams2.team;
+				m_radius = extraParams2.radius;
+				m_team = extraParams2.team;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void Update()
 	{
-		base.ProcessSequenceVisibility();
+		ProcessSequenceVisibility();
 		float time = GameTime.time;
-		if (this.m_startEvent == null)
+		if (m_startEvent == null)
 		{
-			for (;;)
+			if (!m_created)
 			{
-				switch (1)
+				if (m_explosion == null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExplosionSequence.Update()).MethodHandle;
-			}
-			if (!this.m_created)
-			{
-				for (;;)
-				{
-					switch (2)
+					if (time - m_startTime >= m_initialShotDelay)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_explosion == null)
-				{
-					for (;;)
-					{
-						switch (2)
+						if (m_initialized)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (time - this.m_startTime >= this.m_initialShotDelay)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_initialized)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.InstantiateExplosion();
+							InstantiateExplosion();
 						}
 					}
 				}
 			}
 		}
-		if (this.m_created)
+		if (m_created)
 		{
-			for (;;)
+			if (time - m_createTime >= m_hitDelay)
 			{
-				switch (7)
+				if (!m_hitsSpawned)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (time - this.m_createTime >= this.m_hitDelay)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.m_hitsSpawned)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.SpawnHits();
+					SpawnHits();
 				}
 			}
 		}
-		if (this.m_hitsSpawned)
+		if (!m_hitsSpawned)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(time - m_onHitTime >= m_hitDuration + 1f))
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (time - this.m_onHitTime >= this.m_hitDuration + 1f)
+			while (true)
 			{
-				for (;;)
+				if (!(time - m_createTime > m_duration + 1f))
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (time - this.m_createTime > this.m_duration + 1f)
+				while (true)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (NetworkServer.active)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							MarkForRemoval();
+							return;
 						}
-						base.MarkForRemoval();
 					}
+					return;
 				}
 			}
 		}
@@ -249,235 +163,122 @@ public class ExplosionSequence : Sequence
 
 	private void SpawnHits()
 	{
-		this.m_onHitTime = GameTime.time;
-		this.m_hitsSpawned = true;
+		m_onHitTime = GameTime.time;
+		m_hitsSpawned = true;
 		ActorData[] array = base.Targets;
 		if (array != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExplosionSequence.SpawnHits()).MethodHandle;
-			}
 			if (array.Length != 0)
 			{
-				goto IL_7C;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_007c;
 			}
 		}
-		array = AreaEffectUtils.GetActorsInRadius(base.TargetPos, this.m_radius, true, base.Caster, GameplayUtils.GetOtherTeamsThan(this.m_team), null, false, default(Vector3)).ToArray();
-		IL_7C:
-		foreach (ActorData actorData in array)
+		array = AreaEffectUtils.GetActorsInRadius(base.TargetPos, m_radius, true, base.Caster, GameplayUtils.GetOtherTeamsThan(m_team), null).ToArray();
+		goto IL_007c;
+		IL_007c:
+		ActorData[] array2 = array;
+		foreach (ActorData actorData in array2)
 		{
-			Vector3 position = actorData.\u000E("upperRoot_JNT");
-			this.m_hitDuration = Sequence.GetFXDuration(this.m_hitPrefab);
-			if (this.m_hitPrefab != null)
+			Vector3 bonePosition = actorData.GetBonePosition("upperRoot_JNT");
+			m_hitDuration = Sequence.GetFXDuration(m_hitPrefab);
+			if (m_hitPrefab != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				GameObject item = UnityEngine.Object.Instantiate<GameObject>(this.m_hitPrefab, position, Quaternion.identity);
-				this.m_hitEffects.Add(item);
+				GameObject item = Object.Instantiate(m_hitPrefab, bonePosition, Quaternion.identity);
+				m_hitEffects.Add(item);
 			}
-			ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(this.m_radius, base.TargetPos);
-			base.Source.OnSequenceHit(this, actorData, impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
-			if (!string.IsNullOrEmpty(this.m_audioEventHitOnTargets))
+			ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(m_radius, base.TargetPos);
+			base.Source.OnSequenceHit(this, actorData, impulseInfo);
+			if (!string.IsNullOrEmpty(m_audioEventHitOnTargets))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				AudioManager.PostEvent(this.m_audioEventHitOnTargets, actorData.gameObject);
+				AudioManager.PostEvent(m_audioEventHitOnTargets, actorData.gameObject);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			base.Source.OnSequenceHit(this, base.TargetPos);
+			return;
 		}
-		base.Source.OnSequenceHit(this, base.TargetPos, null);
 	}
 
 	private void OnDisable()
 	{
-		UnityEngine.Object.Destroy(this.m_explosion);
-		if (this.m_hitEffects != null)
+		Object.Destroy(m_explosion);
+		if (m_hitEffects == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_hitEffects.Count >= 1)
 			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExplosionSequence.OnDisable()).MethodHandle;
-			}
-			if (this.m_hitEffects.Count >= 1)
-			{
-				for (;;)
-				{
-					switch (7)
+					foreach (GameObject hitEffect in m_hitEffects)
 					{
-					case 0:
-						continue;
+						Object.Destroy(hitEffect);
 					}
-					break;
+					m_hitEffects.Clear();
+					return;
 				}
-				foreach (GameObject obj in this.m_hitEffects)
-				{
-					UnityEngine.Object.Destroy(obj);
-				}
-				this.m_hitEffects.Clear();
 			}
+			return;
 		}
 	}
 
 	private void InstantiateExplosion()
 	{
-		this.m_createTime = GameTime.time;
-		this.m_created = true;
-		if (this.m_explosionPrefab != null)
+		m_createTime = GameTime.time;
+		m_created = true;
+		if (m_explosionPrefab != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExplosionSequence.InstantiateExplosion()).MethodHandle;
-			}
-			this.m_explosion = UnityEngine.Object.Instantiate<GameObject>(this.m_explosionPrefab, base.TargetPos, Quaternion.identity);
-			if (this.m_scale)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				ParticleSystem[] componentsInChildren = this.m_explosion.GetComponentsInChildren<ParticleSystem>();
-				foreach (ParticleSystem particleSystem in componentsInChildren)
-				{
-					ParticleSystem.MainModule main = particleSystem.main;
-					ParticleSystem.MinMaxCurve startSize = main.startSize;
-					startSize.constant *= this.m_radius * Board.\u000E().squareSize;
-					main.startSize = startSize;
-				}
-				for (;;)
-				{
-					switch (7)
+				default:
+					m_explosion = Object.Instantiate(m_explosionPrefab, base.TargetPos, Quaternion.identity);
+					if (m_scale)
 					{
-					case 0:
-						continue;
+						ParticleSystem[] componentsInChildren = m_explosion.GetComponentsInChildren<ParticleSystem>();
+						ParticleSystem[] array = componentsInChildren;
+						foreach (ParticleSystem particleSystem in array)
+						{
+							ParticleSystem.MainModule main = particleSystem.main;
+							ParticleSystem.MinMaxCurve startSize = main.startSize;
+							startSize.constant *= m_radius * Board.Get().squareSize;
+							main.startSize = startSize;
+						}
 					}
-					break;
+					m_duration = Sequence.GetFXDuration(m_hitPrefab);
+					AudioManager.PostEvent(m_audioEventExplode, m_explosion.gameObject);
+					return;
 				}
 			}
-			this.m_duration = Sequence.GetFXDuration(this.m_hitPrefab);
-			AudioManager.PostEvent(this.m_audioEventExplode, this.m_explosion.gameObject);
 		}
-		else
+		m_duration = 1f;
+		if (!Application.isEditor)
 		{
-			this.m_duration = 1f;
-			if (Application.isEditor)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Debug.LogWarning("Sequence[" + base.gameObject.name + "] does not have a valid explosion sequence prefab, please add one if needed");
-			}
+			return;
+		}
+		while (true)
+		{
+			Debug.LogWarning("Sequence[" + base.gameObject.name + "] does not have a valid explosion sequence prefab, please add one if needed");
+			return;
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_startEvent == parameter)
+		if (!(m_startEvent == parameter))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExplosionSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
-			this.InstantiateExplosion();
+			return;
 		}
-	}
-
-	public class ExtraParams : Sequence.IExtraSequenceParams
-	{
-		public float radius;
-
-		public Team team;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
+		while (true)
 		{
-			int num = (int)this.team;
-			stream.Serialize(ref this.radius);
-			stream.Serialize(ref num);
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			int num = -1;
-			stream.Serialize(ref this.radius);
-			stream.Serialize(ref num);
-			this.team = (Team)num;
+			InstantiateExplosion();
+			return;
 		}
 	}
 }

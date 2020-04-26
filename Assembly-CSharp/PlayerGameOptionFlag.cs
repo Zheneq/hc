@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 
 [Flags]
 public enum PlayerGameOptionFlag
 {
-	None = 0,
-	ReplaceHumanWithBot = 1
+	None = 0x0,
+	ReplaceHumanWithBot = 0x1
 }

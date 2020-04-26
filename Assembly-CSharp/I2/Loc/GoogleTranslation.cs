@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -18,30 +18,8 @@ namespace I2.Loc
 		private static IEnumerator WaitForTranslation(WWW www, Action<string> OnTranslationReady, string OriginalText)
 		{
 			yield return www;
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GoogleTranslation.<WaitForTranslation>c__Iterator0.MoveNext()).MethodHandle;
-			}
 			if (!string.IsNullOrEmpty(www.error))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError(www.error);
 				OnTranslationReady(string.Empty);
 			}
@@ -61,19 +39,6 @@ namespace I2.Loc
 			}
 			if (!string.IsNullOrEmpty(translationWWW.error))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GoogleTranslation.ForceTranslate(string, string, string)).MethodHandle;
-				}
 				Debug.LogError("-- " + translationWWW.error);
 				using (Dictionary<string, string>.Enumerator enumerator = translationWWW.responseHeaders.GetEnumerator())
 				{
@@ -81,15 +46,6 @@ namespace I2.Loc
 					{
 						KeyValuePair<string, string> keyValuePair = enumerator.Current;
 						Debug.Log(keyValuePair.Value + "=" + keyValuePair.Key);
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				return string.Empty;
@@ -116,78 +72,23 @@ namespace I2.Loc
 				string text = html.Substring(num, num2 - num);
 				string input = text;
 				string pattern = "\\\\x([a-fA-F0-9]{2})";
-				if (GoogleTranslation.<>f__am$cache0 == null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(GoogleTranslation.ParseTranslationResult(string, string)).MethodHandle;
-					}
-					GoogleTranslation.<>f__am$cache0 = ((Match match) => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value, NumberStyles.HexNumber)));
-				}
-				text = Regex.Replace(input, pattern, GoogleTranslation.<>f__am$cache0);
+				
+				text = Regex.Replace(input, pattern, ((Match match) => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value, NumberStyles.HexNumber))));
 				string input2 = text;
 				string pattern2 = "&#(\\d+);";
-				if (GoogleTranslation.<>f__am$cache1 == null)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					GoogleTranslation.<>f__am$cache1 = ((Match match) => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value)));
-				}
-				text = Regex.Replace(input2, pattern2, GoogleTranslation.<>f__am$cache1);
+				
+				text = Regex.Replace(input2, pattern2, ((Match match) => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value))));
 				text = text.Replace("<br>", "\n");
 				if (OriginalText.ToUpper() == OriginalText)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = text.ToUpper();
 				}
 				else if (GoogleTranslation.UppercaseFirst(OriginalText) == OriginalText)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = GoogleTranslation.UppercaseFirst(text);
 				}
 				else if (GoogleTranslation.TitleCase(OriginalText) == OriginalText)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = GoogleTranslation.TitleCase(text);
 				}
 				result = text;
@@ -215,19 +116,6 @@ namespace I2.Loc
 		{
 			if (string.IsNullOrEmpty(s))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GoogleTranslation.TitleCase(string)).MethodHandle;
-				}
 				return string.Empty;
 			}
 			return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s);

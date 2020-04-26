@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -24,51 +24,41 @@ public class BadgeAndParticipantInfo
 	{
 		if (slot == TopParticipantSlot.MostDecorated)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 4;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BadgeAndParticipantInfo.ParticipantOrderDisplayPriority(TopParticipantSlot)).MethodHandle;
-			}
-			return 4;
 		}
 		if (slot == TopParticipantSlot.Deadliest)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 3;
 				}
-				break;
 			}
-			return 3;
 		}
-		if (slot == TopParticipantSlot.Supportiest)
+		switch (slot)
 		{
+		case TopParticipantSlot.Supportiest:
 			return 2;
-		}
-		if (slot == TopParticipantSlot.Tankiest)
-		{
-			for (;;)
+		case TopParticipantSlot.Tankiest:
+			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return 1;
 			}
-			return 1;
+		default:
+			return 0;
 		}
-		return 0;
 	}
 }

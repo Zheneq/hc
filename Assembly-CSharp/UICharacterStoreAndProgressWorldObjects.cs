@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UICharacterStoreAndProgressWorldObjects : UICharacterWorldObjects
@@ -13,63 +12,53 @@ public class UICharacterStoreAndProgressWorldObjects : UICharacterWorldObjects
 
 	private void Awake()
 	{
-		UICharacterStoreAndProgressWorldObjects.s_instance = this;
-		base.Initialize();
+		s_instance = this;
+		Initialize();
 	}
 
 	private void OnDestroy()
 	{
-		if (UICharacterStoreAndProgressWorldObjects.s_instance == this)
+		if (s_instance == this)
 		{
-			Log.Info(base.GetType() + " OnDestroy, clearing singleton reference", new object[0]);
-			UICharacterStoreAndProgressWorldObjects.s_instance = null;
+			Log.Info(string.Concat(GetType(), " OnDestroy, clearing singleton reference"));
+			s_instance = null;
 		}
 	}
 
 	public static UICharacterStoreAndProgressWorldObjects Get()
 	{
-		return UICharacterStoreAndProgressWorldObjects.s_instance;
+		return s_instance;
 	}
 
 	protected override void OnVisibleChange()
 	{
-		UIManager.SetGameObjectActive(base.gameObject, base.IsVisible(), null);
-		if (base.IsVisible())
+		UIManager.SetGameObjectActive(base.gameObject, IsVisible());
+		if (!IsVisible())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterStoreAndProgressWorldObjects.OnVisibleChange()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (UICashShopPanel.Get().IsVisible())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						m_slotsContainer.position = m_cashShopTransform.position;
+						m_slotsContainer.rotation = m_cashShopTransform.rotation;
+						m_slotsContainer.localScale = m_cashShopTransform.localScale;
+						return;
 					}
-					break;
 				}
-				this.m_slotsContainer.position = this.m_cashShopTransform.position;
-				this.m_slotsContainer.rotation = this.m_cashShopTransform.rotation;
-				this.m_slotsContainer.localScale = this.m_cashShopTransform.localScale;
 			}
-			else
-			{
-				this.m_slotsContainer.position = this.m_collectionsTransform.position;
-				this.m_slotsContainer.rotation = this.m_collectionsTransform.rotation;
-				this.m_slotsContainer.localScale = this.m_collectionsTransform.localScale;
-			}
+			m_slotsContainer.position = m_collectionsTransform.position;
+			m_slotsContainer.rotation = m_collectionsTransform.rotation;
+			m_slotsContainer.localScale = m_collectionsTransform.localScale;
+			return;
 		}
 	}
 }

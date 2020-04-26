@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -96,19 +96,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (this.m_itemRef.m_itemType == PurchaseItemType.Texture)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseItemDialogBox.PurchaseItem(BaseEventData)).MethodHandle;
-			}
 			UIStorePanel.Get().RequestToPurchaseTexture(this.m_itemRef.m_currencyType, this.m_itemRef.m_charLink.m_characterType, this.m_itemRef.m_skinIndex, this.m_itemRef.m_textureIndex);
 		}
 		else if (this.m_itemRef.m_itemType == PurchaseItemType.Tint)
@@ -117,15 +104,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (this.m_itemRef.m_itemType == PurchaseItemType.Taunt)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIStorePanel.Get().RequestToPurchaseTaunt(this.m_itemRef.m_currencyType, this.m_itemRef.m_charLink.m_characterType, this.m_itemRef.m_tauntIndex);
 		}
 		else if (this.m_itemRef.m_itemType == PurchaseItemType.InventoryItem)
@@ -134,39 +112,12 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (this.m_itemRef.m_itemType == PurchaseItemType.Title)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIStorePanel.Get().RequestToPurchaseTitle(this.m_itemRef.m_titleID, this.m_itemRef.m_currencyType);
 		}
 		else if (this.m_itemRef.m_itemType == PurchaseItemType.Banner)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameBalanceVars.Get().GetBanner(this.m_itemRef.m_bannerID).m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIStorePanel.Get().RequestToPurchaseBanner(this.m_itemRef.m_bannerID, this.m_itemRef.m_currencyType);
 			}
 			else
@@ -180,15 +131,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (this.m_itemRef.m_itemType == PurchaseItemType.AbilityVfx)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIStorePanel.Get().RequestToPurchaseAbilityVfx(this.m_itemRef.m_charLink.m_characterType, this.m_itemRef.m_abilityID, this.m_itemRef.m_abilityVfxID, this.m_itemRef.m_currencyType);
 		}
 		else if (this.m_itemRef.m_itemType == PurchaseItemType.Overcon)
@@ -197,15 +139,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (this.m_itemRef.m_itemType == PurchaseItemType.LoadingScreenBackground)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIStorePanel.Get().RequestToPurchaseLoadingScreenBackground(this.m_itemRef.m_loadingScreenBackgroundId, this.m_itemRef.m_currencyType);
 		}
 		this.m_startPurchaseTime = Time.time;
@@ -256,19 +189,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		this.NotifyPurchaseResponse(successful);
 		if (successful)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseItemDialogBox.NotifyTauntPurchaseResponse(bool)).MethodHandle;
-			}
 			UICharacterTauntsPanel.RefreshActivePanels(this.m_itemRef.m_charLink, this.m_itemRef.m_tauntIndex);
 		}
 	}
@@ -300,19 +220,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 	{
 		if (this.m_purchaseSuccess)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseItemDialogBox.PurchaseResultOkClicked(BaseEventData)).MethodHandle;
-			}
 			this.Close();
 		}
 		else
@@ -334,30 +241,8 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 	{
 		if (UIStorePanel.Get().IsWaitingForPurchaseRequest)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseItemDialogBox.Update()).MethodHandle;
-			}
 			if (Time.time - this.m_startPurchaseTime >= 5f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.TimeoutPurchase();
 				UIStorePanel.Get().TimeOutPurchase();
 			}
@@ -388,47 +273,16 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		GameBalanceVars.CharacterUnlockData characterUnlockData = null;
 		if (item.m_charLink != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseItemDialogBox.Setup(UIPurchaseableItem, UIStorePurchaseItemDialogBox.PurchaseCloseDialogCallback)).MethodHandle;
-			}
 			characterUnlockData = GameBalanceVars.Get().GetCharacterUnlockData(item.m_charLink.m_characterType);
 		}
 		UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
 		if (item.m_itemType == PurchaseItemType.Character)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text2 = StringUtil.TR("PurchaseFreelancer", "Store");
 			text = string.Format(StringUtil.TR("PurchaseFreelancerDesc", "Store"), item.m_charLink.GetDisplayName());
 			this.m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(item.m_charLink.m_characterIconResourceString);
 			if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = characterUnlockData.GetUnlockFreelancerCurrencyPrice();
 			}
 		}
@@ -440,15 +294,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			this.m_Item.m_itemIcon.sprite = (Sprite)Resources.Load(characterSkin.m_skinSelectionIconPath, typeof(Sprite));
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = characterUnlockData.skinUnlockData[skinIndex].GetUnlockISOPrice();
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
@@ -458,15 +303,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (item.m_itemType == PurchaseItemType.Texture)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text2 = StringUtil.TR("PurchaseTexture", "Store");
 			text = item.m_charLink.GetPatternName(skinIndex, textureIndex);
 			if (item.m_currencyType == CurrencyType.ISO)
@@ -475,15 +311,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = characterUnlockData.skinUnlockData[skinIndex].patternUnlockData[textureIndex].GetUnlockRankedCurrencyPrice();
 			}
 		}
@@ -495,55 +322,19 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			this.m_Item.m_itemIcon.sprite = (Sprite)Resources.Load(characterColor.m_iconResourceString, typeof(Sprite));
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = characterUnlockData.skinUnlockData[skinIndex].patternUnlockData[textureIndex].colorUnlockData[tintIndex].GetUnlockISOPrice();
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = characterUnlockData.skinUnlockData[skinIndex].patternUnlockData[textureIndex].colorUnlockData[tintIndex].GetUnlockRankedCurrencyPrice();
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = characterUnlockData.skinUnlockData[skinIndex].patternUnlockData[textureIndex].colorUnlockData[tintIndex].GetUnlockFreelancerCurrencyPrice();
 			}
 		}
 		else if (item.m_itemType == PurchaseItemType.Taunt)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text2 = StringUtil.TR("PurchaseTaunt", "Store");
 			text = item.m_charLink.GetTauntName(tauntIndex);
 			this.m_Item.m_itemIcon.sprite = this.m_tauntSprite;
@@ -555,67 +346,22 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_charLink.m_taunts[tauntIndex].m_actionForTaunt == AbilityData.ActionType.ABILITY_1)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_Item.m_itemFG.sprite = component.m_sprite1;
 			}
 			else if (item.m_charLink.m_taunts[tauntIndex].m_actionForTaunt == AbilityData.ActionType.ABILITY_2)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_Item.m_itemFG.sprite = component.m_sprite2;
 			}
 			else if (item.m_charLink.m_taunts[tauntIndex].m_actionForTaunt == AbilityData.ActionType.ABILITY_3)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_Item.m_itemFG.sprite = component.m_sprite3;
 			}
 			else if (item.m_charLink.m_taunts[tauntIndex].m_actionForTaunt == AbilityData.ActionType.ABILITY_4)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_Item.m_itemFG.sprite = component.m_sprite4;
 			}
 			else if (item.m_charLink.m_taunts[tauntIndex].m_actionForTaunt == AbilityData.ActionType.ABILITY_5)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_Item.m_itemFG.sprite = component.m_sprite5;
 			}
 			else if (item.m_charLink.m_taunts[tauntIndex].m_actionForTaunt == AbilityData.ActionType.ABILITY_6)
@@ -624,42 +370,15 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = characterUnlockData.tauntUnlockData[tauntIndex].GetUnlockISOPrice();
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = characterUnlockData.tauntUnlockData[tauntIndex].GetUnlockRankedCurrencyPrice();
 			}
 		}
 		else if (item.m_itemType == PurchaseItemType.InventoryItem)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(item.m_inventoryTemplateId);
 			text2 = string.Format(StringUtil.TR("PurchaseItem", "Store"), itemTemplate.GetDisplayName());
 			text = string.Format(StringUtil.TR("PurchaseItemDesc", "Store"), itemTemplate.GetDisplayName());
@@ -669,41 +388,14 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 				for (int i = 0; i < gameBalanceVars.StoreItemsForPurchase.Length; i++)
 				{
 					if (gameBalanceVars.StoreItemsForPurchase[i].m_itemTemplateId == item.m_inventoryTemplateId)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = gameBalanceVars.StoreItemsForPurchase[i].GetUnlockFreelancerCurrencyPrice();
 						goto IL_727;
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			IL_727:
@@ -720,15 +412,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (item.m_itemType == PurchaseItemType.Title)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameBalanceVars gameBalanceVars2 = GameBalanceVars.Get();
 			string title = gameBalanceVars2.GetTitle(item.m_titleID, string.Empty, -1);
 			text2 = string.Format(StringUtil.TR("PurchaseItem", "Store"), title);
@@ -737,96 +420,32 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			{
 				if (gameBalanceVars2.PlayerTitles[j].ID == item.m_titleID)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (item.m_currencyType == CurrencyType.ISO)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = gameBalanceVars2.PlayerTitles[j].GetUnlockISOPrice();
 					}
 					else if (item.m_currencyType == CurrencyType.RankedCurrency)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = gameBalanceVars2.PlayerTitles[j].GetUnlockRankedCurrencyPrice();
 					}
 					else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = gameBalanceVars2.PlayerTitles[j].GetUnlockFreelancerCurrencyPrice();
 					}
-					IL_8B9:
-					UIManager.SetGameObjectActive(this.m_Item.m_itemIcon, false, null);
-					UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
-					goto IL_F2E;
+					break;
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_8B9;
-			}
+			UIManager.SetGameObjectActive(this.m_Item.m_itemIcon, false, null);
+			UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
 		}
 		else if (item.m_itemType == PurchaseItemType.Banner)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameBalanceVars gameBalanceVars3 = GameBalanceVars.Get();
 			GameBalanceVars.PlayerBanner banner = gameBalanceVars3.GetBanner(item.m_bannerID);
 			text2 = string.Format(StringUtil.TR("PurchaseItem", "Store"), banner.GetBannerName());
 			text = string.Format(StringUtil.TR("PurchaseItemDesc", "Store"), banner.GetBannerName());
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = banner.GetUnlockISOPrice();
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
@@ -835,15 +454,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = banner.GetUnlockFreelancerCurrencyPrice();
 			}
 			this.m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(banner.m_iconResourceString);
@@ -851,30 +461,12 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (item.m_itemType == PurchaseItemType.Emoticon)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameBalanceVars gameBalanceVars4 = GameBalanceVars.Get();
 			GameBalanceVars.ChatEmoticon chatEmoticon = null;
 			for (int k = 0; k < gameBalanceVars4.ChatEmojis.Length; k++)
 			{
 				if (item.m_emoticonID == gameBalanceVars4.ChatEmojis[k].ID)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					chatEmoticon = gameBalanceVars4.ChatEmojis[k];
 					break;
 				}
@@ -883,15 +475,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			text = chatEmoticon.GetEmojiName();
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = chatEmoticon.GetUnlockISOPrice();
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
@@ -900,15 +483,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = chatEmoticon.GetUnlockFreelancerCurrencyPrice();
 			}
 			this.m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(chatEmoticon.IconPath);
@@ -916,29 +490,11 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (item.m_itemType == PurchaseItemType.Overcon)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIOverconData.NameToOverconEntry nameToOverconEntry = null;
 			foreach (UIOverconData.NameToOverconEntry nameToOverconEntry2 in UIOverconData.Get().m_nameToOverconEntry)
 			{
 				if (nameToOverconEntry2.m_overconId == item.m_overconID)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					nameToOverconEntry = nameToOverconEntry2;
 					break;
 				}
@@ -949,40 +505,13 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			{
 				if (item.m_overconID == gameBalanceVars5.Overcons[l].ID)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					playerUnlockable = gameBalanceVars5.Overcons[l];
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			text2 = string.Format(StringUtil.TR("PurchaseItem", "Store"), nameToOverconEntry.GetDisplayName());
 			text = string.Format(StringUtil.TR("PurchaseItemDesc", "Store"), nameToOverconEntry.GetDisplayName());
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = playerUnlockable.GetUnlockISOPrice();
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
@@ -991,15 +520,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = playerUnlockable.GetUnlockFreelancerCurrencyPrice();
 			}
 			this.m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(nameToOverconEntry.m_iconSpritePath);
@@ -1007,15 +527,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		}
 		else if (item.m_itemType == PurchaseItemType.AbilityVfx)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityData component2 = item.m_charLink.ActorDataPrefab.GetComponent<AbilityData>();
 			switch (item.m_abilityID)
 			{
@@ -1041,69 +552,23 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			{
 				if (characterUnlockData.abilityVfxUnlockData[m].Index2 == item.m_abilityID && characterUnlockData.abilityVfxUnlockData[m].ID == item.m_abilityVfxID)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (item.m_currencyType == CurrencyType.ISO)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = characterUnlockData.abilityVfxUnlockData[m].GetUnlockISOPrice();
 					}
 					else if (item.m_currencyType == CurrencyType.RankedCurrency)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = characterUnlockData.abilityVfxUnlockData[m].GetUnlockRankedCurrencyPrice();
 					}
-					IL_E25:
-					string vfxswapName = item.m_charLink.GetVFXSwapName(item.m_abilityID, item.m_abilityVfxID);
-					text2 = vfxswapName;
-					text = vfxswapName;
-					goto IL_F2E;
+					break;
 				}
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_E25;
-			}
+			string vfxswapName = item.m_charLink.GetVFXSwapName(item.m_abilityID, item.m_abilityVfxID);
+			text2 = vfxswapName;
+			text = vfxswapName;
 		}
 		else if (item.m_itemType == PurchaseItemType.LoadingScreenBackground)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameBalanceVars gameBalanceVars6 = GameBalanceVars.Get();
 			GameBalanceVars.LoadingScreenBackground loadingScreenBackground = gameBalanceVars6.GetLoadingScreenBackground(item.m_loadingScreenBackgroundId);
 			string loadingScreenBackgroundName = loadingScreenBackground.GetLoadingScreenBackgroundName();
@@ -1111,15 +576,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			text = string.Format(StringUtil.TR("PurchaseItemDesc", "Store"), loadingScreenBackgroundName);
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = loadingScreenBackground.GetUnlockISOPrice();
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
@@ -1133,30 +589,11 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			this.m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(loadingScreenBackground.m_iconPath);
 			UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
 		}
-		IL_F2E:
 		int num2 = 0;
 		if (ClientGameManager.Get().PlayerWallet != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.ISO);
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
@@ -1171,52 +608,16 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		this.m_success = (num2 >= num);
 		if (this.m_success)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (item.m_currencyType == CurrencyType.ISO)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_descriptionCostResults.text = StringUtil.TR("ISORemaining", "Store");
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_descriptionCostResults.text = StringUtil.TR("RankedCurrencyRemaining", "Store");
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_descriptionCostResults.text = StringUtil.TR("FreelancerCurrencyRemaining", "Store");
 			}
 			this.SetGeneralButtonLabels(StringUtil.TR("CONFIRMPURCHASE", "Store"));
@@ -1232,15 +633,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			}
 			else if (item.m_currencyType == CurrencyType.RankedCurrency)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text3 = StringUtil.TR("NotEnoughRankedCurrency", "Global");
 			}
 			else if (item.m_currencyType == CurrencyType.FreelancerCurrency)
@@ -1257,28 +649,10 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		string str = string.Empty;
 		if (item.m_currencyType == CurrencyType.ISO)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = "<sprite name=iso>";
 		}
 		else if (item.m_currencyType == CurrencyType.RankedCurrency)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = "<sprite name=rankedCurrency>";
 		}
 		else if (item.m_currencyType == CurrencyType.FreelancerCurrency)

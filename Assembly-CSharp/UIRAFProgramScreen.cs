@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -41,15 +39,15 @@ public class UIRAFProgramScreen : UIScene
 
 	private int m_RAFPoints;
 
-	private static int[] m_barPoints = new int[]
+	private static int[] m_barPoints = new int[7]
 	{
 		0,
 		5,
-		0xA,
-		0x1E,
-		0x3C,
-		0x5A,
-		0x3E8
+		10,
+		30,
+		60,
+		90,
+		1000
 	};
 
 	private string[] m_tooltipTestDesc;
@@ -64,42 +62,33 @@ public class UIRAFProgramScreen : UIScene
 
 	private static UIRAFProgramScreen s_instance;
 
-	public bool IsVisible { get; private set; }
+	public bool IsVisible
+	{
+		get;
+		private set;
+	}
 
 	public static UIRAFProgramScreen Get()
 	{
-		return UIRAFProgramScreen.s_instance;
+		return s_instance;
 	}
 
 	private void Start()
 	{
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRAFProgramScreen.Start()).MethodHandle;
-			}
-			this.HandleAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
+			HandleAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
 		}
-		ClientGameManager.Get().OnAccountDataUpdated += this.HandleAccountDataUpdated;
-		for (int i = 0; i < this.m_rewardListBtns.Length; i++)
+		ClientGameManager.Get().OnAccountDataUpdated += HandleAccountDataUpdated;
+		for (int i = 0; i < m_rewardListBtns.Length; i++)
 		{
 			int index = i;
-			this.m_rewardListBtns[i].spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.RAFReward, (UITooltipBase tooltip) => this.SetupTooltip1(tooltip, index), null);
+			m_rewardListBtns[i].spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.RAFReward, (UITooltipBase tooltip) => SetupTooltip1(tooltip, index));
 		}
-		for (int j = 0; j < this.m_rewardListBtns2.Length; j++)
+		for (int j = 0; j < m_rewardListBtns2.Length; j++)
 		{
-			int index = j;
-			this.m_rewardListBtns2[j].spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.RAFReward, (UITooltipBase tooltip) => this.SetupTooltip2(tooltip, index), null);
+			int index2 = j;
+			m_rewardListBtns2[j].spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.RAFReward, (UITooltipBase tooltip) => SetupTooltip2(tooltip, index2));
 		}
 	}
 
@@ -110,17 +99,17 @@ public class UIRAFProgramScreen : UIScene
 
 	public override void Awake()
 	{
-		UIRAFProgramScreen.s_instance = this;
-		this.m_copyFriendKeyBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CopyFriendKeyBtnClicked);
-		this.m_sendInviteBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SendInviteBtnClicked);
-		this.m_tooltipTestDesc = new string[UIRAFProgramScreen.m_barPoints.Length];
-		this.m_tooltipTestLongDesc = new string[UIRAFProgramScreen.m_barPoints.Length];
-		this.m_tooltipTestDesc2 = new string[UIRAFProgramScreen.m_barPoints.Length];
-		this.m_tooltipIconPath = new string[UIRAFProgramScreen.m_barPoints.Length];
-		this.m_tooltipIconPath2 = new string[UIRAFProgramScreen.m_barPoints.Length];
-		this.SetVisible(false);
-		this.m_inputfield.onValueChanged.AddListener(new UnityAction<string>(this.OnTypeInput));
-		this.BuildRewardUI();
+		s_instance = this;
+		m_copyFriendKeyBtn.spriteController.callback = CopyFriendKeyBtnClicked;
+		m_sendInviteBtn.spriteController.callback = SendInviteBtnClicked;
+		m_tooltipTestDesc = new string[m_barPoints.Length];
+		m_tooltipTestLongDesc = new string[m_barPoints.Length];
+		m_tooltipTestDesc2 = new string[m_barPoints.Length];
+		m_tooltipIconPath = new string[m_barPoints.Length];
+		m_tooltipIconPath2 = new string[m_barPoints.Length];
+		SetVisible(false);
+		m_inputfield.onValueChanged.AddListener(OnTypeInput);
+		BuildRewardUI();
 		base.Awake();
 	}
 
@@ -128,428 +117,248 @@ public class UIRAFProgramScreen : UIScene
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRAFProgramScreen.OnDestroy()).MethodHandle;
-			}
-			ClientGameManager.Get().OnAccountDataUpdated -= this.HandleAccountDataUpdated;
+			ClientGameManager.Get().OnAccountDataUpdated -= HandleAccountDataUpdated;
 		}
-		UIRAFProgramScreen.s_instance = null;
+		s_instance = null;
 	}
 
 	public void SetVisible(bool visible)
 	{
-		this.IsVisible = visible;
+		IsVisible = visible;
 		if (visible)
 		{
-			if (this.m_friendKey.IsNullOrEmpty())
+			if (m_friendKey.IsNullOrEmpty())
 			{
-				for (;;)
+				CheckPersistedKey();
+				if (m_friendKey.IsNullOrEmpty())
 				{
-					switch (5)
+					if (!m_requestedKey)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRAFProgramScreen.SetVisible(bool)).MethodHandle;
-				}
-				this.CheckPersistedKey();
-				if (this.m_friendKey.IsNullOrEmpty())
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_requestedKey)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						ClientGameManager.Get().SendCheckRAFStatusRequest(true, new Action<CheckRAFStatusResponse>(this.HandleCheckRAFStatusResponse));
-						this.m_requestedKey = true;
+						ClientGameManager.Get().SendCheckRAFStatusRequest(true, HandleCheckRAFStatusResponse);
+						m_requestedKey = true;
 					}
 				}
 			}
 			if (UIPlayerProgressPanel.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIPlayerProgressPanel.Get().SetVisible(false, true);
+				UIPlayerProgressPanel.Get().SetVisible(false);
 			}
 			if (UIGGBoostPurchaseScreen.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIGGBoostPurchaseScreen.Get().SetVisible(false);
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_container, this.IsVisible, null);
-		if (FriendListPanel.Get() != null)
+		UIManager.SetGameObjectActive(m_container, IsVisible);
+		if (!(FriendListPanel.Get() != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			FriendListPanel.Get().m_recruitButton.SetSelected(this.IsVisible, false, string.Empty, string.Empty);
+			return;
+		}
+		while (true)
+		{
+			FriendListPanel.Get().m_recruitButton.SetSelected(IsVisible, false, string.Empty, string.Empty);
+			return;
 		}
 	}
 
 	public void CopyFriendKeyBtnClicked(BaseEventData data)
 	{
-		if (!this.m_friendKey.IsNullOrEmpty())
+		if (m_friendKey.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRAFProgramScreen.CopyFriendKeyBtnClicked(BaseEventData)).MethodHandle;
-			}
-			GUIUtility.systemCopyBuffer = this.m_friendKey;
+			return;
+		}
+		while (true)
+		{
+			GUIUtility.systemCopyBuffer = m_friendKey;
+			return;
 		}
 	}
 
 	public void SendInviteBtnClicked(BaseEventData data)
 	{
-		string text = this.m_inputfield.text;
+		string text = m_inputfield.text;
 		bool flag = false;
-		if (text != StringUtil.TR("EmailAddress", "SceneGlobal"))
+		if (!(text != StringUtil.TR("EmailAddress", "SceneGlobal")))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRAFProgramScreen.SendInviteBtnClicked(BaseEventData)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			List<string> list = new List<string>();
-			foreach (string text2 in text.Split(new char[]
+			string[] array = text.Split(' ', ',', ';');
+			foreach (string text2 in array)
 			{
-				' ',
-				',',
-				';'
-			}))
-			{
-				if (!text2.IsNullOrEmpty() && !list.Contains(text2))
+				if (text2.IsNullOrEmpty() || list.Contains(text2))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (list.Count < 5)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						list.Add(text2);
-					}
-					else
-					{
-						flag = true;
-					}
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
 					continue;
 				}
-				break;
+				if (list.Count < 5)
+				{
+					list.Add(text2);
+				}
+				else
+				{
+					flag = true;
+				}
 			}
-			if (flag)
+			while (true)
 			{
-				TextConsole.Get().Write(StringUtil.TR("TooManyEmailsEntered", "ReferAFriend"), ConsoleMessageType.SystemMessage);
+				if (flag)
+				{
+					TextConsole.Get().Write(StringUtil.TR("TooManyEmailsEntered", "ReferAFriend"));
+				}
+				if (!list.IsNullOrEmpty())
+				{
+					ClientGameManager.Get().SendRAFReferralEmailsRequest(list, HandleSendRAFReferralEmailsResponse);
+				}
+				m_inputfield.text = string.Empty;
+				return;
 			}
-			if (!list.IsNullOrEmpty<string>())
-			{
-				ClientGameManager.Get().SendRAFReferralEmailsRequest(list, new Action<SendRAFReferralEmailsResponse>(this.HandleSendRAFReferralEmailsResponse));
-			}
-			this.m_inputfield.text = string.Empty;
 		}
 	}
 
 	public void OnTypeInput(string textString)
 	{
-		if (this.m_inputfield.text.Length > 0xFF)
+		if (m_inputfield.text.Length <= 255)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRAFProgramScreen.OnTypeInput(string)).MethodHandle;
-			}
-			this.m_inputfield.text = this.m_inputfield.text.Substring(0, 0xFF);
+			return;
+		}
+		while (true)
+		{
+			m_inputfield.text = m_inputfield.text.Substring(0, 255);
+			return;
 		}
 	}
 
 	private void CheckPersistedKey()
 	{
-		if (this.m_friendKey.IsNullOrEmpty())
+		if (!m_friendKey.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRAFProgramScreen.CheckPersistedKey()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (ClientGameManager.Get() != null)
 			{
-				string rafreferralCode = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.RAFReferralCode;
-				if (!rafreferralCode.IsNullOrEmpty())
+				string rAFReferralCode = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.RAFReferralCode;
+				if (!rAFReferralCode.IsNullOrEmpty())
 				{
-					this.m_friendKey = rafreferralCode;
+					m_friendKey = rAFReferralCode;
 				}
 			}
+			return;
 		}
 	}
 
 	public void HandleAccountDataUpdated(PersistedAccountData accountData)
 	{
-		this.CheckPersistedKey();
-		this.SetRAFPoints(accountData.BankComponent.GetCurrentAmount(CurrencyType.RAFPoints));
-		this.m_playerRAFkey.text = this.m_friendKey;
-		this.m_pointTotal.text = string.Format(StringUtil.TR("TotalRAFPoints", "ReferAFriend"), this.m_RAFPoints.ToString());
+		CheckPersistedKey();
+		SetRAFPoints(accountData.BankComponent.GetCurrentAmount(CurrencyType.RAFPoints));
+		m_playerRAFkey.text = m_friendKey;
+		m_pointTotal.text = string.Format(StringUtil.TR("TotalRAFPoints", "ReferAFriend"), m_RAFPoints.ToString());
 	}
 
 	public void HandleCheckRAFStatusResponse(CheckRAFStatusResponse response)
 	{
-		if (!response.ReferralCode.IsNullOrEmpty())
+		if (response.ReferralCode.IsNullOrEmpty())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			m_friendKey = response.ReferralCode;
+			if (IsVisible)
 			{
-				switch (7)
+				while (true)
 				{
-				case 0:
-					continue;
+					m_playerRAFkey.text = m_friendKey;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRAFProgramScreen.HandleCheckRAFStatusResponse(CheckRAFStatusResponse)).MethodHandle;
-			}
-			this.m_friendKey = response.ReferralCode;
-			if (this.IsVisible)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_playerRAFkey.text = this.m_friendKey;
-			}
+			return;
 		}
 	}
 
 	public void HandleSendRAFReferralEmailsResponse(SendRAFReferralEmailsResponse response)
 	{
-		TextConsole.Get().Write(StringUtil.TR("ReferralInvitationsSent", "ReferAFriend"), ConsoleMessageType.SystemMessage);
+		TextConsole.Get().Write(StringUtil.TR("ReferralInvitationsSent", "ReferAFriend"));
 	}
 
 	private void SetRAFPoints(int points)
 	{
-		this.m_RAFPoints = points;
-		for (int i = 0; i < this.m_barSections.Length; i++)
+		m_RAFPoints = points;
+		for (int i = 0; i < m_barSections.Length; i++)
 		{
-			bool flag;
-			if (this.m_RAFPoints > 0)
+			int num;
+			if (m_RAFPoints > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRAFProgramScreen.SetRAFPoints(int)).MethodHandle;
-				}
-				flag = (this.m_RAFPoints >= UIRAFProgramScreen.m_barPoints[i]);
+				num = ((m_RAFPoints >= m_barPoints[i]) ? 1 : 0);
 			}
 			else
 			{
-				flag = false;
+				num = 0;
 			}
-			bool flag2 = flag;
-			if (flag2)
+			bool flag = (byte)num != 0;
+			if (flag)
 			{
-				if (this.m_RAFPoints < UIRAFProgramScreen.m_barPoints[i + 1])
+				if (m_RAFPoints < m_barPoints[i + 1])
 				{
-					float y = (float)(this.m_RAFPoints - UIRAFProgramScreen.m_barPoints[i]) / (float)(UIRAFProgramScreen.m_barPoints[i + 1] - UIRAFProgramScreen.m_barPoints[i]);
-					this.m_barSections[i].localScale = new Vector3(1f, y, 1f);
+					float y = (float)(m_RAFPoints - m_barPoints[i]) / (float)(m_barPoints[i + 1] - m_barPoints[i]);
+					m_barSections[i].localScale = new Vector3(1f, y, 1f);
 				}
 				else
 				{
-					this.m_barSections[i].localScale = Vector3.one;
+					m_barSections[i].localScale = Vector3.one;
 				}
 			}
-			UIManager.SetGameObjectActive(this.m_barSections[i], flag2, null);
+			UIManager.SetGameObjectActive(m_barSections[i], flag);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
+			for (int j = 0; j < m_onRewardNumbers.Length; j++)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		for (int j = 0; j < this.m_onRewardNumbers.Length; j++)
-		{
-			bool flag3;
-			if (this.m_RAFPoints > 0)
-			{
-				for (;;)
+				int num2;
+				if (m_RAFPoints > 0)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
+					num2 = ((m_RAFPoints >= m_barPoints[j + 1]) ? 1 : 0);
+				}
+				else
+				{
+					num2 = 0;
+				}
+				bool flag2 = (byte)num2 != 0;
+				UIManager.SetGameObjectActive(m_onRewardNumbers[j], flag2);
+				UIManager.SetGameObjectActive(m_offRewardNumbers[j], !flag2);
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				default:
+					return;
+				case 0:
 					break;
 				}
-				flag3 = (this.m_RAFPoints >= UIRAFProgramScreen.m_barPoints[j + 1]);
 			}
-			else
-			{
-				flag3 = false;
-			}
-			bool flag4 = flag3;
-			UIManager.SetGameObjectActive(this.m_onRewardNumbers[j], flag4, null);
-			UIManager.SetGameObjectActive(this.m_offRewardNumbers[j], !flag4, null);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
 	private int FindRewardIndexFromPoints(int pointsRequired)
 	{
-		for (int i = 0; i < UIRAFProgramScreen.m_barPoints.Length; i++)
+		for (int i = 0; i < m_barPoints.Length; i++)
 		{
-			if (UIRAFProgramScreen.m_barPoints[i] == pointsRequired)
+			if (m_barPoints[i] != pointsRequired)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRAFProgramScreen.FindRewardIndexFromPoints(int)).MethodHandle;
-				}
+				continue;
+			}
+			while (true)
+			{
 				return i - 1;
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return -1;
 		}
-		return -1;
 	}
 
 	private void BuildRewardUI()
@@ -557,278 +366,132 @@ public class UIRAFProgramScreen : UIScene
 		GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 		if (gameBalanceVars == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
+					break;
+				default:
+					return;
+				}
+			}
+		}
+		for (int i = 0; i < m_rewardListBtns.Length; i++)
+		{
+			UIManager.SetGameObjectActive(m_rewardListBtns[i], false);
+			UIManager.SetGameObjectActive(m_rewardListBtns2[i], false);
+		}
+		while (true)
+		{
+			GameBalanceVars.RAFReward[] rAFRewards = gameBalanceVars.RAFRewards;
+			for (int j = 0; j < rAFRewards.Length; j++)
+			{
+				GameBalanceVars.RAFReward rAFReward = rAFRewards[j];
+				if (!rAFReward.isEnabled)
+				{
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRAFProgramScreen.BuildRewardUI()).MethodHandle;
-			}
-			return;
-		}
-		for (int i = 0; i < this.m_rewardListBtns.Length; i++)
-		{
-			UIManager.SetGameObjectActive(this.m_rewardListBtns[i], false, null);
-			UIManager.SetGameObjectActive(this.m_rewardListBtns2[i], false, null);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		GameBalanceVars.RAFReward[] rafrewards = gameBalanceVars.RAFRewards;
-		for (int j = 0; j < rafrewards.Length; j++)
-		{
-			GameBalanceVars.RAFReward rafreward = rafrewards[j];
-			if (rafreward.isEnabled)
-			{
-				for (;;)
+				if (rAFReward.isRepeating)
 				{
-					switch (5)
+				}
+				if (rAFReward.questId > QuestWideData.Get().m_quests.Count)
+				{
+					Log.Warning("Refer a friend reward quest id {0} that is missing data in QuestWideData.", rAFReward.questId);
+					continue;
+				}
+				if (j < m_rewardIconImages.Length)
+				{
+					if (j < m_rewardIconImages2.Length)
 					{
-					case 0:
+						QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(rAFReward.questId);
+						int num = FindRewardIndexFromPoints(rAFReward.pointsRequired);
+						if (num == -1)
+						{
+							Log.Warning("Refer a friend reward quest id {0} point value doesn't match up to a UI icon", rAFReward.questId);
+							continue;
+						}
+						string text = questTemplate.IconFilename;
+						string text2 = string.Empty;
+						m_tooltipTestDesc[num] = StringUtil.TR_QuestDescription(rAFReward.questId);
+						m_tooltipTestLongDesc[num] = StringUtil.TR_QuestLongDescription(rAFReward.questId);
+						m_tooltipTestDesc2[num] = string.Empty;
+						QuestRewards rewards = questTemplate.Rewards;
+						bool flag = false;
+						using (List<QuestItemReward>.Enumerator enumerator = rewards.ItemRewards.GetEnumerator())
+						{
+							while (true)
+							{
+								if (!enumerator.MoveNext())
+								{
+									break;
+								}
+								QuestItemReward current = enumerator.Current;
+								InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(current.ItemTemplateId);
+								if (!itemTemplate.IconPath.IsNullOrEmpty())
+								{
+									if (flag)
+									{
+										text2 = itemTemplate.IconPath;
+										m_tooltipTestDesc2[num] = StringUtil.TR_InventoryItemName(current.ItemTemplateId);
+										break;
+									}
+									text = itemTemplate.IconPath;
+									m_tooltipTestDesc[num] = StringUtil.TR_InventoryItemName(current.ItemTemplateId);
+									flag = true;
+								}
+							}
+						}
+						m_tooltipIconPath[num] = text;
+						m_tooltipIconPath2[num] = text2;
+						m_rewardIconImages[num].sprite = (Sprite)Resources.Load(text, typeof(Sprite));
+						UIManager.SetGameObjectActive(m_rewardListBtns[num], true);
+						if (!text2.IsNullOrEmpty())
+						{
+							m_rewardIconImages2[num].sprite = (Sprite)Resources.Load(text2, typeof(Sprite));
+							UIManager.SetGameObjectActive(m_rewardListBtns2[num], true);
+						}
 						continue;
 					}
+				}
+				Log.Warning("Refer a friend reward quest id {0} cannot display reward icon", rAFReward.questId);
+			}
+			while (true)
+			{
+				switch (2)
+				{
+				default:
+					return;
+				case 0:
 					break;
 				}
-				if (rafreward.isRepeating)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				if (rafreward.questId > QuestWideData.Get().m_quests.Count)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Log.Warning("Refer a friend reward quest id {0} that is missing data in QuestWideData.", new object[]
-					{
-						rafreward.questId
-					});
-				}
-				else
-				{
-					if (j < this.m_rewardIconImages.Length)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (j >= this.m_rewardIconImages2.Length)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						else
-						{
-							QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(rafreward.questId);
-							int num = this.FindRewardIndexFromPoints(rafreward.pointsRequired);
-							if (num == -1)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								Log.Warning("Refer a friend reward quest id {0} point value doesn't match up to a UI icon", new object[]
-								{
-									rafreward.questId
-								});
-								goto IL_33A;
-							}
-							string text = questTemplate.IconFilename;
-							string text2 = string.Empty;
-							this.m_tooltipTestDesc[num] = StringUtil.TR_QuestDescription(rafreward.questId);
-							this.m_tooltipTestLongDesc[num] = StringUtil.TR_QuestLongDescription(rafreward.questId);
-							this.m_tooltipTestDesc2[num] = string.Empty;
-							QuestRewards rewards = questTemplate.Rewards;
-							bool flag = false;
-							using (List<QuestItemReward>.Enumerator enumerator = rewards.ItemRewards.GetEnumerator())
-							{
-								while (enumerator.MoveNext())
-								{
-									QuestItemReward questItemReward = enumerator.Current;
-									InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(questItemReward.ItemTemplateId);
-									if (!itemTemplate.IconPath.IsNullOrEmpty())
-									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (flag)
-										{
-											text2 = itemTemplate.IconPath;
-											this.m_tooltipTestDesc2[num] = StringUtil.TR_InventoryItemName(questItemReward.ItemTemplateId);
-											goto IL_2A3;
-										}
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										text = itemTemplate.IconPath;
-										this.m_tooltipTestDesc[num] = StringUtil.TR_InventoryItemName(questItemReward.ItemTemplateId);
-										flag = true;
-									}
-								}
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							IL_2A3:
-							this.m_tooltipIconPath[num] = text;
-							this.m_tooltipIconPath2[num] = text2;
-							this.m_rewardIconImages[num].sprite = (Sprite)Resources.Load(text, typeof(Sprite));
-							UIManager.SetGameObjectActive(this.m_rewardListBtns[num], true, null);
-							if (!text2.IsNullOrEmpty())
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_rewardIconImages2[num].sprite = (Sprite)Resources.Load(text2, typeof(Sprite));
-								UIManager.SetGameObjectActive(this.m_rewardListBtns2[num], true, null);
-								goto IL_33A;
-							}
-							goto IL_33A;
-						}
-					}
-					Log.Warning("Refer a friend reward quest id {0} cannot display reward icon", new object[]
-					{
-						rafreward.questId
-					});
-				}
 			}
-			IL_33A:;
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
 	private bool SetupTooltip1(UITooltipBase tooltip, int index)
 	{
-		if (this.m_tooltipTestDesc[index].IsNullOrEmpty())
+		if (m_tooltipTestDesc[index].IsNullOrEmpty())
 		{
-			if (this.m_tooltipTestLongDesc[index].IsNullOrEmpty())
+			if (m_tooltipTestLongDesc[index].IsNullOrEmpty())
 			{
 				return false;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRAFProgramScreen.SetupTooltip1(UITooltipBase, int)).MethodHandle;
-			}
 		}
-		(tooltip as UIRecruitAFriendRewardTooltip).Setup(this.m_tooltipTestDesc[index], this.m_tooltipTestLongDesc[index], this.m_tooltipIconPath[index]);
+		(tooltip as UIRecruitAFriendRewardTooltip).Setup(m_tooltipTestDesc[index], m_tooltipTestLongDesc[index], m_tooltipIconPath[index]);
 		return true;
 	}
 
 	private bool SetupTooltip2(UITooltipBase tooltip, int index)
 	{
-		if (this.m_tooltipTestDesc2[index].IsNullOrEmpty())
+		if (m_tooltipTestDesc2[index].IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRAFProgramScreen.SetupTooltip2(UITooltipBase, int)).MethodHandle;
-			}
-			if (this.m_tooltipTestLongDesc[index].IsNullOrEmpty())
+			if (m_tooltipTestLongDesc[index].IsNullOrEmpty())
 			{
 				return false;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		(tooltip as UIRecruitAFriendRewardTooltip).Setup(this.m_tooltipTestDesc2[index], this.m_tooltipTestLongDesc[index], this.m_tooltipIconPath2[index]);
+		(tooltip as UIRecruitAFriendRewardTooltip).Setup(m_tooltipTestDesc2[index], m_tooltipTestLongDesc[index], m_tooltipIconPath2[index]);
 		return true;
 	}
 }

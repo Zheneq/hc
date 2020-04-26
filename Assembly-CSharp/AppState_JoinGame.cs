@@ -1,4 +1,3 @@
-﻿using System;
 using LobbyGameClientMessages;
 
 public class AppState_JoinGame : AppState
@@ -9,7 +8,7 @@ public class AppState_JoinGame : AppState
 
 	public static AppState_JoinGame Get()
 	{
-		return AppState_JoinGame.s_instance;
+		return s_instance;
 	}
 
 	public static void Create()
@@ -19,24 +18,24 @@ public class AppState_JoinGame : AppState
 
 	private void Awake()
 	{
-		AppState_JoinGame.s_instance = this;
+		s_instance = this;
 	}
 
 	protected override void OnEnter()
 	{
-		AppState_JoinGame.s_joinPending = false;
+		s_joinPending = false;
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		clientGameManager.SubscribeToCustomGames();
-		clientGameManager.OnDisconnectedFromLobbyServer += this.HandleDisconnectedFromLobbyServer;
-		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.JoinGame, false);
+		clientGameManager.OnDisconnectedFromLobbyServer += HandleDisconnectedFromLobbyServer;
+		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.JoinGame);
 	}
 
 	protected override void OnLeave()
 	{
-		AppState_JoinGame.s_joinPending = false;
+		s_joinPending = false;
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		clientGameManager.UnsubscribeFromCustomGames();
-		clientGameManager.OnDisconnectedFromLobbyServer -= this.HandleDisconnectedFromLobbyServer;
+		clientGameManager.OnDisconnectedFromLobbyServer -= HandleDisconnectedFromLobbyServer;
 	}
 
 	public void OnCancelClicked()
@@ -51,122 +50,76 @@ public class AppState_JoinGame : AppState
 
 	public void OnJoinClicked(LobbyGameInfo gameInfo, bool asSpectator)
 	{
-		if (!AppState_JoinGame.s_joinPending)
+		if (s_joinPending)
 		{
-			if (!ClientGameManager.Get().IsCharacterAvailable(ClientGameManager.Get().GetPlayerAccountData().AccountComponent.LastCharacter, gameInfo.GameConfig.GameType))
+			return;
+		}
+		if (!ClientGameManager.Get().IsCharacterAvailable(ClientGameManager.Get().GetPlayerAccountData().AccountComponent.LastCharacter, gameInfo.GameConfig.GameType))
+		{
+			CharacterResourceLink[] characterResourceLinks = GameWideData.Get().m_characterResourceLinks;
+			int num = 0;
+			while (true)
 			{
-				CharacterResourceLink[] characterResourceLinks = GameWideData.Get().m_characterResourceLinks;
-				int i = 0;
-				while (i < characterResourceLinks.Length)
+				if (num < characterResourceLinks.Length)
 				{
-					CharacterResourceLink characterResourceLink = characterResourceLinks[i];
-					if (characterResourceLink.m_characterType != CharacterType.None)
+					CharacterResourceLink characterResourceLink = characterResourceLinks[num];
+					if (characterResourceLink.m_characterType != 0)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_JoinGame.OnJoinClicked(LobbyGameInfo, bool)).MethodHandle;
-						}
 						if (characterResourceLink.m_isHidden)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else if (ClientGameManager.Get().IsCharacterAvailable(characterResourceLink.m_characterType, gameInfo.GameConfig.GameType))
 						{
-							ClientGameManager.Get().UpdateSelectedCharacter(characterResourceLink.m_characterType, 0);
-							goto IL_CA;
+							ClientGameManager.Get().UpdateSelectedCharacter(characterResourceLink.m_characterType);
+							break;
 						}
 					}
-					IL_B6:
-					i++;
+					num++;
 					continue;
-					goto IL_B6;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				break;
 			}
-			IL_CA:
-			AppState_JoinGame.s_joinPending = true;
-			ClientGameManager clientGameManager = ClientGameManager.Get();
-			if (AppState_JoinGame.<>f__am$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				AppState_JoinGame.<>f__am$cache0 = delegate(JoinGameResponse response)
-				{
-					AppState_JoinGame.s_joinPending = false;
-					if (response.Success)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_JoinGame.<OnJoinClicked>m__0(JoinGameResponse)).MethodHandle;
-						}
-						AppState_CharacterSelect.Get().Enter();
-					}
-					else if (response.LocalizedFailure != null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIDialogPopupManager.OpenOneButtonDialog(string.Empty, response.LocalizedFailure.ToString(), StringUtil.TR("Ok", "Global"), null, -1, false);
-					}
-					else
-					{
-						UIDialogPopupManager.OpenOneButtonDialog(string.Empty, string.Format("{0}#NeedsLocalization", response.ErrorMessage), StringUtil.TR("Ok", "Global"), null, -1, false);
-					}
-				};
-			}
-			clientGameManager.JoinGame(gameInfo, asSpectator, AppState_JoinGame.<>f__am$cache0);
 		}
+		s_joinPending = true;
+		ClientGameManager clientGameManager = ClientGameManager.Get();
+		
+		clientGameManager.JoinGame(gameInfo, asSpectator, delegate(JoinGameResponse response)
+			{
+				s_joinPending = false;
+				if (response.Success)
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							break;
+						default:
+							AppState_CharacterSelect.Get().Enter();
+							return;
+						}
+					}
+				}
+				if (response.LocalizedFailure != null)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							break;
+						default:
+							UIDialogPopupManager.OpenOneButtonDialog(string.Empty, response.LocalizedFailure.ToString(), StringUtil.TR("Ok", "Global"));
+							return;
+						}
+					}
+				}
+				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, $"{response.ErrorMessage}#NeedsLocalization", StringUtil.TR("Ok", "Global"));
+			});
 	}
 
 	private void HandleDisconnectedFromLobbyServer(string lastLobbyErrorMessage)
 	{
-		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage, false);
+		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage);
 	}
 }

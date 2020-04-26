@@ -1,11 +1,10 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleMonkBoundingLeap : Ability
 {
 	[Header("-- On Hit Damage, Effect, etc")]
-	public int m_damageAmount = 0x14;
+	public int m_damageAmount = 20;
 
 	public int m_damageAfterFirstHit;
 
@@ -46,59 +45,33 @@ public class BattleMonkBoundingLeap : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBoundingLeap.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Bounding Leap";
+			m_abilityName = "Bounding Leap";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		StandardEffectInfo moddedEffectForSelf = base.GetModdedEffectForSelf();
-		float width = this.m_width;
-		float maxDistancePerBounce = this.GetMaxDistancePerBounce();
-		float maxTotalDistance = this.GetMaxTotalDistance();
-		int maxBounces = this.GetMaxBounces();
-		int maxTargets = this.GetMaxTargets();
-		bool bounceOnEnemyActor = this.ShouldBounceOffEnemyActors();
-		bool includeAlliesInBetween = this.IncludeAlliesInBetween();
-		bool includeSelf;
+		StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
+		float width = m_width;
+		float maxDistancePerBounce = GetMaxDistancePerBounce();
+		float maxTotalDistance = GetMaxTotalDistance();
+		int maxBounces = GetMaxBounces();
+		int maxTargets = GetMaxTargets();
+		bool bounceOnEnemyActor = ShouldBounceOffEnemyActors();
+		bool includeAlliesInBetween = IncludeAlliesInBetween();
+		int includeSelf;
 		if (moddedEffectForSelf != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBoundingLeap.SetupTargeter()).MethodHandle;
-			}
-			includeSelf = moddedEffectForSelf.m_applyEffect;
+			includeSelf = (moddedEffectForSelf.m_applyEffect ? 1 : 0);
 		}
 		else
 		{
-			includeSelf = false;
+			includeSelf = 0;
 		}
-		base.Targeter = new AbilityUtil_Targeter_BounceActor(this, width, maxDistancePerBounce, maxTotalDistance, maxBounces, maxTargets, bounceOnEnemyActor, includeAlliesInBetween, includeSelf);
+		base.Targeter = new AbilityUtil_Targeter_BounceActor(this, width, maxDistancePerBounce, maxTotalDistance, maxBounces, maxTargets, bounceOnEnemyActor, includeAlliesInBetween, (byte)includeSelf != 0);
 	}
 
 	internal override ActorData.MovementType GetMovementType()
@@ -113,32 +86,19 @@ public class BattleMonkBoundingLeap : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetMaxDistancePerBounce();
+		return GetMaxDistancePerBounce();
 	}
 
 	public int GetDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBoundingLeap.GetDamageAmount()).MethodHandle;
-			}
-			result = this.m_damageAmount;
+			result = m_damageAmount;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damageAmount);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damageAmount);
 		}
 		return result;
 	}
@@ -146,26 +106,13 @@ public class BattleMonkBoundingLeap : Ability
 	public int GetDamageAfterFirstHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBoundingLeap.GetDamageAfterFirstHit()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_damageAfterFirstHitMod.GetModifiedValue(this.m_damageAfterFirstHit);
+			result = m_abilityMod.m_damageAfterFirstHitMod.GetModifiedValue(m_damageAfterFirstHit);
 		}
 		else
 		{
-			result = this.m_damageAfterFirstHit;
+			result = m_damageAfterFirstHit;
 		}
 		return result;
 	}
@@ -173,199 +120,117 @@ public class BattleMonkBoundingLeap : Ability
 	public int GetMaxTargets()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBoundingLeap.GetMaxTargets()).MethodHandle;
-			}
-			result = this.m_maxTargetsHit;
+			result = m_maxTargetsHit;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_maxHitTargetsMod.GetModifiedValue(this.m_maxTargetsHit);
+			result = m_abilityMod.m_maxHitTargetsMod.GetModifiedValue(m_maxTargetsHit);
 		}
 		return result;
 	}
 
 	public bool ShouldBounceOffEnemyActors()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_bounceOffEnemyActorMod.GetModifiedValue(this.m_bounceOffEnemyActor) : this.m_bounceOffEnemyActor;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_bounceOffEnemyActorMod.GetModifiedValue(m_bounceOffEnemyActor) : m_bounceOffEnemyActor;
 	}
 
 	public bool IncludeAlliesInBetween()
 	{
-		bool result;
-		if (this.m_abilityMod == null)
+		int result;
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBoundingLeap.IncludeAlliesInBetween()).MethodHandle;
-			}
-			result = false;
+			result = 0;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_hitAlliesInBetween.GetModifiedValue(false);
+			result = (m_abilityMod.m_hitAlliesInBetween.GetModifiedValue(false) ? 1 : 0);
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (this.m_abilityMod == null)
+		object result;
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBoundingLeap.GetAllyHitEffect()).MethodHandle;
-			}
 			result = null;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_allyHitEffect;
+			result = m_abilityMod.m_allyHitEffect;
 		}
-		return result;
+		return (StandardEffectInfo)result;
 	}
 
 	public int GetHealAmountIfNotDamagedThisTurn()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_healAmountIfNotDamagedThisTurn.GetModifiedValue(0) : 0;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_healAmountIfNotDamagedThisTurn.GetModifiedValue(0) : 0;
 	}
 
 	public float GetMaxDistancePerBounce()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBoundingLeap.GetMaxDistancePerBounce()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_maxDistancePerBounceMod.GetModifiedValue(this.m_maxDistancePerBounce);
+			result = m_abilityMod.m_maxDistancePerBounceMod.GetModifiedValue(m_maxDistancePerBounce);
 		}
 		else
 		{
-			result = this.m_maxDistancePerBounce;
+			result = m_maxDistancePerBounce;
 		}
 		return result;
 	}
 
 	public float GetMaxTotalDistance()
 	{
-		return (!this.m_abilityMod) ? this.m_maxTotalDistance : this.m_abilityMod.m_maxTotalDistanceMod.GetModifiedValue(this.m_maxTotalDistance);
+		return (!m_abilityMod) ? m_maxTotalDistance : m_abilityMod.m_maxTotalDistanceMod.GetModifiedValue(m_maxTotalDistance);
 	}
 
 	public int GetMaxBounces()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBoundingLeap.GetMaxBounces()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_maxBouncesMod.GetModifiedValue(this.m_maxBounces);
+			result = m_abilityMod.m_maxBouncesMod.GetModifiedValue(m_maxBounces);
 		}
 		else
 		{
-			result = this.m_maxBounces;
+			result = m_maxBounces;
 		}
 		return result;
 	}
 
 	public int CalcDamageForOrderIndex(int hitOrder)
 	{
-		int damageAfterFirstHit = this.GetDamageAfterFirstHit();
+		int damageAfterFirstHit = GetDamageAfterFirstHit();
 		if (damageAfterFirstHit > 0 && hitOrder > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return damageAfterFirstHit;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBoundingLeap.CalcDamageForOrderIndex(int)).MethodHandle;
-			}
-			return damageAfterFirstHit;
 		}
-		return this.GetDamageAmount();
+		return GetDamageAmount();
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_damageAmount);
-		if (this.GetAllyHitEffect() != null)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_damageAmount);
+		if (GetAllyHitEffect() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBoundingLeap.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
-			this.GetAllyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
+			GetAllyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 		}
-		base.AppendTooltipNumbersFromBaseModEffects(ref result, AbilityTooltipSubject.Primary, AbilityTooltipSubject.Ally, AbilityTooltipSubject.Self);
-		return result;
+		AppendTooltipNumbersFromBaseModEffects(ref numbers);
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
@@ -376,27 +241,21 @@ public class BattleMonkBoundingLeap : Ability
 			if (abilityUtil_Targeter_BounceActor != null)
 			{
 				List<AbilityUtil_Targeter_BounceActor.HitActorContext> hitActorContext = abilityUtil_Targeter_BounceActor.GetHitActorContext();
-				for (int i = 0; i < hitActorContext.Count; i++)
+				int num = 0;
+				while (true)
 				{
-					if (hitActorContext[i].actor == targetActor)
+					if (num < hitActorContext.Count)
 					{
-						results.m_damage = this.CalcDamageForOrderIndex(i);
-						return true;
-					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
+						AbilityUtil_Targeter_BounceActor.HitActorContext hitActorContext2 = hitActorContext[num];
+						if (hitActorContext2.actor == targetActor)
+						{
+							results.m_damage = CalcDamageForOrderIndex(num);
+							break;
+						}
+						num++;
 						continue;
 					}
 					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBoundingLeap.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-					return true;
 				}
 				return true;
 			}
@@ -406,40 +265,32 @@ public class BattleMonkBoundingLeap : Ability
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, this.m_damageAmount, false);
-		base.AddTokenInt(tokens, "DamageAfterFirstHit", string.Empty, this.m_damageAfterFirstHit, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_targetEffect, "TargetEffect", this.m_targetEffect, true);
-		base.AddTokenInt(tokens, "CooldownOnHit", string.Empty, this.m_cooldownOnHit, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_chaserEffect, "ChaserEffect", this.m_chaserEffect, true);
-		base.AddTokenInt(tokens, "MaxBounces", string.Empty, this.m_maxBounces, false);
-		base.AddTokenInt(tokens, "MaxTargetsHit", string.Empty, this.m_maxTargetsHit, false);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, m_damageAmount);
+		AddTokenInt(tokens, "DamageAfterFirstHit", string.Empty, m_damageAfterFirstHit);
+		AbilityMod.AddToken_EffectInfo(tokens, m_targetEffect, "TargetEffect", m_targetEffect);
+		AddTokenInt(tokens, "CooldownOnHit", string.Empty, m_cooldownOnHit);
+		AbilityMod.AddToken_EffectInfo(tokens, m_chaserEffect, "ChaserEffect", m_chaserEffect);
+		AddTokenInt(tokens, "MaxBounces", string.Empty, m_maxBounces);
+		AddTokenInt(tokens, "MaxTargetsHit", string.Empty, m_maxTargetsHit);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_BattleMonkBoundingLeap))
+		if (abilityMod.GetType() != typeof(AbilityMod_BattleMonkBoundingLeap))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBoundingLeap.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_BattleMonkBoundingLeap);
-			this.SetupTargeter();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_BattleMonkBoundingLeap);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 }

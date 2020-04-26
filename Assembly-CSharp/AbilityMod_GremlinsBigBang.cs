@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,205 +35,118 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		GremlinsBigBang gremlinsBigBang = targetAbility as GremlinsBigBang;
-		if (gremlinsBigBang != null)
+		if (!(gremlinsBigBang != null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsBigBang.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_knockbackDistanceMod, "KnockbackDist", string.Empty, gremlinsBigBang.m_knockbackDistance, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_knockbackDistanceIfSingleTarget, "KnockbackDist_SingleTarget", string.Empty, gremlinsBigBang.m_knockbackDistance, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamagePerTarget, "Damage_ExtraPerTarget", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageIfSingleTarget, "Damage_SingleTarget", string.Empty, gremlinsBigBang.m_bombDamageAmount, true, false);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_knockbackDistanceMod, "KnockbackDist", string.Empty, gremlinsBigBang.m_knockbackDistance);
+			AbilityMod.AddToken(tokens, m_knockbackDistanceIfSingleTarget, "KnockbackDist_SingleTarget", string.Empty, gremlinsBigBang.m_knockbackDistance);
+			AbilityMod.AddToken(tokens, m_extraDamagePerTarget, "Damage_ExtraPerTarget", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_damageIfSingleTarget, "Damage_SingleTarget", string.Empty, gremlinsBigBang.m_bombDamageAmount);
 			GremlinsLandMineInfoComponent component = gremlinsBigBang.GetComponent<GremlinsLandMineInfoComponent>();
 			if (component != null)
 			{
-				AbilityMod.AddToken(tokens, this.m_mineDamageMod, "Damage", string.Empty, component.m_damageAmount, true, false);
-				AbilityMod.AddToken(tokens, this.m_mineDurationMod, "MineDuration", string.Empty, component.m_mineDuration, true, false);
-				AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemyOverride, "EffectOnEnemyHit", component.m_enemyHitEffect, true);
-				AbilityMod.AddToken(tokens, this.m_energyOnMineExplosionMod, "EnergyOnExplosion", string.Empty, component.m_energyGainOnExplosion, true, false);
+				AbilityMod.AddToken(tokens, m_mineDamageMod, "Damage", string.Empty, component.m_damageAmount);
+				AbilityMod.AddToken(tokens, m_mineDurationMod, "MineDuration", string.Empty, component.m_mineDuration);
+				AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemyOverride, "EffectOnEnemyHit", component.m_enemyHitEffect);
+				AbilityMod.AddToken(tokens, m_energyOnMineExplosionMod, "EnergyOnExplosion", string.Empty, component.m_energyGainOnExplosion);
 			}
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		GremlinsBigBang gremlinsBigBang = base.GetTargetAbilityOnAbilityData(abilityData) as GremlinsBigBang;
-		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent;
+		GremlinsBigBang gremlinsBigBang = GetTargetAbilityOnAbilityData(abilityData) as GremlinsBigBang;
+		object obj;
 		if (gremlinsBigBang != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsBigBang.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			gremlinsLandMineInfoComponent = gremlinsBigBang.GetComponent<GremlinsLandMineInfoComponent>();
+			obj = gremlinsBigBang.GetComponent<GremlinsLandMineInfoComponent>();
 		}
 		else
 		{
-			gremlinsLandMineInfoComponent = null;
+			obj = null;
 		}
-		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent2 = gremlinsLandMineInfoComponent;
-		bool flag = gremlinsLandMineInfoComponent2 != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyShape bombShape = this.m_bombShape;
-		string prefix = "[Bomb Shape]";
-		bool showBaseVal = flag;
-		AbilityAreaShape baseVal;
+		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent = (GremlinsLandMineInfoComponent)obj;
+		bool flag = gremlinsLandMineInfoComponent != null;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyShape bombShape = m_bombShape;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal = gremlinsBigBang.m_bombShape;
+			baseVal = (int)gremlinsBigBang.m_bombShape;
 		}
 		else
 		{
-			baseVal = AbilityAreaShape.SingleSquare;
+			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(bombShape, prefix, showBaseVal, baseVal);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_knockbackShape, "[Knockback Shape]", flag, (!flag) ? AbilityAreaShape.SingleSquare : gremlinsBigBang.m_knockbackShape);
-		text += base.PropDesc(this.m_knockbackDistanceMod, "[KnockbackDistance]", flag, (!flag) ? 0f : gremlinsBigBang.m_knockbackDistance);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_extraDamagePerTarget, "[Extra Damage Per Target]", flag, 0);
-		string str2 = text;
-		AbilityModPropertyInt damageIfSingleTarget = this.m_damageIfSingleTarget;
-		string prefix2 = "[Damage If Single Target]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(bombShape, "[Bomb Shape]", flag, (AbilityAreaShape)baseVal);
+		empty += AbilityModHelper.GetModPropertyDesc(m_knockbackShape, "[Knockback Shape]", flag, flag ? gremlinsBigBang.m_knockbackShape : AbilityAreaShape.SingleSquare);
+		empty += PropDesc(m_knockbackDistanceMod, "[KnockbackDistance]", flag, (!flag) ? 0f : gremlinsBigBang.m_knockbackDistance);
+		empty += AbilityModHelper.GetModPropertyDesc(m_extraDamagePerTarget, "[Extra Damage Per Target]", flag);
+		string str2 = empty;
+		AbilityModPropertyInt damageIfSingleTarget = m_damageIfSingleTarget;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = gremlinsBigBang.m_bombDamageAmount;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(damageIfSingleTarget, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyFloat knockbackDistanceIfSingleTarget = this.m_knockbackDistanceIfSingleTarget;
-		string prefix3 = "[Knockback Distance If Single Target]";
-		bool showBaseVal3 = flag;
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(damageIfSingleTarget, "[Damage If Single Target]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyFloat knockbackDistanceIfSingleTarget = m_knockbackDistanceIfSingleTarget;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = gremlinsBigBang.m_knockbackDistance;
 		}
 		else
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + AbilityModHelper.GetModPropertyDesc(knockbackDistanceIfSingleTarget, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt mineDamageMod = this.m_mineDamageMod;
-		string prefix4 = "[Mine Damage]";
-		bool showBaseVal4 = flag;
+		empty = str3 + AbilityModHelper.GetModPropertyDesc(knockbackDistanceIfSingleTarget, "[Knockback Distance If Single Target]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyInt mineDamageMod = m_mineDamageMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal4 = gremlinsLandMineInfoComponent2.m_damageAmount;
+			baseVal4 = gremlinsLandMineInfoComponent.m_damageAmount;
 		}
 		else
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + AbilityModHelper.GetModPropertyDesc(mineDamageMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt mineDurationMod = this.m_mineDurationMod;
-		string prefix5 = "[Mine Duration]";
-		bool showBaseVal5 = flag;
+		empty = str4 + AbilityModHelper.GetModPropertyDesc(mineDamageMod, "[Mine Damage]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyInt mineDurationMod = m_mineDurationMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal5 = gremlinsLandMineInfoComponent2.m_mineDuration;
+			baseVal5 = gremlinsLandMineInfoComponent.m_mineDuration;
 		}
 		else
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + AbilityModHelper.GetModPropertyDesc(mineDurationMod, prefix5, showBaseVal5, baseVal5);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_effectOnEnemyOverride, "{ Effect on Enemy Hit Override }", flag, (!flag) ? null : gremlinsLandMineInfoComponent2.m_enemyHitEffect);
-		string str6 = text;
-		AbilityModPropertyInt energyOnMineExplosionMod = this.m_energyOnMineExplosionMod;
-		string prefix6 = "[Energy Gain on Mine Explosion (on splort and mines left behind from primary/ult)]";
-		bool showBaseVal6 = flag;
+		empty = str5 + AbilityModHelper.GetModPropertyDesc(mineDurationMod, "[Mine Duration]", flag, baseVal5);
+		empty += AbilityModHelper.GetModPropertyDesc(m_effectOnEnemyOverride, "{ Effect on Enemy Hit Override }", flag, (!flag) ? null : gremlinsLandMineInfoComponent.m_enemyHitEffect);
+		string str6 = empty;
+		AbilityModPropertyInt energyOnMineExplosionMod = m_energyOnMineExplosionMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal6 = gremlinsLandMineInfoComponent2.m_energyGainOnExplosion;
+			baseVal6 = gremlinsLandMineInfoComponent.m_energyGainOnExplosion;
 		}
 		else
 		{
 			baseVal6 = 0;
 		}
-		return str6 + AbilityModHelper.GetModPropertyDesc(energyOnMineExplosionMod, prefix6, showBaseVal6, baseVal6);
+		return str6 + AbilityModHelper.GetModPropertyDesc(energyOnMineExplosionMod, "[Energy Gain on Mine Explosion (on splort and mines left behind from primary/ult)]", flag, baseVal6);
 	}
 }

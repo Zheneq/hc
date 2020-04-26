@@ -1,9 +1,7 @@
-﻿using System;
-
 public enum GraphicsQuality
 {
-	VeryLow = -0xA,
+	VeryLow = -10,
 	Low = 0,
-	Medium,
-	High
+	Medium = 1,
+	High = 2
 }

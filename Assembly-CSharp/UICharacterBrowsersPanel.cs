@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -34,174 +33,112 @@ public class UICharacterBrowsersPanel : MonoBehaviour
 
 	public void Setup(CharacterType characterType, MonoBehaviour defaultPanel)
 	{
-		this.m_characterType = characterType;
-		this.m_closeBtn.m_soundToPlay = FrontEndButtonSounds.Close;
-		this.SetupPanel(this.m_generalBrowserPanel, this.m_generalButton, characterType);
-		this.SetupPanel(this.m_skinBrowserPanel, this.m_skinButton, characterType);
-		this.SetupPanel(this.m_modsBrowserPanel, this.m_modsButton, characterType);
-		this.SetupPanel(this.m_tauntBrowserPanel, this.m_tauntButton, characterType);
-		this.ShowPanel(defaultPanel, characterType);
-		UIEventTriggerUtils.AddListener(this.m_modelHitbox.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.HighlightCharacter));
-		UIEventTriggerUtils.AddListener(this.m_modelHitbox.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.UnhighlightCharacter));
+		m_characterType = characterType;
+		m_closeBtn.m_soundToPlay = FrontEndButtonSounds.Close;
+		SetupPanel(m_generalBrowserPanel, m_generalButton, characterType);
+		SetupPanel(m_skinBrowserPanel, m_skinButton, characterType);
+		SetupPanel(m_modsBrowserPanel, m_modsButton, characterType);
+		SetupPanel(m_tauntBrowserPanel, m_tauntButton, characterType);
+		ShowPanel(defaultPanel, characterType);
+		UIEventTriggerUtils.AddListener(m_modelHitbox.gameObject, EventTriggerType.PointerEnter, HighlightCharacter);
+		UIEventTriggerUtils.AddListener(m_modelHitbox.gameObject, EventTriggerType.PointerExit, UnhighlightCharacter);
 	}
 
 	private void SetupPanel(MonoBehaviour panel, _SelectableBtn button, CharacterType characterType)
 	{
-		if (!(panel == null))
+		if (panel == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterBrowsersPanel.SetupPanel(MonoBehaviour, _SelectableBtn, CharacterType)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (!(button == null))
 			{
-				this.m_buttons.Add(button);
-				this.m_browserPanels.Add(panel);
-				button.spriteController.callback = delegate(BaseEventData data)
+				m_buttons.Add(button);
+				m_browserPanels.Add(panel);
+				button.spriteController.callback = delegate
 				{
-					this.ShowPanel(panel, characterType);
+					ShowPanel(panel, characterType);
 				};
-				return;
 			}
+			return;
 		}
 	}
 
 	private void ShowPanel(MonoBehaviour panel, CharacterType characterType)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.PlayCategorySelect);
-		for (int i = 0; i < this.m_browserPanels.Count; i++)
+		for (int i = 0; i < m_browserPanels.Count; i++)
 		{
-			if (this.m_browserPanels[i] != panel)
+			if (m_browserPanels[i] != panel)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterBrowsersPanel.ShowPanel(MonoBehaviour, CharacterType)).MethodHandle;
-				}
-				UIManager.SetGameObjectActive(this.m_browserPanels[i], false, null);
-				this.m_buttons[i].SetSelected(false, false, string.Empty, string.Empty);
+				UIManager.SetGameObjectActive(m_browserPanels[i], false);
+				m_buttons[i].SetSelected(false, false, string.Empty, string.Empty);
 			}
 			else
 			{
-				this.m_buttons[i].SetSelected(true, false, string.Empty, string.Empty);
+				m_buttons[i].SetSelected(true, false, string.Empty, string.Empty);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
+			if (panel == m_skinBrowserPanel)
 			{
-			case 0:
-				continue;
+				PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(characterType);
+				(panel as UISkinBrowserPanel).Setup(characterType, playerCharacterData.CharacterComponent.LastSkin);
 			}
-			break;
-		}
-		if (panel == this.m_skinBrowserPanel)
-		{
-			for (;;)
+			else if (panel == m_generalBrowserPanel)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				(panel as UICharacterGeneralPanel).Setup(characterType);
 			}
-			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(characterType);
-			(panel as UISkinBrowserPanel).Setup(characterType, playerCharacterData.CharacterComponent.LastSkin);
-		}
-		else if (panel == this.m_generalBrowserPanel)
-		{
-			for (;;)
+			else if (panel == m_modsBrowserPanel)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				(panel as UICharacterAbilitiesPanel).Setup(characterType);
 			}
-			(panel as UICharacterGeneralPanel).Setup(characterType);
-		}
-		else if (panel == this.m_modsBrowserPanel)
-		{
-			(panel as UICharacterAbilitiesPanel).Setup(characterType);
-		}
-		else if (panel == this.m_tauntBrowserPanel)
-		{
-			for (;;)
+			else if (panel == m_tauntBrowserPanel)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				(panel as UICharacterTauntsPanel).Setup(characterType);
 			}
-			(panel as UICharacterTauntsPanel).Setup(characterType);
+			UIManager.SetGameObjectActive(panel, true);
+			return;
 		}
-		UIManager.SetGameObjectActive(panel, true, null);
 	}
 
 	public CharacterType GetCharacterType()
 	{
-		return this.m_characterType;
+		return m_characterType;
 	}
 
 	public void SetVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(base.gameObject, visible, null);
-		UICharacterStoreAndProgressWorldObjects uicharacterStoreAndProgressWorldObjects = UICharacterStoreAndProgressWorldObjects.Get();
-		if (uicharacterStoreAndProgressWorldObjects != null)
+		UIManager.SetGameObjectActive(base.gameObject, visible);
+		UICharacterStoreAndProgressWorldObjects uICharacterStoreAndProgressWorldObjects = UICharacterStoreAndProgressWorldObjects.Get();
+		if (!(uICharacterStoreAndProgressWorldObjects != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterBrowsersPanel.SetVisible(bool)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (visible)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						CharacterVisualInfo lastSkin = ClientGameManager.Get().GetPlayerCharacterData(m_characterType).CharacterComponent.LastSkin;
+						uICharacterStoreAndProgressWorldObjects.LoadCharacterIntoSlot(m_characterType, 0, string.Empty, lastSkin, false);
+						uICharacterStoreAndProgressWorldObjects.SetVisible(true);
+						return;
 					}
-					break;
+					}
 				}
-				CharacterVisualInfo lastSkin = ClientGameManager.Get().GetPlayerCharacterData(this.m_characterType).CharacterComponent.LastSkin;
-				uicharacterStoreAndProgressWorldObjects.LoadCharacterIntoSlot(this.m_characterType, 0, string.Empty, lastSkin, false);
-				uicharacterStoreAndProgressWorldObjects.SetVisible(true);
 			}
-			else
-			{
-				uicharacterStoreAndProgressWorldObjects.SetVisible(false);
-			}
+			uICharacterStoreAndProgressWorldObjects.SetVisible(false);
+			return;
 		}
 	}
 

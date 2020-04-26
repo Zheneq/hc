@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 
 public class ProcessManager
@@ -7,126 +7,85 @@ public class ProcessManager
 
 	private string m_hostCode;
 
+	public int TimeCode
+	{
+		get;
+		set;
+	}
+
 	public ProcessManager()
 	{
-		ProcessManager.s_instance = this;
+		s_instance = this;
 	}
 
 	public static ProcessManager Get()
 	{
-		if (ProcessManager.s_instance == null)
+		if (s_instance == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessManager.Get()).MethodHandle;
-			}
-			ProcessManager.s_instance = new ProcessManager();
+			s_instance = new ProcessManager();
 		}
-		return ProcessManager.s_instance;
+		return s_instance;
 	}
 
 	~ProcessManager()
 	{
-		ProcessManager.s_instance = null;
+		s_instance = null;
 	}
-
-	public int TimeCode { get; set; }
 
 	public string GetHostCode(IPAddress address)
 	{
 		byte[] addressBytes = address.GetAddressBytes();
-		return string.Format("{0:x2}{1:x2}{2:x2}{3:x2}", new object[]
-		{
-			addressBytes[0],
-			addressBytes[1],
-			addressBytes[2],
-			addressBytes[3]
-		});
+		return $"{addressBytes[0]:x2}{addressBytes[1]:x2}{addressBytes[2]:x2}{addressBytes[3]:x2}";
 	}
 
 	public string GetHostCode(bool useFallbackResolver = false)
 	{
-		if (this.m_hostCode == null)
+		if (m_hostCode == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessManager.GetHostCode(bool)).MethodHandle;
-			}
-			IPAddress address = null;
+			IPAddress iPAddress = null;
 			try
 			{
-				address = NetUtil.GetIPv4Address(NetUtil.GetHostName());
+				iPAddress = NetUtil.GetIPv4Address(NetUtil.GetHostName());
 			}
 			catch (Exception ex)
 			{
 				Log.Exception(ex);
-				if (!useFallbackResolver)
+				if (useFallbackResolver)
 				{
-					throw ex;
-				}
-				for (;;)
-				{
-					switch (5)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (5)
+						{
+						case 0:
+							break;
+						default:
+							iPAddress = IPAddress.Loopback;
+							goto end_IL_002c;
+						}
 					}
-					break;
 				}
-				address = IPAddress.Loopback;
+				throw ex;
+				end_IL_002c:;
 			}
-			this.m_hostCode = this.GetHostCode(address);
+			m_hostCode = GetHostCode(iPAddress);
 		}
-		return this.m_hostCode;
+		return m_hostCode;
 	}
 
 	public string GetNextTimeCode()
 	{
-		string result;
 		lock (this)
 		{
-			int num = (int)DateTime.UtcNow.Subtract(new DateTime(0x7B2, 1, 1)).TotalSeconds;
-			if (num <= this.TimeCode)
+			int num = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+			if (num <= TimeCode)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessManager.GetNextTimeCode()).MethodHandle;
-				}
-				num = this.TimeCode + 1;
+				num = TimeCode + 1;
 			}
-			this.TimeCode = num;
-			int num2 = num >> 0x10;
+			TimeCode = num;
+			int num2 = num >> 16;
 			int num3 = num & 0xFFFF;
-			result = string.Format("{0:x}-{1:x4}", num2, num3);
+			return $"{num2:x}-{num3:x4}";
 		}
-		return result;
 	}
 
 	public string GetNextProcessCode(IPAddress host = null, bool useFallbackResolver = false)
@@ -134,26 +93,13 @@ public class ProcessManager
 		string hostCode;
 		if (host != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessManager.GetNextProcessCode(IPAddress, bool)).MethodHandle;
-			}
-			hostCode = this.GetHostCode(host);
+			hostCode = GetHostCode(host);
 		}
 		else
 		{
-			hostCode = this.GetHostCode(useFallbackResolver);
+			hostCode = GetHostCode(useFallbackResolver);
 		}
 		string arg = hostCode;
-		return string.Format("{0}-{1}", arg, this.GetNextTimeCode());
+		return $"{arg}-{GetNextTimeCode()}";
 	}
 }

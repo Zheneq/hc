@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,19 +29,19 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 
 	public static UI_CTF_BriefcasePanel Get()
 	{
-		return UI_CTF_BriefcasePanel.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		UI_CTF_BriefcasePanel.s_instance = this;
-		UIManager.SetGameObjectActive(this.m_container, false, null);
-		this.m_briefcaseHitbox.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BriefcaseBoxClicked);
+		s_instance = this;
+		UIManager.SetGameObjectActive(m_container, false);
+		m_briefcaseHitbox.spriteController.callback = BriefcaseBoxClicked;
 	}
 
 	public void BriefcaseBoxClicked(BaseEventData data)
 	{
-		this.CenterCameraToFlagCarrier();
+		CenterCameraToFlagCarrier();
 	}
 
 	public bool UpdateDamageForFlagHolder(float currentDamage, float thresholdDamage)
@@ -50,109 +49,77 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		ActorData mainFlagCarrier_Client = CaptureTheFlag.GetMainFlagCarrier_Client();
 		if (mainFlagCarrier_Client != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					float num = thresholdDamage - currentDamage;
+					if (num < 0f)
+					{
+						num = 0f;
+					}
+					string text = $"{num}/{thresholdDamage}";
+					float num2 = num / thresholdDamage;
+					for (int i = 0; i < m_briefcaseLimitText.Length; i++)
+					{
+						m_briefcaseLimitText[i].text = text;
+					}
+					for (int j = 0; j < m_briefcaseFillAmount.Length; j++)
+					{
+						m_briefcaseFillAmount[j].fillAmount = num2;
+					}
+					HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.UpdateBriefcaseThreshold(mainFlagCarrier_Client, num2);
+					return true;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.UpdateDamageForFlagHolder(float, float)).MethodHandle;
-			}
-			float num = thresholdDamage - currentDamage;
-			if (num < 0f)
-			{
-				num = 0f;
-			}
-			string text = string.Format("{0}/{1}", num, thresholdDamage);
-			float num2 = num / thresholdDamage;
-			for (int i = 0; i < this.m_briefcaseLimitText.Length; i++)
-			{
-				this.m_briefcaseLimitText[i].text = text;
-			}
-			for (int j = 0; j < this.m_briefcaseFillAmount.Length; j++)
-			{
-				this.m_briefcaseFillAmount[j].fillAmount = num2;
-			}
-			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.UpdateBriefcaseThreshold(mainFlagCarrier_Client, num2);
-			return true;
 		}
 		return false;
 	}
 
 	public void UpdateFlagHolder(ActorData oldHolder, ActorData newHolder)
 	{
-		this.CheckFlagCarrierStatus(newHolder);
-		if (HUD_UI.Get() != null)
+		CheckFlagCarrierStatus(newHolder);
+		if (!(HUD_UI.Get() != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.UpdateFlagHolder(ActorData, ActorData)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.NotifyFlagStatusChange(newHolder, newHolder != null);
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.NotifyFlagStatusChange(oldHolder, false);
+			return;
 		}
 	}
 
 	private void SetFlagCarrierSprite(ActorData data)
 	{
-		for (int i = 0; i < this.m_freelancerImages.Length; i++)
+		for (int i = 0; i < m_freelancerImages.Length; i++)
 		{
-			this.m_freelancerImages[i].sprite = data.\u000E();
+			m_freelancerImages[i].sprite = data.GetAliveHUDIcon();
 		}
-		for (;;)
+		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.SetFlagCarrierSprite(ActorData)).MethodHandle;
+			return;
 		}
 	}
 
 	private bool TeamsMatchForCase(Team selfTeam, Team targetTeam)
 	{
-		bool result;
+		int result;
 		if (selfTeam != targetTeam)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.TeamsMatchForCase(Team, Team)).MethodHandle;
-			}
-			result = (selfTeam == Team.Invalid && targetTeam == Team.TeamA);
+			result = ((selfTeam == Team.Invalid && targetTeam == Team.TeamA) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private void CheckFlagCarrierStatus(ActorData flagCarrier)
@@ -161,176 +128,117 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		bool flag2;
 		if (flagCarrier != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.CheckFlagCarrierStatus(ActorData)).MethodHandle;
-			}
-			this.SetFlagCarrierSprite(flagCarrier);
+			SetFlagCarrierSprite(flagCarrier);
 			if (!(GameFlowData.Get() == null))
 			{
-				for (;;)
+				if (!(GameFlowData.Get().LocalPlayerData == null))
 				{
-					switch (3)
+					if (TeamsMatchForCase(GameFlowData.Get().LocalPlayerData.GetTeamViewing(), flagCarrier.GetTeam()))
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (GameFlowData.Get().LocalPlayerData == null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
-				{
-					if (this.TeamsMatchForCase(GameFlowData.Get().LocalPlayerData.GetTeamViewing(), flagCarrier.\u000E()))
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 						flag2 = false;
-						goto IL_CF;
 					}
-					if (this.TeamsMatchForCase(GameFlowData.Get().LocalPlayerData.GetTeamViewing(), flagCarrier.\u0012()))
+					else if (TeamsMatchForCase(GameFlowData.Get().LocalPlayerData.GetTeamViewing(), flagCarrier.GetOpposingTeam()))
 					{
 						flag = false;
 						flag2 = true;
-						goto IL_CF;
 					}
-					flag = false;
-					flag2 = false;
-					goto IL_CF;
+					else
+					{
+						flag = false;
+						flag2 = false;
+					}
+					goto IL_00d5;
 				}
 			}
 			flag = false;
 			flag2 = false;
-			IL_CF:;
 		}
 		else
 		{
 			flag = false;
 			flag2 = false;
 		}
+		goto IL_00d5;
+		IL_00d5:
 		if (flag)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIManager.SetGameObjectActive(m_neutralContainer, false);
+					UIManager.SetGameObjectActive(m_redContainer, false);
+					UIManager.SetGameObjectActive(m_blueContainer, true);
+					m_blueContainer.Play("BriefcaseUIDefaultIN");
+					return;
 				}
-				break;
 			}
-			UIManager.SetGameObjectActive(this.m_neutralContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_redContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_blueContainer, true, null);
-			this.m_blueContainer.Play("BriefcaseUIDefaultIN");
 		}
-		else if (flag2)
+		if (flag2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIManager.SetGameObjectActive(m_neutralContainer, false);
+					UIManager.SetGameObjectActive(m_redContainer, true);
+					UIManager.SetGameObjectActive(m_blueContainer, false);
+					m_redContainer.Play("BriefcaseUIDefaultIN");
+					return;
 				}
-				break;
 			}
-			UIManager.SetGameObjectActive(this.m_neutralContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_redContainer, true, null);
-			UIManager.SetGameObjectActive(this.m_blueContainer, false, null);
-			this.m_redContainer.Play("BriefcaseUIDefaultIN");
 		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_neutralContainer, true, null);
-			this.m_redContainer.Play("BriefcaseUIDefaultOUT");
-			this.m_blueContainer.Play("BriefcaseUIDefaultOUT");
-		}
+		UIManager.SetGameObjectActive(m_neutralContainer, true);
+		m_redContainer.Play("BriefcaseUIDefaultOUT");
+		m_blueContainer.Play("BriefcaseUIDefaultOUT");
 	}
 
 	public void Setup(CaptureTheFlag ctfInfo)
 	{
-		if (this.m_initialized)
+		if (m_initialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.Setup(CaptureTheFlag)).MethodHandle;
-			}
-			return;
 		}
-		UIManager.SetGameObjectActive(this.m_container, true, null);
+		UIManager.SetGameObjectActive(m_container, true);
 		ActorData mainFlagCarrier_Client = CaptureTheFlag.GetMainFlagCarrier_Client();
-		this.CheckFlagCarrierStatus(mainFlagCarrier_Client);
-		this.m_initialized = true;
+		CheckFlagCarrierStatus(mainFlagCarrier_Client);
+		m_initialized = true;
 	}
 
 	public void CenterCameraToFlagCarrier()
 	{
 		ActorData mainFlagCarrier_Client = CaptureTheFlag.GetMainFlagCarrier_Client();
-		if (CameraManager.Get() != null)
+		if (!(CameraManager.Get() != null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.CenterCameraToFlagCarrier()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (mainFlagCarrier_Client != null)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					CameraManager.Get().SetTargetObject(mainFlagCarrier_Client.gameObject, CameraManager.CameraTargetReason.UserFocusingOnActor);
+					return;
 				}
-				CameraManager.Get().SetTargetObject(mainFlagCarrier_Client.gameObject, CameraManager.CameraTargetReason.UserFocusingOnActor);
 			}
+			return;
 		}
 	}
 }

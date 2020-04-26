@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,213 +43,124 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ValkyrieStab valkyrieStab = targetAbility as ValkyrieStab;
-		if (valkyrieStab != null)
+		if (!(valkyrieStab != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieStab.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_coneWidthMinAngleMod, "ConeWidthMinAngle", string.Empty, valkyrieStab.m_coneWidthMinAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneWidthMaxAngleMod, "ConeWidthMaxAngle", string.Empty, valkyrieStab.m_coneWidthMaxAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, valkyrieStab.m_coneBackwardOffset, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneMinLengthMod, "ConeMinLength", string.Empty, valkyrieStab.m_coneMinLength, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneMaxLengthMod, "ConeMaxLength", string.Empty, valkyrieStab.m_coneMaxLength, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxTargetsMod, "MaxTargets", string.Empty, valkyrieStab.m_maxTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, valkyrieStab.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_lessDamagePerTargetMod, "LessDamagePerTarget", string.Empty, valkyrieStab.m_lessDamagePerTarget, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageOnSpearTip, "ExtraDamageOnSpearTip", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageFirstTarget, "ExtraDamageFirstTarget", string.Empty, 0, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_targetHitEffectMod, "TargetHitEffect", valkyrieStab.m_targetHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_perHitExtraAbsorbNextShieldBlock, "PerHitExtraAbsorbNextShieldBlock", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxExtraAbsorbNextShieldBlock, "MaxExtraAbsorbNextShieldBlock", string.Empty, 0, true, false);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_coneWidthMinAngleMod, "ConeWidthMinAngle", string.Empty, valkyrieStab.m_coneWidthMinAngle);
+			AbilityMod.AddToken(tokens, m_coneWidthMaxAngleMod, "ConeWidthMaxAngle", string.Empty, valkyrieStab.m_coneWidthMaxAngle);
+			AbilityMod.AddToken(tokens, m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, valkyrieStab.m_coneBackwardOffset);
+			AbilityMod.AddToken(tokens, m_coneMinLengthMod, "ConeMinLength", string.Empty, valkyrieStab.m_coneMinLength);
+			AbilityMod.AddToken(tokens, m_coneMaxLengthMod, "ConeMaxLength", string.Empty, valkyrieStab.m_coneMaxLength);
+			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, valkyrieStab.m_maxTargets);
+			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, valkyrieStab.m_damageAmount);
+			AbilityMod.AddToken(tokens, m_lessDamagePerTargetMod, "LessDamagePerTarget", string.Empty, valkyrieStab.m_lessDamagePerTarget);
+			AbilityMod.AddToken(tokens, m_extraDamageOnSpearTip, "ExtraDamageOnSpearTip", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_extraDamageFirstTarget, "ExtraDamageFirstTarget", string.Empty, 0);
+			AbilityMod.AddToken_EffectMod(tokens, m_targetHitEffectMod, "TargetHitEffect", valkyrieStab.m_targetHitEffect);
+			AbilityMod.AddToken(tokens, m_perHitExtraAbsorbNextShieldBlock, "PerHitExtraAbsorbNextShieldBlock", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_maxExtraAbsorbNextShieldBlock, "MaxExtraAbsorbNextShieldBlock", string.Empty, 0);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ValkyrieStab valkyrieStab = base.GetTargetAbilityOnAbilityData(abilityData) as ValkyrieStab;
+		ValkyrieStab valkyrieStab = GetTargetAbilityOnAbilityData(abilityData) as ValkyrieStab;
 		bool flag = valkyrieStab != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat coneWidthMinAngleMod = this.m_coneWidthMinAngleMod;
-		string prefix = "[ConeWidthMinAngle]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat coneWidthMinAngleMod = m_coneWidthMinAngleMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieStab.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = valkyrieStab.m_coneWidthMinAngle;
 		}
 		else
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(coneWidthMinAngleMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat coneWidthMaxAngleMod = this.m_coneWidthMaxAngleMod;
-		string prefix2 = "[ConeWidthMaxAngle]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(coneWidthMinAngleMod, "[ConeWidthMinAngle]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat coneWidthMaxAngleMod = m_coneWidthMaxAngleMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = valkyrieStab.m_coneWidthMaxAngle;
 		}
 		else
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(coneWidthMaxAngleMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_coneBackwardOffsetMod, "[ConeBackwardOffset]", flag, (!flag) ? 0f : valkyrieStab.m_coneBackwardOffset);
-		string str3 = text;
-		AbilityModPropertyFloat coneMinLengthMod = this.m_coneMinLengthMod;
-		string prefix3 = "[ConeMinLength]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(coneWidthMaxAngleMod, "[ConeWidthMaxAngle]", flag, baseVal2);
+		empty += PropDesc(m_coneBackwardOffsetMod, "[ConeBackwardOffset]", flag, (!flag) ? 0f : valkyrieStab.m_coneBackwardOffset);
+		string str3 = empty;
+		AbilityModPropertyFloat coneMinLengthMod = m_coneMinLengthMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = valkyrieStab.m_coneMinLength;
 		}
 		else
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(coneMinLengthMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyFloat coneMaxLengthMod = this.m_coneMaxLengthMod;
-		string prefix4 = "[ConeMaxLength]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(coneMinLengthMod, "[ConeMinLength]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyFloat coneMaxLengthMod = m_coneMaxLengthMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = valkyrieStab.m_coneMaxLength;
 		}
 		else
 		{
 			baseVal4 = 0f;
 		}
-		text = str4 + base.PropDesc(coneMaxLengthMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_penetrateLineOfSightMod, "[PenetrateLineOfSight]", flag, flag && valkyrieStab.m_penetrateLineOfSight);
-		string str5 = text;
-		AbilityModPropertyInt maxTargetsMod = this.m_maxTargetsMod;
-		string prefix5 = "[MaxTargets]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(coneMaxLengthMod, "[ConeMaxLength]", flag, baseVal4);
+		empty += PropDesc(m_penetrateLineOfSightMod, "[PenetrateLineOfSight]", flag, flag && valkyrieStab.m_penetrateLineOfSight);
+		string str5 = empty;
+		AbilityModPropertyInt maxTargetsMod = m_maxTargetsMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = valkyrieStab.m_maxTargets;
 		}
 		else
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(maxTargetsMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt damageAmountMod = this.m_damageAmountMod;
-		string prefix6 = "[DamageAmount]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(maxTargetsMod, "[MaxTargets]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt damageAmountMod = m_damageAmountMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = valkyrieStab.m_damageAmount;
 		}
 		else
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(damageAmountMod, prefix6, showBaseVal6, baseVal6);
-		text += base.PropDesc(this.m_lessDamagePerTargetMod, "[LessDamagePerTarget]", flag, (!flag) ? 0 : valkyrieStab.m_lessDamagePerTarget);
-		text += base.PropDesc(this.m_extraDamageOnSpearTip, "[ExtraDamageOnSpearTip]", flag, 0);
-		text += base.PropDesc(this.m_extraDamageFirstTarget, "[ExtraDamageFirstTarget]", flag, 0);
-		string str7 = text;
-		AbilityModPropertyEffectInfo targetHitEffectMod = this.m_targetHitEffectMod;
-		string prefix7 = "[TargetHitEffect]";
-		bool showBaseVal7 = flag;
-		StandardEffectInfo baseVal7;
+		empty = str6 + PropDesc(damageAmountMod, "[DamageAmount]", flag, baseVal6);
+		empty += PropDesc(m_lessDamagePerTargetMod, "[LessDamagePerTarget]", flag, flag ? valkyrieStab.m_lessDamagePerTarget : 0);
+		empty += PropDesc(m_extraDamageOnSpearTip, "[ExtraDamageOnSpearTip]", flag);
+		empty += PropDesc(m_extraDamageFirstTarget, "[ExtraDamageFirstTarget]", flag);
+		string str7 = empty;
+		AbilityModPropertyEffectInfo targetHitEffectMod = m_targetHitEffectMod;
+		object baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = valkyrieStab.m_targetHitEffect;
 		}
 		else
 		{
 			baseVal7 = null;
 		}
-		text = str7 + base.PropDesc(targetHitEffectMod, prefix7, showBaseVal7, baseVal7);
-		text += base.PropDesc(this.m_perHitExtraAbsorbNextShieldBlock, "[PerHitExtraAbsorbNextShieldBlock]", flag, 0);
-		return text + base.PropDesc(this.m_maxExtraAbsorbNextShieldBlock, "[MaxExtraAbsorbNextShieldBlock]", flag, 0);
+		empty = str7 + PropDesc(targetHitEffectMod, "[TargetHitEffect]", flag, (StandardEffectInfo)baseVal7);
+		empty += PropDesc(m_perHitExtraAbsorbNextShieldBlock, "[PerHitExtraAbsorbNextShieldBlock]", flag);
+		return empty + PropDesc(m_maxExtraAbsorbNextShieldBlock, "[MaxExtraAbsorbNextShieldBlock]", flag);
 	}
 }

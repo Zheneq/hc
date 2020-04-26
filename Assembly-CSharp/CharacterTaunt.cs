@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class CharacterTaunt
@@ -20,140 +20,72 @@ public class CharacterTaunt
 
 	public GameBalanceVars.TauntUnlockData m_tauntUnlockData;
 
-	public int \u001D()
+	public int _001D()
 	{
 		int result = 0;
-		if (this.m_tauntUnlockData != null && this.m_tauntUnlockData.m_unlockData != null && this.m_tauntUnlockData.m_unlockData.UnlockConditions != null)
+		if (m_tauntUnlockData != null && m_tauntUnlockData.m_unlockData != null && m_tauntUnlockData.m_unlockData.UnlockConditions != null)
 		{
-			for (;;)
+			GameBalanceVars.UnlockCondition[] unlockConditions = m_tauntUnlockData.m_unlockData.UnlockConditions;
+			foreach (GameBalanceVars.UnlockCondition unlockCondition in unlockConditions)
 			{
-				switch (2)
+				if (unlockCondition.ConditionType != GameBalanceVars.UnlockData.UnlockType.Purchase)
 				{
-				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterTaunt.\u001D()).MethodHandle;
-			}
-			foreach (GameBalanceVars.UnlockCondition unlockCondition in this.m_tauntUnlockData.m_unlockData.UnlockConditions)
-			{
-				if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.Purchase)
+				while (true)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return unlockCondition.typeSpecificData2;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
 	}
 
-	public int \u000E()
+	public int _000E()
 	{
-		if (this.m_tauntUnlockData != null)
+		if (m_tauntUnlockData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterTaunt.\u000E()).MethodHandle;
-			}
-			InventoryItemRarity rarity = this.m_tauntUnlockData.Rarity;
+			InventoryItemRarity rarity = m_tauntUnlockData.Rarity;
 			if (rarity == InventoryItemRarity.Uncommon)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return 100;
 				}
-				return 0x64;
 			}
 			if (rarity == InventoryItemRarity.Rare)
 			{
-				return 0x12C;
+				return 300;
 			}
 			if (rarity == InventoryItemRarity.Epic)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return 1200;
 				}
-				return 0x4B0;
 			}
 			if (rarity == InventoryItemRarity.Legendary)
 			{
-				return 0x5DC;
+				return 1500;
 			}
 		}
 		return 0;
 	}
 
-	public static bool \u001D(InventoryItemRarity \u001D)
+	public static bool _001D(InventoryItemRarity _001D)
 	{
-		if (\u001D != InventoryItemRarity.Uncommon)
+		int result;
+		if (_001D != InventoryItemRarity.Uncommon)
 		{
-			for (;;)
+			if (_001D != InventoryItemRarity.Rare && _001D != InventoryItemRarity.Epic)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterTaunt.\u001D(InventoryItemRarity)).MethodHandle;
-			}
-			if (\u001D != InventoryItemRarity.Rare && \u001D != InventoryItemRarity.Epic)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return \u001D == InventoryItemRarity.Legendary;
+				result = ((_001D == InventoryItemRarity.Legendary) ? 1 : 0);
+				goto IL_0030;
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_0030;
+		IL_0030:
+		return (byte)result != 0;
 	}
 }

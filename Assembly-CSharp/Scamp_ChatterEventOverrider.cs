@@ -1,94 +1,62 @@
-﻿using System;
-
 public class Scamp_ChatterEventOverrider : ChatterEventOverrider
 {
 	private Scamp_SyncComponent m_syncComp;
 
 	public Scamp_ChatterEventOverrider(Scamp_SyncComponent syncComp)
 	{
-		this.m_syncComp = syncComp;
+		m_syncComp = syncComp;
 	}
 
 	public override void OnSubmitChatter(IChatterData chatter, GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (GameFlowData.Get() != null)
+		if (!(GameFlowData.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(m_syncComp != null))
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_ChatterEventOverrider.OnSubmitChatter(IChatterData, GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
-			if (this.m_syncComp != null)
-			{
-				for (;;)
+				if (string.IsNullOrEmpty(m_syncComp.m_noSuitChatterEventOverride))
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (!string.IsNullOrEmpty(this.m_syncComp.m_noSuitChatterEventOverride))
+				while (true)
 				{
-					for (;;)
+					if (!m_syncComp.IsSuitModelActive())
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_syncComp.IsSuitModelActive())
-					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
 							case 0:
-								continue;
-							}
-							break;
-						}
-						chatter.GetCommonData().SetAudioEventOverride(this.m_syncComp.m_noSuitChatterEventOverride);
-					}
-					else
-					{
-						string audioEventOverride = chatter.GetCommonData().GetAudioEventOverride();
-						if (audioEventOverride != null)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
 								break;
-							}
-							if (audioEventOverride.Equals(this.m_syncComp.m_noSuitChatterEventOverride))
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								chatter.GetCommonData().ClearAudioEventOverride();
+							default:
+								chatter.GetCommonData().SetAudioEventOverride(m_syncComp.m_noSuitChatterEventOverride);
+								return;
 							}
 						}
+					}
+					string audioEventOverride = chatter.GetCommonData().GetAudioEventOverride();
+					if (audioEventOverride == null)
+					{
+						return;
+					}
+					while (true)
+					{
+						if (audioEventOverride.Equals(m_syncComp.m_noSuitChatterEventOverride))
+						{
+							while (true)
+							{
+								chatter.GetCommonData().ClearAudioEventOverride();
+								return;
+							}
+						}
+						return;
 					}
 				}
 			}

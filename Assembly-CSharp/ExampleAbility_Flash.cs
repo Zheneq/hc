@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -30,40 +29,23 @@ public class ExampleAbility_Flash : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExampleAbility_Flash.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Flash";
+			m_abilityName = "Flash";
 		}
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false);
 		base.Targeter.ShowArcToShape = false;
-		if (this.m_tags != null)
+		if (m_tags == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!m_tags.Contains(AbilityTags.UseTeleportUIEffect))
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_tags.Add(AbilityTags.UseTeleportUIEffect);
 			}
-			if (!this.m_tags.Contains(AbilityTags.UseTeleportUIEffect))
-			{
-				this.m_tags.Add(AbilityTags.UseTeleportUIEffect);
-			}
+			return;
 		}
 	}
 
@@ -74,22 +56,9 @@ public class ExampleAbility_Flash : Ability
 
 	public override bool CanShowTargetableRadiusPreview()
 	{
-		if (this.m_requireTargetNextToActor)
+		if (m_requireTargetNextToActor)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExampleAbility_Flash.CanShowTargetableRadiusPreview()).MethodHandle;
-			}
-			if (this.m_dashToTargetSelectRange > 0f)
+			if (m_dashToTargetSelectRange > 0f)
 			{
 				return true;
 			}
@@ -99,69 +68,54 @@ public class ExampleAbility_Flash : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		if (this.m_requireTargetNextToActor && this.m_dashToTargetSelectRange > 0f)
+		if (m_requireTargetNextToActor && m_dashToTargetSelectRange > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_dashToTargetSelectRange;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExampleAbility_Flash.GetTargetableRadiusInSquares(ActorData)).MethodHandle;
-			}
-			return this.m_dashToTargetSelectRange;
 		}
 		return base.GetTargetableRadiusInSquares(caster);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_requireTargetNextToActor)
+		if (m_requireTargetNextToActor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExampleAbility_Flash.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
-			List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, this.m_canDashNextToAllies, this.m_canDashNextToEnemies);
-			float num = this.m_dashToTargetSelectRange;
-			if (num <= 0f)
-			{
-				num = 50f;
-			}
-			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.\u0016(), num, true, caster, relevantTeams, null, false, default(Vector3));
-			actorsInRadius.Remove(caster);
-			if (NetworkClient.active)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, m_canDashNextToAllies, m_canDashNextToEnemies);
+					float num = m_dashToTargetSelectRange;
+					if (num <= 0f)
+					{
+						num = 50f;
+					}
+					List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(caster.GetTravelBoardSquareWorldPosition(), num, true, caster, relevantTeams, null);
+					actors.Remove(caster);
+					if (NetworkClient.active)
+					{
+						TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+					}
+					else
+					{
+						TargeterUtils.RemoveActorsInvisibleToActor(ref actors, caster);
+					}
+					return actors.Count > 0;
 				}
-				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInRadius);
+				}
 			}
-			else
-			{
-				TargeterUtils.RemoveActorsInvisibleToActor(ref actorsInRadius, caster);
-			}
-			return actorsInRadius.Count > 0;
 		}
 		return base.CustomCanCastValidation(caster);
 	}
@@ -169,170 +123,65 @@ public class ExampleAbility_Flash : Ability
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		bool flag = false;
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null)
 		{
-			for (;;)
+			if (boardSquareSafe.IsBaselineHeight())
 			{
-				switch (7)
+				if (boardSquareSafe != caster.GetCurrentBoardSquare())
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExampleAbility_Flash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
-			if (boardSquare.\u0016())
-			{
-				for (;;)
-				{
-					switch (2)
+					if (m_requireTargetNextToActor)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (boardSquare != caster.\u0012())
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_requireTargetNextToActor)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						List<ActorData> actorsVisibleToActor;
 						if (NetworkServer.active)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(caster, true);
+							actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(caster);
 						}
 						else
 						{
-							actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(GameFlowData.Get().activeOwnedActorData, true);
+							actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(GameFlowData.Get().activeOwnedActorData);
 						}
 						List<ActorData> list = actorsVisibleToActor;
-						Vector3 coneStart = caster.\u0012().ToVector3();
-						int i = 0;
-						while (i < list.Count)
+						Vector3 coneStart = caster.GetCurrentBoardSquare().ToVector3();
+						for (int i = 0; i < list.Count; i++)
 						{
-							for (;;)
+							ActorData actorData;
+							if (!flag)
 							{
-								switch (3)
+								actorData = list[i];
+								bool flag2 = true;
+								if (m_dashToTargetSelectRange > 0f)
 								{
-								case 0:
+									flag2 = AreaEffectUtils.IsSquareInConeByActorRadius(actorData.GetCurrentBoardSquare(), coneStart, 0f, 360f, m_dashToTargetSelectRange, 0f, true, caster);
+								}
+								if (!flag2)
+								{
 									continue;
 								}
-								break;
-							}
-							if (flag)
-							{
-								for (;;)
+								bool flag3 = (!NetworkClient.active) ? actorData.IsActorVisibleToActor(caster) : actorData.IsVisibleToClient();
+								bool flag4 = actorData.GetTeam() == caster.GetTeam();
+								if (!flag3 || !(actorData != caster))
 								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									goto IL_21C;
+									continue;
 								}
-							}
-							else
-							{
-								ActorData actorData = list[i];
-								bool flag2 = true;
-								if (this.m_dashToTargetSelectRange > 0f)
+								if (!flag4)
 								{
-									flag2 = AreaEffectUtils.IsSquareInConeByActorRadius(actorData.\u0012(), coneStart, 0f, 360f, this.m_dashToTargetSelectRange, 0f, true, caster, false, default(Vector3));
-								}
-								if (flag2)
-								{
-									for (;;)
+									if (m_canDashNextToEnemies)
 									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									bool flag3 = (!NetworkClient.active) ? actorData.\u000E(caster, false) : actorData.\u0018();
-									bool flag4 = actorData.\u000E() == caster.\u000E();
-									if (flag3 && actorData != caster)
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (!flag4)
-										{
-											if (this.m_canDashNextToEnemies)
-											{
-												goto IL_1B8;
-											}
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-										}
-										if (!flag4 || !this.m_canDashNextToAllies)
-										{
-											goto IL_1F2;
-										}
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										IL_1B8:
-										bool flag5 = AreaEffectUtils.IsSquareInConeByActorRadius(boardSquare, actorData.\u0016(), 0f, 360f, this.m_dashToOtherRange, 0f, true, caster, false, default(Vector3));
-										flag = (flag || flag5);
+										goto IL_01b8;
 									}
 								}
-								IL_1F2:
-								i++;
+								if (!flag4 || !m_canDashNextToAllies)
+								{
+									continue;
+								}
+								goto IL_01b8;
 							}
+							break;
+							IL_01b8:
+							bool flag5 = AreaEffectUtils.IsSquareInConeByActorRadius(boardSquareSafe, actorData.GetTravelBoardSquareWorldPosition(), 0f, 360f, m_dashToOtherRange, 0f, true, caster);
+							flag = (flag || flag5);
 						}
-						IL_21C:;
 					}
 					else
 					{

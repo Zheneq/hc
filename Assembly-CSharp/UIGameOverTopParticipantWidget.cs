@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -37,346 +36,247 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 			{
 				while (enumerator.MoveNext())
 				{
-					LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-					if (lobbyPlayerInfo.PlayerId == topPlayerInfo.PlayerId)
+					LobbyPlayerInfo current = enumerator.Current;
+					if (current.PlayerId == topPlayerInfo.PlayerId)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
 							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverTopParticipantWidget.Setup(TopParticipantSlot, BadgeAndParticipantInfo)).MethodHandle;
-						}
-						UIManager.SetGameObjectActive(this.m_AllyTeamIndicator, lobbyPlayerInfo.TeamId == playerInfo.TeamId, null);
-						UIManager.SetGameObjectActive(this.m_EnemyTeamIndicator, lobbyPlayerInfo.TeamId != playerInfo.TeamId, null);
-						GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(lobbyPlayerInfo.BannerID);
-						string path;
-						if (banner != null)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
 								break;
-							}
-							path = banner.m_resourceString;
-						}
-						else
-						{
-							path = "Banners/Background/02_blue";
-						}
-						this.m_BannerImage.sprite = Resources.Load<Sprite>(path);
-						bool doActive = !lobbyPlayerInfo.IsAIControlled;
-						GameBalanceVars.PlayerBanner banner2 = GameWideData.Get().m_gameBalanceVars.GetBanner(lobbyPlayerInfo.EmblemID);
-						string path2;
-						if (banner2 != null)
-						{
-							for (;;)
+							default:
 							{
-								switch (7)
+								UIManager.SetGameObjectActive(m_AllyTeamIndicator, current.TeamId == playerInfo.TeamId);
+								UIManager.SetGameObjectActive(m_EnemyTeamIndicator, current.TeamId != playerInfo.TeamId);
+								GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(current.BannerID);
+								string path;
+								if (banner != null)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							path2 = banner2.m_resourceString;
-						}
-						else
-						{
-							path2 = "Banners/Emblems/Chest01";
-						}
-						this.m_EmblemImage.sprite = Resources.Load<Sprite>(path2);
-						UIManager.SetGameObjectActive(this.m_EmblemImage, doActive, null);
-						this.m_PlayerName.text = lobbyPlayerInfo.Handle;
-						this.m_PlayerTitle.text = GameBalanceVars.Get().GetTitle(lobbyPlayerInfo.TitleID, string.Empty, lobbyPlayerInfo.TitleLevel);
-						UIManager.SetGameObjectActive(this.m_PlayerLevel, false, null);
-						this.m_CharacterIcon.sprite = GameWideData.Get().GetCharacterResourceLink(topPlayerInfo.FreelancerPlayed).GetCharacterSelectIcon();
-						this.m_TopParticipantType.text = StringUtil.TR(slotType.ToString(), "GameOver");
-						if (topPlayerInfo.BadgesEarned != null)
-						{
-							topPlayerInfo.BadgesEarned.Sort(delegate(BadgeInfo x, BadgeInfo y)
-							{
-								if (x == null)
-								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!true)
-									{
-										RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverTopParticipantWidget.<Setup>m__0(BadgeInfo, BadgeInfo)).MethodHandle;
-									}
-									if (y == null)
-									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										return 0;
-									}
-								}
-								if (x == null)
-								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									return 1;
-								}
-								if (y == null)
-								{
-									return -1;
-								}
-								GameBalanceVars.GameResultBadge badgeInfo2 = GameResultBadgeData.Get().GetBadgeInfo(x.BadgeId);
-								GameBalanceVars.GameResultBadge badgeInfo3 = GameResultBadgeData.Get().GetBadgeInfo(y.BadgeId);
-								if (badgeInfo2 == null)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (badgeInfo3 == null)
-									{
-										return 0;
-									}
-								}
-								if (badgeInfo2 == null)
-								{
-									return 1;
-								}
-								if (badgeInfo3 == null)
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									return -1;
-								}
-								if (badgeInfo2.Quality == badgeInfo3.Quality)
-								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									return 0;
-								}
-								if (badgeInfo2.Quality > badgeInfo3.Quality)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									return -1;
-								}
-								if (badgeInfo2.Quality < badgeInfo3.Quality)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									return 1;
-								}
-								return 0;
-							});
-							int num = 0;
-							for (int i = 0; i < topPlayerInfo.BadgesEarned.Count; i++)
-							{
-								GameBalanceVars.GameResultBadge badgeInfo = GameResultBadgeData.Get().GetBadgeInfo(topPlayerInfo.BadgesEarned[i].BadgeId);
-								if (badgeInfo == null)
-								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
+									path = banner.m_resourceString;
 								}
 								else
 								{
-									bool flag = true;
-									if (slotType == TopParticipantSlot.Deadliest)
+									path = "Banners/Background/02_blue";
+								}
+								m_BannerImage.sprite = Resources.Load<Sprite>(path);
+								bool doActive = !current.IsAIControlled;
+								GameBalanceVars.PlayerBanner banner2 = GameWideData.Get().m_gameBalanceVars.GetBanner(current.EmblemID);
+								string path2;
+								if (banner2 != null)
+								{
+									path2 = banner2.m_resourceString;
+								}
+								else
+								{
+									path2 = "Banners/Emblems/Chest01";
+								}
+								m_EmblemImage.sprite = Resources.Load<Sprite>(path2);
+								UIManager.SetGameObjectActive(m_EmblemImage, doActive);
+								m_PlayerName.text = current.Handle;
+								m_PlayerTitle.text = GameBalanceVars.Get().GetTitle(current.TitleID, string.Empty, current.TitleLevel);
+								UIManager.SetGameObjectActive(m_PlayerLevel, false);
+								m_CharacterIcon.sprite = GameWideData.Get().GetCharacterResourceLink(topPlayerInfo.FreelancerPlayed).GetCharacterSelectIcon();
+								m_TopParticipantType.text = StringUtil.TR(slotType.ToString(), "GameOver");
+								if (topPlayerInfo.BadgesEarned != null)
+								{
+									topPlayerInfo.BadgesEarned.Sort(delegate(BadgeInfo x, BadgeInfo y)
 									{
-										for (;;)
+										if (x == null)
 										{
-											switch (6)
+											if (y == null)
 											{
-											case 0:
-												continue;
+												while (true)
+												{
+													switch (3)
+													{
+													case 0:
+														break;
+													default:
+														return 0;
+													}
+												}
 											}
-											break;
 										}
-										if (badgeInfo.Role != GameBalanceVars.GameResultBadge.BadgeRole.Firepower)
+										if (x == null)
 										{
-											for (;;)
+											while (true)
 											{
-												switch (6)
+												switch (2)
 												{
 												case 0:
-													continue;
+													break;
+												default:
+													return 1;
 												}
-												break;
 											}
-											flag = false;
 										}
-									}
-									if (slotType == TopParticipantSlot.Supportiest && badgeInfo.Role != GameBalanceVars.GameResultBadge.BadgeRole.Support)
-									{
-										for (;;)
+										if (y == null)
 										{
-											switch (5)
+											return -1;
+										}
+										GameBalanceVars.GameResultBadge badgeInfo2 = GameResultBadgeData.Get().GetBadgeInfo(x.BadgeId);
+										GameBalanceVars.GameResultBadge badgeInfo3 = GameResultBadgeData.Get().GetBadgeInfo(y.BadgeId);
+										if (badgeInfo2 == null)
+										{
+											if (badgeInfo3 == null)
 											{
-											case 0:
-												continue;
+												return 0;
 											}
-											break;
 										}
-										flag = false;
-									}
-									if (slotType == TopParticipantSlot.Tankiest)
-									{
-										for (;;)
+										if (badgeInfo2 == null)
 										{
-											switch (5)
+											return 1;
+										}
+										if (badgeInfo3 == null)
+										{
+											while (true)
 											{
-											case 0:
-												continue;
+												switch (4)
+												{
+												case 0:
+													break;
+												default:
+													return -1;
+												}
 											}
-											break;
 										}
-										if (badgeInfo.Role != GameBalanceVars.GameResultBadge.BadgeRole.Frontliner)
+										if (badgeInfo2.Quality == badgeInfo3.Quality)
 										{
-											for (;;)
+											while (true)
 											{
 												switch (3)
 												{
 												case 0:
-													continue;
+													break;
+												default:
+													return 0;
 												}
-												break;
 											}
-											flag = false;
 										}
-									}
-									if (flag)
-									{
-										for (;;)
+										if (badgeInfo2.Quality > badgeInfo3.Quality)
 										{
-											switch (2)
+											while (true)
 											{
-											case 0:
-												continue;
+												switch (5)
+												{
+												case 0:
+													break;
+												default:
+													return -1;
+												}
 											}
-											break;
 										}
-										UIGameOverBadgeWidget uigameOverBadgeWidget = UnityEngine.Object.Instantiate<UIGameOverBadgeWidget>(this.m_BadgePrefab);
-										uigameOverBadgeWidget.Setup(topPlayerInfo.BadgesEarned[i], lobbyPlayerInfo.CharacterType, topPlayerInfo.GlobalPercentiles);
-										UIManager.ReparentTransform(uigameOverBadgeWidget.transform, this.m_BadgesContainer.transform);
-										num++;
-									}
-								}
-							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (num > 5)
-							{
-								for (;;)
-								{
-									switch (7)
+										if (badgeInfo2.Quality < badgeInfo3.Quality)
+										{
+											while (true)
+											{
+												switch (7)
+												{
+												case 0:
+													break;
+												default:
+													return 1;
+												}
+											}
+										}
+										return 0;
+									});
+									int num = 0;
+									for (int i = 0; i < topPlayerInfo.BadgesEarned.Count; i++)
 									{
-									case 0:
-										continue;
+										GameBalanceVars.GameResultBadge badgeInfo = GameResultBadgeData.Get().GetBadgeInfo(topPlayerInfo.BadgesEarned[i].BadgeId);
+										if (badgeInfo == null)
+										{
+										}
+										else
+										{
+											bool flag = true;
+											if (slotType == TopParticipantSlot.Deadliest)
+											{
+												if (badgeInfo.Role != GameBalanceVars.GameResultBadge.BadgeRole.Firepower)
+												{
+													flag = false;
+												}
+											}
+											if (slotType == TopParticipantSlot.Supportiest && badgeInfo.Role != GameBalanceVars.GameResultBadge.BadgeRole.Support)
+											{
+												flag = false;
+											}
+											if (slotType == TopParticipantSlot.Tankiest)
+											{
+												if (badgeInfo.Role != GameBalanceVars.GameResultBadge.BadgeRole.Frontliner)
+												{
+													flag = false;
+												}
+											}
+											if (flag)
+											{
+												UIGameOverBadgeWidget uIGameOverBadgeWidget = Object.Instantiate(m_BadgePrefab);
+												uIGameOverBadgeWidget.Setup(topPlayerInfo.BadgesEarned[i], current.CharacterType, topPlayerInfo.GlobalPercentiles);
+												UIManager.ReparentTransform(uIGameOverBadgeWidget.transform, m_BadgesContainer.transform);
+												num++;
+											}
+										}
 									}
-									break;
-								}
-								if (this.m_BadgesContainer as GridLayoutGroup != null)
-								{
-									for (;;)
+									while (true)
 									{
-										switch (6)
+										switch (4)
 										{
 										case 0:
-											continue;
+											break;
+										default:
+											if (num > 5)
+											{
+												while (true)
+												{
+													switch (7)
+													{
+													case 0:
+														break;
+													default:
+														if (m_BadgesContainer as GridLayoutGroup != null)
+														{
+															while (true)
+															{
+																switch (6)
+																{
+																case 0:
+																	break;
+																default:
+																{
+																	GridLayoutGroup gridLayoutGroup = m_BadgesContainer as GridLayoutGroup;
+																	gridLayoutGroup.cellSize = new Vector2(50f, 50f);
+																	gridLayoutGroup.spacing = new Vector2(-15f, -15f);
+																	gridLayoutGroup.childAlignment = TextAnchor.UpperCenter;
+																	return;
+																}
+																}
+															}
+														}
+														return;
+													}
+												}
+											}
+											return;
 										}
-										break;
 									}
-									GridLayoutGroup gridLayoutGroup = this.m_BadgesContainer as GridLayoutGroup;
-									gridLayoutGroup.cellSize = new Vector2(50f, 50f);
-									gridLayoutGroup.spacing = new Vector2(-15f, -15f);
-									gridLayoutGroup.childAlignment = TextAnchor.UpperCenter;
 								}
+								return;
+							}
 							}
 						}
-						return;
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}

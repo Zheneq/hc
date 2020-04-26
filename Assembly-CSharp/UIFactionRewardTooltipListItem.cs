@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -21,92 +20,68 @@ public class UIFactionRewardTooltipListItem : MonoBehaviour
 		int i = 0;
 		using (List<int>.Enumerator enumerator = itemRewardList.GetEnumerator())
 		{
-			while (enumerator.MoveNext())
+			while (true)
 			{
-				int templateId = enumerator.Current;
-				if (i >= this.m_rewardImages.Length)
+				if (!enumerator.MoveNext())
 				{
-					for (;;)
+					break;
+				}
+				int current = enumerator.Current;
+				if (i >= m_rewardImages.Length)
+				{
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							goto end_IL_000b;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIFactionRewardTooltipListItem.Setup(List<int>, int, bool)).MethodHandle;
-					}
-					goto IL_AD;
 				}
-				InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(templateId);
+				InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(current);
 				if (itemTemplate == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (itemTemplate != null)
 				{
-					this.m_rewardImages[i].sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
-					UIManager.SetGameObjectActive(this.m_rewardContainers[i], true, null);
+					m_rewardImages[i].sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
+					UIManager.SetGameObjectActive(m_rewardContainers[i], true);
 					i++;
 				}
 			}
-			for (;;)
+			end_IL_000b:;
+		}
+		for (; i < m_rewardImages.Length; i++)
+		{
+			UIManager.SetGameObjectActive(m_rewardContainers[i], false);
+		}
+		while (true)
+		{
+			UIManager.SetGameObjectActive(m_obtainedContainer, obtained);
+			if (obtained)
+			{
+				m_characterListHighlight.alpha = 1f;
+			}
+			else
+			{
+				m_characterListHighlight.alpha = 0.3f;
+			}
+			for (int j = 0; j < m_levelText.Length; j++)
+			{
+				m_levelText[j].text = (rewardTeirLevel + 1).ToString();
+			}
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-		}
-		IL_AD:
-		while (i < this.m_rewardImages.Length)
-		{
-			UIManager.SetGameObjectActive(this.m_rewardContainers[i], false, null);
-			i++;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		UIManager.SetGameObjectActive(this.m_obtainedContainer, obtained, null);
-		if (obtained)
-		{
-			this.m_characterListHighlight.alpha = 1f;
-		}
-		else
-		{
-			this.m_characterListHighlight.alpha = 0.3f;
-		}
-		for (int j = 0; j < this.m_levelText.Length; j++)
-		{
-			this.m_levelText[j].text = (rewardTeirLevel + 1).ToString();
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 
 public class GenericAbility_AbilityMod : AbilityMod
 {
@@ -9,75 +8,46 @@ public class GenericAbility_AbilityMod : AbilityMod
 
 	public override OnHitAuthoredData GenModImpl_GetModdedOnHitData(OnHitAuthoredData onHitDataFromBase)
 	{
-		return this.m_onHitDataMod.\u001D(onHitDataFromBase);
+		return m_onHitDataMod._001D(onHitDataFromBase);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		GenericAbility_Container genericAbility_Container = targetAbility as GenericAbility_Container;
-		if (genericAbility_Container != null)
+		if (!(genericAbility_Container != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_AbilityMod.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			this.AddOnHitDataTokens(tokens, this.m_onHitDataMod, genericAbility_Container.m_onHitData);
+			return;
+		}
+		while (true)
+		{
+			AddOnHitDataTokens(tokens, m_onHitDataMod, genericAbility_Container.m_onHitData);
+			return;
 		}
 	}
 
 	protected void AddOnHitDataTokens(List<TooltipTokenEntry> tokens, OnHitDataMod mod, OnHitAuthoredData baseData)
 	{
-		if (mod != null)
+		if (mod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_AbilityMod.AddOnHitDataTokens(List<TooltipTokenEntry>, OnHitDataMod, OnHitAuthoredData)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (baseData != null)
 			{
-				mod.\u001D(tokens, baseData);
+				mod._001D(tokens, baseData);
 			}
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		string text = string.Empty;
-		GenericAbility_Container genericAbility_Container = base.GetTargetAbilityOnAbilityData(abilityData) as GenericAbility_Container;
+		GenericAbility_Container genericAbility_Container = GetTargetAbilityOnAbilityData(abilityData) as GenericAbility_Container;
 		if (genericAbility_Container != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_AbilityMod.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			text += this.GetOnHitDataDesc(this.m_onHitDataMod, genericAbility_Container.m_onHitData, "-- On Hit Data Mod --");
+			text += GetOnHitDataDesc(m_onHitDataMod, genericAbility_Container.m_onHitData);
 		}
 		return text;
 	}
@@ -86,31 +56,18 @@ public class GenericAbility_AbilityMod : AbilityMod
 	{
 		if (mod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_AbilityMod.GetOnHitDataDesc(OnHitDataMod, OnHitAuthoredData, string)).MethodHandle;
-			}
 			if (baseData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return mod._001D(header, baseData);
 					}
-					break;
 				}
-				return mod.\u001D(header, baseData);
 			}
 		}
 		return string.Empty;
@@ -120,19 +77,6 @@ public class GenericAbility_AbilityMod : AbilityMod
 	{
 		if (mod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_AbilityMod.GetTargetSelectModDesc(TargetSelectModBase, GenericAbility_TargetSelectBase, string)).MethodHandle;
-			}
 			if (baseTargetSelect != null)
 			{
 				return mod.GetInEditorDesc(baseTargetSelect, header);

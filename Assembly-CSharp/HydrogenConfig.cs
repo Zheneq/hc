@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Security;
 using LobbyGameClientMessages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Security;
 using UnityEngine;
 
 [Serializable]
@@ -122,84 +122,78 @@ public class HydrogenConfig : JsonConfig
 
 	private static HydrogenConfig s_instance = new HydrogenConfig();
 
+	public string ProcessName => $"{ProcessType.ToString()}-{ProcessCode}";
+
 	public HydrogenConfig()
 	{
-		this.LogFilePath = "${CONFIGPATH}/../Logs/";
-		this.DebugLogFilePath = "${CONFIGPATH}/../DebugLogs/";
-		this.GameStatsSpreadsheetLogFilePath = "${CONFIGPATH}/../StatsLogs/";
-		this.MinFileLogLevel = "Info";
-		this.MinConsoleLogLevel = "Info";
-		this.MatchLogsPath = "${CONFIGPATH}/../MatchLogs";
-		this.ReplaysPath = "${CONFIGPATH}/../Replays";
-		this.DeckFile = "${CONFIGPATH}/../Game.ini";
-		this.TargetFrameRate = -1;
-		this.WebSocketIsCompressed = false;
-		this.WebSocketIsBinary = true;
-		this.UseNewUI = true;
-		this.UseIdleTimer = true;
-		this.SkipAudioEvents = false;
-		this.UseFastBotAI = true;
-		this.SkipCharacterModelSpawnOnServer = true;
-		this.HueEnabled = false;
-		this.HueAddress = "http://127.0.0.1";
-		this.HuePutString = "/api/newdeveloper/lights/1/state";
-		this.MaxAIIterationTime = 0f;
-		this.PlatformConfig = new PlatformConfig();
-		this.HeartbeatPeriod = TimeSpan.FromSeconds(5.0);
-		this.HeartbeatTimeout = TimeSpan.FromSeconds(30.0);
-		this.MaxSendBufferSize = 0x100000;
-		this.MaxWaitTime = TimeSpan.FromSeconds(10.0);
-		this.AutoLaunchTutorial = true;
-		this.AutoLaunchGameType = GameType.None;
-		this.AutoLaunchCustomGameConfig = new AutoLaunchGameConfig();
-		this.AcceptableSslPolicyErrors = (SslPolicyErrors.RemoteCertificateNameMismatch | SslPolicyErrors.RemoteCertificateChainErrors);
-		this.NoInputIdleWarningTime = 120f;
-		this.NoInputIdleDisconnectTime = 140f;
-		this.NoInputIdleWarningTimeMatchStart = 30f;
-		this.NoInputIdleDisconnectTimeMatchStart = 40f;
-		this.EnableNoInputIdleDisconnect = true;
-		this.EnableRandomFrameHitchDetection = false;
-		this.EnableHitchDetection = false;
-	}
-
-	public string ProcessName
-	{
-		get
-		{
-			return string.Format("{0}-{1}", this.ProcessType.ToString(), this.ProcessCode);
-		}
+		LogFilePath = "${CONFIGPATH}/../Logs/";
+		DebugLogFilePath = "${CONFIGPATH}/../DebugLogs/";
+		GameStatsSpreadsheetLogFilePath = "${CONFIGPATH}/../StatsLogs/";
+		MinFileLogLevel = "Info";
+		MinConsoleLogLevel = "Info";
+		MatchLogsPath = "${CONFIGPATH}/../MatchLogs";
+		ReplaysPath = "${CONFIGPATH}/../Replays";
+		DeckFile = "${CONFIGPATH}/../Game.ini";
+		TargetFrameRate = -1;
+		WebSocketIsCompressed = false;
+		WebSocketIsBinary = true;
+		UseNewUI = true;
+		UseIdleTimer = true;
+		SkipAudioEvents = false;
+		UseFastBotAI = true;
+		SkipCharacterModelSpawnOnServer = true;
+		HueEnabled = false;
+		HueAddress = "http://127.0.0.1";
+		HuePutString = "/api/newdeveloper/lights/1/state";
+		MaxAIIterationTime = 0f;
+		PlatformConfig = new PlatformConfig();
+		HeartbeatPeriod = TimeSpan.FromSeconds(5.0);
+		HeartbeatTimeout = TimeSpan.FromSeconds(30.0);
+		MaxSendBufferSize = 1048576;
+		MaxWaitTime = TimeSpan.FromSeconds(10.0);
+		AutoLaunchTutorial = true;
+		AutoLaunchGameType = GameType.None;
+		AutoLaunchCustomGameConfig = new AutoLaunchGameConfig();
+		AcceptableSslPolicyErrors = (SslPolicyErrors.RemoteCertificateNameMismatch | SslPolicyErrors.RemoteCertificateChainErrors);
+		NoInputIdleWarningTime = 120f;
+		NoInputIdleDisconnectTime = 140f;
+		NoInputIdleWarningTimeMatchStart = 30f;
+		NoInputIdleDisconnectTimeMatchStart = 40f;
+		EnableNoInputIdleDisconnect = true;
+		EnableRandomFrameHitchDetection = false;
+		EnableHitchDetection = false;
 	}
 
 	public static HydrogenConfig Get()
 	{
-		return HydrogenConfig.s_instance;
+		return s_instance;
 	}
 
 	public override void PostProcess()
 	{
-		this.DirectoryServerAddress = this.DirectoryServerAddress.SafeReplace("${HOSTNAME}", base.HostName);
-		this.MonitorServerAddress = this.MonitorServerAddress.SafeReplace("${HOSTNAME}", base.HostName);
-		this.LogFilePath = this.LogFilePath.SafeReplace("${DATAPATH}", Application.dataPath);
-		this.DebugLogFilePath = this.DebugLogFilePath.SafeReplace("${DATAPATH}", Application.dataPath);
-		this.GameStatsSpreadsheetLogFilePath = this.GameStatsSpreadsheetLogFilePath.SafeReplace("${DATAPATH}", Application.dataPath);
-		this.LogFilePath = this.LogFilePath.SafeReplace("${CONFIGPATH}", base.ConfigPath);
-		this.DebugLogFilePath = this.DebugLogFilePath.SafeReplace("${CONFIGPATH}", base.ConfigPath);
-		this.GameStatsSpreadsheetLogFilePath = this.GameStatsSpreadsheetLogFilePath.SafeReplace("${CONFIGPATH}", base.ConfigPath);
-		this.LogFilePath = Path.GetFullPath(this.LogFilePath);
-		this.DebugLogFilePath = Path.GetFullPath(this.DebugLogFilePath);
-		this.GameStatsSpreadsheetLogFilePath = Path.GetFullPath(this.GameStatsSpreadsheetLogFilePath);
-		this.ReplaysPath = this.ReplaysPath.SafeReplace("${CONFIGPATH}", base.ConfigPath);
-		this.MatchLogsPath = this.MatchLogsPath.SafeReplace("${CONFIGPATH}", base.ConfigPath);
-		this.DeckFile = this.DeckFile.SafeReplace("${CONFIGPATH}", base.ConfigPath);
-		if (this.MaxAIIterationTime <= 0f)
+		DirectoryServerAddress = DirectoryServerAddress.SafeReplace("${HOSTNAME}", base.HostName);
+		MonitorServerAddress = MonitorServerAddress.SafeReplace("${HOSTNAME}", base.HostName);
+		LogFilePath = LogFilePath.SafeReplace("${DATAPATH}", Application.dataPath);
+		DebugLogFilePath = DebugLogFilePath.SafeReplace("${DATAPATH}", Application.dataPath);
+		GameStatsSpreadsheetLogFilePath = GameStatsSpreadsheetLogFilePath.SafeReplace("${DATAPATH}", Application.dataPath);
+		LogFilePath = LogFilePath.SafeReplace("${CONFIGPATH}", base.ConfigPath);
+		DebugLogFilePath = DebugLogFilePath.SafeReplace("${CONFIGPATH}", base.ConfigPath);
+		GameStatsSpreadsheetLogFilePath = GameStatsSpreadsheetLogFilePath.SafeReplace("${CONFIGPATH}", base.ConfigPath);
+		LogFilePath = Path.GetFullPath(LogFilePath);
+		DebugLogFilePath = Path.GetFullPath(DebugLogFilePath);
+		GameStatsSpreadsheetLogFilePath = Path.GetFullPath(GameStatsSpreadsheetLogFilePath);
+		ReplaysPath = ReplaysPath.SafeReplace("${CONFIGPATH}", base.ConfigPath);
+		MatchLogsPath = MatchLogsPath.SafeReplace("${CONFIGPATH}", base.ConfigPath);
+		DeckFile = DeckFile.SafeReplace("${CONFIGPATH}", base.ConfigPath);
+		if (MaxAIIterationTime <= 0f)
 		{
-			if (this.UseFastBotAI)
+			if (UseFastBotAI)
 			{
-				this.MaxAIIterationTime = 0.5f;
+				MaxAIIterationTime = 0.5f;
 			}
 			else
 			{
-				this.MaxAIIterationTime = 0.02f;
+				MaxAIIterationTime = 0.02f;
 			}
 		}
 	}
@@ -207,134 +201,68 @@ public class HydrogenConfig : JsonConfig
 	public static bool MatchesPath(string path)
 	{
 		string fileName = Path.GetFileName(path);
-		bool result;
+		int result;
 		if (fileName.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HydrogenConfig.MatchesPath(string)).MethodHandle;
-			}
 			if (!fileName.StartsWith("AtlasReactorConfig", StringComparison.OrdinalIgnoreCase))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!fileName.StartsWith("AtlasReactorDevConfig", StringComparison.OrdinalIgnoreCase))
 				{
-					result = fileName.StartsWith("AtlasReactorServerConfig", StringComparison.OrdinalIgnoreCase);
-					goto IL_67;
+					result = (fileName.StartsWith("AtlasReactorServerConfig", StringComparison.OrdinalIgnoreCase) ? 1 : 0);
+					goto IL_006a;
 				}
 			}
-			result = true;
-			IL_67:;
+			result = 1;
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		goto IL_006a;
+		IL_006a:
+		return (byte)result != 0;
 	}
 
 	public bool IsInGroupB()
 	{
-		return this.Ticket != null && this.Ticket.AccountId % 2L == 1L;
+		return Ticket != null && Ticket.AccountId % 2 == 1;
 	}
 
 	public bool CanAutoLaunchGame()
 	{
-		if (this.AutoLaunchGameType != GameType.Practice)
+		if (AutoLaunchGameType != GameType.Practice)
 		{
-			for (;;)
+			if (AutoLaunchGameType != GameType.Tutorial)
 			{
-				switch (7)
+				if (AutoLaunchGameType == GameType.Custom)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HydrogenConfig.CanAutoLaunchGame()).MethodHandle;
-			}
-			if (this.AutoLaunchGameType == GameType.Tutorial)
-			{
-				for (;;)
-				{
-					switch (5)
+					while (true)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (this.AutoLaunchGameType == GameType.Custom)
-				{
-					for (;;)
-					{
+						int result;
 						switch (7)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.AutoLaunchCustomGameConfig != null)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						if (this.AutoLaunchCustomGameConfig.GameConfig != null)
-						{
-							for (;;)
+						default:
 							{
-								switch (2)
+								if (AutoLaunchCustomGameConfig != null)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.AutoLaunchCustomGameConfig.GameConfig.GameType.IsAutoLaunchable())
-							{
-								for (;;)
-								{
-									switch (4)
+									if (AutoLaunchCustomGameConfig.GameConfig != null)
 									{
-									case 0:
-										continue;
+										if (AutoLaunchCustomGameConfig.GameConfig.GameType.IsAutoLaunchable())
+										{
+											result = ((!AutoLaunchCustomGameConfig.GameConfig.Map.IsNullOrEmpty()) ? 1 : 0);
+											goto IL_00aa;
+										}
 									}
-									break;
 								}
-								return !this.AutoLaunchCustomGameConfig.GameConfig.Map.IsNullOrEmpty();
+								result = 0;
+								goto IL_00aa;
 							}
+							IL_00aa:
+							return (byte)result != 0;
 						}
 					}
-					return false;
 				}
 				return false;
 			}
@@ -348,67 +276,56 @@ public class HydrogenConfig : JsonConfig
 		string fullPath = Path.GetFullPath(Application.dataPath + "/../LocalSettings/SelectedGameSubTypes.json");
 		if (File.Exists(fullPath))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HydrogenConfig.GetSavedSubTypes(GameType, Dictionary<ushort, GameSubType>)).MethodHandle;
-			}
-			try
-			{
-				string value = File.ReadAllText(fullPath);
-				Dictionary<GameType, List<string>> dictionary = new Dictionary<GameType, List<string>>();
-				JsonSerializerSettings settings = new JsonSerializerSettings
-				{
-					ObjectCreationHandling = ObjectCreationHandling.Replace
-				};
-				JsonConvert.PopulateObject(value, dictionary, settings);
-				if (dictionary.ContainsKey(gameType))
-				{
-					List<string> list = dictionary[gameType];
-					using (Dictionary<ushort, GameSubType>.Enumerator enumerator = subTypes.GetEnumerator())
+					break;
+				default:
+					try
 					{
-						while (enumerator.MoveNext())
+						string value = File.ReadAllText(fullPath);
+						Dictionary<GameType, List<string>> dictionary = new Dictionary<GameType, List<string>>();
+						JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
+						jsonSerializerSettings.ObjectCreationHandling = ObjectCreationHandling.Replace;
+						JsonSerializerSettings settings = jsonSerializerSettings;
+						JsonConvert.PopulateObject(value, dictionary, settings);
+						if (dictionary.ContainsKey(gameType))
 						{
-							KeyValuePair<ushort, GameSubType> keyValuePair = enumerator.Current;
-							if (list.Contains(keyValuePair.Value.LocalizedName))
+							List<string> list = dictionary[gameType];
+							using (Dictionary<ushort, GameSubType>.Enumerator enumerator = subTypes.GetEnumerator())
 							{
-								for (;;)
+								while (enumerator.MoveNext())
 								{
-									switch (4)
+									KeyValuePair<ushort, GameSubType> current = enumerator.Current;
+									if (list.Contains(current.Value.LocalizedName))
+									{
+										num = (ushort)(num | current.Key);
+									}
+								}
+								while (true)
+								{
+									switch (3)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										return num;
 									}
-									break;
 								}
-								num |= keyValuePair.Key;
 							}
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
+						return num;
+					}
+					catch (Exception exception)
+					{
+						Log.Exception(exception);
+						num = 0;
+						SaveGameTypeSubMaskPreference(gameType, num, ClientGameManager.Get().GameTypeAvailabilies);
+						return num;
 					}
 				}
-			}
-			catch (Exception exception)
-			{
-				Log.Exception(exception);
-				num = 0;
-				this.SaveGameTypeSubMaskPreference(gameType, num, ClientGameManager.Get().GameTypeAvailabilies);
 			}
 		}
 		return num;
@@ -417,48 +334,16 @@ public class HydrogenConfig : JsonConfig
 	public void SaveGameTypeSubMaskPreference(GameType gameType, ushort mask, Dictionary<GameType, GameTypeAvailability> GameTypeAvailabilies)
 	{
 		List<string> list = new List<string>();
-		GameTypeAvailability gameTypeAvailability;
-		if (GameTypeAvailabilies.TryGetValue(gameType, out gameTypeAvailability))
+		if (GameTypeAvailabilies.TryGetValue(gameType, out GameTypeAvailability value))
 		{
-			for (;;)
+			if (!value.SubTypes.IsNullOrEmpty())
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HydrogenConfig.SaveGameTypeSubMaskPreference(GameType, ushort, Dictionary<GameType, GameTypeAvailability>)).MethodHandle;
-			}
-			if (!gameTypeAvailability.SubTypes.IsNullOrEmpty<GameSubType>())
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ushort num = 1;
-				foreach (GameSubType gameSubType in gameTypeAvailability.SubTypes)
+				foreach (GameSubType subType in value.SubTypes)
 				{
 					if ((num & mask) != 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						list.Add(gameSubType.LocalizedName);
+						list.Add(subType.LocalizedName);
 					}
 					num = (ushort)(num << 1);
 				}
@@ -471,22 +356,19 @@ public class HydrogenConfig : JsonConfig
 			FileInfo fileInfo = new FileInfo(fullPath);
 			if (fileInfo.Exists)
 			{
-				string value = File.ReadAllText(fullPath);
-				JsonSerializerSettings settings = new JsonSerializerSettings
-				{
-					ObjectCreationHandling = ObjectCreationHandling.Replace
-				};
-				JsonConvert.PopulateObject(value, dictionary, settings);
+				string text = "{}";
+				text = File.ReadAllText(fullPath);
+				JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
+				jsonSerializerSettings.ObjectCreationHandling = ObjectCreationHandling.Replace;
+				JsonSerializerSettings settings = jsonSerializerSettings;
+				JsonConvert.PopulateObject(text, dictionary, settings);
 			}
 			else
 			{
 				Directory.CreateDirectory(Application.dataPath + "/../LocalSettings/");
 			}
 			dictionary[gameType] = list;
-			string contents = JsonConvert.SerializeObject(dictionary, Formatting.Indented, new JsonConverter[]
-			{
-				new StringEnumConverter()
-			});
+			string contents = JsonConvert.SerializeObject(dictionary, Formatting.Indented, new StringEnumConverter());
 			File.WriteAllText(fullPath, contents);
 		}
 		catch (Exception exception)

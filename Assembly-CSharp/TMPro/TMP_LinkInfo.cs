@@ -1,5 +1,3 @@
-﻿using System;
-
 namespace TMPro
 {
 	public struct TMP_LinkInfo
@@ -20,96 +18,62 @@ namespace TMPro
 
 		internal void SetLinkID(char[] text, int startIndex, int length)
 		{
-			if (this.linkID != null)
+			if (linkID != null)
 			{
-				for (;;)
+				if (linkID.Length >= length)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_LinkInfo.SetLinkID(char[], int, int)).MethodHandle;
-				}
-				if (this.linkID.Length >= length)
-				{
-					goto IL_3C;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_003c;
 				}
 			}
-			this.linkID = new char[length];
-			IL_3C:
+			linkID = new char[length];
+			goto IL_003c;
+			IL_003c:
 			for (int i = 0; i < length; i++)
 			{
-				this.linkID[i] = text[startIndex + i];
+				linkID[i] = text[startIndex + i];
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 
 		public string GetLinkText()
 		{
 			string text = string.Empty;
-			TMP_TextInfo textInfo = this.textComponent.textInfo;
-			for (int i = this.linkTextfirstCharacterIndex; i < this.linkTextfirstCharacterIndex + this.linkTextLength; i++)
+			TMP_TextInfo textInfo = textComponent.textInfo;
+			for (int i = linkTextfirstCharacterIndex; i < linkTextfirstCharacterIndex + linkTextLength; i++)
 			{
 				text += textInfo.characterInfo[i].character;
 			}
-			for (;;)
+			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return text;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_LinkInfo.GetLinkText()).MethodHandle;
-			}
-			return text;
 		}
 
 		public string GetLinkID()
 		{
-			if (this.textComponent == null)
+			if (textComponent == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return string.Empty;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_LinkInfo.GetLinkID()).MethodHandle;
-				}
-				return string.Empty;
 			}
-			return new string(this.linkID, 0, this.linkIdLength);
+			return new string(linkID, 0, linkIdLength);
 		}
 	}
 }

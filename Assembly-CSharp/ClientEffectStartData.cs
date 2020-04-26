@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,17 +27,17 @@ public class ClientEffectStartData
 
 	public ClientEffectStartData(int effectGUID, List<ServerClientUtils.SequenceStartData> sequenceStartDataList, ActorData effectTarget, ActorData caster, List<StatusType> statuses, List<StatusType> statusesOnTurnStart, int absorb, int expectedHoT, bool isBuff, bool isDebuff, bool hasMovementDebuff)
 	{
-		this.m_effectGUID = effectGUID;
-		this.m_sequenceStartDataList = sequenceStartDataList;
-		this.m_effectTarget = effectTarget;
-		this.m_caster = caster;
-		this.m_statuses = statuses;
-		this.m_statusesOnTurnStart = statusesOnTurnStart;
-		this.m_absorb = absorb;
-		this.m_expectedHoT = expectedHoT;
-		this.m_isBuff = isBuff;
-		this.m_isDebuff = isDebuff;
-		this.m_hasMovementDebuff = hasMovementDebuff;
+		m_effectGUID = effectGUID;
+		m_sequenceStartDataList = sequenceStartDataList;
+		m_effectTarget = effectTarget;
+		m_caster = caster;
+		m_statuses = statuses;
+		m_statusesOnTurnStart = statusesOnTurnStart;
+		m_absorb = absorb;
+		m_expectedHoT = expectedHoT;
+		m_isBuff = isBuff;
+		m_isDebuff = isDebuff;
+		m_hasMovementDebuff = hasMovementDebuff;
 	}
 
 	internal void OnClientEffectStartSequenceHitActor(ActorData target)

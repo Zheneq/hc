@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 namespace TMPro
@@ -13,14 +12,14 @@ namespace TMPro
 
 		public Compute_DT_EventArgs(Compute_DistanceTransform_EventTypes type, float progress)
 		{
-			this.EventType = type;
-			this.ProgressPercentage = progress;
+			EventType = type;
+			ProgressPercentage = progress;
 		}
 
 		public Compute_DT_EventArgs(Compute_DistanceTransform_EventTypes type, Color[] colors)
 		{
-			this.EventType = type;
-			this.Colors = colors;
+			EventType = type;
+			Colors = colors;
 		}
 	}
 }

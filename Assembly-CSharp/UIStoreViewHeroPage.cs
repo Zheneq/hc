@@ -1,4 +1,3 @@
-﻿using System;
 using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
@@ -65,7 +64,7 @@ public class UIStoreViewHeroPage : UIScene
 
 	public static UIStoreViewHeroPage Get()
 	{
-		return UIStoreViewHeroPage.s_instance;
+		return s_instance;
 	}
 
 	public override SceneType GetSceneType()
@@ -75,126 +74,89 @@ public class UIStoreViewHeroPage : UIScene
 
 	public void SetRestrictedISOUSePopVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_restrictedIsoUsePopup, visible, null);
+		UIManager.SetGameObjectActive(m_restrictedIsoUsePopup, visible);
 	}
 
 	public override void Awake()
 	{
-		UIStoreViewHeroPage.s_instance = this;
-		this.SetRestrictedISOUSePopVisible(false);
-		UIManager.SetGameObjectActive(this.m_restrictedIsoUsePopup, false, null);
-		this.m_restrictedIsoUseCloseBtn.callback = delegate(BaseEventData data)
+		s_instance = this;
+		SetRestrictedISOUSePopVisible(false);
+		UIManager.SetGameObjectActive(m_restrictedIsoUsePopup, false);
+		m_restrictedIsoUseCloseBtn.callback = delegate
 		{
-			this.SetRestrictedISOUSePopVisible(false);
+			SetRestrictedISOUSePopVisible(false);
 			UIStorePanel.Get().NotifyGetFocus();
 		};
-		_ButtonSwapSprite restrictedIsoUseBuyGameBtn = this.m_restrictedIsoUseBuyGameBtn;
-		if (UIStoreViewHeroPage.<>f__am$cache0 == null)
-		{
-			for (;;)
+		_ButtonSwapSprite restrictedIsoUseBuyGameBtn = m_restrictedIsoUseBuyGameBtn;
+		
+		restrictedIsoUseBuyGameBtn.callback = delegate
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.Awake()).MethodHandle;
-			}
-			UIStoreViewHeroPage.<>f__am$cache0 = delegate(BaseEventData data)
-			{
-				UIStoreViewHeroPage.Get().SetRestrictedISOUSePopVisible(false);
+				Get().SetRestrictedISOUSePopVisible(false);
 				UIFrontEnd.Get().m_frontEndNavPanel.CashShopBtnClicked(null);
 				UICashShopPanel.Get().ButtonClicked(UICashShopPanel.Get().m_gameBtn);
 			};
-		}
-		restrictedIsoUseBuyGameBtn.callback = UIStoreViewHeroPage.<>f__am$cache0;
-		UIEventTriggerUtils.AddListener(this.m_modelHitbox.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.HighlightCharacter));
-		UIEventTriggerUtils.AddListener(this.m_modelHitbox.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.UnhighlightCharacter));
-		this.m_backBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BackBtnClicked);
-		this.m_buyInGameButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyInGameClicked);
-		this.m_buyForCashButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyForCashClicked);
-		this.m_buyForTokenButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyForTokenClicked);
+		UIEventTriggerUtils.AddListener(m_modelHitbox.gameObject, EventTriggerType.PointerEnter, HighlightCharacter);
+		UIEventTriggerUtils.AddListener(m_modelHitbox.gameObject, EventTriggerType.PointerExit, UnhighlightCharacter);
+		m_backBtn.spriteController.callback = BackBtnClicked;
+		m_buyInGameButton.spriteController.callback = BuyInGameClicked;
+		m_buyForCashButton.spriteController.callback = BuyForCashClicked;
+		m_buyForTokenButton.spriteController.callback = BuyForTokenClicked;
 		base.Awake();
 	}
 
 	private void Start()
 	{
-		this.SetVisible(false);
-		foreach (StorePanelData storePanelData in this.m_panels)
+		SetVisible(false);
+		StorePanelData[] panels = m_panels;
+		foreach (StorePanelData storePanelData in panels)
 		{
-			storePanelData.Button.m_button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.NavButtonClicked);
-			storePanelData.Panel.OnCountsRefreshed += new Action<UIStoreBaseInventoryPanel, int, int>(this.CountChanged);
+			storePanelData.Button.m_button.spriteController.callback = NavButtonClicked;
+			storePanelData.Panel.OnCountsRefreshed += CountChanged;
 			storePanelData.Panel.Initialize();
-			this.CountChanged(storePanelData.Panel, storePanelData.Panel.GetNumOwned(), storePanelData.Panel.GetNumTotal());
+			CountChanged(storePanelData.Panel, storePanelData.Panel.GetNumOwned(), storePanelData.Panel.GetNumTotal());
 			storePanelData.Panel.SetParentContainer(base.gameObject);
-			UIManager.SetGameObjectActive(storePanelData.Panel, false, null);
+			UIManager.SetGameObjectActive(storePanelData.Panel, false);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			SelectPanel(m_defaultPanelBtn);
+			ClientGameManager.Get().OnCharacterDataUpdated += OnCharacterDataUpdated;
+			ClientGameManager.Get().OnBankBalanceChange += HandleBankBalanceChange;
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.Start()).MethodHandle;
-		}
-		this.SelectPanel(this.m_defaultPanelBtn);
-		ClientGameManager.Get().OnCharacterDataUpdated += this.OnCharacterDataUpdated;
-		ClientGameManager.Get().OnBankBalanceChange += this.HandleBankBalanceChange;
 	}
 
 	private void OnDestroy()
 	{
-		UIStoreViewHeroPage.s_instance = null;
-		foreach (StorePanelData storePanelData in this.m_panels)
+		s_instance = null;
+		StorePanelData[] panels = m_panels;
+		foreach (StorePanelData storePanelData in panels)
 		{
-			storePanelData.Panel.OnCountsRefreshed -= new Action<UIStoreBaseInventoryPanel, int, int>(this.CountChanged);
+			storePanelData.Panel.OnCountsRefreshed -= CountChanged;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
+			if (ClientGameManager.Get() != null)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.OnDestroy()).MethodHandle;
-		}
-		if (ClientGameManager.Get() != null)
-		{
-			for (;;)
-			{
-				switch (6)
+				while (true)
 				{
-				case 0:
-					continue;
+					ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterDataUpdated;
+					ClientGameManager.Get().OnBankBalanceChange -= HandleBankBalanceChange;
+					return;
 				}
-				break;
 			}
-			ClientGameManager.Get().OnCharacterDataUpdated -= this.OnCharacterDataUpdated;
-			ClientGameManager.Get().OnBankBalanceChange -= this.HandleBankBalanceChange;
+			return;
 		}
 	}
 
 	public void BackBtnClicked(BaseEventData data)
 	{
-		this.GoBackToStore();
+		GoBackToStore();
 	}
 
 	public void GoBackToStore()
 	{
-		this.SetVisible(false);
+		SetVisible(false);
 		UIStorePanel.Get().SetMainPanelVisibility(true);
 	}
 
@@ -202,223 +164,175 @@ public class UIStoreViewHeroPage : UIScene
 	{
 		if (data.selectedObject == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.NavButtonClicked(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
 		_ButtonSwapSprite component = data.selectedObject.GetComponent<_ButtonSwapSprite>();
 		UIStoreSideNavButton component2 = component.selectableButton.GetComponent<UIStoreSideNavButton>();
-		this.SelectPanel(component2);
+		SelectPanel(component2);
 	}
 
 	public void SelectPanel(UIStoreSideNavButton btn)
 	{
-		foreach (StorePanelData storePanelData in this.m_panels)
+		StorePanelData[] panels = m_panels;
+		foreach (StorePanelData storePanelData in panels)
 		{
 			storePanelData.Button.m_button.SetSelected(storePanelData.Button == btn, false, string.Empty, string.Empty);
 			storePanelData.Panel.SetVisible(storePanelData.Button == btn);
 			if (storePanelData.Button == btn)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.SelectPanel(UIStoreSideNavButton)).MethodHandle;
-				}
 				storePanelData.Panel.RefreshPage();
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public void Setup(CharacterResourceLink charLink)
 	{
 		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(charLink.m_characterType);
-		this.m_charLink = charLink;
-		this.m_characterName.text = charLink.GetDisplayName();
-		this.m_characterIcon.sprite = Resources.Load<Sprite>(charLink.m_characterSelectIconResourceString);
-		this.m_roleIcon.sprite = charLink.GetCharacterRoleIcon();
-		this.m_charLevelText.text = playerCharacterData.ExperienceComponent.Level.ToString();
+		m_charLink = charLink;
+		m_characterName.text = charLink.GetDisplayName();
+		m_characterIcon.sprite = Resources.Load<Sprite>(charLink.m_characterSelectIconResourceString);
+		m_roleIcon.sprite = charLink.GetCharacterRoleIcon();
+		m_charLevelText.text = playerCharacterData.ExperienceComponent.Level.ToString();
 		string path = "Banners/Background/02_blue";
 		GameBalanceVars.PlayerBanner banner = GameBalanceVars.Get().GetBanner(charLink.m_factionBannerID);
 		if (banner != null)
 		{
 			path = banner.m_resourceString;
 		}
-		this.m_trustBanner.sprite = Resources.Load<Sprite>(path);
-		for (int i = 0; i < this.m_panels.Length; i++)
+		m_trustBanner.sprite = Resources.Load<Sprite>(path);
+		for (int i = 0; i < m_panels.Length; i++)
 		{
-			this.m_panels[i].Panel.SetCharacter(charLink.m_characterType);
+			m_panels[i].Panel.SetCharacter(charLink.m_characterType);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			OnCharacterDataUpdated(playerCharacterData);
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.Setup(CharacterResourceLink)).MethodHandle;
-		}
-		this.OnCharacterDataUpdated(playerCharacterData);
 	}
 
 	public bool IsVisible()
 	{
-		return this.m_container.gameObject.activeSelf;
+		return m_container.gameObject.activeSelf;
 	}
 
 	public void SetVisible(bool visible)
 	{
 		if (visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.SetVisible(bool)).MethodHandle;
-			}
-			for (int i = 0; i < this.m_panels.Length; i++)
-			{
-				UIManager.SetGameObjectActive(this.m_panels[i].Panel, false, null);
-			}
-			for (;;)
-			{
-				switch (3)
+					break;
+				default:
 				{
-				case 0:
-					continue;
+					for (int i = 0; i < m_panels.Length; i++)
+					{
+						UIManager.SetGameObjectActive(m_panels[i].Panel, false);
+					}
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							break;
+						default:
+							SelectPanel(m_defaultPanelBtn);
+							UIManager.SetGameObjectActive(m_container, true);
+							UIManager.SetGameObjectActive(m_backgroundContainer, true);
+							return;
+						}
+					}
 				}
-				break;
+				}
 			}
-			this.SelectPanel(this.m_defaultPanelBtn);
-			UIManager.SetGameObjectActive(this.m_container, true, null);
-			UIManager.SetGameObjectActive(this.m_backgroundContainer, true, null);
 		}
-		else
+		m_stylePanel.Display3dModel(false);
+		if (m_animationController.gameObject.activeInHierarchy)
 		{
-			this.m_stylePanel.Display3dModel(false);
-			if (this.m_animationController.gameObject.activeInHierarchy)
-			{
-				this.m_animationController.Play("HeroPageDefaultOUT");
-			}
-			UIManager.SetGameObjectActive(this.m_backgroundContainer, false, null);
+			m_animationController.Play("HeroPageDefaultOUT");
 		}
+		UIManager.SetGameObjectActive(m_backgroundContainer, false);
 	}
 
 	public void NotifyLoseFocus()
 	{
-		this.m_stylePanel.Display3dModel(false);
-		UIManager.SetGameObjectActive(this.m_container, false, null);
-		UIManager.SetGameObjectActive(this.m_backgroundContainer, false, null);
+		m_stylePanel.Display3dModel(false);
+		UIManager.SetGameObjectActive(m_container, false);
+		UIManager.SetGameObjectActive(m_backgroundContainer, false);
 	}
 
 	public void NotifyGetFocus()
 	{
 		UICharacterStoreAndProgressWorldObjects.Get().SetVisible(true);
-		UIManager.SetGameObjectActive(this.m_container, true, null);
-		UIManager.SetGameObjectActive(this.m_backgroundContainer, true, null);
-		this.m_stylePanel.Display3dModel(true);
+		UIManager.SetGameObjectActive(m_container, true);
+		UIManager.SetGameObjectActive(m_backgroundContainer, true);
+		m_stylePanel.Display3dModel(true);
 	}
 
 	public void HighlightCharacter(BaseEventData data)
 	{
 		UIActorModelData componentInChildren = UICharacterStoreAndProgressWorldObjects.Get().m_ringAnimations[0].GetComponentInChildren<UIActorModelData>();
-		if (componentInChildren != null)
+		if (!(componentInChildren != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.HighlightCharacter(BaseEventData)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			componentInChildren.SetMouseIsOver(true);
+			return;
 		}
 	}
 
 	public void UnhighlightCharacter(BaseEventData data)
 	{
 		UIActorModelData componentInChildren = UICharacterStoreAndProgressWorldObjects.Get().m_ringAnimations[0].GetComponentInChildren<UIActorModelData>();
-		if (componentInChildren != null)
+		if (!(componentInChildren != null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.UnhighlightCharacter(BaseEventData)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			componentInChildren.SetMouseIsOver(false);
+			return;
 		}
 	}
 
 	public CharacterType GetCurrentCharacterType()
 	{
-		if (this.m_charLink != null)
+		if (m_charLink != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_charLink.m_characterType;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.GetCurrentCharacterType()).MethodHandle;
-			}
-			return this.m_charLink.m_characterType;
 		}
 		return CharacterType.None;
 	}
@@ -427,238 +341,172 @@ public class UIStoreViewHeroPage : UIScene
 	{
 		int num = 0;
 		int num2 = 0;
-		for (int i = 0; i < this.m_panels.Length; i++)
+		for (int i = 0; i < m_panels.Length; i++)
 		{
-			if (this.m_panels[i].Panel == panel)
+			if (m_panels[i].Panel == panel)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.CountChanged(UIStoreBasePanel, int, int)).MethodHandle;
-				}
-				this.m_panels[i].Button.m_ownedCount.text = ownedCount.ToString();
-				this.m_panels[i].Button.m_totalCount.text = "/" + totalCount.ToString();
+				m_panels[i].Button.m_ownedCount.text = ownedCount.ToString();
+				m_panels[i].Button.m_totalCount.text = "/" + totalCount;
 			}
-			num += this.m_panels[i].Panel.GetNumTotal();
-			num2 += this.m_panels[i].Panel.GetNumOwned();
+			num += m_panels[i].Panel.GetNumTotal();
+			num2 += m_panels[i].Panel.GetNumOwned();
 		}
-		this.m_totalOwnedText.text = num2.ToString();
-		this.m_totalTotalText.text = "/" + num.ToString();
+		m_totalOwnedText.text = num2.ToString();
+		m_totalTotalText.text = "/" + num;
 		if (num == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_ownedProgressBar.fillAmount = 0f;
+					UIManager.SetGameObjectActive(m_ownedCompleteContainer, false);
+					return;
 				}
-				break;
 			}
-			this.m_ownedProgressBar.fillAmount = 0f;
-			UIManager.SetGameObjectActive(this.m_ownedCompleteContainer, false, null);
 		}
-		else
-		{
-			this.m_ownedProgressBar.fillAmount = (float)num2 / (float)num;
-			UIManager.SetGameObjectActive(this.m_ownedCompleteContainer, num2 == num, null);
-		}
+		m_ownedProgressBar.fillAmount = (float)num2 / (float)num;
+		UIManager.SetGameObjectActive(m_ownedCompleteContainer, num2 == num);
 	}
 
 	private void BuyInGameClicked(BaseEventData data)
 	{
-		UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
-		uipurchaseableItem.m_itemType = PurchaseItemType.Character;
-		uipurchaseableItem.m_charLink = this.m_charLink;
-		uipurchaseableItem.m_currencyType = CurrencyType.FreelancerCurrency;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, new UIStorePanel.PurchaseCharacterCallback(this.PurchaseCharacterResponseHandler));
+		UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+		uIPurchaseableItem.m_itemType = PurchaseItemType.Character;
+		uIPurchaseableItem.m_charLink = m_charLink;
+		uIPurchaseableItem.m_currencyType = CurrencyType.FreelancerCurrency;
+		UIStorePanel.Get().OpenPurchaseDialog(uIPurchaseableItem, PurchaseCharacterResponseHandler);
 	}
 
 	private void BuyForCashClicked(BaseEventData data)
 	{
-		UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
-		uipurchaseableItem.m_itemType = PurchaseItemType.Character;
-		uipurchaseableItem.m_charLink = this.m_charLink;
-		uipurchaseableItem.m_purchaseForCash = true;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, new UIStorePanel.PurchaseCharacterCallback(this.PurchaseCharacterResponseHandler));
+		UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
+		uIPurchaseableItem.m_itemType = PurchaseItemType.Character;
+		uIPurchaseableItem.m_charLink = m_charLink;
+		uIPurchaseableItem.m_purchaseForCash = true;
+		UIStorePanel.Get().OpenPurchaseDialog(uIPurchaseableItem, PurchaseCharacterResponseHandler);
 	}
 
 	private void BuyForTokenClicked(BaseEventData data)
 	{
-		ClientGameManager.Get().PurchaseCharacter(CurrencyType.UnlockFreelancerToken, this.m_charLink.m_characterType, delegate(PurchaseCharacterResponse response)
+		ClientGameManager.Get().PurchaseCharacter(CurrencyType.UnlockFreelancerToken, m_charLink.m_characterType, delegate(PurchaseCharacterResponse response)
 		{
-			this.PurchaseCharacterResponseHandler(response.Success, response.Result, response.CharacterType);
+			PurchaseCharacterResponseHandler(response.Success, response.Result, response.CharacterType);
 		});
 	}
 
 	private void PurchaseCharacterResponseHandler(bool success, PurchaseResult result, CharacterType characterType)
 	{
-		if (success && result == PurchaseResult.Success)
+		if (!success || result != PurchaseResult.Success)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (characterType == m_charLink.m_characterType)
 			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					UIManager.SetGameObjectActive(m_buyHeroContainer, false);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.PurchaseCharacterResponseHandler(bool, PurchaseResult, CharacterType)).MethodHandle;
-			}
-			if (characterType == this.m_charLink.m_characterType)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_buyHeroContainer, false, null);
-			}
+			return;
 		}
 	}
 
 	private void OnCharacterDataUpdated(PersistedCharacterData charData)
 	{
-		this.UpdateBuyButtons();
+		UpdateBuyButtons();
 	}
 
 	private void HandleBankBalanceChange(CurrencyData data)
 	{
-		if (data.m_Type == CurrencyType.UnlockFreelancerToken)
+		if (data.m_Type != CurrencyType.UnlockFreelancerToken)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.HandleBankBalanceChange(CurrencyData)).MethodHandle;
-			}
-			this.UpdateBuyButtons();
+			return;
+		}
+		while (true)
+		{
+			UpdateBuyButtons();
+			return;
 		}
 	}
 
 	private void UpdateBuyButtons()
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (!(this.m_charLink == null))
+		if (m_charLink == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (clientGameManager == null)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			if (!clientGameManager.IsPlayerCharacterDataAvailable(m_charLink.m_characterType))
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.UpdateBuyButtons()).MethodHandle;
-			}
-			if (!(clientGameManager == null))
-			{
-				if (clientGameManager.IsPlayerCharacterDataAvailable(this.m_charLink.m_characterType))
-				{
-					PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_charLink.m_characterType);
-					if (!clientGameManager.HasPurchasedGame)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!playerCharacterData.CharacterComponent.Unlocked)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							int unlockFreelancerCurrencyPrice = this.m_charLink.m_charUnlockData.GetUnlockFreelancerCurrencyPrice();
-							this.m_buyInGameLabel.text = "<sprite name=credit>" + unlockFreelancerCurrencyPrice;
-							UIManager.SetGameObjectActive(this.m_buyInGameButton, unlockFreelancerCurrencyPrice > 0, null);
-							string accountCurrency = HydrogenConfig.Get().Ticket.AccountCurrency;
-							float freelancerPrice = CommerceClient.Get().GetFreelancerPrice(this.m_charLink.m_characterType, accountCurrency);
-							this.m_buyForCashLabel.text = UIStorePanel.GetLocalizedPriceString(freelancerPrice, accountCurrency);
-							UIManager.SetGameObjectActive(this.m_buyForCashButton, freelancerPrice > 0f, null);
-							bool flag = ClientGameManager.Get().PlayerWallet.GetValue(CurrencyType.UnlockFreelancerToken).m_Amount > 0;
-							UIManager.SetGameObjectActive(this.m_buyForTokenButton, flag, null);
-							Component buyHeroContainer = this.m_buyHeroContainer;
-							bool doActive;
-							if (unlockFreelancerCurrencyPrice <= 0)
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (freelancerPrice <= 0f)
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									doActive = flag;
-									goto IL_194;
-								}
-							}
-							doActive = true;
-							IL_194:
-							UIManager.SetGameObjectActive(buyHeroContainer, doActive, null);
-							return;
-						}
-					}
-					UIManager.SetGameObjectActive(this.m_buyHeroContainer, false, null);
-					return;
-				}
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
+			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_charLink.m_characterType);
+			if (!clientGameManager.HasPurchasedGame)
+			{
+				if (!playerCharacterData.CharacterComponent.Unlocked)
+				{
+					while (true)
+					{
+						RectTransform buyHeroContainer;
+						int doActive;
+						switch (7)
+						{
+						case 0:
+							break;
+						default:
+							{
+								int unlockFreelancerCurrencyPrice = m_charLink.m_charUnlockData.GetUnlockFreelancerCurrencyPrice();
+								m_buyInGameLabel.text = "<sprite name=credit>" + unlockFreelancerCurrencyPrice;
+								UIManager.SetGameObjectActive(m_buyInGameButton, unlockFreelancerCurrencyPrice > 0);
+								string accountCurrency = HydrogenConfig.Get().Ticket.AccountCurrency;
+								float freelancerPrice = CommerceClient.Get().GetFreelancerPrice(m_charLink.m_characterType, accountCurrency);
+								m_buyForCashLabel.text = UIStorePanel.GetLocalizedPriceString(freelancerPrice, accountCurrency);
+								UIManager.SetGameObjectActive(m_buyForCashButton, freelancerPrice > 0f);
+								bool flag = ClientGameManager.Get().PlayerWallet.GetValue(CurrencyType.UnlockFreelancerToken).m_Amount > 0;
+								UIManager.SetGameObjectActive(m_buyForTokenButton, flag);
+								buyHeroContainer = m_buyHeroContainer;
+								if (unlockFreelancerCurrencyPrice <= 0)
+								{
+									if (!(freelancerPrice > 0f))
+									{
+										doActive = (flag ? 1 : 0);
+										goto IL_0194;
+									}
+								}
+								doActive = 1;
+								goto IL_0194;
+							}
+							IL_0194:
+							UIManager.SetGameObjectActive(buyHeroContainer, (byte)doActive != 0);
+							return;
+						}
+					}
+				}
+			}
+			UIManager.SetGameObjectActive(m_buyHeroContainer, false);
+			return;
 		}
 	}
 }

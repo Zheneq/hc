@@ -1,65 +1,64 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
 public class PlayerSkinData
 {
-	public PlayerSkinData()
+	public bool Unlocked
 	{
-		this.Patterns = new List<PlayerPatternData>();
+		get;
+		set;
 	}
 
-	public bool Unlocked { get; set; }
+	public List<PlayerPatternData> Patterns
+	{
+		get;
+		set;
+	}
 
-	public List<PlayerPatternData> Patterns { get; set; }
+	public PlayerSkinData()
+	{
+		Patterns = new List<PlayerPatternData>();
+	}
 
 	public PlayerPatternData GetPattern(int i)
 	{
-		while (this.Patterns.Count <= i)
+		while (Patterns.Count <= i)
 		{
-			this.Patterns.Add(new PlayerPatternData());
+			Patterns.Add(new PlayerPatternData());
 		}
-		for (;;)
+		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return Patterns[i];
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSkinData.GetPattern(int)).MethodHandle;
-		}
-		return this.Patterns[i];
 	}
 
 	public PlayerSkinData GetDeepCopy()
 	{
 		PlayerSkinData playerSkinData = new PlayerSkinData();
-		playerSkinData.Unlocked = this.Unlocked;
-		using (List<PlayerPatternData>.Enumerator enumerator = this.Patterns.GetEnumerator())
+		playerSkinData.Unlocked = Unlocked;
+		using (List<PlayerPatternData>.Enumerator enumerator = Patterns.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				PlayerPatternData playerPatternData = enumerator.Current;
-				playerSkinData.Patterns.Add(playerPatternData.GetDeepCopy());
+				PlayerPatternData current = enumerator.Current;
+				playerSkinData.Patterns.Add(current.GetDeepCopy());
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (true)
+					{
+						return playerSkinData;
+					}
+					/*OpCode not supported: LdMemberToken*/;
+					return playerSkinData;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSkinData.GetDeepCopy()).MethodHandle;
 			}
 		}
-		return playerSkinData;
 	}
 }

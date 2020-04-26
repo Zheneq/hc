@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -67,19 +67,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 		string loreDescription = Faction.GetLoreDescription(activeFactionCompetition, this.m_displayIndex + 1);
 		if (!longName.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelViewEntry.SetupLogoTooltip(UITooltipBase)).MethodHandle;
-			}
 			if (!loreDescription.IsNullOrEmpty())
 			{
 				(tooltip as UITitledTooltip).Setup(longName, loreDescription, string.Empty);
@@ -102,19 +89,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 		UISeasonPanelFactionRewardTooltip uiseasonPanelFactionRewardTooltip = tooltip as UISeasonPanelFactionRewardTooltip;
 		if (!uiseasonPanelFactionRewardTooltip.SetupFactionReward(this.m_currentFaction, this.m_currentFactionTier, this.m_isFactionComplete))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelViewEntry.FactionRewardTooltipSetup(UITooltipBase)).MethodHandle;
-			}
 			return false;
 		}
 		uiseasonPanelFactionRewardTooltip.SetCommunityFactionVisible(true);
@@ -125,34 +99,12 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 	{
 		if (this.m_currentFaction != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelViewEntry.UpdateContributionBar(FactionPlayerData)).MethodHandle;
-			}
 			if (data != null)
 			{
 				int currentLevel = data.GetCurrentLevel(this.m_currentFaction.FactionPlayerProgressInfo, 0);
 				Sprite sprite = null;
 				if (currentLevel - 1 == this.m_currentFaction.FactionPlayerProgressInfo.Length)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_personalBar.m_ProgressFillBar.fillAmount = 1f;
 					this.m_personalLevelLabel.text = string.Format(StringUtil.TR("PersonalLevel", "TrustWar"), this.m_currentFaction.FactionPlayerProgressInfo.Length + 1);
 					UIManager.SetGameObjectActive(this.m_personalBar.m_CompletedBar, true, null);
@@ -164,29 +116,11 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 					float fillAmount = 0f;
 					if (currentLevel - 1 < this.m_currentFaction.FactionPlayerProgressInfo.Length)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						fillAmount = (float)xpthroughCurrentLevel / (float)this.m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel;
 						this.m_personalExpLabel.text = string.Format("{0} / {1}", xpthroughCurrentLevel, this.m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel);
 					}
 					if (this.m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].LevelUpRewards != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						List<FactionReward> allRewards = this.m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].LevelUpRewards.GetAllRewards();
 						using (List<FactionReward>.Enumerator enumerator = allRewards.GetEnumerator())
 						{
@@ -196,30 +130,12 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 								FactionItemReward factionItemReward = factionReward as FactionItemReward;
 								if (factionItemReward != null)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(factionItemReward.ItemReward.ItemTemplateId);
 									sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
 								}
 								FactionCurrencyReward factionCurrencyReward = factionReward as FactionCurrencyReward;
 								if (factionCurrencyReward != null)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									RewardUtils.RewardType rewardType;
 									string currencyIconPath = RewardUtils.GetCurrencyIconPath(factionCurrencyReward.CurrencyReward.Type, out rewardType);
 									sprite = Resources.Load<Sprite>(currencyIconPath);
@@ -227,30 +143,12 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 								FactionUnlockReward factionUnlockReward = factionReward as FactionUnlockReward;
 								if (factionUnlockReward != null)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									sprite = Resources.Load<Sprite>(factionUnlockReward.UnlockReward.resourceString);
 								}
 								if (sprite != null)
 								{
 									goto IL_292;
 								}
-							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -262,15 +160,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 				this.m_personalLevel = currentLevel;
 				if (sprite != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_personalRewardBtn, true, null);
 					this.m_personalRewardIcon.sprite = sprite;
 				}
@@ -280,15 +169,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 				}
 				return;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -297,19 +177,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 		float fillAmount;
 		if (faction.Tiers[tierIndex].ContributionToComplete > remainingScore)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelViewEntry.SetupBars(Faction, int, long, bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_factionBars[tierIndex].m_CompletedBar, false, null);
 			UIManager.SetGameObjectActive(this.m_factionBars[tierIndex].m_ProgressFillBar, true, null);
 			fillAmount = (float)remainingScore / (float)faction.Tiers[tierIndex].ContributionToComplete;
@@ -333,56 +200,16 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 		this.m_displayIndex = DisplayIndex;
 		if (this.m_factionBars != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelViewEntry.Setup(Faction, long, int)).MethodHandle;
-			}
 			if (this.m_factionBars.Length == faction.Tiers.Count)
 			{
 				goto IL_22E;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (this.m_factionBars != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < this.m_factionBars.Length; i++)
 			{
 				UnityEngine.Object.Destroy(this.m_factionBars[i].gameObject);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_factionBars = new UIFactionProgressBar[faction.Tiers.Count];
@@ -393,26 +220,8 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 			UIManager.ReparentTransform(this.m_factionBars[j].transform, this.m_FactionLevelContainer.gameObject.transform);
 			this.m_factionBars[j].m_LayoutElement.preferredWidth = preferredWidth;
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (this.m_factionBars.Length == 1)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_factionBars[0].m_EmptyBar.type = Image.Type.Sliced;
 			this.m_factionBars[0].m_CompletedBar.type = Image.Type.Sliced;
 			this.m_factionBars[0].m_ProgressFillBar.fillSlope = 3.9f;
@@ -447,27 +256,9 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 			{
 				goto IL_432;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (score < faction.Tiers[k].ContributionToComplete)
 			{
 				goto IL_432;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			bool flag2 = score < faction.Tiers[k].ContributionToComplete + faction.Tiers[k + 1].ContributionToComplete;
 			IL_433:
@@ -475,15 +266,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 			this.SetupBars(faction, k, (score >= 0L) ? score : 0L, showText);
 			if (score >= 0L)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (score < faction.Tiers[k].ContributionToComplete)
 				{
 					this.m_currentFactionTier = k;
@@ -491,63 +273,18 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 				}
 				else if (score >= faction.Tiers[k].ContributionToComplete)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_currentFactionTier = k;
 					this.m_isFactionComplete = true;
 				}
 			}
 			if (score >= 0L)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (score < faction.Tiers[k].ContributionToComplete)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_expLabel != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_expLabel != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_expLabel.text = score + " / " + faction.Tiers[k].ContributionToComplete;
 							flag = true;
 						}
@@ -561,30 +298,12 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 			flag2 = true;
 			goto IL_433;
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		int activeFactionCompetition = ClientGameManager.Get().ActiveFactionCompetition;
 		this.m_factionLevelLabel.text = string.Format(StringUtil.TR("FactionLevel", "TrustWar"), Faction.GetDisplayName(activeFactionCompetition, this.m_displayIndex + 1), (this.m_currentFactionTier + 1).ToString());
 		bool flag3 = false;
 		int l = this.m_currentFactionTier;
 		while (l < faction.Tiers.Count)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag3)
 			{
 				for (;;)
@@ -604,15 +323,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 					InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(factionItemReward.ItemReward.ItemTemplateId);
 					if (!flag3)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_factionRewardIcon.sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
 						flag3 = true;
 						break;
@@ -620,28 +330,10 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 				}
 				if (!flag3)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<FactionCurrencyReward>.Enumerator enumerator2 = faction.Tiers[l].Rewards.CurrencyRewards.GetEnumerator())
 					{
 						if (!enumerator2.MoveNext())
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -655,28 +347,10 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 				}
 				if (!flag3)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<FactionUnlockReward>.Enumerator enumerator3 = faction.Tiers[l].Rewards.UnlockRewards.GetEnumerator())
 					{
 						if (!enumerator3.MoveNext())
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -693,15 +367,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_factionRewardBtn, flag3, null);
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_expLabel != null)
 			{
 				this.m_expLabel.text = num.ToString();

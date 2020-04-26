@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -68,159 +68,47 @@ public class DiscordClientInterface : MonoBehaviour
 
 	public DiscordClientInterface()
 	{
-		if (DiscordClientInterface.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface..ctor()).MethodHandle;
-			}
-			DiscordClientInterface.<>f__am$cache1 = delegate(bool A_0)
+		
+		this.OnConnected = delegate(bool A_0)
 			{
 			};
-		}
-		this.OnConnected = DiscordClientInterface.<>f__am$cache1;
-		if (DiscordClientInterface.<>f__am$cache2 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			DiscordClientInterface.<>f__am$cache2 = delegate()
+		
+		this.OnDisconnected = delegate()
 			{
 			};
-		}
-		this.OnDisconnected = DiscordClientInterface.<>f__am$cache2;
-		if (DiscordClientInterface.<>f__am$cache3 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			DiscordClientInterface.<>f__am$cache3 = delegate(string A_0)
+		
+		this.OnAuthorized = delegate(string A_0)
 			{
 			};
-		}
-		this.OnAuthorized = DiscordClientInterface.<>f__am$cache3;
-		if (DiscordClientInterface.<>f__am$cache4 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			DiscordClientInterface.<>f__am$cache4 = delegate(DiscordUserInfo A_0)
+		
+		this.OnAuthenticated = delegate(DiscordUserInfo A_0)
 			{
 			};
-		}
-		this.OnAuthenticated = DiscordClientInterface.<>f__am$cache4;
-		if (DiscordClientInterface.<>f__am$cache5 == null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			DiscordClientInterface.<>f__am$cache5 = delegate()
+		
+		this.OnJoined = delegate()
 			{
 			};
-		}
-		this.OnJoined = DiscordClientInterface.<>f__am$cache5;
 		this.OnLeft = delegate()
 		{
 		};
-		if (DiscordClientInterface.<>f__am$cache7 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			DiscordClientInterface.<>f__am$cache7 = delegate(DiscordUserInfo A_0)
+		
+		this.OnUserJoined = delegate(DiscordUserInfo A_0)
 			{
 			};
-		}
-		this.OnUserJoined = DiscordClientInterface.<>f__am$cache7;
-		if (DiscordClientInterface.<>f__am$cache8 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			DiscordClientInterface.<>f__am$cache8 = delegate(DiscordUserInfo A_0)
+		
+		this.OnUserLeft = delegate(DiscordUserInfo A_0)
 			{
 			};
-		}
-		this.OnUserLeft = DiscordClientInterface.<>f__am$cache8;
-		if (DiscordClientInterface.<>f__am$cache9 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			DiscordClientInterface.<>f__am$cache9 = delegate(DiscordUserInfo A_0)
+		
+		this.OnUserSpeakingChanged = delegate(DiscordUserInfo A_0)
 			{
 			};
-		}
-		this.OnUserSpeakingChanged = DiscordClientInterface.<>f__am$cache9;
-		if (DiscordClientInterface.<>f__am$cacheA == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			DiscordClientInterface.<>f__am$cacheA = delegate(ErrorEventArgs A_0)
+		
+		this.OnErrorHolder = delegate(ErrorEventArgs A_0)
 			{
 			};
-		}
-		this.OnError = DiscordClientInterface.<>f__am$cacheA;
 		this.m_discordChannelUsers = new List<DiscordUserInfo>();
-		base..ctor();
+		
 	}
 
 	public SynchronizationContext SynchronizationContext { get; set; }
@@ -230,55 +118,30 @@ public class DiscordClientInterface : MonoBehaviour
 		return DiscordClientInterface.s_instance;
 	}
 
+	private Action<ErrorEventArgs> OnErrorHolder;
 	public event Action<ErrorEventArgs> OnError
 	{
 		add
 		{
-			Action<ErrorEventArgs> action = this.OnError;
+			Action<ErrorEventArgs> action = this.OnErrorHolder;
 			Action<ErrorEventArgs> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ErrorEventArgs>>(ref this.OnError, (Action<ErrorEventArgs>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ErrorEventArgs>>(ref this.OnErrorHolder, (Action<ErrorEventArgs>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.add_OnError(Action<ErrorEventArgs>)).MethodHandle;
-			}
 		}
 		remove
 		{
-			Action<ErrorEventArgs> action = this.OnError;
+			Action<ErrorEventArgs> action = this.OnErrorHolder;
 			Action<ErrorEventArgs> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ErrorEventArgs>>(ref this.OnError, (Action<ErrorEventArgs>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ErrorEventArgs>>(ref this.OnErrorHolder, (Action<ErrorEventArgs>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.remove_OnError(Action<ErrorEventArgs>)).MethodHandle;
-			}
 		}
 	}
 
@@ -308,19 +171,6 @@ public class DiscordClientInterface : MonoBehaviour
 				RegistryKey key = Registry.CurrentUser.OpenSubKey(name);
 				if (key != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.get_IsInstalled()).MethodHandle;
-					}
 					IEnumerator<RegistryKey> enumerator = (from keyName in key.GetSubKeyNames()
 					select key.OpenSubKey(keyName)).GetEnumerator();
 					try
@@ -331,15 +181,6 @@ public class DiscordClientInterface : MonoBehaviour
 							string text = registryKey.GetValue("DisplayName") as string;
 							if (text != null && text.Contains("Discord"))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return true;
 							}
 						}
@@ -348,15 +189,6 @@ public class DiscordClientInterface : MonoBehaviour
 					{
 						if (enumerator != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							enumerator.Dispose();
 						}
 					}
@@ -381,30 +213,8 @@ public class DiscordClientInterface : MonoBehaviour
 			GameManager gameManager = GameManager.Get();
 			if (gameManager != null && gameManager.GameInfo != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.get_CanJoinTeamChat()).MethodHandle;
-				}
 				if (gameManager.GameInfo.GameStatus != GameStatus.Stopped && gameManager.GameInfo.GameConfig != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gameManager.GameInfo.GameConfig.GameType.IsQueueable() || gameManager.GameInfo.IsCustomGame)
 					{
 						return gameManager.PlayerInfo != null;
@@ -423,19 +233,6 @@ public class DiscordClientInterface : MonoBehaviour
 			bool result;
 			if (groupInfo != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.get_CanJoinGroupChat()).MethodHandle;
-				}
 				result = groupInfo.InAGroup;
 			}
 			else
@@ -453,19 +250,6 @@ public class DiscordClientInterface : MonoBehaviour
 			bool result;
 			if (this.m_webSocket != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.get_IsConnected()).MethodHandle;
-				}
 				result = this.m_webSocket.IsAlive;
 			}
 			else
@@ -507,19 +291,6 @@ public class DiscordClientInterface : MonoBehaviour
 			int result;
 			if (DiscordClientInterface.s_RpcPortOverride != 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.get_RpcPort()).MethodHandle;
-				}
 				result = DiscordClientInterface.s_RpcPortOverride;
 			}
 			else
@@ -537,19 +308,6 @@ public class DiscordClientInterface : MonoBehaviour
 			string result;
 			if (this.m_authInfo != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.get_RpcOrigin()).MethodHandle;
-				}
 				result = this.m_authInfo.RpcOrigin;
 			}
 			else
@@ -590,71 +348,27 @@ public class DiscordClientInterface : MonoBehaviour
 	{
 	}
 
-	private static void \u001D(string \u001D, params object[] \u000E)
+	private static void symbol_001D(string symbol_001D, params object[] symbol_000E)
 	{
 		if (DiscordClientInterface.s_debugOutput)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.\u001D(string, object[])).MethodHandle;
-			}
-			string str = string.Format(\u001D, \u000E);
+			string str = string.Format(symbol_001D, symbol_000E);
 			Log.Info("Discord | " + str, new object[0]);
 			if (SynchronizationContext.Current != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (TextConsole.Get() != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					TextConsole.Get().Write("Discord | " + str, ConsoleMessageType.\u001D);
+					TextConsole.Get().Write("Discord | " + str, ConsoleMessageType._001D);
 				}
 			}
 		}
 	}
 
-	private static void \u001D(DiscordClientInterface.RpcResponse \u001D)
+	private static void symbol_001D(DiscordClientInterface.RpcResponse symbol_001D)
 	{
 		if (DiscordClientInterface.s_debugOutput)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.\u001D(DiscordClientInterface.RpcResponse)).MethodHandle;
-			}
-			string str = JsonConvert.SerializeObject(\u001D, Formatting.Indented);
+			string str = JsonConvert.SerializeObject(symbol_001D, Formatting.Indented);
 			Log.Info("Discord | " + str, new object[0]);
 		}
 	}
@@ -723,19 +437,6 @@ public class DiscordClientInterface : MonoBehaviour
 			JObject jobject;
 			if (rpcResponse.data != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.Dispatch(string)).MethodHandle;
-				}
 				jobject = JObject.Parse(rpcResponse.data.ToString());
 			}
 			else
@@ -743,19 +444,10 @@ public class DiscordClientInterface : MonoBehaviour
 				jobject = null;
 			}
 			JObject jobject2 = jobject;
-			DiscordClientInterface.\u001D(rpcResponse);
+			DiscordClientInterface.symbol_001D(rpcResponse);
 			if (rpcResponse.cmd == "CONNECTION_OPEN")
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				DiscordClientInterface.\u001D("Connected to 127.0.0.1:{0}", new object[]
+				DiscordClientInterface.symbol_001D("Connected to 127.0.0.1:{0}", new object[]
 				{
 					this.RpcPort
 				});
@@ -766,37 +458,19 @@ public class DiscordClientInterface : MonoBehaviour
 			}
 			else if (rpcResponse.cmd == "CONNECTION_ERROR")
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				DiscordClientInterface.\u001D("Connection error to 127.0.0.1:{0}", new object[]
+				DiscordClientInterface.symbol_001D("Connection error to 127.0.0.1:{0}", new object[]
 				{
 					this.RpcPort
 				});
 			}
 			else if (rpcResponse.cmd == "CONNECTION_CLOSE")
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_retryToConnect)
 				{
 					this.m_rpcPortOffset++;
 					if (DiscordClientInterface.RPC_PORT_BEGIN + this.m_rpcPortOffset > DiscordClientInterface.RPC_PORT_END)
 					{
-						DiscordClientInterface.\u001D("Failed to connect to discord", new object[0]);
+						DiscordClientInterface.symbol_001D("Failed to connect to discord", new object[0]);
 						this.Disconnect();
 						this.OnDisconnected();
 					}
@@ -809,18 +483,9 @@ public class DiscordClientInterface : MonoBehaviour
 				}
 				else
 				{
-					DiscordClientInterface.\u001D("Disconnected from discord", new object[0]);
+					DiscordClientInterface.symbol_001D("Disconnected from discord", new object[0]);
 					if (this.m_authInfo != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.OnLeft();
 					}
 					this.Disconnect();
@@ -829,48 +494,12 @@ public class DiscordClientInterface : MonoBehaviour
 			}
 			else if (rpcResponse.cmd == "DISPATCH")
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (rpcResponse.evt == "READY")
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_authInfo != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_userInfo == null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.Authorize();
 							goto IL_5C4;
 						}
@@ -878,41 +507,14 @@ public class DiscordClientInterface : MonoBehaviour
 				}
 				if (rpcResponse.evt == "CAPTURE_SHORTCUT_CHANGE")
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (jobject2 != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						JToken jtoken = jobject2.SelectToken("shortcut").ElementAt(0);
 						int num = Convert.ToInt32(jtoken.SelectToken("type").ToString());
 						int num2 = Convert.ToInt32(jtoken.SelectToken("code").ToString());
 						string text = jtoken.SelectToken("name").ToString();
 						if (ClientGameManager.Get() != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ClientGameManager.Get().SetPushToTalkKey(num, num2, text);
 						}
 						if (this.m_pushToTalkScanCallback != null)
@@ -926,15 +528,6 @@ public class DiscordClientInterface : MonoBehaviour
 				}
 				if (rpcResponse.evt == "VOICE_STATE_CREATE")
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (jobject2 != null)
 					{
 						bool flag = false;
@@ -943,60 +536,25 @@ public class DiscordClientInterface : MonoBehaviour
 						{
 							if (this.m_discordChannelUsers[i].UserId == num3)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = true;
-								IL_3B1:
-								if (!flag)
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									DiscordUserInfo discordUserInfo = new DiscordUserInfo();
-									discordUserInfo.UserId = num3;
-									discordUserInfo.UserName = jobject2.SelectToken("user.username").ToString();
-									discordUserInfo.Discriminator = jobject2.SelectToken("user.discriminator").ToString();
-									this.m_discordChannelUsers.Add(discordUserInfo);
-									this.OnUserJoined(discordUserInfo);
-								}
-								goto IL_5C4;
+								break;
 							}
 						}
-						for (;;)
+						if (!flag)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_3B1;
+							DiscordUserInfo discordUserInfo = new DiscordUserInfo();
+							discordUserInfo.UserId = num3;
+							discordUserInfo.UserName = jobject2.SelectToken("user.username").ToString();
+							discordUserInfo.Discriminator = jobject2.SelectToken("user.discriminator").ToString();
+							this.m_discordChannelUsers.Add(discordUserInfo);
+							this.OnUserJoined(discordUserInfo);
 						}
+						goto IL_5C4;
+
 					}
 				}
 				if (rpcResponse.evt == "VOICE_STATE_DELETE")
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (jobject2 != null)
 					{
 						ulong num4 = ulong.Parse(jobject2.SelectToken("user.id").ToString());
@@ -1004,31 +562,14 @@ public class DiscordClientInterface : MonoBehaviour
 						{
 							if (this.m_discordChannelUsers[j].UserId == num4)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								DiscordUserInfo obj2 = this.m_discordChannelUsers[j];
 								this.m_discordChannelUsers.RemoveAt(j);
 								this.OnUserLeft(obj2);
-								IL_4D9:
-								goto IL_5C4;
+								break;
 							}
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_4D9;
-						}
+						goto IL_5C4;
+
 					}
 				}
 				if (!(rpcResponse.evt == "SPEAKING_START"))
@@ -1037,41 +578,14 @@ public class DiscordClientInterface : MonoBehaviour
 					{
 						goto IL_5C4;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (jobject2 != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ulong num5 = ulong.Parse(jobject2.SelectToken("user_id").ToString());
 					for (int k = 0; k < this.m_discordChannelUsers.Count; k++)
 					{
 						if (this.m_discordChannelUsers[k].UserId == num5)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_discordChannelUsers[k].IsSpeaking = (rpcResponse.evt == "SPEAKING_START");
 							this.OnUserSpeakingChanged(this.m_discordChannelUsers[k]);
 							break;
@@ -1082,47 +596,20 @@ public class DiscordClientInterface : MonoBehaviour
 			}
 			else if (rpcResponse.cmd == "AUTHORIZE")
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string obj3 = jobject2.SelectToken("code").ToString();
 				this.OnAuthorized(obj3);
 			}
 			else if (rpcResponse.cmd == "AUTHENTICATE")
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (rpcResponse.evt.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					JToken jtoken2 = jobject2.SelectToken("user.id");
 					this.m_userInfo.UserId = ulong.Parse(jtoken2.ToString());
 					this.OnAuthenticated(this.m_userInfo);
 				}
 				else
 				{
-					DiscordClientInterface.\u001D("Failed to authenticate RPC connection {0}", new object[]
+					DiscordClientInterface.symbol_001D("Failed to authenticate RPC connection {0}", new object[]
 					{
 						jobject2
 					});
@@ -1130,15 +617,6 @@ public class DiscordClientInterface : MonoBehaviour
 			}
 			else if (rpcResponse.cmd == "TRY_SELECT_VOICE_CHANNEL")
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				JToken jtoken3 = jobject2.SelectToken("code");
 				int num6 = int.Parse(jtoken3.ToString());
 				bool force = num6 == 0x138B;
@@ -1148,7 +626,7 @@ public class DiscordClientInterface : MonoBehaviour
 			{
 				if (rpcResponse.evt.IsNullOrEmpty())
 				{
-					DiscordClientInterface.\u001D("Connected to voice channel {0}", new object[]
+					DiscordClientInterface.symbol_001D("Connected to voice channel {0}", new object[]
 					{
 						this.m_channelInfo.VoiceChannelId
 					});
@@ -1156,7 +634,7 @@ public class DiscordClientInterface : MonoBehaviour
 				}
 				else
 				{
-					DiscordClientInterface.\u001D("Failed to connect to voice channel {0} {1}. Retrying", new object[]
+					DiscordClientInterface.symbol_001D("Failed to connect to voice channel {0} {1}. Retrying", new object[]
 					{
 						this.m_channelInfo.VoiceChannelId,
 						jobject2
@@ -1218,19 +696,6 @@ public class DiscordClientInterface : MonoBehaviour
 		this.m_rpcPortOffset = portOffset;
 		if (DiscordClientInterface.IsSdkEnabled)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.Connect(DiscordAuthInfo, int)).MethodHandle;
-			}
 			if (!DiscordClientInterface.s_sdkInitialized)
 			{
 				this.InitializeSdk();
@@ -1243,66 +708,31 @@ public class DiscordClientInterface : MonoBehaviour
 	private void InitializeSdk()
 	{
 		string name = "Hydrogen.DiscordSdk";
-		bool flag;
-		Mutex mutex = new Mutex(true, name, ref flag);
+		Mutex mutex = new Mutex(true, name, out bool flag);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.InitializeSdk()).MethodHandle;
-			}
 			if (mutex != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string clientId = this.m_authInfo.ClientId;
 				string resourcePath = Application.dataPath + "/../";
 				GameBridge.SetReadyCallback(new GameBridge.ReadyCallback(this.HandleSdkReadyCallback), UIntPtr.Zero);
 				GameBridge.SetUpdatingCallback(new GameBridge.UpdatingCallback(this.HandleSdkUpdatingCallback), UIntPtr.Zero);
 				GameBridge.SetErrorCallback(new GameBridge.ErrorCallback(this.HandleSdkErrorCallback), UIntPtr.Zero);
-				if (DiscordClientInterface.<>f__am$cache0 == null)
-				{
-					for (;;)
+				
+				GameBridge.CaptureOutput(delegate(uint type, string message, UIntPtr context)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					DiscordClientInterface.<>f__am$cache0 = delegate(uint type, string message, UIntPtr context)
-					{
-						DiscordClientInterface.\u001D("[OUTPUT] {0}", new object[]
+						DiscordClientInterface.symbol_001D("[OUTPUT] {0}", new object[]
 						{
 							message
 						});
-					};
-				}
-				GameBridge.CaptureOutput(DiscordClientInterface.<>f__am$cache0, UIntPtr.Zero);
+					}, UIntPtr.Zero);
 				GameBridge.Initialize(clientId, resourcePath);
 				DiscordClientInterface.s_sdkInitialized = true;
-				DiscordClientInterface.\u001D("initialized Sdk", new object[0]);
+				DiscordClientInterface.symbol_001D("initialized Sdk", new object[0]);
 				return;
 			}
 		}
-		DiscordClientInterface.\u001D("failed to initialize Sdk. Discord does not support launching multiple Sdk processes on the same computer at one time.", new object[0]);
+		DiscordClientInterface.symbol_001D("failed to initialize Sdk. Discord does not support launching multiple Sdk processes on the same computer at one time.", new object[0]);
 	}
 
 	public static void Shutdown()
@@ -1311,13 +741,13 @@ public class DiscordClientInterface : MonoBehaviour
 		{
 			GameBridge.Shutdown();
 			DiscordClientInterface.s_sdkInitialized = false;
-			DiscordClientInterface.\u001D("shut down Sdk", new object[0]);
+			DiscordClientInterface.symbol_001D("shut down Sdk", new object[0]);
 		}
 	}
 
 	private void HandleSdkReadyCallback(ushort port, UIntPtr context)
 	{
-		DiscordClientInterface.\u001D("SdkReadyCallback {0}", new object[]
+		DiscordClientInterface.symbol_001D("SdkReadyCallback {0}", new object[]
 		{
 			port
 		});
@@ -1327,7 +757,7 @@ public class DiscordClientInterface : MonoBehaviour
 
 	private void HandleSdkUpdatingCallback(uint progress, UIntPtr context)
 	{
-		DiscordClientInterface.\u001D("SdkUpdatingCallback {0}", new object[]
+		DiscordClientInterface.symbol_001D("SdkUpdatingCallback {0}", new object[]
 		{
 			progress
 		});
@@ -1335,7 +765,7 @@ public class DiscordClientInterface : MonoBehaviour
 
 	private void HandleSdkErrorCallback(uint code, [MarshalAs(UnmanagedType.LPStr)] string message, UIntPtr context)
 	{
-		DiscordClientInterface.\u001D("SdkErrorCallback {0} {1}", new object[]
+		DiscordClientInterface.symbol_001D("SdkErrorCallback {0} {1}", new object[]
 		{
 			code,
 			message
@@ -1346,27 +776,14 @@ public class DiscordClientInterface : MonoBehaviour
 	{
 		if (this.m_webSocket != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.TryConnect()).MethodHandle;
-			}
 			if (this.m_webSocket.IsAlive)
 			{
-				DiscordClientInterface.\u001D("Already connected to discord", new object[0]);
+				DiscordClientInterface.symbol_001D("Already connected to discord", new object[0]);
 				return;
 			}
 		}
 		this.m_rpcUrl = string.Format("ws://127.0.0.1:{0}/?v=1&client_id={1}&encoding=json", this.RpcPort, this.ClientId);
-		DiscordClientInterface.\u001D("Connecting to 127.0.0.1:{0}", new object[]
+		DiscordClientInterface.symbol_001D("Connecting to 127.0.0.1:{0}", new object[]
 		{
 			this.RpcPort
 		});
@@ -1377,15 +794,6 @@ public class DiscordClientInterface : MonoBehaviour
 		this.m_webSocket.OnClose += this.HandleOnClose;
 		if (DiscordClientInterface.s_debugOutput)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_webSocket.Logger.Level = LogLevel.Trace;
 		}
 		this.m_webSocket.Origin = this.RpcOrigin;
@@ -1419,19 +827,6 @@ public class DiscordClientInterface : MonoBehaviour
 	{
 		if (this.m_webSocket != null && this.m_webSocket.IsAlive)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.TrySelectVoiceChannel(bool)).MethodHandle;
-			}
 			if (this.m_channelInfo != null)
 			{
 				DiscordClientInterface.RpcRequest rpcRequest = new DiscordClientInterface.RpcRequest();
@@ -1469,41 +864,10 @@ public class DiscordClientInterface : MonoBehaviour
 	{
 		if (this.m_webSocket != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.RefreshSettings()).MethodHandle;
-			}
 			if (this.m_webSocket.IsAlive)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_channelInfo == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -1532,15 +896,6 @@ public class DiscordClientInterface : MonoBehaviour
 					object value;
 					if (options_UI.GetVoicePushToTalk())
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						value = "PUSH_TO_TALK";
 					}
 					else
@@ -1550,15 +905,6 @@ public class DiscordClientInterface : MonoBehaviour
 					dictionary2[key] = value;
 					if (ClientGameManager.Get() != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 						{
 							AccountComponent accountComponent = ClientGameManager.Get().GetPlayerAccountData().AccountComponent;
@@ -1585,30 +931,8 @@ public class DiscordClientInterface : MonoBehaviour
 	{
 		if (this.m_webSocket != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DiscordClientInterface.ScanPushToTalkKey(bool, Action<int, int, string>)).MethodHandle;
-			}
 			if (this.m_webSocket.IsAlive)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_channelInfo != null)
 				{
 					this.m_pushToTalkScanCallback = callback;
@@ -1620,15 +944,6 @@ public class DiscordClientInterface : MonoBehaviour
 					object value;
 					if (start)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						value = "START";
 					}
 					else

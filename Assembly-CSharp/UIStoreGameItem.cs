@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -39,201 +38,139 @@ public class UIStoreGameItem : MonoBehaviour
 	{
 		if (pack != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreGameItem.Setup(GamePack)).MethodHandle;
-			}
-			this.m_packReference = pack;
-			UIManager.SetGameObjectActive(base.gameObject, true, null);
-			ClientGameManager clientGameManager = ClientGameManager.Get();
-			HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
-			string accountCurrency = hydrogenConfig.Ticket.AccountCurrency;
-			bool hasPurchasedGame = ClientGameManager.Get().HasPurchasedGame;
-			float num;
-			float gamePackPrice = CommerceClient.Get().GetGamePackPrice(pack.ProductCode, accountCurrency, out num);
-			if (hasPurchasedGame)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				bool flag;
-				if (hasPurchasedGame)
+				default:
 				{
-					for (;;)
+					m_packReference = pack;
+					UIManager.SetGameObjectActive(base.gameObject, true);
+					ClientGameManager clientGameManager = ClientGameManager.Get();
+					HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
+					string accountCurrency = hydrogenConfig.Ticket.AccountCurrency;
+					bool hasPurchasedGame = ClientGameManager.Get().HasPurchasedGame;
+					float originalPrice;
+					float gamePackPrice = CommerceClient.Get().GetGamePackPrice(pack.ProductCode, accountCurrency, out originalPrice);
+					if (hasPurchasedGame)
 					{
-						switch (7)
+						int num;
+						if (hasPurchasedGame)
 						{
-						case 0:
-							continue;
+							num = ((clientGameManager.HighestPurchasedGamePack < pack.Index) ? 1 : 0);
 						}
-						break;
-					}
-					flag = (clientGameManager.HighestPurchasedGamePack < pack.Index);
-				}
-				else
-				{
-					flag = false;
-				}
-				bool flag2 = flag;
-				UIManager.SetGameObjectActive(this.m_disabled, !flag2, null);
-				UIManager.SetGameObjectActive(this.m_upgradeOriginalPriceContainer, true, null);
-				UIManager.SetGameObjectActive(this.m_discountBanner, false, null);
-				UIManager.SetGameObjectActive(this.m_originalPriceContainer, false, null);
-				if (flag2)
-				{
-					for (;;)
-					{
-						switch (5)
+						else
 						{
-						case 0:
-							continue;
+							num = 0;
 						}
-						break;
-					}
-					for (int i = 0; i < pack.Upgrades.Length; i++)
-					{
-						if (pack.Upgrades[i].AlreadyOwnedGamePack == clientGameManager.HighestPurchasedGamePack)
+						bool flag = (byte)num != 0;
+						UIManager.SetGameObjectActive(m_disabled, !flag);
+						UIManager.SetGameObjectActive(m_upgradeOriginalPriceContainer, true);
+						UIManager.SetGameObjectActive(m_discountBanner, false);
+						UIManager.SetGameObjectActive(m_originalPriceContainer, false);
+						if (flag)
 						{
-							for (;;)
+							int num2 = 0;
+							while (true)
 							{
-								switch (2)
+								if (num2 >= pack.Upgrades.Length)
 								{
-								case 0:
-									continue;
+									break;
 								}
-								break;
+								if (pack.Upgrades[num2].AlreadyOwnedGamePack == clientGameManager.HighestPurchasedGamePack)
+								{
+									float originalPrice2 = 0f;
+									float gamePackPrice2 = CommerceClient.Get().GetGamePackPrice(pack.Upgrades[num2].ProductCode, accountCurrency, out originalPrice2);
+									m_currentPrice.text = UIStorePanel.GetLocalizedPriceString(gamePackPrice2, accountCurrency);
+									UIManager.SetGameObjectActive(m_discountBanner, gamePackPrice2 < originalPrice2);
+									UIManager.SetGameObjectActive(m_originalPriceContainer, gamePackPrice2 < originalPrice2);
+									m_originalPrice.text = "<s>" + UIStorePanel.GetLocalizedPriceString(originalPrice2, accountCurrency) + "</s>";
+									UIManager.SetGameObjectActive(m_upgradeOriginalPriceContainer, gamePackPrice2 == originalPrice2);
+									break;
+								}
+								num2++;
 							}
-							float num2 = 0f;
-							float gamePackPrice2 = CommerceClient.Get().GetGamePackPrice(pack.Upgrades[i].ProductCode, accountCurrency, out num2);
-							this.m_currentPrice.text = UIStorePanel.GetLocalizedPriceString(gamePackPrice2, accountCurrency);
-							UIManager.SetGameObjectActive(this.m_discountBanner, gamePackPrice2 < num2, null);
-							UIManager.SetGameObjectActive(this.m_originalPriceContainer, gamePackPrice2 < num2, null);
-							this.m_originalPrice.text = "<s>" + UIStorePanel.GetLocalizedPriceString(num2, accountCurrency) + "</s>";
-							UIManager.SetGameObjectActive(this.m_upgradeOriginalPriceContainer, gamePackPrice2 == num2, null);
-							goto IL_1E7;
 						}
+						else
+						{
+							m_currentPrice.text = string.Empty;
+						}
+						string localizedPriceString = UIStorePanel.GetLocalizedPriceString(originalPrice, accountCurrency);
+						m_upgradeOriginalPrice.text = string.Format(StringUtil.TR("OriginalPrice", "CashShop"), localizedPriceString);
 					}
-					for (;;)
+					else
 					{
-						switch (7)
+						UIManager.SetGameObjectActive(m_disabled, false);
+						UIManager.SetGameObjectActive(m_upgradeOriginalPriceContainer, false);
+						m_currentPrice.text = UIStorePanel.GetLocalizedPriceString(gamePackPrice, accountCurrency);
+						UIManager.SetGameObjectActive(m_discountBanner, originalPrice > gamePackPrice);
+						m_originalPrice.text = "<s>" + UIStorePanel.GetLocalizedPriceString(originalPrice, accountCurrency) + "</s>";
+						UIManager.SetGameObjectActive(m_originalPriceContainer, originalPrice > gamePackPrice);
+					}
+					m_banner.sprite = pack.Sprite;
+					m_editionName.text = string.Format(StringUtil.TR("EditionBreak", "Store"), pack.GetEditionName());
+					m_description.text = pack.GetDescription();
+					List<UIInventoryItem> list = new List<UIInventoryItem>(m_inventoryItemContainer.GetComponentsInChildren<UIInventoryItem>(true));
+					for (int i = 0; i < pack.InventoryItemTemplateIds.Length; i++)
+					{
+						UIInventoryItem uIInventoryItem;
+						if (i < list.Count)
+						{
+							uIInventoryItem = list[i];
+						}
+						else
+						{
+							uIInventoryItem = Object.Instantiate(m_inventoryItemPrefab);
+							uIInventoryItem.transform.SetParent(m_inventoryItemContainer.transform);
+							uIInventoryItem.transform.localPosition = Vector3.zero;
+							uIInventoryItem.transform.localScale = Vector3.one;
+						}
+						uIInventoryItem.m_hitbox.selectableButton.m_ignoreHoverAnimationCall = true;
+						uIInventoryItem.m_hitbox.selectableButton.m_ignoreHoverOutAnimCall = true;
+						uIInventoryItem.m_hitbox.selectableButton.m_ignorePressAnimationCall = true;
+						uIInventoryItem.Setup(InventoryWideData.Get().GetItemTemplate(pack.InventoryItemTemplateIds[i]), null);
+						TextMeshProUGUI buyButton3xLabel = uIInventoryItem.m_buyButton3xLabel;
+						int doActive;
+						if (pack.InventoryItemTemplateIds[i] >= 629)
+						{
+							doActive = ((pack.InventoryItemTemplateIds[i] > 631) ? 1 : 0);
+						}
+						else
+						{
+							doActive = 1;
+						}
+						UIManager.SetGameObjectActive(buyButton3xLabel, (byte)doActive != 0);
+						m_hitbox.AddSubButton(uIInventoryItem.m_hitbox);
+						uIInventoryItem.m_hitbox.callback = GameItemClicked;
+					}
+					while (true)
+					{
+						switch (3)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							m_hitbox.callback = GameItemClicked;
+							return;
 						}
-						break;
 					}
 				}
-				else
-				{
-					this.m_currentPrice.text = string.Empty;
 				}
-				IL_1E7:
-				string localizedPriceString = UIStorePanel.GetLocalizedPriceString(num, accountCurrency);
-				this.m_upgradeOriginalPrice.text = string.Format(StringUtil.TR("OriginalPrice", "CashShop"), localizedPriceString);
 			}
-			else
-			{
-				UIManager.SetGameObjectActive(this.m_disabled, false, null);
-				UIManager.SetGameObjectActive(this.m_upgradeOriginalPriceContainer, false, null);
-				this.m_currentPrice.text = UIStorePanel.GetLocalizedPriceString(gamePackPrice, accountCurrency);
-				UIManager.SetGameObjectActive(this.m_discountBanner, num > gamePackPrice, null);
-				this.m_originalPrice.text = "<s>" + UIStorePanel.GetLocalizedPriceString(num, accountCurrency) + "</s>";
-				UIManager.SetGameObjectActive(this.m_originalPriceContainer, num > gamePackPrice, null);
-			}
-			this.m_banner.sprite = pack.Sprite;
-			this.m_editionName.text = string.Format(StringUtil.TR("EditionBreak", "Store"), pack.GetEditionName());
-			this.m_description.text = pack.GetDescription();
-			List<UIInventoryItem> list = new List<UIInventoryItem>(this.m_inventoryItemContainer.GetComponentsInChildren<UIInventoryItem>(true));
-			for (int j = 0; j < pack.InventoryItemTemplateIds.Length; j++)
-			{
-				UIInventoryItem uiinventoryItem;
-				if (j < list.Count)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					uiinventoryItem = list[j];
-				}
-				else
-				{
-					uiinventoryItem = UnityEngine.Object.Instantiate<UIInventoryItem>(this.m_inventoryItemPrefab);
-					uiinventoryItem.transform.SetParent(this.m_inventoryItemContainer.transform);
-					uiinventoryItem.transform.localPosition = Vector3.zero;
-					uiinventoryItem.transform.localScale = Vector3.one;
-				}
-				uiinventoryItem.m_hitbox.selectableButton.m_ignoreHoverAnimationCall = true;
-				uiinventoryItem.m_hitbox.selectableButton.m_ignoreHoverOutAnimCall = true;
-				uiinventoryItem.m_hitbox.selectableButton.m_ignorePressAnimationCall = true;
-				uiinventoryItem.Setup(InventoryWideData.Get().GetItemTemplate(pack.InventoryItemTemplateIds[j]), null);
-				Component buyButton3xLabel = uiinventoryItem.m_buyButton3xLabel;
-				bool doActive;
-				if (pack.InventoryItemTemplateIds[j] >= 0x275)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					doActive = (pack.InventoryItemTemplateIds[j] > 0x277);
-				}
-				else
-				{
-					doActive = true;
-				}
-				UIManager.SetGameObjectActive(buyButton3xLabel, doActive, null);
-				this.m_hitbox.AddSubButton(uiinventoryItem.m_hitbox);
-				uiinventoryItem.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.GameItemClicked);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.GameItemClicked);
 		}
-		else
-		{
-			UIManager.SetGameObjectActive(base.gameObject, false, null);
-		}
+		UIManager.SetGameObjectActive(base.gameObject, false);
 	}
 
 	public GamePack GetGamePackReference()
 	{
-		return this.m_packReference;
+		return m_packReference;
 	}
 
 	public void GameItemClicked(BaseEventData data)
 	{
-		this.m_hitbox.ResetMouseState();
+		m_hitbox.ResetMouseState();
 		UICashShopPanel.Get().m_gamePanel.PurchaseGame(this);
 	}
 }

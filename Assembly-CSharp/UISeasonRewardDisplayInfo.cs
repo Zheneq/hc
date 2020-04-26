@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UISeasonRewardDisplayInfo
@@ -11,13 +10,13 @@ public class UISeasonRewardDisplayInfo
 
 	public SeasonReward GetReward()
 	{
-		return this.m_seasonRewardRef;
+		return m_seasonRewardRef;
 	}
 
 	public void Setup(SeasonReward seasonReward)
 	{
-		this.m_seasonRewardRef = seasonReward;
-		this.RequiresCommunityRank = (seasonReward.requiredCommunityGoalIndex > 0);
-		this.Reward = string.Format(StringUtil.TR("RewardNumber", "Seasons"), Mathf.FloorToInt(UnityEngine.Random.value * 100f));
+		m_seasonRewardRef = seasonReward;
+		RequiresCommunityRank = (seasonReward.requiredCommunityGoalIndex > 0);
+		Reward = string.Format(StringUtil.TR("RewardNumber", "Seasons"), Mathf.FloorToInt(Random.value * 100f));
 	}
 }

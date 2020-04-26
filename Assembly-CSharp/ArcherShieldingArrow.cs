@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,67 +46,41 @@ public class ArcherShieldingArrow : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldingArrow.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Resonance Arrow";
+			m_abilityName = "Resonance Arrow";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		this.m_targeterMinAngle = Mathf.Max(0f, this.m_targeterMinAngle);
-		LaserTargetingInfo laserTargetingInfo = this.GetLaserTargetingInfo();
-		base.Targeter = new AbilityUtil_Targeter_ThiefFanLaser(this, this.GetTargeterMinAngle(), this.GetTargeterMaxAngle(), this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance, laserTargetingInfo.range, laserTargetingInfo.width, laserTargetingInfo.maxTargets, this.GetLaserCount(), laserTargetingInfo.penetrateLos, false, false, false, true, 0, 0f, 0f);
+		SetCachedFields();
+		m_targeterMinAngle = Mathf.Max(0f, m_targeterMinAngle);
+		LaserTargetingInfo laserTargetingInfo = GetLaserTargetingInfo();
+		base.Targeter = new AbilityUtil_Targeter_ThiefFanLaser(this, GetTargeterMinAngle(), GetTargeterMaxAngle(), m_targeterMinInterpDistance, m_targeterMaxInterpDistance, laserTargetingInfo.range, laserTargetingInfo.width, laserTargetingInfo.maxTargets, GetLaserCount(), laserTargetingInfo.penetrateLos, false, false, false, true, 0);
 		base.Targeter.SetAffectedGroups(laserTargetingInfo.affectsEnemies, laserTargetingInfo.affectsAllies, false);
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedLaserTargetingInfo = this.m_laserTargetingInfo;
-		this.m_cachedEnemySingleEffect = this.m_enemySingleHitEffect;
-		this.m_cachedEnemyMultiEffect = this.m_enemyMultiHitEffect;
-		this.m_cachedAllySingleEffect = this.m_allySingleHitEffect;
-		this.m_cachedAllyMultiEffect = this.m_allyMultiHitEffect;
+		m_cachedLaserTargetingInfo = m_laserTargetingInfo;
+		m_cachedEnemySingleEffect = m_enemySingleHitEffect;
+		m_cachedEnemyMultiEffect = m_enemyMultiHitEffect;
+		m_cachedAllySingleEffect = m_allySingleHitEffect;
+		m_cachedAllyMultiEffect = m_allyMultiHitEffect;
 	}
 
 	public LaserTargetingInfo GetLaserTargetingInfo()
 	{
 		LaserTargetingInfo result;
-		if (this.m_cachedLaserTargetingInfo != null)
+		if (m_cachedLaserTargetingInfo != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldingArrow.GetLaserTargetingInfo()).MethodHandle;
-			}
-			result = this.m_cachedLaserTargetingInfo;
+			result = m_cachedLaserTargetingInfo;
 		}
 		else
 		{
-			result = this.m_laserTargetingInfo;
+			result = m_laserTargetingInfo;
 		}
 		return result;
 	}
@@ -115,26 +88,13 @@ public class ArcherShieldingArrow : Ability
 	public StandardEffectInfo GetAllySingleHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllySingleEffect != null)
+		if (m_cachedAllySingleEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldingArrow.GetAllySingleHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedAllySingleEffect;
+			result = m_cachedAllySingleEffect;
 		}
 		else
 		{
-			result = this.m_allySingleHitEffect;
+			result = m_allySingleHitEffect;
 		}
 		return result;
 	}
@@ -142,117 +102,91 @@ public class ArcherShieldingArrow : Ability
 	public StandardEffectInfo GetAllyMultiHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllyMultiEffect != null)
+		if (m_cachedAllyMultiEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldingArrow.GetAllyMultiHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedAllyMultiEffect;
+			result = m_cachedAllyMultiEffect;
 		}
 		else
 		{
-			result = this.m_allyMultiHitEffect;
+			result = m_allyMultiHitEffect;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetEnemySingleHitEffect()
 	{
-		return (this.m_cachedEnemySingleEffect == null) ? this.m_enemySingleHitEffect : this.m_cachedEnemySingleEffect;
+		return (m_cachedEnemySingleEffect == null) ? m_enemySingleHitEffect : m_cachedEnemySingleEffect;
 	}
 
 	public StandardEffectInfo GetEnemyMultiHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyMultiEffect != null)
+		if (m_cachedEnemyMultiEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldingArrow.GetEnemyMultiHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedEnemyMultiEffect;
+			result = m_cachedEnemyMultiEffect;
 		}
 		else
 		{
-			result = this.m_enemyMultiHitEffect;
+			result = m_enemyMultiHitEffect;
 		}
 		return result;
 	}
 
 	private int GetLaserCount()
 	{
-		return this.m_laserCount;
+		return m_laserCount;
 	}
 
 	private float GetTargeterMinAngle()
 	{
-		return this.m_targeterMinAngle;
+		return m_targeterMinAngle;
 	}
 
 	private float GetTargeterMaxAngle()
 	{
-		return this.m_targeterMaxAngle;
+		return m_targeterMaxAngle;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		StandardEffectInfo enemySingleHitEffect = this.m_enemySingleHitEffect;
-		StandardEffectInfo enemyMultiHitEffect = this.m_enemyMultiHitEffect;
-		StandardEffectInfo allySingleHitEffect = this.m_allySingleHitEffect;
-		StandardEffectInfo allyMultiHitEffect = this.m_allyMultiHitEffect;
-		AbilityMod.AddToken_EffectInfo(tokens, enemySingleHitEffect, "Effect_EnemySingleHit", null, true);
-		AbilityMod.AddToken_EffectInfo(tokens, enemyMultiHitEffect, "Effect_EnemyMultiHit", null, true);
-		AbilityMod.AddToken_EffectInfo(tokens, allySingleHitEffect, "Effect_AllySingleHit", null, true);
-		AbilityMod.AddToken_EffectInfo(tokens, allyMultiHitEffect, "Effect_AllyMultiHit", null, true);
+		StandardEffectInfo enemySingleHitEffect = m_enemySingleHitEffect;
+		StandardEffectInfo enemyMultiHitEffect = m_enemyMultiHitEffect;
+		StandardEffectInfo allySingleHitEffect = m_allySingleHitEffect;
+		StandardEffectInfo allyMultiHitEffect = m_allyMultiHitEffect;
+		AbilityMod.AddToken_EffectInfo(tokens, enemySingleHitEffect, "Effect_EnemySingleHit");
+		AbilityMod.AddToken_EffectInfo(tokens, enemyMultiHitEffect, "Effect_EnemyMultiHit");
+		AbilityMod.AddToken_EffectInfo(tokens, allySingleHitEffect, "Effect_AllySingleHit");
+		AbilityMod.AddToken_EffectInfo(tokens, allyMultiHitEffect, "Effect_AllyMultiHit");
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.m_enemySingleHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		this.m_enemyMultiHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		this.m_allySingleHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
-		this.m_allyMultiHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		m_enemySingleHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		m_enemyMultiHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		m_allySingleHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+		m_allyMultiHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
-		int absorbAmount = this.m_allySingleHitEffect.m_effectData.m_absorbAmount;
-		int subsequentAmount = this.m_allyMultiHitEffect.m_effectData.m_absorbAmount - absorbAmount;
-		Ability.AddNameplateValueForOverlap(ref result, base.Targeter, targetActor, currentTargeterIndex, absorbAmount, subsequentAmount, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Primary);
-		return result;
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
+		int absorbAmount = m_allySingleHitEffect.m_effectData.m_absorbAmount;
+		int subsequentAmount = m_allyMultiHitEffect.m_effectData.m_absorbAmount - absorbAmount;
+		Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeter, targetActor, currentTargeterIndex, absorbAmount, subsequentAmount, AbilityTooltipSymbol.Absorb);
+		return symbolToValue;
 	}
 
 	private float CalculateFanAngleDegrees(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		float value = (currentTarget.FreePos - targetingActor.\u0016()).magnitude / Board.\u000E().squareSize;
-		float num = Mathf.Clamp(value, this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance) - this.m_targeterMinInterpDistance;
-		return Mathf.Max(this.GetTargeterMinAngle(), this.GetTargeterMaxAngle() * (1f - num / (this.m_targeterMaxInterpDistance - this.m_targeterMinInterpDistance)));
+		float value = (currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude / Board.Get().squareSize;
+		float num = Mathf.Clamp(value, m_targeterMinInterpDistance, m_targeterMaxInterpDistance) - m_targeterMinInterpDistance;
+		return Mathf.Max(GetTargeterMinAngle(), GetTargeterMaxAngle() * (1f - num / (m_targeterMaxInterpDistance - m_targeterMinInterpDistance)));
 	}
 
 	public float CalculateDistanceFromFanAngleDegrees(float fanAngleDegrees)
 	{
-		return AbilityCommon_FanLaser.CalculateDistanceFromFanAngleDegrees(fanAngleDegrees, this.GetTargeterMaxAngle(), this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance);
+		return AbilityCommon_FanLaser.CalculateDistanceFromFanAngleDegrees(fanAngleDegrees, GetTargeterMaxAngle(), m_targeterMinInterpDistance, m_targeterMaxInterpDistance);
 	}
 }

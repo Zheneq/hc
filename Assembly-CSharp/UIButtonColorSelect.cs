@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -40,71 +40,38 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 		Transforms.Sort(delegate(ITransformSortOrder first, ITransformSortOrder second)
 		{
 			int num = 0;
-			int j = 0;
-			while (j < Transforms.Count)
+			int num2 = 0;
+			while (true)
 			{
-				if (Transforms[j].GetTransform() == first.GetTransform())
+				if (num2 >= Transforms.Count)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIButtonColorSelect.<SortTransform>c__AnonStorey0.<>m__0(ITransformSortOrder, ITransformSortOrder)).MethodHandle;
-					}
-					num = j;
-					IL_5D:
-					int num2 = 0;
-					for (int k = 0; k < Transforms.Count; k++)
-					{
-						if (Transforms[k].GetTransform() == second.GetTransform())
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							num2 = k;
-							IL_B1:
-							int num3 = first.GetTransformPriority() * Transforms.Count + num;
-							int num4 = second.GetTransformPriority() * Transforms.Count + num2;
-							return num3 - num4;
-						}
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_B1;
-					}
+					break;
 				}
-				else
+				if (Transforms[num2].GetTransform() == first.GetTransform())
 				{
-					j++;
+					num = num2;
+					break;
 				}
+				num2++;
 			}
-			for (;;)
+			int num3 = 0;
+			int num4 = 0;
+			while (true)
 			{
-				switch (3)
+				if (num4 >= Transforms.Count)
 				{
-				case 0:
-					continue;
+					break;
 				}
-				goto IL_5D;
+				if (Transforms[num4].GetTransform() == second.GetTransform())
+				{
+					num3 = num4;
+					break;
+				}
+				num4++;
 			}
+			int num5 = first.GetTransformPriority() * Transforms.Count + num;
+			int num6 = second.GetTransformPriority() * Transforms.Count + num3;
+			return num5 - num6;
 		});
 		for (int i = 0; i < Transforms.Count; i++)
 		{
@@ -114,7 +81,7 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 
 	public int GetTransformPriority()
 	{
-		return this.m_colorData.m_sortOrder;
+		return m_colorData.m_sortOrder;
 	}
 
 	public Transform GetTransform()
@@ -125,215 +92,101 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 	protected override void Start()
 	{
 		base.Start();
-		if (this.m_hitbox != null)
+		if (!(m_hitbox != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIButtonColorSelect.Start()).MethodHandle;
-			}
-			this.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnColorClicked);
+			return;
+		}
+		while (true)
+		{
+			m_hitbox.callback = OnColorClicked;
+			return;
 		}
 	}
 
 	public void OnColorClicked(BaseEventData data)
 	{
-		this.m_uiSkinBrowserPanel.ColorClicked(this, this.m_skinIndex);
+		m_uiSkinBrowserPanel.ColorClicked(this, m_skinIndex);
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectOptionsChoice);
 	}
 
 	public void Setup(UIColorData colorData, int skinIndex, int patternIndex, int tintIndex, UISkinBrowserPanel parent)
 	{
-		this.m_colorData = colorData;
-		this.m_colorIcon.color = colorData.m_buttonColor;
-		UIManager.SetGameObjectActive(this.m_lockedIcon, !colorData.m_isAvailable, null);
-		this.m_patternIndex = patternIndex;
-		this.m_skinIndex = skinIndex;
-		this.m_tintIndex = tintIndex;
-		this.m_uiSkinBrowserPanel = parent;
-		this.m_transformPriority = tintIndex;
-		Color color;
-		if (ColorUtility.TryParseHtmlString(colorData.m_rarity.GetColorHexString(), out color))
+		m_colorData = colorData;
+		m_colorIcon.color = colorData.m_buttonColor;
+		UIManager.SetGameObjectActive(m_lockedIcon, !colorData.m_isAvailable);
+		m_patternIndex = patternIndex;
+		m_skinIndex = skinIndex;
+		m_tintIndex = tintIndex;
+		m_uiSkinBrowserPanel = parent;
+		m_transformPriority = tintIndex;
+		if (ColorUtility.TryParseHtmlString(colorData.m_rarity.GetColorHexString(), out Color color))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIButtonColorSelect.Setup(UIColorData, int, int, int, UISkinBrowserPanel)).MethodHandle;
-			}
-			this.m_defaultBorder.color = color;
+			m_defaultBorder.color = color;
 		}
-		UIManager.SetGameObjectActive(this.m_skinLevelIcon, colorData.m_styleLevelType != StyleLevelType.None, null);
-		this.m_skinLevelIcon.sprite = (Resources.Load(CharacterColor.GetIconResourceStringForStyleLevelType(colorData.m_styleLevelType), typeof(Sprite)) as Sprite);
-		base.SetSelected(false);
-		this.m_unlockTooltipTitle = string.Format(StringUtil.TR("SkinName", "Global"), colorData.m_name);
-		this.m_unlockTooltipText = colorData.m_description;
-		if (this.m_unlockTooltipText.IsNullOrEmpty())
+		UIManager.SetGameObjectActive(m_skinLevelIcon, colorData.m_styleLevelType != StyleLevelType.None);
+		m_skinLevelIcon.sprite = (Resources.Load(CharacterColor.GetIconResourceStringForStyleLevelType(colorData.m_styleLevelType), typeof(Sprite)) as Sprite);
+		SetSelected(false);
+		m_unlockTooltipTitle = string.Format(StringUtil.TR("SkinName", "Global"), colorData.m_name);
+		m_unlockTooltipText = colorData.m_description;
+		if (m_unlockTooltipText.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_unlockTooltipText = string.Empty;
+			m_unlockTooltipText = string.Empty;
 			int num = 0;
 			if (colorData.m_unlockCharacterLevel > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_unlockTooltipText = this.m_unlockTooltipText + string.Format(StringUtil.TR("UnlockedAtCharacterLevel", "Global"), colorData.m_unlockCharacterLevel) + Environment.NewLine;
+				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("UnlockedAtCharacterLevel", "Global"), colorData.m_unlockCharacterLevel) + Environment.NewLine;
 				num++;
 			}
 			if (colorData.m_isoCurrencyCost > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_unlockTooltipText = this.m_unlockTooltipText + string.Format(StringUtil.TR("BuyForISO", "Global"), colorData.m_isoCurrencyCost) + Environment.NewLine;
+				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("BuyForISO", "Global"), colorData.m_isoCurrencyCost) + Environment.NewLine;
 				num++;
 			}
 			if (colorData.m_freelancerCurrencyCost > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_unlockTooltipText = this.m_unlockTooltipText + string.Format(StringUtil.TR("BuyForFreelancerCurrency", "Global"), colorData.m_freelancerCurrencyCost) + Environment.NewLine;
+				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("BuyForFreelancerCurrency", "Global"), colorData.m_freelancerCurrencyCost) + Environment.NewLine;
 				num++;
 			}
 			if (colorData.m_realCurrencyCost > 0f)
 			{
-				this.m_unlockTooltipText = this.m_unlockTooltipText + string.Format(StringUtil.TR("BuyFor", "Global"), UIStorePanel.GetLocalizedPriceString(colorData.m_realCurrencyCost, HydrogenConfig.Get().Ticket.AccountCurrency)) + Environment.NewLine;
+				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("BuyFor", "Global"), UIStorePanel.GetLocalizedPriceString(colorData.m_realCurrencyCost, HydrogenConfig.Get().Ticket.AccountCurrency)) + Environment.NewLine;
 				num++;
 			}
 			if (colorData.m_requiredLevelForEquip > 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_unlockTooltipText = this.m_unlockTooltipText + string.Format(StringUtil.TR("CanEquipAtCharacterLevel", "Global"), colorData.m_requiredLevelForEquip) + Environment.NewLine;
+				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("CanEquipAtCharacterLevel", "Global"), colorData.m_requiredLevelForEquip) + Environment.NewLine;
 				num++;
 			}
 			if (num > 1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_unlockTooltipText = StringUtil.TR("ObtainableViaMethods", "Global") + Environment.NewLine + this.m_unlockTooltipText + Environment.NewLine;
+				m_unlockTooltipText = StringUtil.TR("ObtainableViaMethods", "Global") + Environment.NewLine + m_unlockTooltipText + Environment.NewLine;
 			}
 		}
 		else
 		{
-			this.m_unlockTooltipText += Environment.NewLine;
+			m_unlockTooltipText += Environment.NewLine;
 		}
 		if (colorData.m_isAvailable)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!colorData.m_isSkinAvailable)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_unlockTooltipText = this.m_unlockTooltipText + StringUtil.TR("MustUnlockSkin", "Global") + Environment.NewLine;
+				m_unlockTooltipText = m_unlockTooltipText + StringUtil.TR("MustUnlockSkin", "Global") + Environment.NewLine;
 			}
 		}
 		if (!colorData.m_flavorText.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			string unlockTooltipText = this.m_unlockTooltipText;
-			this.m_unlockTooltipText = string.Concat(new string[]
-			{
-				unlockTooltipText,
-				"<i>",
-				colorData.m_flavorText,
-				"</i>",
-				Environment.NewLine
-			});
+			string unlockTooltipText = m_unlockTooltipText;
+			m_unlockTooltipText = unlockTooltipText + "<i>" + colorData.m_flavorText + "</i>" + Environment.NewLine;
 		}
-		string obtainedDescription = GameWideData.Get().GetCharacterResourceLink(this.m_colorData.m_characterType).m_skins[this.m_colorData.m_skinIndex].m_patterns[this.m_colorData.m_patternIndex].m_colors[this.m_colorData.m_colorIndex].m_colorUnlockData.GetObtainedDescription();
-		if (!obtainedDescription.IsNullOrEmpty())
+		string obtainedDescription = GameWideData.Get().GetCharacterResourceLink(m_colorData.m_characterType).m_skins[m_colorData.m_skinIndex].m_patterns[m_colorData.m_patternIndex].m_colors[m_colorData.m_colorIndex].m_colorUnlockData.GetObtainedDescription();
+		if (obtainedDescription.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_unlockTooltipText += obtainedDescription;
+			return;
+		}
+		while (true)
+		{
+			m_unlockTooltipText += obtainedDescription;
+			return;
 		}
 	}
 }

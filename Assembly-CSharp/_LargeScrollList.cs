@@ -1,12 +1,19 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(ScrollRect))]
 public class _LargeScrollList : MonoBehaviour
 {
+	public struct ScrollListItemEntry
+	{
+		public _LargeScrollListItemEntry m_theEntry;
+
+		public int prefabTypeIndex;
+
+		public int entryIndex;
+	}
+
 	public _LargeScrollListItemEntry[] scrollListPrefabTypes;
 
 	public float m_spacing;
@@ -21,9 +28,9 @@ public class _LargeScrollList : MonoBehaviour
 
 	private float m_totalHeightOfViewArea;
 
-	private List<List<_LargeScrollList.ScrollListItemEntry>> m_prefabBankList;
+	private List<List<ScrollListItemEntry>> m_prefabBankList;
 
-	private List<_LargeScrollList.ScrollListItemEntry> m_activeEntryList;
+	private List<ScrollListItemEntry> m_activeEntryList;
 
 	private bool initialized;
 
@@ -31,97 +38,75 @@ public class _LargeScrollList : MonoBehaviour
 
 	private void Init()
 	{
-		if (!this.initialized)
+		if (initialized)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_LargeScrollList.Init()).MethodHandle;
-			}
-			this.initialized = true;
-			this.m_scrollRectComponent = base.gameObject.GetComponent<ScrollRect>();
-			this.m_scrollBar = this.m_scrollRectComponent.verticalScrollbar;
-			RectTransform rectTransform = this.m_scrollRectComponent.content.gameObject.transform as RectTransform;
+			return;
+		}
+		ScrollListItemEntry item = default(ScrollListItemEntry);
+		while (true)
+		{
+			initialized = true;
+			m_scrollRectComponent = base.gameObject.GetComponent<ScrollRect>();
+			m_scrollBar = m_scrollRectComponent.verticalScrollbar;
+			RectTransform rectTransform = m_scrollRectComponent.content.gameObject.transform as RectTransform;
 			rectTransform.anchorMin = new Vector2(0.5f, 1f);
 			rectTransform.anchorMax = new Vector2(0.5f, 1f);
 			rectTransform.pivot = new Vector2(0.5f, 1f);
-			this.m_prefabBankList = new List<List<_LargeScrollList.ScrollListItemEntry>>();
-			this.m_activeEntryList = new List<_LargeScrollList.ScrollListItemEntry>();
-			for (int i = 0; i < this.scrollListPrefabTypes.Length; i++)
+			m_prefabBankList = new List<List<ScrollListItemEntry>>();
+			m_activeEntryList = new List<ScrollListItemEntry>();
+			for (int i = 0; i < scrollListPrefabTypes.Length; i++)
 			{
-				List<_LargeScrollList.ScrollListItemEntry> list = new List<_LargeScrollList.ScrollListItemEntry>();
-				_LargeScrollListItemEntry largeScrollListItemEntry = UnityEngine.Object.Instantiate<_LargeScrollListItemEntry>(this.scrollListPrefabTypes[i]);
-				largeScrollListItemEntry.transform.SetParent(this.m_scrollRectComponent.content);
-				UIManager.SetGameObjectActive(largeScrollListItemEntry, false, null);
-				_LargeScrollList.ScrollListItemEntry item;
+				List<ScrollListItemEntry> list = new List<ScrollListItemEntry>();
+				_LargeScrollListItemEntry largeScrollListItemEntry = Object.Instantiate(scrollListPrefabTypes[i]);
+				largeScrollListItemEntry.transform.SetParent(m_scrollRectComponent.content);
+				UIManager.SetGameObjectActive(largeScrollListItemEntry, false);
 				item.entryIndex = -1;
 				item.prefabTypeIndex = i;
 				item.m_theEntry = largeScrollListItemEntry;
 				list.Add(item);
-				this.m_prefabBankList.Add(list);
+				m_prefabBankList.Add(list);
 			}
-			for (;;)
+			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_scrollBar.onValueChanged.AddListener(ScrollValueChanged);
+				m_scrollRectComponent.elasticity = 0.01f;
+				return;
 			}
-			this.m_scrollBar.onValueChanged.AddListener(new UnityAction<float>(this.ScrollValueChanged));
-			this.m_scrollRectComponent.elasticity = 0.01f;
 		}
 	}
 
 	public ScrollRect GetScrollRect()
 	{
-		this.Init();
-		return this.m_scrollRectComponent;
+		Init();
+		return m_scrollRectComponent;
 	}
 
 	private void Start()
 	{
-		this.Init();
+		Init();
 	}
 
 	public void SetScrollable(bool scrollable)
 	{
-		this.m_scrollable = scrollable;
+		m_scrollable = scrollable;
 	}
 
-	public List<_LargeScrollList.ScrollListItemEntry> GetVisibleListEntries()
+	public List<ScrollListItemEntry> GetVisibleListEntries()
 	{
-		return this.m_activeEntryList;
+		return m_activeEntryList;
 	}
 
 	private bool IsEntryDisplayed(int index)
 	{
-		for (int i = 0; i < this.m_activeEntryList.Count; i++)
+		for (int i = 0; i < m_activeEntryList.Count; i++)
 		{
-			if (this.m_activeEntryList[i].entryIndex == index)
+			ScrollListItemEntry scrollListItemEntry = m_activeEntryList[i];
+			if (scrollListItemEntry.entryIndex != index)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_LargeScrollList.IsEntryDisplayed(int)).MethodHandle;
-				}
+				continue;
+			}
+			while (true)
+			{
 				return true;
 			}
 		}
@@ -130,158 +115,100 @@ public class _LargeScrollList : MonoBehaviour
 
 	public void ScrollValueChanged(float value)
 	{
-		if (!this.m_scrollable)
+		if (!m_scrollable || m_listReference == null)
 		{
 			return;
 		}
-		if (this.m_listReference != null)
+		ScrollListItemEntry item2 = default(ScrollListItemEntry);
+		while (true)
 		{
-			for (;;)
+			float num = m_totalHeightOfList - m_totalHeightOfList * value;
+			float height = num - m_totalHeightOfViewArea;
+			float height2 = num + m_totalHeightOfViewArea;
+			int indexFromHeight = GetIndexFromHeight(height);
+			int indexFromHeight2 = GetIndexFromHeight(height2);
+			indexFromHeight = Mathf.Max(indexFromHeight, 0);
+			indexFromHeight2 = Mathf.Min(indexFromHeight2, m_listReference.Count - 1);
+			for (int i = 0; i < m_activeEntryList.Count; i++)
 			{
-				switch (2)
+				ScrollListItemEntry scrollListItemEntry = m_activeEntryList[i];
+				int prefabEntryIndexFromItemListIndex = GetPrefabEntryIndexFromItemListIndex(scrollListItemEntry.entryIndex);
+				ScrollListItemEntry scrollListItemEntry2 = m_activeEntryList[i];
+				if (scrollListItemEntry2.entryIndex >= indexFromHeight)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_LargeScrollList.ScrollValueChanged(float)).MethodHandle;
-			}
-			float num = this.m_totalHeightOfList - this.m_totalHeightOfList * value;
-			float height = num - this.m_totalHeightOfViewArea;
-			float height2 = num + this.m_totalHeightOfViewArea;
-			int num2 = this.GetIndexFromHeight(height);
-			int num3 = this.GetIndexFromHeight(height2);
-			num2 = Mathf.Max(num2, 0);
-			num3 = Mathf.Min(num3, this.m_listReference.Count - 1);
-			int i = 0;
-			while (i < this.m_activeEntryList.Count)
-			{
-				int prefabEntryIndexFromItemListIndex = this.GetPrefabEntryIndexFromItemListIndex(this.m_activeEntryList[i].entryIndex);
-				if (this.m_activeEntryList[i].entryIndex < num2 || this.m_activeEntryList[i].entryIndex > num3)
-				{
-					goto IL_10F;
-				}
-				for (;;)
-				{
-					switch (1)
+					ScrollListItemEntry scrollListItemEntry3 = m_activeEntryList[i];
+					if (scrollListItemEntry3.entryIndex <= indexFromHeight2)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_activeEntryList[i].prefabTypeIndex != prefabEntryIndexFromItemListIndex)
-				{
-					for (;;)
-					{
-						switch (1)
+						ScrollListItemEntry scrollListItemEntry4 = m_activeEntryList[i];
+						if (scrollListItemEntry4.prefabTypeIndex == prefabEntryIndexFromItemListIndex)
 						{
-						case 0:
 							continue;
 						}
-						goto IL_10F;
 					}
 				}
-				IL_163:
-				i++;
-				continue;
-				IL_10F:
-				_LargeScrollList.ScrollListItemEntry item = this.m_activeEntryList[i];
-				this.m_activeEntryList.RemoveAt(i);
+				ScrollListItemEntry item = m_activeEntryList[i];
+				m_activeEntryList.RemoveAt(i);
 				i--;
 				item.m_theEntry.SetVisible(false);
 				item.entryIndex = -1;
-				this.m_prefabBankList[item.prefabTypeIndex].Add(item);
-				goto IL_163;
+				m_prefabBankList[item.prefabTypeIndex].Add(item);
 			}
-			for (;;)
+			while (true)
 			{
-				switch (5)
+				for (int j = indexFromHeight; j < indexFromHeight2 + 1; j++)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			for (int j = num2; j < num3 + 1; j++)
-			{
-				if (!this.IsEntryDisplayed(j))
-				{
-					int prefabEntryIndexFromItemListIndex2 = this.GetPrefabEntryIndexFromItemListIndex(j);
-					if (this.m_prefabBankList[prefabEntryIndexFromItemListIndex2].Count == 0)
+					if (!IsEntryDisplayed(j))
 					{
-						for (;;)
+						int prefabEntryIndexFromItemListIndex2 = GetPrefabEntryIndexFromItemListIndex(j);
+						if (m_prefabBankList[prefabEntryIndexFromItemListIndex2].Count == 0)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							_LargeScrollListItemEntry theEntry = Object.Instantiate(scrollListPrefabTypes[prefabEntryIndexFromItemListIndex2]);
+							item2.entryIndex = -1;
+							item2.prefabTypeIndex = prefabEntryIndexFromItemListIndex2;
+							item2.m_theEntry = theEntry;
+							m_prefabBankList[prefabEntryIndexFromItemListIndex2].Add(item2);
 						}
-						_LargeScrollListItemEntry theEntry = UnityEngine.Object.Instantiate<_LargeScrollListItemEntry>(this.scrollListPrefabTypes[prefabEntryIndexFromItemListIndex2]);
-						_LargeScrollList.ScrollListItemEntry item2;
-						item2.entryIndex = -1;
-						item2.prefabTypeIndex = prefabEntryIndexFromItemListIndex2;
-						item2.m_theEntry = theEntry;
-						this.m_prefabBankList[prefabEntryIndexFromItemListIndex2].Add(item2);
-					}
-					if (this.m_prefabBankList[prefabEntryIndexFromItemListIndex2].Count > 0)
-					{
-						for (;;)
+						if (m_prefabBankList[prefabEntryIndexFromItemListIndex2].Count > 0)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							ScrollListItemEntry item3 = m_prefabBankList[prefabEntryIndexFromItemListIndex2][0];
+							item3.m_theEntry.SetVisible(true);
+							item3.m_theEntry.SetParent(m_scrollRectComponent.content);
+							m_listReference[j].Setup(j, item3.m_theEntry);
+							float heightFromItemIndex = GetHeightFromItemIndex(j);
+							item3.m_theEntry.SetAnchoredPosition(new Vector2(0f, heightFromItemIndex * -1f));
+							m_prefabBankList[prefabEntryIndexFromItemListIndex2].Remove(item3);
+							item3.entryIndex = j;
+							m_activeEntryList.Add(item3);
 						}
-						_LargeScrollList.ScrollListItemEntry item3 = this.m_prefabBankList[prefabEntryIndexFromItemListIndex2][0];
-						item3.m_theEntry.SetVisible(true);
-						item3.m_theEntry.SetParent(this.m_scrollRectComponent.content);
-						this.m_listReference[j].Setup(j, item3.m_theEntry);
-						float heightFromItemIndex = this.GetHeightFromItemIndex(j);
-						item3.m_theEntry.SetAnchoredPosition(new Vector2(0f, heightFromItemIndex * -1f));
-						this.m_prefabBankList[prefabEntryIndexFromItemListIndex2].Remove(item3);
-						item3.entryIndex = j;
-						this.m_activeEntryList.Add(item3);
+						continue;
 					}
-				}
-				else
-				{
-					for (int k = 0; k < this.m_activeEntryList.Count; k++)
+					for (int k = 0; k < m_activeEntryList.Count; k++)
 					{
-						if (this.m_activeEntryList[k].entryIndex == j)
+						ScrollListItemEntry scrollListItemEntry5 = m_activeEntryList[k];
+						if (scrollListItemEntry5.entryIndex == j)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_activeEntryList[k].m_theEntry.SetVisible(true);
-							this.m_listReference[j].Setup(j, this.m_activeEntryList[k].m_theEntry);
-							float heightFromItemIndex2 = this.GetHeightFromItemIndex(j);
-							this.m_activeEntryList[k].m_theEntry.SetAnchoredPosition(new Vector2(0f, heightFromItemIndex2 * -1f));
+							ScrollListItemEntry scrollListItemEntry6 = m_activeEntryList[k];
+							scrollListItemEntry6.m_theEntry.SetVisible(true);
+							IDataEntry dataEntry = m_listReference[j];
+							int displayIndex = j;
+							ScrollListItemEntry scrollListItemEntry7 = m_activeEntryList[k];
+							dataEntry.Setup(displayIndex, scrollListItemEntry7.m_theEntry);
+							float heightFromItemIndex2 = GetHeightFromItemIndex(j);
+							ScrollListItemEntry scrollListItemEntry8 = m_activeEntryList[k];
+							scrollListItemEntry8.m_theEntry.SetAnchoredPosition(new Vector2(0f, heightFromItemIndex2 * -1f));
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (2)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
 				}
-				break;
 			}
 		}
 	}
@@ -290,51 +217,42 @@ public class _LargeScrollList : MonoBehaviour
 	{
 		float num = 0f;
 		int result = 0;
-		for (int i = 0; i < this.m_listReference.Count; i++)
+		int num2 = 0;
+		while (true)
 		{
-			result = i;
-			if (num >= height)
+			IL_0043:
+			if (num2 < m_listReference.Count)
 			{
-				return result;
-			}
-			for (;;)
-			{
-				switch (4)
+				result = num2;
+				if (!(num < height))
 				{
-				case 0:
-					continue;
+					break;
 				}
-				break;
+				while (true)
+				{
+					if (num2 != 0)
+					{
+						num += m_spacing;
+					}
+					num += GetHeightOfEntry(num2);
+					num2++;
+					goto IL_0043;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_LargeScrollList.GetIndexFromHeight(float)).MethodHandle;
-			}
-			if (i != 0)
-			{
-				num += this.m_spacing;
-			}
-			num += this.GetHeightOfEntry(i);
+			break;
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			return result;
-		}
+		return result;
 	}
 
 	private float GetViewHeight()
 	{
-		return (this.m_scrollRectComponent.transform as RectTransform).sizeDelta.y;
+		Vector2 sizeDelta = (m_scrollRectComponent.transform as RectTransform).sizeDelta;
+		return sizeDelta.y;
 	}
 
 	private float GetHeightFromItemIndex(int index)
 	{
-		return this.GetHeightDifferenceFromItemIndices(0, index);
+		return GetHeightDifferenceFromItemIndices(0, index);
 	}
 
 	private float GetHeightDifferenceFromItemIndices(int startIndex, int endIndex)
@@ -342,72 +260,46 @@ public class _LargeScrollList : MonoBehaviour
 		float num = 0f;
 		for (int i = startIndex; i < endIndex; i++)
 		{
-			num += this.m_spacing;
-			num += this.GetHeightOfEntry(i);
+			num += m_spacing;
+			num += GetHeightOfEntry(i);
 		}
 		return num;
 	}
 
 	public int GetNumTotalEntries()
 	{
-		return this.m_listReference.Count;
+		return m_listReference.Count;
 	}
 
 	private int GetPrefabEntryIndexFromItemListIndex(int index)
 	{
 		if (-1 < index)
 		{
-			for (;;)
+			if (index < m_listReference.Count)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_LargeScrollList.GetPrefabEntryIndexFromItemListIndex(int)).MethodHandle;
-			}
-			if (index < this.m_listReference.Count)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_listReference[index].GetPrefabIndexToDisplay();
 					}
-					break;
 				}
-				return this.m_listReference[index].GetPrefabIndexToDisplay();
 			}
 		}
-		return -0x64;
+		return -100;
 	}
 
 	private float GetHeightOfEntry(int index)
 	{
-		int prefabEntryIndexFromItemListIndex = this.GetPrefabEntryIndexFromItemListIndex(index);
+		int prefabEntryIndexFromItemListIndex = GetPrefabEntryIndexFromItemListIndex(index);
 		if (-1 < prefabEntryIndexFromItemListIndex)
 		{
-			for (;;)
+			if (prefabEntryIndexFromItemListIndex < scrollListPrefabTypes.Length)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_LargeScrollList.GetHeightOfEntry(int)).MethodHandle;
-			}
-			if (prefabEntryIndexFromItemListIndex < this.scrollListPrefabTypes.Length)
-			{
-				return this.scrollListPrefabTypes[prefabEntryIndexFromItemListIndex].GetHeight();
+				return scrollListPrefabTypes[prefabEntryIndexFromItemListIndex].GetHeight();
 			}
 		}
 		return 0f;
@@ -415,85 +307,60 @@ public class _LargeScrollList : MonoBehaviour
 
 	public IDataEntry GetDataEntry(int index)
 	{
-		return this.m_listReference[index];
+		return m_listReference[index];
 	}
 
 	public void Setup(List<IDataEntry> itemList, int indexToSetView = 0)
 	{
-		this.Init();
-		this.m_listReference = itemList;
-		this.m_totalHeightOfList = this.GetHeightFromItemIndex(itemList.Count - 1) + this.GetHeightOfEntry(itemList.Count - 1);
-		this.m_totalHeightOfViewArea = (this.m_scrollRectComponent.transform as RectTransform).rect.height * 1.5f;
-		this.m_scrollRectComponent.content.sizeDelta = new Vector2(this.m_scrollRectComponent.content.sizeDelta.x, this.m_totalHeightOfList);
-		this.SetViewToEntryIndex(indexToSetView);
+		Init();
+		m_listReference = itemList;
+		m_totalHeightOfList = GetHeightFromItemIndex(itemList.Count - 1) + GetHeightOfEntry(itemList.Count - 1);
+		m_totalHeightOfViewArea = (m_scrollRectComponent.transform as RectTransform).rect.height * 1.5f;
+		RectTransform content = m_scrollRectComponent.content;
+		Vector2 sizeDelta = m_scrollRectComponent.content.sizeDelta;
+		content.sizeDelta = new Vector2(sizeDelta.x, m_totalHeightOfList);
+		SetViewToEntryIndex(indexToSetView);
 	}
 
 	public void RefreshEntries()
 	{
-		if (base.gameObject.activeInHierarchy)
+		if (!base.gameObject.activeInHierarchy)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_LargeScrollList.RefreshEntries()).MethodHandle;
-			}
-			this.ScrollValueChanged(this.m_scrollBar.value);
+			return;
+		}
+		while (true)
+		{
+			ScrollValueChanged(m_scrollBar.value);
+			return;
 		}
 	}
 
 	public void SetViewToEntryIndex(int index)
 	{
-		if (base.gameObject.activeInHierarchy)
+		if (!base.gameObject.activeInHierarchy)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			float value = 1f - GetHeightFromItemIndex(index) / m_totalHeightOfList;
+			value = Mathf.Clamp01(value);
+			if (m_scrollBar.value == value)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_LargeScrollList.SetViewToEntryIndex(int)).MethodHandle;
-			}
-			float num = 1f - this.GetHeightFromItemIndex(index) / this.m_totalHeightOfList;
-			num = Mathf.Clamp01(num);
-			if (this.m_scrollBar.value == num)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						ScrollValueChanged(value);
+						return;
 					}
-					break;
 				}
-				this.ScrollValueChanged(num);
 			}
-			else
-			{
-				this.m_scrollBar.value = num;
-			}
+			m_scrollBar.value = value;
+			return;
 		}
-	}
-
-	public struct ScrollListItemEntry
-	{
-		public _LargeScrollListItemEntry m_theEntry;
-
-		public int prefabTypeIndex;
-
-		public int entryIndex;
 	}
 }

@@ -1,39 +1,20 @@
-﻿using System;
-
 public static class InventoryWideDataExtensions
 {
 	public static bool IsDefaultStackableType(InventoryItemType itemType)
 	{
+		int result;
 		if (itemType != InventoryItemType.Material)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideDataExtensions.IsDefaultStackableType(InventoryItemType)).MethodHandle;
-			}
 			if (itemType != InventoryItemType.Currency && itemType != InventoryItemType.Experience)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return itemType == InventoryItemType.FreelancerExpBonus;
+				result = ((itemType == InventoryItemType.FreelancerExpBonus) ? 1 : 0);
+				goto IL_0034;
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_0034;
+		IL_0034:
+		return (byte)result != 0;
 	}
 
 	public static bool IsStackable(this InventoryItem item)
@@ -53,39 +34,22 @@ public static class InventoryWideDataExtensions
 
 	public static bool IsCollectable(this InventoryItemTemplate itemTemplate)
 	{
+		int result;
 		if (itemTemplate.Type != InventoryItemType.Material)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryItemTemplate.IsCollectable()).MethodHandle;
-			}
 			if (itemTemplate.Type != InventoryItemType.Currency)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (itemTemplate.Type != InventoryItemType.Experience)
 				{
-					return itemTemplate.Type != InventoryItemType.FreelancerExpBonus;
+					result = ((itemTemplate.Type != InventoryItemType.FreelancerExpBonus) ? 1 : 0);
+					goto IL_004b;
 				}
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_004b;
+		IL_004b:
+		return (byte)result != 0;
 	}
 
 	public static InventoryItemTemplate GetTemplate(this InventoryItem item)
@@ -103,68 +67,30 @@ public static class InventoryWideDataExtensions
 		}
 		if (itemTemplate.Type == InventoryItemType.TitleID)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					int num2 = itemTemplate.TypeSpecificData[0];
+					GameBalanceVars.PlayerTitle playerTitle = GameBalanceVars.Get().PlayerTitles[num2];
+					return playerTitle.m_relatedCharacter;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryItemTemplate.GetBindingCharacterType()).MethodHandle;
-			}
-			int num2 = itemTemplate.TypeSpecificData[0];
-			GameBalanceVars.PlayerTitle playerTitle = GameBalanceVars.Get().PlayerTitles[num2];
-			return playerTitle.m_relatedCharacter;
 		}
 		if (itemTemplate.Type != InventoryItemType.Skin)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (itemTemplate.Type != InventoryItemType.Texture)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (itemTemplate.Type != InventoryItemType.Style && itemTemplate.Type != InventoryItemType.Taunt && itemTemplate.Type != InventoryItemType.Mod)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (itemTemplate.Type != InventoryItemType.AbilityVfxSwap)
 					{
 						return CharacterType.None;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}

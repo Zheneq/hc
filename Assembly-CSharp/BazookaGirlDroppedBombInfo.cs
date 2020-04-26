@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class BazookaGirlDroppedBombInfo
@@ -15,6 +15,6 @@ public class BazookaGirlDroppedBombInfo
 
 	public BazookaGirlDroppedBombInfo GetShallowCopy()
 	{
-		return (BazookaGirlDroppedBombInfo)base.MemberwiseClone();
+		return (BazookaGirlDroppedBombInfo)MemberwiseClone();
 	}
 }

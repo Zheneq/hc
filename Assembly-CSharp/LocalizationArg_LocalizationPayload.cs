@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LocalizationArg_LocalizationPayload : LocalizationArg
@@ -7,14 +7,13 @@ public class LocalizationArg_LocalizationPayload : LocalizationArg
 
 	public static LocalizationArg_LocalizationPayload Create(LocalizationPayload payload)
 	{
-		return new LocalizationArg_LocalizationPayload
-		{
-			m_payload = payload
-		};
+		LocalizationArg_LocalizationPayload localizationArg_LocalizationPayload = new LocalizationArg_LocalizationPayload();
+		localizationArg_LocalizationPayload.m_payload = payload;
+		return localizationArg_LocalizationPayload;
 	}
 
 	public override string TR()
 	{
-		return this.m_payload.ToString();
+		return m_payload.ToString();
 	}
 }

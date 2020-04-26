@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,68 +52,42 @@ public class ExoShield : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Exo Shield";
+			m_abilityName = "Exo Shield";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		this.m_syncComponent = base.GetComponent<Exo_SyncComponent>();
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, this.GetTargeterShape(), false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, true, AbilityUtil_Targeter.AffectsActor.Always, AbilityUtil_Targeter.AffectsActor.Possible);
+		SetCachedFields();
+		m_syncComponent = GetComponent<Exo_SyncComponent>();
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, GetTargeterShape(), false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, true, AbilityUtil_Targeter.AffectsActor.Always);
 		base.Targeter.ShowArcToShape = false;
 	}
 
 	public override bool CanTriggerAnimAtIndexForTaunt(int animIndex)
 	{
-		return base.CanTriggerAnimAtIndexForTaunt(animIndex) || animIndex == this.m_animIndexWhenAnchored;
+		return base.CanTriggerAnimAtIndexForTaunt(animIndex) || animIndex == m_animIndexWhenAnchored;
 	}
 
 	public override ActorModelData.ActionAnimationType GetActionAnimType(List<AbilityTarget> targets, ActorData caster)
 	{
-		if (this.m_syncComponent != null)
+		if (m_syncComponent != null)
 		{
-			for (;;)
+			if (m_syncComponent.m_anchored)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.GetActionAnimType(List<AbilityTarget>, ActorData)).MethodHandle;
-			}
-			if (this.m_syncComponent.m_anchored)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return (ActorModelData.ActionAnimationType)m_animIndexWhenAnchored;
 					}
-					break;
 				}
-				return (ActorModelData.ActionAnimationType)this.m_animIndexWhenAnchored;
 			}
 		}
 		return base.GetActionAnimType();
@@ -122,32 +95,19 @@ public class ExoShield : Ability
 
 	private void SetCachedFields()
 	{
-		this.m_cachedAbsorbEffect = ((!this.m_abilityMod) ? this.m_absorbEffect : this.m_abilityMod.m_absorbEffectMod.GetModifiedValue(this.m_absorbEffect));
+		m_cachedAbsorbEffect = ((!m_abilityMod) ? m_absorbEffect : m_abilityMod.m_absorbEffectMod.GetModifiedValue(m_absorbEffect));
 	}
 
 	public StandardActorEffectData GetAbsorbEffect()
 	{
 		StandardActorEffectData result;
-		if (this.m_cachedAbsorbEffect != null)
+		if (m_cachedAbsorbEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.GetAbsorbEffect()).MethodHandle;
-			}
-			result = this.m_cachedAbsorbEffect;
+			result = m_cachedAbsorbEffect;
 		}
 		else
 		{
-			result = this.m_absorbEffect;
+			result = m_absorbEffect;
 		}
 		return result;
 	}
@@ -155,26 +115,13 @@ public class ExoShield : Ability
 	public int GetExtraAbsorbIfSieging()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.GetExtraAbsorbIfSieging()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_extraAbsorbIfSiegingMod.GetModifiedValue(this.m_extraAbsorbIfSieging);
+			result = m_abilityMod.m_extraAbsorbIfSiegingMod.GetModifiedValue(m_extraAbsorbIfSieging);
 		}
 		else
 		{
-			result = this.m_extraAbsorbIfSieging;
+			result = m_extraAbsorbIfSieging;
 		}
 		return result;
 	}
@@ -182,26 +129,13 @@ public class ExoShield : Ability
 	public int GetCdrIfShieldNotUsed()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.GetCdrIfShieldNotUsed()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_cdrIfShieldNotUsedMod.GetModifiedValue(this.m_cdrIfShieldNotUsed);
+			result = m_abilityMod.m_cdrIfShieldNotUsedMod.GetModifiedValue(m_cdrIfShieldNotUsed);
 		}
 		else
 		{
-			result = this.m_cdrIfShieldNotUsed;
+			result = m_cdrIfShieldNotUsed;
 		}
 		return result;
 	}
@@ -209,26 +143,13 @@ public class ExoShield : Ability
 	public int GetShieldLostPerEnergyGain()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.GetShieldLostPerEnergyGain()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_shieldLostPerEnergyGainMod.GetModifiedValue(this.m_shieldLostPerEnergyGain);
+			result = m_abilityMod.m_shieldLostPerEnergyGainMod.GetModifiedValue(m_shieldLostPerEnergyGain);
 		}
 		else
 		{
-			result = this.m_shieldLostPerEnergyGain;
+			result = m_shieldLostPerEnergyGain;
 		}
 		return result;
 	}
@@ -236,26 +157,13 @@ public class ExoShield : Ability
 	public int GetMaxShieldLostForEnergyGain()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.GetMaxShieldLostForEnergyGain()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_maxShieldLostForEnergyGainMod.GetModifiedValue(this.m_maxShieldLostForEnergyGain);
+			result = m_abilityMod.m_maxShieldLostForEnergyGainMod.GetModifiedValue(m_maxShieldLostForEnergyGain);
 		}
 		else
 		{
-			result = this.m_maxShieldLostForEnergyGain;
+			result = m_maxShieldLostForEnergyGain;
 		}
 		return result;
 	}
@@ -263,58 +171,32 @@ public class ExoShield : Ability
 	public int GetMaxTechPointsCost()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.GetMaxTechPointsCost()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_maxTechPointsCostMod.GetModifiedValue(this.m_maxTechPointsCost);
+			result = m_abilityMod.m_maxTechPointsCostMod.GetModifiedValue(m_maxTechPointsCost);
 		}
 		else
 		{
-			result = this.m_maxTechPointsCost;
+			result = m_maxTechPointsCost;
 		}
 		return result;
 	}
 
 	public int GetMinTechPointsForCast()
 	{
-		return (!this.m_abilityMod) ? this.m_minTechPointsForCast : this.m_abilityMod.m_minTechPointsForCastMod.GetModifiedValue(this.m_minTechPointsForCast);
+		return (!m_abilityMod) ? m_minTechPointsForCast : m_abilityMod.m_minTechPointsForCastMod.GetModifiedValue(m_minTechPointsForCast);
 	}
 
 	public bool FreeActionWhileAnchored()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.FreeActionWhileAnchored()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_freeActionWhileAnchoredMod.GetModifiedValue(this.m_freeActionWhileAnchored);
+			result = m_abilityMod.m_freeActionWhileAnchoredMod.GetModifiedValue(m_freeActionWhileAnchored);
 		}
 		else
 		{
-			result = this.m_freeActionWhileAnchored;
+			result = m_freeActionWhileAnchored;
 		}
 		return result;
 	}
@@ -322,79 +204,40 @@ public class ExoShield : Ability
 	public AbilityAreaShape GetTargeterShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.GetTargeterShape()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_targeterShapeMod.GetModifiedValue(this.m_targeterShape);
+			result = m_abilityMod.m_targeterShapeMod.GetModifiedValue(m_targeterShape);
 		}
 		else
 		{
-			result = this.m_targeterShape;
+			result = m_targeterShape;
 		}
 		return result;
 	}
 
 	private bool WillBeAnchoredDuringCombat()
 	{
-		bool flag;
-		if (this.m_syncComponent != null)
+		int num;
+		if (m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.WillBeAnchoredDuringCombat()).MethodHandle;
-			}
-			flag = this.m_syncComponent.m_anchored;
+			num = (m_syncComponent.m_anchored ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
-		bool flag3 = base.ActorData.\u000E().HasQueuedAbilityOfType(typeof(ExoAnchorLaser));
-		return flag2 || flag3;
+		bool flag = (byte)num != 0;
+		bool flag2 = base.ActorData.GetAbilityData().HasQueuedAbilityOfType(typeof(ExoAnchorLaser));
+		return flag || flag2;
 	}
 
 	private bool IsSiegingThisTurn(ActorData caster)
 	{
 		if (caster != null)
 		{
-			for (;;)
+			if (caster.GetAbilityData() != null)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.IsSiegingThisTurn(ActorData)).MethodHandle;
-			}
-			if (caster.\u000E() != null)
-			{
-				return caster.\u000E().HasQueuedAbilityOfType(typeof(ExoAnchorLaser));
+				return caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ExoAnchorLaser));
 			}
 		}
 		return false;
@@ -404,305 +247,183 @@ public class ExoShield : Ability
 	{
 		if (anchoredAmount)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_anchoredTechPointToAbsorbConversionRate;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.GetTechPointToAbsorbConversionRate(bool)).MethodHandle;
-			}
-			return this.m_anchoredTechPointToAbsorbConversionRate;
 		}
-		return this.m_techPointToAbsorbConversionRate;
+		return m_techPointToAbsorbConversionRate;
 	}
 
 	public float GetAbsorbToTechPointConversionRate()
 	{
-		if (this.m_syncComponent != null && this.m_syncComponent.m_anchored)
+		if (m_syncComponent != null && m_syncComponent.m_anchored)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_anchoredRemainingAbsorbToTechPointConversionRate;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.GetAbsorbToTechPointConversionRate()).MethodHandle;
-			}
-			return this.m_anchoredRemainingAbsorbToTechPointConversionRate;
 		}
-		return this.m_remainingAbsorbToTechPointConversionRate;
+		return m_remainingAbsorbToTechPointConversionRate;
 	}
 
 	private int GetTechPointForShieldConversion(ActorData caster)
 	{
-		if (this.GetMaxTechPointsCost() > 0)
+		if (GetMaxTechPointsCost() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return Mathf.Min(GetMaxTechPointsCost(), caster.TechPoints);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.GetTechPointForShieldConversion(ActorData)).MethodHandle;
-			}
-			return Mathf.Min(this.GetMaxTechPointsCost(), caster.TechPoints);
 		}
 		return caster.TechPoints;
 	}
 
 	private int GetAbsorbForEnergyToAbsorbConversion(ActorData caster, bool anchoredAmount)
 	{
-		return Mathf.RoundToInt((float)this.GetTechPointForShieldConversion(caster) * this.GetTechPointToAbsorbConversionRate(anchoredAmount));
+		return Mathf.RoundToInt((float)GetTechPointForShieldConversion(caster) * GetTechPointToAbsorbConversionRate(anchoredAmount));
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.GetAbsorbEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		if (this.m_enableTechPointToAbsorbConversion)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		GetAbsorbEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		if (m_enableTechPointToAbsorbConversion)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.CalculateNameplateTargetingNumbers()).MethodHandle;
-			}
-			AbilityTooltipHelper.ReportAbsorb(ref result, AbilityTooltipSubject.Self, 0x64);
-			AbilityTooltipHelper.ReportEnergy(ref result, AbilityTooltipSubject.Self, -0x64);
+			AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, 100);
+			AbilityTooltipHelper.ReportEnergy(ref numbers, AbilityTooltipSubject.Self, -100);
 		}
-		StandardEffectInfo moddedEffectForAllies = base.GetModdedEffectForAllies();
+		StandardEffectInfo moddedEffectForAllies = GetModdedEffectForAllies();
 		if (moddedEffectForAllies != null && moddedEffectForAllies.m_applyEffect)
 		{
-			moddedEffectForAllies.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
+			moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 		}
-		return result;
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		if (targetActor == base.ActorData)
 		{
-			for (;;)
+			int num = GetAbsorbEffect().m_absorbAmount;
+			if (m_enableTechPointToAbsorbConversion)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, -GetTechPointForShieldConversion(targetActor), AbilityTooltipSymbol.Energy);
+				num = GetAbsorbForEnergyToAbsorbConversion(targetActor, WillBeAnchoredDuringCombat());
 			}
-			if (!true)
+			if (GetExtraAbsorbIfSieging() > 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
-			int num = this.GetAbsorbEffect().m_absorbAmount;
-			if (this.m_enableTechPointToAbsorbConversion)
-			{
-				for (;;)
+				if (IsSiegingThisTurn(base.ActorData))
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, -this.GetTechPointForShieldConversion(targetActor), AbilityTooltipSymbol.Energy, AbilityTooltipSubject.Primary);
-				num = this.GetAbsorbForEnergyToAbsorbConversion(targetActor, this.WillBeAnchoredDuringCombat());
-			}
-			if (this.GetExtraAbsorbIfSieging() > 0)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.IsSiegingThisTurn(base.ActorData))
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num += this.GetExtraAbsorbIfSieging();
+					num += GetExtraAbsorbIfSieging();
 				}
 			}
-			Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, num, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Primary);
+			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, num, AbilityTooltipSymbol.Absorb);
 		}
-		return result;
+		return symbolToValue;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_ExoShield abilityMod_ExoShield = modAsBase as AbilityMod_ExoShield;
 		StandardActorEffectData standardActorEffectData;
-		if (abilityMod_ExoShield)
+		if ((bool)abilityMod_ExoShield)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
-			standardActorEffectData = abilityMod_ExoShield.m_absorbEffectMod.GetModifiedValue(this.m_absorbEffect);
+			standardActorEffectData = abilityMod_ExoShield.m_absorbEffectMod.GetModifiedValue(m_absorbEffect);
 		}
 		else
 		{
-			standardActorEffectData = this.m_absorbEffect;
+			standardActorEffectData = m_absorbEffect;
 		}
 		StandardActorEffectData standardActorEffectData2 = standardActorEffectData;
-		standardActorEffectData2.AddTooltipTokens(tokens, "AbsorbEffect", abilityMod_ExoShield != null, this.m_absorbEffect);
-		base.AddTokenInt(tokens, "ExtraAbsorbIfSieging", string.Empty, (!abilityMod_ExoShield) ? this.m_extraAbsorbIfSieging : abilityMod_ExoShield.m_extraAbsorbIfSiegingMod.GetModifiedValue(this.m_extraAbsorbIfSieging), false);
-		string name = "CdrIfShieldNotUsed";
+		standardActorEffectData2.AddTooltipTokens(tokens, "AbsorbEffect", abilityMod_ExoShield != null, m_absorbEffect);
+		AddTokenInt(tokens, "ExtraAbsorbIfSieging", string.Empty, (!abilityMod_ExoShield) ? m_extraAbsorbIfSieging : abilityMod_ExoShield.m_extraAbsorbIfSiegingMod.GetModifiedValue(m_extraAbsorbIfSieging));
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_ExoShield)
+		if ((bool)abilityMod_ExoShield)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val = abilityMod_ExoShield.m_cdrIfShieldNotUsedMod.GetModifiedValue(this.m_cdrIfShieldNotUsed);
+			val = abilityMod_ExoShield.m_cdrIfShieldNotUsedMod.GetModifiedValue(m_cdrIfShieldNotUsed);
 		}
 		else
 		{
-			val = this.m_cdrIfShieldNotUsed;
+			val = m_cdrIfShieldNotUsed;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "ShieldLostPerEnergyGain";
+		AddTokenInt(tokens, "CdrIfShieldNotUsed", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_ExoShield)
+		if ((bool)abilityMod_ExoShield)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val2 = abilityMod_ExoShield.m_shieldLostPerEnergyGainMod.GetModifiedValue(this.m_shieldLostPerEnergyGain);
+			val2 = abilityMod_ExoShield.m_shieldLostPerEnergyGainMod.GetModifiedValue(m_shieldLostPerEnergyGain);
 		}
 		else
 		{
-			val2 = this.m_shieldLostPerEnergyGain;
+			val2 = m_shieldLostPerEnergyGain;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		base.AddTokenInt(tokens, "MaxShieldLostForEnergyGain", string.Empty, (!abilityMod_ExoShield) ? this.m_maxShieldLostForEnergyGain : abilityMod_ExoShield.m_maxShieldLostForEnergyGainMod.GetModifiedValue(this.m_maxShieldLostForEnergyGain), false);
-		string name3 = "MaxEnergyForShieldConversion";
+		AddTokenInt(tokens, "ShieldLostPerEnergyGain", empty2, val2);
+		AddTokenInt(tokens, "MaxShieldLostForEnergyGain", string.Empty, (!abilityMod_ExoShield) ? m_maxShieldLostForEnergyGain : abilityMod_ExoShield.m_maxShieldLostForEnergyGainMod.GetModifiedValue(m_maxShieldLostForEnergyGain));
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_ExoShield)
+		if ((bool)abilityMod_ExoShield)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val3 = abilityMod_ExoShield.m_maxTechPointsCostMod.GetModifiedValue(this.m_maxTechPointsCost);
+			val3 = abilityMod_ExoShield.m_maxTechPointsCostMod.GetModifiedValue(m_maxTechPointsCost);
 		}
 		else
 		{
-			val3 = this.m_maxTechPointsCost;
+			val3 = m_maxTechPointsCost;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		string name4 = "MinEnergyForShieldConversion";
+		AddTokenInt(tokens, "MaxEnergyForShieldConversion", empty3, val3);
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_ExoShield)
+		if ((bool)abilityMod_ExoShield)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val4 = abilityMod_ExoShield.m_minTechPointsForCastMod.GetModifiedValue(this.m_minTechPointsForCast);
+			val4 = abilityMod_ExoShield.m_minTechPointsForCastMod.GetModifiedValue(m_minTechPointsForCast);
 		}
 		else
 		{
-			val4 = this.m_minTechPointsForCast;
+			val4 = m_minTechPointsForCast;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
-		base.AddTokenInt(tokens, "Max_TP_Cost", "up to this much energy will be converted to absorb", this.GetMaxTechPointsCost(), false);
-		base.AddTokenInt(tokens, "Min_TP", "the ability can only be cast with at least this much energy", this.GetMinTechPointsForCast(), false);
-		tokens.Add(new TooltipTokenFloat("TP_Absorb_Rate", "the amount of absorb gained per energy", this.GetTechPointToAbsorbConversionRate(false)));
-		tokens.Add(new TooltipTokenFloat("TP_Absorb_Rate_Anchored", "the amount of absorb gained per energy while anchored", this.GetTechPointToAbsorbConversionRate(true)));
-		tokens.Add(new TooltipTokenFloat("Absorb_TP_Rate", "the amount of energy re-gained per remaining absorb", this.m_remainingAbsorbToTechPointConversionRate));
-		tokens.Add(new TooltipTokenFloat("Absorb_TP_Rate_Anchored", "the amount of energy re-gained per remaining absorb while anchored", this.m_anchoredRemainingAbsorbToTechPointConversionRate));
+		AddTokenInt(tokens, "MinEnergyForShieldConversion", empty4, val4);
+		AddTokenInt(tokens, "Max_TP_Cost", "up to this much energy will be converted to absorb", GetMaxTechPointsCost());
+		AddTokenInt(tokens, "Min_TP", "the ability can only be cast with at least this much energy", GetMinTechPointsForCast());
+		tokens.Add(new TooltipTokenFloat("TP_Absorb_Rate", "the amount of absorb gained per energy", GetTechPointToAbsorbConversionRate(false)));
+		tokens.Add(new TooltipTokenFloat("TP_Absorb_Rate_Anchored", "the amount of absorb gained per energy while anchored", GetTechPointToAbsorbConversionRate(true)));
+		tokens.Add(new TooltipTokenFloat("Absorb_TP_Rate", "the amount of energy re-gained per remaining absorb", m_remainingAbsorbToTechPointConversionRate));
+		tokens.Add(new TooltipTokenFloat("Absorb_TP_Rate_Anchored", "the amount of energy re-gained per remaining absorb while anchored", m_anchoredRemainingAbsorbToTechPointConversionRate));
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_enableTechPointToAbsorbConversion)
+		if (m_enableTechPointToAbsorbConversion)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return caster.TechPoints > GetMinTechPointsForCast();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
-			return caster.TechPoints > this.GetMinTechPointsForCast();
 		}
 		return true;
 	}
@@ -713,63 +434,38 @@ public class ExoShield : Ability
 		{
 			return true;
 		}
-		if (this.m_freeActionWhileAnchored)
+		int result;
+		if (m_freeActionWhileAnchored)
 		{
-			for (;;)
+			if (m_syncComponent != null)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.IsFreeAction()).MethodHandle;
-			}
-			if (this.m_syncComponent != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return this.m_syncComponent.m_anchored;
+				result = (m_syncComponent.m_anchored ? 1 : 0);
+				goto IL_004d;
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_004d;
+		IL_004d:
+		return (byte)result != 0;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_ExoShield))
+		if (abilityMod.GetType() != typeof(AbilityMod_ExoShield))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_ExoShield);
-			this.Setup();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_ExoShield);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

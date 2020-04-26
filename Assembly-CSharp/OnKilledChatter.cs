@@ -1,17 +1,25 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
 public class OnKilledChatter : ScriptableObject, IChatterData
 {
+	public enum TypeOfKill
+	{
+		OnSelfKilled,
+		OnSelfKilledBySpecificCharacter,
+		OnKilledOtherAny,
+		OnKilledSpecificCharacter
+	}
+
 	public ChatterData m_baseData = new ChatterData();
 
-	public OnKilledChatter.TypeOfKill m_KillType;
+	public TypeOfKill m_KillType;
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -23,33 +31,20 @@ public class OnKilledChatter : ScriptableObject, IChatterData
 	{
 		if (!ChatterData.ShouldPlayChatter(this, eventType, args, component))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnKilledChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
-			return false;
 		}
 		ActorData actorData = null;
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (component.gameObject != null)
 			{
 				actorData = component.gameObject.GetComponent<ActorData>();
@@ -57,52 +52,25 @@ public class OnKilledChatter : ScriptableObject, IChatterData
 		}
 		if (actorData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
 		GameEventManager.CharacterDeathEventArgs characterDeathEventArgs = args as GameEventManager.CharacterDeathEventArgs;
-		OnKilledChatter.TypeOfKill killType = this.m_KillType;
-		if (killType != OnKilledChatter.TypeOfKill.OnSelfKilled)
+		TypeOfKill killType = m_KillType;
+		if (killType != 0)
 		{
-			for (;;)
+			if (killType != TypeOfKill.OnKilledOtherAny)
 			{
-				switch (2)
+				if (killType != TypeOfKill.OnKilledSpecificCharacter)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (killType != OnKilledChatter.TypeOfKill.OnKilledOtherAny)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (killType != OnKilledChatter.TypeOfKill.OnKilledSpecificCharacter)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -122,40 +90,32 @@ public class OnKilledChatter : ScriptableObject, IChatterData
 				List<ActorData> contributorsToKillOnClient2 = GameFlowData.Get().GetContributorsToKillOnClient(characterDeathEventArgs.deadCharacter, true);
 				if (!contributorsToKillOnClient2.Contains(actorData))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return false;
 						}
-						break;
 					}
-					return false;
 				}
 			}
 		}
 		else if (characterDeathEventArgs.deadCharacter != actorData)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
 		return true;
-	}
-
-	public enum TypeOfKill
-	{
-		OnSelfKilled,
-		OnSelfKilledBySpecificCharacter,
-		OnKilledOtherAny,
-		OnKilledSpecificCharacter
 	}
 }

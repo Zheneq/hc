@@ -1,43 +1,39 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class AbilityModPropertyShape
 {
+	public enum ModOp
+	{
+		Ignore,
+		Override
+	}
+
 	public AbilityAreaShape value;
 
-	public AbilityModPropertyShape.ModOp operation;
+	public ModOp operation;
 
 	public AbilityAreaShape GetModifiedValue(AbilityAreaShape input)
 	{
-		if (this.operation == AbilityModPropertyShape.ModOp.Override)
+		if (operation == ModOp.Override)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return value;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyShape.GetModifiedValue(AbilityAreaShape)).MethodHandle;
-			}
-			return this.value;
 		}
 		return input;
 	}
 
 	public void CopyValuesFrom(AbilityModPropertyShape other)
 	{
-		this.value = other.value;
-		this.operation = other.operation;
-	}
-
-	public enum ModOp
-	{
-		Ignore,
-		Override
+		value = other.value;
+		operation = other.operation;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 internal class PKFxDistortionEffect : MonoBehaviour
@@ -15,68 +14,34 @@ internal class PKFxDistortionEffect : MonoBehaviour
 
 	private void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
-		if (!(this._DistortionRT == null))
+		if (!(_DistortionRT == null))
 		{
-			for (;;)
+			if (_DistortionRT.IsCreated())
 			{
-				switch (2)
+				if (!(m_MaterialDistortion == null))
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxDistortionEffect.OnRenderImage(RenderTexture, RenderTexture)).MethodHandle;
-			}
-			if (this._DistortionRT.IsCreated())
-			{
-				for (;;)
-				{
-					switch (7)
+					if (m_MaterialBlur == null)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_MaterialDistortion == null)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
-				{
-					if (this.m_MaterialBlur == null)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								m_MaterialDistortion.SetTexture("_DistortionTex", _DistortionRT);
+								Graphics.Blit(source, destination, m_MaterialDistortion);
+								return;
 							}
-							break;
 						}
-						this.m_MaterialDistortion.SetTexture("_DistortionTex", this._DistortionRT);
-						Graphics.Blit(source, destination, this.m_MaterialDistortion);
-						return;
 					}
-					this.m_MaterialBlur.SetTexture("_DistortionTex", this._DistortionRT);
-					this.m_MaterialBlur.SetFloat("_BlurFactor", this.m_BlurFactor);
-					this.m_MaterialDistortion.SetTexture("_DistortionTex", this._DistortionRT);
-					this.m_TmpRT = RenderTexture.GetTemporary(source.width, source.height, source.volumeDepth, source.format);
-					Graphics.Blit(source, this.m_TmpRT, this.m_MaterialDistortion);
-					Graphics.Blit(this.m_TmpRT, destination, this.m_MaterialBlur);
-					RenderTexture.ReleaseTemporary(this.m_TmpRT);
+					m_MaterialBlur.SetTexture("_DistortionTex", _DistortionRT);
+					m_MaterialBlur.SetFloat("_BlurFactor", m_BlurFactor);
+					m_MaterialDistortion.SetTexture("_DistortionTex", _DistortionRT);
+					m_TmpRT = RenderTexture.GetTemporary(source.width, source.height, source.volumeDepth, source.format);
+					Graphics.Blit(source, m_TmpRT, m_MaterialDistortion);
+					Graphics.Blit(m_TmpRT, destination, m_MaterialBlur);
+					RenderTexture.ReleaseTemporary(m_TmpRT);
 					return;
 				}
 			}

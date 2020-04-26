@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -72,109 +72,24 @@ public class UIStoreItemBtn : MonoBehaviour
 		bool doActive = false;
 		if (item != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreItemBtn.Setup(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
 			bool flag = item.IsOwned();
 			bool flag2 = false;
 			if (this.m_item != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_item.GetType() == item.GetType())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_item.ID == item.ID)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_item.Index1 == item.Index1)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_item.Index2 == item.Index2)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_item.Index3 == item.Index3)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!this.m_ownedContainer.gameObject.activeSelf)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (flag)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											doActive = true;
 										}
 									}
@@ -197,15 +112,6 @@ public class UIStoreItemBtn : MonoBehaviour
 			bool visible;
 			if (!flag3)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				visible = (itemFg != null);
 			}
 			else
@@ -228,15 +134,6 @@ public class UIStoreItemBtn : MonoBehaviour
 				text2 = characterResourceLink.GetPatternColorName(item.Index2, item.Index3, item.ID);
 				if (characterColor.m_requiredLevelForEquip >= 0x14)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = "#00E9FF";
 				}
 			}
@@ -247,15 +144,6 @@ public class UIStoreItemBtn : MonoBehaviour
 			}
 			else if (item is GameBalanceVars.PlayerBanner)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = StringUtil.TR_BannerName(item.ID);
 			}
 			else if (item is GameBalanceVars.PlayerTitle)
@@ -264,42 +152,15 @@ public class UIStoreItemBtn : MonoBehaviour
 			}
 			else if (item is GameBalanceVars.ChatEmoticon)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = (item as GameBalanceVars.ChatEmoticon).GetEmojiName();
 			}
 			else if (item is GameBalanceVars.StoreItemForPurchase)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = (item as GameBalanceVars.StoreItemForPurchase).GetStoreItemName();
 				flag2 = true;
 			}
 			else if (item is GameBalanceVars.AbilityModUnlockData)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterResourceLink characterResourceLink3 = GameWideData.Get().GetCharacterResourceLink((CharacterType)item.Index1);
 				AbilityData component = characterResourceLink3.ActorDataPrefab.GetComponent<AbilityData>();
 				Ability ability = null;
@@ -336,43 +197,16 @@ public class UIStoreItemBtn : MonoBehaviour
 			}
 			else if (item is GameBalanceVars.AbilityVfxUnlockData)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterResourceLink characterResourceLink4 = GameWideData.Get().GetCharacterResourceLink((CharacterType)item.Index1);
 				text2 = characterResourceLink4.GetVFXSwapName(item.Index2, item.ID);
 			}
 			else if (item is GameBalanceVars.OverconUnlockData)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIOverconData.NameToOverconEntry nameToOverconEntry = null;
 				foreach (UIOverconData.NameToOverconEntry nameToOverconEntry2 in UIOverconData.Get().m_nameToOverconEntry)
 				{
 					if (nameToOverconEntry2.m_overconId == item.ID)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						nameToOverconEntry = nameToOverconEntry2;
 						break;
 					}
@@ -388,15 +222,6 @@ public class UIStoreItemBtn : MonoBehaviour
 			}
 			else if (item is GameBalanceVars.LoadingScreenBackground)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameBalanceVars.LoadingScreenBackground loadingScreenBackground = item as GameBalanceVars.LoadingScreenBackground;
 				text2 = loadingScreenBackground.GetLoadingScreenBackgroundName();
 			}
@@ -421,29 +246,11 @@ public class UIStoreItemBtn : MonoBehaviour
 				float num;
 				if (this.m_currencyLabels[i].m_currencyType == CurrencyType.ISO)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text3 = "iso";
 					num = (float)item.GetUnlockISOPrice();
 				}
 				else if (this.m_currencyLabels[i].m_currencyType == CurrencyType.RankedCurrency)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text3 = "rankedCurrency";
 					num = (float)item.GetUnlockRankedCurrencyPrice();
 				}
@@ -461,15 +268,6 @@ public class UIStoreItemBtn : MonoBehaviour
 				}
 				else if (this.m_currencyLabels[i].m_currencyType == CurrencyType.ModToken)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text3 = "modToken";
 					num = 0f;
 				}
@@ -486,15 +284,6 @@ public class UIStoreItemBtn : MonoBehaviour
 					}
 					else if (item is GameBalanceVars.StoreItemForPurchase)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int itemTemplateId = ((GameBalanceVars.StoreItemForPurchase)item).m_itemTemplateId;
 						float num2;
 						num = CommerceClient.Get().GetStoreItemPrice(itemTemplateId, HydrogenConfig.Get().Ticket.AccountCurrency, out num2);
@@ -507,15 +296,6 @@ public class UIStoreItemBtn : MonoBehaviour
 				this.SetVisible(num > 0f, this.m_currencyLabels[i].m_allCostLabels);
 				if (text3.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SetText(UIStorePanel.GetLocalizedPriceString(num, HydrogenConfig.Get().Ticket.AccountCurrency), this.m_currencyLabels[i].m_allCostLabels, flag2);
 				}
 				else
@@ -524,53 +304,17 @@ public class UIStoreItemBtn : MonoBehaviour
 				}
 				if (this.m_currencyLabels[i].m_normalCost != null && this.m_currencyLabels[i].m_unavailableCost != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num > 0f)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(this.m_currencyLabels[i].m_normalCost, flag4, null);
 						UIManager.SetGameObjectActive(this.m_currencyLabels[i].m_unavailableCost, !flag4, null);
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Component ownedContainer = this.m_ownedContainer;
 			bool doActive2;
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive2 = flag2;
 			}
 			else
@@ -587,15 +331,6 @@ public class UIStoreItemBtn : MonoBehaviour
 			for (int j = 0; j < this.m_currencyLabels.Length; j++)
 			{
 				this.SetVisible(false, this.m_currencyLabels[j].m_allCostLabels);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.SetVisible(false, this.m_iconContainers);
 			this.SetVisible(false, this.m_titleContainers);
@@ -618,19 +353,6 @@ public class UIStoreItemBtn : MonoBehaviour
 			tmps[i].text = text;
 			if (storeItem)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreItemBtn.SetText(string, TextMeshProUGUI[], bool)).MethodHandle;
-				}
 				if (tmps[i].alpha != 1f)
 				{
 					this.m_overrideStoreItemAlpha[tmps[i]] = tmps[i].alpha;
@@ -639,15 +361,6 @@ public class UIStoreItemBtn : MonoBehaviour
 			}
 			else if (this.m_overrideStoreItemAlpha.ContainsKey(tmps[i]))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				tmps[i].alpha = this.m_overrideStoreItemAlpha[tmps[i]];
 				this.m_overrideStoreItemAlpha.Remove(tmps[i]);
 			}
@@ -659,19 +372,6 @@ public class UIStoreItemBtn : MonoBehaviour
 		for (int i = 0; i < tmps.Length; i++)
 		{
 			tmps[i].sprite = sprite;
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreItemBtn.SetSprite(Sprite, Image[])).MethodHandle;
 		}
 	}
 
@@ -688,19 +388,6 @@ public class UIStoreItemBtn : MonoBehaviour
 		for (int i = 0; i < tmps.Length; i++)
 		{
 			UIManager.SetGameObjectActive(tmps[i], visible, null);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreItemBtn.SetVisible(bool, TextMeshProUGUI[])).MethodHandle;
 		}
 	}
 
@@ -729,19 +416,6 @@ public class UIStoreItemBtn : MonoBehaviour
 	{
 		if (this.m_item == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreItemBtn.TooltipPopulateEvent(UITooltipBase)).MethodHandle;
-			}
 			return false;
 		}
 		return this.m_panel.ItemTooltipPopulate(tooltip, this, this.m_item);

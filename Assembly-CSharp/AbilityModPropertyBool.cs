@@ -1,43 +1,39 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class AbilityModPropertyBool
 {
+	public enum ModOp
+	{
+		Ignore,
+		Override
+	}
+
 	public bool value;
 
-	public AbilityModPropertyBool.ModOp operation;
+	public ModOp operation;
 
 	public bool GetModifiedValue(bool input)
 	{
-		if (this.operation == AbilityModPropertyBool.ModOp.Override)
+		if (operation == ModOp.Override)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return value;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyBool.GetModifiedValue(bool)).MethodHandle;
-			}
-			return this.value;
 		}
 		return input;
 	}
 
 	public void CopyValuesFrom(AbilityModPropertyBool other)
 	{
-		this.value = other.value;
-		this.operation = other.operation;
-	}
-
-	public enum ModOp
-	{
-		Ignore,
-		Override
+		value = other.value;
+		operation = other.operation;
 	}
 }

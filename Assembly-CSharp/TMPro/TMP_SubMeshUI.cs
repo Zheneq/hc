@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,11 +49,11 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_fontAsset;
+				return m_fontAsset;
 			}
 			set
 			{
-				this.m_fontAsset = value;
+				m_fontAsset = value;
 			}
 		}
 
@@ -61,11 +61,11 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_spriteAsset;
+				return m_spriteAsset;
 			}
 			set
 			{
-				this.m_spriteAsset = value;
+				m_spriteAsset = value;
 			}
 		}
 
@@ -73,22 +73,18 @@ namespace TMPro
 		{
 			get
 			{
-				if (this.sharedMaterial != null)
+				if (sharedMaterial != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex);
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.get_mainTexture()).MethodHandle;
-					}
-					return this.sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex);
 				}
 				return null;
 			}
@@ -98,35 +94,21 @@ namespace TMPro
 		{
 			get
 			{
-				return this.GetMaterial(this.m_sharedMaterial);
+				return GetMaterial(m_sharedMaterial);
 			}
 			set
 			{
-				if (this.m_sharedMaterial != null)
+				if (m_sharedMaterial != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.set_material(Material)).MethodHandle;
-					}
-					if (this.m_sharedMaterial.GetInstanceID() == value.GetInstanceID())
+					if (m_sharedMaterial.GetInstanceID() == value.GetInstanceID())
 					{
 						return;
 					}
 				}
-				this.m_material = value;
-				this.m_sharedMaterial = value;
-				this.m_padding = this.GetPaddingForMaterial();
-				this.SetVerticesDirty();
-				this.SetMaterialDirty();
+				m_sharedMaterial = (m_material = value);
+				m_padding = GetPaddingForMaterial();
+				SetVerticesDirty();
+				SetMaterialDirty();
 			}
 		}
 
@@ -134,11 +116,11 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_sharedMaterial;
+				return m_sharedMaterial;
 			}
 			set
 			{
-				this.SetSharedMaterial(value);
+				SetSharedMaterial(value);
 			}
 		}
 
@@ -146,55 +128,33 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_fallbackMaterial;
+				return m_fallbackMaterial;
 			}
 			set
 			{
-				if (this.m_fallbackMaterial == value)
+				if (m_fallbackMaterial == value)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.set_fallbackMaterial(Material)).MethodHandle;
-					}
-					return;
-				}
-				if (this.m_fallbackMaterial != null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_fallbackMaterial != value)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+							return;
 						}
-						TMP_MaterialManager.ReleaseFallbackMaterial(this.m_fallbackMaterial);
 					}
 				}
-				this.m_fallbackMaterial = value;
-				TMP_MaterialManager.AddFallbackMaterialReference(this.m_fallbackMaterial);
-				this.SetSharedMaterial(this.m_fallbackMaterial);
+				if (m_fallbackMaterial != null)
+				{
+					if (m_fallbackMaterial != value)
+					{
+						TMP_MaterialManager.ReleaseFallbackMaterial(m_fallbackMaterial);
+					}
+				}
+				m_fallbackMaterial = value;
+				TMP_MaterialManager.AddFallbackMaterialReference(m_fallbackMaterial);
+				SetSharedMaterial(m_fallbackMaterial);
 			}
 		}
 
@@ -202,31 +162,25 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_fallbackSourceMaterial;
+				return m_fallbackSourceMaterial;
 			}
 			set
 			{
-				this.m_fallbackSourceMaterial = value;
+				m_fallbackSourceMaterial = value;
 			}
 		}
 
-		public override Material materialForRendering
-		{
-			get
-			{
-				return TMP_MaterialManager.GetMaterialForRendering(this, this.m_sharedMaterial);
-			}
-		}
+		public override Material materialForRendering => TMP_MaterialManager.GetMaterialForRendering(this, m_sharedMaterial);
 
 		public bool isDefaultMaterial
 		{
 			get
 			{
-				return this.m_isDefaultMaterial;
+				return m_isDefaultMaterial;
 			}
 			set
 			{
-				this.m_isDefaultMaterial = value;
+				m_isDefaultMaterial = value;
 			}
 		}
 
@@ -234,11 +188,11 @@ namespace TMPro
 		{
 			get
 			{
-				return this.m_padding;
+				return m_padding;
 			}
 			set
 			{
-				this.m_padding = value;
+				m_padding = value;
 			}
 		}
 
@@ -246,24 +200,11 @@ namespace TMPro
 		{
 			get
 			{
-				if (this.m_canvasRenderer == null)
+				if (m_canvasRenderer == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.get_canvasRenderer()).MethodHandle;
-					}
-					this.m_canvasRenderer = base.GetComponent<CanvasRenderer>();
+					m_canvasRenderer = GetComponent<CanvasRenderer>();
 				}
-				return this.m_canvasRenderer;
+				return m_canvasRenderer;
 			}
 		}
 
@@ -271,25 +212,22 @@ namespace TMPro
 		{
 			get
 			{
-				if (this.m_mesh == null)
+				if (m_mesh == null)
 				{
-					this.m_mesh = new Mesh();
-					this.m_mesh.hideFlags = HideFlags.HideAndDontSave;
+					m_mesh = new Mesh();
+					m_mesh.hideFlags = HideFlags.HideAndDontSave;
 				}
-				return this.m_mesh;
+				return m_mesh;
 			}
 			set
 			{
-				this.m_mesh = value;
+				m_mesh = value;
 			}
 		}
 
 		public static TMP_SubMeshUI AddSubTextObject(TextMeshProUGUI textComponent, MaterialReference materialReference)
 		{
-			GameObject gameObject = new GameObject("TMP UI SubObject [" + materialReference.material.name + "]", new Type[]
-			{
-				typeof(RectTransform)
-			});
+			GameObject gameObject = new GameObject("TMP UI SubObject [" + materialReference.material.name + "]", typeof(RectTransform));
 			gameObject.transform.SetParent(textComponent.transform, false);
 			gameObject.layer = textComponent.gameObject.layer;
 			RectTransform component = gameObject.GetComponent<RectTransform>();
@@ -297,217 +235,116 @@ namespace TMPro
 			component.anchorMax = Vector2.one;
 			component.sizeDelta = Vector2.zero;
 			component.pivot = textComponent.rectTransform.pivot;
-			TMP_SubMeshUI tmp_SubMeshUI = gameObject.AddComponent<TMP_SubMeshUI>();
-			tmp_SubMeshUI.m_canvasRenderer = tmp_SubMeshUI.canvasRenderer;
-			tmp_SubMeshUI.m_TextComponent = textComponent;
-			tmp_SubMeshUI.m_materialReferenceIndex = materialReference.index;
-			tmp_SubMeshUI.m_fontAsset = materialReference.fontAsset;
-			tmp_SubMeshUI.m_spriteAsset = materialReference.spriteAsset;
-			tmp_SubMeshUI.m_isDefaultMaterial = materialReference.isDefaultMaterial;
-			tmp_SubMeshUI.SetSharedMaterial(materialReference.material);
-			return tmp_SubMeshUI;
+			TMP_SubMeshUI tMP_SubMeshUI = gameObject.AddComponent<TMP_SubMeshUI>();
+			tMP_SubMeshUI.m_canvasRenderer = tMP_SubMeshUI.canvasRenderer;
+			tMP_SubMeshUI.m_TextComponent = textComponent;
+			tMP_SubMeshUI.m_materialReferenceIndex = materialReference.index;
+			tMP_SubMeshUI.m_fontAsset = materialReference.fontAsset;
+			tMP_SubMeshUI.m_spriteAsset = materialReference.spriteAsset;
+			tMP_SubMeshUI.m_isDefaultMaterial = materialReference.isDefaultMaterial;
+			tMP_SubMeshUI.SetSharedMaterial(materialReference.material);
+			return tMP_SubMeshUI;
 		}
 
 		protected override void OnEnable()
 		{
-			if (!this.m_isRegisteredForEvents)
+			if (!m_isRegisteredForEvents)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.OnEnable()).MethodHandle;
-				}
-				this.m_isRegisteredForEvents = true;
+				m_isRegisteredForEvents = true;
 			}
-			this.m_ShouldRecalculateStencil = true;
-			this.RecalculateClipping();
-			this.RecalculateMasking();
+			m_ShouldRecalculateStencil = true;
+			RecalculateClipping();
+			RecalculateMasking();
 		}
 
 		protected override void OnDisable()
 		{
 			TMP_UpdateRegistry.UnRegisterCanvasElementForRebuild(this);
-			if (this.m_MaskMaterial != null)
+			if (m_MaskMaterial != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.OnDisable()).MethodHandle;
-				}
-				TMP_MaterialManager.ReleaseStencilMaterial(this.m_MaskMaterial);
-				this.m_MaskMaterial = null;
+				TMP_MaterialManager.ReleaseStencilMaterial(m_MaskMaterial);
+				m_MaskMaterial = null;
 			}
-			if (this.m_fallbackMaterial != null)
+			if (m_fallbackMaterial != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				TMP_MaterialManager.ReleaseFallbackMaterial(this.m_fallbackMaterial);
-				this.m_fallbackMaterial = null;
+				TMP_MaterialManager.ReleaseFallbackMaterial(m_fallbackMaterial);
+				m_fallbackMaterial = null;
 			}
 			base.OnDisable();
 		}
 
 		protected override void OnDestroy()
 		{
-			if (this.m_mesh != null)
+			if (m_mesh != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.OnDestroy()).MethodHandle;
-				}
-				UnityEngine.Object.DestroyImmediate(this.m_mesh);
+				UnityEngine.Object.DestroyImmediate(m_mesh);
 			}
-			if (this.m_MaskMaterial != null)
+			if (m_MaskMaterial != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				TMP_MaterialManager.ReleaseStencilMaterial(this.m_MaskMaterial);
+				TMP_MaterialManager.ReleaseStencilMaterial(m_MaskMaterial);
 			}
-			if (this.m_fallbackMaterial != null)
+			if (m_fallbackMaterial != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				TMP_MaterialManager.ReleaseFallbackMaterial(this.m_fallbackMaterial);
-				this.m_fallbackMaterial = null;
+				TMP_MaterialManager.ReleaseFallbackMaterial(m_fallbackMaterial);
+				m_fallbackMaterial = null;
 			}
-			this.m_isRegisteredForEvents = false;
-			this.RecalculateClipping();
+			m_isRegisteredForEvents = false;
+			RecalculateClipping();
 		}
 
 		protected override void OnTransformParentChanged()
 		{
-			if (!this.IsActive())
+			if (!IsActive())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.OnTransformParentChanged()).MethodHandle;
-				}
-				return;
 			}
-			this.m_ShouldRecalculateStencil = true;
-			this.RecalculateClipping();
-			this.RecalculateMasking();
+			m_ShouldRecalculateStencil = true;
+			RecalculateClipping();
+			RecalculateMasking();
 		}
 
 		public override Material GetModifiedMaterial(Material baseMaterial)
 		{
 			Material material = baseMaterial;
-			if (this.m_ShouldRecalculateStencil)
+			if (m_ShouldRecalculateStencil)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.GetModifiedMaterial(Material)).MethodHandle;
-				}
-				this.m_StencilValue = TMP_MaterialManager.GetStencilID(base.gameObject);
-				this.m_ShouldRecalculateStencil = false;
+				m_StencilValue = TMP_MaterialManager.GetStencilID(base.gameObject);
+				m_ShouldRecalculateStencil = false;
 			}
-			if (this.m_StencilValue > 0)
+			if (m_StencilValue > 0)
 			{
-				for (;;)
+				material = TMP_MaterialManager.GetStencilMaterial(baseMaterial, m_StencilValue);
+				if (m_MaskMaterial != null)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					TMP_MaterialManager.ReleaseStencilMaterial(m_MaskMaterial);
 				}
-				material = TMP_MaterialManager.GetStencilMaterial(baseMaterial, this.m_StencilValue);
-				if (this.m_MaskMaterial != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					TMP_MaterialManager.ReleaseStencilMaterial(this.m_MaskMaterial);
-				}
-				this.m_MaskMaterial = material;
+				m_MaskMaterial = material;
 			}
 			return material;
 		}
 
 		public float GetPaddingForMaterial()
 		{
-			return ShaderUtilities.GetPadding(this.m_sharedMaterial, this.m_TextComponent.extraPadding, this.m_TextComponent.isUsingBold);
+			return ShaderUtilities.GetPadding(m_sharedMaterial, m_TextComponent.extraPadding, m_TextComponent.isUsingBold);
 		}
 
 		public float GetPaddingForMaterial(Material mat)
 		{
-			return ShaderUtilities.GetPadding(mat, this.m_TextComponent.extraPadding, this.m_TextComponent.isUsingBold);
+			return ShaderUtilities.GetPadding(mat, m_TextComponent.extraPadding, m_TextComponent.isUsingBold);
 		}
 
 		public void UpdateMeshPadding(bool isExtraPadding, bool isUsingBold)
 		{
-			this.m_padding = ShaderUtilities.GetPadding(this.m_sharedMaterial, isExtraPadding, isUsingBold);
+			m_padding = ShaderUtilities.GetPadding(m_sharedMaterial, isExtraPadding, isUsingBold);
 		}
 
 		public override void SetAllDirty()
@@ -516,36 +353,28 @@ namespace TMPro
 
 		public override void SetVerticesDirty()
 		{
-			if (!this.IsActive())
+			if (!IsActive())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.SetVerticesDirty()).MethodHandle;
-				}
+			}
+			if (!(m_TextComponent != null))
+			{
 				return;
 			}
-			if (this.m_TextComponent != null)
+			while (true)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_TextComponent.havePropertiesChanged = true;
-				this.m_TextComponent.SetVerticesDirty();
+				m_TextComponent.havePropertiesChanged = true;
+				m_TextComponent.SetVerticesDirty();
+				return;
 			}
 		}
 
@@ -555,56 +384,43 @@ namespace TMPro
 
 		public override void SetMaterialDirty()
 		{
-			this.m_materialDirty = true;
-			this.UpdateMaterial();
-			if (this.m_OnDirtyMaterialCallback != null)
+			m_materialDirty = true;
+			UpdateMaterial();
+			if (m_OnDirtyMaterialCallback == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.SetMaterialDirty()).MethodHandle;
-				}
-				this.m_OnDirtyMaterialCallback();
+				return;
+			}
+			while (true)
+			{
+				m_OnDirtyMaterialCallback();
+				return;
 			}
 		}
 
 		public void SetPivotDirty()
 		{
-			if (!this.IsActive())
+			if (!IsActive())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.SetPivotDirty()).MethodHandle;
-				}
-				return;
 			}
-			base.rectTransform.pivot = this.m_TextComponent.rectTransform.pivot;
+			base.rectTransform.pivot = m_TextComponent.rectTransform.pivot;
 		}
 
 		public override void Cull(Rect clipRect, bool validRect)
 		{
-			if (this.m_TextComponent.ignoreRectMaskCulling)
+			if (!m_TextComponent.ignoreRectMaskCulling)
 			{
-				return;
+				base.Cull(clipRect, validRect);
 			}
-			base.Cull(clipRect, validRect);
 		}
 
 		protected override void UpdateGeometry()
@@ -614,66 +430,45 @@ namespace TMPro
 
 		public override void Rebuild(CanvasUpdate update)
 		{
-			if (update == CanvasUpdate.PreRender)
+			if (update != CanvasUpdate.PreRender)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				if (!m_materialDirty)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.Rebuild(CanvasUpdate)).MethodHandle;
-				}
-				if (!this.m_materialDirty)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						break;
 					}
-					return;
 				}
-				this.UpdateMaterial();
-				this.m_materialDirty = false;
+				UpdateMaterial();
+				m_materialDirty = false;
+				return;
 			}
 		}
 
 		public void RefreshMaterial()
 		{
-			this.UpdateMaterial();
+			UpdateMaterial();
 		}
 
 		protected override void UpdateMaterial()
 		{
-			if (this.m_canvasRenderer == null)
+			if (m_canvasRenderer == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.UpdateMaterial()).MethodHandle;
-				}
-				this.m_canvasRenderer = this.canvasRenderer;
+				m_canvasRenderer = canvasRenderer;
 			}
-			this.m_canvasRenderer.materialCount = 1;
-			this.m_canvasRenderer.SetMaterial(this.materialForRendering, 0);
-			this.m_canvasRenderer.SetTexture(this.mainTexture);
+			m_canvasRenderer.materialCount = 1;
+			m_canvasRenderer.SetMaterial(materialForRendering, 0);
+			m_canvasRenderer.SetTexture(mainTexture);
 		}
 
 		public override void RecalculateClipping()
@@ -683,92 +478,57 @@ namespace TMPro
 
 		public override void RecalculateMasking()
 		{
-			this.m_ShouldRecalculateStencil = true;
-			this.SetMaterialDirty();
+			m_ShouldRecalculateStencil = true;
+			SetMaterialDirty();
 		}
 
 		private Material GetMaterial()
 		{
-			return this.m_sharedMaterial;
+			return m_sharedMaterial;
 		}
 
 		private Material GetMaterial(Material mat)
 		{
-			if (!(this.m_material == null))
+			if (!(m_material == null))
 			{
-				for (;;)
+				if (m_material.GetInstanceID() == mat.GetInstanceID())
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.GetMaterial(Material)).MethodHandle;
-				}
-				if (this.m_material.GetInstanceID() == mat.GetInstanceID())
-				{
-					goto IL_53;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_0053;
 				}
 			}
-			this.m_material = this.CreateMaterialInstance(mat);
-			IL_53:
-			this.m_sharedMaterial = this.m_material;
-			this.m_padding = this.GetPaddingForMaterial();
-			this.SetVerticesDirty();
-			this.SetMaterialDirty();
-			return this.m_sharedMaterial;
+			m_material = CreateMaterialInstance(mat);
+			goto IL_0053;
+			IL_0053:
+			m_sharedMaterial = m_material;
+			m_padding = GetPaddingForMaterial();
+			SetVerticesDirty();
+			SetMaterialDirty();
+			return m_sharedMaterial;
 		}
 
 		private Material CreateMaterialInstance(Material source)
 		{
 			Material material = new Material(source);
 			material.shaderKeywords = source.shaderKeywords;
-			Material material2 = material;
-			material2.name += " (Instance)";
+			material.name += " (Instance)";
 			return material;
 		}
 
 		private Material GetSharedMaterial()
 		{
-			if (this.m_canvasRenderer == null)
+			if (m_canvasRenderer == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.GetSharedMaterial()).MethodHandle;
-				}
-				this.m_canvasRenderer = base.GetComponent<CanvasRenderer>();
+				m_canvasRenderer = GetComponent<CanvasRenderer>();
 			}
-			return this.m_canvasRenderer.GetMaterial();
+			return m_canvasRenderer.GetMaterial();
 		}
 
 		private void SetSharedMaterial(Material mat)
 		{
-			this.m_sharedMaterial = mat;
-			this.m_Material = this.m_sharedMaterial;
-			this.m_padding = this.GetPaddingForMaterial();
-			this.SetMaterialDirty();
+			m_sharedMaterial = mat;
+			m_Material = m_sharedMaterial;
+			m_padding = GetPaddingForMaterial();
+			SetMaterialDirty();
 		}
 	}
 }

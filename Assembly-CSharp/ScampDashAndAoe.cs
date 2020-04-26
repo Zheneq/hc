@@ -1,11 +1,10 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ScampDashAndAoe : GenericAbility_Container
 {
 	[Separator("Shield Cost on Cast", true)]
-	public int m_shieldCost = 0x14;
+	public int m_shieldCost = 20;
 
 	[Separator("Target Select Component for when shield is down", true)]
 	public GenericAbility_TargetSelectBase m_shieldDownTargetSelect;
@@ -36,104 +35,66 @@ public class ScampDashAndAoe : GenericAbility_Container
 
 	public override string GetOnHitDataDesc()
 	{
-		return base.GetOnHitDataDesc() + "\n-- On Hit Data when shields are down --\n" + this.m_shieldDownOnHitData.GetInEditorDesc();
+		return base.GetOnHitDataDesc() + "\n-- On Hit Data when shields are down --\n" + m_shieldDownOnHitData.GetInEditorDesc();
 	}
 
 	public override List<GenericAbility_TargetSelectBase> GetRelevantTargetSelectCompForEditor()
 	{
 		List<GenericAbility_TargetSelectBase> relevantTargetSelectCompForEditor = base.GetRelevantTargetSelectCompForEditor();
-		if (this.m_shieldDownTargetSelect != null)
+		if (m_shieldDownTargetSelect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetRelevantTargetSelectCompForEditor()).MethodHandle;
-			}
-			relevantTargetSelectCompForEditor.Add(this.m_shieldDownTargetSelect);
+			relevantTargetSelectCompForEditor.Add(m_shieldDownTargetSelect);
 		}
 		return relevantTargetSelectCompForEditor;
 	}
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Scamp_SyncComponent>();
+		m_syncComp = GetComponent<Scamp_SyncComponent>();
 		base.SetupTargetersAndCachedVars();
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			this.m_cachedShieldDownOnHitData = this.m_abilityMod.m_shieldDownOnHitDataMod.\u001D(this.m_shieldDownOnHitData);
+			m_cachedShieldDownOnHitData = m_abilityMod.m_shieldDownOnHitDataMod._001D(m_shieldDownOnHitData);
 		}
 		else
 		{
-			this.m_cachedShieldDownOnHitData = this.m_shieldDownOnHitData;
+			m_cachedShieldDownOnHitData = m_shieldDownOnHitData;
 		}
 	}
 
 	public void ResetTargetersForShielding(bool hasShield)
 	{
-		base.ClearTargeters();
+		ClearTargeters();
 		List<AbilityUtil_Targeter> collection;
 		if (!hasShield)
 		{
-			if (!(this.m_shieldDownTargetSelect == null))
+			if (!(m_shieldDownTargetSelect == null))
 			{
-				collection = this.m_shieldDownTargetSelect.CreateTargeters(this);
-				goto IL_4A;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.ResetTargetersForShielding(bool)).MethodHandle;
+				collection = m_shieldDownTargetSelect.CreateTargeters(this);
+				goto IL_004a;
 			}
 		}
-		collection = this.m_targetSelectComp.CreateTargeters(this);
-		IL_4A:
+		collection = m_targetSelectComp.CreateTargeters(this);
+		goto IL_004a;
+		IL_004a:
 		base.Targeters.AddRange(collection);
 	}
 
 	public int GetShieldCost()
 	{
-		return (!(this.m_abilityMod != null)) ? this.m_shieldCost : this.m_abilityMod.m_shieldCostMod.GetModifiedValue(this.m_shieldCost);
+		return (!(m_abilityMod != null)) ? m_shieldCost : m_abilityMod.m_shieldCostMod.GetModifiedValue(m_shieldCost);
 	}
 
 	public int GetShieldDownCooldown()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetShieldDownCooldown()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_shieldDownCooldownMod.GetModifiedValue(this.m_shieldDownCooldown);
+			result = m_abilityMod.m_shieldDownCooldownMod.GetModifiedValue(m_shieldDownCooldown);
 		}
 		else
 		{
-			result = this.m_shieldDownCooldown;
+			result = m_shieldDownCooldown;
 		}
 		return result;
 	}
@@ -141,26 +102,13 @@ public class ScampDashAndAoe : GenericAbility_Container
 	public int GetCdrOnSuitApply()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetCdrOnSuitApply()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_cdrOnSuitApplyMod.GetModifiedValue(this.m_cdrOnSuitApply);
+			result = m_abilityMod.m_cdrOnSuitApplyMod.GetModifiedValue(m_cdrOnSuitApply);
 		}
 		else
 		{
-			result = this.m_cdrOnSuitApply;
+			result = m_cdrOnSuitApply;
 		}
 		return result;
 	}
@@ -168,26 +116,13 @@ public class ScampDashAndAoe : GenericAbility_Container
 	public int GetShieldDownNoCooldownHealthThresh()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetShieldDownNoCooldownHealthThresh()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_shieldDownNoCooldownHealthThreshMod.GetModifiedValue(this.m_shieldDownNoCooldownHealthThresh);
+			result = m_abilityMod.m_shieldDownNoCooldownHealthThreshMod.GetModifiedValue(m_shieldDownNoCooldownHealthThresh);
 		}
 		else
 		{
-			result = this.m_shieldDownNoCooldownHealthThresh;
+			result = m_shieldDownNoCooldownHealthThresh;
 		}
 		return result;
 	}
@@ -195,26 +130,13 @@ public class ScampDashAndAoe : GenericAbility_Container
 	public int GetExtraEnergyForDashOnOrb()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetExtraEnergyForDashOnOrb()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_extraEnergyForDashOnOrbMod.GetModifiedValue(this.m_extraEnergyForDashOnOrb);
+			result = m_abilityMod.m_extraEnergyForDashOnOrbMod.GetModifiedValue(m_extraEnergyForDashOnOrb);
 		}
 		else
 		{
-			result = this.m_extraEnergyForDashOnOrb;
+			result = m_extraEnergyForDashOnOrb;
 		}
 		return result;
 	}
@@ -222,123 +144,71 @@ public class ScampDashAndAoe : GenericAbility_Container
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		this.m_shieldDownOnHitData.AddTooltipTokens(tokens);
-		base.AddTokenInt(tokens, "ShieldCost", string.Empty, this.m_shieldCost, false);
-		base.AddTokenInt(tokens, "ShieldDownCooldown", string.Empty, this.m_shieldDownCooldown, false);
-		base.AddTokenInt(tokens, "CdrOnSuitApply", string.Empty, this.m_cdrOnSuitApply, false);
-		base.AddTokenInt(tokens, "ShidleDownNoCooldownHealthThresh", string.Empty, this.m_shieldDownNoCooldownHealthThresh, false);
-		base.AddTokenInt(tokens, "ExtraEnergyForDashOnOrb", string.Empty, this.m_extraEnergyForDashOnOrb, false);
+		m_shieldDownOnHitData.AddTooltipTokens(tokens);
+		AddTokenInt(tokens, "ShieldCost", string.Empty, m_shieldCost);
+		AddTokenInt(tokens, "ShieldDownCooldown", string.Empty, m_shieldDownCooldown);
+		AddTokenInt(tokens, "CdrOnSuitApply", string.Empty, m_cdrOnSuitApply);
+		AddTokenInt(tokens, "ShidleDownNoCooldownHealthThresh", string.Empty, m_shieldDownNoCooldownHealthThresh);
+		AddTokenInt(tokens, "ExtraEnergyForDashOnOrb", string.Empty, m_extraEnergyForDashOnOrb);
 	}
 
 	public bool IsInSuit()
 	{
-		bool result;
-		if (this.m_syncComp != null)
+		int result;
+		if (m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.IsInSuit()).MethodHandle;
-			}
-			result = this.m_syncComp.m_suitWasActiveOnTurnStart;
+			result = (m_syncComp.m_suitWasActiveOnTurnStart ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public override GenericAbility_TargetSelectBase GetTargetSelectComp()
 	{
-		if (this.IsInSuit())
+		if (IsInSuit())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return base.GetTargetSelectComp();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetTargetSelectComp()).MethodHandle;
-			}
-			return base.GetTargetSelectComp();
 		}
-		return this.m_shieldDownTargetSelect;
+		return m_shieldDownTargetSelect;
 	}
 
 	public override OnHitAuthoredData GetOnHitAuthoredData()
 	{
-		if (this.IsInSuit())
+		if (IsInSuit())
 		{
 			return base.GetOnHitAuthoredData();
 		}
 		OnHitAuthoredData result;
-		if (this.m_cachedShieldDownOnHitData != null)
+		if (m_cachedShieldDownOnHitData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetOnHitAuthoredData()).MethodHandle;
-			}
-			result = this.m_cachedShieldDownOnHitData;
+			result = m_cachedShieldDownOnHitData;
 		}
 		else
 		{
-			result = this.m_shieldDownOnHitData;
+			result = m_shieldDownOnHitData;
 		}
 		return result;
 	}
 
 	public override int GetBaseCooldown()
 	{
-		if (!this.IsInSuit())
+		if (!IsInSuit())
 		{
-			for (;;)
+			if (GetShieldDownCooldown() >= 0)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetBaseCooldown()).MethodHandle;
-			}
-			if (this.GetShieldDownCooldown() >= 0)
-			{
-				return this.GetShieldDownCooldown();
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return GetShieldDownCooldown();
 			}
 		}
 		return base.GetBaseCooldown();
@@ -349,116 +219,80 @@ public class ScampDashAndAoe : GenericAbility_Container
 		int num;
 		if (inSuit)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.CalcCurrentMaxCooldown(bool)).MethodHandle;
-			}
-			num = this.m_cooldown;
+			num = m_cooldown;
 		}
 		else
 		{
-			num = this.GetShieldDownCooldown();
+			num = GetShieldDownCooldown();
 		}
 		int result = num;
-		if (this.GetShieldDownCooldown() < 0)
+		if (GetShieldDownCooldown() < 0)
 		{
-			result = this.m_cooldown;
+			result = m_cooldown;
 		}
 		return result;
 	}
 
-	public override Ability.MovementAdjustment GetMovementAdjustment()
+	public override MovementAdjustment GetMovementAdjustment()
 	{
-		if (this.CanOverrideMoveStartSquare())
+		if (CanOverrideMoveStartSquare())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return MovementAdjustment.ReducedMovement;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetMovementAdjustment()).MethodHandle;
-			}
-			return Ability.MovementAdjustment.ReducedMovement;
 		}
 		return base.GetMovementAdjustment();
 	}
 
 	public override bool CanOverrideMoveStartSquare()
 	{
-		bool result;
-		if (!this.IsInSuit())
+		int result;
+		if (!IsInSuit())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.CanOverrideMoveStartSquare()).MethodHandle;
-			}
-			result = this.m_shieldDownAllowMoveAfterEvade;
+			result = (m_shieldDownAllowMoveAfterEvade ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		this.m_abilityMod = (abilityMod as AbilityMod_ScampDashAndAoe);
+		m_abilityMod = (abilityMod as AbilityMod_ScampDashAndAoe);
 	}
 
 	protected override void GenModImpl_ClearModRef()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 
 	protected override void SetTargetSelectModReference()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_targetSelectComp.SetTargetSelectMod(m_abilityMod.m_inSuitTargetSelectMod);
+					m_shieldDownTargetSelect.SetTargetSelectMod(m_abilityMod.m_shieldDownTargetSelectMod);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.SetTargetSelectModReference()).MethodHandle;
-			}
-			this.m_targetSelectComp.SetTargetSelectMod(this.m_abilityMod.m_inSuitTargetSelectMod);
-			this.m_shieldDownTargetSelect.SetTargetSelectMod(this.m_abilityMod.m_shieldDownTargetSelectMod);
 		}
-		else
-		{
-			this.m_targetSelectComp.ClearTargetSelectMod();
-			this.m_shieldDownTargetSelect.ClearTargetSelectMod();
-		}
+		m_targetSelectComp.ClearTargetSelectMod();
+		m_shieldDownTargetSelect.ClearTargetSelectMod();
 	}
 }

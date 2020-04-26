@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class PrefabInstantiator : MonoBehaviour
@@ -19,117 +18,61 @@ public class PrefabInstantiator : MonoBehaviour
 
 	private void Awake()
 	{
-		if (this.m_dontDestroyOnLoad)
+		if (m_dontDestroyOnLoad)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PrefabInstantiator.Awake()).MethodHandle;
-			}
-			UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+			Object.DontDestroyOnLoad(base.gameObject);
 		}
-		this.m_instantiatedGameObjects = new GameObject[this.m_prefabs.Length];
-		if (this.m_prefabs != null)
+		m_instantiatedGameObjects = new GameObject[m_prefabs.Length];
+		if (m_prefabs == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			for (int i = 0; i < m_prefabs.Length; i++)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			for (int i = 0; i < this.m_prefabs.Length; i++)
-			{
-				GameObject gameObject = this.m_prefabs[i];
+				GameObject gameObject = m_prefabs[i];
 				if (gameObject == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					continue;
 				}
-				else
+				GameObject gameObject2 = Object.Instantiate(gameObject);
+				m_instantiatedGameObjects[i] = gameObject2;
+				if (m_dontDestroyOnLoad)
 				{
-					GameObject gameObject2 = UnityEngine.Object.Instantiate<GameObject>(gameObject);
-					this.m_instantiatedGameObjects[i] = gameObject2;
-					if (this.m_dontDestroyOnLoad)
+					if (m_parentSpawnedObjectsIfPersistent)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_parentSpawnedObjectsIfPersistent)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							gameObject2.transform.parent = base.transform;
-							goto IL_CE;
-						}
-					}
-					if (this.m_prefabsDontDestroyOnLoad)
-					{
-						UnityEngine.Object.DontDestroyOnLoad(gameObject2);
+						gameObject2.transform.parent = base.transform;
+						continue;
 					}
 				}
-				IL_CE:;
+				if (m_prefabsDontDestroyOnLoad)
+				{
+					Object.DontDestroyOnLoad(gameObject2);
+				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	private void OnDestroy()
 	{
-		for (int i = 0; i < this.m_instantiatedGameObjects.Length; i++)
+		for (int i = 0; i < m_instantiatedGameObjects.Length; i++)
 		{
-			UnityEngine.Object.Destroy(this.m_instantiatedGameObjects[i]);
+			Object.Destroy(m_instantiatedGameObjects[i]);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PrefabInstantiator.OnDestroy()).MethodHandle;
+			return;
 		}
 	}
 }

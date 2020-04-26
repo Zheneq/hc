@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LocalizationArg_FirstRank : LocalizationArg
@@ -7,60 +7,55 @@ public class LocalizationArg_FirstRank : LocalizationArg
 
 	public static LocalizationArg_FirstRank Create(int rank)
 	{
-		return new LocalizationArg_FirstRank
-		{
-			m_rank = rank
-		};
+		LocalizationArg_FirstRank localizationArg_FirstRank = new LocalizationArg_FirstRank();
+		localizationArg_FirstRank.m_rank = rank;
+		return localizationArg_FirstRank;
 	}
 
 	public override string TR()
 	{
-		if (this.m_rank == 1)
+		if (m_rank == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return StringUtil.TR("First", "FirstRank");
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationArg_FirstRank.TR()).MethodHandle;
-			}
-			return StringUtil.TR("First", "FirstRank");
 		}
-		if (this.m_rank == 2)
+		if (m_rank == 2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return StringUtil.TR("Second", "FirstRank");
 				}
-				break;
 			}
-			return StringUtil.TR("Second", "FirstRank");
 		}
-		if (this.m_rank == 3)
+		if (m_rank == 3)
 		{
 			return StringUtil.TR("Third", "FirstRank");
 		}
-		if (this.m_rank == 4)
+		if (m_rank == 4)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return StringUtil.TR("Fourth", "FirstRank");
 				}
-				break;
 			}
-			return StringUtil.TR("Fourth", "FirstRank");
 		}
 		return StringUtil.TR("Fifth", "FirstRank");
 	}

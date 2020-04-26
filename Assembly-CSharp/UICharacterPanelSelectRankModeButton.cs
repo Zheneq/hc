@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.EventSystems;
 
 public class UICharacterPanelSelectRankModeButton : UICharacterPanelSelectButton
@@ -6,15 +5,15 @@ public class UICharacterPanelSelectRankModeButton : UICharacterPanelSelectButton
 	public override void SetEnabled(bool enabled, PersistedCharacterData playerCharacterData)
 	{
 		base.SetEnabled(enabled, playerCharacterData);
-		UIManager.SetGameObjectActive(this.m_MasterExpBarContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_NormalExpBarContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_UnavailableExpBarContainer, false, null);
+		UIManager.SetGameObjectActive(m_MasterExpBarContainer, false);
+		UIManager.SetGameObjectActive(m_NormalExpBarContainer, false);
+		UIManager.SetGameObjectActive(m_UnavailableExpBarContainer, false);
 	}
 
 	public override void Setup(bool isAvailable, bool selected = false)
 	{
 		base.Setup(isAvailable, selected);
-		UIManager.SetGameObjectActive(this.m_MasterExpBarContainer, false, null);
+		UIManager.SetGameObjectActive(m_MasterExpBarContainer, false);
 	}
 
 	protected override FrontEndButtonSounds SoundToPlayOnClick()
@@ -24,35 +23,27 @@ public class UICharacterPanelSelectRankModeButton : UICharacterPanelSelectButton
 
 	protected override void OnButtonClicked(BaseEventData data)
 	{
-		if (!this.m_button.spriteController.IsClickable())
+		if (!m_button.spriteController.IsClickable())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterPanelSelectRankModeButton.OnButtonClicked(BaseEventData)).MethodHandle;
-			}
+		}
+		if (m_isDisabled)
+		{
 			return;
 		}
-		if (!this.m_isDisabled)
+		while (true)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIRankedModeDraftScreen.Get().NotifyButtonClicked(this);
+			return;
 		}
 	}
 }

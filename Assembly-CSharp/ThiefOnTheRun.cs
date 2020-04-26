@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,87 +49,51 @@ public class ThiefOnTheRun : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.Start()).MethodHandle;
-			}
-			this.m_abilityName = "On the Run";
+			m_abilityName = "On the Run";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
+		SetCachedFields();
 		int numChargePiviots;
-		if (this.m_targeterMultiStep)
+		if (m_targeterMultiStep)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.Setup()).MethodHandle;
-			}
-			numChargePiviots = Mathf.Max(base.GetNumTargets(), 1);
+			numChargePiviots = Mathf.Max(GetNumTargets(), 1);
 		}
 		else
 		{
 			numChargePiviots = 1;
 		}
-		this.m_numChargePiviots = numChargePiviots;
-		float dashRadius = this.GetDashRadius();
-		if (this.GetExpectedNumberOfTargeters() < 2)
+		m_numChargePiviots = numChargePiviots;
+		float dashRadius = GetDashRadius();
+		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			base.Targeter = new AbilityUtil_Targeter_ChargeAoE(this, dashRadius, dashRadius, dashRadius, -1, false, this.DashPenetrateLineOfSight());
+			base.Targeter = new AbilityUtil_Targeter_ChargeAoE(this, dashRadius, dashRadius, dashRadius, -1, false, DashPenetrateLineOfSight());
+			return;
 		}
-		else
+		ClearTargeters();
+		int expectedNumberOfTargeters = GetExpectedNumberOfTargeters();
+		for (int i = 0; i < expectedNumberOfTargeters; i++)
 		{
-			base.ClearTargeters();
-			int expectedNumberOfTargeters = this.GetExpectedNumberOfTargeters();
-			for (int i = 0; i < expectedNumberOfTargeters; i++)
+			AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, dashRadius, dashRadius, dashRadius, -1, false, DashPenetrateLineOfSight());
+			if (i < expectedNumberOfTargeters - 1)
 			{
-				AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, dashRadius, dashRadius, dashRadius, -1, false, this.DashPenetrateLineOfSight());
-				if (i < expectedNumberOfTargeters - 1)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					abilityUtil_Targeter_ChargeAoE.UseEndPosAsDamageOriginIfOverlap = true;
-				}
-				base.Targeters.Add(abilityUtil_Targeter_ChargeAoE);
-				base.Targeters[i].SetUseMultiTargetUpdate(true);
+				abilityUtil_Targeter_ChargeAoE.UseEndPosAsDamageOriginIfOverlap = true;
 			}
-			for (;;)
+			base.Targeters.Add(abilityUtil_Targeter_ChargeAoE);
+			base.Targeters[i].SetUseMultiTargetUpdate(true);
+		}
+		while (true)
+		{
+			switch (5)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
+			default:
+				return;
+			case 0:
 				break;
 			}
 		}
@@ -138,7 +101,7 @@ public class ThiefOnTheRun : Ability
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		return this.m_numChargePiviots;
+		return m_numChargePiviots;
 	}
 
 	internal override ActorData.MovementType GetMovementType()
@@ -153,98 +116,59 @@ public class ThiefOnTheRun : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return (this.GetMaxDistanceBetweenSteps() - 0.5f) * (float)this.m_numChargePiviots;
+		return (GetMaxDistanceBetweenSteps() - 0.5f) * (float)m_numChargePiviots;
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.SetCachedFields()).MethodHandle;
-			}
-			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			cachedEnemyHitEffect = this.m_enemyHitEffect;
+			cachedEnemyHitEffect = m_enemyHitEffect;
 		}
-		this.m_cachedEnemyHitEffect = cachedEnemyHitEffect;
-		this.m_cachedEffectOnSelfThroughSmokeField = ((!this.m_abilityMod) ? this.m_effectOnSelfThroughSmokeField : this.m_abilityMod.m_effectOnSelfThroughSmokeFieldMod.GetModifiedValue(this.m_effectOnSelfThroughSmokeField));
-		this.m_cachedSpoilSpawnInfo = ((!this.m_abilityMod) ? this.m_spoilSpawnInfo : this.m_abilityMod.m_spoilSpawnInfoMod.GetModifiedValue(this.m_spoilSpawnInfo));
+		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		m_cachedEffectOnSelfThroughSmokeField = ((!m_abilityMod) ? m_effectOnSelfThroughSmokeField : m_abilityMod.m_effectOnSelfThroughSmokeFieldMod.GetModifiedValue(m_effectOnSelfThroughSmokeField));
+		m_cachedSpoilSpawnInfo = ((!m_abilityMod) ? m_spoilSpawnInfo : m_abilityMod.m_spoilSpawnInfoMod.GetModifiedValue(m_spoilSpawnInfo));
 	}
 
 	public float GetMinDistanceBetweenSteps()
 	{
-		return (!this.m_abilityMod) ? this.m_minDistanceBetweenSteps : this.m_abilityMod.m_minDistanceBetweenStepsMod.GetModifiedValue(this.m_minDistanceBetweenSteps);
+		return (!m_abilityMod) ? m_minDistanceBetweenSteps : m_abilityMod.m_minDistanceBetweenStepsMod.GetModifiedValue(m_minDistanceBetweenSteps);
 	}
 
 	public float GetMinDistanceBetweenAnySteps()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.GetMinDistanceBetweenAnySteps()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_minDistanceBetweenAnyStepsMod.GetModifiedValue(this.m_minDistanceBetweenAnySteps);
+			result = m_abilityMod.m_minDistanceBetweenAnyStepsMod.GetModifiedValue(m_minDistanceBetweenAnySteps);
 		}
 		else
 		{
-			result = this.m_minDistanceBetweenAnySteps;
+			result = m_minDistanceBetweenAnySteps;
 		}
 		return result;
 	}
 
 	public float GetMaxDistanceBetweenSteps()
 	{
-		return (!this.m_abilityMod) ? this.m_maxDistanceBetweenSteps : this.m_abilityMod.m_maxDistanceBetweenStepsMod.GetModifiedValue(this.m_maxDistanceBetweenSteps);
+		return (!m_abilityMod) ? m_maxDistanceBetweenSteps : m_abilityMod.m_maxDistanceBetweenStepsMod.GetModifiedValue(m_maxDistanceBetweenSteps);
 	}
 
 	public float GetDashRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.GetDashRadius()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_dashRadiusMod.GetModifiedValue(this.m_dashRadius);
+			result = m_abilityMod.m_dashRadiusMod.GetModifiedValue(m_dashRadius);
 		}
 		else
 		{
-			result = this.m_dashRadius;
+			result = m_dashRadius;
 		}
 		return result;
 	}
@@ -252,26 +176,13 @@ public class ThiefOnTheRun : Ability
 	public bool DashPenetrateLineOfSight()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.DashPenetrateLineOfSight()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_dashPenetrateLineOfSightMod.GetModifiedValue(this.m_dashPenetrateLineOfSight);
+			result = m_abilityMod.m_dashPenetrateLineOfSightMod.GetModifiedValue(m_dashPenetrateLineOfSight);
 		}
 		else
 		{
-			result = this.m_dashPenetrateLineOfSight;
+			result = m_dashPenetrateLineOfSight;
 		}
 		return result;
 	}
@@ -279,26 +190,13 @@ public class ThiefOnTheRun : Ability
 	public int GetDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.GetDamageAmount()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			result = this.m_damageAmount;
+			result = m_damageAmount;
 		}
 		return result;
 	}
@@ -306,26 +204,13 @@ public class ThiefOnTheRun : Ability
 	public int GetSubsequentDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.GetSubsequentDamage()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_subsequentDamageMod.GetModifiedValue(this.m_subsequentDamage);
+			result = m_abilityMod.m_subsequentDamageMod.GetModifiedValue(m_subsequentDamage);
 		}
 		else
 		{
-			result = this.m_subsequentDamage;
+			result = m_subsequentDamage;
 		}
 		return result;
 	}
@@ -333,26 +218,13 @@ public class ThiefOnTheRun : Ability
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffect != null)
+		if (m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.GetEnemyHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedEnemyHitEffect;
+			result = m_cachedEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyHitEffect;
+			result = m_enemyHitEffect;
 		}
 		return result;
 	}
@@ -360,353 +232,193 @@ public class ThiefOnTheRun : Ability
 	public StandardEffectInfo GetEffectOnSelfThroughSmokeField()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectOnSelfThroughSmokeField != null)
+		if (m_cachedEffectOnSelfThroughSmokeField != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.GetEffectOnSelfThroughSmokeField()).MethodHandle;
-			}
-			result = this.m_cachedEffectOnSelfThroughSmokeField;
+			result = m_cachedEffectOnSelfThroughSmokeField;
 		}
 		else
 		{
-			result = this.m_effectOnSelfThroughSmokeField;
+			result = m_effectOnSelfThroughSmokeField;
 		}
 		return result;
 	}
 
 	public int GetCooldownReductionIfNoEnemy()
 	{
-		return (!this.m_abilityMod) ? this.m_cooldownReductionIfNoEnemy : this.m_abilityMod.m_cooldownReductionIfNoEnemyMod.GetModifiedValue(this.m_cooldownReductionIfNoEnemy);
+		return (!m_abilityMod) ? m_cooldownReductionIfNoEnemy : m_abilityMod.m_cooldownReductionIfNoEnemyMod.GetModifiedValue(m_cooldownReductionIfNoEnemy);
 	}
 
 	public SpoilsSpawnData GetSpoilSpawnInfo()
 	{
 		SpoilsSpawnData result;
-		if (this.m_cachedSpoilSpawnInfo != null)
+		if (m_cachedSpoilSpawnInfo != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.GetSpoilSpawnInfo()).MethodHandle;
-			}
-			result = this.m_cachedSpoilSpawnInfo;
+			result = m_cachedSpoilSpawnInfo;
 		}
 		else
 		{
-			result = this.m_spoilSpawnInfo;
+			result = m_spoilSpawnInfo;
 		}
 		return result;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_damageAmount);
-		this.m_enemyHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_damageAmount);
+		m_enemyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		ActorData actorData = base.ActorData;
 		if (actorData != null)
 		{
-			for (;;)
+			if (actorData.GetCurrentBoardSquare() != null)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
-			if (actorData.\u0012() != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i <= currentTargeterIndex; i++)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (i >= base.Targeters.Count)
 					{
 						break;
 					}
-					BoardSquare y = (i <= 0) ? actorData.\u0012() : Board.\u000E().\u000E(base.Targeters[i - 1].LastUpdatingGridPos);
-					int subsequentAmount = this.GetSubsequentDamage();
-					if (targetActor.\u0012() == y)
+					BoardSquare y = (i <= 0) ? actorData.GetCurrentBoardSquare() : Board.Get().GetBoardSquareSafe(base.Targeters[i - 1].LastUpdatingGridPos);
+					int subsequentAmount = GetSubsequentDamage();
+					if (targetActor.GetCurrentBoardSquare() == y)
 					{
 						subsequentAmount = 0;
 					}
-					Ability.AddNameplateValueForOverlap(ref result, base.Targeters[i], targetActor, currentTargeterIndex, this.GetDamageAmount(), subsequentAmount, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
+					Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeters[i], targetActor, currentTargeterIndex, GetDamageAmount(), subsequentAmount);
 				}
 			}
 		}
-		return result;
+		return symbolToValue;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_ThiefOnTheRun abilityMod_ThiefOnTheRun = modAsBase as AbilityMod_ThiefOnTheRun;
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, (!abilityMod_ThiefOnTheRun) ? this.m_damageAmount : abilityMod_ThiefOnTheRun.m_damageAmountMod.GetModifiedValue(this.m_damageAmount), false);
-		string name = "SubsequentDamage";
+		AddTokenInt(tokens, "DamageAmount", string.Empty, (!abilityMod_ThiefOnTheRun) ? m_damageAmount : abilityMod_ThiefOnTheRun.m_damageAmountMod.GetModifiedValue(m_damageAmount));
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_ThiefOnTheRun)
+		if ((bool)abilityMod_ThiefOnTheRun)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
-			val = abilityMod_ThiefOnTheRun.m_subsequentDamageMod.GetModifiedValue(this.m_subsequentDamage);
+			val = abilityMod_ThiefOnTheRun.m_subsequentDamageMod.GetModifiedValue(m_subsequentDamage);
 		}
 		else
 		{
-			val = this.m_subsequentDamage;
+			val = m_subsequentDamage;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
+		AddTokenInt(tokens, "SubsequentDamage", empty, val);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_ThiefOnTheRun)
+		if ((bool)abilityMod_ThiefOnTheRun)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			effectInfo = abilityMod_ThiefOnTheRun.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
+			effectInfo = abilityMod_ThiefOnTheRun.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_enemyHitEffect;
+			effectInfo = m_enemyHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", this.m_enemyHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_ThiefOnTheRun) ? this.m_effectOnSelfThroughSmokeField : abilityMod_ThiefOnTheRun.m_effectOnSelfThroughSmokeFieldMod.GetModifiedValue(this.m_effectOnSelfThroughSmokeField), "EffectOnSelfThroughSmokeField", this.m_effectOnSelfThroughSmokeField, true);
-		string name2 = "CooldownReductionIfNoEnemy";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", m_enemyHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_ThiefOnTheRun) ? m_effectOnSelfThroughSmokeField : abilityMod_ThiefOnTheRun.m_effectOnSelfThroughSmokeFieldMod.GetModifiedValue(m_effectOnSelfThroughSmokeField), "EffectOnSelfThroughSmokeField", m_effectOnSelfThroughSmokeField);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_ThiefOnTheRun)
+		if ((bool)abilityMod_ThiefOnTheRun)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val2 = abilityMod_ThiefOnTheRun.m_cooldownReductionIfNoEnemyMod.GetModifiedValue(this.m_cooldownReductionIfNoEnemy);
+			val2 = abilityMod_ThiefOnTheRun.m_cooldownReductionIfNoEnemyMod.GetModifiedValue(m_cooldownReductionIfNoEnemy);
 		}
 		else
 		{
-			val2 = this.m_cooldownReductionIfNoEnemy;
+			val2 = m_cooldownReductionIfNoEnemy;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
+		AddTokenInt(tokens, "CooldownReductionIfNoEnemy", empty2, val2);
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare == null || !boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe == null || !boardSquareSafe.IsBaselineHeight())
 		{
 			return false;
 		}
-		bool result;
-		if (this.GetExpectedNumberOfTargeters() < 2)
+		bool flag = true;
+		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
-			result = (KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare) != null);
+		}
+		BoardSquare boardSquare;
+		if (targetIndex == 0)
+		{
+			boardSquare = caster.GetCurrentBoardSquare();
 		}
 		else
 		{
-			BoardSquare boardSquare2;
-			if (targetIndex == 0)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				boardSquare2 = caster.\u0012();
-			}
-			else
-			{
-				boardSquare2 = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos);
-			}
-			bool flag = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, boardSquare2, false) != null;
-			float squareSize = Board.\u000E().squareSize;
-			float num = Vector3.Distance(boardSquare2.ToVector3(), boardSquare.ToVector3());
-			bool flag2;
-			if (num >= this.GetMinDistanceBetweenSteps() * squareSize)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag2 = (num <= this.GetMaxDistanceBetweenSteps() * squareSize);
-			}
-			else
-			{
-				flag2 = false;
-			}
-			bool flag3 = flag2;
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (flag3 && this.GetMinDistanceBetweenAnySteps() > 0f)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					for (int i = 0; i < targetIndex; i++)
-					{
-						BoardSquare boardSquare3 = Board.\u000E().\u000E(currentTargets[i].GridPos);
-						flag3 &= (Vector3.Distance(boardSquare3.ToVector3(), boardSquare.ToVector3()) >= this.GetMinDistanceBetweenAnySteps() * squareSize);
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-			}
-			bool flag4;
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag4 = flag3;
-			}
-			else
-			{
-				flag4 = false;
-			}
-			result = flag4;
+			boardSquare = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
 		}
-		return result;
+		bool flag2 = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, boardSquare, false) != null;
+		float squareSize = Board.Get().squareSize;
+		float num = Vector3.Distance(boardSquare.ToVector3(), boardSquareSafe.ToVector3());
+		int num2;
+		if (num >= GetMinDistanceBetweenSteps() * squareSize)
+		{
+			num2 = ((num <= GetMaxDistanceBetweenSteps() * squareSize) ? 1 : 0);
+		}
+		else
+		{
+			num2 = 0;
+		}
+		bool flag3 = (byte)num2 != 0;
+		if (flag2)
+		{
+			if (flag3 && GetMinDistanceBetweenAnySteps() > 0f)
+			{
+				for (int i = 0; i < targetIndex; i++)
+				{
+					BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos);
+					flag3 &= (Vector3.Distance(boardSquareSafe2.ToVector3(), boardSquareSafe.ToVector3()) >= GetMinDistanceBetweenAnySteps() * squareSize);
+				}
+			}
+		}
+		int result;
+		if (flag2)
+		{
+			result = (flag3 ? 1 : 0);
+		}
+		else
+		{
+			result = 0;
+		}
+		return (byte)result != 0;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_ThiefOnTheRun))
+		if (abilityMod.GetType() != typeof(AbilityMod_ThiefOnTheRun))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_ThiefOnTheRun);
-			this.Setup();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_ThiefOnTheRun);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

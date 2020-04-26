@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LocalizationArg_Handle : LocalizationArg
@@ -7,14 +7,13 @@ public class LocalizationArg_Handle : LocalizationArg
 
 	public static LocalizationArg_Handle Create(string handle)
 	{
-		return new LocalizationArg_Handle
-		{
-			m_handle = handle
-		};
+		LocalizationArg_Handle localizationArg_Handle = new LocalizationArg_Handle();
+		localizationArg_Handle.m_handle = handle;
+		return localizationArg_Handle;
 	}
 
 	public override string TR()
 	{
-		return this.m_handle;
+		return m_handle;
 	}
 }

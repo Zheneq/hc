@@ -1,172 +1,198 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
 public class CharacterComponent : ICloneable
 {
-	public CharacterComponent()
+	public bool Unlocked
 	{
-		this.Skins = new List<PlayerSkinData>();
-		this.Taunts = new List<PlayerTauntData>();
-		this.Mods = new List<PlayerModData>();
-		this.AbilityVfxSwaps = new List<PlayerAbilityVfxSwapData>();
-		this.LastSkin = default(CharacterVisualInfo);
-		this.LastCards = default(CharacterCardInfo);
-		this.LastMods = default(CharacterModInfo);
-		this.LastRankedMods = default(CharacterModInfo);
-		this.LastAbilityVfxSwaps = default(CharacterAbilityVfxSwapInfo);
-		this.CharacterLoadouts = new List<CharacterLoadout>();
-		this.CharacterLoadoutsRanked = new List<CharacterLoadout>();
-		this.NumCharacterLoadouts = 0;
-		this.LastSelectedLoadout = -1;
-		this.LastSelectedRankedLoadout = -1;
-		this.ResetSelections();
+		get;
+		set;
 	}
 
-	public bool Unlocked { get; set; }
+	public CharacterVisualInfo LastSkin
+	{
+		get;
+		set;
+	}
 
-	public CharacterVisualInfo LastSkin { get; set; }
+	public CharacterCardInfo LastCards
+	{
+		get;
+		set;
+	}
 
-	public CharacterCardInfo LastCards { get; set; }
+	public CharacterModInfo LastMods
+	{
+		get;
+		set;
+	}
 
-	public CharacterModInfo LastMods { get; set; }
+	public CharacterModInfo LastRankedMods
+	{
+		get;
+		set;
+	}
 
-	public CharacterModInfo LastRankedMods { get; set; }
+	public CharacterAbilityVfxSwapInfo LastAbilityVfxSwaps
+	{
+		get;
+		set;
+	}
 
-	public CharacterAbilityVfxSwapInfo LastAbilityVfxSwaps { get; set; }
+	public List<CharacterLoadout> CharacterLoadouts
+	{
+		get;
+		set;
+	}
 
-	public List<CharacterLoadout> CharacterLoadouts { get; set; }
+	public List<CharacterLoadout> CharacterLoadoutsRanked
+	{
+		get;
+		set;
+	}
 
-	public List<CharacterLoadout> CharacterLoadoutsRanked { get; set; }
+	public int LastSelectedLoadout
+	{
+		get;
+		set;
+	}
 
-	public int LastSelectedLoadout { get; set; }
+	public int LastSelectedRankedLoadout
+	{
+		get;
+		set;
+	}
 
-	public int LastSelectedRankedLoadout { get; set; }
+	public int NumCharacterLoadouts
+	{
+		get;
+		set;
+	}
 
-	public int NumCharacterLoadouts { get; set; }
+	public List<PlayerSkinData> Skins
+	{
+		get;
+		set;
+	}
 
-	public List<PlayerSkinData> Skins { get; set; }
+	public List<PlayerTauntData> Taunts
+	{
+		get;
+		set;
+	}
 
-	public List<PlayerTauntData> Taunts { get; set; }
+	public List<PlayerModData> Mods
+	{
+		get;
+		set;
+	}
 
-	public List<PlayerModData> Mods { get; set; }
+	public List<PlayerAbilityVfxSwapData> AbilityVfxSwaps
+	{
+		get;
+		set;
+	}
 
-	public List<PlayerAbilityVfxSwapData> AbilityVfxSwaps { get; set; }
+	public int ResetSelectionVersion
+	{
+		get;
+		set;
+	}
 
-	public int ResetSelectionVersion { get; set; }
+	public CharacterComponent()
+	{
+		Skins = new List<PlayerSkinData>();
+		Taunts = new List<PlayerTauntData>();
+		Mods = new List<PlayerModData>();
+		AbilityVfxSwaps = new List<PlayerAbilityVfxSwapData>();
+		LastSkin = default(CharacterVisualInfo);
+		LastCards = default(CharacterCardInfo);
+		LastMods = default(CharacterModInfo);
+		LastRankedMods = default(CharacterModInfo);
+		LastAbilityVfxSwaps = default(CharacterAbilityVfxSwapInfo);
+		CharacterLoadouts = new List<CharacterLoadout>();
+		CharacterLoadoutsRanked = new List<CharacterLoadout>();
+		NumCharacterLoadouts = 0;
+		LastSelectedLoadout = -1;
+		LastSelectedRankedLoadout = -1;
+		ResetSelections();
+	}
 
 	public PlayerSkinData GetSkin(int i)
 	{
-		while (this.Skins.Count <= i)
+		while (Skins.Count <= i)
 		{
-			this.Skins.Add(new PlayerSkinData());
+			Skins.Add(new PlayerSkinData());
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return Skins[i];
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterComponent.GetSkin(int)).MethodHandle;
-		}
-		return this.Skins[i];
 	}
 
 	public PlayerTauntData GetTaunt(int i)
 	{
-		while (this.Taunts.Count <= i)
+		while (Taunts.Count <= i)
 		{
-			this.Taunts.Add(new PlayerTauntData());
+			Taunts.Add(new PlayerTauntData());
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return Taunts[i];
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterComponent.GetTaunt(int)).MethodHandle;
-		}
-		return this.Taunts[i];
 	}
 
 	public PlayerAbilityVfxSwapData GetAbilityVfxSwap(int i)
 	{
-		while (this.AbilityVfxSwaps.Count <= i)
+		while (AbilityVfxSwaps.Count <= i)
 		{
-			this.AbilityVfxSwaps.Add(default(PlayerAbilityVfxSwapData));
+			AbilityVfxSwaps.Add(default(PlayerAbilityVfxSwapData));
 		}
-		return this.AbilityVfxSwaps[i];
+		return AbilityVfxSwaps[i];
 	}
 
 	public void ResetSelections()
 	{
-		this.LastCards = default(CharacterCardInfo);
-		this.LastMods = default(CharacterModInfo);
-		this.LastRankedMods = default(CharacterModInfo);
-		this.LastAbilityVfxSwaps = default(CharacterAbilityVfxSwapInfo);
-		this.LastSkin = default(CharacterVisualInfo);
+		LastCards = default(CharacterCardInfo);
+		LastMods = default(CharacterModInfo);
+		LastRankedMods = default(CharacterModInfo);
+		LastAbilityVfxSwaps = default(CharacterAbilityVfxSwapInfo);
+		LastSkin = default(CharacterVisualInfo);
 	}
 
 	public bool IsStyleUnlocked(int skinIndex, int patternIndex, int colorIndex)
 	{
-		return skinIndex < this.Skins.Count && patternIndex < this.Skins[skinIndex].Patterns.Count && colorIndex < this.Skins[skinIndex].Patterns[patternIndex].Colors.Count && this.Skins[skinIndex].Patterns[patternIndex].Colors[colorIndex].Unlocked;
+		if (skinIndex < Skins.Count && patternIndex < Skins[skinIndex].Patterns.Count && colorIndex < Skins[skinIndex].Patterns[patternIndex].Colors.Count)
+		{
+			return Skins[skinIndex].Patterns[patternIndex].Colors[colorIndex].Unlocked;
+		}
+		return false;
 	}
 
 	public bool IsModUnlocked(int abilityId, int abilityModId)
 	{
-		using (List<PlayerModData>.Enumerator enumerator = this.Mods.GetEnumerator())
+		using (List<PlayerModData>.Enumerator enumerator = Mods.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				PlayerModData playerModData = enumerator.Current;
-				if (playerModData.AbilityId == abilityId)
+				PlayerModData current = enumerator.Current;
+				if (current.AbilityId == abilityId)
 				{
-					for (;;)
+					if (current.AbilityModID == abilityModId)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterComponent.IsModUnlocked(int, int)).MethodHandle;
-					}
-					if (playerModData.AbilityModID == abilityModId)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -174,37 +200,24 @@ public class CharacterComponent : ICloneable
 
 	public bool IsAbilityVfxSwapUnlocked(int abilityId, int abilityVfxSwapId)
 	{
-		using (List<PlayerAbilityVfxSwapData>.Enumerator enumerator = this.AbilityVfxSwaps.GetEnumerator())
+		using (List<PlayerAbilityVfxSwapData>.Enumerator enumerator = AbilityVfxSwaps.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				PlayerAbilityVfxSwapData playerAbilityVfxSwapData = enumerator.Current;
-				if (playerAbilityVfxSwapData.AbilityId == abilityId && playerAbilityVfxSwapData.AbilityVfxSwapID == abilityVfxSwapId)
+				PlayerAbilityVfxSwapData current = enumerator.Current;
+				if (current.AbilityId == abilityId && current.AbilityVfxSwapID == abilityVfxSwapId)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterComponent.IsAbilityVfxSwapUnlocked(int, int)).MethodHandle;
-					}
-					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -212,6 +225,6 @@ public class CharacterComponent : ICloneable
 
 	public object Clone()
 	{
-		return base.MemberwiseClone();
+		return MemberwiseClone();
 	}
 }

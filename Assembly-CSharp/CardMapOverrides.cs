@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class CardMapOverrides : MonoBehaviour
@@ -9,16 +8,16 @@ public class CardMapOverrides : MonoBehaviour
 
 	private void Awake()
 	{
-		CardMapOverrides.s_instance = this;
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		CardMapOverrides.s_instance = null;
+		s_instance = null;
 	}
 
 	public static CardMapOverrides Get()
 	{
-		return CardMapOverrides.s_instance;
+		return s_instance;
 	}
 }

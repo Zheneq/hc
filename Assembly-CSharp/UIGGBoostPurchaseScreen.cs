@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,100 +21,77 @@ public class UIGGBoostPurchaseScreen : UIScene
 
 	public static UIGGBoostPurchaseScreen Get()
 	{
-		return UIGGBoostPurchaseScreen.s_instance;
+		return s_instance;
 	}
 
 	public override void Awake()
 	{
-		UIGGBoostPurchaseScreen.s_instance = this;
-		this.m_cancelButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseScreen);
+		s_instance = this;
+		m_cancelButton.callback = CloseScreen;
 		base.Awake();
 	}
 
 	private void OnDestroy()
 	{
-		if (UIGGBoostPurchaseScreen.s_instance == this)
+		if (!(s_instance == this))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGGBoostPurchaseScreen.OnDestroy()).MethodHandle;
-			}
-			UIGGBoostPurchaseScreen.s_instance = null;
+			return;
+		}
+		while (true)
+		{
+			s_instance = null;
+			return;
 		}
 	}
 
 	private void Start()
 	{
-		foreach (UIGGBoostPurchaseButton uiggboostPurchaseButton in this.m_ggBoostGrid.GetComponentsInChildren<UIGGBoostPurchaseButton>())
+		UIGGBoostPurchaseButton[] componentsInChildren = m_ggBoostGrid.GetComponentsInChildren<UIGGBoostPurchaseButton>();
+		foreach (UIGGBoostPurchaseButton uIGGBoostPurchaseButton in componentsInChildren)
 		{
-			UnityEngine.Object.Destroy(uiggboostPurchaseButton.gameObject);
+			Object.Destroy(uIGGBoostPurchaseButton.gameObject);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
+			GGPack[] ggPacks = GameWideData.Get().m_ggPackData.m_ggPacks;
+			foreach (GGPack pack in ggPacks)
 			{
-			case 0:
-				continue;
+				UIGGBoostPurchaseButton uIGGBoostPurchaseButton2 = Object.Instantiate(m_ggButtonPrefab);
+				uIGGBoostPurchaseButton2.transform.SetParent(m_ggBoostGrid.transform);
+				uIGGBoostPurchaseButton2.transform.localPosition = Vector3.zero;
+				uIGGBoostPurchaseButton2.transform.localScale = Vector3.one;
+				uIGGBoostPurchaseButton2.Setup(pack);
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGGBoostPurchaseScreen.Start()).MethodHandle;
-		}
-		foreach (GGPack pack in GameWideData.Get().m_ggPackData.m_ggPacks)
-		{
-			UIGGBoostPurchaseButton uiggboostPurchaseButton2 = UnityEngine.Object.Instantiate<UIGGBoostPurchaseButton>(this.m_ggButtonPrefab);
-			uiggboostPurchaseButton2.transform.SetParent(this.m_ggBoostGrid.transform);
-			uiggboostPurchaseButton2.transform.localPosition = Vector3.zero;
-			uiggboostPurchaseButton2.transform.localScale = Vector3.one;
-			uiggboostPurchaseButton2.Setup(pack);
-		}
-		for (;;)
-		{
-			switch (6)
+			while (true)
 			{
-			case 0:
-				continue;
+				switch (6)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
 			}
-			break;
 		}
 	}
 
 	public void SetVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_container, visible, null);
-		if (visible)
+		UIManager.SetGameObjectActive(m_container, visible);
+		if (!visible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGGBoostPurchaseScreen.SetVisible(bool)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			UIRAFProgramScreen.Get().SetVisible(false);
-			UIPlayerProgressPanel.Get().SetVisible(false, true);
+			UIPlayerProgressPanel.Get().SetVisible(false);
+			return;
 		}
 	}
 
 	private void CloseScreen(BaseEventData data)
 	{
-		this.SetVisible(false);
+		SetVisible(false);
 	}
 }

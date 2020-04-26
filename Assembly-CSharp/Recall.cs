@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class Recall : Ability
@@ -8,7 +7,7 @@ public class Recall : Ability
 
 	private void Start()
 	{
-		this.m_abilityName = "Recall";
+		m_abilityName = "Recall";
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
@@ -16,19 +15,6 @@ public class Recall : Ability
 		bool flag = GameplayData.Get().m_recallAllowed;
 		if (flag && GameplayData.Get().m_recallOnlyWhenOutOfCombat)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Recall.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			flag = caster.OutOfCombat;
 		}
 		return flag;

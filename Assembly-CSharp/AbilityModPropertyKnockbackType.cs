@@ -1,43 +1,39 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class AbilityModPropertyKnockbackType
 {
+	public enum ModOp
+	{
+		Ignore,
+		Override
+	}
+
 	public KnockbackType value = KnockbackType.AwayFromSource;
 
-	public AbilityModPropertyKnockbackType.ModOp operation;
+	public ModOp operation;
 
 	public KnockbackType GetModifiedValue(KnockbackType input)
 	{
-		if (this.operation == AbilityModPropertyKnockbackType.ModOp.Override)
+		if (operation == ModOp.Override)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return value;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyKnockbackType.GetModifiedValue(KnockbackType)).MethodHandle;
-			}
-			return this.value;
 		}
 		return input;
 	}
 
 	public void CopyValuesFrom(AbilityModPropertyKnockbackType other)
 	{
-		this.value = other.value;
-		this.operation = other.operation;
-	}
-
-	public enum ModOp
-	{
-		Ignore,
-		Override
+		value = other.value;
+		operation = other.operation;
 	}
 }

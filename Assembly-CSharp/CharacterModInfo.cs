@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public struct CharacterModInfo
@@ -17,11 +17,11 @@ public struct CharacterModInfo
 
 	public void Reset()
 	{
-		this.ModForAbility0 = -1;
-		this.ModForAbility1 = -1;
-		this.ModForAbility2 = -1;
-		this.ModForAbility3 = -1;
-		this.ModForAbility4 = -1;
+		ModForAbility0 = -1;
+		ModForAbility1 = -1;
+		ModForAbility2 = -1;
+		ModForAbility3 = -1;
+		ModForAbility4 = -1;
 	}
 
 	public int GetModForAbility(int abilityIndex)
@@ -29,15 +29,15 @@ public struct CharacterModInfo
 		switch (abilityIndex)
 		{
 		case 0:
-			return this.ModForAbility0;
+			return ModForAbility0;
 		case 1:
-			return this.ModForAbility1;
+			return ModForAbility1;
 		case 2:
-			return this.ModForAbility2;
+			return ModForAbility2;
 		case 3:
-			return this.ModForAbility3;
+			return ModForAbility3;
 		case 4:
-			return this.ModForAbility4;
+			return ModForAbility4;
 		default:
 			return -1;
 		}
@@ -48,97 +48,58 @@ public struct CharacterModInfo
 		switch (abilityIndex)
 		{
 		case 0:
-			this.ModForAbility0 = mod;
+			ModForAbility0 = mod;
 			break;
 		case 1:
-			this.ModForAbility1 = mod;
+			ModForAbility1 = mod;
 			break;
 		case 2:
-			this.ModForAbility2 = mod;
+			ModForAbility2 = mod;
 			break;
 		case 3:
-			this.ModForAbility3 = mod;
+			ModForAbility3 = mod;
 			break;
 		case 4:
-			this.ModForAbility4 = mod;
+			ModForAbility4 = mod;
 			break;
 		}
 	}
 
 	public string ToIdString()
 	{
-		return string.Format("{0}/{1}/{2}/{3}/{4}", new object[]
-		{
-			this.ModForAbility0.ToString(),
-			this.ModForAbility1.ToString(),
-			this.ModForAbility2.ToString(),
-			this.ModForAbility3.ToString(),
-			this.ModForAbility4.ToString()
-		});
+		return $"{ModForAbility0.ToString()}/{ModForAbility1.ToString()}/{ModForAbility2.ToString()}/{ModForAbility3.ToString()}/{ModForAbility4.ToString()}";
 	}
 
 	public override bool Equals(object obj)
 	{
 		if (!(obj is CharacterModInfo))
 		{
-			for (;;)
+			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return false;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterModInfo.Equals(object)).MethodHandle;
-			}
-			return false;
 		}
 		CharacterModInfo characterModInfo = (CharacterModInfo)obj;
-		if (this.ModForAbility0 == characterModInfo.ModForAbility0)
+		int result;
+		if (ModForAbility0 == characterModInfo.ModForAbility0)
 		{
-			for (;;)
+			if (ModForAbility1 == characterModInfo.ModForAbility1)
 			{
-				switch (2)
+				if (ModForAbility2 == characterModInfo.ModForAbility2 && ModForAbility3 == characterModInfo.ModForAbility3)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.ModForAbility1 == characterModInfo.ModForAbility1)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.ModForAbility2 == characterModInfo.ModForAbility2 && this.ModForAbility3 == characterModInfo.ModForAbility3)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return this.ModForAbility4 == characterModInfo.ModForAbility4;
+					result = ((ModForAbility4 == characterModInfo.ModForAbility4) ? 1 : 0);
+					goto IL_0090;
 				}
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_0090;
+		IL_0090:
+		return (byte)result != 0;
 	}
 
 	public override int GetHashCode()
 	{
-		return this.ModForAbility0.GetHashCode() ^ this.ModForAbility1.GetHashCode() ^ this.ModForAbility2.GetHashCode() ^ this.ModForAbility3.GetHashCode() ^ this.ModForAbility4.GetHashCode();
+		return ModForAbility0.GetHashCode() ^ ModForAbility1.GetHashCode() ^ ModForAbility2.GetHashCode() ^ ModForAbility3.GetHashCode() ^ ModForAbility4.GetHashCode();
 	}
 }

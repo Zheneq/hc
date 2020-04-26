@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,61 +13,40 @@ public class UIDynamicButton : MonoBehaviour
 
 	private void Initialize()
 	{
-		this.m_labels = new List<TextMeshProUGUI>();
-		this.m_icons = new List<Image>();
+		m_labels = new List<TextMeshProUGUI>();
+		m_icons = new List<Image>();
 		IEnumerator enumerator = base.transform.GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())
 			{
-				object obj = enumerator.Current;
-				Transform transform = (Transform)obj;
+				Transform transform = (Transform)enumerator.Current;
 				TextMeshProUGUI componentInChildren = transform.GetComponentInChildren<TextMeshProUGUI>();
 				if (componentInChildren == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicButton.Initialize()).MethodHandle;
-					}
 				}
 				else
 				{
-					this.m_labels.Add(componentInChildren);
-					foreach (Image image in transform.GetComponentsInChildren<Image>(true))
+					m_labels.Add(componentInChildren);
+					Image[] componentsInChildren = transform.GetComponentsInChildren<Image>(true);
+					foreach (Image image in componentsInChildren)
 					{
 						if (image.gameObject.GetInstanceID() != transform.gameObject.GetInstanceID())
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_icons.Add(image);
+							m_icons.Add(image);
 						}
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 		finally
@@ -82,38 +61,26 @@ public class UIDynamicButton : MonoBehaviour
 
 	public void SetText(string text, string spriteName)
 	{
-		if (this.m_labels == null)
+		if (m_labels == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicButton.SetText(string, string)).MethodHandle;
-			}
-			this.Initialize();
+			Initialize();
 		}
-		using (List<TextMeshProUGUI>.Enumerator enumerator = this.m_labels.GetEnumerator())
+		using (List<TextMeshProUGUI>.Enumerator enumerator = m_labels.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				TextMeshProUGUI textMeshProUGUI = enumerator.Current;
-				textMeshProUGUI.text = "<sprite name=\"" + spriteName + "\"> " + text;
+				TextMeshProUGUI current = enumerator.Current;
+				current.text = "<sprite name=\"" + spriteName + "\"> " + text;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}

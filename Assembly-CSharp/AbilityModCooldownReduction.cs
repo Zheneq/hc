@@ -1,15 +1,28 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
 public class AbilityModCooldownReduction
 {
+	public enum ModAmountType
+	{
+		FlatOnCast,
+		FlatOnAnyNonSelfHit,
+		FlatOnAnyAllyHit,
+		FlatOnAnyEnemyHit,
+		MultPerAllyHit,
+		MultPerEnemyHit,
+		FlatOnNoEnemyHit,
+		FlatOnNoAllyHit,
+		FlatOnNoNonCasterHit
+	}
+
 	public AbilityData.ActionType m_onAbility = AbilityData.ActionType.INVALID_ACTION;
 
 	public List<AbilityData.ActionType> m_additionalAbilities = new List<AbilityData.ActionType>();
 
-	public AbilityModCooldownReduction.ModAmountType m_modAmountType;
+	public ModAmountType m_modAmountType;
 
 	[Header("[Flat => baseVal + finalAdd], [Mult => Round(baseVal*numTargets) + finalAdd]")]
 	public float m_baseValue;
@@ -37,28 +50,24 @@ public class AbilityModCooldownReduction
 
 	public bool HasCooldownReduction()
 	{
-		if (this.IsValidActionType(this.m_onAbility))
+		if (IsValidActionType(m_onAbility))
 		{
 			return true;
 		}
-		foreach (AbilityData.ActionType actionType in this.m_additionalAbilities)
+		foreach (AbilityData.ActionType additionalAbility in m_additionalAbilities)
 		{
-			if (this.IsValidActionType(actionType))
+			if (IsValidActionType(additionalAbility))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return true;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModCooldownReduction.HasCooldownReduction()).MethodHandle;
-				}
-				return true;
 			}
 		}
 		return false;
@@ -66,486 +75,192 @@ public class AbilityModCooldownReduction
 
 	private bool IsValidActionType(AbilityData.ActionType actionType)
 	{
-		bool result;
+		int result;
 		if (actionType != AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
+			if (m_baseValue == 0f)
 			{
-				switch (6)
+				if (m_finalAdd == 0f)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModCooldownReduction.IsValidActionType(AbilityData.ActionType)).MethodHandle;
-			}
-			if (this.m_baseValue == 0f)
-			{
-				for (;;)
-				{
-					switch (4)
+					if (m_stockBaseValue == 0)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_finalAdd == 0f)
-				{
-					for (;;)
-					{
-						switch (7)
+						if (m_stockFinalAdd == 0 && m_refreshProgressBaseValue == 0)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_stockBaseValue == 0)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_stockFinalAdd == 0 && this.m_refreshProgressBaseValue == 0)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							result = (this.m_refreshProgressFinalAdd != 0);
-							goto IL_83;
+							result = ((m_refreshProgressFinalAdd != 0) ? 1 : 0);
+							goto IL_0086;
 						}
 					}
 				}
 			}
-			result = true;
-			IL_83:;
+			result = 1;
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		goto IL_0086;
+		IL_0086:
+		return (byte)result != 0;
 	}
 
 	public int CalcFinalCooldownReduction(bool selfHit, int numAlliesHit, int numEnemiesHit)
 	{
 		int b = 0;
-		if (this.m_modAmountType != AbilityModCooldownReduction.ModAmountType.FlatOnCast)
+		if (m_modAmountType != 0)
 		{
-			for (;;)
+			if (m_modAmountType != ModAmountType.FlatOnAnyNonSelfHit)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_0055;
 			}
-			if (!true)
+			if (numAlliesHit <= 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModCooldownReduction.CalcFinalCooldownReduction(bool, int, int)).MethodHandle;
-			}
-			if (this.m_modAmountType == AbilityModCooldownReduction.ModAmountType.FlatOnAnyNonSelfHit)
-			{
-				for (;;)
+				if (numEnemiesHit <= 0)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (numAlliesHit > 0)
-				{
-					goto IL_F6;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (numEnemiesHit > 0)
-				{
-					goto IL_F6;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_0055;
 				}
 			}
-			if (this.m_modAmountType == AbilityModCooldownReduction.ModAmountType.FlatOnAnyAllyHit)
-			{
-				if (numAlliesHit > 0)
-				{
-					goto IL_F6;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (this.m_modAmountType == AbilityModCooldownReduction.ModAmountType.FlatOnAnyEnemyHit)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (numEnemiesHit > 0)
-				{
-					goto IL_F6;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (this.m_modAmountType == AbilityModCooldownReduction.ModAmountType.FlatOnNoEnemyHit)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (numEnemiesHit == 0)
-				{
-					goto IL_F6;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (this.m_modAmountType == AbilityModCooldownReduction.ModAmountType.FlatOnNoAllyHit)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (numAlliesHit == 0)
-				{
-					goto IL_F6;
-				}
-			}
-			if (this.m_modAmountType == AbilityModCooldownReduction.ModAmountType.FlatOnNoNonCasterHit)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (numEnemiesHit == 0)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (numAlliesHit == 0)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_F6;
-						}
-					}
-				}
-			}
-			if (this.m_modAmountType == AbilityModCooldownReduction.ModAmountType.MultPerAllyHit)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				b = Mathf.RoundToInt(this.m_baseValue * (float)numAlliesHit + this.m_finalAdd);
-				goto IL_165;
-			}
-			if (this.m_modAmountType == AbilityModCooldownReduction.ModAmountType.MultPerEnemyHit)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				b = Mathf.RoundToInt(this.m_baseValue * (float)numEnemiesHit + this.m_finalAdd);
-				goto IL_165;
-			}
-			goto IL_165;
 		}
-		IL_F6:
-		b = Mathf.RoundToInt(this.m_baseValue + this.m_finalAdd);
-		IL_165:
-		int num = Mathf.Max(this.m_minReduction, b);
-		if (this.m_maxReduction > 0)
+		goto IL_00f6;
+		IL_0165:
+		int num = Mathf.Max(m_minReduction, b);
+		if (m_maxReduction > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num = Mathf.Min(this.m_maxReduction, num);
+			num = Mathf.Min(m_maxReduction, num);
 		}
 		return num;
+		IL_00f6:
+		b = Mathf.RoundToInt(m_baseValue + m_finalAdd);
+		goto IL_0165;
+		IL_0055:
+		if (m_modAmountType == ModAmountType.FlatOnAnyAllyHit)
+		{
+			if (numAlliesHit > 0)
+			{
+				goto IL_00f6;
+			}
+		}
+		if (m_modAmountType == ModAmountType.FlatOnAnyEnemyHit)
+		{
+			if (numEnemiesHit > 0)
+			{
+				goto IL_00f6;
+			}
+		}
+		if (m_modAmountType == ModAmountType.FlatOnNoEnemyHit)
+		{
+			if (numEnemiesHit == 0)
+			{
+				goto IL_00f6;
+			}
+		}
+		if (m_modAmountType == ModAmountType.FlatOnNoAllyHit)
+		{
+			if (numAlliesHit == 0)
+			{
+				goto IL_00f6;
+			}
+		}
+		if (m_modAmountType == ModAmountType.FlatOnNoNonCasterHit)
+		{
+			if (numEnemiesHit == 0)
+			{
+				if (numAlliesHit == 0)
+				{
+					goto IL_00f6;
+				}
+			}
+		}
+		if (m_modAmountType == ModAmountType.MultPerAllyHit)
+		{
+			b = Mathf.RoundToInt(m_baseValue * (float)numAlliesHit + m_finalAdd);
+		}
+		else if (m_modAmountType == ModAmountType.MultPerEnemyHit)
+		{
+			b = Mathf.RoundToInt(m_baseValue * (float)numEnemiesHit + m_finalAdd);
+		}
+		goto IL_0165;
 	}
 
-	public unsafe int CalcFinalStockRefresh(bool selfHit, int numAlliesHit, int numEnemiesHit, out int refreshProgress)
+	public int CalcFinalStockRefresh(bool selfHit, int numAlliesHit, int numEnemiesHit, out int refreshProgress)
 	{
 		int result = 0;
 		refreshProgress = 0;
-		if (this.m_modAmountType != AbilityModCooldownReduction.ModAmountType.FlatOnCast)
+		if (m_modAmountType == ModAmountType.FlatOnCast)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModCooldownReduction.CalcFinalStockRefresh(bool, int, int, int*)).MethodHandle;
-			}
-			if (this.m_modAmountType == AbilityModCooldownReduction.ModAmountType.FlatOnAnyNonSelfHit)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (numAlliesHit > 0 || numEnemiesHit > 0)
-				{
-					goto IL_8B;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (this.m_modAmountType == AbilityModCooldownReduction.ModAmountType.FlatOnAnyAllyHit)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (numAlliesHit > 0)
-				{
-					goto IL_8B;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (this.m_modAmountType == AbilityModCooldownReduction.ModAmountType.FlatOnAnyEnemyHit)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (numEnemiesHit > 0)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_8B;
-					}
-				}
-			}
-			if (this.m_modAmountType == AbilityModCooldownReduction.ModAmountType.MultPerAllyHit)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				result = Mathf.RoundToInt((float)(this.m_stockBaseValue * numAlliesHit + this.m_stockFinalAdd));
-				refreshProgress = Mathf.RoundToInt((float)(this.m_refreshProgressBaseValue * numAlliesHit + this.m_refreshProgressFinalAdd));
-				return result;
-			}
-			if (this.m_modAmountType == AbilityModCooldownReduction.ModAmountType.MultPerEnemyHit)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				result = Mathf.RoundToInt((float)(this.m_stockBaseValue * numEnemiesHit + this.m_stockFinalAdd));
-				refreshProgress = Mathf.RoundToInt((float)(this.m_refreshProgressBaseValue * numEnemiesHit + this.m_refreshProgressFinalAdd));
-				return result;
-			}
-			return result;
+			goto IL_008b;
 		}
-		IL_8B:
-		result = Mathf.RoundToInt((float)(this.m_stockBaseValue + this.m_stockFinalAdd));
-		refreshProgress = Mathf.RoundToInt((float)(this.m_refreshProgressBaseValue + this.m_refreshProgressFinalAdd));
+		if (m_modAmountType == ModAmountType.FlatOnAnyNonSelfHit)
+		{
+			if (numAlliesHit > 0 || numEnemiesHit > 0)
+			{
+				goto IL_008b;
+			}
+		}
+		if (m_modAmountType == ModAmountType.FlatOnAnyAllyHit)
+		{
+			if (numAlliesHit > 0)
+			{
+				goto IL_008b;
+			}
+		}
+		if (m_modAmountType == ModAmountType.FlatOnAnyEnemyHit)
+		{
+			if (numEnemiesHit > 0)
+			{
+				goto IL_008b;
+			}
+		}
+		if (m_modAmountType == ModAmountType.MultPerAllyHit)
+		{
+			result = Mathf.RoundToInt(m_stockBaseValue * numAlliesHit + m_stockFinalAdd);
+			refreshProgress = Mathf.RoundToInt(m_refreshProgressBaseValue * numAlliesHit + m_refreshProgressFinalAdd);
+		}
+		else if (m_modAmountType == ModAmountType.MultPerEnemyHit)
+		{
+			result = Mathf.RoundToInt(m_stockBaseValue * numEnemiesHit + m_stockFinalAdd);
+			refreshProgress = Mathf.RoundToInt(m_refreshProgressBaseValue * numEnemiesHit + m_refreshProgressFinalAdd);
+		}
+		goto IL_0148;
+		IL_008b:
+		result = Mathf.RoundToInt(m_stockBaseValue + m_stockFinalAdd);
+		refreshProgress = Mathf.RoundToInt(m_refreshProgressBaseValue + m_refreshProgressFinalAdd);
+		goto IL_0148;
+		IL_0148:
 		return result;
 	}
 
 	public void AddTooltipTokens(List<TooltipTokenEntry> entries, string name)
 	{
-		if (this.HasCooldownReduction())
+		if (!HasCooldownReduction())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			int val = CalcFinalCooldownReduction(true, 1, 1);
+			if (m_onAbility != AbilityData.ActionType.INVALID_ACTION)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				entries.Add(new TooltipTokenInt(name + "_CDR_" + m_onAbility, "cooldown reduction", val));
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModCooldownReduction.AddTooltipTokens(List<TooltipTokenEntry>, string)).MethodHandle;
-			}
-			int val = this.CalcFinalCooldownReduction(true, 1, 1);
-			if (this.m_onAbility != AbilityData.ActionType.INVALID_ACTION)
-			{
-				entries.Add(new TooltipTokenInt(name + "_CDR_" + this.m_onAbility.ToString(), "cooldown reduction", val));
-			}
-			using (List<AbilityData.ActionType>.Enumerator enumerator = this.m_additionalAbilities.GetEnumerator())
+			using (List<AbilityData.ActionType>.Enumerator enumerator = m_additionalAbilities.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					AbilityData.ActionType actionType = enumerator.Current;
-					if (actionType != AbilityData.ActionType.INVALID_ACTION)
+					AbilityData.ActionType current = enumerator.Current;
+					if (current != AbilityData.ActionType.INVALID_ACTION)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						entries.Add(new TooltipTokenInt(name + "CRD_" + actionType.ToString(), "cooldown reduction", val));
+						entries.Add(new TooltipTokenInt(name + "CRD_" + current, "cooldown reduction", val));
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}
@@ -553,213 +268,115 @@ public class AbilityModCooldownReduction
 
 	public string GetDescription(AbilityData abilityData)
 	{
-		string[] array = new string[5];
-		array[0] = InEditorDescHelper.ColoredString(this.m_baseValue.ToString(), "cyan", false);
-		array[1] = " ";
-		array[2] = InEditorDescHelper.ColoredString(this.m_modAmountType.ToString(), "lime", false);
-		array[3] = " ";
-		int num = 4;
-		string str;
-		if (this.m_finalAdd >= 0f)
+		string[] obj = new string[5]
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModCooldownReduction.GetDescription(AbilityData)).MethodHandle;
-			}
+			InEditorDescHelper.ColoredString(m_baseValue.ToString()),
+			" ",
+			InEditorDescHelper.ColoredString(m_modAmountType.ToString(), "lime"),
+			" ",
+			null
+		};
+		object str;
+		if (m_finalAdd >= 0f)
+		{
 			str = " +";
 		}
 		else
 		{
 			str = string.Empty;
 		}
-		array[num] = InEditorDescHelper.ColoredString(str + this.m_finalAdd.ToString(), "cyan", false);
-		string text = string.Concat(array);
-		string text2 = "\t<color=white>" + AbilityModHelper.GetAbilityNameFromActionType(this.m_onAbility, abilityData) + "</color>\n";
-		using (List<AbilityData.ActionType>.Enumerator enumerator = this.m_additionalAbilities.GetEnumerator())
+		obj[4] = InEditorDescHelper.ColoredString((string)str + m_finalAdd);
+		string str2 = string.Concat(obj);
+		string text = "\t<color=white>" + AbilityModHelper.GetAbilityNameFromActionType(m_onAbility, abilityData) + "</color>\n";
+		using (List<AbilityData.ActionType>.Enumerator enumerator = m_additionalAbilities.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				AbilityData.ActionType actionType = enumerator.Current;
-				text2 = text2 + "\t<color=white>" + AbilityModHelper.GetAbilityNameFromActionType(actionType, abilityData) + "</color>\n";
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				AbilityData.ActionType current = enumerator.Current;
+				text = text + "\t<color=white>" + AbilityModHelper.GetAbilityNameFromActionType(current, abilityData) + "</color>\n";
 			}
 		}
-		text = text + "\nCooldown Reduction On Abilities:\n" + text2;
-		text2 = string.Empty;
-		using (List<AbilityData.ActionType>.Enumerator enumerator2 = this.m_stockAbilities.GetEnumerator())
+		str2 = str2 + "\nCooldown Reduction On Abilities:\n" + text;
+		text = string.Empty;
+		using (List<AbilityData.ActionType>.Enumerator enumerator2 = m_stockAbilities.GetEnumerator())
 		{
 			while (enumerator2.MoveNext())
 			{
-				AbilityData.ActionType actionType2 = enumerator2.Current;
-				text2 = text2 + "\t<color=white>" + AbilityModHelper.GetAbilityNameFromActionType(actionType2, abilityData) + "</color>\n";
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				AbilityData.ActionType current2 = enumerator2.Current;
+				text = text + "\t<color=white>" + AbilityModHelper.GetAbilityNameFromActionType(current2, abilityData) + "</color>\n";
 			}
 		}
-		if (this.m_stockBaseValue == 0)
+		if (m_stockBaseValue == 0)
 		{
-			for (;;)
+			if (m_stockFinalAdd == 0)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_stockFinalAdd == 0)
-			{
-				goto IL_28B;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_028b;
 			}
 		}
-		string text3 = text;
-		string[] array2 = new string[7];
-		array2[0] = text3;
-		array2[1] = "\n";
-		array2[2] = InEditorDescHelper.ColoredString(this.m_stockBaseValue.ToString(), "cyan", false);
-		array2[3] = " ";
-		array2[4] = InEditorDescHelper.ColoredString(this.m_modAmountType.ToString(), "lime", false);
-		array2[5] = " ";
-		int num2 = 6;
-		string str2;
-		if (this.m_stockFinalAdd >= 0)
+		string text2 = str2;
+		string[] obj2 = new string[7]
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			str2 = " +";
+			text2,
+			"\n",
+			InEditorDescHelper.ColoredString(m_stockBaseValue.ToString()),
+			" ",
+			InEditorDescHelper.ColoredString(m_modAmountType.ToString(), "lime"),
+			" ",
+			null
+		};
+		object str3;
+		if (m_stockFinalAdd >= 0)
+		{
+			str3 = " +";
 		}
 		else
 		{
-			str2 = string.Empty;
+			str3 = string.Empty;
 		}
-		array2[num2] = InEditorDescHelper.ColoredString(str2 + this.m_stockFinalAdd.ToString(), "cyan", false);
-		text = string.Concat(array2);
-		text = text + "\nStock Add On Abilities:\n" + text2;
-		IL_28B:
-		if (this.m_resetRefreshProgress)
+		obj2[6] = InEditorDescHelper.ColoredString((string)str3 + m_stockFinalAdd);
+		str2 = string.Concat(obj2);
+		str2 = str2 + "\nStock Add On Abilities:\n" + text;
+		goto IL_028b;
+		IL_039a:
+		return str2;
+		IL_028b:
+		if (m_resetRefreshProgress)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text = text + "\nReset Stock Refresh Progress On Abilities:\n" + text2;
+			str2 = str2 + "\nReset Stock Refresh Progress On Abilities:\n" + text;
 		}
 		else
 		{
-			if (this.m_refreshProgressBaseValue == 0)
+			if (m_refreshProgressBaseValue == 0)
 			{
-				for (;;)
+				if (m_refreshProgressFinalAdd == 0)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_refreshProgressFinalAdd == 0)
-				{
-					return text;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_039a;
 				}
 			}
-			text3 = text;
-			string[] array3 = new string[7];
-			array3[0] = text3;
-			array3[1] = "\n";
-			array3[2] = InEditorDescHelper.ColoredString(this.m_refreshProgressBaseValue.ToString(), "cyan", false);
-			array3[3] = " ";
-			array3[4] = InEditorDescHelper.ColoredString(this.m_modAmountType.ToString(), "lime", false);
-			array3[5] = " ";
-			int num3 = 6;
-			string str3;
-			if (this.m_refreshProgressFinalAdd >= 0)
+			text2 = str2;
+			string[] obj3 = new string[7]
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				str3 = " +";
+				text2,
+				"\n",
+				InEditorDescHelper.ColoredString(m_refreshProgressBaseValue.ToString()),
+				" ",
+				InEditorDescHelper.ColoredString(m_modAmountType.ToString(), "lime"),
+				" ",
+				null
+			};
+			object str4;
+			if (m_refreshProgressFinalAdd >= 0)
+			{
+				str4 = " +";
 			}
 			else
 			{
-				str3 = string.Empty;
+				str4 = string.Empty;
 			}
-			array3[num3] = InEditorDescHelper.ColoredString(str3 + this.m_refreshProgressFinalAdd.ToString(), "cyan", false);
-			text = string.Concat(array3);
-			text = text + "\nStock Refresh Progress On Abilities:\n" + text2;
+			obj3[6] = InEditorDescHelper.ColoredString((string)str4 + m_refreshProgressFinalAdd);
+			str2 = string.Concat(obj3);
+			str2 = str2 + "\nStock Refresh Progress On Abilities:\n" + text;
 		}
-		return text;
-	}
-
-	public enum ModAmountType
-	{
-		FlatOnCast,
-		FlatOnAnyNonSelfHit,
-		FlatOnAnyAllyHit,
-		FlatOnAnyEnemyHit,
-		MultPerAllyHit,
-		MultPerEnemyHit,
-		FlatOnNoEnemyHit,
-		FlatOnNoAllyHit,
-		FlatOnNoNonCasterHit
+		goto IL_039a;
 	}
 }

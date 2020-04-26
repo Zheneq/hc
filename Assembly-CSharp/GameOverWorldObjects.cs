@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class GameOverWorldObjects : UIScene
@@ -17,14 +16,14 @@ public class GameOverWorldObjects : UIScene
 
 	public static GameOverWorldObjects Get()
 	{
-		return GameOverWorldObjects.s_instance;
+		return s_instance;
 	}
 
 	public override void Awake()
 	{
-		GameOverWorldObjects.s_instance = this;
+		s_instance = this;
 		base.Awake();
-		this.SetVisible(false);
+		SetVisible(false);
 	}
 
 	public override SceneType GetSceneType()
@@ -34,25 +33,17 @@ public class GameOverWorldObjects : UIScene
 
 	public void SetVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_GameOverWorldCanvas, visible, null);
-		if (visible)
+		UIManager.SetGameObjectActive(m_GameOverWorldCanvas, visible);
+		if (!visible)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverWorldObjects.SetVisible(bool)).MethodHandle;
-			}
-			this.m_worldResultAnimController.Play("ResultAnimation");
+			return;
+		}
+		while (true)
+		{
+			m_worldResultAnimController.Play("ResultAnimation");
 			UIGameOverScreen.Get().m_worldGGBtnHitBox.SetClickable(true);
-			this.m_GameOverWorldCanvas.gameObject.transform.position = UIManager.Get().GetEnvirontmentCamera().gameObject.transform.position + new Vector3(0f, 0f, 12f);
+			m_GameOverWorldCanvas.gameObject.transform.position = UIManager.Get().GetEnvirontmentCamera().gameObject.transform.position + new Vector3(0f, 0f, 12f);
+			return;
 		}
 	}
 
@@ -61,28 +52,15 @@ public class GameOverWorldObjects : UIScene
 		GameType gameType = GameManager.Get().GameConfig.GameType;
 		if (gameType == GameType.Tutorial)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverWorldObjects.Setup(GameResult, Team, float)).MethodHandle;
-			}
-			AudioManager.PostEvent("ui/endgame/victory", null);
-			UIManager.SetGameObjectActive(this.m_worldDefeat, false, null);
-			UIManager.SetGameObjectActive(this.m_worldTie, false, null);
-			UIManager.SetGameObjectActive(this.m_worldVictory, false, null);
+			AudioManager.PostEvent("ui/endgame/victory");
+			UIManager.SetGameObjectActive(m_worldDefeat, false);
+			UIManager.SetGameObjectActive(m_worldTie, false);
+			UIManager.SetGameObjectActive(m_worldVictory, false);
 			UITutorialPanel.Get().ShowTutorialPassedStamp();
 		}
 		else
 		{
-			if (gameResult != GameResult.NoResult)
+			if (gameResult != 0)
 			{
 				if (gameResult != GameResult.TieGame)
 				{
@@ -90,93 +68,47 @@ public class GameOverWorldObjects : UIScene
 					{
 						if (friendlyTeam == Team.TeamA)
 						{
-							goto IL_D9;
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							goto IL_00d9;
 						}
 					}
 					if (gameResult == GameResult.TeamBWon)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (friendlyTeam == Team.TeamB)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_D9;
-							}
+							goto IL_00d9;
 						}
 					}
-					AudioManager.PostEvent("ui/endgame/defeat", null);
+					AudioManager.PostEvent("ui/endgame/defeat");
 					AnnouncerSounds.GetAnnouncerSounds().PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Defeat);
-					UIManager.SetGameObjectActive(this.m_worldVictory, false, null);
-					UIManager.SetGameObjectActive(this.m_worldTie, false, null);
-					UIManager.SetGameObjectActive(this.m_worldDefeat, true, null);
-					goto IL_15F;
-					IL_D9:
-					AudioManager.PostEvent("ui/endgame/victory", null);
-					AnnouncerSounds.GetAnnouncerSounds().PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Victory);
-					UIManager.SetGameObjectActive(this.m_worldTie, false, null);
-					UIManager.SetGameObjectActive(this.m_worldDefeat, false, null);
-					UIManager.SetGameObjectActive(this.m_worldVictory, true, null);
-					goto IL_15F;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					UIManager.SetGameObjectActive(m_worldVictory, false);
+					UIManager.SetGameObjectActive(m_worldTie, false);
+					UIManager.SetGameObjectActive(m_worldDefeat, true);
+					goto IL_015f;
 				}
 			}
-			UIManager.SetGameObjectActive(this.m_worldVictory, false, null);
-			UIManager.SetGameObjectActive(this.m_worldTie, true, null);
-			UIManager.SetGameObjectActive(this.m_worldDefeat, false, null);
+			UIManager.SetGameObjectActive(m_worldVictory, false);
+			UIManager.SetGameObjectActive(m_worldTie, true);
+			UIManager.SetGameObjectActive(m_worldDefeat, false);
 		}
-		IL_15F:
+		goto IL_015f;
+		IL_015f:
 		UIGameOverScreen.Get().SetWorldGGPackText(string.Format(StringUtil.TR("EndGameGGBonuses", "GameOver"), Mathf.RoundToInt((GGPack_XPMult - 1f) * 100f)));
+		return;
+		IL_00d9:
+		AudioManager.PostEvent("ui/endgame/victory");
+		AnnouncerSounds.GetAnnouncerSounds().PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Victory);
+		UIManager.SetGameObjectActive(m_worldTie, false);
+		UIManager.SetGameObjectActive(m_worldDefeat, false);
+		UIManager.SetGameObjectActive(m_worldVictory, true);
+		goto IL_015f;
 	}
 
 	public void NotificationArrived()
 	{
 		if (UIGameOverScreen.Get().m_worldGGBtnHitBox.IsClickable())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverWorldObjects.NotificationArrived()).MethodHandle;
-			}
 			UIGameOverScreen.Get().m_worldGGBtnHitBox.SetClickable(false);
 		}
-		UIManager.SetGameObjectActive(this.m_GameOverWorldCanvas, false, null);
+		UIManager.SetGameObjectActive(m_GameOverWorldCanvas, false);
 	}
 }

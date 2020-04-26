@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -12,87 +12,79 @@ public class FreelancerSet
 
 	public bool IsCharacterAllowed(CharacterType freelancer, IFreelancerSetQueryInterface qi)
 	{
-		if (this.Types != null)
+		if (Types != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return Types.Contains(freelancer);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerSet.IsCharacterAllowed(CharacterType, IFreelancerSetQueryInterface)).MethodHandle;
-			}
-			return this.Types.Contains(freelancer);
 		}
-		if (this.Roles != null)
+		if (Roles != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return qi.DoesCharacterMatchRoles(freelancer, Roles);
 				}
-				break;
 			}
-			return qi.DoesCharacterMatchRoles(freelancer, this.Roles);
 		}
-		if (this.FactionGroups != null)
+		if (FactionGroups != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return qi.DoesCharacterMatchFractionGroupIds(freelancer, FactionGroups);
 				}
-				break;
 			}
-			return qi.DoesCharacterMatchFractionGroupIds(freelancer, this.FactionGroups);
 		}
 		throw new Exception("Bad FreelancerSet definition");
 	}
 
 	public HashSet<CharacterType> GetAllowedCharacters(IFreelancerSetQueryInterface qi)
 	{
-		if (this.Types != null)
+		if (Types != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return new HashSet<CharacterType>(Types);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerSet.GetAllowedCharacters(IFreelancerSetQueryInterface)).MethodHandle;
-			}
-			return new HashSet<CharacterType>(this.Types);
 		}
-		if (this.Roles != null)
+		if (Roles != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return qi.GetCharacterTypesFromRoles(Roles);
 				}
-				break;
 			}
-			return qi.GetCharacterTypesFromRoles(this.Roles);
 		}
-		if (this.FactionGroups != null)
+		if (FactionGroups != null)
 		{
-			return qi.GetCharacterTypesFromFractionGroupIds(this.FactionGroups);
+			return qi.GetCharacterTypesFromFractionGroupIds(FactionGroups);
 		}
 		throw new Exception("Bad FreelancerSet definition");
 	}
@@ -102,21 +94,8 @@ public class FreelancerSet
 		int num = 0;
 		int num2 = num;
 		int num3;
-		if (this.Types.IsNullOrEmpty<CharacterType>())
+		if (Types.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerSet.ValidateSelf(LobbyGameConfig, string)).MethodHandle;
-			}
 			num3 = 0;
 		}
 		else
@@ -126,17 +105,8 @@ public class FreelancerSet
 		num = num2 + num3;
 		int num4 = num;
 		int num5;
-		if (this.Roles.IsNullOrEmpty<CharacterRole>())
+		if (Roles.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num5 = 0;
 		}
 		else
@@ -144,19 +114,14 @@ public class FreelancerSet
 			num5 = 1;
 		}
 		num = num4 + num5;
-		num += ((!this.FactionGroups.IsNullOrEmpty<int>()) ? 1 : 0);
-		if (num != 1)
+		num += ((!FactionGroups.IsNullOrEmpty()) ? 1 : 0);
+		if (num == 1)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			throw new Exception(string.Format("The {0} sub type {1} has been poorly configured; each TeamComposition Rule should have only one of Types, Roles, or FactionGroups.", gameConfig.GameType, subTypeName));
+			return;
+		}
+		while (true)
+		{
+			throw new Exception($"The {gameConfig.GameType} sub type {subTypeName} has been poorly configured; each TeamComposition Rule should have only one of Types, Roles, or FactionGroups.");
 		}
 	}
 }

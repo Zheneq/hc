@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,359 +37,250 @@ public class UIModSelectButton : MonoBehaviour
 
 	public AbilityMod GetMod()
 	{
-		return this.m_modReference;
+		return m_modReference;
 	}
 
 	private void SetAbilityName(string text)
 	{
-		for (int i = 0; i < this.m_abilityName.Length; i++)
+		for (int i = 0; i < m_abilityName.Length; i++)
 		{
-			this.m_abilityName[i].text = text;
+			m_abilityName[i].text = text;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetAbilityName(string)).MethodHandle;
+			return;
 		}
 	}
 
 	private void SetCostNotches(int cost)
 	{
-		for (int i = 0; i < this.m_costNotches.Length; i++)
+		for (int i = 0; i < m_costNotches.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_costNotches[i], i < cost, null);
+			UIManager.SetGameObjectActive(m_costNotches[i], i < cost);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetCostNotches(int)).MethodHandle;
+			return;
 		}
 	}
 
 	private void SetDescription(string text)
 	{
-		for (int i = 0; i < this.m_description.Length; i++)
+		for (int i = 0; i < m_description.Length; i++)
 		{
-			this.m_description[i].text = text;
+			m_description[i].text = text;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetDescription(string)).MethodHandle;
+			return;
 		}
 	}
 
 	private void SetModIconSprite(Sprite sprite)
 	{
-		for (int i = 0; i < this.m_selectedModIcon.Length; i++)
+		for (int i = 0; i < m_selectedModIcon.Length; i++)
 		{
-			this.m_selectedModIcon[i].sprite = sprite;
+			m_selectedModIcon[i].sprite = sprite;
 		}
 	}
 
 	public bool IsLockVisible()
 	{
-		return this.m_lockVisible;
+		return m_lockVisible;
 	}
 
 	public bool CanBeSelected()
 	{
-		return !this.IsLockVisible();
+		return !IsLockVisible();
 	}
 
 	public void SetMod(AbilityMod theMod, Ability ability, int abilityId, CharacterType character)
 	{
-		this.m_modReference = theMod;
+		m_modReference = theMod;
 		if (theMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetMod(AbilityMod, Ability, int, CharacterType)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(base.gameObject, true, null);
-			this.SetAbilityName(theMod.GetName());
-			this.SetCostNotches(theMod.m_equipCost);
-			string text = theMod.GetFullTooltip(ability);
-			if (!theMod.m_flavorText.IsNullOrEmpty())
-			{
-				string text2 = text;
-				text = string.Concat(new string[]
+					break;
+				default:
 				{
-					text2,
-					Environment.NewLine,
-					"<i>",
-					theMod.m_flavorText,
-					"</i>"
-				});
+					UIManager.SetGameObjectActive(base.gameObject, true);
+					SetAbilityName(theMod.GetName());
+					SetCostNotches(theMod.m_equipCost);
+					string text = theMod.GetFullTooltip(ability);
+					if (!theMod.m_flavorText.IsNullOrEmpty())
+					{
+						string text2 = text;
+						text = text2 + Environment.NewLine + "<i>" + theMod.m_flavorText + "</i>";
+					}
+					SetDescription(text);
+					SetModIconSprite(theMod.m_iconSprite);
+					m_character = character;
+					m_abilityId = abilityId;
+					SetLockIcons();
+					return;
+				}
+				}
 			}
-			this.SetDescription(text);
-			this.SetModIconSprite(theMod.m_iconSprite);
-			this.m_character = character;
-			this.m_abilityId = abilityId;
-			this.SetLockIcons();
 		}
-		else
-		{
-			UIManager.SetGameObjectActive(base.gameObject, false, null);
-		}
+		UIManager.SetGameObjectActive(base.gameObject, false);
 	}
 
 	public void SetAsUnselected(UIModSelectButton referenceButton)
 	{
-		this.m_modReference = null;
-		UIManager.SetGameObjectActive(base.gameObject, true, null);
-		this.SetAbilityName(StringUtil.TR("Empty", "Global"));
-		this.SetCostNotches(0);
-		this.SetDescription(StringUtil.TR("NoModSelected", "Global"));
-		this.SetModIconSprite(referenceButton.m_selectedModIcon[0].sprite);
-		this.m_abilityId = -1;
-		this.SetLockIcons();
+		m_modReference = null;
+		UIManager.SetGameObjectActive(base.gameObject, true);
+		SetAbilityName(StringUtil.TR("Empty", "Global"));
+		SetCostNotches(0);
+		SetDescription(StringUtil.TR("NoModSelected", "Global"));
+		SetModIconSprite(referenceButton.m_selectedModIcon[0].sprite);
+		m_abilityId = -1;
+		SetLockIcons();
 	}
 
 	private void SetLockVisible(bool visible)
 	{
-		this.m_lockVisible = visible;
-		for (int i = 0; i < this.m_lockIcon.Length; i++)
+		m_lockVisible = visible;
+		for (int i = 0; i < m_lockIcon.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_lockIcon[i], visible, null);
+			UIManager.SetGameObjectActive(m_lockIcon[i], visible);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetLockVisible(bool)).MethodHandle;
+			return;
 		}
 	}
 
 	public void SetLockIcons()
 	{
-		if (this.m_modReference != null)
+		if (!(m_modReference != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_lockIcon == null)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetLockIcons()).MethodHandle;
-			}
-			if (this.m_lockIcon != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = true;
-				PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_character);
+				PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_character);
 				if (playerCharacterData != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag = (!playerCharacterData.CharacterComponent.IsModUnlocked(this.m_abilityId, this.m_modReference.m_abilityScopeId) && !GameManager.Get().GameplayOverrides.EnableAllMods);
+					flag = ((!playerCharacterData.CharacterComponent.IsModUnlocked(m_abilityId, m_modReference.m_abilityScopeId) && !GameManager.Get().GameplayOverrides.EnableAllMods) ? true : false);
 				}
-				this.SetLockVisible(flag);
-				if (this.m_disabled != null)
+				SetLockVisible(flag);
+				if (m_disabled != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIManager.SetGameObjectActive(this.m_disabled, flag, null);
+					UIManager.SetGameObjectActive(m_disabled, flag);
 				}
-				if (this.m_modDisabled != null)
+				if (m_modDisabled != null)
 				{
-					UIManager.SetGameObjectActive(this.m_modDisabled, flag, null);
+					UIManager.SetGameObjectActive(m_modDisabled, flag);
 				}
+				return;
 			}
 		}
 	}
 
 	public void SetCallback(_ButtonSwapSprite.ButtonClickCallback callbackFunc)
 	{
-		this.m_buttonHitBox.callback = callbackFunc;
+		m_buttonHitBox.callback = callbackFunc;
 	}
 
 	public void SetSelected(bool selected, bool forceAnimation = false)
 	{
-		if (this.m_SelectedContainer != null)
+		if (m_SelectedContainer != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetSelected(bool, bool)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_SelectedContainer, selected, null);
+			UIManager.SetGameObjectActive(m_SelectedContainer, selected);
 		}
-		if (this.m_selectBtn != null)
+		if (m_selectBtn != null)
 		{
-			this.m_selectBtn.SetSelected(selected, forceAnimation, string.Empty, string.Empty);
+			m_selectBtn.SetSelected(selected, forceAnimation, string.Empty, string.Empty);
 		}
 	}
 
 	public bool AvailableForPurchase()
 	{
-		return this.m_lockIcon != null && this.IsLockVisible();
+		if (m_lockIcon != null)
+		{
+			return IsLockVisible();
+		}
+		return false;
 	}
 
 	public void AskForPurchase()
 	{
-		if (this.m_modReference == null)
+		if (m_modReference == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.AskForPurchase()).MethodHandle;
-			}
-			return;
 		}
 		GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 		int num = 1;
 		if (gameBalanceVars.UseModEquipCostAsModUnlockCost)
 		{
-			num = this.m_modReference.m_equipCost;
+			num = m_modReference.m_equipCost;
 		}
 		int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.ModToken);
 		if (num <= currentAmount)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			int num2;
-			if (GameBalanceVars.Get().UseModEquipCostAsModUnlockCost)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				num2 = this.m_modReference.m_equipCost;
-			}
-			else
-			{
-				num2 = 1;
-			}
-			int num3 = num2;
-			string text;
-			if (currentAmount > 1)
-			{
-				for (;;)
+				default:
 				{
-					switch (6)
+					int num2;
+					if (GameBalanceVars.Get().UseModEquipCostAsModUnlockCost)
 					{
-					case 0:
-						continue;
+						num2 = m_modReference.m_equipCost;
 					}
-					break;
+					else
+					{
+						num2 = 1;
+					}
+					int num3 = num2;
+					string text;
+					if (currentAmount > 1)
+					{
+						text = StringUtil.TR("UnlockModTokensConfirm", "Global");
+					}
+					else
+					{
+						text = StringUtil.TR("UnlockModTokenConfirm", "Global");
+					}
+					string format = text;
+					string description = string.Format(format, num3, currentAmount);
+					UIDialogPopupManager.OpenTwoButtonDialog(StringUtil.TR("UnlockMod", "Global"), description, StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), delegate
+					{
+						RequestPurchaseMod();
+					});
+					return;
 				}
-				text = StringUtil.TR("UnlockModTokensConfirm", "Global");
+				}
 			}
-			else
-			{
-				text = StringUtil.TR("UnlockModTokenConfirm", "Global");
-			}
-			string format = text;
-			string description = string.Format(format, num3, currentAmount);
-			UIDialogPopupManager.OpenTwoButtonDialog(StringUtil.TR("UnlockMod", "Global"), description, StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), delegate(UIDialogBox dialogReference)
-			{
-				this.RequestPurchaseMod();
-			}, null, false, false);
 		}
-		else
-		{
-			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("InsufficientFunds", "Global"), StringUtil.TR("InsufficientFundsBody", "Global"), StringUtil.TR("Ok", "Global"), null, -1, false);
-		}
+		UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("InsufficientFunds", "Global"), StringUtil.TR("InsufficientFundsBody", "Global"), StringUtil.TR("Ok", "Global"));
 	}
 
 	public void RequestPurchaseMod()
 	{
-		ClientGameManager.Get().PurchaseMod(this.m_character, this.m_abilityId, this.m_modReference.m_abilityScopeId);
+		ClientGameManager.Get().PurchaseMod(m_character, m_abilityId, m_modReference.m_abilityScopeId);
 	}
 }

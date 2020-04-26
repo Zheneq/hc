@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -16,74 +15,56 @@ public class UIRatingDialogBox : UIDialogBox
 
 	public UIRatingButton[] m_ratingButtons;
 
-	public UIDialogBox.DialogButtonCallback submitCallback;
+	public DialogButtonCallback submitCallback;
 
-	public UIDialogBox.DialogButtonCallback cancelCallback;
+	public DialogButtonCallback cancelCallback;
 
 	private int selectedButton;
 
 	public override void ClearCallback()
 	{
-		this.submitCallback = null;
-		this.cancelCallback = null;
+		submitCallback = null;
+		cancelCallback = null;
 	}
 
 	protected override void CloseCallback()
 	{
-		if (this.cancelCallback != null)
+		if (cancelCallback != null)
 		{
-			this.cancelCallback(this);
+			cancelCallback(this);
 		}
 	}
 
 	public int GetRating()
 	{
-		return this.selectedButton;
+		return selectedButton;
 	}
 
 	public void RatingButtonClicked(BaseEventData data)
 	{
-		for (int i = 0; i < this.m_ratingButtons.Length; i++)
+		for (int i = 0; i < m_ratingButtons.Length; i++)
 		{
-			if (this.m_ratingButtons[i].m_hitBox.gameObject == data.selectedObject)
+			if (m_ratingButtons[i].m_hitBox.gameObject == data.selectedObject)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRatingDialogBox.RatingButtonClicked(BaseEventData)).MethodHandle;
-				}
-				this.m_ratingButtons[i].SetSelected(true);
-				this.selectedButton = i;
+				m_ratingButtons[i].SetSelected(true);
+				selectedButton = i;
 			}
 			else
 			{
-				this.m_ratingButtons[i].SetSelected(false);
+				m_ratingButtons[i].SetSelected(false);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			m_submitButton.interactable = true;
+			UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
+			return;
 		}
-		this.m_submitButton.interactable = true;
-		UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
 	}
 
 	public void CancelClicked(BaseEventData data)
 	{
-		this.CloseCallback();
+		CloseCallback();
 		UIDialogPopupManager.Get().CloseDialog(this);
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsCancel);
 	}
@@ -96,62 +77,36 @@ public class UIRatingDialogBox : UIDialogBox
 
 	public void SubmitClicked(BaseEventData data)
 	{
-		if (this.m_submitButton.interactable)
+		if (!m_submitButton.interactable)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (submitCallback != null)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRatingDialogBox.SubmitClicked(BaseEventData)).MethodHandle;
-			}
-			if (this.submitCallback != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.submitCallback(this);
+				submitCallback(this);
 			}
 			UIDialogPopupManager.Get().CloseDialog(this);
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.MenuChoice);
+			return;
 		}
 	}
 
 	public void Start()
 	{
-		UIEventTriggerUtils.AddListener(this.m_cancelButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.CancelClicked));
-		UIEventTriggerUtils.AddListener(this.m_submitButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.SubmitClicked));
-		UIEventTriggerUtils.AddListener(this.m_reportBug.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.ReportBugClicked));
-		for (int i = 0; i < this.m_ratingButtons.Length; i++)
+		UIEventTriggerUtils.AddListener(m_cancelButton.gameObject, EventTriggerType.PointerClick, CancelClicked);
+		UIEventTriggerUtils.AddListener(m_submitButton.gameObject, EventTriggerType.PointerClick, SubmitClicked);
+		UIEventTriggerUtils.AddListener(m_reportBug.gameObject, EventTriggerType.PointerClick, ReportBugClicked);
+		for (int i = 0; i < m_ratingButtons.Length; i++)
 		{
-			this.m_ratingButtons[i].m_hitBox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.RatingButtonClicked);
+			m_ratingButtons[i].m_hitBox.callback = RatingButtonClicked;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			selectedButton = -1;
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRatingDialogBox.Start()).MethodHandle;
-		}
-		this.selectedButton = -1;
 	}
 
 	public string GetDescriptionText(int index)
@@ -175,30 +130,21 @@ public class UIRatingDialogBox : UIDialogBox
 		return result;
 	}
 
-	public void Setup(string Title, string Description, UIDialogBox.DialogButtonCallback callback = null, UIDialogBox.DialogButtonCallback cancel = null)
+	public void Setup(string Title, string Description, DialogButtonCallback callback = null, DialogButtonCallback cancel = null)
 	{
-		this.m_Title.text = Title;
-		this.m_Info.text = Description;
-		this.submitCallback = callback;
-		this.cancelCallback = cancel;
-		for (int i = 0; i < this.m_ratingButtons.Length; i++)
+		m_Title.text = Title;
+		m_Info.text = Description;
+		submitCallback = callback;
+		cancelCallback = cancel;
+		for (int i = 0; i < m_ratingButtons.Length; i++)
 		{
-			this.m_ratingButtons[i].m_numberLabel.text = (i + 1).ToString();
-			this.m_ratingButtons[i].m_ratingDescription.text = this.GetDescriptionText(i);
+			m_ratingButtons[i].m_numberLabel.text = (i + 1).ToString();
+			m_ratingButtons[i].m_ratingDescription.text = GetDescriptionText(i);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			m_submitButton.interactable = false;
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRatingDialogBox.Setup(string, string, UIDialogBox.DialogButtonCallback, UIDialogBox.DialogButtonCallback)).MethodHandle;
-		}
-		this.m_submitButton.interactable = false;
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LocalizationArg_AbilityPing : LocalizationArg
@@ -21,76 +21,40 @@ public class LocalizationArg_AbilityPing : LocalizationArg
 
 	public static LocalizationArg_AbilityPing Create(CharacterType characterType, Ability ability, bool isSelectable, int remainingCooldown, bool isUlt, int currentTechPoints, int maxTechPoints)
 	{
-		return new LocalizationArg_AbilityPing
-		{
-			m_characterType = characterType,
-			m_abilityType = ability.GetType().ToString(),
-			m_abilityName = ability.m_abilityName,
-			m_isSelectable = isSelectable,
-			m_remainingCooldown = remainingCooldown,
-			m_isUlt = isUlt,
-			m_currentTechPoints = currentTechPoints,
-			m_maxTechPoints = maxTechPoints
-		};
+		LocalizationArg_AbilityPing localizationArg_AbilityPing = new LocalizationArg_AbilityPing();
+		localizationArg_AbilityPing.m_characterType = characterType;
+		localizationArg_AbilityPing.m_abilityType = ability.GetType().ToString();
+		localizationArg_AbilityPing.m_abilityName = ability.m_abilityName;
+		localizationArg_AbilityPing.m_isSelectable = isSelectable;
+		localizationArg_AbilityPing.m_remainingCooldown = remainingCooldown;
+		localizationArg_AbilityPing.m_isUlt = isUlt;
+		localizationArg_AbilityPing.m_currentTechPoints = currentTechPoints;
+		localizationArg_AbilityPing.m_maxTechPoints = maxTechPoints;
+		return localizationArg_AbilityPing;
 	}
 
 	public override string TR()
 	{
 		string arg;
-		if (this.m_isSelectable)
+		if (m_isSelectable)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationArg_AbilityPing.TR()).MethodHandle;
-			}
 			arg = StringUtil.TR("Ready!", "Global");
 		}
-		else if (this.m_remainingCooldown > 0)
+		else if (m_remainingCooldown <= 0)
 		{
-			for (;;)
+			arg = ((!m_isUlt) ? StringUtil.TR("Ready!", "Global") : string.Format(StringUtil.TR("EnergySoFar", "Global"), m_currentTechPoints, m_maxTechPoints));
+		}
+		else
+		{
+			if (m_remainingCooldown == 1)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_remainingCooldown == 1)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg = StringUtil.TR("TurnLeft", "GameModes");
 			}
 			else
 			{
-				arg = string.Format(StringUtil.TR("TurnsLeft", "GameModes"), this.m_remainingCooldown);
+				arg = string.Format(StringUtil.TR("TurnsLeft", "GameModes"), m_remainingCooldown);
 			}
 		}
-		else if (this.m_isUlt)
-		{
-			arg = string.Format(StringUtil.TR("EnergySoFar", "Global"), this.m_currentTechPoints, this.m_maxTechPoints);
-		}
-		else
-		{
-			arg = StringUtil.TR("Ready!", "Global");
-		}
-		return string.Format(StringUtil.TR("AbilityPingMessage", "Global"), StringUtil.TR_CharacterName(this.m_characterType.ToString()), StringUtil.TR_AbilityName(this.m_abilityType, this.m_abilityName), arg);
+		return string.Format(StringUtil.TR("AbilityPingMessage", "Global"), StringUtil.TR_CharacterName(m_characterType.ToString()), StringUtil.TR_AbilityName(m_abilityType, m_abilityName), arg);
 	}
 }

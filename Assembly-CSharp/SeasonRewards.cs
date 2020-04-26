@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -13,40 +13,24 @@ public class SeasonRewards
 	public List<SeasonReward> GetAllRewards()
 	{
 		List<SeasonReward> list = new List<SeasonReward>();
-		for (int i = 0; i < this.CurrencyRewards.Count; i++)
+		for (int i = 0; i < CurrencyRewards.Count; i++)
 		{
-			list.Add(this.CurrencyRewards[i]);
+			list.Add(CurrencyRewards[i]);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
+			for (int j = 0; j < UnlockRewards.Count; j++)
 			{
-			case 0:
-				continue;
+				list.Add(UnlockRewards[j]);
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(SeasonRewards.GetAllRewards()).MethodHandle;
-		}
-		for (int j = 0; j < this.UnlockRewards.Count; j++)
-		{
-			list.Add(this.UnlockRewards[j]);
-		}
-		for (int k = 0; k < this.ItemRewards.Count; k++)
-		{
-			list.Add(this.ItemRewards[k]);
-		}
-		for (;;)
-		{
-			switch (5)
+			for (int k = 0; k < ItemRewards.Count; k++)
 			{
-			case 0:
-				continue;
+				list.Add(ItemRewards[k]);
 			}
-			break;
+			while (true)
+			{
+				return list;
+			}
 		}
-		return list;
 	}
 }

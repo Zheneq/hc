@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class WayPoint : MonoBehaviour
@@ -11,27 +10,23 @@ public class WayPoint : MonoBehaviour
 
 	private void Start()
 	{
-		this.TurnsToDelay = Mathf.Max(0, this.TurnsToDelay);
+		TurnsToDelay = Mathf.Max(0, TurnsToDelay);
 	}
 
 	private void OnDrawGizmos()
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WayPoint.OnDrawGizmos()).MethodHandle;
-			}
-			return;
 		}
 		Gizmos.DrawIcon(base.transform.position, "locationIcon.png");
 	}

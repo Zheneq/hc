@@ -1,9 +1,22 @@
-﻿using System;
-
 namespace TMPro
 {
 	public static class TMP_Compatibility
 	{
+		public enum AnchorPositions
+		{
+			TopLeft,
+			Top,
+			TopRight,
+			Left,
+			Center,
+			Right,
+			BottomLeft,
+			Bottom,
+			BottomRight,
+			BaseLine,
+			None
+		}
+
 		public static TextAlignmentOptions ConvertTextAlignmentEnumValues(TextAlignmentOptions oldValue)
 		{
 			switch (oldValue)
@@ -28,52 +41,37 @@ namespace TMPro
 				return TextAlignmentOptions.BottomLeft;
 			case (TextAlignmentOptions)9:
 				return TextAlignmentOptions.Bottom;
-			case (TextAlignmentOptions)0xA:
+			case (TextAlignmentOptions)10:
 				return TextAlignmentOptions.BottomRight;
-			case (TextAlignmentOptions)0xB:
+			case (TextAlignmentOptions)11:
 				return TextAlignmentOptions.BottomJustified;
-			case (TextAlignmentOptions)0xC:
+			case (TextAlignmentOptions)12:
 				return TextAlignmentOptions.BaselineLeft;
-			case (TextAlignmentOptions)0xD:
+			case (TextAlignmentOptions)13:
 				return TextAlignmentOptions.Baseline;
-			case (TextAlignmentOptions)0xE:
+			case (TextAlignmentOptions)14:
 				return TextAlignmentOptions.BaselineRight;
-			case (TextAlignmentOptions)0xF:
+			case (TextAlignmentOptions)15:
 				return TextAlignmentOptions.BaselineJustified;
-			case (TextAlignmentOptions)0x10:
+			case (TextAlignmentOptions)16:
 				return TextAlignmentOptions.MidlineLeft;
-			case (TextAlignmentOptions)0x11:
+			case (TextAlignmentOptions)17:
 				return TextAlignmentOptions.Midline;
-			case (TextAlignmentOptions)0x12:
+			case (TextAlignmentOptions)18:
 				return TextAlignmentOptions.MidlineRight;
-			case (TextAlignmentOptions)0x13:
+			case (TextAlignmentOptions)19:
 				return TextAlignmentOptions.MidlineJustified;
-			case (TextAlignmentOptions)0x14:
+			case (TextAlignmentOptions)20:
 				return TextAlignmentOptions.CaplineLeft;
-			case (TextAlignmentOptions)0x15:
+			case (TextAlignmentOptions)21:
 				return TextAlignmentOptions.Capline;
-			case (TextAlignmentOptions)0x16:
+			case (TextAlignmentOptions)22:
 				return TextAlignmentOptions.CaplineRight;
-			case (TextAlignmentOptions)0x17:
+			case (TextAlignmentOptions)23:
 				return TextAlignmentOptions.CaplineJustified;
 			default:
 				return TextAlignmentOptions.TopLeft;
 			}
-		}
-
-		public enum AnchorPositions
-		{
-			TopLeft,
-			Top,
-			TopRight,
-			Left,
-			Center,
-			Right,
-			BottomLeft,
-			Bottom,
-			BottomRight,
-			BaseLine,
-			None
 		}
 	}
 }

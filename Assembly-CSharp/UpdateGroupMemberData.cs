@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class UpdateGroupMemberData
@@ -32,22 +32,10 @@ public class UpdateGroupMemberData
 		get
 		{
 			CharacterVisualInfo result;
-			if (this.VisualData != null)
+			if (VisualData.HasValue)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UpdateGroupMemberData.get_VisualInfo()).MethodHandle;
-				}
-				result = this.VisualData.Value.VisualInfo;
+				GroupMemberVisualData value = VisualData.Value;
+				result = value.VisualInfo;
 			}
 			else
 			{
@@ -62,22 +50,10 @@ public class UpdateGroupMemberData
 		get
 		{
 			int result;
-			if (this.VisualData != null)
+			if (VisualData.HasValue)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UpdateGroupMemberData.get_ForegroundBannerID()).MethodHandle;
-				}
-				result = this.VisualData.Value.ForegroundBannerID;
+				GroupMemberVisualData value = VisualData.Value;
+				result = value.ForegroundBannerID;
 			}
 			else
 			{
@@ -92,22 +68,10 @@ public class UpdateGroupMemberData
 		get
 		{
 			int result;
-			if (this.VisualData != null)
+			if (VisualData.HasValue)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UpdateGroupMemberData.get_BackgroundBannerID()).MethodHandle;
-				}
-				result = this.VisualData.Value.BackgroundBannerID;
+				GroupMemberVisualData value = VisualData.Value;
+				result = value.BackgroundBannerID;
 			}
 			else
 			{
@@ -122,22 +86,10 @@ public class UpdateGroupMemberData
 		get
 		{
 			int result;
-			if (this.VisualData != null)
+			if (VisualData.HasValue)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UpdateGroupMemberData.get_TitleID()).MethodHandle;
-				}
-				result = this.VisualData.Value.TitleID;
+				GroupMemberVisualData value = VisualData.Value;
+				result = value.TitleID;
 			}
 			else
 			{
@@ -152,22 +104,10 @@ public class UpdateGroupMemberData
 		get
 		{
 			int result;
-			if (this.VisualData != null)
+			if (VisualData.HasValue)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UpdateGroupMemberData.get_RibbonID()).MethodHandle;
-				}
-				result = this.VisualData.Value.RibbonID;
+				GroupMemberVisualData value = VisualData.Value;
+				result = value.RibbonID;
 			}
 			else
 			{

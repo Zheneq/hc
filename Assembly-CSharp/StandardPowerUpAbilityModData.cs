@@ -1,5 +1,3 @@
-﻿using System;
-
 public class StandardPowerUpAbilityModData
 {
 	public AbilityModPropertyInt m_healMod;
@@ -12,9 +10,9 @@ public class StandardPowerUpAbilityModData
 
 	public StandardPowerUpAbilityModData()
 	{
-		this.m_healMod = new AbilityModPropertyInt();
-		this.m_techPointMod = new AbilityModPropertyInt();
-		this.m_extraHealIfDirectHit = 0;
-		this.m_extraTechPointIfDirectHit = 0;
+		m_healMod = new AbilityModPropertyInt();
+		m_techPointMod = new AbilityModPropertyInt();
+		m_extraHealIfDirectHit = 0;
+		m_extraTechPointIfDirectHit = 0;
 	}
 }

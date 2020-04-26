@@ -1,8 +1,14 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class MatchResultsStatline : ICloneable
 {
+	[Serializable]
+	public struct AbilityEntry
+	{
+		public int AbilityModId;
+	}
+
 	[NonSerialized]
 	public object Actor;
 
@@ -34,7 +40,7 @@ public class MatchResultsStatline : ICloneable
 
 	public int RibbonID;
 
-	public MatchResultsStatline.AbilityEntry[] AbilityEntries;
+	public AbilityEntry[] AbilityEntries;
 
 	public bool CatalystHasPrepPhase;
 
@@ -64,12 +70,6 @@ public class MatchResultsStatline : ICloneable
 
 	public object Clone()
 	{
-		return base.MemberwiseClone();
-	}
-
-	[Serializable]
-	public struct AbilityEntry
-	{
-		public int AbilityModId;
+		return MemberwiseClone();
 	}
 }

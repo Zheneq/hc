@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.IO;
 using LobbyGameClientMessages;
@@ -25,29 +25,7 @@ public class ClientCrashReportDetector : MonoBehaviour
 		try
 		{
 			DirectoryInfo parent = Directory.GetParent(Application.dataPath);
-			string text;
-			if (parent == null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportDetector.Start()).MethodHandle;
-				}
-				text = string.Empty;
-			}
-			else
-			{
-				text = parent.FullName;
-			}
-			string path = text;
+			string path = parent?.FullName ?? string.Empty;
 			string[] directories = Directory.GetDirectories(path);
 			int i = 0;
 			while (i < directories.Length)
@@ -55,15 +33,6 @@ public class ClientCrashReportDetector : MonoBehaviour
 				string text2 = directories[i];
 				if (Directory.GetFiles(text2, "crash.dmp").Length > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_crashDumpDirectoryPath = text2;
 				}
 				else
@@ -73,58 +42,23 @@ public class ClientCrashReportDetector : MonoBehaviour
 						i++;
 						continue;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-				IL_9A:
-				if (this.m_crashDumpDirectoryPath != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Log.Warning("Detected crash dump directory: " + this.m_crashDumpDirectoryPath, new object[0]);
-					if (UIDialogPopupManager.Ready)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.CreateFirstDialog();
-					}
-					else
-					{
-						UIDialogPopupManager.OnReady += this.HandleUIDialogPopupManagerReady;
-					}
-				}
-				return;
+				break;
 			}
-			for (;;)
+			if (this.m_crashDumpDirectoryPath != null)
 			{
-				switch (6)
+				Log.Warning("Detected crash dump directory: " + this.m_crashDumpDirectoryPath, new object[0]);
+				if (UIDialogPopupManager.Ready)
 				{
-				case 0:
-					continue;
+					this.CreateFirstDialog();
 				}
-				goto IL_9A;
+				else
+				{
+					UIDialogPopupManager.OnReady += this.HandleUIDialogPopupManagerReady;
+				}
 			}
+			return;
+
 		}
 		catch (Exception exception)
 		{
@@ -136,19 +70,6 @@ public class ClientCrashReportDetector : MonoBehaviour
 	{
 		if (this.m_threadedJob != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportDetector.Update()).MethodHandle;
-			}
 			this.m_threadedJob.Update();
 		}
 	}
@@ -162,19 +83,6 @@ public class ClientCrashReportDetector : MonoBehaviour
 	{
 		if (ClientMinSpecDetector.BelowMinSpecDetected)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportDetector.CreateFirstDialog()).MethodHandle;
-			}
 			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("RecoveredFromCrash", "Global"), StringUtil.TR("BelowMinimumSpec", "Global"), StringUtil.TR("Ok", "Global"), null, -1, false);
 			this.DeleteCrashDumpDirectory();
 		}
@@ -182,28 +90,10 @@ public class ClientCrashReportDetector : MonoBehaviour
 		{
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().IsConnectedToLobbyServer)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ClientStatusReport clientStatusReport = new ClientStatusReport();
-					clientStatusReport.Status = ClientStatusReport.ClientStatusReportType.\u001D;
+					clientStatusReport.Status = ClientStatusReport.ClientStatusReportType._001D;
 					clientStatusReport.StatusDetails = this.m_crashDumpDirectoryPath;
 					clientStatusReport.DeviceIdentifier = SystemInfo.deviceUniqueIdentifier;
 					ClientGameManager.Get().SendStatusReport(clientStatusReport);
@@ -212,41 +102,14 @@ public class ClientCrashReportDetector : MonoBehaviour
 			}
 			if (this.m_threadedJob == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string crashDumpDirectoryPath = this.m_crashDumpDirectoryPath;
 				BugReportType bugReportType = BugReportType.Crash;
 				string format = "SessionToken: {0}";
 				object arg;
 				if (ClientGameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().SessionInfo != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						arg = ClientGameManager.Get().SessionInfo.SessionToken.ToString();
 						goto IL_1AB;
 					}
@@ -262,21 +125,8 @@ public class ClientCrashReportDetector : MonoBehaviour
 	{
 		if (ClientGameManager.Get() != null && ClientGameManager.Get().IsConnectedToLobbyServer)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportDetector.HandleDialogOKButton(UIDialogBox)).MethodHandle;
-			}
 			ClientStatusReport clientStatusReport = new ClientStatusReport();
-			clientStatusReport.Status = ClientStatusReport.ClientStatusReportType.\u0012;
+			clientStatusReport.Status = ClientStatusReport.ClientStatusReportType._0012;
 			clientStatusReport.StatusDetails = this.m_crashDumpDirectoryPath;
 			clientStatusReport.DeviceIdentifier = SystemInfo.deviceUniqueIdentifier;
 			clientStatusReport.UserMessage = this.m_crashDialog.m_descriptionBoxInputField.text;
@@ -310,19 +160,6 @@ public class ClientCrashReportDetector : MonoBehaviour
 	{
 		if (this.m_threadedJob != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportDetector.OnDestroy()).MethodHandle;
-			}
 			this.m_threadedJob.Cancel();
 		}
 		ClientCrashReportDetector.s_instance = null;
@@ -336,66 +173,26 @@ public class ClientCrashReportDetector : MonoBehaviour
 	private IEnumerator UploadArchiveCoroutine(string crashServerAndArchiveURL, byte[] crashReportBytes, Action<bool> endEvent)
 	{
 		bool flag = false;
-		uint num;
 		WWW client;
-		switch (num)
+		Log.Info("Attempting to start WWW to post {0} crash report bytes to URL {1}", new object[]
 		{
-		case 0U:
-			Log.Info("Attempting to start WWW to post {0} crash report bytes to URL {1}", new object[]
-			{
-				crashReportBytes.Length,
-				crashServerAndArchiveURL
-			});
-			client = new WWW(crashServerAndArchiveURL, crashReportBytes);
-			break;
-		case 1U:
-			break;
-		default:
-			yield break;
-		}
+			crashReportBytes.Length,
+			crashServerAndArchiveURL
+		});
+		client = new WWW(crashServerAndArchiveURL, crashReportBytes);
+			
 		try
 		{
 			yield return client;
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportDetector.<UploadArchiveCoroutine>c__Iterator0.MoveNext()).MethodHandle;
-			}
 			flag = true;
 			if (string.IsNullOrEmpty(client.error))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string message = "\nResponse from Crash Service received was {0}";
 				object[] array = new object[1];
 				int num2 = 0;
 				object obj;
 				if (client.text == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = "NULL";
 				}
 				else
@@ -419,31 +216,9 @@ public class ClientCrashReportDetector : MonoBehaviour
 		{
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else if (client != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(ClientCrashReportDetector.<UploadArchiveCoroutine>c__Iterator0.<>__Finally0()).MethodHandle;
-				}
 				((IDisposable)client).Dispose();
 			}
 		}

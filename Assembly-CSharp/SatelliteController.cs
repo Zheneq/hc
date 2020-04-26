@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -18,157 +17,75 @@ public class SatelliteController : NetworkBehaviour
 
 	private void SetupPrefabsFromOverrides()
 	{
-		for (int i = 0; i < this.m_satelliteModelDataPrefabs.Length; i++)
+		for (int i = 0; i < m_satelliteModelDataPrefabs.Length; i++)
 		{
-			if (i < this.m_overrideSatelliteResourceLinks.Length)
+			if (i >= m_overrideSatelliteResourceLinks.Length)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SatelliteController.SetupPrefabsFromOverrides()).MethodHandle;
-				}
-				if (this.m_overrideSatelliteResourceLinks[i] != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_satelliteModelDataPrefabs[i] = this.m_overrideSatelliteResourceLinks[i].GetPrefab(false);
-				}
+				continue;
+			}
+			if (m_overrideSatelliteResourceLinks[i] != null)
+			{
+				m_satelliteModelDataPrefabs[i] = m_overrideSatelliteResourceLinks[i].GetPrefab();
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void CreateSatellites()
 	{
-		if (!this.m_createdSatellites)
+		if (m_createdSatellites)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			m_satelliteInstances = new PersistentSatellite[m_satelliteModelDataPrefabs.Length];
+			for (int i = 0; i < m_satelliteModelDataPrefabs.Length; i++)
 			{
-				switch (2)
+				GameObject gameObject = Object.Instantiate(m_satelliteModelDataPrefabs[i]);
+				if ((bool)gameObject)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SatelliteController.CreateSatellites()).MethodHandle;
-			}
-			this.m_satelliteInstances = new PersistentSatellite[this.m_satelliteModelDataPrefabs.Length];
-			for (int i = 0; i < this.m_satelliteModelDataPrefabs.Length; i++)
-			{
-				GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_satelliteModelDataPrefabs[i]);
-				if (gameObject)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_satelliteInstances[i] = gameObject.GetComponent<PersistentSatellite>();
-					if (this.m_satelliteInstances[i] != null)
+					m_satelliteInstances[i] = gameObject.GetComponent<PersistentSatellite>();
+					if (m_satelliteInstances[i] != null)
 					{
 						int layer = LayerMask.NameToLayer("Actor");
-						foreach (Transform transform in this.m_satelliteInstances[i].gameObject.GetComponentsInChildren<Transform>(true))
+						Transform[] componentsInChildren = m_satelliteInstances[i].gameObject.GetComponentsInChildren<Transform>(true);
+						foreach (Transform transform in componentsInChildren)
 						{
 							transform.gameObject.layer = layer;
 						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
-				if (this.m_satelliteInstances[i] != null)
+				if (m_satelliteInstances[i] != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_satelliteInstances[i].Setup(this);
+					m_satelliteInstances[i].Setup(this);
 				}
 			}
-			for (;;)
+			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_createdSatellites = true;
+				return;
 			}
-			this.m_createdSatellites = true;
 		}
 	}
 
 	public PersistentSatellite GetSatellite(int index)
 	{
 		PersistentSatellite result = null;
-		if (this.m_satelliteInstances != null)
+		if (m_satelliteInstances != null)
 		{
-			for (;;)
+			if (index < m_satelliteInstances.Length)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SatelliteController.GetSatellite(int)).MethodHandle;
-			}
-			if (index < this.m_satelliteInstances.Length)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				result = this.m_satelliteInstances[index];
+				result = m_satelliteInstances[index];
 			}
 		}
 		return result;
@@ -176,141 +93,100 @@ public class SatelliteController : NetworkBehaviour
 
 	public void OnAssignedToInitialBoardSquare()
 	{
-		if (this.m_createdSatellites)
+		if (m_createdSatellites)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SatelliteController.OnAssignedToInitialBoardSquare()).MethodHandle;
-			}
-			for (int i = 0; i < this.m_satelliteInstances.Length; i++)
-			{
-				if (this.m_satelliteInstances[i] != null)
+					break;
+				default:
 				{
-					this.m_satelliteInstances[i].OnAssignedToInitialBoardSquare();
+					for (int i = 0; i < m_satelliteInstances.Length; i++)
+					{
+						if (m_satelliteInstances[i] != null)
+						{
+							m_satelliteInstances[i].OnAssignedToInitialBoardSquare();
+						}
+					}
+					while (true)
+					{
+						switch (1)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
+					}
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
 				}
-				break;
 			}
 		}
-		else
-		{
-			this.m_delayedOnAssignedToBoardSquare = true;
-		}
+		m_delayedOnAssignedToBoardSquare = true;
 	}
 
 	private void OnRespawn()
 	{
-		if (this.m_satelliteInstances != null)
+		if (m_satelliteInstances == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			for (int i = 0; i < m_satelliteInstances.Length; i++)
 			{
-				switch (4)
+				if (m_satelliteInstances[i] != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SatelliteController.OnRespawn()).MethodHandle;
-			}
-			for (int i = 0; i < this.m_satelliteInstances.Length; i++)
-			{
-				if (this.m_satelliteInstances[i] != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_satelliteInstances[i].OnRespawn();
+					m_satelliteInstances[i].OnRespawn();
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public void OnActorDeath()
 	{
-		if (this.m_satelliteInstances != null)
+		if (m_satelliteInstances == null)
 		{
-			for (int i = 0; i < this.m_satelliteInstances.Length; i++)
+			return;
+		}
+		for (int i = 0; i < m_satelliteInstances.Length; i++)
+		{
+			if (m_satelliteInstances[i] != null)
 			{
-				if (this.m_satelliteInstances[i] != null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(SatelliteController.OnActorDeath()).MethodHandle;
-					}
-					this.m_satelliteInstances[i].OnActorDeath();
-				}
+				m_satelliteInstances[i].OnActorDeath();
 			}
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_delayedOnAssignedToBoardSquare && this.m_createdSatellites)
+		if (!m_delayedOnAssignedToBoardSquare || !m_createdSatellites)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SatelliteController.Update()).MethodHandle;
-			}
-			this.m_delayedOnAssignedToBoardSquare = false;
-			this.OnAssignedToInitialBoardSquare();
+			return;
+		}
+		while (true)
+		{
+			m_delayedOnAssignedToBoardSquare = false;
+			OnAssignedToInitialBoardSquare();
+			return;
 		}
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool initialState)
 	{
-		return this.OnSerializeHelper(new NetworkWriterAdapter(writer), initialState);
+		return OnSerializeHelper(new NetworkWriterAdapter(writer), initialState);
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
@@ -318,33 +194,16 @@ public class SatelliteController : NetworkBehaviour
 		uint num = uint.MaxValue;
 		if (!initialState)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SatelliteController.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			num = reader.ReadPackedUInt32();
 		}
-		if (num != 0U)
+		if (num == 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.OnSerializeHelper(new NetworkReaderAdapter(reader), initialState);
+			return;
+		}
+		while (true)
+		{
+			OnSerializeHelper(new NetworkReaderAdapter(reader), initialState);
+			return;
 		}
 	}
 
@@ -352,64 +211,33 @@ public class SatelliteController : NetworkBehaviour
 	{
 		if (!initialState)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SatelliteController.OnSerializeHelper(IBitStream, bool)).MethodHandle;
-			}
-			if (this.m_serializeHelper.ShouldReturnImmediately(ref stream))
+			if (m_serializeHelper.ShouldReturnImmediately(ref stream))
 			{
 				return false;
 			}
 		}
-		int num = 0;
+		int value = 0;
 		if (stream.isWriting)
 		{
-			num = this.m_overrideSatelliteResourceLinks.Length;
-			stream.Serialize(ref num);
-			for (int i = 0; i < num; i++)
+			value = m_overrideSatelliteResourceLinks.Length;
+			stream.Serialize(ref value);
+			for (int i = 0; i < value; i++)
 			{
-				PrefabResourceLink.Stream(stream, ref this.m_overrideSatelliteResourceLinks[i]);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				PrefabResourceLink.Stream(stream, ref m_overrideSatelliteResourceLinks[i]);
 			}
 		}
 		if (stream.isReading)
 		{
-			for (;;)
+			stream.Serialize(ref value);
+			m_overrideSatelliteResourceLinks = new PrefabResourceLink[value];
+			for (int j = 0; j < value; j++)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				PrefabResourceLink.Stream(stream, ref m_overrideSatelliteResourceLinks[j]);
 			}
-			stream.Serialize(ref num);
-			this.m_overrideSatelliteResourceLinks = new PrefabResourceLink[num];
-			for (int j = 0; j < num; j++)
-			{
-				PrefabResourceLink.Stream(stream, ref this.m_overrideSatelliteResourceLinks[j]);
-			}
-			this.SetupPrefabsFromOverrides();
-			this.CreateSatellites();
+			SetupPrefabsFromOverrides();
+			CreateSatellites();
 		}
-		return this.m_serializeHelper.End(initialState, base.syncVarDirtyBits);
+		return m_serializeHelper.End(initialState, base.syncVarDirtyBits);
 	}
 
 	private void UNetVersion()

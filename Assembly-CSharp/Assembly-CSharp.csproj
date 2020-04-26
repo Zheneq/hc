@@ -1,61 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <ProjectGuid>{B9F59C0E-6981-4D89-8CB8-E75E37E8DFAD}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E4AC8948-CBC4-4D79-99E5-6C9A20411E72}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Assembly-CSharp</RootNamespace>
+    <LangVersion>7</LangVersion>
     <AssemblyName>Assembly-CSharp</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ArabicSupport">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\ArabicSupport.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="C5">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\C5.dll</HintPath>
-    </Reference>
-    <Reference Include="Corale.Colore">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\Corale.Colore.dll</HintPath>
+    <Reference Include="UnityEngine">
+      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="Fabric.Core">
       <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\Fabric.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="NetSerializer">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\NetSerializer.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\System.dll</HintPath>
@@ -63,27 +43,41 @@
     <Reference Include="System.Core">
       <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\System.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\System.Xml.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\UnityEngine.dll</HintPath>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\UnityEngine.UI.dll</HintPath>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="websocket-sharp">
       <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\websocket-sharp.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Corale.Colore">
+      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\Corale.Colore.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="NetSerializer">
+      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\NetSerializer.dll</HintPath>
+    </Reference>
+    <Reference Include="C5">
+      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\C5.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ArabicSupport">
+      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\ArabicSupport.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="-Module-.cs" />
     <Compile Include="Ability.cs" />
     <Compile Include="AbilityAreaShape.cs" />
     <Compile Include="AbilityCommon_DualMeetingLasers.cs" />
@@ -419,7 +413,6 @@
     <Compile Include="AccountSchemaChange.cs" />
     <Compile Include="AchievementRarity.cs" />
     <Compile Include="AchievementType.cs" />
-    <Compile Include="Action.2.cs" />
     <Compile Include="Action.cs" />
     <Compile Include="ActionBufferPhase.cs" />
     <Compile Include="ActionsForTurn.cs" />
@@ -518,8 +511,8 @@
     <Compile Include="AuthTicket.cs" />
     <Compile Include="AuthType.cs" />
     <Compile Include="AutoLaunchGameConfig.cs" />
-    <Compile Include="A\-.cs" />
     <Compile Include="A\AssemblyInfoAttribute.cs" />
+    <Compile Include="A\kernel.cs" />
     <Compile Include="BackgroundScroller.cs" />
     <Compile Include="BadgeAndParticipantInfo.cs" />
     <Compile Include="BadgeInfo.cs" />
@@ -1070,38 +1063,31 @@
     <Compile Include="HUD_UI.cs" />
     <Compile Include="HUD_UIResources.cs" />
     <Compile Include="HydrogenConfig.cs" />
+    <Compile Include="I2.Loc\CallbackNotification.cs" />
+    <Compile Include="I2.Loc\CoroutineManager.cs" />
+    <Compile Include="I2.Loc\dfSetLanguage.cs" />
+    <Compile Include="I2.Loc\eSpreadsheetUpdateMode.cs" />
+    <Compile Include="I2.Loc\eTermType.cs" />
+    <Compile Include="I2.Loc\EventCallback.cs" />
+    <Compile Include="I2.Loc\GoogleLanguages.cs" />
+    <Compile Include="I2.Loc\GoogleTranslation.cs" />
+    <Compile Include="I2.Loc\LanguageData.cs" />
+    <Compile Include="I2.Loc\LanguagePopup.cs" />
+    <Compile Include="I2.Loc\LanguageSource.cs" />
+    <Compile Include="I2.Loc\LocalizationManager.cs" />
+    <Compile Include="I2.Loc\LocalizationReader.cs" />
+    <Compile Include="I2.Loc\Localize.cs" />
+    <Compile Include="I2.Loc\RealTimeTranslation.cs" />
+    <Compile Include="I2.Loc\ResourceManager.cs" />
+    <Compile Include="I2.Loc\ScriptLocalization.cs" />
+    <Compile Include="I2.Loc\SetLanguage.cs" />
+    <Compile Include="I2.Loc\SimpleButton.cs" />
+    <Compile Include="I2.Loc\TermData.cs" />
+    <Compile Include="I2.Loc\TermsPopup.cs" />
+    <Compile Include="I2.Loc\tk2dChangeLanguage.cs" />
+    <Compile Include="I2.Loc\ToggleLanguage.cs" />
+    <Compile Include="I2.Loc\TranslationFlag.cs" />
     <Compile Include="I2\CoroutineManager.cs" />
-    <Compile Include="I2\Loc\CallbackNotification.cs" />
-    <Compile Include="I2\Loc\CoroutineManager.cs" />
-    <Compile Include="I2\Loc\dfSetLanguage.cs" />
-    <Compile Include="I2\Loc\eSpreadsheetUpdateMode.cs" />
-    <Compile Include="I2\Loc\eTermType.cs" />
-    <Compile Include="I2\Loc\EventCallback.cs" />
-    <Compile Include="I2\Loc\GoogleLanguages.cs" />
-    <Compile Include="I2\Loc\GoogleTranslation.cs" />
-    <Compile Include="I2\Loc\LanguageData.cs" />
-    <Compile Include="I2\Loc\LanguagePopup.cs" />
-    <Compile Include="I2\Loc\LanguageSource.cs" />
-    <Compile Include="I2\Loc\LocalizationManager.cs" />
-    <Compile Include="I2\Loc\LocalizationReader.cs" />
-    <Compile Include="I2\Loc\Localize.cs" />
-    <Compile Include="I2\Loc\RealTimeTranslation.cs" />
-    <Compile Include="I2\Loc\ResourceManager.cs" />
-    <Compile Include="I2\Loc\ScriptLocalization.cs" />
-    <Compile Include="I2\Loc\SetLanguage.cs" />
-    <Compile Include="I2\Loc\SimpleButton.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSON.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSONArray.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSONBinaryTag.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSONClass.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSONData.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSONLazyCreator.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSONNode.cs" />
-    <Compile Include="I2\Loc\TermData.cs" />
-    <Compile Include="I2\Loc\TermsPopup.cs" />
-    <Compile Include="I2\Loc\tk2dChangeLanguage.cs" />
-    <Compile Include="I2\Loc\ToggleLanguage.cs" />
-    <Compile Include="I2\Loc\TranslationFlag.cs" />
     <Compile Include="I2\RenameAttribute.cs" />
     <Compile Include="IAnimationEvents.cs" />
     <Compile Include="IBitStream.cs" />
@@ -2286,44 +2272,43 @@
     <Compile Include="TimeBank.cs" />
     <Compile Include="TimeMultiplierAdjuster.cs" />
     <Compile Include="TimeRange.cs" />
+    <Compile Include="TMPro.Examples\Benchmark01.cs" />
+    <Compile Include="TMPro.Examples\Benchmark01_UGUI.cs" />
+    <Compile Include="TMPro.Examples\Benchmark02.cs" />
+    <Compile Include="TMPro.Examples\Benchmark03.cs" />
+    <Compile Include="TMPro.Examples\Benchmark04.cs" />
+    <Compile Include="TMPro.Examples\CameraController.cs" />
+    <Compile Include="TMPro.Examples\ObjectSpin.cs" />
+    <Compile Include="TMPro.Examples\ShaderPropAnimator.cs" />
+    <Compile Include="TMPro.Examples\SimpleScript.cs" />
+    <Compile Include="TMPro.Examples\SkewTextExample.cs" />
+    <Compile Include="TMPro.Examples\TeleType.cs" />
+    <Compile Include="TMPro.Examples\TextConsoleSimulator.cs" />
+    <Compile Include="TMPro.Examples\TextMeshProFloatingText.cs" />
+    <Compile Include="TMPro.Examples\TextMeshSpawner.cs" />
+    <Compile Include="TMPro.Examples\TMPro_InstructionOverlay.cs" />
+    <Compile Include="TMPro.Examples\TMP_ExampleScript_01.cs" />
+    <Compile Include="TMPro.Examples\TMP_FrameRateCounter.cs" />
+    <Compile Include="TMPro.Examples\TMP_TextEventCheck.cs" />
+    <Compile Include="TMPro.Examples\TMP_TextInfoDebugTool.cs" />
+    <Compile Include="TMPro.Examples\TMP_TextSelector_A.cs" />
+    <Compile Include="TMPro.Examples\TMP_TextSelector_B.cs" />
+    <Compile Include="TMPro.Examples\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="TMPro.Examples\VertexColorCycler.cs" />
+    <Compile Include="TMPro.Examples\VertexJitter.cs" />
+    <Compile Include="TMPro.Examples\VertexShakeA.cs" />
+    <Compile Include="TMPro.Examples\VertexShakeB.cs" />
+    <Compile Include="TMPro.Examples\VertexZoom.cs" />
+    <Compile Include="TMPro.Examples\WarpTextExample.cs" />
+    <Compile Include="TMPro.SpriteAssetUtilities\SpriteAssetImportFormats.cs" />
+    <Compile Include="TMPro.SpriteAssetUtilities\TexturePacker.cs" />
     <Compile Include="TMPro\CaretInfo.cs" />
     <Compile Include="TMPro\CaretPosition.cs" />
     <Compile Include="TMPro\ColorTween.cs" />
     <Compile Include="TMPro\Compute_DistanceTransform_EventTypes.cs" />
     <Compile Include="TMPro\Compute_DT_EventArgs.cs" />
-    <Compile Include="TMPro\Examples\Benchmark01.cs" />
-    <Compile Include="TMPro\Examples\Benchmark01_UGUI.cs" />
-    <Compile Include="TMPro\Examples\Benchmark02.cs" />
-    <Compile Include="TMPro\Examples\Benchmark03.cs" />
-    <Compile Include="TMPro\Examples\Benchmark04.cs" />
-    <Compile Include="TMPro\Examples\CameraController.cs" />
-    <Compile Include="TMPro\Examples\ObjectSpin.cs" />
-    <Compile Include="TMPro\Examples\ShaderPropAnimator.cs" />
-    <Compile Include="TMPro\Examples\SimpleScript.cs" />
-    <Compile Include="TMPro\Examples\SkewTextExample.cs" />
-    <Compile Include="TMPro\Examples\TeleType.cs" />
-    <Compile Include="TMPro\Examples\TextConsoleSimulator.cs" />
-    <Compile Include="TMPro\Examples\TextMeshProFloatingText.cs" />
-    <Compile Include="TMPro\Examples\TextMeshSpawner.cs" />
-    <Compile Include="TMPro\Examples\TMPro_InstructionOverlay.cs" />
-    <Compile Include="TMPro\Examples\TMP_ExampleScript_01.cs" />
-    <Compile Include="TMPro\Examples\TMP_FrameRateCounter.cs" />
-    <Compile Include="TMPro\Examples\TMP_TextEventCheck.cs" />
-    <Compile Include="TMPro\Examples\TMP_TextInfoDebugTool.cs" />
-    <Compile Include="TMPro\Examples\TMP_TextSelector_A.cs" />
-    <Compile Include="TMPro\Examples\TMP_TextSelector_B.cs" />
-    <Compile Include="TMPro\Examples\TMP_UiFrameRateCounter.cs" />
-    <Compile Include="TMPro\Examples\VertexColorCycler.cs" />
-    <Compile Include="TMPro\Examples\VertexJitter.cs" />
-    <Compile Include="TMPro\Examples\VertexShakeA.cs" />
-    <Compile Include="TMPro\Examples\VertexShakeB.cs" />
-    <Compile Include="TMPro\Examples\VertexZoom.cs" />
-    <Compile Include="TMPro\Examples\WarpTextExample.cs" />
     <Compile Include="TMPro\Extents.cs" />
     <Compile Include="TMPro\FaceInfo.cs" />
-    <Compile Include="TMPro\FastAction.2.cs" />
-    <Compile Include="TMPro\FastAction.3.cs" />
-    <Compile Include="TMPro\FastAction.4.cs" />
     <Compile Include="TMPro\FastAction.cs" />
     <Compile Include="TMPro\FloatTween.cs" />
     <Compile Include="TMPro\FontCreationSetting.cs" />
@@ -2344,8 +2329,6 @@
     <Compile Include="TMPro\Mesh_Extents.cs" />
     <Compile Include="TMPro\SetPropertyUtility.cs" />
     <Compile Include="TMPro\ShaderUtilities.cs" />
-    <Compile Include="TMPro\SpriteAssetUtilities\SpriteAssetImportFormats.cs" />
-    <Compile Include="TMPro\SpriteAssetUtilities\TexturePacker.cs" />
     <Compile Include="TMPro\TagAttribute.cs" />
     <Compile Include="TMPro\TagType.cs" />
     <Compile Include="TMPro\TagUnits.cs" />
@@ -2832,9 +2815,9 @@
     <Compile Include="WaitingState.cs" />
     <Compile Include="WanderState.cs" />
     <Compile Include="WanderStateParameters.cs" />
-    <Compile Include="Wasabimole\InspectorNavigator\InspectorBreadcrumbs.cs" />
-    <Compile Include="Wasabimole\InspectorNavigator\ObjectReference.cs" />
-    <Compile Include="Wasabimole\InspectorNavigator\ObjectType.cs" />
+    <Compile Include="Wasabimole.InspectorNavigator\InspectorBreadcrumbs.cs" />
+    <Compile Include="Wasabimole.InspectorNavigator\ObjectReference.cs" />
+    <Compile Include="Wasabimole.InspectorNavigator\ObjectType.cs" />
     <Compile Include="WayPoint.cs" />
     <Compile Include="WebSocket.cs" />
     <Compile Include="WebSocketInterface.cs" />

@@ -1,22 +1,22 @@
-﻿using System;
+using System;
 
 namespace LobbyGameClientMessages
 {
 	[Serializable]
 	public class DEBUG_SetEloRequest : WebSocketMessage
 	{
-		public DEBUG_SetEloRequest.CommandType Command;
-
-		public GameType GameType;
-
 		public enum CommandType
 		{
-			\u001D,
-			\u000E,
-			\u0012,
-			\u0015,
-			\u0016,
-			\u0013
+			_001D,
+			_000E,
+			_0012,
+			_0015,
+			_0016,
+			_0013
 		}
+
+		public CommandType Command;
+
+		public GameType GameType;
 	}
 }

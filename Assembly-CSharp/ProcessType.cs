@@ -1,13 +1,13 @@
-﻿using System;
+using System;
 
 [Flags]
 public enum ProcessType
 {
-	None = 0,
-	DirectoryServer = 1,
-	LobbyServer = 2,
-	MatchmakingServer = 4,
-	RelayServer = 8,
+	None = 0x0,
+	DirectoryServer = 0x1,
+	LobbyServer = 0x2,
+	MatchmakingServer = 0x4,
+	RelayServer = 0x8,
 	MonitorServer = 0x10,
 	LoadTestServer = 0x20,
 	ReactorConsole = 0x400,

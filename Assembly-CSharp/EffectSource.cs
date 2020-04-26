@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class EffectSource
@@ -7,88 +6,83 @@ public class EffectSource
 
 	private GameObject m_sequencePrefab;
 
+	public Ability Ability
+	{
+		get;
+		private set;
+	}
+
+	public Passive Passive
+	{
+		get;
+		private set;
+	}
+
 	public EffectSource(Ability source)
 	{
-		this.Ability = source;
-		this.m_name = source.m_abilityName;
-		this.m_sequencePrefab = source.m_sequencePrefab;
+		Ability = source;
+		m_name = source.m_abilityName;
+		m_sequencePrefab = source.m_sequencePrefab;
 	}
 
 	public EffectSource(Passive source)
 	{
-		this.Passive = source;
-		this.m_name = source.m_passiveName;
-		this.m_sequencePrefab = source.m_sequencePrefab;
+		Passive = source;
+		m_name = source.m_passiveName;
+		m_sequencePrefab = source.m_sequencePrefab;
 	}
 
 	public EffectSource(string name, GameObject sequencePrefab, GameObject secondarySequencePrefab)
 	{
-		this.m_name = name;
-		this.m_sequencePrefab = sequencePrefab;
+		m_name = name;
+		m_sequencePrefab = sequencePrefab;
 	}
 
 	private EffectSource()
 	{
 	}
 
-	public Ability Ability { get; private set; }
-
-	public Passive Passive { get; private set; }
-
 	public bool IsAbility()
 	{
-		return this.Ability != null;
+		return Ability != null;
 	}
 
 	public bool IsPassive()
 	{
-		return this.Passive != null;
+		return Passive != null;
 	}
 
 	public string GetName()
 	{
-		return this.m_name;
+		return m_name;
 	}
 
 	public GameObject GetSequencePrefab()
 	{
-		return this.m_sequencePrefab;
+		return m_sequencePrefab;
 	}
 
 	public bool IsCharacterSpecificAbility(ActorData caster)
 	{
-		if (this.Ability == null)
+		if (Ability == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EffectSource.IsCharacterSpecificAbility(ActorData)).MethodHandle;
-			}
-			return false;
 		}
 		if (!(caster == null))
 		{
-			if (!(caster.\u000E() == null))
+			if (!(caster.GetAbilityData() == null))
 			{
-				AbilityData.ActionType actionTypeOfAbility = caster.\u000E().GetActionTypeOfAbility(this.Ability);
+				AbilityData.ActionType actionTypeOfAbility = caster.GetAbilityData().GetActionTypeOfAbility(Ability);
 				return AbilityData.IsCharacterSpecificAbility(actionTypeOfAbility);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

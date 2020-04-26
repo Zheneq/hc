@@ -1,124 +1,122 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 
 [Serializable]
 public class InventoryComponent
 {
-	[JsonIgnore]
+	private class InventoryItemListCache
+	{
+		public int Count;
+
+		public List<InventoryItem> Items;
+
+		public InventoryItemListCache()
+		{
+			Count = 0;
+			Items = new List<InventoryItem>();
+		}
+	}
+
 	[NonSerialized]
+	[JsonIgnore]
 	private Dictionary<int, InventoryItem> m_itemByIdCache;
 
-	[JsonIgnore]
 	[NonSerialized]
-	private Dictionary<int, InventoryComponent.InventoryItemListCache> m_itemsByTemplateIdCache;
+	[JsonIgnore]
+	private Dictionary<int, InventoryItemListCache> m_itemsByTemplateIdCache;
 
-	[JsonIgnore]
 	[NonSerialized]
-	private Dictionary<InventoryItemType, InventoryComponent.InventoryItemListCache> m_itemsByTypeCache;
+	[JsonIgnore]
+	private Dictionary<InventoryItemType, InventoryItemListCache> m_itemsByTypeCache;
+
+	public int NextItemId
+	{
+		get;
+		set;
+	}
+
+	public List<InventoryItem> Items
+	{
+		get;
+		set;
+	}
+
+	public Dictionary<int, Karma> Karmas
+	{
+		get;
+		set;
+	}
+
+	public Dictionary<int, Loot> Loots
+	{
+		get;
+		set;
+	}
+
+	public Dictionary<CharacterType, int> CharacterItemDropBalanceValues
+	{
+		get;
+		set;
+	}
+
+	public DateTime LastLockboxOpenTime
+	{
+		get;
+		set;
+	}
 
 	public InventoryComponent()
 	{
-		this.NextItemId = 1;
-		this.Items = new List<InventoryItem>();
-		this.Karmas = new Dictionary<int, Karma>();
-		this.Loots = new Dictionary<int, Loot>();
-		this.CharacterItemDropBalanceValues = new Dictionary<CharacterType, int>();
-		this.LastLockboxOpenTime = DateTime.MinValue;
-		this.m_itemByIdCache = null;
-		this.m_itemsByTemplateIdCache = null;
-		this.m_itemsByTypeCache = null;
+		NextItemId = 1;
+		Items = new List<InventoryItem>();
+		Karmas = new Dictionary<int, Karma>();
+		Loots = new Dictionary<int, Loot>();
+		CharacterItemDropBalanceValues = new Dictionary<CharacterType, int>();
+		LastLockboxOpenTime = DateTime.MinValue;
+		m_itemByIdCache = null;
+		m_itemsByTemplateIdCache = null;
+		m_itemsByTypeCache = null;
 	}
 
 	public InventoryComponent(List<InventoryItem> items, Dictionary<int, Karma> karmas, Dictionary<int, Loot> loots)
 	{
-		this.Items = items;
-		this.Karmas = karmas;
-		this.Loots = loots;
+		Items = items;
+		Karmas = karmas;
+		Loots = loots;
 	}
-
-	public int NextItemId { get; set; }
-
-	public List<InventoryItem> Items { get; set; }
-
-	public Dictionary<int, Karma> Karmas { get; set; }
-
-	public Dictionary<int, Loot> Loots { get; set; }
-
-	public Dictionary<CharacterType, int> CharacterItemDropBalanceValues { get; set; }
-
-	public DateTime LastLockboxOpenTime { get; set; }
 
 	public int AddItem(InventoryItem itemToAdd)
 	{
-		InventoryItem inventoryItem = this.GetItem(itemToAdd);
+		InventoryItem inventoryItem = GetItem(itemToAdd);
 		if (inventoryItem != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddItem(InventoryItem)).MethodHandle;
-			}
 			if (inventoryItem.IsStackable())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inventoryItem.Count += itemToAdd.Count;
-				this.OnItemAdded(inventoryItem);
-				goto IL_E6;
+				OnItemAdded(inventoryItem);
+				goto IL_00e6;
 			}
 		}
 		if (itemToAdd.IsStackable())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			inventoryItem = new InventoryItem(itemToAdd, this.NextItemId++);
-			this.Items.Add(inventoryItem);
-			this.OnItemAdded(inventoryItem);
+			inventoryItem = new InventoryItem(itemToAdd, NextItemId++);
+			Items.Add(inventoryItem);
+			OnItemAdded(inventoryItem);
 		}
 		else
 		{
 			for (int i = 0; i < itemToAdd.Count; i++)
 			{
-				inventoryItem = new InventoryItem(itemToAdd.TemplateId, 1, this.NextItemId++);
-				this.Items.Add(inventoryItem);
-				this.OnItemAdded(inventoryItem);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				inventoryItem = new InventoryItem(itemToAdd.TemplateId, 1, NextItemId++);
+				Items.Add(inventoryItem);
+				OnItemAdded(inventoryItem);
 			}
 		}
-		IL_E6:
+		goto IL_00e6;
+		IL_00e6:
 		return inventoryItem.Id;
 	}
 
@@ -126,50 +124,37 @@ public class InventoryComponent
 	{
 		itemsToAdd.ForEach(delegate(InventoryItem i)
 		{
-			this.AddItem(i);
+			AddItem(i);
 		});
 	}
 
 	public bool RemoveItem(InventoryItem itemToRemove)
 	{
-		InventoryItem item = this.GetItem(itemToRemove);
+		InventoryItem item = GetItem(itemToRemove);
 		if (item != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.RemoveItem(InventoryItem)).MethodHandle;
-			}
-			if (item.IsStackable())
-			{
-				item.Count -= itemToRemove.Count;
-				if (item.Count <= 0)
-				{
-					for (;;)
+					break;
+				default:
+					if (item.IsStackable())
 					{
-						switch (3)
+						item.Count -= itemToRemove.Count;
+						if (item.Count <= 0)
 						{
-						case 0:
-							continue;
+							RemoveItemInternal(item);
 						}
-						break;
 					}
-					this.RemoveItemInternal(item);
+					else
+					{
+						RemoveItemInternal(item);
+					}
+					return true;
 				}
 			}
-			else
-			{
-				this.RemoveItemInternal(item);
-			}
-			return true;
 		}
 		return false;
 	}
@@ -178,92 +163,57 @@ public class InventoryComponent
 	{
 		itemsToRemove.ForEach(delegate(InventoryItem i)
 		{
-			this.RemoveItem(i);
+			RemoveItem(i);
 		});
 	}
 
 	public bool RemoveItemByTemplateId(int itemTemplateId, int itemCount = 1)
 	{
-		InventoryItem itemByTemplateId = this.GetItemByTemplateId(itemTemplateId);
+		InventoryItem itemByTemplateId = GetItemByTemplateId(itemTemplateId);
 		if (itemByTemplateId != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.RemoveItemByTemplateId(int, int)).MethodHandle;
-			}
-			if (itemByTemplateId.IsStackable())
-			{
-				itemByTemplateId.Count -= itemCount;
-				if (itemByTemplateId.Count <= 0)
-				{
-					for (;;)
+					break;
+				default:
+					if (itemByTemplateId.IsStackable())
 					{
-						switch (4)
+						itemByTemplateId.Count -= itemCount;
+						if (itemByTemplateId.Count <= 0)
 						{
-						case 0:
-							continue;
+							RemoveItemInternal(itemByTemplateId);
 						}
-						break;
 					}
-					this.RemoveItemInternal(itemByTemplateId);
+					else
+					{
+						RemoveItemInternal(itemByTemplateId);
+					}
+					return true;
 				}
 			}
-			else
-			{
-				this.RemoveItemInternal(itemByTemplateId);
-			}
-			return true;
 		}
 		return false;
 	}
 
 	public bool RemoveItem(int itemId, int itemCount = 1)
 	{
-		InventoryItem item = this.GetItem(itemId);
+		InventoryItem item = GetItem(itemId);
 		if (item != null)
 		{
 			if (item.IsStackable())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.RemoveItem(int, int)).MethodHandle;
-				}
 				item.Count -= itemCount;
 				if (item.Count <= 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.RemoveItemInternal(item);
+					RemoveItemInternal(item);
 				}
 			}
 			else
 			{
-				this.RemoveItemInternal(item);
+				RemoveItemInternal(item);
 			}
 			return true;
 		}
@@ -274,15 +224,15 @@ public class InventoryComponent
 	{
 		itemIds.ForEach(delegate(int i)
 		{
-			this.RemoveItem(i, 1);
+			RemoveItem(i);
 		});
 	}
 
 	private void RemoveItemInternal(InventoryItem item)
 	{
-		this.Items.Remove(item);
-		this.Loots.Remove(item.Id);
-		this.OnItemRemoved(item);
+		Items.Remove(item);
+		Loots.Remove(item.Id);
+		OnItemRemoved(item);
 	}
 
 	public void UpdateItem(InventoryItem itemToUpdate)
@@ -290,66 +240,41 @@ public class InventoryComponent
 		int num = 0;
 		if (itemToUpdate.Id > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.UpdateItem(InventoryItem)).MethodHandle;
-			}
-			InventoryItem item = this.GetItem(itemToUpdate.Id);
+			InventoryItem item = GetItem(itemToUpdate.Id);
 			if (item != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = item.Count;
 			}
 		}
 		else
 		{
-			num = this.GetItemCountByTemplateId(itemToUpdate.TemplateId);
+			num = GetItemCountByTemplateId(itemToUpdate.TemplateId);
 		}
 		int num2 = itemToUpdate.Count - num;
 		if (num2 > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					itemToUpdate.Count = num2;
+					AddItem(itemToUpdate);
+					return;
 				}
-				break;
 			}
-			itemToUpdate.Count = num2;
-			this.AddItem(itemToUpdate);
 		}
-		else if (num2 < 0)
+		if (num2 >= 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			itemToUpdate.Count = -num2;
-			this.RemoveItem(itemToUpdate);
+			RemoveItem(itemToUpdate);
+			return;
 		}
 	}
 
@@ -357,7 +282,7 @@ public class InventoryComponent
 	{
 		itemsToUpdate.ForEach(delegate(InventoryItem i)
 		{
-			this.UpdateItem(i);
+			UpdateItem(i);
 		});
 	}
 
@@ -365,208 +290,130 @@ public class InventoryComponent
 	{
 		if (itemToSearch.Id > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetItem(itemToSearch.Id);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetItem(InventoryItem)).MethodHandle;
-			}
-			return this.GetItem(itemToSearch.Id);
 		}
 		if (itemToSearch.TemplateId > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetItemByTemplateId(itemToSearch.TemplateId);
 				}
-				break;
 			}
-			return this.GetItemByTemplateId(itemToSearch.TemplateId);
 		}
 		return null;
 	}
 
 	public InventoryItem GetItem(int itemId)
 	{
-		if (this.m_itemByIdCache == null)
+		if (m_itemByIdCache == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetItem(int)).MethodHandle;
-			}
-			this.m_itemByIdCache = new Dictionary<int, InventoryItem>();
-			using (List<InventoryItem>.Enumerator enumerator = this.Items.GetEnumerator())
+			m_itemByIdCache = new Dictionary<int, InventoryItem>();
+			using (List<InventoryItem>.Enumerator enumerator = Items.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					InventoryItem inventoryItem = enumerator.Current;
-					this.m_itemByIdCache[inventoryItem.Id] = inventoryItem;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					InventoryItem current = enumerator.Current;
+					m_itemByIdCache[current.Id] = current;
 				}
 			}
 		}
-		return this.m_itemByIdCache.TryGetValue(itemId);
+		return m_itemByIdCache.TryGetValue(itemId);
 	}
 
 	public InventoryItem GetItemByTemplateId(int itemTemplateId)
 	{
-		InventoryComponent.InventoryItemListCache allItemsByTemplateId = this.GetAllItemsByTemplateId(itemTemplateId);
+		InventoryItemListCache allItemsByTemplateId = GetAllItemsByTemplateId(itemTemplateId);
 		if (allItemsByTemplateId != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return allItemsByTemplateId.Items.FirstOrDefault();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetItemByTemplateId(int)).MethodHandle;
-			}
-			return allItemsByTemplateId.Items.FirstOrDefault<InventoryItem>();
 		}
 		return null;
 	}
 
-	private InventoryComponent.InventoryItemListCache GetAllItemsByTemplateId(int itemTemplateId)
+	private InventoryItemListCache GetAllItemsByTemplateId(int itemTemplateId)
 	{
-		if (this.m_itemsByTemplateIdCache == null)
+		if (m_itemsByTemplateIdCache == null)
 		{
-			this.m_itemsByTemplateIdCache = new Dictionary<int, InventoryComponent.InventoryItemListCache>();
-			foreach (InventoryItem inventoryItem in this.Items)
+			m_itemsByTemplateIdCache = new Dictionary<int, InventoryItemListCache>();
+			foreach (InventoryItem item in Items)
 			{
-				InventoryItemTemplate template = inventoryItem.GetTemplate();
-				InventoryComponent.InventoryItemListCache inventoryItemListCache = this.m_itemsByTemplateIdCache.TryGetValue(template.Index);
+				InventoryItemTemplate template = item.GetTemplate();
+				InventoryItemListCache inventoryItemListCache = m_itemsByTemplateIdCache.TryGetValue(template.Index);
 				if (inventoryItemListCache == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetAllItemsByTemplateId(int)).MethodHandle;
-					}
-					inventoryItemListCache = new InventoryComponent.InventoryItemListCache();
-					inventoryItemListCache.Count += inventoryItem.Count;
-					inventoryItemListCache.Items.Add(inventoryItem);
-					this.m_itemsByTemplateIdCache.Add(template.Index, inventoryItemListCache);
+					inventoryItemListCache = new InventoryItemListCache();
+					inventoryItemListCache.Count += item.Count;
+					inventoryItemListCache.Items.Add(item);
+					m_itemsByTemplateIdCache.Add(template.Index, inventoryItemListCache);
 				}
 				else
 				{
-					inventoryItemListCache.Count += inventoryItem.Count;
-					inventoryItemListCache.Items.Add(inventoryItem);
+					inventoryItemListCache.Count += item.Count;
+					inventoryItemListCache.Items.Add(item);
 				}
 			}
 		}
-		return this.m_itemsByTemplateIdCache.TryGetValue(itemTemplateId);
+		return m_itemsByTemplateIdCache.TryGetValue(itemTemplateId);
 	}
 
-	private InventoryComponent.InventoryItemListCache GetAllItemsByType(InventoryItemType itemType)
+	private InventoryItemListCache GetAllItemsByType(InventoryItemType itemType)
 	{
-		if (this.m_itemsByTypeCache == null)
+		if (m_itemsByTypeCache == null)
 		{
-			this.m_itemsByTypeCache = new Dictionary<InventoryItemType, InventoryComponent.InventoryItemListCache>();
-			using (List<InventoryItem>.Enumerator enumerator = this.Items.GetEnumerator())
+			m_itemsByTypeCache = new Dictionary<InventoryItemType, InventoryItemListCache>();
+			using (List<InventoryItem>.Enumerator enumerator = Items.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					InventoryItem inventoryItem = enumerator.Current;
-					InventoryItemTemplate template = inventoryItem.GetTemplate();
-					InventoryComponent.InventoryItemListCache inventoryItemListCache = this.m_itemsByTypeCache.TryGetValue(template.Type);
+					InventoryItem current = enumerator.Current;
+					InventoryItemTemplate template = current.GetTemplate();
+					InventoryItemListCache inventoryItemListCache = m_itemsByTypeCache.TryGetValue(template.Type);
 					if (inventoryItemListCache == null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetAllItemsByType(InventoryItemType)).MethodHandle;
-						}
-						inventoryItemListCache = new InventoryComponent.InventoryItemListCache();
-						inventoryItemListCache.Count += inventoryItem.Count;
-						inventoryItemListCache.Items.Add(inventoryItem);
-						this.m_itemsByTypeCache.Add(template.Type, inventoryItemListCache);
+						inventoryItemListCache = new InventoryItemListCache();
+						inventoryItemListCache.Count += current.Count;
+						inventoryItemListCache.Items.Add(current);
+						m_itemsByTypeCache.Add(template.Type, inventoryItemListCache);
 					}
 					else
 					{
-						inventoryItemListCache.Items.Add(inventoryItem);
+						inventoryItemListCache.Items.Add(current);
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
-		return this.m_itemsByTypeCache.TryGetValue(itemType);
+		return m_itemsByTypeCache.TryGetValue(itemType);
 	}
 
 	public int GetItemCountByTemplateId(int itemTemplateId)
 	{
 		int result = 0;
-		InventoryComponent.InventoryItemListCache allItemsByTemplateId = this.GetAllItemsByTemplateId(itemTemplateId);
+		InventoryItemListCache allItemsByTemplateId = GetAllItemsByTemplateId(itemTemplateId);
 		if (allItemsByTemplateId != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetItemCountByTemplateId(int)).MethodHandle;
-			}
 			result = allItemsByTemplateId.Count;
 		}
 		return result;
@@ -575,22 +422,9 @@ public class InventoryComponent
 	public int GetItemCountByType(InventoryItemType itemType)
 	{
 		int result = 0;
-		InventoryComponent.InventoryItemListCache allItemsByType = this.GetAllItemsByType(itemType);
+		InventoryItemListCache allItemsByType = GetAllItemsByType(itemType);
 		if (allItemsByType != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetItemCountByType(InventoryItemType)).MethodHandle;
-			}
 			result = allItemsByType.Count;
 		}
 		return result;
@@ -598,57 +432,42 @@ public class InventoryComponent
 
 	public bool HasItem(int itemTemplateId)
 	{
-		return this.GetItemByTemplateId(itemTemplateId) != null;
+		return GetItemByTemplateId(itemTemplateId) != null;
 	}
 
 	public void AddKarma(int karmaTemplateId)
 	{
-		if (!this.Karmas.ContainsKey(karmaTemplateId))
+		if (Karmas.ContainsKey(karmaTemplateId))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddKarma(int)).MethodHandle;
-			}
-			Karma value = new Karma
-			{
-				TemplateId = karmaTemplateId
-			};
-			this.Karmas[karmaTemplateId] = value;
+			return;
+		}
+		while (true)
+		{
+			Karma karma = new Karma();
+			karma.TemplateId = karmaTemplateId;
+			Karma value = karma;
+			Karmas[karmaTemplateId] = value;
+			return;
 		}
 	}
 
 	public void AddKarma(Karma karma)
 	{
-		if (this.Karmas.ContainsKey(karma.TemplateId))
+		if (Karmas.ContainsKey(karma.TemplateId))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Karmas[karma.TemplateId].Quantity += karma.Quantity;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddKarma(Karma)).MethodHandle;
-			}
-			this.Karmas[karma.TemplateId].Quantity += karma.Quantity;
 		}
-		else
-		{
-			this.Karmas[karma.TemplateId] = karma;
-		}
+		Karmas[karma.TemplateId] = karma;
 	}
 
 	public void AddKarmas(IDictionary<int, Karma> karmas)
@@ -658,60 +477,50 @@ public class InventoryComponent
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<int, Karma> keyValuePair = enumerator.Current;
-				if (this.Karmas.ContainsKey(keyValuePair.Key))
+				KeyValuePair<int, Karma> current = enumerator.Current;
+				if (Karmas.ContainsKey(current.Key))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddKarmas(IDictionary<int, Karma>)).MethodHandle;
-					}
-					this.Karmas[keyValuePair.Key].Quantity += keyValuePair.Value.Quantity;
+					Karmas[current.Key].Quantity += current.Value.Quantity;
 				}
 				else
 				{
-					this.Karmas[keyValuePair.Key] = keyValuePair.Value;
+					Karmas[current.Key] = current.Value;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						enumerator.Dispose();
+						goto end_IL_00a6;
 					}
-					break;
 				}
-				enumerator.Dispose();
 			}
+			end_IL_00a6:;
 		}
 	}
 
 	public void RemoveKarma(int karmaTemplateId)
 	{
-		this.Karmas.Remove(karmaTemplateId);
+		Karmas.Remove(karmaTemplateId);
 	}
 
 	public void RemoveKarmas(List<int> karmaTemplateIds)
@@ -720,96 +529,71 @@ public class InventoryComponent
 		{
 			while (enumerator.MoveNext())
 			{
-				int key = enumerator.Current;
-				this.Karmas.Remove(key);
+				int current = enumerator.Current;
+				Karmas.Remove(current);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.RemoveKarmas(List<int>)).MethodHandle;
 			}
 		}
 	}
 
 	public Karma GetKarma(int karmaTemplateId)
 	{
-		Karma result;
-		this.Karmas.TryGetValue(karmaTemplateId, out result);
-		return result;
+		Karmas.TryGetValue(karmaTemplateId, out Karma value);
+		return value;
 	}
 
 	public void AddLoot(int itemId, Loot loot)
 	{
-		if (!this.Loots.ContainsKey(itemId))
+		if (Loots.ContainsKey(itemId))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddLoot(int, Loot)).MethodHandle;
-			}
-			this.Loots.Add(itemId, loot);
+			return;
+		}
+		while (true)
+		{
+			Loots.Add(itemId, loot);
+			return;
 		}
 	}
 
 	public void RemoveLoot(int itemId)
 	{
-		this.Loots.Remove(itemId);
+		Loots.Remove(itemId);
 	}
 
 	public Loot GetLoot(int itemId)
 	{
-		return this.Loots.TryGetValue(itemId);
+		return Loots.TryGetValue(itemId);
 	}
 
 	public bool HasPendingItem(int itemTemplateId)
 	{
-		using (Dictionary<int, Loot>.ValueCollection.Enumerator enumerator = this.Loots.Values.GetEnumerator())
+		using (Dictionary<int, Loot>.ValueCollection.Enumerator enumerator = Loots.Values.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				Loot loot = enumerator.Current;
-				if (loot.HasItem(itemTemplateId))
+				Loot current = enumerator.Current;
+				if (current.HasItem(itemTemplateId))
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.HasPendingItem(int)).MethodHandle;
-					}
-					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -821,35 +605,23 @@ public class InventoryComponent
 		{
 			while (enumerator.MoveNext())
 			{
-				InventoryItem item = enumerator.Current;
-				InventoryItemTemplate template = item.GetTemplate();
+				InventoryItem current = enumerator.Current;
+				InventoryItemTemplate template = current.GetTemplate();
 				if (template.Type.IsCharacterBound())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddCharacterItemDropBalanceValues(Loot)).MethodHandle;
-					}
 					CharacterType bindingCharacterType = template.GetBindingCharacterType();
-					this.AddCharacterItemDropBalanceValue(bindingCharacterType, 1);
+					AddCharacterItemDropBalanceValue(bindingCharacterType);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
@@ -857,96 +629,80 @@ public class InventoryComponent
 	public void AddCharacterItemDropBalanceValue(CharacterType bindingCharacterType, int delta = 1)
 	{
 		int characterItemDropBalance = LobbyGameplayData.Get().GetCharacterItemDropBalance();
-		int num;
-		this.CharacterItemDropBalanceValues.TryGetValue(bindingCharacterType, out num);
-		this.CharacterItemDropBalanceValues[bindingCharacterType] = MathUtil.Clamp(num + delta, 0, characterItemDropBalance);
+		CharacterItemDropBalanceValues.TryGetValue(bindingCharacterType, out int value);
+		CharacterItemDropBalanceValues[bindingCharacterType] = MathUtil.Clamp(value + delta, 0, characterItemDropBalance);
 		bool flag = true;
 		IEnumerator enumerator = Enum.GetValues(typeof(CharacterType)).GetEnumerator();
 		try
 		{
-			while (enumerator.MoveNext())
+			while (true)
 			{
-				object obj = enumerator.Current;
-				CharacterType key = (CharacterType)obj;
-				int num2;
-				this.CharacterItemDropBalanceValues.TryGetValue(key, out num2);
-				if (num2 == 0)
+				if (!enumerator.MoveNext())
 				{
-					for (;;)
+					break;
+				}
+				CharacterType key = (CharacterType)enumerator.Current;
+				CharacterItemDropBalanceValues.TryGetValue(key, out int value2);
+				if (value2 == 0)
+				{
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							flag = false;
+							goto end_IL_0056;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddCharacterItemDropBalanceValue(CharacterType, int)).MethodHandle;
-					}
-					flag = false;
-					goto IL_C8;
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			end_IL_0056:;
 		}
 		finally
 		{
 			IDisposable disposable;
 			if ((disposable = (enumerator as IDisposable)) != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						disposable.Dispose();
+						goto end_IL_00aa;
 					}
-					break;
 				}
-				disposable.Dispose();
 			}
+			end_IL_00aa:;
 		}
-		IL_C8:
-		if (flag)
+		if (!flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			IEnumerator enumerator2 = Enum.GetValues(typeof(CharacterType)).GetEnumerator();
 			try
 			{
 				while (enumerator2.MoveNext())
 				{
-					object obj2 = enumerator2.Current;
-					CharacterType key2 = (CharacterType)obj2;
-					int num3;
-					this.CharacterItemDropBalanceValues.TryGetValue(key2, out num3);
-					this.CharacterItemDropBalanceValues[key2] = MathUtil.Clamp(num3 - 1, 0, characterItemDropBalance);
+					CharacterType key2 = (CharacterType)enumerator2.Current;
+					CharacterItemDropBalanceValues.TryGetValue(key2, out int value3);
+					CharacterItemDropBalanceValues[key2] = MathUtil.Clamp(value3 - 1, 0, characterItemDropBalance);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 			finally
@@ -954,17 +710,19 @@ public class InventoryComponent
 				IDisposable disposable2;
 				if ((disposable2 = (enumerator2 as IDisposable)) != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							disposable2.Dispose();
+							goto end_IL_0145;
 						}
-						break;
 					}
-					disposable2.Dispose();
 				}
+				end_IL_0145:;
 			}
 		}
 	}
@@ -972,14 +730,13 @@ public class InventoryComponent
 	public int GetBalancedCharacterItemDropWeight(CharacterType characterType)
 	{
 		int characterItemDropBalance = LobbyGameplayData.Get().GetCharacterItemDropBalance();
-		int num;
-		this.CharacterItemDropBalanceValues.TryGetValue(characterType, out num);
-		return MathUtil.Clamp(characterItemDropBalance - num, 0, characterItemDropBalance);
+		CharacterItemDropBalanceValues.TryGetValue(characterType, out int value);
+		return MathUtil.Clamp(characterItemDropBalance - value, 0, characterItemDropBalance);
 	}
 
 	public object ShallowCopy()
 	{
-		return base.MemberwiseClone();
+		return MemberwiseClone();
 	}
 
 	public InventoryComponent Clone()
@@ -990,59 +747,36 @@ public class InventoryComponent
 
 	public InventoryComponent CloneForClient()
 	{
-		return new InventoryComponent
-		{
-			Items = this.Items,
-			Loots = this.Loots,
-			Karmas = this.Karmas,
-			LastLockboxOpenTime = this.LastLockboxOpenTime
-		};
+		InventoryComponent inventoryComponent = new InventoryComponent();
+		inventoryComponent.Items = Items;
+		inventoryComponent.Loots = Loots;
+		inventoryComponent.Karmas = Karmas;
+		inventoryComponent.LastLockboxOpenTime = LastLockboxOpenTime;
+		return inventoryComponent;
 	}
 
 	public void FlushCaches()
 	{
-		this.m_itemByIdCache = null;
-		this.m_itemsByTemplateIdCache = null;
-		this.m_itemsByTypeCache = null;
+		m_itemByIdCache = null;
+		m_itemsByTemplateIdCache = null;
+		m_itemsByTypeCache = null;
 	}
 
 	private void OnItemAdded(InventoryItem item)
 	{
-		if (this.m_itemByIdCache != null)
+		if (m_itemByIdCache != null)
 		{
-			this.m_itemByIdCache[item.Id] = item;
+			m_itemByIdCache[item.Id] = item;
 		}
-		if (this.m_itemsByTemplateIdCache != null)
+		if (m_itemsByTemplateIdCache != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.OnItemAdded(InventoryItem)).MethodHandle;
-			}
-			InventoryComponent.InventoryItemListCache inventoryItemListCache = this.m_itemsByTemplateIdCache.TryGetValue(item.TemplateId);
+			InventoryItemListCache inventoryItemListCache = m_itemsByTemplateIdCache.TryGetValue(item.TemplateId);
 			if (inventoryItemListCache == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				inventoryItemListCache = new InventoryComponent.InventoryItemListCache();
+				inventoryItemListCache = new InventoryItemListCache();
 				inventoryItemListCache.Count += item.Count;
 				inventoryItemListCache.Items.Add(item);
-				this.m_itemsByTemplateIdCache.Add(item.TemplateId, inventoryItemListCache);
+				m_itemsByTemplateIdCache.Add(item.TemplateId, inventoryItemListCache);
 			}
 			else
 			{
@@ -1050,143 +784,76 @@ public class InventoryComponent
 				inventoryItemListCache.Items.Add(item);
 			}
 		}
-		if (this.m_itemsByTypeCache != null)
+		if (m_itemsByTypeCache == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			InventoryItemType type = item.GetTemplate().Type;
-			InventoryComponent.InventoryItemListCache inventoryItemListCache2 = this.m_itemsByTypeCache.TryGetValue(type);
+			InventoryItemListCache inventoryItemListCache2 = m_itemsByTypeCache.TryGetValue(type);
 			if (inventoryItemListCache2 == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						inventoryItemListCache2 = new InventoryItemListCache();
+						inventoryItemListCache2.Count += item.Count;
+						inventoryItemListCache2.Items.Add(item);
+						m_itemsByTypeCache.Add(type, inventoryItemListCache2);
+						return;
 					}
-					break;
 				}
-				inventoryItemListCache2 = new InventoryComponent.InventoryItemListCache();
-				inventoryItemListCache2.Count += item.Count;
-				inventoryItemListCache2.Items.Add(item);
-				this.m_itemsByTypeCache.Add(type, inventoryItemListCache2);
 			}
-			else
-			{
-				inventoryItemListCache2.Items.Add(item);
-			}
+			inventoryItemListCache2.Items.Add(item);
+			return;
 		}
 	}
 
 	private void OnItemRemoved(InventoryItem item)
 	{
-		if (this.m_itemByIdCache != null)
+		if (m_itemByIdCache != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.OnItemRemoved(InventoryItem)).MethodHandle;
-			}
-			this.m_itemByIdCache.Remove(item.Id);
+			m_itemByIdCache.Remove(item.Id);
 		}
-		if (this.m_itemsByTemplateIdCache != null)
+		if (m_itemsByTemplateIdCache != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			InventoryComponent.InventoryItemListCache inventoryItemListCache = this.m_itemsByTemplateIdCache.TryGetValue(item.TemplateId);
+			InventoryItemListCache inventoryItemListCache = m_itemsByTemplateIdCache.TryGetValue(item.TemplateId);
 			if (inventoryItemListCache != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inventoryItemListCache.Items.Remove(item);
 				if (inventoryItemListCache.Items.Count == 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_itemsByTemplateIdCache.Remove(item.TemplateId);
+					m_itemsByTemplateIdCache.Remove(item.TemplateId);
 				}
 			}
 		}
-		if (this.m_itemsByTypeCache != null)
+		if (m_itemsByTypeCache == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			InventoryItemType type = item.GetTemplate().Type;
-			InventoryComponent.InventoryItemListCache inventoryItemListCache2 = this.m_itemsByTypeCache.TryGetValue(type);
+			InventoryItemListCache inventoryItemListCache2 = m_itemsByTypeCache.TryGetValue(type);
 			if (inventoryItemListCache2 == null)
 			{
 				inventoryItemListCache2.Items.Remove(item);
 				if (inventoryItemListCache2.Items.Count == 0)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						m_itemsByTypeCache.Remove(type);
+						return;
 					}
-					this.m_itemsByTypeCache.Remove(type);
 				}
+				return;
 			}
-		}
-	}
-
-	private class InventoryItemListCache
-	{
-		public int Count;
-
-		public List<InventoryItem> Items;
-
-		public InventoryItemListCache()
-		{
-			this.Count = 0;
-			this.Items = new List<InventoryItem>();
+			return;
 		}
 	}
 }

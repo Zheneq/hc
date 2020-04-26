@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -8,7 +8,7 @@ public class RadiusToLayerIndex : RadiusToDataBase
 
 	public RadiusToLayerIndex(float radius)
 	{
-		this.m_radius = radius;
+		m_radius = radius;
 	}
 
 	public static void SortAndSetLayerIndex(List<RadiusToLayerIndex> radiusList)
@@ -18,18 +18,9 @@ public class RadiusToLayerIndex : RadiusToDataBase
 		{
 			radiusList[i].m_index = i;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(RadiusToLayerIndex.SortAndSetLayerIndex(List<RadiusToLayerIndex>)).MethodHandle;
+			return;
 		}
 	}
 }

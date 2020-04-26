@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +12,8 @@ public class UIRecruitAFriendRewardTooltip : UITooltipBase
 
 	public void Setup(string tooltipTitle, string tooltipText, string iconPath)
 	{
-		this.m_rewardDescriptionLabel.text = tooltipText;
-		this.m_tooltipTitle.text = tooltipTitle;
-		this.m_rewardImage.sprite = Resources.Load<Sprite>(iconPath);
+		m_rewardDescriptionLabel.text = tooltipText;
+		m_tooltipTitle.text = tooltipTitle;
+		m_rewardImage.sprite = Resources.Load<Sprite>(iconPath);
 	}
 }

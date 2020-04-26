@@ -1,5 +1,3 @@
-﻿using System;
-
 public class DebugCommand_EndGameLoss : DebugCommand
 {
 	public override string GetDebugItemName()
@@ -16,7 +14,7 @@ public class DebugCommand_EndGameLoss : DebugCommand
 	{
 		PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
 		Team team = localPlayerData.LookupDetails().m_team;
-		localPlayerData.CallCmdDebugEndGame((team != Team.TeamA) ? GameResult.TeamAWon : GameResult.TeamBWon, 0, 0, false, false, true);
+		localPlayerData.CallCmdDebugEndGame((team != 0) ? GameResult.TeamAWon : GameResult.TeamBWon, 0, 0, false, false, true);
 	}
 
 	public override string GetSlashCommand()
@@ -28,7 +26,7 @@ public class DebugCommand_EndGameLoss : DebugCommand
 	{
 		if (arguments.EqualsIgnoreCase("loss"))
 		{
-			this.OnIncreaseClick();
+			OnIncreaseClick();
 			return true;
 		}
 		return false;

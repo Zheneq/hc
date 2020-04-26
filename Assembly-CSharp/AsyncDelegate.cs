@@ -1,4 +1,3 @@
-﻿using System;
 using System.Reflection;
 using System.Threading;
 
@@ -14,9 +13,9 @@ public struct AsyncDelegate
 
 	public AsyncDelegate(SendOrPostCallback callback, object state = null, MethodBase methodInfo = null)
 	{
-		this.Callback = callback;
-		this.State = state;
-		this.MethodInfo = methodInfo;
-		this.ScheduledTick = 0L;
+		Callback = callback;
+		State = state;
+		MethodInfo = methodInfo;
+		ScheduledTick = 0L;
 	}
 }

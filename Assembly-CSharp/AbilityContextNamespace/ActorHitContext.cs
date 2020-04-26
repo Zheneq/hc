@@ -1,24 +1,23 @@
-﻿using System;
 using UnityEngine;
 
 namespace AbilityContextNamespace
 {
 	public class ActorHitContext
 	{
-		public Vector3 \u001D;
+		public Vector3 _001D;
 
-		public bool \u000E;
+		public bool _000E;
 
-		public bool \u0012;
+		public bool _0012;
 
-		public ContextVars \u0015 = new ContextVars();
+		public ContextVars _0015 = new ContextVars();
 
-		public void \u0016()
+		public void _0016()
 		{
-			this.\u001D = Vector3.zero;
-			this.\u0015.\u0015();
-			this.\u0012 = false;
-			this.\u000E = false;
+			_001D = Vector3.zero;
+			_0015.Clear();
+			_0012 = false;
+			_000E = false;
 		}
 	}
 }

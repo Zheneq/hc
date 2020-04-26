@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ public class SorceressHealingLaser : Ability
 	public float m_distance = 15f;
 
 	[Header("-- Damage")]
-	public int m_damageAmount = 0xA;
+	public int m_damageAmount = 10;
 
 	public int m_minDamageAmount;
 
@@ -34,13 +33,13 @@ public class SorceressHealingLaser : Ability
 
 	private void Start()
 	{
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.m_laserTargeter = new AbilityUtil_Targeter_Laser(this, this.ModdedLaserWidth(), this.ModdedLaserRange(), this.m_penetrateLineOfSight, -1, this.m_includeAllies, this.ModdedBaseHealOnSelf() > 0);
-		base.Targeter = this.m_laserTargeter;
+		m_laserTargeter = new AbilityUtil_Targeter_Laser(this, ModdedLaserWidth(), ModdedLaserRange(), m_penetrateLineOfSight, -1, m_includeAllies, ModdedBaseHealOnSelf() > 0);
+		base.Targeter = m_laserTargeter;
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -50,25 +49,25 @@ public class SorceressHealingLaser : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.ModdedLaserRange();
+		return ModdedLaserRange();
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
 		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.m_damageAmount));
-		if (this.m_includeAllies)
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damageAmount));
+		if (m_includeAllies)
 		{
-			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, this.m_allyHealAmount));
-			int num = this.ModdedAllyTechPointGain();
+			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, m_allyHealAmount));
+			int num = ModdedAllyTechPointGain();
 			if (num > 0)
 			{
 				list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Energy, AbilityTooltipSubject.Ally, num));
 			}
 		}
-		if (this.m_selfHealAmount > 0)
+		if (m_selfHealAmount > 0)
 		{
-			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self, this.m_selfHealAmount));
+			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self, m_selfHealAmount));
 		}
 		return list;
 	}
@@ -76,142 +75,55 @@ public class SorceressHealingLaser : Ability
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
 		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.m_damageAmount));
-		if (this.m_includeAllies)
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damageAmount));
+		if (m_includeAllies)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingLaser.CalculateNameplateTargetingNumbers()).MethodHandle;
-			}
-			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, this.m_allyHealAmount));
-			int num = this.ModdedAllyTechPointGain();
+			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, m_allyHealAmount));
+			int num = ModdedAllyTechPointGain();
 			if (num > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Energy, AbilityTooltipSubject.Ally, num));
 			}
 		}
-		if (this.ModdedBaseHealOnSelf() > 0)
+		if (ModdedBaseHealOnSelf() > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self, this.ModdedBaseHealOnSelf()));
+			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self, ModdedBaseHealOnSelf()));
 		}
 		return list;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		if (this.m_laserTargeter != null)
+		if (m_laserTargeter != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingLaser.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
-			ActorData component = base.GetComponent<ActorData>();
+			ActorData component = GetComponent<ActorData>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext = this.m_laserTargeter.GetHitActorContext();
+				List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext = m_laserTargeter.GetHitActorContext();
 				for (int i = 0; i < hitActorContext.Count; i++)
 				{
-					if (hitActorContext[i].actor == targetActor)
+					AbilityUtil_Targeter_Laser.HitActorContext hitActorContext2 = hitActorContext[i];
+					if (!(hitActorContext2.actor == targetActor))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
+						continue;
+					}
+					while (true)
+					{
 						Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 						if (component == targetActor)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							int value = this.ModdedBaseHealOnSelf();
-							dictionary[AbilityTooltipSymbol.Healing] = value;
+							int num2 = dictionary[AbilityTooltipSymbol.Healing] = ModdedBaseHealOnSelf();
 						}
-						else if (targetActor.\u000E() == component.\u000E())
+						else if (targetActor.GetTeam() != component.GetTeam())
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							int healAmountByHitOrder = this.GetHealAmountByHitOrder(i);
-							dictionary[AbilityTooltipSymbol.Healing] = healAmountByHitOrder;
+							int num3 = dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmountByHitOrder(i);
 						}
 						else
 						{
-							int damageAmountByHitOrder = this.GetDamageAmountByHitOrder(i);
-							dictionary[AbilityTooltipSymbol.Damage] = damageAmountByHitOrder;
+							int num4 = dictionary[AbilityTooltipSymbol.Healing] = GetHealAmountByHitOrder(i);
 						}
 						return dictionary;
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -221,119 +133,75 @@ public class SorceressHealingLaser : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SorceressHealingLaser abilityMod_SorceressHealingLaser = modAsBase as AbilityMod_SorceressHealingLaser;
-		string name = "DamageAmount";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_SorceressHealingLaser)
+		if ((bool)abilityMod_SorceressHealingLaser)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingLaser.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
-			val = abilityMod_SorceressHealingLaser.m_damageMod.GetModifiedValue(this.m_damageAmount);
+			val = abilityMod_SorceressHealingLaser.m_damageMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			val = this.m_damageAmount;
+			val = m_damageAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "MinDamageAmount";
+		AddTokenInt(tokens, "DamageAmount", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_SorceressHealingLaser)
+		if ((bool)abilityMod_SorceressHealingLaser)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val2 = abilityMod_SorceressHealingLaser.m_minDamageMod.GetModifiedValue(this.m_minDamageAmount);
+			val2 = abilityMod_SorceressHealingLaser.m_minDamageMod.GetModifiedValue(m_minDamageAmount);
 		}
 		else
 		{
-			val2 = this.m_minDamageAmount;
+			val2 = m_minDamageAmount;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		string name3 = "DamageChangePerHit";
+		AddTokenInt(tokens, "MinDamageAmount", empty2, val2);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_SorceressHealingLaser)
+		if ((bool)abilityMod_SorceressHealingLaser)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val3 = abilityMod_SorceressHealingLaser.m_damageChangePerHitMod.GetModifiedValue(this.m_damageChangePerHit);
+			val3 = abilityMod_SorceressHealingLaser.m_damageChangePerHitMod.GetModifiedValue(m_damageChangePerHit);
 		}
 		else
 		{
-			val3 = this.m_damageChangePerHit;
+			val3 = m_damageChangePerHit;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		base.AddTokenInt(tokens, "SelfHealAmount", string.Empty, (!abilityMod_SorceressHealingLaser) ? this.m_selfHealAmount : abilityMod_SorceressHealingLaser.m_selfHealMod.GetModifiedValue(this.m_selfHealAmount), false);
-		base.AddTokenInt(tokens, "AllyHealAmount", string.Empty, (!abilityMod_SorceressHealingLaser) ? this.m_allyHealAmount : abilityMod_SorceressHealingLaser.m_allyHealMod.GetModifiedValue(this.m_allyHealAmount), false);
-		string name4 = "MinHealAmount";
+		AddTokenInt(tokens, "DamageChangePerHit", empty3, val3);
+		AddTokenInt(tokens, "SelfHealAmount", string.Empty, (!abilityMod_SorceressHealingLaser) ? m_selfHealAmount : abilityMod_SorceressHealingLaser.m_selfHealMod.GetModifiedValue(m_selfHealAmount));
+		AddTokenInt(tokens, "AllyHealAmount", string.Empty, (!abilityMod_SorceressHealingLaser) ? m_allyHealAmount : abilityMod_SorceressHealingLaser.m_allyHealMod.GetModifiedValue(m_allyHealAmount));
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_SorceressHealingLaser)
+		if ((bool)abilityMod_SorceressHealingLaser)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val4 = abilityMod_SorceressHealingLaser.m_minHealMod.GetModifiedValue(this.m_minHealAmount);
+			val4 = abilityMod_SorceressHealingLaser.m_minHealMod.GetModifiedValue(m_minHealAmount);
 		}
 		else
 		{
-			val4 = this.m_minHealAmount;
+			val4 = m_minHealAmount;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
-		base.AddTokenInt(tokens, "HealChangePerHit", string.Empty, (!abilityMod_SorceressHealingLaser) ? this.m_healChangePerHit : abilityMod_SorceressHealingLaser.m_healChangePerHitMod.GetModifiedValue(this.m_healChangePerHit), false);
+		AddTokenInt(tokens, "MinHealAmount", empty4, val4);
+		AddTokenInt(tokens, "HealChangePerHit", string.Empty, (!abilityMod_SorceressHealingLaser) ? m_healChangePerHit : abilityMod_SorceressHealingLaser.m_healChangePerHitMod.GetModifiedValue(m_healChangePerHit));
 	}
 
 	public int GetHealAmountByHitOrder(int hitOrder)
 	{
-		int num = this.ModdedBaseHealOnAlly();
-		num += this.ModdedHealChangePerHit() * hitOrder;
-		return Mathf.Max(this.ModdedMinHealAmountOnAlly(), num);
+		int num = ModdedBaseHealOnAlly();
+		num += ModdedHealChangePerHit() * hitOrder;
+		return Mathf.Max(ModdedMinHealAmountOnAlly(), num);
 	}
 
 	public int GetDamageAmountByHitOrder(int hitOrder)
 	{
-		int num = this.ModdedBaseDamage();
-		num += this.ModdedDamageChangePerHit() * hitOrder;
-		return Mathf.Max(this.ModdedMinDamage(), num);
+		int num = ModdedBaseDamage();
+		num += ModdedDamageChangePerHit() * hitOrder;
+		return Mathf.Max(ModdedMinDamage(), num);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SorceressHealingLaser))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_SorceressHealingLaser);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_SorceressHealingLaser);
+			SetupTargeter();
 		}
 		else
 		{
@@ -343,107 +211,68 @@ public class SorceressHealingLaser : Ability
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	public int ModdedBaseHealOnSelf()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingLaser.ModdedBaseHealOnSelf()).MethodHandle;
-			}
-			result = this.m_selfHealAmount;
+			result = m_selfHealAmount;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_selfHealMod.GetModifiedValue(this.m_selfHealAmount);
+			result = m_abilityMod.m_selfHealMod.GetModifiedValue(m_selfHealAmount);
 		}
 		return result;
 	}
 
 	public int ModdedBaseHealOnAlly()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_allyHealMod.GetModifiedValue(this.m_allyHealAmount) : this.m_allyHealAmount;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_allyHealMod.GetModifiedValue(m_allyHealAmount) : m_allyHealAmount;
 	}
 
 	public int ModdedMinHealAmountOnAlly()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_minHealMod.GetModifiedValue(this.m_minHealAmount) : this.m_minHealAmount;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_minHealMod.GetModifiedValue(m_minHealAmount) : m_minHealAmount;
 	}
 
 	public int ModdedHealChangePerHit()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_healChangePerHitMod.GetModifiedValue(this.m_healChangePerHit) : this.m_healChangePerHit;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_healChangePerHitMod.GetModifiedValue(m_healChangePerHit) : m_healChangePerHit;
 	}
 
 	public int ModdedBaseDamage()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingLaser.ModdedBaseDamage()).MethodHandle;
-			}
-			result = this.m_damageAmount;
+			result = m_damageAmount;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damageAmount);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damageAmount);
 		}
 		return result;
 	}
 
 	public int ModdedMinDamage()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_minDamageMod.GetModifiedValue(this.m_minDamageAmount) : this.m_minDamageAmount;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_minDamageMod.GetModifiedValue(m_minDamageAmount) : m_minDamageAmount;
 	}
 
 	public int ModdedDamageChangePerHit()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingLaser.ModdedDamageChangePerHit()).MethodHandle;
-			}
-			result = this.m_damageChangePerHit;
+			result = m_damageChangePerHit;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_damageChangePerHitMod.GetModifiedValue(this.m_damageChangePerHit);
+			result = m_abilityMod.m_damageChangePerHitMod.GetModifiedValue(m_damageChangePerHit);
 		}
 		return result;
 	}
@@ -451,37 +280,24 @@ public class SorceressHealingLaser : Ability
 	public float ModdedLaserWidth()
 	{
 		float result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingLaser.ModdedLaserWidth()).MethodHandle;
-			}
-			result = this.m_width;
+			result = m_width;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_width);
+			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_width);
 		}
 		return result;
 	}
 
 	public float ModdedLaserRange()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_laserRangeMod.GetModifiedValue(this.m_distance) : this.m_distance;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_laserRangeMod.GetModifiedValue(m_distance) : m_distance;
 	}
 
 	public int ModdedAllyTechPointGain()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_allyTechPointGain.GetModifiedValue(0) : 0;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_allyTechPointGain.GetModifiedValue(0) : 0;
 	}
 }

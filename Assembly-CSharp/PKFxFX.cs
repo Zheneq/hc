@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -81,30 +81,8 @@ public class PKFxFX : PKFxPackDependent
 	{
 		base.BaseInitialize();
 		yield return base.WaitForPack(true);
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.<Start>c__Iterator0.MoveNext()).MethodHandle;
-		}
 		if (!string.IsNullOrEmpty(this.m_FxName))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PKFxManager.PreLoadFxIFN(this.FxPath);
 		}
 		if (!this.m_PlayOnStart)
@@ -113,29 +91,11 @@ public class PKFxFX : PKFxPackDependent
 			{
 				goto IL_CA;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		this.StartEffect();
 		IL_CA:
 		this.m_AskedToStart = false;
 		yield return null;
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		yield break;
 	}
 
@@ -143,19 +103,6 @@ public class PKFxFX : PKFxPackDependent
 	{
 		if (!this.m_IsPlaying)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.LateUpdate()).MethodHandle;
-			}
 			return;
 		}
 		PKFxManager.UpdateTransformEffect(this.m_FXGUID, base.transform);
@@ -175,30 +122,8 @@ public class PKFxFX : PKFxPackDependent
 		{
 			if (this.m_SamplersCache != null && this.m_SamplersCache[i].m_Data != IntPtr.Zero)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.OnDestroy()).MethodHandle;
-				}
 				if (this.m_SamplersCache[i].m_Type1 != 1)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Marshal.FreeHGlobal(this.m_SamplersCache[i].m_Data);
 				}
 			}
@@ -210,28 +135,10 @@ public class PKFxFX : PKFxPackDependent
 		}
 		if (this.m_SamplersGCH.IsAllocated)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_SamplersGCH.Free();
 		}
 		if (this.m_SamplersCurvesDataGCH.IsAllocated)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_SamplersCurvesDataGCH.Free();
 		}
 	}
@@ -240,74 +147,25 @@ public class PKFxFX : PKFxPackDependent
 	{
 		if (!PKFxManager.m_PackLoaded)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.StartEffect()).MethodHandle;
-			}
 			this.m_AskedToStart = true;
 			return;
 		}
 		if (this.m_IsStopped)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogWarning("[PKFX] Attempt to start an effect while the stopped effect is still running.");
 			return;
 		}
 		if (this.m_IsPlaying)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		if (!string.IsNullOrEmpty(this.m_FxName))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_FXGUID = PKFxManager.CreateEffect(this.FxPath, base.transform);
 		}
 		this.m_IsPlaying = (this.m_FXGUID != -1);
 		if (this.m_FXGUID != -1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (PKFxFX.m_ListEffects.ContainsKey(this.m_FXGUID))
 			{
 				PKFxFX.m_ListEffects[this.m_FXGUID] = this;
@@ -332,19 +190,6 @@ public class PKFxFX : PKFxPackDependent
 				this.m_IsPlaying = false;
 				return;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.TerminateEffect()).MethodHandle;
-			}
 		}
 	}
 
@@ -352,44 +197,13 @@ public class PKFxFX : PKFxPackDependent
 	{
 		if (this.m_IsPlaying)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.StopEffect()).MethodHandle;
-			}
 			if (this.m_FXGUID != -1)
 			{
 				if (PKFxManager.StopFx(this.m_FXGUID))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_IsStopped = true;
 				}
 				return;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -404,19 +218,6 @@ public class PKFxFX : PKFxPackDependent
 	{
 		if (this.m_IsPlaying)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.KillEffect()).MethodHandle;
-			}
 			if (this.m_FXGUID != -1 && PKFxManager.KillIndividualEffectEnabled())
 			{
 				PKFxManager.KillFx(this.m_FXGUID);
@@ -431,19 +232,6 @@ public class PKFxFX : PKFxPackDependent
 		bool result;
 		if (!this.m_IsPlaying)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.IsPlayable()).MethodHandle;
-			}
 			result = (this.m_FXGUID != -1);
 		}
 		else
@@ -467,30 +255,8 @@ public class PKFxFX : PKFxPackDependent
 	{
 		if (newGuid != -1)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.OnFxHotReloaded(int)).MethodHandle;
-			}
 			if (newGuid != this.m_FXGUID)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PKFxFX.m_ListEffects.Remove(this.m_FXGUID);
 				this.m_FXGUID = newGuid;
 				PKFxFX.m_ListEffects.Add(this.m_FXGUID, this);
@@ -509,30 +275,8 @@ public class PKFxFX : PKFxPackDependent
 				PKFxManager.Attribute attribute = enumerator.Current;
 				if (attribute.m_Descriptor.Name == name)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.GetAttribute(string)).MethodHandle;
-					}
 					return attribute;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -547,42 +291,11 @@ public class PKFxFX : PKFxPackDependent
 				PKFxManager.Attribute attribute = enumerator.Current;
 				if (attribute.m_Descriptor.Name == name)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.GetAttribute(string, PKFxManager.BaseType)).MethodHandle;
-					}
 					if (attribute.m_Descriptor.Type == type)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return attribute;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -592,19 +305,6 @@ public class PKFxFX : PKFxPackDependent
 	{
 		if (!this.AttributeExists(attr.m_Descriptor))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.SetAttribute(PKFxManager.Attribute)).MethodHandle;
-			}
 			Debug.LogError("[PKFX] FX.SetAttribute : " + attr.m_Descriptor.Name + " doesn't exist");
 		}
 		else
@@ -613,29 +313,11 @@ public class PKFxFX : PKFxPackDependent
 			{
 				if (this.m_FxAttributesList[i].m_Descriptor.Name == attr.m_Descriptor.Name)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_FxAttributesList[i].m_Value0 = attr.m_Value0;
 					this.m_FxAttributesList[i].m_Value1 = attr.m_Value1;
 					this.m_FxAttributesList[i].m_Value2 = attr.m_Value2;
 					this.m_FxAttributesList[i].m_Value3 = attr.m_Value3;
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -652,19 +334,6 @@ public class PKFxFX : PKFxPackDependent
 					return sampler;
 				}
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.GetSampler(string)).MethodHandle;
-			}
 		}
 		return null;
 	}
@@ -678,30 +347,8 @@ public class PKFxFX : PKFxPackDependent
 				PKFxManager.Sampler sampler = enumerator.Current;
 				if (sampler.m_Descriptor.Name == name && sampler.m_Descriptor.Type == (int)type)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.GetSampler(string, PKFxManager.ESamplerType)).MethodHandle;
-					}
 					return sampler;
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -711,19 +358,6 @@ public class PKFxFX : PKFxPackDependent
 	{
 		if (!this.SamplerExists(sampler.m_Descriptor))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.SetSampler(PKFxManager.Sampler)).MethodHandle;
-			}
 			Debug.LogError("[PKFX] FX.SetSampler : " + sampler.m_Descriptor.Name + " doesn't exist");
 		}
 		else
@@ -732,29 +366,11 @@ public class PKFxFX : PKFxPackDependent
 			{
 				if (this.m_FxSamplersList[i].m_Descriptor.Name == sampler.m_Descriptor.Name)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_FxSamplersList[i].m_Descriptor.Type == sampler.m_Descriptor.Type)
 					{
 						this.m_FxSamplersList[i].Copy(sampler);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -763,19 +379,6 @@ public class PKFxFX : PKFxPackDependent
 	{
 		if (flushAttributes)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.LoadSamplers(List<PKFxManager.SamplerDesc>, bool)).MethodHandle;
-			}
 			this.m_FxSamplersList.Clear();
 		}
 		List<PKFxManager.Sampler> list = new List<PKFxManager.Sampler>();
@@ -786,30 +389,12 @@ public class PKFxFX : PKFxPackDependent
 				PKFxManager.SamplerDesc samplerDesc = enumerator.Current;
 				if (!this.SamplerExists(samplerDesc))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(new PKFxManager.Sampler(samplerDesc));
 				}
 				else
 				{
 					list.Add(this.GetSamplerFromDesc(samplerDesc));
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_FxSamplersList = list;
@@ -826,19 +411,6 @@ public class PKFxFX : PKFxPackDependent
 				PKFxManager.AttributeDesc desc = enumerator.Current;
 				list.Add(new PKFxManager.Attribute(desc));
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.ResetAttributesToDefault(List<PKFxManager.AttributeDesc>)).MethodHandle;
-			}
 		}
 		this.m_FxAttributesList = list;
 	}
@@ -847,19 +419,6 @@ public class PKFxFX : PKFxPackDependent
 	{
 		if (flushAttributes)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.LoadAttributes(List<PKFxManager.AttributeDesc>, bool)).MethodHandle;
-			}
 			this.m_FxAttributesList.Clear();
 		}
 		List<PKFxManager.Attribute> list = new List<PKFxManager.Attribute>();
@@ -870,30 +429,12 @@ public class PKFxFX : PKFxPackDependent
 				PKFxManager.AttributeDesc desc = enumerator.Current;
 				if (!this.AttributeExists(desc))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(new PKFxManager.Attribute(desc));
 				}
 				else
 				{
 					list.Add(this.GetAttributeFromDesc(desc));
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_FxAttributesList = list;
@@ -903,31 +444,9 @@ public class PKFxFX : PKFxPackDependent
 	{
 		if (this.m_AttributesCache != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.AllocAttributesCacheIFN()).MethodHandle;
-			}
 			if (this.m_AttributesCache.Length >= this.m_FxAttributesList.Count)
 			{
 				goto IL_91;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_AttributesCache = new PKFxFX.SAttributePinned[this.m_FxAttributesList.Count];
@@ -940,41 +459,14 @@ public class PKFxFX : PKFxPackDependent
 		IL_91:
 		if (this.m_SamplersCache != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_SamplersCache.Length >= this.m_FxSamplersList.Count)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_SamplersCache = new PKFxFX.SSamplerPinned[this.m_FxSamplersList.Count];
 		if (this.m_SamplersGCH.IsAllocated)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_SamplersGCH.Free();
 		}
 		this.m_SamplersGCH = GCHandle.Alloc(this.m_SamplersCache, GCHandleType.Pinned);
@@ -988,72 +480,23 @@ public class PKFxFX : PKFxPackDependent
 		{
 			if (sampler.m_CurvesTimeKeys != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.AllocCurvesDataCacheIFN()).MethodHandle;
-				}
 				num += sampler.m_CurvesTimeKeys.Length;
 				foreach (AnimationCurve animationCurve in sampler.m_CurvesArray)
 				{
 					num += animationCurve.keys.Length * 3;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		if (this.m_SamplersCurvesDataCache != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_SamplersCurvesDataCache.Length >= num)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_SamplersCurvesDataCache = new float[num];
 		if (this.m_SamplersCurvesDataGCH.IsAllocated)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_SamplersCurvesDataGCH.Free();
 		}
 		this.m_SamplersCurvesDataGCH = GCHandle.Alloc(this.m_SamplersCurvesDataCache, GCHandleType.Pinned);
@@ -1067,48 +510,17 @@ public class PKFxFX : PKFxPackDependent
 		outPtr = new IntPtr(outPtr.ToInt64() + (long)(trianglesSrc.Length * 4));
 		if ((samplingChannels & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.UpdateMesh(IntPtr, int[], Mesh, int, bool)).MethodHandle;
-			}
 			float[] array = new float[vertexCount * 3];
 			Vector3[] vertices = mesh.vertices;
 			int num = 0;
 			if (vertices.Length == vertexCount)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				foreach (Vector3 vector in vertices)
 				{
 					array[num] = vector.x;
 					array[num + 1] = vector.y;
 					array[num + 2] = vector.z;
 					num += 3;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			else
@@ -1132,15 +544,6 @@ public class PKFxFX : PKFxPackDependent
 					array3[num + 2] = vector2.z;
 					num += 3;
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -1151,29 +554,11 @@ public class PKFxFX : PKFxPackDependent
 		}
 		if ((samplingChannels & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float[] array5 = new float[vertexCount * 4];
 			Vector4[] tangents = mesh.tangents;
 			int num = 0;
 			if (tangents.Length == vertexCount)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				foreach (Vector4 vector3 in tangents)
 				{
 					array5[num] = vector3.x;
@@ -1181,15 +566,6 @@ public class PKFxFX : PKFxPackDependent
 					array5[num + 2] = vector3.z;
 					array5[num + 3] = vector3.w;
 					num += 4;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			else
@@ -1206,29 +582,11 @@ public class PKFxFX : PKFxPackDependent
 			int num = 0;
 			if (uv.Length == vertexCount)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				foreach (Vector2 vector4 in uv)
 				{
 					array7[num] = vector4.x;
 					array7[num + 1] = vector4.y;
 					num += 2;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			else
@@ -1240,15 +598,6 @@ public class PKFxFX : PKFxPackDependent
 		}
 		if ((samplingChannels & 0x20) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float[] array9 = new float[vertexCount * 4];
 			Color[] colors = mesh.colors;
 			int num = 0;
@@ -1283,15 +632,6 @@ public class PKFxFX : PKFxPackDependent
 				array11[num + 3] = (float)boneWeight.boneIndex3;
 				num += 4;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			foreach (BoneWeight boneWeight2 in boneWeights)
 			{
 				array11[num] = boneWeight2.weight0;
@@ -1299,15 +639,6 @@ public class PKFxFX : PKFxPackDependent
 				array11[num + 2] = boneWeight2.weight2;
 				array11[num + 3] = boneWeight2.weight3;
 				num += 4;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			Marshal.Copy(array11, 0, outPtr, array11.Length);
 		}
@@ -1342,19 +673,6 @@ public class PKFxFX : PKFxPackDependent
 			num2++;
 			num += 0x10;
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.UpdateBones(IntPtr, PKFxManager.Sampler)).MethodHandle;
-		}
 		Marshal.Copy(skeletonDataBuffer, 0, outPtr, skeletonDataBuffer.Length);
 	}
 
@@ -1364,30 +682,8 @@ public class PKFxFX : PKFxPackDependent
 		int num2 = -1;
 		if (this.m_FxAttributesList.Count <= 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.UpdateAttributes(bool)).MethodHandle;
-			}
 			if (this.m_FxSamplersList.Count <= 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 		}
@@ -1401,27 +697,9 @@ public class PKFxFX : PKFxPackDependent
 			{
 				goto IL_E1;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_AttributesCache[i].m_Value2 != attribute.m_Value2)
 			{
 				goto IL_E1;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			bool flag = this.m_AttributesCache[i].m_Value3 != attribute.m_Value3;
 			IL_E2:
@@ -1429,27 +707,9 @@ public class PKFxFX : PKFxPackDependent
 			{
 				goto IL_114;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (forceUpdate)
 			{
 				goto IL_114;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (this.m_ForceUpdateAttributes)
 			{
@@ -1478,37 +738,10 @@ public class PKFxFX : PKFxPackDependent
 			flag = true;
 			goto IL_E2;
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (num >= 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!PKFxManager.EffectSetAttributes(this.m_FXGUID, num + 1, this.m_AttributesHandler))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("[PKFX] Attribute through pinned memory failed.");
 				Debug.LogError("[PKFX] Did you try to change an FX without stopping it beforehand?");
 			}
@@ -1525,27 +758,9 @@ public class PKFxFX : PKFxPackDependent
 			this.m_SamplersCache[j].m_Type1 = type;
 			if (this.m_SamplersCache[j].m_Type1 == 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag2;
 				if (sampler.m_ShapeType != 4)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = (sampler.m_ShapeType == 5);
 				}
 				else
@@ -1556,42 +771,15 @@ public class PKFxFX : PKFxPackDependent
 				bool flag4 = sampler.m_ShapeType == 5 && sampler.m_SkinnedMeshRenderer != null;
 				if (sampler.m_EditorShapeType == 5)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (sampler.m_MeshFilter == null)
 					{
 						sampler.m_Mesh = null;
 					}
 					else if (sampler.m_Mesh != sampler.m_MeshFilter.sharedMesh)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						sampler.m_Mesh = sampler.m_MeshFilter.sharedMesh;
 						if (sampler.m_Mesh != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							sampler.m_MeshHashCode = sampler.m_Mesh.name.GetHashCode();
 						}
 						else
@@ -1604,53 +792,17 @@ public class PKFxFX : PKFxPackDependent
 				{
 					goto IL_4D8;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (lhs3 != sampler.m_Dimensions || this.m_SamplersCache[j].m_Type2 != sampler.m_ShapeType || lhs != sampler.m_ShapeCenter)
 				{
 					goto IL_4D8;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (lhs2 != sampler.m_EulerOrientation)
 				{
 					goto IL_4D8;
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag5;
 				if (flag3)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag5 = (samplingChannels != sampler.m_SamplingChannels);
 				}
 				else
@@ -1661,26 +813,8 @@ public class PKFxFX : PKFxPackDependent
 				bool flag6 = flag5;
 				if (this.m_SamplersCache[j].m_MeshChanged != 0 && this.m_SamplersCache[j].m_Data != IntPtr.Zero)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (sampler.m_SkinnedMeshData == null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Marshal.FreeHGlobal(this.m_SamplersCache[j].m_Data);
 						this.m_SamplersCache[j].m_Data = IntPtr.Zero;
 					}
@@ -1690,27 +824,9 @@ public class PKFxFX : PKFxPackDependent
 				{
 					goto IL_59D;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (forceUpdate)
 				{
 					goto IL_59D;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (this.m_ForceUpdateAttributes)
 				{
@@ -1732,66 +848,21 @@ public class PKFxFX : PKFxPackDependent
 				{
 					goto IL_8BB;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(sampler.m_Mesh != null))
 				{
 					goto IL_8BB;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (forceUpdate)
 				{
 					goto IL_657;
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_SamplersCache[j].m_HashCode != sampler.m_MeshHashCode)
 				{
 					goto IL_657;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_SamplersCache[j].m_Type2 != this.m_FxSamplersList[j].m_ShapeType)
 				{
 					goto IL_657;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (samplingChannels != sampler.m_SamplingChannels)
 				{
@@ -1803,15 +874,6 @@ public class PKFxFX : PKFxPackDependent
 				int num4;
 				if (flag4)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = sampler.m_SkinnedMeshRenderer.bones.Length;
 				}
 				else
@@ -1823,15 +885,6 @@ public class PKFxFX : PKFxPackDependent
 				int num7;
 				if ((sampler.m_SamplingChannels & 1) != 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num7 = sampler.m_Mesh.vertexCount * 4 * 3;
 				}
 				else
@@ -1842,15 +895,6 @@ public class PKFxFX : PKFxPackDependent
 				int num9;
 				if ((sampler.m_SamplingChannels & 2) != 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num9 = sampler.m_Mesh.vertexCount * 4 * 3;
 				}
 				else
@@ -1861,15 +905,6 @@ public class PKFxFX : PKFxPackDependent
 				int num11;
 				if ((sampler.m_SamplingChannels & 4) != 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num11 = sampler.m_Mesh.vertexCount * 4 * 4;
 				}
 				else
@@ -1881,15 +916,6 @@ public class PKFxFX : PKFxPackDependent
 				int num14;
 				if ((sampler.m_SamplingChannels & 0x20) != 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num14 = sampler.m_Mesh.vertexCount * 4 * 4;
 				}
 				else
@@ -1901,29 +927,11 @@ public class PKFxFX : PKFxPackDependent
 				int num17 = num6 + num8 + num10 + num12 + num13 + num15 + num16;
 				if (num17 > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_SamplersCache[j].m_IndexCount = sampler.m_Mesh.triangles.Length;
 					this.m_SamplersCache[j].m_VertexCount = sampler.m_Mesh.vertices.Length;
 					this.m_SamplersCache[j].m_BoneCount = num5;
 					if (this.m_SamplersCache[j].m_Data != IntPtr.Zero)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Marshal.FreeHGlobal(this.m_SamplersCache[j].m_Data);
 					}
 					this.m_SamplersCache[j].m_Data = Marshal.AllocHGlobal(num17);
@@ -1964,40 +972,13 @@ public class PKFxFX : PKFxPackDependent
 			}
 			if (this.m_SamplersCache[j].m_Type1 == 2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (sampler.m_TextureChanged || sampler.m_TextureTexcoordMode != (PKFxManager.ETexcoordMode)this.m_SamplersCache[j].m_PosX)
 				{
 					goto IL_B2C;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (forceUpdate)
 				{
 					goto IL_B2C;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (this.m_ForceUpdateAttributes)
 				{
@@ -2015,28 +996,10 @@ public class PKFxFX : PKFxPackDependent
 				IL_B2C:
 				if (sampler.m_Texture == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_SamplersCache[j].m_SizeX = 0f;
 					this.m_SamplersCache[j].m_SizeY = 0f;
 					if (this.m_SamplersCache[j].m_Data != IntPtr.Zero)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Marshal.FreeHGlobal(this.m_SamplersCache[j].m_Data);
 					}
 					this.m_SamplersCache[j].m_Data = IntPtr.Zero;
@@ -2049,68 +1012,23 @@ public class PKFxFX : PKFxPackDependent
 					byte[] rawTextureData = sampler.m_Texture.GetRawTextureData();
 					if (rawTextureData.Length == 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Debug.LogError("[PKFX] Sampler " + sampler.m_Descriptor.Name + " : Could not get raw texture data. Enable read/write in import settings.");
 					}
 					if (sampler.m_Texture.format == TextureFormat.DXT1)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_SamplersCache[j].m_Type2 = 8;
 					}
 					else if (sampler.m_Texture.format == TextureFormat.DXT5)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_SamplersCache[j].m_Type2 = 0xC;
 					}
 					else if (sampler.m_Texture.format == TextureFormat.ARGB32)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						PKFxFX.PKImageConverter.ARGB2BGRA(ref rawTextureData);
 						this.m_SamplersCache[j].m_Type2 = 4;
 					}
 					else if (sampler.m_Texture.format == TextureFormat.RGBA32)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						PKFxFX.PKImageConverter.RGBA2BGRA(ref rawTextureData);
 						this.m_SamplersCache[j].m_Type2 = 4;
 					}
@@ -2120,55 +1038,19 @@ public class PKFxFX : PKFxPackDependent
 					}
 					else if (sampler.m_Texture.format == TextureFormat.RGB24)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						PKFxFX.PKImageConverter.RGB2BGR(ref rawTextureData);
 						this.m_SamplersCache[j].m_Type2 = 3;
 					}
 					else if (sampler.m_Texture.format == TextureFormat.PVRTC_RGB4)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_SamplersCache[j].m_Type2 = 0x14;
 					}
 					else if (sampler.m_Texture.format == TextureFormat.PVRTC_RGBA4)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_SamplersCache[j].m_Type2 = 0x16;
 					}
 					else if (sampler.m_Texture.format == TextureFormat.PVRTC_RGB2)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_SamplersCache[j].m_Type2 = 0x15;
 					}
 					else if (sampler.m_Texture.format == TextureFormat.PVRTC_RGBA2)
@@ -2177,54 +1059,18 @@ public class PKFxFX : PKFxPackDependent
 					}
 					else if (sampler.m_Texture.format == TextureFormat.ETC_RGB4)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_SamplersCache[j].m_Type2 = 0x10;
 					}
 					else if (sampler.m_Texture.format == TextureFormat.ETC2_RGB)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_SamplersCache[j].m_Type2 = 0x11;
 					}
 					else if (sampler.m_Texture.format == TextureFormat.ETC2_RGBA8)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_SamplersCache[j].m_Type2 = 0x12;
 					}
 					else if (sampler.m_Texture.format == TextureFormat.ETC2_RGBA1)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_SamplersCache[j].m_Type2 = 0x13;
 					}
 					else
@@ -2242,15 +1088,6 @@ public class PKFxFX : PKFxPackDependent
 					this.m_SamplersCache[j].m_SizeY = (float)sampler.m_Texture.height;
 					if (this.m_SamplersCache[j].m_Data != IntPtr.Zero)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Marshal.FreeHGlobal(this.m_SamplersCache[j].m_Data);
 					}
 					int num19 = rawTextureData.Length;
@@ -2264,41 +1101,14 @@ public class PKFxFX : PKFxPackDependent
 			}
 			else if (this.m_SamplersCache[j].m_Type1 == 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num20 = (sampler.m_CurvesTimeKeys != null) ? sampler.m_CurvesTimeKeys.Length : 0;
 				if (num20 != 0)
 				{
 					goto IL_112F;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((float)num20 == this.m_SamplersCache[j].m_SizeX)
 				{
 					goto IL_112F;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (this.m_SamplersCurvesDataGCH.IsAllocated)
 				{
@@ -2313,53 +1123,17 @@ public class PKFxFX : PKFxPackDependent
 				IL_112F:
 				if (sampler.m_CurvesArray != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num21 = sampler.m_CurvesArray.Length;
 					int num22 = 1 + num21 * 3;
 					bool flag6 = (float)num20 != this.m_SamplersCache[j].m_SizeX;
 					if (!flag6 && !forceUpdate)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_ForceUpdateAttributes)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							for (int k = 0; k < num20; k++)
 							{
 								if (this.m_SamplersCache[j].m_Data != IntPtr.Zero)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									int num23 = num3 + k * num22;
 									float num24 = sampler.m_CurvesTimeKeys[k];
 									if (num24 != this.m_SamplersCurvesDataCache[num23])
@@ -2369,64 +1143,19 @@ public class PKFxFX : PKFxPackDependent
 									}
 								}
 							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 					IL_120D:
 					if (!flag6)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!forceUpdate)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!this.m_ForceUpdateAttributes)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								for (int l = 0; l < sampler.m_CurvesArray.Length; l++)
 								{
 									if (this.m_SamplersCache[j].m_Data != IntPtr.Zero)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										AnimationCurve animationCurve = sampler.m_CurvesArray[l];
 										int m = 0;
 										while (m < animationCurve.keys.Length)
@@ -2440,55 +1169,19 @@ public class PKFxFX : PKFxPackDependent
 													m++;
 													continue;
 												}
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 											}
 											flag6 = true;
 											break;
 										}
 									}
 								}
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 						}
 					}
 					if (!flag6)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!forceUpdate)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!this.m_ForceUpdateAttributes)
 							{
 								goto IL_1488;
@@ -2509,15 +1202,6 @@ public class PKFxFX : PKFxPackDependent
 							this.m_SamplersCurvesDataCache[num28 + 1] = keyframe2.inTangent;
 							this.m_SamplersCurvesDataCache[num28 + 2] = keyframe2.outTangent;
 						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					num3 += num20 * num22;
 					this.m_SamplersCache[j].m_SizeX = (float)num20;
@@ -2527,38 +1211,11 @@ public class PKFxFX : PKFxPackDependent
 			}
 			else if (this.m_SamplersCache[j].m_Type1 == 3)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag6 = (float)sampler.m_Text.Length != this.m_SamplersCache[j].m_SizeX;
 				if (!flag6)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (sampler.m_Text.Length > 0)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_SamplersCache[j].m_Data == IntPtr.Zero)
 						{
 							flag6 = true;
@@ -2567,63 +1224,18 @@ public class PKFxFX : PKFxPackDependent
 				}
 				if (!flag6)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_SamplersCache[j].m_Data != IntPtr.Zero && Marshal.PtrToStringAnsi(this.m_SamplersCache[j].m_Data) != sampler.m_Text)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag6 = true;
 					}
 				}
 				if (!flag6)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!forceUpdate)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_ForceUpdateAttributes)
 						{
 							goto IL_165A;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -2635,15 +1247,6 @@ public class PKFxFX : PKFxPackDependent
 				int length = sampler.m_Text.Length;
 				if (length > 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_SamplersCache[j].m_Data = Marshal.StringToHGlobalAnsi(sampler.m_Text);
 				}
 				this.m_SamplersCache[j].m_SizeX = (float)length;
@@ -2651,26 +1254,8 @@ public class PKFxFX : PKFxPackDependent
 			}
 			IL_165A:;
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (num2 >= 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!PKFxManager.EffectSetSamplers(this.m_FXGUID, num2 + 1, this.m_SamplersHandler))
 			{
 				Debug.LogError("[PKFX] Sampler through pinned memory failed.");
@@ -2683,15 +1268,6 @@ public class PKFxFX : PKFxPackDependent
 			bool flag7;
 			if (this.m_FxSamplersList[num29].m_ShapeType == 5)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag7 = (this.m_FxSamplersList[num29].m_SkinnedMeshRenderer != null);
 			}
 			else
@@ -2701,27 +1277,9 @@ public class PKFxFX : PKFxPackDependent
 			bool flag8 = flag7;
 			if (flag8)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num30;
 				if (sampler2.m_SkinnedMeshRenderer != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num30 = sampler2.m_SkinnedMeshRenderer.bones.Length;
 				}
 				else
@@ -2731,27 +1289,9 @@ public class PKFxFX : PKFxPackDependent
 				int num31 = num30;
 				if (sampler2.m_SkinnedMeshData == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int cb = (num31 == 0) ? 0 : (sampler2.m_SkinnedMeshRenderer.bones.Length * 4 * 0x10);
 					if (this.m_SamplersCache[num29].m_Data != IntPtr.Zero)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Marshal.FreeHGlobal(this.m_SamplersCache[num29].m_Data);
 					}
 					this.m_SamplersCache[num29].m_Data = Marshal.AllocHGlobal(cb);
@@ -2761,27 +1301,9 @@ public class PKFxFX : PKFxPackDependent
 				this.UpdateBones(this.m_SamplersCache[num29].m_Data, sampler2);
 				if (!PKFxManager.EffectUpdateSamplerSkinning(this.m_FXGUID, num29, this.m_SamplersHandler, Time.deltaTime))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogError("[PKFX] Skinning through pinned memory failed.");
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_ForceUpdateAttributes = false;
 	}
@@ -2795,30 +1317,8 @@ public class PKFxFX : PKFxPackDependent
 				PKFxManager.Sampler sampler = enumerator.Current;
 				if (sampler.m_Descriptor.Name == desc.Name && sampler.m_Descriptor.Type == desc.Type)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.GetSamplerFromDesc(PKFxManager.SamplerDesc)).MethodHandle;
-					}
 					return sampler;
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -2833,31 +1333,9 @@ public class PKFxFX : PKFxPackDependent
 				PKFxManager.Attribute attribute = enumerator.Current;
 				if (attribute.m_Descriptor.Name == desc.Name && attribute.m_Descriptor.Type == desc.Type)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.DeleteAttribute(PKFxManager.AttributeDesc)).MethodHandle;
-					}
 					this.m_FxAttributesList.Remove(attribute);
 					return;
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -2875,19 +1353,6 @@ public class PKFxFX : PKFxPackDependent
 					return attribute;
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.GetAttributeFromDesc(PKFxManager.AttributeDesc)).MethodHandle;
-			}
 		}
 		return null;
 	}
@@ -2898,30 +1363,8 @@ public class PKFxFX : PKFxPackDependent
 		{
 			if (sampler.m_Descriptor.Name == desc.Name)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.SamplerExists(PKFxManager.SamplerDesc)).MethodHandle;
-				}
 				if (sampler.m_Descriptor.Type == desc.Type)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
@@ -2938,33 +1381,11 @@ public class PKFxFX : PKFxPackDependent
 				PKFxManager.Attribute attribute = enumerator.Current;
 				if (attribute.m_Descriptor.Name == desc.Name)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.AttributeExists(PKFxManager.AttributeDesc)).MethodHandle;
-					}
 					if (attribute.m_Descriptor.Type == desc.Type)
 					{
 						return true;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -2979,42 +1400,11 @@ public class PKFxFX : PKFxPackDependent
 				PKFxManager.AttributeDesc attributeDesc = enumerator.Current;
 				if (attr.m_Descriptor.Name == attributeDesc.Name)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.AttributesDescExistIn(List<PKFxManager.AttributeDesc>, PKFxManager.Attribute)).MethodHandle;
-					}
 					if (attr.m_Descriptor.Type == attributeDesc.Type)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -3102,19 +1492,6 @@ public class PKFxFX : PKFxPackDependent
 				byte b = data[i];
 				data[i] = data[i + 2];
 				data[i + 2] = b;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxFX.PKImageConverter.RGBA2BGRA(byte[]*)).MethodHandle;
 			}
 		}
 

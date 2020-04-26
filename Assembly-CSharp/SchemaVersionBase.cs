@@ -1,62 +1,11 @@
-﻿using System;
-using System.Globalization;
 using Newtonsoft.Json;
+using System;
+using System.Globalization;
 
-[JsonConverter(typeof(SchemaVersionBase.JsonConverter))]
 [Serializable]
+[JsonConverter(typeof(JsonConverter))]
 public class SchemaVersionBase
 {
-	public ulong IntValue;
-
-	public SchemaVersionBase(string stringValue)
-	{
-		this.StringValue = stringValue;
-	}
-
-	public SchemaVersionBase(ulong intValue = 0UL)
-	{
-		this.IntValue = intValue;
-	}
-
-	public string StringValue
-	{
-		get
-		{
-			return string.Format("0x{0:x}", this.IntValue);
-		}
-		set
-		{
-			if (value.StartsWith("0x"))
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SchemaVersionBase.set_StringValue(string)).MethodHandle;
-				}
-				value = value.Substring(2);
-			}
-			this.IntValue = ulong.Parse(value, NumberStyles.HexNumber);
-		}
-	}
-
-	public void Clear()
-	{
-		this.IntValue = 0UL;
-	}
-
-	public override string ToString()
-	{
-		return this.StringValue;
-	}
-
 	private class JsonConverter : Newtonsoft.Json.JsonConverter
 	{
 		public override bool CanConvert(Type objectType)
@@ -76,5 +25,43 @@ public class SchemaVersionBase
 			schemaVersionBase.StringValue = reader.Value.ToString();
 			return schemaVersionBase;
 		}
+	}
+
+	public ulong IntValue;
+
+	public string StringValue
+	{
+		get
+		{
+			return $"0x{IntValue:x}";
+		}
+		set
+		{
+			if (value.StartsWith("0x"))
+			{
+				value = value.Substring(2);
+			}
+			IntValue = ulong.Parse(value, NumberStyles.HexNumber);
+		}
+	}
+
+	public SchemaVersionBase(string stringValue)
+	{
+		StringValue = stringValue;
+	}
+
+	public SchemaVersionBase(ulong intValue = 0uL)
+	{
+		IntValue = intValue;
+	}
+
+	public void Clear()
+	{
+		IntValue = 0uL;
+	}
+
+	public override string ToString()
+	{
+		return StringValue;
 	}
 }

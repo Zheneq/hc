@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,114 +51,66 @@ public class ScampSuitToggle : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.Start()).MethodHandle;
-			}
-			this.m_abilityName = "ScampSuitToggle";
+			m_abilityName = "ScampSuitToggle";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.m_passive = base.GetPassiveOfType<Passive_Scamp>();
-		this.SetCachedFields();
-		this.m_syncComp = base.GetComponent<Scamp_SyncComponent>();
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, false, false, AbilityUtil_Targeter.AffectsActor.Always, AbilityUtil_Targeter.AffectsActor.Possible);
+		m_passive = GetPassiveOfType<Passive_Scamp>();
+		SetCachedFields();
+		m_syncComp = GetComponent<Scamp_SyncComponent>();
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, false, false, AbilityUtil_Targeter.AffectsActor.Always);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "CooldownCreateSuit", string.Empty, this.m_cooldownCreateSuit, false);
-		base.AddTokenInt(tokens, "CooldownRefillShield", string.Empty, this.m_cooldownRefillShield, false);
-		base.AddTokenInt(tokens, "CooldownOverrideOnSuitDestroy", string.Empty, this.m_cooldownOverrideOnSuitDestroy, false);
-		base.AddTokenInt(tokens, "ExtraOrbsToSpawnOnSuitLost", string.Empty, this.m_extraOrbsToSpawnOnSuitLost, false);
-		base.AddTokenInt(tokens, "PassiveEnergyRegen", string.Empty, this.m_passiveEnergyRegen, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectForSuitGained, "EffectForSuitGained", this.m_effectForSuitGained, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectForSuitLost, "EffectForSuitLost", this.m_effectForSuitLost, true);
+		AddTokenInt(tokens, "CooldownCreateSuit", string.Empty, m_cooldownCreateSuit);
+		AddTokenInt(tokens, "CooldownRefillShield", string.Empty, m_cooldownRefillShield);
+		AddTokenInt(tokens, "CooldownOverrideOnSuitDestroy", string.Empty, m_cooldownOverrideOnSuitDestroy);
+		AddTokenInt(tokens, "ExtraOrbsToSpawnOnSuitLost", string.Empty, m_extraOrbsToSpawnOnSuitLost);
+		AddTokenInt(tokens, "PassiveEnergyRegen", string.Empty, m_passiveEnergyRegen);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectForSuitGained, "EffectForSuitGained", m_effectForSuitGained);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectForSuitLost, "EffectForSuitLost", m_effectForSuitLost);
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedEffectForSuitGained;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.SetCachedFields()).MethodHandle;
-			}
-			cachedEffectForSuitGained = this.m_abilityMod.m_effectForSuitGainedMod.GetModifiedValue(this.m_effectForSuitGained);
+			cachedEffectForSuitGained = m_abilityMod.m_effectForSuitGainedMod.GetModifiedValue(m_effectForSuitGained);
 		}
 		else
 		{
-			cachedEffectForSuitGained = this.m_effectForSuitGained;
+			cachedEffectForSuitGained = m_effectForSuitGained;
 		}
-		this.m_cachedEffectForSuitGained = cachedEffectForSuitGained;
+		m_cachedEffectForSuitGained = cachedEffectForSuitGained;
 		StandardEffectInfo cachedEffectForSuitLost;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedEffectForSuitLost = this.m_abilityMod.m_effectForSuitLostMod.GetModifiedValue(this.m_effectForSuitLost);
+			cachedEffectForSuitLost = m_abilityMod.m_effectForSuitLostMod.GetModifiedValue(m_effectForSuitLost);
 		}
 		else
 		{
-			cachedEffectForSuitLost = this.m_effectForSuitLost;
+			cachedEffectForSuitLost = m_effectForSuitLost;
 		}
-		this.m_cachedEffectForSuitLost = cachedEffectForSuitLost;
+		m_cachedEffectForSuitLost = cachedEffectForSuitLost;
 	}
 
 	public bool ShieldDownModeFreeAction()
 	{
 		bool result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.ShieldDownModeFreeAction()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_shieldDownModeFreeActionMod.GetModifiedValue(this.m_shieldDownModeFreeAction);
+			result = m_abilityMod.m_shieldDownModeFreeActionMod.GetModifiedValue(m_shieldDownModeFreeAction);
 		}
 		else
 		{
-			result = this.m_shieldDownModeFreeAction;
+			result = m_shieldDownModeFreeAction;
 		}
 		return result;
 	}
@@ -167,26 +118,13 @@ public class ScampSuitToggle : Ability
 	public int GetCooldownCreateSuit()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.GetCooldownCreateSuit()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_cooldownCreateSuitMod.GetModifiedValue(this.m_cooldownCreateSuit);
+			result = m_abilityMod.m_cooldownCreateSuitMod.GetModifiedValue(m_cooldownCreateSuit);
 		}
 		else
 		{
-			result = this.m_cooldownCreateSuit;
+			result = m_cooldownCreateSuit;
 		}
 		return result;
 	}
@@ -194,58 +132,32 @@ public class ScampSuitToggle : Ability
 	public int GetCooldownRefillShield()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.GetCooldownRefillShield()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_cooldownRefillShieldMod.GetModifiedValue(this.m_cooldownRefillShield);
+			result = m_abilityMod.m_cooldownRefillShieldMod.GetModifiedValue(m_cooldownRefillShield);
 		}
 		else
 		{
-			result = this.m_cooldownRefillShield;
+			result = m_cooldownRefillShield;
 		}
 		return result;
 	}
 
 	public int GetCooldownOverrideOnSuitDestroy()
 	{
-		return (!(this.m_abilityMod != null)) ? this.m_cooldownOverrideOnSuitDestroy : this.m_abilityMod.m_cooldownOverrideOnSuitDestroyMod.GetModifiedValue(this.m_cooldownOverrideOnSuitDestroy);
+		return (!(m_abilityMod != null)) ? m_cooldownOverrideOnSuitDestroy : m_abilityMod.m_cooldownOverrideOnSuitDestroyMod.GetModifiedValue(m_cooldownOverrideOnSuitDestroy);
 	}
 
 	public float GetEnergyToShieldMult()
 	{
 		float result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.GetEnergyToShieldMult()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_energyToShieldMultMod.GetModifiedValue(this.m_energyToShieldMult);
+			result = m_abilityMod.m_energyToShieldMultMod.GetModifiedValue(m_energyToShieldMult);
 		}
 		else
 		{
-			result = this.m_energyToShieldMult;
+			result = m_energyToShieldMult;
 		}
 		return result;
 	}
@@ -253,58 +165,32 @@ public class ScampSuitToggle : Ability
 	public bool ClearEnergyOrbsOnCast()
 	{
 		bool result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.ClearEnergyOrbsOnCast()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_clearEnergyOrbsOnCastMod.GetModifiedValue(this.m_clearEnergyOrbsOnCast);
+			result = m_abilityMod.m_clearEnergyOrbsOnCastMod.GetModifiedValue(m_clearEnergyOrbsOnCast);
 		}
 		else
 		{
-			result = this.m_clearEnergyOrbsOnCast;
+			result = m_clearEnergyOrbsOnCast;
 		}
 		return result;
 	}
 
 	public int GetExtraOrbsToSpawnOnSuitLost()
 	{
-		return (!(this.m_abilityMod != null)) ? this.m_extraOrbsToSpawnOnSuitLost : this.m_abilityMod.m_extraOrbsToSpawnOnSuitLostMod.GetModifiedValue(this.m_extraOrbsToSpawnOnSuitLost);
+		return (!(m_abilityMod != null)) ? m_extraOrbsToSpawnOnSuitLost : m_abilityMod.m_extraOrbsToSpawnOnSuitLostMod.GetModifiedValue(m_extraOrbsToSpawnOnSuitLost);
 	}
 
 	public int GetPassiveEnergyRegen()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.GetPassiveEnergyRegen()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_passiveEnergyRegenMod.GetModifiedValue(this.m_passiveEnergyRegen);
+			result = m_abilityMod.m_passiveEnergyRegenMod.GetModifiedValue(m_passiveEnergyRegen);
 		}
 		else
 		{
-			result = this.m_passiveEnergyRegen;
+			result = m_passiveEnergyRegen;
 		}
 		return result;
 	}
@@ -312,26 +198,13 @@ public class ScampSuitToggle : Ability
 	public bool ConsiderRespawnForSuitGainEffect()
 	{
 		bool result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.ConsiderRespawnForSuitGainEffect()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_considerRespawnForSuitGainEffectMod.GetModifiedValue(this.m_considerRespawnForSuitGainEffect);
+			result = m_abilityMod.m_considerRespawnForSuitGainEffectMod.GetModifiedValue(m_considerRespawnForSuitGainEffect);
 		}
 		else
 		{
-			result = this.m_considerRespawnForSuitGainEffect;
+			result = m_considerRespawnForSuitGainEffect;
 		}
 		return result;
 	}
@@ -339,26 +212,13 @@ public class ScampSuitToggle : Ability
 	public StandardEffectInfo GetEffectForSuitGained()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectForSuitGained != null)
+		if (m_cachedEffectForSuitGained != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.GetEffectForSuitGained()).MethodHandle;
-			}
-			result = this.m_cachedEffectForSuitGained;
+			result = m_cachedEffectForSuitGained;
 		}
 		else
 		{
-			result = this.m_effectForSuitGained;
+			result = m_effectForSuitGained;
 		}
 		return result;
 	}
@@ -366,69 +226,43 @@ public class ScampSuitToggle : Ability
 	public StandardEffectInfo GetEffectForSuitLost()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectForSuitLost != null)
+		if (m_cachedEffectForSuitLost != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.GetEffectForSuitLost()).MethodHandle;
-			}
-			result = this.m_cachedEffectForSuitLost;
+			result = m_cachedEffectForSuitLost;
 		}
 		else
 		{
-			result = this.m_effectForSuitLost;
+			result = m_effectForSuitLost;
 		}
 		return result;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportAbsorb(ref result, AbilityTooltipSubject.Self, 1);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, 1);
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
 		ActorData actorData = base.ActorData;
 		int num = actorData.TechPoints + actorData.ReservedTechPoints;
-		int value = Mathf.RoundToInt((float)num * this.GetEnergyToShieldMult());
-		results.m_absorb = Mathf.Clamp(value, 1, this.m_passive.GetMaxSuitShield());
+		int value = Mathf.RoundToInt((float)num * GetEnergyToShieldMult());
+		results.m_absorb = Mathf.Clamp(value, 1, m_passive.GetMaxSuitShield());
 		return true;
 	}
 
 	public override bool IsFreeAction()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.IsFreeAction()).MethodHandle;
-			}
-			if (this.m_syncComp.m_suitWasActiveOnTurnStart)
+			if (m_syncComp.m_suitWasActiveOnTurnStart)
 			{
 				return base.IsFreeAction();
 			}
 		}
-		return this.ShieldDownModeFreeAction();
+		return ShieldDownModeFreeAction();
 	}
 
 	public override int GetModdedCost()
@@ -436,19 +270,6 @@ public class ScampSuitToggle : Ability
 		int b = 0;
 		if (base.ActorData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.GetModdedCost()).MethodHandle;
-			}
 			b = base.ActorData.TechPoints + base.ActorData.ReservedTechPoints;
 		}
 		return Mathf.Max(1, b);
@@ -456,23 +277,10 @@ public class ScampSuitToggle : Ability
 
 	public override int GetTechPointRegenContribution()
 	{
-		int passiveEnergyRegen = this.GetPassiveEnergyRegen();
+		int passiveEnergyRegen = GetPassiveEnergyRegen();
 		int result;
 		if (passiveEnergyRegen > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.GetTechPointRegenContribution()).MethodHandle;
-			}
 			result = passiveEnergyRegen;
 		}
 		else
@@ -484,7 +292,7 @@ public class ScampSuitToggle : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
 			return caster.TechPoints + caster.ReservedTechPoints > 0;
 		}
@@ -493,29 +301,21 @@ public class ScampSuitToggle : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_ScampSuitToggle))
+		if (abilityMod.GetType() != typeof(AbilityMod_ScampSuitToggle))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSuitToggle.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_ScampSuitToggle);
-			this.Setup();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_ScampSuitToggle);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

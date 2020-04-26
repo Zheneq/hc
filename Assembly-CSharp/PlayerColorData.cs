@@ -1,12 +1,16 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class PlayerColorData
 {
-	public bool Unlocked { get; set; }
+	public bool Unlocked
+	{
+		get;
+		set;
+	}
 
 	public PlayerColorData GetDeepCopy()
 	{
-		return base.MemberwiseClone() as PlayerColorData;
+		return MemberwiseClone() as PlayerColorData;
 	}
 }

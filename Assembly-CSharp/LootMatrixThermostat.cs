@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -18,232 +17,167 @@ public class LootMatrixThermostat : MonoBehaviour
 
 	private void Awake()
 	{
-		UITooltipObject thermostatTooltipObj = this.m_thermostatTooltipObj;
-		TooltipType tooltipType = TooltipType.Simple;
-		if (LootMatrixThermostat.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LootMatrixThermostat.Awake()).MethodHandle;
-			}
-			LootMatrixThermostat.<>f__am$cache0 = delegate(UITooltipBase tooltip)
+		UITooltipHoverObject thermostatTooltipObj = m_thermostatTooltipObj;
+		
+		thermostatTooltipObj.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
 			{
 				(tooltip as UISimpleTooltip).Setup(StringUtil.TR("ThermostatTooltip", "LootMatrixScene"));
 				return true;
-			};
-		}
-		thermostatTooltipObj.Setup(tooltipType, LootMatrixThermostat.<>f__am$cache0, null);
+			});
 	}
 
 	public void UpdateThermostat(InventoryComponent component, InventoryItem InvItem, InventoryItemTemplate InvItemTemplate, List<int> m_boxIds, bool GotLegendary = false)
 	{
+		bool flag = false;
 		int num = -1;
 		if (InvItem != null && InvItemTemplate != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LootMatrixThermostat.UpdateThermostat(InventoryComponent, InventoryItem, InventoryItemTemplate, List<int>, bool)).MethodHandle;
-			}
 			if (InvItemTemplate.Type == InventoryItemType.Lockbox)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				LootTable lootTable = InventoryWideData.Get().GetLootTable(InvItemTemplate.TypeSpecificData[0]);
 				if (lootTable != null)
 				{
 					Loot loot = component.GetLoot(InvItem.Id);
 					if (loot == null)
 					{
-						for (;;)
+						int num2 = 0;
+						while (true)
 						{
-							switch (7)
+							if (num2 < m_boxIds.Count)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						for (int i = 0; i < m_boxIds.Count; i++)
-						{
-							InventoryItem item = component.GetItem(m_boxIds[i]);
-							if (item.TemplateId == InvItemTemplate.Index)
-							{
-								loot = component.GetLoot(item.Id);
-								goto IL_C4;
-							}
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
+								InventoryItem item = component.GetItem(m_boxIds[num2]);
+								if (item.TemplateId == InvItemTemplate.Index)
+								{
+									loot = component.GetLoot(item.Id);
+									break;
+								}
+								num2++;
 								continue;
 							}
 							break;
 						}
 					}
-					IL_C4:
 					if (loot != null)
 					{
 						using (List<CheckKarma>.Enumerator enumerator = lootTable.CheckKarmas.GetEnumerator())
 						{
-							while (enumerator.MoveNext())
+							while (true)
 							{
-								CheckKarma checkKarma = enumerator.Current;
-								int karmaQuantity = loot.GetKarmaQuantity(checkKarma.KarmaTemplateId);
+								if (!enumerator.MoveNext())
+								{
+									break;
+								}
+								CheckKarma current = enumerator.Current;
+								int karmaQuantity = loot.GetKarmaQuantity(current.KarmaTemplateId);
 								if (0 < karmaQuantity)
 								{
-									num = Mathf.RoundToInt(checkKarma.GetChance(karmaQuantity));
-									goto IL_12F;
+									num = Mathf.RoundToInt(current.GetChance(karmaQuantity));
+									flag = true;
+									break;
 								}
-							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
-						IL_12F:;
 					}
 					else
 					{
-						for (int j = 0; j < lootTable.CheckKarmas.Count; j++)
+						for (int i = 0; i < lootTable.CheckKarmas.Count; i++)
 						{
 							using (Dictionary<int, Karma>.Enumerator enumerator2 = component.Karmas.GetEnumerator())
 							{
-								while (enumerator2.MoveNext())
+								while (true)
 								{
-									KeyValuePair<int, Karma> keyValuePair = enumerator2.Current;
-									if (keyValuePair.Value.TemplateId == lootTable.CheckKarmas[j].KarmaTemplateId)
+									if (!enumerator2.MoveNext())
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										int quantity = keyValuePair.Value.Quantity;
+										break;
+									}
+									KeyValuePair<int, Karma> current2 = enumerator2.Current;
+									if (current2.Value.TemplateId == lootTable.CheckKarmas[i].KarmaTemplateId)
+									{
+										int quantity = current2.Value.Quantity;
 										if (0 < quantity)
 										{
-											for (;;)
+											while (true)
 											{
 												switch (1)
 												{
 												case 0:
-													continue;
+													break;
+												default:
+													num = Mathf.RoundToInt(lootTable.CheckKarmas[i].GetChance(quantity));
+													flag = true;
+													goto end_IL_014d;
 												}
-												break;
 											}
-											num = Mathf.RoundToInt(lootTable.CheckKarmas[j].GetChance(quantity));
-											goto IL_1F2;
 										}
 									}
 								}
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
+								end_IL_014d:;
 							}
-							IL_1F2:;
 						}
 					}
 				}
 			}
 		}
-		bool flag = false;
-		UIManager.SetGameObjectActive(this.m_ThermostatGroup, flag, null);
-		if (flag)
+		flag = false;
+		UIManager.SetGameObjectActive(m_ThermostatGroup, flag);
+		if (!flag)
 		{
-			this.m_ThermostateSlider.fillAmount = (float)num / 100f;
-			this.m_ThermostatPercentLabel.text = string.Empty;
-			if (GotLegendary)
+			return;
+		}
+		m_ThermostateSlider.fillAmount = (float)num / 100f;
+		m_ThermostatPercentLabel.text = string.Empty;
+		if (GotLegendary)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (2)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
+				case 0:
 					break;
+				default:
+					UIAnimationEventManager.Get().PlayAnimation(m_ThermostatAnimator, "LootMatrixThermostatGotItem", null, string.Empty, 1);
+					return;
 				}
-				UIAnimationEventManager.Get().PlayAnimation(this.m_ThermostatAnimator, "LootMatrixThermostatGotItem", null, string.Empty, 1, 0f, true, false, null, null);
-			}
-			else if (num >= 0x64)
-			{
-				UIAnimationEventManager.Get().PlayAnimation(this.m_ThermostatAnimator, "LootMatrixThermostat100Glow", null, string.Empty, 1, 0f, true, false, null, null);
-			}
-			else if (num >= 0x4B)
-			{
-				UIAnimationEventManager.Get().PlayAnimation(this.m_ThermostatAnimator, "LootMatrixThermostat75Glow", null, string.Empty, 1, 0f, true, false, null, null);
-			}
-			else if (num >= 0x32)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIAnimationEventManager.Get().PlayAnimation(this.m_ThermostatAnimator, "LootMatrixThermostat50Glow", null, string.Empty, 1, 0f, true, false, null, null);
-			}
-			else if (num >= 0x19)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIAnimationEventManager.Get().PlayAnimation(this.m_ThermostatAnimator, "LootMatrixThermostat25Glow", null, string.Empty, 1, 0f, true, false, null, null);
-			}
-			else
-			{
-				UIAnimationEventManager.Get().PlayAnimation(this.m_ThermostatAnimator, "LootMatrixThermostat0Glow", null, string.Empty, 1, 0f, true, false, null, null);
 			}
 		}
+		if (num >= 100)
+		{
+			UIAnimationEventManager.Get().PlayAnimation(m_ThermostatAnimator, "LootMatrixThermostat100Glow", null, string.Empty, 1);
+			return;
+		}
+		if (num >= 75)
+		{
+			UIAnimationEventManager.Get().PlayAnimation(m_ThermostatAnimator, "LootMatrixThermostat75Glow", null, string.Empty, 1);
+			return;
+		}
+		if (num >= 50)
+		{
+			while (true)
+			{
+				switch (2)
+				{
+				case 0:
+					break;
+				default:
+					UIAnimationEventManager.Get().PlayAnimation(m_ThermostatAnimator, "LootMatrixThermostat50Glow", null, string.Empty, 1);
+					return;
+				}
+			}
+		}
+		if (num >= 25)
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					UIAnimationEventManager.Get().PlayAnimation(m_ThermostatAnimator, "LootMatrixThermostat25Glow", null, string.Empty, 1);
+					return;
+				}
+			}
+		}
+		UIAnimationEventManager.Get().PlayAnimation(m_ThermostatAnimator, "LootMatrixThermostat0Glow", null, string.Empty, 1);
 	}
 }

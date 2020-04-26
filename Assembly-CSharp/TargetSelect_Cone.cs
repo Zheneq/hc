@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetSelect_Cone : GenericAbility_TargetSelectBase
@@ -17,51 +16,50 @@ public class TargetSelect_Cone : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u0018.\u0012(), "distance from start of cone position, in squares", true);
+		return GetContextUsageStr(ContextKeys._0018.GetName(), "distance from start of cone position, in squares");
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u0018.\u0012());
+		names.Add(ContextKeys._0018.GetName());
 	}
 
 	public override void Initialize()
 	{
-		this.SetCachedFields();
-		ConeTargetingInfo coneInfo = this.GetConeInfo();
-		coneInfo.m_affectsAllies = base.IncludeAllies();
-		coneInfo.m_affectsEnemies = base.IncludeEnemies();
-		coneInfo.m_affectsCaster = base.IncludeCaster();
-		coneInfo.m_penetrateLos = base.IgnoreLos();
+		SetCachedFields();
+		ConeTargetingInfo coneInfo = GetConeInfo();
+		coneInfo.m_affectsAllies = IncludeAllies();
+		coneInfo.m_affectsEnemies = IncludeEnemies();
+		coneInfo.m_affectsCaster = IncludeCaster();
+		coneInfo.m_penetrateLos = IgnoreLos();
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)
 	{
-		ConeTargetingInfo coneInfo = this.GetConeInfo();
-		AbilityUtil_Targeter_DirectionCone item = new AbilityUtil_Targeter_DirectionCone(ability, coneInfo.m_widthAngleDeg, coneInfo.m_radiusInSquares, coneInfo.m_backwardsOffset, coneInfo.m_penetrateLos, true, coneInfo.m_affectsEnemies, coneInfo.m_affectsAllies, coneInfo.m_affectsCaster, -1, false);
-		return new List<AbilityUtil_Targeter>
-		{
-			item
-		};
+		ConeTargetingInfo coneInfo = GetConeInfo();
+		AbilityUtil_Targeter_DirectionCone item = new AbilityUtil_Targeter_DirectionCone(ability, coneInfo.m_widthAngleDeg, coneInfo.m_radiusInSquares, coneInfo.m_backwardsOffset, coneInfo.m_penetrateLos, true, coneInfo.m_affectsEnemies, coneInfo.m_affectsAllies, coneInfo.m_affectsCaster);
+		List<AbilityUtil_Targeter> list = new List<AbilityUtil_Targeter>();
+		list.Add(item);
+		return list;
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedConeInfo = ((this.m_targetSelMod == null) ? this.m_coneInfo : this.m_targetSelMod.m_coneInfoMod.GetModifiedValue(this.m_coneInfo));
+		m_cachedConeInfo = ((m_targetSelMod == null) ? m_coneInfo : m_targetSelMod.m_coneInfoMod.GetModifiedValue(m_coneInfo));
 	}
 
 	public ConeTargetingInfo GetConeInfo()
 	{
-		return (this.m_cachedConeInfo == null) ? this.m_coneInfo : this.m_cachedConeInfo;
+		return (m_cachedConeInfo == null) ? m_coneInfo : m_cachedConeInfo;
 	}
 
 	protected override void OnTargetSelModApplied(TargetSelectModBase modBase)
 	{
-		this.m_targetSelMod = (modBase as TargetSelectMod_Cone);
+		m_targetSelMod = (modBase as TargetSelectMod_Cone);
 	}
 
 	protected override void OnTargetSelModRemoved()
 	{
-		this.m_targetSelMod = null;
+		m_targetSelMod = null;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -30,20 +29,20 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 
 	private const string c_materialKeywordAfterImageEnemy = "_EMISSIONNOISEON_ENEMY";
 
-	private static readonly int animIdleType = Animator.StringToHash("IdleType");
+	private static readonly int animIdleType;
 
-	private static readonly int animAttack = Animator.StringToHash("Attack");
+	private static readonly int animAttack;
 
-	private static readonly int animCinematicCam = Animator.StringToHash("CinematicCam");
+	private static readonly int animCinematicCam;
 
-	private static readonly int animStartAttack = Animator.StringToHash("StartAttack");
+	private static readonly int animStartAttack;
 
 	[SyncVar]
 	public int m_maxAfterImageCount = 2;
 
 	private static int kListm_afterImages;
 
-	private static int kRpcRpcTurnToPosition = -0x1FE41ADA;
+	private static int kRpcRpcTurnToPosition;
 
 	private static int kRpcRpcSetPose;
 
@@ -51,215 +50,154 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 
 	private static int kRpcRpcUnfreezeActor;
 
+	public int Networkm_maxAfterImageCount
+	{
+		get
+		{
+			return m_maxAfterImageCount;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_maxAfterImageCount, 2u);
+		}
+	}
+
 	static TricksterAfterImageNetworkBehaviour()
 	{
-		NetworkBehaviour.RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), TricksterAfterImageNetworkBehaviour.kRpcRpcTurnToPosition, new NetworkBehaviour.CmdDelegate(TricksterAfterImageNetworkBehaviour.InvokeRpcRpcTurnToPosition));
-		TricksterAfterImageNetworkBehaviour.kRpcRpcSetPose = -0x29314C52;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), TricksterAfterImageNetworkBehaviour.kRpcRpcSetPose, new NetworkBehaviour.CmdDelegate(TricksterAfterImageNetworkBehaviour.InvokeRpcRpcSetPose));
-		TricksterAfterImageNetworkBehaviour.kRpcRpcFreezeActor = 0x7D992BB9;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), TricksterAfterImageNetworkBehaviour.kRpcRpcFreezeActor, new NetworkBehaviour.CmdDelegate(TricksterAfterImageNetworkBehaviour.InvokeRpcRpcFreezeActor));
-		TricksterAfterImageNetworkBehaviour.kRpcRpcUnfreezeActor = -0xE40E740;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), TricksterAfterImageNetworkBehaviour.kRpcRpcUnfreezeActor, new NetworkBehaviour.CmdDelegate(TricksterAfterImageNetworkBehaviour.InvokeRpcRpcUnfreezeActor));
-		TricksterAfterImageNetworkBehaviour.kListm_afterImages = 0x27639FB1;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(TricksterAfterImageNetworkBehaviour), TricksterAfterImageNetworkBehaviour.kListm_afterImages, new NetworkBehaviour.CmdDelegate(TricksterAfterImageNetworkBehaviour.InvokeSyncListm_afterImages));
+		animIdleType = Animator.StringToHash("IdleType");
+		animAttack = Animator.StringToHash("Attack");
+		animCinematicCam = Animator.StringToHash("CinematicCam");
+		animStartAttack = Animator.StringToHash("StartAttack");
+		kRpcRpcTurnToPosition = -535042778;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), kRpcRpcTurnToPosition, InvokeRpcRpcTurnToPosition);
+		kRpcRpcSetPose = -691096658;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), kRpcRpcSetPose, InvokeRpcRpcSetPose);
+		kRpcRpcFreezeActor = 2107190201;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), kRpcRpcFreezeActor, InvokeRpcRpcFreezeActor);
+		kRpcRpcUnfreezeActor = -239134528;
+		NetworkBehaviour.RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), kRpcRpcUnfreezeActor, InvokeRpcRpcUnfreezeActor);
+		kListm_afterImages = 660840369;
+		NetworkBehaviour.RegisterSyncListDelegate(typeof(TricksterAfterImageNetworkBehaviour), kListm_afterImages, InvokeSyncListm_afterImages);
 		NetworkCRC.RegisterBehaviour("TricksterAfterImageNetworkBehaviour", 0);
 	}
 
 	public int GetMaxAfterImageCount()
 	{
-		return this.m_maxAfterImageCount;
+		return m_maxAfterImageCount;
 	}
 
 	private void Start()
 	{
-		this.m_owner = base.GetComponent<ActorData>();
-		GameFlowData.s_onActiveOwnedActorChange += this.OnActiveOwnedActorChange;
-		if (HighlightUtils.Get() != null && this.m_targeterFreePosMaxRange > 0f)
+		m_owner = GetComponent<ActorData>();
+		GameFlowData.s_onActiveOwnedActorChange += OnActiveOwnedActorChange;
+		if (!(HighlightUtils.Get() != null) || !(m_targeterFreePosMaxRange > 0f))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			m_rangeIndicatorObj = HighlightUtils.Get().CreateDynamicConeMesh(m_targeterFreePosMaxRange, 360f, true);
+			object obj;
+			if ((bool)m_rangeIndicatorObj)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.Start()).MethodHandle;
-			}
-			this.m_rangeIndicatorObj = HighlightUtils.Get().CreateDynamicConeMesh(this.m_targeterFreePosMaxRange, 360f, true, null);
-			UIDynamicCone uidynamicCone;
-			if (this.m_rangeIndicatorObj)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				uidynamicCone = this.m_rangeIndicatorObj.GetComponent<UIDynamicCone>();
+				obj = m_rangeIndicatorObj.GetComponent<UIDynamicCone>();
 			}
 			else
 			{
-				uidynamicCone = null;
+				obj = null;
 			}
-			UIDynamicCone uidynamicCone2 = uidynamicCone;
-			if (uidynamicCone2 != null)
+			UIDynamicCone uIDynamicCone = (UIDynamicCone)obj;
+			if (uIDynamicCone != null)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					HighlightUtils.Get().AdjustDynamicConeMesh(m_rangeIndicatorObj, m_targeterFreePosMaxRange, 360f);
+					uIDynamicCone.SetConeObjectActive(false);
+					return;
 				}
-				HighlightUtils.Get().AdjustDynamicConeMesh(this.m_rangeIndicatorObj, this.m_targeterFreePosMaxRange, 360f);
-				uidynamicCone2.SetConeObjectActive(false);
 			}
+			return;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		GameFlowData.s_onActiveOwnedActorChange -= this.OnActiveOwnedActorChange;
+		GameFlowData.s_onActiveOwnedActorChange -= OnActiveOwnedActorChange;
 	}
 
 	private void OnActiveOwnedActorChange(ActorData activeActor)
 	{
-		if (activeActor != null)
+		if (!(activeActor != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(m_owner != null))
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.OnActiveOwnedActorChange(ActorData)).MethodHandle;
-			}
-			if (this.m_owner != null)
-			{
-				for (;;)
+				for (int i = 0; i < m_afterImages.Count; i++)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int i = 0; i < this.m_afterImages.Count; i++)
-				{
-					int actorIndex = this.m_afterImages[i];
+					int actorIndex = m_afterImages[i];
 					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
-					if (actorData != null && actorData.\u000E() != null)
+					if (actorData != null && actorData.GetActorModelData() != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(actorData.\u000E(), activeActor.\u000E() == this.m_owner.\u000E(), this.m_afterImageAlpha, this.m_afterImageShader, true);
+						InitializeAfterImageMaterial(actorData.GetActorModelData(), activeActor.GetTeam() == m_owner.GetTeam(), m_afterImageAlpha, m_afterImageShader, true);
 					}
 				}
+				return;
 			}
 		}
 	}
 
-	public unsafe void CalcTargetingCenterAndAimAtPos(Vector3 inputFreePos, ActorData caster, List<ActorData> allTargetingActors, bool useCasterSquareAtResolveStart, out Vector3 centerOfFreePosLimit, out Vector3 freePosForAim)
+	public void CalcTargetingCenterAndAimAtPos(Vector3 inputFreePos, ActorData caster, List<ActorData> allTargetingActors, bool useCasterSquareAtResolveStart, out Vector3 centerOfFreePosLimit, out Vector3 freePosForAim)
 	{
 		freePosForAim = inputFreePos;
-		centerOfFreePosLimit = this.CalcTargetingFreePosCenter(caster, allTargetingActors, useCasterSquareAtResolveStart);
-		float num = this.m_targeterFreePosMaxRange * Board.\u000E().squareSize;
-		if (num > 0f)
+		centerOfFreePosLimit = CalcTargetingFreePosCenter(caster, allTargetingActors, useCasterSquareAtResolveStart);
+		float num = m_targeterFreePosMaxRange * Board.Get().squareSize;
+		if (!(num > 0f))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.CalcTargetingCenterAndAimAtPos(Vector3, ActorData, List<ActorData>, bool, Vector3*, Vector3*)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			Vector3 vector = inputFreePos - centerOfFreePosLimit;
 			vector.y = 0f;
 			float magnitude = vector.magnitude;
 			if (magnitude > num)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					Vector3 normalized = vector.normalized;
+					freePosForAim = centerOfFreePosLimit + normalized * num;
+					return;
 				}
-				Vector3 normalized = vector.normalized;
-				freePosForAim = centerOfFreePosLimit + normalized * num;
 			}
+			return;
 		}
 	}
 
 	public Vector3 CalcTargetingFreePosCenter(ActorData caster, List<ActorData> allTargetingActors, bool useSquareAtResolveStart)
 	{
-		Vector3 result = caster.\u0016();
-		if (this.m_targeterFreePosUseAvgPos)
+		Vector3 result = caster.GetTravelBoardSquareWorldPosition();
+		if (m_targeterFreePosUseAvgPos)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.CalcTargetingFreePosCenter(ActorData, List<ActorData>, bool)).MethodHandle;
-			}
-			Vector3 vector = Vector3.zero;
+			Vector3 zero = Vector3.zero;
 			using (List<ActorData>.Enumerator enumerator = allTargetingActors.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ActorData actorData = enumerator.Current;
-					vector += actorData.\u0016();
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					ActorData current = enumerator.Current;
+					zero += current.GetTravelBoardSquareWorldPosition();
 				}
 			}
-			vector /= (float)allTargetingActors.Count;
-			vector.y = result.y;
-			result = vector;
+			zero /= (float)allTargetingActors.Count;
+			zero.y = result.y;
+			result = zero;
 		}
 		return result;
 	}
@@ -269,99 +207,32 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		bool result = false;
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.ShouldShowRangeIndicator()).MethodHandle;
-			}
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
+				if (m_owner == activeOwnedActorData)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_owner == activeOwnedActorData)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					ActorTurnSM actorTurnSM = this.m_owner.\u000E();
+					ActorTurnSM actorTurnSM = m_owner.GetActorTurnSM();
 					if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 					{
-						for (;;)
+						AbilityData abilityData = m_owner.GetAbilityData();
+						object obj;
+						if ((bool)abilityData)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						AbilityData abilityData = this.m_owner.\u000E();
-						Ability ability;
-						if (abilityData)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							ability = abilityData.GetLastSelectedAbility();
+							obj = abilityData.GetLastSelectedAbility();
 						}
 						else
 						{
-							ability = null;
+							obj = null;
 						}
-						Ability ability2 = ability;
-						if (ability2 != null)
+						Ability ability = (Ability)obj;
+						if (ability != null)
 						{
-							if (!(ability2 is TricksterBasicAttack))
+							if (!(ability is TricksterBasicAttack))
 							{
-								for (;;)
+								if (!(ability is TricksterCones))
 								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!(ability2 is TricksterCones))
-								{
-									return result;
-								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
+									goto IL_00e7;
 								}
 							}
 							result = true;
@@ -370,250 +241,143 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				}
 			}
 		}
+		goto IL_00e7;
+		IL_00e7:
 		return result;
 	}
 
 	private void Update()
 	{
-		if (NetworkClient.active)
+		if (!NetworkClient.active)
 		{
-			GameFlowData gameFlowData = GameFlowData.Get();
-			if (this.m_rangeIndicatorObj != null)
+			return;
+		}
+		GameFlowData gameFlowData = GameFlowData.Get();
+		if (m_rangeIndicatorObj != null)
+		{
+			bool flag = ShouldShowRangeIndicator();
+			if (flag)
 			{
-				for (;;)
+				if (!m_rangeIndicatorObj.activeSelf)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.Update()).MethodHandle;
-				}
-				bool flag = this.ShouldShowRangeIndicator();
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_rangeIndicatorObj.activeSelf)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_rangeIndicatorObj.SetActive(true);
-						List<ActorData> list = new List<ActorData>();
-						list.Add(this.m_owner);
-						list.AddRange(this.GetValidAfterImages(true));
-						Vector3 position = this.CalcTargetingFreePosCenter(this.m_owner, list, false);
-						position.y = HighlightUtils.GetHighlightHeight();
-						this.m_rangeIndicatorObj.transform.position = position;
-						goto IL_F7;
-					}
-				}
-				if (!flag)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_rangeIndicatorObj.activeSelf)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_rangeIndicatorObj.SetActive(false);
-					}
+					m_rangeIndicatorObj.SetActive(true);
+					List<ActorData> list = new List<ActorData>();
+					list.Add(m_owner);
+					list.AddRange(GetValidAfterImages());
+					Vector3 position = CalcTargetingFreePosCenter(m_owner, list, false);
+					position.y = HighlightUtils.GetHighlightHeight();
+					m_rangeIndicatorObj.transform.position = position;
+					goto IL_00f7;
 				}
 			}
-			IL_F7:
-			if (this.m_timeToEndCheck > 0f)
+			if (!flag)
 			{
-				for (;;)
+				if (m_rangeIndicatorObj.activeSelf)
+				{
+					m_rangeIndicatorObj.SetActive(false);
+				}
+			}
+		}
+		goto IL_00f7;
+		IL_00f7:
+		if (m_timeToEndCheck > 0f)
+		{
+			if (Time.time < m_timeToEndCheck)
+			{
+				for (int num = m_actorIndexToHideForClient.Count - 1; num >= 0; num--)
+				{
+					int actorIndex = m_actorIndexToHideForClient[num];
+					ActorData actorData = gameFlowData.FindActorByActorIndex(actorIndex);
+					if (actorData != null)
+					{
+						HandleHideClone(actorData);
+						m_actorIndexToHideForClient.RemoveAt(num);
+					}
+				}
+				while (true)
 				{
 					switch (1)
 					{
+					default:
+						return;
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (Time.time < this.m_timeToEndCheck)
-				{
-					for (int i = this.m_actorIndexToHideForClient.Count - 1; i >= 0; i--)
-					{
-						int actorIndex = this.m_actorIndexToHideForClient[i];
-						ActorData actorData = gameFlowData.FindActorByActorIndex(actorIndex);
-						if (actorData != null)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.HandleHideClone(actorData);
-							this.m_actorIndexToHideForClient.RemoveAt(i);
-						}
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						break;
 					}
-					return;
 				}
 			}
-			if (this.m_timeToEndCheck > 0f && Time.time >= this.m_timeToEndCheck)
-			{
-				this.m_timeToEndCheck = -1f;
-			}
+		}
+		if (m_timeToEndCheck > 0f && Time.time >= m_timeToEndCheck)
+		{
+			m_timeToEndCheck = -1f;
 		}
 	}
 
 	[ClientRpc]
 	public void RpcTurnToPosition(int actorIndex, Vector3 position)
 	{
-		if (!NetworkServer.active)
+		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.RpcTurnToPosition(int, Vector3)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (NetworkClient.active)
 			{
-				ActorData afterImageByActorIndex = this.GetAfterImageByActorIndex(actorIndex);
+				ActorData afterImageByActorIndex = GetAfterImageByActorIndex(actorIndex);
 				if (afterImageByActorIndex != null)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						afterImageByActorIndex.TurnToPosition(position);
+						return;
 					}
-					afterImageByActorIndex.TurnToPosition(position, 0.2f);
 				}
+				return;
 			}
+			return;
 		}
 	}
 
 	[ClientRpc]
 	public void RpcSetPose(int actorIndex, Vector3 position, Vector3 forward, bool enableRenderer)
 	{
-		if (!NetworkServer.active)
+		if (NetworkServer.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!NetworkClient.active)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.RpcSetPose(int, Vector3, Vector3, bool)).MethodHandle;
-			}
-			if (NetworkClient.active)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
-				if (actorData != null)
+				if (!(actorData != null))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					return;
+				}
+				while (true)
+				{
 					actorData.transform.position = position;
 					actorData.transform.rotation = Quaternion.LookRotation(forward);
-					if (actorData.\u000E() != null)
+					if (!(actorData.GetActorModelData() != null))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
+						return;
+					}
+					while (true)
+					{
 						if (enableRenderer)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							actorData.\u000E().EnableRendererAndUpdateVisibility();
+							actorData.GetActorModelData().EnableRendererAndUpdateVisibility();
 						}
 						else
 						{
-							actorData.\u000E().DisableAndHideRenderers();
+							actorData.GetActorModelData().DisableAndHideRenderers();
 						}
-						TricksterAfterImageNetworkBehaviour.SetMaterialEnabledForAfterImage(this.m_owner, actorData, enableRenderer);
+						SetMaterialEnabledForAfterImage(m_owner, actorData, enableRenderer);
+						return;
 					}
 				}
 			}
@@ -623,54 +387,39 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	[ClientRpc]
 	public void RpcFreezeActor(int actorIndex)
 	{
-		if (!NetworkServer.active)
+		if (NetworkServer.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!NetworkClient.active)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.RpcFreezeActor(int)).MethodHandle;
-			}
-			if (NetworkClient.active)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 				if (actorData != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							HandleHideClone(actorData);
+							return;
 						}
-						break;
 					}
-					this.HandleHideClone(actorData);
 				}
-				else
+				m_actorIndexToHideForClient.Add(actorIndex);
+				if (m_timeToEndCheck < 0f)
 				{
-					this.m_actorIndexToHideForClient.Add(actorIndex);
-					if (this.m_timeToEndCheck < 0f)
-					{
-						this.m_timeToEndCheck = Time.time + 3f;
-					}
+					m_timeToEndCheck = Time.time + 3f;
 				}
+				return;
 			}
 		}
 	}
@@ -679,13 +428,13 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	{
 		if (actor != null)
 		{
-			if (actor.\u0012() != null)
+			if (actor.GetCurrentBoardSquare() != null)
 			{
 				actor.UnoccupyCurrentBoardSquare();
 				actor.ClearCurrentBoardSquare();
 			}
 			actor.transform.position = new Vector3(10000f, -100f, 10000f);
-			actor.\u000E().DisableAndHideRenderers();
+			actor.GetActorModelData().DisableAndHideRenderers();
 			actor.SetNameplateAlwaysInvisible(true);
 			actor.IgnoreForEnergyOnHit = true;
 			actor.IgnoreForAbilityHits = true;
@@ -695,97 +444,56 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	[ClientRpc]
 	public void RpcUnfreezeActor(int actorIndex, int unfreezeAnimIndex)
 	{
-		if (!NetworkServer.active)
+		if (NetworkServer.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!NetworkClient.active)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.RpcUnfreezeActor(int, int)).MethodHandle;
-			}
-			if (NetworkClient.active)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
-				if (actorData != null)
+				if (!(actorData != null))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					return;
+				}
+				while (true)
+				{
 					actorData.EnableRendererAndUpdateVisibility();
-					Animator animator = actorData.\u000E();
-					if (animator != null)
+					Animator modelAnimator = actorData.GetModelAnimator();
+					if (modelAnimator != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						animator.SetInteger(TricksterAfterImageNetworkBehaviour.animAttack, unfreezeAnimIndex);
-						animator.SetInteger(TricksterAfterImageNetworkBehaviour.animIdleType, 0);
-						animator.SetBool(TricksterAfterImageNetworkBehaviour.animCinematicCam, false);
-						animator.SetTrigger(TricksterAfterImageNetworkBehaviour.animStartAttack);
+						modelAnimator.SetInteger(animAttack, unfreezeAnimIndex);
+						modelAnimator.SetInteger(animIdleType, 0);
+						modelAnimator.SetBool(animCinematicCam, false);
+						modelAnimator.SetTrigger(animStartAttack);
 					}
-					Team team;
+					int num;
 					if (GameFlowData.Get().LocalPlayerData != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						team = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+						num = (int)GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 					}
 					else
 					{
-						team = Team.Invalid;
+						num = -1;
 					}
-					Team team2 = team;
-					if (actorData.\u000E() != null)
+					Team team = (Team)num;
+					if (!(actorData.GetActorModelData() != null))
 					{
-						for (;;)
+						return;
+					}
+					while (true)
+					{
+						if (m_owner != null)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							bool sameTeamAsClientActor = team == m_owner.GetTeam();
+							InitializeAfterImageMaterial(actorData.GetActorModelData(), sameTeamAsClientActor, m_afterImageAlpha, m_afterImageShader, true);
 						}
-						if (this.m_owner != null)
-						{
-							bool sameTeamAsClientActor = team2 == this.m_owner.\u000E();
-							TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(actorData.\u000E(), sameTeamAsClientActor, this.m_afterImageAlpha, this.m_afterImageShader, true);
-						}
+						return;
 					}
 				}
 			}
@@ -797,181 +505,132 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		actorModelData.CacheDefaultRendererAlphas();
 		actorModelData.SetDefaultRendererAlpha(alpha);
 		actorModelData.SetMaterialShader(shader, isDefault);
-		TricksterAfterImageNetworkBehaviour.SetMaterialKeywordsForTeam(actorModelData, sameTeamAsClientActor);
+		SetMaterialKeywordsForTeam(actorModelData, sameTeamAsClientActor);
 	}
 
 	internal static void SetMaterialKeywordsForTeam(ActorModelData actorModelData, bool sameTeamAsClientActor)
 	{
 		if (sameTeamAsClientActor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_NONE", false);
+					actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_ENEMY", false);
+					actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_FRIEND", true);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.SetMaterialKeywordsForTeam(ActorModelData, bool)).MethodHandle;
-			}
-			actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_NONE", false);
-			actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_ENEMY", false);
-			actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_FRIEND", true);
 		}
-		else
-		{
-			actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_NONE", false);
-			actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_FRIEND", false);
-			actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_ENEMY", true);
-		}
+		actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_NONE", false);
+		actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_FRIEND", false);
+		actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_ENEMY", true);
 	}
 
 	internal static void DisableAfterImageMaterial(ActorModelData actorModelData)
 	{
-		if (actorModelData != null)
+		if (!(actorModelData != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.DisableAfterImageMaterial(ActorModelData)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			actorModelData.RestoreDefaultRendererAlphas();
 			actorModelData.EnableMaterialKeyword("_EMISSIONNOISEON_NONE");
 			actorModelData.DisableMaterialKeyword("_EMISSIONNOISEON_ENEMY");
 			actorModelData.DisableMaterialKeyword("_EMISSIONNOISEON_FRIEND");
 			actorModelData.ResetMaterialsToDefaults();
+			return;
 		}
 	}
 
 	internal static void SetMaterialEnabledForAfterImage(ActorData realTrickster, ActorData afterImage, bool desiredEnable)
 	{
-		if (afterImage != null)
+		if (!(afterImage != null))
 		{
-			Team team;
-			if (GameFlowData.Get().LocalPlayerData != null)
+			return;
+		}
+		int num;
+		if (GameFlowData.Get().LocalPlayerData != null)
+		{
+			num = (int)GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+		}
+		else
+		{
+			num = -1;
+		}
+		Team team = (Team)num;
+		if (desiredEnable)
+		{
+			if (!(afterImage.GetActorModelData() != null))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.SetMaterialEnabledForAfterImage(ActorData, ActorData, bool)).MethodHandle;
-				}
-				team = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+				return;
 			}
-			else
+			while (true)
 			{
-				team = Team.Invalid;
-			}
-			Team team2 = team;
-			if (desiredEnable)
-			{
-				if (afterImage.\u000E() != null)
+				if (!(realTrickster != null))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (realTrickster != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						bool sameTeamAsClientActor = team2 == realTrickster.\u000E();
-						TricksterAfterImageNetworkBehaviour component = realTrickster.GetComponent<TricksterAfterImageNetworkBehaviour>();
-						if (component != null)
-						{
-							TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(afterImage.\u000E(), sameTeamAsClientActor, component.m_afterImageAlpha, component.m_afterImageShader, true);
-						}
-					}
+					return;
 				}
-			}
-			else
-			{
-				TricksterAfterImageNetworkBehaviour.DisableAfterImageMaterial(afterImage.\u000E());
+				while (true)
+				{
+					bool sameTeamAsClientActor = team == realTrickster.GetTeam();
+					TricksterAfterImageNetworkBehaviour component = realTrickster.GetComponent<TricksterAfterImageNetworkBehaviour>();
+					if (component != null)
+					{
+						InitializeAfterImageMaterial(afterImage.GetActorModelData(), sameTeamAsClientActor, component.m_afterImageAlpha, component.m_afterImageShader, true);
+					}
+					return;
+				}
 			}
 		}
+		DisableAfterImageMaterial(afterImage.GetActorModelData());
 	}
 
 	public ActorData GetAfterImageByActorIndex(int actorIndex)
 	{
-		IEnumerator<int> enumerator = this.m_afterImages.GetEnumerator();
+		IEnumerator<int> enumerator = m_afterImages.GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())
 			{
-				int num = enumerator.Current;
-				if (num == actorIndex)
+				int current = enumerator.Current;
+				if (current == actorIndex)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return GameFlowData.Get().FindActorByActorIndex(current);
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.GetAfterImageByActorIndex(int)).MethodHandle;
-					}
-					return GameFlowData.Get().FindActorByActorIndex(num);
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						enumerator.Dispose();
+						goto end_IL_0056;
 					}
-					break;
 				}
-				enumerator.Dispose();
 			}
+			end_IL_0056:;
 		}
 		return null;
 	}
@@ -979,50 +638,19 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	public List<ActorData> GetValidAfterImages(bool requireCurrentSquare = true)
 	{
 		List<ActorData> list = new List<ActorData>();
-		using (IEnumerator<int> enumerator = this.m_afterImages.GetEnumerator())
+		using (IEnumerator<int> enumerator = m_afterImages.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				int actorIndex = enumerator.Current;
-				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
+				int current = enumerator.Current;
+				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(current);
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.GetValidAfterImages(bool)).MethodHandle;
-					}
 					if (actorData.gameObject.activeSelf)
 					{
-						for (;;)
+						if (!actorData.IsDead())
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!actorData.\u000E())
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!requireCurrentSquare || actorData.\u0012() != null)
+							if (!requireCurrentSquare || actorData.GetCurrentBoardSquare() != null)
 							{
 								list.Add(actorData);
 							}
@@ -1030,107 +658,69 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return list;
 				}
-				break;
 			}
 		}
-		return list;
 	}
 
 	public bool HasVaidAfterImages()
 	{
-		IEnumerator<int> enumerator = this.m_afterImages.GetEnumerator();
+		IEnumerator<int> enumerator = m_afterImages.GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())
 			{
-				int actorIndex = enumerator.Current;
-				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
+				int current = enumerator.Current;
+				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(current);
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.HasVaidAfterImages()).MethodHandle;
-					}
 					if (actorData.gameObject.activeSelf)
 					{
-						for (;;)
+						if (!actorData.IsDead())
 						{
-							switch (7)
+							if (actorData.GetCurrentBoardSquare() != null)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!actorData.\u000E())
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (actorData.\u0012() != null)
-							{
-								for (;;)
+								while (true)
 								{
 									switch (3)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										return true;
 									}
-									break;
 								}
-								return true;
 							}
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						enumerator.Dispose();
+						goto end_IL_00aa;
 					}
-					break;
 				}
-				enumerator.Dispose();
 			}
+			end_IL_00aa:;
 		}
 		return false;
 	}
@@ -1139,36 +729,26 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	{
 		if (NetworkServer.active && actor != null)
 		{
-			actor.TurnToPosition(position, 0.2f);
-			this.CallRpcTurnToPosition(actor.ActorIndex, position);
+			actor.TurnToPosition(position);
+			CallRpcTurnToPosition(actor.ActorIndex, position);
 		}
-		else if (!NetworkServer.active)
+		else
 		{
-			for (;;)
+			if (NetworkServer.active)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.TurnToPosition(ActorData, Vector3)).MethodHandle;
-			}
-			if (actor != null)
-			{
-				for (;;)
+				if (actor != null)
 				{
-					switch (4)
+					while (true)
 					{
-					case 0:
-						continue;
+						actor.TurnToPosition(position);
+						return;
 					}
-					break;
 				}
-				actor.TurnToPosition(position, 0.2f);
+				return;
 			}
 		}
 	}
@@ -1177,38 +757,21 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	{
 	}
 
-	public int Networkm_maxAfterImageCount
-	{
-		get
-		{
-			return this.m_maxAfterImageCount;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<int>(value, ref this.m_maxAfterImageCount, 2U);
-		}
-	}
-
 	protected static void InvokeSyncListm_afterImages(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Debug.LogError("SyncList m_afterImages called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.InvokeSyncListm_afterImages(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("SyncList m_afterImages called on server.");
-			return;
 		}
 		((TricksterAfterImageNetworkBehaviour)obj).m_afterImages.HandleMsg(reader);
 	}
@@ -1217,21 +780,17 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Debug.LogError("RPC RpcTurnToPosition called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.InvokeRpcRpcTurnToPosition(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("RPC RpcTurnToPosition called on server.");
-			return;
 		}
 		((TricksterAfterImageNetworkBehaviour)obj).RpcTurnToPosition((int)reader.ReadPackedUInt32(), reader.ReadVector3());
 	}
@@ -1240,21 +799,17 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Debug.LogError("RPC RpcSetPose called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.InvokeRpcRpcSetPose(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("RPC RpcSetPose called on server.");
-			return;
 		}
 		((TricksterAfterImageNetworkBehaviour)obj).RpcSetPose((int)reader.ReadPackedUInt32(), reader.ReadVector3(), reader.ReadVector3(), reader.ReadBoolean());
 	}
@@ -1264,30 +819,28 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("RPC RpcFreezeActor called on server.");
-			return;
 		}
-		((TricksterAfterImageNetworkBehaviour)obj).RpcFreezeActor((int)reader.ReadPackedUInt32());
+		else
+		{
+			((TricksterAfterImageNetworkBehaviour)obj).RpcFreezeActor((int)reader.ReadPackedUInt32());
+		}
 	}
 
 	protected static void InvokeRpcRpcUnfreezeActor(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Debug.LogError("RPC RpcUnfreezeActor called on server.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.InvokeRpcRpcUnfreezeActor(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
-			Debug.LogError("RPC RpcUnfreezeActor called on server.");
-			return;
 		}
 		((TricksterAfterImageNetworkBehaviour)obj).RpcUnfreezeActor((int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32());
 	}
@@ -1300,74 +853,66 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)TricksterAfterImageNetworkBehaviour.kRpcRpcTurnToPosition);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcTurnToPosition);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)actorIndex);
 		networkWriter.Write(position);
-		this.SendRPCInternal(networkWriter, 0, "RpcTurnToPosition");
+		SendRPCInternal(networkWriter, 0, "RpcTurnToPosition");
 	}
 
 	public void CallRpcSetPose(int actorIndex, Vector3 position, Vector3 forward, bool enableRenderer)
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Debug.LogError("RPC Function RpcSetPose called on client.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.CallRpcSetPose(int, Vector3, Vector3, bool)).MethodHandle;
-			}
-			Debug.LogError("RPC Function RpcSetPose called on client.");
-			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)TricksterAfterImageNetworkBehaviour.kRpcRpcSetPose);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcSetPose);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)actorIndex);
 		networkWriter.Write(position);
 		networkWriter.Write(forward);
 		networkWriter.Write(enableRenderer);
-		this.SendRPCInternal(networkWriter, 0, "RpcSetPose");
+		SendRPCInternal(networkWriter, 0, "RpcSetPose");
 	}
 
 	public void CallRpcFreezeActor(int actorIndex)
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Debug.LogError("RPC Function RpcFreezeActor called on client.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.CallRpcFreezeActor(int)).MethodHandle;
-			}
-			Debug.LogError("RPC Function RpcFreezeActor called on client.");
-			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)TricksterAfterImageNetworkBehaviour.kRpcRpcFreezeActor);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcFreezeActor);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)actorIndex);
-		this.SendRPCInternal(networkWriter, 0, "RpcFreezeActor");
+		SendRPCInternal(networkWriter, 0, "RpcFreezeActor");
 	}
 
 	public void CallRpcUnfreezeActor(int actorIndex, int unfreezeAnimIndex)
@@ -1378,107 +923,58 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)TricksterAfterImageNetworkBehaviour.kRpcRpcUnfreezeActor);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcUnfreezeActor);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)actorIndex);
 		networkWriter.WritePackedUInt32((uint)unfreezeAnimIndex);
-		this.SendRPCInternal(networkWriter, 0, "RpcUnfreezeActor");
+		SendRPCInternal(networkWriter, 0, "RpcUnfreezeActor");
 	}
 
 	private void Awake()
 	{
-		this.m_afterImages.InitializeBehaviour(this, TricksterAfterImageNetworkBehaviour.kListm_afterImages);
+		m_afterImages.InitializeBehaviour(this, kListm_afterImages);
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					SyncListInt.WriteInstance(writer, m_afterImages);
+					writer.WritePackedUInt32((uint)m_maxAfterImageCount);
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
-			SyncListInt.WriteInstance(writer, this.m_afterImages);
-			writer.WritePackedUInt32((uint)this.m_maxAfterImageCount);
-			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListInt.WriteInstance(writer, this.m_afterImages);
+			SyncListInt.WriteInstance(writer, m_afterImages);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_maxAfterImageCount);
+			writer.WritePackedUInt32((uint)m_maxAfterImageCount);
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -1488,31 +984,18 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			SyncListInt.ReadReference(reader, this.m_afterImages);
-			this.m_maxAfterImageCount = (int)reader.ReadPackedUInt32();
+			SyncListInt.ReadReference(reader, m_afterImages);
+			m_maxAfterImageCount = (int)reader.ReadPackedUInt32();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterAfterImageNetworkBehaviour.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
-			SyncListInt.ReadReference(reader, this.m_afterImages);
+			SyncListInt.ReadReference(reader, m_afterImages);
 		}
 		if ((num & 2) != 0)
 		{
-			this.m_maxAfterImageCount = (int)reader.ReadPackedUInt32();
+			m_maxAfterImageCount = (int)reader.ReadPackedUInt32();
 		}
 	}
 }

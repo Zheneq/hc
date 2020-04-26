@@ -1,15 +1,51 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class ActorMovement : MonoBehaviour, IGameEventListener
 {
+	public enum IdleType
+	{
+		Default,
+		Special1
+	}
+
+	public class SquaresCanMoveToCacheEntry
+	{
+		public BoardSquare m_squaresCanMoveToOrigin;
+
+		public float m_squaresCanMoveToHorizontalAllowed;
+
+		public int m_squaresCanMoveToSinglePlayerState = -1;
+
+		public int m_squaresCanMoveToBarrierState = -1;
+
+		public FirstTurnMovement.RestrictedMovementState m_squaresCanMoveToFirstTurnState = FirstTurnMovement.RestrictedMovementState.Invalid;
+
+		public HashSet<BoardSquare> m_squaresCanMoveTo;
+	}
+
+	private struct BoardSquareMovementInfo
+	{
+		public BoardSquare square;
+
+		public float cost;
+
+		public float prevCost;
+	}
+
+	public enum DiagonalCalcFlag
+	{
+		Unknown,
+		IsDiagonal,
+		NotDiagonal
+	}
+
 	internal ActorData m_actor;
 
 	private float m_moveTimeoutTime;
 
-	private List<ActorMovement.SquaresCanMoveToCacheEntry> m_squaresCanMoveToCache;
+	private List<SquaresCanMoveToCacheEntry> m_squaresCanMoveToCache;
 
 	private static int s_maxSquaresCanMoveToCacheCount = 4;
 
@@ -55,46 +91,46 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	private BoardSquarePathInfo m_aestheticPath;
 
+	internal HashSet<BoardSquare> SquaresCanMoveTo => m_squaresCanMoveTo;
+
+	internal HashSet<BoardSquare> SquaresCanMoveToWithQueuedAbility => m_squareCanMoveToWithQueuedAbility;
+
 	public string GetCurrentMoveStateStr()
 	{
-		if (this.m_curMoveState != null)
+		if (m_curMoveState != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_curMoveState.stateName;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetCurrentMoveStateStr()).MethodHandle;
-			}
-			return this.m_curMoveState.stateName;
 		}
 		return "None";
 	}
 
 	private void Awake()
 	{
-		this.m_actor = base.GetComponent<ActorData>();
-		this.m_squaresCanMoveToCache = new List<ActorMovement.SquaresCanMoveToCacheEntry>();
-		this.m_squaresCanMoveTo = new HashSet<BoardSquare>();
-		this.m_squareCanMoveToWithQueuedAbility = new HashSet<BoardSquare>();
-		ActorMovement.animDistToGoal = Animator.StringToHash("DistToGoal");
-		ActorMovement.animDistToWaypoint = Animator.StringToHash("DistToWayPoint");
-		ActorMovement.animNextChargeCycleType = Animator.StringToHash("NextChargeCycleType");
-		ActorMovement.animChargeCycleType = Animator.StringToHash("ChargeCycleType");
-		ActorMovement.animChargeEndType = Animator.StringToHash("ChargeEndType");
-		ActorMovement.animNextLinkType = Animator.StringToHash("NextLinkType");
-		ActorMovement.animCurLinkType = Animator.StringToHash("CurLinkType");
-		ActorMovement.animTimeInAnim = Animator.StringToHash("TimeInAnim");
-		ActorMovement.animForceIdle = Animator.StringToHash("ForceIdle");
-		ActorMovement.animMoveSegmentStart = Animator.StringToHash("MoveSegmentStart");
-		ActorMovement.animDecisionPhase = Animator.StringToHash("DecisionPhase");
-		ActorMovement.animIdleType = Animator.StringToHash("IdleType");
+		m_actor = GetComponent<ActorData>();
+		m_squaresCanMoveToCache = new List<SquaresCanMoveToCacheEntry>();
+		m_squaresCanMoveTo = new HashSet<BoardSquare>();
+		m_squareCanMoveToWithQueuedAbility = new HashSet<BoardSquare>();
+		animDistToGoal = Animator.StringToHash("DistToGoal");
+		animDistToWaypoint = Animator.StringToHash("DistToWayPoint");
+		animNextChargeCycleType = Animator.StringToHash("NextChargeCycleType");
+		animChargeCycleType = Animator.StringToHash("ChargeCycleType");
+		animChargeEndType = Animator.StringToHash("ChargeEndType");
+		animNextLinkType = Animator.StringToHash("NextLinkType");
+		animCurLinkType = Animator.StringToHash("CurLinkType");
+		animTimeInAnim = Animator.StringToHash("TimeInAnim");
+		animForceIdle = Animator.StringToHash("ForceIdle");
+		animMoveSegmentStart = Animator.StringToHash("MoveSegmentStart");
+		animDecisionPhase = Animator.StringToHash("DecisionPhase");
+		animIdleType = Animator.StringToHash("IdleType");
 	}
 
 	private void Start()
@@ -109,106 +145,41 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	private void Update()
 	{
-		this.UpdatePosition();
-		if (NetworkClient.active)
+		UpdatePosition();
+		if (!NetworkClient.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_actor != null)
 			{
-				switch (6)
+				if (m_actor.GetModelAnimator() != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.Update()).MethodHandle;
-			}
-			if (this.m_actor != null)
-			{
-				for (;;)
-				{
-					switch (2)
+					float num = m_brushTransitionAnimationSpeedEased;
+					Animator modelAnimator = m_actor.GetModelAnimator();
+					if (modelAnimator.speed != num)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_actor.\u000E() != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					float num = this.m_brushTransitionAnimationSpeedEased;
-					Animator animator = this.m_actor.\u000E();
-					if (animator.speed != num)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						animator.speed = num;
+						modelAnimator.speed = num;
 					}
 				}
 			}
-			if (this.m_actor == GameFlowData.Get().activeOwnedActorData)
+			if (!(m_actor == GameFlowData.Get().activeOwnedActorData))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				return;
+			}
+			while (true)
+			{
 				if (!InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.MovementWaypointModifier))
 				{
 					if (!InputManager.Get().IsKeyBindingNewlyReleased(KeyPreference.MovementWaypointModifier))
 					{
 						return;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-				this.UpdateSquaresCanMoveTo();
+				UpdateSquaresCanMoveTo();
+				return;
 			}
-		}
-	}
-
-	internal HashSet<BoardSquare> SquaresCanMoveTo
-	{
-		get
-		{
-			return this.m_squaresCanMoveTo;
-		}
-	}
-
-	internal HashSet<BoardSquare> SquaresCanMoveToWithQueuedAbility
-	{
-		get
-		{
-			return this.m_squareCanMoveToWithQueuedAbility;
 		}
 	}
 
@@ -216,189 +187,87 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdateSquaresCanMoveTo()).MethodHandle;
-			}
 		}
-		float maxMoveDist = this.m_actor.RemainingHorizontalMovement;
-		float innerMoveDist = this.m_actor.RemainingMovementWithQueuedAbility;
-		BoardSquare squareToStartFrom = this.m_actor.MoveFromBoardSquare;
-		bool flag;
+		float maxMoveDist = m_actor.RemainingHorizontalMovement;
+		float innerMoveDist = m_actor.RemainingMovementWithQueuedAbility;
+		BoardSquare squareToStartFrom = m_actor.MoveFromBoardSquare;
+		int num;
 		if (Options_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Options_UI.Get().GetShiftClickForMovementWaypoints() != InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier))
 			{
-				flag = true;
-				goto IL_97;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				num = 1;
+				goto IL_0097;
 			}
 		}
-		flag = !FirstTurnMovement.CanWaypoint();
-		IL_97:
-		bool flag2 = flag;
-		if (flag2)
+		num = ((!FirstTurnMovement.CanWaypoint()) ? 1 : 0);
+		goto IL_0097;
+		IL_0097:
+		if (num != 0)
 		{
-			for (;;)
+			if (m_actor == GameFlowData.Get().activeOwnedActorData)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_actor == GameFlowData.Get().activeOwnedActorData)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				maxMoveDist = this.CalculateMaxHorizontalMovement(false, false);
-				innerMoveDist = this.CalculateMaxHorizontalMovement(true, false);
-				squareToStartFrom = this.m_actor.InitialMoveStartSquare;
+				maxMoveDist = CalculateMaxHorizontalMovement();
+				innerMoveDist = CalculateMaxHorizontalMovement(true);
+				squareToStartFrom = m_actor.InitialMoveStartSquare;
 			}
 		}
-		this.GetSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, innerMoveDist, out this.m_squaresCanMoveTo, out this.m_squareCanMoveToWithQueuedAbility);
-		if (Board.\u000E() != null)
+		GetSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, innerMoveDist, out m_squaresCanMoveTo, out m_squareCanMoveToWithQueuedAbility);
+		if (Board.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Board.\u000E().MarkForUpdateValidSquares(true);
+			Board.Get().MarkForUpdateValidSquares();
 		}
-		if (this.m_actor == GameFlowData.Get().activeOwnedActorData)
+		if (!(m_actor == GameFlowData.Get().activeOwnedActorData))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LineData component = this.m_actor.GetComponent<LineData>();
+			return;
+		}
+		while (true)
+		{
+			LineData component = m_actor.GetComponent<LineData>();
 			if (component != null)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					component.OnCanMoveToSquaresUpdated();
+					return;
 				}
-				component.OnCanMoveToSquaresUpdated();
 			}
+			return;
 		}
 	}
 
 	public bool CanMoveToBoardSquare(int x, int y)
 	{
 		bool result = false;
-		BoardSquare boardSquare = Board.\u000E().\u0016(x, y);
-		if (boardSquare)
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(x, y);
+		if ((bool)boardSquare)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CanMoveToBoardSquare(int, int)).MethodHandle;
-			}
-			result = this.CanMoveToBoardSquare(boardSquare);
+			result = CanMoveToBoardSquare(boardSquare);
 		}
 		return result;
 	}
 
 	public bool CanMoveToBoardSquare(BoardSquare dest)
 	{
-		return this.m_squaresCanMoveTo.Contains(dest);
+		return m_squaresCanMoveTo.Contains(dest);
 	}
 
 	public BoardSquare GetClosestMoveableSquareTo(BoardSquare selectedSquare, bool alwaysIncludeMoverSquare = true)
 	{
-		BoardSquare boardSquare;
+		object obj;
 		if (alwaysIncludeMoverSquare)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetClosestMoveableSquareTo(BoardSquare, bool)).MethodHandle;
-			}
-			boardSquare = this.m_actor.\u0012();
+			obj = m_actor.GetCurrentBoardSquare();
 		}
 		else
 		{
-			boardSquare = null;
+			obj = null;
 		}
-		BoardSquare boardSquare2 = boardSquare;
+		BoardSquare boardSquare = (BoardSquare)obj;
 		float num;
 		if (alwaysIncludeMoverSquare)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num = boardSquare2.HorizontalDistanceOnBoardTo(selectedSquare);
+			num = boardSquare.HorizontalDistanceOnBoardTo(selectedSquare);
 		}
 		else
 		{
@@ -407,548 +276,257 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float num2 = num;
 		if (selectedSquare != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			using (HashSet<BoardSquare>.Enumerator enumerator = this.m_squaresCanMoveTo.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
+					break;
+				default:
 				{
-					BoardSquare boardSquare3 = enumerator.Current;
-					float num3 = boardSquare3.HorizontalDistanceOnBoardTo(selectedSquare);
-					if (num3 <= num2)
+					using (HashSet<BoardSquare>.Enumerator enumerator = m_squaresCanMoveTo.GetEnumerator())
 					{
-						for (;;)
+						while (enumerator.MoveNext())
 						{
-							switch (7)
+							BoardSquare current = enumerator.Current;
+							float num3 = current.HorizontalDistanceOnBoardTo(selectedSquare);
+							if (num3 <= num2)
+							{
+								num2 = num3;
+								boardSquare = current;
+							}
+						}
+						while (true)
+						{
+							switch (6)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return boardSquare;
 							}
-							break;
 						}
-						num2 = num3;
-						boardSquare2 = boardSquare3;
 					}
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
-		else
-		{
-			Log.Error("Trying to find the closest moveable square to a null square.  Code error-- tell Danny.", new object[0]);
-		}
-		return boardSquare2;
+		Log.Error("Trying to find the closest moveable square to a null square.  Code error-- tell Danny.");
+		return boardSquare;
 	}
 
 	public float CalculateMaxHorizontalMovement(bool forcePostAbility = false, bool calculateAsIfSnared = false)
 	{
-		float num = 0f;
-		if (!this.m_actor.\u000E())
+		float result = 0f;
+		if (!m_actor.IsDead())
 		{
-			for (;;)
+			result = m_actor.GetActorStats().GetModifiedStatInt(StatType.Movement_Horizontal);
+			AbilityData abilityData = m_actor.GetAbilityData();
+			if ((bool)abilityData)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CalculateMaxHorizontalMovement(bool, bool)).MethodHandle;
-			}
-			num = (float)this.m_actor.\u000E().GetModifiedStatInt(StatType.Movement_Horizontal);
-			AbilityData abilityData = this.m_actor.\u000E();
-			if (abilityData)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityData.GetQueuedAbilitiesAllowMovement())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					float num2;
-					if (forcePostAbility)
-					{
-						num2 = -1f * this.m_actor.\u000E();
-					}
-					else
-					{
-						num2 = abilityData.GetQueuedAbilitiesMovementAdjust();
-					}
-					num += num2;
-					num = this.GetAdjustedMovementFromBuffAndDebuff(num, forcePostAbility, calculateAsIfSnared);
+					float num = 0f;
+					num = ((!forcePostAbility) ? abilityData.GetQueuedAbilitiesMovementAdjust() : (-1f * m_actor.GetPostAbilityHorizontalMovementChange()));
+					result += num;
+					result = GetAdjustedMovementFromBuffAndDebuff(result, forcePostAbility, calculateAsIfSnared);
 				}
 				else
 				{
-					num = 0f;
+					result = 0f;
 				}
 			}
 			else
 			{
-				num = this.GetAdjustedMovementFromBuffAndDebuff(num, forcePostAbility, calculateAsIfSnared);
+				result = GetAdjustedMovementFromBuffAndDebuff(result, forcePostAbility, calculateAsIfSnared);
 			}
-			num = Mathf.Clamp(num, 0f, 99f);
+			result = Mathf.Clamp(result, 0f, 99f);
 		}
-		return num;
+		return result;
 	}
 
 	public float GetAdjustedMovementFromBuffAndDebuff(float movement, bool forcePostAbility, bool calculateAsIfSnared = false)
 	{
 		float num = movement;
-		ActorStatus actorStatus = this.m_actor.\u000E();
-		if (actorStatus.HasStatus(StatusType.RecentlySpawned, true))
+		ActorStatus actorStatus = m_actor.GetActorStatus();
+		if (actorStatus.HasStatus(StatusType.RecentlySpawned))
 		{
 			num += (float)GameplayData.Get().m_recentlySpawnedBonusMovement;
 		}
-		if (actorStatus.HasStatus(StatusType.RecentlyRespawned, true))
+		if (actorStatus.HasStatus(StatusType.RecentlyRespawned))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetAdjustedMovementFromBuffAndDebuff(float, bool, bool)).MethodHandle;
-			}
 			num += (float)GameplayData.Get().m_recentlyRespawnedBonusMovement;
 		}
-		List<StatusType> queuedAbilitiesOnRequestStatuses = this.m_actor.\u000E().GetQueuedAbilitiesOnRequestStatuses();
-		bool flag = actorStatus.HasStatus(StatusType.MovementDebuffSuppression, true) || queuedAbilitiesOnRequestStatuses.Contains(StatusType.MovementDebuffSuppression);
-		bool flag2;
-		if (!actorStatus.IsMovementDebuffImmune(true) && !queuedAbilitiesOnRequestStatuses.Contains(StatusType.MovementDebuffImmunity))
+		List<StatusType> queuedAbilitiesOnRequestStatuses = m_actor.GetAbilityData().GetQueuedAbilitiesOnRequestStatuses();
+		bool flag = actorStatus.HasStatus(StatusType.MovementDebuffSuppression) || queuedAbilitiesOnRequestStatuses.Contains(StatusType.MovementDebuffSuppression);
+		int num2;
+		if (!actorStatus.IsMovementDebuffImmune() && !queuedAbilitiesOnRequestStatuses.Contains(StatusType.MovementDebuffImmunity))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag2 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.Unstoppable);
+			num2 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.Unstoppable) ? 1 : 0);
 		}
 		else
 		{
-			flag2 = true;
+			num2 = 1;
 		}
-		bool flag3 = flag2;
-		bool flag4 = !flag && !flag3;
-		bool flag5;
-		if (!actorStatus.HasStatus(StatusType.CantSprint_UnlessUnstoppable, true))
+		bool flag2 = (byte)num2 != 0;
+		bool flag3 = !flag && !flag2;
+		int num3;
+		if (!actorStatus.HasStatus(StatusType.CantSprint_UnlessUnstoppable))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag5 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.CantSprint_UnlessUnstoppable);
+			num3 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.CantSprint_UnlessUnstoppable) ? 1 : 0);
 		}
 		else
 		{
-			flag5 = true;
+			num3 = 1;
 		}
-		bool flag6 = flag5;
-		bool flag7;
-		if (!actorStatus.HasStatus(StatusType.CantSprint_Absolute, true))
+		bool flag4 = (byte)num3 != 0;
+		int num4;
+		if (!actorStatus.HasStatus(StatusType.CantSprint_Absolute))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag7 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.CantSprint_Absolute);
+			num4 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.CantSprint_Absolute) ? 1 : 0);
 		}
 		else
 		{
-			flag7 = true;
+			num4 = 1;
 		}
-		bool flag8 = flag7;
-		bool flag9;
-		if (flag6)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (flag4)
-			{
-				flag9 = true;
-				goto IL_129;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		flag9 = flag8;
-		IL_129:
-		bool flag10 = flag9;
+		bool flag5 = (byte)num4 != 0;
+		int num5;
 		if (flag4)
 		{
-			for (;;)
+			if (flag3)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (actorStatus.HasStatus(StatusType.Rooted, true))
-			{
-				goto IL_165;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				num5 = 1;
+				goto IL_0129;
 			}
 		}
-		if (!actorStatus.HasStatus(StatusType.AnchoredNoMovement, true))
+		num5 = (flag5 ? 1 : 0);
+		goto IL_0129;
+		IL_0129:
+		bool flag6 = (byte)num5 != 0;
+		if (flag3)
 		{
-			if (flag4)
+			if (actorStatus.HasStatus(StatusType.Rooted))
 			{
-				for (;;)
+				goto IL_0165;
+			}
+		}
+		if (actorStatus.HasStatus(StatusType.AnchoredNoMovement))
+		{
+			goto IL_0165;
+		}
+		if (flag3)
+		{
+			if (actorStatus.HasStatus(StatusType.CrippledMovement))
+			{
+				num = Mathf.Clamp(num, 0f, 1f);
+				goto IL_03df;
+			}
+		}
+		if (flag6 && !forcePostAbility && m_actor.GetAbilityData() != null)
+		{
+			if (m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.FullMovement)
+			{
+				num -= m_actor.GetPostAbilityHorizontalMovementChange();
+			}
+		}
+		int num6;
+		if (!actorStatus.HasStatus(StatusType.Snared))
+		{
+			num6 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.Snared) ? 1 : 0);
+		}
+		else
+		{
+			num6 = 1;
+		}
+		bool flag7 = (byte)num6 != 0;
+		int num7;
+		if (!actorStatus.HasStatus(StatusType.Hasted))
+		{
+			num7 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.Hasted) ? 1 : 0);
+		}
+		else
+		{
+			num7 = 1;
+		}
+		bool flag8 = (byte)num7 != 0;
+		if (flag3)
+		{
+			if (flag7)
+			{
+				if (!flag8)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (actorStatus.HasStatus(StatusType.CrippledMovement, true))
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return Mathf.Clamp(num, 0f, 1f);
+					goto IL_028a;
 				}
 			}
-			if (flag10 && !forcePostAbility && this.m_actor.\u000E() != null)
+		}
+		if (calculateAsIfSnared)
+		{
+			goto IL_028a;
+		}
+		if (flag8)
+		{
+			if (flag3)
 			{
-				for (;;)
+				if (flag7)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_actor.\u000E().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.FullMovement)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num -= this.m_actor.\u000E();
+					goto IL_03df;
 				}
 			}
-			bool flag11;
-			if (!actorStatus.HasStatus(StatusType.Snared, true))
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag11 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.Snared);
-			}
-			else
-			{
-				flag11 = true;
-			}
-			bool flag12 = flag11;
-			bool flag13;
-			if (!actorStatus.HasStatus(StatusType.Hasted, true))
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag13 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.Hasted);
-			}
-			else
-			{
-				flag13 = true;
-			}
-			bool flag14 = flag13;
-			if (flag4)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (flag12)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!flag14)
-					{
-						goto IL_28A;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-			}
-			if (calculateAsIfSnared)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (flag14)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (flag4)
-					{
-						if (flag12)
-						{
-							return num;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					float num2;
-					int num3;
-					int num4;
-					ActorMovement.CalcHastedMovementAdjustments(out num2, out num3, out num4);
-					if (forcePostAbility)
-					{
-						num = Mathf.Clamp(num + (float)num3, 0f, 99f);
-					}
-					else
-					{
-						int num5 = num4;
-						if (this.m_actor.\u000E() != null)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							Ability.MovementAdjustment queuedAbilitiesMovementAdjustType = this.m_actor.\u000E().GetQueuedAbilitiesMovementAdjustType();
-							if (queuedAbilitiesMovementAdjustType == Ability.MovementAdjustment.ReducedMovement)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								num5 = num3;
-							}
-						}
-						num = Mathf.Clamp(num + (float)num5, 0f, 99f);
-					}
-					num *= num2;
-					return MovementUtils.RoundToNearestHalf(num);
-				}
-				return num;
-			}
-			IL_28A:
-			float num6;
-			int num7;
-			int num8;
-			ActorMovement.CalcSnaredMovementAdjustments(out num6, out num7, out num8);
+			CalcHastedMovementAdjustments(out float mult, out int halfMoveAdjustment, out int fullMoveAdjustment);
 			if (forcePostAbility)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num = Mathf.Clamp(num + (float)num7, 0f, 99f);
+				num = Mathf.Clamp(num + (float)halfMoveAdjustment, 0f, 99f);
 			}
 			else
 			{
-				int num9 = num8;
-				if (this.m_actor.\u000E() != null)
+				int num8 = fullMoveAdjustment;
+				if (m_actor.GetAbilityData() != null)
 				{
-					Ability.MovementAdjustment queuedAbilitiesMovementAdjustType2 = this.m_actor.\u000E().GetQueuedAbilitiesMovementAdjustType();
-					if (queuedAbilitiesMovementAdjustType2 == Ability.MovementAdjustment.ReducedMovement)
+					Ability.MovementAdjustment queuedAbilitiesMovementAdjustType = m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType();
+					if (queuedAbilitiesMovementAdjustType == Ability.MovementAdjustment.ReducedMovement)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num9 = num7;
+						num8 = halfMoveAdjustment;
 					}
 				}
-				num = Mathf.Clamp(num + (float)num9, 0f, 99f);
+				num = Mathf.Clamp(num + (float)num8, 0f, 99f);
 			}
-			num *= num6;
-			return MovementUtils.RoundToNearestHalf(num);
+			num *= mult;
+			num = MovementUtils.RoundToNearestHalf(num);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		IL_165:
-		num = 0f;
+		goto IL_03df;
+		IL_03df:
 		return num;
+		IL_028a:
+		CalcSnaredMovementAdjustments(out float mult2, out int halfMoveAdjust, out int fullMoveAdjust);
+		if (forcePostAbility)
+		{
+			num = Mathf.Clamp(num + (float)halfMoveAdjust, 0f, 99f);
+		}
+		else
+		{
+			int num9 = fullMoveAdjust;
+			if (m_actor.GetAbilityData() != null)
+			{
+				Ability.MovementAdjustment queuedAbilitiesMovementAdjustType2 = m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType();
+				if (queuedAbilitiesMovementAdjustType2 == Ability.MovementAdjustment.ReducedMovement)
+				{
+					num9 = halfMoveAdjust;
+				}
+			}
+			num = Mathf.Clamp(num + (float)num9, 0f, 99f);
+		}
+		num *= mult2;
+		num = MovementUtils.RoundToNearestHalf(num);
+		goto IL_03df;
+		IL_0165:
+		num = 0f;
+		goto IL_03df;
 	}
 
-	public unsafe static void CalcHastedMovementAdjustments(out float mult, out int halfMoveAdjustment, out int fullMoveAdjustment)
+	public static void CalcHastedMovementAdjustments(out float mult, out int halfMoveAdjustment, out int fullMoveAdjustment)
 	{
 		if (!(GameplayMutators.Get() == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CalcHastedMovementAdjustments(float*, int*, int*)).MethodHandle;
-			}
 			if (GameplayMutators.Get().m_useHasteOverride)
 			{
 				halfMoveAdjustment = GameplayMutators.Get().m_hasteHalfMovementAdjustAmount;
@@ -962,23 +540,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		mult = GameWideData.Get().m_hasteMovementMultiplier;
 	}
 
-	public unsafe static void CalcSnaredMovementAdjustments(out float mult, out int halfMoveAdjust, out int fullMoveAdjust)
+	public static void CalcSnaredMovementAdjustments(out float mult, out int halfMoveAdjust, out int fullMoveAdjust)
 	{
 		if (!(GameplayMutators.Get() == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CalcSnaredMovementAdjustments(float*, int*, int*)).MethodHandle;
-			}
 			if (GameplayMutators.Get().m_useSlowOverride)
 			{
 				halfMoveAdjust = GameplayMutators.Get().m_slowHalfMovementAdjustAmount;
@@ -986,345 +551,169 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				mult = GameplayMutators.Get().m_slowMovementMultiplier;
 				return;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		halfMoveAdjust = GameWideData.Get().m_slowHalfMovementAdjustAmount;
 		fullMoveAdjust = GameWideData.Get().m_slowFullMovementAdjustAmount;
 		mult = GameWideData.Get().m_slowMovementMultiplier;
 	}
 
-	public unsafe void BuildSquaresCanMoveTo_InnerOuter(BoardSquare squareToStartFrom, float maxHorizontalMovement, float innerMaxMove, out HashSet<BoardSquare> eligibleSquares, out HashSet<BoardSquare> innerSquares)
+	public void BuildSquaresCanMoveTo_InnerOuter(BoardSquare squareToStartFrom, float maxHorizontalMovement, float innerMaxMove, out HashSet<BoardSquare> eligibleSquares, out HashSet<BoardSquare> innerSquares)
 	{
 		eligibleSquares = new HashSet<BoardSquare>();
 		innerSquares = new HashSet<BoardSquare>();
-		if (!(squareToStartFrom == null))
+		if (squareToStartFrom == null)
 		{
-			for (;;)
+			return;
+		}
+		BoardSquareMovementInfo value = default(BoardSquareMovementInfo);
+		BoardSquareMovementInfo value3 = default(BoardSquareMovementInfo);
+		while (true)
+		{
+			if (maxHorizontalMovement == 0f)
 			{
-				switch (3)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BuildSquaresCanMoveTo_InnerOuter(BoardSquare, float, float, HashSet<BoardSquare>*, HashSet<BoardSquare>*)).MethodHandle;
-			}
-			if (maxHorizontalMovement != 0f)
-			{
-				eligibleSquares.Add(squareToStartFrom);
-				if (innerMaxMove > 0f)
-				{
-					innerSquares.Add(squareToStartFrom);
-				}
-				LinkedList<ActorMovement.BoardSquareMovementInfo> linkedList = new LinkedList<ActorMovement.BoardSquareMovementInfo>();
-				HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
-				ActorMovement.BoardSquareMovementInfo value;
-				value.square = squareToStartFrom;
-				value.cost = 0f;
-				value.prevCost = 0f;
-				linkedList.AddLast(value);
-				bool flag;
-				if (GameplayData.Get() != null)
-				{
-					for (;;)
+					switch (3)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
+					default:
+						return;
+					case 0:
 						break;
 					}
-					flag = (GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax);
 				}
-				else
+			}
+			eligibleSquares.Add(squareToStartFrom);
+			if (innerMaxMove > 0f)
+			{
+				innerSquares.Add(squareToStartFrom);
+			}
+			LinkedList<BoardSquareMovementInfo> linkedList = new LinkedList<BoardSquareMovementInfo>();
+			HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
+			value.square = squareToStartFrom;
+			value.cost = 0f;
+			value.prevCost = 0f;
+			linkedList.AddLast(value);
+			int num;
+			if (GameplayData.Get() != null)
+			{
+				num = ((GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax) ? 1 : 0);
+			}
+			else
+			{
+				num = 0;
+			}
+			bool flag = (byte)num != 0;
+			Board board = Board.Get();
+			while (linkedList.Count > 0)
+			{
+				BoardSquareMovementInfo value2 = linkedList.First.Value;
+				BoardSquare square = value2.square;
+				int x = square.x;
+				int y = square.y;
+				for (int i = -1; i <= 1; i++)
 				{
-					flag = false;
-				}
-				bool flag2 = flag;
-				Board board = Board.\u000E();
-				while (linkedList.Count > 0)
-				{
-					ActorMovement.BoardSquareMovementInfo value2 = linkedList.First.Value;
-					BoardSquare square = value2.square;
-					int x = square.x;
-					int y = square.y;
-					for (int i = -1; i <= 1; i++)
+					for (int j = -1; j <= 1; j++)
 					{
-						int j = -1;
-						while (j <= 1)
+						if (i == 0)
 						{
-							if (i != 0)
+							if (j == 0)
 							{
-								goto IL_126;
+								continue;
 							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (j != 0)
-							{
-								goto IL_126;
-							}
-							IL_2E5:
-							j++;
+						}
+						BoardSquare boardSquare = board.GetBoardSquare(x + i, y + j);
+						if (boardSquare == null)
+						{
 							continue;
-							IL_126:
-							BoardSquare boardSquare = board.\u0016(x + i, y + j);
-							if (!(boardSquare == null))
+						}
+						if (hashSet.Contains(boardSquare))
+						{
+							continue;
+						}
+						bool flag2 = board._0015(square, boardSquare);
+						float num2;
+						if (flag2)
+						{
+							num2 = value2.cost + 1.5f;
+						}
+						else
+						{
+							num2 = value2.cost + 1f;
+						}
+						if (!((!flag) ? (value2.cost < maxHorizontalMovement) : (num2 <= maxHorizontalMovement)))
+						{
+							continue;
+						}
+						int diagonalFlag;
+						if (flag2)
+						{
+							diagonalFlag = 1;
+						}
+						else
+						{
+							diagonalFlag = 2;
+						}
+						if (!CanCrossToAdjacentSquare(square, boardSquare, false, (DiagonalCalcFlag)diagonalFlag))
+						{
+							continue;
+						}
+						value3.square = boardSquare;
+						value3.cost = num2;
+						value3.prevCost = value2.cost;
+						bool flag3 = false;
+						LinkedListNode<BoardSquareMovementInfo> linkedListNode = linkedList.First;
+						while (true)
+						{
+							if (linkedListNode != linkedList.Last)
 							{
-								for (;;)
+								BoardSquareMovementInfo value4 = linkedListNode.Value;
+								if (value4.square == boardSquare)
 								{
-									switch (5)
+									flag3 = true;
+									if (value4.cost > num2)
 									{
-									case 0:
-										continue;
+										linkedListNode.Value = value3;
+									}
+									else if (value4.cost == num2 && value3.prevCost < value4.prevCost)
+									{
+										linkedListNode.Value = value3;
 									}
 									break;
 								}
-								if (hashSet.Contains(boardSquare))
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-								else
-								{
-									bool flag3 = board.\u0015(square, boardSquare);
-									float num;
-									if (flag3)
-									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										num = value2.cost + 1.5f;
-									}
-									else
-									{
-										num = value2.cost + 1f;
-									}
-									bool flag4;
-									if (flag2)
-									{
-										flag4 = (num <= maxHorizontalMovement);
-									}
-									else
-									{
-										flag4 = (value2.cost < maxHorizontalMovement);
-									}
-									if (flag4)
-									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										BoardSquare src = square;
-										BoardSquare dest = boardSquare;
-										bool ignoreBarriers = false;
-										ActorMovement.DiagonalCalcFlag diagonalFlag;
-										if (flag3)
-										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											diagonalFlag = ActorMovement.DiagonalCalcFlag.IsDiagonal;
-										}
-										else
-										{
-											diagonalFlag = ActorMovement.DiagonalCalcFlag.NotDiagonal;
-										}
-										if (this.CanCrossToAdjacentSquare(src, dest, ignoreBarriers, diagonalFlag))
-										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											ActorMovement.BoardSquareMovementInfo value3;
-											value3.square = boardSquare;
-											value3.cost = num;
-											value3.prevCost = value2.cost;
-											bool flag5 = false;
-											LinkedListNode<ActorMovement.BoardSquareMovementInfo> linkedListNode = linkedList.First;
-											while (linkedListNode != linkedList.Last)
-											{
-												ActorMovement.BoardSquareMovementInfo value4 = linkedListNode.Value;
-												if (value4.square == boardSquare)
-												{
-													flag5 = true;
-													if (value4.cost > num)
-													{
-														for (;;)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
-														linkedListNode.Value = value3;
-													}
-													else if (value4.cost == num && value3.prevCost < value4.prevCost)
-													{
-														for (;;)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
-														linkedListNode.Value = value3;
-													}
-													IL_2C5:
-													if (!flag5 && FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
-													{
-														linkedList.AddLast(value3);
-														goto IL_2E5;
-													}
-													goto IL_2E5;
-												}
-												else
-												{
-													linkedListNode = linkedListNode.Next;
-												}
-											}
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												goto IL_2C5;
-											}
-										}
-									}
-								}
-							}
-							goto IL_2E5;
-						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (MovementUtils.CanStopOnSquare(square) && SinglePlayerManager.IsDestinationAllowed(this.m_actor, square, true))
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
+								linkedListNode = linkedListNode.Next;
 								continue;
 							}
 							break;
 						}
-						if (FirstTurnMovement.CanActorMoveToSquare(this.m_actor, square))
+						if (!flag3 && FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
+						{
+							linkedList.AddLast(value3);
+						}
+					}
+				}
+				while (true)
+				{
+					if (MovementUtils.CanStopOnSquare(square) && SinglePlayerManager.IsDestinationAllowed(m_actor, square))
+					{
+						if (FirstTurnMovement.CanActorMoveToSquare(m_actor, square))
 						{
 							if (!eligibleSquares.Contains(square))
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								eligibleSquares.Add(square);
 							}
 							if (innerMaxMove > 0f && !innerSquares.Contains(square))
 							{
-								for (;;)
+								bool flag4 = false;
+								if (flag)
 								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								bool flag6;
-								if (flag2)
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									flag6 = (value2.cost <= innerMaxMove);
+									flag4 = (value2.cost <= innerMaxMove);
 								}
 								else
 								{
-									flag6 = (value2.prevCost < innerMaxMove);
+									flag4 = (value2.prevCost < innerMaxMove);
 								}
-								if (flag6)
+								if (flag4)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									innerSquares.Add(square);
 								}
 							}
@@ -1332,26 +721,19 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					}
 					hashSet.Add(square);
 					linkedList.RemoveFirst();
+					goto IL_03e8;
 				}
-				for (;;)
+				IL_03e8:;
+			}
+			while (true)
+			{
+				switch (6)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
+				default:
+					return;
+				case 0:
 					break;
 				}
-				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -1364,255 +746,117 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			return hashSet;
 		}
 		hashSet.Add(squareToStartFrom);
-		LinkedList<ActorMovement.BoardSquareMovementInfo> linkedList = new LinkedList<ActorMovement.BoardSquareMovementInfo>();
+		LinkedList<BoardSquareMovementInfo> linkedList = new LinkedList<BoardSquareMovementInfo>();
 		HashSet<BoardSquare> hashSet2 = new HashSet<BoardSquare>();
-		ActorMovement.BoardSquareMovementInfo value;
+		BoardSquareMovementInfo value = default(BoardSquareMovementInfo);
 		value.square = squareToStartFrom;
 		value.cost = 0f;
 		value.prevCost = 0f;
 		linkedList.AddLast(value);
-		List<BoardSquare> list = new List<BoardSquare>(8);
+		List<BoardSquare> result = new List<BoardSquare>(8);
+		BoardSquareMovementInfo value3 = default(BoardSquareMovementInfo);
 		while (linkedList.Count > 0)
 		{
-			ActorMovement.BoardSquareMovementInfo value2 = linkedList.First.Value;
+			BoardSquareMovementInfo value2 = linkedList.First.Value;
 			BoardSquare square = value2.square;
-			list.Clear();
-			if (!(GameplayData.Get() != null))
+			result.Clear();
+			if (GameplayData.Get() != null)
 			{
-				goto IL_DB;
-			}
-			for (;;)
-			{
-				switch (7)
+				if (GameplayData.Get().m_diagonalMovement == GameplayData.DiagonalMovement.Disabled)
 				{
-				case 0:
+					Board.Get().GetStraightAdjacentSquares(square.x, square.y, ref result);
+					goto IL_00fb;
+				}
+			}
+			Board.Get().GetAllAdjacentSquares(square.x, square.y, ref result);
+			goto IL_00fb;
+			IL_00fb:
+			for (int i = 0; i < result.Count; i++)
+			{
+				BoardSquare boardSquare = result[i];
+				if (hashSet2.Contains(boardSquare))
+				{
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BuildSquaresCanMoveTo(BoardSquare, float)).MethodHandle;
-			}
-			if (GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled)
-			{
-				goto IL_DB;
-			}
-			for (;;)
-			{
-				switch (3)
+				bool flag = Board.Get()._0015(square, boardSquare);
+				float num;
+				if (flag)
 				{
-				case 0:
+					num = value2.cost + 1.5f;
+				}
+				else
+				{
+					num = value2.cost + 1f;
+				}
+				bool flag2;
+				if (GameplayData.Get() != null)
+				{
+					if (GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax)
+					{
+						flag2 = (num <= maxHorizontalMovement);
+						goto IL_01a6;
+					}
+				}
+				flag2 = (value2.cost < maxHorizontalMovement);
+				goto IL_01a6;
+				IL_01a6:
+				if (!flag2)
+				{
 					continue;
 				}
-				break;
-			}
-			Board.\u000E().\u000E(square.x, square.y, ref list);
-			IL_FB:
-			for (int i = 0; i < list.Count; i++)
-			{
-				BoardSquare boardSquare = list[i];
-				if (!hashSet2.Contains(boardSquare))
+				value3.square = boardSquare;
+				value3.cost = num;
+				value3.prevCost = value2.cost;
+				bool flag3 = false;
+				LinkedListNode<BoardSquareMovementInfo> linkedListNode = linkedList.First;
+				while (true)
 				{
-					bool flag = Board.\u000E().\u0015(square, boardSquare);
-					float num;
-					if (flag)
+					if (linkedListNode != linkedList.Last)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num = value2.cost + 1.5f;
-					}
-					else
-					{
-						num = value2.cost + 1f;
-					}
-					if (!(GameplayData.Get() != null))
-					{
-						goto IL_19A;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax)
-					{
-						goto IL_19A;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					bool flag2 = num <= maxHorizontalMovement;
-					IL_1A6:
-					if (!flag2)
-					{
-						goto IL_290;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					ActorMovement.BoardSquareMovementInfo value3;
-					value3.square = boardSquare;
-					value3.cost = num;
-					value3.prevCost = value2.cost;
-					bool flag3 = false;
-					LinkedListNode<ActorMovement.BoardSquareMovementInfo> linkedListNode = linkedList.First;
-					while (linkedListNode != linkedList.Last)
-					{
-						ActorMovement.BoardSquareMovementInfo value4 = linkedListNode.Value;
+						BoardSquareMovementInfo value4 = linkedListNode.Value;
 						if (value4.square == boardSquare)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag3 = true;
 							if (value4.cost > num)
 							{
 								linkedListNode.Value = value3;
 							}
-							IL_245:
-							if (flag3)
-							{
-								goto IL_290;
-							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.CanCrossToAdjacentSquare(square, boardSquare, false, (!flag) ? ActorMovement.DiagonalCalcFlag.NotDiagonal : ActorMovement.DiagonalCalcFlag.IsDiagonal) && FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								linkedList.AddLast(value3);
-								goto IL_290;
-							}
-							goto IL_290;
+							break;
 						}
-						else
-						{
-							linkedListNode = linkedListNode.Next;
-						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_245;
-					}
-					IL_19A:
-					flag2 = (value2.cost < maxHorizontalMovement);
-					goto IL_1A6;
-				}
-				IL_290:;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!hashSet.Contains(square))
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
+						linkedListNode = linkedListNode.Next;
 						continue;
 					}
 					break;
 				}
-				if (MovementUtils.CanStopOnSquare(square))
+				if (flag3)
 				{
-					for (;;)
+					continue;
+				}
+				if (CanCrossToAdjacentSquare(square, boardSquare, false, flag ? DiagonalCalcFlag.IsDiagonal : DiagonalCalcFlag.NotDiagonal) && FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
+				{
+					linkedList.AddLast(value3);
+				}
+			}
+			while (true)
+			{
+				if (!hashSet.Contains(square))
+				{
+					if (MovementUtils.CanStopOnSquare(square))
 					{
-						switch (4)
+						if (SinglePlayerManager.IsDestinationAllowed(m_actor, square))
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (SinglePlayerManager.IsDestinationAllowed(this.m_actor, square, true))
-					{
-						for (;;)
-						{
-							switch (1)
+							if (FirstTurnMovement.CanActorMoveToSquare(m_actor, square))
 							{
-							case 0:
-								continue;
+								hashSet.Add(square);
 							}
-							break;
-						}
-						if (FirstTurnMovement.CanActorMoveToSquare(this.m_actor, square))
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							hashSet.Add(square);
 						}
 					}
 				}
+				hashSet2.Add(square);
+				linkedList.RemoveFirst();
+				goto IL_032c;
 			}
-			hashSet2.Add(square);
-			linkedList.RemoveFirst();
-			continue;
-			IL_DB:
-			Board.\u000E().\u0015(square.x, square.y, ref list);
-			goto IL_FB;
+			IL_032c:;
 		}
 		return hashSet;
 	}
@@ -1623,140 +867,62 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int squaresCanMoveToSinglePlayerState = -1;
 		if (SinglePlayerManager.Get() != null)
 		{
-			for (;;)
+			if (m_actor.SpawnerId == -1)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CheckSquareCanMoveToCache(BoardSquare, float)).MethodHandle;
-			}
-			if (this.m_actor.SpawnerId == -1)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				squaresCanMoveToSinglePlayerState = SinglePlayerManager.Get().GetCurrentScriptIndex();
 			}
 		}
 		int squaresCanMoveToBarrierState = -1;
 		if (BarrierManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			squaresCanMoveToBarrierState = BarrierManager.Get().GetMovementStateChangesFor(this.m_actor);
+			squaresCanMoveToBarrierState = BarrierManager.Get().GetMovementStateChangesFor(m_actor);
 		}
 		FirstTurnMovement.RestrictedMovementState squaresCanMoveToFirstTurnState = FirstTurnMovement.RestrictedMovementState.Invalid;
 		if (FirstTurnMovement.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			squaresCanMoveToFirstTurnState = FirstTurnMovement.Get().GetRestrictedMovementState();
 		}
-		ActorMovement.SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new ActorMovement.SquaresCanMoveToCacheEntry();
+		SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new SquaresCanMoveToCacheEntry();
 		squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin = squareToStartFrom;
 		squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed = maxHorizontalMovement;
 		squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState = squaresCanMoveToSinglePlayerState;
 		squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState = squaresCanMoveToBarrierState;
 		squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState = squaresCanMoveToFirstTurnState;
 		int num = 0;
-		ActorMovement.SquaresCanMoveToCacheEntry item = null;
-		for (int i = 0; i < this.m_squaresCanMoveToCache.Count; i++)
+		SquaresCanMoveToCacheEntry item = null;
+		int num2 = 0;
+		while (true)
 		{
-			ActorMovement.SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry2 = this.m_squaresCanMoveToCache[i];
-			if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToOrigin == squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin)
+			if (num2 < m_squaresCanMoveToCache.Count)
 			{
-				for (;;)
+				SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry2 = m_squaresCanMoveToCache[num2];
+				if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToOrigin == squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin)
 				{
-					switch (5)
+					if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToHorizontalAllowed == squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToHorizontalAllowed == squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed)
-				{
-					for (;;)
-					{
-						switch (2)
+						if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToSinglePlayerState == squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToSinglePlayerState == squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState)
-					{
-						for (;;)
-						{
-							switch (5)
+							if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToBarrierState == squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState && squaresCanMoveToCacheEntry2.m_squaresCanMoveToFirstTurnState == squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToBarrierState == squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState && squaresCanMoveToCacheEntry2.m_squaresCanMoveToFirstTurnState == squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
+								result = squaresCanMoveToCacheEntry2.m_squaresCanMoveTo;
+								item = squaresCanMoveToCacheEntry2;
+								num = num2;
 								break;
 							}
-							result = squaresCanMoveToCacheEntry2.m_squaresCanMoveTo;
-							item = squaresCanMoveToCacheEntry2;
-							num = i;
-							IL_1A7:
-							if (num != 0)
-							{
-								this.m_squaresCanMoveToCache.RemoveAt(num);
-								this.m_squaresCanMoveToCache.Insert(0, item);
-							}
-							return result;
 						}
 					}
 				}
-			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
+				num2++;
 				continue;
 			}
-			goto IL_1A7;
+			break;
 		}
+		if (num != 0)
+		{
+			m_squaresCanMoveToCache.RemoveAt(num);
+			m_squaresCanMoveToCache.Insert(0, item);
+		}
+		return result;
 	}
 
 	public void AddToSquareCanMoveToCache(BoardSquare squareToStartFrom, float maxHorizontalMovement, HashSet<BoardSquare> squaresCanMoveTo)
@@ -1764,357 +930,186 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int squaresCanMoveToBarrierState = -1;
 		int squaresCanMoveToSinglePlayerState = -1;
 		FirstTurnMovement.RestrictedMovementState squaresCanMoveToFirstTurnState = FirstTurnMovement.RestrictedMovementState.Invalid;
-		if (SinglePlayerManager.Get() != null && this.m_actor.SpawnerId == -1)
+		if (SinglePlayerManager.Get() != null && m_actor.SpawnerId == -1)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.AddToSquareCanMoveToCache(BoardSquare, float, HashSet<BoardSquare>)).MethodHandle;
-			}
 			squaresCanMoveToSinglePlayerState = SinglePlayerManager.Get().GetCurrentScriptIndex();
 		}
 		if (BarrierManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			squaresCanMoveToBarrierState = BarrierManager.Get().GetMovementStateChangesFor(this.m_actor);
+			squaresCanMoveToBarrierState = BarrierManager.Get().GetMovementStateChangesFor(m_actor);
 		}
 		if (FirstTurnMovement.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			squaresCanMoveToFirstTurnState = FirstTurnMovement.Get().GetRestrictedMovementState();
 		}
-		ActorMovement.SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new ActorMovement.SquaresCanMoveToCacheEntry();
+		SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new SquaresCanMoveToCacheEntry();
 		squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin = squareToStartFrom;
 		squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed = maxHorizontalMovement;
 		squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState = squaresCanMoveToSinglePlayerState;
 		squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState = squaresCanMoveToBarrierState;
 		squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState = squaresCanMoveToFirstTurnState;
 		squaresCanMoveToCacheEntry.m_squaresCanMoveTo = squaresCanMoveTo;
-		if (this.m_squaresCanMoveToCache.Count >= ActorMovement.s_maxSquaresCanMoveToCacheCount)
+		if (m_squaresCanMoveToCache.Count >= s_maxSquaresCanMoveToCacheCount)
 		{
-			this.m_squaresCanMoveToCache.RemoveAt(this.m_squaresCanMoveToCache.Count - 1);
+			m_squaresCanMoveToCache.RemoveAt(m_squaresCanMoveToCache.Count - 1);
 		}
-		this.m_squaresCanMoveToCache.Insert(0, squaresCanMoveToCacheEntry);
+		m_squaresCanMoveToCache.Insert(0, squaresCanMoveToCacheEntry);
 	}
 
 	public HashSet<BoardSquare> GetSquaresCanMoveTo(BoardSquare squareToStartFrom, float maxHorizontalMovement)
 	{
-		HashSet<BoardSquare> hashSet = this.CheckSquareCanMoveToCache(squareToStartFrom, maxHorizontalMovement);
+		HashSet<BoardSquare> hashSet = CheckSquareCanMoveToCache(squareToStartFrom, maxHorizontalMovement);
 		if (hashSet != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return hashSet;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetSquaresCanMoveTo(BoardSquare, float)).MethodHandle;
-			}
-			return hashSet;
 		}
-		hashSet = this.BuildSquaresCanMoveTo(squareToStartFrom, maxHorizontalMovement);
-		this.AddToSquareCanMoveToCache(squareToStartFrom, maxHorizontalMovement, hashSet);
+		hashSet = BuildSquaresCanMoveTo(squareToStartFrom, maxHorizontalMovement);
+		AddToSquareCanMoveToCache(squareToStartFrom, maxHorizontalMovement, hashSet);
 		return hashSet;
 	}
 
-	public unsafe void GetSquaresCanMoveTo_InnerOuter(BoardSquare squareToStartFrom, float maxMoveDist, float innerMoveDist, out HashSet<BoardSquare> outMaxMoveSquares, out HashSet<BoardSquare> outInnerMoveSquares)
+	public void GetSquaresCanMoveTo_InnerOuter(BoardSquare squareToStartFrom, float maxMoveDist, float innerMoveDist, out HashSet<BoardSquare> outMaxMoveSquares, out HashSet<BoardSquare> outInnerMoveSquares)
 	{
-		HashSet<BoardSquare> hashSet = this.CheckSquareCanMoveToCache(squareToStartFrom, maxMoveDist);
-		HashSet<BoardSquare> hashSet2 = this.CheckSquareCanMoveToCache(squareToStartFrom, innerMoveDist);
-		if (hashSet == null && hashSet2 == null)
+		HashSet<BoardSquare> eligibleSquares = CheckSquareCanMoveToCache(squareToStartFrom, maxMoveDist);
+		HashSet<BoardSquare> innerSquares = CheckSquareCanMoveToCache(squareToStartFrom, innerMoveDist);
+		if (eligibleSquares == null && innerSquares == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetSquaresCanMoveTo_InnerOuter(BoardSquare, float, float, HashSet<BoardSquare>*, HashSet<BoardSquare>*)).MethodHandle;
-			}
-			this.BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, innerMoveDist, out hashSet, out hashSet2);
-			this.AddToSquareCanMoveToCache(squareToStartFrom, maxMoveDist, hashSet);
-			this.AddToSquareCanMoveToCache(squareToStartFrom, innerMoveDist, hashSet2);
+			BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, innerMoveDist, out eligibleSquares, out innerSquares);
+			AddToSquareCanMoveToCache(squareToStartFrom, maxMoveDist, eligibleSquares);
+			AddToSquareCanMoveToCache(squareToStartFrom, innerMoveDist, innerSquares);
 		}
-		else if (hashSet == null)
+		else if (eligibleSquares == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			HashSet<BoardSquare> hashSet3;
-			this.BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, 0f, out hashSet, out hashSet3);
-			this.AddToSquareCanMoveToCache(squareToStartFrom, maxMoveDist, hashSet);
+			BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, 0f, out eligibleSquares, out HashSet<BoardSquare> _);
+			AddToSquareCanMoveToCache(squareToStartFrom, maxMoveDist, eligibleSquares);
 		}
-		else if (hashSet2 == null)
+		else if (innerSquares == null)
 		{
-			HashSet<BoardSquare> hashSet4;
-			this.BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, innerMoveDist, 0f, out hashSet2, out hashSet4);
-			this.AddToSquareCanMoveToCache(squareToStartFrom, innerMoveDist, hashSet2);
+			BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, innerMoveDist, 0f, out innerSquares, out HashSet<BoardSquare> _);
+			AddToSquareCanMoveToCache(squareToStartFrom, innerMoveDist, innerSquares);
 		}
-		outMaxMoveSquares = hashSet;
-		outInnerMoveSquares = hashSet2;
+		outMaxMoveSquares = eligibleSquares;
+		outInnerMoveSquares = innerSquares;
 	}
 
-	public bool CanCrossToAdjacentSquare(BoardSquare src, BoardSquare dest, bool ignoreBarriers, ActorMovement.DiagonalCalcFlag diagonalFlag = ActorMovement.DiagonalCalcFlag.Unknown)
+	public bool CanCrossToAdjacentSquare(BoardSquare src, BoardSquare dest, bool ignoreBarriers, DiagonalCalcFlag diagonalFlag = DiagonalCalcFlag.Unknown)
 	{
-		return this.CanCrossToAdjacentSingleSquare(src, dest, ignoreBarriers, true, diagonalFlag);
+		return CanCrossToAdjacentSingleSquare(src, dest, ignoreBarriers, true, diagonalFlag);
 	}
 
-	private bool CanCrossToAdjacentSingleSquare(BoardSquare src, BoardSquare dest, bool ignoreBarriers, bool knownAdjacent = false, ActorMovement.DiagonalCalcFlag diagonalFlag = ActorMovement.DiagonalCalcFlag.Unknown)
+	private bool CanCrossToAdjacentSingleSquare(BoardSquare src, BoardSquare dest, bool ignoreBarriers, bool knownAdjacent = false, DiagonalCalcFlag diagonalFlag = DiagonalCalcFlag.Unknown)
 	{
+		bool flag;
 		if (!(dest == null))
 		{
-			for (;;)
+			if (dest.IsBaselineHeight())
 			{
-				switch (5)
+				if (src.GetCoverInDirection(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CanCrossToAdjacentSingleSquare(BoardSquare, BoardSquare, bool, bool, ActorMovement.DiagonalCalcFlag)).MethodHandle;
-			}
-			if (!dest.\u0016())
-			{
-				for (;;)
-				{
-					switch (1)
+					while (true)
 					{
-					case 0:
-						continue;
+						return false;
 					}
-					break;
-				}
-			}
-			else
-			{
-				if (src.\u001D(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return false;
 				}
 				if (!ignoreBarriers)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (BarrierManager.Get() != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (BarrierManager.Get().IsMovementBlocked(this.m_actor, src, dest))
+						if (BarrierManager.Get().IsMovementBlocked(m_actor, src, dest))
 						{
 							return false;
 						}
 					}
 				}
-				bool flag;
+				int num;
 				if (!knownAdjacent)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag = Board.\u000E().\u000E(src, dest);
+					num = (Board.Get()._000E(src, dest) ? 1 : 0);
 				}
 				else
 				{
-					flag = true;
+					num = 1;
 				}
-				if (!flag)
+				if (num == 0)
 				{
 					return false;
 				}
-				bool flag2 = true;
-				if (diagonalFlag != ActorMovement.DiagonalCalcFlag.IsDiagonal)
+				flag = true;
+				if (diagonalFlag == DiagonalCalcFlag.IsDiagonal)
 				{
-					for (;;)
+					goto IL_00f6;
+				}
+				if (diagonalFlag == DiagonalCalcFlag.Unknown)
+				{
+					if (Board.Get()._0015(src, dest))
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (diagonalFlag != ActorMovement.DiagonalCalcFlag.Unknown)
-					{
-						goto IL_18A;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!Board.\u000E().\u0015(src, dest))
-					{
-						goto IL_18A;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						goto IL_00f6;
 					}
 				}
-				BoardSquare boardSquare = Board.\u000E().\u0016(src.x, dest.y);
-				BoardSquare boardSquare2 = Board.\u000E().\u0016(dest.x, src.y);
-				if (flag2)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag2 &= this.CanCrossToAdjacentSingleSquare(src, boardSquare, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
-				}
-				if (flag2)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag2 &= this.CanCrossToAdjacentSingleSquare(src, boardSquare2, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
-				}
-				if (flag2)
-				{
-					flag2 &= this.CanCrossToAdjacentSingleSquare(boardSquare, dest, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
-				}
-				if (flag2)
-				{
-					flag2 &= this.CanCrossToAdjacentSingleSquare(boardSquare2, dest, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
-				}
-				IL_18A:
-				if (!flag2)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return false;
-				}
-				return true;
+				goto IL_018a;
 			}
 		}
 		return false;
+		IL_00f6:
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(src.x, dest.y);
+		BoardSquare boardSquare2 = Board.Get().GetBoardSquare(dest.x, src.y);
+		if (flag)
+		{
+			flag &= CanCrossToAdjacentSingleSquare(src, boardSquare, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
+		}
+		if (flag)
+		{
+			flag &= CanCrossToAdjacentSingleSquare(src, boardSquare2, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
+		}
+		if (flag)
+		{
+			flag &= CanCrossToAdjacentSingleSquare(boardSquare, dest, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
+		}
+		if (flag)
+		{
+			flag &= CanCrossToAdjacentSingleSquare(boardSquare2, dest, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
+		}
+		goto IL_018a;
+		IL_018a:
+		if (!flag)
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					break;
+				default:
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public void ClearPath()
 	{
-		if (this.m_gameplayPath != null)
+		if (m_gameplayPath != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.ClearPath()).MethodHandle;
-			}
-			this.m_gameplayPath = null;
+			m_gameplayPath = null;
 		}
-		this.Client_ClearAestheticPath();
+		Client_ClearAestheticPath();
 	}
 
 	private void Client_ClearAestheticPath()
 	{
-		if (this.m_aestheticPath != null)
+		if (m_aestheticPath != null)
 		{
-			this.m_aestheticPath = null;
+			m_aestheticPath = null;
 		}
 	}
 
@@ -2125,408 +1120,169 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		Vector3 origin = testPos;
 		origin.y += 4f;
 		float radius = 0.1f;
-		RaycastHit raycastHit;
-		if (Physics.SphereCast(origin, radius, Vector3.down, out raycastHit, 100f, layerMask))
+		if (Physics.SphereCast(origin, radius, Vector3.down, out RaycastHit hitInfo, 100f, layerMask))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetGroundPosition(Vector3)).MethodHandle;
-			}
-			result.y = raycastHit.point.y;
+			Vector3 point = hitInfo.point;
+			result.y = point.y;
 		}
 		return result;
 	}
 
 	public bool ShouldSetForceIdle()
 	{
-		Animator animator = this.m_actor.\u000E();
-		if (!(animator == null))
+		Animator modelAnimator = m_actor.GetModelAnimator();
+		int result;
+		if (!(modelAnimator == null))
 		{
-			for (;;)
+			if (modelAnimator.layerCount >= 1)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.ShouldSetForceIdle()).MethodHandle;
-			}
-			if (animator.layerCount >= 1)
-			{
-				AnimatorStateInfo currentAnimatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
 				if (!currentAnimatorStateInfo.IsName("Run_Vault"))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!currentAnimatorStateInfo.IsName("Run_End"))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!currentAnimatorStateInfo.IsTag("Run_End"))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!currentAnimatorStateInfo.IsName("KnockbackEnd") && !currentAnimatorStateInfo.IsTag("Knockdown") && !currentAnimatorStateInfo.IsTag("Damage"))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								return !this.m_actor.\u000E().IsPlayingIdleAnim(false);
+								result = ((!m_actor.GetActorModelData().IsPlayingIdleAnim()) ? 1 : 0);
+								goto IL_00f2;
 							}
 						}
 					}
 				}
-				return false;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				result = 0;
+				goto IL_00f2;
 			}
 		}
 		return false;
+		IL_00f2:
+		return (byte)result != 0;
 	}
 
 	internal void OnGameStateChange(bool decisionState)
 	{
-		Animator animator = this.m_actor.\u000E();
+		Animator modelAnimator = m_actor.GetModelAnimator();
 		if (!decisionState)
 		{
-			for (;;)
+			if (m_brushTransitionAnimationSpeedEased.GetEndValue() != 1f)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnGameStateChange(bool)).MethodHandle;
-			}
-			if (this.m_brushTransitionAnimationSpeedEased.GetEndValue() != 1f)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_brushTransitionAnimationSpeedEased.EaseTo(1f, 0f);
+				m_brushTransitionAnimationSpeedEased.EaseTo(1f, 0f);
 			}
 		}
-		while (this.m_gameplayPath != null)
+		while (m_gameplayPath != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_gameplayPath.next == null || this.m_actor.\u000E())
+			if (m_gameplayPath.next == null || m_actor.IsDead())
 			{
 				break;
 			}
-			this.AdvanceGameplayPath();
+			AdvanceGameplayPath();
 		}
-		if (this.m_curMoveState != null)
+		if (m_curMoveState != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_curMoveState = null;
-			this.StopMovementAnimator();
+			m_curMoveState = null;
+			StopMovementAnimator();
 		}
-		if (animator != null)
+		if (modelAnimator != null)
 		{
-			for (;;)
+			if (modelAnimator.GetInteger(animIdleType) < 0)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (animator.GetInteger(ActorMovement.animIdleType) < 0)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				animator.SetInteger(ActorMovement.animIdleType, 0);
+				modelAnimator.SetInteger(animIdleType, 0);
 			}
 		}
-		if (this.ShouldSetForceIdle())
+		if (ShouldSetForceIdle())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			animator.SetTrigger(ActorMovement.animForceIdle);
+			modelAnimator.SetTrigger(animForceIdle);
 		}
-		if (this.m_actor.\u0012() != null)
+		if (m_actor.GetCurrentBoardSquare() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_actor.SetTransformPositionToSquare(this.m_actor.\u0012());
+			m_actor.SetTransformPositionToSquare(m_actor.GetCurrentBoardSquare());
 		}
-		this.Client_ClearAestheticPath();
-		this.m_moveTimeoutTime = -1f;
+		Client_ClearAestheticPath();
+		m_moveTimeoutTime = -1f;
 	}
 
 	public void ResetChargeCycleFlag()
 	{
-		Animator animator = this.m_actor.\u000E();
-		if (animator != null)
+		Animator modelAnimator = m_actor.GetModelAnimator();
+		if (!(modelAnimator != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.ResetChargeCycleFlag()).MethodHandle;
-			}
-			animator.SetInteger(ActorMovement.animNextChargeCycleType, 0);
-			animator.SetInteger(ActorMovement.animChargeCycleType, 0);
-			animator.SetInteger(ActorMovement.animChargeEndType, 4);
-			animator.SetFloat(ActorMovement.animDistToWaypoint, 0f);
+			return;
+		}
+		while (true)
+		{
+			modelAnimator.SetInteger(animNextChargeCycleType, 0);
+			modelAnimator.SetInteger(animChargeCycleType, 0);
+			modelAnimator.SetInteger(animChargeEndType, 4);
+			modelAnimator.SetFloat(animDistToWaypoint, 0f);
+			return;
 		}
 	}
 
 	private void UpdatePath()
 	{
 		bool flag = false;
-		if (this.m_aestheticPath == null)
+		if (m_aestheticPath == null)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				Log.Error($"{m_actor.DisplayName} trying to UpdatePath with a null aesthetic path; exiting.");
+				return;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdatePath()).MethodHandle;
-			}
-			Log.Error(string.Format("{0} trying to UpdatePath with a null aesthetic path; exiting.", this.m_actor.DisplayName), new object[0]);
-			return;
 		}
-		if (this.m_aestheticPath.next == null)
+		if (m_aestheticPath.next == null)
 		{
-			for (;;)
+			while (m_gameplayPath.next != null)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			while (this.m_gameplayPath.next != null)
-			{
-				this.AdvanceGameplayPath();
-				bool flag2;
+				AdvanceGameplayPath();
+				int num;
 				if (Application.isEditor && DebugParameters.Get() != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag2 = DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement");
+					num = (DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement") ? 1 : 0);
 				}
 				else
 				{
-					flag2 = false;
+					num = 0;
 				}
-				bool flag3 = flag2;
-				flag = !flag3;
+				bool flag2 = (byte)num != 0;
+				flag = !flag2;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			ActorCover actorCover = this.m_actor.\u000E();
+			ActorCover actorCover = m_actor.GetActorCover();
 			actorCover.RecalculateCover();
 		}
-		if (this.m_aestheticPath != null)
+		if (m_aestheticPath != null)
 		{
-			for (;;)
+			if (m_aestheticPath.next != null)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_aestheticPath.next != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_aestheticPath = this.m_aestheticPath.next;
-				goto IL_108;
+				m_aestheticPath = m_aestheticPath.next;
+				goto IL_0108;
 			}
 		}
-		this.m_aestheticPath = null;
-		IL_108:
-		if (flag)
+		m_aestheticPath = null;
+		goto IL_0108;
+		IL_0108:
+		if (!flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_actor.\u000E().MarkForRecalculateVisibility();
-			this.UpdateClientFogOfWarIfNeeded();
+			return;
+		}
+		while (true)
+		{
+			m_actor.GetFogOfWar().MarkForRecalculateVisibility();
+			UpdateClientFogOfWarIfNeeded();
+			return;
 		}
 	}
 
 	public bool AmMoving()
 	{
 		bool flag;
-		if (this.m_curMoveState != null)
+		if (m_curMoveState != null)
 		{
-			for (;;)
+			if (m_curMoveState is ChargeState)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.AmMoving()).MethodHandle;
-			}
-			if (this.m_curMoveState is ChargeState)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ChargeState chargeState = this.m_curMoveState as ChargeState;
+				ChargeState chargeState = m_curMoveState as ChargeState;
 				if (chargeState.DoneMoving())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 				else
@@ -2534,17 +1290,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					flag = true;
 				}
 			}
-			else if (this.m_curMoveState.m_done)
+			else if (m_curMoveState.m_done)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			else
@@ -2556,91 +1303,61 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			flag = false;
 		}
-		bool result;
+		int result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = !this.ShouldPauseAnimator();
+			result = ((!ShouldPauseAnimator()) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool InChargeState()
 	{
-		return this.m_curMoveState != null && this.m_curMoveState is ChargeState;
+		return m_curMoveState != null && m_curMoveState is ChargeState;
 	}
 
 	internal float FindDistanceToEnd()
 	{
-		if (this.AmMoving())
+		float result;
+		if (AmMoving())
 		{
-			for (;;)
+			if (m_gameplayPath != null)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.FindDistanceToEnd()).MethodHandle;
-			}
-			if (this.m_gameplayPath != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return this.m_gameplayPath.FindDistanceToEnd();
+				result = m_gameplayPath.FindDistanceToEnd();
+				goto IL_003f;
 			}
 		}
-		return 0f;
+		result = 0f;
+		goto IL_003f;
+		IL_003f:
+		return result;
 	}
 
 	internal bool FindIsVisibleToClient()
 	{
 		FogOfWar clientFog = FogOfWar.GetClientFog();
-		if (this.m_gameplayPath == null || clientFog == null)
+		if (m_gameplayPath == null || clientFog == null)
 		{
 			return false;
 		}
-		for (BoardSquarePathInfo boardSquarePathInfo = this.m_gameplayPath; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
+		for (BoardSquarePathInfo boardSquarePathInfo = m_gameplayPath; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
 			if (clientFog.IsVisible(boardSquarePathInfo.square))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return true;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.FindIsVisibleToClient()).MethodHandle;
-				}
-				return true;
 			}
 		}
 		return false;
@@ -2648,225 +1365,111 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	internal bool OnPathType(BoardSquarePathInfo.ConnectionType type)
 	{
-		bool result;
-		if (this.m_aestheticPath != null)
+		int result;
+		if (m_aestheticPath != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnPathType(BoardSquarePathInfo.ConnectionType)).MethodHandle;
-			}
-			result = (this.m_aestheticPath.connectionType == type);
+			result = ((m_aestheticPath.connectionType == type) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public void OnMidMovementDeath()
 	{
-		this.UpdatePosition();
-		if (this.m_curMoveState != null)
+		UpdatePosition();
+		if (m_curMoveState != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnMidMovementDeath()).MethodHandle;
-			}
-			this.m_curMoveState.Update();
+			m_curMoveState.Update();
 		}
-		this.StopMovementAnimator();
+		StopMovementAnimator();
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
 		if (eventType == GameEventManager.EventType.ActiveControlChangedToEnemyTeam)
 		{
-			this.m_brushTransitionAnimationSpeedEased.EaseTo(1f, 0f);
+			m_brushTransitionAnimationSpeedEased.EaseTo(1f, 0f);
 		}
 	}
 
 	public void UpdatePosition()
 	{
-		if (this.m_curMoveState != null)
+		if (m_curMoveState == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdatePosition()).MethodHandle;
-			}
-			BoardSquarePathInfo gameplayPathClosestTo = this.GetGameplayPathClosestTo(this.m_actor.transform.position);
+			return;
+		}
+		while (true)
+		{
+			BoardSquarePathInfo gameplayPathClosestTo = GetGameplayPathClosestTo(m_actor.transform.position);
 			bool flag = false;
-			while (this.m_gameplayPath != gameplayPathClosestTo)
+			while (m_gameplayPath != gameplayPathClosestTo)
 			{
-				this.AdvanceGameplayPath();
-				bool flag2;
+				AdvanceGameplayPath();
+				int num;
 				if (Application.isEditor && DebugParameters.Get() != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag2 = DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement");
+					num = (DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement") ? 1 : 0);
 				}
 				else
 				{
-					flag2 = false;
+					num = 0;
 				}
-				bool flag3 = flag2;
-				flag = !flag3;
+				bool flag2 = (byte)num != 0;
+				flag = !flag2;
 			}
-			for (;;)
+			while (true)
 			{
-				switch (4)
+				if (flag)
 				{
-				case 0:
-					continue;
+					m_actor.GetFogOfWar().MarkForRecalculateVisibility();
+					UpdateClientFogOfWarIfNeeded();
 				}
-				break;
-			}
-			if (flag)
-			{
-				for (;;)
+				int num2;
+				if (!m_actor.IsDead())
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					num2 = ((!m_actor.IsModelAnimatorDisabled()) ? 1 : 0);
 				}
-				this.m_actor.\u000E().MarkForRecalculateVisibility();
-				this.UpdateClientFogOfWarIfNeeded();
-			}
-			bool flag4;
-			if (!this.m_actor.\u000E())
-			{
-				for (;;)
+				else
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					num2 = 0;
 				}
-				flag4 = !this.m_actor.\u0012();
-			}
-			else
-			{
-				flag4 = false;
-			}
-			bool flag5 = flag4;
-			if (flag5)
-			{
-				for (;;)
+				if (num2 == 0)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				bool updatePath = this.m_curMoveState.m_updatePath;
-				this.m_curMoveState.Update();
-				this.UpdateValuesAnimator();
-				if (!updatePath)
+				while (true)
 				{
-					for (;;)
+					bool updatePath = m_curMoveState.m_updatePath;
+					m_curMoveState.Update();
+					UpdateValuesAnimator();
+					if (!updatePath)
 					{
-						switch (4)
+						if (m_curMoveState.m_updatePath)
 						{
-						case 0:
-							continue;
+							UpdatePath();
 						}
-						break;
 					}
-					if (this.m_curMoveState.m_updatePath)
+					if (m_curMoveState != null)
 					{
-						for (;;)
+						if (!m_curMoveState.m_done)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							return;
 						}
-						this.UpdatePath();
 					}
-				}
-				if (this.m_curMoveState != null)
-				{
-					for (;;)
+					UpdateMovementState();
+					UpdateValuesAnimator();
+					if (m_curMoveState == null)
 					{
-						switch (6)
+						while (true)
 						{
-						case 0:
-							continue;
+							StopMovementAnimator();
+							return;
 						}
-						break;
 					}
-					if (!this.m_curMoveState.m_done)
-					{
-						return;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				this.UpdateMovementState();
-				this.UpdateValuesAnimator();
-				if (this.m_curMoveState == null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.StopMovementAnimator();
+					return;
 				}
 			}
 		}
@@ -2874,96 +1477,53 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	private void UpdateClientFogOfWarIfNeeded()
 	{
-		if (NetworkClient.active)
+		if (!NetworkClient.active)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(FogOfWar.GetClientFog() != null))
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdateClientFogOfWarIfNeeded()).MethodHandle;
-			}
-			if (FogOfWar.GetClientFog() != null)
-			{
-				for (;;)
+				if (!(GameFlowData.Get() != null))
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (GameFlowData.Get() != null)
+				while (true)
 				{
-					for (;;)
+					if (!(GameFlowData.Get().LocalPlayerData != null))
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						return;
 					}
-					if (GameFlowData.Get().LocalPlayerData != null)
+					Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+					int num;
+					if (m_actor.GetActorStatus() != null)
 					{
-						Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-						bool flag;
-						if (this.m_actor.\u000E() != null)
+						num = (m_actor.GetActorStatus().HasStatus(StatusType.Revealed) ? 1 : 0);
+					}
+					else
+					{
+						num = 0;
+					}
+					bool flag = (byte)num != 0;
+					bool flag2 = CaptureTheFlag.IsActorRevealedByFlag_Client(m_actor);
+					if (m_actor.GetTeam() == teamViewing)
+					{
+						return;
+					}
+					if (!flag)
+					{
+						if (!flag2)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag = this.m_actor.\u000E().HasStatus(StatusType.Revealed, true);
-						}
-						else
-						{
-							flag = false;
-						}
-						bool flag2 = flag;
-						bool flag3 = CaptureTheFlag.IsActorRevealedByFlag_Client(this.m_actor);
-						if (this.m_actor.\u000E() != teamViewing)
-						{
-							if (!flag2)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!flag3)
-								{
-									return;
-								}
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							FogOfWar.GetClientFog().MarkForRecalculateVisibility();
+							return;
 						}
 					}
+					FogOfWar.GetClientFog().MarkForRecalculateVisibility();
+					return;
 				}
 			}
 		}
@@ -2976,79 +1536,48 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	private void StopMovementAnimator()
 	{
-		Animator animator = this.m_actor.\u000E();
-		if (animator == null)
+		Animator modelAnimator = m_actor.GetModelAnimator();
+		if (modelAnimator == null)
 		{
 			return;
 		}
-		if (this.ShouldPauseAnimator())
+		if (ShouldPauseAnimator())
 		{
-			for (;;)
+			if (m_brushTransitionAnimationSpeedEased.GetEndValue() != m_brushTransitionAnimationSpeed)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.StopMovementAnimator()).MethodHandle;
-			}
-			if (this.m_brushTransitionAnimationSpeedEased.GetEndValue() != this.m_brushTransitionAnimationSpeed)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_brushTransitionAnimationSpeedEased.EaseTo(this.m_brushTransitionAnimationSpeed, this.m_brushTransitionAnimationSpeedEaseTime);
+				m_brushTransitionAnimationSpeedEased.EaseTo(m_brushTransitionAnimationSpeed, m_brushTransitionAnimationSpeedEaseTime);
 			}
 		}
 		else
 		{
-			animator.SetInteger(ActorMovement.animNextLinkType, 0);
-			animator.SetInteger(ActorMovement.animCurLinkType, 0);
-			animator.SetFloat(ActorMovement.animDistToGoal, 0f);
-			animator.SetFloat(ActorMovement.animTimeInAnim, 0f);
+			modelAnimator.SetInteger(animNextLinkType, 0);
+			modelAnimator.SetInteger(animCurLinkType, 0);
+			modelAnimator.SetFloat(animDistToGoal, 0f);
+			modelAnimator.SetFloat(animTimeInAnim, 0f);
 		}
-		if (this.m_actor != null)
+		if (!(m_actor != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_actor.GetActorModelData() != null)
 			{
-				switch (6)
+				while (true)
 				{
-				case 0:
-					continue;
+					m_actor.GetActorModelData().OnMovementAnimatorStop();
+					return;
 				}
-				break;
 			}
-			if (this.m_actor.\u000E() != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_actor.\u000E().OnMovementAnimatorStop();
-			}
+			return;
 		}
 	}
 
 	private float GetDistToPathSquare(BoardSquare goalGridSquare)
 	{
-		Vector3 position = this.m_actor.transform.position;
-		Vector3 a = goalGridSquare.\u001D();
-		Vector3 vector = a - position;
+		Vector3 position = m_actor.transform.position;
+		Vector3 worldPosition = goalGridSquare.GetWorldPosition();
+		Vector3 vector = worldPosition - position;
 		vector.y = 0f;
 		return vector.magnitude;
 	}
@@ -3056,333 +1585,151 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	public Vector3 GetCurrentMovementDir()
 	{
 		Vector3 result;
-		if (this.m_actor != null)
+		if (m_actor != null)
 		{
-			for (;;)
+			if (m_actor.transform != null)
 			{
-				switch (6)
+				if (m_aestheticPath != null && m_aestheticPath.square != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetCurrentMovementDir()).MethodHandle;
-			}
-			if (this.m_actor.transform != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_aestheticPath != null && this.m_aestheticPath.square != null)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Vector3 position = this.m_actor.transform.position;
-					Vector3 a = this.m_aestheticPath.square.\u001D();
-					result = a - position;
+					Vector3 position = m_actor.transform.position;
+					Vector3 worldPosition = m_aestheticPath.square.GetWorldPosition();
+					result = worldPosition - position;
 					result.y = 0f;
 					result.Normalize();
-					return result;
+					goto IL_00b9;
 				}
 			}
 		}
 		result = Vector3.zero;
+		goto IL_00b9;
+		IL_00b9:
 		return result;
 	}
 
 	private void UpdateValuesAnimator()
 	{
-		Animator animator = this.m_actor.\u000E();
-		if (animator == null)
+		Animator modelAnimator = m_actor.GetModelAnimator();
+		if (modelAnimator == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdateValuesAnimator()).MethodHandle;
-			}
-			return;
 		}
 		float num;
-		if (this.ShouldPauseAnimator())
+		if (ShouldPauseAnimator())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num = this.m_brushTransitionAnimationSpeed;
+			num = m_brushTransitionAnimationSpeed;
 		}
 		else
 		{
 			num = 1f;
 		}
 		float num2 = num;
-		if (this.m_brushTransitionAnimationSpeedEased.GetEndValue() != num2)
+		if (m_brushTransitionAnimationSpeedEased.GetEndValue() != num2)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Eased<float> brushTransitionAnimationSpeedEased = this.m_brushTransitionAnimationSpeedEased;
-			float endValue = num2;
+			EasedOutFloat brushTransitionAnimationSpeedEased = m_brushTransitionAnimationSpeedEased;
 			float duration;
 			if (num2 == 1f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				duration = 0f;
 			}
 			else
 			{
-				duration = this.m_brushTransitionAnimationSpeedEaseTime;
+				duration = m_brushTransitionAnimationSpeedEaseTime;
 			}
-			brushTransitionAnimationSpeedEased.EaseTo(endValue, duration);
+			brushTransitionAnimationSpeedEased.EaseTo(num2, duration);
 		}
-		if (this.m_curMoveState != null)
+		if (m_curMoveState != null)
 		{
-			for (;;)
+			modelAnimator.SetFloat(animDistToGoal, GetDistToGoal());
+			modelAnimator.SetFloat(animTimeInAnim, m_curMoveState.m_timeInAnim);
+			if (m_curMoveState.m_forceAnimReset)
 			{
-				switch (7)
+				if (ShouldSetForceIdle())
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			animator.SetFloat(ActorMovement.animDistToGoal, this.GetDistToGoal());
-			animator.SetFloat(ActorMovement.animTimeInAnim, this.m_curMoveState.m_timeInAnim);
-			if (this.m_curMoveState.m_forceAnimReset)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.ShouldSetForceIdle())
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					animator.SetTrigger(ActorMovement.animForceIdle);
+					modelAnimator.SetTrigger(animForceIdle);
 				}
 			}
 		}
-		animator.SetInteger(ActorMovement.animCurLinkType, MovementUtils.GetLinkType(this.m_aestheticPath));
-		if (this.m_aestheticPath != null)
+		modelAnimator.SetInteger(animCurLinkType, MovementUtils.GetLinkType(m_aestheticPath));
+		if (m_aestheticPath == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			modelAnimator.SetInteger(animNextLinkType, MovementUtils.GetLinkType(m_aestheticPath.next));
+			modelAnimator.SetInteger(animChargeCycleType, (int)m_aestheticPath.chargeCycleType);
+			modelAnimator.SetInteger(animChargeEndType, (int)m_aestheticPath.chargeEndType);
+			modelAnimator.SetFloat(animDistToWaypoint, GetDistToPathSquare(m_aestheticPath.square));
+			if (m_aestheticPath.next != null)
 			{
-				switch (6)
+				while (true)
 				{
-				case 0:
-					continue;
+					modelAnimator.SetInteger(animNextChargeCycleType, (int)m_aestheticPath.next.chargeCycleType);
+					return;
 				}
-				break;
 			}
-			animator.SetInteger(ActorMovement.animNextLinkType, MovementUtils.GetLinkType(this.m_aestheticPath.next));
-			animator.SetInteger(ActorMovement.animChargeCycleType, (int)this.m_aestheticPath.chargeCycleType);
-			animator.SetInteger(ActorMovement.animChargeEndType, (int)this.m_aestheticPath.chargeEndType);
-			animator.SetFloat(ActorMovement.animDistToWaypoint, this.GetDistToPathSquare(this.m_aestheticPath.square));
-			if (this.m_aestheticPath.next != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				animator.SetInteger(ActorMovement.animNextChargeCycleType, (int)this.m_aestheticPath.next.chargeCycleType);
-			}
+			return;
 		}
 	}
 
 	private bool EnemyRunningIntoBrush(BoardSquarePathInfo pathEndInfo)
 	{
-		if (!this.m_actor.VisibleTillEndOfPhase && !this.m_actor.CurrentlyVisibleForAbilityCast && !this.m_actor.\u000E().HasStatus(StatusType.Revealed, false))
+		if (!m_actor.VisibleTillEndOfPhase && !m_actor.CurrentlyVisibleForAbilityCast && !m_actor.GetActorStatus().HasStatus(StatusType.Revealed, false))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.EnemyRunningIntoBrush(BoardSquarePathInfo)).MethodHandle;
-			}
-			if (!CaptureTheFlag.IsActorRevealedByFlag_Client(this.m_actor))
+			if (!CaptureTheFlag.IsActorRevealedByFlag_Client(m_actor))
 			{
 				if (pathEndInfo == null)
 				{
-					for (;;)
+					if (!m_actor.IsVisibleToClient())
 					{
-						switch (3)
+						if (m_actor.IsHiddenInBrush())
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_actor.\u0018())
-					{
-						for (;;)
-						{
-							switch (7)
+							if (m_actor.GetActorMovement().IsPast2ndToLastSquare())
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_actor.\u0016())
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_actor.\u000E().IsPast2ndToLastSquare())
-							{
-								goto IL_13B;
-							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
+								goto IL_013b;
 							}
 						}
 					}
 				}
-				if (pathEndInfo == null)
+				if (pathEndInfo != null)
 				{
-					goto IL_159;
-				}
-				for (;;)
-				{
-					switch (2)
+					if (!pathEndInfo.m_visibleToEnemies)
 					{
-					case 0:
-						continue;
+						if (!pathEndInfo.m_moverHasGameplayHitHere && pathEndInfo.square != null)
+						{
+							if (BrushCoordinator.Get() != null && BrushCoordinator.Get().IsRegionFunctioning(pathEndInfo.square.BrushRegion))
+							{
+								goto IL_013b;
+							}
+						}
 					}
-					break;
 				}
-				if (pathEndInfo.m_visibleToEnemies)
-				{
-					goto IL_159;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (pathEndInfo.m_moverHasGameplayHitHere || !(pathEndInfo.square != null))
-				{
-					goto IL_159;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(BrushCoordinator.Get() != null) || !BrushCoordinator.Get().IsRegionFunctioning(pathEndInfo.square.BrushRegion))
-				{
-					goto IL_159;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				IL_13B:
-				return ServerClientUtils.GetCurrentActionPhase() >= ActionBufferPhase.Movement || GameFlowData.Get().gameState == GameState.BothTeams_Decision;
 			}
 		}
-		IL_159:
-		return false;
+		int result = 0;
+		goto IL_015a;
+		IL_015a:
+		return (byte)result != 0;
+		IL_013b:
+		result = ((ServerClientUtils.GetCurrentActionPhase() >= ActionBufferPhase.Movement || GameFlowData.Get().gameState == GameState.BothTeams_Decision) ? 1 : 0);
+		goto IL_015a;
 	}
 
 	private float GetDistToGoal()
 	{
 		float num = 0f;
 		Vector3 b = base.transform.position;
-		BoardSquarePathInfo boardSquarePathInfo = this.m_aestheticPath;
-		BoardSquarePathInfo pathEndInfo = this.m_aestheticPath;
+		BoardSquarePathInfo boardSquarePathInfo = m_aestheticPath;
+		BoardSquarePathInfo pathEndInfo = m_aestheticPath;
 		while (boardSquarePathInfo != null)
 		{
 			Vector3 vector = boardSquarePathInfo.square.ToVector3();
@@ -3391,23 +1738,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			boardSquarePathInfo = boardSquarePathInfo.next;
 			if (boardSquarePathInfo != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetDistToGoal()).MethodHandle;
-				}
 				pathEndInfo = boardSquarePathInfo;
 			}
 		}
-		if (this.EnemyRunningIntoBrush(pathEndInfo))
+		if (EnemyRunningIntoBrush(pathEndInfo))
 		{
 			num += 999f;
 		}
@@ -3416,239 +1750,150 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	private float GetDistToGround()
 	{
-		Vector3 groundPosition = this.GetGroundPosition(this.m_actor.transform.position);
-		return this.m_actor.transform.position.y - groundPosition.y;
+		Vector3 groundPosition = GetGroundPosition(m_actor.transform.position);
+		Vector3 position = m_actor.transform.position;
+		return position.y - groundPosition.y;
 	}
 
 	private void OnDeath()
 	{
-		this.UpdateMovementState();
+		UpdateMovementState();
 	}
 
 	private void UpdateMovementState()
 	{
-		if (this.m_actor.\u000E())
+		if (m_actor.IsDead())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdateMovementState()).MethodHandle;
-			}
-			this.Client_ClearAestheticPath();
+			Client_ClearAestheticPath();
 		}
-		if (this.m_actor.\u0012())
+		if (m_actor.IsModelAnimatorDisabled())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.Client_ClearAestheticPath();
+			Client_ClearAestheticPath();
 		}
-		if (this.m_aestheticPath != null)
+		if (m_aestheticPath != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_curMoveState != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (this.m_curMoveState.m_connectionType == BoardSquarePathInfo.ConnectionType.Run)
-				{
-					for (;;)
+				default:
 					{
-						switch (4)
+						if (m_curMoveState != null)
 						{
-						case 0:
-							continue;
+							if (m_curMoveState.m_connectionType == BoardSquarePathInfo.ConnectionType.Run)
+							{
+								if (m_aestheticPath.connectionType == BoardSquarePathInfo.ConnectionType.Run)
+								{
+									goto IL_00ca;
+								}
+							}
 						}
+						Animator modelAnimator = m_actor.GetModelAnimator();
+						if (modelAnimator != null)
+						{
+							modelAnimator.SetTrigger(animMoveSegmentStart);
+						}
+						goto IL_00ca;
+					}
+					IL_00ca:
+					switch (m_aestheticPath.connectionType)
+					{
+					case BoardSquarePathInfo.ConnectionType.Charge:
+					case BoardSquarePathInfo.ConnectionType.Flight:
+						m_curMoveState = new ChargeState(this, m_aestheticPath);
+						break;
+					case BoardSquarePathInfo.ConnectionType.Knockback:
+						m_curMoveState = new KnockbackState(this, m_aestheticPath);
+						break;
+					case BoardSquarePathInfo.ConnectionType.Run:
+					case BoardSquarePathInfo.ConnectionType.Vault:
+						m_curMoveState = new RunState(this, m_aestheticPath);
 						break;
 					}
-					if (this.m_aestheticPath.connectionType == BoardSquarePathInfo.ConnectionType.Run)
+					if (m_actor != null)
 					{
-						goto IL_CA;
-					}
-					for (;;)
-					{
-						switch (3)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+								if (m_actor.GetActorModelData() != null)
+								{
+									while (true)
+									{
+										switch (1)
+										{
+										case 0:
+											break;
+										default:
+											m_actor.GetActorModelData().OnMovementAnimatorUpdate(m_aestheticPath.connectionType);
+											return;
+										}
+									}
+								}
+								return;
+							}
 						}
-						break;
 					}
-				}
-			}
-			Animator animator = this.m_actor.\u000E();
-			if (animator != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				animator.SetTrigger(ActorMovement.animMoveSegmentStart);
-			}
-			IL_CA:
-			switch (this.m_aestheticPath.connectionType)
-			{
-			case BoardSquarePathInfo.ConnectionType.Run:
-			case BoardSquarePathInfo.ConnectionType.Vault:
-				this.m_curMoveState = new RunState(this, this.m_aestheticPath);
-				break;
-			case BoardSquarePathInfo.ConnectionType.Knockback:
-				this.m_curMoveState = new KnockbackState(this, this.m_aestheticPath);
-				break;
-			case BoardSquarePathInfo.ConnectionType.Charge:
-			case BoardSquarePathInfo.ConnectionType.Flight:
-				this.m_curMoveState = new ChargeState(this, this.m_aestheticPath);
-				break;
-			}
-			if (this.m_actor != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_actor.\u000E() != null)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_actor.\u000E().OnMovementAnimatorUpdate(this.m_aestheticPath.connectionType);
+					return;
 				}
 			}
 		}
-		else if (this.m_curMoveState != null)
+		if (m_curMoveState == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			Animator modelAnimator2 = m_actor.GetModelAnimator();
+			if (modelAnimator2 != null)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				modelAnimator2.SetTrigger(animMoveSegmentStart);
 			}
-			Animator animator2 = this.m_actor.\u000E();
-			if (animator2 != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				animator2.SetTrigger(ActorMovement.animMoveSegmentStart);
-			}
-			this.m_curMoveState = null;
-			this.StopMovementAnimator();
+			m_curMoveState = null;
+			StopMovementAnimator();
+			return;
 		}
 	}
 
 	private BoardSquarePathInfo GetGameplayPathClosestTo(Vector3 pos)
 	{
 		Vector3 b = new Vector3(pos.x, 0f, pos.z);
-		BoardSquarePathInfo boardSquarePathInfo;
-		if (this.m_gameplayPath == null)
+		object obj;
+		if (m_gameplayPath == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetGameplayPathClosestTo(Vector3)).MethodHandle;
-			}
-			boardSquarePathInfo = null;
+			obj = null;
 		}
 		else
 		{
-			boardSquarePathInfo = this.m_gameplayPath.next;
+			obj = m_gameplayPath.next;
 		}
-		BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo;
-		BoardSquarePathInfo result = this.m_gameplayPath;
-		if (this.m_gameplayPath != null)
+		BoardSquarePathInfo boardSquarePathInfo = (BoardSquarePathInfo)obj;
+		BoardSquarePathInfo result = m_gameplayPath;
+		if (m_gameplayPath != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Vector3 a = new Vector3(this.m_gameplayPath.square.transform.position.x, 0f, this.m_gameplayPath.square.transform.position.z);
+			Vector3 position = m_gameplayPath.square.transform.position;
+			float x = position.x;
+			Vector3 position2 = m_gameplayPath.square.transform.position;
+			Vector3 a = new Vector3(x, 0f, position2.z);
 			float num = (a - b).sqrMagnitude;
-			while (boardSquarePathInfo2 != null)
+			while (boardSquarePathInfo != null)
 			{
-				Vector3 a2 = new Vector3(boardSquarePathInfo2.square.transform.position.x, 0f, boardSquarePathInfo2.square.transform.position.z);
+				Vector3 position3 = boardSquarePathInfo.square.transform.position;
+				float x2 = position3.x;
+				Vector3 position4 = boardSquarePathInfo.square.transform.position;
+				Vector3 a2 = new Vector3(x2, 0f, position4.z);
 				float sqrMagnitude = (a2 - b).sqrMagnitude;
 				if (sqrMagnitude < num)
 				{
-					result = boardSquarePathInfo2;
+					result = boardSquarePathInfo;
 					num = sqrMagnitude;
 				}
-				boardSquarePathInfo2 = boardSquarePathInfo2.next;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				boardSquarePathInfo = boardSquarePathInfo.next;
 			}
 		}
 		return result;
@@ -3656,130 +1901,71 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	private void AdvanceGameplayPath()
 	{
-		this.m_gameplayPath = this.m_gameplayPath.next;
-		BoardSquare square = this.m_gameplayPath.square;
-		bool flag = this.m_gameplayPath.next == null;
-		this.m_actor.ActorData_OnActorMoved(square, this.m_gameplayPath.m_visibleToEnemies, this.m_gameplayPath.m_updateLastKnownPos);
-		ActorVFX actorVFX = this.m_actor.\u000E();
+		m_gameplayPath = m_gameplayPath.next;
+		BoardSquare square = m_gameplayPath.square;
+		bool flag = m_gameplayPath.next == null;
+		m_actor.ActorData_OnActorMoved(square, m_gameplayPath.m_visibleToEnemies, m_gameplayPath.m_updateLastKnownPos);
+		ActorVFX actorVFX = m_actor.GetActorVFX();
 		if (actorVFX != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.AdvanceGameplayPath()).MethodHandle;
-			}
-			actorVFX.OnMove(this.m_gameplayPath, this.m_gameplayPath.prev);
+			actorVFX.OnMove(m_gameplayPath, m_gameplayPath.prev);
 		}
-		CameraManager.Get().OnActorMoved(this.m_actor);
-		ClientClashManager.Get().OnActorMoved_ClientClashManager(this.m_actor, this.m_gameplayPath);
-		ClientResolutionManager.Get().OnActorMoved_ClientResolutionManager(this.m_actor, this.m_gameplayPath);
-		if (this.m_actor != null)
+		CameraManager.Get().OnActorMoved(m_actor);
+		ClientClashManager.Get().OnActorMoved_ClientClashManager(m_actor, m_gameplayPath);
+		ClientResolutionManager.Get().OnActorMoved_ClientResolutionManager(m_actor, m_gameplayPath);
+		if (m_actor != null)
 		{
-			for (;;)
+			if (m_actor.GetActorModelData() != null)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_actor.\u000E() != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_actor.\u000E().OnMovementAnimatorUpdate(this.m_aestheticPath.connectionType);
+				m_actor.GetActorModelData().OnMovementAnimatorUpdate(m_aestheticPath.connectionType);
 			}
 		}
-		if (flag)
+		if (!flag)
 		{
-			this.m_actor.UpdateFacingAfterMovement();
-			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve && HighlightUtils.Get() != null)
+			return;
+		}
+		m_actor.UpdateFacingAfterMovement();
+		if (GameFlowData.Get().gameState != GameState.BothTeams_Resolve || !(HighlightUtils.Get() != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			if (HighlightUtils.Get().m_coverDirIndicatorTiming != 0 || !HighlightUtils.Get().m_showMoveIntoCoverIndicators)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+				if (!(activeOwnedActorData != null))
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (HighlightUtils.Get().m_coverDirIndicatorTiming == HighlightUtils.MoveIntoCoverIndicatorTiming.ShowOnMoveEnd && HighlightUtils.Get().m_showMoveIntoCoverIndicators)
+				while (true)
 				{
-					for (;;)
+					if (!(activeOwnedActorData == m_actor))
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						return;
 					}
-					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-					if (activeOwnedActorData != null)
+					while (true)
 					{
-						for (;;)
+						if (!(m_actor.GetActorCover() != null))
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							return;
 						}
-						if (activeOwnedActorData == this.m_actor)
+						while (true)
 						{
-							for (;;)
+							if (m_actor.IsVisibleToClient())
 							{
-								switch (1)
+								while (true)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_actor.\u000E() != null)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.m_actor.\u0018())
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.m_actor.\u000E().RecalculateCover();
-									this.m_actor.\u000E().StartShowMoveIntoCoverIndicator();
+									m_actor.GetActorCover().RecalculateCover();
+									m_actor.GetActorCover().StartShowMoveIntoCoverIndicator();
+									return;
 								}
 							}
+							return;
 						}
 					}
 				}
@@ -3789,29 +1975,16 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	private void CalculateMoveTimeout()
 	{
-		this.m_moveTimeoutTime = 0f;
-		BoardSquarePathInfo boardSquarePathInfo = this.m_gameplayPath;
-		ActorData actor = this.m_actor;
+		m_moveTimeoutTime = 0f;
+		BoardSquarePathInfo boardSquarePathInfo = m_gameplayPath;
+		ActorData actor = m_actor;
 		while (boardSquarePathInfo != null)
 		{
 			BoardSquarePathInfo prev = boardSquarePathInfo.prev;
 			Vector3 a;
 			if (prev == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CalculateMoveTimeout()).MethodHandle;
-				}
-				a = this.m_actor.transform.position;
+				a = m_actor.transform.position;
 			}
 			else
 			{
@@ -3823,199 +1996,120 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			case BoardSquarePathInfo.ConnectionType.Knockback:
 			case BoardSquarePathInfo.ConnectionType.Charge:
 			case BoardSquarePathInfo.ConnectionType.Vault:
+			{
 				if (boardSquarePathInfo.segmentMovementDuration > 0f)
 				{
-					this.m_moveTimeoutTime += boardSquarePathInfo.segmentMovementDuration * 1.5f + 3f;
+					m_moveTimeoutTime += boardSquarePathInfo.segmentMovementDuration * 1.5f + 3f;
+					break;
+				}
+				Vector3 vector = a - boardSquarePathInfo.square.ToVector3();
+				float num;
+				if (boardSquarePathInfo.segmentMovementSpeed > 0f)
+				{
+					num = boardSquarePathInfo.segmentMovementSpeed;
 				}
 				else
 				{
-					Vector3 vector = a - boardSquarePathInfo.square.ToVector3();
-					float num;
-					if (boardSquarePathInfo.segmentMovementSpeed > 0f)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num = boardSquarePathInfo.segmentMovementSpeed;
-					}
-					else
-					{
-						num = actor.m_runSpeed;
-					}
-					float num2 = num;
-					this.m_moveTimeoutTime += vector.magnitude / num2 * 1.5f + 3f;
+					num = actor.m_runSpeed;
 				}
+				float num2 = num;
+				m_moveTimeoutTime += vector.magnitude / num2 * 1.5f + 3f;
 				break;
+			}
 			}
 			boardSquarePathInfo = boardSquarePathInfo.next;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public void BeginTravellingAlongPath(BoardSquarePathInfo gameplayPath, ActorData.MovementType movementType)
 	{
-		this.m_actor.SetTransformPositionToSquare(gameplayPath.square);
-		this.m_actor.m_endVisibilityForHitTime = 0f;
-		BoardSquare travelBoardSquare = this.GetTravelBoardSquare();
-		this.m_gameplayPath = gameplayPath;
-		if (travelBoardSquare != this.GetTravelBoardSquare())
+		m_actor.SetTransformPositionToSquare(gameplayPath.square);
+		m_actor.m_endVisibilityForHitTime = 0f;
+		BoardSquare travelBoardSquare = GetTravelBoardSquare();
+		m_gameplayPath = gameplayPath;
+		if (travelBoardSquare != GetTravelBoardSquare())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BeginTravellingAlongPath(BoardSquarePathInfo, ActorData.MovementType)).MethodHandle;
-			}
-			this.m_actor.ForceUpdateIsVisibleToClientCache();
-			this.m_actor.ForceUpdateActorModelVisibility();
+			m_actor.ForceUpdateIsVisibleToClientCache();
+			m_actor.ForceUpdateActorModelVisibility();
 		}
-		this.m_aestheticPath = this.m_gameplayPath.Clone(null);
+		m_aestheticPath = m_gameplayPath.Clone(null);
 		if (movementType == ActorData.MovementType.Normal)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			MovementUtils.CreateRunAndVaultAestheticPath(ref this.m_aestheticPath, this.m_actor);
+			MovementUtils.CreateRunAndVaultAestheticPath(ref m_aestheticPath, m_actor);
 		}
 		else
 		{
-			MovementUtils.CreateUnskippableAestheticPath(ref this.m_aestheticPath, movementType);
+			MovementUtils.CreateUnskippableAestheticPath(ref m_aestheticPath, movementType);
 		}
-		this.CalculateMoveTimeout();
-		this.m_actor.SetTransformPositionToSquare(gameplayPath.square);
-		this.UpdateMovementState();
+		CalculateMoveTimeout();
+		m_actor.SetTransformPositionToSquare(gameplayPath.square);
+		UpdateMovementState();
 	}
 
 	public void BeginChargeOrKnockback(BoardSquare src, BoardSquare dest, BoardSquarePathInfo gameplayPath, ActorData.MovementType movementType)
 	{
 		if (movementType == ActorData.MovementType.Knockback)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BeginChargeOrKnockback(BoardSquare, BoardSquare, BoardSquarePathInfo, ActorData.MovementType)).MethodHandle;
-			}
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.ActorKnockback, new GameEventManager.ActorKnockback
 			{
-				m_target = this.m_actor
+				m_target = m_actor
 			});
 		}
 		if (src == null && dest != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			src = dest;
 		}
 		else if (src != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (dest == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dest = src;
 			}
 		}
-		if (src != null)
+		if (!(src != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (dest != null)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_actor.SetTransformPositionToSquare(src);
+					m_gameplayPath = gameplayPath;
+					m_aestheticPath = m_gameplayPath.Clone(null);
+					MovementUtils.CreateUnskippableAestheticPath(ref m_aestheticPath, movementType);
+					CalculateMoveTimeout();
+					m_actor.SetTransformPositionToSquare(src);
+					UpdateMovementState();
+					return;
 				}
-				this.m_actor.SetTransformPositionToSquare(src);
-				this.m_gameplayPath = gameplayPath;
-				this.m_aestheticPath = this.m_gameplayPath.Clone(null);
-				MovementUtils.CreateUnskippableAestheticPath(ref this.m_aestheticPath, movementType);
-				this.CalculateMoveTimeout();
-				this.m_actor.SetTransformPositionToSquare(src);
-				this.UpdateMovementState();
 			}
+			return;
 		}
 	}
 
 	public BoardSquarePathInfo BuildPathTo(BoardSquare src, BoardSquare dest)
 	{
-		float maxHorizontalMovement = this.CalculateMaxHorizontalMovement(false, false);
-		return this.BuildPathTo(src, dest, maxHorizontalMovement, false, null);
+		float maxHorizontalMovement = CalculateMaxHorizontalMovement();
+		return BuildPathTo(src, dest, maxHorizontalMovement, false, null);
 	}
 
 	public BoardSquarePathInfo BuildPathTo_IgnoreBarriers(BoardSquare src, BoardSquare dest)
 	{
-		float maxHorizontalMovement = this.CalculateMaxHorizontalMovement(false, false);
-		return this.BuildPathTo(src, dest, maxHorizontalMovement, true, null);
+		float maxHorizontalMovement = CalculateMaxHorizontalMovement();
+		return BuildPathTo(src, dest, maxHorizontalMovement, true, null);
 	}
 
 	public BoardSquarePathInfo BuildPathTo(BoardSquare src, BoardSquare dest, float maxHorizontalMovement, bool ignoreBarriers, List<BoardSquare> claimedSquares)
@@ -4025,7 +2119,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			if (!(dest == null))
 			{
-				Board board = Board.\u000E();
+				Board board = Board.Get();
 				BuildNormalPathNodePool normalPathBuildScratchPool = board.m_normalPathBuildScratchPool;
 				normalPathBuildScratchPool.ResetAvailableNodeIndex();
 				Vector3 tieBreakerDir = dest.ToVector3() - src.ToVector3();
@@ -4033,33 +2127,24 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				BuildNormalPathHeap normalPathNodeHeap = board.m_normalPathNodeHeap;
 				normalPathNodeHeap.Clear();
 				normalPathNodeHeap.SetTieBreakerDirAndPos(tieBreakerDir, tieBreakerPos);
-				this.m_tempClosedSquares.Clear();
-				Dictionary<BoardSquare, BoardSquarePathInfo> tempClosedSquares = this.m_tempClosedSquares;
+				m_tempClosedSquares.Clear();
+				Dictionary<BoardSquare, BoardSquarePathInfo> tempClosedSquares = m_tempClosedSquares;
 				BoardSquarePathInfo allocatedNode = normalPathBuildScratchPool.GetAllocatedNode();
 				allocatedNode.square = src;
 				normalPathNodeHeap.Insert(allocatedNode);
-				List<BoardSquare> list = new List<BoardSquare>(8);
+				List<BoardSquare> result = new List<BoardSquare>(8);
 				bool flag = GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled;
 				bool flag2 = GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax;
-				bool flag3;
+				int num;
 				if (claimedSquares != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag3 = claimedSquares.Contains(dest);
+					num = (claimedSquares.Contains(dest) ? 1 : 0);
 				}
 				else
 				{
-					flag3 = false;
+					num = 0;
 				}
-				bool flag4 = flag3;
+				bool flag3 = (byte)num != 0;
 				while (!normalPathNodeHeap.IsEmpty())
 				{
 					BoardSquarePathInfo boardSquarePathInfo2 = normalPathNodeHeap.ExtractTop();
@@ -4069,302 +2154,118 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						break;
 					}
 					tempClosedSquares[boardSquarePathInfo2.square] = boardSquarePathInfo2;
-					list.Clear();
+					result.Clear();
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						board.\u000E(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list);
+						board.GetStraightAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
 					}
 					else
 					{
-						board.\u0015(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list);
+						board.GetAllAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
 					}
-					for (int i = 0; i < list.Count; i++)
+					for (int i = 0; i < result.Count; i++)
 					{
-						BoardSquare boardSquare = list[i];
-						bool flag5 = board.\u0015(boardSquarePathInfo2.square, boardSquare);
-						float num;
-						if (flag5)
+						BoardSquare boardSquare = result[i];
+						bool flag4 = board._0015(boardSquarePathInfo2.square, boardSquare);
+						float num2;
+						if (flag4)
 						{
-							for (;;)
+							num2 = boardSquarePathInfo2.moveCost + 1.5f;
+						}
+						else
+						{
+							num2 = boardSquarePathInfo2.moveCost + 1f;
+						}
+						if (!(flag2 ? (boardSquarePathInfo2.moveCost < maxHorizontalMovement) : (num2 <= maxHorizontalMovement)))
+						{
+							continue;
+						}
+						BoardSquare square = boardSquarePathInfo2.square;
+						int diagonalFlag;
+						if (flag4)
+						{
+							diagonalFlag = 1;
+						}
+						else
+						{
+							diagonalFlag = 2;
+						}
+						if (!CanCrossToAdjacentSquare(square, boardSquare, ignoreBarriers, (DiagonalCalcFlag)diagonalFlag))
+						{
+							continue;
+						}
+						if (!FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
+						{
+							continue;
+						}
+						BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
+						allocatedNode2.square = boardSquare;
+						allocatedNode2.moveCost = num2;
+						if (claimedSquares != null && flag3 && allocatedNode2.square == dest)
+						{
+							int num3 = 1;
+							BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
+							while (boardSquarePathInfo3 != null)
 							{
-								switch (7)
+								if (claimedSquares.Contains(boardSquarePathInfo3.square))
 								{
-								case 0:
+									num3++;
+									boardSquarePathInfo3 = boardSquarePathInfo3.prev;
 									continue;
 								}
 								break;
 							}
-							num = boardSquarePathInfo2.moveCost + 1.5f;
+							allocatedNode2.m_expectedBackupNum = num3;
 						}
-						else
-						{
-							num = boardSquarePathInfo2.moveCost + 1f;
-						}
-						bool flag6;
+						float squareSize = board.squareSize;
 						if (!flag2)
 						{
-							flag6 = (num <= maxHorizontalMovement);
+							allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
 						}
 						else
 						{
-							flag6 = (boardSquarePathInfo2.moveCost < maxHorizontalMovement);
+							float num4 = Mathf.Abs(boardSquare.x - dest.x);
+							float num5 = Mathf.Abs(boardSquare.y - dest.y);
+							float num6 = num4 + num5 - 0.5f * Mathf.Min(num4, num5);
+							float num7 = allocatedNode2.heuristicCost = Mathf.Max(0f, num6 - 1.01f);
+						}
+						allocatedNode2.prev = boardSquarePathInfo2;
+						bool flag5 = false;
+						if (tempClosedSquares.ContainsKey(allocatedNode2.square))
+						{
+							flag5 = (allocatedNode2.F_cost > tempClosedSquares[allocatedNode2.square].F_cost);
+						}
+						if (flag5)
+						{
+							continue;
+						}
+						bool flag6 = false;
+						BoardSquarePathInfo boardSquarePathInfo4 = normalPathNodeHeap.TryGetNodeInHeapBySquare(allocatedNode2.square);
+						if (boardSquarePathInfo4 != null)
+						{
+							flag6 = true;
+							if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
+							{
+								normalPathNodeHeap.UpdatePriority(allocatedNode2);
+							}
 						}
 						if (!flag6)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
+							normalPathNodeHeap.Insert(allocatedNode2);
 						}
-						else
-						{
-							BoardSquare square = boardSquarePathInfo2.square;
-							BoardSquare dest2 = boardSquare;
-							ActorMovement.DiagonalCalcFlag diagonalFlag;
-							if (flag5)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								diagonalFlag = ActorMovement.DiagonalCalcFlag.IsDiagonal;
-							}
-							else
-							{
-								diagonalFlag = ActorMovement.DiagonalCalcFlag.NotDiagonal;
-							}
-							if (!this.CanCrossToAdjacentSquare(square, dest2, ignoreBarriers, diagonalFlag))
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							else if (!FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							else
-							{
-								BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
-								allocatedNode2.square = boardSquare;
-								allocatedNode2.moveCost = num;
-								if (claimedSquares != null && flag4 && allocatedNode2.square == dest)
-								{
-									int num2 = 1;
-									BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
-									while (boardSquarePathInfo3 != null)
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (!claimedSquares.Contains(boardSquarePathInfo3.square))
-										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												goto IL_2D8;
-											}
-										}
-										else
-										{
-											num2++;
-											boardSquarePathInfo3 = boardSquarePathInfo3.prev;
-										}
-									}
-									IL_2D8:
-									allocatedNode2.m_expectedBackupNum = num2;
-								}
-								float squareSize = board.squareSize;
-								if (!flag2)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
-								}
-								else
-								{
-									float num3 = (float)Mathf.Abs(boardSquare.x - dest.x);
-									float num4 = (float)Mathf.Abs(boardSquare.y - dest.y);
-									float num5 = num3 + num4 - 0.5f * Mathf.Min(num3, num4);
-									float heuristicCost = Mathf.Max(0f, num5 - 1.01f);
-									allocatedNode2.heuristicCost = heuristicCost;
-								}
-								allocatedNode2.prev = boardSquarePathInfo2;
-								bool flag7 = false;
-								if (tempClosedSquares.ContainsKey(allocatedNode2.square))
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									flag7 = (allocatedNode2.F_cost > tempClosedSquares[allocatedNode2.square].F_cost);
-								}
-								if (flag7)
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-								else
-								{
-									bool flag8 = false;
-									BoardSquarePathInfo boardSquarePathInfo4 = normalPathNodeHeap.TryGetNodeInHeapBySquare(allocatedNode2.square);
-									if (boardSquarePathInfo4 != null)
-									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										flag8 = true;
-										if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
-										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											normalPathNodeHeap.UpdatePriority(allocatedNode2);
-										}
-									}
-									if (!flag8)
-									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										normalPathNodeHeap.Insert(allocatedNode2);
-									}
-								}
-							}
-						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (boardSquarePathInfo != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					while (boardSquarePathInfo.prev != null)
 					{
 						boardSquarePathInfo.prev.next = boardSquarePathInfo;
 						boardSquarePathInfo = boardSquarePathInfo.prev;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquarePathInfo = boardSquarePathInfo.Clone(null);
 					normalPathBuildScratchPool.ResetAvailableNodeIndex();
 				}
 				return boardSquarePathInfo;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BuildPathTo(BoardSquare, BoardSquare, float, bool, List<BoardSquare>)).MethodHandle;
 			}
 		}
 		return boardSquarePathInfo;
@@ -4375,398 +2276,203 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquarePathInfo boardSquarePathInfo = null;
 		if (!(src == null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BuildPathTo_Orig(BoardSquare, BoardSquare, float, bool, List<BoardSquare>)).MethodHandle;
-			}
-			if (dest == null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
+			if (!(dest == null))
 			{
 				Vector3 tieBreakDir = dest.ToVector3() - src.ToVector3();
 				Vector3 tieBreakTestPos = src.ToVector3();
-				BuildNormalPathNodePool normalPathBuildScratchPool = Board.\u000E().m_normalPathBuildScratchPool;
+				BuildNormalPathNodePool normalPathBuildScratchPool = Board.Get().m_normalPathBuildScratchPool;
 				normalPathBuildScratchPool.ResetAvailableNodeIndex();
 				List<BoardSquarePathInfo> list = new List<BoardSquarePathInfo>();
 				Dictionary<BoardSquare, BoardSquarePathInfo> dictionary = new Dictionary<BoardSquare, BoardSquarePathInfo>();
 				BoardSquarePathInfo allocatedNode = normalPathBuildScratchPool.GetAllocatedNode();
 				allocatedNode.square = src;
 				list.Add(allocatedNode);
-				List<BoardSquare> list2 = new List<BoardSquare>(8);
+				List<BoardSquare> result = new List<BoardSquare>(8);
 				bool flag = GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled;
 				bool flag2 = GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax;
-				bool flag3;
+				int num;
 				if (claimedSquares != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag3 = claimedSquares.Contains(dest);
+					num = (claimedSquares.Contains(dest) ? 1 : 0);
 				}
 				else
 				{
-					flag3 = false;
+					num = 0;
 				}
-				bool flag4 = flag3;
-				while (list.Count > 0)
+				bool flag3 = (byte)num != 0;
+				while (true)
 				{
-					list.Sort(delegate(BoardSquarePathInfo p1, BoardSquarePathInfo p2)
+					if (list.Count > 0)
 					{
-						if (Mathf.Approximately(p1.F_cost, p2.F_cost))
+						list.Sort(delegate(BoardSquarePathInfo p1, BoardSquarePathInfo p2)
 						{
-							for (;;)
+							if (Mathf.Approximately(p1.F_cost, p2.F_cost))
 							{
-								switch (5)
+								while (true)
 								{
-								case 0:
-									continue;
+									switch (5)
+									{
+									case 0:
+										break;
+									default:
+									{
+										Vector3 from = p1.square.ToVector3() - tieBreakTestPos;
+										Vector3 from2 = p2.square.ToVector3() - tieBreakTestPos;
+										return Vector3.Angle(from, tieBreakDir).CompareTo(Vector3.Angle(from2, tieBreakDir));
+									}
+									}
 								}
-								break;
 							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(ActorMovement.<BuildPathTo_Orig>c__AnonStorey0.<>m__0(BoardSquarePathInfo, BoardSquarePathInfo)).MethodHandle;
-							}
-							Vector3 from = p1.square.ToVector3() - tieBreakTestPos;
-							Vector3 from2 = p2.square.ToVector3() - tieBreakTestPos;
-							return Vector3.Angle(from, tieBreakDir).CompareTo(Vector3.Angle(from2, tieBreakDir));
-						}
-						return p1.F_cost.CompareTo(p2.F_cost);
-					});
-					BoardSquarePathInfo boardSquarePathInfo2 = list[0];
-					tieBreakTestPos = boardSquarePathInfo2.square.ToVector3();
-					if (boardSquarePathInfo2.prev != null)
-					{
-						for (;;)
+							return p1.F_cost.CompareTo(p2.F_cost);
+						});
+						BoardSquarePathInfo boardSquarePathInfo2 = list[0];
+						tieBreakTestPos = boardSquarePathInfo2.square.ToVector3();
+						if (boardSquarePathInfo2.prev != null)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
+							tieBreakDir = boardSquarePathInfo2.square.ToVector3() - boardSquarePathInfo2.prev.square.ToVector3();
+						}
+						if (boardSquarePathInfo2.square == dest)
+						{
+							boardSquarePathInfo = boardSquarePathInfo2;
 							break;
 						}
-						tieBreakDir = boardSquarePathInfo2.square.ToVector3() - boardSquarePathInfo2.prev.square.ToVector3();
-					}
-					if (boardSquarePathInfo2.square == dest)
-					{
-						for (;;)
+						dictionary[boardSquarePathInfo2.square] = boardSquarePathInfo2;
+						list.Remove(boardSquarePathInfo2);
+						result.Clear();
+						if (!flag)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						boardSquarePathInfo = boardSquarePathInfo2;
-						IL_56F:
-						if (boardSquarePathInfo != null)
-						{
-							while (boardSquarePathInfo.prev != null)
-							{
-								boardSquarePathInfo.prev.next = boardSquarePathInfo;
-								boardSquarePathInfo = boardSquarePathInfo.prev;
-							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							boardSquarePathInfo = boardSquarePathInfo.Clone(null);
-							normalPathBuildScratchPool.ResetAvailableNodeIndex();
-						}
-						return boardSquarePathInfo;
-					}
-					dictionary[boardSquarePathInfo2.square] = boardSquarePathInfo2;
-					list.Remove(boardSquarePathInfo2);
-					list2.Clear();
-					if (!flag)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						Board.\u000E().\u000E(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list2);
-					}
-					else
-					{
-						Board.\u000E().\u0015(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list2);
-					}
-					for (int i = 0; i < list2.Count; i++)
-					{
-						BoardSquare boardSquare = list2[i];
-						bool flag5 = Board.\u000E().\u0015(boardSquarePathInfo2.square, boardSquare);
-						float num;
-						if (flag5)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							num = boardSquarePathInfo2.moveCost + 1.5f;
+							Board.Get().GetStraightAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
 						}
 						else
 						{
-							num = boardSquarePathInfo2.moveCost + 1f;
+							Board.Get().GetAllAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
 						}
-						bool flag6;
-						if (!flag2)
+						for (int i = 0; i < result.Count; i++)
 						{
-							for (;;)
+							BoardSquare boardSquare = result[i];
+							bool flag4 = Board.Get()._0015(boardSquarePathInfo2.square, boardSquare);
+							float num2;
+							if (flag4)
 							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
+								num2 = boardSquarePathInfo2.moveCost + 1.5f;
 							}
-							flag6 = (num <= maxHorizontalMovement);
-						}
-						else
-						{
-							flag6 = (boardSquarePathInfo2.moveCost < maxHorizontalMovement);
-						}
-						if (flag6)
-						{
+							else
+							{
+								num2 = boardSquarePathInfo2.moveCost + 1f;
+							}
+							bool flag5;
+							if (!flag2)
+							{
+								flag5 = (num2 <= maxHorizontalMovement);
+							}
+							else
+							{
+								flag5 = (boardSquarePathInfo2.moveCost < maxHorizontalMovement);
+							}
+							if (!flag5)
+							{
+								continue;
+							}
 							BoardSquare square = boardSquarePathInfo2.square;
-							BoardSquare dest2 = boardSquare;
-							ActorMovement.DiagonalCalcFlag diagonalFlag;
-							if (flag5)
+							int diagonalFlag;
+							if (flag4)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								diagonalFlag = ActorMovement.DiagonalCalcFlag.IsDiagonal;
+								diagonalFlag = 1;
 							}
 							else
 							{
-								diagonalFlag = ActorMovement.DiagonalCalcFlag.NotDiagonal;
+								diagonalFlag = 2;
 							}
-							if (!this.CanCrossToAdjacentSquare(square, dest2, ignoreBarriers, diagonalFlag))
+							if (!CanCrossToAdjacentSquare(square, boardSquare, ignoreBarriers, (DiagonalCalcFlag)diagonalFlag))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
+								continue;
 							}
-							else if (!FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
+							if (!FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
+								continue;
 							}
-							else
+							BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
+							allocatedNode2.square = boardSquare;
+							allocatedNode2.moveCost = num2;
+							if (claimedSquares != null && flag3)
 							{
-								BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
-								allocatedNode2.square = boardSquare;
-								allocatedNode2.moveCost = num;
-								if (claimedSquares != null && flag4)
+								if (allocatedNode2.square == dest)
 								{
-									for (;;)
+									int num3 = 1;
+									BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
+									while (boardSquarePathInfo3 != null)
 									{
-										switch (2)
+										if (claimedSquares.Contains(boardSquarePathInfo3.square))
 										{
-										case 0:
+											num3++;
+											boardSquarePathInfo3 = boardSquarePathInfo3.prev;
 											continue;
 										}
 										break;
 									}
-									if (allocatedNode2.square == dest)
-									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										int num2 = 1;
-										BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
-										while (boardSquarePathInfo3 != null)
-										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (!claimedSquares.Contains(boardSquarePathInfo3.square))
-											{
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													goto IL_372;
-												}
-											}
-											else
-											{
-												num2++;
-												boardSquarePathInfo3 = boardSquarePathInfo3.prev;
-											}
-										}
-										IL_372:
-										allocatedNode2.m_expectedBackupNum = num2;
-									}
+									allocatedNode2.m_expectedBackupNum = num3;
 								}
-								float squareSize = Board.\u000E().squareSize;
-								if (!flag2)
+							}
+							float squareSize = Board.Get().squareSize;
+							if (!flag2)
+							{
+								allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
+							}
+							else
+							{
+								float num4 = Mathf.Abs(boardSquare.x - dest.x);
+								float num5 = Mathf.Abs(boardSquare.y - dest.y);
+								float num6 = num4 + num5 - 0.5f * Mathf.Min(num4, num5);
+								float num7 = allocatedNode2.heuristicCost = Mathf.Max(0f, num6 - 1.01f);
+							}
+							allocatedNode2.prev = boardSquarePathInfo2;
+							bool flag6 = false;
+							if (dictionary.ContainsKey(allocatedNode2.square))
+							{
+								flag6 = (allocatedNode2.F_cost > dictionary[allocatedNode2.square].F_cost);
+							}
+							if (flag6)
+							{
+								continue;
+							}
+							bool flag7 = false;
+							for (int j = 0; j < list.Count; j++)
+							{
+								BoardSquarePathInfo boardSquarePathInfo4 = list[j];
+								if (!(boardSquarePathInfo4.square == allocatedNode2.square))
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
+									continue;
 								}
-								else
+								flag7 = true;
+								if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
 								{
-									float num3 = (float)Mathf.Abs(boardSquare.x - dest.x);
-									float num4 = (float)Mathf.Abs(boardSquare.y - dest.y);
-									float num5 = num3 + num4 - 0.5f * Mathf.Min(num3, num4);
-									float heuristicCost = Mathf.Max(0f, num5 - 1.01f);
-									allocatedNode2.heuristicCost = heuristicCost;
+									boardSquarePathInfo4.heuristicCost = allocatedNode2.heuristicCost;
+									boardSquarePathInfo4.moveCost = allocatedNode2.moveCost;
+									boardSquarePathInfo4.prev = allocatedNode2.prev;
+									boardSquarePathInfo4.m_expectedBackupNum = allocatedNode2.m_expectedBackupNum;
 								}
-								allocatedNode2.prev = boardSquarePathInfo2;
-								bool flag7 = false;
-								if (dictionary.ContainsKey(allocatedNode2.square))
-								{
-									flag7 = (allocatedNode2.F_cost > dictionary[allocatedNode2.square].F_cost);
-								}
-								if (!flag7)
-								{
-									bool flag8 = false;
-									for (int j = 0; j < list.Count; j++)
-									{
-										BoardSquarePathInfo boardSquarePathInfo4 = list[j];
-										if (boardSquarePathInfo4.square == allocatedNode2.square)
-										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											flag8 = true;
-											if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
-											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												boardSquarePathInfo4.heuristicCost = allocatedNode2.heuristicCost;
-												boardSquarePathInfo4.moveCost = allocatedNode2.moveCost;
-												boardSquarePathInfo4.prev = allocatedNode2.prev;
-												boardSquarePathInfo4.m_expectedBackupNum = allocatedNode2.m_expectedBackupNum;
-											}
-											break;
-										}
-									}
-									if (!flag8)
-									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										list.Add(allocatedNode2);
-									}
-								}
+								break;
+							}
+							if (!flag7)
+							{
+								list.Add(allocatedNode2);
 							}
 						}
-					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
 						continue;
 					}
-					goto IL_56F;
+					break;
 				}
+				if (boardSquarePathInfo != null)
+				{
+					while (boardSquarePathInfo.prev != null)
+					{
+						boardSquarePathInfo.prev.next = boardSquarePathInfo;
+						boardSquarePathInfo = boardSquarePathInfo.prev;
+					}
+					boardSquarePathInfo = boardSquarePathInfo.Clone(null);
+					normalPathBuildScratchPool.ResetAvailableNodeIndex();
+				}
+				return boardSquarePathInfo;
 			}
 		}
 		return boardSquarePathInfo;
@@ -4774,230 +2480,132 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	public BoardSquarePathInfo GetAestheticPath()
 	{
-		BoardSquarePathInfo result;
-		if (this.m_curMoveState == null)
+		object result;
+		if (m_curMoveState == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetAestheticPath()).MethodHandle;
-			}
 			result = null;
 		}
 		else
 		{
-			result = this.m_curMoveState.GetAestheticPath();
+			result = m_curMoveState.GetAestheticPath();
 		}
-		return result;
+		return (BoardSquarePathInfo)result;
 	}
 
 	public BoardSquare GetTravelBoardSquare()
 	{
 		BoardSquare boardSquare = null;
-		if (this.m_gameplayPath != null)
+		if (m_gameplayPath != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetTravelBoardSquare()).MethodHandle;
-			}
-			boardSquare = this.m_gameplayPath.square;
+			boardSquare = m_gameplayPath.square;
 		}
 		if (boardSquare == null)
 		{
-			boardSquare = this.m_actor.\u0012();
+			boardSquare = m_actor.GetCurrentBoardSquare();
 		}
 		return boardSquare;
 	}
 
 	internal BoardSquarePathInfo GetPreviousTravelBoardSquarePathInfo()
 	{
-		if (this.m_gameplayPath != null)
+		BoardSquarePathInfo result;
+		if (m_gameplayPath != null)
 		{
-			for (;;)
+			if (m_gameplayPath.prev != null)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetPreviousTravelBoardSquarePathInfo()).MethodHandle;
-			}
-			if (this.m_gameplayPath.prev != null)
-			{
-				return this.m_gameplayPath.prev;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				result = m_gameplayPath.prev;
+				goto IL_0045;
 			}
 		}
-		return this.m_gameplayPath;
+		result = m_gameplayPath;
+		goto IL_0045;
+		IL_0045:
+		return result;
 	}
 
 	internal BoardSquarePathInfo GetNextTravelBoardSquarePathInfo()
 	{
-		if (this.m_gameplayPath != null)
+		BoardSquarePathInfo result;
+		if (m_gameplayPath != null)
 		{
-			for (;;)
+			if (m_gameplayPath.next != null)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetNextTravelBoardSquarePathInfo()).MethodHandle;
-			}
-			if (this.m_gameplayPath.next != null)
-			{
-				return this.m_gameplayPath.next;
+				result = m_gameplayPath.next;
+				goto IL_003b;
 			}
 		}
-		return this.m_gameplayPath;
+		result = m_gameplayPath;
+		goto IL_003b;
+		IL_003b:
+		return result;
 	}
 
-	public unsafe void EncapsulatePathInBound(ref Bounds bound)
+	public void EncapsulatePathInBound(ref Bounds bound)
 	{
-		if (this.m_gameplayPath != null)
+		if (m_gameplayPath == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_actor != null)
 			{
-				switch (1)
+				while (true)
 				{
-				case 0:
-					continue;
+					TheatricsManager.EncapsulatePathInBound(ref bound, m_gameplayPath, m_actor);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.EncapsulatePathInBound(Bounds*)).MethodHandle;
-			}
-			if (this.m_actor != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				TheatricsManager.EncapsulatePathInBound(ref bound, this.m_gameplayPath, this.m_actor);
-			}
+			return;
 		}
 	}
 
 	public bool IsOnLastSegment()
 	{
-		bool result;
-		if (this.m_aestheticPath != null)
+		int result;
+		if (m_aestheticPath != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.IsOnLastSegment()).MethodHandle;
-			}
-			result = (this.m_aestheticPath.next == null);
+			result = ((m_aestheticPath.next == null) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool IsYetToCompleteGameplayPath()
 	{
-		return this.m_gameplayPath != null && !this.m_gameplayPath.IsPathEndpoint();
+		return m_gameplayPath != null && !m_gameplayPath.IsPathEndpoint();
 	}
 
 	internal bool IsPast2ndToLastSquare()
 	{
-		bool result;
-		if (this.m_gameplayPath != null)
+		int result;
+		if (m_gameplayPath != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.IsPast2ndToLastSquare()).MethodHandle;
-			}
-			result = (this.m_gameplayPath.next == null);
+			result = ((m_gameplayPath.next == null) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public void OnAssignedToInitialBoardSquare()
 	{
 		Vector3 spawnFacing = SpawnPointManager.Get().GetSpawnFacing(base.transform.position);
-		this.m_actor.TurnToDirection(spawnFacing);
-		Animator animator = this.m_actor.\u000E();
-		if (animator != null)
+		m_actor.TurnToDirection(spawnFacing);
+		Animator modelAnimator = m_actor.GetModelAnimator();
+		if (!(modelAnimator != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnAssignedToInitialBoardSquare()).MethodHandle;
-			}
-			animator.SetBool(ActorMovement.animDecisionPhase, true);
+			return;
+		}
+		while (true)
+		{
+			modelAnimator.SetBool(animDecisionPhase, true);
+			return;
 		}
 	}
 
@@ -5005,24 +2613,20 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnDrawGizmos()).MethodHandle;
-			}
-			return;
 		}
 		Gizmos.color = Color.black;
-		Gizmos.DrawWireCube(this.m_actor.transform.position, new Vector3(1.5f, 2.5f, 1.5f));
-		Color[] array = new Color[]
+		Gizmos.DrawWireCube(m_actor.transform.position, new Vector3(1.5f, 2.5f, 1.5f));
+		Color[] array = new Color[6]
 		{
 			Color.white,
 			Color.magenta,
@@ -5032,132 +2636,49 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			Color.black
 		};
 		float num = 0.4f;
-		for (BoardSquarePathInfo boardSquarePathInfo = this.m_aestheticPath; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
+		for (BoardSquarePathInfo boardSquarePathInfo = m_aestheticPath; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
 			Gizmos.color = array[(int)boardSquarePathInfo.connectionType];
 			if (boardSquarePathInfo.square != null)
 			{
-				Gizmos.DrawWireSphere(boardSquarePathInfo.square.\u001D(), num);
+				Gizmos.DrawWireSphere(boardSquarePathInfo.square.GetWorldPosition(), num);
 			}
 			if (boardSquarePathInfo.prev != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquarePathInfo.prev.square != null)
 				{
-					Gizmos.DrawLine(boardSquarePathInfo.square.\u001D() + Vector3.up * num, boardSquarePathInfo.prev.square.\u001D() + Vector3.up * num);
+					Gizmos.DrawLine(boardSquarePathInfo.square.GetWorldPosition() + Vector3.up * num, boardSquarePathInfo.prev.square.GetWorldPosition() + Vector3.up * num);
 				}
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
+			Gizmos.color = Color.black;
+			for (BoardSquarePathInfo boardSquarePathInfo2 = m_gameplayPath; boardSquarePathInfo2 != null; boardSquarePathInfo2 = boardSquarePathInfo2.next)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		Gizmos.color = Color.black;
-		for (BoardSquarePathInfo boardSquarePathInfo2 = this.m_gameplayPath; boardSquarePathInfo2 != null; boardSquarePathInfo2 = boardSquarePathInfo2.next)
-		{
-			if (boardSquarePathInfo2.square != null)
-			{
-				for (;;)
+				if (boardSquarePathInfo2.square != null)
 				{
-					switch (2)
+					Gizmos.DrawSphere(boardSquarePathInfo2.square.GetWorldPosition(), 0.15f);
+				}
+				if (boardSquarePathInfo2.prev != null)
+				{
+					if (boardSquarePathInfo2.prev.square != null)
 					{
-					case 0:
-						continue;
+						Gizmos.DrawLine(boardSquarePathInfo2.square.GetWorldPosition(), boardSquarePathInfo2.prev.square.GetWorldPosition());
 					}
-					break;
 				}
-				Gizmos.DrawSphere(boardSquarePathInfo2.square.\u001D(), 0.15f);
 			}
-			if (boardSquarePathInfo2.prev != null)
+			BoardSquare travelBoardSquare = GetTravelBoardSquare();
+			if (travelBoardSquare != null)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (boardSquarePathInfo2.prev.square != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Gizmos.DrawLine(boardSquarePathInfo2.square.\u001D(), boardSquarePathInfo2.prev.square.\u001D());
+					Gizmos.color = Color.cyan;
+					Gizmos.DrawWireCube(travelBoardSquare.CameraBounds.center, travelBoardSquare.CameraBounds.size);
+					return;
 				}
 			}
+			return;
 		}
-		BoardSquare travelBoardSquare = this.GetTravelBoardSquare();
-		if (travelBoardSquare != null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Gizmos.color = Color.cyan;
-			Gizmos.DrawWireCube(travelBoardSquare.CameraBounds.center, travelBoardSquare.CameraBounds.size);
-		}
-	}
-
-	public enum IdleType
-	{
-		Default,
-		Special1
-	}
-
-	public class SquaresCanMoveToCacheEntry
-	{
-		public BoardSquare m_squaresCanMoveToOrigin;
-
-		public float m_squaresCanMoveToHorizontalAllowed;
-
-		public int m_squaresCanMoveToSinglePlayerState = -1;
-
-		public int m_squaresCanMoveToBarrierState = -1;
-
-		public FirstTurnMovement.RestrictedMovementState m_squaresCanMoveToFirstTurnState = FirstTurnMovement.RestrictedMovementState.Invalid;
-
-		public HashSet<BoardSquare> m_squaresCanMoveTo;
-	}
-
-	private struct BoardSquareMovementInfo
-	{
-		public BoardSquare square;
-
-		public float cost;
-
-		public float prevCost;
-	}
-
-	public enum DiagonalCalcFlag
-	{
-		Unknown,
-		IsDiagonal,
-		NotDiagonal
 	}
 }

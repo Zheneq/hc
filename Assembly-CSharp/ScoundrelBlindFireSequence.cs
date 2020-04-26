@@ -1,9 +1,27 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoundrelBlindFireSequence : Sequence
 {
+	public class ConeExtraParams : IExtraSequenceParams
+	{
+		public float halfAngleDegrees = -1f;
+
+		public float maxDistInSquares = -1f;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			stream.Serialize(ref halfAngleDegrees);
+			stream.Serialize(ref maxDistInSquares);
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			stream.Serialize(ref halfAngleDegrees);
+			stream.Serialize(ref maxDistInSquares);
+		}
+	}
+
 	[Tooltip("Main FX prefab.")]
 	public GameObject m_fxPrefab;
 
@@ -21,17 +39,17 @@ public class ScoundrelBlindFireSequence : Sequence
 
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
 	[AnimEventPicker]
-	public UnityEngine.Object m_startEventLeft;
+	public Object m_startEventLeft;
 
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
 	[AnimEventPicker]
-	public UnityEngine.Object m_startEventRight;
+	public Object m_startEventRight;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_hitReactEvent;
+	public Object m_hitReactEvent;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_lastHitReactEvent;
+	public Object m_lastHitReactEvent;
 
 	[Tooltip("Amount of time to trigger actual impact after hit react event has been received")]
 	public float m_hitImpactDelayTime = -1f;
@@ -76,373 +94,184 @@ public class ScoundrelBlindFireSequence : Sequence
 
 	private List<SimpleAttachedVFXSequence.DelayedImpact> m_delayedImpacts = new List<SimpleAttachedVFXSequence.DelayedImpact>();
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			ScoundrelBlindFireSequence.ConeExtraParams coneExtraParams = extraSequenceParams as ScoundrelBlindFireSequence.ConeExtraParams;
+			ConeExtraParams coneExtraParams = extraSequenceParams as ConeExtraParams;
 			if (coneExtraParams != null)
 			{
 				if (coneExtraParams.maxDistInSquares > 0f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFireSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-					}
-					this.m_maxDistInSquares = coneExtraParams.maxDistInSquares;
+					m_maxDistInSquares = coneExtraParams.maxDistInSquares;
 				}
 				if (coneExtraParams.halfAngleDegrees > 0f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_angleRange = coneExtraParams.halfAngleDegrees;
+					m_angleRange = coneExtraParams.halfAngleDegrees;
 				}
 			}
 			SimpleAttachedVFXSequence.ImpactDelayParams impactDelayParams = extraSequenceParams as SimpleAttachedVFXSequence.ImpactDelayParams;
-			if (impactDelayParams != null)
+			if (impactDelayParams == null)
 			{
-				if (impactDelayParams.impactDelayTime > 0f)
-				{
-					this.m_hitImpactDelayTime = impactDelayParams.impactDelayTime;
-				}
-				if ((int)impactDelayParams.alternativeImpactAudioIndex >= 0)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_alternativeAudioIndex = (int)impactDelayParams.alternativeImpactAudioIndex;
-				}
+				continue;
+			}
+			if (impactDelayParams.impactDelayTime > 0f)
+			{
+				m_hitImpactDelayTime = impactDelayParams.impactDelayTime;
+			}
+			if (impactDelayParams.alternativeImpactAudioIndex >= 0)
+			{
+				m_alternativeAudioIndex = impactDelayParams.alternativeImpactAudioIndex;
 			}
 		}
 	}
 
 	public override void FinishSetup()
 	{
-		this.m_FXs = new List<GameObject>();
-		this.m_fxImpacts = new List<GameObject>();
-		if (this.m_projectilesPerAnimEvent <= 0x14)
+		m_FXs = new List<GameObject>();
+		m_fxImpacts = new List<GameObject>();
+		if (m_projectilesPerAnimEvent <= 20)
 		{
-			for (;;)
+			if (m_projectilesPerAnimEvent >= 1)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFireSequence.FinishSetup()).MethodHandle;
-			}
-			if (this.m_projectilesPerAnimEvent >= 1)
-			{
-				goto IL_4D;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_004d;
 			}
 		}
-		this.m_projectilesPerAnimEvent = 1;
-		IL_4D:
-		if (this.m_projectilesPerAnimEvent <= 1)
+		m_projectilesPerAnimEvent = 1;
+		goto IL_004d;
+		IL_004d:
+		if (m_projectilesPerAnimEvent > 1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			int num = this.m_expectedNumProjectilesForEdgeShots;
+			return;
+		}
+		while (true)
+		{
+			int num = m_expectedNumProjectilesForEdgeShots;
 			if (num <= 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 4;
 			}
-			this.m_spawnIndexEdgeMin = UnityEngine.Random.Range(0, num);
-			this.m_spawnIndexEdgeMax = UnityEngine.Random.Range(0, num);
-			if (this.m_spawnIndexEdgeMax == this.m_spawnIndexEdgeMin)
+			m_spawnIndexEdgeMin = Random.Range(0, num);
+			m_spawnIndexEdgeMax = Random.Range(0, num);
+			if (m_spawnIndexEdgeMax == m_spawnIndexEdgeMin)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_spawnIndexEdgeMax = (m_spawnIndexEdgeMax + 1) % num;
+					return;
 				}
-				this.m_spawnIndexEdgeMax = (this.m_spawnIndexEdgeMax + 1) % num;
 			}
+			return;
 		}
 	}
 
 	private float GetProjectileDistance(Vector3 start, Vector3 forward, float maxDist)
 	{
 		Vector3 vector = start;
-		if (this.m_raycastDistanceFromLosHeight)
+		if (m_raycastDistanceFromLosHeight)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFireSequence.GetProjectileDistance(Vector3, Vector3, float)).MethodHandle;
-			}
-			vector.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+			vector.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		}
 		else
 		{
 			vector.y += 0.5f;
 		}
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, forward, maxDist, false, base.Caster, null, true);
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, forward, maxDist, false, base.Caster);
 		return (vector - laserEndPoint).magnitude;
 	}
 
 	private void SpawnFX(bool left)
 	{
-		JointPopupProperty jointPopupProperty = (!left) ? this.m_fxJointRight : this.m_fxJointLeft;
+		JointPopupProperty jointPopupProperty = (!left) ? m_fxJointRight : m_fxJointLeft;
 		if (!jointPopupProperty.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFireSequence.SpawnFX(bool)).MethodHandle;
-			}
 			jointPopupProperty.Initialize(base.Caster.gameObject);
 		}
 		Vector3 forward = jointPopupProperty.m_jointObject.transform.forward;
 		forward.y = 0f;
 		forward.Normalize();
-		int projectilesPerAnimEvent = this.m_projectilesPerAnimEvent;
+		int projectilesPerAnimEvent = m_projectilesPerAnimEvent;
 		int num = -1;
 		int num2 = -1;
-		if (this.m_angleRange < 180f)
+		if (m_angleRange < 180f)
 		{
 			if (projectilesPerAnimEvent > 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num = UnityEngine.Random.Range(0, projectilesPerAnimEvent);
-				num2 = UnityEngine.Random.Range(0, projectilesPerAnimEvent);
+				num = Random.Range(0, projectilesPerAnimEvent);
+				num2 = Random.Range(0, projectilesPerAnimEvent);
 				if (num2 == num)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = (num2 + 1) % projectilesPerAnimEvent;
 				}
 			}
 			else if (projectilesPerAnimEvent == 1)
 			{
-				for (;;)
+				if (m_numSpawnAttempts == m_spawnIndexEdgeMin)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					num = m_spawnIndexEdgeMin;
 				}
-				if (this.m_numSpawnAttempts == this.m_spawnIndexEdgeMin)
+				else if (m_numSpawnAttempts == m_spawnIndexEdgeMax)
 				{
-					num = this.m_spawnIndexEdgeMin;
-				}
-				else if (this.m_numSpawnAttempts == this.m_spawnIndexEdgeMax)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num2 = this.m_spawnIndexEdgeMax;
+					num2 = m_spawnIndexEdgeMax;
 				}
 			}
 		}
 		for (int i = 0; i < projectilesPerAnimEvent; i++)
 		{
-			float angle = UnityEngine.Random.Range(-this.m_angleRange, this.m_angleRange);
+			float angle = Random.Range(0f - m_angleRange, m_angleRange);
 			if (i == num)
 			{
-				angle = -this.m_angleRange;
+				angle = 0f - m_angleRange;
 			}
 			else if (i == num2)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				angle = this.m_angleRange;
+				angle = m_angleRange;
 			}
-			GameObject item = this.CreateProjectileFx(forward, angle, jointPopupProperty);
-			this.m_FXs.Add(item);
-			if (UnityEngine.Random.Range(0f, 1f) < this.m_extraEdgeShotChance)
+			GameObject item = CreateProjectileFx(forward, angle, jointPopupProperty);
+			m_FXs.Add(item);
+			if (!(Random.Range(0f, 1f) < m_extraEdgeShotChance))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				float angle2 = -this.m_angleRange;
-				if (UnityEngine.Random.Range(0f, 1f) < 0.5f)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					angle2 = this.m_angleRange;
-				}
-				GameObject item2 = this.CreateProjectileFx(forward, angle2, jointPopupProperty);
-				this.m_FXs.Add(item2);
-			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		if (!string.IsNullOrEmpty(this.m_audioEvent))
-		{
-			for (;;)
+			float angle2 = 0f - m_angleRange;
+			if (Random.Range(0f, 1f) < 0.5f)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				angle2 = m_angleRange;
 			}
-			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
+			GameObject item2 = CreateProjectileFx(forward, angle2, jointPopupProperty);
+			m_FXs.Add(item2);
 		}
-		if (this.m_hitReactEvent == null)
+		while (true)
 		{
-			for (;;)
+			if (!string.IsNullOrEmpty(m_audioEvent))
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 			}
-			if (this.m_lastHitReactEvent == null)
+			if (m_hitReactEvent == null)
 			{
-				for (;;)
+				if (m_lastHitReactEvent == null)
 				{
-					switch (3)
+					if (m_hitImpactDelayTime > 0f)
 					{
-					case 0:
-						continue;
+						m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + m_hitImpactDelayTime, true));
 					}
-					break;
-				}
-				if (this.m_hitImpactDelayTime > 0f)
-				{
-					this.m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + this.m_hitImpactDelayTime, true));
-				}
-				else
-				{
-					this.SpawnImpactFX(true);
+					else
+					{
+						SpawnImpactFX(true);
+					}
 				}
 			}
+			m_numSpawnAttempts++;
+			return;
 		}
-		this.m_numSpawnAttempts++;
 	}
 
 	private GameObject CreateProjectileFx(Vector3 forward, float angle, JointPopupProperty fxJoint)
 	{
 		Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
 		Vector3 vector = rotation * forward;
-		GameObject gameObject = base.InstantiateFX(this.m_fxPrefab, fxJoint.m_jointObject.transform.position, Quaternion.LookRotation(vector), true, true);
-		float projectileDistance = this.GetProjectileDistance(base.Caster.transform.position, vector, this.m_maxDistInSquares * 1.5f);
+		GameObject gameObject = InstantiateFX(m_fxPrefab, fxJoint.m_jointObject.transform.position, Quaternion.LookRotation(vector));
+		float projectileDistance = GetProjectileDistance(base.Caster.transform.position, vector, m_maxDistInSquares * 1.5f);
 		Sequence.SetAttribute(gameObject, "projectileDistance", projectileDistance);
 		Debug.DrawRay(fxJoint.m_jointObject.transform.position, projectileDistance * vector, Color.red, 5f);
 		return gameObject;
@@ -452,180 +281,99 @@ public class ScoundrelBlindFireSequence : Sequence
 	{
 		if (base.Targets != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFireSequence.SpawnImpactFX(bool)).MethodHandle;
-			}
 			for (int i = 0; i < base.Targets.Length; i++)
 			{
-				Vector3 targetHitPosition = base.GetTargetHitPosition(i, this.m_hitFxJoint);
+				Vector3 targetHitPosition = GetTargetHitPosition(i, m_hitFxJoint);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
 				hitDirection.Normalize();
 				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, hitDirection);
-				if (this.m_fxImpactPrefab)
+				if ((bool)m_fxImpactPrefab)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_fxImpacts.Add(base.InstantiateFX(this.m_fxImpactPrefab, targetHitPosition, Quaternion.identity, true, true));
+					m_fxImpacts.Add(InstantiateFX(m_fxImpactPrefab, targetHitPosition, Quaternion.identity));
 				}
-				string text = this.m_impactAudioEvent;
-				if (this.m_alternativeAudioIndex >= 0)
+				string text = m_impactAudioEvent;
+				if (m_alternativeAudioIndex >= 0)
 				{
-					for (;;)
+					if (m_alternativeAudioIndex < m_alternativeImpactAudioEvents.Length)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_alternativeAudioIndex < this.m_alternativeImpactAudioEvents.Length)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						text = this.m_alternativeImpactAudioEvents[this.m_alternativeAudioIndex];
+						text = m_alternativeImpactAudioEvents[m_alternativeAudioIndex];
 					}
 				}
 				if (!string.IsNullOrEmpty(text))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AudioManager.PostEvent(text, base.Targets[i].gameObject);
 				}
 				if (base.Targets[i] != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, (!lastHit) ? ActorModelData.RagdollActivation.None : ActorModelData.RagdollActivation.HealthBased, true);
+					base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, lastHit ? ActorModelData.RagdollActivation.HealthBased : ActorModelData.RagdollActivation.None);
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
-		base.Source.OnSequenceHit(this, base.TargetPos, null);
+		base.Source.OnSequenceHit(this, base.TargetPos);
 	}
 
 	private bool ImpactsFinished()
 	{
 		bool result = true;
-		if (this.m_FXs.Count == 0)
+		if (m_FXs.Count == 0)
 		{
 			result = false;
 		}
-		using (List<GameObject>.Enumerator enumerator = this.m_FXs.GetEnumerator())
+		using (List<GameObject>.Enumerator enumerator = m_FXs.GetEnumerator())
 		{
-			while (enumerator.MoveNext())
+			while (true)
 			{
-				GameObject gameObject = enumerator.Current;
-				if (gameObject.activeSelf)
+				if (!enumerator.MoveNext())
+				{
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							break;
+						default:
+							goto end_IL_0021;
+						}
+					}
+				}
+				GameObject current = enumerator.Current;
+				if (current.activeSelf)
 				{
 					result = false;
-					goto IL_69;
+					break;
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFireSequence.ImpactsFinished()).MethodHandle;
-			}
+			end_IL_0021:;
 		}
-		IL_69:
-		using (List<GameObject>.Enumerator enumerator2 = this.m_fxImpacts.GetEnumerator())
+		using (List<GameObject>.Enumerator enumerator2 = m_fxImpacts.GetEnumerator())
 		{
-			while (enumerator2.MoveNext())
+			while (true)
 			{
-				GameObject gameObject2 = enumerator2.Current;
-				if (gameObject2.activeSelf)
+				if (!enumerator2.MoveNext())
 				{
-					for (;;)
+					break;
+				}
+				GameObject current2 = enumerator2.Current;
+				if (current2.activeSelf)
+				{
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							result = false;
+							goto end_IL_0076;
 						}
-						break;
 					}
-					result = false;
-					goto IL_BD;
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			end_IL_0076:;
 		}
-		IL_BD:
-		if (this.m_delayedImpacts.Count > 0)
+		if (m_delayedImpacts.Count > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = false;
 		}
 		return result;
@@ -633,223 +381,135 @@ public class ScoundrelBlindFireSequence : Sequence
 
 	private void Update()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			for (int i = this.m_delayedImpacts.Count - 1; i >= 0; i--)
+			return;
+		}
+		for (int num = m_delayedImpacts.Count - 1; num >= 0; num--)
+		{
+			SimpleAttachedVFXSequence.DelayedImpact delayedImpact = m_delayedImpacts[num];
+			if (GameTime.time >= delayedImpact.m_timeToSpawnImpact)
 			{
-				SimpleAttachedVFXSequence.DelayedImpact delayedImpact = this.m_delayedImpacts[i];
-				if (GameTime.time >= delayedImpact.m_timeToSpawnImpact)
+				SpawnImpactFX(delayedImpact.m_lastHit);
+				m_delayedImpacts.RemoveAt(num);
+			}
+		}
+		while (true)
+		{
+			if (ImpactsFinished())
+			{
+				while (true)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFireSequence.Update()).MethodHandle;
-					}
-					this.SpawnImpactFX(delayedImpact.m_lastHit);
-					this.m_delayedImpacts.RemoveAt(i);
+					MarkForRemoval();
+					return;
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.ImpactsFinished())
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				base.MarkForRemoval();
-			}
+			return;
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (parameter == this.m_startEventLeft)
+		if (parameter == m_startEventLeft)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					SpawnFX(true);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFireSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
-			this.SpawnFX(true);
 		}
-		else if (parameter == this.m_startEventRight)
+		if (parameter == m_startEventRight)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					SpawnFX(false);
+					return;
 				}
-				break;
 			}
-			this.SpawnFX(false);
 		}
-		else if (parameter == this.m_hitReactEvent)
+		if (parameter == m_hitReactEvent)
 		{
-			if (this.m_hitImpactDelayTime > 0f)
+			if (m_hitImpactDelayTime > 0f)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + m_hitImpactDelayTime, m_lastHitReactEvent == null));
+						return;
 					}
-					break;
 				}
-				this.m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + this.m_hitImpactDelayTime, this.m_lastHitReactEvent == null));
 			}
-			else
-			{
-				this.SpawnImpactFX(this.m_lastHitReactEvent == null);
-			}
+			SpawnImpactFX(m_lastHitReactEvent == null);
 		}
-		else if (parameter == this.m_lastHitReactEvent)
+		else
 		{
-			for (;;)
+			if (!(parameter == m_lastHitReactEvent))
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (this.m_hitImpactDelayTime > 0f)
+			while (true)
 			{
-				for (;;)
+				if (m_hitImpactDelayTime > 0f)
 				{
-					switch (5)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (5)
+						{
+						case 0:
+							break;
+						default:
+							m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + m_hitImpactDelayTime, true));
+							return;
+						}
 					}
-					break;
 				}
-				this.m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + this.m_hitImpactDelayTime, true));
-			}
-			else
-			{
-				this.SpawnImpactFX(true);
+				SpawnImpactFX(true);
+				return;
 			}
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_FXs != null)
+		if (m_FXs != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFireSequence.OnDisable()).MethodHandle;
-			}
-			using (List<GameObject>.Enumerator enumerator = this.m_FXs.GetEnumerator())
+			using (List<GameObject>.Enumerator enumerator = m_FXs.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					GameObject gameObject = enumerator.Current;
-					UnityEngine.Object.Destroy(gameObject.gameObject);
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					GameObject current = enumerator.Current;
+					Object.Destroy(current.gameObject);
 				}
 			}
-			this.m_FXs = null;
+			m_FXs = null;
 		}
-		if (this.m_fxImpacts != null)
+		if (m_fxImpacts != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			using (List<GameObject>.Enumerator enumerator2 = this.m_fxImpacts.GetEnumerator())
+			using (List<GameObject>.Enumerator enumerator2 = m_fxImpacts.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
 				{
-					GameObject gameObject2 = enumerator2.Current;
-					UnityEngine.Object.Destroy(gameObject2.gameObject);
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					GameObject current2 = enumerator2.Current;
+					Object.Destroy(current2.gameObject);
 				}
 			}
-			this.m_fxImpacts = null;
+			m_fxImpacts = null;
 		}
-		this.m_initialized = false;
-	}
-
-	public class ConeExtraParams : Sequence.IExtraSequenceParams
-	{
-		public float halfAngleDegrees = -1f;
-
-		public float maxDistInSquares = -1f;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.halfAngleDegrees);
-			stream.Serialize(ref this.maxDistInSquares);
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.halfAngleDegrees);
-			stream.Serialize(ref this.maxDistInSquares);
-		}
+		m_initialized = false;
 	}
 }

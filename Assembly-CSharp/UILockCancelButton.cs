@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -78,111 +77,81 @@ public class UILockCancelButton : MonoBehaviour
 
 	private void Start()
 	{
-		UIManager.SetGameObjectActive(this.m_lockImage, false, null);
-		if (this.m_theButton != null)
+		UIManager.SetGameObjectActive(m_lockImage, false);
+		if (m_theButton != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockCancelButton.Start()).MethodHandle;
-			}
-			UIEventTriggerUtils.AddListener(this.m_theButton.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnPointerEnter));
-			UIEventTriggerUtils.AddListener(this.m_theButton.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.OnPointerExit));
-			UIEventTriggerUtils.AddListener(this.m_theButton.gameObject, EventTriggerType.PointerDown, new UIEventTriggerUtils.EventDelegate(this.OnPointerDown));
-			UIEventTriggerUtils.AddListener(this.m_theButton.gameObject, EventTriggerType.PointerUp, new UIEventTriggerUtils.EventDelegate(this.OnPointerUp));
+			UIEventTriggerUtils.AddListener(m_theButton.gameObject, EventTriggerType.PointerEnter, OnPointerEnter);
+			UIEventTriggerUtils.AddListener(m_theButton.gameObject, EventTriggerType.PointerExit, OnPointerExit);
+			UIEventTriggerUtils.AddListener(m_theButton.gameObject, EventTriggerType.PointerDown, OnPointerDown);
+			UIEventTriggerUtils.AddListener(m_theButton.gameObject, EventTriggerType.PointerUp, OnPointerUp);
 		}
-		RectTransform rectTransform = base.GetComponent<Transform>() as RectTransform;
+		RectTransform rectTransform = GetComponent<Transform>() as RectTransform;
 		if (rectTransform != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_originalAnchoredPosition = rectTransform.anchoredPosition;
+			m_originalAnchoredPosition = rectTransform.anchoredPosition;
 		}
-		this.m_theButtonImage = this.m_theButton.GetComponent<Image>();
+		m_theButtonImage = m_theButton.GetComponent<Image>();
 	}
 
 	private void Update()
 	{
-		UIManager.SetGameObjectActive(this.m_lockInPressed, this.m_mouseIsDown, null);
-		UIManager.SetGameObjectActive(this.m_cancelPressed, this.m_mouseIsDown, null);
+		UIManager.SetGameObjectActive(m_lockInPressed, m_mouseIsDown);
+		UIManager.SetGameObjectActive(m_cancelPressed, m_mouseIsDown);
 	}
 
 	private void OnEnable()
 	{
-		this.Update();
+		Update();
 	}
 
 	private void OnPointerDown(BaseEventData data)
 	{
-		this.m_mouseIsDown = true;
-		this.UpdateMouseDownLocation();
+		m_mouseIsDown = true;
+		UpdateMouseDownLocation();
 	}
 
 	private void OnPointerUp(BaseEventData data)
 	{
-		this.m_mouseIsDown = false;
-		this.UpdateMouseDownLocation();
+		m_mouseIsDown = false;
+		UpdateMouseDownLocation();
 	}
 
 	private void OnPointerEnter(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_lockInHover, true, null);
-		UIManager.SetGameObjectActive(this.m_cancelHover, true, null);
-		this.m_lockInText.color = this.m_lockinHoverColor;
-		this.m_cancelText.color = this.m_cancelHoverColor;
+		UIManager.SetGameObjectActive(m_lockInHover, true);
+		UIManager.SetGameObjectActive(m_cancelHover, true);
+		m_lockInText.color = m_lockinHoverColor;
+		m_cancelText.color = m_cancelHoverColor;
 	}
 
 	private void OnPointerExit(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_lockInHover, false, null);
-		UIManager.SetGameObjectActive(this.m_cancelHover, false, null);
-		this.m_lockInText.color = Color.white;
-		this.m_cancelText.color = Color.white;
-		this.m_mouseIsDown = false;
-		this.UpdateMouseDownLocation();
+		UIManager.SetGameObjectActive(m_lockInHover, false);
+		UIManager.SetGameObjectActive(m_cancelHover, false);
+		m_lockInText.color = Color.white;
+		m_cancelText.color = Color.white;
+		m_mouseIsDown = false;
+		UpdateMouseDownLocation();
 	}
 
 	private void UpdateMouseDownLocation()
 	{
-		RectTransform rectTransform = base.GetComponent<Transform>() as RectTransform;
-		if (rectTransform != null)
+		RectTransform rectTransform = GetComponent<Transform>() as RectTransform;
+		if (!(rectTransform != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_mouseIsDown)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockCancelButton.UpdateMouseDownLocation()).MethodHandle;
-			}
-			if (this.m_mouseIsDown)
-			{
-				rectTransform.anchoredPosition = this.m_originalAnchoredPosition + new Vector2(0f, -(this.m_lockInContainer.rect.height * 0.05f));
+				rectTransform.anchoredPosition = m_originalAnchoredPosition + new Vector2(0f, 0f - m_lockInContainer.rect.height * 0.05f);
 			}
 			else
 			{
-				rectTransform.anchoredPosition = this.m_originalAnchoredPosition;
+				rectTransform.anchoredPosition = m_originalAnchoredPosition;
 			}
+			return;
 		}
 	}
 
@@ -192,7 +161,7 @@ public class UILockCancelButton : MonoBehaviour
 
 	public void LockedInClicked()
 	{
-		this.OnPointerExit(null);
+		OnPointerExit(null);
 	}
 
 	public void Unclicked()
@@ -201,354 +170,204 @@ public class UILockCancelButton : MonoBehaviour
 
 	public void SetClickCallback(UIEventTriggerUtils.EventDelegate callback)
 	{
-		if (this.m_theButton != null)
+		if (!(m_theButton != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockCancelButton.SetClickCallback(UIEventTriggerUtils.EventDelegate)).MethodHandle;
-			}
-			UIEventTriggerUtils.AddListener(this.m_theButton.gameObject, EventTriggerType.PointerClick, callback);
+			return;
+		}
+		while (true)
+		{
+			UIEventTriggerUtils.AddListener(m_theButton.gameObject, EventTriggerType.PointerClick, callback);
+			return;
 		}
 	}
 
 	public void CancelButtonAnimationDone()
 	{
-		UIManager.SetGameObjectActive(this.m_lockImage, false, null);
+		UIManager.SetGameObjectActive(m_lockImage, false);
 	}
 
 	public void SetDecisionContainerVisible(bool visible, bool isDead)
 	{
-		bool flag;
+		int num;
 		if (isDead)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockCancelButton.SetDecisionContainerVisible(bool, bool)).MethodHandle;
-			}
 			if (!(SpawnPointManager.Get() == null))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag = !SpawnPointManager.Get().m_playersSelectRespawn;
+				num = ((!SpawnPointManager.Get().m_playersSelectRespawn) ? 1 : 0);
 			}
 			else
 			{
-				flag = true;
+				num = 1;
 			}
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
-		Component decisionObjectContainer = this.m_decisionObjectContainer;
-		bool doActive;
+		bool flag = (byte)num != 0;
+		RectTransform decisionObjectContainer = m_decisionObjectContainer;
+		int doActive;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			doActive = !flag2;
+			doActive = ((!flag) ? 1 : 0);
 		}
 		else
 		{
-			doActive = false;
+			doActive = 0;
 		}
-		UIManager.SetGameObjectActive(decisionObjectContainer, doActive, null);
-		Component theButton = this.m_theButton;
-		bool doActive2;
+		UIManager.SetGameObjectActive(decisionObjectContainer, (byte)doActive != 0);
+		Button theButton = m_theButton;
+		int doActive2;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			doActive2 = !flag2;
+			doActive2 = ((!flag) ? 1 : 0);
 		}
 		else
 		{
-			doActive2 = false;
+			doActive2 = 0;
 		}
-		UIManager.SetGameObjectActive(theButton, doActive2, null);
-		Component playerDeadContainer = this.m_playerDeadContainer;
-		bool doActive3;
+		UIManager.SetGameObjectActive(theButton, (byte)doActive2 != 0);
+		RectTransform playerDeadContainer = m_playerDeadContainer;
+		int doActive3;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			doActive3 = flag2;
+			doActive3 = (flag ? 1 : 0);
 		}
 		else
 		{
-			doActive3 = false;
+			doActive3 = 0;
 		}
-		UIManager.SetGameObjectActive(playerDeadContainer, doActive3, null);
+		UIManager.SetGameObjectActive(playerDeadContainer, (byte)doActive3 != 0);
 		if (SinglePlayerManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SinglePlayerManager.Get().GetLockinPhaseDisplayForceOff())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_phaseMarkerContainer, false, null);
-				goto IL_F4;
+				UIManager.SetGameObjectActive(m_phaseMarkerContainer, false);
+				goto IL_00f4;
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_phaseMarkerContainer, !visible, null);
-		IL_F4:
+		UIManager.SetGameObjectActive(m_phaseMarkerContainer, !visible);
+		goto IL_00f4;
+		IL_00f4:
 		if (SinglePlayerManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SinglePlayerManager.Get().GetLockinPhaseTextForceOff())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						UIManager.SetGameObjectActive(m_phaseLabelContainer, false);
+						return;
 					}
-					break;
 				}
-				UIManager.SetGameObjectActive(this.m_phaseLabelContainer, false, null);
-				return;
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_phaseLabelContainer, !visible, null);
+		UIManager.SetGameObjectActive(m_phaseLabelContainer, !visible);
 	}
 
 	public void UpdatePhase()
 	{
-		int num = 3;
+		int value = 3;
 		string text = StringUtil.TR("MOVE", "Global");
-		Color color = this.m_movementPhaseColor;
-		UIQueueListPanel.UIPhase uiphaseFromAbilityPriority = UIQueueListPanel.GetUIPhaseFromAbilityPriority(ServerClientUtils.GetCurrentAbilityPhase());
+		Color color = m_movementPhaseColor;
+		UIQueueListPanel.UIPhase uIPhaseFromAbilityPriority = UIQueueListPanel.GetUIPhaseFromAbilityPriority(ServerClientUtils.GetCurrentAbilityPhase());
 		if (ServerClientUtils.GetCurrentActionPhase() == ActionBufferPhase.Abilities)
 		{
-			num = (int)uiphaseFromAbilityPriority;
-			UIManager.SetGameObjectActive(this.m_phaseIndicatorsContainer, true, null);
-			UIManager.SetGameObjectActive(this.m_phaseIcon, true, null);
-			UIManager.SetGameObjectActive(this.m_movementIcon, false, null);
-			if (uiphaseFromAbilityPriority != UIQueueListPanel.UIPhase.Prep)
+			value = (int)uIPhaseFromAbilityPriority;
+			UIManager.SetGameObjectActive(m_phaseIndicatorsContainer, true);
+			UIManager.SetGameObjectActive(m_phaseIcon, true);
+			UIManager.SetGameObjectActive(m_movementIcon, false);
+			if (uIPhaseFromAbilityPriority != 0)
 			{
-				for (;;)
+				if (uIPhaseFromAbilityPriority != UIQueueListPanel.UIPhase.Evasion)
 				{
-					switch (3)
+					if (uIPhaseFromAbilityPriority != UIQueueListPanel.UIPhase.Combat)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILockCancelButton.UpdatePhase()).MethodHandle;
-				}
-				if (uiphaseFromAbilityPriority != UIQueueListPanel.UIPhase.Evasion)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (uiphaseFromAbilityPriority != UIQueueListPanel.UIPhase.Combat)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
 						text = StringUtil.TR("BLAST", "Global");
-						color = this.m_combatPhaseColor;
+						color = m_combatPhaseColor;
 					}
 				}
 				else
 				{
 					text = StringUtil.TR("DASH", "Global");
-					color = this.m_evasionPhaseColor;
+					color = m_evasionPhaseColor;
 				}
 			}
 			else
 			{
 				text = StringUtil.TR("PREP", "Global");
-				color = this.m_prepPhaseColor;
+				color = m_prepPhaseColor;
 			}
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_phaseIndicatorsContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_phaseIcon, false, null);
-			UIManager.SetGameObjectActive(this.m_movementIcon, true, null);
+			UIManager.SetGameObjectActive(m_phaseIndicatorsContainer, false);
+			UIManager.SetGameObjectActive(m_phaseIcon, false);
+			UIManager.SetGameObjectActive(m_movementIcon, true);
 		}
-		if (this.m_phaseText.text != text)
+		if (m_phaseText.text != text)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_phaseTextController.Play("PhaseTextIdle");
-			this.m_phaseTextController.Play("PhaseTextChange");
+			m_phaseTextController.Play("PhaseTextIdle");
+			m_phaseTextController.Play("PhaseTextChange");
 			if (text != StringUtil.TR("MOVE", "Global"))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.ClearAllAbilties(uiphaseFromAbilityPriority - 1);
+				HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.ClearAllAbilties(uIPhaseFromAbilityPriority - 1);
 			}
 			else
 			{
-				HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.ClearAllAbilties(UIQueueListPanel.UIPhase.None);
+				HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.ClearAllAbilties();
 			}
-			this.m_phaseText.text = text;
-			this.m_phaseColor.color = color;
+			m_phaseText.text = text;
+			m_phaseColor.color = color;
 		}
-		num = Mathf.Clamp(num, 0, 3);
-		for (int i = 0; i < this.m_phaseIndicators.Length; i++)
+		value = Mathf.Clamp(value, 0, 3);
+		for (int i = 0; i < m_phaseIndicators.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_phaseIndicators[i], i == num, null);
+			UIManager.SetGameObjectActive(m_phaseIndicators[i], i == value);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			m_phaseIcon.sprite = m_phaseIcons[value];
+			return;
 		}
-		this.m_phaseIcon.sprite = this.m_phaseIcons[num];
 	}
 
 	public void EnableLockIn(bool active, bool enabled)
 	{
-		this.m_theButtonImage.enabled = enabled;
-		if (this.m_lockInShowing == active)
+		m_theButtonImage.enabled = enabled;
+		if (m_lockInShowing == active)
 		{
 			return;
 		}
-		this.Unclicked();
-		if (!this.m_lockInShowing)
+		Unclicked();
+		if (!m_lockInShowing)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockCancelButton.EnableLockIn(bool, bool)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_lockInContainer, true, null);
-			UIManager.SetGameObjectActive(this.m_cancelContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_lockImage, false, null);
+			UIManager.SetGameObjectActive(m_lockInContainer, true);
+			UIManager.SetGameObjectActive(m_cancelContainer, false);
+			UIManager.SetGameObjectActive(m_lockImage, false);
 			HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.NotifyLockedIn(false);
 			HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.NotifyLockedIn(false);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_lockInContainer, false, null);
-			UIManager.SetGameObjectActive(this.m_cancelContainer, true, null);
-			this.m_animationController.Play("CancelButtonActive");
+			UIManager.SetGameObjectActive(m_lockInContainer, false);
+			UIManager.SetGameObjectActive(m_cancelContainer, true);
+			m_animationController.Play("CancelButtonActive");
 			HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.NotifyLockedIn(true);
 			HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.NotifyLockedIn(true);
 		}
-		this.m_lockInShowing = active;
+		m_lockInShowing = active;
 	}
 
 	public bool IsShowingLockIn()
 	{
-		return this.m_lockInShowing;
+		return m_lockInShowing;
 	}
 }

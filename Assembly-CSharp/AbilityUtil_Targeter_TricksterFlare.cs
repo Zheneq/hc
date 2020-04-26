@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,296 +15,141 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 
 	private TricksterAfterImageNetworkBehaviour m_afterImageSyncComp;
 
-	public AbilityUtil_Targeter_TricksterFlare(Ability ability, TricksterAfterImageNetworkBehaviour syncComp, AbilityAreaShape shape, bool penetrateLos, bool includeEnemies, bool includeAllies, bool shapeAroundSelf) : base(ability)
+	public AbilityUtil_Targeter_TricksterFlare(Ability ability, TricksterAfterImageNetworkBehaviour syncComp, AbilityAreaShape shape, bool penetrateLos, bool includeEnemies, bool includeAllies, bool shapeAroundSelf)
+		: base(ability)
 	{
-		this.m_shape = shape;
-		this.m_penetrateLos = penetrateLos;
-		this.m_afterImageSyncComp = syncComp;
-		this.m_includeEnemies = includeEnemies;
-		this.m_includeAllies = includeAllies;
-		this.m_shapeAroundSelf = shapeAroundSelf;
+		m_shape = shape;
+		m_penetrateLos = penetrateLos;
+		m_afterImageSyncComp = syncComp;
+		m_includeEnemies = includeEnemies;
+		m_includeAllies = includeAllies;
+		m_shapeAroundSelf = shapeAroundSelf;
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		base.ClearActorsInRange();
+		ClearActorsInRange();
 		List<BoardSquare> list = new List<BoardSquare>();
-		if (this.m_shapeAroundSelf)
+		if (m_shapeAroundSelf)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TricksterFlare.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
-			list.Add(targetingActor.\u0012());
+			list.Add(targetingActor.GetCurrentBoardSquare());
 		}
-		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (actorData != null)
+				ActorData current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					if (current.GetCurrentBoardSquare() != null)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (actorData.\u0012() != null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						list.Add(actorData.\u0012());
+						list.Add(current.GetCurrentBoardSquare());
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
-		if (this.m_highlights != null)
+		if (m_highlights != null)
 		{
-			for (;;)
+			if (m_highlights.Count == list.Count)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_highlights.Count == list.Count)
-			{
-				goto IL_147;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_0147;
 			}
 		}
-		this.m_highlights = new List<GameObject>();
+		m_highlights = new List<GameObject>();
 		for (int i = 0; i < list.Count; i++)
 		{
-			this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
+			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		IL_147:
+		goto IL_0147;
+		IL_0147:
 		Dictionary<ActorData, Vector3> dictionary = new Dictionary<ActorData, Vector3>();
 		Dictionary<ActorData, int> dictionary2 = new Dictionary<ActorData, int>();
 		for (int j = 0; j < list.Count; j++)
 		{
-			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, list[j].ToVector3(), list[j]);
-			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_shape, centerOfShape, list[j], this.m_penetrateLos, targetingActor, null, null);
-			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
-			using (List<ActorData>.Enumerator enumerator2 = actorsInShape.GetEnumerator())
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, list[j].ToVector3(), list[j]);
+			List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, centerOfShape, list[j], m_penetrateLos, targetingActor, null, null);
+			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+			using (List<ActorData>.Enumerator enumerator2 = actors.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
 				{
-					ActorData actorData2 = enumerator2.Current;
-					bool flag = actorData2.\u000E() == targetingActor.\u000E();
+					ActorData current2 = enumerator2.Current;
+					bool flag = current2.GetTeam() == targetingActor.GetTeam();
 					if (!flag)
 					{
-						for (;;)
+						if (m_includeEnemies)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_includeEnemies)
-						{
-							goto IL_246;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							goto IL_0246;
 						}
 					}
 					if (!flag)
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_includeAllies || !(actorData2 != targetingActor))
+					if (!m_includeAllies || !(current2 != targetingActor))
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (validAfterImages.Contains(actorData2))
+					if (validAfterImages.Contains(current2))
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					IL_246:
+					goto IL_0246;
+					IL_0246:
 					Vector3 vector = list[j].ToVector3();
-					if (dictionary.ContainsKey(actorData2))
+					if (dictionary.ContainsKey(current2))
 					{
-						Dictionary<ActorData, int> dictionary3;
-						ActorData key;
-						(dictionary3 = dictionary2)[key = actorData2] = dictionary3[key] + 1;
-						ActorCover actorCover = actorData2.\u000E();
-						if (actorCover != null && actorCover.IsInCoverWrt(dictionary[actorData2]))
+						dictionary2[current2]++;
+						ActorCover actorCover = current2.GetActorCover();
+						if (actorCover != null && actorCover.IsInCoverWrt(dictionary[current2]))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!actorCover.IsInCoverWrt(vector))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								dictionary[actorData2] = vector;
+								dictionary[current2] = vector;
 							}
 						}
 					}
 					else
 					{
-						dictionary[actorData2] = vector;
-						dictionary2[actorData2] = 1;
+						dictionary[current2] = vector;
+						dictionary2[current2] = 1;
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
-			this.m_highlights[j].transform.position = centerOfShape;
+			m_highlights[j].transform.position = centerOfShape;
 		}
 		using (Dictionary<ActorData, Vector3>.Enumerator enumerator3 = dictionary.GetEnumerator())
 		{
 			while (enumerator3.MoveNext())
 			{
-				KeyValuePair<ActorData, Vector3> keyValuePair = enumerator3.Current;
-				ActorData key2 = keyValuePair.Key;
-				Vector3 value = keyValuePair.Value;
-				for (int k = 0; k < dictionary2[key2]; k++)
+				KeyValuePair<ActorData, Vector3> current3 = enumerator3.Current;
+				ActorData key = current3.Key;
+				Vector3 value = current3.Value;
+				for (int k = 0; k < dictionary2[key]; k++)
 				{
-					AbilityTooltipSubject abilityTooltipSubject;
-					if (key2.\u000E() == targetingActor.\u000E())
+					int num;
+					if (key.GetTeam() == targetingActor.GetTeam())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						abilityTooltipSubject = AbilityTooltipSubject.Secondary;
+						num = 2;
 					}
 					else
 					{
-						abilityTooltipSubject = AbilityTooltipSubject.Primary;
+						num = 1;
 					}
-					AbilityTooltipSubject subjectType = abilityTooltipSubject;
-					base.AddActorInRange(key2, value, targetingActor, subjectType, true);
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					AbilityTooltipSubject subjectType = (AbilityTooltipSubject)num;
+					AddActorInRange(key, value, targetingActor, subjectType, true);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}

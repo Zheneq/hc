@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -108,460 +107,299 @@ public abstract class UIBaseIndicator : MonoBehaviour
 
 	protected virtual void SetupCharacterIcons(ActorData actorData)
 	{
-		this.m_characterIcon.sprite = actorData.\u000E();
+		m_characterIcon.sprite = actorData.GetAliveHUDIcon();
 	}
 
 	public ActorData GetAttachedActor()
 	{
-		return this.m_attachedToActor;
+		return m_attachedToActor;
 	}
 
 	public ControlPoint GetAttachedControlPoint()
 	{
-		return this.m_attachedToControlPoint;
+		return m_attachedToControlPoint;
 	}
 
 	public CTF_Flag GetAttachedFlag()
 	{
-		return this.m_attachedToFlag;
+		return m_attachedToFlag;
 	}
 
 	public BoardRegion GetAttachedRegion()
 	{
-		return this.m_attachedToBoardRegion;
+		return m_attachedToBoardRegion;
 	}
 
 	public UIWorldPing GetAttachedPing()
 	{
-		return this.m_attachedToPing;
+		return m_attachedToPing;
 	}
 
 	public void Start()
 	{
-		if (this.m_grayCharacterIcon != null)
+		if (m_grayCharacterIcon != null)
 		{
-			UIManager.SetGameObjectActive(this.m_grayCharacterIcon, false, null);
+			UIManager.SetGameObjectActive(m_grayCharacterIcon, false);
 		}
-		if (this.m_grayFrame != null)
+		if (m_grayFrame != null)
 		{
-			UIManager.SetGameObjectActive(this.m_grayFrame, false, null);
+			UIManager.SetGameObjectActive(m_grayFrame, false);
 		}
-		if (this.m_grayOptionalArrow != null)
+		if (!(m_grayOptionalArrow != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.Start()).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_grayOptionalArrow, false, null);
+			return;
+		}
+		while (true)
+		{
+			UIManager.SetGameObjectActive(m_grayOptionalArrow, false);
+			return;
 		}
 	}
 
 	public void Setup(ActorData actorData, UIOffscreenIndicatorPanel panel)
 	{
-		this.m_initialized = false;
-		this.m_attachedToActor = actorData;
-		this.m_attachedToPing = null;
-		this.SetupCharacterIcons(actorData);
+		m_initialized = false;
+		m_attachedToActor = actorData;
+		m_attachedToPing = null;
+		SetupCharacterIcons(actorData);
 		if (actorData == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error("Offscreen Indicator set up with no actor provided");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.Setup(ActorData, UIOffscreenIndicatorPanel)).MethodHandle;
-			}
-			Log.Error("Offscreen Indicator set up with no actor provided", new object[0]);
-			return;
 		}
-		this.Setup_Base(panel);
+		Setup_Base(panel);
 	}
 
 	public void Setup(ControlPoint controlPoint, UIOffscreenIndicatorPanel panel)
 	{
-		this.m_initialized = false;
-		this.m_attachedToActor = null;
-		this.m_attachedToControlPoint = controlPoint;
-		this.m_characterIcon.sprite = controlPoint.m_icon;
-		this.m_attachedToPing = null;
-		this.Setup_Base(panel);
+		m_initialized = false;
+		m_attachedToActor = null;
+		m_attachedToControlPoint = controlPoint;
+		m_characterIcon.sprite = controlPoint.m_icon;
+		m_attachedToPing = null;
+		Setup_Base(panel);
 	}
 
 	public void Setup(CTF_Flag flag, UIOffscreenIndicatorPanel panel)
 	{
-		this.m_initialized = false;
-		this.m_attachedToActor = null;
-		this.m_attachedToControlPoint = null;
-		this.m_attachedToFlag = flag;
-		this.m_attachedToPing = null;
-		this.Setup_Base(panel);
-		UIManager.SetGameObjectActive(this.m_briefcaseIcon, true, null);
-		UIManager.SetGameObjectActive(this.m_characterIcon, false, null);
+		m_initialized = false;
+		m_attachedToActor = null;
+		m_attachedToControlPoint = null;
+		m_attachedToFlag = flag;
+		m_attachedToPing = null;
+		Setup_Base(panel);
+		UIManager.SetGameObjectActive(m_briefcaseIcon, true);
+		UIManager.SetGameObjectActive(m_characterIcon, false);
 	}
 
 	public void Setup(BoardRegion boardRegion, UIOffscreenIndicatorPanel panel, Team teamRegion, bool isFlagTurnIn)
 	{
-		this.m_initialized = false;
-		this.m_attachedToActor = null;
-		this.m_attachedToControlPoint = null;
-		this.m_attachedToFlag = null;
-		this.m_attachedToBoardRegion = boardRegion;
-		this.m_regionTeam = teamRegion;
-		this.m_attachedToPing = null;
-		this.Setup_Base(panel);
+		m_initialized = false;
+		m_attachedToActor = null;
+		m_attachedToControlPoint = null;
+		m_attachedToFlag = null;
+		m_attachedToBoardRegion = boardRegion;
+		m_regionTeam = teamRegion;
+		m_attachedToPing = null;
+		Setup_Base(panel);
 		if (isFlagTurnIn)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIManager.SetGameObjectActive(m_dropzoneIcon, true);
+					UIManager.SetGameObjectActive(m_characterIcon, false);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.Setup(BoardRegion, UIOffscreenIndicatorPanel, Team, bool)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_dropzoneIcon, true, null);
-			UIManager.SetGameObjectActive(this.m_characterIcon, false, null);
 		}
-		else
-		{
-			this.m_characterIcon.sprite = boardRegion.\u001D();
-			this.m_characterIcon.transform.localScale = Vector3.one;
-		}
+		m_characterIcon.sprite = boardRegion.GetTurnInRegionIcon();
+		m_characterIcon.transform.localScale = Vector3.one;
 	}
 
 	public void Setup(UIWorldPing ping, ActorController.PingType pingtype, ActorData pingerActorData, UIOffscreenIndicatorPanel panel)
 	{
-		this.m_initialized = false;
-		this.m_attachedToActor = null;
-		this.m_attachedToControlPoint = null;
-		this.m_attachedToFlag = null;
-		this.m_attachedToPing = ping;
-		this.Setup_Base(panel);
-		UIManager.SetGameObjectActive(this.m_characterIcon, false, null);
-		UIManager.SetGameObjectActive(this.m_pingAssistIcon, pingtype == ActorController.PingType.Assist, null);
-		UIManager.SetGameObjectActive(this.m_pingDefendIcon, pingtype == ActorController.PingType.Defend, null);
-		UIManager.SetGameObjectActive(this.m_pingDefaultIcon, pingtype == ActorController.PingType.Default, null);
-		UIManager.SetGameObjectActive(this.m_pingEnemyIcon, pingtype == ActorController.PingType.Enemy, null);
-		UIManager.SetGameObjectActive(this.m_pingMoveIcon, pingtype == ActorController.PingType.Move, null);
-		UIManager.SetGameObjectActive(this.m_pingGroupContainer, pingerActorData != null, null);
-		if (pingerActorData != null)
+		m_initialized = false;
+		m_attachedToActor = null;
+		m_attachedToControlPoint = null;
+		m_attachedToFlag = null;
+		m_attachedToPing = ping;
+		Setup_Base(panel);
+		UIManager.SetGameObjectActive(m_characterIcon, false);
+		UIManager.SetGameObjectActive(m_pingAssistIcon, pingtype == ActorController.PingType.Assist);
+		UIManager.SetGameObjectActive(m_pingDefendIcon, pingtype == ActorController.PingType.Defend);
+		UIManager.SetGameObjectActive(m_pingDefaultIcon, pingtype == ActorController.PingType.Default);
+		UIManager.SetGameObjectActive(m_pingEnemyIcon, pingtype == ActorController.PingType.Enemy);
+		UIManager.SetGameObjectActive(m_pingMoveIcon, pingtype == ActorController.PingType.Move);
+		UIManager.SetGameObjectActive(m_pingGroupContainer, pingerActorData != null);
+		if (!(pingerActorData != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.Setup(UIWorldPing, ActorController.PingType, ActorData, UIOffscreenIndicatorPanel)).MethodHandle;
-			}
-			this.m_pingCharacterIcon.sprite = pingerActorData.\u000E();
+			return;
+		}
+		while (true)
+		{
+			m_pingCharacterIcon.sprite = pingerActorData.GetAliveHUDIcon();
+			return;
 		}
 	}
 
 	private void CheckForFlagHolder()
 	{
-		if (CaptureTheFlag.Get() != null)
+		if (!(CaptureTheFlag.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_attachedToActor != null && m_briefcaseIcon != null)
 			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
+					bool flag = CaptureTheFlag.GetMainFlagCarrier_Client() == m_attachedToActor;
+					UIManager.SetGameObjectActive(m_briefcaseIcon, flag);
+					UIManager.SetGameObjectActive(m_characterIcon, !flag);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.CheckForFlagHolder()).MethodHandle;
-			}
-			if (this.m_attachedToActor != null && this.m_briefcaseIcon != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				bool flag = CaptureTheFlag.GetMainFlagCarrier_Client() == this.m_attachedToActor;
-				UIManager.SetGameObjectActive(this.m_briefcaseIcon, flag, null);
-				UIManager.SetGameObjectActive(this.m_characterIcon, !flag, null);
-			}
+			return;
 		}
 	}
 
 	private void Setup_Base(UIOffscreenIndicatorPanel panel)
 	{
-		this.m_parentPanel = panel;
-		if (this.m_parentPanel == null)
+		m_parentPanel = panel;
+		if (m_parentPanel == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error("Offscreen Indicator set up with no parent panel.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.Setup_Base(UIOffscreenIndicatorPanel)).MethodHandle;
-			}
-			Log.Error("Offscreen Indicator set up with no parent panel.", new object[0]);
-			return;
 		}
-		if (this.m_canvas == null)
+		if (m_canvas == null)
 		{
-			for (;;)
+			m_canvas = HUD_UI.Get().m_mainCanvas;
+			if (m_canvas == null)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_canvas = HUD_UI.Get().m_mainCanvas;
-			if (this.m_canvas == null)
-			{
-				Log.Error("No UI canvas found in offscreen indicator parent", new object[0]);
+				Log.Error("No UI canvas found in offscreen indicator parent");
 				return;
 			}
 		}
-		this.m_canvasRect = (this.m_canvas.transform as RectTransform);
-		this.m_visible = this.CalculateVisibility();
-		UIManager.SetGameObjectActive(this.m_childContainer, this.m_visible, null);
-		if (this.m_briefcaseIcon != null)
+		m_canvasRect = (m_canvas.transform as RectTransform);
+		m_visible = CalculateVisibility();
+		UIManager.SetGameObjectActive(m_childContainer, m_visible);
+		if (m_briefcaseIcon != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_briefcaseIcon, false, null);
+			UIManager.SetGameObjectActive(m_briefcaseIcon, false);
 		}
-		if (this.m_dropzoneIcon != null)
+		if (m_dropzoneIcon != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_dropzoneIcon, false, null);
+			UIManager.SetGameObjectActive(m_dropzoneIcon, false);
 		}
-		if (this.m_pingGroupContainer != null)
+		if (m_pingGroupContainer != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_pingAssistIcon, false, null);
-			UIManager.SetGameObjectActive(this.m_pingDefaultIcon, false, null);
-			UIManager.SetGameObjectActive(this.m_pingEnemyIcon, false, null);
-			UIManager.SetGameObjectActive(this.m_pingMoveIcon, false, null);
-			UIManager.SetGameObjectActive(this.m_pingGroupContainer, false, null);
+			UIManager.SetGameObjectActive(m_pingAssistIcon, false);
+			UIManager.SetGameObjectActive(m_pingDefaultIcon, false);
+			UIManager.SetGameObjectActive(m_pingEnemyIcon, false);
+			UIManager.SetGameObjectActive(m_pingMoveIcon, false);
+			UIManager.SetGameObjectActive(m_pingGroupContainer, false);
 		}
-		UIManager.SetGameObjectActive(this.m_characterIcon, true, null);
-		this.m_initialized = true;
+		UIManager.SetGameObjectActive(m_characterIcon, true);
+		m_initialized = true;
 	}
 
 	private void UpdateFrame()
 	{
-		if (!(this.m_briefcaseIcon == null))
+		if (!(m_briefcaseIcon == null))
 		{
-			for (;;)
+			if (m_briefcaseIcon.gameObject.activeSelf)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.UpdateFrame()).MethodHandle;
-			}
-			if (this.m_briefcaseIcon.gameObject.activeSelf)
-			{
-				goto IL_BB;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_00bb;
 			}
 		}
-		if (!(this.m_dropzoneIcon == null))
+		if (!(m_dropzoneIcon == null))
 		{
-			for (;;)
+			if (m_dropzoneIcon.gameObject.activeSelf)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_dropzoneIcon.gameObject.activeSelf)
-			{
-				goto IL_BB;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_00bb;
 			}
 		}
-		if (!(this.m_pingGroupContainer == null))
+		if (!(m_pingGroupContainer == null))
 		{
-			if (this.m_pingGroupContainer.gameObject.activeSelf)
+			if (m_pingGroupContainer.gameObject.activeSelf)
 			{
-				goto IL_BB;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_00bb;
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_characterIcon, true, null);
-		IL_BB:
-		this.m_selectedCharacterIcon = this.m_characterIcon;
-		this.m_selectedOptionalArrow = this.m_optionalArrow;
-		if (this.m_attachedToActor == null)
+		UIManager.SetGameObjectActive(m_characterIcon, true);
+		goto IL_00bb;
+		IL_0394:
+		m_forceUpdateFrame = false;
+		return;
+		IL_00bb:
+		m_selectedCharacterIcon = m_characterIcon;
+		m_selectedOptionalArrow = m_optionalArrow;
+		if (m_attachedToActor == null)
 		{
-			this.m_selectedFrame = this.m_objectiveFrame;
-			if (this.m_attachedToBoardRegion != null)
+			m_selectedFrame = m_objectiveFrame;
+			if (m_attachedToBoardRegion != null)
 			{
-				for (;;)
+				if (m_regionTeam != Team.Invalid)
 				{
-					switch (3)
+					UIManager.SetGameObjectActive(m_friendlyFrame, m_regionTeam == Team.TeamA);
+					UIManager.SetGameObjectActive(m_friendlyBackground, m_regionTeam == Team.TeamA);
+					UIManager.SetGameObjectActive(m_enemyFrame, m_regionTeam == Team.TeamB);
+					UIManager.SetGameObjectActive(m_enemyBackground, m_regionTeam == Team.TeamB);
+					UIManager.SetGameObjectActive(m_objectiveFrame, false);
+					UIManager.SetGameObjectActive(m_objectiveBackground, false);
+					if (m_regionTeam == Team.TeamA)
 					{
-					case 0:
-						continue;
+						m_selectedFrame = m_friendlyFrame;
 					}
-					break;
-				}
-				if (this.m_regionTeam != Team.Invalid)
-				{
-					UIManager.SetGameObjectActive(this.m_friendlyFrame, this.m_regionTeam == Team.TeamA, null);
-					UIManager.SetGameObjectActive(this.m_friendlyBackground, this.m_regionTeam == Team.TeamA, null);
-					UIManager.SetGameObjectActive(this.m_enemyFrame, this.m_regionTeam == Team.TeamB, null);
-					UIManager.SetGameObjectActive(this.m_enemyBackground, this.m_regionTeam == Team.TeamB, null);
-					UIManager.SetGameObjectActive(this.m_objectiveFrame, false, null);
-					UIManager.SetGameObjectActive(this.m_objectiveBackground, false, null);
-					if (this.m_regionTeam == Team.TeamA)
+					else if (m_regionTeam == Team.TeamB)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_selectedFrame = this.m_friendlyFrame;
+						m_selectedFrame = m_enemyFrame;
 					}
-					else if (this.m_regionTeam == Team.TeamB)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_selectedFrame = this.m_enemyFrame;
-					}
-					goto IL_279;
+					goto IL_0394;
 				}
 			}
-			if (this.m_attachedToPing != null)
+			if (m_attachedToPing != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_friendlyFrame, true, null);
-				UIManager.SetGameObjectActive(this.m_friendlyBackground, true, null);
-				UIManager.SetGameObjectActive(this.m_enemyFrame, false, null);
-				UIManager.SetGameObjectActive(this.m_enemyBackground, false, null);
-				UIManager.SetGameObjectActive(this.m_objectiveFrame, false, null);
-				UIManager.SetGameObjectActive(this.m_objectiveBackground, false, null);
+				UIManager.SetGameObjectActive(m_friendlyFrame, true);
+				UIManager.SetGameObjectActive(m_friendlyBackground, true);
+				UIManager.SetGameObjectActive(m_enemyFrame, false);
+				UIManager.SetGameObjectActive(m_enemyBackground, false);
+				UIManager.SetGameObjectActive(m_objectiveFrame, false);
+				UIManager.SetGameObjectActive(m_objectiveBackground, false);
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.m_friendlyFrame, false, null);
-				UIManager.SetGameObjectActive(this.m_friendlyBackground, false, null);
-				UIManager.SetGameObjectActive(this.m_enemyFrame, false, null);
-				UIManager.SetGameObjectActive(this.m_enemyBackground, false, null);
-				UIManager.SetGameObjectActive(this.m_objectiveFrame, true, null);
-				UIManager.SetGameObjectActive(this.m_objectiveBackground, true, null);
+				UIManager.SetGameObjectActive(m_friendlyFrame, false);
+				UIManager.SetGameObjectActive(m_friendlyBackground, false);
+				UIManager.SetGameObjectActive(m_enemyFrame, false);
+				UIManager.SetGameObjectActive(m_enemyBackground, false);
+				UIManager.SetGameObjectActive(m_objectiveFrame, true);
+				UIManager.SetGameObjectActive(m_objectiveBackground, true);
 			}
-			IL_279:;
 		}
 		else
 		{
@@ -570,370 +408,216 @@ public abstract class UIBaseIndicator : MonoBehaviour
 			bool flag = true;
 			if (gameFlowData != null && gameFlowData.LocalPlayerData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameFlowData.activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					team = gameFlowData.activeOwnedActorData.\u000E();
+					team = gameFlowData.activeOwnedActorData.GetTeam();
 				}
-				flag = (team == this.m_attachedToActor.\u000E());
+				flag = (team == m_attachedToActor.GetTeam());
 			}
-			if (team == this.m_curTeam)
+			if (team == m_curTeam)
 			{
-				for (;;)
+				if (!m_forceUpdateFrame)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.m_forceUpdateFrame)
-				{
-					goto IL_394;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_0394;
 				}
 			}
-			this.m_curTeam = team;
-			UIManager.SetGameObjectActive(this.m_friendlyFrame, flag, null);
-			UIManager.SetGameObjectActive(this.m_friendlyBackground, flag, null);
-			UIManager.SetGameObjectActive(this.m_enemyFrame, !flag, null);
-			UIManager.SetGameObjectActive(this.m_enemyBackground, !flag, null);
-			UIManager.SetGameObjectActive(this.m_objectiveFrame, false, null);
-			UIManager.SetGameObjectActive(this.m_objectiveBackground, false, null);
+			m_curTeam = team;
+			UIManager.SetGameObjectActive(m_friendlyFrame, flag);
+			UIManager.SetGameObjectActive(m_friendlyBackground, flag);
+			UIManager.SetGameObjectActive(m_enemyFrame, !flag);
+			UIManager.SetGameObjectActive(m_enemyBackground, !flag);
+			UIManager.SetGameObjectActive(m_objectiveFrame, false);
+			UIManager.SetGameObjectActive(m_objectiveBackground, false);
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_selectedFrame = this.m_friendlyFrame;
+				m_selectedFrame = m_friendlyFrame;
 			}
 			else
 			{
-				this.m_selectedFrame = this.m_enemyFrame;
+				m_selectedFrame = m_enemyFrame;
 			}
 		}
-		IL_394:
-		this.m_forceUpdateFrame = false;
+		goto IL_0394;
 	}
 
 	private void UpdateGrayedOut()
 	{
-		if (this.ShouldGrayOutIndicator())
+		if (!ShouldGrayOutIndicator())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.UpdateGrayedOut()).MethodHandle;
-			}
-			if (this.m_isGrayedOut)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.m_forceUpdateGrayout)
-				{
-					goto IL_D5;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			this.m_isGrayedOut = true;
-			UIManager.SetGameObjectActive(this.m_selectedFrame, false, null);
-			UIManager.SetGameObjectActive(this.m_selectedCharacterIcon, false, null);
-			UIManager.SetGameObjectActive(this.m_selectedOptionalArrow, false, null);
-			this.m_selectedFrame = this.m_grayFrame;
-			this.m_selectedCharacterIcon = this.m_grayCharacterIcon;
-			this.m_selectedOptionalArrow = this.m_grayOptionalArrow;
-			UIManager.SetGameObjectActive(this.m_selectedFrame, true, null);
-			UIManager.SetGameObjectActive(this.m_selectedCharacterIcon, true, null);
-			if (this.m_selectedOptionalArrow != null)
-			{
-				UIManager.SetGameObjectActive(this.m_selectedOptionalArrow, true, null);
-			}
-			goto IL_14E;
+			goto IL_00d5;
 		}
-		IL_D5:
-		if (!this.ShouldGrayOutIndicator())
+		if (m_isGrayedOut)
 		{
-			if (!this.m_isGrayedOut)
+			if (!m_forceUpdateGrayout)
 			{
-				if (!this.m_forceUpdateGrayout)
-				{
-					goto IL_14E;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				goto IL_00d5;
 			}
-			this.m_isGrayedOut = false;
-			UIManager.SetGameObjectActive(this.m_selectedFrame, false, null);
-			UIManager.SetGameObjectActive(this.m_selectedCharacterIcon, false, null);
-			if (this.m_selectedOptionalArrow != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_selectedOptionalArrow, false, null);
-			}
-			this.m_forceUpdateFrame = true;
-			this.UpdateFrame();
 		}
-		IL_14E:
-		this.m_forceUpdateGrayout = false;
+		m_isGrayedOut = true;
+		UIManager.SetGameObjectActive(m_selectedFrame, false);
+		UIManager.SetGameObjectActive(m_selectedCharacterIcon, false);
+		UIManager.SetGameObjectActive(m_selectedOptionalArrow, false);
+		m_selectedFrame = m_grayFrame;
+		m_selectedCharacterIcon = m_grayCharacterIcon;
+		m_selectedOptionalArrow = m_grayOptionalArrow;
+		UIManager.SetGameObjectActive(m_selectedFrame, true);
+		UIManager.SetGameObjectActive(m_selectedCharacterIcon, true);
+		if (m_selectedOptionalArrow != null)
+		{
+			UIManager.SetGameObjectActive(m_selectedOptionalArrow, true);
+		}
+		goto IL_014e;
+		IL_014e:
+		m_forceUpdateGrayout = false;
+		return;
+		IL_00d5:
+		if (!ShouldGrayOutIndicator())
+		{
+			if (!m_isGrayedOut)
+			{
+				if (!m_forceUpdateGrayout)
+				{
+					goto IL_014e;
+				}
+			}
+			m_isGrayedOut = false;
+			UIManager.SetGameObjectActive(m_selectedFrame, false);
+			UIManager.SetGameObjectActive(m_selectedCharacterIcon, false);
+			if (m_selectedOptionalArrow != null)
+			{
+				UIManager.SetGameObjectActive(m_selectedOptionalArrow, false);
+			}
+			m_forceUpdateFrame = true;
+			UpdateFrame();
+		}
+		goto IL_014e;
 	}
 
 	private void LateUpdate()
 	{
-		if (!(Camera.main == null))
+		if (Camera.main == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!m_initialized)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			if (m_forceUpdateFrame)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.LateUpdate()).MethodHandle;
+				UpdateFrame();
 			}
-			if (this.m_initialized)
+			if (!CalculateVisibility())
 			{
-				if (this.m_forceUpdateFrame)
+				SetVisible(false);
+				return;
+			}
+			CheckForFlagHolder();
+			UpdateGrayedOut();
+			Vector2 vector = CalculateScreenPos();
+			float x = m_parentPanel.borderLeft;
+			float y = m_parentPanel.borderBottom;
+			Vector2 sizeDelta = m_canvasRect.sizeDelta;
+			float width = sizeDelta.x - (m_parentPanel.borderRight + m_parentPanel.borderLeft);
+			Vector2 sizeDelta2 = m_canvasRect.sizeDelta;
+			m_screenRect = new Rect(x, y, width, sizeDelta2.y - (m_parentPanel.borderBottom + m_parentPanel.borderTop));
+			if (!IsVisibleWhenOnScreen())
+			{
+				if (m_screenRect.Contains(vector))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.UpdateFrame();
-				}
-				if (!this.CalculateVisibility())
-				{
-					this.SetVisible(false);
+					SetVisible(false);
 					return;
 				}
-				this.CheckForFlagHolder();
-				this.UpdateGrayedOut();
-				Vector2 vector = this.CalculateScreenPos();
-				this.m_screenRect = new Rect(this.m_parentPanel.borderLeft, this.m_parentPanel.borderBottom, this.m_canvasRect.sizeDelta.x - (this.m_parentPanel.borderRight + this.m_parentPanel.borderLeft), this.m_canvasRect.sizeDelta.y - (this.m_parentPanel.borderBottom + this.m_parentPanel.borderTop));
-				if (!this.IsVisibleWhenOnScreen())
+			}
+			if (IsVisibleWhenOnScreen())
+			{
+				if (m_screenRect.Contains(vector))
 				{
-					for (;;)
+					while (true)
 					{
-						switch (5)
+						switch (6)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_screenRect.Contains(vector))
-					{
-						this.SetVisible(false);
-						return;
-					}
-				}
-				if (this.IsVisibleWhenOnScreen())
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_screenRect.Contains(vector))
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						this.SetVisible(true);
-						(base.gameObject.transform as RectTransform).anchoredPosition = vector;
-						if (this.ShouldRotate())
-						{
-							(this.m_selectedFrame.gameObject.transform as RectTransform).rotation = Quaternion.Euler(0f, 0f, -135f);
-						}
-						if (this.m_selectedOptionalArrow != null)
-						{
-							for (;;)
+						default:
+							SetVisible(true);
+							(base.gameObject.transform as RectTransform).anchoredPosition = vector;
+							if (ShouldRotate())
 							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
+								(m_selectedFrame.gameObject.transform as RectTransform).rotation = Quaternion.Euler(0f, 0f, -135f);
 							}
-							if (!this.m_selectedOptionalArrow.gameObject.activeSelf)
+							if (m_selectedOptionalArrow != null)
 							{
-								for (;;)
+								while (true)
 								{
 									switch (2)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										if (!m_selectedOptionalArrow.gameObject.activeSelf)
+										{
+											while (true)
+											{
+												switch (2)
+												{
+												case 0:
+													break;
+												default:
+													UIManager.SetGameObjectActive(m_selectedOptionalArrow, true);
+													return;
+												}
+											}
+										}
+										return;
 									}
-									break;
 								}
-								UIManager.SetGameObjectActive(this.m_selectedOptionalArrow, true, null);
 							}
-						}
-						return;
-					}
-				}
-				this.SetVisible(true);
-				if (this.ShouldHideOptionalArrowWhenOffscreen())
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_selectedOptionalArrow != null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_selectedOptionalArrow.gameObject.activeSelf)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							UIManager.SetGameObjectActive(this.m_selectedOptionalArrow, false, null);
+							return;
 						}
 					}
 				}
-				Vector2 vector2 = new Vector2(this.m_canvasRect.sizeDelta.x * 0.5f, this.m_canvasRect.sizeDelta.y * 0.5f);
-				Vector2 vector3 = vector - vector2;
-				if (this.ShouldRotate())
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					float num = Mathf.Atan2(vector3.y, vector3.x);
-					num *= 57.29578f;
-					num -= this.angleOffset;
-					(this.m_selectedFrame.gameObject.transform as RectTransform).rotation = Quaternion.Euler(0f, 0f, num);
-				}
-				RectTransform rectTransform = base.gameObject.transform as RectTransform;
-				Vector2 vector4 = new Vector2(rectTransform.rect.width, rectTransform.rect.height);
-				Rect rectA = new Rect(vector2 - vector4 / 2f, vector4);
-				float d;
-				UIUtils.SweepRectRect(rectA, this.m_screenRect, vector3, out d);
-				rectTransform.anchoredPosition = vector2 + vector3 * d;
-				return;
 			}
+			SetVisible(true);
+			if (ShouldHideOptionalArrowWhenOffscreen())
+			{
+				if (m_selectedOptionalArrow != null)
+				{
+					if (m_selectedOptionalArrow.gameObject.activeSelf)
+					{
+						UIManager.SetGameObjectActive(m_selectedOptionalArrow, false);
+					}
+				}
+			}
+			Vector2 sizeDelta3 = m_canvasRect.sizeDelta;
+			float x2 = sizeDelta3.x * 0.5f;
+			Vector2 sizeDelta4 = m_canvasRect.sizeDelta;
+			Vector2 vector2 = new Vector2(x2, sizeDelta4.y * 0.5f);
+			Vector2 vector3 = vector - vector2;
+			if (ShouldRotate())
+			{
+				float num = Mathf.Atan2(vector3.y, vector3.x);
+				num *= 57.29578f;
+				num -= angleOffset;
+				(m_selectedFrame.gameObject.transform as RectTransform).rotation = Quaternion.Euler(0f, 0f, num);
+			}
+			RectTransform rectTransform = base.gameObject.transform as RectTransform;
+			Vector2 vector4 = new Vector2(rectTransform.rect.width, rectTransform.rect.height);
+			Rect rectA = new Rect(vector2 - vector4 / 2f, vector4);
+			UIUtils.SweepRectRect(rectA, m_screenRect, vector3, out float hitTime);
+			rectTransform.anchoredPosition = vector2 + vector3 * hitTime;
+			return;
 		}
 	}
 
 	private void SetVisible(bool visible)
 	{
-		if (this.m_visible != visible)
+		if (m_visible != visible)
 		{
-			UIManager.SetGameObjectActive(this.m_childContainer, visible, null);
-			this.m_visible = visible;
+			UIManager.SetGameObjectActive(m_childContainer, visible);
+			m_visible = visible;
 		}
 	}
 
@@ -942,33 +626,25 @@ public abstract class UIBaseIndicator : MonoBehaviour
 		Vector3 vector = Camera.main.WorldToViewportPoint(worldPos);
 		if (vector.z < 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.ScreenPosFromWorldPos(Vector3)).MethodHandle;
-			}
-			vector.y = -vector.y;
-			vector.x = -vector.x;
+			vector.y = 0f - vector.y;
+			vector.x = 0f - vector.x;
 		}
-		Vector2 result = new Vector2(vector.x * this.m_canvasRect.sizeDelta.x, vector.y * this.m_canvasRect.sizeDelta.y + 50f);
+		float x = vector.x;
+		Vector2 sizeDelta = m_canvasRect.sizeDelta;
+		float x2 = x * sizeDelta.x;
+		float y = vector.y;
+		Vector2 sizeDelta2 = m_canvasRect.sizeDelta;
+		Vector2 result = new Vector2(x2, y * sizeDelta2.y + 50f);
 		return result;
 	}
 
 	public void MarkGrayoutForUpdate()
 	{
-		this.m_forceUpdateGrayout = true;
+		m_forceUpdateGrayout = true;
 	}
 
 	public void MarkFrameForUpdate()
 	{
-		this.m_forceUpdateFrame = true;
+		m_forceUpdateFrame = true;
 	}
 }

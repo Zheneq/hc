@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,81 +20,55 @@ public class _MaskChildFreezer : MonoBehaviour
 
 	private void Awake()
 	{
-		this.m_frozenPosition = new Vector3[this.m_frozenChildren.Length];
-		this.m_frozenScale = new Vector3[this.m_frozenChildren.Length];
-		this.maskRectTransform = (base.gameObject.transform as RectTransform);
-		this.m_originalMaskTransform.eulerAngles = this.maskRectTransform.eulerAngles;
-		this.m_originalMaskTransform.position = this.maskRectTransform.position;
-		this.m_originalMaskTransform.localScale = this.maskRectTransform.localScale;
-		this.m_originalMaskTransform.anchoredPosition3D = this.maskRectTransform.anchoredPosition3D;
-		this.m_originalMaskTransform.anchorMax = this.maskRectTransform.anchorMax;
-		this.m_originalMaskTransform.anchorMin = this.maskRectTransform.anchorMin;
-		this.m_originalMaskTransform.pivot = this.maskRectTransform.pivot;
-		this.m_originalMaskTransform.sizeDelta = this.maskRectTransform.sizeDelta;
-		for (int i = 0; i < this.m_frozenChildren.Length; i++)
+		m_frozenPosition = new Vector3[m_frozenChildren.Length];
+		m_frozenScale = new Vector3[m_frozenChildren.Length];
+		maskRectTransform = (base.gameObject.transform as RectTransform);
+		m_originalMaskTransform.eulerAngles = maskRectTransform.eulerAngles;
+		m_originalMaskTransform.position = maskRectTransform.position;
+		m_originalMaskTransform.localScale = maskRectTransform.localScale;
+		m_originalMaskTransform.anchoredPosition3D = maskRectTransform.anchoredPosition3D;
+		m_originalMaskTransform.anchorMax = maskRectTransform.anchorMax;
+		m_originalMaskTransform.anchorMin = maskRectTransform.anchorMin;
+		m_originalMaskTransform.pivot = maskRectTransform.pivot;
+		m_originalMaskTransform.sizeDelta = maskRectTransform.sizeDelta;
+		for (int i = 0; i < m_frozenChildren.Length; i++)
 		{
-			this.m_frozenPosition[i] = this.m_frozenChildren[i].GetComponent<RectTransform>().anchoredPosition;
-			this.m_frozenScale[i] = this.m_frozenChildren[i].GetComponent<RectTransform>().localScale;
+			m_frozenPosition[i] = m_frozenChildren[i].GetComponent<RectTransform>().anchoredPosition;
+			m_frozenScale[i] = m_frozenChildren[i].GetComponent<RectTransform>().localScale;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(_MaskChildFreezer.Awake()).MethodHandle;
+			return;
 		}
 	}
 
 	private void LateUpdate()
 	{
-		if (this.m_previousAnchorPosition != this.maskRectTransform.anchoredPosition)
+		if (m_previousAnchorPosition != maskRectTransform.anchoredPosition)
 		{
-			for (;;)
+			m_previousAnchorPosition = maskRectTransform.anchoredPosition;
+			for (int i = 0; i < m_frozenPosition.Length; i++)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_MaskChildFreezer.LateUpdate()).MethodHandle;
-			}
-			this.m_previousAnchorPosition = this.maskRectTransform.anchoredPosition;
-			for (int i = 0; i < this.m_frozenPosition.Length; i++)
-			{
-				this.m_frozenChildren[i].SetParent(this.m_originalMaskTransform);
-				this.m_frozenChildren[i].anchoredPosition = this.m_frozenPosition[i];
-				this.m_frozenChildren[i].SetParent(this.maskRectTransform);
+				m_frozenChildren[i].SetParent(m_originalMaskTransform);
+				m_frozenChildren[i].anchoredPosition = m_frozenPosition[i];
+				m_frozenChildren[i].SetParent(maskRectTransform);
 			}
 		}
-		if (this.m_previousScalePosition != this.maskRectTransform.localScale)
+		if (!(m_previousScalePosition != maskRectTransform.localScale))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			m_previousScalePosition = maskRectTransform.localScale;
+			for (int j = 0; j < m_frozenScale.Length; j++)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_frozenChildren[j].SetParent(m_originalMaskTransform);
+				m_frozenChildren[j].localScale = m_frozenScale[j];
+				m_frozenChildren[j].anchoredPosition = m_frozenPosition[j];
+				m_frozenChildren[j].SetParent(maskRectTransform);
 			}
-			this.m_previousScalePosition = this.maskRectTransform.localScale;
-			for (int j = 0; j < this.m_frozenScale.Length; j++)
-			{
-				this.m_frozenChildren[j].SetParent(this.m_originalMaskTransform);
-				this.m_frozenChildren[j].localScale = this.m_frozenScale[j];
-				this.m_frozenChildren[j].anchoredPosition = this.m_frozenPosition[j];
-				this.m_frozenChildren[j].SetParent(this.maskRectTransform);
-			}
+			return;
 		}
 	}
 }

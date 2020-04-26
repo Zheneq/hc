@@ -1,11 +1,10 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RageBeastCharge : Ability
 {
 	[Space(10f)]
-	public int m_damageAmount = 0x14;
+	public int m_damageAmount = 20;
 
 	public int m_damageNearChargeEnd;
 
@@ -25,37 +24,23 @@ public class RageBeastCharge : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastCharge.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Pain Train";
+			m_abilityName = "Pain Train";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_ChargeAoE(this, this.m_radiusBehindStart, this.ModdedChargeEndRadius(), this.ModdedChargeLineRadius(), -1, false, this.m_penetrateLineOfSight);
+		base.Targeter = new AbilityUtil_Targeter_ChargeAoE(this, m_radiusBehindStart, ModdedChargeEndRadius(), ModdedChargeLineRadius(), -1, false, m_penetrateLineOfSight);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, this.ModdedDamage())
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, ModdedDamage()));
+		return list;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -64,22 +49,9 @@ public class RageBeastCharge : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Far) && ModdedDamageNearChargeEnd() > 0)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastCharge.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Far) && this.ModdedDamageNearChargeEnd() > 0)
-			{
-				dictionary[AbilityTooltipSymbol.Damage] = this.ModdedDamageNearChargeEnd();
+				dictionary[AbilityTooltipSymbol.Damage] = ModdedDamageNearChargeEnd();
 			}
 		}
 		return dictionary;
@@ -88,53 +60,29 @@ public class RageBeastCharge : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_RageBeastCharge abilityMod_RageBeastCharge = modAsBase as AbilityMod_RageBeastCharge;
-		string name = "DamageAmount";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_RageBeastCharge)
+		if ((bool)abilityMod_RageBeastCharge)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastCharge.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
-			val = abilityMod_RageBeastCharge.m_damageMod.GetModifiedValue(this.m_damageAmount);
+			val = abilityMod_RageBeastCharge.m_damageMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			val = this.m_damageAmount;
+			val = m_damageAmount;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "DamageNearChargeEnd";
+		AddTokenInt(tokens, "DamageAmount", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_RageBeastCharge)
+		if ((bool)abilityMod_RageBeastCharge)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val2 = abilityMod_RageBeastCharge.m_damageNearChargeEndMod.GetModifiedValue(this.m_damageNearChargeEnd);
+			val2 = abilityMod_RageBeastCharge.m_damageNearChargeEndMod.GetModifiedValue(m_damageNearChargeEnd);
 		}
 		else
 		{
-			val2 = this.m_damageNearChargeEnd;
+			val2 = m_damageNearChargeEnd;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffectNearChargeEnd, "EnemyHitEffectNearChargeEnd", this.m_enemyHitEffectNearChargeEnd, true);
+		AddTokenInt(tokens, "DamageNearChargeEnd", empty2, val2);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffectNearChargeEnd, "EnemyHitEffectNearChargeEnd", m_enemyHitEffectNearChargeEnd);
 	}
 
 	internal override ActorData.MovementType GetMovementType()
@@ -144,34 +92,21 @@ public class RageBeastCharge : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null)
 		{
-			for (;;)
+			if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastCharge.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
-			if (boardSquare.\u0016() && boardSquare != caster.\u0012())
-			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null;
 					}
-					break;
 				}
-				return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare) != null;
 			}
 		}
 		return false;
@@ -181,8 +116,8 @@ public class RageBeastCharge : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RageBeastCharge))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_RageBeastCharge);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_RageBeastCharge);
+			SetupTargeter();
 		}
 		else
 		{
@@ -192,103 +127,64 @@ public class RageBeastCharge : Ability
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedEnemyHitEffectNearChargeEnd;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastCharge.SetCachedFields()).MethodHandle;
-			}
-			cachedEnemyHitEffectNearChargeEnd = this.m_abilityMod.m_enemyHitEffectNearChargeEndMod.GetModifiedValue(this.m_enemyHitEffectNearChargeEnd);
+			cachedEnemyHitEffectNearChargeEnd = m_abilityMod.m_enemyHitEffectNearChargeEndMod.GetModifiedValue(m_enemyHitEffectNearChargeEnd);
 		}
 		else
 		{
-			cachedEnemyHitEffectNearChargeEnd = this.m_enemyHitEffectNearChargeEnd;
+			cachedEnemyHitEffectNearChargeEnd = m_enemyHitEffectNearChargeEnd;
 		}
-		this.m_cachedEnemyHitEffectNearChargeEnd = cachedEnemyHitEffectNearChargeEnd;
+		m_cachedEnemyHitEffectNearChargeEnd = cachedEnemyHitEffectNearChargeEnd;
 	}
 
 	public int ModdedDamage()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastCharge.ModdedDamage()).MethodHandle;
-			}
-			result = this.m_damageAmount;
+			result = m_damageAmount;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damageAmount);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damageAmount);
 		}
 		return result;
 	}
 
 	public int ModdedDamageNearChargeEnd()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_damageNearChargeEndMod.GetModifiedValue(this.m_damageNearChargeEnd) : this.m_damageNearChargeEnd;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_damageNearChargeEndMod.GetModifiedValue(m_damageNearChargeEnd) : m_damageNearChargeEnd;
 	}
 
 	public float ModdedChargeLineRadius()
 	{
 		float result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastCharge.ModdedChargeLineRadius()).MethodHandle;
-			}
-			result = this.m_damageRadius;
+			result = m_damageRadius;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_chargeLineRadiusMod.GetModifiedValue(this.m_damageRadius);
+			result = m_abilityMod.m_chargeLineRadiusMod.GetModifiedValue(m_damageRadius);
 		}
 		return result;
 	}
 
 	public float ModdedChargeEndRadius()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_chargeEndRadius.GetModifiedValue(this.m_radiusBeyondEnd) : this.m_radiusBeyondEnd;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_chargeEndRadius.GetModifiedValue(m_radiusBeyondEnd) : m_radiusBeyondEnd;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffectNearChargeEnd()
 	{
-		return (this.m_cachedEnemyHitEffectNearChargeEnd == null) ? this.m_enemyHitEffectNearChargeEnd : this.m_cachedEnemyHitEffectNearChargeEnd;
+		return (m_cachedEnemyHitEffectNearChargeEnd == null) ? m_enemyHitEffectNearChargeEnd : m_cachedEnemyHitEffectNearChargeEnd;
 	}
 }

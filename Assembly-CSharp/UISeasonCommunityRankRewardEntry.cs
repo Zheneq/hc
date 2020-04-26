@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class UISeasonCommunityRankRewardEntry
@@ -11,6 +10,6 @@ public class UISeasonCommunityRankRewardEntry
 
 	public void Clear()
 	{
-		this.CommunityRewards.Clear();
+		CommunityRewards.Clear();
 	}
 }

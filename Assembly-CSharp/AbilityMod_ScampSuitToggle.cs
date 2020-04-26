@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,227 +42,127 @@ public class AbilityMod_ScampSuitToggle : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ScampSuitToggle scampSuitToggle = targetAbility as ScampSuitToggle;
-		if (scampSuitToggle != null)
+		if (!(scampSuitToggle != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampSuitToggle.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_cooldownCreateSuitMod, "CooldownCreateSuit", string.Empty, scampSuitToggle.m_cooldownCreateSuit, true, false);
-			AbilityMod.AddToken(tokens, this.m_cooldownRefillShieldMod, "CooldownRefillShield", string.Empty, scampSuitToggle.m_cooldownRefillShield, true, false);
-			AbilityMod.AddToken(tokens, this.m_cooldownOverrideOnSuitDestroyMod, "CooldownOverrideOnSuitDestroy", string.Empty, scampSuitToggle.m_cooldownOverrideOnSuitDestroy, true, false);
-			AbilityMod.AddToken(tokens, this.m_energyToShieldMultMod, "EnergyToShieldMult", string.Empty, scampSuitToggle.m_energyToShieldMult, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_extraOrbsToSpawnOnSuitLostMod, "ExtraOrbsToSpawnOnSuitLost", string.Empty, scampSuitToggle.m_extraOrbsToSpawnOnSuitLost, true, false);
-			AbilityMod.AddToken(tokens, this.m_passiveEnergyRegenMod, "PassiveEnergyRegen", string.Empty, scampSuitToggle.m_passiveEnergyRegen, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectForSuitGainedMod, "EffectForSuitGained", scampSuitToggle.m_effectForSuitGained, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectForSuitLostMod, "EffectForSuitLost", scampSuitToggle.m_effectForSuitLost, true);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_cooldownCreateSuitMod, "CooldownCreateSuit", string.Empty, scampSuitToggle.m_cooldownCreateSuit);
+			AbilityMod.AddToken(tokens, m_cooldownRefillShieldMod, "CooldownRefillShield", string.Empty, scampSuitToggle.m_cooldownRefillShield);
+			AbilityMod.AddToken(tokens, m_cooldownOverrideOnSuitDestroyMod, "CooldownOverrideOnSuitDestroy", string.Empty, scampSuitToggle.m_cooldownOverrideOnSuitDestroy);
+			AbilityMod.AddToken(tokens, m_energyToShieldMultMod, "EnergyToShieldMult", string.Empty, scampSuitToggle.m_energyToShieldMult);
+			AbilityMod.AddToken(tokens, m_extraOrbsToSpawnOnSuitLostMod, "ExtraOrbsToSpawnOnSuitLost", string.Empty, scampSuitToggle.m_extraOrbsToSpawnOnSuitLost);
+			AbilityMod.AddToken(tokens, m_passiveEnergyRegenMod, "PassiveEnergyRegen", string.Empty, scampSuitToggle.m_passiveEnergyRegen);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectForSuitGainedMod, "EffectForSuitGained", scampSuitToggle.m_effectForSuitGained);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectForSuitLostMod, "EffectForSuitLost", scampSuitToggle.m_effectForSuitLost);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ScampSuitToggle scampSuitToggle = base.GetTargetAbilityOnAbilityData(abilityData) as ScampSuitToggle;
+		ScampSuitToggle scampSuitToggle = GetTargetAbilityOnAbilityData(abilityData) as ScampSuitToggle;
 		bool flag = scampSuitToggle != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyBool shieldDownModeFreeActionMod = this.m_shieldDownModeFreeActionMod;
-		string prefix = "[ShieldDownModeFreeAction]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyBool shieldDownModeFreeActionMod = m_shieldDownModeFreeActionMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampSuitToggle.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			baseVal = scampSuitToggle.m_shieldDownModeFreeAction;
+			baseVal = (scampSuitToggle.m_shieldDownModeFreeAction ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(shieldDownModeFreeActionMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt cooldownCreateSuitMod = this.m_cooldownCreateSuitMod;
-		string prefix2 = "[CooldownCreateSuit]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(shieldDownModeFreeActionMod, "[ShieldDownModeFreeAction]", flag, (byte)baseVal != 0);
+		string str2 = empty;
+		AbilityModPropertyInt cooldownCreateSuitMod = m_cooldownCreateSuitMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = scampSuitToggle.m_cooldownCreateSuit;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(cooldownCreateSuitMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_cooldownRefillShieldMod, "[CooldownRefillShield]", flag, (!flag) ? 0 : scampSuitToggle.m_cooldownRefillShield);
-		string str3 = text;
-		AbilityModPropertyInt cooldownOverrideOnSuitDestroyMod = this.m_cooldownOverrideOnSuitDestroyMod;
-		string prefix3 = "[CooldownOverrideOnSuitDestroy]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(cooldownCreateSuitMod, "[CooldownCreateSuit]", flag, baseVal2);
+		empty += PropDesc(m_cooldownRefillShieldMod, "[CooldownRefillShield]", flag, flag ? scampSuitToggle.m_cooldownRefillShield : 0);
+		string str3 = empty;
+		AbilityModPropertyInt cooldownOverrideOnSuitDestroyMod = m_cooldownOverrideOnSuitDestroyMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = scampSuitToggle.m_cooldownOverrideOnSuitDestroy;
 		}
 		else
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(cooldownOverrideOnSuitDestroyMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyFloat energyToShieldMultMod = this.m_energyToShieldMultMod;
-		string prefix4 = "[EnergyToShieldMult]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(cooldownOverrideOnSuitDestroyMod, "[CooldownOverrideOnSuitDestroy]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyFloat energyToShieldMultMod = m_energyToShieldMultMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = scampSuitToggle.m_energyToShieldMult;
 		}
 		else
 		{
 			baseVal4 = 0f;
 		}
-		text = str4 + base.PropDesc(energyToShieldMultMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyBool clearEnergyOrbsOnCastMod = this.m_clearEnergyOrbsOnCastMod;
-		string prefix5 = "[ClearEnergyOrbsOnCast]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(energyToShieldMultMod, "[EnergyToShieldMult]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyBool clearEnergyOrbsOnCastMod = m_clearEnergyOrbsOnCastMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal5 = scampSuitToggle.m_clearEnergyOrbsOnCast;
+			baseVal5 = (scampSuitToggle.m_clearEnergyOrbsOnCast ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(clearEnergyOrbsOnCastMod, prefix5, showBaseVal5, baseVal5);
-		text += base.PropDesc(this.m_extraOrbsToSpawnOnSuitLostMod, "[ExtraOrbsToSpawnOnSuitLost]", flag, (!flag) ? 0 : scampSuitToggle.m_extraOrbsToSpawnOnSuitLost);
-		string str6 = text;
-		AbilityModPropertyInt passiveEnergyRegenMod = this.m_passiveEnergyRegenMod;
-		string prefix6 = "[PassiveEnergyRegen]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(clearEnergyOrbsOnCastMod, "[ClearEnergyOrbsOnCast]", flag, (byte)baseVal5 != 0);
+		empty += PropDesc(m_extraOrbsToSpawnOnSuitLostMod, "[ExtraOrbsToSpawnOnSuitLost]", flag, flag ? scampSuitToggle.m_extraOrbsToSpawnOnSuitLost : 0);
+		string str6 = empty;
+		AbilityModPropertyInt passiveEnergyRegenMod = m_passiveEnergyRegenMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = scampSuitToggle.m_passiveEnergyRegen;
 		}
 		else
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(passiveEnergyRegenMod, prefix6, showBaseVal6, baseVal6);
-		text += base.PropDesc(this.m_considerRespawnForSuitGainEffectMod, "[ConsiderRespawnForSuitGainEffect]", flag, flag && scampSuitToggle.m_considerRespawnForSuitGainEffect);
-		string str7 = text;
-		AbilityModPropertyEffectInfo effectForSuitGainedMod = this.m_effectForSuitGainedMod;
-		string prefix7 = "[EffectForSuitGained]";
-		bool showBaseVal7 = flag;
-		StandardEffectInfo baseVal7;
+		empty = str6 + PropDesc(passiveEnergyRegenMod, "[PassiveEnergyRegen]", flag, baseVal6);
+		empty += PropDesc(m_considerRespawnForSuitGainEffectMod, "[ConsiderRespawnForSuitGainEffect]", flag, flag && scampSuitToggle.m_considerRespawnForSuitGainEffect);
+		string str7 = empty;
+		AbilityModPropertyEffectInfo effectForSuitGainedMod = m_effectForSuitGainedMod;
+		object baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = scampSuitToggle.m_effectForSuitGained;
 		}
 		else
 		{
 			baseVal7 = null;
 		}
-		text = str7 + base.PropDesc(effectForSuitGainedMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyEffectInfo effectForSuitLostMod = this.m_effectForSuitLostMod;
-		string prefix8 = "[EffectForSuitLost]";
-		bool showBaseVal8 = flag;
-		StandardEffectInfo baseVal8;
+		empty = str7 + PropDesc(effectForSuitGainedMod, "[EffectForSuitGained]", flag, (StandardEffectInfo)baseVal7);
+		string str8 = empty;
+		AbilityModPropertyEffectInfo effectForSuitLostMod = m_effectForSuitLostMod;
+		object baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = scampSuitToggle.m_effectForSuitLost;
 		}
 		else
 		{
 			baseVal8 = null;
 		}
-		return str8 + base.PropDesc(effectForSuitLostMod, prefix8, showBaseVal8, baseVal8);
+		return str8 + PropDesc(effectForSuitLostMod, "[EffectForSuitLost]", flag, (StandardEffectInfo)baseVal8);
 	}
 }

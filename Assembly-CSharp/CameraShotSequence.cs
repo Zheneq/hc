@@ -1,8 +1,18 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class CameraShotSequence : ScriptableObject
 {
+	[Serializable]
+	public class AlternativeCamShotData
+	{
+		public string m_name;
+
+		public int m_altAnimIndexTauntTrigger;
+
+		public CameraShot[] m_altCameraShots;
+	}
+
 	public CharacterType m_characterType;
 
 	public string m_name = "Camera Sequence Name";
@@ -26,7 +36,7 @@ public class CameraShotSequence : ScriptableObject
 
 	[Header("-- Alternate Camera Shots, use if ability can trigger different taunt depending on situation --", order = 1)]
 	[Space(20f, order = 0)]
-	public CameraShotSequence.AlternativeCamShotData[] m_alternateCameraShots;
+	public AlternativeCamShotData[] m_alternateCameraShots;
 
 	private float m_startDelay;
 
@@ -36,233 +46,121 @@ public class CameraShotSequence : ScriptableObject
 
 	private int m_altCamShotIndex = -1;
 
-	internal ActorData Actor { get; private set; }
+	internal ActorData Actor
+	{
+		get;
+		private set;
+	}
 
 	public void OnValidate()
 	{
-		if (this.m_characterType > CharacterType.None)
+		if (m_characterType > CharacterType.None)
 		{
-			if (this.m_characterType < CharacterType.Last)
+			if (m_characterType < CharacterType.Last)
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShotSequence.OnValidate()).MethodHandle;
-			}
 		}
-		Debug.LogError(string.Concat(new object[]
-		{
-			"Taunt ",
-			this.m_name,
-			" has invalid character type ",
-			this.m_characterType.ToString(),
-			" and therefore has an invalid id ",
-			this.m_uniqueTauntID,
-			"."
-		}));
+		Debug.LogError("Taunt " + m_name + " has invalid character type " + m_characterType.ToString() + " and therefore has an invalid id " + m_uniqueTauntID + ".");
 	}
 
 	internal void Begin(ActorData actor, int altCamShotIndex)
 	{
-		this.m_startDelay = 0f;
-		this.m_shotIndex = 0U;
-		this.m_altCamShotIndex = altCamShotIndex;
-		if (this.m_altCamShotIndex >= 0)
+		m_startDelay = 0f;
+		m_shotIndex = 0u;
+		m_altCamShotIndex = altCamShotIndex;
+		if (m_altCamShotIndex >= 0)
 		{
-			for (;;)
+			if (m_alternateCameraShots != null)
 			{
-				switch (2)
+				if (m_alternateCameraShots.Length > m_altCamShotIndex)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShotSequence.Begin(ActorData, int)).MethodHandle;
-			}
-			if (this.m_alternateCameraShots != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_alternateCameraShots.Length > this.m_altCamShotIndex)
-				{
-					goto IL_5E;
+					goto IL_005e;
 				}
 			}
-			this.m_altCamShotIndex = -1;
+			m_altCamShotIndex = -1;
 		}
-		IL_5E:
-		this.Actor = actor;
-		this.m_startTime = Time.time;
-		if (this.\u001D())
+		goto IL_005e;
+		IL_005e:
+		Actor = actor;
+		m_startTime = Time.time;
+		if (_001D())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Debug.LogWarning(this.GetDebugDescription());
+			Debug.LogWarning(GetDebugDescription());
 		}
-		if (this.m_startDelay == 0f)
+		if (m_startDelay != 0f)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			CameraShot[] runtimeCameraShotsArray = GetRuntimeCameraShotsArray();
+			CameraShot cameraShot = runtimeCameraShotsArray[m_shotIndex];
+			cameraShot.Begin(m_shotIndex, Actor);
+			if (_001D())
 			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					Debug.LogWarning("[Camera Shot] BEGIN " + (Time.time - m_startTime) + " with 0 delay");
+					return;
 				}
-				break;
 			}
-			CameraShot[] runtimeCameraShotsArray = this.GetRuntimeCameraShotsArray();
-			CameraShot cameraShot = runtimeCameraShotsArray[(int)((UIntPtr)this.m_shotIndex)];
-			cameraShot.Begin(this.m_shotIndex, this.Actor);
-			if (this.\u001D())
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Debug.LogWarning("[Camera Shot] BEGIN " + (Time.time - this.m_startTime) + " with 0 delay");
-			}
+			return;
 		}
 	}
 
 	internal bool Update()
 	{
 		bool flag = false;
-		CameraShot[] runtimeCameraShotsArray = this.GetRuntimeCameraShotsArray();
-		CameraShot cameraShot = runtimeCameraShotsArray[(int)((UIntPtr)this.m_shotIndex)];
-		if (this.m_startDelay > 0f)
+		CameraShot[] runtimeCameraShotsArray = GetRuntimeCameraShotsArray();
+		CameraShot cameraShot = runtimeCameraShotsArray[m_shotIndex];
+		if (m_startDelay > 0f)
 		{
-			for (;;)
+			m_startDelay -= Time.deltaTime;
+			if (m_startDelay > 0f)
 			{
-				switch (7)
+				while (true)
 				{
-				case 0:
-					continue;
+					return true;
 				}
-				break;
 			}
-			if (!true)
+			cameraShot.Begin(m_shotIndex, Actor);
+			cameraShot.SetElapsedTime(Time.time - m_startTime);
+			if (_001D())
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShotSequence.Update()).MethodHandle;
-			}
-			this.m_startDelay -= Time.deltaTime;
-			if (this.m_startDelay > 0f)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return true;
-			}
-			cameraShot.Begin(this.m_shotIndex, this.Actor);
-			cameraShot.SetElapsedTime(Time.time - this.m_startTime);
-			if (this.\u001D())
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Debug.LogWarning("[Camera Shot] BEGIN " + (Time.time - this.m_startTime) + " seconds after begin");
+				Debug.LogWarning("[Camera Shot] BEGIN " + (Time.time - m_startTime) + " seconds after begin");
 			}
 		}
 		else if (!cameraShot.Update())
 		{
-			CameraShot cameraShot2;
-			if ((ulong)(this.m_shotIndex + 1U) == (ulong)((long)runtimeCameraShotsArray.Length))
+			object obj;
+			if (m_shotIndex + 1 == runtimeCameraShotsArray.Length)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				cameraShot2 = null;
+				obj = null;
 			}
 			else
 			{
-				cameraShot2 = runtimeCameraShotsArray[(int)((UIntPtr)(this.m_shotIndex + 1U))];
+				obj = runtimeCameraShotsArray[m_shotIndex + 1];
 			}
-			CameraShot cameraShot3 = cameraShot2;
-			cameraShot.End(this.Actor);
-			if (this.\u001D())
+			CameraShot cameraShot2 = (CameraShot)obj;
+			cameraShot.End(Actor);
+			if (_001D())
 			{
-				Debug.LogWarning("[Camera Shot] END " + (Time.time - this.m_startTime) + " seconds after begin");
+				Debug.LogWarning("[Camera Shot] END " + (Time.time - m_startTime) + " seconds after begin");
 			}
-			if (cameraShot3 != null)
+			if (cameraShot2 != null)
 			{
-				for (;;)
+				m_shotIndex++;
+				cameraShot2.Begin(m_shotIndex, Actor);
+				if (_001D())
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_shotIndex += 1U;
-				cameraShot3.Begin(this.m_shotIndex, this.Actor);
-				if (this.\u001D())
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Debug.LogWarning("[Camera Shot] BEGIN " + (Time.time - this.m_startTime) + " seconds after begin");
+					Debug.LogWarning("[Camera Shot] BEGIN " + (Time.time - m_startTime) + " seconds after begin");
 				}
 			}
 			else
 			{
 				flag = true;
-				CameraManager.Get().OnSpecialCameraShotBehaviorDisable(this.m_transitionOutType);
+				CameraManager.Get().OnSpecialCameraShotBehaviorDisable(m_transitionOutType);
 			}
 		}
 		return !flag;
@@ -270,103 +168,57 @@ public class CameraShotSequence : ScriptableObject
 
 	private CameraShot[] GetRuntimeCameraShotsArray()
 	{
-		if (this.m_altCamShotIndex >= 0 && this.m_alternateCameraShots.Length > this.m_altCamShotIndex)
+		if (m_altCamShotIndex >= 0 && m_alternateCameraShots.Length > m_altCamShotIndex)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShotSequence.GetRuntimeCameraShotsArray()).MethodHandle;
-			}
-			CameraShot[] altCameraShots = this.m_alternateCameraShots[this.m_altCamShotIndex].m_altCameraShots;
+			CameraShot[] altCameraShots = m_alternateCameraShots[m_altCamShotIndex].m_altCameraShots;
 			if (altCameraShots != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return altCameraShots;
 					}
-					break;
 				}
-				return altCameraShots;
 			}
 		}
-		return this.m_cameraShots;
+		return m_cameraShots;
 	}
 
-	private bool \u001D()
+	private bool _001D()
 	{
-		bool result;
+		int result;
 		if (Application.isEditor && DebugParameters.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShotSequence.\u001D()).MethodHandle;
-			}
-			result = DebugParameters.Get().GetParameterAsBool("TraceCameraTransitions");
+			result = (DebugParameters.Get().GetParameterAsBool("TraceCameraTransitions") ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public string GetDebugDescription()
 	{
-		string text = "-------------------------------------------------\n";
-		text = text + "[Shot Sequence Name] " + this.m_name + "\n";
-		text = text + "[Index] " + this.m_animIndex.ToString() + "\n";
-		text = text + "[Transition Out Type] " + this.m_transitionOutType.ToString() + "\n";
+		string str = "-------------------------------------------------\n";
+		str = str + "[Shot Sequence Name] " + m_name + "\n";
+		str = str + "[Index] " + m_animIndex + "\n";
+		str = str + "[Transition Out Type] " + m_transitionOutType.ToString() + "\n";
 		float num = 0f;
-		for (int i = 0; i < this.m_cameraShots.Length; i++)
+		for (int i = 0; i < m_cameraShots.Length; i++)
 		{
-			text = text + "-- Shot " + (i + 1).ToString() + " --\n";
-			text += this.m_cameraShots[i].GetDebugDescription("    ");
-			num += this.m_cameraShots[i].m_duration;
-			text = text + "(ends at time " + num.ToString() + ")\n\n";
+			str = str + "-- Shot " + (i + 1) + " --\n";
+			str += m_cameraShots[i].GetDebugDescription("    ");
+			num += m_cameraShots[i].m_duration;
+			str = str + "(ends at time " + num + ")\n\n";
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return str;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShotSequence.GetDebugDescription()).MethodHandle;
-		}
-		return text;
-	}
-
-	[Serializable]
-	public class AlternativeCamShotData
-	{
-		public string m_name;
-
-		public int m_altAnimIndexTauntTrigger;
-
-		public CameraShot[] m_altCameraShots;
 	}
 }

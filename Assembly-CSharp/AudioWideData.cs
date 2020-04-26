@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class AudioWideData : MonoBehaviour
@@ -10,16 +9,16 @@ public class AudioWideData : MonoBehaviour
 
 	public static AudioWideData Get()
 	{
-		return AudioWideData.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		AudioWideData.s_instance = this;
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		AudioWideData.s_instance = null;
+		s_instance = null;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UIWorldPing : MonoBehaviour
@@ -11,52 +10,40 @@ public class UIWorldPing : MonoBehaviour
 
 	private void Init()
 	{
-		if (this.m_initialized)
+		if (m_initialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIWorldPing.Init()).MethodHandle;
-			}
-			return;
 		}
-		this.m_startTime = Time.time;
-		this.m_initialized = true;
+		m_startTime = Time.time;
+		m_initialized = true;
 	}
 
 	private void Awake()
 	{
-		this.Init();
+		Init();
 	}
 
 	private void Update()
 	{
-		this.Init();
-		if (Time.time - this.m_startTime > 5f)
+		Init();
+		if (!(Time.time - m_startTime > 5f))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIWorldPing.Update()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.RemovePing(this);
-			UnityEngine.Object.Destroy(base.gameObject);
+			Object.Destroy(base.gameObject);
+			return;
 		}
 	}
 }

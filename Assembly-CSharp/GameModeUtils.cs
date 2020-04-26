@@ -1,79 +1,93 @@
-﻿using System;
-
 public static class GameModeUtils
 {
 	public static bool IsCtfGameModeEvent(ClientGameModeEvent gameModeEvent)
 	{
-		return gameModeEvent != null && GameModeUtils.IsCtfGameModeEventType(gameModeEvent.m_eventType);
+		if (gameModeEvent == null)
+		{
+			return false;
+		}
+		return IsCtfGameModeEventType(gameModeEvent.m_eventType);
 	}
 
 	public static bool IsCtcGameModeEvent(ClientGameModeEvent gameModeEvent)
 	{
-		return gameModeEvent != null && GameModeUtils.IsCtcGameModeEventType(gameModeEvent.m_eventType);
+		if (gameModeEvent == null)
+		{
+			return false;
+		}
+		return IsCtcGameModeEventType(gameModeEvent.m_eventType);
 	}
 
 	public static bool IsCtfGameModeEventType(GameModeEventType gameModeEventType)
 	{
-		return gameModeEventType == GameModeEventType.Ctf_FlagPickedUp || gameModeEventType == GameModeEventType.Ctf_FlagDropped || gameModeEventType == GameModeEventType.Ctf_FlagTurnedIn || gameModeEventType == GameModeEventType.Ctf_FlagSentToSpawn;
+		switch (gameModeEventType)
+		{
+		case GameModeEventType.Ctf_FlagPickedUp:
+			return true;
+		case GameModeEventType.Ctf_FlagDropped:
+			return true;
+		case GameModeEventType.Ctf_FlagTurnedIn:
+			return true;
+		case GameModeEventType.Ctf_FlagSentToSpawn:
+			return true;
+		default:
+			return false;
+		}
 	}
 
 	public static bool IsCtcGameModeEventType(GameModeEventType gameModeEventType)
 	{
 		if (gameModeEventType == GameModeEventType.Ctc_CoinPickedUp)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameModeUtils.IsCtcGameModeEventType(GameModeEventType)).MethodHandle;
-			}
-			return true;
 		}
 		if (gameModeEventType == GameModeEventType.Ctc_CoinsDropped)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			return true;
 		}
 		if (gameModeEventType == GameModeEventType.Ctc_NonCoinPowerupTouched)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			return true;
 		}
 		if (gameModeEventType == GameModeEventType.Ctc_CoinPowerupTouched)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			return true;
 		}
 		return false;
 	}

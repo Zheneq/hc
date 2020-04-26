@@ -1,79 +1,69 @@
-﻿using System;
 using UnityEngine;
 
 public class TempSatelliteAnimationEventReceiver : MonoBehaviour, IAnimationEvents
 {
-	private TempSatelliteAnimationEventReceiver.IOwner m_owner;
-
-	public void Setup(TempSatelliteAnimationEventReceiver.IOwner owner)
+	public interface IOwner
 	{
-		this.m_owner = owner;
+		void OnAnimationEvent(Object eventObject);
+
+		GameObject GetGameObject();
 	}
 
-	public void NewEvent(UnityEngine.Object eventObject)
+	private IOwner m_owner;
+
+	public void Setup(IOwner owner)
 	{
-		if (this.m_owner == null)
+		m_owner = owner;
+	}
+
+	public void NewEvent(Object eventObject)
+	{
+		if (m_owner == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error(string.Concat(this, " NewEvent called before setup"));
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatelliteAnimationEventReceiver.NewEvent(UnityEngine.Object)).MethodHandle;
-			}
-			Log.Error(this + " NewEvent called before setup", new object[0]);
-			return;
 		}
-		if (eventObject == null)
+		if (!(eventObject == null))
 		{
-			return;
+			m_owner.OnAnimationEvent(eventObject);
 		}
-		this.m_owner.OnAnimationEvent(eventObject);
 	}
 
-	public void VFXEvent(UnityEngine.Object eventObject)
+	public void VFXEvent(Object eventObject)
 	{
-		this.NewEvent(eventObject);
+		NewEvent(eventObject);
 	}
 
-	public void GameplayEvent(UnityEngine.Object eventObject)
+	public void GameplayEvent(Object eventObject)
 	{
-		this.NewEvent(eventObject);
+		NewEvent(eventObject);
 	}
 
 	public void AudioEvent(string eventName)
 	{
-		if (this.m_owner == null)
+		if (m_owner == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error(string.Concat(this, " NewEvent called before Start"));
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatelliteAnimationEventReceiver.AudioEvent(string)).MethodHandle;
-			}
-			Log.Error(this + " NewEvent called before Start", new object[0]);
-			return;
 		}
-		AudioManager.PostEvent(eventName, this.m_owner.GetGameObject());
-	}
-
-	public interface IOwner
-	{
-		void OnAnimationEvent(UnityEngine.Object eventObject);
-
-		GameObject GetGameObject();
+		AudioManager.PostEvent(eventName, m_owner.GetGameObject());
 	}
 }

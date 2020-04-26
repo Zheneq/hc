@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,53 +18,44 @@ public class UIKeyCommandEntry : MonoBehaviour
 
 	public KeyPreference GetKeyPreference()
 	{
-		return this.m_preference;
+		return m_preference;
 	}
 
 	private void Awake()
 	{
-		this.m_primaryKeyButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PrimaryButtonClicked);
-		this.m_secondaryKeyButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SecondaryButtonClicked);
-		this.m_keyCommandEntry.raycastTarget = false;
+		m_primaryKeyButton.spriteController.callback = PrimaryButtonClicked;
+		m_secondaryKeyButton.spriteController.callback = SecondaryButtonClicked;
+		m_keyCommandEntry.raycastTarget = false;
 	}
 
 	public void Init(KeyPreference keyPreference)
 	{
-		this.m_preference = keyPreference;
+		m_preference = keyPreference;
 	}
 
 	public void SetLabels(string keyCommand, string primaryKey, string secondaryKey)
 	{
-		this.m_keyCommandEntry.text = keyCommand;
-		for (int i = 0; i < this.m_primaryLabels.Length; i++)
+		m_keyCommandEntry.text = keyCommand;
+		for (int i = 0; i < m_primaryLabels.Length; i++)
 		{
-			this.m_primaryLabels[i].text = primaryKey;
+			m_primaryLabels[i].text = primaryKey;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
+			for (int j = 0; j < m_secondaryLabels.Length; j++)
 			{
-			case 0:
-				continue;
+				m_secondaryLabels[j].text = secondaryKey;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIKeyCommandEntry.SetLabels(string, string, string)).MethodHandle;
-		}
-		for (int j = 0; j < this.m_secondaryLabels.Length; j++)
-		{
-			this.m_secondaryLabels[j].text = secondaryKey;
-		}
-		for (;;)
-		{
-			switch (2)
+			while (true)
 			{
-			case 0:
-				continue;
+				switch (2)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
 			}
-			break;
 		}
 	}
 
@@ -73,26 +63,23 @@ public class UIKeyCommandEntry : MonoBehaviour
 	{
 		if (Input.GetMouseButtonUp(0))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
+					KeyBinding_UI.Get().ToggleKeyBindButton(m_preference, true);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIKeyCommandEntry.PrimaryButtonClicked(BaseEventData)).MethodHandle;
-			}
-			UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
-			KeyBinding_UI.Get().ToggleKeyBindButton(this.m_preference, true);
 		}
-		else if (Input.GetMouseButtonUp(1))
+		if (Input.GetMouseButtonUp(1))
 		{
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsCancel);
-			KeyBinding_UI.Get().ClearKeyBindButton(this.m_preference, true);
+			KeyBinding_UI.Get().ClearKeyBindButton(m_preference, true);
 		}
 	}
 
@@ -100,26 +87,23 @@ public class UIKeyCommandEntry : MonoBehaviour
 	{
 		if (Input.GetMouseButtonUp(0))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
+					KeyBinding_UI.Get().ToggleKeyBindButton(m_preference, false);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIKeyCommandEntry.SecondaryButtonClicked(BaseEventData)).MethodHandle;
-			}
-			UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
-			KeyBinding_UI.Get().ToggleKeyBindButton(this.m_preference, false);
 		}
-		else if (Input.GetMouseButtonUp(1))
+		if (Input.GetMouseButtonUp(1))
 		{
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsCancel);
-			KeyBinding_UI.Get().ClearKeyBindButton(this.m_preference, false);
+			KeyBinding_UI.Get().ClearKeyBindButton(m_preference, false);
 		}
 	}
 }

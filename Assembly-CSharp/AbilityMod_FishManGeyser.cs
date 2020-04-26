@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -74,72 +74,54 @@ public class AbilityMod_FishManGeyser : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		FishManGeyser fishManGeyser = targetAbility as FishManGeyser;
-		if (fishManGeyser != null)
+		if (!(fishManGeyser != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_damageToEnemiesOnCastMod, "DamageToEnemiesOnCast", string.Empty, fishManGeyser.m_damageToEnemiesOnCast);
+			AbilityMod.AddToken(tokens, m_healingToAlliesOnCastMod, "HealingToAlliesOnCast", string.Empty, fishManGeyser.m_healingToAlliesOnCast);
+			AbilityMod.AddToken(tokens, m_healOnCasterPerEnemyHitMod, "HealOnCasterPerEnemyHit", string.Empty, fishManGeyser.m_healOnCasterPerEnemyHit);
+			AbilityMod.AddToken(tokens, m_knockbackDistOnCastMod, "KnockbackDistOnCast", string.Empty, fishManGeyser.m_knockbackDistOnCast);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectToEnemiesOnCastMod, "EffectToEnemiesOnCast", fishManGeyser.m_effectToEnemiesOnCast);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectToAlliesOnCastMod, "EffectToAlliesOnCast", fishManGeyser.m_effectToAlliesOnCast);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyEffectOnNextTurnMod, "EnemyEffectOnNextTurn", fishManGeyser.m_enemyEffectOnNextTurn);
+			AbilityMod.AddToken(tokens, m_eelDamageMod, "EelDamage", string.Empty, fishManGeyser.m_eelDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_eelEffectOnEnemiesMod, "EelEffectOnEnemies", fishManGeyser.m_eelEffectOnEnemies);
+			AbilityMod.AddToken(tokens, m_eelRadiusMod, "EelRadius", string.Empty, fishManGeyser.m_eelRadius);
+			AbilityMod.AddToken(tokens, m_turnsTillFirstExplosionMod, "TurnsTillFirstExplosion", string.Empty, fishManGeyser.m_turnsTillFirstExplosion);
+			AbilityMod.AddToken(tokens, m_numExplosionsBeforeEndingMod, "NumExplosionsBeforeEnding", string.Empty, fishManGeyser.m_numExplosionsBeforeEnding);
+			AbilityMod.AddToken(tokens, m_damageToEnemiesOnExplodeMod, "DamageToEnemiesOnExplode", string.Empty, fishManGeyser.m_damageToEnemiesOnExplode);
+			AbilityMod.AddToken(tokens, m_healingToAlliesOnExplodeMod, "HealingToAlliesOnExplode", string.Empty, fishManGeyser.m_healingToAlliesOnExplode);
+			AbilityMod.AddToken(tokens, m_knockbackDistOnExplodeMod, "KnockbackDistOnExplode", string.Empty, fishManGeyser.m_knockbackDistOnExplode);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectToEnemiesOnExplodeMod, "EffectToEnemiesOnExplode", fishManGeyser.m_effectToEnemiesOnExplode);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectToAlliesOnExplodeMod, "EffectToAlliesOnExplode", fishManGeyser.m_effectToAlliesOnExplode);
+			if (!m_useAdditionalShapeOverride)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FishManGeyser.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_damageToEnemiesOnCastMod, "DamageToEnemiesOnCast", string.Empty, fishManGeyser.m_damageToEnemiesOnCast, true, false);
-			AbilityMod.AddToken(tokens, this.m_healingToAlliesOnCastMod, "HealingToAlliesOnCast", string.Empty, fishManGeyser.m_healingToAlliesOnCast, true, false);
-			AbilityMod.AddToken(tokens, this.m_healOnCasterPerEnemyHitMod, "HealOnCasterPerEnemyHit", string.Empty, fishManGeyser.m_healOnCasterPerEnemyHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_knockbackDistOnCastMod, "KnockbackDistOnCast", string.Empty, fishManGeyser.m_knockbackDistOnCast, true, false, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectToEnemiesOnCastMod, "EffectToEnemiesOnCast", fishManGeyser.m_effectToEnemiesOnCast, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectToAlliesOnCastMod, "EffectToAlliesOnCast", fishManGeyser.m_effectToAlliesOnCast, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyEffectOnNextTurnMod, "EnemyEffectOnNextTurn", fishManGeyser.m_enemyEffectOnNextTurn, true);
-			AbilityMod.AddToken(tokens, this.m_eelDamageMod, "EelDamage", string.Empty, fishManGeyser.m_eelDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_eelEffectOnEnemiesMod, "EelEffectOnEnemies", fishManGeyser.m_eelEffectOnEnemies, true);
-			AbilityMod.AddToken(tokens, this.m_eelRadiusMod, "EelRadius", string.Empty, fishManGeyser.m_eelRadius, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_turnsTillFirstExplosionMod, "TurnsTillFirstExplosion", string.Empty, fishManGeyser.m_turnsTillFirstExplosion, true, false);
-			AbilityMod.AddToken(tokens, this.m_numExplosionsBeforeEndingMod, "NumExplosionsBeforeEnding", string.Empty, fishManGeyser.m_numExplosionsBeforeEnding, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageToEnemiesOnExplodeMod, "DamageToEnemiesOnExplode", string.Empty, fishManGeyser.m_damageToEnemiesOnExplode, true, false);
-			AbilityMod.AddToken(tokens, this.m_healingToAlliesOnExplodeMod, "HealingToAlliesOnExplode", string.Empty, fishManGeyser.m_healingToAlliesOnExplode, true, false);
-			AbilityMod.AddToken(tokens, this.m_knockbackDistOnExplodeMod, "KnockbackDistOnExplode", string.Empty, fishManGeyser.m_knockbackDistOnExplode, true, false, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectToEnemiesOnExplodeMod, "EffectToEnemiesOnExplode", fishManGeyser.m_effectToEnemiesOnExplode, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectToAlliesOnExplodeMod, "EffectToAlliesOnExplode", fishManGeyser.m_effectToAlliesOnExplode, true);
-			if (this.m_useAdditionalShapeOverride)
-			{
-				for (;;)
+				if (m_additionalShapeToDamageOverride == null)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (this.m_additionalShapeToDamageOverride != null)
+				while (true)
 				{
-					for (;;)
+					for (int i = 0; i < m_additionalShapeToDamageOverride.Count; i++)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						AbilityMod.AddToken_IntDiff(tokens, "Damage_AdditionalLayer" + i, string.Empty, m_additionalShapeToDamageOverride[i].m_damage, true, fishManGeyser.m_damageToEnemiesOnCast);
 					}
-					for (int i = 0; i < this.m_additionalShapeToDamageOverride.Count; i++)
-					{
-						AbilityMod.AddToken_IntDiff(tokens, "Damage_AdditionalLayer" + i, string.Empty, this.m_additionalShapeToDamageOverride[i].m_damage, true, fishManGeyser.m_damageToEnemiesOnCast);
-					}
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						break;
 					}
 				}
 			}
@@ -148,493 +130,254 @@ public class AbilityMod_FishManGeyser : AbilityMod
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		FishManGeyser fishManGeyser = base.GetTargetAbilityOnAbilityData(abilityData) as FishManGeyser;
+		FishManGeyser fishManGeyser = GetTargetAbilityOnAbilityData(abilityData) as FishManGeyser;
 		bool flag = fishManGeyser != null;
 		string text = string.Empty;
-		if (this.m_useAdditionalShapeOverride)
+		if (m_useAdditionalShapeOverride)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FishManGeyser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			if (this.m_additionalShapeToDamageOverride != null)
+			if (m_additionalShapeToDamageOverride != null)
 			{
 				text += "Using Layered Shape Override, entries:\n";
-				for (int i = 0; i < this.m_additionalShapeToDamageOverride.Count; i++)
+				for (int i = 0; i < m_additionalShapeToDamageOverride.Count; i++)
 				{
 					string text2 = text;
-					text = string.Concat(new object[]
-					{
-						text2,
-						"Shape: ",
-						this.m_additionalShapeToDamageOverride[i].m_shape,
-						" Damage: ",
-						this.m_additionalShapeToDamageOverride[i].m_damage,
-						"\n"
-					});
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					text = string.Concat(text2, "Shape: ", m_additionalShapeToDamageOverride[i].m_shape, " Damage: ", m_additionalShapeToDamageOverride[i].m_damage, "\n");
 				}
 			}
 		}
-		text += base.PropDesc(this.m_castShapeMod, "[CastShape]", flag, (!flag) ? AbilityAreaShape.SingleSquare : fishManGeyser.m_castShape);
+		text += PropDesc(m_castShapeMod, "[CastShape]", flag, flag ? fishManGeyser.m_castShape : AbilityAreaShape.SingleSquare);
 		string str = text;
-		AbilityModPropertyBool castPenetratesLoSMod = this.m_castPenetratesLoSMod;
-		string prefix = "[CastPenetratesLoS]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		AbilityModPropertyBool castPenetratesLoSMod = m_castPenetratesLoSMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal = fishManGeyser.m_castPenetratesLoS;
+			baseVal = (fishManGeyser.m_castPenetratesLoS ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(castPenetratesLoSMod, prefix, showBaseVal, baseVal);
+		text = str + PropDesc(castPenetratesLoSMod, "[CastPenetratesLoS]", flag, (byte)baseVal != 0);
 		string str2 = text;
-		AbilityModPropertyInt damageToEnemiesOnCastMod = this.m_damageToEnemiesOnCastMod;
-		string prefix2 = "[DamageToEnemiesOnCast]";
-		bool showBaseVal2 = flag;
+		AbilityModPropertyInt damageToEnemiesOnCastMod = m_damageToEnemiesOnCastMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = fishManGeyser.m_damageToEnemiesOnCast;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(damageToEnemiesOnCastMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_healingToAlliesOnCastMod, "[HealingToAlliesOnCast]", flag, (!flag) ? 0 : fishManGeyser.m_healingToAlliesOnCast);
+		text = str2 + PropDesc(damageToEnemiesOnCastMod, "[DamageToEnemiesOnCast]", flag, baseVal2);
+		text += PropDesc(m_healingToAlliesOnCastMod, "[HealingToAlliesOnCast]", flag, flag ? fishManGeyser.m_healingToAlliesOnCast : 0);
 		string str3 = text;
-		AbilityModPropertyInt healOnCasterPerEnemyHitMod = this.m_healOnCasterPerEnemyHitMod;
-		string prefix3 = "[HealOnCasterPerEnemyHit]";
-		bool showBaseVal3 = flag;
+		AbilityModPropertyInt healOnCasterPerEnemyHitMod = m_healOnCasterPerEnemyHitMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = fishManGeyser.m_healOnCasterPerEnemyHit;
 		}
 		else
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(healOnCasterPerEnemyHitMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_applyKnockbackOnCastMod, "[ApplyKnockbackOnCast]", flag, flag && fishManGeyser.m_applyKnockbackOnCast);
+		text = str3 + PropDesc(healOnCasterPerEnemyHitMod, "[HealOnCasterPerEnemyHit]", flag, baseVal3);
+		text += PropDesc(m_applyKnockbackOnCastMod, "[ApplyKnockbackOnCast]", flag, flag && fishManGeyser.m_applyKnockbackOnCast);
 		string str4 = text;
-		AbilityModPropertyFloat knockbackDistOnCastMod = this.m_knockbackDistOnCastMod;
-		string prefix4 = "[KnockbackDistOnCast]";
-		bool showBaseVal4 = flag;
+		AbilityModPropertyFloat knockbackDistOnCastMod = m_knockbackDistOnCastMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = fishManGeyser.m_knockbackDistOnCast;
 		}
 		else
 		{
 			baseVal4 = 0f;
 		}
-		text = str4 + base.PropDesc(knockbackDistOnCastMod, prefix4, showBaseVal4, baseVal4);
+		text = str4 + PropDesc(knockbackDistOnCastMod, "[KnockbackDistOnCast]", flag, baseVal4);
 		string str5 = text;
-		AbilityModPropertyKnockbackType knockbackTypeOnCastMod = this.m_knockbackTypeOnCastMod;
-		string prefix5 = "[KnockbackTypeOnCast]";
-		bool showBaseVal5 = flag;
-		KnockbackType baseVal5;
+		AbilityModPropertyKnockbackType knockbackTypeOnCastMod = m_knockbackTypeOnCastMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal5 = fishManGeyser.m_knockbackTypeOnCast;
+			baseVal5 = (int)fishManGeyser.m_knockbackTypeOnCast;
 		}
 		else
 		{
-			baseVal5 = KnockbackType.AwayFromSource;
+			baseVal5 = 4;
 		}
-		text = str5 + base.PropDesc(knockbackTypeOnCastMod, prefix5, showBaseVal5, baseVal5);
+		text = str5 + PropDesc(knockbackTypeOnCastMod, "[KnockbackTypeOnCast]", flag, (KnockbackType)baseVal5);
 		string str6 = text;
-		AbilityModPropertyEffectInfo enemyEffectOnNextTurnMod = this.m_enemyEffectOnNextTurnMod;
-		string prefix6 = "[EnemyEffectOnNextTurn]";
-		bool showBaseVal6 = flag;
-		StandardEffectInfo baseVal6;
+		AbilityModPropertyEffectInfo enemyEffectOnNextTurnMod = m_enemyEffectOnNextTurnMod;
+		object baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = fishManGeyser.m_enemyEffectOnNextTurn;
 		}
 		else
 		{
 			baseVal6 = null;
 		}
-		text = str6 + base.PropDesc(enemyEffectOnNextTurnMod, prefix6, showBaseVal6, baseVal6);
+		text = str6 + PropDesc(enemyEffectOnNextTurnMod, "[EnemyEffectOnNextTurn]", flag, (StandardEffectInfo)baseVal6);
 		string str7 = text;
-		AbilityModPropertyBool applyEelEffectOnEnemiesMod = this.m_applyEelEffectOnEnemiesMod;
-		string prefix7 = "[ApplyEelEffectOnEnemies]";
-		bool showBaseVal7 = flag;
-		bool baseVal7;
+		AbilityModPropertyBool applyEelEffectOnEnemiesMod = m_applyEelEffectOnEnemiesMod;
+		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal7 = fishManGeyser.m_applyEelEffectOnEnemies;
+			baseVal7 = (fishManGeyser.m_applyEelEffectOnEnemies ? 1 : 0);
 		}
 		else
 		{
-			baseVal7 = false;
+			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(applyEelEffectOnEnemiesMod, prefix7, showBaseVal7, baseVal7);
+		text = str7 + PropDesc(applyEelEffectOnEnemiesMod, "[ApplyEelEffectOnEnemies]", flag, (byte)baseVal7 != 0);
 		string str8 = text;
-		AbilityModPropertyInt eelDamageMod = this.m_eelDamageMod;
-		string prefix8 = "[EelDamage]";
-		bool showBaseVal8 = flag;
+		AbilityModPropertyInt eelDamageMod = m_eelDamageMod;
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = fishManGeyser.m_eelDamage;
 		}
 		else
 		{
 			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(eelDamageMod, prefix8, showBaseVal8, baseVal8);
+		text = str8 + PropDesc(eelDamageMod, "[EelDamage]", flag, baseVal8);
 		string str9 = text;
-		AbilityModPropertyEffectInfo eelEffectOnEnemiesMod = this.m_eelEffectOnEnemiesMod;
-		string prefix9 = "[EelEffectOnEnemies]";
-		bool showBaseVal9 = flag;
-		StandardEffectInfo baseVal9;
+		AbilityModPropertyEffectInfo eelEffectOnEnemiesMod = m_eelEffectOnEnemiesMod;
+		object baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = fishManGeyser.m_eelEffectOnEnemies;
 		}
 		else
 		{
 			baseVal9 = null;
 		}
-		text = str9 + base.PropDesc(eelEffectOnEnemiesMod, prefix9, showBaseVal9, baseVal9);
-		text += base.PropDesc(this.m_eelRadiusMod, "[EelRadius]", flag, (!flag) ? 0f : fishManGeyser.m_eelRadius);
+		text = str9 + PropDesc(eelEffectOnEnemiesMod, "[EelEffectOnEnemies]", flag, (StandardEffectInfo)baseVal9);
+		text += PropDesc(m_eelRadiusMod, "[EelRadius]", flag, (!flag) ? 0f : fishManGeyser.m_eelRadius);
 		string str10 = text;
-		AbilityModPropertyEffectInfo effectToEnemiesOnCastMod = this.m_effectToEnemiesOnCastMod;
-		string prefix10 = "[EffectToEnemiesOnCast]";
-		bool showBaseVal10 = flag;
-		StandardEffectInfo baseVal10;
+		AbilityModPropertyEffectInfo effectToEnemiesOnCastMod = m_effectToEnemiesOnCastMod;
+		object baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = fishManGeyser.m_effectToEnemiesOnCast;
 		}
 		else
 		{
 			baseVal10 = null;
 		}
-		text = str10 + base.PropDesc(effectToEnemiesOnCastMod, prefix10, showBaseVal10, baseVal10);
+		text = str10 + PropDesc(effectToEnemiesOnCastMod, "[EffectToEnemiesOnCast]", flag, (StandardEffectInfo)baseVal10);
 		string str11 = text;
-		AbilityModPropertyEffectInfo effectToAlliesOnCastMod = this.m_effectToAlliesOnCastMod;
-		string prefix11 = "[EffectToAlliesOnCast]";
-		bool showBaseVal11 = flag;
-		StandardEffectInfo baseVal11;
+		AbilityModPropertyEffectInfo effectToAlliesOnCastMod = m_effectToAlliesOnCastMod;
+		object baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = fishManGeyser.m_effectToAlliesOnCast;
 		}
 		else
 		{
 			baseVal11 = null;
 		}
-		text = str11 + base.PropDesc(effectToAlliesOnCastMod, prefix11, showBaseVal11, baseVal11);
-		text += base.PropDesc(this.m_turnsTillFirstExplosionMod, "[TurnsTillFirstExplosion]", flag, (!flag) ? 0 : fishManGeyser.m_turnsTillFirstExplosion);
+		text = str11 + PropDesc(effectToAlliesOnCastMod, "[EffectToAlliesOnCast]", flag, (StandardEffectInfo)baseVal11);
+		text += PropDesc(m_turnsTillFirstExplosionMod, "[TurnsTillFirstExplosion]", flag, flag ? fishManGeyser.m_turnsTillFirstExplosion : 0);
 		string str12 = text;
-		AbilityModPropertyInt numExplosionsBeforeEndingMod = this.m_numExplosionsBeforeEndingMod;
-		string prefix12 = "[NumExplosionsBeforeEnding]";
-		bool showBaseVal12 = flag;
+		AbilityModPropertyInt numExplosionsBeforeEndingMod = m_numExplosionsBeforeEndingMod;
 		int baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = fishManGeyser.m_numExplosionsBeforeEnding;
 		}
 		else
 		{
 			baseVal12 = 0;
 		}
-		text = str12 + base.PropDesc(numExplosionsBeforeEndingMod, prefix12, showBaseVal12, baseVal12);
+		text = str12 + PropDesc(numExplosionsBeforeEndingMod, "[NumExplosionsBeforeEnding]", flag, baseVal12);
 		string str13 = text;
-		AbilityModPropertyShape explodeShapeMod = this.m_explodeShapeMod;
-		string prefix13 = "[ExplodeShape]";
-		bool showBaseVal13 = flag;
-		AbilityAreaShape baseVal13;
+		AbilityModPropertyShape explodeShapeMod = m_explodeShapeMod;
+		int baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal13 = fishManGeyser.m_explodeShape;
+			baseVal13 = (int)fishManGeyser.m_explodeShape;
 		}
 		else
 		{
-			baseVal13 = AbilityAreaShape.SingleSquare;
+			baseVal13 = 0;
 		}
-		text = str13 + base.PropDesc(explodeShapeMod, prefix13, showBaseVal13, baseVal13);
+		text = str13 + PropDesc(explodeShapeMod, "[ExplodeShape]", flag, (AbilityAreaShape)baseVal13);
 		string str14 = text;
-		AbilityModPropertyBool explodePenetratesLoSMod = this.m_explodePenetratesLoSMod;
-		string prefix14 = "[ExplodePenetratesLoS]";
-		bool showBaseVal14 = flag;
-		bool baseVal14;
+		AbilityModPropertyBool explodePenetratesLoSMod = m_explodePenetratesLoSMod;
+		int baseVal14;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal14 = fishManGeyser.m_explodePenetratesLoS;
+			baseVal14 = (fishManGeyser.m_explodePenetratesLoS ? 1 : 0);
 		}
 		else
 		{
-			baseVal14 = false;
+			baseVal14 = 0;
 		}
-		text = str14 + base.PropDesc(explodePenetratesLoSMod, prefix14, showBaseVal14, baseVal14);
+		text = str14 + PropDesc(explodePenetratesLoSMod, "[ExplodePenetratesLoS]", flag, (byte)baseVal14 != 0);
 		string str15 = text;
-		AbilityModPropertyInt damageToEnemiesOnExplodeMod = this.m_damageToEnemiesOnExplodeMod;
-		string prefix15 = "[DamageToEnemiesOnExplode]";
-		bool showBaseVal15 = flag;
+		AbilityModPropertyInt damageToEnemiesOnExplodeMod = m_damageToEnemiesOnExplodeMod;
 		int baseVal15;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = fishManGeyser.m_damageToEnemiesOnExplode;
 		}
 		else
 		{
 			baseVal15 = 0;
 		}
-		text = str15 + base.PropDesc(damageToEnemiesOnExplodeMod, prefix15, showBaseVal15, baseVal15);
-		text += base.PropDesc(this.m_healingToAlliesOnExplodeMod, "[HealingToAlliesOnExplode]", flag, (!flag) ? 0 : fishManGeyser.m_healingToAlliesOnExplode);
+		text = str15 + PropDesc(damageToEnemiesOnExplodeMod, "[DamageToEnemiesOnExplode]", flag, baseVal15);
+		text += PropDesc(m_healingToAlliesOnExplodeMod, "[HealingToAlliesOnExplode]", flag, flag ? fishManGeyser.m_healingToAlliesOnExplode : 0);
 		string str16 = text;
-		AbilityModPropertyBool applyKnockbackOnExplodeMod = this.m_applyKnockbackOnExplodeMod;
-		string prefix16 = "[ApplyKnockbackOnExplode]";
-		bool showBaseVal16 = flag;
-		bool baseVal16;
+		AbilityModPropertyBool applyKnockbackOnExplodeMod = m_applyKnockbackOnExplodeMod;
+		int baseVal16;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal16 = fishManGeyser.m_applyKnockbackOnExplode;
+			baseVal16 = (fishManGeyser.m_applyKnockbackOnExplode ? 1 : 0);
 		}
 		else
 		{
-			baseVal16 = false;
+			baseVal16 = 0;
 		}
-		text = str16 + base.PropDesc(applyKnockbackOnExplodeMod, prefix16, showBaseVal16, baseVal16);
+		text = str16 + PropDesc(applyKnockbackOnExplodeMod, "[ApplyKnockbackOnExplode]", flag, (byte)baseVal16 != 0);
 		string str17 = text;
-		AbilityModPropertyFloat knockbackDistOnExplodeMod = this.m_knockbackDistOnExplodeMod;
-		string prefix17 = "[KnockbackDistOnExplode]";
-		bool showBaseVal17 = flag;
+		AbilityModPropertyFloat knockbackDistOnExplodeMod = m_knockbackDistOnExplodeMod;
 		float baseVal17;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal17 = fishManGeyser.m_knockbackDistOnExplode;
 		}
 		else
 		{
 			baseVal17 = 0f;
 		}
-		text = str17 + base.PropDesc(knockbackDistOnExplodeMod, prefix17, showBaseVal17, baseVal17);
+		text = str17 + PropDesc(knockbackDistOnExplodeMod, "[KnockbackDistOnExplode]", flag, baseVal17);
 		string str18 = text;
-		AbilityModPropertyEffectInfo effectToEnemiesOnExplodeMod = this.m_effectToEnemiesOnExplodeMod;
-		string prefix18 = "[EffectToEnemiesOnExplode]";
-		bool showBaseVal18 = flag;
-		StandardEffectInfo baseVal18;
+		AbilityModPropertyEffectInfo effectToEnemiesOnExplodeMod = m_effectToEnemiesOnExplodeMod;
+		object baseVal18;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal18 = fishManGeyser.m_effectToEnemiesOnExplode;
 		}
 		else
 		{
 			baseVal18 = null;
 		}
-		text = str18 + base.PropDesc(effectToEnemiesOnExplodeMod, prefix18, showBaseVal18, baseVal18);
+		text = str18 + PropDesc(effectToEnemiesOnExplodeMod, "[EffectToEnemiesOnExplode]", flag, (StandardEffectInfo)baseVal18);
 		string str19 = text;
-		AbilityModPropertyEffectInfo effectToAlliesOnExplodeMod = this.m_effectToAlliesOnExplodeMod;
-		string prefix19 = "[EffectToAlliesOnExplode]";
-		bool showBaseVal19 = flag;
-		StandardEffectInfo baseVal19;
+		AbilityModPropertyEffectInfo effectToAlliesOnExplodeMod = m_effectToAlliesOnExplodeMod;
+		object baseVal19;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal19 = fishManGeyser.m_effectToAlliesOnExplode;
 		}
 		else
 		{
 			baseVal19 = null;
 		}
-		return str19 + base.PropDesc(effectToAlliesOnExplodeMod, prefix19, showBaseVal19, baseVal19);
+		return str19 + PropDesc(effectToAlliesOnExplodeMod, "[EffectToAlliesOnExplode]", flag, (StandardEffectInfo)baseVal19);
 	}
 }

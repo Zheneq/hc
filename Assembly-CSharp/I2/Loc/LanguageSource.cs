@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,30 +64,8 @@ namespace I2.Loc
 				{
 					goto IL_F0;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.Export_CSV(string, char)).MethodHandle;
-				}
 				if (Category == LanguageSource.EmptyCategory)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (termData.Term.IndexOfAny(LanguageSource.CategorySeparators) < 0)
 					{
 						goto IL_F0;
@@ -118,19 +96,6 @@ namespace I2.Loc
 			LanguageSource.AppendString(Builder, Term, Separator);
 			if (!string.IsNullOrEmpty(prefix))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.AppendTerm(StringBuilder, int, string, TermData, string, string[], string[], char, byte, byte)).MethodHandle;
-				}
 				Builder.Append(prefix);
 			}
 			Builder.Append(Separator);
@@ -146,26 +111,8 @@ namespace I2.Loc
 				bool flag = (termData.Flags[i] & FlagBitMask) > 0;
 				if (string.IsNullOrEmpty(text))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (aSecLanguages != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = aSecLanguages[i];
 						flag = ((termData.Flags[i] & SecFlagBitMask) > 0);
 					}
@@ -187,33 +134,11 @@ namespace I2.Loc
 		{
 			if (string.IsNullOrEmpty(Text))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.AppendString(StringBuilder, string, char)).MethodHandle;
-				}
 				return;
 			}
 			Text = Text.Replace("\\n", "\n");
 			if (Text.IndexOfAny((Separator + "\n\"").ToCharArray()) >= 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Text = Text.Replace("\"", "\"\"");
 				Builder.AppendFormat("\"{0}\"", Text);
 			}
@@ -246,19 +171,6 @@ namespace I2.Loc
 					string text = enumerator.Current;
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.Export_Google_CreateData()).MethodHandle;
-						}
 						flag = false;
 					}
 					else
@@ -269,15 +181,6 @@ namespace I2.Loc
 					stringBuilder.Append(text);
 					stringBuilder.Append("<I2Loc>");
 					stringBuilder.Append(value);
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return stringBuilder.ToString();
@@ -309,65 +212,16 @@ namespace I2.Loc
 			};
 			if (array.Length > 1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.Import_CSV(string, string, eSpreadsheetUpdateMode, char)).MethodHandle;
-				}
 				if (this.ArrayContains(array[0], texts))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UpdateMode == eSpreadsheetUpdateMode.Replace)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.ClearAllData();
 					}
 					if (array.Length > 2)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.ArrayContains(array[1], texts2))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = 1;
 							num = 2;
 						}
@@ -378,26 +232,8 @@ namespace I2.Loc
 					}
 					if (array.Length > 3)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.ArrayContains(array[2], texts2))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = 2;
 							num = 3;
 						}
@@ -408,26 +244,8 @@ namespace I2.Loc
 					}
 					if (array.Length > 4)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.ArrayContains(array[3], texts4))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num3 = 3;
 							num = 4;
 						}
@@ -442,15 +260,6 @@ namespace I2.Loc
 						int num5;
 						if (!string.IsNullOrEmpty(text2))
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num5 = this.GetLanguageIndexFromCode(text2);
 						}
 						else
@@ -459,15 +268,6 @@ namespace I2.Loc
 						}
 						if (num5 < 0)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							LanguageData languageData = new LanguageData();
 							languageData.Name = text;
 							languageData.Code = text2;
@@ -475,15 +275,6 @@ namespace I2.Loc
 							num5 = this.mLanguages.Count - 1;
 						}
 						array2[i] = num5;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					num4 = this.mLanguages.Count;
 					int j = 0;
@@ -493,15 +284,6 @@ namespace I2.Loc
 						TermData termData = this.mTerms[j];
 						if (termData.Languages.Length < num4)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Array.Resize<string>(ref termData.Languages, num4);
 							Array.Resize<string>(ref termData.Languages_Touch, num4);
 							Array.Resize<byte>(ref termData.Flags, num4);
@@ -516,15 +298,6 @@ namespace I2.Loc
 						string text3;
 						if (string.IsNullOrEmpty(Category))
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text3 = array[0];
 						}
 						else
@@ -544,26 +317,8 @@ namespace I2.Loc
 							TermData termData2 = this.GetTermData(text4, false);
 							if (termData2 == null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (UpdateMode == eSpreadsheetUpdateMode.Merge)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									goto IL_5EC;
 								}
 								termData2 = new TermData();
@@ -575,42 +330,15 @@ namespace I2.Loc
 								{
 									termData2.Languages[l] = (termData2.Languages_Touch[l] = string.Empty);
 								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.mTerms.Add(termData2);
 								this.mDictionary.Add(text4, termData2);
 							}
 							else if (UpdateMode == eSpreadsheetUpdateMode.AddNewTerms)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								goto IL_5EC;
 							}
 							if (num2 > 0)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								termData2.TermType = LanguageSource.GetTermType(array[num2]);
 							}
 							if (num3 > 0)
@@ -620,15 +348,6 @@ namespace I2.Loc
 							int num6 = 0;
 							if (UpdateMode == eSpreadsheetUpdateMode.Merge)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num6 = 1;
 								if (termData2.TermType == eTermType.Texture)
 								{
@@ -654,40 +373,13 @@ namespace I2.Loc
 								{
 									if (!string.IsNullOrEmpty(array[m + num]))
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										string text5 = array[m + num];
 										bool flag2 = text5.StartsWith("[i2auto]");
 										if (flag2)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											text5 = text5.Substring("[isauto]".Length);
 											if (text5.StartsWith("\""))
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (text5.EndsWith("\""))
 												{
 													text5 = text5.Substring(1, text5.Length - 2);
@@ -697,27 +389,9 @@ namespace I2.Loc
 										int num7 = array2[m];
 										if (flag)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											termData2.Languages_Touch[num7] = text5;
 											if (flag2)
 											{
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												byte[] flags = termData2.Flags;
 												int num8 = num7;
 												flags[num8] |= 2;
@@ -734,15 +408,6 @@ namespace I2.Loc
 											termData2.Languages[num7] = text5;
 											if (flag2)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												byte[] flags3 = termData2.Flags;
 												int num10 = num7;
 												flags3[num10] |= 1;
@@ -762,15 +427,6 @@ namespace I2.Loc
 						IL_5EC:
 						k++;
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return string.Empty;
 				}
 			}
@@ -785,31 +441,9 @@ namespace I2.Loc
 			{
 				if (MainText.IndexOf(texts[i], StringComparison.OrdinalIgnoreCase) >= 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.ArrayContains(string, string[])).MethodHandle;
-					}
 					return true;
 				}
 				i++;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return false;
 		}
@@ -823,84 +457,37 @@ namespace I2.Loc
 				eTermType eTermType = (eTermType)i;
 				if (string.Equals(eTermType.ToString(), type, StringComparison.OrdinalIgnoreCase))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.GetTermType(string)).MethodHandle;
-					}
 					return (eTermType)i;
 				}
 				i++;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return eTermType.Text;
 		}
 
-		public event Action<LanguageSource> Event_OnSourceUpdateFromGoogle
+		private Action<LanguageSource> Event_OnSourceUpdateFromGoogleHolder;
+	public event Action<LanguageSource> Event_OnSourceUpdateFromGoogle
 		{
 			add
 			{
-				Action<LanguageSource> action = this.Event_OnSourceUpdateFromGoogle;
+				Action<LanguageSource> action = this.Event_OnSourceUpdateFromGoogleHolder;
 				Action<LanguageSource> action2;
 				do
 				{
 					action2 = action;
-					action = Interlocked.CompareExchange<Action<LanguageSource>>(ref this.Event_OnSourceUpdateFromGoogle, (Action<LanguageSource>)Delegate.Combine(action2, value), action);
+					action = Interlocked.CompareExchange<Action<LanguageSource>>(ref this.Event_OnSourceUpdateFromGoogleHolder, (Action<LanguageSource>)Delegate.Combine(action2, value), action);
 				}
 				while (action != action2);
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.add_Event_OnSourceUpdateFromGoogle(Action<LanguageSource>)).MethodHandle;
-				}
 			}
 			remove
 			{
-				Action<LanguageSource> action = this.Event_OnSourceUpdateFromGoogle;
+				Action<LanguageSource> action = this.Event_OnSourceUpdateFromGoogleHolder;
 				Action<LanguageSource> action2;
 				do
 				{
 					action2 = action;
-					action = Interlocked.CompareExchange<Action<LanguageSource>>(ref this.Event_OnSourceUpdateFromGoogle, (Action<LanguageSource>)Delegate.Remove(action2, value), action);
+					action = Interlocked.CompareExchange<Action<LanguageSource>>(ref this.Event_OnSourceUpdateFromGoogleHolder, (Action<LanguageSource>)Delegate.Remove(action2, value), action);
 				}
 				while (action != action2);
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.remove_Event_OnSourceUpdateFromGoogle(Action<LanguageSource>)).MethodHandle;
-				}
 			}
 		}
 
@@ -908,32 +495,10 @@ namespace I2.Loc
 		{
 			if (this.GoogleUpdateFrequency == LanguageSource.eGoogleUpdateFrequency.Never)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.Import_Google(bool)).MethodHandle;
-				}
 				return;
 			}
 			if (!Application.isPlaying)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 			string @string = PlayerPrefs.GetString("I2Source_" + this.Google_SpreadsheetKey, string.Empty);
@@ -944,26 +509,8 @@ namespace I2.Loc
 			string sourcePlayerPrefName = this.GetSourcePlayerPrefName();
 			if (!ForceUpdate)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GoogleUpdateFrequency != LanguageSource.eGoogleUpdateFrequency.Always)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string string2 = PlayerPrefs.GetString("LastGoogleUpdate_" + sourcePlayerPrefName, string.Empty);
 					DateTime d;
 					if (DateTime.TryParse(string2, out d))
@@ -972,63 +519,18 @@ namespace I2.Loc
 						LanguageSource.eGoogleUpdateFrequency googleUpdateFrequency = this.GoogleUpdateFrequency;
 						if (googleUpdateFrequency != LanguageSource.eGoogleUpdateFrequency.Daily)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (googleUpdateFrequency != LanguageSource.eGoogleUpdateFrequency.Weekly)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (googleUpdateFrequency != LanguageSource.eGoogleUpdateFrequency.Monthly)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								else if (totalDays < 31.0)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									return;
 								}
 							}
 							else if (totalDays < 8.0)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return;
 							}
 						}
@@ -1057,80 +559,22 @@ namespace I2.Loc
 			WWW www = this.Import_Google_CreateWWWcall(false);
 			if (www == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.<Import_Google_Coroutine>c__Iterator0.MoveNext()).MethodHandle;
-				}
 				yield break;
 			}
 			while (!www.isDone)
 			{
 				yield return null;
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (string.IsNullOrEmpty(www.error))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (www.text != "\"\"")
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					PlayerPrefs.SetString("I2Source_" + this.Google_SpreadsheetKey, www.text);
 					PlayerPrefs.Save();
 					this.Import_Google_Result(www.text, eSpreadsheetUpdateMode.Replace);
-					if (this.Event_OnSourceUpdateFromGoogle != null)
+					if (this.Event_OnSourceUpdateFromGoogleHolder != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.Event_OnSourceUpdateFromGoogle(this);
+						this.Event_OnSourceUpdateFromGoogleHolder(this);
 					}
 					LocalizationManager.LocalizeAll(false);
 					Debug.Log("Done Google Sync '" + www.text + "'");
@@ -1157,19 +601,6 @@ namespace I2.Loc
 			bool result;
 			if (!string.IsNullOrEmpty(this.Google_WebServiceURL))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.HasGoogleSpreadsheet()).MethodHandle;
-				}
 				result = !string.IsNullOrEmpty(this.Google_SpreadsheetKey);
 			}
 			else
@@ -1188,15 +619,6 @@ namespace I2.Loc
 				{
 					if (UpdateMode == eSpreadsheetUpdateMode.Replace)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.ClearAllData();
 					}
 					int num = JsonString.IndexOf("version=");
@@ -1205,15 +627,6 @@ namespace I2.Loc
 					{
 						if (num2 < 0)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -1238,44 +651,13 @@ namespace I2.Loc
 								this.Import_CSV(category, csvstring, UpdateMode, ',');
 								if (UpdateMode == eSpreadsheetUpdateMode.Replace)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UpdateMode = eSpreadsheetUpdateMode.Merge;
 								}
-							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							return empty;
 						}
 					}
 					return "Invalid Response from Google, Most likely the WebService needs to be updated";
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.Import_Google_Result(string, eSpreadsheetUpdateMode)).MethodHandle;
 				}
 			}
 			Debug.Log("Language Source was up to date");
@@ -1286,19 +668,6 @@ namespace I2.Loc
 		{
 			if (Categories == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.GetCategories(bool, List<string>)).MethodHandle;
-				}
 				Categories = new List<string>();
 			}
 			using (List<TermData>.Enumerator enumerator = this.mTerms.GetEnumerator())
@@ -1309,26 +678,8 @@ namespace I2.Loc
 					string categoryFromFullTerm = LanguageSource.GetCategoryFromFullTerm(termData.Term, OnlyMainCategory);
 					if (!Categories.Contains(categoryFromFullTerm))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Categories.Add(categoryFromFullTerm);
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Categories.Sort();
@@ -1341,19 +692,6 @@ namespace I2.Loc
 			string result;
 			if (num < 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.GetKeyFromFullTerm(string, bool)).MethodHandle;
-				}
 				result = FullTerm;
 			}
 			else
@@ -1368,19 +706,6 @@ namespace I2.Loc
 			int num;
 			if (OnlyMainCategory)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.GetCategoryFromFullTerm(string, bool)).MethodHandle;
-				}
 				num = FullTerm.IndexOfAny(LanguageSource.CategorySeparators);
 			}
 			else
@@ -1391,15 +716,6 @@ namespace I2.Loc
 			string result;
 			if (num2 < 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = LanguageSource.EmptyCategory;
 			}
 			else
@@ -1414,19 +730,6 @@ namespace I2.Loc
 			int num = (!OnlyMainCategory) ? FullTerm.LastIndexOfAny(LanguageSource.CategorySeparators) : FullTerm.IndexOfAny(LanguageSource.CategorySeparators);
 			if (num < 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.DeserializeFullTerm(string, string*, string*, bool)).MethodHandle;
-				}
 				Category = LanguageSource.EmptyCategory;
 				Key = FullTerm;
 			}
@@ -1446,19 +749,6 @@ namespace I2.Loc
 		{
 			if (this.NeverDestroy)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.Awake()).MethodHandle;
-				}
 				if (this.ManagerHasASimilarSource())
 				{
 					UnityEngine.Object.Destroy(this);
@@ -1466,15 +756,6 @@ namespace I2.Loc
 				}
 				if (Application.isPlaying)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 				}
 			}
@@ -1486,45 +767,14 @@ namespace I2.Loc
 		{
 			if (!force)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.UpdateDictionary(bool)).MethodHandle;
-				}
 				if (this.mDictionary != null && this.mDictionary.Count == this.mTerms.Count)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return;
 				}
 			}
 			StringComparer stringComparer;
 			if (this.CaseInsensitiveTerms)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringComparer = StringComparer.OrdinalIgnoreCase;
 			}
 			else
@@ -1534,15 +784,6 @@ namespace I2.Loc
 			StringComparer stringComparer2 = stringComparer;
 			if (this.mDictionary.Comparer != stringComparer2)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.mDictionary = new Dictionary<string, TermData>(stringComparer2);
 			}
 			else
@@ -1557,15 +798,6 @@ namespace I2.Loc
 				if (this.mTerms[i].Languages_Touch == null)
 				{
 					goto IL_11B;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (this.mTerms[i].Languages_Touch.Length != this.mTerms[i].Languages.Length)
 				{
@@ -1588,15 +820,6 @@ namespace I2.Loc
 				this.mTerms[i].Languages_Touch = new string[this.mTerms[i].Languages.Length];
 				goto IL_146;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 
 		public string GetSourceName()
@@ -1607,19 +830,6 @@ namespace I2.Loc
 			{
 				text = parent.name + "_" + text;
 				parent = parent.parent;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.GetSourceName()).MethodHandle;
 			}
 			return text;
 		}
@@ -1632,43 +842,12 @@ namespace I2.Loc
 			{
 				if (string.Compare(this.mLanguages[i].Name, language, StringComparison.OrdinalIgnoreCase) == 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.GetLanguageIndex(string, bool)).MethodHandle;
-					}
 					return i;
 				}
 				i++;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (AllowDiscartingRegion)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = -1;
 				int num2 = 0;
 				int j = 0;
@@ -1678,15 +857,6 @@ namespace I2.Loc
 					int commonWordInLanguageNames = LanguageSource.GetCommonWordInLanguageNames(this.mLanguages[j].Name, language);
 					if (commonWordInLanguageNames > num2)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = commonWordInLanguageNames;
 						num = j;
 					}
@@ -1694,15 +864,6 @@ namespace I2.Loc
 				}
 				if (num >= 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return num;
 				}
 			}
@@ -1717,31 +878,9 @@ namespace I2.Loc
 			{
 				if (string.Compare(this.mLanguages[i].Code, Code, StringComparison.OrdinalIgnoreCase) == 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.GetLanguageIndexFromCode(string)).MethodHandle;
-					}
 					return i;
 				}
 				i++;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return -1;
 		}
@@ -1750,64 +889,21 @@ namespace I2.Loc
 		{
 			if (!string.IsNullOrEmpty(Language1))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.GetCommonWordInLanguageNames(string, string)).MethodHandle;
-				}
 				if (!string.IsNullOrEmpty(Language2))
 				{
 					string[] array = (from x in Language1.Split("( )-/\\".ToCharArray())
 					where !string.IsNullOrEmpty(x)
 					select x).ToArray<string>();
 					IEnumerable<string> source = Language2.Split("( )-/\\".ToCharArray());
-					if (LanguageSource.<>f__am$cache1 == null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						LanguageSource.<>f__am$cache1 = ((string x) => !string.IsNullOrEmpty(x));
-					}
-					string[] array2 = source.Where(LanguageSource.<>f__am$cache1).ToArray<string>();
+					
+					string[] array2 = source.Where(((string x) => !string.IsNullOrEmpty(x))).ToArray<string>();
 					int num = 0;
 					foreach (string value in array)
 					{
 						if (array2.Contains(value))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num++;
 						}
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					foreach (string value2 in array2)
 					{
@@ -1816,25 +912,7 @@ namespace I2.Loc
 							num++;
 						}
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return num;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return 0;
@@ -1852,19 +930,6 @@ namespace I2.Loc
 			int num = Language.IndexOfAny("(/\\[,{".ToCharArray());
 			if (num < 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.GetLanguageWithoutRegion(string)).MethodHandle;
-				}
 				return Language;
 			}
 			return Language.Substring(0, num).Trim();
@@ -1890,19 +955,6 @@ namespace I2.Loc
 				Array.Resize<byte>(ref this.mTerms[i].Flags, count);
 				i++;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.AddLanguage(string, string)).MethodHandle;
-			}
 		}
 
 		public void RemoveLanguage(string LanguageName)
@@ -1923,19 +975,6 @@ namespace I2.Loc
 					this.mTerms[i].Languages_Touch[j - 1] = this.mTerms[i].Languages_Touch[j];
 					this.mTerms[i].Flags[j - 1] = this.mTerms[i].Flags[j];
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.RemoveLanguage(string)).MethodHandle;
-				}
 				Array.Resize<string>(ref this.mTerms[i].Languages, count - 1);
 				Array.Resize<string>(ref this.mTerms[i].Languages_Touch, count - 1);
 				Array.Resize<byte>(ref this.mTerms[i].Flags, count - 1);
@@ -1954,19 +993,6 @@ namespace I2.Loc
 				list.Add(this.mLanguages[i].Name);
 				i++;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.GetLanguages()).MethodHandle;
-			}
 			return list;
 		}
 
@@ -1975,19 +1001,6 @@ namespace I2.Loc
 			int languageIndex = this.GetLanguageIndex(LocalizationManager.CurrentLanguage, true);
 			if (languageIndex < 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.GetTermTranslation(string)).MethodHandle;
-				}
 				return string.Empty;
 			}
 			TermData termData = this.GetTermData(term, false);
@@ -2003,43 +1016,12 @@ namespace I2.Loc
 			int languageIndex = this.GetLanguageIndex(LocalizationManager.CurrentLanguage, true);
 			if (languageIndex >= 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.TryGetTermTranslation(string, string*)).MethodHandle;
-				}
 				TermData termData = this.GetTermData(term, false);
 				if (termData != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Translation = termData.GetTranslation(languageIndex);
 					if (Translation.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Translation = termData.GetTranslation(0);
 					}
 					return true;
@@ -2058,32 +1040,10 @@ namespace I2.Loc
 		{
 			if (string.IsNullOrEmpty(term))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.GetTermData(string, bool)).MethodHandle;
-				}
 				return null;
 			}
 			if (this.mDictionary.Count == 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.UpdateDictionary(false);
 			}
 			TermData result;
@@ -2094,41 +1054,14 @@ namespace I2.Loc
 			TermData termData = null;
 			if (allowCategoryMistmatch)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string keyFromFullTerm = LanguageSource.GetKeyFromFullTerm(term, false);
 				foreach (KeyValuePair<string, TermData> keyValuePair in this.mDictionary)
 				{
 					if (keyValuePair.Value.IsTerm(keyFromFullTerm, true))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (termData != null)
 						{
 							return null;
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						termData = keyValuePair.Value;
 					}
@@ -2147,19 +1080,6 @@ namespace I2.Loc
 		{
 			if (this.mDictionary.Count != this.mTerms.Count)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.GetTermsList()).MethodHandle;
-				}
 				this.UpdateDictionary(false);
 			}
 			return new List<string>(this.mDictionary.Keys);
@@ -2196,33 +1116,11 @@ namespace I2.Loc
 			{
 				if (this.mTerms[i].Term == term)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.RemoveTerm(string)).MethodHandle;
-					}
 					this.mTerms.RemoveAt(i);
 					this.mDictionary.Remove(term);
 					return;
 				}
 				i++;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 
@@ -2232,19 +1130,6 @@ namespace I2.Loc
 			Term = Term.Trim();
 			if (Term.StartsWith(LanguageSource.EmptyCategory) && Term.Length > LanguageSource.EmptyCategory.Length && Term[LanguageSource.EmptyCategory.Length] == '/')
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.ValidateFullTerm(string*)).MethodHandle;
-				}
 				Term = Term.Substring(LanguageSource.EmptyCategory.Length + 1);
 			}
 		}
@@ -2253,19 +1138,6 @@ namespace I2.Loc
 		{
 			if (Source.mLanguages.Count != this.mLanguages.Count)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.IsEqualTo(LanguageSource)).MethodHandle;
-				}
 				return false;
 			}
 			int i = 0;
@@ -2274,27 +1146,9 @@ namespace I2.Loc
 			{
 				if (Source.GetLanguageIndex(this.mLanguages[i].Name, true) < 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 				i++;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (Source.mTerms.Count != this.mTerms.Count)
 			{
@@ -2304,26 +1158,8 @@ namespace I2.Loc
 			{
 				if (Source.GetTermData(this.mTerms[j].Term, false) == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return true;
 		}
@@ -2337,55 +1173,15 @@ namespace I2.Loc
 				LanguageSource languageSource = LocalizationManager.Sources[i];
 				if (languageSource != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.ManagerHasASimilarSource()).MethodHandle;
-					}
 					if (languageSource.IsEqualTo(this))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (languageSource != this)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return true;
 						}
 					}
 				}
 				i++;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return false;
 		}
@@ -2401,34 +1197,12 @@ namespace I2.Loc
 		{
 			if (this.Assets != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LanguageSource.FindAsset(string)).MethodHandle;
-				}
 				int i = 0;
 				int num = this.Assets.Length;
 				while (i < num)
 				{
 					if (this.Assets[i] != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.Assets[i].name == Name)
 						{
 							return this.Assets[i];

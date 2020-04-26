@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public struct PlayerAbilityVfxSwapData
@@ -9,13 +9,6 @@ public struct PlayerAbilityVfxSwapData
 
 	public override string ToString()
 	{
-		return string.Concat(new object[]
-		{
-			"Ability[",
-			this.AbilityId,
-			"]->VfxSwap[",
-			this.AbilityVfxSwapID,
-			"]"
-		});
+		return "Ability[" + AbilityId + "]->VfxSwap[" + AbilityVfxSwapID + "]";
 	}
 }

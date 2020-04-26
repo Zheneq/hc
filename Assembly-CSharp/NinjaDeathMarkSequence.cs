@@ -1,11 +1,10 @@
-﻿using System;
 using UnityEngine;
 
 public class NinjaDeathMarkSequence : TempSatelliteSequence
 {
 	[AnimEventPicker]
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	private bool m_spawnedTempSatellite;
 
@@ -13,115 +12,68 @@ public class NinjaDeathMarkSequence : TempSatelliteSequence
 
 	public override void FinishSetup()
 	{
-		if (this.m_startEvent == null)
+		if (!(m_startEvent == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDeathMarkSequence.FinishSetup()).MethodHandle;
-			}
-			this.SpawnTempSatellite();
+			return;
+		}
+		while (true)
+		{
+			SpawnTempSatellite();
+			return;
 		}
 	}
 
 	private void SpawnTempSatellite()
 	{
-		this.m_spawnedTempSatellite = true;
-		this.m_tempSatelliteInstance = base.InstantiateFX(this.m_tempSatellitePrefab, base.TargetPos, Quaternion.identity, true, true);
-		this.m_tempSatelliteInstance.GetComponent<NinjaCloneSatellite>().Setup(this);
-		this.m_tempSatelliteInstance.GetComponent<NinjaCloneSatellite>().TriggerDeathMarkAttack();
+		m_spawnedTempSatellite = true;
+		m_tempSatelliteInstance = InstantiateFX(m_tempSatellitePrefab, base.TargetPos, Quaternion.identity);
+		m_tempSatelliteInstance.GetComponent<NinjaCloneSatellite>().Setup(this);
+		m_tempSatelliteInstance.GetComponent<NinjaCloneSatellite>().TriggerDeathMarkAttack();
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_startEvent == parameter)
+		if (!(m_startEvent == parameter))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDeathMarkSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
-			this.SpawnTempSatellite();
+			return;
+		}
+		while (true)
+		{
+			SpawnTempSatellite();
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_spawnedTempSatellite)
+		if (!m_spawnedTempSatellite)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_setFinishTrigger)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDeathMarkSequence.Update()).MethodHandle;
-			}
-			if (!this.m_setFinishTrigger)
-			{
-				for (;;)
+				if (!(m_tempSatelliteInstance == null))
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(this.m_tempSatelliteInstance == null))
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_tempSatelliteInstance.GetComponent<NinjaCloneSatellite>().IsDespawning())
+					if (!m_tempSatelliteInstance.GetComponent<NinjaCloneSatellite>().IsDespawning())
 					{
 						return;
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-				this.m_setFinishTrigger = true;
-				base.Caster.\u000E().GetModelAnimator().SetTrigger("FinishAttack");
+				m_setFinishTrigger = true;
+				base.Caster.GetActorModelData().GetModelAnimator().SetTrigger("FinishAttack");
+				return;
 			}
 		}
 	}
 
 	private void OnDisable()
 	{
-		this.m_initialized = false;
+		m_initialized = false;
 	}
 }

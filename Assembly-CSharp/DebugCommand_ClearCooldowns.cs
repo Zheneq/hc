@@ -1,5 +1,3 @@
-﻿using System;
-
 public class DebugCommand_ClearCooldowns : DebugCommand
 {
 	public override string GetDebugItemName()
@@ -25,7 +23,7 @@ public class DebugCommand_ClearCooldowns : DebugCommand
 
 	public override bool OnSlashCommand(string arguments)
 	{
-		this.OnIncreaseClick();
+		OnIncreaseClick();
 		return true;
 	}
 }

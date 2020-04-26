@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +16,7 @@ public class ExoTetherTrap : Ability
 	[Header("-- Tether Info")]
 	public float m_tetherDistance = 5f;
 
-	public int m_tetherBreakDamage = 0x14;
+	public int m_tetherBreakDamage = 20;
 
 	public StandardEffectInfo m_tetherBreakEffect;
 
@@ -50,17 +49,17 @@ public class ExoTetherTrap : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Exo Tether Trap";
+			m_abilityName = "Exo Tether Trap";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	public void SetupTargeter()
 	{
-		this.SetCachedFields();
-		AbilityUtil_Targeter_ExoTether abilityUtil_Targeter_ExoTether = new AbilityUtil_Targeter_ExoTether(this, this.GetLaserInfo(), this.GetLaserInfo());
+		SetCachedFields();
+		AbilityUtil_Targeter_ExoTether abilityUtil_Targeter_ExoTether = new AbilityUtil_Targeter_ExoTether(this, GetLaserInfo(), GetLaserInfo());
 		abilityUtil_Targeter_ExoTether.SetAffectedGroups(true, false, false);
 		base.Targeter = abilityUtil_Targeter_ExoTether;
 	}
@@ -72,124 +71,71 @@ public class ExoTetherTrap : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLaserInfo().range;
+		return GetLaserInfo().range;
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedLaserInfo = this.m_laserInfo;
+		m_cachedLaserInfo = m_laserInfo;
 		LaserTargetingInfo cachedLaserInfo;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.SetCachedFields()).MethodHandle;
-			}
-			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
+			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
 		{
-			cachedLaserInfo = this.m_laserInfo;
+			cachedLaserInfo = m_laserInfo;
 		}
-		this.m_cachedLaserInfo = cachedLaserInfo;
+		m_cachedLaserInfo = cachedLaserInfo;
 		StandardEffectInfo cachedTetherBreakEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedTetherBreakEffect = this.m_abilityMod.m_tetherBreakEffectMod.GetModifiedValue(this.m_tetherBreakEffect);
+			cachedTetherBreakEffect = m_abilityMod.m_tetherBreakEffectMod.GetModifiedValue(m_tetherBreakEffect);
 		}
 		else
 		{
-			cachedTetherBreakEffect = this.m_tetherBreakEffect;
+			cachedTetherBreakEffect = m_tetherBreakEffect;
 		}
-		this.m_cachedTetherBreakEffect = cachedTetherBreakEffect;
+		m_cachedTetherBreakEffect = cachedTetherBreakEffect;
 		StandardActorEffectData cachedBaseEffectData;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedBaseEffectData = this.m_abilityMod.m_baseEffectDataMod.GetModifiedValue(this.m_baseEffectData);
+			cachedBaseEffectData = m_abilityMod.m_baseEffectDataMod.GetModifiedValue(m_baseEffectData);
 		}
 		else
 		{
-			cachedBaseEffectData = this.m_baseEffectData.GetShallowCopy();
+			cachedBaseEffectData = m_baseEffectData.GetShallowCopy();
 		}
-		this.m_cachedBaseEffectData = cachedBaseEffectData;
-		if (this.m_beamSequence != null)
+		m_cachedBaseEffectData = cachedBaseEffectData;
+		if (m_beamSequence != null)
 		{
-			this.m_cachedBaseEffectData.m_sequencePrefabs = new GameObject[]
+			m_cachedBaseEffectData.m_sequencePrefabs = new GameObject[1]
 			{
-				this.m_beamSequence
+				m_beamSequence
 			};
 		}
 		StandardEffectInfo cachedLaserOnHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedLaserOnHitEffect = this.m_abilityMod.m_laserOnHitEffectMod.GetModifiedValue(this.m_laserOnHitEffect);
+			cachedLaserOnHitEffect = m_abilityMod.m_laserOnHitEffectMod.GetModifiedValue(m_laserOnHitEffect);
 		}
 		else
 		{
-			cachedLaserOnHitEffect = this.m_laserOnHitEffect;
+			cachedLaserOnHitEffect = m_laserOnHitEffect;
 		}
-		this.m_cachedLaserOnHitEffect = cachedLaserOnHitEffect;
+		m_cachedLaserOnHitEffect = cachedLaserOnHitEffect;
 	}
 
 	public int GetLaserDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetLaserDamageAmount()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(this.m_laserDamageAmount);
+			result = m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
 		{
-			result = this.m_laserDamageAmount;
+			result = m_laserDamageAmount;
 		}
 		return result;
 	}
@@ -197,58 +143,32 @@ public class ExoTetherTrap : Ability
 	public LaserTargetingInfo GetLaserInfo()
 	{
 		LaserTargetingInfo result;
-		if (this.m_cachedLaserInfo != null)
+		if (m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetLaserInfo()).MethodHandle;
-			}
-			result = this.m_cachedLaserInfo;
+			result = m_cachedLaserInfo;
 		}
 		else
 		{
-			result = this.m_laserInfo;
+			result = m_laserInfo;
 		}
 		return result;
 	}
 
 	public StandardActorEffectData GetBaseEffectData()
 	{
-		return (this.m_cachedBaseEffectData == null) ? this.m_baseEffectData : this.m_cachedBaseEffectData;
+		return (m_cachedBaseEffectData == null) ? m_baseEffectData : m_cachedBaseEffectData;
 	}
 
 	public StandardEffectInfo GetLaserOnHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedLaserOnHitEffect != null)
+		if (m_cachedLaserOnHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetLaserOnHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedLaserOnHitEffect;
+			result = m_cachedLaserOnHitEffect;
 		}
 		else
 		{
-			result = this.m_laserOnHitEffect;
+			result = m_laserOnHitEffect;
 		}
 		return result;
 	}
@@ -256,26 +176,13 @@ public class ExoTetherTrap : Ability
 	public float GetTetherDistance()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetTetherDistance()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_tetherDistanceMod.GetModifiedValue(this.m_tetherDistance);
+			result = m_abilityMod.m_tetherDistanceMod.GetModifiedValue(m_tetherDistance);
 		}
 		else
 		{
-			result = this.m_tetherDistance;
+			result = m_tetherDistance;
 		}
 		return result;
 	}
@@ -283,63 +190,37 @@ public class ExoTetherTrap : Ability
 	public int GetTetherBreakDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetTetherBreakDamage()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_tetherBreakDamageMod.GetModifiedValue(this.m_tetherBreakDamage);
+			result = m_abilityMod.m_tetherBreakDamageMod.GetModifiedValue(m_tetherBreakDamage);
 		}
 		else
 		{
-			result = this.m_tetherBreakDamage;
+			result = m_tetherBreakDamage;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetTetherBreakEffect()
 	{
-		return (this.m_cachedTetherBreakEffect == null) ? this.m_tetherBreakEffect : this.m_cachedTetherBreakEffect;
+		return (m_cachedTetherBreakEffect == null) ? m_tetherBreakEffect : m_cachedTetherBreakEffect;
 	}
 
 	public bool BreakTetherOnNonGroundBasedMovement()
 	{
-		return (!this.m_abilityMod) ? this.m_breakTetherOnNonGroundBasedMovement : this.m_abilityMod.m_breakTetherOnNonGroundBasedMovementMod.GetModifiedValue(this.m_breakTetherOnNonGroundBasedMovement);
+		return (!m_abilityMod) ? m_breakTetherOnNonGroundBasedMovement : m_abilityMod.m_breakTetherOnNonGroundBasedMovementMod.GetModifiedValue(m_breakTetherOnNonGroundBasedMovement);
 	}
 
 	public float GetExtraDamagePerMoveDist()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetExtraDamagePerMoveDist()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_extraDamagePerMoveDistMod.GetModifiedValue(this.m_extraDamagePerMoveDist);
+			result = m_abilityMod.m_extraDamagePerMoveDistMod.GetModifiedValue(m_extraDamagePerMoveDist);
 		}
 		else
 		{
-			result = this.m_extraDamagePerMoveDist;
+			result = m_extraDamagePerMoveDist;
 		}
 		return result;
 	}
@@ -347,26 +228,13 @@ public class ExoTetherTrap : Ability
 	public int GetMaxExtraDamageFromMoveDist()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetMaxExtraDamageFromMoveDist()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_maxExtraDamageFromMoveDistMod.GetModifiedValue(this.m_maxExtraDamageFromMoveDist);
+			result = m_abilityMod.m_maxExtraDamageFromMoveDistMod.GetModifiedValue(m_maxExtraDamageFromMoveDist);
 		}
 		else
 		{
-			result = this.m_maxExtraDamageFromMoveDist;
+			result = m_maxExtraDamageFromMoveDist;
 		}
 		return result;
 	}
@@ -374,26 +242,13 @@ public class ExoTetherTrap : Ability
 	public int GetCdrOnTetherEndIfNotTriggered()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetCdrOnTetherEndIfNotTriggered()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_cdrOnTetherEndIfNotTriggeredMod.GetModifiedValue(this.m_cdrOnTetherEndIfNotTriggered);
+			result = m_abilityMod.m_cdrOnTetherEndIfNotTriggeredMod.GetModifiedValue(m_cdrOnTetherEndIfNotTriggered);
 		}
 		else
 		{
-			result = this.m_cdrOnTetherEndIfNotTriggered;
+			result = m_cdrOnTetherEndIfNotTriggered;
 		}
 		return result;
 	}
@@ -401,136 +256,85 @@ public class ExoTetherTrap : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_ExoTetherTrap abilityMod_ExoTetherTrap = modAsBase as AbilityMod_ExoTetherTrap;
-		StandardActorEffectData standardActorEffectData = (!abilityMod_ExoTetherTrap) ? this.m_baseEffectData : abilityMod_ExoTetherTrap.m_baseEffectDataMod.GetModifiedValue(this.m_baseEffectData);
-		standardActorEffectData.AddTooltipTokens(tokens, "TetherBaseEffectData", abilityMod_ExoTetherTrap != null, this.m_baseEffectData);
+		StandardActorEffectData standardActorEffectData = (!abilityMod_ExoTetherTrap) ? m_baseEffectData : abilityMod_ExoTetherTrap.m_baseEffectDataMod.GetModifiedValue(m_baseEffectData);
+		standardActorEffectData.AddTooltipTokens(tokens, "TetherBaseEffectData", abilityMod_ExoTetherTrap != null, m_baseEffectData);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_ExoTetherTrap)
+		if ((bool)abilityMod_ExoTetherTrap)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
-			effectInfo = abilityMod_ExoTetherTrap.m_laserOnHitEffectMod.GetModifiedValue(this.m_laserOnHitEffect);
+			effectInfo = abilityMod_ExoTetherTrap.m_laserOnHitEffectMod.GetModifiedValue(m_laserOnHitEffect);
 		}
 		else
 		{
-			effectInfo = this.m_laserOnHitEffect;
+			effectInfo = m_laserOnHitEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "LaserOnHitEffect", this.m_laserOnHitEffect, true);
-		base.AddTokenInt(tokens, "Damage_FirstTurn", string.Empty, (!abilityMod_ExoTetherTrap) ? this.m_laserDamageAmount : abilityMod_ExoTetherTrap.m_laserDamageAmountMod.GetModifiedValue(this.m_laserDamageAmount), false);
-		string name = "Damage_TetherBreak";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "LaserOnHitEffect", m_laserOnHitEffect);
+		AddTokenInt(tokens, "Damage_FirstTurn", string.Empty, (!abilityMod_ExoTetherTrap) ? m_laserDamageAmount : abilityMod_ExoTetherTrap.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount));
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_ExoTetherTrap)
+		if ((bool)abilityMod_ExoTetherTrap)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val = abilityMod_ExoTetherTrap.m_tetherBreakDamageMod.GetModifiedValue(this.m_tetherBreakDamage);
+			val = abilityMod_ExoTetherTrap.m_tetherBreakDamageMod.GetModifiedValue(m_tetherBreakDamage);
 		}
 		else
 		{
-			val = this.m_tetherBreakDamage;
+			val = m_tetherBreakDamage;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "TetherDistance";
-		string desc = "distance from starting position";
-		int num;
-		if (abilityMod_ExoTetherTrap)
+		AddTokenInt(tokens, "Damage_TetherBreak", empty, val);
+		float num;
+		if ((bool)abilityMod_ExoTetherTrap)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num = (int)abilityMod_ExoTetherTrap.m_tetherDistanceMod.GetModifiedValue(this.m_tetherDistance);
+			num = abilityMod_ExoTetherTrap.m_tetherDistanceMod.GetModifiedValue(m_tetherDistance);
 		}
 		else
 		{
-			num = (int)this.m_tetherDistance;
+			num = m_tetherDistance;
 		}
-		base.AddTokenInt(tokens, name2, desc, num, false);
+		AddTokenInt(tokens, "TetherDistance", "distance from starting position", (int)num);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_ExoTetherTrap)
+		if ((bool)abilityMod_ExoTetherTrap)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			effectInfo2 = abilityMod_ExoTetherTrap.m_tetherBreakEffectMod.GetModifiedValue(this.m_tetherBreakEffect);
+			effectInfo2 = abilityMod_ExoTetherTrap.m_tetherBreakEffectMod.GetModifiedValue(m_tetherBreakEffect);
 		}
 		else
 		{
-			effectInfo2 = this.m_tetherBreakEffect;
+			effectInfo2 = m_tetherBreakEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "TetherBreakEffect", this.m_tetherBreakEffect, true);
-		base.AddTokenInt(tokens, "CdrOnTetherEndIfNotTriggered", string.Empty, (!abilityMod_ExoTetherTrap) ? this.m_cdrOnTetherEndIfNotTriggered : abilityMod_ExoTetherTrap.m_cdrOnTetherEndIfNotTriggeredMod.GetModifiedValue(this.m_cdrOnTetherEndIfNotTriggered), false);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "TetherBreakEffect", m_tetherBreakEffect);
+		AddTokenInt(tokens, "CdrOnTetherEndIfNotTriggered", string.Empty, (!abilityMod_ExoTetherTrap) ? m_cdrOnTetherEndIfNotTriggered : abilityMod_ExoTetherTrap.m_cdrOnTetherEndIfNotTriggeredMod.GetModifiedValue(m_cdrOnTetherEndIfNotTriggered));
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetLaserDamageAmount());
-		this.GetBaseEffectData().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetLaserDamageAmount());
+		GetBaseEffectData().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
-		Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, this.GetLaserDamageAmount(), AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
-		return result;
+		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
+		Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, GetLaserDamageAmount());
+		return symbolToValue;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_ExoTetherTrap))
+		if (abilityMod.GetType() != typeof(AbilityMod_ExoTetherTrap))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_ExoTetherTrap);
-			this.SetupTargeter();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_ExoTetherTrap);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 }

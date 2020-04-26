@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine.Networking;
 
 public class TeamSelectData : NetworkBehaviour
@@ -9,7 +8,7 @@ public class TeamSelectData : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
+		bool result = default(bool);
 		return result;
 	}
 

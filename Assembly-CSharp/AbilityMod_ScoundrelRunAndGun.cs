@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,55 +28,34 @@ public class AbilityMod_ScoundrelRunAndGun : AbilityMod
 		ScoundrelRunAndGun scoundrelRunAndGun = targetAbility as ScoundrelRunAndGun;
 		if (scoundrelRunAndGun != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_damageMod, "DamageAmount", string.Empty, scoundrelRunAndGun.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_techPointGainWithNoHits, "EnergyGainIfNoHits", string.Empty, 0, false, false);
+			AbilityMod.AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, scoundrelRunAndGun.m_damageAmount);
+			AbilityMod.AddToken(tokens, m_techPointGainWithNoHits, "EnergyGainIfNoHits", string.Empty, 0, false);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ScoundrelRunAndGun scoundrelRunAndGun = base.GetTargetAbilityOnAbilityData(abilityData) as ScoundrelRunAndGun;
+		ScoundrelRunAndGun scoundrelRunAndGun = GetTargetAbilityOnAbilityData(abilityData) as ScoundrelRunAndGun;
 		bool flag = scoundrelRunAndGun != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix = "[Damage]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelRunAndGun.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = scoundrelRunAndGun.m_damageAmount;
 		}
 		else
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(damageMod, prefix, showBaseVal, baseVal);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_techPointGainWithNoHits, "[Energy Gain With No Hits]", flag, 0);
-		if (this.m_numTargeters > 1)
+		empty = str + AbilityModHelper.GetModPropertyDesc(damageMod, "[Damage]", flag, baseVal);
+		empty += AbilityModHelper.GetModPropertyDesc(m_techPointGainWithNoHits, "[Energy Gain With No Hits]", flag);
+		if (m_numTargeters > 1)
 		{
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"Using ",
-				this.m_numTargeters,
-				" targeters, make sure Target Data Override is set properly\n"
-			});
+			string text = empty;
+			empty = text + "Using " + m_numTargeters + " targeters, make sure Target Data Override is set properly\n";
 		}
-		return text;
+		return empty;
 	}
 }

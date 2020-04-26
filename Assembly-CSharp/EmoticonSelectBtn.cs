@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,41 +18,28 @@ public class EmoticonSelectBtn : MonoBehaviour
 
 	public ChatEmojiManager.ChatEmoji GetEmoji()
 	{
-		return this.emojiRef;
+		return emojiRef;
 	}
 
 	public void Setup(ChatEmojiManager.ChatEmoji emoji, bool unlocked)
 	{
-		this.emojiRef = emoji;
-		this.m_DefaultSprite.text = string.Format("<sprite=\"EmoticonsAssets\" index={0}>", emoji.m_frameToDisplayForSelect);
-		this.m_HoverSprite.text = string.Format("<sprite=\"EmoticonsAssets\" index={0}>", emoji.m_startIndex);
-		this.currentEmojiFrame = emoji.m_startIndex;
-		this.m_lastTimeUpdate = -1f;
+		emojiRef = emoji;
+		m_DefaultSprite.text = $"<sprite=\"EmoticonsAssets\" index={emoji.m_frameToDisplayForSelect}>";
+		m_HoverSprite.text = $"<sprite=\"EmoticonsAssets\" index={emoji.m_startIndex}>";
+		currentEmojiFrame = emoji.m_startIndex;
+		m_lastTimeUpdate = -1f;
 		if (unlocked)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonSelectBtn.Setup(ChatEmojiManager.ChatEmoji, bool)).MethodHandle;
-			}
-			this.m_theBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ChatEmojiClicked);
+			m_theBtn.spriteController.callback = ChatEmojiClicked;
 		}
-		this.m_theBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.ChatEmojiTooltip), null);
+		m_theBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, ChatEmojiTooltip);
 	}
 
 	private bool ChatEmojiTooltip(UITooltipBase tooltip)
 	{
-		UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-		string tooltipText = string.Format(StringUtil.TR("ChatEmojiTagTooltip", "ChatEmoji"), this.emojiRef.GetEmojiTag());
-		uititledTooltip.Setup(this.emojiRef.GetEmojiName(), tooltipText, string.Empty);
+		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+		string tooltipText = string.Format(StringUtil.TR("ChatEmojiTagTooltip", "ChatEmoji"), emojiRef.GetEmojiTag());
+		uITitledTooltip.Setup(emojiRef.GetEmojiName(), tooltipText, string.Empty);
 		return true;
 	}
 
@@ -61,112 +47,66 @@ public class EmoticonSelectBtn : MonoBehaviour
 	{
 		if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd && UIFrontEnd.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonSelectBtn.ChatEmojiClicked(BaseEventData)).MethodHandle;
-			}
 			if (UIFrontEnd.Get().m_frontEndChatConsole != null)
 			{
-				UIFrontEnd.Get().m_frontEndChatConsole.AppendInput(this.emojiRef.GetEmojiTag() + " ", true);
+				UIFrontEnd.Get().m_frontEndChatConsole.AppendInput(emojiRef.GetEmojiTag() + " ", true);
 				UIFrontEnd.Get().m_frontEndChatConsole.SelectInput(string.Empty);
 				UIFrontEnd.Get().m_frontEndChatConsole.DehighlightTextAndPositionCarat();
 				EmoticonPanel.Get().SetPanelOpen(false);
 				return;
 			}
 		}
-		if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
+		if (UIManager.Get().CurrentState != UIManager.ClientState.InGame)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(HUD_UI.Get() != null))
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (HUD_UI.Get() != null)
+			while (true)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HUD_UI.Get().m_textConsole != null)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						HUD_UI.Get().m_textConsole.AppendInput(emojiRef.GetEmojiTag() + " ", true);
+						EmoticonPanel.Get().SetPanelOpen(false);
+						return;
 					}
-					HUD_UI.Get().m_textConsole.AppendInput(this.emojiRef.GetEmojiTag() + " ", true);
-					EmoticonPanel.Get().SetPanelOpen(false);
 				}
+				return;
 			}
 		}
 	}
 
 	private void Update()
 	{
-		if (this.emojiRef != null)
+		if (emojiRef == null)
 		{
-			if (this.m_theBtn.IsHover)
+			return;
+		}
+		if (m_theBtn.IsHover)
+		{
+			if (!(Time.time - m_lastTimeUpdate >= 1f / (float)emojiRef.m_framesPerSecond))
 			{
-				if (Time.time - this.m_lastTimeUpdate >= 1f / (float)this.emojiRef.m_framesPerSecond)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonSelectBtn.Update()).MethodHandle;
-					}
-					this.m_lastTimeUpdate = Time.time;
-					this.currentEmojiFrame++;
-					if (this.currentEmojiFrame > this.emojiRef.m_endIndex)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.currentEmojiFrame = this.emojiRef.m_startIndex;
-					}
-					this.m_DefaultSprite.text = string.Format("<sprite=\"EmoticonsAssets\" index={0}>", this.emojiRef.m_frameToDisplayForSelect);
-					this.m_HoverSprite.text = string.Format("<sprite=\"EmoticonsAssets\" index={0}>", this.currentEmojiFrame);
-				}
+				return;
 			}
-			else
+			while (true)
 			{
-				this.currentEmojiFrame = this.emojiRef.m_startIndex;
+				m_lastTimeUpdate = Time.time;
+				currentEmojiFrame++;
+				if (currentEmojiFrame > emojiRef.m_endIndex)
+				{
+					currentEmojiFrame = emojiRef.m_startIndex;
+				}
+				m_DefaultSprite.text = $"<sprite=\"EmoticonsAssets\" index={emojiRef.m_frameToDisplayForSelect}>";
+				m_HoverSprite.text = $"<sprite=\"EmoticonsAssets\" index={currentEmojiFrame}>";
+				return;
 			}
 		}
+		currentEmojiFrame = emojiRef.m_startIndex;
 	}
 }

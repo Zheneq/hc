@@ -1,392 +1,131 @@
-﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class QuestComponent
 {
-	public QuestComponent()
+	public Dictionary<int, QuestProgress> Progress
 	{
-		this.Progress = new Dictionary<int, QuestProgress>();
-		this.StartOfMostRecentDailyList = DateTime.MinValue;
-		this.StartOfMostRecentDailyPick = DateTime.MinValue;
-		this.OfferedDailies = new List<int>();
-		this.QuestMetaDatas = new Dictionary<int, QuestMetaData>();
-		this.ActiveSeason = 0;
-		this.SeasonExperience = new Dictionary<int, ExperienceComponent>();
-		this.UnlockedSeasonChapters = new Dictionary<int, List<int>>();
-		this.NotifiedSeasonChapters = new Dictionary<int, List<int>>();
-		this.CompletedSeasonChapters = new Dictionary<int, List<int>>();
-		this.SeasonRewardVersion = new Dictionary<int, int>();
-		this.FactionCompetitionLoginRewardVersion = new Dictionary<int, int>();
-		this.FactionCompetitionRewards = new Dictionary<int, Dictionary<int, FactionTierAndVersion>>();
-		this.NotifySeasonEnded = 0;
-		this.SeasonItemRewardsGranted = new Dictionary<int, List<int>>();
+		get;
+		set;
 	}
 
-	public Dictionary<int, QuestProgress> Progress { get; set; }
+	public DateTime StartOfMostRecentDailyPick
+	{
+		get;
+		set;
+	}
 
-	public DateTime StartOfMostRecentDailyPick { get; set; }
+	public DateTime StartOfMostRecentDailyList
+	{
+		get;
+		set;
+	}
 
-	public DateTime StartOfMostRecentDailyList { get; set; }
+	public List<int> OfferedDailies
+	{
+		get;
+		set;
+	}
 
-	public List<int> OfferedDailies { get; set; }
+	public Dictionary<int, QuestMetaData> QuestMetaDatas
+	{
+		get;
+		set;
+	}
 
-	public Dictionary<int, QuestMetaData> QuestMetaDatas { get; set; }
+	public int ActiveSeason
+	{
+		get;
+		set;
+	}
 
-	public int ActiveSeason { get; set; }
+	public Dictionary<int, ExperienceComponent> SeasonExperience
+	{
+		get;
+		set;
+	}
 
-	public Dictionary<int, ExperienceComponent> SeasonExperience { get; set; }
+	public Dictionary<int, List<int>> UnlockedSeasonChapters
+	{
+		get;
+		set;
+	}
 
-	public Dictionary<int, List<int>> UnlockedSeasonChapters { get; set; }
+	public Dictionary<int, List<int>> CompletedSeasonChapters
+	{
+		get;
+		set;
+	}
 
-	public Dictionary<int, List<int>> CompletedSeasonChapters { get; set; }
+	public Dictionary<int, List<int>> NotifiedSeasonChapters
+	{
+		get;
+		set;
+	}
 
-	public Dictionary<int, List<int>> NotifiedSeasonChapters { get; set; }
+	public Dictionary<int, int> SeasonRewardVersion
+	{
+		get;
+		set;
+	}
 
-	public Dictionary<int, int> SeasonRewardVersion { get; set; }
+	public Dictionary<int, int> FactionCompetitionLoginRewardVersion
+	{
+		get;
+		set;
+	}
 
-	public Dictionary<int, int> FactionCompetitionLoginRewardVersion { get; set; }
+	public Dictionary<int, Dictionary<int, FactionTierAndVersion>> FactionCompetitionRewards
+	{
+		get;
+		set;
+	}
 
-	public Dictionary<int, Dictionary<int, FactionTierAndVersion>> FactionCompetitionRewards { get; set; }
+	public int NotifySeasonEnded
+	{
+		get;
+		set;
+	}
 
-	public int NotifySeasonEnded { get; set; }
+	public int NotifiedChapterStarted
+	{
+		get;
+		set;
+	}
 
-	public int NotifiedChapterStarted { get; set; }
+	public DateTime LastChapterUnlockNotification
+	{
+		get;
+		set;
+	}
 
-	public DateTime LastChapterUnlockNotification { get; set; }
-
-	public Dictionary<int, List<int>> SeasonItemRewardsGranted { get; set; }
+	public Dictionary<int, List<int>> SeasonItemRewardsGranted
+	{
+		get;
+		set;
+	}
 
 	[Obsolete]
-	public Dictionary<int, int> CompletedQuests { get; set; }
+	public Dictionary<int, int> CompletedQuests
+	{
+		get;
+		set;
+	}
 
 	[Obsolete]
-	public Dictionary<int, int> RejectedQuestCount { get; set; }
+	public Dictionary<int, int> RejectedQuestCount
+	{
+		get;
+		set;
+	}
 
 	[Obsolete]
-	public Dictionary<int, int> AbandonedQuests { get; set; }
-
-	public List<int> GetUnlockedSeasonChapters(int season)
+	public Dictionary<int, int> AbandonedQuests
 	{
-		if (this.UnlockedSeasonChapters.ContainsKey(season))
-		{
-			return this.UnlockedSeasonChapters[season];
-		}
-		return new List<int>();
-	}
-
-	public List<int> GetCompletedSeasonChapters(int season)
-	{
-		if (this.CompletedSeasonChapters.ContainsKey(season))
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetCompletedSeasonChapters(int)).MethodHandle;
-			}
-			return this.CompletedSeasonChapters[season];
-		}
-		return new List<int>();
-	}
-
-	public ExperienceComponent GetSeasonExperienceComponent(int season)
-	{
-		if (this.SeasonExperience.ContainsKey(season))
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetSeasonExperienceComponent(int)).MethodHandle;
-			}
-			return this.SeasonExperience[season];
-		}
-		return new ExperienceComponent();
-	}
-
-	public int GetCompletedCount(int questId)
-	{
-		if (this.QuestMetaDatas != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetCompletedCount(int)).MethodHandle;
-			}
-			QuestMetaData questMetaData;
-			if (this.QuestMetaDatas.TryGetValue(questId, out questMetaData))
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return questMetaData.CompletedCount;
-			}
-		}
-		return 0;
-	}
-
-	public int GetRejectedCount(int questId)
-	{
-		if (this.QuestMetaDatas != null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetRejectedCount(int)).MethodHandle;
-			}
-			QuestMetaData questMetaData;
-			if (this.QuestMetaDatas.TryGetValue(questId, out questMetaData))
-			{
-				return questMetaData.RejectedCount;
-			}
-		}
-		return 0;
-	}
-
-	public int GetAbandonedCount(int questId)
-	{
-		if (this.QuestMetaDatas != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetAbandonedCount(int)).MethodHandle;
-			}
-			QuestMetaData questMetaData;
-			if (this.QuestMetaDatas.TryGetValue(questId, out questMetaData))
-			{
-				return questMetaData.AbandonedCount;
-			}
-		}
-		return 0;
-	}
-
-	public int GetWeight(int questId)
-	{
-		QuestMetaData questMetaData;
-		if (this.QuestMetaDatas != null && this.QuestMetaDatas.TryGetValue(questId, out questMetaData))
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetWeight(int)).MethodHandle;
-			}
-			return questMetaData.Weight;
-		}
-		return 0;
-	}
-
-	public QuestMetaData GetOrCreateQuestMetaData(int questId)
-	{
-		QuestMetaData questMetaData;
-		if (!this.QuestMetaDatas.TryGetValue(questId, out questMetaData))
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetOrCreateQuestMetaData(int)).MethodHandle;
-			}
-			questMetaData = new QuestMetaData();
-			questMetaData.UtcCompletedTimes = new List<DateTime>();
-			this.QuestMetaDatas[questId] = questMetaData;
-		}
-		return questMetaData;
-	}
-
-	public void SetCompletedCount(int questId, int count)
-	{
-		QuestMetaData orCreateQuestMetaData = this.GetOrCreateQuestMetaData(questId);
-		orCreateQuestMetaData.CompletedCount = count;
-		orCreateQuestMetaData.PstAbandonDate = null;
-	}
-
-	public void SetRejectedCount(int questId, int count)
-	{
-		this.GetOrCreateQuestMetaData(questId).RejectedCount = count;
-	}
-
-	public void SetAbandonedCount(int questId, int count)
-	{
-		QuestMetaData orCreateQuestMetaData = this.GetOrCreateQuestMetaData(questId);
-		orCreateQuestMetaData.AbandonedCount = count;
-		orCreateQuestMetaData.PstAbandonDate = null;
-	}
-
-	public void SetWeight(int questId, int weight)
-	{
-		this.GetOrCreateQuestMetaData(questId).Weight = weight;
-	}
-
-	public void SetCompletedDate(int questId, DateTime utcTime)
-	{
-		QuestMetaData orCreateQuestMetaData = this.GetOrCreateQuestMetaData(questId);
-		if (orCreateQuestMetaData.UtcCompletedTimes == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.SetCompletedDate(int, DateTime)).MethodHandle;
-			}
-			orCreateQuestMetaData.UtcCompletedTimes = new List<DateTime>();
-		}
-		orCreateQuestMetaData.UtcCompletedTimes.Add(utcTime);
-	}
-
-	public int GetReactorLevel(List<SeasonTemplate> seasons)
-	{
-		int num = 0;
-		using (Dictionary<int, ExperienceComponent>.Enumerator enumerator = this.SeasonExperience.GetEnumerator())
-		{
-			IL_8F:
-			while (enumerator.MoveNext())
-			{
-				KeyValuePair<int, ExperienceComponent> keyValuePair = enumerator.Current;
-				for (int i = 0; i < seasons.Count; i++)
-				{
-					if (seasons[i].Index == keyValuePair.Key)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetReactorLevel(List<SeasonTemplate>)).MethodHandle;
-						}
-						if (!seasons[i].IsTutorial)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							num += keyValuePair.Value.Level;
-						}
-						goto IL_8F;
-					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		return num;
-	}
-
-	public void GrantedSeasonItemReward(int seasonLevel, int itemTemplateId)
-	{
-		if (!this.SeasonItemRewardsGranted.ContainsKey(seasonLevel))
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GrantedSeasonItemReward(int, int)).MethodHandle;
-			}
-			this.SeasonItemRewardsGranted.Add(seasonLevel, new List<int>());
-		}
-		this.SeasonItemRewardsGranted[seasonLevel].Add(itemTemplateId);
+		get;
+		set;
 	}
 
 	[JsonIgnore]
@@ -394,56 +133,39 @@ public class QuestComponent
 	{
 		get
 		{
-			if (this.ActiveSeason == 0)
+			if (ActiveSeason == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return 0;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.get_SeasonLevel()).MethodHandle;
-				}
-				return 0;
 			}
-			if (this.SeasonExperience.ContainsKey(this.ActiveSeason))
+			if (SeasonExperience.ContainsKey(ActiveSeason))
 			{
-				return this.SeasonExperience[this.ActiveSeason].Level;
+				return SeasonExperience[ActiveSeason].Level;
 			}
 			return 1;
 		}
 		set
 		{
-			if (this.ActiveSeason == 0)
+			if (ActiveSeason == 0)
 			{
 				return;
 			}
-			if (value < this.SeasonExperience[this.ActiveSeason].Level)
+			if (value < SeasonExperience[ActiveSeason].Level)
 			{
-				for (int i = this.SeasonExperience[this.ActiveSeason].Level; i > value; i--)
+				for (int num = SeasonExperience[ActiveSeason].Level; num > value; num--)
 				{
-					this.SeasonItemRewardsGranted.Remove(i);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.set_SeasonLevel(int)).MethodHandle;
+					SeasonItemRewardsGranted.Remove(num);
 				}
 			}
-			this.SeasonExperience[this.ActiveSeason].Level = value;
+			SeasonExperience[ActiveSeason].Level = value;
 		}
 	}
 
@@ -452,45 +174,37 @@ public class QuestComponent
 	{
 		get
 		{
-			if (this.ActiveSeason == 0)
+			if (ActiveSeason == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return 0;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.get_SeasonXPProgressThroughLevel()).MethodHandle;
-				}
-				return 0;
 			}
-			return this.SeasonExperience[this.ActiveSeason].XPProgressThroughLevel;
+			return SeasonExperience[ActiveSeason].XPProgressThroughLevel;
 		}
 		set
 		{
-			if (this.ActiveSeason == 0)
+			if (ActiveSeason == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.set_SeasonXPProgressThroughLevel(int)).MethodHandle;
-				}
-				return;
 			}
-			this.SeasonExperience[this.ActiveSeason].XPProgressThroughLevel = value;
+			SeasonExperience[ActiveSeason].XPProgressThroughLevel = value;
 		}
 	}
 
@@ -500,126 +214,312 @@ public class QuestComponent
 		get
 		{
 			int num = 0;
-			if (this.ActiveSeason == 0)
+			if (ActiveSeason == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return num;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.get_HighestSeasonChapter()).MethodHandle;
-				}
-				return num;
 			}
-			if (this.GetUnlockedSeasonChapters(this.ActiveSeason) == null)
+			if (GetUnlockedSeasonChapters(ActiveSeason) == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return 1;
 					}
-					break;
 				}
-				return 1;
 			}
-			using (List<int>.Enumerator enumerator = this.GetUnlockedSeasonChapters(this.ActiveSeason).GetEnumerator())
+			using (List<int>.Enumerator enumerator = GetUnlockedSeasonChapters(ActiveSeason).GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					int num2 = enumerator.Current;
-					if (num2 > num)
+					int current = enumerator.Current;
+					if (current > num)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num = num2;
+						num = current;
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return num + 1;
 		}
 		set
 		{
-			if (this.ActiveSeason == 0)
+			if (ActiveSeason == 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.set_HighestSeasonChapter(int)).MethodHandle;
-				}
-				return;
 			}
 			if (value < 1)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
-				return;
 			}
-			if (!this.UnlockedSeasonChapters.ContainsKey(this.ActiveSeason))
+			if (!UnlockedSeasonChapters.ContainsKey(ActiveSeason))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.UnlockedSeasonChapters[this.ActiveSeason] = new List<int>();
+				UnlockedSeasonChapters[ActiveSeason] = new List<int>();
 			}
-			this.UnlockedSeasonChapters[this.ActiveSeason].Clear();
+			UnlockedSeasonChapters[ActiveSeason].Clear();
 			for (int i = 0; i < value; i++)
 			{
-				this.UnlockedSeasonChapters[this.ActiveSeason].Add(i);
+				UnlockedSeasonChapters[ActiveSeason].Add(i);
 			}
-			for (;;)
+			while (true)
+			{
+				switch (5)
+				{
+				default:
+					return;
+				case 0:
+					break;
+				}
+			}
+		}
+	}
+
+	public QuestComponent()
+	{
+		Progress = new Dictionary<int, QuestProgress>();
+		StartOfMostRecentDailyList = DateTime.MinValue;
+		StartOfMostRecentDailyPick = DateTime.MinValue;
+		OfferedDailies = new List<int>();
+		QuestMetaDatas = new Dictionary<int, QuestMetaData>();
+		ActiveSeason = 0;
+		SeasonExperience = new Dictionary<int, ExperienceComponent>();
+		UnlockedSeasonChapters = new Dictionary<int, List<int>>();
+		NotifiedSeasonChapters = new Dictionary<int, List<int>>();
+		CompletedSeasonChapters = new Dictionary<int, List<int>>();
+		SeasonRewardVersion = new Dictionary<int, int>();
+		FactionCompetitionLoginRewardVersion = new Dictionary<int, int>();
+		FactionCompetitionRewards = new Dictionary<int, Dictionary<int, FactionTierAndVersion>>();
+		NotifySeasonEnded = 0;
+		SeasonItemRewardsGranted = new Dictionary<int, List<int>>();
+	}
+
+	public List<int> GetUnlockedSeasonChapters(int season)
+	{
+		if (UnlockedSeasonChapters.ContainsKey(season))
+		{
+			return UnlockedSeasonChapters[season];
+		}
+		return new List<int>();
+	}
+
+	public List<int> GetCompletedSeasonChapters(int season)
+	{
+		if (CompletedSeasonChapters.ContainsKey(season))
+		{
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return CompletedSeasonChapters[season];
 				}
-				break;
 			}
 		}
+		return new List<int>();
+	}
+
+	public ExperienceComponent GetSeasonExperienceComponent(int season)
+	{
+		if (SeasonExperience.ContainsKey(season))
+		{
+			while (true)
+			{
+				switch (5)
+				{
+				case 0:
+					break;
+				default:
+					return SeasonExperience[season];
+				}
+			}
+		}
+		return new ExperienceComponent();
+	}
+
+	public int GetCompletedCount(int questId)
+	{
+		if (QuestMetaDatas != null)
+		{
+			if (QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
+			{
+				while (true)
+				{
+					switch (1)
+					{
+					case 0:
+						break;
+					default:
+						return value.CompletedCount;
+					}
+				}
+			}
+		}
+		return 0;
+	}
+
+	public int GetRejectedCount(int questId)
+	{
+		if (QuestMetaDatas != null)
+		{
+			if (QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
+			{
+				return value.RejectedCount;
+			}
+		}
+		return 0;
+	}
+
+	public int GetAbandonedCount(int questId)
+	{
+		if (QuestMetaDatas != null)
+		{
+			if (QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
+			{
+				return value.AbandonedCount;
+			}
+		}
+		return 0;
+	}
+
+	public int GetWeight(int questId)
+	{
+		if (QuestMetaDatas != null && QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
+		{
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					break;
+				default:
+					return value.Weight;
+				}
+			}
+		}
+		return 0;
+	}
+
+	public QuestMetaData GetOrCreateQuestMetaData(int questId)
+	{
+		if (!QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
+		{
+			value = new QuestMetaData();
+			value.UtcCompletedTimes = new List<DateTime>();
+			QuestMetaDatas[questId] = value;
+		}
+		return value;
+	}
+
+	public void SetCompletedCount(int questId, int count)
+	{
+		QuestMetaData orCreateQuestMetaData = GetOrCreateQuestMetaData(questId);
+		orCreateQuestMetaData.CompletedCount = count;
+		orCreateQuestMetaData.PstAbandonDate = null;
+	}
+
+	public void SetRejectedCount(int questId, int count)
+	{
+		GetOrCreateQuestMetaData(questId).RejectedCount = count;
+	}
+
+	public void SetAbandonedCount(int questId, int count)
+	{
+		QuestMetaData orCreateQuestMetaData = GetOrCreateQuestMetaData(questId);
+		orCreateQuestMetaData.AbandonedCount = count;
+		orCreateQuestMetaData.PstAbandonDate = null;
+	}
+
+	public void SetWeight(int questId, int weight)
+	{
+		GetOrCreateQuestMetaData(questId).Weight = weight;
+	}
+
+	public void SetCompletedDate(int questId, DateTime utcTime)
+	{
+		QuestMetaData orCreateQuestMetaData = GetOrCreateQuestMetaData(questId);
+		if (orCreateQuestMetaData.UtcCompletedTimes == null)
+		{
+			orCreateQuestMetaData.UtcCompletedTimes = new List<DateTime>();
+		}
+		orCreateQuestMetaData.UtcCompletedTimes.Add(utcTime);
+	}
+
+	public int GetReactorLevel(List<SeasonTemplate> seasons)
+	{
+		int num = 0;
+		using (Dictionary<int, ExperienceComponent>.Enumerator enumerator = SeasonExperience.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				KeyValuePair<int, ExperienceComponent> current = enumerator.Current;
+				int num2 = 0;
+				while (true)
+				{
+					if (num2 >= seasons.Count)
+					{
+						break;
+					}
+					if (seasons[num2].Index == current.Key)
+					{
+						if (!seasons[num2].IsTutorial)
+						{
+							num += current.Value.Level;
+						}
+						break;
+					}
+					num2++;
+				}
+			}
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					break;
+				default:
+					return num;
+				}
+			}
+		}
+	}
+
+	public void GrantedSeasonItemReward(int seasonLevel, int itemTemplateId)
+	{
+		if (!SeasonItemRewardsGranted.ContainsKey(seasonLevel))
+		{
+			SeasonItemRewardsGranted.Add(seasonLevel, new List<int>());
+		}
+		SeasonItemRewardsGranted[seasonLevel].Add(itemTemplateId);
 	}
 }

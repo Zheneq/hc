@@ -1,9 +1,23 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class StrafingLaserSequence : Sequence
 {
+	private class ShotInfo
+	{
+		public GameObject m_fx;
+
+		public GameObject m_hitFx;
+
+		public ActorData m_target;
+
+		public JointPopupProperty m_joint;
+
+		public float m_despawnTime = -1f;
+
+		public float m_curTurnSpeed;
+	}
+
 	[Tooltip("Main FX prefab.")]
 	public GameObject m_fxPrefab;
 
@@ -12,13 +26,13 @@ public class StrafingLaserSequence : Sequence
 	[JointPopup("FX attach joint on the caster")]
 	public JointPopupProperty m_fxCasterJoint;
 
-	public Sequence.ReferenceModelType m_fxCasterJointReferenceType;
+	public ReferenceModelType m_fxCasterJointReferenceType;
 
 	[JointPopup("FX attach joint on the target")]
 	public JointPopupProperty m_fxTargetJoint;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_startActionEvent;
+	public Object m_startActionEvent;
 
 	private bool m_satelliteActionStarted;
 
@@ -47,389 +61,219 @@ public class StrafingLaserSequence : Sequence
 	[AudioEvent(false)]
 	public string m_shotImpactAudioEvent;
 
-	private Dictionary<ActorData, StrafingLaserSequence.ShotInfo> m_targetToShotInfoMap = new Dictionary<ActorData, StrafingLaserSequence.ShotInfo>();
+	private Dictionary<ActorData, ShotInfo> m_targetToShotInfoMap = new Dictionary<ActorData, ShotInfo>();
 
 	private Vector3 m_modelToTargetDir = Vector3.zero;
 
 	private void OnDisable()
 	{
-		foreach (KeyValuePair<ActorData, StrafingLaserSequence.ShotInfo> keyValuePair in this.m_targetToShotInfoMap)
+		foreach (KeyValuePair<ActorData, ShotInfo> item in m_targetToShotInfoMap)
 		{
-			UnityEngine.Object.Destroy(keyValuePair.Value.m_fx);
-			UnityEngine.Object.Destroy(keyValuePair.Value.m_hitFx);
+			Object.Destroy(item.Value.m_fx);
+			Object.Destroy(item.Value.m_hitFx);
 		}
 	}
 
 	public override void FinishSetup()
 	{
-		GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_fxCasterJointReferenceType);
+		GameObject referenceModel = GetReferenceModel(base.Caster, m_fxCasterJointReferenceType);
 		if (referenceModel != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StrafingLaserSequence.FinishSetup()).MethodHandle;
-			}
-			this.m_modelToTargetDir = base.TargetPos - referenceModel.transform.position;
-			this.m_modelToTargetDir.Normalize();
-			this.m_fxCasterJoint.Initialize(referenceModel);
+			m_modelToTargetDir = base.TargetPos - referenceModel.transform.position;
+			m_modelToTargetDir.Normalize();
+			m_fxCasterJoint.Initialize(referenceModel);
 		}
-		if (this.m_startActionEvent == null)
+		if (m_startActionEvent == null)
 		{
-			this.m_satelliteActionStarted = true;
+			m_satelliteActionStarted = true;
 		}
 	}
 
 	private void FireAtTarget(ActorData curTarget)
 	{
-		Vector3 modelToTargetDir = this.m_modelToTargetDir;
+		Vector3 modelToTargetDir = m_modelToTargetDir;
 		modelToTargetDir.y = 0f;
-		GameObject fx = base.InstantiateFX(this.m_fxPrefab, this.m_fxCasterJoint.m_jointObject.transform.position, Quaternion.LookRotation(modelToTargetDir), true, true);
-		StrafingLaserSequence.ShotInfo shotInfo = new StrafingLaserSequence.ShotInfo();
+		GameObject fx = InstantiateFX(m_fxPrefab, m_fxCasterJoint.m_jointObject.transform.position, Quaternion.LookRotation(modelToTargetDir));
+		ShotInfo shotInfo = new ShotInfo();
 		shotInfo.m_fx = fx;
-		shotInfo.m_curTurnSpeed = this.m_initialProjectileTurnSpeed;
+		shotInfo.m_curTurnSpeed = m_initialProjectileTurnSpeed;
 		JointPopupProperty jointPopupProperty = new JointPopupProperty();
-		jointPopupProperty.m_joint = this.m_fxTargetJoint.m_joint;
-		jointPopupProperty.m_jointCharacter = this.m_fxTargetJoint.m_jointCharacter;
+		jointPopupProperty.m_joint = m_fxTargetJoint.m_joint;
+		jointPopupProperty.m_jointCharacter = m_fxTargetJoint.m_jointCharacter;
 		jointPopupProperty.Initialize(curTarget.gameObject);
 		shotInfo.m_joint = jointPopupProperty;
 		shotInfo.m_target = curTarget;
-		this.m_targetToShotInfoMap[curTarget] = shotInfo;
-		if (!string.IsNullOrEmpty(this.m_shotStartAudioEvent))
+		m_targetToShotInfoMap[curTarget] = shotInfo;
+		if (string.IsNullOrEmpty(m_shotStartAudioEvent))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			GameObject referenceModel = GetReferenceModel(base.Caster, m_fxCasterJointReferenceType);
+			string shotStartAudioEvent = m_shotStartAudioEvent;
+			object parentGameObject;
+			if ((bool)referenceModel)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StrafingLaserSequence.FireAtTarget(ActorData)).MethodHandle;
-			}
-			GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_fxCasterJointReferenceType);
-			string shotStartAudioEvent = this.m_shotStartAudioEvent;
-			GameObject parentGameObject;
-			if (referenceModel)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				parentGameObject = referenceModel;
 			}
 			else
 			{
 				parentGameObject = null;
 			}
-			AudioManager.PostEvent(shotStartAudioEvent, parentGameObject);
+			AudioManager.PostEvent(shotStartAudioEvent, (GameObject)parentGameObject);
+			return;
 		}
 	}
 
-	private void SpawnHitFx(StrafingLaserSequence.ShotInfo shotInfo)
+	private void SpawnHitFx(ShotInfo shotInfo)
 	{
-		if (this.m_hitFxPrefab != null)
+		if (m_hitFxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StrafingLaserSequence.SpawnHitFx(StrafingLaserSequence.ShotInfo)).MethodHandle;
-			}
-			GameObject hitFx = base.InstantiateFX(this.m_hitFxPrefab, shotInfo.m_joint.m_jointObject.transform.position, Quaternion.identity, true, true);
-			shotInfo.m_hitFx = hitFx;
+			GameObject gameObject = shotInfo.m_hitFx = InstantiateFX(m_hitFxPrefab, shotInfo.m_joint.m_jointObject.transform.position, Quaternion.identity);
 		}
-		if (!string.IsNullOrEmpty(this.m_shotImpactAudioEvent))
+		if (!string.IsNullOrEmpty(m_shotImpactAudioEvent))
 		{
-			for (;;)
+			string shotImpactAudioEvent = m_shotImpactAudioEvent;
+			object parentGameObject;
+			if ((bool)shotInfo.m_target)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			string shotImpactAudioEvent = this.m_shotImpactAudioEvent;
-			GameObject parentGameObject;
-			if (shotInfo.m_target)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				parentGameObject = shotInfo.m_target.gameObject;
 			}
 			else
 			{
 				parentGameObject = null;
 			}
-			AudioManager.PostEvent(shotImpactAudioEvent, parentGameObject);
+			AudioManager.PostEvent(shotImpactAudioEvent, (GameObject)parentGameObject);
 		}
-		shotInfo.m_despawnTime = GameTime.time + this.m_despawnDelay;
+		shotInfo.m_despawnTime = GameTime.time + m_despawnDelay;
 		Vector3 position = shotInfo.m_joint.m_jointObject.transform.position;
 		Vector3 forward = shotInfo.m_fx.transform.forward;
 		forward.Normalize();
 		ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(position, forward);
-		base.Source.OnSequenceHit(this, shotInfo.m_target, impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
+		base.Source.OnSequenceHit(this, shotInfo.m_target, impulseInfo);
 	}
 
-	private void UpdateShot(StrafingLaserSequence.ShotInfo shotInfo)
+	private void UpdateShot(ShotInfo shotInfo)
 	{
-		if (shotInfo.m_fx != null)
+		if (!(shotInfo.m_fx != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StrafingLaserSequence.UpdateShot(StrafingLaserSequence.ShotInfo)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			Vector3 position = shotInfo.m_fx.transform.position;
 			Vector3 forward = shotInfo.m_fx.transform.forward;
-			shotInfo.m_curTurnSpeed += this.m_projectileTurnAcceleration * GameTime.deltaTime;
+			shotInfo.m_curTurnSpeed += m_projectileTurnAcceleration * GameTime.deltaTime;
 			Vector3 vector = shotInfo.m_joint.m_jointObject.transform.position - shotInfo.m_fx.transform.position;
 			float magnitude = vector.magnitude;
 			Quaternion rotation = Quaternion.RotateTowards(Quaternion.LookRotation(forward), Quaternion.LookRotation(vector), shotInfo.m_curTurnSpeed * GameTime.deltaTime);
 			Vector3 vector2 = rotation * Vector3.forward;
-			Vector3 vector3 = position + vector2 * this.m_projectileSpeed * GameTime.deltaTime;
+			Vector3 vector3 = position + vector2 * m_projectileSpeed * GameTime.deltaTime;
 			Vector3 lhs = shotInfo.m_joint.m_jointObject.transform.position - vector3;
-			bool flag;
-			if (magnitude > 0.5f)
+			int num;
+			if (!(magnitude <= 0.5f))
 			{
 				if (Vector3.Dot(lhs, vector) <= 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag = (magnitude < 2f);
+					num = ((magnitude < 2f) ? 1 : 0);
 				}
 				else
 				{
-					flag = false;
+					num = 0;
 				}
 			}
 			else
 			{
-				flag = true;
+				num = 1;
 			}
-			bool flag2 = flag;
-			if (flag2)
+			if (num != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						SpawnHitFx(shotInfo);
+						Object.Destroy(shotInfo.m_fx);
+						return;
 					}
-					break;
 				}
-				this.SpawnHitFx(shotInfo);
-				UnityEngine.Object.Destroy(shotInfo.m_fx);
 			}
-			else
-			{
-				shotInfo.m_fx.transform.position = vector3;
-				shotInfo.m_fx.transform.forward = vector2;
-			}
+			shotInfo.m_fx.transform.position = vector3;
+			shotInfo.m_fx.transform.forward = vector2;
+			return;
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (parameter == this.m_startActionEvent)
+		if (parameter == m_startActionEvent)
 		{
-			this.m_satelliteActionStarted = true;
+			m_satelliteActionStarted = true;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_satelliteActionStarted)
+		if (!m_satelliteActionStarted)
 		{
-			GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_fxCasterJointReferenceType);
-			if (base.Targets != null)
+			return;
+		}
+		GameObject referenceModel = GetReferenceModel(base.Caster, m_fxCasterJointReferenceType);
+		if (base.Targets != null)
+		{
+			if (referenceModel != null)
 			{
-				for (;;)
+				for (int i = 0; i < base.Targets.Length; i++)
 				{
-					switch (2)
+					if (m_targetToShotInfoMap.ContainsKey(base.Targets[i]))
 					{
-					case 0:
 						continue;
 					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(StrafingLaserSequence.Update()).MethodHandle;
-				}
-				if (referenceModel != null)
-				{
-					for (;;)
+					Vector3 lhs = base.Targets[i].transform.position - referenceModel.transform.position;
+					int num;
+					if (!(Vector3.Dot(lhs, m_modelToTargetDir) < 0f))
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						num = ((lhs.magnitude < m_shotRange) ? 1 : 0);
 					}
-					for (int i = 0; i < base.Targets.Length; i++)
+					else
 					{
-						if (!this.m_targetToShotInfoMap.ContainsKey(base.Targets[i]))
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							Vector3 lhs = base.Targets[i].transform.position - referenceModel.transform.position;
-							bool flag;
-							if (Vector3.Dot(lhs, this.m_modelToTargetDir) >= 0f)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								flag = (lhs.magnitude < this.m_shotRange);
-							}
-							else
-							{
-								flag = true;
-							}
-							bool flag2 = flag;
-							if (flag2)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.m_fireShotStartDelay <= 0f)
-								{
-									goto IL_13B;
-								}
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.m_timeSinceActionStarted >= this.m_fireShotStartDelay)
-								{
-									goto IL_13B;
-								}
-							}
-							if (this.m_maxWaitBeforeFireShots <= 0f || this.m_timeSinceActionStarted < this.m_maxWaitBeforeFireShots)
-							{
-								goto IL_14B;
-							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							IL_13B:
-							this.FireAtTarget(base.Targets[i]);
-						}
-						IL_14B:;
+						num = 1;
 					}
-					using (Dictionary<ActorData, StrafingLaserSequence.ShotInfo>.Enumerator enumerator = this.m_targetToShotInfoMap.GetEnumerator())
+					if (num == 0)
 					{
-						while (enumerator.MoveNext())
+						goto IL_0116;
+					}
+					if (!(m_fireShotStartDelay <= 0f))
+					{
+						if (!(m_timeSinceActionStarted >= m_fireShotStartDelay))
 						{
-							KeyValuePair<ActorData, StrafingLaserSequence.ShotInfo> keyValuePair = enumerator.Current;
-							this.UpdateShot(keyValuePair.Value);
+							goto IL_0116;
 						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
+					}
+					goto IL_013b;
+					IL_013b:
+					FireAtTarget(base.Targets[i]);
+					continue;
+					IL_0116:
+					if (!(m_maxWaitBeforeFireShots > 0f) || !(m_timeSinceActionStarted >= m_maxWaitBeforeFireShots))
+					{
+						continue;
+					}
+					goto IL_013b;
+				}
+				using (Dictionary<ActorData, ShotInfo>.Enumerator enumerator = m_targetToShotInfoMap.GetEnumerator())
+				{
+					while (enumerator.MoveNext())
+					{
+						UpdateShot(enumerator.Current.Value);
 					}
 				}
 			}
-			this.m_timeSinceActionStarted += GameTime.deltaTime;
 		}
-	}
-
-	private class ShotInfo
-	{
-		public GameObject m_fx;
-
-		public GameObject m_hitFx;
-
-		public ActorData m_target;
-
-		public JointPopupProperty m_joint;
-
-		public float m_despawnTime = -1f;
-
-		public float m_curTurnSpeed;
+		m_timeSinceActionStarted += GameTime.deltaTime;
 	}
 }

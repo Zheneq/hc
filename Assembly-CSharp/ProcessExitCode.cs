@@ -1,5 +1,3 @@
-﻿using System;
-
 public enum ProcessExitCode
 {
 	Unknown = -1,
@@ -11,14 +9,14 @@ public enum ProcessExitCode
 	MasterConflict = -7,
 	Interrupted = -8,
 	NoError = 0,
-	Terminated,
-	Restarting,
-	InProgress = 0x64,
-	SIGHUP = -0x7F,
-	SIGINT,
-	SIGQUIT,
-	SIGABRT = -0x7A,
-	SIGKILL = -0x77,
-	SIGSEGV = -0x75,
-	SIGTERM = -0x71
+	Terminated = 1,
+	Restarting = 2,
+	InProgress = 100,
+	SIGHUP = -127,
+	SIGINT = -126,
+	SIGQUIT = -125,
+	SIGABRT = -122,
+	SIGKILL = -119,
+	SIGSEGV = -117,
+	SIGTERM = -113
 }

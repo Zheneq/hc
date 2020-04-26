@@ -1,9 +1,14 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ValkyrieDashAoE : Ability
 {
+	public enum DashTargetingMode
+	{
+		Aoe,
+		AimShieldCone
+	}
+
 	[Header("-- Shield effect")]
 	public StandardEffectInfo m_shieldEffectInfo;
 
@@ -12,7 +17,7 @@ public class ValkyrieDashAoE : Ability
 	public int m_techPointGainPerTooCloseForCoverHit;
 
 	[Separator("Dash Target Mode", true)]
-	public ValkyrieDashAoE.DashTargetingMode m_dashTargetingMode;
+	public DashTargetingMode m_dashTargetingMode;
 
 	[Header("-- Targeting")]
 	public AbilityAreaShape m_aoeShape = AbilityAreaShape.Five_x_Five_NoCorners;
@@ -33,12 +38,12 @@ public class ValkyrieDashAoE : Ability
 	public bool m_triggerCooldownOnGuardAbiity;
 
 	[Separator("Enemy hits", true)]
-	public int m_damage = 0x14;
+	public int m_damage = 20;
 
 	public StandardEffectInfo m_enemyDebuff;
 
 	[Separator("Ally & self hits", true)]
-	public int m_absorb = 0x14;
+	public int m_absorb = 20;
 
 	public AbilityCooldownChangeInfo m_cooldownReductionIfDamagedThisTurn;
 
@@ -61,280 +66,169 @@ public class ValkyrieDashAoE : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Valkyrie Dash AoE";
+			m_abilityName = "Valkyrie Dash AoE";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
+		SetCachedFields();
 		base.Targeters.Clear();
-		if (this.m_dashTargetingMode == ValkyrieDashAoE.DashTargetingMode.Aoe)
+		if (m_dashTargetingMode == DashTargetingMode.Aoe)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					base.Targeter = new AbilityUtil_Targeter_BattleMonkUltimate(this, GetAoeShape(), AoePenetratesLoS(), GetAoeShape(), AoePenetratesLoS(), true);
+					bool affectsEnemies = IncludeEnemies();
+					bool affectsAllies = IncludeAllies();
+					bool affectsCaster = IncludeSelf();
+					base.Targeter.SetAffectedGroups(affectsEnemies, affectsAllies, affectsCaster);
+					return;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.SetupTargeter()).MethodHandle;
-			}
-			base.Targeter = new AbilityUtil_Targeter_BattleMonkUltimate(this, this.GetAoeShape(), this.AoePenetratesLoS(), this.GetAoeShape(), this.AoePenetratesLoS(), true);
-			bool affectsEnemies = this.IncludeEnemies();
-			bool affectsAllies = this.IncludeAllies();
-			bool affectsCaster = this.IncludeSelf();
-			base.Targeter.SetAffectedGroups(affectsEnemies, affectsAllies, affectsCaster);
 		}
-		else
-		{
-			AbilityUtil_Targeter_Charge item = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false);
-			AbilityUtil_Targeter_ValkyrieGuard abilityUtil_Targeter_ValkyrieGuard = new AbilityUtil_Targeter_ValkyrieGuard(this, 1f, true, false, false);
-			abilityUtil_Targeter_ValkyrieGuard.SetConeParams(true, this.GetConeWidthAngle(), this.GetConeRadius(), false);
-			abilityUtil_Targeter_ValkyrieGuard.SetAffectedGroups(this.IncludeEnemies(), this.IncludeAllies(), this.IncludeSelf());
-			abilityUtil_Targeter_ValkyrieGuard.SetUseMultiTargetUpdate(true);
-			base.Targeters.Add(item);
-			base.Targeters.Add(abilityUtil_Targeter_ValkyrieGuard);
-		}
+		AbilityUtil_Targeter_Charge item = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false);
+		AbilityUtil_Targeter_ValkyrieGuard abilityUtil_Targeter_ValkyrieGuard = new AbilityUtil_Targeter_ValkyrieGuard(this, 1f, true, false, false);
+		abilityUtil_Targeter_ValkyrieGuard.SetConeParams(true, GetConeWidthAngle(), GetConeRadius(), false);
+		abilityUtil_Targeter_ValkyrieGuard.SetAffectedGroups(IncludeEnemies(), IncludeAllies(), IncludeSelf());
+		abilityUtil_Targeter_ValkyrieGuard.SetUseMultiTargetUpdate(true);
+		base.Targeters.Add(item);
+		base.Targeters.Add(abilityUtil_Targeter_ValkyrieGuard);
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedShieldEffectInfo;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.SetCachedFields()).MethodHandle;
-			}
-			cachedShieldEffectInfo = this.m_abilityMod.m_shieldEffectInfoMod.GetModifiedValue(this.m_shieldEffectInfo);
+			cachedShieldEffectInfo = m_abilityMod.m_shieldEffectInfoMod.GetModifiedValue(m_shieldEffectInfo);
 		}
 		else
 		{
-			cachedShieldEffectInfo = this.m_shieldEffectInfo;
+			cachedShieldEffectInfo = m_shieldEffectInfo;
 		}
-		this.m_cachedShieldEffectInfo = cachedShieldEffectInfo;
+		m_cachedShieldEffectInfo = cachedShieldEffectInfo;
 		StandardEffectInfo cachedEnemyDebuff;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedEnemyDebuff = this.m_abilityMod.m_enemyDebuffMod.GetModifiedValue(this.m_enemyDebuff);
+			cachedEnemyDebuff = m_abilityMod.m_enemyDebuffMod.GetModifiedValue(m_enemyDebuff);
 		}
 		else
 		{
-			cachedEnemyDebuff = this.m_enemyDebuff;
+			cachedEnemyDebuff = m_enemyDebuff;
 		}
-		this.m_cachedEnemyDebuff = cachedEnemyDebuff;
+		m_cachedEnemyDebuff = cachedEnemyDebuff;
 		StandardEffectInfo cachedAllyBuff;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedAllyBuff = this.m_abilityMod.m_allyBuffMod.GetModifiedValue(this.m_allyBuff);
+			cachedAllyBuff = m_abilityMod.m_allyBuffMod.GetModifiedValue(m_allyBuff);
 		}
 		else
 		{
-			cachedAllyBuff = this.m_allyBuff;
+			cachedAllyBuff = m_allyBuff;
 		}
-		this.m_cachedAllyBuff = cachedAllyBuff;
+		m_cachedAllyBuff = cachedAllyBuff;
 		StandardEffectInfo cachedSelfBuff;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedSelfBuff = this.m_abilityMod.m_selfBuffMod.GetModifiedValue(this.m_selfBuff);
+			cachedSelfBuff = m_abilityMod.m_selfBuffMod.GetModifiedValue(m_selfBuff);
 		}
 		else
 		{
-			cachedSelfBuff = this.m_selfBuff;
+			cachedSelfBuff = m_selfBuff;
 		}
-		this.m_cachedSelfBuff = cachedSelfBuff;
+		m_cachedSelfBuff = cachedSelfBuff;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "Damage", string.Empty, this.m_damage, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyDebuff, "EnemyDebuff", this.m_enemyDebuff, true);
-		base.AddTokenInt(tokens, "Absorb", string.Empty, this.m_absorb, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_allyBuff, "AllyBuff", this.m_allyBuff, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_selfBuff, "SelfBuff", this.m_selfBuff, true);
-		base.AddTokenInt(tokens, "CoverDuration", string.Empty, this.m_coverDuration, false);
+		AddTokenInt(tokens, "Damage", string.Empty, m_damage);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyDebuff, "EnemyDebuff", m_enemyDebuff);
+		AddTokenInt(tokens, "Absorb", string.Empty, m_absorb);
+		AbilityMod.AddToken_EffectInfo(tokens, m_allyBuff, "AllyBuff", m_allyBuff);
+		AbilityMod.AddToken_EffectInfo(tokens, m_selfBuff, "SelfBuff", m_selfBuff);
+		AddTokenInt(tokens, "CoverDuration", string.Empty, m_coverDuration);
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		if (this.m_dashTargetingMode == ValkyrieDashAoE.DashTargetingMode.Aoe)
+		if (m_dashTargetingMode == DashTargetingMode.Aoe)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 1;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
-			return 1;
 		}
-		return Mathf.Min(this.GetTargetData().Length, 2);
+		return Mathf.Min(GetTargetData().Length, 2);
 	}
 
 	public bool IncludeEnemies()
 	{
-		bool result;
-		if (this.GetDamage() <= 0)
+		int result;
+		if (GetDamage() <= 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.IncludeEnemies()).MethodHandle;
-			}
-			result = this.m_enemyDebuff.m_applyEffect;
+			result = (m_enemyDebuff.m_applyEffect ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool IncludeAllies()
 	{
-		return this.m_allyBuff.m_applyEffect;
+		return m_allyBuff.m_applyEffect;
 	}
 
 	public bool IncludeSelf()
 	{
-		return this.m_selfBuff.m_applyEffect;
+		return m_selfBuff.m_applyEffect;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		if (this.m_damage != 0)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		if (m_damage != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
-			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.m_damage));
+			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damage));
 		}
-		if (this.m_absorb != 0)
+		if (m_absorb != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Ally, this.m_absorb));
+			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Ally, m_absorb));
 		}
-		this.m_enemyDebuff.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Enemy);
-		this.m_allyBuff.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Ally);
-		this.m_selfBuff.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Self);
-		return list;
+		m_enemyDebuff.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		m_allyBuff.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+		m_selfBuff.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		if (targetActor.\u000E() == base.ActorData.\u000E())
+		if (targetActor.GetTeam() != base.ActorData.GetTeam())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
-			int absorb = this.GetAbsorb();
-			dictionary[AbilityTooltipSymbol.Absorb] = absorb;
+			int num = dictionary[AbilityTooltipSymbol.Damage] = GetDamage();
 		}
 		else
 		{
-			int damage = this.GetDamage();
-			dictionary[AbilityTooltipSymbol.Damage] = damage;
+			int num2 = dictionary[AbilityTooltipSymbol.Absorb] = GetAbsorb();
 		}
 		return dictionary;
 	}
@@ -346,47 +240,25 @@ public class ValkyrieDashAoE : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (targetIndex == 0)
 		{
-			if (boardSquare != null)
+			if (boardSquareSafe != null)
 			{
-				for (;;)
+				if (boardSquareSafe.IsBaselineHeight())
 				{
-					switch (1)
+					if (boardSquareSafe != caster.GetCurrentBoardSquare())
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-				}
-				if (boardSquare.\u0016())
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (boardSquare != caster.\u0012())
-					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null;
 							}
-							break;
 						}
-						return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare) != null;
 					}
 				}
 			}
@@ -397,64 +269,38 @@ public class ValkyrieDashAoE : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		bool result;
-		if (caster != null && caster.\u000E() != null)
+		int result;
+		if (caster != null && caster.GetAbilityData() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
-			result = !caster.\u000E().HasQueuedAbilityOfType(typeof(ValkyrieGuard));
+			result = ((!caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieGuard))) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public StandardEffectInfo GetShieldEffectInfo()
 	{
-		return (this.m_cachedShieldEffectInfo == null) ? this.m_shieldEffectInfo : this.m_cachedShieldEffectInfo;
+		return (m_cachedShieldEffectInfo == null) ? m_shieldEffectInfo : m_cachedShieldEffectInfo;
 	}
 
 	public AbilityAreaShape GetAoeShape()
 	{
-		return (!this.m_abilityMod) ? this.m_aoeShape : this.m_abilityMod.m_aoeShapeMod.GetModifiedValue(this.m_aoeShape);
+		return (!m_abilityMod) ? m_aoeShape : m_abilityMod.m_aoeShapeMod.GetModifiedValue(m_aoeShape);
 	}
 
 	public bool AoePenetratesLoS()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.AoePenetratesLoS()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_aoePenetratesLoSMod.GetModifiedValue(this.m_aoePenetratesLoS);
+			result = m_abilityMod.m_aoePenetratesLoSMod.GetModifiedValue(m_aoePenetratesLoS);
 		}
 		else
 		{
-			result = this.m_aoePenetratesLoS;
+			result = m_aoePenetratesLoS;
 		}
 		return result;
 	}
@@ -462,26 +308,13 @@ public class ValkyrieDashAoE : Ability
 	public float GetConeWidthAngle()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.GetConeWidthAngle()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(this.m_coneWidthAngle);
+			result = m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle);
 		}
 		else
 		{
-			result = this.m_coneWidthAngle;
+			result = m_coneWidthAngle;
 		}
 		return result;
 	}
@@ -489,58 +322,32 @@ public class ValkyrieDashAoE : Ability
 	public float GetConeRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.GetConeRadius()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_coneRadiusMod.GetModifiedValue(this.m_coneRadius);
+			result = m_abilityMod.m_coneRadiusMod.GetModifiedValue(m_coneRadius);
 		}
 		else
 		{
-			result = this.m_coneRadius;
+			result = m_coneRadius;
 		}
 		return result;
 	}
 
 	public int GetCoverDuration()
 	{
-		return (!this.m_abilityMod) ? this.m_coverDuration : this.m_abilityMod.m_coverDurationMod.GetModifiedValue(this.m_coverDuration);
+		return (!m_abilityMod) ? m_coverDuration : m_abilityMod.m_coverDurationMod.GetModifiedValue(m_coverDuration);
 	}
 
 	public bool CoverIgnoreMinDist()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.CoverIgnoreMinDist()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_coverIgnoreMinDistMod.GetModifiedValue(this.m_coverIgnoreMinDist);
+			result = m_abilityMod.m_coverIgnoreMinDistMod.GetModifiedValue(m_coverIgnoreMinDist);
 		}
 		else
 		{
-			result = this.m_coverIgnoreMinDist;
+			result = m_coverIgnoreMinDist;
 		}
 		return result;
 	}
@@ -548,26 +355,13 @@ public class ValkyrieDashAoE : Ability
 	public bool TriggerCooldownOnGuardAbiity()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.TriggerCooldownOnGuardAbiity()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_triggerCooldownOnGuardAbiityMod.GetModifiedValue(this.m_triggerCooldownOnGuardAbiity);
+			result = m_abilityMod.m_triggerCooldownOnGuardAbiityMod.GetModifiedValue(m_triggerCooldownOnGuardAbiity);
 		}
 		else
 		{
-			result = this.m_triggerCooldownOnGuardAbiity;
+			result = m_triggerCooldownOnGuardAbiity;
 		}
 		return result;
 	}
@@ -575,26 +369,13 @@ public class ValkyrieDashAoE : Ability
 	public int GetTechPointGainPerCoveredHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.GetTechPointGainPerCoveredHit()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_techPointGainPerCoveredHitMod.GetModifiedValue(this.m_techPointGainPerCoveredHit);
+			result = m_abilityMod.m_techPointGainPerCoveredHitMod.GetModifiedValue(m_techPointGainPerCoveredHit);
 		}
 		else
 		{
-			result = this.m_techPointGainPerCoveredHit;
+			result = m_techPointGainPerCoveredHit;
 		}
 		return result;
 	}
@@ -602,26 +383,13 @@ public class ValkyrieDashAoE : Ability
 	public int GetTechPointGainPerTooCloseForCoverHit()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.GetTechPointGainPerTooCloseForCoverHit()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_techPointGainPerTooCloseForCoverHitMod.GetModifiedValue(this.m_techPointGainPerTooCloseForCoverHit);
+			result = m_abilityMod.m_techPointGainPerTooCloseForCoverHitMod.GetModifiedValue(m_techPointGainPerTooCloseForCoverHit);
 		}
 		else
 		{
-			result = this.m_techPointGainPerTooCloseForCoverHit;
+			result = m_techPointGainPerTooCloseForCoverHit;
 		}
 		return result;
 	}
@@ -629,58 +397,32 @@ public class ValkyrieDashAoE : Ability
 	public int GetDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.GetDamage()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damage);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
 		{
-			result = this.m_damage;
+			result = m_damage;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetEnemyDebuff()
 	{
-		return (this.m_cachedEnemyDebuff == null) ? this.m_enemyDebuff : this.m_cachedEnemyDebuff;
+		return (m_cachedEnemyDebuff == null) ? m_enemyDebuff : m_cachedEnemyDebuff;
 	}
 
 	public int GetAbsorb()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.GetAbsorb()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_absorbMod.GetModifiedValue(this.m_absorb);
+			result = m_abilityMod.m_absorbMod.GetModifiedValue(m_absorb);
 		}
 		else
 		{
-			result = this.m_absorb;
+			result = m_absorb;
 		}
 		return result;
 	}
@@ -688,137 +430,91 @@ public class ValkyrieDashAoE : Ability
 	public StandardEffectInfo GetAllyBuff()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllyBuff != null)
+		if (m_cachedAllyBuff != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.GetAllyBuff()).MethodHandle;
-			}
-			result = this.m_cachedAllyBuff;
+			result = m_cachedAllyBuff;
 		}
 		else
 		{
-			result = this.m_allyBuff;
+			result = m_allyBuff;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetSelfBuff()
 	{
-		return (this.m_cachedSelfBuff == null) ? this.m_selfBuff : this.m_cachedSelfBuff;
+		return (m_cachedSelfBuff == null) ? m_selfBuff : m_cachedSelfBuff;
 	}
 
 	public int GetCooldownReductionOnHitAmount()
 	{
-		int num = this.m_cooldownReductionIfDamagedThisTurn.cooldownAddAmount;
-		if (this.m_abilityMod != null)
+		int num = m_cooldownReductionIfDamagedThisTurn.cooldownAddAmount;
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.GetCooldownReductionOnHitAmount()).MethodHandle;
-			}
-			num = this.m_abilityMod.m_cooldownReductionIfDamagedThisTurnMod.GetModifiedValue(num);
+			num = m_abilityMod.m_cooldownReductionIfDamagedThisTurnMod.GetModifiedValue(num);
 		}
 		return num;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_ValkyrieDashAoE))
+		if (abilityMod.GetType() != typeof(AbilityMod_ValkyrieDashAoE))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_ValkyrieDashAoE);
-			this.SetupTargeter();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_ValkyrieDashAoE);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
-	public unsafe override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
+	public override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
 	{
 		if (targetIndex == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					min = 1f;
+					max = 1f;
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.HasRestrictedFreePosDistance(ActorData, int, List<AbilityTarget>, float*, float*)).MethodHandle;
-			}
-			min = 1f;
-			max = 1f;
-			return true;
 		}
 		return base.HasRestrictedFreePosDistance(aimingActor, targetIndex, targetsSoFar, out min, out max);
 	}
 
-	public unsafe override bool HasAimingOriginOverride(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out Vector3 overridePos)
+	public override bool HasAimingOriginOverride(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out Vector3 overridePos)
 	{
 		if (targetIndex == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetsSoFar[0].GridPos);
+					overridePos = boardSquareSafe.ToVector3();
+					return true;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.HasAimingOriginOverride(ActorData, int, List<AbilityTarget>, Vector3*)).MethodHandle;
-			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(targetsSoFar[0].GridPos);
-			overridePos = boardSquare.ToVector3();
-			return true;
 		}
 		return base.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);
-	}
-
-	public enum DashTargetingMode
-	{
-		Aoe,
-		AimShieldCone
 	}
 }

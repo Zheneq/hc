@@ -1,5 +1,3 @@
-﻿using System;
-
 public class AbilityTooltipNumber
 {
 	public AbilityTooltipSymbol m_symbol;
@@ -10,8 +8,8 @@ public class AbilityTooltipNumber
 
 	public AbilityTooltipNumber(AbilityTooltipSymbol symbol, AbilityTooltipSubject subject, int value)
 	{
-		this.m_symbol = symbol;
-		this.m_subject = subject;
-		this.m_value = value;
+		m_symbol = symbol;
+		m_subject = subject;
+		m_value = value;
 	}
 }

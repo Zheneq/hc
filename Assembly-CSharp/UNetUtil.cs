@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,107 +6,85 @@ public static class UNetUtil
 	public static short ReadInt16(byte[] buf, int offset)
 	{
 		ushort num = 0;
-		num |= (ushort)buf[offset];
-		num |= (ushort)(buf[offset + 1] << 8);
+		num = (ushort)(num | buf[offset]);
+		num = (ushort)(num | (ushort)(buf[offset + 1] << 8));
 		return (short)num;
 	}
 
 	public static ushort ReadUInt16(byte[] buf, int offset)
 	{
 		ushort num = 0;
-		num |= (ushort)buf[offset];
-		return num | (ushort)(buf[offset + 1] << 8);
+		num = (ushort)(num | buf[offset]);
+		return (ushort)(num | (ushort)(buf[offset + 1] << 8));
 	}
 
 	public static uint ReadUInt32(byte[] buf, int offset)
 	{
-		uint num = 0U;
-		num |= (uint)buf[offset];
-		num |= (uint)((uint)buf[offset + 1] << 8);
-		num |= (uint)((uint)buf[offset + 2] << 0x10);
-		return num | (uint)((uint)buf[offset + 3] << 0x18);
+		uint num = 0u;
+		num |= buf[offset];
+		num = (uint)((int)num | (buf[offset + 1] << 8));
+		num = (uint)((int)num | (buf[offset + 2] << 16));
+		return (uint)((int)num | (buf[offset + 3] << 24));
 	}
 
 	public static uint GetSeqNum(byte[] bytes)
 	{
-		return UNetUtil.ReadUInt32(bytes, 0);
+		return ReadUInt32(bytes, 0);
 	}
 
 	public static ushort GetSize(byte[] bytes)
 	{
-		return UNetUtil.ReadUInt16(bytes, 4);
+		return ReadUInt16(bytes, 4);
 	}
 
 	public static short GetType(byte[] bytes)
 	{
-		return UNetUtil.ReadInt16(bytes, 6);
+		return ReadInt16(bytes, 6);
 	}
 
 	public static List<UNetMessageHeader> ExtractMessageHeaders(byte[] bytes, int numBytes)
 	{
 		List<UNetMessageHeader> list = new List<UNetMessageHeader>();
-		int i = numBytes;
-		int num = 0;
+		int num = numBytes;
 		int num2 = 0;
-		while (i > 0)
+		int num3 = 0;
+		while (num > 0)
 		{
-			UNetMessageHeader item = new UNetMessageHeader
-			{
-				msgSeqNum = UNetUtil.ReadUInt32(bytes, num2),
-				msgSize = UNetUtil.ReadUInt16(bytes, num2 + 4),
-				msgType = UNetUtil.ReadInt16(bytes, num2 + 6)
-			};
+			UNetMessageHeader item = default(UNetMessageHeader);
+			item.msgSeqNum = ReadUInt32(bytes, num3);
+			item.msgSize = ReadUInt16(bytes, num3 + 4);
+			item.msgType = ReadInt16(bytes, num3 + 6);
 			list.Add(item);
-			int num3 = (int)(8 + item.msgSize);
-			num++;
-			num2 += num3;
-			i -= num3;
+			int num4 = 8 + item.msgSize;
+			num2++;
+			num3 += num4;
+			num -= num4;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return list;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UNetUtil.ExtractMessageHeaders(byte[], int)).MethodHandle;
-		}
-		return list;
 	}
 
 	public static string DumpMessageHeaders(byte[] bytes, int numBytes)
 	{
-		int i = numBytes;
-		int num = 0;
+		int num = numBytes;
+		int num2 = 0;
 		StringBuilder stringBuilder = new StringBuilder();
-		while (i > 0)
+		while (num > 0)
 		{
-			uint num2 = UNetUtil.ReadUInt32(bytes, num);
-			ushort num3 = UNetUtil.ReadUInt16(bytes, num + 4);
-			short num4 = UNetUtil.ReadInt16(bytes, num + 6);
-			int num5 = (int)(8 + num3);
-			stringBuilder.AppendFormat("message #{0} msgSize {1}, msgType {2}", num2, num3, num4);
+			uint num3 = ReadUInt32(bytes, num2);
+			ushort num4 = ReadUInt16(bytes, num2 + 4);
+			short num5 = ReadInt16(bytes, num2 + 6);
+			int num6 = 8 + num4;
+			stringBuilder.AppendFormat("message #{0} msgSize {1}, msgType {2}", num3, num4, num5);
 			stringBuilder.AppendLine();
-			num += num5;
-			i -= num5;
+			num2 += num6;
+			num -= num6;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return stringBuilder.ToString();
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UNetUtil.DumpMessageHeaders(byte[], int)).MethodHandle;
-		}
-		return stringBuilder.ToString();
 	}
 }

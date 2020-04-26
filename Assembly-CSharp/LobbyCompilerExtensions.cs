@@ -1,5 +1,3 @@
-﻿using System;
-
 public static class LobbyCompilerExtensions
 {
 	public static bool IsValid(this CharacterType characterType)
@@ -11,14 +9,14 @@ public static class LobbyCompilerExtensions
 	{
 		switch (characterRole)
 		{
-		case CharacterRole.Tank:
-			return LocalizationPayload.Create("Frontline", "OverlayScreensScene");
 		case CharacterRole.Assassin:
 			return LocalizationPayload.Create("Firepower", "OverlayScreensScene");
+		case CharacterRole.Tank:
+			return LocalizationPayload.Create("Frontline", "OverlayScreensScene");
 		case CharacterRole.Support:
 			return LocalizationPayload.Create("Support", "OverlayScreensScene");
 		default:
-			return LocalizationPayload.Create(string.Format("Role{0}", characterRole), "OverlayScreensScene");
+			return LocalizationPayload.Create($"Role{characterRole}", "OverlayScreensScene");
 		}
 	}
 
@@ -29,28 +27,15 @@ public static class LobbyCompilerExtensions
 
 	public static Team OtherTeam(this Team team)
 	{
-		Team result;
+		int result;
 		if (team == Team.TeamA)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Team.OtherTeam()).MethodHandle;
-			}
-			result = Team.TeamB;
+			result = 1;
 		}
 		else
 		{
-			result = Team.TeamA;
+			result = 0;
 		}
-		return result;
+		return (Team)result;
 	}
 }

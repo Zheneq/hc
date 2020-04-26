@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -53,25 +53,25 @@ public class GroundEffectFieldModData
 	public GroundEffectField GetModifiedCopy(GroundEffectField input)
 	{
 		GroundEffectField shallowCopy = input.GetShallowCopy();
-		shallowCopy.duration = this.m_durationMod.GetModifiedValue(input.duration);
-		shallowCopy.hitDelayTurns = this.m_hitDelayTurnsMod.GetModifiedValue(input.hitDelayTurns);
-		shallowCopy.shape = this.m_shapeMod.GetModifiedValue(input.shape);
-		shallowCopy.canIncludeCaster = this.m_canIncludeCasterMod.GetModifiedValue(input.canIncludeCaster);
-		shallowCopy.ignoreMovementHits = this.m_ignoreMovementHitsMod.GetModifiedValue(input.ignoreMovementHits);
-		shallowCopy.endIfHasDoneHits = this.m_endIfHasDoneHitsMod.GetModifiedValue(input.endIfHasDoneHits);
-		shallowCopy.ignoreNonCasterAllies = this.m_ignoreNonCasterAlliesMod.GetModifiedValue(input.ignoreNonCasterAllies);
-		shallowCopy.damageAmount = this.m_damageAmountMod.GetModifiedValue(input.damageAmount);
-		shallowCopy.subsequentDamageAmount = this.m_subsequentDamageAmountMod.GetModifiedValue(input.subsequentDamageAmount);
-		shallowCopy.healAmount = this.m_healAmountMod.GetModifiedValue(input.healAmount);
-		shallowCopy.subsequentHealAmount = this.m_subsequentHealAmountMod.GetModifiedValue(input.subsequentHealAmount);
-		shallowCopy.energyGain = this.m_energyGainMod.GetModifiedValue(input.energyGain);
-		shallowCopy.subsequentEnergyGain = this.m_subsequentEnergyGainMod.GetModifiedValue(input.subsequentEnergyGain);
-		shallowCopy.effectOnEnemies = this.m_effectOnEnemiesMod.GetModifiedValue(input.effectOnEnemies);
-		shallowCopy.effectOnAllies = this.m_effectOnAlliesMod.GetModifiedValue(input.effectOnAllies);
-		shallowCopy.persistentSequencePrefab = this.m_persistentSequencePrefabMod.GetModifiedValue(input.persistentSequencePrefab);
-		shallowCopy.hitPulseSequencePrefab = this.m_hitPulseSequencePrefabMod.GetModifiedValue(input.hitPulseSequencePrefab);
-		shallowCopy.allyHitSequencePrefab = this.m_allyHitSequencePrefabMod.GetModifiedValue(input.allyHitSequencePrefab);
-		shallowCopy.enemyHitSequencePrefab = this.m_enemyHitSequencePrefabMod.GetModifiedValue(input.enemyHitSequencePrefab);
+		shallowCopy.duration = m_durationMod.GetModifiedValue(input.duration);
+		shallowCopy.hitDelayTurns = m_hitDelayTurnsMod.GetModifiedValue(input.hitDelayTurns);
+		shallowCopy.shape = m_shapeMod.GetModifiedValue(input.shape);
+		shallowCopy.canIncludeCaster = m_canIncludeCasterMod.GetModifiedValue(input.canIncludeCaster);
+		shallowCopy.ignoreMovementHits = m_ignoreMovementHitsMod.GetModifiedValue(input.ignoreMovementHits);
+		shallowCopy.endIfHasDoneHits = m_endIfHasDoneHitsMod.GetModifiedValue(input.endIfHasDoneHits);
+		shallowCopy.ignoreNonCasterAllies = m_ignoreNonCasterAlliesMod.GetModifiedValue(input.ignoreNonCasterAllies);
+		shallowCopy.damageAmount = m_damageAmountMod.GetModifiedValue(input.damageAmount);
+		shallowCopy.subsequentDamageAmount = m_subsequentDamageAmountMod.GetModifiedValue(input.subsequentDamageAmount);
+		shallowCopy.healAmount = m_healAmountMod.GetModifiedValue(input.healAmount);
+		shallowCopy.subsequentHealAmount = m_subsequentHealAmountMod.GetModifiedValue(input.subsequentHealAmount);
+		shallowCopy.energyGain = m_energyGainMod.GetModifiedValue(input.energyGain);
+		shallowCopy.subsequentEnergyGain = m_subsequentEnergyGainMod.GetModifiedValue(input.subsequentEnergyGain);
+		shallowCopy.effectOnEnemies = m_effectOnEnemiesMod.GetModifiedValue(input.effectOnEnemies);
+		shallowCopy.effectOnAllies = m_effectOnAlliesMod.GetModifiedValue(input.effectOnAllies);
+		shallowCopy.persistentSequencePrefab = m_persistentSequencePrefabMod.GetModifiedValue(input.persistentSequencePrefab);
+		shallowCopy.hitPulseSequencePrefab = m_hitPulseSequencePrefabMod.GetModifiedValue(input.hitPulseSequencePrefab);
+		shallowCopy.allyHitSequencePrefab = m_allyHitSequencePrefabMod.GetModifiedValue(input.allyHitSequencePrefab);
+		shallowCopy.enemyHitSequencePrefab = m_enemyHitSequencePrefabMod.GetModifiedValue(input.enemyHitSequencePrefab);
 		return shallowCopy;
 	}
 }

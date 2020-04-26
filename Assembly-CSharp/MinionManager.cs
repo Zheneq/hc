@@ -1,12 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MinionManager : MonoBehaviour
 {
+	[Serializable]
+	public class MinionTheshold
+	{
+		public Transform m_minionPrefab;
+
+		public int m_turnToStartUsing;
+	}
+
 	private static MinionManager s_instance;
 
-	public MinionManager.MinionTheshold[] m_minionPrefabs;
+	public MinionTheshold[] m_minionPrefabs;
 
 	public int m_minionsPerWave = 1;
 
@@ -26,42 +34,42 @@ public class MinionManager : MonoBehaviour
 
 	public static MinionManager Get()
 	{
-		return MinionManager.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		MinionManager.s_instance = this;
-		this.m_allMinions = new List<ActorData>();
-		this.m_teamAMinions = new List<ActorData>();
-		this.m_teamBMinions = new List<ActorData>();
-		this.m_waveSpawnFrequency = Mathf.Max(1, this.m_waveSpawnFrequency);
+		s_instance = this;
+		m_allMinions = new List<ActorData>();
+		m_teamAMinions = new List<ActorData>();
+		m_teamBMinions = new List<ActorData>();
+		m_waveSpawnFrequency = Mathf.Max(1, m_waveSpawnFrequency);
 	}
 
 	private void OnDestroy()
 	{
-		MinionManager.s_instance = null;
+		s_instance = null;
 	}
 
 	public List<ActorData> GetMinions()
 	{
-		return this.m_allMinions;
+		return m_allMinions;
 	}
 
 	public List<ActorData> GetMinionsForTeam(Team minionTeam)
 	{
 		List<ActorData> result = null;
-		if (minionTeam == Team.TeamA)
+		switch (minionTeam)
 		{
-			result = this.m_teamAMinions;
-		}
-		else if (minionTeam == Team.TeamB)
-		{
-			result = this.m_teamBMinions;
-		}
-		else
-		{
-			Log.Error(string.Format("Trying to access minions of an invalid team '{0}'.", minionTeam.ToString()), new object[0]);
+		case Team.TeamA:
+			result = m_teamAMinions;
+			break;
+		case Team.TeamB:
+			result = m_teamBMinions;
+			break;
+		default:
+			Log.Error($"Trying to access minions of an invalid team '{minionTeam.ToString()}'.");
+			break;
 		}
 		return result;
 	}
@@ -70,68 +78,54 @@ public class MinionManager : MonoBehaviour
 	{
 		if (minionActor == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error("MinionManager trying to add a null actor.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MinionManager.AddMinion(ActorData)).MethodHandle;
-			}
-			Log.Error("MinionManager trying to add a null actor.", new object[0]);
-			return;
 		}
-		if (!this.m_allMinions.Contains(minionActor))
+		if (!m_allMinions.Contains(minionActor))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_allMinions.Add(minionActor);
+			m_allMinions.Add(minionActor);
 		}
 		else
 		{
-			Log.Error("MinionManager being told to add already-known minion.", new object[0]);
+			Log.Error("MinionManager being told to add already-known minion.");
 		}
-		if (minionActor.\u000E() == Team.TeamA)
+		if (minionActor.GetTeam() == Team.TeamA)
 		{
-			if (!this.m_teamAMinions.Contains(minionActor))
+			if (!m_teamAMinions.Contains(minionActor))
 			{
-				this.m_teamAMinions.Add(minionActor);
+				m_teamAMinions.Add(minionActor);
 			}
 			else
 			{
-				Log.Error("MinionManager being told to add (to Team A) an already-known (by Team A) minion.", new object[0]);
+				Log.Error("MinionManager being told to add (to Team A) an already-known (by Team A) minion.");
 			}
 		}
-		else if (minionActor.\u000E() == Team.TeamB)
+		else
 		{
-			for (;;)
+			if (minionActor.GetTeam() != Team.TeamB)
 			{
-				switch (5)
+				return;
+			}
+			while (true)
+			{
+				if (!m_teamBMinions.Contains(minionActor))
 				{
-				case 0:
-					continue;
+					m_teamBMinions.Add(minionActor);
 				}
-				break;
-			}
-			if (!this.m_teamBMinions.Contains(minionActor))
-			{
-				this.m_teamBMinions.Add(minionActor);
-			}
-			else
-			{
-				Log.Error("MinionManager being told to add (to Team B) an already-known (by Team B) minion.", new object[0]);
+				else
+				{
+					Log.Error("MinionManager being told to add (to Team B) an already-known (by Team B) minion.");
+				}
+				return;
 			}
 		}
 	}
@@ -140,95 +134,69 @@ public class MinionManager : MonoBehaviour
 	{
 		if (minionActor == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error("MinionManager trying to remove a null actor.");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MinionManager.RemoveMinion(ActorData)).MethodHandle;
-			}
-			Log.Error("MinionManager trying to remove a null actor.", new object[0]);
-			return;
 		}
-		if (this.m_allMinions.Contains(minionActor))
+		if (m_allMinions.Contains(minionActor))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_allMinions.Remove(minionActor);
+			m_allMinions.Remove(minionActor);
 		}
 		else
 		{
-			Log.Error("MinionManager being told to remove a missing minion.", new object[0]);
+			Log.Error("MinionManager being told to remove a missing minion.");
 		}
-		if (minionActor.\u000E() == Team.TeamA)
+		if (minionActor.GetTeam() == Team.TeamA)
 		{
-			if (this.m_teamAMinions.Contains(minionActor))
+			if (m_teamAMinions.Contains(minionActor))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						m_teamAMinions.Remove(minionActor);
+						return;
 					}
-					break;
 				}
-				this.m_teamAMinions.Remove(minionActor);
 			}
-			else
-			{
-				Log.Error("MinionManager being told to remove (from Team A) a missing (from Team A) minion.", new object[0]);
-			}
+			Log.Error("MinionManager being told to remove (from Team A) a missing (from Team A) minion.");
 		}
-		else if (minionActor.\u000E() == Team.TeamB)
+		else
 		{
-			for (;;)
+			if (minionActor.GetTeam() != Team.TeamB)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (this.m_teamBMinions.Contains(minionActor))
+			while (true)
 			{
-				for (;;)
+				if (m_teamBMinions.Contains(minionActor))
 				{
-					switch (3)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (3)
+						{
+						case 0:
+							break;
+						default:
+							m_teamBMinions.Remove(minionActor);
+							return;
+						}
 					}
-					break;
 				}
-				this.m_teamBMinions.Remove(minionActor);
-			}
-			else
-			{
-				Log.Error("MinionManager being told to remove (from Team B) a missing (from Team B) minion.", new object[0]);
+				Log.Error("MinionManager being told to remove (from Team B) a missing (from Team B) minion.");
+				return;
 			}
 		}
-	}
-
-	[Serializable]
-	public class MinionTheshold
-	{
-		public Transform m_minionPrefab;
-
-		public int m_turnToStartUsing;
 	}
 }

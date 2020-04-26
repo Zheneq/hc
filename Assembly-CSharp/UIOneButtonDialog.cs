@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine.EventSystems;
 
@@ -12,80 +11,63 @@ public class UIOneButtonDialog : UIDialogBox
 
 	public TextMeshProUGUI[] m_ButtonLabel;
 
-	private UIDialogBox.DialogButtonCallback m_btnCallback;
+	private DialogButtonCallback m_btnCallback;
 
-	public UIDialogBox.DialogButtonCallback GetCallbackReference()
+	public DialogButtonCallback GetCallbackReference()
 	{
-		return this.m_btnCallback;
+		return m_btnCallback;
 	}
 
 	public override void ClearCallback()
 	{
-		this.m_btnCallback = null;
+		m_btnCallback = null;
 	}
 
 	protected override void CloseCallback()
 	{
-		if (this.m_btnCallback != null)
+		if (m_btnCallback == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIOneButtonDialog.CloseCallback()).MethodHandle;
-			}
-			this.m_btnCallback(this);
+			return;
+		}
+		while (true)
+		{
+			m_btnCallback(this);
+			return;
 		}
 	}
 
 	public void Start()
 	{
-		if (this.m_Button != null)
+		if (m_Button != null)
 		{
-			this.m_Button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ButtonClicked);
-			this.m_Button.spriteController.RegisterControlPadInput(ControlpadInputValue.Button_A);
+			m_Button.spriteController.callback = ButtonClicked;
+			m_Button.spriteController.RegisterControlPadInput(ControlpadInputValue.Button_A);
 		}
 	}
 
 	public void ButtonClicked(BaseEventData data)
 	{
-		this.CloseCallback();
-		this.Close();
+		CloseCallback();
+		Close();
 	}
 
 	private void SetButtonLabel(string text)
 	{
-		for (int i = 0; i < this.m_ButtonLabel.Length; i++)
+		for (int i = 0; i < m_ButtonLabel.Length; i++)
 		{
-			this.m_ButtonLabel[i].text = text;
+			m_ButtonLabel[i].text = text;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIOneButtonDialog.SetButtonLabel(string)).MethodHandle;
+			return;
 		}
 	}
 
-	public void Setup(string Title, string Description, string ButtonLabel, UIDialogBox.DialogButtonCallback callback = null)
+	public void Setup(string Title, string Description, string ButtonLabel, DialogButtonCallback callback = null)
 	{
-		this.m_Title.text = Title;
-		this.m_Desc.text = Description;
-		this.SetButtonLabel(ButtonLabel);
-		this.m_btnCallback = callback;
+		m_Title.text = Title;
+		m_Desc.text = Description;
+		SetButtonLabel(ButtonLabel);
+		m_btnCallback = callback;
 	}
 }

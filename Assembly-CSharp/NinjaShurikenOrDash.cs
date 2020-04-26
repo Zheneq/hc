@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -67,52 +66,26 @@ public class NinjaShurikenOrDash : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.Start()).MethodHandle;
-			}
-			this.m_abilityName = "NinjaShurikenOrDash";
+			m_abilityName = "NinjaShurikenOrDash";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		if (this.m_syncComp == null)
+		SetCachedFields();
+		if (m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.Setup()).MethodHandle;
-			}
-			this.m_syncComp = base.GetComponent<Ninja_SyncComponent>();
+			m_syncComp = GetComponent<Ninja_SyncComponent>();
 		}
-		base.ClearTargeters();
-		AbilityUtil_Targeter_Shape item = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
+		ClearTargeters();
+		AbilityUtil_Targeter_Shape item = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true);
 		base.Targeters.Add(item);
 		AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, 0f, 0f, 0f, -1, false, false);
 		abilityUtil_Targeter_ChargeAoE.SetUseMultiTargetUpdate(true);
-		abilityUtil_Targeter_ChargeAoE.ShowTeleportLines = this.GetIsTeleport();
+		abilityUtil_Targeter_ChargeAoE.ShowTeleportLines = GetIsTeleport();
 		base.Targeters.Add(abilityUtil_Targeter_ChargeAoE);
 	}
 
@@ -123,17 +96,17 @@ public class NinjaShurikenOrDash : Ability
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		return Mathf.Min(2, this.GetTargetData().Length);
+		return Mathf.Min(2, GetTargetData().Length);
 	}
 
 	internal override ActorData.MovementType GetMovementType()
 	{
-		return (!this.GetIsTeleport()) ? ActorData.MovementType.Charge : ActorData.MovementType.Teleport;
+		return GetIsTeleport() ? ActorData.MovementType.Teleport : ActorData.MovementType.Charge;
 	}
 
 	public override bool CanOverrideMoveStartSquare()
 	{
-		return this.CanQueueMoveAfterEvade();
+		return CanQueueMoveAfterEvade();
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -143,50 +116,37 @@ public class NinjaShurikenOrDash : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetDashRangeDefault() - 0.5f;
+		return GetDashRangeDefault() - 0.5f;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "DashDamage", string.Empty, this.m_dashDamage, false);
-		base.AddTokenInt(tokens, "ExtraDamageOnMarked", string.Empty, this.m_extraDamageOnMarked, false);
-		base.AddTokenInt(tokens, "ExtraDamageIfNotMarked", string.Empty, this.m_extraDamageIfNotMarked, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_dashEnemyHitEffect, "DashEnemyHitEffect", this.m_dashEnemyHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_extraEnemyEffectOnMarked, "ExtraEnemyEffectOnMarked", this.m_extraEnemyEffectOnMarked, true);
-		base.AddTokenInt(tokens, "DashHealing", string.Empty, this.m_dashHealing, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_dashAllyHitEffect, "DashAllyHitEffect", this.m_dashAllyHitEffect, true);
+		AddTokenInt(tokens, "DashDamage", string.Empty, m_dashDamage);
+		AddTokenInt(tokens, "ExtraDamageOnMarked", string.Empty, m_extraDamageOnMarked);
+		AddTokenInt(tokens, "ExtraDamageIfNotMarked", string.Empty, m_extraDamageIfNotMarked);
+		AbilityMod.AddToken_EffectInfo(tokens, m_dashEnemyHitEffect, "DashEnemyHitEffect", m_dashEnemyHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_extraEnemyEffectOnMarked, "ExtraEnemyEffectOnMarked", m_extraEnemyEffectOnMarked);
+		AddTokenInt(tokens, "DashHealing", string.Empty, m_dashHealing);
+		AbilityMod.AddToken_EffectInfo(tokens, m_dashAllyHitEffect, "DashAllyHitEffect", m_dashAllyHitEffect);
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedDashEnemyHitEffect = ((!this.m_abilityMod) ? this.m_dashEnemyHitEffect : this.m_abilityMod.m_dashEnemyHitEffectMod.GetModifiedValue(this.m_dashEnemyHitEffect));
-		this.m_cachedExtraEnemyEffectOnMarked = ((!this.m_abilityMod) ? this.m_extraEnemyEffectOnMarked : this.m_abilityMod.m_extraEnemyEffectOnMarkedMod.GetModifiedValue(this.m_extraEnemyEffectOnMarked));
-		this.m_cachedDashAllyHitEffect = ((!this.m_abilityMod) ? this.m_dashAllyHitEffect : this.m_abilityMod.m_dashAllyHitEffectMod.GetModifiedValue(this.m_dashAllyHitEffect));
+		m_cachedDashEnemyHitEffect = ((!m_abilityMod) ? m_dashEnemyHitEffect : m_abilityMod.m_dashEnemyHitEffectMod.GetModifiedValue(m_dashEnemyHitEffect));
+		m_cachedExtraEnemyEffectOnMarked = ((!m_abilityMod) ? m_extraEnemyEffectOnMarked : m_abilityMod.m_extraEnemyEffectOnMarkedMod.GetModifiedValue(m_extraEnemyEffectOnMarked));
+		m_cachedDashAllyHitEffect = ((!m_abilityMod) ? m_dashAllyHitEffect : m_abilityMod.m_dashAllyHitEffectMod.GetModifiedValue(m_dashAllyHitEffect));
 	}
 
 	public bool GetIsTeleport()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.GetIsTeleport()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_isTeleportMod.GetModifiedValue(this.m_isTeleport);
+			result = m_abilityMod.m_isTeleportMod.GetModifiedValue(m_isTeleport);
 		}
 		else
 		{
-			result = this.m_isTeleport;
+			result = m_isTeleport;
 		}
 		return result;
 	}
@@ -194,100 +154,61 @@ public class NinjaShurikenOrDash : Ability
 	public float GetDashRangeDefault()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.GetDashRangeDefault()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_dashRangeDefaultMod.GetModifiedValue(this.m_dashRangeDefault);
+			result = m_abilityMod.m_dashRangeDefaultMod.GetModifiedValue(m_dashRangeDefault);
 		}
 		else
 		{
-			result = this.m_dashRangeDefault;
+			result = m_dashRangeDefault;
 		}
 		return result;
 	}
 
 	public float GetDashRangeMarked()
 	{
-		return (!this.m_abilityMod) ? this.m_dashRangeMarked : this.m_abilityMod.m_dashRangeMarkedMod.GetModifiedValue(this.m_dashRangeMarked);
+		return (!m_abilityMod) ? m_dashRangeMarked : m_abilityMod.m_dashRangeMarkedMod.GetModifiedValue(m_dashRangeMarked);
 	}
 
 	public bool DashRequireDeathmark()
 	{
-		return (!this.m_abilityMod) ? this.m_dashRequireDeathmark : this.m_abilityMod.m_dashRequireDeathmarkMod.GetModifiedValue(this.m_dashRequireDeathmark);
+		return (!m_abilityMod) ? m_dashRequireDeathmark : m_abilityMod.m_dashRequireDeathmarkMod.GetModifiedValue(m_dashRequireDeathmark);
 	}
 
 	public float GetDashToUnmarkedRange()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.GetDashToUnmarkedRange()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_dashToUnmarkedRangeMod.GetModifiedValue(this.m_dashToUnmarkedRange);
+			result = m_abilityMod.m_dashToUnmarkedRangeMod.GetModifiedValue(m_dashToUnmarkedRange);
 		}
 		else
 		{
-			result = this.m_dashToUnmarkedRange;
+			result = m_dashToUnmarkedRange;
 		}
 		return result;
 	}
 
 	public bool CanDashToAlly()
 	{
-		return (!this.m_abilityMod) ? this.m_canDashToAlly : this.m_abilityMod.m_canDashToAllyMod.GetModifiedValue(this.m_canDashToAlly);
+		return (!m_abilityMod) ? m_canDashToAlly : m_abilityMod.m_canDashToAllyMod.GetModifiedValue(m_canDashToAlly);
 	}
 
 	public bool CanDashToEnemy()
 	{
-		return (!this.m_abilityMod) ? this.m_canDashToEnemy : this.m_abilityMod.m_canDashToEnemyMod.GetModifiedValue(this.m_canDashToEnemy);
+		return (!m_abilityMod) ? m_canDashToEnemy : m_abilityMod.m_canDashToEnemyMod.GetModifiedValue(m_canDashToEnemy);
 	}
 
 	public bool DashIgnoreLos()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.DashIgnoreLos()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_dashIgnoreLosMod.GetModifiedValue(this.m_dashIgnoreLos);
+			result = m_abilityMod.m_dashIgnoreLosMod.GetModifiedValue(m_dashIgnoreLos);
 		}
 		else
 		{
-			result = this.m_dashIgnoreLos;
+			result = m_dashIgnoreLos;
 		}
 		return result;
 	}
@@ -295,26 +216,13 @@ public class NinjaShurikenOrDash : Ability
 	public AbilityAreaShape GetDashDestShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.GetDashDestShape()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_dashDestShapeMod.GetModifiedValue(this.m_dashDestShape);
+			result = m_abilityMod.m_dashDestShapeMod.GetModifiedValue(m_dashDestShape);
 		}
 		else
 		{
-			result = this.m_dashDestShape;
+			result = m_dashDestShape;
 		}
 		return result;
 	}
@@ -322,26 +230,13 @@ public class NinjaShurikenOrDash : Ability
 	public int GetDashDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.GetDashDamage()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_dashDamageMod.GetModifiedValue(this.m_dashDamage);
+			result = m_abilityMod.m_dashDamageMod.GetModifiedValue(m_dashDamage);
 		}
 		else
 		{
-			result = this.m_dashDamage;
+			result = m_dashDamage;
 		}
 		return result;
 	}
@@ -349,58 +244,32 @@ public class NinjaShurikenOrDash : Ability
 	public int GetExtraDamageOnMarked()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.GetExtraDamageOnMarked()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_extraDamageOnMarkedMod.GetModifiedValue(this.m_extraDamageOnMarked);
+			result = m_abilityMod.m_extraDamageOnMarkedMod.GetModifiedValue(m_extraDamageOnMarked);
 		}
 		else
 		{
-			result = this.m_extraDamageOnMarked;
+			result = m_extraDamageOnMarked;
 		}
 		return result;
 	}
 
 	public int GetExtraDamageIfNotMarked()
 	{
-		return (!this.m_abilityMod) ? this.m_extraDamageIfNotMarked : this.m_abilityMod.m_extraDamageIfNotMarkedMod.GetModifiedValue(this.m_extraDamageIfNotMarked);
+		return (!m_abilityMod) ? m_extraDamageIfNotMarked : m_abilityMod.m_extraDamageIfNotMarkedMod.GetModifiedValue(m_extraDamageIfNotMarked);
 	}
 
 	public StandardEffectInfo GetDashEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedDashEnemyHitEffect != null)
+		if (m_cachedDashEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.GetDashEnemyHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedDashEnemyHitEffect;
+			result = m_cachedDashEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_dashEnemyHitEffect;
+			result = m_dashEnemyHitEffect;
 		}
 		return result;
 	}
@@ -408,26 +277,13 @@ public class NinjaShurikenOrDash : Ability
 	public StandardEffectInfo GetExtraEnemyEffectOnMarked()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedExtraEnemyEffectOnMarked != null)
+		if (m_cachedExtraEnemyEffectOnMarked != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.GetExtraEnemyEffectOnMarked()).MethodHandle;
-			}
-			result = this.m_cachedExtraEnemyEffectOnMarked;
+			result = m_cachedExtraEnemyEffectOnMarked;
 		}
 		else
 		{
-			result = this.m_extraEnemyEffectOnMarked;
+			result = m_extraEnemyEffectOnMarked;
 		}
 		return result;
 	}
@@ -435,26 +291,13 @@ public class NinjaShurikenOrDash : Ability
 	public int GetDashHealing()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.GetDashHealing()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_dashHealingMod.GetModifiedValue(this.m_dashHealing);
+			result = m_abilityMod.m_dashHealingMod.GetModifiedValue(m_dashHealing);
 		}
 		else
 		{
-			result = this.m_dashHealing;
+			result = m_dashHealing;
 		}
 		return result;
 	}
@@ -462,58 +305,32 @@ public class NinjaShurikenOrDash : Ability
 	public StandardEffectInfo GetDashAllyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedDashAllyHitEffect != null)
+		if (m_cachedDashAllyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.GetDashAllyHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedDashAllyHitEffect;
+			result = m_cachedDashAllyHitEffect;
 		}
 		else
 		{
-			result = this.m_dashAllyHitEffect;
+			result = m_dashAllyHitEffect;
 		}
 		return result;
 	}
 
 	public bool DashApplyDeathmark()
 	{
-		return (!this.m_abilityMod) ? this.m_dashApplyDeathmark : this.m_abilityMod.m_dashApplyDeathmarkMod.GetModifiedValue(this.m_dashApplyDeathmark);
+		return (!m_abilityMod) ? m_dashApplyDeathmark : m_abilityMod.m_dashApplyDeathmarkMod.GetModifiedValue(m_dashApplyDeathmark);
 	}
 
 	public bool CanTriggerDeathmark()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.CanTriggerDeathmark()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_canTriggerDeathmarkMod.GetModifiedValue(this.m_canTriggerDeathmark);
+			result = m_abilityMod.m_canTriggerDeathmarkMod.GetModifiedValue(m_canTriggerDeathmark);
 		}
 		else
 		{
-			result = this.m_canTriggerDeathmark;
+			result = m_canTriggerDeathmark;
 		}
 		return result;
 	}
@@ -521,26 +338,13 @@ public class NinjaShurikenOrDash : Ability
 	public bool CanQueueMoveAfterEvade()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.CanQueueMoveAfterEvade()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_canQueueMoveAfterEvadeMod.GetModifiedValue(this.m_canQueueMoveAfterEvade);
+			result = m_abilityMod.m_canQueueMoveAfterEvadeMod.GetModifiedValue(m_canQueueMoveAfterEvade);
 		}
 		else
 		{
-			result = this.m_canQueueMoveAfterEvade;
+			result = m_canQueueMoveAfterEvade;
 		}
 		return result;
 	}
@@ -548,50 +352,19 @@ public class NinjaShurikenOrDash : Ability
 	public int CalcDamageOnActor(ActorData target, ActorData caster)
 	{
 		int num = 0;
-		if (target.\u000E() != caster.\u000E())
+		if (target.GetTeam() != caster.GetTeam())
 		{
-			for (;;)
+			num = GetDashDamage();
+			if (IsActorMarked(target))
 			{
-				switch (1)
+				if (GetExtraDamageOnMarked() > 0)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.CalcDamageOnActor(ActorData, ActorData)).MethodHandle;
-			}
-			num = this.GetDashDamage();
-			if (this.IsActorMarked(target))
-			{
-				if (this.GetExtraDamageOnMarked() > 0)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num += this.GetExtraDamageOnMarked();
+					num += GetExtraDamageOnMarked();
 				}
 			}
-			else if (this.GetExtraDamageIfNotMarked() > 0)
+			else if (GetExtraDamageIfNotMarked() > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num += this.GetExtraDamageIfNotMarked();
+				num += GetExtraDamageIfNotMarked();
 			}
 		}
 		return num;
@@ -599,118 +372,56 @@ public class NinjaShurikenOrDash : Ability
 
 	public bool IsActorMarked(ActorData actor)
 	{
-		bool result;
-		if (this.m_syncComp != null)
+		int result;
+		if (m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.IsActorMarked(ActorData)).MethodHandle;
-			}
-			result = this.m_syncComp.ActorHasDeathmark(actor);
+			result = (m_syncComp.ActorHasDeathmark(actor) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetDashDamage());
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, this.GetDashHealing());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetDashDamage());
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, GetDashHealing());
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
 		results.m_damage = 0;
 		results.m_healing = 0;
-		BoardSquare boardSquare = Board.\u000E().\u000E(base.Targeter.LastUpdatingGridPos);
-		bool flag;
-		if (boardSquare)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+		int num;
+		if ((bool)boardSquareSafe)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
-			flag = (boardSquare == targetActor.\u0012());
+			num = ((boardSquareSafe == targetActor.GetCurrentBoardSquare()) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
+		bool flag = (byte)num != 0;
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int damage = 0;
-			if (flag2)
+			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				damage = this.CalcDamageOnActor(targetActor, base.ActorData);
+				damage = CalcDamageOnActor(targetActor, base.ActorData);
 			}
 			results.m_damage = damage;
 		}
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Ally) > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int healing;
-			if (flag2)
+			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				healing = this.GetDashHealing();
+				healing = GetDashHealing();
 			}
 			else
 			{
@@ -725,42 +436,20 @@ public class NinjaShurikenOrDash : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			for (;;)
+			if (m_syncComp != null && m_syncComp.m_deathmarkOnTriggerDamage > 0)
 			{
-				switch (1)
+				if (IsActorMarked(targetActor))
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
-			if (this.m_syncComp != null && this.m_syncComp.m_deathmarkOnTriggerDamage > 0)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.IsActorMarked(targetActor))
-				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return "\n+ " + AbilityUtils.CalculateDamageForTargeter(base.ActorData, targetActor, this, m_syncComp.m_deathmarkOnTriggerDamage, false);
 						}
-						break;
 					}
-					return "\n+ " + AbilityUtils.CalculateDamageForTargeter(base.ActorData, targetActor, this, this.m_syncComp.m_deathmarkOnTriggerDamage, false).ToString();
 				}
 			}
 		}
@@ -770,399 +459,191 @@ public class NinjaShurikenOrDash : Ability
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
 		bool result = true;
-		Ability.TargetingParadigm targetingParadigm = base.GetTargetingParadigm(0);
-		if (targetingParadigm != Ability.TargetingParadigm.BoardSquare)
+		TargetingParadigm targetingParadigm = GetTargetingParadigm(0);
+		if (targetingParadigm != TargetingParadigm.BoardSquare)
 		{
-			for (;;)
+			if (targetingParadigm != TargetingParadigm.Position)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
-			if (targetingParadigm != Ability.TargetingParadigm.Position)
-			{
-				return result;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_0200;
 			}
 		}
 		result = false;
 		List<ActorData> actorsVisibleToActor;
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(caster, true);
+			actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(caster);
 		}
 		else
 		{
-			actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(GameFlowData.Get().activeOwnedActorData, true);
+			actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(GameFlowData.Get().activeOwnedActorData);
 		}
 		List<ActorData> list = actorsVisibleToActor;
 		list.Remove(caster);
 		if (list != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			float num = this.GetDashToUnmarkedRange() * Board.\u000E().squareSize;
-			using (List<ActorData>.Enumerator enumerator = list.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
+					break;
+				default:
 				{
-					ActorData actorData = enumerator.Current;
-					Vector3 vector = actorData.\u0016() - caster.\u0016();
-					vector.y = 0f;
-					float magnitude = vector.magnitude;
-					bool flag = this.IsActorMarked(actorData);
-					float squareSize = Board.\u000E().squareSize;
-					float num2;
-					if (flag)
+					float num = GetDashToUnmarkedRange() * Board.Get().squareSize;
+					using (List<ActorData>.Enumerator enumerator = list.GetEnumerator())
 					{
-						for (;;)
+						while (enumerator.MoveNext())
+						{
+							ActorData current = enumerator.Current;
+							Vector3 vector = current.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
+							vector.y = 0f;
+							float magnitude = vector.magnitude;
+							bool flag = IsActorMarked(current);
+							float squareSize = Board.Get().squareSize;
+							float num2;
+							if (flag)
+							{
+								num2 = GetDashRangeMarked();
+							}
+							else
+							{
+								num2 = GetDashRangeDefault();
+							}
+							float num3 = squareSize * num2;
+							if (!(magnitude <= num3))
+							{
+								if (!(num3 <= 0f))
+								{
+									continue;
+								}
+							}
+							int num4;
+							if (DashRequireDeathmark())
+							{
+								num4 = (flag ? 1 : 0);
+							}
+							else
+							{
+								num4 = 1;
+							}
+							bool flag2 = (byte)num4 != 0;
+							if (!flag2 && num > 0f)
+							{
+								if (magnitude <= num)
+								{
+									flag2 = true;
+								}
+							}
+							ValidateCheckPath checkPath = (!GetIsTeleport()) ? ValidateCheckPath.CanBuildPath : ValidateCheckPath.Ignore;
+							if (flag2)
+							{
+								if (CanTargetActorInDecision(caster, current, CanDashToEnemy(), CanDashToAlly(), false, checkPath, DashIgnoreLos(), false))
+								{
+									while (true)
+									{
+										switch (5)
+										{
+										case 0:
+											break;
+										default:
+											return true;
+										}
+									}
+								}
+							}
+						}
+						while (true)
 						{
 							switch (1)
 							{
 							case 0:
-								continue;
-							}
-							break;
-						}
-						num2 = this.GetDashRangeMarked();
-					}
-					else
-					{
-						num2 = this.GetDashRangeDefault();
-					}
-					float num3 = squareSize * num2;
-					if (magnitude > num3)
-					{
-						if (num3 > 0f)
-						{
-							continue;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					bool flag2;
-					if (this.DashRequireDeathmark())
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag2 = flag;
-					}
-					else
-					{
-						flag2 = true;
-					}
-					bool flag3 = flag2;
-					if (!flag3 && num > 0f)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (magnitude <= num)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
 								break;
+							default:
+								return result;
 							}
-							flag3 = true;
-						}
-					}
-					Ability.ValidateCheckPath checkPath = (!this.GetIsTeleport()) ? Ability.ValidateCheckPath.CanBuildPath : Ability.ValidateCheckPath.Ignore;
-					if (flag3)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (base.CanTargetActorInDecision(caster, actorData, this.CanDashToEnemy(), this.CanDashToAlly(), false, checkPath, this.DashIgnoreLos(), false, false))
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							return true;
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
+		goto IL_0200;
+		IL_0200:
 		return result;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		bool flag;
+		bool flag2;
+		if (!(boardSquareSafe == null))
 		{
-			for (;;)
+			if (boardSquareSafe.IsBaselineHeight())
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
-			if (boardSquare.\u0016())
-			{
-				bool flag = false;
-				bool flag2 = false;
+				flag = false;
+				flag2 = false;
 				if (targetIndex == 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquare, this.CanDashToEnemy(), this.CanDashToAlly(), caster);
+					ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, CanDashToEnemy(), CanDashToAlly(), caster);
 					if (targetableActorOnSquare != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (targetableActorOnSquare != caster)
 						{
-							for (;;)
+							if (AreaEffectUtils.IsActorTargetable(targetableActorOnSquare))
 							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (AreaEffectUtils.IsActorTargetable(targetableActorOnSquare, null))
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								Vector3 vector = targetableActorOnSquare.\u0016() - caster.\u0016();
+								Vector3 vector = targetableActorOnSquare.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
 								vector.y = 0f;
 								float magnitude = vector.magnitude;
-								bool flag3 = this.IsActorMarked(targetableActorOnSquare);
-								float squareSize = Board.\u000E().squareSize;
+								bool flag3 = IsActorMarked(targetableActorOnSquare);
+								float squareSize = Board.Get().squareSize;
 								float num;
 								if (flag3)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									num = this.GetDashRangeMarked();
+									num = GetDashRangeMarked();
 								}
 								else
 								{
-									num = this.GetDashRangeDefault();
+									num = GetDashRangeDefault();
 								}
 								float num2 = squareSize * num;
-								if (magnitude > num2)
+								if (!(magnitude <= num2))
 								{
-									for (;;)
+									if (!(num2 <= 0f))
 									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (num2 > 0f)
-									{
-										goto IL_221;
-									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
+										goto IL_031e;
 									}
 								}
-								float num3 = this.GetDashToUnmarkedRange() * Board.\u000E().squareSize;
-								bool flag4;
-								if (this.DashRequireDeathmark())
+								float num3 = GetDashToUnmarkedRange() * Board.Get().squareSize;
+								int num4;
+								if (DashRequireDeathmark())
 								{
-									for (;;)
+									if (m_syncComp != null)
 									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (this.m_syncComp != null)
-									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										flag4 = this.m_syncComp.ActorHasDeathmark(targetableActorOnSquare);
+										num4 = (m_syncComp.ActorHasDeathmark(targetableActorOnSquare) ? 1 : 0);
 									}
 									else
 									{
-										flag4 = false;
+										num4 = 0;
 									}
 								}
 								else
 								{
-									flag4 = true;
+									num4 = 1;
 								}
-								bool flag5 = flag4;
-								if (!flag5 && num3 > 0f)
+								bool flag4 = (byte)num4 != 0;
+								if (!flag4 && num3 > 0f)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (magnitude <= num3)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										flag5 = true;
+										flag4 = true;
 									}
 								}
-								Ability.ValidateCheckPath checkPath = (!this.GetIsTeleport()) ? Ability.ValidateCheckPath.CanBuildPath : Ability.ValidateCheckPath.Ignore;
-								if (flag5)
+								ValidateCheckPath checkPath = (!GetIsTeleport()) ? ValidateCheckPath.CanBuildPath : ValidateCheckPath.Ignore;
+								if (flag4)
 								{
-									for (;;)
+									if (CanTargetActorInDecision(caster, targetableActorOnSquare, CanDashToEnemy(), CanDashToAlly(), false, checkPath, DashIgnoreLos(), false))
 									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (base.CanTargetActorInDecision(caster, targetableActorOnSquare, this.CanDashToEnemy(), this.CanDashToAlly(), false, checkPath, this.DashIgnoreLos(), false, false))
-									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = true;
 										flag2 = true;
 									}
@@ -1170,157 +651,77 @@ public class NinjaShurikenOrDash : Ability
 							}
 						}
 					}
-					IL_221:;
 				}
 				else
 				{
 					flag = true;
-					BoardSquare boardSquare2 = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos);
-					BoardSquare boardSquare3 = Board.\u000E().\u000E(target.GridPos);
-					if (boardSquare3 != null)
+					BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
+					BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
+					if (boardSquareSafe3 != null)
 					{
-						for (;;)
+						if (boardSquareSafe3.IsBaselineHeight())
 						{
-							switch (7)
+							if (boardSquareSafe3 != boardSquareSafe2)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (boardSquare3.\u0016())
-						{
-							for (;;)
-							{
-								switch (6)
+								if (boardSquareSafe3 != caster.GetCurrentBoardSquare())
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (boardSquare3 != boardSquare2)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (boardSquare3 != caster.\u0012())
-								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									bool flag6 = false;
+									bool flag5 = false;
 									if (targetIndex == 1)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										flag6 = AreaEffectUtils.IsSquareInShape(boardSquare3, this.GetDashDestShape(), target.FreePos, boardSquare2, false, caster);
+										flag5 = AreaEffectUtils.IsSquareInShape(boardSquareSafe3, GetDashDestShape(), target.FreePos, boardSquareSafe2, false, caster);
 									}
-									if (flag6)
+									if (flag5)
 									{
-										bool flag7;
-										if (!this.GetIsTeleport())
+										int num5;
+										if (!GetIsTeleport())
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											int num4;
-											flag7 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare3, boardSquare2, false, out num4);
+											num5 = (KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false, out int _) ? 1 : 0);
 										}
 										else
 										{
-											flag7 = true;
+											num5 = 1;
 										}
-										flag2 = flag7;
+										flag2 = ((byte)num5 != 0);
 									}
 								}
 							}
 						}
 					}
 				}
-				bool result;
-				if (flag2)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = flag;
-				}
-				else
-				{
-					result = false;
-				}
-				return result;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_031e;
 			}
 		}
 		return false;
+		IL_031e:
+		int result;
+		if (flag2)
+		{
+			result = (flag ? 1 : 0);
+		}
+		else
+		{
+			result = 0;
+		}
+		return (byte)result != 0;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_NinjaShurikenOrDash))
+		if (abilityMod.GetType() != typeof(AbilityMod_NinjaShurikenOrDash))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_NinjaShurikenOrDash);
-			this.Setup();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_NinjaShurikenOrDash);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

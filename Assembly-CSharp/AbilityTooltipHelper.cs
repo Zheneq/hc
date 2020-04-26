@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public static class AbilityTooltipHelper
@@ -11,24 +10,16 @@ public static class AbilityTooltipHelper
 		}
 	}
 
-	public unsafe static void ReportAbsorb(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject subject, int amount)
+	public static void ReportAbsorb(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject subject, int amount)
 	{
-		if (amount > 0)
+		if (amount <= 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTooltipHelper.ReportAbsorb(List<AbilityTooltipNumber>*, AbilityTooltipSubject, int)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Absorb, subject, amount));
+			return;
 		}
 	}
 
@@ -40,24 +31,16 @@ public static class AbilityTooltipHelper
 		}
 	}
 
-	public unsafe static void ReportEnergy(ref List<AbilityTooltipNumber> number, AbilityTooltipSubject subject, int amount)
+	public static void ReportEnergy(ref List<AbilityTooltipNumber> number, AbilityTooltipSubject subject, int amount)
 	{
-		if (amount != 0)
+		if (amount == 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTooltipHelper.ReportEnergy(List<AbilityTooltipNumber>*, AbilityTooltipSubject, int)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			number.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Energy, subject, amount));
+			return;
 		}
 	}
 }

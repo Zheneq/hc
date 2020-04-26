@@ -1,36 +1,24 @@
-﻿using System;
 using Newtonsoft.Json;
+using System;
 
 [Serializable]
 public class QueueRequirement_Environement : QueueRequirement
 {
 	private EnvironmentType Environment;
 
-	public override bool AnyGroupMember
-	{
-		get
-		{
-			return false;
-		}
-	}
+	public override bool AnyGroupMember => false;
 
-	public override QueueRequirement.RequirementType Requirement
-	{
-		get
-		{
-			return QueueRequirement.RequirementType.ProhibitEnvironment;
-		}
-	}
+	public override RequirementType Requirement => RequirementType.ProhibitEnvironment;
 
 	public override bool DoesApplicantPass(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType)
 	{
-		return systemInfo.GetEnvironmentType() != this.Environment;
+		return systemInfo.GetEnvironmentType() != Environment;
 	}
 
 	public override LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, RequirementMessageContext context)
 	{
-		QueueBlockOutReasonDetails queueBlockOutReasonDetails;
-		return this.GenerateFailure(systemInfo, applicant, context, out queueBlockOutReasonDetails);
+		QueueBlockOutReasonDetails Details;
+		return GenerateFailure(systemInfo, applicant, context, out Details);
 	}
 
 	public override LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, RequirementMessageContext context, out QueueBlockOutReasonDetails Details)
@@ -42,7 +30,7 @@ public class QueueRequirement_Environement : QueueRequirement
 	public override void WriteToJson(JsonWriter writer)
 	{
 		writer.WritePropertyName("EnvironmentType");
-		writer.WriteValue(this.Environment.ToString());
+		writer.WriteValue(Environment.ToString());
 	}
 
 	public static QueueRequirement Create(JsonReader reader)

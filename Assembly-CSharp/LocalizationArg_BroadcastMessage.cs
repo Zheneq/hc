@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using I2.Loc;
+using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class LocalizationArg_BroadcastMessage : LocalizationArg
@@ -11,65 +11,50 @@ public class LocalizationArg_BroadcastMessage : LocalizationArg
 
 	public static LocalizationArg_BroadcastMessage Create(Dictionary<string, string> messages)
 	{
-		return new LocalizationArg_BroadcastMessage
-		{
-			m_packedMessages = messages
-		};
+		LocalizationArg_BroadcastMessage localizationArg_BroadcastMessage = new LocalizationArg_BroadcastMessage();
+		localizationArg_BroadcastMessage.m_packedMessages = messages;
+		return localizationArg_BroadcastMessage;
 	}
 
 	public static LocalizationArg_BroadcastMessage Create(Dictionary<string, string> messages, TimeSpan timeValue)
 	{
-		return new LocalizationArg_BroadcastMessage
-		{
-			m_packedMessages = messages,
-			m_timeInAdvance = timeValue
-		};
+		LocalizationArg_BroadcastMessage localizationArg_BroadcastMessage = new LocalizationArg_BroadcastMessage();
+		localizationArg_BroadcastMessage.m_packedMessages = messages;
+		localizationArg_BroadcastMessage.m_timeInAdvance = timeValue;
+		return localizationArg_BroadcastMessage;
 	}
 
 	public override string TR()
 	{
 		string currentLanguageCode = LocalizationManager.CurrentLanguageCode;
-		if (this.m_packedMessages.ContainsKey(currentLanguageCode))
+		if (m_packedMessages.ContainsKey(currentLanguageCode))
 		{
-			for (;;)
+			if (!m_packedMessages[currentLanguageCode].IsNullOrEmpty())
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationArg_BroadcastMessage.TR()).MethodHandle;
-			}
-			if (!this.m_packedMessages[currentLanguageCode].IsNullOrEmpty())
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_packedMessages[currentLanguageCode].SafeReplace("${TIME}", StringUtil.GetTimeDifferenceText(m_timeInAdvance, true));
 					}
-					break;
 				}
-				return this.m_packedMessages[currentLanguageCode].SafeReplace("${TIME}", StringUtil.GetTimeDifferenceText(this.m_timeInAdvance, true));
 			}
 		}
-		if (this.m_packedMessages.ContainsKey("en"))
+		if (m_packedMessages.ContainsKey("en"))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_packedMessages["en"].SafeReplace("${TIME}", StringUtil.GetTimeDifferenceText(m_timeInAdvance, true));
 				}
-				break;
 			}
-			return this.m_packedMessages["en"].SafeReplace("${TIME}", StringUtil.GetTimeDifferenceText(this.m_timeInAdvance, true));
 		}
 		return string.Empty;
 	}

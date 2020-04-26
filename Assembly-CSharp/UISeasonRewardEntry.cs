@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class UISeasonRewardEntry : IDataEntry
@@ -19,8 +18,8 @@ public class UISeasonRewardEntry : IDataEntry
 
 	public UISeasonRewardEntry()
 	{
-		this.Rewards = new List<UISeasonRewardDisplayInfo>();
-		this.RepeatingRewards = new List<UISeasonRepeatingRewardInfo>();
+		Rewards = new List<UISeasonRewardDisplayInfo>();
+		RepeatingRewards = new List<UISeasonRepeatingRewardInfo>();
 	}
 
 	public override bool Equals(object obj)
@@ -29,126 +28,74 @@ public class UISeasonRewardEntry : IDataEntry
 		{
 			return false;
 		}
-		UISeasonRewardEntry uiseasonRewardEntry = (UISeasonRewardEntry)obj;
-		if (this.isLevelled == uiseasonRewardEntry.isLevelled)
+		UISeasonRewardEntry uISeasonRewardEntry = (UISeasonRewardEntry)obj;
+		int result;
+		if (isLevelled == uISeasonRewardEntry.isLevelled)
 		{
-			for (;;)
+			if (LevelToGetReward == uISeasonRewardEntry.LevelToGetReward)
 			{
-				switch (3)
+				if (isCurrentLevel == uISeasonRewardEntry.isCurrentLevel && isPreviewingLevel == uISeasonRewardEntry.isPreviewingLevel)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonRewardEntry.Equals(object)).MethodHandle;
-			}
-			if (this.LevelToGetReward == uiseasonRewardEntry.LevelToGetReward)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.isCurrentLevel == uiseasonRewardEntry.isCurrentLevel && this.isPreviewingLevel == uiseasonRewardEntry.isPreviewingLevel)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return this.Rewards.Count == uiseasonRewardEntry.Rewards.Count;
+					result = ((Rewards.Count == uISeasonRewardEntry.Rewards.Count) ? 1 : 0);
+					goto IL_008d;
 				}
 			}
 		}
-		return false;
+		result = 0;
+		goto IL_008d;
+		IL_008d:
+		return (byte)result != 0;
 	}
 
 	public override int GetHashCode()
 	{
-		return this.isLevelled.GetHashCode() ^ this.LevelToGetReward.GetHashCode() ^ this.isCurrentLevel.GetHashCode() ^ this.isPreviewingLevel.GetHashCode();
+		return isLevelled.GetHashCode() ^ LevelToGetReward.GetHashCode() ^ isCurrentLevel.GetHashCode() ^ isPreviewingLevel.GetHashCode();
 	}
 
 	public void Clear()
 	{
-		this.LevelToGetReward = 0;
-		this.isLevelled = false;
-		this.Rewards.Clear();
+		LevelToGetReward = 0;
+		isLevelled = false;
+		Rewards.Clear();
 	}
 
 	public void Init(int level, bool levelled, List<SeasonReward> rewards, List<UISeasonRepeatingRewardInfo> repeatingRewards, bool activeLevel)
 	{
-		this.LevelToGetReward = level;
-		this.isLevelled = levelled;
-		this.isCurrentLevel = activeLevel;
+		LevelToGetReward = level;
+		isLevelled = levelled;
+		isCurrentLevel = activeLevel;
 		if (rewards != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonRewardEntry.Init(int, bool, List<SeasonReward>, List<UISeasonRepeatingRewardInfo>, bool)).MethodHandle;
-			}
 			for (int i = 0; i < rewards.Count; i++)
 			{
-				UISeasonRewardDisplayInfo uiseasonRewardDisplayInfo = new UISeasonRewardDisplayInfo();
-				uiseasonRewardDisplayInfo.Setup(rewards[i]);
-				this.Rewards.Add(uiseasonRewardDisplayInfo);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				UISeasonRewardDisplayInfo uISeasonRewardDisplayInfo = new UISeasonRewardDisplayInfo();
+				uISeasonRewardDisplayInfo.Setup(rewards[i]);
+				Rewards.Add(uISeasonRewardDisplayInfo);
 			}
 		}
 		if (repeatingRewards != null)
 		{
 			for (int j = 0; j < repeatingRewards.Count; j++)
 			{
-				this.RepeatingRewards.Add(repeatingRewards[j]);
+				RepeatingRewards.Add(repeatingRewards[j]);
 			}
 		}
 	}
 
 	public int GetPrefabIndexToDisplay()
 	{
-		if (this.Rewards.Count == 0)
+		if (Rewards.Count == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 0;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonRewardEntry.GetPrefabIndexToDisplay()).MethodHandle;
-			}
-			return 0;
 		}
 		return 1;
 	}
@@ -156,44 +103,27 @@ public class UISeasonRewardEntry : IDataEntry
 	public void Setup(int displayIndex, _LargeScrollListItemEntry UIEntry)
 	{
 		UISeasonsRewardEntry component = UIEntry.GetComponent<UISeasonsRewardEntry>();
-		if (component != null)
+		if (!(component != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (isLevelled)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonRewardEntry.Setup(int, _LargeScrollListItemEntry)).MethodHandle;
-			}
-			if (this.isLevelled)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.SetAsLevelledup();
 			}
 			else
 			{
 				component.SetAsNotLevelled();
 			}
-			component.DisplayAsCurrentLevel(this.isCurrentLevel, !this.isCurrentLevel);
-			component.SetPreviewingLevel(this.isPreviewingLevel);
+			component.DisplayAsCurrentLevel(isCurrentLevel, !isCurrentLevel);
+			component.SetPreviewingLevel(isPreviewingLevel);
 			component.m_btn.NotifyHoverStatusChange(false, true, 1f);
-			component.SetLevelLabelsText(this.LevelToGetReward.ToString());
-			component.SetupReward(this.Rewards, this.RepeatingRewards);
-			component.DoRewardIconFade(!this.isLevelled);
+			component.SetLevelLabelsText(LevelToGetReward.ToString());
+			component.SetupReward(Rewards, RepeatingRewards);
+			component.DoRewardIconFade(!isLevelled);
+			return;
 		}
 	}
 }

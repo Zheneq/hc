@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,24 +21,11 @@ public class SniperOverwatch : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatch.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Overwatch";
+			m_abilityName = "Overwatch";
 		}
-		base.Targeter = new AbilityUtil_Targeter_Line(this, this.m_range, this.m_penetrateLos);
+		base.Targeter = new AbilityUtil_Targeter_Line(this, m_range, m_penetrateLos);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -49,140 +35,106 @@ public class SniperOverwatch : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.m_range;
+		return m_range;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.m_onEnemyMoveThrough.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		m_onEnemyMoveThrough.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		return numbers;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "Duration", string.Empty, this.m_duration, false);
-		this.m_onEnemyMoveThrough.AddTooltipTokens(tokens, "DroneBarrier", false, null);
+		AddTokenInt(tokens, "Duration", string.Empty, m_duration);
+		m_onEnemyMoveThrough.AddTooltipTokens(tokens, "DroneBarrier", false, null);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SniperOverwatch))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_abilityMod = (abilityMod as AbilityMod_SniperOverwatch);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatch.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_SniperOverwatch);
 		}
-		else
-		{
-			Debug.LogError("Trying to apply wrong type of ability mod");
-		}
+		Debug.LogError("Trying to apply wrong type of ability mod");
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 
 	public int GetBarrierDuration()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatch.GetBarrierDuration()).MethodHandle;
-			}
-			result = this.m_duration;
+			result = m_duration;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_durationMod.GetModifiedValue(this.m_duration);
+			result = m_abilityMod.m_durationMod.GetModifiedValue(m_duration);
 		}
 		return result;
 	}
 
 	public int GetEnemyMaxHits()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_enemyMaxHitsMod.GetModifiedValue(this.m_maxHits) : this.m_maxHits;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_enemyMaxHitsMod.GetModifiedValue(m_maxHits) : m_maxHits;
 	}
 
 	public StandardEffectInfo GetOnMovedThroughEffectInfo()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			if (m_abilityMod.m_useEnemyHitEffectOverride)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatch.GetOnMovedThroughEffectInfo()).MethodHandle;
-			}
-			if (this.m_abilityMod.m_useEnemyHitEffectOverride)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_abilityMod.m_enemyHitEffectOverride;
 					}
-					break;
 				}
-				return this.m_abilityMod.m_enemyHitEffectOverride;
 			}
 		}
-		return this.m_onEnemyMoveThrough.m_effect;
+		return m_onEnemyMoveThrough.m_effect;
 	}
 
 	public GameplayResponseForActor GetOnEnemyMovedThroughResponse()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					GameplayResponseForActor shallowCopy = m_onEnemyMoveThrough.GetShallowCopy();
+					shallowCopy.m_effect = GetOnMovedThroughEffectInfo();
+					shallowCopy.m_damage = m_abilityMod.m_damageMod.GetModifiedValue(m_onEnemyMoveThrough.m_damage);
+					return shallowCopy;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatch.GetOnEnemyMovedThroughResponse()).MethodHandle;
-			}
-			GameplayResponseForActor shallowCopy = this.m_onEnemyMoveThrough.GetShallowCopy();
-			shallowCopy.m_effect = this.GetOnMovedThroughEffectInfo();
-			shallowCopy.m_damage = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_onEnemyMoveThrough.m_damage);
-			return shallowCopy;
 		}
-		return this.m_onEnemyMoveThrough;
+		return m_onEnemyMoveThrough;
 	}
 }

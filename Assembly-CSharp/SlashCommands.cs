@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using I2.Loc;
+using System.Collections.Generic;
 
 public class SlashCommands
 {
@@ -10,71 +9,68 @@ public class SlashCommands
 
 	public SlashCommands()
 	{
-		this.m_slashCommands.Add(new SlashCommand_Apropos());
-		this.m_slashCommands.Add(new SlashCommand_ChatGame());
-		this.m_slashCommands.Add(new SlashCommand_ChatGeneral());
-		this.m_slashCommands.Add(new SlashCommand_ChatTeam());
-		this.m_slashCommands.Add(new SlashCommand_ShowGeneralChat());
-		this.m_slashCommands.Add(new SlashCommand_ShowAllChat());
-		this.m_slashCommands.Add(new SlashCommand_EnableProfanityFilter());
-		this.m_slashCommands.Add(new SlashCommand_ChatWhisper());
-		this.m_slashCommands.Add(new SlashCommand_Friend());
-		this.m_slashCommands.Add(new SlashCommand_GroupChat());
-		this.m_slashCommands.Add(new SlashCommand_GroupInvite());
-		this.m_slashCommands.Add(new SlashCommand_GroupKick());
-		this.m_slashCommands.Add(new SlashCommand_GroupLeave());
-		this.m_slashCommands.Add(new SlashCommand_GroupPromote());
-		this.m_slashCommands.Add(new SlashCommand_InviteToGame());
-		this.m_slashCommands.Add(new SlashCommand_SpectateGame());
-		this.m_slashCommands.Add(new SlashCommand_UserBlock());
-		this.m_slashCommands.Add(new SlashCommand_UserUnblock());
-		this.m_slashCommands.Add(new SlashCommand_NameplateOvercon());
-		this.m_slashCommands.Add(new SlashCommand_CustomGamePause());
-		this.m_slashCommands.Add(new SlashCommand_Help());
-		this.m_slashCommands.Add(new SlashCommand_UserReport());
-		this.m_slashCommands.Add(new SlashCommand_PlayReplay());
-		this.m_slashCommands.Add(new SlashCommand_Replay_FastForward());
-		this.m_slashCommands.Add(new SlashCommand_Replay_Restart());
-		this.m_slashCommands.Add(new SlashCommand_Replay_Seek());
-		this.m_slashCommands.Add(new SlashCommand_Language());
-		this.m_slashCommands.Add(new SlashCommand_Version());
-		this.m_slashCommands.Add(new SlashCommand_Log());
-		this.m_slashCommands.Add(new SlashCommand_SetDevChatTag());
-		this.RebuildLocalizedText();
-		LocalizationManager.OnLocalizeEvent += this.RebuildLocalizedText;
+		m_slashCommands.Add(new SlashCommand_Apropos());
+		m_slashCommands.Add(new SlashCommand_ChatGame());
+		m_slashCommands.Add(new SlashCommand_ChatGeneral());
+		m_slashCommands.Add(new SlashCommand_ChatTeam());
+		m_slashCommands.Add(new SlashCommand_ShowGeneralChat());
+		m_slashCommands.Add(new SlashCommand_ShowAllChat());
+		m_slashCommands.Add(new SlashCommand_EnableProfanityFilter());
+		m_slashCommands.Add(new SlashCommand_ChatWhisper());
+		m_slashCommands.Add(new SlashCommand_Friend());
+		m_slashCommands.Add(new SlashCommand_GroupChat());
+		m_slashCommands.Add(new SlashCommand_GroupInvite());
+		m_slashCommands.Add(new SlashCommand_GroupKick());
+		m_slashCommands.Add(new SlashCommand_GroupLeave());
+		m_slashCommands.Add(new SlashCommand_GroupPromote());
+		m_slashCommands.Add(new SlashCommand_InviteToGame());
+		m_slashCommands.Add(new SlashCommand_SpectateGame());
+		m_slashCommands.Add(new SlashCommand_UserBlock());
+		m_slashCommands.Add(new SlashCommand_UserUnblock());
+		m_slashCommands.Add(new SlashCommand_NameplateOvercon());
+		m_slashCommands.Add(new SlashCommand_CustomGamePause());
+		m_slashCommands.Add(new SlashCommand_Help());
+		m_slashCommands.Add(new SlashCommand_UserReport());
+		m_slashCommands.Add(new SlashCommand_PlayReplay());
+		m_slashCommands.Add(new SlashCommand_Replay_FastForward());
+		m_slashCommands.Add(new SlashCommand_Replay_Restart());
+		m_slashCommands.Add(new SlashCommand_Replay_Seek());
+		m_slashCommands.Add(new SlashCommand_Language());
+		m_slashCommands.Add(new SlashCommand_Version());
+		m_slashCommands.Add(new SlashCommand_Log());
+		m_slashCommands.Add(new SlashCommand_SetDevChatTag());
+		RebuildLocalizedText();
+		LocalizationManager.OnLocalizeEvent += RebuildLocalizedText;
 	}
 
 	public static SlashCommands Get()
 	{
-		return SlashCommands.s_instance;
+		return s_instance;
 	}
 
 	public static void Instantiate()
 	{
-		SlashCommands.s_instance = new SlashCommands();
+		s_instance = new SlashCommands();
 	}
 
 	private void RebuildLocalizedText()
 	{
-		using (List<SlashCommand>.Enumerator enumerator = this.m_slashCommands.GetEnumerator())
+		using (List<SlashCommand>.Enumerator enumerator = m_slashCommands.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				SlashCommand slashCommand = enumerator.Current;
-				slashCommand.Localize();
+				SlashCommand current = enumerator.Current;
+				current.Localize();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommands.RebuildLocalizedText()).MethodHandle;
 			}
 		}
 	}
@@ -83,23 +79,10 @@ public class SlashCommands
 	{
 		bool flag = GameFlowData.Get() == null;
 		bool result = false;
-		foreach (SlashCommand slashCommand in this.m_slashCommands)
+		foreach (SlashCommand slashCommand in m_slashCommands)
 		{
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommands.RunSlashCommand(string, string)).MethodHandle;
-				}
 				if (!slashCommand.AvailableInFrontEnd)
 				{
 					continue;
@@ -107,43 +90,24 @@ public class SlashCommands
 			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!slashCommand.AvailableInGame)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 			}
 			if (slashCommand.IsSlashCommand(command))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						slashCommand.OnSlashCommand(arguments);
+						return true;
 					}
-					break;
 				}
-				slashCommand.OnSlashCommand(arguments);
-				result = true;
-				break;
 			}
 		}
 		return result;

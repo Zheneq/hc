@@ -1,4 +1,3 @@
-﻿using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
@@ -6,351 +5,318 @@ namespace NVIDIA
 {
 	public class Ansel : MonoBehaviour
 	{
-		[SerializeField]
-		public float \u001D = 5f;
-
-		[SerializeField]
-		public float \u000E = 45f;
-
-		[SerializeField]
-		public uint \u0012;
-
-		[SerializeField]
-		public uint \u0015;
-
-		[SerializeField]
-		public float \u0016 = 1f;
-
-		private static bool \u0013;
-
-		private static bool \u0018;
-
-		private static bool \u0009;
-
-		private bool \u0019;
-
-		private Vector3 \u0011;
-
-		private Quaternion \u001A;
-
-		private float \u0004;
-
-		private Ansel.CameraData \u000B;
-
-		private Matrix4x4 \u0003;
-
-		private Camera \u000F;
-
-		public static bool \u0017
+		public struct ConfigData
 		{
-			get
-			{
-				return Ansel.\u0013;
-			}
+			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+			public float[] _001D;
+
+			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+			public float[] _000E;
+
+			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+			public float[] _0012;
+
+			public float _0015;
+
+			public float _0016;
+
+			public uint _0013;
+
+			public uint _0018;
+
+			public float _0009;
+
+			[MarshalAs(UnmanagedType.I1)]
+			public bool _0019;
+
+			[MarshalAs(UnmanagedType.I1)]
+			public bool _0011;
+
+			[MarshalAs(UnmanagedType.I1)]
+			public bool _001A;
+
+			[MarshalAs(UnmanagedType.I1)]
+			public bool _0004;
+
+			[MarshalAs(UnmanagedType.I1)]
+			public bool _000B;
 		}
 
-		public static bool \u000D
+		public struct CameraData
 		{
-			get
-			{
-				return Ansel.\u0018;
-			}
+			public float _001D;
+
+			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+			public float[] _000E;
+
+			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+			public float[] _0012;
+
+			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+			public float[] _0015;
 		}
 
-		public static bool \u0008
+		public struct SessionData
 		{
-			get
-			{
-				return Ansel.\u0006();
-			}
+			[MarshalAs(UnmanagedType.I1)]
+			public bool _001D;
+
+			[MarshalAs(UnmanagedType.I1)]
+			public bool _000E;
+
+			[MarshalAs(UnmanagedType.I1)]
+			public bool _0012;
+
+			[MarshalAs(UnmanagedType.I1)]
+			public bool _0015;
+
+			[MarshalAs(UnmanagedType.I1)]
+			public bool _0016;
+
+			[MarshalAs(UnmanagedType.I1)]
+			public bool _0013;
+
+			[MarshalAs(UnmanagedType.I1)]
+			public bool _0018;
+
+			[MarshalAs(UnmanagedType.I1)]
+			public bool _0009;
 		}
 
-		public void \u0017()
+		[SerializeField]
+		public float _001D = 5f;
+
+		[SerializeField]
+		public float _000E = 45f;
+
+		[SerializeField]
+		public uint _0012;
+
+		[SerializeField]
+		public uint _0015;
+
+		[SerializeField]
+		public float _0016 = 1f;
+
+		private static bool _0013;
+
+		private static bool _0018;
+
+		private static bool _0009;
+
+		private bool _0019;
+
+		private Vector3 _0011;
+
+		private Quaternion _001A;
+
+		private float _0004;
+
+		private CameraData _000B;
+
+		private Matrix4x4 _0003;
+
+		private Camera _000F;
+
+		public static bool GetFlag0013 => _0013;
+
+		public static bool GetFlag0018 => _0018;
+
+		public static bool IsAvailable => anselIsAvailable();
+
+		public void Init()
 		{
-			if (!Ansel.\u0008)
+			if (!IsAvailable)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						MonoBehaviour.print("Ansel not available on this platform");
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ansel.\u0017()).MethodHandle;
-				}
-				MonoBehaviour.print("Ansel not available on this platform");
-				return;
 			}
-			this.\u000F = base.GetComponent<Camera>();
-			Ansel.ConfigData configData = default(Ansel.ConfigData);
-			float[] array = new float[3];
-			array[0] = 1f;
-			configData.\u0012 = array;
-			float[] array2 = new float[3];
-			array2[1] = 1f;
-			configData.\u000E = array2;
-			configData.\u001D = new float[]
+			_000F = GetComponent<Camera>();
+			ConfigData configData = default(ConfigData);
+			configData._0012 = new float[3]
+			{
+				1f,
+				0f,
+				0f
+			};
+			configData._000E = new float[3]
+			{
+				0f,
+				1f,
+				0f
+			};
+			configData._001D = new float[3]
 			{
 				0f,
 				0f,
 				1f
 			};
-			configData.\u0015 = this.\u001D;
-			configData.\u0016 = this.\u000E;
-			configData.\u0013 = this.\u0012;
-			configData.\u0018 = this.\u0015;
-			configData.\u0009 = this.\u0016;
-			configData.\u0019 = true;
-			configData.\u001A = true;
-			configData.\u0011 = true;
-			configData.\u0004 = true;
-			configData.\u000B = false;
-			Ansel.\u0017(ref configData);
-			this.\u000B = default(Ansel.CameraData);
-			Ansel.SessionData sessionData = default(Ansel.SessionData);
-			sessionData.\u001D = true;
-			sessionData.\u0015 = true;
-			sessionData.\u0016 = true;
-			sessionData.\u0013 = true;
-			sessionData.\u0018 = true;
-			sessionData.\u0009 = true;
-			sessionData.\u0012 = true;
-			sessionData.\u000E = true;
-			Ansel.\u0017(ref sessionData);
+			configData._0015 = _001D;
+			configData._0016 = _000E;
+			configData._0013 = _0012;
+			configData._0018 = _0015;
+			configData._0009 = _0016;
+			configData._0019 = true;
+			configData._001A = true;
+			configData._0011 = true;
+			configData._0004 = true;
+			configData._000B = false;
+			anselInit(ref configData);
+			_000B = default(CameraData);
+			SessionData sessionData = default(SessionData);
+			sessionData._001D = true;
+			sessionData._0015 = true;
+			sessionData._0016 = true;
+			sessionData._0013 = true;
+			sessionData._0018 = true;
+			sessionData._0009 = true;
+			sessionData._0012 = true;
+			sessionData._000E = true;
+			anselConfigureSession(ref sessionData);
 			MonoBehaviour.print("Ansel is initialized and ready to use");
 		}
 
-		public void \u0017(Ansel.SessionData \u001D)
+		public void ConfigureSession(SessionData sessionData)
 		{
-			if (!Ansel.\u0008)
+			if (!IsAvailable)
 			{
 				Debug.LogError("Ansel is not available");
-				return;
 			}
-			if (Ansel.\u0002())
+			else if (anselIsSessionOn())
 			{
 				Debug.LogError("Ansel session cannot be configured while session is active");
-				return;
 			}
-			Ansel.\u0017(ref \u001D);
+			else
+			{
+				anselConfigureSession(ref sessionData);
+			}
 		}
 
-		public void \u000D()
+		public void _000D()
 		{
-			if (!Ansel.\u0008)
+			if (!IsAvailable)
 			{
 				Debug.LogError("Ansel is not available");
-				return;
 			}
-			if (Ansel.\u0002())
+			else if (anselIsSessionOn())
 			{
-				if (!Ansel.\u0013)
+				if (!_0013)
 				{
-					Ansel.\u0013 = true;
-					this.\u0008();
+					_0013 = true;
+					_0008();
 					MonoBehaviour.print("Started Ansel session");
 				}
-				Ansel.\u0018 = Ansel.\u000A();
-				Transform transform = this.\u000F.transform;
-				this.\u000B.\u001D = this.\u000F.fieldOfView;
-				this.\u000B.\u000E = new float[2];
-				this.\u000B.\u0012 = new float[]
+				_0018 = anselIsCaptureOn();
+				Transform transform = _000F.transform;
+				_000B._001D = _000F.fieldOfView;
+				_000B._000E = new float[2];
+				ref CameraData reference = ref _000B;
+				float[] array = new float[3];
+				Vector3 position = transform.position;
+				array[0] = position.x;
+				Vector3 position2 = transform.position;
+				array[1] = position2.y;
+				Vector3 position3 = transform.position;
+				array[2] = position3.z;
+				reference._0012 = array;
+				ref CameraData reference2 = ref _000B;
+				float[] array2 = new float[4];
+				Quaternion rotation = transform.rotation;
+				array2[0] = rotation.x;
+				Quaternion rotation2 = transform.rotation;
+				array2[1] = rotation2.y;
+				Quaternion rotation3 = transform.rotation;
+				array2[2] = rotation3.z;
+				Quaternion rotation4 = transform.rotation;
+				array2[3] = rotation4.w;
+				reference2._0015 = array2;
+				anselUpdateCamera(ref _000B);
+				_000F.ResetProjectionMatrix();
+				_000F.transform.position = new Vector3(_000B._0012[0], _000B._0012[1], _000B._0012[2]);
+				_000F.transform.rotation = new Quaternion(_000B._0015[0], _000B._0015[1], _000B._0015[2], _000B._0015[3]);
+				_000F.fieldOfView = _000B._001D;
+				if (_000B._000E[0] == 0f)
 				{
-					transform.position.x,
-					transform.position.y,
-					transform.position.z
-				};
-				this.\u000B.\u0015 = new float[]
-				{
-					transform.rotation.x,
-					transform.rotation.y,
-					transform.rotation.z,
-					transform.rotation.w
-				};
-				Ansel.\u0017(ref this.\u000B);
-				this.\u000F.ResetProjectionMatrix();
-				this.\u000F.transform.position = new Vector3(this.\u000B.\u0012[0], this.\u000B.\u0012[1], this.\u000B.\u0012[2]);
-				this.\u000F.transform.rotation = new Quaternion(this.\u000B.\u0015[0], this.\u000B.\u0015[1], this.\u000B.\u0015[2], this.\u000B.\u0015[3]);
-				this.\u000F.fieldOfView = this.\u000B.\u001D;
-				if (this.\u000B.\u000E[0] == 0f)
-				{
-					for (;;)
+					if (_000B._000E[1] == 0f)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(Ansel.\u000D()).MethodHandle;
-					}
-					if (this.\u000B.\u000E[1] == 0f)
-					{
-						goto IL_2B2;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						return;
 					}
 				}
-				this.\u0003 = this.\u000F.projectionMatrix;
-				float num = -1f + this.\u000B.\u000E[0];
+				_0003 = _000F.projectionMatrix;
+				float num = -1f + _000B._000E[0];
 				float num2 = num + 2f;
-				float num3 = -1f + this.\u000B.\u000E[1];
+				float num3 = -1f + _000B._000E[1];
 				float num4 = num3 + 2f;
-				this.\u0003[0, 2] = (num + num2) / (num2 - num);
-				this.\u0003[1, 2] = (num4 + num3) / (num4 - num3);
-				this.\u000F.projectionMatrix = this.\u0003;
-				IL_2B2:;
+				_0003[0, 2] = (num + num2) / (num2 - num);
+				_0003[1, 2] = (num4 + num3) / (num4 - num3);
+				_000F.projectionMatrix = _0003;
 			}
-			else if (Ansel.\u0013)
+			else
 			{
-				for (;;)
+				if (!_0013)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				Ansel.\u0013 = false;
-				Ansel.\u0018 = false;
-				this.\u0002();
-				MonoBehaviour.print("Stopped Ansel session");
+				while (true)
+				{
+					_0013 = false;
+					_0018 = false;
+					_0002();
+					MonoBehaviour.print("Stopped Ansel session");
+					return;
+				}
 			}
 		}
 
-		private void \u0008()
+		private void _0008()
 		{
-			Transform transform = this.\u000F.transform;
-			this.\u0011 = transform.position;
-			this.\u001A = transform.rotation;
-			this.\u0004 = this.\u000F.fieldOfView;
-			this.\u0019 = Cursor.visible;
+			Transform transform = _000F.transform;
+			_0011 = transform.position;
+			_001A = transform.rotation;
+			_0004 = _000F.fieldOfView;
+			_0019 = Cursor.visible;
 			Time.timeScale = 0f;
 			Input.ResetInputAxes();
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
 		}
 
-		private void \u0002()
+		private void _0002()
 		{
 			Time.timeScale = 1f;
-			this.\u000F.ResetProjectionMatrix();
-			this.\u000F.transform.position = this.\u0011;
-			this.\u000F.transform.rotation = this.\u001A;
-			this.\u000F.fieldOfView = this.\u0004;
-			Cursor.visible = this.\u0019;
+			_000F.ResetProjectionMatrix();
+			_000F.transform.position = _0011;
+			_000F.transform.rotation = _001A;
+			_000F.fieldOfView = _0004;
+			Cursor.visible = _0019;
 			Cursor.lockState = CursorLockMode.None;
 		}
 
-		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "anselInit")]
-		private static extern void \u0017(ref Ansel.ConfigData \u001D);
+		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		private static extern void anselInit(ref ConfigData configData);
 
-		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "anselUpdateCamera")]
-		private static extern void \u0017(ref Ansel.CameraData \u001D);
+		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		private static extern void anselUpdateCamera(ref CameraData cameraData);
 
-		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "anselConfigureSession")]
-		private static extern void \u0017(ref Ansel.SessionData \u001D);
+		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		private static extern void anselConfigureSession(ref SessionData sessionData);
 
-		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "anselIsSessionOn")]
-		private static extern bool \u0002();
+		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		private static extern bool anselIsSessionOn();
 
-		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "anselIsCaptureOn")]
-		private static extern bool \u000A();
+		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		private static extern bool anselIsCaptureOn();
 
-		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "anselIsAvailable")]
-		private static extern bool \u0006();
-
-		public struct ConfigData
-		{
-			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-			public float[] \u001D;
-
-			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-			public float[] \u000E;
-
-			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-			public float[] \u0012;
-
-			public float \u0015;
-
-			public float \u0016;
-
-			public uint \u0013;
-
-			public uint \u0018;
-
-			public float \u0009;
-
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0019;
-
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0011;
-
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u001A;
-
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0004;
-
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u000B;
-		}
-
-		public struct CameraData
-		{
-			public float \u001D;
-
-			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
-			public float[] \u000E;
-
-			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-			public float[] \u0012;
-
-			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-			public float[] \u0015;
-		}
-
-		public struct SessionData
-		{
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u001D;
-
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u000E;
-
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0012;
-
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0015;
-
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0016;
-
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0013;
-
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0018;
-
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0009;
-		}
+		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		private static extern bool anselIsAvailable();
 	}
 }

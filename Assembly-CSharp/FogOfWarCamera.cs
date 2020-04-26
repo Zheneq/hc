@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class FogOfWarCamera : MonoBehaviour
@@ -14,35 +13,23 @@ public class FogOfWarCamera : MonoBehaviour
 	public static FogOfWarCamera GetFirstFogOfWarCamera()
 	{
 		FogOfWarCamera fogOfWarCamera = null;
-		foreach (Camera camera in Camera.allCameras)
+		Camera[] allCameras = Camera.allCameras;
+		int num = 0;
+		while (true)
 		{
-			fogOfWarCamera = camera.GetComponent<FogOfWarCamera>();
-			if (fogOfWarCamera != null)
+			if (num < allCameras.Length)
 			{
-				for (;;)
+				Camera camera = allCameras[num];
+				fogOfWarCamera = camera.GetComponent<FogOfWarCamera>();
+				if (fogOfWarCamera != null)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarCamera.GetFirstFogOfWarCamera()).MethodHandle;
-				}
-				return fogOfWarCamera;
-			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
+				num++;
 				continue;
 			}
-			return fogOfWarCamera;
+			break;
 		}
+		return fogOfWarCamera;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,34 +8,26 @@ public class UIPassiveButton : MonoBehaviour
 
 	private void Start()
 	{
-		if (this.theButton != null)
+		if (!(theButton != null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPassiveButton.Start()).MethodHandle;
-			}
-			UIEventTriggerUtils.AddListener(this.theButton.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnPointerEnter));
-			UIEventTriggerUtils.AddListener(this.theButton.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.OnPointerExit));
+			return;
+		}
+		while (true)
+		{
+			UIEventTriggerUtils.AddListener(theButton.gameObject, EventTriggerType.PointerEnter, OnPointerEnter);
+			UIEventTriggerUtils.AddListener(theButton.gameObject, EventTriggerType.PointerExit, OnPointerExit);
+			return;
 		}
 	}
 
 	public void OnPointerEnter(BaseEventData data)
 	{
-		this.OnButtonHover(true);
+		OnButtonHover(true);
 	}
 
 	public void OnPointerExit(BaseEventData data)
 	{
-		this.OnButtonHover(false);
+		OnButtonHover(false);
 	}
 
 	private void OnButtonHover(bool hover)

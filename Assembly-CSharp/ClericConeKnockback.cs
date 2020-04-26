@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +20,7 @@ public class ClericConeKnockback : Ability
 	public KnockbackType m_knockbackType = KnockbackType.PerpendicularAwayFromAimDir;
 
 	[Header("-- On Hit Damage/Effect")]
-	public int m_damageAmount = 0x14;
+	public int m_damageAmount = 20;
 
 	public StandardEffectInfo m_targetHitEffect;
 
@@ -32,19 +31,19 @@ public class ClericConeKnockback : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Cone Knockback";
+			m_abilityName = "Cone Knockback";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		for (int i = 0; i < this.GetExpectedNumberOfTargeters(); i++)
+		SetCachedFields();
+		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 		{
-			AbilityUtil_Targeter_ClericConeKnockback abilityUtil_Targeter_ClericConeKnockback = new AbilityUtil_Targeter_ClericConeKnockback(this, this.GetConeLength(), this.GetConeWidthAngle(), this.GetConeBackwardOffset(), this.PenetrateLineOfSight(), this.GetKnockbackDistance(), this.GetKnockbackType());
+			AbilityUtil_Targeter_ClericConeKnockback abilityUtil_Targeter_ClericConeKnockback = new AbilityUtil_Targeter_ClericConeKnockback(this, GetConeLength(), GetConeWidthAngle(), GetConeBackwardOffset(), PenetrateLineOfSight(), GetKnockbackDistance(), GetKnockbackType());
 			abilityUtil_Targeter_ClericConeKnockback.SetUseMultiTargetUpdate(true);
 			base.Targeters.Add(abilityUtil_Targeter_ClericConeKnockback);
 		}
@@ -62,94 +61,80 @@ public class ClericConeKnockback : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetConeLength();
+		return GetConeLength();
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedTargetHitEffect = this.m_targetHitEffect;
+		m_cachedTargetHitEffect = m_targetHitEffect;
 	}
 
 	public float GetConeWidthAngle()
 	{
-		return this.m_coneWidthAngle;
+		return m_coneWidthAngle;
 	}
 
 	public float GetConeBackwardOffset()
 	{
-		return this.m_coneBackwardOffset;
+		return m_coneBackwardOffset;
 	}
 
 	public float GetConeLength()
 	{
-		return this.m_coneLength;
+		return m_coneLength;
 	}
 
 	public bool PenetrateLineOfSight()
 	{
-		return this.m_penetrateLineOfSight;
+		return m_penetrateLineOfSight;
 	}
 
 	public int GetMaxTargets()
 	{
-		return this.m_maxTargets;
+		return m_maxTargets;
 	}
 
 	public float GetKnockbackDistance()
 	{
-		return this.m_knockbackDistance;
+		return m_knockbackDistance;
 	}
 
 	public KnockbackType GetKnockbackType()
 	{
-		return this.m_knockbackType;
+		return m_knockbackType;
 	}
 
 	public int GetDamageAmount()
 	{
-		return this.m_damageAmount;
+		return m_damageAmount;
 	}
 
 	public StandardEffectInfo GetTargetHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedTargetHitEffect != null)
+		if (m_cachedTargetHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericConeKnockback.GetTargetHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedTargetHitEffect;
+			result = m_cachedTargetHitEffect;
 		}
 		else
 		{
-			result = this.m_targetHitEffect;
+			result = m_targetHitEffect;
 		}
 		return result;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, this.GetDamageAmount())
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, GetDamageAmount()));
+		return list;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "Damage", "damage in the cone", this.GetDamageAmount(), false);
-		base.AddTokenInt(tokens, "Knockback_Distance", "range of knockback for hit enemies", Mathf.RoundToInt(this.GetKnockbackDistance()), false);
-		base.AddTokenInt(tokens, "Cone_Angle", "angle of the damage cone", (int)this.GetConeWidthAngle(), false);
-		base.AddTokenInt(tokens, "Cone_Length", "range of the damage cone", Mathf.RoundToInt(this.GetConeLength()), false);
+		AddTokenInt(tokens, "Damage", "damage in the cone", GetDamageAmount());
+		AddTokenInt(tokens, "Knockback_Distance", "range of knockback for hit enemies", Mathf.RoundToInt(GetKnockbackDistance()));
+		AddTokenInt(tokens, "Cone_Angle", "angle of the damage cone", (int)GetConeWidthAngle());
+		AddTokenInt(tokens, "Cone_Length", "range of the damage cone", Mathf.RoundToInt(GetConeLength()));
 	}
 }

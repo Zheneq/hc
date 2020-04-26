@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class InfoDialogWorldObject : MonoBehaviour
@@ -11,13 +10,13 @@ public class InfoDialogWorldObject : MonoBehaviour
 
 	public string m_textToDisplay = "Change me!";
 
-	public int fontSize = 0x18;
+	public int fontSize = 24;
 
 	private void Start()
 	{
 		if (UIInfoDialogPanel.Get() != null)
 		{
-			UIInfoDialogPanel.Get().AddInfoDialog(base.gameObject.transform.position, base.gameObject.transform.position, this.m_dialog2DPosition, this.m_lineLength, this.m_textToDisplay, this.fontSize, this.m_useLine, false, false);
+			UIInfoDialogPanel.Get().AddInfoDialog(base.gameObject.transform.position, base.gameObject.transform.position, m_dialog2DPosition, m_lineLength, m_textToDisplay, fontSize, m_useLine, false, false);
 		}
 	}
 }

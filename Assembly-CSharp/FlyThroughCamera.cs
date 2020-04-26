@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,31 +15,19 @@ public class FlyThroughCamera : MonoBehaviour
 
 	private void OnEnable()
 	{
-		bool fadeObjectsToRevealCharacters;
+		int fadeObjectsToRevealCharacters;
 		if (!(GameManager.Get() == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FlyThroughCamera.OnEnable()).MethodHandle;
-			}
 			if (GameManager.Get().GameConfig != null)
 			{
-				fadeObjectsToRevealCharacters = (GameManager.Get().GameConfig.GameType != GameType.Tutorial);
-				goto IL_51;
+				fadeObjectsToRevealCharacters = ((GameManager.Get().GameConfig.GameType != GameType.Tutorial) ? 1 : 0);
+				goto IL_0051;
 			}
 		}
-		fadeObjectsToRevealCharacters = true;
-		IL_51:
-		this.m_fadeObjectsToRevealCharacters = fadeObjectsToRevealCharacters;
+		fadeObjectsToRevealCharacters = 1;
+		goto IL_0051;
+		IL_0051:
+		m_fadeObjectsToRevealCharacters = ((byte)fadeObjectsToRevealCharacters != 0);
 	}
 
 	private void OnDisable()
@@ -49,29 +36,22 @@ public class FlyThroughCamera : MonoBehaviour
 
 	public void StopFlyThroughAnimation()
 	{
-		UnityEngine.Object.Destroy(this.m_cameraBoneInstance);
-		this.m_cameraBoneInstance = null;
-		this.m_cameraBoneTransform = null;
-		if (!this.m_fadeObjectsToRevealCharacters)
+		Object.Destroy(m_cameraBoneInstance);
+		m_cameraBoneInstance = null;
+		m_cameraBoneTransform = null;
+		if (m_fadeObjectsToRevealCharacters)
 		{
-			FadeObjectsCameraComponent component = base.GetComponent<FadeObjectsCameraComponent>();
-			if (component != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FlyThroughCamera.StopFlyThroughAnimation()).MethodHandle;
-				}
-				component.enabled = true;
-			}
+			return;
+		}
+		FadeObjectsCameraComponent component = GetComponent<FadeObjectsCameraComponent>();
+		if (!(component != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			component.enabled = true;
+			return;
 		}
 	}
 
@@ -79,27 +59,20 @@ public class FlyThroughCamera : MonoBehaviour
 	{
 		bool result = false;
 		AnimatorControllerParameter[] parameters = animator.parameters;
-		for (int i = 0; i < parameters.Length; i++)
+		int num = 0;
+		while (true)
 		{
-			if (parameters[i].name == paramName)
+			if (num < parameters.Length)
 			{
-				result = true;
-				return result;
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
+				if (parameters[num].name == paramName)
+				{
+					result = true;
+					break;
+				}
+				num++;
 				continue;
 			}
 			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FlyThroughCamera.HasAnimatorControllerParamater(Animator, string)).MethodHandle;
-			return result;
 		}
 		return result;
 	}
@@ -107,154 +80,73 @@ public class FlyThroughCamera : MonoBehaviour
 	public void StartFlyThroughAnimation()
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		if (this.m_cameraBonePrefab != null)
+		if (m_cameraBonePrefab != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FlyThroughCamera.StartFlyThroughAnimation()).MethodHandle;
-			}
-			this.m_cameraBoneInstance = UnityEngine.Object.Instantiate<GameObject>(this.m_cameraBonePrefab);
+			m_cameraBoneInstance = Object.Instantiate(m_cameraBonePrefab);
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_cameraBoneInstance.transform.position = activeOwnedActorData.transform.position;
+				m_cameraBoneInstance.transform.position = activeOwnedActorData.transform.position;
 				Quaternion camRotation = Quaternion.Euler(new Vector3(0f, CameraManager.Get().GetIsometricCamera().GetInitialYAngle()));
-				Vector3 b = CameraManager.Get().GetIsometricCamera().CalcZoomOffsetForActiveAnimatedActor(camRotation);
-				this.m_cameraBoneInstance.transform.position += b;
+				Vector3 vector = CameraManager.Get().GetIsometricCamera().CalcZoomOffsetForActiveAnimatedActor(camRotation);
+				m_cameraBoneInstance.transform.position += vector;
 			}
 			else
 			{
-				this.m_cameraBoneInstance.transform.position = CameraManager.Get().CameraPositionBounds.center + CameraManager.Get().GetIsometricCamera().m_maxVertDist * Vector3.up;
+				m_cameraBoneInstance.transform.position = CameraManager.Get().CameraPositionBounds.center + CameraManager.Get().GetIsometricCamera().m_maxVertDist * Vector3.up;
 			}
-			Animator componentInChildren = this.m_cameraBoneInstance.GetComponentInChildren<Animator>();
-			if (this.HasAnimatorControllerParamater(componentInChildren, SceneManager.GetActiveScene().name.ToLower()))
+			Animator componentInChildren = m_cameraBoneInstance.GetComponentInChildren<Animator>();
+			if (HasAnimatorControllerParamater(componentInChildren, SceneManager.GetActiveScene().name.ToLower()))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					componentInChildren.SetInteger("team", (int)activeOwnedActorData.\u000E());
+					componentInChildren.SetInteger("team", (int)activeOwnedActorData.GetTeam());
 				}
 				componentInChildren.SetTrigger(SceneManager.GetActiveScene().name.ToLower());
-				this.m_cameraBoneTransform = this.m_cameraBoneInstance.FindInChildren("camera0", 0).transform;
+				m_cameraBoneTransform = m_cameraBoneInstance.FindInChildren("camera0").transform;
 				componentInChildren.SetBool("tutorial", GameManager.Get().GameConfig.GameType == GameType.Tutorial);
 			}
 		}
-		this.m_needToHideLoadingScreen = true;
-		if (!this.m_fadeObjectsToRevealCharacters)
+		m_needToHideLoadingScreen = true;
+		if (m_fadeObjectsToRevealCharacters)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			FadeObjectsCameraComponent component = base.GetComponent<FadeObjectsCameraComponent>();
+			return;
+		}
+		while (true)
+		{
+			FadeObjectsCameraComponent component = GetComponent<FadeObjectsCameraComponent>();
 			if (component != null)
 			{
 				component.enabled = false;
 			}
+			return;
 		}
 	}
 
 	private void LateUpdate()
 	{
-		if (this.m_cameraBoneTransform)
+		if ((bool)m_cameraBoneTransform)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FlyThroughCamera.LateUpdate()).MethodHandle;
-			}
-			base.transform.position = this.m_cameraBoneTransform.position;
-			base.transform.rotation = this.m_cameraBoneTransform.rotation * Quaternion.Euler(0f, 180f, 0f);
-			Camera.main.fieldOfView = this.m_cameraBoneTransform.localScale.z;
+			base.transform.position = m_cameraBoneTransform.position;
+			base.transform.rotation = m_cameraBoneTransform.rotation * Quaternion.Euler(0f, 180f, 0f);
+			Camera main = Camera.main;
+			Vector3 localScale = m_cameraBoneTransform.localScale;
+			main.fieldOfView = localScale.z;
 		}
-		if (this.m_needToHideLoadingScreen)
+		if (!m_needToHideLoadingScreen)
 		{
-			if (!(this.m_cameraBoneTransform != null))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(this.m_cameraBonePrefab == null))
-				{
-					return;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (UILoadingScreenPanel.Get() != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UILoadingScreenPanel.Get().SetVisible(false);
-			}
-			this.m_needToHideLoadingScreen = false;
+			return;
 		}
+		if (!(m_cameraBoneTransform != null))
+		{
+			if (!(m_cameraBonePrefab == null))
+			{
+				return;
+			}
+		}
+		if (UILoadingScreenPanel.Get() != null)
+		{
+			UILoadingScreenPanel.Get().SetVisible(false);
+		}
+		m_needToHideLoadingScreen = false;
 	}
 }

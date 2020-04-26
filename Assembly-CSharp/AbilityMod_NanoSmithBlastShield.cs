@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,106 +22,61 @@ public class AbilityMod_NanoSmithBlastShield : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		NanoSmithBlastShield nanoSmithBlastShield = targetAbility as NanoSmithBlastShield;
-		if (nanoSmithBlastShield != null)
+		if (!(nanoSmithBlastShield != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NanoSmithBlastShield.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken_EffectMod(tokens, this.m_shieldEffectOverride, "ShieldEffect", nanoSmithBlastShield.m_shieldEffect, true);
-			AbilityMod.AddToken(tokens, this.m_healOnEndIfHasRemainingAbsorbMod, "HealOnEndIfHasRemainingAbsorb", string.Empty, nanoSmithBlastShield.m_healOnEndIfHasRemainingAbsorb, true, false);
-			AbilityMod.AddToken(tokens, this.m_energyGainOnShieldTargetMod, "EnergyGainOnShieldTarget", string.Empty, nanoSmithBlastShield.m_energyGainOnShieldTarget, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_extraEffectOnCasterIfTargetingAllyMod, "ExtraEffectOnCasterIfTargetingAlly", nanoSmithBlastShield.m_extraEffectOnCasterIfTargetingAlly, true);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken_EffectMod(tokens, m_shieldEffectOverride, "ShieldEffect", nanoSmithBlastShield.m_shieldEffect);
+			AbilityMod.AddToken(tokens, m_healOnEndIfHasRemainingAbsorbMod, "HealOnEndIfHasRemainingAbsorb", string.Empty, nanoSmithBlastShield.m_healOnEndIfHasRemainingAbsorb);
+			AbilityMod.AddToken(tokens, m_energyGainOnShieldTargetMod, "EnergyGainOnShieldTarget", string.Empty, nanoSmithBlastShield.m_energyGainOnShieldTarget);
+			AbilityMod.AddToken_EffectMod(tokens, m_extraEffectOnCasterIfTargetingAllyMod, "ExtraEffectOnCasterIfTargetingAlly", nanoSmithBlastShield.m_extraEffectOnCasterIfTargetingAlly);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		NanoSmithBlastShield nanoSmithBlastShield = base.GetTargetAbilityOnAbilityData(abilityData) as NanoSmithBlastShield;
+		NanoSmithBlastShield nanoSmithBlastShield = GetTargetAbilityOnAbilityData(abilityData) as NanoSmithBlastShield;
 		bool flag = nanoSmithBlastShield != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyEffectData shieldEffectOverride = this.m_shieldEffectOverride;
-		string prefix = "{ Shield Effect }";
-		bool showBaseVal = flag;
-		StandardActorEffectData baseVal;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyEffectData shieldEffectOverride = m_shieldEffectOverride;
+		object baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NanoSmithBlastShield.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = nanoSmithBlastShield.m_shieldEffect;
 		}
 		else
 		{
 			baseVal = null;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(shieldEffectOverride, prefix, showBaseVal, baseVal);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_healOnEndIfHasRemainingAbsorbMod, "[Heal If Has Remaining Absorb]", flag, (!flag) ? 0 : nanoSmithBlastShield.m_healOnEndIfHasRemainingAbsorb);
-		string str2 = text;
-		AbilityModPropertyInt energyGainOnShieldTargetMod = this.m_energyGainOnShieldTargetMod;
-		string prefix2 = "[Energy Gain on Shield Target]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(shieldEffectOverride, "{ Shield Effect }", flag, (StandardActorEffectData)baseVal);
+		empty += AbilityModHelper.GetModPropertyDesc(m_healOnEndIfHasRemainingAbsorbMod, "[Heal If Has Remaining Absorb]", flag, flag ? nanoSmithBlastShield.m_healOnEndIfHasRemainingAbsorb : 0);
+		string str2 = empty;
+		AbilityModPropertyInt energyGainOnShieldTargetMod = m_energyGainOnShieldTargetMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = nanoSmithBlastShield.m_energyGainOnShieldTarget;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(energyGainOnShieldTargetMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyEffectInfo extraEffectOnCasterIfTargetingAllyMod = this.m_extraEffectOnCasterIfTargetingAllyMod;
-		string prefix3 = "[ExtraEffectOnCasterIfTargetingAlly]";
-		bool showBaseVal3 = flag;
-		StandardEffectInfo baseVal3;
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(energyGainOnShieldTargetMod, "[Energy Gain on Shield Target]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyEffectInfo extraEffectOnCasterIfTargetingAllyMod = m_extraEffectOnCasterIfTargetingAllyMod;
+		object baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = nanoSmithBlastShield.m_extraEffectOnCasterIfTargetingAlly;
 		}
 		else
 		{
 			baseVal3 = null;
 		}
-		return str3 + base.PropDesc(extraEffectOnCasterIfTargetingAllyMod, prefix3, showBaseVal3, baseVal3);
+		return str3 + PropDesc(extraEffectOnCasterIfTargetingAllyMod, "[ExtraEffectOnCasterIfTargetingAlly]", flag, (StandardEffectInfo)baseVal3);
 	}
 }

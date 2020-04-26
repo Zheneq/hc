@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class TutorialDash : Ability
@@ -15,7 +14,7 @@ public class TutorialDash : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare destination = Board.\u000E().\u000E(target.GridPos);
-		return KnockbackUtils.BuildStraightLineChargePath(caster, destination) != null;
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null;
 	}
 }

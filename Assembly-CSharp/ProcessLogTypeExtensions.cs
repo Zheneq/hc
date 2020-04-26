@@ -1,43 +1,31 @@
-﻿using System;
-
 public static class ProcessLogTypeExtensions
 {
 	public static string GetFileExtension(this ProcessLogType processLogType)
 	{
 		if (processLogType == ProcessLogType.Log)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return "log";
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessLogType.GetFileExtension()).MethodHandle;
-			}
-			return "log";
 		}
-		if (processLogType == ProcessLogType.\u001D)
+		switch (processLogType)
 		{
+		case ProcessLogType._001D:
 			return "debug.log";
-		}
-		if (processLogType == ProcessLogType.OutputLog)
-		{
-			for (;;)
+		case ProcessLogType.OutputLog:
+			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return "stdout.log";
 			}
-			return "stdout.log";
+		default:
+			return null;
 		}
-		return null;
 	}
 }

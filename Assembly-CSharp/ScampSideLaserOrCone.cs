@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class ScampSideLaserOrCone : GenericAbility_Container
@@ -13,156 +12,79 @@ public class ScampSideLaserOrCone : GenericAbility_Container
 
 	public override string GetOnHitDataDesc()
 	{
-		return base.GetOnHitDataDesc() + "\n-- On Hit Data when shields are down --\n" + this.m_shieldDownOnHitData.GetInEditorDesc();
+		return base.GetOnHitDataDesc() + "\n-- On Hit Data when shields are down --\n" + m_shieldDownOnHitData.GetInEditorDesc();
 	}
 
 	public override List<GenericAbility_TargetSelectBase> GetRelevantTargetSelectCompForEditor()
 	{
 		List<GenericAbility_TargetSelectBase> relevantTargetSelectCompForEditor = base.GetRelevantTargetSelectCompForEditor();
-		if (this.m_shieldDownTargetSelect != null)
+		if (m_shieldDownTargetSelect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSideLaserOrCone.GetRelevantTargetSelectCompForEditor()).MethodHandle;
-			}
-			relevantTargetSelectCompForEditor.Add(this.m_shieldDownTargetSelect);
+			relevantTargetSelectCompForEditor.Add(m_shieldDownTargetSelect);
 		}
 		return relevantTargetSelectCompForEditor;
 	}
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Scamp_SyncComponent>();
+		m_syncComp = GetComponent<Scamp_SyncComponent>();
 		base.SetupTargetersAndCachedVars();
 	}
 
 	public void ResetTargetersForShielding(bool hasShield)
 	{
-		base.ClearTargeters();
+		ClearTargeters();
 		List<AbilityUtil_Targeter> collection;
 		if (!hasShield)
 		{
-			for (;;)
+			if (!(m_shieldDownTargetSelect == null))
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSideLaserOrCone.ResetTargetersForShielding(bool)).MethodHandle;
-			}
-			if (!(this.m_shieldDownTargetSelect == null))
-			{
-				collection = this.m_shieldDownTargetSelect.CreateTargeters(this);
-				goto IL_56;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				collection = m_shieldDownTargetSelect.CreateTargeters(this);
+				goto IL_0056;
 			}
 		}
-		collection = this.m_targetSelectComp.CreateTargeters(this);
-		IL_56:
+		collection = m_targetSelectComp.CreateTargeters(this);
+		goto IL_0056;
+		IL_0056:
 		base.Targeters.AddRange(collection);
 	}
 
 	public override OnHitAuthoredData GetOnHitAuthoredData()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			if (m_syncComp.m_suitWasActiveOnTurnStart)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSideLaserOrCone.GetOnHitAuthoredData()).MethodHandle;
-			}
-			if (this.m_syncComp.m_suitWasActiveOnTurnStart)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_onHitData;
 					}
-					break;
 				}
-				return this.m_onHitData;
 			}
 		}
-		return this.m_shieldDownOnHitData;
+		return m_shieldDownOnHitData;
 	}
 
 	public override GenericAbility_TargetSelectBase GetTargetSelectComp()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			if (m_syncComp.m_suitWasActiveOnTurnStart)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSideLaserOrCone.GetTargetSelectComp()).MethodHandle;
-			}
-			if (this.m_syncComp.m_suitWasActiveOnTurnStart)
-			{
-				goto IL_54;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_0054;
 			}
 		}
-		if (!(this.m_shieldDownTargetSelect == null))
+		if (m_shieldDownTargetSelect == null)
 		{
-			return this.m_shieldDownTargetSelect;
+			goto IL_0054;
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		IL_54:
-		return this.m_targetSelectComp;
+		return m_shieldDownTargetSelect;
+		IL_0054:
+		return m_targetSelectComp;
 	}
 }

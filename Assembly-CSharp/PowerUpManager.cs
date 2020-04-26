@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,399 +19,238 @@ public class PowerUpManager : MonoBehaviour
 
 	private Dictionary<int, PowerUp> m_guidToPowerupDictionary = new Dictionary<int, PowerUp>();
 
+	public List<PowerUp.IPowerUpListener> powerUpListeners => m_powerUpListeners;
+
 	public static void AddListenerStatic(PowerUp.IPowerUpListener listener)
 	{
-		if (PowerUpManager.Get() == null)
+		if (Get() == null)
 		{
-			if (PowerUpManager.s_powerUpListenersTemp == null)
+			if (s_powerUpListenersTemp == null)
 			{
-				PowerUpManager.s_powerUpListenersTemp = new List<PowerUp.IPowerUpListener>();
+				s_powerUpListenersTemp = new List<PowerUp.IPowerUpListener>();
 			}
-			PowerUpManager.s_powerUpListenersTemp.Add(listener);
+			s_powerUpListenersTemp.Add(listener);
 		}
 		else
 		{
-			PowerUpManager.Get().AddListener(listener);
-		}
-	}
-
-	public List<PowerUp.IPowerUpListener> powerUpListeners
-	{
-		get
-		{
-			return this.m_powerUpListeners;
+			Get().AddListener(listener);
 		}
 	}
 
 	public GameObject GetSpawnedPowerupsRoot()
 	{
-		if (this.m_spawnedPowerupsRoot == null)
+		if (m_spawnedPowerupsRoot == null)
 		{
-			this.m_spawnedPowerupsRoot = new GameObject("PowerupRoot_SpawnedPowerups");
+			m_spawnedPowerupsRoot = new GameObject("PowerupRoot_SpawnedPowerups");
 		}
-		return this.m_spawnedPowerupsRoot;
+		return m_spawnedPowerupsRoot;
 	}
 
 	public GameObject GetSpawnerRoot()
 	{
-		if (this.m_powerupSpawnerRoot == null)
+		if (m_powerupSpawnerRoot == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.GetSpawnerRoot()).MethodHandle;
-			}
-			this.m_powerupSpawnerRoot = new GameObject("PowerupRoot_Spawners");
+			m_powerupSpawnerRoot = new GameObject("PowerupRoot_Spawners");
 		}
-		return this.m_powerupSpawnerRoot;
+		return m_powerupSpawnerRoot;
 	}
 
 	public GameObject GetSpawnedPersistentSequencesRoot()
 	{
-		if (this.m_powerupSequencesRoot == null)
+		if (m_powerupSequencesRoot == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.GetSpawnedPersistentSequencesRoot()).MethodHandle;
-			}
-			this.m_powerupSequencesRoot = new GameObject("PowerupRoot_PersistentSequences");
+			m_powerupSequencesRoot = new GameObject("PowerupRoot_PersistentSequences");
 		}
-		return this.m_powerupSequencesRoot;
+		return m_powerupSequencesRoot;
 	}
 
 	internal PowerUp GetPowerUpOfGuid(int guid)
 	{
 		if (guid < 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.GetPowerUpOfGuid(int)).MethodHandle;
-			}
-			return null;
 		}
-		if (this.m_guidToPowerupDictionary == null)
+		if (m_guidToPowerupDictionary == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return null;
 				}
-				break;
 			}
-			return null;
 		}
-		if (!this.m_guidToPowerupDictionary.ContainsKey(guid))
+		if (!m_guidToPowerupDictionary.ContainsKey(guid))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return null;
 				}
-				break;
 			}
-			return null;
 		}
-		return this.m_guidToPowerupDictionary[guid];
+		return m_guidToPowerupDictionary[guid];
 	}
 
 	internal void SetPowerUpGuid(PowerUp pup, int guid)
 	{
-		if (!this.m_guidToPowerupDictionary.ContainsKey(guid))
+		if (!m_guidToPowerupDictionary.ContainsKey(guid))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_guidToPowerupDictionary.Add(guid, pup);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.SetPowerUpGuid(PowerUp, int)).MethodHandle;
-			}
-			this.m_guidToPowerupDictionary.Add(guid, pup);
 		}
-		else
-		{
-			Log.Error("Trying to add powerup guid more than once", new object[0]);
-		}
+		Log.Error("Trying to add powerup guid more than once");
 	}
 
 	internal void OnPowerUpDestroy(PowerUp pup)
 	{
-		if (this.m_guidToPowerupDictionary.ContainsKey(pup.Guid))
+		if (m_guidToPowerupDictionary.ContainsKey(pup.Guid))
 		{
-			this.m_guidToPowerupDictionary.Remove(pup.Guid);
+			m_guidToPowerupDictionary.Remove(pup.Guid);
 		}
 	}
 
 	private void Awake()
 	{
-		PowerUpManager.s_instance = this;
-		this.m_powerUpListeners = new List<PowerUp.IPowerUpListener>();
-		if (PowerUpManager.s_powerUpListenersTemp != null)
+		s_instance = this;
+		m_powerUpListeners = new List<PowerUp.IPowerUpListener>();
+		if (s_powerUpListenersTemp != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.Awake()).MethodHandle;
-			}
-			using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = PowerUpManager.s_powerUpListenersTemp.GetEnumerator())
+			using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = s_powerUpListenersTemp.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					PowerUp.IPowerUpListener listener = enumerator.Current;
-					this.AddListener(listener);
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					PowerUp.IPowerUpListener current = enumerator.Current;
+					AddListener(current);
 				}
 			}
-			PowerUpManager.s_powerUpListenersTemp.Clear();
-			PowerUpManager.s_powerUpListenersTemp = null;
+			s_powerUpListenersTemp.Clear();
+			s_powerUpListenersTemp = null;
 		}
-		this.m_powerupSpawnerRoot = new GameObject("PowerupRoot_Spawners");
-		this.m_spawnedPowerupsRoot = new GameObject("PowerupRoot_SpawnedPowerups");
-		this.m_powerupSequencesRoot = new GameObject("PowerupRoot_PersistentSequences");
+		m_powerupSpawnerRoot = new GameObject("PowerupRoot_Spawners");
+		m_spawnedPowerupsRoot = new GameObject("PowerupRoot_SpawnedPowerups");
+		m_powerupSequencesRoot = new GameObject("PowerupRoot_PersistentSequences");
 	}
 
 	private void OnDestroy()
 	{
-		if (PowerUpManager.s_powerUpListenersTemp != null)
+		if (s_powerUpListenersTemp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.OnDestroy()).MethodHandle;
-			}
-			PowerUpManager.s_powerUpListenersTemp.Clear();
+			s_powerUpListenersTemp.Clear();
 		}
-		PowerUpManager.s_instance = null;
+		s_instance = null;
 	}
 
 	public static PowerUpManager Get()
 	{
-		return PowerUpManager.s_instance;
+		return s_instance;
 	}
 
 	public void AddListener(PowerUp.IPowerUpListener listener)
 	{
-		this.m_powerUpListeners.Add(listener);
+		m_powerUpListeners.Add(listener);
 	}
 
 	public void RemoveListener(PowerUp.IPowerUpListener listener)
 	{
-		this.m_powerUpListeners.Remove(listener);
+		m_powerUpListeners.Remove(listener);
 	}
 
 	public PowerUp GetPowerUpInPos(GridPos gridPos)
 	{
 		PowerUp result = null;
-		using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = this.powerUpListeners.GetEnumerator())
+		using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = powerUpListeners.GetEnumerator())
 		{
-			IL_DC:
 			while (enumerator.MoveNext())
 			{
-				PowerUp.IPowerUpListener powerUpListener = enumerator.Current;
-				if (powerUpListener != null)
+				PowerUp.IPowerUpListener current = enumerator.Current;
+				if (current != null)
 				{
-					PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
-					for (int i = 0; i < activePowerUps.Length; i++)
+					PowerUp[] activePowerUps = current.GetActivePowerUps();
+					int num = 0;
+					while (true)
 					{
-						if (activePowerUps[i] != null)
+						if (num >= activePowerUps.Length)
 						{
-							for (;;)
+							break;
+						}
+						if (activePowerUps[num] != null)
+						{
+							if (activePowerUps[num].boardSquare != null)
 							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.GetPowerUpInPos(GridPos)).MethodHandle;
-							}
-							if (activePowerUps[i].boardSquare != null)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								GridPos gridPos2 = activePowerUps[i].boardSquare.\u001D();
+								GridPos gridPos2 = activePowerUps[num].boardSquare.GetGridPos();
 								if (gridPos2.x == gridPos.x)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (gridPos2.y == gridPos.y)
 									{
-										result = activePowerUps[i];
-										goto IL_DC;
+										result = activePowerUps[num];
+										break;
 									}
 								}
 							}
 						}
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						num++;
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return result;
 				}
-				break;
 			}
 		}
-		return result;
 	}
 
 	public List<PowerUp> GetServerPowerUpsOnSquare(BoardSquare square)
 	{
 		List<PowerUp> list = new List<PowerUp>();
-		foreach (PowerUp.IPowerUpListener powerUpListener in this.powerUpListeners)
+		foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)
 		{
 			if (powerUpListener != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.GetServerPowerUpsOnSquare(BoardSquare)).MethodHandle;
-				}
 				PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
 				for (int i = 0; i < activePowerUps.Length; i++)
 				{
 					if (activePowerUps[i] != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activePowerUps[i].boardSquare != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (activePowerUps[i].boardSquare == square)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								list.Add(activePowerUps[i]);
 							}
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -422,85 +260,59 @@ public class PowerUpManager : MonoBehaviour
 	internal bool IsPowerUpSpawnPoint(BoardSquare square)
 	{
 		bool result = false;
-		using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = this.powerUpListeners.GetEnumerator())
+		using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = powerUpListeners.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				PowerUp.IPowerUpListener powerUpListener = enumerator.Current;
-				if (powerUpListener != null)
+				PowerUp.IPowerUpListener current = enumerator.Current;
+				if (current != null)
 				{
-					for (;;)
+					if (current.IsPowerUpSpawnPoint(square))
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.IsPowerUpSpawnPoint(BoardSquare)).MethodHandle;
-					}
-					if (powerUpListener.IsPowerUpSpawnPoint(square))
-					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return result;
 				}
-				break;
 			}
 		}
-		return result;
 	}
 
 	public void TrackClientPowerUp(PowerUp powerUp)
 	{
-		this.m_clientPowerUps.Add(powerUp);
+		m_clientPowerUps.Add(powerUp);
 	}
 
 	public void UntrackClientPowerUp(PowerUp powerUp)
 	{
-		this.m_clientPowerUps.Remove(powerUp);
+		m_clientPowerUps.Remove(powerUp);
 	}
 
 	public List<PowerUp> GetClientPowerUpsOnSquare(BoardSquare square)
 	{
 		List<PowerUp> list = new List<PowerUp>();
-		foreach (PowerUp powerUp in this.m_clientPowerUps)
+		foreach (PowerUp clientPowerUp in m_clientPowerUps)
 		{
-			if (powerUp.boardSquare == square)
+			if (clientPowerUp.boardSquare == square)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.GetClientPowerUpsOnSquare(BoardSquare)).MethodHandle;
-				}
-				list.Add(powerUp);
+				list.Add(clientPowerUp);
 			}
 		}
 		return list;
@@ -508,28 +320,21 @@ public class PowerUpManager : MonoBehaviour
 
 	public void SetSpawningEnabled(bool enabled)
 	{
-		using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = this.powerUpListeners.GetEnumerator())
+		using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = powerUpListeners.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				PowerUp.IPowerUpListener powerUpListener = enumerator.Current;
-				if (powerUpListener != null)
-				{
-					powerUpListener.SetSpawningEnabled(enabled);
-				}
+				enumerator.Current?.SetSpawningEnabled(enabled);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.SetSpawningEnabled(bool)).MethodHandle;
 			}
 		}
 	}

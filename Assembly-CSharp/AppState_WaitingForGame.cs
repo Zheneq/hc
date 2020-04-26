@@ -1,5 +1,5 @@
-﻿using System;
 using LobbyGameClientMessages;
+using System;
 
 public class AppState_WaitingForGame : AppState
 {
@@ -11,7 +11,7 @@ public class AppState_WaitingForGame : AppState
 
 	public static AppState_WaitingForGame Get()
 	{
-		return AppState_WaitingForGame.s_instance;
+		return s_instance;
 	}
 
 	public static void Create()
@@ -21,13 +21,13 @@ public class AppState_WaitingForGame : AppState
 
 	public void Enter(bool wasRequeued)
 	{
-		this.m_wasRequeued = wasRequeued;
+		m_wasRequeued = wasRequeued;
 		base.Enter();
 	}
 
 	private void Awake()
 	{
-		AppState_WaitingForGame.s_instance = this;
+		s_instance = this;
 	}
 
 	private void Update()
@@ -37,74 +37,50 @@ public class AppState_WaitingForGame : AppState
 	protected override void OnEnter()
 	{
 		GameManager gameManager = GameManager.Get();
-		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.WaitingForGame, false);
+		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.WaitingForGame);
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		clientGameManager.OnQueueStatusNotification += this.HandleQueueStatusNotification;
-		clientGameManager.OnDisconnectedFromLobbyServer += this.HandleDisconnectedFromLobbyServer;
-		gameManager.OnGameAssembling += this.HandleGameAssembling;
-		gameManager.OnGameSelecting += this.HandleGameSelecting;
-		if (this.m_wasRequeued && this.m_messageBox == null)
+		clientGameManager.OnQueueStatusNotification += HandleQueueStatusNotification;
+		clientGameManager.OnDisconnectedFromLobbyServer += HandleDisconnectedFromLobbyServer;
+		gameManager.OnGameAssembling += HandleGameAssembling;
+		gameManager.OnGameSelecting += HandleGameSelecting;
+		if (!m_wasRequeued || !(m_messageBox == null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_WaitingForGame.OnEnter()).MethodHandle;
-			}
-			this.m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(string.Empty, StringUtil.TR("SomeoneDroppedReaddedQueue", "Global"), StringUtil.TR("Ok", "Global"), null, -1, false);
+			return;
+		}
+		while (true)
+		{
+			m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(string.Empty, StringUtil.TR("SomeoneDroppedReaddedQueue", "Global"), StringUtil.TR("Ok", "Global"));
+			return;
 		}
 	}
 
 	protected override void OnLeave()
 	{
-		if (this.m_messageBox != null)
+		if (m_messageBox != null)
 		{
-			this.m_messageBox.Close();
-			this.m_messageBox = null;
+			m_messageBox.Close();
+			m_messageBox = null;
 		}
-		this.m_wasRequeued = false;
+		m_wasRequeued = false;
 		GameManager gameManager = GameManager.Get();
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		clientGameManager.OnQueueStatusNotification -= this.HandleQueueStatusNotification;
-		clientGameManager.OnDisconnectedFromLobbyServer -= this.HandleDisconnectedFromLobbyServer;
-		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.None, false);
-		gameManager.OnGameAssembling -= this.HandleGameAssembling;
-		gameManager.OnGameSelecting -= this.HandleGameSelecting;
+		clientGameManager.OnQueueStatusNotification -= HandleQueueStatusNotification;
+		clientGameManager.OnDisconnectedFromLobbyServer -= HandleDisconnectedFromLobbyServer;
+		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.None);
+		gameManager.OnGameAssembling -= HandleGameAssembling;
+		gameManager.OnGameSelecting -= HandleGameSelecting;
 	}
 
 	public void HandleCancelClicked()
 	{
-		Log.Info("Clicked on cancel, leaving Queue", new object[0]);
+		Log.Info("Clicked on cancel, leaving Queue");
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		LobbyGameClientInterface lobbyInterface = clientGameManager.LobbyInterface;
-		if (AppState_WaitingForGame.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_WaitingForGame.HandleCancelClicked()).MethodHandle;
-			}
-			AppState_WaitingForGame.<>f__am$cache0 = delegate(LeaveMatchmakingQueueResponse response)
+		
+		lobbyInterface.LeaveQueue(delegate
 			{
 				AppState_GameTypeSelect.Get().Enter();
-			};
-		}
-		lobbyInterface.LeaveQueue(AppState_WaitingForGame.<>f__am$cache0);
+			});
 	}
 
 	public void HandleQueueStatusNotification(MatchmakingQueueStatusNotification notification)
@@ -126,6 +102,6 @@ public class AppState_WaitingForGame : AppState
 
 	private void HandleDisconnectedFromLobbyServer(string lastLobbyErrorMessage)
 	{
-		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage, false);
+		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage);
 	}
 }

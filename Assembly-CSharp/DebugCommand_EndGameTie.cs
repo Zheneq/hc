@@ -1,5 +1,3 @@
-﻿using System;
-
 public class DebugCommand_EndGameTie : DebugCommand
 {
 	public override string GetDebugItemName()
@@ -27,21 +25,17 @@ public class DebugCommand_EndGameTie : DebugCommand
 	{
 		if (arguments.EqualsIgnoreCase("tie"))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					OnIncreaseClick();
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_EndGameTie.OnSlashCommand(string)).MethodHandle;
-			}
-			this.OnIncreaseClick();
-			return true;
 		}
 		return false;
 	}

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Sprites;
 using UnityEngine.UI;
@@ -33,15 +32,15 @@ public class ImageFilledSloped : Image
 	{
 		get
 		{
-			return this.m_FillSlope;
+			return m_FillSlope;
 		}
 		set
 		{
 			float num = Mathf.Clamp(value, 0.05f, 10f);
-			if (num != this.m_FillSlope)
+			if (num != m_FillSlope)
 			{
-				this.m_FillSlope = num;
-				this.SetVerticesDirty();
+				m_FillSlope = num;
+				SetVerticesDirty();
 			}
 		}
 	}
@@ -50,34 +49,22 @@ public class ImageFilledSloped : Image
 	{
 		get
 		{
-			return this.m_FillStart;
+			return m_FillStart;
 		}
 		set
 		{
 			float num = Mathf.Clamp(value, 0f, 1f);
-			if (num != this.m_FillStart)
+			if (num != m_FillStart)
 			{
-				this.m_FillStart = num;
-				this.SetVerticesDirty();
+				m_FillStart = num;
+				SetVerticesDirty();
 			}
 		}
 	}
 
-	public float fillAmountTrimmed
-	{
-		get
-		{
-			return Mathf.Lerp(this.m_FillMin, this.m_FillMax, base.fillAmount);
-		}
-	}
+	public float fillAmountTrimmed => Mathf.Lerp(m_FillMin, m_FillMax, base.fillAmount);
 
-	public float fillStartTrimmed
-	{
-		get
-		{
-			return Mathf.Lerp(this.m_FillMin, this.m_FillMax, this.fillStart);
-		}
-	}
+	public float fillStartTrimmed => Mathf.Lerp(m_FillMin, m_FillMax, fillStart);
 
 	protected override void OnPopulateMesh(VertexHelper toFill)
 	{
@@ -86,310 +73,223 @@ public class ImageFilledSloped : Image
 			base.OnPopulateMesh(toFill);
 			return;
 		}
-		Image.Type type = base.type;
-		if (type != Image.Type.Simple)
+		Type type = base.type;
+		if (type != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (type == Type.Filled)
+					{
+						GenerateFilledSprite(toFill, base.preserveAspect);
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ImageFilledSloped.OnPopulateMesh(VertexHelper)).MethodHandle;
-			}
-			if (type == Image.Type.Filled)
-			{
-				this.GenerateFilledSprite(toFill, base.preserveAspect);
 			}
 		}
-		else
-		{
-			Debug.LogError(string.Format("{0}: Image Filled Sloped only supports Image Type: Filled", this.ToString()));
-		}
+		Debug.LogError($"{ToString()}: Image Filled Sloped only supports Image Type: Filled");
 	}
 
 	private void GenerateFilledSprite(VertexHelper toFill, bool preserveAspect)
 	{
-		if (this.fillAmountTrimmed < 0.001f)
+		if (fillAmountTrimmed < 0.001f)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				toFill.Clear();
+				return;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ImageFilledSloped.GenerateFilledSprite(VertexHelper, bool)).MethodHandle;
-			}
-			toFill.Clear();
-			return;
 		}
 		UIVertex simpleVert = UIVertex.simpleVert;
-		simpleVert.color = this.color;
-		Vector4 drawingDimensions;
+		simpleVert.color = color;
 		Vector4 vector;
-		if (this.m_IncludeTransparency)
+		Vector4 vector2;
+		if (m_IncludeTransparency)
 		{
-			Rect pixelAdjustedRect = base.GetPixelAdjustedRect();
-			drawingDimensions = new Vector4(pixelAdjustedRect.x, pixelAdjustedRect.y, pixelAdjustedRect.x + pixelAdjustedRect.width, pixelAdjustedRect.y + pixelAdjustedRect.height);
-			vector = new Vector4(0f, 0f, 1f, 1f);
+			Rect pixelAdjustedRect = GetPixelAdjustedRect();
+			vector = new Vector4(pixelAdjustedRect.x, pixelAdjustedRect.y, pixelAdjustedRect.x + pixelAdjustedRect.width, pixelAdjustedRect.y + pixelAdjustedRect.height);
+			vector2 = new Vector4(0f, 0f, 1f, 1f);
 		}
 		else
 		{
-			drawingDimensions = this.GetDrawingDimensions(preserveAspect);
-			Vector4 vector2;
+			vector = GetDrawingDimensions(preserveAspect);
+			Vector4 vector3;
 			if (base.overrideSprite != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				vector2 = DataUtility.GetOuterUV(base.overrideSprite);
+				vector3 = DataUtility.GetOuterUV(base.overrideSprite);
 			}
 			else
 			{
-				vector2 = Vector4.zero;
+				vector3 = Vector4.zero;
 			}
-			vector = vector2;
+			vector2 = vector3;
 		}
-		float num = vector.x;
-		float num2 = vector.y;
-		float num3 = vector.z;
-		float num4 = vector.w;
-		float num5 = drawingDimensions.x;
-		float num6 = drawingDimensions.y;
-		if (base.fillMethod != Image.FillMethod.Horizontal)
+		float x = vector2.x;
+		float num = vector2.y;
+		float z = vector2.z;
+		float num2 = vector2.w;
+		float x2 = vector.x;
+		float y = vector.y;
+		float num3 = x;
+		float num4 = num;
+		if (base.fillMethod != 0)
 		{
-			if (base.fillMethod != Image.FillMethod.Vertical)
+			if (base.fillMethod != FillMethod.Vertical)
 			{
-				goto IL_ABF;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_0abf;
 			}
 		}
-		if (base.fillMethod == Image.FillMethod.Horizontal)
+		if (base.fillMethod == FillMethod.Horizontal)
 		{
-			for (;;)
+			if (Mathf.Approximately(fillSlope, 0f))
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (Mathf.Approximately(this.fillSlope, 0f))
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.fillSlope = 0.1f;
+				fillSlope = 0.1f;
 			}
 			if (base.fillOrigin == 1)
 			{
-				for (;;)
+				float num5 = (vector.w - vector.y) / fillSlope;
+				float x3 = vector.x;
+				float num6 = x3 - num5 + (1f - fillAmountTrimmed) * (vector.z - x3 + num5);
+				x2 = Mathf.Min(vector.z, num6 + num5);
+				vector.x = num6;
+				y = Mathf.Min(vector.w, vector.y + fillSlope * (vector.z - vector.x));
+				float num7 = vector.z - x3;
+				float num8 = z - x;
+				x = z - num8 * (vector.z - vector.x) / num7;
+				num3 = z + num8 * (x2 - vector.z) / num7;
+				num4 = num + (num2 - num) * (y - vector.y) / (vector.w - vector.y);
+				vector.z -= fillStartTrimmed * num7;
+				z -= fillStartTrimmed * num8;
+				if (x2 < vector.z)
 				{
-					switch (5)
+					float x4 = vector.z - ((!m_StartIsSloped) ? 0f : num5);
+					s_Xy[0] = new Vector2(vector.x, vector.y);
+					s_Xy[1] = new Vector2(x2, vector.w);
+					s_Xy[2] = new Vector2(vector.z, vector.w);
+					s_Xy[3] = new Vector2(x4, vector.y);
+					float num9 = z;
+					float num10;
+					if (m_StartIsSloped)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				float num7 = (drawingDimensions.w - drawingDimensions.y) / this.fillSlope;
-				float x = drawingDimensions.x;
-				float num8 = x - num7 + (1f - this.fillAmountTrimmed) * (drawingDimensions.z - x + num7);
-				num5 = Mathf.Min(drawingDimensions.z, num8 + num7);
-				drawingDimensions.x = num8;
-				num6 = Mathf.Min(drawingDimensions.w, drawingDimensions.y + this.fillSlope * (drawingDimensions.z - drawingDimensions.x));
-				float num9 = drawingDimensions.z - x;
-				float num10 = num3 - num;
-				num = num3 - num10 * (drawingDimensions.z - drawingDimensions.x) / num9;
-				float x2 = num3 + num10 * (num5 - drawingDimensions.z) / num9;
-				float y = num2 + (num4 - num2) * (num6 - drawingDimensions.y) / (drawingDimensions.w - drawingDimensions.y);
-				drawingDimensions.z -= this.fillStartTrimmed * num9;
-				num3 -= this.fillStartTrimmed * num10;
-				if (num5 < drawingDimensions.z)
-				{
-					float x3 = drawingDimensions.z - ((!this.m_StartIsSloped) ? 0f : num7);
-					ImageFilledSloped.s_Xy[0] = new Vector2(drawingDimensions.x, drawingDimensions.y);
-					ImageFilledSloped.s_Xy[1] = new Vector2(num5, drawingDimensions.w);
-					ImageFilledSloped.s_Xy[2] = new Vector2(drawingDimensions.z, drawingDimensions.w);
-					ImageFilledSloped.s_Xy[3] = new Vector2(x3, drawingDimensions.y);
-					float num11 = num3;
-					float num12;
-					if (this.m_StartIsSloped)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num12 = num7 / num9 * num10;
+						num10 = num5 / num7 * num8;
 					}
 					else
 					{
-						num12 = 0f;
+						num10 = 0f;
 					}
-					x3 = num11 - num12;
-					ImageFilledSloped.s_Uv[0] = new Vector2(num, num2);
-					ImageFilledSloped.s_Uv[1] = new Vector2(x2, num4);
-					ImageFilledSloped.s_Uv[2] = new Vector2(num3, num4);
-					ImageFilledSloped.s_Uv[3] = new Vector2(x3, num2);
+					x4 = num9 - num10;
+					s_Uv[0] = new Vector2(x, num);
+					s_Uv[1] = new Vector2(num3, num2);
+					s_Uv[2] = new Vector2(z, num2);
+					s_Uv[3] = new Vector2(x4, num);
 				}
 				else
 				{
-					ImageFilledSloped.s_Xy[0] = new Vector2(drawingDimensions.x, drawingDimensions.y);
-					ImageFilledSloped.s_Xy[1] = new Vector2(drawingDimensions.z, num6);
-					ImageFilledSloped.s_Xy[2] = new Vector2(drawingDimensions.z, drawingDimensions.y);
-					ImageFilledSloped.s_Xy[3] = new Vector2(drawingDimensions.z, drawingDimensions.y);
-					ImageFilledSloped.s_Uv[0] = new Vector2(num, num2);
-					ImageFilledSloped.s_Uv[1] = new Vector2(num3, y);
-					ImageFilledSloped.s_Uv[2] = new Vector2(num3, num2);
-					ImageFilledSloped.s_Uv[3] = new Vector2(num3, num2);
+					s_Xy[0] = new Vector2(vector.x, vector.y);
+					s_Xy[1] = new Vector2(vector.z, y);
+					s_Xy[2] = new Vector2(vector.z, vector.y);
+					s_Xy[3] = new Vector2(vector.z, vector.y);
+					s_Uv[0] = new Vector2(x, num);
+					s_Uv[1] = new Vector2(z, num4);
+					s_Uv[2] = new Vector2(z, num);
+					s_Uv[3] = new Vector2(z, num);
 				}
 			}
 			else
 			{
-				float num13 = (drawingDimensions.w - drawingDimensions.y) / this.fillSlope;
-				float z = drawingDimensions.z;
-				float num14 = drawingDimensions.x - num13 + this.fillAmountTrimmed * (z - drawingDimensions.x + num13);
-				num5 = Mathf.Max(drawingDimensions.x, num14);
-				drawingDimensions.z = num14 + num13;
-				num6 = Mathf.Min(drawingDimensions.w, drawingDimensions.w - this.fillSlope * (drawingDimensions.z - drawingDimensions.x));
-				float num15 = z - drawingDimensions.x;
-				float num16 = num3 - num;
-				num3 = num + num16 * (drawingDimensions.z - drawingDimensions.x) / num15;
-				float x2 = num + num16 * (num5 - drawingDimensions.x) / num15;
-				float y = num2 + (num4 - num2) * (num6 - drawingDimensions.y) / (drawingDimensions.w - drawingDimensions.y);
-				drawingDimensions.x += this.fillStartTrimmed * num15 - num13;
-				num += this.fillStartTrimmed * num16 - num13 / num15 * num16;
-				if (num5 > drawingDimensions.x)
+				float num11 = (vector.w - vector.y) / fillSlope;
+				float z2 = vector.z;
+				float num12 = vector.x - num11 + fillAmountTrimmed * (z2 - vector.x + num11);
+				x2 = Mathf.Max(vector.x, num12);
+				vector.z = num12 + num11;
+				y = Mathf.Min(vector.w, vector.w - fillSlope * (vector.z - vector.x));
+				float num13 = z2 - vector.x;
+				float num14 = z - x;
+				z = x + num14 * (vector.z - vector.x) / num13;
+				num3 = x + num14 * (x2 - vector.x) / num13;
+				num4 = num + (num2 - num) * (y - vector.y) / (vector.w - vector.y);
+				vector.x += fillStartTrimmed * num13 - num11;
+				x += fillStartTrimmed * num14 - num11 / num13 * num14;
+				if (x2 > vector.x)
 				{
-					float x4 = drawingDimensions.x;
-					float num17;
-					if (this.m_StartIsSloped)
+					float x5 = vector.x;
+					float num15;
+					if (m_StartIsSloped)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num17 = num13;
+						num15 = num11;
 					}
 					else
 					{
-						num17 = 0f;
+						num15 = 0f;
 					}
-					float x5 = x4 + num17;
-					ImageFilledSloped.s_Xy[0] = new Vector2(drawingDimensions.x, drawingDimensions.y);
-					ImageFilledSloped.s_Xy[1] = new Vector2(x5, drawingDimensions.w);
-					ImageFilledSloped.s_Xy[2] = new Vector2(drawingDimensions.z, drawingDimensions.w);
-					ImageFilledSloped.s_Xy[3] = new Vector2(num5, drawingDimensions.y);
-					x5 = num + ((!this.m_StartIsSloped) ? 0f : (num13 / num15 * num16));
-					ImageFilledSloped.s_Uv[0] = new Vector2(num, num2);
-					ImageFilledSloped.s_Uv[1] = new Vector2(x5, num4);
-					ImageFilledSloped.s_Uv[2] = new Vector2(num3, num4);
-					ImageFilledSloped.s_Uv[3] = new Vector2(x2, num2);
+					float x6 = x5 + num15;
+					s_Xy[0] = new Vector2(vector.x, vector.y);
+					s_Xy[1] = new Vector2(x6, vector.w);
+					s_Xy[2] = new Vector2(vector.z, vector.w);
+					s_Xy[3] = new Vector2(x2, vector.y);
+					x6 = x + ((!m_StartIsSloped) ? 0f : (num11 / num13 * num14));
+					s_Uv[0] = new Vector2(x, num);
+					s_Uv[1] = new Vector2(x6, num2);
+					s_Uv[2] = new Vector2(z, num2);
+					s_Uv[3] = new Vector2(num3, num);
 				}
 				else
 				{
-					ImageFilledSloped.s_Xy[0] = new Vector2(drawingDimensions.x, num6);
-					ImageFilledSloped.s_Xy[1] = new Vector2(drawingDimensions.x, drawingDimensions.w);
-					ImageFilledSloped.s_Xy[2] = new Vector2(drawingDimensions.z, drawingDimensions.w);
-					ImageFilledSloped.s_Xy[3] = new Vector2(drawingDimensions.z, drawingDimensions.w);
-					ImageFilledSloped.s_Uv[0] = new Vector2(num, y);
-					ImageFilledSloped.s_Uv[1] = new Vector2(num, num4);
-					ImageFilledSloped.s_Uv[2] = new Vector2(num3, num4);
-					ImageFilledSloped.s_Uv[3] = new Vector2(num3, num4);
+					s_Xy[0] = new Vector2(vector.x, y);
+					s_Xy[1] = new Vector2(vector.x, vector.w);
+					s_Xy[2] = new Vector2(vector.z, vector.w);
+					s_Xy[3] = new Vector2(vector.z, vector.w);
+					s_Uv[0] = new Vector2(x, num4);
+					s_Uv[1] = new Vector2(x, num2);
+					s_Uv[2] = new Vector2(z, num2);
+					s_Uv[3] = new Vector2(z, num2);
 				}
 			}
 		}
-		else if (base.fillMethod == Image.FillMethod.Vertical)
+		else if (base.fillMethod == FillMethod.Vertical)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			float num18 = (num4 - num2) * this.fillAmountTrimmed;
+			float num16 = (num2 - num) * fillAmountTrimmed;
 			if (base.fillOrigin == 1)
 			{
-				drawingDimensions.y = drawingDimensions.w - (drawingDimensions.w - drawingDimensions.y) * this.fillAmountTrimmed;
-				num2 = num4 - num18;
+				vector.y = vector.w - (vector.w - vector.y) * fillAmountTrimmed;
+				num = num2 - num16;
 			}
 			else
 			{
-				drawingDimensions.w = drawingDimensions.y + (drawingDimensions.w - drawingDimensions.y) * this.fillAmountTrimmed;
-				num4 = num2 + num18;
+				vector.w = vector.y + (vector.w - vector.y) * fillAmountTrimmed;
+				num2 = num + num16;
 			}
-			ImageFilledSloped.s_Xy[0] = new Vector2(drawingDimensions.x, drawingDimensions.y);
-			ImageFilledSloped.s_Xy[1] = new Vector2(drawingDimensions.x, drawingDimensions.w);
-			ImageFilledSloped.s_Xy[2] = new Vector2(drawingDimensions.z, drawingDimensions.w);
-			ImageFilledSloped.s_Xy[3] = new Vector2(drawingDimensions.z, drawingDimensions.y);
-			ImageFilledSloped.s_Uv[0] = new Vector2(num, num2);
-			ImageFilledSloped.s_Uv[1] = new Vector2(num, num4);
-			ImageFilledSloped.s_Uv[2] = new Vector2(num3, num4);
-			ImageFilledSloped.s_Uv[3] = new Vector2(num3, num2);
+			s_Xy[0] = new Vector2(vector.x, vector.y);
+			s_Xy[1] = new Vector2(vector.x, vector.w);
+			s_Xy[2] = new Vector2(vector.z, vector.w);
+			s_Xy[3] = new Vector2(vector.z, vector.y);
+			s_Uv[0] = new Vector2(x, num);
+			s_Uv[1] = new Vector2(x, num2);
+			s_Uv[2] = new Vector2(z, num2);
+			s_Uv[3] = new Vector2(z, num);
 		}
-		IL_ABF:
+		goto IL_0abf;
+		IL_0abf:
 		if (toFill.currentVertCount == 4 && toFill.currentIndexCount == 6)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					SetQuad(toFill, s_Xy, color, s_Uv);
+					return;
 				}
-				break;
 			}
-			ImageFilledSloped.SetQuad(toFill, ImageFilledSloped.s_Xy, this.color, ImageFilledSloped.s_Uv);
 		}
-		else
-		{
-			toFill.Clear();
-			ImageFilledSloped.AddQuad(toFill, ImageFilledSloped.s_Xy, this.color, ImageFilledSloped.s_Uv);
-		}
+		toFill.Clear();
+		AddQuad(toFill, s_Xy, color, s_Uv);
 	}
 
 	private static void AddQuad(VertexHelper vertexHelper, Vector3[] quadPositions, Color32 color, Vector3[] quadUVs)
@@ -420,19 +320,6 @@ public class ImageFilledSloped : Image
 		Vector4 vector;
 		if (base.overrideSprite == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ImageFilledSloped.GetDrawingDimensions(bool)).MethodHandle;
-			}
 			vector = Vector4.zero;
 		}
 		else
@@ -443,15 +330,6 @@ public class ImageFilledSloped : Image
 		Vector2 vector3;
 		if (base.overrideSprite == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector3 = Vector2.zero;
 		}
 		else
@@ -459,58 +337,36 @@ public class ImageFilledSloped : Image
 			vector3 = new Vector2(base.overrideSprite.rect.width, base.overrideSprite.rect.height);
 		}
 		Vector2 vector4 = vector3;
-		Rect pixelAdjustedRect = base.GetPixelAdjustedRect();
+		Rect pixelAdjustedRect = GetPixelAdjustedRect();
 		int num = Mathf.RoundToInt(vector4.x);
 		int num2 = Mathf.RoundToInt(vector4.y);
-		Vector4 result = new Vector4(vector2.x / (float)num, vector2.y / (float)num2, ((float)num - vector2.z) / (float)num, ((float)num2 - vector2.w) / (float)num2);
+		Vector4 vector5 = new Vector4(vector2.x / (float)num, vector2.y / (float)num2, ((float)num - vector2.z) / (float)num, ((float)num2 - vector2.w) / (float)num2);
 		if (shouldPreserveAspect)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (vector4.sqrMagnitude > 0f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num3 = vector4.x / vector4.y;
 				float num4 = pixelAdjustedRect.width / pixelAdjustedRect.height;
 				if (num3 > num4)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float height = pixelAdjustedRect.height;
 					pixelAdjustedRect.height = pixelAdjustedRect.width * (1f / num3);
-					pixelAdjustedRect.y += (height - pixelAdjustedRect.height) * base.rectTransform.pivot.y;
+					float y = pixelAdjustedRect.y;
+					float num5 = height - pixelAdjustedRect.height;
+					Vector2 pivot = base.rectTransform.pivot;
+					pixelAdjustedRect.y = y + num5 * pivot.y;
 				}
 				else
 				{
 					float width = pixelAdjustedRect.width;
 					pixelAdjustedRect.width = pixelAdjustedRect.height * num3;
-					pixelAdjustedRect.x += (width - pixelAdjustedRect.width) * base.rectTransform.pivot.x;
+					float x = pixelAdjustedRect.x;
+					float num6 = width - pixelAdjustedRect.width;
+					Vector2 pivot2 = base.rectTransform.pivot;
+					pixelAdjustedRect.x = x + num6 * pivot2.x;
 				}
 			}
 		}
-		result = new Vector4(pixelAdjustedRect.x + pixelAdjustedRect.width * result.x, pixelAdjustedRect.y + pixelAdjustedRect.height * result.y, pixelAdjustedRect.x + pixelAdjustedRect.width * result.z, pixelAdjustedRect.y + pixelAdjustedRect.height * result.w);
-		return result;
+		return new Vector4(pixelAdjustedRect.x + pixelAdjustedRect.width * vector5.x, pixelAdjustedRect.y + pixelAdjustedRect.height * vector5.y, pixelAdjustedRect.x + pixelAdjustedRect.width * vector5.z, pixelAdjustedRect.y + pixelAdjustedRect.height * vector5.w);
 	}
 }

@@ -1,5 +1,3 @@
-﻿using System;
-
 public enum GameModeEventType
 {
 	Ctf_FlagPickedUp,

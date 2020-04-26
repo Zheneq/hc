@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -69,818 +68,459 @@ public class TGPDemo : MonoBehaviour
 		List<Material> list = new List<Material>();
 		List<Material> list2 = new List<Material>();
 		List<Material> list3 = new List<Material>();
-		foreach (Renderer renderer in componentsInChildren)
+		Renderer[] array = componentsInChildren;
+		foreach (Renderer renderer in array)
 		{
-			foreach (Material material in renderer.materials)
+			Material[] materials = renderer.materials;
+			foreach (Material material in materials)
 			{
 				if (material.shader.name.Contains("Outline"))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.Start()).MethodHandle;
-					}
 					list2.Add(material);
 				}
 				else if (material.shader.name.Contains("Toony"))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(material);
 				}
 				if (material.shader.name.Contains("Toony"))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list3.Add(material);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_00f9;
 				}
+				continue;
+				end_IL_00f9:
 				break;
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			matsSimple = list.ToArray();
+			matsOutline = list2.ToArray();
+			matsAll = list3.ToArray();
+			sceneLight = GameObject.Find("_Light");
+			Vector3 eulerAngles = sceneLight.transform.eulerAngles;
+			lightRotX = eulerAngles.x;
+			Vector3 eulerAngles2 = sceneLight.transform.eulerAngles;
+			lightRotY = eulerAngles2.y;
+			qualityLabel.text = "Quality: " + QualitySettings.names[QualitySettings.GetQualityLevel()];
+			Shader.WarmupAllShaders();
+			UpdateGUI();
+			return;
 		}
-		this.matsSimple = list.ToArray();
-		this.matsOutline = list2.ToArray();
-		this.matsAll = list3.ToArray();
-		this.sceneLight = GameObject.Find("_Light");
-		this.lightRotX = this.sceneLight.transform.eulerAngles.x;
-		this.lightRotY = this.sceneLight.transform.eulerAngles.y;
-		this.qualityLabel.text = "Quality: " + QualitySettings.names[QualitySettings.GetQualityLevel()];
-		Shader.WarmupAllShaders();
-		this.UpdateGUI();
 	}
 
 	private void SwitchRotation()
 	{
-		this.rotate = !this.rotate;
+		rotate = !rotate;
 	}
 
 	private void Update()
 	{
-		if (this.rotate)
+		if (rotate)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.Update()).MethodHandle;
-			}
-			this.rotateGroup.transform.Rotate(Vector3.up * this.rotationSpeed * Time.deltaTime);
-			this.rotY = this.rotateGroup.transform.eulerAngles.y;
+			rotateGroup.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+			Vector3 eulerAngles = rotateGroup.transform.eulerAngles;
+			rotY = eulerAngles.y;
 		}
 		float axis = Input.GetAxis("Mouse ScrollWheel");
 		if (axis != 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.zoom -= axis;
-			this.zoom = Mathf.Clamp(this.zoom, 1f, 3f);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, this.zoom);
+			zoom -= axis;
+			zoom = Mathf.Clamp(zoom, 1f, 3f);
+			Transform transform = Camera.main.transform;
+			Vector3 position = Camera.main.transform.position;
+			float x = position.x;
+			Vector3 position2 = Camera.main.transform.position;
+			transform.position = new Vector3(x, position2.y, zoom);
 		}
-		if (Input.mousePosition.x < (float)Screen.width * 0.8f)
+		Vector3 mousePosition = Input.mousePosition;
+		if (mousePosition.x < (float)Screen.width * 0.8f)
 		{
-			for (;;)
+			Vector3 mousePosition2 = Input.mousePosition;
+			if (mousePosition2.x > (float)Screen.width * 0.2f)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (Input.mousePosition.x > (float)Screen.width * 0.2f)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Input.GetMouseButton(0))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Vector3 a = this.lastMousePos - Input.mousePosition;
+					Vector3 a = lastMousePos - Input.mousePosition;
 					Camera.main.transform.Translate(a * Time.deltaTime * 0.2f);
 				}
 			}
 		}
-		this.lastMousePos = Input.mousePosition;
+		lastMousePos = Input.mousePosition;
 	}
 
 	private void OnGUI()
 	{
-		this.zoom = GUI.VerticalSlider(new Rect((float)(Screen.width - 0x18), 16f, 10f, 224f), this.zoom, 1f, 3f);
+		zoom = GUI.VerticalSlider(new Rect(Screen.width - 24, 16f, 10f, 224f), zoom, 1f, 3f);
 		if (GUI.changed)
 		{
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, this.zoom);
+			Transform transform = Camera.main.transform;
+			Vector3 position = Camera.main.transform.position;
+			float x = position.x;
+			Vector3 position2 = Camera.main.transform.position;
+			transform.position = new Vector3(x, position2.y, zoom);
 			GUI.changed = false;
 		}
-		GUI.enabled = !this.rotate;
-		this.rotY = GUI.HorizontalSlider(new Rect(16f, 170f, 128f, 10f), this.rotY, 0f, 360f);
+		GUI.enabled = !rotate;
+		rotY = GUI.HorizontalSlider(new Rect(16f, 170f, 128f, 10f), rotY, 0f, 360f);
 		GUI.enabled = true;
-		if (GUI.changed && !this.rotate)
+		if (GUI.changed && !rotate)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.OnGUI()).MethodHandle;
-			}
-			this.rotateGroup.transform.eulerAngles = new Vector3(0f, this.rotY, 0f);
+			rotateGroup.transform.eulerAngles = new Vector3(0f, rotY, 0f);
 			GUI.changed = false;
 		}
-		this.lightRotY = GUI.HorizontalSlider(new Rect(16f, 224f, 128f, 10f), this.lightRotY, 0f, 360f);
+		lightRotY = GUI.HorizontalSlider(new Rect(16f, 224f, 128f, 10f), lightRotY, 0f, 360f);
 		GUI.enabled = true;
 		if (GUI.changed)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.sceneLight.transform.eulerAngles = new Vector3(this.sceneLight.transform.eulerAngles.x, this.lightRotY, 0f);
+			Transform transform2 = sceneLight.transform;
+			Vector3 eulerAngles = sceneLight.transform.eulerAngles;
+			transform2.eulerAngles = new Vector3(eulerAngles.x, lightRotY, 0f);
 			GUI.changed = false;
 		}
-		this.lightRotX = GUI.HorizontalSlider(new Rect(16f, 244f, 128f, 10f), this.lightRotX, -90f, 90f);
+		lightRotX = GUI.HorizontalSlider(new Rect(16f, 244f, 128f, 10f), lightRotX, -90f, 90f);
 		GUI.enabled = true;
 		if (GUI.changed)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.sceneLight.transform.eulerAngles = new Vector3(this.lightRotX, this.sceneLight.transform.eulerAngles.y, 0f);
+			Transform transform3 = sceneLight.transform;
+			float x2 = lightRotX;
+			Vector3 eulerAngles2 = sceneLight.transform.eulerAngles;
+			transform3.eulerAngles = new Vector3(x2, eulerAngles2.y, 0f);
 			GUI.changed = false;
 		}
-		if (this.rim)
+		if (rim)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.rim_pow = GUI.HorizontalSlider(new Rect((float)(Screen.width - 0x96), 320f, 128f, 10f), this.rim_pow, -1f, 1f);
+			rim_pow = GUI.HorizontalSlider(new Rect(Screen.width - 150, 320f, 128f, 10f), rim_pow, -1f, 1f);
 			GUI.enabled = true;
 			if (GUI.changed)
 			{
-				for (;;)
+				for (int i = 0; i < matsAll.Length; i++)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int i = 0; i < this.matsAll.Length; i++)
-				{
-					this.matsAll[i].SetFloat("_RimPower", this.rim_pow);
+					matsAll[i].SetFloat("_RimPower", rim_pow);
 				}
 				GUI.changed = false;
 			}
 		}
-		if (this.rimOutline)
+		if (!rimOutline)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.rimo_min = GUI.HorizontalSlider(new Rect((float)(Screen.width - 0x96), 320f, 128f, 10f), this.rimo_min, 0f, 1f);
+			return;
+		}
+		while (true)
+		{
+			rimo_min = GUI.HorizontalSlider(new Rect(Screen.width - 150, 320f, 128f, 10f), rimo_min, 0f, 1f);
 			GUI.enabled = true;
 			if (GUI.changed)
 			{
-				for (;;)
+				for (int j = 0; j < matsOutline.Length; j++)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int j = 0; j < this.matsOutline.Length; j++)
-				{
-					this.matsOutline[j].SetFloat("_RimMin", this.rimo_min);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					matsOutline[j].SetFloat("_RimMin", rimo_min);
 				}
 				GUI.changed = false;
 			}
-			this.rimo_max = GUI.HorizontalSlider(new Rect((float)(Screen.width - 0x96), 360f, 128f, 10f), this.rimo_max, 0f, 1f);
+			rimo_max = GUI.HorizontalSlider(new Rect(Screen.width - 150, 360f, 128f, 10f), rimo_max, 0f, 1f);
 			GUI.enabled = true;
 			if (GUI.changed)
 			{
-				for (int k = 0; k < this.matsOutline.Length; k++)
+				for (int k = 0; k < matsOutline.Length; k++)
 				{
-					this.matsOutline[k].SetFloat("_RimMax", this.rimo_max);
+					matsOutline[k].SetFloat("_RimMax", rimo_max);
 				}
-				for (;;)
+				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					GUI.changed = false;
+					return;
 				}
-				GUI.changed = false;
 			}
+			return;
 		}
 	}
 
 	private void ReloadShader()
 	{
 		string str = "Normal";
-		if (this.outline)
+		if (outline)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.ReloadShader()).MethodHandle;
-			}
-			str = ((!this.outline_cst) ? "Outline" : "OutlineConst");
+			str = ((!outline_cst) ? "Outline" : "OutlineConst");
 		}
 		string text = "Basic";
-		if (this.bump)
+		if (bump)
 		{
-			for (;;)
+			if (spec)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.spec)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = "Bumped Specular";
-				goto IL_90;
+				goto IL_0090;
 			}
 		}
-		if (this.spec)
+		if (spec)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = "Specular";
 		}
-		else if (this.bump)
+		else if (bump)
 		{
 			text = "Bumped";
 		}
-		IL_90:
-		if (this.rim)
+		goto IL_0090;
+		IL_0090:
+		if (rim)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += " Rim";
 		}
-		else if (this.rimOutline)
+		else if (rimOutline)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = "Rim Outline";
 		}
 		string text2 = "Toony Colors Pro/" + str + "/OneDirLight/" + text;
-		Shader shader = this.FindShader(text2);
+		Shader shader = FindShader(text2);
 		if (shader == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error("SHADER NOT FOUND: " + text2);
+					return;
 				}
-				break;
 			}
-			Log.Error("SHADER NOT FOUND: " + text2, new object[0]);
-			return;
 		}
-		for (int i = 0; i < this.matsOutline.Length; i++)
+		for (int i = 0; i < matsOutline.Length; i++)
 		{
-			this.matsOutline[i].shader = shader;
+			matsOutline[i].shader = shader;
 		}
 		text2 = "Toony Colors Pro/Normal/OneDirLight/" + text;
-		shader = this.FindShader(text2);
+		shader = FindShader(text2);
 		if (shader == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error("SHADER NOT FOUND: " + text2);
+					return;
 				}
-				break;
 			}
-			Log.Error("SHADER NOT FOUND: " + text2, new object[0]);
-			return;
 		}
-		for (int j = 0; j < this.matsSimple.Length; j++)
+		for (int j = 0; j < matsSimple.Length; j++)
 		{
 			string text3 = "Basic";
-			if (this.spec)
+			if (spec)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text3 = "Specular";
 			}
-			if (this.rim)
+			if (rim)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text3 += " Rim";
 			}
-			Shader shader2 = this.FindShader("Toony Colors Pro/Normal/OneDirLight/" + text3);
+			Shader shader2 = FindShader("Toony Colors Pro/Normal/OneDirLight/" + text3);
 			if (shader2 != null)
 			{
-				this.matsSimple[j].shader = shader2;
+				matsSimple[j].shader = shader2;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void UpdateGUI()
 	{
-		foreach (GameObject gameObject in this.actRim)
+		GameObject[] array = actRim;
+		foreach (GameObject gameObject in array)
 		{
-			gameObject.SetActive(this.rim);
+			gameObject.SetActive(rim);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
+			GameObject[] array2 = actRimOutline;
+			foreach (GameObject gameObject2 in array2)
 			{
-			case 0:
-				continue;
+				gameObject2.SetActive(rimOutline);
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.UpdateGUI()).MethodHandle;
-		}
-		foreach (GameObject gameObject2 in this.actRimOutline)
-		{
-			gameObject2.SetActive(this.rimOutline);
-		}
-		for (;;)
-		{
-			switch (1)
+			while (true)
 			{
-			case 0:
-				continue;
+				UpdateGUITButtons();
+				return;
 			}
-			break;
 		}
-		this.UpdateGUITButtons();
 	}
 
 	private void UpdateGUITButtons()
 	{
-		GUIT_Button[] array = (GUIT_Button[])UnityEngine.Object.FindObjectsOfType(typeof(GUIT_Button));
+		GUIT_Button[] array = (GUIT_Button[])Object.FindObjectsOfType(typeof(GUIT_Button));
 		GUIT_Button[] array2 = array;
-		int i = 0;
-		while (i < array2.Length)
+		foreach (GUIT_Button gUIT_Button in array2)
 		{
-			GUIT_Button guit_Button = array2[i];
-			string callback = guit_Button.callback;
-			if (callback != null)
+			string callback = gUIT_Button.callback;
+			if (callback == null)
 			{
-				for (;;)
+				continue;
+			}
+			if (!(callback == "SwitchOutline"))
+			{
+				if (!(callback == "SwitchRim"))
 				{
-					switch (6)
+					if (!(callback == "SwitchRimOutline"))
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.UpdateGUITButtons()).MethodHandle;
-				}
-				if (!(callback == "SwitchOutline"))
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!(callback == "SwitchRim"))
-					{
-						if (!(callback == "SwitchRimOutline"))
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						else
-						{
-							guit_Button.UpdateState(this.rimOutline);
-						}
 					}
 					else
 					{
-						guit_Button.UpdateState(this.rim);
+						gUIT_Button.UpdateState(rimOutline);
 					}
 				}
 				else
 				{
-					guit_Button.UpdateState(this.outline);
+					gUIT_Button.UpdateState(rim);
 				}
 			}
-			IL_B6:
-			i++;
-			continue;
-			goto IL_B6;
+			else
+			{
+				gUIT_Button.UpdateState(outline);
+			}
 		}
 	}
 
 	private Shader FindShader(string name)
 	{
-		foreach (Shader shader in this.shaders)
+		Shader[] array = shaders;
+		foreach (Shader shader in array)
 		{
-			if (shader.name == name)
+			if (!(shader.name == name))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.FindShader(string)).MethodHandle;
-				}
+				continue;
+			}
+			while (true)
+			{
 				return shader;
 			}
 		}
-		Log.Error("SHADER NOT FOUND: " + name, new object[0]);
+		Log.Error("SHADER NOT FOUND: " + name);
 		return null;
 	}
 
 	private void SwitchOutline()
 	{
-		this.outline = !this.outline;
-		if (this.outline)
+		outline = !outline;
+		if (outline)
 		{
-			for (;;)
+			if (rimOutline)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.SwitchOutline()).MethodHandle;
-			}
-			if (this.rimOutline)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.rimOutline = false;
+				rimOutline = false;
 			}
 		}
-		this.ReloadShader();
-		this.UpdateGUI();
+		ReloadShader();
+		UpdateGUI();
 	}
 
 	private void SwitchOutlineCst()
 	{
-		this.outline_cst = !this.outline_cst;
-		this.ReloadShader();
+		outline_cst = !outline_cst;
+		ReloadShader();
 	}
 
 	private void SwitchSpec()
 	{
-		this.spec = !this.spec;
-		this.ReloadShader();
+		spec = !spec;
+		ReloadShader();
 	}
 
 	private void SwitchBump()
 	{
-		this.bump = !this.bump;
-		this.ReloadShader();
+		bump = !bump;
+		ReloadShader();
 	}
 
 	private void SwitchRim()
 	{
-		this.rim = !this.rim;
-		if (this.rim)
+		rim = !rim;
+		if (rim)
 		{
-			for (;;)
+			if (rimOutline)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.SwitchRim()).MethodHandle;
-			}
-			if (this.rimOutline)
-			{
-				this.rimOutline = false;
+				rimOutline = false;
 			}
 		}
-		this.ReloadShader();
-		this.UpdateGUI();
+		ReloadShader();
+		UpdateGUI();
 	}
 
 	private void SwitchRimOutline()
 	{
-		this.rimOutline = !this.rimOutline;
-		if (this.rimOutline && this.rim)
+		rimOutline = !rimOutline;
+		if (rimOutline && rim)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.SwitchRimOutline()).MethodHandle;
-			}
-			this.rim = false;
+			rim = false;
 		}
-		if (this.rimOutline)
+		if (rimOutline)
 		{
-			for (;;)
+			if (outline)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.outline)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.outline = false;
+				outline = false;
 			}
 		}
-		this.ReloadShader();
-		this.UpdateGUI();
+		ReloadShader();
+		UpdateGUI();
 	}
 
 	private void NextRamp()
 	{
-		this.rampIndex++;
-		if (this.rampIndex >= this.rampTextures.Length)
+		rampIndex++;
+		if (rampIndex >= rampTextures.Length)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.NextRamp()).MethodHandle;
-			}
-			this.rampIndex = 0;
+			rampIndex = 0;
 		}
-		this.UpdateRamp();
+		UpdateRamp();
 	}
 
 	private void PrevRamp()
 	{
-		this.rampIndex--;
-		if (this.rampIndex < 0)
+		rampIndex--;
+		if (rampIndex < 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.PrevRamp()).MethodHandle;
-			}
-			this.rampIndex = this.rampTextures.Length - 1;
+			rampIndex = rampTextures.Length - 1;
 		}
-		this.UpdateRamp();
+		UpdateRamp();
 	}
 
 	private void UpdateRamp()
 	{
-		this.rampUI.texture = this.rampTextures[this.rampIndex];
-		foreach (Material material in this.matsAll)
+		rampUI.texture = rampTextures[rampIndex];
+		Material[] array = matsAll;
+		foreach (Material material in array)
 		{
-			material.SetTexture("_Ramp", this.rampTextures[this.rampIndex]);
+			material.SetTexture("_Ramp", rampTextures[rampIndex]);
 		}
 	}
 
 	private void NextQuality()
 	{
 		QualitySettings.IncreaseLevel(true);
-		this.qualityLabel.text = "Quality: " + QualitySettings.names[QualitySettings.GetQualityLevel()];
+		qualityLabel.text = "Quality: " + QualitySettings.names[QualitySettings.GetQualityLevel()];
 	}
 
 	private void PrevQuality()
 	{
 		QualitySettings.DecreaseLevel(true);
-		this.qualityLabel.text = "Quality: " + QualitySettings.names[QualitySettings.GetQualityLevel()];
+		qualityLabel.text = "Quality: " + QualitySettings.names[QualitySettings.GetQualityLevel()];
 	}
 }

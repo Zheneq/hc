@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Net.Security;
 using System.Runtime.CompilerServices;
@@ -9,7 +9,7 @@ public static class SslValidator
 	private static SslPolicyErrors m_acceptedSslPolicyErrors = SslPolicyErrors.None;
 
 	[CompilerGenerated]
-	private static RemoteCertificateValidationCallback <>f__mg$cache0;
+	private static RemoteCertificateValidationCallback f__mg_cache0;
 
 	public static SslPolicyErrors AcceptableSslPolicyErrors
 	{
@@ -20,11 +20,8 @@ public static class SslValidator
 		set
 		{
 			SslValidator.m_acceptedSslPolicyErrors = value;
-			if (SslValidator.<>f__mg$cache0 == null)
-			{
-				SslValidator.<>f__mg$cache0 = new RemoteCertificateValidationCallback(SslValidator.SslCallback);
-			}
-			ServicePointManager.ServerCertificateValidationCallback = SslValidator.<>f__mg$cache0;
+			
+			ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(SslValidator.SslCallback);
 		}
 	}
 
@@ -32,19 +29,6 @@ public static class SslValidator
 	{
 		if ((sslPolicyErrors & SslValidator.m_acceptedSslPolicyErrors) == sslPolicyErrors)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SslValidator.SslCallback(object, X509Certificate, X509Chain, SslPolicyErrors)).MethodHandle;
-			}
 			return true;
 		}
 		Log.Error("Certificate {0} has errors: {1}", new object[]

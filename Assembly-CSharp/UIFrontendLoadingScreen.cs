@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -9,6 +8,18 @@ using UnityEngine.UI;
 
 public class UIFrontendLoadingScreen : UIScene
 {
+	public enum DisplayStates
+	{
+		None,
+		FadeIn,
+		Loading,
+		ServerLocked,
+		ServerQueued,
+		PressKey,
+		Error,
+		FadeOut
+	}
+
 	public RectTransform m_Container;
 
 	public string m_frontEndBackgroundScene;
@@ -47,7 +58,7 @@ public class UIFrontendLoadingScreen : UIScene
 
 	private static UIFrontendLoadingScreen s_instance;
 
-	private UIFrontendLoadingScreen.DisplayStates m_displayState;
+	private DisplayStates m_displayState;
 
 	private string m_ServerLockURL = string.Empty;
 
@@ -55,13 +66,7 @@ public class UIFrontendLoadingScreen : UIScene
 
 	private bool shouldPlayIntroVideo;
 
-	public UIFrontendLoadingScreen.DisplayStates DisplayState
-	{
-		get
-		{
-			return this.m_displayState;
-		}
-	}
+	public DisplayStates DisplayState => m_displayState;
 
 	public override SceneType GetSceneType()
 	{
@@ -70,174 +75,108 @@ public class UIFrontendLoadingScreen : UIScene
 
 	public override void Awake()
 	{
-		UIFrontendLoadingScreen.s_instance = this;
-		this.m_screenInitialHeight = Screen.height;
-		this.m_screenInitialWidth = Screen.width;
-		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+		s_instance = this;
+		m_screenInitialHeight = Screen.height;
+		m_screenInitialWidth = Screen.width;
+		Object.DontDestroyOnLoad(base.gameObject);
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.Awake()).MethodHandle;
-			}
 			Application.runInBackground = true;
 		}
-		if (this.m_animator == null)
+		if (m_animator == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_animator = new Animator();
+			m_animator = new Animator();
 		}
-		this.SetDisplayState(UIFrontendLoadingScreen.DisplayStates.None);
-		if (!UnityEngine.Object.FindObjectOfType<EventSystem>())
+		SetDisplayState(DisplayStates.None);
+		if (!Object.FindObjectOfType<EventSystem>())
 		{
-			GameObject gameObject = new GameObject("EventSystem", new Type[]
-			{
-				typeof(EventSystem)
-			});
+			GameObject gameObject = new GameObject("EventSystem", typeof(EventSystem));
 			gameObject.AddComponent<StandaloneInputModule>();
-			UnityEngine.Object.DontDestroyOnLoad(gameObject);
+			Object.DontDestroyOnLoad(gameObject);
 		}
-		this.m_ServerLockedButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ServerLockedButtonClicked);
-		this.SetServerLockButtonVisible(false);
-		this.m_ShutdownButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ShutdownButtonClicked);
-		this.m_visibleStartTime = Time.time;
+		m_ServerLockedButton.spriteController.callback = ServerLockedButtonClicked;
+		SetServerLockButtonVisible(false);
+		m_ShutdownButton.spriteController.callback = ShutdownButtonClicked;
+		m_visibleStartTime = Time.time;
 	}
 
 	private void Start()
 	{
 		AudioManager.StandardizeAudioLinkages();
-		this.m_movieNames.Enqueue("Video/Logo/TRION-LOGO");
-		this.m_movieNames.Enqueue("Video/AR_CG");
-		if (this.m_movieNames.Count > 0)
+		m_movieNames.Enqueue("Video/Logo/TRION-LOGO");
+		m_movieNames.Enqueue("Video/AR_CG");
+		if (m_movieNames.Count > 0)
 		{
 			FullScreenMovie.Get().SetVisible(true);
-			string movieAssetName = this.m_movieNames.Dequeue();
-			FullScreenMovie.Get().m_movieTexture.Play(movieAssetName, false, false, true);
+			string movieAssetName = m_movieNames.Dequeue();
+			FullScreenMovie.Get().m_movieTexture.Play(movieAssetName, false);
 		}
-		base.RegisterWithUIManager();
+		RegisterWithUIManager();
 	}
 
 	internal bool IsVisible()
 	{
-		return this.m_Container.gameObject.activeSelf;
+		return m_Container.gameObject.activeSelf;
 	}
 
 	internal void SetVisible(bool visible)
 	{
-		if (this.m_Container.gameObject.activeSelf != visible)
+		if (m_Container.gameObject.activeSelf == visible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.SetVisible(bool)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_loadingMapNameInfoContainer, false, null);
+			return;
+		}
+		while (true)
+		{
+			UIManager.SetGameObjectActive(m_loadingMapNameInfoContainer, false);
 			if (visible)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_visibleStartTime = Time.time;
-				this.PickBackgroundImage();
+				m_visibleStartTime = Time.time;
+				PickBackgroundImage();
 			}
 			else
 			{
-				this.m_bgImageanimator.enabled = false;
-				Log.Info(Log.Category.Loading, "F.E. Loading screen displayed for {0} seconds.", new object[]
-				{
-					(Time.time - this.m_visibleStartTime).ToString("F1")
-				});
+				m_bgImageanimator.enabled = false;
+				Log.Info(Log.Category.Loading, "F.E. Loading screen displayed for {0} seconds.", (Time.time - m_visibleStartTime).ToString("F1"));
 			}
-			UIManager.SetGameObjectActive(this.m_Container, visible, null);
+			UIManager.SetGameObjectActive(m_Container, visible);
+			return;
 		}
 	}
 
 	public bool IsSameAsInitialResolution()
 	{
-		bool result;
-		if (this.m_screenInitialHeight == Screen.height)
+		int result;
+		if (m_screenInitialHeight == Screen.height)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.IsSameAsInitialResolution()).MethodHandle;
-			}
-			result = (this.m_screenInitialWidth == Screen.width);
+			result = ((m_screenInitialWidth == Screen.width) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public void SetServerLockButtonVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_ServerLockedButton, visible, null);
+		UIManager.SetGameObjectActive(m_ServerLockedButton, visible);
 	}
 
 	public void UpdateServerLockLabels(ServerMessageOverrides serverMessageOverrides)
 	{
 		string language = HydrogenConfig.Get().Language;
-		TextMeshProUGUI[] componentsInChildren = this.m_ServerLockedButton.GetComponentsInChildren<TextMeshProUGUI>(true);
-		foreach (TextMeshProUGUI textMeshProUGUI in componentsInChildren)
+		TextMeshProUGUI[] componentsInChildren = m_ServerLockedButton.GetComponentsInChildren<TextMeshProUGUI>(true);
+		TextMeshProUGUI[] array = componentsInChildren;
+		foreach (TextMeshProUGUI textMeshProUGUI in array)
 		{
 			textMeshProUGUI.text = serverMessageOverrides.GetValueOrDefault(ServerMessageType.LockScreenButtonText, language);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			m_ServerLockURL = ((!SteamManager.UsingSteam) ? serverMessageOverrides.FreeUpsellExternalBrowserUrl : serverMessageOverrides.FreeUpsellExternalBrowserSteamUrl);
+			ShowText(StringUtil.TR("SERVERISLOCKED", "LoadingScreen"), serverMessageOverrides.GetValueOrDefault(ServerMessageType.LockScreenText, language));
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.UpdateServerLockLabels(ServerMessageOverrides)).MethodHandle;
-		}
-		this.m_ServerLockURL = ((!SteamManager.UsingSteam) ? serverMessageOverrides.FreeUpsellExternalBrowserUrl : serverMessageOverrides.FreeUpsellExternalBrowserSteamUrl);
-		this.ShowText(StringUtil.TR("SERVERISLOCKED", "LoadingScreen"), serverMessageOverrides.GetValueOrDefault(ServerMessageType.LockScreenText, language), null);
 	}
 
 	public void ShutdownButtonClicked(BaseEventData data)
@@ -248,132 +187,91 @@ public class UIFrontendLoadingScreen : UIScene
 	public void ServerLockedButtonClicked(BaseEventData data)
 	{
 		ClientGameManager.Get().SendUIActionNotification("ServerLockedButtonClicked");
-		if (!this.m_ServerLockURL.IsNullOrEmpty())
+		if (m_ServerLockURL.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.ServerLockedButtonClicked(BaseEventData)).MethodHandle;
-			}
-			Application.OpenURL(this.m_ServerLockURL);
+			return;
+		}
+		while (true)
+		{
+			Application.OpenURL(m_ServerLockURL);
+			return;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		UIFrontendLoadingScreen.s_instance = null;
+		s_instance = null;
 	}
 
 	public static UIFrontendLoadingScreen Get()
 	{
-		return UIFrontendLoadingScreen.s_instance;
+		return s_instance;
 	}
 
 	public void OnEnable()
 	{
-		this.StartDisplayFadeIn();
-		this.PickBackgroundImage();
+		StartDisplayFadeIn();
+		PickBackgroundImage();
 	}
 
 	private void PickBackgroundImage()
 	{
-		if (!this.m_isPlayerAccountDataAvailable)
+		if (!m_isPlayerAccountDataAvailable)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_bgImageanimator.enabled = true;
+					UIManager.SetGameObjectActive(m_backgroundImage, false);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.PickBackgroundImage()).MethodHandle;
-			}
-			this.m_bgImageanimator.enabled = true;
-			UIManager.SetGameObjectActive(this.m_backgroundImage, false, null);
-			return;
 		}
-		IEnumerable<KeyValuePair<int, bool>> unlockedLoadingScreenBackgroundIdsToActivatedState = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.UnlockedLoadingScreenBackgroundIdsToActivatedState;
-		if (UIFrontendLoadingScreen.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIFrontendLoadingScreen.<>f__am$cache0 = ((KeyValuePair<int, bool> x) => x.Value);
-		}
-		IEnumerable<KeyValuePair<int, bool>> source = unlockedLoadingScreenBackgroundIdsToActivatedState.Where(UIFrontendLoadingScreen.<>f__am$cache0);
-		if (UIFrontendLoadingScreen.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIFrontendLoadingScreen.<>f__am$cache1 = ((KeyValuePair<int, bool> x) => x.Key);
-		}
-		int[] array = source.Select(UIFrontendLoadingScreen.<>f__am$cache1).ToArray<int>();
+		Dictionary<int, bool> unlockedLoadingScreenBackgroundIdsToActivatedState = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.UnlockedLoadingScreenBackgroundIdsToActivatedState;
+		
+		IEnumerable<KeyValuePair<int, bool>> source = unlockedLoadingScreenBackgroundIdsToActivatedState.Where(((KeyValuePair<int, bool> x) => x.Value));
+		
+		int[] array = source.Select(((KeyValuePair<int, bool> x) => x.Key)).ToArray();
 		if (array.Length == 0)
 		{
-			this.m_backgroundImage.sprite = null;
+			m_backgroundImage.sprite = null;
 		}
 		else
 		{
-			int loadingScreenID = array[UnityEngine.Random.Range(0, array.Length)];
-			this.m_backgroundImage.sprite = Resources.Load<Sprite>(GameBalanceVars.Get().GetLoadingScreenBackground(loadingScreenID).m_resourceString);
+			int loadingScreenID = array[Random.Range(0, array.Length)];
+			m_backgroundImage.sprite = Resources.Load<Sprite>(GameBalanceVars.Get().GetLoadingScreenBackground(loadingScreenID).m_resourceString);
 		}
-		UIManager.SetGameObjectActive(this.m_backgroundImage, this.m_backgroundImage.sprite != null, null);
+		UIManager.SetGameObjectActive(m_backgroundImage, m_backgroundImage.sprite != null);
 	}
 
 	private void SetupMapLoadingTitleInfo(GameType gameType, string MapName)
 	{
 		if (MapName.IsNullOrEmpty())
 		{
-			UIManager.SetGameObjectActive(this.m_loadingMapNameInfoContainer, false, null);
+			UIManager.SetGameObjectActive(m_loadingMapNameInfoContainer, false);
+			return;
 		}
-		else if (gameType == GameType.Tutorial)
+		if (gameType == GameType.Tutorial)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UIManager.SetGameObjectActive(m_loadingMapNameInfoContainer, true);
+					m_mapNameTitle.text = StringUtil.TR("TutorialName", "Prologue1");
+					m_mapNameSubTitle.text = StringUtil.TR("TutorialDescription", "Prologue1");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.SetupMapLoadingTitleInfo(GameType, string)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_loadingMapNameInfoContainer, true, null);
-			this.m_mapNameTitle.text = StringUtil.TR("TutorialName", "Prologue1");
-			this.m_mapNameSubTitle.text = StringUtil.TR("TutorialDescription", "Prologue1");
 		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_loadingMapNameInfoContainer, false, null);
-		}
+		UIManager.SetGameObjectActive(m_loadingMapNameInfoContainer, false);
 	}
 
 	public void OnDisable()
@@ -382,482 +280,272 @@ public class UIFrontendLoadingScreen : UIScene
 
 	public bool DoPlayIntroVideo()
 	{
-		if (this.shouldPlayIntroVideo)
+		if (shouldPlayIntroVideo)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.DoPlayIntroVideo()).MethodHandle;
-			}
-			return true;
 		}
-		this.shouldPlayIntroVideo = true;
+		shouldPlayIntroVideo = true;
 		string key = "PlayIntro";
 		if (PlayerPrefs.HasKey(key))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.shouldPlayIntroVideo = (PlayerPrefs.GetInt(key) != 1);
+			shouldPlayIntroVideo = (PlayerPrefs.GetInt(key) != 1);
 		}
 		PlayerPrefs.SetInt(key, 1);
-		return this.shouldPlayIntroVideo;
+		return shouldPlayIntroVideo;
 	}
 
 	public void Update()
 	{
-		bool flag;
+		int num;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.Update()).MethodHandle;
-			}
 			if (GameManager.Get().GameInfo != null)
 			{
-				flag = (GameManager.Get().GameInfo.GameConfig != null);
-				goto IL_4C;
+				num = ((GameManager.Get().GameInfo.GameConfig != null) ? 1 : 0);
+				goto IL_004c;
 			}
 		}
-		flag = false;
-		IL_4C:
-		bool flag2 = flag;
-		if (flag2)
+		num = 0;
+		goto IL_004c;
+		IL_004c:
+		bool flag = (byte)num != 0;
+		if (flag)
 		{
-			this.SetupMapLoadingTitleInfo(GameManager.Get().GameInfo.GameConfig.GameType, GameManager.Get().GameInfo.GameConfig.Map);
+			SetupMapLoadingTitleInfo(GameManager.Get().GameInfo.GameConfig.GameType, GameManager.Get().GameInfo.GameConfig.Map);
 		}
 		else
 		{
-			this.SetupMapLoadingTitleInfo(GameType.None, string.Empty);
+			SetupMapLoadingTitleInfo(GameType.None, string.Empty);
 		}
-		if (this.m_displayState == UIFrontendLoadingScreen.DisplayStates.FadeIn)
+		if (m_displayState == DisplayStates.FadeIn)
 		{
-			for (;;)
+			if (IsCurrentAnimationDone())
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.IsCurrentAnimationDone())
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.StartDisplayLoading(null);
+				StartDisplayLoading();
 			}
 		}
-		if (!this.m_isPlayerAccountDataAvailable)
+		if (!m_isPlayerAccountDataAvailable)
 		{
-			for (;;)
+			if (IsVisible())
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.IsVisible())
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get() != null && ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_isPlayerAccountDataAvailable = true;
-					this.PickBackgroundImage();
+					m_isPlayerAccountDataAvailable = true;
+					PickBackgroundImage();
 				}
 			}
 		}
-		if (this.m_displayState == UIFrontendLoadingScreen.DisplayStates.FadeOut)
+		if (m_displayState == DisplayStates.FadeOut)
 		{
-			for (;;)
+			if (IsCurrentAnimationDone())
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.IsCurrentAnimationDone())
-			{
-				this.SetVisible(false);
+				SetVisible(false);
 			}
 		}
-		if (!flag2 && FullScreenMovie.Get())
+		if (!flag && (bool)FullScreenMovie.Get())
 		{
-			for (;;)
+			if (DoPlayIntroVideo())
 			{
-				switch (2)
+				if (FullScreenMovie.Get().m_movieTexture.MovieState != 0 && FullScreenMovie.Get().m_movieTexture.MovieState != PlayRawImageMovieTexture.MovieStates.Done)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.DoPlayIntroVideo())
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (FullScreenMovie.Get().m_movieTexture.MovieState != PlayRawImageMovieTexture.MovieStates.Invalid && FullScreenMovie.Get().m_movieTexture.MovieState != PlayRawImageMovieTexture.MovieStates.Done)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Input.GetKeyUp(KeyCode.Escape))
 					{
-						goto IL_1FD;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						goto IL_0205;
 					}
 				}
-				if (this.m_movieNames.Count > 0)
+				if (m_movieNames.Count > 0)
 				{
-					string movieAssetName = this.m_movieNames.Dequeue();
-					FullScreenMovie.Get().m_movieTexture.Play(movieAssetName, false, false, true);
-					this.SetVisible(false);
+					string movieAssetName = m_movieNames.Dequeue();
+					FullScreenMovie.Get().m_movieTexture.Play(movieAssetName, false);
+					SetVisible(false);
 				}
 				else
 				{
-					this.Finish();
+					Finish();
 				}
-				IL_1FD:
-				goto IL_205;
+				goto IL_0205;
 			}
 		}
-		this.Finish();
-		IL_205:
-		if (UIFrontendLoadingScreen.m_startLoadTime > 0f)
+		Finish();
+		goto IL_0205;
+		IL_0205:
+		if (!(m_startLoadTime > 0f))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (Time.time >= m_startLoadTime)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_startLoadTime = -1f;
+				StartCoroutine(AssetBundleManager.Get().LoadSceneAsync("ClientEnvironmentSingletons", "frontend", LoadSceneMode.Additive));
 			}
-			if (Time.time >= UIFrontendLoadingScreen.m_startLoadTime)
-			{
-				UIFrontendLoadingScreen.m_startLoadTime = -1f;
-				base.StartCoroutine(AssetBundleManager.Get().LoadSceneAsync("ClientEnvironmentSingletons", "frontend", LoadSceneMode.Additive));
-			}
+			return;
 		}
 	}
 
 	private void Finish()
 	{
-		if (UIFrontendLoadingScreen.m_startLoadTime == 0f)
+		if (m_startLoadTime != 0f)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_animator != null)
 			{
-				switch (3)
+				while (true)
 				{
-				case 0:
-					continue;
+					SetVisible(true);
+					FullScreenMovie.Get().SetVisible(false);
+					m_animator.Play("FrontEndLoadingScreenDefaultIN");
+					m_startLoadTime = Time.time;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.Finish()).MethodHandle;
-			}
-			if (this.m_animator != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.SetVisible(true);
-				FullScreenMovie.Get().SetVisible(false);
-				this.m_animator.Play("FrontEndLoadingScreenDefaultIN");
-				UIFrontendLoadingScreen.m_startLoadTime = Time.time;
-			}
+			return;
 		}
 	}
 
-	private void SetDisplayState(UIFrontendLoadingScreen.DisplayStates state)
+	private void SetDisplayState(DisplayStates state)
 	{
-		this.m_displayState = state;
-		if (this.m_displayState != UIFrontendLoadingScreen.DisplayStates.Error)
+		m_displayState = state;
+		if (m_displayState != DisplayStates.Error)
 		{
-			for (;;)
+			if (m_displayState != DisplayStates.ServerLocked)
 			{
-				switch (7)
+				if (m_displayState != DisplayStates.ServerQueued)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.SetDisplayState(UIFrontendLoadingScreen.DisplayStates)).MethodHandle;
-			}
-			if (this.m_displayState != UIFrontendLoadingScreen.DisplayStates.ServerLocked)
-			{
-				for (;;)
-				{
-					switch (5)
+					if (m_displayState != 0)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_displayState != UIFrontendLoadingScreen.DisplayStates.ServerQueued)
-				{
-					if (this.m_displayState != UIFrontendLoadingScreen.DisplayStates.None)
-					{
-						UIManager.SetGameObjectActive(this.m_ShutdownButton, false, null);
+						UIManager.SetGameObjectActive(m_ShutdownButton, false);
 						return;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_ShutdownButton, true, null);
+		UIManager.SetGameObjectActive(m_ShutdownButton, true);
 	}
 
 	public void StartDisplayFadeIn()
 	{
-		this.SetDisplayState(UIFrontendLoadingScreen.DisplayStates.FadeIn);
-		this.m_animator.Play("FrontEndLoadingScreenDefaultIN");
+		SetDisplayState(DisplayStates.FadeIn);
+		m_animator.Play("FrontEndLoadingScreenDefaultIN");
 	}
 
 	public void StartDisplayLoading(string subText = null)
 	{
-		this.SetDisplayState(UIFrontendLoadingScreen.DisplayStates.Loading);
-		this.ShowText(StringUtil.TR("NOWLOADING", "LoadingScreen"), subText, null);
-		this.m_animator.Play("FrontEndLoadingScreenDefaultIDLE");
+		SetDisplayState(DisplayStates.Loading);
+		ShowText(StringUtil.TR("NOWLOADING", "LoadingScreen"), subText);
+		m_animator.Play("FrontEndLoadingScreenDefaultIDLE");
 	}
 
 	public void StartDisplayPressKey()
 	{
-		this.SetDisplayState(UIFrontendLoadingScreen.DisplayStates.PressKey);
-		this.ShowText(StringUtil.TR("PRESSANYKEY", "LoadingScreen"), null, null);
+		SetDisplayState(DisplayStates.PressKey);
+		ShowText(StringUtil.TR("PRESSANYKEY", "LoadingScreen"));
 	}
 
 	public void StartDisplayServerLocked()
 	{
-		this.SetDisplayState(UIFrontendLoadingScreen.DisplayStates.ServerLocked);
+		SetDisplayState(DisplayStates.ServerLocked);
 	}
 
 	public void StartDisplayServerQueued(string queueStatusString)
 	{
-		this.SetDisplayState(UIFrontendLoadingScreen.DisplayStates.ServerQueued);
-		this.ShowText(StringUtil.TR("SERVERISFULL", "LoadingScreen"), queueStatusString, null);
+		SetDisplayState(DisplayStates.ServerQueued);
+		ShowText(StringUtil.TR("SERVERISFULL", "LoadingScreen"), queueStatusString);
 	}
 
 	public void StartDisplayError(string mainErrorText, string subErrorText = null)
 	{
-		this.SetDisplayState(UIFrontendLoadingScreen.DisplayStates.Error);
-		this.ShowText(mainErrorText, subErrorText, null);
+		SetDisplayState(DisplayStates.Error);
+		ShowText(mainErrorText, subErrorText);
 	}
 
 	public void StartDisplayFadeOut()
 	{
-		this.SetDisplayState(UIFrontendLoadingScreen.DisplayStates.FadeOut);
-		if (this.m_animator.isActiveAndEnabled)
+		SetDisplayState(DisplayStates.FadeOut);
+		if (!m_animator.isActiveAndEnabled)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.StartDisplayFadeOut()).MethodHandle;
-			}
-			this.m_animator.Play("FrontEndLoadingScreenDefaultOUT");
+			return;
+		}
+		while (true)
+		{
+			m_animator.Play("FrontEndLoadingScreenDefaultOUT");
+			return;
 		}
 	}
 
 	private void ShowText(string text, string subText = null, string subText2 = null)
 	{
-		UIManager.SetGameObjectActive(this.m_ServerLockedButton, text == StringUtil.TR("SERVERISLOCKED", "LoadingScreen"), null);
-		if (this.m_mainTextBox)
+		UIManager.SetGameObjectActive(m_ServerLockedButton, text == StringUtil.TR("SERVERISLOCKED", "LoadingScreen"));
+		if ((bool)m_mainTextBox)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.ShowText(string, string, string)).MethodHandle;
-			}
 			if (!text.IsNullOrEmpty())
 			{
-				this.m_mainTextBox.GetComponent<TextMeshProUGUI>().text = text;
-				UIManager.SetGameObjectActive(this.m_mainTextBox, true, null);
+				m_mainTextBox.GetComponent<TextMeshProUGUI>().text = text;
+				UIManager.SetGameObjectActive(m_mainTextBox, true);
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.m_mainTextBox, false, null);
+				UIManager.SetGameObjectActive(m_mainTextBox, false);
 			}
 		}
-		if (this.m_subTextBox)
+		if ((bool)m_subTextBox)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!subText.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_subTextBox.GetComponent<TextMeshProUGUI>().text = subText;
-				UIManager.SetGameObjectActive(this.m_subTextBox, true, null);
+				m_subTextBox.GetComponent<TextMeshProUGUI>().text = subText;
+				UIManager.SetGameObjectActive(m_subTextBox, true);
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.m_subTextBox, false, null);
+				UIManager.SetGameObjectActive(m_subTextBox, false);
 			}
 		}
-		if (this.m_subText2Box)
+		if (!m_subText2Box)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (!subText2.IsNullOrEmpty())
 			{
-				this.m_subText2Box.GetComponent<TextMeshProUGUI>().text = subText2;
-				UIManager.SetGameObjectActive(this.m_subText2Box, true, null);
+				m_subText2Box.GetComponent<TextMeshProUGUI>().text = subText2;
+				UIManager.SetGameObjectActive(m_subText2Box, true);
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.m_subText2Box, false, null);
+				UIManager.SetGameObjectActive(m_subText2Box, false);
 			}
+			return;
 		}
 	}
 
 	public bool IsReadyToReveal()
 	{
-		if (this.m_displayState == UIFrontendLoadingScreen.DisplayStates.FadeOut)
+		if (m_displayState == DisplayStates.FadeOut)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.IsReadyToReveal()).MethodHandle;
-			}
-			return true;
 		}
 		return false;
 	}
@@ -865,33 +553,11 @@ public class UIFrontendLoadingScreen : UIScene
 	private bool IsCurrentAnimationDone()
 	{
 		bool result = false;
-		if (this.m_animator.isActiveAndEnabled)
+		if (m_animator.isActiveAndEnabled)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.IsCurrentAnimationDone()).MethodHandle;
-			}
-			AnimatorStateInfo currentAnimatorStateInfo = this.m_animator.GetCurrentAnimatorStateInfo(0);
+			AnimatorStateInfo currentAnimatorStateInfo = m_animator.GetCurrentAnimatorStateInfo(0);
 			if (currentAnimatorStateInfo.normalizedTime >= currentAnimatorStateInfo.length)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}
@@ -900,17 +566,5 @@ public class UIFrontendLoadingScreen : UIScene
 			result = true;
 		}
 		return result;
-	}
-
-	public enum DisplayStates
-	{
-		None,
-		FadeIn,
-		Loading,
-		ServerLocked,
-		ServerQueued,
-		PressKey,
-		Error,
-		FadeOut
 	}
 }

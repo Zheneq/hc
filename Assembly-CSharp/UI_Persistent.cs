@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UI_Persistent : MonoBehaviour
@@ -11,79 +10,57 @@ public class UI_Persistent : MonoBehaviour
 
 	public static UI_Persistent Get()
 	{
-		return UI_Persistent.s_instance;
+		return s_instance;
 	}
 
 	public void NotifyFrontEndVisible(bool visible)
 	{
-		for (int i = 0; i < this.m_newFrontEndPersistantScreens.Length; i++)
+		for (int i = 0; i < m_newFrontEndPersistantScreens.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_newFrontEndPersistantScreens[i], visible, null);
+			UIManager.SetGameObjectActive(m_newFrontEndPersistantScreens[i], visible);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (4)
+			if (!visible)
 			{
-			case 0:
-				continue;
+				return;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UI_Persistent.NotifyFrontEndVisible(bool)).MethodHandle;
-		}
-		if (visible)
-		{
-			for (;;)
+			while (true)
 			{
-				switch (5)
+				for (int j = 0; j < m_enableOnVisible.Length; j++)
 				{
-				case 0:
-					continue;
+					UIManager.SetGameObjectActive(m_enableOnVisible[j], true);
 				}
-				break;
-			}
-			for (int j = 0; j < this.m_enableOnVisible.Length; j++)
-			{
-				UIManager.SetGameObjectActive(this.m_enableOnVisible[j], true, null);
-			}
-			for (;;)
-			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (2)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
 				}
-				break;
 			}
 		}
 	}
 
 	private void Awake()
 	{
-		UI_Persistent.s_instance = this;
-		if (base.gameObject.transform.parent == null)
+		s_instance = this;
+		if (!(base.gameObject.transform.parent == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_Persistent.Awake()).MethodHandle;
-			}
-			UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+			return;
+		}
+		while (true)
+		{
+			Object.DontDestroyOnLoad(base.gameObject);
+			return;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		UI_Persistent.s_instance = null;
+		s_instance = null;
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,48 +16,44 @@ public class UICharacterSelectFactionFilter : MonoBehaviour
 
 	private void Awake()
 	{
-		this.m_btn.SetSelected(false, false, string.Empty, string.Empty);
-		this.m_btn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnClick);
+		m_btn.SetSelected(false, false, string.Empty, string.Empty);
+		m_btn.spriteController.callback = OnClick;
 	}
 
 	public void Setup(FactionGroup factionGroup, Action<UICharacterSelectFactionFilter> callback)
 	{
-		this.m_callback = callback;
-		this.m_icon.sprite = Resources.Load<Sprite>(factionGroup.IconPath);
-		this.m_characters = factionGroup.Characters;
+		m_callback = callback;
+		m_icon.sprite = Resources.Load<Sprite>(factionGroup.IconPath);
+		m_characters = factionGroup.Characters;
 	}
 
 	public void Setup(List<CharacterType> characters, Action<UICharacterSelectFactionFilter> callback)
 	{
-		this.m_callback = callback;
-		this.m_characters = characters;
+		m_callback = callback;
+		m_characters = characters;
 	}
 
 	private void OnClick(BaseEventData data)
 	{
-		this.m_btn.SetSelected(!this.m_btn.IsSelected(), false, string.Empty, string.Empty);
-		this.m_callback(this);
+		m_btn.SetSelected(!m_btn.IsSelected(), false, string.Empty, string.Empty);
+		m_callback(this);
 	}
 
 	public bool IsAvailable(CharacterType type)
 	{
-		if (!this.m_btn.IsSelected())
+		if (!m_btn.IsSelected())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectFactionFilter.IsAvailable(CharacterType)).MethodHandle;
-			}
-			return false;
 		}
-		return this.m_characters.Contains(type);
+		return m_characters.Contains(type);
 	}
 }

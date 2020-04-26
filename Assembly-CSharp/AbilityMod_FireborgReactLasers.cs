@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
@@ -29,141 +29,85 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 
 	public override void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
 	{
-		targetSelect.SetTargetSelectMod(this.m_targetSelectMod);
+		targetSelect.SetTargetSelectMod(m_targetSelectMod);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		FireborgReactLasers fireborgReactLasers = targetAbility as FireborgReactLasers;
-		if (fireborgReactLasers != null)
+		if (!(fireborgReactLasers != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FireborgReactLasers.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			base.AddOnHitDataTokens(tokens, this.m_onHitDataForSecondLaserMod, fireborgReactLasers.m_onHitDataForSecondLaser);
-			AbilityMod.AddToken(tokens, this.m_extraShieldIfLowHealthMod, "ExtraShieldIfLowHealth", string.Empty, fireborgReactLasers.m_extraShieldIfLowHealth, true, false);
-			AbilityMod.AddToken(tokens, this.m_lowHealthThreshMod, "LowHealthThresh", string.Empty, fireborgReactLasers.m_lowHealthThresh, true, false);
-			AbilityMod.AddToken(tokens, this.m_shieldPerHitReceivedForNextTurnMod, "ShieldPerHitReceivedForNextTurn", string.Empty, fireborgReactLasers.m_shieldPerHitReceivedForNextTurn, true, false);
-			AbilityMod.AddToken(tokens, this.m_earlyDepleteShieldOnNextTurnMod, "EarlyDepleteShieldOnNextTurn", string.Empty, fireborgReactLasers.m_earlyDepleteShieldOnNextTurn, true, false);
+			AddOnHitDataTokens(tokens, m_onHitDataForSecondLaserMod, fireborgReactLasers.m_onHitDataForSecondLaser);
+			AbilityMod.AddToken(tokens, m_extraShieldIfLowHealthMod, "ExtraShieldIfLowHealth", string.Empty, fireborgReactLasers.m_extraShieldIfLowHealth);
+			AbilityMod.AddToken(tokens, m_lowHealthThreshMod, "LowHealthThresh", string.Empty, fireborgReactLasers.m_lowHealthThresh);
+			AbilityMod.AddToken(tokens, m_shieldPerHitReceivedForNextTurnMod, "ShieldPerHitReceivedForNextTurn", string.Empty, fireborgReactLasers.m_shieldPerHitReceivedForNextTurn);
+			AbilityMod.AddToken(tokens, m_earlyDepleteShieldOnNextTurnMod, "EarlyDepleteShieldOnNextTurn", string.Empty, fireborgReactLasers.m_earlyDepleteShieldOnNextTurn);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		FireborgReactLasers fireborgReactLasers = base.GetTargetAbilityOnAbilityData(abilityData) as FireborgReactLasers;
+		FireborgReactLasers fireborgReactLasers = GetTargetAbilityOnAbilityData(abilityData) as FireborgReactLasers;
 		bool flag = fireborgReactLasers != null;
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (fireborgReactLasers != null)
 		{
-			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, fireborgReactLasers.m_targetSelectComp, "-- Target Select --");
-			text += base.GetOnHitDataDesc(this.m_onHitDataForSecondLaserMod, fireborgReactLasers.m_onHitDataForSecondLaser, "-- On Hit Data Mod --");
+			text += GetTargetSelectModDesc(m_targetSelectMod, fireborgReactLasers.m_targetSelectComp, "-- Target Select --");
+			text += GetOnHitDataDesc(m_onHitDataForSecondLaserMod, fireborgReactLasers.m_onHitDataForSecondLaser);
 			string str = text;
-			AbilityModPropertyInt extraShieldIfLowHealthMod = this.m_extraShieldIfLowHealthMod;
-			string prefix = "[ExtraShieldIfLowHealth]";
-			bool showBaseVal = flag;
+			AbilityModPropertyInt extraShieldIfLowHealthMod = m_extraShieldIfLowHealthMod;
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FireborgReactLasers.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-				}
 				baseVal = fireborgReactLasers.m_extraShieldIfLowHealth;
 			}
 			else
 			{
 				baseVal = 0;
 			}
-			text = str + base.PropDesc(extraShieldIfLowHealthMod, prefix, showBaseVal, baseVal);
+			text = str + PropDesc(extraShieldIfLowHealthMod, "[ExtraShieldIfLowHealth]", flag, baseVal);
 			string str2 = text;
-			AbilityModPropertyInt lowHealthThreshMod = this.m_lowHealthThreshMod;
-			string prefix2 = "[LowHealthThresh]";
-			bool showBaseVal2 = flag;
+			AbilityModPropertyInt lowHealthThreshMod = m_lowHealthThreshMod;
 			int baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = fireborgReactLasers.m_lowHealthThresh;
 			}
 			else
 			{
 				baseVal2 = 0;
 			}
-			text = str2 + base.PropDesc(lowHealthThreshMod, prefix2, showBaseVal2, baseVal2);
+			text = str2 + PropDesc(lowHealthThreshMod, "[LowHealthThresh]", flag, baseVal2);
 			string str3 = text;
-			AbilityModPropertyInt shieldPerHitReceivedForNextTurnMod = this.m_shieldPerHitReceivedForNextTurnMod;
-			string prefix3 = "[ShieldPerHitReceivedForNextTurn]";
-			bool showBaseVal3 = flag;
+			AbilityModPropertyInt shieldPerHitReceivedForNextTurnMod = m_shieldPerHitReceivedForNextTurnMod;
 			int baseVal3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = fireborgReactLasers.m_shieldPerHitReceivedForNextTurn;
 			}
 			else
 			{
 				baseVal3 = 0;
 			}
-			text = str3 + base.PropDesc(shieldPerHitReceivedForNextTurnMod, prefix3, showBaseVal3, baseVal3);
+			text = str3 + PropDesc(shieldPerHitReceivedForNextTurnMod, "[ShieldPerHitReceivedForNextTurn]", flag, baseVal3);
 			string str4 = text;
-			AbilityModPropertyInt earlyDepleteShieldOnNextTurnMod = this.m_earlyDepleteShieldOnNextTurnMod;
-			string prefix4 = "[EarlyDepleteShieldOnNextTurn]";
-			bool showBaseVal4 = flag;
+			AbilityModPropertyInt earlyDepleteShieldOnNextTurnMod = m_earlyDepleteShieldOnNextTurnMod;
 			int baseVal4;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal4 = fireborgReactLasers.m_earlyDepleteShieldOnNextTurn;
 			}
 			else
 			{
 				baseVal4 = 0;
 			}
-			text = str4 + base.PropDesc(earlyDepleteShieldOnNextTurnMod, prefix4, showBaseVal4, baseVal4);
+			text = str4 + PropDesc(earlyDepleteShieldOnNextTurnMod, "[EarlyDepleteShieldOnNextTurn]", flag, baseVal4);
 		}
 		return text;
 	}

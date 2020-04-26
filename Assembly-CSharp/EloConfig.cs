@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -16,59 +16,46 @@ public class EloConfig
 
 	public EloConfig()
 	{
-		this.MatchMakingInitialValue = 1000f;
-		this.PlacementElo = 1500f;
-		this.NewPlayerHandicapPeriodInGames = 5;
-		this.NewPlayerPvPQueueDuration = 1;
-		this.BotEloValues = new Dictionary<BotDifficulty, float>();
-		this.BotEloValues[BotDifficulty.Tutorial] = 1085f;
-		this.BotEloValues[BotDifficulty.Stupid] = 1085f;
-		this.BotEloValues[BotDifficulty.Easy] = 1420f;
-		this.BotEloValues[BotDifficulty.Medium] = 1455f;
-		this.BotEloValues[BotDifficulty.Hard] = 1475f;
-		this.BotEloValues[BotDifficulty.Expert] = 1485f;
+		MatchMakingInitialValue = 1000f;
+		PlacementElo = 1500f;
+		NewPlayerHandicapPeriodInGames = 5;
+		NewPlayerPvPQueueDuration = 1;
+		BotEloValues = new Dictionary<BotDifficulty, float>();
+		BotEloValues[BotDifficulty.Tutorial] = 1085f;
+		BotEloValues[BotDifficulty.Stupid] = 1085f;
+		BotEloValues[BotDifficulty.Easy] = 1420f;
+		BotEloValues[BotDifficulty.Medium] = 1455f;
+		BotEloValues[BotDifficulty.Hard] = 1475f;
+		BotEloValues[BotDifficulty.Expert] = 1485f;
 	}
 
 	public EloConfig Clone()
 	{
-		return (EloConfig)base.MemberwiseClone();
+		return (EloConfig)MemberwiseClone();
 	}
 
 	public float GetHandicappedElo(float elo, int matches, int minPlacementMatches)
 	{
 		if (matches < minPlacementMatches)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return PlacementElo;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EloConfig.GetHandicappedElo(float, int, int)).MethodHandle;
-			}
-			return this.PlacementElo;
 		}
-		if (matches < this.NewPlayerHandicapPeriodInGames)
+		if (matches < NewPlayerHandicapPeriodInGames)
 		{
-			if (elo >= this.MatchMakingInitialValue)
+			if (!(elo < MatchMakingInitialValue))
 			{
 				float num = (float)matches * elo;
-				float num2 = (float)(this.NewPlayerHandicapPeriodInGames - matches) * this.MatchMakingInitialValue;
-				return (num + num2) / (float)this.NewPlayerHandicapPeriodInGames;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				float num2 = (float)(NewPlayerHandicapPeriodInGames - matches) * MatchMakingInitialValue;
+				return (num + num2) / (float)NewPlayerHandicapPeriodInGames;
 			}
 		}
 		return elo;
@@ -76,22 +63,18 @@ public class EloConfig
 
 	public float GetHandicappedOrHighestElo(float handicappedElo, float accountElo, float characterElo, int matches)
 	{
-		if (matches >= this.NewPlayerHandicapPeriodInGames)
+		if (matches >= NewPlayerHandicapPeriodInGames)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return Math.Max(accountElo, characterElo);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EloConfig.GetHandicappedOrHighestElo(float, float, float, int)).MethodHandle;
-			}
-			return Math.Max(accountElo, characterElo);
 		}
 		return handicappedElo;
 	}

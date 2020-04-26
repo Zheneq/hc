@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -24,6 +24,6 @@ public class LobbyCharacterInfo
 
 	public LobbyCharacterInfo Clone()
 	{
-		return (LobbyCharacterInfo)base.MemberwiseClone();
+		return (LobbyCharacterInfo)MemberwiseClone();
 	}
 }

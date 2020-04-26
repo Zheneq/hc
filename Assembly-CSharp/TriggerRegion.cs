@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -15,148 +15,79 @@ public class TriggerRegion : BoardRegion
 	public override void Initialize()
 	{
 		base.Initialize();
-		this.m_actorsTriggeredOnThisGame = new List<ActorData>();
+		m_actorsTriggeredOnThisGame = new List<ActorData>();
 	}
 
 	public void OnTurnTick()
 	{
-		List<ActorData> list = base.\u001D();
-		using (List<ActorData>.Enumerator enumerator = list.GetEnumerator())
+		List<ActorData> occupantActors = GetOccupantActors();
+		using (List<ActorData>.Enumerator enumerator = occupantActors.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actorData = enumerator.Current;
-				if (this.m_triggerLimit == TriggerAmount.OnceEverPerActor)
+				ActorData current = enumerator.Current;
+				if (m_triggerLimit == TriggerAmount.OnceEverPerActor)
 				{
-					for (;;)
+					if (m_actorsTriggeredOnThisGame.Contains(current))
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TriggerRegion.OnTurnTick()).MethodHandle;
-					}
-					if (this.m_actorsTriggeredOnThisGame.Contains(actorData))
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
-				if (this.m_triggerLimit == TriggerAmount.OnceEverTotal)
+				if (m_triggerLimit == TriggerAmount.OnceEverTotal)
 				{
-					for (;;)
+					if (m_actorsTriggeredOnThisGame.Count > 0)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_actorsTriggeredOnThisGame.Count > 0)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
-				if (!TriggerRegion.ActorCanTrigger(actorData, this.m_triggerActor))
+				if (!ActorCanTrigger(current, m_triggerActor))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-				else if (this.m_triggerLimit == TriggerAmount.OncePerTurnTotal)
+				else if (m_triggerLimit == TriggerAmount.OncePerTurnTotal)
 				{
 					return;
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	private static bool ActorCanTrigger(ActorData actor, TriggerActor triggerActor)
 	{
-		bool result;
 		switch (triggerActor)
 		{
 		case TriggerActor.ClientPlayer:
-			result = GameFlowData.Get().m_ownedActorDatas.Contains(actor);
-			break;
+			return GameFlowData.Get().m_ownedActorDatas.Contains(actor);
 		case TriggerActor.HumanPlayer:
 		{
-			bool flag;
+			int result;
 			if (GameplayUtils.IsPlayerControlled(actor))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TriggerRegion.ActorCanTrigger(ActorData, TriggerActor)).MethodHandle;
-				}
-				flag = GameplayUtils.IsHumanControlled(actor);
+				result = (GameplayUtils.IsHumanControlled(actor) ? 1 : 0);
 			}
 			else
 			{
-				flag = false;
+				result = 0;
 			}
-			result = flag;
-			break;
+			return (byte)result != 0;
 		}
 		case TriggerActor.AnyPlayer:
-			result = GameplayUtils.IsPlayerControlled(actor);
-			break;
-		case TriggerActor.AnyActor:
-			result = true;
-			break;
+			return GameplayUtils.IsPlayerControlled(actor);
 		case TriggerActor.NonPlayerActor:
-			result = !GameplayUtils.IsPlayerControlled(actor);
-			break;
+			return !GameplayUtils.IsPlayerControlled(actor);
+		case TriggerActor.AnyActor:
+			return true;
 		default:
-			result = true;
-			break;
+			return true;
 		}
-		return result;
 	}
 }

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using Fabric;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioWarningCleanup : MonoBehaviour, IEventListener
@@ -10,73 +9,34 @@ public class AudioWarningCleanup : MonoBehaviour, IEventListener
 	[HideInInspector]
 	private bool m_registering;
 
+	bool IEventListener.IsDestroyed => !m_registering;
+
 	private void Start()
 	{
-		this.m_registering = true;
+		m_registering = true;
 		if (EventManager.Instance != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AudioWarningCleanup.Start()).MethodHandle;
-			}
-			foreach (string eventName in this.m_warningsToIgnore)
+			string[] warningsToIgnore = m_warningsToIgnore;
+			foreach (string eventName in warningsToIgnore)
 			{
 				EventManager.Instance.RegisterListener(this, eventName);
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		this.m_registering = false;
+		m_registering = false;
 	}
 
 	private void OnDestroy()
 	{
-		this.m_registering = true;
+		m_registering = true;
 		if (EventManager.Instance != null)
 		{
-			foreach (string eventName in this.m_warningsToIgnore)
+			string[] warningsToIgnore = m_warningsToIgnore;
+			foreach (string eventName in warningsToIgnore)
 			{
 				EventManager.Instance.UnregisterListener(this, eventName);
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AudioWarningCleanup.OnDestroy()).MethodHandle;
-			}
 		}
-		this.m_registering = false;
-	}
-
-	bool IEventListener.IsDestroyed
-	{
-		get
-		{
-			return !this.m_registering;
-		}
+		m_registering = false;
 	}
 
 	bool IEventListener.GetEventInfo(GameObject parentGameObject, ref EventInfo eventInfo)

@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 using WebSocketSharp;
 
 public class MyNetworkClientConnection : NetworkConnection
 {
-	public static Action<UNetMessage> OnSending = delegate(UNetMessage A_0)
+	public static Action<UNetMessage> OnSending = delegate
 	{
 	};
 
@@ -22,22 +22,9 @@ public class MyNetworkClientConnection : NetworkConnection
 		get
 		{
 			TimeSpan result;
-			if (this.m_gameClientInterface != null)
+			if (m_gameClientInterface != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.get_HeartbeatTimeout()).MethodHandle;
-				}
-				result = this.m_gameClientInterface.HeartbeatTimeout;
+				result = m_gameClientInterface.HeartbeatTimeout;
 			}
 			else
 			{
@@ -47,118 +34,79 @@ public class MyNetworkClientConnection : NetworkConnection
 		}
 		set
 		{
-			if (this.m_gameClientInterface != null)
+			if (m_gameClientInterface == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.set_HeartbeatTimeout(TimeSpan)).MethodHandle;
-				}
-				this.m_gameClientInterface.HeartbeatTimeout = value;
+				return;
+			}
+			while (true)
+			{
+				m_gameClientInterface.HeartbeatTimeout = value;
+				return;
 			}
 		}
 	}
 
 	public void Connect()
 	{
-		this.m_gameClientInterface = new GameClientInterface();
-		this.m_gameClientInterface.Initialize(this.m_gameServerAddress, this.m_myNetworkClient.UserHandle);
-		this.m_gameClientInterface.OnConnected += this.HandleConnectedToGameServer;
-		this.m_gameClientInterface.OnDisconnected += this.HandleDisconnectedFromGameServer;
-		this.m_gameClientInterface.OnConnectionError += this.HandleConnectionErrorToGameServer;
-		this.m_gameClientInterface.OnMessage += this.HandleMessageFromGameServer;
-		this.m_gameClientInterface.Connect();
+		m_gameClientInterface = new GameClientInterface();
+		m_gameClientInterface.Initialize(m_gameServerAddress, m_myNetworkClient.UserHandle);
+		m_gameClientInterface.OnConnected += HandleConnectedToGameServer;
+		m_gameClientInterface.OnDisconnected += HandleDisconnectedFromGameServer;
+		m_gameClientInterface.OnConnectionError += HandleConnectionErrorToGameServer;
+		m_gameClientInterface.OnMessage += HandleMessageFromGameServer;
+		m_gameClientInterface.Connect();
 	}
 
 	public override void Initialize(string networkAddress, int networkHostId, int networkConnectionId, HostTopology hostTopology)
 	{
 		base.Initialize(networkAddress, networkHostId, networkConnectionId, hostTopology);
-		this.m_myNetworkClient = (NetworkManager.singleton.client as MyNetworkClient);
-		string text;
-		if (this.m_myNetworkClient.UseSSL)
+		m_myNetworkClient = (NetworkManager.singleton.client as MyNetworkClient);
+		object obj;
+		if (m_myNetworkClient.UseSSL)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.Initialize(string, int, int, HostTopology)).MethodHandle;
-			}
-			text = "wss://";
+			obj = "wss://";
 		}
 		else
 		{
-			text = "ws://";
+			obj = "ws://";
 		}
-		string arg = text;
-		this.m_gameServerAddress = string.Format("{0}{1}:{2}", arg, NetworkManager.singleton.networkAddress, NetworkManager.singleton.networkPort);
-		Log.Info("MyNetworkClientConnection.Initialize address={0}", new object[]
-		{
-			this.m_gameServerAddress
-		});
-		this.Connect();
+		string arg = (string)obj;
+		m_gameServerAddress = $"{arg}{NetworkManager.singleton.networkAddress}:{NetworkManager.singleton.networkPort}";
+		Log.Info("MyNetworkClientConnection.Initialize address={0}", m_gameServerAddress);
+		Connect();
 	}
 
 	protected void HandleConnectedToGameServer()
 	{
-		Log.Info("MyNetworkClientConnection.HandleConnectedToGameServer {0}", new object[]
-		{
-			this.m_gameServerAddress
-		});
-		this.m_myNetworkClient.IsConnected = true;
-		this.connectionId = 0;
+		Log.Info("MyNetworkClientConnection.HandleConnectedToGameServer {0}", m_gameServerAddress);
+		m_myNetworkClient.IsConnected = true;
+		connectionId = 0;
 		HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
-		this.m_gameClientInterface.HeartbeatPeriod = hydrogenConfig.HeartbeatPeriod;
-		this.m_gameClientInterface.HeartbeatTimeout = hydrogenConfig.HeartbeatTimeout;
-		this.m_gameClientInterface.MaxSendBufferSize = hydrogenConfig.MaxSendBufferSize;
-		this.m_gameClientInterface.MaxWaitTime = hydrogenConfig.MaxWaitTime;
+		m_gameClientInterface.HeartbeatPeriod = hydrogenConfig.HeartbeatPeriod;
+		m_gameClientInterface.HeartbeatTimeout = hydrogenConfig.HeartbeatTimeout;
+		m_gameClientInterface.MaxSendBufferSize = hydrogenConfig.MaxSendBufferSize;
+		m_gameClientInterface.MaxWaitTime = hydrogenConfig.MaxWaitTime;
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager.IsReconnectingInstantly)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					clientGameManager.ReloginToGameServerInstantly(this);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.HandleConnectedToGameServer()).MethodHandle;
-			}
-			clientGameManager.ReloginToGameServerInstantly(this);
 		}
-		else
-		{
-			base.InvokeHandlerNoData(0x20);
-		}
+		InvokeHandlerNoData(32);
 	}
 
 	protected void HandleDisconnectedFromGameServer(string reason, bool allowRelogin, CloseStatusCode code)
 	{
-		Log.Warning("MyNetworkClientConnection.HandleDisconnectedFromGameServer {0} reason={1} allowRelogin={2} CloseStatusCode={3}", new object[]
-		{
-			this.m_gameServerAddress,
-			reason,
-			allowRelogin,
-			code
-		});
+		Log.Warning("MyNetworkClientConnection.HandleDisconnectedFromGameServer {0} reason={1} allowRelogin={2} CloseStatusCode={3}", m_gameServerAddress, reason, allowRelogin, code);
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (allowRelogin)
 		{
@@ -166,82 +114,50 @@ public class MyNetworkClientConnection : NetworkConnection
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.HandleDisconnectedFromGameServer(string, bool, CloseStatusCode)).MethodHandle;
-			}
 		}
-		this.m_myNetworkClient.IsConnected = false;
-		this.CloseStatusCode = code;
-		this.connectionId = -1;
-		base.InvokeHandlerNoData(0x21);
+		m_myNetworkClient.IsConnected = false;
+		CloseStatusCode = code;
+		connectionId = -1;
+		InvokeHandlerNoData(33);
 	}
 
 	protected void HandleConnectionErrorToGameServer(string errorMessage)
 	{
-		Log.Info("MyNetworkClientConnection.HandleConnectionErrorToGameServer {0} {1}", new object[]
-		{
-			this.m_gameServerAddress,
-			errorMessage
-		});
+		Log.Info("MyNetworkClientConnection.HandleConnectionErrorToGameServer {0} {1}", m_gameServerAddress, errorMessage);
 		StringMessage stringMessage = new StringMessage();
 		stringMessage.value = errorMessage;
-		byte[] buffer = new byte[0x2000];
+		byte[] buffer = new byte[8192];
 		NetworkWriter writer = new NetworkWriter(buffer);
 		stringMessage.Serialize(writer);
 		NetworkReader reader = new NetworkReader(buffer);
-		base.InvokeHandler(new NetworkMessage
-		{
-			msgType = 0x22,
-			reader = reader,
-			conn = this,
-			channelId = 0
-		});
+		NetworkMessage networkMessage = new NetworkMessage();
+		networkMessage.msgType = 34;
+		networkMessage.reader = reader;
+		networkMessage.conn = this;
+		networkMessage.channelId = 0;
+		InvokeHandler(networkMessage);
 	}
 
 	protected void HandleMessageFromGameServer(BinaryMessageNotification notification)
 	{
-		UNetMessage unetMessage = new UNetMessage();
-		unetMessage.Deserialize(notification.RawData);
-		this.TransportReceive(unetMessage.Bytes, unetMessage.NumBytes, 0);
+		UNetMessage uNetMessage = new UNetMessage();
+		uNetMessage.Deserialize(notification.RawData);
+		TransportReceive(uNetMessage.Bytes, uNetMessage.NumBytes, 0);
 	}
 
-	public unsafe override bool TransportSend(byte[] bytes, int numBytes, int channelId, out byte error)
+	public override bool TransportSend(byte[] bytes, int numBytes, int channelId, out byte error)
 	{
 		error = 0;
-		UNetMessage unetMessage = new UNetMessage
+		UNetMessage uNetMessage = new UNetMessage();
+		uNetMessage.Bytes = bytes;
+		uNetMessage.NumBytes = numBytes;
+		UNetMessage uNetMessage2 = uNetMessage;
+		byte[] bytes2 = uNetMessage2.Serialize();
+		if (m_gameClientInterface != null)
 		{
-			Bytes = bytes,
-			NumBytes = numBytes
-		};
-		byte[] bytes2 = unetMessage.Serialize();
-		if (this.m_gameClientInterface != null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.TransportSend(byte[], int, int, byte*)).MethodHandle;
-			}
-			this.m_gameClientInterface.SendMessage(bytes2);
+			m_gameClientInterface.SendMessage(bytes2);
 		}
-		MyNetworkClientConnection.OnSending(unetMessage);
+		OnSending(uNetMessage2);
 		return true;
 	}
 
@@ -254,20 +170,16 @@ public class MyNetworkClientConnection : NetworkConnection
 	{
 		if (!ClientGameManager.Get().IsFastForward)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return base.SendBytes(bytes, numBytes, channelId);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.SendBytes(byte[], int, int)).MethodHandle;
-			}
-			return base.SendBytes(bytes, numBytes, channelId);
 		}
 		return true;
 	}
@@ -276,54 +188,42 @@ public class MyNetworkClientConnection : NetworkConnection
 	{
 		if (!ClientGameManager.Get().IsFastForward)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return base.SendWriter(writer, channelId);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.SendWriter(NetworkWriter, int)).MethodHandle;
-			}
-			return base.SendWriter(writer, channelId);
 		}
 		return true;
 	}
 
 	public void Update()
 	{
-		if (this.m_gameClientInterface != null)
+		if (m_gameClientInterface != null)
 		{
-			this.m_gameClientInterface.Update();
+			m_gameClientInterface.Update();
 		}
 	}
 
 	public void Close()
 	{
-		if (this.m_gameClientInterface != null)
+		if (m_gameClientInterface == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.Close()).MethodHandle;
-			}
-			this.m_gameClientInterface.Disconnect();
-			this.m_gameClientInterface.OnConnected -= this.HandleConnectedToGameServer;
-			this.m_gameClientInterface.OnDisconnected -= this.HandleDisconnectedFromGameServer;
-			this.m_gameClientInterface.OnConnectionError -= this.HandleConnectionErrorToGameServer;
-			this.m_gameClientInterface.OnMessage -= this.HandleMessageFromGameServer;
+			return;
+		}
+		while (true)
+		{
+			m_gameClientInterface.Disconnect();
+			m_gameClientInterface.OnConnected -= HandleConnectedToGameServer;
+			m_gameClientInterface.OnDisconnected -= HandleDisconnectedFromGameServer;
+			m_gameClientInterface.OnConnectionError -= HandleConnectionErrorToGameServer;
+			m_gameClientInterface.OnMessage -= HandleMessageFromGameServer;
+			return;
 		}
 	}
 }

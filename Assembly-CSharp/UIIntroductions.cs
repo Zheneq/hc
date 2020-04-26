@@ -1,17 +1,27 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIIntroductions : MonoBehaviour
 {
+	[Serializable]
+	public class IntroductionGridInformation
+	{
+		public string InternalName;
+
+		public LayoutGroup m_GridLayout;
+
+		public int[] m_InventoryItemIDs;
+	}
+
 	public UILockboxRewardItem m_itemPrefab;
 
 	public AccountComponent.UIStateIdentifier UIState = AccountComponent.UIStateIdentifier.NONE;
 
 	public UIIntroductionPage[] m_pages;
 
-	public UIIntroductions.IntroductionGridInformation[] GridInfos;
+	public IntroductionGridInformation[] GridInfos;
 
 	private int currentActivePageIndex;
 
@@ -23,54 +33,41 @@ public class UIIntroductions : MonoBehaviour
 	public void CheckAutoDisplay()
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (!(clientGameManager == null))
+		if (clientGameManager == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!clientGameManager.IsPlayerAccountDataAvailable())
 			{
-				switch (3)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIIntroductions.CheckAutoDisplay()).MethodHandle;
-			}
-			if (clientGameManager.IsPlayerAccountDataAvailable())
-			{
-				bool flag = true;
-				PersistedAccountData playerAccountData = clientGameManager.GetPlayerAccountData();
-				if (playerAccountData.AccountComponent.GetUIState(this.UIState) == 0)
-				{
-					flag = false;
-				}
-				if (!flag && this.AreConditionsMetToAutoDisplay())
-				{
-					for (;;)
+					switch (2)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
+					default:
+						return;
+					case 0:
 						break;
 					}
-					this.DisplayIntroduction(0);
-					ClientGameManager.Get().RequestUpdateUIState(this.UIState, 1, null);
 				}
-				return;
 			}
-			for (;;)
+			bool flag = true;
+			PersistedAccountData playerAccountData = clientGameManager.GetPlayerAccountData();
+			if (playerAccountData.AccountComponent.GetUIState(UIState) == 0)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				flag = false;
 			}
+			if (!flag && AreConditionsMetToAutoDisplay())
+			{
+				while (true)
+				{
+					DisplayIntroduction();
+					ClientGameManager.Get().RequestUpdateUIState(UIState, 1, null);
+					return;
+				}
+			}
+			return;
 		}
 	}
 
@@ -78,95 +75,37 @@ public class UIIntroductions : MonoBehaviour
 	{
 		for (int i = 0; i < itemList.Length; i++)
 		{
-			UILockboxRewardItem uilockboxRewardItem = UnityEngine.Object.Instantiate<UILockboxRewardItem>(this.m_itemPrefab);
-			UIManager.ReparentTransform(uilockboxRewardItem.transform, gridLayout.transform);
+			UILockboxRewardItem uILockboxRewardItem = UnityEngine.Object.Instantiate(m_itemPrefab);
+			UIManager.ReparentTransform(uILockboxRewardItem.transform, gridLayout.transform);
 			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(itemList[i]);
 			bool isDuplicate = false;
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIIntroductions.PopulateRewards(int[], LayoutGroup)).MethodHandle;
-				}
 				if (ClientGameManager.Get().GetPlayerAccountData() != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().GetPlayerAccountData().InventoryComponent != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						bool flag;
+						int num;
 						if (!ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.HasItem(itemList[i]))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag = InventoryWideData.IsOwned(itemTemplate);
+							num = (InventoryWideData.IsOwned(itemTemplate) ? 1 : 0);
 						}
 						else
 						{
-							flag = true;
+							num = 1;
 						}
-						isDuplicate = flag;
+						isDuplicate = ((byte)num != 0);
 					}
 				}
 			}
-			uilockboxRewardItem.Setup(new InventoryItem(), itemTemplate, isDuplicate, -1);
-			if (uilockboxRewardItem.m_rewardFgs != null)
+			uILockboxRewardItem.Setup(new InventoryItem(), itemTemplate, isDuplicate, -1);
+			if (uILockboxRewardItem.m_rewardFgs != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Sprite itemFg = InventoryWideData.GetItemFg(itemTemplate);
-				for (int j = 0; j < uilockboxRewardItem.m_rewardFgs.Length; j++)
+				for (int j = 0; j < uILockboxRewardItem.m_rewardFgs.Length; j++)
 				{
-					uilockboxRewardItem.m_rewardFgs[j].sprite = itemFg;
-					UIManager.SetGameObjectActive(uilockboxRewardItem.m_rewardFgs[j], itemFg != null, null);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					uILockboxRewardItem.m_rewardFgs[j].sprite = itemFg;
+					UIManager.SetGameObjectActive(uILockboxRewardItem.m_rewardFgs[j], itemFg != null);
 				}
 			}
 		}
@@ -174,226 +113,113 @@ public class UIIntroductions : MonoBehaviour
 
 	public void SetupGridInfos()
 	{
-		if (this.GridInfos != null)
+		if (GridInfos == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			for (int i = 0; i < GridInfos.Length; i++)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				PopulateRewards(GridInfos[i].m_InventoryItemIDs, GridInfos[i].m_GridLayout);
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIIntroductions.SetupGridInfos()).MethodHandle;
-			}
-			for (int i = 0; i < this.GridInfos.Length; i++)
-			{
-				this.PopulateRewards(this.GridInfos[i].m_InventoryItemIDs, this.GridInfos[i].m_GridLayout);
-			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public virtual void Awake()
 	{
-		this.currentActivePageIndex = -1;
-		if (this.m_pages != null)
+		currentActivePageIndex = -1;
+		if (m_pages != null)
 		{
-			for (;;)
+			for (int i = 0; i < m_pages.Length; i++)
 			{
-				switch (1)
+				if (m_pages[i].m_backBtn != null)
 				{
-				case 0:
-					continue;
+					m_pages[i].m_backBtn.spriteController.callback = BackBtnClicked;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIIntroductions.Awake()).MethodHandle;
-			}
-			for (int i = 0; i < this.m_pages.Length; i++)
-			{
-				if (this.m_pages[i].m_backBtn != null)
+				if (m_pages[i].m_nextBtn != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_pages[i].m_backBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BackBtnClicked);
+					m_pages[i].m_nextBtn.spriteController.callback = NextBtnClicked;
 				}
-				if (this.m_pages[i].m_nextBtn != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_pages[i].m_nextBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.NextBtnClicked);
-				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
-		this.CheckAutoDisplay();
-		this.SetupGridInfos();
+		CheckAutoDisplay();
+		SetupGridInfos();
 	}
 
 	public void BackBtnClicked(BaseEventData data)
 	{
-		this.currentActivePageIndex--;
-		if (this.m_pages != null)
+		currentActivePageIndex--;
+		if (m_pages == null)
 		{
-			for (int i = 0; i < this.m_pages.Length; i++)
-			{
-				this.m_pages[i].SetVisible(i == this.currentActivePageIndex);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIIntroductions.BackBtnClicked(BaseEventData)).MethodHandle;
-			}
+			return;
+		}
+		for (int i = 0; i < m_pages.Length; i++)
+		{
+			m_pages[i].SetVisible(i == currentActivePageIndex);
+		}
+		while (true)
+		{
+			return;
 		}
 	}
 
 	public void NextBtnClicked(BaseEventData data)
 	{
-		this.currentActivePageIndex++;
-		if (this.m_pages != null)
+		currentActivePageIndex++;
+		if (m_pages != null)
 		{
-			for (;;)
+			for (int i = 0; i < m_pages.Length; i++)
 			{
-				switch (5)
+				if (i == currentActivePageIndex)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIIntroductions.NextBtnClicked(BaseEventData)).MethodHandle;
-			}
-			for (int i = 0; i < this.m_pages.Length; i++)
-			{
-				if (i == this.currentActivePageIndex)
-				{
-					for (;;)
+					if (m_pages[i].m_backBtn != null)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						UIManager.SetGameObjectActive(m_pages[i].m_backBtn, true);
 					}
-					if (this.m_pages[i].m_backBtn != null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIManager.SetGameObjectActive(this.m_pages[i].m_backBtn, true, null);
-					}
-					this.m_pages[i].SetVisible(true);
+					m_pages[i].SetVisible(true);
 				}
 				else
 				{
-					this.m_pages[i].SetVisible(false);
+					m_pages[i].SetVisible(false);
 				}
 			}
 		}
-		if (this.currentActivePageIndex >= this.m_pages.Length)
+		if (currentActivePageIndex < m_pages.Length)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			UINewUserFlowManager.OnChapterMoreInfoClosed();
+			return;
 		}
 	}
 
 	public virtual void DisplayIntroduction(int pageNum = 0)
 	{
-		if (this.m_pages != null && this.m_pages.Length > 0)
+		if (m_pages != null && m_pages.Length > 0)
 		{
-			for (;;)
+			if (pageNum >= m_pages.Length)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				pageNum = m_pages.Length - 1;
 			}
-			if (!true)
+			currentActivePageIndex = pageNum;
+			if (m_pages[pageNum].m_backBtn != null)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIIntroductions.DisplayIntroduction(int)).MethodHandle;
+				UIManager.SetGameObjectActive(m_pages[pageNum].m_backBtn, false);
 			}
-			if (pageNum >= this.m_pages.Length)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				pageNum = this.m_pages.Length - 1;
-			}
-			this.currentActivePageIndex = pageNum;
-			if (this.m_pages[pageNum].m_backBtn != null)
-			{
-				UIManager.SetGameObjectActive(this.m_pages[pageNum].m_backBtn, false, null);
-			}
-			this.m_pages[pageNum].SetVisible(true);
+			m_pages[pageNum].SetVisible(true);
 		}
 		UILockboxRewardItem[] componentsInChildren = base.gameObject.GetComponentsInChildren<UILockboxRewardItem>(true);
 		for (int i = 0; i < componentsInChildren.Length; i++)
@@ -402,37 +228,10 @@ public class UIIntroductions : MonoBehaviour
 			InventoryItemTemplate template = componentsInChildren[i].GetTemplate();
 			if (template != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().GetPlayerAccountData() != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ClientGameManager.Get().GetPlayerAccountData().InventoryComponent != null)
 						{
 							flag = InventoryWideData.IsOwned(template);
@@ -442,98 +241,58 @@ public class UIIntroductions : MonoBehaviour
 			}
 			if (flag && componentsInChildren[i].m_ownedIcon != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(componentsInChildren[i].m_ownedIcon, true, null);
+				UIManager.SetGameObjectActive(componentsInChildren[i].m_ownedIcon, true);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void Update()
 	{
-		if (-1 < this.currentActivePageIndex && this.currentActivePageIndex < this.m_pages.Length)
+		if (-1 >= currentActivePageIndex || currentActivePageIndex >= m_pages.Length)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_pages[currentActivePageIndex].m_nextBtn != null)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIIntroductions.Update()).MethodHandle;
-			}
-			if (this.m_pages[this.currentActivePageIndex].m_nextBtn != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (InputManager.Get().GetAcceptButtonDown())
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							NextBtnClicked(null);
+							return;
 						}
-						break;
 					}
-					this.NextBtnClicked(null);
-					return;
 				}
 			}
-			if (this.m_pages[this.currentActivePageIndex].m_backBtn != null)
+			if (!(m_pages[currentActivePageIndex].m_backBtn != null))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				return;
+			}
+			while (true)
+			{
 				if (InputManager.Get().GetCancelButtonDown())
 				{
-					this.BackBtnClicked(null);
+					BackBtnClicked(null);
 				}
+				return;
 			}
 		}
-	}
-
-	[Serializable]
-	public class IntroductionGridInformation
-	{
-		public string InternalName;
-
-		public LayoutGroup m_GridLayout;
-
-		public int[] m_InventoryItemIDs;
 	}
 }

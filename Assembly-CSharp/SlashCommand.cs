@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using I2.Loc;
+using System.Collections.Generic;
 
 public abstract class SlashCommand
 {
@@ -8,90 +7,70 @@ public abstract class SlashCommand
 
 	public List<string> Aliases;
 
+	public string Command
+	{
+		get;
+		private set;
+	}
+
+	public SlashCommandType Type
+	{
+		get;
+		private set;
+	}
+
+	public string Description
+	{
+		get;
+		private set;
+	}
+
+	public bool PublicFacing
+	{
+		get;
+		set;
+	}
+
+	public bool AvailableInFrontEnd => (Type & SlashCommandType.InFrontEnd) != 0;
+
+	public bool AvailableInGame => (Type & SlashCommandType.InGame) != 0;
+
 	public SlashCommand(string command, SlashCommandType type)
 	{
-		this.Command = command;
-		this.internalCommand = command;
-		this.Type = type;
-		this.PublicFacing = true;
-		this.Aliases = new List<string>();
-	}
-
-	public string Command { get; private set; }
-
-	public SlashCommandType Type { get; private set; }
-
-	public string Description { get; private set; }
-
-	public bool PublicFacing { get; set; }
-
-	public bool AvailableInFrontEnd
-	{
-		get
-		{
-			return (this.Type & SlashCommandType.InFrontEnd) != (SlashCommandType)0;
-		}
-	}
-
-	public bool AvailableInGame
-	{
-		get
-		{
-			return (this.Type & SlashCommandType.InGame) != (SlashCommandType)0;
-		}
+		internalCommand = (Command = command);
+		Type = type;
+		PublicFacing = true;
+		Aliases = new List<string>();
 	}
 
 	public abstract void OnSlashCommand(string arguments);
 
 	public bool IsSlashCommand(string command)
 	{
-		if (!command.EqualsIgnoreCase(this.Command))
+		if (!command.EqualsIgnoreCase(Command))
 		{
-			if (!command.EqualsIgnoreCase(this.internalCommand))
+			if (!command.EqualsIgnoreCase(internalCommand))
 			{
-				if (!this.Aliases.IsNullOrEmpty<string>())
+				if (!Aliases.IsNullOrEmpty())
 				{
-					for (;;)
+					foreach (string alias in Aliases)
 					{
-						switch (1)
+						if (command.EqualsIgnoreCase(alias))
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					foreach (string rhs in this.Aliases)
-					{
-						if (command.EqualsIgnoreCase(rhs))
-						{
-							for (;;)
+							while (true)
 							{
 								switch (1)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return true;
 								}
-								break;
 							}
-							return true;
 						}
 					}
-					return false;
 				}
 				return false;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand.IsSlashCommand(string)).MethodHandle;
 			}
 		}
 		return true;
@@ -99,95 +78,61 @@ public abstract class SlashCommand
 
 	public void Localize()
 	{
-		if (!this.PublicFacing)
+		if (!PublicFacing)
 		{
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand.Localize()).MethodHandle;
-				}
 				if (ClientGameManager.Get().HasDeveloperAccess())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_4E;
-					}
+					goto IL_004e;
 				}
 			}
-			this.Command = this.internalCommand;
-			this.Description = string.Empty;
-			this.Aliases.Clear();
+			Command = internalCommand;
+			Description = string.Empty;
+			Aliases.Clear();
 			return;
 		}
-		IL_4E:
-		this.Command = this.LocalizeSlashCommand(this.internalCommand);
-		this.Description = ScriptLocalization.Get(ScriptLocalization.GetSlashCommandDescKey(this.internalCommand));
-		this.Aliases.Clear();
+		goto IL_004e;
+		IL_004e:
+		Command = LocalizeSlashCommand(internalCommand);
+		Description = ScriptLocalization.Get(ScriptLocalization.GetSlashCommandDescKey(internalCommand));
+		Aliases.Clear();
 		int num = 1;
-		int num2 = 0xA;
+		int num2 = 10;
 		bool flag = true;
 		while (flag)
 		{
-			for (;;)
+			if (num < num2)
 			{
-				switch (5)
+				if (LocalizationManager.TryGetTermTranslation(ScriptLocalization.GetSlashCommandAliasKey(internalCommand, num), out string Translation))
 				{
-				case 0:
-					continue;
+					Aliases.Add(Translation);
+					num++;
 				}
-				break;
+				else
+				{
+					flag = false;
+				}
+				continue;
 			}
-			if (num >= num2)
-			{
-				break;
-			}
-			string item;
-			if (LocalizationManager.TryGetTermTranslation(ScriptLocalization.GetSlashCommandAliasKey(this.internalCommand, num), out item))
-			{
-				this.Aliases.Add(item);
-				num++;
-			}
-			else
-			{
-				flag = false;
-			}
+			break;
 		}
 	}
 
 	private string LocalizeSlashCommand(string command)
 	{
-		string result;
-		if (LocalizationManager.TryGetTermTranslation(ScriptLocalization.GetSlashCommandKey(command), out result))
+		if (LocalizationManager.TryGetTermTranslation(ScriptLocalization.GetSlashCommandKey(command), out string Translation))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return Translation;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand.LocalizeSlashCommand(string)).MethodHandle;
-			}
-			return result;
 		}
 		return command;
 	}

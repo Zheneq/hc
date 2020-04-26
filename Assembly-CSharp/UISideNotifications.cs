@@ -1,13 +1,36 @@
-﻿using System;
+using LobbyGameClientMessages;
 using System.Collections.Generic;
 using System.Linq;
-using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UISideNotifications : MonoBehaviour
 {
+	private struct NotificationDisplay
+	{
+		public UINotificationDisplay theDisplay;
+
+		public float timeActiveDisplayed;
+	}
+
+	public struct UIGGPackNotificationInfo
+	{
+		public string GGPackUserName;
+
+		public int NumGGPacksUsed;
+
+		public int GGPackUserTitle;
+
+		public int GGPackUserTitleLevel;
+
+		public int GGPackUserBannerForeground;
+
+		public int GGPackUserBannerBackground;
+
+		public int GGPackUserRibbon;
+	}
+
 	[Header("-- Gameplay Notifications --")]
 	public UINotificationDisplay m_displayPrefab;
 
@@ -33,7 +56,7 @@ public class UISideNotifications : MonoBehaviour
 
 	public Animator m_PercentageAnimator;
 
-	private List<UISideNotifications.NotificationDisplay> activeDisplays;
+	private List<NotificationDisplay> activeDisplays;
 
 	private List<UINotificationDisplay> inActiveDisplays;
 
@@ -53,445 +76,260 @@ public class UISideNotifications : MonoBehaviour
 
 	private void Start()
 	{
-		float d = (this.m_grid.transform as RectTransform).rect.width / this.m_grid.cellSize.x;
-		this.m_grid.cellSize *= d;
-		this.activeDisplays = new List<UISideNotifications.NotificationDisplay>();
-		this.inActiveDisplays = new List<UINotificationDisplay>();
-		this.activeGGPackDisplays = new List<UIGGPackNotification>();
-		this.m_ggPackUsers = new Dictionary<string, int>();
-		this.m_characterProfiles = new List<UISideCharacterProfile>();
-		ClientGameManager.Get().OnUseGGPackNotification += this.NotifyOtherUsedGGPack;
+		float width = (m_grid.transform as RectTransform).rect.width;
+		Vector2 cellSize = m_grid.cellSize;
+		float num = width / cellSize.x;
+		m_grid.cellSize *= num;
+		activeDisplays = new List<NotificationDisplay>();
+		inActiveDisplays = new List<UINotificationDisplay>();
+		activeGGPackDisplays = new List<UIGGPackNotification>();
+		m_ggPackUsers = new Dictionary<string, int>();
+		m_characterProfiles = new List<UISideCharacterProfile>();
+		ClientGameManager.Get().OnUseGGPackNotification += NotifyOtherUsedGGPack;
 		GameFlowData.s_onGameStateChanged += delegate(GameState gameState)
 		{
 			if (gameState == GameState.StartingGame)
 			{
-				this.SetupSideProfiles(GameManager.Get().PlayerInfo.TeamId);
+				SetupSideProfiles(GameManager.Get().PlayerInfo.TeamId);
 			}
 		};
-		UIManager.SetGameObjectActive(this.m_characterProfileGrid, false, null);
+		UIManager.SetGameObjectActive(m_characterProfileGrid, false);
 	}
 
 	public void RemoveHandleMessage()
 	{
-		ClientGameManager.Get().OnUseGGPackNotification -= this.NotifyOtherUsedGGPack;
+		ClientGameManager.Get().OnUseGGPackNotification -= NotifyOtherUsedGGPack;
 	}
 
 	public void SetBonusGGPackText(string text)
 	{
-		for (int i = 0; i < this.m_bonusLabel.Length; i++)
+		for (int i = 0; i < m_bonusLabel.Length; i++)
 		{
-			this.m_bonusLabel[i].text = text;
+			m_bonusLabel[i].text = text;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISideNotifications.SetBonusGGPackText(string)).MethodHandle;
+			return;
 		}
 	}
 
 	private void Update()
 	{
 		GameFlowData gameFlowData = GameFlowData.Get();
-		for (int i = 0; i < this.activeDisplays.Count; i++)
+		for (int i = 0; i < activeDisplays.Count; i++)
 		{
-			UISideNotifications.NotificationDisplay notificationDisplay = this.activeDisplays[i];
-			float num = this.m_timeToDisplayNotification - (Time.time - notificationDisplay.timeActiveDisplayed);
+			NotificationDisplay notificationDisplay = activeDisplays[i];
+			float num = m_timeToDisplayNotification - (Time.time - notificationDisplay.timeActiveDisplayed);
 			if (num <= 0f)
 			{
-				this.activeDisplays.RemoveAt(i);
-				UIManager.SetGameObjectActive(notificationDisplay.theDisplay, false, null);
-				notificationDisplay.theDisplay.transform.SetParent(this.m_grid.transform.parent);
-				this.inActiveDisplays.Add(notificationDisplay.theDisplay);
+				activeDisplays.RemoveAt(i);
+				UIManager.SetGameObjectActive(notificationDisplay.theDisplay, false);
+				notificationDisplay.theDisplay.transform.SetParent(m_grid.transform.parent);
+				inActiveDisplays.Add(notificationDisplay.theDisplay);
 			}
 			else if (num < 1f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UISideNotifications.Update()).MethodHandle;
-				}
 				notificationDisplay.theDisplay.SetAlpha(num);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
+			bool flag = true;
+			int num2 = 0;
+			while (true)
 			{
-			case 0:
-				continue;
+				if (num2 < activeGGPackDisplays.Count)
+				{
+					if (!activeGGPackDisplays[num2].DoneAnimating)
+					{
+						flag = false;
+						break;
+					}
+					num2++;
+					continue;
+				}
+				break;
 			}
-			break;
-		}
-		bool flag = true;
-		for (int j = 0; j < this.activeGGPackDisplays.Count; j++)
-		{
-			if (!this.activeGGPackDisplays[j].DoneAnimating)
+			if (flag)
 			{
-				for (;;)
+				m_ggPackNotificationActive = false;
+				if (m_ggPackAnimator.enabled)
 				{
-					switch (2)
+					if (m_ggPackAnimator.gameObject.activeInHierarchy)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag = false;
-				IL_123:
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (5)
+						AnimatorClipInfo[] currentAnimatorClipInfo = m_ggPackAnimator.GetCurrentAnimatorClipInfo(0);
+						if (currentAnimatorClipInfo != null)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_ggPackNotificationActive = false;
-					if (this.m_ggPackAnimator.enabled)
-					{
-						for (;;)
-						{
-							switch (2)
+							if (currentAnimatorClipInfo.Length > 0)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_ggPackAnimator.gameObject.activeInHierarchy)
-						{
-							for (;;)
-							{
-								switch (2)
+								if (currentAnimatorClipInfo[0].clip.name != "ggPackListOUT")
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							AnimatorClipInfo[] currentAnimatorClipInfo = this.m_ggPackAnimator.GetCurrentAnimatorClipInfo(0);
-							if (currentAnimatorClipInfo != null)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (currentAnimatorClipInfo.Length > 0)
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (currentAnimatorClipInfo[0].clip.name != "ggPackListOUT")
-									{
-										this.m_ggPackAnimator.Play("ggPackListOUT");
-									}
+									m_ggPackAnimator.Play("ggPackListOUT");
 								}
 							}
 						}
 					}
 				}
-				if (gameFlowData != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (gameFlowData.activeOwnedActorData != null)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (gameFlowData.activeOwnedActorData.\u000E() != this.m_currentTeam)
-						{
-							this.SetupSideProfiles(gameFlowData.activeOwnedActorData.\u000E());
-						}
-					}
-				}
+			}
+			if (!(gameFlowData != null))
+			{
 				return;
 			}
-		}
-		for (;;)
-		{
-			switch (3)
+			while (true)
 			{
-			case 0:
-				continue;
+				if (!(gameFlowData.activeOwnedActorData != null))
+				{
+					return;
+				}
+				while (true)
+				{
+					if (gameFlowData.activeOwnedActorData.GetTeam() != m_currentTeam)
+					{
+						SetupSideProfiles(gameFlowData.activeOwnedActorData.GetTeam());
+					}
+					return;
+				}
 			}
-			goto IL_123;
 		}
 	}
 
 	public int NumberGGPacksUsed(string username)
 	{
-		if (this.m_ggPackUsers.ContainsKey(username))
+		if (m_ggPackUsers.ContainsKey(username))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_ggPackUsers[username];
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideNotifications.NumberGGPacksUsed(string)).MethodHandle;
-			}
-			return this.m_ggPackUsers[username];
 		}
 		return 0;
 	}
 
 	public void GGPackAnimListOutAnimDone()
 	{
-		UIManager.SetGameObjectActive(this.m_ggPackAnimator, false, null);
-		if (this.activeGGPackDisplays != null)
+		UIManager.SetGameObjectActive(m_ggPackAnimator, false);
+		if (activeGGPackDisplays != null)
 		{
-			for (int i = 0; i < this.activeGGPackDisplays.Count; i++)
+			for (int i = 0; i < activeGGPackDisplays.Count; i++)
 			{
-				UnityEngine.Object.Destroy(this.activeGGPackDisplays[i].gameObject);
+				Object.Destroy(activeGGPackDisplays[i].gameObject);
 			}
-			this.activeGGPackDisplays.Clear();
+			activeGGPackDisplays.Clear();
 		}
 	}
 
 	public int NumSelfGGPacksUsed()
 	{
-		return this.m_numSelfGGPackUsed;
+		return m_numSelfGGPackUsed;
 	}
 
-	private void GGPackNotificationHelper(UISideNotifications.UIGGPackNotificationInfo info)
+	private void GGPackNotificationHelper(UIGGPackNotificationInfo info)
 	{
-		float ggpackXPMultiplier = GameBalanceVars.Get().GetGGPackXPMultiplier(this.m_totalNumGGPacksUsed, this.m_numSelfGGPackUsed);
-		if (!this.m_ggPackNotificationActive)
+		float gGPackXPMultiplier = GameBalanceVars.Get().GetGGPackXPMultiplier(m_totalNumGGPacksUsed, m_numSelfGGPackUsed);
+		if (!m_ggPackNotificationActive)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideNotifications.GGPackNotificationHelper(UISideNotifications.UIGGPackNotificationInfo)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_ggPackAnimator, true, null);
-			this.m_ggPackAnimator.Play("ggPackListIN");
-			this.m_ggPackNotificationActive = true;
+			UIManager.SetGameObjectActive(m_ggPackAnimator, true);
+			m_ggPackAnimator.Play("ggPackListIN");
+			m_ggPackNotificationActive = true;
 		}
 		else
 		{
-			this.m_ggPackAnimator.Play("ggPackListINCREASE", -1, 0f);
+			m_ggPackAnimator.Play("ggPackListINCREASE", -1, 0f);
 		}
 		if (info.GGPackUserName == ClientGameManager.Get().SessionInfo.Handle)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_numSelfGGPackUsed++;
+			m_numSelfGGPackUsed++;
 		}
-		if (this.m_ggPackUsers.ContainsKey(info.GGPackUserName))
+		if (m_ggPackUsers.ContainsKey(info.GGPackUserName))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Dictionary<string, int> ggPackUsers;
-			string ggpackUserName;
-			(ggPackUsers = this.m_ggPackUsers)[ggpackUserName = info.GGPackUserName] = ggPackUsers[ggpackUserName] + 1;
+			m_ggPackUsers[info.GGPackUserName]++;
 		}
 		else
 		{
-			this.m_ggPackUsers[info.GGPackUserName] = 1;
+			m_ggPackUsers[info.GGPackUserName] = 1;
 		}
-		this.m_totalNumGGPacksUsed++;
-		int ggpackBonusISO = GameBalanceVars.Get().GetGGPackBonusISO(this.m_totalNumGGPacksUsed, this.m_numSelfGGPackUsed);
-		float ggpackXPMultiplier2 = GameBalanceVars.Get().GetGGPackXPMultiplier(this.m_totalNumGGPacksUsed, this.m_numSelfGGPackUsed);
-		UIGameOverScreen.Get().UpdateEndGameGGBonuses(ggpackBonusISO, ggpackXPMultiplier2);
-		UIGGPackNotification uiggpackNotification = UnityEngine.Object.Instantiate<UIGGPackNotification>(this.m_ggPackDisplayPrefab);
-		uiggpackNotification.transform.SetParent(this.m_ggPackGrid.transform);
-		uiggpackNotification.transform.localPosition = Vector3.zero;
-		uiggpackNotification.transform.localEulerAngles = Vector3.zero;
-		uiggpackNotification.transform.localScale = Vector3.one;
-		uiggpackNotification.transform.SetAsFirstSibling();
-		uiggpackNotification.Setup(info);
+		m_totalNumGGPacksUsed++;
+		int gGPackBonusISO = GameBalanceVars.Get().GetGGPackBonusISO(m_totalNumGGPacksUsed, m_numSelfGGPackUsed);
+		float gGPackXPMultiplier2 = GameBalanceVars.Get().GetGGPackXPMultiplier(m_totalNumGGPacksUsed, m_numSelfGGPackUsed);
+		UIGameOverScreen.Get().UpdateEndGameGGBonuses(gGPackBonusISO, gGPackXPMultiplier2);
+		UIGGPackNotification uIGGPackNotification = Object.Instantiate(m_ggPackDisplayPrefab);
+		uIGGPackNotification.transform.SetParent(m_ggPackGrid.transform);
+		uIGGPackNotification.transform.localPosition = Vector3.zero;
+		uIGGPackNotification.transform.localEulerAngles = Vector3.zero;
+		uIGGPackNotification.transform.localScale = Vector3.one;
+		uIGGPackNotification.transform.SetAsFirstSibling();
+		uIGGPackNotification.Setup(info);
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.GGPackUsedNotification);
-		this.activeGGPackDisplays.Add(uiggpackNotification);
-		this.SetBonusGGPackText(string.Format(StringUtil.TR("InGameGGBonuses", "HUD"), Mathf.RoundToInt((ggpackXPMultiplier2 - 1f) * 100f)));
-		if (ggpackXPMultiplier2 < 2f)
+		activeGGPackDisplays.Add(uIGGPackNotification);
+		SetBonusGGPackText(string.Format(StringUtil.TR("InGameGGBonuses", "HUD"), Mathf.RoundToInt((gGPackXPMultiplier2 - 1f) * 100f)));
+		if (gGPackXPMultiplier2 < 2f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoostBluePercentageDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
+			UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoostBluePercentageDefaultIN", null, string.Empty);
 		}
-		else if (ggpackXPMultiplier2 < 3f)
+		else if (gGPackXPMultiplier2 < 3f)
 		{
-			for (;;)
+			UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoostSilverPercentageDefaultIN", null, string.Empty);
+			if (gGPackXPMultiplier < 2f)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoostSilverPercentageDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
-			if (ggpackXPMultiplier < 2f)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoost100PercentageDefaultIN", null, string.Empty, 1, 0f, true, false, null, null);
+				UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoost100PercentageDefaultIN", null, string.Empty, 1);
 			}
 			else
 			{
-				UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoost100PercentageDefaultIDLE", null, string.Empty, 1, 0f, true, false, null, null);
+				UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoost100PercentageDefaultIDLE", null, string.Empty, 1);
 			}
 		}
-		else if (ggpackXPMultiplier2 < 4f)
+		else if (gGPackXPMultiplier2 < 4f)
 		{
-			UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoostGoldPercentageDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
-			if (ggpackXPMultiplier < 3f)
+			UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoostGoldPercentageDefaultIN", null, string.Empty);
+			if (gGPackXPMultiplier < 3f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoost200PercentageDefaultIN", null, string.Empty, 1, 0f, true, false, null, null);
+				UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoost200PercentageDefaultIN", null, string.Empty, 1);
 			}
 			else
 			{
-				UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoost200PercentageDefaultIDLE", null, string.Empty, 1, 0f, true, false, null, null);
+				UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoost200PercentageDefaultIDLE", null, string.Empty, 1);
 			}
 		}
 		else
 		{
-			UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoostMaxPercentageDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
-			if (ggpackXPMultiplier < 4f)
+			UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoostMaxPercentageDefaultIN", null, string.Empty);
+			if (gGPackXPMultiplier < 4f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoost300PercentageDefaultIN", null, string.Empty, 1, 0f, true, false, null, null);
+				UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoost300PercentageDefaultIN", null, string.Empty, 1);
 			}
 			else
 			{
-				UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoost300PercentageDefaultIDLE", null, string.Empty, 1, 0f, true, false, null, null);
+				UIAnimationEventManager.Get().PlayAnimation(m_PercentageAnimator, "GGBoost300PercentageDefaultIDLE", null, string.Empty, 1);
 			}
 		}
 		if (UIGameOverScreen.Get().IsVisible)
 		{
-			UIGameOverScreen.Get().UpdateGGBoostPlayerList(true);
+			UIGameOverScreen.Get().UpdateGGBoostPlayerList();
+			return;
 		}
-		else
+		UIOverconData uIOverconData = UIOverconData.Get();
+		List<ActorData> actors = GameFlowData.Get().GetActors();
+		int actorIndex = -1;
+		for (int i = 0; i < actors.Count; i++)
 		{
-			UIOverconData uioverconData = UIOverconData.Get();
-			List<ActorData> actors = GameFlowData.Get().GetActors();
-			int actorIndex = -1;
-			for (int i = 0; i < actors.Count; i++)
+			if (actors[i].PlayerData.PlayerHandle == info.GGPackUserName)
 			{
-				if (actors[i].PlayerData.PlayerHandle == info.GGPackUserName)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					actorIndex = actors[i].ActorIndex;
-					break;
-				}
+				actorIndex = actors[i].ActorIndex;
+				break;
 			}
-			uioverconData.UseOvercon(uioverconData.GetOverconIdByName("gg"), actorIndex, true);
 		}
+		uIOverconData.UseOvercon(uIOverconData.GetOverconIdByName("gg"), actorIndex, true);
 	}
 
 	public void NotifyOtherUsedGGPack(UseGGPackNotification notification)
 	{
-		UISideNotifications.UIGGPackNotificationInfo info;
+		UIGGPackNotificationInfo info = default(UIGGPackNotificationInfo);
 		info.GGPackUserBannerBackground = notification.GGPackUserBannerBackground;
 		info.GGPackUserBannerForeground = notification.GGPackUserBannerForeground;
 		info.GGPackUserName = notification.GGPackUserName;
@@ -499,119 +337,78 @@ public class UISideNotifications : MonoBehaviour
 		info.GGPackUserTitleLevel = notification.GGPackUserTitleLevel;
 		info.GGPackUserRibbon = notification.GGPackUserRibbon;
 		info.NumGGPacksUsed = notification.NumGGPacksUsed;
-		this.GGPackNotificationHelper(info);
+		GGPackNotificationHelper(info);
 	}
 
 	public void NotifyGGPackUsed(UseGGPackResponse response)
 	{
-		UISideNotifications.UIGGPackNotificationInfo info;
+		UIGGPackNotificationInfo info = default(UIGGPackNotificationInfo);
 		info.GGPackUserBannerBackground = response.GGPackUserBannerBackground;
 		info.GGPackUserBannerForeground = response.GGPackUserBannerForeground;
 		info.GGPackUserName = response.GGPackUserName;
 		info.GGPackUserTitle = response.GGPackUserTitle;
 		info.GGPackUserTitleLevel = response.GGPackUserTitleLevel;
 		info.GGPackUserRibbon = response.GGPackUserRibbon;
-		info.NumGGPacksUsed = this.m_numSelfGGPackUsed + 1;
-		this.GGPackNotificationHelper(info);
+		info.NumGGPacksUsed = m_numSelfGGPackUsed + 1;
+		GGPackNotificationHelper(info);
 	}
 
 	public void Setup()
 	{
-		UIManager.SetGameObjectActive(this.m_ggPackAnimator, false, null);
-		this.GGPackAnimListOutAnimDone();
-		this.m_totalNumGGPacksUsed = 0;
-		this.m_numSelfGGPackUsed = 0;
-		this.m_ggPackUsers.Clear();
-		if (GameManager.Get() != null)
+		UIManager.SetGameObjectActive(m_ggPackAnimator, false);
+		GGPackAnimListOutAnimDone();
+		m_totalNumGGPacksUsed = 0;
+		m_numSelfGGPackUsed = 0;
+		m_ggPackUsers.Clear();
+		if (!(GameManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (GameManager.Get().GameInfo == null)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideNotifications.Setup()).MethodHandle;
-			}
-			if (GameManager.Get().GameInfo != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameInfo.ggPackUsedAccountIDs != null)
 				{
 					using (Dictionary<long, int>.Enumerator enumerator = GameManager.Get().GameInfo.ggPackUsedAccountIDs.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
 						{
-							KeyValuePair<long, int> keyValuePair = enumerator.Current;
-							LobbyPlayerInfo player = GameManager.Get().TeamInfo.GetPlayer(keyValuePair.Key);
+							KeyValuePair<long, int> current = enumerator.Current;
+							LobbyPlayerInfo player = GameManager.Get().TeamInfo.GetPlayer(current.Key);
 							if (player != null)
 							{
-								for (;;)
+								if (m_ggPackUsers.ContainsKey(player.Handle))
 								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.m_ggPackUsers.ContainsKey(player.Handle))
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									Dictionary<string, int> ggPackUsers;
-									string handle;
-									(ggPackUsers = this.m_ggPackUsers)[handle = player.Handle] = ggPackUsers[handle] + 1;
+									m_ggPackUsers[player.Handle]++;
 								}
 								else
 								{
-									this.m_ggPackUsers[player.Handle] = 1;
+									m_ggPackUsers[player.Handle] = 1;
 								}
 								if (player.Handle == ClientGameManager.Get().SessionInfo.Handle)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.m_numSelfGGPackUsed++;
+									m_numSelfGGPackUsed++;
 								}
 							}
 						}
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
+							default:
+								return;
 							case 0:
-								continue;
+								break;
 							}
-							break;
 						}
 					}
 				}
+				return;
 			}
 		}
 	}
@@ -622,149 +419,74 @@ public class UISideNotifications : MonoBehaviour
 		{
 			return;
 		}
-		if (this.inActiveDisplays.Count == 0)
+		if (inActiveDisplays.Count == 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideNotifications.OnActorVisualDeath(ActorData)).MethodHandle;
-			}
-			UINotificationDisplay item = UnityEngine.Object.Instantiate<UINotificationDisplay>(this.m_displayPrefab);
-			this.inActiveDisplays.Add(item);
+			UINotificationDisplay item = Object.Instantiate(m_displayPrefab);
+			inActiveDisplays.Add(item);
 		}
-		UINotificationDisplay uinotificationDisplay = this.inActiveDisplays[0];
-		uinotificationDisplay.transform.SetParent(this.m_grid.transform);
-		uinotificationDisplay.transform.localPosition = Vector3.zero;
-		uinotificationDisplay.transform.localScale = Vector3.one;
-		UIManager.SetGameObjectActive(uinotificationDisplay, true, null);
-		this.inActiveDisplays.RemoveAt(0);
-		uinotificationDisplay.Setup(actorDied);
-		UISideNotifications.NotificationDisplay item2 = default(UISideNotifications.NotificationDisplay);
-		item2.theDisplay = uinotificationDisplay;
+		UINotificationDisplay uINotificationDisplay = inActiveDisplays[0];
+		uINotificationDisplay.transform.SetParent(m_grid.transform);
+		uINotificationDisplay.transform.localPosition = Vector3.zero;
+		uINotificationDisplay.transform.localScale = Vector3.one;
+		UIManager.SetGameObjectActive(uINotificationDisplay, true);
+		inActiveDisplays.RemoveAt(0);
+		uINotificationDisplay.Setup(actorDied);
+		NotificationDisplay item2 = default(NotificationDisplay);
+		item2.theDisplay = uINotificationDisplay;
 		item2.timeActiveDisplayed = Time.time;
-		this.activeDisplays.Add(item2);
+		activeDisplays.Add(item2);
 	}
 
 	public void SetupSideProfiles(Team team)
 	{
-		this.m_currentTeam = team;
-		for (int i = 0; i < this.m_characterProfiles.Count; i++)
+		m_currentTeam = team;
+		for (int i = 0; i < m_characterProfiles.Count; i++)
 		{
-			UnityEngine.Object.Destroy(this.m_characterProfiles[i].gameObject);
+			Object.Destroy(m_characterProfiles[i].gameObject);
 		}
-		for (;;)
+		ActorData currentActor;
+		while (true)
 		{
-			switch (7)
+			m_characterProfiles.Clear();
+			GameFlowData gameFlowData = GameFlowData.Get();
+			currentActor = GameFlowData.Get().firstOwnedFriendlyActorData;
+			List<ActorData> list = gameFlowData.m_ownedActorDatas.Where((ActorData x) => x.GetTeam() == currentActor.GetTeam()).ToList();
+			if (list.Count > 1)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISideNotifications.SetupSideProfiles(Team)).MethodHandle;
-		}
-		this.m_characterProfiles.Clear();
-		GameFlowData gameFlowData = GameFlowData.Get();
-		ActorData currentActor = GameFlowData.Get().firstOwnedFriendlyActorData;
-		List<ActorData> list = (from x in gameFlowData.m_ownedActorDatas
-		where x.\u000E() == currentActor.\u000E()
-		select x).ToList<ActorData>();
-		if (list.Count > 1)
-		{
-			for (;;)
-			{
-				switch (7)
+				int ownedActorNum = 0;
+				list.ForEach(delegate(ActorData actor)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			int ownedActorNum = 0;
-			list.ForEach(delegate(ActorData actor)
-			{
-				KeyPreference keyPreference = KeyPreference.Freelancer1;
-				keyPreference += ownedActorNum++;
-				string fullKeyString = InputManager.Get().GetFullKeyString(keyPreference, true, false);
-				this.AddSideProfileForActor(actor, fullKeyString, true);
-			});
-			List<ActorData> allTeamMembers = gameFlowData.GetAllTeamMembers(this.m_currentTeam);
-			for (int j = 0; j < allTeamMembers.Count; j++)
-			{
-				if (!gameFlowData.IsActorDataOwned(allTeamMembers[j]))
+					KeyPreference keyPreference = KeyPreference.Freelancer1;
+					keyPreference += ownedActorNum++;
+					string fullKeyString = InputManager.Get().GetFullKeyString(keyPreference, true);
+					AddSideProfileForActor(actor, fullKeyString, true);
+				});
+				List<ActorData> allTeamMembers = gameFlowData.GetAllTeamMembers(m_currentTeam);
+				for (int j = 0; j < allTeamMembers.Count; j++)
 				{
-					for (;;)
+					if (!gameFlowData.IsActorDataOwned(allTeamMembers[j]))
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						AddSideProfileForActor(allTeamMembers[j], string.Empty, false);
 					}
-					this.AddSideProfileForActor(allTeamMembers[j], string.Empty, false);
 				}
+				m_characterProfileInstructions.text = string.Format(StringUtil.TR("SwitchCharacterInstructions", "HUDScene"), InputManager.Get().GetFullKeyString(KeyPreference.SwitchFreelancer, true));
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_characterProfileInstructions.text = string.Format(StringUtil.TR("SwitchCharacterInstructions", "HUDScene"), InputManager.Get().GetFullKeyString(KeyPreference.SwitchFreelancer, true, false));
+			UIManager.SetGameObjectActive(m_characterProfileGrid, list.Count > 1);
+			return;
 		}
-		UIManager.SetGameObjectActive(this.m_characterProfileGrid, list.Count > 1, null);
 	}
 
 	public void AddSideProfileForActor(ActorData actor, string hotkeyText, bool isOwned)
 	{
-		if (!GameplayUtils.IsValidPlayer(actor))
+		if (GameplayUtils.IsValidPlayer(actor))
 		{
-			return;
+			UISideCharacterProfile uISideCharacterProfile = Object.Instantiate(m_characterProfilePrefab);
+			uISideCharacterProfile.transform.SetParent(m_characterProfileGrid.transform);
+			uISideCharacterProfile.transform.localPosition = Vector3.zero;
+			uISideCharacterProfile.transform.localScale = Vector3.one;
+			uISideCharacterProfile.gameObject.SetActive(true);
+			uISideCharacterProfile.Setup(actor, hotkeyText, isOwned);
+			m_characterProfiles.Add(uISideCharacterProfile);
 		}
-		UISideCharacterProfile uisideCharacterProfile = UnityEngine.Object.Instantiate<UISideCharacterProfile>(this.m_characterProfilePrefab);
-		uisideCharacterProfile.transform.SetParent(this.m_characterProfileGrid.transform);
-		uisideCharacterProfile.transform.localPosition = Vector3.zero;
-		uisideCharacterProfile.transform.localScale = Vector3.one;
-		uisideCharacterProfile.gameObject.SetActive(true);
-		uisideCharacterProfile.Setup(actor, hotkeyText, isOwned);
-		this.m_characterProfiles.Add(uisideCharacterProfile);
-	}
-
-	private struct NotificationDisplay
-	{
-		public UINotificationDisplay theDisplay;
-
-		public float timeActiveDisplayed;
-	}
-
-	public struct UIGGPackNotificationInfo
-	{
-		public string GGPackUserName;
-
-		public int NumGGPacksUsed;
-
-		public int GGPackUserTitle;
-
-		public int GGPackUserTitleLevel;
-
-		public int GGPackUserBannerForeground;
-
-		public int GGPackUserBannerBackground;
-
-		public int GGPackUserRibbon;
 	}
 }

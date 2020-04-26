@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class FactionTierConfigOverride
@@ -13,6 +13,6 @@ public class FactionTierConfigOverride
 
 	public FactionTierConfigOverride Clone()
 	{
-		return (FactionTierConfigOverride)base.MemberwiseClone();
+		return (FactionTierConfigOverride)MemberwiseClone();
 	}
 }

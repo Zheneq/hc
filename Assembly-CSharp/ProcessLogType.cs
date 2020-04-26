@@ -1,9 +1,7 @@
-﻿using System;
-
 public enum ProcessLogType
 {
 	Log,
-	\u001D,
+	_001D,
 	OutputLog,
 	MatchLog,
 	MetricsLog

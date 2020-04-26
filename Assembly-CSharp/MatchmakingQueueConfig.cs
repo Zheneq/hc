@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
@@ -130,19 +130,6 @@ public class MatchmakingQueueConfig
 		{
 			if (this.GroupRules.IsNullOrEmpty<KeyValuePair<int, GroupSizeSpecification>>())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueConfig.get_GroupSizeRestrictions()).MethodHandle;
-				}
 				return null;
 			}
 			Dictionary<int, RequirementCollection> dictionary = new Dictionary<int, RequirementCollection>();
@@ -161,19 +148,6 @@ public class MatchmakingQueueConfig
 		{
 			if (this.GroupRules.IsNullOrEmpty<KeyValuePair<int, GroupSizeSpecification>>())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueConfig.get_AllViableGroupSizesAllowed()).MethodHandle;
-				}
 				return null;
 			}
 			return this.GroupRules.Keys.ToList<int>();
@@ -202,126 +176,40 @@ public class MatchmakingQueueConfig
 	{
 		for (;;)
 		{
-			bool flag = false;
-			uint num;
 			byte groupSize;
-			switch (num)
+			if (!this.IsMatchmakingGroupSizeDependant)
 			{
-			case 0U:
-				if (!this.IsMatchmakingGroupSizeDependant)
+				yield break;
+			}
+			if (this.GroupRules.IsNullOrEmpty<KeyValuePair<int, GroupSizeSpecification>>())
+			{
+				if (maxGroupSize == null)
 				{
-					goto IL_18A;
+					maxGroupSize = new byte?(4);
 				}
-				if (this.GroupRules.IsNullOrEmpty<KeyValuePair<int, GroupSizeSpecification>>())
+				groupSize = 1;
+				if (groupSize > maxGroupSize.Value)
 				{
-					if (maxGroupSize == null)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueConfig.<GetAllEloRelivantGroupSizes>c__Iterator0.MoveNext()).MethodHandle;
-						}
-						maxGroupSize = new byte?(4);
-					}
-					groupSize = 1;
-					goto IL_C0;
+					yield break;
 				}
-				goto IL_E2;
-			case 1U:
-				groupSize += 1;
-				goto IL_C0;
-			case 2U:
-				goto IL_104;
+				yield return groupSize;
 			}
-			goto Block_0;
-			IL_C0:
-			if (groupSize > maxGroupSize.Value)
+			Dictionary<int, GroupSizeSpecification>.KeyCollection.Enumerator enumerator = this.GroupRules.Keys.GetEnumerator();
+			try
 			{
-				break;
-			}
-			yield return groupSize;
-			for (;;)
-			{
-				switch (3)
+				while (enumerator.MoveNext())
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		goto IL_18A;
-		Block_0:
-		yield break;
-		IL_E2:
-		Dictionary<int, GroupSizeSpecification>.KeyCollection.Enumerator enumerator = this.GroupRules.Keys.GetEnumerator();
-		try
-		{
-			IL_104:
-			while (enumerator.MoveNext())
-			{
-				int groupSize2 = enumerator.Current;
-				yield return (byte)groupSize2;
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				bool flag = true;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		finally
-		{
-			bool flag;
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					int groupSize2 = enumerator.Current;
+					yield return (byte)groupSize2;
 				}
 			}
-			else
+			finally
 			{
+				// TODO BUG ? can dispose while iterating?
 				((IDisposable)enumerator).Dispose();
 			}
+			yield break;
 		}
-		IL_18A:
-		yield break;
 	}
 
 	public IEnumerable<string> GetAllEloKeysForEachRelivantGroupSize(LobbyGameConfig gameConfig, bool isCasual)
@@ -331,56 +219,18 @@ public class MatchmakingQueueConfig
 		for (;;)
 		{
 			flag = false;
-			uint num;
-			switch (num)
+			key = ELOPlayerKey.FromConfig(gameConfig.GameType, this, isCasual);
+			if (this.IsMatchmakingGroupSizeDependant)
 			{
-			case 0U:
-				key = ELOPlayerKey.FromConfig(gameConfig.GameType, this, isCasual);
-				if (this.IsMatchmakingGroupSizeDependant)
-				{
-					goto IL_5B;
-				}
-				yield return key.KeyText;
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				continue;
-			case 1U:
-				goto IL_A8;
-			case 2U:
-				goto IL_178;
+				break;
 			}
-			goto Block_0;
-		}
-		for (;;)
-		{
-			IL_5B:
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueConfig.<GetAllEloKeysForEachRelivantGroupSize>c__Iterator1.MoveNext()).MethodHandle;
+			yield return key.KeyText;
+			continue;
 		}
 		byte maxGroupSize = (byte)gameConfig.MaxGroupSize;
 		IEnumerator<byte> enumerator = this.GetAllEloRelivantGroupSizes(new byte?(maxGroupSize)).GetEnumerator();
-		goto Block_3;
-		Block_0:
-		yield break;
-		Block_3:
 		try
 		{
-			IL_A8:
 			while (enumerator.MoveNext())
 			{
 				byte groupSize = enumerator.Current;
@@ -388,45 +238,14 @@ public class MatchmakingQueueConfig
 				yield return key.KeyText;
 				flag = true;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		finally
 		{
-			if (flag)
+			if (!flag && enumerator != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else if (enumerator != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enumerator.Dispose();
 			}
 		}
-		IL_178:
 		yield break;
 	}
 
@@ -434,31 +253,9 @@ public class MatchmakingQueueConfig
 	{
 		if (matchesPlayed <= this.LeaderboardMinMatchesForRanking)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueConfig.ModifyRankedPointMovement(int, int)).MethodHandle;
-			}
 			float num;
 			if (unmodifiedPointMovement < 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = this.PlacementPointMultipleOnLoss;
 			}
 			else

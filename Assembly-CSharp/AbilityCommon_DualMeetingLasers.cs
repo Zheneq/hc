@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,19 +9,6 @@ public class AbilityCommon_DualMeetingLasers
 		vector.y = 0f;
 		if (vector.magnitude > 1E-05f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_DualMeetingLasers.CalcStartingPositions(Vector3, Vector3, float, float)).MethodHandle;
-			}
 			vector.Normalize();
 		}
 		else
@@ -32,11 +18,10 @@ public class AbilityCommon_DualMeetingLasers
 		Vector3 normalized = Vector3.Cross(vector, Vector3.up).normalized;
 		Vector3 a = centerPos + forwardOffset * Board.SquareSizeStatic * vector;
 		float d = sideOffset * Board.SquareSizeStatic;
-		return new List<Vector3>
-		{
-			a + normalized * d,
-			a - normalized * d
-		};
+		List<Vector3> list = new List<Vector3>();
+		list.Add(a + normalized * d);
+		list.Add(a - normalized * d);
+		return list;
 	}
 
 	public static Vector3 CalcClampedMeetingPos(Vector3 casterPos, Vector3 freePos, float minDistFromCaster, float maxDistFromCaster)
@@ -54,19 +39,6 @@ public class AbilityCommon_DualMeetingLasers
 		Vector3 result = freePos;
 		if (num3 < num)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_DualMeetingLasers.CalcClampedMeetingPos(Vector3, Vector3, float, float)).MethodHandle;
-			}
 			Vector3 normalized = vector.normalized;
 			result = casterPos + num * normalized;
 		}
@@ -89,54 +61,23 @@ public class AbilityCommon_DualMeetingLasers
 
 	public static float CalcAoeRadius(Vector3 casterPos, Vector3 aimAtPos, float baseRadius, float minDistFromCaster, float changePerDistFromMin, float minRadius, float maxRadius)
 	{
-		float num = AbilityCommon_DualMeetingLasers.CalcMeetingPosDistFromMin(casterPos, aimAtPos, minDistFromCaster);
+		float num = CalcMeetingPosDistFromMin(casterPos, aimAtPos, minDistFromCaster);
 		float num2 = baseRadius + changePerDistFromMin * num;
 		if (num2 < minRadius)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_DualMeetingLasers.CalcAoeRadius(Vector3, Vector3, float, float, float, float, float)).MethodHandle;
-			}
 			num2 = minRadius;
 		}
 		else if (num2 > maxRadius)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (maxRadius > 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = maxRadius;
 			}
 		}
 		return num2;
 	}
 
-	public unsafe static void CalcHitActors(Vector3 aimAtPos, List<Vector3> laserStartPosList, float laserWidth, float aoeRadius, float radiusMultIfPartialBlock, ActorData caster, List<Team> relevantTeams, bool includeInvisibles, List<NonActorTargetInfo> nonActorTargetInfo, out List<List<ActorData>> laserHitActorsList, out List<Vector3> laserEndPosList, out int aoeEndPosIndex, out float finalRadius, out List<ActorData> aoeHitActors)
+	public static void CalcHitActors(Vector3 aimAtPos, List<Vector3> laserStartPosList, float laserWidth, float aoeRadius, float radiusMultIfPartialBlock, ActorData caster, List<Team> relevantTeams, bool includeInvisibles, List<NonActorTargetInfo> nonActorTargetInfo, out List<List<ActorData>> laserHitActorsList, out List<Vector3> laserEndPosList, out int aoeEndPosIndex, out float finalRadius, out List<ActorData> aoeHitActors)
 	{
 		laserHitActorsList = new List<List<ActorData>>();
 		laserEndPosList = new List<Vector3>();
@@ -149,119 +90,81 @@ public class AbilityCommon_DualMeetingLasers
 			Vector3 dir = aimAtPos - vector;
 			dir.y = 0f;
 			float magnitude = dir.magnitude;
-			RaycastHit raycastHit;
-			bool flag = VectorUtils.RaycastInDirection(vector, aimAtPos, out raycastHit);
+			RaycastHit hit;
+			bool flag = VectorUtils.RaycastInDirection(vector, aimAtPos, out hit);
 			if (flag)
 			{
-				Vector3 point = raycastHit.point;
+				Vector3 point = hit.point;
 				magnitude = (point - vector).magnitude;
 			}
 			float num2 = magnitude / Board.SquareSizeStatic;
-			Vector3 vector2;
-			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(vector, dir, num2, laserWidth, caster, relevantTeams, false, -1, false, includeInvisibles, out vector2, nonActorTargetInfo, null, true, true);
+			Vector3 laserEndPos;
+			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(vector, dir, num2, laserWidth, caster, relevantTeams, false, -1, false, includeInvisibles, out laserEndPos, nonActorTargetInfo, null, true);
 			if (laserStartPosList.Count > 1)
 			{
-				float num3 = (vector2 - vector).magnitude / Board.SquareSizeStatic;
-				bool flag2;
+				float num3 = (laserEndPos - vector).magnitude / Board.SquareSizeStatic;
+				int num4;
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_DualMeetingLasers.CalcHitActors(Vector3, List<Vector3>, float, float, float, ActorData, List<Team>, bool, List<NonActorTargetInfo>, List<List<ActorData>>*, List<Vector3>*, int*, float*, List<ActorData>*)).MethodHandle;
-					}
-					flag2 = (num3 < num2 - 0.1f);
+					num4 = ((num3 < num2 - 0.1f) ? 1 : 0);
 				}
 				else
 				{
-					flag2 = true;
+					num4 = 1;
 				}
-				if (!flag2)
+				if (num4 == 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					aoeEndPosIndex = i;
 					num++;
 				}
 			}
 			else
 			{
-				centerPos = vector2;
+				centerPos = laserEndPos;
 				aoeEndPosIndex = i;
 				num = 1;
 			}
 			laserHitActorsList.Add(actorsInLaser);
-			laserEndPosList.Add(vector2);
+			laserEndPosList.Add(laserEndPos);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (5)
+			if (aoeEndPosIndex >= 0)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		bool flag3 = aoeEndPosIndex >= 0;
-		if (flag3)
-		{
-			for (;;)
-			{
-				switch (6)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			finalRadius = aoeRadius;
-			if (num < laserStartPosList.Count && radiusMultIfPartialBlock >= 0f)
-			{
-				for (;;)
-				{
-					switch (5)
+					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						finalRadius = aoeRadius;
+						if (num < laserStartPosList.Count && radiusMultIfPartialBlock >= 0f)
+						{
+							finalRadius *= radiusMultIfPartialBlock;
+						}
+						aoeHitActors = AreaEffectUtils.GetActorsInRadius(centerPos, finalRadius, false, caster, relevantTeams, nonActorTargetInfo);
+						if (!includeInvisibles)
+						{
+							while (true)
+							{
+								switch (2)
+								{
+								case 0:
+									break;
+								default:
+									TargeterUtils.RemoveActorsInvisibleToClient(ref aoeHitActors);
+									return;
+								}
+							}
+						}
+						return;
 					}
-					break;
 				}
-				finalRadius *= radiusMultIfPartialBlock;
 			}
-			aoeHitActors = AreaEffectUtils.GetActorsInRadius(centerPos, finalRadius, false, caster, relevantTeams, nonActorTargetInfo, false, default(Vector3));
-			if (!includeInvisibles)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				TargeterUtils.RemoveActorsInvisibleToClient(ref aoeHitActors);
-			}
-		}
-		else
-		{
 			finalRadius = aoeRadius;
 			aoeHitActors = new List<ActorData>();
+			return;
 		}
 	}
 }

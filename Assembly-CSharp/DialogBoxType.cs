@@ -1,5 +1,3 @@
-﻿using System;
-
 public enum DialogBoxType
 {
 	TwoButton,
@@ -10,7 +8,7 @@ public enum DialogBoxType
 	UNUSED,
 	UNUSED2,
 	PurchaseItem,
-	\u001D,
+	_001D,
 	PartyInvite,
 	PurchaseGame,
 	PurchaseForCash,

@@ -1,15 +1,13 @@
-﻿using System;
-
 namespace AbilityContextNamespace
 {
 	public enum ContextCompareOp
 	{
-		\u001D,
-		\u000E,
-		\u0012,
-		\u0015,
-		\u0016,
-		\u0013,
-		\u0018
+		_001D,
+		_000E,
+		_0012,
+		_0015,
+		_0016,
+		_0013,
+		_0018
 	}
 }

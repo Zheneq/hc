@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,160 +34,105 @@ public class UINavPanelPartyMember : MonoBehaviour
 
 	public UpdateGroupMemberData GetMemberInfo()
 	{
-		return this.m_memberInfo;
+		return m_memberInfo;
 	}
 
 	private void Start()
 	{
-		if (this.m_hitbox != null)
+		if (m_hitbox != null)
 		{
-			this.m_groupMenuClickListener.Setup(TooltipType.PlayerGroupMenu, new TooltipPopulateCall(this.OpenGroupMenu), null);
-			this.m_hitbox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.SetupTooltip), null);
+			m_groupMenuClickListener.Setup(TooltipType.PlayerGroupMenu, OpenGroupMenu);
+			m_hitbox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, SetupTooltip);
 		}
-		if (this.m_memberInfo != null)
+		if (m_memberInfo != null)
 		{
-			for (;;)
+			if (m_memberInfo.IsLeader)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.Start()).MethodHandle;
-			}
-			if (this.m_memberInfo.IsLeader)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_PartyLeaderIconAnimator, true, null);
-				this.m_PartyLeaderIconAnimator.Play("leaderIconIN");
+				UIManager.SetGameObjectActive(m_PartyLeaderIconAnimator, true);
+				m_PartyLeaderIconAnimator.Play("leaderIconIN");
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.m_PartyLeaderIconAnimator, false, null);
+				UIManager.SetGameObjectActive(m_PartyLeaderIconAnimator, false);
 			}
-			if (this.m_memberInfo.IsReady)
+			if (m_memberInfo.IsReady)
 			{
-				UIManager.SetGameObjectActive(this.m_ReadyIconAnimator, true, null);
-				this.m_ReadyIconAnimator.Play("readyIconIN");
+				UIManager.SetGameObjectActive(m_ReadyIconAnimator, true);
+				m_ReadyIconAnimator.Play("readyIconIN");
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.m_ReadyIconAnimator, false, null);
+				UIManager.SetGameObjectActive(m_ReadyIconAnimator, false);
 			}
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_PartyLeaderIconAnimator, false, null);
-			UIManager.SetGameObjectActive(this.m_ReadyIconAnimator, false, null);
+			UIManager.SetGameObjectActive(m_PartyLeaderIconAnimator, false);
+			UIManager.SetGameObjectActive(m_ReadyIconAnimator, false);
 		}
-		if (this.m_invitationSentContainer != null)
+		if (m_invitationSentContainer != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_invitationSentContainer, false, null);
+			UIManager.SetGameObjectActive(m_invitationSentContainer, false);
 		}
-		if (this.m_playerLevel != null)
+		if (m_playerLevel != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_playerLevel.text = string.Empty;
+			m_playerLevel.text = string.Empty;
 		}
-		if (this.m_ribbonImage != null)
+		if (m_ribbonImage != null)
 		{
-			UIManager.SetGameObjectActive(this.m_ribbonImage, false, null);
+			UIManager.SetGameObjectActive(m_ribbonImage, false);
 		}
 	}
 
 	private bool SetupTooltip(UITooltipBase tooltip)
 	{
-		if (this.m_memberInfo != null && !UITooltipManager.Get().IsVisible(TooltipType.PlayerGroupMenu))
+		if (m_memberInfo != null && !UITooltipManager.Get().IsVisible(TooltipType.PlayerGroupMenu))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.SetupTooltip(UITooltipBase)).MethodHandle;
-			}
-			string tooltipText = StringUtil.TR("UnknownCharacter", "Global");
-			if (this.m_memberInfo.MemberDisplayCharacter != CharacterType.None)
-			{
-				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(this.m_memberInfo.MemberDisplayCharacter);
-				if (characterResourceLink != null)
+					break;
+				default:
 				{
-					for (;;)
+					string tooltipText = StringUtil.TR("UnknownCharacter", "Global");
+					if (m_memberInfo.MemberDisplayCharacter != 0)
 					{
-						switch (6)
+						CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(m_memberInfo.MemberDisplayCharacter);
+						if (characterResourceLink != null)
 						{
-						case 0:
-							continue;
+							tooltipText = characterResourceLink.GetDisplayName();
 						}
-						break;
 					}
-					tooltipText = characterResourceLink.GetDisplayName();
+					UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+					uITitledTooltip.Setup(m_memberInfo.MemberDisplayName, tooltipText, string.Empty);
+					return true;
+				}
 				}
 			}
-			UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-			uititledTooltip.Setup(this.m_memberInfo.MemberDisplayName, tooltipText, string.Empty);
-			return true;
 		}
 		return false;
 	}
 
 	private bool OpenGroupMenu(UITooltipBase tooltip)
 	{
-		if (this.m_memberInfo == null)
+		if (m_memberInfo == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					FriendListPanel.Get().SetVisible(true, true);
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.OpenGroupMenu(UITooltipBase)).MethodHandle;
-			}
-			FriendListPanel.Get().SetVisible(true, true, false);
-			return false;
 		}
-		UIPlayerPanelGroupMenu uiplayerPanelGroupMenu = tooltip as UIPlayerPanelGroupMenu;
-		uiplayerPanelGroupMenu.Setup(this.m_memberInfo);
+		UIPlayerPanelGroupMenu uIPlayerPanelGroupMenu = tooltip as UIPlayerPanelGroupMenu;
+		uIPlayerPanelGroupMenu.Setup(m_memberInfo);
 		UITooltipManager.Get().HideDisplayTooltip();
 		return true;
 	}
@@ -197,189 +141,116 @@ public class UINavPanelPartyMember : MonoBehaviour
 	{
 		if (isLeader)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					if (!m_PartyLeaderIconAnimator.gameObject.activeSelf)
+					{
+						UIManager.SetGameObjectActive(m_PartyLeaderIconAnimator, true);
+						m_PartyLeaderIconAnimator.Play("leaderIconIN");
+					}
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.SetAsLeader(bool)).MethodHandle;
-			}
-			if (!this.m_PartyLeaderIconAnimator.gameObject.activeSelf)
-			{
-				UIManager.SetGameObjectActive(this.m_PartyLeaderIconAnimator, true, null);
-				this.m_PartyLeaderIconAnimator.Play("leaderIconIN");
 			}
 		}
-		else
-		{
-			UIManager.SetGameObjectActive(this.m_PartyLeaderIconAnimator, false, null);
-		}
+		UIManager.SetGameObjectActive(m_PartyLeaderIconAnimator, false);
 	}
 
 	public void SetIsInGame(bool isInGame)
 	{
-		UIManager.SetGameObjectActive(this.m_IsInGameAnimator, true, null);
+		UIManager.SetGameObjectActive(m_IsInGameAnimator, true);
 		if (isInGame)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_IsInGameAnimator.Play("readyIconIN");
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.SetIsInGame(bool)).MethodHandle;
-			}
-			this.m_IsInGameAnimator.Play("readyIconIN");
 		}
-		else
+		bool flag = false;
+		AnimatorClipInfo[] currentAnimatorClipInfo = m_IsInGameAnimator.GetCurrentAnimatorClipInfo(0);
+		if (currentAnimatorClipInfo != null)
 		{
-			bool flag = false;
-			AnimatorClipInfo[] currentAnimatorClipInfo = this.m_IsInGameAnimator.GetCurrentAnimatorClipInfo(0);
-			if (currentAnimatorClipInfo != null)
+			if (currentAnimatorClipInfo.Length > 0 && currentAnimatorClipInfo[0].clip.name != "readyIconOUT")
 			{
-				for (;;)
+				if (currentAnimatorClipInfo[0].clip.name != "readyIconOFF")
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (currentAnimatorClipInfo.Length > 0 && currentAnimatorClipInfo[0].clip.name != "readyIconOUT")
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (currentAnimatorClipInfo[0].clip.name != "readyIconOFF")
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag = true;
-					}
+					flag = true;
 				}
 			}
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_IsInGameAnimator.Play("readyIconOUT");
-			}
+		}
+		if (!flag)
+		{
+			return;
+		}
+		while (true)
+		{
+			m_IsInGameAnimator.Play("readyIconOUT");
+			return;
 		}
 	}
 
 	public void UpdateReadyState(bool IsReady)
 	{
-		UIManager.SetGameObjectActive(this.m_ReadyIconAnimator, true, null);
+		UIManager.SetGameObjectActive(m_ReadyIconAnimator, true);
 		if (IsReady)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.UpdateReadyState(bool)).MethodHandle;
-			}
-			AnimatorClipInfo[] currentAnimatorClipInfo = this.m_ReadyIconAnimator.GetCurrentAnimatorClipInfo(0);
-			if (currentAnimatorClipInfo != null && currentAnimatorClipInfo.Length > 0 && currentAnimatorClipInfo[0].clip.name != "readyIconIN")
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				if (currentAnimatorClipInfo[0].clip.name != "readyIconON")
+				default:
 				{
-					this.m_ReadyIconAnimator.Play("readyIconIN");
+					AnimatorClipInfo[] currentAnimatorClipInfo = m_ReadyIconAnimator.GetCurrentAnimatorClipInfo(0);
+					if (currentAnimatorClipInfo != null && currentAnimatorClipInfo.Length > 0 && currentAnimatorClipInfo[0].clip.name != "readyIconIN")
+					{
+						while (true)
+						{
+							switch (2)
+							{
+							case 0:
+								break;
+							default:
+								if (currentAnimatorClipInfo[0].clip.name != "readyIconON")
+								{
+									m_ReadyIconAnimator.Play("readyIconIN");
+								}
+								return;
+							}
+						}
+					}
+					return;
+				}
 				}
 			}
 		}
-		else
+		bool flag = false;
+		AnimatorClipInfo[] currentAnimatorClipInfo2 = m_ReadyIconAnimator.GetCurrentAnimatorClipInfo(0);
+		if (currentAnimatorClipInfo2 != null)
 		{
-			bool flag = false;
-			AnimatorClipInfo[] currentAnimatorClipInfo2 = this.m_ReadyIconAnimator.GetCurrentAnimatorClipInfo(0);
-			if (currentAnimatorClipInfo2 != null)
+			if (currentAnimatorClipInfo2.Length > 0 && currentAnimatorClipInfo2[0].clip.name != "readyIconOUT")
 			{
-				for (;;)
+				if (currentAnimatorClipInfo2[0].clip.name != "readyIconOFF")
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (currentAnimatorClipInfo2.Length > 0 && currentAnimatorClipInfo2[0].clip.name != "readyIconOUT")
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (currentAnimatorClipInfo2[0].clip.name != "readyIconOFF")
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag = true;
-					}
+					flag = true;
 				}
 			}
-			if (flag)
-			{
-				this.m_ReadyIconAnimator.Play("readyIconOUT");
-			}
+		}
+		if (flag)
+		{
+			m_ReadyIconAnimator.Play("readyIconOUT");
 		}
 	}
 
@@ -389,240 +260,120 @@ public class UINavPanelPartyMember : MonoBehaviour
 		{
 			return;
 		}
-		if (this.m_bannerImage != null)
+		Sprite sprite = null;
+		if (m_bannerImage != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.Setup(UpdateGroupMemberData)).MethodHandle;
-			}
 			GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(info.BackgroundBannerID);
-			Sprite sprite;
 			if (banner == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sprite = (Sprite)Resources.Load("Banners/Background/02_blue", typeof(Sprite));
 			}
 			else
 			{
 				sprite = (Sprite)Resources.Load(banner.m_resourceString, typeof(Sprite));
 			}
-			this.m_bannerImage.sprite = sprite;
+			m_bannerImage.sprite = sprite;
 		}
-		if (this.m_emblemImage != null)
+		if (m_emblemImage != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameBalanceVars.PlayerBanner banner2 = GameWideData.Get().m_gameBalanceVars.GetBanner(info.ForegroundBannerID);
-			Sprite sprite;
 			if (banner2 == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sprite = (Sprite)Resources.Load("Banners/Background/02_blue", typeof(Sprite));
 			}
 			else
 			{
 				sprite = (Sprite)Resources.Load(banner2.m_resourceString, typeof(Sprite));
 			}
-			this.m_emblemImage.sprite = sprite;
+			m_emblemImage.sprite = sprite;
 		}
-		if (this.m_ribbonImage != null)
+		if (m_ribbonImage != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameBalanceVars.PlayerRibbon ribbon = GameWideData.Get().m_gameBalanceVars.GetRibbon(info.RibbonID);
 			if (ribbon == null)
 			{
-				UIManager.SetGameObjectActive(this.m_ribbonImage, false, null);
+				UIManager.SetGameObjectActive(m_ribbonImage, false);
 			}
 			else
 			{
-				this.m_ribbonImage.sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
-				UIManager.SetGameObjectActive(this.m_ribbonImage, this.m_ribbonImage.sprite != null, null);
+				m_ribbonImage.sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
+				UIManager.SetGameObjectActive(m_ribbonImage, m_ribbonImage.sprite != null);
 			}
 		}
-		if (this.m_memberInfo != null)
+		if (m_memberInfo != null)
 		{
-			for (;;)
+			if (m_memberInfo.AccountID == info.AccountID)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_memberInfo.AccountID == info.AccountID)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
-				return;
 			}
 		}
-		this.m_isHidden = false;
-		if (this.m_playerContainer != null)
+		m_isHidden = false;
+		if (m_playerContainer != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_playerContainer, true, null);
+			UIManager.SetGameObjectActive(m_playerContainer, true);
 		}
-		UIManager.SetGameObjectActive(this.m_PartyLeaderIconAnimator, info.IsLeader, null);
+		UIManager.SetGameObjectActive(m_PartyLeaderIconAnimator, info.IsLeader);
 		if (info.IsLeader)
 		{
-			this.m_PartyLeaderIconAnimator.Play("leaderIconIN");
+			m_PartyLeaderIconAnimator.Play("leaderIconIN");
 		}
-		this.UpdateReadyState(info.IsReady);
-		this.m_memberInfo = info;
-		if (this.m_animController != null)
+		UpdateReadyState(info.IsReady);
+		m_memberInfo = info;
+		if (m_animController != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_animController.Play("UIBannerInviteIN", 1, 0f);
+			m_animController.Play("UIBannerInviteIN", 1, 0f);
 		}
-		if (this.m_groupMenuClickListener != null)
+		if (!(m_groupMenuClickListener != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_groupMenuClickListener.Refresh();
+			return;
+		}
+		while (true)
+		{
+			m_groupMenuClickListener.Refresh();
+			return;
 		}
 	}
 
 	private void DoHidden()
 	{
-		this.m_isHidden = true;
-		if (this.m_playerContainer != null)
+		m_isHidden = true;
+		if (m_playerContainer != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.DoHidden()).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_playerContainer, false, null);
+			UIManager.SetGameObjectActive(m_playerContainer, false);
 		}
-		if (this.m_ribbonImage != null)
+		if (m_ribbonImage != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_ribbonImage, false, null);
+			UIManager.SetGameObjectActive(m_ribbonImage, false);
 		}
-		if (this.m_animController != null)
+		if (m_animController != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_animController.Play("UIBannerDisabledIN", 1, 0f);
+			m_animController.Play("UIBannerDisabledIN", 1, 0f);
 		}
-		UIManager.SetGameObjectActive(this.m_PartyLeaderIconAnimator, false, null);
-		UIManager.SetGameObjectActive(this.m_ReadyIconAnimator, false, null);
-		UIManager.SetGameObjectActive(this.m_IsInGameAnimator, false, null);
-		this.m_memberInfo = null;
+		UIManager.SetGameObjectActive(m_PartyLeaderIconAnimator, false);
+		UIManager.SetGameObjectActive(m_ReadyIconAnimator, false);
+		UIManager.SetGameObjectActive(m_IsInGameAnimator, false);
+		m_memberInfo = null;
 	}
 
 	public void SetToHidden()
 	{
-		if (!this.m_isHidden)
+		if (m_isHidden)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.SetToHidden()).MethodHandle;
-			}
-			this.DoHidden();
+			return;
+		}
+		while (true)
+		{
+			DoHidden();
+			return;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,274 +23,139 @@ public class FadeObjectGroup : MonoBehaviour
 	private void Start()
 	{
 		List<GameObject> list = new List<GameObject>();
-		if (this.m_gameObjectsToFade != null)
+		if (m_gameObjectsToFade != null)
 		{
-			for (int i = 0; i < this.m_gameObjectsToFade.Length; i++)
+			for (int i = 0; i < m_gameObjectsToFade.Length; i++)
 			{
-				if (this.m_gameObjectsToFade[i] != null)
+				if (m_gameObjectsToFade[i] != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectGroup.Start()).MethodHandle;
-					}
-					list.Add(this.m_gameObjectsToFade[i]);
+					list.Add(m_gameObjectsToFade[i]);
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
-		this.m_gameObjectsToFade = list.ToArray();
-		if (this.m_fadeChildObjects)
+		m_gameObjectsToFade = list.ToArray();
+		if (m_fadeChildObjects)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Renderer[] componentsInChildren = base.gameObject.GetComponentsInChildren<Renderer>();
 			List<GameObject> list2 = new List<GameObject>(componentsInChildren.Length);
 			for (int j = 0; j < componentsInChildren.Length; j++)
 			{
 				list2.Add(componentsInChildren[j].gameObject);
 			}
-			list2.AddRange(this.m_gameObjectsToFade);
-			this.m_gameObjectsToFade = list2.ToArray();
+			list2.AddRange(m_gameObjectsToFade);
+			m_gameObjectsToFade = list2.ToArray();
 		}
-		this.m_fadeObjects = new FadeObject[this.m_gameObjectsToFade.Length];
-		this.m_renderers = new Renderer[this.m_gameObjectsToFade.Length];
-		for (int k = 0; k < this.m_gameObjectsToFade.Length; k++)
+		m_fadeObjects = new FadeObject[m_gameObjectsToFade.Length];
+		m_renderers = new Renderer[m_gameObjectsToFade.Length];
+		for (int k = 0; k < m_gameObjectsToFade.Length; k++)
 		{
-			if (this.m_gameObjectsToFade[k] != null)
+			if (!(m_gameObjectsToFade[k] != null))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_fadeObjects[k] = this.m_gameObjectsToFade[k].GetComponent<FadeObject>();
-				if (this.m_fadeObjects[k] == null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_fadeObjects[k] = this.m_gameObjectsToFade[k].AddComponent<FadeObject>();
-				}
-				this.m_renderers[k] = this.m_gameObjectsToFade[k].GetComponent<Renderer>();
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		if (this.m_fadeObjects.Length > 0x20)
-		{
-			for (;;)
+			m_fadeObjects[k] = m_gameObjectsToFade[k].GetComponent<FadeObject>();
+			if (m_fadeObjects[k] == null)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_fadeObjects[k] = m_gameObjectsToFade[k].AddComponent<FadeObject>();
 			}
-			Log.Warning("Level art warning: too many ({0}) renderers grouped with {1}, performance will suffer. Please combine static meshes that share the same materials.", new object[]
-			{
-				this.m_fadeObjects.Length,
-				base.gameObject.name
-			});
+			m_renderers[k] = m_gameObjectsToFade[k].GetComponent<Renderer>();
 		}
-		if (this.m_vfxObjectsToDisable != null)
+		while (true)
 		{
-			for (;;)
+			if (m_fadeObjects.Length > 32)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				Log.Warning("Level art warning: too many ({0}) renderers grouped with {1}, performance will suffer. Please combine static meshes that share the same materials.", m_fadeObjects.Length, base.gameObject.name);
 			}
-			if (this.m_vfxObjectsToDisable.Length > 0)
+			if (m_vfxObjectsToDisable == null)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				if (m_vfxObjectsToDisable.Length <= 0)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				List<GameObject> list3 = new List<GameObject>(this.m_gameObjectsToFade);
-				List<GameObject> list4 = new List<GameObject>();
-				for (int l = 0; l < this.m_vfxObjectsToDisable.Length; l++)
+				while (true)
 				{
-					GameObject gameObject = this.m_vfxObjectsToDisable[l];
-					if (gameObject != null)
+					List<GameObject> list3 = new List<GameObject>(m_gameObjectsToFade);
+					List<GameObject> list4 = new List<GameObject>();
+					for (int l = 0; l < m_vfxObjectsToDisable.Length; l++)
 					{
-						for (;;)
+						GameObject gameObject = m_vfxObjectsToDisable[l];
+						if (!(gameObject != null))
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							continue;
 						}
-						if (!list4.Contains(gameObject))
+						if (list4.Contains(gameObject))
 						{
-							for (;;)
+							continue;
+						}
+						if (list3.Contains(gameObject))
+						{
+							if (Application.isEditor)
 							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (list3.Contains(gameObject))
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (Application.isEditor)
-								{
-									Debug.LogWarning(string.Concat(new string[]
-									{
-										"[",
-										gameObject.name,
-										"] in group [",
-										base.gameObject.name,
-										"] is already in fade object list, please remove from VFX Objects to Disable list"
-									}));
-								}
-							}
-							else
-							{
-								list4.Add(gameObject);
+								Debug.LogWarning("[" + gameObject.name + "] in group [" + base.gameObject.name + "] is already in fade object list, please remove from VFX Objects to Disable list");
 							}
 						}
+						else
+						{
+							list4.Add(gameObject);
+						}
 					}
+					m_vfxObjectsToDisable = list4.ToArray();
+					return;
 				}
-				this.m_vfxObjectsToDisable = list4.ToArray();
 			}
 		}
 	}
 
 	public void SetTargetTransparency(float transparency, float fadeOutDuration, float fadeInDuration, Shader transparentShader)
 	{
-		for (int i = 0; i < this.m_fadeObjects.Length; i++)
+		for (int i = 0; i < m_fadeObjects.Length; i++)
 		{
-			if (this.m_fadeObjects[i] != null)
+			if (!(m_fadeObjects[i] != null))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectGroup.SetTargetTransparency(float, float, float, Shader)).MethodHandle;
-				}
-				if (this.m_overrideFadedValueWithZero)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_fadeObjects[i].SetTargetTransparency(0f, 0.1f, 0.1f, transparentShader);
-				}
-				else
-				{
-					this.m_fadeObjects[i].SetTargetTransparency(transparency, fadeOutDuration, fadeInDuration, transparentShader);
-				}
+				continue;
+			}
+			if (m_overrideFadedValueWithZero)
+			{
+				m_fadeObjects[i].SetTargetTransparency(0f, 0.1f, 0.1f, transparentShader);
+			}
+			else
+			{
+				m_fadeObjects[i].SetTargetTransparency(transparency, fadeOutDuration, fadeInDuration, transparentShader);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public bool AreRenderersEnabled()
 	{
 		bool result = false;
-		for (int i = 0; i < this.m_renderers.Length; i++)
+		int num = 0;
+		while (true)
 		{
-			if (this.m_renderers[i].enabled)
+			if (num < m_renderers.Length)
 			{
-				result = true;
-				return result;
-			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
+				if (m_renderers[num].enabled)
+				{
+					result = true;
+					break;
+				}
+				num++;
 				continue;
 			}
 			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectGroup.AreRenderersEnabled()).MethodHandle;
-			return result;
 		}
 		return result;
 	}
@@ -299,121 +163,76 @@ public class FadeObjectGroup : MonoBehaviour
 	public bool ShouldProcessEvenIfRendererIsDisabled()
 	{
 		bool result = false;
-		for (int i = 0; i < this.m_gameObjectsToFade.Length; i++)
+		int num = 0;
+		while (true)
 		{
-			if (this.m_gameObjectsToFade[i] != null)
+			if (num < m_gameObjectsToFade.Length)
 			{
-				for (;;)
+				if (m_gameObjectsToFade[num] != null)
 				{
-					switch (4)
+					FadeObject component = m_gameObjectsToFade[num].GetComponent<FadeObject>();
+					if (component != null && component.ShouldProcessEvenIfRendererIsDisabled())
 					{
-					case 0:
-						continue;
+						result = true;
+						break;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectGroup.ShouldProcessEvenIfRendererIsDisabled()).MethodHandle;
-				}
-				FadeObject component = this.m_gameObjectsToFade[i].GetComponent<FadeObject>();
-				if (component != null && component.ShouldProcessEvenIfRendererIsDisabled())
-				{
-					result = true;
-					return result;
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
+				num++;
 				continue;
 			}
-			return result;
+			break;
 		}
+		return result;
 	}
 
 	private void Update()
 	{
-		if (this.m_vfxObjectsToDisable != null)
+		if (m_vfxObjectsToDisable == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_vfxObjectsToDisable.Length <= 0)
 			{
-				switch (3)
+				return;
+			}
+			while (true)
+			{
+				if (m_fadeObjects.Length <= 0)
 				{
-				case 0:
-					continue;
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectGroup.Update()).MethodHandle;
-			}
-			if (this.m_vfxObjectsToDisable.Length > 0)
-			{
-				for (;;)
+				while (true)
 				{
-					switch (2)
+					if (!(m_fadeObjects[0] != null))
 					{
-					case 0:
-						continue;
+						return;
 					}
-					break;
-				}
-				if (this.m_fadeObjects.Length > 0)
-				{
-					for (;;)
+					float currentAlpha = m_fadeObjects[0].GetCurrentAlpha();
+					bool flag = currentAlpha >= m_alphaCutoffToDisableVfxObjects;
+					if (flag == m_vfxObjectsEnableOnLastUpdate)
 					{
-						switch (2)
+						return;
+					}
+					while (true)
+					{
+						m_vfxObjectsEnableOnLastUpdate = flag;
+						for (int i = 0; i < m_vfxObjectsToDisable.Length; i++)
 						{
-						case 0:
-							continue;
+							GameObject gameObject = m_vfxObjectsToDisable[i];
+							if (gameObject != null)
+							{
+								gameObject.SetActive(flag);
+							}
 						}
-						break;
-					}
-					if (this.m_fadeObjects[0] != null)
-					{
-						float currentAlpha = this.m_fadeObjects[0].GetCurrentAlpha();
-						bool flag = currentAlpha >= this.m_alphaCutoffToDisableVfxObjects;
-						if (flag != this.m_vfxObjectsEnableOnLastUpdate)
+						while (true)
 						{
-							for (;;)
+							switch (6)
 							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_vfxObjectsEnableOnLastUpdate = flag;
-							for (int i = 0; i < this.m_vfxObjectsToDisable.Length; i++)
-							{
-								GameObject gameObject = this.m_vfxObjectsToDisable[i];
-								if (gameObject != null)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									gameObject.SetActive(flag);
-								}
-							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
+							default:
+								return;
+							case 0:
 								break;
 							}
 						}
@@ -425,33 +244,20 @@ public class FadeObjectGroup : MonoBehaviour
 
 	public float GetCurrentAlpha()
 	{
-		if (this.m_fadeObjects != null)
+		if (m_fadeObjects != null)
 		{
-			for (;;)
+			if (m_fadeObjects.Length > 0 && m_fadeObjects[0] != null)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectGroup.GetCurrentAlpha()).MethodHandle;
-			}
-			if (this.m_fadeObjects.Length > 0 && this.m_fadeObjects[0] != null)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_fadeObjects[0].GetCurrentAlpha();
 					}
-					break;
 				}
-				return this.m_fadeObjects[0].GetCurrentAlpha();
 			}
 		}
 		return 1f;

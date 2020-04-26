@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class ArcherHealingReactionSequence : SimpleAttachedVFXOnTargetSequence
@@ -12,102 +11,55 @@ public class ArcherHealingReactionSequence : SimpleAttachedVFXOnTargetSequence
 
 	private ActorData m_activeClientActor;
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
 		base.Initialize(extraParams);
-		if (base.Caster != null)
+		if (!(base.Caster != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingReactionSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-			}
-			this.m_syncComp = base.Caster.GetComponent<Archer_SyncComponent>();
+			return;
+		}
+		while (true)
+		{
+			m_syncComp = base.Caster.GetComponent<Archer_SyncComponent>();
+			return;
 		}
 	}
 
 	protected override void OnUpdate()
 	{
 		base.OnUpdate();
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingReactionSequence.OnUpdate()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-			if (activeOwnedActorData != null)
+			if (!(activeOwnedActorData != null))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				if (!(m_syncComp != null))
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (this.m_syncComp != null)
+				if (!m_switchedToUsedUpFx && m_syncComp.ActorShouldSwapVfxForHealReaction(activeOwnedActorData))
 				{
-					if (!this.m_switchedToUsedUpFx && this.m_syncComp.ActorShouldSwapVfxForHealReaction(activeOwnedActorData))
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						base.SwitchFxTo(this.m_usedUpFxPrefab);
-						this.m_switchedToUsedUpFx = true;
-					}
-					else if (this.m_switchedToUsedUpFx)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (activeOwnedActorData != this.m_activeClientActor && !this.m_syncComp.ActorShouldSwapVfxForHealReaction(activeOwnedActorData))
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							base.SwitchFxTo(this.m_fxPrefab);
-							this.m_switchedToUsedUpFx = false;
-						}
-					}
-					this.m_activeClientActor = activeOwnedActorData;
+					SwitchFxTo(m_usedUpFxPrefab);
+					m_switchedToUsedUpFx = true;
 				}
+				else if (m_switchedToUsedUpFx)
+				{
+					if (activeOwnedActorData != m_activeClientActor && !m_syncComp.ActorShouldSwapVfxForHealReaction(activeOwnedActorData))
+					{
+						SwitchFxTo(m_fxPrefab);
+						m_switchedToUsedUpFx = false;
+					}
+				}
+				m_activeClientActor = activeOwnedActorData;
+				return;
 			}
 		}
 	}

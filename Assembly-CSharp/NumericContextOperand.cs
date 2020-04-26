@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class NumericContextOperand
@@ -17,52 +17,26 @@ public class NumericContextOperand
 
 	public int GetContextKey()
 	{
-		if (this.m_contextKey == 0)
+		if (m_contextKey == 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NumericContextOperand.GetContextKey()).MethodHandle;
-			}
-			this.m_contextKey = ContextVars.\u0015(this.m_contextName);
+			m_contextKey = ContextVars.GetHash(m_contextName);
 		}
-		return this.m_contextKey;
+		return m_contextKey;
 	}
 
 	public NumericContextOperand GetCopy()
 	{
-		NumericContextOperand numericContextOperand = base.MemberwiseClone() as NumericContextOperand;
+		NumericContextOperand numericContextOperand = MemberwiseClone() as NumericContextOperand;
 		numericContextOperand.m_modifier = new AbilityModPropertyFloat();
-		numericContextOperand.m_modifier.CopyValuesFrom(this.m_modifier);
+		numericContextOperand.m_modifier.CopyValuesFrom(m_modifier);
 		numericContextOperand.m_additionalModifiers = new List<AbilityModPropertyFloat>();
-		if (this.m_additionalModifiers != null)
+		if (m_additionalModifiers != null)
 		{
-			for (int i = 0; i < this.m_additionalModifiers.Count; i++)
+			for (int i = 0; i < m_additionalModifiers.Count; i++)
 			{
 				AbilityModPropertyFloat abilityModPropertyFloat = new AbilityModPropertyFloat();
-				abilityModPropertyFloat.CopyValuesFrom(this.m_additionalModifiers[i]);
+				abilityModPropertyFloat.CopyValuesFrom(m_additionalModifiers[i]);
 				numericContextOperand.m_additionalModifiers.Add(abilityModPropertyFloat);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NumericContextOperand.GetCopy()).MethodHandle;
 			}
 		}
 		return numericContextOperand;
@@ -71,38 +45,16 @@ public class NumericContextOperand
 	public string GetInEditorDesc(string indent = "")
 	{
 		string text = string.Empty;
-		if (!string.IsNullOrEmpty(this.m_contextName))
+		if (!string.IsNullOrEmpty(m_contextName))
 		{
-			text = text + indent + InEditorDescHelper.ContextVarName(this.m_contextName, !this.m_nonActorSpecificContext) + AbilityModHelper.GetModPropertyDesc(this.m_modifier, string.Empty, false, 0f);
-			for (int i = 0; i < this.m_additionalModifiers.Count; i++)
+			text = text + indent + InEditorDescHelper.ContextVarName(m_contextName, !m_nonActorSpecificContext) + AbilityModHelper.GetModPropertyDesc(m_modifier, string.Empty);
+			for (int i = 0; i < m_additionalModifiers.Count; i++)
 			{
-				AbilityModPropertyFloat abilityModPropertyFloat = this.m_additionalModifiers[i];
-				if (abilityModPropertyFloat.operation != AbilityModPropertyFloat.ModOp.Ignore)
+				AbilityModPropertyFloat abilityModPropertyFloat = m_additionalModifiers[i];
+				if (abilityModPropertyFloat.operation != 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(NumericContextOperand.GetInEditorDesc(string)).MethodHandle;
-					}
-					text = text + indent + "    Then " + AbilityModHelper.GetModPropertyDesc(abilityModPropertyFloat, string.Empty, false, 0f);
+					text = text + indent + "    Then " + AbilityModHelper.GetModPropertyDesc(abilityModPropertyFloat, string.Empty);
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return text;

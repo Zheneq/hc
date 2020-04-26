@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -38,65 +38,34 @@ public class LootMatrixPack
 
 	public string GetEventText()
 	{
-		return StringUtil.TR_GetMatrixPackEventText(this.Index);
+		return StringUtil.TR_GetMatrixPackEventText(Index);
 	}
 
 	public string GetDescription()
 	{
-		return StringUtil.TR_GetMatrixPackDescription(this.Index);
+		return StringUtil.TR_GetMatrixPackDescription(Index);
 	}
 
 	public bool IsInEvent()
 	{
 		bool result = false;
-		if (!this.EventEndPacific.IsNullOrEmpty())
+		if (!EventEndPacific.IsNullOrEmpty())
 		{
-			for (;;)
+			if (!EventStartPacific.IsNullOrEmpty())
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LootMatrixPack.IsInEvent()).MethodHandle;
-			}
-			if (!this.EventStartPacific.IsNullOrEmpty())
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DateTime lastPacificTimePriceRequestWithServerTimeOffset = CommerceClient.Get().LastPacificTimePriceRequestWithServerTimeOffset;
-				DateTime t = Convert.ToDateTime(this.EventStartPacific);
-				DateTime t2 = Convert.ToDateTime(this.EventEndPacific);
-				bool flag;
+				DateTime t = Convert.ToDateTime(EventStartPacific);
+				DateTime t2 = Convert.ToDateTime(EventEndPacific);
+				int num;
 				if (lastPacificTimePriceRequestWithServerTimeOffset >= t)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag = (lastPacificTimePriceRequestWithServerTimeOffset < t2);
+					num = ((lastPacificTimePriceRequestWithServerTimeOffset < t2) ? 1 : 0);
 				}
 				else
 				{
-					flag = false;
+					num = 0;
 				}
-				result = flag;
+				result = ((byte)num != 0);
 			}
 		}
 		return result;

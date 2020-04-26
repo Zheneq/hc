@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class PendingPurchaseDetails
@@ -19,11 +19,5 @@ public class PendingPurchaseDetails
 
 	public DateTime PricesRequestPacificTimeWithServerTimeOffsetAsOfPurchase;
 
-	public string Name
-	{
-		get
-		{
-			return string.Format("product {0} for player {1} ({2})", this.productCode, this.purchaserName, this.channelTransactionId);
-		}
-	}
+	public string Name => $"product {productCode} for player {purchaserName} ({channelTransactionId})";
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 internal class FuncEqualityComparer<T> : IEqualityComparer<T>
@@ -15,11 +15,11 @@ internal class FuncEqualityComparer<T> : IEqualityComparer<T>
 
 	public bool Equals(T t1, T t2)
 	{
-		return this.equals(t1, t2);
+		return equals(t1, t2);
 	}
 
 	public int GetHashCode(T t)
 	{
-		return this.hashCode(t);
+		return hashCode(t);
 	}
 }

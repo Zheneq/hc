@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,30 +23,17 @@ public class RobotAnimalDrag : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalDrag.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Death Snuggle";
+			m_abilityName = "Death Snuggle";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_Laser(this, this.GetLaserWidth(), this.GetLaserDistance(), this.m_penetrateLineOfSight, this.m_maxTargets, false, this.GetCasterEffect().m_applyEffect);
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_Laser(this, GetLaserWidth(), GetLaserDistance(), m_penetrateLineOfSight, m_maxTargets, false, GetCasterEffect().m_applyEffect);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -57,59 +43,33 @@ public class RobotAnimalDrag : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLaserDistance();
+		return GetLaserDistance();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedCasterEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalDrag.SetCachedFields()).MethodHandle;
-			}
-			cachedCasterEffect = this.m_abilityMod.m_casterEffectMod.GetModifiedValue(this.m_casterEffect);
+			cachedCasterEffect = m_abilityMod.m_casterEffectMod.GetModifiedValue(m_casterEffect);
 		}
 		else
 		{
-			cachedCasterEffect = this.m_casterEffect;
+			cachedCasterEffect = m_casterEffect;
 		}
-		this.m_cachedCasterEffect = cachedCasterEffect;
+		m_cachedCasterEffect = cachedCasterEffect;
 	}
 
 	public StandardEffectInfo GetCasterEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedCasterEffect != null)
+		if (m_cachedCasterEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalDrag.GetCasterEffect()).MethodHandle;
-			}
-			result = this.m_cachedCasterEffect;
+			result = m_cachedCasterEffect;
 		}
 		else
 		{
-			result = this.m_casterEffect;
+			result = m_casterEffect;
 		}
 		return result;
 	}
@@ -117,246 +77,144 @@ public class RobotAnimalDrag : Ability
 	private float GetLaserDistance()
 	{
 		float result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalDrag.GetLaserDistance()).MethodHandle;
-			}
-			result = this.m_distance;
+			result = m_distance;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_distanceMod.GetModifiedValue(this.m_distance);
+			result = m_abilityMod.m_distanceMod.GetModifiedValue(m_distance);
 		}
 		return result;
 	}
 
 	private float GetLaserWidth()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_widthMod.GetModifiedValue(this.m_width) : this.m_width;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_widthMod.GetModifiedValue(m_width) : m_width;
 	}
 
 	public int GetDamage()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalDrag.GetDamage()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damage);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
 		{
-			result = this.m_damage;
+			result = m_damage;
 		}
 		return result;
 	}
 
 	public bool HasEffectOnNextTurnStart()
 	{
-		bool result;
-		if (this.m_abilityMod == null)
+		int result;
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalDrag.HasEffectOnNextTurnStart()).MethodHandle;
-			}
-			result = false;
+			result = 0;
 		}
-		else if (!this.m_abilityMod.m_enemyEffectOnNextTurnStart.m_applyEffect)
+		else if (!m_abilityMod.m_enemyEffectOnNextTurnStart.m_applyEffect)
 		{
-			for (;;)
+			if (m_abilityMod.m_powerUpsToSpawn != null)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_abilityMod.m_powerUpsToSpawn != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				result = (this.m_abilityMod.m_powerUpsToSpawn.Count > 0);
+				result = ((m_abilityMod.m_powerUpsToSpawn.Count > 0) ? 1 : 0);
 			}
 			else
 			{
-				result = false;
+				result = 0;
 			}
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public StandardEffectInfo EffectInfoOnNextTurnStart()
 	{
 		StandardEffectInfo result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalDrag.EffectInfoOnNextTurnStart()).MethodHandle;
-			}
 			result = new StandardEffectInfo();
 		}
 		else
 		{
-			result = this.m_abilityMod.m_enemyEffectOnNextTurnStart;
+			result = m_abilityMod.m_enemyEffectOnNextTurnStart;
 		}
 		return result;
 	}
 
 	public List<PowerUp> GetModdedPowerUpsToSpawn()
 	{
-		List<PowerUp> result;
-		if (this.m_abilityMod == null)
+		object result;
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalDrag.GetModdedPowerUpsToSpawn()).MethodHandle;
-			}
 			result = null;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_powerUpsToSpawn;
+			result = m_abilityMod.m_powerUpsToSpawn;
 		}
-		return result;
+		return (List<PowerUp>)result;
 	}
 
 	public AbilityAreaShape GetModdedPowerUpsToSpawnShape()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_powerUpsSpawnShape : AbilityAreaShape.SingleSquare;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_powerUpsSpawnShape : AbilityAreaShape.SingleSquare;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetDamage());
-		this.GetCasterEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		this.m_targetEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetDamage());
+		GetCasterEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		m_targetEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		return numbers;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_RobotAnimalDrag abilityMod_RobotAnimalDrag = modAsBase as AbilityMod_RobotAnimalDrag;
-		base.AddTokenInt(tokens, "MaxTargets", string.Empty, this.m_maxTargets, false);
-		base.AddTokenInt(tokens, "Damage", string.Empty, this.m_damage, false);
+		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
+		AddTokenInt(tokens, "Damage", string.Empty, m_damage);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_RobotAnimalDrag)
+		if ((bool)abilityMod_RobotAnimalDrag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalDrag.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
-			effectInfo = abilityMod_RobotAnimalDrag.m_casterEffectMod.GetModifiedValue(this.m_casterEffect);
+			effectInfo = abilityMod_RobotAnimalDrag.m_casterEffectMod.GetModifiedValue(m_casterEffect);
 		}
 		else
 		{
-			effectInfo = this.m_casterEffect;
+			effectInfo = m_casterEffect;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "CasterEffect", this.m_casterEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_targetEffect, "TargetEffect", null, false);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "CasterEffect", m_casterEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_targetEffect, "TargetEffect", null, false);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RobotAnimalDrag))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_abilityMod = (abilityMod as AbilityMod_RobotAnimalDrag);
+					Setup();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalDrag.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_RobotAnimalDrag);
-			this.Setup();
 		}
-		else
-		{
-			Debug.LogError("Trying to apply wrong type of ability mod");
-		}
+		Debug.LogError("Trying to apply wrong type of ability mod");
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 }

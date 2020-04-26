@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -26,102 +25,64 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 
 	private void Start()
 	{
-		foreach (StorePanelData storePanelData in this.m_panels)
+		StorePanelData[] panels = m_panels;
+		foreach (StorePanelData storePanelData in panels)
 		{
-			storePanelData.Button.m_button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.NavButtonClicked);
-			storePanelData.Panel.OnCountsRefreshed += new Action<UIStoreBaseInventoryPanel, int, int>(this.CountChanged);
+			storePanelData.Button.m_button.spriteController.callback = NavButtonClicked;
+			storePanelData.Panel.OnCountsRefreshed += CountChanged;
 			storePanelData.Panel.Initialize();
-			this.CountChanged(storePanelData.Panel, storePanelData.Panel.GetNumOwned(), storePanelData.Panel.GetNumTotal());
+			CountChanged(storePanelData.Panel, storePanelData.Panel.GetNumOwned(), storePanelData.Panel.GetNumTotal());
 			storePanelData.Panel.SetParentContainer(base.gameObject);
 		}
-		if (!this.m_disableInitialSelectPanel)
+		if (!m_disableInitialSelectPanel)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.Start()).MethodHandle;
-			}
-			this.SelectPanel(this.m_defaultPanelBtn);
+			SelectPanel(m_defaultPanelBtn);
 		}
-		ClientGameManager.Get().OnPlayerBannerChange += this.UpdateBanner;
-		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
+		ClientGameManager.Get().OnPlayerBannerChange += UpdateBanner;
+		if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			AccountComponent accountComponent = ClientGameManager.Get().GetPlayerAccountData().AccountComponent;
 			GameBalanceVars.PlayerBanner banner = GameBalanceVars.Get().GetBanner(accountComponent.SelectedForegroundBannerID);
 			GameBalanceVars.PlayerBanner banner2 = GameBalanceVars.Get().GetBanner(accountComponent.SelectedBackgroundBannerID);
-			this.UpdateBanner(banner, banner2);
+			UpdateBanner(banner, banner2);
+			return;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		foreach (StorePanelData storePanelData in this.m_panels)
+		StorePanelData[] panels = m_panels;
+		foreach (StorePanelData storePanelData in panels)
 		{
-			storePanelData.Panel.OnCountsRefreshed -= new Action<UIStoreBaseInventoryPanel, int, int>(this.CountChanged);
+			storePanelData.Panel.OnCountsRefreshed -= CountChanged;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
+			if (ClientGameManager.Get() != null)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.OnDestroy()).MethodHandle;
-		}
-		if (ClientGameManager.Get() != null)
-		{
-			for (;;)
-			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					ClientGameManager.Get().OnPlayerBannerChange -= UpdateBanner;
+					return;
 				}
-				break;
 			}
-			ClientGameManager.Get().OnPlayerBannerChange -= this.UpdateBanner;
+			return;
 		}
 	}
 
 	private void OnEnable()
 	{
-		for (int i = 0; i < this.m_panels.Length; i++)
+		for (int i = 0; i < m_panels.Length; i++)
 		{
-			this.m_panels[i].Panel.HandlePendingUpdates();
+			m_panels[i].Panel.HandlePendingUpdates();
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.OnEnable()).MethodHandle;
+			return;
 		}
 	}
 
@@ -131,140 +92,94 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 		string path2 = "Banners/Background/02_blue";
 		if (emblem != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.UpdateBanner(GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner)).MethodHandle;
-			}
 			path = emblem.m_resourceString;
 		}
 		if (banner != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			path2 = banner.m_resourceString;
 		}
-		this.m_emblem.sprite = Resources.Load<Sprite>(path);
-		this.m_banner.sprite = Resources.Load<Sprite>(path2);
+		m_emblem.sprite = Resources.Load<Sprite>(path);
+		m_banner.sprite = Resources.Load<Sprite>(path2);
 	}
 
 	private void NavButtonClicked(BaseEventData data)
 	{
 		if (data.selectedObject == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.NavButtonClicked(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
 		_ButtonSwapSprite component = data.selectedObject.GetComponent<_ButtonSwapSprite>();
 		UIStoreSideNavButton component2 = component.selectableButton.GetComponent<UIStoreSideNavButton>();
-		this.SelectPanel(component2);
+		SelectPanel(component2);
 	}
 
 	public void SelectPanel(UIStoreSideNavButton btn)
 	{
-		foreach (StorePanelData storePanelData in this.m_panels)
+		StorePanelData[] panels = m_panels;
+		foreach (StorePanelData storePanelData in panels)
 		{
 			storePanelData.Button.m_button.SetSelected(storePanelData.Button == btn, false, string.Empty, string.Empty);
 			storePanelData.Panel.SetVisible(storePanelData.Button == btn);
 			if (storePanelData.Button == btn)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.SelectPanel(UIStoreSideNavButton)).MethodHandle;
-				}
 				storePanelData.Panel.RefreshPage();
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public void DisableInitialSelectPanel()
 	{
-		this.m_disableInitialSelectPanel = true;
+		m_disableInitialSelectPanel = true;
 	}
 
 	private void CountChanged(UIStoreBasePanel panel, int ownedCount, int totalCount)
 	{
 		int num = 0;
 		int num2 = 0;
-		for (int i = 0; i < this.m_panels.Length; i++)
+		for (int i = 0; i < m_panels.Length; i++)
 		{
-			if (this.m_panels[i].Panel == panel)
+			if (m_panels[i].Panel == panel)
 			{
-				this.m_panels[i].Button.m_ownedCount.text = ownedCount.ToString();
-				this.m_panels[i].Button.m_totalCount.text = "/" + totalCount.ToString();
+				m_panels[i].Button.m_ownedCount.text = ownedCount.ToString();
+				m_panels[i].Button.m_totalCount.text = "/" + totalCount;
 			}
-			num += this.m_panels[i].Panel.GetNumTotal();
-			num2 += this.m_panels[i].Panel.GetNumOwned();
+			num += m_panels[i].Panel.GetNumTotal();
+			num2 += m_panels[i].Panel.GetNumOwned();
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
+			m_totalOwnedText.text = num2.ToString();
+			m_totalTotalText.text = "/" + num;
+			if (num == 0)
 			{
-			case 0:
-				continue;
+				m_ownedBar.fillAmount = 0f;
+				UIManager.SetGameObjectActive(m_ownedCompleteContainer, false);
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.CountChanged(UIStoreBasePanel, int, int)).MethodHandle;
-		}
-		this.m_totalOwnedText.text = num2.ToString();
-		this.m_totalTotalText.text = "/" + num.ToString();
-		if (num == 0)
-		{
-			this.m_ownedBar.fillAmount = 0f;
-			UIManager.SetGameObjectActive(this.m_ownedCompleteContainer, false, null);
-		}
-		else
-		{
-			this.m_ownedBar.fillAmount = (float)num2 / (float)num;
-			UIManager.SetGameObjectActive(this.m_ownedCompleteContainer, num2 == num, null);
+			else
+			{
+				m_ownedBar.fillAmount = (float)num2 / (float)num;
+				UIManager.SetGameObjectActive(m_ownedCompleteContainer, num2 == num);
+			}
+			return;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,9 +17,9 @@ public class UIRankedModeDraftCharacterEntry : MonoBehaviour
 
 	public CharacterType GetSelectedCharacter()
 	{
-		if (this.m_linkRef != null)
+		if (m_linkRef != null)
 		{
-			return this.m_linkRef.m_characterType;
+			return m_linkRef.m_characterType;
 		}
 		return CharacterType.None;
 	}
@@ -29,63 +28,55 @@ public class UIRankedModeDraftCharacterEntry : MonoBehaviour
 	{
 		if (visible)
 		{
-			UIManager.SetGameObjectActive(this.m_noCharacterImage, false, null);
+			UIManager.SetGameObjectActive(m_noCharacterImage, false);
 		}
-		UIManager.SetGameObjectActive(this.m_browseCharacterImage, visible, null);
+		UIManager.SetGameObjectActive(m_browseCharacterImage, visible);
 	}
 
 	public void SetSelectedCharacterImageVisible(bool visible)
 	{
-		UIManager.SetGameObjectActive(this.m_selectCharacterImage, visible, null);
+		UIManager.SetGameObjectActive(m_selectCharacterImage, visible);
 	}
 
 	public void SetCharacter(CharacterResourceLink link)
 	{
-		this.m_linkRef = link;
-		this.m_selectCharacterImage.sprite = link.GetCharacterSelectIcon();
+		m_linkRef = link;
+		m_selectCharacterImage.sprite = link.GetCharacterSelectIcon();
 	}
 
 	public void SetHoverCharacter(CharacterResourceLink link)
 	{
-		this.m_browseCharacterImage.sprite = link.GetCharacterSelectIcon();
+		m_browseCharacterImage.sprite = link.GetCharacterSelectIcon();
 	}
 
 	public void Init()
 	{
-		this.m_linkRef = null;
-		UIManager.SetGameObjectActive(this.m_noCharacterImage, true, null);
-		UIManager.SetGameObjectActive(this.m_browseCharacterImage, false, null);
-		UIManager.SetGameObjectActive(this.m_selectCharacterImage, false, null);
-		this.DoSelecting(false);
+		m_linkRef = null;
+		UIManager.SetGameObjectActive(m_noCharacterImage, true);
+		UIManager.SetGameObjectActive(m_browseCharacterImage, false);
+		UIManager.SetGameObjectActive(m_selectCharacterImage, false);
+		DoSelecting(false);
 	}
 
 	private void DoSelecting(bool selecting)
 	{
-		this.m_selectingStatus = selecting;
-		for (int i = 0; i < this.m_currentlySelectingObjects.Length; i++)
+		m_selectingStatus = selecting;
+		for (int i = 0; i < m_currentlySelectingObjects.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_currentlySelectingObjects[i], selecting, null);
+			UIManager.SetGameObjectActive(m_currentlySelectingObjects[i], selecting);
 		}
 	}
 
 	public void SetAsSelecting(bool selecting)
 	{
-		if (this.m_selectingStatus != selecting)
+		if (m_selectingStatus == selecting)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftCharacterEntry.SetAsSelecting(bool)).MethodHandle;
-			}
-			this.DoSelecting(selecting);
+			return;
+		}
+		while (true)
+		{
+			DoSelecting(selecting);
+			return;
 		}
 	}
 }

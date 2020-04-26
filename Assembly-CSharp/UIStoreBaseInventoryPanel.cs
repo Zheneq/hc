@@ -1,14 +1,214 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 {
+	[Serializable]
+	public class BuyButton
+	{
+		public CurrencyType m_currencyType;
+
+		public RectTransform m_container;
+
+		public TextMeshProUGUI[] m_labels;
+
+		public _ButtonSwapSprite m_hitbox;
+
+		private bool m_canAfford;
+
+		private string m_tooltipMessage;
+
+		private CurrencyData m_currencyData;
+
+		private CountryPrice m_realCurrencyData;
+
+		public bool Setup(GameBalanceVars.PlayerUnlockable item, UIStoreBaseInventoryPanel parent)
+		{
+			m_canAfford = false;
+			if (item.IsOwned())
+			{
+				if (!item.CanStillPurchaseIfOwned())
+				{
+					goto IL_006e;
+				}
+			}
+			if (!item.m_unlockData.UnlockConditions.IsNullOrEmpty())
+			{
+				if (!ClientGameManager.Get().AreUnlockConditionsMet(item, true))
+				{
+					goto IL_006e;
+				}
+			}
+			if (m_currencyType == CurrencyType.NONE)
+			{
+				m_currencyData = null;
+				m_realCurrencyData = null;
+				if (item.Prices != null && item.Prices.Prices != null)
+				{
+					string accountCurrency = HydrogenConfig.Get().Ticket.AccountCurrency;
+					int num = 0;
+					while (true)
+					{
+						if (num < item.Prices.Prices.Length)
+						{
+							if (item.Prices.Prices[num].Currency.ToString() == accountCurrency)
+							{
+								m_realCurrencyData = new CountryPrice();
+								m_realCurrencyData.Currency = item.Prices.Prices[num].Currency;
+								m_realCurrencyData.Price = item.Prices.Prices[num].Price;
+								if (item is GameBalanceVars.StoreItemForPurchase)
+								{
+									int itemTemplateId = ((GameBalanceVars.StoreItemForPurchase)item).m_itemTemplateId;
+									m_realCurrencyData.Price = CommerceClient.Get().GetStoreItemPrice(itemTemplateId, accountCurrency, out float _);
+								}
+								else if (item is GameBalanceVars.ColorUnlockData)
+								{
+									m_realCurrencyData.Price = CommerceClient.Get().GetStylePrice((CharacterType)item.Index1, item.Index2, item.Index3, item.ID, accountCurrency);
+								}
+								break;
+							}
+							num++;
+							continue;
+						}
+						break;
+					}
+				}
+				if (m_realCurrencyData != null)
+				{
+					if (!(m_realCurrencyData.Price <= 0f))
+					{
+						UIManager.SetGameObjectActive(m_container, true);
+						m_canAfford = true;
+						goto IL_02aa;
+					}
+				}
+				UIManager.SetGameObjectActive(m_container, false);
+				return false;
+			}
+			m_currencyData = parent.GetItemCost(item, m_currencyType);
+			m_realCurrencyData = null;
+			UIManager.SetGameObjectActive(m_container, m_currencyData.Amount > 0);
+			if (m_currencyData.Amount <= 0)
+			{
+				return false;
+			}
+			m_canAfford = ClientGameManager.Get().PlayerWallet.CanAfford(m_currencyData);
+			goto IL_02aa;
+			IL_006e:
+			UIManager.SetGameObjectActive(m_container, false);
+			return false;
+			IL_02aa:
+			bool flag = GameBalanceVarsExtensions.MeetsPurchaseabilityConditions(item);
+			bool flag2 = false;
+			if (flag && item is GameBalanceVars.ColorUnlockData)
+			{
+				CharacterType index = (CharacterType)item.Index1;
+				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(index);
+				CharacterColor characterColor = characterResourceLink.m_skins[item.Index2].m_patterns[item.Index3].m_colors[item.ID];
+				flag2 = (characterColor.m_requiredLevelForEquip > ClientGameManager.Get().GetPlayerCharacterLevel(index));
+				if (flag2)
+				{
+					flag = false;
+				}
+			}
+			_SelectableBtn selectableButton = m_hitbox.selectableButton;
+			int disabled;
+			if (m_canAfford)
+			{
+				disabled = ((!flag) ? 1 : 0);
+			}
+			else
+			{
+				disabled = 1;
+			}
+			selectableButton.SetDisabled((byte)disabled != 0);
+			m_tooltipMessage = null;
+			if (!flag)
+			{
+				if (!flag2)
+				{
+					if (!item.PurchaseDescription.IsNullOrEmpty())
+					{
+						m_tooltipMessage = item.GetPurchaseDescription();
+					}
+				}
+			}
+			CurrencyType currencyType = m_currencyType;
+			string text;
+			switch (currencyType)
+			{
+			default:
+				if (currencyType != CurrencyType.NONE)
+				{
+					while (true)
+					{
+						switch (1)
+						{
+						case 0:
+							break;
+						default:
+							throw new NotImplementedException(string.Concat(m_currencyType, " doesn't have a sprite"));
+						}
+					}
+				}
+				text = null;
+				break;
+			case CurrencyType.ISO:
+				text = "iso";
+				break;
+			case CurrencyType.FreelancerCurrency:
+				text = "credit";
+				break;
+			case CurrencyType.ModToken:
+				text = "modToken";
+				break;
+			case CurrencyType.RankedCurrency:
+				text = "rankedCurrency";
+				break;
+			case CurrencyType.RAFPoints:
+				text = "referToken";
+				break;
+			}
+			for (int i = 0; i < m_labels.Length; i++)
+			{
+				if (text == null)
+				{
+					m_labels[i].text = UIStorePanel.GetLocalizedPriceString(m_realCurrencyData.Price, m_realCurrencyData.Currency.ToString());
+				}
+				else
+				{
+					m_labels[i].text = $"<sprite name={text}>{UIStorePanel.FormatIntToString(m_currencyData.Amount, true)}";
+				}
+			}
+			while (true)
+			{
+				return true;
+			}
+		}
+
+		public bool CanAfford()
+		{
+			return m_canAfford;
+		}
+
+		public string GetTooltipMessage()
+		{
+			return m_tooltipMessage;
+		}
+	}
+
+	private struct AdjustedPlayerUnlockable
+	{
+		public GameBalanceVars.PlayerUnlockable Unlockable;
+
+		public int AdjustedSortOrder;
+	}
+
 	[Header("Note: Banners are not freelancer items, even in freelancer page")]
 	public bool m_isFreelancerItems;
 
@@ -26,7 +226,7 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 
 	public TextMeshProUGUI m_buyLabel;
 
-	public UIStoreBaseInventoryPanel.BuyButton[] m_buyButtons;
+	public BuyButton[] m_buyButtons;
 
 	private const float kUnlockLabelPadding = 25f;
 
@@ -58,68 +258,44 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 
 	protected CharacterType m_charType;
 
-	protected UIStoreBaseInventoryPanel()
-	{
-		if (UIStoreBaseInventoryPanel.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel..ctor()).MethodHandle;
-			}
-			UIStoreBaseInventoryPanel.<>f__am$cache1 = delegate(UIStoreBaseInventoryPanel A_0, int A_1, int A_2)
-			{
-			};
-		}
-		this.OnCountsRefreshed = UIStoreBaseInventoryPanel.<>f__am$cache1;
-		base..ctor();
-	}
-
+	private Action<UIStoreBaseInventoryPanel, int, int> OnCountsRefreshedHolder;
 	public event Action<UIStoreBaseInventoryPanel, int, int> OnCountsRefreshed
 	{
 		add
 		{
-			Action<UIStoreBaseInventoryPanel, int, int> action = this.OnCountsRefreshed;
+			Action<UIStoreBaseInventoryPanel, int, int> action = this.OnCountsRefreshedHolder;
 			Action<UIStoreBaseInventoryPanel, int, int> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<UIStoreBaseInventoryPanel, int, int>>(ref this.OnCountsRefreshed, (Action<UIStoreBaseInventoryPanel, int, int>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnCountsRefreshedHolder, (Action<UIStoreBaseInventoryPanel, int, int>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<UIStoreBaseInventoryPanel, int, int> action = this.OnCountsRefreshed;
+			Action<UIStoreBaseInventoryPanel, int, int> action = this.OnCountsRefreshedHolder;
 			Action<UIStoreBaseInventoryPanel, int, int> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<UIStoreBaseInventoryPanel, int, int>>(ref this.OnCountsRefreshed, (Action<UIStoreBaseInventoryPanel, int, int>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.OnCountsRefreshedHolder, (Action<UIStoreBaseInventoryPanel, int, int>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.remove_OnCountsRefreshed(Action<UIStoreBaseInventoryPanel, int, int>)).MethodHandle;
+				return;
 			}
 		}
+	}
+
+	protected UIStoreBaseInventoryPanel()
+	{
+		
+		this.OnCountsRefreshedHolder = delegate
+			{
+			};
+		
 	}
 
 	protected abstract GameBalanceVars.PlayerUnlockable[] GetRawItemsList();
@@ -154,19 +330,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		CurrencyData currencyData = new CurrencyData();
 		if (type == CurrencyType.ISO)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.GetItemCost(GameBalanceVars.PlayerUnlockable, CurrencyType)).MethodHandle;
-			}
 			currencyData.Amount = item.GetUnlockISOPrice();
 		}
 		else if (type == CurrencyType.FreelancerCurrency)
@@ -175,15 +338,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		else if (type == CurrencyType.RankedCurrency)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			currencyData.Amount = item.GetUnlockRankedCurrencyPrice();
 		}
 		else
@@ -206,1348 +360,798 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 
 	public void Initialize()
 	{
-		if (this.isInitialized)
+		if (isInitialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.Initialize()).MethodHandle;
-			}
-			return;
 		}
-		this.isInitialized = true;
-		this.InitRawItemsList();
+		isInitialized = true;
+		InitRawItemsList();
 		if (HitchDetector.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			HitchDetector.Get().AddNewLayoutGroup(this.m_itemsGrid);
+			HitchDetector.Get().AddNewLayoutGroup(m_itemsGrid);
 		}
-		this.m_pageNum = 0;
-		this.m_itemBtns = this.m_itemsGrid.GetComponentsInChildren<UIStoreItemBtn>();
-		this.m_visibleItemsList = new List<GameBalanceVars.PlayerUnlockable>();
-		this.m_pageMarkers = new List<UIStorePageIndicator>();
-		foreach (UIStoreItemBtn uistoreItemBtn in this.m_itemBtns)
+		m_pageNum = 0;
+		m_itemBtns = m_itemsGrid.GetComponentsInChildren<UIStoreItemBtn>();
+		m_visibleItemsList = new List<GameBalanceVars.PlayerUnlockable>();
+		m_pageMarkers = new List<UIStorePageIndicator>();
+		UIStoreItemBtn[] itemBtns = m_itemBtns;
+		foreach (UIStoreItemBtn uIStoreItemBtn in itemBtns)
 		{
-			uistoreItemBtn.m_selectableBtn.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-			uistoreItemBtn.SetParent(this);
-			UIManager.SetGameObjectActive(uistoreItemBtn, false, null);
-			StaggerComponent.SetStaggerComponent(uistoreItemBtn.gameObject, true, true);
+			uIStoreItemBtn.m_selectableBtn.spriteController.RegisterScrollListener(OnScroll);
+			uIStoreItemBtn.SetParent(this);
+			UIManager.SetGameObjectActive(uIStoreItemBtn, false);
+			StaggerComponent.SetStaggerComponent(uIStoreItemBtn.gameObject, true);
 		}
-		Image component = base.GetComponent<Image>();
+		Image component = GetComponent<Image>();
 		if (component != null)
 		{
-			for (;;)
+			UIEventTriggerUtils.AddListener(component.gameObject, EventTriggerType.Scroll, OnScroll);
+		}
+		Toggle[] filters = GetFilters();
+		foreach (Toggle toggle in filters)
+		{
+			toggle.onValueChanged.AddListener(OnFilterChange);
+		}
+		while (true)
+		{
+			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
-				switch (7)
+				RefreshVisibleItemsList();
+				ShowPage(0);
+			}
+			for (int k = 0; k < m_buyButtons.Length; k++)
+			{
+				BuyButton buyButton = m_buyButtons[k];
+				buyButton.m_hitbox.callback = BuyButtonClicked;
+				buyButton.m_hitbox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, (UITooltipBase tooltip) => BuyButtonTooltipSetup(tooltip, buyButton));
+				buyButton.m_hitbox.SetForceHovercallback(true);
+				buyButton.m_hitbox.SetForceExitCallback(true);
+			}
+			while (true)
+			{
+				switch (5)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			UIEventTriggerUtils.AddListener(component.gameObject, EventTriggerType.Scroll, new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-		}
-		foreach (Toggle toggle in this.GetFilters())
-		{
-			toggle.onValueChanged.AddListener(new UnityAction<bool>(this.OnFilterChange));
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
-		{
-			this.RefreshVisibleItemsList();
-			this.ShowPage(0);
-		}
-		for (int k = 0; k < this.m_buyButtons.Length; k++)
-		{
-			UIStoreBaseInventoryPanel.BuyButton buyButton = this.m_buyButtons[k];
-			buyButton.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyButtonClicked);
-			buyButton.m_hitbox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, (UITooltipBase tooltip) => this.BuyButtonTooltipSetup(tooltip, buyButton), null);
-			buyButton.m_hitbox.SetForceHovercallback(true);
-			buyButton.m_hitbox.SetForceExitCallback(true);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
 	protected void Start()
 	{
-		this.Initialize();
-		if (this.m_isFreelancerItems)
+		Initialize();
+		if (m_isFreelancerItems)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.Start()).MethodHandle;
-			}
-			ClientGameManager.Get().OnCharacterDataUpdated += this.OnCharacterDataUpdated;
+			ClientGameManager.Get().OnCharacterDataUpdated += OnCharacterDataUpdated;
 		}
 		else
 		{
-			ClientGameManager.Get().OnAccountDataUpdated += this.OnAccountDataUpdated;
+			ClientGameManager.Get().OnAccountDataUpdated += OnAccountDataUpdated;
 		}
-		ClientGameManager.Get().OnLobbyGameplayOverridesChange += this.OnLobbyGameplayOverridesChange;
+		ClientGameManager.Get().OnLobbyGameplayOverridesChange += OnLobbyGameplayOverridesChange;
 	}
 
 	protected void OnDestroy()
 	{
-		if (ClientGameManager.Get() != null)
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_isFreelancerItems)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.OnDestroy()).MethodHandle;
-			}
-			if (this.m_isFreelancerItems)
-			{
-				ClientGameManager.Get().OnCharacterDataUpdated -= this.OnCharacterDataUpdated;
+				ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterDataUpdated;
 			}
 			else
 			{
-				ClientGameManager.Get().OnAccountDataUpdated -= this.OnAccountDataUpdated;
+				ClientGameManager.Get().OnAccountDataUpdated -= OnAccountDataUpdated;
 			}
-			ClientGameManager.Get().OnLobbyGameplayOverridesChange -= this.OnLobbyGameplayOverridesChange;
+			ClientGameManager.Get().OnLobbyGameplayOverridesChange -= OnLobbyGameplayOverridesChange;
+			return;
 		}
 	}
 
 	protected void UpdatePanel()
 	{
-		if (this.m_parentContainer != null && this.m_parentContainer.gameObject.activeInHierarchy)
+		if (m_parentContainer != null && m_parentContainer.gameObject.activeInHierarchy)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					RefreshVisibleItemsList();
+					ShowPage(m_pageNum);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.UpdatePanel()).MethodHandle;
-			}
-			this.RefreshVisibleItemsList();
-			this.ShowPage(this.m_pageNum);
 		}
-		else
-		{
-			this.isUpdatePending = true;
-		}
+		isUpdatePending = true;
 	}
 
 	private void OnAccountDataUpdated(PersistedAccountData data)
 	{
-		this.UpdatePanel();
+		UpdatePanel();
 	}
 
 	public void OnCharacterDataUpdated(PersistedCharacterData newData)
 	{
-		if (this.m_charType == newData.CharacterType)
+		if (m_charType != newData.CharacterType)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.OnCharacterDataUpdated(PersistedCharacterData)).MethodHandle;
-			}
-			this.UpdatePanel();
+			return;
+		}
+		while (true)
+		{
+			UpdatePanel();
+			return;
 		}
 	}
 
 	private void OnLobbyGameplayOverridesChange(LobbyGameplayOverrides gameplayOverrides)
 	{
-		this.UpdatePanel();
+		UpdatePanel();
 	}
 
 	private void OnFilterChange(bool newValue)
 	{
-		this.RefreshVisibleItemsList();
-		this.ShowPage(0);
+		RefreshVisibleItemsList();
+		ShowPage(0);
 	}
 
 	public void HandlePendingUpdates()
 	{
-		if (this.isInitialized)
+		if (!isInitialized)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (isUpdatePending)
 			{
-				switch (3)
+				while (true)
 				{
-				case 0:
-					continue;
+					RefreshVisibleItemsList();
+					ShowPage(m_pageNum);
+					isUpdatePending = false;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.HandlePendingUpdates()).MethodHandle;
-			}
-			if (this.isUpdatePending)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.RefreshVisibleItemsList();
-				this.ShowPage(this.m_pageNum);
-				this.isUpdatePending = false;
-			}
+			return;
 		}
 	}
 
 	private void InitRawItemsList()
 	{
-		this.m_rawItemsList = this.GetRawItemsList();
+		m_rawItemsList = GetRawItemsList();
 	}
 
 	public void SetParentContainer(GameObject parentContainer)
 	{
-		this.m_parentContainer = parentContainer;
+		m_parentContainer = parentContainer;
 	}
 
 	public void SetCharacter(CharacterType type)
 	{
-		this.m_charType = type;
-		this.InitRawItemsList();
-		this.RefreshVisibleItemsList();
-		this.ShowPage(0);
-		this.isUpdatePending = false;
+		m_charType = type;
+		InitRawItemsList();
+		RefreshVisibleItemsList();
+		ShowPage(0);
+		isUpdatePending = false;
 	}
 
 	protected List<GameBalanceVars.PlayerUnlockable> SortItems(List<GameBalanceVars.PlayerUnlockable> input)
 	{
-		List<UIStoreBaseInventoryPanel.AdjustedPlayerUnlockable> list = new List<UIStoreBaseInventoryPanel.AdjustedPlayerUnlockable>();
+		List<AdjustedPlayerUnlockable> list = new List<AdjustedPlayerUnlockable>();
 		for (int i = 0; i < input.Count; i++)
 		{
-			list.Add(new UIStoreBaseInventoryPanel.AdjustedPlayerUnlockable
+			list.Add(new AdjustedPlayerUnlockable
 			{
 				Unlockable = input[i],
 				AdjustedSortOrder = input[i].m_sortOrder * input.Count + i
 			});
 		}
-		for (;;)
+		while (true)
 		{
-			switch (5)
+			
+			list.Sort(((AdjustedPlayerUnlockable first, AdjustedPlayerUnlockable second) => first.AdjustedSortOrder.CompareTo(second.AdjustedSortOrder)));
+			List<GameBalanceVars.PlayerUnlockable> list2 = new List<GameBalanceVars.PlayerUnlockable>();
+			for (int j = 0; j < list.Count; j++)
 			{
-			case 0:
-				continue;
+				AdjustedPlayerUnlockable adjustedPlayerUnlockable = list[j];
+				list2.Add(adjustedPlayerUnlockable.Unlockable);
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.SortItems(List<GameBalanceVars.PlayerUnlockable>)).MethodHandle;
-		}
-		List<UIStoreBaseInventoryPanel.AdjustedPlayerUnlockable> list2 = list;
-		if (UIStoreBaseInventoryPanel.<>f__am$cache0 == null)
-		{
-			for (;;)
+			while (true)
 			{
-				switch (2)
+				if (list2.Count > 0)
 				{
-				case 0:
-					continue;
+					if (list2[list2.Count - 1].m_sortOrder != 0)
+					{
+						while (list2[0].m_sortOrder == 0)
+						{
+							GameBalanceVars.PlayerUnlockable item = list2[0];
+							list2.RemoveAt(0);
+							list2.Add(item);
+						}
+					}
 				}
-				break;
-			}
-			UIStoreBaseInventoryPanel.<>f__am$cache0 = ((UIStoreBaseInventoryPanel.AdjustedPlayerUnlockable first, UIStoreBaseInventoryPanel.AdjustedPlayerUnlockable second) => first.AdjustedSortOrder.CompareTo(second.AdjustedSortOrder));
-		}
-		list2.Sort(UIStoreBaseInventoryPanel.<>f__am$cache0);
-		List<GameBalanceVars.PlayerUnlockable> list3 = new List<GameBalanceVars.PlayerUnlockable>();
-		for (int j = 0; j < list.Count; j++)
-		{
-			list3.Add(list[j].Unlockable);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (list3.Count > 0)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (list3[list3.Count - 1].m_sortOrder != 0)
-			{
-				while (list3[0].m_sortOrder == 0)
-				{
-					GameBalanceVars.PlayerUnlockable item = list3[0];
-					list3.RemoveAt(0);
-					list3.Add(item);
-				}
+				return list2;
 			}
 		}
-		return list3;
 	}
 
 	protected void RefreshVisibleItemsList()
 	{
 		LobbyGameplayOverrides gameplayOverrides = GameManager.Get().GameplayOverrides;
 		bool enableHiddenCharacters = gameplayOverrides.EnableHiddenCharacters;
-		this.m_numOwned = (this.m_numTotal = 0);
-		this.m_visibleItemsList.Clear();
-		int i = 0;
-		while (i < this.m_rawItemsList.Length)
+		m_numOwned = (m_numTotal = 0);
+		m_visibleItemsList.Clear();
+		for (int i = 0; i < m_rawItemsList.Length; i++)
 		{
-			if (this.m_rawItemsList[i] is GameBalanceVars.ColorUnlockData)
+			if (m_rawItemsList[i] is GameBalanceVars.ColorUnlockData)
 			{
-				bool flag = !gameplayOverrides.IsColorAllowed((CharacterType)this.m_rawItemsList[i].Index1, this.m_rawItemsList[i].Index2, this.m_rawItemsList[i].Index3, this.m_rawItemsList[i].ID);
-				if (!flag)
+				if (!gameplayOverrides.IsColorAllowed((CharacterType)m_rawItemsList[i].Index1, m_rawItemsList[i].Index2, m_rawItemsList[i].Index3, m_rawItemsList[i].ID))
 				{
-					goto IL_ED;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.RefreshVisibleItemsList()).MethodHandle;
+					continue;
 				}
 			}
-			else
+			else if (m_rawItemsList[i] is GameBalanceVars.PlayerRibbon)
 			{
-				if (!(this.m_rawItemsList[i] is GameBalanceVars.PlayerRibbon))
+				if (!FactionWideData.Get().IsRibbonInCompetition(m_rawItemsList[i].ID, ClientGameManager.Get().ActiveFactionCompetition))
 				{
-					goto IL_ED;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (FactionWideData.Get().IsRibbonInCompetition(this.m_rawItemsList[i].ID, ClientGameManager.Get().ActiveFactionCompetition))
-				{
-					goto IL_ED;
+					continue;
 				}
 			}
-			IL_247:
-			i++;
-			continue;
-			IL_ED:
-			if (!this.m_rawItemsList[i].IsOwned())
+			if (!m_rawItemsList[i].IsOwned())
 			{
-				bool flag2;
-				if (!this.m_rawItemsList[i].m_isHidden)
+				int num;
+				if (!m_rawItemsList[i].m_isHidden)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag2 = !GameBalanceVarsExtensions.MeetsVisibilityConditions(this.m_rawItemsList[i]);
+					num = ((!GameBalanceVarsExtensions.MeetsVisibilityConditions(m_rawItemsList[i])) ? 1 : 0);
 				}
 				else
 				{
-					flag2 = true;
+					num = 1;
 				}
-				bool flag3 = flag2;
-				if (!flag3)
+				bool flag = (byte)num != 0;
+				if (!flag)
 				{
-					for (;;)
+					if (m_rawItemsList[i] is GameBalanceVars.ColorUnlockData)
 					{
-						switch (6)
+						flag = GameBalanceVars.Get().GetCharacterUnlockData((CharacterType)m_rawItemsList[i].Index1).skinUnlockData[m_rawItemsList[i].Index2].m_isHidden;
+						if (!flag)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_rawItemsList[i] is GameBalanceVars.ColorUnlockData)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag3 = GameBalanceVars.Get().GetCharacterUnlockData((CharacterType)this.m_rawItemsList[i].Index1).skinUnlockData[this.m_rawItemsList[i].Index2].m_isHidden;
-						if (!flag3)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag3 = GameBalanceVars.Get().GetCharacterUnlockData((CharacterType)this.m_rawItemsList[i].Index1).skinUnlockData[this.m_rawItemsList[i].Index2].patternUnlockData[this.m_rawItemsList[i].Index3].m_isHidden;
+							flag = GameBalanceVars.Get().GetCharacterUnlockData((CharacterType)m_rawItemsList[i].Index1).skinUnlockData[m_rawItemsList[i].Index2].patternUnlockData[m_rawItemsList[i].Index3].m_isHidden;
 						}
 					}
 				}
-				if (!enableHiddenCharacters && flag3)
+				if (!enableHiddenCharacters && flag)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					goto IL_247;
+					continue;
 				}
 			}
 			else
 			{
-				this.m_numOwned++;
+				m_numOwned++;
 			}
-			this.m_numTotal++;
-			if (this.ShouldFilter(this.m_rawItemsList[i]))
+			m_numTotal++;
+			if (ShouldFilter(m_rawItemsList[i]))
 			{
-				for (;;)
+			}
+			else
+			{
+				m_visibleItemsList.Add(m_rawItemsList[i]);
+			}
+		}
+		while (true)
+		{
+			this.OnCountsRefreshedHolder(this, m_numOwned, m_numTotal);
+			m_numberOfPages = m_visibleItemsList.Count / m_itemBtns.Length;
+			if (m_visibleItemsList.Count % m_itemBtns.Length > 0)
+			{
+				m_numberOfPages++;
+			}
+			for (int j = m_pageMarkers.Count; j < m_numberOfPages; j++)
+			{
+				UIStorePageIndicator uIStorePageIndicator = UnityEngine.Object.Instantiate(m_pageItemPrefab);
+				uIStorePageIndicator.transform.SetParent(m_pageListContainer.transform);
+				uIStorePageIndicator.transform.localScale = Vector3.one;
+				uIStorePageIndicator.transform.localPosition = Vector3.zero;
+				uIStorePageIndicator.SetSelected(j == 0);
+				uIStorePageIndicator.m_hitbox.callback = PageClicked;
+				uIStorePageIndicator.m_hitbox.RegisterScrollListener(OnScroll);
+				uIStorePageIndicator.SetPageNumber(j + 1);
+				m_pageMarkers.Add(uIStorePageIndicator);
+			}
+			while (true)
+			{
+				int num2;
+				for (num2 = m_numberOfPages; num2 < m_pageMarkers.Count; num2++)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					UnityEngine.Object.Destroy(m_pageMarkers[num2].gameObject);
+					m_pageMarkers.RemoveAt(num2);
+					num2--;
 				}
-				goto IL_247;
-			}
-			this.m_visibleItemsList.Add(this.m_rawItemsList[i]);
-			goto IL_247;
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.OnCountsRefreshed(this, this.m_numOwned, this.m_numTotal);
-		this.m_numberOfPages = this.m_visibleItemsList.Count / this.m_itemBtns.Length;
-		if (this.m_visibleItemsList.Count % this.m_itemBtns.Length > 0)
-		{
-			for (;;)
-			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
+					m_nextPage.transform.parent.SetAsLastSibling();
+					m_prevPage.callback = ClickedOnPrevPage;
+					m_nextPage.callback = ClickedOnNextPage;
+					UIManager.SetGameObjectActive(m_pageListContainer, m_numberOfPages > 1);
+					return;
 				}
-				break;
 			}
-			this.m_numberOfPages++;
 		}
-		for (int j = this.m_pageMarkers.Count; j < this.m_numberOfPages; j++)
-		{
-			UIStorePageIndicator uistorePageIndicator = UnityEngine.Object.Instantiate<UIStorePageIndicator>(this.m_pageItemPrefab);
-			uistorePageIndicator.transform.SetParent(this.m_pageListContainer.transform);
-			uistorePageIndicator.transform.localScale = Vector3.one;
-			uistorePageIndicator.transform.localPosition = Vector3.zero;
-			uistorePageIndicator.SetSelected(j == 0);
-			uistorePageIndicator.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PageClicked);
-			uistorePageIndicator.m_hitbox.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-			uistorePageIndicator.SetPageNumber(j + 1);
-			this.m_pageMarkers.Add(uistorePageIndicator);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		for (int k = this.m_numberOfPages; k < this.m_pageMarkers.Count; k++)
-		{
-			UnityEngine.Object.Destroy(this.m_pageMarkers[k].gameObject);
-			this.m_pageMarkers.RemoveAt(k);
-			k--;
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.m_nextPage.transform.parent.SetAsLastSibling();
-		this.m_prevPage.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ClickedOnPrevPage);
-		this.m_nextPage.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ClickedOnNextPage);
-		UIManager.SetGameObjectActive(this.m_pageListContainer, this.m_numberOfPages > 1, null);
 	}
 
 	public void PageClicked(BaseEventData data)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.GenericSmall);
-		for (int i = 0; i < this.m_pageMarkers.Count; i++)
+		for (int i = 0; i < m_pageMarkers.Count; i++)
 		{
-			if (this.m_pageMarkers[i].m_hitbox.gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
+			if (!(m_pageMarkers[i].m_hitbox.gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.PageClicked(BaseEventData)).MethodHandle;
-				}
-				this.ShowPage(i);
+				continue;
+			}
+			while (true)
+			{
+				ShowPage(i);
 				return;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			return;
 		}
 	}
 
 	private void OnScroll(BaseEventData data)
 	{
 		PointerEventData pointerEventData = data as PointerEventData;
-		if (pointerEventData.scrollDelta.y > 0f)
+		Vector2 scrollDelta = pointerEventData.scrollDelta;
+		if (scrollDelta.y > 0f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					ClickedOnPrevPage(null);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.OnScroll(BaseEventData)).MethodHandle;
-			}
-			this.ClickedOnPrevPage(null);
 		}
-		else if (pointerEventData.scrollDelta.y < 0f)
+		Vector2 scrollDelta2 = pointerEventData.scrollDelta;
+		if (!(scrollDelta2.y < 0f))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.ClickedOnNextPage(null);
+			return;
+		}
+		while (true)
+		{
+			ClickedOnNextPage(null);
+			return;
 		}
 	}
 
 	public void ClickedOnPrevPage(BaseEventData data)
 	{
-		if (this.m_pageNum - 1 < 0)
+		if (m_pageNum - 1 < 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.ClickedOnPrevPage(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.GenericSmall);
-		this.ShowPage(this.m_pageNum - 1);
+		ShowPage(m_pageNum - 1);
 	}
 
 	public void ClickedOnNextPage(BaseEventData data)
 	{
-		if (this.m_pageNum + 1 >= this.m_numberOfPages)
+		if (m_pageNum + 1 >= m_numberOfPages)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.ClickedOnNextPage(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.GenericSmall);
-		this.ShowPage(this.m_pageNum + 1);
+		ShowPage(m_pageNum + 1);
 	}
 
 	private void ShowPage(int pageNum)
 	{
-		this.Initialize();
-		for (int i = 0; i < this.m_pageMarkers.Count; i++)
+		Initialize();
+		for (int i = 0; i < m_pageMarkers.Count; i++)
 		{
-			this.m_pageMarkers[i].SetSelected(i == pageNum);
+			m_pageMarkers[i].SetSelected(i == pageNum);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (5)
+			if (m_pageNum != pageNum)
 			{
-			case 0:
-				continue;
+				m_currentSelectedButton = null;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.ShowPage(int)).MethodHandle;
-		}
-		if (this.m_pageNum != pageNum)
-		{
-			for (;;)
+			m_pageNum = pageNum;
+			int num = m_itemBtns.Length * pageNum;
+			for (int j = 0; j < m_itemBtns.Length; j++)
 			{
-				switch (1)
+				GameBalanceVars.PlayerUnlockable playerUnlockable = null;
+				int num2 = j + num;
+				if (num2 < m_visibleItemsList.Count)
 				{
-				case 0:
-					continue;
+					playerUnlockable = m_visibleItemsList[num2];
 				}
-				break;
-			}
-			this.m_currentSelectedButton = null;
-		}
-		this.m_pageNum = pageNum;
-		int num = this.m_itemBtns.Length * pageNum;
-		for (int j = 0; j < this.m_itemBtns.Length; j++)
-		{
-			GameBalanceVars.PlayerUnlockable playerUnlockable = null;
-			int num2 = j + num;
-			if (num2 < this.m_visibleItemsList.Count)
-			{
-				for (;;)
+				m_itemBtns[j].Setup(playerUnlockable);
+				if (playerUnlockable != null)
 				{
-					switch (3)
+					m_itemBtns[j].DisplayCheckMark(ShouldCheckmark(playerUnlockable));
+				}
+				m_itemBtns[j].m_selectableBtn.SetSelected(false, false, string.Empty, string.Empty);
+			}
+			while (true)
+			{
+				if (m_currentSelectedButton != null)
+				{
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (5)
+						{
+						case 0:
+							break;
+						default:
+							DoItemSelect(m_currentSelectedButton, m_currentSelectedButton.GetItem());
+							return;
+						}
 					}
-					break;
 				}
-				playerUnlockable = this.m_visibleItemsList[num2];
+				m_currentSelectedButton = null;
+				m_currentSelectedItem = null;
+				UIManager.SetGameObjectActive(m_buyContainer, false);
+				return;
 			}
-			this.m_itemBtns[j].Setup(playerUnlockable);
-			if (playerUnlockable != null)
-			{
-				this.m_itemBtns[j].DisplayCheckMark(this.ShouldCheckmark(playerUnlockable));
-			}
-			this.m_itemBtns[j].m_selectableBtn.SetSelected(false, false, string.Empty, string.Empty);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (this.m_currentSelectedButton != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.DoItemSelect(this.m_currentSelectedButton, this.m_currentSelectedButton.GetItem());
-		}
-		else
-		{
-			this.m_currentSelectedButton = null;
-			this.m_currentSelectedItem = null;
-			UIManager.SetGameObjectActive(this.m_buyContainer, false, null);
 		}
 	}
 
 	public void RefreshPage()
 	{
-		this.ShowPage(this.m_pageNum);
+		ShowPage(m_pageNum);
 	}
 
 	public int GetNumOwned()
 	{
-		return this.m_numOwned;
+		return m_numOwned;
 	}
 
 	public int GetNumTotal()
 	{
-		return this.m_numTotal;
+		return m_numTotal;
 	}
 
 	public void DoItemClick(UIStoreItemBtn btn, GameBalanceVars.PlayerUnlockable item)
 	{
 		btn.m_selectableBtn.spriteController.ResetMouseState();
-		this.DoItemSelect(btn, item);
-		this.ItemClicked(item);
+		DoItemSelect(btn, item);
+		ItemClicked(item);
 	}
 
 	private void DoItemSelect(UIStoreItemBtn btn, GameBalanceVars.PlayerUnlockable item)
 	{
-		if (this.m_currentSelectedButton != null)
+		if (m_currentSelectedButton != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.DoItemSelect(UIStoreItemBtn, GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_currentSelectedButton.m_selectableBtn.m_selectedContainer, false, null);
+			UIManager.SetGameObjectActive(m_currentSelectedButton.m_selectableBtn.m_selectedContainer, false);
 		}
-		this.m_currentSelectedItem = item;
-		this.m_currentSelectedButton = btn;
+		m_currentSelectedItem = item;
+		m_currentSelectedButton = btn;
 		if (item == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
+				default:
+					return;
 				case 0:
-					continue;
-				}
-				break;
-			}
-			return;
-		}
-		UIManager.SetGameObjectActive(btn.m_selectableBtn.m_selectedContainer, true, null);
-		btn.transform.SetAsLastSibling();
-		bool doActive = false;
-		for (int i = 0; i < this.m_buyButtons.Length; i++)
-		{
-			if (this.m_buyButtons[i].Setup(item, this))
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
+			}
+		}
+		UIManager.SetGameObjectActive(btn.m_selectableBtn.m_selectedContainer, true);
+		btn.transform.SetAsLastSibling();
+		bool doActive = false;
+		for (int i = 0; i < m_buyButtons.Length; i++)
+		{
+			if (m_buyButtons[i].Setup(item, this))
+			{
 				doActive = true;
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
+			if (item is GameBalanceVars.StoreItemForPurchase)
 			{
-			case 0:
-				continue;
+				m_buyLabel.text = StringUtil.TR("Purchase", "Global");
 			}
-			break;
-		}
-		if (item is GameBalanceVars.StoreItemForPurchase)
-		{
-			for (;;)
+			else
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_buyLabel.text = StringUtil.TR("Unlock", "OverlayScreensScene");
 			}
-			this.m_buyLabel.text = StringUtil.TR("Purchase", "Global");
+			UIManager.SetGameObjectActive(m_buyContainer, doActive);
+			ItemSelected(item);
+			return;
 		}
-		else
-		{
-			this.m_buyLabel.text = StringUtil.TR("Unlock", "OverlayScreensScene");
-		}
-		UIManager.SetGameObjectActive(this.m_buyContainer, doActive, null);
-		this.ItemSelected(item);
 	}
 
 	public bool SelectItem(InventoryItemTemplate template)
 	{
-		return this.SelectItem(delegate(GameBalanceVars.PlayerUnlockable unlockable)
+		return SelectItem(delegate(GameBalanceVars.PlayerUnlockable unlockable)
 		{
 			if (unlockable is GameBalanceVars.PlayerTitle)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.<SelectItem>c__AnonStorey1.<>m__0(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-				}
 				if (template.Type == InventoryItemType.TitleID)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == template.TypeSpecificData[0])
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.PlayerBanner)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.BannerID)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == template.TypeSpecificData[0])
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.SkinUnlockData)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.Skin)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index1 == template.TypeSpecificData[0])
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.ID == template.TypeSpecificData[1])
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return true;
 								}
-								break;
 							}
-							return true;
 						}
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.PatternUnlockData && template.Type == InventoryItemType.Texture)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockable.Index1 == template.TypeSpecificData[0])
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index2 == template.TypeSpecificData[1])
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.ID == template.TypeSpecificData[2])
 						{
-							for (;;)
+							while (true)
 							{
 								switch (7)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return true;
 								}
-								break;
 							}
-							return true;
 						}
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.ColorUnlockData)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.Style && unlockable.Index1 == template.TypeSpecificData[0])
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index2 == template.TypeSpecificData[1] && unlockable.Index3 == template.TypeSpecificData[2])
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.ID == template.TypeSpecificData[3])
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return true;
 								}
-								break;
 							}
-							return true;
 						}
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.TauntUnlockData)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.Taunt)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index1 == template.TypeSpecificData[0])
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.ID == template.TypeSpecificData[1])
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return true;
 								}
-								break;
 							}
-							return true;
 						}
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.AbilityModUnlockData)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.Mod && unlockable.Index1 == template.TypeSpecificData[0])
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == template.TypeSpecificData[1])
 					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.AbilityVfxUnlockData)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.AbilityVfxSwap && unlockable.Index1 == template.TypeSpecificData[0])
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == template.TypeSpecificData[1])
 					{
-						for (;;)
+						while (true)
 						{
 							switch (7)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.ChatEmoticon)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.ChatEmoji)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == template.TypeSpecificData[0])
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.OverconUnlockData && template.Type == InventoryItemType.Overcon)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockable.ID == template.TypeSpecificData[0])
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					return true;
 				}
 			}
 			if (unlockable is GameBalanceVars.StoreItemForPurchase)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.FreelancerExpBonus)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((unlockable as GameBalanceVars.StoreItemForPurchase).m_itemTemplateId == template.Index)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.LoadingScreenBackground && template.Type == InventoryItemType.LoadingScreenBackground)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockable.ID == template.TypeSpecificData[0])
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					return true;
 				}
 			}
 			return false;
@@ -1558,231 +1162,106 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 	{
 		if (item.m_itemType == PurchaseItemType.InventoryItem)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return SelectItem(InventoryWideData.Get().GetItemTemplate(item.m_inventoryTemplateId));
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.SelectItem(UIPurchaseableItem)).MethodHandle;
-			}
-			return this.SelectItem(InventoryWideData.Get().GetItemTemplate(item.m_inventoryTemplateId));
 		}
-		return this.SelectItem(delegate(GameBalanceVars.PlayerUnlockable unlockable)
+		return SelectItem(delegate(GameBalanceVars.PlayerUnlockable unlockable)
 		{
 			if (unlockable is GameBalanceVars.PlayerTitle && item.m_itemType == PurchaseItemType.Title)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIStoreBaseInventoryPanel.<SelectItem>c__AnonStorey2.<>m__0(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-				}
 				if (unlockable.ID == item.m_titleID)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					return true;
 				}
 			}
 			if (unlockable is GameBalanceVars.PlayerBanner)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Banner)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == item.m_bannerID)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.SkinUnlockData)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Skin)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index1 == (int)item.m_charLink.m_characterType)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.ID == item.m_skinIndex)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return true;
 								}
-								break;
 							}
-							return true;
 						}
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.PatternUnlockData)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Texture)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index1 == (int)item.m_charLink.m_characterType)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.Index2 == item.m_skinIndex && unlockable.ID == item.m_textureIndex)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (2)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return true;
 								}
-								break;
 							}
-							return true;
 						}
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.ColorUnlockData)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Tint && unlockable.Index1 == (int)item.m_charLink.m_characterType)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index2 == item.m_skinIndex)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.Index3 == item.m_textureIndex)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (unlockable.ID == item.m_tintIndex)
 							{
 								return true;
@@ -1793,75 +1272,30 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.TauntUnlockData)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Taunt)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index1 == (int)item.m_charLink.m_characterType)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.ID == item.m_tauntIndex)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return true;
 								}
-								break;
 							}
-							return true;
 						}
 					}
 				}
 			}
 			if (unlockable is GameBalanceVars.AbilityVfxUnlockData && item.m_itemType == PurchaseItemType.AbilityVfx)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockable.Index1 == (int)item.m_charLink.m_characterType)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == item.m_abilityVfxID)
 					{
 						return true;
@@ -1870,113 +1304,68 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.ChatEmoticon)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Emoticon && unlockable.ID == item.m_emoticonID)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					return true;
 				}
 			}
 			if (unlockable is GameBalanceVars.OverconUnlockData)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Overcon && unlockable.ID == item.m_overconID)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					return true;
 				}
 			}
 			if (unlockable is GameBalanceVars.LoadingScreenBackground)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.LoadingScreenBackground && unlockable.ID == item.m_loadingScreenBackgroundId)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return true;
 						}
-						break;
 					}
-					return true;
 				}
 			}
 			if (unlockable is GameBalanceVars.CharacterUnlockData)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Character)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == (int)item.m_charLink.m_characterType)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
 				}
 			}
@@ -1986,97 +1375,60 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 
 	private bool SelectItem(Func<GameBalanceVars.PlayerUnlockable, bool> foundCheck)
 	{
-		this.Initialize();
-		this.HandlePendingUpdates();
-		for (int i = 0; i < this.m_visibleItemsList.Count; i++)
+		Initialize();
+		HandlePendingUpdates();
+		for (int i = 0; i < m_visibleItemsList.Count; i++)
 		{
-			if (foundCheck(this.m_visibleItemsList[i]))
+			if (!foundCheck(m_visibleItemsList[i]))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.SelectItem(Func<GameBalanceVars.PlayerUnlockable, bool>)).MethodHandle;
-				}
-				int num = i % this.m_itemBtns.Length;
+				continue;
+			}
+			while (true)
+			{
+				int num = i % m_itemBtns.Length;
 				int pageNum;
 				if (i > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					pageNum = i / this.m_itemBtns.Length;
+					pageNum = i / m_itemBtns.Length;
 				}
 				else
 				{
 					pageNum = 0;
 				}
-				this.ShowPage(pageNum);
-				this.DoItemSelect(this.m_itemBtns[num], this.m_itemBtns[num].GetItem());
+				ShowPage(pageNum);
+				DoItemSelect(m_itemBtns[num], m_itemBtns[num].GetItem());
 				return true;
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return false;
 		}
-		return false;
 	}
 
-	private UIStoreBaseInventoryPanel.BuyButton FindBuyButtonFromEventData(BaseEventData data, bool isHover)
+	private BuyButton FindBuyButtonFromEventData(BaseEventData data, bool isHover)
 	{
 		PointerEventData pointerEventData = (PointerEventData)data;
 		if (pointerEventData.selectedObject == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.FindBuyButtonFromEventData(BaseEventData, bool)).MethodHandle;
-			}
-			return null;
 		}
-		UIStoreBaseInventoryPanel.BuyButton result = null;
-		for (int i = 0; i < this.m_buyButtons.Length; i++)
+		BuyButton result = null;
+		for (int i = 0; i < m_buyButtons.Length; i++)
 		{
-			UnityEngine.Object gameObject = this.m_buyButtons[i].m_hitbox.gameObject;
-			UnityEngine.Object y;
+			GameObject gameObject = m_buyButtons[i].m_hitbox.gameObject;
+			GameObject y;
 			if (isHover)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				y = pointerEventData.pointerEnter;
 			}
 			else
@@ -2085,7 +1437,7 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (gameObject == y)
 			{
-				result = this.m_buyButtons[i];
+				result = m_buyButtons[i];
 				break;
 			}
 		}
@@ -2094,482 +1446,106 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 
 	private void BuyButtonClicked(BaseEventData data)
 	{
-		if (this.m_currentSelectedItem == null)
+		if (m_currentSelectedItem == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.BuyButtonClicked(BaseEventData)).MethodHandle;
-			}
+		}
+		BuyButton buyButton = FindBuyButtonFromEventData(data, false);
+		if (buyButton == null)
+		{
 			return;
 		}
-		UIStoreBaseInventoryPanel.BuyButton buyButton = this.FindBuyButtonFromEventData(data, false);
-		if (buyButton != null)
+		while (true)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (buyButton.CanAfford())
 			{
 				UIFrontEnd.PlaySound(FrontEndButtonSounds.GenericSmall);
-				this.PurchaseItem(this.m_currentSelectedItem, buyButton.m_currencyType);
+				PurchaseItem(m_currentSelectedItem, buyButton.m_currencyType);
 				buyButton.m_hitbox.ResetMouseState();
-				return;
 			}
+			return;
 		}
 	}
 
-	private bool BuyButtonTooltipSetup(UITooltipBase tooltip, UIStoreBaseInventoryPanel.BuyButton buyButton)
+	private bool BuyButtonTooltipSetup(UITooltipBase tooltip, BuyButton buyButton)
 	{
 		string tooltipMessage = buyButton.GetTooltipMessage();
 		if (!tooltipMessage.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					(tooltip as UITitledTooltip).Setup(StringUtil.TR("Purchase", "Global"), tooltipMessage, string.Empty);
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.BuyButtonTooltipSetup(UITooltipBase, UIStoreBaseInventoryPanel.BuyButton)).MethodHandle;
-			}
-			(tooltip as UITitledTooltip).Setup(StringUtil.TR("Purchase", "Global"), tooltipMessage, string.Empty);
-			return true;
 		}
 		if (!buyButton.CanAfford())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			CurrencyType currencyType = buyButton.m_currencyType;
-			string term;
-			if (currencyType != CurrencyType.ISO)
-			{
-				if (currencyType != CurrencyType.ModToken)
+					break;
+				default:
 				{
-					if (currencyType != CurrencyType.RankedCurrency)
+					CurrencyType currencyType = buyButton.m_currencyType;
+					string term;
+					if (currencyType != 0)
 					{
-						if (currencyType != CurrencyType.FreelancerCurrency)
+						if (currencyType != CurrencyType.ModToken)
 						{
-							for (;;)
+							if (currencyType != CurrencyType.RankedCurrency)
 							{
-								switch (4)
+								if (currencyType != CurrencyType.FreelancerCurrency)
 								{
-								case 0:
-									continue;
+									while (true)
+									{
+										switch (4)
+										{
+										case 0:
+											break;
+										default:
+											throw new NotImplementedException(string.Concat(buyButton.m_currencyType, " does not have can't buy message"));
+										}
+									}
 								}
-								break;
+								term = "InsufficientFreelancerCurrency";
 							}
-							throw new NotImplementedException(buyButton.m_currencyType + " does not have can't buy message");
+							else
+							{
+								term = "InsufficientRankedCurrency";
+							}
 						}
-						term = "InsufficientFreelancerCurrency";
+						else
+						{
+							term = "InsufficientFunds";
+						}
 					}
 					else
 					{
-						term = "InsufficientRankedCurrency";
+						term = "InsufficientISO";
 					}
+					(tooltip as UITitledTooltip).Setup(StringUtil.TR(term, "Global"), StringUtil.TR("NotEnoughToUnlock", "Global"), string.Empty);
+					return true;
 				}
-				else
-				{
-					term = "InsufficientFunds";
 				}
 			}
-			else
-			{
-				term = "InsufficientISO";
-			}
-			(tooltip as UITitledTooltip).Setup(StringUtil.TR(term, "Global"), StringUtil.TR("NotEnoughToUnlock", "Global"), string.Empty);
-			return true;
 		}
 		return false;
-	}
-
-	[Serializable]
-	public class BuyButton
-	{
-		public CurrencyType m_currencyType;
-
-		public RectTransform m_container;
-
-		public TextMeshProUGUI[] m_labels;
-
-		public _ButtonSwapSprite m_hitbox;
-
-		private bool m_canAfford;
-
-		private string m_tooltipMessage;
-
-		private CurrencyData m_currencyData;
-
-		private CountryPrice m_realCurrencyData;
-
-		public bool Setup(GameBalanceVars.PlayerUnlockable item, UIStoreBaseInventoryPanel parent)
-		{
-			this.m_canAfford = false;
-			if (item.IsOwned())
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBaseInventoryPanel.BuyButton.Setup(GameBalanceVars.PlayerUnlockable, UIStoreBaseInventoryPanel)).MethodHandle;
-				}
-				if (!item.CanStillPurchaseIfOwned())
-				{
-					goto IL_6E;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (!item.m_unlockData.UnlockConditions.IsNullOrEmpty<GameBalanceVars.UnlockCondition>())
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!ClientGameManager.Get().AreUnlockConditionsMet(item, true))
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_6E;
-					}
-				}
-			}
-			if (this.m_currencyType == CurrencyType.NONE)
-			{
-				this.m_currencyData = null;
-				this.m_realCurrencyData = null;
-				if (item.Prices != null && item.Prices.Prices != null)
-				{
-					string accountCurrency = HydrogenConfig.Get().Ticket.AccountCurrency;
-					for (int i = 0; i < item.Prices.Prices.Length; i++)
-					{
-						if (item.Prices.Prices[i].Currency.ToString() == accountCurrency)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_realCurrencyData = new CountryPrice();
-							this.m_realCurrencyData.Currency = item.Prices.Prices[i].Currency;
-							this.m_realCurrencyData.Price = item.Prices.Prices[i].Price;
-							if (item is GameBalanceVars.StoreItemForPurchase)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								int itemTemplateId = ((GameBalanceVars.StoreItemForPurchase)item).m_itemTemplateId;
-								float num;
-								this.m_realCurrencyData.Price = CommerceClient.Get().GetStoreItemPrice(itemTemplateId, accountCurrency, out num);
-							}
-							else if (item is GameBalanceVars.ColorUnlockData)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_realCurrencyData.Price = CommerceClient.Get().GetStylePrice((CharacterType)item.Index1, item.Index2, item.Index3, item.ID, accountCurrency);
-							}
-							goto IL_1F0;
-						}
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				IL_1F0:
-				if (this.m_realCurrencyData != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_realCurrencyData.Price > 0f)
-					{
-						UIManager.SetGameObjectActive(this.m_container, true, null);
-						this.m_canAfford = true;
-						goto IL_2AA;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				UIManager.SetGameObjectActive(this.m_container, false, null);
-				return false;
-			}
-			this.m_currencyData = parent.GetItemCost(item, this.m_currencyType);
-			this.m_realCurrencyData = null;
-			UIManager.SetGameObjectActive(this.m_container, this.m_currencyData.Amount > 0, null);
-			if (this.m_currencyData.Amount <= 0)
-			{
-				return false;
-			}
-			this.m_canAfford = ClientGameManager.Get().PlayerWallet.CanAfford(this.m_currencyData);
-			IL_2AA:
-			bool flag = GameBalanceVarsExtensions.MeetsPurchaseabilityConditions(item);
-			bool flag2 = false;
-			if (flag && item is GameBalanceVars.ColorUnlockData)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				CharacterType index = (CharacterType)item.Index1;
-				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(index);
-				CharacterColor characterColor = characterResourceLink.m_skins[item.Index2].m_patterns[item.Index3].m_colors[item.ID];
-				flag2 = (characterColor.m_requiredLevelForEquip > ClientGameManager.Get().GetPlayerCharacterLevel(index));
-				if (flag2)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag = false;
-				}
-			}
-			_SelectableBtn selectableButton = this.m_hitbox.selectableButton;
-			bool disabled;
-			if (this.m_canAfford)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				disabled = !flag;
-			}
-			else
-			{
-				disabled = true;
-			}
-			selectableButton.SetDisabled(disabled);
-			this.m_tooltipMessage = null;
-			if (!flag)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!flag2)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!item.PurchaseDescription.IsNullOrEmpty())
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_tooltipMessage = item.GetPurchaseDescription();
-					}
-				}
-			}
-			CurrencyType currencyType = this.m_currencyType;
-			string text;
-			switch (currencyType)
-			{
-			case CurrencyType.RAFPoints:
-				text = "referToken";
-				break;
-			case CurrencyType.RankedCurrency:
-				text = "rankedCurrency";
-				break;
-			case CurrencyType.FreelancerCurrency:
-				text = "credit";
-				break;
-			default:
-				if (currencyType != CurrencyType.ISO)
-				{
-					if (currencyType != CurrencyType.ModToken)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (currencyType != CurrencyType.NONE)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							throw new NotImplementedException(this.m_currencyType + " doesn't have a sprite");
-						}
-						text = null;
-					}
-					else
-					{
-						text = "modToken";
-					}
-				}
-				else
-				{
-					text = "iso";
-				}
-				break;
-			}
-			for (int j = 0; j < this.m_labels.Length; j++)
-			{
-				if (text == null)
-				{
-					this.m_labels[j].text = UIStorePanel.GetLocalizedPriceString(this.m_realCurrencyData.Price, this.m_realCurrencyData.Currency.ToString());
-				}
-				else
-				{
-					this.m_labels[j].text = string.Format("<sprite name={0}>{1}", text, UIStorePanel.FormatIntToString(this.m_currencyData.Amount, true));
-				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return true;
-			IL_6E:
-			UIManager.SetGameObjectActive(this.m_container, false, null);
-			return false;
-		}
-
-		public bool CanAfford()
-		{
-			return this.m_canAfford;
-		}
-
-		public string GetTooltipMessage()
-		{
-			return this.m_tooltipMessage;
-		}
-	}
-
-	private struct AdjustedPlayerUnlockable
-	{
-		public GameBalanceVars.PlayerUnlockable Unlockable;
-
-		public int AdjustedSortOrder;
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
@@ -161,7 +161,7 @@ public class AbilityData : NetworkBehaviour
 	private Ability m_lastSelectedAbility;
 
 	[CompilerGenerated]
-	private static Comparison<ActorData> <>f__mg$cache0;
+	private static Comparison<ActorData> f__mg_cache0;
 
 	private static int kListm_cooldownsSync;
 
@@ -276,19 +276,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (this.m_abilitiesList != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetAbilitiesAsList()).MethodHandle;
-			}
 			if (this.m_abilitiesList.Count != 0)
 			{
 				goto IL_88;
@@ -333,57 +320,17 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (this.m_softTargetedActor != value)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.set_SoftTargetedActor(ActorData)).MethodHandle;
-				}
 				this.m_softTargetedActor = value;
 				ActorData actor = this.m_actor;
 				if (actor == GameFlowData.Get().activeOwnedActorData)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CameraManager cameraManager = CameraManager.Get();
 					if (this.m_softTargetedActor)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						cameraManager.SetTargetObjectToMouse(this.m_softTargetedActor.gameObject, CameraManager.CameraTargetReason.AbilitySoftTargeting);
 					}
 					else if (!cameraManager.IsOnMainCamera(GameFlowData.Get().activeOwnedActorData))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						cameraManager.SetTargetObject(base.gameObject, CameraManager.CameraTargetReason.AbilitySoftTargeting);
 					}
 				}
@@ -402,19 +349,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.HasToggledAction(AbilityData.ActionType)).MethodHandle;
-			}
 			result = teamSensitiveData_authority.HasToggledAction(actionType);
 		}
 		return result;
@@ -426,19 +360,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.HasQueuedAction(AbilityData.ActionType)).MethodHandle;
-			}
 			result = teamSensitiveData_authority.HasQueuedAction(actionType);
 		}
 		return result;
@@ -456,19 +377,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.HasQueuedAbilityInPhase(AbilityPriority)).MethodHandle;
-			}
 			result = teamSensitiveData_authority.HasQueuedAbilityInPhase(phase);
 		}
 		return result;
@@ -494,54 +402,14 @@ public class AbilityData : NetworkBehaviour
 			AbilityData.AbilityEntry abilityEntry = this.m_abilities[j];
 			if (abilityEntry.ability != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.Awake()).MethodHandle;
-				}
 				foreach (Ability ability in abilityEntry.ability.GetChainAbilities())
 				{
 					if (ability != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.AddToAllChainAbilitiesList(ability, (AbilityData.ActionType)j);
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_cooldowns = new Dictionary<string, int>();
 		this.m_actor = base.GetComponent<ActorData>();
@@ -559,19 +427,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!this.m_abilitySpritesInitialized)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.InitAbilitySprites()).MethodHandle;
-			}
 			this.SetSpriteForAbility(this.m_ability0, this.m_sprite0);
 			this.SetSpriteForAbility(this.m_ability1, this.m_sprite1);
 			this.SetSpriteForAbility(this.m_ability2, this.m_sprite2);
@@ -600,43 +455,12 @@ public class AbilityData : NetworkBehaviour
 			ability.sprite = sprite;
 			if (ability.m_chainAbilities != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.SetSpriteForAbility(Ability, Sprite)).MethodHandle;
-				}
 				foreach (Ability ability2 in ability.m_chainAbilities)
 				{
 					if (ability2 != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ability2.sprite = sprite;
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -656,56 +480,16 @@ public class AbilityData : NetworkBehaviour
 			this.m_consumedStockCount.Add(0);
 			this.m_stockRefreshCountdowns.Add(0);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.OnStartServer()).MethodHandle;
-		}
 		for (int j = 0; j < 3; j++)
 		{
 			this.m_currentCardIds.Add(-1);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (GameplayUtils.IsPlayerControlled(this))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num = GameplayData.Get().m_turnsAbilitiesUnlock.Length;
 			int k = 0;
 			while (k < num)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (k >= 7)
 				{
 					for (;;)
@@ -753,19 +537,6 @@ public class AbilityData : NetworkBehaviour
 		bool result;
 		if (actionType >= AbilityData.ActionType.CARD_0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.IsCard(AbilityData.ActionType)).MethodHandle;
-			}
 			result = (actionType <= AbilityData.ActionType.CARD_2);
 		}
 		else
@@ -780,19 +551,6 @@ public class AbilityData : NetworkBehaviour
 		bool result;
 		if (actionType >= AbilityData.ActionType.CHAIN_0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.IsChain(AbilityData.ActionType)).MethodHandle;
-			}
 			result = (actionType <= AbilityData.ActionType.CHAIN_2);
 		}
 		else
@@ -806,32 +564,10 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (actionType == AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.IsCharacterSpecificAbility(AbilityData.ActionType)).MethodHandle;
-			}
 			return false;
 		}
 		if (AbilityData.IsCard(actionType))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		return true;
@@ -842,69 +578,20 @@ public class AbilityData : NetworkBehaviour
 		List<CameraShotSequence> list = new List<CameraShotSequence>();
 		if (characterData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetTauntListForActionTypeForPlayer(PersistedCharacterData, CharacterResourceLink, AbilityData.ActionType)).MethodHandle;
-			}
 			Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
 			if (abilityOfActionType != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < character.m_taunts.Count; i++)
 				{
 					CharacterTaunt characterTaunt = character.m_taunts[i];
 					if (characterTaunt.m_actionForTaunt == actionType)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (i < characterData.CharacterComponent.Taunts.Count && characterData.CharacterComponent.Taunts[i].Unlocked)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							TauntCameraSet tauntCamSetData = this.m_actor.m_tauntCamSetData;
 							CameraShotSequence cameraShotSequence;
 							if (tauntCamSetData != null)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								cameraShotSequence = tauntCamSetData.GetTauntCam(characterTaunt.m_uniqueID);
 							}
 							else
@@ -914,40 +601,13 @@ public class AbilityData : NetworkBehaviour
 							CameraShotSequence cameraShotSequence2 = cameraShotSequence;
 							if (cameraShotSequence2 != null)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (abilityOfActionType.CanTriggerAnimAtIndexForTaunt(cameraShotSequence2.m_animIndex))
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									list.Add(cameraShotSequence2);
 								}
 							}
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -962,56 +622,16 @@ public class AbilityData : NetworkBehaviour
 			CharacterTaunt characterTaunt = character.m_taunts[i];
 			if (characterTaunt.m_actionForTaunt == actionType)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetFullTauntListForActionType(CharacterResourceLink, AbilityData.ActionType, bool)).MethodHandle;
-				}
 				if (!includeHidden)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (characterTaunt.m_isHidden)
 					{
 						goto IL_5B;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				list.Add(characterTaunt);
 			}
 			IL_5B:;
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return list;
 	}
@@ -1020,19 +640,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (CameraManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.CanTauntForActionTypeForPlayer(PersistedCharacterData, CharacterResourceLink, AbilityData.ActionType, bool, int)).MethodHandle;
-			}
 			if (CameraManager.Get().m_abilityCinematicState == CameraManager.AbilityCinematicState.Never)
 			{
 				return false;
@@ -1040,28 +647,10 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (characterData != null && character.m_characterType != CharacterType.None && actionType != AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int count = characterData.CharacterComponent.Taunts.Count;
 			int i = 0;
 			while (i < character.m_taunts.Count)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (i >= count)
 				{
 					for (;;)
@@ -1079,62 +668,17 @@ public class AbilityData : NetworkBehaviour
 					CharacterTaunt characterTaunt = character.m_taunts[i];
 					if (characterTaunt != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (characterTaunt.m_actionForTaunt == actionType)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (checkTauntUniqueId)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (characterTaunt.m_uniqueID != uniqueId)
 								{
 									goto IL_10A;
 								}
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							if (characterData.CharacterComponent.Taunts[i].Unlocked && GameManager.Get().GameplayOverrides.IsTauntAllowed(character.m_characterType, (int)actionType, characterTaunt.m_uniqueID))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return true;
 							}
 						}
@@ -1155,44 +699,13 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (character.m_characterType != CharacterType.None)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.CanTauntApplyToActionType(CharacterResourceLink, AbilityData.ActionType)).MethodHandle;
-			}
 			if (actionType != AbilityData.ActionType.INVALID_ACTION)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = 0;
 				foreach (CharacterTaunt characterTaunt in character.m_taunts)
 				{
 					if (characterTaunt.m_actionForTaunt == actionType)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameManager.Get().GameplayOverrides.IsTauntAllowed(character.m_characterType, (int)actionType, characterTaunt.m_uniqueID))
 						{
 							return true;
@@ -1212,19 +725,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetQueuedOrAimingAbilitiesForPhase(UIQueueListPanel.UIPhase)).MethodHandle;
-			}
 			int i = 0;
 			while (i < 0xE)
 			{
@@ -1233,26 +733,8 @@ public class AbilityData : NetworkBehaviour
 				{
 					goto IL_8E;
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ability != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ability == this.GetSelectedAbility())
 					{
 						for (;;)
@@ -1288,19 +770,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetQueuedOrAimingAbilities()).MethodHandle;
-			}
 			int i = 0;
 			while (i < 0xE)
 			{
@@ -1308,15 +777,6 @@ public class AbilityData : NetworkBehaviour
 				if (teamSensitiveData_authority.HasQueuedAction(i))
 				{
 					goto IL_81;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (ability != null && ability == this.GetSelectedAbility())
 				{
@@ -1337,15 +797,6 @@ public class AbilityData : NetworkBehaviour
 				list.Add(this.m_abilities[i]);
 				goto IL_8F;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return list;
 	}
@@ -1354,19 +805,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (GameFlowData.Get().activeOwnedActorData == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.CompareTabTargetsByActiveOwnedActorDistance(ActorData, ActorData)).MethodHandle;
-			}
 			return 0;
 		}
 		Vector3 position = GameFlowData.Get().activeOwnedActorData.transform.position;
@@ -1379,15 +817,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		else if (sqrMagnitude > sqrMagnitude2)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = 1;
 		}
 		else
@@ -1399,35 +828,13 @@ public class AbilityData : NetworkBehaviour
 
 	public void NextSoftTarget()
 	{
-		ActorTurnSM actorTurnSM = this.m_actor.\u000E();
+		ActorTurnSM actorTurnSM = this.m_actor.GetActorTurnSM();
 		if (actorTurnSM)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.NextSoftTarget()).MethodHandle;
-			}
 			int targetSelectionIndex = actorTurnSM.GetTargetSelectionIndex();
 			int numTargets = this.m_selectedAbility.GetNumTargets();
 			if (targetSelectionIndex >= numTargets)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SoftTargetedActor = null;
 			}
 			else
@@ -1435,32 +842,11 @@ public class AbilityData : NetworkBehaviour
 				List<ActorData> validTargets = this.GetValidTargets(this.m_selectedAbility, targetSelectionIndex);
 				if (validTargets.Count > 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<ActorData> list = validTargets;
-					if (AbilityData.<>f__mg$cache0 == null)
-					{
-						AbilityData.<>f__mg$cache0 = new Comparison<ActorData>(AbilityData.CompareTabTargetsByActiveOwnedActorDistance);
-					}
-					list.Sort(AbilityData.<>f__mg$cache0);
+					
+					list.Sort(new Comparison<ActorData>(AbilityData.CompareTabTargetsByActiveOwnedActorDistance));
 					if (this.SoftTargetedActor == null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SoftTargetedActor = validTargets[0];
 					}
 					else
@@ -1482,42 +868,11 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.Update()).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData == this.m_actor)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ActorTurnSM actorTurnSM = this.m_actor.\u000E();
+				ActorTurnSM actorTurnSM = this.m_actor.GetActorTurnSM();
 				if (this.m_actionToSelectWhenEnteringDecisionState != AbilityData.ActionType.INVALID_ACTION && actorTurnSM.CurrentState == TurnStateEnum.DECIDING)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.RedoTurn(this.GetAbilityOfActionType(this.m_actionToSelectWhenEnteringDecisionState), this.m_actionToSelectWhenEnteringDecisionState, this.m_actionsToCancelForTurnRedo, this.m_cancelMovementForTurnRedo, this.m_retargetActionWithoutClearingOldAbilities))
 					{
 						this.ClearActionsToCancelOnTargetingComplete();
@@ -1528,37 +883,10 @@ public class AbilityData : NetworkBehaviour
 				{
 					if (this.m_actionsToCancelForTurnRedo != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorTurnSM.CurrentState == TurnStateEnum.DECIDING)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.RedoTurn(null, AbilityData.ActionType.INVALID_ACTION, this.m_actionsToCancelForTurnRedo, false, false))
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.ClearActionsToCancelOnTargetingComplete();
 							}
 							return;
@@ -1566,72 +894,27 @@ public class AbilityData : NetworkBehaviour
 					}
 					if (!actorTurnSM.CanSelectAbility())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!actorTurnSM.CanQueueSimpleAction())
 						{
 							return;
 						}
 					}
-					if (!this.m_actor.\u000E())
+					if (!this.m_actor.IsDead())
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int i = 0; i < this.m_abilities.Length; i++)
 						{
 							AbilityData.AbilityEntry abilityEntry = this.m_abilities[i];
 							if (abilityEntry != null && abilityEntry.ability != null && abilityEntry.keyPreference != KeyPreference.NullPreference && InputManager.Get().IsKeyBindingNewlyHeld(abilityEntry.keyPreference))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!UITutorialFullscreenPanel.Get().IsAnyPanelVisible())
 								{
 									AbilityData.ActionType actionType = (AbilityData.ActionType)i;
 									if (this.AbilityButtonPressed(actionType, abilityEntry.ability))
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										return;
 									}
 								}
 							}
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -1643,47 +926,16 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (ability == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.AbilityButtonPressed(AbilityData.ActionType, Ability)).MethodHandle;
-			}
 			return false;
 		}
 		bool flag = InputManager.Get().IsKeyBindingHeld(KeyPreference.MinimapPing);
-		ActorTurnSM actorTurnSM = this.m_actor.\u000E();
+		ActorTurnSM actorTurnSM = this.m_actor.GetActorTurnSM();
 		bool flag2 = actorTurnSM.CanSelectAbility();
 		bool flag3 = actorTurnSM.CanQueueSimpleAction();
 		if (!flag2 && !flag3)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SendAbilityPing(false, actionType, ability);
 			}
 			return false;
@@ -1693,37 +945,10 @@ public class AbilityData : NetworkBehaviour
 		bool flag4 = InputManager.Get().IsKeyBindingHeld(KeyPreference.AbilityRetargetingModifier);
 		if (this.HasQueuedAction(actionType))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag4)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SendAbilityPing(true, actionType, ability);
 				}
 				else if (actorTurnSM.CurrentState == TurnStateEnum.CONFIRMED)
@@ -1745,15 +970,6 @@ public class AbilityData : NetworkBehaviour
 		bool flag5;
 		if (this.CanQueueActionByCancelingOthers(ability, actionType, flag3, flag2, out list, out flag5))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
 				this.SendAbilityPing(true, actionType, ability);
@@ -1765,37 +981,10 @@ public class AbilityData : NetworkBehaviour
 				{
 					if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.GetSelectedActionType() == actionType)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!SinglePlayerManager.IsCancelDisabled())
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.ClearSelectedAbility();
 								actorTurnSM.BackToDecidingState();
 								goto IL_1ED;
@@ -1803,15 +992,6 @@ public class AbilityData : NetworkBehaviour
 						}
 					}
 					return this.RedoTurn(ability, actionType, list, flag5, flag4);
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				actorTurnSM.BackToDecidingState();
 				this.m_cancelMovementForTurnRedo = flag5;
@@ -1823,15 +1003,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		else if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SendAbilityPing(false, actionType, ability);
 		}
 		return false;
@@ -1843,35 +1014,13 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (this.m_lastPingSendTime > 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.SendAbilityPing(bool, AbilityData.ActionType, Ability)).MethodHandle;
-				}
 				if (Time.time - this.m_lastPingSendTime <= HUD_UIResources.Get().m_mapPingCooldown)
 				{
 					return;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
-			LocalizationArg_AbilityPing localizedPing = LocalizationArg_AbilityPing.Create(this.m_actor.m_characterType, ability, selectable, Mathf.Max(this.GetAbilityEntryOfActionType(actionType).GetCooldownRemaining(), this.GetTurnsTillUnlock(actionType)), actionType == AbilityData.ActionType.ABILITY_4, this.m_actor.\u0019(), this.m_actor.\u0016());
-			this.m_actor.SendAbilityPingRequestToServer((int)this.m_actor.\u000E(), localizedPing);
+			LocalizationArg_AbilityPing localizedPing = LocalizationArg_AbilityPing.Create(this.m_actor.m_characterType, ability, selectable, Mathf.Max(this.GetAbilityEntryOfActionType(actionType).GetCooldownRemaining(), this.GetTurnsTillUnlock(actionType)), actionType == AbilityData.ActionType.ABILITY_4, this.m_actor.GetEnergyToDisplay(), this.m_actor.GetActualMaxTechPoints());
+			this.m_actor.SendAbilityPingRequestToServer((int)this.m_actor.GetTeam(), localizedPing);
 			this.m_lastPingSendTime = Time.time;
 		}
 	}
@@ -1881,20 +1030,7 @@ public class AbilityData : NetworkBehaviour
 		ActorController actorController;
 		if (this.m_actor != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.RedoTurn(Ability, AbilityData.ActionType, List<AbilityData.ActionType>, bool, bool)).MethodHandle;
-			}
-			actorController = this.m_actor.\u000E();
+			actorController = this.m_actor.GetActorController();
 		}
 		else
 		{
@@ -1904,16 +1040,7 @@ public class AbilityData : NetworkBehaviour
 		ActorTurnSM actorTurnSM;
 		if (this.m_actor != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			actorTurnSM = this.m_actor.\u000E();
+			actorTurnSM = this.m_actor.GetActorTurnSM();
 		}
 		else
 		{
@@ -1922,39 +1049,12 @@ public class AbilityData : NetworkBehaviour
 		ActorTurnSM actorTurnSM2 = actorTurnSM;
 		if (ability != null && !ability.IsSimpleAction())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (retargetingModifierKeyHeld)
 			{
 				if (!actionsToCancel.IsNullOrEmpty<AbilityData.ActionType>())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actionsToCancel.Contains(actionType))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ability.BackupTargetingForRedo(actorTurnSM2);
 					}
 				}
@@ -1967,15 +1067,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (cancelMovement)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			actorTurnSM2.RequestCancelMovement();
 			UISounds.GetUISounds().Play("ui/ingame/v1/move_undo");
 		}
@@ -1990,15 +1081,6 @@ public class AbilityData : NetworkBehaviour
 					actorTurnSM2.RequestCancelAction(actionType2, true);
 					UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		else if (!this.m_loggedErrorForNullAction)
@@ -2008,49 +1090,13 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (ability != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ability.IsSimpleAction())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actionsToCancel != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actionsToCancel.Contains(actionType))
 					{
 						goto IL_1E5;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (this.HasQueuedAction(actionType))
@@ -2081,30 +1127,8 @@ public class AbilityData : NetworkBehaviour
 		cancelMovement = false;
 		if (ability.IsSimpleAction())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.CanQueueActionByCancelingOthers(Ability, AbilityData.ActionType, bool, bool, List<AbilityData.ActionType>*, bool*)).MethodHandle;
-			}
 			if (canQueueSimpleAction)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.ValidateActionIsRequestableDisregardingQueuedActions(actionType))
 				{
 					flag = true;
@@ -2113,75 +1137,21 @@ public class AbilityData : NetworkBehaviour
 		}
 		else if (canSelectAbility)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.ValidateActionIsRequestableDisregardingQueuedActions(actionType))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ability.IsFreeAction())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ability.GetRunPriority() != AbilityPriority.Evasion)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!AbilityData.IsCard(actionType))
 					{
 						if (ability.IsFreeAction() && this.HasQueuedAction(actionType))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							actionsToCancel.Add(actionType);
 							goto IL_179;
 						}
@@ -2194,15 +1164,6 @@ public class AbilityData : NetworkBehaviour
 				AbilityData.ActionType actionType2 = (AbilityData.ActionType)i;
 				if (this.HasQueuedAction(actionType2))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Ability abilityOfActionType = this.GetAbilityOfActionType(actionType2);
 					if (abilityOfActionType != null)
 					{
@@ -2212,27 +1173,9 @@ public class AbilityData : NetworkBehaviour
 							{
 								goto IL_145;
 							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!AbilityData.IsCard(actionType))
 							{
 								goto IL_145;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						actionsToCancel.Add(actionType2);
@@ -2243,30 +1186,12 @@ public class AbilityData : NetworkBehaviour
 			IL_179:
 			if (this.m_actor.HasQueuedMovement())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ability.GetMovementAdjustment() == Ability.MovementAdjustment.NoMovement)
 				{
 					cancelMovement = true;
 				}
 				else if (ability.GetMovementAdjustment() == Ability.MovementAdjustment.ReducedMovement)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					cancelMovement = !this.m_actor.QueuedMovementAllowsAbility;
 				}
 			}
@@ -2278,19 +1203,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!this.m_cancelMovementForTurnRedo)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetActionsToCancelOnTargetingComplete(List<AbilityData.ActionType>*, bool*)).MethodHandle;
-			}
 			if (this.m_actionsToCancelForTurnRedo.IsNullOrEmpty<AbilityData.ActionType>())
 			{
 				return false;
@@ -2308,19 +1220,6 @@ public class AbilityData : NetworkBehaviour
 		this.m_actionToSelectWhenEnteringDecisionState = AbilityData.ActionType.INVALID_ACTION;
 		if (this.m_lastSelectedAbility != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ClearActionsToCancelOnTargetingComplete()).MethodHandle;
-			}
 			this.m_lastSelectedAbility.DestroyBackupTargetingInfo(false);
 		}
 		this.m_retargetActionWithoutClearingOldAbilities = false;
@@ -2330,21 +1229,8 @@ public class AbilityData : NetworkBehaviour
 	{
 		ActorData actor = this.m_actor;
 		FogOfWar component = base.GetComponent<FogOfWar>();
-		if (actor.\u000E())
+		if (actor.IsDead())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetValidTargets(Ability, int)).MethodHandle;
-			}
 			return new List<ActorData>();
 		}
 		List<ActorData> list = new List<ActorData>();
@@ -2357,99 +1243,36 @@ public class AbilityData : NetworkBehaviour
 				ActorData actorData = enumerator.Current;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!component.IsVisible(actorData.\u0012()))
+					if (!component.IsVisible(actorData.GetCurrentBoardSquare()))
 					{
 						continue;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (checkLoS)
 				{
-					for (;;)
+					if (!component.IsVisibleBySelf(actorData.GetCurrentBoardSquare()))
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!component.IsVisibleBySelf(actorData.\u0012()))
-					{
-						if (!actor.\u000E(actorData))
+						if (!actor.IsLineOfSightVisibleException(actorData))
 						{
 							continue;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
 				list.Add(actorData);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		List<ActorData> list2 = new List<ActorData>();
 		for (int i = 0; i < list.Count; i++)
 		{
 			ActorData actorData2 = list[i];
-			if (!actorData2.\u000E())
+			if (!actorData2.IsDead())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTarget target = AbilityTarget.CreateAbilityTargetFromActor(actorData2, actor);
 				if (this.ValidateAbilityOnTarget(testAbility, target, targetIndex, -1f, -1f))
 				{
 					list2.Add(actorData2);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return list2;
 	}
@@ -2458,31 +1281,9 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.SyncListCallbackCoolDownsSync(SyncList<int>.Operation, int)).MethodHandle;
-			}
 			for (int i = 0; i < 0xE; i++)
 			{
 				this.m_abilities[i].SetCooldownRemaining(this.m_cooldownsSync[i]);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -2491,57 +1292,17 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.SyncListCallbackCurrentCardsChanged(SyncList<int>.Operation, int)).MethodHandle;
-			}
 			if (CardManagerData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < this.m_currentCardIds.Count; i++)
 				{
 					Ability useAbility = null;
 					if (this.m_currentCardIds[i] > 0)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Card spawnedCardInstance = this.GetSpawnedCardInstance((CardType)this.m_currentCardIds[i]);
 						Ability ability;
 						if (spawnedCardInstance != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ability = spawnedCardInstance.m_useAbility;
 						}
 						else
@@ -2551,15 +1312,6 @@ public class AbilityData : NetworkBehaviour
 						useAbility = ability;
 					}
 					this.SetupCardAbility(i, useAbility);
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				this.UpdateCardBarUI();
 			}
@@ -2576,67 +1328,18 @@ public class AbilityData : NetworkBehaviour
 			Ability abilityOfActionType = this.GetAbilityOfActionType(type);
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.OnQueuedAbilitiesChanged()).MethodHandle;
-				}
 				if (abilityOfActionType != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityOfActionType.GetAffectsMovement())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 					}
 				}
 			}
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityOfActionType != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityOfActionType.ShouldUpdateDrawnTargetersOnQueueChange())
 					{
 						flag2 = true;
@@ -2644,53 +1347,17 @@ public class AbilityData : NetworkBehaviour
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!GameplayUtils.IsMinion(this))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorMovement component = base.GetComponent<ActorMovement>();
 				component.UpdateSquaresCanMoveTo();
 			}
 		}
-		if (flag2 && this.m_actor.\u000E() != null)
+		if (flag2 && this.m_actor.GetActorTargeting() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_actor.\u000E().MarkForForceRedraw();
+			this.m_actor.GetActorTargeting().MarkForForceRedraw();
 		}
 	}
 
@@ -2705,33 +1372,11 @@ public class AbilityData : NetworkBehaviour
 				Ability ability = abilityEntry.ability;
 				if (ability == null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.OnRespawn()).MethodHandle;
-					}
 				}
 				else
 				{
 					if (AbilityUtils.AbilityHasTag(ability, AbilityTags.TriggerCooldownOnRespawn))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.TriggerCooldown(action);
 					}
 					if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ClearCooldownOnRespawn))
@@ -2748,38 +1393,16 @@ public class AbilityData : NetworkBehaviour
 		ActorTurnSM actorTurnSM;
 		if (this.m_actor == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.SetSelectedAbility(Ability)).MethodHandle;
-			}
 			actorTurnSM = null;
 		}
 		else
 		{
-			actorTurnSM = this.m_actor.\u000E();
+			actorTurnSM = this.m_actor.GetActorTurnSM();
 		}
 		ActorTurnSM actorTurnSM2 = actorTurnSM;
 		bool flag;
 		if (GameFlowData.Get().activeOwnedActorData == this.m_actor)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = (this.m_actor != null);
 		}
 		else
@@ -2789,26 +1412,8 @@ public class AbilityData : NetworkBehaviour
 		bool flag2 = flag;
 		if (this.m_selectedAbility)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_selectedAbility.OnAbilityDeselect();
 			}
 		}
@@ -2816,53 +1421,17 @@ public class AbilityData : NetworkBehaviour
 		this.Networkm_selectedActionForTargeting = this.GetActionTypeOfAbility(this.m_selectedAbility);
 		if (this.m_selectedAbility)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_selectedAbility.OnAbilitySelect();
 			}
 		}
 		if (actorTurnSM2 != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			actorTurnSM2.OnSelectedAbilityChanged(selectedAbility);
 		}
 		if (this.m_actor != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_actor.OnSelectedAbilityChanged(selectedAbility);
 		}
 		if (CameraManager.Get() != null)
@@ -2873,7 +1442,7 @@ public class AbilityData : NetworkBehaviour
 		{
 			this.m_lastSelectedAbility = selectedAbility;
 		}
-		Board.\u000E().MarkForUpdateValidSquares(true);
+		Board.Get().MarkForUpdateValidSquares(true);
 	}
 
 	public Ability GetSelectedAbility()
@@ -2916,123 +1485,26 @@ public class AbilityData : NetworkBehaviour
 		AbilityData.ActionType actionType = AbilityData.ActionType.INVALID_ACTION;
 		if (abilityName != null)
 		{
-			for (;;)
+			for (int i = (int)ActionType.ABILITY_0; i < (int)ActionType.NUM_ACTIONS; i++)
 			{
-				switch (6)
+				if (this.m_abilities[i] != null && this.m_abilities[i].ability != null && this.m_abilities[i].ability.m_abilityName == abilityName)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetActionType(string)).MethodHandle;
-			}
-			for (int i = 0; i < 0xE; i++)
-			{
-				if (this.m_abilities[i] != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_abilities[i].ability != null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_abilities[i].ability.m_abilityName == abilityName)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							actionType = (AbilityData.ActionType)i;
-							IL_8F:
-							if (actionType != AbilityData.ActionType.INVALID_ACTION)
-							{
-								return actionType;
-							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							sbyte b = 0;
-							while ((int)b < this.m_allChainAbilities.Count)
-							{
-								if (this.m_allChainAbilities[(int)b] != null)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (this.m_allChainAbilities[(int)b].m_abilityName == abilityName)
-									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										sbyte b2 = b;
-										b2 = checked((sbyte)(unchecked((int)b2) + 0xA));
-										return (AbilityData.ActionType)b2;
-									}
-								}
-								b = (sbyte)((int)b + 1);
-							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								return actionType;
-							}
-						}
-					}
+					actionType = (AbilityData.ActionType)i;
+					break;
 				}
 			}
-			for (;;)
+			if (actionType != AbilityData.ActionType.INVALID_ACTION)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_8F;
+				return actionType;
 			}
+			for (int j = 0; j < this.m_allChainAbilities.Count; j++)
+			{
+				if (this.m_allChainAbilities[j] != null && this.m_allChainAbilities[j].m_abilityName == abilityName)
+				{
+					return (AbilityData.ActionType)(j + (int)ActionType.CHAIN_0);
+				}
+			}
+			return actionType;
 		}
 		return actionType;
 	}
@@ -3048,92 +1520,26 @@ public class AbilityData : NetworkBehaviour
 		AbilityData.ActionType actionType = AbilityData.ActionType.INVALID_ACTION;
 		if (ability != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetActionTypeOfAbility(Ability)).MethodHandle;
-			}
-			int i = 0;
-			while (i < 0xE)
+			for (int i = (int)ActionType.ABILITY_0; i < (int)ActionType.NUM_ACTIONS; i++)
 			{
 				if (this.m_abilities[i] != null && this.m_abilities[i].ability == ability)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actionType = (AbilityData.ActionType)i;
-					IL_67:
-					if (actionType != AbilityData.ActionType.INVALID_ACTION)
-					{
-						return actionType;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					sbyte b = 0;
-					while ((int)b < this.m_allChainAbilities.Count)
-					{
-						if (this.m_allChainAbilities[(int)b] != null && this.m_allChainAbilities[(int)b] == ability)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							sbyte b2 = b;
-							b2 = checked((sbyte)(unchecked((int)b2) + 0xA));
-							return (AbilityData.ActionType)b2;
-						}
-						b = (sbyte)((int)b + 1);
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						return actionType;
-					}
-				}
-				else
-				{
-					i++;
+					break;
 				}
 			}
-			for (;;)
+			if (actionType != AbilityData.ActionType.INVALID_ACTION)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_67;
+				return actionType;
 			}
+			for (int j = 0; j < this.m_allChainAbilities.Count; j++)
+			{
+				if (this.m_allChainAbilities[j] != null && this.m_allChainAbilities[j] == ability)
+				{
+					return (AbilityData.ActionType)(j + (int)ActionType.CHAIN_0);
+				}
+			}
+			return actionType;
 		}
 		return actionType;
 	}
@@ -3147,30 +1553,8 @@ public class AbilityData : NetworkBehaviour
 			{
 				if (this.m_allChainAbilities[i] == ability)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetParentAbilityActionType(Ability)).MethodHandle;
-					}
 					return this.m_allChainAbilityParentActionTypes[i];
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return actionTypeOfAbility;
@@ -3181,44 +1565,13 @@ public class AbilityData : NetworkBehaviour
 		Ability result;
 		if (AbilityData.IsChain(type))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetAbilityOfActionType(AbilityData.ActionType)).MethodHandle;
-			}
 			int num = type - AbilityData.ActionType.CHAIN_0;
 			if (num >= 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num < this.m_allChainAbilities.Count)
 				{
 					result = this.m_allChainAbilities[num];
 					goto IL_59;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			result = null;
@@ -3232,15 +1585,6 @@ public class AbilityData : NetworkBehaviour
 				{
 					return this.m_abilities[(int)type].ability;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			result = null;
 		}
@@ -3253,33 +1597,11 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (abilityEntry != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetAbilityOfType(Type)).MethodHandle;
-				}
 				if (abilityEntry.ability != null && abilityEntry.ability.GetType() == abilityType)
 				{
 					return abilityEntry.ability;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return null;
 	}
@@ -3290,42 +1612,11 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (abilityEntry != null && abilityEntry.ability != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetAbilityOfType()).MethodHandle;
-				}
 				if (abilityEntry.ability.GetType() == typeof(T))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return abilityEntry.ability as T;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return (T)((object)null);
 	}
@@ -3334,19 +1625,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (type >= AbilityData.ActionType.ABILITY_0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetAbilityEntryOfActionType(AbilityData.ActionType)).MethodHandle;
-			}
 			if (type < (AbilityData.ActionType)this.m_abilities.Length)
 			{
 				return this.m_abilities[(int)type];
@@ -3359,32 +1637,10 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (actionType == AbilityData.ActionType.CARD_0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetCardTypeByActionType(CharacterCardInfo, AbilityData.ActionType)).MethodHandle;
-			}
 			return cardInfo.PrepCard;
 		}
 		if (actionType == AbilityData.ActionType.CARD_1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return cardInfo.DashCard;
 		}
 		if (actionType == AbilityData.ActionType.CARD_2)
@@ -3409,70 +1665,21 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("NoCooldowns"))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetTurnsTillUnlock(AbilityData.ActionType)).MethodHandle;
-			}
 			return 0;
 		}
 		int b = 0;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameplayData.Get() != null)
 			{
 				int currentTurn = GameFlowData.Get().CurrentTurn;
 				SpawnPointManager spawnPointManager = SpawnPointManager.Get();
 				if (spawnPointManager != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (spawnPointManager.m_spawnInDuringMovement && GameplayData.Get().m_disableAbilitiesOnRespawn)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_actor.NextRespawnTurn == currentTurn)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							b = 1;
 							goto IL_116;
 						}
@@ -3480,15 +1687,6 @@ public class AbilityData : NetworkBehaviour
 				}
 				if (AbilityData.IsCard(actionType))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int turnCatalystsUnlock = GameplayData.Get().m_turnCatalystsUnlock;
 					b = turnCatalystsUnlock - currentTurn;
 				}
@@ -3497,15 +1695,6 @@ public class AbilityData : NetworkBehaviour
 					int[] turnsAbilitiesUnlock = GameplayData.Get().m_turnsAbilitiesUnlock;
 					if (actionType < (AbilityData.ActionType)turnsAbilitiesUnlock.Length)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						b = turnsAbilitiesUnlock[(int)actionType] - currentTurn;
 					}
 				}
@@ -3529,19 +1718,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (AbilityData.IsChain(action))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.IsActionInCooldown(AbilityData.ActionType)).MethodHandle;
-			}
 			return false;
 		}
 		AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
@@ -3552,31 +1728,9 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!AbilityData.IsChain(action))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.TriggerCooldown(AbilityData.ActionType)).MethodHandle;
-			}
 			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int moddedCooldown = abilityEntry.ability.GetModdedCooldown();
 				if (moddedCooldown > 0)
 				{
@@ -3596,15 +1750,6 @@ public class AbilityData : NetworkBehaviour
 				}
 				else if (abilityEntry.ability.m_cooldown == -1)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_cooldowns[abilityEntry.ability.m_abilityName] = -1;
 				}
 				this.SynchronizeCooldownsToSlots();
@@ -3616,31 +1761,9 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!AbilityData.IsChain(action))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.OverrideCooldown(AbilityData.ActionType, int)).MethodHandle;
-			}
 			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_cooldowns[abilityEntry.ability.m_abilityName] = cooldownRemainingOverride;
 				this.SynchronizeCooldownsToSlots();
 			}
@@ -3672,19 +1795,6 @@ public class AbilityData : NetworkBehaviour
 				string key = keyValuePair.Key;
 				if (this.m_cooldowns[key] > 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ProgressCooldowns()).MethodHandle;
-					}
 					int num = 1;
 					if (GameplayMutators.Get() != null)
 					{
@@ -3696,27 +1806,9 @@ public class AbilityData : NetworkBehaviour
 					(cooldowns = this.m_cooldowns)[key2 = key] = cooldowns[key2] - num;
 					if (this.m_cooldowns[key] == 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_cooldowns.Remove(key);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.SynchronizeCooldownsToSlots();
@@ -3733,19 +1825,6 @@ public class AbilityData : NetworkBehaviour
 				string key = keyValuePair.Key;
 				if (this.m_cooldowns[key] > 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ProgressCooldownsOfAbilities(List<Ability>)).MethodHandle;
-					}
 					bool flag = false;
 					using (List<Ability>.Enumerator enumerator2 = abilities.GetEnumerator())
 					{
@@ -3754,27 +1833,9 @@ public class AbilityData : NetworkBehaviour
 							Ability ability = enumerator2.Current;
 							if (ability.m_abilityName == key)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = true;
 								goto IL_B0;
 							}
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					IL_B0:
@@ -3785,28 +1846,10 @@ public class AbilityData : NetworkBehaviour
 						(cooldowns = this.m_cooldowns)[key2 = key] = cooldowns[key2] - 1;
 						if (this.m_cooldowns[key] == 0)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_cooldowns.Remove(key);
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.SynchronizeCooldownsToSlots();
@@ -3824,57 +1867,17 @@ public class AbilityData : NetworkBehaviour
 				AbilityData.ActionType actionType = this.GetActionType(key);
 				if (actionType >= AbilityData.ActionType.ABILITY_0 && actionType <= AbilityData.ActionType.ABILITY_6)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ProgressCharacterAbilityCooldowns()).MethodHandle;
-					}
 					if (this.m_cooldowns[key] > 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Dictionary<string, int> cooldowns;
 						string key2;
 						(cooldowns = this.m_cooldowns)[key2 = key] = cooldowns[key2] - 1;
 						if (this.m_cooldowns[key] == 0)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_cooldowns.Remove(key);
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.SynchronizeCooldownsToSlots();
@@ -3885,19 +1888,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!HydrogenConfig.Get().AllowDebugCommands)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.CmdClearCooldowns()).MethodHandle;
-			}
 			return;
 		}
 		this.ClearCooldowns();
@@ -3918,56 +1908,16 @@ public class AbilityData : NetworkBehaviour
 			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)actionType];
 			if (abilityEntry.ability != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ClearCharacterAbilityCooldowns()).MethodHandle;
-				}
 				string abilityName = abilityEntry.ability.m_abilityName;
 				if (this.m_cooldowns.ContainsKey(abilityName))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_cooldowns.Remove(abilityName);
 					flag = true;
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SynchronizeCooldownsToSlots();
 		}
 	}
@@ -3991,31 +1941,9 @@ public class AbilityData : NetworkBehaviour
 		AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
 		if (abilityEntry.ability != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ClearCooldown(AbilityData.ActionType)).MethodHandle;
-			}
 			string abilityName = abilityEntry.ability.m_abilityName;
 			if (this.m_cooldowns.ContainsKey(abilityName))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_cooldowns.Remove(abilityName);
 				this.SynchronizeCooldownsToSlots();
 			}
@@ -4030,19 +1958,6 @@ public class AbilityData : NetworkBehaviour
 			int num = turnNumber - GameFlowData.Get().CurrentTurn;
 			if (num > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.PlaceInCooldownTillTurn(AbilityData.ActionType, int)).MethodHandle;
-				}
 				this.m_cooldowns[abilityEntry.ability.m_abilityName] = num;
 				this.SynchronizeCooldownsToSlots();
 			}
@@ -4064,19 +1979,6 @@ public class AbilityData : NetworkBehaviour
 			string text;
 			if (abilityEntry.ability == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.SynchronizeCooldownsToSlots()).MethodHandle;
-				}
 				text = null;
 			}
 			else
@@ -4088,41 +1990,14 @@ public class AbilityData : NetworkBehaviour
 			{
 				goto IL_99;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_cooldowns.ContainsKey(key))
 			{
 				goto IL_99;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			int num = this.m_cooldowns[key];
 			IL_9B:
 			if (abilityEntry.GetCooldownRemaining() != num)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityEntry.SetCooldownRemaining(num);
 				if (this.m_cooldownsSync[i] != num)
 				{
@@ -4142,19 +2017,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.InitializeStockCounts()).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void AbilityData::InitializeStockCounts()' called on client");
 			return;
 		}
@@ -4164,26 +2026,8 @@ public class AbilityData : NetworkBehaviour
 			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)actionType];
 			if (abilityEntry.ability != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityEntry.ability.GetModdedMaxStocks() > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityEntry.ability.m_initialStockAmount >= 0)
 					{
 						int desiredAmount = Mathf.Min(abilityEntry.ability.GetModdedMaxStocks(), abilityEntry.ability.m_initialStockAmount);
@@ -4199,19 +2043,6 @@ public class AbilityData : NetworkBehaviour
 		AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)actionType];
 		if (abilityEntry.ability != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetMaxStocksCount(AbilityData.ActionType)).MethodHandle;
-			}
 			return abilityEntry.ability.GetModdedMaxStocks();
 		}
 		return 0;
@@ -4236,30 +2067,8 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!AbilityData.IsChain(action))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ActionHasEnoughStockToTrigger(AbilityData.ActionType)).MethodHandle;
-			}
 			if (DebugParameters.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (DebugParameters.Get().GetParameterAsBool("NoCooldowns"))
 				{
 					return true;
@@ -4269,15 +2078,6 @@ public class AbilityData : NetworkBehaviour
 			bool result;
 			if (abilityEntry.ability.m_abilityManagedStockCount)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 			else
@@ -4294,43 +2094,12 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!AbilityData.IsChain(action))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ConsumeStock(AbilityData.ActionType)).MethodHandle;
-			}
 			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int moddedMaxStocks = abilityEntry.ability.GetModdedMaxStocks();
 				if (moddedMaxStocks > 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_consumedStockCount[(int)action] < moddedMaxStocks)
 					{
 						if (this.m_consumedStockCount[(int)action] == 0)
@@ -4339,30 +2108,12 @@ public class AbilityData : NetworkBehaviour
 							int num = moddedStockRefreshDuration + 1;
 							if (this.m_stockRefreshCountdowns[(int)action] != num)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_stockRefreshCountdowns[(int)action] = num;
 							}
 						}
 						int num2 = Mathf.Clamp(this.m_consumedStockCount[(int)action] + abilityEntry.ability.m_stockConsumedOnCast, 0, moddedMaxStocks);
 						if (this.m_consumedStockCount[(int)action] != num2)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_consumedStockCount[(int)action] = num2;
 						}
 					}
@@ -4376,19 +2127,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!HydrogenConfig.Get().AllowDebugCommands)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.CmdRefillStocks()).MethodHandle;
-			}
 			return;
 		}
 		this.RefillStocks();
@@ -4400,32 +2138,10 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (this.m_consumedStockCount[i] != 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.RefillStocks()).MethodHandle;
-				}
 				this.m_consumedStockCount[i] = 0;
 			}
 			if (this.m_stockRefreshCountdowns[i] != 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_stockRefreshCountdowns[i] = 0;
 			}
 		}
@@ -4437,73 +2153,20 @@ public class AbilityData : NetworkBehaviour
 		{
 			this.ProgressStockRefreshTimeForAction((AbilityData.ActionType)i, 1);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ProgressStockRefreshTimes()).MethodHandle;
-		}
 	}
 
 	public void ProgressStockRefreshTimeForAction(AbilityData.ActionType action, int advanceAmount)
 	{
 		if (action < (AbilityData.ActionType)this.m_stockRefreshCountdowns.Count)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ProgressStockRefreshTimeForAction(AbilityData.ActionType, int)).MethodHandle;
-			}
 			if (advanceAmount > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
 				bool flag = this.m_stockRefreshCountdowns[(int)action] > 0 || this.m_consumedStockCount[(int)action] > 0;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityEntry != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (abilityEntry.ability != null && abilityEntry.ability.GetModdedStockRefreshDuration() > 0)
 						{
 							int moddedStockRefreshDuration = abilityEntry.ability.GetModdedStockRefreshDuration();
@@ -4512,28 +2175,10 @@ public class AbilityData : NetworkBehaviour
 							int num3 = Mathf.Max(0, this.m_consumedStockCount[(int)action] - num);
 							if (this.m_consumedStockCount[(int)action] != num3)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_consumedStockCount[(int)action] = num3;
 							}
 							if (this.m_stockRefreshCountdowns[(int)action] >= num2)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num2 != 0)
 								{
 									SyncListInt syncListInt;
@@ -4541,37 +2186,10 @@ public class AbilityData : NetworkBehaviour
 								}
 								if (this.m_stockRefreshCountdowns[(int)action] <= 0)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.m_consumedStockCount[(int)action] > 0)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (abilityEntry.ability.RefillAllStockOnRefresh())
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											this.m_consumedStockCount[(int)action] = 0;
 										}
 										else
@@ -4581,15 +2199,6 @@ public class AbilityData : NetworkBehaviour
 										}
 										if (this.m_consumedStockCount[(int)action] > 0)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											int num4 = moddedStockRefreshDuration;
 											if (this.m_stockRefreshCountdowns[(int)action] != num4)
 											{
@@ -4598,15 +2207,6 @@ public class AbilityData : NetworkBehaviour
 										}
 										else if (this.m_stockRefreshCountdowns[(int)action] != 0)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											this.m_stockRefreshCountdowns[(int)action] = 0;
 										}
 									}
@@ -4622,15 +2222,6 @@ public class AbilityData : NetworkBehaviour
 								}
 								if (this.m_consumedStockCount[(int)action] > 0)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (abilityEntry.ability.RefillAllStockOnRefresh())
 									{
 										this.m_consumedStockCount[(int)action] = 0;
@@ -4653,55 +2244,15 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!AbilityData.IsChain(action))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.OverrideStockRemaining(AbilityData.ActionType, int)).MethodHandle;
-			}
 			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int value = Mathf.Max(0, abilityEntry.ability.GetModdedMaxStocks() - desiredAmount);
 				this.m_consumedStockCount[(int)action] = value;
 				if (this.m_consumedStockCount[(int)action] == 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_stockRefreshCountdowns[(int)action] != 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_stockRefreshCountdowns[(int)action] = 0;
 					}
 				}
@@ -4716,19 +2267,6 @@ public class AbilityData : NetworkBehaviour
 			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.OverrideStockRefreshCountdown(AbilityData.ActionType, int)).MethodHandle;
-				}
 				int num = Mathf.Clamp(desiredCountdown, 0, abilityEntry.ability.GetModdedStockRefreshDuration());
 				if (this.m_stockRefreshCountdowns[(int)action] != num)
 				{
@@ -4742,31 +2280,9 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!AbilityData.IsChain(action))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetStockRefreshDurationForAbility(AbilityData.ActionType)).MethodHandle;
-			}
 			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return abilityEntry.ability.GetModdedStockRefreshDuration();
 			}
 		}
@@ -4777,7 +2293,7 @@ public class AbilityData : NetworkBehaviour
 	{
 		bool flag = false;
 		ActorData actor = this.m_actor;
-		BoardSquare src = actor.\u0012();
+		BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
 		float num = calculatedMaxRangeInSquares;
 		float num2 = calculatedMinRangeInSquares;
 		if (num < 0f)
@@ -4786,67 +2302,27 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (num2 < 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.IsAbilityTargetInRange(Ability, AbilityTarget, int, float, float)).MethodHandle;
-			}
 			num2 = AbilityUtils.GetCurrentMinRangeInSquares(ability, actor, targetIndex);
 		}
 		Ability.TargetingParadigm targetingParadigm = ability.GetTargetingParadigm(targetIndex);
 		if (targetingParadigm == Ability.TargetingParadigm.BoardSquare)
 		{
-			BoardSquare dest = Board.\u000E().\u000E(target.GridPos);
-			flag |= this.IsTargetSquareInRangeOfAbilityFromSquare(dest, src, num, num2);
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			flag |= this.IsTargetSquareInRangeOfAbilityFromSquare(boardSquareSafe, currentBoardSquare, num, num2);
 		}
 		else if (targetingParadigm == Ability.TargetingParadigm.Position)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Vector3 b = actor.\u0015();
-			float num3 = num * Board.\u000E().squareSize;
-			float num4 = num2 * Board.\u000E().squareSize;
+			Vector3 travelBoardSquareWorldPositionForLos = actor.GetTravelBoardSquareWorldPositionForLos();
+			float num3 = num * Board.Get().squareSize;
+			float num4 = num2 * Board.Get().squareSize;
 			if (GameplayData.Get().m_abilityRangeType == GameplayData.AbilityRangeType.WorldDistToFreePos)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Vector3 vector = target.FreePos - b;
+				Vector3 vector = target.FreePos - travelBoardSquareWorldPositionForLos;
 				vector.y = 0f;
 				float sqrMagnitude = vector.sqrMagnitude;
 				bool flag2;
 				if (sqrMagnitude <= num3 * num3)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = (sqrMagnitude >= num4 * num4);
 				}
 				else
@@ -4857,21 +2333,12 @@ public class AbilityData : NetworkBehaviour
 			}
 			else
 			{
-				BoardSquare dest2 = Board.\u000E().\u000E(target.GridPos);
-				flag |= this.IsTargetSquareInRangeOfAbilityFromSquare(dest2, src, num, num2);
+				BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
+				flag |= this.IsTargetSquareInRangeOfAbilityFromSquare(boardSquareSafe2, currentBoardSquare, num, num2);
 			}
 		}
 		else if (targetingParadigm == Ability.TargetingParadigm.Direction)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = true;
 		}
 		else
@@ -4887,42 +2354,11 @@ public class AbilityData : NetworkBehaviour
 		bool result = true;
 		if (src)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.IsTargetSquareInRangeOfAbilityFromSquare(BoardSquare, BoardSquare, float, float)).MethodHandle;
-			}
 			if (dest)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num;
 				if (GameplayData.Get().m_abilityRangeType == GameplayData.AbilityRangeType.WorldDistToFreePos)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = src.HorizontalDistanceInSquaresTo(dest);
 				}
 				else
@@ -4932,15 +2368,6 @@ public class AbilityData : NetworkBehaviour
 				bool flag;
 				if (rangeInSquares >= 0f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (num <= rangeInSquares);
 				}
 				else
@@ -4951,27 +2378,9 @@ public class AbilityData : NetworkBehaviour
 				bool flag3 = num >= minRangeInSquares;
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag3)
 					{
 						return result;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				result = false;
@@ -4985,21 +2394,8 @@ public class AbilityData : NetworkBehaviour
 		bool result = false;
 		ActorData actor = this.m_actor;
 		Ability.TargetingParadigm targetingParadigm = specificAbility.GetTargetingParadigm(targetIndex);
-		if (actor.\u0012() == null)
+		if (actor.GetCurrentBoardSquare() == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.HasLineOfSightToTarget(Ability, AbilityTarget, int)).MethodHandle;
-			}
 			result = false;
 		}
 		else
@@ -5008,50 +2404,23 @@ public class AbilityData : NetworkBehaviour
 			{
 				if (targetingParadigm == Ability.TargetingParadigm.Position)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (targetingParadigm == Ability.TargetingParadigm.Direction)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 					return result;
 				}
 			}
-			BoardSquare value = Board.\u000E().\u000E(target.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 			ReadOnlyCollection<BoardSquare> lineOfSightVisibleExceptionSquares = actor.LineOfSightVisibleExceptionSquares;
-			if (lineOfSightVisibleExceptionSquares.Contains(value))
+			if (lineOfSightVisibleExceptionSquares.Contains(boardSquareSafe))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
-			else if (actor.\u0012().\u0013(target.GridPos.x, target.GridPos.y))
+			else if (actor.GetCurrentBoardSquare()._0013(target.GridPos.x, target.GridPos.y))
 			{
 				result = true;
 			}
@@ -5064,58 +2433,18 @@ public class AbilityData : NetworkBehaviour
 		ActorData actor = this.m_actor;
 		if (!(target == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.HasLineOfSightToActor(ActorData, bool)).MethodHandle;
-			}
 			if (!(actor == null))
 			{
 				if (!ignoreExceptions)
 				{
-					for (;;)
+					if (actor.IsLineOfSightVisibleException(target))
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (actor.\u000E(target))
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 				}
-				BoardSquare boardSquare = target.\u0012();
-				BoardSquare boardSquare2 = actor.\u0012();
-				return boardSquare2.\u0013(boardSquare.x, boardSquare.y);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				BoardSquare currentBoardSquare = target.GetCurrentBoardSquare();
+				BoardSquare currentBoardSquare2 = actor.GetCurrentBoardSquare();
+				return currentBoardSquare2._0013(currentBoardSquare.x, currentBoardSquare.y);
 			}
 		}
 		return false;
@@ -5124,46 +2453,15 @@ public class AbilityData : NetworkBehaviour
 	public bool ValidateAbilityOnTarget(Ability ability, AbilityTarget target, int targetIndex, float calculatedMinRangeInSquares = -1f, float calculatedMaxRangeInSquares = -1f)
 	{
 		bool result = false;
-		ActorTurnSM actorTurnSM = this.m_actor.\u000E();
+		ActorTurnSM actorTurnSM = this.m_actor.GetActorTurnSM();
 		if (actorTurnSM)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ValidateAbilityOnTarget(Ability, AbilityTarget, int, float, float)).MethodHandle;
-			}
 			List<AbilityTarget> abilityTargets = actorTurnSM.GetAbilityTargets();
 			if (abilityTargets != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag;
 				if (targetIndex <= abilityTargets.Count)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = this.ValidateAbilityOnTarget(ability, target, targetIndex, abilityTargets, calculatedMinRangeInSquares, calculatedMaxRangeInSquares);
 				}
 				else
@@ -5180,19 +2478,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (target == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ValidateAbilityOnTarget(Ability, AbilityTarget, int, List<AbilityTarget>, float, float)).MethodHandle;
-			}
 			return false;
 		}
 		ActorData actor = this.m_actor;
@@ -5200,43 +2485,16 @@ public class AbilityData : NetworkBehaviour
 		Ability.TargetingParadigm targetingParadigm = ability.GetTargetingParadigm(targetIndex);
 		if (targetingParadigm != Ability.TargetingParadigm.BoardSquare)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (targetingParadigm != Ability.TargetingParadigm.Position)
 			{
 				goto IL_D8;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		bool flag2;
-		if (boardSquare != null)
+		if (boardSquareSafe != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag2 = (ability.AllowInvalidSquareForSquareBasedTarget() || Board.\u000E().\u000E(target.GridPos).\u0016());
+			flag2 = (ability.AllowInvalidSquareForSquareBasedTarget() || Board.Get().GetBoardSquareSafe(target.GridPos).IsBaselineHeight());
 		}
 		else
 		{
@@ -5245,26 +2503,8 @@ public class AbilityData : NetworkBehaviour
 		flag = flag2;
 		if (!ability.IsSimpleAction())
 		{
-			for (;;)
+			if (flag && BarrierManager.Get().IsPositionTargetingBlocked(actor, boardSquareSafe))
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (flag && BarrierManager.Get().IsPositionTargetingBlocked(actor, boardSquare))
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			if (!flag)
@@ -5276,15 +2516,6 @@ public class AbilityData : NetworkBehaviour
 		bool flag3;
 		if (!ability.IsSimpleAction())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag3 = this.IsAbilityTargetInRange(ability, target, targetIndex, calculatedMinRangeInSquares, calculatedMaxRangeInSquares);
 		}
 		else
@@ -5294,52 +2525,25 @@ public class AbilityData : NetworkBehaviour
 		bool flag4 = flag3;
 		if (!flag4)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		bool flag5 = true;
 		if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhereInCoverToCaster))
 		{
-			BoardSquare targetSquare = Board.\u000E().\u000E(target.GridPos);
-			flag5 = ActorCover.IsInCoverWrt(actor.\u0016(), targetSquare, null, null, null);
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
+			flag5 = ActorCover.IsInCoverWrt(actor.GetTravelBoardSquareWorldPosition(), boardSquareSafe2, null, null, null);
 		}
 		else if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhereInCover))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			BoardSquare square = Board.\u000E().\u000E(target.GridPos);
+			BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
 			bool[] array;
-			flag5 = ActorCover.CalcCoverLevelGeoOnly(out array, square);
+			flag5 = ActorCover.CalcCoverLevelGeoOnly(out array, boardSquareSafe3);
 		}
 		bool flag6 = true;
 		if (ability.GetCheckLoS(targetIndex) && !ability.IsSimpleAction())
 		{
 			if (flag4)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag6 = this.HasLineOfSightToTarget(ability, target, targetIndex);
 			}
 			else
@@ -5350,26 +2554,8 @@ public class AbilityData : NetworkBehaviour
 		bool flag7;
 		if (flag4)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag && flag5)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag7 = flag6;
 				goto IL_1DE;
 			}
@@ -5380,15 +2566,6 @@ public class AbilityData : NetworkBehaviour
 		bool result;
 		if (flag8 && this.ValidateAbilityIsCastableDisregardingMovement(ability))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ability.CustomTargetValidation(actor, target, targetIndex, currentTargets);
 		}
 		else
@@ -5404,19 +2581,6 @@ public class AbilityData : NetworkBehaviour
 		Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
 		if (!this.ValidateActionIsRequestable(actionType))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ValidateActionRequest(AbilityData.ActionType, List<AbilityTarget>)).MethodHandle;
-			}
 			result = false;
 		}
 		else
@@ -5426,26 +2590,8 @@ public class AbilityData : NetworkBehaviour
 				AbilityTarget target = targets[i];
 				if (!this.ValidateAbilityOnTarget(abilityOfActionType, target, i, targets, -1f, -1f))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -5455,33 +2601,11 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (ability != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ValidateAbilityIsCastable(Ability)).MethodHandle;
-			}
 			bool flag = this.ValidateAbilityIsCastableDisregardingMovement(ability);
 			bool flag2 = ability.GetMovementAdjustment() != Ability.MovementAdjustment.NoMovement || !this.m_actor.HasQueuedMovement();
 			bool flag3;
 			if (!this.m_actor.QueuedMovementAllowsAbility)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag3 = !ability.GetAffectsMovement();
 			}
 			else
@@ -5493,15 +2617,6 @@ public class AbilityData : NetworkBehaviour
 			bool flag6;
 			if (AbilityData.IsCard(this.GetActionTypeOfAbility(ability)))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag6 = !this.HasQueuedCardAbility();
 			}
 			else
@@ -5511,37 +2626,10 @@ public class AbilityData : NetworkBehaviour
 			bool result = flag6;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag4)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag5)
 						{
 							return result;
@@ -5565,19 +2653,6 @@ public class AbilityData : NetworkBehaviour
 			bool flag3;
 			if (!abilityOfActionType.IsFreeAction())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ValidateActionIsRequestable(AbilityData.ActionType)).MethodHandle;
-				}
 				flag3 = (this.GetActionCostOfQueuedAbilities(abilityAction) == 0);
 			}
 			else
@@ -5588,15 +2663,6 @@ public class AbilityData : NetworkBehaviour
 			bool flag5;
 			if (abilityOfActionType.GetMovementAdjustment() == Ability.MovementAdjustment.NoMovement)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag5 = !this.m_actor.HasQueuedMovement();
 			}
 			else
@@ -5608,15 +2674,6 @@ public class AbilityData : NetworkBehaviour
 			bool flag8;
 			if (abilityOfActionType.RunPriority == AbilityPriority.Evasion)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag8 = !this.HasQueuedAbilityInPhase(AbilityPriority.Evasion);
 			}
 			else
@@ -5627,70 +2684,16 @@ public class AbilityData : NetworkBehaviour
 			bool result = !AbilityData.IsCard(abilityAction) || !this.HasQueuedCardAbility();
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag4)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag6)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (flag7)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag9)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									return result;
 								}
 							}
@@ -5709,35 +2712,13 @@ public class AbilityData : NetworkBehaviour
 		ActorData actor = this.m_actor;
 		if (ability != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ValidateAbilityIsCastableDisregardingMovement(Ability)).MethodHandle;
-			}
 			AbilityData.ActionType actionTypeOfAbility = this.GetActionTypeOfAbility(ability);
 			bool flag = actionTypeOfAbility != AbilityData.ActionType.INVALID_ACTION;
-			bool flag2 = !actor.\u000E();
+			bool flag2 = !actor.IsDead();
 			bool flag3 = actor.TechPoints >= ability.GetModdedCost();
 			bool flag4;
 			if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhenOutOfCombat))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag4 = actor.OutOfCombat;
 			}
 			else
@@ -5746,52 +2727,16 @@ public class AbilityData : NetworkBehaviour
 			}
 			bool flag5 = flag4;
 			bool flag6 = !AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhenInCombat) || !actor.OutOfCombat;
-			bool flag7 = !actor.\u000E().IsActionSilenced(actionTypeOfAbility, false);
+			bool flag7 = !actor.GetActorStatus().IsActionSilenced(actionTypeOfAbility, false);
 			bool flag8;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag3 && flag5)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag6)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag8 = flag7;
 							goto IL_EB;
 						}
@@ -5804,15 +2749,6 @@ public class AbilityData : NetworkBehaviour
 			bool result;
 			if (flag9)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ability.CustomCanCastValidation(actor);
 			}
 			else
@@ -5830,32 +2766,10 @@ public class AbilityData : NetworkBehaviour
 		Ability abilityOfActionType = this.GetAbilityOfActionType(abilityAction);
 		if (abilityOfActionType != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.ValidateActionIsRequestableDisregardingQueuedActions(AbilityData.ActionType)).MethodHandle;
-			}
 			ActorData actor = this.m_actor;
 			bool flag;
 			if (this.IsActionInCooldown(abilityAction))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (abilityOfActionType.GetModdedMaxStocks() > 0);
 			}
 			else
@@ -5865,38 +2779,11 @@ public class AbilityData : NetworkBehaviour
 			bool flag2 = flag;
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actor != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (AbilityUtils.AbilityHasTag(abilityOfActionType, AbilityTags.IgnoreCooldownIfFullEnergy))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag2 = (actor.TechPoints + actor.ReservedTechPoints >= actor.\u0016());
+						flag2 = (actor.TechPoints + actor.ReservedTechPoints >= actor.GetActualMaxTechPoints());
 					}
 				}
 			}
@@ -5906,26 +2793,8 @@ public class AbilityData : NetworkBehaviour
 			bool result = SinglePlayerManager.IsActionAllowed(actor, abilityAction);
 			if (flag2 && flag3)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag4 && flag5)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return result;
 				}
 			}
@@ -5940,31 +2809,9 @@ public class AbilityData : NetworkBehaviour
 		BoardSquare result = null;
 		if (this.m_selectedAbility)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetAutoSelectTarget()).MethodHandle;
-			}
 			if (this.m_selectedAbility.IsAutoSelect())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				result = this.m_actor.\u0012();
+				result = this.m_actor.GetCurrentBoardSquare();
 			}
 		}
 		return result;
@@ -5976,32 +2823,10 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.HasQueuedAbilities()).MethodHandle;
-			}
 			for (int i = 0; i < 0xE; i++)
 			{
 				if (teamSensitiveData_authority.HasQueuedAction(i))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					break;
 				}
@@ -6016,55 +2841,15 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.HasQueuedCardAbility()).MethodHandle;
-			}
 			for (int i = 0; i < 0xE; i++)
 			{
 				if (teamSensitiveData_authority.HasQueuedAction(i))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (AbilityData.IsCard((AbilityData.ActionType)i))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -6076,32 +2861,10 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetNumQueuedAbilities()).MethodHandle;
-			}
 			for (int i = 0; i < 0xE; i++)
 			{
 				if (teamSensitiveData_authority.HasQueuedAction(i))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 				}
 			}
@@ -6115,45 +2878,14 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetQueuedAbilitiesMovementAdjustType()).MethodHandle;
-			}
 			for (int i = 0; i < 0xE; i++)
 			{
 				AbilityData.ActionType actionType = (AbilityData.ActionType)i;
 				if (teamSensitiveData_authority.HasQueuedAction(actionType))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
 					if (abilityOfActionType != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (abilityOfActionType.GetMovementAdjustment() > movementAdjustment)
 						{
 							movementAdjustment = abilityOfActionType.GetMovementAdjustment();
@@ -6161,61 +2893,16 @@ public class AbilityData : NetworkBehaviour
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		SpawnPointManager spawnPointManager = SpawnPointManager.Get();
 		if (spawnPointManager != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (spawnPointManager.m_spawnInDuringMovement)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_actor.NextRespawnTurn == GameFlowData.Get().CurrentTurn)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayData.Get().m_movementAllowedOnRespawn < movementAdjustment)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						movementAdjustment = GameplayData.Get().m_movementAllowedOnRespawn;
 					}
 				}
@@ -6230,20 +2917,7 @@ public class AbilityData : NetworkBehaviour
 		Ability.MovementAdjustment queuedAbilitiesMovementAdjustType = this.GetQueuedAbilitiesMovementAdjustType();
 		if (queuedAbilitiesMovementAdjustType == Ability.MovementAdjustment.ReducedMovement)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetQueuedAbilitiesMovementAdjust()).MethodHandle;
-			}
-			result = -1f * this.m_actor.\u000E();
+			result = -1f * this.m_actor.GetPostAbilityHorizontalMovementChange();
 		}
 		return result;
 	}
@@ -6262,31 +2936,9 @@ public class AbilityData : NetworkBehaviour
 					Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
 					if (abilityOfActionType != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetQueuedAbilitiesOnRequestStatuses()).MethodHandle;
-						}
 						list.AddRange(abilityOfActionType.GetStatusToApplyWhenRequested());
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -6297,19 +2949,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.HasPendingStatusFromQueuedAbilities(StatusType)).MethodHandle;
-			}
 			for (int i = 0; i < 0xE; i++)
 			{
 				AbilityData.ActionType actionType = (AbilityData.ActionType)i;
@@ -6318,27 +2957,9 @@ public class AbilityData : NetworkBehaviour
 					Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
 					if (abilityOfActionType != null && abilityOfActionType.GetStatusToApplyWhenRequested().Contains(status))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return false;
 		}
@@ -6351,19 +2972,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetQueuedAbilitiesAllowSprinting()).MethodHandle;
-			}
 			for (int i = 0; i < 0xE; i++)
 			{
 				AbilityData.ActionType actionType = (AbilityData.ActionType)i;
@@ -6372,26 +2980,8 @@ public class AbilityData : NetworkBehaviour
 					Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
 					if (abilityOfActionType != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (abilityOfActionType.GetAffectsMovement())
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = false;
 							break;
 						}
@@ -6408,19 +2998,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetQueuedAbilitiesAllowMovement()).MethodHandle;
-			}
 			for (int i = 0; i < 0xE; i++)
 			{
 				AbilityData.ActionType actionType = (AbilityData.ActionType)i;
@@ -6429,39 +3006,12 @@ public class AbilityData : NetworkBehaviour
 					Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
 					if (abilityOfActionType != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (abilityOfActionType.GetPreventsMovement())
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return false;
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -6473,59 +3023,19 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetActionCostOfQueuedAbilities(AbilityData.ActionType)).MethodHandle;
-			}
 			for (int i = 0; i < 0xE; i++)
 			{
 				AbilityData.ActionType actionType = (AbilityData.ActionType)i;
 				if (teamSensitiveData_authority.HasQueuedAction(actionType))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actionType == actionToSkip)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
 						Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
 						if (abilityOfActionType != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!abilityOfActionType.IsFreeAction())
 							{
 								num++;
@@ -6533,15 +3043,6 @@ public class AbilityData : NetworkBehaviour
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num;
@@ -6551,57 +3052,17 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (this.m_cardTypeToCardInstance.ContainsKey(cardType))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetSpawnedCardInstance(CardType)).MethodHandle;
-			}
 			return this.m_cardTypeToCardInstance[cardType];
 		}
 		GameObject cardPrefab = CardManagerData.Get().GetCardPrefab(cardType);
 		if (cardPrefab != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(cardPrefab);
 			Card component = gameObject.GetComponent<Card>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.m_useAbility != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject.transform.parent = base.gameObject.transform;
 					this.m_cardTypeToCardInstance[cardType] = component;
 					component.m_useAbility.OverrideActorDataIndex(this.m_actor.ActorIndex);
@@ -6625,46 +3086,15 @@ public class AbilityData : NetworkBehaviour
 		}
 		else if (cardSlotIndex == 2)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.SetupCardAbility(int, Ability)).MethodHandle;
-			}
 			keyPreference = KeyPreference.Card3;
 		}
 		this.m_abilities[num].Setup(useAbility, keyPreference);
 		if (cardSlotIndex < this.m_cachedCardAbilities.Count)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_cachedCardAbilities[cardSlotIndex] = useAbility;
 		}
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SynchronizeCooldownsToSlots();
 		}
 	}
@@ -6673,19 +3103,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.SpawnAndSetupCardsOnReconnect()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_currentCardIds.Count; i++)
 			{
 				Card spawnedCardInstance = this.GetSpawnedCardInstance((CardType)this.m_currentCardIds[i]);
@@ -6693,15 +3110,6 @@ public class AbilityData : NetworkBehaviour
 				Ability useAbility;
 				if (spawnedCardInstance != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					useAbility = spawnedCardInstance.m_useAbility;
 				}
 				else
@@ -6719,28 +3127,6 @@ public class AbilityData : NetworkBehaviour
 		for (int i = 0; i < this.m_currentCardIds.Count; i++)
 		{
 			yield return this.GetSpawnedCardInstance((CardType)this.m_currentCardIds[i]);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.<GetActiveCards>c__Iterator0.MoveNext()).MethodHandle;
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		yield break;
 	}
@@ -6749,19 +3135,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.UpdateCatalystDisplay()).MethodHandle;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.UpdateCatalysts(this.m_actor, this.m_cachedCardAbilities);
 			HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.UpdateCatalysts(this.m_actor, this.m_cachedCardAbilities);
 		}
@@ -6780,41 +3153,10 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (actionTypeInt < this.m_abilities.Length)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetTargetableRadius(int, ActorData)).MethodHandle;
-			}
 			if (this.m_abilities[actionTypeInt].ability != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilities[actionTypeInt].ability.CanShowTargetableRadiusPreview())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_abilities[actionTypeInt].ability.GetTargetableRadiusInSquares(caster);
 				}
 			}
@@ -6828,33 +3170,11 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (this.m_abilities[i] != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.OnClientCombatPhasePlayDataReceived(List<ClientResolutionAction>)).MethodHandle;
-				}
 				if (this.m_abilities[i].ability != null)
 				{
 					this.m_abilities[i].ability.OnClientCombatPhasePlayDataReceived(resolutionActions, this.m_actor);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -6868,54 +3188,14 @@ public class AbilityData : NetworkBehaviour
 				{
 					if (abilityEntry != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (abilityEntry.ability != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							abilityEntry.ability.DrawGizmos();
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.DrawBoardVisibilityGizmos();
 				return;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.OnDrawGizmos()).MethodHandle;
 			}
 		}
 	}
@@ -6924,20 +3204,7 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("ShowBoardSquareVisGizmo"))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.DrawBoardVisibilityGizmos()).MethodHandle;
-			}
-			BoardSquare playerFreeSquare = Board.\u000E().PlayerFreeSquare;
+			BoardSquare playerFreeSquare = Board.Get().PlayerFreeSquare;
 			if (playerFreeSquare != null)
 			{
 				for (int i = 0; i < 0xF; i++)
@@ -6948,32 +3215,14 @@ public class AbilityData : NetworkBehaviour
 						while (enumerator.MoveNext())
 						{
 							BoardSquare boardSquare = enumerator.Current;
-							if (boardSquare.\u0016())
+							if (boardSquare.IsBaselineHeight())
 							{
-								for (;;)
+								if (playerFreeSquare._0013(boardSquare.x, boardSquare.y))
 								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (playerFreeSquare.\u0013(boardSquare.x, boardSquare.y))
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									Color white = Color.white;
 									white.a = 0.5f;
 									Gizmos.color = white;
-									Vector3 size = 0.05f * Board.\u000E().squareSize * Vector3.one;
+									Vector3 size = 0.05f * Board.Get().squareSize * Vector3.one;
 									size.y = 0.1f;
 									Gizmos.DrawWireCube(boardSquare.ToVector3(), size);
 								}
@@ -6982,20 +3231,11 @@ public class AbilityData : NetworkBehaviour
 									Color red = Color.red;
 									red.a = 0.5f;
 									Gizmos.color = red;
-									Vector3 size2 = 0.05f * Board.\u000E().squareSize * Vector3.one;
+									Vector3 size2 = 0.05f * Board.Get().squareSize * Vector3.one;
 									size2.y = 0.1f;
 									Gizmos.DrawWireCube(boardSquare.ToVector3(), size2);
 								}
 							}
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -7034,19 +3274,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.InvokeSyncListm_consumedStockCount(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("SyncList m_consumedStockCount called on server.");
 			return;
 		}
@@ -7057,19 +3284,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.InvokeSyncListm_stockRefreshCountdowns(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("SyncList m_stockRefreshCountdowns called on server.");
 			return;
 		}
@@ -7100,19 +3314,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.InvokeCmdCmdRefillStocks(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("Command CmdRefillStocks called on client.");
 			return;
 		}
@@ -7123,38 +3324,16 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.CallCmdClearCooldowns()).MethodHandle;
-			}
 			Debug.LogError("Command function CmdClearCooldowns called on server.");
 			return;
 		}
 		if (base.isServer)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CmdClearCooldowns();
 			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
+		networkWriter.Write((short)0);
 		networkWriter.Write((short)((ushort)5));
 		networkWriter.WritePackedUInt32((uint)AbilityData.kCmdCmdClearCooldowns);
 		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
@@ -7165,19 +3344,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.CallCmdRefillStocks()).MethodHandle;
-			}
 			Debug.LogError("Command function CmdRefillStocks called on server.");
 			return;
 		}
@@ -7187,7 +3353,7 @@ public class AbilityData : NetworkBehaviour
 			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
+		networkWriter.Write((short)0);
 		networkWriter.Write((short)((ushort)5));
 		networkWriter.WritePackedUInt32((uint)AbilityData.kCmdCmdRefillStocks);
 		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
@@ -7198,19 +3364,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			SyncListInt.WriteInstance(writer, this.m_cooldownsSync);
 			SyncListInt.WriteInstance(writer, this.m_consumedStockCount);
 			SyncListInt.WriteInstance(writer, this.m_stockRefreshCountdowns);
@@ -7221,26 +3374,8 @@ public class AbilityData : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -7248,26 +3383,8 @@ public class AbilityData : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -7277,15 +3394,6 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -7293,26 +3401,8 @@ public class AbilityData : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -7320,26 +3410,8 @@ public class AbilityData : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x10U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -7356,19 +3428,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			SyncListInt.ReadReference(reader, this.m_cooldownsSync);
 			SyncListInt.ReadReference(reader, this.m_consumedStockCount);
 			SyncListInt.ReadReference(reader, this.m_stockRefreshCountdowns);
@@ -7387,41 +3446,14 @@ public class AbilityData : NetworkBehaviour
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListInt.ReadReference(reader, this.m_stockRefreshCountdowns);
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListInt.ReadReference(reader, this.m_currentCardIds);
 		}
 		if ((num & 0x10) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_selectedActionForTargeting = (AbilityData.ActionType)reader.ReadInt32();
 		}
 	}
@@ -7460,19 +3492,6 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("NoCooldowns"))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.AbilityEntry.GetCooldownRemaining()).MethodHandle;
-				}
 				return 0;
 			}
 			return this.m_cooldownRemaining;
@@ -7482,19 +3501,6 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (this.m_cooldownRemaining != remaining)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.AbilityEntry.SetCooldownRemaining(int)).MethodHandle;
-				}
 				this.m_cooldownRemaining = remaining;
 			}
 		}

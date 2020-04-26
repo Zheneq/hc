@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -21,95 +20,58 @@ public class UITauntSelectionButton : MonoBehaviour
 
 	private void Start()
 	{
-		if (this.m_buttonHitBox != null)
+		if (!(m_buttonHitBox != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntSelectionButton.Start()).MethodHandle;
-			}
-			UIEventTriggerUtils.AddListener(this.m_buttonHitBox.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.SelectedTaunt));
+			return;
+		}
+		while (true)
+		{
+			UIEventTriggerUtils.AddListener(m_buttonHitBox.gameObject, EventTriggerType.PointerClick, SelectedTaunt);
+			return;
 		}
 	}
 
 	public void SelectedTaunt(BaseEventData data)
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		Debug.Log(string.Concat(new object[]
-		{
-			"Selected taunt ",
-			this.m_tauntRef.m_name,
-			" with ID ",
-			this.m_tauntRef.m_uniqueTauntID,
-			" to play TauntNumber #",
-			this.m_tauntRef.m_tauntNumber
-		}));
+		Debug.Log("Selected taunt " + m_tauntRef.m_name + " with ID " + m_tauntRef.m_uniqueTauntID + " to play TauntNumber #" + m_tauntRef.m_tauntNumber);
 		if (activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntSelectionButton.SelectedTaunt(BaseEventData)).MethodHandle;
-			}
-			activeOwnedActorData.GetComponent<ActorCinematicRequests>().SendAbilityCinematicRequest(this.m_actionType, true, this.m_tauntRef.m_tauntNumber, this.m_tauntRef.m_uniqueTauntID);
+			activeOwnedActorData.GetComponent<ActorCinematicRequests>().SendAbilityCinematicRequest(m_actionType, true, m_tauntRef.m_tauntNumber, m_tauntRef.m_uniqueTauntID);
 		}
-		HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.SelectedTaunt(this.m_actionType);
+		HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.SelectedTaunt(m_actionType);
 		HUD_UI.Get().m_mainScreenPanel.m_characterProfile.OnCloseSelectionClick(data);
 	}
 
 	public void SetupTaunt(AbilityData.ActionType actionType, AbilityData.AbilityEntry entry, CameraShotSequence taunt)
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		this.m_actionType = actionType;
-		this.m_abilityEntry = entry;
-		this.m_theSprite.sprite = this.m_abilityEntry.ability.sprite;
-		this.m_tauntRef = taunt;
-		List<CharacterTaunt> taunts = activeOwnedActorData.\u000E().m_taunts;
+		m_actionType = actionType;
+		m_abilityEntry = entry;
+		m_theSprite.sprite = m_abilityEntry.ability.sprite;
+		m_tauntRef = taunt;
+		List<CharacterTaunt> taunts = activeOwnedActorData.GetCharacterResourceLink().m_taunts;
 		for (int i = 0; i < taunts.Count; i++)
 		{
-			if (taunts[i].m_uniqueID == taunt.m_uniqueTauntID)
+			if (taunts[i].m_uniqueID != taunt.m_uniqueTauntID)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntSelectionButton.SetupTaunt(AbilityData.ActionType, AbilityData.AbilityEntry, CameraShotSequence)).MethodHandle;
-				}
-				this.m_tauntName.text = string.Format("{0}: {1}", this.m_abilityEntry.ability.GetNameString(), activeOwnedActorData.\u000E().GetTauntName(i));
+				continue;
+			}
+			while (true)
+			{
+				m_tauntName.text = $"{m_abilityEntry.ability.GetNameString()}: {activeOwnedActorData.GetCharacterResourceLink().GetTauntName(i)}";
 				return;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			return;
 		}
 	}
 }

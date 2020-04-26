@@ -1,34 +1,21 @@
-﻿using System;
 using UnityEngine.Networking;
 
 public class ResolvingState : TurnState
 {
 	private float m_stateTime;
 
-	public ResolvingState(ActorTurnSM masterSM) : base(masterSM)
+	public ResolvingState(ActorTurnSM masterSM)
+		: base(masterSM)
 	{
 	}
 
 	public override void OnEnter()
 	{
-		ActorData component = this.m_SM.GetComponent<ActorData>();
+		ActorData component = m_SM.GetComponent<ActorData>();
 		if (HUD_UI.Get() != null)
 		{
 			if (component == GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ResolvingState.OnEnter()).MethodHandle;
-				}
 				InterfaceManager.Get().CancelAlert(StringUtil.TR("PostRespawnMovement", "Global"));
 				UINotificationPanel notificationPanel = HUD_UI.Get().m_mainScreenPanel.m_notificationPanel;
 				notificationPanel.DisplayNotification(UINotificationPanel.GamePhaseDisplay.Resolving);
@@ -36,23 +23,14 @@ public class ResolvingState : TurnState
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.UpdateNameplateUntargeted(component, true);
 		}
 		HighlightUtils.Get().SetCursorType(HighlightUtils.CursorType.NoCursorType);
-		ActorMovement actorMovement = component.\u000E();
+		ActorMovement actorMovement = component.GetActorMovement();
 		actorMovement.OnGameStateChange(false);
-		this.m_stateTime = 0f;
+		m_stateTime = 0f;
 		bool flag = component.HasQueuedMovement();
-		AbilityData component2 = this.m_SM.GetComponent<AbilityData>();
+		AbilityData component2 = m_SM.GetComponent<AbilityData>();
 		bool flag2;
-		if (component2)
+		if ((bool)component2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = component2.HasQueuedAbilities();
 			component2.ClearSelectedAbility();
 			component2.ClearLastSelectedAbility();
@@ -61,30 +39,21 @@ public class ResolvingState : TurnState
 		{
 			flag2 = false;
 		}
-		if (!flag)
+		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (!flag2)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_SM.NextState = TurnStateEnum.WAITING;
+					return;
 				}
-				this.m_SM.NextState = TurnStateEnum.WAITING;
 			}
+			return;
 		}
 	}
 
@@ -92,181 +61,109 @@ public class ResolvingState : TurnState
 	{
 		if (msg == TurnMessage.TURN_START)
 		{
-			ActorData component = this.m_SM.GetComponent<ActorData>();
-			string str;
+			ActorData component = m_SM.GetComponent<ActorData>();
+			object str;
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ResolvingState.OnMsg(TurnMessage, int)).MethodHandle;
-				}
-				str = component.\u0018();
+				str = component.GetDebugName();
 			}
 			else
 			{
 				str = "NULL actor";
 			}
-			Log.Error(str + " handling TURN_START message in Resolving state", new object[0]);
-			this.m_SM.SetupForNewTurn();
-			this.m_SM.NextState = TurnStateEnum.DECIDING;
+			Log.Error((string)str + " handling TURN_START message in Resolving state");
+			m_SM.SetupForNewTurn();
+			m_SM.NextState = TurnStateEnum.DECIDING;
+			return;
 		}
-		else if (msg == TurnMessage.MOVEMENT_RESOLVED)
+		if (msg == TurnMessage.MOVEMENT_RESOLVED)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_SM.NextState = TurnStateEnum.WAITING;
+					return;
 				}
-				break;
 			}
-			this.m_SM.NextState = TurnStateEnum.WAITING;
 		}
-		else if (msg == TurnMessage.CLIENTS_RESOLVED_ABILITIES)
+		if (msg == TurnMessage.CLIENTS_RESOLVED_ABILITIES)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_SM.NextState = TurnStateEnum.WAITING;
+					return;
 				}
-				break;
 			}
-			this.m_SM.NextState = TurnStateEnum.WAITING;
 		}
-		else if (msg == TurnMessage.RESPAWN)
+		if (msg != TurnMessage.RESPAWN)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_SM.NextState = TurnStateEnum.RESPAWNING;
+			return;
+		}
+		while (true)
+		{
+			m_SM.NextState = TurnStateEnum.RESPAWNING;
+			return;
 		}
 	}
 
 	public override void OnExit()
 	{
-		if (this.m_SM.GetComponent<AbilityData>())
+		if ((bool)m_SM.GetComponent<AbilityData>())
 		{
-			this.m_SM.GetComponent<AbilityData>().ClearSelectedAbility();
+			m_SM.GetComponent<AbilityData>().ClearSelectedAbility();
 		}
 	}
 
 	public override void Update()
 	{
-		ActorData component = this.m_SM.GetComponent<ActorData>();
+		ActorData component = m_SM.GetComponent<ActorData>();
 		if (component != null)
 		{
-			for (;;)
+			if (component.IsDead())
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ResolvingState.Update()).MethodHandle;
-			}
-			if (component.\u000E())
-			{
-				this.m_SM.NextState = TurnStateEnum.WAITING;
+				m_SM.NextState = TurnStateEnum.WAITING;
 			}
 		}
-		bool flag = this.m_stateTime >= GameFlowData.Get().m_resolveTimeoutLimit * 0.9f;
-		if (flag)
+		if (m_stateTime >= GameFlowData.Get().m_resolveTimeoutLimit * 0.9f)
 		{
-			for (;;)
+			if (!GameplayUtils.IsMinion(m_SM))
 			{
-				switch (5)
+				object[] obj = new object[3]
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!GameplayUtils.IsMinion(this.m_SM))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				string message = "{0} timed out {1} of resolving state (owned actor = {2})";
-				object[] array = new object[3];
-				array[0] = ((!NetworkServer.active) ? "Client" : "Server");
-				array[1] = this.m_SM.GetComponent<ActorData>().DisplayName;
-				int num = 2;
-				object obj;
+					(!NetworkServer.active) ? "Client" : "Server",
+					m_SM.GetComponent<ActorData>().DisplayName,
+					null
+				};
+				object obj2;
 				if (GameFlowData.Get().activeOwnedActorData == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					obj = "NULL";
+					obj2 = "NULL";
 				}
 				else
 				{
-					obj = GameFlowData.Get().activeOwnedActorData.DisplayName;
+					obj2 = GameFlowData.Get().activeOwnedActorData.DisplayName;
 				}
-				array[num] = obj;
-				Log.Error(message, array);
-				this.m_SM.NextState = TurnStateEnum.WAITING;
+				obj[2] = obj2;
+				Log.Error("{0} timed out {1} of resolving state (owned actor = {2})", obj);
+				m_SM.NextState = TurnStateEnum.WAITING;
 			}
 		}
 		if (!(GameFlowData.Get() == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().IsResolutionPaused())
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		this.m_stateTime += GameTime.deltaTime;
+		m_stateTime += GameTime.deltaTime;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 
 public class UISeasonsDropDownButton : _SelectableBtn

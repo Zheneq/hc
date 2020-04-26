@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class CameraShake : MonoBehaviour
@@ -22,79 +21,48 @@ public class CameraShake : MonoBehaviour
 	[ContextMenu("Execute")]
 	public void Play()
 	{
-		this.m_elapsedTime = 0f;
+		m_elapsedTime = 0f;
 	}
 
 	public void Play(float horizonatlIntensity, float verticalIntensity, float duration)
 	{
-		this.m_horizontalIntensity = horizonatlIntensity;
-		this.m_verticalIntensity = verticalIntensity;
-		this.m_duration = duration;
-		this.m_elapsedTime = 0f;
+		m_horizontalIntensity = horizonatlIntensity;
+		m_verticalIntensity = verticalIntensity;
+		m_duration = duration;
+		m_elapsedTime = 0f;
 	}
 
 	private void LateUpdate()
 	{
-		if (this.m_elapsedTime < this.m_duration)
+		if (!(m_elapsedTime < m_duration))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			m_elapsedTime += Time.deltaTime;
+			if (!CameraManager.Get().AllowCameraShake())
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShake.LateUpdate()).MethodHandle;
-			}
-			this.m_elapsedTime += Time.deltaTime;
-			if (CameraManager.Get().AllowCameraShake())
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				float f = Mathf.Min(1f, this.m_elapsedTime / this.m_duration);
-				float d = 1f - Mathf.Abs(Mathf.Pow(f, this.m_dampeningPower));
+				float f = Mathf.Min(1f, m_elapsedTime / m_duration);
+				float d = 1f - Mathf.Abs(Mathf.Pow(f, m_dampeningPower));
 				Vector3 a = base.transform.rotation * Vector3.left;
-				a *= UnityEngine.Random.Range(this.m_horizontalIntensity * (1f - this.m_ratioRange), this.m_horizontalIntensity);
-				if (UnityEngine.Random.value > 0.5f)
+				a *= Random.Range(m_horizontalIntensity * (1f - m_ratioRange), m_horizontalIntensity);
+				if (Random.value > 0.5f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					a *= -1f;
 				}
-				Vector3 vector = base.transform.rotation * Vector3.up;
-				vector *= UnityEngine.Random.Range(this.m_verticalIntensity * (1f - this.m_ratioRange), this.m_verticalIntensity);
-				if (UnityEngine.Random.value > 0.5f)
+				Vector3 b = base.transform.rotation * Vector3.up;
+				b *= Random.Range(m_verticalIntensity * (1f - m_ratioRange), m_verticalIntensity);
+				if (Random.value > 0.5f)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					vector *= -1f;
+					b *= -1f;
 				}
-				base.transform.position = base.transform.position + (a + vector) * d;
+				base.transform.position = base.transform.position + (a + b) * d;
+				return;
 			}
 		}
 	}

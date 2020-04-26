@@ -1,5 +1,3 @@
-﻿using System;
-
 public class FrontEndFullScreenAnnouncements : UIScene
 {
 	private UIIntroductions[] Introductions;
@@ -8,13 +6,13 @@ public class FrontEndFullScreenAnnouncements : UIScene
 
 	public static FrontEndFullScreenAnnouncements Get()
 	{
-		return FrontEndFullScreenAnnouncements.s_instance;
+		return s_instance;
 	}
 
 	public override void Awake()
 	{
-		FrontEndFullScreenAnnouncements.s_instance = this;
-		this.Introductions = base.gameObject.GetComponentsInChildren<UIIntroductions>(true);
+		s_instance = this;
+		Introductions = base.gameObject.GetComponentsInChildren<UIIntroductions>(true);
 		base.Awake();
 	}
 
@@ -25,37 +23,20 @@ public class FrontEndFullScreenAnnouncements : UIScene
 
 	public void SetIntroductionVisible(AccountComponent.UIStateIdentifier UIState, int pageNum = 0)
 	{
-		if (this.Introductions != null)
+		if (Introductions == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			for (int i = 0; i < Introductions.Length; i++)
 			{
-				switch (1)
+				if (Introductions[i].UIState == UIState)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndFullScreenAnnouncements.SetIntroductionVisible(AccountComponent.UIStateIdentifier, int)).MethodHandle;
-			}
-			for (int i = 0; i < this.Introductions.Length; i++)
-			{
-				if (this.Introductions[i].UIState == UIState)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.Introductions[i].DisplayIntroduction(pageNum);
+					Introductions[i].DisplayIntroduction(pageNum);
 				}
 			}
+			return;
 		}
 	}
 }

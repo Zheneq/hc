@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,6 +5,13 @@ using UnityEngine.UI;
 
 public class FriendListHeader : MonoBehaviour
 {
+	public enum PlayerOnlineStatus
+	{
+		Online,
+		Away,
+		Busy
+	}
+
 	public _SelectableBtn m_statusDropdownBtn;
 
 	public RectTransform m_statusDropdownMenuContainer;
@@ -24,314 +30,218 @@ public class FriendListHeader : MonoBehaviour
 
 	public Color[] m_friendListColors;
 
-	private FriendListHeader.PlayerOnlineStatus m_currentStatus;
+	private PlayerOnlineStatus m_currentStatus;
 
 	private void Start()
 	{
-		UIManager.SetGameObjectActive(this.m_statusDropdownMenuContainer, false, null);
-		this.m_statusDropdownBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.StatusDropDownClicked);
-		this.m_statusDropdownBtn.SetSelected(false, true, string.Empty, string.Empty);
-		for (int i = 0; i < this.m_disabled.Length; i++)
+		UIManager.SetGameObjectActive(m_statusDropdownMenuContainer, false);
+		m_statusDropdownBtn.spriteController.callback = StatusDropDownClicked;
+		m_statusDropdownBtn.SetSelected(false, true, string.Empty, string.Empty);
+		for (int i = 0; i < m_disabled.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_disabled[i], false, null);
+			UIManager.SetGameObjectActive(m_disabled[i], false);
 		}
-		for (int j = 0; j < this.m_statusSelectBtns.Length; j++)
+		for (int j = 0; j < m_statusSelectBtns.Length; j++)
 		{
-			this.m_statusSelectBtns[j].spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.StatusButtonClicked);
-			this.m_statusSelectBtns[j].SetSelected(false, false, string.Empty, string.Empty);
+			m_statusSelectBtns[j].spriteController.callback = StatusButtonClicked;
+			m_statusSelectBtns[j].SetSelected(false, false, string.Empty, string.Empty);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
+			for (int k = 0; k < m_btnStatusColorDisplays.Length; k++)
 			{
-			case 0:
-				continue;
+				m_btnStatusColorDisplays[k].color = m_friendListColors[k];
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListHeader.Start()).MethodHandle;
-		}
-		for (int k = 0; k < this.m_btnStatusColorDisplays.Length; k++)
-		{
-			this.m_btnStatusColorDisplays[k].color = this.m_friendListColors[k];
-		}
-		for (;;)
-		{
-			switch (2)
+			while (true)
 			{
-			case 0:
-				continue;
+				m_closeBtn.spriteController.callback = CloseBtnClicked;
+				SetPlayerStatus(PlayerOnlineStatus.Online);
+				return;
 			}
-			break;
 		}
-		this.m_closeBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseBtnClicked);
-		this.SetPlayerStatus(FriendListHeader.PlayerOnlineStatus.Online);
 	}
 
 	public void CloseBtnClicked(BaseEventData data)
 	{
-		if (FriendListPanel.Get().IsVisible())
+		if (!FriendListPanel.Get().IsVisible())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListHeader.CloseBtnClicked(BaseEventData)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			UIFrontEnd.Get().TogglePlayerFriendListVisibility();
+			return;
 		}
 	}
 
-	public void SetPlayerStatus(FriendListHeader.PlayerOnlineStatus status)
+	public void SetPlayerStatus(PlayerOnlineStatus status)
 	{
 		int num = (int)status;
-		this.m_currentStatus = status;
-		this.m_statusColor.color = this.m_friendListColors[num];
-		for (int i = 0; i < this.m_statusLabels.Length; i++)
+		m_currentStatus = status;
+		m_statusColor.color = m_friendListColors[num];
+		for (int i = 0; i < m_statusLabels.Length; i++)
 		{
-			if (status != FriendListHeader.PlayerOnlineStatus.Online)
+			switch (status)
 			{
-				if (status != FriendListHeader.PlayerOnlineStatus.Busy)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListHeader.SetPlayerStatus(FriendListHeader.PlayerOnlineStatus)).MethodHandle;
-					}
-					if (status == FriendListHeader.PlayerOnlineStatus.Away)
-					{
-						this.m_statusLabels[i].text = StringUtil.TR("Away", "NewFrontEndScene");
-					}
-				}
-				else
-				{
-					this.m_statusLabels[i].text = StringUtil.TR("Busy", "NewFrontEndScene");
-				}
-			}
-			else
-			{
-				this.m_statusLabels[i].text = StringUtil.TR("Online", "NewFrontEndScene");
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
+			case PlayerOnlineStatus.Online:
+				m_statusLabels[i].text = StringUtil.TR("Online", "NewFrontEndScene");
+				continue;
+			case PlayerOnlineStatus.Busy:
+				m_statusLabels[i].text = StringUtil.TR("Busy", "NewFrontEndScene");
 				continue;
 			}
-			break;
-		}
-		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (clientGameManager != null)
-		{
-			for (;;)
+			if (status == PlayerOnlineStatus.Away)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_statusLabels[i].text = StringUtil.TR("Away", "NewFrontEndScene");
 			}
-			if (clientGameManager.IsConnectedToLobbyServer)
+		}
+		while (true)
+		{
+			ClientGameManager clientGameManager = ClientGameManager.Get();
+			if (!(clientGameManager != null))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				if (clientGameManager.IsConnectedToLobbyServer)
 				{
-					switch (4)
+					while (true)
 					{
-					case 0:
-						continue;
+						clientGameManager.UpdatePlayerStatus(status.ToString());
+						return;
 					}
-					break;
 				}
-				clientGameManager.UpdatePlayerStatus(status.ToString());
+				return;
 			}
 		}
 	}
 
 	public void StatusButtonClicked(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_statusDropdownMenuContainer, false, null);
-		this.m_statusDropdownBtn.SetSelected(false, false, string.Empty, string.Empty);
-		for (int i = 0; i < this.m_statusSelectBtns.Length; i++)
+		UIManager.SetGameObjectActive(m_statusDropdownMenuContainer, false);
+		m_statusDropdownBtn.SetSelected(false, false, string.Empty, string.Empty);
+		for (int i = 0; i < m_statusSelectBtns.Length; i++)
 		{
-			if (this.m_statusSelectBtns[i].spriteController.gameObject == (data as PointerEventData).selectedObject)
+			if (!(m_statusSelectBtns[i].spriteController.gameObject == (data as PointerEventData).selectedObject))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListHeader.StatusButtonClicked(BaseEventData)).MethodHandle;
-				}
+				continue;
+			}
+			while (true)
+			{
 				if (i == 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							SetPlayerStatus(PlayerOnlineStatus.Online);
+							return;
 						}
-						break;
 					}
-					this.SetPlayerStatus(FriendListHeader.PlayerOnlineStatus.Online);
 				}
-				else if (i == 1)
+				if (i == 1)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							SetPlayerStatus(PlayerOnlineStatus.Busy);
+							return;
 						}
-						break;
 					}
-					this.SetPlayerStatus(FriendListHeader.PlayerOnlineStatus.Busy);
 				}
-				else if (i == 2)
+				if (i == 2)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						SetPlayerStatus(PlayerOnlineStatus.Away);
+						return;
 					}
-					this.SetPlayerStatus(FriendListHeader.PlayerOnlineStatus.Away);
 				}
 				return;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			return;
 		}
 	}
 
 	public void StatusDropDownClicked(BaseEventData data)
 	{
-		bool flag = !this.m_statusDropdownMenuContainer.gameObject.activeSelf;
-		UIManager.SetGameObjectActive(this.m_statusDropdownMenuContainer, flag, null);
-		this.m_statusDropdownBtn.SetSelected(flag, false, string.Empty, string.Empty);
+		bool flag = !m_statusDropdownMenuContainer.gameObject.activeSelf;
+		UIManager.SetGameObjectActive(m_statusDropdownMenuContainer, flag);
+		m_statusDropdownBtn.SetSelected(flag, false, string.Empty, string.Empty);
 		if (flag)
 		{
-			for (;;)
+			for (int i = 0; i < m_statusSelectBtns.Length; i++)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListHeader.StatusDropDownClicked(BaseEventData)).MethodHandle;
-			}
-			for (int i = 0; i < this.m_statusSelectBtns.Length; i++)
-			{
-				this.m_statusSelectBtns[i].spriteController.ForceSetPointerEntered(false);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_statusSelectBtns[i].spriteController.ForceSetPointerEntered(false);
 			}
 		}
-		if (this.m_currentStatus == FriendListHeader.PlayerOnlineStatus.Online)
+		if (m_currentStatus == PlayerOnlineStatus.Online)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_statusSelectBtns[0].SetSelected(true, true, string.Empty, string.Empty);
+					m_statusSelectBtns[1].SetSelected(false, true, string.Empty, string.Empty);
+					m_statusSelectBtns[2].SetSelected(false, true, string.Empty, string.Empty);
+					return;
 				}
-				break;
 			}
-			this.m_statusSelectBtns[0].SetSelected(true, true, string.Empty, string.Empty);
-			this.m_statusSelectBtns[1].SetSelected(false, true, string.Empty, string.Empty);
-			this.m_statusSelectBtns[2].SetSelected(false, true, string.Empty, string.Empty);
 		}
-		else if (this.m_currentStatus == FriendListHeader.PlayerOnlineStatus.Busy)
+		if (m_currentStatus == PlayerOnlineStatus.Busy)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_statusSelectBtns[0].SetSelected(false, true, string.Empty, string.Empty);
+					m_statusSelectBtns[1].SetSelected(true, true, string.Empty, string.Empty);
+					m_statusSelectBtns[2].SetSelected(false, true, string.Empty, string.Empty);
+					return;
 				}
-				break;
 			}
-			this.m_statusSelectBtns[0].SetSelected(false, true, string.Empty, string.Empty);
-			this.m_statusSelectBtns[1].SetSelected(true, true, string.Empty, string.Empty);
-			this.m_statusSelectBtns[2].SetSelected(false, true, string.Empty, string.Empty);
 		}
-		else if (this.m_currentStatus == FriendListHeader.PlayerOnlineStatus.Away)
+		if (m_currentStatus == PlayerOnlineStatus.Away)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_statusSelectBtns[0].SetSelected(false, true, string.Empty, string.Empty);
+					m_statusSelectBtns[1].SetSelected(false, true, string.Empty, string.Empty);
+					m_statusSelectBtns[2].SetSelected(true, true, string.Empty, string.Empty);
+					return;
 				}
-				break;
 			}
-			this.m_statusSelectBtns[0].SetSelected(false, true, string.Empty, string.Empty);
-			this.m_statusSelectBtns[1].SetSelected(false, true, string.Empty, string.Empty);
-			this.m_statusSelectBtns[2].SetSelected(true, true, string.Empty, string.Empty);
 		}
-		else
-		{
-			this.m_statusSelectBtns[0].SetSelected(false, true, string.Empty, string.Empty);
-			this.m_statusSelectBtns[1].SetSelected(false, true, string.Empty, string.Empty);
-			this.m_statusSelectBtns[2].SetSelected(false, true, string.Empty, string.Empty);
-		}
-	}
-
-	public enum PlayerOnlineStatus
-	{
-		Online,
-		Away,
-		Busy
+		m_statusSelectBtns[0].SetSelected(false, true, string.Empty, string.Empty);
+		m_statusSelectBtns[1].SetSelected(false, true, string.Empty, string.Empty);
+		m_statusSelectBtns[2].SetSelected(false, true, string.Empty, string.Empty);
 	}
 }

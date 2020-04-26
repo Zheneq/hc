@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Fabric;
 using UnityEngine;
@@ -30,43 +30,12 @@ public static class AudioManager
 	{
 		if (eventName != "_UnSet_")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AudioManager.PostEvent(string, GameObject)).MethodHandle;
-			}
 			if (!AudioManager.ShouldSkipAudioEvents())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				EventManager instance = EventManager.Instance;
 				bool result;
 				if (instance == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = false;
 				}
 				else
@@ -78,15 +47,6 @@ public static class AudioManager
 		}
 		else if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning("<color=white>    * AudioManager trying to post _UnSet_ event</color>", new object[0]);
 		}
 		return false;
@@ -96,43 +56,12 @@ public static class AudioManager
 	{
 		if (eventName != "_UnSet_")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AudioManager.PostEvent(string, AudioManager.EventAction, object, GameObject)).MethodHandle;
-			}
 			if (!AudioManager.ShouldSkipAudioEvents())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				EventManager instance = EventManager.Instance;
 				bool result;
 				if (instance == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = false;
 				}
 				else
@@ -144,15 +73,6 @@ public static class AudioManager
 		}
 		else if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning("<color=white>    * AudioManager trying to post _UnSet_ event</color>", new object[0]);
 		}
 		return false;
@@ -162,30 +82,8 @@ public static class AudioManager
 	{
 		if (eventName != "_UnSet_")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AudioManager.PostEventNotify(string, OnEventNotify, GameObject)).MethodHandle;
-			}
 			if (!AudioManager.ShouldSkipAudioEvents())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				EventManager instance = EventManager.Instance;
 				return !(instance == null) && instance.PostEventNotify(eventName, parentGameObject, notifyCallback);
 			}
@@ -203,32 +101,10 @@ public static class AudioManager
 		{
 			if (!AudioManager.ShouldSkipAudioEvents())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AudioManager.PostEventNotify(string, AudioManager.EventAction, OnEventNotify, object, GameObject)).MethodHandle;
-				}
 				EventManager instance = EventManager.Instance;
 				bool result;
 				if (instance == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = false;
 				}
 				else
@@ -240,15 +116,6 @@ public static class AudioManager
 		}
 		else if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning("<color=white>    * AudioManager trying to post _UnSet_ event</color>", new object[0]);
 		}
 		return false;
@@ -268,30 +135,8 @@ public static class AudioManager
 		{
 			if (eventTrigger._eventName == "start_music")
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AudioManager.EnableMusicAtStartup()).MethodHandle;
-				}
 				if (!eventTrigger.enabled)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					eventTrigger.enabled = true;
 				}
 			}
@@ -310,30 +155,8 @@ public static class AudioManager
 				EventTrigger eventTrigger = enumerator.Current;
 				if (eventTrigger._eventName == "start_ambiance" && !eventTrigger.enabled)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AudioManager.EnableAmbianceAtStartup()).MethodHandle;
-					}
 					eventTrigger.enabled = true;
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -342,45 +165,14 @@ public static class AudioManager
 	{
 		if (mixerGroup == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AudioManager.StandardizeAudioLinkages_NeedsUpdate(AudioMixerGroup)).MethodHandle;
-			}
 			return false;
 		}
 		if (GameWideData.Get() == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		if (mixerGroup.audioMixer == AudioManager.GetMixerSnapshotManager().m_mixer)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		return true;
@@ -390,62 +182,22 @@ public static class AudioManager
 	{
 		if (mixerGroup == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AudioManager.StandardizeAudioLinkages_Update(AudioMixerGroup)).MethodHandle;
-			}
 			return null;
 		}
 		if (GameWideData.Get() == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return mixerGroup;
 		}
 		AudioMixerGroup[] array = AudioManager.GetMixerSnapshotManager().m_mixer.FindMatchingGroups(mixerGroup.name);
 		AudioMixerGroup audioMixerGroup = null;
 		if (array != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			foreach (AudioMixerGroup audioMixerGroup2 in array)
 			{
 				if (audioMixerGroup2.name == mixerGroup.name)
 				{
 					audioMixerGroup = audioMixerGroup2;
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (audioMixerGroup == null)
@@ -461,51 +213,11 @@ public static class AudioManager
 		{
 			if (ts.parent == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AudioManager.<FindAllSceneObjectsOfType>c__Iterator0.MoveNext()).MethodHandle;
-				}
 				foreach (T t in ts.GetComponentsInChildren<T>(true))
 				{
 					yield return t;
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		yield break;
 	}
@@ -523,33 +235,11 @@ public static class AudioManager
 					component._audioMixerGroup = AudioManager.StandardizeAudioLinkages_Update(component._audioMixerGroup);
 				}
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AudioManager.StandardizeAudioLinkages()).MethodHandle;
-			}
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enumerator.Dispose();
 			}
 		}
@@ -561,41 +251,14 @@ public static class AudioManager
 				AudioSource audioSource = enumerator2.Current;
 				if (AudioManager.StandardizeAudioLinkages_NeedsUpdate(audioSource.outputAudioMixerGroup))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					audioSource.outputAudioMixerGroup = AudioManager.StandardizeAudioLinkages_Update(audioSource.outputAudioMixerGroup);
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
 		{
 			if (enumerator2 != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enumerator2.Dispose();
 			}
 		}
@@ -610,34 +273,12 @@ public static class AudioManager
 				component._audioMixerGroup = AudioManager.StandardizeAudioLinkages_Update(component._audioMixerGroup);
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AudioManager.StandardizeAudioLinkages(GameObject)).MethodHandle;
-		}
 		foreach (AudioSource audioSource in root.GetComponentsInChildren<AudioSource>())
 		{
 			if (AudioManager.StandardizeAudioLinkages_NeedsUpdate(audioSource.outputAudioMixerGroup))
 			{
 				audioSource.outputAudioMixerGroup = AudioManager.StandardizeAudioLinkages_Update(audioSource.outputAudioMixerGroup);
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 

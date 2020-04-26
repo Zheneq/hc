@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class StockVFXController : CopyableVfxControllerComponent
@@ -15,148 +14,78 @@ public class StockVFXController : CopyableVfxControllerComponent
 
 	private void Start()
 	{
-		this.Initialize();
+		Initialize();
 	}
 
 	private void Update()
 	{
-		this.UpdateForStocks();
+		UpdateForStocks();
 	}
 
 	protected virtual void Initialize()
 	{
-		this.m_actorModelData = base.GetComponent<ActorModelData>();
+		m_actorModelData = GetComponent<ActorModelData>();
 	}
 
 	protected virtual void UpdateForStocks()
 	{
-		if (this.m_actorModelData != null)
+		if (m_actorModelData != null)
 		{
-			for (;;)
+			if (m_actorModelData.m_parentActorData != null)
 			{
-				switch (2)
+				int stockAmount = GetStockAmount(m_actorModelData.m_parentActorData);
+				if (stockAmount != m_prevStockAmount)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StockVFXController.UpdateForStocks()).MethodHandle;
-			}
-			if (this.m_actorModelData.m_parentActorData != null)
-			{
-				for (;;)
-				{
-					switch (5)
+					m_prevStockAmount = stockAmount;
+					if (m_vfxInstance != null)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				int stockAmount = this.GetStockAmount(this.m_actorModelData.m_parentActorData);
-				if (stockAmount != this.m_prevStockAmount)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_prevStockAmount = stockAmount;
-					if (this.m_vfxInstance != null)
-					{
-						UnityEngine.Object.Destroy(this.m_vfxInstance);
+						Object.Destroy(m_vfxInstance);
 					}
 					if (stockAmount > 0)
 					{
-						for (;;)
+						if (m_vfxs.Length > stockAmount - 1)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_vfxs.Length > stockAmount - 1)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_vfxInstance = UnityEngine.Object.Instantiate<GameObject>(this.m_vfxs[stockAmount - 1], Vector3.zero, Quaternion.identity);
-							this.m_vfxInstance.transform.parent = base.transform;
+							m_vfxInstance = Object.Instantiate(m_vfxs[stockAmount - 1], Vector3.zero, Quaternion.identity);
+							m_vfxInstance.transform.parent = base.transform;
 						}
 					}
 				}
-				goto IL_16E;
+				goto IL_016e;
 			}
 		}
-		if (this.m_actorModelData == null && this.m_vfxInstance == null)
+		if (m_actorModelData == null && m_vfxInstance == null)
 		{
-			for (;;)
+			if (m_vfxs.Length > 0)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_vfxs.Length > 0)
-			{
-				this.m_vfxInstance = UnityEngine.Object.Instantiate<GameObject>(this.m_vfxs[this.m_vfxs.Length - 1], Vector3.zero, Quaternion.identity);
-				this.m_vfxInstance.transform.parent = base.transform;
+				m_vfxInstance = Object.Instantiate(m_vfxs[m_vfxs.Length - 1], Vector3.zero, Quaternion.identity);
+				m_vfxInstance.transform.parent = base.transform;
 			}
 		}
-		IL_16E:
-		if (this.m_vfxInstance != null)
+		goto IL_016e;
+		IL_016e:
+		if (!(m_vfxInstance != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			bool flag = true;
 			bool flag2 = true;
-			if (this.m_actorModelData != null)
+			if (m_actorModelData != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag = this.m_actorModelData.IsVisibleToClient();
-				flag2 = (this.m_actorModelData.m_parentActorData == null || !this.m_actorModelData.m_parentActorData.\u000E());
+				flag = m_actorModelData.IsVisibleToClient();
+				flag2 = (m_actorModelData.m_parentActorData == null || !m_actorModelData.m_parentActorData.IsDead());
 			}
-			this.m_vfxInstance.SetActive(flag && flag2);
-			this.m_vfxInstance.transform.position = base.transform.position;
-			this.m_vfxInstance.transform.rotation = Quaternion.identity;
+			m_vfxInstance.SetActive(flag && flag2);
+			m_vfxInstance.transform.position = base.transform.position;
+			m_vfxInstance.transform.rotation = Quaternion.identity;
+			return;
 		}
 	}
 
 	protected virtual int GetStockAmount(ActorData actorData)
 	{
 		AbilityData component = actorData.GetComponent<AbilityData>();
-		return (!(component != null)) ? 0 : component.GetStocksRemaining(this.m_abilityType);
+		return (component != null) ? component.GetStocksRemaining(m_abilityType) : 0;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -18,86 +17,66 @@ public class UIMouseTargetingCursor : MonoBehaviour
 
 	private void Init()
 	{
-		if (!this.initialized)
+		if (initialized)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIMouseTargetingCursor.Init()).MethodHandle;
-			}
-			this.initialized = true;
-			this.originalSizeOfCursor = (base.gameObject.transform as RectTransform).sizeDelta;
-			this.originalFontSize = this.m_clicksLeftLabel.fontSize;
+			return;
+		}
+		while (true)
+		{
+			initialized = true;
+			originalSizeOfCursor = (base.gameObject.transform as RectTransform).sizeDelta;
+			originalFontSize = m_clicksLeftLabel.fontSize;
+			return;
 		}
 	}
 
 	public void ShowTargetCursor()
 	{
-		if (!this.m_isVisible)
+		if (!m_isVisible)
 		{
-			this.m_isVisible = true;
-			UIManager.SetGameObjectActive(this, true, null);
-			this.m_animator.Play("MouseCursorTargetDefaultCLICK");
-			this.DoUpdate(false);
+			m_isVisible = true;
+			UIManager.SetGameObjectActive(this, true);
+			m_animator.Play("MouseCursorTargetDefaultCLICK");
+			DoUpdate();
 		}
 	}
 
 	public void HideTargetCursor()
 	{
-		this.m_isVisible = false;
-		if (this.m_animator.isActiveAndEnabled)
+		m_isVisible = false;
+		if (!m_animator.isActiveAndEnabled)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIMouseTargetingCursor.HideTargetCursor()).MethodHandle;
-			}
-			this.m_animator.Play("MouseCursorTargetDefaultEXIT", 0);
+			return;
+		}
+		while (true)
+		{
+			m_animator.Play("MouseCursorTargetDefaultEXIT", 0);
+			return;
 		}
 	}
 
 	public void DoUpdate(bool fromUpdate = false)
 	{
-		this.Init();
-		if (this.m_isVisible)
+		Init();
+		if (!m_isVisible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIMouseTargetingCursor.DoUpdate(bool)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			Canvas componentInParent = base.gameObject.GetComponentInParent<Canvas>();
-			Vector2 vector = new Vector2(Input.mousePosition.x / (float)Screen.width, Input.mousePosition.y / (float)Screen.height - 1f);
+			Vector3 mousePosition = Input.mousePosition;
+			float x = mousePosition.x / (float)Screen.width;
+			Vector3 mousePosition2 = Input.mousePosition;
+			Vector2 vector = new Vector2(x, mousePosition2.y / (float)Screen.height - 1f);
 			Vector2 sizeDelta = (componentInParent.transform as RectTransform).sizeDelta;
 			Vector2 anchoredPosition = new Vector2(vector.x * sizeDelta.x, vector.y * sizeDelta.y);
 			Vector2 vector2 = new Vector2((float)Screen.width / sizeDelta.x, (float)Screen.height / sizeDelta.y);
-			(base.gameObject.transform as RectTransform).sizeDelta = new Vector2(this.originalSizeOfCursor.x / vector2.x, this.originalSizeOfCursor.y / vector2.y);
-			this.m_clicksLeftLabel.fontSize = this.originalFontSize / vector2.y;
-			anchoredPosition.y -= (base.gameObject.transform as RectTransform).sizeDelta.y;
+			(base.gameObject.transform as RectTransform).sizeDelta = new Vector2(originalSizeOfCursor.x / vector2.x, originalSizeOfCursor.y / vector2.y);
+			m_clicksLeftLabel.fontSize = originalFontSize / vector2.y;
+			float y = anchoredPosition.y;
+			Vector2 sizeDelta2 = (base.gameObject.transform as RectTransform).sizeDelta;
+			anchoredPosition.y = y - sizeDelta2.y;
 			if (fromUpdate)
 			{
 				Cursor.visible = false;
@@ -106,62 +85,17 @@ public class UIMouseTargetingCursor : MonoBehaviour
 			int num = 1;
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					AbilityData abilityData = GameFlowData.Get().activeOwnedActorData.\u000E();
-					ActorTurnSM actorTurnSM = GameFlowData.Get().activeOwnedActorData.\u000E();
+					AbilityData abilityData = GameFlowData.Get().activeOwnedActorData.GetAbilityData();
+					ActorTurnSM actorTurnSM = GameFlowData.Get().activeOwnedActorData.GetActorTurnSM();
 					Ability selectedAbility = abilityData.GetSelectedAbility();
 					if (abilityData != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorTurnSM != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (selectedAbility != null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int expectedNumberOfTargeters = selectedAbility.GetExpectedNumberOfTargeters();
 								int targetSelectionIndex = actorTurnSM.GetTargetSelectionIndex();
 								num = expectedNumberOfTargeters - targetSelectionIndex;
@@ -170,51 +104,30 @@ public class UIMouseTargetingCursor : MonoBehaviour
 					}
 				}
 			}
-			if (this.m_clicksLeftLabel != null)
+			if (!(m_clicksLeftLabel != null))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				return;
+			}
+			while (true)
+			{
 				if (fromUpdate)
 				{
-					for (;;)
+					if (!(m_clicksLeftLabel.text != num.ToString()))
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!(this.m_clicksLeftLabel.text != num.ToString()))
-					{
-						goto IL_2B2;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						goto IL_02b2;
 					}
 				}
-				this.m_animator.Play("MouseCursorTargetDefaultCLICK");
-				IL_2B2:
-				this.m_clicksLeftLabel.text = num.ToString();
+				m_animator.Play("MouseCursorTargetDefaultCLICK");
+				goto IL_02b2;
+				IL_02b2:
+				m_clicksLeftLabel.text = num.ToString();
+				return;
 			}
 		}
 	}
 
 	private void LateUpdate()
 	{
-		this.DoUpdate(true);
+		DoUpdate(true);
 	}
 }

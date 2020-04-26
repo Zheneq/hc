@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,82 +24,44 @@ public class AbilityMod_RobotAnimalStealth : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		RobotAnimalStealth x = targetAbility as RobotAnimalStealth;
-		if (x != null)
+		if (!(x != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalStealth.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		RobotAnimalStealth robotAnimalStealth = base.GetTargetAbilityOnAbilityData(abilityData) as RobotAnimalStealth;
-		bool flag = robotAnimalStealth != null;
-		string text = string.Empty;
-		text += AbilityModHelper.GetModEffectInfoDesc(this.m_effectOnNextDamageAttack, "{ Effect on Next Damage Attack }", string.Empty, flag, null);
-		text += AbilityModHelper.GetCooldownModDesc(this.m_cooldownModOnCast, "[Cooldown] on Cast", abilityData);
-		if (this.m_extraDamageNextAttack != 0)
+		RobotAnimalStealth robotAnimalStealth = GetTargetAbilityOnAbilityData(abilityData) as RobotAnimalStealth;
+		bool useBaseVal = robotAnimalStealth != null;
+		string empty = string.Empty;
+		empty += AbilityModHelper.GetModEffectInfoDesc(m_effectOnNextDamageAttack, "{ Effect on Next Damage Attack }", string.Empty, useBaseVal);
+		empty += AbilityModHelper.GetCooldownModDesc(m_cooldownModOnCast, "[Cooldown] on Cast", abilityData);
+		if (m_extraDamageNextAttack != 0)
 		{
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"[Extra Damage on Next Attack] = ",
-				this.m_extraDamageNextAttack,
-				"\n"
-			});
+			string text = empty;
+			empty = text + "[Extra Damage on Next Attack] = " + m_extraDamageNextAttack + "\n";
 		}
-		if (this.m_selfEffectOverride != null && this.m_selfEffectOverride.m_applyEffect)
+		if (m_selfEffectOverride != null && m_selfEffectOverride.m_applyEffect)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalStealth.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			string str = text;
-			StandardActorEffectData effectData = this.m_selfEffectOverride.m_effectData;
-			string prefix = "{ Override for the Stealth Effect }";
-			string empty = string.Empty;
-			bool useBaseVal = flag;
-			StandardActorEffectData baseVal;
+			string str = empty;
+			StandardActorEffectData effectData = m_selfEffectOverride.m_effectData;
+			string empty2 = string.Empty;
+			object baseVal;
 			if (robotAnimalStealth != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = robotAnimalStealth.m_selfEffect;
 			}
 			else
 			{
 				baseVal = null;
 			}
-			text = str + AbilityModHelper.GetModEffectDataDesc(effectData, prefix, empty, useBaseVal, baseVal);
+			empty = str + AbilityModHelper.GetModEffectDataDesc(effectData, "{ Override for the Stealth Effect }", empty2, useBaseVal, (StandardActorEffectData)baseVal);
 		}
-		return text;
+		return empty;
 	}
 }

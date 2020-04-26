@@ -1,8 +1,6 @@
-﻿using System;
-
 public class SiegeBreakerBigBang : Ability
 {
-	public int m_damageAmount = 0x4B;
+	public int m_damageAmount = 75;
 
 	public int m_knockbackDistance = 8;
 
@@ -12,22 +10,14 @@ public class SiegeBreakerBigBang : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (!(m_abilityName == "Base Ability"))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SiegeBreakerBigBang.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Big Bang";
+			return;
+		}
+		while (true)
+		{
+			m_abilityName = "Big Bang";
+			return;
 		}
 	}
 }

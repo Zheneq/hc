@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,116 +18,70 @@ public class ValkyrieBouncingShotSequence : BouncingShotSequence
 
 	protected override void UpdateProjectileFX()
 	{
-		int curSegment = this.m_curSegment;
+		int curSegment = m_curSegment;
 		base.UpdateProjectileFX();
-		if (this.m_fx != null && !this.m_segmentPts.IsNullOrEmpty<Vector3>())
+		if (!(m_fx != null) || m_segmentPts.IsNullOrEmpty())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			Animator modelAnimator = base.Caster.GetModelAnimator();
+			modelAnimator.SetFloat(animDistToGoal, m_totalTravelDistance - m_distanceTraveled);
+			if (m_curSegment != curSegment && m_curSegment == m_segmentPts.Count - 2)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieBouncingShotSequence.UpdateProjectileFX()).MethodHandle;
-			}
-			Animator animator = base.Caster.\u000E();
-			animator.SetFloat(ValkyrieBouncingShotSequence.animDistToGoal, this.m_totalTravelDistance - this.m_distanceTraveled);
-			if (this.m_curSegment != curSegment && this.m_curSegment == this.m_segmentPts.Count - 2)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_returnProjectileVfxPrefab != null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					bool sequenceVisibility = this.m_fx != null && this.m_fx.activeInHierarchy;
-					UnityEngine.Object.Destroy(this.m_fx);
-					Quaternion rotation = default(Quaternion);
-					rotation.SetLookRotation((this.m_segmentPts[this.m_curSegment + 1] - this.m_segmentPts[this.m_curSegment]).normalized);
-					this.m_fx = base.InstantiateFX(this.m_returnProjectileVfxPrefab, this.m_segmentPts[this.m_curSegment], rotation, true, true);
-					base.SetSequenceVisibility(sequenceVisibility);
-					if (this.m_fx != null)
+					default:
 					{
-						for (;;)
+						if (m_returnProjectileVfxPrefab != null)
 						{
-							switch (7)
+							bool sequenceVisibility = m_fx != null && m_fx.activeInHierarchy;
+							Object.Destroy(m_fx);
+							Quaternion rotation = default(Quaternion);
+							rotation.SetLookRotation((m_segmentPts[m_curSegment + 1] - m_segmentPts[m_curSegment]).normalized);
+							m_fx = InstantiateFX(m_returnProjectileVfxPrefab, m_segmentPts[m_curSegment], rotation);
+							SetSequenceVisibility(sequenceVisibility);
+							if (m_fx != null)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_projectileFxAttributes != null)
-						{
-							for (;;)
-							{
-								switch (4)
+								if (m_projectileFxAttributes != null)
 								{
-								case 0:
-									continue;
+									foreach (KeyValuePair<string, float> projectileFxAttribute in m_projectileFxAttributes)
+									{
+										Sequence.SetAttribute(m_fx, projectileFxAttribute.Key, projectileFxAttribute.Value);
+									}
 								}
-								break;
-							}
-							foreach (KeyValuePair<string, float> keyValuePair in this.m_projectileFxAttributes)
-							{
-								Sequence.SetAttribute(this.m_fx, keyValuePair.Key, keyValuePair.Value);
 							}
 						}
-					}
-				}
-				else
-				{
-					Sequence.SetAttribute(this.m_fx, "projectileReturning", 1);
-				}
-				if (!string.IsNullOrEmpty(this.m_beginReturnAudioEvent))
-				{
-					for (;;)
-					{
-						switch (2)
+						else
 						{
-						case 0:
-							continue;
+							Sequence.SetAttribute(m_fx, "projectileReturning", 1);
 						}
-						break;
+						if (!string.IsNullOrEmpty(m_beginReturnAudioEvent))
+						{
+							AudioManager.PostEvent(m_beginReturnAudioEvent, m_fx.gameObject);
+						}
+						Vector3 value = m_segmentPts[m_segmentPts.Count - 1];
+						value.y += m_endingHeightOffset;
+						m_segmentPts[m_segmentPts.Count - 1] = value;
+						return;
 					}
-					AudioManager.PostEvent(this.m_beginReturnAudioEvent, this.m_fx.gameObject);
+					}
 				}
-				Vector3 value = this.m_segmentPts[this.m_segmentPts.Count - 1];
-				value.y += this.m_endingHeightOffset;
-				this.m_segmentPts[this.m_segmentPts.Count - 1] = value;
 			}
-			else if (this.m_reachedDestination && !string.IsNullOrEmpty(this.m_endReturnAudioEvent))
+			if (m_reachedDestination && !string.IsNullOrEmpty(m_endReturnAudioEvent))
 			{
-				for (;;)
+				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					AudioManager.PostEvent(m_endReturnAudioEvent, base.Caster.gameObject);
+					return;
 				}
-				AudioManager.PostEvent(this.m_endReturnAudioEvent, base.Caster.gameObject);
 			}
+			return;
 		}
 	}
 }

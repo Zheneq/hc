@@ -1,5 +1,3 @@
-﻿using System;
-
 public class SceneVisibilityParameters
 {
 	public bool TurnOffAllOtherScenesInCanvasLayer;
@@ -10,8 +8,8 @@ public class SceneVisibilityParameters
 
 	public SceneVisibilityParameters()
 	{
-		this.TurnOffAllOtherScenesInCanvasLayer = false;
-		this.PlayTransitions = true;
-		this.StateParameters = new SceneStateParameters();
+		TurnOffAllOtherScenesInCanvasLayer = false;
+		PlayTransitions = true;
+		StateParameters = new SceneStateParameters();
 	}
 }

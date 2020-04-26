@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,6 +5,13 @@ using UnityEngine.UI;
 
 public class UIDeathNotifications : MonoBehaviour
 {
+	public struct DeathDisplayInfo
+	{
+		public ActorData m_actorData;
+
+		public bool IsAlly;
+	}
+
 	public Animator m_mainAnimator;
 
 	public Animator m_enemyTakenDown;
@@ -34,9 +40,9 @@ public class UIDeathNotifications : MonoBehaviour
 
 	private static UIDeathNotifications s_instance;
 
-	private List<UIDeathNotifications.DeathDisplayInfo> m_currentAllyDeathDisplays = new List<UIDeathNotifications.DeathDisplayInfo>();
+	private List<DeathDisplayInfo> m_currentAllyDeathDisplays = new List<DeathDisplayInfo>();
 
-	private List<UIDeathNotifications.DeathDisplayInfo> m_currentEnemyDeathDisplays = new List<UIDeathNotifications.DeathDisplayInfo>();
+	private List<DeathDisplayInfo> m_currentEnemyDeathDisplays = new List<DeathDisplayInfo>();
 
 	private int LastTurnDisplayed = -1;
 
@@ -46,138 +52,89 @@ public class UIDeathNotifications : MonoBehaviour
 
 	public static UIDeathNotifications Get()
 	{
-		return UIDeathNotifications.s_instance;
+		return s_instance;
 	}
 
 	public void Awake()
 	{
-		UIDeathNotifications.s_instance = this;
+		s_instance = this;
 	}
 
 	private int GetNumAlliesTakedowns()
 	{
-		return this.m_currentAllyDeathDisplays.Count;
+		return m_currentAllyDeathDisplays.Count;
 	}
 
 	private int GetNumEnemyTakedowns()
 	{
-		return this.m_currentEnemyDeathDisplays.Count;
+		return m_currentEnemyDeathDisplays.Count;
 	}
 
 	public void NotifyDeathOccurred(ActorData actorData, bool isAlly)
 	{
-		if (GameFlowData.Get().CurrentTurn != this.LastTurnDisplayed)
+		if (GameFlowData.Get().CurrentTurn != LastTurnDisplayed)
 		{
-			this.LastTurnDisplayed = GameFlowData.Get().CurrentTurn;
-			this.m_currentAllyDeathDisplays.Clear();
-			this.m_currentEnemyDeathDisplays.Clear();
-			this.m_allyAceOccurred = false;
-			this.m_enemyAceOccurred = false;
+			LastTurnDisplayed = GameFlowData.Get().CurrentTurn;
+			m_currentAllyDeathDisplays.Clear();
+			m_currentEnemyDeathDisplays.Clear();
+			m_allyAceOccurred = false;
+			m_enemyAceOccurred = false;
 		}
 		if (isAlly)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDeathNotifications.NotifyDeathOccurred(ActorData, bool)).MethodHandle;
-			}
-			using (List<UIDeathNotifications.DeathDisplayInfo>.Enumerator enumerator = this.m_currentAllyDeathDisplays.GetEnumerator())
+			using (List<DeathDisplayInfo>.Enumerator enumerator = m_currentAllyDeathDisplays.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					UIDeathNotifications.DeathDisplayInfo deathDisplayInfo = enumerator.Current;
-					if (deathDisplayInfo.m_actorData == actorData)
+					DeathDisplayInfo current = enumerator.Current;
+					if (current.m_actorData == actorData)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
+							default:
+								return;
 							case 0:
-								continue;
+								break;
 							}
-							break;
 						}
-						return;
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		else
 		{
-			using (List<UIDeathNotifications.DeathDisplayInfo>.Enumerator enumerator2 = this.m_currentEnemyDeathDisplays.GetEnumerator())
+			using (List<DeathDisplayInfo>.Enumerator enumerator2 = m_currentEnemyDeathDisplays.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
 				{
-					UIDeathNotifications.DeathDisplayInfo deathDisplayInfo2 = enumerator2.Current;
-					if (deathDisplayInfo2.m_actorData == actorData)
+					DeathDisplayInfo current2 = enumerator2.Current;
+					if (current2.m_actorData == actorData)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
+							default:
+								return;
 							case 0:
-								continue;
+								break;
 							}
-							break;
 						}
-						return;
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
-		int num;
-		int num2;
+		int num = -1;
+		int num2 = -1;
 		if (GameManager.Get().GameInfo.GameConfig.GameType == GameType.Tutorial)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = 4;
 			num2 = 4;
 		}
 		else if (GameFlowData.Get().LocalPlayerData.GetTeamViewing() == Team.TeamA)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = GameManager.Get().GameInfo.GameConfig.TeamAPlayers;
 			num2 = GameManager.Get().GameInfo.GameConfig.TeamBPlayers;
 		}
@@ -186,215 +143,116 @@ public class UIDeathNotifications : MonoBehaviour
 			num = GameManager.Get().GameInfo.GameConfig.TeamBPlayers;
 			num2 = GameManager.Get().GameInfo.GameConfig.TeamAPlayers;
 		}
-		int numAlliesTakedowns = this.GetNumAlliesTakedowns();
-		int numEnemyTakedowns = this.GetNumEnemyTakedowns();
+		int numAlliesTakedowns = GetNumAlliesTakedowns();
+		int numEnemyTakedowns = GetNumEnemyTakedowns();
 		if (numAlliesTakedowns == 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numEnemyTakedowns == 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_mainAnimator.Play("TakedownMainSingleIN");
-				goto IL_268;
+				m_mainAnimator.Play("TakedownMainSingleIN");
+				goto IL_0268;
 			}
 		}
 		if (numAlliesTakedowns == 0 && isAlly)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numEnemyTakedowns > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_mainAnimator.Play("TakedownMainDoubleIN");
-				goto IL_268;
+				m_mainAnimator.Play("TakedownMainDoubleIN");
+				goto IL_0268;
 			}
 		}
 		if (numEnemyTakedowns == 0 && !isAlly && numAlliesTakedowns > 0)
 		{
-			this.m_mainAnimator.Play("TakedownMainDoubleIN");
+			m_mainAnimator.Play("TakedownMainDoubleIN");
 		}
-		IL_268:
-		UIDeathNotifications.DeathDisplayInfo item;
+		goto IL_0268;
+		IL_0268:
+		DeathDisplayInfo item = default(DeathDisplayInfo);
 		item.IsAlly = isAlly;
 		item.m_actorData = actorData;
 		if (isAlly)
 		{
-			for (;;)
+			m_currentAllyDeathDisplays.Add(item);
+			numAlliesTakedowns = GetNumAlliesTakedowns();
+			for (int i = 0; i < m_allyCharacterList.Length; i++)
 			{
-				switch (7)
+				if (i < m_currentAllyDeathDisplays.Count)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_currentAllyDeathDisplays.Add(item);
-			numAlliesTakedowns = this.GetNumAlliesTakedowns();
-			for (int i = 0; i < this.m_allyCharacterList.Length; i++)
-			{
-				if (i < this.m_currentAllyDeathDisplays.Count)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIManager.SetGameObjectActive(this.m_allyCharacterList[i], true, null);
-					this.m_allyCharacterSprites[i].sprite = GameWideData.Get().GetCharacterResourceLink(this.m_currentAllyDeathDisplays[i].m_actorData.m_characterType).GetCharacterSelectIcon();
+					UIManager.SetGameObjectActive(m_allyCharacterList[i], true);
+					Image obj = m_allyCharacterSprites[i];
+					GameWideData gameWideData = GameWideData.Get();
+					DeathDisplayInfo deathDisplayInfo = m_currentAllyDeathDisplays[i];
+					obj.sprite = gameWideData.GetCharacterResourceLink(deathDisplayInfo.m_actorData.m_characterType).GetCharacterSelectIcon();
 				}
 				else
 				{
-					UIManager.SetGameObjectActive(this.m_allyCharacterList[i], false, null);
+					UIManager.SetGameObjectActive(m_allyCharacterList[i], false);
 				}
 			}
-			UIManager.SetGameObjectActive(this.m_allyTakenDown, true, null);
-			this.m_allyTakenDown.Play("TakedownDefaultIN", 0, 0f);
+			UIManager.SetGameObjectActive(m_allyTakenDown, true);
+			m_allyTakenDown.Play("TakedownDefaultIN", 0, 0f);
 		}
 		else
 		{
-			this.m_currentEnemyDeathDisplays.Add(item);
-			numEnemyTakedowns = this.GetNumEnemyTakedowns();
-			for (int j = 0; j < this.m_enemyCharacterList.Length; j++)
+			m_currentEnemyDeathDisplays.Add(item);
+			numEnemyTakedowns = GetNumEnemyTakedowns();
+			for (int j = 0; j < m_enemyCharacterList.Length; j++)
 			{
-				if (j < this.m_currentEnemyDeathDisplays.Count)
+				if (j < m_currentEnemyDeathDisplays.Count)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIManager.SetGameObjectActive(this.m_enemyCharacterList[j], true, null);
-					this.m_enemyCharacterSprites[j].sprite = GameWideData.Get().GetCharacterResourceLink(this.m_currentEnemyDeathDisplays[j].m_actorData.m_characterType).GetCharacterSelectIcon();
+					UIManager.SetGameObjectActive(m_enemyCharacterList[j], true);
+					Image obj2 = m_enemyCharacterSprites[j];
+					GameWideData gameWideData2 = GameWideData.Get();
+					DeathDisplayInfo deathDisplayInfo2 = m_currentEnemyDeathDisplays[j];
+					obj2.sprite = gameWideData2.GetCharacterResourceLink(deathDisplayInfo2.m_actorData.m_characterType).GetCharacterSelectIcon();
 				}
 				else
 				{
-					UIManager.SetGameObjectActive(this.m_enemyCharacterList[j], false, null);
+					UIManager.SetGameObjectActive(m_enemyCharacterList[j], false);
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_enemyTakenDown, true, null);
-			this.m_enemyTakenDown.Play("TakedownDefaultIN", 0, 0f);
+			UIManager.SetGameObjectActive(m_enemyTakenDown, true);
+			m_enemyTakenDown.Play("TakedownDefaultIN", 0, 0f);
 		}
 		if (AudioManager.s_deathAudio)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (isAlly)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				AudioManager.PostEvent("ui/ingame/takedown/ally", null);
+				AudioManager.PostEvent("ui/ingame/takedown/ally");
 			}
 			else
 			{
-				AudioManager.PostEvent("ui/ingame/takedown/enemy", null);
+				AudioManager.PostEvent("ui/ingame/takedown/enemy");
 			}
 		}
 		int numKills = numAlliesTakedowns;
-		CharacterType singleKillType;
-		if (this.m_currentAllyDeathDisplays.Count > 0)
+		int singleKillType;
+		if (m_currentAllyDeathDisplays.Count > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			singleKillType = this.m_currentAllyDeathDisplays[0].m_actorData.m_characterType;
+			DeathDisplayInfo deathDisplayInfo3 = m_currentAllyDeathDisplays[0];
+			singleKillType = (int)deathDisplayInfo3.m_actorData.m_characterType;
 		}
 		else
 		{
-			singleKillType = CharacterType.None;
+			singleKillType = 0;
 		}
-		string descriptionForNumKills = this.GetDescriptionForNumKills(numKills, singleKillType);
+		string descriptionForNumKills = GetDescriptionForNumKills(numKills, (CharacterType)singleKillType);
 		int numKills2 = numEnemyTakedowns;
-		CharacterType singleKillType2;
-		if (this.m_currentEnemyDeathDisplays.Count > 0)
+		int singleKillType2;
+		if (m_currentEnemyDeathDisplays.Count > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			singleKillType2 = this.m_currentEnemyDeathDisplays[0].m_actorData.m_characterType;
+			DeathDisplayInfo deathDisplayInfo4 = m_currentEnemyDeathDisplays[0];
+			singleKillType2 = (int)deathDisplayInfo4.m_actorData.m_characterType;
 		}
 		else
 		{
-			singleKillType2 = CharacterType.None;
+			singleKillType2 = 0;
 		}
-		string descriptionForNumKills2 = this.GetDescriptionForNumKills(numKills2, singleKillType2);
-		this.m_allyTakeDownMainLabel.text = descriptionForNumKills;
-		this.m_enemyTakeDownMainLabel.text = descriptionForNumKills2;
-		this.m_allyAceOccurred = (num == numAlliesTakedowns);
-		this.m_enemyAceOccurred = (num2 == numEnemyTakedowns);
+		string descriptionForNumKills2 = GetDescriptionForNumKills(numKills2, (CharacterType)singleKillType2);
+		m_allyTakeDownMainLabel.text = descriptionForNumKills;
+		m_enemyTakeDownMainLabel.text = descriptionForNumKills2;
+		m_allyAceOccurred = (num == numAlliesTakedowns);
+		m_enemyAceOccurred = (num2 == numEnemyTakedowns);
 	}
 
 	private string GetDescriptionForNumKills(int numKills, CharacterType singleKillType)
@@ -402,35 +260,14 @@ public class UIDeathNotifications : MonoBehaviour
 		string result = StringUtil.TR("TAKEDOWN", "Global");
 		if (numKills == 1)
 		{
-			for (;;)
+			if (singleKillType != 0)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDeathNotifications.GetDescriptionForNumKills(int, CharacterType)).MethodHandle;
-			}
-			if (singleKillType != CharacterType.None)
-			{
-				return singleKillType.GetDisplayName();
+				result = singleKillType.GetDisplayName();
+				goto IL_00b4;
 			}
 		}
 		if (numKills == 2)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = StringUtil.TR("DOUBLEKILL", "Global");
 		}
 		else if (numKills == 3)
@@ -439,271 +276,108 @@ public class UIDeathNotifications : MonoBehaviour
 		}
 		else if (numKills == 4)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = StringUtil.TR("QUADRAKILL", "Global");
 		}
 		else if (numKills == 5)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = StringUtil.TR("PENTAKILL", "Global");
 		}
+		goto IL_00b4;
+		IL_00b4:
 		return result;
 	}
 
 	private void Update()
 	{
-		if (this.m_allyAceOccurred)
+		if (m_allyAceOccurred)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDeathNotifications.Update()).MethodHandle;
-			}
 			bool flag = false;
-			if (!this.m_allyTeamAce.gameObject.activeSelf)
+			if (!m_allyTeamAce.gameObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_allyTakenDown.gameObject.activeInHierarchy && this.m_allyTakenDown.GetCurrentAnimatorClipInfo(0)[0].clip.name == "TakedownDefaultIDLE")
+				if (m_allyTakenDown.gameObject.activeInHierarchy && m_allyTakenDown.GetCurrentAnimatorClipInfo(0)[0].clip.name == "TakedownDefaultIDLE")
 				{
 					flag = true;
 				}
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_allyAceOccurred = false;
-				this.m_allyTakenDown.Play("TakedownDefaultOUT", 0, 0f);
-				UIManager.SetGameObjectActive(this.m_allyTeamAce, true, null);
+				m_allyAceOccurred = false;
+				m_allyTakenDown.Play("TakedownDefaultOUT", 0, 0f);
+				UIManager.SetGameObjectActive(m_allyTeamAce, true);
 			}
 		}
-		if (this.m_enemyAceOccurred)
+		if (m_enemyAceOccurred)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag2 = false;
-			if (!this.m_enemyTeamAce.gameObject.activeSelf)
+			if (!m_enemyTeamAce.gameObject.activeSelf)
 			{
-				for (;;)
+				if (m_enemyTakenDown.gameObject.activeInHierarchy)
 				{
-					switch (6)
+					if (m_enemyTakenDown.GetCurrentAnimatorClipInfo(0)[0].clip.name == "TakedownDefaultIDLE")
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_enemyTakenDown.gameObject.activeInHierarchy)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_enemyTakenDown.GetCurrentAnimatorClipInfo(0)[0].clip.name == "TakedownDefaultIDLE")
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = true;
 					}
 				}
 			}
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_enemyAceOccurred = false;
-				this.m_enemyTakenDown.Play("TakedownDefaultOUT", 0, 0f);
-				UIManager.SetGameObjectActive(this.m_enemyTeamAce, true, null);
+				m_enemyAceOccurred = false;
+				m_enemyTakenDown.Play("TakedownDefaultOUT", 0, 0f);
+				UIManager.SetGameObjectActive(m_enemyTeamAce, true);
 			}
 		}
-		if (GameFlowData.Get() != null)
+		if (!(GameFlowData.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (GameFlowData.Get().gameState != GameState.BothTeams_Decision)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
+			while (true)
 			{
-				for (;;)
+				if (GetNumEnemyTakedowns() <= 0)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.GetNumEnemyTakedowns() <= 0)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.GetNumAlliesTakedowns() <= 0)
+					if (GetNumAlliesTakedowns() <= 0)
 					{
 						return;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-				if (!this.m_enemyTeamAce.gameObject.activeSelf)
+				if (!m_enemyTeamAce.gameObject.activeSelf)
 				{
-					for (;;)
+					if (!m_allyTeamAce.gameObject.activeSelf)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_allyTeamAce.gameObject.activeSelf)
-					{
-						UIManager.SetGameObjectActive(this.m_allyTakenDown, false, null);
-						UIManager.SetGameObjectActive(this.m_enemyTakenDown, false, null);
+						UIManager.SetGameObjectActive(m_allyTakenDown, false);
+						UIManager.SetGameObjectActive(m_enemyTakenDown, false);
 						return;
 					}
 				}
-				if (this.m_enemyTeamAce.gameObject.activeSelf)
+				if (m_enemyTeamAce.gameObject.activeSelf)
 				{
-					for (;;)
+					if (m_enemyTeamAce.GetCurrentAnimatorClipInfo(0)[0].clip.name == "TakedownDefaultIDLE")
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_enemyTeamAce.GetCurrentAnimatorClipInfo(0)[0].clip.name == "TakedownDefaultIDLE")
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_enemyTeamAce.Play("TakedownDefaultOUT");
+						m_enemyTeamAce.Play("TakedownDefaultOUT");
 					}
 				}
-				if (this.m_allyTeamAce.gameObject.activeSelf)
+				if (!m_allyTeamAce.gameObject.activeSelf)
 				{
-					for (;;)
+					return;
+				}
+				while (true)
+				{
+					if (m_allyTeamAce.GetCurrentAnimatorClipInfo(0)[0].clip.name == "TakedownDefaultIDLE")
 					{
-						switch (7)
+						while (true)
 						{
-						case 0:
-							continue;
+							m_allyTeamAce.Play("TakedownDefaultOUT");
+							return;
 						}
-						break;
 					}
-					if (this.m_allyTeamAce.GetCurrentAnimatorClipInfo(0)[0].clip.name == "TakedownDefaultIDLE")
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_allyTeamAce.Play("TakedownDefaultOUT");
-					}
+					return;
 				}
 			}
 		}
-	}
-
-	public struct DeathDisplayInfo
-	{
-		public ActorData m_actorData;
-
-		public bool IsAlly;
 	}
 }

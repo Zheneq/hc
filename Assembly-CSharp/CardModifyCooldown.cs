@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ public class CardModifyCooldown : Ability
 
 	public int m_minCooldownAmount;
 
-	public int m_maxCooldownAmount = 0x64;
+	public int m_maxCooldownAmount = 100;
 
 	[Header("-- Affected Abilities")]
 	public bool m_reduceAbility0 = true;
@@ -36,14 +35,14 @@ public class CardModifyCooldown : Ability
 
 	private void Start()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, this.m_shape, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, !this.m_friendly, this.m_friendly, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, m_shape, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, !m_friendly, m_friendly);
 		base.Targeter.ShowArcToShape = false;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "CooldownModificationAmount", string.Empty, Mathf.Abs(this.m_cooldownModificationAmount), false);
-		base.AddTokenInt(tokens, "MinCooldownAmount", string.Empty, this.m_minCooldownAmount, false);
-		base.AddTokenInt(tokens, "MaxCooldownAmount", string.Empty, this.m_maxCooldownAmount, false);
+		AddTokenInt(tokens, "CooldownModificationAmount", string.Empty, Mathf.Abs(m_cooldownModificationAmount));
+		AddTokenInt(tokens, "MinCooldownAmount", string.Empty, m_minCooldownAmount);
+		AddTokenInt(tokens, "MaxCooldownAmount", string.Empty, m_maxCooldownAmount);
 	}
 }

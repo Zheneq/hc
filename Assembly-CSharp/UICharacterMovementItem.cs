@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,72 +17,43 @@ public class UICharacterMovementItem : MonoBehaviour
 
 	private List<ActorData> actorDataRef = new List<ActorData>();
 
-	public List<ActorData> Actors
-	{
-		get
-		{
-			return this.actorDataRef;
-		}
-	}
+	public List<ActorData> Actors => actorDataRef;
 
-	public BoardSquare BoardPosition
-	{
-		get
-		{
-			return this.boardSquareRef;
-		}
-	}
+	public BoardSquare BoardPosition => boardSquareRef;
 
 	public void Setup(BoardSquare square, ActorData data)
 	{
-		this.boardSquareRef = square;
-		this.AddActor(data);
+		boardSquareRef = square;
+		AddActor(data);
 	}
 
 	public void AddActor(ActorData data)
 	{
-		if (this.actorDataRef.Contains(data))
+		if (actorDataRef.Contains(data))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterMovementItem.AddActor(ActorData)).MethodHandle;
-			}
-			return;
 		}
-		this.actorDataRef.Add(data);
-		this.UpdateIndicators();
+		actorDataRef.Add(data);
+		UpdateIndicators();
 	}
 
 	public bool RemoveActor(ActorData data)
 	{
-		if (this.actorDataRef.Contains(data))
+		if (actorDataRef.Contains(data))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterMovementItem.RemoveActor(ActorData)).MethodHandle;
-			}
-			this.actorDataRef.Remove(data);
-			this.UpdateIndicators();
+			actorDataRef.Remove(data);
+			UpdateIndicators();
 		}
-		return this.actorDataRef.Count == 0;
+		return actorDataRef.Count == 0;
 	}
 
 	private void UpdateIndicators()
@@ -92,209 +62,93 @@ public class UICharacterMovementItem : MonoBehaviour
 		int num2 = 0;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
+			for (int i = 0; i < actorDataRef.Count; i++)
 			{
-				switch (3)
+				if (actorDataRef[i] == null)
 				{
-				case 0:
 					continue;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterMovementItem.UpdateIndicators()).MethodHandle;
-			}
-			for (int i = 0; i < this.actorDataRef.Count; i++)
-			{
-				if (!(this.actorDataRef[i] == null))
+				int num3;
+				if (ClientGameManager.Get() != null && ClientGameManager.Get().PlayerInfo != null)
 				{
-					if (!(ClientGameManager.Get() != null) || ClientGameManager.Get().PlayerInfo == null)
+					if (ClientGameManager.Get().PlayerInfo.TeamId == Team.Spectator)
 					{
-						goto IL_98;
+						num3 = 1;
+						goto IL_00db;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					bool flag;
-					if (ClientGameManager.Get().PlayerInfo.TeamId != Team.Spectator)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_98;
-						}
-					}
-					else
-					{
-						flag = true;
-					}
-					IL_DB:
-					bool flag2 = flag;
-					bool flag3;
-					if (flag2)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag3 = (this.actorDataRef[i].\u000E() == Team.TeamA);
-					}
-					else if (GameFlowData.Get().activeOwnedActorData != null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag3 = (this.actorDataRef[i].\u000E() == GameFlowData.Get().activeOwnedActorData.\u000E());
-					}
-					else
-					{
-						flag3 = false;
-					}
-					bool flag4 = flag3;
-					if (flag4)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UICharacterMovementMarker uicharacterMovementMarker = this.m_blueMarkers[num];
-						if (uicharacterMovementMarker != null)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (uicharacterMovementMarker.gameObject != null)
-							{
-								UIManager.SetGameObjectActive(uicharacterMovementMarker, true, null);
-								uicharacterMovementMarker.m_characterImage.sprite = this.actorDataRef[i].\u0015();
-								num++;
-							}
-						}
-						goto IL_220;
-					}
-					UICharacterMovementMarker uicharacterMovementMarker2 = this.m_redMarkers[num2];
-					if (uicharacterMovementMarker2 != null && uicharacterMovementMarker2.gameObject != null)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIManager.SetGameObjectActive(uicharacterMovementMarker2, true, null);
-						uicharacterMovementMarker2.m_characterImage.sprite = this.actorDataRef[i].\u0015();
-						num2++;
-						goto IL_220;
-					}
-					goto IL_220;
-					IL_98:
-					if (GameManager.Get() != null && GameManager.Get().PlayerInfo != null)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag = (GameManager.Get().PlayerInfo.TeamId == Team.Spectator);
-					}
-					else
-					{
-						flag = false;
-					}
-					goto IL_DB;
 				}
-				IL_220:;
-			}
-			for (;;)
-			{
-				switch (5)
+				if (GameManager.Get() != null && GameManager.Get().PlayerInfo != null)
 				{
-				case 0:
+					num3 = ((GameManager.Get().PlayerInfo.TeamId == Team.Spectator) ? 1 : 0);
+				}
+				else
+				{
+					num3 = 0;
+				}
+				goto IL_00db;
+				IL_00db:
+				int num4;
+				if (num3 != 0)
+				{
+					num4 = ((actorDataRef[i].GetTeam() == Team.TeamA) ? 1 : 0);
+				}
+				else if (GameFlowData.Get().activeOwnedActorData != null)
+				{
+					num4 = ((actorDataRef[i].GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam()) ? 1 : 0);
+				}
+				else
+				{
+					num4 = 0;
+				}
+				if (num4 != 0)
+				{
+					UICharacterMovementMarker uICharacterMovementMarker = m_blueMarkers[num];
+					if (uICharacterMovementMarker != null)
+					{
+						if (uICharacterMovementMarker.gameObject != null)
+						{
+							UIManager.SetGameObjectActive(uICharacterMovementMarker, true);
+							uICharacterMovementMarker.m_characterImage.sprite = actorDataRef[i].GetScreenIndicatorIcon();
+							num++;
+						}
+					}
 					continue;
 				}
-				break;
-			}
-		}
-		for (int j = num; j < this.m_blueMarkers.Length; j++)
-		{
-			if (this.m_blueMarkers[j] != null)
-			{
-				UIManager.SetGameObjectActive(this.m_blueMarkers[j], false, null);
-			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		for (int k = num2; k < this.m_redMarkers.Length; k++)
-		{
-			if (this.m_redMarkers[k] != null)
-			{
-				for (;;)
+				UICharacterMovementMarker uICharacterMovementMarker2 = m_redMarkers[num2];
+				if (uICharacterMovementMarker2 != null && uICharacterMovementMarker2.gameObject != null)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
+					UIManager.SetGameObjectActive(uICharacterMovementMarker2, true);
+					uICharacterMovementMarker2.m_characterImage.sprite = actorDataRef[i].GetScreenIndicatorIcon();
+					num2++;
+				}
+			}
+		}
+		for (int j = num; j < m_blueMarkers.Length; j++)
+		{
+			if (m_blueMarkers[j] != null)
+			{
+				UIManager.SetGameObjectActive(m_blueMarkers[j], false);
+			}
+		}
+		while (true)
+		{
+			for (int k = num2; k < m_redMarkers.Length; k++)
+			{
+				if (m_redMarkers[k] != null)
+				{
+					UIManager.SetGameObjectActive(m_redMarkers[k], false);
+				}
+			}
+			while (true)
+			{
+				switch (4)
+				{
+				default:
+					return;
+				case 0:
 					break;
 				}
-				UIManager.SetGameObjectActive(this.m_redMarkers[k], false, null);
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -302,81 +156,51 @@ public class UICharacterMovementItem : MonoBehaviour
 	{
 		if (Camera.main == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
+		}
+		if (myCanvas == null)
+		{
+			myCanvas = HUD_UI.Get().GetTopLevelCanvas();
+		}
+		if (myCanvas != null)
+		{
+			if (CanvasRect == null)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterMovementItem.LateUpdate()).MethodHandle;
+				CanvasRect = (myCanvas.transform as RectTransform);
 			}
+		}
+		if (!(CanvasRect != null))
+		{
 			return;
 		}
-		if (this.myCanvas == null)
+		while (true)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.myCanvas = HUD_UI.Get().GetTopLevelCanvas();
-		}
-		if (this.myCanvas != null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.CanvasRect == null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.CanvasRect = (this.myCanvas.transform as RectTransform);
-			}
-		}
-		if (this.CanvasRect != null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Vector3 vector = this.boardSquareRef.gameObject.transform.position + Vector3.up * this.m_heightOffset;
+			Vector3 vector = boardSquareRef.gameObject.transform.position + Vector3.up * m_heightOffset;
 			Vector3 b = Camera.main.WorldToScreenPoint(vector);
 			Vector3 a = Camera.main.WorldToScreenPoint(vector + Camera.main.transform.up);
 			Vector3 vector2 = a - b;
 			vector2.z = 0f;
 			float d = 1f / vector2.magnitude;
-			Vector3 b2 = Camera.main.transform.up * d;
-			vector += b2;
-			Vector2 vector3 = Camera.main.WorldToViewportPoint(vector);
-			Vector2 anchoredPosition = new Vector2(vector3.x * this.CanvasRect.sizeDelta.x, vector3.y * this.CanvasRect.sizeDelta.y);
+			Vector3 vector3 = Camera.main.transform.up * d;
+			vector += vector3;
+			Vector2 vector4 = Camera.main.WorldToViewportPoint(vector);
+			float x = vector4.x;
+			Vector2 sizeDelta = CanvasRect.sizeDelta;
+			float x2 = x * sizeDelta.x;
+			float y = vector4.y;
+			Vector2 sizeDelta2 = CanvasRect.sizeDelta;
+			Vector2 anchoredPosition = new Vector2(x2, y * sizeDelta2.y);
 			(base.gameObject.transform as RectTransform).anchoredPosition = anchoredPosition;
+			return;
 		}
 	}
 }

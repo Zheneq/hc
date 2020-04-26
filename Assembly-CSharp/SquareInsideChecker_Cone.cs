@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class SquareInsideChecker_Cone : ISquareInsideChecker
@@ -25,106 +24,66 @@ public class SquareInsideChecker_Cone : ISquareInsideChecker
 
 	public virtual void UpdateConeProperties(Vector3 startPos, float widthAngle, float radiusInSquares, float backwardsOffset, float centerAngle, ActorData caster)
 	{
-		this.m_coneStart = startPos;
-		this.m_coneWidthAngle = widthAngle;
-		this.m_coneRadius = radiusInSquares;
-		this.m_coneBackwardsOffset = backwardsOffset;
-		this.m_coneCenterAngle = centerAngle;
-		this.m_caster = caster;
+		m_coneStart = startPos;
+		m_coneWidthAngle = widthAngle;
+		m_coneRadius = radiusInSquares;
+		m_coneBackwardsOffset = backwardsOffset;
+		m_coneCenterAngle = centerAngle;
+		m_caster = caster;
 	}
 
 	public void SetLosPosOverride(bool useOverride, Vector3 overridePos, bool useConeLosCheckRules)
 	{
-		this.m_useLosPosOverride = useOverride;
-		this.m_losPosOverride = overridePos;
-		this.m_useConeLosRulesForOverride = useConeLosCheckRules;
+		m_useLosPosOverride = useOverride;
+		m_losPosOverride = overridePos;
+		m_useConeLosRulesForOverride = useConeLosCheckRules;
 	}
 
-	public unsafe virtual bool IsSquareInside(BoardSquare square, out bool inLos)
+	public virtual bool IsSquareInside(BoardSquare square, out bool inLos)
 	{
 		inLos = false;
-		Vector3 coneStart = this.m_coneStart;
-		float coneCenterAngle = this.m_coneCenterAngle;
-		float coneWidthAngle = this.m_coneWidthAngle;
-		float coneRadius = this.m_coneRadius;
-		float coneBackwardsOffset = this.m_coneBackwardsOffset;
-		bool ignoreLoS;
-		if (!this.m_useLosPosOverride)
+		Vector3 coneStart = m_coneStart;
+		float coneCenterAngle = m_coneCenterAngle;
+		float coneWidthAngle = m_coneWidthAngle;
+		float coneRadius = m_coneRadius;
+		float coneBackwardsOffset = m_coneBackwardsOffset;
+		int ignoreLoS;
+		if (!m_useLosPosOverride)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SquareInsideChecker_Cone.IsSquareInside(BoardSquare, bool*)).MethodHandle;
-			}
-			ignoreLoS = this.m_penetrateLos;
+			ignoreLoS = (m_penetrateLos ? 1 : 0);
 		}
 		else
 		{
-			ignoreLoS = true;
+			ignoreLoS = 1;
 		}
-		bool flag = AreaEffectUtils.IsSquareInConeByActorRadius(square, coneStart, coneCenterAngle, coneWidthAngle, coneRadius, coneBackwardsOffset, ignoreLoS, this.m_caster, false, default(Vector3));
+		bool flag = AreaEffectUtils.IsSquareInConeByActorRadius(square, coneStart, coneCenterAngle, coneWidthAngle, coneRadius, coneBackwardsOffset, (byte)ignoreLoS != 0, m_caster);
 		if (flag)
 		{
-			if (this.m_penetrateLos)
+			if (m_penetrateLos)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inLos = true;
 			}
 			else
 			{
-				Vector3 a = VectorUtils.AngleDegreesToVector(this.m_coneCenterAngle);
-				float d = this.m_coneBackwardsOffset * Board.\u000E().squareSize;
-				Vector3 u001D = this.m_coneStart - a * d;
-				BoardSquare boardSquare = Board.\u000E().\u000E(u001D);
-				Vector3 vector = this.m_coneStart;
-				if (this.m_useLosPosOverride)
+				Vector3 a = VectorUtils.AngleDegreesToVector(m_coneCenterAngle);
+				float d = m_coneBackwardsOffset * Board.Get().squareSize;
+				Vector3 vector2D = m_coneStart - a * d;
+				BoardSquare boardSquare = Board.Get().GetBoardSquare(vector2D);
+				Vector3 vector = m_coneStart;
+				if (m_useLosPosOverride)
 				{
-					vector = this.m_losPosOverride;
-					boardSquare = Board.\u000E().\u000E(vector);
+					vector = m_losPosOverride;
+					boardSquare = Board.Get().GetBoardSquare(vector);
 				}
 				if (boardSquare != null)
 				{
-					for (;;)
+					if (m_useConeLosRulesForOverride)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_useConeLosRulesForOverride)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						inLos = AreaEffectUtils.SquareHasLosForCone(vector, boardSquare, square, this.m_caster);
+						inLos = AreaEffectUtils.SquareHasLosForCone(vector, boardSquare, square, m_caster);
 					}
 					else
 					{
-						inLos = AreaEffectUtils.SquaresHaveLoSForAbilities(boardSquare, square, this.m_caster, true, null);
+						inLos = AreaEffectUtils.SquaresHaveLoSForAbilities(boardSquare, square, m_caster);
 					}
 				}
 			}

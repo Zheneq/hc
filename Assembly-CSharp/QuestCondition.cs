@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -28,23 +28,14 @@ public class QuestCondition
 		QuestCondition questCondition = obj as QuestCondition;
 		if (questCondition != null)
 		{
-			for (;;)
+			if (ConditionType == questCondition.ConditionType)
 			{
-				switch (1)
+				int result;
+				switch (ConditionType)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestCondition.Equals(object)).MethodHandle;
-			}
-			if (this.ConditionType == questCondition.ConditionType)
-			{
-				switch (this.ConditionType)
-				{
+				case QuestConditionType.UsingCommonGameTypes:
+				case QuestConditionType.UsingQueuedGameTypes:
+					return true;
 				case QuestConditionType.HasCompletedQuest:
 				case QuestConditionType.HasUnlockedCharacter:
 				case QuestConditionType.UsingCharacter:
@@ -86,7 +77,7 @@ public class QuestCondition
 				case QuestConditionType.BadgeEarned:
 				case QuestConditionType.HasUnlockedOvercon:
 				case QuestConditionType.HasUnlockedChatEmoji:
-					return this.typeSpecificData == questCondition.typeSpecificData;
+					return typeSpecificData == questCondition.typeSpecificData;
 				case QuestConditionType.HasCharacterLevel:
 				case QuestConditionType.HasSeasonAndChapterAccess:
 				case QuestConditionType.HasSeasonLevel:
@@ -98,104 +89,72 @@ public class QuestCondition
 				case QuestConditionType.UsingFactionRibbon:
 				case QuestConditionType.UsedOvercon:
 				case QuestConditionType.HasUnlockedTaunt:
-					return this.typeSpecificData == questCondition.typeSpecificData && this.typeSpecificData2 == questCondition.typeSpecificData2;
-				case QuestConditionType.HasDateTimePassed:
-					if (this.typeSpecificDate.Count != questCondition.typeSpecificDate.Count)
+					return typeSpecificData == questCondition.typeSpecificData && typeSpecificData2 == questCondition.typeSpecificData2;
+				case QuestConditionType.FactionTierReached:
+				{
+					int result2;
+					if (typeSpecificData == questCondition.typeSpecificData && typeSpecificData2 == questCondition.typeSpecificData2)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						return false;
+						result2 = ((typeSpecificData3 == questCondition.typeSpecificData3) ? 1 : 0);
 					}
-					for (int i = 0; i < this.typeSpecificDate.Count; i++)
+					else
 					{
-						if (this.typeSpecificDate[i] != questCondition.typeSpecificDate[i])
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							return false;
-						}
+						result2 = 0;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return true;
+					return (byte)result2 != 0;
+				}
 				case QuestConditionType.HasTitleCountInMatch:
 				case QuestConditionType.UsingVisualInfo:
 				case QuestConditionType.HasBannerCountInMatch:
 				case QuestConditionType.HasUnlockedStyle:
-					if (this.typeSpecificData == questCondition.typeSpecificData && this.typeSpecificData2 == questCondition.typeSpecificData2)
+					if (typeSpecificData == questCondition.typeSpecificData && typeSpecificData2 == questCondition.typeSpecificData2)
 					{
-						for (;;)
+						if (typeSpecificData3 == questCondition.typeSpecificData3)
+						{
+							result = ((typeSpecificData4 == questCondition.typeSpecificData4) ? 1 : 0);
+							goto IL_021d;
+						}
+					}
+					result = 0;
+					goto IL_021d;
+				case QuestConditionType.HasDateTimePassed:
+				{
+					if (typeSpecificDate.Count != questCondition.typeSpecificDate.Count)
+					{
+						while (true)
 						{
 							switch (1)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return false;
 							}
-							break;
-						}
-						if (this.typeSpecificData3 == questCondition.typeSpecificData3)
-						{
-							return this.typeSpecificData4 == questCondition.typeSpecificData4;
 						}
 					}
-					return false;
-				case QuestConditionType.UsingCommonGameTypes:
-				case QuestConditionType.UsingQueuedGameTypes:
-					return true;
-				case QuestConditionType.FactionTierReached:
-				{
-					bool result;
-					if (this.typeSpecificData == questCondition.typeSpecificData && this.typeSpecificData2 == questCondition.typeSpecificData2)
+					for (int i = 0; i < typeSpecificDate.Count; i++)
 					{
-						for (;;)
+						if (typeSpecificDate[i] == questCondition.typeSpecificDate[i])
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							continue;
 						}
-						result = (this.typeSpecificData3 == questCondition.typeSpecificData3);
+						while (true)
+						{
+							return false;
+						}
 					}
-					else
+					while (true)
 					{
-						result = false;
+						return true;
 					}
-					return result;
 				}
+				default:
+					{
+						return false;
+					}
+					IL_021d:
+					return (byte)result != 0;
 				}
-				return false;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

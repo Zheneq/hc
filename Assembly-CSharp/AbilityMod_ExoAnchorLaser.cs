@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,212 +53,125 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ExoAnchorLaser exoAnchorLaser = targetAbility as ExoAnchorLaser;
-		if (exoAnchorLaser != null)
+		if (!(exoAnchorLaser != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoAnchorLaser.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, exoAnchorLaser.m_laserDamageAmount, true, false);
-			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", exoAnchorLaser.m_laserInfo, true);
-			AbilityMod.AddToken_BarrierMod(tokens, this.m_laserBarrierMod, "LaserBarrier", exoAnchorLaser.m_laserBarrier);
-			AbilityMod.AddToken(tokens, this.m_sweepDamageAmountMod, "SweepDamageAmount", string.Empty, exoAnchorLaser.m_sweepDamageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_sweepConeBackwardOffsetMod, "SweepConeBackwardOffset", string.Empty, exoAnchorLaser.m_sweepConeBackwardOffset, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_minConeAngleMod, "MinConeAngle", string.Empty, exoAnchorLaser.m_minConeAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxConeAngleMod, "MaxConeAngle", string.Empty, exoAnchorLaser.m_maxConeAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamagePerTurnAnchoredMod, "ExtraDamagePerTurnAnchored", string.Empty, exoAnchorLaser.m_extraDamagePerTurnAnchored, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxExtraDamageForAnchoredMod, "MaxExtraDamageForAnchored", string.Empty, exoAnchorLaser.m_maxExtraDamageForAnchored, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageAtZeroDistMod, "ExtraDamageAtZeroDist", string.Empty, exoAnchorLaser.m_extraDamageAtZeroDist, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageChangePerDistMod, "ExtraDamageChangePerDist", string.Empty, exoAnchorLaser.m_extraDamageChangePerDist, true, false, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnCasterMod, "EffectOnCaster", exoAnchorLaser.m_effectOnCaster, true);
-			AbilityMod.AddToken(tokens, this.m_cooldownOnEndMod, "CooldownOnEnd", string.Empty, exoAnchorLaser.m_cooldownOnEnd, true, false);
-			AbilityMod.AddToken(tokens, this.m_anchoredTechPointCostMod, "AnchoredTechPointCost", string.Empty, exoAnchorLaser.m_anchoredTechPointCost, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnAnchorEndMod, "EffectOnAnchorEnd", exoAnchorLaser.m_effectOnAnchorEnd, true);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, exoAnchorLaser.m_laserDamageAmount);
+			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", exoAnchorLaser.m_laserInfo);
+			AbilityMod.AddToken_BarrierMod(tokens, m_laserBarrierMod, "LaserBarrier", exoAnchorLaser.m_laserBarrier);
+			AbilityMod.AddToken(tokens, m_sweepDamageAmountMod, "SweepDamageAmount", string.Empty, exoAnchorLaser.m_sweepDamageAmount);
+			AbilityMod.AddToken(tokens, m_sweepConeBackwardOffsetMod, "SweepConeBackwardOffset", string.Empty, exoAnchorLaser.m_sweepConeBackwardOffset);
+			AbilityMod.AddToken(tokens, m_minConeAngleMod, "MinConeAngle", string.Empty, exoAnchorLaser.m_minConeAngle);
+			AbilityMod.AddToken(tokens, m_maxConeAngleMod, "MaxConeAngle", string.Empty, exoAnchorLaser.m_maxConeAngle);
+			AbilityMod.AddToken(tokens, m_extraDamagePerTurnAnchoredMod, "ExtraDamagePerTurnAnchored", string.Empty, exoAnchorLaser.m_extraDamagePerTurnAnchored);
+			AbilityMod.AddToken(tokens, m_maxExtraDamageForAnchoredMod, "MaxExtraDamageForAnchored", string.Empty, exoAnchorLaser.m_maxExtraDamageForAnchored);
+			AbilityMod.AddToken(tokens, m_extraDamageAtZeroDistMod, "ExtraDamageAtZeroDist", string.Empty, exoAnchorLaser.m_extraDamageAtZeroDist);
+			AbilityMod.AddToken(tokens, m_extraDamageChangePerDistMod, "ExtraDamageChangePerDist", string.Empty, exoAnchorLaser.m_extraDamageChangePerDist);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnCasterMod, "EffectOnCaster", exoAnchorLaser.m_effectOnCaster);
+			AbilityMod.AddToken(tokens, m_cooldownOnEndMod, "CooldownOnEnd", string.Empty, exoAnchorLaser.m_cooldownOnEnd);
+			AbilityMod.AddToken(tokens, m_anchoredTechPointCostMod, "AnchoredTechPointCost", string.Empty, exoAnchorLaser.m_anchoredTechPointCost);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectOnAnchorEndMod, "EffectOnAnchorEnd", exoAnchorLaser.m_effectOnAnchorEnd);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ExoAnchorLaser exoAnchorLaser = base.GetTargetAbilityOnAbilityData(abilityData) as ExoAnchorLaser;
+		ExoAnchorLaser exoAnchorLaser = GetTargetAbilityOnAbilityData(abilityData) as ExoAnchorLaser;
 		bool flag = exoAnchorLaser != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_laserDamageAmountMod, "[LaserDamageAmount]", flag, (!flag) ? 0 : exoAnchorLaser.m_laserDamageAmount);
-		text += base.PropDesc(this.m_laserInfoMod, "[LaserInfo]", flag, (!flag) ? null : exoAnchorLaser.m_laserInfo);
-		text += base.PropDescBarrierMod(this.m_laserBarrierMod, "{ LaserBarrier }", exoAnchorLaser.m_laserBarrier);
-		text += base.PropDesc(this.m_sweepDamageAmountMod, "[SweepDamageAmount]", flag, (!flag) ? 0 : exoAnchorLaser.m_sweepDamageAmount);
-		string str = text;
-		AbilityModPropertyFloat sweepConeBackwardOffsetMod = this.m_sweepConeBackwardOffsetMod;
-		string prefix = "[SweepConeBackwardOffset]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDesc(m_laserDamageAmountMod, "[LaserDamageAmount]", flag, flag ? exoAnchorLaser.m_laserDamageAmount : 0);
+		empty += PropDesc(m_laserInfoMod, "[LaserInfo]", flag, (!flag) ? null : exoAnchorLaser.m_laserInfo);
+		empty += PropDescBarrierMod(m_laserBarrierMod, "{ LaserBarrier }", exoAnchorLaser.m_laserBarrier);
+		empty += PropDesc(m_sweepDamageAmountMod, "[SweepDamageAmount]", flag, flag ? exoAnchorLaser.m_sweepDamageAmount : 0);
+		string str = empty;
+		AbilityModPropertyFloat sweepConeBackwardOffsetMod = m_sweepConeBackwardOffsetMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoAnchorLaser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = exoAnchorLaser.m_sweepConeBackwardOffset;
 		}
 		else
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(sweepConeBackwardOffsetMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat minConeAngleMod = this.m_minConeAngleMod;
-		string prefix2 = "[MinConeAngle]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(sweepConeBackwardOffsetMod, "[SweepConeBackwardOffset]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat minConeAngleMod = m_minConeAngleMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = exoAnchorLaser.m_minConeAngle;
 		}
 		else
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(minConeAngleMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyFloat maxConeAngleMod = this.m_maxConeAngleMod;
-		string prefix3 = "[MaxConeAngle]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(minConeAngleMod, "[MinConeAngle]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyFloat maxConeAngleMod = m_maxConeAngleMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = exoAnchorLaser.m_maxConeAngle;
 		}
 		else
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(maxConeAngleMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyInt extraDamagePerTurnAnchoredMod = this.m_extraDamagePerTurnAnchoredMod;
-		string prefix4 = "[ExtraDamagePerTurnAnchored]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(maxConeAngleMod, "[MaxConeAngle]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyInt extraDamagePerTurnAnchoredMod = m_extraDamagePerTurnAnchoredMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = exoAnchorLaser.m_extraDamagePerTurnAnchored;
 		}
 		else
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(extraDamagePerTurnAnchoredMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_maxExtraDamageForAnchoredMod, "[MaxExtraDamageForAnchored]", flag, (!flag) ? 0 : exoAnchorLaser.m_maxExtraDamageForAnchored);
-		string str5 = text;
-		AbilityModPropertyFloat extraDamageAtZeroDistMod = this.m_extraDamageAtZeroDistMod;
-		string prefix5 = "[ExtraDamageAtZeroDist]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(extraDamagePerTurnAnchoredMod, "[ExtraDamagePerTurnAnchored]", flag, baseVal4);
+		empty += PropDesc(m_maxExtraDamageForAnchoredMod, "[MaxExtraDamageForAnchored]", flag, flag ? exoAnchorLaser.m_maxExtraDamageForAnchored : 0);
+		string str5 = empty;
+		AbilityModPropertyFloat extraDamageAtZeroDistMod = m_extraDamageAtZeroDistMod;
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = exoAnchorLaser.m_extraDamageAtZeroDist;
 		}
 		else
 		{
 			baseVal5 = 0f;
 		}
-		text = str5 + base.PropDesc(extraDamageAtZeroDistMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyFloat extraDamageChangePerDistMod = this.m_extraDamageChangePerDistMod;
-		string prefix6 = "[ExtraDamageChangePerDist]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(extraDamageAtZeroDistMod, "[ExtraDamageAtZeroDist]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyFloat extraDamageChangePerDistMod = m_extraDamageChangePerDistMod;
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = exoAnchorLaser.m_extraDamageChangePerDist;
 		}
 		else
 		{
 			baseVal6 = 0f;
 		}
-		text = str6 + base.PropDesc(extraDamageChangePerDistMod, prefix6, showBaseVal6, baseVal6);
-		text += base.PropDesc(this.m_effectOnCasterMod, "[EffectOnCaster]", flag, (!flag) ? null : exoAnchorLaser.m_effectOnCaster);
-		text += base.PropDesc(this.m_cooldownOnEndMod, "[CooldownOnEnd]", flag, (!flag) ? 0 : exoAnchorLaser.m_cooldownOnEnd);
-		text += base.PropDesc(this.m_anchoredTechPointCostMod, "[AnchoredTechPointCost]", flag, (!flag) ? 0 : exoAnchorLaser.m_anchoredTechPointCost);
-		text += base.PropDesc(this.m_effectOnAnchorEndMod, "[EffectOnAnchorEnd]", flag, (!flag) ? null : exoAnchorLaser.m_effectOnAnchorEnd);
-		if (this.m_useStatusWhenAnchoredAndNotSweepingOverride)
+		empty = str6 + PropDesc(extraDamageChangePerDistMod, "[ExtraDamageChangePerDist]", flag, baseVal6);
+		empty += PropDesc(m_effectOnCasterMod, "[EffectOnCaster]", flag, (!flag) ? null : exoAnchorLaser.m_effectOnCaster);
+		empty += PropDesc(m_cooldownOnEndMod, "[CooldownOnEnd]", flag, flag ? exoAnchorLaser.m_cooldownOnEnd : 0);
+		empty += PropDesc(m_anchoredTechPointCostMod, "[AnchoredTechPointCost]", flag, flag ? exoAnchorLaser.m_anchoredTechPointCost : 0);
+		empty += PropDesc(m_effectOnAnchorEndMod, "[EffectOnAnchorEnd]", flag, (!flag) ? null : exoAnchorLaser.m_effectOnAnchorEnd);
+		if (m_useStatusWhenAnchoredAndNotSweepingOverride)
 		{
-			text += "Using Status when anchored and not sweeping override\n";
-			for (int i = 0; i < this.m_statusWhenAnchoredAndNotSweepingOverride.Count; i++)
+			empty += "Using Status when anchored and not sweeping override\n";
+			for (int i = 0; i < m_statusWhenAnchoredAndNotSweepingOverride.Count; i++)
 			{
-				text = text + "\t" + this.m_statusWhenAnchoredAndNotSweepingOverride[i].ToString() + "\n";
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				empty = empty + "\t" + m_statusWhenAnchoredAndNotSweepingOverride[i].ToString() + "\n";
 			}
 		}
-		return text;
+		return empty;
 	}
 }

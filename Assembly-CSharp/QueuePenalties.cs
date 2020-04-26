@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class QueuePenalties
@@ -11,8 +11,8 @@ public class QueuePenalties
 
 	public void ResetQueueDodge()
 	{
-		this.QueueDodgeCount = 0;
-		this.QueueDodgeBlockTimeout = DateTime.MinValue;
-		this.QueueDodgeParoleTimeout = DateTime.MinValue;
+		QueueDodgeCount = 0;
+		QueueDodgeBlockTimeout = DateTime.MinValue;
+		QueueDodgeParoleTimeout = DateTime.MinValue;
 	}
 }

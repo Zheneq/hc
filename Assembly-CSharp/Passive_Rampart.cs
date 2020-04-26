@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class Passive_Rampart : Passive
@@ -20,33 +19,20 @@ public class Passive_Rampart : Passive
 
 	public StandardBarrierData GetShieldBarrierData()
 	{
-		return (this.m_cachedShieldBarrierData == null) ? this.m_normalShieldBarrierData : this.m_cachedShieldBarrierData;
+		return (m_cachedShieldBarrierData == null) ? m_normalShieldBarrierData : m_cachedShieldBarrierData;
 	}
 
 	public void SetCachedShieldBarrierData(AbilityModPropertyBarrierDataV2 barrierMod)
 	{
-		StandardBarrierData cachedShieldBarrierData;
+		object cachedShieldBarrierData;
 		if (barrierMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Passive_Rampart.SetCachedShieldBarrierData(AbilityModPropertyBarrierDataV2)).MethodHandle;
-			}
-			cachedShieldBarrierData = barrierMod.GetModifiedValue(this.m_normalShieldBarrierData);
+			cachedShieldBarrierData = barrierMod.GetModifiedValue(m_normalShieldBarrierData);
 		}
 		else
 		{
 			cachedShieldBarrierData = null;
 		}
-		this.m_cachedShieldBarrierData = cachedShieldBarrierData;
+		m_cachedShieldBarrierData = (StandardBarrierData)cachedShieldBarrierData;
 	}
 }

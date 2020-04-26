@@ -1,11 +1,10 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MantaRegeneration : Ability
 {
 	[Header("-- Healing --")]
-	public int m_maxRegeneration = 0x1F4;
+	public int m_maxRegeneration = 500;
 
 	public int m_turnsOfRegeneration = 2;
 
@@ -33,96 +32,61 @@ public class MantaRegeneration : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Regeneration";
+			m_abilityName = "Regeneration";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always, AbilityUtil_Targeter.AffectsActor.Possible);
+		SetCachedFields();
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always);
 		base.Targeter.SetShowArcToShape(false);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		this.GetOtherSelfEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		GetOtherSelfEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		return numbers;
 	}
 
 	private void SetCachedFields()
 	{
 		StandardActorEffectData cachedHealEffectData;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaRegeneration.SetCachedFields()).MethodHandle;
-			}
-			cachedHealEffectData = this.m_abilityMod.m_healEffectDataMod.GetModifiedValue(this.m_healEffectData);
+			cachedHealEffectData = m_abilityMod.m_healEffectDataMod.GetModifiedValue(m_healEffectData);
 		}
 		else
 		{
-			cachedHealEffectData = this.m_healEffectData;
+			cachedHealEffectData = m_healEffectData;
 		}
-		this.m_cachedHealEffectData = cachedHealEffectData;
+		m_cachedHealEffectData = cachedHealEffectData;
 		StandardEffectInfo cachedOtherSelfEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedOtherSelfEffect = this.m_abilityMod.m_otherSelfEffectMod.GetModifiedValue(this.m_otherSelfEffect);
+			cachedOtherSelfEffect = m_abilityMod.m_otherSelfEffectMod.GetModifiedValue(m_otherSelfEffect);
 		}
 		else
 		{
-			cachedOtherSelfEffect = this.m_otherSelfEffect;
+			cachedOtherSelfEffect = m_otherSelfEffect;
 		}
-		this.m_cachedOtherSelfEffect = cachedOtherSelfEffect;
+		m_cachedOtherSelfEffect = cachedOtherSelfEffect;
 	}
 
 	public int GetMaxRegeneration()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaRegeneration.GetMaxRegeneration()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_maxRegenerationMod.GetModifiedValue(this.m_maxRegeneration);
+			result = m_abilityMod.m_maxRegenerationMod.GetModifiedValue(m_maxRegeneration);
 		}
 		else
 		{
-			result = this.m_maxRegeneration;
+			result = m_maxRegeneration;
 		}
 		return result;
 	}
@@ -130,26 +94,13 @@ public class MantaRegeneration : Ability
 	public int GetTurnsOfRegeneration()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaRegeneration.GetTurnsOfRegeneration()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_turnsOfRegenerationMod.GetModifiedValue(this.m_turnsOfRegeneration);
+			result = m_abilityMod.m_turnsOfRegenerationMod.GetModifiedValue(m_turnsOfRegeneration);
 		}
 		else
 		{
-			result = this.m_turnsOfRegeneration;
+			result = m_turnsOfRegeneration;
 		}
 		return result;
 	}
@@ -157,106 +108,72 @@ public class MantaRegeneration : Ability
 	public float GetDamageToHealRatio()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaRegeneration.GetDamageToHealRatio()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_damageToHealRatioMod.GetModifiedValue(this.m_damageToHealRatio);
+			result = m_abilityMod.m_damageToHealRatioMod.GetModifiedValue(m_damageToHealRatio);
 		}
 		else
 		{
-			result = this.m_damageToHealRatio;
+			result = m_damageToHealRatio;
 		}
 		return result;
 	}
 
 	public int GetTechPointGainPerHit()
 	{
-		return (!this.m_abilityMod) ? this.m_techPointGainPerIncomingHit : this.m_abilityMod.m_techPointGainPerIncomingHit.GetModifiedValue(this.m_techPointGainPerIncomingHit);
+		return (!m_abilityMod) ? m_techPointGainPerIncomingHit : m_abilityMod.m_techPointGainPerIncomingHit.GetModifiedValue(m_techPointGainPerIncomingHit);
 	}
 
 	public AbilityModCooldownReduction GetCooldownReductionOnNoDamage()
 	{
-		AbilityModCooldownReduction result;
-		if (this.m_abilityMod != null)
+		object result;
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaRegeneration.GetCooldownReductionOnNoDamage()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_cooldownReductionsWhenNoHits;
+			result = m_abilityMod.m_cooldownReductionsWhenNoHits;
 		}
 		else
 		{
 			result = null;
 		}
-		return result;
+		return (AbilityModCooldownReduction)result;
 	}
 
 	public StandardActorEffectData GetHealEffectData()
 	{
-		return (this.m_cachedHealEffectData == null) ? this.m_healEffectData : this.m_cachedHealEffectData;
+		return (m_cachedHealEffectData == null) ? m_healEffectData : m_cachedHealEffectData;
 	}
 
 	public StandardEffectInfo GetOtherSelfEffect()
 	{
-		return (this.m_cachedOtherSelfEffect == null) ? this.m_otherSelfEffect : this.m_cachedOtherSelfEffect;
+		return (m_cachedOtherSelfEffect == null) ? m_otherSelfEffect : m_cachedOtherSelfEffect;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_MantaRegeneration))
+		if (abilityMod.GetType() != typeof(AbilityMod_MantaRegeneration))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaRegeneration.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_MantaRegeneration);
-			this.Setup();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_MantaRegeneration);
+			Setup();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "MaxRegeneration", string.Empty, this.m_maxRegeneration, false);
-		base.AddTokenInt(tokens, "TurnsOfRegeneration", string.Empty, this.m_turnsOfRegeneration, false);
-		base.AddTokenFloatAsPct(tokens, "DamageToHealRatio", string.Empty, this.m_damageToHealRatio, false);
-		this.m_healEffectData.AddTooltipTokens(tokens, "HealEffectData", false, null);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_otherSelfEffect, "OtherSelfEffect", this.m_otherSelfEffect, true);
+		AddTokenInt(tokens, "MaxRegeneration", string.Empty, m_maxRegeneration);
+		AddTokenInt(tokens, "TurnsOfRegeneration", string.Empty, m_turnsOfRegeneration);
+		AddTokenFloatAsPct(tokens, "DamageToHealRatio", string.Empty, m_damageToHealRatio);
+		m_healEffectData.AddTooltipTokens(tokens, "HealEffectData");
+		AbilityMod.AddToken_EffectInfo(tokens, m_otherSelfEffect, "OtherSelfEffect", m_otherSelfEffect);
 	}
 }

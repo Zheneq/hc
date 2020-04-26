@@ -1,5 +1,3 @@
-﻿using System;
-
 public class ClientGameModeEvent
 {
 	public GameModeEventType m_eventType;
@@ -16,69 +14,58 @@ public class ClientGameModeEvent
 
 	public ClientGameModeEvent(GameModeEventType eventType, byte objectGuid, BoardSquare square, ActorData primaryActor, ActorData secondaryActor, int eventGuid)
 	{
-		this.m_eventType = eventType;
-		this.m_objectGuid = objectGuid;
-		this.m_square = square;
-		this.m_primaryActor = primaryActor;
-		this.m_secondaryActor = secondaryActor;
-		this.m_eventGuid = eventGuid;
+		m_eventType = eventType;
+		m_objectGuid = objectGuid;
+		m_square = square;
+		m_primaryActor = primaryActor;
+		m_secondaryActor = secondaryActor;
+		m_eventGuid = eventGuid;
 	}
 
 	public void ExecuteClientGameModeEvent()
 	{
 		if (GameModeUtils.IsCtfGameModeEvent(this))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientGameModeEvent.ExecuteClientGameModeEvent()).MethodHandle;
-			}
-			if (CaptureTheFlag.Get() != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (CaptureTheFlag.Get() != null)
+					{
+						while (true)
+						{
+							switch (1)
+							{
+							case 0:
+								break;
+							default:
+								CaptureTheFlag.Get().ExecuteClientGameModeEvent(this);
+								return;
+							}
+						}
+					}
+					return;
 				}
-				CaptureTheFlag.Get().ExecuteClientGameModeEvent(this);
 			}
 		}
-		else if (GameModeUtils.IsCtcGameModeEvent(this))
+		if (!GameModeUtils.IsCtcGameModeEvent(this))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (CollectTheCoins.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					CollectTheCoins.Get().ExecuteClientGameModeEvent(this);
+					return;
 				}
-				CollectTheCoins.Get().ExecuteClientGameModeEvent(this);
 			}
+			return;
 		}
 	}
 }

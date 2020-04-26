@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,186 +43,108 @@ public class AbilityMod_MartyrHealOverTime : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		MartyrHealOverTime martyrHealOverTime = targetAbility as MartyrHealOverTime;
-		if (martyrHealOverTime != null)
+		if (!(martyrHealOverTime != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MartyrHealOverTime.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_healBaseMod, "HealBase", string.Empty, martyrHealOverTime.m_healBase, true, false);
-			AbilityMod.AddToken(tokens, this.m_healPerCrystalMod, "HealPerCrystal", string.Empty, martyrHealOverTime.m_healPerCrystal, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_healEffectDataMod, "HealEffectData", martyrHealOverTime.m_healEffectData, true);
-			AbilityMod.AddToken(tokens, this.m_extraHealingIfHasAoeOnReactMod, "ExtraHealingIfHasAoeOnReact", string.Empty, martyrHealOverTime.m_extraHealingIfHasAoeOnReact, true, false);
-			AbilityMod.AddToken(tokens, this.m_lowHealthThresholdMod, "LowHealthThreshold", string.Empty, martyrHealOverTime.m_lowHealthThreshold, true, false, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_extraEffectForLowHealthMod, "ExtraEffectForLowHealth", martyrHealOverTime.m_extraEffectForLowHealth, true);
-			AbilityMod.AddToken(tokens, this.m_baseSelfHealIfTargetAllyMod, "BaseSelfHealIfTargetAlly", string.Empty, martyrHealOverTime.m_baseSelfHealIfTargetAlly, true, false);
-			AbilityMod.AddToken(tokens, this.m_selfHealPerCrystalIfTargetAllyMod, "SelfHealPerCrystalIfTargetAlly", string.Empty, martyrHealOverTime.m_selfHealPerCrystalIfTargetAlly, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_healEffectOnSelfIfTargetAllyMod, "HealEffectOnSelfIfTargetAlly", martyrHealOverTime.m_healEffectOnSelfIfTargetAlly, true);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_healBaseMod, "HealBase", string.Empty, martyrHealOverTime.m_healBase);
+			AbilityMod.AddToken(tokens, m_healPerCrystalMod, "HealPerCrystal", string.Empty, martyrHealOverTime.m_healPerCrystal);
+			AbilityMod.AddToken_EffectMod(tokens, m_healEffectDataMod, "HealEffectData", martyrHealOverTime.m_healEffectData);
+			AbilityMod.AddToken(tokens, m_extraHealingIfHasAoeOnReactMod, "ExtraHealingIfHasAoeOnReact", string.Empty, martyrHealOverTime.m_extraHealingIfHasAoeOnReact);
+			AbilityMod.AddToken(tokens, m_lowHealthThresholdMod, "LowHealthThreshold", string.Empty, martyrHealOverTime.m_lowHealthThreshold, true, false, true);
+			AbilityMod.AddToken_EffectMod(tokens, m_extraEffectForLowHealthMod, "ExtraEffectForLowHealth", martyrHealOverTime.m_extraEffectForLowHealth);
+			AbilityMod.AddToken(tokens, m_baseSelfHealIfTargetAllyMod, "BaseSelfHealIfTargetAlly", string.Empty, martyrHealOverTime.m_baseSelfHealIfTargetAlly);
+			AbilityMod.AddToken(tokens, m_selfHealPerCrystalIfTargetAllyMod, "SelfHealPerCrystalIfTargetAlly", string.Empty, martyrHealOverTime.m_selfHealPerCrystalIfTargetAlly);
+			AbilityMod.AddToken_EffectMod(tokens, m_healEffectOnSelfIfTargetAllyMod, "HealEffectOnSelfIfTargetAlly", martyrHealOverTime.m_healEffectOnSelfIfTargetAlly);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		MartyrHealOverTime martyrHealOverTime = base.GetTargetAbilityOnAbilityData(abilityData) as MartyrHealOverTime;
+		MartyrHealOverTime martyrHealOverTime = GetTargetAbilityOnAbilityData(abilityData) as MartyrHealOverTime;
 		bool flag = martyrHealOverTime != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_canTargetAllyMod, "[CanTargetAlly]", flag, flag && martyrHealOverTime.m_canTargetAlly);
-		string str = text;
-		AbilityModPropertyBool targetingPenetrateLosMod = this.m_targetingPenetrateLosMod;
-		string prefix = "[TargetingPenetrateLos]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string empty = string.Empty;
+		empty += PropDesc(m_canTargetAllyMod, "[CanTargetAlly]", flag, flag && martyrHealOverTime.m_canTargetAlly);
+		string str = empty;
+		AbilityModPropertyBool targetingPenetrateLosMod = m_targetingPenetrateLosMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MartyrHealOverTime.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			baseVal = martyrHealOverTime.m_targetingPenetrateLos;
+			baseVal = (martyrHealOverTime.m_targetingPenetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(targetingPenetrateLosMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_healBaseMod, "[HealBase]", flag, (!flag) ? 0 : martyrHealOverTime.m_healBase);
-		string str2 = text;
-		AbilityModPropertyInt healPerCrystalMod = this.m_healPerCrystalMod;
-		string prefix2 = "[HealPerCrystal]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(targetingPenetrateLosMod, "[TargetingPenetrateLos]", flag, (byte)baseVal != 0);
+		empty += PropDesc(m_healBaseMod, "[HealBase]", flag, flag ? martyrHealOverTime.m_healBase : 0);
+		string str2 = empty;
+		AbilityModPropertyInt healPerCrystalMod = m_healPerCrystalMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = martyrHealOverTime.m_healPerCrystal;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(healPerCrystalMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_healEffectDataMod, "[HealEffectData]", flag, (!flag) ? null : martyrHealOverTime.m_healEffectData);
-		text += base.PropDesc(this.m_extraHealingIfHasAoeOnReactMod, "[ExtraHealingIfHasAoeOnReact]", flag, (!flag) ? 0 : martyrHealOverTime.m_extraHealingIfHasAoeOnReact);
-		text += base.PropDesc(this.m_onlyAddExtraEffecForFirstTurnMod, "[OnlyAddExtraEffecForFirstTurn]", flag, flag && martyrHealOverTime.m_onlyAddExtraEffecForFirstTurn);
-		string str3 = text;
-		AbilityModPropertyFloat lowHealthThresholdMod = this.m_lowHealthThresholdMod;
-		string prefix3 = "[LowHealthThreshold]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(healPerCrystalMod, "[HealPerCrystal]", flag, baseVal2);
+		empty += PropDesc(m_healEffectDataMod, "[HealEffectData]", flag, (!flag) ? null : martyrHealOverTime.m_healEffectData);
+		empty += PropDesc(m_extraHealingIfHasAoeOnReactMod, "[ExtraHealingIfHasAoeOnReact]", flag, flag ? martyrHealOverTime.m_extraHealingIfHasAoeOnReact : 0);
+		empty += PropDesc(m_onlyAddExtraEffecForFirstTurnMod, "[OnlyAddExtraEffecForFirstTurn]", flag, flag && martyrHealOverTime.m_onlyAddExtraEffecForFirstTurn);
+		string str3 = empty;
+		AbilityModPropertyFloat lowHealthThresholdMod = m_lowHealthThresholdMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = martyrHealOverTime.m_lowHealthThreshold;
 		}
 		else
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(lowHealthThresholdMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_extraEffectForLowHealthMod, "[ExtraEffectForLowHealth]", flag, (!flag) ? null : martyrHealOverTime.m_extraEffectForLowHealth);
-		string str4 = text;
-		AbilityModPropertyInt baseSelfHealIfTargetAllyMod = this.m_baseSelfHealIfTargetAllyMod;
-		string prefix4 = "[BaseSelfHealIfTargetAlly]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(lowHealthThresholdMod, "[LowHealthThreshold]", flag, baseVal3);
+		empty += PropDesc(m_extraEffectForLowHealthMod, "[ExtraEffectForLowHealth]", flag, (!flag) ? null : martyrHealOverTime.m_extraEffectForLowHealth);
+		string str4 = empty;
+		AbilityModPropertyInt baseSelfHealIfTargetAllyMod = m_baseSelfHealIfTargetAllyMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = martyrHealOverTime.m_baseSelfHealIfTargetAlly;
 		}
 		else
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(baseSelfHealIfTargetAllyMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt selfHealPerCrystalIfTargetAllyMod = this.m_selfHealPerCrystalIfTargetAllyMod;
-		string prefix5 = "[SelfHealPerCrystalIfTargetAlly]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(baseSelfHealIfTargetAllyMod, "[BaseSelfHealIfTargetAlly]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyInt selfHealPerCrystalIfTargetAllyMod = m_selfHealPerCrystalIfTargetAllyMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = martyrHealOverTime.m_selfHealPerCrystalIfTargetAlly;
 		}
 		else
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(selfHealPerCrystalIfTargetAllyMod, prefix5, showBaseVal5, baseVal5);
-		text += base.PropDesc(this.m_addHealEffectOnSelfIfTargetAllyMod, "[AddHealEffectOnSelfIfTargetAlly]", flag, flag && martyrHealOverTime.m_addHealEffectOnSelfIfTargetAlly);
-		string str6 = text;
-		AbilityModPropertyEffectData healEffectOnSelfIfTargetAllyMod = this.m_healEffectOnSelfIfTargetAllyMod;
-		string prefix6 = "[HealEffectOnSelfIfTargetAlly]";
-		bool showBaseVal6 = flag;
-		StandardActorEffectData baseVal6;
+		empty = str5 + PropDesc(selfHealPerCrystalIfTargetAllyMod, "[SelfHealPerCrystalIfTargetAlly]", flag, baseVal5);
+		empty += PropDesc(m_addHealEffectOnSelfIfTargetAllyMod, "[AddHealEffectOnSelfIfTargetAlly]", flag, flag && martyrHealOverTime.m_addHealEffectOnSelfIfTargetAlly);
+		string str6 = empty;
+		AbilityModPropertyEffectData healEffectOnSelfIfTargetAllyMod = m_healEffectOnSelfIfTargetAllyMod;
+		object baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = martyrHealOverTime.m_healEffectOnSelfIfTargetAlly;
 		}
 		else
 		{
 			baseVal6 = null;
 		}
-		return str6 + base.PropDesc(healEffectOnSelfIfTargetAllyMod, prefix6, showBaseVal6, baseVal6);
+		return str6 + PropDesc(healEffectOnSelfIfTargetAllyMod, "[HealEffectOnSelfIfTargetAlly]", flag, (StandardActorEffectData)baseVal6);
 	}
 }

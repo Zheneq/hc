@@ -1,5 +1,3 @@
-﻿using System;
-
 public enum UIRankDisplayType
 {
 	Reward = -2,

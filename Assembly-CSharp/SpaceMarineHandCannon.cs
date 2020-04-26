@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,18 +27,18 @@ public class SpaceMarineHandCannon : Ability
 
 	private void Start()
 	{
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		if (this.ShouldExplode())
+		if (ShouldExplode())
 		{
-			base.Targeter = new AbilityUtil_Targeter_LaserWithCone(this, this.ModdedLaserWidth(), this.ModdedLaserLength(), this.m_penetrateLineOfSight, false, this.ModdedConeAngle(), this.ModdedConeLength(), this.m_coneBackwardOffset);
+			base.Targeter = new AbilityUtil_Targeter_LaserWithCone(this, ModdedLaserWidth(), ModdedLaserLength(), m_penetrateLineOfSight, false, ModdedConeAngle(), ModdedConeLength(), m_coneBackwardOffset);
 		}
 		else
 		{
-			base.Targeter = new AbilityUtil_Targeter_Laser(this, this.ModdedLaserWidth(), this.ModdedLaserLength(), this.m_penetrateLineOfSight, 1, false, false);
+			base.Targeter = new AbilityUtil_Targeter_Laser(this, ModdedLaserWidth(), ModdedLaserLength(), m_penetrateLineOfSight, 1);
 		}
 	}
 
@@ -51,34 +50,21 @@ public class SpaceMarineHandCannon : Ability
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
 		float num = 0f;
-		if (this.ShouldExplode())
+		if (ShouldExplode())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.GetTargetableRadiusInSquares(ActorData)).MethodHandle;
-			}
-			num = this.ModdedConeLength();
+			num = ModdedConeLength();
 		}
-		return this.ModdedLaserLength() + num;
+		return ModdedLaserLength() + num;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, this.m_primaryDamage));
-		this.m_effectInfoOnPrimaryTarget.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Primary);
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Secondary, this.m_coneDamage));
-		this.m_effectInfoOnConeTargets.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Secondary);
-		return list;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_primaryDamage));
+		m_effectInfoOnPrimaryTarget.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Secondary, m_coneDamage));
+		m_effectInfoOnConeTargets.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -86,47 +72,27 @@ public class SpaceMarineHandCannon : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
-			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				dictionary[AbilityTooltipSymbol.Damage] = this.ModdedLaserDamage();
-			}
-			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
-			{
-				for (;;)
+				default:
 				{
-					switch (6)
+					Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+					if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 					{
-					case 0:
-						continue;
+						dictionary[AbilityTooltipSymbol.Damage] = ModdedLaserDamage();
 					}
-					break;
+					else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
+					{
+						dictionary[AbilityTooltipSymbol.Damage] = ModdedConeDamage();
+					}
+					return dictionary;
 				}
-				dictionary[AbilityTooltipSymbol.Damage] = this.ModdedConeDamage();
+				}
 			}
-			return dictionary;
 		}
 		return null;
 	}
@@ -134,62 +100,38 @@ public class SpaceMarineHandCannon : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SpaceMarineHandCannon abilityMod_SpaceMarineHandCannon = modAsBase as AbilityMod_SpaceMarineHandCannon;
-		string name = "PrimaryDamage";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_SpaceMarineHandCannon)
+		if ((bool)abilityMod_SpaceMarineHandCannon)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
-			val = abilityMod_SpaceMarineHandCannon.m_laserDamageMod.GetModifiedValue(this.m_primaryDamage);
+			val = abilityMod_SpaceMarineHandCannon.m_laserDamageMod.GetModifiedValue(m_primaryDamage);
 		}
 		else
 		{
-			val = this.m_primaryDamage;
+			val = m_primaryDamage;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "ConeDamage";
+		AddTokenInt(tokens, "PrimaryDamage", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_SpaceMarineHandCannon)
+		if ((bool)abilityMod_SpaceMarineHandCannon)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val2 = abilityMod_SpaceMarineHandCannon.m_coneDamageMod.GetModifiedValue(this.m_coneDamage);
+			val2 = abilityMod_SpaceMarineHandCannon.m_coneDamageMod.GetModifiedValue(m_coneDamage);
 		}
 		else
 		{
-			val2 = this.m_coneDamage;
+			val2 = m_coneDamage;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectInfoOnPrimaryTarget, "EffectInfoOnPrimaryTarget", this.m_effectInfoOnPrimaryTarget, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectInfoOnConeTargets, "EffectInfoOnConeTargets", this.m_effectInfoOnConeTargets, true);
+		AddTokenInt(tokens, "ConeDamage", empty2, val2);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectInfoOnPrimaryTarget, "EffectInfoOnPrimaryTarget", m_effectInfoOnPrimaryTarget);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectInfoOnConeTargets, "EffectInfoOnConeTargets", m_effectInfoOnConeTargets);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SpaceMarineHandCannon))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_SpaceMarineHandCannon);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_SpaceMarineHandCannon);
+			SetupTargeter();
 		}
 		else
 		{
@@ -199,33 +141,20 @@ public class SpaceMarineHandCannon : Ability
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	public int ModdedLaserDamage()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.ModdedLaserDamage()).MethodHandle;
-			}
-			result = this.m_primaryDamage;
+			result = m_primaryDamage;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_laserDamageMod.GetModifiedValue(this.m_primaryDamage);
+			result = m_abilityMod.m_laserDamageMod.GetModifiedValue(m_primaryDamage);
 		}
 		return result;
 	}
@@ -233,26 +162,13 @@ public class SpaceMarineHandCannon : Ability
 	public int ModdedConeDamage()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.ModdedConeDamage()).MethodHandle;
-			}
-			result = this.m_coneDamage;
+			result = m_coneDamage;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_coneDamageMod.GetModifiedValue(this.m_coneDamage);
+			result = m_abilityMod.m_coneDamageMod.GetModifiedValue(m_coneDamage);
 		}
 		return result;
 	}
@@ -260,128 +176,76 @@ public class SpaceMarineHandCannon : Ability
 	public float ModdedConeAngle()
 	{
 		float result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.ModdedConeAngle()).MethodHandle;
-			}
-			result = this.m_coneWidthAngle;
+			result = m_coneWidthAngle;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_coneAngleMod.GetModifiedValue(this.m_coneWidthAngle);
+			result = m_abilityMod.m_coneAngleMod.GetModifiedValue(m_coneWidthAngle);
 		}
 		return result;
 	}
 
 	public float ModdedConeLength()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_coneLengthMod.GetModifiedValue(this.m_coneLength) : this.m_coneLength;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_coneLengthMod.GetModifiedValue(m_coneLength) : m_coneLength;
 	}
 
 	public float ModdedLaserWidth()
 	{
 		float result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.ModdedLaserWidth()).MethodHandle;
-			}
-			result = this.m_primaryWidth;
+			result = m_primaryWidth;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_primaryWidth);
+			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_primaryWidth);
 		}
 		return result;
 	}
 
 	public float ModdedLaserLength()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_laserLengthMod.GetModifiedValue(this.m_primaryLength) : this.m_primaryLength;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_laserLengthMod.GetModifiedValue(m_primaryLength) : m_primaryLength;
 	}
 
 	public bool ShouldExplode()
 	{
-		return this.m_abilityMod == null || this.m_abilityMod.m_shouldExplodeMod.GetModifiedValue(true);
+		return m_abilityMod == null || m_abilityMod.m_shouldExplodeMod.GetModifiedValue(true);
 	}
 
 	public StandardEffectInfo GetLaserEffectInfo()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			if (m_abilityMod.m_useLaserHitEffectOverride)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.GetLaserEffectInfo()).MethodHandle;
-			}
-			if (this.m_abilityMod.m_useLaserHitEffectOverride)
-			{
-				return this.m_abilityMod.m_laserHitEffectOverride;
+				return m_abilityMod.m_laserHitEffectOverride;
 			}
 		}
-		return this.m_effectInfoOnPrimaryTarget;
+		return m_effectInfoOnPrimaryTarget;
 	}
 
 	public StandardEffectInfo GetConeEffectInfo()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			if (m_abilityMod.m_useConeHitEffectOverride)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.GetConeEffectInfo()).MethodHandle;
-			}
-			if (this.m_abilityMod.m_useConeHitEffectOverride)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_abilityMod.m_coneHitEffectOverride;
 					}
-					break;
 				}
-				return this.m_abilityMod.m_coneHitEffectOverride;
 			}
 		}
-		return this.m_effectInfoOnConeTargets;
+		return m_effectInfoOnConeTargets;
 	}
 }

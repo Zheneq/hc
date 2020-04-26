@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -20,69 +20,32 @@ public class TargetSelectModBase
 
 	public string GetInEditorDesc(GenericAbility_TargetSelectBase targetSelectBase, string header)
 	{
-		string text = string.Empty;
-		if (this.m_overrideTargetDataOnTargetSelect)
+		string str = string.Empty;
+		if (m_overrideTargetDataOnTargetSelect)
 		{
-			for (;;)
+			if (m_targetDataOverride != null)
 			{
-				switch (5)
+				str = str + InEditorDescHelper.ColoredString("* Using TargetData Override *") + "\n";
+				TargetData[] targetDataOverride = m_targetDataOverride;
+				foreach (TargetData targetData in targetDataOverride)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectModBase.GetInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
-			}
-			if (this.m_targetDataOverride != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text = text + InEditorDescHelper.ColoredString("* Using TargetData Override *", "cyan", false) + "\n";
-				foreach (TargetData targetData in this.m_targetDataOverride)
-				{
-					text = text + "    [Paradigm] " + ((targetData.m_targetingParadigm <= (Ability.TargetingParadigm)0) ? "INVALID" : targetData.m_targetingParadigm.ToString());
-					string text2 = text;
-					text = string.Concat(new object[]
-					{
-						text2,
-						", [Range (without range mods)] ",
-						targetData.m_minRange,
-						" to ",
-						targetData.m_range
-					});
-					text = text + ", [Require Los] = " + targetData.m_checkLineOfSight.ToString() + "\n";
+					str = str + "    [Paradigm] " + ((targetData.m_targetingParadigm <= (Ability.TargetingParadigm)0) ? "INVALID" : targetData.m_targetingParadigm.ToString());
+					string text = str;
+					str = text + ", [Range (without range mods)] " + targetData.m_minRange + " to " + targetData.m_range;
+					str = str + ", [Require Los] = " + targetData.m_checkLineOfSight + "\n";
 				}
 			}
 		}
-		text += AbilityModHelper.GetModPropertyDesc(this.m_includeEnemiesMod, "[IncludeEnemies]", targetSelectBase.m_includeEnemies, false);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_includeAlliesMod, "[IncludeAllies]", targetSelectBase.m_includeAllies, false);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_includeCasterMod, "[IncludeCaster]", targetSelectBase.m_includeCaster, false);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_ignoreLosMod, "[IgnoreLos]", targetSelectBase.m_ignoreLos, false);
-		text += this.GetModSpecificInEditorDesc(targetSelectBase, header);
-		if (text.Length > 0)
+		str += AbilityModHelper.GetModPropertyDesc(m_includeEnemiesMod, "[IncludeEnemies]", targetSelectBase.m_includeEnemies);
+		str += AbilityModHelper.GetModPropertyDesc(m_includeAlliesMod, "[IncludeAllies]", targetSelectBase.m_includeAllies);
+		str += AbilityModHelper.GetModPropertyDesc(m_includeCasterMod, "[IncludeCaster]", targetSelectBase.m_includeCaster);
+		str += AbilityModHelper.GetModPropertyDesc(m_ignoreLosMod, "[IgnoreLos]", targetSelectBase.m_ignoreLos);
+		str += GetModSpecificInEditorDesc(targetSelectBase, header);
+		if (str.Length > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text = header + "\n" + text + "\n";
+			str = header + "\n" + str + "\n";
 		}
-		return text;
+		return str;
 	}
 
 	public virtual string GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase targetSelectBase, string header)

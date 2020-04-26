@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using UnityEngine;
 
-[CreateAssetMenu(order = 0x3E7, fileName = "CharacterOnPingChatter", menuName = "On Ping Chatter")]
 [Serializable]
+[CreateAssetMenu(order = 999, fileName = "CharacterOnPingChatter", menuName = "On Ping Chatter")]
 public class OnPingChatter : ScriptableObject, IChatterData
 {
 	public ChatterData m_baseData = new ChatterData();
@@ -11,7 +11,7 @@ public class OnPingChatter : ScriptableObject, IChatterData
 
 	public ChatterData GetCommonData()
 	{
-		return this.m_baseData;
+		return m_baseData;
 	}
 
 	public GameEventManager.EventType GetActivateOnEvent()
@@ -23,100 +23,78 @@ public class OnPingChatter : ScriptableObject, IChatterData
 	{
 		if (!ChatterData.ShouldPlayChatter(this, eventType, args, component))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnPingChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
-			return false;
 		}
 		ActorData x = null;
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (component.gameObject != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				x = component.gameObject.GetComponent<ActorData>();
 			}
 		}
 		if (x == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
 		GameEventManager.ActorPingEventArgs actorPingEventArgs = args as GameEventManager.ActorPingEventArgs;
 		if (actorPingEventArgs == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error("Missing args for Actor Ping game event.");
+					return false;
 				}
-				break;
 			}
-			Log.Error("Missing args for Actor Ping game event.", new object[0]);
-			return false;
 		}
 		if (x != actorPingEventArgs.byActor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
-		if (actorPingEventArgs.pingType != this.m_pingType)
+		if (actorPingEventArgs.pingType != m_pingType)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
 		return true;
 	}

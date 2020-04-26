@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,138 +21,87 @@ public class AbilityMod_GremlinsDropMines : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		GremlinsDropMines gremlinsDropMines = targetAbility as GremlinsDropMines;
-		if (gremlinsDropMines != null)
+		if (!(gremlinsDropMines != null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsDropMines.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			GremlinsLandMineInfoComponent component = gremlinsDropMines.GetComponent<GremlinsLandMineInfoComponent>();
 			if (component != null)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					AbilityMod.AddToken(tokens, m_mineDamageMod, "MineDamage", string.Empty, component.m_damageAmount);
+					AbilityMod.AddToken(tokens, m_mineDurationMod, "MineDuration", string.Empty, component.m_mineDuration);
+					AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemyOverride, "EnemyHitEffect", component.m_enemyHitEffect);
+					AbilityMod.AddToken(tokens, m_energyOnMineExplosionMod, "EnergyOnExplosion", string.Empty, component.m_energyGainOnExplosion);
+					return;
 				}
-				AbilityMod.AddToken(tokens, this.m_mineDamageMod, "MineDamage", string.Empty, component.m_damageAmount, true, false);
-				AbilityMod.AddToken(tokens, this.m_mineDurationMod, "MineDuration", string.Empty, component.m_mineDuration, true, false);
-				AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemyOverride, "EnemyHitEffect", component.m_enemyHitEffect, true);
-				AbilityMod.AddToken(tokens, this.m_energyOnMineExplosionMod, "EnergyOnExplosion", string.Empty, component.m_energyGainOnExplosion, true, false);
 			}
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		GremlinsDropMines gremlinsDropMines = base.GetTargetAbilityOnAbilityData(abilityData) as GremlinsDropMines;
+		GremlinsDropMines gremlinsDropMines = GetTargetAbilityOnAbilityData(abilityData) as GremlinsDropMines;
 		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent = (!(gremlinsDropMines != null)) ? null : gremlinsDropMines.GetComponent<GremlinsLandMineInfoComponent>();
 		bool flag = gremlinsLandMineInfoComponent != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt mineDamageMod = this.m_mineDamageMod;
-		string prefix = "[Mine Damage]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt mineDamageMod = m_mineDamageMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsDropMines.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = gremlinsLandMineInfoComponent.m_damageAmount;
 		}
 		else
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(mineDamageMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt mineDurationMod = this.m_mineDurationMod;
-		string prefix2 = "[Mine Duration]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(mineDamageMod, "[Mine Damage]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt mineDurationMod = m_mineDurationMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = gremlinsLandMineInfoComponent.m_mineDuration;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(mineDurationMod, prefix2, showBaseVal2, baseVal2);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_effectOnEnemyOverride, "{ Effect on Enemy Hit Override }", flag, (!flag) ? null : gremlinsLandMineInfoComponent.m_enemyHitEffect);
-		return text + AbilityModHelper.GetModPropertyDesc(this.m_energyOnMineExplosionMod, "[Energy Gain on Mine Explosion (on splort and mines left behind from primary/ult)]", flag, (!flag) ? 0 : gremlinsLandMineInfoComponent.m_energyGainOnExplosion);
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(mineDurationMod, "[Mine Duration]", flag, baseVal2);
+		empty += AbilityModHelper.GetModPropertyDesc(m_effectOnEnemyOverride, "{ Effect on Enemy Hit Override }", flag, (!flag) ? null : gremlinsLandMineInfoComponent.m_enemyHitEffect);
+		return empty + AbilityModHelper.GetModPropertyDesc(m_energyOnMineExplosionMod, "[Energy Gain on Mine Explosion (on splort and mines left behind from primary/ult)]", flag, flag ? gremlinsLandMineInfoComponent.m_energyGainOnExplosion : 0);
 	}
 
 	protected override void AppendModSpecificTooltipCheckNumbers(Ability abilityAsBase, List<int> numbers)
 	{
-		if (abilityAsBase != null)
+		if (!(abilityAsBase != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsDropMines.AppendModSpecificTooltipCheckNumbers(Ability, List<int>)).MethodHandle;
-			}
-			if (abilityAsBase.GetType() == this.GetTargetAbilityType())
+			return;
+		}
+		while (true)
+		{
+			if (abilityAsBase.GetType() == GetTargetAbilityType())
 			{
 				GremlinsDropMines gremlinsDropMines = abilityAsBase as GremlinsDropMines;
 				GremlinsLandMineInfoComponent component = gremlinsDropMines.gameObject.GetComponent<GremlinsLandMineInfoComponent>();
 				if (component != null)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						numbers.Add(m_mineDamageMod.GetModifiedValue(component.m_damageAmount));
+						StandardEffectInfo modifiedValue = m_effectOnEnemyOverride.GetModifiedValue(component.m_enemyHitEffect);
+						AbilityModHelper.AddTooltipNumbersFromEffect(modifiedValue, numbers);
+						return;
 					}
-					numbers.Add(this.m_mineDamageMod.GetModifiedValue(component.m_damageAmount));
-					StandardEffectInfo modifiedValue = this.m_effectOnEnemyOverride.GetModifiedValue(component.m_enemyHitEffect);
-					AbilityModHelper.AddTooltipNumbersFromEffect(modifiedValue, numbers);
 				}
+				return;
 			}
+			return;
 		}
 	}
 }

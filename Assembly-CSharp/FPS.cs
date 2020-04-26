@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using UnityEngine;
 
@@ -8,144 +8,99 @@ public class FPS
 
 	private float m_timeLeft;
 
-	internal FPS()
+	internal int NumSampledFrames
 	{
-		if (FPS.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FPS..ctor()).MethodHandle;
-			}
-			FPS.<>f__am$cache0 = delegate(float A_0)
-			{
-			};
-		}
-		this.m_OnFPSChange = FPS.<>f__am$cache0;
-		this.m_timeLeft = 0.5f;
-		base..ctor();
+		get;
+		private set;
 	}
 
-	internal FPS(Action<float> onChange)
+	internal float TimeElapsed
 	{
-		if (FPS.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FPS..ctor(Action<float>)).MethodHandle;
-			}
-			FPS.<>f__am$cache0 = delegate(float A_0)
-			{
-			};
-		}
-		this.m_OnFPSChange = FPS.<>f__am$cache0;
-		this.m_timeLeft = 0.5f;
-		base..ctor();
-		this.m_OnFPSChange += onChange;
+		get;
+		private set;
 	}
 
+	private Action<float> m_OnFPSChangeHolder;
 	private event Action<float> m_OnFPSChange
 	{
 		add
 		{
-			Action<float> action = this.m_OnFPSChange;
+			Action<float> action = this.m_OnFPSChangeHolder;
 			Action<float> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<float>>(ref this.m_OnFPSChange, (Action<float>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.m_OnFPSChangeHolder, (Action<float>)Delegate.Combine(action2, value), action);
 			}
-			while (action != action2);
+			while ((object)action != action2);
 		}
 		remove
 		{
-			Action<float> action = this.m_OnFPSChange;
+			Action<float> action = this.m_OnFPSChangeHolder;
 			Action<float> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<float>>(ref this.m_OnFPSChange, (Action<float>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange(ref this.m_OnFPSChangeHolder, (Action<float>)Delegate.Remove(action2, value), action);
 			}
-			while (action != action2);
-			for (;;)
+			while ((object)action != action2);
+			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FPS.remove_m_OnFPSChange(Action<float>)).MethodHandle;
+				return;
 			}
 		}
 	}
 
-	internal int NumSampledFrames { get; private set; }
+	internal FPS()
+	{
+		
+		this.m_OnFPSChangeHolder = delegate
+			{
+			};
+		m_timeLeft = 0.5f;
+		
+	}
 
-	internal float TimeElapsed { get; private set; }
+	internal FPS(Action<float> onChange)
+	{
+		
+		this.m_OnFPSChangeHolder = delegate
+			{
+			};
+		m_timeLeft = 0.5f;
+		
+		m_OnFPSChange += onChange;
+	}
 
 	internal float CalcForSampledFrames()
 	{
-		return (this.NumSampledFrames != 0) ? (this.TimeElapsed / (float)this.NumSampledFrames) : 0f;
+		return (NumSampledFrames != 0) ? (TimeElapsed / (float)NumSampledFrames) : 0f;
 	}
 
 	internal void SampleFrame()
 	{
-		this.m_timeLeft -= Time.deltaTime;
-		this.TimeElapsed += Time.timeScale / Time.deltaTime;
-		this.NumSampledFrames++;
-		if (this.m_OnFPSChange != null)
+		m_timeLeft -= Time.deltaTime;
+		TimeElapsed += Time.timeScale / Time.deltaTime;
+		NumSampledFrames++;
+		if (this.m_OnFPSChangeHolder == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if ((double)m_timeLeft <= 0.0)
 			{
-				switch (1)
+				while (true)
 				{
-				case 0:
-					continue;
+					float obj = CalcForSampledFrames();
+					this.m_OnFPSChangeHolder(obj);
+					m_timeLeft = 0.5f;
+					TimeElapsed = 0f;
+					NumSampledFrames = 0;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FPS.SampleFrame()).MethodHandle;
-			}
-			if ((double)this.m_timeLeft <= 0.0)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				float obj = this.CalcForSampledFrames();
-				this.m_OnFPSChange(obj);
-				this.m_timeLeft = 0.5f;
-				this.TimeElapsed = 0f;
-				this.NumSampledFrames = 0;
-			}
+			return;
 		}
 	}
 }

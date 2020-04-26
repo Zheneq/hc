@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class LobbyAbilityGameplayData
@@ -17,40 +17,34 @@ public class LobbyAbilityGameplayData
 
 	public Dictionary<int, LobbyAbilityVfxSwapData> AbilityVfxSwapData;
 
+	[JsonIgnore]
+	public string FullName => $"{Name} ({TypeName})";
+
 	public LobbyAbilityGameplayData()
 	{
-		this.AbilityModData = new Dictionary<int, LobbyAbilityModGameplayData>();
-		this.AbilityTauntData = new Dictionary<int, LobbyAbilityTauntData>();
-		this.AbilityVfxSwapData = new Dictionary<int, LobbyAbilityVfxSwapData>();
-	}
-
-	[JsonIgnore]
-	public string FullName
-	{
-		get
-		{
-			return string.Format("{0} ({1})", this.Name, this.TypeName);
-		}
+		AbilityModData = new Dictionary<int, LobbyAbilityModGameplayData>();
+		AbilityTauntData = new Dictionary<int, LobbyAbilityTauntData>();
+		AbilityVfxSwapData = new Dictionary<int, LobbyAbilityVfxSwapData>();
 	}
 
 	public LobbyAbilityModGameplayData GetAbilityModData(int index)
 	{
-		LobbyAbilityModGameplayData result = null;
-		this.AbilityModData.TryGetValue(index, out result);
-		return result;
+		LobbyAbilityModGameplayData value = null;
+		AbilityModData.TryGetValue(index, out value);
+		return value;
 	}
 
 	public LobbyAbilityTauntData GetAbilityTauntData(int index)
 	{
-		LobbyAbilityTauntData result = null;
-		this.AbilityTauntData.TryGetValue(index, out result);
-		return result;
+		LobbyAbilityTauntData value = null;
+		AbilityTauntData.TryGetValue(index, out value);
+		return value;
 	}
 
 	public LobbyAbilityVfxSwapData GetAbilityVfxSwapData(int index)
 	{
-		LobbyAbilityVfxSwapData result = null;
-		this.AbilityVfxSwapData.TryGetValue(index, out result);
-		return result;
+		LobbyAbilityVfxSwapData value = null;
+		AbilityVfxSwapData.TryGetValue(index, out value);
+		return value;
 	}
 }

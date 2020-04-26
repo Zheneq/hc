@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,107 +14,83 @@ public class _DragOntoAble : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
 	public void OnEnable()
 	{
-		if (this.containerImage != null)
+		if (!(containerImage != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DragOntoAble.OnEnable()).MethodHandle;
-			}
-			this.normalColor = this.containerImage.color;
+			return;
+		}
+		while (true)
+		{
+			normalColor = containerImage.color;
+			return;
 		}
 	}
 
 	public void OnDrop(PointerEventData data)
 	{
-		this.containerImage.color = this.normalColor;
-		if (this.receivingImage == null)
+		containerImage.color = normalColor;
+		if (receivingImage == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DragOntoAble.OnDrop(PointerEventData)).MethodHandle;
-			}
+		}
+		Sprite dropSprite = GetDropSprite(data);
+		if (!(dropSprite != null))
+		{
 			return;
 		}
-		Sprite dropSprite = this.GetDropSprite(data);
-		if (dropSprite != null)
+		while (true)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.receivingImage.overrideSprite = dropSprite;
+			receivingImage.overrideSprite = dropSprite;
+			return;
 		}
 	}
 
 	public void OnPointerEnter(PointerEventData data)
 	{
-		if (this.containerImage == null)
+		if (containerImage == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DragOntoAble.OnPointerEnter(PointerEventData)).MethodHandle;
-			}
-			return;
 		}
-		Sprite dropSprite = this.GetDropSprite(data);
+		Sprite dropSprite = GetDropSprite(data);
 		if (dropSprite != null)
 		{
-			this.containerImage.color = this.highlightColor;
+			containerImage.color = highlightColor;
 		}
 	}
 
 	public void OnPointerExit(PointerEventData data)
 	{
-		if (this.containerImage == null)
+		if (containerImage == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DragOntoAble.OnPointerExit(PointerEventData)).MethodHandle;
-			}
-			return;
 		}
-		this.containerImage.color = this.normalColor;
+		containerImage.color = normalColor;
 	}
 
 	private Sprite GetDropSprite(PointerEventData data)
@@ -123,34 +98,30 @@ public class _DragOntoAble : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 		GameObject pointerDrag = data.pointerDrag;
 		if (pointerDrag == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DragOntoAble.GetDropSprite(PointerEventData)).MethodHandle;
-			}
-			return null;
 		}
 		Image component = pointerDrag.GetComponent<Image>();
 		if (component == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return null;
 				}
-				break;
 			}
-			return null;
 		}
 		return component.sprite;
 	}

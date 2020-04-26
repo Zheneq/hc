@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,27 +10,19 @@ public class RampartBarricade_Combat : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Barricade - Chain - Knockback";
+			m_abilityName = "Barricade - Chain - Knockback";
 		}
-		this.m_prepAbility = (base.GetComponent<AbilityData>().GetAbilityOfType(typeof(RampartBarricade_Prep)) as RampartBarricade_Prep);
-		if (this.m_prepAbility == null)
+		m_prepAbility = (GetComponent<AbilityData>().GetAbilityOfType(typeof(RampartBarricade_Prep)) as RampartBarricade_Prep);
+		if (!(m_prepAbility == null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Combat.Start()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			Debug.LogError("Rampart Barricade Chain: did not find parent ability");
+			return;
 		}
 	}
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,9 +8,16 @@ namespace TMPro
 	[Serializable]
 	public class TMP_FontAsset : TMP_Asset
 	{
+		public enum FontAssetTypes
+		{
+			None,
+			SDF,
+			Bitmap
+		}
+
 		private static TMP_FontAsset s_defaultFontAsset;
 
-		public TMP_FontAsset.FontAssetTypes fontAssetType;
+		public FontAssetTypes fontAssetType;
 
 		[SerializeField]
 		private FaceInfo m_fontInfo;
@@ -38,7 +45,7 @@ namespace TMPro
 		public FontCreationSetting fontCreationSettings;
 
 		[SerializeField]
-		public TMP_FontWeights[] fontWeights = new TMP_FontWeights[0xA];
+		public TMP_FontWeights[] fontWeights = new TMP_FontWeights[10];
 
 		private int[] m_characterSet;
 
@@ -50,9 +57,9 @@ namespace TMPro
 
 		public float boldSpacing = 7f;
 
-		public byte italicStyle = 0x23;
+		public byte italicStyle = 35;
 
-		public byte tabSize = 0xA;
+		public byte tabSize = 10;
 
 		private byte m_oldTabSize;
 
@@ -60,62 +67,31 @@ namespace TMPro
 		{
 			get
 			{
-				if (TMP_FontAsset.s_defaultFontAsset == null)
+				if (s_defaultFontAsset == null)
 				{
-					TMP_FontAsset.s_defaultFontAsset = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
+					s_defaultFontAsset = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
 				}
-				return TMP_FontAsset.s_defaultFontAsset;
+				return s_defaultFontAsset;
 			}
 		}
 
-		public FaceInfo fontInfo
-		{
-			get
-			{
-				return this.m_fontInfo;
-			}
-		}
+		public FaceInfo fontInfo => m_fontInfo;
 
 		public Dictionary<int, TMP_Glyph> characterDictionary
 		{
 			get
 			{
-				if (this.m_characterDictionary == null)
+				if (m_characterDictionary == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.get_characterDictionary()).MethodHandle;
-					}
-					this.ReadFontDefinition();
+					ReadFontDefinition();
 				}
-				return this.m_characterDictionary;
+				return m_characterDictionary;
 			}
 		}
 
-		public Dictionary<int, KerningPair> kerningDictionary
-		{
-			get
-			{
-				return this.m_kerningDictionary;
-			}
-		}
+		public Dictionary<int, KerningPair> kerningDictionary => m_kerningDictionary;
 
-		public KerningTable kerningInfo
-		{
-			get
-			{
-				return this.m_kerningInfo;
-			}
-		}
+		public KerningTable kerningInfo => m_kerningInfo;
 
 		private void OnEnable()
 		{
@@ -127,583 +103,312 @@ namespace TMPro
 
 		public void AddFaceInfo(FaceInfo faceInfo)
 		{
-			this.m_fontInfo = faceInfo;
+			m_fontInfo = faceInfo;
 		}
 
 		public void AddGlyphInfo(TMP_Glyph[] glyphInfo)
 		{
-			this.m_glyphInfoList = new List<TMP_Glyph>();
+			m_glyphInfoList = new List<TMP_Glyph>();
 			int num = glyphInfo.Length;
-			this.m_fontInfo.CharacterCount = num;
-			this.m_characterSet = new int[num];
+			m_fontInfo.CharacterCount = num;
+			m_characterSet = new int[num];
 			for (int i = 0; i < num; i++)
 			{
-				TMP_Glyph tmp_Glyph = new TMP_Glyph();
-				tmp_Glyph.id = glyphInfo[i].id;
-				tmp_Glyph.x = glyphInfo[i].x;
-				tmp_Glyph.y = glyphInfo[i].y;
-				tmp_Glyph.width = glyphInfo[i].width;
-				tmp_Glyph.height = glyphInfo[i].height;
-				tmp_Glyph.xOffset = glyphInfo[i].xOffset;
-				tmp_Glyph.yOffset = glyphInfo[i].yOffset;
-				tmp_Glyph.xAdvance = glyphInfo[i].xAdvance;
-				tmp_Glyph.scale = 1f;
-				this.m_glyphInfoList.Add(tmp_Glyph);
-				this.m_characterSet[i] = tmp_Glyph.id;
+				TMP_Glyph tMP_Glyph = new TMP_Glyph();
+				tMP_Glyph.id = glyphInfo[i].id;
+				tMP_Glyph.x = glyphInfo[i].x;
+				tMP_Glyph.y = glyphInfo[i].y;
+				tMP_Glyph.width = glyphInfo[i].width;
+				tMP_Glyph.height = glyphInfo[i].height;
+				tMP_Glyph.xOffset = glyphInfo[i].xOffset;
+				tMP_Glyph.yOffset = glyphInfo[i].yOffset;
+				tMP_Glyph.xAdvance = glyphInfo[i].xAdvance;
+				tMP_Glyph.scale = 1f;
+				m_glyphInfoList.Add(tMP_Glyph);
+				m_characterSet[i] = tMP_Glyph.id;
 			}
-			for (;;)
+			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				List<TMP_Glyph> glyphInfoList = m_glyphInfoList;
+				
+				m_glyphInfoList = glyphInfoList.OrderBy(((TMP_Glyph s) => s.id)).ToList();
+				return;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.AddGlyphInfo(TMP_Glyph[])).MethodHandle;
-			}
-			IEnumerable<TMP_Glyph> glyphInfoList = this.m_glyphInfoList;
-			if (TMP_FontAsset.<>f__am$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				TMP_FontAsset.<>f__am$cache0 = ((TMP_Glyph s) => s.id);
-			}
-			this.m_glyphInfoList = glyphInfoList.OrderBy(TMP_FontAsset.<>f__am$cache0).ToList<TMP_Glyph>();
 		}
 
 		public void AddKerningInfo(KerningTable kerningTable)
 		{
-			this.m_kerningInfo = kerningTable;
+			m_kerningInfo = kerningTable;
 		}
 
 		public void ReadFontDefinition()
 		{
-			if (this.m_fontInfo == null)
+			if (m_fontInfo == null)
 			{
 				return;
 			}
-			this.m_characterDictionary = new Dictionary<int, TMP_Glyph>();
-			for (int i = 0; i < this.m_glyphInfoList.Count; i++)
+			m_characterDictionary = new Dictionary<int, TMP_Glyph>();
+			for (int i = 0; i < m_glyphInfoList.Count; i++)
 			{
-				TMP_Glyph tmp_Glyph = this.m_glyphInfoList[i];
-				if (!this.m_characterDictionary.ContainsKey(tmp_Glyph.id))
+				TMP_Glyph tMP_Glyph = m_glyphInfoList[i];
+				if (!m_characterDictionary.ContainsKey(tMP_Glyph.id))
 				{
-					this.m_characterDictionary.Add(tmp_Glyph.id, tmp_Glyph);
+					m_characterDictionary.Add(tMP_Glyph.id, tMP_Glyph);
 				}
-				if (tmp_Glyph.scale == 0f)
+				if (tMP_Glyph.scale == 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.ReadFontDefinition()).MethodHandle;
-					}
-					tmp_Glyph.scale = 1f;
+					tMP_Glyph.scale = 1f;
 				}
 			}
-			for (;;)
+			while (true)
 			{
-				switch (2)
+				TMP_Glyph tMP_Glyph2 = new TMP_Glyph();
+				if (m_characterDictionary.ContainsKey(32))
 				{
-				case 0:
-					continue;
+					m_characterDictionary[32].width = m_characterDictionary[32].xAdvance;
+					m_characterDictionary[32].height = m_fontInfo.Ascender - m_fontInfo.Descender;
+					m_characterDictionary[32].yOffset = m_fontInfo.Ascender;
+					m_characterDictionary[32].scale = 1f;
 				}
-				break;
-			}
-			TMP_Glyph tmp_Glyph2 = new TMP_Glyph();
-			if (this.m_characterDictionary.ContainsKey(0x20))
-			{
-				for (;;)
+				else
 				{
-					switch (7)
+					tMP_Glyph2 = new TMP_Glyph();
+					tMP_Glyph2.id = 32;
+					tMP_Glyph2.x = 0f;
+					tMP_Glyph2.y = 0f;
+					tMP_Glyph2.width = m_fontInfo.Ascender / 5f;
+					tMP_Glyph2.height = m_fontInfo.Ascender - m_fontInfo.Descender;
+					tMP_Glyph2.xOffset = 0f;
+					tMP_Glyph2.yOffset = m_fontInfo.Ascender;
+					tMP_Glyph2.xAdvance = m_fontInfo.PointSize / 4f;
+					tMP_Glyph2.scale = 1f;
+					m_characterDictionary.Add(32, tMP_Glyph2);
+				}
+				if (!m_characterDictionary.ContainsKey(160))
+				{
+					tMP_Glyph2 = TMP_Glyph.Clone(m_characterDictionary[32]);
+					m_characterDictionary.Add(160, tMP_Glyph2);
+				}
+				if (!m_characterDictionary.ContainsKey(8203))
+				{
+					tMP_Glyph2 = TMP_Glyph.Clone(m_characterDictionary[32]);
+					tMP_Glyph2.width = 0f;
+					tMP_Glyph2.xAdvance = 0f;
+					m_characterDictionary.Add(8203, tMP_Glyph2);
+				}
+				if (!m_characterDictionary.ContainsKey(8288))
+				{
+					tMP_Glyph2 = TMP_Glyph.Clone(m_characterDictionary[32]);
+					tMP_Glyph2.width = 0f;
+					tMP_Glyph2.xAdvance = 0f;
+					m_characterDictionary.Add(8288, tMP_Glyph2);
+				}
+				if (!m_characterDictionary.ContainsKey(10))
+				{
+					tMP_Glyph2 = new TMP_Glyph();
+					tMP_Glyph2.id = 10;
+					tMP_Glyph2.x = 0f;
+					tMP_Glyph2.y = 0f;
+					tMP_Glyph2.width = 10f;
+					tMP_Glyph2.height = m_characterDictionary[32].height;
+					tMP_Glyph2.xOffset = 0f;
+					tMP_Glyph2.yOffset = m_characterDictionary[32].yOffset;
+					tMP_Glyph2.xAdvance = 0f;
+					tMP_Glyph2.scale = 1f;
+					m_characterDictionary.Add(10, tMP_Glyph2);
+					if (!m_characterDictionary.ContainsKey(13))
 					{
-					case 0:
-						continue;
+						m_characterDictionary.Add(13, tMP_Glyph2);
 					}
-					break;
 				}
-				this.m_characterDictionary[0x20].width = this.m_characterDictionary[0x20].xAdvance;
-				this.m_characterDictionary[0x20].height = this.m_fontInfo.Ascender - this.m_fontInfo.Descender;
-				this.m_characterDictionary[0x20].yOffset = this.m_fontInfo.Ascender;
-				this.m_characterDictionary[0x20].scale = 1f;
-			}
-			else
-			{
-				tmp_Glyph2 = new TMP_Glyph();
-				tmp_Glyph2.id = 0x20;
-				tmp_Glyph2.x = 0f;
-				tmp_Glyph2.y = 0f;
-				tmp_Glyph2.width = this.m_fontInfo.Ascender / 5f;
-				tmp_Glyph2.height = this.m_fontInfo.Ascender - this.m_fontInfo.Descender;
-				tmp_Glyph2.xOffset = 0f;
-				tmp_Glyph2.yOffset = this.m_fontInfo.Ascender;
-				tmp_Glyph2.xAdvance = this.m_fontInfo.PointSize / 4f;
-				tmp_Glyph2.scale = 1f;
-				this.m_characterDictionary.Add(0x20, tmp_Glyph2);
-			}
-			if (!this.m_characterDictionary.ContainsKey(0xA0))
-			{
-				for (;;)
+				if (!m_characterDictionary.ContainsKey(9))
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					tMP_Glyph2 = new TMP_Glyph();
+					tMP_Glyph2.id = 9;
+					tMP_Glyph2.x = m_characterDictionary[32].x;
+					tMP_Glyph2.y = m_characterDictionary[32].y;
+					tMP_Glyph2.width = m_characterDictionary[32].width * (float)(int)tabSize + (m_characterDictionary[32].xAdvance - m_characterDictionary[32].width) * (float)(tabSize - 1);
+					tMP_Glyph2.height = m_characterDictionary[32].height;
+					tMP_Glyph2.xOffset = m_characterDictionary[32].xOffset;
+					tMP_Glyph2.yOffset = m_characterDictionary[32].yOffset;
+					tMP_Glyph2.xAdvance = m_characterDictionary[32].xAdvance * (float)(int)tabSize;
+					tMP_Glyph2.scale = 1f;
+					m_characterDictionary.Add(9, tMP_Glyph2);
 				}
-				tmp_Glyph2 = TMP_Glyph.Clone(this.m_characterDictionary[0x20]);
-				this.m_characterDictionary.Add(0xA0, tmp_Glyph2);
+				m_fontInfo.TabWidth = m_characterDictionary[9].xAdvance;
+				if (m_fontInfo.CapHeight == 0f && m_characterDictionary.ContainsKey(72))
+				{
+					m_fontInfo.CapHeight = m_characterDictionary[72].yOffset;
+				}
+				if (m_fontInfo.Scale == 0f)
+				{
+					m_fontInfo.Scale = 1f;
+				}
+				if (m_fontInfo.strikethrough == 0f)
+				{
+					m_fontInfo.strikethrough = m_fontInfo.CapHeight / 2.5f;
+				}
+				if (m_fontInfo.Padding == 0f)
+				{
+					if (material.HasProperty(ShaderUtilities.ID_GradientScale))
+					{
+						m_fontInfo.Padding = material.GetFloat(ShaderUtilities.ID_GradientScale) - 1f;
+					}
+				}
+				m_kerningDictionary = new Dictionary<int, KerningPair>();
+				List<KerningPair> kerningPairs = m_kerningInfo.kerningPairs;
+				for (int j = 0; j < kerningPairs.Count; j++)
+				{
+					KerningPair kerningPair = kerningPairs[j];
+					KerningPairKey kerningPairKey = new KerningPairKey(kerningPair.AscII_Left, kerningPair.AscII_Right);
+					if (!m_kerningDictionary.ContainsKey(kerningPairKey.key))
+					{
+						m_kerningDictionary.Add(kerningPairKey.key, kerningPair);
+					}
+					else if (!TMP_Settings.warningsDisabled)
+					{
+						Debug.LogWarning("Kerning Key for [" + kerningPairKey.ascii_Left + "] and [" + kerningPairKey.ascii_Right + "] already exists.");
+					}
+				}
+				hashCode = TMP_TextUtilities.GetSimpleHashCode(base.name);
+				materialHashCode = TMP_TextUtilities.GetSimpleHashCode(material.name);
+				return;
 			}
-			if (!this.m_characterDictionary.ContainsKey(0x200B))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				tmp_Glyph2 = TMP_Glyph.Clone(this.m_characterDictionary[0x20]);
-				tmp_Glyph2.width = 0f;
-				tmp_Glyph2.xAdvance = 0f;
-				this.m_characterDictionary.Add(0x200B, tmp_Glyph2);
-			}
-			if (!this.m_characterDictionary.ContainsKey(0x2060))
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				tmp_Glyph2 = TMP_Glyph.Clone(this.m_characterDictionary[0x20]);
-				tmp_Glyph2.width = 0f;
-				tmp_Glyph2.xAdvance = 0f;
-				this.m_characterDictionary.Add(0x2060, tmp_Glyph2);
-			}
-			if (!this.m_characterDictionary.ContainsKey(0xA))
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				tmp_Glyph2 = new TMP_Glyph();
-				tmp_Glyph2.id = 0xA;
-				tmp_Glyph2.x = 0f;
-				tmp_Glyph2.y = 0f;
-				tmp_Glyph2.width = 10f;
-				tmp_Glyph2.height = this.m_characterDictionary[0x20].height;
-				tmp_Glyph2.xOffset = 0f;
-				tmp_Glyph2.yOffset = this.m_characterDictionary[0x20].yOffset;
-				tmp_Glyph2.xAdvance = 0f;
-				tmp_Glyph2.scale = 1f;
-				this.m_characterDictionary.Add(0xA, tmp_Glyph2);
-				if (!this.m_characterDictionary.ContainsKey(0xD))
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_characterDictionary.Add(0xD, tmp_Glyph2);
-				}
-			}
-			if (!this.m_characterDictionary.ContainsKey(9))
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				tmp_Glyph2 = new TMP_Glyph();
-				tmp_Glyph2.id = 9;
-				tmp_Glyph2.x = this.m_characterDictionary[0x20].x;
-				tmp_Glyph2.y = this.m_characterDictionary[0x20].y;
-				tmp_Glyph2.width = this.m_characterDictionary[0x20].width * (float)this.tabSize + (this.m_characterDictionary[0x20].xAdvance - this.m_characterDictionary[0x20].width) * (float)(this.tabSize - 1);
-				tmp_Glyph2.height = this.m_characterDictionary[0x20].height;
-				tmp_Glyph2.xOffset = this.m_characterDictionary[0x20].xOffset;
-				tmp_Glyph2.yOffset = this.m_characterDictionary[0x20].yOffset;
-				tmp_Glyph2.xAdvance = this.m_characterDictionary[0x20].xAdvance * (float)this.tabSize;
-				tmp_Glyph2.scale = 1f;
-				this.m_characterDictionary.Add(9, tmp_Glyph2);
-			}
-			this.m_fontInfo.TabWidth = this.m_characterDictionary[9].xAdvance;
-			if (this.m_fontInfo.CapHeight == 0f && this.m_characterDictionary.ContainsKey(0x48))
-			{
-				this.m_fontInfo.CapHeight = this.m_characterDictionary[0x48].yOffset;
-			}
-			if (this.m_fontInfo.Scale == 0f)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_fontInfo.Scale = 1f;
-			}
-			if (this.m_fontInfo.strikethrough == 0f)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_fontInfo.strikethrough = this.m_fontInfo.CapHeight / 2.5f;
-			}
-			if (this.m_fontInfo.Padding == 0f)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.material.HasProperty(ShaderUtilities.ID_GradientScale))
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_fontInfo.Padding = this.material.GetFloat(ShaderUtilities.ID_GradientScale) - 1f;
-				}
-			}
-			this.m_kerningDictionary = new Dictionary<int, KerningPair>();
-			List<KerningPair> kerningPairs = this.m_kerningInfo.kerningPairs;
-			for (int j = 0; j < kerningPairs.Count; j++)
-			{
-				KerningPair kerningPair = kerningPairs[j];
-				KerningPairKey kerningPairKey = new KerningPairKey(kerningPair.AscII_Left, kerningPair.AscII_Right);
-				if (!this.m_kerningDictionary.ContainsKey(kerningPairKey.key))
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_kerningDictionary.Add(kerningPairKey.key, kerningPair);
-				}
-				else if (!TMP_Settings.warningsDisabled)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Debug.LogWarning(string.Concat(new object[]
-					{
-						"Kerning Key for [",
-						kerningPairKey.ascii_Left,
-						"] and [",
-						kerningPairKey.ascii_Right,
-						"] already exists."
-					}));
-				}
-			}
-			this.hashCode = TMP_TextUtilities.GetSimpleHashCode(base.name);
-			this.materialHashCode = TMP_TextUtilities.GetSimpleHashCode(this.material.name);
 		}
 
 		public void SortGlyphs()
 		{
-			if (this.m_glyphInfoList != null)
+			if (m_glyphInfoList == null)
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				if (m_glyphInfoList.Count == 0)
 				{
-					switch (5)
+					while (true)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.SortGlyphs()).MethodHandle;
-				}
-				if (this.m_glyphInfoList.Count != 0)
-				{
-					IEnumerable<TMP_Glyph> glyphInfoList = this.m_glyphInfoList;
-					if (TMP_FontAsset.<>f__am$cache1 == null)
-					{
-						for (;;)
+						switch (6)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
+						default:
+							return;
+						case 0:
 							break;
 						}
-						TMP_FontAsset.<>f__am$cache1 = ((TMP_Glyph item) => item.id);
 					}
-					this.m_glyphInfoList = glyphInfoList.OrderBy(TMP_FontAsset.<>f__am$cache1).ToList<TMP_Glyph>();
-					return;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				List<TMP_Glyph> glyphInfoList = m_glyphInfoList;
+				
+				m_glyphInfoList = glyphInfoList.OrderBy(((TMP_Glyph item) => item.id)).ToList();
+				return;
 			}
 		}
 
 		public bool HasCharacter(int character)
 		{
-			if (this.m_characterDictionary == null)
+			if (m_characterDictionary == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.HasCharacter(int)).MethodHandle;
-				}
-				return false;
 			}
-			return this.m_characterDictionary.ContainsKey(character);
+			if (m_characterDictionary.ContainsKey(character))
+			{
+				return true;
+			}
+			return false;
 		}
 
 		public bool HasCharacter(char character)
 		{
-			if (this.m_characterDictionary == null)
+			if (m_characterDictionary == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.HasCharacter(char)).MethodHandle;
-				}
-				return false;
 			}
-			return this.m_characterDictionary.ContainsKey((int)character);
+			if (m_characterDictionary.ContainsKey(character))
+			{
+				return true;
+			}
+			return false;
 		}
 
 		public bool HasCharacter(char character, bool searchFallbacks)
 		{
-			if (this.m_characterDictionary == null)
+			if (m_characterDictionary == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.HasCharacter(char, bool)).MethodHandle;
-				}
-				return false;
 			}
-			if (this.m_characterDictionary.ContainsKey((int)character))
+			if (m_characterDictionary.ContainsKey(character))
 			{
 				return true;
 			}
 			if (searchFallbacks)
 			{
-				for (;;)
+				if (fallbackFontAssets != null)
 				{
-					switch (4)
+					if (fallbackFontAssets.Count > 0)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.fallbackFontAssets != null)
-				{
-					for (;;)
-					{
-						switch (5)
+						for (int i = 0; i < fallbackFontAssets.Count; i++)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.fallbackFontAssets.Count > 0)
-					{
-						int i = 0;
-						while (i < this.fallbackFontAssets.Count)
-						{
-							if (!(this.fallbackFontAssets[i] != null))
+							if (fallbackFontAssets[i] != null)
 							{
-								for (;;)
+								if (fallbackFontAssets[i].characterDictionary == null)
 								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									goto IL_E7;
-								}
-							}
-							else
-							{
-								if (this.fallbackFontAssets[i].characterDictionary != null)
-								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (this.fallbackFontAssets[i].characterDictionary.ContainsKey((int)character))
-									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										return true;
-									}
-								}
-								i++;
-							}
-						}
-					}
-				}
-				IL_E7:
-				if (TMP_Settings.fallbackFontAssets != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (TMP_Settings.fallbackFontAssets.Count > 0)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						int j = 0;
-						while (j < TMP_Settings.fallbackFontAssets.Count)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
 									continue;
 								}
-								break;
-							}
-							if (!(TMP_Settings.fallbackFontAssets[j] != null))
-							{
-								for (;;)
+								if (!fallbackFontAssets[i].characterDictionary.ContainsKey(character))
 								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									return false;
+									continue;
 								}
-							}
-							else
-							{
-								if (TMP_Settings.fallbackFontAssets[j].characterDictionary != null && TMP_Settings.fallbackFontAssets[j].characterDictionary.ContainsKey((int)character))
+								while (true)
 								{
 									return true;
 								}
-								j++;
 							}
+							break;
+						}
+					}
+				}
+				if (TMP_Settings.fallbackFontAssets != null)
+				{
+					if (TMP_Settings.fallbackFontAssets.Count > 0)
+					{
+						for (int j = 0; j < TMP_Settings.fallbackFontAssets.Count; j++)
+						{
+							if (TMP_Settings.fallbackFontAssets[j] != null)
+							{
+								if (TMP_Settings.fallbackFontAssets[j].characterDictionary != null && TMP_Settings.fallbackFontAssets[j].characterDictionary.ContainsKey(character))
+								{
+									return true;
+								}
+								continue;
+							}
+							break;
 						}
 					}
 				}
@@ -711,9 +416,9 @@ namespace TMPro
 			return false;
 		}
 
-		public unsafe bool HasCharacters(string text, out List<char> missingCharacters)
+		public bool HasCharacters(string text, out List<char> missingCharacters)
 		{
-			if (this.m_characterDictionary == null)
+			if (m_characterDictionary == null)
 			{
 				missingCharacters = null;
 				return false;
@@ -721,94 +426,60 @@ namespace TMPro
 			missingCharacters = new List<char>();
 			for (int i = 0; i < text.Length; i++)
 			{
-				if (!this.m_characterDictionary.ContainsKey((int)text[i]))
+				if (!m_characterDictionary.ContainsKey(text[i]))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.HasCharacters(string, List<char>*)).MethodHandle;
-					}
 					missingCharacters.Add(text[i]);
 				}
 			}
-			for (;;)
+			while (true)
 			{
-				switch (2)
+				if (missingCharacters.Count == 0)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (missingCharacters.Count == 0)
-			{
-				for (;;)
-				{
-					switch (2)
+					while (true)
 					{
-					case 0:
-						continue;
+						switch (2)
+						{
+						case 0:
+							break;
+						default:
+							return true;
+						}
 					}
-					break;
 				}
-				return true;
+				return false;
 			}
-			return false;
 		}
 
 		public bool HasCharacters(string text)
 		{
-			if (this.m_characterDictionary == null)
+			if (m_characterDictionary == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.HasCharacters(string)).MethodHandle;
-				}
-				return false;
 			}
 			for (int i = 0; i < text.Length; i++)
 			{
-				if (!this.m_characterDictionary.ContainsKey((int)text[i]))
+				if (m_characterDictionary.ContainsKey(text[i]))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					continue;
+				}
+				while (true)
+				{
 					return false;
 				}
 			}
-			for (;;)
+			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return true;
 			}
-			return true;
 		}
 
 		public static string GetCharacters(TMP_FontAsset fontAsset)
@@ -818,20 +489,10 @@ namespace TMPro
 			{
 				text += (char)fontAsset.m_glyphInfoList[i].id;
 			}
-			for (;;)
+			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return text;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.GetCharacters(TMP_FontAsset)).MethodHandle;
-			}
-			return text;
 		}
 
 		public static int[] GetCharactersArray(TMP_FontAsset fontAsset)
@@ -841,27 +502,10 @@ namespace TMPro
 			{
 				array[i] = fontAsset.m_glyphInfoList[i].id;
 			}
-			for (;;)
+			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return array;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.GetCharactersArray(TMP_FontAsset)).MethodHandle;
-			}
-			return array;
-		}
-
-		public enum FontAssetTypes
-		{
-			None,
-			SDF,
-			Bitmap
 		}
 	}
 }

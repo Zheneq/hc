@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityStandardAssets.ImageEffects;
 
@@ -10,222 +9,156 @@ public class FogOfWarBackgroundEffect : ImageEffectBase
 
 	public RenderTexture GetSourceTexture()
 	{
-		return this.m_sourceTexture;
+		return m_sourceTexture;
 	}
 
 	private int GetResolutionBasedOnScreenResolution()
 	{
-		if (Screen.currentResolution.width > 0xC00)
+		if (Screen.currentResolution.width > 3072)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 4096;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarBackgroundEffect.GetResolutionBasedOnScreenResolution()).MethodHandle;
-			}
-			return 0x1000;
 		}
-		if (Screen.currentResolution.width > 0x800)
+		if (Screen.currentResolution.width > 2048)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 2048;
 				}
-				break;
 			}
-			return 0x800;
 		}
-		return 0x400;
+		return 1024;
 	}
 
 	private void InitializeSourceTexture()
 	{
-		if (!this.m_sourceTexture)
+		if ((bool)m_sourceTexture)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarBackgroundEffect.InitializeSourceTexture()).MethodHandle;
-			}
-			int resolutionBasedOnScreenResolution = this.GetResolutionBasedOnScreenResolution();
-			this.m_sourceTexture = new RenderTexture(resolutionBasedOnScreenResolution, resolutionBasedOnScreenResolution, 0);
-			this.m_sourceTexture.name = "UnseenRenderTexture";
-			this.m_sourceTexture.hideFlags = HideFlags.HideAndDontSave;
-			this.m_sourceTexture.isPowerOfTwo = true;
-			this.m_sourceTexture.useMipMap = true;
-			this.m_sourceTexture.autoGenerateMips = true;
-			this.m_sourceTexture.Create();
+			return;
+		}
+		while (true)
+		{
+			int resolutionBasedOnScreenResolution = GetResolutionBasedOnScreenResolution();
+			m_sourceTexture = new RenderTexture(resolutionBasedOnScreenResolution, resolutionBasedOnScreenResolution, 0);
+			m_sourceTexture.name = "UnseenRenderTexture";
+			m_sourceTexture.hideFlags = HideFlags.HideAndDontSave;
+			m_sourceTexture.isPowerOfTwo = true;
+			m_sourceTexture.useMipMap = true;
+			m_sourceTexture.autoGenerateMips = true;
+			m_sourceTexture.Create();
+			return;
 		}
 	}
 
 	public RenderTexture GetRenderTexture()
 	{
-		return this.m_renderTexture;
+		return m_renderTexture;
 	}
 
 	private void InitializeRenderTexture()
 	{
-		if (!this.m_renderTexture)
+		if ((bool)m_renderTexture)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarBackgroundEffect.InitializeRenderTexture()).MethodHandle;
-			}
-			int resolutionBasedOnScreenResolution = this.GetResolutionBasedOnScreenResolution();
-			this.m_renderTexture = new RenderTexture(resolutionBasedOnScreenResolution, resolutionBasedOnScreenResolution, 0);
-			this.m_renderTexture.name = "OutputRenderTexture";
-			this.m_renderTexture.hideFlags = HideFlags.HideAndDontSave;
-			this.m_renderTexture.isPowerOfTwo = true;
-			Shader.SetGlobalTexture("_FogOfWarScreenTex", this.GetSourceTexture());
+			return;
+		}
+		while (true)
+		{
+			int resolutionBasedOnScreenResolution = GetResolutionBasedOnScreenResolution();
+			m_renderTexture = new RenderTexture(resolutionBasedOnScreenResolution, resolutionBasedOnScreenResolution, 0);
+			m_renderTexture.name = "OutputRenderTexture";
+			m_renderTexture.hideFlags = HideFlags.HideAndDontSave;
+			m_renderTexture.isPowerOfTwo = true;
+			Shader.SetGlobalTexture("_FogOfWarScreenTex", GetSourceTexture());
+			return;
 		}
 	}
 
 	private void OnEnable()
 	{
-		this.InitializeSourceTexture();
-		this.InitializeRenderTexture();
-		Camera component = base.GetComponent<Camera>();
-		if (component)
+		InitializeSourceTexture();
+		InitializeRenderTexture();
+		Camera component = GetComponent<Camera>();
+		if (!component)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarBackgroundEffect.OnEnable()).MethodHandle;
-			}
-			component.targetTexture = this.GetRenderTexture();
+			return;
+		}
+		while (true)
+		{
+			component.targetTexture = GetRenderTexture();
+			return;
 		}
 	}
 
 	protected override void OnDisable()
 	{
 		base.OnDisable();
-		Camera component = base.GetComponent<Camera>();
-		if (component)
+		Camera component = GetComponent<Camera>();
+		if ((bool)component)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarBackgroundEffect.OnDisable()).MethodHandle;
-			}
 			component.targetTexture = null;
 		}
-		if (this.m_sourceTexture)
+		if ((bool)m_sourceTexture)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UnityEngine.Object.DestroyImmediate(this.m_sourceTexture);
-			this.m_sourceTexture = null;
+			Object.DestroyImmediate(m_sourceTexture);
+			m_sourceTexture = null;
 		}
-		if (this.m_renderTexture)
+		if (!m_renderTexture)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UnityEngine.Object.DestroyImmediate(this.m_renderTexture);
-			this.m_renderTexture = null;
+			return;
+		}
+		while (true)
+		{
+			Object.DestroyImmediate(m_renderTexture);
+			m_renderTexture = null;
+			return;
 		}
 	}
 
 	protected override void Start()
 	{
-		this.InitializeSourceTexture();
-		this.InitializeRenderTexture();
-		Camera component = base.GetComponent<Camera>();
-		if (component)
+		InitializeSourceTexture();
+		InitializeRenderTexture();
+		Camera component = GetComponent<Camera>();
+		if (!component)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarBackgroundEffect.Start()).MethodHandle;
-			}
-			component.targetTexture = this.GetRenderTexture();
+			return;
+		}
+		while (true)
+		{
+			component.targetTexture = GetRenderTexture();
+			return;
 		}
 	}
 
 	[ImageEffectOpaque]
 	private void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
-		if (!this.GetSourceTexture())
+		if (!GetSourceTexture())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarBackgroundEffect.OnRenderImage(RenderTexture, RenderTexture)).MethodHandle;
-			}
-			return;
 		}
-		Graphics.Blit(this.GetSourceTexture(), destination);
+		Graphics.Blit(GetSourceTexture(), destination);
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class JointPopupAttribute : PropertyAttribute
@@ -7,6 +6,6 @@ public class JointPopupAttribute : PropertyAttribute
 
 	public JointPopupAttribute(string tooltipText)
 	{
-		this.tooltip = tooltipText;
+		tooltip = tooltipText;
 	}
 }

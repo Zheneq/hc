@@ -1,11 +1,17 @@
-﻿using System;
+using System;
 
 namespace LobbyGameClientMessages
 {
 	[Serializable]
 	public class SeasonQuestActionRequest : WebSocketMessage
 	{
-		public SeasonQuestActionRequest.ActionType Action;
+		public enum ActionType
+		{
+			_001D,
+			_000E
+		}
+
+		public ActionType Action;
 
 		public int SeasonId;
 
@@ -14,11 +20,5 @@ namespace LobbyGameClientMessages
 		public int SlotNum;
 
 		public int QuestId;
-
-		public enum ActionType
-		{
-			\u001D,
-			\u000E
-		}
 	}
 }

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 
 public class IceborgIcicle : GenericAbility_Container
 {
@@ -22,129 +21,93 @@ public class IceborgIcicle : GenericAbility_Container
 	public override List<string> GetContextNamesForEditor()
 	{
 		List<string> contextNamesForEditor = base.GetContextNamesForEditor();
-		contextNamesForEditor.Add(Iceborg_SyncComponent.s_cvarHasNova.\u0012());
+		contextNamesForEditor.Add(Iceborg_SyncComponent.s_cvarHasNova.GetName());
 		return contextNamesForEditor;
 	}
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor() + ContextVars.\u0015(Iceborg_SyncComponent.s_cvarHasNova.\u0012(), "set to 1 if target has nova core on start of turn, 0 otherwise", true);
+		return base.GetUsageForEditor() + ContextVars.GetDebugString(Iceborg_SyncComponent.s_cvarHasNova.GetName(), "set to 1 if target has nova core on start of turn, 0 otherwise");
 	}
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
+		m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		base.SetupTargetersAndCachedVars();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		base.AddTokenInt(tokens, "CdrIfHasHit", string.Empty, this.m_cdrIfHasHit, false);
-		base.AddTokenInt(tokens, "EnergyOnCasterIfTargetHasNovaCore", string.Empty, this.m_energyOnCasterIfTargetHasNovaCore, false);
-		if (this.m_syncComp == null)
+		AddTokenInt(tokens, "CdrIfHasHit", string.Empty, m_cdrIfHasHit);
+		AddTokenInt(tokens, "EnergyOnCasterIfTargetHasNovaCore", string.Empty, m_energyOnCasterIfTargetHasNovaCore);
+		if (m_syncComp == null)
 		{
-			this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
+			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			this.m_syncComp.AddTooltipTokens(tokens);
+			m_syncComp.AddTooltipTokens(tokens);
 		}
 	}
 
 	public override void PreProcessTargetingNumbers(ActorData targetActor, int currentTargetIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext)
 	{
-		if (this.m_syncComp != null)
+		if (!(m_syncComp != null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgIcicle.PreProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars)).MethodHandle;
-			}
-			this.m_syncComp.SetHasCoreContext_Client(actorHitContext, targetActor, base.ActorData);
+			return;
+		}
+		while (true)
+		{
+			m_syncComp.SetHasCoreContext_Client(actorHitContext, targetActor, base.ActorData);
+			return;
 		}
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
 		int num = 0;
-		int energyOnCasterIfTargetHasNovaCore = this.GetEnergyOnCasterIfTargetHasNovaCore();
+		int energyOnCasterIfTargetHasNovaCore = GetEnergyOnCasterIfTargetHasNovaCore();
 		if (energyOnCasterIfTargetHasNovaCore > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgIcicle.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
-			Dictionary<ActorData, ActorHitContext> actorContextVars = base.Targeter.GetActorContextVars();
-			using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorContextVars.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
+					break;
+				default:
 				{
-					KeyValuePair<ActorData, ActorHitContext> keyValuePair = enumerator.Current;
-					ActorData key = keyValuePair.Key;
-					if (key.\u000E() != caster.\u000E())
+					Dictionary<ActorData, ActorHitContext> actorContextVars = base.Targeter.GetActorContextVars();
+					using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorContextVars.GetEnumerator())
 					{
-						for (;;)
+						while (enumerator.MoveNext())
 						{
-							switch (7)
+							KeyValuePair<ActorData, ActorHitContext> current = enumerator.Current;
+							ActorData key = current.Key;
+							if (key.GetTeam() != caster.GetTeam())
+							{
+								if (current.Value._0012)
+								{
+									if (m_syncComp.HasNovaCore(key))
+									{
+										num += energyOnCasterIfTargetHasNovaCore;
+									}
+								}
+							}
+						}
+						while (true)
+						{
+							switch (3)
 							{
 							case 0:
-								continue;
-							}
-							break;
-						}
-						if (keyValuePair.Value.\u0012)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
 								break;
-							}
-							if (this.m_syncComp.HasNovaCore(key))
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								num += energyOnCasterIfTargetHasNovaCore;
+							default:
+								return num;
 							}
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -153,54 +116,28 @@ public class IceborgIcicle : GenericAbility_Container
 
 	public override string GetAccessoryTargeterNumberString(ActorData targetActor, AbilityTooltipSymbol symbolType, int baseValue)
 	{
-		string result;
-		if (this.m_syncComp != null)
+		object result;
+		if (m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgIcicle.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
-			result = this.m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
+			result = m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 		}
 		else
 		{
 			result = null;
 		}
-		return result;
+		return (string)result;
 	}
 
 	public int GetEnergyOnCasterIfTargetHasNovaCore()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgIcicle.GetEnergyOnCasterIfTargetHasNovaCore()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_energyOnCasterIfTargetHasNovaCoreMod.GetModifiedValue(this.m_energyOnCasterIfTargetHasNovaCore);
+			result = m_abilityMod.m_energyOnCasterIfTargetHasNovaCoreMod.GetModifiedValue(m_energyOnCasterIfTargetHasNovaCore);
 		}
 		else
 		{
-			result = this.m_energyOnCasterIfTargetHasNovaCore;
+			result = m_energyOnCasterIfTargetHasNovaCore;
 		}
 		return result;
 	}
@@ -208,37 +145,24 @@ public class IceborgIcicle : GenericAbility_Container
 	public int GetCdrIfHasHit()
 	{
 		int result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgIcicle.GetCdrIfHasHit()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_cdrIfHasHitMod.GetModifiedValue(this.m_cdrIfHasHit);
+			result = m_abilityMod.m_cdrIfHasHitMod.GetModifiedValue(m_cdrIfHasHit);
 		}
 		else
 		{
-			result = this.m_cdrIfHasHit;
+			result = m_cdrIfHasHit;
 		}
 		return result;
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		this.m_abilityMod = (abilityMod as AbilityMod_IceborgIcicle);
+		m_abilityMod = (abilityMod as AbilityMod_IceborgIcicle);
 	}
 
 	protected override void GenModImpl_ClearModRef()
 	{
-		this.m_abilityMod = null;
+		m_abilityMod = null;
 	}
 }

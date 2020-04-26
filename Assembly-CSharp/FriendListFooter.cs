@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,18 +23,18 @@ public class FriendListFooter : MonoBehaviour
 
 	public void Start()
 	{
-		this.m_inviteButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.InviteClicked);
-		this.displayingPlaceholders = true;
-		for (int i = 0; i < this.m_placeHolders.Length; i++)
+		m_inviteButton.callback = InviteClicked;
+		displayingPlaceholders = true;
+		for (int i = 0; i < m_placeHolders.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_placeHolders[i], this.displayingPlaceholders, null);
+			UIManager.SetGameObjectActive(m_placeHolders[i], displayingPlaceholders);
 		}
 	}
 
 	public void InviteClicked(BaseEventData data)
 	{
-		FriendListPanel.Get().RequestToAddFriend(this.m_inputField.text);
-		this.m_inputField.text = string.Empty;
+		FriendListPanel.Get().RequestToAddFriend(m_inputField.text);
+		m_inputField.text = string.Empty;
 	}
 
 	public void Update()
@@ -44,101 +43,64 @@ public class FriendListFooter : MonoBehaviour
 		{
 			return;
 		}
-		bool flag = EventSystem.current.currentSelectedGameObject == this.m_inputField.gameObject;
-		this.m_InputFieldBtnHitBox.SetSelected(flag, false, string.Empty, string.Empty);
-		if (this.m_inputField.text == string.Empty)
+		bool flag = EventSystem.current.currentSelectedGameObject == m_inputField.gameObject;
+		m_InputFieldBtnHitBox.SetSelected(flag, false, string.Empty, string.Empty);
+		if (m_inputField.text == string.Empty)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListFooter.Update()).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_invitePanel, false, null);
-			for (int i = 0; i < this.m_placeHolders.Length; i++)
-			{
-				Component component = this.m_placeHolders[i];
-				bool doActive;
-				if (true)
+					break;
+				default:
 				{
-					for (;;)
+					UIManager.SetGameObjectActive(m_invitePanel, false);
+					for (int i = 0; i < m_placeHolders.Length; i++)
 					{
-						switch (7)
+						Graphic component = m_placeHolders[i];
+						int doActive;
+						if (true)
 						{
-						case 0:
-							continue;
+							doActive = ((!flag) ? 1 : 0);
 						}
-						break;
+						else
+						{
+							doActive = 0;
+						}
+						UIManager.SetGameObjectActive(component, (byte)doActive != 0);
 					}
-					doActive = !flag;
+					return;
 				}
-				else
-				{
-					doActive = false;
 				}
-				UIManager.SetGameObjectActive(component, doActive, null);
 			}
 		}
-		else
+		UIManager.SetGameObjectActive(m_invitePanel, true);
+		for (int j = 0; j < m_placeHolders.Length; j++)
 		{
-			UIManager.SetGameObjectActive(this.m_invitePanel, true, null);
-			for (int j = 0; j < this.m_placeHolders.Length; j++)
+			UIManager.SetGameObjectActive(m_placeHolders[j], false);
+		}
+		while (true)
+		{
+			if (m_InviteText != null)
 			{
-				UIManager.SetGameObjectActive(this.m_placeHolders[j], false, null);
+				m_InviteText.text = string.Format(StringUtil.TR("InviteFriendPrompt", "FriendList"), HUD_UIResources.ColorToHex(m_textColor), m_inputField.text);
 			}
-			for (;;)
+			if (!flag)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (this.m_InviteText != null)
+			while (true)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_InviteText.text = string.Format(StringUtil.TR("InviteFriendPrompt", "FriendList"), HUD_UIResources.ColorToHex(this.m_textColor), this.m_inputField.text);
-			}
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Input.GetKeyDown(KeyCode.Return))
 				{
-					for (;;)
+					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						InviteClicked(null);
+						return;
 					}
-					this.InviteClicked(null);
 				}
+				return;
 			}
 		}
 	}

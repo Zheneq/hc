@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 [RequireComponent(typeof(GUITexture))]
@@ -18,108 +17,87 @@ public class GUIT_Button_Simple : MonoBehaviour
 
 	private void Awake()
 	{
-		base.GetComponentInChildren<GUIText>().material.color = this.labelColor;
-		this.UpdateImage();
+		GetComponentInChildren<GUIText>().material.color = labelColor;
+		UpdateImage();
 	}
 
 	private void Update()
 	{
-		if (base.GetComponent<GUITexture>().GetScreenRect().Contains(Input.mousePosition))
+		if (GetComponent<GUITexture>().GetScreenRect().Contains(Input.mousePosition))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GUIT_Button_Simple.Update()).MethodHandle;
-			}
-			if (!this.over)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				this.OnOver();
-			}
-			if (Input.GetMouseButtonDown(0))
-			{
-				for (;;)
-				{
-					switch (6)
+				default:
+					if (!over)
 					{
-					case 0:
-						continue;
+						OnOver();
 					}
-					break;
+					if (Input.GetMouseButtonDown(0))
+					{
+						while (true)
+						{
+							switch (6)
+							{
+							case 0:
+								break;
+							default:
+								OnClick();
+								return;
+							}
+						}
+					}
+					return;
 				}
-				this.OnClick();
 			}
 		}
-		else if (this.over)
+		if (!over)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.OnOut();
+			return;
+		}
+		while (true)
+		{
+			OnOut();
+			return;
 		}
 	}
 
 	private void OnClick()
 	{
-		this.callbackObject.SendMessage(this.callback);
+		callbackObject.SendMessage(callback);
 	}
 
 	private void OnOver()
 	{
-		this.over = true;
-		this.UpdateImage();
+		over = true;
+		UpdateImage();
 	}
 
 	private void OnOut()
 	{
-		this.over = false;
-		this.UpdateImage();
+		over = false;
+		UpdateImage();
 	}
 
 	private void UpdateImage()
 	{
-		if (this.over)
+		if (over)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					GetComponent<GUITexture>().texture = text_over;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GUIT_Button_Simple.UpdateImage()).MethodHandle;
-			}
-			base.GetComponent<GUITexture>().texture = this.text_over;
 		}
-		else
-		{
-			base.GetComponent<GUITexture>().texture = this.text;
-		}
+		GetComponent<GUITexture>().texture = text;
 	}
 }

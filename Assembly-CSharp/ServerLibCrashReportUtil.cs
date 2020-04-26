@@ -1,37 +1,24 @@
-﻿using System;
+using System;
 
 public static class ServerLibCrashReportUtil
 {
 	public static string CreateArchiveNameForClient(bool devBuild, int numArchiveBytes)
 	{
-		string buildName;
+		object buildName;
 		if (devBuild)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerLibCrashReportUtil.CreateArchiveNameForClient(bool, int)).MethodHandle;
-			}
 			buildName = "AtlasReactorDev";
 		}
 		else
 		{
 			buildName = "AtlasReactor";
 		}
-		return ServerLibCrashReportUtil.CreateArchiveName(buildName, numArchiveBytes);
+		return CreateArchiveName((string)buildName, numArchiveBytes);
 	}
 
 	public static string CreateArchiveNameForServer(int numArchiveBytes)
 	{
-		return ServerLibCrashReportUtil.CreateArchiveName("AtlasReactorServer", numArchiveBytes);
+		return CreateArchiveName("AtlasReactorServer", numArchiveBytes);
 	}
 
 	private static string CreateArchiveName(string buildName, int numArchiveBytes)

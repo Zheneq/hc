@@ -1,7 +1,7 @@
-﻿using System;
+using LobbyGameClientMessages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -37,7 +37,7 @@ public class UILootMatrixScreen : UIScene
 
 	public LootMatrixThermostat m_thermoStat;
 
-	public const int kDefaultLootMatrix = 0x203;
+	public const int kDefaultLootMatrix = 515;
 
 	private const float kVfxOpenTime = 0.5f;
 
@@ -87,11 +87,15 @@ public class UILootMatrixScreen : UIScene
 
 	private bool m_throwBoxException;
 
-	public bool IsVisible { get; private set; }
+	public bool IsVisible
+	{
+		get;
+		private set;
+	}
 
 	public static UILootMatrixScreen Get()
 	{
-		return UILootMatrixScreen.s_instance;
+		return s_instance;
 	}
 
 	public override SceneType GetSceneType()
@@ -101,17 +105,18 @@ public class UILootMatrixScreen : UIScene
 
 	public override void Awake()
 	{
-		UILootMatrixScreen.s_instance = this;
-		this.m_pendingDuplicateAnimations = new Queue<UILockboxRewardItem>();
-		foreach (UIInventoryItem uiinventoryItem in this.m_lootMatrixBtnGrid.GetComponentsInChildren<UIInventoryItem>(true))
+		s_instance = this;
+		m_pendingDuplicateAnimations = new Queue<UILockboxRewardItem>();
+		UIInventoryItem[] componentsInChildren = m_lootMatrixBtnGrid.GetComponentsInChildren<UIInventoryItem>(true);
+		foreach (UIInventoryItem uIInventoryItem in componentsInChildren)
 		{
-			UnityEngine.Object.Destroy(uiinventoryItem.gameObject);
+			UnityEngine.Object.Destroy(uIInventoryItem.gameObject);
 		}
-		this.m_lockboxButtons = new List<UIInventoryItem>();
-		this.m_moreInfoBtn.m_ignorePressAnimationCall = true;
-		this.m_viewContentBtn.spriteController.callback = delegate(BaseEventData data)
+		m_lockboxButtons = new List<UIInventoryItem>();
+		m_moreInfoBtn.m_ignorePressAnimationCall = true;
+		m_viewContentBtn.spriteController.callback = delegate
 		{
-			UILootMatrixContentViewer.Get().Setup(this.m_template, false);
+			UILootMatrixContentViewer.Get().Setup(m_template);
 			UILootMatrixContentViewer.Get().SetVisible(true);
 		};
 		base.Awake();
@@ -119,90 +124,60 @@ public class UILootMatrixScreen : UIScene
 
 	public void MoreInfoMouseEnter(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_moreInfoTooltip, true, null);
+		UIManager.SetGameObjectActive(m_moreInfoTooltip, true);
 	}
 
 	public void MoreInfoMouseExit(BaseEventData data)
 	{
-		UIManager.SetGameObjectActive(this.m_moreInfoTooltip, false, null);
+		UIManager.SetGameObjectActive(m_moreInfoTooltip, false);
 	}
 
 	private void Start()
 	{
-		this.m_openBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OpenClicked);
-		this.m_getMoreBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.GetMoreClicked);
-		this.m_moreInfoBtn.spriteController.pointerEnterCallback = new _ButtonSwapSprite.ButtonClickCallback(this.MoreInfoMouseEnter);
-		this.m_moreInfoBtn.spriteController.pointerExitCallback = new _ButtonSwapSprite.ButtonClickCallback(this.MoreInfoMouseExit);
-		UIManager.SetGameObjectActive(this.m_openBtn.selectableButton, true, null);
-		this.m_accordionRewardCanvasGroup = this.m_accordionRewardGroup.GetComponent<CanvasGroup>();
-		this.m_accordionRewardRows = this.m_accordionRewardGroup.GetComponentsInChildren<HorizontalLayoutGroup>(true);
-		this.SetVisible(false);
-		InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(0x203);
-		UIInventoryItem uiinventoryItem = UnityEngine.Object.Instantiate<UIInventoryItem>(this.m_lootMatrixBtnPrefab);
-		uiinventoryItem.transform.SetParent(this.m_lootMatrixBtnGrid.transform);
-		uiinventoryItem.transform.localPosition = Vector3.zero;
-		uiinventoryItem.transform.localScale = Vector3.one;
-		uiinventoryItem.Setup(itemTemplate, null);
-		uiinventoryItem.UpdateItemCount(0, false, true, true);
-		uiinventoryItem.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ClickLockbox);
-		this.m_lockboxButtons.Add(uiinventoryItem);
+		m_openBtn.callback = OpenClicked;
+		m_getMoreBtn.callback = GetMoreClicked;
+		m_moreInfoBtn.spriteController.pointerEnterCallback = MoreInfoMouseEnter;
+		m_moreInfoBtn.spriteController.pointerExitCallback = MoreInfoMouseExit;
+		UIManager.SetGameObjectActive(m_openBtn.selectableButton, true);
+		m_accordionRewardCanvasGroup = m_accordionRewardGroup.GetComponent<CanvasGroup>();
+		m_accordionRewardRows = m_accordionRewardGroup.GetComponentsInChildren<HorizontalLayoutGroup>(true);
+		SetVisible(false);
+		InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(515);
+		UIInventoryItem uIInventoryItem = UnityEngine.Object.Instantiate(m_lootMatrixBtnPrefab);
+		uIInventoryItem.transform.SetParent(m_lootMatrixBtnGrid.transform);
+		uIInventoryItem.transform.localPosition = Vector3.zero;
+		uIInventoryItem.transform.localScale = Vector3.one;
+		uIInventoryItem.Setup(itemTemplate, null);
+		uIInventoryItem.UpdateItemCount(0, false, true, true);
+		uIInventoryItem.m_hitbox.callback = ClickLockbox;
+		m_lockboxButtons.Add(uIInventoryItem);
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.Start()).MethodHandle;
-			}
-			this.InventoryComponentUpdated(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent);
+			InventoryComponentUpdated(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent);
 		}
-		if (this.m_lockboxButtons.Count > 1)
+		if (m_lockboxButtons.Count > 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.SelectLockbox(this.m_lockboxButtons[1].GetItemTemplate(), false);
+			SelectLockbox(m_lockboxButtons[1].GetItemTemplate());
 		}
-		ClientGameManager.Get().OnInventoryComponentUpdated += this.InventoryComponentUpdated;
+		ClientGameManager.Get().OnInventoryComponentUpdated += InventoryComponentUpdated;
 	}
 
 	private void OnDestroy()
 	{
-		if (ClientGameManager.Get() != null)
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.OnDestroy()).MethodHandle;
-			}
-			ClientGameManager.Get().OnInventoryComponentUpdated -= this.InventoryComponentUpdated;
+			return;
+		}
+		while (true)
+		{
+			ClientGameManager.Get().OnInventoryComponentUpdated -= InventoryComponentUpdated;
+			return;
 		}
 	}
 
 	public void QueueDuplicateAnimation(UILockboxRewardItem item)
 	{
-		this.m_pendingDuplicateAnimations.Enqueue(item);
+		m_pendingDuplicateAnimations.Enqueue(item);
 	}
 
 	private void UpdateLockBoxCount(InventoryComponent component)
@@ -212,134 +187,77 @@ public class UILootMatrixScreen : UIScene
 		{
 			if (dictionary.ContainsKey(component.Items[i].TemplateId))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.UpdateLockBoxCount(InventoryComponent)).MethodHandle;
-				}
-				Dictionary<int, int> dictionary2;
-				int templateId;
-				(dictionary2 = dictionary)[templateId = component.Items[i].TemplateId] = dictionary2[templateId] + component.Items[i].Count;
+				dictionary[component.Items[i].TemplateId] += component.Items[i].Count;
 			}
 			else
 			{
 				dictionary[component.Items[i].TemplateId] = component.Items[i].Count;
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
+			if (!dictionary.ContainsKey(515))
 			{
-			case 0:
-				continue;
+				dictionary[515] = 0;
 			}
-			break;
-		}
-		if (!dictionary.ContainsKey(0x203))
-		{
-			dictionary[0x203] = 0;
-		}
-		for (int j = this.m_lockboxButtons.Count - 1; j >= 0; j--)
-		{
-			if (dictionary.ContainsKey(this.m_lockboxButtons[j].GetTemplateId()))
+			for (int num = m_lockboxButtons.Count - 1; num >= 0; num--)
 			{
-				for (;;)
+				if (dictionary.ContainsKey(m_lockboxButtons[num].GetTemplateId()))
 				{
-					switch (7)
+					m_lockboxButtons[num].UpdateItemCount(dictionary[m_lockboxButtons[num].GetTemplateId()], false, true);
+					dictionary.Remove(m_lockboxButtons[num].GetTemplateId());
+				}
+				else
+				{
+					UnityEngine.Object.Destroy(m_lockboxButtons[num].gameObject);
+					m_lockboxButtons.RemoveAt(num);
+				}
+			}
+			while (true)
+			{
+				using (Dictionary<int, int>.Enumerator enumerator = dictionary.GetEnumerator())
+				{
+					while (enumerator.MoveNext())
 					{
-					case 0:
-						continue;
+						KeyValuePair<int, int> current = enumerator.Current;
+						InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(current.Key);
+						if (itemTemplate.Type == InventoryItemType.Lockbox)
+						{
+							UIInventoryItem uIInventoryItem = UnityEngine.Object.Instantiate(m_lootMatrixBtnPrefab);
+							uIInventoryItem.transform.SetParent(m_lootMatrixBtnGrid.transform);
+							uIInventoryItem.transform.localPosition = Vector3.zero;
+							uIInventoryItem.transform.localScale = Vector3.one;
+							uIInventoryItem.Setup(itemTemplate, null);
+							uIInventoryItem.UpdateItemCount(current.Value, false, true, true);
+							uIInventoryItem.m_hitbox.callback = ClickLockbox;
+							m_lockboxButtons.Add(uIInventoryItem);
+						}
 					}
-					break;
 				}
-				this.m_lockboxButtons[j].UpdateItemCount(dictionary[this.m_lockboxButtons[j].GetTemplateId()], false, true, false);
-				dictionary.Remove(this.m_lockboxButtons[j].GetTemplateId());
-			}
-			else
-			{
-				UnityEngine.Object.Destroy(this.m_lockboxButtons[j].gameObject);
-				this.m_lockboxButtons.RemoveAt(j);
-			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		using (Dictionary<int, int>.Enumerator enumerator = dictionary.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				KeyValuePair<int, int> keyValuePair = enumerator.Current;
-				InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(keyValuePair.Key);
-				if (itemTemplate.Type == InventoryItemType.Lockbox)
+				UpdateOpenButtonText();
+				if (m_template != null)
 				{
-					UIInventoryItem uiinventoryItem = UnityEngine.Object.Instantiate<UIInventoryItem>(this.m_lootMatrixBtnPrefab);
-					uiinventoryItem.transform.SetParent(this.m_lootMatrixBtnGrid.transform);
-					uiinventoryItem.transform.localPosition = Vector3.zero;
-					uiinventoryItem.transform.localScale = Vector3.one;
-					uiinventoryItem.Setup(itemTemplate, null);
-					uiinventoryItem.UpdateItemCount(keyValuePair.Value, false, true, true);
-					uiinventoryItem.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ClickLockbox);
-					this.m_lockboxButtons.Add(uiinventoryItem);
+					while (true)
+					{
+						UpdateNumberOfLockbox();
+						return;
+					}
 				}
+				return;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		this.UpdateOpenButtonText();
-		if (this.m_template != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.UpdateNumberOfLockbox();
 		}
 	}
 
 	private void InventoryComponentUpdated(InventoryComponent component)
 	{
-		this.m_inventoryItemStr = string.Join(" | ", (from x in component.Items
-		select string.Concat(new object[]
-		{
-			x.Id,
-			",",
-			x.TemplateId,
-			"=",
-			x.Count
-		})).ToArray<string>());
-		this.UpdateLockBoxCount(component);
+		m_inventoryItemStr = string.Join(" | ", component.Items.Select((InventoryItem x) => x.Id + "," + x.TemplateId + "=" + x.Count).ToArray());
+		UpdateLockBoxCount(component);
 	}
 
 	public void SetVisible(bool isVisible)
 	{
-		UIManager.SetGameObjectActive(this.m_moreInfoTooltip, false, null);
-		this.IsVisible = isVisible;
+		UIManager.SetGameObjectActive(m_moreInfoTooltip, false);
+		IsVisible = isVisible;
 		FrontEndCharacterSelectBackgroundScene.Get().m_vfxSpawnIn.SetActive(false);
 		FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenBase.SetActive(false);
 		FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenCommon.SetActive(false);
@@ -347,109 +265,42 @@ public class UILootMatrixScreen : UIScene
 		FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenRare.SetActive(false);
 		FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenLegendary.SetActive(false);
 		FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenUncommon.SetActive(false);
-		if (this.m_chestAnimator != null)
+		if (m_chestAnimator != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.SetVisible(bool)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_chestAnimator, false, null);
+			UIManager.SetGameObjectActive(m_chestAnimator, false);
 		}
-		this.m_vfxOpenTime = -1f;
-		this.m_lockboxSpawnTime = -1f;
-		this.m_openBtn.ResetMouseState();
-		this.m_accordionRewardCanvasGroup.alpha = 0f;
-		UIManager.SetGameObjectActive(this.m_accordionRewardGroup, false, null);
-		UIManager.SetGameObjectActive(this.m_singleRewardItem, false, null);
+		m_vfxOpenTime = -1f;
+		m_lockboxSpawnTime = -1f;
+		m_openBtn.ResetMouseState();
+		m_accordionRewardCanvasGroup.alpha = 0f;
+		UIManager.SetGameObjectActive(m_accordionRewardGroup, false);
+		UIManager.SetGameObjectActive(m_singleRewardItem, false);
 		FrontEndCharacterSelectBackgroundScene.Get().m_lootMatrixModelStage.gameObject.SetActive(isVisible);
 		if (UICharacterSelectWorldObjects.Get().IsVisible())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (isVisible)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICharacterSelectWorldObjects.Get().SetVisible(false);
 			}
 		}
 		if (isVisible)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UINewUserFlowManager.OnLootMatrixScreenVisible();
 			UICharacterSelectWorldObjects.Get().PlayCameraAnimation("CamCloseupOUT");
-			if (this.m_isOpening)
+			if (m_isOpening)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.DoOpenChestAnimationEvent();
+				DoOpenChestAnimationEvent();
 			}
 			else
 			{
-				if (this.m_numBoxes == 0)
+				if (m_numBoxes == 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_template = null;
+					m_template = null;
 				}
-				this.SelectLockbox(this.m_template, true);
+				SelectLockbox(m_template, true);
 			}
 			if (AnnouncerSounds.GetAnnouncerSounds() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AnnouncerSounds.GetAnnouncerSounds().InstantiateLootVOPrefabIfNeeded();
 			}
 		}
@@ -458,54 +309,37 @@ public class UILootMatrixScreen : UIScene
 			UILootMatrixPurchaseScreen.Get().SetVisible(false);
 			if (UIFrontEnd.Get() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIFrontEnd.Get().m_playerPanel.HandlePendingTrustNotifications();
 			}
 		}
-		UIManager.SetGameObjectActive(this.m_container, isVisible, null);
+		UIManager.SetGameObjectActive(m_container, isVisible);
 	}
 
 	private void ClickLockbox(BaseEventData data)
 	{
-		if (this.m_isOpening)
+		if (m_isOpening)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.ClickLockbox(BaseEventData)).MethodHandle;
-			}
+		}
+		if ((data as PointerEventData).button != 0)
+		{
 			return;
 		}
-		if ((data as PointerEventData).button == PointerEventData.InputButton.Left)
+		while (true)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_moreInfoTooltip, false, null);
+			UIManager.SetGameObjectActive(m_moreInfoTooltip, false);
 			InventoryItemTemplate itemTemplate = (data as PointerEventData).pointerPress.transform.parent.gameObject.GetComponent<UIInventoryItem>().GetItemTemplate();
-			this.SelectLockbox(itemTemplate, false);
+			SelectLockbox(itemTemplate);
+			return;
 		}
 	}
 
@@ -513,55 +347,24 @@ public class UILootMatrixScreen : UIScene
 	{
 		if (template == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.SelectLockbox(InventoryItemTemplate, bool)).MethodHandle;
-			}
-			template = InventoryWideData.Get().GetItemTemplate(0x203);
+			template = InventoryWideData.Get().GetItemTemplate(515);
 		}
 		if (!forceUpdate)
 		{
-			for (;;)
+			if (m_template != null)
 			{
-				switch (2)
+				if (template.Index == m_template.Index)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_template != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (template.Index == this.m_template.Index)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						break;
 					}
-					return;
 				}
 			}
 		}
@@ -572,171 +375,115 @@ public class UILootMatrixScreen : UIScene
 		FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenRare.SetActive(false);
 		FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenLegendary.SetActive(false);
 		FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenUncommon.SetActive(false);
-		if (this.m_chestAnimator != null)
+		if (m_chestAnimator != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_chestAnimator, false, null);
+			UIManager.SetGameObjectActive(m_chestAnimator, false);
 		}
-		this.m_vfxOpenTime = -1f;
-		this.m_lockboxSpawnTime = -1f;
+		m_vfxOpenTime = -1f;
+		m_lockboxSpawnTime = -1f;
 		if (template.TypeSpecificData.Length > 1)
 		{
-			UIManager.SetGameObjectActive(this.m_viewContentBtn, template.TypeSpecificData[1] == 1, null);
+			UIManager.SetGameObjectActive(m_viewContentBtn, template.TypeSpecificData[1] == 1);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_viewContentBtn, false, null);
+			UIManager.SetGameObjectActive(m_viewContentBtn, false);
 		}
-		UIManager.SetGameObjectActive(this.m_moreInfoBtn, !this.m_viewContentBtn.gameObject.activeSelf, null);
-		Component selectableButton = this.m_getMoreBtn.selectableButton;
-		bool doActive;
+		UIManager.SetGameObjectActive(m_moreInfoBtn, !m_viewContentBtn.gameObject.activeSelf);
+		_SelectableBtn selectableButton = m_getMoreBtn.selectableButton;
+		int doActive;
 		if (template != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			doActive = (template.Index == 0x203);
+			doActive = ((template.Index == 515) ? 1 : 0);
 		}
 		else
 		{
-			doActive = true;
+			doActive = 1;
 		}
-		UIManager.SetGameObjectActive(selectableButton, doActive, null);
-		this.m_item = ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.GetItemByTemplateId(template.Index);
-		this.m_template = template;
-		if (this.m_template.Type != InventoryItemType.Lockbox)
+		UIManager.SetGameObjectActive(selectableButton, (byte)doActive != 0);
+		m_item = ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.GetItemByTemplateId(template.Index);
+		m_template = template;
+		if (m_template.Type != InventoryItemType.Lockbox)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					throw new Exception("This is not a loot matrix. Template: " + m_template.Index + " -> " + m_template.GetDisplayName());
 				}
-				break;
 			}
-			throw new Exception(string.Concat(new object[]
-			{
-				"This is not a loot matrix. Template: ",
-				this.m_template.Index,
-				" -> ",
-				this.m_template.GetDisplayName()
-			}));
 		}
-		if (this.m_chestAnimator != null)
+		if (m_chestAnimator != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UnityEngine.Object.Destroy(this.m_chestAnimator.gameObject);
+			UnityEngine.Object.Destroy(m_chestAnimator.gameObject);
 		}
-		GameObject lockboxPrefab = InventoryWideData.Get().GetLockboxPrefab(this.m_template.Index);
+		GameObject lockboxPrefab = InventoryWideData.Get().GetLockboxPrefab(m_template.Index);
 		if (lockboxPrefab == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					throw new Exception("Loot matrix " + m_template.Index + " does not have a prefab.");
 				}
-				break;
 			}
-			throw new Exception("Loot matrix " + this.m_template.Index + " does not have a prefab.");
 		}
-		GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(lockboxPrefab);
+		GameObject gameObject = UnityEngine.Object.Instantiate(lockboxPrefab);
 		gameObject.transform.SetParent(FrontEndCharacterSelectBackgroundScene.Get().m_chestContainer);
 		gameObject.transform.localPosition = Vector3.zero;
-		UIManager.SetGameObjectActive(gameObject, false, null);
-		this.m_chestAnimator = gameObject.GetComponent<Animator>();
-		string text = this.m_template.GetDisplayName();
-		if (this.m_template.AssociatedCharacter != CharacterType.None)
+		UIManager.SetGameObjectActive(gameObject, false);
+		m_chestAnimator = gameObject.GetComponent<Animator>();
+		string text = m_template.GetDisplayName();
+		if (m_template.AssociatedCharacter != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text = string.Format("<voffset=0.15em><size=30><sprite=\"CharacterSprites\" index={0}>​</size></voffset>{1}", (int)(CharacterType.BazookaGirl * this.m_template.AssociatedCharacter), text);
+			text = $"<voffset=0.15em><size=30><sprite=\"CharacterSprites\" index={2 * (int)m_template.AssociatedCharacter}>\u200b</size></voffset>{text}";
 		}
-		this.m_title.text = text;
-		this.m_vfxOpenTime = Time.time + 0.5f;
-		this.m_lockboxSpawnTime = this.m_vfxOpenTime + 0.5f;
-		for (int i = 0; i < this.m_lockboxButtons.Count; i++)
+		m_title.text = text;
+		m_vfxOpenTime = Time.time + 0.5f;
+		m_lockboxSpawnTime = m_vfxOpenTime + 0.5f;
+		for (int i = 0; i < m_lockboxButtons.Count; i++)
 		{
-			if (this.m_lockboxButtons[i].GetTemplateId() == template.Index)
+			if (m_lockboxButtons[i].GetTemplateId() == template.Index)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_lockboxButtons[i].m_hitbox.selectableButton.SetSelected(true, false, string.Empty, string.Empty);
+				m_lockboxButtons[i].m_hitbox.selectableButton.SetSelected(true, false, string.Empty, string.Empty);
 			}
 			else
 			{
-				this.m_lockboxButtons[i].m_hitbox.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
+				m_lockboxButtons[i].m_hitbox.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			UpdateNumberOfLockbox();
+			m_thermoStat.UpdateThermostat(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent, m_item, m_template, m_boxIds);
+			UIManager.SetGameObjectActive(m_singleRewardItem, false);
+			UIManager.SetGameObjectActive(m_accordionRewardGroup, false);
+			m_isLoading = true;
+			m_openBtn.selectableButton.SetDisabled(true);
+			return;
 		}
-		this.UpdateNumberOfLockbox();
-		this.m_thermoStat.UpdateThermostat(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent, this.m_item, this.m_template, this.m_boxIds, false);
-		UIManager.SetGameObjectActive(this.m_singleRewardItem, false, null);
-		UIManager.SetGameObjectActive(this.m_accordionRewardGroup, false, null);
-		this.m_isLoading = true;
-		this.m_openBtn.selectableButton.SetDisabled(true);
 	}
 
 	private void UpdateNumberOfLockbox()
 	{
 		List<InventoryItem> items = ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.Items;
-		this.m_boxIds = new List<int>();
-		this.m_numBoxes = 0;
+		m_boxIds = new List<int>();
+		m_numBoxes = 0;
 		for (int i = 0; i < items.Count; i++)
 		{
-			if (items[i].TemplateId == this.m_template.Index && items.Count > 0)
+			if (items[i].TemplateId == m_template.Index && items.Count > 0)
 			{
-				this.m_boxIds.Add(items[i].Id);
-				this.m_numBoxes += items[i].Count;
+				m_boxIds.Add(items[i].Id);
+				m_numBoxes += items[i].Count;
 			}
 		}
-		this.UpdateOpenButtonText();
+		UpdateOpenButtonText();
 	}
 
 	private void GetMoreClicked(BaseEventData data)
@@ -746,62 +493,57 @@ public class UILootMatrixScreen : UIScene
 
 	private void OpenClicked(BaseEventData data)
 	{
-		if (this.m_isOpening)
+		if (m_isOpening)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
+					break;
+				default:
+					return;
+				}
+			}
+		}
+		if (m_numBoxes == 0)
+		{
+			InventoryItemTemplate inventoryItemTemplate = null;
+			int num = 0;
+			while (true)
+			{
+				if (num < m_lockboxButtons.Count)
+				{
+					inventoryItemTemplate = m_lockboxButtons[num].GetItemTemplate();
+					if (inventoryItemTemplate.Index != 515)
+					{
+						break;
+					}
+					num++;
 					continue;
 				}
 				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.OpenClicked(BaseEventData)).MethodHandle;
-			}
-			return;
+			SelectLockbox(inventoryItemTemplate);
 		}
-		if (this.m_numBoxes != 0)
+		else
 		{
 			UINewUserFlowManager.OnMainLootMatrixOpenClicked();
-			UIManager.SetGameObjectActive(this.m_chestAnimator, true, null);
-			this.m_openBtn.selectableButton.SetDisabled(true);
+			UIManager.SetGameObjectActive(m_chestAnimator, true);
+			m_openBtn.selectableButton.SetDisabled(true);
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.LockboxOpenClick);
-			this.m_isOpening = true;
-			this.m_accordionRewardCanvasGroup.alpha = 0f;
-			UIManager.SetGameObjectActive(this.m_accordionRewardGroup, false, null);
+			m_isOpening = true;
+			m_accordionRewardCanvasGroup.alpha = 0f;
+			UIManager.SetGameObjectActive(m_accordionRewardGroup, false);
 			FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenBase.SetActive(false);
 			FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenCommon.SetActive(false);
 			FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenEpic.SetActive(false);
 			FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenRare.SetActive(false);
 			FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenLegendary.SetActive(false);
 			FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenUncommon.SetActive(false);
-			UIManager.SetGameObjectActive(this.m_singleRewardItem, false, null);
-			this.m_item = ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.GetItem(this.m_boxIds[0]);
-			ClientGameManager.Get().ConsumeInventoryItem(this.m_item.Id, false, new Action<ConsumeInventoryItemResponse>(this.OpenChestResponse));
-			return;
-		}
-		InventoryItemTemplate inventoryItemTemplate = null;
-		for (int i = 0; i < this.m_lockboxButtons.Count; i++)
-		{
-			inventoryItemTemplate = this.m_lockboxButtons[i].GetItemTemplate();
-			if (inventoryItemTemplate.Index != 0x203)
-			{
-				IL_6B:
-				this.SelectLockbox(inventoryItemTemplate, false);
-				return;
-			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_6B;
+			UIManager.SetGameObjectActive(m_singleRewardItem, false);
+			m_item = ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.GetItem(m_boxIds[0]);
+			ClientGameManager.Get().ConsumeInventoryItem(m_item.Id, false, OpenChestResponse);
 		}
 	}
 
@@ -809,625 +551,355 @@ public class UILootMatrixScreen : UIScene
 	{
 		if (response.Result != ConsumeInventoryItemResult.Success)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.OpenChestResponse(ConsumeInventoryItemResponse)).MethodHandle;
-			}
-			this.m_isOpening = false;
-			Log.Info("IssueOpeningLootMatrix {0} result={1}", new object[]
-			{
-				this.m_boxIds[0],
-				response.Result
-			});
-			string title = StringUtil.TR("Error", "Global");
-			string description = StringUtil.TR("IssueOpeningLootMatrix", "Global");
-			string buttonLabelText = StringUtil.TR("Ok", "Global");
-			UIDialogPopupManager.OpenOneButtonDialog(title, description, buttonLabelText, delegate(UIDialogBox x)
-			{
-				if (response.Result == ConsumeInventoryItemResult.ItemNotFound)
+					break;
+				default:
 				{
-					this.m_throwBoxException = true;
+					m_isOpening = false;
+					Log.Info("IssueOpeningLootMatrix {0} result={1}", m_boxIds[0], response.Result);
+					string title = StringUtil.TR("Error", "Global");
+					string description = StringUtil.TR("IssueOpeningLootMatrix", "Global");
+					string buttonLabelText = StringUtil.TR("Ok", "Global");
+					UIDialogPopupManager.OpenOneButtonDialog(title, description, buttonLabelText, delegate
+					{
+						if (response.Result == ConsumeInventoryItemResult.ItemNotFound)
+						{
+							m_throwBoxException = true;
+						}
+					});
+					return;
 				}
-			}, -1, false);
-			return;
+				}
+			}
 		}
 		AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.NumLootMatrixesOpened;
 		PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
 		ClientGameManager.Get().RequestUpdateUIState(uiState, playerAccountData.AccountComponent.GetUIState(uiState) + 1, null);
-		for (int i = this.m_boxIds.Count - 1; i >= 0; i--)
+		int num = m_boxIds.Count - 1;
+		while (true)
 		{
-			if (this.m_item.Id == this.m_boxIds[i])
+			if (num >= 0)
 			{
-				for (;;)
+				if (m_item.Id == m_boxIds[num])
 				{
-					switch (4)
+					if (m_item.Count > 1)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_item.Count > 1)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						break;
 					}
-				}
-				else
-				{
-					if (this.m_item.Count != 1)
+					if (m_item.Count == 1)
 					{
-						this.m_boxIds.RemoveAt(i);
-						goto IL_183;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
+						m_boxIds.RemoveAt(num);
 						break;
 					}
-					this.m_boxIds.RemoveAt(i);
+					m_boxIds.RemoveAt(num);
 				}
-				IL_19B:
-				this.m_numBoxes--;
-				this.m_outputItems = response.OutputItems;
-				InventoryItemRarity inventoryItemRarity = InventoryItemRarity.Common;
-				using (List<InventoryItemWithData>.Enumerator enumerator = this.m_outputItems.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
-					{
-						InventoryItemWithData inventoryItemWithData = enumerator.Current;
-						InventoryItemRarity rarity = inventoryItemWithData.Item.GetTemplate().Rarity;
-						if (rarity > inventoryItemRarity)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							inventoryItemRarity = rarity;
-						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				switch (inventoryItemRarity)
-				{
-				case InventoryItemRarity.Common:
-					FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenCommon.SetActive(true);
-					goto IL_2C4;
-				case InventoryItemRarity.Uncommon:
-					FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenUncommon.SetActive(true);
-					goto IL_2C4;
-				case InventoryItemRarity.Rare:
-					FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenRare.SetActive(true);
-					goto IL_2C4;
-				case InventoryItemRarity.Epic:
-					FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenEpic.SetActive(true);
-					goto IL_2C4;
-				case InventoryItemRarity.Legendary:
-					FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenLegendary.SetActive(true);
-					goto IL_2C4;
-				}
-				FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenBase.SetActive(true);
-				IL_2C4:
-				this.m_chestAnimator.Play("NanoOpenChest", -1, 0f);
-				return;
-			}
-			IL_183:;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
+				num--;
 				continue;
 			}
-			goto IL_19B;
+			break;
 		}
+		m_numBoxes--;
+		m_outputItems = response.OutputItems;
+		InventoryItemRarity inventoryItemRarity = InventoryItemRarity.Common;
+		using (List<InventoryItemWithData>.Enumerator enumerator = m_outputItems.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				InventoryItemWithData current = enumerator.Current;
+				InventoryItemRarity rarity = current.Item.GetTemplate().Rarity;
+				if (rarity > inventoryItemRarity)
+				{
+					inventoryItemRarity = rarity;
+				}
+			}
+		}
+		switch (inventoryItemRarity)
+		{
+		case InventoryItemRarity.Common:
+			FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenCommon.SetActive(true);
+			break;
+		case InventoryItemRarity.Uncommon:
+			FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenUncommon.SetActive(true);
+			break;
+		case InventoryItemRarity.Rare:
+			FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenRare.SetActive(true);
+			break;
+		case InventoryItemRarity.Epic:
+			FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenEpic.SetActive(true);
+			break;
+		case InventoryItemRarity.Legendary:
+			FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenLegendary.SetActive(true);
+			break;
+		default:
+			FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenBase.SetActive(true);
+			break;
+		}
+		m_chestAnimator.Play("NanoOpenChest", -1, 0f);
 	}
 
 	public void DoOpenChestAnimationEvent()
 	{
 		bool gotLegendary = false;
-		for (int i = 0; i < this.m_outputItems.Count; i++)
+		for (int i = 0; i < m_outputItems.Count; i++)
 		{
-			InventoryItemWithData data = this.m_outputItems[i];
+			InventoryItemWithData data = m_outputItems[i];
 			InventoryItemTemplate template = data.Item.GetTemplate();
 			if (template.Rarity == InventoryItemRarity.Legendary)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.DoOpenChestAnimationEvent()).MethodHandle;
-				}
 				gotLegendary = true;
 			}
-			if (template.Index == this.m_template.Index)
+			if (template.Index != m_template.Index)
 			{
-				for (;;)
+				continue;
+			}
+			m_numBoxes += data.Item.Count;
+			if (!m_boxIds.Exists((int x) => x == data.Item.Id))
+			{
+				m_boxIds.Add(data.Item.Id);
+			}
+		}
+		while (true)
+		{
+			m_thermoStat.UpdateThermostat(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent, m_item, m_template, m_boxIds, gotLegendary);
+			string text = string.Empty;
+			List<InventoryItem> list = new List<InventoryItem>();
+			for (int j = 0; j < m_outputItems.Count; j++)
+			{
+				bool flag = false;
+				int num = 0;
+				while (true)
 				{
-					switch (7)
+					if (num < list.Count)
 					{
-					case 0:
+						if (list[num].TemplateId == m_outputItems[j].Item.TemplateId)
+						{
+							list[num].Count += m_outputItems[j].Item.Count;
+							flag = true;
+							break;
+						}
+						num++;
 						continue;
 					}
 					break;
 				}
-				this.m_numBoxes += data.Item.Count;
-				if (!this.m_boxIds.Exists((int x) => x == data.Item.Id))
+				if (!flag)
 				{
-					for (;;)
+					list.Add(new InventoryItem(m_outputItems[j].Item));
+				}
+			}
+			while (true)
+			{
+				foreach (InventoryItem item in list)
+				{
+					text = text + Environment.NewLine + " - " + item.GetTemplate().GetDisplayName();
+					if (item.Count > 1)
+					{
+						text = text + " x" + item.Count;
+					}
+				}
+				TextConsole.Get().Write(new TextConsole.Message
+				{
+					Text = string.Format(StringUtil.TR("LockBoxOpenedReceived", "Global"), m_template.GetDisplayName(), text),
+					MessageType = ConsoleMessageType.SystemMessage
+				});
+				if (m_outputItems.Count == 1)
+				{
+					while (true)
 					{
 						switch (4)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_boxIds.Add(data.Item.Id);
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		this.m_thermoStat.UpdateThermostat(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent, this.m_item, this.m_template, this.m_boxIds, gotLegendary);
-		string text = string.Empty;
-		List<InventoryItem> list = new List<InventoryItem>();
-		int j = 0;
-		IL_1F2:
-		while (j < this.m_outputItems.Count)
-		{
-			bool flag = false;
-			for (int k = 0; k < list.Count; k++)
-			{
-				if (list[k].TemplateId == this.m_outputItems[j].Item.TemplateId)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					list[k].Count += this.m_outputItems[j].Item.Count;
-					flag = true;
-					IL_1BD:
-					if (!flag)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						list.Add(new InventoryItem(this.m_outputItems[j].Item, 0));
-					}
-					j++;
-					goto IL_1F2;
-				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_1BD;
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		foreach (InventoryItem inventoryItem in list)
-		{
-			text = text + Environment.NewLine + " - " + inventoryItem.GetTemplate().GetDisplayName();
-			if (inventoryItem.Count > 1)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text = text + " x" + inventoryItem.Count;
-			}
-		}
-		TextConsole.Get().Write(new TextConsole.Message
-		{
-			Text = string.Format(StringUtil.TR("LockBoxOpenedReceived", "Global"), this.m_template.GetDisplayName(), text),
-			MessageType = ConsoleMessageType.SystemMessage
-		}, null);
-		if (this.m_outputItems.Count == 1)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_outputItems[0].Item.GetTemplate().Rarity.PlaySound();
-			this.m_singleRewardItem.Setup(this.m_outputItems[0].Item, this.m_outputItems[0].Item.GetTemplate(), this.m_outputItems[0].IsoGained > 0, this.m_outputItems[0].IsoGained);
-			UIManager.SetGameObjectActive(this.m_singleRewardItem, true, null);
-			if (this.m_outputItems[0].IsoGained <= 0)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				CharacterType characterTypeOfItemTemplate = this.GetCharacterTypeOfItemTemplate(this.m_outputItems[0].Item.GetTemplate());
-				if (characterTypeOfItemTemplate != CharacterType.None && AnnouncerSounds.GetAnnouncerSounds() != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					AnnouncerSounds.GetAnnouncerSounds().PlayLootVOForCharacter(characterTypeOfItemTemplate);
-				}
-			}
-		}
-		else
-		{
-			this.m_accordionRewardCanvasGroup.alpha = 0f;
-			UIManager.SetGameObjectActive(this.m_accordionRewardGroup, true, null);
-			UIManager.SetGameObjectActive(this.m_accordionRewardRows[0], true, null);
-			for (int l = 1; l < this.m_accordionRewardRows.Length; l++)
-			{
-				UIManager.SetGameObjectActive(this.m_accordionRewardRows[l], false, null);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Queue<UILockboxRewardItem> queue = new Queue<UILockboxRewardItem>();
-			if (this.m_outputItems.Count <= 3)
-			{
-				if (this.m_outputItems.Count == 3)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_outputItems[0].Item.GetTemplate().Rarity > this.m_outputItems[1].Item.GetTemplate().Rarity)
-					{
-						InventoryItemWithData value = this.m_outputItems[0];
-						this.m_outputItems[0] = this.m_outputItems[1];
-						this.m_outputItems[1] = value;
-					}
-					if (this.m_outputItems[2].Item.GetTemplate().Rarity > this.m_outputItems[1].Item.GetTemplate().Rarity)
-					{
-						for (;;)
-						{
-							switch (3)
+						default:
+							m_outputItems[0].Item.GetTemplate().Rarity.PlaySound();
+							m_singleRewardItem.Setup(m_outputItems[0].Item, m_outputItems[0].Item.GetTemplate(), m_outputItems[0].IsoGained > 0, m_outputItems[0].IsoGained);
+							UIManager.SetGameObjectActive(m_singleRewardItem, true);
+							if (m_outputItems[0].IsoGained <= 0)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						InventoryItemWithData value2 = this.m_outputItems[2];
-						this.m_outputItems[2] = this.m_outputItems[1];
-						this.m_outputItems[1] = value2;
-					}
-				}
-				this.m_startRowSpacing = 0f;
-				this.m_endRowSpacing = 0f;
-				this.m_startColSpacing = -700f;
-				this.m_endColSpacing = -120f;
-				UILockboxRewardItem[] componentsInChildren = this.m_accordionRewardRows[0].GetComponentsInChildren<UILockboxRewardItem>(true);
-				for (int m = 0; m < componentsInChildren.Length; m++)
-				{
-					if (m < this.m_outputItems.Count)
-					{
-						UIManager.SetGameObjectActive(componentsInChildren[m], true, null);
-						componentsInChildren[m].SetSize(700f);
-						queue.Enqueue(componentsInChildren[m]);
-					}
-					else
-					{
-						UIManager.SetGameObjectActive(componentsInChildren[m], false, null);
-					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (this.m_outputItems.Count > 0xA)
-				{
-					throw new Exception("More than 10 is not supported yet.");
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_startRowSpacing = -350f;
-				this.m_endRowSpacing = 0f;
-				this.m_startColSpacing = -350f;
-				this.m_endColSpacing = 0f;
-				UIManager.SetGameObjectActive(this.m_accordionRewardRows[1], true, null);
-				int num = Mathf.CeilToInt((float)this.m_outputItems.Count / 2f);
-				UILockboxRewardItem[] componentsInChildren2 = this.m_accordionRewardRows[0].GetComponentsInChildren<UILockboxRewardItem>(true);
-				for (int n = 0; n < componentsInChildren2.Length; n++)
-				{
-					if (n < num)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIManager.SetGameObjectActive(componentsInChildren2[n], true, null);
-						componentsInChildren2[n].SetSize(350f);
-						queue.Enqueue(componentsInChildren2[n]);
-					}
-					else
-					{
-						UIManager.SetGameObjectActive(componentsInChildren2[n], false, null);
-					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num = this.m_outputItems.Count / 2;
-				componentsInChildren2 = this.m_accordionRewardRows[1].GetComponentsInChildren<UILockboxRewardItem>(true);
-				for (int num2 = 0; num2 < componentsInChildren2.Length; num2++)
-				{
-					if (num2 < num)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIManager.SetGameObjectActive(componentsInChildren2[num2], true, null);
-						componentsInChildren2[num2].SetSize(350f);
-						queue.Enqueue(componentsInChildren2[num2]);
-					}
-					else
-					{
-						UIManager.SetGameObjectActive(componentsInChildren2[num2], false, null);
-					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			InventoryItemRarity inventoryItemRarity = InventoryItemRarity.Common;
-			CharacterType characterType = CharacterType.None;
-			InventoryItemRarity inventoryItemRarity2 = InventoryItemRarity.Common;
-			using (List<InventoryItemWithData>.Enumerator enumerator2 = this.m_outputItems.GetEnumerator())
-			{
-				while (enumerator2.MoveNext())
-				{
-					InventoryItemWithData inventoryItemWithData = enumerator2.Current;
-					UILockboxRewardItem uilockboxRewardItem = queue.Dequeue();
-					uilockboxRewardItem.Setup(inventoryItemWithData.Item, inventoryItemWithData.Item.GetTemplate(), inventoryItemWithData.IsoGained > 0, inventoryItemWithData.IsoGained);
-					if (inventoryItemWithData.Item.GetTemplate().Rarity > inventoryItemRarity2)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						inventoryItemRarity2 = inventoryItemWithData.Item.GetTemplate().Rarity;
-					}
-					if (inventoryItemWithData.IsoGained <= 0)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						InventoryItemTemplate template2 = inventoryItemWithData.Item.GetTemplate();
-						if (template2 != null)
-						{
-							for (;;)
-							{
-								switch (3)
+								while (true)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (characterType != CharacterType.None)
-							{
-								if (template2.Rarity <= inventoryItemRarity)
-								{
-									continue;
-								}
-								for (;;)
-								{
-									switch (7)
+									switch (2)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+									{
+										CharacterType characterTypeOfItemTemplate = GetCharacterTypeOfItemTemplate(m_outputItems[0].Item.GetTemplate());
+										if (characterTypeOfItemTemplate != 0 && AnnouncerSounds.GetAnnouncerSounds() != null)
+										{
+											while (true)
+											{
+												switch (2)
+												{
+												case 0:
+													break;
+												default:
+													AnnouncerSounds.GetAnnouncerSounds().PlayLootVOForCharacter(characterTypeOfItemTemplate);
+													return;
+												}
+											}
+										}
+										return;
 									}
-									break;
+									}
 								}
 							}
-							CharacterType characterTypeOfItemTemplate2 = this.GetCharacterTypeOfItemTemplate(template2);
-							if (characterTypeOfItemTemplate2 != CharacterType.None)
-							{
-								characterType = characterTypeOfItemTemplate2;
-								inventoryItemRarity = template2.Rarity;
-							}
+							return;
 						}
 					}
 				}
-				for (;;)
+				m_accordionRewardCanvasGroup.alpha = 0f;
+				UIManager.SetGameObjectActive(m_accordionRewardGroup, true);
+				UIManager.SetGameObjectActive(m_accordionRewardRows[0], true);
+				for (int k = 1; k < m_accordionRewardRows.Length; k++)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					UIManager.SetGameObjectActive(m_accordionRewardRows[k], false);
 				}
-			}
-			inventoryItemRarity2.PlaySound();
-			if (characterType != CharacterType.None)
-			{
-				for (;;)
+				while (true)
 				{
-					switch (3)
+					Queue<UILockboxRewardItem> queue = new Queue<UILockboxRewardItem>();
+					if (m_outputItems.Count <= 3)
 					{
-					case 0:
-						continue;
+						if (m_outputItems.Count == 3)
+						{
+							if (m_outputItems[0].Item.GetTemplate().Rarity > m_outputItems[1].Item.GetTemplate().Rarity)
+							{
+								InventoryItemWithData value = m_outputItems[0];
+								m_outputItems[0] = m_outputItems[1];
+								m_outputItems[1] = value;
+							}
+							if (m_outputItems[2].Item.GetTemplate().Rarity > m_outputItems[1].Item.GetTemplate().Rarity)
+							{
+								InventoryItemWithData value2 = m_outputItems[2];
+								m_outputItems[2] = m_outputItems[1];
+								m_outputItems[1] = value2;
+							}
+						}
+						m_startRowSpacing = 0f;
+						m_endRowSpacing = 0f;
+						m_startColSpacing = -700f;
+						m_endColSpacing = -120f;
+						UILockboxRewardItem[] componentsInChildren = m_accordionRewardRows[0].GetComponentsInChildren<UILockboxRewardItem>(true);
+						for (int l = 0; l < componentsInChildren.Length; l++)
+						{
+							if (l < m_outputItems.Count)
+							{
+								UIManager.SetGameObjectActive(componentsInChildren[l], true);
+								componentsInChildren[l].SetSize(700f);
+								queue.Enqueue(componentsInChildren[l]);
+							}
+							else
+							{
+								UIManager.SetGameObjectActive(componentsInChildren[l], false);
+							}
+						}
 					}
-					break;
-				}
-				if (AnnouncerSounds.GetAnnouncerSounds() != null)
-				{
-					for (;;)
+					else
+					{
+						if (m_outputItems.Count > 10)
+						{
+							throw new Exception("More than 10 is not supported yet.");
+						}
+						m_startRowSpacing = -350f;
+						m_endRowSpacing = 0f;
+						m_startColSpacing = -350f;
+						m_endColSpacing = 0f;
+						UIManager.SetGameObjectActive(m_accordionRewardRows[1], true);
+						int num2 = Mathf.CeilToInt((float)m_outputItems.Count / 2f);
+						UILockboxRewardItem[] componentsInChildren2 = m_accordionRewardRows[0].GetComponentsInChildren<UILockboxRewardItem>(true);
+						for (int m = 0; m < componentsInChildren2.Length; m++)
+						{
+							if (m < num2)
+							{
+								UIManager.SetGameObjectActive(componentsInChildren2[m], true);
+								componentsInChildren2[m].SetSize(350f);
+								queue.Enqueue(componentsInChildren2[m]);
+							}
+							else
+							{
+								UIManager.SetGameObjectActive(componentsInChildren2[m], false);
+							}
+						}
+						num2 = m_outputItems.Count / 2;
+						componentsInChildren2 = m_accordionRewardRows[1].GetComponentsInChildren<UILockboxRewardItem>(true);
+						for (int n = 0; n < componentsInChildren2.Length; n++)
+						{
+							if (n < num2)
+							{
+								UIManager.SetGameObjectActive(componentsInChildren2[n], true);
+								componentsInChildren2[n].SetSize(350f);
+								queue.Enqueue(componentsInChildren2[n]);
+							}
+							else
+							{
+								UIManager.SetGameObjectActive(componentsInChildren2[n], false);
+							}
+						}
+					}
+					InventoryItemRarity inventoryItemRarity = InventoryItemRarity.Common;
+					CharacterType characterType = CharacterType.None;
+					InventoryItemRarity inventoryItemRarity2 = InventoryItemRarity.Common;
+					using (List<InventoryItemWithData>.Enumerator enumerator2 = m_outputItems.GetEnumerator())
+					{
+						while (enumerator2.MoveNext())
+						{
+							InventoryItemWithData current2 = enumerator2.Current;
+							UILockboxRewardItem uILockboxRewardItem = queue.Dequeue();
+							uILockboxRewardItem.Setup(current2.Item, current2.Item.GetTemplate(), current2.IsoGained > 0, current2.IsoGained);
+							if (current2.Item.GetTemplate().Rarity > inventoryItemRarity2)
+							{
+								inventoryItemRarity2 = current2.Item.GetTemplate().Rarity;
+							}
+							if (current2.IsoGained <= 0)
+							{
+								InventoryItemTemplate template2 = current2.Item.GetTemplate();
+								if (template2 != null)
+								{
+									if (characterType != 0)
+									{
+										if (template2.Rarity <= inventoryItemRarity)
+										{
+											continue;
+										}
+									}
+									CharacterType characterTypeOfItemTemplate2 = GetCharacterTypeOfItemTemplate(template2);
+									if (characterTypeOfItemTemplate2 != 0)
+									{
+										characterType = characterTypeOfItemTemplate2;
+										inventoryItemRarity = template2.Rarity;
+									}
+								}
+							}
+						}
+					}
+					inventoryItemRarity2.PlaySound();
+					if (characterType != 0)
+					{
+						if (AnnouncerSounds.GetAnnouncerSounds() != null)
+						{
+							AnnouncerSounds.GetAnnouncerSounds().PlayLootVOForCharacter(characterType);
+						}
+					}
+					m_accordionRewardGroup.spacing = m_startRowSpacing;
+					for (int num3 = 0; num3 < m_accordionRewardRows.Length; num3++)
+					{
+						m_accordionRewardRows[num3].spacing = m_startColSpacing;
+					}
+					while (true)
 					{
 						switch (6)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						break;
 					}
-					AnnouncerSounds.GetAnnouncerSounds().PlayLootVOForCharacter(characterType);
 				}
-			}
-			this.m_accordionRewardGroup.spacing = this.m_startRowSpacing;
-			for (int num3 = 0; num3 < this.m_accordionRewardRows.Length; num3++)
-			{
-				this.m_accordionRewardRows[num3].spacing = this.m_startColSpacing;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -1436,65 +908,27 @@ public class UILootMatrixScreen : UIScene
 	{
 		if (template != null && template.TypeSpecificData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.GetCharacterTypeOfItemTemplate(InventoryItemTemplate)).MethodHandle;
-			}
 			if (template.TypeSpecificData.Length > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type != InventoryItemType.Skin && template.Type != InventoryItemType.Style)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (template.Type != InventoryItemType.Taunt)
 					{
-						return CharacterType.None;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						goto IL_006b;
 					}
 				}
 				return (CharacterType)template.TypeSpecificData[0];
 			}
 		}
+		goto IL_006b;
+		IL_006b:
 		return CharacterType.None;
 	}
 
 	public void FinishRewardAnimation()
 	{
-		this.m_isOpening = false;
-		this.UpdateOpenButtonText();
+		m_isOpening = false;
+		UpdateOpenButtonText();
 		UIFrontEnd.Get().m_playerPanel.HandlePendingTrustNotifications();
 	}
 
@@ -1504,332 +938,137 @@ public class UILootMatrixScreen : UIScene
 		bool flag = false;
 		if (clientGameManager != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.UpdateOpenButtonText()).MethodHandle;
-			}
 			if (!clientGameManager.HasPurchasedGame)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				InventoryComponent inventoryComponent = clientGameManager.GetPlayerAccountData().InventoryComponent;
 				TimeSpan t = new TimeSpan(0, 0, GameBalanceVars.Get().NumSecsToOpenLootMatrix);
 				TimeSpan t2 = clientGameManager.UtcNow().Subtract(inventoryComponent.LastLockboxOpenTime);
 				flag = (t2 < t);
 			}
 		}
-		bool flag2;
-		if (!this.m_isOpening)
+		int num;
+		if (!m_isOpening)
 		{
-			for (;;)
+			if (!m_isLoading)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!this.m_isLoading)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag2 = flag;
-				goto IL_A9;
+				num = (flag ? 1 : 0);
+				goto IL_00a9;
 			}
 		}
-		flag2 = true;
-		IL_A9:
-		bool flag3 = flag2;
-		string text = string.Format(StringUtil.TR("OpenNumber", "Global"), this.m_numBoxes);
-		if (this.m_numBoxes == 0)
+		num = 1;
+		goto IL_00a9;
+		IL_00a9:
+		bool flag2 = (byte)num != 0;
+		string text = string.Format(StringUtil.TR("OpenNumber", "Global"), m_numBoxes);
+		if (m_numBoxes == 0)
 		{
-			for (;;)
+			m_moreBoxesAvailable = false;
+			if (m_template != null)
 			{
-				switch (6)
+				if (m_template.Index != 515)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_moreBoxesAvailable = false;
-			if (this.m_template != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_template.Index != 0x203)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = StringUtil.TR("Next", "Global");
-					this.m_moreBoxesAvailable = true;
-					goto IL_1CE;
+					m_moreBoxesAvailable = true;
+					goto IL_01ce;
 				}
 			}
 			if (clientGameManager != null && clientGameManager.IsPlayerAccountDataAvailable())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<InventoryItem> items = clientGameManager.GetPlayerAccountData().InventoryComponent.Items;
-				for (int i = 0; i < items.Count; i++)
+				int num2 = 0;
+				while (true)
 				{
-					if (items[i].GetTemplate().Type == InventoryItemType.Lockbox)
+					if (num2 < items.Count)
 					{
-						for (;;)
+						if (items[num2].GetTemplate().Type == InventoryItemType.Lockbox)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
+							text = StringUtil.TR("Next", "Global");
+							m_moreBoxesAvailable = true;
 							break;
 						}
-						text = StringUtil.TR("Next", "Global");
-						this.m_moreBoxesAvailable = true;
-						goto IL_1CE;
-					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
+						num2++;
 						continue;
 					}
 					break;
 				}
 			}
-			IL_1CE:
-			bool flag4;
-			if (!flag3)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag4 = !this.m_moreBoxesAvailable;
-			}
-			else
-			{
-				flag4 = true;
-			}
-			flag3 = flag4;
+			goto IL_01ce;
 		}
-		this.m_openBtn.selectableButton.SetDisabled(flag3);
-		float num = 0f;
-		for (int j = 0; j < this.m_openLabels.Length; j++)
+		goto IL_01ea;
+		IL_01ea:
+		m_openBtn.selectableButton.SetDisabled(flag2);
+		float num3 = 0f;
+		for (int i = 0; i < m_openLabels.Length; i++)
 		{
-			this.m_openLabels[j].text = text;
-			this.m_openLabels[j].CalculateLayoutInputHorizontal();
-			if (this.m_openLabels[j].GetPreferredValues().x > num)
+			m_openLabels[i].text = text;
+			m_openLabels[i].CalculateLayoutInputHorizontal();
+			Vector2 preferredValues = m_openLabels[i].GetPreferredValues();
+			if (preferredValues.x > num3)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num = this.m_openLabels[j].GetPreferredValues().x;
+				Vector2 preferredValues2 = m_openLabels[i].GetPreferredValues();
+				num3 = preferredValues2.x;
 			}
 		}
-		this.m_openBtn.selectableButton.GetComponent<LayoutElement>().preferredWidth = num + 150f;
-		this.m_openBtn.selectableButton.spriteController.ResetMouseState();
+		m_openBtn.selectableButton.GetComponent<LayoutElement>().preferredWidth = num3 + 150f;
+		m_openBtn.selectableButton.spriteController.ResetMouseState();
+		return;
+		IL_01ce:
+		int num4;
+		if (!flag2)
+		{
+			num4 = ((!m_moreBoxesAvailable) ? 1 : 0);
+		}
+		else
+		{
+			num4 = 1;
+		}
+		flag2 = ((byte)num4 != 0);
+		goto IL_01ea;
 	}
 
 	private void Update()
 	{
-		if (!this.IsVisible)
+		if (!IsVisible)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.Update()).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_throwBoxException)
+		if (m_throwBoxException)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_throwBoxException = false;
+				List<int> boxIds = m_boxIds;
+				
+				string text = string.Join(", ", boxIds.Select(((int x) => x.ToString())).ToArray());
+				throw new Exception(string.Format("IssueOpeningLootMatrix {0} result={1}\nBoxIds:{2}\nInventory: {3}", m_boxIds[0], "ItemNotFound", text, m_inventoryItemStr));
 			}
-			this.m_throwBoxException = false;
-			string separator = ", ";
-			IEnumerable<int> boxIds = this.m_boxIds;
-			if (UILootMatrixScreen.<>f__am$cache1 == null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UILootMatrixScreen.<>f__am$cache1 = ((int x) => x.ToString());
-			}
-			string text = string.Join(separator, boxIds.Select(UILootMatrixScreen.<>f__am$cache1).ToArray<string>());
-			throw new Exception(string.Format("IssueOpeningLootMatrix {0} result={1}\nBoxIds:{2}\nInventory: {3}", new object[]
-			{
-				this.m_boxIds[0],
-				"ItemNotFound",
-				text,
-				this.m_inventoryItemStr
-			}));
 		}
-		if (this.m_vfxOpenTime > 0f)
+		if (m_vfxOpenTime > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!FrontEndCharacterSelectBackgroundScene.Get().m_vfxSpawnIn.activeSelf)
 			{
-				for (;;)
+				if (Time.time > m_vfxOpenTime)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (Time.time > this.m_vfxOpenTime)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIFrontEnd.PlaySound(FrontEndButtonSounds.LockboxAppear);
 					FrontEndCharacterSelectBackgroundScene.Get().m_vfxSpawnIn.SetActive(true);
-					this.m_vfxOpenTime = -1f;
-					goto IL_1D0;
+					m_vfxOpenTime = -1f;
+					goto IL_01d0;
 				}
 			}
 		}
-		if (this.m_lockboxSpawnTime > 0f)
+		if (m_lockboxSpawnTime > 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (FrontEndCharacterSelectBackgroundScene.Get().m_vfxSpawnIn.activeSelf)
 			{
-				for (;;)
+				if (Time.time > m_lockboxSpawnTime)
 				{
-					switch (5)
+					if (m_numBoxes > 0)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (Time.time > this.m_lockboxSpawnTime)
-				{
-					if (this.m_numBoxes > 0)
-					{
-						for (;;)
+						if (m_template.Index == 515)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_template.Index == 0x203)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UINewUserFlowManager.OnMainLootMatrixDisplayed();
 						}
 						else
@@ -1837,178 +1076,90 @@ public class UILootMatrixScreen : UIScene
 							UINewUserFlowManager.OnSpecialLootMatrixDisplayed();
 						}
 					}
-					UIManager.SetGameObjectActive(this.m_chestAnimator, true, null);
-					this.m_lockboxSpawnTime = -1f;
+					UIManager.SetGameObjectActive(m_chestAnimator, true);
+					m_lockboxSpawnTime = -1f;
 				}
 			}
 		}
-		IL_1D0:
-		if (this.m_accordionRewardGroup.IsActive())
+		goto IL_01d0;
+		IL_01d0:
+		if (m_accordionRewardGroup.IsActive())
 		{
-			if (this.m_accordionRewardCanvasGroup.alpha < 1f)
+			if (m_accordionRewardCanvasGroup.alpha < 1f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_accordionRewardCanvasGroup.alpha += Time.smoothDeltaTime;
+				m_accordionRewardCanvasGroup.alpha += Time.smoothDeltaTime;
 			}
-			if (this.m_accordionRewardGroup.spacing < this.m_endRowSpacing)
+			if (m_accordionRewardGroup.spacing < m_endRowSpacing)
 			{
-				this.m_accordionRewardGroup.spacing += (this.m_endRowSpacing - this.m_startRowSpacing) * Time.smoothDeltaTime;
-				if (this.m_accordionRewardGroup.spacing > this.m_endRowSpacing)
+				m_accordionRewardGroup.spacing += (m_endRowSpacing - m_startRowSpacing) * Time.smoothDeltaTime;
+				if (m_accordionRewardGroup.spacing > m_endRowSpacing)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_accordionRewardGroup.spacing = this.m_endRowSpacing;
+					m_accordionRewardGroup.spacing = m_endRowSpacing;
 				}
 			}
-			for (int i = 0; i < this.m_accordionRewardRows.Length; i++)
+			for (int i = 0; i < m_accordionRewardRows.Length; i++)
 			{
-				if (this.m_accordionRewardRows[i].spacing < this.m_endColSpacing)
+				if (!(m_accordionRewardRows[i].spacing < m_endColSpacing))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_accordionRewardRows[i].spacing += (this.m_endColSpacing - this.m_startColSpacing) * Time.smoothDeltaTime;
-					if (this.m_accordionRewardRows[i].spacing > this.m_endColSpacing)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_accordionRewardRows[i].spacing = this.m_endColSpacing;
-					}
-				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
 					continue;
 				}
-				break;
-			}
-			if (this.m_accordionRewardGroup.spacing >= this.m_endRowSpacing)
-			{
-				for (;;)
+				m_accordionRewardRows[i].spacing += (m_endColSpacing - m_startColSpacing) * Time.smoothDeltaTime;
+				if (m_accordionRewardRows[i].spacing > m_endColSpacing)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_accordionRewardRows[i].spacing = m_endColSpacing;
 				}
-				if (this.m_accordionRewardRows[0].spacing >= this.m_endColSpacing)
+			}
+			if (m_accordionRewardGroup.spacing >= m_endRowSpacing)
+			{
+				if (m_accordionRewardRows[0].spacing >= m_endColSpacing)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.FinishRewardAnimation();
+					FinishRewardAnimation();
 				}
 			}
 		}
-		if (this.m_isLoading)
+		if (m_isLoading)
 		{
-			for (;;)
+			if (m_chestAnimator.isInitialized)
 			{
-				switch (1)
+				m_isLoading = false;
+				_SelectableBtn selectableButton = m_openBtn.selectableButton;
+				int disabled;
+				if (!m_isOpening)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_chestAnimator.isInitialized)
-			{
-				for (;;)
-				{
-					switch (7)
+					if (m_numBoxes <= 0)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_isLoading = false;
-				_SelectableBtn selectableButton = this.m_openBtn.selectableButton;
-				bool disabled;
-				if (!this.m_isOpening)
-				{
-					if (this.m_numBoxes <= 0)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						disabled = (this.m_lockboxButtons.Count <= 1);
+						disabled = ((m_lockboxButtons.Count <= 1) ? 1 : 0);
 					}
 					else
 					{
-						disabled = false;
+						disabled = 0;
 					}
 				}
 				else
 				{
-					disabled = true;
+					disabled = 1;
 				}
-				selectableButton.SetDisabled(disabled);
+				selectableButton.SetDisabled((byte)disabled != 0);
 			}
 		}
-		while (this.m_pendingDuplicateAnimations.Count > 0)
+		while (m_pendingDuplicateAnimations.Count > 0)
 		{
-			this.m_pendingDuplicateAnimations.Dequeue().PlayDuplicateAnimation();
+			m_pendingDuplicateAnimations.Dequeue().PlayDuplicateAnimation();
 		}
 	}
 
 	public void NotifyGetFocus()
 	{
-		this.SetVisible(true);
+		SetVisible(true);
 	}
 
 	public void NotifyLoseFocus()
 	{
-		this.SetVisible(false);
+		SetVisible(false);
 	}
 
 	public bool IsOpening()
 	{
-		return this.m_isOpening;
+		return m_isOpening;
 	}
 }

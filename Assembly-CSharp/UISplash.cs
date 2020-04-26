@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,23 +16,15 @@ public class UISplash : MonoBehaviour
 
 	private void Update()
 	{
-		this.m_updateCount++;
-		if (this.m_updateCount == 5)
+		m_updateCount++;
+		if (m_updateCount != 5)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISplash.Update()).MethodHandle;
-			}
-			this.m_loadLevelOperation = SceneManager.LoadSceneAsync(this.m_sceneToLoad);
+			return;
+		}
+		while (true)
+		{
+			m_loadLevelOperation = SceneManager.LoadSceneAsync(m_sceneToLoad);
+			return;
 		}
 	}
 }

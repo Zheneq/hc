@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,173 +31,102 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		BazookaGirlDelayedBombDrops bazookaGirlDelayedBombDrops = targetAbility as BazookaGirlDelayedBombDrops;
-		if (bazookaGirlDelayedBombDrops != null)
+		if (!(bazookaGirlDelayedBombDrops != null))
 		{
-			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, bazookaGirlDelayedBombDrops.m_bombInfo.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_coneAngleMod, "ConeWidthAngle", string.Empty, bazookaGirlDelayedBombDrops.m_coneWidthAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneLengthMod, "ConeLength", string.Empty, bazookaGirlDelayedBombDrops.m_coneLength, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxNumOfAreasForExtraDamageMod, "MaxNumOfAreasForExtraDamage", string.Empty, bazookaGirlDelayedBombDrops.m_maxNumOfAreasForExtraDamage, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamagePerFewerAreaMod, "ExtraDamagePerFewerArea", string.Empty, bazookaGirlDelayedBombDrops.m_extraDamagePerFewerArea, true, false);
-			if (this.m_maxNumOfAreasForExtraDamageMod != null)
+			return;
+		}
+		AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, bazookaGirlDelayedBombDrops.m_bombInfo.m_damageAmount);
+		AbilityMod.AddToken(tokens, m_coneAngleMod, "ConeWidthAngle", string.Empty, bazookaGirlDelayedBombDrops.m_coneWidthAngle);
+		AbilityMod.AddToken(tokens, m_coneLengthMod, "ConeLength", string.Empty, bazookaGirlDelayedBombDrops.m_coneLength);
+		AbilityMod.AddToken(tokens, m_maxNumOfAreasForExtraDamageMod, "MaxNumOfAreasForExtraDamage", string.Empty, bazookaGirlDelayedBombDrops.m_maxNumOfAreasForExtraDamage);
+		AbilityMod.AddToken(tokens, m_extraDamagePerFewerAreaMod, "ExtraDamagePerFewerArea", string.Empty, bazookaGirlDelayedBombDrops.m_extraDamagePerFewerArea);
+		if (m_maxNumOfAreasForExtraDamageMod == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			int modifiedValue = m_maxNumOfAreasForExtraDamageMod.GetModifiedValue(bazookaGirlDelayedBombDrops.m_maxNumOfAreasForExtraDamage);
+			if (modifiedValue > 0)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlDelayedBombDrops.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-				}
-				int modifiedValue = this.m_maxNumOfAreasForExtraDamageMod.GetModifiedValue(bazookaGirlDelayedBombDrops.m_maxNumOfAreasForExtraDamage);
-				if (modifiedValue > 0)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					int modifiedValue2 = this.m_extraDamagePerFewerAreaMod.GetModifiedValue(bazookaGirlDelayedBombDrops.m_extraDamagePerFewerArea);
+					int modifiedValue2 = m_extraDamagePerFewerAreaMod.GetModifiedValue(bazookaGirlDelayedBombDrops.m_extraDamagePerFewerArea);
 					int val = modifiedValue2 * (modifiedValue - 1);
 					AbilityMod.AddToken_IntDiff(tokens, "MaxExtraDamage_Diff", string.Empty, val, false, 0);
+					return;
 				}
 			}
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		BazookaGirlDelayedBombDrops bazookaGirlDelayedBombDrops = base.GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlDelayedBombDrops;
+		BazookaGirlDelayedBombDrops bazookaGirlDelayedBombDrops = GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlDelayedBombDrops;
 		bool flag = bazookaGirlDelayedBombDrops != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix = "[Damage]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlDelayedBombDrops.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = bazookaGirlDelayedBombDrops.m_bombInfo.m_damageAmount;
 		}
 		else
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(damageMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyFloat coneLengthMod = this.m_coneLengthMod;
-		string prefix2 = "[Cone Length]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(damageMod, "[Damage]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyFloat coneLengthMod = m_coneLengthMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = bazookaGirlDelayedBombDrops.m_coneLength;
 		}
 		else
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(coneLengthMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyFloat coneAngleMod = this.m_coneAngleMod;
-		string prefix3 = "[Cone Angle]";
-		bool showBaseVal3 = flag;
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(coneLengthMod, "[Cone Length]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyFloat coneAngleMod = m_coneAngleMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = bazookaGirlDelayedBombDrops.m_coneWidthAngle;
 		}
 		else
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + AbilityModHelper.GetModPropertyDesc(coneAngleMod, prefix3, showBaseVal3, baseVal3);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_targetAllMod, "[Target All?]", flag, flag && bazookaGirlDelayedBombDrops.m_targetAll);
-		string str4 = text;
-		AbilityModPropertyBool penetrateLosMod = this.m_penetrateLosMod;
-		string prefix4 = "[PenetrateLos]";
-		bool showBaseVal4 = flag;
-		bool baseVal4;
+		empty = str3 + AbilityModHelper.GetModPropertyDesc(coneAngleMod, "[Cone Angle]", flag, baseVal3);
+		empty += AbilityModHelper.GetModPropertyDesc(m_targetAllMod, "[Target All?]", flag, flag && bazookaGirlDelayedBombDrops.m_targetAll);
+		string str4 = empty;
+		AbilityModPropertyBool penetrateLosMod = m_penetrateLosMod;
+		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal4 = bazookaGirlDelayedBombDrops.m_penetrateLos;
+			baseVal4 = (bazookaGirlDelayedBombDrops.m_penetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal4 = false;
+			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(penetrateLosMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_maxNumOfAreasForExtraDamageMod, "[MaxNumOfAreasForExtraDamage]", flag, (!flag) ? 0 : bazookaGirlDelayedBombDrops.m_maxNumOfAreasForExtraDamage);
-		string str5 = text;
-		AbilityModPropertyInt extraDamagePerFewerAreaMod = this.m_extraDamagePerFewerAreaMod;
-		string prefix5 = "[ExtraDamagePerFewerArea]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(penetrateLosMod, "[PenetrateLos]", flag, (byte)baseVal4 != 0);
+		empty += PropDesc(m_maxNumOfAreasForExtraDamageMod, "[MaxNumOfAreasForExtraDamage]", flag, flag ? bazookaGirlDelayedBombDrops.m_maxNumOfAreasForExtraDamage : 0);
+		string str5 = empty;
+		AbilityModPropertyInt extraDamagePerFewerAreaMod = m_extraDamagePerFewerAreaMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = bazookaGirlDelayedBombDrops.m_extraDamagePerFewerArea;
 		}
 		else
 		{
 			baseVal5 = 0;
 		}
-		return str5 + base.PropDesc(extraDamagePerFewerAreaMod, prefix5, showBaseVal5, baseVal5);
+		return str5 + PropDesc(extraDamagePerFewerAreaMod, "[ExtraDamagePerFewerArea]", flag, baseVal5);
 	}
 }

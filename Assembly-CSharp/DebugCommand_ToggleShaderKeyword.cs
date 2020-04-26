@@ -1,4 +1,3 @@
-﻿using System;
 using System.Linq;
 using UnityEngine;
 
@@ -31,32 +30,10 @@ public class DebugCommand_ToggleShaderKeyword : DebugCommand
 	public override bool OnSlashCommand(string arguments)
 	{
 		string[] array = arguments.Split(" ".ToCharArray(), 2);
-		if (array.Count<string>() == 2)
+		if (array.Count() == 2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_ToggleShaderKeyword.OnSlashCommand(string)).MethodHandle;
-			}
 			if (array[1].EqualsIgnoreCase("off"))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Shader.DisableKeyword(array[0]);
 			}
 			else
@@ -66,7 +43,7 @@ public class DebugCommand_ToggleShaderKeyword : DebugCommand
 		}
 		else
 		{
-			TextConsole.Get().Write("usage: /toggleshaderkeyword <shaderkeyword> [on|off]", ConsoleMessageType.SystemMessage);
+			TextConsole.Get().Write("usage: /toggleshaderkeyword <shaderkeyword> [on|off]");
 		}
 		return true;
 	}

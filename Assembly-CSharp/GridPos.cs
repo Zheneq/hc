@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public struct GridPos
@@ -11,22 +10,15 @@ public struct GridPos
 
 	private int m_height;
 
-	public GridPos(int x, int y, int height)
-	{
-		this.m_x = x;
-		this.m_y = y;
-		this.m_height = height;
-	}
-
 	public int x
 	{
 		get
 		{
-			return this.m_x;
+			return m_x;
 		}
 		set
 		{
-			this.m_x = value;
+			m_x = value;
 		}
 	}
 
@@ -34,11 +26,11 @@ public struct GridPos
 	{
 		get
 		{
-			return this.m_y;
+			return m_y;
 		}
 		set
 		{
-			this.m_y = value;
+			m_y = value;
 		}
 	}
 
@@ -46,96 +38,76 @@ public struct GridPos
 	{
 		get
 		{
-			return this.m_height;
+			return m_height;
 		}
 		set
 		{
-			this.m_height = value;
+			m_height = value;
 		}
 	}
 
-	public float worldX
-	{
-		get
-		{
-			return (float)this.m_x * Board.SquareSizeStatic;
-		}
-	}
+	public float worldX => (float)m_x * Board.SquareSizeStatic;
 
-	public float worldY
+	public float worldY => (float)m_y * Board.SquareSizeStatic;
+
+	public GridPos(int x, int y, int height)
 	{
-		get
-		{
-			return (float)this.m_y * Board.SquareSizeStatic;
-		}
+		m_x = x;
+		m_y = y;
+		m_height = height;
 	}
 
 	public override string ToString()
 	{
-		return string.Format("({0}, {1})", this.x, this.y);
+		return $"({x}, {y})";
 	}
 
 	public string ToStringWithCross()
 	{
-		return string.Format("({0} x {1})", this.x, this.y);
+		return $"({x} x {y})";
 	}
 
 	public static GridPos FromVector3(Vector3 vec)
 	{
-		return new GridPos
-		{
-			x = Mathf.RoundToInt(vec.x / Board.\u000E().squareSize),
-			y = Mathf.RoundToInt(vec.z / Board.\u000E().squareSize)
-		};
+		GridPos result = default(GridPos);
+		result.x = Mathf.RoundToInt(vec.x / Board.Get().squareSize);
+		result.y = Mathf.RoundToInt(vec.z / Board.Get().squareSize);
+		return result;
 	}
 
 	public static GridPos FromGridPosProp(GridPosProp gpp)
 	{
-		return new GridPos
-		{
-			m_x = gpp.m_x,
-			m_y = gpp.m_y,
-			m_height = gpp.m_height
-		};
+		GridPos result = default(GridPos);
+		result.m_x = gpp.m_x;
+		result.m_y = gpp.m_y;
+		result.m_height = gpp.m_height;
+		return result;
 	}
 
 	public bool CoordsEqual(GridPos other)
 	{
-		bool result;
-		if (this.x == other.x)
+		int result;
+		if (x == other.x)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GridPos.CoordsEqual(GridPos)).MethodHandle;
-			}
-			result = (this.y == other.y);
+			result = ((y == other.y) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	internal void OnSerializeHelper(IBitStream stream)
 	{
-		int x = this.m_x;
-		int y = this.m_y;
-		int height = this.m_height;
-		stream.Serialize(ref x);
-		stream.Serialize(ref y);
-		stream.Serialize(ref height);
-		this.m_x = x;
-		this.m_y = y;
-		this.m_height = height;
+		int value = m_x;
+		int value2 = m_y;
+		int value3 = m_height;
+		stream.Serialize(ref value);
+		stream.Serialize(ref value2);
+		stream.Serialize(ref value3);
+		m_x = value;
+		m_y = value2;
+		m_height = value3;
 	}
 }

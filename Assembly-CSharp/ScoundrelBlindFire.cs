@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ public class ScoundrelBlindFire : Ability
 
 	public float m_coneBackwardOffset;
 
-	public int m_damageAmount = 0x14;
+	public int m_damageAmount = 20;
 
 	public bool m_penetrateLineOfSight;
 
@@ -24,29 +23,16 @@ public class ScoundrelBlindFire : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFire.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Quick Draw";
+			m_abilityName = "Quick Draw";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Blindfire(this, this.ModdedConeWidthAngle(), this.m_coneLength, this.m_coneBackwardOffset, this.ModdedPenetrateLineOfSight(), this.m_restrictWithinCover, this.m_includeTargetsInCover, this.m_maxTargets);
+		base.Targeter = new AbilityUtil_Targeter_Blindfire(this, ModdedConeWidthAngle(), m_coneLength, m_coneBackwardOffset, ModdedPenetrateLineOfSight(), m_restrictWithinCover, m_includeTargetsInCover, m_maxTargets);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -56,98 +42,67 @@ public class ScoundrelBlindFire : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.m_coneLength;
+		return m_coneLength;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ScoundrelBlindFire))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_ScoundrelBlindFire);
-			this.SetupTargeter();
+			m_abilityMod = (abilityMod as AbilityMod_ScoundrelBlindFire);
+			SetupTargeter();
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	public float ModdedConeWidthAngle()
 	{
-		float result = this.m_coneWidthAngle;
-		if (this.m_abilityMod != null)
+		float result = m_coneWidthAngle;
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFire.ModdedConeWidthAngle()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(this.m_coneWidthAngle);
+			result = m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle);
 		}
 		return result;
 	}
 
 	public int ModdedDamageAmount()
 	{
-		int result = this.m_damageAmount;
-		if (this.m_abilityMod != null)
+		int result = m_damageAmount;
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFire.ModdedDamageAmount()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damageAmount);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damageAmount);
 		}
 		return result;
 	}
 
 	public bool ModdedPenetrateLineOfSight()
 	{
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_abilityMod.m_penetrateLineOfSight.GetModifiedValue(m_penetrateLineOfSight);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFire.ModdedPenetrateLineOfSight()).MethodHandle;
-			}
-			return this.m_abilityMod.m_penetrateLineOfSight.GetModifiedValue(this.m_penetrateLineOfSight);
 		}
-		return this.m_penetrateLineOfSight;
+		return m_penetrateLineOfSight;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, this.m_damageAmount)
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_damageAmount));
+		return list;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -155,23 +110,10 @@ public class ScoundrelBlindFire : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null && tooltipSubjectTypes.Count > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFire.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				dictionary[AbilityTooltipSymbol.Damage] = this.ModdedDamageAmount();
+				dictionary[AbilityTooltipSymbol.Damage] = ModdedDamageAmount();
 				return dictionary;
 			}
 		}
@@ -180,16 +122,16 @@ public class ScoundrelBlindFire : Ability
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, this.m_damageAmount, false);
-		base.AddTokenInt(tokens, "MaxTargets", string.Empty, this.m_maxTargets, false);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, m_damageAmount);
+		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_restrictWithinCover)
+		if (m_restrictWithinCover)
 		{
 			ActorCover component = caster.GetComponent<ActorCover>();
-			return component.HasAnyCover(false);
+			return component.HasAnyCover();
 		}
 		return true;
 	}
@@ -198,8 +140,8 @@ public class ScoundrelBlindFire : Ability
 	{
 		List<Vector3> list = new List<Vector3>();
 		Vector3 aimDirection = targets[0].AimDirection;
-		Vector3 a = caster.\u0015();
-		list.Add(a + this.m_coneLength * Board.\u000E().squareSize * aimDirection);
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		list.Add(travelBoardSquareWorldPositionForLos + m_coneLength * Board.Get().squareSize * aimDirection);
 		return list;
 	}
 }

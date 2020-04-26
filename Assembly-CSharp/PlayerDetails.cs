@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -33,78 +32,47 @@ public class PlayerDetails
 
 	public int m_idleTurns;
 
-	public PlayerDetails(PlayerGameAccountType gameAccountType)
+	public bool ReplacedWithBots
 	{
-		this.m_disconnected = false;
-		this.m_gameObjects = new List<GameObject>();
-		this.m_idleTurns = 0;
-		this.m_gameAccountType = gameAccountType;
+		get;
+		private set;
 	}
-
-	public bool ReplacedWithBots { get; private set; }
 
 	public bool IsAIControlled
 	{
 		get
 		{
-			bool result;
-			if (!this.IsNPCBot && !this.IsLoadTestBot)
+			int result;
+			if (!IsNPCBot && !IsLoadTestBot)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerDetails.get_IsAIControlled()).MethodHandle;
-				}
-				result = this.ReplacedWithBots;
+				result = (ReplacedWithBots ? 1 : 0);
 			}
 			else
 			{
-				result = true;
+				result = 1;
 			}
-			return result;
+			return (byte)result != 0;
 		}
 	}
 
-	public bool IsHumanControlled
-	{
-		get
-		{
-			return !this.IsAIControlled;
-		}
-	}
+	public bool IsHumanControlled => !IsAIControlled;
 
 	public bool IsNPCBot
 	{
 		get
 		{
-			return this.m_gameAccountType == PlayerGameAccountType.None;
+			return m_gameAccountType == PlayerGameAccountType.None;
 		}
 		set
 		{
-			if (value)
+			if (!value)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerDetails.set_IsNPCBot(bool)).MethodHandle;
-				}
-				this.m_gameAccountType = PlayerGameAccountType.None;
+				return;
+			}
+			while (true)
+			{
+				m_gameAccountType = PlayerGameAccountType.None;
+				return;
 			}
 		}
 	}
@@ -113,164 +81,128 @@ public class PlayerDetails
 	{
 		get
 		{
-			return this.m_gameAccountType == PlayerGameAccountType.LoadTest;
+			return m_gameAccountType == PlayerGameAccountType.LoadTest;
 		}
 		set
 		{
 			if (value)
 			{
-				this.m_gameAccountType = PlayerGameAccountType.LoadTest;
+				m_gameAccountType = PlayerGameAccountType.LoadTest;
 			}
 		}
 	}
 
-	public bool IsSpectator
-	{
-		get
-		{
-			return this.m_team == Team.Spectator;
-		}
-	}
+	public bool IsSpectator => m_team == Team.Spectator;
 
 	public bool IsConnected
 	{
 		get
 		{
-			return !this.m_disconnected;
+			return !m_disconnected;
 		}
 		private set
 		{
 		}
 	}
 
+	public PlayerDetails(PlayerGameAccountType gameAccountType)
+	{
+		m_disconnected = false;
+		m_gameObjects = new List<GameObject>();
+		m_idleTurns = 0;
+		m_gameAccountType = gameAccountType;
+	}
+
 	internal bool IsLocal()
 	{
-		if (ClientGameManager.Get())
+		if ((bool)ClientGameManager.Get())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerDetails.IsLocal()).MethodHandle;
-			}
 			if (ClientGameManager.Get().Observer)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_replayGenerator;
 					}
-					break;
 				}
-				return this.m_replayGenerator;
 			}
 		}
-		if (ReplayPlayManager.Get())
+		if ((bool)ReplayPlayManager.Get())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ReplayPlayManager.Get().IsPlayback())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_replayGenerator;
 					}
-					break;
 				}
-				return this.m_replayGenerator;
 			}
 		}
-		bool result;
-		if (this.m_accountId != 0L)
+		int result;
+		if (m_accountId != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = (this.m_accountId == HydrogenConfig.Get().Ticket.AccountId);
+			result = ((m_accountId == HydrogenConfig.Get().Ticket.AccountId) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	internal void OnSerializeHelper(NetworkWriter stream)
 	{
-		this.OnSerializeHelper(new NetworkWriterAdapter(stream));
+		OnSerializeHelper(new NetworkWriterAdapter(stream));
 	}
 
 	internal void OnSerializeHelper(IBitStream stream)
 	{
-		sbyte b = checked((sbyte)this.m_team);
-		bool disconnected = this.m_disconnected;
-		string handle = this.m_handle;
-		long accountId = this.m_accountId;
-		float accPrivateElo = this.m_accPrivateElo;
-		float usedMatchmakingElo = this.m_usedMatchmakingElo;
-		int lobbyPlayerInfoId = this.m_lobbyPlayerInfoId;
-		float charPrivateElo = this.m_charPrivateElo;
-		int gameAccountType = (int)this.m_gameAccountType;
-		bool replayGenerator = this.m_replayGenerator;
-		bool botsMasqueradeAsHumans = this.m_botsMasqueradeAsHumans;
-		stream.Serialize(ref b);
-		stream.Serialize(ref disconnected);
-		stream.Serialize(ref handle);
-		stream.Serialize(ref accountId);
-		stream.Serialize(ref accPrivateElo);
-		stream.Serialize(ref usedMatchmakingElo);
-		stream.Serialize(ref lobbyPlayerInfoId);
-		stream.Serialize(ref charPrivateElo);
-		stream.Serialize(ref gameAccountType);
-		stream.Serialize(ref replayGenerator);
-		stream.Serialize(ref botsMasqueradeAsHumans);
-		this.m_team = (Team)b;
-		this.m_disconnected = disconnected;
-		this.m_handle = handle;
-		this.m_accountId = accountId;
-		this.m_accPrivateElo = accPrivateElo;
-		this.m_usedMatchmakingElo = usedMatchmakingElo;
-		this.m_lobbyPlayerInfoId = lobbyPlayerInfoId;
-		this.m_charPrivateElo = charPrivateElo;
-		this.m_gameAccountType = (PlayerGameAccountType)gameAccountType;
-		this.m_replayGenerator = replayGenerator;
-		this.m_botsMasqueradeAsHumans = botsMasqueradeAsHumans;
+		sbyte value = checked((sbyte)m_team);
+		bool value2 = m_disconnected;
+		string value3 = m_handle;
+		long value4 = m_accountId;
+		float value5 = m_accPrivateElo;
+		float value6 = m_usedMatchmakingElo;
+		int value7 = m_lobbyPlayerInfoId;
+		float value8 = m_charPrivateElo;
+		int value9 = (int)m_gameAccountType;
+		bool value10 = m_replayGenerator;
+		bool value11 = m_botsMasqueradeAsHumans;
+		stream.Serialize(ref value);
+		stream.Serialize(ref value2);
+		stream.Serialize(ref value3);
+		stream.Serialize(ref value4);
+		stream.Serialize(ref value5);
+		stream.Serialize(ref value6);
+		stream.Serialize(ref value7);
+		stream.Serialize(ref value8);
+		stream.Serialize(ref value9);
+		stream.Serialize(ref value10);
+		stream.Serialize(ref value11);
+		m_team = (Team)value;
+		m_disconnected = value2;
+		m_handle = value3;
+		m_accountId = value4;
+		m_accPrivateElo = value5;
+		m_usedMatchmakingElo = value6;
+		m_lobbyPlayerInfoId = value7;
+		m_charPrivateElo = value8;
+		m_gameAccountType = (PlayerGameAccountType)value9;
+		m_replayGenerator = value10;
+		m_botsMasqueradeAsHumans = value11;
 	}
 
 	public override string ToString()
 	{
-		return string.Format("{0}[{1}] team={2} disconnected={3} replacedWithBots={4}", new object[]
-		{
-			this.m_handle,
-			this.m_accountId,
-			this.m_team,
-			this.m_disconnected,
-			this.ReplacedWithBots
-		});
+		return $"{m_handle}[{m_accountId}] team={m_team} disconnected={m_disconnected} replacedWithBots={ReplacedWithBots}";
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -15,190 +14,103 @@ public class FrontendUIEnvironmentCamera : MonoBehaviour
 	{
 		if (AudioListenerController.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontendUIEnvironmentCamera.Start()).MethodHandle;
-			}
-			this.m_audioListener = AudioListenerController.Get().gameObject;
+			m_audioListener = AudioListenerController.Get().gameObject;
 		}
-		this.SetRenderSettings();
-		SceneManager.sceneLoaded += this.OnSceneLoaded;
+		SetRenderSettings();
+		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 
 	private void OnDestroy()
 	{
-		SceneManager.sceneLoaded -= this.OnSceneLoaded;
+		SceneManager.sceneLoaded -= OnSceneLoaded;
 	}
 
 	private void Update()
 	{
-		if (this.m_audioListener != null)
+		if (m_audioListener != null)
 		{
-			this.m_audioListener.transform.position = base.transform.position;
+			m_audioListener.transform.position = base.transform.position;
 		}
-		this.UpdateDebugControls();
+		UpdateDebugControls();
 	}
 
 	private void SetRenderSettings()
 	{
 		RenderSettings.ambientIntensity = 1f;
-		RenderSettings.ambientLight = this.m_ambientColor;
+		RenderSettings.ambientLight = m_ambientColor;
 		RenderSettings.ambientMode = AmbientMode.Flat;
 		RenderSettings.defaultReflectionMode = DefaultReflectionMode.Custom;
-		RenderSettings.customReflection = this.m_customReflectionCubemap;
+		RenderSettings.customReflection = m_customReflectionCubemap;
 	}
 
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		this.SetRenderSettings();
+		SetRenderSettings();
 	}
 
 	private void UpdateDebugControls()
 	{
-		if (DebugParameters.Get() != null)
+		if (DebugParameters.Get() == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!DebugParameters.Get().GetParameterAsBool("DebugCamera"))
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontendUIEnvironmentCamera.UpdateDebugControls()).MethodHandle;
-			}
-			if (DebugParameters.Get().GetParameterAsBool("DebugCamera"))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				float d = 5f;
-				float d2 = 0.1f;
 				float num = 5f;
+				float d = 0.1f;
 				float num2 = 5f;
+				float num3 = 5f;
 				if (Input.GetMouseButton(2))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					float x = base.transform.localEulerAngles.x - Input.GetAxis("Mouse Y") * num;
-					float y = base.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * num2;
+					Vector3 localEulerAngles = base.transform.localEulerAngles;
+					float x = localEulerAngles.x - Input.GetAxis("Mouse Y") * num2;
+					Vector3 localEulerAngles2 = base.transform.localEulerAngles;
+					float y = localEulerAngles2.y + Input.GetAxis("Mouse X") * num3;
 					base.transform.localEulerAngles = new Vector3(x, y, 0f);
 				}
-				Vector3 vector = Vector3.zero;
+				Vector3 zero = Vector3.zero;
 				if (!UIUtils.InputFieldHasFocus())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (AccountPreferences.DoesApplicationHaveFocus())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Input.GetKey(KeyCode.W))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							vector += base.transform.forward * d2;
+							zero += base.transform.forward * d;
 						}
 						if (Input.GetKey(KeyCode.A))
 						{
-							vector -= base.transform.right * d2;
+							zero -= base.transform.right * d;
 						}
 						if (Input.GetKey(KeyCode.S))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							vector -= base.transform.forward * d2;
+							zero -= base.transform.forward * d;
 						}
 						if (Input.GetKey(KeyCode.D))
 						{
-							vector += base.transform.right * d2;
+							zero += base.transform.right * d;
 						}
 						if (Input.GetKey(KeyCode.R))
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							vector += base.transform.up * d2;
+							zero += base.transform.up * d;
 						}
 						if (Input.GetKey(KeyCode.F))
 						{
-							vector -= base.transform.up * d2;
+							zero -= base.transform.up * d;
 						}
 						if (Input.GetKey(KeyCode.LeftShift))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							vector *= d;
+							zero *= num;
 						}
 					}
 				}
-				base.transform.position += vector;
+				base.transform.position += zero;
+				return;
 			}
 		}
 	}

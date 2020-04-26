@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 
 public class UIRewardItemTooltip : UITooltipBase
@@ -7,6 +6,6 @@ public class UIRewardItemTooltip : UITooltipBase
 
 	public void Setup(string rewardText)
 	{
-		this.m_rewardsLabel.text = rewardText;
+		m_rewardsLabel.text = rewardText;
 	}
 }

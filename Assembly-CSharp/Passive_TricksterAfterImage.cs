@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class Passive_TricksterAfterImage : Passive
@@ -27,44 +26,14 @@ public class Passive_TricksterAfterImage : Passive
 	{
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Passive_TricksterAfterImage.GetFromActor(ActorData)).MethodHandle;
-			}
-			PassiveData passiveData = actor.\u000E();
+			PassiveData passiveData = actor.GetPassiveData();
 			if (passiveData != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				foreach (Passive passive in passiveData.m_passives)
+				Passive[] passives = passiveData.m_passives;
+				foreach (Passive passive in passives)
 				{
 					if (passive != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (passive is Passive_TricksterAfterImage)
 						{
 							return passive as Passive_TricksterAfterImage;

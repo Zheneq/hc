@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,189 +37,108 @@ public class AbilityMod_RampartGrab : AbilityMod
 		RampartGrab rampartGrab = targetAbility as RampartGrab;
 		if (rampartGrab != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, rampartGrab.m_damageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageAfterFirstHitMod, "DamageAfterFirstHit", string.Empty, rampartGrab.m_damageAfterFirstHit, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", rampartGrab.m_enemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_maxTargetsMod, "MaxTargets", string.Empty, rampartGrab.m_maxTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, rampartGrab.m_laserRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, rampartGrab.m_laserWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_destinationSelectRangeMod, "DestinationSelectRange", string.Empty, rampartGrab.m_destinationSelectRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_destinationAngleDegWithBackMod, "DestinationAngleDegWithBack", string.Empty, rampartGrab.m_destinationAngleDegWithBack, true, false);
+			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, rampartGrab.m_damageAmount);
+			AbilityMod.AddToken(tokens, m_damageAfterFirstHitMod, "DamageAfterFirstHit", string.Empty, rampartGrab.m_damageAfterFirstHit);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", rampartGrab.m_enemyHitEffect);
+			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, rampartGrab.m_maxTargets);
+			AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, rampartGrab.m_laserRange);
+			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, rampartGrab.m_laserWidth);
+			AbilityMod.AddToken(tokens, m_destinationSelectRangeMod, "DestinationSelectRange", string.Empty, rampartGrab.m_destinationSelectRange);
+			AbilityMod.AddToken(tokens, m_destinationAngleDegWithBackMod, "DestinationAngleDegWithBack", string.Empty, rampartGrab.m_destinationAngleDegWithBack);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		RampartGrab rampartGrab = base.GetTargetAbilityOnAbilityData(abilityData) as RampartGrab;
+		RampartGrab rampartGrab = GetTargetAbilityOnAbilityData(abilityData) as RampartGrab;
 		bool flag = rampartGrab != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt damageAmountMod = this.m_damageAmountMod;
-		string prefix = "[DamageAmount]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt damageAmountMod = m_damageAmountMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartGrab.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = rampartGrab.m_damageAmount;
 		}
 		else
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(damageAmountMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt damageAfterFirstHitMod = this.m_damageAfterFirstHitMod;
-		string prefix2 = "[DamageAfterFirstHit]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(damageAmountMod, "[DamageAmount]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt damageAfterFirstHitMod = m_damageAfterFirstHitMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rampartGrab.m_damageAfterFirstHit;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(damageAfterFirstHitMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyEffectInfo enemyHitEffectMod = this.m_enemyHitEffectMod;
-		string prefix3 = "[EnemyHitEffect]";
-		bool showBaseVal3 = flag;
-		StandardEffectInfo baseVal3;
+		empty = str2 + PropDesc(damageAfterFirstHitMod, "[DamageAfterFirstHit]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyEffectInfo enemyHitEffectMod = m_enemyHitEffectMod;
+		object baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rampartGrab.m_enemyHitEffect;
 		}
 		else
 		{
 			baseVal3 = null;
 		}
-		text = str3 + base.PropDesc(enemyHitEffectMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_chooseEndPositionMod, "[ChooseEndPosition]", flag, flag && rampartGrab.m_chooseEndPosition);
-		text += base.PropDesc(this.m_maxTargetsMod, "[MaxTargets]", flag, (!flag) ? 0 : rampartGrab.m_maxTargets);
-		string str4 = text;
-		AbilityModPropertyFloat laserRangeMod = this.m_laserRangeMod;
-		string prefix4 = "[LaserRange]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(enemyHitEffectMod, "[EnemyHitEffect]", flag, (StandardEffectInfo)baseVal3);
+		empty += PropDesc(m_chooseEndPositionMod, "[ChooseEndPosition]", flag, flag && rampartGrab.m_chooseEndPosition);
+		empty += PropDesc(m_maxTargetsMod, "[MaxTargets]", flag, flag ? rampartGrab.m_maxTargets : 0);
+		string str4 = empty;
+		AbilityModPropertyFloat laserRangeMod = m_laserRangeMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = rampartGrab.m_laserRange;
 		}
 		else
 		{
 			baseVal4 = 0f;
 		}
-		text = str4 + base.PropDesc(laserRangeMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_laserWidthMod, "[LaserWidth]", flag, (!flag) ? 0f : rampartGrab.m_laserWidth);
-		string str5 = text;
-		AbilityModPropertyBool penetrateLosMod = this.m_penetrateLosMod;
-		string prefix5 = "[PenetrateLos]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(laserRangeMod, "[LaserRange]", flag, baseVal4);
+		empty += PropDesc(m_laserWidthMod, "[LaserWidth]", flag, (!flag) ? 0f : rampartGrab.m_laserWidth);
+		string str5 = empty;
+		AbilityModPropertyBool penetrateLosMod = m_penetrateLosMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal5 = rampartGrab.m_penetrateLos;
+			baseVal5 = (rampartGrab.m_penetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(penetrateLosMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyFloat destinationSelectRangeMod = this.m_destinationSelectRangeMod;
-		string prefix6 = "[DestinationSelectRange]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(penetrateLosMod, "[PenetrateLos]", flag, (byte)baseVal5 != 0);
+		string str6 = empty;
+		AbilityModPropertyFloat destinationSelectRangeMod = m_destinationSelectRangeMod;
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = rampartGrab.m_destinationSelectRange;
 		}
 		else
 		{
 			baseVal6 = 0f;
 		}
-		text = str6 + base.PropDesc(destinationSelectRangeMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyInt destinationAngleDegWithBackMod = this.m_destinationAngleDegWithBackMod;
-		string prefix7 = "[DestinationAngleDegWithBack]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(destinationSelectRangeMod, "[DestinationSelectRange]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyInt destinationAngleDegWithBackMod = m_destinationAngleDegWithBackMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = rampartGrab.m_destinationAngleDegWithBack;
 		}
 		else
 		{
 			baseVal7 = 0;
 		}
-		return str7 + base.PropDesc(destinationAngleDegWithBackMod, prefix7, showBaseVal7, baseVal7);
+		return str7 + PropDesc(destinationAngleDegWithBackMod, "[DestinationAngleDegWithBack]", flag, baseVal7);
 	}
 }

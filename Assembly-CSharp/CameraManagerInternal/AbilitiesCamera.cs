@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace CameraManagerInternal
@@ -116,811 +116,476 @@ namespace CameraManagerInternal
 
 		private bool m_targetSetForLowPosition;
 
+		internal bool IsDisabledUntilSetTarget => m_targetSetTurn != GameFlowData.Get().CurrentTurn;
+
 		internal static AbilitiesCamera Get()
 		{
-			return AbilitiesCamera.s_instance;
-		}
-
-		internal bool IsDisabledUntilSetTarget
-		{
-			get
-			{
-				return this.m_targetSetTurn != GameFlowData.Get().CurrentTurn;
-			}
+			return s_instance;
 		}
 
 		private void Awake()
 		{
-			AbilitiesCamera.s_instance = this;
-			this.m_easedDesiredXRotation = new EasedFloatQuart(this.m_defaultXRotation);
-			this.m_easedDesiredFOV = new EasedFloatQuart(this.m_defaultFOV);
+			s_instance = this;
+			m_easedDesiredXRotation = new EasedFloatQuart(m_defaultXRotation);
+			m_easedDesiredFOV = new EasedFloatQuart(m_defaultFOV);
 		}
 
 		private void OnDestroy()
 		{
-			AbilitiesCamera.s_instance = null;
+			s_instance = null;
 		}
 
 		internal void SetTarget(Bounds bounds, bool quickerTransition = false, bool desiredUseLowPosition = false)
 		{
-			bool flag;
+			int num;
 			if (desiredUseLowPosition)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.SetTarget(Bounds, bool, bool)).MethodHandle;
-				}
-				flag = this.m_enableLowPositionCamera;
+				num = (m_enableLowPositionCamera ? 1 : 0);
 			}
 			else
 			{
-				flag = false;
+				num = 0;
 			}
-			bool flag2 = flag;
-			if (flag2)
+			bool flag = (byte)num != 0;
+			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Bounds cameraPositionBounds = CameraManager.Get().CameraPositionBounds;
-				if (Mathf.Abs(bounds.center.x - (cameraPositionBounds.center.x + cameraPositionBounds.extents.x)) > this.m_lowPositionClearanceFromMaxBounds && Mathf.Abs(bounds.center.x - (cameraPositionBounds.center.x - cameraPositionBounds.extents.x)) > this.m_lowPositionClearanceFromMaxBounds)
+				Vector3 center = bounds.center;
+				float x = center.x;
+				Vector3 center2 = cameraPositionBounds.center;
+				float x2 = center2.x;
+				Vector3 extents = cameraPositionBounds.extents;
+				if (!(Mathf.Abs(x - (x2 + extents.x)) <= m_lowPositionClearanceFromMaxBounds))
 				{
-					for (;;)
+					Vector3 center3 = bounds.center;
+					float x3 = center3.x;
+					Vector3 center4 = cameraPositionBounds.center;
+					float x4 = center4.x;
+					Vector3 extents2 = cameraPositionBounds.extents;
+					if (!(Mathf.Abs(x3 - (x4 - extents2.x)) <= m_lowPositionClearanceFromMaxBounds))
 					{
-						switch (6)
+						Vector3 center5 = bounds.center;
+						float z = center5.z;
+						Vector3 center6 = cameraPositionBounds.center;
+						float z2 = center6.z;
+						Vector3 extents3 = cameraPositionBounds.extents;
+						if (!(Mathf.Abs(z - (z2 + extents3.z)) <= m_lowPositionClearanceFromMaxBounds))
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (Mathf.Abs(bounds.center.z - (cameraPositionBounds.center.z + cameraPositionBounds.extents.z)) > this.m_lowPositionClearanceFromMaxBounds)
-					{
-						if (Mathf.Abs(bounds.center.z - (cameraPositionBounds.center.z - cameraPositionBounds.extents.z)) > this.m_lowPositionClearanceFromMaxBounds)
-						{
-							goto IL_1AF;
-						}
-						for (;;)
-						{
-							switch (2)
+							Vector3 center7 = bounds.center;
+							float z3 = center7.z;
+							Vector3 center8 = cameraPositionBounds.center;
+							float z4 = center8.z;
+							Vector3 extents4 = cameraPositionBounds.extents;
+							if (!(Mathf.Abs(z3 - (z4 - extents4.z)) <= m_lowPositionClearanceFromMaxBounds))
 							{
-							case 0:
-								continue;
+								goto IL_01af;
 							}
-							break;
 						}
 					}
 				}
 				if (CameraManager.CamDebugTraceOn)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					CameraManager.LogForDebugging(string.Concat(new object[]
-					{
-						"Ignoring request to use low position for ability cam, too close to edge of map.\nBounds: ",
-						bounds,
-						" maxBounds: ",
-						cameraPositionBounds
-					}), CameraManager.CameraLogType.Ability);
+					CameraManager.LogForDebugging(string.Concat("Ignoring request to use low position for ability cam, too close to edge of map.\nBounds: ", bounds, " maxBounds: ", cameraPositionBounds), CameraManager.CameraLogType.Ability);
 				}
-				flag2 = false;
+				flag = false;
 			}
-			IL_1AF:
-			bool flag3 = this.m_targetSetForLowPosition != flag2;
-			this.m_targetSetTurn = GameFlowData.Get().CurrentTurn;
-			this.m_targetSetForLowPosition = flag2;
-			this.m_targetSetForQuickerTransition = quickerTransition;
-			if (!(this.m_target != bounds))
+			goto IL_01af;
+			IL_01af:
+			bool flag2 = m_targetSetForLowPosition != flag;
+			m_targetSetTurn = GameFlowData.Get().CurrentTurn;
+			m_targetSetForLowPosition = flag;
+			m_targetSetForQuickerTransition = quickerTransition;
+			if (!(m_target != bounds))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!flag3)
+				if (!flag2)
 				{
 					return;
 				}
 			}
 			if (CameraManager.CamDebugTraceOn)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				CameraManager.LogForDebugging(string.Concat(new object[]
-				{
-					"Setting bounds: ",
-					this.m_target.ToString(),
-					" -> ",
-					bounds.ToString(),
-					" | quickTransition ",
-					quickerTransition,
-					" | useLowPosition ",
-					flag2
-				}), CameraManager.CameraLogType.Ability);
+				CameraManager.LogForDebugging("Setting bounds: " + m_target.ToString() + " -> " + bounds.ToString() + " | quickTransition " + quickerTransition + " | useLowPosition " + flag, CameraManager.CameraLogType.Ability);
 			}
-			this.m_target = bounds;
-			if (this.m_secondsRemainingToPauseForUserControl <= 0f)
+			m_target = bounds;
+			if (!(m_secondsRemainingToPauseForUserControl <= 0f))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				if (!base.enabled || !CameraManager.Get().ShouldAutoCameraMove())
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (base.enabled && CameraManager.Get().ShouldAutoCameraMove())
+				while (true)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					float num;
+					float num2;
 					if (quickerTransition)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num = this.m_easeInTimeWithinGroup;
+						num2 = m_easeInTimeWithinGroup;
 					}
 					else
 					{
-						num = this.m_easeInTime;
+						num2 = m_easeInTime;
 					}
-					float easeInTime = num;
-					this.EaseToTarget(easeInTime, flag2);
+					float easeInTime = num2;
+					EaseToTarget(easeInTime, flag);
+					return;
 				}
 			}
 		}
 
 		internal Bounds GetTarget()
 		{
-			return this.m_target;
+			return m_target;
 		}
 
 		internal bool IsMovingAutomatically()
 		{
-			bool result;
-			if (!this.m_targetBottomEased.EaseFinished())
+			int result;
+			if (!m_targetBottomEased.EaseFinished())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.IsMovingAutomatically()).MethodHandle;
-				}
-				result = (this.m_secondsRemainingToPauseForUserControl <= 0f);
+				result = ((m_secondsRemainingToPauseForUserControl <= 0f) ? 1 : 0);
 			}
 			else
 			{
-				result = false;
+				result = 0;
 			}
-			return result;
+			return (byte)result != 0;
 		}
 
 		private void Update()
 		{
 			Vector3 position = base.transform.position;
-			base.transform.position = this.CalcCurrentPosition();
-			base.transform.rotation = this.CalcCurrentRotation();
+			base.transform.position = CalcCurrentPosition();
+			base.transform.rotation = CalcCurrentRotation();
 			Vector3 eulerAngles = base.transform.eulerAngles;
-			float desiredXRotation = this.GetDesiredXRotation();
-			float desiredFOV = this.GetDesiredFOV();
+			float desiredXRotation = GetDesiredXRotation();
+			float desiredFOV = GetDesiredFOV();
 			if (Mathf.Approximately(eulerAngles.x, desiredXRotation))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.Update()).MethodHandle;
-				}
 				if (Mathf.Approximately(Camera.main.fieldOfView, desiredFOV))
 				{
-					goto IL_192;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_0192;
 				}
 			}
-			float t = Time.time - this.m_transitionInTime;
+			float t = Time.time - m_transitionInTime;
 			float num;
-			if (this.m_targetSetForQuickerTransition)
+			if (m_targetSetForQuickerTransition)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num = this.m_easeInTimeWithinGroup;
+				num = m_easeInTimeWithinGroup;
 			}
 			else
 			{
-				num = this.m_easeInTime;
+				num = m_easeInTime;
 			}
 			float d = num;
 			float num2 = Mathf.Clamp01(Easing.QuartEaseInOut(t, 0f, 1f, d));
-			float x = Mathf.LerpAngle(this.m_transitionInRotation.eulerAngles.x, desiredXRotation, num2);
+			Vector3 eulerAngles2 = m_transitionInRotation.eulerAngles;
+			float x = Mathf.LerpAngle(eulerAngles2.x, desiredXRotation, num2);
 			base.transform.rotation = Quaternion.Euler(x, eulerAngles.y, eulerAngles.z);
-			Camera.main.fieldOfView = (desiredFOV - this.m_transitionInFOV) * num2 + this.m_transitionInFOV;
-			this.m_transitionInTimeLeft -= Time.deltaTime;
+			Camera.main.fieldOfView = (desiredFOV - m_transitionInFOV) * num2 + m_transitionInFOV;
+			m_transitionInTimeLeft -= Time.deltaTime;
 			Vector3 desiredRotationEulerAngles = CameraControls.Get().m_desiredRotationEulerAngles;
 			CameraControls.Get().m_desiredRotationEulerAngles = new Vector3(x, desiredRotationEulerAngles.y, desiredRotationEulerAngles.z);
-			IL_192:
+			goto IL_0192;
+			IL_0192:
 			if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_READ_ONLY_Height = base.transform.position.y - (float)Board.\u000E().BaselineHeight;
-				this.m_READ_ONLY_Distance = (base.transform.position - this.m_target.center).magnitude;
+				Vector3 position2 = base.transform.position;
+				m_READ_ONLY_Height = position2.y - (float)Board.Get().BaselineHeight;
+				m_READ_ONLY_Distance = (base.transform.position - m_target.center).magnitude;
 			}
-			Vector3 b;
-			Quaternion lhs;
-			float num3;
-			CameraControls.Get().CalcDesiredTransform(base.transform, out b, out lhs, out num3);
-			if (!Mathf.Approximately(num3, 0f))
+			CameraControls.Get().CalcDesiredTransform(base.transform, out Vector3 positionDelta, out Quaternion rotationThisFrame, out float zoomDelta);
+			if (!Mathf.Approximately(zoomDelta, 0f))
 			{
-				this.AdjustZoomParam(num3, true, this.m_mouseWheelInputZoomEaseTime);
+				AdjustZoomParam(zoomDelta, true, m_mouseWheelInputZoomEaseTime);
 			}
 			bool flag = CameraManager.Get().ShouldAutoCameraMove();
-			if (lhs != base.transform.rotation)
+			if (rotationThisFrame != base.transform.rotation)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_orbitEulerAngleY.EaseTo(CameraControls.Get().m_desiredRotationEulerAngles.y, CameraControls.Get().m_keyboardRotationDuration);
+				m_orbitEulerAngleY.EaseTo(CameraControls.Get().m_desiredRotationEulerAngles.y, CameraControls.Get().m_keyboardRotationDuration);
 			}
 			bool flag2 = CameraControls.Get().IsMouseDragMoveRequested();
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_secondsRemainingToPauseForUserControl = 0.1f;
+				m_secondsRemainingToPauseForUserControl = 0.1f;
 				CameraManager.Get().SecondsRemainingToPauseForUserControl = 0.1f;
 			}
-			bool flag3 = b.sqrMagnitude > float.Epsilon;
-			if (!flag3)
+			bool flag3 = positionDelta.sqrMagnitude > float.Epsilon;
+			if (flag3)
 			{
-				if (!this.m_autoMoveInLastUpdate)
+				goto IL_02fc;
+			}
+			if (m_autoMoveInLastUpdate)
+			{
+				if (!flag)
 				{
-					goto IL_3E0;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (flag)
-				{
-					goto IL_3E0;
+					goto IL_02fc;
 				}
 			}
+			goto IL_03e0;
+			IL_02fc:
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_secondsRemainingToPauseForUserControl = this.m_secondsToPauseForUserControl;
-				CameraManager.Get().SecondsRemainingToPauseForUserControl = this.m_secondsToPauseForUserControl;
+				m_secondsRemainingToPauseForUserControl = m_secondsToPauseForUserControl;
+				CameraManager.Get().SecondsRemainingToPauseForUserControl = m_secondsToPauseForUserControl;
 			}
 			if (flag3)
 			{
 				CameraManager.Get().OnPlayerMovedCamera();
 			}
-			Vector3 vector = this.CalcDesiredPosition();
-			Vector3 a = vector + b;
-			Vector3 endValue = a - vector + this.m_targetBottomEased.GetEndValue();
+			Vector3 vector = CalcDesiredPosition();
+			Vector3 a = vector + positionDelta;
+			Vector3 endValue = a - vector + m_targetBottomEased.GetEndValue();
 			GameplayData gameplayData = GameplayData.Get();
 			endValue.x = Mathf.Clamp(endValue.x, gameplayData.m_minimumPositionX, gameplayData.m_maximumPositionX);
 			endValue.z = Mathf.Clamp(endValue.z, gameplayData.m_minimumPositionZ, gameplayData.m_maximumPositionZ);
-			this.m_targetBottomEased = new EasedOutVector3Quart(this.m_targetBottomEased);
-			this.m_targetBottomEased.EaseTo(endValue, this.m_kbdInputMoveEaseTime);
-			IL_3E0:
-			if (this.m_secondsRemainingToPauseForUserControl > 0f)
+			m_targetBottomEased = new EasedOutVector3Quart(m_targetBottomEased);
+			m_targetBottomEased.EaseTo(endValue, m_kbdInputMoveEaseTime);
+			goto IL_03e0;
+			IL_03e0:
+			if (m_secondsRemainingToPauseForUserControl > 0f)
 			{
-				for (;;)
+				m_secondsRemainingToPauseForUserControl -= Time.deltaTime;
+				if (m_secondsRemainingToPauseForUserControl <= 0f)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_secondsRemainingToPauseForUserControl -= Time.deltaTime;
-				if (this.m_secondsRemainingToPauseForUserControl <= 0f)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag)
 					{
-						this.EaseToTarget(this.m_easeInTime, false);
+						EaseToTarget(m_easeInTime, false);
 					}
 				}
 			}
-			if ((position - base.transform.position).sqrMagnitude > 1.401298E-45f)
+			if ((position - base.transform.position).sqrMagnitude > float.Epsilon)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_needNameplateSortUpdate = true;
+				m_needNameplateSortUpdate = true;
 			}
-			if (this.m_needNameplateSortUpdate)
+			if (m_needNameplateSortUpdate)
 			{
-				if (this.m_nextNameplateSortUpdateTime >= 0f)
+				if (!(m_nextNameplateSortUpdateTime < 0f))
 				{
-					for (;;)
+					if (!(Time.time > m_nextNameplateSortUpdateTime))
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (Time.time <= this.m_nextNameplateSortUpdateTime)
-					{
-						goto IL_521;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						goto IL_0521;
 					}
 				}
 				if (HUD_UI.Get() != null && HUD_UI.Get().m_mainScreenPanel != null && HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.SortNameplates();
 				}
-				this.m_needNameplateSortUpdate = false;
-				this.m_nextNameplateSortUpdateTime = Time.time + 0.8f;
+				m_needNameplateSortUpdate = false;
+				m_nextNameplateSortUpdateTime = Time.time + 0.8f;
 			}
-			IL_521:
-			this.m_autoMoveInLastUpdate = flag;
-			if (ActorDebugUtils.Get() != null)
+			goto IL_0521;
+			IL_0521:
+			m_autoMoveInLastUpdate = flag;
+			if (!(ActorDebugUtils.Get() != null))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.CameraManager, true))
+				return;
+			}
+			while (true)
+			{
+				if (ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.CameraManager))
 				{
 					ActorDebugUtils.DebugCategoryInfo debugCategoryInfo = ActorDebugUtils.Get().GetDebugCategoryInfo(ActorDebugUtils.DebugCategory.CameraManager);
 					debugCategoryInfo.m_stringToDisplay = "Updating Abilities Camera:\n\n";
-					ActorDebugUtils.DebugCategoryInfo debugCategoryInfo2 = debugCategoryInfo;
-					string stringToDisplay = debugCategoryInfo2.m_stringToDisplay;
-					debugCategoryInfo2.m_stringToDisplay = string.Concat(new object[]
-					{
-						stringToDisplay,
-						"Position: ",
-						base.transform.position,
-						" | Rotation: ",
-						base.transform.rotation.eulerAngles,
-						"\n"
-					});
-					ActorDebugUtils.DebugCategoryInfo debugCategoryInfo3 = debugCategoryInfo;
-					stringToDisplay = debugCategoryInfo3.m_stringToDisplay;
-					debugCategoryInfo3.m_stringToDisplay = string.Concat(new object[]
-					{
-						stringToDisplay,
-						"FOV: ",
-						Camera.main.fieldOfView,
-						"\n"
-					});
-					ActorDebugUtils.DebugCategoryInfo debugCategoryInfo4 = debugCategoryInfo;
-					stringToDisplay = debugCategoryInfo4.m_stringToDisplay;
-					debugCategoryInfo4.m_stringToDisplay = string.Concat(new object[]
-					{
-						stringToDisplay,
-						"Height: ",
-						this.m_READ_ONLY_Height,
-						" | Distance: ",
-						this.m_READ_ONLY_Distance,
-						"\n"
-					});
-					ActorDebugUtils.DebugCategoryInfo debugCategoryInfo5 = debugCategoryInfo;
-					stringToDisplay = debugCategoryInfo5.m_stringToDisplay;
-					debugCategoryInfo5.m_stringToDisplay = string.Concat(new object[]
-					{
-						stringToDisplay,
-						"Time Remaining Under User Control: ",
-						this.m_secondsRemainingToPauseForUserControl,
-						"\n"
-					});
+					string stringToDisplay = debugCategoryInfo.m_stringToDisplay;
+					debugCategoryInfo.m_stringToDisplay = string.Concat(stringToDisplay, "Position: ", base.transform.position, " | Rotation: ", base.transform.rotation.eulerAngles, "\n");
+					stringToDisplay = debugCategoryInfo.m_stringToDisplay;
+					debugCategoryInfo.m_stringToDisplay = stringToDisplay + "FOV: " + Camera.main.fieldOfView + "\n";
+					stringToDisplay = debugCategoryInfo.m_stringToDisplay;
+					debugCategoryInfo.m_stringToDisplay = stringToDisplay + "Height: " + m_READ_ONLY_Height + " | Distance: " + m_READ_ONLY_Distance + "\n";
+					stringToDisplay = debugCategoryInfo.m_stringToDisplay;
+					debugCategoryInfo.m_stringToDisplay = stringToDisplay + "Time Remaining Under User Control: " + m_secondsRemainingToPauseForUserControl + "\n";
 				}
+				return;
 			}
 		}
 
 		public void OnTransitionIn(CameraTransitionType type)
 		{
-			this.m_secondsRemainingToPauseForUserControl = CameraManager.Get().SecondsRemainingToPauseForUserControl;
-			this.m_zoomParameter = new EasedOutFloatQuart(0f);
-			if (type != CameraTransitionType.Cut)
+			m_secondsRemainingToPauseForUserControl = CameraManager.Get().SecondsRemainingToPauseForUserControl;
+			m_zoomParameter = new EasedOutFloatQuart(0f);
+			if (type != 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.OnTransitionIn(CameraTransitionType)).MethodHandle;
-				}
 				if (type != CameraTransitionType.Move)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
-					this.m_orbitEulerAngleY = new EasedOutDegreesQuart(base.transform.eulerAngles.y);
-					float num;
-					if (this.m_targetSetForQuickerTransition)
+					Vector3 eulerAngles = base.transform.eulerAngles;
+					m_orbitEulerAngleY = new EasedOutDegreesQuart(eulerAngles.y);
+					float transitionInTimeLeft;
+					if (m_targetSetForQuickerTransition)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num = this.m_easeInTimeWithinGroup;
+						transitionInTimeLeft = m_easeInTimeWithinGroup;
 					}
 					else
 					{
-						num = this.m_easeInTime;
+						transitionInTimeLeft = m_easeInTime;
 					}
-					float num2 = num;
-					this.m_transitionInTimeLeft = num2;
-					this.EaseToTarget(num2, this.m_targetSetForLowPosition);
-					this.m_transitionInRotation = base.transform.rotation;
-					this.m_transitionInFOV = Camera.main.fieldOfView;
+					EaseToTarget(m_transitionInTimeLeft = transitionInTimeLeft, m_targetSetForLowPosition);
+					m_transitionInRotation = base.transform.rotation;
+					m_transitionInFOV = Camera.main.fieldOfView;
 				}
 			}
 			else
 			{
-				Camera.main.fieldOfView = this.m_defaultFOV;
-				CameraControls.Get().m_desiredRotationEulerAngles = new Vector3(this.m_defaultXRotation, CameraControls.Get().m_desiredRotationEulerAngles.y, 0f);
-				this.m_orbitEulerAngleY = new EasedOutDegreesQuart(CameraControls.Get().m_desiredRotationEulerAngles.y);
+				Camera.main.fieldOfView = m_defaultFOV;
+				CameraControls.Get().m_desiredRotationEulerAngles = new Vector3(m_defaultXRotation, CameraControls.Get().m_desiredRotationEulerAngles.y, 0f);
+				m_orbitEulerAngleY = new EasedOutDegreesQuart(CameraControls.Get().m_desiredRotationEulerAngles.y);
 				base.transform.rotation = Quaternion.Euler(CameraControls.Get().m_desiredRotationEulerAngles);
-				this.m_transitionInFOV = this.m_defaultFOV;
-				this.m_transitionInRotation = base.transform.rotation;
-				base.transform.position = this.CalcDesiredPosition();
-				this.m_transitionInTimeLeft = 0f;
-				Vector3 startValue = new Vector3(this.m_target.center.x, this.m_target.min.y, this.m_target.center.z);
-				this.m_targetBottomEased = new EasedVector3Quart(startValue);
-				this.m_orbitLengths = new EasedVector3Quart(this.CalcDesiredOrbitLengths(out this.m_minDistTargetBottomToCam, false));
+				m_transitionInFOV = m_defaultFOV;
+				m_transitionInRotation = base.transform.rotation;
+				base.transform.position = CalcDesiredPosition();
+				m_transitionInTimeLeft = 0f;
+				Vector3 center = m_target.center;
+				float x = center.x;
+				Vector3 min = m_target.min;
+				float y = min.y;
+				Vector3 center2 = m_target.center;
+				Vector3 startValue = new Vector3(x, y, center2.z);
+				m_targetBottomEased = new EasedVector3Quart(startValue);
+				m_orbitLengths = new EasedVector3Quart(CalcDesiredOrbitLengths(out m_minDistTargetBottomToCam, false));
 			}
-			this.m_transitionInTime = Time.time;
+			m_transitionInTime = Time.time;
 		}
 
 		public void OnTransitionOut()
 		{
-			this.m_targetBottomEased = new EasedVector3Quart(new Vector3(this.m_target.center.x, this.m_target.min.y, this.m_target.center.z));
+			Vector3 center = m_target.center;
+			float x = center.x;
+			Vector3 min = m_target.min;
+			float y = min.y;
+			Vector3 center2 = m_target.center;
+			m_targetBottomEased = new EasedVector3Quart(new Vector3(x, y, center2.z));
 		}
 
 		internal float GetSecondsRemainingToPauseForUserControl()
 		{
-			return this.m_secondsRemainingToPauseForUserControl;
+			return m_secondsRemainingToPauseForUserControl;
 		}
 
 		internal void OnAutoCenterCameraPreferenceSet()
 		{
-			this.m_secondsRemainingToPauseForUserControl = 0f;
+			m_secondsRemainingToPauseForUserControl = 0f;
 		}
 
 		private void EaseToTarget(float easeInTime, bool useLowPosition)
 		{
-			this.m_easeToTargetStartTime = Time.time;
+			m_easeToTargetStartTime = Time.time;
 			if (useLowPosition)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.EaseToTarget(float, bool)).MethodHandle;
-				}
-				AudioManager.PostEvent("Set_state_action_cam", null);
+				AudioManager.PostEvent("Set_state_action_cam");
 			}
-			this.m_orbitLengths = new EasedVector3Quart(this.CalcDesiredOrbitLengths(out this.m_minDistTargetBottomToCam, useLowPosition));
-			Vector3 vector = new Vector3(this.m_target.center.x, this.m_target.min.y, this.m_target.center.z);
-			this.m_targetBottomEased = new EasedVector3Quart(vector);
-			Vector3 b = this.CalcDesiredPosition();
-			this.m_targetBottomEased = new EasedVector3Quart(base.transform.position - b + vector);
-			this.m_targetBottomEased.EaseTo(vector, easeInTime);
-			this.AdjustZoomParam(0f, false, easeInTime);
-			this.m_orbitEulerAngleY.EaseTo(this.m_orbitEulerAngleY.EndValue(), easeInTime);
+			m_orbitLengths = new EasedVector3Quart(CalcDesiredOrbitLengths(out m_minDistTargetBottomToCam, useLowPosition));
+			Vector3 center = m_target.center;
+			float x = center.x;
+			Vector3 min = m_target.min;
+			float y = min.y;
+			Vector3 center2 = m_target.center;
+			Vector3 vector = new Vector3(x, y, center2.z);
+			m_targetBottomEased = new EasedVector3Quart(vector);
+			Vector3 b = CalcDesiredPosition();
+			m_targetBottomEased = new EasedVector3Quart(base.transform.position - b + vector);
+			m_targetBottomEased.EaseTo(vector, easeInTime);
+			AdjustZoomParam(0f, false, easeInTime);
+			m_orbitEulerAngleY.EaseTo(m_orbitEulerAngleY.EndValue(), easeInTime);
 			float num;
 			if (useLowPosition)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num = this.m_lowPositionXRotation;
+				num = m_lowPositionXRotation;
 			}
 			else
 			{
-				num = this.m_defaultXRotation;
+				num = m_defaultXRotation;
 			}
 			float num2 = num;
-			this.m_easedDesiredXRotation.EaseTo(num2, easeInTime);
+			m_easedDesiredXRotation.EaseTo(num2, easeInTime);
 			float num3;
 			if (useLowPosition)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num3 = this.m_lowPositionFOV;
+				num3 = m_lowPositionFOV;
 			}
 			else
 			{
-				num3 = this.m_defaultFOV;
+				num3 = m_defaultFOV;
 			}
 			float endValue = num3;
-			this.m_easedDesiredFOV.EaseTo(endValue, easeInTime);
-			if (CameraManager.CamDebugTraceOn)
+			m_easedDesiredFOV.EaseTo(endValue, easeInTime);
+			if (!CameraManager.CamDebugTraceOn)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				CameraManager.LogForDebugging(string.Concat(new object[]
-				{
-					"EaseToTarget ",
-					this.m_target.ToString(),
-					" easeInTime: ",
-					easeInTime,
-					"\nDesired X Rotation = ",
-					num2,
-					"\nSeconds remaining under user control = ",
-					this.m_secondsRemainingToPauseForUserControl
-				}), CameraManager.CameraLogType.Ability);
+				return;
+			}
+			while (true)
+			{
+				CameraManager.LogForDebugging("EaseToTarget " + m_target.ToString() + " easeInTime: " + easeInTime + "\nDesired X Rotation = " + num2 + "\nSeconds remaining under user control = " + m_secondsRemainingToPauseForUserControl, CameraManager.CameraLogType.Ability);
+				return;
 			}
 		}
 
 		private void AdjustZoomParam(float zoomDelta, bool userControlled, float easeInTime)
 		{
-			float num = zoomDelta + this.m_zoomParameter.GetEndValue();
-			Vector3 endValue = this.m_orbitLengths.GetEndValue();
+			float num = zoomDelta + m_zoomParameter.GetEndValue();
+			Vector3 endValue = m_orbitLengths.GetEndValue();
 			float magnitude = endValue.magnitude;
-			Vector3 vector = (magnitude <= 0f) ? Vector3.up : (endValue / magnitude);
-			if (magnitude + this.m_defaultExtraDistance + num < this.m_minDistTargetBottomToCam)
+			Vector3 vector = (!(magnitude > 0f)) ? Vector3.up : (endValue / magnitude);
+			if (magnitude + m_defaultExtraDistance + num < m_minDistTargetBottomToCam)
 			{
-				num = this.m_minDistTargetBottomToCam - magnitude - this.m_defaultExtraDistance;
+				num = m_minDistTargetBottomToCam - magnitude - m_defaultExtraDistance;
 			}
-			float b = endValue.y + vector.y * (this.m_defaultExtraDistance + this.m_zoomParameter.GetEndValue());
-			float num2 = endValue.y + vector.y * (this.m_defaultExtraDistance + num);
-			float max = (!userControlled) ? this.m_maxAutoHeight : this.m_maxManualHeight;
-			num2 = Mathf.Clamp(num2, this.m_minManualHeight, max);
-			if (!Mathf.Approximately(num2, b))
+			float b = endValue.y + vector.y * (m_defaultExtraDistance + m_zoomParameter.GetEndValue());
+			float value = endValue.y + vector.y * (m_defaultExtraDistance + num);
+			float max = (!userControlled) ? m_maxAutoHeight : m_maxManualHeight;
+			value = Mathf.Clamp(value, m_minManualHeight, max);
+			if (Mathf.Approximately(value, b))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.AdjustZoomParam(float, bool, float)).MethodHandle;
-				}
+				return;
+			}
+			while (true)
+			{
 				if (vector.y > 0f)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						num = (value - endValue.y - vector.y * m_defaultExtraDistance) / vector.y;
+						m_zoomParameter = ((!userControlled) ? ((Eased<float>)new EasedFloatQuart(m_zoomParameter)) : ((Eased<float>)new EasedOutFloatQuart(m_zoomParameter)));
+						m_zoomParameter.EaseTo(num, easeInTime);
+						return;
 					}
-					num = (num2 - endValue.y - vector.y * this.m_defaultExtraDistance) / vector.y;
-					this.m_zoomParameter = ((!userControlled) ? new EasedFloatQuart(this.m_zoomParameter) : new EasedOutFloatQuart(this.m_zoomParameter));
-					this.m_zoomParameter.EaseTo(num, easeInTime);
 				}
+				return;
 			}
 		}
 
 		internal float CalcPositionEaseTimeRemaining()
 		{
-			return this.m_targetBottomEased.CalcTimeRemaining();
+			return m_targetBottomEased.CalcTimeRemaining();
 		}
 
 		private float CalcTotalEaseTimeRemaining()
 		{
-			float a = this.m_targetBottomEased.CalcTimeRemaining();
-			float a2 = this.m_orbitEulerAngleY.CalcTimeRemaining();
-			float a3 = this.m_orbitLengths.CalcTimeRemaining();
-			float num = this.m_zoomParameter.CalcTimeRemaining();
-			return Mathf.Max(a, Mathf.Max(a2, Mathf.Max(a3, Mathf.Max(new float[]
-			{
-				num
-			}))));
+			float a = m_targetBottomEased.CalcTimeRemaining();
+			float a2 = m_orbitEulerAngleY.CalcTimeRemaining();
+			float a3 = m_orbitLengths.CalcTimeRemaining();
+			float num = m_zoomParameter.CalcTimeRemaining();
+			return Mathf.Max(a, Mathf.Max(a2, Mathf.Max(a3, Mathf.Max(num))));
 		}
 
 		internal float CalcFrameTimeAfterHit(int numOtherActorsHit)
 		{
-			return Mathf.Min(this.m_frameTimeAfterHitMax, this.m_frameTimeAfterHitMin + (float)numOtherActorsHit * this.m_frameTimeAfterHitPerOtherActor);
+			return Mathf.Min(m_frameTimeAfterHitMax, m_frameTimeAfterHitMin + (float)numOtherActorsHit * m_frameTimeAfterHitPerOtherActor);
 		}
 
 		private Quaternion CalcCurrentRotation()
 		{
-			return Quaternion.Euler(base.transform.eulerAngles.x, this.m_orbitEulerAngleY, 0f);
+			Vector3 eulerAngles = base.transform.eulerAngles;
+			return Quaternion.Euler(eulerAngles.x, m_orbitEulerAngleY, 0f);
 		}
 
 		private Quaternion CalcDesiredRotation()
 		{
-			return this.CalcDesiredRotation(CameraControls.Get().m_desiredRotationEulerAngles.y, false);
+			return CalcDesiredRotation(CameraControls.Get().m_desiredRotationEulerAngles.y, false);
 		}
 
 		private Quaternion CalcDesiredRotation(float eulerAngleY, bool useLowPosition)
@@ -928,24 +593,11 @@ namespace CameraManagerInternal
 			float num;
 			if (useLowPosition)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.CalcDesiredRotation(float, bool)).MethodHandle;
-				}
-				num = this.m_lowPositionXRotation;
+				num = m_lowPositionXRotation;
 			}
 			else
 			{
-				num = this.m_defaultXRotation;
+				num = m_defaultXRotation;
 			}
 			float x = num;
 			Vector3 euler = new Vector3(x, eulerAngleY, 0f);
@@ -954,15 +606,15 @@ namespace CameraManagerInternal
 
 		private Vector3 CalcCurrentPosition()
 		{
-			return this.m_targetBottomEased + Quaternion.Euler(0f, this.m_orbitEulerAngleY, 0f) * (this.m_orbitLengths + this.m_orbitLengths.normalized * (this.m_zoomParameter + this.m_defaultExtraDistance));
+			return m_targetBottomEased + Quaternion.Euler(0f, m_orbitEulerAngleY, 0f) * (m_orbitLengths + ((Vector3)m_orbitLengths).normalized * ((float)m_zoomParameter + m_defaultExtraDistance));
 		}
 
 		private Vector3 CalcDesiredPosition()
 		{
-			return this.m_targetBottomEased.GetEndValue() + Quaternion.Euler(0f, this.m_orbitEulerAngleY.GetEndValue(), 0f) * (this.m_orbitLengths.GetEndValue() + this.m_orbitLengths.GetEndValue().normalized * (this.m_zoomParameter.GetEndValue() + this.m_defaultExtraDistance));
+			return m_targetBottomEased.GetEndValue() + Quaternion.Euler(0f, m_orbitEulerAngleY.GetEndValue(), 0f) * (m_orbitLengths.GetEndValue() + m_orbitLengths.GetEndValue().normalized * (m_zoomParameter.GetEndValue() + m_defaultExtraDistance));
 		}
 
-		private unsafe Vector3 CalcDesiredOrbitLengths(out float minDistTargetBottomToCam, bool useLowPosition)
+		private Vector3 CalcDesiredOrbitLengths(out float minDistTargetBottomToCam, bool useLowPosition)
 		{
 			float y = CameraControls.Get().m_desiredRotationEulerAngles.y;
 			float fieldOfView = Camera.main.fieldOfView;
@@ -970,311 +622,227 @@ namespace CameraManagerInternal
 			float fieldOfView2;
 			if (useLowPosition)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.CalcDesiredOrbitLengths(float*, bool)).MethodHandle;
-				}
-				fieldOfView2 = this.m_lowPositionFOV;
+				fieldOfView2 = m_lowPositionFOV;
 			}
 			else
 			{
-				fieldOfView2 = this.m_defaultFOV;
+				fieldOfView2 = m_defaultFOV;
 			}
 			main.fieldOfView = fieldOfView2;
 			Quaternion rotation = base.transform.rotation;
-			base.transform.rotation = this.CalcDesiredRotation(y, useLowPosition);
+			base.transform.rotation = CalcDesiredRotation(y, useLowPosition);
 			Vector3 position = base.transform.position;
-			Quaternion rotation2 = Quaternion.AngleAxis(-this.m_bottomHUDClearance * Camera.main.fieldOfView / 2f, base.transform.right);
+			Quaternion rotation2 = Quaternion.AngleAxis((0f - m_bottomHUDClearance) * Camera.main.fieldOfView / 2f, base.transform.right);
 			Vector3 vector = rotation2 * base.transform.forward;
 			Ray ray = new Ray(base.transform.position, vector);
-			Plane plane = new Plane(Vector3.up, this.m_target.center);
+			Plane plane = new Plane(Vector3.up, m_target.center);
 			Vector3 b = Vector3.zero;
-			float distance;
-			if (plane.Raycast(ray, out distance))
+			if (plane.Raycast(ray, out float enter))
 			{
-				Vector3 point = ray.GetPoint(distance);
-				b = this.m_target.center - point;
+				Vector3 point = ray.GetPoint(enter);
+				b = m_target.center - point;
 			}
 			Vector3 b2 = Vector3.zero;
-			Vector3[] array = new Vector3[]
+			Vector3[] array = new Vector3[8];
+			ref Vector3 reference = ref array[0];
+			Vector3 min = m_target.min;
+			float x = min.x;
+			Vector3 max = m_target.max;
+			float y2 = max.y;
+			Vector3 min2 = m_target.min;
+			reference = new Vector3(x, y2, min2.z) - b;
+			ref Vector3 reference2 = ref array[1];
+			Vector3 min3 = m_target.min;
+			float x2 = min3.x;
+			Vector3 max2 = m_target.max;
+			float y3 = max2.y;
+			Vector3 max3 = m_target.max;
+			reference2 = new Vector3(x2, y3, max3.z) - b;
+			ref Vector3 reference3 = ref array[2];
+			Vector3 max4 = m_target.max;
+			float x3 = max4.x;
+			Vector3 max5 = m_target.max;
+			float y4 = max5.y;
+			Vector3 min4 = m_target.min;
+			reference3 = new Vector3(x3, y4, min4.z) - b;
+			ref Vector3 reference4 = ref array[3];
+			Vector3 max6 = m_target.max;
+			float x4 = max6.x;
+			Vector3 max7 = m_target.max;
+			float y5 = max7.y;
+			Vector3 max8 = m_target.max;
+			reference4 = new Vector3(x4, y5, max8.z) - b;
+			ref Vector3 reference5 = ref array[4];
+			Vector3 min5 = m_target.min;
+			float x5 = min5.x;
+			Vector3 min6 = m_target.min;
+			float y6 = min6.y;
+			Vector3 min7 = m_target.min;
+			reference5 = new Vector3(x5, y6, min7.z) - b;
+			ref Vector3 reference6 = ref array[5];
+			Vector3 min8 = m_target.min;
+			float x6 = min8.x;
+			Vector3 min9 = m_target.min;
+			float y7 = min9.y;
+			Vector3 max9 = m_target.max;
+			reference6 = new Vector3(x6, y7, max9.z) - b;
+			ref Vector3 reference7 = ref array[6];
+			Vector3 max10 = m_target.max;
+			float x7 = max10.x;
+			Vector3 min10 = m_target.min;
+			float y8 = min10.y;
+			Vector3 min11 = m_target.min;
+			reference7 = new Vector3(x7, y8, min11.z) - b;
+			ref Vector3 reference8 = ref array[7];
+			Vector3 max11 = m_target.max;
+			float x8 = max11.x;
+			Vector3 min12 = m_target.min;
+			float y9 = min12.y;
+			Vector3 max12 = m_target.max;
+			reference8 = new Vector3(x8, y9, max12.z) - b;
+			Vector3[] array2 = array;
+			Plane[] array3 = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+			for (int i = 0; i < array3.Length; i++)
 			{
-				new Vector3(this.m_target.min.x, this.m_target.max.y, this.m_target.min.z) - b,
-				new Vector3(this.m_target.min.x, this.m_target.max.y, this.m_target.max.z) - b,
-				new Vector3(this.m_target.max.x, this.m_target.max.y, this.m_target.min.z) - b,
-				new Vector3(this.m_target.max.x, this.m_target.max.y, this.m_target.max.z) - b,
-				new Vector3(this.m_target.min.x, this.m_target.min.y, this.m_target.min.z) - b,
-				new Vector3(this.m_target.min.x, this.m_target.min.y, this.m_target.max.z) - b,
-				new Vector3(this.m_target.max.x, this.m_target.min.y, this.m_target.min.z) - b,
-				new Vector3(this.m_target.max.x, this.m_target.min.y, this.m_target.max.z) - b
-			};
-			Plane[] array2 = GeometryUtility.CalculateFrustumPlanes(Camera.main);
-			for (int i = 0; i < array2.Length; i++)
-			{
-				Plane plane2 = array2[i];
+				Plane plane2 = array3[i];
 				if (Vector3.Dot(base.transform.forward, plane2.normal) < -0.9f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
-				{
-					if (Vector3.Dot(plane2.normal, base.transform.up) > 0f)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						plane2.SetNormalAndPosition(rotation2 * plane2.normal, base.transform.position);
-						array2[i] = plane2;
-					}
-					array2[i] = plane2;
-				}
-			}
-			bool flag = true;
-			foreach (Plane plane3 in array2)
-			{
-				if (Vector3.Dot(base.transform.forward, plane3.normal) < -0.9f)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
-				{
-					foreach (Vector3 inPt in array)
-					{
-						if (plane3.GetDistanceToPoint(inPt) < 0f)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag = false;
-							break;
-						}
-					}
-				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
 					continue;
 				}
-				break;
-			}
-			Vector3 vector2;
-			if (flag)
-			{
-				for (;;)
+				if (Vector3.Dot(plane2.normal, base.transform.up) > 0f)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					plane2.SetNormalAndPosition(rotation2 * plane2.normal, base.transform.position);
+					array3[i] = plane2;
 				}
-				vector2 = -vector;
+				array3[i] = plane2;
 			}
-			else
+			bool flag = true;
+			for (int j = 0; j < array3.Length; j++)
 			{
-				vector2 = vector;
-			}
-			Vector3 direction = vector2;
-			float num = (!flag) ? float.MinValue : float.MaxValue;
-			foreach (Vector3 vector3 in array)
-			{
-				Ray ray2 = new Ray(vector3, direction);
-				foreach (Plane plane4 in array2)
+				Plane plane3 = array3[j];
+				if (Vector3.Dot(base.transform.forward, plane3.normal) < -0.9f)
 				{
-					float num2;
-					if (Vector3.Dot(base.transform.forward, plane4.normal) < -0.9f)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					else if (plane4.Raycast(ray2, out num2))
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						Vector3 vector4 = vector3 - ray2.GetPoint(num2);
-						if (flag)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (num2 < num)
-							{
-								goto IL_692;
-							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						if (flag)
-						{
-							goto IL_69A;
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (num2 <= num)
-						{
-							goto IL_69A;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						IL_692:
-						b2 = vector4;
-						num = num2;
-					}
-					IL_69A:;
+					continue;
 				}
-			}
-			Vector3 vector5 = base.transform.position + b + b2;
-			Vector3 b3 = new Vector3(this.m_target.center.x, this.m_target.min.y, this.m_target.center.z);
-			Vector3 vector6 = vector5 - b3;
-			minDistTargetBottomToCam = vector6.magnitude;
-			Vector3 vector7;
-			if (minDistTargetBottomToCam > 0f)
-			{
-				for (;;)
+				foreach (Vector3 inPt in array2)
 				{
-					switch (2)
+					if (plane3.GetDistanceToPoint(inPt) < 0f)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				vector7 = vector6 / minDistTargetBottomToCam;
-			}
-			else
-			{
-				vector7 = Vector3.up;
-			}
-			Vector3 a = vector7;
-			if (Vector3.Dot(Vector3.up, vector6) > 0f)
-			{
-				float num3 = vector5.y + a.y * this.m_defaultExtraDistance - (float)Board.\u000E().BaselineHeight;
-				float num4 = (!useLowPosition) ? this.m_defaultXRotation : this.m_lowPositionXRotation;
-				if (num3 < this.m_minAutoHeight)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
+						flag = false;
 						break;
 					}
-					vector5 = a * this.m_minAutoHeight / Mathf.Cos(0.0174532924f * num4) + b3;
-				}
-				else if (num3 > this.m_maxAutoHeight)
-				{
-					vector5 = a * this.m_maxAutoHeight / Mathf.Cos(0.0174532924f * num4) + b3;
 				}
 			}
-			base.transform.position = vector5;
-			Vector3 result = this.CalcCurrentOrbitLengths();
-			Camera.main.fieldOfView = fieldOfView;
-			base.transform.rotation = rotation;
-			base.transform.position = position;
-			return result;
+			while (true)
+			{
+				Vector3 vector2;
+				if (flag)
+				{
+					vector2 = -vector;
+				}
+				else
+				{
+					vector2 = vector;
+				}
+				Vector3 direction = vector2;
+				float num = (!flag) ? float.MinValue : float.MaxValue;
+				foreach (Vector3 vector3 in array2)
+				{
+					Ray ray2 = new Ray(vector3, direction);
+					for (int m = 0; m < array3.Length; m++)
+					{
+						Plane plane4 = array3[m];
+						if (Vector3.Dot(base.transform.forward, plane4.normal) < -0.9f)
+						{
+							continue;
+						}
+						if (!plane4.Raycast(ray2, out float enter2))
+						{
+							continue;
+						}
+						Vector3 vector4 = vector3 - ray2.GetPoint(enter2);
+						if (flag)
+						{
+							if (enter2 < num)
+							{
+								goto IL_0692;
+							}
+						}
+						if (flag)
+						{
+							continue;
+						}
+						if (!(enter2 > num))
+						{
+							continue;
+						}
+						goto IL_0692;
+						IL_0692:
+						b2 = vector4;
+						num = enter2;
+					}
+				}
+				Vector3 vector5 = base.transform.position + b + b2;
+				Vector3 center = m_target.center;
+				float x9 = center.x;
+				Vector3 min13 = m_target.min;
+				float y10 = min13.y;
+				Vector3 center2 = m_target.center;
+				Vector3 b3 = new Vector3(x9, y10, center2.z);
+				Vector3 vector6 = vector5 - b3;
+				minDistTargetBottomToCam = vector6.magnitude;
+				Vector3 vector7;
+				if (minDistTargetBottomToCam > 0f)
+				{
+					vector7 = vector6 / minDistTargetBottomToCam;
+				}
+				else
+				{
+					vector7 = Vector3.up;
+				}
+				Vector3 a = vector7;
+				if (Vector3.Dot(Vector3.up, vector6) > 0f)
+				{
+					float num2 = vector5.y + a.y * m_defaultExtraDistance - (float)Board.Get().BaselineHeight;
+					float num3 = (!useLowPosition) ? m_defaultXRotation : m_lowPositionXRotation;
+					if (num2 < m_minAutoHeight)
+					{
+						vector5 = a * m_minAutoHeight / Mathf.Cos((float)Math.PI / 180f * num3) + b3;
+					}
+					else if (num2 > m_maxAutoHeight)
+					{
+						vector5 = a * m_maxAutoHeight / Mathf.Cos((float)Math.PI / 180f * num3) + b3;
+					}
+				}
+				base.transform.position = vector5;
+				Vector3 result = CalcCurrentOrbitLengths();
+				Camera.main.fieldOfView = fieldOfView;
+				base.transform.rotation = rotation;
+				base.transform.position = position;
+				return result;
+			}
 		}
 
 		private Vector3 CalcCurrentOrbitLengths()
 		{
-			Vector3 center = this.m_target.center;
-			center.y -= this.m_target.extents.y;
+			Vector3 center = m_target.center;
+			float y = center.y;
+			Vector3 extents = m_target.extents;
+			center.y = y - extents.y;
 			Vector3 result = base.transform.position - center;
-			result.z = -Mathf.Sqrt(result.x * result.x + result.z * result.z);
+			result.z = 0f - Mathf.Sqrt(result.x * result.x + result.z * result.z);
 			result.x = 0f;
 			return result;
 		}
 
 		private float GetDesiredXRotation()
 		{
-			return this.m_easedDesiredXRotation;
+			return m_easedDesiredXRotation;
 		}
 
 		private float GetDesiredFOV()
 		{
-			return this.m_easedDesiredFOV;
+			return m_easedDesiredFOV;
 		}
 	}
 }

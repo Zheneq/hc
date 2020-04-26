@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -28,363 +28,228 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 
 	public bool Initialize()
 	{
-		if (this.m_initialized)
+		if (m_initialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.Initialize()).MethodHandle;
-			}
-			return false;
 		}
-		this.m_initialized = true;
-		this.m_hitboxes = new List<GameObject>();
-		this.m_options = new List<UIPlayerProgressDropdownBtn>();
-		if (this.m_scrollRect != null)
+		m_initialized = true;
+		m_hitboxes = new List<GameObject>();
+		m_options = new List<UIPlayerProgressDropdownBtn>();
+		if (m_scrollRect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIEventTriggerUtils.AddListener(this.m_scrollRect.verticalScrollbar.gameObject, EventTriggerType.Scroll, new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-			this.m_hitboxes.Add(this.m_scrollRect.gameObject);
-			this.m_hitboxes.Add(this.m_scrollRect.verticalScrollbar.gameObject);
+			UIEventTriggerUtils.AddListener(m_scrollRect.verticalScrollbar.gameObject, EventTriggerType.Scroll, OnScroll);
+			m_hitboxes.Add(m_scrollRect.gameObject);
+			m_hitboxes.Add(m_scrollRect.verticalScrollbar.gameObject);
 		}
-		this.m_animator = base.GetComponent<Animator>();
-		this.m_maxHeight = (base.transform as RectTransform).sizeDelta.y;
+		m_animator = GetComponent<Animator>();
+		Vector2 sizeDelta = (base.transform as RectTransform).sizeDelta;
+		m_maxHeight = sizeDelta.y;
 		return true;
 	}
 
 	public void AddOption(int typeSpecificData, string text, CharacterType charType = CharacterType.None)
 	{
-		UIPlayerProgressDropdownBtn uiplayerProgressDropdownBtn = UnityEngine.Object.Instantiate<UIPlayerProgressDropdownBtn>(this.m_itemPrefab);
-		uiplayerProgressDropdownBtn.transform.SetParent(this.m_layoutGroup.transform);
-		uiplayerProgressDropdownBtn.transform.localPosition = Vector3.zero;
-		uiplayerProgressDropdownBtn.transform.localScale = Vector3.one;
-		uiplayerProgressDropdownBtn.SetOptionData(typeSpecificData);
-		uiplayerProgressDropdownBtn.Setup(text, charType);
-		UIManager.SetGameObjectActive(uiplayerProgressDropdownBtn, true, null);
-		if (this.m_scrollRect != null)
+		UIPlayerProgressDropdownBtn uIPlayerProgressDropdownBtn = UnityEngine.Object.Instantiate(m_itemPrefab);
+		uIPlayerProgressDropdownBtn.transform.SetParent(m_layoutGroup.transform);
+		uIPlayerProgressDropdownBtn.transform.localPosition = Vector3.zero;
+		uIPlayerProgressDropdownBtn.transform.localScale = Vector3.one;
+		uIPlayerProgressDropdownBtn.SetOptionData(typeSpecificData);
+		uIPlayerProgressDropdownBtn.Setup(text, charType);
+		UIManager.SetGameObjectActive(uIPlayerProgressDropdownBtn, true);
+		if (m_scrollRect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.AddOption(int, string, CharacterType)).MethodHandle;
-			}
-			uiplayerProgressDropdownBtn.m_button.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
+			uIPlayerProgressDropdownBtn.m_button.spriteController.RegisterScrollListener(OnScroll);
 		}
-		uiplayerProgressDropdownBtn.AttachToDropdown(this);
-		this.m_options.Add(uiplayerProgressDropdownBtn);
-		this.m_hitboxes.Add(uiplayerProgressDropdownBtn.m_button.spriteController.gameObject);
+		uIPlayerProgressDropdownBtn.AttachToDropdown(this);
+		m_options.Add(uIPlayerProgressDropdownBtn);
+		m_hitboxes.Add(uIPlayerProgressDropdownBtn.m_button.spriteController.gameObject);
 	}
 
 	public void AddOption(int typeSpecificData, string text, CharacterRole charRole)
 	{
-		UIPlayerProgressDropdownBtn uiplayerProgressDropdownBtn = UnityEngine.Object.Instantiate<UIPlayerProgressDropdownBtn>(this.m_itemPrefab);
-		uiplayerProgressDropdownBtn.transform.SetParent(this.m_layoutGroup.transform);
-		uiplayerProgressDropdownBtn.transform.localPosition = Vector3.zero;
-		uiplayerProgressDropdownBtn.transform.localScale = Vector3.one;
-		uiplayerProgressDropdownBtn.SetOptionData(typeSpecificData);
-		uiplayerProgressDropdownBtn.Setup(text, charRole);
-		UIManager.SetGameObjectActive(uiplayerProgressDropdownBtn, true, null);
-		if (this.m_scrollRect != null)
+		UIPlayerProgressDropdownBtn uIPlayerProgressDropdownBtn = UnityEngine.Object.Instantiate(m_itemPrefab);
+		uIPlayerProgressDropdownBtn.transform.SetParent(m_layoutGroup.transform);
+		uIPlayerProgressDropdownBtn.transform.localPosition = Vector3.zero;
+		uIPlayerProgressDropdownBtn.transform.localScale = Vector3.one;
+		uIPlayerProgressDropdownBtn.SetOptionData(typeSpecificData);
+		uIPlayerProgressDropdownBtn.Setup(text, charRole);
+		UIManager.SetGameObjectActive(uIPlayerProgressDropdownBtn, true);
+		if (m_scrollRect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.AddOption(int, string, CharacterRole)).MethodHandle;
-			}
-			uiplayerProgressDropdownBtn.m_button.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
+			uIPlayerProgressDropdownBtn.m_button.spriteController.RegisterScrollListener(OnScroll);
 		}
-		uiplayerProgressDropdownBtn.AttachToDropdown(this);
-		this.m_options.Add(uiplayerProgressDropdownBtn);
-		this.m_hitboxes.Add(uiplayerProgressDropdownBtn.m_button.spriteController.gameObject);
+		uIPlayerProgressDropdownBtn.AttachToDropdown(this);
+		m_options.Add(uIPlayerProgressDropdownBtn);
+		m_hitboxes.Add(uIPlayerProgressDropdownBtn.m_button.spriteController.gameObject);
 	}
 
 	private void OnScroll(BaseEventData data)
 	{
-		this.m_scrollRect.OnScroll((PointerEventData)data);
+		m_scrollRect.OnScroll((PointerEventData)data);
 	}
 
 	public void OnSelect(int typeSpecificData)
 	{
-		if (this.m_callback != null)
+		if (m_callback != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.OnSelect(int)).MethodHandle;
-			}
-			this.m_callback(typeSpecificData);
+			m_callback(typeSpecificData);
 		}
-		this.SetVisible(false);
+		SetVisible(false);
 	}
 
 	public void SetSelectCallback(Action<int> callback)
 	{
-		this.m_callback = callback;
+		m_callback = callback;
 	}
 
 	public void AddHitbox(GameObject hitbox)
 	{
-		this.m_hitboxes.Add(hitbox);
+		m_hitboxes.Add(hitbox);
 	}
 
 	public void SetVisible(bool visible)
 	{
-		if (this.m_isVisible == visible)
+		if (m_isVisible == visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.SetVisible(bool)).MethodHandle;
-			}
-			return;
 		}
-		this.m_isVisible = visible;
+		m_isVisible = visible;
 		if (visible)
 		{
-			for (;;)
+			UIClickListener.Get().Enable(m_hitboxes, delegate
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIClickListener.Get().Enable(this.m_hitboxes, delegate
-			{
-				this.SetVisible(false);
+				SetVisible(false);
 			});
-			UIManager.SetGameObjectActive(base.gameObject, true, null);
-			for (int i = 0; i < this.m_layoutGroup.transform.childCount; i++)
+			UIManager.SetGameObjectActive(base.gameObject, true);
+			for (int i = 0; i < m_layoutGroup.transform.childCount; i++)
 			{
-				RectTransform layoutRoot = this.m_layoutGroup.transform.GetChild(i) as RectTransform;
+				RectTransform layoutRoot = m_layoutGroup.transform.GetChild(i) as RectTransform;
 				LayoutRebuilder.ForceRebuildLayoutImmediate(layoutRoot);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LayoutRebuilder.ForceRebuildLayoutImmediate(this.m_layoutGroup.transform as RectTransform);
-			float preferredHeight = this.m_layoutGroup.preferredHeight;
-			this.ChangeHeight(this.m_layoutGroup.transform, preferredHeight);
-			this.ChangeHeight(base.transform, Mathf.Min(preferredHeight, this.m_maxHeight));
+			LayoutRebuilder.ForceRebuildLayoutImmediate(m_layoutGroup.transform as RectTransform);
+			float preferredHeight = m_layoutGroup.preferredHeight;
+			ChangeHeight(m_layoutGroup.transform, preferredHeight);
+			ChangeHeight(base.transform, Mathf.Min(preferredHeight, m_maxHeight));
 		}
 		else
 		{
-			for (int j = 0; j < this.m_options.Count; j++)
+			for (int j = 0; j < m_options.Count; j++)
 			{
-				this.m_options[j].m_button.SetSelected(false, false, string.Empty, string.Empty);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_options[j].m_button.SetSelected(false, false, string.Empty, string.Empty);
 			}
 			UIClickListener.Get().Disable();
 		}
-		if (this.m_animator != null)
+		if (m_animator != null)
 		{
-			for (;;)
+			if (m_animator.isInitialized)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_animator.isInitialized)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						UIAnimationEventManager.Get().PlayAnimation(m_animator, (!visible) ? "FadeDefaultOUT" : "FadeFastDefaultIN", HandleFadeEnd, string.Empty);
+						return;
 					}
-					break;
 				}
-				UIAnimationEventManager.Get().PlayAnimation(this.m_animator, (!visible) ? "FadeDefaultOUT" : "FadeFastDefaultIN", new UIAnimationEventManager.AnimationDoneCallback(this.HandleFadeEnd), string.Empty, 0, 0f, true, false, null, null);
-				return;
 			}
 		}
-		if (!this.m_isVisible)
+		if (m_isVisible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(base.gameObject, false, null);
+			return;
+		}
+		while (true)
+		{
+			UIManager.SetGameObjectActive(base.gameObject, false);
+			return;
 		}
 	}
 
 	public void Toggle()
 	{
-		this.SetVisible(!this.m_isVisible);
+		SetVisible(!m_isVisible);
 	}
 
 	private void HandleFadeEnd()
 	{
-		if (!this.m_isVisible)
+		if (m_isVisible)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.HandleFadeEnd()).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(base.gameObject, false, null);
+			return;
+		}
+		while (true)
+		{
+			UIManager.SetGameObjectActive(base.gameObject, false);
+			return;
 		}
 	}
 
 	public void CheckOptionDisplayState(UIPlayerProgressDropdownBtn.ShouldShow shouldShowFunction)
 	{
-		for (int i = 0; i < this.m_options.Count; i++)
+		for (int i = 0; i < m_options.Count; i++)
 		{
-			this.m_options[i].CheckDisplayState(shouldShowFunction);
+			m_options[i].CheckDisplayState(shouldShowFunction);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.CheckOptionDisplayState(UIPlayerProgressDropdownBtn.ShouldShow)).MethodHandle;
+			return;
 		}
 	}
 
 	public bool IsOptionVisible(int typeSpecificValue)
 	{
-		for (int i = 0; i < this.m_options.Count; i++)
+		for (int i = 0; i < m_options.Count; i++)
 		{
-			if (this.m_options[i].IsOption(typeSpecificValue))
+			if (!m_options[i].IsOption(typeSpecificValue))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.IsOptionVisible(int)).MethodHandle;
-				}
-				return this.m_options[i].gameObject.activeSelf;
-			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
 				continue;
 			}
-			break;
+			while (true)
+			{
+				return m_options[i].gameObject.activeSelf;
+			}
 		}
-		return false;
+		while (true)
+		{
+			return false;
+		}
 	}
 
 	private void ChangeHeight(Transform transform, float newHeight)
 	{
 		RectTransform rectTransform = transform as RectTransform;
-		rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, newHeight);
+		Vector2 sizeDelta = rectTransform.sizeDelta;
+		rectTransform.sizeDelta = new Vector2(sizeDelta.x, newHeight);
 	}
 
 	public void HighlightCurrentOption(int currentValue)
 	{
-		for (int i = 0; i < this.m_options.Count; i++)
+		for (int i = 0; i < m_options.Count; i++)
 		{
-			this.m_options[i].SetSelectedIfEqual(currentValue);
+			m_options[i].SetSelectedIfEqual(currentValue);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.HighlightCurrentOption(int)).MethodHandle;
+			return;
 		}
 	}
 }

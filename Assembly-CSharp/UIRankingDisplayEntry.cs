@@ -1,5 +1,5 @@
-﻿using System;
 using LobbyGameClientMessages;
+using System;
 using UnityEngine.UI;
 
 public class UIRankingDisplayEntry : IDataEntry
@@ -34,107 +34,60 @@ public class UIRankingDisplayEntry : IDataEntry
 
 	public UIRankingDisplayEntry(RankedScoreboardEntry entry, int groupSize)
 	{
-		this.InPlacement = (entry.Tier < 1);
-		bool inMasterOrContender;
+		InPlacement = (entry.Tier < 1);
+		int inMasterOrContender;
 		if (entry.Tier != 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankingDisplayEntry..ctor(RankedScoreboardEntry, int)).MethodHandle;
-			}
-			inMasterOrContender = (entry.Tier == 2);
+			inMasterOrContender = ((entry.Tier == 2) ? 1 : 0);
 		}
 		else
 		{
-			inMasterOrContender = true;
+			inMasterOrContender = 1;
 		}
-		this.InMasterOrContender = inMasterOrContender;
-		UIRankedModeSelectScreen.Get().GetTierLocalizedName(entry.Tier, entry.InstanceId, groupSize, out this.TierName, out this.InstanceName);
-		this.LastMatch = entry.LastMatch;
-		this.PlayerDisplayName = entry.Handle;
-		this.AccountID = entry.AccountID;
-		this.StreakType = StringUtil.TR("WinStreak", "Global");
-		this.StreakLength = entry.WinStreak;
-		this.NumWins = entry.WinCount;
-		this.NumMatches = entry.MatchCount;
-		this.TierPoints = entry.TierPoints;
-		this.GroupSize = groupSize;
-		TimeSpan t = ClientGameManager.Get().UtcNow() - this.LastMatch;
+		InMasterOrContender = ((byte)inMasterOrContender != 0);
+		UIRankedModeSelectScreen.Get().GetTierLocalizedName(entry.Tier, entry.InstanceId, groupSize, out TierName, out InstanceName);
+		LastMatch = entry.LastMatch;
+		PlayerDisplayName = entry.Handle;
+		AccountID = entry.AccountID;
+		StreakType = StringUtil.TR("WinStreak", "Global");
+		StreakLength = entry.WinStreak;
+		NumWins = entry.WinCount;
+		NumMatches = entry.MatchCount;
+		TierPoints = entry.TierPoints;
+		GroupSize = groupSize;
+		TimeSpan t = ClientGameManager.Get().UtcNow() - LastMatch;
 		TimeSpan rankedLeaderboardExpirationTime = GameManager.Get().GameplayOverrides.RankedLeaderboardExpirationTime;
 		if (entry.Tier != -1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (entry.YesterdaysTier != -1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (entry.TierPoints >= 0f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (entry.YesterdaysPoints >= 0)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (t < rankedLeaderboardExpirationTime)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+								{
+									int num = (int)(entry.TierPoints + 0.5f) - entry.YesterdaysPoints;
+									int num2 = Math.Max(entry.YesterdaysTier, 2) - Math.Max(entry.Tier, 2);
+									Change = num + 100 * num2;
+									return;
 								}
-								break;
+								}
 							}
-							int num = (int)(entry.TierPoints + 0.5f) - entry.YesterdaysPoints;
-							int num2 = Math.Max(entry.YesterdaysTier, 2) - Math.Max(entry.Tier, 2);
-							this.Change = num + 0x64 * num2;
-							return;
 						}
 					}
 				}
 			}
 		}
-		this.Change = 0;
+		Change = 0;
 	}
 
 	public int GetPrefabIndexToDisplay()
@@ -145,140 +98,82 @@ public class UIRankingDisplayEntry : IDataEntry
 	public void Setup(int displayIndex, _LargeScrollListItemEntry UIEntry)
 	{
 		UIRankListDisplayEntry component = UIEntry.GetComponent<UIRankListDisplayEntry>();
-		if (component != null)
+		if (!(component != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			TimeSpan difference = ClientGameManager.Get().UtcNow() - LastMatch;
+			string timeDifferenceText = StringUtil.GetTimeDifferenceText(difference);
+			timeDifferenceText = string.Format(StringUtil.TR("MatchTimeDifference", "Global"), timeDifferenceText);
+			component.LastMatchText.text = timeDifferenceText;
+			if (StreakLength > 0)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankingDisplayEntry.Setup(int, _LargeScrollListItemEntry)).MethodHandle;
-			}
-			TimeSpan difference = ClientGameManager.Get().UtcNow() - this.LastMatch;
-			string text = StringUtil.GetTimeDifferenceText(difference, false);
-			text = string.Format(StringUtil.TR("MatchTimeDifference", "Global"), text);
-			component.LastMatchText.text = text;
-			if (this.StreakLength > 0)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				component.StreakText.text = this.StreakLength.ToString();
+				component.StreakText.text = StreakLength.ToString();
 			}
 			else
 			{
 				component.StreakText.text = "-";
 			}
-			component.TotalMatchesText.text = this.NumMatches.ToString();
-			component.NameText.text = this.PlayerDisplayName;
-			component.DivisionText.text = this.TierName;
-			component.AccountHandle = this.PlayerDisplayName;
-			component.AccountID = this.AccountID;
-			UIManager.SetGameObjectActive(component.m_selfHighlight, this.AccountID == ClientGameManager.Get().GetPlayerAccountData().AccountId, null);
-			if (this.TierPoints < 0f)
+			component.TotalMatchesText.text = NumMatches.ToString();
+			component.NameText.text = PlayerDisplayName;
+			component.DivisionText.text = TierName;
+			component.AccountHandle = PlayerDisplayName;
+			component.AccountID = AccountID;
+			UIManager.SetGameObjectActive(component.m_selfHighlight, AccountID == ClientGameManager.Get().GetPlayerAccountData().AccountId);
+			if (TierPoints < 0f)
 			{
 				component.RankText.text = StringUtil.TR("Unranked", "RankMode");
-				UIManager.SetGameObjectActive(component.ChangeText, false, null);
+				UIManager.SetGameObjectActive(component.ChangeText, false);
 			}
 			else
 			{
-				if (this.InMasterOrContender)
+				if (InMasterOrContender)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					component.RankText.text = StringUtil.GetLocalizedFloat(this.TierPoints, "####.#");
+					component.RankText.text = StringUtil.GetLocalizedFloat(TierPoints, "####.#");
 				}
 				else
 				{
-					component.RankText.text = ((int)(this.TierPoints + 0.5f)).ToString();
+					component.RankText.text = ((int)(TierPoints + 0.5f)).ToString();
 				}
-				if (this.Change > 0)
+				if (Change > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (difference.TotalDays < 1.0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						component.ChangeText.text = string.Format("<sprite={0}>{1}", 6, this.Change);
+						component.ChangeText.text = $"<sprite={6}>{Change}";
 					}
 					else
 					{
-						component.ChangeText.text = string.Format("<sprite={0}>{1}", 8, this.Change);
+						component.ChangeText.text = $"<sprite={8}>{Change}";
 					}
 				}
-				else if (this.Change < 0)
+				else if (Change < 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (difference.TotalDays < 1.0)
 					{
-						component.ChangeText.text = string.Format("<sprite={0}>{1}", 7, this.Change);
+						component.ChangeText.text = $"<sprite={7}>{Change}";
 					}
 					else
 					{
-						component.ChangeText.text = string.Format("<sprite={0}>{1}", 9, this.Change);
+						component.ChangeText.text = $"<sprite={9}>{Change}";
 					}
 				}
-				UIManager.SetGameObjectActive(component.ChangeText, this.Change != 0, null);
+				UIManager.SetGameObjectActive(component.ChangeText, Change != 0);
 			}
 			ScrollRect componentInParent = component.GetComponentInParent<ScrollRect>();
-			if (componentInParent != null)
+			if (!(componentInParent != null))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				return;
+			}
+			while (true)
+			{
 				if (component.m_theBtn.spriteController.gameObject.GetComponent<_MouseEventPasser>() == null)
 				{
 					_MouseEventPasser mouseEventPasser = component.m_theBtn.spriteController.gameObject.AddComponent<_MouseEventPasser>();
 					mouseEventPasser.AddNewHandler(componentInParent);
 				}
+				return;
 			}
 		}
 	}

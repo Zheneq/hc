@@ -1,136 +1,43 @@
-﻿using System;
-
 public static class GameResultExtensions
 {
 	public static bool IsCompletedResult(this GameResult value)
 	{
+		int result;
 		if (value != GameResult.TieGame)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameResult.IsCompletedResult()).MethodHandle;
-			}
 			if (value != GameResult.TeamAWon)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return value == GameResult.TeamBWon;
+				result = ((value == GameResult.TeamBWon) ? 1 : 0);
+				goto IL_002c;
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_002c;
+		IL_002c:
+		return (byte)result != 0;
 	}
 
 	public static bool IsConnectionErrorResult(this GameResult gameResult)
 	{
+		int result;
 		if (gameResult != GameResult.ClientConnectionFailedToLobbyServer)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameResult.IsConnectionErrorResult()).MethodHandle;
-			}
 			if (gameResult != GameResult.ClientConnectionFailedToGameServer)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameResult != GameResult.ClientNetworkErrorToLobbyServer && gameResult != GameResult.ClientNetworkErrorToGameServer)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gameResult != GameResult.ClientHeartbeatTimeoutToLobbyServer)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (gameResult != GameResult.ClientHeartbeatTimeoutToGameServer)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (gameResult != GameResult.ClientLoginFailedToLobbyServer && gameResult != GameResult.ClientLoginFailedToGameServer)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (gameResult != GameResult.LobbyServerNetworkErrorToClient)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (gameResult != GameResult.LobbyServerHeartbeatTimeoutToClient && gameResult != GameResult.GameServerNetworkErrorToClient)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										return gameResult == GameResult.GameServerHeartbeatTimeoutToClient;
+										result = ((gameResult == GameResult.GameServerHeartbeatTimeoutToClient) ? 1 : 0);
+										goto IL_00a1;
 									}
 								}
 							}
@@ -139,7 +46,10 @@ public static class GameResultExtensions
 				}
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_00a1;
+		IL_00a1:
+		return (byte)result != 0;
 	}
 
 	public static string GetErrorMessage(this GameResult gameResult)
@@ -183,60 +93,29 @@ public static class GameResultExtensions
 		GameResult result = GameResult.NoResult;
 		if (gameResultString.EqualsIgnoreCase("win"))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameResultExtensions.Parse(string, Team)).MethodHandle;
-			}
-			GameResult gameResult;
+			int num;
 			if (selfTeam == Team.TeamA)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				gameResult = GameResult.TeamAWon;
+				num = 2;
 			}
 			else
 			{
-				gameResult = GameResult.TeamBWon;
+				num = 3;
 			}
-			result = gameResult;
+			result = (GameResult)num;
 		}
 		else if (gameResultString.EqualsIgnoreCase("loss"))
 		{
-			GameResult gameResult2;
+			int num2;
 			if (selfTeam == Team.TeamA)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				gameResult2 = GameResult.TeamBWon;
+				num2 = 3;
 			}
 			else
 			{
-				gameResult2 = GameResult.TeamAWon;
+				num2 = 2;
 			}
-			result = gameResult2;
+			result = (GameResult)num2;
 		}
 		else if (gameResultString.EqualsIgnoreCase("tie"))
 		{

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,68 +31,27 @@ public class TargetSelectMod_Shape : TargetSelectModBase
 		TargetSelect_Shape targetSelect_Shape = targetSelectBase as TargetSelect_Shape;
 		if (targetSelect_Shape != null)
 		{
-			for (;;)
+			text += AbilityModHelper.GetModPropertyDesc(m_shapeMod, "[Shape]", true, targetSelect_Shape.m_shape);
+			if (m_useAdditionalShapeOverrides)
 			{
-				switch (2)
+				if (m_additionalShapesOverrides != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectMod_Shape.GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
-			}
-			text += AbilityModHelper.GetModPropertyDesc(this.m_shapeMod, "[Shape]", true, targetSelect_Shape.m_shape);
-			if (this.m_useAdditionalShapeOverrides)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_additionalShapesOverrides != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += "-- Using additional shape overrides --\n";
-					using (List<AbilityAreaShape>.Enumerator enumerator = this.m_additionalShapesOverrides.GetEnumerator())
+					using (List<AbilityAreaShape>.Enumerator enumerator = m_additionalShapesOverrides.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
 						{
-							AbilityAreaShape abilityAreaShape = enumerator.Current;
-							text = text + "\t" + abilityAreaShape.ToString() + "\n";
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							text = text + "\t" + enumerator.Current.ToString() + "\n";
 						}
 					}
 				}
 			}
-			text += AbilityModHelper.GetModPropertyDesc(this.m_requireTargetingOnActorMod, "[RequireTargetingOnActor]", true, targetSelect_Shape.m_requireTargetingOnActor);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_canTargetOnEnemiesMod, "[CanTargetOnEnemies]", true, targetSelect_Shape.m_canTargetOnEnemies);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_canTargetOnAlliesMod, "[CanTargetOnAllies]", true, targetSelect_Shape.m_canTargetOnAllies);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_canTargetOnSelfMod, "[CanTargetOnSelf]", true, targetSelect_Shape.m_canTargetOnSelf);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_ignoreLosToTargetActorMod, "[IgnoreLosToTargetActor]", true, targetSelect_Shape.m_ignoreLosToTargetActor);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_moveLineWidthMod, "[MoveLineWidth]", true, targetSelect_Shape.m_moveLineWidth);
+			text += AbilityModHelper.GetModPropertyDesc(m_requireTargetingOnActorMod, "[RequireTargetingOnActor]", true, targetSelect_Shape.m_requireTargetingOnActor);
+			text += AbilityModHelper.GetModPropertyDesc(m_canTargetOnEnemiesMod, "[CanTargetOnEnemies]", true, targetSelect_Shape.m_canTargetOnEnemies);
+			text += AbilityModHelper.GetModPropertyDesc(m_canTargetOnAlliesMod, "[CanTargetOnAllies]", true, targetSelect_Shape.m_canTargetOnAllies);
+			text += AbilityModHelper.GetModPropertyDesc(m_canTargetOnSelfMod, "[CanTargetOnSelf]", true, targetSelect_Shape.m_canTargetOnSelf);
+			text += AbilityModHelper.GetModPropertyDesc(m_ignoreLosToTargetActorMod, "[IgnoreLosToTargetActor]", true, targetSelect_Shape.m_ignoreLosToTargetActor);
+			text += AbilityModHelper.GetModPropertyDesc(m_moveLineWidthMod, "[MoveLineWidth]", true, targetSelect_Shape.m_moveLineWidth);
 		}
 		return text;
 	}

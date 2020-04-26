@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
@@ -11,153 +10,111 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 	protected new void Start()
 	{
 		base.Start();
-		ClientGameManager.Get().OnCharacterDataUpdated += this.OnCharacterUpdated;
-		UITooltipHoverObject component = this.m_ownedToggle.GetComponent<UITooltipHoverObject>();
-		UITooltipObject uitooltipObject = component;
-		TooltipType tooltipType = TooltipType.Simple;
-		if (UIStoreAccountCashPanel.<>f__am$cache0 == null)
-		{
-			for (;;)
+		ClientGameManager.Get().OnCharacterDataUpdated += OnCharacterUpdated;
+		UITooltipHoverObject component = m_ownedToggle.GetComponent<UITooltipHoverObject>();
+		
+		component.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountCashPanel.Start()).MethodHandle;
-			}
-			UIStoreAccountCashPanel.<>f__am$cache0 = delegate(UITooltipBase tooltip)
-			{
-				UISimpleTooltip uisimpleTooltip = (UISimpleTooltip)tooltip;
-				uisimpleTooltip.Setup(StringUtil.TR("Owned", "Store"));
+				UISimpleTooltip uISimpleTooltip = (UISimpleTooltip)tooltip;
+				uISimpleTooltip.Setup(StringUtil.TR("Owned", "Store"));
 				return true;
-			};
-		}
-		uitooltipObject.Setup(tooltipType, UIStoreAccountCashPanel.<>f__am$cache0, null);
+			});
 	}
 
 	protected new void OnDestroy()
 	{
 		base.OnDestroy();
-		if (ClientGameManager.Get() != null)
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountCashPanel.OnDestroy()).MethodHandle;
-			}
-			ClientGameManager.Get().OnCharacterDataUpdated -= this.OnCharacterUpdated;
+			return;
+		}
+		while (true)
+		{
+			ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterUpdated;
+			return;
 		}
 	}
 
 	private void OnCharacterUpdated(PersistedCharacterData charData)
 	{
-		base.RefreshPage();
+		RefreshPage();
 	}
 
 	protected override GameBalanceVars.PlayerUnlockable[] GetRawItemsList()
 	{
 		List<GameBalanceVars.PlayerUnlockable> list = new List<GameBalanceVars.PlayerUnlockable>();
 		List<GameBalanceVars.PlayerUnlockable> list2 = new List<GameBalanceVars.PlayerUnlockable>();
-		foreach (GameBalanceVars.CharacterUnlockData characterUnlockData2 in GameBalanceVars.Get().characterUnlockData)
+		GameBalanceVars.CharacterUnlockData[] characterUnlockData = GameBalanceVars.Get().characterUnlockData;
+		foreach (GameBalanceVars.CharacterUnlockData characterUnlockData2 in characterUnlockData)
 		{
-			if (!GameWideData.Get().GetCharacterResourceLink(characterUnlockData2.character).m_isHidden)
+			if (GameWideData.Get().GetCharacterResourceLink(characterUnlockData2.character).m_isHidden)
 			{
-				foreach (GameBalanceVars.SkinUnlockData skinUnlockData2 in characterUnlockData2.skinUnlockData)
+				continue;
+			}
+			GameBalanceVars.SkinUnlockData[] skinUnlockData = characterUnlockData2.skinUnlockData;
+			foreach (GameBalanceVars.SkinUnlockData skinUnlockData2 in skinUnlockData)
+			{
+				GameBalanceVars.PatternUnlockData[] patternUnlockData = skinUnlockData2.patternUnlockData;
+				int num = 0;
+				while (num < patternUnlockData.Length)
 				{
-					foreach (GameBalanceVars.PatternUnlockData patternUnlockData2 in skinUnlockData2.patternUnlockData)
+					GameBalanceVars.PatternUnlockData patternUnlockData2 = patternUnlockData[num];
+					GameBalanceVars.ColorUnlockData[] colorUnlockData = patternUnlockData2.colorUnlockData;
+					foreach (GameBalanceVars.ColorUnlockData colorUnlockData2 in colorUnlockData)
 					{
-						foreach (GameBalanceVars.ColorUnlockData colorUnlockData2 in patternUnlockData2.colorUnlockData)
+						if (colorUnlockData2.GetRealCurrencyPrice() > 0f)
 						{
-							if (colorUnlockData2.GetRealCurrencyPrice() > 0f)
-							{
-								list2.Add(colorUnlockData2);
-							}
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountCashPanel.GetRawItemsList()).MethodHandle;
+							list2.Add(colorUnlockData2);
 						}
 					}
-					for (;;)
+					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						num++;
+						goto IL_00c6;
 					}
+					IL_00c6:;
 				}
-				for (;;)
+				while (true)
 				{
-					switch (4)
+					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						goto end_IL_00ce;
 					}
+					continue;
+					end_IL_00ce:
 					break;
 				}
-				list.AddRange(base.SortItems(list2));
+			}
+			list.AddRange(SortItems(list2));
+			list2.Clear();
+		}
+		while (true)
+		{
+			GameBalanceVars.StoreItemForPurchase[] storeItemsForPurchase = GameBalanceVars.Get().StoreItemsForPurchase;
+			foreach (GameBalanceVars.StoreItemForPurchase storeItemForPurchase in storeItemsForPurchase)
+			{
+				if (storeItemForPurchase.GetRealCurrencyPrice() > 0f)
+				{
+					list2.Add(storeItemForPurchase);
+				}
+			}
+			while (true)
+			{
+				list.AddRange(SortItems(list2));
 				list2.Clear();
+				return list.ToArray();
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		foreach (GameBalanceVars.StoreItemForPurchase storeItemForPurchase in GameBalanceVars.Get().StoreItemsForPurchase)
-		{
-			if (storeItemForPurchase.GetRealCurrencyPrice() > 0f)
-			{
-				list2.Add(storeItemForPurchase);
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		list.AddRange(base.SortItems(list2));
-		list2.Clear();
-		return list.ToArray();
 	}
 
 	protected override Toggle[] GetFilters()
 	{
-		return new Toggle[]
+		return new Toggle[1]
 		{
-			this.m_ownedToggle
+			m_ownedToggle
 		};
 	}
 
@@ -168,70 +125,42 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 
 	protected override bool ShouldFilter(GameBalanceVars.PlayerUnlockable item)
 	{
-		if (this.m_ownedToggle.isOn)
+		if (m_ownedToggle.isOn)
 		{
 			if (!(ClientGameManager.Get() == null))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountCashPanel.ShouldFilter(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-				}
-				if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
+				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
 					if (item is GameBalanceVars.ColorUnlockData)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							CharacterType index = (CharacterType)item.Index1;
+							CharacterComponent characterComponent = ClientGameManager.Get().GetPlayerCharacterData(index).CharacterComponent;
+							return !characterComponent.GetSkin(item.Index2).GetPattern(item.Index3).GetColor(item.ID)
+								.Unlocked;
 						}
-						CharacterType index = (CharacterType)item.Index1;
-						CharacterComponent characterComponent = ClientGameManager.Get().GetPlayerCharacterData(index).CharacterComponent;
-						return !characterComponent.GetSkin(item.Index2).GetPattern(item.Index3).GetColor(item.ID).Unlocked;
 					}
 					if (item is GameBalanceVars.StoreItemForPurchase)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (1)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
-					return false;
+					goto IL_00c3;
 				}
 			}
 			return true;
 		}
+		goto IL_00c3;
+		IL_00c3:
 		return false;
 	}
 
@@ -241,73 +170,55 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 
 	public override TooltipType? GetItemTooltipType()
 	{
-		return new TooltipType?(TooltipType.Titled);
+		return TooltipType.Titled;
 	}
 
 	public override bool ItemTooltipPopulate(UITooltipBase tooltip, UIStoreItemBtn slot, GameBalanceVars.PlayerUnlockable item)
 	{
 		if (item is GameBalanceVars.ColorUnlockData)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountCashPanel.ItemTooltipPopulate(UITooltipBase, UIStoreItemBtn, GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
 			CharacterType index = (CharacterType)item.Index1;
 			string text = StringUtil.TR_CharacterPatternColorDescription(index.ToString(), item.Index2 + 1, item.Index3 + 1, item.ID + 1);
 			if (text.Trim().Length > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
+						CharacterType index2 = (CharacterType)item.Index1;
+						string tooltipTitle = StringUtil.TR_CharacterPatternColorName(index2.ToString(), item.Index2 + 1, item.Index3 + 1, item.ID + 1);
+						uITitledTooltip.Setup(tooltipTitle, text, string.Empty);
+						return true;
 					}
-					break;
+					}
 				}
-				UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-				CharacterType index2 = (CharacterType)item.Index1;
-				string tooltipTitle = StringUtil.TR_CharacterPatternColorName(index2.ToString(), item.Index2 + 1, item.Index3 + 1, item.ID + 1);
-				uititledTooltip.Setup(tooltipTitle, text, string.Empty);
-				return true;
 			}
 		}
 		else if (item is GameBalanceVars.StoreItemForPurchase)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = StringUtil.TR_InventoryItemDescription((item as GameBalanceVars.StoreItemForPurchase).m_itemTemplateId);
 			if (text2.Trim().Length > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						UITitledTooltip uITitledTooltip2 = tooltip as UITitledTooltip;
+						string tooltipTitle2 = StringUtil.TR_InventoryItemName((item as GameBalanceVars.StoreItemForPurchase).m_itemTemplateId);
+						uITitledTooltip2.Setup(tooltipTitle2, text2, string.Empty);
+						return true;
 					}
-					break;
+					}
 				}
-				UITitledTooltip uititledTooltip2 = tooltip as UITitledTooltip;
-				string tooltipTitle2 = StringUtil.TR_InventoryItemName((item as GameBalanceVars.StoreItemForPurchase).m_itemTemplateId);
-				uititledTooltip2.Setup(tooltipTitle2, text2, string.Empty);
-				return true;
 			}
 		}
 		return false;
@@ -315,53 +226,31 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 
 	protected override void PurchaseItem(GameBalanceVars.PlayerUnlockable item, CurrencyType type)
 	{
-		this.m_newItemToPurchase = new UIPurchaseableItem();
-		this.m_newItemToPurchase.m_currencyType = type;
+		m_newItemToPurchase = new UIPurchaseableItem();
+		m_newItemToPurchase.m_currencyType = type;
 		if (item is GameBalanceVars.ColorUnlockData)
 		{
 			GameBalanceVars.ColorUnlockData colorUnlockData = item as GameBalanceVars.ColorUnlockData;
-			this.m_newItemToPurchase.m_itemType = PurchaseItemType.Tint;
-			this.m_newItemToPurchase.m_charLink = GameWideData.Get().GetCharacterResourceLink((CharacterType)colorUnlockData.Index1);
-			this.m_newItemToPurchase.m_skinIndex = colorUnlockData.Index2;
-			this.m_newItemToPurchase.m_textureIndex = colorUnlockData.Index3;
-			this.m_newItemToPurchase.m_tintIndex = colorUnlockData.ID;
+			m_newItemToPurchase.m_itemType = PurchaseItemType.Tint;
+			m_newItemToPurchase.m_charLink = GameWideData.Get().GetCharacterResourceLink((CharacterType)colorUnlockData.Index1);
+			m_newItemToPurchase.m_skinIndex = colorUnlockData.Index2;
+			m_newItemToPurchase.m_textureIndex = colorUnlockData.Index3;
+			m_newItemToPurchase.m_tintIndex = colorUnlockData.ID;
 		}
 		else if (item is GameBalanceVars.StoreItemForPurchase)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountCashPanel.PurchaseItem(GameBalanceVars.PlayerUnlockable, CurrencyType)).MethodHandle;
-			}
-			this.m_newItemToPurchase.m_itemType = PurchaseItemType.InventoryItem;
-			this.m_newItemToPurchase.m_inventoryTemplateId = (item as GameBalanceVars.StoreItemForPurchase).m_itemTemplateId;
-			this.m_newItemToPurchase.m_overlayText = (item as GameBalanceVars.StoreItemForPurchase).m_overlayText;
+			m_newItemToPurchase.m_itemType = PurchaseItemType.InventoryItem;
+			m_newItemToPurchase.m_inventoryTemplateId = (item as GameBalanceVars.StoreItemForPurchase).m_itemTemplateId;
+			m_newItemToPurchase.m_overlayText = (item as GameBalanceVars.StoreItemForPurchase).m_overlayText;
 		}
 		if (type == CurrencyType.NONE)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_newItemToPurchase.m_purchaseForCash = true;
+			m_newItemToPurchase.m_purchaseForCash = true;
 		}
 		else
 		{
-			this.m_newItemToPurchase.m_currencyType = type;
+			m_newItemToPurchase.m_currencyType = type;
 		}
-		UIStorePanel.Get().OpenPurchaseDialog(this.m_newItemToPurchase, null);
+		UIStorePanel.Get().OpenPurchaseDialog(m_newItemToPurchase);
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class TargetSelectMod_LaserTargetedPull : TargetSelectModBase
@@ -23,25 +23,12 @@ public class TargetSelectMod_LaserTargetedPull : TargetSelectModBase
 		TargetSelect_LaserTargetedPull targetSelect_LaserTargetedPull = targetSelectBase as TargetSelect_LaserTargetedPull;
 		if (targetSelect_LaserTargetedPull != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectMod_LaserTargetedPull.GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
-			}
-			text += AbilityModHelper.GetModPropertyDesc(this.m_laserRangeMod, "[LaserRange]", true, targetSelect_LaserTargetedPull.m_laserRange);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_laserWidthMod, "[LaserWidth]", true, targetSelect_LaserTargetedPull.m_laserWidth);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_maxTargetsMod, "[MaxTargets]", true, targetSelect_LaserTargetedPull.m_maxTargets);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_maxKnockbackDistMod, "[MaxKnockbackDist]", true, targetSelect_LaserTargetedPull.m_maxKnockbackDist);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_squareRangeFromCasterMod, "[SquareRangeFromCaster]", true, targetSelect_LaserTargetedPull.m_squareRangeFromCaster);
-			text += AbilityModHelper.GetModPropertyDesc(this.m_destinationAngleDegWithBackMod, "[DestinationAngleDegWithBack]", true, targetSelect_LaserTargetedPull.m_destinationAngleDegWithBack);
+			text += AbilityModHelper.GetModPropertyDesc(m_laserRangeMod, "[LaserRange]", true, targetSelect_LaserTargetedPull.m_laserRange);
+			text += AbilityModHelper.GetModPropertyDesc(m_laserWidthMod, "[LaserWidth]", true, targetSelect_LaserTargetedPull.m_laserWidth);
+			text += AbilityModHelper.GetModPropertyDesc(m_maxTargetsMod, "[MaxTargets]", true, targetSelect_LaserTargetedPull.m_maxTargets);
+			text += AbilityModHelper.GetModPropertyDesc(m_maxKnockbackDistMod, "[MaxKnockbackDist]", true, targetSelect_LaserTargetedPull.m_maxKnockbackDist);
+			text += AbilityModHelper.GetModPropertyDesc(m_squareRangeFromCasterMod, "[SquareRangeFromCaster]", true, targetSelect_LaserTargetedPull.m_squareRangeFromCaster);
+			text += AbilityModHelper.GetModPropertyDesc(m_destinationAngleDegWithBackMod, "[DestinationAngleDegWithBack]", true, targetSelect_LaserTargetedPull.m_destinationAngleDegWithBack);
 		}
 		return text;
 	}

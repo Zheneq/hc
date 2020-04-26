@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,39 +17,27 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 
 	private OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
 
-	public AbilityUtil_Targeter_ValkyrieGuard(Ability ability, float width, bool snapToBorder = false, bool allowAimAtDiagonals = false, bool hideIfMovingFast = true) : base(ability, width, snapToBorder, allowAimAtDiagonals, hideIfMovingFast)
+	public AbilityUtil_Targeter_ValkyrieGuard(Ability ability, float width, bool snapToBorder = false, bool allowAimAtDiagonals = false, bool hideIfMovingFast = true)
+		: base(ability, width, snapToBorder, allowAimAtDiagonals, hideIfMovingFast)
 	{
-		this.m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
+		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
 	}
 
 	public void SetConeParams(bool useCone, float coneWidthAngle, float coneRadiusInSquares, bool ignoreLos)
 	{
-		this.m_useCone = useCone;
-		this.m_coneWidthAngle = coneWidthAngle;
-		this.m_coneRadiusInSquares = coneRadiusInSquares;
-		this.m_coneIgnoreLos = ignoreLos;
+		m_useCone = useCone;
+		m_coneWidthAngle = coneWidthAngle;
+		m_coneRadiusInSquares = coneRadiusInSquares;
+		m_coneIgnoreLos = ignoreLos;
 	}
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
-		base.ClearActorsInRange();
+		ClearActorsInRange();
 		base.UpdateTargetingMultiTargets(currentTarget, targetingActor, currentTargetIndex, targets);
 		int num;
-		if (this.m_snapToBorder)
+		if (m_snapToBorder)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ValkyrieGuard.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			num = 2;
 		}
 		else
@@ -59,17 +46,8 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 		}
 		int num2 = num;
 		int num3;
-		if (this.m_useCone)
+		if (m_useCone)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = 1;
 		}
 		else
@@ -77,113 +55,64 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 			num3 = 0;
 		}
 		int num4 = num3;
-		if (this.m_highlights.Count <= num2 + 1 + num4)
+		if (m_highlights.Count <= num2 + 1 + num4)
 		{
-			for (;;)
+			m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(m_coverAngleLineLength, false, true));
+			m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(m_coverAngleLineLength, false, false));
+			if (m_useCone)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(this.m_coverAngleLineLength, false, true));
-			this.m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(this.m_coverAngleLineLength, false, false));
-			if (this.m_useCone)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_highlights.Add(HighlightUtils.Get().CreateConeCursor(this.m_coneRadiusInSquares * Board.\u000E().squareSize, this.m_coneWidthAngle));
+				m_highlights.Add(HighlightUtils.Get().CreateConeCursor(m_coneRadiusInSquares * Board.Get().squareSize, m_coneWidthAngle));
 			}
 		}
-		Vector3 barrierCenterPos = this.m_barrierCenterPos;
+		Vector3 barrierCenterPos = m_barrierCenterPos;
 		float num5 = 0.5f * GameplayData.Get().m_coverProtectionAngle;
-		float num6 = VectorUtils.HorizontalAngle_Deg(this.m_barrierOutwardFacing);
-		float d = 0.5f * this.m_width * Board.\u000E().squareSize;
-		Vector3 normalized = Vector3.Cross(this.m_barrierOutwardFacing, Vector3.up).normalized;
-		this.m_highlights[num2].transform.position = barrierCenterPos - normalized * d;
-		this.m_highlights[num2].transform.rotation = Quaternion.LookRotation(VectorUtils.AngleDegreesToVector(num6 + num5));
-		this.m_highlights[num2 + 1].transform.position = barrierCenterPos + normalized * d;
-		this.m_highlights[num2 + 1].transform.rotation = Quaternion.LookRotation(VectorUtils.AngleDegreesToVector(num6 - num5));
-		if (this.m_useCone)
+		float num6 = VectorUtils.HorizontalAngle_Deg(m_barrierOutwardFacing);
+		float d = 0.5f * m_width * Board.Get().squareSize;
+		Vector3 normalized = Vector3.Cross(m_barrierOutwardFacing, Vector3.up).normalized;
+		m_highlights[num2].transform.position = barrierCenterPos - normalized * d;
+		m_highlights[num2].transform.rotation = Quaternion.LookRotation(VectorUtils.AngleDegreesToVector(num6 + num5));
+		m_highlights[num2 + 1].transform.position = barrierCenterPos + normalized * d;
+		m_highlights[num2 + 1].transform.rotation = Quaternion.LookRotation(VectorUtils.AngleDegreesToVector(num6 - num5));
+		if (m_useCone)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_highlights[num2].SetActive(false);
-			this.m_highlights[num2 + 1].SetActive(false);
-			Vector3 vector = targetingActor.\u0015();
+			m_highlights[num2].SetActive(false);
+			m_highlights[num2 + 1].SetActive(false);
+			Vector3 vector = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			if (currentTargetIndex > 0)
 			{
-				BoardSquare boardSquare = Board.\u000E().\u000E(targets[0].GridPos);
-				if (boardSquare != null)
+				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+				if (boardSquareSafe != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					vector = boardSquare.ToVector3();
+					vector = boardSquareSafe.ToVector3();
 				}
 			}
-			Vector3 vector2 = -1f * this.m_barrierOutwardFacing;
-			List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector, VectorUtils.HorizontalAngle_Deg(vector2), this.m_coneWidthAngle, this.m_coneRadiusInSquares, 0f, this.m_coneIgnoreLos, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, this.m_affectsAllies, this.m_affectsEnemies), null, false, default(Vector3));
-			TargeterUtils.RemoveActorsInvisibleToActor(ref actorsInCone, targetingActor);
-			actorsInCone.Remove(targetingActor);
-			for (int i = 0; i < actorsInCone.Count; i++)
+			Vector3 vector2 = -1f * m_barrierOutwardFacing;
+			List<ActorData> actors = AreaEffectUtils.GetActorsInCone(vector, VectorUtils.HorizontalAngle_Deg(vector2), m_coneWidthAngle, m_coneRadiusInSquares, 0f, m_coneIgnoreLos, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, m_affectsEnemies), null);
+			TargeterUtils.RemoveActorsInvisibleToActor(ref actors, targetingActor);
+			actors.Remove(targetingActor);
+			for (int i = 0; i < actors.Count; i++)
 			{
-				base.AddActorInRange(actorsInCone[i], vector, targetingActor, AbilityTooltipSubject.Primary, false);
+				AddActorInRange(actors[i], vector, targetingActor);
 			}
-			for (;;)
+			if (m_affectsTargetingActor)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				AddActorInRange(targetingActor, vector, targetingActor);
 			}
-			if (this.m_affectsTargetingActor)
-			{
-				base.AddActorInRange(targetingActor, vector, targetingActor, AbilityTooltipSubject.Primary, false);
-			}
-			GameObject gameObject = this.m_highlights[num2 + 2];
+			GameObject gameObject = m_highlights[num2 + 2];
 			Vector3 position = vector;
 			position.y = HighlightUtils.GetHighlightHeight();
 			gameObject.transform.position = position;
 			gameObject.transform.rotation = Quaternion.LookRotation(vector2);
-			this.DrawInvalidSquareIndicators(currentTarget, targetingActor, vector, vector2);
+			DrawInvalidSquareIndicators(currentTarget, targetingActor, vector, vector2);
 		}
-		if (this.m_addCasterToActorsInRange)
+		if (!m_addCasterToActorsInRange)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			base.AddActorInRange(targetingActor, targetingActor.\u0015(), targetingActor, AbilityTooltipSubject.Self, false);
+			return;
+		}
+		while (true)
+		{
+			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Self);
+			return;
 		}
 	}
 
@@ -191,10 +120,10 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 	{
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			base.ResetSquareIndicatorIndexToUse();
+			ResetSquareIndicatorIndexToUse();
 			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(forwardDirection);
-			AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, coneStartPos, coneCenterAngleDegrees, this.m_coneWidthAngle, this.m_coneRadiusInSquares, 0f, targetingActor, this.m_coneIgnoreLos, null);
-			base.HideUnusedSquareIndicators();
+			AreaEffectUtils.OperateOnSquaresInCone(m_indicatorHandler, coneStartPos, coneCenterAngleDegrees, m_coneWidthAngle, m_coneRadiusInSquares, 0f, targetingActor, m_coneIgnoreLos);
+			HideUnusedSquareIndicators();
 		}
 	}
 }

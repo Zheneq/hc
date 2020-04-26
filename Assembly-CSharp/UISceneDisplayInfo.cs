@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class UISceneDisplayInfo
@@ -13,5 +13,5 @@ public class UISceneDisplayInfo
 
 	public bool m_InGame;
 
-	public int SceneLoadPriority = 0x64;
+	public int SceneLoadPriority = 100;
 }

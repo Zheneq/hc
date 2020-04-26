@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,81 +23,42 @@ public class ChainAbilityAdditionalModInfo
 
 	public void AddTooltipTokens(List<TooltipTokenEntry> entries, Ability ability, AbilityMod mod, string name)
 	{
-		if (ability != null)
+		if (!(ability != null))
 		{
-			Ability[] array = ability.m_chainAbilities;
-			if (mod.m_useChainAbilityOverrides)
+			return;
+		}
+		Ability[] array = ability.m_chainAbilities;
+		if (mod.m_useChainAbilityOverrides)
+		{
+			array = mod.m_chainAbilityOverrides;
+		}
+		Ability x = null;
+		if (array != null)
+		{
+			if (array.Length > m_chainAbilityIndex)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ChainAbilityAdditionalModInfo.AddTooltipTokens(List<TooltipTokenEntry>, Ability, AbilityMod, string)).MethodHandle;
-				}
-				array = mod.m_chainAbilityOverrides;
+				x = array[m_chainAbilityIndex];
 			}
-			Ability x = null;
-			if (array != null)
+		}
+		if (!(x != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			string text = name + "_" + m_chainAbilityIndex;
+			AbilityMod.AddToken_EffectInfo(entries, m_effectOnSelf, text + "_EffectOnSelf");
+			AbilityMod.AddToken_EffectInfo(entries, m_effectOnAlly, text + "_EffectOnAlly");
+			AbilityMod.AddToken_EffectInfo(entries, m_effectOnEnemy, text + "_EffectOnEnemy");
+			if (m_cooldownReductionsOnSelf.HasCooldownReduction())
 			{
-				for (;;)
+				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (array.Length > this.m_chainAbilityIndex)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					x = array[this.m_chainAbilityIndex];
+					m_cooldownReductionsOnSelf.AddTooltipTokens(entries, text);
+					return;
 				}
 			}
-			if (x != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				string text = name + "_" + this.m_chainAbilityIndex.ToString();
-				AbilityMod.AddToken_EffectInfo(entries, this.m_effectOnSelf, text + "_EffectOnSelf", null, true);
-				AbilityMod.AddToken_EffectInfo(entries, this.m_effectOnAlly, text + "_EffectOnAlly", null, true);
-				AbilityMod.AddToken_EffectInfo(entries, this.m_effectOnEnemy, text + "_EffectOnEnemy", null, true);
-				if (this.m_cooldownReductionsOnSelf.HasCooldownReduction())
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_cooldownReductionsOnSelf.AddTooltipTokens(entries, text);
-				}
-			}
+			return;
 		}
 	}
 
@@ -106,108 +67,36 @@ public class ChainAbilityAdditionalModInfo
 		string text = string.Empty;
 		if (ability != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ChainAbilityAdditionalModInfo.GetDescription(AbilityData, Ability, AbilityMod)).MethodHandle;
-			}
 			Ability[] array = ability.m_chainAbilities;
 			if (mod.m_useChainAbilityOverrides)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				array = mod.m_chainAbilityOverrides;
 			}
 			Ability ability2 = null;
 			if (array != null)
 			{
-				for (;;)
+				if (array.Length > m_chainAbilityIndex)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (array.Length > this.m_chainAbilityIndex)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					ability2 = array[this.m_chainAbilityIndex];
+					ability2 = array[m_chainAbilityIndex];
 				}
 			}
 			if (ability2 != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string text2 = text;
-				text = string.Concat(new object[]
+				text = text2 + "Additional Mod Info for Chain Ability at index " + m_chainAbilityIndex + ": " + ability2.GetDebugIdentifier("white") + "\n";
+				text += AbilityModHelper.GetModEffectInfoDesc(m_effectOnSelf, "{ ChainAbility Effect on Self }", "        ");
+				text += AbilityModHelper.GetModEffectInfoDesc(m_effectOnAlly, "{ ChainAbility Effect on Ally }", "        ");
+				text += AbilityModHelper.GetModEffectInfoDesc(m_effectOnEnemy, "{ ChainAbility Effect on Enemy }", "        ");
+				if (m_cooldownReductionsOnSelf.HasCooldownReduction())
 				{
-					text2,
-					"Additional Mod Info for Chain Ability at index ",
-					this.m_chainAbilityIndex,
-					": ",
-					ability2.GetDebugIdentifier("white"),
-					"\n"
-				});
-				text += AbilityModHelper.GetModEffectInfoDesc(this.m_effectOnSelf, "{ ChainAbility Effect on Self }", "        ", false, null);
-				text += AbilityModHelper.GetModEffectInfoDesc(this.m_effectOnAlly, "{ ChainAbility Effect on Ally }", "        ", false, null);
-				text += AbilityModHelper.GetModEffectInfoDesc(this.m_effectOnEnemy, "{ ChainAbility Effect on Enemy }", "        ", false, null);
-				if (this.m_cooldownReductionsOnSelf.HasCooldownReduction())
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += "Chain Ability Cooldown Reductions:\n";
-					text += this.m_cooldownReductionsOnSelf.GetDescription(abilityData);
+					text += m_cooldownReductionsOnSelf.GetDescription(abilityData);
 				}
 			}
 			else
 			{
 				string text2 = text;
-				text = string.Concat(new object[]
-				{
-					text2,
-					"No Chain Ability at index ",
-					this.m_chainAbilityIndex,
-					", ignoring chain ability mod info\n"
-				});
+				text = text2 + "No Chain Ability at index " + m_chainAbilityIndex + ", ignoring chain ability mod info\n";
 			}
 		}
 		return text;

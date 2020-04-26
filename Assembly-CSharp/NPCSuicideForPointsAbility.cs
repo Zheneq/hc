@@ -1,5 +1,3 @@
-﻿using System;
-
 public class NPCSuicideForPointsAbility : Ability
 {
 	public int m_thisTeamObjectivePointChange = 1;

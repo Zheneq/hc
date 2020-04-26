@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,90 +13,61 @@ namespace AbilityContextNamespace
 		[Header("-- Overrides to existing int fields")]
 		public List<IntFieldOverride> m_overrides;
 
-		public List<OnHitIntField> \u001D(List<OnHitIntField> \u001D)
+		public List<OnHitIntField> _001D(List<OnHitIntField> _001D)
 		{
 			List<OnHitIntField> list = new List<OnHitIntField>();
-			for (int i = 0; i < this.m_prependIntFields.Count; i++)
+			for (int i = 0; i < m_prependIntFields.Count; i++)
 			{
-				list.Add(this.m_prependIntFields[i].GetCopy());
+				list.Add(m_prependIntFields[i].GetCopy());
 			}
-			for (;;)
+			while (true)
 			{
-				switch (2)
+				for (int j = 0; j < _001D.Count; j++)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IntFieldListModData.\u001D(List<OnHitIntField>)).MethodHandle;
-			}
-			for (int j = 0; j < \u001D.Count; j++)
-			{
-				OnHitIntField onHitIntField = \u001D[j];
-				string identifier = onHitIntField.GetIdentifier();
-				SingleOnHitIntFieldMod singleOnHitIntFieldMod = this.\u001D(identifier);
-				if (singleOnHitIntFieldMod != null)
-				{
-					for (;;)
+					OnHitIntField onHitIntField = _001D[j];
+					string identifier = onHitIntField.GetIdentifier();
+					SingleOnHitIntFieldMod singleOnHitIntFieldMod = this._001D(identifier);
+					if (singleOnHitIntFieldMod != null)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						OnHitIntField item = singleOnHitIntFieldMod._001D(onHitIntField);
+						list.Add(item);
 					}
-					OnHitIntField item = singleOnHitIntFieldMod.\u001D(onHitIntField);
-					list.Add(item);
+					else
+					{
+						list.Add(onHitIntField.GetCopy());
+					}
 				}
-				else
-				{
-					list.Add(onHitIntField.GetCopy());
-				}
+				return list;
 			}
-			return list;
 		}
 
-		private SingleOnHitIntFieldMod \u001D(string \u001D)
+		private SingleOnHitIntFieldMod _001D(string _001D)
 		{
-			if (string.IsNullOrEmpty(\u001D))
+			if (string.IsNullOrEmpty(_001D))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return null;
 					}
-					break;
 				}
-				if (!true)
+			}
+			for (int i = 0; i < m_overrides.Count; i++)
+			{
+				string text = m_overrides[i]._001D();
+				if (text.Equals(_001D, StringComparison.OrdinalIgnoreCase))
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IntFieldListModData.\u001D(string)).MethodHandle;
+					return m_overrides[i].m_fieldOverride;
 				}
+			}
+			while (true)
+			{
 				return null;
 			}
-			for (int i = 0; i < this.m_overrides.Count; i++)
-			{
-				string text = this.m_overrides[i].\u001D();
-				if (text.Equals(\u001D, StringComparison.OrdinalIgnoreCase))
-				{
-					return this.m_overrides[i].m_fieldOverride;
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return null;
 		}
 	}
 }

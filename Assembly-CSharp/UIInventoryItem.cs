@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -55,583 +54,364 @@ public class UIInventoryItem : MonoBehaviour
 
 	private void Start()
 	{
-		this.m_tooltipHoverObj = this.m_hitbox.GetComponent<UITooltipHoverObject>();
-		this.m_tooltipHoverObj.Setup(TooltipType.InventoryItem, new TooltipPopulateCall(this.TooltipSetup), null);
+		m_tooltipHoverObj = m_hitbox.GetComponent<UITooltipHoverObject>();
+		m_tooltipHoverObj.Setup(TooltipType.InventoryItem, TooltipSetup);
 	}
 
 	public InventoryItemTemplate GetItemTemplate()
 	{
-		return this.m_itemTemplate;
+		return m_itemTemplate;
 	}
 
 	public void Setup(InventoryItemTemplate itemTemplate, InventoryItem item)
 	{
-		this.m_itemTemplate = itemTemplate;
-		this.m_item = item;
+		m_itemTemplate = itemTemplate;
+		m_item = item;
 		int amount = 1;
 		if (item != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.Setup(InventoryItemTemplate, InventoryItem)).MethodHandle;
-			}
 			amount = item.Count;
 		}
-		if (this.m_mainAnimator != null && this.m_mainAnimator.isActiveAndEnabled)
+		if (m_mainAnimator != null && m_mainAnimator.isActiveAndEnabled)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_mainAnimator.Play("InventoryItemSalvageIDLE");
+			m_mainAnimator.Play("InventoryItemSalvageIDLE");
 		}
-		this.MakeBorderError(false);
-		this.SetDimmed(itemTemplate == null);
-		this.UpdateItemCount(amount, true, false, false);
+		MakeBorderError(false);
+		SetDimmed(itemTemplate == null);
+		UpdateItemCount(amount);
 		string spritePath = InventoryWideData.GetSpritePath(itemTemplate);
 		if (!spritePath.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_itemImage.sprite = (Sprite)Resources.Load(spritePath, typeof(Sprite));
+			m_itemImage.sprite = (Sprite)Resources.Load(spritePath, typeof(Sprite));
 		}
-		UIManager.SetGameObjectActive(this.m_itemImage, !spritePath.IsNullOrEmpty(), null);
-		if (this.m_itemFg != null)
+		UIManager.SetGameObjectActive(m_itemImage, !spritePath.IsNullOrEmpty());
+		if (m_itemFg != null)
 		{
-			this.m_itemFg.sprite = InventoryWideData.GetItemFg(itemTemplate);
-			UIManager.SetGameObjectActive(this.m_itemFg, this.m_itemFg.sprite != null, null);
+			m_itemFg.sprite = InventoryWideData.GetItemFg(itemTemplate);
+			UIManager.SetGameObjectActive(m_itemFg, m_itemFg.sprite != null);
 		}
-		Component bgCommon = this.m_bgCommon;
-		bool doActive;
+		Image bgCommon = m_bgCommon;
+		int doActive;
 		if (itemTemplate != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			doActive = (itemTemplate.Rarity == InventoryItemRarity.Common);
+			doActive = ((itemTemplate.Rarity == InventoryItemRarity.Common) ? 1 : 0);
 		}
 		else
 		{
-			doActive = false;
+			doActive = 0;
 		}
-		UIManager.SetGameObjectActive(bgCommon, doActive, null);
-		Component bgUncommon = this.m_bgUncommon;
-		bool doActive2;
+		UIManager.SetGameObjectActive(bgCommon, (byte)doActive != 0);
+		Image bgUncommon = m_bgUncommon;
+		int doActive2;
 		if (itemTemplate != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			doActive2 = (itemTemplate.Rarity == InventoryItemRarity.Uncommon);
+			doActive2 = ((itemTemplate.Rarity == InventoryItemRarity.Uncommon) ? 1 : 0);
 		}
 		else
 		{
-			doActive2 = false;
+			doActive2 = 0;
 		}
-		UIManager.SetGameObjectActive(bgUncommon, doActive2, null);
-		Component bgRare = this.m_bgRare;
-		bool doActive3;
+		UIManager.SetGameObjectActive(bgUncommon, (byte)doActive2 != 0);
+		Image bgRare = m_bgRare;
+		int doActive3;
 		if (itemTemplate != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			doActive3 = (itemTemplate.Rarity == InventoryItemRarity.Rare);
+			doActive3 = ((itemTemplate.Rarity == InventoryItemRarity.Rare) ? 1 : 0);
 		}
 		else
 		{
-			doActive3 = false;
+			doActive3 = 0;
 		}
-		UIManager.SetGameObjectActive(bgRare, doActive3, null);
-		UIManager.SetGameObjectActive(this.m_bgEpic, itemTemplate != null && itemTemplate.Rarity == InventoryItemRarity.Epic, null);
-		Component bgLegendary = this.m_bgLegendary;
-		bool doActive4;
+		UIManager.SetGameObjectActive(bgRare, (byte)doActive3 != 0);
+		UIManager.SetGameObjectActive(m_bgEpic, itemTemplate != null && itemTemplate.Rarity == InventoryItemRarity.Epic);
+		Image bgLegendary = m_bgLegendary;
+		int doActive4;
 		if (itemTemplate != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			doActive4 = (itemTemplate.Rarity == InventoryItemRarity.Legendary);
+			doActive4 = ((itemTemplate.Rarity == InventoryItemRarity.Legendary) ? 1 : 0);
 		}
 		else
 		{
-			doActive4 = false;
+			doActive4 = 0;
 		}
-		UIManager.SetGameObjectActive(bgLegendary, doActive4, null);
-		if (this.m_shadowCommon != null)
+		UIManager.SetGameObjectActive(bgLegendary, (byte)doActive4 != 0);
+		if (m_shadowCommon != null)
 		{
-			UIManager.SetGameObjectActive(this.m_shadowCommon, itemTemplate != null && itemTemplate.Rarity == InventoryItemRarity.Common, null);
-			Component shadowUncommon = this.m_shadowUncommon;
-			bool doActive5;
+			UIManager.SetGameObjectActive(m_shadowCommon, itemTemplate != null && itemTemplate.Rarity == InventoryItemRarity.Common);
+			Image shadowUncommon = m_shadowUncommon;
+			int doActive5;
 			if (itemTemplate != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				doActive5 = (itemTemplate.Rarity == InventoryItemRarity.Uncommon);
+				doActive5 = ((itemTemplate.Rarity == InventoryItemRarity.Uncommon) ? 1 : 0);
 			}
 			else
 			{
-				doActive5 = false;
+				doActive5 = 0;
 			}
-			UIManager.SetGameObjectActive(shadowUncommon, doActive5, null);
-			Component shadowRare = this.m_shadowRare;
-			bool doActive6;
+			UIManager.SetGameObjectActive(shadowUncommon, (byte)doActive5 != 0);
+			Image shadowRare = m_shadowRare;
+			int doActive6;
 			if (itemTemplate != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				doActive6 = (itemTemplate.Rarity == InventoryItemRarity.Rare);
+				doActive6 = ((itemTemplate.Rarity == InventoryItemRarity.Rare) ? 1 : 0);
 			}
 			else
 			{
-				doActive6 = false;
+				doActive6 = 0;
 			}
-			UIManager.SetGameObjectActive(shadowRare, doActive6, null);
-			Component shadowEpic = this.m_shadowEpic;
-			bool doActive7;
+			UIManager.SetGameObjectActive(shadowRare, (byte)doActive6 != 0);
+			Image shadowEpic = m_shadowEpic;
+			int doActive7;
 			if (itemTemplate != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				doActive7 = (itemTemplate.Rarity == InventoryItemRarity.Epic);
+				doActive7 = ((itemTemplate.Rarity == InventoryItemRarity.Epic) ? 1 : 0);
 			}
 			else
 			{
-				doActive7 = false;
+				doActive7 = 0;
 			}
-			UIManager.SetGameObjectActive(shadowEpic, doActive7, null);
-			Component shadowLegendary = this.m_shadowLegendary;
-			bool doActive8;
+			UIManager.SetGameObjectActive(shadowEpic, (byte)doActive7 != 0);
+			Image shadowLegendary = m_shadowLegendary;
+			int doActive8;
 			if (itemTemplate != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				doActive8 = (itemTemplate.Rarity == InventoryItemRarity.Legendary);
+				doActive8 = ((itemTemplate.Rarity == InventoryItemRarity.Legendary) ? 1 : 0);
 			}
 			else
 			{
-				doActive8 = false;
+				doActive8 = 0;
 			}
-			UIManager.SetGameObjectActive(shadowLegendary, doActive8, null);
+			UIManager.SetGameObjectActive(shadowLegendary, (byte)doActive8 != 0);
 		}
-		if (this.m_tooltipHoverObj != null)
+		if (!(m_tooltipHoverObj != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_tooltipHoverObj.Refresh();
+			return;
+		}
+		while (true)
+		{
+			m_tooltipHoverObj.Refresh();
+			return;
 		}
 	}
 
 	public void SetDimmed(bool isDimmed)
 	{
-		for (int i = 0; i < this.m_dimmables.Length; i++)
+		for (int i = 0; i < m_dimmables.Length; i++)
 		{
-			this.m_dimmables[i].alpha = ((!isDimmed) ? 1f : 0.25f);
+			m_dimmables[i].alpha = ((!isDimmed) ? 1f : 0.25f);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.SetDimmed(bool)).MethodHandle;
+			return;
 		}
 	}
 
 	public void SetCollected(bool isCollected)
 	{
-		if (this.m_mainAnimator == null)
+		if (m_mainAnimator == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.SetCollected(bool)).MethodHandle;
-			}
-			return;
 		}
-		if (!this.m_mainAnimator.isInitialized)
+		if (!m_mainAnimator.isInitialized)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
+		}
+		m_mainAnimator.SetBool("IsCollected", isCollected);
+		if (!isCollected)
+		{
+			m_mainAnimator.Play("InventoryItemCollectedDISABLE");
 		}
 		else
 		{
-			this.m_mainAnimator.SetBool("IsCollected", isCollected);
-			if (!isCollected)
-			{
-				this.m_mainAnimator.Play("InventoryItemCollectedDISABLE");
-			}
-			else
-			{
-				this.m_mainAnimator.Play("InventoryItemCollectedIDLE");
-			}
+			m_mainAnimator.Play("InventoryItemCollectedIDLE");
 		}
 	}
 
 	private bool TooltipSetup(UITooltipBase tooltip)
 	{
-		if (this.m_itemTemplate == null)
+		if (m_itemTemplate == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.TooltipSetup(UITooltipBase)).MethodHandle;
-			}
-			return false;
 		}
-		(tooltip as UIInventoryItemTooltip).Setup(this.m_itemTemplate);
+		(tooltip as UIInventoryItemTooltip).Setup(m_itemTemplate);
 		return true;
 	}
 
 	public void MakeBorderError(bool makeError)
 	{
-		if (this.m_normalBorder != null)
+		if (m_normalBorder != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.MakeBorderError(bool)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_normalBorder, !makeError, null);
+			UIManager.SetGameObjectActive(m_normalBorder, !makeError);
 		}
-		if (this.m_redBorder != null)
+		if (!(m_redBorder != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_redBorder, makeError, null);
+			return;
+		}
+		while (true)
+		{
+			UIManager.SetGameObjectActive(m_redBorder, makeError);
+			return;
 		}
 	}
 
 	public int GetTemplateId()
 	{
-		if (this.m_itemTemplate == null)
+		if (m_itemTemplate == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return -1;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.GetTemplateId()).MethodHandle;
-			}
-			return -1;
 		}
-		return this.m_itemTemplate.Index;
+		return m_itemTemplate.Index;
 	}
 
 	public int GetItemId()
 	{
-		if (this.m_item == null)
+		if (m_item == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return -1;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.GetItemId()).MethodHandle;
-			}
-			return -1;
 		}
-		return this.m_item.Id;
+		return m_item.Id;
 	}
 
 	public void UpdateItemData(InventoryItem item)
 	{
-		if (this.m_item != null)
+		if (m_item == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (item.TemplateId != m_item.TemplateId)
 			{
-				switch (4)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.UpdateItemData(InventoryItem)).MethodHandle;
-			}
-			if (item.TemplateId == this.m_item.TemplateId)
-			{
-				if (this.m_item.Count != item.Count)
-				{
-					for (;;)
+					switch (6)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
+					default:
+						return;
+					case 0:
 						break;
 					}
-					this.m_item.Count = item.Count;
-					this.UpdateItemCount(item.Count, true, false, false);
 				}
-				return;
 			}
-			for (;;)
+			if (m_item.Count != item.Count)
 			{
-				switch (6)
+				while (true)
 				{
-				case 0:
-					continue;
+					m_item.Count = item.Count;
+					UpdateItemCount(item.Count);
+					return;
 				}
-				break;
 			}
+			return;
 		}
 	}
 
 	public void UpdateItemCount(int amount, bool includeX = true, bool showIf1 = false, bool capAt99 = false)
 	{
-		if (this.m_amountContainer == null)
+		if (m_amountContainer == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.UpdateItemCount(int, bool, bool, bool)).MethodHandle;
-			}
-			this.m_amountContainer = this.m_amount.rectTransform;
+			m_amountContainer = m_amount.rectTransform;
 		}
-		if (amount > 0x63)
+		if (amount > 99)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (capAt99)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				TMP_Text amount2 = this.m_amount;
-				string str;
-				if (includeX)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						TextMeshProUGUI amount2 = m_amount;
+						object str;
+						if (includeX)
+						{
+							str = "x";
+						}
+						else
+						{
+							str = string.Empty;
+						}
+						amount2.text = (string)str + "99+";
+						UIManager.SetGameObjectActive(m_amountContainer, true);
+						return;
 					}
-					str = "x";
+					}
 				}
-				else
-				{
-					str = string.Empty;
-				}
-				amount2.text = str + "99+";
-				UIManager.SetGameObjectActive(this.m_amountContainer, true, null);
-				return;
 			}
 		}
 		if (amount <= 1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (showIf1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (amount == 1)
 				{
-					goto IL_AD;
+					goto IL_00ad;
 				}
 			}
-			UIManager.SetGameObjectActive(this.m_amountContainer, false, null);
+			UIManager.SetGameObjectActive(m_amountContainer, false);
 			return;
 		}
-		IL_AD:
-		TMP_Text amount3 = this.m_amount;
+		goto IL_00ad;
+		IL_00ad:
+		TextMeshProUGUI amount3 = m_amount;
 		object arg;
 		if (includeX)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			arg = "x";
 		}
 		else
 		{
 			arg = string.Empty;
 		}
-		amount3.text = arg + amount;
-		UIManager.SetGameObjectActive(this.m_amountContainer, true, null);
+		amount3.text = string.Concat(arg, amount);
+		UIManager.SetGameObjectActive(m_amountContainer, true);
 	}
 }

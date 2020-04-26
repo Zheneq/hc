@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System.Collections.Generic;
 
 public class GenericAbility_Container : Ability
 {
@@ -16,31 +15,27 @@ public class GenericAbility_Container : Ability
 
 	public virtual string GetUsageForEditor()
 	{
-		if (this.m_targetSelectComp != null)
+		if (m_targetSelectComp != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_targetSelectComp.GetUsageForEditor();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_Container.GetUsageForEditor()).MethodHandle;
-			}
-			return this.m_targetSelectComp.GetUsageForEditor();
 		}
 		return string.Empty;
 	}
 
 	public virtual string GetOnHitDataDesc()
 	{
-		if (this.m_onHitData != null)
+		if (m_onHitData != null)
 		{
-			return this.m_onHitData.GetInEditorDesc();
+			return m_onHitData.GetInEditorDesc();
 		}
 		return string.Empty;
 	}
@@ -48,9 +43,9 @@ public class GenericAbility_Container : Ability
 	public virtual List<string> GetContextNamesForEditor()
 	{
 		List<string> list = new List<string>();
-		if (this.m_targetSelectComp != null)
+		if (m_targetSelectComp != null)
 		{
-			this.m_targetSelectComp.ListContextNamesForEditor(list);
+			m_targetSelectComp.ListContextNamesForEditor(list);
 		}
 		return list;
 	}
@@ -58,139 +53,80 @@ public class GenericAbility_Container : Ability
 	public virtual List<GenericAbility_TargetSelectBase> GetRelevantTargetSelectCompForEditor()
 	{
 		List<GenericAbility_TargetSelectBase> list = new List<GenericAbility_TargetSelectBase>();
-		if (this.m_targetSelectComp != null)
+		if (m_targetSelectComp != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_Container.GetRelevantTargetSelectCompForEditor()).MethodHandle;
-			}
-			list.Add(this.m_targetSelectComp);
+			list.Add(m_targetSelectComp);
 		}
 		return list;
 	}
 
 	private void Start()
 	{
-		this.SetupTargetersAndCachedVars();
+		SetupTargetersAndCachedVars();
 	}
 
 	protected virtual void SetupTargetersAndCachedVars()
 	{
-		base.ClearTargeters();
-		if (this.GetTargetSelectComp() != null)
+		ClearTargeters();
+		if (GetTargetSelectComp() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_Container.SetupTargetersAndCachedVars()).MethodHandle;
-			}
-			this.GetTargetSelectComp().Initialize();
-			List<AbilityUtil_Targeter> list = this.GetTargetSelectComp().CreateTargeters(this);
+			GetTargetSelectComp().Initialize();
+			List<AbilityUtil_Targeter> list = GetTargetSelectComp().CreateTargeters(this);
 			using (List<AbilityUtil_Targeter>.Enumerator enumerator = list.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					AbilityUtil_Targeter item = enumerator.Current;
-					base.Targeters.Add(item);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					AbilityUtil_Targeter current = enumerator.Current;
+					base.Targeters.Add(current);
 				}
 			}
 		}
 		if (base.CurrentAbilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_cachedOnHitData = base.CurrentAbilityMod.GenModImpl_GetModdedOnHitData(m_onHitData);
+					return;
 				}
-				break;
 			}
-			this.m_cachedOnHitData = base.CurrentAbilityMod.GenModImpl_GetModdedOnHitData(this.m_onHitData);
 		}
-		else
-		{
-			this.m_cachedOnHitData = this.m_onHitData;
-		}
+		m_cachedOnHitData = m_onHitData;
 	}
 
 	public virtual OnHitAuthoredData GetOnHitAuthoredData()
 	{
-		return (this.m_cachedOnHitData == null) ? this.m_onHitData : this.m_cachedOnHitData;
+		return (m_cachedOnHitData == null) ? m_onHitData : m_cachedOnHitData;
 	}
 
 	public virtual GenericAbility_TargetSelectBase GetTargetSelectComp()
 	{
-		return this.m_targetSelectComp;
+		return m_targetSelectComp;
 	}
 
 	public override TargetData[] GetBaseTargetData()
 	{
-		GenericAbility_TargetSelectBase targetSelectComp = this.GetTargetSelectComp();
+		GenericAbility_TargetSelectBase targetSelectComp = GetTargetSelectComp();
 		if (targetSelectComp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_Container.GetBaseTargetData()).MethodHandle;
-			}
 			if (targetSelectComp.m_useTargetDataOverride)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetSelectComp.GetTargetDataOverride() != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return targetSelectComp.GetTargetDataOverride();
 						}
-						break;
 					}
-					return targetSelectComp.GetTargetDataOverride();
 				}
 			}
 		}
@@ -199,130 +135,117 @@ public class GenericAbility_Container : Ability
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		this.m_onHitData.AddTooltipTokens(tokens);
+		m_onHitData.AddTooltipTokens(tokens);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
 	{
-		if (this.GetTargetSelectComp() != null)
+		if (GetTargetSelectComp() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetTargetSelectComp().CanShowTargeterRangePreview(GetTargetData());
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_Container.CanShowTargetableRadiusPreview()).MethodHandle;
-			}
-			return this.GetTargetSelectComp().CanShowTargeterRangePreview(this.GetTargetData());
 		}
 		return base.CanShowTargetableRadiusPreview();
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		if (this.GetTargetSelectComp() != null)
+		if (GetTargetSelectComp() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetTargetSelectComp().GetTargeterRangePreviewRadius(this, caster);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_Container.GetTargetableRadiusInSquares(ActorData)).MethodHandle;
-			}
-			return this.GetTargetSelectComp().GetTargeterRangePreviewRadius(this, caster);
 		}
 		return base.GetTargetableRadiusInSquares(caster);
 	}
 
 	protected virtual void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		Log.Error("Please implement GenModImpl_SetModRef in derived class " + base.GetType(), new object[0]);
+		Log.Error("Please implement GenModImpl_SetModRef in derived class " + GetType());
 	}
 
 	protected virtual void GenModImpl_ClearModRef()
 	{
-		Log.Error("Please implement GenModImpl_ClearModRef in derived class " + base.GetType(), new object[0]);
+		Log.Error("Please implement GenModImpl_ClearModRef in derived class " + GetType());
 	}
 
 	protected virtual void SetTargetSelectModReference()
 	{
-		if (this.m_targetSelectComp != null)
+		if (!(m_targetSelectComp != null))
 		{
-			if (base.CurrentAbilityMod != null)
+			return;
+		}
+		if (base.CurrentAbilityMod != null)
+		{
+			while (true)
 			{
-				for (;;)
+				switch (2)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
+				case 0:
 					break;
+				default:
+					base.CurrentAbilityMod.GenModImpl_SetTargetSelectMod(m_targetSelectComp);
+					return;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_Container.SetTargetSelectModReference()).MethodHandle;
-				}
-				base.CurrentAbilityMod.GenModImpl_SetTargetSelectMod(this.m_targetSelectComp);
-			}
-			else
-			{
-				this.m_targetSelectComp.ClearTargetSelectMod();
 			}
 		}
+		m_targetSelectComp.ClearTargetSelectMod();
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		this.GenModImpl_SetModRef(abilityMod);
-		this.SetTargetSelectModReference();
-		this.SetupTargetersAndCachedVars();
+		GenModImpl_SetModRef(abilityMod);
+		SetTargetSelectModReference();
+		SetupTargetersAndCachedVars();
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.GenModImpl_ClearModRef();
-		this.SetTargetSelectModReference();
-		this.SetupTargetersAndCachedVars();
+		GenModImpl_ClearModRef();
+		SetTargetSelectModReference();
+		SetupTargetersAndCachedVars();
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.GetTargetSelectComp() != null)
+		if (GetTargetSelectComp() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetTargetSelectComp().HandleCanCastValidation(this, caster);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_Container.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
-			return this.GetTargetSelectComp().HandleCanCastValidation(this, caster);
 		}
 		return true;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		return !(this.GetTargetSelectComp() != null) || this.GetTargetSelectComp().HandleCustomTargetValidation(this, caster, target, targetIndex, currentTargets);
+		if (GetTargetSelectComp() != null)
+		{
+			return GetTargetSelectComp().HandleCustomTargetValidation(this, caster, target, targetIndex, currentTargets);
+		}
+		return true;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
@@ -330,50 +253,35 @@ public class GenericAbility_Container : Ability
 		ActorData actorData = base.ActorData;
 		if (actorData != null)
 		{
-			Dictionary<ActorData, ActorHitContext> dictionary;
-			ContextVars abilityContext;
-			this.GetHitContextForTargetingNumbers(currentTargeterIndex, out dictionary, out abilityContext);
-			if (dictionary.ContainsKey(targetActor))
+			GetHitContextForTargetingNumbers(currentTargeterIndex, out Dictionary<ActorData, ActorHitContext> actorHitContext, out ContextVars abilityContext);
+			if (actorHitContext.ContainsKey(targetActor))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_Container.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-				}
-				this.PreProcessTargetingNumbers(targetActor, currentTargeterIndex, dictionary, abilityContext);
-				this.m_calculatedValuesForTargeter.Reset();
-				if (actorData.\u000E() == targetActor.\u000E())
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+						PreProcessTargetingNumbers(targetActor, currentTargeterIndex, actorHitContext, abilityContext);
+						m_calculatedValuesForTargeter.Reset();
+						if (actorData.GetTeam() == targetActor.GetTeam())
+						{
+							CalcIntFieldValues(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_allyHitIntFields, m_calculatedValuesForTargeter);
+							results.m_absorb = CalcAbsorbFromEffectFields(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_allyHitEffectFields);
+						}
+						else
+						{
+							CalcIntFieldValues(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_enemyHitIntFields, m_calculatedValuesForTargeter);
+							results.m_absorb = CalcAbsorbFromEffectFields(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_enemyHitEffectFields);
+						}
+						results.m_damage = m_calculatedValuesForTargeter.m_damage;
+						results.m_healing = m_calculatedValuesForTargeter.m_healing;
+						results.m_energy = m_calculatedValuesForTargeter.m_energyGain;
+						PostProcessTargetingNumbers(targetActor, currentTargeterIndex, actorHitContext, abilityContext, actorData, results);
+						return true;
 					}
-					GenericAbility_Container.CalcIntFieldValues(targetActor, actorData, dictionary[targetActor], abilityContext, this.GetOnHitAuthoredData().m_allyHitIntFields, this.m_calculatedValuesForTargeter);
-					results.m_absorb = GenericAbility_Container.CalcAbsorbFromEffectFields(targetActor, actorData, dictionary[targetActor], abilityContext, this.GetOnHitAuthoredData().m_allyHitEffectFields);
 				}
-				else
-				{
-					GenericAbility_Container.CalcIntFieldValues(targetActor, actorData, dictionary[targetActor], abilityContext, this.GetOnHitAuthoredData().m_enemyHitIntFields, this.m_calculatedValuesForTargeter);
-					results.m_absorb = GenericAbility_Container.CalcAbsorbFromEffectFields(targetActor, actorData, dictionary[targetActor], abilityContext, this.GetOnHitAuthoredData().m_enemyHitEffectFields);
-				}
-				results.m_damage = this.m_calculatedValuesForTargeter.m_damage;
-				results.m_healing = this.m_calculatedValuesForTargeter.m_healing;
-				results.m_energy = this.m_calculatedValuesForTargeter.m_energyGain;
-				this.PostProcessTargetingNumbers(targetActor, currentTargeterIndex, dictionary, abilityContext, actorData, results);
-				return true;
 			}
 		}
 		return false;
@@ -395,22 +303,18 @@ public class GenericAbility_Container : Ability
 
 	internal override ActorData.MovementType GetMovementType()
 	{
-		if (this.GetTargetSelectComp() != null)
+		if (GetTargetSelectComp() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetTargetSelectComp().GetMovementType();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_Container.GetMovementType()).MethodHandle;
-			}
-			return this.GetTargetSelectComp().GetMovementType();
 		}
 		return base.GetMovementType();
 	}
@@ -422,66 +326,26 @@ public class GenericAbility_Container : Ability
 		{
 			while (enumerator.MoveNext())
 			{
-				OnHitIntField onHitIntField = enumerator.Current;
-				if (TargetFilterHelper.\u001D(onHitIntField.m_conditions, targetActor, caster, actorContext, abilityContext))
+				OnHitIntField current = enumerator.Current;
+				if (TargetFilterHelper._001D(current.m_conditions, targetActor, caster, actorContext, abilityContext))
 				{
-					for (;;)
+					int num = current.CalcValue(actorContext, abilityContext);
+					if (current.m_hitType == OnHitIntField.HitType.Damage)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_Container.CalcIntFieldValues(ActorData, ActorData, ActorHitContext, ContextVars, List<OnHitIntField>, NumericHitResultScratch)).MethodHandle;
-					}
-					int num = onHitIntField.CalcValue(actorContext, abilityContext);
-					if (onHitIntField.m_hitType == OnHitIntField.HitType.Damage)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (result.m_damage == 0)
 						{
 							result.m_damage = num;
 						}
 					}
-					else if (onHitIntField.m_hitType == OnHitIntField.HitType.Healing)
+					else if (current.m_hitType == OnHitIntField.HitType.Healing)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (result.m_healing == 0)
 						{
 							result.m_healing = num;
 						}
 					}
-					else if (onHitIntField.m_hitType == OnHitIntField.HitType.EnergyChange)
+					else if (current.m_hitType == OnHitIntField.HitType.EnergyChange)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num > 0)
 						{
 							if (result.m_energyGain == 0)
@@ -491,28 +355,20 @@ public class GenericAbility_Container : Ability
 						}
 						else if (num < 0 && result.m_energyLoss == 0)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result.m_energyLoss = -1 * num;
 						}
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
@@ -520,46 +376,15 @@ public class GenericAbility_Container : Ability
 	protected static int CalcAbsorbFromEffectFields(ActorData targetActor, ActorData caster, ActorHitContext actorContext, ContextVars abilityContext, List<OnHitEffecField> effectFields)
 	{
 		int num = 0;
-		foreach (OnHitEffecField onHitEffecField in effectFields)
+		foreach (OnHitEffecField effectField in effectFields)
 		{
-			if (TargetFilterHelper.\u001D(onHitEffecField.m_conditions, targetActor, caster, actorContext, abilityContext))
+			if (TargetFilterHelper._001D(effectField.m_conditions, targetActor, caster, actorContext, abilityContext))
 			{
-				for (;;)
+				if (effectField.m_effect.m_applyEffect)
 				{
-					switch (5)
+					if (effectField.m_effect.m_effectData.m_absorbAmount > 0)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_Container.CalcAbsorbFromEffectFields(ActorData, ActorData, ActorHitContext, ContextVars, List<OnHitEffecField>)).MethodHandle;
-				}
-				if (onHitEffecField.m_effect.m_applyEffect)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (onHitEffecField.m_effect.m_effectData.m_absorbAmount > 0)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num += onHitEffecField.m_effect.m_effectData.m_absorbAmount;
+						num += effectField.m_effect.m_effectData.m_absorbAmount;
 					}
 				}
 			}

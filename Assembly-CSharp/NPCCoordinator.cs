@@ -1,10 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class NPCCoordinator : MonoBehaviour
 {
+	public enum LoadingStateEnum
+	{
+		WaitingToLoad,
+		Loading,
+		Done
+	}
+
 	private static NPCCoordinator s_instance;
 
 	public NPCSpawner[] m_spawners;
@@ -12,115 +19,83 @@ public class NPCCoordinator : MonoBehaviour
 	public Ability m_startupAbility;
 
 	[HideInInspector]
-	public int m_nextPlayerIndex = 0x64;
+	public int m_nextPlayerIndex = 100;
+
+	public LoadingStateEnum LoadingState
+	{
+		get;
+		private set;
+	}
 
 	public static NPCCoordinator Get()
 	{
-		return NPCCoordinator.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		NPCCoordinator.s_instance = this;
-		for (int i = 0; i < this.m_spawners.Length; i++)
+		s_instance = this;
+		for (int i = 0; i < m_spawners.Length; i++)
 		{
-			this.m_spawners[i].m_id = i;
+			m_spawners[i].m_id = i;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			LoadingState = LoadingStateEnum.WaitingToLoad;
+			LoadNPCs();
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(NPCCoordinator.Awake()).MethodHandle;
-		}
-		this.LoadingState = NPCCoordinator.LoadingStateEnum.WaitingToLoad;
-		this.LoadNPCs();
 	}
 
 	private void OnDestroy()
 	{
-		NPCCoordinator.s_instance = null;
+		s_instance = null;
 	}
 
 	public void SetupForResolve()
 	{
-		foreach (NPCSpawner npcspawner in this.m_spawners)
+		NPCSpawner[] spawners = m_spawners;
+		foreach (NPCSpawner nPCSpawner in spawners)
 		{
-			npcspawner.SetupForResolve();
+			nPCSpawner.SetupForResolve();
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(NPCCoordinator.SetupForResolve()).MethodHandle;
+			return;
 		}
 	}
 
 	public static bool IsSpawnedNPC(ActorData actor)
 	{
-		if (NPCCoordinator.s_instance == null)
+		if (s_instance == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCCoordinator.IsSpawnedNPC(ActorData)).MethodHandle;
-			}
-			return false;
 		}
 		bool result = false;
 		if (actor != null)
 		{
-			for (;;)
+			NPCSpawner[] spawners = s_instance.m_spawners;
+			int num = 0;
+			while (true)
 			{
-				switch (2)
+				if (num < spawners.Length)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			foreach (NPCSpawner npcspawner in NPCCoordinator.s_instance.m_spawners)
-			{
-				if (npcspawner.m_id == actor.SpawnerId)
-				{
-					for (;;)
+					NPCSpawner nPCSpawner = spawners[num];
+					if (nPCSpawner.m_id == actor.SpawnerId)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
+						result = true;
 						break;
 					}
-					return true;
-				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
+					num++;
 					continue;
 				}
 				break;
@@ -131,279 +106,151 @@ public class NPCCoordinator : MonoBehaviour
 
 	public void AddSpawner(NPCSpawner spawner)
 	{
-		spawner.m_id = this.m_spawners.Length;
-		Array.Resize<NPCSpawner>(ref this.m_spawners, this.m_spawners.Length + 1);
-		this.m_spawners[this.m_spawners.Length - 1] = spawner;
+		spawner.m_id = m_spawners.Length;
+		Array.Resize(ref m_spawners, m_spawners.Length + 1);
+		m_spawners[m_spawners.Length - 1] = spawner;
 	}
 
 	public void OnActorDeath(ActorData actor)
 	{
-		foreach (NPCSpawner npcspawner in this.m_spawners)
+		NPCSpawner[] spawners = m_spawners;
+		foreach (NPCSpawner nPCSpawner in spawners)
 		{
-			if (npcspawner.m_id == actor.SpawnerId)
+			if (nPCSpawner.m_id == actor.SpawnerId)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NPCCoordinator.OnActorDeath(ActorData)).MethodHandle;
-				}
-				npcspawner.OnActorDeath(actor);
+				nPCSpawner.OnActorDeath(actor);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public void OnActorSpawn(ActorData actor)
 	{
-		foreach (NPCSpawner npcspawner in this.m_spawners)
+		NPCSpawner[] spawners = m_spawners;
+		foreach (NPCSpawner nPCSpawner in spawners)
 		{
-			if (npcspawner.m_id == actor.SpawnerId)
+			if (nPCSpawner.m_id == actor.SpawnerId)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NPCCoordinator.OnActorSpawn(ActorData)).MethodHandle;
-				}
-				npcspawner.OnActorSpawn(actor);
+				nPCSpawner.OnActorSpawn(actor);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (5)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public List<CharacterResourceLink> GetActorCharacterResourceLinks()
 	{
 		List<CharacterResourceLink> list = new List<CharacterResourceLink>();
-		foreach (NPCSpawner npcspawner in this.m_spawners)
+		NPCSpawner[] spawners = m_spawners;
+		foreach (NPCSpawner nPCSpawner in spawners)
 		{
-			if (npcspawner != null)
+			if (nPCSpawner != null)
 			{
-				for (;;)
+				if (nPCSpawner.m_actorPrefab != null && nPCSpawner.m_characterResourceLink != null)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NPCCoordinator.GetActorCharacterResourceLinks()).MethodHandle;
-				}
-				if (npcspawner.m_actorPrefab != null && npcspawner.m_characterResourceLink != null)
-				{
-					list.Add(npcspawner.m_characterResourceLink);
+					list.Add(nPCSpawner.m_characterResourceLink);
 				}
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return list;
 		}
-		return list;
 	}
 
 	public CharacterResourceLink GetNpcCharacterResourceLinkBySpawnerId(int spawnerId)
 	{
-		for (int i = 0; i < this.m_spawners.Length; i++)
+		for (int i = 0; i < m_spawners.Length; i++)
 		{
-			NPCSpawner npcspawner = this.m_spawners[i];
-			if (npcspawner != null)
+			NPCSpawner nPCSpawner = m_spawners[i];
+			if (nPCSpawner == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NPCCoordinator.GetNpcCharacterResourceLinkBySpawnerId(int)).MethodHandle;
-				}
-				if (npcspawner.m_id == spawnerId)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (npcspawner.m_characterResourceLink != null)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						return npcspawner.m_characterResourceLink;
-					}
-				}
+				continue;
+			}
+			if (nPCSpawner.m_id != spawnerId)
+			{
+				continue;
+			}
+			if (!(nPCSpawner.m_characterResourceLink != null))
+			{
+				continue;
+			}
+			while (true)
+			{
+				return nPCSpawner.m_characterResourceLink;
 			}
 		}
 		return null;
 	}
 
-	public NPCCoordinator.LoadingStateEnum LoadingState { get; private set; }
-
 	public void LoadNPCs()
 	{
 		int num = 0;
-		foreach (NPCSpawner npcspawner in NPCCoordinator.Get().m_spawners)
+		NPCSpawner[] spawners = Get().m_spawners;
+		foreach (NPCSpawner nPCSpawner in spawners)
 		{
-			if (npcspawner != null)
+			if (nPCSpawner == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NPCCoordinator.LoadNPCs()).MethodHandle;
-				}
-				if (npcspawner.m_actorPrefab != null && npcspawner.m_characterResourceLink != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num++;
-					CharacterResourceLink characterResourceLink = npcspawner.m_characterResourceLink;
-					CharacterVisualInfo linkVisualInfo = new CharacterVisualInfo(npcspawner.m_skinIndex, npcspawner.m_patternIndex, npcspawner.m_colorIndex);
-					if (!NetworkServer.active && ClientGameManager.Get() != null)
-					{
-						ClientGameManager.Get().LoadCharacterResourceLink(characterResourceLink, linkVisualInfo);
-					}
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
 				continue;
 			}
-			break;
+			if (nPCSpawner.m_actorPrefab != null && nPCSpawner.m_characterResourceLink != null)
+			{
+				num++;
+				CharacterResourceLink characterResourceLink = nPCSpawner.m_characterResourceLink;
+				CharacterVisualInfo linkVisualInfo = new CharacterVisualInfo(nPCSpawner.m_skinIndex, nPCSpawner.m_patternIndex, nPCSpawner.m_colorIndex);
+				if (!NetworkServer.active && ClientGameManager.Get() != null)
+				{
+					ClientGameManager.Get().LoadCharacterResourceLink(characterResourceLink, linkVisualInfo);
+				}
+			}
 		}
-		if (num > 0)
+		while (true)
 		{
-			this.LoadingState = NPCCoordinator.LoadingStateEnum.Loading;
-		}
-		else
-		{
-			this.LoadingState = NPCCoordinator.LoadingStateEnum.Done;
+			if (num > 0)
+			{
+				LoadingState = LoadingStateEnum.Loading;
+			}
+			else
+			{
+				LoadingState = LoadingStateEnum.Done;
+			}
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.LoadingState == NPCCoordinator.LoadingStateEnum.Loading)
+		if (LoadingState != LoadingStateEnum.Loading)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCCoordinator.Update()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			bool flag = true;
 			bool flag2 = true;
 			if (!NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().NumCharacterResourcesCurrentlyLoading == 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = true;
 					}
 					else
@@ -412,38 +259,22 @@ public class NPCCoordinator : MonoBehaviour
 					}
 				}
 			}
-			if (flag)
+			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				return;
+			}
+			while (true)
+			{
 				if (flag2)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						LoadingState = LoadingStateEnum.Done;
+						return;
 					}
-					this.LoadingState = NPCCoordinator.LoadingStateEnum.Done;
 				}
+				return;
 			}
 		}
-	}
-
-	public enum LoadingStateEnum
-	{
-		WaitingToLoad,
-		Loading,
-		Done
 	}
 }

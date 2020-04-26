@@ -1,8 +1,8 @@
-﻿using System;
+using LobbyGameClientMessages;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -93,17 +93,33 @@ public class UIPlayerProgressPanel : UIScene
 
 	private static UIPlayerProgressPanel m_instance;
 
-	private int m_originalSelectedTitleID { get; set; }
+	private int m_originalSelectedTitleID
+	{
+		get;
+		set;
+	}
 
-	private int m_originalSelectedForegroundBannerID { get; set; }
+	private int m_originalSelectedForegroundBannerID
+	{
+		get;
+		set;
+	}
 
-	private int m_originalSelectedBackgroundBannerID { get; set; }
+	private int m_originalSelectedBackgroundBannerID
+	{
+		get;
+		set;
+	}
 
-	private int m_originalSelectedRibbonID { get; set; }
+	private int m_originalSelectedRibbonID
+	{
+		get;
+		set;
+	}
 
 	public static UIPlayerProgressPanel Get()
 	{
-		return UIPlayerProgressPanel.m_instance;
+		return m_instance;
 	}
 
 	public override SceneType GetSceneType()
@@ -113,84 +129,66 @@ public class UIPlayerProgressPanel : UIScene
 
 	public override void Awake()
 	{
-		UIPlayerProgressPanel.m_instance = this;
-		this.m_isVisible = base.gameObject.activeSelf;
-		this.m_canvasGroup = base.GetComponent<CanvasGroup>();
-		this.m_menuButtons = new List<UIContentNavButton>();
-		this.m_menuButtons.Add(this.m_overview);
-		this.m_menuButtons.Add(this.m_banner);
-		this.m_menuButtons.Add(this.m_history);
-		this.m_menuButtons.Add(this.m_stats);
-		this.m_menuButtons.Add(this.m_badges);
-		this.m_menuButtons.Add(this.m_achievements);
-		for (int i = 0; i < this.m_menuButtons.Count; i++)
+		m_instance = this;
+		m_isVisible = base.gameObject.activeSelf;
+		m_canvasGroup = GetComponent<CanvasGroup>();
+		m_menuButtons = new List<UIContentNavButton>();
+		m_menuButtons.Add(m_overview);
+		m_menuButtons.Add(m_banner);
+		m_menuButtons.Add(m_history);
+		m_menuButtons.Add(m_stats);
+		m_menuButtons.Add(m_badges);
+		m_menuButtons.Add(m_achievements);
+		for (int i = 0; i < m_menuButtons.Count; i++)
 		{
-			this.m_menuButtons[i].RegisterClickCallback(new Action<UIContentNavButton>(this.NotifyMenuButtonClicked));
+			m_menuButtons[i].RegisterClickCallback(NotifyMenuButtonClicked);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
+			m_subPanels = new List<UIPlayerProgressSubPanel>();
+			m_subPanels.Add(m_overviewPanel);
+			m_subPanels.Add(m_bannersPanel);
+			m_subPanels.Add(m_historyPanel);
+			m_subPanels.Add(m_statsPanel);
+			m_subPanels.Add(m_badgesPanel);
+			m_subPanels.Add(m_achievementsPanel);
+			UIManager.SetGameObjectActive(m_overviewPanel, false);
+			UIManager.SetGameObjectActive(m_bannersPanel, false);
+			UIManager.SetGameObjectActive(m_historyPanel, false);
+			UIManager.SetGameObjectActive(m_statsPanel, false);
+			UIManager.SetGameObjectActive(m_badgesPanel, false);
+			UIManager.SetGameObjectActive(m_achievementsPanel, false);
+			UIManager.SetGameObjectActive(m_freelancerDropdown, false);
+			UIManager.SetGameObjectActive(m_gameModeDropdown, false);
+			UIManager.SetGameObjectActive(m_seasonsDropdown, false);
+			UIManager.SetGameObjectActive(m_achievementDropdown, false);
+			UIManager.SetGameObjectActive(m_overviewPanel.m_freelancerComparisonDropdown, false);
+			UIManager.SetGameObjectActive(m_overviewPanel.m_seasonBucketDropdown, false);
+			m_closeBtn.callback = CloseBtnClicked;
+			UIManager.SetGameObjectActive(m_animationController, false);
+			m_isInTransition = false;
+			UIManager.SetGameObjectActive(m_freelancerDropdown, false);
+			OnPlayerTitleChange = delegate(string newTitle)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.Awake()).MethodHandle;
-		}
-		this.m_subPanels = new List<UIPlayerProgressSubPanel>();
-		this.m_subPanels.Add(this.m_overviewPanel);
-		this.m_subPanels.Add(this.m_bannersPanel);
-		this.m_subPanels.Add(this.m_historyPanel);
-		this.m_subPanels.Add(this.m_statsPanel);
-		this.m_subPanels.Add(this.m_badgesPanel);
-		this.m_subPanels.Add(this.m_achievementsPanel);
-		UIManager.SetGameObjectActive(this.m_overviewPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_bannersPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_historyPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_statsPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_badgesPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_achievementsPanel, false, null);
-		UIManager.SetGameObjectActive(this.m_freelancerDropdown, false, null);
-		UIManager.SetGameObjectActive(this.m_gameModeDropdown, false, null);
-		UIManager.SetGameObjectActive(this.m_seasonsDropdown, false, null);
-		UIManager.SetGameObjectActive(this.m_achievementDropdown, false, null);
-		UIManager.SetGameObjectActive(this.m_overviewPanel.m_freelancerComparisonDropdown, false, null);
-		UIManager.SetGameObjectActive(this.m_overviewPanel.m_seasonBucketDropdown, false, null);
-		this.m_closeBtn.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseBtnClicked);
-		UIManager.SetGameObjectActive(this.m_animationController, false, null);
-		this.m_isInTransition = false;
-		UIManager.SetGameObjectActive(this.m_freelancerDropdown, false, null);
-		this.OnPlayerTitleChange = delegate(string newTitle)
-		{
-			this.m_playerTitle.text = newTitle;
-			UIManager.SetGameObjectActive(this.m_playerTitle, true, null);
-		};
-		ClientGameManager.Get().OnPlayerTitleChange += this.OnPlayerTitleChange;
-		ClientGameManager.Get().OnAccountDataUpdated += this.OnAccountDataUpdated;
-		ClientGameManager.Get().OnServerQueueConfigurationUpdateNotification += this.OnServerQueueConfigurationUpdateNotification;
-		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
-		{
-			for (;;)
+				m_playerTitle.text = newTitle;
+				UIManager.SetGameObjectActive(m_playerTitle, true);
+			};
+			ClientGameManager.Get().OnPlayerTitleChange += OnPlayerTitleChange;
+			ClientGameManager.Get().OnAccountDataUpdated += OnAccountDataUpdated;
+			ClientGameManager.Get().OnServerQueueConfigurationUpdateNotification += OnServerQueueConfigurationUpdateNotification;
+			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				OnAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
 			}
-			this.OnAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
+			OnServerQueueConfigurationUpdateNotification(null);
+			base.Awake();
+			return;
 		}
-		this.OnServerQueueConfigurationUpdateNotification(null);
-		base.Awake();
 	}
 
 	private void OnDisable()
 	{
-		this.m_isInTransition = false;
+		m_isInTransition = false;
 	}
 
 	private void OnDestroy()
@@ -198,304 +196,217 @@ public class UIPlayerProgressPanel : UIScene
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.OnDestroy()).MethodHandle;
-			}
-			return;
 		}
-		clientGameManager.OnPlayerTitleChange -= this.OnPlayerTitleChange;
-		clientGameManager.OnAccountDataUpdated -= this.OnAccountDataUpdated;
-		clientGameManager.OnServerQueueConfigurationUpdateNotification -= this.OnServerQueueConfigurationUpdateNotification;
+		clientGameManager.OnPlayerTitleChange -= OnPlayerTitleChange;
+		clientGameManager.OnAccountDataUpdated -= OnAccountDataUpdated;
+		clientGameManager.OnServerQueueConfigurationUpdateNotification -= OnServerQueueConfigurationUpdateNotification;
 	}
 
 	public void CloseProgressPanel(BaseEventData data)
 	{
-		this.SetVisible(false, true);
+		SetVisible(false);
 	}
 
 	public bool IsVisible()
 	{
-		return this.m_isVisible;
+		return m_isVisible;
 	}
 
 	public void SetVisible(bool visible, bool needToUpdateInfo = true)
 	{
-		if (this.m_isVisible != visible)
+		if (m_isVisible == visible)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.SetVisible(bool, bool)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (UILootMatrixScreen.Get() != null && UILootMatrixScreen.Get().IsOpening())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
+			}
+			if (m_isInTransition)
+			{
+				if (visible)
+				{
+					while (true)
+					{
+						switch (4)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
+					}
+				}
+			}
+			HideDropdowns();
+			UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
+			{
+				CustomGamePartyListHidden = visible
+			});
+			m_isVisible = visible;
+			m_canvasGroup.blocksRaycasts = visible;
+			if (visible)
+			{
+				UIFrontEnd.Get().m_frontEndNavPanel.NotifyCurrentPanelLoseFocus();
 			}
 			else
 			{
-				if (this.m_isInTransition)
+				UICharacterStoreAndProgressWorldObjects.Get().SetVisible(false);
+				UIFrontEnd.Get().m_frontEndNavPanel.NotifyCurrentPanelGetFocus();
+			}
+			UIManager.SetGameObjectActive(m_playerProgressClickBlocker, visible);
+			if (m_isInTransition && !visible)
+			{
+				while (true)
 				{
-					for (;;)
+					switch (6)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
+					case 0:
 						break;
-					}
-					if (visible)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
+					default:
+						UICharacterStoreAndProgressWorldObjects.Get().SetVisible(false);
+						UIManager.SetGameObjectActive(base.gameObject, false);
+						m_isInTransition = false;
 						return;
 					}
 				}
-				this.HideDropdowns();
-				UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
+			}
+			if (visible)
+			{
+				while (true)
 				{
-					CustomGamePartyListHidden = new bool?(visible)
-				});
-				this.m_isVisible = visible;
-				this.m_canvasGroup.blocksRaycasts = visible;
-				if (visible)
-				{
-					UIFrontEnd.Get().m_frontEndNavPanel.NotifyCurrentPanelLoseFocus();
-				}
-				else
-				{
-					UICharacterStoreAndProgressWorldObjects.Get().SetVisible(false);
-					UIFrontEnd.Get().m_frontEndNavPanel.NotifyCurrentPanelGetFocus();
-				}
-				UIManager.SetGameObjectActive(this.m_playerProgressClickBlocker, visible, null);
-				if (this.m_isInTransition && !visible)
-				{
-					for (;;)
+					switch (3)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
+					case 0:
 						break;
-					}
-					UICharacterStoreAndProgressWorldObjects.Get().SetVisible(false);
-					UIManager.SetGameObjectActive(base.gameObject, false, null);
-					this.m_isInTransition = false;
-					return;
-				}
-				if (visible)
-				{
-					for (;;)
-					{
-						switch (3)
+					default:
+						if (UIGameSettingsPanel.Get().m_lastVisible)
 						{
-						case 0:
-							continue;
+							UIGameSettingsPanel.Get().CancelClicked(null);
 						}
-						break;
-					}
-					if (UIGameSettingsPanel.Get().m_lastVisible)
-					{
-						for (;;)
+						m_isInTransition = true;
+						m_animationController.Play("UI_ProfileDefaultIN");
+						m_playerAccountData = null;
+						m_needToUpdateInfo = needToUpdateInfo;
+						m_InfoUpdated = 0;
+						m_playerName.text = string.Empty;
+						m_playerTitle.text = string.Empty;
+						m_matchesPlayedText.text = string.Empty;
+						m_freelancerLevelsText.text = string.Empty;
+						m_reactorLevelText.text = string.Empty;
+						m_ggBoostsUsedText.text = string.Empty;
+						m_totalWinsText.text = string.Empty;
+						UIManager.SetGameObjectActive(m_overviewPanel, false);
+						UIManager.SetGameObjectActive(m_bannersPanel, false);
+						UIManager.SetGameObjectActive(m_historyPanel, false);
+						UIManager.SetGameObjectActive(m_statsPanel, false);
+						m_overview.SetSelected(true);
+						m_banner.SetSelected(false);
+						m_history.SetSelected(false);
+						m_stats.SetSelected(false);
+						m_originalSelectedTitleID = -1;
+						m_originalSelectedForegroundBannerID = -1;
+						m_originalSelectedBackgroundBannerID = -1;
+						m_originalSelectedRibbonID = -1;
+						m_charactersList = ClientGameManager.Get().GetAllPlayerCharacterData().Values.ToList();
+						OnAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
+						if (m_matchHistory == null)
 						{
-							switch (5)
+							while (true)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIGameSettingsPanel.Get().CancelClicked(null);
-					}
-					this.m_isInTransition = true;
-					this.m_animationController.Play("UI_ProfileDefaultIN");
-					this.m_playerAccountData = null;
-					this.m_needToUpdateInfo = needToUpdateInfo;
-					this.m_InfoUpdated = 0;
-					this.m_playerName.text = string.Empty;
-					this.m_playerTitle.text = string.Empty;
-					this.m_matchesPlayedText.text = string.Empty;
-					this.m_freelancerLevelsText.text = string.Empty;
-					this.m_reactorLevelText.text = string.Empty;
-					this.m_ggBoostsUsedText.text = string.Empty;
-					this.m_totalWinsText.text = string.Empty;
-					UIManager.SetGameObjectActive(this.m_overviewPanel, false, null);
-					UIManager.SetGameObjectActive(this.m_bannersPanel, false, null);
-					UIManager.SetGameObjectActive(this.m_historyPanel, false, null);
-					UIManager.SetGameObjectActive(this.m_statsPanel, false, null);
-					this.m_overview.SetSelected(true);
-					this.m_banner.SetSelected(false);
-					this.m_history.SetSelected(false);
-					this.m_stats.SetSelected(false);
-					this.m_originalSelectedTitleID = -1;
-					this.m_originalSelectedForegroundBannerID = -1;
-					this.m_originalSelectedBackgroundBannerID = -1;
-					this.m_originalSelectedRibbonID = -1;
-					this.m_charactersList = ClientGameManager.Get().GetAllPlayerCharacterData().Values.ToList<PersistedCharacterData>();
-					this.OnAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
-					if (this.m_matchHistory == null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						ClientGameManager.Get().QueryPlayerMatchData(delegate(PlayerMatchDataResponse response)
-						{
-							if (response.Success)
-							{
-								this.m_InfoUpdated++;
-								this.m_matchHistory = response.MatchData;
-								this.m_historyPanel.SetMatchHistory(response.MatchData);
-								this.m_overviewPanel.Setup(this.m_playerAccountData, this.m_charactersList);
-								if (this.m_isVisible)
+								switch (3)
 								{
-									for (;;)
+								case 0:
+									break;
+								default:
+									ClientGameManager.Get().QueryPlayerMatchData(delegate(PlayerMatchDataResponse response)
 									{
-										switch (1)
+										if (response.Success)
 										{
-										case 0:
-											continue;
+											m_InfoUpdated++;
+											m_matchHistory = response.MatchData;
+											m_historyPanel.SetMatchHistory(response.MatchData);
+											m_overviewPanel.Setup(m_playerAccountData, m_charactersList);
+											if (m_isVisible)
+											{
+												UIManager.SetGameObjectActive(base.gameObject, true);
+											}
 										}
-										break;
-									}
-									if (!true)
-									{
-										RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIPlayerProgressPanel.<SetVisible>m__1(PlayerMatchDataResponse)).MethodHandle;
-									}
-									UIManager.SetGameObjectActive(base.gameObject, true, null);
+										UIRAFProgramScreen.Get().SetVisible(false);
+										UIGGBoostPurchaseScreen.Get().SetVisible(false);
+									});
+									return;
 								}
 							}
-							UIRAFProgramScreen.Get().SetVisible(false);
-							UIGGBoostPurchaseScreen.Get().SetVisible(false);
-						});
-					}
-					else
-					{
-						UIManager.SetGameObjectActive(base.gameObject, true, null);
+						}
+						UIManager.SetGameObjectActive(base.gameObject, true);
 						UIRAFProgramScreen.Get().SetVisible(false);
 						UIGGBoostPurchaseScreen.Get().SetVisible(false);
+						return;
 					}
 				}
-				else
-				{
-					this.LogPlayerChanges();
-					this.m_isInTransition = this.m_animationController.isActiveAndEnabled;
-					this.m_animationController.Play("UI_ProfileDefaultOUT");
-				}
-				return;
 			}
+			LogPlayerChanges();
+			m_isInTransition = m_animationController.isActiveAndEnabled;
+			m_animationController.Play("UI_ProfileDefaultOUT");
+			return;
 		}
 	}
 
 	public void MarkTransitionFinished()
 	{
-		this.m_isInTransition = false;
+		m_isInTransition = false;
 	}
 
 	public void Update()
 	{
-		if (this.m_needToUpdateInfo && this.m_InfoUpdated >= 1)
+		if (m_needToUpdateInfo && m_InfoUpdated >= 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.Update()).MethodHandle;
-			}
-			this.NotifyMenuButtonClicked(this.m_overview);
-			this.m_needToUpdateInfo = false;
-			this.m_InfoUpdated = 0;
+			NotifyMenuButtonClicked(m_overview);
+			m_needToUpdateInfo = false;
+			m_InfoUpdated = 0;
 		}
-		if (Input.GetKeyDown(KeyCode.Escape))
+		if (!Input.GetKeyDown(KeyCode.Escape))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!IsVisible())
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (this.IsVisible())
+			while (true)
 			{
-				for (;;)
+				if (UIStorePanel.Get().IsWaitingForPurchaseRequest || UIFrontEnd.Get().m_frontEndChatConsole.EscapeJustPressed())
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (!UIStorePanel.Get().IsWaitingForPurchaseRequest && !UIFrontEnd.Get().m_frontEndChatConsole.EscapeJustPressed())
+				while (true)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(EventSystem.current.currentSelectedGameObject == null))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() == null))
 						{
 							return;
@@ -503,21 +414,20 @@ public class UIPlayerProgressPanel : UIScene
 					}
 					if (UIStorePanel.Get().IsPurchaseDialogOpen())
 					{
-						for (;;)
+						while (true)
 						{
 							switch (3)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								UIStorePanel.Get().ClosePurchaseDialog();
+								return;
 							}
-							break;
 						}
-						UIStorePanel.Get().ClosePurchaseDialog();
 					}
-					else
-					{
-						UIFrontEnd.Get().TogglePlayerProgressScreenVisibility(true);
-					}
+					UIFrontEnd.Get().TogglePlayerProgressScreenVisibility();
+					return;
 				}
 			}
 		}
@@ -525,260 +435,134 @@ public class UIPlayerProgressPanel : UIScene
 
 	public void LogPlayerChanges()
 	{
-		if (this.m_playerAccountData != null)
+		if (m_playerAccountData == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_playerAccountData.AccountComponent.SelectedTitleID == m_originalSelectedTitleID)
 			{
-				switch (1)
+				if (m_playerAccountData.AccountComponent.SelectedRibbonID == m_originalSelectedRibbonID)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.LogPlayerChanges()).MethodHandle;
-			}
-			if (this.m_playerAccountData.AccountComponent.SelectedTitleID == this.m_originalSelectedTitleID)
-			{
-				for (;;)
-				{
-					switch (3)
+					if (m_playerAccountData.AccountComponent.SelectedForegroundBannerID == m_originalSelectedForegroundBannerID)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_playerAccountData.AccountComponent.SelectedRibbonID == this.m_originalSelectedRibbonID)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_playerAccountData.AccountComponent.SelectedForegroundBannerID == this.m_originalSelectedForegroundBannerID)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_playerAccountData.AccountComponent.SelectedBackgroundBannerID == this.m_originalSelectedBackgroundBannerID)
+						if (m_playerAccountData.AccountComponent.SelectedBackgroundBannerID == m_originalSelectedBackgroundBannerID)
 						{
 							return;
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 			}
-			ClientGameManager.Get().PlayerPanelUpdated(this.m_originalSelectedTitleID, this.m_originalSelectedForegroundBannerID, this.m_originalSelectedBackgroundBannerID, this.m_originalSelectedRibbonID);
+			ClientGameManager.Get().PlayerPanelUpdated(m_originalSelectedTitleID, m_originalSelectedForegroundBannerID, m_originalSelectedBackgroundBannerID, m_originalSelectedRibbonID);
+			return;
 		}
 	}
 
 	private void OnAccountDataUpdated(PersistedAccountData newData)
 	{
-		this.m_playerAccountData = newData;
-		this.m_playerName.text = HydrogenConfig.Get().Ticket.GetFormattedHandle(Mathf.FloorToInt(this.m_playerName.fontSize * 0.7f));
-		this.m_InfoUpdated++;
-		this.m_playerTitle.text = GameBalanceVars.Get().GetTitle(newData.AccountComponent.SelectedTitleID, string.Empty, -1);
-		UIManager.SetGameObjectActive(this.m_playerTitle, true, null);
-		this.m_overviewPanel.Setup(this.m_playerAccountData, this.m_charactersList);
-		this.m_achievementsPanel.Setup();
+		m_playerAccountData = newData;
+		m_playerName.text = HydrogenConfig.Get().Ticket.GetFormattedHandle(Mathf.FloorToInt(m_playerName.fontSize * 0.7f));
+		m_InfoUpdated++;
+		m_playerTitle.text = GameBalanceVars.Get().GetTitle(newData.AccountComponent.SelectedTitleID, string.Empty);
+		UIManager.SetGameObjectActive(m_playerTitle, true);
+		m_overviewPanel.Setup(m_playerAccountData, m_charactersList);
+		m_achievementsPanel.Setup();
 		int num = 0;
 		using (Dictionary<CharacterType, PersistedCharacterData>.Enumerator enumerator = ClientGameManager.Get().GetAllPlayerCharacterData().GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<CharacterType, PersistedCharacterData> keyValuePair = enumerator.Current;
-				if (keyValuePair.Key.IsValidForHumanGameplay())
+				KeyValuePair<CharacterType, PersistedCharacterData> current = enumerator.Current;
+				if (current.Key.IsValidForHumanGameplay())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.OnAccountDataUpdated(PersistedAccountData)).MethodHandle;
-					}
-					num += keyValuePair.Value.ExperienceComponent.Level;
+					num += current.Value.ExperienceComponent.Level;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num2 = 0;
 		List<QuestTemplate> quests = QuestWideData.Get().m_quests;
-		int i = 0;
-		while (i < quests.Count)
+		for (int i = 0; i < quests.Count; i++)
 		{
 			QuestTemplate questTemplate = quests[i];
-			if (questTemplate.AchievmentType != AchievementType.None)
+			if (questTemplate.AchievmentType == AchievementType.None)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (questTemplate.Enabled)
-				{
-					if (newData.QuestComponent.GetOrCreateQuestMetaData(questTemplate.Index).CompletedCount > 0)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num2 += questTemplate.AchievementPoints;
-					}
-				}
-			}
-			IL_198:
-			i++;
-			continue;
-			goto IL_198;
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
 				continue;
 			}
-			break;
+			if (questTemplate.Enabled && newData.QuestComponent.GetOrCreateQuestMetaData(questTemplate.Index).CompletedCount > 0)
+			{
+				num2 += questTemplate.AchievementPoints;
+			}
 		}
-		this.m_matchesPlayedText.text = UIStorePanel.FormatIntToString(newData.ExperienceComponent.Matches, true);
-		this.m_freelancerLevelsText.text = UIStorePanel.FormatIntToString(num, true);
-		this.m_reactorLevelText.text = UIStorePanel.FormatIntToString(newData.GetReactorLevel(SeasonWideData.Get().m_seasons), true);
-		this.m_achievementPointsText.text = UIStorePanel.FormatIntToString(num2, true);
-		int totalSpent = newData.BankComponent.CurrentAmounts.GetValue(CurrencyType.GGPack).m_TotalSpent;
-		this.m_ggBoostsUsedText.text = UIStorePanel.FormatIntToString(totalSpent, true);
-		int wins = newData.ExperienceComponent.Wins;
-		this.m_totalWinsText.text = UIStorePanel.FormatIntToString(wins, true);
-		this.m_originalSelectedTitleID = newData.AccountComponent.SelectedTitleID;
-		this.m_originalSelectedForegroundBannerID = newData.AccountComponent.SelectedForegroundBannerID;
-		this.m_originalSelectedBackgroundBannerID = newData.AccountComponent.SelectedBackgroundBannerID;
-		this.m_originalSelectedRibbonID = newData.AccountComponent.SelectedRibbonID;
+		while (true)
+		{
+			m_matchesPlayedText.text = UIStorePanel.FormatIntToString(newData.ExperienceComponent.Matches, true);
+			m_freelancerLevelsText.text = UIStorePanel.FormatIntToString(num, true);
+			m_reactorLevelText.text = UIStorePanel.FormatIntToString(newData.GetReactorLevel(SeasonWideData.Get().m_seasons), true);
+			m_achievementPointsText.text = UIStorePanel.FormatIntToString(num2, true);
+			int totalSpent = newData.BankComponent.CurrentAmounts.GetValue(CurrencyType.GGPack).m_TotalSpent;
+			m_ggBoostsUsedText.text = UIStorePanel.FormatIntToString(totalSpent, true);
+			int wins = newData.ExperienceComponent.Wins;
+			m_totalWinsText.text = UIStorePanel.FormatIntToString(wins, true);
+			m_originalSelectedTitleID = newData.AccountComponent.SelectedTitleID;
+			m_originalSelectedForegroundBannerID = newData.AccountComponent.SelectedForegroundBannerID;
+			m_originalSelectedBackgroundBannerID = newData.AccountComponent.SelectedBackgroundBannerID;
+			m_originalSelectedRibbonID = newData.AccountComponent.SelectedRibbonID;
+			return;
+		}
 	}
 
 	private void OnServerQueueConfigurationUpdateNotification(ServerQueueConfigurationUpdateNotification notification)
 	{
-		this.m_badges.m_hitbox.selectableButton.SetDisabled(!ClientGameManager.Get().AllowBadges);
+		m_badges.m_hitbox.selectableButton.SetDisabled(!ClientGameManager.Get().AllowBadges);
 	}
 
 	public void CloseBtnClicked(BaseEventData data)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.Close);
-		this.SetVisible(false, true);
+		SetVisible(false);
 	}
 
 	public void ClickedOnPage(UIPageIndicator pageIndicator)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModAdd);
-		for (int i = 0; i < this.m_subPanels.Count; i++)
+		for (int i = 0; i < m_subPanels.Count; i++)
 		{
-			if (this.m_subPanels[i].IsActive)
+			if (m_subPanels[i].IsActive)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.ClickedOnPage(UIPageIndicator)).MethodHandle;
-				}
-				this.m_subPanels[i].ClickedOnPageIndicator(pageIndicator);
+				m_subPanels[i].ClickedOnPageIndicator(pageIndicator);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public void NotifyMenuButtonClicked(UIContentNavButton clickedButton)
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.PlayCategorySelect);
-		for (int i = 0; i < this.m_menuButtons.Count; i++)
+		for (int i = 0; i < m_menuButtons.Count; i++)
 		{
-			UIContentNavButton uicontentNavButton = this.m_menuButtons[i];
-			bool flag = uicontentNavButton == clickedButton;
-			uicontentNavButton.SetSelected(flag);
-			if (i < this.m_subPanels.Count)
+			UIContentNavButton uIContentNavButton = m_menuButtons[i];
+			bool flag = uIContentNavButton == clickedButton;
+			uIContentNavButton.SetSelected(flag);
+			if (i < m_subPanels.Count)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.NotifyMenuButtonClicked(UIContentNavButton)).MethodHandle;
-				}
-				UIManager.SetGameObjectActive(this.m_subPanels[i], flag, null);
+				UIManager.SetGameObjectActive(m_subPanels[i], flag);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			UICharacterStoreAndProgressWorldObjects.Get().SetVisible(false);
+			return;
 		}
-		UICharacterStoreAndProgressWorldObjects.Get().SetVisible(false);
 	}
 
 	private void SetupDropdown(UIPlayerProgressDropdownList dropdown, int selectedValue, Action<int> callback, Transform parentSlot)
@@ -793,54 +577,22 @@ public class UIPlayerProgressPanel : UIScene
 
 	public void OpenFreelancerDropdown(CharacterType selectedFreelancer, Action<int> callback, Transform parentSlot, bool withRoles, CharacterRole role = CharacterRole.None)
 	{
-		if (this.m_freelancerDropdown.Initialize())
+		if (m_freelancerDropdown.Initialize())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.OpenFreelancerDropdown(CharacterType, Action<int>, Transform, bool, CharacterRole)).MethodHandle;
-			}
-			this.m_freelancerDropdown.AddOption(0, StringUtil.TR("AllFreelancers", "Global"), CharacterType.None);
+			m_freelancerDropdown.AddOption(0, StringUtil.TR("AllFreelancers", "Global"));
 			IEnumerator enumerator = Enum.GetValues(typeof(CharacterRole)).GetEnumerator();
 			try
 			{
 				while (enumerator.MoveNext())
 				{
-					object obj = enumerator.Current;
-					CharacterRole characterRole = (CharacterRole)obj;
+					CharacterRole characterRole = (CharacterRole)enumerator.Current;
 					if (characterRole == CharacterRole.None)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
-						this.m_freelancerDropdown.AddOption((int)(-(int)characterRole), StringUtil.TR("CharacterRole_" + characterRole, "Global"), characterRole);
+						m_freelancerDropdown.AddOption(0 - characterRole, StringUtil.TR("CharacterRole_" + characterRole, "Global"), characterRole);
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally
@@ -848,203 +600,92 @@ public class UIPlayerProgressPanel : UIScene
 				IDisposable disposable;
 				if ((disposable = (enumerator as IDisposable)) != null)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (6)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							disposable.Dispose();
+							goto end_IL_00bd;
 						}
-						break;
 					}
-					disposable.Dispose();
 				}
+				end_IL_00bd:;
 			}
 			bool flag = GameManager.Get() != null && GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
 			List<CharacterResourceLink> list = new List<CharacterResourceLink>();
 			CharacterResourceLink[] characterResourceLinks = GameWideData.Get().m_characterResourceLinks;
-			int i = 0;
-			while (i < characterResourceLinks.Length)
+			foreach (CharacterResourceLink characterResourceLink in characterResourceLinks)
 			{
-				CharacterResourceLink characterResourceLink = characterResourceLinks[i];
-				if (flag)
+				if (!flag)
 				{
-					goto IL_136;
-				}
-				if (!characterResourceLink.m_isHidden)
-				{
-					for (;;)
+					if (characterResourceLink.m_isHidden)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_136;
+						continue;
 					}
 				}
-				IL_18B:
-				i++;
-				continue;
-				IL_150:
-				goto IL_18B;
-				IL_136:
 				if (!characterResourceLink.m_characterType.IsValidForHumanGameplay())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_150;
-					}
 				}
 				else
 				{
 					CharacterConfig characterConfig = GameManager.Get().GameplayOverrides.GetCharacterConfig(characterResourceLink.m_characterType);
-					if (!characterConfig.AllowForPlayers || characterConfig.IsHidden)
+					if (characterConfig.AllowForPlayers && !characterConfig.IsHidden)
 					{
-						goto IL_18B;
+						list.Add(characterResourceLink);
 					}
-					list.Add(characterResourceLink);
-					goto IL_18B;
 				}
 			}
-			List<CharacterResourceLink> list2 = list;
-			if (UIPlayerProgressPanel.<>f__am$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIPlayerProgressPanel.<>f__am$cache0 = ((CharacterResourceLink x, CharacterResourceLink y) => x.GetDisplayName().CompareTo(y.GetDisplayName()));
-			}
-			list2.Sort(UIPlayerProgressPanel.<>f__am$cache0);
+			
+			list.Sort(((CharacterResourceLink x, CharacterResourceLink y) => x.GetDisplayName().CompareTo(y.GetDisplayName())));
 			using (List<CharacterResourceLink>.Enumerator enumerator2 = list.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
 				{
-					CharacterResourceLink characterResourceLink2 = enumerator2.Current;
-					if (characterResourceLink2.m_characterType.IsValidForHumanGameplay())
+					CharacterResourceLink current = enumerator2.Current;
+					if (current.m_characterType.IsValidForHumanGameplay())
 					{
-						this.m_freelancerDropdown.AddOption((int)characterResourceLink2.m_characterType, characterResourceLink2.GetDisplayName(), characterResourceLink2.m_characterType);
+						m_freelancerDropdown.AddOption((int)current.m_characterType, current.GetDisplayName(), current.m_characterType);
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
-			this.m_freelancerDropdown.AddHitbox(this.m_statsPanel.m_freelancerDropdownBtn.m_button.spriteController.gameObject);
-			this.m_freelancerDropdown.AddHitbox(this.m_achievementsPanel.m_freelancerDropdownBtn.m_button.spriteController.gameObject);
-			this.m_freelancerDropdown.AddHitbox(this.m_badgesPanel.m_freelancerDropdownBtn.m_button.spriteController.gameObject);
+			m_freelancerDropdown.AddHitbox(m_statsPanel.m_freelancerDropdownBtn.m_button.spriteController.gameObject);
+			m_freelancerDropdown.AddHitbox(m_achievementsPanel.m_freelancerDropdownBtn.m_button.spriteController.gameObject);
+			m_freelancerDropdown.AddHitbox(m_badgesPanel.m_freelancerDropdownBtn.m_button.spriteController.gameObject);
 		}
-		int selectedValue;
+		int num = 0;
 		if (withRoles)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIPlayerProgressDropdownList freelancerDropdown = this.m_freelancerDropdown;
-			if (UIPlayerProgressPanel.<>f__am$cache1 == null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIPlayerProgressPanel.<>f__am$cache1 = ((int x) => true);
-			}
-			freelancerDropdown.CheckOptionDisplayState(UIPlayerProgressPanel.<>f__am$cache1);
-			if (role != CharacterRole.None)
-			{
-				selectedValue = (int)(-(int)role);
-			}
-			else
-			{
-				selectedValue = (int)selectedFreelancer;
-			}
+			UIPlayerProgressDropdownList freelancerDropdown = m_freelancerDropdown;
+			
+			freelancerDropdown.CheckOptionDisplayState(((int x) => true));
+			num = ((role == CharacterRole.None) ? ((int)selectedFreelancer) : (0 - role));
 		}
 		else
 		{
-			UIPlayerProgressDropdownList freelancerDropdown2 = this.m_freelancerDropdown;
-			if (UIPlayerProgressPanel.<>f__am$cache2 == null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIPlayerProgressPanel.<>f__am$cache2 = ((int x) => x >= 0);
-			}
-			freelancerDropdown2.CheckOptionDisplayState(UIPlayerProgressPanel.<>f__am$cache2);
-			selectedValue = (int)selectedFreelancer;
+			UIPlayerProgressDropdownList freelancerDropdown2 = m_freelancerDropdown;
+			
+			freelancerDropdown2.CheckOptionDisplayState(((int x) => x >= 0));
+			num = (int)selectedFreelancer;
 		}
-		this.SetupDropdown(this.m_freelancerDropdown, selectedValue, callback, parentSlot);
+		SetupDropdown(m_freelancerDropdown, num, callback, parentSlot);
 	}
 
 	public void OpenGameModeDropdown(PersistedStatBucket selectedBucket, Action<int> callback, Transform parentSlot)
 	{
-		if (this.m_gameModeDropdown.Initialize())
+		if (m_gameModeDropdown.Initialize())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.OpenGameModeDropdown(PersistedStatBucket, Action<int>, Transform)).MethodHandle;
-			}
 			IEnumerator enumerator = Enum.GetValues(typeof(PersistedStatBucket)).GetEnumerator();
 			try
 			{
 				while (enumerator.MoveNext())
 				{
-					object obj = enumerator.Current;
-					PersistedStatBucket persistedStatBucket = (PersistedStatBucket)obj;
+					PersistedStatBucket persistedStatBucket = (PersistedStatBucket)enumerator.Current;
 					if (persistedStatBucket.IsTracked())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_gameModeDropdown.AddOption((int)persistedStatBucket, StringUtil.TR_PersistedStatBucketName(persistedStatBucket), CharacterType.None);
+						m_gameModeDropdown.AddOption((int)persistedStatBucket, StringUtil.TR_PersistedStatBucketName(persistedStatBucket));
 					}
 				}
 			}
@@ -1056,175 +697,86 @@ public class UIPlayerProgressPanel : UIScene
 					disposable.Dispose();
 				}
 			}
-			this.m_gameModeDropdown.AddHitbox(this.m_statsPanel.m_gameModeDropdownBtn.m_button.spriteController.gameObject);
-			this.m_gameModeDropdown.AddHitbox(this.m_badgesPanel.m_gameModeDropdownBtn.m_button.spriteController.gameObject);
+			m_gameModeDropdown.AddHitbox(m_statsPanel.m_gameModeDropdownBtn.m_button.spriteController.gameObject);
+			m_gameModeDropdown.AddHitbox(m_badgesPanel.m_gameModeDropdownBtn.m_button.spriteController.gameObject);
 		}
-		this.SetupDropdown(this.m_gameModeDropdown, (int)selectedBucket, callback, parentSlot);
+		SetupDropdown(m_gameModeDropdown, (int)selectedBucket, callback, parentSlot);
 	}
 
 	public void OpenSeasonsDropdown(int selectedSeason, Action<int> callback, UIPlayerProgressDropdownBtn.ShouldShow shouldShow, Transform parentSlot)
 	{
-		if (this.m_seasonsDropdown.Initialize())
+		if (m_seasonsDropdown.Initialize())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.OpenSeasonsDropdown(int, Action<int>, UIPlayerProgressDropdownBtn.ShouldShow, Transform)).MethodHandle;
-			}
 			int activeSeason = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
 			List<SeasonTemplate> list = new List<SeasonTemplate>();
 			for (int i = 0; i < SeasonWideData.Get().m_seasons.Count; i++)
 			{
 				if (SeasonWideData.Get().m_seasons[i].DisplayStats)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(SeasonWideData.Get().m_seasons[i]);
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			list.Reverse();
 			using (List<SeasonTemplate>.Enumerator enumerator = list.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					SeasonTemplate seasonTemplate = enumerator.Current;
+					SeasonTemplate current = enumerator.Current;
 					string text;
-					if (seasonTemplate.Index == activeSeason)
+					if (current.Index == activeSeason)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = StringUtil.TR("CurrentSeason", "Global");
 					}
 					else
 					{
-						text = seasonTemplate.GetDisplayName();
+						text = current.GetDisplayName();
 					}
-					this.m_seasonsDropdown.AddOption(seasonTemplate.Index, text, CharacterType.None);
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_seasonsDropdown.AddOption(current.Index, text);
 				}
 			}
-			this.m_seasonsDropdown.AddHitbox(this.m_statsPanel.m_seasonsDropdownBtn.m_button.spriteController.gameObject);
-			this.m_seasonsDropdown.AddHitbox(this.m_badgesPanel.m_seasonsDropdownBtn.m_button.spriteController.gameObject);
+			m_seasonsDropdown.AddHitbox(m_statsPanel.m_seasonsDropdownBtn.m_button.spriteController.gameObject);
+			m_seasonsDropdown.AddHitbox(m_badgesPanel.m_seasonsDropdownBtn.m_button.spriteController.gameObject);
 		}
-		this.m_seasonsDropdown.CheckOptionDisplayState(shouldShow);
-		this.SetupDropdown(this.m_seasonsDropdown, selectedSeason, callback, parentSlot);
+		m_seasonsDropdown.CheckOptionDisplayState(shouldShow);
+		SetupDropdown(m_seasonsDropdown, selectedSeason, callback, parentSlot);
 	}
 
 	public void OpenAchievementDropdown(AchievementType selected, Action<int> callback, Transform parentSlot)
 	{
-		if (this.m_achievementDropdown.Initialize())
+		if (m_achievementDropdown.Initialize())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.OpenAchievementDropdown(AchievementType, Action<int>, Transform)).MethodHandle;
-			}
 			List<AchievementType> list = new List<AchievementType>();
 			list.Add(AchievementType.None);
 			for (int i = 0; i < QuestWideData.Get().m_quests.Count; i++)
 			{
 				AchievementType achievmentType = QuestWideData.Get().m_quests[i].AchievmentType;
-				if (achievmentType != AchievementType.None)
+				if (achievmentType != 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!list.Contains(achievmentType))
 					{
 						list.Add(achievmentType);
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Sort();
 			using (List<AchievementType>.Enumerator enumerator = list.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					AchievementType achievementType = enumerator.Current;
-					this.m_achievementDropdown.AddOption((int)achievementType, StringUtil.TR("AchievementCategory_" + achievementType, "Global"), CharacterType.None);
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					AchievementType current = enumerator.Current;
+					m_achievementDropdown.AddOption((int)current, StringUtil.TR("AchievementCategory_" + current, "Global"));
 				}
 			}
-			this.m_achievementDropdown.AddHitbox(this.m_achievementsPanel.m_categoryDropdownBtn.m_button.spriteController.gameObject);
+			m_achievementDropdown.AddHitbox(m_achievementsPanel.m_categoryDropdownBtn.m_button.spriteController.gameObject);
 		}
-		this.SetupDropdown(this.m_achievementDropdown, (int)selected, callback, parentSlot);
+		SetupDropdown(m_achievementDropdown, (int)selected, callback, parentSlot);
 	}
 
 	public void HideDropdowns()
 	{
-		this.m_freelancerDropdown.SetVisible(false);
-		this.m_gameModeDropdown.SetVisible(false);
-		this.m_seasonsDropdown.SetVisible(false);
-		this.m_achievementDropdown.SetVisible(false);
+		m_freelancerDropdown.SetVisible(false);
+		m_gameModeDropdown.SetVisible(false);
+		m_seasonsDropdown.SetVisible(false);
+		m_achievementDropdown.SetVisible(false);
 	}
 }

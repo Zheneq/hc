@@ -1,42 +1,33 @@
-﻿using System;
-
 public class SlashCommand_ChatGame : SlashCommand
 {
-	public SlashCommand_ChatGame() : base("/game", SlashCommandType.Everywhere)
+	public SlashCommand_ChatGame()
+		: base("/game", SlashCommandType.Everywhere)
 	{
 	}
 
 	public override void OnSlashCommand(string arguments)
 	{
-		if (!arguments.IsNullOrEmpty())
+		if (arguments.IsNullOrEmpty())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (ClientGameManager.Get() == null)
 			{
-				switch (4)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (3)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_ChatGame.OnSlashCommand(string)).MethodHandle;
-			}
-			if (!(ClientGameManager.Get() == null))
-			{
-				ClientGameManager.Get().SendChatNotification(null, ConsoleMessageType.GameChat, arguments);
-				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			ClientGameManager.Get().SendChatNotification(null, ConsoleMessageType.GameChat, arguments);
+			return;
 		}
 	}
 }

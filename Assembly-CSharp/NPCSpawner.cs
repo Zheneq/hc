@@ -1,9 +1,17 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
 public class NPCSpawner
 {
+	private enum NPCSpawnerState
+	{
+		NotYetSpawned,
+		Active,
+		WaitingToRespawn,
+		Inactive
+	}
+
 	public string m_spawnerTitle;
 
 	public GameObject m_actorPrefab;
@@ -54,114 +62,79 @@ public class NPCSpawner
 	[HideInInspector]
 	public int m_id = -1;
 
-	private NPCSpawner.NPCSpawnerState m_state;
+	private NPCSpawnerState m_state;
 
 	public bool HasSpawned()
 	{
-		return this.m_state != NPCSpawner.NPCSpawnerState.NotYetSpawned;
+		return m_state != NPCSpawnerState.NotYetSpawned;
 	}
 
 	public bool IsActive()
 	{
-		return this.m_state == NPCSpawner.NPCSpawnerState.Active;
+		return m_state == NPCSpawnerState.Active;
 	}
 
 	public void OnActorDeath(ActorData actor)
 	{
-		if (this.m_id == actor.SpawnerId)
+		if (m_id != actor.SpawnerId)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCSpawner.OnActorDeath(ActorData)).MethodHandle;
-			}
-			foreach (ActivatableObject activatableObject in this.m_activationsOnDeath)
+			return;
+		}
+		while (true)
+		{
+			ActivatableObject[] activationsOnDeath = m_activationsOnDeath;
+			foreach (ActivatableObject activatableObject in activationsOnDeath)
 			{
 				activatableObject.Activate();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public void OnActorSpawn(ActorData actor)
 	{
-		if (this.m_id == actor.SpawnerId)
+		if (m_id != actor.SpawnerId)
 		{
-			foreach (ActivatableObject activatableObject in this.m_activationsOnSpawn)
-			{
-				activatableObject.Activate();
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCSpawner.OnActorSpawn(ActorData)).MethodHandle;
-			}
+			return;
+		}
+		ActivatableObject[] activationsOnSpawn = m_activationsOnSpawn;
+		foreach (ActivatableObject activatableObject in activationsOnSpawn)
+		{
+			activatableObject.Activate();
+		}
+		while (true)
+		{
+			return;
 		}
 	}
 
 	public void SetupForResolve()
 	{
-		if (this.m_state == NPCSpawner.NPCSpawnerState.Active)
+		if (m_state != NPCSpawnerState.Active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCSpawner.SetupForResolve()).MethodHandle;
-			}
-			ActorTurnSM component = this.m_actor.GetComponent<ActorTurnSM>();
-			if (component)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				component.OnMessage(TurnMessage.BEGIN_RESOLVE, true);
-			}
+			return;
 		}
-	}
-
-	private enum NPCSpawnerState
-	{
-		NotYetSpawned,
-		Active,
-		WaitingToRespawn,
-		Inactive
+		while (true)
+		{
+			ActorTurnSM component = m_actor.GetComponent<ActorTurnSM>();
+			if ((bool)component)
+			{
+				while (true)
+				{
+					component.OnMessage(TurnMessage.BEGIN_RESOLVE);
+					return;
+				}
+			}
+			return;
+		}
 	}
 }

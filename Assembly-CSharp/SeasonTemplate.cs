@@ -1,9 +1,33 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
 public class SeasonTemplate
 {
+	[Serializable]
+	public class TierReward
+	{
+		public int Tier;
+
+		public SeasonRewards Rewards;
+	}
+
+	[Serializable]
+	public class SeasonEndRewards
+	{
+		public List<QuestCurrencyReward> CurrencyRewards;
+
+		public List<QuestUnlockReward> UnlockRewards;
+
+		public List<QuestItemReward> ItemRewards;
+	}
+
+	[Serializable]
+	public class ConditionalSeasonEndRewards : SeasonEndRewards
+	{
+		public QuestPrerequisites Prerequisites;
+	}
+
 	public int[] SeasonLevelExperience;
 
 	public int m_experiencePerLevelAfter;
@@ -34,83 +58,55 @@ public class SeasonTemplate
 
 	public int MaxRewardVersion;
 
-	public SeasonTemplate.TierReward[] TierRewards;
+	public TierReward[] TierRewards;
 
-	public SeasonTemplate.SeasonEndRewards EndRewards;
+	public SeasonEndRewards EndRewards;
 
-	public List<SeasonTemplate.ConditionalSeasonEndRewards> ConditionalEndRewards;
+	public List<ConditionalSeasonEndRewards> ConditionalEndRewards;
 
 	public string GetDisplayName()
 	{
-		return StringUtil.TR_SeasonName(this.Index);
+		return StringUtil.TR_SeasonName(Index);
 	}
 
 	public string GetDisplaySubTitle()
 	{
-		return StringUtil.TR_SeasonSubTitle(this.Index);
+		return StringUtil.TR_SeasonSubTitle(Index);
 	}
 
 	public string GetSeasonEndHeader()
 	{
-		return StringUtil.TR_SeasonEndHeader(this.Index);
+		return StringUtil.TR_SeasonEndHeader(Index);
 	}
 
 	public int GetSeasonExperience(int level)
 	{
-		if (level <= 0)
+		if (level > 0)
 		{
-			return 1;
-		}
-		if (level - 1 < this.SeasonLevelExperience.Length)
-		{
-			for (;;)
+			if (level - 1 < SeasonLevelExperience.Length)
 			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						return SeasonLevelExperience[level - 1];
+					}
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SeasonTemplate.GetSeasonExperience(int)).MethodHandle;
-			}
-			return this.SeasonLevelExperience[level - 1];
+			return m_experiencePerLevelAfter;
 		}
-		return this.m_experiencePerLevelAfter;
+		return 1;
 	}
 
 	public int GetPlayerFacingSeasonNumber()
 	{
-		if (this.PlayerFacingSeasonNumberOverride > 0)
+		if (PlayerFacingSeasonNumberOverride > 0)
 		{
-			return this.PlayerFacingSeasonNumberOverride;
+			return PlayerFacingSeasonNumberOverride;
 		}
-		return this.Index;
-	}
-
-	[Serializable]
-	public class TierReward
-	{
-		public int Tier;
-
-		public SeasonRewards Rewards;
-	}
-
-	[Serializable]
-	public class SeasonEndRewards
-	{
-		public List<QuestCurrencyReward> CurrencyRewards;
-
-		public List<QuestUnlockReward> UnlockRewards;
-
-		public List<QuestItemReward> ItemRewards;
-	}
-
-	[Serializable]
-	public class ConditionalSeasonEndRewards : SeasonTemplate.SeasonEndRewards
-	{
-		public QuestPrerequisites Prerequisites;
+		return Index;
 	}
 }

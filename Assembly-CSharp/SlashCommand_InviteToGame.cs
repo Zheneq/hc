@@ -1,49 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
+using System;
+using System.Collections.Generic;
 
 public class SlashCommand_InviteToGame : SlashCommand
 {
-	public SlashCommand_InviteToGame() : base("/invitetogame", SlashCommandType.InFrontEnd)
+	public SlashCommand_InviteToGame()
+		: base("/invitetogame", SlashCommandType.InFrontEnd)
 	{
 	}
 
 	public override void OnSlashCommand(string arguments)
 	{
-		if (SlashCommand_InviteToGame.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_InviteToGame.OnSlashCommand(string)).MethodHandle;
-			}
-			SlashCommand_InviteToGame.<>f__am$cache0 = delegate(GameInvitationResponse response)
+		
+		Action<GameInvitationResponse> onResponseCallback = delegate(GameInvitationResponse response)
 			{
 				TextConsole.Message message = default(TextConsole.Message);
 				message.MessageType = ConsoleMessageType.SystemMessage;
 				if (response.Success)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(SlashCommand_InviteToGame.<OnSlashCommand>m__0(GameInvitationResponse)).MethodHandle;
-					}
 					message.Text = string.Format(StringUtil.TR("InviteSentTo", "SlashCommand"), response.InviteeHandle);
 				}
 				else if (response.LocalizedFailure != null)
@@ -52,66 +26,28 @@ public class SlashCommand_InviteToGame : SlashCommand
 				}
 				else if (!response.ErrorMessage.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					message.Text = string.Format("Failed: {0}#NeedsLocalization", response.ErrorMessage);
+					message.Text = $"Failed: {response.ErrorMessage}#NeedsLocalization";
 				}
 				else
 				{
 					message.Text = StringUtil.TR("UnknownErrorTryAgain", "Frontend");
 				}
-				TextConsole.Get().Write(message, null);
+				TextConsole.Get().Write(message);
 			};
-		}
-		Action<GameInvitationResponse> onResponseCallback = SlashCommand_InviteToGame.<>f__am$cache0;
 		if (!arguments.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(ClientGameManager.Get() == null))
 			{
 				ClientGameManager.Get().InvitePlayerToGame(arguments, onResponseCallback);
 				return;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		FriendList friendList = ClientGameManager.Get().FriendList;
-		foreach (KeyValuePair<long, FriendInfo> keyValuePair in friendList.Friends)
+		foreach (KeyValuePair<long, FriendInfo> friend in friendList.Friends)
 		{
-			if (keyValuePair.Value.IsOnline)
+			if (friend.Value.IsOnline)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ClientGameManager.Get().InvitePlayerToGame(keyValuePair.Value.FriendHandle, onResponseCallback);
+				ClientGameManager.Get().InvitePlayerToGame(friend.Value.FriendHandle, onResponseCallback);
 			}
 		}
 	}

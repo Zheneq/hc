@@ -1,179 +1,9 @@
-﻿using System;
 using I2.Loc;
+using System;
 using UnityEngine;
 
 public class AccountPreferences : MonoBehaviour
 {
-	internal bool ApplicationHasFocus = true;
-
-	public AccountPreferences.DefaultSettingsData[] m_defaultSettings;
-
-	public int m_languageIndex;
-
-	private static AccountPreferences s_instance;
-
-	private void OnApplicationFocus(bool hasFocus)
-	{
-		this.ApplicationHasFocus = hasFocus;
-	}
-
-	internal static AccountPreferences Get()
-	{
-		return AccountPreferences.s_instance;
-	}
-
-	public static bool DoesApplicationHaveFocus()
-	{
-		bool result;
-		if (AccountPreferences.s_instance != null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountPreferences.DoesApplicationHaveFocus()).MethodHandle;
-			}
-			result = AccountPreferences.s_instance.ApplicationHasFocus;
-		}
-		else
-		{
-			result = false;
-		}
-		return result;
-	}
-
-	private void Awake()
-	{
-		AccountPreferences.s_instance = this;
-	}
-
-	private void Start()
-	{
-		this.SetLanguageIndex();
-		for (int i = 0; i < this.m_defaultSettings[this.m_languageIndex].m_boolDefaults.Length; i++)
-		{
-			if (!PlayerPrefs.HasKey(this.m_defaultSettings[this.m_languageIndex].m_boolDefaults[i].m_preference.ToString()))
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AccountPreferences.Start()).MethodHandle;
-				}
-				this.SetBool(this.m_defaultSettings[this.m_languageIndex].m_boolDefaults[i].m_preference, this.m_defaultSettings[this.m_languageIndex].m_boolDefaults[i].m_value);
-			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-	}
-
-	private void OnDestroy()
-	{
-		AccountPreferences.s_instance = null;
-	}
-
-	private void SetLanguageIndex()
-	{
-		this.m_languageIndex = 0;
-		int num = 0;
-		foreach (AccountPreferences.DefaultSettingsData defaultSettingsData in this.m_defaultSettings)
-		{
-			if (defaultSettingsData.Name == LocalizationManager.CurrentLanguageCode)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AccountPreferences.SetLanguageIndex()).MethodHandle;
-				}
-				this.m_languageIndex = num;
-				return;
-			}
-			num++;
-		}
-	}
-
-	public int GetKeyDefaultsSize()
-	{
-		return this.m_defaultSettings[this.m_languageIndex].m_keyDefaults.Length;
-	}
-
-	public AccountPreferences.KeyCodeDefault GetKeyCodeDefault(int index)
-	{
-		return this.m_defaultSettings[this.m_languageIndex].m_keyDefaults[index];
-	}
-
-	internal bool GetBool(BoolPreference key)
-	{
-		return PlayerPrefs.GetInt(key.ToString()) != 0;
-	}
-
-	private int GetInt(string key)
-	{
-		return PlayerPrefs.GetInt(key);
-	}
-
-	internal void SetBool(BoolPreference key, bool value)
-	{
-		string key2 = key.ToString();
-		int value2;
-		if (value)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountPreferences.SetBool(BoolPreference, bool)).MethodHandle;
-			}
-			value2 = 1;
-		}
-		else
-		{
-			value2 = 0;
-		}
-		PlayerPrefs.SetInt(key2, value2);
-	}
-
-	private void SetInt(string key, int value)
-	{
-		PlayerPrefs.SetInt(key, value);
-	}
-
 	[Serializable]
 	public class BoolDefault
 	{
@@ -205,8 +35,140 @@ public class AccountPreferences : MonoBehaviour
 	{
 		public string Name;
 
-		public AccountPreferences.BoolDefault[] m_boolDefaults = new AccountPreferences.BoolDefault[0];
+		public BoolDefault[] m_boolDefaults = new BoolDefault[0];
 
-		public AccountPreferences.KeyCodeDefault[] m_keyDefaults = new AccountPreferences.KeyCodeDefault[0];
+		public KeyCodeDefault[] m_keyDefaults = new KeyCodeDefault[0];
+	}
+
+	internal bool ApplicationHasFocus = true;
+
+	public DefaultSettingsData[] m_defaultSettings;
+
+	public int m_languageIndex;
+
+	private static AccountPreferences s_instance;
+
+	private void OnApplicationFocus(bool hasFocus)
+	{
+		ApplicationHasFocus = hasFocus;
+	}
+
+	internal static AccountPreferences Get()
+	{
+		return s_instance;
+	}
+
+	public static bool DoesApplicationHaveFocus()
+	{
+		int result;
+		if (s_instance != null)
+		{
+			result = (s_instance.ApplicationHasFocus ? 1 : 0);
+		}
+		else
+		{
+			result = 0;
+		}
+		return (byte)result != 0;
+	}
+
+	private void Awake()
+	{
+		s_instance = this;
+	}
+
+	private void Start()
+	{
+		SetLanguageIndex();
+		for (int i = 0; i < m_defaultSettings[m_languageIndex].m_boolDefaults.Length; i++)
+		{
+			if (!PlayerPrefs.HasKey(m_defaultSettings[m_languageIndex].m_boolDefaults[i].m_preference.ToString()))
+			{
+				SetBool(m_defaultSettings[m_languageIndex].m_boolDefaults[i].m_preference, m_defaultSettings[m_languageIndex].m_boolDefaults[i].m_value);
+			}
+		}
+		while (true)
+		{
+			switch (5)
+			{
+			default:
+				return;
+			case 0:
+				break;
+			}
+		}
+	}
+
+	private void OnDestroy()
+	{
+		s_instance = null;
+	}
+
+	private void SetLanguageIndex()
+	{
+		m_languageIndex = 0;
+		int num = 0;
+		DefaultSettingsData[] defaultSettings = m_defaultSettings;
+		int num2 = 0;
+		while (true)
+		{
+			if (num2 < defaultSettings.Length)
+			{
+				DefaultSettingsData defaultSettingsData = defaultSettings[num2];
+				if (defaultSettingsData.Name == LocalizationManager.CurrentLanguageCode)
+				{
+					break;
+				}
+				num++;
+				num2++;
+				continue;
+			}
+			return;
+		}
+		while (true)
+		{
+			m_languageIndex = num;
+			return;
+		}
+	}
+
+	public int GetKeyDefaultsSize()
+	{
+		return m_defaultSettings[m_languageIndex].m_keyDefaults.Length;
+	}
+
+	public KeyCodeDefault GetKeyCodeDefault(int index)
+	{
+		return m_defaultSettings[m_languageIndex].m_keyDefaults[index];
+	}
+
+	internal bool GetBool(BoolPreference key)
+	{
+		return PlayerPrefs.GetInt(key.ToString()) != 0;
+	}
+
+	private int GetInt(string key)
+	{
+		return PlayerPrefs.GetInt(key);
+	}
+
+	internal void SetBool(BoolPreference key, bool value)
+	{
+		string key2 = key.ToString();
+		int value2;
+		if (value)
+		{
+			value2 = 1;
+		}
+		else
+		{
+			value2 = 0;
+		}
+		PlayerPrefs.SetInt(key2, value2);
+	}
+
+	private void SetInt(string key, int value)
+	{
+		PlayerPrefs.SetInt(key, value);
 	}
 }

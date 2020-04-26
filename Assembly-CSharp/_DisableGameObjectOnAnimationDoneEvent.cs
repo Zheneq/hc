@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -14,16 +13,16 @@ public class _DisableGameObjectOnAnimationDoneEvent : MonoBehaviour
 
 	private void Awake()
 	{
-		this.m_animator = base.gameObject.GetComponent<Animator>();
+		m_animator = base.gameObject.GetComponent<Animator>();
 	}
 
 	public void DisableGameObjectOnAnimDoneListenerEvent()
 	{
-		this.m_isListening = true;
-		for (int i = 0; i < this.m_animator.layerCount; i++)
+		m_isListening = true;
+		for (int i = 0; i < m_animator.layerCount; i++)
 		{
-			AnimatorClipInfo[] currentAnimatorClipInfo = this.m_animator.GetCurrentAnimatorClipInfo(i);
-			AnimatorStateInfo currentAnimatorStateInfo = this.m_animator.GetCurrentAnimatorStateInfo(i);
+			AnimatorClipInfo[] currentAnimatorClipInfo = m_animator.GetCurrentAnimatorClipInfo(i);
+			AnimatorStateInfo currentAnimatorStateInfo = m_animator.GetCurrentAnimatorStateInfo(i);
 			for (int j = 0; j < currentAnimatorClipInfo.Length; j++)
 			{
 				AnimationEvent[] events = currentAnimatorClipInfo[j].clip.events;
@@ -31,32 +30,23 @@ public class _DisableGameObjectOnAnimationDoneEvent : MonoBehaviour
 				{
 					if (events[k].functionName == "DisableGameObjectOnAnimDoneListenerEvent")
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(_DisableGameObjectOnAnimationDoneEvent.DisableGameObjectOnAnimDoneListenerEvent()).MethodHandle;
-						}
 						if (currentAnimatorStateInfo.normalizedTime >= 1f)
 						{
-							this.m_stateName = currentAnimatorClipInfo[j].clip.name;
+							m_stateName = currentAnimatorClipInfo[j].clip.name;
 						}
 					}
 				}
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						goto end_IL_00b1;
 					}
+					continue;
+					end_IL_00b1:
 					break;
 				}
 			}
@@ -65,136 +55,75 @@ public class _DisableGameObjectOnAnimationDoneEvent : MonoBehaviour
 
 	private void DoDisable()
 	{
-		this.m_isListening = false;
-		this.m_stateName = string.Empty;
-		for (int i = 0; i < this.m_gameObjectsToDisable.Length; i++)
+		m_isListening = false;
+		m_stateName = string.Empty;
+		for (int i = 0; i < m_gameObjectsToDisable.Length; i++)
 		{
-			if (this.m_gameObjectsToDisable[i].activeSelf)
+			if (m_gameObjectsToDisable[i].activeSelf)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_DisableGameObjectOnAnimationDoneEvent.DoDisable()).MethodHandle;
-				}
-				UIManager.SetGameObjectActive(this.m_gameObjectsToDisable[i], false, null);
+				UIManager.SetGameObjectActive(m_gameObjectsToDisable[i], false);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_gameObjectsToDisable.Length > 0)
+		if (m_gameObjectsToDisable.Length <= 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!m_isListening)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			int layerCount = m_animator.layerCount;
+			for (int i = 0; i < layerCount; i++)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DisableGameObjectOnAnimationDoneEvent.Update()).MethodHandle;
-			}
-			if (this.m_isListening)
-			{
-				int layerCount = this.m_animator.layerCount;
-				for (int i = 0; i < layerCount; i++)
+				AnimatorClipInfo[] currentAnimatorClipInfo = m_animator.GetCurrentAnimatorClipInfo(i);
+				AnimatorStateInfo currentAnimatorStateInfo = m_animator.GetCurrentAnimatorStateInfo(i);
+				for (int j = 0; j < currentAnimatorClipInfo.Length; j++)
 				{
-					AnimatorClipInfo[] currentAnimatorClipInfo = this.m_animator.GetCurrentAnimatorClipInfo(i);
-					AnimatorStateInfo currentAnimatorStateInfo = this.m_animator.GetCurrentAnimatorStateInfo(i);
-					int j = 0;
-					while (j < currentAnimatorClipInfo.Length)
+					AnimationEvent[] events = currentAnimatorClipInfo[j].clip.events;
+					if (events.Length != 0)
 					{
-						AnimationEvent[] events = currentAnimatorClipInfo[j].clip.events;
-						if (events.Length == 0)
+						if (m_stateName.IsNullOrEmpty() || !(currentAnimatorClipInfo[j].clip.name != m_stateName))
 						{
-							goto IL_C1;
-						}
-						for (;;)
-						{
-							switch (7)
+							for (int k = 0; k < events.Length; k++)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!this.m_stateName.IsNullOrEmpty() && currentAnimatorClipInfo[j].clip.name != this.m_stateName)
-						{
-							goto IL_C1;
-						}
-						for (int k = 0; k < events.Length; k++)
-						{
-							if (events[k].functionName == "DisableGameObjectOnAnimDoneListenerEvent")
-							{
-								for (;;)
+								if (!(events[k].functionName == "DisableGameObjectOnAnimDoneListenerEvent"))
 								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
+									continue;
 								}
 								if (currentAnimatorStateInfo.normalizedTime >= 1f)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.DoDisable();
+									DoDisable();
 								}
 							}
+							continue;
 						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						IL_128:
-						j++;
-						continue;
-						IL_C1:
-						this.DoDisable();
-						goto IL_128;
 					}
+					DoDisable();
 				}
-				for (;;)
+			}
+			while (true)
+			{
+				switch (4)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
+				default:
+					return;
+				case 0:
 					break;
 				}
 			}

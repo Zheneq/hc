@@ -1,17 +1,23 @@
-﻿using System;
+using I2.Loc;
+using LobbyGameClientMessages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using I2.Loc;
-using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UITextConsole : MonoBehaviour
 {
+	private struct HandledMessage
+	{
+		public TextConsole.Message Message;
+
+		public TextConsole.AllowedEmojis AllowedEmojis;
+	}
+
 	public RectTransform m_ScaleBoxParent;
 
 	public UI_NewTextList m_theTextList;
@@ -98,11 +104,11 @@ public class UITextConsole : MonoBehaviour
 
 	private bool setInputSelected;
 
-	private const int c_maxConsoleStringLength = 0x100;
+	private const int c_maxConsoleStringLength = 256;
 
-	private const int c_maxTextSendLength = 0xC8;
+	private const int c_maxTextSendLength = 200;
 
-	private static Queue<UITextConsole.HandledMessage> s_handledMessages = new Queue<UITextConsole.HandledMessage>();
+	private static Queue<HandledMessage> s_handledMessages = new Queue<HandledMessage>();
 
 	private static List<string> s_history = new List<string>();
 
@@ -154,443 +160,276 @@ public class UITextConsole : MonoBehaviour
 
 	private static List<string> m_whisperedPlayers = new List<string>();
 
-	[CompilerGenerated]
-	private static Action<FriendStatusNotification> <>f__mg$cache0;
+	//[CompilerGenerated]
+	//private static Action<FriendStatusNotification> HandleFriendStatusNotification;
+
+	//[CompilerGenerated]
+	//private static Action OnGroupUpdateNotification;
 
 	[CompilerGenerated]
-	private static Action <>f__mg$cache1;
+	private static Action<FriendStatusNotification> _003C_003Ef__mg_0024cache2;
 
-	[CompilerGenerated]
-	private static Action<FriendStatusNotification> <>f__mg$cache2;
+	//[CompilerGenerated]
+	//private static Action OnGroupUpdateNotification;
 
-	[CompilerGenerated]
-	private static Action <>f__mg$cache3;
-
-	private bool m_changeChannelAlpha
-	{
-		get
-		{
-			return UIManager.Get().CurrentState == UIManager.ClientState.InGame;
-		}
-	}
+	private bool m_changeChannelAlpha => UIManager.Get().CurrentState == UIManager.ClientState.InGame;
 
 	private static void InitializeAutoComplete()
 	{
-		if (!UITextConsole.m_isAutoCompleteInitialized)
+		if (m_isAutoCompleteInitialized)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.InitializeAutoComplete()).MethodHandle;
-			}
-			UITextConsole.m_chatCommands.Add(UITextConsole.m_globalCommand);
-			UITextConsole.m_chatCommands.Add(UITextConsole.m_teamCommand);
-			UITextConsole.m_chatCommands.Add(UITextConsole.m_allCommand);
-			UITextConsole.m_chatCommands.Add(UITextConsole.m_groupCommand);
-			UITextConsole.m_chatCommands.Add(UITextConsole.m_whisperCommand);
-			UITextConsole.m_playerCommands.Add(UITextConsole.m_whisperCommand);
-			UITextConsole.m_playerCommands.Add(new SlashCommand_GroupInvite());
-			UITextConsole.m_playerCommands.Add(new SlashCommand_UserBlock());
-			UITextConsole.BuildLocalizedSlashCommands();
+			return;
+		}
+		while (true)
+		{
+			m_chatCommands.Add(m_globalCommand);
+			m_chatCommands.Add(m_teamCommand);
+			m_chatCommands.Add(m_allCommand);
+			m_chatCommands.Add(m_groupCommand);
+			m_chatCommands.Add(m_whisperCommand);
+			m_playerCommands.Add(m_whisperCommand);
+			m_playerCommands.Add(new SlashCommand_GroupInvite());
+			m_playerCommands.Add(new SlashCommand_UserBlock());
+			BuildLocalizedSlashCommands();
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (Dictionary<long, FriendInfo>.ValueCollection.Enumerator enumerator = ClientGameManager.Get().FriendList.Friends.Values.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						FriendInfo friendInfo = enumerator.Current;
-						if (friendInfo.FriendStatus == FriendStatus.Friend)
+						FriendInfo current = enumerator.Current;
+						if (current.FriendStatus == FriendStatus.Friend)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							UITextConsole.TryAddToAutoComplete(friendInfo.FriendHandle);
+							TryAddToAutoComplete(current.FriendHandle);
 						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
-			UITextConsole.m_isAutoCompleteInitialized = true;
+			m_isAutoCompleteInitialized = true;
+			return;
 		}
 	}
 
 	private void Start()
 	{
-		this.m_autocompleteList.SetVisible(false);
-		this.m_chatroomList.SetVisible(false);
-		UITextConsole.InitializeAutoComplete();
-		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnPointerEnter));
-		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.OnPointerExit));
-		UIEventTriggerUtils.AddListener(this.m_textInput.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnInputClicked));
-		UIEventTriggerUtils.AddListener(this.m_chatroomHitbox.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnChatroomClick));
-		UIEventTriggerUtils.AddListener(this.m_scrollBar.gameObject, EventTriggerType.Scroll, new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-		UIEventTriggerUtils.AddListener(this.m_background.gameObject, EventTriggerType.Scroll, new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-		this.m_textInput.onEndEdit.AddListener(new UnityAction<string>(this.OnEndEdit));
-		this.m_textInput.onValueChanged.AddListener(new UnityAction<string>(this.OnTypeInput));
-		this.m_scrollRect.scrollSensitivity = 100f;
-		this.lastAlphaSet = -1f;
-		this.m_visible = false;
-		this.chatAlpha.EaseTo(this.m_startAlpha, 0f);
-		this.ApplyChatAlpha();
-		this.blockingRaycasts = false;
-		for (int i = 0; i < this.m_inGameCanvasGroups.Length; i++)
+		m_autocompleteList.SetVisible(false);
+		m_chatroomList.SetVisible(false);
+		InitializeAutoComplete();
+		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerEnter, OnPointerEnter);
+		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerExit, OnPointerExit);
+		UIEventTriggerUtils.AddListener(m_textInput.gameObject, EventTriggerType.PointerClick, OnInputClicked);
+		UIEventTriggerUtils.AddListener(m_chatroomHitbox.gameObject, EventTriggerType.PointerClick, OnChatroomClick);
+		UIEventTriggerUtils.AddListener(m_scrollBar.gameObject, EventTriggerType.Scroll, OnScroll);
+		UIEventTriggerUtils.AddListener(m_background.gameObject, EventTriggerType.Scroll, OnScroll);
+		m_textInput.onEndEdit.AddListener(OnEndEdit);
+		m_textInput.onValueChanged.AddListener(OnTypeInput);
+		m_scrollRect.scrollSensitivity = 100f;
+		lastAlphaSet = -1f;
+		m_visible = false;
+		chatAlpha.EaseTo(m_startAlpha, 0f);
+		ApplyChatAlpha();
+		blockingRaycasts = false;
+		for (int i = 0; i < m_inGameCanvasGroups.Length; i++)
 		{
-			this.m_inGameCanvasGroups[i].blocksRaycasts = true;
+			m_inGameCanvasGroups[i].blocksRaycasts = true;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
+			for (int j = 0; j < m_frontEndCanvasGroups.Length; j++)
 			{
-			case 0:
-				continue;
+				m_frontEndCanvasGroups[j].blocksRaycasts = blockingRaycasts;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.Start()).MethodHandle;
-		}
-		for (int j = 0; j < this.m_frontEndCanvasGroups.Length; j++)
-		{
-			this.m_frontEndCanvasGroups[j].blocksRaycasts = this.blockingRaycasts;
-		}
-		if (this.m_newTextGlow != null)
-		{
-			for (;;)
+			if (m_newTextGlow != null)
 			{
-				switch (4)
+				UIManager.SetGameObjectActive(m_newTextGlow, false);
+			}
+			m_storedHistory = null;
+			m_storedChatCommand = null;
+			m_historyIndex = s_history.Count;
+			HandledMessage[] array = s_handledMessages.ToArray();
+			for (int k = 0; k < array.Length; k++)
+			{
+				DisplayMessage(array[k].Message, array[k].AllowedEmojis);
+			}
+			m_theTextList.HideRecentText();
+			if (m_changeChannelAlpha)
+			{
+				if (m_startAlpha == 0f)
 				{
-				case 0:
-					continue;
+					UIManager.SetGameObjectActive(m_chatroomHitbox, false);
 				}
-				break;
 			}
-			UIManager.SetGameObjectActive(this.m_newTextGlow, false, null);
-		}
-		this.m_storedHistory = null;
-		this.m_storedChatCommand = null;
-		this.m_historyIndex = UITextConsole.s_history.Count;
-		UITextConsole.HandledMessage[] array = UITextConsole.s_handledMessages.ToArray();
-		for (int k = 0; k < array.Length; k++)
-		{
-			this.DisplayMessage(array[k].Message, array[k].AllowedEmojis);
-		}
-		this.m_theTextList.HideRecentText();
-		if (this.m_changeChannelAlpha)
-		{
-			for (;;)
+			ChangeChatRoom();
+			if (ClientGameManager.Get() != null)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				ClientGameManager clientGameManager = ClientGameManager.Get();
+				
+				clientGameManager.OnFriendStatusNotification += HandleFriendStatusNotification;
+				ClientGameManager clientGameManager2 = ClientGameManager.Get();
+				
+				clientGameManager2.OnGroupUpdateNotification += OnGroupUpdateNotification;
+				ClientGameManager.Get().OnGameInfoNotification += OnGameInfoNotification;
 			}
-			if (this.m_startAlpha == 0f)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_chatroomHitbox, false, null);
-			}
+			RebuildLocalizedText();
+			LocalizationManager.OnLocalizeEvent += RebuildLocalizedText;
+			return;
 		}
-		this.ChangeChatRoom();
-		if (ClientGameManager.Get() != null)
-		{
-			ClientGameManager clientGameManager = ClientGameManager.Get();
-			if (UITextConsole.<>f__mg$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UITextConsole.<>f__mg$cache0 = new Action<FriendStatusNotification>(UITextConsole.HandleFriendStatusNotification);
-			}
-			clientGameManager.OnFriendStatusNotification += UITextConsole.<>f__mg$cache0;
-			ClientGameManager clientGameManager2 = ClientGameManager.Get();
-			if (UITextConsole.<>f__mg$cache1 == null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UITextConsole.<>f__mg$cache1 = new Action(UITextConsole.OnGroupUpdateNotification);
-			}
-			clientGameManager2.OnGroupUpdateNotification += UITextConsole.<>f__mg$cache1;
-			ClientGameManager.Get().OnGameInfoNotification += this.OnGameInfoNotification;
-		}
-		this.RebuildLocalizedText();
-		LocalizationManager.OnLocalizeEvent += this.RebuildLocalizedText;
 	}
 
 	private void RebuildLocalizedText()
 	{
-		using (List<SlashCommand>.Enumerator enumerator = UITextConsole.m_chatCommands.GetEnumerator())
+		using (List<SlashCommand>.Enumerator enumerator = m_chatCommands.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				SlashCommand slashCommand = enumerator.Current;
-				slashCommand.Localize();
+				SlashCommand current = enumerator.Current;
+				current.Localize();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_000d;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.RebuildLocalizedText()).MethodHandle;
-			}
+			end_IL_000d:;
 		}
-		using (List<SlashCommand>.Enumerator enumerator2 = UITextConsole.m_playerCommands.GetEnumerator())
+		using (List<SlashCommand>.Enumerator enumerator2 = m_playerCommands.GetEnumerator())
 		{
 			while (enumerator2.MoveNext())
 			{
-				SlashCommand slashCommand2 = enumerator2.Current;
-				slashCommand2.Localize();
+				SlashCommand current2 = enumerator2.Current;
+				current2.Localize();
 			}
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	public static void BuildLocalizedSlashCommands()
 	{
-		UITextConsole.m_friendAutocomplete.Clear();
-		UITextConsole.m_friendAutocomplete.Add(StringUtil.TR("AcceptFriend", "SlashCommand"));
-		UITextConsole.m_friendAutocomplete.Add(StringUtil.TR("AddFriend", "SlashCommand"));
-		UITextConsole.m_friendAutocomplete.Add(StringUtil.TR("NoteFriend", "SlashCommand"));
-		UITextConsole.m_friendAutocomplete.Add(StringUtil.TR("RejectFriend", "SlashCommand"));
-		UITextConsole.m_friendAutocomplete.Add(StringUtil.TR("RemoveFriend", "SlashCommand"));
-		UITextConsole.m_frontendAutocomplete.Clear();
-		UITextConsole.m_inGameAutocomplete.Clear();
+		m_friendAutocomplete.Clear();
+		m_friendAutocomplete.Add(StringUtil.TR("AcceptFriend", "SlashCommand"));
+		m_friendAutocomplete.Add(StringUtil.TR("AddFriend", "SlashCommand"));
+		m_friendAutocomplete.Add(StringUtil.TR("NoteFriend", "SlashCommand"));
+		m_friendAutocomplete.Add(StringUtil.TR("RejectFriend", "SlashCommand"));
+		m_friendAutocomplete.Add(StringUtil.TR("RemoveFriend", "SlashCommand"));
+		m_frontendAutocomplete.Clear();
+		m_inGameAutocomplete.Clear();
 		if (SlashCommands.Get() != null)
 		{
 			using (List<SlashCommand>.Enumerator enumerator = SlashCommands.Get().m_slashCommands.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					SlashCommand slashCommand = enumerator.Current;
-					if (!slashCommand.PublicFacing)
+					SlashCommand current = enumerator.Current;
+					if (!current.PublicFacing)
 					{
 						if (!ClientGameManager.Get().HasDeveloperAccess())
 						{
 							continue;
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.BuildLocalizedSlashCommands()).MethodHandle;
-						}
 					}
-					if (slashCommand.AvailableInFrontEnd)
+					if (current.AvailableInFrontEnd)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UITextConsole.m_frontendAutocomplete.Add(slashCommand.Command);
+						m_frontendAutocomplete.Add(current.Command);
 					}
-					if (slashCommand.AvailableInGame)
+					if (current.AvailableInGame)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UITextConsole.m_inGameAutocomplete.Add(slashCommand.Command);
+						m_inGameAutocomplete.Add(current.Command);
 					}
-					if (slashCommand.Aliases == null)
+					if (current.Aliases == null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
-						foreach (string item in slashCommand.Aliases)
+						foreach (string alias in current.Aliases)
 						{
-							if (slashCommand.AvailableInFrontEnd)
+							if (current.AvailableInFrontEnd)
 							{
-								UITextConsole.m_frontendAutocomplete.Add(item);
+								m_frontendAutocomplete.Add(alias);
 							}
-							if (slashCommand.AvailableInGame)
+							if (current.AvailableInGame)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								UITextConsole.m_inGameAutocomplete.Add(item);
+								m_inGameAutocomplete.Add(alias);
 							}
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
-		UITextConsole.m_frontendAutocomplete.Add(StringUtil.TR("/reply", "SlashCommand"));
-		UITextConsole.m_frontendAutocomplete.Add(StringUtil.TR("/reply", "SlashCommandAlias1"));
-		UITextConsole.m_frontendAutocomplete.Sort();
-		UITextConsole.m_inGameAutocomplete.Add(StringUtil.TR("/reply", "SlashCommand"));
-		UITextConsole.m_inGameAutocomplete.Add(StringUtil.TR("/reply", "SlashCommandAlias1"));
-		UITextConsole.m_inGameAutocomplete.Sort();
+		m_frontendAutocomplete.Add(StringUtil.TR("/reply", "SlashCommand"));
+		m_frontendAutocomplete.Add(StringUtil.TR("/reply", "SlashCommandAlias1"));
+		m_frontendAutocomplete.Sort();
+		m_inGameAutocomplete.Add(StringUtil.TR("/reply", "SlashCommand"));
+		m_inGameAutocomplete.Add(StringUtil.TR("/reply", "SlashCommandAlias1"));
+		m_inGameAutocomplete.Sort();
 	}
 
 	private void OnScroll(BaseEventData data)
 	{
-		if ((double)this.chatAlpha < 0.5)
+		if ((double)(float)chatAlpha < 0.5)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.OnScroll(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
-		this.m_scrollRect.OnScroll((PointerEventData)data);
+		m_scrollRect.OnScroll((PointerEventData)data);
 	}
 
 	private static void HandleFriendStatusNotification(FriendStatusNotification notification)
 	{
 		if (notification.FriendList.IsError)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					TextConsole.Get().Write("Friends list temporarily unavailable", ConsoleMessageType.Error);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.HandleFriendStatusNotification(FriendStatusNotification)).MethodHandle;
-			}
-			TextConsole.Get().Write("Friends list temporarily unavailable", ConsoleMessageType.Error);
-			return;
 		}
 		using (Dictionary<long, FriendInfo>.ValueCollection.Enumerator enumerator = notification.FriendList.Friends.Values.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				FriendInfo friendInfo = enumerator.Current;
-				if (friendInfo.FriendStatus == FriendStatus.Friend)
+				FriendInfo current = enumerator.Current;
+				if (current.FriendStatus == FriendStatus.Friend)
 				{
-					UITextConsole.TryAddToAutoComplete(friendInfo.FriendHandle);
+					TryAddToAutoComplete(current.FriendHandle);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
@@ -602,122 +441,78 @@ public class UITextConsole : MonoBehaviour
 		{
 			while (enumerator.MoveNext())
 			{
-				LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-				if (lobbyPlayerInfo.IsNPCBot)
+				LobbyPlayerInfo current = enumerator.Current;
+				if (current.IsNPCBot)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.AddToTeamMatesToAutoComplete(LobbyTeamInfo)).MethodHandle;
-					}
-					if (!lobbyPlayerInfo.BotsMasqueradeAsHumans)
+					if (!current.BotsMasqueradeAsHumans)
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-				UITextConsole.TryAddToAutoComplete(lobbyPlayerInfo.Handle);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				TryAddToAutoComplete(current.Handle);
 			}
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						enumerator.Dispose();
+						goto end_IL_006a;
 					}
-					break;
 				}
-				enumerator.Dispose();
 			}
+			end_IL_006a:;
 		}
 		IEnumerator<LobbyPlayerInfo> enumerator2 = lobbyTeamInfo.TeamBPlayerInfo.GetEnumerator();
 		try
 		{
 			while (enumerator2.MoveNext())
 			{
-				LobbyPlayerInfo lobbyPlayerInfo2 = enumerator2.Current;
-				if (lobbyPlayerInfo2.IsNPCBot)
+				LobbyPlayerInfo current2 = enumerator2.Current;
+				if (current2.IsNPCBot)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!lobbyPlayerInfo2.BotsMasqueradeAsHumans)
+					if (!current2.BotsMasqueradeAsHumans)
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-				UITextConsole.TryAddToAutoComplete(lobbyPlayerInfo2.Handle);
+				TryAddToAutoComplete(current2.Handle);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 		finally
 		{
 			if (enumerator2 != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						enumerator2.Dispose();
+						goto end_IL_00df;
 					}
-					break;
 				}
-				enumerator2.Dispose();
 			}
+			end_IL_00df:;
 		}
 	}
 
@@ -725,86 +520,43 @@ public class UITextConsole : MonoBehaviour
 	{
 		if (!handle.IsNullOrEmpty())
 		{
-			for (;;)
+			if (!(handle == ClientGameManager.Get().Handle))
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.TryAddToAutoComplete(string)).MethodHandle;
-			}
-			if (handle == ClientGameManager.Get().Handle)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				int num = UITextConsole.m_playerAutocomplete.BinarySearch(handle, UITextConsole.m_caseInsenitiveComparer);
+				int num = m_playerAutocomplete.BinarySearch(handle, m_caseInsenitiveComparer);
 				if (num < 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							m_playerAutocomplete.Insert(~num, handle);
+							return true;
 						}
-						break;
 					}
-					UITextConsole.m_playerAutocomplete.Insert(~num, handle);
-					return true;
 				}
 				if (num == 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (UITextConsole.m_playerAutocomplete.Count != 0)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						if (handle.EqualsIgnoreCase(UITextConsole.m_playerAutocomplete[0]))
-						{
-							return false;
-						}
-						for (;;)
-						{
-							switch (7)
+						default:
+							if (m_playerAutocomplete.Count != 0)
 							{
-							case 0:
-								continue;
+								if (handle.EqualsIgnoreCase(m_playerAutocomplete[0]))
+								{
+									return false;
+								}
 							}
-							break;
+							m_playerAutocomplete.Insert(0, handle);
+							return true;
 						}
 					}
-					UITextConsole.m_playerAutocomplete.Insert(0, handle);
-					return true;
 				}
 				return false;
 			}
@@ -821,291 +573,173 @@ public class UITextConsole : MonoBehaviour
 		List<UpdateGroupMemberData> members = ClientGameManager.Get().GroupInfo.Members;
 		for (int i = 0; i < members.Count; i++)
 		{
-			UITextConsole.TryAddToAutoComplete(members[i].MemberHandle);
+			TryAddToAutoComplete(members[i].MemberHandle);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.OnGroupUpdateNotification()).MethodHandle;
+			return;
 		}
 	}
 
 	public void AddHandleMessage()
 	{
-		if (TextConsole.Get() != null)
+		if (TextConsole.Get() == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!m_handlingMessages)
 			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					m_handlingMessages = true;
+					TextConsole.Get().OnMessage += HandleMessage;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.AddHandleMessage()).MethodHandle;
-			}
-			if (!this.m_handlingMessages)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_handlingMessages = true;
-				TextConsole.Get().OnMessage += this.HandleMessage;
-			}
+			return;
 		}
 	}
 
 	public void RemoveHandleMessage()
 	{
-		if (TextConsole.Get() != null)
+		if (TextConsole.Get() == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_handlingMessages)
 			{
-				switch (4)
+				while (true)
 				{
-				case 0:
-					continue;
+					m_handlingMessages = false;
+					TextConsole.Get().OnMessage -= HandleMessage;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.RemoveHandleMessage()).MethodHandle;
-			}
-			if (this.m_handlingMessages)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_handlingMessages = false;
-				TextConsole.Get().OnMessage -= this.HandleMessage;
-			}
+			return;
 		}
 	}
 
 	private void OnEnable()
 	{
-		this.blockingRaycasts = false;
+		blockingRaycasts = false;
 		if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 		{
-			for (;;)
+			for (int i = 0; i < m_inGameCanvasGroups.Length; i++)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_inGameCanvasGroups[i].blocksRaycasts = blockingRaycasts;
 			}
-			if (!true)
+			for (int j = 0; j < m_frontEndCanvasGroups.Length; j++)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.OnEnable()).MethodHandle;
-			}
-			for (int i = 0; i < this.m_inGameCanvasGroups.Length; i++)
-			{
-				this.m_inGameCanvasGroups[i].blocksRaycasts = this.blockingRaycasts;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			for (int j = 0; j < this.m_frontEndCanvasGroups.Length; j++)
-			{
-				this.m_frontEndCanvasGroups[j].blocksRaycasts = true;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_frontEndCanvasGroups[j].blocksRaycasts = true;
 			}
 		}
 		else if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
 		{
-			for (;;)
+			for (int k = 0; k < m_inGameCanvasGroups.Length; k++)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_inGameCanvasGroups[k].blocksRaycasts = true;
 			}
-			for (int k = 0; k < this.m_inGameCanvasGroups.Length; k++)
+			for (int l = 0; l < m_frontEndCanvasGroups.Length; l++)
 			{
-				this.m_inGameCanvasGroups[k].blocksRaycasts = true;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			for (int l = 0; l < this.m_frontEndCanvasGroups.Length; l++)
-			{
-				this.m_frontEndCanvasGroups[l].blocksRaycasts = this.blockingRaycasts;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_frontEndCanvasGroups[l].blocksRaycasts = blockingRaycasts;
 			}
 		}
 		if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			for (int m = 0; m < this.m_inGameCanvasGroups.Length; m++)
-			{
-				this.m_inGameCanvasGroups[m].blocksRaycasts = this.blockingRaycasts;
-			}
-			for (;;)
-			{
-				switch (5)
+					break;
+				default:
 				{
-				case 0:
-					continue;
+					for (int m = 0; m < m_inGameCanvasGroups.Length; m++)
+					{
+						m_inGameCanvasGroups[m].blocksRaycasts = blockingRaycasts;
+					}
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							break;
+						default:
+						{
+							for (int n = 0; n < m_frontEndCanvasGroups.Length; n++)
+							{
+								m_frontEndCanvasGroups[n].blocksRaycasts = true;
+							}
+							while (true)
+							{
+								switch (4)
+								{
+								default:
+									return;
+								case 0:
+									break;
+								}
+							}
+						}
+						}
+					}
 				}
-				break;
-			}
-			for (int n = 0; n < this.m_frontEndCanvasGroups.Length; n++)
-			{
-				this.m_frontEndCanvasGroups[n].blocksRaycasts = true;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
 				}
-				break;
 			}
 		}
-		else if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
+		if (UIManager.Get().CurrentState != 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			for (int num = 0; num < m_inGameCanvasGroups.Length; num++)
 			{
-				switch (2)
+				m_inGameCanvasGroups[num].blocksRaycasts = true;
+			}
+			while (true)
+			{
+				for (int num2 = 0; num2 < m_frontEndCanvasGroups.Length; num2++)
 				{
-				case 0:
-					continue;
+					m_frontEndCanvasGroups[num2].blocksRaycasts = blockingRaycasts;
 				}
-				break;
-			}
-			for (int num = 0; num < this.m_inGameCanvasGroups.Length; num++)
-			{
-				this.m_inGameCanvasGroups[num].blocksRaycasts = true;
-			}
-			for (;;)
-			{
-				switch (4)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (1)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
 				}
-				break;
-			}
-			for (int num2 = 0; num2 < this.m_frontEndCanvasGroups.Length; num2++)
-			{
-				this.m_frontEndCanvasGroups[num2].blocksRaycasts = this.blockingRaycasts;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
 
 	private void OnDestroy()
 	{
-		if (ClientGameManager.Get() != null)
+		if (!(ClientGameManager.Get() != null))
 		{
-			ClientGameManager clientGameManager = ClientGameManager.Get();
-			if (UITextConsole.<>f__mg$cache2 == null)
-			{
-				UITextConsole.<>f__mg$cache2 = new Action<FriendStatusNotification>(UITextConsole.HandleFriendStatusNotification);
-			}
-			clientGameManager.OnFriendStatusNotification -= UITextConsole.<>f__mg$cache2;
-			ClientGameManager clientGameManager2 = ClientGameManager.Get();
-			if (UITextConsole.<>f__mg$cache3 == null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.OnDestroy()).MethodHandle;
-				}
-				UITextConsole.<>f__mg$cache3 = new Action(UITextConsole.OnGroupUpdateNotification);
-			}
-			clientGameManager2.OnGroupUpdateNotification -= UITextConsole.<>f__mg$cache3;
-			ClientGameManager.Get().OnGameInfoNotification -= this.OnGameInfoNotification;
+			return;
 		}
+		ClientGameManager.Get().OnFriendStatusNotification -= HandleFriendStatusNotification;
+		ClientGameManager clientGameManager = ClientGameManager.Get();
+		
+		clientGameManager.OnGroupUpdateNotification -= OnGroupUpdateNotification;
+		ClientGameManager.Get().OnGameInfoNotification -= OnGameInfoNotification;
 	}
 
 	public void SetupWhisper(string whisperee)
 	{
-		this.m_chatCommand = UITextConsole.m_whisperCommand.Command + " " + whisperee;
-		this.RefreshChatRoomDisplay();
-		this.SelectInput(string.Empty);
-		this.MoveCaretToEnd();
+		m_chatCommand = m_whisperCommand.Command + " " + whisperee;
+		RefreshChatRoomDisplay();
+		SelectInput(string.Empty);
+		MoveCaretToEnd();
 	}
 
 	public void DisplayMenu(string clickedHandle, float yOffset)
@@ -1124,158 +758,101 @@ public class UITextConsole : MonoBehaviour
 
 	public void AppendInput(string stringToAdd, bool selectInput)
 	{
-		TMP_InputField textInput = this.m_textInput;
-		textInput.text += stringToAdd;
+		m_textInput.text += stringToAdd;
 		if (selectInput)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.AppendInput(string, bool)).MethodHandle;
-			}
-			EventSystem.current.SetSelectedGameObject(this.m_textInput.gameObject);
+			EventSystem.current.SetSelectedGameObject(m_textInput.gameObject);
 		}
-		this.MoveCaretToEnd();
+		MoveCaretToEnd();
 	}
 
 	private void OnTypeInput(string textString)
 	{
-		this.OnTypeInput(textString, true);
+		OnTypeInput(textString, true);
 	}
 
 	private void OnTypeInput(string textString, bool setChatRoom)
 	{
-		if (this.m_ignoreNextTypeInput)
+		if (m_ignoreNextTypeInput)
 		{
-			this.m_ignoreNextTypeInput = false;
+			m_ignoreNextTypeInput = false;
 			return;
 		}
-		if (this.m_autocompleteList.IsVisible())
+		if (m_autocompleteList.IsVisible())
 		{
 			if (Input.GetKey(KeyCode.Backspace))
 			{
-				for (;;)
+				m_ignoreNextTypeInput = true;
+				if (m_textInput.caretPosition > 0)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.OnTypeInput(string, bool)).MethodHandle;
-				}
-				this.m_ignoreNextTypeInput = true;
-				if (this.m_textInput.caretPosition > 0)
-				{
-					this.m_textInput.caretPosition--;
-					this.m_textInput.text = this.m_textInput.text.Substring(0, this.m_textInput.caretPosition) + this.m_textInput.text.Substring(this.m_textInput.caretPosition + 1);
+					m_textInput.caretPosition--;
+					m_textInput.text = m_textInput.text.Substring(0, m_textInput.caretPosition) + m_textInput.text.Substring(m_textInput.caretPosition + 1);
 				}
 			}
 			else if (Input.GetKeyDown(KeyCode.Delete))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						m_autocompleteList.SetVisible(false);
+						return;
 					}
-					break;
 				}
-				this.m_autocompleteList.SetVisible(false);
-				return;
 			}
 		}
-		if (this.m_textInput.text.Length > 0xC8)
+		if (m_textInput.text.Length > 200)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_textInput.text = this.m_textInput.text.Substring(0, 0xC8);
+			m_textInput.text = m_textInput.text.Substring(0, 200);
 		}
-		if (!this.m_textInput.text.StartsWith(StringUtil.TR("/reply", "SlashCommand") + " "))
+		if (!m_textInput.text.StartsWith(StringUtil.TR("/reply", "SlashCommand") + " "))
 		{
-			for (;;)
+			if (!m_textInput.text.StartsWith(StringUtil.TR("/reply", "SlashCommandAlias1") + " "))
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!this.m_textInput.text.StartsWith(StringUtil.TR("/reply", "SlashCommandAlias1") + " "))
-			{
-				goto IL_1E3;
+				goto IL_01e3;
 			}
 		}
-		int num = this.m_textInput.text.IndexOf(' ');
-		this.m_textInput.text = this.GenerateReplyPrefix() + this.m_textInput.text.Substring(num + 1);
-		this.MoveCaretToEnd();
-		IL_1E3:
+		int num = m_textInput.text.IndexOf(' ');
+		m_textInput.text = GenerateReplyPrefix() + m_textInput.text.Substring(num + 1);
+		MoveCaretToEnd();
+		goto IL_01e3;
+		IL_01e3:
 		if (setChatRoom)
 		{
-			this.SetChatRoom(this.m_textInput.text);
+			SetChatRoom(m_textInput.text);
 		}
-		if (!Input.GetKey(KeyCode.Delete))
+		if (Input.GetKey(KeyCode.Delete))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			string beforeAutocomplete;
-			List<string> autoCompletePossibilities = this.GetAutoCompletePossibilities(false, out beforeAutocomplete);
-			int length = Mathf.Clamp(this.m_textInput.caretPosition, 0, this.m_textInput.text.Length);
+			List<string> autoCompletePossibilities = GetAutoCompletePossibilities(false, out beforeAutocomplete);
+			int length = Mathf.Clamp(m_textInput.caretPosition, 0, m_textInput.text.Length);
 			if (autoCompletePossibilities.Count == 1)
 			{
-				for (;;)
+				if (m_textInput.text.Substring(0, length).EndsWith(autoCompletePossibilities[0].Trim()))
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_textInput.text.Substring(0, length).EndsWith(autoCompletePossibilities[0].Trim()))
-				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							m_autocompleteList.SetVisible(false);
+							return;
 						}
-						break;
 					}
-					this.m_autocompleteList.SetVisible(false);
-					return;
 				}
 			}
-			this.m_autocompleteList.Setup(this, autoCompletePossibilities, beforeAutocomplete);
-			this.m_autocompleteList.SetVisible(autoCompletePossibilities.Count > 0);
+			m_autocompleteList.Setup(this, autoCompletePossibilities, beforeAutocomplete);
+			m_autocompleteList.SetVisible(autoCompletePossibilities.Count > 0);
+			return;
 		}
 	}
 
@@ -1283,72 +860,45 @@ public class UITextConsole : MonoBehaviour
 	{
 		if (!Input.GetKeyDown(KeyCode.Return))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.OnEndEdit(string)).MethodHandle;
-			}
 			if (!Input.GetKeyDown(KeyCode.KeypadEnter))
 			{
 				return;
 			}
 		}
-		if (this.m_autocompleteList.IsVisible())
+		if (m_autocompleteList.IsVisible())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_textInput.caretPosition = m_lastCaratPosition;
+					m_autocompleteList.SelectCurrent();
+					return;
 				}
-				break;
 			}
-			this.m_textInput.caretPosition = this.m_lastCaratPosition;
-			this.m_autocompleteList.SelectCurrent();
-			return;
 		}
-		this.m_lastCaratPosition = -1;
-		this.OnInputSubmitted();
-		bool flag;
+		m_lastCaratPosition = -1;
+		OnInputSubmitted();
+		int num;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag = (UIManager.Get().CurrentState == UIManager.ClientState.InGame);
+			num = ((UIManager.Get().CurrentState == UIManager.ClientState.InGame) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
-		if (flag2 && this.m_timeTillCollapse <= 0f)
+		if (num == 0 || !(m_timeTillCollapse <= 0f))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.ToggleVisibility();
+			return;
+		}
+		while (true)
+		{
+			ToggleVisibility();
+			return;
 		}
 	}
 
@@ -1356,548 +906,261 @@ public class UITextConsole : MonoBehaviour
 	{
 		if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 		{
-			for (;;)
+			if (m_inGameFadingImages != null)
 			{
-				switch (5)
+				for (int i = 0; i < m_inGameFadingImages.Length; i++)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.ApplyChatAlpha()).MethodHandle;
-			}
-			if (this.m_inGameFadingImages != null)
-			{
-				for (int i = 0; i < this.m_inGameFadingImages.Length; i++)
-				{
-					if (this.m_inGameFadingImages[i] != null)
+					if (m_inGameFadingImages[i] != null)
 					{
-						Color color = this.m_inGameFadingImages[i].color;
-						color.a = this.chatAlpha;
-						this.m_inGameFadingImages[i].color = color;
+						Color color = m_inGameFadingImages[i].color;
+						color.a = chatAlpha;
+						m_inGameFadingImages[i].color = color;
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
-			if (this.m_frontEndFadingImages != null)
+			if (m_frontEndFadingImages != null)
 			{
-				for (;;)
+				for (int j = 0; j < m_frontEndFadingImages.Length; j++)
 				{
-					switch (6)
+					if (m_frontEndFadingImages[j] != null)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int j = 0; j < this.m_frontEndFadingImages.Length; j++)
-				{
-					if (this.m_frontEndFadingImages[j] != null)
-					{
-						Color color2 = this.m_frontEndFadingImages[j].color;
+						Color color2 = m_frontEndFadingImages[j].color;
 						color2.a = 0f;
-						this.m_frontEndFadingImages[j].color = color2;
-						this.m_frontEndFadingImages[j].raycastTarget = false;
+						m_frontEndFadingImages[j].color = color2;
+						m_frontEndFadingImages[j].raycastTarget = false;
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		else if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
 		{
-			if (this.m_inGameFadingImages != null)
+			if (m_inGameFadingImages != null)
 			{
-				for (;;)
+				for (int k = 0; k < m_inGameFadingImages.Length; k++)
 				{
-					switch (7)
+					if (m_inGameFadingImages[k] != null)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int k = 0; k < this.m_inGameFadingImages.Length; k++)
-				{
-					if (this.m_inGameFadingImages[k] != null)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						Color color3 = this.m_inGameFadingImages[k].color;
+						Color color3 = m_inGameFadingImages[k].color;
 						color3.a = 1f;
-						this.m_inGameFadingImages[k].color = color3;
-						this.m_frontEndFadingImages[k].raycastTarget = true;
+						m_inGameFadingImages[k].color = color3;
+						m_frontEndFadingImages[k].raycastTarget = true;
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
-			if (this.m_frontEndFadingImages != null)
+			if (m_frontEndFadingImages != null)
 			{
-				for (;;)
+				for (int l = 0; l < m_frontEndFadingImages.Length; l++)
 				{
-					switch (4)
+					if (m_frontEndFadingImages[l] != null)
 					{
-					case 0:
-						continue;
+						Color color4 = m_frontEndFadingImages[l].color;
+						color4.a = chatAlpha;
+						m_frontEndFadingImages[l].color = color4;
 					}
-					break;
-				}
-				for (int l = 0; l < this.m_frontEndFadingImages.Length; l++)
-				{
-					if (this.m_frontEndFadingImages[l] != null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						Color color4 = this.m_frontEndFadingImages[l].color;
-						color4.a = this.chatAlpha;
-						this.m_frontEndFadingImages[l].color = color4;
-					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 		{
-			for (int m = 0; m < this.m_inGameCanvasGroups.Length; m++)
+			for (int m = 0; m < m_inGameCanvasGroups.Length; m++)
 			{
-				this.m_inGameCanvasGroups[m].alpha = this.chatAlpha;
+				m_inGameCanvasGroups[m].alpha = chatAlpha;
 			}
-			for (int n = 0; n < this.m_frontEndCanvasGroups.Length; n++)
+			for (int n = 0; n < m_frontEndCanvasGroups.Length; n++)
 			{
-				this.m_frontEndCanvasGroups[n].alpha = 1f;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_frontEndCanvasGroups[n].alpha = 1f;
 			}
 		}
 		else if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
 		{
-			for (;;)
+			for (int num = 0; num < m_inGameCanvasGroups.Length; num++)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_inGameCanvasGroups[num].alpha = 1f;
 			}
-			for (int num = 0; num < this.m_inGameCanvasGroups.Length; num++)
+			for (int num2 = 0; num2 < m_frontEndCanvasGroups.Length; num2++)
 			{
-				this.m_inGameCanvasGroups[num].alpha = 1f;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			for (int num2 = 0; num2 < this.m_frontEndCanvasGroups.Length; num2++)
-			{
-				this.m_frontEndCanvasGroups[num2].alpha = this.chatAlpha;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_frontEndCanvasGroups[num2].alpha = chatAlpha;
 			}
 		}
-		Color color5 = this.m_chatText.color;
-		color5.a = this.chatAlpha / 2f + 0.5f;
-		this.m_chatText.color = color5;
-		this.m_theTextList.SetTextAlpha(this.chatAlpha);
-		this.m_autocompleteList.m_canvasGroup.alpha = this.chatAlpha;
-		this.lastAlphaSet = this.chatAlpha;
-		if (!this.blockingRaycasts && this.chatAlpha > 0f)
+		Color color5 = m_chatText.color;
+		color5.a = (float)chatAlpha / 2f + 0.5f;
+		m_chatText.color = color5;
+		m_theTextList.SetTextAlpha(chatAlpha);
+		m_autocompleteList.m_canvasGroup.alpha = chatAlpha;
+		lastAlphaSet = chatAlpha;
+		if (!blockingRaycasts && (float)chatAlpha > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.blockingRaycasts = true;
+			blockingRaycasts = true;
 			if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 			{
-				for (;;)
+				for (int num3 = 0; num3 < m_frontEndCanvasGroups.Length; num3++)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_frontEndCanvasGroups[num3].blocksRaycasts = true;
 				}
-				for (int num3 = 0; num3 < this.m_frontEndCanvasGroups.Length; num3++)
+				for (int num4 = 0; num4 < m_inGameCanvasGroups.Length; num4++)
 				{
-					this.m_frontEndCanvasGroups[num3].blocksRaycasts = true;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int num4 = 0; num4 < this.m_inGameCanvasGroups.Length; num4++)
-				{
-					this.m_inGameCanvasGroups[num4].blocksRaycasts = this.blockingRaycasts;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_inGameCanvasGroups[num4].blocksRaycasts = blockingRaycasts;
 				}
 			}
 			else if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
 			{
-				for (;;)
+				for (int num5 = 0; num5 < m_inGameCanvasGroups.Length; num5++)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_inGameCanvasGroups[num5].blocksRaycasts = true;
 				}
-				for (int num5 = 0; num5 < this.m_inGameCanvasGroups.Length; num5++)
+				for (int num6 = 0; num6 < m_frontEndCanvasGroups.Length; num6++)
 				{
-					this.m_inGameCanvasGroups[num5].blocksRaycasts = true;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int num6 = 0; num6 < this.m_frontEndCanvasGroups.Length; num6++)
-				{
-					this.m_frontEndCanvasGroups[num6].blocksRaycasts = this.blockingRaycasts;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_frontEndCanvasGroups[num6].blocksRaycasts = blockingRaycasts;
 				}
 			}
 		}
-		else if (this.blockingRaycasts)
+		else if (blockingRaycasts)
 		{
-			for (;;)
+			if ((float)chatAlpha <= 0f)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.chatAlpha <= 0f)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.blockingRaycasts = false;
+				blockingRaycasts = false;
 				if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 				{
-					for (;;)
+					for (int num7 = 0; num7 < m_frontEndCanvasGroups.Length; num7++)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						m_frontEndCanvasGroups[num7].blocksRaycasts = true;
 					}
-					for (int num7 = 0; num7 < this.m_frontEndCanvasGroups.Length; num7++)
+					for (int num8 = 0; num8 < m_inGameCanvasGroups.Length; num8++)
 					{
-						this.m_frontEndCanvasGroups[num7].blocksRaycasts = true;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					for (int num8 = 0; num8 < this.m_inGameCanvasGroups.Length; num8++)
-					{
-						this.m_inGameCanvasGroups[num8].blocksRaycasts = this.blockingRaycasts;
+						m_inGameCanvasGroups[num8].blocksRaycasts = blockingRaycasts;
 					}
 				}
 				else if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
 				{
-					for (;;)
+					for (int num9 = 0; num9 < m_inGameCanvasGroups.Length; num9++)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						m_inGameCanvasGroups[num9].blocksRaycasts = true;
 					}
-					for (int num9 = 0; num9 < this.m_inGameCanvasGroups.Length; num9++)
+					for (int num10 = 0; num10 < m_frontEndCanvasGroups.Length; num10++)
 					{
-						this.m_inGameCanvasGroups[num9].blocksRaycasts = true;
-					}
-					for (int num10 = 0; num10 < this.m_frontEndCanvasGroups.Length; num10++)
-					{
-						this.m_frontEndCanvasGroups[num10].blocksRaycasts = this.blockingRaycasts;
+						m_frontEndCanvasGroups[num10].blocksRaycasts = blockingRaycasts;
 					}
 				}
 			}
 		}
-		CanvasGroup component = this.m_scrollBar.GetComponent<CanvasGroup>();
-		component.blocksRaycasts = this.blockingRaycasts;
-		component.alpha = this.chatAlpha;
-		if (this.m_changeChannelAlpha)
+		CanvasGroup component = m_scrollBar.GetComponent<CanvasGroup>();
+		component.blocksRaycasts = blockingRaycasts;
+		component.alpha = chatAlpha;
+		if (!m_changeChannelAlpha)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_chatRoomName.color = new Color(this.m_chatRoomName.color.r, this.m_chatRoomName.color.g, this.m_chatRoomName.color.b, this.chatAlpha);
+			return;
+		}
+		while (true)
+		{
+			TextMeshProUGUI chatRoomName = m_chatRoomName;
+			Color color6 = m_chatRoomName.color;
+			float r = color6.r;
+			Color color7 = m_chatRoomName.color;
+			float g = color7.g;
+			Color color8 = m_chatRoomName.color;
+			chatRoomName.color = new Color(r, g, color8.b, chatAlpha);
+			return;
 		}
 	}
 
 	public bool EscapeJustPressed()
 	{
-		return this.m_escapeJustPressed;
+		return m_escapeJustPressed;
 	}
 
 	public bool InputJustcleared()
 	{
-		return this.m_inputJustCleared;
+		return m_inputJustCleared;
 	}
 
 	private void ClearInputSelect()
 	{
-		if (EventSystem.current != null)
+		if (!(EventSystem.current != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (EventSystem.current.currentSelectedGameObject == m_textInput.gameObject)
 			{
-				switch (1)
+				while (true)
 				{
-				case 0:
-					continue;
+					m_inputJustCleared = true;
+					EventSystem.current.SetSelectedGameObject(null);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.ClearInputSelect()).MethodHandle;
-			}
-			if (EventSystem.current.currentSelectedGameObject == this.m_textInput.gameObject)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_inputJustCleared = true;
-				EventSystem.current.SetSelectedGameObject(null);
-			}
+			return;
 		}
 	}
 
 	public void SelectInput(string startingInput = "")
 	{
-		if (!this.m_visible)
+		if (!m_visible)
 		{
-			this.ToggleVisibility();
-			this.setInputSelected = true;
+			ToggleVisibility();
+			setInputSelected = true;
 		}
 		else
 		{
 			if (UIScreenManager.Get() != null)
 			{
-				this.SetTimeTillCollapse(UIScreenManager.Get().m_chatDisplayTime);
+				SetTimeTillCollapse(UIScreenManager.Get().m_chatDisplayTime);
 			}
-			this.UpdateElementsVisibility();
+			UpdateElementsVisibility();
 		}
-		if (EventSystem.current.currentSelectedGameObject != this.m_textInput.gameObject)
+		if (EventSystem.current.currentSelectedGameObject != m_textInput.gameObject)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.SelectInput(string)).MethodHandle;
-			}
-			EventSystem.current.SetSelectedGameObject(this.m_textInput.gameObject);
+			EventSystem.current.SetSelectedGameObject(m_textInput.gameObject);
 		}
-		if (startingInput != string.Empty)
+		if (!(startingInput != string.Empty))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_textInput.text = startingInput;
+			return;
+		}
+		while (true)
+		{
+			m_textInput.text = startingInput;
+			return;
 		}
 	}
 
 	public void SetTimeTillCollapse(float time)
 	{
-		if (!this.m_doNotAutoFade)
+		if (m_doNotAutoFade)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.SetTimeTillCollapse(float)).MethodHandle;
-			}
-			this.m_timeTillCollapse = time;
+			return;
+		}
+		while (true)
+		{
+			m_timeTillCollapse = time;
+			return;
 		}
 	}
 
 	private void LateUpdate()
 	{
-		if (this.m_visible)
+		if (m_visible)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.LateUpdate()).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_textInput.placeholder, EventSystem.current == null || EventSystem.current.currentSelectedGameObject != this.m_textInput.gameObject, null);
+			UIManager.SetGameObjectActive(m_textInput.placeholder, EventSystem.current == null || EventSystem.current.currentSelectedGameObject != m_textInput.gameObject);
 		}
 		else
 		{
 			bool flag = false;
 			if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 			{
-				foreach (CanvasGroup canvasGroup in this.m_inGameCanvasGroups)
+				CanvasGroup[] inGameCanvasGroups = m_inGameCanvasGroups;
+				int num = 0;
+				while (true)
 				{
-					if (canvasGroup.gameObject == this.m_textInput.gameObject)
+					if (num < inGameCanvasGroups.Length)
 					{
-						flag = true;
-						goto IL_114;
-					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
+						CanvasGroup canvasGroup = inGameCanvasGroups[num];
+						if (canvasGroup.gameObject == m_textInput.gameObject)
+						{
+							flag = true;
+							break;
+						}
+						num++;
 						continue;
 					}
 					break;
@@ -1905,252 +1168,117 @@ public class UITextConsole : MonoBehaviour
 			}
 			else if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
 			{
-				foreach (CanvasGroup canvasGroup2 in this.m_frontEndCanvasGroups)
+				CanvasGroup[] frontEndCanvasGroups = m_frontEndCanvasGroups;
+				int num2 = 0;
+				while (true)
 				{
-					if (canvasGroup2.gameObject == this.m_textInput.gameObject)
+					if (num2 < frontEndCanvasGroups.Length)
 					{
-						flag = true;
-						goto IL_114;
-					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
+						CanvasGroup canvasGroup2 = frontEndCanvasGroups[num2];
+						if (canvasGroup2.gameObject == m_textInput.gameObject)
+						{
+							flag = true;
+							break;
+						}
+						num2++;
 						continue;
 					}
 					break;
 				}
 			}
-			IL_114:
-			UIManager.SetGameObjectActive(this.m_textInput.placeholder, !flag, null);
+			UIManager.SetGameObjectActive(m_textInput.placeholder, !flag);
 		}
-		this.m_textInput.placeholder.GetComponent<TextMeshProUGUI>().ForceMeshUpdate();
-		if (EventSystem.current.currentSelectedGameObject == this.m_textInput.gameObject)
+		m_textInput.placeholder.GetComponent<TextMeshProUGUI>().ForceMeshUpdate();
+		if (EventSystem.current.currentSelectedGameObject == m_textInput.gameObject)
 		{
-			if (this.m_updateCaret)
+			if (m_updateCaret)
 			{
-				for (;;)
+				if (m_caretPositionToUpdate >= 0)
 				{
-					switch (1)
+					if (m_caretPositionToUpdate < m_textInput.text.Length)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_caretPositionToUpdate >= 0)
-				{
-					for (;;)
-					{
-						switch (2)
+						if (m_textInput.caretPosition == m_caretPositionToUpdate)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_caretPositionToUpdate < this.m_textInput.text.Length)
-					{
-						for (;;)
-						{
-							switch (3)
+							if (m_textInput.selectionAnchorPosition == m_caretPositionToUpdate)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_textInput.caretPosition == this.m_caretPositionToUpdate)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_textInput.selectionAnchorPosition == this.m_caretPositionToUpdate)
-							{
-								this.m_updateCaret = false;
-								goto IL_21F;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
+								m_updateCaret = false;
+								goto IL_029f;
 							}
 						}
-						this.m_textInput.caretPosition = this.m_caretPositionToUpdate;
-						this.m_textInput.selectionAnchorPosition = this.m_caretPositionToUpdate;
-						IL_21F:
-						goto IL_28C;
+						m_textInput.caretPosition = m_caretPositionToUpdate;
+						m_textInput.selectionAnchorPosition = m_caretPositionToUpdate;
+						goto IL_029f;
 					}
 				}
-				if (this.m_textInput.caretPosition >= this.m_textInput.text.Length)
+				if (m_textInput.caretPosition >= m_textInput.text.Length)
 				{
-					for (;;)
+					if (m_textInput.selectionAnchorPosition >= m_textInput.text.Length)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_textInput.selectionAnchorPosition >= this.m_textInput.text.Length)
-					{
-						this.m_updateCaret = false;
-						goto IL_28C;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						m_updateCaret = false;
+						goto IL_029f;
 					}
 				}
-				this.m_textInput.MoveTextEnd(false);
-				IL_28C:;
+				m_textInput.MoveTextEnd(false);
 			}
 			else
 			{
-				this.m_lastCaratPosition = this.m_textInput.caretPosition;
+				m_lastCaratPosition = m_textInput.caretPosition;
 			}
 		}
+		goto IL_029f;
+		IL_029f:
 		bool flag2 = false;
-		if (this.m_visible)
+		if (m_visible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Input.GetMouseButtonDown(0))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = true;
 				if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1))
 				{
 					StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 					if (!component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<UITextConsole>())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<EmoticonPanel>())
 						{
-							goto IL_35E;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							goto IL_035e;
 						}
 					}
 					flag2 = false;
 				}
 			}
 		}
-		IL_35E:
+		goto IL_035e;
+		IL_035e:
 		if (!flag2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_timeTillCollapse > 0f || !this.m_visible)
+			if (!(m_timeTillCollapse <= 0f) || !m_visible)
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_hovering)
+			if (m_hovering)
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.IsTextInputFocused(true))
+			if (IsTextInputFocused(true))
 			{
 				return;
 			}
 		}
-		if (!this.IsPressedAndMousedOver())
+		if (IsPressedAndMousedOver())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (!EmoticonPanel.Get().IsPanelOpen())
 			{
-				for (;;)
+				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					ToggleVisibility();
+					return;
 				}
-				this.ToggleVisibility();
 			}
+			return;
 		}
 	}
 
@@ -2158,52 +1286,30 @@ public class UITextConsole : MonoBehaviour
 	{
 		if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.CheckInputField()).MethodHandle;
-			}
 			TMP_InputField component = EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>();
 			if (component != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (component != this.m_textInput)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+						if (component != m_textInput)
+						{
+							string text = "ENTER INPUT FALSE: " + component.name;
+							Transform transform = component.transform;
+							while (transform.parent != null)
+							{
+								text = text + " -> " + transform.parent.name;
+								transform = transform.parent;
+							}
+							Log.Info(text);
+						}
+						return component == m_textInput;
 					}
-					string text = "ENTER INPUT FALSE: " + component.name;
-					Transform transform = component.transform;
-					while (transform.parent != null)
-					{
-						text = text + " -> " + transform.parent.name;
-						transform = transform.parent;
-					}
-					Log.Info(text, new object[0]);
 				}
-				return component == this.m_textInput;
 			}
 		}
 		return true;
@@ -2211,1085 +1317,483 @@ public class UITextConsole : MonoBehaviour
 
 	private void Update()
 	{
-		bool flag;
+		int num;
 		if (!Input.GetKeyDown(KeyCode.Return))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.Update()).MethodHandle;
-			}
 			if (!Input.GetKeyDown(KeyCode.KeypadEnter))
 			{
-				flag = false;
-				goto IL_41;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				num = 0;
+				goto IL_0041;
 			}
 		}
-		flag = this.CheckInputField();
-		IL_41:
-		bool flag2 = flag;
-		bool flag3;
-		if (Input.GetKeyDown(KeyCode.Slash))
+		num = (CheckInputField() ? 1 : 0);
+		goto IL_0041;
+		IL_08f1:
+		if ((double)m_scrollBar.size < 0.9999 && (double)m_scrollBar.value <= 0.0001)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (EventSystem.current != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag3 = (EventSystem.current.currentSelectedGameObject != this.m_textInput.gameObject);
-				goto IL_95;
-			}
+			ToggleVisibility();
 		}
-		flag3 = false;
-		IL_95:
-		bool flag4 = flag3;
-		bool flag5;
+		goto IL_092f;
+		IL_0095:
+		int num2;
+		bool flag = (byte)num2 != 0;
+		int num3;
 		if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.ChatReply))
 		{
 			if (DebugParameters.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag5 = !DebugParameters.Get().GetParameterAsBool("DebugCamera");
+				num3 = ((!DebugParameters.Get().GetParameterAsBool("DebugCamera")) ? 1 : 0);
 			}
 			else
 			{
-				flag5 = true;
+				num3 = 1;
 			}
 		}
 		else
 		{
-			flag5 = false;
+			num3 = 0;
 		}
-		bool flag6 = flag5;
-		bool flag7 = InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.ChatAll);
-		bool flag8;
-		if (this.m_textInput.isFocused)
+		bool flag2 = (byte)num3 != 0;
+		bool flag3 = InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.ChatAll);
+		int num4;
+		if (m_textInput.isFocused)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag8 = Input.GetKeyDown(KeyCode.UpArrow);
+			num4 = (Input.GetKeyDown(KeyCode.UpArrow) ? 1 : 0);
 		}
 		else
 		{
-			flag8 = false;
+			num4 = 0;
 		}
-		bool flag9 = flag8;
-		bool flag10 = this.m_textInput.isFocused && Input.GetKeyDown(KeyCode.DownArrow);
-		bool flag11;
-		if (this.m_textInput.isFocused)
+		bool flag4 = (byte)num4 != 0;
+		bool flag5 = m_textInput.isFocused && Input.GetKeyDown(KeyCode.DownArrow);
+		int num5;
+		if (m_textInput.isFocused)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!Input.GetKeyDown(KeyCode.RightArrow))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Input.GetKeyDown(KeyCode.LeftArrow))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Input.GetKeyDown(KeyCode.Home))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag11 = Input.GetKeyDown(KeyCode.End);
-						goto IL_19D;
+						num5 = (Input.GetKeyDown(KeyCode.End) ? 1 : 0);
+						goto IL_01a0;
 					}
 				}
 			}
-			flag11 = true;
-			IL_19D:;
+			num5 = 1;
 		}
 		else
 		{
-			flag11 = false;
+			num5 = 0;
 		}
-		bool flag12 = flag11;
-		bool flag13;
-		if (this.m_textInput.isFocused)
+		goto IL_01a0;
+		IL_0b01:
+		float num6;
+		if (num6 > 0f)
 		{
-			for (;;)
+			TextConsole.Get().Write(string.Format(StringUtil.TR("NextAlertIn", "Global"), StringUtil.GetTimeDifferenceText(TimeSpan.FromHours(num6), true)));
+		}
+		goto IL_0b49;
+		IL_030f:
+		if (flag)
+		{
+			SelectInput("/");
+			EventSystem.current.SetSelectedGameObject(m_textInput.gameObject);
+			MoveCaretToEnd();
+		}
+		else if (flag2)
+		{
+			SelectInput(GenerateReplyPrefix());
+			MoveCaretToEnd();
+		}
+		else if (flag3)
+		{
+			if (GameFlowData.Get() == null)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				SelectInput(StringUtil.TR("/general", "SlashCommand") + " ");
 			}
-			flag13 = Input.GetKeyDown(KeyCode.Tab);
+			else
+			{
+				SelectInput(StringUtil.TR("/game", "SlashCommand") + " ");
+			}
+			MoveCaretToEnd();
 		}
 		else
 		{
-			flag13 = false;
+			SelectInput(string.Empty);
+			SetCaretToLastKnownPosition();
 		}
-		bool flag14 = flag13;
-		bool flag15 = this.m_autocompleteList.IsVisible();
-		if (this.setInputSelected && this.chatAlpha > 0.5f)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (EventSystem.current.currentSelectedGameObject != this.m_textInput.gameObject)
-			{
-				EventSystem.current.SetSelectedGameObject(this.m_textInput.gameObject);
-			}
-			else
-			{
-				this.setInputSelected = false;
-			}
-		}
-		this.m_escapeJustPressed = false;
-		if (!this.InputJustcleared())
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!flag2)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!flag4)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!flag6)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!flag7)
-						{
-							goto IL_3EA;
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-				}
-			}
-			if (!(EventSystem.current.currentSelectedGameObject == null))
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() == null))
-				{
-					goto IL_3EA;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(EventSystem.current.currentSelectedGameObject.GetComponent<InputField>() == null))
-				{
-					goto IL_3EA;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (flag4)
-			{
-				this.SelectInput("/");
-				EventSystem.current.SetSelectedGameObject(this.m_textInput.gameObject);
-				this.MoveCaretToEnd();
-			}
-			else if (flag6)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.SelectInput(this.GenerateReplyPrefix());
-				this.MoveCaretToEnd();
-			}
-			else if (flag7)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (GameFlowData.Get() == null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.SelectInput(StringUtil.TR("/general", "SlashCommand") + " ");
-				}
-				else
-				{
-					this.SelectInput(StringUtil.TR("/game", "SlashCommand") + " ");
-				}
-				this.MoveCaretToEnd();
-			}
-			else
-			{
-				this.SelectInput(string.Empty);
-				this.SetCaretToLastKnownPosition();
-			}
-		}
-		IL_3EA:
-		if (Input.GetKeyDown(KeyCode.Escape))
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.IsTextInputFocused(true))
-			{
-				if (this.m_autocompleteList.IsVisible())
-				{
-					this.m_autocompleteList.SetVisible(false);
-				}
-				else
-				{
-					this.ClearInputSelect();
-					if (this.m_visible && this.m_timeTillCollapse <= 0f)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.ToggleVisibility();
-					}
-					this.m_escapeJustPressed = true;
-					UIUtils.MarkInputFieldHasFocusDirty();
-				}
-				goto IL_725;
-			}
-		}
-		if (!flag10)
-		{
-			if (flag9)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
-			{
-				if (flag14)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (flag15)
-					{
-						this.m_autocompleteList.SelectCurrent();
-						goto IL_725;
-					}
-				}
-				if (flag14)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_textInput.text.StartsWith("/"))
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						string text;
-						this.GetAutoCompletePossibilities(true, out text);
-						goto IL_725;
-					}
-				}
-				if (flag14)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_textInput.text.StartsWith("/"))
-					{
-						List<string> availableChatRooms = this.GetAvailableChatRooms();
-						availableChatRooms.Add(availableChatRooms[0]);
-						for (int i = 0; i < availableChatRooms.Count; i++)
-						{
-							if (i == availableChatRooms.Count - 1)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_chatCommand = StringUtil.TR("/general", "SlashCommand");
-								break;
-							}
-							if (this.m_chatCommand == availableChatRooms[i])
-							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_chatCommand = availableChatRooms[i + 1];
-								break;
-							}
-						}
-						this.RefreshChatRoomDisplay();
-						goto IL_725;
-					}
-				}
-				if (flag12)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_autocompleteList.SetVisible(false);
-					goto IL_725;
-				}
-				goto IL_725;
-			}
-		}
-		if (flag15)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (flag10)
-			{
-				this.m_autocompleteList.SelectDown();
-			}
-			else
-			{
-				this.m_autocompleteList.SelectUp();
-			}
-		}
-		else
-		{
-			if (this.m_historyIndex >= UITextConsole.s_history.Count)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_storedChatCommand = this.m_chatCommand;
-				this.m_storedHistory = this.m_textInput.text;
-			}
-			int historyIndex = this.m_historyIndex;
-			int num;
-			if (flag10)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num = 1;
-			}
-			else
-			{
-				num = -1;
-			}
-			this.m_historyIndex = historyIndex + num;
-			if (this.m_historyIndex < 0)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_historyIndex = 0;
-			}
-			string text2;
-			if (this.m_historyIndex >= UITextConsole.s_history.Count)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_chatCommand = this.m_storedChatCommand;
-				text2 = this.m_storedHistory;
-				this.m_historyIndex = UITextConsole.s_history.Count;
-				this.m_storedHistory = null;
-				this.m_storedChatCommand = null;
-			}
-			else
-			{
-				text2 = UITextConsole.s_history[this.m_historyIndex];
-			}
-			this.m_ignoreNextTypeInput = true;
-			if (text2.IsNullOrEmpty())
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_textInput.text = string.Empty;
-			}
-			else
-			{
-				this.m_textInput.text = text2;
-				this.SetChatRoom(this.m_textInput.text);
-			}
-			this.MoveCaretToEnd();
-		}
-		IL_725:
-		this.m_inputJustCleared = false;
-		if (this.m_timeTillCollapse > 0f)
-		{
-			this.m_timeTillCollapse -= Time.deltaTime;
-		}
-		if (this.lastAlphaSet != this.chatAlpha)
-		{
-			this.ApplyChatAlpha();
-		}
-		this.ScrollBarAfterNewChat();
-		if (this.m_newTextGlow != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_checkForNextTextGlow)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_scrollRect.verticalScrollbar.value > 0f)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIManager.SetGameObjectActive(this.m_newTextGlow, true, null);
-						goto IL_7FB;
-					}
-				}
-				UIManager.SetGameObjectActive(this.m_newTextGlow, false, null);
-				this.m_checkForNextTextGlow = false;
-			}
-		}
-		IL_7FB:
-		if (this.m_visible && EventSystem.current.currentSelectedGameObject != null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (EventSystem.current.currentSelectedGameObject != this.m_textInput.gameObject && EventSystem.current.currentSelectedGameObject != this.m_scrollBar.gameObject && this.m_lastIsTextInputNotSelected)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(EmoticonPanel.Get() == null))
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (EmoticonPanel.Get().IsPanelOpen())
-					{
-						goto IL_92F;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!(EmoticonPanel.Get().m_emoticonBtn.spriteController.gameObject != EventSystem.current.currentSelectedGameObject))
-					{
-						goto IL_92F;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				if ((double)this.m_scrollBar.size < 0.9999 && (double)this.m_scrollBar.value <= 0.0001)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.ToggleVisibility();
-				}
-			}
-		}
-		IL_92F:
-		bool lastIsTextInputNotSelected;
+		goto IL_03ea;
+		IL_092f:
+		int lastIsTextInputNotSelected;
 		if (EventSystem.current.currentSelectedGameObject != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			lastIsTextInputNotSelected = (EventSystem.current.currentSelectedGameObject != this.m_textInput.gameObject);
+			lastIsTextInputNotSelected = ((EventSystem.current.currentSelectedGameObject != m_textInput.gameObject) ? 1 : 0);
 		}
 		else
 		{
-			lastIsTextInputNotSelected = false;
+			lastIsTextInputNotSelected = 0;
 		}
-		this.m_lastIsTextInputNotSelected = lastIsTextInputNotSelected;
+		m_lastIsTextInputNotSelected = ((byte)lastIsTextInputNotSelected != 0);
 		DateTime dateTime = ClientGameManager.Get().PacificNow();
 		LobbyAlertMissionDataNotification alertMissionsData = ClientGameManager.Get().AlertMissionsData;
 		if (alertMissionsData != null)
 		{
-			for (;;)
+			if (alertMissionsData.NextAlert.HasValue)
 			{
-				switch (4)
+				num6 = 0f;
+				if (!m_hadNextAlertTime)
 				{
-				case 0:
-					continue;
+					float num7 = alertMissionsData.ReminderHours.DefaultIfEmpty().Max();
+					if (num7 != 0f)
+					{
+						if (!(alertMissionsData.NextAlert.Value.AddHours(0f - num7) <= dateTime))
+						{
+							goto IL_0b01;
+						}
+					}
+					num6 = (float)(alertMissionsData.NextAlert.Value - dateTime).TotalHours;
 				}
-				break;
-			}
-			if (alertMissionsData.NextAlert != null)
-			{
-				float num2 = 0f;
-				if (!this.m_hadNextAlertTime)
+				else if (!alertMissionsData.ReminderHours.IsNullOrEmpty())
 				{
-					for (;;)
+					for (int i = 0; i < alertMissionsData.ReminderHours.Count; i++)
 					{
-						switch (2)
+						DateTime t = alertMissionsData.NextAlert.Value.AddHours(0f - alertMissionsData.ReminderHours[i]);
+						if (t > m_lastSystemMessageCheckPST)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					float num3 = alertMissionsData.ReminderHours.DefaultIfEmpty<float>().Max();
-					if (num3 != 0f)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!(alertMissionsData.NextAlert.Value.AddHours((double)(-(double)num3)) <= dateTime))
-						{
-							goto IL_A59;
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					num2 = (float)(alertMissionsData.NextAlert.Value - dateTime).TotalHours;
-					IL_A59:;
-				}
-				else if (!alertMissionsData.ReminderHours.IsNullOrEmpty<float>())
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					for (int j = 0; j < alertMissionsData.ReminderHours.Count; j++)
-					{
-						DateTime t = alertMissionsData.NextAlert.Value.AddHours((double)(-(double)alertMissionsData.ReminderHours[j]));
-						if (t > this.m_lastSystemMessageCheckPST)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (t <= dateTime)
 							{
-								num2 = alertMissionsData.ReminderHours[j];
+								num6 = alertMissionsData.ReminderHours[i];
 							}
 						}
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-				if (num2 > 0f)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					TextConsole.Get().Write(string.Format(StringUtil.TR("NextAlertIn", "Global"), StringUtil.GetTimeDifferenceText(TimeSpan.FromHours((double)num2), true)), ConsoleMessageType.SystemMessage);
-				}
+				goto IL_0b01;
 			}
 		}
-		bool hadNextAlertTime;
-		if (alertMissionsData != null)
+		goto IL_0b49;
+		IL_01a0:
+		bool flag6 = (byte)num5 != 0;
+		int num8;
+		if (m_textInput.isFocused)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			hadNextAlertTime = (alertMissionsData.NextAlert != null);
+			num8 = (Input.GetKeyDown(KeyCode.Tab) ? 1 : 0);
 		}
 		else
 		{
-			hadNextAlertTime = false;
+			num8 = 0;
 		}
-		this.m_hadNextAlertTime = hadNextAlertTime;
+		bool flag7 = (byte)num8 != 0;
+		bool flag8 = m_autocompleteList.IsVisible();
+		if (setInputSelected && (float)chatAlpha > 0.5f)
+		{
+			if (EventSystem.current.currentSelectedGameObject != m_textInput.gameObject)
+			{
+				EventSystem.current.SetSelectedGameObject(m_textInput.gameObject);
+			}
+			else
+			{
+				setInputSelected = false;
+			}
+		}
+		m_escapeJustPressed = false;
+		bool flag9;
+		if (!InputJustcleared())
+		{
+			if (!flag9)
+			{
+				if (!flag)
+				{
+					if (!flag2)
+					{
+						if (!flag3)
+						{
+							goto IL_03ea;
+						}
+					}
+				}
+			}
+			if (EventSystem.current.currentSelectedGameObject == null)
+			{
+				goto IL_030f;
+			}
+			if (EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() == null)
+			{
+				if (EventSystem.current.currentSelectedGameObject.GetComponent<InputField>() == null)
+				{
+					goto IL_030f;
+				}
+			}
+		}
+		goto IL_03ea;
+		IL_07fb:
+		if (m_visible && EventSystem.current.currentSelectedGameObject != null)
+		{
+			if (EventSystem.current.currentSelectedGameObject != m_textInput.gameObject && EventSystem.current.currentSelectedGameObject != m_scrollBar.gameObject && m_lastIsTextInputNotSelected)
+			{
+				if (EmoticonPanel.Get() == null)
+				{
+					goto IL_08f1;
+				}
+				if (!EmoticonPanel.Get().IsPanelOpen())
+				{
+					if (EmoticonPanel.Get().m_emoticonBtn.spriteController.gameObject != EventSystem.current.currentSelectedGameObject)
+					{
+						goto IL_08f1;
+					}
+				}
+			}
+		}
+		goto IL_092f;
+		IL_0041:
+		flag9 = ((byte)num != 0);
+		if (Input.GetKeyDown(KeyCode.Slash))
+		{
+			if (EventSystem.current != null)
+			{
+				num2 = ((EventSystem.current.currentSelectedGameObject != m_textInput.gameObject) ? 1 : 0);
+				goto IL_0095;
+			}
+		}
+		num2 = 0;
+		goto IL_0095;
+		IL_0b49:
+		int hadNextAlertTime;
+		if (alertMissionsData != null)
+		{
+			hadNextAlertTime = (alertMissionsData.NextAlert.HasValue ? 1 : 0);
+		}
+		else
+		{
+			hadNextAlertTime = 0;
+		}
+		m_hadNextAlertTime = ((byte)hadNextAlertTime != 0);
 		if (alertMissionsData != null && alertMissionsData.CurrentAlert != null)
 		{
-			for (;;)
+			if (!m_hadCurrentAlert)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!this.m_hadCurrentAlert)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				TextConsole.Get().Write(StringUtil.TR("AlertActive", "Global"), ConsoleMessageType.SystemMessage);
+				TextConsole.Get().Write(StringUtil.TR("AlertActive", "Global"));
 			}
 		}
-		bool hadCurrentAlert;
+		int hadCurrentAlert;
 		if (alertMissionsData != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			hadCurrentAlert = (alertMissionsData.CurrentAlert != null);
+			hadCurrentAlert = ((alertMissionsData.CurrentAlert != null) ? 1 : 0);
 		}
 		else
 		{
-			hadCurrentAlert = false;
+			hadCurrentAlert = 0;
 		}
-		this.m_hadCurrentAlert = hadCurrentAlert;
-		this.m_lastSystemMessageCheckPST = dateTime;
+		m_hadCurrentAlert = ((byte)hadCurrentAlert != 0);
+		m_lastSystemMessageCheckPST = dateTime;
+		return;
+		IL_0725:
+		m_inputJustCleared = false;
+		if (m_timeTillCollapse > 0f)
+		{
+			m_timeTillCollapse -= Time.deltaTime;
+		}
+		if (lastAlphaSet != (float)chatAlpha)
+		{
+			ApplyChatAlpha();
+		}
+		ScrollBarAfterNewChat();
+		if (m_newTextGlow != null)
+		{
+			if (m_checkForNextTextGlow)
+			{
+				if (m_scrollRect.verticalScrollbar.value > 0f)
+				{
+					if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
+					{
+						UIManager.SetGameObjectActive(m_newTextGlow, true);
+						goto IL_07fb;
+					}
+				}
+				UIManager.SetGameObjectActive(m_newTextGlow, false);
+				m_checkForNextTextGlow = false;
+			}
+		}
+		goto IL_07fb;
+		IL_03ea:
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			if (IsTextInputFocused(true))
+			{
+				if (m_autocompleteList.IsVisible())
+				{
+					m_autocompleteList.SetVisible(false);
+				}
+				else
+				{
+					ClearInputSelect();
+					if (m_visible && m_timeTillCollapse <= 0f)
+					{
+						ToggleVisibility();
+					}
+					m_escapeJustPressed = true;
+					UIUtils.MarkInputFieldHasFocusDirty();
+				}
+				goto IL_0725;
+			}
+		}
+		if (!flag5)
+		{
+			if (!flag4)
+			{
+				if (flag7)
+				{
+					if (flag8)
+					{
+						m_autocompleteList.SelectCurrent();
+						goto IL_0725;
+					}
+				}
+				if (flag7)
+				{
+					if (m_textInput.text.StartsWith("/"))
+					{
+						GetAutoCompletePossibilities(true, out string _);
+						goto IL_0725;
+					}
+				}
+				if (flag7)
+				{
+					if (!m_textInput.text.StartsWith("/"))
+					{
+						List<string> availableChatRooms = GetAvailableChatRooms();
+						availableChatRooms.Add(availableChatRooms[0]);
+						for (int j = 0; j < availableChatRooms.Count; j++)
+						{
+							if (j == availableChatRooms.Count - 1)
+							{
+								m_chatCommand = StringUtil.TR("/general", "SlashCommand");
+								break;
+							}
+							if (m_chatCommand == availableChatRooms[j])
+							{
+								m_chatCommand = availableChatRooms[j + 1];
+								break;
+							}
+						}
+						RefreshChatRoomDisplay();
+						goto IL_0725;
+					}
+				}
+				if (flag6)
+				{
+					m_autocompleteList.SetVisible(false);
+				}
+				goto IL_0725;
+			}
+		}
+		if (flag8)
+		{
+			if (flag5)
+			{
+				m_autocompleteList.SelectDown();
+			}
+			else
+			{
+				m_autocompleteList.SelectUp();
+			}
+		}
+		else
+		{
+			if (m_historyIndex >= s_history.Count)
+			{
+				m_storedChatCommand = m_chatCommand;
+				m_storedHistory = m_textInput.text;
+			}
+			int historyIndex = m_historyIndex;
+			int num9;
+			if (flag5)
+			{
+				num9 = 1;
+			}
+			else
+			{
+				num9 = -1;
+			}
+			m_historyIndex = historyIndex + num9;
+			if (m_historyIndex < 0)
+			{
+				m_historyIndex = 0;
+			}
+			string text;
+			if (m_historyIndex >= s_history.Count)
+			{
+				m_chatCommand = m_storedChatCommand;
+				text = m_storedHistory;
+				m_historyIndex = s_history.Count;
+				m_storedHistory = null;
+				m_storedChatCommand = null;
+			}
+			else
+			{
+				text = s_history[m_historyIndex];
+			}
+			m_ignoreNextTypeInput = true;
+			if (text.IsNullOrEmpty())
+			{
+				m_textInput.text = string.Empty;
+			}
+			else
+			{
+				m_textInput.text = text;
+				SetChatRoom(m_textInput.text);
+			}
+			MoveCaretToEnd();
+		}
+		goto IL_0725;
 	}
 
 	public bool CheckTextInput()
 	{
-		bool result;
-		if (this.m_textInput.isFocused)
+		int result;
+		if (m_textInput.isFocused)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.CheckTextInput()).MethodHandle;
-			}
-			result = (this.m_textInput.text == string.Empty);
+			result = ((m_textInput.text == string.Empty) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool IsTextInputFocused(bool checkEmoticonPanel = false)
 	{
 		if (checkEmoticonPanel)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.IsTextInputFocused(bool)).MethodHandle;
-			}
 			if (EmoticonPanel.Get() != null && EmoticonPanel.Get().IsPanelOpen())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return true;
 					}
-					break;
 				}
-				return true;
 			}
 		}
 		if (!(EventSystem.current == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(EventSystem.current.currentSelectedGameObject == null))
 			{
-				bool result;
-				if (!(this.m_textInput.gameObject == EventSystem.current.currentSelectedGameObject))
+				int result;
+				if (!(m_textInput.gameObject == EventSystem.current.currentSelectedGameObject))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = (this.m_scrollBar.gameObject == EventSystem.current.currentSelectedGameObject);
+					result = ((m_scrollBar.gameObject == EventSystem.current.currentSelectedGameObject) ? 1 : 0);
 				}
 				else
 				{
-					result = true;
+					result = 1;
 				}
-				return result;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return (byte)result != 0;
 			}
 		}
 		return false;
@@ -3299,266 +1803,149 @@ public class UITextConsole : MonoBehaviour
 	{
 		if (EventSystem.current == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.IsPressedAndMousedOver()).MethodHandle;
-			}
-			return false;
 		}
 		if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
-		PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
-		{
-			pointerId = -1
-		};
-		pointerEventData.position = Input.mousePosition;
+		PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+		pointerEventData.pointerId = -1;
+		PointerEventData pointerEventData2 = pointerEventData;
+		pointerEventData2.position = Input.mousePosition;
 		List<RaycastResult> list = new List<RaycastResult>();
-		EventSystem.current.RaycastAll(pointerEventData, list);
+		EventSystem.current.RaycastAll(pointerEventData2, list);
 		for (int i = 0; i < list.Count; i++)
 		{
-			if (list[i].gameObject.GetComponentInParent<UITextConsole>() != null)
+			if (!(list[i].gameObject.GetComponentInParent<UITextConsole>() != null))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				continue;
+			}
+			while (true)
+			{
 				return true;
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return false;
 		}
-		return false;
 	}
 
 	public List<string> GetAvailableChatRooms()
 	{
 		bool flag = AppState.IsInGame();
-		bool flag2;
+		int num;
 		if (GameManager.Get() != null && GameManager.Get().GameInfo != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.GetAvailableChatRooms()).MethodHandle;
-			}
-			flag2 = (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped);
+			num = ((GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped) ? 1 : 0);
 		}
 		else
 		{
-			flag2 = false;
+			num = 0;
 		}
-		bool flag3 = flag2;
-		bool flag4;
+		bool flag2 = (byte)num != 0;
+		int num2;
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().GroupInfo != null)
 			{
-				flag4 = ClientGameManager.Get().GroupInfo.InAGroup;
-				goto IL_95;
+				num2 = (ClientGameManager.Get().GroupInfo.InAGroup ? 1 : 0);
+				goto IL_0095;
 			}
 		}
-		flag4 = false;
-		IL_95:
-		bool flag5 = flag4;
-		List<string> list = new List<string>();
+		num2 = 0;
+		goto IL_0095;
+		IL_01bf:
+		bool flag3;
+		List<string> list;
+		if (flag3)
+		{
+			list.Add(StringUtil.TR("/group", "SlashCommand"));
+		}
+		for (int i = 0; i < m_whisperedPlayers.Count; i++)
+		{
+			list.Add(StringUtil.TR("/whisper", "SlashCommand") + " " + m_whisperedPlayers[i]);
+		}
+		return list;
+		IL_0152:
+		if (flag2)
+		{
+			if (Options_UI.Get() != null)
+			{
+				if (Options_UI.Get().GetShowAllChat())
+				{
+					goto IL_01aa;
+				}
+			}
+			if (!flag && GameManager.Get().GameInfo.IsCustomGame)
+			{
+				goto IL_01aa;
+			}
+		}
+		goto IL_01bf;
+		IL_01aa:
+		list.Add(StringUtil.TR("/game", "SlashCommandAlias1"));
+		goto IL_01bf;
+		IL_0095:
+		flag3 = ((byte)num2 != 0);
+		list = new List<string>();
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(StringUtil.TR("/general", "SlashCommand"));
 		}
-		if (!flag3)
+		if (!flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				goto IL_152;
+				goto IL_0152;
 			}
 		}
 		if (!(GameManager.Get() == null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().PlayerInfo != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().PlayerInfo.TeamId != Team.Spectator)
 				{
 					list.Add(StringUtil.TR("/team", "SlashCommand"));
-					goto IL_152;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_0152;
 				}
 			}
 		}
 		list.Add(StringUtil.TR("/team", "SlashCommandAlias1"));
-		IL_152:
-		if (flag3)
-		{
-			if (Options_UI.Get() != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (Options_UI.Get().GetShowAllChat())
-				{
-					goto IL_1AA;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (flag || !GameManager.Get().GameInfo.IsCustomGame)
-			{
-				goto IL_1BF;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			IL_1AA:
-			list.Add(StringUtil.TR("/game", "SlashCommandAlias1"));
-		}
-		IL_1BF:
-		if (flag5)
-		{
-			list.Add(StringUtil.TR("/group", "SlashCommand"));
-		}
-		for (int i = 0; i < UITextConsole.m_whisperedPlayers.Count; i++)
-		{
-			list.Add(StringUtil.TR("/whisper", "SlashCommand") + " " + UITextConsole.m_whisperedPlayers[i]);
-		}
-		return list;
+		goto IL_0152;
 	}
 
-	public unsafe List<string> GetAutoCompletePossibilities(bool doAutocomplete, out string beforeAutocomplete)
+	public List<string> GetAutoCompletePossibilities(bool doAutocomplete, out string beforeAutocomplete)
 	{
 		List<string> list = new List<string>();
 		List<string> list2 = null;
 		string text = null;
 		beforeAutocomplete = string.Empty;
-		int num = Mathf.Clamp(this.m_textInput.caretPosition, 0, this.m_textInput.text.Length);
-		string text2 = this.m_textInput.text.Substring(0, num).ToLower();
-		string text3 = this.m_textInput.text.Substring(num);
-		string[] array = text2.Split(null, 2, StringSplitOptions.RemoveEmptyEntries);
+		int num = Mathf.Clamp(m_textInput.caretPosition, 0, m_textInput.text.Length);
+		string text2 = m_textInput.text.Substring(0, num).ToLower();
+		string text3 = m_textInput.text.Substring(num);
+		string[] array = text2.Split((string[])null, 2, StringSplitOptions.RemoveEmptyEntries);
 		if (text2.EndsWith(" "))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.GetAutoCompletePossibilities(bool, string*)).MethodHandle;
-			}
 			if (array.Length < 2)
 			{
 				string[] array2 = new string[array.Length + 1];
@@ -3569,70 +1956,25 @@ public class UITextConsole : MonoBehaviour
 		}
 		if (array.Length == 1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (AppState.IsInGame())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				list2 = UITextConsole.m_inGameAutocomplete;
+				list2 = m_inGameAutocomplete;
 			}
 			else
 			{
-				list2 = UITextConsole.m_frontendAutocomplete;
+				list2 = m_frontendAutocomplete;
 			}
 			text = array[0];
 		}
 		else if (array.Length == 2)
 		{
-			for (;;)
+			if (m_friendCommand.IsSlashCommand(array[0]))
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (UITextConsole.m_friendCommand.IsSlashCommand(array[0]))
-			{
-				string[] array3 = array[1].Split(null, 2, StringSplitOptions.RemoveEmptyEntries);
+				string[] array3 = array[1].Split((string[])null, 2, StringSplitOptions.RemoveEmptyEntries);
 				if (text2.EndsWith(" "))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (array3.Length < 2)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string[] array4 = new string[array3.Length + 1];
 						Array.Copy(array3, 0, array4, 0, array3.Length);
 						array4[array3.Length] = string.Empty;
@@ -3641,490 +1983,219 @@ public class UITextConsole : MonoBehaviour
 				}
 				if (array3.Length == 1)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					list2 = UITextConsole.m_friendAutocomplete;
+					list2 = m_friendAutocomplete;
 					text = array3[0];
-					beforeAutocomplete = UITextConsole.m_friendCommand.Command;
+					beforeAutocomplete = m_friendCommand.Command;
 				}
 				else if (array3.Length == 2)
 				{
-					list2 = UITextConsole.m_playerAutocomplete;
+					list2 = m_playerAutocomplete;
 					text = array3[1];
-					beforeAutocomplete = UITextConsole.m_friendCommand.Command + " " + array3[0];
+					beforeAutocomplete = m_friendCommand.Command + " " + array3[0];
 				}
 			}
 			else
 			{
-				for (int i = 0; i < UITextConsole.m_playerCommands.Count; i++)
+				for (int i = 0; i < m_playerCommands.Count; i++)
 				{
-					if (UITextConsole.m_playerCommands[i].IsSlashCommand(array[0]))
+					if (m_playerCommands[i].IsSlashCommand(array[0]))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						list2 = UITextConsole.m_playerAutocomplete;
+						list2 = m_playerAutocomplete;
 						text = array[1];
-						beforeAutocomplete = UITextConsole.m_playerCommands[i].Command;
+						beforeAutocomplete = m_playerCommands[i].Command;
 						break;
 					}
 				}
 			}
 		}
+		string text4;
 		if (!text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (text.Length >= 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(text == "/"))
 				{
 					if (list2 != null)
 					{
-						for (;;)
+						int num2 = 0;
+						int num3 = list2.Count;
+						while (num2 < num3)
 						{
-							switch (3)
+							int num4 = num2 + (num3 - num2) / 2;
+							int num5 = text.CompareTo(list2[num4].ToLower());
+							if (num5 < 0)
 							{
-							case 0:
-								continue;
+								num3 = num4;
 							}
-							break;
-						}
-						int j = 0;
-						int num2 = list2.Count;
-						while (j < num2)
-						{
-							int num3 = j + (num2 - j) / 2;
-							int num4 = text.CompareTo(list2[num3].ToLower());
-							if (num4 < 0)
+							else if (num5 > 0)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								num2 = num3;
-							}
-							else if (num4 > 0)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								j = num3 + 1;
+								num2 = num4 + 1;
 							}
 							else
 							{
-								j = num3;
-								num2 = num3;
+								num2 = num4;
+								num3 = num4;
 							}
 						}
-						if (j < list2.Count)
+						if (num2 < list2.Count)
 						{
-							for (;;)
+							if (list2[num2].ToLower().StartsWith(text))
 							{
-								switch (5)
+								int num6 = num2;
+								for (int j = num2 + 1; j < list2.Count; j++)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (list2[j].ToLower().StartsWith(text))
-							{
-								for (;;)
-								{
-									switch (5)
+									if (list2[j].ToLower().StartsWith(text))
 									{
-									case 0:
+										num6 = j;
 										continue;
 									}
 									break;
 								}
-								int num5 = j;
-								int k = j + 1;
-								while (k < list2.Count)
+								if (num6 == num2)
 								{
-									if (!list2[k].ToLower().StartsWith(text))
-									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											goto IL_399;
-										}
-									}
-									else
-									{
-										num5 = k;
-										k++;
-									}
-								}
-								IL_399:
-								string text4;
-								if (num5 == j)
-								{
-									text4 = list2[j] + " ";
+									text4 = list2[num2] + " ";
 									if (text != text4)
 									{
-										for (;;)
+										if (!m_allCommand.IsSlashCommand(text4.Trim()))
 										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
+											goto IL_047d;
 										}
-										if (UITextConsole.m_allCommand.IsSlashCommand(text4.Trim()))
+										if (Options_UI.Get() != null)
 										{
-											for (;;)
+											if (Options_UI.Get().GetShowAllChat())
 											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
+												goto IL_047d;
 											}
-											if (Options_UI.Get() != null)
+										}
+										if (!AppState.IsInGame())
+										{
+											if (GameManager.Get().GameInfo != null)
 											{
-												for (;;)
+												if (GameManager.Get().GameInfo.IsCustomGame)
 												{
-													switch (1)
+													if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
 													{
-													case 0:
-														continue;
+														goto IL_047d;
 													}
-													break;
 												}
-												if (Options_UI.Get().GetShowAllChat())
-												{
-													goto IL_47D;
-												}
-											}
-											if (AppState.IsInGame())
-											{
-												goto IL_485;
-											}
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (GameManager.Get().GameInfo == null)
-											{
-												goto IL_485;
-											}
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (!GameManager.Get().GameInfo.IsCustomGame)
-											{
-												goto IL_485;
-											}
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (GameManager.Get().GameInfo.GameStatus == GameStatus.Stopped)
-											{
-												goto IL_485;
 											}
 										}
-										IL_47D:
-										list.Add(text4);
 									}
-									IL_485:;
 								}
 								else
 								{
 									text4 = string.Empty;
-									string text5 = list2[j].ToLower();
-									string text6 = list2[num5].ToLower();
-									for (int l = 0; l < text5.Length; l++)
+									string text5 = list2[num2].ToLower();
+									string text6 = list2[num6].ToLower();
+									for (int k = 0; k < text5.Length; k++)
 									{
-										for (;;)
+										if (k < text6.Length && text5[k] == text6[k])
 										{
-											switch (3)
+											while (true)
 											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (l >= text6.Length)
-										{
-											break;
-										}
-										if (text5[l] != text6[l])
-										{
-											break;
-										}
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										text4 += text5[l];
-									}
-									int m = j;
-									while (m <= num5)
-									{
-										if (!UITextConsole.m_allCommand.IsSlashCommand(list2[m].Trim()))
-										{
-											goto IL_5E4;
-										}
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (Options_UI.Get() != null)
-										{
-											for (;;)
-											{
-												switch (6)
+												switch (3)
 												{
 												case 0:
-													continue;
-												}
-												break;
-											}
-											if (Options_UI.Get().GetShowAllChat())
-											{
-												goto IL_5E4;
-											}
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-										}
-										if (!AppState.IsInGame() && GameManager.Get().GameInfo != null)
-										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (GameManager.Get().GameInfo.IsCustomGame)
-											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
 													break;
+												default:
+													goto end_IL_04d0;
 												}
-												if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
-												{
-													for (;;)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														goto IL_5E4;
-													}
-												}
-											}
-										}
-										IL_5F4:
-										m++;
-										continue;
-										IL_5E4:
-										list.Add(list2[m]);
-										goto IL_5F4;
-									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-								if (doAutocomplete)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									string text7 = text4 + text3.TrimStart(new char[0]);
-									int num6 = (!text4.IsNullOrEmpty()) ? text4.Length : 0;
-									if (!beforeAutocomplete.IsNullOrEmpty())
-									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
 												continue;
-											}
-											break;
-										}
-										text7 = beforeAutocomplete + " " + text7;
-										int num7 = num6;
-										int num8;
-										if (beforeAutocomplete.IsNullOrEmpty())
-										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
+												end_IL_04d0:
 												break;
 											}
-											num8 = 0;
+											text4 += text5[k];
+											continue;
 										}
-										else
-										{
-											num8 = beforeAutocomplete.Length;
-										}
-										num6 = num7 + (num8 + 1);
+										break;
 									}
-									if (this.m_textInput.text != text7)
+									for (int l = num2; l <= num6; l++)
 									{
-										for (;;)
+										if (m_allCommand.IsSlashCommand(list2[l].Trim()))
 										{
-											switch (4)
+											if (Options_UI.Get() != null)
 											{
-											case 0:
+												if (Options_UI.Get().GetShowAllChat())
+												{
+													goto IL_05e4;
+												}
+											}
+											if (AppState.IsInGame() || GameManager.Get().GameInfo == null)
+											{
 												continue;
 											}
-											break;
+											if (!GameManager.Get().GameInfo.IsCustomGame)
+											{
+												continue;
+											}
+											if (GameManager.Get().GameInfo.GameStatus == GameStatus.Stopped)
+											{
+												continue;
+											}
 										}
-										this.m_textInput.text = text7;
-										this.UpdateCaretPosition(num6);
-										this.OnTypeInput(this.m_textInput.text, false);
+										goto IL_05e4;
+										IL_05e4:
+										list.Add(list2[l]);
 									}
 								}
+								goto IL_060d;
 							}
 						}
 					}
-					return list;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_06e4;
 				}
 			}
 		}
 		return list;
+		IL_047d:
+		list.Add(text4);
+		goto IL_060d;
+		IL_06e4:
+		return list;
+		IL_060d:
+		if (doAutocomplete)
+		{
+			string text7 = text4 + text3.TrimStart();
+			int num7 = (!text4.IsNullOrEmpty()) ? text4.Length : 0;
+			if (!beforeAutocomplete.IsNullOrEmpty())
+			{
+				text7 = beforeAutocomplete + " " + text7;
+				int num8 = num7;
+				int num9;
+				if (beforeAutocomplete.IsNullOrEmpty())
+				{
+					num9 = 0;
+				}
+				else
+				{
+					num9 = beforeAutocomplete.Length;
+				}
+				num7 = num8 + (num9 + 1);
+			}
+			if (m_textInput.text != text7)
+			{
+				m_textInput.text = text7;
+				UpdateCaretPosition(num7);
+				OnTypeInput(m_textInput.text, false);
+			}
+		}
+		goto IL_06e4;
 	}
 
 	public void ScrollBarAfterNewChat()
 	{
-		if (this.m_scrollChat)
+		if (!m_scrollChat)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_scrollRect.verticalScrollbar.value != 0f)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_scrollRect.verticalScrollbar.value = 0f;
+				m_scrollChat = false;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.ScrollBarAfterNewChat()).MethodHandle;
-			}
-			if (this.m_scrollRect.verticalScrollbar.value != 0f)
-			{
-				this.m_scrollRect.verticalScrollbar.value = 0f;
-				this.m_scrollChat = false;
-			}
+			return;
 		}
 	}
 
@@ -4133,798 +2204,405 @@ public class UITextConsole : MonoBehaviour
 		CharacterType characterType = CharacterType.None;
 		if (messageInfo.MessageType == ConsoleMessageType.GlobalChat)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.AddTextEntry(string, Color, bool, TextConsole.Message, List<int>)).MethodHandle;
-			}
 			if (!(GameFlowData.Get() != null))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Options_UI.Get() != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Options_UI.Get().GetShowGlobalChat())
 					{
-						goto IL_84;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						goto IL_0084;
 					}
 				}
 				if (!(AppState.GetCurrent() == AppState_RankModeDraft.Get()))
 				{
-					goto IL_86;
+					goto IL_0086;
 				}
 			}
-			IL_84:
-			return null;
+			goto IL_0084;
 		}
-		IL_86:
+		goto IL_0086;
+		IL_02a1:
+		int scrollChat;
+		m_scrollChat = ((byte)scrollChat != 0);
+		RectTransform rectTransform;
+		float num;
+		if (!m_scrollChat)
+		{
+			Vector3 localPosition = rectTransform.localPosition;
+			float y = localPosition.y;
+			Vector2 pivot = rectTransform.pivot;
+			localPosition.y = y - num * (1f - pivot.y);
+			float y2 = localPosition.y;
+			Vector2 sizeDelta = rectTransform.sizeDelta;
+			if (y2 < 0f - sizeDelta.y)
+			{
+				Vector2 sizeDelta2 = rectTransform.sizeDelta;
+				localPosition.y = 0f - sizeDelta2.y;
+			}
+			rectTransform.localPosition = localPosition;
+		}
+		TextMeshProUGUI textMeshProUGUI;
+		UIEventTriggerUtils.AddListener(textMeshProUGUI.gameObject, EventTriggerType.Scroll, OnScroll);
+		return textMeshProUGUI;
+		IL_0086:
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			characterType = messageInfo.CharacterType;
 		}
-		RectTransform rectTransform = this.m_theTextList.transform as RectTransform;
-		float value = this.m_scrollRect.verticalScrollbar.value;
-		float size = this.m_scrollRect.verticalScrollbar.size;
-		float y = rectTransform.sizeDelta.y;
-		if (UIManager.Get().CurrentState != UIManager.ClientState.InFrontEnd)
+		rectTransform = (m_theTextList.transform as RectTransform);
+		float value = m_scrollRect.verticalScrollbar.value;
+		float size = m_scrollRect.verticalScrollbar.size;
+		Vector2 sizeDelta3 = rectTransform.sizeDelta;
+		float y3 = sizeDelta3.y;
+		if (UIManager.Get().CurrentState != 0)
 		{
-			for (;;)
+			if (characterType != 0)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (characterType != CharacterType.None)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (messageInfo.SenderTeam != Team.Spectator)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					int num = 0;
+					int num2 = 0;
 					if (GameFlowData.Get() != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Team team = Team.TeamA;
 						if (GameFlowData.Get().activeOwnedActorData != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							team = GameFlowData.Get().activeOwnedActorData.\u000E();
+							team = GameFlowData.Get().activeOwnedActorData.GetTeam();
 						}
 						else if (ClientGameManager.Get().PlayerInfo != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							team = ClientGameManager.Get().PlayerInfo.TeamId;
 						}
-						if (team == Team.Spectator)
+						if (team != Team.Spectator)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (messageInfo.SenderTeam == Team.TeamA)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								num = 0;
-							}
-							else
-							{
-								num = 1;
-							}
-						}
-						else if (messageInfo.SenderTeam == team)
-						{
-							num = 0;
+							num2 = ((messageInfo.SenderTeam != team) ? 1 : 0);
 						}
 						else
 						{
-							num = 1;
+							if (messageInfo.SenderTeam == Team.TeamA)
+							{
+								num2 = 0;
+							}
+							else
+							{
+								num2 = 1;
+							}
 						}
 					}
-					string text = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>{1}", (int)(CharacterType.BazookaGirl * characterType + num), textEntry);
+					string text = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)characterType + num2}>\u200b</size>{textEntry}";
 					textEntry = text;
 				}
 			}
 		}
-		TextMeshProUGUI textMeshProUGUI = this.m_theTextList.AddEntry(textEntry, textColor, forceShowChat, HUD_UIResources.Get().m_textPaddingAmount, this.m_scrollRect, allowedEmojis);
+		textMeshProUGUI = m_theTextList.AddEntry(textEntry, textColor, forceShowChat, HUD_UIResources.Get().m_textPaddingAmount, m_scrollRect, allowedEmojis);
 		textMeshProUGUI.CalculateLayoutInputVertical();
-		float num2 = textMeshProUGUI.preferredHeight + HUD_UIResources.Get().m_textPaddingAmount;
-		bool scrollChat;
-		if (this.m_theTextList.NumEntires() >= 2)
+		num = textMeshProUGUI.preferredHeight + HUD_UIResources.Get().m_textPaddingAmount;
+		if (m_theTextList.NumEntires() >= 2)
 		{
-			for (;;)
+			if (!(num >= y3 * value))
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (num2 < y * value)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				scrollChat = (size >= 0.999f);
-				goto IL_2A1;
+				scrollChat = ((size >= 0.999f) ? 1 : 0);
+				goto IL_02a1;
 			}
 		}
-		scrollChat = true;
-		IL_2A1:
-		this.m_scrollChat = scrollChat;
-		if (!this.m_scrollChat)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Vector3 localPosition = rectTransform.localPosition;
-			localPosition.y -= num2 * (1f - rectTransform.pivot.y);
-			if (localPosition.y < -rectTransform.sizeDelta.y)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				localPosition.y = -rectTransform.sizeDelta.y;
-			}
-			rectTransform.localPosition = localPosition;
-		}
-		UIEventTriggerUtils.AddListener(textMeshProUGUI.gameObject, EventTriggerType.Scroll, new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-		return textMeshProUGUI;
+		scrollChat = 1;
+		goto IL_02a1;
+		IL_0084:
+		return null;
 	}
 
 	public TextMeshProUGUI AddTextEntry(string textEntry, Color textColor, bool forceShowChat)
 	{
-		RectTransform rectTransform = this.m_theTextList.transform as RectTransform;
-		float value = this.m_scrollRect.verticalScrollbar.value;
-		float size = this.m_scrollRect.verticalScrollbar.size;
-		float y = rectTransform.sizeDelta.y;
-		TextMeshProUGUI textMeshProUGUI = this.m_theTextList.AddEntry(textEntry, textColor, forceShowChat, HUD_UIResources.Get().m_textPaddingAmount, this.m_scrollRect, null);
+		RectTransform rectTransform = m_theTextList.transform as RectTransform;
+		float value = m_scrollRect.verticalScrollbar.value;
+		float size = m_scrollRect.verticalScrollbar.size;
+		Vector2 sizeDelta = rectTransform.sizeDelta;
+		float y = sizeDelta.y;
+		TextMeshProUGUI textMeshProUGUI = m_theTextList.AddEntry(textEntry, textColor, forceShowChat, HUD_UIResources.Get().m_textPaddingAmount, m_scrollRect);
 		HUDTextConsoleItem component = textMeshProUGUI.GetComponent<HUDTextConsoleItem>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.AddTextEntry(string, Color, bool)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(component.m_iconContainer, false, null);
+			UIManager.SetGameObjectActive(component.m_iconContainer, false);
 		}
-		this.m_checkForNextTextGlow = true;
+		m_checkForNextTextGlow = true;
 		textMeshProUGUI.CalculateLayoutInputVertical();
 		float num = textMeshProUGUI.preferredHeight + HUD_UIResources.Get().m_textPaddingAmount;
-		bool scrollChat;
-		if (this.m_theTextList.NumEntires() >= 2)
+		int scrollChat;
+		if (m_theTextList.NumEntires() >= 2)
 		{
-			for (;;)
+			if (!(num >= y * value))
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (num < y * value)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				scrollChat = (size >= 0.999f);
-				goto IL_104;
+				scrollChat = ((size >= 0.999f) ? 1 : 0);
+				goto IL_0104;
 			}
 		}
-		scrollChat = true;
-		IL_104:
-		this.m_scrollChat = scrollChat;
-		if (!this.m_scrollChat)
+		scrollChat = 1;
+		goto IL_0104;
+		IL_0104:
+		m_scrollChat = ((byte)scrollChat != 0);
+		if (!m_scrollChat)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 localPosition = rectTransform.localPosition;
-			localPosition.y -= num * (1f - rectTransform.pivot.y);
-			if (localPosition.y < -rectTransform.sizeDelta.y)
+			float y2 = localPosition.y;
+			Vector2 pivot = rectTransform.pivot;
+			localPosition.y = y2 - num * (1f - pivot.y);
+			float y3 = localPosition.y;
+			Vector2 sizeDelta2 = rectTransform.sizeDelta;
+			if (y3 < 0f - sizeDelta2.y)
 			{
-				localPosition.y = -rectTransform.sizeDelta.y;
+				Vector2 sizeDelta3 = rectTransform.sizeDelta;
+				localPosition.y = 0f - sizeDelta3.y;
 			}
 			rectTransform.localPosition = localPosition;
 		}
-		UIEventTriggerUtils.AddListener(textMeshProUGUI.gameObject, EventTriggerType.Scroll, new UIEventTriggerUtils.EventDelegate(this.OnScroll));
+		UIEventTriggerUtils.AddListener(textMeshProUGUI.gameObject, EventTriggerType.Scroll, OnScroll);
 		return textMeshProUGUI;
 	}
 
 	private string FormatConsoleMessage(TextConsole.Message message, bool selfMessage)
 	{
-		string result = string.Empty;
+		string empty = string.Empty;
 		if (message.DisplayDevTag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.FormatConsoleMessage(TextConsole.Message, bool)).MethodHandle;
-			}
 			message.SenderHandle = StringUtil.TR("DevTag", "Global") + message.SenderHandle;
 		}
 		switch (message.MessageType)
 		{
 		case ConsoleMessageType.GlobalChat:
 		{
-			string text = this.ColorToHex(HUD_UIResources.Get().m_GlobalChatColor);
-			string text2 = string.Concat(new string[]
-			{
-				"<link=channel:",
-				StringUtil.TR("/general", "SlashCommand").Substring(1),
-				">",
-				StringUtil.TR("GlobalChannel", "Chat"),
-				"</link>"
-			});
+			string arg = ColorToHex(HUD_UIResources.Get().m_GlobalChatColor);
+			string text3 = "<link=channel:" + StringUtil.TR("/general", "SlashCommand").Substring(1) + ">" + StringUtil.TR("GlobalChannel", "Chat") + "</link>";
 			if (selfMessage)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return $"<color=#{arg}>{text3} {message.SenderHandle}:  {message.Text}</color>";
 					}
-					break;
 				}
-				result = string.Format("<color=#{0}>{1} {2}:  {3}</color>", new object[]
-				{
-					text,
-					text2,
-					message.SenderHandle,
-					message.Text
-				});
 			}
-			else
-			{
-				result = string.Format("<color=#{0}>{1} [<link=name>{2}</link>]:  {3}</color>", new object[]
-				{
-					text,
-					text2,
-					message.SenderHandle,
-					message.Text
-				});
-			}
-			break;
+			return $"<color=#{arg}>{text3} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
 		}
 		case ConsoleMessageType.GameChat:
 		{
-			string arg = this.ColorToHex(HUD_UIResources.Get().m_GameChatColor);
+			string arg2 = ColorToHex(HUD_UIResources.Get().m_GameChatColor);
 			if (selfMessage)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return string.Format("<color=#{0}>" + StringUtil.TR("GameChannel", "Chat") + " </color>{1}<color=#{0}>: {2}</color>", arg2, message.SenderHandle, message.Text);
 					}
-					break;
 				}
-				result = string.Format("<color=#{0}>" + StringUtil.TR("GameChannel", "Chat") + " </color>{1}<color=#{0}>: {2}</color>", arg, message.SenderHandle, message.Text);
 			}
-			else
-			{
-				result = string.Format("<color=#{0}>" + StringUtil.TR("GameChannel", "Chat") + " <link=name>{1}</link>: {2}</color>", arg, message.SenderHandle, message.Text);
-			}
-			break;
+			return string.Format("<color=#{0}>" + StringUtil.TR("GameChannel", "Chat") + " <link=name>{1}</link>: {2}</color>", arg2, message.SenderHandle, message.Text);
 		}
 		case ConsoleMessageType.TeamChat:
 		{
-			string text = this.ColorToHex(HUD_UIResources.Get().m_TeamChatColor);
-			string text2;
+			string arg = ColorToHex(HUD_UIResources.Get().m_TeamChatColor);
+			string text3;
 			if (message.SenderTeam == Team.Spectator)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text2 = string.Concat(new string[]
-				{
-					"<link=channel:",
-					StringUtil.TR("/team", "SlashCommand").Substring(1),
-					">",
-					StringUtil.TR("SpectatorChannel", "Chat"),
-					"</link>"
-				});
+				text3 = "<link=channel:" + StringUtil.TR("/team", "SlashCommand").Substring(1) + ">" + StringUtil.TR("SpectatorChannel", "Chat") + "</link>";
 			}
 			else
 			{
-				text2 = string.Concat(new string[]
-				{
-					"<link=channel:",
-					StringUtil.TR("/team", "SlashCommand").Substring(1),
-					">",
-					StringUtil.TR("TeamChannel", "Chat"),
-					"</link>"
-				});
+				text3 = "<link=channel:" + StringUtil.TR("/team", "SlashCommand").Substring(1) + ">" + StringUtil.TR("TeamChannel", "Chat") + "</link>";
 			}
 			if (message.SenderHandle.IsNullOrEmpty())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return $"<color=#{arg}>{text3}:  {message.Text}</color>";
 					}
-					break;
 				}
-				result = string.Format("<color=#{0}>{1}:  {2}</color>", text, text2, message.Text);
 			}
-			else if (selfMessage)
+			if (selfMessage)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return string.Format("<color=#{0}>{1} </color>{2}<color=#{0}>:  {3}</color>", arg, text3, message.SenderHandle, message.Text);
 					}
-					break;
 				}
-				result = string.Format("<color=#{0}>{1} </color>{2}<color=#{0}>:  {3}</color>", new object[]
-				{
-					text,
-					text2,
-					message.SenderHandle,
-					message.Text
-				});
 			}
-			else
-			{
-				result = string.Format("<color=#{0}>{1} [<link=name>{2}</link>]:  {3}</color>", new object[]
-				{
-					text,
-					text2,
-					message.SenderHandle,
-					message.Text
-				});
-			}
-			break;
+			return $"<color=#{arg}>{text3} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
 		}
 		case ConsoleMessageType.GroupChat:
 		{
-			string text = this.ColorToHex(HUD_UIResources.Get().m_GroupChatColor);
-			string text2 = string.Concat(new string[]
-			{
-				"<link=channel:",
-				StringUtil.TR("/group", "SlashCommand").Substring(1),
-				">",
-				StringUtil.TR("GroupChannel", "Chat"),
-				"</link>"
-			});
-			string text3;
+			string arg = ColorToHex(HUD_UIResources.Get().m_GroupChatColor);
+			string text3 = "<link=channel:" + StringUtil.TR("/group", "SlashCommand").Substring(1) + ">" + StringUtil.TR("GroupChannel", "Chat") + "</link>";
+			string text4;
 			if (message.SenderHandle.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text3 = string.Empty;
+				text4 = string.Empty;
 			}
 			else if (selfMessage)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text3 = message.SenderHandle;
+				text4 = message.SenderHandle;
 			}
 			else
 			{
-				text3 = " [<link=name>" + message.SenderHandle + "</link>]";
+				text4 = " [<link=name>" + message.SenderHandle + "</link>]";
 			}
 			if (selfMessage)
 			{
-				result = string.Format("<color=#{0}>{1} </color>{2}<color=#{0}>:  {3}</color>", new object[]
-				{
-					text,
-					text2,
-					text3,
-					message.Text
-				});
+				return string.Format("<color=#{0}>{1} </color>{2}<color=#{0}>:  {3}</color>", arg, text3, text4, message.Text);
 			}
-			else
-			{
-				result = string.Format("<color=#{0}>{1}{2}:  {3}</color>", new object[]
-				{
-					text,
-					text2,
-					text3,
-					message.Text
-				});
-			}
-			break;
+			return $"<color=#{arg}>{text3}{text4}:  {message.Text}</color>";
 		}
 		case ConsoleMessageType.WhisperChat:
 		{
-			string text4;
-			string text5;
+			string text;
+			string text2;
 			if (selfMessage)
 			{
-				text4 = message.RecipientHandle;
-				text5 = StringUtil.TR("To", "Chat");
+				text = message.RecipientHandle;
+				text2 = StringUtil.TR("To", "Chat");
 			}
 			else
 			{
-				text4 = message.SenderHandle;
-				text5 = string.Empty;
+				text = message.SenderHandle;
+				text2 = string.Empty;
 			}
-			string text = this.ColorToHex(HUD_UIResources.Get().m_whisperChatColor);
-			result = string.Format("<color=#{0}>{1} [<link=name>{2}</link>]:  {3}</color>", new object[]
-			{
-				text,
-				text5,
-				text4,
-				message.Text
-			});
-			break;
-		}
-		case ConsoleMessageType.CombatLog:
-		{
-			string text = this.ColorToHex(HUD_UIResources.Get().m_combatLogChatColor);
-			result = string.Format("<color=#{1}>{0}</color>", message.Text, text);
-			break;
+			string arg = ColorToHex(HUD_UIResources.Get().m_whisperChatColor);
+			return $"<color=#{arg}>{text2} [<link=name>{text}</link>]:  {message.Text}</color>";
 		}
 		case ConsoleMessageType.SystemMessage:
 		case ConsoleMessageType.Exception:
 		case ConsoleMessageType.BroadcastMessage:
 		{
-			string text = this.ColorToHex(HUD_UIResources.Get().m_systemChatColor);
-			result = string.Format("<color=#{1}>{0}</color>", message.Text, text);
-			break;
+			string arg = ColorToHex(HUD_UIResources.Get().m_systemChatColor);
+			return string.Format("<color=#{1}>{0}</color>", message.Text, arg);
 		}
 		case ConsoleMessageType.Error:
 		{
-			string text = this.ColorToHex(HUD_UIResources.Get().m_systemErrorChatColor);
-			result = string.Format("<color=#{1}>{0}</color>", message.Text, text);
-			break;
+			string arg = ColorToHex(HUD_UIResources.Get().m_systemErrorChatColor);
+			return string.Format("<color=#{1}>{0}</color>", message.Text, arg);
+		}
+		case ConsoleMessageType.CombatLog:
+		{
+			string arg = ColorToHex(HUD_UIResources.Get().m_combatLogChatColor);
+			return string.Format("<color=#{1}>{0}</color>", message.Text, arg);
 		}
 		case ConsoleMessageType.PingChat:
 		case ConsoleMessageType.ScriptedChat:
 		{
-			string text = this.ColorToHex(HUD_UIResources.Get().m_TeamChatColor);
-			result = string.Format("<color=#{1}>{0}</color>", message.Text, text);
-			break;
+			string arg = ColorToHex(HUD_UIResources.Get().m_TeamChatColor);
+			return string.Format("<color=#{1}>{0}</color>", message.Text, arg);
 		}
-		case ConsoleMessageType.\u001D:
+		case ConsoleMessageType._001D:
 		{
-			string text = this.ColorToHex(Color.yellow);
-			result = string.Format("<color=#{1}>{0}</color>", message.Text, text);
-			break;
+			string arg = ColorToHex(Color.yellow);
+			return string.Format("<color=#{1}>{0}</color>", message.Text, arg);
 		}
 		default:
-			result = message.Text;
-			break;
+			return message.Text;
 		}
-		return result;
 	}
 
 	private static bool ShouldDisplay(TextConsole.Message message)
 	{
 		if (HUD_UI.Get() != null && message.MessageType == ConsoleMessageType.GlobalChat)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.ShouldDisplay(TextConsole.Message)).MethodHandle;
-			}
-			return false;
 		}
 		if (message.MessageType == ConsoleMessageType.GameChat)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(Options_UI.Get() == null))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Options_UI.Get().GetShowAllChat())
 				{
-					return true;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_00dc;
 				}
 			}
 			if (!AppState.IsInGame() && GameManager.Get().GameInfo != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameInfo.IsCustomGame)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
 					{
-						return true;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						goto IL_00dc;
 					}
 				}
 			}
 			return false;
 		}
+		goto IL_00dc;
+		IL_00dc:
 		return true;
 	}
 
 	public void UpdateGameState()
 	{
-		this.ApplyChatAlpha();
-		this.ChangeChatRoom();
-		this.m_theTextList.RefreshTextSizes();
+		ApplyChatAlpha();
+		ChangeChatRoom();
+		m_theTextList.RefreshTextSizes();
 	}
 
 	public static void StoreMessage(TextConsole.Message message, TextConsole.AllowedEmojis allowedEmojis)
 	{
-		if (UITextConsole.ShouldDisplay(message))
+		if (!ShouldDisplay(message))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (s_handledMessages == null)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.StoreMessage(TextConsole.Message, TextConsole.AllowedEmojis)).MethodHandle;
-			}
-			if (UITextConsole.s_handledMessages != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UITextConsole.s_handledMessages.Enqueue(new UITextConsole.HandledMessage
+				s_handledMessages.Enqueue(new HandledMessage
 				{
 					Message = message,
 					AllowedEmojis = allowedEmojis
 				});
-				if (UITextConsole.s_handledMessages.Count > 0x50)
+				if (s_handledMessages.Count > 80)
 				{
-					UITextConsole.s_handledMessages.Dequeue();
+					s_handledMessages.Dequeue();
 				}
+				return;
 			}
 		}
 	}
 
 	public void HandleMessage(TextConsole.Message message, TextConsole.AllowedEmojis allowedEmojis)
 	{
-		if (UITextConsole.ShouldDisplay(message))
+		if (!ShouldDisplay(message))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.HandleMessage(TextConsole.Message, TextConsole.AllowedEmojis)).MethodHandle;
-			}
-			this.DisplayMessage(message, allowedEmojis);
+			return;
+		}
+		while (true)
+		{
+			DisplayMessage(message, allowedEmojis);
+			return;
 		}
 	}
 
@@ -4932,20 +2610,16 @@ public class UITextConsole : MonoBehaviour
 	{
 		if (HUD_UIResources.Get() == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.DisplayMessage(TextConsole.Message, TextConsole.AllowedEmojis)).MethodHandle;
-			}
-			return null;
 		}
 		string text = string.Empty;
 		bool forceShowChat = false;
@@ -4953,784 +2627,436 @@ public class UITextConsole : MonoBehaviour
 		PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
 		if (playerAccountData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = (message.SenderAccountId == playerAccountData.AccountId);
 		}
 		Color textColor;
+		string lastWhisperer;
 		switch (message.MessageType)
 		{
 		case ConsoleMessageType.GlobalChat:
 			textColor = HUD_UIResources.Get().m_GlobalChatColor;
 			forceShowChat = true;
-			goto IL_239;
+			break;
 		case ConsoleMessageType.GameChat:
 			textColor = HUD_UIResources.Get().m_GameChatColor;
 			forceShowChat = true;
-			goto IL_239;
+			break;
 		case ConsoleMessageType.TeamChat:
 			textColor = HUD_UIResources.Get().m_TeamChatColor;
 			forceShowChat = true;
-			goto IL_239;
+			break;
 		case ConsoleMessageType.GroupChat:
 			textColor = HUD_UIResources.Get().m_GroupChatColor;
 			forceShowChat = true;
-			goto IL_239;
+			break;
 		case ConsoleMessageType.WhisperChat:
-		{
 			textColor = HUD_UIResources.Get().m_whisperChatColor;
 			forceShowChat = true;
-			if (this.m_timeSinceLastWhisper + UIFrontEnd.Get().m_whisperSoundThreshold >= Time.time)
+			if (m_timeSinceLastWhisper + UIFrontEnd.Get().m_whisperSoundThreshold < Time.time)
 			{
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_lastWhisperer != message.RecipientHandle)
-					{
-						goto IL_168;
-					}
-				}
-				if (flag)
-				{
-					goto IL_1CD;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(this.m_lastWhisperer != message.SenderHandle))
-				{
-					goto IL_1CD;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+				goto IL_0168;
 			}
-			IL_168:
-			string lastWhisperer;
 			if (flag)
 			{
-				for (;;)
+				if (m_lastWhisperer != message.RecipientHandle)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_0168;
 				}
+			}
+			if (!flag)
+			{
+				if (m_lastWhisperer != message.SenderHandle)
+				{
+					goto IL_0168;
+				}
+			}
+			goto IL_01cd;
+		case ConsoleMessageType.BroadcastMessage:
+			textColor = HUD_UIResources.Get().m_GlobalChatColor;
+			forceShowChat = true;
+			break;
+		case ConsoleMessageType.SystemMessage:
+			textColor = HUD_UIResources.Get().m_GlobalChatColor;
+			forceShowChat = true;
+			break;
+		case ConsoleMessageType.Error:
+			text = message.Text;
+			textColor = Color.red;
+			forceShowChat = true;
+			break;
+		case ConsoleMessageType.Exception:
+			text = message.Text;
+			textColor = Color.red;
+			forceShowChat = true;
+			break;
+		default:
+			{
+				text = message.Text;
+				textColor = HUD_UIResources.Get().m_GlobalChatColor;
+				break;
+			}
+			IL_01cd:
+			m_timeSinceLastWhisper = Time.time;
+			break;
+			IL_0168:
+			if (flag)
+			{
 				lastWhisperer = message.RecipientHandle;
 			}
 			else
 			{
 				lastWhisperer = message.SenderHandle;
 			}
-			this.m_lastWhisperer = lastWhisperer;
+			m_lastWhisperer = lastWhisperer;
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIFrontEnd.PlaySound(FrontEndButtonSounds.WhisperMessage);
 			}
-			if (!UITextConsole.m_whisperedPlayers.Contains(this.m_lastWhisperer))
+			if (!m_whisperedPlayers.Contains(m_lastWhisperer))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UITextConsole.m_whisperedPlayers.Add(this.m_lastWhisperer);
+				m_whisperedPlayers.Add(m_lastWhisperer);
 			}
-			IL_1CD:
-			this.m_timeSinceLastWhisper = Time.time;
-			goto IL_239;
+			goto IL_01cd;
 		}
-		case ConsoleMessageType.SystemMessage:
-			textColor = HUD_UIResources.Get().m_GlobalChatColor;
-			forceShowChat = true;
-			goto IL_239;
-		case ConsoleMessageType.Error:
-			text = message.Text;
-			textColor = Color.red;
-			forceShowChat = true;
-			goto IL_239;
-		case ConsoleMessageType.Exception:
-			text = message.Text;
-			textColor = Color.red;
-			forceShowChat = true;
-			goto IL_239;
-		case ConsoleMessageType.BroadcastMessage:
-			textColor = HUD_UIResources.Get().m_GlobalChatColor;
-			forceShowChat = true;
-			goto IL_239;
-		}
-		text = message.Text;
-		textColor = HUD_UIResources.Get().m_GlobalChatColor;
-		IL_239:
-		if (text.Length > 0x100)
+		if (text.Length > 256)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (message.MessageType != ConsoleMessageType.SystemMessage)
 			{
-				text = text.Substring(0, 0x100);
+				text = text.Substring(0, 256);
 			}
 		}
-		text = this.FormatConsoleMessage(message, flag);
-		TextMeshProUGUI result = this.AddTextEntry(text, textColor, forceShowChat, message, allowedEmojis.emojis);
-		UITextConsole.TryAddToAutoComplete(message.SenderHandle);
+		text = FormatConsoleMessage(message, flag);
+		TextMeshProUGUI result = AddTextEntry(text, textColor, forceShowChat, message, allowedEmojis.emojis);
+		TryAddToAutoComplete(message.SenderHandle);
 		return result;
 	}
 
 	public bool IsVisible()
 	{
-		return this.m_visible;
+		return m_visible;
 	}
 
 	private void UpdateElementsVisibility()
 	{
-		if (this.m_visible)
+		if (m_visible)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.UpdateElementsVisibility()).MethodHandle;
-			}
-			this.chatAlpha.EaseTo(1f, 0.3f);
-			if (this.m_changeChannelAlpha)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				UIManager.SetGameObjectActive(this.m_chatroomHitbox, true, null);
-			}
-		}
-		else
-		{
-			this.chatAlpha.EaseTo(0f, 0.3f);
-			if (this.m_changeChannelAlpha)
-			{
-				for (;;)
-				{
-					switch (6)
+				default:
+					chatAlpha.EaseTo(1f);
+					if (m_changeChannelAlpha)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_chatroomHitbox, false, null);
-			}
-			if (EmoticonPanel.Get() != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				EmoticonPanel.Get().SetPanelOpen(false);
-			}
-		}
-	}
-
-	public void OnInputSubmitted()
-	{
-		string text = this.m_textInput.text.Trim();
-		if (!text.IsNullOrEmpty())
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.OnInputSubmitted()).MethodHandle;
-			}
-			if (!text.StartsWith("/"))
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text = this.m_chatCommand + " " + text;
-			}
-			bool flag;
-			if (GameManager.Get() != null && GameManager.Get().GameInfo != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag = (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped);
-			}
-			else
-			{
-				flag = false;
-			}
-			bool flag2 = flag;
-			bool flag3 = false;
-			string[] array = text.Split(new char[]
-			{
-				' '
-			});
-			if (UITextConsole.m_globalCommand.IsSlashCommand(array[0]))
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (Options_UI.Get() != null && !Options_UI.Get().GetShowGlobalChat())
-				{
-					for (;;)
-					{
-						switch (4)
+						while (true)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.AddTextEntry(StringUtil.TR("GlobalChatDisabled", "Chat"), HUD_UIResources.Get().m_GlobalChatColor, true);
-					flag3 = true;
-					goto IL_2EA;
-				}
-			}
-			if (UITextConsole.m_allCommand.IsSlashCommand(array[0]) && Options_UI.Get() != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!Options_UI.Get().GetShowAllChat())
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!AppState.IsInGame())
-					{
-						for (;;)
-						{
-							switch (7)
+							switch (6)
 							{
 							case 0:
-								continue;
-							}
-							break;
-						}
-						if (GameManager.Get().GameInfo != null)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
 								break;
-							}
-							if (GameManager.Get().GameInfo.IsCustomGame)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
-								{
-									goto IL_1FC;
-								}
+							default:
+								UIManager.SetGameObjectActive(m_chatroomHitbox, true);
+								return;
 							}
 						}
-					}
-					this.AddTextEntry(StringUtil.TR("AllChatDisabled", "Chat"), HUD_UIResources.Get().m_GameChatColor, true);
-					flag3 = true;
-					IL_1FC:
-					goto IL_2EA;
-				}
-			}
-			if (UITextConsole.m_teamCommand.IsSlashCommand(array[0]))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!flag2)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.AddTextEntry(StringUtil.TR("NotInAGame", "Invite"), HUD_UIResources.Get().m_TeamChatColor, true);
-					flag3 = true;
-					goto IL_2EA;
-				}
-			}
-			if (UITextConsole.m_groupCommand.IsSlashCommand(array[0]))
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (ClientGameManager.Get() != null)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (ClientGameManager.Get().GroupInfo != null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!ClientGameManager.Get().GroupInfo.InAGroup)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.AddTextEntry(StringUtil.TR("NotInAGroup", "Invite"), HUD_UIResources.Get().m_GroupChatColor, true);
-							flag3 = true;
-						}
-					}
-				}
-			}
-			IL_2EA:
-			if (!flag3)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (TextConsole.Get() != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					TextConsole.Get().OnInputSubmitted(text);
-				}
-				UITextConsole.s_history.Add(text);
-				this.m_storedHistory = null;
-				this.m_storedChatCommand = null;
-				this.m_historyIndex = UITextConsole.s_history.Count;
-				for (int i = 0; i < UITextConsole.m_possibilitiesEntries.Count; i++)
-				{
-					this.m_theTextList.RemoveEntry(UITextConsole.m_possibilitiesEntries[i]);
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UITextConsole.m_possibilitiesEntries.Clear();
-			}
-		}
-		this.m_textInput.text = string.Empty;
-		if (EventSystem.current.currentSelectedGameObject == this.m_textInput.gameObject)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_inputJustCleared = true;
-			EventSystem.current.SetSelectedGameObject(null);
-			this.setInputSelected = (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd);
-		}
-	}
-
-	private void OnToggleClicked(BaseEventData data)
-	{
-		this.ToggleVisibility();
-	}
-
-	private void ToggleVisibility()
-	{
-		if (this.m_visible)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.ToggleVisibility()).MethodHandle;
-			}
-			if (this.m_chatroomList.IsVisible())
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return;
-			}
-		}
-		if (this.m_visible)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if ((double)this.m_scrollBar.size < 0.9999)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if ((double)this.m_scrollBar.value > 0.0001)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					return;
 				}
 			}
 		}
-		this.m_visible = !this.m_visible;
-		if (this.m_visible)
+		chatAlpha.EaseTo(0f);
+		if (m_changeChannelAlpha)
 		{
-			if (UIScreenManager.Get() != null)
+			UIManager.SetGameObjectActive(m_chatroomHitbox, false);
+		}
+		if (!(EmoticonPanel.Get() != null))
+		{
+			return;
+		}
+		while (true)
+		{
+			EmoticonPanel.Get().SetPanelOpen(false);
+			return;
+		}
+	}
+
+	public void OnInputSubmitted()
+	{
+		string text = m_textInput.text.Trim();
+		bool flag2;
+		if (!text.IsNullOrEmpty())
+		{
+			if (!text.StartsWith("/"))
 			{
-				for (;;)
+				text = m_chatCommand + " " + text;
+			}
+			int num;
+			if (GameManager.Get() != null && GameManager.Get().GameInfo != null)
+			{
+				num = ((GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped) ? 1 : 0);
+			}
+			else
+			{
+				num = 0;
+			}
+			bool flag = (byte)num != 0;
+			flag2 = false;
+			string[] array = text.Split(' ');
+			if (m_globalCommand.IsSlashCommand(array[0]))
+			{
+				if (Options_UI.Get() != null && !Options_UI.Get().GetShowGlobalChat())
+				{
+					AddTextEntry(StringUtil.TR("GlobalChatDisabled", "Chat"), HUD_UIResources.Get().m_GlobalChatColor, true);
+					flag2 = true;
+					goto IL_02ea;
+				}
+			}
+			if (m_allCommand.IsSlashCommand(array[0]) && Options_UI.Get() != null)
+			{
+				if (!Options_UI.Get().GetShowAllChat())
+				{
+					if (!AppState.IsInGame())
+					{
+						if (GameManager.Get().GameInfo != null)
+						{
+							if (GameManager.Get().GameInfo.IsCustomGame)
+							{
+								if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
+								{
+									goto IL_02ea;
+								}
+							}
+						}
+					}
+					AddTextEntry(StringUtil.TR("AllChatDisabled", "Chat"), HUD_UIResources.Get().m_GameChatColor, true);
+					flag2 = true;
+					goto IL_02ea;
+				}
+			}
+			if (m_teamCommand.IsSlashCommand(array[0]))
+			{
+				if (!flag)
+				{
+					AddTextEntry(StringUtil.TR("NotInAGame", "Invite"), HUD_UIResources.Get().m_TeamChatColor, true);
+					flag2 = true;
+					goto IL_02ea;
+				}
+			}
+			if (m_groupCommand.IsSlashCommand(array[0]))
+			{
+				if (ClientGameManager.Get() != null)
+				{
+					if (ClientGameManager.Get().GroupInfo != null)
+					{
+						if (!ClientGameManager.Get().GroupInfo.InAGroup)
+						{
+							AddTextEntry(StringUtil.TR("NotInAGroup", "Invite"), HUD_UIResources.Get().m_GroupChatColor, true);
+							flag2 = true;
+						}
+					}
+				}
+			}
+			goto IL_02ea;
+		}
+		goto IL_038d;
+		IL_02ea:
+		if (!flag2)
+		{
+			if (TextConsole.Get() != null)
+			{
+				TextConsole.Get().OnInputSubmitted(text);
+			}
+			s_history.Add(text);
+			m_storedHistory = null;
+			m_storedChatCommand = null;
+			m_historyIndex = s_history.Count;
+			for (int i = 0; i < m_possibilitiesEntries.Count; i++)
+			{
+				m_theTextList.RemoveEntry(m_possibilitiesEntries[i]);
+			}
+			m_possibilitiesEntries.Clear();
+		}
+		goto IL_038d;
+		IL_038d:
+		m_textInput.text = string.Empty;
+		if (!(EventSystem.current.currentSelectedGameObject == m_textInput.gameObject))
+		{
+			return;
+		}
+		while (true)
+		{
+			m_inputJustCleared = true;
+			EventSystem.current.SetSelectedGameObject(null);
+			setInputSelected = (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd);
+			return;
+		}
+	}
+
+	private void OnToggleClicked(BaseEventData data)
+	{
+		ToggleVisibility();
+	}
+
+	private void ToggleVisibility()
+	{
+		if (m_visible)
+		{
+			if (m_chatroomList.IsVisible())
+			{
+				while (true)
 				{
 					switch (4)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
-				this.SetTimeTillCollapse(UIScreenManager.Get().m_chatDisplayTime);
+			}
+		}
+		if (m_visible)
+		{
+			if ((double)m_scrollBar.size < 0.9999)
+			{
+				if ((double)m_scrollBar.value > 0.0001)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						default:
+							return;
+						case 0:
+							break;
+						}
+					}
+				}
+			}
+		}
+		m_visible = !m_visible;
+		if (m_visible)
+		{
+			if (UIScreenManager.Get() != null)
+			{
+				SetTimeTillCollapse(UIScreenManager.Get().m_chatDisplayTime);
 			}
 		}
 		else
 		{
-			this.ClearInputSelect();
-			this.SetTimeTillCollapse(-1f);
+			ClearInputSelect();
+			SetTimeTillCollapse(-1f);
 		}
-		this.m_theTextList.NotifyVisible(this.m_visible);
-		this.UpdateElementsVisibility();
+		m_theTextList.NotifyVisible(m_visible);
+		UpdateElementsVisibility();
 	}
 
 	public void Show()
 	{
-		if (!this.m_visible)
+		if (m_visible)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.Show()).MethodHandle;
-			}
-			this.ToggleVisibility();
+			return;
+		}
+		while (true)
+		{
+			ToggleVisibility();
+			return;
 		}
 	}
 
 	public void Hide()
 	{
-		if (this.m_visible)
+		if (!m_visible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.Hide()).MethodHandle;
-			}
-			this.ToggleVisibility();
+			return;
+		}
+		while (true)
+		{
+			ToggleVisibility();
+			return;
 		}
 	}
 
 	private void OnPointerEnter(BaseEventData data)
 	{
-		this.OnTextConsoleHover(true);
+		OnTextConsoleHover(true);
 	}
 
 	private void OnPointerExit(BaseEventData data)
 	{
-		this.OnTextConsoleHover(false);
+		OnTextConsoleHover(false);
 	}
 
 	public bool IsHovered()
 	{
-		return this.m_hovering;
+		return m_hovering;
 	}
 
 	private void OnInputClicked(BaseEventData data)
 	{
-		this.Show();
-		this.m_autocompleteList.SetVisible(false);
+		Show();
+		m_autocompleteList.SetVisible(false);
 	}
 
 	private void OnChatroomClick(BaseEventData data)
 	{
-		if (this.m_chatroomList.IsVisible())
+		if (m_chatroomList.IsVisible())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_chatroomList.SetVisible(false);
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.OnChatroomClick(BaseEventData)).MethodHandle;
-			}
-			this.m_chatroomList.SetVisible(false);
 		}
-		else
-		{
-			this.m_chatroomList.Setup(this);
-			this.m_chatroomList.SetVisible(true);
-		}
+		m_chatroomList.Setup(this);
+		m_chatroomList.SetVisible(true);
 	}
 
 	private void OnTextConsoleHover(bool hover)
 	{
-		this.m_hovering = hover;
-		if (!hover)
+		m_hovering = hover;
+		if (hover)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.OnTextConsoleHover(bool)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (UIScreenManager.Get() != null)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					SetTimeTillCollapse(UIScreenManager.Get().m_chatDisplayTime);
+					return;
 				}
-				this.SetTimeTillCollapse(UIScreenManager.Get().m_chatDisplayTime);
 			}
+			return;
 		}
 	}
 
 	private void OnDragOver(GameObject go)
 	{
-		this.m_hovering = true;
+		m_hovering = true;
 	}
 
 	private void OnDragOut(GameObject go)
 	{
-		this.m_hovering = false;
-		if (!this.m_hovering)
+		m_hovering = false;
+		if (m_hovering)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.OnDragOut(GameObject)).MethodHandle;
-			}
-			this.SetTimeTillCollapse(UIScreenManager.Get().m_chatDisplayTime);
+			return;
+		}
+		while (true)
+		{
+			SetTimeTillCollapse(UIScreenManager.Get().m_chatDisplayTime);
+			return;
 		}
 	}
 
@@ -5739,19 +3065,6 @@ public class UITextConsole : MonoBehaviour
 		TextConsole textConsole = TextConsole.Get();
 		if (textConsole != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.GenerateReplyPrefix()).MethodHandle;
-			}
 			string lastWhisperSenderHandle = textConsole.LastWhisperSenderHandle;
 			if (!lastWhisperSenderHandle.IsNullOrEmpty())
 			{
@@ -5763,848 +3076,456 @@ public class UITextConsole : MonoBehaviour
 
 	public void ChangeChatRoom()
 	{
-		if (!(this.m_chatRoomName == null))
+		if (m_chatRoomName == null)
 		{
-			if (this.m_textInput.text.IsNullOrEmpty())
+			return;
+		}
+		if (!m_textInput.text.IsNullOrEmpty())
+		{
+			while (true)
 			{
-				this.m_chatroomList.SetVisible(false);
-				this.m_hasGame = (GameManager.Get() != null && GameManager.Get().GameInfo != null && GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped);
-				bool flag;
-				if (ClientGameManager.Get() != null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (ClientGameManager.Get().GroupInfo != null)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag = ClientGameManager.Get().GroupInfo.InAGroup;
-						goto IL_D1;
-					}
-				}
-				flag = false;
-				IL_D1:
-				bool flag2 = flag;
-				if (!this.m_hasGame)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (UITextConsole.m_teamCommand.IsSlashCommand(this.m_chatCommand))
-					{
-						goto IL_190;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (UITextConsole.m_allCommand.IsSlashCommand(this.m_chatCommand))
-					{
-						goto IL_190;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				if (UITextConsole.m_globalCommand.IsSlashCommand(this.m_chatCommand))
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (flag2)
-					{
-						goto IL_190;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_hasGame)
-					{
-						goto IL_190;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				if (!UITextConsole.m_groupCommand.IsSlashCommand(this.m_chatCommand))
-				{
-					goto IL_197;
-				}
-				if (flag2)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_hasGame)
-					{
-						goto IL_197;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				IL_190:
-				this.m_chatCommand = null;
-				IL_197:
-				this.SetChatRoom(null);
 				return;
 			}
-			for (;;)
+		}
+		m_chatroomList.SetVisible(false);
+		m_hasGame = (GameManager.Get() != null && GameManager.Get().GameInfo != null && GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped);
+		int num;
+		if (ClientGameManager.Get() != null)
+		{
+			if (ClientGameManager.Get().GroupInfo != null)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.ChangeChatRoom()).MethodHandle;
+				num = (ClientGameManager.Get().GroupInfo.InAGroup ? 1 : 0);
+				goto IL_00d1;
 			}
 		}
+		num = 0;
+		goto IL_00d1;
+		IL_00d1:
+		bool flag = (byte)num != 0;
+		if (m_hasGame)
+		{
+			goto IL_0124;
+		}
+		if (!m_teamCommand.IsSlashCommand(m_chatCommand))
+		{
+			if (!m_allCommand.IsSlashCommand(m_chatCommand))
+			{
+				goto IL_0124;
+			}
+		}
+		goto IL_0190;
+		IL_015f:
+		if (m_groupCommand.IsSlashCommand(m_chatCommand))
+		{
+			if (flag)
+			{
+				if (!m_hasGame)
+				{
+					goto IL_0197;
+				}
+			}
+			goto IL_0190;
+		}
+		goto IL_0197;
+		IL_0197:
+		SetChatRoom();
+		return;
+		IL_0190:
+		m_chatCommand = null;
+		goto IL_0197;
+		IL_0124:
+		if (!m_globalCommand.IsSlashCommand(m_chatCommand))
+		{
+			goto IL_015f;
+		}
+		if (!flag)
+		{
+			if (!m_hasGame)
+			{
+				goto IL_015f;
+			}
+		}
+		goto IL_0190;
 	}
 
 	private void SetChatRoom(string chatText = null)
 	{
-		if (this.m_chatRoomName == null)
+		if (m_chatRoomName == null)
 		{
 			return;
 		}
 		if (chatText == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.SetChatRoom(string)).MethodHandle;
-			}
-			chatText = this.m_chatText.text;
+			chatText = m_chatText.text;
 		}
-		bool flag;
+		int num;
 		if (GameManager.Get() != null && GameManager.Get().GameInfo != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag = (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped);
+			num = ((GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
-		bool flag3;
+		bool flag = (byte)num != 0;
+		int num2;
 		if (ClientGameManager.Get() != null && ClientGameManager.Get().GroupInfo != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag3 = ClientGameManager.Get().GroupInfo.InAGroup;
+			num2 = (ClientGameManager.Get().GroupInfo.InAGroup ? 1 : 0);
 		}
 		else
 		{
-			flag3 = false;
+			num2 = 0;
 		}
-		bool flag4 = flag3;
-		string[] array = chatText.Split(null, 3, StringSplitOptions.RemoveEmptyEntries);
-		if (array.Length <= 1)
+		bool flag2 = (byte)num2 != 0;
+		string[] array = chatText.Split((string[])null, 3, StringSplitOptions.RemoveEmptyEntries);
+		if (array.Length > 1)
 		{
-			for (;;)
+			goto IL_010f;
+		}
+		if (chatText.EndsWith(" "))
+		{
+			if (!chatText.Trim().IsNullOrEmpty())
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!chatText.EndsWith(" "))
-			{
-				goto IL_445;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (chatText.Trim().IsNullOrEmpty())
-			{
-				goto IL_445;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_010f;
 			}
 		}
-		using (List<SlashCommand>.Enumerator enumerator = UITextConsole.m_chatCommands.GetEnumerator())
+		goto IL_0445;
+		IL_010f:
+		using (List<SlashCommand>.Enumerator enumerator = m_chatCommands.GetEnumerator())
 		{
-			while (enumerator.MoveNext())
+			while (true)
 			{
-				SlashCommand slashCommand = enumerator.Current;
-				if (slashCommand.IsSlashCommand(array[0]))
+				if (!enumerator.MoveNext())
 				{
-					for (;;)
+					break;
+				}
+				SlashCommand current = enumerator.Current;
+				if (current.IsSlashCommand(array[0]))
+				{
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (slashCommand == UITextConsole.m_whisperCommand)
-					{
-						if (array.Length < 3)
-						{
-							for (;;)
+							break;
+						default:
 							{
-								switch (4)
+								if (current == m_whisperCommand)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (array.Length < 2)
-							{
-								goto IL_1D3;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!chatText.EndsWith(" "))
-							{
-								goto IL_1D3;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						array = chatText.Split(null, 3, StringSplitOptions.RemoveEmptyEntries);
-						this.m_chatCommand = slashCommand.Command + " " + array[1];
-						if (array.Length >= 3)
-						{
-							this.m_textInput.text = array[2];
-						}
-						else
-						{
-							this.m_textInput.text = string.Empty;
-						}
-						IL_1D3:;
-					}
-					else
-					{
-						if (slashCommand == UITextConsole.m_allCommand)
-						{
-							if (!AppState.IsInGame() && GameManager.Get().GameInfo != null)
-							{
-								for (;;)
-								{
-									switch (5)
+									if (array.Length >= 3)
 									{
-									case 0:
-										continue;
+										goto IL_0188;
 									}
-									break;
-								}
-								if (GameManager.Get().GameInfo.IsCustomGame && GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
-								{
-									goto IL_26A;
-								}
-							}
-							if (!(Options_UI.Get() == null))
-							{
-								for (;;)
-								{
-									switch (1)
+									if (array.Length >= 2)
 									{
-									case 0:
-										continue;
+										if (chatText.EndsWith(" "))
+										{
+											goto IL_0188;
+										}
 									}
-									break;
 								}
-								if (Options_UI.Get().GetShowAllChat())
+								else
 								{
-									goto IL_26A;
-								}
-								for (;;)
-								{
-									switch (4)
+									if (current != m_allCommand)
 									{
-									case 0:
-										continue;
+										goto IL_026a;
 									}
-									break;
+									if (!AppState.IsInGame() && GameManager.Get().GameInfo != null)
+									{
+										if (GameManager.Get().GameInfo.IsCustomGame && GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
+										{
+											goto IL_026a;
+										}
+									}
+									if (!(Options_UI.Get() == null))
+									{
+										if (Options_UI.Get().GetShowAllChat())
+										{
+											goto IL_026a;
+										}
+									}
 								}
+								goto end_IL_011d;
 							}
-							goto IL_435;
-						}
-						IL_26A:
-						if (!flag2)
-						{
-							for (;;)
+							IL_03b6:
+							m_chatCommand = current.Command;
+							if (array.Length > 1)
 							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (slashCommand != UITextConsole.m_teamCommand)
-							{
-								for (;;)
+								while (true)
 								{
 									switch (7)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										chatText = array[1];
+										if (array.Length > 2)
+										{
+											chatText = chatText + " " + array[2];
+										}
+										m_textInput.text = chatText;
+										goto end_IL_011d;
 									}
-									break;
-								}
-								if (slashCommand != UITextConsole.m_allCommand)
-								{
-									goto IL_323;
-								}
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
-							this.AddTextEntry(StringUtil.TR("NotInAGame", "Invite"), HUD_UIResources.Get().m_TeamChatColor, true);
+							m_textInput.text = string.Empty;
+							goto end_IL_011d;
+							IL_0188:
+							array = chatText.Split((string[])null, 3, StringSplitOptions.RemoveEmptyEntries);
+							m_chatCommand = current.Command + " " + array[1];
+							if (array.Length >= 3)
+							{
+								m_textInput.text = array[2];
+							}
+							else
+							{
+								m_textInput.text = string.Empty;
+							}
+							goto end_IL_011d;
+							IL_0323:
+							if (current != m_groupCommand)
+							{
+								goto IL_03b6;
+							}
+							if (flag2)
+							{
+								goto IL_03b6;
+							}
+							AddTextEntry(StringUtil.TR("NotInAGroup", "Invite"), HUD_UIResources.Get().m_GroupChatColor, true);
 							chatText = string.Empty;
 							for (int i = 1; i < array.Length; i++)
 							{
+								chatText = ((!chatText.IsNullOrEmpty()) ? (chatText + " " + array[i]) : array[i]);
+							}
+							m_textInput.text = chatText;
+							goto end_IL_011d;
+							IL_026a:
+							if (flag)
+							{
+								goto IL_0323;
+							}
+							if (current != m_teamCommand)
+							{
+								if (current != m_allCommand)
+								{
+									goto IL_0323;
+								}
+							}
+							AddTextEntry(StringUtil.TR("NotInAGame", "Invite"), HUD_UIResources.Get().m_TeamChatColor, true);
+							chatText = string.Empty;
+							for (int j = 1; j < array.Length; j++)
+							{
 								if (chatText.IsNullOrEmpty())
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									chatText = array[i];
+									chatText = array[j];
 								}
 								else
 								{
-									chatText = chatText + " " + array[i];
+									chatText = chatText + " " + array[j];
 								}
 							}
-							this.m_textInput.text = chatText;
-							goto IL_435;
-						}
-						IL_323:
-						if (slashCommand == UITextConsole.m_groupCommand)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!flag4)
-							{
-								this.AddTextEntry(StringUtil.TR("NotInAGroup", "Invite"), HUD_UIResources.Get().m_GroupChatColor, true);
-								chatText = string.Empty;
-								for (int j = 1; j < array.Length; j++)
-								{
-									if (chatText.IsNullOrEmpty())
-									{
-										chatText = array[j];
-									}
-									else
-									{
-										chatText = chatText + " " + array[j];
-									}
-								}
-								this.m_textInput.text = chatText;
-								goto IL_435;
-							}
-						}
-						this.m_chatCommand = slashCommand.Command;
-						if (array.Length > 1)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							chatText = array[1];
-							if (array.Length > 2)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								chatText = chatText + " " + array[2];
-							}
-							this.m_textInput.text = chatText;
-						}
-						else
-						{
-							this.m_textInput.text = string.Empty;
+							m_textInput.text = chatText;
+							goto end_IL_011d;
 						}
 					}
-					IL_435:
-					goto IL_445;
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			end_IL_011d:;
 		}
-		IL_445:
-		if (this.m_chatCommand.IsNullOrEmpty())
+		goto IL_0445;
+		IL_0445:
+		if (m_chatCommand.IsNullOrEmpty())
 		{
-			for (;;)
+			if (m_hasGame)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_chatCommand = StringUtil.TR("/team", "SlashCommand");
 			}
-			if (this.m_hasGame)
+			else if (flag2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_chatCommand = StringUtil.TR("/team", "SlashCommand");
-			}
-			else if (flag4)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_chatCommand = StringUtil.TR("/group", "SlashCommand");
+				m_chatCommand = StringUtil.TR("/group", "SlashCommand");
 			}
 			else
 			{
-				this.m_chatCommand = StringUtil.TR("/general", "SlashCommand");
+				m_chatCommand = StringUtil.TR("/general", "SlashCommand");
 			}
 		}
-		this.RefreshChatRoomDisplay();
+		RefreshChatRoomDisplay();
 	}
 
 	private void RefreshChatRoomDisplay()
 	{
-		string text = this.m_chatCommand;
-		int num = this.m_chatCommand.IndexOf(' ');
+		string text = m_chatCommand;
+		int num = m_chatCommand.IndexOf(' ');
 		if (num > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.RefreshChatRoomDisplay()).MethodHandle;
-			}
-			text = this.m_chatCommand.Substring(0, num);
+			text = m_chatCommand.Substring(0, num);
 		}
-		if (UITextConsole.m_allCommand.IsSlashCommand(text))
+		if (m_allCommand.IsSlashCommand(text))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_chatRoomName.text = StringUtil.TR("GameChannel", "Chat");
+			m_chatRoomName.text = StringUtil.TR("GameChannel", "Chat");
 		}
-		else if (UITextConsole.m_globalCommand.IsSlashCommand(text))
+		else if (m_globalCommand.IsSlashCommand(text))
 		{
-			this.m_chatRoomName.text = StringUtil.TR("GlobalChannel", "Chat");
+			m_chatRoomName.text = StringUtil.TR("GlobalChannel", "Chat");
 		}
-		else if (UITextConsole.m_groupCommand.IsSlashCommand(text))
+		else if (m_groupCommand.IsSlashCommand(text))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_chatRoomName.text = StringUtil.TR("GroupChannel", "Chat");
+			m_chatRoomName.text = StringUtil.TR("GroupChannel", "Chat");
 		}
-		else if (UITextConsole.m_teamCommand.IsSlashCommand(text))
+		else if (m_teamCommand.IsSlashCommand(text))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(GameManager.Get() == null))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().PlayerInfo != null)
 				{
 					if (GameManager.Get().PlayerInfo.TeamId != Team.Spectator)
 					{
-						this.m_chatRoomName.text = StringUtil.TR("TeamChannel", "Chat");
-						goto IL_17F;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						m_chatRoomName.text = StringUtil.TR("TeamChannel", "Chat");
+						goto IL_01e8;
 					}
 				}
 			}
-			this.m_chatRoomName.text = StringUtil.TR("SpectatorChannel", "Chat");
-			IL_17F:;
+			m_chatRoomName.text = StringUtil.TR("SpectatorChannel", "Chat");
 		}
-		else if (UITextConsole.m_whisperCommand.IsSlashCommand(text))
+		else if (m_whisperCommand.IsSlashCommand(text))
 		{
-			this.m_chatRoomName.text = this.m_chatCommand.Substring(text.Length);
+			m_chatRoomName.text = m_chatCommand.Substring(text.Length);
 		}
 		else
 		{
-			this.m_chatRoomName.text = "[" + this.m_chatCommand.Substring(1, 1).ToUpper() + this.m_chatCommand.Substring(2) + "]";
+			m_chatRoomName.text = "[" + m_chatCommand.Substring(1, 1).ToUpper() + m_chatCommand.Substring(2) + "]";
 		}
-		TextMeshProUGUI chatRoomName = this.m_chatRoomName;
-		chatRoomName.text += ":";
-		this.AlignChatText();
-		Color color = Color.white;
+		goto IL_01e8;
+		IL_036a:
+		Color color;
+		m_chatRoomName.color = color;
+		if (m_changeChannelAlpha)
+		{
+			TextMeshProUGUI chatRoomName = m_chatRoomName;
+			Color color2 = m_chatRoomName.color;
+			float r = color2.r;
+			Color color3 = m_chatRoomName.color;
+			float g = color3.g;
+			Color color4 = m_chatRoomName.color;
+			chatRoomName.color = new Color(r, g, color4.b, chatAlpha);
+		}
+		return;
+		IL_01e8:
+		m_chatRoomName.text += ":";
+		AlignChatText();
+		color = Color.white;
 		if (HUD_UIResources.Get() != null)
 		{
-			for (;;)
+			if (m_chatCommand == StringUtil.TR("/group", "SlashCommand"))
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_chatCommand == StringUtil.TR("/group", "SlashCommand"))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				color = HUD_UIResources.Get().m_GroupChatColor;
 			}
-			else if (this.m_chatCommand == StringUtil.TR("/general", "SlashCommand"))
+			else if (m_chatCommand == StringUtil.TR("/general", "SlashCommand"))
 			{
 				color = HUD_UIResources.Get().m_GlobalChatColor;
 			}
 			else
 			{
-				if (!(this.m_chatCommand == StringUtil.TR("/game", "SlashCommand")))
+				if (!(m_chatCommand == StringUtil.TR("/game", "SlashCommand")))
 				{
-					for (;;)
+					if (!(m_chatCommand == StringUtil.TR("/game", "SlashCommandAlias1")))
 					{
-						switch (3)
+						if (!m_chatCommand.StartsWith(StringUtil.TR("/whisper", "SlashCommand")))
 						{
-						case 0:
-							continue;
+							color = ((!(m_chatCommand == StringUtil.TR("/team", "SlashCommand"))) ? Color.white : HUD_UIResources.Get().m_TeamChatColor);
 						}
-						break;
-					}
-					if (this.m_chatCommand == StringUtil.TR("/game", "SlashCommandAlias1"))
-					{
-						for (;;)
+						else
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					else
-					{
-						if (this.m_chatCommand.StartsWith(StringUtil.TR("/whisper", "SlashCommand")))
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							color = HUD_UIResources.Get().m_whisperChatColor;
-							goto IL_36A;
 						}
-						if (this.m_chatCommand == StringUtil.TR("/team", "SlashCommand"))
-						{
-							color = HUD_UIResources.Get().m_TeamChatColor;
-							goto IL_36A;
-						}
-						color = Color.white;
-						goto IL_36A;
+						goto IL_036a;
 					}
 				}
 				color = HUD_UIResources.Get().m_GameChatColor;
 			}
 		}
-		IL_36A:
-		this.m_chatRoomName.color = color;
-		if (this.m_changeChannelAlpha)
-		{
-			this.m_chatRoomName.color = new Color(this.m_chatRoomName.color.r, this.m_chatRoomName.color.g, this.m_chatRoomName.color.b, this.chatAlpha);
-		}
+		goto IL_036a;
 	}
 
 	private void UnsetChatRoom()
 	{
-		if (this.m_chatRoomName == null)
+		if (m_chatRoomName == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsole.UnsetChatRoom()).MethodHandle;
-			}
-			return;
 		}
-		this.m_chatRoomName.text = string.Empty;
-		this.AlignChatText();
+		m_chatRoomName.text = string.Empty;
+		AlignChatText();
 	}
 
 	private void AlignChatText()
 	{
-		this.m_chatRoomName.CalculateLayoutInputHorizontal();
-		float num = this.m_chatRoomName.preferredWidth + this.m_chatRoomName.rectTransform.offsetMin.x;
-		num *= this.m_chatRoomName.rectTransform.localScale.x;
-		RectTransform rectTransform = this.m_textInput.transform as RectTransform;
-		rectTransform.offsetMin = new Vector2(num, rectTransform.offsetMin.y);
+		m_chatRoomName.CalculateLayoutInputHorizontal();
+		float preferredWidth = m_chatRoomName.preferredWidth;
+		Vector2 offsetMin = m_chatRoomName.rectTransform.offsetMin;
+		float num = preferredWidth + offsetMin.x;
+		float num2 = num;
+		Vector3 localScale = m_chatRoomName.rectTransform.localScale;
+		num = num2 * localScale.x;
+		RectTransform rectTransform = m_textInput.transform as RectTransform;
+		float x = num;
+		Vector2 offsetMin2 = rectTransform.offsetMin;
+		rectTransform.offsetMin = new Vector2(x, offsetMin2.y);
 	}
 
 	private string ColorToHex(Color color)
 	{
-		string str = string.Empty;
-		str += ((int)(color.r * 255f)).ToString("X2");
-		str += ((int)(color.g * 255f)).ToString("X2");
-		return str + ((int)(color.b * 255f)).ToString("X2");
+		string empty = string.Empty;
+		empty += ((int)(color.r * 255f)).ToString("X2");
+		empty += ((int)(color.g * 255f)).ToString("X2");
+		return empty + ((int)(color.b * 255f)).ToString("X2");
 	}
 
 	public void DehighlightTextAndPositionCarat()
 	{
-		this.MoveCaretToEnd();
+		MoveCaretToEnd();
 	}
 
 	public void ChangeChannel(string channelName)
 	{
-		this.m_textInput.text = "/" + channelName + " " + this.m_textInput.text;
-		this.RefreshChatRoomDisplay();
-		this.SelectInput(string.Empty);
-		this.MoveCaretToEnd();
+		m_textInput.text = "/" + channelName + " " + m_textInput.text;
+		RefreshChatRoomDisplay();
+		SelectInput(string.Empty);
+		MoveCaretToEnd();
 	}
 
 	private void SetCaretToLastKnownPosition()
 	{
-		this.UpdateCaretPosition(this.m_lastCaratPosition);
+		UpdateCaretPosition(m_lastCaratPosition);
 	}
 
 	private void MoveCaretToEnd()
 	{
-		this.UpdateCaretPosition(-1);
+		UpdateCaretPosition(-1);
 	}
 
 	private void UpdateCaretPosition(int position)
 	{
-		this.m_updateCaret = true;
-		this.m_caretPositionToUpdate = position;
+		m_updateCaret = true;
+		m_caretPositionToUpdate = position;
 	}
 
 	private void OnGameInfoNotification(GameInfoNotification notification)
 	{
-		this.RefreshChatRoomDisplay();
+		RefreshChatRoomDisplay();
 	}
 
 	public void IgnoreNextTextChange()
 	{
-		this.m_ignoreNextTypeInput = true;
-	}
-
-	private struct HandledMessage
-	{
-		public TextConsole.Message Message;
-
-		public TextConsole.AllowedEmojis AllowedEmojis;
+		m_ignoreNextTypeInput = true;
 	}
 }

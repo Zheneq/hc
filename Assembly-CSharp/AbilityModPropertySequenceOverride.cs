@@ -1,38 +1,34 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
 public class AbilityModPropertySequenceOverride
 {
-	public AbilityModPropertySequenceOverride.ModOp operation;
+	public enum ModOp
+	{
+		Ignore,
+		Override
+	}
+
+	public ModOp operation;
 
 	public GameObject value;
 
 	public GameObject GetModifiedValue(GameObject input)
 	{
-		if (this.operation == AbilityModPropertySequenceOverride.ModOp.Override)
+		if (operation == ModOp.Override)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return value;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertySequenceOverride.GetModifiedValue(GameObject)).MethodHandle;
-			}
-			return this.value;
 		}
 		return input;
-	}
-
-	public enum ModOp
-	{
-		Ignore,
-		Override
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,135 +5,131 @@ namespace AbilityContextNamespace
 {
 	public class ContextVars
 	{
-		public Dictionary<int, int> \u001D = new Dictionary<int, int>();
+		public Dictionary<int, int> IntVars = new Dictionary<int, int>();
 
-		public Dictionary<int, float> \u000E = new Dictionary<int, float>();
+		public Dictionary<int, float> FloatVars = new Dictionary<int, float>();
 
-		public Dictionary<int, Vector3> \u0012 = new Dictionary<int, Vector3>();
+		public Dictionary<int, Vector3> VectorVars = new Dictionary<int, Vector3>();
 
-		public static int \u0015(string \u001D)
+		public static int GetHash(string _001D)
 		{
-			return Animator.StringToHash(\u001D.Trim().ToUpper());
+			return Animator.StringToHash(_001D.Trim().ToUpper());
 		}
 
-		public void \u0015()
+		public void Clear()
 		{
-			this.\u001D.Clear();
-			this.\u000E.Clear();
-			this.\u0012.Clear();
+			IntVars.Clear();
+			FloatVars.Clear();
+			VectorVars.Clear();
 		}
 
-		public void \u0016(int \u001D, int \u000E)
+		public void SetInt(int index, int value)
 		{
-			this.\u001D[\u001D] = \u000E;
+			IntVars[index] = value;
 		}
 
-		public void \u0015(int \u001D, float \u000E)
+		public void SetFloat(int index, float value)
 		{
-			this.\u000E[\u001D] = \u000E;
+			FloatVars[index] = value;
 		}
 
-		public void \u0015(int \u001D, Vector3 \u000E)
+		public void SetVector(int index, Vector3 value)
 		{
-			this.\u0012[\u001D] = \u000E;
+			VectorVars[index] = value;
 		}
 
-		public int \u0015(int \u001D)
+		public int GetInt(int index)
 		{
-			return this.\u001D[\u001D];
+			return IntVars[index];
 		}
 
-		public float \u0015(int \u001D)
+		public float GetFloat(int index)
 		{
-			return this.\u000E[\u001D];
+			return FloatVars[index];
 		}
 
-		public Vector3 \u0015(int \u001D)
+		public Vector3 GetVector(int index)
 		{
-			return this.\u0012[\u001D];
+			return VectorVars[index];
 		}
 
-		public bool \u0015(int \u001D, out int \u000E)
+		public bool TryGetInt(int index, out int value)
 		{
-			return this.\u001D.TryGetValue(\u001D, out \u000E);
+			return IntVars.TryGetValue(index, out value);
 		}
 
-		public bool \u0015(int \u001D, out float \u000E)
+		public bool TryGetFloat(int index, out float value)
 		{
-			return this.\u000E.TryGetValue(\u001D, out \u000E);
+			return FloatVars.TryGetValue(index, out value);
 		}
 
-		public bool \u0015(int \u001D, out Vector3 \u000E)
+		public bool TryGetVector(int index, out Vector3 value)
 		{
-			return this.\u0012.TryGetValue(\u001D, out \u000E);
+			return VectorVars.TryGetValue(index, out value);
 		}
 
-		public bool \u0015(int \u001D, ContextValueType \u000E)
+		public bool Contains(int index, ContextValueType type)
 		{
-			if (\u000E == ContextValueType.\u001D)
+			if (type == ContextValueType.INT)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return IntVars.ContainsKey(index);
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ContextVars.\u0015(int, ContextValueType)).MethodHandle;
-				}
-				return this.\u001D.ContainsKey(\u001D);
 			}
-			if (\u000E == ContextValueType.\u000E)
+			if (type == ContextValueType.FLOAT)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return FloatVars.ContainsKey(index);
 					}
-					break;
 				}
-				return this.\u000E.ContainsKey(\u001D);
 			}
-			if (\u000E == ContextValueType.\u0012)
+			if (type == ContextValueType.VECTOR)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return VectorVars.ContainsKey(index);
 					}
-					break;
 				}
-				return this.\u0012.ContainsKey(\u001D);
 			}
 			return false;
 		}
 
-		public bool \u0015(int \u001D)
+		public bool ContainsInt(int index)
 		{
-			return this.\u001D.ContainsKey(\u001D);
+			return IntVars.ContainsKey(index);
 		}
 
-		public bool \u0016(int \u001D)
+		public bool ContaintFloat(int index)
 		{
-			return this.\u000E.ContainsKey(\u001D);
+			return FloatVars.ContainsKey(index);
 		}
 
-		public bool \u0013(int \u001D)
+		public bool ContainsVector(int index)
 		{
-			return this.\u0012.ContainsKey(\u001D);
+			return VectorVars.ContainsKey(index);
 		}
 
-		public static string \u0015(string \u001D, string \u000E, bool \u0012 = true)
+		public static string GetDebugString(string name, string value, bool actorContext = true)
 		{
-			return InEditorDescHelper.ContextVarName(\u001D, \u0012) + " => " + \u000E + "\n";
+			return InEditorDescHelper.ContextVarName(name, actorContext) + " => " + value + "\n";
 		}
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class SeparatorAttribute : PropertyAttribute
@@ -11,36 +10,28 @@ public class SeparatorAttribute : PropertyAttribute
 
 	public SeparatorAttribute()
 	{
-		this.m_title = string.Empty;
+		m_title = string.Empty;
 	}
 
 	public SeparatorAttribute(string title, bool useDefaultColor = true)
 	{
-		this.m_title = title;
-		if (useDefaultColor)
+		m_title = title;
+		if (!useDefaultColor)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SeparatorAttribute..ctor(string, bool)).MethodHandle;
-			}
-			this.m_setColor = true;
-			this.m_colorStr = "cyan";
+			return;
+		}
+		while (true)
+		{
+			m_setColor = true;
+			m_colorStr = "cyan";
+			return;
 		}
 	}
 
 	public SeparatorAttribute(string title, string colorStr)
 	{
-		this.m_title = title;
-		this.m_colorStr = colorStr;
-		this.m_setColor = true;
+		m_title = title;
+		m_colorStr = colorStr;
+		m_setColor = true;
 	}
 }

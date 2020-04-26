@@ -1,16 +1,86 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SimpleAttachedVFXSequence : Sequence
 {
+	public class MultiEventExtraParams : IExtraSequenceParams
+	{
+		public int eventNumberToKeyOffOf;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			short value = (short)eventNumberToKeyOffOf;
+			stream.Serialize(ref value);
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			short value = 0;
+			stream.Serialize(ref value);
+			eventNumberToKeyOffOf = value;
+		}
+	}
+
+	public class ImpactDelayParams : IExtraSequenceParams
+	{
+		public float impactDelayTime = -1f;
+
+		public sbyte alternativeImpactAudioIndex = -1;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			stream.Serialize(ref impactDelayTime);
+			stream.Serialize(ref alternativeImpactAudioIndex);
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			stream.Serialize(ref impactDelayTime);
+			stream.Serialize(ref alternativeImpactAudioIndex);
+		}
+	}
+
+	public class DelayedImpact
+	{
+		public float m_timeToSpawnImpact;
+
+		public bool m_lastHit;
+
+		public DelayedImpact(float timeToSpawn, bool lastHit)
+		{
+			m_timeToSpawnImpact = timeToSpawn;
+			m_lastHit = lastHit;
+		}
+	}
+
+	public enum AudioEventType
+	{
+		General,
+		Pickup
+	}
+
+	[Serializable]
+	public class HitVFXStatusFilters
+	{
+		public enum FilterCond
+		{
+			HasStatus,
+			DoesntHaveStatus
+		}
+
+		public FilterCond m_condition;
+
+		public StatusType m_status = StatusType.INVALID;
+	}
+
 	[Separator("Main FX Prefab", true)]
 	public GameObject m_fxPrefab;
 
 	[JointPopup("FX attach joint (or start position for projectiles).")]
 	public JointPopupProperty m_fxJoint;
 
-	public Sequence.ReferenceModelType m_jointReferenceType;
+	public ReferenceModelType m_jointReferenceType;
 
 	[Tooltip("Check if Fx Prefab should stay attached to the joint. If unchecked, the Fx Prefab will start with the joint position and rotation.")]
 	public bool m_fxAttachToJoint;
@@ -71,19 +141,19 @@ public class SimpleAttachedVFXSequence : Sequence
 	[AudioEvent(false)]
 	public string m_hitAudioEvent;
 
-	public SimpleAttachedVFXSequence.AudioEventType m_hitAudioEventType;
+	public AudioEventType m_hitAudioEventType;
 
 	[Header("-- Alternative Impact Audio Events, handled per ability, unused otherwise")]
 	[AudioEvent(false)]
 	public string[] m_alternativeImpactAudioEvents;
 
 	[Separator("Team restrictions for Hit FX on Targets", true)]
-	public Sequence.HitVFXSpawnTeam m_hitVfxSpawnTeamMode;
+	public HitVFXSpawnTeam m_hitVfxSpawnTeamMode;
 
-	public List<SimpleAttachedVFXSequence.HitVFXStatusFilters> m_hitVfxStatusRequirements = new List<SimpleAttachedVFXSequence.HitVFXStatusFilters>();
+	public List<HitVFXStatusFilters> m_hitVfxStatusRequirements = new List<HitVFXStatusFilters>();
 
 	[Separator("Phase-Based Timing", true)]
-	public Sequence.PhaseTimingParameters m_phaseTimingParameters;
+	public PhaseTimingParameters m_phaseTimingParameters;
 
 	protected GameObject m_fx;
 
@@ -105,444 +175,213 @@ public class SimpleAttachedVFXSequence : Sequence
 
 	private int m_numStartEventsReceived;
 
-	private List<SimpleAttachedVFXSequence.DelayedImpact> m_delayedImpacts = new List<SimpleAttachedVFXSequence.DelayedImpact>();
+	private List<DelayedImpact> m_delayedImpacts = new List<DelayedImpact>();
 
 	private int m_alternativeAudioIndex = -1;
 
 	private bool Finished()
 	{
 		bool result = false;
-		if (!(this.GetFxPrefab() == null))
+		if (!(GetFxPrefab() == null))
 		{
-			if (!base.AreFXFinished(this.m_fx))
+			if (!AreFXFinished(m_fx))
 			{
-				return result;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.Finished()).MethodHandle;
+				goto IL_0103;
 			}
 		}
-		if (this.m_hitFxPrefab == null)
+		if (m_hitFxPrefab == null)
 		{
-			for (;;)
+			if (m_playHitReactsWithoutFx && m_playedHitReact)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_playHitReactsWithoutFx && this.m_playedHitReact)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}
-		else if (this.m_hitFx != null)
+		else if (m_hitFx != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = true;
-			using (List<GameObject>.Enumerator enumerator = this.m_hitFx.GetEnumerator())
+			using (List<GameObject>.Enumerator enumerator = m_hitFx.GetEnumerator())
 			{
-				while (enumerator.MoveNext())
+				while (true)
 				{
-					GameObject gameObject = enumerator.Current;
-					if (gameObject != null)
+					if (!enumerator.MoveNext())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (gameObject.activeSelf)
+						break;
+					}
+					GameObject current = enumerator.Current;
+					if (current != null)
+					{
+						if (current.activeSelf)
 						{
 							result = false;
-							goto IL_E7;
+							break;
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
-		IL_E7:
-		if (this.m_delayedImpacts.Count > 0)
+		if (m_delayedImpacts.Count > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = false;
 		}
+		goto IL_0103;
+		IL_0103:
 		return result;
 	}
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			SimpleAttachedVFXSequence.MultiEventExtraParams multiEventExtraParams = extraSequenceParams as SimpleAttachedVFXSequence.MultiEventExtraParams;
+			MultiEventExtraParams multiEventExtraParams = extraSequenceParams as MultiEventExtraParams;
 			if (multiEventExtraParams != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
-				this.m_eventNumberToKeyOffOf = multiEventExtraParams.eventNumberToKeyOffOf;
+				m_eventNumberToKeyOffOf = multiEventExtraParams.eventNumberToKeyOffOf;
 			}
-			SimpleAttachedVFXSequence.ImpactDelayParams impactDelayParams = extraSequenceParams as SimpleAttachedVFXSequence.ImpactDelayParams;
+			ImpactDelayParams impactDelayParams = extraSequenceParams as ImpactDelayParams;
 			if (impactDelayParams != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (impactDelayParams.impactDelayTime > 0f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_hitImpactDelayTime = impactDelayParams.impactDelayTime;
+					m_hitImpactDelayTime = impactDelayParams.impactDelayTime;
 				}
-				if ((int)impactDelayParams.alternativeImpactAudioIndex >= 0)
+				if (impactDelayParams.alternativeImpactAudioIndex >= 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_alternativeAudioIndex = (int)impactDelayParams.alternativeImpactAudioIndex;
+					m_alternativeAudioIndex = impactDelayParams.alternativeImpactAudioIndex;
 				}
 			}
-			if (extraSequenceParams is Sequence.FxAttributeParam)
+			if (!(extraSequenceParams is FxAttributeParam))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Sequence.FxAttributeParam fxAttributeParam = extraSequenceParams as Sequence.FxAttributeParam;
-				if (fxAttributeParam != null && fxAttributeParam.m_paramNameCode != Sequence.FxAttributeParam.ParamNameCode.None)
-				{
-					string attributeName = fxAttributeParam.GetAttributeName();
-					float paramValue = fxAttributeParam.m_paramValue;
-					if (fxAttributeParam.m_paramTarget == Sequence.FxAttributeParam.ParamTarget.MainVfx)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!this.m_fxAttributes.ContainsKey(attributeName))
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_fxAttributes.Add(attributeName, paramValue);
-						}
-					}
-				}
+				continue;
+			}
+			FxAttributeParam fxAttributeParam = extraSequenceParams as FxAttributeParam;
+			if (fxAttributeParam == null || fxAttributeParam.m_paramNameCode == FxAttributeParam.ParamNameCode.None)
+			{
+				continue;
+			}
+			string attributeName = fxAttributeParam.GetAttributeName();
+			float paramValue = fxAttributeParam.m_paramValue;
+			if (fxAttributeParam.m_paramTarget != FxAttributeParam.ParamTarget.MainVfx)
+			{
+				continue;
+			}
+			if (!m_fxAttributes.ContainsKey(attributeName))
+			{
+				m_fxAttributes.Add(attributeName, paramValue);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	internal override void OnTurnStart(int currentTurn)
 	{
-		this.m_phaseTimingParameters.OnTurnStart(currentTurn);
+		m_phaseTimingParameters.OnTurnStart(currentTurn);
 	}
 
 	internal override void OnAbilityPhaseStart(AbilityPriority abilityPhase)
 	{
-		this.m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
-		if (this.m_startEvent == null)
+		m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
+		if (m_startEvent == null)
 		{
-			for (;;)
+			if (!m_spawnAttempted)
 			{
-				switch (2)
+				if (m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase))
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.OnAbilityPhaseStart(AbilityPriority)).MethodHandle;
-			}
-			if (!this.m_spawnAttempted)
-			{
-				for (;;)
-				{
-					switch (5)
+					if (m_phaseTimingParameters.ShouldSequenceBeActive())
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase))
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.SpawnFX(null);
+						SpawnFX();
 					}
 				}
 			}
 		}
-		if (this.m_phaseTimingParameters.ShouldStopSequence(abilityPhase))
+		if (!m_phaseTimingParameters.ShouldStopSequence(abilityPhase))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_fx != null)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				StopFX();
 			}
-			if (this.m_fx != null)
-			{
-				this.StopFX();
-			}
+			return;
 		}
 	}
 
 	internal override Vector3 GetSequencePos()
 	{
-		if (this.m_fx != null)
+		if (m_fx != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_fx.transform.position;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.GetSequencePos()).MethodHandle;
-			}
-			return this.m_fx.transform.position;
 		}
 		return Vector3.zero;
 	}
 
 	public override void FinishSetup()
 	{
-		if (this.m_startEvent == null)
+		if (!(m_startEvent == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.FinishSetup()).MethodHandle;
-			}
-			this.SpawnFX(null);
+			return;
+		}
+		while (true)
+		{
+			SpawnFX();
+			return;
 		}
 	}
 
 	private bool IsHitFXVisibleForActor(ActorData hitTarget)
 	{
-		bool flag = base.IsHitFXVisibleWrtTeamFilter(hitTarget, this.m_hitVfxSpawnTeamMode);
+		bool flag = IsHitFXVisibleWrtTeamFilter(hitTarget, m_hitVfxSpawnTeamMode);
 		if (flag)
 		{
-			for (;;)
+			if (m_hitVfxStatusRequirements != null)
 			{
-				switch (1)
+				if (m_hitVfxStatusRequirements.Count > 0)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.IsHitFXVisibleForActor(ActorData)).MethodHandle;
-			}
-			if (this.m_hitVfxStatusRequirements != null)
-			{
-				for (;;)
-				{
-					switch (6)
+					for (int i = 0; i < m_hitVfxStatusRequirements.Count && flag; i++)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_hitVfxStatusRequirements.Count > 0)
-				{
-					int num = 0;
-					while (num < this.m_hitVfxStatusRequirements.Count && flag)
-					{
-						SimpleAttachedVFXSequence.HitVFXStatusFilters hitVFXStatusFilters = this.m_hitVfxStatusRequirements[num];
-						if (hitVFXStatusFilters.m_status != StatusType.INVALID)
+						HitVFXStatusFilters hitVFXStatusFilters = m_hitVfxStatusRequirements[i];
+						if (hitVFXStatusFilters.m_status == StatusType.INVALID)
 						{
-							bool flag2 = hitTarget.\u000E().HasStatus(hitVFXStatusFilters.m_status, true);
-							if (hitVFXStatusFilters.m_condition == SimpleAttachedVFXSequence.HitVFXStatusFilters.FilterCond.HasStatus)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!flag2)
-								{
-									goto IL_B7;
-								}
-							}
-							if (hitVFXStatusFilters.m_condition != SimpleAttachedVFXSequence.HitVFXStatusFilters.FilterCond.DoesntHaveStatus)
-							{
-								goto IL_B9;
-							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
+							continue;
+						}
+						bool flag2 = hitTarget.GetActorStatus().HasStatus(hitVFXStatusFilters.m_status);
+						if (hitVFXStatusFilters.m_condition == HitVFXStatusFilters.FilterCond.HasStatus)
+						{
 							if (!flag2)
 							{
-								goto IL_B9;
+								goto IL_00b7;
 							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							IL_B7:
-							flag = false;
 						}
-						IL_B9:
-						num++;
+						if (hitVFXStatusFilters.m_condition != HitVFXStatusFilters.FilterCond.DoesntHaveStatus)
+						{
+							continue;
+						}
+						if (!flag2)
+						{
+							continue;
+						}
+						goto IL_00b7;
+						IL_00b7:
+						flag = false;
 					}
 				}
 			}
@@ -552,342 +391,146 @@ public class SimpleAttachedVFXSequence : Sequence
 
 	protected virtual void SetFxRotation()
 	{
-		if (this.m_fx != null && this.m_useRootOrientation && base.Caster != null)
+		if (!(m_fx != null) || !m_useRootOrientation || !(base.Caster != null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.SetFxRotation()).MethodHandle;
-			}
-			this.m_fx.transform.rotation = base.Caster.transform.rotation;
+			return;
+		}
+		while (true)
+		{
+			m_fx.transform.rotation = base.Caster.transform.rotation;
+			return;
 		}
 	}
 
 	protected virtual GameObject GetFxPrefab()
 	{
-		return this.m_fxPrefab;
+		return m_fxPrefab;
 	}
 
 	private void Update()
 	{
-		this.OnUpdate();
+		OnUpdate();
 	}
 
 	protected virtual void OnUpdate()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_fx != null)
 			{
-				switch (1)
+				if (m_fxAttachToJoint)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.OnUpdate()).MethodHandle;
-			}
-			if (this.m_fx != null)
-			{
-				for (;;)
-				{
-					switch (4)
+					if (m_jointReferenceType == ReferenceModelType.Actor)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_fxAttachToJoint)
-				{
-					for (;;)
-					{
-						switch (5)
+						if (ShouldHideForActorIfAttached(base.Caster))
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_jointReferenceType == Sequence.ReferenceModelType.Actor)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (base.ShouldHideForActorIfAttached(base.Caster))
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							base.SetSequenceVisibility(false);
-							goto IL_83;
+							SetSequenceVisibility(false);
+							goto IL_0083;
 						}
 					}
 				}
 			}
-			base.ProcessSequenceVisibility();
-			IL_83:
-			if (this.m_mainFxFoFSelector != null && base.Caster != null)
+			ProcessSequenceVisibility();
+			goto IL_0083;
+			IL_0083:
+			if (m_mainFxFoFSelector != null && base.Caster != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_mainFxFoFSelector.Setup(base.Caster.\u000E());
+				m_mainFxFoFSelector.Setup(base.Caster.GetTeam());
 			}
-			this.SetFxRotation();
-			if (this.m_hitSpawnTime > 0f && GameTime.time > this.m_hitSpawnTime)
+			SetFxRotation();
+			if (m_hitSpawnTime > 0f && GameTime.time > m_hitSpawnTime)
 			{
-				for (;;)
+				if (m_hitImpactDelayTime > 0f)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_hitImpactDelayTime > 0f)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + this.m_hitImpactDelayTime, true));
+					m_delayedImpacts.Add(new DelayedImpact(GameTime.time + m_hitImpactDelayTime, true));
 				}
 				else
 				{
-					this.SpawnHitFX(true);
+					SpawnHitFX(true);
 				}
-				this.m_hitSpawnTime = -1f;
+				m_hitSpawnTime = -1f;
 			}
-			for (int i = this.m_delayedImpacts.Count - 1; i >= 0; i--)
+			for (int num = m_delayedImpacts.Count - 1; num >= 0; num--)
 			{
-				SimpleAttachedVFXSequence.DelayedImpact delayedImpact = this.m_delayedImpacts[i];
+				DelayedImpact delayedImpact = m_delayedImpacts[num];
 				if (GameTime.time >= delayedImpact.m_timeToSpawnImpact)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.SpawnHitFX(delayedImpact.m_lastHit);
-					this.m_delayedImpacts.RemoveAt(i);
+					SpawnHitFX(delayedImpact.m_lastHit);
+					m_delayedImpacts.RemoveAt(num);
 				}
 			}
-			for (;;)
+			while (true)
 			{
-				switch (6)
+				if (m_hitFx != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_hitFx != null)
-			{
-				for (;;)
-				{
-					switch (4)
+					if (m_hitFx.Count > 0)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_hitFx.Count > 0)
-				{
-					for (;;)
-					{
-						switch (6)
+						if (base.Caster != null)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (base.Caster != null)
-					{
-						for (;;)
-						{
-							switch (1)
+							if (m_hitFxAttachToJoint)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_hitFxAttachToJoint)
-						{
-							for (;;)
-							{
-								switch (7)
+								for (int i = 0; i < m_hitFx.Count; i++)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							for (int j = 0; j < this.m_hitFx.Count; j++)
-							{
-								GameObject gameObject = this.m_hitFx[j];
-								if (gameObject != null)
-								{
-									for (;;)
+									GameObject gameObject = m_hitFx[i];
+									if (!(gameObject != null))
 									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
+										continue;
 									}
-									if (this.m_hitAlignedWithCaster)
+									if (m_hitAlignedWithCaster)
 									{
-										for (;;)
+										Vector3 forward = gameObject.transform.position - base.Caster.GetTravelBoardSquareWorldPosition();
+										forward.y = 0f;
+										if (forward.magnitude > 1E-05f)
 										{
-											switch (3)
+											forward.Normalize();
+											if (m_hitFxReverseAlignDir)
 											{
-											case 0:
-												continue;
+												forward *= -1f;
 											}
-											break;
-										}
-										Vector3 vector = gameObject.transform.position - base.Caster.\u0016();
-										vector.y = 0f;
-										if (vector.magnitude > 1E-05f)
-										{
-											vector.Normalize();
-											if (this.m_hitFxReverseAlignDir)
-											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												vector *= -1f;
-											}
-											Quaternion rotation = Quaternion.LookRotation(vector);
+											Quaternion rotation = Quaternion.LookRotation(forward);
 											gameObject.transform.rotation = rotation;
 										}
 									}
-									if (j < this.m_hitFxAttachedActors.Count)
+									if (i >= m_hitFxAttachedActors.Count)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										ActorData actorData = this.m_hitFxAttachedActors[j];
-										if (actorData != null)
-										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											bool desiredActive = base.IsActorConsideredVisible(actorData);
-											gameObject.SetActiveIfNeeded(desiredActive);
-										}
+										continue;
+									}
+									ActorData actorData = m_hitFxAttachedActors[i];
+									if (actorData != null)
+									{
+										bool desiredActive = IsActorConsideredVisible(actorData);
+										gameObject.SetActiveIfNeeded(desiredActive);
 									}
 								}
 							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 				}
-			}
-			if (this.Finished())
-			{
-				for (;;)
+				if (!Finished())
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (base.Source != null)
+				while (true)
 				{
-					for (;;)
+					if (!(base.Source != null))
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						return;
 					}
-					if (!base.Source.RemoveAtEndOfTurn)
+					while (true)
 					{
-						for (;;)
+						if (!base.Source.RemoveAtEndOfTurn)
 						{
-							switch (2)
+							while (true)
 							{
-							case 0:
-								continue;
+								MarkForRemoval();
+								return;
 							}
-							break;
 						}
-						base.MarkForRemoval();
+						return;
 					}
 				}
 			}
@@ -896,129 +539,64 @@ public class SimpleAttachedVFXSequence : Sequence
 
 	protected void StopFX()
 	{
-		if (this.m_fx != null)
+		if (!(m_fx != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.StopFX()).MethodHandle;
-			}
-			this.m_fx.SetActive(false);
+			return;
+		}
+		while (true)
+		{
+			m_fx.SetActive(false);
+			return;
 		}
 	}
 
 	private void SpawnHitFX(bool lastHit)
 	{
-		this.m_playedHitReact = true;
-		if (this.m_hitFx == null)
+		m_playedHitReact = true;
+		if (m_hitFx == null)
 		{
-			this.m_hitFx = new List<GameObject>();
+			m_hitFx = new List<GameObject>();
 		}
 		if (base.Targets != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.SpawnHitFX(bool)).MethodHandle;
-			}
 			if (base.Targets.Length > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				CameraManager.Get().PlayCameraShake(this.m_hitCameraShakeType);
+				CameraManager.Get().PlayCameraShake(m_hitCameraShakeType);
 			}
-			for (int i = 0; i < base.Targets.Length; i++)
+			int num = 0;
+			while (num < base.Targets.Length)
 			{
-				ActorData actorData;
-				if (i < base.Targets.Length)
+				object obj;
+				if (num < base.Targets.Length)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					actorData = base.Targets[i];
+					obj = base.Targets[num];
 				}
 				else
 				{
-					actorData = null;
+					obj = null;
 				}
-				ActorData actorData2 = actorData;
-				Vector3 targetHitPosition = base.GetTargetHitPosition(i, this.m_hitFxJoint);
-				Vector3 vector = base.Caster.transform.position;
-				if ((vector - base.Targets[i].transform.position).magnitude < 0.1f)
+				ActorData actorData = (ActorData)obj;
+				Vector3 targetHitPosition = GetTargetHitPosition(num, m_hitFxJoint);
+				Vector3 position = base.Caster.transform.position;
+				if ((position - base.Targets[num].transform.position).magnitude < 0.1f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					vector -= base.Caster.transform.forward * 0.5f;
+					position -= base.Caster.transform.forward * 0.5f;
 				}
-				Vector3 vector2 = targetHitPosition - vector;
-				vector2.y = 0f;
-				vector2.Normalize();
-				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, vector2);
+				Vector3 vector = targetHitPosition - position;
+				vector.y = 0f;
+				vector.Normalize();
+				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, vector);
 				Quaternion quaternion;
-				if (this.m_hitAlignedWithCaster)
+				if (m_hitAlignedWithCaster)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 forward;
-					if (this.m_hitFxReverseAlignDir)
+					if (m_hitFxReverseAlignDir)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						forward = -1f * vector2;
+						forward = -1f * vector;
 					}
 					else
 					{
-						forward = vector2;
+						forward = vector;
 					}
 					quaternion = Quaternion.LookRotation(forward);
 				}
@@ -1027,850 +605,364 @@ public class SimpleAttachedVFXSequence : Sequence
 					quaternion = Quaternion.identity;
 				}
 				Quaternion rotation = quaternion;
-				bool flag = this.IsHitFXVisibleForActor(base.Targets[i]);
-				if (this.m_hitFxPrefab)
+				bool flag = IsHitFXVisibleForActor(base.Targets[num]);
+				GameObject gameObject;
+				if ((bool)m_hitFxPrefab)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag)
 					{
-						for (;;)
+						gameObject = InstantiateFX(m_hitFxPrefab, targetHitPosition, rotation);
+						if (m_hitFxAttachToJoint)
 						{
-							switch (5)
+							if (actorData != null)
 							{
-							case 0:
-								continue;
+								m_hitFxJoint.Initialize(actorData.gameObject);
+								gameObject.transform.parent = m_hitFxJoint.m_jointObject.transform;
+								gameObject.transform.localPosition = Vector3.zero;
+								gameObject.transform.localRotation = Quaternion.identity;
+								goto IL_0274;
 							}
-							break;
 						}
-						GameObject gameObject = base.InstantiateFX(this.m_hitFxPrefab, targetHitPosition, rotation, true, true);
-						if (!this.m_hitFxAttachToJoint)
-						{
-							goto IL_25E;
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!(actorData2 != null))
-						{
-							goto IL_25E;
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_hitFxJoint.Initialize(actorData2.gameObject);
-						gameObject.transform.parent = this.m_hitFxJoint.m_jointObject.transform;
-						gameObject.transform.localPosition = Vector3.zero;
-						gameObject.transform.localRotation = Quaternion.identity;
-						IL_274:
-						FriendlyEnemyVFXSelector component = gameObject.GetComponent<FriendlyEnemyVFXSelector>();
-						if (component != null)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							component.Setup(base.Caster.\u000E());
-						}
-						this.m_hitFx.Add(gameObject);
-						this.m_hitFxAttachedActors.Add(base.Targets[i]);
-						goto IL_2CB;
-						IL_25E:
 						gameObject.transform.parent = base.transform;
-						goto IL_274;
+						goto IL_0274;
 					}
 				}
-				IL_2CB:
+				goto IL_02cb;
+				IL_02cb:
 				if (flag)
 				{
-					for (;;)
+					string text = m_hitAudioEvent;
+					if (m_alternativeAudioIndex >= 0)
 					{
-						switch (4)
+						if (m_alternativeAudioIndex < m_alternativeImpactAudioEvents.Length)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					string text = this.m_hitAudioEvent;
-					if (this.m_alternativeAudioIndex >= 0)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_alternativeAudioIndex < this.m_alternativeImpactAudioEvents.Length)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							text = this.m_alternativeImpactAudioEvents[this.m_alternativeAudioIndex];
+							text = m_alternativeImpactAudioEvents[m_alternativeAudioIndex];
 						}
 					}
-					if (this.m_hitAudioEventType == SimpleAttachedVFXSequence.AudioEventType.Pickup && !AudioManager.s_pickupAudio)
+					if (m_hitAudioEventType == AudioEventType.Pickup && !AudioManager.s_pickupAudio)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else if (!string.IsNullOrEmpty(text))
 					{
-						AudioManager.PostEvent(text, base.Targets[i].gameObject);
+						AudioManager.PostEvent(text, base.Targets[num].gameObject);
 					}
 				}
-				if (base.Targets[i] != null)
+				if (base.Targets[num] != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!lastHit)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.None, true);
+						base.Source.OnSequenceHit(this, base.Targets[num], impulseInfo, ActorModelData.RagdollActivation.None);
 					}
 					else
 					{
-						base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
+						base.Source.OnSequenceHit(this, base.Targets[num], impulseInfo);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
+				num++;
+				continue;
+				IL_0274:
+				FriendlyEnemyVFXSelector component = gameObject.GetComponent<FriendlyEnemyVFXSelector>();
+				if (component != null)
 				{
-				case 0:
-					continue;
+					component.Setup(base.Caster.GetTeam());
 				}
-				break;
+				m_hitFx.Add(gameObject);
+				m_hitFxAttachedActors.Add(base.Targets[num]);
+				goto IL_02cb;
 			}
 		}
-		base.Source.OnSequenceHit(this, base.TargetPos, null);
+		base.Source.OnSequenceHit(this, base.TargetPos);
 	}
 
 	protected void SpawnFX(GameObject overrideFxPrefab = null)
 	{
-		this.m_spawnAttempted = true;
-		if (!this.m_fxJoint.IsInitialized())
+		m_spawnAttempted = true;
+		if (!m_fxJoint.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.SpawnFX(GameObject)).MethodHandle;
-			}
-			GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_jointReferenceType);
+			GameObject referenceModel = GetReferenceModel(base.Caster, m_jointReferenceType);
 			if (referenceModel != null)
 			{
-				this.m_fxJoint.Initialize(referenceModel);
+				m_fxJoint.Initialize(referenceModel);
 			}
 		}
 		GameObject gameObject = overrideFxPrefab;
 		if (gameObject == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			gameObject = this.GetFxPrefab();
+			gameObject = GetFxPrefab();
 		}
+		Vector3 zero;
 		if (gameObject != null)
 		{
-			for (;;)
+			zero = Vector3.zero;
+			if (m_fxJoint.m_jointObject != null && m_fxJoint.m_jointObject.transform.localScale != Vector3.zero)
 			{
-				switch (6)
+				if (m_fxAttachToJoint)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Vector3 b = Vector3.zero;
-			if (this.m_fxJoint.m_jointObject != null && this.m_fxJoint.m_jointObject.transform.localScale != Vector3.zero)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_fxAttachToJoint)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_fx = base.InstantiateFX(gameObject);
-					base.AttachToBone(this.m_fx, this.m_fxJoint.m_jointObject);
-					this.m_fx.transform.localPosition = Vector3.zero;
-					this.m_fx.transform.localRotation = Quaternion.identity;
-					b = this.m_fxJoint.m_jointObject.transform.position;
-					goto IL_253;
+					m_fx = InstantiateFX(gameObject);
+					AttachToBone(m_fx, m_fxJoint.m_jointObject);
+					m_fx.transform.localPosition = Vector3.zero;
+					m_fx.transform.localRotation = Quaternion.identity;
+					zero = m_fxJoint.m_jointObject.transform.position;
+					goto IL_0253;
 				}
 			}
 			Vector3 vector = default(Vector3);
-			if (this.m_fxJoint.m_jointObject != null)
+			if (m_fxJoint.m_jointObject != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				vector = this.m_fxJoint.m_jointObject.transform.position;
+				vector = m_fxJoint.m_jointObject.transform.position;
 			}
 			else
 			{
 				vector = base.transform.position;
 			}
 			Quaternion rotation = default(Quaternion);
-			if (this.m_aimAtTarget)
+			if (!m_aimAtTarget)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Vector3 targetPosition = base.GetTargetPosition(0, false);
+				rotation = ((!m_fxJoint.m_jointObject) ? base.transform.rotation : m_fxJoint.m_jointObject.transform.rotation);
+			}
+			else
+			{
+				Vector3 targetPosition = GetTargetPosition(0);
 				Vector3 lookRotation = targetPosition - vector;
 				lookRotation.y = 0f;
 				lookRotation.Normalize();
 				rotation.SetLookRotation(lookRotation);
 			}
-			else if (this.m_fxJoint.m_jointObject)
+			m_fx = InstantiateFX(gameObject, vector, rotation);
+			zero = vector;
+			goto IL_0253;
+		}
+		goto IL_02df;
+		IL_0253:
+		Sequence.SetAttribute(m_fx, "abilityAreaLength", (base.TargetPos - zero).magnitude);
+		if (m_fx != null)
+		{
+			m_mainFxFoFSelector = m_fx.GetComponent<FriendlyEnemyVFXSelector>();
+			if (m_mainFxFoFSelector != null)
 			{
-				rotation = this.m_fxJoint.m_jointObject.transform.rotation;
-			}
-			else
-			{
-				rotation = base.transform.rotation;
-			}
-			this.m_fx = base.InstantiateFX(gameObject, vector, rotation, true, true);
-			b = vector;
-			IL_253:
-			Sequence.SetAttribute(this.m_fx, "abilityAreaLength", (base.TargetPos - b).magnitude);
-			if (this.m_fx != null)
-			{
-				this.m_mainFxFoFSelector = this.m_fx.GetComponent<FriendlyEnemyVFXSelector>();
-				if (this.m_mainFxFoFSelector != null)
+				if (base.Caster != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (base.Caster != null)
-					{
-						this.m_mainFxFoFSelector.Setup(base.Caster.\u000E());
-					}
+					m_mainFxFoFSelector.Setup(base.Caster.GetTeam());
 				}
 			}
 		}
-		if (this.m_hitEvent == null)
+		goto IL_02df;
+		IL_02df:
+		if (m_hitEvent == null)
 		{
-			for (;;)
+			if (m_playHitReactsWithoutFx)
 			{
-				switch (5)
+				if (m_hitDelay > 0f)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_playHitReactsWithoutFx)
-			{
-				if (this.m_hitDelay > 0f)
-				{
-					this.m_hitSpawnTime = GameTime.time + this.m_hitDelay;
+					m_hitSpawnTime = GameTime.time + m_hitDelay;
 				}
 				else
 				{
-					this.SpawnHitFX(true);
+					SpawnHitFX(true);
 				}
 			}
 		}
-		if (this.m_fx != null)
+		if (m_fx != null)
 		{
-			for (;;)
+			if (m_fxAttributes != null)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_fxAttributes != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				using (Dictionary<string, float>.Enumerator enumerator = this.m_fxAttributes.GetEnumerator())
+				using (Dictionary<string, float>.Enumerator enumerator = m_fxAttributes.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						KeyValuePair<string, float> keyValuePair = enumerator.Current;
-						Sequence.SetAttribute(this.m_fx, keyValuePair.Key, keyValuePair.Value);
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						KeyValuePair<string, float> current = enumerator.Current;
+						Sequence.SetAttribute(m_fx, current.Key, current.Value);
 					}
 				}
 			}
 		}
-		if (!string.IsNullOrEmpty(this.m_audioEvent))
+		if (string.IsNullOrEmpty(m_audioEvent))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
+			return;
+		}
+		while (true)
+		{
+			AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
+			return;
 		}
 	}
 
 	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
 	{
-		if (this.m_startEvent == parameter)
+		if (m_startEvent == parameter)
 		{
-			if (this.m_eventNumberToKeyOffOf >= 0)
+			if (m_eventNumberToKeyOffOf >= 0)
 			{
-				for (;;)
+				if (m_numStartEventsReceived != m_eventNumberToKeyOffOf)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-				}
-				if (this.m_numStartEventsReceived != this.m_eventNumberToKeyOffOf)
-				{
-					this.m_numStartEventsReceived++;
-					goto IL_7F;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_numStartEventsReceived++;
+					goto IL_00a9;
 				}
 			}
-			if (this.m_eventNumberToKeyOffOf >= 0)
+			if (m_eventNumberToKeyOffOf >= 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_numStartEventsReceived++;
+				m_numStartEventsReceived++;
 			}
-			this.SpawnFX(null);
-			IL_7F:;
+			SpawnFX();
 		}
-		else if (this.m_stopEvent == parameter)
+		else if (m_stopEvent == parameter)
 		{
-			for (;;)
+			if (m_spawnAttempted)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_spawnAttempted)
-			{
-				this.StopFX();
+				StopFX();
 			}
 		}
-		if (this.m_hitEvent == parameter)
+		goto IL_00a9;
+		IL_00a9:
+		if (m_hitEvent == parameter)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_hitImpactDelayTime > 0f)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (m_hitImpactDelayTime > 0f)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								break;
+							default:
+								m_delayedImpacts.Add(new DelayedImpact(GameTime.time + m_hitImpactDelayTime, m_lastHitEvent == null));
+								return;
+							}
+						}
+					}
+					SpawnHitFX(m_lastHitEvent == null);
+					return;
 				}
-				this.m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + this.m_hitImpactDelayTime, this.m_lastHitEvent == null));
-			}
-			else
-			{
-				this.SpawnHitFX(this.m_lastHitEvent == null);
 			}
 		}
-		else if (this.m_lastHitEvent == parameter)
+		if (!(m_lastHitEvent == parameter))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_hitImpactDelayTime > 0f)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_hitImpactDelayTime > 0f)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						m_delayedImpacts.Add(new DelayedImpact(GameTime.time + m_hitImpactDelayTime, true));
+						return;
 					}
-					break;
 				}
-				this.m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + this.m_hitImpactDelayTime, true));
 			}
-			else
-			{
-				this.SpawnHitFX(true);
-			}
+			SpawnHitFX(true);
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_fx != null)
+		if (m_fx != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.OnDisable()).MethodHandle;
-			}
-			this.m_mainFxFoFSelector = null;
-			UnityEngine.Object.Destroy(this.m_fx.gameObject);
-			this.m_fx = null;
+			m_mainFxFoFSelector = null;
+			UnityEngine.Object.Destroy(m_fx.gameObject);
+			m_fx = null;
 		}
-		if (this.m_hitFx != null)
+		if (m_hitFx == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			using (List<GameObject>.Enumerator enumerator = this.m_hitFx.GetEnumerator())
+			return;
+		}
+		while (true)
+		{
+			using (List<GameObject>.Enumerator enumerator = m_hitFx.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					GameObject gameObject = enumerator.Current;
-					UnityEngine.Object.Destroy(gameObject.gameObject);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					GameObject current = enumerator.Current;
+					UnityEngine.Object.Destroy(current.gameObject);
 				}
 			}
-			this.m_hitFx = null;
+			m_hitFx = null;
+			return;
 		}
 	}
 
 	public override string GetSequenceSpecificDescription()
 	{
-		string text = string.Empty;
-		if (this.m_fxPrefab == null)
+		string str = string.Empty;
+		if (m_fxPrefab == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXSequence.GetSequenceSpecificDescription()).MethodHandle;
-			}
-			text += "<color=yellow>WARNING: </color>No VFX Prefab for <FX Prefab>\n\n";
+			str += "<color=yellow>WARNING: </color>No VFX Prefab for <FX Prefab>\n\n";
 		}
-		if (this.m_fxJoint != null && string.IsNullOrEmpty(this.m_fxJoint.m_joint))
+		if (m_fxJoint != null && string.IsNullOrEmpty(m_fxJoint.m_joint))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text += "<color=yellow>WARNING: </color>VFX joint is empty, may not spawn at expected location.\n\n";
+			str += "<color=yellow>WARNING: </color>VFX joint is empty, may not spawn at expected location.\n\n";
 		}
-		if (this.m_jointReferenceType != Sequence.ReferenceModelType.Actor)
+		if (m_jointReferenceType != 0)
 		{
-			text = text + "<Joint Reference Type> is <color=cyan>" + this.m_jointReferenceType.ToString() + "</color>\n\n";
+			str = str + "<Joint Reference Type> is <color=cyan>" + m_jointReferenceType.ToString() + "</color>\n\n";
 		}
-		if (this.m_fxJoint != null)
+		if (m_fxJoint != null)
 		{
-			for (;;)
+			if (m_fxAttachToJoint)
 			{
-				switch (4)
+				str = str + "<color=cyan>VFX is attaching to joint (" + m_fxJoint.m_joint + ")</color>\n";
+				if (m_aimAtTarget)
 				{
-				case 0:
-					continue;
+					str += "<[x] Aim At Target> ignored, attaching to joint\n";
 				}
-				break;
-			}
-			if (this.m_fxAttachToJoint)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text = text + "<color=cyan>VFX is attaching to joint (" + this.m_fxJoint.m_joint + ")</color>\n";
-				if (this.m_aimAtTarget)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					text += "<[x] Aim At Target> ignored, attaching to joint\n";
-				}
-				text += "\n";
+				str += "\n";
 			}
 			else
 			{
-				text = text + "VFX spawning at joint (<color=cyan>" + this.m_fxJoint.m_joint + "</color>), not set to attach.\n\n";
+				str = str + "VFX spawning at joint (<color=cyan>" + m_fxJoint.m_joint + "</color>), not set to attach.\n\n";
 			}
 		}
-		if (this.m_useRootOrientation)
+		if (m_useRootOrientation)
 		{
-			for (;;)
+			str += "<[x] Use Root Orientaion> rotation is set to Caster's orientation per update\n\n";
+		}
+		if (!(m_hitEvent != null))
+		{
+			if (!m_playHitReactsWithoutFx)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				str += "Ignoring Gameplay Hits\n";
+				str += "(If need Gameplay Hits, check <[x] Play Hit React Without Fx> or add <Hit Event>)\n\n";
+				goto IL_019a;
 			}
-			text += "<[x] Use Root Orientaion> rotation is set to Caster's orientation per update\n\n";
 		}
-		if (!(this.m_hitEvent != null))
+		str += "<color=cyan>Can do Gameplay Hits</color>\n";
+		goto IL_019a;
+		IL_019a:
+		if (m_lastHitEvent != null)
 		{
-			for (;;)
+			str += "Has <Last Hit Event>, will not trigger ragdoll until that event is fired\n\n";
+		}
+		if (m_hitEvent != null)
+		{
+			if (m_hitDelay > 0f)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				str += "<color=yellow>WARNING: </color>Has <Hit Event>, <Hit Delay> will be ignored\n\n";
+				goto IL_0266;
 			}
-			if (!this.m_playHitReactsWithoutFx)
+		}
+		if (m_hitEvent == null)
+		{
+			if (m_hitDelay > 0f)
 			{
-				text += "Ignoring Gameplay Hits\n";
-				text += "(If need Gameplay Hits, check <[x] Play Hit React Without Fx> or add <Hit Event>)\n\n";
-				goto IL_19A;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				string text = str;
+				str = text + "Using <Hit Delay> for timing, Gameplay Hit and <Hit FX Prefab> will spawn " + m_hitDelay + " second(s) after VFX spawn\n\n";
 			}
 		}
-		text += "<color=cyan>Can do Gameplay Hits</color>\n";
-		IL_19A:
-		if (this.m_lastHitEvent != null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text += "Has <Last Hit Event>, will not trigger ragdoll until that event is fired\n\n";
-		}
-		if (this.m_hitEvent != null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_hitDelay > 0f)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return text + "<color=yellow>WARNING: </color>Has <Hit Event>, <Hit Delay> will be ignored\n\n";
-			}
-		}
-		if (this.m_hitEvent == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_hitDelay > 0f)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				string text2 = text;
-				text = string.Concat(new object[]
-				{
-					text2,
-					"Using <Hit Delay> for timing, Gameplay Hit and <Hit FX Prefab> will spawn ",
-					this.m_hitDelay,
-					" second(s) after VFX spawn\n\n"
-				});
-			}
-		}
-		return text;
-	}
-
-	public class MultiEventExtraParams : Sequence.IExtraSequenceParams
-	{
-		public int eventNumberToKeyOffOf;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
-		{
-			short num = (short)this.eventNumberToKeyOffOf;
-			stream.Serialize(ref num);
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			short num = 0;
-			stream.Serialize(ref num);
-			this.eventNumberToKeyOffOf = (int)num;
-		}
-	}
-
-	public class ImpactDelayParams : Sequence.IExtraSequenceParams
-	{
-		public float impactDelayTime = -1f;
-
-		public sbyte alternativeImpactAudioIndex = -1;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.impactDelayTime);
-			stream.Serialize(ref this.alternativeImpactAudioIndex);
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.impactDelayTime);
-			stream.Serialize(ref this.alternativeImpactAudioIndex);
-		}
-	}
-
-	public class DelayedImpact
-	{
-		public float m_timeToSpawnImpact;
-
-		public bool m_lastHit;
-
-		public DelayedImpact(float timeToSpawn, bool lastHit)
-		{
-			this.m_timeToSpawnImpact = timeToSpawn;
-			this.m_lastHit = lastHit;
-		}
-	}
-
-	public enum AudioEventType
-	{
-		General,
-		Pickup
-	}
-
-	[Serializable]
-	public class HitVFXStatusFilters
-	{
-		public SimpleAttachedVFXSequence.HitVFXStatusFilters.FilterCond m_condition;
-
-		public StatusType m_status = StatusType.INVALID;
-
-		public enum FilterCond
-		{
-			HasStatus,
-			DoesntHaveStatus
-		}
+		goto IL_0266;
+		IL_0266:
+		return str;
 	}
 }

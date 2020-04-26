@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +13,7 @@ public class ValkyriePullToConeCenter : Ability
 	public bool m_penetratesLoS;
 
 	[Header("-- Damage & effects")]
-	public int m_damage = 0x28;
+	public int m_damage = 40;
 
 	public StandardEffectInfo m_effectToEnemies;
 
@@ -28,54 +27,54 @@ public class ValkyriePullToConeCenter : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Valkyrie Pull Cone";
+			m_abilityName = "Valkyrie Pull Cone";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = new AbilityUtil_Targeter_StretchCone(this, this.GetConeLength(), this.GetConeLength(), this.GetConeWidth(), this.GetConeWidth(), AreaEffectUtils.StretchConeStyle.Linear, this.m_coneBackwardOffset, this.GetPenetrateLoS());
-		abilityUtil_Targeter_StretchCone.InitKnockbackData(this.GetKnockbackDistance(), this.m_knockbackType, 0f, this.m_knockbackType);
+		AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = new AbilityUtil_Targeter_StretchCone(this, GetConeLength(), GetConeLength(), GetConeWidth(), GetConeWidth(), AreaEffectUtils.StretchConeStyle.Linear, m_coneBackwardOffset, GetPenetrateLoS());
+		abilityUtil_Targeter_StretchCone.InitKnockbackData(GetKnockbackDistance(), m_knockbackType, 0f, m_knockbackType);
 		base.Targeter = abilityUtil_Targeter_StretchCone;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetDamage());
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetDamage());
+		return numbers;
 	}
 
 	private int GetDamage()
 	{
-		return this.m_damage;
+		return m_damage;
 	}
 
 	private StandardEffectInfo GetEffectOnEnemy()
 	{
-		return this.m_effectToEnemies;
+		return m_effectToEnemies;
 	}
 
 	private float GetConeWidth()
 	{
-		return this.m_coneAngleWidth;
+		return m_coneAngleWidth;
 	}
 
 	private float GetConeLength()
 	{
-		return this.m_coneLengthInSquares;
+		return m_coneLengthInSquares;
 	}
 
 	private bool GetPenetrateLoS()
 	{
-		return this.m_penetratesLoS;
+		return m_penetratesLoS;
 	}
 
 	private float GetKnockbackDistance()
 	{
-		return this.m_maxKnockbackDist;
+		return m_maxKnockbackDist;
 	}
 }

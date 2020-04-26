@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -30,19 +30,6 @@ public class PatrolState : FSMState
 			this.m_PatrolPath.m_currentWayPoint = this.m_PatrolPath.GetInitalWaypoint();
 			if (this.m_PatrolPath.m_currentWayPoint == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PatrolState.OnEnter(NPCBrain, StateID)).MethodHandle;
-				}
 				Log.Error("Could not find a waypoint to travel to. Did you forget to add in waypoints to a patrol path for NPC " + base.MyBrain.name, new object[0]);
 			}
 			GameEventManager.PatrolPointArgs args = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.MovingToNextPoint, base.MyActorData, this.m_PatrolPath.m_currentWayPoint, this.m_PatrolPath.mWayPoints.IndexOf(this.m_PatrolPath.m_currentWayPoint), this.m_PatrolPath, this.m_PatrolPath.m_AlternateDestination == null);
@@ -52,19 +39,6 @@ public class PatrolState : FSMState
 
 	public override IEnumerator OnTurn(NPCBrain thisBrain)
 	{
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PatrolState.<OnTurn>c__Iterator0.MoveNext()).MethodHandle;
-		}
 		NPCBrain_StateMachine npcbrain_StateMachine = thisBrain as NPCBrain_StateMachine;
 		AbilityData component = thisBrain.GetComponent<AbilityData>();
 		ActorData component2 = npcbrain_StateMachine.GetComponent<ActorData>();
@@ -72,58 +46,22 @@ public class PatrolState : FSMState
 		BotController component4 = npcbrain_StateMachine.GetComponent<BotController>();
 		if (component)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (component2 && component3 && component4)
 			{
 				if (this.m_PatrolPath == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					yield break;
 				}
 				WayPoint wayPoint = this.m_PatrolPath.m_currentWayPoint;
-				BoardSquare boardSquare = Board.\u000E().\u0012(wayPoint.transform.position.x, wayPoint.transform.position.z);
-				BoardSquare x2 = component2.\u0012();
+				BoardSquare boardSquare = Board.Get().GetBoardSquareSafe(wayPoint.transform.position.x, wayPoint.transform.position.z);
+				BoardSquare currentBoardSquare = component2.GetCurrentBoardSquare();
 				int num = 0xA;
-				float num2 = boardSquare.HorizontalDistanceInSquaresTo(base.MyActorData.\u0012());
+				float num2 = boardSquare.HorizontalDistanceInSquaresTo(base.MyActorData.GetCurrentBoardSquare());
 				float remainingHorizontalMovement = base.MyActorData.RemainingHorizontalMovement;
-				if (!wayPoint.MustArriveAtWayPointToContinue && x2 != boardSquare)
+				if (!wayPoint.MustArriveAtWayPointToContinue && currentBoardSquare != boardSquare)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num2 < remainingHorizontalMovement)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_PatrolPath.m_AlternateDestination == null)
 						{
 							for (;;)
@@ -134,54 +72,27 @@ public class PatrolState : FSMState
 									{
 										break;
 									}
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								if (--num <= 0)
 								{
 									break;
 								}
-								boardSquare = Board.\u000E().\u0018(boardSquare, boardSquare);
+								boardSquare = Board.Get()._0018(boardSquare, boardSquare);
 								this.m_PatrolPath.m_AlternateDestination = boardSquare;
 							}
 						}
 					}
 				}
-				if (!(x2 == boardSquare))
+				if (!(currentBoardSquare == boardSquare))
 				{
-					if (!(x2 == this.m_PatrolPath.m_AlternateDestination))
+					if (!(currentBoardSquare == this.m_PatrolPath.m_AlternateDestination))
 					{
 						component3.SelectMovementSquareForMovement(boardSquare);
 						yield break;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (this.turnsToDelayRemaining == -1)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.Log("Arrived at point: " + boardSquare);
 					GameEventManager.PatrolPointArgs args = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.PointReached, base.MyActorData, wayPoint, this.m_PatrolPath.mWayPoints.IndexOf(wayPoint), this.m_PatrolPath, this.m_PatrolPath.m_AlternateDestination == null);
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.PatrolPointEvent, args);
@@ -194,19 +105,6 @@ public class PatrolState : FSMState
 					{
 						if (x == PatrolPath.IncrementWaypointResult.Incremented)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(PatrolState.<OnTurn>c__Iterator0.<>m__0(PatrolPath.IncrementWaypointResult)).MethodHandle;
-							}
 							this.m_PatrolPath.WaypointsVisitedThisCycle++;
 						}
 						else if (x == PatrolPath.IncrementWaypointResult.CycleCompleted)
@@ -218,7 +116,7 @@ public class PatrolState : FSMState
 					GameEventManager.PatrolPointArgs args2 = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.MovingToNextPoint, base.MyActorData, wayPoint, this.m_PatrolPath.mWayPoints.IndexOf(wayPoint), this.m_PatrolPath, this.m_PatrolPath.m_AlternateDestination == null);
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.PatrolPointEvent, args2);
 					this.m_PatrolPath.m_AlternateDestination = null;
-					BoardSquare boardSquare2 = Board.\u000E().\u0013(wayPoint.transform.position.x, wayPoint.transform.position.z);
+					BoardSquare boardSquare2 = Board.Get()._0013(wayPoint.transform.position.x, wayPoint.transform.position.z);
 					Debug.Log("Traveling to: " + boardSquare2);
 					component3.SelectMovementSquareForMovement(boardSquare2);
 				}

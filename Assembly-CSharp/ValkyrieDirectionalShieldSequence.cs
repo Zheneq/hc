@@ -1,137 +1,99 @@
-﻿using System;
 using UnityEngine;
 
 public class ValkyrieDirectionalShieldSequence : SimpleAttachedVFXSequence
 {
+	public class ExtraParams : IExtraSequenceParams
+	{
+		public sbyte m_aimDirection;
+
+		public override void XSP_SerializeToStream(IBitStream stream)
+		{
+			stream.Serialize(ref m_aimDirection);
+		}
+
+		public override void XSP_DeserializeFromStream(IBitStream stream)
+		{
+			stream.Serialize(ref m_aimDirection);
+		}
+	}
+
 	public bool m_useTempShieldIndicator = true;
 
 	private Vector3 m_aimDirection;
 
 	private GameObject m_placeholderShieldIndicator;
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			ValkyrieDirectionalShieldSequence.ExtraParams extraParams2 = extraSequenceParams as ValkyrieDirectionalShieldSequence.ExtraParams;
+			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDirectionalShieldSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
-				this.m_aimDirection = base.Caster.\u000E().GetCoverOffset((ActorCover.CoverDirections)extraParams2.m_aimDirection);
+				m_aimDirection = base.Caster.GetActorCover().GetCoverOffset((ActorCover.CoverDirections)extraParams2.m_aimDirection);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public override void FinishSetup()
 	{
 		base.FinishSetup();
-		if (this.m_useTempShieldIndicator)
+		if (!m_useTempShieldIndicator)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDirectionalShieldSequence.FinishSetup()).MethodHandle;
-			}
-			base.InitializeFXStorage();
-			this.m_placeholderShieldIndicator = new GameObject("Valkyrie_ShieldPlaceholder");
-			GameObject fxParentObject = base.GetFxParentObject();
-			this.m_placeholderShieldIndicator.transform.parent = fxParentObject.transform;
-			this.m_placeholderShieldIndicator.transform.localRotation = Quaternion.identity;
+			return;
+		}
+		while (true)
+		{
+			InitializeFXStorage();
+			m_placeholderShieldIndicator = new GameObject("Valkyrie_ShieldPlaceholder");
+			GameObject fxParentObject = GetFxParentObject();
+			m_placeholderShieldIndicator.transform.parent = fxParentObject.transform;
+			m_placeholderShieldIndicator.transform.localRotation = Quaternion.identity;
 			GameObject gameObject = HighlightUtils.Get().CreateConeCursor(0.7f, 360f);
-			gameObject.transform.parent = this.m_placeholderShieldIndicator.transform;
-			gameObject.transform.localPosition = 0.45f * Board.\u000E().squareSize * Vector3.forward;
+			gameObject.transform.parent = m_placeholderShieldIndicator.transform;
+			gameObject.transform.localPosition = 0.45f * Board.Get().squareSize * Vector3.forward;
 			gameObject.transform.localRotation = Quaternion.LookRotation(Vector3.up);
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_placeholderShieldIndicator != null)
+		if (m_placeholderShieldIndicator != null)
 		{
-			this.m_placeholderShieldIndicator.SetActive(false);
+			m_placeholderShieldIndicator.SetActive(false);
 		}
-		if (this.m_fx != null)
+		if (m_fx != null)
 		{
-			this.m_fx.SetActive(false);
+			m_fx.SetActive(false);
 		}
 	}
 
 	protected override void SetFxRotation()
 	{
-		if (this.m_fx != null)
+		if (m_fx != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDirectionalShieldSequence.SetFxRotation()).MethodHandle;
-			}
-			this.m_fx.transform.rotation = Quaternion.LookRotation(this.m_aimDirection);
+			m_fx.transform.rotation = Quaternion.LookRotation(m_aimDirection);
 		}
-		if (this.m_placeholderShieldIndicator != null)
+		if (!(m_placeholderShieldIndicator != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_placeholderShieldIndicator.transform.position = base.Caster.transform.position + 2f * Vector3.up;
-			this.m_placeholderShieldIndicator.transform.rotation = Quaternion.LookRotation(this.m_aimDirection);
+			return;
 		}
-	}
-
-	public class ExtraParams : Sequence.IExtraSequenceParams
-	{
-		public sbyte m_aimDirection;
-
-		public override void XSP_SerializeToStream(IBitStream stream)
+		while (true)
 		{
-			stream.Serialize(ref this.m_aimDirection);
-		}
-
-		public override void XSP_DeserializeFromStream(IBitStream stream)
-		{
-			stream.Serialize(ref this.m_aimDirection);
+			m_placeholderShieldIndicator.transform.position = base.Caster.transform.position + 2f * Vector3.up;
+			m_placeholderShieldIndicator.transform.rotation = Quaternion.LookRotation(m_aimDirection);
+			return;
 		}
 	}
 }

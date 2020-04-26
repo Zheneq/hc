@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -14,50 +13,41 @@ public class CardManager : NetworkBehaviour
 	{
 		get
 		{
-			GameObject[] result;
-			if (this.m_dataPrefabInstanceComponent == null)
+			object result;
+			if (m_dataPrefabInstanceComponent == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CardManager.get_m_cardIndex()).MethodHandle;
-				}
 				result = null;
 			}
 			else
 			{
-				result = this.m_dataPrefabInstanceComponent.m_cardIndex;
+				result = m_dataPrefabInstanceComponent.m_cardIndex;
 			}
-			return result;
+			return (GameObject[])result;
 		}
+	}
+
+	public bool ShowingInGameCardUI
+	{
+		get;
+		set;
 	}
 
 	internal static CardManager Get()
 	{
-		return CardManager.s_instance;
+		return s_instance;
 	}
-
-	public bool ShowingInGameCardUI { get; set; }
 
 	private void Awake()
 	{
-		this.m_dataPrefabInstanceComponent = CardManagerData.Get();
-		CardManager.s_instance = this;
-		this.ShowingInGameCardUI = true;
-		Log.Info("Set CardManager reference", new object[0]);
+		m_dataPrefabInstanceComponent = CardManagerData.Get();
+		s_instance = this;
+		ShowingInGameCardUI = true;
+		Log.Info("Set CardManager reference");
 	}
 
 	private void OnDestroy()
 	{
-		CardManager.s_instance = null;
+		s_instance = null;
 	}
 
 	public void SetDeckAndGiveCards(ActorData actor, CharacterCardInfo cardInfo, bool isDebugRequest = false)
@@ -74,7 +64,7 @@ public class CardManager : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
+		bool result = default(bool);
 		return result;
 	}
 

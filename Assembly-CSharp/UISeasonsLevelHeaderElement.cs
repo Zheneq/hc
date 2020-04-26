@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,85 +14,61 @@ public class UISeasonsLevelHeaderElement : MonoBehaviour
 
 	private void Awake()
 	{
-		for (int i = 0; i < this.m_rewardImages.Length; i++)
+		for (int i = 0; i < m_rewardImages.Length; i++)
 		{
 			int index = i;
-			this.m_rewardImages[i].GetComponent<UITooltipHoverObject>().Setup(TooltipType.InventoryItem, (UITooltipBase tooltip) => this.TooltipSetup(tooltip, index), null);
+			m_rewardImages[i].GetComponent<UITooltipHoverObject>().Setup(TooltipType.InventoryItem, (UITooltipBase tooltip) => TooltipSetup(tooltip, index));
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsLevelHeaderElement.Awake()).MethodHandle;
+			return;
 		}
 	}
 
 	public void Setup(int imageIndex, UISeasonRepeatingRewardInfo rewardInfo)
 	{
-		if (this.infos == null)
+		if (infos == null)
 		{
-			this.infos = new UISeasonRepeatingRewardInfo[this.m_rewardImages.Length];
+			infos = new UISeasonRepeatingRewardInfo[m_rewardImages.Length];
 		}
-		if (-1 < imageIndex)
+		if (-1 >= imageIndex)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (imageIndex < m_rewardImages.Length)
 			{
-				switch (3)
+				while (true)
 				{
-				case 0:
-					continue;
+					m_rewardImages[imageIndex].sprite = rewardInfo.GetDisplaySprite();
+					infos[imageIndex] = rewardInfo;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsLevelHeaderElement.Setup(int, UISeasonRepeatingRewardInfo)).MethodHandle;
-			}
-			if (imageIndex < this.m_rewardImages.Length)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_rewardImages[imageIndex].sprite = rewardInfo.GetDisplaySprite();
-				this.infos[imageIndex] = rewardInfo;
-			}
+			return;
 		}
 	}
 
 	private bool TooltipSetup(UITooltipBase tooltip, int index)
 	{
-		SeasonReward seasonRewardReference = this.infos[index].GetSeasonRewardReference();
+		SeasonReward seasonRewardReference = infos[index].GetSeasonRewardReference();
 		if (seasonRewardReference is SeasonItemReward)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate((seasonRewardReference as SeasonItemReward).ItemReward.ItemTemplateId);
+					(tooltip as UIInventoryItemTooltip).Setup(itemTemplate);
+					return true;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsLevelHeaderElement.TooltipSetup(UITooltipBase, int)).MethodHandle;
-			}
-			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate((seasonRewardReference as SeasonItemReward).ItemReward.ItemTemplateId);
-			(tooltip as UIInventoryItemTooltip).Setup(itemTemplate);
-			return true;
 		}
 		return false;
 	}

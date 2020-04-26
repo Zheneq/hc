@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ public class ClericMeleeKnockback : Ability
 	public int m_maxTargets = 5;
 
 	[Header("-- On Hit Damage/Effect")]
-	public int m_damageAmount = 0x14;
+	public int m_damageAmount = 20;
 
 	public float m_knockbackDistance = 1f;
 
@@ -27,7 +26,7 @@ public class ClericMeleeKnockback : Ability
 	[Separator("Connecting Laser between caster and aoe center", true)]
 	public float m_connectLaserWidth;
 
-	public int m_connectLaserDamage = 0x14;
+	public int m_connectLaserDamage = 20;
 
 	public StandardEffectInfo m_connectLaserEnemyHitEffect;
 
@@ -49,167 +48,97 @@ public class ClericMeleeKnockback : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Sphere of Might";
+			m_abilityName = "Sphere of Might";
 		}
-		this.m_syncComp = base.GetComponent<Cleric_SyncComponent>();
-		this.SetupTargeter();
+		m_syncComp = GetComponent<Cleric_SyncComponent>();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth_FixedOffset(this, this.GetMinSeparationBetweenAoeAndCaster(), this.GetMaxSeparationBetweenAoeAndCaster(), this.GetAoeRadius(), this.PenetrateLineOfSight(), this.GetKnockbackDistance(), this.GetKnockbackType(), this.GetConnectLaserWidth(), true, false, this.GetMaxTargets())
-		{
-			m_customShouldIncludeActorDelegate = new AbilityUtil_Targeter_AoE_Smooth.ShouldIncludeActorDelegate(this.ShouldIncludeAoEActor),
-			m_delegateIsSquareInLos = new AbilityUtil_Targeter_AoE_Smooth_FixedOffset.IsSquareInLosDelegate(this.IsSquareInLosForCone)
-		};
+		SetCachedFields();
+		AbilityUtil_Targeter_AoE_Smooth_FixedOffset abilityUtil_Targeter_AoE_Smooth_FixedOffset = new AbilityUtil_Targeter_AoE_Smooth_FixedOffset(this, GetMinSeparationBetweenAoeAndCaster(), GetMaxSeparationBetweenAoeAndCaster(), GetAoeRadius(), PenetrateLineOfSight(), GetKnockbackDistance(), GetKnockbackType(), GetConnectLaserWidth(), true, false, GetMaxTargets());
+		abilityUtil_Targeter_AoE_Smooth_FixedOffset.m_customShouldIncludeActorDelegate = ShouldIncludeAoEActor;
+		abilityUtil_Targeter_AoE_Smooth_FixedOffset.m_delegateIsSquareInLos = IsSquareInLosForCone;
+		base.Targeter = abilityUtil_Targeter_AoE_Smooth_FixedOffset;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_ClericMeleeKnockback))
+		if (abilityMod.GetType() != typeof(AbilityMod_ClericMeleeKnockback))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_ClericMeleeKnockback);
-			this.SetupTargeter();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_ClericMeleeKnockback);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedTargetHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.SetCachedFields()).MethodHandle;
-			}
-			cachedTargetHitEffect = this.m_abilityMod.m_targetHitEffectMod.GetModifiedValue(this.m_targetHitEffect);
+			cachedTargetHitEffect = m_abilityMod.m_targetHitEffectMod.GetModifiedValue(m_targetHitEffect);
 		}
 		else
 		{
-			cachedTargetHitEffect = this.m_targetHitEffect;
+			cachedTargetHitEffect = m_targetHitEffect;
 		}
-		this.m_cachedTargetHitEffect = cachedTargetHitEffect;
+		m_cachedTargetHitEffect = cachedTargetHitEffect;
 		StandardEffectInfo cachedConnectLaserEnemyHitEffect;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedConnectLaserEnemyHitEffect = this.m_abilityMod.m_connectLaserEnemyHitEffectMod.GetModifiedValue(this.m_connectLaserEnemyHitEffect);
+			cachedConnectLaserEnemyHitEffect = m_abilityMod.m_connectLaserEnemyHitEffectMod.GetModifiedValue(m_connectLaserEnemyHitEffect);
 		}
 		else
 		{
-			cachedConnectLaserEnemyHitEffect = this.m_connectLaserEnemyHitEffect;
+			cachedConnectLaserEnemyHitEffect = m_connectLaserEnemyHitEffect;
 		}
-		this.m_cachedConnectLaserEnemyHitEffect = cachedConnectLaserEnemyHitEffect;
-		this.m_cachedSingleTargetHitEffect = ((!this.m_abilityMod) ? null : this.m_abilityMod.m_singleTargetHitEffectMod.GetModifiedValue(this.m_targetHitEffect));
+		m_cachedConnectLaserEnemyHitEffect = cachedConnectLaserEnemyHitEffect;
+		m_cachedSingleTargetHitEffect = ((!m_abilityMod) ? null : m_abilityMod.m_singleTargetHitEffectMod.GetModifiedValue(m_targetHitEffect));
 	}
 
 	public bool PenetrateLineOfSight()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.PenetrateLineOfSight()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(this.m_penetrateLineOfSight);
+			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
 		}
 		else
 		{
-			result = this.m_penetrateLineOfSight;
+			result = m_penetrateLineOfSight;
 		}
 		return result;
 	}
 
 	public float GetMinSeparationBetweenAoeAndCaster()
 	{
-		return (!this.m_abilityMod) ? this.m_minSeparationBetweenAoeAndCaster : this.m_abilityMod.m_minSeparationBetweenAoeAndCasterMod.GetModifiedValue(this.m_minSeparationBetweenAoeAndCaster);
+		return (!m_abilityMod) ? m_minSeparationBetweenAoeAndCaster : m_abilityMod.m_minSeparationBetweenAoeAndCasterMod.GetModifiedValue(m_minSeparationBetweenAoeAndCaster);
 	}
 
 	public float GetMaxSeparationBetweenAoeAndCaster()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.GetMaxSeparationBetweenAoeAndCaster()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_maxSeparationBetweenAoeAndCasterMod.GetModifiedValue(this.m_maxSeparationBetweenAoeAndCaster);
+			result = m_abilityMod.m_maxSeparationBetweenAoeAndCasterMod.GetModifiedValue(m_maxSeparationBetweenAoeAndCaster);
 		}
 		else
 		{
-			result = this.m_maxSeparationBetweenAoeAndCaster;
+			result = m_maxSeparationBetweenAoeAndCaster;
 		}
 		return result;
 	}
@@ -217,26 +146,13 @@ public class ClericMeleeKnockback : Ability
 	public float GetAoeRadius()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.GetAoeRadius()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_aoeRadiusMod.GetModifiedValue(this.m_aoeRadius);
+			result = m_abilityMod.m_aoeRadiusMod.GetModifiedValue(m_aoeRadius);
 		}
 		else
 		{
-			result = this.m_aoeRadius;
+			result = m_aoeRadius;
 		}
 		return result;
 	}
@@ -244,26 +160,13 @@ public class ClericMeleeKnockback : Ability
 	public int GetMaxTargets()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.GetMaxTargets()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
+			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
 		{
-			result = this.m_maxTargets;
+			result = m_maxTargets;
 		}
 		return result;
 	}
@@ -271,26 +174,13 @@ public class ClericMeleeKnockback : Ability
 	public int GetDamageAmount()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.GetDamageAmount()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
+			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
 		{
-			result = this.m_damageAmount;
+			result = m_damageAmount;
 		}
 		return result;
 	}
@@ -298,26 +188,13 @@ public class ClericMeleeKnockback : Ability
 	public float GetKnockbackDistance()
 	{
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.GetKnockbackDistance()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(this.m_knockbackDistance);
+			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
 		}
 		else
 		{
-			result = this.m_knockbackDistance;
+			result = m_knockbackDistance;
 		}
 		return result;
 	}
@@ -325,26 +202,13 @@ public class ClericMeleeKnockback : Ability
 	public KnockbackType GetKnockbackType()
 	{
 		KnockbackType result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.GetKnockbackType()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_knockbackTypeMod.GetModifiedValue(this.m_knockbackType);
+			result = m_abilityMod.m_knockbackTypeMod.GetModifiedValue(m_knockbackType);
 		}
 		else
 		{
-			result = this.m_knockbackType;
+			result = m_knockbackType;
 		}
 		return result;
 	}
@@ -352,154 +216,102 @@ public class ClericMeleeKnockback : Ability
 	public StandardEffectInfo GetTargetHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedTargetHitEffect != null)
+		if (m_cachedTargetHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.GetTargetHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedTargetHitEffect;
+			result = m_cachedTargetHitEffect;
 		}
 		else
 		{
-			result = this.m_targetHitEffect;
+			result = m_targetHitEffect;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetSingleTargetHitEffect()
 	{
-		StandardEffectInfo result;
-		if (this.m_cachedSingleTargetHitEffect != null)
+		object result;
+		if (m_cachedSingleTargetHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.GetSingleTargetHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedSingleTargetHitEffect;
+			result = m_cachedSingleTargetHitEffect;
 		}
 		else
 		{
 			result = null;
 		}
-		return result;
+		return (StandardEffectInfo)result;
 	}
 
 	public int GetExtraTechPointsPerHitWithAreaBuff()
 	{
-		return (!this.m_abilityMod) ? 0 : this.m_abilityMod.m_extraTechPointsPerHitWithAreaBuff.GetModifiedValue(0);
+		return m_abilityMod ? m_abilityMod.m_extraTechPointsPerHitWithAreaBuff.GetModifiedValue(0) : 0;
 	}
 
 	public float GetConnectLaserWidth()
 	{
-		return (!this.m_abilityMod) ? this.m_connectLaserWidth : this.m_abilityMod.m_connectLaserWidthMod.GetModifiedValue(this.m_connectLaserWidth);
+		return (!m_abilityMod) ? m_connectLaserWidth : m_abilityMod.m_connectLaserWidthMod.GetModifiedValue(m_connectLaserWidth);
 	}
 
 	public int GetConnectLaserDamage()
 	{
-		return (!this.m_abilityMod) ? this.m_connectLaserDamage : this.m_abilityMod.m_connectLaserDamageMod.GetModifiedValue(this.m_connectLaserDamage);
+		return (!m_abilityMod) ? m_connectLaserDamage : m_abilityMod.m_connectLaserDamageMod.GetModifiedValue(m_connectLaserDamage);
 	}
 
 	public StandardEffectInfo GetConnectLaserEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedConnectLaserEnemyHitEffect != null)
+		if (m_cachedConnectLaserEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.GetConnectLaserEnemyHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedConnectLaserEnemyHitEffect;
+			result = m_cachedConnectLaserEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_connectLaserEnemyHitEffect;
+			result = m_connectLaserEnemyHitEffect;
 		}
 		return result;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "MaxTargets", string.Empty, this.m_maxTargets, false);
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, this.m_damageAmount, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_targetHitEffect, "TargetHitEffect", this.m_targetHitEffect, true);
-		base.AddTokenInt(tokens, "ConnectLaserDamage", string.Empty, this.m_connectLaserDamage, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_connectLaserEnemyHitEffect, "ConnectLaserEnemyHitEffect", this.m_connectLaserEnemyHitEffect, true);
+		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, m_damageAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, m_targetHitEffect, "TargetHitEffect", m_targetHitEffect);
+		AddTokenInt(tokens, "ConnectLaserDamage", string.Empty, m_connectLaserDamage);
+		AbilityMod.AddToken_EffectInfo(tokens, m_connectLaserEnemyHitEffect, "ConnectLaserEnemyHitEffect", m_connectLaserEnemyHitEffect);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_damageAmount);
-		if (this.GetConnectLaserWidth() > 0f)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_damageAmount);
+		if (GetConnectLaserWidth() > 0f)
 		{
-			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.m_connectLaserDamage);
+			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_connectLaserDamage);
 		}
-		return result;
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (targetActor.\u000E() != base.ActorData.\u000E())
+		if (targetActor.GetTeam() != base.ActorData.GetTeam())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
-			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
+					{
+						results.m_damage = GetDamageAmount();
+					}
+					else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) > 0)
+					{
+						results.m_damage = GetConnectLaserDamage();
+					}
+					return true;
 				}
-				results.m_damage = this.GetDamageAmount();
 			}
-			else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) > 0)
-			{
-				results.m_damage = this.GetConnectLaserDamage();
-			}
-			return true;
 		}
 		return false;
 	}
@@ -507,23 +319,10 @@ public class ClericMeleeKnockback : Ability
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
 		int num = base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
-		AbilityData abilityData = caster.\u000E();
+		AbilityData abilityData = caster.GetAbilityData();
 		if (abilityData != null && abilityData.HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
-			num += base.Targeters[currentTargeterIndex].GetNumActorsInRange() * this.GetExtraTechPointsPerHitWithAreaBuff();
+			num += base.Targeters[currentTargeterIndex].GetNumActorsInRange() * GetExtraTechPointsPerHitWithAreaBuff();
 		}
 		return num;
 	}
@@ -532,45 +331,41 @@ public class ClericMeleeKnockback : Ability
 	{
 		if (testSquare == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericMeleeKnockback.IsSquareInLosForCone(BoardSquare, Vector3, ActorData)).MethodHandle;
-			}
-			return false;
 		}
-		Vector3 vector = targetingActor.\u0015();
-		centerPos.y = vector.y;
-		Vector3 vector2 = centerPos - vector;
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, vector2.normalized, vector2.magnitude, false, targetingActor, null, true);
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		centerPos.y = travelBoardSquareWorldPositionForLos.y;
+		Vector3 vector = centerPos - travelBoardSquareWorldPositionForLos;
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, vector.normalized, vector.magnitude, false, targetingActor);
 		if (Vector3.Distance(laserEndPoint, centerPos) > 0.1f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return false;
 				}
-				break;
 			}
-			return false;
 		}
-		if (!this.PenetrateLineOfSight())
+		if (!PenetrateLineOfSight())
 		{
-			Vector3 vector3 = testSquare.ToVector3();
-			vector3.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
-			Vector3 vector4 = vector3 - centerPos;
-			laserEndPoint = VectorUtils.GetLaserEndPoint(centerPos, vector4.normalized, vector4.magnitude, false, targetingActor, null, true);
-			if (Vector3.Distance(laserEndPoint, vector3) > 0.1f)
+			Vector3 vector2 = testSquare.ToVector3();
+			vector2.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+			Vector3 vector3 = vector2 - centerPos;
+			laserEndPoint = VectorUtils.GetLaserEndPoint(centerPos, vector3.normalized, vector3.magnitude, false, targetingActor);
+			if (Vector3.Distance(laserEndPoint, vector2) > 0.1f)
 			{
 				return false;
 			}
@@ -580,6 +375,10 @@ public class ClericMeleeKnockback : Ability
 
 	public bool ShouldIncludeAoEActor(ActorData potentialActor, Vector3 centerPos, ActorData targetingActor)
 	{
-		return !(potentialActor == null) && this.IsSquareInLosForCone(potentialActor.\u0012(), centerPos, targetingActor);
+		if (potentialActor == null)
+		{
+			return false;
+		}
+		return IsSquareInLosForCone(potentialActor.GetCurrentBoardSquare(), centerPos, targetingActor);
 	}
 }

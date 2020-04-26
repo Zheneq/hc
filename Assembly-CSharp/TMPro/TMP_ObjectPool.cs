@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,104 +12,52 @@ namespace TMPro
 
 		private readonly UnityAction<T> m_ActionOnRelease;
 
+		public int countAll
+		{
+			get;
+			private set;
+		}
+
+		public int countActive => countAll - countInactive;
+
+		public int countInactive => m_Stack.Count;
+
 		public TMP_ObjectPool(UnityAction<T> actionOnGet, UnityAction<T> actionOnRelease)
 		{
-			this.m_ActionOnGet = actionOnGet;
-			this.m_ActionOnRelease = actionOnRelease;
-		}
-
-		public int countAll { get; private set; }
-
-		public int countActive
-		{
-			get
-			{
-				return this.countAll - this.countInactive;
-			}
-		}
-
-		public int countInactive
-		{
-			get
-			{
-				return this.m_Stack.Count;
-			}
+			m_ActionOnGet = actionOnGet;
+			m_ActionOnRelease = actionOnRelease;
 		}
 
 		public T Get()
 		{
-			T t;
-			if (this.m_Stack.Count == 0)
+			T val;
+			if (m_Stack.Count == 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_ObjectPool.Get()).MethodHandle;
-				}
-				t = Activator.CreateInstance<T>();
-				this.countAll++;
+				val = new T();
+				countAll++;
 			}
 			else
 			{
-				t = this.m_Stack.Pop();
+				val = m_Stack.Pop();
 			}
-			if (this.m_ActionOnGet != null)
+			if (m_ActionOnGet != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_ActionOnGet(t);
+				m_ActionOnGet(val);
 			}
-			return t;
+			return val;
 		}
 
 		public void Release(T element)
 		{
-			if (this.m_Stack.Count > 0 && object.ReferenceEquals(this.m_Stack.Peek(), element))
+			if (m_Stack.Count > 0 && object.ReferenceEquals(m_Stack.Peek(), element))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_ObjectPool.Release(T)).MethodHandle;
-				}
 				Debug.LogError("Internal error. Trying to destroy object that is already released to pool.");
 			}
-			if (this.m_ActionOnRelease != null)
+			if (m_ActionOnRelease != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_ActionOnRelease(element);
+				m_ActionOnRelease(element);
 			}
-			this.m_Stack.Push(element);
+			m_Stack.Push(element);
 		}
 	}
 }

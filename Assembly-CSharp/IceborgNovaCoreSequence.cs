@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class IceborgNovaCoreSequence : SimpleAttachedVFXOnTargetSequence
@@ -18,151 +17,79 @@ public class IceborgNovaCoreSequence : SimpleAttachedVFXOnTargetSequence
 	public override void FinishSetup()
 	{
 		base.FinishSetup();
-		this.m_syncComp = base.Caster.GetComponent<Iceborg_SyncComponent>();
-		if (this.m_syncComp == null)
+		m_syncComp = base.Caster.GetComponent<Iceborg_SyncComponent>();
+		if (!(m_syncComp == null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgNovaCoreSequence.FinishSetup()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (Application.isEditor)
 			{
-				Debug.LogError(base.GetType() + " did not find sync component on caster");
+				Debug.LogError(string.Concat(GetType(), " did not find sync component on caster"));
 			}
+			return;
 		}
 	}
 
 	protected override void OnUpdate()
 	{
 		base.OnUpdate();
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(m_syncComp != null))
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgNovaCoreSequence.OnUpdate()).MethodHandle;
-			}
-			if (this.m_syncComp != null)
-			{
-				for (;;)
+				if (!m_switchedToEmpowered)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.m_switchedToEmpowered)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_empoweredFxPrefab != null)
+					if (m_empoweredFxPrefab != null)
 					{
 						ActorData target = base.Target;
 						AbilityPriority currentAbilityPhase = ServerClientUtils.GetCurrentAbilityPhase();
-						if (GameFlowData.Get().CurrentTurn == this.m_syncComp.m_clientDetonateNovaUsedTurn)
+						if (GameFlowData.Get().CurrentTurn == m_syncComp.m_clientDetonateNovaUsedTurn)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (currentAbilityPhase < AbilityPriority.Evasion)
 							{
-								for (;;)
+								if (target != null && m_syncComp.HasNovaCore(target))
 								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (target != null && this.m_syncComp.HasNovaCore(target))
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									base.SwitchFxTo(this.m_empoweredFxPrefab);
-									this.m_switchedToEmpowered = true;
+									SwitchFxTo(m_empoweredFxPrefab);
+									m_switchedToEmpowered = true;
 								}
 							}
 						}
 					}
 				}
-				if (!this.m_switchedToActive)
+				if (m_switchedToActive)
 				{
-					for (;;)
+					return;
+				}
+				while (true)
+				{
+					if (m_switchedToEmpowered)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						return;
 					}
-					if (!this.m_switchedToEmpowered)
+					while (true)
 					{
-						for (;;)
+						if (!(m_activeNovaFxPrefab != null))
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							return;
 						}
-						if (this.m_activeNovaFxPrefab != null)
+						while (true)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (base.AgeInTurns > 0)
 							{
-								base.SwitchFxTo(this.m_activeNovaFxPrefab);
-								this.m_switchedToActive = true;
+								SwitchFxTo(m_activeNovaFxPrefab);
+								m_switchedToActive = true;
 							}
+							return;
 						}
 					}
 				}

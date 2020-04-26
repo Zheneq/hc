@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class FogOfWarCameraSettings : MonoBehaviour
@@ -15,17 +14,17 @@ public class FogOfWarCameraSettings : MonoBehaviour
 
 	internal static FogOfWarCameraSettings Get()
 	{
-		return FogOfWarCameraSettings.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
-		FogOfWarCameraSettings.s_instance = this;
+		Object.DontDestroyOnLoad(base.gameObject);
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		FogOfWarCameraSettings.s_instance = null;
+		s_instance = null;
 	}
 }

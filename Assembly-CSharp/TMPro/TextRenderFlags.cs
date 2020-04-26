@@ -1,10 +1,8 @@
-﻿using System;
-
 namespace TMPro
 {
 	public enum TextRenderFlags
 	{
-		DontRender,
+		DontRender = 0,
 		Render = 0xFF
 	}
 }

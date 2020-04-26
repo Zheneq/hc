@@ -1,98 +1,72 @@
-﻿using System;
+using System;
 
 public class SlashCommand_NameplateOvercon : SlashCommand
 {
-	public SlashCommand_NameplateOvercon() : base("/overcon", SlashCommandType.InGame)
+	public SlashCommand_NameplateOvercon()
+		: base("/overcon", SlashCommandType.InGame)
 	{
 	}
 
 	public override void OnSlashCommand(string arguments)
 	{
 		ActorData actorData = (!(GameFlowData.Get() != null)) ? null : GameFlowData.Get().activeOwnedActorData;
-		if (actorData != null && actorData.\u000E() != null && HUD_UI.Get() != null)
+		if (!(actorData != null) || !(actorData.GetActorController() != null) || !(HUD_UI.Get() != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(UIOverconData.Get() != null))
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_NameplateOvercon.OnSlashCommand(string)).MethodHandle;
-			}
-			if (UIOverconData.Get() != null)
-			{
-				for (;;)
+				if (!(ClientGameManager.Get() != null))
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (ClientGameManager.Get() != null)
+				while (true)
 				{
-					for (;;)
+					string[] array = arguments.Split((string[])null, StringSplitOptions.RemoveEmptyEntries);
+					if (arguments.Length <= 0)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						return;
 					}
-					string[] array = arguments.Split(null, StringSplitOptions.RemoveEmptyEntries);
-					if (arguments.Length > 0)
+					while (true)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string text = array[0];
 						int overconIdByName = UIOverconData.Get().GetOverconIdByName(text);
 						if (overconIdByName > 0)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
 								case 0:
-									continue;
-								}
-								break;
-							}
-							if (ClientGameManager.Get().IsOverconUnlocked(overconIdByName))
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
 									break;
+								default:
+									if (ClientGameManager.Get().IsOverconUnlocked(overconIdByName))
+									{
+										while (true)
+										{
+											switch (5)
+											{
+											case 0:
+												break;
+											default:
+												ClientGameManager.Get().SendUseOverconRequest(overconIdByName, text, actorData.ActorIndex, GameFlowData.Get().CurrentTurn);
+												return;
+											}
+										}
+									}
+									TextConsole.Get().Write(string.Format(StringUtil.TR("OverconNotUnlocked", "SlashCommand"), text));
+									return;
 								}
-								ClientGameManager.Get().SendUseOverconRequest(overconIdByName, text, actorData.ActorIndex, GameFlowData.Get().CurrentTurn);
-							}
-							else
-							{
-								TextConsole.Get().Write(string.Format(StringUtil.TR("OverconNotUnlocked", "SlashCommand"), text), ConsoleMessageType.SystemMessage);
 							}
 						}
-						else
-						{
-							TextConsole.Get().Write(string.Format(StringUtil.TR("DidNotFindOvercon", "SlashCommand"), text), ConsoleMessageType.SystemMessage);
-						}
+						TextConsole.Get().Write(string.Format(StringUtil.TR("DidNotFindOvercon", "SlashCommand"), text));
+						return;
 					}
 				}
 			}

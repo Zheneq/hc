@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 
 [Serializable]
@@ -38,102 +38,69 @@ public class RankedData
 
 	public override string ToString()
 	{
-		return string.Format("{0}/{1}/T{2}#{3}/P{4}", new object[]
-		{
-			this.Handle,
-			this.EloKeyText,
-			this.Tier,
-			this.DivisionId,
-			this.Points
-		});
+		return $"{Handle}/{EloKeyText}/T{Tier}#{DivisionId}/P{Points}";
 	}
 
 	public int GetPlayerFacingTier(MatchmakingQueueConfig matchmakingConfig)
 	{
-		if (this.MatchCount >= matchmakingConfig.LeaderboardMinMatchesForRanking)
+		if (MatchCount >= matchmakingConfig.LeaderboardMinMatchesForRanking)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return Tier;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RankedData.GetPlayerFacingTier(MatchmakingQueueConfig)).MethodHandle;
-			}
-			return this.Tier;
 		}
 		return -1;
 	}
 
 	public float GetPlayerFacingTierPoints(MatchmakingQueueConfig matchmakingConfig)
 	{
-		if (this.MatchCount < matchmakingConfig.LeaderboardMinMatchesForRanking)
+		if (MatchCount < matchmakingConfig.LeaderboardMinMatchesForRanking)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return -1f;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RankedData.GetPlayerFacingTierPoints(MatchmakingQueueConfig)).MethodHandle;
-			}
-			return -1f;
 		}
-		TierInfo tierInfo;
-		if (matchmakingConfig.LeaderboardTiers.IsNullOrEmpty<TierInfo>())
+		object obj;
+		if (matchmakingConfig.LeaderboardTiers.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			tierInfo = null;
+			obj = null;
 		}
 		else
 		{
-			tierInfo = matchmakingConfig.LeaderboardTiers.ElementAtOrDefault(this.Tier - 1);
+			obj = matchmakingConfig.LeaderboardTiers.ElementAtOrDefault(Tier - 1);
 		}
-		TierInfo tierInfo2 = tierInfo;
-		if (tierInfo2 != null)
+		TierInfo tierInfo = (TierInfo)obj;
+		if (tierInfo != null)
 		{
-			for (;;)
+			if (tierInfo.PointType == TierPointsTypes.DerivedFromMMR)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (tierInfo2.PointType == TierPointsTypes.DerivedFromMMR)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return Elo;
 					}
-					break;
 				}
-				return this.Elo;
 			}
 		}
-		return (float)this.Points;
+		return Points;
 	}
 
 	private void ApplyDecayInternal(IDecayInfo decayInfo, int maxDecent)
@@ -141,115 +108,78 @@ public class RankedData
 		maxDecent--;
 		if (maxDecent <= 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Warning("Stopping ranked decay processing on {0}", ToString());
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RankedData.ApplyDecayInternal(IDecayInfo, int)).MethodHandle;
-			}
-			Log.Warning("Stopping ranked decay processing on {0}", new object[]
-			{
-				this.ToString()
-			});
-			return;
 		}
-		int num;
-		TimeSpan t;
-		if (!decayInfo.GetDecayAmount(this.Tier - 1, out num, out t))
+		if (!decayInfo.GetDecayAmount(Tier - 1, out int amount, out TimeSpan start))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
-					continue;
-				}
-				break;
-			}
-			return;
-		}
-		TimeSpan t2 = decayInfo.UtcNow - (this.LastMatch + t);
-		if (t2 > TimeSpan.Zero)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			int num2 = (int)Math.Ceiling(t2.TotalDays);
-			TimeSpan t3 = this.LastDecay - (this.LastMatch + t);
-			int num3 = (!(t3 > TimeSpan.Zero)) ? 0 : ((int)Math.Ceiling(t3.TotalDays));
-			int num4 = num2 - num3;
-			int val = 1 + (int)Math.Floor((double)((float)this.Points / (float)num));
-			if (decayInfo.DoesTierHaveLimitlessLesserNeighborTier(this.Tier - 1))
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
-				this.Tier++;
+			}
+		}
+		TimeSpan t = decayInfo.UtcNow - (LastMatch + start);
+		if (!(t > TimeSpan.Zero))
+		{
+			return;
+		}
+		while (true)
+		{
+			int num = (int)Math.Ceiling(t.TotalDays);
+			TimeSpan t2 = LastDecay - (LastMatch + start);
+			int num2 = (t2 > TimeSpan.Zero) ? ((int)Math.Ceiling(t2.TotalDays)) : 0;
+			int num3 = num - num2;
+			int val = 1 + (int)Math.Floor((float)Points / (float)amount);
+			if (decayInfo.DoesTierHaveLimitlessLesserNeighborTier(Tier - 1))
+			{
+				Tier++;
 				val = 1;
 			}
-			int num5 = Math.Min(num4, val);
-			num4 -= num5;
-			this.Points -= num * num5;
-			this.LastDecay = decayInfo.UtcNow;
-			if (this.Points < 0)
+			int num4 = Math.Min(num3, val);
+			num3 -= num4;
+			Points -= amount * num4;
+			LastDecay = decayInfo.UtcNow;
+			if (Points < 0)
 			{
-				for (;;)
+				Tier++;
+				Points += 100;
+				if (Tier == SavedTier)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.Tier++;
-				this.Points += 0x64;
-				if (this.Tier == this.SavedTier)
-				{
-					int savedDivisionId = this.SavedDivisionId;
-					this.SavedDivisionId = this.DivisionId;
-					this.DivisionId = savedDivisionId;
-					this.SavedDivisionId = this.Tier + 1;
+					int savedDivisionId = SavedDivisionId;
+					SavedDivisionId = DivisionId;
+					DivisionId = savedDivisionId;
+					SavedDivisionId = Tier + 1;
 				}
 			}
-			if (num4 > 0)
+			if (num3 > 0)
 			{
-				this.LastDecay -= TimeSpan.FromDays((double)num4);
-				int num6;
-				TimeSpan timeSpan;
-				if (decayInfo.GetDecayAmount(this.Tier - 1, out num6, out timeSpan))
+				LastDecay -= TimeSpan.FromDays(num3);
+				if (decayInfo.GetDecayAmount(Tier - 1, out int _, out TimeSpan _))
 				{
-					for (;;)
+					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						ApplyDecayInternal(decayInfo, maxDecent);
+						return;
 					}
-					this.ApplyDecayInternal(decayInfo, maxDecent);
 				}
+				return;
 			}
+			return;
 		}
 	}
 
@@ -257,34 +187,30 @@ public class RankedData
 	{
 		if (decayInfo == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					throw new Exception("IMPLEMENT PLEASE");
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RankedData.ApplyDecay(IDecayInfo)).MethodHandle;
-			}
-			throw new Exception("IMPLEMENT PLEASE");
 		}
 		if (!decayInfo.IsActive)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
-			return;
 		}
-		this.ApplyDecayInternal(decayInfo, 0xA);
+		ApplyDecayInternal(decayInfo, 10);
 	}
 }

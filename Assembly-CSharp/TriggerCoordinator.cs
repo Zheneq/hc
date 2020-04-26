@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class TriggerCoordinator : MonoBehaviour
@@ -9,58 +8,42 @@ public class TriggerCoordinator : MonoBehaviour
 
 	public static TriggerCoordinator Get()
 	{
-		return TriggerCoordinator.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		TriggerCoordinator.s_instance = this;
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		TriggerCoordinator.s_instance = null;
+		s_instance = null;
 	}
 
 	private void Start()
 	{
-		foreach (TriggerRegion triggerRegion in this.m_regions)
+		TriggerRegion[] regions = m_regions;
+		foreach (TriggerRegion triggerRegion in regions)
 		{
 			triggerRegion.Initialize();
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(TriggerCoordinator.Start()).MethodHandle;
+			return;
 		}
 	}
 
 	public void OnTurnTick()
 	{
-		foreach (TriggerRegion triggerRegion in this.m_regions)
+		TriggerRegion[] regions = m_regions;
+		foreach (TriggerRegion triggerRegion in regions)
 		{
 			triggerRegion.OnTurnTick();
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(TriggerCoordinator.OnTurnTick()).MethodHandle;
+			return;
 		}
 	}
 }

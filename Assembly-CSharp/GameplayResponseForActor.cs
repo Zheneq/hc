@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,372 +22,192 @@ public class GameplayResponseForActor
 
 	public GameObject m_sequenceToPlay;
 
-	public unsafe virtual void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject subject)
+	public virtual void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject subject)
 	{
-		if (this.m_damage != 0)
+		if (m_damage != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayResponseForActor.ReportAbilityTooltipNumbers(List<AbilityTooltipNumber>*, AbilityTooltipSubject)).MethodHandle;
-			}
-			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, subject, this.m_damage));
+			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, subject, m_damage));
 		}
-		if (this.m_healing != 0)
+		if (m_healing != 0)
 		{
-			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, subject, this.m_healing));
+			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, subject, m_healing));
 		}
-		this.m_effect.ReportAbilityTooltipNumbers(ref numbers, subject);
+		m_effect.ReportAbilityTooltipNumbers(ref numbers, subject);
 	}
 
 	public GameplayResponseForActor GetShallowCopy()
 	{
-		return (GameplayResponseForActor)base.MemberwiseClone();
+		return (GameplayResponseForActor)MemberwiseClone();
 	}
 
 	public void AddTooltipTokens(List<TooltipTokenEntry> tokens, string name, bool addCompare, GameplayResponseForActor other)
 	{
-		bool flag;
+		int num;
 		if (addCompare)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayResponseForActor.AddTooltipTokens(List<TooltipTokenEntry>, string, bool, GameplayResponseForActor)).MethodHandle;
-			}
-			flag = (other != null);
+			num = ((other != null) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
-		AbilityMod.AddToken_IntDiff(tokens, name + "_Damage", "damage on response", this.m_damage, flag2, (!flag2) ? 0 : other.m_damage);
+		bool flag = (byte)num != 0;
+		AbilityMod.AddToken_IntDiff(tokens, name + "_Damage", "damage on response", m_damage, flag, flag ? other.m_damage : 0);
 		string name2 = name + "_Healing";
-		string desc = "healing on response";
-		int healing = this.m_healing;
-		bool addDiff = flag2;
+		int healing = m_healing;
 		int otherVal;
-		if (flag2)
+		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal = other.m_healing;
 		}
 		else
 		{
 			otherVal = 0;
 		}
-		AbilityMod.AddToken_IntDiff(tokens, name2, desc, healing, addDiff, otherVal);
-		StandardEffectInfo effect = this.m_effect;
+		AbilityMod.AddToken_IntDiff(tokens, name2, "healing on response", healing, flag, otherVal);
+		StandardEffectInfo effect = m_effect;
 		string tokenName = name + "_Effect";
-		StandardEffectInfo baseVal;
-		if (flag2)
+		object baseVal;
+		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = other.m_effect;
 		}
 		else
 		{
 			baseVal = null;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effect, tokenName, baseVal, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effect, tokenName, (StandardEffectInfo)baseVal);
 	}
 
 	public string GetInEditorDescription(string header = "- Response -", string indent = "", bool showDiff = false, GameplayResponseForActor other = null)
 	{
 		bool flag = showDiff && other != null;
-		string text = "\t        \t | in base  =";
-		string text2 = "\n";
-		string text3 = text2 + InEditorDescHelper.BoldedStirng(header) + text2;
-		string str = text3;
-		string header2 = "[ Credits ] = ";
-		string otherSep = text;
-		float myVal = (float)this.m_credits;
-		bool showOther = flag;
-		float num;
+		string otherSep = "\t        \t | in base  =";
+		string text = "\n";
+		string text2 = text + InEditorDescHelper.BoldedStirng(header) + text;
+		string str = text2;
+		float myVal = m_credits;
+		int num;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayResponseForActor.GetInEditorDescription(string, string, bool, GameplayResponseForActor)).MethodHandle;
-			}
-			num = (float)other.m_credits;
+			num = other.m_credits;
 		}
 		else
 		{
-			num = (float)0;
+			num = 0;
 		}
 		float otherVal = num;
-		if (GameplayResponseForActor.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameplayResponseForActor.<>f__am$cache0 = ((float f) => f != 0f);
-		}
-		text3 = str + InEditorDescHelper.AssembleFieldWithDiff(header2, indent, otherSep, myVal, showOther, otherVal, GameplayResponseForActor.<>f__am$cache0);
-		string str2 = text3;
-		string header3 = "[ Healing ] = ";
-		string otherSep2 = text;
-		float myVal2 = (float)this.m_healing;
-		bool showOther2 = flag;
-		float num2;
+		
+		text2 = str + InEditorDescHelper.AssembleFieldWithDiff("[ Credits ] = ", indent, otherSep, myVal, flag, otherVal, ((float f) => f != 0f));
+		string str2 = text2;
+		float myVal2 = m_healing;
+		int num2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num2 = (float)other.m_healing;
+			num2 = other.m_healing;
 		}
 		else
 		{
-			num2 = (float)0;
+			num2 = 0;
 		}
-		text3 = str2 + InEditorDescHelper.AssembleFieldWithDiff(header3, indent, otherSep2, myVal2, showOther2, num2, null);
-		string str3 = text3;
-		string header4 = "[ Damage ] = ";
-		string otherSep3 = text;
-		float myVal3 = (float)this.m_damage;
-		bool showOther3 = flag;
-		float num3;
+		text2 = str2 + InEditorDescHelper.AssembleFieldWithDiff("[ Healing ] = ", indent, otherSep, myVal2, flag, num2);
+		string str3 = text2;
+		float myVal3 = m_damage;
+		int num3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num3 = (float)other.m_damage;
+			num3 = other.m_damage;
 		}
 		else
 		{
-			num3 = (float)0;
+			num3 = 0;
 		}
-		text3 = str3 + InEditorDescHelper.AssembleFieldWithDiff(header4, indent, otherSep3, myVal3, showOther3, num3, null);
-		string str4 = text3;
-		string header5 = "[ TechPoints ] = ";
-		string otherSep4 = text;
-		float myVal4 = (float)this.m_techPoints;
-		bool showOther4 = flag;
-		float num4;
+		text2 = str3 + InEditorDescHelper.AssembleFieldWithDiff("[ Damage ] = ", indent, otherSep, myVal3, flag, num3);
+		string str4 = text2;
+		float myVal4 = m_techPoints;
+		int num4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num4 = (float)other.m_techPoints;
+			num4 = other.m_techPoints;
 		}
 		else
 		{
-			num4 = (float)0;
+			num4 = 0;
 		}
 		float otherVal2 = num4;
-		if (GameplayResponseForActor.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameplayResponseForActor.<>f__am$cache1 = ((float f) => f != 0f);
-		}
-		text3 = str4 + InEditorDescHelper.AssembleFieldWithDiff(header5, indent, otherSep4, myVal4, showOther4, otherVal2, GameplayResponseForActor.<>f__am$cache1);
-		string str5 = text3;
-		StandardEffectInfo effect = this.m_effect;
-		string prefix = "{ Effect on Moved-Through }";
-		bool useBaseVal = flag;
-		StandardEffectInfo baseVal;
+		
+		text2 = str4 + InEditorDescHelper.AssembleFieldWithDiff("[ TechPoints ] = ", indent, otherSep, myVal4, flag, otherVal2, ((float f) => f != 0f));
+		string str5 = text2;
+		StandardEffectInfo effect = m_effect;
+		object baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = other.m_effect;
 		}
 		else
 		{
 			baseVal = null;
 		}
-		text3 = str5 + AbilityModHelper.GetModEffectInfoDesc(effect, prefix, indent, useBaseVal, baseVal);
-		string str6 = text3;
-		string header6 = "Permanent Stat Mods:";
-		AbilityStatMod[] permanentStatMods = this.m_permanentStatMods;
-		bool showDiff2 = flag;
-		AbilityStatMod[] otherObjList;
+		text2 = str5 + AbilityModHelper.GetModEffectInfoDesc(effect, "{ Effect on Moved-Through }", indent, flag, (StandardEffectInfo)baseVal);
+		string str6 = text2;
+		AbilityStatMod[] permanentStatMods = m_permanentStatMods;
+		object otherObjList;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherObjList = other.m_permanentStatMods;
 		}
 		else
 		{
 			otherObjList = null;
 		}
-		text3 = str6 + InEditorDescHelper.GetListDiffString<AbilityStatMod>(header6, indent, permanentStatMods, showDiff2, otherObjList, null);
-		string str7 = text3;
-		string header7 = "Permanent Status Changes:";
-		StatusType[] permanentStatusChanges = this.m_permanentStatusChanges;
-		bool showDiff3 = flag;
-		StatusType[] otherObjList2;
+		text2 = str6 + InEditorDescHelper.GetListDiffString("Permanent Stat Mods:", indent, permanentStatMods, flag, (AbilityStatMod[])otherObjList);
+		string str7 = text2;
+		StatusType[] permanentStatusChanges = m_permanentStatusChanges;
+		object otherObjList2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherObjList2 = other.m_permanentStatusChanges;
 		}
 		else
 		{
 			otherObjList2 = null;
 		}
-		text3 = str7 + InEditorDescHelper.GetListDiffString<StatusType>(header7, indent, permanentStatusChanges, showDiff3, otherObjList2, null);
-		string str8 = text3;
-		string header8 = "Response Hit Sequence";
-		string otherSep5 = text;
-		GameObject sequenceToPlay = this.m_sequenceToPlay;
-		bool showOther5 = flag;
-		GameObject otherVal3;
+		text2 = str7 + InEditorDescHelper.GetListDiffString("Permanent Status Changes:", indent, permanentStatusChanges, flag, (StatusType[])otherObjList2);
+		string str8 = text2;
+		GameObject sequenceToPlay = m_sequenceToPlay;
+		object otherVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal3 = other.m_sequenceToPlay;
 		}
 		else
 		{
 			otherVal3 = null;
 		}
-		text3 = str8 + InEditorDescHelper.AssembleFieldWithDiff(header8, indent, otherSep5, sequenceToPlay, showOther5, otherVal3);
-		return text3 + indent + "-- END of Move-Through Response Output --\n";
+		text2 = str8 + InEditorDescHelper.AssembleFieldWithDiff("Response Hit Sequence", indent, otherSep, sequenceToPlay, flag, (GameObject)otherVal3);
+		return text2 + indent + "-- END of Move-Through Response Output --\n";
 	}
 
 	public bool HasResponse()
 	{
 		bool flag = false;
-		flag |= this.m_effect.m_applyEffect;
-		flag |= (this.m_credits != 0);
-		flag |= (this.m_healing != 0);
-		flag |= (this.m_damage != 0);
-		flag |= (this.m_techPoints != 0);
-		flag |= (this.m_permanentStatMods != null && this.m_permanentStatMods.Length > 0);
-		bool flag2 = flag;
-		bool flag3;
-		if (this.m_permanentStatusChanges != null)
+		flag |= m_effect.m_applyEffect;
+		flag |= (m_credits != 0);
+		flag |= (m_healing != 0);
+		flag |= (m_damage != 0);
+		flag |= (m_techPoints != 0);
+		flag |= (m_permanentStatMods != null && m_permanentStatMods.Length > 0);
+		bool num = flag;
+		int num2;
+		if (m_permanentStatusChanges != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayResponseForActor.HasResponse()).MethodHandle;
-			}
-			flag3 = (this.m_permanentStatusChanges.Length > 0);
+			num2 = ((m_permanentStatusChanges.Length > 0) ? 1 : 0);
 		}
 		else
 		{
-			flag3 = false;
+			num2 = 0;
 		}
-		flag = (flag2 || flag3);
-		return flag | this.m_sequenceToPlay != null;
+		flag = ((byte)((num ? 1 : 0) | num2) != 0);
+		return flag | (m_sequenceToPlay != null);
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 
 public class UITitledTooltip : UITooltipBase
@@ -11,8 +10,8 @@ public class UITitledTooltip : UITooltipBase
 
 	public void Setup(string tooltipTitle, string tooltipText, string rightString = "")
 	{
-		this.m_text.text = tooltipText;
-		this.m_title.text = tooltipTitle;
-		this.m_rightTitle.text = rightString;
+		m_text.text = tooltipText;
+		m_title.text = tooltipTitle;
+		m_rightTitle.text = rightString;
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,61 +22,30 @@ public class ConeTargetingInfo
 
 	public List<Team> GetAffectedTeams(ActorData caster)
 	{
-		if (this.m_affectsEnemies)
+		if (m_affectsEnemies)
 		{
-			for (;;)
+			if (m_affectsAllies)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ConeTargetingInfo.GetAffectedTeams(ActorData)).MethodHandle;
-			}
-			if (this.m_affectsAllies)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return null;
 					}
-					break;
 				}
-				return null;
 			}
 		}
 		List<Team> list = new List<Team>();
-		if (this.m_affectsEnemies)
+		if (m_affectsEnemies)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			list.Add(caster.\u0012());
+			list.Add(caster.GetOpposingTeam());
 		}
-		if (this.m_affectsAllies)
+		if (m_affectsAllies)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			list.Add(caster.\u000E());
+			list.Add(caster.GetTeam());
 		}
 		return list;
 	}
@@ -86,30 +55,8 @@ public class ConeTargetingInfo
 		ConeTargetingInfo coneTargetingInfo = new ConeTargetingInfo();
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ConeTargetingInfo.GetModifiedCopy(AbilityModPropertyConeInfo)).MethodHandle;
-			}
 			if (modProp.m_radiusMod == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Application.isEditor)
 				{
 					Debug.LogError("mod property not initialized, probably not yet serialized. Inspect the selected mod and save");
@@ -117,89 +64,49 @@ public class ConeTargetingInfo
 				modProp = null;
 			}
 		}
-		ConeTargetingInfo coneTargetingInfo2 = coneTargetingInfo;
 		float radiusInSquares;
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			radiusInSquares = modProp.m_radiusMod.GetModifiedValue(this.m_radiusInSquares);
+			radiusInSquares = modProp.m_radiusMod.GetModifiedValue(m_radiusInSquares);
 		}
 		else
 		{
-			radiusInSquares = this.m_radiusInSquares;
+			radiusInSquares = m_radiusInSquares;
 		}
-		coneTargetingInfo2.m_radiusInSquares = radiusInSquares;
-		ConeTargetingInfo coneTargetingInfo3 = coneTargetingInfo;
+		coneTargetingInfo.m_radiusInSquares = radiusInSquares;
 		float widthAngleDeg;
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			widthAngleDeg = modProp.m_widthAngleMod.GetModifiedValue(this.m_widthAngleDeg);
+			widthAngleDeg = modProp.m_widthAngleMod.GetModifiedValue(m_widthAngleDeg);
 		}
 		else
 		{
-			widthAngleDeg = this.m_widthAngleDeg;
+			widthAngleDeg = m_widthAngleDeg;
 		}
-		coneTargetingInfo3.m_widthAngleDeg = widthAngleDeg;
-		coneTargetingInfo.m_backwardsOffset = ((modProp == null) ? this.m_backwardsOffset : modProp.m_backwardsOffsetMod.GetModifiedValue(this.m_backwardsOffset));
-		coneTargetingInfo.m_penetrateLos = ((modProp == null) ? this.m_penetrateLos : modProp.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos));
-		ConeTargetingInfo coneTargetingInfo4 = coneTargetingInfo;
+		coneTargetingInfo.m_widthAngleDeg = widthAngleDeg;
+		coneTargetingInfo.m_backwardsOffset = (modProp?.m_backwardsOffsetMod.GetModifiedValue(m_backwardsOffset) ?? m_backwardsOffset);
+		coneTargetingInfo.m_penetrateLos = (modProp?.m_penetrateLosMod.GetModifiedValue(m_penetrateLos) ?? m_penetrateLos);
 		bool affectsCaster;
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			affectsCaster = modProp.m_affectsCasterOverride.GetModifiedValue(this.m_affectsCaster);
+			affectsCaster = modProp.m_affectsCasterOverride.GetModifiedValue(m_affectsCaster);
 		}
 		else
 		{
-			affectsCaster = this.m_affectsCaster;
+			affectsCaster = m_affectsCaster;
 		}
-		coneTargetingInfo4.m_affectsCaster = affectsCaster;
-		ConeTargetingInfo coneTargetingInfo5 = coneTargetingInfo;
+		coneTargetingInfo.m_affectsCaster = affectsCaster;
 		bool affectsAllies;
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			affectsAllies = modProp.m_affectsAllyOverride.GetModifiedValue(this.m_affectsAllies);
+			affectsAllies = modProp.m_affectsAllyOverride.GetModifiedValue(m_affectsAllies);
 		}
 		else
 		{
-			affectsAllies = this.m_affectsAllies;
+			affectsAllies = m_affectsAllies;
 		}
-		coneTargetingInfo5.m_affectsAllies = affectsAllies;
-		coneTargetingInfo.m_affectsEnemies = ((modProp == null) ? this.m_affectsEnemies : modProp.m_affectsEnemyOverride.GetModifiedValue(this.m_affectsEnemies));
+		coneTargetingInfo.m_affectsAllies = affectsAllies;
+		coneTargetingInfo.m_affectsEnemies = (modProp?.m_affectsEnemyOverride.GetModifiedValue(m_affectsEnemies) ?? m_affectsEnemies);
 		return coneTargetingInfo;
 	}
 }

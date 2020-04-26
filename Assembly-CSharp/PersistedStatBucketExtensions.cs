@@ -1,31 +1,16 @@
-﻿using System;
-
 public static class PersistedStatBucketExtensions
 {
 	public static bool IsTracked(this PersistedStatBucket psb)
 	{
-		bool result;
-		if (psb != PersistedStatBucket.None)
+		int result;
+		if (psb != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStatBucket.IsTracked()).MethodHandle;
-			}
-			result = (psb != PersistedStatBucket.DoNotPersist);
+			result = ((psb != PersistedStatBucket.DoNotPersist) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 }

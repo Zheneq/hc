@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -49,19 +49,6 @@ public class EmoticonPanel : MonoBehaviour
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonPanel.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnAccountDataUpdated -= this.HandleAccountDataUpdated;
 		}
 	}
@@ -72,68 +59,19 @@ public class EmoticonPanel : MonoBehaviour
 		int chatEmojiIndexByName2 = GameBalanceVars.Get().GetChatEmojiIndexByName(second.GetEmoji().m_emojiName);
 		if (!(first == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonPanel.CompareEmoticonButton(EmoticonSelectBtn, EmoticonSelectBtn)).MethodHandle;
-			}
 			if (chatEmojiIndexByName != -1)
 			{
 				if (!(second == null))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (chatEmojiIndexByName2 == -1)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
 						if (first == null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (second == null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return 0;
 							}
 						}
@@ -141,28 +79,10 @@ public class EmoticonPanel : MonoBehaviour
 						GameBalanceVars.ChatEmoticon chatEmoticon2 = GameBalanceVars.Get().ChatEmojis[chatEmojiIndexByName2];
 						if (chatEmoticon.m_sortOrder < chatEmoticon2.m_sortOrder)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return -1;
 						}
 						if (chatEmoticon.m_sortOrder > chatEmoticon2.m_sortOrder)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return 1;
 						}
 						return 0;
@@ -179,53 +99,13 @@ public class EmoticonPanel : MonoBehaviour
 		bool result = false;
 		if (EventSystem.current != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonPanel.IsMouseOverEmoticonPanel()).MethodHandle;
-			}
 			if (EventSystem.current.IsPointerOverGameObject(-1))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						EmoticonPanel componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<EmoticonPanel>();
 						if (componentInParent != null)
 						{
@@ -247,30 +127,8 @@ public class EmoticonPanel : MonoBehaviour
 			EmoticonSelectBtn emoticonSelectBtn = this.activeEmoticons[i];
 			if (emoticonSelectBtn.transform.GetSiblingIndex() != i)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonPanel.SortDisplayList()).MethodHandle;
-				}
 				emoticonSelectBtn.transform.SetSiblingIndex(i);
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		for (int j = 0; j < this.inactiveEmoticons.Count; j++)
 		{
@@ -280,49 +138,18 @@ public class EmoticonPanel : MonoBehaviour
 				emoticonSelectBtn2.transform.SetSiblingIndex(j + this.activeEmoticons.Count);
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public void HandleAccountDataUpdated(PersistedAccountData accountData)
 	{
 		if (GameBalanceVars.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonPanel.HandleAccountDataUpdated(PersistedAccountData)).MethodHandle;
-			}
 			if (!(ChatEmojiManager.Get() == null))
 			{
 				this.Init();
 				bool flag;
 				if (GameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
 				}
 				else
@@ -339,15 +166,6 @@ public class EmoticonPanel : MonoBehaviour
 					if (flag2)
 					{
 						goto IL_B2;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (!flag3)
 					{
@@ -372,68 +190,23 @@ public class EmoticonPanel : MonoBehaviour
 							ChatEmojiManager.ChatEmoji chatEmoji = enumerator.Current;
 							if (chatEmoticon.Name == chatEmoji.m_emojiName)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (accountData != null && accountData.AccountComponent.IsChatEmojiUnlocked(chatEmoticon))
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									bool flag4 = false;
 									foreach (EmoticonSelectBtn emoticonSelectBtn in this.activeEmoticons)
 									{
 										if (emoticonSelectBtn.GetEmoji().m_emojiName == chatEmoticon.Name)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag4 = true;
 											break;
 										}
 									}
 									if (!flag4)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										for (int j = 0; j < this.inactiveEmoticons.Count; j++)
 										{
 											if (this.inactiveEmoticons[j].GetEmoji().m_emojiName == chatEmoticon.Name)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												UnityEngine.Object.Destroy(this.inactiveEmoticons[j].gameObject);
 												this.inactiveEmoticons.RemoveAt(j);
 												break;
@@ -443,15 +216,6 @@ public class EmoticonPanel : MonoBehaviour
 										int siblingIndex = 0;
 										if (this.activeEmoticons.Count > 0)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											siblingIndex = this.activeEmoticons[this.activeEmoticons.Count - 1].transform.GetSiblingIndex() + 1;
 										}
 										emoticonSelectBtn2.transform.SetSiblingIndex(siblingIndex);
@@ -460,15 +224,6 @@ public class EmoticonPanel : MonoBehaviour
 								}
 								goto IL_2AF;
 							}
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					goto IL_2AF;
@@ -483,19 +238,6 @@ public class EmoticonPanel : MonoBehaviour
 	{
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonPanel.Init()).MethodHandle;
-			}
 			if (!this.m_initialized)
 			{
 				this.m_initialized = true;
@@ -506,15 +248,6 @@ public class EmoticonPanel : MonoBehaviour
 				bool flag;
 				if (GameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
 				}
 				else
@@ -531,37 +264,10 @@ public class EmoticonPanel : MonoBehaviour
 							ChatEmojiManager.ChatEmoji chatEmoji = enumerator.Current;
 							if (chatEmoticon.Name == chatEmoji.m_emojiName)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (playerAccountData != null)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (playerAccountData.AccountComponent.IsChatEmojiUnlocked(chatEmoticon))
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										list.Add(chatEmoji);
 										goto IL_171;
 									}
@@ -569,15 +275,6 @@ public class EmoticonPanel : MonoBehaviour
 								bool flag3;
 								if (!chatEmoticon.m_isHidden)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag3 = !GameBalanceVarsExtensions.MeetsVisibilityConditions(chatEmoticon);
 								}
 								else
@@ -587,42 +284,15 @@ public class EmoticonPanel : MonoBehaviour
 								bool flag4 = flag3;
 								if (!flag2)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (flag4)
 									{
 										goto IL_171;
-									}
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								list2.Add(chatEmoji);
 								IL_171:
 								goto IL_199;
 							}
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					IL_199:;
@@ -634,15 +304,6 @@ public class EmoticonPanel : MonoBehaviour
 						ChatEmojiManager.ChatEmoji emoji = enumerator2.Current;
 						this.activeEmoticons.Add(this.CreateNewEmoticonBtn(emoji, this.m_activePrefab, true));
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator3 = list2.GetEnumerator())
 				{
@@ -651,27 +312,9 @@ public class EmoticonPanel : MonoBehaviour
 						ChatEmojiManager.ChatEmoji emoji2 = enumerator3.Current;
 						this.inactiveEmoticons.Add(this.CreateNewEmoticonBtn(emoji2, this.m_inactivePrefab, false));
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				this.SortDisplayList();
 				return;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -700,19 +343,6 @@ public class EmoticonPanel : MonoBehaviour
 	{
 		if (!this.m_panelOpen)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonPanel.OnEnable()).MethodHandle;
-			}
 			this.m_emoticonPanelAnimController.Play("EmoticonPanelDefaultOUT");
 		}
 	}
@@ -726,19 +356,6 @@ public class EmoticonPanel : MonoBehaviour
 		this.m_panelCanvasGroup.blocksRaycasts = this.m_panelOpen;
 		if (!this.m_panelOpen)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonPanel.DoPanelOpen(bool)).MethodHandle;
-			}
 			this.m_emoticonPanelAnimController.Play("EmoticonPanelDefaultOUT");
 		}
 	}
@@ -752,19 +369,6 @@ public class EmoticonPanel : MonoBehaviour
 	{
 		if (this.m_panelOpen != open)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonPanel.SetPanelOpen(bool)).MethodHandle;
-			}
 			this.DoPanelOpen(open);
 		}
 	}
@@ -781,54 +385,14 @@ public class EmoticonPanel : MonoBehaviour
 			bool flag = true;
 			if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonPanel.Update()).MethodHandle;
-				}
 				StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						EmoticonPanel componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<EmoticonPanel>();
 						if (componentInParent != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 						}
 					}
@@ -836,15 +400,6 @@ public class EmoticonPanel : MonoBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SetPanelOpen(false);
 			}
 		}

@@ -1,8 +1,14 @@
-﻿using System;
 using UnityEngine;
 
 public class OverwatchScanSequence : Sequence
 {
+	public enum JointAttribute
+	{
+		StartPoint,
+		EndPoint,
+		TopPoint
+	}
+
 	private Vector3 m_startPos = Vector3.zero;
 
 	private Vector3 m_endPos = Vector3.zero;
@@ -13,15 +19,15 @@ public class OverwatchScanSequence : Sequence
 	[JointPopup("FX attach joint on the caster")]
 	public JointPopupProperty m_fxCasterJoint;
 
-	public Sequence.ReferenceModelType m_fxCasterJointReferenceType = Sequence.ReferenceModelType.TempSatellite;
+	public ReferenceModelType m_fxCasterJointReferenceType = ReferenceModelType.TempSatellite;
 
-	public OverwatchScanSequence.JointAttribute m_fxAttributeForJoint = OverwatchScanSequence.JointAttribute.TopPoint;
+	public JointAttribute m_fxAttributeForJoint = JointAttribute.TopPoint;
 
 	public bool m_syncHeightOfEndToStart;
 
 	[AnimEventPicker]
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	[Tooltip("Height above the ground to place the FX.")]
 	public float m_heightOffset = 0.1f;
@@ -34,298 +40,151 @@ public class OverwatchScanSequence : Sequence
 
 	private GameObject m_fx;
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
 			GroundLineSequence.ExtraParams extraParams2 = extraSequenceParams as GroundLineSequence.ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(OverwatchScanSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
-				Vector3 b = new Vector3(0f, this.m_heightOffset, 0f);
+				Vector3 b = new Vector3(0f, m_heightOffset, 0f);
 				Vector3 a = extraParams2.endPos - extraParams2.startPos;
 				a.Normalize();
-				this.m_startPos = extraParams2.startPos + b + a * this.m_startOffset;
-				this.m_endPos = extraParams2.endPos + b;
+				m_startPos = extraParams2.startPos + b + a * m_startOffset;
+				m_endPos = extraParams2.endPos + b;
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (2)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public override void FinishSetup()
 	{
-		if (this.m_startEvent == null)
+		if (!(m_startEvent == null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverwatchScanSequence.FinishSetup()).MethodHandle;
-			}
-			this.SpawnFX();
+			return;
+		}
+		while (true)
+		{
+			SpawnFX();
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			ProcessSequenceVisibility();
+			if (m_fx != null)
 			{
-				switch (6)
+				if (m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverwatchScanSequence.Update()).MethodHandle;
-			}
-			base.ProcessSequenceVisibility();
-			if (this.m_fx != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
-				{
-					this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.\u000E());
+					m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 				}
 			}
-			if (this.m_fxCasterJoint.IsInitialized())
+			if (m_fxCasterJoint.IsInitialized())
 			{
-				for (;;)
+				if (m_fxAttributeForJoint == JointAttribute.StartPoint)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_startPos = m_fxCasterJoint.m_jointObject.transform.position;
 				}
-				if (this.m_fxAttributeForJoint == OverwatchScanSequence.JointAttribute.StartPoint)
+				else if (m_fxAttributeForJoint == JointAttribute.EndPoint)
 				{
-					this.m_startPos = this.m_fxCasterJoint.m_jointObject.transform.position;
+					m_endPos = m_fxCasterJoint.m_jointObject.transform.position;
 				}
-				else if (this.m_fxAttributeForJoint == OverwatchScanSequence.JointAttribute.EndPoint)
+				else if (m_fxAttributeForJoint == JointAttribute.TopPoint)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_endPos = this.m_fxCasterJoint.m_jointObject.transform.position;
-				}
-				else if (this.m_fxAttributeForJoint == OverwatchScanSequence.JointAttribute.TopPoint)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Sequence.SetAttribute(this.m_fx, "topPoint", this.m_fxCasterJoint.m_jointObject.transform.position);
+					Sequence.SetAttribute(m_fx, "topPoint", m_fxCasterJoint.m_jointObject.transform.position);
 				}
 			}
-			if (this.m_syncHeightOfEndToStart)
+			if (m_syncHeightOfEndToStart)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_endPos.y = this.m_startPos.y;
+				m_endPos.y = m_startPos.y;
 			}
-			Sequence.SetAttribute(this.m_fx, "endPoint", this.m_endPos);
-			Sequence.SetAttribute(this.m_fx, "startPoint", this.m_startPos);
+			Sequence.SetAttribute(m_fx, "endPoint", m_endPos);
+			Sequence.SetAttribute(m_fx, "startPoint", m_startPos);
+			return;
 		}
 	}
 
 	private void SpawnFX()
 	{
-		if (this.m_fxPrefab != null)
+		if (m_fxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverwatchScanSequence.SpawnFX()).MethodHandle;
-			}
-			Vector3 startPos = this.m_startPos;
-			Quaternion rotation = default(Quaternion);
-			this.m_fx = base.InstantiateFX(this.m_fxPrefab, startPos, rotation, true, true);
+			Vector3 startPos = m_startPos;
+			m_fx = InstantiateFX(m_fxPrefab, startPos, default(Quaternion));
 		}
-		if (!this.m_fxCasterJoint.IsInitialized())
+		if (!m_fxCasterJoint.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_fxCasterJointReferenceType);
+			GameObject referenceModel = GetReferenceModel(base.Caster, m_fxCasterJointReferenceType);
 			if (referenceModel != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_fxCasterJoint.Initialize(referenceModel);
+				m_fxCasterJoint.Initialize(referenceModel);
 			}
 		}
 		for (int i = 0; i < base.Targets.Length; i++)
 		{
 			if (base.Targets[i] != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Vector3 targetHitPosition = base.GetTargetHitPosition(i);
+				Vector3 targetHitPosition = GetTargetHitPosition(i);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
 				hitDirection.Normalize();
 				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, hitDirection);
-				base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
+				base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo);
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (2)
+			if (!string.IsNullOrEmpty(m_audioEvent))
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!string.IsNullOrEmpty(this.m_audioEvent))
-		{
-			for (;;)
-			{
-				switch (7)
+				while (true)
 				{
-				case 0:
-					continue;
+					AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
+					return;
 				}
-				break;
 			}
-			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
+			return;
 		}
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_startEvent == parameter)
+		if (!(m_startEvent == parameter))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverwatchScanSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
-			this.SpawnFX();
+			return;
+		}
+		while (true)
+		{
+			SpawnFX();
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_fx != null)
+		if (!(m_fx != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverwatchScanSequence.OnDisable()).MethodHandle;
-			}
-			UnityEngine.Object.Destroy(this.m_fx.gameObject);
-			this.m_fx = null;
+			return;
 		}
-	}
-
-	public enum JointAttribute
-	{
-		StartPoint,
-		EndPoint,
-		TopPoint
+		while (true)
+		{
+			Object.Destroy(m_fx.gameObject);
+			m_fx = null;
+			return;
+		}
 	}
 }

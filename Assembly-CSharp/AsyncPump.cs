@@ -1,12 +1,14 @@
-﻿using System;
+using C5;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
-using C5;
 
 public class AsyncPump : SynchronizationContext
 {
+	public delegate void AsyncCallback(object state);
+
 	public AsyncPumpProcessingLatency ProcessingLatency;
 
 	private System.Collections.Generic.LinkedList<AsyncDelegate> m_queuedDelegates;
@@ -27,65 +29,47 @@ public class AsyncPump : SynchronizationContext
 
 	private readonly long TicksPerMillisecond;
 
+	public new static AsyncPump Current => SynchronizationContext.Current as AsyncPump;
+
+	public bool IsRunning
+	{
+		get;
+		private set;
+	}
+
+	public long ProcessingLatencyTicks => ProcessingLatency.Current;
+
+	public int ProcessingLatencyMilliseconds => (int)(ProcessingLatencyTicks / TicksPerMillisecond);
+
+	public int ArtificalLatencyMilliseconds
+	{
+		get;
+		set;
+	}
+
+	public int CurrentRunLoopMilliseconds => (int)((CurrentTick - m_currentRunLoopStartTick) / TicksPerMillisecond);
+
+	public long CurrentTick => Now();
+
+	public int MaxWaitMilliseconds
+	{
+		get;
+		set;
+	}
+
 	public AsyncPump()
 	{
-		this.TicksPerMillisecond = Stopwatch.Frequency / 0x3E8L;
-		this.MaxWaitMilliseconds = 0x3E8;
-		this.m_clock = new Stopwatch();
-		this.m_clock.Start();
-		this.m_profilingTimer = new Stopwatch();
-		this.m_queuedDelegates = new System.Collections.Generic.LinkedList<AsyncDelegate>();
-		this.m_scheduledTimers = new IntervalHeap<AsyncTimer>(new AsyncTimer.ScheduledTickComparer());
-		this.m_waitEvent = new object();
-		this.m_currentRunLoopStartTick = this.CurrentTick;
-		this.ProcessingLatency = new AsyncPumpProcessingLatency();
+		TicksPerMillisecond = Stopwatch.Frequency / 1000;
+		MaxWaitMilliseconds = 1000;
+		m_clock = new Stopwatch();
+		m_clock.Start();
+		m_profilingTimer = new Stopwatch();
+		m_queuedDelegates = new System.Collections.Generic.LinkedList<AsyncDelegate>();
+		m_scheduledTimers = new IntervalHeap<AsyncTimer>(new AsyncTimer.ScheduledTickComparer());
+		m_waitEvent = new object();
+		m_currentRunLoopStartTick = CurrentTick;
+		ProcessingLatency = new AsyncPumpProcessingLatency();
 	}
-
-	public new static AsyncPump Current
-	{
-		get
-		{
-			return SynchronizationContext.Current as AsyncPump;
-		}
-	}
-
-	public bool IsRunning { get; private set; }
-
-	public long ProcessingLatencyTicks
-	{
-		get
-		{
-			return this.ProcessingLatency.Current;
-		}
-	}
-
-	public int ProcessingLatencyMilliseconds
-	{
-		get
-		{
-			return (int)(this.ProcessingLatencyTicks / this.TicksPerMillisecond);
-		}
-	}
-
-	public int ArtificalLatencyMilliseconds { get; set; }
-
-	public int CurrentRunLoopMilliseconds
-	{
-		get
-		{
-			return (int)((this.CurrentTick - this.m_currentRunLoopStartTick) / this.TicksPerMillisecond);
-		}
-	}
-
-	public long CurrentTick
-	{
-		get
-		{
-			return this.Now();
-		}
-	}
-
-	public int MaxWaitMilliseconds { get; set; }
 
 	public override void Send(SendOrPostCallback d, object state)
 	{
@@ -94,349 +78,253 @@ public class AsyncPump : SynchronizationContext
 
 	public override void Post(SendOrPostCallback callback, object state)
 	{
-		this.Post(new AsyncDelegate(callback, state, null));
+		Post(new AsyncDelegate(callback, state));
 	}
 
 	public void Post(SendOrPostCallback callback, object state = null, MethodBase methodInfo = null)
 	{
 		if (methodInfo == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPump.Post(SendOrPostCallback, object, MethodBase)).MethodHandle;
-			}
 			methodInfo = callback.Method;
 		}
-		this.Post(new AsyncDelegate(callback, state, methodInfo));
+		Post(new AsyncDelegate(callback, state, methodInfo));
 	}
 
 	public void Post(AsyncDelegate asyncDelegate)
 	{
-		object waitEvent = this.m_waitEvent;
-		lock (waitEvent)
+		lock (m_waitEvent)
 		{
-			asyncDelegate.ScheduledTick = this.Now();
-			this.m_queuedDelegates.AddLast(asyncDelegate);
-			Monitor.Pulse(this.m_waitEvent);
+			asyncDelegate.ScheduledTick = Now();
+			m_queuedDelegates.AddLast(asyncDelegate);
+			Monitor.Pulse(m_waitEvent);
 		}
 	}
 
 	public void Schedule(Action callback, long intervalMilliseconds, bool isOneShot = false)
 	{
-		this.Schedule(new AsyncTimer(callback, intervalMilliseconds, isOneShot));
+		Schedule(new AsyncTimer(callback, intervalMilliseconds, isOneShot));
 	}
 
 	public void Schedule(AsyncTimer asyncTimer)
 	{
 		asyncTimer.AsyncPump = this;
 		asyncTimer.IsScheduled = true;
-		asyncTimer.ScheduledTick = this.When(asyncTimer.IntervalMilliseconds);
-		object waitEvent = this.m_waitEvent;
-		lock (waitEvent)
+		asyncTimer.ScheduledTick = When(asyncTimer.IntervalMilliseconds);
+		lock (m_waitEvent)
 		{
-			this.m_scheduledTimers.Add(asyncTimer);
-			Monitor.Pulse(this.m_waitEvent);
+			m_scheduledTimers.Add(asyncTimer);
+			Monitor.Pulse(m_waitEvent);
 		}
 	}
 
 	public void UnscheduleAll()
 	{
-		if (this.IsRunning)
+		if (IsRunning)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					throw new Exception("Cannot unschedule timers/delegates while the async pump is running");
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPump.UnscheduleAll()).MethodHandle;
-			}
-			throw new Exception("Cannot unschedule timers/delegates while the async pump is running");
 		}
-		this.m_queuedDelegates = new System.Collections.Generic.LinkedList<AsyncDelegate>();
-		this.m_scheduledTimers = new IntervalHeap<AsyncTimer>(new AsyncTimer.ScheduledTickComparer());
+		m_queuedDelegates = new System.Collections.Generic.LinkedList<AsyncDelegate>();
+		m_scheduledTimers = new IntervalHeap<AsyncTimer>(new AsyncTimer.ScheduledTickComparer());
 	}
 
-	public void Run(int timeoutMilliseconds = 0x7FFFFFFF)
+	public void Run(int timeoutMilliseconds = int.MaxValue)
 	{
-		if (this.IsRunning)
+		if (IsRunning)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					throw new Exception("This AsyncPump is already running");
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPump.Run(int)).MethodHandle;
-			}
-			throw new Exception("This AsyncPump is already running");
 		}
-		this.IsRunning = true;
+		IsRunning = true;
 		Stopwatch stopwatch = new Stopwatch();
 		stopwatch.Start();
 		try
 		{
-			this.m_break = false;
-			while (this.IsRunning)
+			m_break = false;
+			while (IsRunning)
 			{
-				this.m_currentRunLoopStartTick = this.CurrentTick;
-				object waitEvent = this.m_waitEvent;
+				m_currentRunLoopStartTick = CurrentTick;
 				AsyncDelegate[] array;
-				lock (waitEvent)
+				lock (m_waitEvent)
 				{
-					int maxMilliseconds = Math.Max((int)((long)timeoutMilliseconds - stopwatch.ElapsedMilliseconds), 0);
-					int waitTime = this.GetWaitTime(maxMilliseconds);
+					int maxMilliseconds = Math.Max((int)(timeoutMilliseconds - stopwatch.ElapsedMilliseconds), 0);
+					int waitTime = GetWaitTime(maxMilliseconds);
 					if (waitTime != 0)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						Monitor.Wait(this.m_waitEvent, waitTime);
+						Monitor.Wait(m_waitEvent, waitTime);
 					}
-					if (!this.IsRunning)
+					if (!IsRunning)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (6)
 							{
+							default:
+								return;
 							case 0:
-								continue;
+								break;
 							}
-							break;
 						}
-						goto IL_20B;
 					}
-					this.CheckTimers();
-					array = this.m_queuedDelegates.ToArray<AsyncDelegate>();
-					this.m_queuedDelegates.Clear();
+					CheckTimers();
+					array = m_queuedDelegates.ToArray();
+					m_queuedDelegates.Clear();
 				}
 				if (array.Length != 0)
 				{
-					for (;;)
+					if (ArtificalLatencyMilliseconds != 0)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						Thread.Sleep(ArtificalLatencyMilliseconds);
 					}
-					if (this.ArtificalLatencyMilliseconds != 0)
+					long ticks = Now() - array[0].ScheduledTick;
+					ProcessingLatency.Update(ticks);
+					int num = 0;
+					while (true)
 					{
-						for (;;)
+						if (num >= array.Length)
 						{
-							switch (6)
+							break;
+						}
+						ExecuteDelegate(array[num]);
+						if (m_break)
+						{
+							lock (m_waitEvent)
 							{
-							case 0:
-								continue;
+								for (int num2 = array.Length - 1; num2 > num; num2--)
+								{
+									m_queuedDelegates.AddFirst(array[num2]);
+								}
 							}
 							break;
 						}
-						Thread.Sleep(this.ArtificalLatencyMilliseconds);
-					}
-					long ticks = this.Now() - array[0].ScheduledTick;
-					this.ProcessingLatency.Update(ticks);
-					for (int i = 0; i < array.Length; i++)
-					{
-						this.ExecuteDelegate(array[i]);
-						if (this.m_break)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							object waitEvent2 = this.m_waitEvent;
-							lock (waitEvent2)
-							{
-								for (int j = array.Length - 1; j > i; j--)
-								{
-									this.m_queuedDelegates.AddFirst(array[j]);
-								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							goto IL_1CC;
-						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						num++;
 					}
 				}
-				IL_1CC:
-				if (timeoutMilliseconds != 0x7FFFFFFF && stopwatch.ElapsedMilliseconds >= (long)timeoutMilliseconds)
+				if (timeoutMilliseconds != int.MaxValue && stopwatch.ElapsedMilliseconds >= timeoutMilliseconds)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						break;
 					}
 				}
-				else if (!this.m_break)
+				if (m_break)
 				{
-					continue;
+					return;
 				}
-				IL_20B:
-				return;
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 		finally
 		{
-			this.IsRunning = false;
-			this.m_break = false;
+			IsRunning = false;
+			m_break = false;
 		}
 	}
 
 	public void Stop()
 	{
-		object waitEvent = this.m_waitEvent;
-		lock (waitEvent)
+		lock (m_waitEvent)
 		{
-			this.IsRunning = false;
-			Monitor.Pulse(this.m_waitEvent);
+			IsRunning = false;
+			Monitor.Pulse(m_waitEvent);
 		}
 	}
 
 	public void Break()
 	{
-		this.m_break = true;
+		m_break = true;
 	}
 
 	public bool BreakRequested()
 	{
-		return this.m_break;
+		return m_break;
 	}
 
-	private int GetWaitTime(int maxMilliseconds = 0x7FFFFFFF)
+	private int GetWaitTime(int maxMilliseconds = int.MaxValue)
 	{
-		object waitEvent = this.m_waitEvent;
 		int num;
-		lock (waitEvent)
+		lock (m_waitEvent)
 		{
-			if (!this.IsRunning)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPump.GetWaitTime(int)).MethodHandle;
-				}
-				num = 0;
-			}
-			if (this.m_queuedDelegates.Count > 0)
+			if (!IsRunning)
 			{
 				num = 0;
 			}
-			else if (!this.m_scheduledTimers.IsEmpty)
+			if (m_queuedDelegates.Count > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				AsyncTimer asyncTimer = this.m_scheduledTimers.FindMin();
-				long num2 = this.Now();
-				if (asyncTimer.ScheduledTick < num2)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num = 0;
-				}
-				else
-				{
-					long num3 = asyncTimer.ScheduledTick - num2;
-					num = (int)(num3 / this.TicksPerMillisecond);
-				}
+				num = 0;
 			}
 			else
 			{
-				num = this.MaxWaitMilliseconds;
+				if (!m_scheduledTimers.IsEmpty)
+				{
+					while (true)
+					{
+						switch (3)
+						{
+						case 0:
+							break;
+						default:
+						{
+							AsyncTimer asyncTimer = m_scheduledTimers.FindMin();
+							long num2 = Now();
+							if (asyncTimer.ScheduledTick < num2)
+							{
+								while (true)
+								{
+									switch (2)
+									{
+									case 0:
+										break;
+									default:
+										num = 0;
+										goto end_IL_000d;
+									}
+								}
+							}
+							long num3 = asyncTimer.ScheduledTick - num2;
+							num = (int)(num3 / TicksPerMillisecond);
+							goto end_IL_000d;
+						}
+						}
+					}
+				}
+				num = MaxWaitMilliseconds;
 			}
+			end_IL_000d:;
 		}
 		if (num > maxMilliseconds)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = maxMilliseconds;
 		}
 		return num;
@@ -444,78 +332,56 @@ public class AsyncPump : SynchronizationContext
 
 	private void CheckTimers()
 	{
-		object waitEvent = this.m_waitEvent;
-		lock (waitEvent)
+		lock (m_waitEvent)
 		{
-			long num = this.Now();
-			while (!this.m_scheduledTimers.IsEmpty)
+			long num = Now();
+			while (!m_scheduledTimers.IsEmpty)
 			{
-				AsyncTimer asyncTimer = this.m_scheduledTimers.FindMin();
+				AsyncTimer asyncTimer = m_scheduledTimers.FindMin();
 				if (asyncTimer.ScheduledTick > num)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return;
 						}
-						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPump.CheckTimers()).MethodHandle;
-					}
-					return;
 				}
-				this.m_scheduledTimers.DeleteMin();
+				m_scheduledTimers.DeleteMin();
 				if (asyncTimer.IsScheduled)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_queuedDelegates.AddLast(asyncTimer.AsyncDelegate);
+					m_queuedDelegates.AddLast(asyncTimer.AsyncDelegate);
 					asyncTimer.Unschedule();
 					if (!asyncTimer.IsOneShot)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						asyncTimer.Schedule();
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	private void ExecuteDelegate(AsyncDelegate asyncDelegate)
 	{
-		this.m_profilingTimer.Reset();
-		this.m_profilingTimer.Start();
+		m_profilingTimer.Reset();
+		m_profilingTimer.Start();
 		try
 		{
-			this.m_currentMethodName = null;
+			m_currentMethodName = null;
 			asyncDelegate.Callback(asyncDelegate.State);
 		}
 		catch (Exception exception)
@@ -524,52 +390,29 @@ public class AsyncPump : SynchronizationContext
 		}
 		finally
 		{
-			this.m_profilingTimer.Stop();
+			m_profilingTimer.Stop();
 			if (asyncDelegate.MethodInfo == null)
 			{
-				for (;;)
+				if (m_currentMethodName != null)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPump.ExecuteDelegate(AsyncDelegate)).MethodHandle;
-				}
-				if (this.m_currentMethodName != null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					ProfilingTimers.Get().OnMethodExecuted(this.m_currentMethodName, this.m_profilingTimer.ElapsedTicks);
-					goto IL_B7;
+					ProfilingTimers.Get().OnMethodExecuted(m_currentMethodName, m_profilingTimer.ElapsedTicks);
+					goto IL_00b7;
 				}
 			}
-			ProfilingTimers.Get().OnMethodExecuted(asyncDelegate.MethodInfo, this.m_profilingTimer.ElapsedTicks);
-			IL_B7:
-			this.m_currentMethodName = null;
+			ProfilingTimers.Get().OnMethodExecuted(asyncDelegate.MethodInfo, m_profilingTimer.ElapsedTicks);
+			goto IL_00b7;
+			IL_00b7:
+			m_currentMethodName = null;
 		}
 	}
 
 	private long Now()
 	{
-		return this.m_clock.ElapsedTicks;
+		return m_clock.ElapsedTicks;
 	}
 
 	private long When(long intervalMilliseconds)
 	{
-		return this.Now() + intervalMilliseconds * this.TicksPerMillisecond;
+		return Now() + intervalMilliseconds * TicksPerMillisecond;
 	}
-
-	public delegate void AsyncCallback(object state);
 }

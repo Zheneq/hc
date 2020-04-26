@@ -1,8 +1,7 @@
-﻿using System;
-
 public class SlashCommand_Replay_Restart : SlashCommand
 {
-	public SlashCommand_Replay_Restart() : base("/replay_restart", SlashCommandType.InGame)
+	public SlashCommand_Replay_Restart()
+		: base("/replay_restart", SlashCommandType.InGame)
 	{
 		base.PublicFacing = false;
 	}
@@ -12,39 +11,26 @@ public class SlashCommand_Replay_Restart : SlashCommand
 		ReplayPlayManager replayPlayManager = ReplayPlayManager.Get();
 		if (replayPlayManager != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_Replay_Restart.OnSlashCommand(string)).MethodHandle;
-			}
 			if (replayPlayManager.IsPlayback())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						replayPlayManager.Seek(new ReplayTimestamp
+						{
+							turn = 1,
+							phase = AbilityPriority.INVALID
+						});
+						TextConsole.Get().Write("Restarted replay.");
+						return;
 					}
-					break;
 				}
-				replayPlayManager.Seek(new ReplayTimestamp
-				{
-					turn = 1,
-					phase = AbilityPriority.INVALID
-				});
-				TextConsole.Get().Write("Restarted replay.", ConsoleMessageType.SystemMessage);
-				return;
 			}
 		}
-		TextConsole.Get().Write("Not currently playing a replay.", ConsoleMessageType.SystemMessage);
+		TextConsole.Get().Write("Not currently playing a replay.");
 	}
 }

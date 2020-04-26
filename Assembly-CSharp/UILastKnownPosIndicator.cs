@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UILastKnownPosIndicator : UIBaseIndicator
@@ -17,140 +16,64 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 
 	protected override void SetupCharacterIcons(ActorData actorData)
 	{
-		this.m_characterIcon.sprite = actorData.\u0015();
-		if (this.m_grayCharacterIcon != null)
+		m_characterIcon.sprite = actorData.GetScreenIndicatorIcon();
+		if (!(m_grayCharacterIcon != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILastKnownPosIndicator.SetupCharacterIcons(ActorData)).MethodHandle;
-			}
-			this.m_grayCharacterIcon.sprite = actorData.\u0016();
+			return;
+		}
+		while (true)
+		{
+			m_grayCharacterIcon.sprite = actorData.GetScreenIndicatorBWIcon();
+			return;
 		}
 	}
 
 	protected override bool ShouldGrayOutIndicator()
 	{
 		int num = 1;
-		return this.m_attachedToActor.\u000E() < GameFlowData.Get().CurrentTurn - num;
+		return m_attachedToActor.GetLastVisibleTurnToClient() < GameFlowData.Get().CurrentTurn - num;
 	}
 
 	protected override bool CalculateVisibility()
 	{
 		bool result;
-		if (this.m_attachedToActor == null)
+		if (m_attachedToActor == null)
 		{
 			result = false;
 		}
 		else
 		{
-			if (!this.m_attachedToActor.\u000E())
+			if (!m_attachedToActor.IsDead())
 			{
-				for (;;)
+				if (!m_attachedToActor.IsModelAnimatorDisabled())
 				{
-					switch (2)
+					if (m_attachedToActor.IgnoreForAbilityHits)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILastKnownPosIndicator.CalculateVisibility()).MethodHandle;
-				}
-				if (this.m_attachedToActor.\u0012())
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
-				{
-					if (this.m_attachedToActor.IgnoreForAbilityHits)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = false;
-						goto IL_AD;
 					}
-					if (this.m_attachedToActor.ClientLastKnownPosSquare == null)
+					else if (!(m_attachedToActor.ClientLastKnownPosSquare == null))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						result = false;
-						goto IL_AD;
+						result = ((!m_attachedToActor.IsVisibleToClient()) ? true : false);
 					}
-					result = !this.m_attachedToActor.\u0018();
-					goto IL_AD;
+					else
+					{
+						result = false;
+					}
+					goto IL_00ad;
 				}
 			}
 			result = false;
 		}
-		IL_AD:
+		goto IL_00ad;
+		IL_00ad:
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
+				if (m_lastActiveOwnedActor != GameFlowData.Get().activeOwnedActorData)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_lastActiveOwnedActor != GameFlowData.Get().activeOwnedActorData)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_lastActiveOwnedActor = GameFlowData.Get().activeOwnedActorData;
-					base.MarkGrayoutForUpdate();
+					m_lastActiveOwnedActor = GameFlowData.Get().activeOwnedActorData;
+					MarkGrayoutForUpdate();
 				}
 			}
 		}
@@ -159,8 +82,8 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 
 	protected override Vector2 CalculateScreenPos()
 	{
-		Vector3 worldPos = this.m_attachedToActor.\u000E();
-		return base.ScreenPosFromWorldPos(worldPos);
+		Vector3 clientLastKnownPos = m_attachedToActor.GetClientLastKnownPos();
+		return ScreenPosFromWorldPos(clientLastKnownPos);
 	}
 
 	protected override bool IsVisibleWhenOnScreen()

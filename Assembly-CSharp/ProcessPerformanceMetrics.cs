@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -32,33 +32,104 @@ public class ProcessPerformanceMetrics
 
 	private PerformanceCounter m_allocatedBytesPerSec;
 
+	public float CpuUsedPercent
+	{
+		get;
+		private set;
+	}
+
+	public float MainThreadCpuUsedPercent
+	{
+		get;
+		private set;
+	}
+
+	public float MemoryUsedMb
+	{
+		get;
+		private set;
+	}
+
+	public int WorkerThreadsMax
+	{
+		get;
+		private set;
+	}
+
+	public int WorkerThreadsActive
+	{
+		get;
+		private set;
+	}
+
+	public float WorkItemsAddedPerSec
+	{
+		get;
+		private set;
+	}
+
+	public int IOWorkerThreadsMax
+	{
+		get;
+		private set;
+	}
+
+	public int IOWorkerThreadsActive
+	{
+		get;
+		private set;
+	}
+
+	public float IOWorkItemsAddedPerSec
+	{
+		get;
+		private set;
+	}
+
+	public float Gen0Collections
+	{
+		get;
+		private set;
+	}
+
+	public float Gen1Collections
+	{
+		get;
+		private set;
+	}
+
+	public float Gen2Collections
+	{
+		get;
+		private set;
+	}
+
+	public float AllocatedBytesPerSec
+	{
+		get;
+		private set;
+	}
+
+	public float PercentTimeSpentInGC
+	{
+		get;
+		private set;
+	}
+
 	public ProcessPerformanceMetrics()
 	{
 		string instanceName;
 		if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessPerformanceMetrics..ctor()).MethodHandle;
-			}
 			instanceName = Process.GetCurrentProcess().ProcessName;
-			this.WorkItemsCountersExist = false;
+			WorkItemsCountersExist = false;
 			try
 			{
-				this.CLRMemoryCountersExist = PerformanceCounterCategory.InstanceExists(instanceName, ".NET CLR Memory");
+				CLRMemoryCountersExist = PerformanceCounterCategory.InstanceExists(instanceName, ".NET CLR Memory");
 			}
 			catch (Exception exception)
 			{
-				this.CLRMemoryCountersExist = false;
+				CLRMemoryCountersExist = false;
 				Log.Exception(exception);
 			}
 		}
@@ -68,218 +139,111 @@ public class ProcessPerformanceMetrics
 			{
 				throw new Exception("Unrecognized OS");
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			instanceName = Process.GetCurrentProcess().Id.ToString();
-			this.m_workItemsAddedPerSec = new PerformanceCounter("Mono Threadpool", "Work Items Added/Sec", instanceName, true);
-			this.m_ioWorkItemsAddedPerSec = new PerformanceCounter("Mono Threadpool", "IO Work Items Added/Sec", instanceName, true);
-			this.WorkItemsCountersExist = true;
-			this.CLRMemoryCountersExist = true;
+			m_workItemsAddedPerSec = new PerformanceCounter("Mono Threadpool", "Work Items Added/Sec", instanceName, true);
+			m_ioWorkItemsAddedPerSec = new PerformanceCounter("Mono Threadpool", "IO Work Items Added/Sec", instanceName, true);
+			WorkItemsCountersExist = true;
+			CLRMemoryCountersExist = true;
 		}
-		if (this.CLRMemoryCountersExist)
+		if (!CLRMemoryCountersExist)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_gen0Collections = new PerformanceCounter(".NET CLR Memory", "# Gen 0 Collections", instanceName, true);
-			this.m_gen1Collections = new PerformanceCounter(".NET CLR Memory", "# Gen 1 Collections", instanceName, true);
-			this.m_gen2Collections = new PerformanceCounter(".NET CLR Memory", "# Gen 2 Collections", instanceName, true);
-			this.m_allocatedBytesPerSec = new PerformanceCounter(".NET CLR Memory", "Allocated Bytes/sec", instanceName, true);
-			this.m_timeInGC = new PerformanceCounter(".NET CLR Memory", "% Time in GC", instanceName, true);
+			return;
+		}
+		while (true)
+		{
+			m_gen0Collections = new PerformanceCounter(".NET CLR Memory", "# Gen 0 Collections", instanceName, true);
+			m_gen1Collections = new PerformanceCounter(".NET CLR Memory", "# Gen 1 Collections", instanceName, true);
+			m_gen2Collections = new PerformanceCounter(".NET CLR Memory", "# Gen 2 Collections", instanceName, true);
+			m_allocatedBytesPerSec = new PerformanceCounter(".NET CLR Memory", "Allocated Bytes/sec", instanceName, true);
+			m_timeInGC = new PerformanceCounter(".NET CLR Memory", "% Time in GC", instanceName, true);
+			return;
 		}
 	}
-
-	public float CpuUsedPercent { get; private set; }
-
-	public float MainThreadCpuUsedPercent { get; private set; }
-
-	public float MemoryUsedMb { get; private set; }
-
-	public int WorkerThreadsMax { get; private set; }
-
-	public int WorkerThreadsActive { get; private set; }
-
-	public float WorkItemsAddedPerSec { get; private set; }
-
-	public int IOWorkerThreadsMax { get; private set; }
-
-	public int IOWorkerThreadsActive { get; private set; }
-
-	public float IOWorkItemsAddedPerSec { get; private set; }
-
-	public float Gen0Collections { get; private set; }
-
-	public float Gen1Collections { get; private set; }
-
-	public float Gen2Collections { get; private set; }
-
-	public float AllocatedBytesPerSec { get; private set; }
-
-	public float PercentTimeSpentInGC { get; private set; }
 
 	public void Update()
 	{
 		DateTime utcNow = DateTime.UtcNow;
-		TimeSpan timeSpan = utcNow - this.m_lastUpdate;
+		TimeSpan timeSpan = utcNow - m_lastUpdate;
 		if (timeSpan.TotalSeconds < 1.0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessPerformanceMetrics.Update()).MethodHandle;
-			}
+		}
+		m_lastUpdate = utcNow;
+		Process currentProcess = Process.GetCurrentProcess();
+		double num = GetCpuUsageSeconds(false);
+		if (m_lastTotalCpuUsageSeconds != 0.0)
+		{
+			double num2 = num - m_lastTotalCpuUsageSeconds;
+			CpuUsedPercent = (float)(num2 * 100.0 / timeSpan.TotalSeconds);
+		}
+		m_lastTotalCpuUsageSeconds = num;
+		double num3 = GetCpuUsageSeconds(true);
+		if (m_lastMainThreadTotalCpuUsageSeconds != 0.0)
+		{
+			double num4 = num3 - m_lastMainThreadTotalCpuUsageSeconds;
+			MainThreadCpuUsedPercent = (float)(num4 * 100.0 / timeSpan.TotalSeconds);
+		}
+		m_lastMainThreadTotalCpuUsageSeconds = num3;
+		MemoryUsedMb = (float)currentProcess.WorkingSet64 / 1024f / 1024f;
+		ThreadPool.GetMaxThreads(out int workerThreads, out int completionPortThreads);
+		ThreadPool.GetAvailableThreads(out int workerThreads2, out int completionPortThreads2);
+		WorkerThreadsMax = workerThreads;
+		WorkerThreadsActive = workerThreads - workerThreads2;
+		IOWorkerThreadsMax = completionPortThreads;
+		IOWorkerThreadsActive = completionPortThreads - completionPortThreads2;
+		if (WorkItemsCountersExist)
+		{
+			WorkItemsAddedPerSec = m_workItemsAddedPerSec.NextValue();
+			IOWorkItemsAddedPerSec = m_ioWorkItemsAddedPerSec.NextValue();
+		}
+		if (!CLRMemoryCountersExist)
+		{
 			return;
 		}
-		this.m_lastUpdate = utcNow;
-		Process currentProcess = Process.GetCurrentProcess();
-		double num = (double)this.GetCpuUsageSeconds(false);
-		if (this.m_lastTotalCpuUsageSeconds != 0.0)
+		while (true)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			double num2 = num - this.m_lastTotalCpuUsageSeconds;
-			this.CpuUsedPercent = (float)(num2 * 100.0 / timeSpan.TotalSeconds);
-		}
-		this.m_lastTotalCpuUsageSeconds = num;
-		double num3 = (double)this.GetCpuUsageSeconds(true);
-		if (this.m_lastMainThreadTotalCpuUsageSeconds != 0.0)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			double num4 = num3 - this.m_lastMainThreadTotalCpuUsageSeconds;
-			this.MainThreadCpuUsedPercent = (float)(num4 * 100.0 / timeSpan.TotalSeconds);
-		}
-		this.m_lastMainThreadTotalCpuUsageSeconds = num3;
-		this.MemoryUsedMb = (float)currentProcess.WorkingSet64 / 1024f / 1024f;
-		int num5;
-		int num6;
-		ThreadPool.GetMaxThreads(out num5, out num6);
-		int num7;
-		int num8;
-		ThreadPool.GetAvailableThreads(out num7, out num8);
-		this.WorkerThreadsMax = num5;
-		this.WorkerThreadsActive = num5 - num7;
-		this.IOWorkerThreadsMax = num6;
-		this.IOWorkerThreadsActive = num6 - num8;
-		if (this.WorkItemsCountersExist)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.WorkItemsAddedPerSec = this.m_workItemsAddedPerSec.NextValue();
-			this.IOWorkItemsAddedPerSec = this.m_ioWorkItemsAddedPerSec.NextValue();
-		}
-		if (this.CLRMemoryCountersExist)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float gen0Collections;
-			if (this.m_gen0Collections != null)
+			if (m_gen0Collections != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				gen0Collections = this.m_gen0Collections.NextValue();
+				gen0Collections = m_gen0Collections.NextValue();
 			}
 			else
 			{
 				gen0Collections = 0f;
 			}
-			this.Gen0Collections = gen0Collections;
-			this.Gen1Collections = ((this.m_gen1Collections == null) ? 0f : this.m_gen1Collections.NextValue());
+			Gen0Collections = gen0Collections;
+			Gen1Collections = ((m_gen1Collections == null) ? 0f : m_gen1Collections.NextValue());
 			float gen2Collections;
-			if (this.m_gen2Collections != null)
+			if (m_gen2Collections != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				gen2Collections = this.m_gen2Collections.NextValue();
+				gen2Collections = m_gen2Collections.NextValue();
 			}
 			else
 			{
 				gen2Collections = 0f;
 			}
-			this.Gen2Collections = gen2Collections;
+			Gen2Collections = gen2Collections;
 			float allocatedBytesPerSec;
-			if (this.m_allocatedBytesPerSec != null)
+			if (m_allocatedBytesPerSec != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				allocatedBytesPerSec = this.m_allocatedBytesPerSec.NextValue();
+				allocatedBytesPerSec = m_allocatedBytesPerSec.NextValue();
 			}
 			else
 			{
 				allocatedBytesPerSec = 0f;
 			}
-			this.AllocatedBytesPerSec = allocatedBytesPerSec;
-			this.PercentTimeSpentInGC = ((this.m_timeInGC == null) ? 0f : this.m_timeInGC.NextValue());
+			AllocatedBytesPerSec = allocatedBytesPerSec;
+			PercentTimeSpentInGC = ((m_timeInGC == null) ? 0f : m_timeInGC.NextValue());
+			return;
 		}
 	}
 
@@ -287,91 +251,72 @@ public class ProcessPerformanceMetrics
 	{
 		if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessPerformanceMetrics.GetCpuUsageSeconds(bool)).MethodHandle;
-			}
-			Process currentProcess = Process.GetCurrentProcess();
-			if (mainThread)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				ProcessThread processThread = currentProcess.Threads[Thread.CurrentThread.ManagedThreadId - 1];
-				return (float)processThread.TotalProcessorTime.TotalSeconds;
-			}
-			return (float)currentProcess.TotalProcessorTime.TotalSeconds;
-		}
-		else
-		{
-			if (Environment.OSVersion.Platform == PlatformID.Unix)
-			{
-				int id = Process.GetCurrentProcess().Id;
-				string path;
-				if (mainThread)
+				default:
 				{
-					for (;;)
+					Process currentProcess = Process.GetCurrentProcess();
+					if (mainThread)
 					{
-						switch (4)
+						while (true)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					path = string.Format("/proc/{0}/task/{0}/stat", id);
-				}
-				else
-				{
-					path = string.Format("/proc/{0}/stat", id);
-				}
-				string[] array = File.ReadAllLines(path);
-				Match match = ProcessPerformanceMetrics.s_cpuRegex.Match(array[0]);
-				if (match.Groups[1].Success)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (match.Groups[2].Success)
-					{
-						for (;;)
-						{
-							switch (7)
+							switch (6)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+							{
+								ProcessThread processThread = currentProcess.Threads[Thread.CurrentThread.ManagedThreadId - 1];
+								return (float)processThread.TotalProcessorTime.TotalSeconds;
 							}
-							break;
+							}
 						}
-						float num = (float)Convert.ToInt64(match.Groups[1].Value);
-						float num2 = (float)Convert.ToInt64(match.Groups[2].Value);
-						return (num + num2) / 100f;
+					}
+					return (float)currentProcess.TotalProcessorTime.TotalSeconds;
+				}
+				}
+			}
+		}
+		if (Environment.OSVersion.Platform == PlatformID.Unix)
+		{
+			int id = Process.GetCurrentProcess().Id;
+			string path;
+			if (mainThread)
+			{
+				path = string.Format("/proc/{0}/task/{0}/stat", id);
+			}
+			else
+			{
+				path = $"/proc/{id}/stat";
+			}
+			string[] array = File.ReadAllLines(path);
+			Match match = s_cpuRegex.Match(array[0]);
+			if (match.Groups[1].Success)
+			{
+				if (match.Groups[2].Success)
+				{
+					while (true)
+					{
+						switch (7)
+						{
+						case 0:
+							break;
+						default:
+						{
+							float num = Convert.ToInt64(match.Groups[1].Value);
+							float num2 = Convert.ToInt64(match.Groups[2].Value);
+							return (num + num2) / 100f;
+						}
+						}
 					}
 				}
-				throw new Exception("Failed to parse /proc/pid/stat");
 			}
-			throw new Exception("Invalid OS");
+			throw new Exception("Failed to parse /proc/pid/stat");
 		}
+		throw new Exception("Invalid OS");
 	}
 }

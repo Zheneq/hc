@@ -1,4 +1,3 @@
-﻿using System;
 using System.Linq;
 using UnityEngine;
 
@@ -100,164 +99,153 @@ namespace TMPro
 
 		public static int ID_ScaleRatio_C;
 
-		public static string Keyword_Bevel = "BEVEL_ON";
+		public static string Keyword_Bevel;
 
-		public static string Keyword_Glow = "GLOW_ON";
+		public static string Keyword_Glow;
 
-		public static string Keyword_Underlay = "UNDERLAY_ON";
+		public static string Keyword_Underlay;
 
-		public static string Keyword_Ratios = "RATIOS_OFF";
+		public static string Keyword_Ratios;
 
-		public static string Keyword_MASK_SOFT = "MASK_SOFT";
+		public static string Keyword_MASK_SOFT;
 
-		public static string Keyword_MASK_HARD = "MASK_HARD";
+		public static string Keyword_MASK_HARD;
 
-		public static string Keyword_MASK_TEX = "MASK_TEX";
+		public static string Keyword_MASK_TEX;
 
-		public static string Keyword_Outline = "OUTLINE_ON";
+		public static string Keyword_Outline;
 
-		public static string ShaderTag_ZTestMode = "unity_GUIZTestMode";
+		public static string ShaderTag_ZTestMode;
 
-		public static string ShaderTag_CullMode = "_CullMode";
+		public static string ShaderTag_CullMode;
 
-		private static float m_clamp = 1f;
+		private static float m_clamp;
 
 		public static bool isInitialized;
 
 		static ShaderUtilities()
 		{
-			ShaderUtilities.GetShaderPropertyIDs();
+			Keyword_Bevel = "BEVEL_ON";
+			Keyword_Glow = "GLOW_ON";
+			Keyword_Underlay = "UNDERLAY_ON";
+			Keyword_Ratios = "RATIOS_OFF";
+			Keyword_MASK_SOFT = "MASK_SOFT";
+			Keyword_MASK_HARD = "MASK_HARD";
+			Keyword_MASK_TEX = "MASK_TEX";
+			Keyword_Outline = "OUTLINE_ON";
+			ShaderTag_ZTestMode = "unity_GUIZTestMode";
+			ShaderTag_CullMode = "_CullMode";
+			m_clamp = 1f;
+			GetShaderPropertyIDs();
 		}
 
 		public static void GetShaderPropertyIDs()
 		{
-			if (!ShaderUtilities.isInitialized)
+			if (isInitialized)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ShaderUtilities.GetShaderPropertyIDs()).MethodHandle;
-				}
-				ShaderUtilities.isInitialized = true;
-				ShaderUtilities.ID_MainTex = Shader.PropertyToID("_MainTex");
-				ShaderUtilities.ID_FaceTex = Shader.PropertyToID("_FaceTex");
-				ShaderUtilities.ID_FaceColor = Shader.PropertyToID("_FaceColor");
-				ShaderUtilities.ID_FaceDilate = Shader.PropertyToID("_FaceDilate");
-				ShaderUtilities.ID_Shininess = Shader.PropertyToID("_FaceShininess");
-				ShaderUtilities.ID_UnderlayColor = Shader.PropertyToID("_UnderlayColor");
-				ShaderUtilities.ID_UnderlayOffsetX = Shader.PropertyToID("_UnderlayOffsetX");
-				ShaderUtilities.ID_UnderlayOffsetY = Shader.PropertyToID("_UnderlayOffsetY");
-				ShaderUtilities.ID_UnderlayDilate = Shader.PropertyToID("_UnderlayDilate");
-				ShaderUtilities.ID_UnderlaySoftness = Shader.PropertyToID("_UnderlaySoftness");
-				ShaderUtilities.ID_WeightNormal = Shader.PropertyToID("_WeightNormal");
-				ShaderUtilities.ID_WeightBold = Shader.PropertyToID("_WeightBold");
-				ShaderUtilities.ID_OutlineTex = Shader.PropertyToID("_OutlineTex");
-				ShaderUtilities.ID_OutlineWidth = Shader.PropertyToID("_OutlineWidth");
-				ShaderUtilities.ID_OutlineSoftness = Shader.PropertyToID("_OutlineSoftness");
-				ShaderUtilities.ID_OutlineColor = Shader.PropertyToID("_OutlineColor");
-				ShaderUtilities.ID_GradientScale = Shader.PropertyToID("_GradientScale");
-				ShaderUtilities.ID_ScaleX = Shader.PropertyToID("_ScaleX");
-				ShaderUtilities.ID_ScaleY = Shader.PropertyToID("_ScaleY");
-				ShaderUtilities.ID_PerspectiveFilter = Shader.PropertyToID("_PerspectiveFilter");
-				ShaderUtilities.ID_TextureWidth = Shader.PropertyToID("_TextureWidth");
-				ShaderUtilities.ID_TextureHeight = Shader.PropertyToID("_TextureHeight");
-				ShaderUtilities.ID_BevelAmount = Shader.PropertyToID("_Bevel");
-				ShaderUtilities.ID_LightAngle = Shader.PropertyToID("_LightAngle");
-				ShaderUtilities.ID_EnvMap = Shader.PropertyToID("_Cube");
-				ShaderUtilities.ID_EnvMatrix = Shader.PropertyToID("_EnvMatrix");
-				ShaderUtilities.ID_EnvMatrixRotation = Shader.PropertyToID("_EnvMatrixRotation");
-				ShaderUtilities.ID_GlowColor = Shader.PropertyToID("_GlowColor");
-				ShaderUtilities.ID_GlowOffset = Shader.PropertyToID("_GlowOffset");
-				ShaderUtilities.ID_GlowPower = Shader.PropertyToID("_GlowPower");
-				ShaderUtilities.ID_GlowOuter = Shader.PropertyToID("_GlowOuter");
-				ShaderUtilities.ID_MaskCoord = Shader.PropertyToID("_MaskCoord");
-				ShaderUtilities.ID_ClipRect = Shader.PropertyToID("_ClipRect");
-				ShaderUtilities.ID_UseClipRect = Shader.PropertyToID("_UseClipRect");
-				ShaderUtilities.ID_MaskSoftnessX = Shader.PropertyToID("_MaskSoftnessX");
-				ShaderUtilities.ID_MaskSoftnessY = Shader.PropertyToID("_MaskSoftnessY");
-				ShaderUtilities.ID_VertexOffsetX = Shader.PropertyToID("_VertexOffsetX");
-				ShaderUtilities.ID_VertexOffsetY = Shader.PropertyToID("_VertexOffsetY");
-				ShaderUtilities.ID_StencilID = Shader.PropertyToID("_Stencil");
-				ShaderUtilities.ID_StencilOp = Shader.PropertyToID("_StencilOp");
-				ShaderUtilities.ID_StencilComp = Shader.PropertyToID("_StencilComp");
-				ShaderUtilities.ID_StencilReadMask = Shader.PropertyToID("_StencilReadMask");
-				ShaderUtilities.ID_StencilWriteMask = Shader.PropertyToID("_StencilWriteMask");
-				ShaderUtilities.ID_ShaderFlags = Shader.PropertyToID("_ShaderFlags");
-				ShaderUtilities.ID_ScaleRatio_A = Shader.PropertyToID("_ScaleRatioA");
-				ShaderUtilities.ID_ScaleRatio_B = Shader.PropertyToID("_ScaleRatioB");
-				ShaderUtilities.ID_ScaleRatio_C = Shader.PropertyToID("_ScaleRatioC");
+				return;
+			}
+			while (true)
+			{
+				isInitialized = true;
+				ID_MainTex = Shader.PropertyToID("_MainTex");
+				ID_FaceTex = Shader.PropertyToID("_FaceTex");
+				ID_FaceColor = Shader.PropertyToID("_FaceColor");
+				ID_FaceDilate = Shader.PropertyToID("_FaceDilate");
+				ID_Shininess = Shader.PropertyToID("_FaceShininess");
+				ID_UnderlayColor = Shader.PropertyToID("_UnderlayColor");
+				ID_UnderlayOffsetX = Shader.PropertyToID("_UnderlayOffsetX");
+				ID_UnderlayOffsetY = Shader.PropertyToID("_UnderlayOffsetY");
+				ID_UnderlayDilate = Shader.PropertyToID("_UnderlayDilate");
+				ID_UnderlaySoftness = Shader.PropertyToID("_UnderlaySoftness");
+				ID_WeightNormal = Shader.PropertyToID("_WeightNormal");
+				ID_WeightBold = Shader.PropertyToID("_WeightBold");
+				ID_OutlineTex = Shader.PropertyToID("_OutlineTex");
+				ID_OutlineWidth = Shader.PropertyToID("_OutlineWidth");
+				ID_OutlineSoftness = Shader.PropertyToID("_OutlineSoftness");
+				ID_OutlineColor = Shader.PropertyToID("_OutlineColor");
+				ID_GradientScale = Shader.PropertyToID("_GradientScale");
+				ID_ScaleX = Shader.PropertyToID("_ScaleX");
+				ID_ScaleY = Shader.PropertyToID("_ScaleY");
+				ID_PerspectiveFilter = Shader.PropertyToID("_PerspectiveFilter");
+				ID_TextureWidth = Shader.PropertyToID("_TextureWidth");
+				ID_TextureHeight = Shader.PropertyToID("_TextureHeight");
+				ID_BevelAmount = Shader.PropertyToID("_Bevel");
+				ID_LightAngle = Shader.PropertyToID("_LightAngle");
+				ID_EnvMap = Shader.PropertyToID("_Cube");
+				ID_EnvMatrix = Shader.PropertyToID("_EnvMatrix");
+				ID_EnvMatrixRotation = Shader.PropertyToID("_EnvMatrixRotation");
+				ID_GlowColor = Shader.PropertyToID("_GlowColor");
+				ID_GlowOffset = Shader.PropertyToID("_GlowOffset");
+				ID_GlowPower = Shader.PropertyToID("_GlowPower");
+				ID_GlowOuter = Shader.PropertyToID("_GlowOuter");
+				ID_MaskCoord = Shader.PropertyToID("_MaskCoord");
+				ID_ClipRect = Shader.PropertyToID("_ClipRect");
+				ID_UseClipRect = Shader.PropertyToID("_UseClipRect");
+				ID_MaskSoftnessX = Shader.PropertyToID("_MaskSoftnessX");
+				ID_MaskSoftnessY = Shader.PropertyToID("_MaskSoftnessY");
+				ID_VertexOffsetX = Shader.PropertyToID("_VertexOffsetX");
+				ID_VertexOffsetY = Shader.PropertyToID("_VertexOffsetY");
+				ID_StencilID = Shader.PropertyToID("_Stencil");
+				ID_StencilOp = Shader.PropertyToID("_StencilOp");
+				ID_StencilComp = Shader.PropertyToID("_StencilComp");
+				ID_StencilReadMask = Shader.PropertyToID("_StencilReadMask");
+				ID_StencilWriteMask = Shader.PropertyToID("_StencilWriteMask");
+				ID_ShaderFlags = Shader.PropertyToID("_ShaderFlags");
+				ID_ScaleRatio_A = Shader.PropertyToID("_ScaleRatioA");
+				ID_ScaleRatio_B = Shader.PropertyToID("_ScaleRatioB");
+				ID_ScaleRatio_C = Shader.PropertyToID("_ScaleRatioC");
+				return;
 			}
 		}
 
 		public static void UpdateShaderRatios(Material mat)
 		{
-			bool flag = !mat.shaderKeywords.Contains(ShaderUtilities.Keyword_Ratios);
-			float @float = mat.GetFloat(ShaderUtilities.ID_GradientScale);
-			float float2 = mat.GetFloat(ShaderUtilities.ID_FaceDilate);
-			float float3 = mat.GetFloat(ShaderUtilities.ID_OutlineWidth);
-			float float4 = mat.GetFloat(ShaderUtilities.ID_OutlineSoftness);
-			float num = Mathf.Max(mat.GetFloat(ShaderUtilities.ID_WeightNormal), mat.GetFloat(ShaderUtilities.ID_WeightBold)) / 4f;
-			float num2 = Mathf.Max(1f, num + float2 + float3 + float4);
-			float value = (!flag) ? 1f : ((@float - ShaderUtilities.m_clamp) / (@float * num2));
-			mat.SetFloat(ShaderUtilities.ID_ScaleRatio_A, value);
-			if (mat.HasProperty(ShaderUtilities.ID_GlowOffset))
+			float num = 1f;
+			float num2 = 1f;
+			float num3 = 1f;
+			bool flag = !mat.shaderKeywords.Contains(Keyword_Ratios);
+			float @float = mat.GetFloat(ID_GradientScale);
+			float float2 = mat.GetFloat(ID_FaceDilate);
+			float float3 = mat.GetFloat(ID_OutlineWidth);
+			float float4 = mat.GetFloat(ID_OutlineSoftness);
+			float num4 = Mathf.Max(mat.GetFloat(ID_WeightNormal), mat.GetFloat(ID_WeightBold)) / 4f;
+			float num5 = Mathf.Max(1f, num4 + float2 + float3 + float4);
+			num = ((!flag) ? 1f : ((@float - m_clamp) / (@float * num5)));
+			mat.SetFloat(ID_ScaleRatio_A, num);
+			if (mat.HasProperty(ID_GlowOffset))
 			{
-				float float5 = mat.GetFloat(ShaderUtilities.ID_GlowOffset);
-				float float6 = mat.GetFloat(ShaderUtilities.ID_GlowOuter);
-				float num3 = (num + float2) * (@float - ShaderUtilities.m_clamp);
-				num2 = Mathf.Max(1f, float5 + float6);
-				float num4;
+				float float5 = mat.GetFloat(ID_GlowOffset);
+				float float6 = mat.GetFloat(ID_GlowOuter);
+				float num6 = (num4 + float2) * (@float - m_clamp);
+				num5 = Mathf.Max(1f, float5 + float6);
+				float num7;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ShaderUtilities.UpdateShaderRatios(Material)).MethodHandle;
-					}
-					num4 = Mathf.Max(0f, @float - ShaderUtilities.m_clamp - num3) / (@float * num2);
+					num7 = Mathf.Max(0f, @float - m_clamp - num6) / (@float * num5);
 				}
 				else
 				{
-					num4 = 1f;
+					num7 = 1f;
 				}
-				float value2 = num4;
-				mat.SetFloat(ShaderUtilities.ID_ScaleRatio_B, value2);
+				num2 = num7;
+				mat.SetFloat(ID_ScaleRatio_B, num2);
 			}
-			if (mat.HasProperty(ShaderUtilities.ID_UnderlayOffsetX))
+			if (!mat.HasProperty(ID_UnderlayOffsetX))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				float float7 = mat.GetFloat(ShaderUtilities.ID_UnderlayOffsetX);
-				float float8 = mat.GetFloat(ShaderUtilities.ID_UnderlayOffsetY);
-				float float9 = mat.GetFloat(ShaderUtilities.ID_UnderlayDilate);
-				float float10 = mat.GetFloat(ShaderUtilities.ID_UnderlaySoftness);
-				float num5 = (num + float2) * (@float - ShaderUtilities.m_clamp);
-				num2 = Mathf.Max(1f, Mathf.Max(Mathf.Abs(float7), Mathf.Abs(float8)) + float9 + float10);
-				float value3 = (!flag) ? 1f : (Mathf.Max(0f, @float - ShaderUtilities.m_clamp - num5) / (@float * num2));
-				mat.SetFloat(ShaderUtilities.ID_ScaleRatio_C, value3);
+				return;
+			}
+			while (true)
+			{
+				float float7 = mat.GetFloat(ID_UnderlayOffsetX);
+				float float8 = mat.GetFloat(ID_UnderlayOffsetY);
+				float float9 = mat.GetFloat(ID_UnderlayDilate);
+				float float10 = mat.GetFloat(ID_UnderlaySoftness);
+				float num8 = (num4 + float2) * (@float - m_clamp);
+				num5 = Mathf.Max(1f, Mathf.Max(Mathf.Abs(float7), Mathf.Abs(float8)) + float9 + float10);
+				num3 = ((!flag) ? 1f : (Mathf.Max(0f, @float - m_clamp - num8) / (@float * num5)));
+				mat.SetFloat(ID_ScaleRatio_C, num3);
+				return;
 			}
 		}
 
@@ -270,59 +258,19 @@ namespace TMPro
 		{
 			if (!(material == null))
 			{
-				if (material.HasProperty(ShaderUtilities.ID_ClipRect))
+				if (material.HasProperty(ID_ClipRect))
 				{
-					if (!material.shaderKeywords.Contains(ShaderUtilities.Keyword_MASK_SOFT))
+					if (!material.shaderKeywords.Contains(Keyword_MASK_SOFT))
 					{
-						for (;;)
+						if (!material.shaderKeywords.Contains(Keyword_MASK_HARD))
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!material.shaderKeywords.Contains(ShaderUtilities.Keyword_MASK_HARD))
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!material.shaderKeywords.Contains(ShaderUtilities.Keyword_MASK_TEX))
+							if (!material.shaderKeywords.Contains(Keyword_MASK_TEX))
 							{
 								return false;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
 					return true;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ShaderUtilities.IsMaskingEnabled(Material)).MethodHandle;
 				}
 			}
 			return false;
@@ -330,52 +278,39 @@ namespace TMPro
 
 		public static float GetPadding(Material material, bool enableExtraPadding, bool isBold)
 		{
-			if (!ShaderUtilities.isInitialized)
+			if (!isInitialized)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ShaderUtilities.GetPadding(Material, bool, bool)).MethodHandle;
-				}
-				ShaderUtilities.GetShaderPropertyIDs();
+				GetShaderPropertyIDs();
 			}
 			if (material == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return 0f;
 					}
-					break;
 				}
-				return 0f;
 			}
-			int num = (!enableExtraPadding) ? 0 : 4;
-			if (!material.HasProperty(ShaderUtilities.ID_GradientScale))
+			int num = enableExtraPadding ? 4 : 0;
+			if (!material.HasProperty(ID_GradientScale))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return num;
 					}
-					break;
 				}
-				return (float)num;
 			}
-			Vector4 a = Vector4.zero;
 			Vector4 zero = Vector4.zero;
+			Vector4 zero2 = Vector4.zero;
 			float num2 = 0f;
 			float num3 = 0f;
 			float num4 = 0f;
@@ -384,260 +319,149 @@ namespace TMPro
 			float num7 = 0f;
 			float num8 = 0f;
 			float num9 = 0f;
-			ShaderUtilities.UpdateShaderRatios(material);
+			float num10 = 0f;
+			UpdateShaderRatios(material);
 			string[] shaderKeywords = material.shaderKeywords;
-			if (material.HasProperty(ShaderUtilities.ID_ScaleRatio_A))
+			if (material.HasProperty(ID_ScaleRatio_A))
 			{
-				num5 = material.GetFloat(ShaderUtilities.ID_ScaleRatio_A);
+				num5 = material.GetFloat(ID_ScaleRatio_A);
 			}
-			if (material.HasProperty(ShaderUtilities.ID_FaceDilate))
+			if (material.HasProperty(ID_FaceDilate))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num2 = material.GetFloat(ShaderUtilities.ID_FaceDilate) * num5;
+				num2 = material.GetFloat(ID_FaceDilate) * num5;
 			}
-			if (material.HasProperty(ShaderUtilities.ID_OutlineSoftness))
+			if (material.HasProperty(ID_OutlineSoftness))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num3 = material.GetFloat(ShaderUtilities.ID_OutlineSoftness) * num5;
+				num3 = material.GetFloat(ID_OutlineSoftness) * num5;
 			}
-			if (material.HasProperty(ShaderUtilities.ID_OutlineWidth))
+			if (material.HasProperty(ID_OutlineWidth))
 			{
-				num4 = material.GetFloat(ShaderUtilities.ID_OutlineWidth) * num5;
+				num4 = material.GetFloat(ID_OutlineWidth) * num5;
 			}
-			float num10 = num4 + num3 + num2;
-			if (material.HasProperty(ShaderUtilities.ID_GlowOffset))
+			num10 = num4 + num3 + num2;
+			if (material.HasProperty(ID_GlowOffset))
 			{
-				for (;;)
+				if (shaderKeywords.Contains(Keyword_Glow))
 				{
-					switch (3)
+					if (material.HasProperty(ID_ScaleRatio_B))
 					{
-					case 0:
-						continue;
+						num6 = material.GetFloat(ID_ScaleRatio_B);
 					}
-					break;
-				}
-				if (shaderKeywords.Contains(ShaderUtilities.Keyword_Glow))
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (material.HasProperty(ShaderUtilities.ID_ScaleRatio_B))
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num6 = material.GetFloat(ShaderUtilities.ID_ScaleRatio_B);
-					}
-					num8 = material.GetFloat(ShaderUtilities.ID_GlowOffset) * num6;
-					num9 = material.GetFloat(ShaderUtilities.ID_GlowOuter) * num6;
+					num8 = material.GetFloat(ID_GlowOffset) * num6;
+					num9 = material.GetFloat(ID_GlowOuter) * num6;
 				}
 			}
 			num10 = Mathf.Max(num10, num2 + num8 + num9);
-			if (material.HasProperty(ShaderUtilities.ID_UnderlaySoftness) && shaderKeywords.Contains(ShaderUtilities.Keyword_Underlay))
+			if (material.HasProperty(ID_UnderlaySoftness) && shaderKeywords.Contains(Keyword_Underlay))
 			{
-				for (;;)
+				if (material.HasProperty(ID_ScaleRatio_C))
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					num7 = material.GetFloat(ID_ScaleRatio_C);
 				}
-				if (material.HasProperty(ShaderUtilities.ID_ScaleRatio_C))
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num7 = material.GetFloat(ShaderUtilities.ID_ScaleRatio_C);
-				}
-				float num11 = material.GetFloat(ShaderUtilities.ID_UnderlayOffsetX) * num7;
-				float num12 = material.GetFloat(ShaderUtilities.ID_UnderlayOffsetY) * num7;
-				float num13 = material.GetFloat(ShaderUtilities.ID_UnderlayDilate) * num7;
-				float num14 = material.GetFloat(ShaderUtilities.ID_UnderlaySoftness) * num7;
-				a.x = Mathf.Max(a.x, num2 + num13 + num14 - num11);
-				a.y = Mathf.Max(a.y, num2 + num13 + num14 - num12);
-				a.z = Mathf.Max(a.z, num2 + num13 + num14 + num11);
-				a.w = Mathf.Max(a.w, num2 + num13 + num14 + num12);
+				float num11 = material.GetFloat(ID_UnderlayOffsetX) * num7;
+				float num12 = material.GetFloat(ID_UnderlayOffsetY) * num7;
+				float num13 = material.GetFloat(ID_UnderlayDilate) * num7;
+				float num14 = material.GetFloat(ID_UnderlaySoftness) * num7;
+				zero.x = Mathf.Max(zero.x, num2 + num13 + num14 - num11);
+				zero.y = Mathf.Max(zero.y, num2 + num13 + num14 - num12);
+				zero.z = Mathf.Max(zero.z, num2 + num13 + num14 + num11);
+				zero.w = Mathf.Max(zero.w, num2 + num13 + num14 + num12);
 			}
-			a.x = Mathf.Max(a.x, num10);
-			a.y = Mathf.Max(a.y, num10);
-			a.z = Mathf.Max(a.z, num10);
-			a.w = Mathf.Max(a.w, num10);
-			a.x += (float)num;
-			a.y += (float)num;
-			a.z += (float)num;
-			a.w += (float)num;
-			a.x = Mathf.Min(a.x, 1f);
-			a.y = Mathf.Min(a.y, 1f);
-			a.z = Mathf.Min(a.z, 1f);
-			a.w = Mathf.Min(a.w, 1f);
+			zero.x = Mathf.Max(zero.x, num10);
+			zero.y = Mathf.Max(zero.y, num10);
+			zero.z = Mathf.Max(zero.z, num10);
+			zero.w = Mathf.Max(zero.w, num10);
+			zero.x += num;
+			zero.y += num;
+			zero.z += num;
+			zero.w += num;
+			zero.x = Mathf.Min(zero.x, 1f);
+			zero.y = Mathf.Min(zero.y, 1f);
+			zero.z = Mathf.Min(zero.z, 1f);
+			zero.w = Mathf.Min(zero.w, 1f);
 			float x;
-			if (zero.x < a.x)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				x = a.x;
-			}
-			else
+			if (zero2.x < zero.x)
 			{
 				x = zero.x;
 			}
-			zero.x = x;
-			float y;
-			if (zero.y < a.y)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				y = a.y;
-			}
 			else
+			{
+				x = zero2.x;
+			}
+			zero2.x = x;
+			float y;
+			if (zero2.y < zero.y)
 			{
 				y = zero.y;
 			}
-			zero.y = y;
-			float z;
-			if (zero.z < a.z)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				z = a.z;
-			}
 			else
+			{
+				y = zero2.y;
+			}
+			zero2.y = y;
+			float z;
+			if (zero2.z < zero.z)
 			{
 				z = zero.z;
 			}
-			zero.z = z;
-			float w;
-			if (zero.w < a.w)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				w = a.w;
-			}
 			else
+			{
+				z = zero2.z;
+			}
+			zero2.z = z;
+			float w;
+			if (zero2.w < zero.w)
 			{
 				w = zero.w;
 			}
-			zero.w = w;
-			float @float = material.GetFloat(ShaderUtilities.ID_GradientScale);
-			a *= @float;
-			num10 = Mathf.Max(a.x, a.y);
-			num10 = Mathf.Max(a.z, num10);
-			num10 = Mathf.Max(a.w, num10);
+			else
+			{
+				w = zero2.w;
+			}
+			zero2.w = w;
+			float @float = material.GetFloat(ID_GradientScale);
+			zero *= @float;
+			num10 = Mathf.Max(zero.x, zero.y);
+			num10 = Mathf.Max(zero.z, num10);
+			num10 = Mathf.Max(zero.w, num10);
 			return num10 + 0.5f;
 		}
 
 		public static float GetPadding(Material[] materials, bool enableExtraPadding, bool isBold)
 		{
-			if (!ShaderUtilities.isInitialized)
+			if (!isInitialized)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ShaderUtilities.GetPadding(Material[], bool, bool)).MethodHandle;
-				}
-				ShaderUtilities.GetShaderPropertyIDs();
+				GetShaderPropertyIDs();
 			}
 			if (materials == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return 0f;
 					}
-					break;
 				}
-				return 0f;
 			}
-			int num = (!enableExtraPadding) ? 0 : 4;
-			if (!materials[0].HasProperty(ShaderUtilities.ID_GradientScale))
+			int num = enableExtraPadding ? 4 : 0;
+			if (!materials[0].HasProperty(ID_GradientScale))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return num;
 					}
-					break;
 				}
-				return (float)num;
 			}
-			Vector4 a = Vector4.zero;
 			Vector4 zero = Vector4.zero;
+			Vector4 zero2 = Vector4.zero;
 			float num2 = 0f;
 			float num3 = 0f;
 			float num4 = 0f;
@@ -646,216 +470,117 @@ namespace TMPro
 			float num7 = 0f;
 			float num8 = 0f;
 			float num9 = 0f;
-			float num10;
+			float num10 = 0f;
 			for (int i = 0; i < materials.Length; i++)
 			{
-				ShaderUtilities.UpdateShaderRatios(materials[i]);
+				UpdateShaderRatios(materials[i]);
 				string[] shaderKeywords = materials[i].shaderKeywords;
-				if (materials[i].HasProperty(ShaderUtilities.ID_ScaleRatio_A))
+				if (materials[i].HasProperty(ID_ScaleRatio_A))
 				{
-					num5 = materials[i].GetFloat(ShaderUtilities.ID_ScaleRatio_A);
+					num5 = materials[i].GetFloat(ID_ScaleRatio_A);
 				}
-				if (materials[i].HasProperty(ShaderUtilities.ID_FaceDilate))
+				if (materials[i].HasProperty(ID_FaceDilate))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num2 = materials[i].GetFloat(ShaderUtilities.ID_FaceDilate) * num5;
+					num2 = materials[i].GetFloat(ID_FaceDilate) * num5;
 				}
-				if (materials[i].HasProperty(ShaderUtilities.ID_OutlineSoftness))
+				if (materials[i].HasProperty(ID_OutlineSoftness))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num3 = materials[i].GetFloat(ShaderUtilities.ID_OutlineSoftness) * num5;
+					num3 = materials[i].GetFloat(ID_OutlineSoftness) * num5;
 				}
-				if (materials[i].HasProperty(ShaderUtilities.ID_OutlineWidth))
+				if (materials[i].HasProperty(ID_OutlineWidth))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num4 = materials[i].GetFloat(ShaderUtilities.ID_OutlineWidth) * num5;
+					num4 = materials[i].GetFloat(ID_OutlineWidth) * num5;
 				}
 				num10 = num4 + num3 + num2;
-				if (materials[i].HasProperty(ShaderUtilities.ID_GlowOffset))
+				if (materials[i].HasProperty(ID_GlowOffset))
 				{
-					for (;;)
+					if (shaderKeywords.Contains(Keyword_Glow))
 					{
-						switch (6)
+						if (materials[i].HasProperty(ID_ScaleRatio_B))
 						{
-						case 0:
-							continue;
+							num6 = materials[i].GetFloat(ID_ScaleRatio_B);
 						}
-						break;
-					}
-					if (shaderKeywords.Contains(ShaderUtilities.Keyword_Glow))
-					{
-						if (materials[i].HasProperty(ShaderUtilities.ID_ScaleRatio_B))
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							num6 = materials[i].GetFloat(ShaderUtilities.ID_ScaleRatio_B);
-						}
-						num8 = materials[i].GetFloat(ShaderUtilities.ID_GlowOffset) * num6;
-						num9 = materials[i].GetFloat(ShaderUtilities.ID_GlowOuter) * num6;
+						num8 = materials[i].GetFloat(ID_GlowOffset) * num6;
+						num9 = materials[i].GetFloat(ID_GlowOuter) * num6;
 					}
 				}
 				num10 = Mathf.Max(num10, num2 + num8 + num9);
-				if (materials[i].HasProperty(ShaderUtilities.ID_UnderlaySoftness))
+				if (materials[i].HasProperty(ID_UnderlaySoftness))
 				{
-					for (;;)
+					if (shaderKeywords.Contains(Keyword_Underlay))
 					{
-						switch (5)
+						if (materials[i].HasProperty(ID_ScaleRatio_C))
 						{
-						case 0:
-							continue;
+							num7 = materials[i].GetFloat(ID_ScaleRatio_C);
 						}
-						break;
-					}
-					if (shaderKeywords.Contains(ShaderUtilities.Keyword_Underlay))
-					{
-						if (materials[i].HasProperty(ShaderUtilities.ID_ScaleRatio_C))
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							num7 = materials[i].GetFloat(ShaderUtilities.ID_ScaleRatio_C);
-						}
-						float num11 = materials[i].GetFloat(ShaderUtilities.ID_UnderlayOffsetX) * num7;
-						float num12 = materials[i].GetFloat(ShaderUtilities.ID_UnderlayOffsetY) * num7;
-						float num13 = materials[i].GetFloat(ShaderUtilities.ID_UnderlayDilate) * num7;
-						float num14 = materials[i].GetFloat(ShaderUtilities.ID_UnderlaySoftness) * num7;
-						a.x = Mathf.Max(a.x, num2 + num13 + num14 - num11);
-						a.y = Mathf.Max(a.y, num2 + num13 + num14 - num12);
-						a.z = Mathf.Max(a.z, num2 + num13 + num14 + num11);
-						a.w = Mathf.Max(a.w, num2 + num13 + num14 + num12);
+						float num11 = materials[i].GetFloat(ID_UnderlayOffsetX) * num7;
+						float num12 = materials[i].GetFloat(ID_UnderlayOffsetY) * num7;
+						float num13 = materials[i].GetFloat(ID_UnderlayDilate) * num7;
+						float num14 = materials[i].GetFloat(ID_UnderlaySoftness) * num7;
+						zero.x = Mathf.Max(zero.x, num2 + num13 + num14 - num11);
+						zero.y = Mathf.Max(zero.y, num2 + num13 + num14 - num12);
+						zero.z = Mathf.Max(zero.z, num2 + num13 + num14 + num11);
+						zero.w = Mathf.Max(zero.w, num2 + num13 + num14 + num12);
 					}
 				}
-				a.x = Mathf.Max(a.x, num10);
-				a.y = Mathf.Max(a.y, num10);
-				a.z = Mathf.Max(a.z, num10);
-				a.w = Mathf.Max(a.w, num10);
-				a.x += (float)num;
-				a.y += (float)num;
-				a.z += (float)num;
-				a.w += (float)num;
-				a.x = Mathf.Min(a.x, 1f);
-				a.y = Mathf.Min(a.y, 1f);
-				a.z = Mathf.Min(a.z, 1f);
-				a.w = Mathf.Min(a.w, 1f);
+				zero.x = Mathf.Max(zero.x, num10);
+				zero.y = Mathf.Max(zero.y, num10);
+				zero.z = Mathf.Max(zero.z, num10);
+				zero.w = Mathf.Max(zero.w, num10);
+				zero.x += num;
+				zero.y += num;
+				zero.z += num;
+				zero.w += num;
+				zero.x = Mathf.Min(zero.x, 1f);
+				zero.y = Mathf.Min(zero.y, 1f);
+				zero.z = Mathf.Min(zero.z, 1f);
+				zero.w = Mathf.Min(zero.w, 1f);
 				float x;
-				if (zero.x < a.x)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					x = a.x;
-				}
-				else
+				if (zero2.x < zero.x)
 				{
 					x = zero.x;
 				}
-				zero.x = x;
-				float y;
-				if (zero.y < a.y)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					y = a.y;
-				}
 				else
+				{
+					x = zero2.x;
+				}
+				zero2.x = x;
+				float y;
+				if (zero2.y < zero.y)
 				{
 					y = zero.y;
 				}
-				zero.y = y;
-				float z;
-				if (zero.z < a.z)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					z = a.z;
-				}
 				else
+				{
+					y = zero2.y;
+				}
+				zero2.y = y;
+				float z;
+				if (zero2.z < zero.z)
 				{
 					z = zero.z;
 				}
-				zero.z = z;
-				float w;
-				if (zero.w < a.w)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					w = a.w;
-				}
 				else
+				{
+					z = zero2.z;
+				}
+				zero2.z = z;
+				float w;
+				if (zero2.w < zero.w)
 				{
 					w = zero.w;
 				}
-				zero.w = w;
+				else
+				{
+					w = zero2.w;
+				}
+				zero2.w = w;
 			}
-			float @float = materials[0].GetFloat(ShaderUtilities.ID_GradientScale);
-			a *= @float;
-			num10 = Mathf.Max(a.x, a.y);
-			num10 = Mathf.Max(a.z, num10);
-			num10 = Mathf.Max(a.w, num10);
+			float @float = materials[0].GetFloat(ID_GradientScale);
+			zero *= @float;
+			num10 = Mathf.Max(zero.x, zero.y);
+			num10 = Mathf.Max(zero.z, num10);
+			num10 = Mathf.Max(zero.w, num10);
 			return num10 + 0.25f;
 		}
 	}

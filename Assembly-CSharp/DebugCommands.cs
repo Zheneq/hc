@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class DebugCommands
@@ -9,108 +9,53 @@ public class DebugCommands
 
 	public DebugCommands()
 	{
-		this.m_debugCommands.Add(new DebugCommand_EndGameWin());
-		this.m_debugCommands.Add(new DebugCommand_EndGameLoss());
-		this.m_debugCommands.Add(new DebugCommand_EndGameTie());
-		this.m_debugCommands.Add(new DebugCommand_EndGameNoResult());
-		this.m_debugCommands.Add(new DebugCommand_EndGameWithParams());
-		this.m_debugCommands.Add(new DebugCommand_ClearCooldowns());
-		this.m_debugCommands.Add(new DebugCommand_ForceMatchmaking());
-		this.m_debugCommands.Add(new DebugCommand_Discord());
-		this.m_debugCommands.Add(new DebugCommand_Snapshot());
-		this.m_debugCommands.Add(new DebugCommand_Gibberish());
-		this.m_debugCommands.Add(new DebugCommand_SetExtraLowGraphicsQuality());
+		m_debugCommands.Add(new DebugCommand_EndGameWin());
+		m_debugCommands.Add(new DebugCommand_EndGameLoss());
+		m_debugCommands.Add(new DebugCommand_EndGameTie());
+		m_debugCommands.Add(new DebugCommand_EndGameNoResult());
+		m_debugCommands.Add(new DebugCommand_EndGameWithParams());
+		m_debugCommands.Add(new DebugCommand_ClearCooldowns());
+		m_debugCommands.Add(new DebugCommand_ForceMatchmaking());
+		m_debugCommands.Add(new DebugCommand_Discord());
+		m_debugCommands.Add(new DebugCommand_Snapshot());
+		m_debugCommands.Add(new DebugCommand_Gibberish());
+		m_debugCommands.Add(new DebugCommand_SetExtraLowGraphicsQuality());
 	}
 
 	public static DebugCommands Get()
 	{
-		return DebugCommands.s_instance;
+		return s_instance;
 	}
 
 	public static void Instantiate()
 	{
-		DebugCommands.s_instance = new DebugCommands();
+		s_instance = new DebugCommands();
 	}
 
 	~DebugCommands()
 	{
-		DebugCommands.s_instance = null;
+		s_instance = null;
 	}
 
-	public bool RunDebugCommand(string command, string arguments)
-	{
-		bool flag = GameFlowData.Get() == null;
-		bool flag2 = false;
-		using (List<DebugCommand>.Enumerator enumerator = this.m_debugCommands.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				DebugCommand debugCommand = enumerator.Current;
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommands.RunDebugCommand(string, string)).MethodHandle;
-					}
-					if (!debugCommand.AvailableInFrontEnd())
-					{
-						continue;
-					}
-				}
-				if (debugCommand.\u0018().Contains(command.ToLower()))
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag2 = debugCommand.OnSlashCommand(arguments);
-					if (flag2)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						ClientGameManager.Get().\u001D(command, arguments);
-						return flag2;
-					}
-				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		return flag2;
-	}
+  public bool RunDebugCommand(string command, string arguments)
+  {
+    bool flag1 = ((UnityEngine.Object) GameFlowData.Get() == (UnityEngine.Object) null);
+    bool flag2 = false;
+    foreach (DebugCommand debugCommand in this.m_debugCommands)
+    {
+      if ((!flag1 || debugCommand.AvailableInFrontEnd()) && (debugCommand._0018().Contains(command.ToLower()) && (flag2 = debugCommand.OnSlashCommand(arguments))))
+      {
+        ClientGameManager.Get().symbol_001D(command, arguments);
+        break;
+      }
+    }
+    return flag2;
+  }
 
 	public List<string> GetAvailableCommandNames(string searchStr)
 	{
 		bool inFrontEnd = GameFlowData.Get() == null;
-		return this.GetAvailableCommandNames(searchStr, inFrontEnd);
+		return GetAvailableCommandNames(searchStr, inFrontEnd);
 	}
 
 	public List<string> GetAvailableCommandNames(string searchStr, bool inFrontEnd)
@@ -118,23 +63,10 @@ public class DebugCommands
 		List<string> list = new List<string>();
 		searchStr.Trim();
 		bool flag = searchStr.Length > 0;
-		foreach (DebugCommand debugCommand in this.m_debugCommands)
+		foreach (DebugCommand debugCommand in m_debugCommands)
 		{
 			if (inFrontEnd)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommands.GetAvailableCommandNames(string, bool)).MethodHandle;
-				}
 				if (!debugCommand.AvailableInFrontEnd())
 				{
 					continue;
@@ -143,51 +75,15 @@ public class DebugCommands
 			string slashCommand = debugCommand.GetSlashCommand();
 			if (!string.IsNullOrEmpty(slashCommand))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (slashCommand.IndexOf(searchStr, StringComparison.OrdinalIgnoreCase) < 0)
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (!list.Contains(slashCommand))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(slashCommand);
 				}
 			}
@@ -196,47 +92,19 @@ public class DebugCommands
 		return list;
 	}
 
-	public void OnIncreaseClick(DebugCommand command)
-	{
-		command.OnIncreaseClick();
-		if (command.GetType() != typeof(DebugCommand_Category) && command.GetType() != typeof(DebugCommand_Back))
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommands.OnIncreaseClick(DebugCommand)).MethodHandle;
-			}
-			ClientGameManager.Get().\u001D(command.GetDebugItemName(), command.GetDebugItemValue());
-		}
-	}
+  public void OnIncreaseClick(DebugCommand command)
+  {
+    command.OnIncreaseClick();
+    if (command.GetType() == typeof (DebugCommand_Category) || command.GetType() == typeof (DebugCommand_Back))
+      return;
+    ClientGameManager.Get().symbol_001D(command.GetDebugItemName(), command.GetDebugItemValue());
+  }
 
-	public void OnDecreaseClick(DebugCommand command)
-	{
-		command.OnDecreaseClick();
-		if (command.GetType() != typeof(DebugCommand_Category) && command.GetType() != typeof(DebugCommand_Back))
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommands.OnDecreaseClick(DebugCommand)).MethodHandle;
-			}
-			ClientGameManager.Get().\u001D("Decrease " + command.GetDebugItemName(), command.GetDebugItemValue());
-		}
-	}
+  public void OnDecreaseClick(DebugCommand command)
+  {
+    command.OnDecreaseClick();
+    if (command.GetType() == typeof (DebugCommand_Category) || command.GetType() == typeof (DebugCommand_Back))
+      return;
+    ClientGameManager.Get().symbol_001D("Decrease " + command.GetDebugItemName(), command.GetDebugItemValue());
+  }
 }

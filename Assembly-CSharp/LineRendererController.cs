@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -27,49 +26,18 @@ public class LineRendererController : MonoBehaviour
 	public float GetTotalDuration()
 	{
 		float num = 0f;
-		if (this.m_scaleEntries != null)
+		if (m_scaleEntries != null)
 		{
-			for (;;)
+			if (m_scaleEntries.Length > 0)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineRendererController.GetTotalDuration()).MethodHandle;
-			}
-			if (this.m_scaleEntries.Length > 0)
-			{
-				num = this.m_scaleEntries[this.m_scaleEntries.Length - 1].m_time;
+				num = m_scaleEntries[m_scaleEntries.Length - 1].m_time;
 			}
 		}
-		if (this.m_alphaEntries != null)
+		if (m_alphaEntries != null)
 		{
-			for (;;)
+			if (m_alphaEntries.Length > 0)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_alphaEntries.Length > 0)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num = Mathf.Max(num, this.m_alphaEntries[this.m_alphaEntries.Length - 1].m_time);
+				num = Mathf.Max(num, m_alphaEntries[m_alphaEntries.Length - 1].m_time);
 			}
 		}
 		return num;
@@ -81,63 +49,48 @@ public class LineRendererController : MonoBehaviour
 
 	private void Update()
 	{
-		if (this.m_parentParticleSystem)
+		if ((bool)m_parentParticleSystem)
 		{
-			for (;;)
+			if ((bool)m_lineRenderer)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineRendererController.Update()).MethodHandle;
-			}
-			if (this.m_lineRenderer)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						m_lineRenderer.positionCount = m_positions.Length;
+						for (int i = 0; i < m_positions.Length; i++)
+						{
+							m_lineRenderer.SetPosition(i, m_positions[i]);
+						}
+						float num = GetValue(m_parentParticleSystem.time, m_scaleEntries) * m_scale;
+						float value = GetValue(m_parentParticleSystem.time, m_alphaEntries);
+						m_lineRenderer.startWidth = m_startWidth * num;
+						m_lineRenderer.endWidth = m_endWidth * num;
+						Color startColor = m_startColor;
+						startColor.a *= value;
+						Color endColor = m_endColor;
+						endColor.a *= value;
+						m_lineRenderer.startColor = startColor;
+						m_lineRenderer.endColor = endColor;
+						return;
 					}
-					break;
+					}
 				}
-				this.m_lineRenderer.positionCount = this.m_positions.Length;
-				for (int i = 0; i < this.m_positions.Length; i++)
-				{
-					this.m_lineRenderer.SetPosition(i, this.m_positions[i]);
-				}
-				float num = this.GetValue(this.m_parentParticleSystem.time, this.m_scaleEntries) * this.m_scale;
-				float value = this.GetValue(this.m_parentParticleSystem.time, this.m_alphaEntries);
-				this.m_lineRenderer.startWidth = this.m_startWidth * num;
-				this.m_lineRenderer.endWidth = this.m_endWidth * num;
-				Color startColor = this.m_startColor;
-				startColor.a *= value;
-				Color endColor = this.m_endColor;
-				endColor.a *= value;
-				this.m_lineRenderer.startColor = startColor;
-				this.m_lineRenderer.endColor = endColor;
-				return;
 			}
 		}
-		this.m_lineRenderer = base.GetComponent<LineRenderer>();
-		if (base.transform.parent)
+		m_lineRenderer = GetComponent<LineRenderer>();
+		if (!base.transform.parent)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_parentParticleSystem = base.transform.parent.GetComponent<ParticleSystem>();
+			return;
+		}
+		while (true)
+		{
+			m_parentParticleSystem = base.transform.parent.GetComponent<ParticleSystem>();
+			return;
 		}
 	}
 
@@ -146,64 +99,38 @@ public class LineRendererController : MonoBehaviour
 		float result = 1f;
 		if (entries != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineRendererController.GetValue(float, FloatTimeEntry[])).MethodHandle;
-			}
 			if (entries.Length > 0)
 			{
 				int num = entries.Length;
-				int i = 0;
-				while (i < entries.Length)
+				int num2 = 0;
+				while (true)
 				{
-					if (entries[i].m_time > curTime)
+					if (num2 < entries.Length)
 					{
-						num = i;
-						IL_53:
-						if (num == 0)
+						if (entries[num2].m_time > curTime)
 						{
-							return entries[num].m_value;
+							num = num2;
+							break;
 						}
-						if (num == entries.Length)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							return entries[entries.Length - 1].m_value;
-						}
-						float time = entries[num].m_time;
-						float time2 = entries[num - 1].m_time;
-						float t = (curTime - time2) / (time - time2);
-						return Mathf.Lerp(entries[num - 1].m_value, entries[num].m_value, t);
-					}
-					else
-					{
-						i++;
-					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
+						num2++;
 						continue;
 					}
-					goto IL_53;
+					break;
+				}
+				if (num == 0)
+				{
+					result = entries[num].m_value;
+				}
+				else if (num == entries.Length)
+				{
+					result = entries[entries.Length - 1].m_value;
+				}
+				else
+				{
+					float time = entries[num].m_time;
+					float time2 = entries[num - 1].m_time;
+					float t = (curTime - time2) / (time - time2);
+					result = Mathf.Lerp(entries[num - 1].m_value, entries[num].m_value, t);
 				}
 			}
 		}

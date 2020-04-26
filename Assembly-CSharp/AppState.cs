@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class AppState : MonoBehaviour
@@ -11,226 +10,144 @@ public class AppState : MonoBehaviour
 
 	protected static AppState s_nextAppState;
 
-	protected static bool s_ready = true;
+	protected static bool s_ready;
 
 	protected float m_timeStart;
 
+	public float Elapsed => (m_timeStart != 0f) ? (Time.time - m_timeStart) : 0f;
+
+	static AppState()
+	{
+		s_ready = true;
+	}
+
 	public AppState()
 	{
-		this.m_timeStart = 0f;
+		m_timeStart = 0f;
 	}
 
 	public static AppState GetCurrent()
 	{
-		return AppState.s_currentAppState;
+		return s_currentAppState;
 	}
 
 	public static AppState GetPrevious()
 	{
-		return AppState.s_previousAppState;
+		return s_previousAppState;
 	}
 
 	public static AppState GetNext()
 	{
-		return AppState.s_previousAppState;
+		return s_previousAppState;
 	}
 
 	public static string GetCurrentName()
 	{
-		string result;
-		if (AppState.GetCurrent() == null)
+		object result;
+		if (GetCurrent() == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState.GetCurrentName()).MethodHandle;
-			}
 			result = "NULL";
 		}
 		else
 		{
-			result = AppState.GetCurrent().GetType().Name;
+			result = GetCurrent().GetType().Name;
 		}
-		return result;
+		return (string)result;
 	}
 
 	public static bool IsInGame()
 	{
-		if (!(AppState.GetCurrent() == AppState_InGameDecision.Get()))
+		int result;
+		if (!(GetCurrent() == AppState_InGameDecision.Get()))
 		{
-			for (;;)
+			if (!(GetCurrent() == AppState_InGameStarting.Get()) && !(GetCurrent() == AppState_InGameDeployment.Get()))
 			{
-				switch (5)
+				if (!(GetCurrent() == AppState_InGameResolve.Get()))
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState.IsInGame()).MethodHandle;
-			}
-			if (!(AppState.GetCurrent() == AppState_InGameStarting.Get()) && !(AppState.GetCurrent() == AppState_InGameDeployment.Get()))
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!(AppState.GetCurrent() == AppState_InGameResolve.Get()))
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return AppState.GetCurrent() == AppState_InGameEnding.Get();
+					result = ((GetCurrent() == AppState_InGameEnding.Get()) ? 1 : 0);
+					goto IL_0096;
 				}
 			}
 		}
-		return true;
+		result = 1;
+		goto IL_0096;
+		IL_0096:
+		return (byte)result != 0;
 	}
 
 	public virtual void Enter()
 	{
 		if (base.enabled)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState.Enter()).MethodHandle;
-			}
 			base.enabled = false;
 		}
 		base.enabled = true;
-		this.m_timeStart = Time.time;
+		m_timeStart = Time.time;
 	}
 
 	public void Leave()
 	{
 		base.enabled = false;
-		this.m_timeStart = 0f;
+		m_timeStart = 0f;
 	}
 
 	private void OnEnable()
 	{
-		if (AppState.s_ready)
+		if (!s_ready)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (s_currentAppState == this)
 			{
-				switch (1)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState.OnEnable()).MethodHandle;
-			}
-			if (!(AppState.s_currentAppState == this))
-			{
-				AppState.s_previousAppState = AppState.s_currentAppState;
-				AppState.s_nextAppState = this;
-				if (AppState.s_currentAppState != null)
-				{
-					for (;;)
+					switch (3)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
+					default:
+						return;
+					case 0:
 						break;
 					}
-					AppState.s_currentAppState.Leave();
 				}
-				Log.Info("Entering {0}", new object[]
-				{
-					base.GetType().Name
-				});
-				AppState.s_currentAppState = this;
-				this.OnEnter();
-				AppState.s_nextAppState = null;
-				GameEventManager.Get().FireEvent(GameEventManager.EventType.AppStateChanged, null);
-				return;
 			}
-			for (;;)
+			s_previousAppState = s_currentAppState;
+			s_nextAppState = this;
+			if (s_currentAppState != null)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				s_currentAppState.Leave();
 			}
+			Log.Info("Entering {0}", GetType().Name);
+			s_currentAppState = this;
+			OnEnter();
+			s_nextAppState = null;
+			GameEventManager.Get().FireEvent(GameEventManager.EventType.AppStateChanged, null);
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (AppState.s_ready)
+		if (!s_ready)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(s_currentAppState != this))
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				OnLeave();
+				s_currentAppState = null;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState.OnDisable()).MethodHandle;
-			}
-			if (!(AppState.s_currentAppState != this))
-			{
-				this.OnLeave();
-				AppState.s_currentAppState = null;
-				return;
-			}
+			return;
 		}
 	}
 
 	private void OnApplicationQuit()
 	{
-		AppState.s_ready = false;
-		AppState.s_currentAppState = null;
-	}
-
-	public float Elapsed
-	{
-		get
-		{
-			return (this.m_timeStart != 0f) ? (Time.time - this.m_timeStart) : 0f;
-		}
+		s_ready = false;
+		s_currentAppState = null;
 	}
 
 	protected virtual void OnEnter()
@@ -243,33 +160,29 @@ public class AppState : MonoBehaviour
 
 	protected static AppStateType Create<AppStateType>() where AppStateType : AppState, new()
 	{
-		if (!AppState.s_ready)
+		if (!s_ready)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					Log.Error("AppState.Create not ready! code error");
+					return (AppStateType)null;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState.Create()).MethodHandle;
-			}
-			Log.Error("AppState.Create not ready! code error", new object[0]);
-			return (AppStateType)((object)null);
 		}
-		if (AppState.s_appStateObject == null)
+		if (s_appStateObject == null)
 		{
-			AppState.s_appStateObject = new GameObject("AppStates");
-			UnityEngine.Object.DontDestroyOnLoad(AppState.s_appStateObject);
+			s_appStateObject = new GameObject("AppStates");
+			Object.DontDestroyOnLoad(s_appStateObject);
 		}
-		AppState.s_ready = false;
-		AppStateType result = AppState.s_appStateObject.AddComponent<AppStateType>();
+		s_ready = false;
+		AppStateType result = s_appStateObject.AddComponent<AppStateType>();
 		result.enabled = false;
-		AppState.s_ready = true;
+		s_ready = true;
 		return result;
 	}
 }

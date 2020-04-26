@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class BoardRegionEditorDefinition : MonoBehaviour
@@ -18,41 +17,39 @@ public class BoardRegionEditorDefinition : MonoBehaviour
 
 	public BoardRegion GetRegion()
 	{
-		return this.m_region;
+		return m_region;
 	}
 
 	protected virtual void Start()
 	{
-		this.CreateRegion();
+		CreateRegion();
 	}
 
 	private void CreateRegion()
 	{
-		Board board = Board.\u000E();
-		if (board != null)
+		Board board = Board.Get();
+		if (!(board != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_boardSquareSizeX > 0 && m_boardSquareSizeY > 0)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_region = new BoardRegion();
+				float num = (float)(m_boardSquareSizeX - 1) * board.squareSize * 0.5f;
+				float num2 = (float)(m_boardSquareSizeY - 1) * board.squareSize * 0.5f;
+				Vector3 position = base.transform.position;
+				float x = position.x - num;
+				Vector3 position2 = base.transform.position;
+				Vector3 worldCorner = new Vector3(x, 0f, position2.z - num2);
+				Vector3 position3 = base.transform.position;
+				float x2 = position3.x + num;
+				Vector3 position4 = base.transform.position;
+				Vector3 worldCorner2 = new Vector3(x2, 0f, position4.z + num2);
+				m_region.InitializeAsRect(worldCorner, worldCorner2);
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegionEditorDefinition.CreateRegion()).MethodHandle;
-			}
-			if (this.m_boardSquareSizeX > 0 && this.m_boardSquareSizeY > 0)
-			{
-				this.m_region = new BoardRegion();
-				float num = (float)(this.m_boardSquareSizeX - 1) * board.squareSize * 0.5f;
-				float num2 = (float)(this.m_boardSquareSizeY - 1) * board.squareSize * 0.5f;
-				Vector3 worldCorner = new Vector3(base.transform.position.x - num, 0f, base.transform.position.z - num2);
-				Vector3 worldCorner2 = new Vector3(base.transform.position.x + num, 0f, base.transform.position.z + num2);
-				this.m_region.InitializeAsRect(worldCorner, worldCorner2);
-			}
+			return;
 		}
 	}
 
@@ -60,54 +57,27 @@ public class BoardRegionEditorDefinition : MonoBehaviour
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
+			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegionEditorDefinition.OnDrawGizmos()).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_region != null)
+		if (m_region != null)
 		{
-			for (;;)
+			if (!((m_lastGizmoPos - base.transform.position).sqrMagnitude > 0f))
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if ((this.m_lastGizmoPos - base.transform.position).sqrMagnitude <= 0f)
-			{
-				goto IL_81;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_0081;
 			}
 		}
-		this.CreateRegion();
-		this.m_lastGizmoPos = base.transform.position;
-		IL_81:
-		this.m_region.GizmosDrawRegion(this.m_gizmoColor);
+		CreateRegion();
+		m_lastGizmoPos = base.transform.position;
+		goto IL_0081;
+		IL_0081:
+		m_region.GizmosDrawRegion(m_gizmoColor);
 	}
 
 	private void OnValidate()
 	{
-		this.m_region = null;
+		m_region = null;
 	}
 }

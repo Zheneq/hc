@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class PowerUpSequence : Sequence
@@ -11,68 +10,42 @@ public class PowerUpSequence : Sequence
 
 	private void Update()
 	{
-		if (this.m_powerUpPrefab)
+		if (!m_powerUpPrefab)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!m_initialized)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSequence.Update()).MethodHandle;
-			}
-			if (this.m_initialized)
-			{
-				for (;;)
+				if (!m_created)
 				{
-					switch (7)
+					while (true)
 					{
-					case 0:
-						continue;
+						m_created = true;
+						m_powerUpVFX = Object.Instantiate(m_powerUpPrefab, base.TargetSquare.ToVector3(), Quaternion.identity);
+						return;
 					}
-					break;
 				}
-				if (!this.m_created)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_created = true;
-					this.m_powerUpVFX = UnityEngine.Object.Instantiate<Transform>(this.m_powerUpPrefab, base.TargetSquare.ToVector3(), Quaternion.identity);
-				}
+				return;
 			}
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_powerUpVFX)
+		if (!m_powerUpVFX)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSequence.OnDisable()).MethodHandle;
-			}
-			UnityEngine.Object.Destroy(this.m_powerUpVFX.gameObject);
+			return;
+		}
+		while (true)
+		{
+			Object.Destroy(m_powerUpVFX.gameObject);
+			return;
 		}
 	}
 }

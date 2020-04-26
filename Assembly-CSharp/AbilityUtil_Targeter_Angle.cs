@@ -1,9 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 {
+	private struct AngleEntry
+	{
+		public float angle;
+
+		public Vector3 vec;
+	}
+
 	public float m_width = 1f;
 
 	public float m_distance = 15f;
@@ -40,37 +47,38 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 
 	private float m_curAngle;
 
-	private static int s_numAngles = 0x20;
+	private static int s_numAngles = 32;
 
-	private static List<AbilityUtil_Targeter_Angle.AngleEntry> s_angles;
+	private static List<AngleEntry> s_angles;
 
-	public AbilityUtil_Targeter_Angle(Ability ability, float width, float distance, bool penetrateLoS, int maxTargets = -1, bool affectsAllies = false, bool affectsCaster = false) : base(ability)
+	public AbilityUtil_Targeter_Angle(Ability ability, float width, float distance, bool penetrateLoS, int maxTargets = -1, bool affectsAllies = false, bool affectsCaster = false)
+		: base(ability)
 	{
-		AbilityUtil_Targeter_Angle.InitAngles();
-		this.m_width = width;
-		this.m_distance = distance;
-		this.m_penetrateLoS = penetrateLoS;
-		this.m_maxTargets = maxTargets;
-		this.m_affectsAllies = affectsAllies;
-		this.m_affectsCaster = affectsCaster;
-		this.m_curAngle = float.MinValue;
+		InitAngles();
+		m_width = width;
+		m_distance = distance;
+		m_penetrateLoS = penetrateLoS;
+		m_maxTargets = maxTargets;
+		m_affectsAllies = affectsAllies;
+		m_affectsCaster = affectsCaster;
+		m_curAngle = float.MinValue;
 	}
 
 	private static void InitAngles()
 	{
-		if (AbilityUtil_Targeter_Angle.s_angles == null)
+		if (s_angles == null)
 		{
-			AbilityUtil_Targeter_Angle.s_angles = new List<AbilityUtil_Targeter_Angle.AngleEntry>(AbilityUtil_Targeter_Angle.s_numAngles);
-			float num = (float)AbilityUtil_Targeter_Angle.s_numAngles;
-			for (int i = 0; i < AbilityUtil_Targeter_Angle.s_numAngles; i++)
+			s_angles = new List<AngleEntry>(s_numAngles);
+			float num = s_numAngles;
+			for (int i = 0; i < s_numAngles; i++)
 			{
-				float angle = (float)i * 6.28318548f / num;
+				float angle = (float)i * ((float)Math.PI * 2f) / num;
 				Vector3 vec = VectorUtils.AngleRadToVector(angle);
 				vec.Normalize();
-				AbilityUtil_Targeter_Angle.AngleEntry item = default(AbilityUtil_Targeter_Angle.AngleEntry);
+				AngleEntry item = default(AngleEntry);
 				item.angle = angle;
 				item.vec = vec;
-				AbilityUtil_Targeter_Angle.s_angles.Add(item);
+				s_angles.Add(item);
 			}
 		}
 	}
@@ -78,172 +86,97 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 	private static Vector3 GetValidDirOf(Vector3 freeDir)
 	{
 		float num = VectorUtils.HorizontalAngle_Rad(freeDir);
-		int num2 = Mathf.RoundToInt(num * (float)AbilityUtil_Targeter_Angle.s_numAngles / 6.28318548f);
-		for (;;)
+		int num2 = Mathf.RoundToInt(num * (float)s_numAngles / ((float)Math.PI * 2f));
+		while (true)
 		{
-			if (num2 < AbilityUtil_Targeter_Angle.s_numAngles)
+			if (num2 < s_numAngles)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Angle.GetValidDirOf(Vector3)).MethodHandle;
-				}
 				if (num2 >= 0)
 				{
 					break;
 				}
 			}
-			if (num2 >= AbilityUtil_Targeter_Angle.s_numAngles)
-			{
-				num2 -= AbilityUtil_Targeter_Angle.s_numAngles;
-			}
-			else
-			{
-				num2 += AbilityUtil_Targeter_Angle.s_numAngles;
-			}
+			num2 = ((num2 < s_numAngles) ? (num2 + s_numAngles) : (num2 - s_numAngles));
 		}
-		return AbilityUtil_Targeter_Angle.s_angles[num2].vec;
+		AngleEntry angleEntry = s_angles[num2];
+		return angleEntry.vec;
 	}
 
 	public float RotateHighlightTowards(float goalAngle)
 	{
-		if (this.m_curAngle != goalAngle)
+		if (m_curAngle != goalAngle)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Angle.RotateHighlightTowards(float)).MethodHandle;
-			}
-			if (this.m_curAngle == -3.40282347E+38f)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			else
+			if (m_curAngle != float.MinValue)
 			{
 				float deltaTime = Time.deltaTime;
-				float num = Mathf.Abs(goalAngle - this.m_curAngle);
-				if (num > 3.14159274f)
+				float num = Mathf.Abs(goalAngle - m_curAngle);
+				if (num > (float)Math.PI)
 				{
-					for (;;)
+					if (m_curAngle > goalAngle)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_curAngle > goalAngle)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_curAngle -= 6.28318548f;
+						m_curAngle -= (float)Math.PI * 2f;
 					}
 					else
 					{
-						this.m_curAngle += 6.28318548f;
+						m_curAngle += (float)Math.PI * 2f;
 					}
-					num = Mathf.Abs(goalAngle - this.m_curAngle);
+					num = Mathf.Abs(goalAngle - m_curAngle);
 				}
-				bool flag = num >= AbilityUtil_Targeter_Angle.s_farDistance;
-				bool flag2 = num <= AbilityUtil_Targeter_Angle.s_brakeDistance;
+				bool flag = num >= s_farDistance;
+				bool flag2 = num <= s_brakeDistance;
 				float num2;
 				float min;
 				float max;
 				if (flag)
 				{
-					num2 = AbilityUtil_Targeter_Angle.s_farAcceleration;
-					min = AbilityUtil_Targeter_Angle.s_farAcceleratingMinSpeed;
-					max = AbilityUtil_Targeter_Angle.s_farAcceleratingMaxSpeed;
+					num2 = s_farAcceleration;
+					min = s_farAcceleratingMinSpeed;
+					max = s_farAcceleratingMaxSpeed;
 				}
 				else if (!flag2)
 				{
-					num2 = AbilityUtil_Targeter_Angle.s_nearAcceleration;
-					min = AbilityUtil_Targeter_Angle.s_nearAcceleratingMinSpeed;
-					max = AbilityUtil_Targeter_Angle.s_nearAcceleratingMaxSpeed;
+					num2 = s_nearAcceleration;
+					min = s_nearAcceleratingMinSpeed;
+					max = s_nearAcceleratingMaxSpeed;
 				}
 				else
 				{
-					num2 = -AbilityUtil_Targeter_Angle.s_brakeAcceleration;
-					min = AbilityUtil_Targeter_Angle.s_brakeMinSpeed;
-					max = AbilityUtil_Targeter_Angle.s_brakeMaxSpeed;
+					num2 = 0f - s_brakeAcceleration;
+					min = s_brakeMinSpeed;
+					max = s_brakeMaxSpeed;
 				}
-				float num3 = this.m_curSpeed + num2 * deltaTime;
-				num3 = Mathf.Clamp(num3, min, max);
-				float num4 = num3 * deltaTime;
-				float num5 = (goalAngle - this.m_curAngle) / num;
-				if (num4 >= num)
+				float value = m_curSpeed + num2 * deltaTime;
+				value = Mathf.Clamp(value, min, max);
+				float num3 = value * deltaTime;
+				float num4 = (goalAngle - m_curAngle) / num;
+				if (num3 >= num)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							m_curSpeed = s_nearAcceleratingMinSpeed;
+							return goalAngle;
 						}
-						break;
 					}
-					this.m_curSpeed = AbilityUtil_Targeter_Angle.s_nearAcceleratingMinSpeed;
-					return goalAngle;
 				}
-				this.m_curSpeed = num3;
-				return this.m_curAngle + num5 * num4;
+				m_curSpeed = value;
+				return m_curAngle + num4 * num3;
 			}
 		}
-		this.m_curSpeed = AbilityUtil_Targeter_Angle.s_nearAcceleratingMinSpeed;
+		m_curSpeed = s_nearAcceleratingMinSpeed;
 		return goalAngle;
 	}
 
 	public VectorUtils.LaserCoords CurrentLaserCoordinates(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		Vector3 startPos = targetingActor.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Angle.CurrentLaserCoordinates(AbilityTarget, ActorData)).MethodHandle;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -251,68 +184,42 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 			vector = currentTarget.AimDirection;
 		}
 		Vector3 freeDir = vector;
-		Vector3 validDirOf = AbilityUtil_Targeter_Angle.GetValidDirOf(freeDir);
-		float maxDistanceInWorld = this.m_distance * Board.\u000E().squareSize;
-		float widthInWorld = this.m_width * Board.\u000E().squareSize;
-		return VectorUtils.GetLaserCoordinates(startPos, validDirOf, maxDistanceInWorld, widthInWorld, this.m_penetrateLoS, targetingActor, null);
+		Vector3 validDirOf = GetValidDirOf(freeDir);
+		float maxDistanceInWorld = m_distance * Board.Get().squareSize;
+		float widthInWorld = m_width * Board.Get().squareSize;
+		return VectorUtils.GetLaserCoordinates(travelBoardSquareWorldPositionForLos, validDirOf, maxDistanceInWorld, widthInWorld, m_penetrateLoS, targetingActor);
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		VectorUtils.LaserCoords coords = this.CurrentLaserCoordinates(currentTarget, targetingActor);
-		float widthInWorld = this.m_width * Board.\u000E().squareSize;
-		base.ClearActorsInRange();
-		List<ActorData> actorsInBox = AreaEffectUtils.GetActorsInBox(coords.start, coords.end, this.m_width, this.m_penetrateLoS, targetingActor, base.GetAffectedTeams());
-		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInBox);
-		if (actorsInBox.Contains(targetingActor))
+		VectorUtils.LaserCoords coords = CurrentLaserCoordinates(currentTarget, targetingActor);
+		float widthInWorld = m_width * Board.Get().squareSize;
+		ClearActorsInRange();
+		List<ActorData> actors = AreaEffectUtils.GetActorsInBox(coords.start, coords.end, m_width, m_penetrateLoS, targetingActor, GetAffectedTeams());
+		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+		if (actors.Contains(targetingActor))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Angle.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
-			actorsInBox.Remove(targetingActor);
+			actors.Remove(targetingActor);
 		}
-		VectorUtils.LaserCoords points = TargeterUtils.TrimTargetsAndGetLaserCoordsToFarthestTarget(ref actorsInBox, this.m_maxTargets, coords);
+		VectorUtils.LaserCoords points = TargeterUtils.TrimTargetsAndGetLaserCoordsToFarthestTarget(ref actors, m_maxTargets, coords);
 		float magnitude = (points.end - points.start).magnitude;
-		this.UpdateHighlight(widthInWorld, magnitude, points);
-		using (List<ActorData>.Enumerator enumerator = actorsInBox.GetEnumerator())
+		UpdateHighlight(widthInWorld, magnitude, points);
+		using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actor = enumerator.Current;
-				base.AddActorInRange(actor, points.start, targetingActor, AbilityTooltipSubject.Primary, false);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				ActorData current = enumerator.Current;
+				AddActorInRange(current, points.start, targetingActor);
 			}
 		}
-		if (this.m_affectsCaster)
+		if (!m_affectsCaster)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			base.AddActorInRange(targetingActor, points.start, targetingActor, AbilityTooltipSubject.Primary, false);
+			return;
+		}
+		while (true)
+		{
+			AddActorInRange(targetingActor, points.start, targetingActor);
+			return;
 		}
 	}
 
@@ -321,20 +228,7 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		if (base.Highlight == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Angle.UpdateHighlight(float, float, VectorUtils.LaserCoords)).MethodHandle;
-			}
-			base.Highlight = HighlightUtils.Get().CreateRectangularCursor(widthInWorld, cursorLength, null);
+			base.Highlight = HighlightUtils.Get().CreateRectangularCursor(widthInWorld, cursorLength);
 		}
 		else
 		{
@@ -343,15 +237,15 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 		Vector3 normalized = (points.end - points.start).normalized;
 		base.Highlight.transform.position = points.start + new Vector3(0f, y, 0f);
 		float goalAngle = VectorUtils.HorizontalAngle_Rad(normalized);
-		this.m_curAngle = this.RotateHighlightTowards(goalAngle);
-		Vector3 forward = VectorUtils.AngleRadToVector(this.m_curAngle);
+		m_curAngle = RotateHighlightTowards(goalAngle);
+		Vector3 forward = VectorUtils.AngleRadToVector(m_curAngle);
 		base.Highlight.transform.rotation = Quaternion.LookRotation(forward);
 	}
 
 	public override void DrawGizmos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		VectorUtils.LaserCoords laserCoords = this.CurrentLaserCoordinates(currentTarget, targetingActor);
-		float num = this.m_width * Board.\u000E().squareSize;
+		VectorUtils.LaserCoords laserCoords = CurrentLaserCoordinates(currentTarget, targetingActor);
+		float num = m_width * Board.Get().squareSize;
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		Vector3 vector = laserCoords.start + new Vector3(0f, y, 0f);
 		Vector3 vector2 = laserCoords.end + new Vector3(0f, y, 0f);
@@ -372,46 +266,27 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 		Gizmos.DrawLine(vector7, vector6);
 		Gizmos.DrawLine(vector6, vector4);
 		Gizmos.color = Color.yellow;
-		List<BoardSquare> squaresInBox = AreaEffectUtils.GetSquaresInBox(vector, vector2, this.m_width / 2f, this.m_penetrateLoS, targetingActor);
+		List<BoardSquare> squaresInBox = AreaEffectUtils.GetSquaresInBox(vector, vector2, m_width / 2f, m_penetrateLoS, targetingActor);
 		using (List<BoardSquare>.Enumerator enumerator = squaresInBox.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				BoardSquare boardSquare = enumerator.Current;
-				if (boardSquare.\u0016())
+				BoardSquare current = enumerator.Current;
+				if (current.IsBaselineHeight())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Angle.DrawGizmos(AbilityTarget, ActorData)).MethodHandle;
-					}
-					Gizmos.DrawWireCube(boardSquare.ToVector3(), new Vector3(0.05f, 0.1f, 0.05f));
+					Gizmos.DrawWireCube(current.ToVector3(), new Vector3(0.05f, 0.1f, 0.05f));
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
-	}
-
-	private struct AngleEntry
-	{
-		public float angle;
-
-		public Vector3 vec;
 	}
 }

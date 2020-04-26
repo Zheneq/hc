@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,46 +25,20 @@ public class ThiefSafecracker : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSafecracker.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Safecracker";
+			m_abilityName = "Safecracker";
 		}
-		base.Targeter = new AbilityUtil_Targeter_KnockbackLaser(this, this.m_laserWidth, this.m_laserRange, this.m_laserPenetrateLos, -1, this.m_knockbackDistance, this.m_knockbackDistance, this.m_knockbackType, false);
+		base.Targeter = new AbilityUtil_Targeter_KnockbackLaser(this, m_laserWidth, m_laserRange, m_laserPenetrateLos, -1, m_knockbackDistance, m_knockbackDistance, m_knockbackType, false);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		if (this.m_damageAmount > 0)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		if (m_damageAmount > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSafecracker.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
-			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_damageAmount);
+			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_damageAmount);
 		}
-		return result;
+		return numbers;
 	}
 }

@@ -1,17 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
 public class OnHitIntField
 {
+	public enum HitType
+	{
+		Damage,
+		Healing,
+		EnergyChange
+	}
+
 	[Header("-- used to match mod data and generate tooltip tokens. Not case sensitive, but should be unique within ability")]
 	public string m_identifier = string.Empty;
 
 	public TargetFilterConditions m_conditions;
 
-	public OnHitIntField.HitType m_hitType;
+	public HitType m_hitType;
 
 	public int m_baseValue;
 
@@ -28,324 +35,162 @@ public class OnHitIntField
 
 	public string GetIdentifier()
 	{
-		return this.m_identifier.Trim();
+		return m_identifier.Trim();
 	}
 
 	public OnHitIntField GetCopy()
 	{
-		OnHitIntField onHitIntField = base.MemberwiseClone() as OnHitIntField;
-		onHitIntField.m_conditions = this.m_conditions.\u001D();
+		OnHitIntField onHitIntField = MemberwiseClone() as OnHitIntField;
+		onHitIntField.m_conditions = m_conditions._001D();
 		onHitIntField.m_baseAddModifiers = new List<NumericContextOperand>();
-		for (int i = 0; i < this.m_baseAddModifiers.Count; i++)
+		for (int i = 0; i < m_baseAddModifiers.Count; i++)
 		{
-			NumericContextOperand copy = this.m_baseAddModifiers[i].GetCopy();
+			NumericContextOperand copy = m_baseAddModifiers[i].GetCopy();
 			onHitIntField.m_baseAddModifiers.Add(copy);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return onHitIntField;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitIntField.GetCopy()).MethodHandle;
-		}
-		return onHitIntField;
 	}
 
 	public int CalcValue(ActorHitContext hitContext, ContextVars abilityContext)
 	{
-		int num = this.m_baseValue;
-		int num2 = 0;
-		for (int i = 0; i < this.m_baseAddModifiers.Count; i++)
+		int baseValue = m_baseValue;
+		int num = 0;
+		for (int i = 0; i < m_baseAddModifiers.Count; i++)
 		{
-			NumericContextOperand numericContextOperand = this.m_baseAddModifiers[i];
+			NumericContextOperand numericContextOperand = m_baseAddModifiers[i];
 			int contextKey = numericContextOperand.GetContextKey();
 			bool flag = false;
 			float input = 0f;
 			if (numericContextOperand.m_nonActorSpecificContext)
 			{
-				for (;;)
+				if (abilityContext.ContainsInt(contextKey))
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitIntField.CalcValue(ActorHitContext, ContextVars)).MethodHandle;
-				}
-				if (abilityContext.\u0015(contextKey))
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					input = (float)abilityContext.\u0015(contextKey);
+					input = abilityContext.GetInt(contextKey);
 					flag = true;
 				}
-				else if (abilityContext.\u0016(contextKey))
+				else if (abilityContext.ContaintFloat(contextKey))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					input = abilityContext.\u0015(contextKey);
+					input = abilityContext.GetFloat(contextKey);
 					flag = true;
 				}
 			}
-			else if (hitContext.\u0015.\u0015(contextKey))
+			else if (hitContext._0015.ContainsInt(contextKey))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				input = (float)hitContext.\u0015.\u0015(contextKey);
+				input = hitContext._0015.GetInt(contextKey);
 				flag = true;
 			}
-			else if (hitContext.\u0015.\u0016(contextKey))
+			else if (hitContext._0015.ContaintFloat(contextKey))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				input = hitContext.\u0015.\u0015(contextKey);
+				input = hitContext._0015.GetFloat(contextKey);
 				flag = true;
 			}
-			if (flag)
+			if (!flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				float modifiedValue = numericContextOperand.m_modifier.GetModifiedValue(input);
-				if (numericContextOperand.m_additionalModifiers != null)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					for (int j = 0; j < numericContextOperand.m_additionalModifiers.Count; j++)
-					{
-						modifiedValue = numericContextOperand.m_additionalModifiers[j].GetModifiedValue(modifiedValue);
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				int num3 = Mathf.RoundToInt(modifiedValue);
-				num2 += num3;
-			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
 				continue;
 			}
-			break;
-		}
-		if (num2 < this.m_baseAddTotalMinValue)
-		{
-			num2 = this.m_baseAddTotalMinValue;
-		}
-		else if (num2 > this.m_baseAddTotalMaxValue)
-		{
-			for (;;)
+			float modifiedValue = numericContextOperand.m_modifier.GetModifiedValue(input);
+			if (numericContextOperand.m_additionalModifiers != null)
 			{
-				switch (5)
+				for (int j = 0; j < numericContextOperand.m_additionalModifiers.Count; j++)
 				{
-				case 0:
-					continue;
+					modifiedValue = numericContextOperand.m_additionalModifiers[j].GetModifiedValue(modifiedValue);
 				}
-				break;
 			}
-			if (this.m_baseAddTotalMaxValue > 0)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num2 = this.m_baseAddTotalMaxValue;
-			}
+			int num2 = Mathf.RoundToInt(modifiedValue);
+			num += num2;
 		}
-		num += num2;
-		if (num < this.m_minValue)
+		while (true)
 		{
-			for (;;)
+			if (num < m_baseAddTotalMinValue)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				num = m_baseAddTotalMinValue;
 			}
-			num = this.m_minValue;
-		}
-		else if (num > this.m_maxValue && this.m_maxValue > 0)
-		{
-			for (;;)
+			else if (num > m_baseAddTotalMaxValue)
 			{
-				switch (7)
+				if (m_baseAddTotalMaxValue > 0)
 				{
-				case 0:
-					continue;
+					num = m_baseAddTotalMaxValue;
 				}
-				break;
 			}
-			num = this.m_maxValue;
+			baseValue += num;
+			if (baseValue < m_minValue)
+			{
+				baseValue = m_minValue;
+			}
+			else if (baseValue > m_maxValue && m_maxValue > 0)
+			{
+				baseValue = m_maxValue;
+			}
+			return baseValue;
 		}
-		return num;
 	}
 
 	public void AddTooltipTokens(List<TooltipTokenEntry> tokens)
 	{
-		string identifier = this.GetIdentifier();
+		string identifier = GetIdentifier();
 		if (!string.IsNullOrEmpty(identifier))
 		{
-			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_Base", this.m_baseValue, string.Empty, false);
-			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_Min", this.m_minValue, string.Empty, false);
-			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_Max", this.m_maxValue, string.Empty, false);
-			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_BaseAddMin", this.m_baseAddTotalMinValue, string.Empty, false);
-			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_BaseAddMax", this.m_baseAddTotalMaxValue, string.Empty, false);
+			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_Base", m_baseValue, string.Empty);
+			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_Min", m_minValue, string.Empty);
+			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_Max", m_maxValue, string.Empty);
+			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_BaseAddMin", m_baseAddTotalMinValue, string.Empty);
+			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_BaseAddMax", m_baseAddTotalMaxValue, string.Empty);
 		}
 	}
 
 	public string GetInEditorDesc()
 	{
-		string text = "Field Type < " + InEditorDescHelper.ColoredString(this.m_hitType.ToString(), "cyan", false) + " >\n";
-		if (!string.IsNullOrEmpty(this.m_identifier))
+		string str = "Field Type < " + InEditorDescHelper.ColoredString(m_hitType.ToString()) + " >\n";
+		if (!string.IsNullOrEmpty(m_identifier))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitIntField.GetInEditorDesc()).MethodHandle;
-			}
-			text = text + "Identifier: " + InEditorDescHelper.ColoredString(this.m_identifier, "white", false) + "\n";
+			str = str + "Identifier: " + InEditorDescHelper.ColoredString(m_identifier, "white") + "\n";
 		}
-		text = text + "Conditions:\n" + this.m_conditions.\u001D("    ");
-		text = text + "BaseValue= " + InEditorDescHelper.ColoredString((float)this.m_baseValue, "cyan", false) + "\n";
-		if (this.m_minValue > 0)
+		str = str + "Conditions:\n" + m_conditions._001D("    ");
+		str = str + "BaseValue= " + InEditorDescHelper.ColoredString(m_baseValue) + "\n";
+		if (m_minValue > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text = text + "MinValue= " + InEditorDescHelper.ColoredString((float)this.m_minValue, "cyan", false) + "\n";
+			str = str + "MinValue= " + InEditorDescHelper.ColoredString(m_minValue) + "\n";
 		}
-		if (this.m_maxValue > 0)
+		if (m_maxValue > 0)
 		{
-			for (;;)
+			str = str + "MaxValue= " + InEditorDescHelper.ColoredString(m_maxValue) + "\n";
+		}
+		if (m_baseAddModifiers.Count > 0)
+		{
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			text = text + "MaxValue= " + InEditorDescHelper.ColoredString((float)this.m_maxValue, "cyan", false) + "\n";
-		}
-		if (this.m_baseAddModifiers.Count > 0)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text += "+ Base Add Modifiers\n";
-			using (List<NumericContextOperand>.Enumerator enumerator = this.m_baseAddModifiers.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					NumericContextOperand numericContextOperand = enumerator.Current;
-					text += numericContextOperand.GetInEditorDesc("    ");
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					str += "+ Base Add Modifiers\n";
+					using (List<NumericContextOperand>.Enumerator enumerator = m_baseAddModifiers.GetEnumerator())
+					{
+						while (enumerator.MoveNext())
+						{
+							NumericContextOperand current = enumerator.Current;
+							str += current.GetInEditorDesc("    ");
+						}
+						while (true)
+						{
+							switch (7)
+							{
+							case 0:
+								break;
+							default:
+								return str;
+							}
+						}
+					}
+				}
 				}
 			}
 		}
-		return text;
-	}
-
-	public enum HitType
-	{
-		Damage,
-		Healing,
-		EnergyChange
+		return str;
 	}
 }

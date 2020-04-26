@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityMod_ScampDashAndAoe : GenericAbility_AbilityMod
@@ -36,125 +36,71 @@ public class AbilityMod_ScampDashAndAoe : GenericAbility_AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ScampDashAndAoe scampDashAndAoe = targetAbility as ScampDashAndAoe;
-		if (scampDashAndAoe != null)
+		if (!(scampDashAndAoe != null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampDashAndAoe.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			base.AddOnHitDataTokens(tokens, this.m_shieldDownOnHitDataMod, scampDashAndAoe.m_shieldDownOnHitData);
-			AbilityMod.AddToken(tokens, this.m_shieldCostMod, "ShieldCost", string.Empty, scampDashAndAoe.m_shieldCost, true, false);
-			AbilityMod.AddToken(tokens, this.m_shieldDownCooldownMod, "ShieldDownCooldown", string.Empty, scampDashAndAoe.m_shieldDownCooldown, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrOnSuitApplyMod, "CdrOnSuitApply", string.Empty, scampDashAndAoe.m_cdrOnSuitApply, true, false);
-			AbilityMod.AddToken(tokens, this.m_shieldDownNoCooldownHealthThreshMod, "ShieldDownNoCooldownHealthThresh", string.Empty, scampDashAndAoe.m_shieldDownNoCooldownHealthThresh, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraEnergyForDashOnOrbMod, "ExtraEnergyForDashOnOrb", string.Empty, scampDashAndAoe.m_extraEnergyForDashOnOrb, true, false);
+			AddOnHitDataTokens(tokens, m_shieldDownOnHitDataMod, scampDashAndAoe.m_shieldDownOnHitData);
+			AbilityMod.AddToken(tokens, m_shieldCostMod, "ShieldCost", string.Empty, scampDashAndAoe.m_shieldCost);
+			AbilityMod.AddToken(tokens, m_shieldDownCooldownMod, "ShieldDownCooldown", string.Empty, scampDashAndAoe.m_shieldDownCooldown);
+			AbilityMod.AddToken(tokens, m_cdrOnSuitApplyMod, "CdrOnSuitApply", string.Empty, scampDashAndAoe.m_cdrOnSuitApply);
+			AbilityMod.AddToken(tokens, m_shieldDownNoCooldownHealthThreshMod, "ShieldDownNoCooldownHealthThresh", string.Empty, scampDashAndAoe.m_shieldDownNoCooldownHealthThresh);
+			AbilityMod.AddToken(tokens, m_extraEnergyForDashOnOrbMod, "ExtraEnergyForDashOnOrb", string.Empty, scampDashAndAoe.m_extraEnergyForDashOnOrb);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ScampDashAndAoe scampDashAndAoe = base.GetTargetAbilityOnAbilityData(abilityData) as ScampDashAndAoe;
+		ScampDashAndAoe scampDashAndAoe = GetTargetAbilityOnAbilityData(abilityData) as ScampDashAndAoe;
 		bool flag = scampDashAndAoe != null;
-		string text = base.ModSpecificAutogenDesc(abilityData);
+		string str = base.ModSpecificAutogenDesc(abilityData);
 		if (scampDashAndAoe != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampDashAndAoe.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			text += base.GetOnHitDataDesc(this.m_shieldDownOnHitDataMod, scampDashAndAoe.m_shieldDownOnHitData, "-- Shield Down On Hit Data Mod --");
-			text += base.GetTargetSelectModDesc(this.m_inSuitTargetSelectMod, scampDashAndAoe.m_targetSelectComp, "-- In-Suit Target Select Mod --");
-			text += base.GetTargetSelectModDesc(this.m_shieldDownTargetSelectMod, scampDashAndAoe.m_shieldDownTargetSelect, "-- Shield Down Target Select Mod --");
+			str += GetOnHitDataDesc(m_shieldDownOnHitDataMod, scampDashAndAoe.m_shieldDownOnHitData, "-- Shield Down On Hit Data Mod --");
+			str += GetTargetSelectModDesc(m_inSuitTargetSelectMod, scampDashAndAoe.m_targetSelectComp, "-- In-Suit Target Select Mod --");
+			str += GetTargetSelectModDesc(m_shieldDownTargetSelectMod, scampDashAndAoe.m_shieldDownTargetSelect, "-- Shield Down Target Select Mod --");
 		}
-		text += base.PropDesc(this.m_shieldCostMod, "[ShieldCost]", flag, (!flag) ? 0 : scampDashAndAoe.m_shieldCost);
-		string str = text;
-		AbilityModPropertyInt shieldDownCooldownMod = this.m_shieldDownCooldownMod;
-		string prefix = "[ShieldDownCooldown]";
-		bool showBaseVal = flag;
+		str += PropDesc(m_shieldCostMod, "[ShieldCost]", flag, flag ? scampDashAndAoe.m_shieldCost : 0);
+		string str2 = str;
+		AbilityModPropertyInt shieldDownCooldownMod = m_shieldDownCooldownMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = scampDashAndAoe.m_shieldDownCooldown;
 		}
 		else
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(shieldDownCooldownMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt cdrOnSuitApplyMod = this.m_cdrOnSuitApplyMod;
-		string prefix2 = "[CdrOnSuitApply]";
-		bool showBaseVal2 = flag;
+		str = str2 + PropDesc(shieldDownCooldownMod, "[ShieldDownCooldown]", flag, baseVal);
+		string str3 = str;
+		AbilityModPropertyInt cdrOnSuitApplyMod = m_cdrOnSuitApplyMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = scampDashAndAoe.m_cdrOnSuitApply;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(cdrOnSuitApplyMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyInt shieldDownNoCooldownHealthThreshMod = this.m_shieldDownNoCooldownHealthThreshMod;
-		string prefix3 = "[ShieldDownNoCooldownHealthThresh]";
-		bool showBaseVal3 = flag;
+		str = str3 + PropDesc(cdrOnSuitApplyMod, "[CdrOnSuitApply]", flag, baseVal2);
+		string str4 = str;
+		AbilityModPropertyInt shieldDownNoCooldownHealthThreshMod = m_shieldDownNoCooldownHealthThreshMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = scampDashAndAoe.m_shieldDownNoCooldownHealthThresh;
 		}
 		else
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(shieldDownNoCooldownHealthThreshMod, prefix3, showBaseVal3, baseVal3);
-		return text + base.PropDesc(this.m_extraEnergyForDashOnOrbMod, "[ExtraEnergyForDashOnOrb]", flag, (!flag) ? 0 : scampDashAndAoe.m_extraEnergyForDashOnOrb);
+		str = str4 + PropDesc(shieldDownNoCooldownHealthThreshMod, "[ShieldDownNoCooldownHealthThresh]", flag, baseVal3);
+		return str + PropDesc(m_extraEnergyForDashOnOrbMod, "[ExtraEnergyForDashOnOrb]", flag, flag ? scampDashAndAoe.m_extraEnergyForDashOnOrb : 0);
 	}
 }

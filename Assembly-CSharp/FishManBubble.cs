@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -64,16 +63,16 @@ public class FishManBubble : Ability
 
 	private void Start()
 	{
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
+		SetCachedFields();
 		AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
 		AbilityUtil_Targeter.AffectsActor affectsBestTarget = AbilityUtil_Targeter.AffectsActor.Always;
-		AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = new AbilityUtil_Targeter_Shape(this, this.GetExplosionShape(), false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, this.ExplosionAffectEnemies(), this.ExplosionAffectAllies(), affectsCaster, affectsBestTarget);
-		abilityUtil_Targeter_Shape.SetTooltipSubjectTypes(AbilityTooltipSubject.Primary, AbilityTooltipSubject.Secondary, AbilityTooltipSubject.None);
+		AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = new AbilityUtil_Targeter_Shape(this, GetExplosionShape(), false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, ExplosionAffectEnemies(), ExplosionAffectAllies(), affectsCaster, affectsBestTarget);
+		abilityUtil_Targeter_Shape.SetTooltipSubjectTypes(AbilityTooltipSubject.Primary, AbilityTooltipSubject.Secondary);
 		base.Targeter = abilityUtil_Targeter_Shape;
 	}
 
@@ -85,92 +84,48 @@ public class FishManBubble : Ability
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedEffectOnAllies;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.SetCachedFields()).MethodHandle;
-			}
-			cachedEffectOnAllies = this.m_abilityMod.m_effectOnAlliesMod.GetModifiedValue(this.m_effectOnAllies);
+			cachedEffectOnAllies = m_abilityMod.m_effectOnAlliesMod.GetModifiedValue(m_effectOnAllies);
 		}
 		else
 		{
-			cachedEffectOnAllies = this.m_effectOnAllies;
+			cachedEffectOnAllies = m_effectOnAllies;
 		}
-		this.m_cachedEffectOnAllies = cachedEffectOnAllies;
-		this.m_cachedEffectOnEnemies = ((!this.m_abilityMod) ? this.m_effectOnEnemies : this.m_abilityMod.m_effectOnEnemiesMod.GetModifiedValue(this.m_effectOnEnemies));
+		m_cachedEffectOnAllies = cachedEffectOnAllies;
+		m_cachedEffectOnEnemies = ((!m_abilityMod) ? m_effectOnEnemies : m_abilityMod.m_effectOnEnemiesMod.GetModifiedValue(m_effectOnEnemies));
 		StandardEffectInfo cachedExplosionEffectToAllies;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedExplosionEffectToAllies = this.m_abilityMod.m_explosionEffectToAlliesMod.GetModifiedValue(this.m_explosionEffectToAllies);
+			cachedExplosionEffectToAllies = m_abilityMod.m_explosionEffectToAlliesMod.GetModifiedValue(m_explosionEffectToAllies);
 		}
 		else
 		{
-			cachedExplosionEffectToAllies = this.m_explosionEffectToAllies;
+			cachedExplosionEffectToAllies = m_explosionEffectToAllies;
 		}
-		this.m_cachedExplosionEffectToAllies = cachedExplosionEffectToAllies;
+		m_cachedExplosionEffectToAllies = cachedExplosionEffectToAllies;
 		StandardEffectInfo cachedExplosionEffectToEnemies;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedExplosionEffectToEnemies = this.m_abilityMod.m_explosionEffectToEnemiesMod.GetModifiedValue(this.m_explosionEffectToEnemies);
+			cachedExplosionEffectToEnemies = m_abilityMod.m_explosionEffectToEnemiesMod.GetModifiedValue(m_explosionEffectToEnemies);
 		}
 		else
 		{
-			cachedExplosionEffectToEnemies = this.m_explosionEffectToEnemies;
+			cachedExplosionEffectToEnemies = m_explosionEffectToEnemies;
 		}
-		this.m_cachedExplosionEffectToEnemies = cachedExplosionEffectToEnemies;
+		m_cachedExplosionEffectToEnemies = cachedExplosionEffectToEnemies;
 	}
 
 	public AbilityAreaShape GetTargetShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.GetTargetShape()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_targetShapeMod.GetModifiedValue(this.m_targetShape);
+			result = m_abilityMod.m_targetShapeMod.GetModifiedValue(m_targetShape);
 		}
 		else
 		{
-			result = this.m_targetShape;
+			result = m_targetShape;
 		}
 		return result;
 	}
@@ -178,26 +133,13 @@ public class FishManBubble : Ability
 	public bool CanTargetEnemies()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.CanTargetEnemies()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_canTargetEnemiesMod.GetModifiedValue(this.m_canTargetEnemies);
+			result = m_abilityMod.m_canTargetEnemiesMod.GetModifiedValue(m_canTargetEnemies);
 		}
 		else
 		{
-			result = this.m_canTargetEnemies;
+			result = m_canTargetEnemies;
 		}
 		return result;
 	}
@@ -205,26 +147,13 @@ public class FishManBubble : Ability
 	public bool CanTargetAllies()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.CanTargetAllies()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_canTargetAlliesMod.GetModifiedValue(this.m_canTargetAllies);
+			result = m_abilityMod.m_canTargetAlliesMod.GetModifiedValue(m_canTargetAllies);
 		}
 		else
 		{
-			result = this.m_canTargetAllies;
+			result = m_canTargetAllies;
 		}
 		return result;
 	}
@@ -232,26 +161,13 @@ public class FishManBubble : Ability
 	public bool CanTargetSelf()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.CanTargetSelf()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_canTargetSelfMod.GetModifiedValue(this.m_canTargetSelf);
+			result = m_abilityMod.m_canTargetSelfMod.GetModifiedValue(m_canTargetSelf);
 		}
 		else
 		{
-			result = this.m_canTargetSelf;
+			result = m_canTargetSelf;
 		}
 		return result;
 	}
@@ -259,26 +175,13 @@ public class FishManBubble : Ability
 	public StandardEffectInfo GetEffectOnAllies()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectOnAllies != null)
+		if (m_cachedEffectOnAllies != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.GetEffectOnAllies()).MethodHandle;
-			}
-			result = this.m_cachedEffectOnAllies;
+			result = m_cachedEffectOnAllies;
 		}
 		else
 		{
-			result = this.m_effectOnAllies;
+			result = m_effectOnAllies;
 		}
 		return result;
 	}
@@ -286,90 +189,51 @@ public class FishManBubble : Ability
 	public StandardEffectInfo GetEffectOnEnemies()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEffectOnEnemies != null)
+		if (m_cachedEffectOnEnemies != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.GetEffectOnEnemies()).MethodHandle;
-			}
-			result = this.m_cachedEffectOnEnemies;
+			result = m_cachedEffectOnEnemies;
 		}
 		else
 		{
-			result = this.m_effectOnEnemies;
+			result = m_effectOnEnemies;
 		}
 		return result;
 	}
 
 	public int GetInitialHitHealingToAllies()
 	{
-		return (!this.m_abilityMod) ? this.m_initialHitHealingToAllies : this.m_abilityMod.m_initialHitHealingToAlliesMod.GetModifiedValue(this.m_initialHitHealingToAllies);
+		return (!m_abilityMod) ? m_initialHitHealingToAllies : m_abilityMod.m_initialHitHealingToAlliesMod.GetModifiedValue(m_initialHitHealingToAllies);
 	}
 
 	public int GetInitialHitDamageToEnemies()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.GetInitialHitDamageToEnemies()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_initialHitDamageToEnemiesMod.GetModifiedValue(this.m_initialHitDamageToEnemies);
+			result = m_abilityMod.m_initialHitDamageToEnemiesMod.GetModifiedValue(m_initialHitDamageToEnemies);
 		}
 		else
 		{
-			result = this.m_initialHitDamageToEnemies;
+			result = m_initialHitDamageToEnemies;
 		}
 		return result;
 	}
 
 	public int GetNumTurnsBeforeFirstExplosion()
 	{
-		return (!this.m_abilityMod) ? this.m_numTurnsBeforeFirstExplosion : this.m_abilityMod.m_numTurnsBeforeFirstExplosionMod.GetModifiedValue(this.m_numTurnsBeforeFirstExplosion);
+		return (!m_abilityMod) ? m_numTurnsBeforeFirstExplosion : m_abilityMod.m_numTurnsBeforeFirstExplosionMod.GetModifiedValue(m_numTurnsBeforeFirstExplosion);
 	}
 
 	public int GetNumExplosionsBeforeEnding()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.GetNumExplosionsBeforeEnding()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_numExplosionsBeforeEndingMod.GetModifiedValue(this.m_numExplosionsBeforeEnding);
+			result = m_abilityMod.m_numExplosionsBeforeEndingMod.GetModifiedValue(m_numExplosionsBeforeEnding);
 		}
 		else
 		{
-			result = this.m_numExplosionsBeforeEnding;
+			result = m_numExplosionsBeforeEnding;
 		}
 		return result;
 	}
@@ -377,26 +241,13 @@ public class FishManBubble : Ability
 	public AbilityAreaShape GetExplosionShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.GetExplosionShape()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_explosionShapeMod.GetModifiedValue(this.m_explosionShape);
+			result = m_abilityMod.m_explosionShapeMod.GetModifiedValue(m_explosionShape);
 		}
 		else
 		{
-			result = this.m_explosionShape;
+			result = m_explosionShape;
 		}
 		return result;
 	}
@@ -404,26 +255,13 @@ public class FishManBubble : Ability
 	public bool ExplosionIgnoresLineOfSight()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.ExplosionIgnoresLineOfSight()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_explosionIgnoresLineOfSightMod.GetModifiedValue(this.m_explosionIgnoresLineOfSight);
+			result = m_abilityMod.m_explosionIgnoresLineOfSightMod.GetModifiedValue(m_explosionIgnoresLineOfSight);
 		}
 		else
 		{
-			result = this.m_explosionIgnoresLineOfSight;
+			result = m_explosionIgnoresLineOfSight;
 		}
 		return result;
 	}
@@ -431,26 +269,13 @@ public class FishManBubble : Ability
 	public bool ExplosionCanAffectEffectHolder()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.ExplosionCanAffectEffectHolder()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_explosionCanAffectEffectHolderMod.GetModifiedValue(this.m_explosionCanAffectEffectHolder);
+			result = m_abilityMod.m_explosionCanAffectEffectHolderMod.GetModifiedValue(m_explosionCanAffectEffectHolder);
 		}
 		else
 		{
-			result = this.m_explosionCanAffectEffectHolder;
+			result = m_explosionCanAffectEffectHolder;
 		}
 		return result;
 	}
@@ -458,26 +283,13 @@ public class FishManBubble : Ability
 	public int GetExplosionHealingToAllies()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.GetExplosionHealingToAllies()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_explosionHealingToAlliesMod.GetModifiedValue(this.m_explosionHealingToAllies);
+			result = m_abilityMod.m_explosionHealingToAlliesMod.GetModifiedValue(m_explosionHealingToAllies);
 		}
 		else
 		{
-			result = this.m_explosionHealingToAllies;
+			result = m_explosionHealingToAllies;
 		}
 		return result;
 	}
@@ -485,26 +297,13 @@ public class FishManBubble : Ability
 	public int GetExplosionDamageToEnemies()
 	{
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.GetExplosionDamageToEnemies()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_explosionDamageToEnemiesMod.GetModifiedValue(this.m_explosionDamageToEnemies);
+			result = m_abilityMod.m_explosionDamageToEnemiesMod.GetModifiedValue(m_explosionDamageToEnemies);
 		}
 		else
 		{
-			result = this.m_explosionDamageToEnemies;
+			result = m_explosionDamageToEnemies;
 		}
 		return result;
 	}
@@ -512,26 +311,13 @@ public class FishManBubble : Ability
 	public StandardEffectInfo GetExplosionEffectToAllies()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedExplosionEffectToAllies != null)
+		if (m_cachedExplosionEffectToAllies != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.GetExplosionEffectToAllies()).MethodHandle;
-			}
-			result = this.m_cachedExplosionEffectToAllies;
+			result = m_cachedExplosionEffectToAllies;
 		}
 		else
 		{
-			result = this.m_explosionEffectToAllies;
+			result = m_explosionEffectToAllies;
 		}
 		return result;
 	}
@@ -539,296 +325,170 @@ public class FishManBubble : Ability
 	public StandardEffectInfo GetExplosionEffectToEnemies()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedExplosionEffectToEnemies != null)
+		if (m_cachedExplosionEffectToEnemies != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.GetExplosionEffectToEnemies()).MethodHandle;
-			}
-			result = this.m_cachedExplosionEffectToEnemies;
+			result = m_cachedExplosionEffectToEnemies;
 		}
 		else
 		{
-			result = this.m_explosionEffectToEnemies;
+			result = m_explosionEffectToEnemies;
 		}
 		return result;
 	}
 
 	public bool ExplosionAffectAllies()
 	{
-		bool result;
-		if (this.GetExplosionHealingToAllies() <= 0)
+		int result;
+		if (GetExplosionHealingToAllies() <= 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.ExplosionAffectAllies()).MethodHandle;
-			}
-			result = this.GetExplosionEffectToAllies().m_applyEffect;
+			result = (GetExplosionEffectToAllies().m_applyEffect ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool ExplosionAffectEnemies()
 	{
-		return this.GetExplosionDamageToEnemies() > 0 || this.GetExplosionEffectToEnemies().m_applyEffect;
+		return GetExplosionDamageToEnemies() > 0 || GetExplosionEffectToEnemies().m_applyEffect;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_FishManBubble))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_abilityMod = (abilityMod as AbilityMod_FishManBubble);
+					Setup();
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_FishManBubble);
-			this.Setup();
 		}
-		else
-		{
-			Debug.LogError("Trying to apply wrong type of ability mod");
-		}
+		Debug.LogError("Trying to apply wrong type of ability mod");
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_FishManBubble abilityMod_FishManBubble = modAsBase as AbilityMod_FishManBubble;
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_FishManBubble) ? this.m_effectOnAllies : abilityMod_FishManBubble.m_effectOnAlliesMod.GetModifiedValue(this.m_effectOnAllies), "EffectOnAllies", this.m_effectOnAllies, true);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_FishManBubble) ? m_effectOnAllies : abilityMod_FishManBubble.m_effectOnAlliesMod.GetModifiedValue(m_effectOnAllies), "EffectOnAllies", m_effectOnAllies);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_FishManBubble)
+		if ((bool)abilityMod_FishManBubble)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
-			effectInfo = abilityMod_FishManBubble.m_effectOnEnemiesMod.GetModifiedValue(this.m_effectOnEnemies);
+			effectInfo = abilityMod_FishManBubble.m_effectOnEnemiesMod.GetModifiedValue(m_effectOnEnemies);
 		}
 		else
 		{
-			effectInfo = this.m_effectOnEnemies;
+			effectInfo = m_effectOnEnemies;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnEnemies", this.m_effectOnEnemies, true);
-		string name = "InitialHitHealingToAllies";
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnEnemies", m_effectOnEnemies);
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_FishManBubble)
+		if ((bool)abilityMod_FishManBubble)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val = abilityMod_FishManBubble.m_initialHitHealingToAlliesMod.GetModifiedValue(this.m_initialHitHealingToAllies);
+			val = abilityMod_FishManBubble.m_initialHitHealingToAlliesMod.GetModifiedValue(m_initialHitHealingToAllies);
 		}
 		else
 		{
-			val = this.m_initialHitHealingToAllies;
+			val = m_initialHitHealingToAllies;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "InitialHitDamageToEnemies";
+		AddTokenInt(tokens, "InitialHitHealingToAllies", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_FishManBubble)
+		if ((bool)abilityMod_FishManBubble)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val2 = abilityMod_FishManBubble.m_initialHitDamageToEnemiesMod.GetModifiedValue(this.m_initialHitDamageToEnemies);
+			val2 = abilityMod_FishManBubble.m_initialHitDamageToEnemiesMod.GetModifiedValue(m_initialHitDamageToEnemies);
 		}
 		else
 		{
-			val2 = this.m_initialHitDamageToEnemies;
+			val2 = m_initialHitDamageToEnemies;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		string name3 = "NumTurnsBeforeFirstExplosion";
+		AddTokenInt(tokens, "InitialHitDamageToEnemies", empty2, val2);
 		string empty3 = string.Empty;
 		int val3;
-		if (abilityMod_FishManBubble)
+		if ((bool)abilityMod_FishManBubble)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val3 = abilityMod_FishManBubble.m_numTurnsBeforeFirstExplosionMod.GetModifiedValue(this.m_numTurnsBeforeFirstExplosion);
+			val3 = abilityMod_FishManBubble.m_numTurnsBeforeFirstExplosionMod.GetModifiedValue(m_numTurnsBeforeFirstExplosion);
 		}
 		else
 		{
-			val3 = this.m_numTurnsBeforeFirstExplosion;
+			val3 = m_numTurnsBeforeFirstExplosion;
 		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		base.AddTokenInt(tokens, "NumExplosionsBeforeEnding", string.Empty, (!abilityMod_FishManBubble) ? this.m_numExplosionsBeforeEnding : abilityMod_FishManBubble.m_numExplosionsBeforeEndingMod.GetModifiedValue(this.m_numExplosionsBeforeEnding), false);
-		string name4 = "ExplosionHealingToAllies";
+		AddTokenInt(tokens, "NumTurnsBeforeFirstExplosion", empty3, val3);
+		AddTokenInt(tokens, "NumExplosionsBeforeEnding", string.Empty, (!abilityMod_FishManBubble) ? m_numExplosionsBeforeEnding : abilityMod_FishManBubble.m_numExplosionsBeforeEndingMod.GetModifiedValue(m_numExplosionsBeforeEnding));
 		string empty4 = string.Empty;
 		int val4;
-		if (abilityMod_FishManBubble)
+		if ((bool)abilityMod_FishManBubble)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val4 = abilityMod_FishManBubble.m_explosionHealingToAlliesMod.GetModifiedValue(this.m_explosionHealingToAllies);
+			val4 = abilityMod_FishManBubble.m_explosionHealingToAlliesMod.GetModifiedValue(m_explosionHealingToAllies);
 		}
 		else
 		{
-			val4 = this.m_explosionHealingToAllies;
+			val4 = m_explosionHealingToAllies;
 		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
-		string name5 = "ExplosionDamageToEnemies";
+		AddTokenInt(tokens, "ExplosionHealingToAllies", empty4, val4);
 		string empty5 = string.Empty;
 		int val5;
-		if (abilityMod_FishManBubble)
+		if ((bool)abilityMod_FishManBubble)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val5 = abilityMod_FishManBubble.m_explosionDamageToEnemiesMod.GetModifiedValue(this.m_explosionDamageToEnemies);
+			val5 = abilityMod_FishManBubble.m_explosionDamageToEnemiesMod.GetModifiedValue(m_explosionDamageToEnemies);
 		}
 		else
 		{
-			val5 = this.m_explosionDamageToEnemies;
+			val5 = m_explosionDamageToEnemies;
 		}
-		base.AddTokenInt(tokens, name5, empty5, val5, false);
+		AddTokenInt(tokens, "ExplosionDamageToEnemies", empty5, val5);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_FishManBubble)
+		if ((bool)abilityMod_FishManBubble)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			effectInfo2 = abilityMod_FishManBubble.m_explosionEffectToAlliesMod.GetModifiedValue(this.m_explosionEffectToAllies);
+			effectInfo2 = abilityMod_FishManBubble.m_explosionEffectToAlliesMod.GetModifiedValue(m_explosionEffectToAllies);
 		}
 		else
 		{
-			effectInfo2 = this.m_explosionEffectToAllies;
+			effectInfo2 = m_explosionEffectToAllies;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "ExplosionEffectToAllies", this.m_explosionEffectToAllies, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "ExplosionEffectToAllies", m_explosionEffectToAllies);
 		StandardEffectInfo effectInfo3;
-		if (abilityMod_FishManBubble)
+		if ((bool)abilityMod_FishManBubble)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			effectInfo3 = abilityMod_FishManBubble.m_explosionEffectToEnemiesMod.GetModifiedValue(this.m_explosionEffectToEnemies);
+			effectInfo3 = abilityMod_FishManBubble.m_explosionEffectToEnemiesMod.GetModifiedValue(m_explosionEffectToEnemies);
 		}
 		else
 		{
-			effectInfo3 = this.m_explosionEffectToEnemies;
+			effectInfo3 = m_explosionEffectToEnemies;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "ExplosionEffectToEnemies", this.m_explosionEffectToEnemies, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "ExplosionEffectToEnemies", m_explosionEffectToEnemies);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		if (this.GetInitialHitDamageToEnemies() > 0)
+		List<AbilityTooltipNumber> number = new List<AbilityTooltipNumber>();
+		if (GetInitialHitDamageToEnemies() > 0)
 		{
-			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetInitialHitDamageToEnemies());
+			AbilityTooltipHelper.ReportDamage(ref number, AbilityTooltipSubject.Enemy, GetInitialHitDamageToEnemies());
 		}
-		if (this.GetInitialHitHealingToAllies() > 0)
+		if (GetInitialHitHealingToAllies() > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
-			AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Secondary, this.GetInitialHitHealingToAllies());
+			AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Secondary, GetInitialHitHealingToAllies());
 		}
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetExplosionDamageToEnemies());
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Secondary, this.GetExplosionHealingToAllies());
-		this.GetEffectOnEnemies().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);
-		this.GetEffectOnAllies().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary);
-		return result;
+		AbilityTooltipHelper.ReportDamage(ref number, AbilityTooltipSubject.Enemy, GetExplosionDamageToEnemies());
+		AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Secondary, GetExplosionHealingToAllies());
+		GetEffectOnEnemies().ReportAbilityTooltipNumbers(ref number, AbilityTooltipSubject.Enemy);
+		GetEffectOnAllies().ReportAbilityTooltipNumbers(ref number, AbilityTooltipSubject.Secondary);
+		return number;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -837,68 +497,27 @@ public class FishManBubble : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubble.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Targeter is AbilityUtil_Targeter_Shape)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = base.Targeter as AbilityUtil_Targeter_Shape;
 					ActorData lastCenterSquareActor = abilityUtil_Targeter_Shape.m_lastCenterSquareActor;
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					if (lastCenterSquareActor != null)
 					{
-						dictionary[AbilityTooltipSymbol.Absorb] = ((!(targetActor == lastCenterSquareActor)) ? 0 : this.GetEffectOnAllies().m_effectData.m_absorbAmount);
+						dictionary[AbilityTooltipSymbol.Absorb] = ((targetActor == lastCenterSquareActor) ? GetEffectOnAllies().m_effectData.m_absorbAmount : 0);
 						Dictionary<AbilityTooltipSymbol, int> dictionary2 = dictionary;
-						AbilityTooltipSymbol key = AbilityTooltipSymbol.Healing;
 						int value;
 						if (targetActor != lastCenterSquareActor)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							value = this.GetExplosionHealingToAllies();
+							value = GetExplosionHealingToAllies();
 						}
 						else
 						{
 							value = 0;
 						}
-						dictionary2[key] = value;
+						dictionary2[AbilityTooltipSymbol.Healing] = value;
 					}
 					else
 					{
@@ -913,6 +532,6 @@ public class FishManBubble : Ability
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-		return base.CanTargetActorInDecision(caster, currentBestActorTarget, this.CanTargetEnemies(), this.CanTargetAllies(), this.CanTargetSelf(), Ability.ValidateCheckPath.Ignore, true, true, false);
+		return CanTargetActorInDecision(caster, currentBestActorTarget, CanTargetEnemies(), CanTargetAllies(), CanTargetSelf(), ValidateCheckPath.Ignore, true, true);
 	}
 }

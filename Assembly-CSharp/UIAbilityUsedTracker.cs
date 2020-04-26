@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,134 +14,87 @@ public class UIAbilityUsedTracker : MonoBehaviour
 
 	public void AddNewAbility(Ability newAbility, ActorData theOwner)
 	{
-		if (!(newAbility == null) && !(theOwner == null))
+		if (newAbility == null || theOwner == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!theOwner.IsVisibleToClient())
+			{
+				return;
+			}
+			UIAbilityUsed uIAbilityUsed = Object.Instantiate(m_abilityPrefab);
+			uIAbilityUsed.transform.SetParent(m_gridlayout.transform);
+			uIAbilityUsed.transform.localPosition = Vector3.zero;
+			uIAbilityUsed.transform.localScale = Vector3.one;
+			uIAbilityUsed.Setup(newAbility, theOwner);
+			if (m_abilities == null)
+			{
+				m_abilities = new List<UIAbilityUsed>();
+			}
+			m_abilities.Add(uIAbilityUsed);
+			while (m_abilities.Count > 8)
+			{
+				Object.Destroy(m_abilities[0].gameObject);
+				m_abilities.RemoveAt(0);
+			}
+			while (true)
 			{
 				switch (4)
 				{
+				default:
+					return;
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityUsedTracker.AddNewAbility(Ability, ActorData)).MethodHandle;
-			}
-			if (theOwner.\u0018())
-			{
-				UIAbilityUsed uiabilityUsed = UnityEngine.Object.Instantiate<UIAbilityUsed>(this.m_abilityPrefab);
-				uiabilityUsed.transform.SetParent(this.m_gridlayout.transform);
-				uiabilityUsed.transform.localPosition = Vector3.zero;
-				uiabilityUsed.transform.localScale = Vector3.one;
-				uiabilityUsed.Setup(newAbility, theOwner);
-				if (this.m_abilities == null)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_abilities = new List<UIAbilityUsed>();
-				}
-				this.m_abilities.Add(uiabilityUsed);
-				while (this.m_abilities.Count > 8)
-				{
-					UnityEngine.Object.Destroy(this.m_abilities[0].gameObject);
-					this.m_abilities.RemoveAt(0);
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
-				return;
 			}
 		}
 	}
 
 	public void ClearAllAbilties(UIQueueListPanel.UIPhase phaseToClear = UIQueueListPanel.UIPhase.None)
 	{
-		if (this.m_abilities.Count == 0)
+		if (m_abilities.Count == 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityUsedTracker.ClearAllAbilties(UIQueueListPanel.UIPhase)).MethodHandle;
-			}
-			return;
 		}
 		if (phaseToClear != UIQueueListPanel.UIPhase.None)
 		{
-			for (int i = 0; i < this.m_abilities.Count; i++)
+			for (int i = 0; i < m_abilities.Count; i++)
 			{
-				if (phaseToClear != UIQueueListPanel.UIPhase.None)
+				if (phaseToClear == UIQueueListPanel.UIPhase.None)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (phaseToClear == UIQueueListPanel.GetUIPhaseFromAbilityPriority(this.m_abilities[i].GetAbilityRef().RunPriority))
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						GameObject gameObject = this.m_abilities[i].gameObject;
-						this.m_abilities.RemoveAt(i);
-						UnityEngine.Object.Destroy(gameObject);
-						i--;
-					}
+					continue;
+				}
+				if (phaseToClear == UIQueueListPanel.GetUIPhaseFromAbilityPriority(m_abilities[i].GetAbilityRef().RunPriority))
+				{
+					GameObject gameObject = m_abilities[i].gameObject;
+					m_abilities.RemoveAt(i);
+					Object.Destroy(gameObject);
+					i--;
 				}
 			}
 		}
 		else
 		{
-			using (List<UIAbilityUsed>.Enumerator enumerator = this.m_abilities.GetEnumerator())
+			using (List<UIAbilityUsed>.Enumerator enumerator = m_abilities.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					UIAbilityUsed uiabilityUsed = enumerator.Current;
-					UnityEngine.Object.Destroy(uiabilityUsed.gameObject);
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					UIAbilityUsed current = enumerator.Current;
+					Object.Destroy(current.gameObject);
 				}
 			}
-			this.m_abilities.Clear();
+			m_abilities.Clear();
 		}
 	}
 }

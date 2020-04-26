@@ -1,9 +1,10 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class _CurvedSlider : MonoBehaviour
 {
+	public delegate void UpdateValue(float newF);
+
 	public Mask m_maskObject;
 
 	public RectTransform m_rotatingImage;
@@ -21,119 +22,74 @@ public class _CurvedSlider : MonoBehaviour
 
 	private int previousSteps;
 
-	private _CurvedSlider.UpdateValue OnValueChanged;
+	private UpdateValue OnValueChanged;
 
 	private void Start()
 	{
 	}
 
-	public void SetOnValueChangedCallback(_CurvedSlider.UpdateValue callback)
+	public void SetOnValueChangedCallback(UpdateValue callback)
 	{
-		this.OnValueChanged = callback;
+		OnValueChanged = callback;
 	}
 
 	public void UpdateSliderAmount(float pct)
 	{
-		if (this.m_rotatingImage == null)
+		if (m_rotatingImage == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_CurvedSlider.UpdateSliderAmount(float)).MethodHandle;
-			}
-			return;
 		}
-		this.previousSteps = this.m_numSteps;
-		this.m_currentVal = pct;
-		this.previousVal = this.m_currentVal;
-		if (this.m_numSteps > 0)
+		previousSteps = m_numSteps;
+		m_currentVal = pct;
+		previousVal = m_currentVal;
+		if (m_numSteps > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_currentVal = Mathf.Round(this.m_currentVal * (float)this.m_numSteps) * (1f / (float)this.m_numSteps);
+			m_currentVal = Mathf.Round(m_currentVal * (float)m_numSteps) * (1f / (float)m_numSteps);
 		}
-		this.m_currentVal = Mathf.Clamp(this.m_currentVal, 0f, 1f);
-		Vector3 localEulerAngles = this.m_rotatingImage.transform.localEulerAngles;
-		localEulerAngles.z = this.m_currentVal * (this.m_maxAngleToRotate - this.m_minAngleToRotate) + this.m_minAngleToRotate;
-		this.m_rotatingImage.transform.localEulerAngles = localEulerAngles;
+		m_currentVal = Mathf.Clamp(m_currentVal, 0f, 1f);
+		Vector3 localEulerAngles = m_rotatingImage.transform.localEulerAngles;
+		localEulerAngles.z = m_currentVal * (m_maxAngleToRotate - m_minAngleToRotate) + m_minAngleToRotate;
+		m_rotatingImage.transform.localEulerAngles = localEulerAngles;
 	}
 
 	private void CallValuedChanged()
 	{
-		if (this.OnValueChanged != null)
+		if (OnValueChanged == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_CurvedSlider.CallValuedChanged()).MethodHandle;
-			}
-			this.OnValueChanged(this.m_currentVal);
+			return;
+		}
+		while (true)
+		{
+			OnValueChanged(m_currentVal);
+			return;
 		}
 	}
 
 	private void UpdateNewVal()
 	{
-		this.previousVal = this.m_currentVal;
-		this.UpdateSliderAmount(this.m_currentVal);
-		this.CallValuedChanged();
+		previousVal = m_currentVal;
+		UpdateSliderAmount(m_currentVal);
+		CallValuedChanged();
 	}
 
 	private void Update()
 	{
-		if (this.previousVal == this.m_currentVal)
+		if (previousVal == m_currentVal)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_CurvedSlider.Update()).MethodHandle;
-			}
-			if (this.previousSteps == this.m_numSteps)
+			if (previousSteps == m_numSteps)
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		this.UpdateNewVal();
+		UpdateNewVal();
 	}
-
-	public delegate void UpdateValue(float newF);
 }

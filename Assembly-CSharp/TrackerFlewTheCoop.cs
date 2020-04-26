@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,201 +13,100 @@ public class TrackerFlewTheCoop : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Flew The Coop";
+			m_abilityName = "Flew The Coop";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.m_droneTracker = base.GetComponent<TrackerDroneTrackerComponent>();
-		if (this.m_droneTracker == null)
+		m_droneTracker = GetComponent<TrackerDroneTrackerComponent>();
+		if (m_droneTracker == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerFlewTheCoop.SetupTargeter()).MethodHandle;
-			}
 			Debug.LogError("No drone tracker component");
 		}
 		bool flag = false;
-		StandardEffectInfo moddedEffectForSelf = base.GetModdedEffectForSelf();
+		StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
 		if (moddedEffectForSelf != null && moddedEffectForSelf.m_applyEffect)
 		{
 			flag = true;
 		}
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			if (m_abilityMod.m_additionalEffectOnSelf != null)
 			{
-				switch (4)
+				if (m_abilityMod.m_additionalEffectOnSelf.m_applyEffect)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_abilityMod.m_additionalEffectOnSelf != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_abilityMod.m_additionalEffectOnSelf.m_applyEffect)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 				}
 			}
 		}
-		AbilityUtil_Targeter.AffectsActor affectsActor;
+		int num;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			affectsActor = AbilityUtil_Targeter.AffectsActor.Always;
+			num = 2;
 		}
 		else
 		{
-			affectsActor = AbilityUtil_Targeter.AffectsActor.Never;
+			num = 0;
 		}
-		AbilityUtil_Targeter.AffectsActor affectsCaster = affectsActor;
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, affectsCaster, AbilityUtil_Targeter.AffectsActor.Possible);
+		AbilityUtil_Targeter.AffectsActor affectsCaster = (AbilityUtil_Targeter.AffectsActor)num;
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, affectsCaster);
 		base.Targeter.ShowArcToShape = false;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		base.AppendTooltipNumbersFromBaseModEffects(ref result, AbilityTooltipSubject.Enemy, AbilityTooltipSubject.Ally, AbilityTooltipSubject.Self);
-		if (this.m_abilityMod != null)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AppendTooltipNumbersFromBaseModEffects(ref numbers, AbilityTooltipSubject.Enemy);
+		if (m_abilityMod != null)
 		{
-			for (;;)
+			if (m_abilityMod.m_additionalEffectOnSelf != null)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerFlewTheCoop.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
-			if (this.m_abilityMod.m_additionalEffectOnSelf != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_abilityMod.m_additionalEffectOnSelf.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
+				m_abilityMod.m_additionalEffectOnSelf.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 			}
 		}
-		return result;
+		return numbers;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_droneTracker == null)
+		if (m_droneTracker == null)
 		{
 			return false;
 		}
-		bool flag = this.m_droneTracker.DroneIsActive();
+		bool flag = m_droneTracker.DroneIsActive();
 		bool flag2 = false;
-		if (!caster.\u000E())
+		if (!caster.IsDead())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerFlewTheCoop.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
-			BoardSquare boardSquare = Board.\u000E().\u0016(this.m_droneTracker.BoardX(), this.m_droneTracker.BoardY());
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
 			if (boardSquare != null)
 			{
-				float rangeInSquares = this.GetRangeInSquares(0);
+				float rangeInSquares = GetRangeInSquares(0);
 				if (rangeInSquares != 0f)
 				{
-					for (;;)
+					if (!(VectorUtils.HorizontalPlaneDistInSquares(caster.GetTravelBoardSquareWorldPosition(), boardSquare.ToVector3()) <= rangeInSquares))
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (VectorUtils.HorizontalPlaneDistInSquares(caster.\u0016(), boardSquare.ToVector3()) > rangeInSquares)
-					{
-						goto IL_AC;
+						goto IL_00ac;
 					}
 				}
 				flag2 = true;
 			}
 		}
-		IL_AC:
-		bool result;
+		goto IL_00ac;
+		IL_00ac:
+		int result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = flag2;
+			result = (flag2 ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	internal override ActorData.MovementType GetMovementType()
@@ -218,85 +116,45 @@ public class TrackerFlewTheCoop : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null) && boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null) && boardSquareSafe.IsBaselineHeight())
 		{
-			for (;;)
+			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 			{
-				switch (3)
+				if (m_droneTracker != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerFlewTheCoop.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
-			if (!(boardSquare == caster.\u0012()))
-			{
-				if (this.m_droneTracker != null)
-				{
-					for (;;)
+					BoardSquare boardSquare = Board.Get().GetBoardSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
+					if (boardSquare != null)
 					{
-						switch (5)
+						if (!m_includeDroneSquare)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					BoardSquare boardSquare2 = Board.\u000E().\u0016(this.m_droneTracker.BoardX(), this.m_droneTracker.BoardY());
-					if (boardSquare2 != null)
-					{
-						for (;;)
-						{
-							switch (4)
+							if (boardSquare == boardSquareSafe)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!this.m_includeDroneSquare)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (boardSquare2 == boardSquare)
-							{
-								for (;;)
+								while (true)
 								{
 									switch (1)
 									{
 									case 0:
-										continue;
+										break;
+									default:
+										return false;
 									}
-									break;
 								}
-								return false;
 							}
 						}
-						List<BoardSquare> squaresInShape = AreaEffectUtils.GetSquaresInShape(this.GetLandingShape(), boardSquare2.ToVector3(), boardSquare2, true, caster);
-						if (squaresInShape.Contains(boardSquare))
+						List<BoardSquare> squaresInShape = AreaEffectUtils.GetSquaresInShape(GetLandingShape(), boardSquare.ToVector3(), boardSquare, true, caster);
+						if (squaresInShape.Contains(boardSquareSafe))
 						{
-							for (;;)
+							while (true)
 							{
 								switch (6)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									return true;
 								}
-								break;
 							}
-							return true;
 						}
 					}
 				}
@@ -308,87 +166,53 @@ public class TrackerFlewTheCoop : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_TrackerFlewTheCoop))
+		if (abilityMod.GetType() != typeof(AbilityMod_TrackerFlewTheCoop))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerFlewTheCoop.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
-			this.m_abilityMod = (abilityMod as AbilityMod_TrackerFlewTheCoop);
-			this.SetupTargeter();
+			return;
+		}
+		while (true)
+		{
+			m_abilityMod = (abilityMod as AbilityMod_TrackerFlewTheCoop);
+			SetupTargeter();
+			return;
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 
 	private AbilityAreaShape GetLandingShape()
 	{
 		AbilityAreaShape result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerFlewTheCoop.GetLandingShape()).MethodHandle;
-			}
-			result = this.m_hookshotShape;
+			result = m_hookshotShape;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_landingShapeMod.GetModifiedValue(this.m_hookshotShape);
+			result = m_abilityMod.m_landingShapeMod.GetModifiedValue(m_hookshotShape);
 		}
 		return result;
 	}
 
 	public int GetModdedExtraDroneDamageDuration()
 	{
-		return (!(this.m_abilityMod == null)) ? this.m_abilityMod.m_extraDroneDamageDuration.GetModifiedValue(0) : 0;
+		return (!(m_abilityMod == null)) ? m_abilityMod.m_extraDroneDamageDuration.GetModifiedValue(0) : 0;
 	}
 
 	public int GetModdedExtraDroneDamage()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerFlewTheCoop.GetModdedExtraDroneDamage()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_extraDroneDamage.GetModifiedValue(0);
+			result = m_abilityMod.m_extraDroneDamage.GetModifiedValue(0);
 		}
 		return result;
 	}
@@ -396,26 +220,13 @@ public class TrackerFlewTheCoop : Ability
 	public int GetModdedExtraDroneUntrackedDamage()
 	{
 		int result;
-		if (this.m_abilityMod == null)
+		if (m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerFlewTheCoop.GetModdedExtraDroneUntrackedDamage()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
 		{
-			result = this.m_abilityMod.m_extraDroneUntrackedDamage.GetModifiedValue(0);
+			result = m_abilityMod.m_extraDroneUntrackedDamage.GetModifiedValue(0);
 		}
 		return result;
 	}

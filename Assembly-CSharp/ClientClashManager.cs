@@ -1,10 +1,16 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class ClientClashManager : MonoBehaviour
 {
+	private enum MessageHandlersState
+	{
+		NotYetRegistered,
+		Registered,
+		Unregistered
+	}
+
 	[Header("-- Visual --")]
 	public GameObject m_vfxPrefab;
 
@@ -19,7 +25,7 @@ public class ClientClashManager : MonoBehaviour
 
 	private static ClientClashManager s_instance;
 
-	private ClientClashManager.MessageHandlersState m_currentMessageHandlersState;
+	private MessageHandlersState m_currentMessageHandlersState;
 
 	private List<ClashAtEndOfEvade> m_postEvadeClashes;
 
@@ -27,129 +33,77 @@ public class ClientClashManager : MonoBehaviour
 
 	public static ClientClashManager Get()
 	{
-		return ClientClashManager.s_instance;
+		return s_instance;
 	}
 
 	public void OnActorMoved_ClientClashManager(ActorData mover, BoardSquarePathInfo curPath)
 	{
 		if (curPath.m_moverClashesHere)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientClashManager.OnActorMoved_ClientClashManager(ActorData, BoardSquarePathInfo)).MethodHandle;
-			}
 			if (curPath.next != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (curPath.prev != null)
 				{
-					goto IL_50;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_0050;
 				}
 			}
-			this.OnMidMovementClash(curPath.square);
+			OnMidMovementClash(curPath.square);
 			return;
 		}
-		IL_50:
+		goto IL_0050;
+		IL_0050:
 		if (curPath.prev != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (curPath.prev.m_moverClashesHere)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						OnMidMovementClash(curPath.prev.square);
+						return;
 					}
-					break;
 				}
-				this.OnMidMovementClash(curPath.prev.square);
-				return;
 			}
 		}
-		if (curPath.next == null)
+		if (curPath.next != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			List<ClashAtEndOfEvade> list = new List<ClashAtEndOfEvade>();
-			using (List<ClashAtEndOfEvade>.Enumerator enumerator = this.m_postEvadeClashes.GetEnumerator())
+			using (List<ClashAtEndOfEvade>.Enumerator enumerator = m_postEvadeClashes.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ClashAtEndOfEvade clashAtEndOfEvade = enumerator.Current;
-					if (clashAtEndOfEvade.m_participants.Contains(mover))
+					ClashAtEndOfEvade current = enumerator.Current;
+					if (current.m_participants.Contains(mover))
 					{
-						list.Add(clashAtEndOfEvade);
-						this.OnMidMovementClash(clashAtEndOfEvade.m_clashSquare);
+						list.Add(current);
+						OnMidMovementClash(current.m_clashSquare);
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			using (List<ClashAtEndOfEvade>.Enumerator enumerator2 = list.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
 				{
-					ClashAtEndOfEvade item = enumerator2.Current;
-					this.m_postEvadeClashes.Remove(item);
+					ClashAtEndOfEvade current2 = enumerator2.Current;
+					m_postEvadeClashes.Remove(current2);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}
@@ -158,304 +112,192 @@ public class ClientClashManager : MonoBehaviour
 	public void OnMidMovementClash(BoardSquare clashSquare)
 	{
 		bool flag = true;
-		using (List<ActiveClashVfx>.Enumerator enumerator = this.m_activeClashVfxList.GetEnumerator())
+		using (List<ActiveClashVfx>.Enumerator enumerator = m_activeClashVfxList.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActiveClashVfx activeClashVfx = enumerator.Current;
-				if (activeClashVfx.m_square == clashSquare)
+				ActiveClashVfx current = enumerator.Current;
+				if (current.m_square == clashSquare)
 				{
-					for (;;)
+					if (Time.time < current.m_timeCreated + m_timeTillNewClashOnSameSquare)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientClashManager.OnMidMovementClash(BoardSquare)).MethodHandle;
-					}
-					if (Time.time < activeClashVfx.m_timeCreated + this.m_timeTillNewClashOnSameSquare)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = false;
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (flag)
 		{
-			float timeToExpire = Time.time + this.m_timeTillClashExpires;
-			ActiveClashVfx item = new ActiveClashVfx(clashSquare, this.m_vfxPrefab, timeToExpire, this.m_onClashAudioEvent);
-			this.m_activeClashVfxList.Add(item);
+			float timeToExpire = Time.time + m_timeTillClashExpires;
+			ActiveClashVfx item = new ActiveClashVfx(clashSquare, m_vfxPrefab, timeToExpire, m_onClashAudioEvent);
+			m_activeClashVfxList.Add(item);
 		}
 	}
 
 	private void Awake()
 	{
-		ClientClashManager.s_instance = this;
-		this.m_postEvadeClashes = new List<ClashAtEndOfEvade>();
-		this.m_activeClashVfxList = new List<ActiveClashVfx>();
-		this.m_currentMessageHandlersState = ClientClashManager.MessageHandlersState.NotYetRegistered;
-		this.RegisterHandler();
+		s_instance = this;
+		m_postEvadeClashes = new List<ClashAtEndOfEvade>();
+		m_activeClashVfxList = new List<ActiveClashVfx>();
+		m_currentMessageHandlersState = MessageHandlersState.NotYetRegistered;
+		RegisterHandler();
 	}
 
 	private void OnDestroy()
 	{
-		this.UnregisterHandlers();
-		ClientClashManager.s_instance = null;
+		UnregisterHandlers();
+		s_instance = null;
 	}
 
 	private void RegisterHandler()
 	{
-		if (this.m_currentMessageHandlersState == ClientClashManager.MessageHandlersState.NotYetRegistered)
+		if (m_currentMessageHandlersState != 0)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(ClientGameManager.Get() != null))
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientClashManager.RegisterHandler()).MethodHandle;
-			}
-			if (ClientGameManager.Get() != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().Client != null)
 				{
-					ClientGameManager.Get().Client.RegisterHandler(0x48, new NetworkMessageDelegate(this.MsgClashesAtEndOfMovement));
-					this.m_currentMessageHandlersState = ClientClashManager.MessageHandlersState.Registered;
+					ClientGameManager.Get().Client.RegisterHandler(72, MsgClashesAtEndOfMovement);
+					m_currentMessageHandlersState = MessageHandlersState.Registered;
 				}
+				return;
 			}
 		}
 	}
 
 	public void UnregisterHandlers()
 	{
-		if (this.m_currentMessageHandlersState == ClientClashManager.MessageHandlersState.Registered)
+		if (m_currentMessageHandlersState != MessageHandlersState.Registered)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(ClientGameManager.Get() != null))
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientClashManager.UnregisterHandlers()).MethodHandle;
-			}
-			if (ClientGameManager.Get() != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().Client != null)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						ClientGameManager.Get().Client.UnregisterHandler(72);
+						m_currentMessageHandlersState = MessageHandlersState.Unregistered;
+						return;
 					}
-					ClientGameManager.Get().Client.UnregisterHandler(0x48);
-					this.m_currentMessageHandlersState = ClientClashManager.MessageHandlersState.Unregistered;
 				}
+				return;
 			}
 		}
 	}
 
 	public void OnTurnStart()
 	{
-		this.m_postEvadeClashes.Clear();
+		m_postEvadeClashes.Clear();
 	}
 
 	internal void MsgClashesAtEndOfMovement(NetworkMessage netMsg)
 	{
 		NetworkReader reader = netMsg.reader;
-		this.m_postEvadeClashes.Clear();
+		m_postEvadeClashes.Clear();
 		sbyte b = reader.ReadSByte();
-		for (int i = 0; i < (int)b; i++)
+		for (int i = 0; i < b; i++)
 		{
 			sbyte b2 = reader.ReadSByte();
 			sbyte b3 = reader.ReadSByte();
-			BoardSquare clashSquare = Board.\u000E().\u0016((int)b2, (int)b3);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(b2, b3);
 			List<ActorData> list = new List<ActorData>();
 			sbyte b4 = reader.ReadSByte();
-			for (int j = 0; j < (int)b4; j++)
+			for (int j = 0; j < b4; j++)
 			{
 				sbyte b5 = reader.ReadSByte();
-				ActorData actorData = GameFlowData.Get().FindActorByActorIndex((int)b5);
+				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(b5);
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientClashManager.MsgClashesAtEndOfMovement(NetworkMessage)).MethodHandle;
-					}
 					list.Add(actorData);
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_00ac;
 				}
+				continue;
+				end_IL_00ac:
 				break;
 			}
-			ClashAtEndOfEvade item = new ClashAtEndOfEvade(list, clashSquare);
-			this.m_postEvadeClashes.Add(item);
+			ClashAtEndOfEvade item = new ClashAtEndOfEvade(list, boardSquare);
+			m_postEvadeClashes.Add(item);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (1)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	private void Update()
 	{
 		List<ActiveClashVfx> list = null;
-		using (List<ActiveClashVfx>.Enumerator enumerator = this.m_activeClashVfxList.GetEnumerator())
+		using (List<ActiveClashVfx>.Enumerator enumerator = m_activeClashVfxList.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActiveClashVfx activeClashVfx = enumerator.Current;
-				if (Time.time > activeClashVfx.m_timeCreated + this.m_timeTillClashExpires)
+				ActiveClashVfx current = enumerator.Current;
+				if (Time.time > current.m_timeCreated + m_timeTillClashExpires)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientClashManager.Update()).MethodHandle;
-					}
 					if (list == null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list = new List<ActiveClashVfx>();
 					}
-					list.Add(activeClashVfx);
+					list.Add(current);
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
-		if (list != null)
+		if (list == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			return;
+		}
+		while (true)
+		{
 			using (List<ActiveClashVfx>.Enumerator enumerator2 = list.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
 				{
-					ActiveClashVfx activeClashVfx2 = enumerator2.Current;
-					activeClashVfx2.OnEnd();
-					this.m_activeClashVfxList.Remove(activeClashVfx2);
+					ActiveClashVfx current2 = enumerator2.Current;
+					current2.OnEnd();
+					m_activeClashVfxList.Remove(current2);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}
-	}
-
-	private enum MessageHandlersState
-	{
-		NotYetRegistered,
-		Registered,
-		Unregistered
 	}
 }

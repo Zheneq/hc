@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class ClashAtEndOfEvade
@@ -9,7 +8,7 @@ public class ClashAtEndOfEvade
 
 	public ClashAtEndOfEvade(List<ActorData> participants, BoardSquare clashSquare)
 	{
-		this.m_participants = participants;
-		this.m_clashSquare = clashSquare;
+		m_participants = participants;
+		m_clashSquare = clashSquare;
 	}
 }

@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public static class GameTime
@@ -19,8 +18,8 @@ public static class GameTime
 	{
 		get
 		{
-			GameTime.ResyncTime();
-			return GameTime.s_time;
+			ResyncTime();
+			return s_time;
 		}
 	}
 
@@ -28,8 +27,8 @@ public static class GameTime
 	{
 		get
 		{
-			GameTime.ResyncTime();
-			return GameTime.s_timeDelta;
+			ResyncTime();
+			return s_timeDelta;
 		}
 	}
 
@@ -37,8 +36,8 @@ public static class GameTime
 	{
 		get
 		{
-			GameTime.ResyncTime();
-			return GameTime.s_timeSmoothDelta;
+			ResyncTime();
+			return s_timeSmoothDelta;
 		}
 	}
 
@@ -46,61 +45,48 @@ public static class GameTime
 	{
 		get
 		{
-			return GameTime.s_scale;
+			return s_scale;
 		}
 		set
 		{
-			if (GameTime.s_scale != value)
+			if (s_scale == value)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameTime.set_scale(float)).MethodHandle;
-				}
-				GameTime.s_scale = value;
+				return;
+			}
+			while (true)
+			{
+				s_scale = value;
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.GametimeScaleChange, null);
+				return;
 			}
 		}
 	}
 
 	private static void ResyncTime()
 	{
-		if (!GameTime.s_initted)
+		if (!s_initted)
 		{
-			GameTime.s_time = Time.time;
-			GameTime.s_timeDelta = Time.deltaTime;
-			GameTime.s_timeSmoothDelta = Time.smoothDeltaTime;
-			GameTime.s_timeLastSeen = Time.time;
-			GameTime.s_initted = true;
-			GameTime.scale = 1f;
+			s_time = Time.time;
+			s_timeDelta = Time.deltaTime;
+			s_timeSmoothDelta = Time.smoothDeltaTime;
+			s_timeLastSeen = Time.time;
+			s_initted = true;
+			scale = 1f;
 		}
-		else if (GameTime.s_timeLastSeen != Time.time)
+		else
 		{
-			for (;;)
+			if (s_timeLastSeen == Time.time)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameTime.ResyncTime()).MethodHandle;
+				s_time += (Time.time - s_timeLastSeen) * scale;
+				s_timeDelta = Time.deltaTime * scale;
+				s_timeSmoothDelta = Time.smoothDeltaTime * scale;
+				s_timeLastSeen = Time.time;
+				return;
 			}
-			GameTime.s_time += (Time.time - GameTime.s_timeLastSeen) * GameTime.scale;
-			GameTime.s_timeDelta = Time.deltaTime * GameTime.scale;
-			GameTime.s_timeSmoothDelta = Time.smoothDeltaTime * GameTime.scale;
-			GameTime.s_timeLastSeen = Time.time;
 		}
 	}
 }

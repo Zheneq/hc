@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,11 +22,11 @@ public class SenseiBideAttachedSequence : Sequence
 	[AnimEventPicker]
 	[Header("-- Anim Events --")]
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
-	public UnityEngine.Object m_startEvent;
+	public Object m_startEvent;
 
 	[AnimEventPicker]
 	[Tooltip("Animation event (if any) to wait for before stopping the sequence. Search project for EventObjects.")]
-	public UnityEngine.Object m_stopEvent;
+	public Object m_stopEvent;
 
 	[Header("-- Spawn Delay (ignored if there is Start Event) --")]
 	public float m_startDelayTime;
@@ -48,17 +47,17 @@ public class SenseiBideAttachedSequence : Sequence
 	public bool m_hitAlignedWithCaster;
 
 	[AnimEventPicker]
-	public UnityEngine.Object m_hitEvent;
+	public Object m_hitEvent;
 
 	public float m_hitDelay;
 
 	[Header("-- Team restrictions for Hit VFX on Targets --")]
-	public Sequence.HitVFXSpawnTeam m_hitVfxSpawnTeamMode;
+	public HitVFXSpawnTeam m_hitVfxSpawnTeamMode;
 
 	[AudioEvent(false)]
 	public string m_hitAudioEvent;
 
-	public Sequence.PhaseTimingParameters m_phaseTimingParameters;
+	public PhaseTimingParameters m_phaseTimingParameters;
 
 	private List<GameObject> m_fxInstances;
 
@@ -74,593 +73,299 @@ public class SenseiBideAttachedSequence : Sequence
 
 	private int m_lastActiveIndex = -1;
 
-	internal override void Initialize(Sequence.IExtraSequenceParams[] extraParams)
+	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
 		ActorData actorData = null;
-		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
+		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			base.OverridePhaseTimingParams(this.m_phaseTimingParameters, extraSequenceParams);
-			if (extraSequenceParams is Sequence.ActorIndexExtraParam)
+			OverridePhaseTimingParams(m_phaseTimingParameters, extraSequenceParams);
+			if (extraSequenceParams is ActorIndexExtraParam)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				if (GameFlowData.Get() != null)
 				{
-					Sequence.ActorIndexExtraParam actorIndexExtraParam = extraSequenceParams as Sequence.ActorIndexExtraParam;
-					int actorIndex = (int)actorIndexExtraParam.m_actorIndex;
+					ActorIndexExtraParam actorIndexExtraParam = extraSequenceParams as ActorIndexExtraParam;
+					int actorIndex = actorIndexExtraParam.m_actorIndex;
 					actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 				}
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
+			if (actorData != null)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (actorData != null)
-		{
-			for (;;)
-			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						m_syncComp = actorData.GetComponent<Sensei_SyncComponent>();
+						return;
+					}
 				}
-				break;
 			}
-			this.m_syncComp = actorData.GetComponent<Sensei_SyncComponent>();
-		}
-		else if (Application.isEditor)
-		{
-			for (;;)
+			if (Application.isEditor)
 			{
-				switch (2)
+				while (true)
 				{
-				case 0:
-					continue;
+					Debug.LogError("Did not find Sensei for sensei ult sequence");
+					return;
 				}
-				break;
 			}
-			Debug.LogError("Did not find Sensei for sensei ult sequence");
+			return;
 		}
 	}
 
 	public int GetCurrnetFxIndex()
 	{
-		if (!(this.m_syncComp != null) || this.m_fxPrefabs.Count <= 1)
+		if (m_syncComp != null && m_fxPrefabs.Count > 1)
 		{
-			return 0;
-		}
-		for (;;)
-		{
-			switch (7)
+			while (true)
 			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.GetCurrnetFxIndex()).MethodHandle;
-		}
-		int num = this.m_fxPrefabs.Count - 1;
-		float syncBideExtraDamagePct = this.m_syncComp.m_syncBideExtraDamagePct;
-		if (syncBideExtraDamagePct >= 0.99f)
-		{
-			for (;;)
-			{
-				switch (4)
+				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					int num = m_fxPrefabs.Count - 1;
+					float syncBideExtraDamagePct = m_syncComp.m_syncBideExtraDamagePct;
+					if (syncBideExtraDamagePct >= 0.99f)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								break;
+							default:
+								return num;
+							}
+						}
+					}
+					float num2 = 1f / (float)num;
+					return Mathf.FloorToInt(syncBideExtraDamagePct / num2);
 				}
-				break;
+				}
 			}
-			return num;
 		}
-		float num2 = 1f / (float)num;
-		return Mathf.FloorToInt(syncBideExtraDamagePct / num2);
+		return 0;
 	}
 
 	public override void FinishSetup()
 	{
-		if (this.m_startEvent == null)
+		if (!(m_startEvent == null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!m_phaseTimingParameters.ShouldSequenceBeActive())
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			if (m_startDelayTime <= 0f)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.FinishSetup()).MethodHandle;
-			}
-			if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
-			{
-				if (this.m_startDelayTime <= 0f)
+				while (true)
 				{
-					for (;;)
+					switch (7)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
+					case 0:
 						break;
+					default:
+						SpawnFX();
+						return;
 					}
-					this.SpawnFX();
-				}
-				else
-				{
-					this.m_timeToSpawnVfx = GameTime.time + this.m_startDelayTime;
 				}
 			}
+			m_timeToSpawnVfx = GameTime.time + m_startDelayTime;
+			return;
 		}
 	}
 
 	private bool IsHitFXVisibleForActor(ActorData hitTarget)
 	{
-		return base.IsHitFXVisibleWrtTeamFilter(hitTarget, this.m_hitVfxSpawnTeamMode);
+		return IsHitFXVisibleWrtTeamFilter(hitTarget, m_hitVfxSpawnTeamMode);
 	}
 
 	internal override void OnTurnStart(int currentTurn)
 	{
-		this.m_phaseTimingParameters.OnTurnStart(currentTurn);
+		m_phaseTimingParameters.OnTurnStart(currentTurn);
 	}
 
 	internal override void OnAbilityPhaseStart(AbilityPriority abilityPhase)
 	{
-		this.m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
-		if (this.m_startEvent == null)
+		m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
+		if (m_startEvent == null)
 		{
-			for (;;)
+			if (m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase))
 			{
-				switch (5)
+				if (m_phaseTimingParameters.ShouldSequenceBeActive())
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.OnAbilityPhaseStart(AbilityPriority)).MethodHandle;
-			}
-			if (this.m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase))
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.SpawnFX();
+					SpawnFX();
 				}
 			}
 		}
-		if (this.m_phaseTimingParameters.ShouldStopSequence(abilityPhase))
+		if (!m_phaseTimingParameters.ShouldStopSequence(abilityPhase))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_fxInstances != null)
 			{
-				switch (7)
+				while (true)
 				{
-				case 0:
-					continue;
+					StopFX();
+					return;
 				}
-				break;
 			}
-			if (this.m_fxInstances != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.StopFX();
-			}
+			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (this.m_initialized)
+		if (!m_initialized)
 		{
-			if (this.m_timeToSpawnVfx > 0f && GameTime.time >= this.m_timeToSpawnVfx)
+			return;
+		}
+		if (m_timeToSpawnVfx > 0f && GameTime.time >= m_timeToSpawnVfx)
+		{
+			m_timeToSpawnVfx = -1f;
+			SpawnFX();
+		}
+		if (m_hitSpawnTime > 0f)
+		{
+			if (GameTime.time > m_hitSpawnTime)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.Update()).MethodHandle;
-				}
-				this.m_timeToSpawnVfx = -1f;
-				this.SpawnFX();
+				SpawnHitFX();
+				m_hitSpawnTime = -1f;
 			}
-			if (this.m_hitSpawnTime > 0f)
+		}
+		int num = GetCurrnetFxIndex();
+		if (m_switchBetweenLevelsAfterSpawn)
+		{
+			if (m_fxInstances != null)
 			{
-				for (;;)
+				if (m_fxInstances.Count > 1)
 				{
-					switch (5)
+					int count = m_fxInstances.Count;
+					num = Mathf.Min(num, count - 1);
+					if (num != m_lastActiveIndex)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (GameTime.time > this.m_hitSpawnTime)
-				{
-					for (;;)
-					{
-						switch (7)
+						if (m_lastActiveIndex >= 0)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.SpawnHitFX();
-					this.m_hitSpawnTime = -1f;
-				}
-			}
-			int num = this.GetCurrnetFxIndex();
-			if (this.m_switchBetweenLevelsAfterSpawn)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_fxInstances != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_fxInstances.Count > 1)
-					{
-						for (;;)
-						{
-							switch (6)
+							if (m_lastActiveIndex < count)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						int count = this.m_fxInstances.Count;
-						num = Mathf.Min(num, count - 1);
-						if (num != this.m_lastActiveIndex)
-						{
-							for (;;)
-							{
-								switch (5)
+								if (m_fxInstances[m_lastActiveIndex] != null)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.m_lastActiveIndex >= 0)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.m_lastActiveIndex < count)
-								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (this.m_fxInstances[this.m_lastActiveIndex] != null)
-									{
-										this.m_fxInstances[this.m_lastActiveIndex].SetActive(false);
-									}
+									m_fxInstances[m_lastActiveIndex].SetActive(false);
 								}
 							}
-							if (num <= 0)
+						}
+						if (num <= 0)
+						{
+							if (!(m_alternateBaseFxInstance == null))
 							{
-								for (;;)
+								if (base.AgeInTurns > 0)
 								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!(this.m_alternateBaseFxInstance == null))
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (base.AgeInTurns > 0)
-									{
-										goto IL_1C5;
-									}
+									goto IL_01c5;
 								}
 							}
-							if (this.m_fxInstances[num] != null)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.m_fxInstances[num].SetActive(true);
-							}
-							IL_1C5:
-							Debug.LogWarning(string.Concat(new object[]
-							{
-								"Setting index from ",
-								this.m_lastActiveIndex,
-								" to ",
-								num
-							}));
-							this.m_lastActiveIndex = num;
 						}
-					}
-				}
-			}
-			if (num == 0)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (base.AgeInTurns > 0 && this.m_alternateBaseFxInstance != null)
-				{
-					for (;;)
-					{
-						switch (2)
+						if (m_fxInstances[num] != null)
 						{
-						case 0:
-							continue;
+							m_fxInstances[num].SetActive(true);
 						}
-						break;
-					}
-					if (!this.m_alternateBaseFxInstance.activeSelf)
-					{
-						this.m_alternateBaseFxInstance.SetActive(true);
-					}
-					if (this.m_fxInstances != null && this.m_fxInstances.Count > 0)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_fxInstances[0].activeSelf)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_fxInstances[0].SetActive(false);
-						}
-					}
-				}
-			}
-			if (this.m_fxInstances != null && this.m_fxAttachToJoint)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_fxJoint.IsInitialized())
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (base.Caster != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (base.ShouldHideForActorIfAttached(base.Caster))
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							base.SetSequenceVisibility(false);
-							goto IL_32A;
-						}
-					}
-				}
-			}
-			base.ProcessSequenceVisibility();
-			IL_32A:
-			if (this.m_fxInstances != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				for (int i = 0; i < this.m_fxInstances.Count; i++)
-				{
-					GameObject gameObject = this.m_fxInstances[i];
-					if (gameObject != null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (gameObject.GetComponent<FriendlyEnemyVFXSelector>() != null && base.Caster != null)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							gameObject.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.\u000E());
-						}
-						if (this.m_useRootOrientation)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (base.Caster != null)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								gameObject.transform.rotation = base.Caster.transform.rotation;
-							}
-						}
+						goto IL_01c5;
 					}
 				}
 			}
 		}
+		goto IL_0205;
+		IL_032a:
+		if (m_fxInstances == null)
+		{
+			return;
+		}
+		while (true)
+		{
+			for (int i = 0; i < m_fxInstances.Count; i++)
+			{
+				GameObject gameObject = m_fxInstances[i];
+				if (!(gameObject != null))
+				{
+					continue;
+				}
+				if (gameObject.GetComponent<FriendlyEnemyVFXSelector>() != null && base.Caster != null)
+				{
+					gameObject.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
+				}
+				if (!m_useRootOrientation)
+				{
+					continue;
+				}
+				if (base.Caster != null)
+				{
+					gameObject.transform.rotation = base.Caster.transform.rotation;
+				}
+			}
+			return;
+		}
+		IL_0205:
+		if (num == 0)
+		{
+			if (base.AgeInTurns > 0 && m_alternateBaseFxInstance != null)
+			{
+				if (!m_alternateBaseFxInstance.activeSelf)
+				{
+					m_alternateBaseFxInstance.SetActive(true);
+				}
+				if (m_fxInstances != null && m_fxInstances.Count > 0)
+				{
+					if (m_fxInstances[0].activeSelf)
+					{
+						m_fxInstances[0].SetActive(false);
+					}
+				}
+			}
+		}
+		if (m_fxInstances != null && m_fxAttachToJoint)
+		{
+			if (m_fxJoint.IsInitialized())
+			{
+				if (base.Caster != null)
+				{
+					if (ShouldHideForActorIfAttached(base.Caster))
+					{
+						SetSequenceVisibility(false);
+						goto IL_032a;
+					}
+				}
+			}
+		}
+		ProcessSequenceVisibility();
+		goto IL_032a;
+		IL_01c5:
+		Debug.LogWarning("Setting index from " + m_lastActiveIndex + " to " + num);
+		m_lastActiveIndex = num;
+		goto IL_0205;
 	}
 
 	private void StopFX()
 	{
-		if (this.m_fxInstances != null)
+		if (m_fxInstances == null)
 		{
-			for (int i = 0; i < this.m_fxInstances.Count; i++)
+			return;
+		}
+		for (int i = 0; i < m_fxInstances.Count; i++)
+		{
+			GameObject gameObject = m_fxInstances[i];
+			if (gameObject != null)
 			{
-				GameObject gameObject = this.m_fxInstances[i];
-				if (gameObject != null)
-				{
-					gameObject.SetActive(false);
-				}
+				gameObject.SetActive(false);
 			}
 		}
 	}
@@ -669,509 +374,232 @@ public class SenseiBideAttachedSequence : Sequence
 	{
 		if (base.Caster != null)
 		{
-			for (;;)
+			if (!m_fxJoint.IsInitialized())
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_fxJoint.Initialize(base.Caster.gameObject);
 			}
-			if (!true)
+			if (m_fxPrefabs != null)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.SpawnFX()).MethodHandle;
-			}
-			if (!this.m_fxJoint.IsInitialized())
-			{
-				for (;;)
+				m_fxInstances = new List<GameObject>();
+				List<GameObject> list = m_fxPrefabs;
+				int currnetFxIndex = GetCurrnetFxIndex();
+				currnetFxIndex = Mathf.Clamp(currnetFxIndex, 0, m_fxPrefabs.Count - 1);
+				if (!m_switchBetweenLevelsAfterSpawn)
 				{
-					switch (1)
+					if (m_fxPrefabs.Count > 1)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_fxJoint.Initialize(base.Caster.gameObject);
-			}
-			if (this.m_fxPrefabs != null)
-			{
-				this.m_fxInstances = new List<GameObject>();
-				List<GameObject> list = this.m_fxPrefabs;
-				int num = this.GetCurrnetFxIndex();
-				num = Mathf.Clamp(num, 0, this.m_fxPrefabs.Count - 1);
-				if (!this.m_switchBetweenLevelsAfterSpawn)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_fxPrefabs.Count > 1)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						GameObject item = this.m_fxPrefabs[num];
-						list = new List<GameObject>
-						{
-							item
-						};
+						GameObject item = m_fxPrefabs[currnetFxIndex];
+						List<GameObject> list2 = new List<GameObject>();
+						list2.Add(item);
+						list = list2;
 					}
 				}
 				for (int i = 0; i < list.Count; i++)
 				{
 					GameObject fxPrefab = list[i];
-					GameObject gameObject = this.InstantiateAttachedFx(fxPrefab);
-					if (this.m_switchBetweenLevelsAfterSpawn)
+					GameObject gameObject = InstantiateAttachedFx(fxPrefab);
+					if (m_switchBetweenLevelsAfterSpawn)
 					{
-						for (;;)
+						gameObject.SetActive(i == currnetFxIndex);
+						if (i == currnetFxIndex)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						gameObject.SetActive(i == num);
-						if (i == num)
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_lastActiveIndex = i;
+							m_lastActiveIndex = i;
 						}
 					}
-					this.m_fxInstances.Add(gameObject);
+					m_fxInstances.Add(gameObject);
 				}
-				for (;;)
+				if (m_fxPrefabAfterFirstTurn != null)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_fxPrefabAfterFirstTurn != null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_alternateBaseFxInstance = this.InstantiateAttachedFx(this.m_fxPrefabAfterFirstTurn);
-					this.m_alternateBaseFxInstance.SetActive(false);
+					m_alternateBaseFxInstance = InstantiateAttachedFx(m_fxPrefabAfterFirstTurn);
+					m_alternateBaseFxInstance.SetActive(false);
 				}
 			}
-			if (!string.IsNullOrEmpty(this.m_audioEvent))
+			if (!string.IsNullOrEmpty(m_audioEvent))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
+				AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 			}
 		}
-		if (this.m_hitSpawnTime < 0f)
+		if (!(m_hitSpawnTime < 0f))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_attemptedToSpawnHitFx)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!this.m_attemptedToSpawnHitFx)
+			while (true)
 			{
-				for (;;)
+				if (m_hitEvent == null)
 				{
-					switch (2)
+					if (m_hitDelay <= 0f)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_hitEvent == null)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_hitDelay <= 0f)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								m_hitSpawnTime = GameTime.time;
+								return;
 							}
-							break;
 						}
-						this.m_hitSpawnTime = GameTime.time;
-						return;
 					}
 				}
-				this.m_hitSpawnTime = GameTime.time + this.m_hitDelay;
+				m_hitSpawnTime = GameTime.time + m_hitDelay;
+				return;
 			}
 		}
 	}
 
 	private GameObject InstantiateAttachedFx(GameObject fxPrefab)
 	{
-		GameObject gameObject;
-		if (this.m_fxJoint.m_jointObject != null)
+		GameObject gameObject = null;
+		if (m_fxJoint.m_jointObject != null)
 		{
-			for (;;)
+			if (m_fxJoint.m_jointObject.transform.localScale != Vector3.zero && m_fxAttachToJoint)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.InstantiateAttachedFx(GameObject)).MethodHandle;
-			}
-			if (this.m_fxJoint.m_jointObject.transform.localScale != Vector3.zero && this.m_fxAttachToJoint)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				gameObject = base.InstantiateFX(fxPrefab);
-				base.AttachToBone(gameObject, this.m_fxJoint.m_jointObject);
+				gameObject = InstantiateFX(fxPrefab);
+				AttachToBone(gameObject, m_fxJoint.m_jointObject);
 				gameObject.transform.localPosition = Vector3.zero;
 				gameObject.transform.localRotation = Quaternion.identity;
-				goto IL_111;
+				goto IL_0111;
 			}
 		}
-		Vector3 position = this.m_fxJoint.m_jointObject.transform.position;
-		Quaternion rotation = default(Quaternion);
-		rotation = this.m_fxJoint.m_jointObject.transform.rotation;
-		gameObject = base.InstantiateFX(fxPrefab, position, rotation, true, true);
+		Vector3 position = m_fxJoint.m_jointObject.transform.position;
+		Quaternion quaternion = default(Quaternion);
+		quaternion = m_fxJoint.m_jointObject.transform.rotation;
+		gameObject = InstantiateFX(fxPrefab, position, quaternion);
 		Sequence.SetAttribute(gameObject, "abilityAreaLength", (base.TargetPos - position).magnitude);
-		IL_111:
-		Sequence.SetAttribute(gameObject, "targetDiameter", base.Caster.\u000E().GetModelSize());
+		goto IL_0111;
+		IL_0111:
+		Sequence.SetAttribute(gameObject, "targetDiameter", base.Caster.GetActorModelData().GetModelSize());
 		return gameObject;
 	}
 
 	private void SpawnHitFX()
 	{
-		if (!this.m_attemptedToSpawnHitFx)
+		if (!m_attemptedToSpawnHitFx)
 		{
-			if (this.m_hitFxInstances == null)
+			if (m_hitFxInstances == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.SpawnHitFX()).MethodHandle;
-				}
-				this.m_hitFxInstances = new List<GameObject>();
+				m_hitFxInstances = new List<GameObject>();
 			}
 			if (base.Targets != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < base.Targets.Length; i++)
 				{
-					Vector3 targetHitPosition = base.GetTargetHitPosition(i, this.m_hitFxJoint);
-					Vector3 vector = base.Caster.transform.position;
-					if ((vector - base.Targets[i].transform.position).magnitude < 0.1f)
+					Vector3 targetHitPosition = GetTargetHitPosition(i, m_hitFxJoint);
+					Vector3 position = base.Caster.transform.position;
+					if ((position - base.Targets[i].transform.position).magnitude < 0.1f)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						vector -= base.Caster.transform.forward * 0.5f;
+						position -= base.Caster.transform.forward * 0.5f;
 					}
-					Vector3 vector2 = targetHitPosition - vector;
-					vector2.y = 0f;
-					vector2.Normalize();
-					ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, vector2);
+					Vector3 vector = targetHitPosition - position;
+					vector.y = 0f;
+					vector.Normalize();
+					ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, vector);
 					Quaternion quaternion;
-					if (this.m_hitAlignedWithCaster)
+					if (m_hitAlignedWithCaster)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						quaternion = Quaternion.LookRotation(vector2);
+						quaternion = Quaternion.LookRotation(vector);
 					}
 					else
 					{
 						quaternion = Quaternion.identity;
 					}
 					Quaternion rotation = quaternion;
-					bool flag = this.IsHitFXVisibleForActor(base.Targets[i]);
-					if (this.m_hitFxPrefab)
+					bool flag = IsHitFXVisibleForActor(base.Targets[i]);
+					if ((bool)m_hitFxPrefab)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
-							this.m_hitFxInstances.Add(base.InstantiateFX(this.m_hitFxPrefab, targetHitPosition, rotation, true, true));
+							m_hitFxInstances.Add(InstantiateFX(m_hitFxPrefab, targetHitPosition, rotation));
 						}
 					}
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						string hitAudioEvent = this.m_hitAudioEvent;
+						string hitAudioEvent = m_hitAudioEvent;
 						if (!string.IsNullOrEmpty(hitAudioEvent))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AudioManager.PostEvent(hitAudioEvent, base.Targets[i].gameObject);
 						}
 					}
 					if (base.Targets[i] != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
+						base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo);
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
-			base.Source.OnSequenceHit(this, base.TargetPos, null);
+			base.Source.OnSequenceHit(this, base.TargetPos);
 		}
-		this.m_attemptedToSpawnHitFx = true;
+		m_attemptedToSpawnHitFx = true;
 	}
 
-	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
+	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
+		if (!m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_startEvent == parameter)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				SpawnFX();
 			}
-			if (!true)
+			else if (m_stopEvent == parameter)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
+				StopFX();
 			}
-			if (this.m_startEvent == parameter)
+			if (m_hitEvent == parameter)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.SpawnFX();
+				SpawnHitFX();
 			}
-			else if (this.m_stopEvent == parameter)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.StopFX();
-			}
-			if (this.m_hitEvent == parameter)
-			{
-				this.SpawnHitFX();
-			}
+			return;
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_fxInstances != null)
+		if (m_fxInstances != null)
 		{
-			for (;;)
+			for (int i = 0; i < m_fxInstances.Count; i++)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.OnDisable()).MethodHandle;
-			}
-			for (int i = 0; i < this.m_fxInstances.Count; i++)
-			{
-				GameObject gameObject = this.m_fxInstances[i];
+				GameObject gameObject = m_fxInstances[i];
 				if (gameObject != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UnityEngine.Object.Destroy(gameObject.gameObject);
+					Object.Destroy(gameObject.gameObject);
 				}
 			}
-			this.m_fxInstances.Clear();
+			m_fxInstances.Clear();
 		}
-		if (this.m_alternateBaseFxInstance != null)
+		if (m_alternateBaseFxInstance != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UnityEngine.Object.Destroy(this.m_alternateBaseFxInstance);
-			this.m_alternateBaseFxInstance = null;
+			Object.Destroy(m_alternateBaseFxInstance);
+			m_alternateBaseFxInstance = null;
 		}
-		if (this.m_hitFxInstances != null)
+		if (m_hitFxInstances == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			for (int j = 0; j < m_hitFxInstances.Count; j++)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			for (int j = 0; j < this.m_hitFxInstances.Count; j++)
-			{
-				GameObject gameObject2 = this.m_hitFxInstances[j];
+				GameObject gameObject2 = m_hitFxInstances[j];
 				if (gameObject2 != null)
 				{
-					UnityEngine.Object.Destroy(gameObject2.gameObject);
+					Object.Destroy(gameObject2.gameObject);
 				}
 			}
-			for (;;)
+			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_hitFxInstances.Clear();
+				return;
 			}
-			this.m_hitFxInstances.Clear();
 		}
 	}
 }

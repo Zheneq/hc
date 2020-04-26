@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public abstract class RadiusToDataBase : IComparable
@@ -10,21 +10,17 @@ public abstract class RadiusToDataBase : IComparable
 		RadiusToDataBase radiusToDataBase = otherAsObj as RadiusToDataBase;
 		if (radiusToDataBase == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return 1;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RadiusToDataBase.CompareTo(object)).MethodHandle;
-			}
-			return 1;
 		}
-		return ((int)this.m_radius).CompareTo((int)radiusToDataBase.m_radius);
+		return ((int)m_radius).CompareTo((int)radiusToDataBase.m_radius);
 	}
 }

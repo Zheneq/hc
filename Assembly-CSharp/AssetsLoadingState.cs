@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class AssetsLoadingState
@@ -11,23 +10,17 @@ public class AssetsLoadingState
 
 	private float m_spawningProgress;
 
-	public float TotalProgress
-	{
-		get
-		{
-			return this.m_levelLoadProgress * 0.4f + this.m_characterLoadProgress * 0.2f + this.m_vfxPreloadProgress * 0.2f + this.m_spawningProgress * 0.2f;
-		}
-	}
+	public float TotalProgress => m_levelLoadProgress * 0.4f + m_characterLoadProgress * 0.2f + m_vfxPreloadProgress * 0.2f + m_spawningProgress * 0.2f;
 
 	public float LevelLoadProgress
 	{
 		get
 		{
-			return this.m_levelLoadProgress;
+			return m_levelLoadProgress;
 		}
 		set
 		{
-			this.m_levelLoadProgress = Mathf.Max(this.m_levelLoadProgress, value);
+			m_levelLoadProgress = Mathf.Max(m_levelLoadProgress, value);
 		}
 	}
 
@@ -35,11 +28,11 @@ public class AssetsLoadingState
 	{
 		get
 		{
-			return this.m_characterLoadProgress;
+			return m_characterLoadProgress;
 		}
 		set
 		{
-			this.m_characterLoadProgress = Mathf.Max(this.m_characterLoadProgress, value);
+			m_characterLoadProgress = Mathf.Max(m_characterLoadProgress, value);
 		}
 	}
 
@@ -47,11 +40,11 @@ public class AssetsLoadingState
 	{
 		get
 		{
-			return this.m_vfxPreloadProgress;
+			return m_vfxPreloadProgress;
 		}
 		set
 		{
-			this.m_vfxPreloadProgress = Mathf.Max(this.m_vfxPreloadProgress, value);
+			m_vfxPreloadProgress = Mathf.Max(m_vfxPreloadProgress, value);
 		}
 	}
 
@@ -59,19 +52,19 @@ public class AssetsLoadingState
 	{
 		get
 		{
-			return this.m_spawningProgress;
+			return m_spawningProgress;
 		}
 		set
 		{
-			this.m_spawningProgress = Mathf.Max(this.m_spawningProgress, value);
+			m_spawningProgress = Mathf.Max(m_spawningProgress, value);
 		}
 	}
 
 	public void Reset()
 	{
-		this.m_levelLoadProgress = 0f;
-		this.m_characterLoadProgress = 0f;
-		this.m_vfxPreloadProgress = 0f;
-		this.m_spawningProgress = 0f;
+		m_levelLoadProgress = 0f;
+		m_characterLoadProgress = 0f;
+		m_vfxPreloadProgress = 0f;
+		m_spawningProgress = 0f;
 	}
 }

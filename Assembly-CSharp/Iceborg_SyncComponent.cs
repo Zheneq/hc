@@ -1,15 +1,14 @@
-﻿using System;
+using AbilityContextNamespace;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using AbilityContextNamespace;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class Iceborg_SyncComponent : NetworkBehaviour
 {
-	public static ContextNameKeyPair s_cvarNovaCenter = new ContextNameKeyPair("NovaCenter");
+	public static ContextNameKeyPair s_cvarNovaCenter;
 
-	public static ContextNameKeyPair s_cvarHasNova = new ContextNameKeyPair("HasNova");
+	public static ContextNameKeyPair s_cvarHasNova;
 
 	[Separator("Delayed Aoe (Nova) Effect", true)]
 	public float m_delayedAoeRadius = 1.5f;
@@ -73,153 +72,182 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 	[SyncVar]
 	internal bool m_selfShieldLowHealthOnTurnStart;
 
-	private static int kListm_actorsWithNovaCore = 0x65C98853;
+	private static int kListm_actorsWithNovaCore;
+
+	public short Networkm_damageFieldLastCastTurn
+	{
+		get
+		{
+			return m_damageFieldLastCastTurn;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_damageFieldLastCastTurn, 2u);
+		}
+	}
+
+	public bool Networkm_damageAreaCanMoveThisTurn
+	{
+		get
+		{
+			return m_damageAreaCanMoveThisTurn;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_damageAreaCanMoveThisTurn, 4u);
+		}
+	}
+
+	public short Networkm_damageAreaCenterX
+	{
+		get
+		{
+			return m_damageAreaCenterX;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_damageAreaCenterX, 8u);
+		}
+	}
+
+	public short Networkm_damageAreaCenterY
+	{
+		get
+		{
+			return m_damageAreaCenterY;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_damageAreaCenterY, 16u);
+		}
+	}
+
+	public Vector3 Networkm_damageAreaFreePos
+	{
+		get
+		{
+			return m_damageAreaFreePos;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_damageAreaFreePos, 32u);
+		}
+	}
+
+	public short Networkm_numNovaEffectsOnTurnStart
+	{
+		get
+		{
+			return m_numNovaEffectsOnTurnStart;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_numNovaEffectsOnTurnStart, 64u);
+		}
+	}
+
+	public bool Networkm_selfShieldLowHealthOnTurnStart
+	{
+		get
+		{
+			return m_selfShieldLowHealthOnTurnStart;
+		}
+		[param: In]
+		set
+		{
+			SetSyncVar(value, ref m_selfShieldLowHealthOnTurnStart, 128u);
+		}
+	}
 
 	static Iceborg_SyncComponent()
 	{
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(Iceborg_SyncComponent), Iceborg_SyncComponent.kListm_actorsWithNovaCore, new NetworkBehaviour.CmdDelegate(Iceborg_SyncComponent.InvokeSyncListm_actorsWithNovaCore));
+		s_cvarNovaCenter = new ContextNameKeyPair("NovaCenter");
+		s_cvarHasNova = new ContextNameKeyPair("HasNova");
+		kListm_actorsWithNovaCore = 1707706451;
+		NetworkBehaviour.RegisterSyncListDelegate(typeof(Iceborg_SyncComponent), kListm_actorsWithNovaCore, InvokeSyncListm_actorsWithNovaCore);
 		NetworkCRC.RegisterBehaviour("Iceborg_SyncComponent", 0);
 	}
 
 	private void Start()
 	{
-		this.m_cachedNovaTriggerDamage = this.m_delayedAoeOnHitData.GetFirstDamageValue();
+		m_cachedNovaTriggerDamage = m_delayedAoeOnHitData.GetFirstDamageValue();
 	}
 
 	public void AddTooltipTokens(List<TooltipTokenEntry> tokens)
 	{
-		this.m_delayedAoeOnHitData.AddTooltipTokens(tokens);
-		if (this.m_delayedAoeShieldPerEnemyHit > 0)
+		m_delayedAoeOnHitData.AddTooltipTokens(tokens);
+		if (m_delayedAoeShieldPerEnemyHit > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Iceborg_SyncComponent.AddTooltipTokens(List<TooltipTokenEntry>)).MethodHandle;
-			}
-			AbilityMod.AddToken_IntDiff(tokens, "NovaShieldPerHit", string.Empty, this.m_delayedAoeShieldPerEnemyHit, false, 0);
+			AbilityMod.AddToken_IntDiff(tokens, "NovaShieldPerHit", string.Empty, m_delayedAoeShieldPerEnemyHit, false, 0);
 		}
-		if (this.m_delayedAoeShieldPerExplosion > 0)
+		if (m_delayedAoeShieldPerExplosion > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			AbilityMod.AddToken_IntDiff(tokens, "NovaShieldPerExplosion", string.Empty, this.m_delayedAoeShieldPerExplosion, false, 0);
+			AbilityMod.AddToken_IntDiff(tokens, "NovaShieldPerExplosion", string.Empty, m_delayedAoeShieldPerExplosion, false, 0);
 		}
-		if (this.m_delayedAoeEnergyPerEnemyHit > 0)
+		if (m_delayedAoeEnergyPerEnemyHit > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			AbilityMod.AddToken_IntDiff(tokens, "NovaEnergyPerHit", string.Empty, this.m_delayedAoeEnergyPerEnemyHit, false, 0);
+			AbilityMod.AddToken_IntDiff(tokens, "NovaEnergyPerHit", string.Empty, m_delayedAoeEnergyPerEnemyHit, false, 0);
 		}
-		if (this.m_delayedAoeEnergyPerExplosion > 0)
+		if (m_delayedAoeEnergyPerExplosion <= 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			AbilityMod.AddToken_IntDiff(tokens, "NovaEnergyPerExplosion", string.Empty, this.m_delayedAoeEnergyPerExplosion, false, 0);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken_IntDiff(tokens, "NovaEnergyPerExplosion", string.Empty, m_delayedAoeEnergyPerExplosion, false, 0);
+			return;
 		}
 	}
 
 	public bool HasNovaCore(ActorData actor)
 	{
-		return actor != null && this.m_actorsWithNovaCore.Contains((uint)actor.ActorIndex);
+		return actor != null && m_actorsWithNovaCore.Contains((uint)actor.ActorIndex);
 	}
 
 	public void SetHasCoreContext_Client(Dictionary<ActorData, ActorHitContext> actorHitContext, ActorData targetActor, ActorData caster)
 	{
-		if (actorHitContext.ContainsKey(targetActor) && caster.\u000E() != targetActor.\u000E())
+		if (!actorHitContext.ContainsKey(targetActor) || caster.GetTeam() == targetActor.GetTeam())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Iceborg_SyncComponent.SetHasCoreContext_Client(Dictionary<ActorData, ActorHitContext>, ActorData, ActorData)).MethodHandle;
-			}
-			bool flag = this.HasNovaCore(targetActor);
-			ContextVars u = actorHitContext[targetActor].\u0015;
-			int u001D = Iceborg_SyncComponent.s_cvarHasNova.\u0012();
-			int u000E;
+			return;
+		}
+		while (true)
+		{
+			bool flag = HasNovaCore(targetActor);
+			ContextVars contextVars = actorHitContext[targetActor]._0015;
+			int hash = s_cvarHasNova.GetHash();
+			int value;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				u000E = 1;
+				value = 1;
 			}
 			else
 			{
-				u000E = 0;
+				value = 0;
 			}
-			u.\u0016(u001D, u000E);
+			contextVars.SetInt(hash, value);
+			return;
 		}
 	}
 
 	public int GetTurnsSinceInitialCast()
 	{
 		int result = 0;
-		if (this.m_damageFieldLastCastTurn > 0)
+		if (m_damageFieldLastCastTurn > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Iceborg_SyncComponent.GetTurnsSinceInitialCast()).MethodHandle;
-			}
-			result = Mathf.Max(0, GameFlowData.Get().CurrentTurn - (int)this.m_damageFieldLastCastTurn);
+			result = Mathf.Max(0, GameFlowData.Get().CurrentTurn - m_damageFieldLastCastTurn);
 		}
 		return result;
 	}
 
 	public int GetNovaCoreTriggerDamage()
 	{
-		return this.m_cachedNovaTriggerDamage;
+		return m_cachedNovaTriggerDamage;
 	}
 
 	public string GetTargetPreviewAccessoryString(AbilityTooltipSymbol symbolType, Ability ability, ActorData targetActor, ActorData caster)
@@ -231,313 +259,121 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 	{
 	}
 
-	public short Networkm_damageFieldLastCastTurn
-	{
-		get
-		{
-			return this.m_damageFieldLastCastTurn;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<short>(value, ref this.m_damageFieldLastCastTurn, 2U);
-		}
-	}
-
-	public bool Networkm_damageAreaCanMoveThisTurn
-	{
-		get
-		{
-			return this.m_damageAreaCanMoveThisTurn;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<bool>(value, ref this.m_damageAreaCanMoveThisTurn, 4U);
-		}
-	}
-
-	public short Networkm_damageAreaCenterX
-	{
-		get
-		{
-			return this.m_damageAreaCenterX;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<short>(value, ref this.m_damageAreaCenterX, 8U);
-		}
-	}
-
-	public short Networkm_damageAreaCenterY
-	{
-		get
-		{
-			return this.m_damageAreaCenterY;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<short>(value, ref this.m_damageAreaCenterY, 0x10U);
-		}
-	}
-
-	public Vector3 Networkm_damageAreaFreePos
-	{
-		get
-		{
-			return this.m_damageAreaFreePos;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<Vector3>(value, ref this.m_damageAreaFreePos, 0x20U);
-		}
-	}
-
-	public short Networkm_numNovaEffectsOnTurnStart
-	{
-		get
-		{
-			return this.m_numNovaEffectsOnTurnStart;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<short>(value, ref this.m_numNovaEffectsOnTurnStart, 0x40U);
-		}
-	}
-
-	public bool Networkm_selfShieldLowHealthOnTurnStart
-	{
-		get
-		{
-			return this.m_selfShieldLowHealthOnTurnStart;
-		}
-		[param: In]
-		set
-		{
-			base.SetSyncVar<bool>(value, ref this.m_selfShieldLowHealthOnTurnStart, 0x80U);
-		}
-	}
-
 	protected static void InvokeSyncListm_actorsWithNovaCore(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("SyncList m_actorsWithNovaCore called on server.");
-			return;
 		}
-		((Iceborg_SyncComponent)obj).m_actorsWithNovaCore.HandleMsg(reader);
+		else
+		{
+			((Iceborg_SyncComponent)obj).m_actorsWithNovaCore.HandleMsg(reader);
+		}
 	}
 
 	private void Awake()
 	{
-		this.m_actorsWithNovaCore.InitializeBehaviour(this, Iceborg_SyncComponent.kListm_actorsWithNovaCore);
+		m_actorsWithNovaCore.InitializeBehaviour(this, kListm_actorsWithNovaCore);
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					SyncListUInt.WriteInstance(writer, m_actorsWithNovaCore);
+					writer.WritePackedUInt32((uint)m_damageFieldLastCastTurn);
+					writer.Write(m_damageAreaCanMoveThisTurn);
+					writer.WritePackedUInt32((uint)m_damageAreaCenterX);
+					writer.WritePackedUInt32((uint)m_damageAreaCenterY);
+					writer.Write(m_damageAreaFreePos);
+					writer.WritePackedUInt32((uint)m_numNovaEffectsOnTurnStart);
+					writer.Write(m_selfShieldLowHealthOnTurnStart);
+					return true;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Iceborg_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
-			SyncListUInt.WriteInstance(writer, this.m_actorsWithNovaCore);
-			writer.WritePackedUInt32((uint)this.m_damageFieldLastCastTurn);
-			writer.Write(this.m_damageAreaCanMoveThisTurn);
-			writer.WritePackedUInt32((uint)this.m_damageAreaCenterX);
-			writer.WritePackedUInt32((uint)this.m_damageAreaCenterY);
-			writer.Write(this.m_damageAreaFreePos);
-			writer.WritePackedUInt32((uint)this.m_numNovaEffectsOnTurnStart);
-			writer.Write(this.m_selfShieldLowHealthOnTurnStart);
-			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((base.syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListUInt.WriteInstance(writer, this.m_actorsWithNovaCore);
+			SyncListUInt.WriteInstance(writer, m_actorsWithNovaCore);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_damageFieldLastCastTurn);
+			writer.WritePackedUInt32((uint)m_damageFieldLastCastTurn);
 		}
-		if ((base.syncVarDirtyBits & 4U) != 0U)
+		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_damageAreaCanMoveThisTurn);
+			writer.Write(m_damageAreaCanMoveThisTurn);
 		}
-		if ((base.syncVarDirtyBits & 8U) != 0U)
+		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_damageAreaCenterX);
+			writer.WritePackedUInt32((uint)m_damageAreaCenterX);
 		}
-		if ((base.syncVarDirtyBits & 0x10U) != 0U)
+		if ((base.syncVarDirtyBits & 0x10) != 0)
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_damageAreaCenterY);
+			writer.WritePackedUInt32((uint)m_damageAreaCenterY);
 		}
-		if ((base.syncVarDirtyBits & 0x20U) != 0U)
+		if ((base.syncVarDirtyBits & 0x20) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_damageAreaFreePos);
+			writer.Write(m_damageAreaFreePos);
 		}
-		if ((base.syncVarDirtyBits & 0x40U) != 0U)
+		if ((base.syncVarDirtyBits & 0x40) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_numNovaEffectsOnTurnStart);
+			writer.WritePackedUInt32((uint)m_numNovaEffectsOnTurnStart);
 		}
-		if ((base.syncVarDirtyBits & 0x80U) != 0U)
+		if ((base.syncVarDirtyBits & 0x80) != 0)
 		{
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_selfShieldLowHealthOnTurnStart);
+			writer.Write(m_selfShieldLowHealthOnTurnStart);
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -547,106 +383,53 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			SyncListUInt.ReadReference(reader, this.m_actorsWithNovaCore);
-			this.m_damageFieldLastCastTurn = (short)reader.ReadPackedUInt32();
-			this.m_damageAreaCanMoveThisTurn = reader.ReadBoolean();
-			this.m_damageAreaCenterX = (short)reader.ReadPackedUInt32();
-			this.m_damageAreaCenterY = (short)reader.ReadPackedUInt32();
-			this.m_damageAreaFreePos = reader.ReadVector3();
-			this.m_numNovaEffectsOnTurnStart = (short)reader.ReadPackedUInt32();
-			this.m_selfShieldLowHealthOnTurnStart = reader.ReadBoolean();
+			SyncListUInt.ReadReference(reader, m_actorsWithNovaCore);
+			m_damageFieldLastCastTurn = (short)reader.ReadPackedUInt32();
+			m_damageAreaCanMoveThisTurn = reader.ReadBoolean();
+			m_damageAreaCenterX = (short)reader.ReadPackedUInt32();
+			m_damageAreaCenterY = (short)reader.ReadPackedUInt32();
+			m_damageAreaFreePos = reader.ReadVector3();
+			m_numNovaEffectsOnTurnStart = (short)reader.ReadPackedUInt32();
+			m_selfShieldLowHealthOnTurnStart = reader.ReadBoolean();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Iceborg_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
-			SyncListUInt.ReadReference(reader, this.m_actorsWithNovaCore);
+			SyncListUInt.ReadReference(reader, m_actorsWithNovaCore);
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_damageFieldLastCastTurn = (short)reader.ReadPackedUInt32();
+			m_damageFieldLastCastTurn = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_damageAreaCanMoveThisTurn = reader.ReadBoolean();
+			m_damageAreaCanMoveThisTurn = reader.ReadBoolean();
 		}
 		if ((num & 8) != 0)
 		{
-			this.m_damageAreaCenterX = (short)reader.ReadPackedUInt32();
+			m_damageAreaCenterX = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x10) != 0)
 		{
-			this.m_damageAreaCenterY = (short)reader.ReadPackedUInt32();
+			m_damageAreaCenterY = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x20) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_damageAreaFreePos = reader.ReadVector3();
+			m_damageAreaFreePos = reader.ReadVector3();
 		}
 		if ((num & 0x40) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_numNovaEffectsOnTurnStart = (short)reader.ReadPackedUInt32();
+			m_numNovaEffectsOnTurnStart = (short)reader.ReadPackedUInt32();
 		}
-		if ((num & 0x80) != 0)
+		if ((num & 0x80) == 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_selfShieldLowHealthOnTurnStart = reader.ReadBoolean();
+			return;
+		}
+		while (true)
+		{
+			m_selfShieldLowHealthOnTurnStart = reader.ReadBoolean();
+			return;
 		}
 	}
 }

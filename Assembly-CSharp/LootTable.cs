@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -36,60 +36,41 @@ public class LootTable
 
 	public LootTable()
 	{
-		this.Index = -1;
-		this.Enabled = true;
+		Index = -1;
+		Enabled = true;
 	}
 
 	public bool IsValid()
 	{
-		return this.Index > 0;
+		return Index > 0;
 	}
 
 	public bool IsRandomSelection()
 	{
-		bool result;
-		if (this.SelectionRule == LootTableEntrySelectionRule.PickFromOneEntry)
+		int result;
+		if (SelectionRule == LootTableEntrySelectionRule.PickFromOneEntry)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LootTable.IsRandomSelection()).MethodHandle;
-			}
-			result = (this.Entries.Count > 1);
+			result = ((Entries.Count > 1) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public string GetName()
 	{
-		return StringUtil.TR_LootTableName(this.Index);
+		return StringUtil.TR_LootTableName(Index);
 	}
 
 	public string GetDescription()
 	{
-		return StringUtil.TR_LootTableDescription(this.Index);
+		return StringUtil.TR_LootTableDescription(Index);
 	}
 
 	public override string ToString()
 	{
-		return string.Format("[{0}] {1}, {2}, {3}", new object[]
-		{
-			this.Index,
-			this.Name,
-			this.SelectionRule,
-			this.Entries.Count
-		});
+		return $"[{Index}] {Name}, {SelectionRule}, {Entries.Count}";
 	}
 }

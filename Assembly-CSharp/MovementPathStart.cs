@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -86,399 +85,236 @@ public class MovementPathStart : MonoBehaviour
 	{
 		get
 		{
-			if (this.m_allMeshes == null)
+			if (m_allMeshes == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.get_AllMeshes()).MethodHandle;
-				}
-				this.CreateList();
+				CreateList();
 			}
-			return this.m_allMeshes;
+			return m_allMeshes;
 		}
 	}
 
 	private void CreateList()
 	{
-		this.m_allMeshes = new List<MeshRenderer>();
-		if (this.m_InsideMesh != null)
+		m_allMeshes = new List<MeshRenderer>();
+		if (m_InsideMesh != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.CreateList()).MethodHandle;
-			}
-			this.m_allMeshes.Add(this.m_InsideMesh);
-			this.m_InsideMesh.materials[0].mainTexture = this.m_insideTexture;
+			m_allMeshes.Add(m_InsideMesh);
+			m_InsideMesh.materials[0].mainTexture = m_insideTexture;
 		}
-		if (this.m_MiddleMesh != null)
+		if (m_MiddleMesh != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_allMeshes.Add(this.m_MiddleMesh);
-			this.m_MiddleMesh.materials[0].mainTexture = this.m_middleTexture;
-			Color color = this.m_MiddleMesh.materials[0].GetColor("_TintColor");
+			m_allMeshes.Add(m_MiddleMesh);
+			m_MiddleMesh.materials[0].mainTexture = m_middleTexture;
+			Color color = m_MiddleMesh.materials[0].GetColor("_TintColor");
 			color.a = 0.1f;
-			this.m_MiddleMesh.materials[0].SetColor("_TintColor", color);
+			m_MiddleMesh.materials[0].SetColor("_TintColor", color);
 		}
-		if (this.m_OutsideMesh != null)
+		if (m_OutsideMesh != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_allMeshes.Add(this.m_OutsideMesh);
-			this.m_OutsideMesh.materials[0].mainTexture = this.m_outsideTexture;
+			m_allMeshes.Add(m_OutsideMesh);
+			m_OutsideMesh.materials[0].mainTexture = m_outsideTexture;
 		}
-		if (this.m_ArrowMesh != null)
+		if (m_ArrowMesh != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_allMeshes.Add(this.m_ArrowMesh);
-			this.m_ArrowMesh.materials[0].mainTexture = this.m_arrowTexture;
+			m_allMeshes.Add(m_ArrowMesh);
+			m_ArrowMesh.materials[0].mainTexture = m_arrowTexture;
 		}
-		if (this.m_CloseArrowMesh != null)
+		if (m_CloseArrowMesh != null)
 		{
-			this.m_allMeshes.Add(this.m_CloseArrowMesh);
-			this.m_CloseArrowMesh.materials[0].mainTexture = this.m_closeArrowTexture;
+			m_allMeshes.Add(m_CloseArrowMesh);
+			m_CloseArrowMesh.materials[0].mainTexture = m_closeArrowTexture;
 		}
-		if (this.m_FarArrowMesh != null)
+		if (m_FarArrowMesh != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_allMeshes.Add(this.m_FarArrowMesh);
-			this.m_FarArrowMesh.materials[0].mainTexture = this.m_farArrowTexture;
+			m_allMeshes.Add(m_FarArrowMesh);
+			m_FarArrowMesh.materials[0].mainTexture = m_farArrowTexture;
 		}
-		if (this.m_chasingInnerRing != null)
+		if (m_chasingInnerRing != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_allMeshes.Add(this.m_chasingInnerRing);
-			this.m_chasingInnerRing.materials[0].mainTexture = this.m_chasingInnerRingTexture;
-			Color color2 = this.m_MiddleMesh.materials[0].GetColor("_TintColor");
+			m_allMeshes.Add(m_chasingInnerRing);
+			m_chasingInnerRing.materials[0].mainTexture = m_chasingInnerRingTexture;
+			Color color2 = m_MiddleMesh.materials[0].GetColor("_TintColor");
 			color2.a = 0.2f;
-			this.m_MiddleMesh.materials[0].SetColor("_TintColor", color2);
+			m_MiddleMesh.materials[0].SetColor("_TintColor", color2);
 		}
-		if (this.m_chasingOuterRing != null)
+		if (m_chasingOuterRing != null)
 		{
-			this.m_allMeshes.Add(this.m_chasingOuterRing);
-			this.m_chasingOuterRing.materials[0].mainTexture = this.m_chasingOuterRingTexture;
+			m_allMeshes.Add(m_chasingOuterRing);
+			m_chasingOuterRing.materials[0].mainTexture = m_chasingOuterRingTexture;
 		}
-		if (this.m_chasingArrow != null)
+		if (m_chasingArrow != null)
 		{
-			this.m_allMeshes.Add(this.m_chasingArrow);
-			this.m_chasingArrow.materials[0].mainTexture = this.m_chasingArrowTexture;
+			m_allMeshes.Add(m_chasingArrow);
+			m_chasingArrow.materials[0].mainTexture = m_chasingArrowTexture;
 		}
-		if (this.m_KnockbackMesh != null)
+		if (m_KnockbackMesh != null)
 		{
-			for (;;)
+			m_allMeshes.Add(m_KnockbackMesh);
+		}
+		for (int i = 0; i < m_chasingDiamonds.Length; i++)
+		{
+			if (m_chasingDiamonds[i] != null)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_allMeshes.Add(this.m_KnockbackMesh);
-		}
-		for (int i = 0; i < this.m_chasingDiamonds.Length; i++)
-		{
-			if (this.m_chasingDiamonds[i] != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_allMeshes.Add(this.m_chasingDiamonds[i]);
-				this.m_chasingDiamonds[i].materials[0].mainTexture = this.m_chasingDiamondTexture;
-				Color color3 = this.m_chasingDiamonds[i].materials[0].GetColor("_TintColor");
+				m_allMeshes.Add(m_chasingDiamonds[i]);
+				m_chasingDiamonds[i].materials[0].mainTexture = m_chasingDiamondTexture;
+				Color color3 = m_chasingDiamonds[i].materials[0].GetColor("_TintColor");
 				color3.a = 0.1f;
-				this.m_chasingDiamonds[i].materials[0].SetColor("_TintColor", color3);
+				m_chasingDiamonds[i].materials[0].SetColor("_TintColor", color3);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (6)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public void AddLinePiece(GameObject newLine, GameObject parent)
 	{
-		this.linePiece = newLine;
-		if (this.m_objectMovingAcross == null)
+		linePiece = newLine;
+		if (m_objectMovingAcross == null)
 		{
-			this.m_objectMovingAcross = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.Get().m_movementGlowObject);
+			m_objectMovingAcross = Object.Instantiate(HighlightUtils.Get().m_movementGlowObject);
 		}
-		this.m_objectMovingAcross.transform.SetParent(parent.transform);
-		if (this.m_pointsToMoveAcross != null)
+		m_objectMovingAcross.transform.SetParent(parent.transform);
+		if (m_pointsToMoveAcross != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.AddLinePiece(GameObject, GameObject)).MethodHandle;
-			}
-			this.m_pointsToMoveAcross.Clear();
+			m_pointsToMoveAcross.Clear();
 		}
 		else
 		{
-			this.m_pointsToMoveAcross = new List<Vector3>();
+			m_pointsToMoveAcross = new List<Vector3>();
 		}
 		Vector3[] vertices = newLine.GetComponent<MeshFilter>().mesh.vertices;
 		for (int i = 0; i < vertices.Length - 1; i += 2)
 		{
-			this.m_pointsToMoveAcross.Add((vertices[i] + vertices[i + 1]) * 0.5f);
+			m_pointsToMoveAcross.Add((vertices[i] + vertices[i + 1]) * 0.5f);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (4)
+			if (m_pointsToMoveAcross.Count > 1)
 			{
-			case 0:
-				continue;
+				Vector3 normalized = (m_pointsToMoveAcross[m_pointsToMoveAcross.Count - 1] - m_pointsToMoveAcross[m_pointsToMoveAcross.Count - 2]).normalized;
+				m_pointsToMoveAcross.Add(m_pointsToMoveAcross[m_pointsToMoveAcross.Count - 1] + normalized * Board.Get().squareSize * 0.2f);
 			}
-			break;
-		}
-		if (this.m_pointsToMoveAcross.Count > 1)
-		{
-			Vector3 normalized = (this.m_pointsToMoveAcross[this.m_pointsToMoveAcross.Count - 1] - this.m_pointsToMoveAcross[this.m_pointsToMoveAcross.Count - 2]).normalized;
-			this.m_pointsToMoveAcross.Add(this.m_pointsToMoveAcross[this.m_pointsToMoveAcross.Count - 1] + normalized * Board.\u000E().squareSize * 0.2f);
-		}
-		this.m_totalLineDistance = 0f;
-		for (int j = 1; j < this.m_pointsToMoveAcross.Count; j++)
-		{
-			this.m_totalLineDistance += (this.m_pointsToMoveAcross[j] - this.m_pointsToMoveAcross[j - 1]).magnitude;
-		}
-		for (;;)
-		{
-			switch (7)
+			m_totalLineDistance = 0f;
+			for (int j = 1; j < m_pointsToMoveAcross.Count; j++)
 			{
-			case 0:
-				continue;
+				m_totalLineDistance += (m_pointsToMoveAcross[j] - m_pointsToMoveAcross[j - 1]).magnitude;
 			}
-			break;
+			while (true)
+			{
+				currentPoint = 1;
+				m_travelSpeed = 10f;
+				m_objectMovingAcross.transform.position = m_pointsToMoveAcross[0];
+				return;
+			}
 		}
-		this.currentPoint = 1;
-		this.m_travelSpeed = 10f;
-		this.m_objectMovingAcross.transform.position = this.m_pointsToMoveAcross[0];
 	}
 
 	public void HideCharacterMovementPanel()
 	{
 		if (UICharacterMovementPanel.Get() != null)
 		{
-			UICharacterMovementPanel.Get().RemoveMovementIndicator(this.m_actorData);
+			UICharacterMovementPanel.Get().RemoveMovementIndicator(m_actorData);
 		}
 	}
 
 	public void SetCharacterMovementPanel(BoardSquare endLocation)
 	{
-		if (UICharacterMovementPanel.Get() != null)
+		if (!(UICharacterMovementPanel.Get() != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.SetCharacterMovementPanel(BoardSquare)).MethodHandle;
-			}
-			UICharacterMovementPanel.Get().AddMovementIndicator(endLocation, this.m_actorData);
+			return;
+		}
+		while (true)
+		{
+			UICharacterMovementPanel.Get().AddMovementIndicator(endLocation, m_actorData);
+			return;
 		}
 	}
 
 	public void Setup(ActorData actor, bool isChasing, AbilityUtil_Targeter.TargeterMovementType movementType)
 	{
-		if (this.m_actorData != null && this.m_actorData != actor)
+		if (m_actorData != null && m_actorData != actor)
 		{
-			this.HideCharacterMovementPanel();
+			HideCharacterMovementPanel();
 		}
-		this.m_actorData = actor;
-		this.m_objectMovingAcrossIsActive = true;
+		m_actorData = actor;
+		m_objectMovingAcrossIsActive = true;
 		bool active = !isChasing;
 		bool active2 = isChasing;
 		bool flag = movementType == AbilityUtil_Targeter.TargeterMovementType.Knockback;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.Setup(ActorData, bool, AbilityUtil_Targeter.TargeterMovementType)).MethodHandle;
-			}
 			active = false;
 			active2 = false;
 		}
-		this.m_movementContainer.SetActive(active);
-		this.m_chasingContainer.SetActive(active2);
-		this.m_knockbackContainer.SetActive(flag);
+		m_movementContainer.SetActive(active);
+		m_chasingContainer.SetActive(active2);
+		m_knockbackContainer.SetActive(flag);
 	}
 
 	public void SetGlow(bool glowOn)
 	{
-		this.m_objectMovingAcrossIsActive = glowOn;
-		if (this.m_objectMovingAcross != null)
+		m_objectMovingAcrossIsActive = glowOn;
+		if (!(m_objectMovingAcross != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(m_objectMovingAcross.GetComponent<PKFxFX>() != null))
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			if (m_objectMovingAcrossIsActive)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.SetGlow(bool)).MethodHandle;
-			}
-			if (this.m_objectMovingAcross.GetComponent<PKFxFX>() != null)
-			{
-				if (this.m_objectMovingAcrossIsActive)
+				while (true)
 				{
-					for (;;)
+					switch (1)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
+					case 0:
 						break;
+					default:
+						m_objectMovingAcross.GetComponent<PKFxFX>().StartEffect();
+						return;
 					}
-					this.m_objectMovingAcross.GetComponent<PKFxFX>().StartEffect();
-				}
-				else
-				{
-					this.m_objectMovingAcross.GetComponent<PKFxFX>().TerminateEffect();
 				}
 			}
+			m_objectMovingAcross.GetComponent<PKFxFX>().TerminateEffect();
+			return;
 		}
 	}
 
 	public void SetColor(Color newColor)
 	{
-		using (List<MeshRenderer>.Enumerator enumerator = this.AllMeshes.GetEnumerator())
+		using (List<MeshRenderer>.Enumerator enumerator = AllMeshes.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				MeshRenderer meshRenderer = enumerator.Current;
-				if (meshRenderer.materials.Length > 0)
+				MeshRenderer current = enumerator.Current;
+				if (current.materials.Length > 0)
 				{
-					for (;;)
+					if (current.materials[0] != null)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.SetColor(Color)).MethodHandle;
-					}
-					if (meshRenderer.materials[0] != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						meshRenderer.materials[0].SetColor("_TintColor", newColor);
+						current.materials[0].SetColor("_TintColor", newColor);
 					}
 				}
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
@@ -487,70 +323,34 @@ public class MovementPathStart : MonoBehaviour
 	{
 		if (UICharacterMovementPanel.Get() != null)
 		{
-			this.HideCharacterMovementPanel();
+			HideCharacterMovementPanel();
 		}
 	}
 
 	public void Update()
 	{
-		if (this.m_actorData != null)
+		if (m_actorData != null)
 		{
-			for (;;)
+			if (m_actorData.QueuedMovementAllowsAbility)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.Update()).MethodHandle;
-			}
-			if (this.m_actorData.QueuedMovementAllowsAbility)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_CloseArrowMesh.gameObject.SetActive(true);
-				this.m_FarArrowMesh.gameObject.SetActive(false);
+				m_CloseArrowMesh.gameObject.SetActive(true);
+				m_FarArrowMesh.gameObject.SetActive(false);
 			}
 			else
 			{
-				this.m_CloseArrowMesh.gameObject.SetActive(false);
-				this.m_FarArrowMesh.gameObject.SetActive(true);
+				m_CloseArrowMesh.gameObject.SetActive(false);
+				m_FarArrowMesh.gameObject.SetActive(true);
 			}
 		}
-		if (this.linePiece != null)
+		if (!(linePiece != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			MeshRenderer component = this.linePiece.GetComponent<MeshRenderer>();
+			return;
+		}
+		while (true)
+		{
+			MeshRenderer component = linePiece.GetComponent<MeshRenderer>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.material != null)
 				{
 					Vector2 textureOffset = component.material.GetTextureOffset("_MainTex");
@@ -558,74 +358,65 @@ public class MovementPathStart : MonoBehaviour
 					component.material.SetTextureOffset("_MainTex", textureOffset);
 				}
 			}
-			if (this.currentPoint < this.m_pointsToMoveAcross.Count)
+			if (currentPoint < m_pointsToMoveAcross.Count)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_finishPauseTime > 0f)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						break;
-					}
-					this.m_finishPauseTime -= Time.deltaTime;
-				}
-				else
-				{
-					if (this.m_objectMovingAcrossIsActive && this.m_objectMovingAcross.GetComponent<PKFxFX>() != null)
+					default:
 					{
-						for (;;)
+						if (m_finishPauseTime > 0f)
 						{
-							switch (6)
+							while (true)
 							{
-							case 0:
-								continue;
+								switch (1)
+								{
+								case 0:
+									break;
+								default:
+									m_finishPauseTime -= Time.deltaTime;
+									return;
+								}
 							}
-							break;
 						}
-						this.m_objectMovingAcross.GetComponent<PKFxFX>().StartEffect();
+						if (m_objectMovingAcrossIsActive && m_objectMovingAcross.GetComponent<PKFxFX>() != null)
+						{
+							m_objectMovingAcross.GetComponent<PKFxFX>().StartEffect();
+						}
+						Vector3 normalized = (m_pointsToMoveAcross[currentPoint] - m_pointsToMoveAcross[currentPoint - 1]).normalized;
+						Vector3 b = normalized * Time.deltaTime * m_travelSpeed;
+						m_objectMovingAcross.transform.position = m_objectMovingAcross.transform.position + b;
+						if ((m_pointsToMoveAcross[currentPoint - 1] - m_pointsToMoveAcross[currentPoint]).sqrMagnitude < (m_pointsToMoveAcross[currentPoint - 1] - m_objectMovingAcross.transform.position).sqrMagnitude)
+						{
+							while (true)
+							{
+								switch (4)
+								{
+								case 0:
+									break;
+								default:
+									m_objectMovingAcross.transform.position = m_pointsToMoveAcross[currentPoint];
+									currentPoint++;
+									return;
+								}
+							}
+						}
+						return;
 					}
-					Vector3 normalized = (this.m_pointsToMoveAcross[this.currentPoint] - this.m_pointsToMoveAcross[this.currentPoint - 1]).normalized;
-					Vector3 b = normalized * Time.deltaTime * this.m_travelSpeed;
-					this.m_objectMovingAcross.transform.position = this.m_objectMovingAcross.transform.position + b;
-					if ((this.m_pointsToMoveAcross[this.currentPoint - 1] - this.m_pointsToMoveAcross[this.currentPoint]).sqrMagnitude < (this.m_pointsToMoveAcross[this.currentPoint - 1] - this.m_objectMovingAcross.transform.position).sqrMagnitude)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_objectMovingAcross.transform.position = this.m_pointsToMoveAcross[this.currentPoint];
-						this.currentPoint++;
 					}
 				}
 			}
-			else
+			if (m_objectMovingAcross.GetComponent<PKFxFX>() != null)
 			{
-				if (this.m_objectMovingAcross.GetComponent<PKFxFX>() != null)
-				{
-					this.m_objectMovingAcross.GetComponent<PKFxFX>().TerminateEffect();
-				}
-				this.currentPoint = 1;
-				this.m_objectMovingAcross.transform.position = this.m_pointsToMoveAcross[0];
-				this.m_finishPauseTime = 0.5f;
+				m_objectMovingAcross.GetComponent<PKFxFX>().TerminateEffect();
 			}
+			currentPoint = 1;
+			m_objectMovingAcross.transform.position = m_pointsToMoveAcross[0];
+			m_finishPauseTime = 0.5f;
+			return;
 		}
 	}
 }

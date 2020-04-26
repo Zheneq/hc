@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -23,43 +23,34 @@ public class CubicBez
 	public Vector3 Interp(float t)
 	{
 		float num = 1f - t;
-		return num * num * num * this.st + 3f * num * num * t * this.ctrl1 + 3f * num * t * t * this.ctrl2 + t * t * t * this.en;
+		return num * num * num * st + 3f * num * num * t * ctrl1 + 3f * num * t * t * ctrl2 + t * t * t * en;
 	}
 
 	public Vector3 Velocity(float t)
 	{
-		return (-3f * this.st + 9f * this.ctrl1 - 9f * this.ctrl2 + 3f * this.en) * t * t + (6f * this.st - 12f * this.ctrl1 + 6f * this.ctrl2) * t - 3f * this.st + 3f * this.ctrl1;
+		return (-3f * st + 9f * ctrl1 - 9f * ctrl2 + 3f * en) * t * t + (6f * st - 12f * ctrl1 + 6f * ctrl2) * t - 3f * st + 3f * ctrl1;
 	}
 
 	public void GizmoDraw(float t)
 	{
 		Gizmos.color = Color.red;
-		Gizmos.DrawLine(this.st, this.ctrl1);
-		Gizmos.DrawLine(this.ctrl2, this.en);
+		Gizmos.DrawLine(st, ctrl1);
+		Gizmos.DrawLine(ctrl2, en);
 		Gizmos.color = Color.white;
-		Vector3 to = this.st;
-		for (int i = 1; i <= 0x14; i++)
+		Vector3 to = st;
+		for (int i = 1; i <= 20; i++)
 		{
 			float t2 = (float)i / 20f;
-			Vector3 vector = this.Interp(t2);
+			Vector3 vector = Interp(t2);
 			Gizmos.DrawLine(vector, to);
 			to = vector;
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			Gizmos.color = Color.blue;
+			Vector3 vector2 = Interp(t);
+			Gizmos.DrawLine(vector2, vector2 + Velocity(t));
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(CubicBez.GizmoDraw(float)).MethodHandle;
-		}
-		Gizmos.color = Color.blue;
-		Vector3 vector2 = this.Interp(t);
-		Gizmos.DrawLine(vector2, vector2 + this.Velocity(t));
 	}
 }

@@ -1,5 +1,5 @@
-﻿using System;
 using Newtonsoft.Json;
+using System;
 
 [Serializable]
 public class LeakyBucket
@@ -12,67 +12,34 @@ public class LeakyBucket
 
 	private TimeSpan m_timeOffset;
 
-	public LeakyBucket(double maxPoints, TimeSpan leakPeriod) : this(new Rate(maxPoints, leakPeriod))
-	{
-	}
-
-	public LeakyBucket() : this(new Rate(0.0, TimeSpan.Zero))
-	{
-	}
-
-	public LeakyBucket(Rate rate)
-	{
-		this.m_leakRate = rate;
-		this.Reset();
-	}
-
-	public void Reset()
-	{
-		this.m_points = 0.0;
-		this.m_lastUpdate = this.Now;
-		this.m_timeOffset = TimeSpan.Zero;
-	}
-
 	public double CurrentPoints
 	{
 		get
 		{
-			return Math.Max(0.0, this.m_points - this.Elapsed.TotalSeconds * this.m_leakRate.AmountPerSecond);
+			return Math.Max(0.0, m_points - Elapsed.TotalSeconds * m_leakRate.AmountPerSecond);
 		}
 		set
 		{
-			this.m_points = value;
-			this.m_lastUpdate = this.Now;
+			m_points = value;
+			m_lastUpdate = Now;
 		}
 	}
 
 	[JsonIgnore]
-	public double MaxPoints
-	{
-		get
-		{
-			return this.m_leakRate.Amount;
-		}
-	}
+	public double MaxPoints => m_leakRate.Amount;
 
 	[JsonIgnore]
-	public TimeSpan LeakPeriod
-	{
-		get
-		{
-			return this.m_leakRate.Period;
-		}
-	}
+	public TimeSpan LeakPeriod => m_leakRate.Period;
 
 	public Rate LeakRate
 	{
 		get
 		{
-			return this.m_leakRate;
+			return m_leakRate;
 		}
 		set
 		{
-			this.m_leakRate = value;
+			m_leakRate = value;
 		}
 	}
 
@@ -80,11 +47,11 @@ public class LeakyBucket
 	{
 		get
 		{
-			return this.m_timeOffset;
+			return m_timeOffset;
 		}
 		set
 		{
-			this.m_timeOffset = value;
+			m_timeOffset = value;
 		}
 	}
 
@@ -92,73 +59,25 @@ public class LeakyBucket
 	{
 		get
 		{
-			return this.m_lastUpdate;
+			return m_lastUpdate;
 		}
 		set
 		{
-			this.m_lastUpdate = value;
+			m_lastUpdate = value;
 		}
 	}
 
-	public bool TryAdd(double points = 1.0)
-	{
-		bool result = false;
-		if (this.CanAdd(points))
-		{
-			this.Add(points);
-			result = true;
-		}
-		return result;
-	}
-
-	public void Add(double points = 1.0)
-	{
-		this.Update();
-		this.m_points += points;
-		this.m_lastUpdate = this.Now;
-	}
-
-	public bool CanAdd(double points = 1.0)
-	{
-		return this.CurrentPoints + points <= this.MaxPoints;
-	}
-
-	public void Update()
-	{
-		this.m_points = this.CurrentPoints;
-		this.m_lastUpdate = this.Now;
-	}
-
-	private DateTime Now
-	{
-		get
-		{
-			return DateTime.UtcNow + this.m_timeOffset;
-		}
-	}
+	private DateTime Now => DateTime.UtcNow + m_timeOffset;
 
 	private TimeSpan Elapsed
 	{
 		get
 		{
-			DateTime now = this.Now;
+			DateTime now = Now;
 			TimeSpan result;
-			if (now > this.m_lastUpdate)
+			if (now > m_lastUpdate)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LeakyBucket.get_Elapsed()).MethodHandle;
-				}
-				result = this.Now - this.m_lastUpdate;
+				result = Now - m_lastUpdate;
 			}
 			else
 			{
@@ -168,26 +87,74 @@ public class LeakyBucket
 		}
 	}
 
+	public LeakyBucket(double maxPoints, TimeSpan leakPeriod)
+		: this(new Rate(maxPoints, leakPeriod))
+	{
+	}
+
+	public LeakyBucket()
+		: this(new Rate(0.0, TimeSpan.Zero))
+	{
+	}
+
+	public LeakyBucket(Rate rate)
+	{
+		m_leakRate = rate;
+		Reset();
+	}
+
+	public void Reset()
+	{
+		m_points = 0.0;
+		m_lastUpdate = Now;
+		m_timeOffset = TimeSpan.Zero;
+	}
+
+	public bool TryAdd(double points = 1.0)
+	{
+		bool result = false;
+		if (CanAdd(points))
+		{
+			Add(points);
+			result = true;
+		}
+		return result;
+	}
+
+	public void Add(double points = 1.0)
+	{
+		Update();
+		m_points += points;
+		m_lastUpdate = Now;
+	}
+
+	public bool CanAdd(double points = 1.0)
+	{
+		return CurrentPoints + points <= MaxPoints;
+	}
+
+	public void Update()
+	{
+		m_points = CurrentPoints;
+		m_lastUpdate = Now;
+	}
+
 	public TimeSpan Predict(double points = 1.0)
 	{
-		this.Update();
-		if (this.CurrentPoints + points <= this.MaxPoints)
+		Update();
+		if (CurrentPoints + points <= MaxPoints)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return TimeSpan.Zero;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LeakyBucket.Predict(double)).MethodHandle;
-			}
-			return TimeSpan.Zero;
 		}
-		return TimeSpan.FromSeconds((this.CurrentPoints + points - this.MaxPoints) / this.m_leakRate.AmountPerSecond);
+		return TimeSpan.FromSeconds((CurrentPoints + points - MaxPoints) / m_leakRate.AmountPerSecond);
 	}
 }

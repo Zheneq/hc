@@ -1,12 +1,10 @@
-﻿using System;
-
 public class AppState_Startup : AppState
 {
 	private static AppState_Startup s_instance;
 
 	public static AppState_Startup Get()
 	{
-		return AppState_Startup.s_instance;
+		return s_instance;
 	}
 
 	public static void Create()
@@ -16,12 +14,12 @@ public class AppState_Startup : AppState
 
 	private void Awake()
 	{
-		AppState_Startup.s_instance = this;
+		s_instance = this;
 	}
 
 	protected override void OnEnter()
 	{
-		AppState_FrontendLoadingScreen.Get().Enter(null, AppState_FrontendLoadingScreen.NextState.GoToLandingPage);
+		AppState_FrontendLoadingScreen.Get().Enter(null);
 	}
 
 	protected override void OnLeave()

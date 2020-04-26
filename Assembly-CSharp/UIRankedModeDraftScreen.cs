@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using LobbyGameClientMessages;
@@ -301,19 +301,6 @@ public class UIRankedModeDraftScreen : UIScene
 		CharacterVisualInfo characterVisualInfo;
 		if (this.LastPlayerInfo.CharacterType == charType)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.SetupCharacterSettings(CharacterType)).MethodHandle;
-			}
 			characterCardInfo = this.LastPlayerInfo.CharacterInfo.CharacterCards;
 			characterVisualInfo = this.LastPlayerInfo.CharacterInfo.CharacterSkin;
 		}
@@ -327,67 +314,22 @@ public class UIRankedModeDraftScreen : UIScene
 		CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(charType);
 		if (!this.m_rankedModeCharacterSettings.m_spellsSubPanel.GetDisplayedCardInfo().Equals(characterCardInfo))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_rankedModeCharacterSettings.m_spellsSubPanel.Setup(charType, characterCardInfo, false, false);
 		}
 		if (!(this.m_rankedModeCharacterSettings.m_abilitiesSubPanel.GetDisplayedCharacter() == null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_rankedModeCharacterSettings.m_abilitiesSubPanel.GetDisplayedCharacter().m_characterType.Equals(characterResourceLink.m_characterType))
 			{
 				goto IL_143;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_rankedModeCharacterSettings.m_abilitiesSubPanel.Setup(characterResourceLink, false);
 		IL_143:
 		if (this.m_rankedModeCharacterSettings.m_skinsSubPanel.GetDisplayedCharacterType().Equals(characterResourceLink.m_characterType))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_rankedModeCharacterSettings.m_skinsSubPanel.GetDisplayedVisualInfo().Equals(characterVisualInfo))
 			{
 				goto IL_1BF;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_rankedModeCharacterSettings.m_skinsSubPanel.Setup(characterResourceLink, characterVisualInfo, false);
@@ -397,15 +339,6 @@ public class UIRankedModeDraftScreen : UIScene
 			if (this.m_rankedModeCharacterSettings.m_tauntsSubPanel.GetDisplayedCharacter().m_characterType.Equals(characterResourceLink.m_characterType))
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_rankedModeCharacterSettings.m_tauntsSubPanel.Setup(characterResourceLink, false);
@@ -429,41 +362,10 @@ public class UIRankedModeDraftScreen : UIScene
 		{
 			if (value != CharacterType.None)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.set_SelectedCharacter(CharacterType)).MethodHandle;
-				}
 				if (this.LastGameInfo != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_assignedCharacterForGame != value)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_assignedCharacterForGame = value;
 						this.m_hoverCharacterForGame = value;
 						this.m_selectedSubPhaseCharacter = value;
@@ -516,19 +418,6 @@ public class UIRankedModeDraftScreen : UIScene
 				this.m_filterButtons.Add(uicharacterSelectFactionFilter);
 				if (groupFilter.Characters != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.Awake()).MethodHandle;
-					}
 					list = list.Except(groupFilter.Characters).ToList<CharacterType>();
 				}
 				uicharacterSelectFactionFilter.m_btn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
@@ -540,24 +429,12 @@ public class UIRankedModeDraftScreen : UIScene
 			this.m_notOnAFactionFilter.Setup(list, new Action<UICharacterSelectFactionFilter>(this.ClickedOnFactionFilter));
 			UITooltipObject component = this.m_notOnAFactionFilter.m_btn.spriteController.GetComponent<UITooltipHoverObject>();
 			TooltipType tooltipType = TooltipType.Simple;
-			if (UIRankedModeDraftScreen.<>f__am$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIRankedModeDraftScreen.<>f__am$cache0 = delegate(UITooltipBase tooltip)
+			
+			component.Setup(tooltipType, delegate(UITooltipBase tooltip)
 				{
 					(tooltip as UISimpleTooltip).Setup(StringUtil.TR("Wildcard", "Global"));
 					return true;
-				};
-			}
-			component.Setup(tooltipType, UIRankedModeDraftScreen.<>f__am$cache0, null);
+				}, null);
 			this.m_centerStateObjects.Add(this.m_blueTeamTurnNotification.gameObject);
 			this.m_centerStateObjects.Add(this.m_redTeamTurnNotification.gameObject);
 			this.m_centerStateObjects.Add(this.m_singleSelectionAC.gameObject);
@@ -574,19 +451,6 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (!this.m_friendlyBannedCharacterTypes.IsNullOrEmpty<CharacterType>())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.IsBanned(CharacterType)).MethodHandle;
-			}
 			if (this.m_friendlyBannedCharacterTypes.Contains(characterType))
 			{
 				return true;
@@ -595,15 +459,6 @@ public class UIRankedModeDraftScreen : UIScene
 		bool result;
 		if (!this.m_enemyBannedCharacterTypes.IsNullOrEmpty<CharacterType>())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_enemyBannedCharacterTypes.Contains(characterType);
 		}
 		else
@@ -622,19 +477,6 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (this.m_lastFilterBtnClicked != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.ClickedOnFactionFilter(UICharacterSelectFactionFilter)).MethodHandle;
-			}
 			if (this.m_lastFilterBtnClicked != btn)
 			{
 				this.m_lastFilterBtnClicked.m_btn.SetSelected(false, false, string.Empty, string.Empty);
@@ -650,91 +492,24 @@ public class UIRankedModeDraftScreen : UIScene
 		{
 			if (this.m_characterListDisplayButtons[i] != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.UpdateCharacterButtonHighlights()).MethodHandle;
-				}
 				if (this.m_characterListDisplayButtons[i].GetComponent<CanvasGroup>() != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_characterListDisplayButtons[i].GetComponent<CanvasGroup>().alpha = 1f;
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (this.m_lastFilterBtnClicked != null && this.m_lastFilterBtnClicked.m_btn.IsSelected())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = 0; j < this.m_characterListDisplayButtons.Count; j++)
 			{
 				if (!this.m_lastFilterBtnClicked.IsAvailable(this.m_characterListDisplayButtons[j].m_characterType))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CanvasGroup component = this.m_characterListDisplayButtons[j].GetComponent<CanvasGroup>();
 					if (component != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						component.alpha = 0.3f;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!this.m_searchInputField.text.IsNullOrEmpty())
@@ -745,39 +520,12 @@ public class UIRankedModeDraftScreen : UIScene
 				CharacterResourceLink characterResourceLink = this.m_characterListDisplayButtons[k].GetCharacterResourceLink();
 				if (characterResourceLink != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = characterResourceLink.GetDisplayName();
 				}
 				if (!this.DoesSearchMatchDisplayName(this.m_searchInputField.text.ToLower(), text.ToLower()))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_characterListDisplayButtons[k].GetComponent<CanvasGroup>().alpha = 0.3f;
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -786,34 +534,12 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		for (int i = 0; i < searchText.Length; i++)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (i >= displayText.Length)
 			{
 				break;
 			}
 			if (searchText[i] != displayText[i])
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.DoesSearchMatchDisplayName(string, string)).MethodHandle;
-				}
 				return false;
 			}
 		}
@@ -836,45 +562,14 @@ public class UIRankedModeDraftScreen : UIScene
 		}
 		else if (this.m_lastDraftNotification.SubPhase.IsPickFreelancerSubPhase())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.DoQueueState(UIRankedModeDraftScreen.CenterNotification)).MethodHandle;
-			}
 			this.m_blueTeamTurnTextNotification.text = StringUtil.TR("BluePicks", "RankMode");
 			this.m_redTeamTurnTextNotification.text = StringUtil.TR("RedPicks", "RankMode");
 		}
 		bool flag;
 		if (notification != UIRankedModeDraftScreen.CenterNotification.BlueTeamNotification)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (notification != UIRankedModeDraftScreen.CenterNotification.BlueTeamSingleSelectStart)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (notification == UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectStart);
 				goto IL_150;
 			}
@@ -885,26 +580,8 @@ public class UIRankedModeDraftScreen : UIScene
 		bool flag3;
 		if (notification != UIRankedModeDraftScreen.CenterNotification.RedTeamNotification)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (notification != UIRankedModeDraftScreen.CenterNotification.RedTeamSingleSelectStart)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag3 = (notification == UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectStart);
 				goto IL_175;
 			}
@@ -915,27 +592,9 @@ public class UIRankedModeDraftScreen : UIScene
 		this.SetCenterBackground(flag2, flag4);
 		if (notification != UIRankedModeDraftScreen.CenterNotification.BlueTeamNotification)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (notification != UIRankedModeDraftScreen.CenterNotification.RedTeamNotification)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		RankedResolutionPhaseData? rankedData = this.m_lastDraftNotification.RankedData;
@@ -946,19 +605,6 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (this.m_currentState != UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectStart)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.IsDoubleSelectinReadyToAdvance()).MethodHandle;
-			}
 			if (this.m_currentState != UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectStart)
 			{
 				return false;
@@ -966,53 +612,17 @@ public class UIRankedModeDraftScreen : UIScene
 		}
 		if (this.m_stateQueues.Count > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_stateQueues[0] != UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectEnd)
 			{
 				if (this.m_stateQueues[0] != UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectEnd)
 				{
 					return false;
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (!this.m_doubleRightSelectionCharacterSelected.gameObject.activeInHierarchy)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_doubleLeftSelectionCharacterSelected.gameObject.activeInHierarchy)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
@@ -1029,19 +639,6 @@ public class UIRankedModeDraftScreen : UIScene
 				return true;
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.IsAnyCenterStateActive()).MethodHandle;
-		}
 		return false;
 	}
 
@@ -1050,19 +647,6 @@ public class UIRankedModeDraftScreen : UIScene
 		for (int i = 0; i < this.m_centerStateObjects.Count; i++)
 		{
 			UIManager.SetGameObjectActive(this.m_centerStateObjects[i], false, null);
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.ClearAllStates()).MethodHandle;
 		}
 	}
 
@@ -1074,31 +658,9 @@ public class UIRankedModeDraftScreen : UIScene
 		}
 		if (notification != UIRankedModeDraftScreen.CenterNotification.LoadoutPhase)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.QueueCenterState(UIRankedModeDraftScreen.CenterNotification)).MethodHandle;
-			}
 			if (notification != UIRankedModeDraftScreen.CenterNotification.GameLoadPhase)
 			{
 				goto IL_3C;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.ClearAllStates();
@@ -1106,26 +668,8 @@ public class UIRankedModeDraftScreen : UIScene
 		IL_3C:
 		if (this.m_stateQueues.Count > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_stateQueues[this.m_stateQueues.Count - 1] == notification)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 		}
@@ -1141,58 +685,18 @@ public class UIRankedModeDraftScreen : UIScene
 		UICharacterSelectCharacterSettingsPanel.TabPanel tab = UICharacterSelectCharacterSettingsPanel.TabPanel.None;
 		if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_skinsBtn.spriteController.gameObject)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.SettingsButtonClicked(BaseEventData)).MethodHandle;
-			}
 			tab = UICharacterSelectCharacterSettingsPanel.TabPanel.Skins;
 		}
 		else if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_abilitiesBtn.spriteController.gameObject)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			tab = UICharacterSelectCharacterSettingsPanel.TabPanel.Abilities;
 		}
 		else if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_catalystsBtn.spriteController.gameObject)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			tab = UICharacterSelectCharacterSettingsPanel.TabPanel.Catalysts;
 		}
 		else if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_tauntsBtn.spriteController.gameObject)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			tab = UICharacterSelectCharacterSettingsPanel.TabPanel.Taunts;
 		}
 		UIRankedCharacterSelectSettingsPanel.Get().SetVisible(true, tab);
@@ -1225,33 +729,11 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (notification.GameInfo == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.HandleGameInfoNotification(GameInfoNotification)).MethodHandle;
-			}
 			Log.Error("Why is GameInfo null?", new object[0]);
 			return;
 		}
 		if (notification.PlayerInfo == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		if (notification.TeamInfo == null)
@@ -1266,42 +748,15 @@ public class UIRankedModeDraftScreen : UIScene
 		}
 		if (notification.GameInfo.GameStatus == GameStatus.Stopped)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AppState_GroupCharacterSelect.Get().Enter();
 			return;
 		}
 		if (notification.PlayerInfo.AccountId != 0L)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (notification.TeamInfo.TeamPlayerInfo.Count != 0)
 			{
 				if (notification.GameInfo.GameStatus == GameStatus.LoadoutSelecting && this.m_lastGameStatus != GameStatus.LoadoutSelecting)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_loadoutSelectStartTime = Time.realtimeSinceStartup;
 					this.SetFreelancerSettingButtonsVisible(true);
 				}
@@ -1317,53 +772,17 @@ public class UIRankedModeDraftScreen : UIScene
 				this.m_lastGameStatus = this.LastGameInfo.GameStatus;
 				if (this.IsVisible)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag2 = false;
 					if (notification.GameInfo.GameStatus == GameStatus.FreelancerSelecting)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.GameIsLaunching = false;
 					}
 					else
 					{
 						if (notification.GameInfo.GameStatus != GameStatus.Stopped)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (notification.GameInfo.GameStatus == GameStatus.LoadoutSelecting)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag2 = true;
 								this.UpdateGameLaunching(notification);
 								goto IL_22F;
@@ -1371,37 +790,10 @@ public class UIRankedModeDraftScreen : UIScene
 						}
 						if (notification.GameInfo.GameStatus != GameStatus.Stopped)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (notification.GameInfo.GameStatus > GameStatus.LoadoutSelecting)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!this.m_stateQueues.Contains(UIRankedModeDraftScreen.CenterNotification.GameLoadPhase))
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.m_currentState != UIRankedModeDraftScreen.CenterNotification.GameLoadPhase)
 									{
 										this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.GameLoadPhase);
@@ -1414,62 +806,17 @@ public class UIRankedModeDraftScreen : UIScene
 					IL_22F:
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_stateQueues.Contains(UIRankedModeDraftScreen.CenterNotification.LoadoutPhase) && this.m_currentState != UIRankedModeDraftScreen.CenterNotification.LoadoutPhase)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.LoadoutPhase);
 						}
 					}
 					if (this.m_lastDraftNotification != null && this.m_lastDraftNotification.SubPhase == FreelancerResolutionPhaseSubType.FREELANCER_TRADE)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.LastGameInfo.GameStatus == GameStatus.FreelancerSelecting && !this.m_stateQueues.Contains(UIRankedModeDraftScreen.CenterNotification.TradePhase))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_currentState != UIRankedModeDraftScreen.CenterNotification.TradePhase)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.TradePhase);
 							}
 						}
@@ -1491,15 +838,6 @@ public class UIRankedModeDraftScreen : UIScene
 					this.m_introStageText.text = mapDisplayName;
 					if (notification.GameInfo.GameConfig.GameType == GameType.Ranked)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_matchFoundText.text = StringUtil.TR("RankedMatchFound", "OverlayScreensScene");
 					}
 					else
@@ -1511,15 +849,6 @@ public class UIRankedModeDraftScreen : UIScene
 				}
 				return;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -1527,41 +856,10 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (this.LastGameInfo != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.SetupPlayerLists()).MethodHandle;
-			}
 			if (this.m_lastDraftNotification != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_lastDraftNotification.RankedData != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					RankedResolutionPhaseData value = this.m_lastDraftNotification.RankedData.Value;
 					Team team = this.LastPlayerInfo.TeamId;
 					if (this.LastPlayerInfo.TeamId == Team.Spectator)
@@ -1578,26 +876,8 @@ public class UIRankedModeDraftScreen : UIScene
 						{
 							if (lobbyPlayerInfo.PlayerId == num3)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num < this.m_blueTeamMembers.Length)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.m_blueTeamMembers[num].Setup(lobbyPlayerInfo, false);
 									num++;
 								}
@@ -1613,55 +893,19 @@ public class UIRankedModeDraftScreen : UIScene
 								LobbyPlayerInfo lobbyPlayerInfo2 = enumerator2.Current;
 								if (lobbyPlayerInfo2.PlayerId == num3)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num2 < this.m_redTeamMembers.Length)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.m_redTeamMembers[num2].Setup(lobbyPlayerInfo2, true);
 										num2++;
 									}
 									goto IL_1B4;
 								}
 							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						finally
 						{
 							if (enumerator2 != null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								enumerator2.Dispose();
 							}
 						}
@@ -1676,93 +920,26 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (this.m_lastDraftNotification != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.Update()).MethodHandle;
-			}
 			if (!this.GameIsLaunching)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_lastDraftNotification.RankedData != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UICharacterSelectWorldObjects.Get().IsVisible())
 					{
 						UICharacterSelectWorldObjects.Get().SetVisible(false);
 					}
 					if ((double)(Time.time - this.m_phaseStartTime) < this.m_timeInPhase.TotalSeconds)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float num = (float)this.m_timeInPhase.TotalSeconds - Time.time + this.m_phaseStartTime;
 						int num2 = Mathf.RoundToInt(num);
 						RankedResolutionPhaseData value = this.m_lastDraftNotification.RankedData.Value;
 						Team currentTeam = this.GetCurrentTeam(value);
 						if (currentTeam != Team.TeamA)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (currentTeam != Team.TeamB)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_gameCountdownTimer.text != num2.ToString())
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.m_gameCountdownTimer.text = num2.ToString();
 									this.m_gameCountdownAC.Play("RankedNumberTextCountdown", 1, 0f);
 								}
@@ -1777,15 +954,6 @@ public class UIRankedModeDraftScreen : UIScene
 							this.m_redCountdownTimer.text = string.Empty;
 							if (this.m_blueCountdownTimer.text != num2.ToString())
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_blueCountdownTimer.text = num2.ToString();
 								this.m_blueCountdownAC.Play("RankedNumberTextCountdown", 1, 0f);
 							}
@@ -1795,15 +963,6 @@ public class UIRankedModeDraftScreen : UIScene
 							this.m_gameCountdownTimer.text = string.Empty;
 							if (this.m_redCountdownTimer.text != num2.ToString())
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_redCountdownTimer.text = num2.ToString();
 								this.m_redCountdownAC.Play("RankedNumberTextCountdown", 1, 0f);
 							}
@@ -1812,15 +971,6 @@ public class UIRankedModeDraftScreen : UIScene
 						IL_28A:
 						if (num2 <= 5)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (Mathf.RoundToInt(num + Time.deltaTime) != num2)
 							{
 								UIFrontEnd.PlaySound(FrontEndButtonSounds.RankModeTimerTick);
@@ -1829,38 +979,11 @@ public class UIRankedModeDraftScreen : UIScene
 					}
 					if (this.SelectedCharacter != CharacterType.None)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.SelectedCharacter != this.ClientClickedCharacter)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int playerId = GameManager.Get().PlayerInfo.PlayerId;
-							if (!this.m_lastDraftNotification.RankedData.Value.\u001D(playerId))
+							if (!this.m_lastDraftNotification.RankedData.Value._001D(playerId))
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.SetupCharacterSettings(this.SelectedCharacter);
 							}
 						}
@@ -1870,51 +993,15 @@ public class UIRankedModeDraftScreen : UIScene
 		}
 		if (this.GameIsLaunching)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_gameCountdownTimer.text = string.Empty;
 			if (this.LastGameInfo != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.LastGameInfo.GameStatus == GameStatus.LoadoutSelecting)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num3 = Mathf.Max(0f, (float)this.LastGameInfo.LoadoutSelectTimeout.TotalSeconds - (Time.realtimeSinceStartup - this.m_loadoutSelectStartTime));
 					int num4 = Mathf.RoundToInt(num3);
 					if (this.m_gameCountdownTimer.text != num4.ToString())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_gameCountdownTimer.text = num4.ToString();
 						this.m_gameCountdownAC.Play("RankedNumberTextCountdown", 1, 0f);
 					}
@@ -1930,15 +1017,6 @@ public class UIRankedModeDraftScreen : UIScene
 		float axis = Input.GetAxis("Mouse ScrollWheel");
 		if (axis > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetPageIndex(this.m_currentCharacterPage + 1);
 		}
 		else if (axis < 0f)
@@ -1947,38 +1025,11 @@ public class UIRankedModeDraftScreen : UIScene
 		}
 		if (!this.m_introContainer.gameObject.activeSelf)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.IsAnyCenterStateActive())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.IsDoubleSelectinReadyToAdvance())
 				{
 					goto IL_524;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (this.m_stateQueues.Count > 0)
@@ -1991,40 +1042,13 @@ public class UIRankedModeDraftScreen : UIScene
 		IL_524:
 		if (this.m_characterSelectContainerCanvasGroup == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_characterSelectContainerCanvasGroup = this.m_characterSelectContainer.GetComponent<CanvasGroup>();
 		}
 		if (this.m_journeyLength <= 0f)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_currentCharacterPage == this.m_currentVisiblePage)
 			{
 				goto IL_7F3;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		float num5 = (Time.time - this.m_startTime) * this.m_timeForPageToSwap;
@@ -2032,49 +1056,13 @@ public class UIRankedModeDraftScreen : UIScene
 		Vector2 anchoredPosition = Vector2.Lerp(this.m_startLocation, this.m_endLocation, num6);
 		if (!float.IsNaN(anchoredPosition.x))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!float.IsNaN(anchoredPosition.y))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				(this.m_characterSelectContainer.transform as RectTransform).anchoredPosition = anchoredPosition;
 				if (this.m_characterSelectContainerCanvasGroup != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_currentCharacterPage != this.m_currentVisiblePage)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_characterSelectContainerCanvasGroup.alpha = 1f - num6;
 					}
 					else
@@ -2084,26 +1072,8 @@ public class UIRankedModeDraftScreen : UIScene
 				}
 				if (num6 >= 1f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_characterSelectContainerCanvasGroup.alpha <= 0f)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector2 anchoredPosition2 = (this.m_characterSelectContainer.gameObject.transform as RectTransform).anchoredPosition;
 						if (this.m_endLocation.x < 0f)
 						{
@@ -2115,15 +1085,6 @@ public class UIRankedModeDraftScreen : UIScene
 						}
 						else if (this.m_endLocation.x > 0f)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							(this.m_characterSelectContainer.gameObject.transform as RectTransform).anchoredPosition = new Vector2(anchoredPosition2.x * -1f, anchoredPosition2.y);
 							this.m_startTime = Time.time;
 							this.m_startLocation = anchoredPosition2;
@@ -2142,15 +1103,6 @@ public class UIRankedModeDraftScreen : UIScene
 		IL_7F3:
 		if (this.IsCenterSelectAnimating())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_lockInBtn, false, null);
 		}
 		else
@@ -2158,15 +1110,6 @@ public class UIRankedModeDraftScreen : UIScene
 			string text;
 			if (this.m_lastDraftNotification != null && this.m_lastDraftNotification.SubPhase.IsPickBanSubPhase())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = StringUtil.TR("Ban", "OverlayScreensScene");
 			}
 			else
@@ -2177,64 +1120,19 @@ public class UIRankedModeDraftScreen : UIScene
 			{
 				this.m_lockInText[i].text = text;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_lockInBtn, this.m_intendedLockInBtnStatus, null);
 			this.m_lockInBtn.SetDisabled(this.m_selectedSubPhaseCharacter == this.SelectedCharacter);
 		}
 		if (this.m_containerAC == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_containerAC = this.m_draftScreenContainer.GetComponent<Animator>();
 		}
 		if (this.m_containerAC != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_containerAC.gameObject.activeInHierarchy)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_containerAC.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.DoCharacterSelectContainerActiveCheck();
 				}
 			}
@@ -2247,45 +1145,14 @@ public class UIRankedModeDraftScreen : UIScene
 		bool result = false;
 		if (this.m_singleSelectionCharacterSelected.gameObject.activeInHierarchy)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.IsCenterSelectAnimating()).MethodHandle;
-			}
 			result = true;
 		}
 		else if (this.m_doubleRightSelectionCharacterSelected.gameObject.activeInHierarchy && this.doubleSelectionLeftCharacter.gameObject.activeInHierarchy)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = true;
 		}
 		else if (this.m_doubleLeftSelectionCharacterSelected.gameObject.activeInHierarchy)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.doubleSelectionRightCharacter.gameObject.activeInHierarchy)
 			{
 				result = true;
@@ -2307,30 +1174,8 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (this.m_selectedSubPhaseCharacter != CharacterType.None)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.LockPhaseButtonClicked(BaseEventData)).MethodHandle;
-			}
 			if (this.SelectedCharacter != this.m_selectedSubPhaseCharacter)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_lastDraftNotification.SubPhase.IsPickBanSubPhase())
 				{
 					ClientGameManager.Get().SendRankedBanRequest(this.m_selectedSubPhaseCharacter);
@@ -2348,19 +1193,6 @@ public class UIRankedModeDraftScreen : UIScene
 		bool result = false;
 		if (data.TradeActions != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.DidPlayerLockInDuringSwapPhase(RankedResolutionPhaseData, long)).MethodHandle;
-			}
 			using (List<RankedTradeData>.Enumerator enumerator = data.TradeActions.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -2368,29 +1200,11 @@ public class UIRankedModeDraftScreen : UIScene
 					RankedTradeData rankedTradeData = enumerator.Current;
 					if ((long)rankedTradeData.OfferingPlayerId == playerID)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (rankedTradeData.TradeAction == RankedTradeData.TradeActionType.\u0012)
+						if (rankedTradeData.TradeAction == RankedTradeData.TradeActionType._0012)
 						{
 							return true;
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -2401,19 +1215,6 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (this.m_lastDraftNotification.SubPhase.IsPickBanSubPhase())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.UpdateHoverSelfStatus(RankedResolutionPhaseData)).MethodHandle;
-			}
 			return;
 		}
 		if (this.LastGameInfo != null)
@@ -2424,146 +1225,56 @@ public class UIRankedModeDraftScreen : UIScene
 			{
 				if (this.m_blueTeamMembers[i].PlayerID == playerId)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.HoveredCharacter != CharacterType.None)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_selectedCharacterTypes.Contains(this.HoveredCharacter))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!this.IsBanned(this.HoveredCharacter))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(this.HoveredCharacter);
 								this.m_blueTeamMembers[i].SetBrowseCharacterImageVisible(true);
 								this.m_blueTeamMembers[i].SetHoverCharacter(characterResourceLink);
 							}
 						}
 					}
-					IL_FF:
-					if (this.m_playerIDsOnDeck.Count == 1)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						KeyValuePair<int, CharacterType> selectedChar = new KeyValuePair<int, CharacterType>(playerId, this.HoveredCharacter);
-						if (this.m_playerIDsOnDeck.ContainsKey(playerId))
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.SetupSelection(selectedChar, data, this.m_singleCharacterName, this.singleNoSelectionCharacter, this.singleBrowseSelectionCharacter, this.singleSelectionCharacter, this.m_singleSelectionCharacterSelected, this.m_singleBlueSelectionCharacterSelected, this.m_singleBlueTeamSelectedCharacter, this.m_singleBlueTeamPlayerName, true, false);
-						}
-						return;
-					}
-					if (this.m_playerIDsOnDeck.Count == 2)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						bool flag = true;
-						using (Dictionary<int, CharacterType>.Enumerator enumerator = this.m_playerIDsOnDeck.GetEnumerator())
-						{
-							while (enumerator.MoveNext())
-							{
-								KeyValuePair<int, CharacterType> selectedChar2 = enumerator.Current;
-								if (flag)
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									this.SetupSelection(selectedChar2, data, this.m_leftCharacterName, this.doubleNoSelectionLeftCharacter, this.doubleBrowseSelectionLeftCharacter, this.doubleSelectionLeftCharacter, this.m_doubleLeftSelectionCharacterSelected, this.m_doubleLeftBlueSelectionCharacterSelected, this.m_doubleLeftBlueTeamSelectedCharacter, this.m_doubleLeftBlueTeamPlayerName, true, false);
-									flag = false;
-								}
-								else
-								{
-									this.SetupSelection(selectedChar2, data, this.m_rightCharacterName, this.doubleNoSelectionRightCharacter, this.doubleBrowseSelectionRightCharacter, this.doubleSelectionRightCharacter, this.m_doubleRightSelectionCharacterSelected, this.m_doubleRightBlueSelectionCharacterSelected, this.m_doubleRightBlueTeamSelectedCharacter, this.m_doubleRightBlueTeamPlayerName, true, false);
-								}
-							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						return;
-					}
-					return;
+					break;
 				}
 				else
 				{
 					i++;
 				}
 			}
-			for (;;)
+			if (this.m_playerIDsOnDeck.Count == 1)
 			{
-				switch (3)
+				KeyValuePair<int, CharacterType> selectedChar = new KeyValuePair<int, CharacterType>(playerId, this.HoveredCharacter);
+				if (this.m_playerIDsOnDeck.ContainsKey(playerId))
 				{
-				case 0:
-					continue;
+					this.SetupSelection(selectedChar, data, this.m_singleCharacterName, this.singleNoSelectionCharacter, this.singleBrowseSelectionCharacter, this.singleSelectionCharacter, this.m_singleSelectionCharacterSelected, this.m_singleBlueSelectionCharacterSelected, this.m_singleBlueTeamSelectedCharacter, this.m_singleBlueTeamPlayerName, true, false);
 				}
-				goto IL_FF;
+				return;
 			}
+			if (this.m_playerIDsOnDeck.Count == 2)
+			{
+				bool flag = true;
+				using (Dictionary<int, CharacterType>.Enumerator enumerator = this.m_playerIDsOnDeck.GetEnumerator())
+				{
+					while (enumerator.MoveNext())
+					{
+						KeyValuePair<int, CharacterType> selectedChar2 = enumerator.Current;
+						if (flag)
+						{
+							this.SetupSelection(selectedChar2, data, this.m_leftCharacterName, this.doubleNoSelectionLeftCharacter, this.doubleBrowseSelectionLeftCharacter, this.doubleSelectionLeftCharacter, this.m_doubleLeftSelectionCharacterSelected, this.m_doubleLeftBlueSelectionCharacterSelected, this.m_doubleLeftBlueTeamSelectedCharacter, this.m_doubleLeftBlueTeamPlayerName, true, false);
+							flag = false;
+						}
+						else
+						{
+							this.SetupSelection(selectedChar2, data, this.m_rightCharacterName, this.doubleNoSelectionRightCharacter, this.doubleBrowseSelectionRightCharacter, this.doubleSelectionRightCharacter, this.m_doubleRightSelectionCharacterSelected, this.m_doubleRightBlueSelectionCharacterSelected, this.m_doubleRightBlueTeamSelectedCharacter, this.m_doubleRightBlueTeamPlayerName, true, false);
+						}
+					}
+				}
+				return;
+			}
+			return;
 		}
 	}
 
@@ -2577,44 +1288,13 @@ public class UIRankedModeDraftScreen : UIScene
 			{
 				goto IL_77;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.UpdateHoverStatus(RankedResolutionPhaseData)).MethodHandle;
-			}
 			if (!this.m_playerIDsOnDeck.ContainsKey(this.OurPlayerId))
 			{
 				goto IL_77;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_blueTeamMembers[i].PlayerID != this.OurPlayerId)
 			{
 				goto IL_77;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			IL_330:
 			i++;
@@ -2622,15 +1302,6 @@ public class UIRankedModeDraftScreen : UIScene
 			IL_77:
 			if (data.FriendlyTeamSelections.ContainsKey(this.m_blueTeamMembers[i].PlayerID))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_blueTeamMembers[i].SetBrowseCharacterImageVisible(false);
 				goto IL_330;
 			}
@@ -2638,15 +1309,6 @@ public class UIRankedModeDraftScreen : UIScene
 			{
 				if (this.m_playerIDsOnDeck[this.m_blueTeamMembers[i].PlayerID] != CharacterType.None)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.IsBanned(this.m_playerIDsOnDeck[this.m_blueTeamMembers[i].PlayerID]) || this.m_selectedCharacterTypes.Contains(this.m_playerIDsOnDeck[this.m_blueTeamMembers[i].PlayerID]))
 					{
 						this.m_blueTeamMembers[i].SetBrowseCharacterImageVisible(false);
@@ -2675,42 +1337,15 @@ public class UIRankedModeDraftScreen : UIScene
 					RankedResolutionPlayerState rankedResolutionPlayerState = enumerator.Current;
 					if (rankedResolutionPlayerState.PlayerId == this.m_blueTeamMembers[i].PlayerID)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (rankedResolutionPlayerState.Intention != CharacterType.None)
 						{
 							if (!this.IsBanned(rankedResolutionPlayerState.Intention))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!this.m_selectedCharacterTypes.Contains(rankedResolutionPlayerState.Intention))
 								{
 									CharacterResourceLink characterResourceLink3 = GameWideData.Get().GetCharacterResourceLink(rankedResolutionPlayerState.Intention);
 									if (characterResourceLink3 != null)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										browseCharacterImageVisible = true;
 										this.m_blueTeamMembers[i].SetHoverCharacter(characterResourceLink3);
 										goto IL_2F7;
@@ -2725,42 +1360,15 @@ public class UIRankedModeDraftScreen : UIScene
 						goto IL_321;
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			IL_321:
 			this.m_blueTeamMembers[i].SetBrowseCharacterImageVisible(browseCharacterImageVisible);
 			goto IL_330;
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = 0; j < this.m_redTeamMembers.Length; j++)
 		{
 			if (data.EnemyTeamSelections.ContainsKey(this.m_redTeamMembers[j].PlayerID))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_redTeamMembers[j].SetBrowseCharacterImageVisible(false);
 			}
 			else
@@ -2768,26 +1376,8 @@ public class UIRankedModeDraftScreen : UIScene
 				bool flag2 = false;
 				if (this.m_playerIDsOnDeck.ContainsKey(this.m_redTeamMembers[j].PlayerID) && this.m_playerIDsOnDeck[this.m_redTeamMembers[j].PlayerID] != CharacterType.None)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.IsBanned(this.m_playerIDsOnDeck[this.m_redTeamMembers[j].PlayerID]))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						CharacterResourceLink characterResourceLink4 = GameWideData.Get().GetCharacterResourceLink(this.m_playerIDsOnDeck[this.m_redTeamMembers[j].PlayerID]);
 						this.m_redTeamMembers[j].SetBrowseCharacterImageVisible(true);
 						this.m_redTeamMembers[j].SetHoverCharacter(characterResourceLink4);
@@ -2796,27 +1386,9 @@ public class UIRankedModeDraftScreen : UIScene
 				}
 				if (!flag2)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_redTeamMembers[j].SetBrowseCharacterImageVisible(false);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -2824,19 +1396,6 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (this.m_playerIDsOnDeck.Count == 1)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.CheckSelectedCharForCenterPiece(bool, RankedResolutionPhaseData)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_singleSelectionCharacterSelected, true, null);
 			using (Dictionary<int, CharacterType>.Enumerator enumerator = this.m_playerIDsOnDeck.GetEnumerator())
 			{
@@ -2852,15 +1411,6 @@ public class UIRankedModeDraftScreen : UIScene
 					Animator selectedCharacterNameAnimator;
 					if (isOnBlue)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						selectedCharacterNameAnimator = this.m_singleBlueSelectionCharacterSelected;
 					}
 					else
@@ -2868,15 +1418,6 @@ public class UIRankedModeDraftScreen : UIScene
 						selectedCharacterNameAnimator = this.m_singleRedTeamSelectionCharacterSelected;
 					}
 					this.SetupSelection(selectedChar, data, singleCharacterName, noCharacter, browseCharacter, selectedCharacter, singleSelectionCharacterSelected, selectedCharacterNameAnimator, (!isOnBlue) ? this.m_singleRedTeamSelectedCharacter : this.m_singleBlueTeamSelectedCharacter, (!isOnBlue) ? this.m_singleRedTeamPlayerName : this.m_singleBlueTeamPlayerName, isOnBlue, !isOnBlue);
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -2900,15 +1441,6 @@ public class UIRankedModeDraftScreen : UIScene
 						Animator selectedCharacterNameAnimator2;
 						if (isOnBlue)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							selectedCharacterNameAnimator2 = this.m_doubleLeftBlueSelectionCharacterSelected;
 						}
 						else
@@ -2918,15 +1450,6 @@ public class UIRankedModeDraftScreen : UIScene
 						TextMeshProUGUI selectedCharacterText;
 						if (isOnBlue)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							selectedCharacterText = this.m_doubleLeftBlueTeamSelectedCharacter;
 						}
 						else
@@ -2948,15 +1471,6 @@ public class UIRankedModeDraftScreen : UIScene
 						TextMeshProUGUI playerName;
 						if (isOnBlue)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							playerName = this.m_doubleRightBlueTeamPlayerName;
 						}
 						else
@@ -2966,15 +1480,6 @@ public class UIRankedModeDraftScreen : UIScene
 						this.SetupSelection(selectedChar3, data, rightCharacterName, noCharacter3, browseCharacter3, selectedCharacter3, doubleRightSelectionCharacterSelected, selectedCharacterNameAnimator3, selectedCharacterText2, playerName, isOnBlue, !isOnBlue);
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 	}
@@ -2983,24 +1488,11 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		for (int i = 0; i < this.m_blueTeamMembers.Length; i++)
 		{
-			this.m_blueTeamMembers[i].SetAsSelecting(data.\u001D(this.m_blueTeamMembers[i].PlayerID));
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.UpdatePlayerSelecting(RankedResolutionPhaseData)).MethodHandle;
+			this.m_blueTeamMembers[i].SetAsSelecting(data._001D(this.m_blueTeamMembers[i].PlayerID));
 		}
 		for (int j = 0; j < this.m_redTeamMembers.Length; j++)
 		{
-			this.m_redTeamMembers[j].SetAsSelecting(data.\u001D(this.m_redTeamMembers[j].PlayerID));
+			this.m_redTeamMembers[j].SetAsSelecting(data._001D(this.m_redTeamMembers[j].PlayerID));
 		}
 	}
 
@@ -3009,19 +1501,6 @@ public class UIRankedModeDraftScreen : UIScene
 		bool flag;
 		if (this.m_lastDraftNotification != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.DoCharacterSelectContainerActiveCheck()).MethodHandle;
-			}
 			flag = this.m_lastDraftNotification.SubPhase.IsPickBanSubPhase();
 		}
 		else
@@ -3035,15 +1514,6 @@ public class UIRankedModeDraftScreen : UIScene
 			bool clickable;
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				clickable = (this.SelectedCharacter == CharacterType.None);
 			}
 			else
@@ -3052,84 +1522,26 @@ public class UIRankedModeDraftScreen : UIScene
 			}
 			uicharacterPanelSelectButton.SetClickable(clickable);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	private void UpdateRankData(RankedResolutionPhaseData data, bool updateFromGameInfoUpdate = false)
 	{
 		if (this.LastGameInfo != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.UpdateRankData(RankedResolutionPhaseData, bool)).MethodHandle;
-			}
 			this.m_timeInPhase = data.TimeLeftInSubPhase;
 			if (!updateFromGameInfoUpdate)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_phaseStartTime = Time.time;
 			}
-			this.m_IsOnDeck = data.\u001D(this.OurPlayerId);
+			this.m_IsOnDeck = data._001D(this.OurPlayerId);
 			this.DoCharacterSelectContainerActiveCheck();
 			bool intendedLockInBtnStatus;
 			if (this.m_IsOnDeck)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.IsBanned(this.HoveredCharacter) && !this.m_selectedCharacterTypes.Contains(this.HoveredCharacter))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_lastDraftNotification.SubPhase.IsPickBanSubPhase())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						intendedLockInBtnStatus = this.m_lastDraftNotification.SubPhase.IsPickFreelancerSubPhase();
 					}
 					else
@@ -3144,26 +1556,8 @@ public class UIRankedModeDraftScreen : UIScene
 			this.m_intendedLockInBtnStatus = intendedLockInBtnStatus;
 			if (this.m_IsOnDeck)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!updateFromGameInfoUpdate)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.HoveredCharacter = data.PlayersOnDeck.Find((RankedResolutionPlayerState p) => p.PlayerId == this.OurPlayerId).Intention;
 				}
 			}
@@ -3175,48 +1569,12 @@ public class UIRankedModeDraftScreen : UIScene
 			UIManager.SetGameObjectActive(this.m_lockFreelancerContainer, false, null);
 			if (this.m_lastDraftNotification.SubPhase == FreelancerResolutionPhaseSubType.FREELANCER_TRADE)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.LastGameInfo.GameStatus == GameStatus.FreelancerSelecting)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_stateQueues.Contains(UIRankedModeDraftScreen.CenterNotification.TradePhase))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_currentState != UIRankedModeDraftScreen.CenterNotification.TradePhase)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.TradePhase);
 						}
 					}
@@ -3224,41 +1582,14 @@ public class UIRankedModeDraftScreen : UIScene
 			}
 			if (!this.m_lastDraftNotification.SubPhase.IsPickBanSubPhase())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < this.m_blueBans.Length; i++)
 				{
 					this.m_blueBans[i].SetAsSelecting(false);
 					this.m_redBans[i].SetAsSelecting(false);
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			for (int j = 0; j < this.m_blueBans.Length; j++)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (j >= data.FriendlyBans.Count)
 				{
 					break;
@@ -3266,27 +1597,9 @@ public class UIRankedModeDraftScreen : UIScene
 				CharacterType characterType = data.FriendlyBans[j];
 				if (this.m_blueBans[j] != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(characterType);
 					if (characterResourceLink != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_blueBans[j].SetSelectedCharacterImageVisible(true);
 						if (this.m_blueBans[j].GetSelectedCharacter() == CharacterType.None)
 						{
@@ -3303,15 +1616,6 @@ public class UIRankedModeDraftScreen : UIScene
 			}
 			for (int k = 0; k < this.m_redBans.Length; k++)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (k >= data.EnemyBans.Count)
 				{
 					break;
@@ -3319,39 +1623,12 @@ public class UIRankedModeDraftScreen : UIScene
 				CharacterType characterType2 = data.EnemyBans[k];
 				if (this.m_redBans[k] != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CharacterResourceLink characterResourceLink2 = GameWideData.Get().GetCharacterResourceLink(characterType2);
 					if (characterResourceLink2 != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_redBans[k].SetSelectedCharacterImageVisible(true);
 						if (this.m_redBans[k].GetSelectedCharacter() == CharacterType.None)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIFrontEnd.PlaySound(FrontEndButtonSounds.RankModeBanPlayer);
 							this.CheckSelectedCharForCenterPiece(false, data);
 						}
@@ -3360,15 +1637,6 @@ public class UIRankedModeDraftScreen : UIScene
 				}
 				if (!this.m_enemyBannedCharacterTypes.Contains(characterType2))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_enemyBannedCharacterTypes.Add(characterType2);
 				}
 			}
@@ -3379,39 +1647,12 @@ public class UIRankedModeDraftScreen : UIScene
 				bool selectedCharacterImageVisible = false;
 				if (data.FriendlyTeamSelections.ContainsKey(this.m_blueTeamMembers[l].PlayerID))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CharacterResourceLink characterResourceLink3 = GameWideData.Get().GetCharacterResourceLink(data.FriendlyTeamSelections[this.m_blueTeamMembers[l].PlayerID]);
 					if (characterResourceLink3 != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						selectedCharacterImageVisible = true;
 						if (this.m_blueTeamMembers[l].GetSelectedCharacter() == CharacterType.None)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIFrontEnd.PlaySound(FrontEndButtonSounds.RankModePickPlayer);
 							this.CheckSelectedCharForCenterPiece(true, data);
 						}
@@ -3424,15 +1665,6 @@ public class UIRankedModeDraftScreen : UIScene
 					}
 					if (this.m_blueTeamMembers[l].AccountID == accountId)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SelectedCharacter = this.m_blueTeamMembers[l].GetSelectedCharacter();
 					}
 				}
@@ -3452,27 +1684,9 @@ public class UIRankedModeDraftScreen : UIScene
 					CharacterResourceLink characterResourceLink4 = GameWideData.Get().GetCharacterResourceLink(data.EnemyTeamSelections[this.m_redTeamMembers[m].PlayerID]);
 					if (characterResourceLink4 != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						selectedCharacterImageVisible2 = true;
 						if (this.m_redTeamMembers[m].GetSelectedCharacter() == CharacterType.None)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIFrontEnd.PlaySound(FrontEndButtonSounds.RankModePickPlayer);
 							this.CheckSelectedCharForCenterPiece(false, data);
 						}
@@ -3486,26 +1700,8 @@ public class UIRankedModeDraftScreen : UIScene
 				UIManager.SetGameObjectActive(this.m_redTeamMembers[m], true, null);
 				this.m_redTeamMembers[m].SetSelectedCharacterImageVisible(selectedCharacterImageVisible2);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_currentCharacterPage == -1)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SetPageIndex(0);
 			}
 			this.CheckCharacterListValidity();
@@ -3518,21 +1714,8 @@ public class UIRankedModeDraftScreen : UIScene
 		{
 			foreach (LobbyPlayerInfo lobbyPlayerInfo in this.LastTeamInfo.TeamPlayerInfo)
 			{
-				if (data.\u001D(lobbyPlayerInfo.PlayerId))
+				if (data._001D(lobbyPlayerInfo.PlayerId))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.GetCurrentTeam(RankedResolutionPhaseData)).MethodHandle;
-					}
 					return lobbyPlayerInfo.TeamId;
 				}
 			}
@@ -3542,40 +1725,13 @@ public class UIRankedModeDraftScreen : UIScene
 			}
 			if (!this.m_lastDraftNotification.SubPhase.IsPickFreelancerSubPhase())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_lastDraftNotification.SubPhase.IsPickBanSubPhase())
 				{
 					return Team.Invalid;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (this.LastPlayerInfo.TeamId == Team.Spectator)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return Team.TeamA;
 			}
 			return this.LastPlayerInfo.TeamId.OtherTeam();
@@ -3597,31 +1753,9 @@ public class UIRankedModeDraftScreen : UIScene
 		{
 			UIManager.SetGameObjectActive(this.doubleSelectionBlueTeam[k], isOnBlue, null);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.SetCenterBackground(bool, bool)).MethodHandle;
-		}
 		for (int l = 0; l < this.doubleSelectionRedTeam.Length; l++)
 		{
 			UIManager.SetGameObjectActive(this.doubleSelectionRedTeam[l], isOnRed, null);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -3638,43 +1772,12 @@ public class UIRankedModeDraftScreen : UIScene
 					RankedResolutionPlayerState rankedResolutionPlayerState = enumerator.Current;
 					if (rankedResolutionPlayerState.PlayerId == this.m_blueTeamMembers[i].PlayerID)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.PrintData(RankedResolutionPhaseData)).MethodHandle;
-						}
 						text += string.Format("PlayerID is {0}, PlayerName is {1}, Is On deck: {2}\n", rankedResolutionPlayerState.PlayerId, this.m_blueTeamMembers[i].m_playerName, rankedResolutionPlayerState.OnDeckness);
 						goto IL_BE;
 					}
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			IL_BE:;
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		text += "Red team info:\n";
 		for (int j = 0; j < this.m_redTeamMembers.Length; j++)
@@ -3686,39 +1789,12 @@ public class UIRankedModeDraftScreen : UIScene
 					RankedResolutionPlayerState rankedResolutionPlayerState2 = enumerator2.Current;
 					if (rankedResolutionPlayerState2.PlayerId == this.m_redTeamMembers[j].PlayerID)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text += string.Format("PlayerID is {0}, PlayerName is {1}, Is On deck: {2}\n", rankedResolutionPlayerState2.PlayerId, this.m_redTeamMembers[j].m_playerName.text, rankedResolutionPlayerState2.OnDeckness);
 						goto IL_195;
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			IL_195:;
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		Debug.Log(text);
 	}
@@ -3727,301 +1803,156 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (this.LastGameInfo != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.UpdateCenter(RankedResolutionPhaseData, bool)).MethodHandle;
-			}
 			bool flag = false;
 			bool flag2 = false;
 			int i = 0;
 			while (i < this.m_blueTeamMembers.Length)
 			{
-				if (data.\u001D(this.m_blueTeamMembers[i].PlayerID))
+				if (data._001D(this.m_blueTeamMembers[i].PlayerID))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
-					IL_67:
-					for (int j = 0; j < this.m_redTeamMembers.Length; j++)
-					{
-						if (data.\u001D(this.m_redTeamMembers[j].PlayerID))
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag2 = true;
-							IL_A8:
-							bool flag3 = true;
-							foreach (RankedResolutionPlayerState rankedResolutionPlayerState in data.PlayersOnDeck)
-							{
-								if (this.m_playerIDsOnDeck.ContainsKey(rankedResolutionPlayerState.PlayerId))
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									flag3 = false;
-								}
-							}
-							if (this.m_lastDraftNotification.SubPhase == this.m_lastPhaseForUpdateCenter)
-							{
-								if (!flag3)
-								{
-									foreach (RankedResolutionPlayerState rankedResolutionPlayerState2 in data.PlayersOnDeck)
-									{
-										this.m_playerIDsOnDeck[rankedResolutionPlayerState2.PlayerId] = rankedResolutionPlayerState2.Intention;
-									}
-									goto IL_39C;
-								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							if (this.m_playerIDsOnDeck.Count > 0)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								bool flag4 = false;
-								bool flag5 = false;
-								for (int k = 0; k < this.m_blueTeamMembers.Length; k++)
-								{
-									if (this.m_playerIDsOnDeck.ContainsKey(this.m_blueTeamMembers[k].PlayerID))
-									{
-										flag4 = true;
-										break;
-									}
-								}
-								for (int l = 0; l < this.m_redTeamMembers.Length; l++)
-								{
-									if (this.m_playerIDsOnDeck.ContainsKey(this.m_redTeamMembers[l].PlayerID))
-									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										flag5 = true;
-										break;
-									}
-								}
-								if (flag5)
-								{
-									if (this.m_playerIDsOnDeck.Count == 1)
-									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.RedTeamSingleSelectEnd);
-									}
-									else
-									{
-										this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectEnd);
-									}
-								}
-								else if (flag4)
-								{
-									if (this.m_playerIDsOnDeck.Count == 1)
-									{
-										this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.BlueTeamSingleSelectEnd);
-									}
-									else
-									{
-										this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectEnd);
-									}
-								}
-							}
-							if (!this.m_lastDraftNotification.SubPhase.IsPickBanSubPhase())
-							{
-								if (this.m_lastDraftNotification.SubPhase.IsPickFreelancerSubPhase())
-								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-								else
-								{
-									if (this.m_lastDraftNotification.SubPhase == FreelancerResolutionPhaseSubType.FREELANCER_TRADE)
-									{
-										this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.TradePhase);
-										goto IL_2E7;
-									}
-									goto IL_2E7;
-								}
-							}
-							UIRankedModeDraftScreen.CenterNotification centerNotification = UIRankedModeDraftScreen.CenterNotification.None;
-							int count = data.PlayersOnDeck.Count;
-							if (flag2)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.RedTeamNotification);
-								if (count == 1)
-								{
-									centerNotification = UIRankedModeDraftScreen.CenterNotification.RedTeamSingleSelectStart;
-								}
-								else if (count == 2)
-								{
-									centerNotification = UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectStart;
-								}
-							}
-							else if (flag)
-							{
-								this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.BlueTeamNotification);
-								if (count == 1)
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									centerNotification = UIRankedModeDraftScreen.CenterNotification.BlueTeamSingleSelectStart;
-								}
-								else if (count == 2)
-								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									centerNotification = UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectStart;
-								}
-							}
-							if (centerNotification != UIRankedModeDraftScreen.CenterNotification.None)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.QueueCenterState(centerNotification);
-							}
-							IL_2E7:
-							this.m_playerIDsOnDeck.Clear();
-							using (List<RankedResolutionPlayerState>.Enumerator enumerator3 = data.PlayersOnDeck.GetEnumerator())
-							{
-								while (enumerator3.MoveNext())
-								{
-									RankedResolutionPlayerState rankedResolutionPlayerState3 = enumerator3.Current;
-									this.m_playerIDsOnDeck.Add(rankedResolutionPlayerState3.PlayerId, rankedResolutionPlayerState3.Intention);
-								}
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-							}
-							IL_39C:
-							if (!updateFromGameInfoUpdate)
-							{
-								this.UpdateCenterVisuals(data, flag, flag2);
-							}
-							this.m_lastPhaseForUpdateCenter = this.m_lastDraftNotification.SubPhase;
-							return;
-						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_A8;
-					}
+					break;
+
 				}
 				else
 				{
 					i++;
 				}
 			}
-			for (;;)
+		IL_67:
+			for (int j = 0; j < this.m_redTeamMembers.Length; j++)
 			{
-				switch (6)
+				if (data._001D(this.m_redTeamMembers[j].PlayerID))
 				{
-				case 0:
-					continue;
+					flag2 = true;
+					break;
 				}
-				goto IL_67;
 			}
+			bool flag3 = true;
+			foreach (RankedResolutionPlayerState rankedResolutionPlayerState in data.PlayersOnDeck)
+			{
+				if (this.m_playerIDsOnDeck.ContainsKey(rankedResolutionPlayerState.PlayerId))
+				{
+					flag3 = false;
+				}
+			}
+			if (this.m_lastDraftNotification.SubPhase == this.m_lastPhaseForUpdateCenter)
+			{
+				if (!flag3)
+				{
+					foreach (RankedResolutionPlayerState rankedResolutionPlayerState2 in data.PlayersOnDeck)
+					{
+						this.m_playerIDsOnDeck[rankedResolutionPlayerState2.PlayerId] = rankedResolutionPlayerState2.Intention;
+					}
+					goto IL_39C;
+				}
+			}
+			if (this.m_playerIDsOnDeck.Count > 0)
+			{
+				bool flag4 = false;
+				bool flag5 = false;
+				for (int k = 0; k < this.m_blueTeamMembers.Length; k++)
+				{
+					if (this.m_playerIDsOnDeck.ContainsKey(this.m_blueTeamMembers[k].PlayerID))
+					{
+						flag4 = true;
+						break;
+					}
+				}
+				for (int l = 0; l < this.m_redTeamMembers.Length; l++)
+				{
+					if (this.m_playerIDsOnDeck.ContainsKey(this.m_redTeamMembers[l].PlayerID))
+					{
+						flag5 = true;
+						break;
+					}
+				}
+				if (flag5)
+				{
+					if (this.m_playerIDsOnDeck.Count == 1)
+					{
+						this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.RedTeamSingleSelectEnd);
+					}
+					else
+					{
+						this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectEnd);
+					}
+				}
+				else if (flag4)
+				{
+					if (this.m_playerIDsOnDeck.Count == 1)
+					{
+						this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.BlueTeamSingleSelectEnd);
+					}
+					else
+					{
+						this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectEnd);
+					}
+				}
+			}
+			if (!this.m_lastDraftNotification.SubPhase.IsPickBanSubPhase())
+			{
+				if (this.m_lastDraftNotification.SubPhase.IsPickFreelancerSubPhase())
+				{
+				}
+				else
+				{
+					if (this.m_lastDraftNotification.SubPhase == FreelancerResolutionPhaseSubType.FREELANCER_TRADE)
+					{
+						this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.TradePhase);
+						goto IL_2E7;
+					}
+					goto IL_2E7;
+				}
+			}
+			UIRankedModeDraftScreen.CenterNotification centerNotification = UIRankedModeDraftScreen.CenterNotification.None;
+			int count = data.PlayersOnDeck.Count;
+			if (flag2)
+			{
+				this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.RedTeamNotification);
+				if (count == 1)
+				{
+					centerNotification = UIRankedModeDraftScreen.CenterNotification.RedTeamSingleSelectStart;
+				}
+				else if (count == 2)
+				{
+					centerNotification = UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectStart;
+				}
+			}
+			else if (flag)
+			{
+				this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.BlueTeamNotification);
+				if (count == 1)
+				{
+					centerNotification = UIRankedModeDraftScreen.CenterNotification.BlueTeamSingleSelectStart;
+				}
+				else if (count == 2)
+				{
+					centerNotification = UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectStart;
+				}
+			}
+			if (centerNotification != UIRankedModeDraftScreen.CenterNotification.None)
+			{
+				this.QueueCenterState(centerNotification);
+			}
+		IL_2E7:
+			this.m_playerIDsOnDeck.Clear();
+			using (List<RankedResolutionPlayerState>.Enumerator enumerator3 = data.PlayersOnDeck.GetEnumerator())
+			{
+				while (enumerator3.MoveNext())
+				{
+					RankedResolutionPlayerState rankedResolutionPlayerState3 = enumerator3.Current;
+					this.m_playerIDsOnDeck.Add(rankedResolutionPlayerState3.PlayerId, rankedResolutionPlayerState3.Intention);
+				}
+			}
+		IL_39C:
+			if (!updateFromGameInfoUpdate)
+			{
+				this.UpdateCenterVisuals(data, flag, flag2);
+			}
+			this.m_lastPhaseForUpdateCenter = this.m_lastDraftNotification.SubPhase;
+			return;
+
 		}
 	}
 
@@ -4042,19 +1973,6 @@ public class UIRankedModeDraftScreen : UIScene
 				TextMeshProUGUI selectedCharacterText;
 				if (isOnBlueTeam)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.UpdateCenterVisuals(RankedResolutionPhaseData, bool, bool)).MethodHandle;
-					}
 					selectedCharacterText = this.m_singleBlueTeamSelectedCharacter;
 				}
 				else
@@ -4066,15 +1984,6 @@ public class UIRankedModeDraftScreen : UIScene
 		}
 		else if (this.m_playerIDsOnDeck.Count == 2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag = true;
 			using (Dictionary<int, CharacterType>.Enumerator enumerator2 = this.m_playerIDsOnDeck.GetEnumerator())
 			{
@@ -4083,15 +1992,6 @@ public class UIRankedModeDraftScreen : UIScene
 					KeyValuePair<int, CharacterType> keyValuePair2 = enumerator2.Current;
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						KeyValuePair<int, CharacterType> selectedChar2 = keyValuePair2;
 						RankedResolutionPhaseData data3 = data;
 						TextMeshProUGUI leftCharacterName = this.m_leftCharacterName;
@@ -4101,15 +2001,6 @@ public class UIRankedModeDraftScreen : UIScene
 						Animator selectedCharacterAnimator;
 						if (this.m_playerIDsOnDeck.Count == data.PlayersOnDeck.Count)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							selectedCharacterAnimator = this.m_doubleLeftSelectionCharacterSelected;
 						}
 						else
@@ -4119,15 +2010,6 @@ public class UIRankedModeDraftScreen : UIScene
 						Animator selectedCharacterNameAnimator2;
 						if (isOnBlueTeam)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							selectedCharacterNameAnimator2 = this.m_doubleLeftBlueSelectionCharacterSelected;
 						}
 						else
@@ -4137,15 +2019,6 @@ public class UIRankedModeDraftScreen : UIScene
 						TextMeshProUGUI selectedCharacterText2;
 						if (isOnBlueTeam)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							selectedCharacterText2 = this.m_doubleLeftBlueTeamSelectedCharacter;
 						}
 						else
@@ -4166,15 +2039,6 @@ public class UIRankedModeDraftScreen : UIScene
 						Animator selectedCharacterAnimator2;
 						if (this.m_playerIDsOnDeck.Count == data.PlayersOnDeck.Count)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							selectedCharacterAnimator2 = this.m_doubleRightSelectionCharacterSelected;
 						}
 						else
@@ -4184,15 +2048,6 @@ public class UIRankedModeDraftScreen : UIScene
 						Animator selectedCharacterNameAnimator3;
 						if (isOnBlueTeam)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							selectedCharacterNameAnimator3 = this.m_doubleRightBlueSelectionCharacterSelected;
 						}
 						else
@@ -4202,15 +2057,6 @@ public class UIRankedModeDraftScreen : UIScene
 						TextMeshProUGUI selectedCharacterText3;
 						if (isOnBlueTeam)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							selectedCharacterText3 = this.m_doubleRightBlueTeamSelectedCharacter;
 						}
 						else
@@ -4220,15 +2066,6 @@ public class UIRankedModeDraftScreen : UIScene
 						this.SetupSelection(selectedChar3, data4, rightCharacterName, noCharacter3, browseCharacter3, selectedCharacter3, selectedCharacterAnimator2, selectedCharacterNameAnimator3, selectedCharacterText3, (!isOnBlueTeam) ? this.m_doubleRightRedTeamPlayerName : this.m_doubleRightBlueTeamPlayerName, isOnBlueTeam, isOnRedTeam);
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 	}
@@ -4237,74 +2074,16 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (this.LastGameInfo != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.SetupFreelancerSelect(RankedResolutionPhaseData)).MethodHandle;
-			}
 			if (this.HoveredCharacter != this.m_selectedSubPhaseCharacter)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_selectedSubPhaseCharacter != CharacterType.None)
 				{
-					for (;;)
+					if (data._001D(this.LastPlayerInfo.PlayerId))
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (data.\u001D(this.LastPlayerInfo.PlayerId))
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_selectedCharacterTypes.Contains(this.m_selectedSubPhaseCharacter))
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!this.IsBanned(this.m_selectedSubPhaseCharacter))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ClientGameManager.Get().UpdateSelectedCharacter(this.m_selectedSubPhaseCharacter, 0);
 								ClientGameManager.Get().SendRankedHoverClickRequest(this.m_selectedSubPhaseCharacter);
 								this.m_intendedLockInBtnStatus = true;
@@ -4321,30 +2100,8 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (!this.m_doubleLeftSelectionCharacterSelected.gameObject.activeSelf)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.CharacterSelectAnimIsPlaying()).MethodHandle;
-			}
 			if (!this.m_doubleRightSelectionCharacterSelected.gameObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_singleSelectionCharacterSelected.gameObject.activeSelf;
 			}
 		}
@@ -4358,42 +2115,11 @@ public class UIRankedModeDraftScreen : UIScene
 		bool flag3 = true;
 		if (!this.m_selectedCharacterTypes.Contains(selectedChar.Value))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.SetupSelection(KeyValuePair<int, CharacterType>, RankedResolutionPhaseData, TextMeshProUGUI, Image, Image, Image, Animator, Animator, TextMeshProUGUI, TextMeshProUGUI, bool, bool)).MethodHandle;
-			}
 			if (!this.IsBanned(selectedChar.Value) && !data.FriendlyBans.Contains(selectedChar.Value))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!data.EnemyBans.Contains(selectedChar.Value))
 				{
 					goto IL_88;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -4401,40 +2127,13 @@ public class UIRankedModeDraftScreen : UIScene
 		IL_88:
 		if (isFriendly)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag4;
 			if (this.m_lastSetupSelectionPhaseSubType.IsPickBanSubPhase())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag4 = data.FriendlyBans.Contains(selectedChar.Value);
 			}
 			else if (this.m_lastSetupSelectionPhaseSubType.IsPickFreelancerSubPhase())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag4 = data.FriendlyTeamSelections.ContainsKey(selectedChar.Key);
 			}
 			else
@@ -4443,72 +2142,27 @@ public class UIRankedModeDraftScreen : UIScene
 			}
 			if (flag4)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterType value = selectedChar.Value;
 				if (value != CharacterType.None)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					bool flag5 = true;
 					if (this.m_lastSetupSelectionPhaseSubType.IsPickFreelancerSubPhase())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_playerIDsThatSelected.Contains(selectedChar.Key))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag5 = false;
 						}
 					}
 					if (flag5)
 					{
 						SelectedCharacterText.text = value.GetDisplayName();
-						SelectedCharacter.sprite = GameWideData.Get().GetCharacterResourceLink(value).ActorDataPrefab.GetComponent<ActorData>().\u000E();
+						SelectedCharacter.sprite = GameWideData.Get().GetCharacterResourceLink(value).ActorDataPrefab.GetComponent<ActorData>().GetAliveHUDIcon();
 						UIManager.SetGameObjectActive(NoCharacter, false, null);
 						UIManager.SetGameObjectActive(BrowseCharacter, false, null);
 						UIManager.SetGameObjectActive(SelectedCharacter, true, null);
 						if (SelectedCharacterAnimator != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(SelectedCharacterAnimator, true, null);
 							this.m_playerIDBeingAnimated = selectedChar.Key;
 							this.m_animatorCurrentlyAnimating = SelectedCharacterAnimator;
@@ -4517,62 +2171,17 @@ public class UIRankedModeDraftScreen : UIScene
 						UIManager.SetGameObjectActive(SelectedCharacterNameAnimator.transform.parent, true, null);
 						if (this.m_currentState != UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectStart)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_currentState != UIRankedModeDraftScreen.CenterNotification.BlueTeamSingleSelectStart)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!this.m_stateQueues.Contains(UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectStart))
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!this.m_stateQueues.Contains(UIRankedModeDraftScreen.CenterNotification.BlueTeamSingleSelectStart))
 									{
 										goto IL_2CA;
 									}
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								while (this.m_currentState != UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectStart)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.m_currentState == UIRankedModeDraftScreen.CenterNotification.BlueTeamSingleSelectStart)
 									{
 										for (;;)
@@ -4599,52 +2208,16 @@ public class UIRankedModeDraftScreen : UIScene
 					IL_2CA:
 					if (this.m_lastSetupSelectionPhaseSubType.IsPickFreelancerSubPhase())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_playerIDsThatSelected.Contains(selectedChar.Key))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_playerIDsThatSelected.Add(selectedChar.Key);
 							for (int i = 0; i < this.m_blueTeamMembers.Length; i++)
 							{
 								if (this.m_blueTeamMembers[i].PlayerID == selectedChar.Key)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag2 = true;
 									PlayerName.text = this.m_blueTeamMembers[i].m_playerName.text;
 								}
-							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -4656,28 +2229,10 @@ public class UIRankedModeDraftScreen : UIScene
 			bool flag6;
 			if (this.m_lastSetupSelectionPhaseSubType.IsPickBanSubPhase())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag6 = data.EnemyBans.Contains(selectedChar.Value);
 			}
 			else if (this.m_lastSetupSelectionPhaseSubType.IsPickFreelancerSubPhase())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag6 = data.EnemyTeamSelections.ContainsKey(selectedChar.Key);
 			}
 			else
@@ -4689,55 +2244,19 @@ public class UIRankedModeDraftScreen : UIScene
 				CharacterType value2 = selectedChar.Value;
 				if (value2 != CharacterType.None)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					bool flag7 = true;
 					if (this.m_lastSetupSelectionPhaseSubType.IsPickFreelancerSubPhase())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_playerIDsThatSelected.Contains(selectedChar.Key))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag7 = false;
 						}
 					}
 					if (flag7)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SelectedCharacterText.text = value2.GetDisplayName();
-						SelectedCharacter.sprite = GameWideData.Get().GetCharacterResourceLink(value2).ActorDataPrefab.GetComponent<ActorData>().\u000E();
+						SelectedCharacter.sprite = GameWideData.Get().GetCharacterResourceLink(value2).ActorDataPrefab.GetComponent<ActorData>().GetAliveHUDIcon();
 						UIManager.SetGameObjectActive(NoCharacter, false, null);
 						UIManager.SetGameObjectActive(BrowseCharacter, false, null);
 						UIManager.SetGameObjectActive(SelectedCharacter, true, null);
@@ -4751,37 +2270,10 @@ public class UIRankedModeDraftScreen : UIScene
 						UIManager.SetGameObjectActive(SelectedCharacterNameAnimator.transform.parent, true, null);
 						if (this.m_currentState != UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectStart)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_currentState != UIRankedModeDraftScreen.CenterNotification.RedTeamSingleSelectStart)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!this.m_stateQueues.Contains(UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectStart))
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!this.m_stateQueues.Contains(UIRankedModeDraftScreen.CenterNotification.RedTeamSingleSelectStart))
 									{
 										goto IL_5A8;
@@ -4789,15 +2281,6 @@ public class UIRankedModeDraftScreen : UIScene
 								}
 								while (this.m_currentState != UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectStart)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.m_currentState == UIRankedModeDraftScreen.CenterNotification.RedTeamSingleSelectStart)
 									{
 										for (;;)
@@ -4831,66 +2314,21 @@ public class UIRankedModeDraftScreen : UIScene
 		}
 		if (!flag2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag8 = true;
 			if (this.m_playerIDsThatSelected.Count > 0 && this.m_playerIDsThatSelected[this.m_playerIDsThatSelected.Count - 1] == selectedChar.Key)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag8 = false;
 			}
 			if (this.m_animatorCurrentlyAnimating != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_animatorCurrentlyAnimating.gameObject.activeInHierarchy)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_lastSetupSelectionPhaseSubType == this.m_lastDraftNotification.SubPhase)
 					{
 						for (int j = 0; j < this.m_blueTeamMembers.Length; j++)
 						{
 							if (this.m_blueTeamMembers[j].PlayerID == this.m_playerIDBeingAnimated)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag8 = false;
 								PlayerName.text = this.m_blueTeamMembers[j].m_playerName.text;
 							}
@@ -4906,27 +2344,9 @@ public class UIRankedModeDraftScreen : UIScene
 		this.m_lastSetupSelectionPhaseSubType = this.m_lastDraftNotification.SubPhase;
 		if (!flag && !this.CharacterSelectAnimIsPlaying())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (selectedChar.Value != CharacterType.None && flag3)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				BrowseCharacter.sprite = GameWideData.Get().GetCharacterResourceLink(selectedChar.Value).ActorDataPrefab.GetComponent<ActorData>().\u000E();
+				BrowseCharacter.sprite = GameWideData.Get().GetCharacterResourceLink(selectedChar.Value).ActorDataPrefab.GetComponent<ActorData>().GetAliveHUDIcon();
 				UIManager.SetGameObjectActive(NoCharacter, false, null);
 				UIManager.SetGameObjectActive(BrowseCharacter, true, null);
 				UIManager.SetGameObjectActive(SelectedCharacter, false, null);
@@ -4940,15 +2360,6 @@ public class UIRankedModeDraftScreen : UIScene
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag3 && !this.CharacterSelectAnimIsPlaying())
 			{
 				UIManager.SetGameObjectActive(NoCharacter, true, null);
@@ -4963,32 +2374,10 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (this.LastGameInfo != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.SetupBanSelect(RankedResolutionPhaseData)).MethodHandle;
-			}
 			Team currentTeam = this.GetCurrentTeam(data);
 			for (int i = 0; i < this.m_blueBans.Length; i++)
 			{
 				UIManager.SetGameObjectActive(this.m_blueBans[i], true, null);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			for (int j = 0; j < this.m_redBans.Length; j++)
 			{
@@ -4996,15 +2385,6 @@ public class UIRankedModeDraftScreen : UIScene
 			}
 			if (data.PlayersOnDeck.Count > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				foreach (RankedResolutionPlayerState rankedResolutionPlayerState in data.PlayersOnDeck)
 				{
 					if (rankedResolutionPlayerState.Intention != CharacterType.None)
@@ -5013,15 +2393,6 @@ public class UIRankedModeDraftScreen : UIScene
 						if (this.GetCurrentTeam(data) == this.LastPlayerInfo.TeamId)
 						{
 							goto IL_106;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (this.LastPlayerInfo.TeamId == Team.Spectator)
 						{
@@ -5037,15 +2408,6 @@ public class UIRankedModeDraftScreen : UIScene
 						}
 						else if (data.EnemyBans.Count < this.m_redBans.Length)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_redBans[data.EnemyBans.Count].SetBrowseCharacterImageVisible(true);
 							this.m_redBans[data.EnemyBans.Count].SetHoverCharacter(characterResourceLink);
 						}
@@ -5053,15 +2415,6 @@ public class UIRankedModeDraftScreen : UIScene
 						IL_106:
 						if (data.FriendlyBans.Count < this.m_blueBans.Length)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_blueBans[data.FriendlyBans.Count].SetBrowseCharacterImageVisible(true);
 							this.m_blueBans[data.FriendlyBans.Count].SetHoverCharacter(characterResourceLink);
 						}
@@ -5074,15 +2427,6 @@ public class UIRankedModeDraftScreen : UIScene
 						}
 						if (data.EnemyBans.Count < this.m_redBans.Length)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_redBans[data.EnemyBans.Count].SetBrowseCharacterImageVisible(false);
 						}
 					}
@@ -5095,15 +2439,6 @@ public class UIRankedModeDraftScreen : UIScene
 				if (currentTeam == this.LastPlayerInfo.TeamId)
 				{
 					goto IL_29C;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (this.LastPlayerInfo.TeamId == Team.Spectator)
 				{
@@ -5136,15 +2471,6 @@ public class UIRankedModeDraftScreen : UIScene
 				{
 					goto IL_338;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.LastPlayerInfo.TeamId == Team.Spectator)
 				{
 					for (;;)
@@ -5168,15 +2494,6 @@ public class UIRankedModeDraftScreen : UIScene
 				this.m_blueBans[l].SetAsSelecting(data.FriendlyBans.Count == l);
 				goto IL_367;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -5189,45 +2506,14 @@ public class UIRankedModeDraftScreen : UIScene
 		case FreelancerResolutionPhaseSubType.PICK_BANS2:
 			if (isSelf)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.SubphaseToDisplayName(FreelancerResolutionPhaseSubType, TeamType, bool)).MethodHandle;
-				}
 				result = StringUtil.TR("SelectFreelancerBan", "RankMode");
 			}
 			else if (teamType == TeamType.Ally)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("WaitingBlueTeamBan", "RankMode");
 			}
 			else if (teamType == TeamType.Enemy)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("WaitingRedTeamBan", "RankMode");
 			}
 			break;
@@ -5239,15 +2525,6 @@ public class UIRankedModeDraftScreen : UIScene
 			}
 			else if (teamType == TeamType.Ally)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("WaitingBlueTeamSelect", "RankMode");
 			}
 			else if (teamType == TeamType.Enemy)
@@ -5268,19 +2545,6 @@ public class UIRankedModeDraftScreen : UIScene
 			{
 				if (uirankedModePlayerDraftEntry.AccountID == accountId)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.get_OurPlayerId()).MethodHandle;
-					}
 					return uirankedModePlayerDraftEntry.PlayerID;
 				}
 			}
@@ -5294,19 +2558,6 @@ public class UIRankedModeDraftScreen : UIScene
 		TeamType teamType = TeamType.Any;
 		if (currentTeam != Team.TeamA)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.SetupInstructions(RankedResolutionPhaseData)).MethodHandle;
-			}
 			if (currentTeam != Team.TeamB)
 			{
 				this.m_MessageText.color = this.m_neutralColor;
@@ -5315,26 +2566,8 @@ public class UIRankedModeDraftScreen : UIScene
 		}
 		if (currentTeam != this.LastPlayerInfo.TeamId)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.LastPlayerInfo.TeamId == Team.Spectator)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentTeam == Team.TeamA)
 				{
 					for (;;)
@@ -5362,17 +2595,8 @@ public class UIRankedModeDraftScreen : UIScene
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		this.m_MessageText.text = this.SubphaseToDisplayName(this.m_lastDraftNotification.SubPhase, teamType, data.\u001D(this.OurPlayerId));
+		this.m_MessageText.text = this.SubphaseToDisplayName(this.m_lastDraftNotification.SubPhase, teamType, data._001D(this.OurPlayerId));
 	}
 
 	public void NotifyFreelancerTrades(RankedResolutionPhaseData data)
@@ -5384,45 +2608,14 @@ public class UIRankedModeDraftScreen : UIScene
 		{
 			if (this.m_blueTeamMembers[i].AccountID == accountId)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.NotifyFreelancerTrades(RankedResolutionPhaseData)).MethodHandle;
-				}
 				num = this.m_blueTeamMembers[i].PlayerID;
 				selfLockedIn = this.DidPlayerLockInDuringSwapPhase(data, (long)this.m_blueTeamMembers[i].PlayerID);
 			}
 			this.m_blueTeamMembers[i].SetAsSelecting(false);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = 0; j < this.m_redTeamMembers.Length; j++)
 		{
 			this.m_redTeamMembers[j].SetAsSelecting(false);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		for (int k = 0; k < this.m_blueTeamMembers.Length; k++)
 		{
@@ -5432,134 +2625,44 @@ public class UIRankedModeDraftScreen : UIScene
 				while (enumerator.MoveNext())
 				{
 					RankedTradeData rankedTradeData = enumerator.Current;
-					if (rankedTradeData.TradeAction == RankedTradeData.TradeActionType.\u001D)
+					if (rankedTradeData.TradeAction == RankedTradeData.TradeActionType._001D)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (rankedTradeData.AskedPlayerId == this.m_blueTeamMembers[k].PlayerID)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (rankedTradeData.OfferingPlayerId == num)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								status = UIRankedModePlayerDraftEntry.TradeStatus.TradeRequestSent;
 								goto IL_1F4;
 							}
 						}
 						if (rankedTradeData.AskedPlayerId == num)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (rankedTradeData.OfferingPlayerId == this.m_blueTeamMembers[k].PlayerID)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								status = UIRankedModePlayerDraftEntry.TradeStatus.TradeRequestReceived;
 								goto IL_1F4;
 							}
 						}
 						continue;
 					}
-					if (rankedTradeData.TradeAction != RankedTradeData.TradeActionType.\u0012)
+					if (rankedTradeData.TradeAction != RankedTradeData.TradeActionType._0012)
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (rankedTradeData.OfferingPlayerId != this.m_blueTeamMembers[k].PlayerID)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (rankedTradeData.AskedPlayerId != this.m_blueTeamMembers[k].PlayerID)
 						{
 							continue;
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					status = UIRankedModePlayerDraftEntry.TradeStatus.StopTrading;
 					IL_1F4:
 					goto IL_204;
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			IL_204:
 			this.m_blueTeamMembers[k].SetTradeStatus(status, this.m_blueTeamMembers[k].PlayerID == num, selfLockedIn);
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -5589,31 +2692,9 @@ public class UIRankedModeDraftScreen : UIScene
 		{
 			this.m_blueTeamMembers[i].SetTradePhase(false);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.UpdateGameLaunching(GameInfoNotification)).MethodHandle;
-		}
 		UIManager.SetGameObjectActive(this.m_lockFreelancerContainer, false, null);
 		if (notification.GameInfo.GameStatus >= GameStatus.Launching && notification.GameInfo.GameStatus != GameStatus.Stopped)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetFreelancerSettingButtonsVisible(false);
 			UIRankedCharacterSelectSettingsPanel.Get().SetVisible(false, UICharacterSelectCharacterSettingsPanel.TabPanel.None);
 		}
@@ -5623,32 +2704,10 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (this.GameIsLaunching)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.UpdateNotification(EnterFreelancerResolutionPhaseNotification, bool)).MethodHandle;
-			}
 			return;
 		}
 		if (notification != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (notification.RankedData != null)
 			{
 				RankedResolutionPhaseData value = notification.RankedData.Value;
@@ -5680,47 +2739,16 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (this.m_IsOnDeck)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.NotifyButtonClicked(UICharacterPanelSelectRankModeButton)).MethodHandle;
-			}
 			bool intendedLockInBtnStatus = false;
 			this.m_selectedSubPhaseCharacter = CharacterType.None;
 			for (int i = 0; i < this.m_characterListDisplayButtons.Count; i++)
 			{
 				if (this.m_characterListDisplayButtons[i] == btn)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_selectedSubPhaseCharacter = this.m_characterListDisplayButtons[i].m_characterType;
 					this.m_characterListDisplayButtons[i].SetSelected(true);
 					if (!this.m_selectedCharacterTypes.Contains(this.m_characterListDisplayButtons[i].m_characterType))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.IsBanned(this.m_characterListDisplayButtons[i].m_characterType))
 						{
 							this.HoveredCharacter = this.m_selectedSubPhaseCharacter;
@@ -5744,15 +2772,6 @@ public class UIRankedModeDraftScreen : UIScene
 					this.m_characterListDisplayButtons[i].SetSelected(false);
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_intendedLockInBtnStatus = intendedLockInBtnStatus;
 		}
 		else
@@ -5766,26 +2785,8 @@ public class UIRankedModeDraftScreen : UIScene
 					this.m_characterListDisplayButtons[j].SetSelected(true);
 					if (!this.m_selectedCharacterTypes.Contains(this.m_characterListDisplayButtons[j].m_characterType))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.IsBanned(this.m_characterListDisplayButtons[j].m_characterType))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ClientGameManager.Get().UpdateSelectedCharacter(this.m_selectedSubPhaseCharacter, 0);
 							ClientGameManager.Get().SendRankedHoverClickRequest(this.m_selectedSubPhaseCharacter);
 							this.SetupCharacterSettings(this.m_selectedSubPhaseCharacter);
@@ -5818,30 +2819,8 @@ public class UIRankedModeDraftScreen : UIScene
 			CharacterType characterType = (CharacterType)i;
 			if (gameManager.IsCharacterAllowedForPlayers(characterType))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.GetListOfVisibleCharacterTypes()).MethodHandle;
-				}
 				if (gameManager.IsCharacterAllowedForGameType(characterType, GameType.Ranked, null, null))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_validCharacterTypes.Add(characterType);
 				}
 			}
@@ -5886,32 +2865,10 @@ public class UIRankedModeDraftScreen : UIScene
 			UIManager.SetGameObjectActive(this.m_blueBans[i], false, null);
 			this.m_blueBans[i].Init();
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.Initialize()).MethodHandle;
-		}
 		for (int j = 0; j < this.m_redBans.Length; j++)
 		{
 			UIManager.SetGameObjectActive(this.m_redBans[j], false, null);
 			this.m_redBans[j].Init();
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		for (int k = 0; k < this.m_blueTeamMembers.Length; k++)
 		{
@@ -5923,27 +2880,9 @@ public class UIRankedModeDraftScreen : UIScene
 			this.m_redTeamMembers[l].Init();
 			this.m_redTeamMembers[l].SetTradePhase(false);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int m = 0; m < this.m_characterListDisplayButtons.Count; m++)
 		{
 			UnityEngine.Object.Destroy(this.m_characterListDisplayButtons[m].gameObject);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_pageButtons.Clear();
 		this.m_characterListDisplayButtons.Clear();
@@ -5957,26 +2896,8 @@ public class UIRankedModeDraftScreen : UIScene
 			{
 				if (array[n] != CharacterType.TestFreelancer1 && array[n] != CharacterType.TestFreelancer2)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (array[n] == CharacterType.None)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -5987,28 +2908,10 @@ public class UIRankedModeDraftScreen : UIScene
 						}
 						if (characterResourceLink.m_characterRole == CharacterRole.Support)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list3.Add(array[n]);
 						}
 						if (characterResourceLink.m_characterRole == CharacterRole.Tank)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list2.Add(array[n]);
 						}
 					}
@@ -6031,28 +2934,10 @@ public class UIRankedModeDraftScreen : UIScene
 			uicharacterPanelSelectRankModeButton.m_characterType = list[num5];
 			if (num5 - num4 * num >= num)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4++;
 			}
 			UIManager.ReparentTransform(uicharacterPanelSelectRankModeButton.gameObject.transform, this.m_firePowerLayoutGroup.gameObject.transform);
 			this.m_characterListDisplayButtons.Add(uicharacterPanelSelectRankModeButton);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		num4 = 0;
 		for (int num6 = 0; num6 < list2.Count; num6++)
@@ -6073,28 +2958,10 @@ public class UIRankedModeDraftScreen : UIScene
 			uicharacterPanelSelectRankModeButton3.m_characterType = list3[num7];
 			if (num7 - num4 * num3 >= num3)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4++;
 			}
 			UIManager.ReparentTransform(uicharacterPanelSelectRankModeButton3.gameObject.transform, this.m_supportLayoutGroup.gameObject.transform);
 			this.m_characterListDisplayButtons.Add(uicharacterPanelSelectRankModeButton3);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.SetPageIndex(0);
 		UIManager.SetGameObjectActive(this.m_introContainer, true, null);
@@ -6113,19 +2980,6 @@ public class UIRankedModeDraftScreen : UIScene
 		{
 			componentsInChildren[i].text = (pageIndex + 1).ToString();
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.SetupPageButton(_SelectableBtn, int)).MethodHandle;
-		}
 		btn.SetSelected(false, false, string.Empty, string.Empty);
 		btn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PageClicked);
 	}
@@ -6136,19 +2990,6 @@ public class UIRankedModeDraftScreen : UIScene
 		{
 			if (this.m_pageButtons[i].spriteController.m_hitBoxImage.gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.PageClicked(BaseEventData)).MethodHandle;
-				}
 				this.SetPageIndex(i);
 				return;
 			}
@@ -6168,32 +3009,10 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (!this.m_selectedCharacterTypes.Contains(type))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.IsCharacterTypeSelectable(CharacterType)).MethodHandle;
-			}
 			if (!this.IsBanned(type))
 			{
 				if (!GameManager.Get().IsCharacterAllowedForGameType(type, GameType.Ranked, null, null))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 				return true;
@@ -6213,19 +3032,6 @@ public class UIRankedModeDraftScreen : UIScene
 		PersistedCharacterData playerCharacterData = clientGameManager.GetPlayerCharacterData(type);
 		if (playerCharacterData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.IsCharacterAvailableForPlayer(CharacterType)).MethodHandle;
-			}
 			if (playerCharacterData.CharacterComponent.Unlocked)
 			{
 				return true;
@@ -6248,30 +3054,8 @@ public class UIRankedModeDraftScreen : UIScene
 			bool flag3;
 			if (this.IsCharacterTypeSelectable(characterType))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.CheckCharacterListValidity()).MethodHandle;
-				}
 				if (!flag2)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = flag;
 				}
 				else
@@ -6296,15 +3080,6 @@ public class UIRankedModeDraftScreen : UIScene
 				UIManager.SetGameObjectActive(this.m_characterListDisplayButtons[i], false, null);
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	private void UpdateCharacterButtons()
@@ -6313,19 +3088,6 @@ public class UIRankedModeDraftScreen : UIScene
 		bool flag;
 		if (this.m_lastDraftNotification != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.UpdateCharacterButtons()).MethodHandle;
-			}
 			flag = this.m_lastDraftNotification.SubPhase.IsPickBanSubPhase();
 		}
 		else
@@ -6340,26 +3102,8 @@ public class UIRankedModeDraftScreen : UIScene
 			bool flag4;
 			if (this.IsCharacterTypeSelectable(characterType))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag3)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag4 = flag2;
 				}
 				else
@@ -6375,29 +3119,11 @@ public class UIRankedModeDraftScreen : UIScene
 			bool flag6 = this.IsCharacterVisibleForPlayer(characterType);
 			if (flag6)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICharacterPanelSelectButton uicharacterPanelSelectButton = this.m_characterListDisplayButtons[i];
 				bool isAvailable = flag5;
 				if (this.HoveredCharacter == this.m_characterListDisplayButtons[i].m_characterType)
 				{
 					goto IL_110;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (this.SelectedCharacter == this.m_characterListDisplayButtons[i].m_characterType)
 				{
@@ -6415,15 +3141,6 @@ public class UIRankedModeDraftScreen : UIScene
 			UIManager.SetGameObjectActive(this.m_characterListDisplayButtons[i], false, null);
 			IL_13E:;
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	private void SetPageIndex(int index)
@@ -6431,19 +3148,6 @@ public class UIRankedModeDraftScreen : UIScene
 		this.UpdateCharacterButtons();
 		if (!this.IsVisible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.SetPageIndex(int)).MethodHandle;
-			}
 			return;
 		}
 		this.Initialize();
@@ -6475,31 +3179,9 @@ public class UIRankedModeDraftScreen : UIScene
 		{
 			this.m_blueTeamMembers[i].Dismantle();
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.DismantleRankDraft()).MethodHandle;
-		}
 		for (int j = 0; j < this.m_redTeamMembers.Length; j++)
 		{
 			this.m_redTeamMembers[j].Dismantle();
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -6520,44 +3202,13 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (!this.IsVisible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftScreen.SetDraftScreenVisible(bool)).MethodHandle;
-			}
 			return;
 		}
 		UIManager.SetGameObjectActive(this.m_draftScreenContainer, visible, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_containerAC == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_containerAC = this.m_draftScreenContainer.GetComponent<Animator>();
 			}
 			if (this.m_containerAC != null)

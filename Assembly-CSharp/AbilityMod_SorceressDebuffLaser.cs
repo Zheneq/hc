@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,215 +42,102 @@ public class AbilityMod_SorceressDebuffLaser : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SorceressDebuffLaser sorceressDebuffLaser = targetAbility as SorceressDebuffLaser;
-		if (sorceressDebuffLaser != null)
+		if (!(sorceressDebuffLaser != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_laserWidthMod, "Width", string.Empty, sorceressDebuffLaser.m_width);
+			AbilityMod.AddToken(tokens, m_laserRangeMod, "Distance", string.Empty, sorceressDebuffLaser.m_distance);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectOverride, "EnemyHitEffect", sorceressDebuffLaser.m_enemyHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_allyHitEffectOverride, "AllyHitEffect", sorceressDebuffLaser.m_allyHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_casterHitEffectOverride, "CasterHitEffect", sorceressDebuffLaser.m_casterHitEffect);
+			AbilityMod.AddToken(tokens, m_cooldownReductionOnNumHit, "CDR_OnNumHit", "cooldown reduction per hit", 1, false);
+			if (m_cooldownFlatReduction > 0)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				AbilityMod.AddToken_IntDiff(tokens, "CDR_FlatAmount", "cooldown reduction", m_cooldownFlatReduction, false, 0);
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SorceressDebuffLaser.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "Width", string.Empty, sorceressDebuffLaser.m_width, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "Distance", string.Empty, sorceressDebuffLaser.m_distance, true, false, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectOverride, "EnemyHitEffect", sorceressDebuffLaser.m_enemyHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allyHitEffectOverride, "AllyHitEffect", sorceressDebuffLaser.m_allyHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_casterHitEffectOverride, "CasterHitEffect", sorceressDebuffLaser.m_casterHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_cooldownReductionOnNumHit, "CDR_OnNumHit", "cooldown reduction per hit", 1, false, false);
-			if (this.m_cooldownFlatReduction > 0)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				AbilityMod.AddToken_IntDiff(tokens, "CDR_FlatAmount", "cooldown reduction", this.m_cooldownFlatReduction, false, 0);
-			}
-			AbilityMod.AddToken_IntDiff(tokens, "CDR_Max", "max cooldown reduction", this.m_maxCooldownReduction, false, 0);
+			AbilityMod.AddToken_IntDiff(tokens, "CDR_Max", "max cooldown reduction", m_maxCooldownReduction, false, 0);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SorceressDebuffLaser sorceressDebuffLaser = base.GetTargetAbilityOnAbilityData(abilityData) as SorceressDebuffLaser;
+		SorceressDebuffLaser sorceressDebuffLaser = GetTargetAbilityOnAbilityData(abilityData) as SorceressDebuffLaser;
 		bool flag = sorceressDebuffLaser != null;
-		string text = string.Empty;
-		text += AbilityModHelper.GetModPropertyDesc(this.m_laserWidthMod, "[Laser Width]", flag, (!flag) ? 0f : sorceressDebuffLaser.m_width);
-		string str = text;
-		AbilityModPropertyFloat laserRangeMod = this.m_laserRangeMod;
-		string prefix = "[Laser Range]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += AbilityModHelper.GetModPropertyDesc(m_laserWidthMod, "[Laser Width]", flag, (!flag) ? 0f : sorceressDebuffLaser.m_width);
+		string str = empty;
+		AbilityModPropertyFloat laserRangeMod = m_laserRangeMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SorceressDebuffLaser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = sorceressDebuffLaser.m_distance;
 		}
 		else
 		{
 			baseVal = 0f;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(laserRangeMod, prefix, showBaseVal, baseVal);
-		string str2 = text;
-		AbilityModPropertyInt enemyEffectDurationMod = this.m_enemyEffectDurationMod;
-		string prefix2 = "[Enemy Effect Duration Mod]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(laserRangeMod, "[Laser Range]", flag, baseVal);
+		string str2 = empty;
+		AbilityModPropertyInt enemyEffectDurationMod = m_enemyEffectDurationMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sorceressDebuffLaser.m_enemyHitEffect.m_effectData.m_duration;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(enemyEffectDurationMod, prefix2, showBaseVal2, baseVal2);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_allyEffectDurationMod, "[Ally Effect Duration Mod]", flag, (!flag) ? 0 : sorceressDebuffLaser.m_allyHitEffect.m_effectData.m_duration);
-		string str3 = text;
-		AbilityModPropertyInt casterEffectDurationMod = this.m_casterEffectDurationMod;
-		string prefix3 = "[Caster Effect Duration Mod]";
-		bool showBaseVal3 = flag;
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(enemyEffectDurationMod, "[Enemy Effect Duration Mod]", flag, baseVal2);
+		empty += AbilityModHelper.GetModPropertyDesc(m_allyEffectDurationMod, "[Ally Effect Duration Mod]", flag, flag ? sorceressDebuffLaser.m_allyHitEffect.m_effectData.m_duration : 0);
+		string str3 = empty;
+		AbilityModPropertyInt casterEffectDurationMod = m_casterEffectDurationMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sorceressDebuffLaser.m_casterHitEffect.m_effectData.m_duration;
 		}
 		else
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + AbilityModHelper.GetModPropertyDesc(casterEffectDurationMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyEffectInfo enemyHitEffectOverride = this.m_enemyHitEffectOverride;
-		string prefix4 = "{ Enemy Hit Effect Override }";
-		bool showBaseVal4 = flag;
-		StandardEffectInfo baseVal4;
+		empty = str3 + AbilityModHelper.GetModPropertyDesc(casterEffectDurationMod, "[Caster Effect Duration Mod]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyEffectInfo enemyHitEffectOverride = m_enemyHitEffectOverride;
+		object baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sorceressDebuffLaser.m_enemyHitEffect;
 		}
 		else
 		{
 			baseVal4 = null;
 		}
-		text = str4 + AbilityModHelper.GetModPropertyDesc(enemyHitEffectOverride, prefix4, showBaseVal4, baseVal4);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_allyHitEffectOverride, "{ Ally Hit Effect Override }", flag, (!flag) ? null : sorceressDebuffLaser.m_allyHitEffect);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_casterHitEffectOverride, "{ Caster Hit Effect Override }", flag, (!flag) ? null : sorceressDebuffLaser.m_casterHitEffect);
-		if (this.m_additionalEffectOnSelfIfHit != null)
+		empty = str4 + AbilityModHelper.GetModPropertyDesc(enemyHitEffectOverride, "{ Enemy Hit Effect Override }", flag, (StandardEffectInfo)baseVal4);
+		empty += AbilityModHelper.GetModPropertyDesc(m_allyHitEffectOverride, "{ Ally Hit Effect Override }", flag, (!flag) ? null : sorceressDebuffLaser.m_allyHitEffect);
+		empty += AbilityModHelper.GetModPropertyDesc(m_casterHitEffectOverride, "{ Caster Hit Effect Override }", flag, (!flag) ? null : sorceressDebuffLaser.m_casterHitEffect);
+		if (m_additionalEffectOnSelfIfHit != null)
 		{
-			for (;;)
+			if (m_additionalEffectOnSelfIfHit.m_applyEffect)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_additionalEffectOnSelfIfHit.m_applyEffect)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text += AbilityModHelper.GetModEffectDataDesc(this.m_additionalEffectOnSelfIfHit.m_effectData, "{ Additional Effect on Self if Hit (duration = numHit) }", string.Empty, false, null);
+				empty += AbilityModHelper.GetModEffectDataDesc(m_additionalEffectOnSelfIfHit.m_effectData, "{ Additional Effect on Self if Hit (duration = numHit) }", string.Empty);
 			}
 		}
-		text += AbilityModHelper.GetModPropertyDesc(this.m_cooldownReductionOnNumHit, "[Cooldown Reduction Op on Num Hit]", false, 0);
-		if (this.m_cooldownFlatReduction != 0)
+		empty += AbilityModHelper.GetModPropertyDesc(m_cooldownReductionOnNumHit, "[Cooldown Reduction Op on Num Hit]");
+		if (m_cooldownFlatReduction != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"[Flat Cooldown Reduction (after applying modValueOnNumHit)] = ",
-				this.m_cooldownFlatReduction,
-				"\n"
-			});
+			string text = empty;
+			empty = text + "[Flat Cooldown Reduction (after applying modValueOnNumHit)] = " + m_cooldownFlatReduction + "\n";
 		}
-		if (this.m_maxCooldownReduction > 0)
+		if (m_maxCooldownReduction > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"[Max Cooldown Reduction] = ",
-				this.m_maxCooldownReduction,
-				"\n"
-			});
+			string text = empty;
+			empty = text + "[Max Cooldown Reduction] = " + m_maxCooldownReduction + "\n";
 		}
-		return text;
+		return empty;
 	}
 }

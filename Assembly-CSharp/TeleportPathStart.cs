@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class TeleportPathStart : PathStart
@@ -7,79 +6,48 @@ public class TeleportPathStart : PathStart
 
 	private void Awake()
 	{
-		if (this.m_arrowPointTo != null)
+		if (!(m_arrowPointTo != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeleportPathStart.Awake()).MethodHandle;
-			}
-			this.m_arrowPointTo.SetActive(false);
+			return;
+		}
+		while (true)
+		{
+			m_arrowPointTo.SetActive(false);
+			return;
 		}
 	}
 
 	public override void SetColor(Color newColor)
 	{
 		base.SetColor(newColor);
-		if (this.m_arrowPointTo != null)
+		if (!(m_arrowPointTo != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			MeshRenderer component = m_arrowPointTo.GetComponent<MeshRenderer>();
+			if (!(component != null))
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeleportPathStart.SetColor(Color)).MethodHandle;
-			}
-			MeshRenderer component = this.m_arrowPointTo.GetComponent<MeshRenderer>();
-			if (component != null)
-			{
-				for (;;)
+				if (component.materials.Length <= 0)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (component.materials.Length > 0)
+				while (true)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (component.materials[0] != null)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							component.materials[0].SetColor("_TintColor", newColor);
+							return;
 						}
-						component.materials[0].SetColor("_TintColor", newColor);
 					}
+					return;
 				}
 			}
 		}
@@ -87,26 +55,18 @@ public class TeleportPathStart : PathStart
 
 	public override void AbilityCasted(GridPos startPosition, GridPos endPosition)
 	{
-		if (this.m_arrowPointTo != null)
+		if (!(m_arrowPointTo != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeleportPathStart.AbilityCasted(GridPos, GridPos)).MethodHandle;
-			}
-			this.m_arrowPointTo.SetActive(true);
-			Vector3 a = Board.\u000E().\u000E(startPosition).\u001D();
-			Vector3 b = Board.\u000E().\u000E(endPosition).\u001D();
-			Vector3 forward = a - b;
-			this.m_arrowPointTo.transform.forward = forward;
+			return;
+		}
+		while (true)
+		{
+			m_arrowPointTo.SetActive(true);
+			Vector3 worldPosition = Board.Get().GetBoardSquareSafe(startPosition).GetWorldPosition();
+			Vector3 worldPosition2 = Board.Get().GetBoardSquareSafe(endPosition).GetWorldPosition();
+			Vector3 forward = worldPosition - worldPosition2;
+			m_arrowPointTo.transform.forward = forward;
+			return;
 		}
 	}
 }

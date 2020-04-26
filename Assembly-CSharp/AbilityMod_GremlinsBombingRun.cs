@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,219 +36,121 @@ public class AbilityMod_GremlinsBombingRun : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		GremlinsBombingRun gremlinsBombingRun = targetAbility as GremlinsBombingRun;
-		if (gremlinsBombingRun != null)
+		if (!(gremlinsBombingRun != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsBombingRun.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_minSquaresPerExplosionMod, "SquaresPerExplosion", string.Empty, gremlinsBombingRun.m_squaresPerExplosion, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxSquaresPerExplosionMod, "MaxSquaresPerStep", string.Empty, gremlinsBombingRun.m_maxSquaresPerStep, true, false);
-			AbilityMod.AddToken(tokens, this.m_angleWithFirstStepMod, "MaxAngleWithFirstStep", string.Empty, gremlinsBombingRun.m_maxAngleWithFirstStep, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageMod, "ExplosionDamageAmount", string.Empty, gremlinsBombingRun.m_explosionDamageAmount, true, false);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_minSquaresPerExplosionMod, "SquaresPerExplosion", string.Empty, gremlinsBombingRun.m_squaresPerExplosion);
+			AbilityMod.AddToken(tokens, m_maxSquaresPerExplosionMod, "MaxSquaresPerStep", string.Empty, gremlinsBombingRun.m_maxSquaresPerStep);
+			AbilityMod.AddToken(tokens, m_angleWithFirstStepMod, "MaxAngleWithFirstStep", string.Empty, gremlinsBombingRun.m_maxAngleWithFirstStep);
+			AbilityMod.AddToken(tokens, m_damageMod, "ExplosionDamageAmount", string.Empty, gremlinsBombingRun.m_explosionDamageAmount);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		GremlinsBombingRun gremlinsBombingRun = base.GetTargetAbilityOnAbilityData(abilityData) as GremlinsBombingRun;
-		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent;
+		GremlinsBombingRun gremlinsBombingRun = GetTargetAbilityOnAbilityData(abilityData) as GremlinsBombingRun;
+		object obj;
 		if (gremlinsBombingRun != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsBombingRun.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			gremlinsLandMineInfoComponent = gremlinsBombingRun.GetComponent<GremlinsLandMineInfoComponent>();
+			obj = gremlinsBombingRun.GetComponent<GremlinsLandMineInfoComponent>();
 		}
 		else
 		{
-			gremlinsLandMineInfoComponent = null;
+			obj = null;
 		}
-		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent2 = gremlinsLandMineInfoComponent;
-		bool flag = gremlinsLandMineInfoComponent2 != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix = "[Damage]";
-		bool showBaseVal = flag;
+		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent = (GremlinsLandMineInfoComponent)obj;
+		bool flag = gremlinsLandMineInfoComponent != null;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = gremlinsBombingRun.m_explosionDamageAmount;
 		}
 		else
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(damageMod, prefix, showBaseVal, baseVal);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_minSquaresPerExplosionMod, "[Min Squares Per Explosion]", flag, (!flag) ? 0 : gremlinsBombingRun.m_squaresPerExplosion);
-		string str2 = text;
-		AbilityModPropertyInt maxSquaresPerExplosionMod = this.m_maxSquaresPerExplosionMod;
-		string prefix2 = "[Max Squares Per Explosion]";
-		bool showBaseVal2 = flag;
+		empty = str + AbilityModHelper.GetModPropertyDesc(damageMod, "[Damage]", flag, baseVal);
+		empty += AbilityModHelper.GetModPropertyDesc(m_minSquaresPerExplosionMod, "[Min Squares Per Explosion]", flag, flag ? gremlinsBombingRun.m_squaresPerExplosion : 0);
+		string str2 = empty;
+		AbilityModPropertyInt maxSquaresPerExplosionMod = m_maxSquaresPerExplosionMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = gremlinsBombingRun.m_maxSquaresPerStep;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + AbilityModHelper.GetModPropertyDesc(maxSquaresPerExplosionMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyFloat angleWithFirstStepMod = this.m_angleWithFirstStepMod;
-		string prefix3 = "[Turn Angle (with first segment)]";
-		bool showBaseVal3 = flag;
+		empty = str2 + AbilityModHelper.GetModPropertyDesc(maxSquaresPerExplosionMod, "[Max Squares Per Explosion]", flag, baseVal2);
+		string str3 = empty;
+		AbilityModPropertyFloat angleWithFirstStepMod = m_angleWithFirstStepMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = gremlinsBombingRun.m_maxAngleWithFirstStep;
 		}
 		else
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + AbilityModHelper.GetModPropertyDesc(angleWithFirstStepMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyShape explosionShapeMod = this.m_explosionShapeMod;
-		string prefix4 = "[Explosion Shape]";
-		bool showBaseVal4 = flag;
-		AbilityAreaShape baseVal4;
+		empty = str3 + AbilityModHelper.GetModPropertyDesc(angleWithFirstStepMod, "[Turn Angle (with first segment)]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyShape explosionShapeMod = m_explosionShapeMod;
+		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal4 = gremlinsBombingRun.m_explosionShape;
+			baseVal4 = (int)gremlinsBombingRun.m_explosionShape;
 		}
 		else
 		{
-			baseVal4 = AbilityAreaShape.SingleSquare;
+			baseVal4 = 0;
 		}
-		text = str4 + AbilityModHelper.GetModPropertyDesc(explosionShapeMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyInt mineDamageMod = this.m_mineDamageMod;
-		string prefix5 = "[Mine Damage]";
-		bool showBaseVal5 = flag;
+		empty = str4 + AbilityModHelper.GetModPropertyDesc(explosionShapeMod, "[Explosion Shape]", flag, (AbilityAreaShape)baseVal4);
+		string str5 = empty;
+		AbilityModPropertyInt mineDamageMod = m_mineDamageMod;
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal5 = gremlinsLandMineInfoComponent2.m_damageAmount;
+			baseVal5 = gremlinsLandMineInfoComponent.m_damageAmount;
 		}
 		else
 		{
 			baseVal5 = 0;
 		}
-		text = str5 + AbilityModHelper.GetModPropertyDesc(mineDamageMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyInt mineDurationMod = this.m_mineDurationMod;
-		string prefix6 = "[Mine Duration]";
-		bool showBaseVal6 = flag;
+		empty = str5 + AbilityModHelper.GetModPropertyDesc(mineDamageMod, "[Mine Damage]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyInt mineDurationMod = m_mineDurationMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal6 = gremlinsLandMineInfoComponent2.m_mineDuration;
+			baseVal6 = gremlinsLandMineInfoComponent.m_mineDuration;
 		}
 		else
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + AbilityModHelper.GetModPropertyDesc(mineDurationMod, prefix6, showBaseVal6, baseVal6);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_effectOnEnemyOverride, "{ Effect on Enemy Hit Override }", flag, (!flag) ? null : gremlinsLandMineInfoComponent2.m_enemyHitEffect);
-		string str7 = text;
-		AbilityModPropertyInt energyOnMineExplosionMod = this.m_energyOnMineExplosionMod;
-		string prefix7 = "[Energy Gain on Mine Explosion (on splort and mines left behind from primary/ult)]";
-		bool showBaseVal7 = flag;
+		empty = str6 + AbilityModHelper.GetModPropertyDesc(mineDurationMod, "[Mine Duration]", flag, baseVal6);
+		empty += AbilityModHelper.GetModPropertyDesc(m_effectOnEnemyOverride, "{ Effect on Enemy Hit Override }", flag, (!flag) ? null : gremlinsLandMineInfoComponent.m_enemyHitEffect);
+		string str7 = empty;
+		AbilityModPropertyInt energyOnMineExplosionMod = m_energyOnMineExplosionMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal7 = gremlinsLandMineInfoComponent2.m_energyGainOnExplosion;
+			baseVal7 = gremlinsLandMineInfoComponent.m_energyGainOnExplosion;
 		}
 		else
 		{
 			baseVal7 = 0;
 		}
-		text = str7 + AbilityModHelper.GetModPropertyDesc(energyOnMineExplosionMod, prefix7, showBaseVal7, baseVal7);
-		return text + base.PropDesc(this.m_shouldLeaveMinesAtTouchedSquares, "[Leave Mines At Each Touched Square?]", flag, false);
+		empty = str7 + AbilityModHelper.GetModPropertyDesc(energyOnMineExplosionMod, "[Energy Gain on Mine Explosion (on splort and mines left behind from primary/ult)]", flag, baseVal7);
+		return empty + PropDesc(m_shouldLeaveMinesAtTouchedSquares, "[Leave Mines At Each Touched Square?]", flag);
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -10,7 +10,7 @@ public class JointPopupProperty
 
 	public static string s_defaultJoint = "root_JNT";
 
-	public string m_joint = JointPopupProperty.s_defaultJoint;
+	public string m_joint = s_defaultJoint;
 
 	public string m_jointCharacter = "Any Hero";
 
@@ -18,20 +18,20 @@ public class JointPopupProperty
 
 	internal bool IsInitialized()
 	{
-		return this.m_jointObject != null;
+		return m_jointObject != null;
 	}
 
 	public void Initialize(GameObject obj)
 	{
-		this.m_jointObject = this.FindJointObject(obj);
+		m_jointObject = FindJointObject(obj);
 	}
 
 	public GameObject FindJointObject(GameObject obj)
 	{
-		GameObject gameObject = obj.FindInChildren(this.m_joint, 0);
+		GameObject gameObject = obj.FindInChildren(m_joint);
 		if (gameObject == null)
 		{
-			gameObject = obj.FindInChildren(JointPopupProperty.s_defaultJoint, 0);
+			gameObject = obj.FindInChildren(s_defaultJoint);
 		}
 		return gameObject;
 	}

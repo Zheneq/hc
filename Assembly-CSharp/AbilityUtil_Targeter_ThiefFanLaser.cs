@@ -1,10 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 {
+	public delegate bool IsAffectingCasterDelegate(ActorData caster, bool hitEnemy, bool powerupHit);
+
+	public delegate Vector3 CustomDamageOriginDelegate(ActorData potentialActor, ActorData caster, Vector3 defaultPos);
+
+	public delegate float LaserLengthDelegate(ActorData caster, float baseLength);
+
+	public delegate float LaserWidthDelegate(ActorData caster, float baseWidth);
+
 	private float m_minAngle;
 
 	private float m_maxAngle;
@@ -55,15 +63,15 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 
 	public int m_lastNumEnemiesHit;
 
-	public AbilityUtil_Targeter_ThiefFanLaser.IsAffectingCasterDelegate m_affectCasterDelegate;
+	public IsAffectingCasterDelegate m_affectCasterDelegate;
 
 	private List<ActorData> m_actorsHitSoFar = new List<ActorData>();
 
-	public AbilityUtil_Targeter_ThiefFanLaser.CustomDamageOriginDelegate m_customDamageOriginDelegate;
+	public CustomDamageOriginDelegate m_customDamageOriginDelegate;
 
-	public AbilityUtil_Targeter_ThiefFanLaser.LaserLengthDelegate m_delegateLaserLength;
+	public LaserLengthDelegate m_delegateLaserLength;
 
-	public AbilityUtil_Targeter_ThiefFanLaser.LaserWidthDelegate m_delegateLaserWidth;
+	public LaserWidthDelegate m_delegateLaserWidth;
 
 	private TargeterPart_Laser m_laserPart;
 
@@ -73,140 +81,93 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 
 	public Dictionary<ActorData, int> m_actorToHitCount = new Dictionary<ActorData, int>();
 
-	public AbilityUtil_Targeter_ThiefFanLaser(Ability ability, float minAngle, float maxAngle, float angleInterpMinDistance, float angleInterpMaxDistance, float rangeInSquares, float widthInSquares, int maxTargets, int count, bool penetrateLos, bool highlightPowerup, bool stopOnPowerUp, bool includeSpoils, bool pickUpIgnoreTeamRestriction, int maxPowerupCount, float interpStep = 0f, float startAngleOffset = 0f) : base(ability)
+	public AbilityUtil_Targeter_ThiefFanLaser(Ability ability, float minAngle, float maxAngle, float angleInterpMinDistance, float angleInterpMaxDistance, float rangeInSquares, float widthInSquares, int maxTargets, int count, bool penetrateLos, bool highlightPowerup, bool stopOnPowerUp, bool includeSpoils, bool pickUpIgnoreTeamRestriction, int maxPowerupCount, float interpStep = 0f, float startAngleOffset = 0f)
+		: base(ability)
 	{
-		this.m_minAngle = Mathf.Max(0f, minAngle);
-		this.m_maxAngle = maxAngle;
-		this.m_interpMinDistanceInSquares = angleInterpMinDistance;
-		this.m_interpMaxDistanceInSquares = angleInterpMaxDistance;
-		this.m_interpStep = interpStep;
-		this.m_startAngleOffset = startAngleOffset;
-		this.m_rangeInSquares = rangeInSquares;
-		this.m_widthInSquares = widthInSquares;
-		this.m_count = count;
-		this.m_maxTargets = maxTargets;
-		this.m_penetrateLos = penetrateLos;
-		this.m_highlightPowerup = highlightPowerup;
-		this.m_stopOnPowerUp = stopOnPowerUp;
-		this.m_includeSpoils = includeSpoils;
-		this.m_pickUpIgnoreTeamRestriction = pickUpIgnoreTeamRestriction;
-		this.m_maxPowerupCount = maxPowerupCount;
-		this.m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
-		this.m_powerupsHitSoFar = new HashSet<PowerUp>();
-		this.m_hitActorInLaser = new List<bool>();
-		this.m_hitPowerupInLaser = new List<bool>();
-		this.m_laserPart = new TargeterPart_Laser(this.m_widthInSquares, this.m_rangeInSquares, this.m_penetrateLos, this.m_maxTargets);
-		this.m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
-		for (int i = 0; i < this.m_count; i++)
+		m_minAngle = Mathf.Max(0f, minAngle);
+		m_maxAngle = maxAngle;
+		m_interpMinDistanceInSquares = angleInterpMinDistance;
+		m_interpMaxDistanceInSquares = angleInterpMaxDistance;
+		m_interpStep = interpStep;
+		m_startAngleOffset = startAngleOffset;
+		m_rangeInSquares = rangeInSquares;
+		m_widthInSquares = widthInSquares;
+		m_count = count;
+		m_maxTargets = maxTargets;
+		m_penetrateLos = penetrateLos;
+		m_highlightPowerup = highlightPowerup;
+		m_stopOnPowerUp = stopOnPowerUp;
+		m_includeSpoils = includeSpoils;
+		m_pickUpIgnoreTeamRestriction = pickUpIgnoreTeamRestriction;
+		m_maxPowerupCount = maxPowerupCount;
+		m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
+		m_powerupsHitSoFar = new HashSet<PowerUp>();
+		m_hitActorInLaser = new List<bool>();
+		m_hitPowerupInLaser = new List<bool>();
+		m_laserPart = new TargeterPart_Laser(m_widthInSquares, m_rangeInSquares, m_penetrateLos, m_maxTargets);
+		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
+		for (int i = 0; i < m_count; i++)
 		{
-			SquareInsideChecker_Box item = new SquareInsideChecker_Box(this.m_widthInSquares);
-			this.m_squarePosCheckerList.Add(item);
+			SquareInsideChecker_Box item = new SquareInsideChecker_Box(m_widthInSquares);
+			m_squarePosCheckerList.Add(item);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ThiefFanLaser..ctor(Ability, float, float, float, float, float, float, int, int, bool, bool, bool, bool, bool, int, float, float)).MethodHandle;
+			return;
 		}
 	}
 
 	public void SetIncludeTeams(bool includeAllies, bool includeEnemies, bool includeSelf = false)
 	{
-		this.m_affectsAllies = includeAllies;
-		this.m_affectsEnemies = includeEnemies;
-		this.m_affectsTargetingActor = includeSelf;
+		m_affectsAllies = includeAllies;
+		m_affectsEnemies = includeEnemies;
+		m_affectsTargetingActor = includeSelf;
 	}
 
 	public void SetFixedAngle(bool changeAngleByCursorDist, float fixedAngle)
 	{
-		this.m_changeAngleByCursorDist = changeAngleByCursorDist;
-		this.m_fixedAngleInBetween = fixedAngle;
+		m_changeAngleByCursorDist = changeAngleByCursorDist;
+		m_fixedAngleInBetween = fixedAngle;
 	}
 
 	public void SetUseHitActorPosForLaserEnd(bool val)
 	{
-		this.m_useHitActorPosForLaserEnd = val;
+		m_useHitActorPosForLaserEnd = val;
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		base.ClearActorsInRange();
-		this.m_actorToHitCount.Clear();
-		this.m_powerupsHitSoFar.Clear();
-		this.m_hitActorInLaser.Clear();
-		this.m_hitPowerupInLaser.Clear();
-		base.ResetSquareIndicatorIndexToUse();
-		this.m_lastNumAlliesHit = 0;
-		this.m_lastNumEnemiesHit = 0;
-		if (this.m_highlights != null)
+		ClearActorsInRange();
+		m_actorToHitCount.Clear();
+		m_powerupsHitSoFar.Clear();
+		m_hitActorInLaser.Clear();
+		m_hitPowerupInLaser.Clear();
+		ResetSquareIndicatorIndexToUse();
+		m_lastNumAlliesHit = 0;
+		m_lastNumEnemiesHit = 0;
+		if (m_highlights != null)
 		{
-			if (this.m_highlights.Count >= this.m_count)
+			if (m_highlights.Count >= m_count)
 			{
-				goto IL_D3;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ThiefFanLaser.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
+				goto IL_00d3;
 			}
 		}
-		this.m_highlights = new List<GameObject>();
-		this.m_laserEndPoints = new List<Vector3>();
-		for (int i = 0; i < this.m_count; i++)
+		m_highlights = new List<GameObject>();
+		m_laserEndPoints = new List<Vector3>();
+		for (int i = 0; i < m_count; i++)
 		{
-			this.m_highlights.Add(this.m_laserPart.CreateHighlightObject(this));
-			this.m_laserEndPoints.Add(currentTarget.FreePos);
+			m_highlights.Add(m_laserPart.CreateHighlightObject(this));
+			m_laserEndPoints.Add(currentTarget.FreePos);
 		}
-		for (;;)
+		goto IL_00d3;
+		IL_00d3:
+		float num = m_fixedAngleInBetween;
+		if (m_changeAngleByCursorDist)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		IL_D3:
-		float num = this.m_fixedAngleInBetween;
-		if (this.m_changeAngleByCursorDist)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num2;
-			if (this.m_count > 1)
+			if (m_count > 1)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num2 = this.CalculateFanAngleDegrees(currentTarget, targetingActor, this.m_interpStep);
+				num2 = CalculateFanAngleDegrees(currentTarget, targetingActor, m_interpStep);
 			}
 			else
 			{
@@ -214,18 +175,9 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 			}
 			float num3 = num2;
 			float num4;
-			if (this.m_count > 1)
+			if (m_count > 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num4 = num3 / (float)(this.m_count - 1);
+				num4 = num3 / (float)(m_count - 1);
 			}
 			else
 			{
@@ -233,470 +185,265 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 			}
 			num = num4;
 		}
-		float num5 = VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection) + this.m_startAngleOffset;
-		float num6 = num5 - 0.5f * (float)(this.m_count - 1) * num;
-		if (this.m_affectsTargetingActor)
+		float num5 = VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection) + m_startAngleOffset;
+		float num6 = num5 - 0.5f * (float)(m_count - 1) * num;
+		if (m_affectsTargetingActor)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Self, false);
+			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
 		}
 		bool flag = false;
 		bool flag2 = false;
-		for (int j = 0; j < this.m_count; j++)
+		for (int j = 0; j < m_count; j++)
 		{
 			Vector3 vector = VectorUtils.AngleDegreesToVector(num6 + (float)j * num);
-			Vector3 vector2 = targetingActor.\u0015();
-			VectorUtils.LaserCoords laserCoords;
-			List<PowerUp> list;
-			List<ActorData> laserHitActors = this.GetLaserHitActors(vector2, vector, targetingActor, out laserCoords, out list);
+			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			VectorUtils.LaserCoords coords;
+			List<PowerUp> powerupsHit;
+			List<ActorData> laserHitActors = GetLaserHitActors(travelBoardSquareWorldPositionForLos, vector, targetingActor, out coords, out powerupsHit);
 			flag2 = (laserHitActors.Count > 0);
-			flag = (list.Count > 0);
+			flag = (powerupsHit.Count > 0);
 			using (List<ActorData>.Enumerator enumerator = laserHitActors.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					ActorData actorData = enumerator.Current;
-					if (actorData.\u000E() == targetingActor.\u000E())
+					ActorData current = enumerator.Current;
+					if (current.GetTeam() == targetingActor.GetTeam())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_lastNumAlliesHit++;
+						m_lastNumAlliesHit++;
 					}
 					else
 					{
-						this.m_lastNumEnemiesHit++;
+						m_lastNumEnemiesHit++;
 					}
-					Vector3 vector3 = laserCoords.start;
-					if (this.m_customDamageOriginDelegate != null)
+					Vector3 vector2 = coords.start;
+					if (m_customDamageOriginDelegate != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						vector3 = this.m_customDamageOriginDelegate(actorData, targetingActor, vector3);
+						vector2 = m_customDamageOriginDelegate(current, targetingActor, vector2);
 					}
-					base.AddActorInRange(actorData, vector3, targetingActor, AbilityTooltipSubject.Primary, true);
-					ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
-					actorHitContext.\u001D = vector3;
-					if (this.m_actorToHitCount.ContainsKey(actorData))
+					AddActorInRange(current, vector2, targetingActor, AbilityTooltipSubject.Primary, true);
+					ActorHitContext actorHitContext = m_actorContextVars[current];
+					actorHitContext._001D = vector2;
+					if (m_actorToHitCount.ContainsKey(current))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						Dictionary<ActorData, int> actorToHitCount;
-						ActorData key;
-						(actorToHitCount = this.m_actorToHitCount)[key = actorData] = actorToHitCount[key] + 1;
+						m_actorToHitCount[current]++;
 					}
 					else
 					{
-						this.m_actorToHitCount[actorData] = 1;
+						m_actorToHitCount[current] = 1;
 					}
 				}
-				for (;;)
+			}
+			m_hitPowerupInLaser.Add(flag);
+			m_hitActorInLaser.Add(flag2);
+			m_laserEndPoints[j] = coords.end;
+			GameObject highlightObj = m_highlights[j];
+			float magnitude = (coords.end - coords.start).magnitude;
+			m_laserPart.AdjustHighlight(highlightObj, travelBoardSquareWorldPositionForLos, travelBoardSquareWorldPositionForLos + magnitude * vector);
+			UpdateLaserEndPointsForHiddenSquares(coords.start, coords.end, j, targetingActor);
+		}
+		while (true)
+		{
+			int hash = ContextKeys._0019.GetHash();
+			int hash2 = ContextKeys._001A.GetHash();
+			using (Dictionary<ActorData, int>.Enumerator enumerator2 = m_actorToHitCount.GetEnumerator())
+			{
+				while (enumerator2.MoveNext())
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					KeyValuePair<ActorData, int> current2 = enumerator2.Current;
+					ActorHitContext actorHitContext2 = m_actorContextVars[current2.Key];
+					actorHitContext2._0015.SetInt(hash, current2.Value);
+					actorHitContext2._0015.SetInt(hash2, 0);
 				}
 			}
-			this.m_hitPowerupInLaser.Add(flag);
-			this.m_hitActorInLaser.Add(flag2);
-			this.m_laserEndPoints[j] = laserCoords.end;
-			GameObject highlightObj = this.m_highlights[j];
-			float magnitude = (laserCoords.end - laserCoords.start).magnitude;
-			this.m_laserPart.AdjustHighlight(highlightObj, vector2, vector2 + magnitude * vector, true);
-			this.UpdateLaserEndPointsForHiddenSquares(laserCoords.start, laserCoords.end, j, targetingActor);
-		}
-		for (;;)
-		{
-			switch (7)
+			HandlePowerupHighlight(targetingActor, m_count);
+			bool num7;
+			if (m_affectCasterDelegate == null)
 			{
-			case 0:
-				continue;
+				num7 = m_affectsTargetingActor;
 			}
-			break;
-		}
-		int u001D = ContextKeys.\u0019.\u0012();
-		int u001D2 = ContextKeys.\u001A.\u0012();
-		using (Dictionary<ActorData, int>.Enumerator enumerator2 = this.m_actorToHitCount.GetEnumerator())
-		{
-			while (enumerator2.MoveNext())
+			else
 			{
-				KeyValuePair<ActorData, int> keyValuePair = enumerator2.Current;
-				ActorHitContext actorHitContext2 = this.m_actorContextVars[keyValuePair.Key];
-				actorHitContext2.\u0015.\u0016(u001D, keyValuePair.Value);
-				actorHitContext2.\u0015.\u0016(u001D2, 0);
+				num7 = m_affectCasterDelegate(targetingActor, flag2, flag);
 			}
-			for (;;)
+			if (num7)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, true);
 			}
-		}
-		this.HandlePowerupHighlight(targetingActor, this.m_count);
-		bool flag3;
-		if (this.m_affectCasterDelegate == null)
-		{
-			for (;;)
+			if (ShouldShowHiddenSquareIndicator(targetingActor))
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				HandleShowHiddenSquares(targetingActor);
 			}
-			flag3 = this.m_affectsTargetingActor;
+			HideUnusedSquareIndicators();
+			return;
 		}
-		else
-		{
-			flag3 = this.m_affectCasterDelegate(targetingActor, flag2, flag);
-		}
-		if (flag3)
-		{
-			base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Self, true);
-		}
-		if (this.ShouldShowHiddenSquareIndicator(targetingActor))
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.HandleShowHiddenSquares(targetingActor);
-		}
-		base.HideUnusedSquareIndicators();
 	}
 
 	protected virtual void UpdateLaserEndPointsForHiddenSquares(Vector3 startPos, Vector3 endPos, int index, ActorData targetingActor)
 	{
-		SquareInsideChecker_Box squareInsideChecker_Box = this.m_squarePosCheckerList[index] as SquareInsideChecker_Box;
+		SquareInsideChecker_Box squareInsideChecker_Box = m_squarePosCheckerList[index] as SquareInsideChecker_Box;
 		squareInsideChecker_Box.UpdateBoxProperties(startPos, endPos, targetingActor);
 	}
 
 	protected virtual void HandleShowHiddenSquares(ActorData targetingActor)
 	{
-		for (int i = 0; i < this.m_squarePosCheckerList.Count; i++)
+		for (int i = 0; i < m_squarePosCheckerList.Count; i++)
 		{
-			SquareInsideChecker_Box squareInsideChecker_Box = this.m_squarePosCheckerList[i] as SquareInsideChecker_Box;
-			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(this.m_indicatorHandler, squareInsideChecker_Box.GetStartPos(), squareInsideChecker_Box.GetEndPos(), this.m_widthInSquares, targetingActor, this.m_penetrateLos, null, this.m_squarePosCheckerList, true);
+			SquareInsideChecker_Box squareInsideChecker_Box = m_squarePosCheckerList[i] as SquareInsideChecker_Box;
+			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(m_indicatorHandler, squareInsideChecker_Box.GetStartPos(), squareInsideChecker_Box.GetEndPos(), m_widthInSquares, targetingActor, m_penetrateLos, null, m_squarePosCheckerList);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ThiefFanLaser.HandleShowHiddenSquares(ActorData)).MethodHandle;
+			return;
 		}
 	}
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> previousTargets)
 	{
-		base.ClearActorsInRange();
-		this.m_powerupsHitSoFar.Clear();
-		this.m_hitActorInLaser.Clear();
-		this.m_hitPowerupInLaser.Clear();
-		if (this.m_highlights != null)
+		ClearActorsInRange();
+		m_powerupsHitSoFar.Clear();
+		m_hitActorInLaser.Clear();
+		m_hitPowerupInLaser.Clear();
+		if (m_highlights != null)
 		{
-			if (this.m_highlights.Count >= 1)
+			if (m_highlights.Count >= 1)
 			{
-				goto IL_76;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ThiefFanLaser.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
+				goto IL_0076;
 			}
 		}
-		this.m_highlights = new List<GameObject>();
-		this.m_highlights.Add(this.m_laserPart.CreateHighlightObject(this));
-		IL_76:
+		m_highlights = new List<GameObject>();
+		m_highlights.Add(m_laserPart.CreateHighlightObject(this));
+		goto IL_0076;
+		IL_0076:
 		Vector3 vector = currentTarget.AimDirection;
 		if (currentTargetIndex > 0)
 		{
-			for (;;)
+			if (m_maxAngle > 0f)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_maxAngle > 0f)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 aimDirection = previousTargets[currentTargetIndex - 1].AimDirection;
 				float num = Vector3.Angle(vector, aimDirection);
-				if (num > this.m_maxAngle)
+				if (num > m_maxAngle)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					vector = Vector3.RotateTowards(vector, aimDirection, 0.0174532924f * (num - this.m_maxAngle), 0f);
+					vector = Vector3.RotateTowards(vector, aimDirection, (float)Math.PI / 180f * (num - m_maxAngle), 0f);
 				}
 			}
 		}
-		Vector3 vector2 = targetingActor.\u0015();
-		VectorUtils.LaserCoords laserCoords;
-		List<PowerUp> list;
-		List<ActorData> laserHitActors = this.GetLaserHitActors(vector2, vector, targetingActor, out laserCoords, out list);
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		VectorUtils.LaserCoords coords;
+		List<PowerUp> powerupsHit;
+		List<ActorData> laserHitActors = GetLaserHitActors(travelBoardSquareWorldPositionForLos, vector, targetingActor, out coords, out powerupsHit);
 		using (List<ActorData>.Enumerator enumerator = laserHitActors.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData actor = enumerator.Current;
-				base.AddActorInRange(actor, laserCoords.start, targetingActor, AbilityTooltipSubject.Primary, true);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				ActorData current = enumerator.Current;
+				AddActorInRange(current, coords.start, targetingActor, AbilityTooltipSubject.Primary, true);
 			}
 		}
-		bool flag;
-		if (this.m_affectCasterDelegate == null)
+		bool num2;
+		if (m_affectCasterDelegate == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag = this.m_affectsTargetingActor;
+			num2 = m_affectsTargetingActor;
 		}
 		else
 		{
-			flag = this.m_affectCasterDelegate(targetingActor, laserHitActors.Count > 0, list.Count > 0);
+			num2 = m_affectCasterDelegate(targetingActor, laserHitActors.Count > 0, powerupsHit.Count > 0);
 		}
-		if (flag)
+		if (num2)
 		{
-			base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Self, true);
+			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, true);
 		}
-		this.m_hitActorInLaser.Add(laserHitActors.Count > 0);
-		this.m_hitPowerupInLaser.Add(list.Count > 0);
-		float num2 = this.m_rangeInSquares;
-		float num3 = this.m_widthInSquares;
-		if (this.m_delegateLaserLength != null)
+		m_hitActorInLaser.Add(laserHitActors.Count > 0);
+		m_hitPowerupInLaser.Add(powerupsHit.Count > 0);
+		float num3 = m_rangeInSquares;
+		float num4 = m_widthInSquares;
+		if (m_delegateLaserLength != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num2 = this.m_delegateLaserLength(targetingActor, num2);
+			num3 = m_delegateLaserLength(targetingActor, num3);
 		}
-		if (this.m_delegateLaserWidth != null)
+		if (m_delegateLaserWidth != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num3 = this.m_delegateLaserWidth(targetingActor, num3);
+			num4 = m_delegateLaserWidth(targetingActor, num4);
 		}
-		this.m_laserPart.UpdateDimensions(num3, num2);
-		GameObject highlightObj = this.m_highlights[0];
-		float magnitude = (laserCoords.end - laserCoords.start).magnitude;
-		this.m_laserPart.AdjustHighlight(highlightObj, vector2, vector2 + magnitude * vector, true);
-		this.HandlePowerupHighlight(targetingActor, 1);
-		if (this.ShouldShowHiddenSquareIndicator(targetingActor))
+		m_laserPart.UpdateDimensions(num4, num3);
+		GameObject highlightObj = m_highlights[0];
+		float magnitude = (coords.end - coords.start).magnitude;
+		m_laserPart.AdjustHighlight(highlightObj, travelBoardSquareWorldPositionForLos, travelBoardSquareWorldPositionForLos + magnitude * vector);
+		HandlePowerupHighlight(targetingActor, 1);
+		if (!ShouldShowHiddenSquareIndicator(targetingActor))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			base.ResetSquareIndicatorIndexToUse();
-			this.m_laserPart.ShowHiddenSquares(this.m_indicatorHandler, laserCoords.start, laserCoords.end, targetingActor, this.m_penetrateLos);
-			base.HideUnusedSquareIndicators();
+			return;
+		}
+		while (true)
+		{
+			ResetSquareIndicatorIndexToUse();
+			m_laserPart.ShowHiddenSquares(m_indicatorHandler, coords.start, coords.end, targetingActor, m_penetrateLos);
+			HideUnusedSquareIndicators();
+			return;
 		}
 	}
 
 	private float CalculateFanAngleDegrees(AbilityTarget currentTarget, ActorData targetingActor, float interpStep)
 	{
-		float value = (currentTarget.FreePos - targetingActor.\u0016()).magnitude / Board.\u000E().squareSize;
-		float num = Mathf.Clamp(value, this.m_interpMinDistanceInSquares, this.m_interpMaxDistanceInSquares) - this.m_interpMinDistanceInSquares;
+		float value = (currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude / Board.Get().squareSize;
+		float num = Mathf.Clamp(value, m_interpMinDistanceInSquares, m_interpMaxDistanceInSquares) - m_interpMinDistanceInSquares;
 		if (interpStep > 0f)
 		{
 			float num2 = num % interpStep;
 			num -= num2;
 		}
-		return Mathf.Max(this.m_minAngle, this.m_maxAngle * (1f - num / (this.m_interpMaxDistanceInSquares - this.m_interpMinDistanceInSquares)));
+		return Mathf.Max(m_minAngle, m_maxAngle * (1f - num / (m_interpMaxDistanceInSquares - m_interpMinDistanceInSquares)));
 	}
 
 	private void HandlePowerupHighlight(ActorData targetingActor, int startingFromIndex)
 	{
 		int num = startingFromIndex;
-		if (this.m_highlightPowerup)
+		if (!m_highlightPowerup)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ThiefFanLaser.HandlePowerupHighlight(ActorData, int)).MethodHandle;
-			}
-			using (HashSet<PowerUp>.Enumerator enumerator = this.m_powerupsHitSoFar.GetEnumerator())
+			return;
+		}
+		while (true)
+		{
+			using (HashSet<PowerUp>.Enumerator enumerator = m_powerupsHitSoFar.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					PowerUp powerUp = enumerator.Current;
-					if (this.m_highlights.Count <= num)
+					PowerUp current = enumerator.Current;
+					if (m_highlights.Count <= num)
 					{
-						this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
+						m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
 					}
-					Vector3 position = powerUp.boardSquare.ToVector3();
+					Vector3 position = current.boardSquare.ToVector3();
 					position.y = HighlightUtils.GetHighlightHeight();
-					this.m_highlights[num].transform.position = position;
-					this.m_highlights[num].SetActive(true);
+					m_highlights[num].transform.position = position;
+					m_highlights[num].SetActive(true);
 					num++;
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
-			for (int i = num; i < this.m_highlights.Count; i++)
+			for (int i = num; i < m_highlights.Count; i++)
 			{
-				this.m_highlights[i].SetActive(false);
+				m_highlights[i].SetActive(false);
 			}
+			return;
 		}
 	}
 
-	private unsafe List<ActorData> GetLaserHitActors(Vector3 startPos, Vector3 direction, ActorData targetingActor, out VectorUtils.LaserCoords coords, out List<PowerUp> powerupsHit)
+	private List<ActorData> GetLaserHitActors(Vector3 startPos, Vector3 direction, ActorData targetingActor, out VectorUtils.LaserCoords coords, out List<PowerUp> powerupsHit)
 	{
-		float num = this.m_rangeInSquares;
-		float num2 = this.m_widthInSquares;
-		if (this.m_delegateLaserLength != null)
+		float num = m_rangeInSquares;
+		float num2 = m_widthInSquares;
+		if (m_delegateLaserLength != null)
 		{
-			num = this.m_delegateLaserLength(targetingActor, num);
+			num = m_delegateLaserLength(targetingActor, num);
 		}
-		if (this.m_delegateLaserWidth != null)
+		if (m_delegateLaserWidth != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ThiefFanLaser.GetLaserHitActors(Vector3, Vector3, ActorData, VectorUtils.LaserCoords*, List<PowerUp>*)).MethodHandle;
-			}
-			num2 = this.m_delegateLaserWidth(targetingActor, num2);
+			num2 = m_delegateLaserWidth(targetingActor, num2);
 		}
-		return ThiefBasicAttack.GetHitActorsInDirectionStatic(startPos, direction, targetingActor, num, num2, this.m_penetrateLos, this.m_maxTargets, this.m_affectsAllies, this.m_affectsEnemies, false, this.m_maxPowerupCount, this.m_highlightPowerup, this.m_stopOnPowerUp, this.m_includeSpoils, this.m_pickUpIgnoreTeamRestriction, this.m_powerupsHitSoFar, out coords, out powerupsHit, null, true, this.m_useHitActorPosForLaserEnd);
+		return ThiefBasicAttack.GetHitActorsInDirectionStatic(startPos, direction, targetingActor, num, num2, m_penetrateLos, m_maxTargets, m_affectsAllies, m_affectsEnemies, false, m_maxPowerupCount, m_highlightPowerup, m_stopOnPowerUp, m_includeSpoils, m_pickUpIgnoreTeamRestriction, m_powerupsHitSoFar, out coords, out powerupsHit, null, true, m_useHitActorPosForLaserEnd);
 	}
 
 	private bool ShouldShowHiddenSquareIndicator(ActorData targetingActor)
 	{
 		return targetingActor == GameFlowData.Get().activeOwnedActorData;
 	}
-
-	public delegate bool IsAffectingCasterDelegate(ActorData caster, bool hitEnemy, bool powerupHit);
-
-	public delegate Vector3 CustomDamageOriginDelegate(ActorData potentialActor, ActorData caster, Vector3 defaultPos);
-
-	public delegate float LaserLengthDelegate(ActorData caster, float baseLength);
-
-	public delegate float LaserWidthDelegate(ActorData caster, float baseWidth);
 }

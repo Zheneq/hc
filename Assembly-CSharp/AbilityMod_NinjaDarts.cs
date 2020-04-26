@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -65,421 +65,233 @@ public class AbilityMod_NinjaDarts : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		NinjaDarts ninjaDarts = targetAbility as NinjaDarts;
-		if (ninjaDarts != null)
+		if (!(ninjaDarts != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaDarts.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", ninjaDarts.m_laserInfo, true);
-			AbilityMod.AddToken(tokens, this.m_laserCountMod, "LaserCount", string.Empty, ninjaDarts.m_laserCount, true, false);
-			AbilityMod.AddToken(tokens, this.m_angleInBetweenMod, "AngleInBetween", string.Empty, ninjaDarts.m_angleInBetween, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_targeterMinAngleMod, "TargeterMinAngle", string.Empty, ninjaDarts.m_targeterMinAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_targeterMaxAngleMod, "TargeterMaxAngle", string.Empty, ninjaDarts.m_targeterMaxAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_targeterMinInterpDistanceMod, "TargeterMinInterpDistance", string.Empty, ninjaDarts.m_targeterMinInterpDistance, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_targeterMaxInterpDistanceMod, "TargeterMaxInterpDistance", string.Empty, ninjaDarts.m_targeterMaxInterpDistance, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, ninjaDarts.m_damage, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamagePerSubseqHitMod, "ExtraDamagePerSubseqHit", string.Empty, ninjaDarts.m_extraDamagePerSubseqHit, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemySingleHitEffectMod, "EnemySingleHitEffect", ninjaDarts.m_enemySingleHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyMultiHitEffectMod, "EnemyMultiHitEffect", ninjaDarts.m_enemyMultiHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_enemyExtraEffectHitCountMod, "EnemyExtraEffectHitCount", string.Empty, ninjaDarts.m_enemyExtraEffectHitCount, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyExtraHitEffectForHitCountMod, "EnemyExtraHitEffectForHitCount", ninjaDarts.m_enemyExtraHitEffectForHitCount, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allySingleHitEffectMod, "AllySingleHitEffect", ninjaDarts.m_allySingleHitEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allyMultiHitEffectMod, "AllyMultiHitEffect", ninjaDarts.m_allyMultiHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_energyPerDartHitMod, "EnergyPerDartHit", string.Empty, ninjaDarts.m_energyPerDartHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrOnMissMod, "CdrOnMiss", string.Empty, ninjaDarts.m_cdrOnMiss, true, false);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", ninjaDarts.m_laserInfo);
+			AbilityMod.AddToken(tokens, m_laserCountMod, "LaserCount", string.Empty, ninjaDarts.m_laserCount);
+			AbilityMod.AddToken(tokens, m_angleInBetweenMod, "AngleInBetween", string.Empty, ninjaDarts.m_angleInBetween);
+			AbilityMod.AddToken(tokens, m_targeterMinAngleMod, "TargeterMinAngle", string.Empty, ninjaDarts.m_targeterMinAngle);
+			AbilityMod.AddToken(tokens, m_targeterMaxAngleMod, "TargeterMaxAngle", string.Empty, ninjaDarts.m_targeterMaxAngle);
+			AbilityMod.AddToken(tokens, m_targeterMinInterpDistanceMod, "TargeterMinInterpDistance", string.Empty, ninjaDarts.m_targeterMinInterpDistance);
+			AbilityMod.AddToken(tokens, m_targeterMaxInterpDistanceMod, "TargeterMaxInterpDistance", string.Empty, ninjaDarts.m_targeterMaxInterpDistance);
+			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, ninjaDarts.m_damage);
+			AbilityMod.AddToken(tokens, m_extraDamagePerSubseqHitMod, "ExtraDamagePerSubseqHit", string.Empty, ninjaDarts.m_extraDamagePerSubseqHit);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemySingleHitEffectMod, "EnemySingleHitEffect", ninjaDarts.m_enemySingleHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyMultiHitEffectMod, "EnemyMultiHitEffect", ninjaDarts.m_enemyMultiHitEffect);
+			AbilityMod.AddToken(tokens, m_enemyExtraEffectHitCountMod, "EnemyExtraEffectHitCount", string.Empty, ninjaDarts.m_enemyExtraEffectHitCount);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyExtraHitEffectForHitCountMod, "EnemyExtraHitEffectForHitCount", ninjaDarts.m_enemyExtraHitEffectForHitCount);
+			AbilityMod.AddToken_EffectMod(tokens, m_allySingleHitEffectMod, "AllySingleHitEffect", ninjaDarts.m_allySingleHitEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_allyMultiHitEffectMod, "AllyMultiHitEffect", ninjaDarts.m_allyMultiHitEffect);
+			AbilityMod.AddToken(tokens, m_energyPerDartHitMod, "EnergyPerDartHit", string.Empty, ninjaDarts.m_energyPerDartHit);
+			AbilityMod.AddToken(tokens, m_cdrOnMissMod, "CdrOnMiss", string.Empty, ninjaDarts.m_cdrOnMiss);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		NinjaDarts ninjaDarts = base.GetTargetAbilityOnAbilityData(abilityData) as NinjaDarts;
+		NinjaDarts ninjaDarts = GetTargetAbilityOnAbilityData(abilityData) as NinjaDarts;
 		bool flag = ninjaDarts != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyLaserInfo laserInfoMod = this.m_laserInfoMod;
-		string prefix = "[LaserInfo]";
-		bool showBaseVal = flag;
-		LaserTargetingInfo baseLaserInfo;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyLaserInfo laserInfoMod = m_laserInfoMod;
+		object baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaDarts.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseLaserInfo = ninjaDarts.m_laserInfo;
 		}
 		else
 		{
 			baseLaserInfo = null;
 		}
-		text = str + base.PropDesc(laserInfoMod, prefix, showBaseVal, baseLaserInfo);
-		text += base.PropDesc(this.m_laserCountMod, "[LaserCount]", flag, (!flag) ? 0 : ninjaDarts.m_laserCount);
-		string str2 = text;
-		AbilityModPropertyFloat angleInBetweenMod = this.m_angleInBetweenMod;
-		string prefix2 = "[AngleInBetween]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(laserInfoMod, "[LaserInfo]", flag, (LaserTargetingInfo)baseLaserInfo);
+		empty += PropDesc(m_laserCountMod, "[LaserCount]", flag, flag ? ninjaDarts.m_laserCount : 0);
+		string str2 = empty;
+		AbilityModPropertyFloat angleInBetweenMod = m_angleInBetweenMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = ninjaDarts.m_angleInBetween;
 		}
 		else
 		{
 			baseVal = 0f;
 		}
-		text = str2 + base.PropDesc(angleInBetweenMod, prefix2, showBaseVal2, baseVal);
-		string str3 = text;
-		AbilityModPropertyBool changeAngleByCursorDistanceMod = this.m_changeAngleByCursorDistanceMod;
-		string prefix3 = "[ChangeAngleByCursorDistance]";
-		bool showBaseVal3 = flag;
-		bool baseVal2;
+		empty = str2 + PropDesc(angleInBetweenMod, "[AngleInBetween]", flag, baseVal);
+		string str3 = empty;
+		AbilityModPropertyBool changeAngleByCursorDistanceMod = m_changeAngleByCursorDistanceMod;
+		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal2 = ninjaDarts.m_changeAngleByCursorDistance;
+			baseVal2 = (ninjaDarts.m_changeAngleByCursorDistance ? 1 : 0);
 		}
 		else
 		{
-			baseVal2 = false;
+			baseVal2 = 0;
 		}
-		text = str3 + base.PropDesc(changeAngleByCursorDistanceMod, prefix3, showBaseVal3, baseVal2);
-		string str4 = text;
-		AbilityModPropertyFloat targeterMinAngleMod = this.m_targeterMinAngleMod;
-		string prefix4 = "[TargeterMinAngle]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(changeAngleByCursorDistanceMod, "[ChangeAngleByCursorDistance]", flag, (byte)baseVal2 != 0);
+		string str4 = empty;
+		AbilityModPropertyFloat targeterMinAngleMod = m_targeterMinAngleMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = ninjaDarts.m_targeterMinAngle;
 		}
 		else
 		{
 			baseVal3 = 0f;
 		}
-		text = str4 + base.PropDesc(targeterMinAngleMod, prefix4, showBaseVal4, baseVal3);
-		text += base.PropDesc(this.m_targeterMaxAngleMod, "[TargeterMaxAngle]", flag, (!flag) ? 0f : ninjaDarts.m_targeterMaxAngle);
-		string str5 = text;
-		AbilityModPropertyFloat targeterMinInterpDistanceMod = this.m_targeterMinInterpDistanceMod;
-		string prefix5 = "[TargeterMinInterpDistance]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(targeterMinAngleMod, "[TargeterMinAngle]", flag, baseVal3);
+		empty += PropDesc(m_targeterMaxAngleMod, "[TargeterMaxAngle]", flag, (!flag) ? 0f : ninjaDarts.m_targeterMaxAngle);
+		string str5 = empty;
+		AbilityModPropertyFloat targeterMinInterpDistanceMod = m_targeterMinInterpDistanceMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = ninjaDarts.m_targeterMinInterpDistance;
 		}
 		else
 		{
 			baseVal4 = 0f;
 		}
-		text = str5 + base.PropDesc(targeterMinInterpDistanceMod, prefix5, showBaseVal5, baseVal4);
-		string str6 = text;
-		AbilityModPropertyFloat targeterMaxInterpDistanceMod = this.m_targeterMaxInterpDistanceMod;
-		string prefix6 = "[TargeterMaxInterpDistance]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(targeterMinInterpDistanceMod, "[TargeterMinInterpDistance]", flag, baseVal4);
+		string str6 = empty;
+		AbilityModPropertyFloat targeterMaxInterpDistanceMod = m_targeterMaxInterpDistanceMod;
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = ninjaDarts.m_targeterMaxInterpDistance;
 		}
 		else
 		{
 			baseVal5 = 0f;
 		}
-		text = str6 + base.PropDesc(targeterMaxInterpDistanceMod, prefix6, showBaseVal6, baseVal5);
-		string str7 = text;
-		AbilityModPropertyInt damageMod = this.m_damageMod;
-		string prefix7 = "[Damage]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(targeterMaxInterpDistanceMod, "[TargeterMaxInterpDistance]", flag, baseVal5);
+		string str7 = empty;
+		AbilityModPropertyInt damageMod = m_damageMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = ninjaDarts.m_damage;
 		}
 		else
 		{
 			baseVal6 = 0;
 		}
-		text = str7 + base.PropDesc(damageMod, prefix7, showBaseVal7, baseVal6);
-		string str8 = text;
-		AbilityModPropertyInt extraDamagePerSubseqHitMod = this.m_extraDamagePerSubseqHitMod;
-		string prefix8 = "[ExtraDamagePerSubseqHit]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(damageMod, "[Damage]", flag, baseVal6);
+		string str8 = empty;
+		AbilityModPropertyInt extraDamagePerSubseqHitMod = m_extraDamagePerSubseqHitMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = ninjaDarts.m_extraDamagePerSubseqHit;
 		}
 		else
 		{
 			baseVal7 = 0;
 		}
-		text = str8 + base.PropDesc(extraDamagePerSubseqHitMod, prefix8, showBaseVal8, baseVal7);
-		string str9 = text;
-		AbilityModPropertyEffectInfo enemySingleHitEffectMod = this.m_enemySingleHitEffectMod;
-		string prefix9 = "[EnemySingleHitEffect]";
-		bool showBaseVal9 = flag;
-		StandardEffectInfo baseVal8;
+		empty = str8 + PropDesc(extraDamagePerSubseqHitMod, "[ExtraDamagePerSubseqHit]", flag, baseVal7);
+		string str9 = empty;
+		AbilityModPropertyEffectInfo enemySingleHitEffectMod = m_enemySingleHitEffectMod;
+		object baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = ninjaDarts.m_enemySingleHitEffect;
 		}
 		else
 		{
 			baseVal8 = null;
 		}
-		text = str9 + base.PropDesc(enemySingleHitEffectMod, prefix9, showBaseVal9, baseVal8);
-		string str10 = text;
-		AbilityModPropertyEffectInfo enemyMultiHitEffectMod = this.m_enemyMultiHitEffectMod;
-		string prefix10 = "[EnemyMultiHitEffect]";
-		bool showBaseVal10 = flag;
-		StandardEffectInfo baseVal9;
+		empty = str9 + PropDesc(enemySingleHitEffectMod, "[EnemySingleHitEffect]", flag, (StandardEffectInfo)baseVal8);
+		string str10 = empty;
+		AbilityModPropertyEffectInfo enemyMultiHitEffectMod = m_enemyMultiHitEffectMod;
+		object baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = ninjaDarts.m_enemyMultiHitEffect;
 		}
 		else
 		{
 			baseVal9 = null;
 		}
-		text = str10 + base.PropDesc(enemyMultiHitEffectMod, prefix10, showBaseVal10, baseVal9);
-		text += base.PropDesc(this.m_enemyExtraEffectHitCountMod, "[EnemyExtraEffectHitCount]", flag, (!flag) ? 0 : ninjaDarts.m_enemyExtraEffectHitCount);
-		string str11 = text;
-		AbilityModPropertyEffectInfo enemyExtraHitEffectForHitCountMod = this.m_enemyExtraHitEffectForHitCountMod;
-		string prefix11 = "[EnemyExtraHitEffectForHitCount]";
-		bool showBaseVal11 = flag;
-		StandardEffectInfo baseVal10;
+		empty = str10 + PropDesc(enemyMultiHitEffectMod, "[EnemyMultiHitEffect]", flag, (StandardEffectInfo)baseVal9);
+		empty += PropDesc(m_enemyExtraEffectHitCountMod, "[EnemyExtraEffectHitCount]", flag, flag ? ninjaDarts.m_enemyExtraEffectHitCount : 0);
+		string str11 = empty;
+		AbilityModPropertyEffectInfo enemyExtraHitEffectForHitCountMod = m_enemyExtraHitEffectForHitCountMod;
+		object baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = ninjaDarts.m_enemyExtraHitEffectForHitCount;
 		}
 		else
 		{
 			baseVal10 = null;
 		}
-		text = str11 + base.PropDesc(enemyExtraHitEffectForHitCountMod, prefix11, showBaseVal11, baseVal10);
-		string str12 = text;
-		AbilityModPropertyEffectInfo allySingleHitEffectMod = this.m_allySingleHitEffectMod;
-		string prefix12 = "[AllySingleHitEffect]";
-		bool showBaseVal12 = flag;
-		StandardEffectInfo baseVal11;
+		empty = str11 + PropDesc(enemyExtraHitEffectForHitCountMod, "[EnemyExtraHitEffectForHitCount]", flag, (StandardEffectInfo)baseVal10);
+		string str12 = empty;
+		AbilityModPropertyEffectInfo allySingleHitEffectMod = m_allySingleHitEffectMod;
+		object baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = ninjaDarts.m_allySingleHitEffect;
 		}
 		else
 		{
 			baseVal11 = null;
 		}
-		text = str12 + base.PropDesc(allySingleHitEffectMod, prefix12, showBaseVal12, baseVal11);
-		string str13 = text;
-		AbilityModPropertyEffectInfo allyMultiHitEffectMod = this.m_allyMultiHitEffectMod;
-		string prefix13 = "[AllyMultiHitEffect]";
-		bool showBaseVal13 = flag;
-		StandardEffectInfo baseVal12;
+		empty = str12 + PropDesc(allySingleHitEffectMod, "[AllySingleHitEffect]", flag, (StandardEffectInfo)baseVal11);
+		string str13 = empty;
+		AbilityModPropertyEffectInfo allyMultiHitEffectMod = m_allyMultiHitEffectMod;
+		object baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = ninjaDarts.m_allyMultiHitEffect;
 		}
 		else
 		{
 			baseVal12 = null;
 		}
-		text = str13 + base.PropDesc(allyMultiHitEffectMod, prefix13, showBaseVal13, baseVal12);
-		string str14 = text;
-		AbilityModPropertyInt energyPerDartHitMod = this.m_energyPerDartHitMod;
-		string prefix14 = "[EnergyPerDartHit]";
-		bool showBaseVal14 = flag;
+		empty = str13 + PropDesc(allyMultiHitEffectMod, "[AllyMultiHitEffect]", flag, (StandardEffectInfo)baseVal12);
+		string str14 = empty;
+		AbilityModPropertyInt energyPerDartHitMod = m_energyPerDartHitMod;
 		int baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = ninjaDarts.m_energyPerDartHit;
 		}
 		else
 		{
 			baseVal13 = 0;
 		}
-		text = str14 + base.PropDesc(energyPerDartHitMod, prefix14, showBaseVal14, baseVal13);
-		text += base.PropDesc(this.m_cdrOnMissMod, "[CdrOnMiss]", flag, (!flag) ? 0 : ninjaDarts.m_cdrOnMiss);
-		string str15 = text;
-		AbilityModPropertyBool applyDeathmarkEffectMod = this.m_applyDeathmarkEffectMod;
-		string prefix15 = "[ApplyDeathmarkEffect]";
-		bool showBaseVal15 = flag;
-		bool baseVal14;
+		empty = str14 + PropDesc(energyPerDartHitMod, "[EnergyPerDartHit]", flag, baseVal13);
+		empty += PropDesc(m_cdrOnMissMod, "[CdrOnMiss]", flag, flag ? ninjaDarts.m_cdrOnMiss : 0);
+		string str15 = empty;
+		AbilityModPropertyBool applyDeathmarkEffectMod = m_applyDeathmarkEffectMod;
+		int baseVal14;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal14 = ninjaDarts.m_applyDeathmarkEffect;
+			baseVal14 = (ninjaDarts.m_applyDeathmarkEffect ? 1 : 0);
 		}
 		else
 		{
-			baseVal14 = false;
+			baseVal14 = 0;
 		}
-		text = str15 + base.PropDesc(applyDeathmarkEffectMod, prefix15, showBaseVal15, baseVal14);
-		string str16 = text;
-		AbilityModPropertyBool ignoreCoverOnTargetsMod = this.m_ignoreCoverOnTargetsMod;
-		string prefix16 = "[IgnoreCoverOnTargets]";
-		bool showBaseVal16 = flag;
-		bool baseVal15;
+		empty = str15 + PropDesc(applyDeathmarkEffectMod, "[ApplyDeathmarkEffect]", flag, (byte)baseVal14 != 0);
+		string str16 = empty;
+		AbilityModPropertyBool ignoreCoverOnTargetsMod = m_ignoreCoverOnTargetsMod;
+		int baseVal15;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal15 = ninjaDarts.m_ignoreCoverOnTargets;
+			baseVal15 = (ninjaDarts.m_ignoreCoverOnTargets ? 1 : 0);
 		}
 		else
 		{
-			baseVal15 = false;
+			baseVal15 = 0;
 		}
-		return str16 + base.PropDesc(ignoreCoverOnTargetsMod, prefix16, showBaseVal16, baseVal15);
+		return str16 + PropDesc(ignoreCoverOnTargetsMod, "[IgnoreCoverOnTargets]", flag, (byte)baseVal15 != 0);
 	}
 }

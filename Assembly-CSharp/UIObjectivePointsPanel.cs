@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -32,191 +31,111 @@ public class UIObjectivePointsPanel : UIGameModePanel
 
 	private void SetScoreText(TextMeshProUGUI textLabel, int score, bool friendly)
 	{
-		if (textLabel.text != score.ToString())
+		if (!(textLabel.text != score.ToString()))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIObjectivePointsPanel.SetScoreText(TextMeshProUGUI, int, bool)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			textLabel.text = score.ToString();
 			if (friendly)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						FriendlyScoreAC.Play("ObjectiveScoreDefaultIN", 0, 0f);
+						return;
 					}
-					break;
 				}
-				this.FriendlyScoreAC.Play("ObjectiveScoreDefaultIN", 0, 0f);
 			}
-			else
-			{
-				this.EnemyScoreAC.Play("ObjectiveScoreDefaultIN", 0, 0f);
-			}
+			EnemyScoreAC.Play("ObjectiveScoreDefaultIN", 0, 0f);
+			return;
 		}
 	}
 
 	public void SetInMatchValues(string myTeamLabel, Color myTeamColor, int myTeamScore, string myEnemyTeamLabel, Color myEnemyTeamColor, int myEnemyScore, string victoryConditionString, string phaseName)
 	{
-		if (this.myTeamScoreToDisplay != myTeamScore)
+		if (myTeamScoreToDisplay != myTeamScore)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIObjectivePointsPanel.SetInMatchValues(string, Color, int, string, Color, int, string, string)).MethodHandle;
-			}
-			this.SetScoreText(this.FriendlyScore, this.myTeamScoreToDisplay, true);
-			this.myTeamScoreToDisplay = myTeamScore;
-			this.m_TimeMyScoreToChange = Time.time + this.delayTimeToChangeScore;
+			SetScoreText(FriendlyScore, myTeamScoreToDisplay, true);
+			myTeamScoreToDisplay = myTeamScore;
+			m_TimeMyScoreToChange = Time.time + delayTimeToChangeScore;
 		}
-		if (this.enemyTeamScoreToDisplay != myEnemyScore)
+		if (enemyTeamScoreToDisplay != myEnemyScore)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.SetScoreText(this.EnemyScore, this.enemyTeamScoreToDisplay, false);
-			this.enemyTeamScoreToDisplay = myEnemyScore;
-			this.m_TimeEnemyScoreTChange = Time.time + this.delayTimeToChangeScore;
+			SetScoreText(EnemyScore, enemyTeamScoreToDisplay, false);
+			enemyTeamScoreToDisplay = myEnemyScore;
+			m_TimeEnemyScoreTChange = Time.time + delayTimeToChangeScore;
 		}
-		this.VictoryConditionLabel.text = victoryConditionString;
-		this.PhaseNameLabel.text = phaseName;
-		this.ResultLabel.text = string.Empty;
+		VictoryConditionLabel.text = victoryConditionString;
+		PhaseNameLabel.text = phaseName;
+		ResultLabel.text = string.Empty;
 	}
 
 	public void SetTutorialInMatchValue(string phaseName)
 	{
-		this.FriendlyScore.text = string.Empty;
-		this.EnemyScore.text = string.Empty;
-		this.VictoryConditionLabel.text = string.Empty;
-		this.ResultLabel.text = string.Empty;
-		this.PhaseNameLabel.text = phaseName;
+		FriendlyScore.text = string.Empty;
+		EnemyScore.text = string.Empty;
+		VictoryConditionLabel.text = string.Empty;
+		ResultLabel.text = string.Empty;
+		PhaseNameLabel.text = phaseName;
 	}
 
 	public void SetPhaseIndicatorActive(bool active, int index)
 	{
-		if (0 <= index && index < this.PhaseIndicators.Length)
+		if (0 > index || index >= PhaseIndicators.Length)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!PhaseIndicators[index].m_phaseImage.gameObject.activeSelf && active)
 			{
-				switch (5)
+				if (PhaseIndicators[index].gameObject.activeInHierarchy)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIObjectivePointsPanel.SetPhaseIndicatorActive(bool, int)).MethodHandle;
-			}
-			if (!this.PhaseIndicators[index].m_phaseImage.gameObject.activeSelf && active)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.PhaseIndicators[index].gameObject.activeInHierarchy)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.PhaseIndicators[index].m_phaseAnimationController.Play("PhaseIndicatorAnimation");
+					PhaseIndicators[index].m_phaseAnimationController.Play("PhaseIndicatorAnimation");
 				}
 			}
-			UIManager.SetGameObjectActive(this.PhaseIndicators[index].m_phaseImage, active, null);
+			UIManager.SetGameObjectActive(PhaseIndicators[index].m_phaseImage, active);
+			return;
 		}
 	}
 
 	public void SetEndMatchValues(string winnerString, Color winningTeamColor, string exitingString, int timeToExit)
 	{
-		this.FriendlyScore.text = string.Empty;
-		this.EnemyScore.text = string.Empty;
-		this.VictoryConditionLabel.text = exitingString + timeToExit;
-		this.ResultLabel.text = winnerString;
-		this.ResultLabel.color = winningTeamColor;
+		FriendlyScore.text = string.Empty;
+		EnemyScore.text = string.Empty;
+		VictoryConditionLabel.text = exitingString + timeToExit;
+		ResultLabel.text = winnerString;
+		ResultLabel.color = winningTeamColor;
 	}
 
 	public void Update()
 	{
 		if (ObjectivePoints.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIObjectivePointsPanel.Update()).MethodHandle;
-			}
 			ObjectivePoints.Get().SetUpGameUI(this);
 		}
 		if (Tutorial.Get() != null)
 		{
 			Tutorial.Get().SetUpGameUI(this);
 		}
-		if (Time.time >= this.m_TimeMyScoreToChange)
+		if (Time.time >= m_TimeMyScoreToChange)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.SetScoreText(this.FriendlyScore, this.myTeamScoreToDisplay, true);
+			SetScoreText(FriendlyScore, myTeamScoreToDisplay, true);
 		}
-		if (Time.time >= this.m_TimeEnemyScoreTChange)
+		if (Time.time >= m_TimeEnemyScoreTChange)
 		{
-			this.SetScoreText(this.EnemyScore, this.enemyTeamScoreToDisplay, false);
+			SetScoreText(EnemyScore, enemyTeamScoreToDisplay, false);
 		}
 	}
 
 	private void OnEnable()
 	{
-		this.Update();
+		Update();
 	}
 }

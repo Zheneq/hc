@@ -1,12 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
 using LobbyGameClientMessages;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UINewReward : UIScene
 {
+	public struct RewardAnnouncementDisplayInfo
+	{
+		public RewardUtils.RewardData m_rewardData;
+
+		public CharacterType m_unlockCharType;
+
+		public int m_unlockLevel;
+
+		public string m_displayName;
+	}
+
+	public struct SeasonReward
+	{
+		public InventoryItemTemplate m_itemTemplate;
+
+		public int m_amount;
+
+		public int m_unlockLevel;
+	}
+
+	public class FactionRewardAnnounceInfo
+	{
+		public bool DisplayDescription;
+
+		public string FactionSpritePath;
+
+		public FactionReward FactionReward;
+
+		public int Level;
+	}
+
 	private static UINewReward s_instance;
 
 	public RectTransform m_container;
@@ -58,11 +88,11 @@ public class UINewReward : UIScene
 
 	public Image m_trustFactionIcon;
 
-	private List<UINewReward.RewardAnnouncementDisplayInfo> rewardTypesToAnnounce;
+	private List<RewardAnnouncementDisplayInfo> rewardTypesToAnnounce;
 
-	private List<UINewReward.SeasonReward> m_seasonRewardsToAnnounce;
+	private List<SeasonReward> m_seasonRewardsToAnnounce;
 
-	private List<UINewReward.FactionRewardAnnounceInfo> m_trustRewardsToAnnounce;
+	private List<FactionRewardAnnounceInfo> m_trustRewardsToAnnounce;
 
 	private bool m_rewardAnnouncementInProgress;
 
@@ -77,187 +107,129 @@ public class UINewReward : UIScene
 
 	public override void Awake()
 	{
-		UINewReward.s_instance = this;
-		this.rewardTypesToAnnounce = new List<UINewReward.RewardAnnouncementDisplayInfo>();
-		this.m_seasonRewardsToAnnounce = new List<UINewReward.SeasonReward>();
-		this.m_trustRewardsToAnnounce = new List<UINewReward.FactionRewardAnnounceInfo>();
-		UIManager.SetGameObjectActive(this.m_container, false, null);
-		UIManager.SetGameObjectActive(this.m_seasonContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_trustContainer, false, null);
-		ClientGameManager.Get().OnPlayerFactionContributionChangeNotification += this.OnPlayerFactionContributionChangeNotification;
-		ClientGameManager.Get().OnQuestCompleteNotification += this.HandleQuestCompleteNotification;
+		s_instance = this;
+		rewardTypesToAnnounce = new List<RewardAnnouncementDisplayInfo>();
+		m_seasonRewardsToAnnounce = new List<SeasonReward>();
+		m_trustRewardsToAnnounce = new List<FactionRewardAnnounceInfo>();
+		UIManager.SetGameObjectActive(m_container, false);
+		UIManager.SetGameObjectActive(m_seasonContainer, false);
+		UIManager.SetGameObjectActive(m_trustContainer, false);
+		ClientGameManager.Get().OnPlayerFactionContributionChangeNotification += OnPlayerFactionContributionChangeNotification;
+		ClientGameManager.Get().OnQuestCompleteNotification += HandleQuestCompleteNotification;
 		base.Awake();
 	}
 
 	private void OnDestroy()
 	{
-		UINewReward.s_instance = null;
-		if (ClientGameManager.Get() != null)
+		s_instance = null;
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewReward.OnDestroy()).MethodHandle;
-			}
-			ClientGameManager.Get().OnPlayerFactionContributionChangeNotification -= this.OnPlayerFactionContributionChangeNotification;
-			ClientGameManager.Get().OnQuestCompleteNotification -= this.HandleQuestCompleteNotification;
+			return;
+		}
+		while (true)
+		{
+			ClientGameManager.Get().OnPlayerFactionContributionChangeNotification -= OnPlayerFactionContributionChangeNotification;
+			ClientGameManager.Get().OnQuestCompleteNotification -= HandleQuestCompleteNotification;
+			return;
 		}
 	}
 
 	public static UINewReward Get()
 	{
-		return UINewReward.s_instance;
+		return s_instance;
 	}
 
 	private void OnPlayerFactionContributionChangeNotification(PlayerFactionContributionChangeNotification notification)
 	{
 		FactionPlayerData playerCompetitionFactionData = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetPlayerCompetitionFactionData(notification.CompetitionId, notification.FactionId);
 		Faction faction = FactionWideData.Get().GetFaction(notification.CompetitionId, notification.FactionId);
-		int currentLevel = playerCompetitionFactionData.GetCurrentLevel(faction.FactionPlayerProgressInfo, 0);
+		int currentLevel = playerCompetitionFactionData.GetCurrentLevel(faction.FactionPlayerProgressInfo);
 		int currentLevel2 = playerCompetitionFactionData.GetCurrentLevel(faction.FactionPlayerProgressInfo, notification.AmountChanged * -1);
-		if (currentLevel > currentLevel2)
+		if (currentLevel <= currentLevel2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewReward.OnPlayerFactionContributionChangeNotification(PlayerFactionContributionChangeNotification)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(faction.FactionGroupIDToUse);
-			int i = currentLevel2;
-			while (i < currentLevel)
+			int num = currentLevel2;
+			while (num < currentLevel)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (2)
+					if (num <= faction.FactionPlayerProgressInfo.Length)
 					{
-					case 0:
-						continue;
+						NotifyNewTrustReward(faction.FactionPlayerProgressInfo[num - 1].LevelUpRewards, num, factionGroup.IconPath);
+						num++;
+						goto IL_00c2;
 					}
-					break;
-				}
-				if (i > faction.FactionPlayerProgressInfo.Length)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
+						default:
+							return;
 						case 0:
-							continue;
+							break;
 						}
-						return;
 					}
 				}
-				else
-				{
-					this.NotifyNewTrustReward(faction.FactionPlayerProgressInfo[i - 1].LevelUpRewards, i, factionGroup.IconPath, false);
-					i++;
-				}
+				IL_00c2:;
 			}
+			return;
 		}
 	}
 
 	public void NotifyNewRewardReceived(RewardUtils.RewardData data, CharacterType charType = CharacterType.None, int unlockLevel = -1, int currencyAmount = -1)
 	{
-		UINewReward.RewardAnnouncementDisplayInfo item;
+		RewardAnnouncementDisplayInfo item = default(RewardAnnouncementDisplayInfo);
 		item.m_rewardData = data;
 		item.m_unlockCharType = charType;
 		item.m_unlockLevel = unlockLevel;
 		if (GameFlowData.Get() == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewReward.NotifyNewRewardReceived(RewardUtils.RewardData, CharacterType, int, int)).MethodHandle;
-			}
 			item.m_displayName = string.Empty;
 		}
 		else if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			item.m_displayName = GameFlowData.Get().activeOwnedActorData.DisplayName;
 		}
 		else
 		{
 			item.m_displayName = ClientGameManager.Get().Handle;
 		}
-		this.rewardTypesToAnnounce.Add(item);
+		rewardTypesToAnnounce.Add(item);
 	}
 
 	public void NotifyNewRewardReceived(RewardUtils.RewardType type)
 	{
-		UINewReward.RewardAnnouncementDisplayInfo item;
-		item.m_rewardData = new RewardUtils.RewardData
-		{
-			Name = string.Empty,
-			SpritePath = string.Empty,
-			Type = type,
-			Amount = -1
-		};
+		RewardUtils.RewardData rewardData = new RewardUtils.RewardData();
+		rewardData.Name = string.Empty;
+		rewardData.SpritePath = string.Empty;
+		rewardData.Type = type;
+		rewardData.Amount = -1;
+		RewardAnnouncementDisplayInfo item = default(RewardAnnouncementDisplayInfo);
+		item.m_rewardData = rewardData;
 		item.m_unlockCharType = CharacterType.None;
 		item.m_unlockLevel = -1;
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewReward.NotifyNewRewardReceived(RewardUtils.RewardType)).MethodHandle;
-			}
 			item.m_displayName = GameFlowData.Get().activeOwnedActorData.DisplayName;
 		}
 		else
 		{
 			item.m_displayName = ClientGameManager.Get().Handle;
 		}
-		this.rewardTypesToAnnounce.Add(item);
+		rewardTypesToAnnounce.Add(item);
 	}
 
 	public void NotifySeasonReward(InventoryItemTemplate template, int unlockLevel, int amount)
 	{
-		UINewReward.SeasonReward item;
+		SeasonReward item = default(SeasonReward);
 		item.m_itemTemplate = template;
 		item.m_amount = amount;
 		item.m_unlockLevel = unlockLevel;
-		this.m_seasonRewardsToAnnounce.Add(item);
+		m_seasonRewardsToAnnounce.Add(item);
 	}
 
 	public void NotifyNewTrustReward(FactionRewards rewards, int levelObtained, string FactionIconResourcePath, bool displayDescription = false)
@@ -266,26 +238,23 @@ public class UINewReward : UIScene
 		{
 			while (enumerator.MoveNext())
 			{
-				FactionReward factionReward = enumerator.Current;
-				UINewReward.FactionRewardAnnounceInfo factionRewardAnnounceInfo = new UINewReward.FactionRewardAnnounceInfo();
-				factionRewardAnnounceInfo.FactionReward = factionReward;
+				FactionReward current = enumerator.Current;
+				FactionRewardAnnounceInfo factionRewardAnnounceInfo = new FactionRewardAnnounceInfo();
+				factionRewardAnnounceInfo.FactionReward = current;
 				factionRewardAnnounceInfo.Level = levelObtained;
 				factionRewardAnnounceInfo.FactionSpritePath = FactionIconResourcePath;
 				factionRewardAnnounceInfo.DisplayDescription = displayDescription;
-				this.m_trustRewardsToAnnounce.Add(factionRewardAnnounceInfo);
+				m_trustRewardsToAnnounce.Add(factionRewardAnnounceInfo);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewReward.NotifyNewTrustReward(FactionRewards, int, string, bool)).MethodHandle;
 			}
 		}
 	}
@@ -296,79 +265,69 @@ public class UINewReward : UIScene
 		{
 			while (enumerator.MoveNext())
 			{
-				QuestItemReward itemReward = enumerator.Current;
-				UINewReward.FactionRewardAnnounceInfo factionRewardAnnounceInfo = new UINewReward.FactionRewardAnnounceInfo();
+				QuestItemReward current = enumerator.Current;
+				FactionRewardAnnounceInfo factionRewardAnnounceInfo = new FactionRewardAnnounceInfo();
 				factionRewardAnnounceInfo.FactionReward = new FactionItemReward
 				{
-					ItemReward = itemReward
+					ItemReward = current
 				};
 				factionRewardAnnounceInfo.Level = levelObtained;
 				factionRewardAnnounceInfo.FactionSpritePath = string.Empty;
 				factionRewardAnnounceInfo.DisplayDescription = displayDescription;
-				this.m_trustRewardsToAnnounce.Add(factionRewardAnnounceInfo);
+				m_trustRewardsToAnnounce.Add(factionRewardAnnounceInfo);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					goto end_IL_000e;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewReward.NotifyNewQuestReward(QuestRewards, int, bool)).MethodHandle;
-			}
+			end_IL_000e:;
 		}
 		using (List<QuestUnlockReward>.Enumerator enumerator2 = rewards.UnlockRewards.GetEnumerator())
 		{
 			while (enumerator2.MoveNext())
 			{
-				QuestUnlockReward unlockReward = enumerator2.Current;
-				UINewReward.FactionRewardAnnounceInfo factionRewardAnnounceInfo2 = new UINewReward.FactionRewardAnnounceInfo();
+				QuestUnlockReward current2 = enumerator2.Current;
+				FactionRewardAnnounceInfo factionRewardAnnounceInfo2 = new FactionRewardAnnounceInfo();
 				factionRewardAnnounceInfo2.FactionReward = new FactionUnlockReward
 				{
-					UnlockReward = unlockReward
+					UnlockReward = current2
 				};
 				factionRewardAnnounceInfo2.Level = levelObtained;
 				factionRewardAnnounceInfo2.FactionSpritePath = string.Empty;
 				factionRewardAnnounceInfo2.DisplayDescription = displayDescription;
-				this.m_trustRewardsToAnnounce.Add(factionRewardAnnounceInfo2);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_trustRewardsToAnnounce.Add(factionRewardAnnounceInfo2);
 			}
 		}
 		using (List<QuestCurrencyReward>.Enumerator enumerator3 = rewards.CurrencyRewards.GetEnumerator())
 		{
 			while (enumerator3.MoveNext())
 			{
-				QuestCurrencyReward currencyReward = enumerator3.Current;
-				UINewReward.FactionRewardAnnounceInfo factionRewardAnnounceInfo3 = new UINewReward.FactionRewardAnnounceInfo();
+				QuestCurrencyReward current3 = enumerator3.Current;
+				FactionRewardAnnounceInfo factionRewardAnnounceInfo3 = new FactionRewardAnnounceInfo();
 				factionRewardAnnounceInfo3.FactionReward = new FactionCurrencyReward
 				{
-					CurrencyReward = currencyReward
+					CurrencyReward = current3
 				};
 				factionRewardAnnounceInfo3.Level = levelObtained;
 				factionRewardAnnounceInfo3.FactionSpritePath = string.Empty;
 				factionRewardAnnounceInfo3.DisplayDescription = true;
-				this.m_trustRewardsToAnnounce.Add(factionRewardAnnounceInfo3);
+				m_trustRewardsToAnnounce.Add(factionRewardAnnounceInfo3);
 			}
-			for (;;)
+			while (true)
 			{
 				switch (4)
 				{
+				default:
+					return;
 				case 0:
-					continue;
+					break;
 				}
-				break;
 			}
 		}
 	}
@@ -376,648 +335,344 @@ public class UINewReward : UIScene
 	private void HandleQuestCompleteNotification(QuestCompleteNotification message)
 	{
 		QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(message.questId);
-		if (questTemplate == null || !questTemplate.DisplayRewardNotification)
+		if (questTemplate != null && questTemplate.DisplayRewardNotification)
 		{
-			return;
+			NotifyNewQuestReward(questTemplate.Rewards, -1, true);
 		}
-		this.NotifyNewQuestReward(questTemplate.Rewards, -1, true);
 	}
 
-	private void SetupReward(UINewReward.RewardAnnouncementDisplayInfo info)
+	private void SetupReward(RewardAnnouncementDisplayInfo info)
 	{
-		string text = info.m_rewardData.Name;
-		string text2 = string.Empty;
+		string name = info.m_rewardData.Name;
+		string text = string.Empty;
 		if (info.m_rewardData.Type != RewardUtils.RewardType.ISO)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewReward.SetupReward(UINewReward.RewardAnnouncementDisplayInfo)).MethodHandle;
-			}
 			if (info.m_rewardData.Type != RewardUtils.RewardType.ModToken)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (info.m_rewardData.Type != RewardUtils.RewardType.GGBoost)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (info.m_rewardData.Type != RewardUtils.RewardType.System)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						text2 = RewardUtils.GetTypeDisplayString(info.m_rewardData.Type, false);
+						text = RewardUtils.GetTypeDisplayString(info.m_rewardData.Type, false);
 					}
 				}
 			}
 		}
-		string text3 = string.Empty;
+		string str = string.Empty;
 		if (info.m_unlockLevel > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text3 = string.Format(StringUtil.TR("LevelRequirement", "Rewards"), info.m_unlockLevel);
+			str = string.Format(StringUtil.TR("LevelRequirement", "Rewards"), info.m_unlockLevel);
 		}
-		if (info.m_unlockCharType != CharacterType.None)
+		if (info.m_unlockCharType != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text3 = text3 + " " + GameWideData.Get().GetCharacterResourceLink(info.m_unlockCharType).GetDisplayName();
+			str = str + " " + GameWideData.Get().GetCharacterResourceLink(info.m_unlockCharType).GetDisplayName();
 		}
 		else
 		{
-			text3 = text3 + " " + info.m_displayName;
+			str = str + " " + info.m_displayName;
 		}
-		text = RewardUtils.GetDisplayString(info.m_rewardData, true);
+		name = RewardUtils.GetDisplayString(info.m_rewardData, true);
 		if (info.m_rewardData.SpritePath == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_rewardIcon.sprite = this.m_generalSprite;
+			m_rewardIcon.sprite = m_generalSprite;
 		}
 		else
 		{
 			Sprite sprite = (Sprite)Resources.Load(info.m_rewardData.SpritePath, typeof(Sprite));
 			if (info.m_rewardData.Type == RewardUtils.RewardType.Banner)
 			{
-				UIManager.SetGameObjectActive(this.m_rewardIcon, false, null);
-				UIManager.SetGameObjectActive(this.m_rewardBanner, true, null);
-				this.m_rewardBanner.sprite = sprite;
+				UIManager.SetGameObjectActive(m_rewardIcon, false);
+				UIManager.SetGameObjectActive(m_rewardBanner, true);
+				m_rewardBanner.sprite = sprite;
 			}
 			else
 			{
-				UIManager.SetGameObjectActive(this.m_rewardIcon, true, null);
-				UIManager.SetGameObjectActive(this.m_rewardBanner, false, null);
-				this.m_rewardIcon.sprite = sprite;
+				UIManager.SetGameObjectActive(m_rewardIcon, true);
+				UIManager.SetGameObjectActive(m_rewardBanner, false);
+				m_rewardIcon.sprite = sprite;
 			}
 		}
 		if (info.m_rewardData.Foreground == null)
 		{
-			UIManager.SetGameObjectActive(this.m_rewardFG, false, null);
+			UIManager.SetGameObjectActive(m_rewardFG, false);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_rewardFG, true, null);
-			this.m_rewardFG.sprite = info.m_rewardData.Foreground;
+			UIManager.SetGameObjectActive(m_rewardFG, true);
+			m_rewardFG.sprite = info.m_rewardData.Foreground;
 		}
-		this.m_rewardRequirements.text = text3;
-		this.m_rewardName.text = text;
-		this.m_rewardType.text = text2;
+		m_rewardRequirements.text = str;
+		m_rewardName.text = name;
+		m_rewardType.text = text;
 	}
 
-	private void SetupSeasonReward(List<UINewReward.SeasonReward> rewards)
+	private void SetupSeasonReward(List<SeasonReward> rewards)
 	{
-		for (int i = 0; i < this.m_seasonRewards.Length; i++)
+		for (int i = 0; i < m_seasonRewards.Length; i++)
 		{
 			if (i >= rewards.Count)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UINewReward.SetupSeasonReward(List<UINewReward.SeasonReward>)).MethodHandle;
-				}
-				UIManager.SetGameObjectActive(this.m_seasonRewards[i], false, null);
+				UIManager.SetGameObjectActive(m_seasonRewards[i], false);
 			}
 			else
 			{
-				this.m_seasonRewards[i].SetupHack(rewards[i].m_itemTemplate, InventoryWideData.GetSpritePath(rewards[i].m_itemTemplate), rewards[i].m_amount);
-				UIManager.SetGameObjectActive(this.m_seasonRewards[i], true, null);
+				QuestReward obj = m_seasonRewards[i];
+				SeasonReward seasonReward = rewards[i];
+				InventoryItemTemplate itemTemplate = seasonReward.m_itemTemplate;
+				SeasonReward seasonReward2 = rewards[i];
+				string spritePath = InventoryWideData.GetSpritePath(seasonReward2.m_itemTemplate);
+				SeasonReward seasonReward3 = rewards[i];
+				obj.SetupHack(itemTemplate, spritePath, seasonReward3.m_amount);
+				UIManager.SetGameObjectActive(m_seasonRewards[i], true);
 			}
 		}
-		for (;;)
+		while (true)
 		{
 			switch (4)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
-	private void SetupTrustReward(UINewReward.FactionRewardAnnounceInfo info)
+	private void SetupTrustReward(FactionRewardAnnounceInfo info)
 	{
-		this.m_trustRewardTierLevel.text = string.Format(StringUtil.TR("PersonalTierLevel", "TrustWar"), info.Level);
+		m_trustRewardTierLevel.text = string.Format(StringUtil.TR("PersonalTierLevel", "TrustWar"), info.Level);
 		Sprite sprite = Resources.Load(info.FactionSpritePath, typeof(Sprite)) as Sprite;
-		UIManager.SetGameObjectActive(this.m_FactionContainer, sprite != null, null);
-		UIManager.SetGameObjectActive(this.m_TierContainer, sprite != null, null);
-		UIManager.SetGameObjectActive(this.m_trustFactionIcon, sprite != null, null);
-		this.m_trustFactionIcon.sprite = sprite;
-		UIManager.SetGameObjectActive(this.m_trustRewardDescription, info.DisplayDescription, null);
+		UIManager.SetGameObjectActive(m_FactionContainer, sprite != null);
+		UIManager.SetGameObjectActive(m_TierContainer, sprite != null);
+		UIManager.SetGameObjectActive(m_trustFactionIcon, sprite != null);
+		m_trustFactionIcon.sprite = sprite;
+		UIManager.SetGameObjectActive(m_trustRewardDescription, info.DisplayDescription);
 		FactionItemReward factionItemReward = info.FactionReward as FactionItemReward;
 		if (factionItemReward != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewReward.SetupTrustReward(UINewReward.FactionRewardAnnounceInfo)).MethodHandle;
-			}
 			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(factionItemReward.ItemReward.ItemTemplateId);
-			this.m_trustRewardName.text = itemTemplate.GetDisplayName();
-			this.m_trustRewardDescription.text = itemTemplate.GetObtainDescription();
-			this.m_trustRewardIcon.sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
+			m_trustRewardName.text = itemTemplate.GetDisplayName();
+			m_trustRewardDescription.text = itemTemplate.GetObtainDescription();
+			m_trustRewardIcon.sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
 		}
 		FactionUnlockReward factionUnlockReward = info.FactionReward as FactionUnlockReward;
 		if (factionUnlockReward != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_trustRewardIcon.sprite = Resources.Load<Sprite>(factionUnlockReward.UnlockReward.resourceString);
-			this.m_trustRewardName.text = RewardUtils.GetRewardDisplayName(factionUnlockReward.UnlockReward.purchaseType, factionUnlockReward.UnlockReward.typeSpecificData);
-			this.m_trustRewardDescription.text = StringUtil.TR("Unlocked", "OverlayScreensScene");
+			m_trustRewardIcon.sprite = Resources.Load<Sprite>(factionUnlockReward.UnlockReward.resourceString);
+			m_trustRewardName.text = RewardUtils.GetRewardDisplayName(factionUnlockReward.UnlockReward.purchaseType, factionUnlockReward.UnlockReward.typeSpecificData);
+			m_trustRewardDescription.text = StringUtil.TR("Unlocked", "OverlayScreensScene");
 		}
 		FactionCurrencyReward factionCurrencyReward = info.FactionReward as FactionCurrencyReward;
-		if (factionCurrencyReward != null)
+		if (factionCurrencyReward == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_trustRewardIcon.sprite = Resources.Load<Sprite>(RewardUtils.GetCurrencyIconPath(factionCurrencyReward.CurrencyReward.Type));
-			this.m_trustRewardName.text = factionCurrencyReward.CurrencyReward.Amount.ToString();
+			return;
+		}
+		while (true)
+		{
+			m_trustRewardIcon.sprite = Resources.Load<Sprite>(RewardUtils.GetCurrencyIconPath(factionCurrencyReward.CurrencyReward.Type));
+			m_trustRewardName.text = factionCurrencyReward.CurrencyReward.Amount.ToString();
 			RewardUtils.RewardType type = RewardUtils.RewardType.ISO;
 			CurrencyType type2 = factionCurrencyReward.CurrencyReward.Type;
 			switch (type2)
 			{
-			case CurrencyType.ISO:
-				type = RewardUtils.RewardType.ISO;
+			default:
+				if (type2 != CurrencyType.UnlockFreelancerToken)
+				{
+				}
+				else
+				{
+					type = RewardUtils.RewardType.UnlockFreelancerToken;
+				}
 				break;
 			case CurrencyType.ModToken:
 				type = RewardUtils.RewardType.ModToken;
 				break;
-			default:
-				if (type2 != CurrencyType.FreelancerCurrency)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (type2 != CurrencyType.UnlockFreelancerToken)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					else
-					{
-						type = RewardUtils.RewardType.UnlockFreelancerToken;
-					}
-				}
-				else
-				{
-					type = RewardUtils.RewardType.FreelancerCurrency;
-				}
-				break;
 			case CurrencyType.GGPack:
 				type = RewardUtils.RewardType.GGBoost;
 				break;
+			case CurrencyType.ISO:
+				type = RewardUtils.RewardType.ISO;
+				break;
+			case CurrencyType.FreelancerCurrency:
+				type = RewardUtils.RewardType.FreelancerCurrency;
+				break;
 			}
-			this.m_trustRewardDescription.text = RewardUtils.GetTypeDisplayString(type, false);
+			m_trustRewardDescription.text = RewardUtils.GetTypeDisplayString(type, false);
+			return;
 		}
 	}
 
 	public bool RewardIsBeingAnnounced()
 	{
-		bool result;
-		if (!this.m_rewardAnnouncementInProgress)
+		int result;
+		if (!m_rewardAnnouncementInProgress)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewReward.RewardIsBeingAnnounced()).MethodHandle;
-			}
-			result = (this.rewardTypesToAnnounce.Count > 0);
+			result = ((rewardTypesToAnnounce.Count > 0) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public void AutoPlayNextAnimation()
 	{
-		this.m_autoPlayNextReward = true;
+		m_autoPlayNextReward = true;
 	}
 
 	public void Update()
 	{
-		if (this.m_chapterNotifications.IsCurrentlyDisplaying())
+		if (m_chapterNotifications.IsCurrentlyDisplaying())
 		{
 			return;
 		}
-		if (this.m_rewardAnnouncementInProgress)
+		if (m_rewardAnnouncementInProgress)
 		{
-			for (;;)
+			float num = Time.time - m_rewardStartTime;
+			if (!m_autoPlayNextReward)
 			{
-				switch (7)
+				if (num >= m_timeBeforeCanCloseReward)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewReward.Update()).MethodHandle;
-			}
-			float num = Time.time - this.m_rewardStartTime;
-			if (!this.m_autoPlayNextReward)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (num >= this.m_timeBeforeCanCloseReward)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Input.GetMouseButtonDown(0))
 					{
-						goto IL_128;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						goto IL_0128;
 					}
 				}
-				if (this.m_container.gameObject.activeInHierarchy)
+				if (m_container.gameObject.activeInHierarchy)
 				{
-					if (num > this.m_animationController.GetCurrentAnimatorStateInfo(0).length)
+					if (num > m_animationController.GetCurrentAnimatorStateInfo(0).length)
 					{
-						goto IL_128;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						goto IL_0128;
 					}
 				}
-				if (this.m_seasonContainer.gameObject.activeInHierarchy)
+				if (m_seasonContainer.gameObject.activeInHierarchy)
 				{
-					for (;;)
+					if (num > m_seasonAnimationController.GetCurrentAnimatorStateInfo(0).length)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (num > this.m_seasonAnimationController.GetCurrentAnimatorStateInfo(0).length)
-					{
-						goto IL_128;
+						goto IL_0128;
 					}
 				}
-				if (!this.m_trustContainer.gameObject.activeInHierarchy || num <= this.m_trustAnimationController.GetCurrentAnimatorStateInfo(0).length)
+				if (!m_trustContainer.gameObject.activeInHierarchy || !(num > m_trustAnimationController.GetCurrentAnimatorStateInfo(0).length))
 				{
-					goto IL_170;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_03cc;
 				}
 			}
-			IL_128:
-			this.m_rewardAnnouncementInProgress = false;
-			if (this.rewardTypesToAnnounce.Count <= 0)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_container, false, null);
-				UIManager.SetGameObjectActive(this.m_seasonContainer, false, null);
-				UIManager.SetGameObjectActive(this.m_trustContainer, false, null);
-			}
-			IL_170:;
+			goto IL_0128;
 		}
-		else
+		if (rewardTypesToAnnounce.Count <= 0)
 		{
-			if (this.rewardTypesToAnnounce.Count <= 0)
+			if (m_seasonRewardsToAnnounce.Count <= 0)
 			{
-				for (;;)
+				if (m_trustRewardsToAnnounce.Count <= 0)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_seasonRewardsToAnnounce.Count <= 0)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.m_trustRewardsToAnnounce.Count <= 0)
-					{
-						goto IL_3CC;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					goto IL_03cc;
 				}
 			}
-			this.m_autoPlayNextReward = false;
-			if (this.m_seasonRewardsToAnnounce.Count > 0)
+		}
+		m_autoPlayNextReward = false;
+		if (m_seasonRewardsToAnnounce.Count > 0)
+		{
+			SeasonReward seasonReward = m_seasonRewardsToAnnounce[0];
+			int unlockLevel = seasonReward.m_unlockLevel;
+			List<SeasonReward> list = new List<SeasonReward>();
+			int num2 = m_seasonRewardsToAnnounce.Count - 1;
+			while (true)
 			{
-				int unlockLevel = this.m_seasonRewardsToAnnounce[0].m_unlockLevel;
-				List<UINewReward.SeasonReward> list = new List<UINewReward.SeasonReward>();
-				for (int i = this.m_seasonRewardsToAnnounce.Count - 1; i >= 0; i--)
+				if (num2 >= 0)
 				{
-					if (this.m_seasonRewardsToAnnounce[i].m_unlockLevel == unlockLevel)
+					SeasonReward seasonReward2 = m_seasonRewardsToAnnounce[num2];
+					if (seasonReward2.m_unlockLevel == unlockLevel)
 					{
-						for (;;)
+						list.Add(m_seasonRewardsToAnnounce[num2]);
+						m_seasonRewardsToAnnounce.RemoveAt(num2);
+						if (list.Count >= m_seasonRewards.Length)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
 							break;
 						}
-						list.Add(this.m_seasonRewardsToAnnounce[i]);
-						this.m_seasonRewardsToAnnounce.RemoveAt(i);
-						if (list.Count >= this.m_seasonRewards.Length)
-						{
-							IL_282:
-							this.SetupSeasonReward(list);
-							UIManager.SetGameObjectActive(this.m_seasonContainer, true, null);
-							UIManager.SetGameObjectActive(this.m_container, false, null);
-							UIManager.SetGameObjectActive(this.m_trustContainer, false, null);
-							this.m_seasonAnimationController.Play("NewReward", -1, 0f);
-							goto IL_3A0;
-						}
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_282;
-				}
-			}
-			else if (this.m_trustRewardsToAnnounce.Count > 0)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.SetupTrustReward(this.m_trustRewardsToAnnounce[0]);
-				UIManager.SetGameObjectActive(this.m_seasonContainer, false, null);
-				UIManager.SetGameObjectActive(this.m_container, false, null);
-				UIManager.SetGameObjectActive(this.m_trustContainer, true, null);
-				this.m_trustAnimationController.Play("NewTrustRewardDefaultIN", -1, 0f);
-				this.m_trustRewardsToAnnounce.RemoveAt(0);
-			}
-			else
-			{
-				this.SetupReward(this.rewardTypesToAnnounce[0]);
-				UIManager.SetGameObjectActive(this.m_container, true, null);
-				UIManager.SetGameObjectActive(this.m_seasonContainer, false, null);
-				UIManager.SetGameObjectActive(this.m_trustContainer, false, null);
-				this.m_animationController.Play("NewReward", -1, 0f);
-				this.rewardTypesToAnnounce.RemoveAt(0);
-			}
-			IL_3A0:
-			UIScreenManager.Get().EndAllLoopSounds();
-			AudioManager.PostEvent("ui/endgame/unlock", null);
-			this.m_rewardAnnouncementInProgress = true;
-			this.m_rewardStartTime = Time.time;
-		}
-		IL_3CC:
-		if (this.m_rewardAnnouncementInProgress)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
+					num2--;
 					continue;
 				}
 				break;
 			}
-			UIManager.SetGameObjectActive(this.m_frontendContainer, UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd, null);
+			SetupSeasonReward(list);
+			UIManager.SetGameObjectActive(m_seasonContainer, true);
+			UIManager.SetGameObjectActive(m_container, false);
+			UIManager.SetGameObjectActive(m_trustContainer, false);
+			m_seasonAnimationController.Play("NewReward", -1, 0f);
+		}
+		else if (m_trustRewardsToAnnounce.Count > 0)
+		{
+			SetupTrustReward(m_trustRewardsToAnnounce[0]);
+			UIManager.SetGameObjectActive(m_seasonContainer, false);
+			UIManager.SetGameObjectActive(m_container, false);
+			UIManager.SetGameObjectActive(m_trustContainer, true);
+			m_trustAnimationController.Play("NewTrustRewardDefaultIN", -1, 0f);
+			m_trustRewardsToAnnounce.RemoveAt(0);
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(this.m_frontendContainer, false, null);
+			SetupReward(rewardTypesToAnnounce[0]);
+			UIManager.SetGameObjectActive(m_container, true);
+			UIManager.SetGameObjectActive(m_seasonContainer, false);
+			UIManager.SetGameObjectActive(m_trustContainer, false);
+			m_animationController.Play("NewReward", -1, 0f);
+			rewardTypesToAnnounce.RemoveAt(0);
 		}
+		UIScreenManager.Get().EndAllLoopSounds();
+		AudioManager.PostEvent("ui/endgame/unlock");
+		m_rewardAnnouncementInProgress = true;
+		m_rewardStartTime = Time.time;
+		goto IL_03cc;
+		IL_03cc:
+		if (m_rewardAnnouncementInProgress)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					break;
+				default:
+					UIManager.SetGameObjectActive(m_frontendContainer, UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd);
+					return;
+				}
+			}
+		}
+		UIManager.SetGameObjectActive(m_frontendContainer, false);
+		return;
+		IL_0128:
+		m_rewardAnnouncementInProgress = false;
+		if (rewardTypesToAnnounce.Count <= 0)
+		{
+			UIManager.SetGameObjectActive(m_container, false);
+			UIManager.SetGameObjectActive(m_seasonContainer, false);
+			UIManager.SetGameObjectActive(m_trustContainer, false);
+		}
+		goto IL_03cc;
 	}
 
 	public void Clear()
 	{
-		this.m_rewardAnnouncementInProgress = false;
-		UIManager.SetGameObjectActive(this.m_container, false, null);
-		UIManager.SetGameObjectActive(this.m_seasonContainer, false, null);
-		UIManager.SetGameObjectActive(this.m_trustContainer, false, null);
-		this.rewardTypesToAnnounce.Clear();
+		m_rewardAnnouncementInProgress = false;
+		UIManager.SetGameObjectActive(m_container, false);
+		UIManager.SetGameObjectActive(m_seasonContainer, false);
+		UIManager.SetGameObjectActive(m_trustContainer, false);
+		rewardTypesToAnnounce.Clear();
 	}
 
 	public bool IsActive()
 	{
-		bool result;
-		if (this.rewardTypesToAnnounce.Count <= 0)
+		int result;
+		if (rewardTypesToAnnounce.Count <= 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewReward.IsActive()).MethodHandle;
-			}
-			result = this.m_rewardAnnouncementInProgress;
+			result = (m_rewardAnnouncementInProgress ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
-	}
-
-	public struct RewardAnnouncementDisplayInfo
-	{
-		public RewardUtils.RewardData m_rewardData;
-
-		public CharacterType m_unlockCharType;
-
-		public int m_unlockLevel;
-
-		public string m_displayName;
-	}
-
-	public struct SeasonReward
-	{
-		public InventoryItemTemplate m_itemTemplate;
-
-		public int m_amount;
-
-		public int m_unlockLevel;
-	}
-
-	public class FactionRewardAnnounceInfo
-	{
-		public bool DisplayDescription;
-
-		public string FactionSpritePath;
-
-		public FactionReward FactionReward;
-
-		public int Level;
+		return (byte)result != 0;
 	}
 }

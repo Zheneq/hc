@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -74,66 +73,35 @@ public class BlasterDashAndBlast : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Dash and Blast";
+			m_abilityName = "Dash and Blast";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.SetCachedFields();
-		AbilityData component = base.GetComponent<AbilityData>();
+		SetCachedFields();
+		AbilityData component = GetComponent<AbilityData>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.Setup()).MethodHandle;
-			}
-			this.m_overchargeAbility = (component.GetAbilityOfType(typeof(BlasterOvercharge)) as BlasterOvercharge);
-			this.m_primaryAbility = (component.GetAbilityOfType(typeof(BlasterStretchingCone)) as BlasterStretchingCone);
-			this.m_myActionType = component.GetActionTypeOfAbility(this);
+			m_overchargeAbility = (component.GetAbilityOfType(typeof(BlasterOvercharge)) as BlasterOvercharge);
+			m_primaryAbility = (component.GetAbilityOfType(typeof(BlasterStretchingCone)) as BlasterStretchingCone);
+			m_myActionType = component.GetActionTypeOfAbility(this);
 		}
-		int num = Mathf.Max(base.GetNumTargets() - 1, 1);
-		int num2 = Mathf.Max(base.GetNumTargets() - num, 0);
-		base.ClearTargeters();
+		int num = Mathf.Max(GetNumTargets() - 1, 1);
+		int num2 = Mathf.Max(GetNumTargets() - num, 0);
+		ClearTargeters();
 		for (int i = 0; i < num; i++)
 		{
-			AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false);
+			AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false);
 			abilityUtil_Targeter_Charge.SetUseMultiTargetUpdate(true);
-			StandardEffectInfo moddedEffectForSelf = base.GetModdedEffectForSelf();
+			StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
 			if (moddedEffectForSelf != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (moddedEffectForSelf.m_applyEffect)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					abilityUtil_Targeter_Charge.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
 				}
 			}
@@ -141,24 +109,25 @@ public class BlasterDashAndBlast : Ability
 		}
 		for (int j = 0; j < num2; j++)
 		{
-			AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = new AbilityUtil_Targeter_StretchCone(this, this.GetMinLength(), this.GetMaxLength(), this.GetMinAngle(), this.GetMaxAngle(), this.m_stretchStyle, this.GetConeBackwardOffset(), this.PenetrateLineOfSight());
+			AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = new AbilityUtil_Targeter_StretchCone(this, GetMinLength(), GetMaxLength(), GetMinAngle(), GetMaxAngle(), m_stretchStyle, GetConeBackwardOffset(), PenetrateLineOfSight());
 			abilityUtil_Targeter_StretchCone.SetUseMultiTargetUpdate(true);
 			base.Targeters.Add(abilityUtil_Targeter_StretchCone);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
 	public void OnPrimaryAttackModChange()
 	{
-		this.Setup();
+		Setup();
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -168,637 +137,435 @@ public class BlasterDashAndBlast : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetRangeInSquares(0) - 0.5f + this.GetMaxLength();
+		return GetRangeInSquares(0) - 0.5f + GetMaxLength();
 	}
 
 	public override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
 	{
 		if (targetIndex == 1)
 		{
-			min = this.GetMinLength() * Board.\u000E().squareSize;
-			max = this.GetMaxLength() * Board.\u000E().squareSize;
+			min = GetMinLength() * Board.Get().squareSize;
+			max = GetMaxLength() * Board.Get().squareSize;
 			return true;
 		}
 		return base.HasRestrictedFreePosDistance(aimingActor, targetIndex, targetsSoFar, out min, out max);
 	}
 
-	public unsafe override bool HasAimingOriginOverride(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out Vector3 overridePos)
+	public override bool HasAimingOriginOverride(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out Vector3 overridePos)
 	{
 		if (targetIndex == 1)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+				{
+					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetsSoFar[0].GridPos);
+					overridePos = boardSquareSafe.GetWorldPosition();
+					return true;
 				}
-				break;
+				}
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.HasAimingOriginOverride(ActorData, int, List<AbilityTarget>, Vector3*)).MethodHandle;
-			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(targetsSoFar[0].GridPos);
-			overridePos = boardSquare.\u001D();
-			return true;
 		}
 		return base.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);
 	}
 
 	public bool UseConeParamFromPrimary()
 	{
-		return this.m_useConeParamsFromPrimary && this.m_primaryAbility != null;
+		return m_useConeParamsFromPrimary && m_primaryAbility != null;
 	}
 
 	public bool UseHitPropertyFromPrimary()
 	{
-		bool result;
-		if (this.m_useHitParamsFromPrimary)
+		int result;
+		if (m_useHitParamsFromPrimary)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.UseHitPropertyFromPrimary()).MethodHandle;
-			}
-			result = (this.m_primaryAbility != null);
+			result = ((m_primaryAbility != null) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private void SetCachedFields()
 	{
 		StandardEffectInfo cachedEnemyEffectNormal;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.SetCachedFields()).MethodHandle;
-			}
-			cachedEnemyEffectNormal = this.m_abilityMod.m_enemyEffectNormalMod.GetModifiedValue(this.m_enemyEffectNormal);
+			cachedEnemyEffectNormal = m_abilityMod.m_enemyEffectNormalMod.GetModifiedValue(m_enemyEffectNormal);
 		}
 		else
 		{
-			cachedEnemyEffectNormal = this.m_enemyEffectNormal;
+			cachedEnemyEffectNormal = m_enemyEffectNormal;
 		}
-		this.m_cachedEnemyEffectNormal = cachedEnemyEffectNormal;
+		m_cachedEnemyEffectNormal = cachedEnemyEffectNormal;
 		StandardEffectInfo cachedEnemyEffectOvercharged;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			cachedEnemyEffectOvercharged = this.m_abilityMod.m_enemyEffectOverchargedMod.GetModifiedValue(this.m_enemyEffectOvercharged);
+			cachedEnemyEffectOvercharged = m_abilityMod.m_enemyEffectOverchargedMod.GetModifiedValue(m_enemyEffectOvercharged);
 		}
 		else
 		{
-			cachedEnemyEffectOvercharged = this.m_enemyEffectOvercharged;
+			cachedEnemyEffectOvercharged = m_enemyEffectOvercharged;
 		}
-		this.m_cachedEnemyEffectOvercharged = cachedEnemyEffectOvercharged;
-		this.m_cachedSelfEffectOnCast = ((!this.m_abilityMod) ? this.m_selfEffectOnCast : this.m_abilityMod.m_selfEffectOnCastMod.GetModifiedValue(this.m_selfEffectOnCast));
+		m_cachedEnemyEffectOvercharged = cachedEnemyEffectOvercharged;
+		m_cachedSelfEffectOnCast = ((!m_abilityMod) ? m_selfEffectOnCast : m_abilityMod.m_selfEffectOnCastMod.GetModifiedValue(m_selfEffectOnCast));
 	}
 
 	public float GetMinLength()
 	{
-		if (this.UseConeParamFromPrimary())
+		if (UseConeParamFromPrimary())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_primaryAbility.GetMinLength();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.GetMinLength()).MethodHandle;
-			}
-			return this.m_primaryAbility.GetMinLength();
 		}
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = this.m_abilityMod.m_minLengthMod.GetModifiedValue(this.m_minLength);
+			result = m_abilityMod.m_minLengthMod.GetModifiedValue(m_minLength);
 		}
 		else
 		{
-			result = this.m_minLength;
+			result = m_minLength;
 		}
 		return result;
 	}
 
 	public float GetMaxLength()
 	{
-		if (this.UseConeParamFromPrimary())
+		if (UseConeParamFromPrimary())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_primaryAbility.GetMaxLength();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.GetMaxLength()).MethodHandle;
-			}
-			return this.m_primaryAbility.GetMaxLength();
 		}
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = this.m_abilityMod.m_maxLengthMod.GetModifiedValue(this.m_maxLength);
+			result = m_abilityMod.m_maxLengthMod.GetModifiedValue(m_maxLength);
 		}
 		else
 		{
-			result = this.m_maxLength;
+			result = m_maxLength;
 		}
 		return result;
 	}
 
 	public float GetMinAngle()
 	{
-		if (this.UseConeParamFromPrimary())
+		if (UseConeParamFromPrimary())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_primaryAbility.GetMinAngle();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.GetMinAngle()).MethodHandle;
-			}
-			return this.m_primaryAbility.GetMinAngle();
 		}
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = this.m_abilityMod.m_minAngleMod.GetModifiedValue(this.m_minAngle);
+			result = m_abilityMod.m_minAngleMod.GetModifiedValue(m_minAngle);
 		}
 		else
 		{
-			result = this.m_minAngle;
+			result = m_minAngle;
 		}
 		return result;
 	}
 
 	public float GetMaxAngle()
 	{
-		if (this.UseConeParamFromPrimary())
+		if (UseConeParamFromPrimary())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_primaryAbility.GetMaxAngle();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.GetMaxAngle()).MethodHandle;
-			}
-			return this.m_primaryAbility.GetMaxAngle();
 		}
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = this.m_abilityMod.m_maxAngleMod.GetModifiedValue(this.m_maxAngle);
+			result = m_abilityMod.m_maxAngleMod.GetModifiedValue(m_maxAngle);
 		}
 		else
 		{
-			result = this.m_maxAngle;
+			result = m_maxAngle;
 		}
 		return result;
 	}
 
 	public float GetConeBackwardOffset()
 	{
-		if (this.UseConeParamFromPrimary())
+		if (UseConeParamFromPrimary())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_primaryAbility.GetConeBackwardOffset();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.GetConeBackwardOffset()).MethodHandle;
-			}
-			return this.m_primaryAbility.GetConeBackwardOffset();
 		}
 		float result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
+			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
 		}
 		else
 		{
-			result = this.m_coneBackwardOffset;
+			result = m_coneBackwardOffset;
 		}
 		return result;
 	}
 
 	public bool PenetrateLineOfSight()
 	{
-		if (this.UseConeParamFromPrimary())
+		if (UseConeParamFromPrimary())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_primaryAbility.PenetrateLineOfSight();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.PenetrateLineOfSight()).MethodHandle;
-			}
-			return this.m_primaryAbility.PenetrateLineOfSight();
 		}
-		return (!this.m_abilityMod) ? this.m_penetrateLineOfSight : this.m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(this.m_penetrateLineOfSight);
+		return (!m_abilityMod) ? m_penetrateLineOfSight : m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
 	}
 
 	public bool UseStockBasedEvadeDistance()
 	{
 		bool result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.UseStockBasedEvadeDistance()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_useStockBasedEvadeDistanceMod.GetModifiedValue(this.m_useStockBasedEvadeDistance);
+			result = m_abilityMod.m_useStockBasedEvadeDistanceMod.GetModifiedValue(m_useStockBasedEvadeDistance);
 		}
 		else
 		{
-			result = this.m_useStockBasedEvadeDistance;
+			result = m_useStockBasedEvadeDistance;
 		}
 		return result;
 	}
 
 	public float GetDistancePerStock()
 	{
-		float a = 0.1f;
 		float b;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.GetDistancePerStock()).MethodHandle;
-			}
-			b = this.m_abilityMod.m_distancePerStockMod.GetModifiedValue(this.m_distancePerStock);
+			b = m_abilityMod.m_distancePerStockMod.GetModifiedValue(m_distancePerStock);
 		}
 		else
 		{
-			b = this.m_distancePerStock;
+			b = m_distancePerStock;
 		}
-		return Mathf.Max(a, b);
+		return Mathf.Max(0.1f, b);
 	}
 
 	public bool StockBasedDistUseSquareCoordDist()
 	{
 		bool result;
-		if (this.m_abilityMod != null)
+		if (m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.StockBasedDistUseSquareCoordDist()).MethodHandle;
-			}
-			result = this.m_abilityMod.m_stockBasedDistUseSquareCoordDistMod.GetModifiedValue(this.m_stockBasedDistUseSquareCoordDist);
+			result = m_abilityMod.m_stockBasedDistUseSquareCoordDistMod.GetModifiedValue(m_stockBasedDistUseSquareCoordDist);
 		}
 		else
 		{
-			result = this.m_stockBasedDistUseSquareCoordDist;
+			result = m_stockBasedDistUseSquareCoordDist;
 		}
 		return result;
 	}
 
 	public int GetStockBasedDistMaxSquareCoordDist()
 	{
-		return (!(this.m_abilityMod != null)) ? this.m_stockBasedDistMaxSquareCoordDist : this.m_abilityMod.m_stockBasedDistMaxSquareCoordDistMod.GetModifiedValue(this.m_stockBasedDistMaxSquareCoordDist);
+		return (!(m_abilityMod != null)) ? m_stockBasedDistMaxSquareCoordDist : m_abilityMod.m_stockBasedDistMaxSquareCoordDistMod.GetModifiedValue(m_stockBasedDistMaxSquareCoordDist);
 	}
 
 	public int GetDamageAmountNormal()
 	{
-		if (this.UseHitPropertyFromPrimary())
+		if (UseHitPropertyFromPrimary())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_primaryAbility.GetDamageAmountNormal();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.GetDamageAmountNormal()).MethodHandle;
-			}
-			return this.m_primaryAbility.GetDamageAmountNormal();
 		}
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = this.m_abilityMod.m_damageAmountNormalMod.GetModifiedValue(this.m_damageAmountNormal);
+			result = m_abilityMod.m_damageAmountNormalMod.GetModifiedValue(m_damageAmountNormal);
 		}
 		else
 		{
-			result = this.m_damageAmountNormal;
+			result = m_damageAmountNormal;
 		}
 		return result;
 	}
 
 	public int GetDamageAmountOvercharged()
 	{
-		return this.GetDamageAmountNormal() + this.m_overchargeAbility.GetExtraDamage() + this.GetMultiStackOverchargeDamage();
+		return GetDamageAmountNormal() + m_overchargeAbility.GetExtraDamage() + GetMultiStackOverchargeDamage();
 	}
 
 	public int GetExtraDamageForSingleHit()
 	{
-		if (this.UseHitPropertyFromPrimary())
+		if (UseHitPropertyFromPrimary())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_primaryAbility.GetExtraDamageForSingleHit();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.GetExtraDamageForSingleHit()).MethodHandle;
-			}
-			return this.m_primaryAbility.GetExtraDamageForSingleHit();
 		}
 		int result;
-		if (this.m_abilityMod)
+		if ((bool)m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = this.m_abilityMod.m_extraDamageForSingleHitMod.GetModifiedValue(this.m_extraDamageForSingleHit);
+			result = m_abilityMod.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit);
 		}
 		else
 		{
-			result = this.m_extraDamageForSingleHit;
+			result = m_extraDamageForSingleHit;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetEnemyEffectNormal()
 	{
-		if (this.UseHitPropertyFromPrimary())
+		if (UseHitPropertyFromPrimary())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_primaryAbility.GetNormalEnemyEffect();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.GetEnemyEffectNormal()).MethodHandle;
-			}
-			return this.m_primaryAbility.GetNormalEnemyEffect();
 		}
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyEffectNormal != null)
+		if (m_cachedEnemyEffectNormal != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = this.m_cachedEnemyEffectNormal;
+			result = m_cachedEnemyEffectNormal;
 		}
 		else
 		{
-			result = this.m_enemyEffectNormal;
+			result = m_enemyEffectNormal;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetEnemyEffectOvercharged()
 	{
-		if (this.UseHitPropertyFromPrimary())
+		if (UseHitPropertyFromPrimary())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_primaryAbility.GetOverchargedEnemyEffect();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.GetEnemyEffectOvercharged()).MethodHandle;
-			}
-			return this.m_primaryAbility.GetOverchargedEnemyEffect();
 		}
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyEffectOvercharged != null)
+		if (m_cachedEnemyEffectOvercharged != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = this.m_cachedEnemyEffectOvercharged;
+			result = m_cachedEnemyEffectOvercharged;
 		}
 		else
 		{
-			result = this.m_enemyEffectOvercharged;
+			result = m_enemyEffectOvercharged;
 		}
 		return result;
 	}
 
 	public StandardEffectInfo GetSelfEffectOnCast()
 	{
-		return (this.m_cachedSelfEffectOnCast == null) ? this.m_selfEffectOnCast : this.m_cachedSelfEffectOnCast;
+		return (m_cachedSelfEffectOnCast == null) ? m_selfEffectOnCast : m_cachedSelfEffectOnCast;
 	}
 
 	public int GetCurrentModdedDamage()
 	{
-		if (this.AmOvercharged(base.ActorData))
+		if (AmOvercharged(base.ActorData))
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return GetDamageAmountOvercharged() + GetMultiStackOverchargeDamage();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.GetCurrentModdedDamage()).MethodHandle;
-			}
-			return this.GetDamageAmountOvercharged() + this.GetMultiStackOverchargeDamage();
 		}
-		return this.GetDamageAmountNormal();
+		return GetDamageAmountNormal();
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_BlasterDashAndBlast))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_BlasterDashAndBlast);
-			this.Setup();
+			m_abilityMod = (abilityMod as AbilityMod_BlasterDashAndBlast);
+			Setup();
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.Setup();
+		m_abilityMod = null;
+		Setup();
 	}
 
 	public override int GetExpectedNumberOfTargeters()
@@ -808,42 +575,29 @@ public class BlasterDashAndBlast : Ability
 
 	private bool AmOvercharged(ActorData caster)
 	{
-		if (this.m_syncComp == null)
+		if (m_syncComp == null)
 		{
-			this.m_syncComp = base.GetComponent<Blaster_SyncComponent>();
+			m_syncComp = GetComponent<Blaster_SyncComponent>();
 		}
-		return this.m_syncComp.m_overchargeBuffs > 0;
+		return m_syncComp.m_overchargeBuffs > 0;
 	}
 
 	private int GetMultiStackOverchargeDamage()
 	{
-		if (this.m_syncComp != null && this.m_syncComp.m_overchargeBuffs > 1 && this.m_overchargeAbility != null)
+		if (m_syncComp != null && m_syncComp.m_overchargeBuffs > 1 && m_overchargeAbility != null)
 		{
-			for (;;)
+			if (m_overchargeAbility.GetExtraDamageForMultiCast() > 0)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.GetMultiStackOverchargeDamage()).MethodHandle;
-			}
-			if (this.m_overchargeAbility.GetExtraDamageForMultiCast() > 0)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_overchargeAbility.GetExtraDamageForMultiCast();
 					}
-					break;
 				}
-				return this.m_overchargeAbility.GetExtraDamageForMultiCast();
 			}
 		}
 		return 0;
@@ -851,88 +605,58 @@ public class BlasterDashAndBlast : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		if (targetIndex < base.GetNumTargets() - 1)
+		if (targetIndex < GetNumTargets() - 1)
 		{
-			BoardSquare boardSquare = caster.\u0012();
-			BoardSquare boardSquare2 = Board.\u000E().\u000E(target.GridPos);
-			if (boardSquare2 != null)
+			BoardSquare currentBoardSquare = caster.GetCurrentBoardSquare();
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			if (boardSquareSafe != null)
 			{
-				for (;;)
+				if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != currentBoardSquare)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-				}
-				if (boardSquare2.\u0016() && boardSquare2 != boardSquare)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					bool flag = true;
-					if (this.UseStockBasedEvadeDistance())
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						int stocksRemaining = caster.\u000E().GetStocksRemaining(this.m_myActionType);
-						if (this.StockBasedDistUseSquareCoordDist())
+						default:
 						{
-							int maxCoordDiff = this.GetMaxCoordDiff(boardSquare, boardSquare2);
-							int num = Mathf.Max(1, stocksRemaining);
-							if (this.GetStockBasedDistMaxSquareCoordDist() > 0)
+							bool flag = true;
+							if (UseStockBasedEvadeDistance())
 							{
-								num = Mathf.Min(this.GetStockBasedDistMaxSquareCoordDist(), stocksRemaining);
+								int stocksRemaining = caster.GetAbilityData().GetStocksRemaining(m_myActionType);
+								if (StockBasedDistUseSquareCoordDist())
+								{
+									int maxCoordDiff = GetMaxCoordDiff(currentBoardSquare, boardSquareSafe);
+									int num = Mathf.Max(1, stocksRemaining);
+									if (GetStockBasedDistMaxSquareCoordDist() > 0)
+									{
+										num = Mathf.Min(GetStockBasedDistMaxSquareCoordDist(), stocksRemaining);
+									}
+									flag = (maxCoordDiff <= num);
+								}
+								else
+								{
+									Vector3 vector = boardSquareSafe.ToVector3() - currentBoardSquare.ToVector3();
+									vector.y = 0f;
+									float magnitude = vector.magnitude;
+									float num2 = (float)stocksRemaining * GetDistancePerStock() * Board.Get().squareSize + 0.05f;
+									flag = (magnitude <= num2);
+								}
 							}
-							flag = (maxCoordDiff <= num);
-						}
-						else
-						{
-							Vector3 vector = boardSquare2.ToVector3() - boardSquare.ToVector3();
-							vector.y = 0f;
-							float magnitude = vector.magnitude;
-							float num2 = (float)stocksRemaining * this.GetDistancePerStock() * Board.\u000E().squareSize + 0.05f;
-							flag = (magnitude <= num2);
-						}
-					}
-					bool result;
-					if (flag)
-					{
-						for (;;)
-						{
-							switch (7)
+							int result;
+							if (flag)
 							{
-							case 0:
-								continue;
+								result = (KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, currentBoardSquare, false, out int _) ? 1 : 0);
 							}
-							break;
+							else
+							{
+								result = 0;
+							}
+							return (byte)result != 0;
 						}
-						int num3;
-						result = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare2, boardSquare, false, out num3);
+						}
 					}
-					else
-					{
-						result = false;
-					}
-					return result;
 				}
 			}
 			return false;
@@ -942,27 +666,14 @@ public class BlasterDashAndBlast : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.m_damageAmountNormal);
-		StandardEffectInfo moddedEffectForSelf = base.GetModdedEffectForSelf();
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, m_damageAmountNormal);
+		StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
 		if (moddedEffectForSelf != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
-			moddedEffectForSelf.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
+			moddedEffectForSelf.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		}
-		return result;
+		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -970,88 +681,43 @@ public class BlasterDashAndBlast : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		for (int i = 0; i <= currentTargeterIndex; i++)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (i >= base.Targeters.Count)
 			{
 				break;
 			}
 			AbilityUtil_Targeter abilityUtil_Targeter = base.Targeters[i];
-			if (abilityUtil_Targeter != null)
+			if (abilityUtil_Targeter == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
-				if (abilityUtil_Targeter is AbilityUtil_Targeter_StretchCone)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = abilityUtil_Targeter as AbilityUtil_Targeter_StretchCone;
-					List<AbilityTooltipSubject> tooltipSubjectTypes = abilityUtil_Targeter.GetTooltipSubjectTypes(targetActor);
-					if (tooltipSubjectTypes != null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
-						{
-							int visibleActorsCountByTooltipSubject = abilityUtil_Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-							int num = 0;
-							if (this.m_primaryAbility != null)
-							{
-								num += this.m_primaryAbility.GetExtraDamageFromAngle(abilityUtil_Targeter_StretchCone.LastConeAngle);
-								num += this.m_primaryAbility.GetExtraDamageFromRadius(abilityUtil_Targeter_StretchCone.LastConeRadiusInSquares);
-							}
-							int num2 = this.GetCurrentModdedDamage() + num;
-							if (visibleActorsCountByTooltipSubject == 1)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								num2 += this.GetExtraDamageForSingleHit();
-							}
-							dictionary[AbilityTooltipSymbol.Damage] = num2;
-							break;
-						}
-					}
-				}
+				continue;
 			}
+			if (!(abilityUtil_Targeter is AbilityUtil_Targeter_StretchCone))
+			{
+				continue;
+			}
+			AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = abilityUtil_Targeter as AbilityUtil_Targeter_StretchCone;
+			List<AbilityTooltipSubject> tooltipSubjectTypes = abilityUtil_Targeter.GetTooltipSubjectTypes(targetActor);
+			if (tooltipSubjectTypes == null)
+			{
+				continue;
+			}
+			if (!tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
+			{
+				continue;
+			}
+			int visibleActorsCountByTooltipSubject = abilityUtil_Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
+			int num = 0;
+			if (m_primaryAbility != null)
+			{
+				num += m_primaryAbility.GetExtraDamageFromAngle(abilityUtil_Targeter_StretchCone.LastConeAngle);
+				num += m_primaryAbility.GetExtraDamageFromRadius(abilityUtil_Targeter_StretchCone.LastConeRadiusInSquares);
+			}
+			int num2 = GetCurrentModdedDamage() + num;
+			if (visibleActorsCountByTooltipSubject == 1)
+			{
+				num2 += GetExtraDamageForSingleHit();
+			}
+			dictionary[AbilityTooltipSymbol.Damage] = num2;
+			break;
 		}
 		return dictionary;
 	}
@@ -1059,92 +725,50 @@ public class BlasterDashAndBlast : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_BlasterDashAndBlast abilityMod_BlasterDashAndBlast = modAsBase as AbilityMod_BlasterDashAndBlast;
-		string name = "DamageAmountNormal";
 		string empty = string.Empty;
 		int val;
-		if (abilityMod_BlasterDashAndBlast)
+		if ((bool)abilityMod_BlasterDashAndBlast)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
-			val = abilityMod_BlasterDashAndBlast.m_damageAmountNormalMod.GetModifiedValue(this.m_damageAmountNormal);
+			val = abilityMod_BlasterDashAndBlast.m_damageAmountNormalMod.GetModifiedValue(m_damageAmountNormal);
 		}
 		else
 		{
-			val = this.m_damageAmountNormal;
+			val = m_damageAmountNormal;
 		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		string name2 = "ExtraDamageForSingleHit";
+		AddTokenInt(tokens, "DamageAmountNormal", empty, val);
 		string empty2 = string.Empty;
 		int val2;
-		if (abilityMod_BlasterDashAndBlast)
+		if ((bool)abilityMod_BlasterDashAndBlast)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			val2 = abilityMod_BlasterDashAndBlast.m_extraDamageForSingleHitMod.GetModifiedValue(this.m_extraDamageForSingleHit);
+			val2 = abilityMod_BlasterDashAndBlast.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit);
 		}
 		else
 		{
-			val2 = this.m_extraDamageForSingleHit;
+			val2 = m_extraDamageForSingleHit;
 		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		base.AddTokenInt(tokens, "StockBasedDistMaxSquareCoordDist", string.Empty, this.m_stockBasedDistMaxSquareCoordDist, false);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_BlasterDashAndBlast) ? this.m_enemyEffectNormal : abilityMod_BlasterDashAndBlast.m_enemyEffectNormalMod.GetModifiedValue(this.m_enemyEffectNormal), "EnemyEffectNormal", this.m_enemyEffectNormal, true);
+		AddTokenInt(tokens, "ExtraDamageForSingleHit", empty2, val2);
+		AddTokenInt(tokens, "StockBasedDistMaxSquareCoordDist", string.Empty, m_stockBasedDistMaxSquareCoordDist);
+		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_BlasterDashAndBlast) ? m_enemyEffectNormal : abilityMod_BlasterDashAndBlast.m_enemyEffectNormalMod.GetModifiedValue(m_enemyEffectNormal), "EnemyEffectNormal", m_enemyEffectNormal);
 		StandardEffectInfo effectInfo;
-		if (abilityMod_BlasterDashAndBlast)
+		if ((bool)abilityMod_BlasterDashAndBlast)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			effectInfo = abilityMod_BlasterDashAndBlast.m_enemyEffectOverchargedMod.GetModifiedValue(this.m_enemyEffectOvercharged);
+			effectInfo = abilityMod_BlasterDashAndBlast.m_enemyEffectOverchargedMod.GetModifiedValue(m_enemyEffectOvercharged);
 		}
 		else
 		{
-			effectInfo = this.m_enemyEffectOvercharged;
+			effectInfo = m_enemyEffectOvercharged;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyEffectOvercharged", this.m_enemyEffectOvercharged, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyEffectOvercharged", m_enemyEffectOvercharged);
 		StandardEffectInfo effectInfo2;
-		if (abilityMod_BlasterDashAndBlast)
+		if ((bool)abilityMod_BlasterDashAndBlast)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			effectInfo2 = abilityMod_BlasterDashAndBlast.m_selfEffectOnCastMod.GetModifiedValue(this.m_selfEffectOnCast);
+			effectInfo2 = abilityMod_BlasterDashAndBlast.m_selfEffectOnCastMod.GetModifiedValue(m_selfEffectOnCast);
 		}
 		else
 		{
-			effectInfo2 = this.m_selfEffectOnCast;
+			effectInfo2 = m_selfEffectOnCast;
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "SelfEffectOnCast", this.m_selfEffectOnCast, true);
+		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "SelfEffectOnCast", m_selfEffectOnCast);
 	}
 
 	internal override ActorData.MovementType GetMovementType()

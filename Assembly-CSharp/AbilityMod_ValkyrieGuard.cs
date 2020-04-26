@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,184 +39,106 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ValkyrieGuard valkyrieGuard = targetAbility as ValkyrieGuard;
-		if (valkyrieGuard != null)
+		if (!(valkyrieGuard != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieGuard.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken_EffectMod(tokens, this.m_shieldEffectInfoMod, "ShieldEffectInfo", valkyrieGuard.m_shieldEffectInfo, true);
-			AbilityMod.AddToken(tokens, this.m_techPointGainPerCoveredHitMod, "TechPointGainPerCoveredHit", string.Empty, valkyrieGuard.m_techPointGainPerCoveredHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_techPointGainPerTooCloseForCoverHitMod, "TechPointGainPerTooCloseForCoverHit", string.Empty, valkyrieGuard.m_techPointGainPerTooCloseForCoverHit, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_coveredHitReactionEffectMod, "CoveredHitReactionEffect", valkyrieGuard.m_coveredHitReactionEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_tooCloseForCoverHitReactionEffectMod, "TooCloseForCoverHitReactionEffect", valkyrieGuard.m_tooCloseForCoverHitReactionEffect, true);
-			AbilityMod.AddToken(tokens, this.m_extraDamageNextShieldThrowPerCoveredHitMod, "ExtraDamageNextShieldThrowPerCoveredHit", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_maxExtraDamageNextShieldThrow, "MaxExtraDamageNextShieldThrow", string.Empty, 0, true, false);
-			AbilityMod.AddToken(tokens, this.m_coverDurationMod, "CoverDuration", string.Empty, valkyrieGuard.m_coverDuration, true, false);
-			this.m_cooldownReductionNoBlocks.AddTooltipTokens(tokens, "CooldownReductionNoBlocks");
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken_EffectMod(tokens, m_shieldEffectInfoMod, "ShieldEffectInfo", valkyrieGuard.m_shieldEffectInfo);
+			AbilityMod.AddToken(tokens, m_techPointGainPerCoveredHitMod, "TechPointGainPerCoveredHit", string.Empty, valkyrieGuard.m_techPointGainPerCoveredHit);
+			AbilityMod.AddToken(tokens, m_techPointGainPerTooCloseForCoverHitMod, "TechPointGainPerTooCloseForCoverHit", string.Empty, valkyrieGuard.m_techPointGainPerTooCloseForCoverHit);
+			AbilityMod.AddToken_EffectMod(tokens, m_coveredHitReactionEffectMod, "CoveredHitReactionEffect", valkyrieGuard.m_coveredHitReactionEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_tooCloseForCoverHitReactionEffectMod, "TooCloseForCoverHitReactionEffect", valkyrieGuard.m_tooCloseForCoverHitReactionEffect);
+			AbilityMod.AddToken(tokens, m_extraDamageNextShieldThrowPerCoveredHitMod, "ExtraDamageNextShieldThrowPerCoveredHit", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_maxExtraDamageNextShieldThrow, "MaxExtraDamageNextShieldThrow", string.Empty, 0);
+			AbilityMod.AddToken(tokens, m_coverDurationMod, "CoverDuration", string.Empty, valkyrieGuard.m_coverDuration);
+			m_cooldownReductionNoBlocks.AddTooltipTokens(tokens, "CooldownReductionNoBlocks");
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ValkyrieGuard valkyrieGuard = base.GetTargetAbilityOnAbilityData(abilityData) as ValkyrieGuard;
+		ValkyrieGuard valkyrieGuard = GetTargetAbilityOnAbilityData(abilityData) as ValkyrieGuard;
 		bool flag = valkyrieGuard != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_shieldEffectInfoMod, "[ShieldEffectInfo]", flag, (!flag) ? null : valkyrieGuard.m_shieldEffectInfo);
-		string str = text;
-		AbilityModPropertyInt techPointGainPerCoveredHitMod = this.m_techPointGainPerCoveredHitMod;
-		string prefix = "[TechPointGainPerCoveredHit]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDesc(m_shieldEffectInfoMod, "[ShieldEffectInfo]", flag, (!flag) ? null : valkyrieGuard.m_shieldEffectInfo);
+		string str = empty;
+		AbilityModPropertyInt techPointGainPerCoveredHitMod = m_techPointGainPerCoveredHitMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieGuard.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = valkyrieGuard.m_techPointGainPerCoveredHit;
 		}
 		else
 		{
 			baseVal = 0;
 		}
-		text = str + base.PropDesc(techPointGainPerCoveredHitMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_techPointGainPerTooCloseForCoverHitMod, "[TechPointGainPerTooCloseForCoverHit]", flag, (!flag) ? 0 : valkyrieGuard.m_techPointGainPerTooCloseForCoverHit);
-		string str2 = text;
-		AbilityModPropertyEffectInfo coveredHitReactionEffectMod = this.m_coveredHitReactionEffectMod;
-		string prefix2 = "[CoveredHitReactionEffect]";
-		bool showBaseVal2 = flag;
-		StandardEffectInfo baseVal2;
+		empty = str + PropDesc(techPointGainPerCoveredHitMod, "[TechPointGainPerCoveredHit]", flag, baseVal);
+		empty += PropDesc(m_techPointGainPerTooCloseForCoverHitMod, "[TechPointGainPerTooCloseForCoverHit]", flag, flag ? valkyrieGuard.m_techPointGainPerTooCloseForCoverHit : 0);
+		string str2 = empty;
+		AbilityModPropertyEffectInfo coveredHitReactionEffectMod = m_coveredHitReactionEffectMod;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = valkyrieGuard.m_coveredHitReactionEffect;
 		}
 		else
 		{
 			baseVal2 = null;
 		}
-		text = str2 + base.PropDesc(coveredHitReactionEffectMod, prefix2, showBaseVal2, baseVal2);
-		string str3 = text;
-		AbilityModPropertyEffectInfo tooCloseForCoverHitReactionEffectMod = this.m_tooCloseForCoverHitReactionEffectMod;
-		string prefix3 = "[TooCloseForCoverHitReactionEffect]";
-		bool showBaseVal3 = flag;
-		StandardEffectInfo baseVal3;
+		empty = str2 + PropDesc(coveredHitReactionEffectMod, "[CoveredHitReactionEffect]", flag, (StandardEffectInfo)baseVal2);
+		string str3 = empty;
+		AbilityModPropertyEffectInfo tooCloseForCoverHitReactionEffectMod = m_tooCloseForCoverHitReactionEffectMod;
+		object baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = valkyrieGuard.m_tooCloseForCoverHitReactionEffect;
 		}
 		else
 		{
 			baseVal3 = null;
 		}
-		text = str3 + base.PropDesc(tooCloseForCoverHitReactionEffectMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_extraDamageNextShieldThrowPerCoveredHitMod, "[ExtraDamageNextShieldThrowPerCoveredHit]", flag, 0);
-		text += base.PropDesc(this.m_maxExtraDamageNextShieldThrow, "[MaxExtraDamageNextShieldThrow]", flag, 0);
-		string str4 = text;
-		AbilityModPropertyInt coverDurationMod = this.m_coverDurationMod;
-		string prefix4 = "[CoverDuration]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(tooCloseForCoverHitReactionEffectMod, "[TooCloseForCoverHitReactionEffect]", flag, (StandardEffectInfo)baseVal3);
+		empty += PropDesc(m_extraDamageNextShieldThrowPerCoveredHitMod, "[ExtraDamageNextShieldThrowPerCoveredHit]", flag);
+		empty += PropDesc(m_maxExtraDamageNextShieldThrow, "[MaxExtraDamageNextShieldThrow]", flag);
+		string str4 = empty;
+		AbilityModPropertyInt coverDurationMod = m_coverDurationMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = valkyrieGuard.m_coverDuration;
 		}
 		else
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(coverDurationMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyBool coverLastsForeverMod = this.m_coverLastsForeverMod;
-		string prefix5 = "[CoverLastsForever]";
-		bool showBaseVal5 = flag;
-		bool baseVal5;
+		empty = str4 + PropDesc(coverDurationMod, "[CoverDuration]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyBool coverLastsForeverMod = m_coverLastsForeverMod;
+		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal5 = valkyrieGuard.m_coverLastsForever;
+			baseVal5 = (valkyrieGuard.m_coverLastsForever ? 1 : 0);
 		}
 		else
 		{
-			baseVal5 = false;
+			baseVal5 = 0;
 		}
-		text = str5 + base.PropDesc(coverLastsForeverMod, prefix5, showBaseVal5, baseVal5);
-		text += this.m_cooldownReductionNoBlocks.GetDescription(abilityData);
-		string str6 = text;
-		AbilityModPropertyBool coverIgnoreMinDistMod = this.m_coverIgnoreMinDistMod;
-		string prefix6 = "[CoverIgnoreMinDist]";
-		bool showBaseVal6 = flag;
-		bool baseVal6;
+		empty = str5 + PropDesc(coverLastsForeverMod, "[CoverLastsForever]", flag, (byte)baseVal5 != 0);
+		empty += m_cooldownReductionNoBlocks.GetDescription(abilityData);
+		string str6 = empty;
+		AbilityModPropertyBool coverIgnoreMinDistMod = m_coverIgnoreMinDistMod;
+		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal6 = valkyrieGuard.m_coverIgnoreMinDist;
+			baseVal6 = (valkyrieGuard.m_coverIgnoreMinDist ? 1 : 0);
 		}
 		else
 		{
-			baseVal6 = false;
+			baseVal6 = 0;
 		}
-		return str6 + base.PropDesc(coverIgnoreMinDistMod, prefix6, showBaseVal6, baseVal6);
+		return str6 + PropDesc(coverIgnoreMinDistMod, "[CoverIgnoreMinDist]", flag, (byte)baseVal6 != 0);
 	}
 }

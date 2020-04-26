@@ -1,5 +1,3 @@
-﻿using System;
-
 public static class GameStatusExtensions
 {
 	public static bool IsActiveStatus(this GameStatus value)
@@ -14,28 +12,15 @@ public static class GameStatusExtensions
 
 	public static bool IsPostLaunchStatus(this GameStatus value)
 	{
-		bool result;
+		int result;
 		if (value >= GameStatus.Launching)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameStatus.IsPostLaunchStatus()).MethodHandle;
-			}
-			result = (value <= GameStatus.Stopped);
+			result = ((value <= GameStatus.Stopped) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 }

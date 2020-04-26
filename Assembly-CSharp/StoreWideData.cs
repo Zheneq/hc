@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,11 +13,11 @@ public class StoreWideData : MonoBehaviour
 
 	private void Awake()
 	{
-		StoreWideData.s_instance = this;
+		s_instance = this;
 	}
 
 	public static StoreWideData Get()
 	{
-		return StoreWideData.s_instance;
+		return s_instance;
 	}
 }

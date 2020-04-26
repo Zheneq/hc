@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 
 [Serializable]
@@ -8,14 +8,13 @@ public class LocalizationArg_Int32 : LocalizationArg
 
 	public static LocalizationArg_Int32 Create(int value)
 	{
-		return new LocalizationArg_Int32
-		{
-			m_value = value
-		};
+		LocalizationArg_Int32 localizationArg_Int = new LocalizationArg_Int32();
+		localizationArg_Int.m_value = value;
+		return localizationArg_Int;
 	}
 
 	public override string TR()
 	{
-		return this.m_value.ToString("g", CultureInfo.CurrentCulture);
+		return m_value.ToString("g", CultureInfo.CurrentCulture);
 	}
 }

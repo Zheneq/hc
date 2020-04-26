@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 
 public class OperationOnSquare_RecordSquares : IOperationOnSquare
@@ -9,46 +8,24 @@ public class OperationOnSquare_RecordSquares : IOperationOnSquare
 
 	public void ClearRecordedSquares()
 	{
-		this.m_squares.Clear();
+		m_squares.Clear();
 	}
 
 	public List<BoardSquare> GetSquaresList()
 	{
-		return new List<BoardSquare>(this.m_squares);
+		return new List<BoardSquare>(m_squares);
 	}
 
 	public void OperateOnSquare(BoardSquare square, ActorData actor, bool squareHasLos)
 	{
-		if (!this.IgnoreLos)
+		if (!IgnoreLos)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OperationOnSquare_RecordSquares.OperateOnSquare(BoardSquare, ActorData, bool)).MethodHandle;
-			}
 			if (!squareHasLos)
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		this.m_squares.Add(square);
+		m_squares.Add(square);
 	}
 
 	public bool ShouldEarlyOut()

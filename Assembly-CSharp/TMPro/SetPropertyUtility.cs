@@ -1,50 +1,28 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace TMPro
 {
 	internal static class SetPropertyUtility
 	{
-		public unsafe static bool SetColor(ref Color currentValue, Color newValue)
+		public static bool SetColor(ref Color currentValue, Color newValue)
 		{
 			if (currentValue.r == newValue.r)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SetPropertyUtility.SetColor(Color*, Color)).MethodHandle;
-				}
 				if (currentValue.g == newValue.g)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentValue.b == newValue.b && currentValue.a == newValue.a)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return false;
 							}
-							break;
 						}
-						return false;
 					}
 				}
 			}
@@ -62,74 +40,41 @@ namespace TMPro
 			return true;
 		}
 
-		public unsafe static bool SetStruct<T>(ref T currentValue, T newValue) where T : struct
+		public static bool SetStruct<T>(ref T currentValue, T newValue) where T : struct
 		{
 			if (currentValue.Equals(newValue))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return false;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SetPropertyUtility.SetStruct(T*, T)).MethodHandle;
-				}
-				return false;
 			}
 			currentValue = newValue;
 			return true;
 		}
 
-		public unsafe static bool SetClass<T>(ref T currentValue, T newValue) where T : class
+		public static bool SetClass<T>(ref T currentValue, T newValue) where T : class
 		{
 			if (currentValue == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SetPropertyUtility.SetClass(T*, T)).MethodHandle;
-				}
 				if (newValue == null)
 				{
-					return false;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					goto IL_005d;
 				}
 			}
-			if (currentValue == null || !currentValue.Equals(newValue))
+			if (currentValue != null && currentValue.Equals(newValue))
 			{
-				currentValue = newValue;
-				return true;
+				goto IL_005d;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			currentValue = newValue;
+			return true;
+			IL_005d:
 			return false;
 		}
 	}

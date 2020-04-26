@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,12 +11,12 @@ public class FriendListMenuGroupChat : MonoBehaviour
 
 	public void NotifyOnEntryClick(FriendListMenuGroupChatEntry entry)
 	{
-		UIManager.SetGameObjectActive(base.gameObject, false, null);
+		UIManager.SetGameObjectActive(base.gameObject, false);
 	}
 
 	public void NotifyOnEntryEnter(FriendListMenuGroupChatEntry entry)
 	{
-		FriendListMenuGroupChatEntry[] componentsInChildren = this.m_gridLayout.GetComponentsInChildren<FriendListMenuGroupChatEntry>();
+		FriendListMenuGroupChatEntry[] componentsInChildren = m_gridLayout.GetComponentsInChildren<FriendListMenuGroupChatEntry>();
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
 			if (componentsInChildren[i] == entry)
@@ -29,67 +28,48 @@ public class FriendListMenuGroupChat : MonoBehaviour
 				componentsInChildren[i].m_nameLabel.color = Color.gray;
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			ResizeWindowSize();
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListMenuGroupChat.NotifyOnEntryEnter(FriendListMenuGroupChatEntry)).MethodHandle;
-		}
-		this.ResizeWindowSize();
 	}
 
 	public void ResizeWindowSize()
 	{
-		(base.gameObject.transform as RectTransform).sizeDelta = new Vector2((base.gameObject.transform as RectTransform).sizeDelta.x, (float)this.numEntries * this.m_gridLayout.cellSize.y + 40f);
+		RectTransform obj = base.gameObject.transform as RectTransform;
+		Vector2 sizeDelta = (base.gameObject.transform as RectTransform).sizeDelta;
+		float x = sizeDelta.x;
+		float num = numEntries;
+		Vector2 cellSize = m_gridLayout.cellSize;
+		obj.sizeDelta = new Vector2(x, num * cellSize.y + 40f);
 	}
 
 	public void Setup()
 	{
-		FriendListMenuGroupChatEntry[] componentsInChildren = this.m_gridLayout.GetComponentsInChildren<FriendListMenuGroupChatEntry>();
+		FriendListMenuGroupChatEntry[] componentsInChildren = m_gridLayout.GetComponentsInChildren<FriendListMenuGroupChatEntry>();
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
-			UnityEngine.Object.Destroy(componentsInChildren[i].gameObject);
+			Object.Destroy(componentsInChildren[i].gameObject);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
+			numEntries = Mathf.FloorToInt(Random.value * 10f);
+			for (int j = 0; j < numEntries; j++)
 			{
-			case 0:
-				continue;
+				FriendListMenuGroupChatEntry friendListMenuGroupChatEntry = Object.Instantiate(m_groupChatEntryPrefab);
+				friendListMenuGroupChatEntry.transform.SetParent(m_gridLayout.transform);
+				friendListMenuGroupChatEntry.Setup(string.Format(StringUtil.TR("GroupChatRoom", "FriendList"), Mathf.FloorToInt(Random.value * 1000f)));
+				friendListMenuGroupChatEntry.transform.localScale = Vector3.one;
+				friendListMenuGroupChatEntry.transform.localPosition = Vector3.zero;
+				friendListMenuGroupChatEntry.transform.localEulerAngles = Vector3.zero;
+				friendListMenuGroupChatEntry.m_nameLabel.color = Color.gray;
 			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListMenuGroupChat.Setup()).MethodHandle;
-		}
-		this.numEntries = Mathf.FloorToInt(UnityEngine.Random.value * 10f);
-		for (int j = 0; j < this.numEntries; j++)
-		{
-			FriendListMenuGroupChatEntry friendListMenuGroupChatEntry = UnityEngine.Object.Instantiate<FriendListMenuGroupChatEntry>(this.m_groupChatEntryPrefab);
-			friendListMenuGroupChatEntry.transform.SetParent(this.m_gridLayout.transform);
-			friendListMenuGroupChatEntry.Setup(string.Format(StringUtil.TR("GroupChatRoom", "FriendList"), Mathf.FloorToInt(UnityEngine.Random.value * 1000f)));
-			friendListMenuGroupChatEntry.transform.localScale = Vector3.one;
-			friendListMenuGroupChatEntry.transform.localPosition = Vector3.zero;
-			friendListMenuGroupChatEntry.transform.localEulerAngles = Vector3.zero;
-			friendListMenuGroupChatEntry.m_nameLabel.color = Color.gray;
-		}
-		for (;;)
-		{
-			switch (7)
+			while (true)
 			{
-			case 0:
-				continue;
+				ResizeWindowSize();
+				return;
 			}
-			break;
 		}
-		this.ResizeWindowSize();
 	}
 }

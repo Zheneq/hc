@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,205 +42,116 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SenseiAppendStatus senseiAppendStatus = targetAbility as SenseiAppendStatus;
-		if (senseiAppendStatus != null)
+		if (!(senseiAppendStatus != null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SenseiAppendStatus.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", senseiAppendStatus.m_laserInfo, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyCastHitEffectDataMod, "EnemyCastHitEffectData", senseiAppendStatus.m_enemyCastHitEffectData, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_allyCastHitEffectDataMod, "AllyCastHitEffectData", senseiAppendStatus.m_allyCastHitEffectData, true);
-			AbilityMod.AddToken(tokens, this.m_energyToAllyTargetOnCastMod, "EnergyToAllyTargetOnCast", string.Empty, senseiAppendStatus.m_energyToAllyTargetOnCast, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectAddedOnEnemyAttackMod, "EffectAddedOnEnemyAttack", senseiAppendStatus.m_effectAddedOnEnemyAttack, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_effectAddedOnAllyAttackMod, "EffectAddedOnAllyAttack", senseiAppendStatus.m_effectAddedOnAllyAttack, true);
-			AbilityMod.AddToken(tokens, this.m_energyGainOnAllyAppendHitMod, "EnergyGainOnAllyAppendHit", string.Empty, senseiAppendStatus.m_energyGainOnAllyAppendHit, true, false);
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", senseiAppendStatus.m_laserInfo);
+			AbilityMod.AddToken_EffectMod(tokens, m_enemyCastHitEffectDataMod, "EnemyCastHitEffectData", senseiAppendStatus.m_enemyCastHitEffectData);
+			AbilityMod.AddToken_EffectMod(tokens, m_allyCastHitEffectDataMod, "AllyCastHitEffectData", senseiAppendStatus.m_allyCastHitEffectData);
+			AbilityMod.AddToken(tokens, m_energyToAllyTargetOnCastMod, "EnergyToAllyTargetOnCast", string.Empty, senseiAppendStatus.m_energyToAllyTargetOnCast);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectAddedOnEnemyAttackMod, "EffectAddedOnEnemyAttack", senseiAppendStatus.m_effectAddedOnEnemyAttack);
+			AbilityMod.AddToken_EffectMod(tokens, m_effectAddedOnAllyAttackMod, "EffectAddedOnAllyAttack", senseiAppendStatus.m_effectAddedOnAllyAttack);
+			AbilityMod.AddToken(tokens, m_energyGainOnAllyAppendHitMod, "EnergyGainOnAllyAppendHit", string.Empty, senseiAppendStatus.m_energyGainOnAllyAppendHit);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		SenseiAppendStatus senseiAppendStatus = base.GetTargetAbilityOnAbilityData(abilityData) as SenseiAppendStatus;
+		SenseiAppendStatus senseiAppendStatus = GetTargetAbilityOnAbilityData(abilityData) as SenseiAppendStatus;
 		bool flag = senseiAppendStatus != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_canTargetAllyMod, "[CanTargetAlly]", flag, flag && senseiAppendStatus.m_canTargetAlly);
-		string str = text;
-		AbilityModPropertyBool canTargetEnemyMod = this.m_canTargetEnemyMod;
-		string prefix = "[CanTargetEnemy]";
-		bool showBaseVal = flag;
-		bool baseVal;
+		string empty = string.Empty;
+		empty += PropDesc(m_canTargetAllyMod, "[CanTargetAlly]", flag, flag && senseiAppendStatus.m_canTargetAlly);
+		string str = empty;
+		AbilityModPropertyBool canTargetEnemyMod = m_canTargetEnemyMod;
+		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SenseiAppendStatus.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			baseVal = senseiAppendStatus.m_canTargetEnemy;
+			baseVal = (senseiAppendStatus.m_canTargetEnemy ? 1 : 0);
 		}
 		else
 		{
-			baseVal = false;
+			baseVal = 0;
 		}
-		text = str + base.PropDesc(canTargetEnemyMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_canTagetSelfMod, "[CanTagetSelf]", flag, flag && senseiAppendStatus.m_canTagetSelf);
-		text += base.PropDesc(this.m_targetingIgnoreLosMod, "[TargetingIgnoreLos]", flag, flag && senseiAppendStatus.m_targetingIgnoreLos);
-		string str2 = text;
-		AbilityModPropertyLaserInfo laserInfoMod = this.m_laserInfoMod;
-		string prefix2 = "[LaserInfo]";
-		bool showBaseVal2 = flag;
-		LaserTargetingInfo baseLaserInfo;
+		empty = str + PropDesc(canTargetEnemyMod, "[CanTargetEnemy]", flag, (byte)baseVal != 0);
+		empty += PropDesc(m_canTagetSelfMod, "[CanTagetSelf]", flag, flag && senseiAppendStatus.m_canTagetSelf);
+		empty += PropDesc(m_targetingIgnoreLosMod, "[TargetingIgnoreLos]", flag, flag && senseiAppendStatus.m_targetingIgnoreLos);
+		string str2 = empty;
+		AbilityModPropertyLaserInfo laserInfoMod = m_laserInfoMod;
+		object baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseLaserInfo = senseiAppendStatus.m_laserInfo;
 		}
 		else
 		{
 			baseLaserInfo = null;
 		}
-		text = str2 + base.PropDesc(laserInfoMod, prefix2, showBaseVal2, baseLaserInfo);
-		text += base.PropDesc(this.m_enemyCastHitEffectDataMod, "[EnemyCastHitEffectData]", flag, (!flag) ? null : senseiAppendStatus.m_enemyCastHitEffectData);
-		string str3 = text;
-		AbilityModPropertyEffectData allyCastHitEffectDataMod = this.m_allyCastHitEffectDataMod;
-		string prefix3 = "[AllyCastHitEffectData]";
-		bool showBaseVal3 = flag;
-		StandardActorEffectData baseVal2;
+		empty = str2 + PropDesc(laserInfoMod, "[LaserInfo]", flag, (LaserTargetingInfo)baseLaserInfo);
+		empty += PropDesc(m_enemyCastHitEffectDataMod, "[EnemyCastHitEffectData]", flag, (!flag) ? null : senseiAppendStatus.m_enemyCastHitEffectData);
+		string str3 = empty;
+		AbilityModPropertyEffectData allyCastHitEffectDataMod = m_allyCastHitEffectDataMod;
+		object baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = senseiAppendStatus.m_allyCastHitEffectData;
 		}
 		else
 		{
 			baseVal2 = null;
 		}
-		text = str3 + base.PropDesc(allyCastHitEffectDataMod, prefix3, showBaseVal3, baseVal2);
-		text += base.PropDesc(this.m_energyToAllyTargetOnCastMod, "[EnergyToAllyTargetOnCast]", flag, (!flag) ? 0 : senseiAppendStatus.m_energyToAllyTargetOnCast);
-		string str4 = text;
-		AbilityModPropertyBool endEffectIfAppendedStatusMod = this.m_endEffectIfAppendedStatusMod;
-		string prefix4 = "[EndEffectIfAppendedStatus]";
-		bool showBaseVal4 = flag;
-		bool baseVal3;
+		empty = str3 + PropDesc(allyCastHitEffectDataMod, "[AllyCastHitEffectData]", flag, (StandardActorEffectData)baseVal2);
+		empty += PropDesc(m_energyToAllyTargetOnCastMod, "[EnergyToAllyTargetOnCast]", flag, flag ? senseiAppendStatus.m_energyToAllyTargetOnCast : 0);
+		string str4 = empty;
+		AbilityModPropertyBool endEffectIfAppendedStatusMod = m_endEffectIfAppendedStatusMod;
+		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal3 = senseiAppendStatus.m_endEffectIfAppendedStatus;
+			baseVal3 = (senseiAppendStatus.m_endEffectIfAppendedStatus ? 1 : 0);
 		}
 		else
 		{
-			baseVal3 = false;
+			baseVal3 = 0;
 		}
-		text = str4 + base.PropDesc(endEffectIfAppendedStatusMod, prefix4, showBaseVal4, baseVal3);
-		string str5 = text;
-		AbilityModPropertyEffectInfo effectAddedOnEnemyAttackMod = this.m_effectAddedOnEnemyAttackMod;
-		string prefix5 = "[EffectAddedOnEnemyAttack]";
-		bool showBaseVal5 = flag;
-		StandardEffectInfo baseVal4;
+		empty = str4 + PropDesc(endEffectIfAppendedStatusMod, "[EndEffectIfAppendedStatus]", flag, (byte)baseVal3 != 0);
+		string str5 = empty;
+		AbilityModPropertyEffectInfo effectAddedOnEnemyAttackMod = m_effectAddedOnEnemyAttackMod;
+		object baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = senseiAppendStatus.m_effectAddedOnEnemyAttack;
 		}
 		else
 		{
 			baseVal4 = null;
 		}
-		text = str5 + base.PropDesc(effectAddedOnEnemyAttackMod, prefix5, showBaseVal5, baseVal4);
-		string str6 = text;
-		AbilityModPropertyEffectInfo effectAddedOnAllyAttackMod = this.m_effectAddedOnAllyAttackMod;
-		string prefix6 = "[EffectAddedOnAllyAttack]";
-		bool showBaseVal6 = flag;
-		StandardEffectInfo baseVal5;
+		empty = str5 + PropDesc(effectAddedOnEnemyAttackMod, "[EffectAddedOnEnemyAttack]", flag, (StandardEffectInfo)baseVal4);
+		string str6 = empty;
+		AbilityModPropertyEffectInfo effectAddedOnAllyAttackMod = m_effectAddedOnAllyAttackMod;
+		object baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = senseiAppendStatus.m_effectAddedOnAllyAttack;
 		}
 		else
 		{
 			baseVal5 = null;
 		}
-		text = str6 + base.PropDesc(effectAddedOnAllyAttackMod, prefix6, showBaseVal6, baseVal5);
-		string str7 = text;
-		AbilityModPropertyInt energyGainOnAllyAppendHitMod = this.m_energyGainOnAllyAppendHitMod;
-		string prefix7 = "[EnergyGainOnAllyAppendHit]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(effectAddedOnAllyAttackMod, "[EffectAddedOnAllyAttack]", flag, (StandardEffectInfo)baseVal5);
+		string str7 = empty;
+		AbilityModPropertyInt energyGainOnAllyAppendHitMod = m_energyGainOnAllyAppendHitMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = senseiAppendStatus.m_energyGainOnAllyAppendHit;
 		}
 		else
 		{
 			baseVal6 = 0;
 		}
-		return str7 + base.PropDesc(energyGainOnAllyAppendHitMod, prefix7, showBaseVal7, baseVal6);
+		return str7 + PropDesc(energyGainOnAllyAppendHitMod, "[EnergyGainOnAllyAppendHit]", flag, baseVal6);
 	}
 }

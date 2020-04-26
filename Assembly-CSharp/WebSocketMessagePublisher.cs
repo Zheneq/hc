@@ -1,46 +1,40 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
 public class WebSocketMessagePublisher : IMessagePublisher
 {
+	private class SubscriberToken
+	{
+		public Type Type
+		{
+			get;
+			set;
+		}
+
+		public WebSocket Subscriber
+		{
+			get;
+			set;
+		}
+	}
+
 	private object RwLock = new object();
 
-	private readonly List<WebSocketMessagePublisher.SubscriberToken> SubscriberTokens = new List<WebSocketMessagePublisher.SubscriberToken>();
+	private readonly List<SubscriberToken> SubscriberTokens = new List<SubscriberToken>();
 
 	public static Type GetType(string typeName)
 	{
 		Type type = Type.GetType(typeName);
 		if (type == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessagePublisher.GetType(string)).MethodHandle;
-			}
-			foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+			Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+			foreach (Assembly assembly in assemblies)
 			{
 				type = assembly.GetType(typeName);
 				if (type != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 			}
@@ -50,213 +44,134 @@ public class WebSocketMessagePublisher : IMessagePublisher
 
 	public void Subscribe(string typeName, WebSocket subscriber)
 	{
-		Type type = WebSocketMessagePublisher.GetType(typeName);
-		if (type != null)
+		Type type = GetType(typeName);
+		if (type == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessagePublisher.Subscribe(string, WebSocket)).MethodHandle;
-			}
-			this.Subscribe(type, subscriber);
+			return;
+		}
+		while (true)
+		{
+			Subscribe(type, subscriber);
+			return;
 		}
 	}
 
 	public void Subscribe<TMessageType>(WebSocket subscriber)
 	{
-		this.Subscribe(typeof(TMessageType), subscriber);
+		Subscribe(typeof(TMessageType), subscriber);
 	}
 
 	public void Subscribe(Type messageType, WebSocket subscriber)
 	{
-		object rwLock = this.RwLock;
-		lock (rwLock)
+		lock (RwLock)
 		{
-			if (!this.SubscriberTokens.Any(delegate(WebSocketMessagePublisher.SubscriberToken s)
+			if (!SubscriberTokens.Any(delegate(SubscriberToken s)
 			{
-				bool result;
+				int result;
 				if (s.Type == messageType)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(WebSocketMessagePublisher.<Subscribe>c__AnonStorey0.<>m__0(WebSocketMessagePublisher.SubscriberToken)).MethodHandle;
-					}
-					result = s.Subscriber.Equals(subscriber);
+					result = (s.Subscriber.Equals(subscriber) ? 1 : 0);
 				}
 				else
 				{
-					result = false;
+					result = 0;
 				}
-				return result;
+				return (byte)result != 0;
 			}))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						SubscriberToken subscriberToken = new SubscriberToken();
+						subscriberToken.Type = messageType;
+						subscriberToken.Subscriber = subscriber;
+						SubscriberToken item = subscriberToken;
+						SubscriberTokens.Add(item);
+						return;
 					}
-					break;
+					}
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessagePublisher.Subscribe(Type, WebSocket)).MethodHandle;
-				}
-				WebSocketMessagePublisher.SubscriberToken item = new WebSocketMessagePublisher.SubscriberToken
-				{
-					Type = messageType,
-					Subscriber = subscriber
-				};
-				this.SubscriberTokens.Add(item);
 			}
 		}
 	}
 
 	public void Unsubscribe(WebSocket subscriber)
 	{
-		object rwLock = this.RwLock;
-		lock (rwLock)
+		lock (RwLock)
 		{
-			List<WebSocketMessagePublisher.SubscriberToken> list = (from s in this.SubscriberTokens
-			where s.Subscriber.Equals(subscriber)
-			select s).ToList<WebSocketMessagePublisher.SubscriberToken>();
-			list.ForEach(delegate(WebSocketMessagePublisher.SubscriberToken s)
+			List<SubscriberToken> list = SubscriberTokens.Where((SubscriberToken s) => s.Subscriber.Equals(subscriber)).ToList();
+			list.ForEach(delegate(SubscriberToken s)
 			{
-				this.SubscriberTokens.Remove(s);
+				SubscriberTokens.Remove(s);
 			});
 		}
 	}
 
 	public void Unsubscribe<TMessageType>(WebSocket subscriber)
 	{
-		this.Unsubscribe(typeof(TMessageType), subscriber);
+		Unsubscribe(typeof(TMessageType), subscriber);
 	}
 
 	public void Unsubscribe(string typeName, WebSocket subscriber)
 	{
-		Type type = WebSocketMessagePublisher.GetType(typeName);
-		if (type != null)
+		Type type = GetType(typeName);
+		if (type == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessagePublisher.Unsubscribe(string, WebSocket)).MethodHandle;
-			}
-			this.Unsubscribe(type, subscriber);
+			return;
+		}
+		while (true)
+		{
+			Unsubscribe(type, subscriber);
+			return;
 		}
 	}
 
 	public void Unsubscribe(Type type, WebSocket subscriber)
 	{
-		object rwLock = this.RwLock;
-		lock (rwLock)
+		lock (RwLock)
 		{
-			List<WebSocketMessagePublisher.SubscriberToken> list = this.SubscriberTokens.Where(delegate(WebSocketMessagePublisher.SubscriberToken s)
+			List<SubscriberToken> list = SubscriberTokens.Where(delegate(SubscriberToken s)
 			{
-				bool result;
+				int result;
 				if (s.Subscriber.Equals(subscriber))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessagePublisher.<Unsubscribe>c__AnonStorey2.<>m__0(WebSocketMessagePublisher.SubscriberToken)).MethodHandle;
-					}
-					result = (s.Type == type);
+					result = ((s.Type == type) ? 1 : 0);
 				}
 				else
 				{
-					result = false;
+					result = 0;
 				}
-				return result;
-			}).ToList<WebSocketMessagePublisher.SubscriberToken>();
-			list.ForEach(delegate(WebSocketMessagePublisher.SubscriberToken s)
+				return (byte)result != 0;
+			}).ToList();
+			list.ForEach(delegate(SubscriberToken s)
 			{
-				this.SubscriberTokens.Remove(s);
+				SubscriberTokens.Remove(s);
 			});
 		}
 	}
 
 	public void Publish<TMessageType>(TMessageType data)
 	{
-		List<WebSocket> list = new List<WebSocket>(this.SubscriberTokens.Count);
-		object rwLock = this.RwLock;
-		lock (rwLock)
+		List<WebSocket> list = new List<WebSocket>(SubscriberTokens.Count);
+		lock (RwLock)
 		{
-			using (List<WebSocketMessagePublisher.SubscriberToken>.Enumerator enumerator = this.SubscriberTokens.GetEnumerator())
+			using (List<SubscriberToken>.Enumerator enumerator = SubscriberTokens.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					WebSocketMessagePublisher.SubscriberToken subscriberToken = enumerator.Current;
-					if (subscriberToken.Type == typeof(TMessageType))
+					SubscriberToken current = enumerator.Current;
+					if (current.Type == typeof(TMessageType))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessagePublisher.Publish(TMessageType)).MethodHandle;
-						}
-						list.Add(subscriberToken.Subscriber);
+						list.Add(current.Subscriber);
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		WebSocket.Broadcast(data as WebSocketMessage, list);
-	}
-
-	private class SubscriberToken
-	{
-		public Type Type { get; set; }
-
-		public WebSocket Subscriber { get; set; }
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,388 +6,6 @@ using UnityEngine.UI;
 
 public class UIPlayerPanelGroupMenu : UITooltipBase
 {
-	public TextMeshProUGUI m_playerName;
-
-	public Color m_unhighlightedMenuItemColor;
-
-	public UIPlayerPanelGroupMenu.GroupMenuButton[] m_menuButtons;
-
-	private string m_memberHandle;
-
-	private long m_memberAccountId = -1L;
-
-	private bool m_botMasqueradingAsHuman;
-
-	private void Awake()
-	{
-		for (int i = 0; i < this.m_menuButtons.Length; i++)
-		{
-			UIEventTriggerUtils.AddListener(this.m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnGroupChatMouseOver));
-			UIEventTriggerUtils.AddListener(this.m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnGroupChatMouseClicked));
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.Awake()).MethodHandle;
-		}
-	}
-
-	public void OnGroupChatMouseClicked(BaseEventData data)
-	{
-		for (int i = 0; i < this.m_menuButtons.Length; i++)
-		{
-			if (this.IsValidButtonAction((UIPlayerPanelGroupMenu.GroupMenuButtonAction)i))
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.OnGroupChatMouseClicked(BaseEventData)).MethodHandle;
-				}
-				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_menuButtons[i].m_button.gameObject)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					switch (i)
-					{
-					case 0:
-						UIFrontEnd.Get().m_frontEndChatConsole.SelectInput("/whisper " + this.m_memberHandle + " ");
-						break;
-					case 2:
-						if (this.m_botMasqueradingAsHuman)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							TextConsole.Get().Write(new TextConsole.Message
-							{
-								Text = StringUtil.TR("AddFriendRequest", "SlashCommand"),
-								MessageType = ConsoleMessageType.SystemMessage
-							}, null);
-						}
-						else
-						{
-							FriendListPanel.Get().RequestToAddFriend(this.m_memberHandle);
-						}
-						break;
-					case 3:
-						TextConsole.Get().OnInputSubmitted("/promote " + this.m_memberHandle);
-						break;
-					case 4:
-						TextConsole.Get().OnInputSubmitted("/kick " + this.m_memberHandle);
-						break;
-					case 5:
-						UILandingPageFullScreenMenus.Get().SetReportContainerVisible(true, this.m_memberHandle, this.m_memberAccountId, this.m_botMasqueradingAsHuman);
-						break;
-					case 6:
-						TextConsole.Get().OnInputSubmitted("/leave");
-						break;
-					}
-					base.SetVisible(false);
-					return;
-				}
-			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			return;
-		}
-	}
-
-	public void OnGroupChatMouseOver(BaseEventData data)
-	{
-		for (int i = 0; i < this.m_menuButtons.Length; i++)
-		{
-			UIPlayerPanelGroupMenu.GroupMenuButtonAction action = (UIPlayerPanelGroupMenu.GroupMenuButtonAction)i;
-			UIManager.SetGameObjectActive(this.m_menuButtons[i].m_container, this.IsButtonActionVisible(action), null);
-			if (this.IsValidButtonAction(action))
-			{
-				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_menuButtons[i].m_button.gameObject)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.OnGroupChatMouseOver(BaseEventData)).MethodHandle;
-					}
-					this.m_menuButtons[i].m_icon.color = Color.white;
-					this.m_menuButtons[i].m_label.color = Color.white;
-				}
-				else
-				{
-					this.m_menuButtons[i].m_icon.color = this.m_unhighlightedMenuItemColor;
-					this.m_menuButtons[i].m_label.color = this.m_unhighlightedMenuItemColor;
-				}
-			}
-			else
-			{
-				this.m_menuButtons[i].m_icon.color = Color.gray * 0.75f;
-				this.m_menuButtons[i].m_label.color = Color.gray * 0.75f;
-			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-	}
-
-	public void Setup(UpdateGroupMemberData memberInfo)
-	{
-		if (memberInfo != null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.Setup(UpdateGroupMemberData)).MethodHandle;
-			}
-			this.m_memberHandle = memberInfo.MemberDisplayName;
-			this.m_memberAccountId = memberInfo.AccountID;
-		}
-		else
-		{
-			this.m_memberHandle = string.Empty;
-			this.m_memberAccountId = -1L;
-			this.m_botMasqueradingAsHuman = false;
-		}
-		this.SetupCommon();
-	}
-
-	public void Setup(LobbyPlayerInfo memberInfo)
-	{
-		if (memberInfo != null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.Setup(LobbyPlayerInfo)).MethodHandle;
-			}
-			this.m_memberHandle = memberInfo.GetHandle();
-			this.m_memberAccountId = memberInfo.AccountId;
-			this.m_botMasqueradingAsHuman = memberInfo.BotsMasqueradeAsHumans;
-		}
-		else
-		{
-			this.m_memberHandle = string.Empty;
-			this.m_memberAccountId = -1L;
-			this.m_botMasqueradingAsHuman = false;
-		}
-		this.SetupCommon();
-	}
-
-	public void SetupCommon()
-	{
-		if (!this.m_memberHandle.IsNullOrEmpty())
-		{
-			this.m_playerName.text = this.m_memberHandle;
-		}
-		for (int i = 0; i < this.m_menuButtons.Length; i++)
-		{
-			UIPlayerPanelGroupMenu.GroupMenuButtonAction action = (UIPlayerPanelGroupMenu.GroupMenuButtonAction)i;
-			UIManager.SetGameObjectActive(this.m_menuButtons[i].m_container, this.IsButtonActionVisible(action), null);
-			if (this.IsValidButtonAction(action))
-			{
-				this.m_menuButtons[i].m_icon.color = this.m_unhighlightedMenuItemColor;
-				this.m_menuButtons[i].m_label.color = this.m_unhighlightedMenuItemColor;
-			}
-			else
-			{
-				this.m_menuButtons[i].m_icon.color = Color.gray * 0.75f;
-				this.m_menuButtons[i].m_label.color = Color.gray * 0.75f;
-			}
-		}
-	}
-
-	public bool IsValidButtonAction(UIPlayerPanelGroupMenu.GroupMenuButtonAction action)
-	{
-		bool result = false;
-		if (this.m_memberAccountId >= 0L)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.IsValidButtonAction(UIPlayerPanelGroupMenu.GroupMenuButtonAction)).MethodHandle;
-			}
-			switch (action)
-			{
-			case UIPlayerPanelGroupMenu.GroupMenuButtonAction.SendMessage:
-				result = true;
-				break;
-			case UIPlayerPanelGroupMenu.GroupMenuButtonAction.AddToFriends:
-				result = true;
-				break;
-			case UIPlayerPanelGroupMenu.GroupMenuButtonAction.PromoteToLeader:
-				if (ClientGameManager.Get().GroupInfo.IsLeader)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = true;
-				}
-				break;
-			case UIPlayerPanelGroupMenu.GroupMenuButtonAction.KickFromParty:
-				if (ClientGameManager.Get().GroupInfo.IsLeader)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = true;
-				}
-				break;
-			case UIPlayerPanelGroupMenu.GroupMenuButtonAction.ReportPlayer:
-				result = true;
-				break;
-			case UIPlayerPanelGroupMenu.GroupMenuButtonAction.LeaveParty:
-				if (ClientGameManager.Get().GroupInfo.InAGroup)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = true;
-				}
-				break;
-			}
-		}
-		return result;
-	}
-
-	public bool IsButtonActionVisible(UIPlayerPanelGroupMenu.GroupMenuButtonAction action)
-	{
-		bool result = true;
-		if (this.m_memberAccountId >= 0L && this.m_memberAccountId == ClientGameManager.Get().GetPlayerAccountData().AccountId)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.IsButtonActionVisible(UIPlayerPanelGroupMenu.GroupMenuButtonAction)).MethodHandle;
-			}
-			if (action != UIPlayerPanelGroupMenu.GroupMenuButtonAction.AddToFriends)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (action != UIPlayerPanelGroupMenu.GroupMenuButtonAction.KickFromParty && action != UIPlayerPanelGroupMenu.GroupMenuButtonAction.PromoteToLeader && action != UIPlayerPanelGroupMenu.GroupMenuButtonAction.SendMessage)
-				{
-					if (action != UIPlayerPanelGroupMenu.GroupMenuButtonAction.ReportPlayer)
-					{
-						return result;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-			}
-			return false;
-		}
-		return result;
-	}
-
 	public enum GroupMenuButtonAction
 	{
 		SendMessage,
@@ -409,5 +27,246 @@ public class UIPlayerPanelGroupMenu : UITooltipBase
 		public TextMeshProUGUI m_label;
 
 		public Button m_button;
+	}
+
+	public TextMeshProUGUI m_playerName;
+
+	public Color m_unhighlightedMenuItemColor;
+
+	public GroupMenuButton[] m_menuButtons;
+
+	private string m_memberHandle;
+
+	private long m_memberAccountId = -1L;
+
+	private bool m_botMasqueradingAsHuman;
+
+	private void Awake()
+	{
+		for (int i = 0; i < m_menuButtons.Length; i++)
+		{
+			UIEventTriggerUtils.AddListener(m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerEnter, OnGroupChatMouseOver);
+			UIEventTriggerUtils.AddListener(m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerClick, OnGroupChatMouseClicked);
+		}
+		while (true)
+		{
+			return;
+		}
+	}
+
+	public void OnGroupChatMouseClicked(BaseEventData data)
+	{
+		for (int i = 0; i < m_menuButtons.Length; i++)
+		{
+			if (!IsValidButtonAction((GroupMenuButtonAction)i))
+			{
+				continue;
+			}
+			if (!((data as PointerEventData).pointerCurrentRaycast.gameObject == m_menuButtons[i].m_button.gameObject))
+			{
+				continue;
+			}
+			while (true)
+			{
+				switch (i)
+				{
+				case 2:
+					if (m_botMasqueradingAsHuman)
+					{
+						TextConsole.Get().Write(new TextConsole.Message
+						{
+							Text = StringUtil.TR("AddFriendRequest", "SlashCommand"),
+							MessageType = ConsoleMessageType.SystemMessage
+						});
+					}
+					else
+					{
+						FriendListPanel.Get().RequestToAddFriend(m_memberHandle);
+					}
+					break;
+				case 4:
+					TextConsole.Get().OnInputSubmitted("/kick " + m_memberHandle);
+					break;
+				case 6:
+					TextConsole.Get().OnInputSubmitted("/leave");
+					break;
+				case 3:
+					TextConsole.Get().OnInputSubmitted("/promote " + m_memberHandle);
+					break;
+				case 0:
+					UIFrontEnd.Get().m_frontEndChatConsole.SelectInput("/whisper " + m_memberHandle + " ");
+					break;
+				case 5:
+					UILandingPageFullScreenMenus.Get().SetReportContainerVisible(true, m_memberHandle, m_memberAccountId, m_botMasqueradingAsHuman);
+					break;
+				}
+				SetVisible(false);
+				return;
+			}
+		}
+		while (true)
+		{
+			switch (3)
+			{
+			default:
+				return;
+			case 0:
+				break;
+			}
+		}
+	}
+
+	public void OnGroupChatMouseOver(BaseEventData data)
+	{
+		for (int i = 0; i < m_menuButtons.Length; i++)
+		{
+			GroupMenuButtonAction action = (GroupMenuButtonAction)i;
+			UIManager.SetGameObjectActive(m_menuButtons[i].m_container, IsButtonActionVisible(action));
+			if (IsValidButtonAction(action))
+			{
+				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == m_menuButtons[i].m_button.gameObject)
+				{
+					m_menuButtons[i].m_icon.color = Color.white;
+					m_menuButtons[i].m_label.color = Color.white;
+				}
+				else
+				{
+					m_menuButtons[i].m_icon.color = m_unhighlightedMenuItemColor;
+					m_menuButtons[i].m_label.color = m_unhighlightedMenuItemColor;
+				}
+			}
+			else
+			{
+				m_menuButtons[i].m_icon.color = Color.gray * 0.75f;
+				m_menuButtons[i].m_label.color = Color.gray * 0.75f;
+			}
+		}
+		while (true)
+		{
+			switch (2)
+			{
+			default:
+				return;
+			case 0:
+				break;
+			}
+		}
+	}
+
+	public void Setup(UpdateGroupMemberData memberInfo)
+	{
+		if (memberInfo != null)
+		{
+			m_memberHandle = memberInfo.MemberDisplayName;
+			m_memberAccountId = memberInfo.AccountID;
+		}
+		else
+		{
+			m_memberHandle = string.Empty;
+			m_memberAccountId = -1L;
+			m_botMasqueradingAsHuman = false;
+		}
+		SetupCommon();
+	}
+
+	public void Setup(LobbyPlayerInfo memberInfo)
+	{
+		if (memberInfo != null)
+		{
+			m_memberHandle = memberInfo.GetHandle();
+			m_memberAccountId = memberInfo.AccountId;
+			m_botMasqueradingAsHuman = memberInfo.BotsMasqueradeAsHumans;
+		}
+		else
+		{
+			m_memberHandle = string.Empty;
+			m_memberAccountId = -1L;
+			m_botMasqueradingAsHuman = false;
+		}
+		SetupCommon();
+	}
+
+	public void SetupCommon()
+	{
+		if (!m_memberHandle.IsNullOrEmpty())
+		{
+			m_playerName.text = m_memberHandle;
+		}
+		for (int i = 0; i < m_menuButtons.Length; i++)
+		{
+			GroupMenuButtonAction action = (GroupMenuButtonAction)i;
+			UIManager.SetGameObjectActive(m_menuButtons[i].m_container, IsButtonActionVisible(action));
+			if (IsValidButtonAction(action))
+			{
+				m_menuButtons[i].m_icon.color = m_unhighlightedMenuItemColor;
+				m_menuButtons[i].m_label.color = m_unhighlightedMenuItemColor;
+			}
+			else
+			{
+				m_menuButtons[i].m_icon.color = Color.gray * 0.75f;
+				m_menuButtons[i].m_label.color = Color.gray * 0.75f;
+			}
+		}
+	}
+
+	public bool IsValidButtonAction(GroupMenuButtonAction action)
+	{
+		bool result = false;
+		if (m_memberAccountId >= 0)
+		{
+			switch (action)
+			{
+			case GroupMenuButtonAction.AddToFriends:
+				result = true;
+				break;
+			case GroupMenuButtonAction.KickFromParty:
+				if (ClientGameManager.Get().GroupInfo.IsLeader)
+				{
+					result = true;
+				}
+				break;
+			case GroupMenuButtonAction.LeaveParty:
+				if (ClientGameManager.Get().GroupInfo.InAGroup)
+				{
+					result = true;
+				}
+				break;
+			case GroupMenuButtonAction.PromoteToLeader:
+				if (ClientGameManager.Get().GroupInfo.IsLeader)
+				{
+					result = true;
+				}
+				break;
+			case GroupMenuButtonAction.SendMessage:
+				result = true;
+				break;
+			case GroupMenuButtonAction.ReportPlayer:
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+
+	public bool IsButtonActionVisible(GroupMenuButtonAction action)
+	{
+		bool result = true;
+		if (m_memberAccountId >= 0 && m_memberAccountId == ClientGameManager.Get().GetPlayerAccountData().AccountId)
+		{
+			if (action != GroupMenuButtonAction.AddToFriends)
+			{
+				if (action != GroupMenuButtonAction.KickFromParty && action != GroupMenuButtonAction.PromoteToLeader && action != 0)
+				{
+					if (action != GroupMenuButtonAction.ReportPlayer)
+					{
+						goto IL_0063;
+					}
+				}
+			}
+			return false;
+		}
+		goto IL_0063;
+		IL_0063:
+		return result;
 	}
 }

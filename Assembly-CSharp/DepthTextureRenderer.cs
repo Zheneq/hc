@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -23,34 +23,29 @@ public class DepthTextureRenderer : MonoBehaviour
 
 	private int m_depthTextureNameGlobalID;
 
-	internal static DepthTextureRenderer Instance { get; private set; }
+	internal static DepthTextureRenderer Instance
+	{
+		get;
+		private set;
+	}
 
 	private void Start()
 	{
-		DepthTextureRenderer.Instance = this;
-		for (int i = 0; i < this.m_layerNames.Length; i++)
+		Instance = this;
+		for (int i = 0; i < m_layerNames.Length; i++)
 		{
-			this.m_layersMask |= 1 << LayerMask.NameToLayer(this.m_layerNames[i]);
+			m_layersMask |= 1 << LayerMask.NameToLayer(m_layerNames[i]);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			m_depthTextureNameGlobalID = Shader.PropertyToID(m_depthTextureNameGlobal);
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(DepthTextureRenderer.Start()).MethodHandle;
-		}
-		this.m_depthTextureNameGlobalID = Shader.PropertyToID(this.m_depthTextureNameGlobal);
 	}
 
 	private void OnDestroy()
 	{
-		DepthTextureRenderer.Instance = null;
+		Instance = null;
 	}
 
 	private bool IsSupported()
@@ -60,188 +55,113 @@ public class DepthTextureRenderer : MonoBehaviour
 
 	internal bool IsFunctioning()
 	{
-		bool result;
-		if (this.IsSupported() && Options_UI.Get() != null)
+		int result;
+		if (IsSupported() && Options_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DepthTextureRenderer.IsFunctioning()).MethodHandle;
-			}
-			result = (Options_UI.Get().GetCurrentGraphicsQuality() >= this.m_minGraphicsQuality);
+			result = ((Options_UI.Get().GetCurrentGraphicsQuality() >= m_minGraphicsQuality) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	internal RenderTexture GetRenderTexture()
 	{
-		if (this.m_depthTex == null)
+		if (m_depthTex == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DepthTextureRenderer.GetRenderTexture()).MethodHandle;
-			}
-			if (this.m_depthCam != null)
+			if (m_depthCam != null)
 			{
 				try
 				{
-					this.m_depthTex = RenderTexture.GetTemporary(Screen.width, Screen.height, 0x18, RenderTextureFormat.Depth);
-					this.m_depthTex.name = this.m_depthTextureNameGlobal;
-					RenderTexture depthTex = this.m_depthTex;
-					bool isPowerOfTwo;
-					if (Mathf.IsPowerOfTwo(this.m_depthCam.pixelWidth))
+					m_depthTex = RenderTexture.GetTemporary(Screen.width, Screen.height, 24, RenderTextureFormat.Depth);
+					m_depthTex.name = m_depthTextureNameGlobal;
+					RenderTexture depthTex = m_depthTex;
+					int isPowerOfTwo;
+					if (Mathf.IsPowerOfTwo(m_depthCam.pixelWidth))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						isPowerOfTwo = Mathf.IsPowerOfTwo(this.m_depthCam.pixelHeight);
+						isPowerOfTwo = (Mathf.IsPowerOfTwo(m_depthCam.pixelHeight) ? 1 : 0);
 					}
 					else
 					{
-						isPowerOfTwo = false;
+						isPowerOfTwo = 0;
 					}
-					depthTex.isPowerOfTwo = isPowerOfTwo;
-					Shader.SetGlobalTexture(this.m_depthTextureNameGlobalID, this.m_depthTex);
+					depthTex.isPowerOfTwo = ((byte)isPowerOfTwo != 0);
+					Shader.SetGlobalTexture(m_depthTextureNameGlobalID, m_depthTex);
 				}
 				catch (Exception ex)
 				{
-					Log.Error("Failed to create {0}. {1}:{2}. Transparent environment objects will look incorrect temporarily.", new object[]
-					{
-						this.m_depthTextureNameGlobal,
-						ex,
-						ex.Message
-					});
+					Log.Error("Failed to create {0}. {1}:{2}. Transparent environment objects will look incorrect temporarily.", m_depthTextureNameGlobal, ex, ex.Message);
 				}
 			}
 		}
-		return this.m_depthTex;
+		return m_depthTex;
 	}
 
 	private void CleanUpTextures()
 	{
-		if (this.m_depthTex != null)
+		if (!(m_depthTex != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DepthTextureRenderer.CleanUpTextures()).MethodHandle;
-			}
-			RenderTexture.ReleaseTemporary(this.m_depthTex);
-			this.m_depthTex = null;
+			return;
+		}
+		while (true)
+		{
+			RenderTexture.ReleaseTemporary(m_depthTex);
+			m_depthTex = null;
+			return;
 		}
 	}
 
 	private void OnPreRender()
 	{
-		if (base.enabled)
+		if (!base.enabled)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!base.gameObject.activeSelf)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DepthTextureRenderer.OnPreRender()).MethodHandle;
-			}
-			if (base.gameObject.activeSelf)
-			{
-				for (;;)
+				if (!IsFunctioning())
 				{
-					switch (6)
+					while (true)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.IsFunctioning())
-				{
-					this.CleanUpTextures();
-					if (this.m_depthCamObj == null)
-					{
-						for (;;)
+						switch (5)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
+						default:
+							return;
+						case 0:
 							break;
 						}
-						this.m_depthCamObj = new GameObject(string.Format("DepthTextureCamera_{0}", this.m_layerNames[0]));
-						this.m_depthCam = this.m_depthCamObj.AddComponent<Camera>();
-						this.m_depthCam.enabled = false;
 					}
-					if (this.GetRenderTexture() != null)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.m_depthCam.CopyFrom(base.GetComponent<Camera>());
-						this.m_depthCam.backgroundColor = new Color(0f, 0f, 0f, 0f);
-						this.m_depthCam.clearFlags = CameraClearFlags.Color;
-						this.m_depthCam.cullingMask = ((!this.IsFunctioning()) ? 0 : this.m_layersMask);
-						this.m_depthCam.targetTexture = this.m_depthTex;
-						this.m_depthCam.depthTextureMode = DepthTextureMode.None;
-						this.m_depthCam.RenderWithShader(this.m_depthTextureShader, null);
-					}
-					return;
 				}
-				for (;;)
+				CleanUpTextures();
+				if (m_depthCamObj == null)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_depthCamObj = new GameObject($"DepthTextureCamera_{m_layerNames[0]}");
+					m_depthCam = m_depthCamObj.AddComponent<Camera>();
+					m_depthCam.enabled = false;
 				}
+				if (GetRenderTexture() != null)
+				{
+					while (true)
+					{
+						m_depthCam.CopyFrom(GetComponent<Camera>());
+						m_depthCam.backgroundColor = new Color(0f, 0f, 0f, 0f);
+						m_depthCam.clearFlags = CameraClearFlags.Color;
+						m_depthCam.cullingMask = (IsFunctioning() ? m_layersMask : 0);
+						m_depthCam.targetTexture = m_depthTex;
+						m_depthCam.depthTextureMode = DepthTextureMode.None;
+						m_depthCam.RenderWithShader(m_depthTextureShader, null);
+						return;
+					}
+				}
+				return;
 			}
 		}
 	}
@@ -249,27 +169,19 @@ public class DepthTextureRenderer : MonoBehaviour
 	private void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
 		Graphics.Blit(source, destination);
-		this.CleanUpTextures();
+		CleanUpTextures();
 	}
 
 	private void OnDisable()
 	{
-		if (this.m_depthCamObj)
+		if (!m_depthCamObj)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DepthTextureRenderer.OnDisable()).MethodHandle;
-			}
-			UnityEngine.Object.DestroyImmediate(this.m_depthCamObj);
+			return;
+		}
+		while (true)
+		{
+			UnityEngine.Object.DestroyImmediate(m_depthCamObj);
+			return;
 		}
 	}
 }

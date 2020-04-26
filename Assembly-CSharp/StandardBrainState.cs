@@ -1,11 +1,10 @@
-﻿using System;
 using System.Collections;
 
 public class StandardBrainState : FSMState
 {
 	private void Start()
 	{
-		this.stateID = StateID.StandardBrain;
+		stateID = StateID.StandardBrain;
 	}
 
 	public override void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)

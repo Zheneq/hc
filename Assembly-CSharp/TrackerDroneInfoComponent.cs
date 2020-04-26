@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class TrackerDroneInfoComponent : MonoBehaviour
@@ -67,110 +66,44 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 
 	private void Start()
 	{
-		AbilityData component = base.GetComponent<AbilityData>();
-		if (component != null)
+		AbilityData component = GetComponent<AbilityData>();
+		if (!(component != null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneInfoComponent.Start()).MethodHandle;
-			}
-			this.m_moveDroneAbility = (component.GetAbilityOfType(typeof(TrackerDrone)) as TrackerDrone);
-			this.m_basicAttackAbility = (component.GetAbilityOfType(typeof(TrackerHuntingCrossbow)) as TrackerHuntingCrossbow);
-			this.m_escapeAbility = (component.GetAbilityOfType(typeof(TrackerFlewTheCoop)) as TrackerFlewTheCoop);
-			this.m_prisonAbility = (component.GetAbilityOfType(typeof(TrackerTeslaPrison)) as TrackerTeslaPrison);
+			return;
+		}
+		while (true)
+		{
+			m_moveDroneAbility = (component.GetAbilityOfType(typeof(TrackerDrone)) as TrackerDrone);
+			m_basicAttackAbility = (component.GetAbilityOfType(typeof(TrackerHuntingCrossbow)) as TrackerHuntingCrossbow);
+			m_escapeAbility = (component.GetAbilityOfType(typeof(TrackerFlewTheCoop)) as TrackerFlewTheCoop);
+			m_prisonAbility = (component.GetAbilityOfType(typeof(TrackerTeslaPrison)) as TrackerTeslaPrison);
+			return;
 		}
 	}
 
 	public int GetDamageOnTracked(bool isMovingAbility)
 	{
-		int num = this.m_droneHitDamageAmount;
-		if (this.m_moveDroneAbility != null)
+		int num = m_droneHitDamageAmount;
+		if (m_moveDroneAbility != null)
 		{
-			for (;;)
+			if (m_moveDroneAbility.GetDroneMod() != null)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneInfoComponent.GetDamageOnTracked(bool)).MethodHandle;
-			}
-			if (this.m_moveDroneAbility.GetDroneMod() != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				AbilityMod_TrackerDrone droneMod = this.m_moveDroneAbility.GetDroneMod();
-				num = droneMod.m_trackedHitDamageMod.GetModifiedValue(this.m_droneHitDamageAmount);
+				AbilityMod_TrackerDrone droneMod = m_moveDroneAbility.GetDroneMod();
+				num = droneMod.m_trackedHitDamageMod.GetModifiedValue(m_droneHitDamageAmount);
 				if (isMovingAbility)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (droneMod.m_extraDamageWhenMovingOnTracked > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += droneMod.m_extraDamageWhenMovingOnTracked;
 					}
 				}
 			}
 		}
-		if (this.m_escapeAbility != null && this.m_escapeLastTurnCast > 0)
+		if (m_escapeAbility != null && m_escapeLastTurnCast > 0)
 		{
-			for (;;)
+			if (GameFlowData.Get().CurrentTurn - m_escapeLastTurnCast < m_escapeAbility.GetModdedExtraDroneDamageDuration())
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (GameFlowData.Get().CurrentTurn - this.m_escapeLastTurnCast < this.m_escapeAbility.GetModdedExtraDroneDamageDuration())
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num += this.m_escapeAbility.GetModdedExtraDroneDamage();
+				num += m_escapeAbility.GetModdedExtraDroneDamage();
 			}
 		}
 		return num;
@@ -178,75 +111,26 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 
 	public int GetDamageOnUntracked(bool isMovingAbility)
 	{
-		int num = this.m_untrackedDroneHitDamageAmount;
-		if (this.m_moveDroneAbility != null)
+		int num = m_untrackedDroneHitDamageAmount;
+		if (m_moveDroneAbility != null)
 		{
-			for (;;)
+			if (m_moveDroneAbility.GetDroneMod() != null)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneInfoComponent.GetDamageOnUntracked(bool)).MethodHandle;
-			}
-			if (this.m_moveDroneAbility.GetDroneMod() != null)
-			{
-				AbilityMod_TrackerDrone droneMod = this.m_moveDroneAbility.GetDroneMod();
-				num = this.m_moveDroneAbility.GetDroneMod().m_untrackedHitDamageMod.GetModifiedValue(this.m_untrackedDroneHitDamageAmount);
+				AbilityMod_TrackerDrone droneMod = m_moveDroneAbility.GetDroneMod();
+				num = m_moveDroneAbility.GetDroneMod().m_untrackedHitDamageMod.GetModifiedValue(m_untrackedDroneHitDamageAmount);
 				if (isMovingAbility && droneMod.m_extraDamageWhenMovingOnUntracked > 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += droneMod.m_extraDamageWhenMovingOnUntracked;
 				}
 			}
 		}
-		if (this.m_escapeAbility != null)
+		if (m_escapeAbility != null)
 		{
-			for (;;)
+			if (m_escapeLastTurnCast > 0)
 			{
-				switch (1)
+				if (GameFlowData.Get().CurrentTurn - m_escapeLastTurnCast < m_escapeAbility.GetModdedExtraDroneDamageDuration())
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_escapeLastTurnCast > 0)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (GameFlowData.Get().CurrentTurn - this.m_escapeLastTurnCast < this.m_escapeAbility.GetModdedExtraDroneDamageDuration())
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num += this.m_escapeAbility.GetModdedExtraDroneUntrackedDamage();
+					num += m_escapeAbility.GetModdedExtraDroneUntrackedDamage();
 				}
 			}
 		}
@@ -255,71 +139,45 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 
 	public bool CanHitInvisibleActors()
 	{
-		if (this.m_moveDroneAbility != null && this.m_moveDroneAbility.GetDroneMod() != null)
+		if (m_moveDroneAbility != null && m_moveDroneAbility.GetDroneMod() != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_moveDroneAbility.GetDroneMod().m_hitInvisibleTargetsMod.GetModifiedValue(m_hitInvisibleTargets);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneInfoComponent.CanHitInvisibleActors()).MethodHandle;
-			}
-			return this.m_moveDroneAbility.GetDroneMod().m_hitInvisibleTargetsMod.GetModifiedValue(this.m_hitInvisibleTargets);
 		}
-		return this.m_hitInvisibleTargets;
+		return m_hitInvisibleTargets;
 	}
 
 	public bool UseDirectDamageForDrone()
 	{
-		return this.m_droneDamageDirect;
+		return m_droneDamageDirect;
 	}
 
 	public bool ShouldAddHuntedEffectFromDrone()
 	{
-		if (this.m_moveDroneAbility != null)
+		if (m_moveDroneAbility != null)
 		{
-			for (;;)
+			if (m_moveDroneAbility.GetDroneMod() != null)
 			{
-				switch (7)
+				if (m_basicAttackAbility != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneInfoComponent.ShouldAddHuntedEffectFromDrone()).MethodHandle;
-			}
-			if (this.m_moveDroneAbility.GetDroneMod() != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_basicAttackAbility != null)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return m_moveDroneAbility.GetDroneMod().m_applyHuntedEffect;
 						}
-						break;
 					}
-					return this.m_moveDroneAbility.GetDroneMod().m_applyHuntedEffect;
 				}
 			}
 		}
@@ -328,163 +186,84 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 
 	public StandardActorEffectData GetHuntedEffectData()
 	{
-		if (this.m_basicAttackAbility != null)
+		if (m_basicAttackAbility != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_basicAttackAbility.GetHuntedEffect();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneInfoComponent.GetHuntedEffectData()).MethodHandle;
-			}
-			return this.m_basicAttackAbility.GetHuntedEffect();
 		}
 		return null;
 	}
 
 	public StandardEffectInfo GetTrackedHitEffect()
 	{
-		if (this.m_moveDroneAbility != null)
+		if (m_moveDroneAbility != null)
 		{
-			for (;;)
+			if (m_moveDroneAbility.GetDroneMod() != null)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneInfoComponent.GetTrackedHitEffect()).MethodHandle;
-			}
-			if (this.m_moveDroneAbility.GetDroneMod() != null)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_moveDroneAbility.GetDroneMod().m_trackedHitEffectOverride.GetModifiedValue(m_droneHitEffect);
 					}
-					break;
 				}
-				return this.m_moveDroneAbility.GetDroneMod().m_trackedHitEffectOverride.GetModifiedValue(this.m_droneHitEffect);
 			}
 		}
-		return this.m_droneHitEffect;
+		return m_droneHitEffect;
 	}
 
 	public StandardEffectInfo GetUntrackedHitEffect()
 	{
-		if (this.m_moveDroneAbility != null)
+		if (m_moveDroneAbility != null)
 		{
-			for (;;)
+			if (m_moveDroneAbility.GetDroneMod() != null)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneInfoComponent.GetUntrackedHitEffect()).MethodHandle;
-			}
-			if (this.m_moveDroneAbility.GetDroneMod() != null)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_moveDroneAbility.GetDroneMod().m_untrackedHitEffectOverride.GetModifiedValue(m_untrackedDroneHitEffect);
 					}
-					break;
 				}
-				return this.m_moveDroneAbility.GetDroneMod().m_untrackedHitEffectOverride.GetModifiedValue(this.m_untrackedDroneHitEffect);
 			}
 		}
-		return this.m_untrackedDroneHitEffect;
+		return m_untrackedDroneHitEffect;
 	}
 
 	public float GetTargeterMaxRangeFromCaster(bool forUlt)
 	{
-		float num = this.m_targeterMaxRangeFromCaster;
+		float num = m_targeterMaxRangeFromCaster;
 		if (forUlt)
 		{
-			for (;;)
+			if (m_prisonAbility != null)
 			{
-				switch (5)
+				if (m_prisonAbility.GetUltMod() != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneInfoComponent.GetTargeterMaxRangeFromCaster(bool)).MethodHandle;
-			}
-			if (this.m_prisonAbility != null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_prisonAbility.GetUltMod() != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num = this.m_prisonAbility.GetUltMod().m_droneTargeterMaxRangeFromCasterMod.GetModifiedValue(num);
+					num = m_prisonAbility.GetUltMod().m_droneTargeterMaxRangeFromCasterMod.GetModifiedValue(num);
 				}
 			}
 		}
 		if (!forUlt)
 		{
-			for (;;)
+			if (m_moveDroneAbility != null)
 			{
-				switch (7)
+				if (m_moveDroneAbility.GetDroneMod() != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_moveDroneAbility != null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_moveDroneAbility.GetDroneMod() != null)
-				{
-					num = this.m_moveDroneAbility.GetDroneMod().m_droneTargeterMaxRangeFromCasterMod.GetModifiedValue(num);
+					num = m_moveDroneAbility.GetDroneMod().m_droneTargeterMaxRangeFromCasterMod.GetModifiedValue(num);
 				}
 			}
 		}
@@ -493,34 +272,12 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 
 	public float GetVisionRadius()
 	{
-		float result = this.m_droneVisionRadius;
-		if (this.m_moveDroneAbility != null)
+		float result = m_droneVisionRadius;
+		if (m_moveDroneAbility != null)
 		{
-			for (;;)
+			if (m_moveDroneAbility.GetDroneMod() != null)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneInfoComponent.GetVisionRadius()).MethodHandle;
-			}
-			if (this.m_moveDroneAbility.GetDroneMod() != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				result = this.m_moveDroneAbility.GetDroneMod().m_droneVisionRadiusMod.GetModifiedValue(this.m_droneVisionRadius);
+				result = m_moveDroneAbility.GetDroneMod().m_droneVisionRadiusMod.GetModifiedValue(m_droneVisionRadius);
 			}
 		}
 		return result;

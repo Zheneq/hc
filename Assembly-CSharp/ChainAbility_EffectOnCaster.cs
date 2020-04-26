@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class ChainAbility_EffectOnCaster : Ability
@@ -12,10 +11,10 @@ public class ChainAbility_EffectOnCaster : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "CHAIN_ABILITY_EFFECT_ON_CASTER";
+			m_abilityName = "CHAIN_ABILITY_EFFECT_ON_CASTER";
 		}
-		this.m_sequencePrefab = this.m_castSequencePrefab;
+		m_sequencePrefab = m_castSequencePrefab;
 	}
 }

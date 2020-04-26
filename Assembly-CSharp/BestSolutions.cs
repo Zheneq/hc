@@ -1,1234 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 public class BestSolutions
 {
-	internal const int c_numberOfUniqueRoles = 3;
-
-	private List<BestSolutions.Solution> m_solutions = new List<BestSolutions.Solution>();
-
-	internal FreelancerDuplicationRuleTypes m_duplicationRule;
-
-	public void Register(List<int> potentialTeam, List<ELOProvider> players, float aVbEloDifference, float maxTeamDifference, BestSolutions.ILegalityValidator legalityValidator)
-	{
-		bool hasNoobCollision = false;
-		bool hasExpertCollision = false;
-		int num = 0;
-		int num2 = 0;
-		Dictionary<long, int> dictionary = new Dictionary<long, int>();
-		Dictionary<long, int> dictionary2 = new Dictionary<long, int>();
-		Dictionary<long, ushort> dictionary3 = new Dictionary<long, ushort>();
-		Dictionary<CharacterType, bool> dictionary4 = new Dictionary<CharacterType, bool>();
-		Dictionary<CharacterType, bool> dictionary5 = new Dictionary<CharacterType, bool>();
-		Dictionary<string, int> dictionary6 = new Dictionary<string, int>();
-		Dictionary<string, int> dictionary7 = new Dictionary<string, int>();
-		Region? region = null;
-		bool flag = true;
-		int num3 = 0;
-		int num4 = 0;
-		bool flag2 = false;
-		bool flag3 = false;
-		bool flag4 = false;
-		bool flag5 = false;
-		bool flag6 = false;
-		bool flag7 = false;
-		Dictionary<BestSolutions.ExcuseBucket, List<CharacterRole>> dictionary8 = new Dictionary<BestSolutions.ExcuseBucket, List<CharacterRole>>();
-		Dictionary<BestSolutions.ExcuseBucket, List<CharacterRole>> dictionary9 = new Dictionary<BestSolutions.ExcuseBucket, List<CharacterRole>>();
-		List<float> list = new List<float>();
-		List<float> list2 = new List<float>();
-		for (int i = 0; i < players.Count; i++)
-		{
-			CharacterType selectedCharacter = players[i].SelectedCharacter;
-			long groupId = players[i].GroupId;
-			bool isCollisionNoob = players[i].IsCollisionNoob;
-			bool flag8;
-			if (i != players.Count<ELOProvider>() - 1)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.Register(List<int>, List<ELOProvider>, float, float, BestSolutions.ILegalityValidator)).MethodHandle;
-				}
-				flag8 = (potentialTeam[i] == 1);
-			}
-			else
-			{
-				flag8 = true;
-			}
-			bool flag9 = flag8;
-			if (players[i].IsNPCBot)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num += ((!flag9) ? 1 : -1);
-			}
-			else if (region != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				bool flag10 = flag;
-				Region value = region.Value;
-				Region? region2 = players[i].Region;
-				bool flag11;
-				if (value == region2.GetValueOrDefault())
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag11 = (region2 != null);
-				}
-				else
-				{
-					flag11 = false;
-				}
-				flag = (flag10 && flag11);
-			}
-			else
-			{
-				region = players[i].Region;
-			}
-			BestSolutions.ExcuseBucket key = new BestSolutions.ExcuseBucket(i, groupId);
-			List<CharacterRole> list3;
-			if (flag9)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				int num5;
-				if (dictionary6.TryGetValue(players[i].LanguageCode, out num5))
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					dictionary6[players[i].LanguageCode] = num5 + 1;
-				}
-				else
-				{
-					dictionary6.Add(players[i].LanguageCode, 1);
-				}
-				num3 += ((!selectedCharacter.IsValidForHumanGameplay()) ? 1 : 0);
-				num2 += players[i].LossStreak;
-				if (!dictionary8.TryGetValue(key, out list3))
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					list3 = new List<CharacterRole>();
-					dictionary8[key] = list3;
-				}
-				if (players[i].SelectedRole == CharacterRole.Assassin)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag2 = true;
-				}
-				else if (players[i].SelectedRole == CharacterRole.Tank)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag3 = true;
-				}
-				else if (players[i].SelectedRole == CharacterRole.Support)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag4 = true;
-				}
-			}
-			else
-			{
-				int num6;
-				if (dictionary7.TryGetValue(players[i].LanguageCode, out num6))
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					dictionary7[players[i].LanguageCode] = num6 + 1;
-				}
-				else
-				{
-					dictionary7.Add(players[i].LanguageCode, 1);
-				}
-				num4 += ((!selectedCharacter.IsValidForHumanGameplay()) ? 1 : 0);
-				num2 -= players[i].LossStreak;
-				if (!dictionary9.TryGetValue(key, out list3))
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					list3 = new List<CharacterRole>();
-					dictionary9[key] = list3;
-				}
-				if (players[i].SelectedRole == CharacterRole.Assassin)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag5 = true;
-				}
-				else if (players[i].SelectedRole == CharacterRole.Tank)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag6 = true;
-				}
-				else if (players[i].SelectedRole == CharacterRole.Support)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag7 = true;
-				}
-			}
-			list3.Add(players[i].SelectedRole);
-			if (this.NoDupInTeam)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (flag9)
-				{
-					goto IL_408;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Dictionary<CharacterType, bool> dictionary10;
-				if (this.NoDupInGame)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_408;
-					}
-				}
-				else
-				{
-					dictionary10 = dictionary5;
-				}
-				IL_40E:
-				Dictionary<CharacterType, bool> dictionary11 = dictionary10;
-				bool flag12;
-				if (dictionary11.TryGetValue(selectedCharacter, out flag12))
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!flag12)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						hasExpertCollision = true;
-						if (isCollisionNoob)
-						{
-							dictionary11[selectedCharacter] = true;
-						}
-					}
-					else if (isCollisionNoob)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						hasNoobCollision = true;
-					}
-					else
-					{
-						hasExpertCollision = true;
-					}
-					goto IL_47F;
-				}
-				if (selectedCharacter.IsValidForHumanGameplay())
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					dictionary11.Add(selectedCharacter, isCollisionNoob);
-					goto IL_47F;
-				}
-				goto IL_47F;
-				IL_408:
-				dictionary10 = dictionary4;
-				goto IL_40E;
-			}
-			IL_47F:
-			if (groupId != 0L)
-			{
-				if (dictionary3.ContainsKey(groupId))
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Dictionary<long, ushort> dictionary13;
-					Dictionary<long, ushort> dictionary12 = dictionary13 = dictionary3;
-					long key3;
-					long key2 = key3 = groupId;
-					ushort num7 = dictionary13[key3];
-					ushort num8;
-					if (flag9)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num8 = 1;
-					}
-					else
-					{
-						num8 = 0x10;
-					}
-					dictionary12[key2] = (num7 | num8);
-				}
-				else
-				{
-					Dictionary<long, ushort> dictionary14 = dictionary3;
-					long key4 = groupId;
-					ushort value2;
-					if (flag9)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						value2 = 1;
-					}
-					else
-					{
-						value2 = 0x10;
-					}
-					dictionary14.Add(key4, value2);
-				}
-				Dictionary<long, int> dictionary15 = (!flag9) ? dictionary2 : dictionary;
-				if (dictionary15.ContainsKey(groupId))
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Dictionary<long, int> dictionary16;
-					long key5;
-					(dictionary16 = dictionary15)[key5 = groupId] = dictionary16[key5] + 1;
-				}
-				else
-				{
-					dictionary15[groupId] = 1;
-				}
-			}
-			if (flag9)
-			{
-				list.Add(players[i].ELO);
-			}
-			else
-			{
-				list2.Add(players[i].ELO);
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		int num9;
-		if (dictionary.IsNullOrEmpty<KeyValuePair<long, int>>())
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num9 = 1;
-		}
-		else
-		{
-			num9 = (from p in dictionary
-			select p.Value).Max();
-		}
-		int num10 = num9;
-		int num11;
-		if (dictionary2.IsNullOrEmpty<KeyValuePair<long, int>>())
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num11 = 1;
-		}
-		else
-		{
-			IEnumerable<KeyValuePair<long, int>> source = dictionary2;
-			if (BestSolutions.<>f__am$cache1 == null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				BestSolutions.<>f__am$cache1 = ((KeyValuePair<long, int> p) => p.Value);
-			}
-			num11 = source.Select(BestSolutions.<>f__am$cache1).Max();
-		}
-		int num12 = num11;
-		int maxGroupSizeImbalance = num10 - num12;
-		int num13;
-		if (dictionary.IsNullOrEmpty<KeyValuePair<long, int>>())
-		{
-			num13 = 1;
-		}
-		else
-		{
-			IEnumerable<KeyValuePair<long, int>> source2 = dictionary;
-			if (BestSolutions.<>f__am$cache2 == null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				BestSolutions.<>f__am$cache2 = ((KeyValuePair<long, int> p) => p.Value);
-			}
-			num13 = source2.Select(BestSolutions.<>f__am$cache2).Sum();
-		}
-		int num14 = num13;
-		int num15;
-		if (dictionary2.IsNullOrEmpty<KeyValuePair<long, int>>())
-		{
-			num15 = 1;
-		}
-		else
-		{
-			num15 = (from p in dictionary2
-			select p.Value).Sum();
-		}
-		int num16 = num15;
-		int groupedMemberCountImbalance = num14 - num16;
-		float num17 = 0f;
-		float num18 = float.MinValue;
-		list.Sort();
-		using (List<float>.Enumerator enumerator = list.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				float num19 = enumerator.Current;
-				float num20 = num19;
-				if (num18 != -3.40282347E+38f)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					float num21 = num20 - num18;
-					if (num21 > num17)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num17 = num21;
-					}
-				}
-				num18 = num20;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		num18 = float.MinValue;
-		list2.Sort();
-		using (List<float>.Enumerator enumerator2 = list2.GetEnumerator())
-		{
-			while (enumerator2.MoveNext())
-			{
-				float num22 = enumerator2.Current;
-				float num23 = num22;
-				if (num18 != -3.40282347E+38f)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					float num24 = num23 - num18;
-					if (num24 > num17)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num17 = num24;
-					}
-				}
-				num18 = num23;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		BestSolutions.GroupBreakage groupBreakage = BestSolutions.GroupBreakage.NONE;
-		IEnumerable<KeyValuePair<long, ushort>> source3 = dictionary3;
-		if (BestSolutions.<>f__am$cache4 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			BestSolutions.<>f__am$cache4 = ((KeyValuePair<long, ushort> p) => p.Value == 0x11);
-		}
-		IEnumerable<KeyValuePair<long, ushort>> source4 = source3.Where(BestSolutions.<>f__am$cache4);
-		if (BestSolutions.<>f__am$cache5 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			BestSolutions.<>f__am$cache5 = ((KeyValuePair<long, ushort> p) => p.Key);
-		}
-		IEnumerable<long> source5 = source4.Select(BestSolutions.<>f__am$cache5);
-		if (source5.Count<long>() > 1)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			groupBreakage = BestSolutions.GroupBreakage.MULTIPLE_GROUPS;
-		}
-		else if (source5.Count<long>() == 1)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			long num25 = source5.First<long>();
-			float val = float.MaxValue;
-			float val2 = float.MinValue;
-			using (List<ELOProvider>.Enumerator enumerator3 = players.GetEnumerator())
-			{
-				while (enumerator3.MoveNext())
-				{
-					ELOProvider eloprovider = enumerator3.Current;
-					if (eloprovider.GroupId == num25)
-					{
-						val = Math.Min(val, eloprovider.ELO);
-					}
-					else
-					{
-						val2 = Math.Max(val2, eloprovider.ELO);
-					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			groupBreakage = BestSolutions.GroupBreakage.ONE_GROUP;
-		}
-		int num26 = 1;
-		if (BestSolutions.<>f__am$cache6 == null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			BestSolutions.<>f__am$cache6 = ((int p) => p == 1);
-		}
-		int playersOnTeam = num26 + potentialTeam.Count(BestSolutions.<>f__am$cache6);
-		int num27 = BestSolutions.ExcuseBucket.ComputeRolesPresent(playersOnTeam, dictionary8);
-		if (BestSolutions.<>f__am$cache7 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			BestSolutions.<>f__am$cache7 = ((int p) => p != 1);
-		}
-		int playersOnTeam2 = potentialTeam.Count(BestSolutions.<>f__am$cache7);
-		int num28 = BestSolutions.ExcuseBucket.ComputeRolesPresent(playersOnTeam2, dictionary9);
-		int roleImbalance = num27 - num28;
-		int num29 = num3;
-		int num30 = num4;
-		if (!flag2)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (num29 > 0)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag2 = true;
-				num29--;
-			}
-		}
-		if (!flag3)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (num29 > 0)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag3 = true;
-				num29--;
-			}
-		}
-		if (!flag4)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (num29 > 0)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag4 = true;
-				num29--;
-			}
-		}
-		if (!flag5)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (num30 > 0)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag5 = true;
-				num30--;
-			}
-		}
-		if (!flag6)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (num30 > 0)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag6 = true;
-				num30--;
-			}
-		}
-		if (!flag7)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (num30 > 0)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag7 = true;
-				num30--;
-			}
-		}
-		bool flag13;
-		if (flag2)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag13 = flag5;
-		}
-		else
-		{
-			flag13 = false;
-		}
-		bool hasAssassin = flag13;
-		bool flag14;
-		if (flag3)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag14 = flag6;
-		}
-		else
-		{
-			flag14 = false;
-		}
-		bool hasTank = flag14;
-		bool flag15;
-		if (flag4)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			flag15 = flag7;
-		}
-		else
-		{
-			flag15 = false;
-		}
-		bool hasSupport = flag15;
-		int willFillImbalance = num3 - num4;
-		int num31;
-		if (dictionary6.IsNullOrEmpty<KeyValuePair<string, int>>())
-		{
-			num31 = 0;
-		}
-		else
-		{
-			IEnumerable<int> values = dictionary6.Values;
-			if (BestSolutions.<>f__am$cache8 == null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				BestSolutions.<>f__am$cache8 = ((int p) => p > 1);
-			}
-			num31 = values.Where(BestSolutions.<>f__am$cache8).Sum();
-		}
-		int num32 = num31;
-		int num33;
-		if (dictionary7.IsNullOrEmpty<KeyValuePair<string, int>>())
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			num33 = 0;
-		}
-		else
-		{
-			IEnumerable<int> values2 = dictionary7.Values;
-			if (BestSolutions.<>f__am$cache9 == null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				BestSolutions.<>f__am$cache9 = ((int p) => p > 1);
-			}
-			num33 = values2.Where(BestSolutions.<>f__am$cache9).Sum();
-		}
-		int num34 = num33;
-		BestSolutions.Solution solution = new BestSolutions.Solution(aVbEloDifference, groupBreakage, potentialTeam, maxTeamDifference, maxGroupSizeImbalance, groupedMemberCountImbalance, num, num2, roleImbalance, hasAssassin, hasTank, hasSupport, hasNoobCollision, hasExpertCollision, num17, willFillImbalance, flag, num32 + num34, num32 - num34);
-		solution.SetLegality(legalityValidator);
-		this.m_solutions.Add(solution);
-	}
-
-	public BestSolutions.BalanceResults Resolve(double rnd)
-	{
-		bool flag = false;
-		if (flag)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.Resolve(double)).MethodHandle;
-			}
-			this.m_solutions.Sort();
-			for (int i = 0; i < this.m_solutions.Count; i++)
-			{
-				string message = "{0}: {1}";
-				object[] array = new object[2];
-				int num = 0;
-				object obj;
-				if (i == 0)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					obj = "best";
-				}
-				else
-				{
-					obj = string.Format("#{0}", i);
-				}
-				array[num] = obj;
-				array[1] = this.m_solutions[i].GetLogString();
-				Log.Warning(message, array);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		else
-		{
-			BestSolutions.Solution solution = this.m_solutions[0];
-			int index = 0;
-			for (int j = 1; j < this.m_solutions.Count; j++)
-			{
-				if (this.m_solutions[j].CompareTo(solution) < 0)
-				{
-					solution = this.m_solutions[j];
-					index = j;
-				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_solutions[index] = this.m_solutions[0];
-			this.m_solutions[0] = solution;
-		}
-		return new BestSolutions.BalanceResults(this.m_solutions[0], rnd);
-	}
-
-	public bool OnTeamA(int playerIndex)
-	{
-		bool result;
-		if (playerIndex < this.m_solutions[0].m_sides.Count<int>())
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.OnTeamA(int)).MethodHandle;
-			}
-			result = (this.m_solutions[0].m_sides[playerIndex] == 1);
-		}
-		else
-		{
-			result = true;
-		}
-		return result;
-	}
-
-	private bool NoDupInGame
-	{
-		get
-		{
-			return this.m_duplicationRule == FreelancerDuplicationRuleTypes.noneInGame;
-		}
-	}
-
-	private bool NoDupInTeam
-	{
-		get
-		{
-			if (this.m_duplicationRule == FreelancerDuplicationRuleTypes.byGameType)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.get_NoDupInTeam()).MethodHandle;
-				}
-				throw new Exception("Must have resolved duplication rule before using BestSolutions.Resolve");
-			}
-			bool result;
-			if (this.m_duplicationRule != FreelancerDuplicationRuleTypes.noneInGame)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				result = (this.m_duplicationRule == FreelancerDuplicationRuleTypes.noneInTeam);
-			}
-			else
-			{
-				result = true;
-			}
-			return result;
-		}
-	}
-
 	public enum GroupBreakage
 	{
 		NONE,
@@ -1245,12 +20,12 @@ public class BestSolutions
 
 	public interface ILegalityValidator
 	{
-		bool IsLegal(BestSolutions.Solution s);
+		bool IsLegal(Solution s);
 	}
 
-	public class Solution : IComparable<BestSolutions.Solution>
+	public class Solution : IComparable<Solution>
 	{
-		private BestSolutions.GroupBreakage m_groupBreakage;
+		private GroupBreakage m_groupBreakage;
 
 		private bool m_useOtherSortingCriteria;
 
@@ -1294,334 +69,57 @@ public class BestSolutions
 
 		private bool m_isLegal;
 
-		public Solution(float aVbEloDifference, BestSolutions.GroupBreakage groupBreakage, List<int> sides, float maxDifferenceForOtherSortingMethods, int maxGroupSizeImbalance, int groupedMemberCountImbalance, int botImbalance, int loserImbalance, int roleImbalance, bool hasAssassin, bool hasTank, bool hasSupport, bool hasNoobCollision, bool hasExpertCollision, float largestEloWidth, int willFillImbalance, bool regionUniqueness, int languageCommonality, int languageTeamAAdvantage)
-		{
-			this.m_groupBreakage = groupBreakage;
-			this.m_AvBEloDifference = aVbEloDifference;
-			this.m_largestEloWidth = largestEloWidth;
-			float num = Math.Abs(aVbEloDifference);
-			this.m_useOtherSortingCriteria = (num < maxDifferenceForOtherSortingMethods);
-			this.m_useFineOtherSortingCriteria = (num < maxDifferenceForOtherSortingMethods / 2f);
-			this.m_sides = new List<int>(sides);
-			this.m_maxGroupSizeImbalance = Math.Abs(maxGroupSizeImbalance);
-			this.m_groupedMemberCountImbalance = Math.Abs(groupedMemberCountImbalance);
-			this.m_botImbalance = Math.Abs(botImbalance);
-			this.m_loserImbalance = Math.Abs(loserImbalance);
-			this.m_roleImbalance = Math.Abs(roleImbalance);
-			this.m_willFillImbalance = Math.Abs(willFillImbalance);
-			this.m_hasRoleAssassin = hasAssassin;
-			this.m_hasRoleTank = hasTank;
-			this.m_hasRoleSupport = hasSupport;
-			this.m_noobCollision = hasNoobCollision;
-			this.m_expertCollision = hasExpertCollision;
-			int num2 = 0;
-			if (maxGroupSizeImbalance != 0)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.Solution..ctor(float, BestSolutions.GroupBreakage, List<int>, float, int, int, int, int, int, bool, bool, bool, bool, bool, float, int, bool, int, int)).MethodHandle;
-				}
-				int num3 = num2;
-				int num4;
-				if (maxGroupSizeImbalance > 0)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num4 = 1;
-				}
-				else
-				{
-					num4 = -1;
-				}
-				num2 = num3 + num4;
-			}
-			else if (groupedMemberCountImbalance != 0)
-			{
-				num2 += ((groupedMemberCountImbalance <= 0) ? -1 : 1);
-			}
-			if (roleImbalance != 0)
-			{
-				int num5 = num2;
-				int num6;
-				if (roleImbalance > 0)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num6 = 1;
-				}
-				else
-				{
-					num6 = -1;
-				}
-				num2 = num5 + num6;
-			}
-			if (willFillImbalance != 0)
-			{
-				num2 += ((willFillImbalance <= 0) ? -1 : 1);
-			}
-			if (botImbalance != 0)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				int num7 = num2;
-				int num8;
-				if (botImbalance > 0)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num8 = 1;
-				}
-				else
-				{
-					num8 = -1;
-				}
-				num2 = num7 + num8;
-			}
-			if (!this.m_useFineOtherSortingCriteria)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num2 += ((aVbEloDifference <= 0f) ? -1 : 1);
-				if (!this.m_useOtherSortingCriteria)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					int num9 = num2;
-					int num10;
-					if (aVbEloDifference > 0f)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num10 = 1;
-					}
-					else
-					{
-						num10 = -1;
-					}
-					num2 = num9 + num10;
-				}
-			}
-			this.m_balanceFailureImbalance = Math.Abs(num2);
-			this.m_regionUniqueness = regionUniqueness;
-			this.m_languageCommonality = languageCommonality;
-			if (languageTeamAAdvantage > 0)
-			{
-				num2++;
-				this.m_languageImbalance = true;
-			}
-			else if (languageTeamAAdvantage < 0)
-			{
-				num2--;
-				this.m_languageImbalance = true;
-			}
-			else
-			{
-				this.m_languageImbalance = false;
-			}
-		}
+		public float AbsEloDifference => Math.Abs(m_AvBEloDifference);
 
-		public float AbsEloDifference
-		{
-			get
-			{
-				return Math.Abs(this.m_AvBEloDifference);
-			}
-		}
+		public float AvBEloDifference => m_AvBEloDifference;
 
-		public float AvBEloDifference
-		{
-			get
-			{
-				return this.m_AvBEloDifference;
-			}
-		}
+		public bool BreaksGroups => m_groupBreakage != GroupBreakage.NONE;
 
-		public bool BreaksGroups
-		{
-			get
-			{
-				return this.m_groupBreakage != BestSolutions.GroupBreakage.NONE;
-			}
-		}
+		public bool HasNoobCollisions => m_noobCollision;
 
-		public bool HasNoobCollisions
-		{
-			get
-			{
-				return this.m_noobCollision;
-			}
-		}
+		public bool HasExpertCollisions => m_expertCollision;
 
-		public bool HasExpertCollisions
-		{
-			get
-			{
-				return this.m_expertCollision;
-			}
-		}
+		public int MaxGroupSizeImbalance => m_maxGroupSizeImbalance;
 
-		public int MaxGroupSizeImbalance
-		{
-			get
-			{
-				return this.m_maxGroupSizeImbalance;
-			}
-		}
+		public int GroupedMemberCountImbalance => m_groupedMemberCountImbalance;
 
-		public int GroupedMemberCountImbalance
-		{
-			get
-			{
-				return this.m_groupedMemberCountImbalance;
-			}
-		}
+		public GroupBreakage GroupBreakage => m_groupBreakage;
 
-		public BestSolutions.GroupBreakage GroupBreakage
-		{
-			get
-			{
-				return this.m_groupBreakage;
-			}
-		}
-
-		public bool HasRoleImbalance
-		{
-			get
-			{
-				return this.m_roleImbalance != 0;
-			}
-		}
+		public bool HasRoleImbalance => m_roleImbalance != 0;
 
 		public bool HasMissingRoles
 		{
 			get
 			{
-				if (this.m_hasRoleTank)
+				int result;
+				if (m_hasRoleTank)
 				{
-					for (;;)
+					if (m_hasRoleSupport)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.Solution.get_HasMissingRoles()).MethodHandle;
-					}
-					if (this.m_hasRoleSupport)
-					{
-						return !this.m_hasRoleAssassin;
+						result = ((!m_hasRoleAssassin) ? 1 : 0);
+						goto IL_002f;
 					}
 				}
-				return true;
+				result = 1;
+				goto IL_002f;
+				IL_002f:
+				return (byte)result != 0;
 			}
 		}
 
-		public bool HasMissingRoleAssassin
-		{
-			get
-			{
-				return !this.m_hasRoleAssassin;
-			}
-		}
+		public bool HasMissingRoleAssassin => !m_hasRoleAssassin;
 
-		public bool HasMissingRoleTank
-		{
-			get
-			{
-				return !this.m_hasRoleTank;
-			}
-		}
+		public bool HasMissingRoleTank => !m_hasRoleTank;
 
-		public bool HasMissingRoleSupport
-		{
-			get
-			{
-				return !this.m_hasRoleSupport;
-			}
-		}
+		public bool HasMissingRoleSupport => !m_hasRoleSupport;
 
 		public int RoleCount
 		{
 			get
 			{
 				int num;
-				if (this.m_hasRoleAssassin)
+				if (m_hasRoleAssassin)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.Solution.get_RoleCount()).MethodHandle;
-					}
 					num = 1;
 				}
 				else
@@ -1629,17 +127,8 @@ public class BestSolutions
 					num = 0;
 				}
 				int num2;
-				if (this.m_hasRoleTank)
+				if (m_hasRoleTank)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = 1;
 				}
 				else
@@ -1648,17 +137,8 @@ public class BestSolutions
 				}
 				int num3 = num + num2;
 				int num4;
-				if (this.m_hasRoleSupport)
+				if (m_hasRoleSupport)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = 1;
 				}
 				else
@@ -1669,358 +149,285 @@ public class BestSolutions
 			}
 		}
 
-		public bool HasWillFillImbalance
-		{
-			get
-			{
-				return this.m_willFillImbalance != 0;
-			}
-		}
+		public bool HasWillFillImbalance => m_willFillImbalance != 0;
 
-		public bool HasBotImbalance
-		{
-			get
-			{
-				return this.m_botImbalance > 1;
-			}
-		}
+		public bool HasBotImbalance => m_botImbalance > 1;
 
-		public bool HasLoserImbalance
-		{
-			get
-			{
-				return this.m_loserImbalance > 1;
-			}
-		}
+		public bool HasLoserImbalance => m_loserImbalance > 1;
 
-		public bool HasRegionUniqueness
-		{
-			get
-			{
-				return this.m_regionUniqueness;
-			}
-		}
+		public bool HasRegionUniqueness => m_regionUniqueness;
 
-		public bool HasLanguageImbalance
-		{
-			get
-			{
-				return this.m_languageImbalance;
-			}
-		}
+		public bool HasLanguageImbalance => m_languageImbalance;
 
-		public int LanguageCommonality
-		{
-			get
-			{
-				return this.m_languageCommonality;
-			}
-		}
+		public int LanguageCommonality => m_languageCommonality;
 
-		public BestSolutions.BalanceResults.BalanceFailureLevel BalanceFailureImbalance
+		public BalanceResults.BalanceFailureLevel BalanceFailureImbalance
 		{
 			get
 			{
-				BestSolutions.BalanceResults.BalanceFailureLevel result;
-				if (this.m_balanceFailureImbalance == 0)
+				int result;
+				if (m_balanceFailureImbalance == 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.Solution.get_BalanceFailureImbalance()).MethodHandle;
-					}
-					result = BestSolutions.BalanceResults.BalanceFailureLevel.Fair;
+					result = 0;
 				}
-				else if (this.m_balanceFailureImbalance == 1)
+				else if (m_balanceFailureImbalance != 1)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = BestSolutions.BalanceResults.BalanceFailureLevel.Minor;
+					result = ((m_balanceFailureImbalance != 2) ? 3 : 2);
 				}
 				else
 				{
-					result = ((this.m_balanceFailureImbalance != 2) ? BestSolutions.BalanceResults.BalanceFailureLevel.Tragic : BestSolutions.BalanceResults.BalanceFailureLevel.Major);
+					result = 1;
 				}
-				return result;
+				return (BalanceResults.BalanceFailureLevel)result;
 			}
 		}
 
-		public BestSolutions.EloImbalance EloImbalance
+		public EloImbalance EloImbalance
 		{
 			get
 			{
-				BestSolutions.EloImbalance result;
-				if (this.m_useFineOtherSortingCriteria)
+				int result;
+				if (m_useFineOtherSortingCriteria)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.Solution.get_EloImbalance()).MethodHandle;
-					}
-					result = BestSolutions.EloImbalance.MINOR;
+					result = 0;
 				}
-				else if (this.m_useOtherSortingCriteria)
+				else if (m_useOtherSortingCriteria)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = BestSolutions.EloImbalance.ACCEPTABLE;
+					result = 1;
 				}
 				else
 				{
-					result = BestSolutions.EloImbalance.MAJOR;
+					result = 2;
 				}
-				return result;
+				return (EloImbalance)result;
+			}
+		}
+
+		public Solution(float aVbEloDifference, GroupBreakage groupBreakage, List<int> sides, float maxDifferenceForOtherSortingMethods, int maxGroupSizeImbalance, int groupedMemberCountImbalance, int botImbalance, int loserImbalance, int roleImbalance, bool hasAssassin, bool hasTank, bool hasSupport, bool hasNoobCollision, bool hasExpertCollision, float largestEloWidth, int willFillImbalance, bool regionUniqueness, int languageCommonality, int languageTeamAAdvantage)
+		{
+			m_groupBreakage = groupBreakage;
+			m_AvBEloDifference = aVbEloDifference;
+			m_largestEloWidth = largestEloWidth;
+			float num = Math.Abs(aVbEloDifference);
+			m_useOtherSortingCriteria = (num < maxDifferenceForOtherSortingMethods);
+			m_useFineOtherSortingCriteria = (num < maxDifferenceForOtherSortingMethods / 2f);
+			m_sides = new List<int>(sides);
+			m_maxGroupSizeImbalance = Math.Abs(maxGroupSizeImbalance);
+			m_groupedMemberCountImbalance = Math.Abs(groupedMemberCountImbalance);
+			m_botImbalance = Math.Abs(botImbalance);
+			m_loserImbalance = Math.Abs(loserImbalance);
+			m_roleImbalance = Math.Abs(roleImbalance);
+			m_willFillImbalance = Math.Abs(willFillImbalance);
+			m_hasRoleAssassin = hasAssassin;
+			m_hasRoleTank = hasTank;
+			m_hasRoleSupport = hasSupport;
+			m_noobCollision = hasNoobCollision;
+			m_expertCollision = hasExpertCollision;
+			int num2 = 0;
+			if (maxGroupSizeImbalance != 0)
+			{
+				int num3 = num2;
+				int num4;
+				if (maxGroupSizeImbalance > 0)
+				{
+					num4 = 1;
+				}
+				else
+				{
+					num4 = -1;
+				}
+				num2 = num3 + num4;
+			}
+			else if (groupedMemberCountImbalance != 0)
+			{
+				num2 += ((groupedMemberCountImbalance > 0) ? 1 : (-1));
+			}
+			if (roleImbalance != 0)
+			{
+				int num5 = num2;
+				int num6;
+				if (roleImbalance > 0)
+				{
+					num6 = 1;
+				}
+				else
+				{
+					num6 = -1;
+				}
+				num2 = num5 + num6;
+			}
+			if (willFillImbalance != 0)
+			{
+				num2 += ((willFillImbalance > 0) ? 1 : (-1));
+			}
+			if (botImbalance != 0)
+			{
+				int num7 = num2;
+				int num8;
+				if (botImbalance > 0)
+				{
+					num8 = 1;
+				}
+				else
+				{
+					num8 = -1;
+				}
+				num2 = num7 + num8;
+			}
+			if (!m_useFineOtherSortingCriteria)
+			{
+				num2 += ((aVbEloDifference > 0f) ? 1 : (-1));
+				if (!m_useOtherSortingCriteria)
+				{
+					int num9 = num2;
+					int num10;
+					if (aVbEloDifference > 0f)
+					{
+						num10 = 1;
+					}
+					else
+					{
+						num10 = -1;
+					}
+					num2 = num9 + num10;
+				}
+			}
+			m_balanceFailureImbalance = Math.Abs(num2);
+			m_regionUniqueness = regionUniqueness;
+			m_languageCommonality = languageCommonality;
+			if (languageTeamAAdvantage > 0)
+			{
+				num2++;
+				m_languageImbalance = true;
+			}
+			else if (languageTeamAAdvantage < 0)
+			{
+				num2--;
+				m_languageImbalance = true;
+			}
+			else
+			{
+				m_languageImbalance = false;
 			}
 		}
 
 		internal string GetLogString()
 		{
-			Func<bool, string, string, string> func = delegate(bool isTrue, string writeText, string appendText)
+			Func<bool, string, string, string> func = (bool isTrue, string writeText, string appendText) => isTrue ? string.Format("{0}{1}{2}", writeText, (writeText.Count() <= 0) ? string.Empty : "+", appendText) : writeText;
+			string empty = string.Empty;
+			empty = func(m_noobCollision, empty, "noob");
+			empty = func(m_expertCollision, empty, "expert");
+			if (empty.Count() > 0)
 			{
-				if (isTrue)
-				{
-					return string.Format("{0}{1}{2}", writeText, (writeText.Count<char>() <= 0) ? string.Empty : "+", appendText);
-				}
-				return writeText;
-			};
-			string text = string.Empty;
-			text = func(this.m_noobCollision, text, "noob");
-			text = func(this.m_expertCollision, text, "expert");
-			if (text.Count<char>() > 0)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.Solution.GetLogString()).MethodHandle;
-				}
-				text = string.Format(", {0} collision", text);
+				empty = $", {empty} collision";
 			}
-			string text2 = string.Empty;
-			text2 = func(this.m_botImbalance != 0, text2, "bot");
-			text2 = func(this.m_maxGroupSizeImbalance != 0, text2, "group");
-			Func<bool, string, string, string> func2 = func;
-			bool arg = this.m_loserImbalance != 0;
-			string arg2 = text2;
-			string arg3;
-			if (this.m_loserImbalance > 1)
+			string empty2 = string.Empty;
+			empty2 = func(m_botImbalance != 0, empty2, "bot");
+			empty2 = func(m_maxGroupSizeImbalance != 0, empty2, "group");
+			bool arg = m_loserImbalance != 0;
+			string arg2 = empty2;
+			object arg3;
+			if (m_loserImbalance > 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				arg3 = string.Format("loser({0})", this.m_loserImbalance);
+				arg3 = $"loser({m_loserImbalance})";
 			}
 			else
 			{
 				arg3 = "loser";
 			}
-			text2 = func2(arg, arg2, arg3);
-			text2 = func(this.m_roleImbalance != 0, text2, "role");
-			text2 = func(this.m_willFillImbalance != 0, text2, "fill");
-			text2 = func(this.m_languageImbalance, text2, "lang");
-			text2 = func(this.m_balanceFailureImbalance != 0, text2, string.Format("unfair{0}", this.m_balanceFailureImbalance));
-			if (text2.Count<char>() > 0)
+			empty2 = func(arg, arg2, (string)arg3);
+			empty2 = func(m_roleImbalance != 0, empty2, "role");
+			empty2 = func(m_willFillImbalance != 0, empty2, "fill");
+			empty2 = func(m_languageImbalance, empty2, "lang");
+			empty2 = func(m_balanceFailureImbalance != 0, empty2, $"unfair{m_balanceFailureImbalance}");
+			if (empty2.Count() > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text2 = string.Format(", {0} imbalance", text2);
+				empty2 = $", {empty2} imbalance";
 			}
-			string text3;
-			if (!this.m_useFineOtherSortingCriteria)
+			string text;
+			if (!m_useFineOtherSortingCriteria)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text3 = string.Format("eloDiff={0}", this.AbsEloDifference);
+				text = $"eloDiff={AbsEloDifference}";
 			}
-			else if (this.m_largestEloWidth > this.AbsEloDifference)
+			else if (m_largestEloWidth > AbsEloDifference)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text3 = string.Format("width={0}, eloDiff={1}", this.m_largestEloWidth, this.AbsEloDifference);
+				text = $"width={m_largestEloWidth}, eloDiff={AbsEloDifference}";
 			}
 			else
 			{
-				text3 = string.Format("eloDiff={0}, width={1}", this.AbsEloDifference, this.m_largestEloWidth);
+				text = $"eloDiff={AbsEloDifference}, width={m_largestEloWidth}";
 			}
-			string format = "solution({0}{1}{2}{3}{4}{5}{6}, {7}, {8} lang)";
-			object[] array = new object[9];
-			array[0] = ((!this.m_useOtherSortingCriteria) ? "ELO Only" : ((!this.m_useFineOtherSortingCriteria) ? "flexible" : "fine"));
-			int num = 1;
-			object obj;
-			if (this.m_groupBreakage == BestSolutions.GroupBreakage.NONE)
+			object[] obj = new object[9]
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				obj = string.Empty;
+				(!m_useOtherSortingCriteria) ? "ELO Only" : ((!m_useFineOtherSortingCriteria) ? "flexible" : "fine"),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null
+			};
+			string text2;
+			if (m_groupBreakage == GroupBreakage.NONE)
+			{
+				text2 = string.Empty;
 			}
 			else
 			{
-				obj = string.Format(", {0}", this.m_groupBreakage);
+				text2 = $", {m_groupBreakage}";
 			}
-			array[num] = obj;
-			array[2] = text;
-			array[3] = text2;
-			int num2 = 4;
+			obj[1] = text2;
+			obj[2] = empty;
+			obj[3] = empty2;
 			object obj2;
-			if (this.m_hasRoleAssassin)
+			if (m_hasRoleAssassin)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj2 = string.Empty;
 			}
 			else
 			{
 				obj2 = ", no assassin";
 			}
-			array[num2] = obj2;
-			int num3 = 5;
+			obj[4] = obj2;
 			object obj3;
-			if (this.m_hasRoleTank)
+			if (m_hasRoleTank)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj3 = string.Empty;
 			}
 			else
 			{
 				obj3 = ", no tank";
 			}
-			array[num3] = obj3;
-			int num4 = 6;
+			obj[5] = obj3;
 			object obj4;
-			if (this.m_hasRoleSupport)
+			if (m_hasRoleSupport)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj4 = string.Empty;
 			}
 			else
 			{
 				obj4 = ", no support";
 			}
-			array[num4] = obj4;
-			array[7] = text3;
-			array[8] = this.m_languageCommonality;
-			return string.Format(format, array);
+			obj[6] = obj4;
+			obj[7] = text;
+			obj[8] = m_languageCommonality;
+			return string.Format("solution({0}{1}{2}{3}{4}{5}{6}, {7}, {8} lang)", obj);
 		}
 
-		internal void SetLegality(BestSolutions.ILegalityValidator validator)
+		internal void SetLegality(ILegalityValidator validator)
 		{
-			this.m_isLegal = validator.IsLegal(this);
+			m_isLegal = validator.IsLegal(this);
 		}
 
-		public int CoarseCompareTo(BestSolutions.Solution other)
+		public int CoarseCompareTo(Solution other)
 		{
-			if (this.m_isLegal != other.m_isLegal)
+			if (m_isLegal != other.m_isLegal)
 			{
 				int result;
-				if (this.m_isLegal)
+				if (m_isLegal)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.Solution.CoarseCompareTo(BestSolutions.Solution)).MethodHandle;
-					}
 					result = -1;
 				}
 				else
@@ -2029,132 +436,96 @@ public class BestSolutions
 				}
 				return result;
 			}
-			bool flag = this.m_groupBreakage == BestSolutions.GroupBreakage.MULTIPLE_GROUPS;
-			bool flag2 = other.m_groupBreakage == BestSolutions.GroupBreakage.MULTIPLE_GROUPS;
+			bool flag = m_groupBreakage == GroupBreakage.MULTIPLE_GROUPS;
+			bool flag2 = other.m_groupBreakage == GroupBreakage.MULTIPLE_GROUPS;
 			if (flag != flag2)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				int result2;
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						int result2;
+						if (flag)
+						{
+							result2 = 1;
+						}
+						else
+						{
+							result2 = -1;
+						}
+						return result2;
 					}
-					result2 = 1;
+					}
 				}
-				else
-				{
-					result2 = -1;
-				}
-				return result2;
 			}
-			bool flag3 = this.m_groupBreakage == BestSolutions.GroupBreakage.ONE_GROUP;
-			bool flag4 = other.m_groupBreakage == BestSolutions.GroupBreakage.ONE_GROUP;
+			bool flag3 = m_groupBreakage == GroupBreakage.ONE_GROUP;
+			bool flag4 = other.m_groupBreakage == GroupBreakage.ONE_GROUP;
 			if (flag3 != flag4)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				int result3;
-				if (flag3)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						int result3;
+						if (flag3)
+						{
+							result3 = 1;
+						}
+						else
+						{
+							result3 = -1;
+						}
+						return result3;
 					}
-					result3 = 1;
+					}
 				}
-				else
-				{
-					result3 = -1;
-				}
-				return result3;
 			}
-			if (this.m_useOtherSortingCriteria != other.m_useOtherSortingCriteria)
+			if (m_useOtherSortingCriteria != other.m_useOtherSortingCriteria)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				int result4;
-				if (this.m_useOtherSortingCriteria)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						int result4;
+						if (m_useOtherSortingCriteria)
+						{
+							result4 = -1;
+						}
+						else
+						{
+							result4 = 1;
+						}
+						return result4;
 					}
-					result4 = -1;
+					}
 				}
-				else
-				{
-					result4 = 1;
-				}
-				return result4;
 			}
-			if (this.m_useOtherSortingCriteria)
+			if (m_useOtherSortingCriteria)
 			{
-				if (this.m_balanceFailureImbalance != other.m_balanceFailureImbalance)
+				if (m_balanceFailureImbalance != other.m_balanceFailureImbalance)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						return (m_balanceFailureImbalance > other.m_balanceFailureImbalance) ? 1 : (-1);
 					}
-					return (this.m_balanceFailureImbalance <= other.m_balanceFailureImbalance) ? -1 : 1;
 				}
-				if (this.m_botImbalance != other.m_botImbalance)
+				if (m_botImbalance != other.m_botImbalance)
 				{
 					int result5;
-					if (this.m_botImbalance > other.m_botImbalance)
+					if (m_botImbalance > other.m_botImbalance)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result5 = 1;
 					}
 					else
@@ -2163,82 +534,43 @@ public class BestSolutions
 					}
 					return result5;
 				}
-				if (this.m_maxGroupSizeImbalance != other.m_maxGroupSizeImbalance)
+				if (m_maxGroupSizeImbalance != other.m_maxGroupSizeImbalance)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (3)
+						int result6;
+						if (m_maxGroupSizeImbalance > other.m_maxGroupSizeImbalance)
 						{
-						case 0:
-							continue;
+							result6 = 1;
 						}
-						break;
-					}
-					int result6;
-					if (this.m_maxGroupSizeImbalance > other.m_maxGroupSizeImbalance)
-					{
-						for (;;)
+						else
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							result6 = -1;
 						}
-						result6 = 1;
+						return result6;
 					}
-					else
-					{
-						result6 = -1;
-					}
-					return result6;
 				}
-				if (this.m_noobCollision != other.m_noobCollision)
+				if (m_noobCollision != other.m_noobCollision)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (3)
+						int result7;
+						if (m_noobCollision)
 						{
-						case 0:
-							continue;
+							result7 = 1;
 						}
-						break;
-					}
-					int result7;
-					if (this.m_noobCollision)
-					{
-						for (;;)
+						else
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							result7 = -1;
 						}
-						result7 = 1;
+						return result7;
 					}
-					else
-					{
-						result7 = -1;
-					}
-					return result7;
 				}
-				if (this.m_willFillImbalance != other.m_willFillImbalance)
+				if (m_willFillImbalance != other.m_willFillImbalance)
 				{
 					int result8;
-					if (this.m_willFillImbalance > other.m_willFillImbalance)
+					if (m_willFillImbalance > other.m_willFillImbalance)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result8 = 1;
 					}
 					else
@@ -2247,84 +579,45 @@ public class BestSolutions
 					}
 					return result8;
 				}
-				if (this.m_roleImbalance != other.m_roleImbalance)
+				if (m_roleImbalance != other.m_roleImbalance)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (5)
+						int result9;
+						if (m_roleImbalance > other.m_roleImbalance)
 						{
-						case 0:
-							continue;
+							result9 = 1;
 						}
-						break;
-					}
-					int result9;
-					if (this.m_roleImbalance > other.m_roleImbalance)
-					{
-						for (;;)
+						else
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							result9 = -1;
 						}
-						result9 = 1;
+						return result9;
 					}
-					else
-					{
-						result9 = -1;
-					}
-					return result9;
 				}
-				int roleCount = this.RoleCount;
+				int roleCount = RoleCount;
 				int roleCount2 = other.RoleCount;
 				if (roleCount != roleCount2)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (5)
+						int result10;
+						if (roleCount > roleCount2)
 						{
-						case 0:
-							continue;
+							result10 = -1;
 						}
-						break;
-					}
-					int result10;
-					if (roleCount > roleCount2)
-					{
-						for (;;)
+						else
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							result10 = 1;
 						}
-						result10 = -1;
+						return result10;
 					}
-					else
-					{
-						result10 = 1;
-					}
-					return result10;
 				}
-				if (this.m_expertCollision != other.m_expertCollision)
+				if (m_expertCollision != other.m_expertCollision)
 				{
 					int result11;
-					if (this.m_expertCollision)
+					if (m_expertCollision)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result11 = 1;
 					}
 					else
@@ -2333,218 +626,153 @@ public class BestSolutions
 					}
 					return result11;
 				}
-				if (this.m_languageCommonality != other.m_languageCommonality)
+				if (m_languageCommonality != other.m_languageCommonality)
 				{
-					for (;;)
+					while (true)
 					{
-						switch (7)
+						int result12;
+						if (m_languageCommonality > other.m_languageCommonality)
 						{
-						case 0:
-							continue;
+							result12 = -1;
 						}
-						break;
-					}
-					int result12;
-					if (this.m_languageCommonality > other.m_languageCommonality)
-					{
-						for (;;)
+						else
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							result12 = 1;
 						}
-						result12 = -1;
+						return result12;
 					}
-					else
-					{
-						result12 = 1;
-					}
-					return result12;
 				}
-				if (this.m_languageImbalance != other.m_languageImbalance)
+				if (m_languageImbalance != other.m_languageImbalance)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (1)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					int result13;
-					if (this.m_languageImbalance)
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+						{
+							int result13;
+							if (m_languageImbalance)
+							{
+								result13 = 1;
+							}
+							else
+							{
+								result13 = -1;
+							}
+							return result13;
 						}
-						result13 = 1;
+						}
 					}
-					else
-					{
-						result13 = -1;
-					}
-					return result13;
 				}
 			}
 			return 0;
 		}
 
-		public int CompareTo(BestSolutions.Solution other)
+		public int CompareTo(Solution other)
 		{
-			int num = this.CoarseCompareTo(other);
+			int num = CoarseCompareTo(other);
 			if (num != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (1)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return num;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.Solution.CompareTo(BestSolutions.Solution)).MethodHandle;
-				}
-				return num;
 			}
-			if (this.m_useOtherSortingCriteria)
+			if (m_useOtherSortingCriteria)
 			{
-				for (;;)
+				if (m_loserImbalance != other.m_loserImbalance)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_loserImbalance != other.m_loserImbalance)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (3)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					int result;
-					if (this.m_loserImbalance > other.m_loserImbalance)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+						{
+							int result;
+							if (m_loserImbalance > other.m_loserImbalance)
+							{
+								result = 1;
+							}
+							else
+							{
+								result = -1;
+							}
+							return result;
 						}
-						result = 1;
+						}
 					}
-					else
-					{
-						result = -1;
-					}
-					return result;
 				}
 			}
-			if (this.m_useFineOtherSortingCriteria != other.m_useFineOtherSortingCriteria)
+			if (m_useFineOtherSortingCriteria != other.m_useFineOtherSortingCriteria)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				int result2;
-				if (this.m_useFineOtherSortingCriteria)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						int result2;
+						if (m_useFineOtherSortingCriteria)
+						{
+							result2 = -1;
+						}
+						else
+						{
+							result2 = 1;
+						}
+						return result2;
 					}
-					result2 = -1;
+					}
 				}
-				else
-				{
-					result2 = 1;
-				}
-				return result2;
 			}
-			if (this.m_useFineOtherSortingCriteria)
+			if (m_useFineOtherSortingCriteria)
 			{
-				float num2 = Math.Max(this.m_largestEloWidth, this.AbsEloDifference);
+				float num2 = Math.Max(m_largestEloWidth, AbsEloDifference);
 				float num3 = Math.Max(other.m_largestEloWidth, other.AbsEloDifference);
 				if (num2 != num3)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (2)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					int result3;
-					if (num2 < num3)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+						{
+							int result3;
+							if (num2 < num3)
+							{
+								result3 = -1;
+							}
+							else
+							{
+								result3 = 1;
+							}
+							return result3;
 						}
-						result3 = -1;
+						}
 					}
-					else
-					{
-						result3 = 1;
-					}
-					return result3;
 				}
 			}
-			float absEloDifference = this.AbsEloDifference;
+			float absEloDifference = AbsEloDifference;
 			float absEloDifference2 = other.AbsEloDifference;
 			if (absEloDifference != absEloDifference2)
 			{
 				int result4;
 				if (absEloDifference < absEloDifference2)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result4 = -1;
 				}
 				else
@@ -2557,7 +785,7 @@ public class BestSolutions
 		}
 	}
 
-	private class ExcuseBucket : IEqualityComparer<BestSolutions.ExcuseBucket>
+	private class ExcuseBucket : IEqualityComparer<ExcuseBucket>
 	{
 		public long m_id;
 
@@ -2565,315 +793,170 @@ public class BestSolutions
 
 		public ExcuseBucket(int playerId, long groupId)
 		{
-			if (groupId != 0L)
+			if (groupId != 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						m_id = groupId;
+						m_isGroup = true;
+						return;
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.ExcuseBucket..ctor(int, long)).MethodHandle;
-				}
-				this.m_id = groupId;
-				this.m_isGroup = true;
 			}
-			else
-			{
-				this.m_id = (long)playerId;
-				this.m_isGroup = false;
-			}
+			m_id = playerId;
+			m_isGroup = false;
 		}
 
-		public bool Equals(BestSolutions.ExcuseBucket x, BestSolutions.ExcuseBucket y)
+		public bool Equals(ExcuseBucket x, ExcuseBucket y)
 		{
-			bool result;
+			int result;
 			if (x.m_id == y.m_id)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.ExcuseBucket.Equals(BestSolutions.ExcuseBucket, BestSolutions.ExcuseBucket)).MethodHandle;
-				}
-				result = (x.m_isGroup == y.m_isGroup);
+				result = ((x.m_isGroup == y.m_isGroup) ? 1 : 0);
 			}
 			else
 			{
-				result = false;
+				result = 0;
 			}
-			return result;
+			return (byte)result != 0;
 		}
 
-		public int GetHashCode(BestSolutions.ExcuseBucket x)
+		public int GetHashCode(ExcuseBucket x)
 		{
-			return this.m_isGroup.GetHashCode() ^ this.m_id.GetHashCode();
+			return m_isGroup.GetHashCode() ^ m_id.GetHashCode();
 		}
 
-		public static int ComputeRolesPresent(int playersOnTeam, Dictionary<BestSolutions.ExcuseBucket, List<CharacterRole>> teamRoles)
+		public static int ComputeRolesPresent(int playersOnTeam, Dictionary<ExcuseBucket, List<CharacterRole>> teamRoles)
 		{
 			int num = Math.Max(0, playersOnTeam - 3);
 			int num2 = 0;
 			HashSet<CharacterRole> hashSet = new HashSet<CharacterRole>();
-			foreach (KeyValuePair<BestSolutions.ExcuseBucket, List<CharacterRole>> keyValuePair in teamRoles)
+			foreach (KeyValuePair<ExcuseBucket, List<CharacterRole>> teamRole in teamRoles)
 			{
-				List<CharacterRole> value = keyValuePair.Value;
-				value.Sort();
-				int i = num;
-				while (i > 0)
+				List<CharacterRole> roles = teamRole.Value;
+				roles.Sort();
+				for (int num3 = num; num3 > 0; num3--)
 				{
-					for (;;)
+					if (!RolesHaveDups(roles))
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.ExcuseBucket.ComputeRolesPresent(int, Dictionary<BestSolutions.ExcuseBucket, List<CharacterRole>>)).MethodHandle;
-					}
-					if (!BestSolutions.ExcuseBucket.RolesHaveDups(value))
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_78;
-						}
-					}
-					else
-					{
-						BestSolutions.ExcuseBucket.RemoveOneDup(ref value);
-						i--;
-					}
+					RemoveOneDup(ref roles);
 				}
-				IL_78:
-				for (int j = 0; j < value.Count<CharacterRole>(); j++)
+				for (int i = 0; i < roles.Count(); i++)
 				{
-					if (value[j] == CharacterRole.None)
+					if (roles[i] == CharacterRole.None)
 					{
 						num2++;
 					}
 					else
 					{
-						if (j > 0)
+						if (i > 0)
 						{
-							for (;;)
+							if (roles[i - 1] == roles[i])
 							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (value[j - 1] == value[j])
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2++;
-								goto IL_D7;
+								continue;
 							}
 						}
-						hashSet.Add(value[j]);
+						hashSet.Add(roles[i]);
 					}
-					IL_D7:;
 				}
 			}
-			return Math.Min(hashSet.Count<CharacterRole>() + num2, 3);
+			return Math.Min(hashSet.Count() + num2, 3);
 		}
 
 		private static bool RolesHaveDups(List<CharacterRole> roles)
 		{
-			for (int i = 1; i < roles.Count<CharacterRole>(); i++)
+			for (int i = 1; i < roles.Count(); i++)
 			{
-				if (roles[i - 1] == roles[i])
+				if (roles[i - 1] != roles[i])
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.ExcuseBucket.RolesHaveDups(List<CharacterRole>)).MethodHandle;
-					}
+					continue;
+				}
+				while (true)
+				{
 					return true;
 				}
 			}
 			return false;
 		}
 
-		private unsafe static void RemoveOneDup(ref List<CharacterRole> roles)
+		private static void RemoveOneDup(ref List<CharacterRole> roles)
 		{
-			for (int i = 1; i < roles.Count<CharacterRole>(); i++)
+			for (int i = 1; i < roles.Count(); i++)
 			{
-				if (roles[i - 1] == roles[i])
+				if (roles[i - 1] != roles[i])
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.ExcuseBucket.RemoveOneDup(List<CharacterRole>*)).MethodHandle;
-					}
+					continue;
+				}
+				while (true)
+				{
 					roles.RemoveAt(i - 1);
 					return;
 				}
 			}
-			for (;;)
+			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				throw new Exception("No dup in list that should have dup");
 			}
-			throw new Exception("No dup in list that should have dup");
 		}
 	}
 
-	public class BalanceResults : IComparable<BestSolutions.BalanceResults>
+	public class BalanceResults : IComparable<BalanceResults>
 	{
-		public BalanceResults(double rnd)
+		public enum BalanceFailureLevel
 		{
-			this.m_solution = null;
-			this.m_rnd = rnd;
-			this.Success = false;
+			Fair,
+			Minor,
+			Major,
+			Tragic
 		}
 
-		public BalanceResults(BestSolutions.Solution solution, double rnd)
-		{
-			this.m_solution = solution;
-			this.m_rnd = rnd;
-			this.Success = true;
-		}
+		public GroupBreakage GroupBreakage => (m_solution != null) ? m_solution.GroupBreakage : GroupBreakage.NONE;
 
-		public BestSolutions.GroupBreakage GroupBreakage
-		{
-			get
-			{
-				return (this.m_solution != null) ? this.m_solution.GroupBreakage : BestSolutions.GroupBreakage.NONE;
-			}
-		}
+		public EloImbalance EloImbalance => (m_solution != null) ? m_solution.EloImbalance : EloImbalance.MINOR;
 
-		public BestSolutions.EloImbalance EloImbalance
-		{
-			get
-			{
-				return (this.m_solution != null) ? this.m_solution.EloImbalance : BestSolutions.EloImbalance.MINOR;
-			}
-		}
-
-		public BestSolutions.BalanceResults.BalanceFailureLevel BalanceFailureImbalance
-		{
-			get
-			{
-				return (this.m_solution != null) ? this.m_solution.BalanceFailureImbalance : BestSolutions.BalanceResults.BalanceFailureLevel.Fair;
-			}
-		}
+		public BalanceFailureLevel BalanceFailureImbalance => (m_solution != null) ? m_solution.BalanceFailureImbalance : BalanceFailureLevel.Fair;
 
 		public int GroupImbalanceAmount
 		{
 			get
 			{
 				int result;
-				if (this.m_solution == null)
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_GroupImbalanceAmount()).MethodHandle;
-					}
 					result = 0;
 				}
 				else
 				{
-					result = this.m_solution.MaxGroupSizeImbalance;
+					result = m_solution.MaxGroupSizeImbalance;
 				}
 				return result;
 			}
 		}
 
-		public bool WillFillImbalance
-		{
-			get
-			{
-				return this.m_solution != null && this.m_solution.HasWillFillImbalance;
-			}
-		}
+		public bool WillFillImbalance => m_solution != null && m_solution.HasWillFillImbalance;
 
 		public bool BotImbalance
 		{
 			get
 			{
-				bool result;
-				if (this.m_solution == null)
+				int result;
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_BotImbalance()).MethodHandle;
-					}
-					result = false;
+					result = 0;
 				}
 				else
 				{
-					result = this.m_solution.HasBotImbalance;
+					result = (m_solution.HasBotImbalance ? 1 : 0);
 				}
-				return result;
+				return (byte)result != 0;
 			}
 		}
 
@@ -2881,29 +964,16 @@ public class BestSolutions
 		{
 			get
 			{
-				bool result;
-				if (this.m_solution == null)
+				int result;
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_LoserImbalance()).MethodHandle;
-					}
-					result = false;
+					result = 0;
 				}
 				else
 				{
-					result = this.m_solution.HasLoserImbalance;
+					result = (m_solution.HasLoserImbalance ? 1 : 0);
 				}
-				return result;
+				return (byte)result != 0;
 			}
 		}
 
@@ -2911,29 +981,16 @@ public class BestSolutions
 		{
 			get
 			{
-				bool result;
-				if (this.m_solution == null)
+				int result;
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_RoleImbalance()).MethodHandle;
-					}
-					result = false;
+					result = 0;
 				}
 				else
 				{
-					result = this.m_solution.HasRoleImbalance;
+					result = (m_solution.HasRoleImbalance ? 1 : 0);
 				}
-				return result;
+				return (byte)result != 0;
 			}
 		}
 
@@ -2941,29 +998,16 @@ public class BestSolutions
 		{
 			get
 			{
-				bool result;
-				if (this.m_solution == null)
+				int result;
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_MissingRoles()).MethodHandle;
-					}
-					result = false;
+					result = 0;
 				}
 				else
 				{
-					result = this.m_solution.HasMissingRoles;
+					result = (m_solution.HasMissingRoles ? 1 : 0);
 				}
-				return result;
+				return (byte)result != 0;
 			}
 		}
 
@@ -2971,29 +1015,16 @@ public class BestSolutions
 		{
 			get
 			{
-				bool result;
-				if (this.m_solution == null)
+				int result;
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_HasMissingRoleAssassin()).MethodHandle;
-					}
-					result = false;
+					result = 0;
 				}
 				else
 				{
-					result = this.m_solution.HasMissingRoleAssassin;
+					result = (m_solution.HasMissingRoleAssassin ? 1 : 0);
 				}
-				return result;
+				return (byte)result != 0;
 			}
 		}
 
@@ -3001,29 +1032,16 @@ public class BestSolutions
 		{
 			get
 			{
-				bool result;
-				if (this.m_solution == null)
+				int result;
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_HasMissingRoleTank()).MethodHandle;
-					}
-					result = false;
+					result = 0;
 				}
 				else
 				{
-					result = this.m_solution.HasMissingRoleTank;
+					result = (m_solution.HasMissingRoleTank ? 1 : 0);
 				}
-				return result;
+				return (byte)result != 0;
 			}
 		}
 
@@ -3031,29 +1049,16 @@ public class BestSolutions
 		{
 			get
 			{
-				bool result;
-				if (this.m_solution == null)
+				int result;
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_HasMissingRoleSupport()).MethodHandle;
-					}
-					result = false;
+					result = 0;
 				}
 				else
 				{
-					result = this.m_solution.HasMissingRoleSupport;
+					result = (m_solution.HasMissingRoleSupport ? 1 : 0);
 				}
-				return result;
+				return (byte)result != 0;
 			}
 		}
 
@@ -3062,104 +1067,53 @@ public class BestSolutions
 			get
 			{
 				int result;
-				if (this.m_solution == null)
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_LanguageCompatability()).MethodHandle;
-					}
 					result = 0;
 				}
 				else
 				{
-					result = this.m_solution.LanguageCommonality;
+					result = m_solution.LanguageCommonality;
 				}
 				return result;
 			}
 		}
 
-		public bool LanguageImbalance
-		{
-			get
-			{
-				return this.m_solution == null || this.m_solution.HasLanguageImbalance;
-			}
-		}
+		public bool LanguageImbalance => m_solution == null || m_solution.HasLanguageImbalance;
 
 		public bool RegionUniqueness
 		{
 			get
 			{
-				bool result;
-				if (this.m_solution == null)
+				int result;
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_RegionUniqueness()).MethodHandle;
-					}
-					result = true;
+					result = 1;
 				}
 				else
 				{
-					result = this.m_solution.HasRegionUniqueness;
+					result = (m_solution.HasRegionUniqueness ? 1 : 0);
 				}
-				return result;
+				return (byte)result != 0;
 			}
 		}
 
-		public bool NoobCollision
-		{
-			get
-			{
-				return this.m_solution != null && this.m_solution.HasNoobCollisions;
-			}
-		}
+		public bool NoobCollision => m_solution != null && m_solution.HasNoobCollisions;
 
 		public bool ExpertCollision
 		{
 			get
 			{
-				bool result;
-				if (this.m_solution == null)
+				int result;
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_ExpertCollision()).MethodHandle;
-					}
-					result = false;
+					result = 0;
 				}
 				else
 				{
-					result = this.m_solution.HasExpertCollisions;
+					result = (m_solution.HasExpertCollisions ? 1 : 0);
 				}
-				return result;
+				return (byte)result != 0;
 			}
 		}
 
@@ -3168,26 +1122,13 @@ public class BestSolutions
 			get
 			{
 				float result;
-				if (this.m_solution == null)
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_AvBEloDifference()).MethodHandle;
-					}
 					result = 0f;
 				}
 				else
 				{
-					result = this.m_solution.AvBEloDifference;
+					result = m_solution.AvBEloDifference;
 				}
 				return result;
 			}
@@ -3198,75 +1139,56 @@ public class BestSolutions
 			get
 			{
 				float result;
-				if (this.m_solution == null)
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_AbsEloDifference()).MethodHandle;
-					}
 					result = 0f;
 				}
 				else
 				{
-					result = this.m_solution.AbsEloDifference;
+					result = m_solution.AbsEloDifference;
 				}
 				return result;
 			}
 		}
 
-		private BestSolutions.Solution m_solution { get; set; }
-
-		private double m_rnd { get; set; }
-
-		public bool Success { get; set; }
-
-		public LocalizationPayload Error { get; internal set; }
-
-		public static BestSolutions.BalanceResults MakeError(string term, string context)
+		private Solution m_solution
 		{
-			return new BestSolutions.BalanceResults(0.0)
-			{
-				Error = LocalizationPayload.Create(term, context),
-				Success = false
-			};
+			get;
+			set;
+		}
+
+		private double m_rnd
+		{
+			get;
+			set;
+		}
+
+		public bool Success
+		{
+			get;
+			set;
+		}
+
+		public LocalizationPayload Error
+		{
+			get;
+			internal set;
 		}
 
 		public string SolutionScoreAsString
 		{
 			get
 			{
-				string result;
-				if (this.m_solution == null)
+				object result;
+				if (m_solution == null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_SolutionScoreAsString()).MethodHandle;
-					}
 					result = "<null>";
 				}
 				else
 				{
-					result = this.m_solution.GetLogString();
+					result = m_solution.GetLogString();
 				}
-				return result;
+				return (string)result;
 			}
 		}
 
@@ -3279,112 +1201,98 @@ public class BestSolutions
 				{
 					if (isTrue)
 					{
-						for (;;)
+						while (true)
 						{
 							switch (5)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								retVal = string.Format("{0}{1}{2}", retVal, (retVal.Count() <= 0) ? string.Empty : "+", appendText);
+								return;
 							}
-							break;
 						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(BestSolutions.BalanceResults.<>c__AnonStorey0.<>m__0(bool, string)).MethodHandle;
-						}
-						retVal = string.Format("{0}{1}{2}", retVal, (retVal.Count<char>() <= 0) ? string.Empty : "+", appendText);
 					}
 				};
-				action(this.ExpertCollision, "collideE");
-				action(this.NoobCollision, "collideN");
-				action(this.GroupImbalanceAmount > 0, "imbalGp");
-				action(this.BotImbalance, "imbalBt");
-				action(this.LoserImbalance, "imbalLs");
-				action(this.LanguageImbalance, "imbalLng");
-				action(this.RoleImbalance, "imbalRl");
-				action(this.WillFillImbalance, "imbalWf");
-				action(this.MissingRoles, "missingRoles");
-				action(this.GroupBreakage == BestSolutions.GroupBreakage.ONE_GROUP, "breakO");
-				action(this.GroupBreakage == BestSolutions.GroupBreakage.MULTIPLE_GROUPS, "breakM");
-				action(this.EloImbalance == BestSolutions.EloImbalance.ACCEPTABLE, "eloT");
-				action(this.EloImbalance == BestSolutions.EloImbalance.MAJOR, "eloM");
-				string result;
+				action(ExpertCollision, "collideE");
+				action(NoobCollision, "collideN");
+				action(GroupImbalanceAmount > 0, "imbalGp");
+				action(BotImbalance, "imbalBt");
+				action(LoserImbalance, "imbalLs");
+				action(LanguageImbalance, "imbalLng");
+				action(RoleImbalance, "imbalRl");
+				action(WillFillImbalance, "imbalWf");
+				action(MissingRoles, "missingRoles");
+				action(GroupBreakage == GroupBreakage.ONE_GROUP, "breakO");
+				action(GroupBreakage == GroupBreakage.MULTIPLE_GROUPS, "breakM");
+				action(EloImbalance == EloImbalance.ACCEPTABLE, "eloT");
+				action(EloImbalance == EloImbalance.MAJOR, "eloM");
+				object result;
 				if (retVal == string.Empty)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.get_Status()).MethodHandle;
-					}
 					result = "none";
 				}
 				else
 				{
 					result = retVal;
 				}
-				return result;
+				return (string)result;
 			}
 		}
 
-		public int ConsolidatedCompareTo(BestSolutions.BalanceResults other)
+		public BalanceResults(double rnd)
 		{
-			if (this.Success != other.Success)
+			m_solution = null;
+			m_rnd = rnd;
+			Success = false;
+		}
+
+		public BalanceResults(Solution solution, double rnd)
+		{
+			m_solution = solution;
+			m_rnd = rnd;
+			Success = true;
+		}
+
+		public static BalanceResults MakeError(string term, string context)
+		{
+			BalanceResults balanceResults = new BalanceResults(0.0);
+			balanceResults.Error = LocalizationPayload.Create(term, context);
+			balanceResults.Success = false;
+			return balanceResults;
+		}
+
+		public int ConsolidatedCompareTo(BalanceResults other)
+		{
+			if (Success != other.Success)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.ConsolidatedCompareTo(BestSolutions.BalanceResults)).MethodHandle;
-				}
-				int result;
-				if (this.Success)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						int result;
+						if (Success)
+						{
+							result = -1;
+						}
+						else
+						{
+							result = 1;
+						}
+						return result;
 					}
-					result = -1;
+					}
 				}
-				else
-				{
-					result = 1;
-				}
-				return result;
 			}
-			if (this.m_solution == null != (other.m_solution == null))
+			if (m_solution == null != (other.m_solution == null))
 			{
 				int result2;
-				if (this.m_solution != null)
+				if (m_solution != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result2 = -1;
 				}
 				else
@@ -3393,94 +1301,603 @@ public class BestSolutions
 				}
 				return result2;
 			}
-			return this.m_rnd.CompareTo(other.m_rnd);
+			return m_rnd.CompareTo(other.m_rnd);
 		}
 
-		public int CompareTo(BestSolutions.BalanceResults other)
+		public int CompareTo(BalanceResults other)
 		{
-			if (this.Success != other.Success)
+			if (Success != other.Success)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BestSolutions.BalanceResults.CompareTo(BestSolutions.BalanceResults)).MethodHandle;
-				}
-				int result;
-				if (this.Success)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+					{
+						int result;
+						if (Success)
+						{
+							result = -1;
+						}
+						else
+						{
+							result = 1;
+						}
+						return result;
 					}
-					result = -1;
+					}
 				}
-				else
-				{
-					result = 1;
-				}
-				return result;
 			}
-			if (this.m_solution == null != (other.m_solution == null))
+			if (m_solution == null != (other.m_solution == null))
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return (m_solution == null) ? 1 : (-1);
 					}
-					break;
 				}
-				return (this.m_solution == null) ? 1 : -1;
 			}
-			if (this.m_solution != null)
+			if (m_solution != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				int num = this.m_solution.CoarseCompareTo(other.m_solution);
+				int num = m_solution.CoarseCompareTo(other.m_solution);
 				if (num != 0)
 				{
-					for (;;)
+					while (true)
 					{
 						switch (7)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return num;
 						}
-						break;
 					}
-					return num;
 				}
 			}
-			return this.m_rnd.CompareTo(other.m_rnd);
+			return m_rnd.CompareTo(other.m_rnd);
 		}
+	}
 
-		public enum BalanceFailureLevel
+	internal const int c_numberOfUniqueRoles = 3;
+
+	private List<Solution> m_solutions = new List<Solution>();
+
+	internal FreelancerDuplicationRuleTypes m_duplicationRule;
+
+	private bool NoDupInGame => m_duplicationRule == FreelancerDuplicationRuleTypes.noneInGame;
+
+	private bool NoDupInTeam
+	{
+		get
 		{
-			Fair,
-			Minor,
-			Major,
-			Tragic
+			if (m_duplicationRule == FreelancerDuplicationRuleTypes.byGameType)
+			{
+				while (true)
+				{
+					switch (3)
+					{
+					case 0:
+						break;
+					default:
+						throw new Exception("Must have resolved duplication rule before using BestSolutions.Resolve");
+					}
+				}
+			}
+			int result;
+			if (m_duplicationRule != FreelancerDuplicationRuleTypes.noneInGame)
+			{
+				result = ((m_duplicationRule == FreelancerDuplicationRuleTypes.noneInTeam) ? 1 : 0);
+			}
+			else
+			{
+				result = 1;
+			}
+			return (byte)result != 0;
 		}
+	}
+
+	public void Register(List<int> potentialTeam, List<ELOProvider> players, float aVbEloDifference, float maxTeamDifference, ILegalityValidator legalityValidator)
+	{
+		bool hasNoobCollision = false;
+		bool hasExpertCollision = false;
+		int num = 0;
+		int num2 = 0;
+		Dictionary<long, int> dictionary = new Dictionary<long, int>();
+		Dictionary<long, int> dictionary2 = new Dictionary<long, int>();
+		Dictionary<long, ushort> dictionary3 = new Dictionary<long, ushort>();
+		Dictionary<CharacterType, bool> dictionary4 = new Dictionary<CharacterType, bool>();
+		Dictionary<CharacterType, bool> dictionary5 = new Dictionary<CharacterType, bool>();
+		Dictionary<string, int> dictionary6 = new Dictionary<string, int>();
+		Dictionary<string, int> dictionary7 = new Dictionary<string, int>();
+		Region? region = null;
+		bool flag = true;
+		int num3 = 0;
+		int num4 = 0;
+		bool flag2 = false;
+		bool flag3 = false;
+		bool flag4 = false;
+		bool flag5 = false;
+		bool flag6 = false;
+		bool flag7 = false;
+		Dictionary<ExcuseBucket, List<CharacterRole>> dictionary8 = new Dictionary<ExcuseBucket, List<CharacterRole>>();
+		Dictionary<ExcuseBucket, List<CharacterRole>> dictionary9 = new Dictionary<ExcuseBucket, List<CharacterRole>>();
+		List<float> list = new List<float>();
+		List<float> list2 = new List<float>();
+		for (int num5 = 0; num5 < players.Count; num5++)
+		{
+			CharacterType selectedCharacter = players[num5].SelectedCharacter;
+			long groupId = players[num5].GroupId;
+			bool isCollisionNoob = players[num5].IsCollisionNoob;
+			int num6;
+			if (num5 != players.Count() - 1)
+			{
+				num6 = ((potentialTeam[num5] == 1) ? 1 : 0);
+			}
+			else
+			{
+				num6 = 1;
+			}
+			bool flag8 = (byte)num6 != 0;
+			if (players[num5].IsNPCBot)
+			{
+				num += ((!flag8) ? 1 : (-1));
+			}
+			else if (region.HasValue)
+			{
+				bool num7 = flag;
+				Region value = region.Value;
+				Region? region2 = players[num5].Region;
+				int num8;
+				if (value == region2.GetValueOrDefault())
+				{
+					num8 = (region2.HasValue ? 1 : 0);
+				}
+				else
+				{
+					num8 = 0;
+				}
+				flag = ((byte)((num7 ? 1 : 0) & num8) != 0);
+			}
+			else
+			{
+				region = players[num5].Region;
+			}
+			ExcuseBucket key = new ExcuseBucket(num5, groupId);
+			List<CharacterRole> value3;
+			if (flag8)
+			{
+				if (dictionary6.TryGetValue(players[num5].LanguageCode, out int value2))
+				{
+					dictionary6[players[num5].LanguageCode] = value2 + 1;
+				}
+				else
+				{
+					dictionary6.Add(players[num5].LanguageCode, 1);
+				}
+				num3 += ((!selectedCharacter.IsValidForHumanGameplay()) ? 1 : 0);
+				num2 += players[num5].LossStreak;
+				if (!dictionary8.TryGetValue(key, out value3))
+				{
+					value3 = (dictionary8[key] = new List<CharacterRole>());
+				}
+				if (players[num5].SelectedRole == CharacterRole.Assassin)
+				{
+					flag2 = true;
+				}
+				else if (players[num5].SelectedRole == CharacterRole.Tank)
+				{
+					flag3 = true;
+				}
+				else if (players[num5].SelectedRole == CharacterRole.Support)
+				{
+					flag4 = true;
+				}
+			}
+			else
+			{
+				if (dictionary7.TryGetValue(players[num5].LanguageCode, out int value4))
+				{
+					dictionary7[players[num5].LanguageCode] = value4 + 1;
+				}
+				else
+				{
+					dictionary7.Add(players[num5].LanguageCode, 1);
+				}
+				num4 += ((!selectedCharacter.IsValidForHumanGameplay()) ? 1 : 0);
+				num2 -= players[num5].LossStreak;
+				if (!dictionary9.TryGetValue(key, out value3))
+				{
+					value3 = (dictionary9[key] = new List<CharacterRole>());
+				}
+				if (players[num5].SelectedRole == CharacterRole.Assassin)
+				{
+					flag5 = true;
+				}
+				else if (players[num5].SelectedRole == CharacterRole.Tank)
+				{
+					flag6 = true;
+				}
+				else if (players[num5].SelectedRole == CharacterRole.Support)
+				{
+					flag7 = true;
+				}
+			}
+			value3.Add(players[num5].SelectedRole);
+			Dictionary<CharacterType, bool> dictionary10;
+			if (NoDupInTeam)
+			{
+				if (!flag8)
+				{
+					if (!NoDupInGame)
+					{
+						dictionary10 = dictionary5;
+						goto IL_040e;
+					}
+				}
+				dictionary10 = dictionary4;
+				goto IL_040e;
+			}
+			goto IL_047f;
+			IL_040e:
+			Dictionary<CharacterType, bool> dictionary11 = dictionary10;
+			if (dictionary11.TryGetValue(selectedCharacter, out bool value5))
+			{
+				if (!value5)
+				{
+					hasExpertCollision = true;
+					if (isCollisionNoob)
+					{
+						dictionary11[selectedCharacter] = true;
+					}
+				}
+				else if (isCollisionNoob)
+				{
+					hasNoobCollision = true;
+				}
+				else
+				{
+					hasExpertCollision = true;
+				}
+			}
+			else if (selectedCharacter.IsValidForHumanGameplay())
+			{
+				dictionary11.Add(selectedCharacter, isCollisionNoob);
+			}
+			goto IL_047f;
+			IL_047f:
+			if (groupId != 0)
+			{
+				if (dictionary3.ContainsKey(groupId))
+				{
+					Dictionary<long, ushort> dictionary12;
+					Dictionary<long, ushort> dictionary13 = dictionary12 = dictionary3;
+					long key2;
+					long key3 = key2 = groupId;
+					ushort num9 = dictionary12[key2];
+					int num10;
+					if (flag8)
+					{
+						num10 = 1;
+					}
+					else
+					{
+						num10 = 16;
+					}
+					dictionary13[key3] = (ushort)(num9 | num10);
+				}
+				else
+				{
+					int value6;
+					if (flag8)
+					{
+						value6 = 1;
+					}
+					else
+					{
+						value6 = 16;
+					}
+					dictionary3.Add(groupId, (ushort)value6);
+				}
+				Dictionary<long, int> dictionary14 = (!flag8) ? dictionary2 : dictionary;
+				if (dictionary14.ContainsKey(groupId))
+				{
+					dictionary14[groupId]++;
+				}
+				else
+				{
+					dictionary14[groupId] = 1;
+				}
+			}
+			if (flag8)
+			{
+				list.Add(players[num5].ELO);
+			}
+			else
+			{
+				list2.Add(players[num5].ELO);
+			}
+		}
+		while (true)
+		{
+			int num11;
+			if (dictionary.IsNullOrEmpty())
+			{
+				num11 = 1;
+			}
+			else
+			{
+				num11 = dictionary.Select((KeyValuePair<long, int> p) => p.Value).Max();
+			}
+			int num12 = num11;
+			int num13;
+			if (dictionary2.IsNullOrEmpty())
+			{
+				num13 = 1;
+			}
+			else
+			{
+				
+				num13 = dictionary2.Select(((KeyValuePair<long, int> p) => p.Value)).Max();
+			}
+			int num14 = num13;
+			int maxGroupSizeImbalance = num12 - num14;
+			int num15;
+			if (dictionary.IsNullOrEmpty())
+			{
+				num15 = 1;
+			}
+			else
+			{
+				
+				num15 = dictionary.Select(((KeyValuePair<long, int> p) => p.Value)).Sum();
+			}
+			int num16 = num15;
+			int num17 = dictionary2.IsNullOrEmpty() ? 1 : dictionary2.Select((KeyValuePair<long, int> p) => p.Value).Sum();
+			int groupedMemberCountImbalance = num16 - num17;
+			float num18 = 0f;
+			float num19 = float.MinValue;
+			list.Sort();
+			using (List<float>.Enumerator enumerator = list.GetEnumerator())
+			{
+				while (enumerator.MoveNext())
+				{
+					float num20 = enumerator.Current;
+					if (num19 != float.MinValue)
+					{
+						float num21 = num20 - num19;
+						if (num21 > num18)
+						{
+							num18 = num21;
+						}
+					}
+					num19 = num20;
+				}
+			}
+			num19 = float.MinValue;
+			list2.Sort();
+			using (List<float>.Enumerator enumerator2 = list2.GetEnumerator())
+			{
+				while (enumerator2.MoveNext())
+				{
+					float num22 = enumerator2.Current;
+					if (num19 != float.MinValue)
+					{
+						float num23 = num22 - num19;
+						if (num23 > num18)
+						{
+							num18 = num23;
+						}
+					}
+					num19 = num22;
+				}
+			}
+			GroupBreakage groupBreakage = GroupBreakage.NONE;
+			
+			IEnumerable<KeyValuePair<long, ushort>> source = dictionary3.Where(((KeyValuePair<long, ushort> p) => p.Value == 17));
+			
+			IEnumerable<long> source2 = source.Select(((KeyValuePair<long, ushort> p) => p.Key));
+			if (source2.Count() > 1)
+			{
+				groupBreakage = GroupBreakage.MULTIPLE_GROUPS;
+			}
+			else if (source2.Count() == 1)
+			{
+				long num24 = source2.First();
+				float val = float.MaxValue;
+				float val2 = float.MinValue;
+				using (List<ELOProvider>.Enumerator enumerator3 = players.GetEnumerator())
+				{
+					while (enumerator3.MoveNext())
+					{
+						ELOProvider current = enumerator3.Current;
+						if (current.GroupId == num24)
+						{
+							val = Math.Min(val, current.ELO);
+						}
+						else
+						{
+							val2 = Math.Max(val2, current.ELO);
+						}
+					}
+				}
+				groupBreakage = GroupBreakage.ONE_GROUP;
+			}
+			
+			int playersOnTeam = 1 + potentialTeam.Count(((int p) => p == 1));
+			int num25 = ExcuseBucket.ComputeRolesPresent(playersOnTeam, dictionary8);
+			
+			int playersOnTeam2 = potentialTeam.Count(((int p) => p != 1));
+			int num26 = ExcuseBucket.ComputeRolesPresent(playersOnTeam2, dictionary9);
+			int roleImbalance = num25 - num26;
+			int num27 = num3;
+			int num28 = num4;
+			if (!flag2)
+			{
+				if (num27 > 0)
+				{
+					flag2 = true;
+					num27--;
+				}
+			}
+			if (!flag3)
+			{
+				if (num27 > 0)
+				{
+					flag3 = true;
+					num27--;
+				}
+			}
+			if (!flag4)
+			{
+				if (num27 > 0)
+				{
+					flag4 = true;
+					num27--;
+				}
+			}
+			if (!flag5)
+			{
+				if (num28 > 0)
+				{
+					flag5 = true;
+					num28--;
+				}
+			}
+			if (!flag6)
+			{
+				if (num28 > 0)
+				{
+					flag6 = true;
+					num28--;
+				}
+			}
+			if (!flag7)
+			{
+				if (num28 > 0)
+				{
+					flag7 = true;
+					num28--;
+				}
+			}
+			int num29;
+			if (flag2)
+			{
+				num29 = (flag5 ? 1 : 0);
+			}
+			else
+			{
+				num29 = 0;
+			}
+			bool hasAssassin = (byte)num29 != 0;
+			int num30;
+			if (flag3)
+			{
+				num30 = (flag6 ? 1 : 0);
+			}
+			else
+			{
+				num30 = 0;
+			}
+			bool hasTank = (byte)num30 != 0;
+			int num31;
+			if (flag4)
+			{
+				num31 = (flag7 ? 1 : 0);
+			}
+			else
+			{
+				num31 = 0;
+			}
+			bool hasSupport = (byte)num31 != 0;
+			int willFillImbalance = num3 - num4;
+			int num32;
+			if (dictionary6.IsNullOrEmpty())
+			{
+				num32 = 0;
+			}
+			else
+			{
+				Dictionary<string, int>.ValueCollection values = dictionary6.Values;
+				
+				num32 = values.Where(((int p) => p > 1)).Sum();
+			}
+			int num33 = num32;
+			int num34;
+			if (dictionary7.IsNullOrEmpty())
+			{
+				num34 = 0;
+			}
+			else
+			{
+				Dictionary<string, int>.ValueCollection values2 = dictionary7.Values;
+				
+				num34 = values2.Where(((int p) => p > 1)).Sum();
+			}
+			int num35 = num34;
+			Solution solution = new Solution(aVbEloDifference, groupBreakage, potentialTeam, maxTeamDifference, maxGroupSizeImbalance, groupedMemberCountImbalance, num, num2, roleImbalance, hasAssassin, hasTank, hasSupport, hasNoobCollision, hasExpertCollision, num18, willFillImbalance, flag, num33 + num35, num33 - num35);
+			solution.SetLegality(legalityValidator);
+			m_solutions.Add(solution);
+			return;
+		}
+	}
+
+	public BalanceResults Resolve(double rnd)
+	{
+		if (false)
+		{
+			m_solutions.Sort();
+			for (int i = 0; i < m_solutions.Count; i++)
+			{
+				object[] array = new object[2];
+				object obj;
+				if (i == 0)
+				{
+					obj = "best";
+				}
+				else
+				{
+					obj = $"#{i}";
+				}
+				array[0] = obj;
+				array[1] = m_solutions[i].GetLogString();
+				Log.Warning("{0}: {1}", array);
+			}
+		}
+		else
+		{
+			Solution solution = m_solutions[0];
+			int index = 0;
+			for (int j = 1; j < m_solutions.Count; j++)
+			{
+				if (m_solutions[j].CompareTo(solution) < 0)
+				{
+					solution = m_solutions[j];
+					index = j;
+				}
+			}
+			m_solutions[index] = m_solutions[0];
+			m_solutions[0] = solution;
+		}
+		return new BalanceResults(m_solutions[0], rnd);
+	}
+
+	public bool OnTeamA(int playerIndex)
+	{
+		int result;
+		if (playerIndex < m_solutions[0].m_sides.Count())
+		{
+			result = ((m_solutions[0].m_sides[playerIndex] == 1) ? 1 : 0);
+		}
+		else
+		{
+			result = 1;
+		}
+		return (byte)result != 0;
 	}
 }

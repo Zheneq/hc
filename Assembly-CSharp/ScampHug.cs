@@ -1,11 +1,16 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ScampHug : Ability
 {
+	public enum TargetingMode
+	{
+		Laser,
+		OnSquare
+	}
+
 	[Separator("Knockback Targeting", true)]
-	public ScampHug.TargetingMode m_targetingMode;
+	public TargetingMode m_targetingMode;
 
 	public AbilityAreaShape m_aoeShape = AbilityAreaShape.Five_x_Five_NoCorners;
 
@@ -14,9 +19,9 @@ public class ScampHug : Ability
 	public float m_knockbackMaxRange = 10f;
 
 	[Separator("On Hit", true)]
-	public int m_knockbackDirectHitDamage = 0x14;
+	public int m_knockbackDirectHitDamage = 20;
 
-	public int m_knockbackAoeDamage = 0xA;
+	public int m_knockbackAoeDamage = 10;
 
 	public StandardEffectInfo m_knockbackDirectHitEffect;
 
@@ -44,30 +49,17 @@ public class ScampHug : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampHug.Start()).MethodHandle;
-			}
-			this.m_abilityName = "ScampHug";
+			m_abilityName = "ScampHug";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		this.m_syncComp = base.GetComponent<Scamp_SyncComponent>();
-		base.Targeter = new AbilityUtil_Targeter_ScampHug(this, this.m_syncComp, this.m_targetingMode, this.m_knockbackWidth, this.m_knockbackMaxRange, this.m_aoeShape, true, this.m_enemyKnockbackDist, this.m_enemyKnockbackType);
+		m_syncComp = GetComponent<Scamp_SyncComponent>();
+		base.Targeter = new AbilityUtil_Targeter_ScampHug(this, m_syncComp, m_targetingMode, m_knockbackWidth, m_knockbackMaxRange, m_aoeShape, true, m_enemyKnockbackDist, m_enemyKnockbackType);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -76,95 +68,62 @@ public class ScampHug : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_knockbackDirectHitDamage);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.m_knockbackAoeDamage);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_knockbackDirectHitDamage);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_knockbackAoeDamage);
+		return numbers;
 	}
 
 	public bool IsInSuit()
 	{
-		bool result;
-		if (this.m_syncComp != null)
+		int result;
+		if (m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampHug.IsInSuit()).MethodHandle;
-			}
-			result = this.m_syncComp.m_suitWasActiveOnTurnStart;
+			result = (m_syncComp.m_suitWasActiveOnTurnStart ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		if (this.IsInSuit())
+		if (IsInSuit())
 		{
-			for (;;)
+			if (m_targetingMode == TargetingMode.Laser)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampHug.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
-			if (this.m_targetingMode == ScampHug.TargetingMode.Laser)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return true;
 					}
-					break;
 				}
-				return true;
 			}
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null)
 		{
-			for (;;)
+			if (boardSquareSafe != caster.GetCurrentBoardSquare() && boardSquareSafe.IsBaselineHeight())
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (boardSquare != caster.\u0012() && boardSquare.\u0016())
-			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						int numSquaresInPath;
+						return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out numSquaresInPath);
 					}
-					break;
+					}
 				}
-				int num;
-				return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false, out num);
 			}
 		}
 		return false;
@@ -172,277 +131,185 @@ public class ScampHug : Ability
 
 	public override AbilityPriority GetRunPriority()
 	{
-		if (this.IsInSuit())
+		if (IsInSuit())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return AbilityPriority.Combat_Knockback;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampHug.GetRunPriority()).MethodHandle;
-			}
-			return AbilityPriority.Combat_Knockback;
 		}
 		return AbilityPriority.Evasion;
 	}
 
 	public override TargetData[] GetTargetData()
 	{
-		if (this.IsInSuit())
+		if (IsInSuit())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return base.GetTargetData();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampHug.GetTargetData()).MethodHandle;
-			}
-			return base.GetTargetData();
 		}
-		return this.m_evadeTargetData;
+		return m_evadeTargetData;
 	}
 
 	internal override ActorData.MovementType GetMovementType()
 	{
-		if (this.IsInSuit())
+		if (IsInSuit())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return ActorData.MovementType.None;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampHug.GetMovementType()).MethodHandle;
-			}
-			return ActorData.MovementType.None;
 		}
 		return ActorData.MovementType.Charge;
 	}
 
 	public override ActorModelData.ActionAnimationType GetActionAnimType()
 	{
-		if (this.IsInSuit())
+		if (IsInSuit())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return base.GetActionAnimType();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampHug.GetActionAnimType()).MethodHandle;
-			}
-			return base.GetActionAnimType();
 		}
-		return this.m_evadeAnimType;
+		return m_evadeAnimType;
 	}
 
 	public override int GetBaseCooldown()
 	{
-		if (!this.IsInSuit())
+		if (!IsInSuit())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_evadeCooldown;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampHug.GetBaseCooldown()).MethodHandle;
-			}
-			return this.m_evadeCooldown;
 		}
 		return base.GetBaseCooldown();
 	}
 
-	public unsafe static void GetHitActorsAndKnockbackDestinationStatic(AbilityTarget currentTarget, ActorData caster, ScampHug.TargetingMode targetingMode, bool includeInvisibles, float knockbackWidth, float knockbackRange, AbilityAreaShape aoeShape, out ActorData firstHitActor, out List<ActorData> aoeHitActors, out BoardSquare knockbackDestSquare)
+	public static void GetHitActorsAndKnockbackDestinationStatic(AbilityTarget currentTarget, ActorData caster, TargetingMode targetingMode, bool includeInvisibles, float knockbackWidth, float knockbackRange, AbilityAreaShape aoeShape, out ActorData firstHitActor, out List<ActorData> aoeHitActors, out BoardSquare knockbackDestSquare)
 	{
 		firstHitActor = null;
 		aoeHitActors = new List<ActorData>();
 		knockbackDestSquare = null;
-		if (targetingMode == ScampHug.TargetingMode.Laser)
+		if (targetingMode == TargetingMode.Laser)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampHug.GetHitActorsAndKnockbackDestinationStatic(AbilityTarget, ActorData, ScampHug.TargetingMode, bool, float, float, AbilityAreaShape, ActorData*, List<ActorData>*, BoardSquare*)).MethodHandle;
-			}
-			Vector3 vector = caster.\u0015();
-			Vector3 vector2 = VectorUtils.GetLaserEndPoint(vector, currentTarget.AimDirection, knockbackRange * Board.\u000E().squareSize, false, caster, null, true);
-			BoardSquare lastValidBoardSquareInLine = KnockbackUtils.GetLastValidBoardSquareInLine(vector, vector2, false, false, float.MaxValue);
-			Vector3 vector3 = lastValidBoardSquareInLine.ToVector3() - vector;
-			vector3.y = 0f;
-			float distance = Mathf.Max(0.1f, vector3.magnitude / Board.SquareSizeStatic);
-			BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildKnockbackPath(caster, KnockbackType.ForwardAlongAimDir, currentTarget.AimDirection, Vector3.zero, distance);
-			BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo.GetPathEndpoint();
-			Vector3 lhs = boardSquarePathInfo2.square.ToVector3() - vector;
-			lhs.y = 0f;
-			float d = Vector3.Dot(lhs, currentTarget.AimDirection) + 0.5f;
-			vector2 = vector + d * currentTarget.AimDirection;
-			float magnitude = (vector2 - vector).magnitude;
-			Vector3 vector4;
-			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(vector, currentTarget.AimDirection, magnitude / Board.\u000E().squareSize, knockbackWidth, caster, caster.\u0015(), true, 1, true, includeInvisibles, out vector4, null, null, false, true);
-			if (actorsInLaser.Count > 0)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				firstHitActor = actorsInLaser[0];
-				BoardSquare boardSquare = firstHitActor.\u0012();
-				if (boardSquare != null)
+				default:
 				{
-					for (;;)
+					Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+					Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, knockbackRange * Board.Get().squareSize, false, caster);
+					BoardSquare lastValidBoardSquareInLine = KnockbackUtils.GetLastValidBoardSquareInLine(travelBoardSquareWorldPositionForLos, laserEndPoint);
+					Vector3 vector = lastValidBoardSquareInLine.ToVector3() - travelBoardSquareWorldPositionForLos;
+					vector.y = 0f;
+					float distance = Mathf.Max(0.1f, vector.magnitude / Board.SquareSizeStatic);
+					BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildKnockbackPath(caster, KnockbackType.ForwardAlongAimDir, currentTarget.AimDirection, Vector3.zero, distance);
+					BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo.GetPathEndpoint();
+					Vector3 lhs = boardSquarePathInfo2.square.ToVector3() - travelBoardSquareWorldPositionForLos;
+					lhs.y = 0f;
+					float d = Vector3.Dot(lhs, currentTarget.AimDirection) + 0.5f;
+					laserEndPoint = travelBoardSquareWorldPositionForLos + d * currentTarget.AimDirection;
+					float magnitude = (laserEndPoint - travelBoardSquareWorldPositionForLos).magnitude;
+					Vector3 laserEndPos;
+					List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, knockbackWidth, caster, caster.GetOpposingTeams(), true, 1, true, includeInvisibles, out laserEndPos, null);
+					if (actorsInLaser.Count > 0)
 					{
-						switch (3)
+						firstHitActor = actorsInLaser[0];
+						BoardSquare currentBoardSquare = firstHitActor.GetCurrentBoardSquare();
+						if (currentBoardSquare != null)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					aoeHitActors = AreaEffectUtils.GetActorsInShape(aoeShape, boardSquare.ToVector3(), boardSquare, false, caster, caster.\u0012(), null);
-					if (!includeInvisibles)
-					{
-						for (;;)
-						{
-							switch (6)
+							aoeHitActors = AreaEffectUtils.GetActorsInShape(aoeShape, currentBoardSquare.ToVector3(), currentBoardSquare, false, caster, caster.GetOpposingTeam(), null);
+							if (!includeInvisibles)
 							{
-							case 0:
-								continue;
+								TargeterUtils.RemoveActorsInvisibleToClient(ref aoeHitActors);
 							}
-							break;
+							aoeHitActors.Remove(firstHitActor);
+							laserEndPoint = currentBoardSquare.ToVector3();
 						}
-						TargeterUtils.RemoveActorsInvisibleToClient(ref aoeHitActors);
+						Vector3 lhs2 = laserEndPoint - travelBoardSquareWorldPositionForLos;
+						lhs2.y = 0f;
+						float num = Vector3.Dot(lhs2, currentTarget.AimDirection);
+						while (boardSquarePathInfo2 != null)
+						{
+							if (boardSquarePathInfo2.prev == null)
+							{
+								break;
+							}
+							Vector3 vector2 = boardSquarePathInfo2.square.ToVector3() - travelBoardSquareWorldPositionForLos;
+							vector2.y = 0f;
+							if (!(vector2.magnitude > num + 0.71f))
+							{
+								break;
+							}
+							while (true)
+							{
+								switch (1)
+								{
+								case 0:
+									break;
+								default:
+									goto end_IL_025a;
+								}
+								continue;
+								end_IL_025a:
+								break;
+							}
+							boardSquarePathInfo2.prev.next = null;
+							boardSquarePathInfo2 = boardSquarePathInfo2.prev;
+						}
 					}
-					aoeHitActors.Remove(firstHitActor);
-					vector2 = boardSquare.ToVector3();
+					knockbackDestSquare = boardSquarePathInfo2.square;
+					return;
 				}
-				Vector3 lhs2 = vector2 - vector;
-				lhs2.y = 0f;
-				float num = Vector3.Dot(lhs2, currentTarget.AimDirection);
-				while (boardSquarePathInfo2 != null)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (boardSquarePathInfo2.prev == null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_29F;
-						}
-					}
-					else
-					{
-						Vector3 vector5 = boardSquarePathInfo2.square.ToVector3() - vector;
-						vector5.y = 0f;
-						if (vector5.magnitude <= num + 0.71f)
-						{
-							break;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						boardSquarePathInfo2.prev.next = null;
-						boardSquarePathInfo2 = boardSquarePathInfo2.prev;
-					}
 				}
 			}
-			IL_29F:
-			knockbackDestSquare = boardSquarePathInfo2.square;
 		}
-		else
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		if (boardSquareSafe != null)
 		{
-			BoardSquare boardSquare2 = Board.\u000E().\u000E(currentTarget.GridPos);
-			if (boardSquare2 != null)
+			aoeHitActors = AreaEffectUtils.GetActorsInShape(aoeShape, boardSquareSafe.ToVector3(), boardSquareSafe, false, caster, caster.GetOpposingTeam(), null);
+			if (!includeInvisibles)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				aoeHitActors = AreaEffectUtils.GetActorsInShape(aoeShape, boardSquare2.ToVector3(), boardSquare2, false, caster, caster.\u0012(), null);
-				if (!includeInvisibles)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					TargeterUtils.RemoveActorsInvisibleToClient(ref aoeHitActors);
-				}
+				TargeterUtils.RemoveActorsInvisibleToClient(ref aoeHitActors);
 			}
-			knockbackDestSquare = boardSquare2;
 		}
-	}
-
-	public enum TargetingMode
-	{
-		Laser,
-		OnSquare
+		knockbackDestSquare = boardSquareSafe;
 	}
 }

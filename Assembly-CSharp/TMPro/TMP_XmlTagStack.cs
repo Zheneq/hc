@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace TMPro
 {
@@ -16,121 +16,95 @@ namespace TMPro
 
 		public TMP_XmlTagStack(T[] tagStack)
 		{
-			this.itemStack = tagStack;
-			this.m_capacity = tagStack.Length;
-			this.index = 0;
-			this.m_defaultItem = default(T);
+			itemStack = tagStack;
+			m_capacity = tagStack.Length;
+			index = 0;
+			m_defaultItem = default(T);
 		}
 
 		public void Clear()
 		{
-			this.index = 0;
+			index = 0;
 		}
 
 		public void SetDefault(T item)
 		{
-			this.itemStack[0] = item;
-			this.index = 1;
+			itemStack[0] = item;
+			index = 1;
 		}
 
 		public void Add(T item)
 		{
-			if (this.index < this.itemStack.Length)
+			if (index < itemStack.Length)
 			{
-				this.itemStack[this.index] = item;
-				this.index++;
+				itemStack[index] = item;
+				index++;
 			}
 		}
 
 		public T Remove()
 		{
-			this.index--;
-			if (this.index <= 0)
+			index--;
+			if (index <= 0)
 			{
-				this.index = 1;
-				return this.itemStack[0];
+				index = 1;
+				return itemStack[0];
 			}
-			return this.itemStack[this.index - 1];
+			return itemStack[index - 1];
 		}
 
 		public void Push(T item)
 		{
-			if (this.index == this.m_capacity)
+			if (index == m_capacity)
 			{
-				for (;;)
+				m_capacity *= 2;
+				if (m_capacity == 0)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_capacity = 4;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_XmlTagStack.Push(T)).MethodHandle;
-				}
-				this.m_capacity *= 2;
-				if (this.m_capacity == 0)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_capacity = 4;
-				}
-				Array.Resize<T>(ref this.itemStack, this.m_capacity);
+				Array.Resize(ref itemStack, m_capacity);
 			}
-			this.itemStack[this.index] = item;
-			this.index++;
+			itemStack[index] = item;
+			index++;
 		}
 
 		public T Pop()
 		{
-			if (this.index == 0)
+			if (index == 0)
 			{
 				return default(T);
 			}
-			this.index--;
-			T result = this.itemStack[this.index];
-			this.itemStack[this.index] = this.m_defaultItem;
+			index--;
+			T result = itemStack[index];
+			itemStack[index] = m_defaultItem;
 			return result;
 		}
 
 		public T CurrentItem()
 		{
-			if (this.index > 0)
+			if (index > 0)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return itemStack[index - 1];
 					}
-					break;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_XmlTagStack.CurrentItem()).MethodHandle;
-				}
-				return this.itemStack[this.index - 1];
 			}
-			return this.itemStack[0];
+			return itemStack[0];
 		}
 
 		public T PreviousItem()
 		{
-			if (this.index > 1)
+			if (index > 1)
 			{
-				return this.itemStack[this.index - 2];
+				return itemStack[index - 2];
 			}
-			return this.itemStack[0];
+			return itemStack[0];
 		}
 	}
 }

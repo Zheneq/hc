@@ -1,5 +1,3 @@
-﻿using System;
-
 public class DebugCommand_Category : DebugCommand
 {
 	public string m_category;
@@ -8,7 +6,7 @@ public class DebugCommand_Category : DebugCommand
 
 	public override string GetDebugItemName()
 	{
-		return this.m_category;
+		return m_category;
 	}
 
 	public override string GetIncreaseString()
@@ -18,6 +16,6 @@ public class DebugCommand_Category : DebugCommand
 
 	public override void OnIncreaseClick()
 	{
-		this.m_debugMenu.AddToPath(this.m_category);
+		m_debugMenu.AddToPath(m_category);
 	}
 }

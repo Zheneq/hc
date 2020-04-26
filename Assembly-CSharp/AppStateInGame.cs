@@ -1,19 +1,17 @@
-﻿using System;
-
 public class AppStateInGame : AppState
 {
 	protected void RegisterGameStoppedHandler()
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		clientGameManager.OnDisconnectedFromLobbyServer += this.HandleDisconnectedFromLobbyServer;
-		GameManager.Get().OnGameStopped += this.HandleGameStopped;
+		clientGameManager.OnDisconnectedFromLobbyServer += HandleDisconnectedFromLobbyServer;
+		GameManager.Get().OnGameStopped += HandleGameStopped;
 	}
 
 	protected void UnregisterGameStoppedHandler()
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		clientGameManager.OnDisconnectedFromLobbyServer -= this.HandleDisconnectedFromLobbyServer;
-		GameManager.Get().OnGameStopped -= this.HandleGameStopped;
+		clientGameManager.OnDisconnectedFromLobbyServer -= HandleDisconnectedFromLobbyServer;
+		GameManager.Get().OnGameStopped -= HandleGameStopped;
 	}
 
 	private void HandleDisconnectedFromLobbyServer(string lastLobbyErrorMessage)

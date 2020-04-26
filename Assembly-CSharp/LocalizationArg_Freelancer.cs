@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class LocalizationArg_Freelancer : LocalizationArg
@@ -7,14 +7,13 @@ public class LocalizationArg_Freelancer : LocalizationArg
 
 	public static LocalizationArg_Freelancer Create(CharacterType characterType)
 	{
-		return new LocalizationArg_Freelancer
-		{
-			m_characterType = characterType
-		};
+		LocalizationArg_Freelancer localizationArg_Freelancer = new LocalizationArg_Freelancer();
+		localizationArg_Freelancer.m_characterType = characterType;
+		return localizationArg_Freelancer;
 	}
 
 	public override string TR()
 	{
-		return StringUtil.TR_CharacterName(this.m_characterType.ToString());
+		return StringUtil.TR_CharacterName(m_characterType.ToString());
 	}
 }

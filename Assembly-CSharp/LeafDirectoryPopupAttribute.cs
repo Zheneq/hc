@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class LeafDirectoryPopupAttribute : PropertyAttribute
@@ -9,7 +8,7 @@ public class LeafDirectoryPopupAttribute : PropertyAttribute
 
 	public LeafDirectoryPopupAttribute(string tooltipText, string relativePathText)
 	{
-		this.tooltip = tooltipText;
-		this.relativePath = relativePathText;
+		tooltip = tooltipText;
+		relativePath = relativePathText;
 	}
 }

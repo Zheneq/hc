@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,265 +52,151 @@ public class AbilityMod_ThiefBasicAttack : AbilityMod
 		ThiefBasicAttack thiefBasicAttack = targetAbility as ThiefBasicAttack;
 		if (thiefBasicAttack != null)
 		{
-			AbilityMod.AddToken(tokens, this.m_targeterMaxAngleMod, "TargeterMaxAngle", string.Empty, thiefBasicAttack.m_targeterMaxAngle, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, thiefBasicAttack.m_laserDamageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_laserSubsequentDamageAmountMod, "LaserSubsequentDamageAmount", string.Empty, thiefBasicAttack.m_laserSubsequentDamageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageForSingleHitMod, "ExtraDamageForSingleHit", string.Empty, thiefBasicAttack.m_extraDamageForSingleHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraDamageForHittingPowerupMod, "ExtraDamageForHittingPowerup", string.Empty, thiefBasicAttack.m_extraDamageForHittingPowerup, true, false);
-			AbilityMod.AddToken(tokens, this.m_healOnSelfIfHitEnemyAndPowerupMod, "HealOnSelfIfHitEnemyAndPowerup", string.Empty, thiefBasicAttack.m_healOnSelfIfHitEnemyAndPowerup, true, false);
-			AbilityMod.AddToken(tokens, this.m_energyGainPerLaserHitMod, "EnergyGainPerLaserHit", string.Empty, thiefBasicAttack.m_energyGainPerLaserHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_energyGainPerPowerupHitMod, "EnergyGainPerPowerupHit", string.Empty, thiefBasicAttack.m_energyGainPerPowerupHit, true, false);
-			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, thiefBasicAttack.m_laserRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, thiefBasicAttack.m_laserWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserMaxTargetsMod, "LaserMaxTargets", string.Empty, thiefBasicAttack.m_laserMaxTargets, true, false);
-			AbilityMod.AddToken(tokens, this.m_laserCountMod, "LaserCount", string.Empty, thiefBasicAttack.m_laserCount, true, false);
+			AbilityMod.AddToken(tokens, m_targeterMaxAngleMod, "TargeterMaxAngle", string.Empty, thiefBasicAttack.m_targeterMaxAngle);
+			AbilityMod.AddToken(tokens, m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, thiefBasicAttack.m_laserDamageAmount);
+			AbilityMod.AddToken(tokens, m_laserSubsequentDamageAmountMod, "LaserSubsequentDamageAmount", string.Empty, thiefBasicAttack.m_laserSubsequentDamageAmount);
+			AbilityMod.AddToken(tokens, m_extraDamageForSingleHitMod, "ExtraDamageForSingleHit", string.Empty, thiefBasicAttack.m_extraDamageForSingleHit);
+			AbilityMod.AddToken(tokens, m_extraDamageForHittingPowerupMod, "ExtraDamageForHittingPowerup", string.Empty, thiefBasicAttack.m_extraDamageForHittingPowerup);
+			AbilityMod.AddToken(tokens, m_healOnSelfIfHitEnemyAndPowerupMod, "HealOnSelfIfHitEnemyAndPowerup", string.Empty, thiefBasicAttack.m_healOnSelfIfHitEnemyAndPowerup);
+			AbilityMod.AddToken(tokens, m_energyGainPerLaserHitMod, "EnergyGainPerLaserHit", string.Empty, thiefBasicAttack.m_energyGainPerLaserHit);
+			AbilityMod.AddToken(tokens, m_energyGainPerPowerupHitMod, "EnergyGainPerPowerupHit", string.Empty, thiefBasicAttack.m_energyGainPerPowerupHit);
+			AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, thiefBasicAttack.m_laserRange);
+			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, thiefBasicAttack.m_laserWidth);
+			AbilityMod.AddToken(tokens, m_laserMaxTargetsMod, "LaserMaxTargets", string.Empty, thiefBasicAttack.m_laserMaxTargets);
+			AbilityMod.AddToken(tokens, m_laserCountMod, "LaserCount", string.Empty, thiefBasicAttack.m_laserCount);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		ThiefBasicAttack thiefBasicAttack = base.GetTargetAbilityOnAbilityData(abilityData) as ThiefBasicAttack;
+		ThiefBasicAttack thiefBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as ThiefBasicAttack;
 		bool flag = thiefBasicAttack != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyFloat targeterMaxAngleMod = this.m_targeterMaxAngleMod;
-		string prefix = "[TargeterMaxAngle]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyFloat targeterMaxAngleMod = m_targeterMaxAngleMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ThiefBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = thiefBasicAttack.m_targeterMaxAngle;
 		}
 		else
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(targeterMaxAngleMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_laserDamageAmountMod, "[LaserDamageAmount]", flag, (!flag) ? 0 : thiefBasicAttack.m_laserDamageAmount);
-		string str2 = text;
-		AbilityModPropertyInt laserSubsequentDamageAmountMod = this.m_laserSubsequentDamageAmountMod;
-		string prefix2 = "[LaserSubsequentDamageAmount]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(targeterMaxAngleMod, "[TargeterMaxAngle]", flag, baseVal);
+		empty += PropDesc(m_laserDamageAmountMod, "[LaserDamageAmount]", flag, flag ? thiefBasicAttack.m_laserDamageAmount : 0);
+		string str2 = empty;
+		AbilityModPropertyInt laserSubsequentDamageAmountMod = m_laserSubsequentDamageAmountMod;
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = thiefBasicAttack.m_laserSubsequentDamageAmount;
 		}
 		else
 		{
 			baseVal2 = 0;
 		}
-		text = str2 + base.PropDesc(laserSubsequentDamageAmountMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_extraDamageForSingleHitMod, "[ExtraDamageForSingleHit]", flag, (!flag) ? 0 : thiefBasicAttack.m_extraDamageForSingleHit);
-		string str3 = text;
-		AbilityModPropertyInt extraDamageForHittingPowerupMod = this.m_extraDamageForHittingPowerupMod;
-		string prefix3 = "[ExtraDamageForHittingPowerup]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(laserSubsequentDamageAmountMod, "[LaserSubsequentDamageAmount]", flag, baseVal2);
+		empty += PropDesc(m_extraDamageForSingleHitMod, "[ExtraDamageForSingleHit]", flag, flag ? thiefBasicAttack.m_extraDamageForSingleHit : 0);
+		string str3 = empty;
+		AbilityModPropertyInt extraDamageForHittingPowerupMod = m_extraDamageForHittingPowerupMod;
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = thiefBasicAttack.m_extraDamageForHittingPowerup;
 		}
 		else
 		{
 			baseVal3 = 0;
 		}
-		text = str3 + base.PropDesc(extraDamageForHittingPowerupMod, prefix3, showBaseVal3, baseVal3);
-		text += base.PropDesc(this.m_healOnSelfIfHitEnemyAndPowerupMod, "[HealOnSelfIfHitEnemyAndPowerup]", flag, (!flag) ? 0 : thiefBasicAttack.m_healOnSelfIfHitEnemyAndPowerup);
-		string str4 = text;
-		AbilityModPropertyInt energyGainPerLaserHitMod = this.m_energyGainPerLaserHitMod;
-		string prefix4 = "[EnergyGainPerLaserHit]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(extraDamageForHittingPowerupMod, "[ExtraDamageForHittingPowerup]", flag, baseVal3);
+		empty += PropDesc(m_healOnSelfIfHitEnemyAndPowerupMod, "[HealOnSelfIfHitEnemyAndPowerup]", flag, flag ? thiefBasicAttack.m_healOnSelfIfHitEnemyAndPowerup : 0);
+		string str4 = empty;
+		AbilityModPropertyInt energyGainPerLaserHitMod = m_energyGainPerLaserHitMod;
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = thiefBasicAttack.m_energyGainPerLaserHit;
 		}
 		else
 		{
 			baseVal4 = 0;
 		}
-		text = str4 + base.PropDesc(energyGainPerLaserHitMod, prefix4, showBaseVal4, baseVal4);
-		text += base.PropDesc(this.m_energyGainPerPowerupHitMod, "[EnergyGainPerPowerupHit]", flag, (!flag) ? 0 : thiefBasicAttack.m_energyGainPerPowerupHit);
-		string str5 = text;
-		AbilityModPropertyFloat laserRangeMod = this.m_laserRangeMod;
-		string prefix5 = "[LaserRange]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(energyGainPerLaserHitMod, "[EnergyGainPerLaserHit]", flag, baseVal4);
+		empty += PropDesc(m_energyGainPerPowerupHitMod, "[EnergyGainPerPowerupHit]", flag, flag ? thiefBasicAttack.m_energyGainPerPowerupHit : 0);
+		string str5 = empty;
+		AbilityModPropertyFloat laserRangeMod = m_laserRangeMod;
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = thiefBasicAttack.m_laserRange;
 		}
 		else
 		{
 			baseVal5 = 0f;
 		}
-		text = str5 + base.PropDesc(laserRangeMod, prefix5, showBaseVal5, baseVal5);
-		text += base.PropDesc(this.m_laserWidthMod, "[LaserWidth]", flag, (!flag) ? 0f : thiefBasicAttack.m_laserWidth);
-		string str6 = text;
-		AbilityModPropertyInt laserMaxTargetsMod = this.m_laserMaxTargetsMod;
-		string prefix6 = "[LaserMaxTargets]";
-		bool showBaseVal6 = flag;
+		empty = str5 + PropDesc(laserRangeMod, "[LaserRange]", flag, baseVal5);
+		empty += PropDesc(m_laserWidthMod, "[LaserWidth]", flag, (!flag) ? 0f : thiefBasicAttack.m_laserWidth);
+		string str6 = empty;
+		AbilityModPropertyInt laserMaxTargetsMod = m_laserMaxTargetsMod;
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = thiefBasicAttack.m_laserMaxTargets;
 		}
 		else
 		{
 			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(laserMaxTargetsMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyInt laserCountMod = this.m_laserCountMod;
-		string prefix7 = "[LaserCount]";
-		bool showBaseVal7 = flag;
+		empty = str6 + PropDesc(laserMaxTargetsMod, "[LaserMaxTargets]", flag, baseVal6);
+		string str7 = empty;
+		AbilityModPropertyInt laserCountMod = m_laserCountMod;
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = thiefBasicAttack.m_laserCount;
 		}
 		else
 		{
 			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(laserCountMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyBool laserPenetrateLosMod = this.m_laserPenetrateLosMod;
-		string prefix8 = "[LaserPenetrateLos]";
-		bool showBaseVal8 = flag;
-		bool baseVal8;
+		empty = str7 + PropDesc(laserCountMod, "[LaserCount]", flag, baseVal7);
+		string str8 = empty;
+		AbilityModPropertyBool laserPenetrateLosMod = m_laserPenetrateLosMod;
+		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal8 = thiefBasicAttack.m_laserPenetrateLos;
+			baseVal8 = (thiefBasicAttack.m_laserPenetrateLos ? 1 : 0);
 		}
 		else
 		{
-			baseVal8 = false;
+			baseVal8 = 0;
 		}
-		text = str8 + base.PropDesc(laserPenetrateLosMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyBool stopOnPowerupHitMod = this.m_stopOnPowerupHitMod;
-		string prefix9 = "[StopOnPowerupHit]";
-		bool showBaseVal9 = flag;
-		bool baseVal9;
+		empty = str8 + PropDesc(laserPenetrateLosMod, "[LaserPenetrateLos]", flag, (byte)baseVal8 != 0);
+		string str9 = empty;
+		AbilityModPropertyBool stopOnPowerupHitMod = m_stopOnPowerupHitMod;
+		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal9 = thiefBasicAttack.m_stopOnPowerupHit;
+			baseVal9 = (thiefBasicAttack.m_stopOnPowerupHit ? 1 : 0);
 		}
 		else
 		{
-			baseVal9 = false;
+			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(stopOnPowerupHitMod, prefix9, showBaseVal9, baseVal9);
-		string str10 = text;
-		AbilityModPropertyBool includeSpoilsPowerupsMod = this.m_includeSpoilsPowerupsMod;
-		string prefix10 = "[IncludeSpoilsPowerups]";
-		bool showBaseVal10 = flag;
-		bool baseVal10;
+		empty = str9 + PropDesc(stopOnPowerupHitMod, "[StopOnPowerupHit]", flag, (byte)baseVal9 != 0);
+		string str10 = empty;
+		AbilityModPropertyBool includeSpoilsPowerupsMod = m_includeSpoilsPowerupsMod;
+		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal10 = thiefBasicAttack.m_includeSpoilsPowerups;
+			baseVal10 = (thiefBasicAttack.m_includeSpoilsPowerups ? 1 : 0);
 		}
 		else
 		{
-			baseVal10 = false;
+			baseVal10 = 0;
 		}
-		text = str10 + base.PropDesc(includeSpoilsPowerupsMod, prefix10, showBaseVal10, baseVal10);
-		return text + base.PropDesc(this.m_ignorePickupTeamRestrictionMod, "[IgnorePickupTeamRestriction]", flag, flag && thiefBasicAttack.m_ignorePickupTeamRestriction);
+		empty = str10 + PropDesc(includeSpoilsPowerupsMod, "[IncludeSpoilsPowerups]", flag, (byte)baseVal10 != 0);
+		return empty + PropDesc(m_ignorePickupTeamRestrictionMod, "[IgnorePickupTeamRestriction]", flag, flag && thiefBasicAttack.m_ignorePickupTeamRestriction);
 	}
 }

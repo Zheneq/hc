@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,31 +5,20 @@ using UnityEngine.EventSystems;
 
 public static class UIEventTriggerUtils
 {
-	public static void AddListener(GameObject go, EventTriggerType triggerType, UIEventTriggerUtils.EventDelegate eventDelegate)
+	public delegate void EventDelegate(BaseEventData baseEvent);
+
+	public static void AddListener(GameObject go, EventTriggerType triggerType, EventDelegate eventDelegate)
 	{
 		EventTrigger eventTrigger = go.GetComponent<EventTrigger>();
 		if (eventTrigger == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIEventTriggerUtils.AddListener(GameObject, EventTriggerType, UIEventTriggerUtils.EventDelegate)).MethodHandle;
-			}
 			eventTrigger = go.AddComponent<EventTrigger>();
 			eventTrigger.triggers = new List<EventTrigger.Entry>();
 		}
 		EventTrigger.Entry entry = new EventTrigger.Entry();
 		entry.eventID = triggerType;
 		entry.callback = new EventTrigger.TriggerEvent();
-		UnityAction<BaseEventData> call = new UnityAction<BaseEventData>(eventDelegate.Invoke);
+		UnityAction<BaseEventData> call = eventDelegate.Invoke;
 		entry.callback.AddListener(call);
 		eventTrigger.triggers.Add(entry);
 	}
@@ -41,32 +29,18 @@ public static class UIEventTriggerUtils
 		EventTrigger component = go.GetComponent<EventTrigger>();
 		if (component != null)
 		{
-			for (int i = 0; i < component.triggers.Count; i++)
+			int num = 0;
+			while (true)
 			{
-				EventTrigger.Entry entry = component.triggers[i];
-				if (entry.eventID == triggerType)
+				if (num < component.triggers.Count)
 				{
-					for (;;)
+					EventTrigger.Entry entry = component.triggers[num];
+					if (entry.eventID == triggerType)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
+						result = true;
 						break;
 					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIEventTriggerUtils.HasTriggerOfType(GameObject, EventTriggerType)).MethodHandle;
-					}
-					return true;
-				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
+					num++;
 					continue;
 				}
 				break;
@@ -74,6 +48,4 @@ public static class UIEventTriggerUtils
 		}
 		return result;
 	}
-
-	public delegate void EventDelegate(BaseEventData baseEvent);
 }

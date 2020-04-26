@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class GameplayRewardForTeam
@@ -21,35 +21,22 @@ public class GameplayRewardForTeam
 
 	public void ClientApplyRewardTo(Team team)
 	{
-		if (this.m_objectivePointAdjust != 0)
+		if (m_objectivePointAdjust == 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayRewardForTeam.ClientApplyRewardTo(Team)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			ObjectivePoints objectivePoints = ObjectivePoints.Get();
 			if (objectivePoints != null)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					objectivePoints.AdjustUnresolvedPoints(m_objectivePointAdjust, team);
+					return;
 				}
-				objectivePoints.AdjustUnresolvedPoints(this.m_objectivePointAdjust, team);
 			}
+			return;
 		}
 	}
 }

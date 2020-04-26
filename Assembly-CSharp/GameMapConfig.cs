@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class GameMapConfig
@@ -9,6 +9,6 @@ public class GameMapConfig
 
 	public GameMapConfig Clone()
 	{
-		return (GameMapConfig)base.MemberwiseClone();
+		return (GameMapConfig)MemberwiseClone();
 	}
 }

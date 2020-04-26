@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +13,9 @@ public class NekoSuperDisc : Ability
 	public int m_maxTargets;
 
 	[Header("Damage stuff")]
-	public int m_directDamage = 0x23;
+	public int m_directDamage = 35;
 
-	public int m_returnTripDamage = 0x14;
+	public int m_returnTripDamage = 20;
 
 	public StandardGroundEffectInfo m_stationaryTrap;
 
@@ -29,86 +28,71 @@ public class NekoSuperDisc : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Super Disc";
+			m_abilityName = "Super Disc";
 		}
-		this.m_syncComp = base.GetComponent<Neko_SyncComponent>();
-		this.Setup();
+		m_syncComp = GetComponent<Neko_SyncComponent>();
+		Setup();
 	}
 
 	private void Setup()
 	{
-		base.Targeter = new AbilityUtil_Targeter_CapsuleAoE(this, this.GetRadiusAroundStart(), this.GetRadiusAroundEnd(), this.GetLaserWidth(), this.GetMaxTargets(), false, false)
-		{
-			GetDefaultStartSquare = new AbilityUtil_Targeter_CapsuleAoE.StartSquareDelegate(this.GetCurrentDiscSquare)
-		};
+		AbilityUtil_Targeter_CapsuleAoE abilityUtil_Targeter_CapsuleAoE = new AbilityUtil_Targeter_CapsuleAoE(this, GetRadiusAroundStart(), GetRadiusAroundEnd(), GetLaserWidth(), GetMaxTargets(), false, false);
+		abilityUtil_Targeter_CapsuleAoE.GetDefaultStartSquare = GetCurrentDiscSquare;
+		base.Targeter = abilityUtil_Targeter_CapsuleAoE;
 	}
 
 	public float GetLaserWidth()
 	{
-		return this.m_laserWidth;
+		return m_laserWidth;
 	}
 
 	public float GetRadiusAroundStart()
 	{
-		return this.m_radiusAroundStart;
+		return m_radiusAroundStart;
 	}
 
 	public float GetRadiusAroundEnd()
 	{
-		return this.m_radiusAroundEnd;
+		return m_radiusAroundEnd;
 	}
 
 	public int GetMaxTargets()
 	{
-		return this.m_maxTargets;
+		return m_maxTargets;
 	}
 
 	public int GetDirectDamage()
 	{
-		return this.m_directDamage;
+		return m_directDamage;
 	}
 
 	public int GetReturnTripDamage()
 	{
-		return this.m_returnTripDamage;
+		return m_returnTripDamage;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "MaxTargets", string.Empty, this.m_maxTargets, false);
-		base.AddTokenInt(tokens, "DirectDamage", string.Empty, this.m_directDamage, false);
-		base.AddTokenInt(tokens, "ReturnTripDamage", string.Empty, this.m_returnTripDamage, false);
+		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
+		AddTokenInt(tokens, "DirectDamage", string.Empty, m_directDamage);
+		AddTokenInt(tokens, "ReturnTripDamage", string.Empty, m_returnTripDamage);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		return new List<AbilityTooltipNumber>
-		{
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, this.m_directDamage),
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Secondary, this.m_returnTripDamage)
-		};
+		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_directDamage));
+		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Secondary, m_returnTripDamage));
+		return list;
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoSuperDisc.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
-			if (this.m_syncComp.m_superDiscActive)
+			if (m_syncComp.m_superDiscActive)
 			{
 				return 0;
 			}
@@ -118,22 +102,9 @@ public class NekoSuperDisc : Ability
 
 	public override bool IsFreeAction()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoSuperDisc.IsFreeAction()).MethodHandle;
-			}
-			if (this.m_syncComp.m_superDiscActive)
+			if (m_syncComp.m_superDiscActive)
 			{
 				return true;
 			}
@@ -143,33 +114,20 @@ public class NekoSuperDisc : Ability
 
 	public override int GetModdedCost()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			if (m_syncComp.m_superDiscActive)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoSuperDisc.GetModdedCost()).MethodHandle;
-			}
-			if (this.m_syncComp.m_superDiscActive)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return 0;
 					}
-					break;
 				}
-				return 0;
 			}
 		}
 		return base.GetModdedCost();
@@ -177,33 +135,20 @@ public class NekoSuperDisc : Ability
 
 	public override TargetData[] GetTargetData()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			if (m_syncComp.m_superDiscActive)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoSuperDisc.GetTargetData()).MethodHandle;
-			}
-			if (this.m_syncComp.m_superDiscActive)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (5)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return new TargetData[0];
 					}
-					break;
 				}
-				return new TargetData[0];
 			}
 		}
 		return base.GetTargetData();
@@ -216,33 +161,20 @@ public class NekoSuperDisc : Ability
 
 	public override bool CanTriggerAnimAtIndexForTaunt(int animIndex)
 	{
-		if (this.m_syncComp != null && this.m_syncComp.m_superDiscActive)
+		if (m_syncComp != null && m_syncComp.m_superDiscActive)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoSuperDisc.CanTriggerAnimAtIndexForTaunt(int)).MethodHandle;
-			}
 			if (animIndex == (int)base.GetActionAnimType())
 			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return true;
 					}
-					break;
 				}
-				return true;
 			}
 		}
 		return false;
@@ -250,33 +182,20 @@ public class NekoSuperDisc : Ability
 
 	public BoardSquare GetCurrentDiscSquare()
 	{
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			for (;;)
+			if (m_syncComp.m_superDiscActive)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoSuperDisc.GetCurrentDiscSquare()).MethodHandle;
-			}
-			if (this.m_syncComp.m_superDiscActive)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return Board.Get().GetBoardSquare(m_syncComp.m_superDiscBoardX, m_syncComp.m_superDiscBoardY);
 					}
-					break;
 				}
-				return Board.\u000E().\u0016(this.m_syncComp.m_superDiscBoardX, this.m_syncComp.m_superDiscBoardY);
 			}
 		}
 		return null;

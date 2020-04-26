@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -8,7 +8,7 @@ public class CameraFaceShot
 
 	public int m_index;
 
-	public int m_animationIndex = 0x3E8;
+	public int m_animationIndex = 1000;
 
 	public float m_fieldOfView = 45f;
 
@@ -18,105 +18,65 @@ public class CameraFaceShot
 
 	private float m_time;
 
-	internal ActorData Actor { get; private set; }
+	internal ActorData Actor
+	{
+		get;
+		private set;
+	}
 
 	internal void Begin(ActorData actor, Camera faceCam)
 	{
-		this.m_time = 0f;
-		this.Actor = actor;
-		this.m_cameraAnimationObj = actor.\u000E().gameObject.FindInChildren("camera0", 0);
+		m_time = 0f;
+		Actor = actor;
+		m_cameraAnimationObj = actor.GetActorModelData().gameObject.FindInChildren("camera0");
 		if (faceCam != null)
 		{
-			faceCam.fieldOfView = this.m_fieldOfView;
+			faceCam.fieldOfView = m_fieldOfView;
 			if (!faceCam.gameObject.activeInHierarchy)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CameraFaceShot.Begin(ActorData, Camera)).MethodHandle;
-				}
 				faceCam.gameObject.SetActive(true);
 			}
 		}
-		ActorModelData actorModelData = actor.\u000E();
+		ActorModelData actorModelData = actor.GetActorModelData();
 		Animator animator = (!(actorModelData == null)) ? actorModelData.GetModelAnimator() : null;
 		if (animator != null)
 		{
-			animator.SetInteger("Attack", this.m_animationIndex);
+			animator.SetInteger("Attack", m_animationIndex);
 		}
 	}
 
 	internal bool Update(Camera faceCam)
 	{
-		ActorModelData actorModelData = this.Actor.\u0012();
-		if (actorModelData != null && !actorModelData.IsPlayingIdleAnim(false))
+		ActorModelData faceActorModelData = Actor.GetFaceActorModelData();
+		if (faceActorModelData != null && !faceActorModelData.IsPlayingIdleAnim())
 		{
-			Animator animator;
-			if (actorModelData == null)
+			object obj;
+			if (faceActorModelData == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CameraFaceShot.Update(Camera)).MethodHandle;
-				}
-				animator = null;
+				obj = null;
 			}
 			else
 			{
-				animator = actorModelData.GetModelAnimator();
+				obj = faceActorModelData.GetModelAnimator();
 			}
-			Animator animator2 = animator;
-			if (animator2 != null)
+			Animator animator = (Animator)obj;
+			if (animator != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				animator2.SetInteger("Attack", 0);
+				animator.SetInteger("Attack", 0);
 			}
-			faceCam.transform.position = this.m_cameraAnimationObj.transform.position;
-			faceCam.transform.rotation = this.m_cameraAnimationObj.transform.rotation * Quaternion.Euler(0f, 180f, 0f);
+			faceCam.transform.position = m_cameraAnimationObj.transform.position;
+			faceCam.transform.rotation = m_cameraAnimationObj.transform.rotation * Quaternion.Euler(0f, 180f, 0f);
 		}
-		this.m_time += Time.deltaTime;
-		bool result;
-		if (this.m_time >= this.m_duration)
+		m_time += Time.deltaTime;
+		int result;
+		if (!(m_time < m_duration))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = (this.m_duration <= 0f);
+			result = ((m_duration <= 0f) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 }

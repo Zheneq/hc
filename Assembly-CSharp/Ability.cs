@@ -1,14 +1,43 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class Ability : MonoBehaviour
 {
+	public enum TargetingParadigm
+	{
+		Position = 1,
+		Direction,
+		BoardSquare
+	}
+
+	public enum ValidateCheckPath
+	{
+		Ignore,
+		CanBuildPath,
+		CanBuildPathAllowThroughInvalid
+	}
+
+	public enum RotationVisibilityMode
+	{
+		Default_NonFreeAction,
+		OnAllyClientOnly,
+		Always,
+		Never
+	}
+
+	public enum MovementAdjustment
+	{
+		FullMovement,
+		ReducedMovement,
+		NoMovement
+	}
+
 	public const string c_abilityPreviewVideoPath = "Video/AbilityPreviews/";
 
 	[Tooltip("Description of ability, to display in game", order = 0)]
-	[TextArea(1, 0x14, order = 1)]
+	[TextArea(1, 20, order = 1)]
 	public string m_toolTip;
 
 	[HideInInspector]
@@ -17,7 +46,7 @@ public class Ability : MonoBehaviour
 	[HideInInspector]
 	public List<StatusType> m_savedStatusTypesForTooltips;
 
-	[TextArea(1, 0x14, order = 1)]
+	[TextArea(1, 20, order = 1)]
 	public string m_shortToolTip;
 
 	private string m_toolTipForUI;
@@ -82,10 +111,10 @@ public class Ability : MonoBehaviour
 	public ActorModelData.ActionAnimationType m_actionAnimType = ActorModelData.ActionAnimationType.Ability1;
 
 	[Header("-- Rotation Visibility --")]
-	public Ability.RotationVisibilityMode m_rotationVisibilityMode;
+	public RotationVisibilityMode m_rotationVisibilityMode;
 
 	[Separator("Movement", "orange")]
-	public Ability.MovementAdjustment m_movementAdjustment = Ability.MovementAdjustment.ReducedMovement;
+	public MovementAdjustment m_movementAdjustment = MovementAdjustment.ReducedMovement;
 
 	[Tooltip("Speed of charge or evasion movement. Ignored if Movement Duration is greater than zero.")]
 	public float m_movementSpeed = 8f;
@@ -123,120 +152,160 @@ public class Ability : MonoBehaviour
 
 	protected const string c_forArtHeader = "<color=cyan>-- For Art --</color>\n";
 
-	public Sprite sprite { get; set; }
+	public Sprite sprite
+	{
+		get;
+		set;
+	}
 
 	protected ActorData ActorData
 	{
 		get
 		{
-			if (this.m_actorData == null && !this.m_searchedForActorData)
+			if (m_actorData == null && !m_searchedForActorData)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.get_ActorData()).MethodHandle;
-				}
-				this.m_actorData = ((this.m_overrideActorDataIndex != ActorData.s_invalidActorIndex) ? GameFlowData.Get().FindActorByActorIndex(this.m_overrideActorDataIndex) : base.GetComponent<ActorData>());
-				this.m_searchedForActorData = true;
+				m_actorData = ((m_overrideActorDataIndex != ActorData.s_invalidActorIndex) ? GameFlowData.Get().FindActorByActorIndex(m_overrideActorDataIndex) : GetComponent<ActorData>());
+				m_searchedForActorData = true;
 			}
-			return this.m_actorData;
+			return m_actorData;
 		}
 	}
 
+	public AbilityPriority RunPriority
+	{
+		get
+		{
+			return GetRunPriority();
+		}
+		private set
+		{
+			m_runPriority = value;
+		}
+	}
+
+	public List<AbilityUtil_Targeter> Targeters => m_targeters;
+
+	public AbilityUtil_Targeter Targeter
+	{
+		get
+		{
+			if (m_targeters.Count > 0)
+			{
+				return m_targeters[0];
+			}
+			return null;
+		}
+		set
+		{
+			if (m_targeters.Count == 0)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						break;
+					default:
+						m_targeters.Add(value);
+						return;
+					}
+				}
+			}
+			m_targeters[0] = value;
+		}
+	}
+
+	public List<GameObject> BackupTargeterHighlights
+	{
+		get
+		{
+			return m_backupTargeterHighlights;
+		}
+		set
+		{
+			m_backupTargeterHighlights = value;
+		}
+	}
+
+	public List<AbilityTarget> BackupTargets
+	{
+		get
+		{
+			return m_backupTargets;
+		}
+		set
+		{
+			m_backupTargets = value;
+		}
+	}
+
+	public AbilityMod CurrentAbilityMod => m_currentAbilityMod;
+
 	private void Awake()
 	{
-		this.InitializeAbility();
-		this.SanitizeChainAbilities();
+		InitializeAbility();
+		SanitizeChainAbilities();
 	}
 
 	private void OnDestroy()
 	{
-		this.ClearTargeters();
+		ClearTargeters();
 	}
 
 	public void InitializeAbility()
 	{
-		this.RebuildTooltipForUI();
-		this.ResetNameplateTargetingNumbers();
+		RebuildTooltipForUI();
+		ResetNameplateTargetingNumbers();
 	}
 
 	protected void ClearTargeters()
 	{
-		if (this.Targeters != null)
+		if (Targeters == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.ClearTargeters()).MethodHandle;
-			}
-			this.ResetAbilityTargeters();
-			this.Targeters.Clear();
+			return;
+		}
+		while (true)
+		{
+			ResetAbilityTargeters();
+			Targeters.Clear();
+			return;
 		}
 	}
 
 	public void OverrideActorDataIndex(int actorDataIndex)
 	{
-		this.m_overrideActorDataIndex = actorDataIndex;
-		this.m_actorData = null;
+		m_overrideActorDataIndex = actorDataIndex;
+		m_actorData = null;
 	}
 
 	public string GetToolTipString(bool shortTooltip = false)
 	{
 		if (shortTooltip)
 		{
-			return this.m_shortToolTip;
+			return m_shortToolTip;
 		}
-		List<TooltipTokenEntry> tooltipTokenEntries = this.GetTooltipTokenEntries(null);
-		string text = StringUtil.TR_AbilityFinalFullTooltip(base.GetType().ToString(), this.m_abilityName);
-		if (text.Length == 0 && this.m_toolTip.Length > 0)
+		List<TooltipTokenEntry> tooltipTokenEntries = GetTooltipTokenEntries();
+		string text = StringUtil.TR_AbilityFinalFullTooltip(GetType().ToString(), m_abilityName);
+		if (text.Length == 0 && m_toolTip.Length > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetToolTipString(bool)).MethodHandle;
-			}
-			text = this.m_toolTip;
+			text = m_toolTip;
 		}
-		return TooltipTokenEntry.GetTooltipWithSubstitutes(text, tooltipTokenEntries, false);
+		return TooltipTokenEntry.GetTooltipWithSubstitutes(text, tooltipTokenEntries);
 	}
 
 	public virtual string GetFullTooltip()
 	{
-		return this.GetToolTipString(false);
+		return GetToolTipString();
 	}
 
 	public virtual string GetUnlocalizedFullTooltip()
 	{
-		if (string.IsNullOrEmpty(this.m_debugUnlocalizedTooltip))
+		if (string.IsNullOrEmpty(m_debugUnlocalizedTooltip))
 		{
-			List<TooltipTokenEntry> tooltipTokenEntries = this.GetTooltipTokenEntries(null);
-			return TooltipTokenEntry.GetTooltipWithSubstitutes(this.m_toolTip, tooltipTokenEntries, false);
+			List<TooltipTokenEntry> tooltipTokenEntries = GetTooltipTokenEntries();
+			return TooltipTokenEntry.GetTooltipWithSubstitutes(m_toolTip, tooltipTokenEntries);
 		}
-		return this.m_debugUnlocalizedTooltip;
+		return m_debugUnlocalizedTooltip;
 	}
 
 	protected virtual void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -246,78 +315,40 @@ public class Ability : MonoBehaviour
 	public List<TooltipTokenEntry> GetTooltipTokenEntries(AbilityMod mod = null)
 	{
 		List<TooltipTokenEntry> list = new List<TooltipTokenEntry>();
-		this.AddSpecificTooltipTokens(list, mod);
-		if (this.m_techPointInteractions != null)
+		AddSpecificTooltipTokens(list, mod);
+		if (m_techPointInteractions != null)
 		{
-			for (;;)
+			if (m_techPointInteractions.Length > 0)
 			{
-				switch (2)
+				TechPointInteraction[] techPointInteractions = m_techPointInteractions;
+				for (int i = 0; i < techPointInteractions.Length; i++)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetTooltipTokenEntries(AbilityMod)).MethodHandle;
-			}
-			if (this.m_techPointInteractions.Length > 0)
-			{
-				foreach (TechPointInteraction techPointInteraction in this.m_techPointInteractions)
-				{
+					TechPointInteraction techPointInteraction = techPointInteractions[i];
 					int num = techPointInteraction.m_amount;
 					if (mod != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = mod.GetModdedTechPointForInteraction(techPointInteraction.m_type, num);
 					}
 					list.Add(new TooltipTokenInt(techPointInteraction.m_type.ToString(), "Energy Gain", num));
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
-		if (this.m_techPointsCost > 0)
+		if (m_techPointsCost > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			list.Add(new TooltipTokenInt("EnergyCost", "Energy Cost", this.m_techPointsCost));
+			list.Add(new TooltipTokenInt("EnergyCost", "Energy Cost", m_techPointsCost));
 		}
-		if (this.m_maxStocks > 0)
+		if (m_maxStocks > 0)
 		{
-			list.Add(new TooltipTokenInt("MaxStocks", "Max Stocks/Charges", this.m_maxStocks));
+			list.Add(new TooltipTokenInt("MaxStocks", "Max Stocks/Charges", m_maxStocks));
 		}
 		return list;
 	}
 
 	public virtual void SetUnlocalizedTooltipAndStatusTypes(AbilityMod mod = null)
 	{
-		List<TooltipTokenEntry> tooltipTokenEntries = this.GetTooltipTokenEntries(mod);
-		this.m_debugUnlocalizedTooltip = TooltipTokenEntry.GetTooltipWithSubstitutes(this.m_toolTip, tooltipTokenEntries, false);
-		this.m_savedStatusTypesForTooltips = TooltipTokenEntry.GetStatusTypesFromTooltip(this.m_toolTip);
+		List<TooltipTokenEntry> tooltipTokenEntries = GetTooltipTokenEntries(mod);
+		m_debugUnlocalizedTooltip = TooltipTokenEntry.GetTooltipWithSubstitutes(m_toolTip, tooltipTokenEntries);
+		m_savedStatusTypesForTooltips = TooltipTokenEntry.GetStatusTypesFromTooltip(m_toolTip);
 	}
 
 	protected void AddTokenInt(List<TooltipTokenEntry> tokens, string name, string desc, int val, bool addForNonPositive = false)
@@ -332,31 +363,9 @@ public class Ability : MonoBehaviour
 	{
 		if (!addForNonPositive)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.AddTokenFloat(List<TooltipTokenEntry>, string, string, float, bool)).MethodHandle;
-			}
-			if (val <= 0f)
+			if (!(val > 0f))
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		tokens.Add(new TooltipTokenFloat(name, desc, val));
@@ -375,110 +384,63 @@ public class Ability : MonoBehaviour
 	{
 		if (!addForNonPositive)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.AddTokenFloatAsPct(List<TooltipTokenEntry>, string, string, float, bool)).MethodHandle;
-			}
-			if (val <= 0f)
+			if (!(val > 0f))
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int val2 = Mathf.RoundToInt(val * 100f);
 		tokens.Add(new TooltipTokenPct(name, desc, val2));
 	}
 
-	public AbilityPriority RunPriority
-	{
-		get
-		{
-			return this.GetRunPriority();
-		}
-		private set
-		{
-			this.m_runPriority = value;
-		}
-	}
-
 	public virtual AbilityPriority GetRunPriority()
 	{
-		if (this.m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null)
 		{
-			for (;;)
+			if (m_currentAbilityMod.m_useRunPriorityOverride)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetRunPriority()).MethodHandle;
-			}
-			if (this.m_currentAbilityMod.m_useRunPriorityOverride)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_currentAbilityMod.m_runPriorityOverride;
 					}
-					break;
 				}
-				return this.m_currentAbilityMod.m_runPriorityOverride;
 			}
 		}
-		return this.m_runPriority;
+		return m_runPriority;
 	}
 
 	public virtual bool CanRunInPhase(AbilityPriority phase)
 	{
-		return phase == this.RunPriority;
+		return phase == RunPriority;
 	}
 
 	public string GetRewardString()
 	{
-		return StringUtil.TR_AbilityReward(base.GetType().ToString(), this.m_abilityName);
+		return StringUtil.TR_AbilityReward(GetType().ToString(), m_abilityName);
 	}
 
 	public string GetPhaseStringUnLocalized()
 	{
-		UIQueueListPanel.UIPhase uiphaseFromAbilityPriority = UIQueueListPanel.GetUIPhaseFromAbilityPriority(this.RunPriority);
-		string result = uiphaseFromAbilityPriority.ToString();
-		switch (uiphaseFromAbilityPriority)
+		UIQueueListPanel.UIPhase uIPhaseFromAbilityPriority = UIQueueListPanel.GetUIPhaseFromAbilityPriority(RunPriority);
+		string result = uIPhaseFromAbilityPriority.ToString();
+		switch (uIPhaseFromAbilityPriority)
 		{
-		case UIQueueListPanel.UIPhase.Prep:
-			result = "Prep";
+		case UIQueueListPanel.UIPhase.Combat:
+			result = "Blast";
 			break;
 		case UIQueueListPanel.UIPhase.Evasion:
 			result = "Dash";
 			break;
-		case UIQueueListPanel.UIPhase.Combat:
-			result = "Blast";
-			break;
 		case UIQueueListPanel.UIPhase.Movement:
 			result = "Movement";
+			break;
+		case UIQueueListPanel.UIPhase.Prep:
+			result = "Prep";
 			break;
 		}
 		return result;
@@ -486,21 +448,21 @@ public class Ability : MonoBehaviour
 
 	public string GetPhaseString()
 	{
-		UIQueueListPanel.UIPhase uiphaseFromAbilityPriority = UIQueueListPanel.GetUIPhaseFromAbilityPriority(this.RunPriority);
-		string result = uiphaseFromAbilityPriority.ToString();
-		switch (uiphaseFromAbilityPriority)
+		UIQueueListPanel.UIPhase uIPhaseFromAbilityPriority = UIQueueListPanel.GetUIPhaseFromAbilityPriority(RunPriority);
+		string result = uIPhaseFromAbilityPriority.ToString();
+		switch (uIPhaseFromAbilityPriority)
 		{
-		case UIQueueListPanel.UIPhase.Prep:
-			result = StringUtil.TR("Prep", "Global");
+		case UIQueueListPanel.UIPhase.Combat:
+			result = StringUtil.TR("Blast", "Global");
 			break;
 		case UIQueueListPanel.UIPhase.Evasion:
 			result = StringUtil.TR("Dash", "Global");
 			break;
-		case UIQueueListPanel.UIPhase.Combat:
-			result = StringUtil.TR("Blast", "Global");
-			break;
 		case UIQueueListPanel.UIPhase.Movement:
 			result = StringUtil.TR("Movement", "Global");
+			break;
+		case UIQueueListPanel.UIPhase.Prep:
+			result = StringUtil.TR("Prep", "Global");
 			break;
 		}
 		return result;
@@ -508,22 +470,18 @@ public class Ability : MonoBehaviour
 
 	public string GetCostString()
 	{
-		if (this.GetBaseCost() > 0)
+		if (GetBaseCost() > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return $"{GetBaseCost()} energy";
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetCostString()).MethodHandle;
-			}
-			return string.Format("{0} energy", this.GetBaseCost());
 		}
 		return string.Empty;
 	}
@@ -531,22 +489,9 @@ public class Ability : MonoBehaviour
 	public int GetBaseCost()
 	{
 		int result;
-		if (this.m_techPointsCost > 0)
+		if (m_techPointsCost > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetBaseCost()).MethodHandle;
-			}
-			result = this.m_techPointsCost;
+			result = m_techPointsCost;
 		}
 		else
 		{
@@ -557,58 +502,32 @@ public class Ability : MonoBehaviour
 
 	public virtual int GetModdedCost()
 	{
-		int num = this.GetBaseCost();
-		if (this.m_currentAbilityMod != null)
+		int num = GetBaseCost();
+		if (m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetModdedCost()).MethodHandle;
-			}
-			num = Mathf.Max(0, this.m_currentAbilityMod.m_techPointCostMod.GetModifiedValue(num));
+			num = Mathf.Max(0, m_currentAbilityMod.m_techPointCostMod.GetModifiedValue(num));
 		}
 		return num;
 	}
 
 	public virtual TechPointInteraction[] GetBaseTechPointInteractions()
 	{
-		return this.m_techPointInteractions;
+		return m_techPointInteractions;
 	}
 
 	public string GetNameString()
 	{
-		string text = StringUtil.TR_AbilityName(base.GetType().ToString(), this.m_abilityName);
-		if (text.Length == 0 && this.m_abilityName.Length > 0)
+		string text = StringUtil.TR_AbilityName(GetType().ToString(), m_abilityName);
+		if (text.Length == 0 && m_abilityName.Length > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetNameString()).MethodHandle;
-			}
-			text = this.m_abilityName;
+			text = m_abilityName;
 		}
 		return text;
 	}
 
 	public string GetCooldownString()
 	{
-		return string.Format("{0} turn cooldown", this.m_cooldown);
+		return $"{m_cooldown} turn cooldown";
 	}
 
 	public virtual bool UseCustomAbilityIconColor()
@@ -628,58 +547,27 @@ public class Ability : MonoBehaviour
 
 	public virtual bool CanShowTargetableRadiusPreview()
 	{
-		TargetData[] targetData = this.GetTargetData();
+		TargetData[] targetData = GetTargetData();
 		if (targetData.Length > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.CanShowTargetableRadiusPreview()).MethodHandle;
-			}
 			TargetData targetData2 = targetData[0];
 			float num = Mathf.Max(0f, targetData2.m_range - 0.5f);
 			if (num > 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num < 15f)
 				{
-					for (;;)
+					if (targetData2.m_targetingParadigm != TargetingParadigm.Direction)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (targetData2.m_targetingParadigm != Ability.TargetingParadigm.Direction)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (2)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return true;
 							}
-							break;
 						}
-						return true;
 					}
 				}
 			}
@@ -694,7 +582,7 @@ public class Ability : MonoBehaviour
 
 	public bool ShowTargetableRadiusWhileTargeting()
 	{
-		return this.CanShowTargetableRadiusPreview() && AbilityUtils.AbilityHasTag(this, AbilityTags.Targeter_ShowRangeWhileTargeting);
+		return CanShowTargetableRadiusPreview() && AbilityUtils.AbilityHasTag(this, AbilityTags.Targeter_ShowRangeWhileTargeting);
 	}
 
 	public virtual bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
@@ -713,45 +601,23 @@ public class Ability : MonoBehaviour
 
 	public virtual bool HasAimingOriginOverride(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out Vector3 overridePos)
 	{
-		overridePos = aimingActor.\u0016();
+		overridePos = aimingActor.GetTravelBoardSquareWorldPosition();
 		return false;
 	}
 
 	public virtual int GetBaseCooldown()
 	{
-		return this.m_cooldown;
+		return m_cooldown;
 	}
 
 	public int GetModdedCooldown()
 	{
-		int num = this.GetBaseCooldown();
+		int num = GetBaseCooldown();
 		if (num >= 0)
 		{
-			for (;;)
+			if (m_currentAbilityMod != null)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetModdedCooldown()).MethodHandle;
-			}
-			if (this.m_currentAbilityMod != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				num = Mathf.Max(0, this.m_currentAbilityMod.m_maxCooldownMod.GetModifiedValue(num));
+				num = Mathf.Max(0, m_currentAbilityMod.m_maxCooldownMod.GetModifiedValue(num));
 			}
 		}
 		return num;
@@ -759,150 +625,116 @@ public class Ability : MonoBehaviour
 
 	public virtual int GetCooldownForUIDisplay()
 	{
-		return this.GetModdedCooldown();
+		return GetModdedCooldown();
 	}
 
 	public StandardEffectInfo GetModdedEffectForEnemies()
 	{
-		if (this.m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null)
 		{
-			return this.m_currentAbilityMod.m_effectToTargetEnemyOnHit;
+			return m_currentAbilityMod.m_effectToTargetEnemyOnHit;
 		}
 		return null;
 	}
 
 	public StandardEffectInfo GetModdedEffectForAllies()
 	{
-		if (this.m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_currentAbilityMod.m_effectToTargetAllyOnHit;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetModdedEffectForAllies()).MethodHandle;
-			}
-			return this.m_currentAbilityMod.m_effectToTargetAllyOnHit;
 		}
 		return null;
 	}
 
 	public StandardEffectInfo GetModdedEffectForSelf()
 	{
-		if (this.m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null)
 		{
-			return this.m_currentAbilityMod.m_effectToSelfOnCast;
+			return m_currentAbilityMod.m_effectToSelfOnCast;
 		}
 		return null;
 	}
 
 	public bool HasSelfEffectFromBaseMod()
 	{
-		StandardEffectInfo moddedEffectForSelf = this.GetModdedEffectForSelf();
-		bool result;
+		StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
+		int result;
 		if (moddedEffectForSelf != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.HasSelfEffectFromBaseMod()).MethodHandle;
-			}
-			result = moddedEffectForSelf.m_applyEffect;
+			result = (moddedEffectForSelf.m_applyEffect ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public bool GetModdedUseAllyEffectForTargetedCaster()
 	{
-		if (this.m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_currentAbilityMod.m_useAllyEffectForTargetedCaster;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetModdedUseAllyEffectForTargetedCaster()).MethodHandle;
-			}
-			return this.m_currentAbilityMod.m_useAllyEffectForTargetedCaster;
 		}
 		return false;
 	}
 
 	public float GetModdedChanceToTriggerEffects()
 	{
-		if (this.m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_currentAbilityMod.m_effectTriggerChance;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetModdedChanceToTriggerEffects()).MethodHandle;
-			}
-			return this.m_currentAbilityMod.m_effectTriggerChance;
 		}
 		return 1f;
 	}
 
 	public bool ModdedChanceToTriggerEffectsIsPerHit()
 	{
-		return this.m_currentAbilityMod != null && this.m_currentAbilityMod.m_effectTriggerChanceMultipliedPerHit;
+		if (m_currentAbilityMod != null)
+		{
+			return m_currentAbilityMod.m_effectTriggerChanceMultipliedPerHit;
+		}
+		return false;
 	}
 
 	public int GetBaseMaxStocks()
 	{
-		return this.m_maxStocks;
+		return m_maxStocks;
 	}
 
 	public int GetModdedMaxStocks()
 	{
-		int num = this.m_maxStocks;
-		if (this.m_maxStocks >= 0 && this.m_currentAbilityMod != null)
+		int num = m_maxStocks;
+		if (m_maxStocks >= 0 && m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetModdedMaxStocks()).MethodHandle;
-			}
-			num = Mathf.Max(0, this.m_currentAbilityMod.m_maxStocksMod.GetModifiedValue(num));
+			num = Mathf.Max(0, m_currentAbilityMod.m_maxStocksMod.GetModifiedValue(num));
 		}
 		return num;
 	}
@@ -910,211 +742,110 @@ public class Ability : MonoBehaviour
 	public bool RefillAllStockOnRefresh()
 	{
 		bool result;
-		if (this.m_currentAbilityMod)
+		if ((bool)m_currentAbilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.RefillAllStockOnRefresh()).MethodHandle;
-			}
-			result = this.m_currentAbilityMod.m_refillAllStockOnRefreshMod.GetModifiedValue(this.m_refillAllStockOnRefresh);
+			result = m_currentAbilityMod.m_refillAllStockOnRefreshMod.GetModifiedValue(m_refillAllStockOnRefresh);
 		}
 		else
 		{
-			result = this.m_refillAllStockOnRefresh;
+			result = m_refillAllStockOnRefresh;
 		}
 		return result;
 	}
 
 	public int GetBaseStockRefreshDuration()
 	{
-		return this.m_stockRefreshDuration;
+		return m_stockRefreshDuration;
 	}
 
 	public int GetModdedStockRefreshDuration()
 	{
-		int num = this.m_stockRefreshDuration;
-		if (this.m_currentAbilityMod != null)
+		int num = m_stockRefreshDuration;
+		if (m_currentAbilityMod != null)
 		{
-			num = Mathf.Max(-1, this.m_currentAbilityMod.m_stockRefreshDurationMod.GetModifiedValue(num));
+			num = Mathf.Max(-1, m_currentAbilityMod.m_stockRefreshDurationMod.GetModifiedValue(num));
 		}
 		return num;
 	}
 
 	private void RebuildTooltipForUI()
 	{
-		this.m_toolTipForUI = this.GetNameString();
-		if (this.GetBaseCost() > 0)
+		m_toolTipForUI = GetNameString();
+		if (GetBaseCost() > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.RebuildTooltipForUI()).MethodHandle;
-			}
-			this.m_toolTipForUI += string.Format(" - {0} TP", this.GetBaseCost());
+			m_toolTipForUI += $" - {GetBaseCost()} TP";
 		}
-		if (this.m_cooldown > 0)
+		if (m_cooldown > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_toolTipForUI += string.Format(" - {0} turn cooldown", this.m_cooldown);
+			m_toolTipForUI += $" - {m_cooldown} turn cooldown";
 		}
-		if (this.IsFreeAction())
+		if (IsFreeAction())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_toolTipForUI = "This is a Free Action.\n" + this.m_toolTipForUI;
+			m_toolTipForUI = "This is a Free Action.\n" + m_toolTipForUI;
 		}
-		this.m_toolTipForUI = this.m_toolTipForUI + "\n" + this.GetFullTooltip();
-		this.m_abilityTooltipNumbers = this.BaseCalculateAbilityTooltipNumbers();
+		m_toolTipForUI = m_toolTipForUI + "\n" + GetFullTooltip();
+		m_abilityTooltipNumbers = BaseCalculateAbilityTooltipNumbers();
 	}
 
 	public void SetTooltip()
 	{
-		this.RebuildTooltipForUI();
+		RebuildTooltipForUI();
 	}
 
 	public List<AbilityTooltipNumber> GetAbilityTooltipNumbers()
 	{
-		return this.m_abilityTooltipNumbers;
+		return m_abilityTooltipNumbers;
 	}
 
 	protected List<AbilityTooltipNumber> BaseCalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = this.CalculateAbilityTooltipNumbers();
-		this.AppendTooltipNumbersFromBaseModEffects(ref result, AbilityTooltipSubject.Primary, AbilityTooltipSubject.Ally, AbilityTooltipSubject.Self);
-		return result;
+		List<AbilityTooltipNumber> numbers = CalculateAbilityTooltipNumbers();
+		AppendTooltipNumbersFromBaseModEffects(ref numbers);
+		return numbers;
 	}
 
-	protected unsafe void AppendTooltipNumbersFromBaseModEffects(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject enemyEffectSubject = AbilityTooltipSubject.Primary, AbilityTooltipSubject allyEffectSubject = AbilityTooltipSubject.Ally, AbilityTooltipSubject selfEffectSubject = AbilityTooltipSubject.Self)
+	protected void AppendTooltipNumbersFromBaseModEffects(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject enemyEffectSubject = AbilityTooltipSubject.Primary, AbilityTooltipSubject allyEffectSubject = AbilityTooltipSubject.Ally, AbilityTooltipSubject selfEffectSubject = AbilityTooltipSubject.Self)
 	{
-		if (this.m_currentAbilityMod != null)
+		if (!(m_currentAbilityMod != null))
 		{
-			if (enemyEffectSubject != AbilityTooltipSubject.None)
+			return;
+		}
+		if (enemyEffectSubject != 0)
+		{
+			StandardEffectInfo moddedEffectForEnemies = GetModdedEffectForEnemies();
+			if (moddedEffectForEnemies != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.AppendTooltipNumbersFromBaseModEffects(List<AbilityTooltipNumber>*, AbilityTooltipSubject, AbilityTooltipSubject, AbilityTooltipSubject)).MethodHandle;
-				}
-				StandardEffectInfo moddedEffectForEnemies = this.GetModdedEffectForEnemies();
-				if (moddedEffectForEnemies != null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					moddedEffectForEnemies.ReportAbilityTooltipNumbers(ref numbers, enemyEffectSubject);
-				}
+				moddedEffectForEnemies.ReportAbilityTooltipNumbers(ref numbers, enemyEffectSubject);
 			}
-			StandardEffectInfo moddedEffectForAllies = this.GetModdedEffectForAllies();
-			StandardEffectInfo moddedEffectForSelf = this.GetModdedEffectForSelf();
-			if (allyEffectSubject != AbilityTooltipSubject.None)
+		}
+		StandardEffectInfo moddedEffectForAllies = GetModdedEffectForAllies();
+		StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
+		if (allyEffectSubject != 0)
+		{
+			if (moddedEffectForAllies != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (moddedEffectForAllies != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, allyEffectSubject);
-				}
+				moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, allyEffectSubject);
 			}
-			if (selfEffectSubject != AbilityTooltipSubject.None)
+		}
+		if (selfEffectSubject == AbilityTooltipSubject.None)
+		{
+			return;
+		}
+		while (true)
+		{
+			if (m_currentAbilityMod.m_useAllyEffectForTargetedCaster && moddedEffectForAllies != null)
 			{
-				for (;;)
+				moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, selfEffectSubject);
+			}
+			if (moddedEffectForSelf != null)
+			{
+				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_currentAbilityMod.m_useAllyEffectForTargetedCaster && moddedEffectForAllies != null)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, selfEffectSubject);
-				}
-				if (moddedEffectForSelf != null)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					moddedEffectForSelf.ReportAbilityTooltipNumbers(ref numbers, selfEffectSubject);
+					return;
 				}
 			}
+			return;
 		}
 	}
 
@@ -1123,28 +854,27 @@ public class Ability : MonoBehaviour
 		return new List<AbilityTooltipNumber>();
 	}
 
-	public virtual List<int> \u001D()
+	public virtual List<int> _001D()
 	{
 		List<int> list = new List<int>();
-		List<AbilityTooltipNumber> list2 = this.BaseCalculateAbilityTooltipNumbers();
+		List<AbilityTooltipNumber> list2 = BaseCalculateAbilityTooltipNumbers();
 		if (list2 != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					{
+						foreach (AbilityTooltipNumber item in list2)
+						{
+							list.Add(item.m_value);
+						}
+						return list;
+					}
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.\u001D()).MethodHandle;
-			}
-			foreach (AbilityTooltipNumber abilityTooltipNumber in list2)
-			{
-				list.Add(abilityTooltipNumber.m_value);
 			}
 		}
 		return list;
@@ -1152,57 +882,35 @@ public class Ability : MonoBehaviour
 
 	public virtual List<StatusType> GetStatusTypesForTooltip()
 	{
-		if (this.m_savedStatusTypesForTooltips != null)
+		if (m_savedStatusTypesForTooltips != null)
 		{
-			for (;;)
+			if (m_savedStatusTypesForTooltips.Count != 0)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetStatusTypesForTooltip()).MethodHandle;
-			}
-			if (this.m_savedStatusTypesForTooltips.Count != 0)
-			{
-				return this.m_savedStatusTypesForTooltips;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return m_savedStatusTypesForTooltips;
 			}
 		}
-		return TooltipTokenEntry.GetStatusTypesFromTooltip(this.m_toolTip);
+		return TooltipTokenEntry.GetStatusTypesFromTooltip(m_toolTip);
 	}
 
 	public List<AbilityTooltipNumber> GetNameplateTargetingNumbers()
 	{
-		return this.m_nameplateTargetingNumbers;
+		return m_nameplateTargetingNumbers;
 	}
 
 	protected virtual List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		return this.BaseCalculateAbilityTooltipNumbers();
+		return BaseCalculateAbilityTooltipNumbers();
 	}
 
 	public void ResetNameplateTargetingNumbers()
 	{
-		this.m_nameplateTargetingNumbers = this.CalculateNameplateTargetingNumbers();
+		m_nameplateTargetingNumbers = CalculateNameplateTargetingNumbers();
 	}
 
 	protected void ResetTooltipAndTargetingNumbers()
 	{
-		this.SetTooltip();
-		this.ResetNameplateTargetingNumbers();
+		SetTooltip();
+		ResetNameplateTargetingNumbers();
 	}
 
 	public virtual bool DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject subjectType, ActorData targetActor, Vector3 damageOrigin, ActorData targetingActor)
@@ -1235,429 +943,226 @@ public class Ability : MonoBehaviour
 		return true;
 	}
 
-	public unsafe static void AddNameplateValueForSingleHit(ref Dictionary<AbilityTooltipSymbol, int> symbolToValue, AbilityUtil_Targeter targeter, ActorData targetActor, int damageAmount, AbilityTooltipSymbol symbolOfInterest = AbilityTooltipSymbol.Damage, AbilityTooltipSubject targetSubject = AbilityTooltipSubject.Primary)
+	public static void AddNameplateValueForSingleHit(ref Dictionary<AbilityTooltipSymbol, int> symbolToValue, AbilityUtil_Targeter targeter, ActorData targetActor, int damageAmount, AbilityTooltipSymbol symbolOfInterest = AbilityTooltipSymbol.Damage, AbilityTooltipSubject targetSubject = AbilityTooltipSubject.Primary)
 	{
 		List<AbilityTooltipSubject> tooltipSubjectTypes = targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null)
+		if (tooltipSubjectTypes == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (tooltipSubjectTypes.Count <= 0)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.AddNameplateValueForSingleHit(Dictionary<AbilityTooltipSymbol, int>*, AbilityUtil_Targeter, ActorData, int, AbilityTooltipSymbol, AbilityTooltipSubject)).MethodHandle;
-			}
-			if (tooltipSubjectTypes.Count > 0)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tooltipSubjectTypes.Contains(targetSubject))
 				{
-					for (;;)
+					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						symbolToValue[symbolOfInterest] = damageAmount;
+						return;
 					}
-					symbolToValue[symbolOfInterest] = damageAmount;
 				}
+				return;
 			}
 		}
 	}
 
-	public unsafe static void AddNameplateValueForOverlap(ref Dictionary<AbilityTooltipSymbol, int> symbolToValue, AbilityUtil_Targeter targeter, ActorData targetActor, int currentTargeterIndex, int firstAmount, int subsequentAmount, AbilityTooltipSymbol symbolOfInterest = AbilityTooltipSymbol.Damage, AbilityTooltipSubject targetSubject = AbilityTooltipSubject.Primary)
+	public static void AddNameplateValueForOverlap(ref Dictionary<AbilityTooltipSymbol, int> symbolToValue, AbilityUtil_Targeter targeter, ActorData targetActor, int currentTargeterIndex, int firstAmount, int subsequentAmount, AbilityTooltipSymbol symbolOfInterest = AbilityTooltipSymbol.Damage, AbilityTooltipSubject targetSubject = AbilityTooltipSubject.Primary)
 	{
 		List<AbilityTooltipSubject> tooltipSubjectTypes = targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null)
+		if (tooltipSubjectTypes == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.AddNameplateValueForOverlap(Dictionary<AbilityTooltipSymbol, int>*, AbilityUtil_Targeter, ActorData, int, int, int, AbilityTooltipSymbol, AbilityTooltipSubject)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (tooltipSubjectTypes.Count > 0)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (6)
+					using (List<AbilityTooltipSubject>.Enumerator enumerator = tooltipSubjectTypes.GetEnumerator())
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				using (List<AbilityTooltipSubject>.Enumerator enumerator = tooltipSubjectTypes.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
-					{
-						AbilityTooltipSubject abilityTooltipSubject = enumerator.Current;
-						if (abilityTooltipSubject == targetSubject)
+						while (enumerator.MoveNext())
 						{
-							for (;;)
+							AbilityTooltipSubject current = enumerator.Current;
+							if (current == targetSubject)
 							{
-								switch (5)
+								if (!symbolToValue.ContainsKey(symbolOfInterest))
 								{
-								case 0:
-									continue;
+									symbolToValue[symbolOfInterest] = firstAmount;
 								}
+								else
+								{
+									symbolToValue[symbolOfInterest] += subsequentAmount;
+								}
+							}
+						}
+						while (true)
+						{
+							switch (6)
+							{
+							default:
+								return;
+							case 0:
 								break;
 							}
-							if (!symbolToValue.ContainsKey(symbolOfInterest))
-							{
-								symbolToValue[symbolOfInterest] = firstAmount;
-							}
-							else
-							{
-								Dictionary<AbilityTooltipSymbol, int> dictionary;
-								(dictionary = symbolToValue)[symbolOfInterest] = dictionary[symbolOfInterest] + subsequentAmount;
-							}
 						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
+			return;
 		}
 	}
 
 	public void ResetAbilityTargeters()
 	{
-		if (this.Targeters != null)
+		if (Targeters != null)
 		{
-			for (int i = 0; i < this.Targeters.Count; i++)
+			for (int i = 0; i < Targeters.Count; i++)
 			{
-				AbilityUtil_Targeter abilityUtil_Targeter = this.Targeters[i];
-				if (abilityUtil_Targeter != null)
-				{
-					abilityUtil_Targeter.ResetTargeter(true);
-				}
+				Targeters[i]?.ResetTargeter(true);
 			}
 		}
 	}
 
 	private void Update()
 	{
-		if (this.Targeter != null)
+		bool flag2;
+		bool flag3;
+		if (Targeter != null)
 		{
-			for (;;)
+			if (IsAbilitySelected())
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.Update()).MethodHandle;
-			}
-			if (this.IsAbilitySelected())
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = HighlightUtils.Get() != null && HighlightUtils.Get().m_cachedShouldShowAffectedSquares;
-				bool flag2 = this.m_lastUpdateShowingAffectedSquares != flag;
-				this.m_lastUpdateShowingAffectedSquares = flag;
-				bool flag3 = false;
-				if (this.ActorData == GameFlowData.Get().activeOwnedActorData)
+				flag2 = (m_lastUpdateShowingAffectedSquares != flag);
+				m_lastUpdateShowingAffectedSquares = flag;
+				flag3 = false;
+				if (ActorData == GameFlowData.Get().activeOwnedActorData)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = true;
 				}
 				if (GameFlowData.Get().activeOwnedActorData == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 					if (teamViewing != Team.Invalid)
 					{
-						for (;;)
+						if (teamViewing != ActorData.GetTeam())
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (teamViewing != this.ActorData.\u000E())
-						{
-							goto IL_ED;
+							goto IL_00ed;
 						}
 					}
 					flag3 = true;
 				}
-				IL_ED:
-				if (flag3)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-					ActorTurnSM actorTurnSM = this.ActorData.\u000E();
-					if (actorTurnSM != null && actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						AbilityTarget.UpdateAbilityTargetForForTargeterUpdate();
-						AbilityTarget abilityTargetForTargeterUpdate = AbilityTarget.GetAbilityTargetForTargeterUpdate();
-						if (this.GetExpectedNumberOfTargeters() < 2)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!flag2)
-							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!this.Targeter.MarkedForForceUpdate)
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (this.Targeter.IsCursorStateSameAsLastUpdate(abilityTargetForTargeterUpdate))
-									{
-										goto IL_1FC;
-									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-								}
-							}
-							this.Targeter.MarkedForForceUpdate = false;
-							this.Targeter.SetLastUpdateCursorState(abilityTargetForTargeterUpdate);
-							this.Targeter.UpdateTargeting(abilityTargetForTargeterUpdate, this.ActorData);
-							this.Targeter.AdjustOpacityWhileTargeting();
-							this.Targeter.SetupTargetingArc(activeOwnedActorData, false);
-							IL_1FC:;
-						}
-						else
-						{
-							int count = actorTurnSM.GetAbilityTargets().Count;
-							if (count < this.Targeters.Count)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								AbilityUtil_Targeter abilityUtil_Targeter = this.Targeters[count];
-								if (!flag2)
-								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!this.Targeters[0].MarkedForForceUpdate)
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (abilityUtil_Targeter.IsCursorStateSameAsLastUpdate(abilityTargetForTargeterUpdate))
-										{
-											goto IL_2FA;
-										}
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-									}
-								}
-								this.Targeters[0].MarkedForForceUpdate = false;
-								abilityUtil_Targeter.SetLastUpdateCursorState(abilityTargetForTargeterUpdate);
-								if (abilityUtil_Targeter.IsUsingMultiTargetUpdate())
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									abilityUtil_Targeter.UpdateTargetingMultiTargets(abilityTargetForTargeterUpdate, this.ActorData, count, actorTurnSM.GetAbilityTargets());
-								}
-								else
-								{
-									abilityUtil_Targeter.UpdateTargeting(abilityTargetForTargeterUpdate, this.ActorData);
-								}
-								abilityUtil_Targeter.AdjustOpacityWhileTargeting();
-								abilityUtil_Targeter.SetupTargetingArc(activeOwnedActorData, false);
-								IL_2FA:
-								if (HighlightUtils.Get().GetCurrentCursorType() != abilityUtil_Targeter.GetCursorType())
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									HighlightUtils.Get().SetCursorType(abilityUtil_Targeter.GetCursorType());
-								}
-							}
-						}
-						this.Targeter.UpdateArrowsForUI();
-					}
-				}
+				goto IL_00ed;
 			}
 		}
-		if (this.Targeters != null)
+		goto IL_033f;
+		IL_033f:
+		if (Targeters == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(ActorData != null))
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (this.ActorData != null)
+			for (int i = 0; i < Targeters.Count; i++)
 			{
-				for (int i = 0; i < this.Targeters.Count; i++)
+				AbilityUtil_Targeter abilityUtil_Targeter = Targeters[i];
+				if (abilityUtil_Targeter != null)
 				{
-					AbilityUtil_Targeter abilityUtil_Targeter2 = this.Targeters[i];
-					if (abilityUtil_Targeter2 != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						abilityUtil_Targeter2.UpdateFadeOutHighlights(this.ActorData);
-					}
+					abilityUtil_Targeter.UpdateFadeOutHighlights(ActorData);
 				}
-				for (;;)
+			}
+			while (true)
+			{
+				switch (4)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
+				default:
+					return;
+				case 0:
 					break;
 				}
 			}
 		}
+		IL_0332:
+		Targeter.UpdateArrowsForUI();
+		goto IL_033f;
+		IL_02fa:
+		AbilityUtil_Targeter abilityUtil_Targeter2;
+		if (HighlightUtils.Get().GetCurrentCursorType() != abilityUtil_Targeter2.GetCursorType())
+		{
+			HighlightUtils.Get().SetCursorType(abilityUtil_Targeter2.GetCursorType());
+		}
+		goto IL_0332;
+		IL_00ed:
+		if (flag3)
+		{
+			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+			ActorTurnSM actorTurnSM = ActorData.GetActorTurnSM();
+			if (actorTurnSM != null && actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
+			{
+				AbilityTarget.UpdateAbilityTargetForForTargeterUpdate();
+				AbilityTarget abilityTargetForTargeterUpdate = AbilityTarget.GetAbilityTargetForTargeterUpdate();
+				if (GetExpectedNumberOfTargeters() < 2)
+				{
+					if (!flag2)
+					{
+						if (!Targeter.MarkedForForceUpdate)
+						{
+							if (Targeter.IsCursorStateSameAsLastUpdate(abilityTargetForTargeterUpdate))
+							{
+								goto IL_0332;
+							}
+						}
+					}
+					Targeter.MarkedForForceUpdate = false;
+					Targeter.SetLastUpdateCursorState(abilityTargetForTargeterUpdate);
+					Targeter.UpdateTargeting(abilityTargetForTargeterUpdate, ActorData);
+					Targeter.AdjustOpacityWhileTargeting();
+					Targeter.SetupTargetingArc(activeOwnedActorData, false);
+				}
+				else
+				{
+					int count = actorTurnSM.GetAbilityTargets().Count;
+					if (count < Targeters.Count)
+					{
+						abilityUtil_Targeter2 = Targeters[count];
+						if (!flag2)
+						{
+							if (!Targeters[0].MarkedForForceUpdate)
+							{
+								if (abilityUtil_Targeter2.IsCursorStateSameAsLastUpdate(abilityTargetForTargeterUpdate))
+								{
+									goto IL_02fa;
+								}
+							}
+						}
+						Targeters[0].MarkedForForceUpdate = false;
+						abilityUtil_Targeter2.SetLastUpdateCursorState(abilityTargetForTargeterUpdate);
+						if (abilityUtil_Targeter2.IsUsingMultiTargetUpdate())
+						{
+							abilityUtil_Targeter2.UpdateTargetingMultiTargets(abilityTargetForTargeterUpdate, ActorData, count, actorTurnSM.GetAbilityTargets());
+						}
+						else
+						{
+							abilityUtil_Targeter2.UpdateTargeting(abilityTargetForTargeterUpdate, ActorData);
+						}
+						abilityUtil_Targeter2.AdjustOpacityWhileTargeting();
+						abilityUtil_Targeter2.SetupTargetingArc(activeOwnedActorData, false);
+						goto IL_02fa;
+					}
+				}
+				goto IL_0332;
+			}
+		}
+		goto IL_033f;
 	}
 
 	public virtual bool CustomCanCastValidation(ActorData caster)
@@ -1675,380 +1180,161 @@ public class Ability : MonoBehaviour
 		return false;
 	}
 
-	public bool CanTargetActorInDecision(ActorData caster, ActorData targetActor, bool allowEnemies, bool allowAllies, bool allowSelf, Ability.ValidateCheckPath checkPath, bool checkLineOfSight, bool checkStatusImmunities, bool ignoreLosSettingOnTargetData = false)
+	public bool CanTargetActorInDecision(ActorData caster, ActorData targetActor, bool allowEnemies, bool allowAllies, bool allowSelf, ValidateCheckPath checkPath, bool checkLineOfSight, bool checkStatusImmunities, bool ignoreLosSettingOnTargetData = false)
 	{
+		BoardSquare currentBoardSquare;
+		bool flag2;
 		if (caster != null)
 		{
-			for (;;)
+			if (!caster.IsDead() && caster.GetCurrentBoardSquare() != null && targetActor != null)
 			{
-				switch (3)
+				if (!targetActor.IsDead())
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.CanTargetActorInDecision(ActorData, ActorData, bool, bool, bool, Ability.ValidateCheckPath, bool, bool, bool)).MethodHandle;
-			}
-			if (!caster.\u000E() && caster.\u0012() != null && targetActor != null)
-			{
-				for (;;)
-				{
-					switch (6)
+					if (targetActor.GetCurrentBoardSquare() != null)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!targetActor.\u000E())
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (targetActor.\u0012() != null)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!targetActor.IgnoreForAbilityHits)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							BoardSquare boardSquare = targetActor.\u0012();
-							bool flag = (!NetworkClient.active) ? targetActor.\u000E(caster, false) : targetActor.\u0018();
-							bool flag2 = caster.\u000E() == targetActor.\u000E();
+							currentBoardSquare = targetActor.GetCurrentBoardSquare();
+							bool flag = (!NetworkClient.active) ? targetActor.IsActorVisibleToActor(caster) : targetActor.IsVisibleToClient();
+							flag2 = (caster.GetTeam() == targetActor.GetTeam());
 							if (flag)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag2)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (allowAllies)
 									{
-										goto IL_12B;
-									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
+										goto IL_012b;
 									}
 								}
-								if (flag2)
+								if (!flag2)
 								{
-									return false;
-								}
-								for (;;)
-								{
-									switch (1)
+									if (allowEnemies)
 									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!allowEnemies)
-								{
-									return false;
-								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								IL_12B:
-								if (!allowSelf)
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!(caster != targetActor))
-									{
-										return false;
+										goto IL_012b;
 									}
 								}
-								float currentMinRangeInSquares = AbilityUtils.GetCurrentMinRangeInSquares(this, caster, 0);
-								float currentRangeInSquares = AbilityUtils.GetCurrentRangeInSquares(this, caster, 0);
-								bool flag3 = caster.\u000E().IsTargetSquareInRangeOfAbilityFromSquare(targetActor.\u0012(), caster.\u0012(), currentRangeInSquares, currentMinRangeInSquares);
-								if (checkLineOfSight)
-								{
-									if (ignoreLosSettingOnTargetData)
-									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										flag3 = (flag3 && caster.\u0012().\u0013(boardSquare.x, boardSquare.y));
-									}
-									else
-									{
-										flag3 = (flag3 && (!this.GetCheckLoS(0) || caster.\u0012().\u0013(boardSquare.x, boardSquare.y)));
-									}
-								}
-								bool flag4 = true;
-								ActorStatus actorStatus = targetActor.\u000E();
-								if (checkStatusImmunities && actorStatus != null)
-								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (flag2)
-									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (actorStatus.HasStatus(StatusType.CantBeHelpedByTeam, true))
-										{
-											goto IL_29E;
-										}
-									}
-									if (flag2)
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (actorStatus.HasStatus(StatusType.BuffImmune, true))
-										{
-											goto IL_29E;
-										}
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-									}
-									if (!flag2)
-									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (actorStatus.HasStatus(StatusType.DebuffImmune, true))
-										{
-											goto IL_29E;
-										}
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-									}
-									bool flag5;
-									if (!actorStatus.HasStatus(StatusType.CantBeTargeted, true))
-									{
-										flag5 = !actorStatus.HasStatus(StatusType.EffectImmune, true);
-										goto IL_29F;
-									}
-									IL_29E:
-									flag5 = false;
-									IL_29F:
-									flag4 = flag5;
-								}
-								bool result = true;
-								if (checkPath != Ability.ValidateCheckPath.Ignore)
-								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (flag3)
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (flag4)
-										{
-											bool passThroughInvalidSquares = checkPath == Ability.ValidateCheckPath.CanBuildPathAllowThroughInvalid;
-											int num;
-											result = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetActor.\u0012(), caster.\u0012(), passThroughInvalidSquares, out num);
-										}
-									}
-								}
-								if (flag3)
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (flag4)
-									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										return result;
-									}
-								}
-								return false;
 							}
 						}
 					}
 				}
 			}
 		}
-		return false;
-	}
-
-	public bool HasTargetableActorsInDecision(ActorData caster, bool allowEnemies, bool allowAllies, bool allowSelf, Ability.ValidateCheckPath checkPath, bool checkLineOfSight, bool checkStatusImmunities, bool ignoreLosSettingOnTargetData = false)
-	{
-		if (GameFlowData.Get() != null)
+		goto IL_030b;
+		IL_02a1:
+		bool flag3 = true;
+		bool flag4;
+		bool flag5;
+		if (checkPath != 0)
 		{
-			for (;;)
+			if (flag4)
 			{
-				switch (6)
+				if (flag5)
 				{
-				case 0:
-					continue;
+					bool passThroughInvalidSquares = checkPath == ValidateCheckPath.CanBuildPathAllowThroughInvalid;
+					flag3 = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetActor.GetCurrentBoardSquare(), caster.GetCurrentBoardSquare(), passThroughInvalidSquares, out int _);
 				}
-				break;
 			}
-			if (!true)
+		}
+		int result;
+		if (flag4)
+		{
+			if (flag5)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.HasTargetableActorsInDecision(ActorData, bool, bool, bool, Ability.ValidateCheckPath, bool, bool, bool)).MethodHandle;
+				result = (flag3 ? 1 : 0);
+				goto IL_030a;
 			}
-			List<ActorData> actorsVisibleToActor;
-			if (NetworkServer.active)
+		}
+		result = 0;
+		goto IL_030a;
+		IL_012b:
+		if (!allowSelf)
+		{
+			if (!(caster != targetActor))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(caster, true);
+				goto IL_030b;
+			}
+		}
+		float currentMinRangeInSquares = AbilityUtils.GetCurrentMinRangeInSquares(this, caster, 0);
+		float currentRangeInSquares = AbilityUtils.GetCurrentRangeInSquares(this, caster, 0);
+		flag4 = caster.GetAbilityData().IsTargetSquareInRangeOfAbilityFromSquare(targetActor.GetCurrentBoardSquare(), caster.GetCurrentBoardSquare(), currentRangeInSquares, currentMinRangeInSquares);
+		if (checkLineOfSight)
+		{
+			if (ignoreLosSettingOnTargetData)
+			{
+				flag4 = (flag4 && caster.GetCurrentBoardSquare()._0013(currentBoardSquare.x, currentBoardSquare.y));
 			}
 			else
 			{
-				actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(GameFlowData.Get().activeOwnedActorData, true);
+				flag4 = (flag4 && (!GetCheckLoS(0) || caster.GetCurrentBoardSquare()._0013(currentBoardSquare.x, currentBoardSquare.y)));
+			}
+		}
+		flag5 = true;
+		ActorStatus actorStatus = targetActor.GetActorStatus();
+		int num;
+		if (checkStatusImmunities && actorStatus != null)
+		{
+			if (flag2)
+			{
+				if (actorStatus.HasStatus(StatusType.CantBeHelpedByTeam))
+				{
+					goto IL_029e;
+				}
+			}
+			if (flag2)
+			{
+				if (actorStatus.HasStatus(StatusType.BuffImmune))
+				{
+					goto IL_029e;
+				}
+			}
+			if (!flag2)
+			{
+				if (actorStatus.HasStatus(StatusType.DebuffImmune))
+				{
+					goto IL_029e;
+				}
+			}
+			if (actorStatus.HasStatus(StatusType.CantBeTargeted))
+			{
+				goto IL_029e;
+			}
+			num = ((!actorStatus.HasStatus(StatusType.EffectImmune)) ? 1 : 0);
+			goto IL_029f;
+		}
+		goto IL_02a1;
+		IL_030b:
+		return false;
+		IL_029e:
+		num = 0;
+		goto IL_029f;
+		IL_030a:
+		return (byte)result != 0;
+		IL_029f:
+		flag5 = ((byte)num != 0);
+		goto IL_02a1;
+	}
+
+	public bool HasTargetableActorsInDecision(ActorData caster, bool allowEnemies, bool allowAllies, bool allowSelf, ValidateCheckPath checkPath, bool checkLineOfSight, bool checkStatusImmunities, bool ignoreLosSettingOnTargetData = false)
+	{
+		if (GameFlowData.Get() != null)
+		{
+			List<ActorData> actorsVisibleToActor;
+			if (NetworkServer.active)
+			{
+				actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(caster);
+			}
+			else
+			{
+				actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(GameFlowData.Get().activeOwnedActorData);
 			}
 			List<ActorData> list = actorsVisibleToActor;
 			for (int i = 0; i < list.Count; i++)
 			{
 				ActorData targetActor = list[i];
-				if (this.CanTargetActorInDecision(caster, targetActor, allowEnemies, allowAllies, allowSelf, checkPath, checkLineOfSight, checkStatusImmunities, ignoreLosSettingOnTargetData))
+				if (CanTargetActorInDecision(caster, targetActor, allowEnemies, allowAllies, allowSelf, checkPath, checkLineOfSight, checkStatusImmunities, ignoreLosSettingOnTargetData))
 				{
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -2056,141 +1342,85 @@ public class Ability : MonoBehaviour
 
 	public void OnAbilitySelect()
 	{
-		if (this.Targeter != null)
+		if (Targeter == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.OnAbilitySelect()).MethodHandle;
-			}
-			this.Targeter.TargeterAbilitySelected();
+			return;
+		}
+		while (true)
+		{
+			Targeter.TargeterAbilitySelected();
+			return;
 		}
 	}
 
 	public void OnAbilityDeselect()
 	{
-		if (this.Targeter != null)
+		if (Targeter == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (GetExpectedNumberOfTargeters() < 2)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.OnAbilityDeselect()).MethodHandle;
-			}
-			if (this.GetExpectedNumberOfTargeters() < 2)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.Targeter.TargeterAbilityDeselected(0);
+				Targeter.TargeterAbilityDeselected(0);
 			}
 			else
 			{
-				for (int i = 0; i < this.Targeters.Count; i++)
+				for (int i = 0; i < Targeters.Count; i++)
 				{
-					if (this.Targeters[i] != null)
+					if (Targeters[i] != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.Targeters[i].TargeterAbilityDeselected(i);
+						Targeters[i].TargeterAbilityDeselected(i);
 					}
 				}
 			}
-			this.Targeter.HideAllSquareIndicators();
-			this.DestroyBackupTargetingInfo(true);
+			Targeter.HideAllSquareIndicators();
+			DestroyBackupTargetingInfo(true);
+			return;
 		}
 	}
 
 	public void BackupTargetingForRedo(ActorTurnSM turnSM)
 	{
-		this.BackupTargeterHighlights = new List<GameObject>();
+		BackupTargeterHighlights = new List<GameObject>();
 		List<AbilityTarget> list = new List<AbilityTarget>();
-		int i = 0;
-		while (i < this.Targeters.Count)
+		for (int i = 0; i < Targeters.Count; i++)
 		{
-			if (i >= this.GetExpectedNumberOfTargeters())
+			if (i < GetExpectedNumberOfTargeters())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.BackupTargetingForRedo(ActorTurnSM)).MethodHandle;
-					break;
-				}
-				break;
-			}
-			else
-			{
-				this.BackupTargeterHighlights.AddRange(this.Targeters[i].GetHighlightCopies(true));
+				BackupTargeterHighlights.AddRange(Targeters[i].GetHighlightCopies(true));
 				AbilityTarget abilityTarget = AbilityTarget.CreateAbilityTargetFromWorldPos(Vector3.zero, Vector3.forward);
-				abilityTarget.SetPosAndDir(this.Targeters[i].LastUpdatingGridPos, this.Targeters[i].LastUpdateFreePos, this.Targeters[i].LastUpdateAimDir);
+				abilityTarget.SetPosAndDir(Targeters[i].LastUpdatingGridPos, Targeters[i].LastUpdateFreePos, Targeters[i].LastUpdateAimDir);
 				list.Add(abilityTarget);
-				i++;
+				continue;
 			}
+			break;
 		}
-		if (!list.IsNullOrEmpty<AbilityTarget>())
+		if (list.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.BackupTargets = new List<AbilityTarget>();
+			return;
+		}
+		while (true)
+		{
+			BackupTargets = new List<AbilityTarget>();
 			using (List<AbilityTarget>.Enumerator enumerator = list.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					AbilityTarget abilityTarget2 = enumerator.Current;
-					AbilityTarget copy = abilityTarget2.GetCopy();
-					this.BackupTargets.Add(copy);
+					AbilityTarget current = enumerator.Current;
+					AbilityTarget copy = current.GetCopy();
+					BackupTargets.Add(copy);
 				}
-				for (;;)
+				while (true)
 				{
 					switch (6)
 					{
+					default:
+						return;
 					case 0:
-						continue;
+						break;
 					}
-					break;
 				}
 			}
 		}
@@ -2198,312 +1428,112 @@ public class Ability : MonoBehaviour
 
 	public void DestroyBackupTargetingInfo(bool highlightsOnly)
 	{
-		if (!this.BackupTargeterHighlights.IsNullOrEmpty<GameObject>())
+		if (!BackupTargeterHighlights.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.DestroyBackupTargetingInfo(bool)).MethodHandle;
-			}
-			using (List<GameObject>.Enumerator enumerator = this.BackupTargeterHighlights.GetEnumerator())
+			using (List<GameObject>.Enumerator enumerator = BackupTargeterHighlights.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					GameObject gameObject = enumerator.Current;
-					if (gameObject != null)
+					GameObject current = enumerator.Current;
+					if (current != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						HighlightUtils.DestroyObjectAndMaterials(gameObject);
+						HighlightUtils.DestroyObjectAndMaterials(current);
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
-		this.BackupTargeterHighlights = null;
+		BackupTargeterHighlights = null;
 		if (!highlightsOnly)
 		{
-			this.BackupTargets = null;
+			BackupTargets = null;
 		}
 	}
 
 	public bool IsAbilitySelected()
 	{
-		AbilityData abilityData;
-		if (this.ActorData == null)
+		object obj;
+		if (ActorData == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.IsAbilitySelected()).MethodHandle;
-			}
-			abilityData = null;
+			obj = null;
 		}
 		else
 		{
-			abilityData = this.ActorData.\u000E();
+			obj = ActorData.GetAbilityData();
 		}
-		AbilityData abilityData2 = abilityData;
-		bool result;
-		if (abilityData2 != null)
+		AbilityData abilityData = (AbilityData)obj;
+		int result;
+		if (abilityData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			result = (abilityData2.GetSelectedAbility() == this);
+			result = ((abilityData.GetSelectedAbility() == this) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
-	}
-
-	public List<AbilityUtil_Targeter> Targeters
-	{
-		get
-		{
-			return this.m_targeters;
-		}
-	}
-
-	public AbilityUtil_Targeter Targeter
-	{
-		get
-		{
-			if (this.m_targeters.Count > 0)
-			{
-				return this.m_targeters[0];
-			}
-			return null;
-		}
-		set
-		{
-			if (this.m_targeters.Count == 0)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.set_Targeter(AbilityUtil_Targeter)).MethodHandle;
-				}
-				this.m_targeters.Add(value);
-			}
-			else
-			{
-				this.m_targeters[0] = value;
-			}
-		}
-	}
-
-	public List<GameObject> BackupTargeterHighlights
-	{
-		get
-		{
-			return this.m_backupTargeterHighlights;
-		}
-		set
-		{
-			this.m_backupTargeterHighlights = value;
-		}
-	}
-
-	public List<AbilityTarget> BackupTargets
-	{
-		get
-		{
-			return this.m_backupTargets;
-		}
-		set
-		{
-			this.m_backupTargets = value;
-		}
+		return (byte)result != 0;
 	}
 
 	public bool IsActorInTargetRange(ActorData actor)
 	{
-		bool flag;
-		return this.IsActorInTargetRange(actor, out flag);
+		bool inCover;
+		return IsActorInTargetRange(actor, out inCover);
 	}
 
-	public unsafe bool IsActorInTargetRange(ActorData actor, out bool inCover)
+	public bool IsActorInTargetRange(ActorData actor, out bool inCover)
 	{
 		bool flag = false;
 		inCover = false;
-		if (this.Targeter != null)
+		if (Targeter != null)
 		{
-			if (this.GetExpectedNumberOfTargeters() >= 2)
+			if (GetExpectedNumberOfTargeters() >= 2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.IsActorInTargetRange(ActorData, bool*)).MethodHandle;
-				}
-				if (this.Targeters.Count < 2)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				else
+				if (Targeters.Count >= 2)
 				{
 					inCover = true;
-					for (int i = 0; i < this.Targeters.Count; i++)
+					for (int i = 0; i < Targeters.Count; i++)
 					{
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!inCover)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									goto IL_F8;
-								}
-							}
-						}
-						if (this.Targeters[i] != null)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
 								break;
 							}
-							bool flag3;
-							bool flag2 = this.Targeters[i].IsActorInTargetRange(actor, out flag3);
-							if (flag2)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								flag = true;
-								if (i == 0)
-								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									inCover = flag3;
-								}
-								else
-								{
-									inCover = (inCover && flag3);
-								}
-							}
+						}
+						if (Targeters[i] == null)
+						{
+							continue;
+						}
+						if (!Targeters[i].IsActorInTargetRange(actor, out bool inCover2))
+						{
+							continue;
+						}
+						flag = true;
+						if (i == 0)
+						{
+							inCover = inCover2;
+						}
+						else
+						{
+							inCover = (inCover && inCover2);
 						}
 					}
-					IL_F8:
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						inCover = false;
-						goto IL_108;
 					}
-					goto IL_108;
+					goto IL_0149;
 				}
 			}
-			flag = this.Targeter.IsActorInTargetRange(actor, out inCover);
-			IL_108:;
+			flag = Targeter.IsActorInTargetRange(actor, out inCover);
 		}
 		else
 		{
-			Log.Warning("Ability " + this.m_abilityName + " has no targeter, but we're checking actors in its range.", new object[0]);
-			flag = (Board.\u000E().PlayerClampedSquare == actor.\u0012());
+			Log.Warning("Ability " + m_abilityName + " has no targeter, but we're checking actors in its range.");
+			flag = (Board.Get().PlayerClampedSquare == actor.GetCurrentBoardSquare());
 			inCover = false;
 		}
+		goto IL_0149;
+		IL_0149:
 		return flag;
 	}
 
@@ -2512,96 +1542,38 @@ public class Ability : MonoBehaviour
 		return true;
 	}
 
-	public unsafe int GetTargetCounts(ActorData caster, int upToTargeterIndex, out int numAlliesExcludingSelf, out int numEnemies, out bool hittingSelf)
+	public int GetTargetCounts(ActorData caster, int upToTargeterIndex, out int numAlliesExcludingSelf, out int numEnemies, out bool hittingSelf)
 	{
 		numAlliesExcludingSelf = 0;
 		numEnemies = 0;
 		hittingSelf = false;
 		HashSet<int> hashSet = new HashSet<int>();
-		if (this.Targeters != null)
+		if (Targeters != null)
 		{
-			for (;;)
+			for (int i = 0; i < Targeters.Count; i++)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetTargetCounts(ActorData, int, int*, int*, bool*)).MethodHandle;
-			}
-			for (int i = 0; i < this.Targeters.Count; i++)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (i > upToTargeterIndex)
 				{
 					break;
 				}
-				List<AbilityUtil_Targeter.ActorTarget> actorsInRange = this.Targeters[i].GetActorsInRange();
+				List<AbilityUtil_Targeter.ActorTarget> actorsInRange = Targeters[i].GetActorsInRange();
 				using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
-						if (!this.ActorCountTowardsEnergyGain(actorTarget.m_actor, caster))
+						AbilityUtil_Targeter.ActorTarget current = enumerator.Current;
+						if (!ActorCountTowardsEnergyGain(current.m_actor, caster))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
-						else if (!hashSet.Contains(actorTarget.m_actor.ActorIndex))
+						else if (!hashSet.Contains(current.m_actor.ActorIndex))
 						{
-							for (;;)
+							hashSet.Add(current.m_actor.ActorIndex);
+							if (!current.m_actor.IgnoreForEnergyOnHit)
 							{
-								switch (3)
+								if (caster.GetTeam() == current.m_actor.GetTeam())
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							hashSet.Add(actorTarget.m_actor.ActorIndex);
-							if (!actorTarget.m_actor.IgnoreForEnergyOnHit)
-							{
-								if (caster.\u000E() == actorTarget.m_actor.\u000E())
-								{
-									for (;;)
+									if (caster != current.m_actor)
 									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (caster != actorTarget.m_actor)
-									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										numAlliesExcludingSelf++;
 									}
 									else
@@ -2616,15 +1588,6 @@ public class Ability : MonoBehaviour
 							}
 						}
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 		}
@@ -2633,30 +1596,17 @@ public class Ability : MonoBehaviour
 
 	public virtual TargetData[] GetBaseTargetData()
 	{
-		return this.m_targetData;
+		return m_targetData;
 	}
 
 	public virtual TargetData[] GetTargetData()
 	{
-		TargetData[] result = this.GetBaseTargetData();
-		if (this.m_currentAbilityMod != null)
+		TargetData[] result = GetBaseTargetData();
+		if (m_currentAbilityMod != null)
 		{
-			for (;;)
+			if (m_currentAbilityMod.m_useTargetDataOverrides)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetTargetData()).MethodHandle;
-			}
-			if (this.m_currentAbilityMod.m_useTargetDataOverrides)
-			{
-				result = this.m_currentAbilityMod.m_targetDataOverrides;
+				result = m_currentAbilityMod.m_targetDataOverrides;
 			}
 		}
 		return result;
@@ -2664,116 +1614,50 @@ public class Ability : MonoBehaviour
 
 	public virtual float GetRangeInSquares(int targetIndex)
 	{
-		TargetData[] targetData = this.GetTargetData();
+		TargetData[] targetData = GetTargetData();
 		float num = 0f;
 		if (targetData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetRangeInSquares(int)).MethodHandle;
-			}
 			if (targetData.Length > targetIndex)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = targetData[targetIndex].m_range;
 			}
 		}
-		if (this.m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null)
 		{
-			num = Mathf.Max(0f, this.m_currentAbilityMod.m_targetDataMaxRangeMod.GetModifiedValue(num));
+			num = Mathf.Max(0f, m_currentAbilityMod.m_targetDataMaxRangeMod.GetModifiedValue(num));
 		}
 		return num;
 	}
 
 	public float GetMinRangeInSquares(int targetIndex)
 	{
-		TargetData[] targetData = this.GetTargetData();
+		TargetData[] targetData = GetTargetData();
 		float num = 0f;
 		if (targetData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetMinRangeInSquares(int)).MethodHandle;
-			}
 			if (targetData.Length > targetIndex)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = targetData[targetIndex].m_minRange;
 			}
 		}
-		if (this.m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null)
 		{
-			num = Mathf.Max(0f, this.m_currentAbilityMod.m_targetDataMinRangeMod.GetModifiedValue(num));
+			num = Mathf.Max(0f, m_currentAbilityMod.m_targetDataMinRangeMod.GetModifiedValue(num));
 		}
 		return num;
 	}
 
 	public virtual bool GetCheckLoS(int targetIndex)
 	{
-		TargetData[] targetData = this.GetTargetData();
+		TargetData[] targetData = GetTargetData();
 		bool flag = true;
 		if (targetData != null && targetData.Length > targetIndex)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetCheckLoS(int)).MethodHandle;
-			}
 			flag = targetData[targetIndex].m_checkLineOfSight;
-			if (this.m_currentAbilityMod != null)
+			if (m_currentAbilityMod != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag = this.m_currentAbilityMod.m_targetDataCheckLosMod.GetModifiedValue(flag);
+				flag = m_currentAbilityMod.m_targetDataCheckLosMod.GetModifiedValue(flag);
 			}
 		}
 		return flag;
@@ -2781,7 +1665,7 @@ public class Ability : MonoBehaviour
 
 	public string GetTargetDescription(int targetIndex)
 	{
-		TargetData[] targetData = this.GetTargetData();
+		TargetData[] targetData = GetTargetData();
 		string result = null;
 		if (targetData != null && targetData.Length > targetIndex)
 		{
@@ -2792,120 +1676,54 @@ public class Ability : MonoBehaviour
 
 	public bool IsAutoSelect()
 	{
-		TargetData[] targetData = this.GetTargetData();
-		bool result;
+		TargetData[] targetData = GetTargetData();
+		int result;
 		if (targetData != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.IsAutoSelect()).MethodHandle;
-			}
-			result = (targetData.Length == 0);
+			result = ((targetData.Length == 0) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public virtual bool IsFreeAction()
 	{
-		bool result = this.m_freeAction;
-		if (this.m_currentAbilityMod != null)
+		bool result = m_freeAction;
+		if (m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.IsFreeAction()).MethodHandle;
-			}
-			result = this.m_currentAbilityMod.m_isFreeActionMod.GetModifiedValue(this.m_freeAction);
+			result = m_currentAbilityMod.m_isFreeActionMod.GetModifiedValue(m_freeAction);
 		}
 		return result;
 	}
 
 	public virtual bool ShouldRotateToTargetPos()
 	{
-		bool result = !this.IsSimpleAction();
-		if (this.m_rotationVisibilityMode == Ability.RotationVisibilityMode.OnAllyClientOnly)
+		bool result = !IsSimpleAction();
+		if (m_rotationVisibilityMode == RotationVisibilityMode.OnAllyClientOnly)
 		{
 			result = true;
 			if (NetworkClient.active)
 			{
-				ActorData actorData = this.ActorData;
+				ActorData actorData = ActorData;
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.ShouldRotateToTargetPos()).MethodHandle;
-					}
 					if (actorData != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						result = (activeOwnedActorData.\u000E() == actorData.\u000E());
+						result = (activeOwnedActorData.GetTeam() == actorData.GetTeam());
 					}
 				}
 			}
 		}
-		else if (this.m_rotationVisibilityMode == Ability.RotationVisibilityMode.Always)
+		else if (m_rotationVisibilityMode == RotationVisibilityMode.Always)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = true;
 		}
-		else if (this.m_rotationVisibilityMode == Ability.RotationVisibilityMode.Never)
+		else if (m_rotationVisibilityMode == RotationVisibilityMode.Never)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = false;
 		}
 		return result;
@@ -2913,48 +1731,26 @@ public class Ability : MonoBehaviour
 
 	public virtual Vector3 GetRotateToTargetPos(List<AbilityTarget> targets, ActorData caster)
 	{
-		TargetData[] targetData = this.GetTargetData();
+		TargetData[] targetData = GetTargetData();
 		if (targetData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetRotateToTargetPos(List<AbilityTarget>, ActorData)).MethodHandle;
-			}
 			if (targetData.Length > 0)
 			{
-				for (;;)
+				if (targetData[0].m_targetingParadigm == TargetingParadigm.BoardSquare)
 				{
-					switch (3)
+					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+					if (boardSquareSafe != null)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (targetData[0].m_targetingParadigm == Ability.TargetingParadigm.BoardSquare)
-				{
-					BoardSquare boardSquare = Board.\u000E().\u000E(targets[0].GridPos);
-					if (boardSquare != null)
-					{
-						for (;;)
+						while (true)
 						{
 							switch (4)
 							{
 							case 0:
-								continue;
+								break;
+							default:
+								return boardSquareSafe.ToVector3();
 							}
-							break;
 						}
-						return boardSquare.ToVector3();
 					}
 				}
 			}
@@ -2964,7 +1760,7 @@ public class Ability : MonoBehaviour
 
 	public bool IsSimpleAction()
 	{
-		TargetData[] targetData = this.GetTargetData();
+		TargetData[] targetData = GetTargetData();
 		return targetData.Length == 0;
 	}
 
@@ -2978,66 +1774,31 @@ public class Ability : MonoBehaviour
 		return false;
 	}
 
-	public Ability.TargetingParadigm GetTargetingParadigm(int targetIndex)
+	public TargetingParadigm GetTargetingParadigm(int targetIndex)
 	{
-		Ability.TargetingParadigm result = Ability.TargetingParadigm.Position;
-		TargetData[] targetData = this.GetTargetData();
+		TargetingParadigm result = TargetingParadigm.Position;
+		TargetData[] targetData = GetTargetData();
 		if (targetData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetTargetingParadigm(int)).MethodHandle;
-			}
 			if (targetData.Length > targetIndex)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = targetData[targetIndex].m_targetingParadigm;
 			}
 		}
 		return result;
 	}
 
-	public virtual Ability.TargetingParadigm GetControlpadTargetingParadigm(int targetIndex)
+	public virtual TargetingParadigm GetControlpadTargetingParadigm(int targetIndex)
 	{
-		return this.GetTargetingParadigm(targetIndex);
+		return GetTargetingParadigm(targetIndex);
 	}
 
 	public int GetNumTargets()
 	{
-		TargetData[] targetData = this.GetTargetData();
+		TargetData[] targetData = GetTargetData();
 		int result = 0;
 		if (targetData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetNumTargets()).MethodHandle;
-			}
 			result = targetData.Length;
 		}
 		return result;
@@ -3050,24 +1811,20 @@ public class Ability : MonoBehaviour
 
 	public virtual List<StatusType> GetStatusToApplyWhenRequested()
 	{
-		if (this.m_currentAbilityMod != null && this.m_currentAbilityMod.m_useStatusWhenRequestedOverride)
+		if (m_currentAbilityMod != null && m_currentAbilityMod.m_useStatusWhenRequestedOverride)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_currentAbilityMod.m_statusWhenRequestedOverride;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetStatusToApplyWhenRequested()).MethodHandle;
-			}
-			return this.m_currentAbilityMod.m_statusWhenRequestedOverride;
 		}
-		return this.m_statusWhenRequested;
+		return m_statusWhenRequested;
 	}
 
 	public virtual bool ShouldAutoConfirmIfTargetingOnEndTurn()
@@ -3101,25 +1858,12 @@ public class Ability : MonoBehaviour
 
 	public Ability[] GetChainAbilities()
 	{
-		Ability[] result = this.m_chainAbilities;
-		if (this.m_currentAbilityMod != null)
+		Ability[] result = m_chainAbilities;
+		if (m_currentAbilityMod != null)
 		{
-			for (;;)
+			if (m_currentAbilityMod.m_useChainAbilityOverrides)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetChainAbilities()).MethodHandle;
-			}
-			if (this.m_currentAbilityMod.m_useChainAbilityOverrides)
-			{
-				result = this.m_currentAbilityMod.m_chainAbilityOverrides;
+				result = m_currentAbilityMod.m_chainAbilityOverrides;
 			}
 		}
 		return result;
@@ -3127,69 +1871,42 @@ public class Ability : MonoBehaviour
 
 	public bool HasAbilityAsPartOfChain(Ability ability)
 	{
-		Ability[] chainAbilities = this.GetChainAbilities();
-		foreach (Ability y in chainAbilities)
+		Ability[] chainAbilities = GetChainAbilities();
+		Ability[] array = chainAbilities;
+		foreach (Ability y in array)
 		{
-			if (ability == y)
+			if (!(ability == y))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.HasAbilityAsPartOfChain(Ability)).MethodHandle;
-				}
+				continue;
+			}
+			while (true)
+			{
 				return true;
 			}
 		}
-		for (;;)
+		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			return false;
 		}
-		return false;
 	}
 
 	public virtual bool ShouldAutoQueueIfValid()
 	{
 		bool flag = AbilityUtils.AbilityHasTag(this, AbilityTags.AutoQueueIfValid);
-		if (this.m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null)
 		{
-			for (;;)
+			if (m_currentAbilityMod.m_autoQueueIfValidMod.operation != 0)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.ShouldAutoQueueIfValid()).MethodHandle;
-			}
-			if (this.m_currentAbilityMod.m_autoQueueIfValidMod.operation != AbilityModPropertyBool.ModOp.Ignore)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_currentAbilityMod.m_autoQueueIfValidMod.GetModifiedValue(flag);
 					}
-					break;
 				}
-				return this.m_currentAbilityMod.m_autoQueueIfValidMod.GetModifiedValue(flag);
 			}
 		}
 		return flag;
@@ -3200,48 +1917,35 @@ public class Ability : MonoBehaviour
 		return false;
 	}
 
-	public virtual Ability.MovementAdjustment GetMovementAdjustment()
+	public virtual MovementAdjustment GetMovementAdjustment()
 	{
-		if (this.m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null)
 		{
-			for (;;)
+			if (m_currentAbilityMod.m_useMovementAdjustmentOverride)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetMovementAdjustment()).MethodHandle;
-			}
-			if (this.m_currentAbilityMod.m_useMovementAdjustmentOverride)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return m_currentAbilityMod.m_movementAdjustmentOverride;
 					}
-					break;
 				}
-				return this.m_currentAbilityMod.m_movementAdjustmentOverride;
 			}
 		}
-		return this.m_movementAdjustment;
+		return m_movementAdjustment;
 	}
 
 	public bool GetPreventsMovement()
 	{
-		return this.GetMovementAdjustment() == Ability.MovementAdjustment.NoMovement;
+		return GetMovementAdjustment() == MovementAdjustment.NoMovement;
 	}
 
 	public bool GetAffectsMovement()
 	{
-		return this.GetMovementAdjustment() != Ability.MovementAdjustment.FullMovement;
+		return GetMovementAdjustment() != MovementAdjustment.FullMovement;
 	}
 
 	public virtual bool ShouldUpdateDrawnTargetersOnQueueChange()
@@ -3261,56 +1965,30 @@ public class Ability : MonoBehaviour
 
 	internal virtual bool IsCharge()
 	{
-		bool result;
-		if (this.GetMovementType() != ActorData.MovementType.Charge)
+		int result;
+		if (GetMovementType() != ActorData.MovementType.Charge)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.IsCharge()).MethodHandle;
-			}
-			result = (this.GetMovementType() == ActorData.MovementType.WaypointFlight);
+			result = ((GetMovementType() == ActorData.MovementType.WaypointFlight) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	internal virtual bool IsTeleport()
 	{
-		bool result;
-		if (this.GetMovementType() != ActorData.MovementType.Teleport)
+		int result;
+		if (GetMovementType() != ActorData.MovementType.Teleport)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.IsTeleport()).MethodHandle;
-			}
-			result = (this.GetMovementType() == ActorData.MovementType.Flight);
+			result = ((GetMovementType() == ActorData.MovementType.Flight) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	internal virtual bool IsEvadeDestinationReserved()
@@ -3328,42 +2006,11 @@ public class Ability : MonoBehaviour
 		BoardSquare result = null;
 		if (targets != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetEvadeDestinationForTargeter(List<AbilityTarget>, ActorData)).MethodHandle;
-			}
 			if (targets.Count > 0)
 			{
-				for (;;)
+				if (GetRunPriority() == AbilityPriority.Evasion)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.GetRunPriority() == AbilityPriority.Evasion)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = Board.\u000E().\u000E(targets[targets.Count - 1].GridPos);
+					result = Board.Get().GetBoardSquareSafe(targets[targets.Count - 1].GridPos);
 				}
 			}
 		}
@@ -3373,69 +2020,34 @@ public class Ability : MonoBehaviour
 	internal float CalcMovementSpeed(float distance)
 	{
 		float result;
-		if (this.m_movementDuration > 0f)
+		if (m_movementDuration > 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.CalcMovementSpeed(float)).MethodHandle;
-			}
-			result = distance / this.m_movementDuration;
+			result = distance / m_movementDuration;
 		}
 		else
 		{
-			result = this.m_movementSpeed;
+			result = m_movementSpeed;
 		}
 		return result;
 	}
 
 	public string GetTooltipForUI()
 	{
-		if (this.m_toolTipForUI == null)
+		if (m_toolTipForUI == null)
 		{
-			this.RebuildTooltipForUI();
+			RebuildTooltipForUI();
 		}
-		return this.m_toolTipForUI;
+		return m_toolTipForUI;
 	}
 
 	public virtual ActorModelData.ActionAnimationType GetActionAnimType()
 	{
-		ActorModelData.ActionAnimationType result = this.m_actionAnimType;
-		if (this.m_currentAbilityMod != null)
+		ActorModelData.ActionAnimationType result = m_actionAnimType;
+		if (m_currentAbilityMod != null)
 		{
-			for (;;)
+			if (m_currentAbilityMod.m_useActionAnimTypeOverride)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetActionAnimType()).MethodHandle;
-			}
-			if (this.m_currentAbilityMod.m_useActionAnimTypeOverride)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				result = this.m_currentAbilityMod.m_actionAnimTypeOverride;
+				result = m_currentAbilityMod.m_actionAnimTypeOverride;
 			}
 		}
 		return result;
@@ -3443,57 +2055,23 @@ public class Ability : MonoBehaviour
 
 	public virtual ActorModelData.ActionAnimationType GetActionAnimType(List<AbilityTarget> targets, ActorData caster)
 	{
-		return this.GetActionAnimType();
+		return GetActionAnimType();
 	}
 
 	public virtual bool CanTriggerAnimAtIndexForTaunt(int animIndex)
 	{
-		bool flag = animIndex == (int)this.GetActionAnimType();
+		bool flag = animIndex == (int)GetActionAnimType();
 		if (!flag)
 		{
-			for (;;)
+			Ability[] chainAbilities = GetChainAbilities();
+			for (int i = 0; i < chainAbilities.Length; i++)
 			{
-				switch (7)
+				if (!flag)
 				{
-				case 0:
+					flag = (animIndex == (int)chainAbilities[i].GetActionAnimType());
 					continue;
 				}
 				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.CanTriggerAnimAtIndexForTaunt(int)).MethodHandle;
-			}
-			Ability[] chainAbilities = this.GetChainAbilities();
-			int i = 0;
-			while (i < chainAbilities.Length)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						return flag;
-					}
-				}
-				else
-				{
-					flag = (animIndex == (int)chainAbilities[i].GetActionAnimType());
-					i++;
-				}
 			}
 		}
 		return flag;
@@ -3506,115 +2084,42 @@ public class Ability : MonoBehaviour
 
 	public void SanitizeChainAbilities()
 	{
-		if (this.m_chainAbilities == null)
+		if (m_chainAbilities == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.SanitizeChainAbilities()).MethodHandle;
-			}
-			this.m_chainAbilities = new Ability[0];
+			m_chainAbilities = new Ability[0];
 		}
-		foreach (Ability ability in this.GetChainAbilities())
+		Ability[] chainAbilities = GetChainAbilities();
+		foreach (Ability ability in chainAbilities)
 		{
-			string str = string.Concat(new string[]
-			{
-				"Ability '",
-				this.m_abilityName,
-				"'- chain ability '",
-				ability.m_abilityName,
-				"' "
-			});
+			string str = "Ability '" + m_abilityName + "'- chain ability '" + ability.m_abilityName + "' ";
 			if (ability.m_techPointsCost != 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Log.Warning(str + "has non-zero tech point cost.  Zeroing...", new object[0]);
+				Log.Warning(str + "has non-zero tech point cost.  Zeroing...");
 				ability.m_techPointsCost = 0;
 			}
 			if (ability.GetAffectsMovement())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Log.Warning(str + "adjusts movement.  Removing...", new object[0]);
-				ability.m_movementAdjustment = Ability.MovementAdjustment.FullMovement;
+				Log.Warning(str + "adjusts movement.  Removing...");
+				ability.m_movementAdjustment = MovementAdjustment.FullMovement;
 			}
 			if (ability.m_cooldown != 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Log.Warning(str + "has non-zero cooldown.  Zeroing...", new object[0]);
+				Log.Warning(str + "has non-zero cooldown.  Zeroing...");
 				ability.m_cooldown = 0;
 			}
 			if (!ability.IsFreeAction())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Log.Warning(str + "is not a free action.  Liberating...", new object[0]);
+				Log.Warning(str + "is not a free action.  Liberating...");
 				ability.m_freeAction = true;
 			}
 			if (ability.m_chainAbilities.Length != 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Log.Warning(str + "has its own chain abilities.  Breaking...", new object[0]);
+				Log.Warning(str + "has its own chain abilities.  Breaking...");
 				ability.m_chainAbilities = new Ability[0];
 			}
-			if (this.RunPriority > ability.RunPriority)
+			if (RunPriority > ability.RunPriority)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Log.Warning(str + "has an earlier run priority than its predecessor.  Make sure chain abilities happen later than the 'master' ability for things to look right.", new object[0]);
+				Log.Warning(str + "has an earlier run priority than its predecessor.  Make sure chain abilities happen later than the 'master' ability for things to look right.");
 			}
 		}
 	}
@@ -3629,49 +2134,28 @@ public class Ability : MonoBehaviour
 		return 0;
 	}
 
-	public AbilityMod CurrentAbilityMod
-	{
-		get
-		{
-			return this.m_currentAbilityMod;
-		}
-	}
-
 	protected virtual void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 	}
 
 	public void ApplyAbilityMod(AbilityMod abilityMod, ActorData actor)
 	{
-		if (abilityMod.GetTargetAbilityType() == base.GetType())
+		if (abilityMod.GetTargetAbilityType() == GetType())
 		{
-			this.ResetAbilityTargeters();
-			ActorTargeting actorTargeting = actor.\u000E();
+			ResetAbilityTargeters();
+			ActorTargeting actorTargeting = actor.GetActorTargeting();
 			if (actorTargeting != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.ApplyAbilityMod(AbilityMod, ActorData)).MethodHandle;
-				}
 				actorTargeting.MarkForForceRedraw();
 			}
-			this.ClearAbilityMod(actor);
-			this.m_currentAbilityMod = abilityMod;
-			this.OnApplyAbilityMod(abilityMod);
-			this.ResetNameplateTargetingNumbers();
+			ClearAbilityMod(actor);
+			m_currentAbilityMod = abilityMod;
+			OnApplyAbilityMod(abilityMod);
+			ResetNameplateTargetingNumbers();
 		}
 		else
 		{
-			Debug.LogError("Trying to apply mod to wrong ability type. mod_ability_type: " + abilityMod.GetTargetAbilityType().ToString() + " ability_type: " + base.GetType().ToString());
+			Debug.LogError("Trying to apply mod to wrong ability type. mod_ability_type: " + abilityMod.GetTargetAbilityType().ToString() + " ability_type: " + GetType().ToString());
 		}
 	}
 
@@ -3681,86 +2165,55 @@ public class Ability : MonoBehaviour
 
 	public void ClearAbilityMod(ActorData actor)
 	{
-		if (this.m_currentAbilityMod != null)
+		if (!(m_currentAbilityMod != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.ClearAbilityMod(ActorData)).MethodHandle;
-			}
-			this.m_currentAbilityMod = null;
-			this.OnRemoveAbilityMod();
-			this.ResetNameplateTargetingNumbers();
+			return;
+		}
+		while (true)
+		{
+			m_currentAbilityMod = null;
+			OnRemoveAbilityMod();
+			ResetNameplateTargetingNumbers();
 			if (Application.isEditor)
 			{
-				Debug.Log("Removing mod from ability " + this.GetDebugIdentifier("orange"));
+				Debug.Log("Removing mod from ability " + GetDebugIdentifier("orange"));
 			}
+			return;
 		}
 	}
 
 	public void DrawGizmos()
 	{
-		if (this.Targeter != null && this.IsAbilitySelected())
+		if (Targeter == null || !IsAbilitySelected())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.DrawGizmos()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-			if (activeOwnedActorData != null)
+			if (!(activeOwnedActorData != null))
 			{
-				for (;;)
+				return;
+			}
+			while (true)
+			{
+				if (!(activeOwnedActorData == ActorData))
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (activeOwnedActorData == this.ActorData)
+				while (true)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					ActorTurnSM actorTurnSM = activeOwnedActorData.\u000E();
+					ActorTurnSM actorTurnSM = activeOwnedActorData.GetActorTurnSM();
 					if (actorTurnSM != null && actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							AbilityTarget currentTarget = AbilityTarget.CreateAbilityTargetFromInterface();
+							Targeter.DrawGizmos(currentTarget, activeOwnedActorData);
+							return;
 						}
-						AbilityTarget currentTarget = AbilityTarget.CreateAbilityTargetFromInterface();
-						this.Targeter.DrawGizmos(currentTarget, activeOwnedActorData);
 					}
+					return;
 				}
 			}
 		}
@@ -3784,35 +2237,22 @@ public class Ability : MonoBehaviour
 
 	public virtual bool UseTargeterGridPosForCameraBounds()
 	{
-		bool result;
-		if (this.GetTargetData() != null && this.GetTargetData().Length > 0)
+		int result;
+		if (GetTargetData() != null && GetTargetData().Length > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.UseTargeterGridPosForCameraBounds()).MethodHandle;
-			}
-			result = (this.GetTargetingParadigm(0) != Ability.TargetingParadigm.Direction);
+			result = ((GetTargetingParadigm(0) != TargetingParadigm.Direction) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	public virtual List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		if (this.m_runPriority != AbilityPriority.Evasion)
+		if (m_runPriority != AbilityPriority.Evasion)
 		{
 			for (int i = 0; i < targets.Count; i++)
 			{
@@ -3832,34 +2272,21 @@ public class Ability : MonoBehaviour
 		return 0;
 	}
 
-	public unsafe bool CalcBoundsOfInterestForCamera(out Bounds bounds, List<AbilityTarget> targets, ActorData caster)
+	public bool CalcBoundsOfInterestForCamera(out Bounds bounds, List<AbilityTarget> targets, ActorData caster)
 	{
 		bounds = default(Bounds);
-		List<Vector3> list = this.CalcPointsOfInterestForCamera(targets, caster);
-		bool flag;
+		List<Vector3> list = CalcPointsOfInterestForCamera(targets, caster);
+		int num;
 		if (list != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.CalcBoundsOfInterestForCamera(Bounds*, List<AbilityTarget>, ActorData)).MethodHandle;
-			}
-			flag = (list.Count > 0);
+			num = ((list.Count > 0) ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool flag2 = flag;
-		if (flag2)
+		bool flag = (byte)num != 0;
+		if (flag)
 		{
 			bounds.center = list[0];
 			for (int i = 1; i < list.Count; i++)
@@ -3867,45 +2294,41 @@ public class Ability : MonoBehaviour
 				bounds.Encapsulate(list[i]);
 			}
 		}
-		return flag2;
+		return flag;
 	}
 
 	protected Passive GetPassiveOfType(Type passiveType)
 	{
-		PassiveData component = base.GetComponent<PassiveData>();
+		PassiveData component = GetComponent<PassiveData>();
 		if (component != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return component.GetPassiveOfType(passiveType);
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetPassiveOfType(Type)).MethodHandle;
-			}
-			return component.GetPassiveOfType(passiveType);
 		}
 		return null;
 	}
 
 	protected T GetPassiveOfType<T>() where T : Passive
 	{
-		PassiveData component = base.GetComponent<PassiveData>();
+		PassiveData component = GetComponent<PassiveData>();
 		if (component != null)
 		{
 			return component.GetPassiveOfType<T>();
 		}
-		return (T)((object)null);
+		return (T)null;
 	}
 
 	protected Ability GetAbilityOfType(Type abilityType)
 	{
-		AbilityData component = base.GetComponent<AbilityData>();
+		AbilityData component = GetComponent<AbilityData>();
 		if (component != null)
 		{
 			return component.GetAbilityOfType(abilityType);
@@ -3915,31 +2338,27 @@ public class Ability : MonoBehaviour
 
 	protected T GetAbilityOfType<T>() where T : Ability
 	{
-		AbilityData component = base.GetComponent<AbilityData>();
+		AbilityData component = GetComponent<AbilityData>();
 		if (component != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return component.GetAbilityOfType<T>();
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetAbilityOfType()).MethodHandle;
-			}
-			return component.GetAbilityOfType<T>();
 		}
-		return (T)((object)null);
+		return (T)null;
 	}
 
 	protected AbilityData.ActionType GetActionTypeOfAbility(Ability ability)
 	{
 		AbilityData.ActionType result = AbilityData.ActionType.INVALID_ACTION;
-		AbilityData component = base.GetComponent<AbilityData>();
+		AbilityData component = GetComponent<AbilityData>();
 		if (component != null)
 		{
 			result = component.GetActionTypeOfAbility(ability);
@@ -3950,84 +2369,27 @@ public class Ability : MonoBehaviour
 	public string GetBaseAbilityDesc()
 	{
 		string text = string.Empty;
-		if (this.m_techPointInteractions != null)
+		if (m_techPointInteractions != null)
 		{
-			for (;;)
+			if (m_techPointInteractions.Length > 0)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetBaseAbilityDesc()).MethodHandle;
-			}
-			if (this.m_techPointInteractions.Length > 0)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += "TechPoint Interactions:\n";
 			}
-			for (int i = 0; i < this.m_techPointInteractions.Length; i++)
+			for (int i = 0; i < m_techPointInteractions.Length; i++)
 			{
 				string text2 = text;
-				text = string.Concat(new object[]
-				{
-					text2,
-					"    [",
-					this.m_techPointInteractions[i].m_type.ToString(),
-					"] = ",
-					this.m_techPointInteractions[i].m_amount,
-					"\n"
-				});
+				text = text2 + "    [" + m_techPointInteractions[i].m_type.ToString() + "] = " + m_techPointInteractions[i].m_amount + "\n";
 			}
 		}
-		if (this.m_tags != null)
+		if (m_tags != null)
 		{
-			for (;;)
+			if (m_tags.Count > 0)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_tags.Count > 0)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += "Tags:\n";
 			}
-			for (int j = 0; j < this.m_tags.Count; j++)
+			for (int j = 0; j < m_tags.Count; j++)
 			{
-				text = text + "    [" + this.m_tags[j].ToString() + "]\n";
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				text = text + "    [" + m_tags[j].ToString() + "]\n";
 			}
 		}
 		if (text.Length > 0)
@@ -4049,67 +2411,20 @@ public class Ability : MonoBehaviour
 
 	public string GetDebugIdentifier(string colorString = "")
 	{
-		string text = string.Concat(new string[]
-		{
-			"Ability ",
-			this.m_abilityName,
-			"[ ",
-			base.GetType().ToString(),
-			" ]"
-		});
+		string text = "Ability " + m_abilityName + "[ " + GetType().ToString() + " ]";
 		if (colorString.Length > 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return "<color=" + colorString + ">" + text + "</color>";
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetDebugIdentifier(string)).MethodHandle;
-			}
-			return string.Concat(new string[]
-			{
-				"<color=",
-				colorString,
-				">",
-				text,
-				"</color>"
-			});
 		}
 		return text;
-	}
-
-	public enum TargetingParadigm
-	{
-		Position = 1,
-		Direction,
-		BoardSquare
-	}
-
-	public enum ValidateCheckPath
-	{
-		Ignore,
-		CanBuildPath,
-		CanBuildPathAllowThroughInvalid
-	}
-
-	public enum RotationVisibilityMode
-	{
-		Default_NonFreeAction,
-		OnAllyClientOnly,
-		Always,
-		Never
-	}
-
-	public enum MovementAdjustment
-	{
-		FullMovement,
-		ReducedMovement,
-		NoMovement
 	}
 }

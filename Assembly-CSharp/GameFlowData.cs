@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -108,16 +108,16 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	static GameFlowData()
 	{
-		GameFlowData.s_onAddActor = delegate(ActorData A_0)
+		GameFlowData.s_onAddActorHolder = delegate(ActorData A_0)
 		{
 		};
-		GameFlowData.s_onRemoveActor = delegate(ActorData A_0)
+		GameFlowData.s_onRemoveActorHolder = delegate(ActorData A_0)
 		{
 		};
-		GameFlowData.s_onActiveOwnedActorChange = delegate(ActorData A_0)
+		GameFlowData.s_onActiveOwnedActorChangeHolder = delegate(ActorData A_0)
 		{
 		};
-		GameFlowData.s_onGameStateChanged = delegate(GameState A_0)
+		GameFlowData.s_onGameStateChangedHolder = delegate(GameState A_0)
 		{
 		};
 		GameFlowData.s_loadingScreenTime = 4f;
@@ -126,198 +126,111 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		NetworkCRC.RegisterBehaviour("GameFlowData", 0);
 	}
 
+	private static Action<ActorData> s_onAddActorHolder;
 	internal static event Action<ActorData> s_onAddActor
 	{
 		add
 		{
-			Action<ActorData> action = GameFlowData.s_onAddActor;
+			Action<ActorData> action = GameFlowData.s_onAddActorHolder;
 			Action<ActorData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onAddActor, (Action<ActorData>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onAddActorHolder, (Action<ActorData>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.add_s_onAddActor(Action<ActorData>)).MethodHandle;
-			}
 		}
 		remove
 		{
-			Action<ActorData> action = GameFlowData.s_onAddActor;
+			Action<ActorData> action = GameFlowData.s_onAddActorHolder;
 			Action<ActorData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onAddActor, (Action<ActorData>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onAddActorHolder, (Action<ActorData>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private static Action<ActorData> s_onRemoveActorHolder;
 	internal static event Action<ActorData> s_onRemoveActor
 	{
 		add
 		{
-			Action<ActorData> action = GameFlowData.s_onRemoveActor;
+			Action<ActorData> action = GameFlowData.s_onRemoveActorHolder;
 			Action<ActorData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onRemoveActor, (Action<ActorData>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onRemoveActorHolder, (Action<ActorData>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.add_s_onRemoveActor(Action<ActorData>)).MethodHandle;
-			}
 		}
 		remove
 		{
-			Action<ActorData> action = GameFlowData.s_onRemoveActor;
+			Action<ActorData> action = GameFlowData.s_onRemoveActorHolder;
 			Action<ActorData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onRemoveActor, (Action<ActorData>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onRemoveActorHolder, (Action<ActorData>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.remove_s_onRemoveActor(Action<ActorData>)).MethodHandle;
-			}
 		}
 	}
 
+	private static Action<ActorData> s_onActiveOwnedActorChangeHolder;
 	internal static event Action<ActorData> s_onActiveOwnedActorChange
 	{
 		add
 		{
-			Action<ActorData> action = GameFlowData.s_onActiveOwnedActorChange;
+			Action<ActorData> action = GameFlowData.s_onActiveOwnedActorChangeHolder;
 			Action<ActorData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onActiveOwnedActorChange, (Action<ActorData>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onActiveOwnedActorChangeHolder, (Action<ActorData>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.add_s_onActiveOwnedActorChange(Action<ActorData>)).MethodHandle;
-			}
 		}
 		remove
 		{
-			Action<ActorData> action = GameFlowData.s_onActiveOwnedActorChange;
+			Action<ActorData> action = GameFlowData.s_onActiveOwnedActorChangeHolder;
 			Action<ActorData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onActiveOwnedActorChange, (Action<ActorData>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onActiveOwnedActorChangeHolder, (Action<ActorData>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.remove_s_onActiveOwnedActorChange(Action<ActorData>)).MethodHandle;
-			}
 		}
 	}
 
+	private static Action<GameState> s_onGameStateChangedHolder;
 	internal static event Action<GameState> s_onGameStateChanged
 	{
 		add
 		{
-			Action<GameState> action = GameFlowData.s_onGameStateChanged;
+			Action<GameState> action = GameFlowData.s_onGameStateChangedHolder;
 			Action<GameState> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameState>>(ref GameFlowData.s_onGameStateChanged, (Action<GameState>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GameState>>(ref GameFlowData.s_onGameStateChangedHolder, (Action<GameState>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.add_s_onGameStateChanged(Action<GameState>)).MethodHandle;
-			}
 		}
 		remove
 		{
-			Action<GameState> action = GameFlowData.s_onGameStateChanged;
+			Action<GameState> action = GameFlowData.s_onGameStateChangedHolder;
 			Action<GameState> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameState>>(ref GameFlowData.s_onGameStateChanged, (Action<GameState>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GameState>>(ref GameFlowData.s_onGameStateChangedHolder, (Action<GameState>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.remove_s_onGameStateChanged(Action<GameState>)).MethodHandle;
-			}
 		}
 	}
 
@@ -336,19 +249,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		GameFlowData.s_gameFlowData = this;
 		if (ClientGamePrefabInstantiator.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.Awake()).MethodHandle;
-			}
 			ClientGamePrefabInstantiator.Get().InstantiatePrefabs();
 		}
 		else
@@ -365,30 +265,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		ClientGameManager.Get().DesignSceneStarted = true;
 		if (ClientGameManager.Get().PlayerObjectStartedOnClient)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.Start()).MethodHandle;
-			}
 			if (AppState.GetCurrent() == AppState_InGameStarting.Get())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIScreenManager.Get().TryLoadAndSetupInGameUI();
 			}
 		}
@@ -404,19 +282,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (eventType != GameEventManager.EventType.GameTeardown)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 		}
 		else
 		{
@@ -440,44 +305,18 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.CurrentTurn > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.OnStartClient()).MethodHandle;
-			}
 			this.NotifyOnTurnTick();
 		}
 	}
 
 	private void OnDestroy()
 	{
-		GameFlowData.s_onActiveOwnedActorChange = null;
-		GameFlowData.s_onAddActor = null;
-		GameFlowData.s_onRemoveActor = null;
-		GameFlowData.s_onGameStateChanged = null;
+		GameFlowData.s_onActiveOwnedActorChangeHolder = null;
+		GameFlowData.s_onAddActorHolder = null;
+		GameFlowData.s_onRemoveActorHolder = null;
+		GameFlowData.s_onGameStateChangedHolder = null;
 		if (GameEventManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.OnDestroy()).MethodHandle;
-			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GameTeardown);
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.TheatricsAbilityAnimationStart);
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.ServerActionBufferPhaseStart);
@@ -524,30 +363,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.SetPausedForDialog(bool)).MethodHandle;
-			}
 			if (this.m_pausedForDialog != pause)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_pausedForDialog = pause;
 				this.UpdatePause();
 			}
@@ -558,30 +375,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.SetPausedForSinglePlayer(bool)).MethodHandle;
-			}
 			if (this.m_pausedForSinglePlayer != pause)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.Networkm_pausedForSinglePlayer = pause;
 				this.UpdatePause();
 			}
@@ -605,53 +400,13 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.UpdatePause()).MethodHandle;
-			}
 			bool flag;
 			if (!this.m_pausedForDialog)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_pausedForSinglePlayer)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_pausedForDebugging)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = this.m_pausedByPlayerRequest;
 						goto IL_5B;
 					}
@@ -677,19 +432,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		bool result;
 		if (this.m_resolutionPauseState != ResolutionPauseState.PausedUntilInput)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetResolutionSingleStepping()).MethodHandle;
-			}
 			result = (this.m_resolutionPauseState == ResolutionPauseState.UnpausedUntilNextAbilityOrPhase);
 		}
 		else
@@ -707,30 +449,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		else if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.SetResolutionSingleStepping(bool)).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameFlowData.Get().activeOwnedActorData.CallCmdSetResolutionSingleStepping(singleStepping);
 			}
 		}
@@ -740,43 +460,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.SetResolutionSingleSteppingAdvance()).MethodHandle;
-			}
 			this.HandleSetResolutionSingleSteppingAdvance();
 		}
 		else if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameFlowData.Get().activeOwnedActorData.CallCmdSetResolutionSingleSteppingAdvance();
 			}
 		}
@@ -787,19 +476,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.HandleSetResolutionSingleStepping(bool)).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void GameFlowData::HandleSetResolutionSingleStepping(System.Boolean)' called on client");
 			return;
 		}
@@ -810,19 +486,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.HandleSetResolutionSingleSteppingAdvance()).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void GameFlowData::HandleSetResolutionSingleSteppingAdvance()' called on client");
 			return;
 		}
@@ -838,19 +501,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		GameObject gameObject;
 		if (child.transform.parent == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.FindParentBelowRoot(GameObject)).MethodHandle;
-			}
 			gameObject = null;
 		}
 		else
@@ -871,19 +521,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_actorRoot == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetActorRoot()).MethodHandle;
-			}
 			this.m_actorRoot = new GameObject("ActorRoot");
 			UnityEngine.Object.DontDestroyOnLoad(this.m_actorRoot);
 		}
@@ -894,19 +531,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_thinCoverRoot == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetThinCoverRoot()).MethodHandle;
-			}
 			this.m_thinCoverRoot = new GameObject("ThinCoverRoot");
 			UnityEngine.Object.DontDestroyOnLoad(this.m_thinCoverRoot);
 		}
@@ -917,19 +541,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_brushRegionBorderRoot == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetBrushBordersRoot()).MethodHandle;
-			}
 			this.m_brushRegionBorderRoot = new GameObject("BrushRegionBorderRoot");
 			UnityEngine.Object.DontDestroyOnLoad(this.m_brushRegionBorderRoot);
 		}
@@ -945,30 +556,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_gameState != state)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.HookSetGameState(GameState)).MethodHandle;
-			}
 			if (!NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.gameState = state;
 			}
 		}
@@ -978,19 +567,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_startTime != startTime)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.HookSetStartTime(float)).MethodHandle;
-			}
 			this.Networkm_startTime = startTime;
 		}
 	}
@@ -999,19 +575,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_deploymentTime != deploymentTime)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.HookSetDeploymentTime(float)).MethodHandle;
-			}
 			this.Networkm_deploymentTime = deploymentTime;
 		}
 	}
@@ -1020,19 +583,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_turnTime != turnTime)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.HookSetTurnTime(float)).MethodHandle;
-			}
 			this.Networkm_turnTime = turnTime;
 		}
 	}
@@ -1049,31 +599,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.HookSetCurrentTurn(int)).MethodHandle;
-			}
 			while (this.m_currentTurn < turn)
 			{
 				this.IncrementTurn();
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.Networkm_currentTurn = turn;
 			HUD_UI.Get().m_mainScreenPanel.m_notificationPanel.NotifyTurnCountSet();
@@ -1089,19 +617,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			CharacterResourceLink characterResourceLink;
 			if (gameObject == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetClassIndexFromName(string)).MethodHandle;
-				}
 				characterResourceLink = null;
 			}
 			else
@@ -1111,15 +626,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			CharacterResourceLink characterResourceLink2 = characterResourceLink;
 			if (characterResourceLink2 != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (characterResourceLink2.m_displayName == className)
 				{
 					result = i;
@@ -1134,32 +640,10 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_ownedActorDatas.Contains(actorData))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.AddOwnedActorData(ActorData)).MethodHandle;
-			}
 			return;
 		}
-		if (actorData.\u000E() != Team.TeamA)
+		if (actorData.GetTeam() != Team.TeamA)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_ownedActorDatas.Count != 0)
 			{
 				this.m_ownedActorDatas.Add(actorData);
@@ -1180,15 +664,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		IL_A4:
 		if (this.activeOwnedActorData == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.activeOwnedActorData = actorData;
 		}
 	}
@@ -1197,57 +672,17 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_ownedActorDatas.Count > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.ResetOwnedActorDataToFirst()).MethodHandle;
-			}
 			if (!(SpawnPointManager.Get() == null))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SpawnPointManager.Get().m_playersSelectRespawn)
 				{
 					goto IL_B4;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			foreach (ActorData actorData in this.m_ownedActorDatas)
 			{
-				if (actorData != null && !actorData.\u000E())
+				if (actorData != null && !actorData.IsDead())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.activeOwnedActorData = actorData;
 					return;
 				}
@@ -1262,19 +697,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		bool result;
 		if (actorData != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.IsActorDataOwned(ActorData)).MethodHandle;
-			}
 			result = this.m_ownedActorDatas.Contains(actorData);
 		}
 		else
@@ -1291,30 +713,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			ActorData result = null;
 			if (this.m_ownedActorDatas.Count > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.get_nextOwnedActorData()).MethodHandle;
-				}
 				if (this.activeOwnedActorData == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = this.m_ownedActorDatas[0];
 				}
 				else
@@ -1324,29 +724,11 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 					{
 						if (this.m_ownedActorDatas[i] == this.activeOwnedActorData)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = i;
-							IL_9E:
-							return this.m_ownedActorDatas[(num + 1) % this.m_ownedActorDatas.Count];
+							break;
 						}
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_9E;
-					}
+					return this.m_ownedActorDatas[(num + 1) % this.m_ownedActorDatas.Count];
 				}
 			}
 			return result;
@@ -1357,19 +739,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.activeOwnedActorData == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.SetActiveNextNonConfirmedOwnedActorData()).MethodHandle;
-			}
 			this.activeOwnedActorData = this.firstOwnedFriendlyActorData;
 		}
 		else
@@ -1381,123 +750,48 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			{
 				if (this.m_ownedActorDatas[i] == this.activeOwnedActorData)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = i;
-					IL_87:
-					for (int j = 0; j < this.m_ownedActorDatas.Count; j++)
-					{
-						int index = (num + j) % this.m_ownedActorDatas.Count;
-						ActorData actorData = this.m_ownedActorDatas[index];
-						if (actorData != this.activeOwnedActorData && this.activeOwnedActorData != null)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (actorData.\u000E() == this.activeOwnedActorData.\u000E())
-							{
-								ActorTurnSM component = actorData.GetComponent<ActorTurnSM>();
-								if (component.CurrentState != TurnStateEnum.CONFIRMED)
-								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									flag = true;
-									this.activeOwnedActorData = actorData;
-									IL_141:
-									if (!flag)
-									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										for (int k = 0; k < this.m_ownedActorDatas.Count; k++)
-										{
-											int index2 = (num + k) % this.m_ownedActorDatas.Count;
-											ActorData actorData2 = this.m_ownedActorDatas[index2];
-											if (actorData2 != this.activeOwnedActorData)
-											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												ActorTurnSM component2 = actorData2.GetComponent<ActorTurnSM>();
-												if (component2.CurrentState != TurnStateEnum.CONFIRMED)
-												{
-													for (;;)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
-													this.activeOwnedActorData = actorData2;
-													break;
-												}
-											}
-										}
-										return;
-									}
-									return;
-								}
-							}
-						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_141;
-					}
+					break;
 				}
 				else
 				{
 					i++;
 				}
 			}
-			for (;;)
+			for (int j = 0; j < this.m_ownedActorDatas.Count; j++)
 			{
-				switch (3)
+				int index = (num + j) % this.m_ownedActorDatas.Count;
+				ActorData actorData = this.m_ownedActorDatas[index];
+				if (actorData != this.activeOwnedActorData && this.activeOwnedActorData != null && actorData.GetTeam() == this.activeOwnedActorData.GetTeam())
 				{
-				case 0:
-					continue;
+					ActorTurnSM component = actorData.GetComponent<ActorTurnSM>();
+					if (component.CurrentState != TurnStateEnum.CONFIRMED)
+					{
+						flag = true;
+						this.activeOwnedActorData = actorData;
+						break;
+					}
 				}
-				goto IL_87;
 			}
+			if (!flag)
+			{
+				for (int k = 0; k < this.m_ownedActorDatas.Count; k++)
+				{
+					int index2 = (num + k) % this.m_ownedActorDatas.Count;
+					ActorData actorData2 = this.m_ownedActorDatas[index2];
+					if (actorData2 != this.activeOwnedActorData)
+					{
+						ActorTurnSM component2 = actorData2.GetComponent<ActorTurnSM>();
+						if (component2.CurrentState != TurnStateEnum.CONFIRMED)
+						{
+							this.activeOwnedActorData = actorData2;
+							break;
+						}
+					}
+				}
+				return;
+			}
+			return;
 		}
 	}
 
@@ -1505,41 +799,10 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.SetActiveOwnedActor_FCFS(ActorData)).MethodHandle;
-			}
 			if (this.IsActorDataOwned(actor))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.activeOwnedActorData != actor)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.activeOwnedActorData = actor;
 					return true;
 				}
@@ -1555,32 +818,10 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			ActorData result = null;
 			if (this.m_ownedActorDatas.Count > 0 && this.activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.get_firstOwnedFriendlyActorData()).MethodHandle;
-				}
 				foreach (ActorData actorData in this.m_ownedActorDatas)
 				{
-					if (actorData.\u000E() == this.activeOwnedActorData.\u000E())
+					if (actorData.GetTeam() == this.activeOwnedActorData.GetTeam())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = actorData;
 						break;
 					}
@@ -1597,37 +838,15 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			ActorData result = null;
 			if (this.activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.get_firstOwnedEnemyActorData()).MethodHandle;
-				}
 				using (List<ActorData>.Enumerator enumerator = this.m_ownedActorDatas.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
 						ActorData actorData = enumerator.Current;
-						if (actorData.\u000E() != this.activeOwnedActorData.\u000E())
+						if (actorData.GetTeam() != this.activeOwnedActorData.GetTeam())
 						{
 							return actorData;
 						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1655,33 +874,11 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			bool flag2 = false;
 			if (this.m_activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.set_activeOwnedActorData(ActorData)).MethodHandle;
-				}
 				this.m_activeOwnedActorData.OnDeselect();
 				bool flag3;
 				if (value != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag3 = (value.\u0012() == this.m_activeOwnedActorData.\u000E());
+					flag3 = (value.GetOpposingTeam() == this.m_activeOwnedActorData.GetTeam());
 				}
 				else
 				{
@@ -1692,53 +889,17 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			this.m_activeOwnedActorData = value;
 			if (this.m_activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_activeOwnedActorData.OnSelect();
 			}
 			if (flag)
 			{
-				for (;;)
+				if (GameFlowData.s_onActiveOwnedActorChangeHolder != null)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (GameFlowData.s_onActiveOwnedActorChange != null)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					GameFlowData.s_onActiveOwnedActorChange(value);
+					GameFlowData.s_onActiveOwnedActorChangeHolder(value);
 				}
 			}
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.ActiveControlChangedToEnemyTeam, null);
 			}
 		}
@@ -1748,20 +909,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetActiveOwnedActorDataDebugNameString()).MethodHandle;
-			}
-			return this.activeOwnedActorData.\u0018();
+			return this.activeOwnedActorData.GetDebugName();
 		}
 		return "(no owned actor)";
 	}
@@ -1780,84 +928,26 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (GameplayUtils.IsPlayerControlled(actorData))
 		{
-			for (;;)
+			if (actorData.GetTeam() == Team.TeamA)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.AddToTeam(ActorData)).MethodHandle;
-			}
-			if (actorData.\u000E() == Team.TeamA)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_teamAPlayerAndBots.Contains(actorData))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_teamBPlayerAndBots.Remove(actorData);
 					this.m_teamObjectsPlayerAndBots.Remove(actorData);
 					this.m_teamAPlayerAndBots.Add(actorData);
 					goto IL_119;
 				}
 			}
-			if (actorData.\u000E() == Team.TeamB && !this.m_teamBPlayerAndBots.Contains(actorData))
+			if (actorData.GetTeam() == Team.TeamB && !this.m_teamBPlayerAndBots.Contains(actorData))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_teamAPlayerAndBots.Remove(actorData);
 				this.m_teamObjectsPlayerAndBots.Remove(actorData);
 				this.m_teamBPlayerAndBots.Add(actorData);
 			}
-			else if (actorData.\u000E() == Team.Objects)
+			else if (actorData.GetTeam() == Team.Objects)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_teamObjectsPlayerAndBots.Contains(actorData))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_teamAPlayerAndBots.Remove(actorData);
 					this.m_teamBPlayerAndBots.Remove(actorData);
 					this.m_teamObjectsPlayerAndBots.Add(actorData);
@@ -1865,71 +955,26 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			}
 		}
 		IL_119:
-		if (actorData.\u000E() == Team.TeamA)
+		if (actorData.GetTeam() == Team.TeamA)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_teamA.Contains(actorData))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_teamB.Remove(actorData);
 				this.m_teamObjects.Remove(actorData);
 				this.m_teamA.Add(actorData);
 				return;
 			}
 		}
-		if (actorData.\u000E() == Team.TeamB && !this.m_teamB.Contains(actorData))
+		if (actorData.GetTeam() == Team.TeamB && !this.m_teamB.Contains(actorData))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_teamA.Remove(actorData);
 			this.m_teamObjects.Remove(actorData);
 			this.m_teamB.Add(actorData);
 		}
-		else if (actorData.\u000E() == Team.Objects)
+		else if (actorData.GetTeam() == Team.Objects)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_teamObjects.Contains(actorData))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_teamA.Remove(actorData);
 				this.m_teamB.Remove(actorData);
 				this.m_teamObjects.Add(actorData);
@@ -1994,19 +1039,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_players.Contains(player))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.RemoveExistingPlayer(GameObject)).MethodHandle;
-			}
 			this.m_players.Remove(player);
 		}
 	}
@@ -2021,74 +1053,25 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		List<ActorData> list = new List<ActorData>();
 		if (observer != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetActorsVisibleToActor(ActorData, bool)).MethodHandle;
-			}
 			using (List<ActorData>.Enumerator enumerator = this.m_actors.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					ActorData actorData = enumerator.Current;
-					if (!actorData.\u000E())
+					if (!actorData.IsDead())
 					{
-						for (;;)
+						if (actorData.IsActorVisibleToActor(observer, false))
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (actorData.\u000E(observer, false))
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (targetableOnly)
 							{
 								if (actorData.IgnoreForAbilityHits)
 								{
 									continue;
 								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							list.Add(actorData);
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -2102,30 +1085,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			if (this.m_actors[i].PlayerIndex == playerIndex)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetAllActorsForPlayer(int)).MethodHandle;
-				}
 				list.Add(this.m_actors[i]);
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return list;
 	}
@@ -2139,31 +1100,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		this.m_actors.Add(actor);
 		if (NetworkServer.active)
 		{
-			for (;;)
+			if (GameFlowData.s_onAddActorHolder != null)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.AddActor(ActorData)).MethodHandle;
-			}
-			if (GameFlowData.s_onAddActor != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				GameFlowData.s_onAddActor(actor);
+				GameFlowData.s_onAddActorHolder(actor);
 			}
 		}
 	}
@@ -2176,89 +1115,31 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			ActorData actorData2 = this.m_actors[i];
 			if (actorData2.ActorIndex == actorIndex)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.FindActorByActorIndex(int)).MethodHandle;
-				}
 				actorData = actorData2;
-				IL_53:
-				if (actorData == null)
+				break;
+			}
+		}
+		if (actorData == null)
+		{
+			if (actorIndex > 0 && this.CurrentTurn > 0)
+			{
+				if (GameManager.Get() != null)
 				{
-					for (;;)
+					if (GameManager.Get().GameConfig != null)
 					{
-						switch (4)
+						GameType gameType = GameManager.Get().GameConfig.GameType;
+						if (gameType != GameType.Tutorial)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (actorIndex > 0 && this.CurrentTurn > 0)
-					{
-						for (;;)
-						{
-							switch (2)
+							Log.Warning("Failed to find actor index {0}", new object[]
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (GameManager.Get() != null)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (GameManager.Get().GameConfig != null)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								GameType gameType = GameManager.Get().GameConfig.GameType;
-								if (gameType != GameType.Tutorial)
-								{
-									Log.Warning("Failed to find actor index {0}", new object[]
-									{
 										actorIndex
-									});
-								}
-							}
+							});
 						}
 					}
 				}
-				return actorData;
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_53;
-		}
+		return actorData;
 	}
 
 	internal ActorData FindActorByPlayerIndex(int playerIndex)
@@ -2268,33 +1149,11 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			ActorData component = this.m_players[i].GetComponent<ActorData>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.FindActorByPlayerIndex(int)).MethodHandle;
-				}
 				if (component.PlayerIndex == playerIndex)
 				{
 					return component;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		Log.Warning("Failed to find player index {0}", new object[]
 		{
@@ -2310,19 +1169,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			PlayerData playerData = this.m_actors[i].PlayerData;
 			if (playerData != null && playerData.GetPlayer() == player)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.FindActorByPlayer(Player)).MethodHandle;
-				}
 				return this.m_actors[i];
 			}
 		}
@@ -2343,34 +1189,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.RemoveReferencesToDestroyedActor(ActorData)).MethodHandle;
-			}
 			if (this.m_teamAPlayerAndBots.Contains(actor))
 			{
 				this.m_teamAPlayerAndBots.Remove(actor);
 			}
 			if (this.m_teamBPlayerAndBots.Contains(actor))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_teamBPlayerAndBots.Remove(actor);
 			}
 			if (this.m_teamObjectsPlayerAndBots.Contains(actor))
@@ -2379,15 +1203,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			}
 			if (this.m_teamA.Contains(actor))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_teamA.Remove(actor);
 			}
 			if (this.m_teamB.Contains(actor))
@@ -2396,15 +1211,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			}
 			if (this.m_teamObjects.Contains(actor))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_teamObjects.Remove(actor);
 			}
 			if (this.m_players.Contains(actor.gameObject))
@@ -2416,18 +1222,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				this.m_actors.Remove(actor);
 			}
 			this.SetLocalPlayerData();
-			if (GameFlowData.s_onRemoveActor != null)
+			if (GameFlowData.s_onRemoveActorHolder != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				GameFlowData.s_onRemoveActor(actor);
+				GameFlowData.s_onRemoveActorHolder(actor);
 			}
 		}
 		else
@@ -2454,19 +1251,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			if (this.m_gameState != value)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.set_gameState(GameState)).MethodHandle;
-				}
 				this.SetGameState(value);
 			}
 		}
@@ -2500,34 +1284,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		case GameState.StartingGame:
 			if (HUD_UI.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SinglePlayerManager.ResetUIActivations();
 			}
 			break;
 		case GameState.Deployment:
 			if (SinglePlayerManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.SetGameState(GameState)).MethodHandle;
-				}
 				SinglePlayerManager.Get().OnTurnTick();
 			}
 			this.m_deploymentStartTime = Time.realtimeSinceStartup;
@@ -2535,46 +1297,19 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		case GameState.BothTeams_Decision:
 			if (NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.IncrementTurn();
 			}
 			if (this.CurrentTurn == 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_matchStartTime = Time.realtimeSinceStartup;
 			}
 			this.ResetOwnedActorDataToFirst();
 			this.m_timeInDecision = 0f;
 			break;
 		}
-		if (GameFlowData.s_onGameStateChanged != null)
+		if (GameFlowData.s_onGameStateChangedHolder != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameFlowData.s_onGameStateChanged(this.m_gameState);
+			GameFlowData.s_onGameStateChangedHolder(this.m_gameState);
 		}
 	}
 
@@ -2589,19 +1324,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		CharacterResourceLink characterResourceLink;
 		if (gameObject == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetFirstAvailableCharacterResourceLinkName()).MethodHandle;
-			}
 			characterResourceLink = null;
 		}
 		else
@@ -2611,15 +1333,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		CharacterResourceLink characterResourceLink2 = characterResourceLink;
 		if (characterResourceLink2 != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return characterResourceLink2.m_displayName;
 		}
 		return string.Empty;
@@ -2634,22 +1347,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			this.CurrentTurn
 		});
-		if (Board.\u000E() != null)
+		if (Board.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.IncrementTurn()).MethodHandle;
-			}
-			Board.\u000E().MarkForUpdateValidSquares(true);
+			Board.Get().MarkForUpdateValidSquares(true);
 		}
 	}
 
@@ -2657,47 +1357,16 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (TeamSensitiveDataMatchmaker.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.NotifyOnTurnTick()).MethodHandle;
-			}
 			TeamSensitiveDataMatchmaker.Get().SetTeamSensitiveDataForUnhandledActors();
 		}
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.TurnTick, null);
 		this.ShowIntervanStatusNotifications();
 		if (ClientResolutionManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientResolutionManager.Get().OnTurnStart();
 		}
 		if (ClientClashManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientClashManager.Get().OnTurnStart();
 		}
 		if (SequenceManager.Get() != null)
@@ -2706,15 +1375,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if (InterfaceManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			InterfaceManager.Get().OnTurnTick();
 		}
 		List<PowerUp.IPowerUpListener> powerUpListeners = PowerUpManager.Get().powerUpListeners;
@@ -2725,15 +1385,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				PowerUp.IPowerUpListener powerUpListener = enumerator.Current;
 				powerUpListener.OnTurnTick();
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (TriggerCoordinator.Get() != null)
 		{
@@ -2741,54 +1392,18 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if (SinglePlayerManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SinglePlayerManager.Get().OnTurnTick();
 		}
 		if (TheatricsManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			TheatricsManager.Get().OnTurnTick();
 		}
 		if (SequenceManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SequenceManager.Get().ClientOnTurnResolveEnd();
 		}
 		if (CameraManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CameraManager.Get().OnTurnTick();
 		}
 		if (FirstTurnMovement.Get() != null)
@@ -2797,15 +1412,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if (CollectTheCoins.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CollectTheCoins.Get().OnTurnTick();
 		}
 		this.m_timeRemainingInDecision = GameFlowData.Get().m_turnTime;
@@ -2815,41 +1421,14 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if (ObjectivePoints.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ObjectivePoints.Get().OnTurnTick();
 		}
-		if (ClientAbilityResults.\u001D)
+		if (ClientAbilityResults.LogMissingSequences)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning("Turn Start: <color=magenta>" + GameFlowData.Get().CurrentTurn + "</color>", new object[0]);
 		}
 		if (ControlpadGameplay.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ControlpadGameplay.Get().OnTurnTick();
 		}
 	}
@@ -2860,31 +1439,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		GameplayMutators gameplayMutators = GameplayMutators.Get();
 		if (gameplayMutators != null && this.CurrentTurn > 1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.HasPotentialGameMutatorVisibilityChanges(bool)).MethodHandle;
-			}
 			int i = 0;
 			while (i < gameplayMutators.m_alwaysOnStatuses.Count)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
 					for (;;)
@@ -2904,27 +1461,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 					{
 						goto IL_8B;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (statusInterval.m_statusType == StatusType.InvisibleToEnemies)
 					{
 						goto IL_8B;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (statusInterval.m_statusType == StatusType.Revealed)
 					{
@@ -2944,15 +1483,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 					IL_8B:
 					if (onTurnStart)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Default) != GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn - 1, GameplayMutators.ActionPhaseCheckMode.Default))
 						{
 							flag = true;
@@ -2963,26 +1493,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 					{
 						goto IL_111;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Abilities) != GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Movement))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 						goto IL_111;
 					}
@@ -3012,15 +1524,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 					{
 						goto IL_18C;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (statusInterval2.m_statusType == StatusType.InvisibleToEnemies)
 					{
 						goto IL_18C;
@@ -3043,26 +1546,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 					IL_18C:
 					if (onTurnStart)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameplayMutators.IsStatusSuppressed(statusInterval2.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Default) != GameplayMutators.IsStatusSuppressed(statusInterval2.m_statusType, this.CurrentTurn - 1, GameplayMutators.ActionPhaseCheckMode.Default))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 							goto IL_212;
 						}
@@ -3070,15 +1555,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 					if (onTurnStart)
 					{
 						goto IL_212;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (GameplayMutators.IsStatusSuppressed(statusInterval2.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Abilities) != GameplayMutators.IsStatusSuppressed(statusInterval2.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Movement))
 					{
@@ -3101,67 +1577,22 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				GameplayMutators gameplayMutators = GameplayMutators.Get();
 				if (gameplayMutators != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < gameplayMutators.m_alwaysOnStatuses.Count; i++)
 					{
 						GameplayMutators.StatusInterval statusInterval = gameplayMutators.m_alwaysOnStatuses[i];
 						if (statusInterval.m_delayTillStartOfMovement)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							bool flag = GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Abilities);
 							bool flag2 = GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Movement);
 							if (!flag && flag2 && !string.IsNullOrEmpty(statusInterval.m_activateNotificationTurnBefore))
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								InterfaceManager.Get().DisplayAlert(StringUtil.TR_IfHasContext(statusInterval.m_activateNotificationTurnBefore), Color.cyan, 5f, true, 1);
 							}
 							bool flag3 = GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn + 1, GameplayMutators.ActionPhaseCheckMode.Abilities);
 							if (flag2 && !flag3)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!string.IsNullOrEmpty(statusInterval.m_offNotificationTurnBefore))
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									InterfaceManager.Get().DisplayAlert(StringUtil.TR_IfHasContext(statusInterval.m_offNotificationTurnBefore), Color.cyan, 5f, true, 1);
 								}
 							}
@@ -3172,50 +1603,14 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 							bool flag5 = GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn + 1, GameplayMutators.ActionPhaseCheckMode.Any);
 							if (flag4 && !flag5 && !string.IsNullOrEmpty(statusInterval.m_offNotificationTurnBefore))
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								InterfaceManager.Get().DisplayAlert(StringUtil.TR_IfHasContext(statusInterval.m_offNotificationTurnBefore), Color.cyan, 5f, true, 1);
 							}
 							else if (!flag4)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag5)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!string.IsNullOrEmpty(statusInterval.m_activateNotificationTurnBefore))
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										InterfaceManager.Get().DisplayAlert(StringUtil.TR_IfHasContext(statusInterval.m_activateNotificationTurnBefore), Color.cyan, 5f, true, 1);
 									}
 								}
@@ -3225,19 +1620,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				}
 				return;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.ShowIntervanStatusNotifications()).MethodHandle;
-			}
 		}
 	}
 
@@ -3245,31 +1627,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.NotifyOnActorDeath(ActorData)).MethodHandle;
-			}
 		}
 		if (SinglePlayerManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SinglePlayerManager.Get().OnActorDeath(actor);
 		}
 		if (NPCCoordinator.Get() != null)
@@ -3280,15 +1640,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		foreach (SatelliteController satelliteController in components)
 		{
 			satelliteController.OnActorDeath();
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.PostCharacterDeath, new GameEventManager.CharacterDeathEventArgs
 		{
@@ -3336,37 +1687,15 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	private void Update()
 	{
-		this.\u000E();
+		this._000E();
 		if (!this.m_pause)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.Update()).MethodHandle;
-			}
 			this.m_timeInState += Time.deltaTime;
 			this.m_timeInStateUnscaled += Time.unscaledDeltaTime;
 			this.m_timeInDecision += Time.deltaTime;
 		}
 		if (AppState.GetCurrent() != AppState_GameTeardown.Get())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.UpdateTimeRemaining();
 		}
 	}
@@ -3376,49 +1705,18 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		bool flag = GameFlowData.Get().IsInDecisionState();
 		if (!this.m_pause && flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.UpdateTimeRemaining()).MethodHandle;
-			}
 			if (this.m_timeRemainingInDecision >= -this.m_timeRemainingInDecisionOverflow)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_timeRemainingInDecision -= Time.deltaTime;
 				if (this.m_timeRemainingInDecision < -this.m_timeRemainingInDecisionOverflow)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_timeRemainingInDecision = -this.m_timeRemainingInDecisionOverflow;
 				}
 			}
 		}
 	}
 
-	private void \u000E()
+	private void _000E()
 	{
 	}
 
@@ -3428,42 +1726,11 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		ActorData activeOwnedActorData = this.activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.IsOwnerTargeting()).MethodHandle;
-			}
 			ActorTurnSM component = activeOwnedActorData.GetComponent<ActorTurnSM>();
 			if (component)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.CurrentState == TurnStateEnum.TARGETING_ACTION)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 			}
@@ -3477,19 +1744,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		bool result;
 		if (gameState != GameState.BothTeams_Decision)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.IsInDecisionState()).MethodHandle;
-			}
 			result = false;
 		}
 		else
@@ -3504,58 +1758,18 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		bool flag = false;
 		if (!this.IsTeamADecision())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.IsTeamsTurn(Team)).MethodHandle;
-			}
 			if (!this.IsTeamAResolving())
 			{
 				goto IL_3A;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		flag |= (team == Team.TeamA);
 		IL_3A:
 		if (!this.IsTeamBDecision())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.IsTeamBResolving())
 			{
 				return flag;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		flag |= (team == Team.TeamB);
@@ -3567,20 +1781,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		bool result = false;
 		if (this.activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.IsOwnedActorsTurn()).MethodHandle;
-			}
-			result = this.IsTeamsTurn(this.activeOwnedActorData.\u000E());
+			result = this.IsTeamsTurn(this.activeOwnedActorData.GetTeam());
 		}
 		return result;
 	}
@@ -3591,19 +1792,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		bool result;
 		if (gameState != GameState.BothTeams_Resolve)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.IsInResolveState()).MethodHandle;
-			}
 			result = false;
 		}
 		else
@@ -3629,19 +1817,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		bool result;
 		if (gameState != GameState.BothTeams_Decision)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.IsTeamADecision()).MethodHandle;
-			}
 			result = false;
 		}
 		else
@@ -3657,19 +1832,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		bool result;
 		if (gameState != GameState.BothTeams_Decision)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.IsTeamBDecision()).MethodHandle;
-			}
 			result = false;
 		}
 		else
@@ -3685,19 +1847,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		bool result;
 		if (gameState != GameState.BothTeams_Decision)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.IsPhase(int)).MethodHandle;
-			}
 			result = (gameState == GameState.BothTeams_Resolve && phase == 1);
 		}
 		else
@@ -3718,19 +1867,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		bool flag2;
 		if (DebugParameters.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.ShouldForceResolveTimeout()).MethodHandle;
-			}
 			flag2 = DebugParameters.Get().GetParameterAsBool("DisableResolveFailsafe");
 		}
 		else
@@ -3746,19 +1882,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		bool result;
 		if (this.IsInDecisionState())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.PlayersMustUseTimeBank()).MethodHandle;
-			}
 			result = (this.GetTimeInState() > this.m_turnTime);
 		}
 		else
@@ -3778,84 +1901,26 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		GameManager gameManager = GameManager.Get();
 		if (gameManager == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.PreventAutoLockInOnTimeout()).MethodHandle;
-			}
 			return false;
 		}
 		GameType gameType = gameManager.GameConfig.GameType;
 		if (gameType == GameType.Practice)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 		if (!gameManager.GameplayOverrides.SoloGameNoAutoLockinOnTimeout)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		if (gameType != GameType.Solo)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameType != GameType.NewPlayerSolo)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameType != GameType.Tutorial)
 				{
 					if (!gameManager.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 					{
 						return false;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -3872,19 +1937,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			ActorData activeOwnedActorData = gameFlowData.activeOwnedActorData;
 			if (activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.ClearCooldowns()).MethodHandle;
-				}
 				abilityData = activeOwnedActorData.GetComponent<AbilityData>();
 			}
 		}
@@ -3892,29 +1944,11 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			if (abilityData)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityData.ClearCooldowns();
 			}
 		}
 		else if (abilityData)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			abilityData.CallCmdClearCooldowns();
 		}
 	}
@@ -3925,56 +1959,16 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		GameFlowData gameFlowData = GameFlowData.Get();
 		if (gameFlowData)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.RefillStocks()).MethodHandle;
-			}
 			ActorData activeOwnedActorData = gameFlowData.activeOwnedActorData;
 			if (activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityData = activeOwnedActorData.GetComponent<AbilityData>();
 			}
 		}
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityData)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityData.RefillStocks();
 			}
 		}
@@ -3988,30 +1982,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (!GameplayUtils.IsPlayerControlled(killedActor))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.DistributeRewardForKill(ActorData)).MethodHandle;
-			}
 			if (!GameplayUtils.IsMinion(killedActor))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 		}
@@ -4029,39 +2001,21 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if (num > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
 				List<ActorData> contributorsToKill = this.GetContributorsToKill(killedActor, false);
 				if (contributorsToKill.Count > 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.RewardContributorsToKill(contributorsToKill, num);
 				}
 				else if (GameplayData.Get().m_participationlessBountiesGoToTeam)
 				{
-					this.RewardTeam(killedActor.\u0012(), num);
+					this.RewardTeam(killedActor.GetOpposingTeam(), num);
 				}
 			}
 			else
 			{
-				this.RewardTeam(killedActor.\u0012(), num);
+				this.RewardTeam(killedActor.GetOpposingTeam(), num);
 			}
 		}
 	}
@@ -4072,33 +2026,11 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		List<ActorData> allTeamMembers = this.GetAllTeamMembers(team);
 		if (allTeamMembers != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetTotalDeathsOnTurnStart(Team)).MethodHandle;
-			}
 			foreach (ActorData actorData in allTeamMembers)
 			{
-				if (actorData.\u000E() != null)
+				if (actorData.GetActorBehavior() != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num += actorData.\u000E().totalDeathsOnTurnStart;
+					num += actorData.GetActorBehavior().totalDeathsOnTurnStart;
 				}
 			}
 		}
@@ -4117,63 +2049,23 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	public List<ActorData> GetContributorsToKillOnClient(ActorData killedActor, bool onlyDirectDamagers = false)
 	{
 		List<ActorData> list = new List<ActorData>();
-		List<ActorData> allTeamMembers = this.GetAllTeamMembers(killedActor.\u0012());
+		List<ActorData> allTeamMembers = this.GetAllTeamMembers(killedActor.GetOpposingTeam());
 		if (allTeamMembers != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetContributorsToKillOnClient(ActorData, bool)).MethodHandle;
-			}
-			ActorBehavior actorBehavior = killedActor.\u000E();
+			ActorBehavior actorBehavior = killedActor.GetActorBehavior();
 			foreach (ActorData actorData in allTeamMembers)
 			{
 				if (!GameplayUtils.IsPlayerControlled(actorData))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (actorBehavior.Client_ActorDamagedOrDebuffedByActor(actorData))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(actorData);
 					break;
 				}
 			}
 			if (!onlyDirectDamagers)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> list2 = new List<ActorData>();
 				using (List<ActorData>.Enumerator enumerator2 = allTeamMembers.GetEnumerator())
 				{
@@ -4183,27 +2075,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 						ActorData actorData2 = enumerator2.Current;
 						if (list.Contains(actorData2))
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else if (!GameplayUtils.IsPlayerControlled(actorData2))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -4214,56 +2088,20 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 									ActorData actorData3 = enumerator3.Current;
 									if (list2.Contains(actorData2))
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									else
 									{
-										ActorBehavior actorBehavior2 = actorData3.\u000E();
+										ActorBehavior actorBehavior2 = actorData3.GetActorBehavior();
 										if (!actorBehavior2.Client_ActorHealedOrBuffedByActor(actorData2))
 										{
 											continue;
-										}
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										list2.Add(actorData2);
 									}
 									goto IL_17A;
 								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 						}
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				using (List<ActorData>.Enumerator enumerator4 = list2.GetEnumerator())
@@ -4272,15 +2110,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 					{
 						ActorData item = enumerator4.Current;
 						list.Add(item);
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -4292,19 +2121,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (participants.Count > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.RewardContributorsToKill(List<ActorData>, int)).MethodHandle;
-			}
 			int num = baseCreditsReward / participants.Count;
 			int num2 = Mathf.FloorToInt(GameplayData.Get().m_creditBonusFractionPerExtraPlayer * (float)(participants.Count - 1) * (float)num);
 			int numCredits = num + num2;
@@ -4318,15 +2134,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 					{
 						component.GiveCredits(numCredits);
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -4345,30 +2152,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 					ItemData component = actorData.GetComponent<ItemData>();
 					if (component != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.RewardTeam(Team, int)).MethodHandle;
-						}
 						component.GiveCredits(creditsReward);
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -4382,54 +2167,14 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			ActorData actorData = this.m_actors[i];
 			if (actorData != null)
 			{
-				for (;;)
+				if (actorData.GetTeam() == team)
 				{
-					switch (5)
+					if (actorData.GetActorBehavior() != null)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetDeathCountOfTeam(Team)).MethodHandle;
-				}
-				if (actorData.\u000E() == team)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (actorData.\u000E() != null)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						num += actorData.\u000E().totalDeaths;
+						num += actorData.GetActorBehavior().totalDeaths;
 					}
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return num;
 	}
@@ -4440,32 +2185,10 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		for (int i = 0; i < this.m_actors.Count; i++)
 		{
 			ActorData actorData = this.m_actors[i];
-			if (actorData != null && actorData.\u000E() == team && actorData.\u000E() != null)
+			if (actorData != null && actorData.GetTeam() == team && actorData.GetActorBehavior() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetTotalTeamDamageReceived(Team)).MethodHandle;
-				}
-				num += actorData.\u000E().totalPlayerDamageReceived;
+				num += actorData.GetActorBehavior().totalPlayerDamageReceived;
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return num;
 	}
@@ -4475,9 +2198,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		for (int i = 0; i < this.m_actors.Count; i++)
 		{
 			ActorData actorData = this.m_actors[i];
-			if (actorData.\u000E() != null)
+			if (actorData.GetActorCover() != null)
 			{
-				actorData.\u000E().UpdateCoverFromBarriers();
+				actorData.GetActorCover().UpdateCoverFromBarriers();
 			}
 		}
 	}
@@ -4490,19 +2213,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.LogTurnBehaviorsFromTurnsAgo(int)).MethodHandle;
-			}
 		}
 	}
 
@@ -4518,31 +2228,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 					PlayerData component = gameObject.GetComponent<PlayerData>();
 					if (component != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.SetLocalPlayerData()).MethodHandle;
-						}
 						PlayerDetails playerDetails = null;
 						if (GameFlow.Get().playerDetails.TryGetValue(component.GetPlayer(), out playerDetails))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (playerDetails.IsLocal())
 							{
 								this.m_localPlayerData = component;
@@ -4636,19 +2324,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			uint dirtyBit = 0x20U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.set_Networkm_startTime(float)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
 					base.syncVarHookGuard = true;
@@ -4672,30 +2347,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			uint dirtyBit = 0x40U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.set_Networkm_deploymentTime(float)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					this.HookSetDeploymentTime(value);
 					base.syncVarHookGuard = false;
@@ -4717,30 +2370,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			uint dirtyBit = 0x80U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.set_Networkm_turnTime(float)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					this.HookSetTurnTime(value);
 					base.syncVarHookGuard = false;
@@ -4762,30 +2393,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			uint dirtyBit = 0x100U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.set_Networkm_maxTurnTime(float)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					this.HookSetMaxTurnTime(value);
 					base.syncVarHookGuard = false;
@@ -4833,30 +2442,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			uint dirtyBit = 0x800U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.set_Networkm_currentTurn(int)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					this.HookSetCurrentTurn(value);
 					base.syncVarHookGuard = false;
@@ -4878,30 +2465,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			uint dirtyBit = 0x1000U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.set_Networkm_gameState(GameState)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					this.HookSetGameState(value);
 					base.syncVarHookGuard = false;
@@ -4915,19 +2480,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.InvokeRpcRpcUpdateTimeRemaining(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcUpdateTimeRemaining called on server.");
 			return;
 		}
@@ -4972,30 +2524,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -5003,26 +2533,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -5030,26 +2542,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 4U) != 0U)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -5057,26 +2551,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 8U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -5084,26 +2560,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x10U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -5111,26 +2569,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x20U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -5138,15 +2578,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x40U) != 0U)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -5156,26 +2587,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x80U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -5183,26 +2596,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x100U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -5210,26 +2605,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x200U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -5237,15 +2614,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x400U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -5255,15 +2623,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x800U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -5273,26 +2632,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x1000U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -5327,19 +2668,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_pause = reader.ReadBoolean();
 		}
 		if ((num & 2) != 0)
@@ -5348,15 +2676,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_pausedByPlayerRequest = reader.ReadBoolean();
 		}
 		if ((num & 8) != 0)
@@ -5369,28 +2688,10 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((num & 0x20) != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HookSetStartTime(reader.ReadSingle());
 		}
 		if ((num & 0x40) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HookSetDeploymentTime(reader.ReadSingle());
 		}
 		if ((num & 0x80) != 0)
@@ -5399,15 +2700,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((num & 0x100) != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HookSetMaxTurnTime(reader.ReadSingle());
 		}
 		if ((num & 0x200) != 0)
@@ -5416,15 +2708,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((num & 0x400) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_willEnterTimebankMode = reader.ReadBoolean();
 		}
 		if ((num & 0x800) != 0)
@@ -5433,15 +2716,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if ((num & 0x1000) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HookSetGameState((GameState)reader.ReadInt32());
 		}
 	}

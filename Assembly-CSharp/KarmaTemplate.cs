@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class KarmaTemplate
@@ -15,30 +15,29 @@ public class KarmaTemplate
 
 	public bool IsValid()
 	{
-		return this.Index > 0;
+		return Index > 0;
 	}
 
 	public string GetName()
 	{
-		return StringUtil.TR_KarmaName(this.Index);
+		return StringUtil.TR_KarmaName(Index);
 	}
 
 	public string GetDescription()
 	{
-		return StringUtil.TR_KarmaDescription(this.Index);
+		return StringUtil.TR_KarmaDescription(Index);
 	}
 
 	public Karma Process(int quantity)
 	{
-		return new Karma
-		{
-			TemplateId = this.Index,
-			Quantity = quantity
-		};
+		Karma karma = new Karma();
+		karma.TemplateId = Index;
+		karma.Quantity = quantity;
+		return karma;
 	}
 
 	public override string ToString()
 	{
-		return string.Format("[{0}] {1}, OneTimeOnly={2}", this.Index, this.Name, this.OneTimeOnly);
+		return $"[{Index}] {Name}, OneTimeOnly={OneTimeOnly}";
 	}
 }

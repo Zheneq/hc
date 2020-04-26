@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,103 +56,61 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Card Ability - Standard Shape Aoe";
+			m_abilityName = "Card Ability - Standard Shape Aoe";
 		}
-		this.m_sequencePrefab = this.m_castSequencePrefab;
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, this.m_shape, this.m_penetrateLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, this.IncludeEnemies(), this.IncludeAllies(), AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
-		base.Targeter.ShowArcToShape = this.m_showTargeterArc;
+		m_sequencePrefab = m_castSequencePrefab;
+		base.Targeter = new AbilityUtil_Targeter_Shape(this, m_shape, m_penetrateLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, IncludeEnemies(), IncludeAllies());
+		base.Targeter.ShowArcToShape = m_showTargeterArc;
 	}
 
 	public bool IncludeAllies()
 	{
-		bool result;
-		if (this.m_includeAllies)
+		int result;
+		if (m_includeAllies)
 		{
-			for (;;)
+			if (m_healAmount <= 0)
 			{
-				switch (6)
+				if (m_techPointGain <= 0)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_Standard_Shape_Aoe_Ability.IncludeAllies()).MethodHandle;
-			}
-			if (this.m_healAmount <= 0)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_techPointGain <= 0)
-				{
-					result = this.m_allyHitEffect.m_applyEffect;
-					goto IL_45;
+					result = (m_allyHitEffect.m_applyEffect ? 1 : 0);
+					goto IL_0048;
 				}
 			}
-			result = true;
-			IL_45:;
+			result = 1;
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		goto IL_0048;
+		IL_0048:
+		return (byte)result != 0;
 	}
 
 	public bool IncludeEnemies()
 	{
-		bool result;
-		if (this.m_includeEnemies)
+		int result;
+		if (m_includeEnemies)
 		{
-			if (this.m_damageAmount <= 0)
+			if (m_damageAmount <= 0)
 			{
-				for (;;)
+				if (m_techPointLoss <= 0)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Card_Standard_Shape_Aoe_Ability.IncludeEnemies()).MethodHandle;
-				}
-				if (this.m_techPointLoss <= 0)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = this.m_enemyHitEffect.m_applyEffect;
-					goto IL_45;
+					result = (m_enemyHitEffect.m_applyEffect ? 1 : 0);
+					goto IL_0048;
 				}
 			}
-			result = true;
-			IL_45:;
+			result = 1;
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		goto IL_0048;
+		IL_0048:
+		return (byte)result != 0;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -163,67 +120,64 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_requireTargetingOnActor)
+		if (m_requireTargetingOnActor)
 		{
-			return base.HasTargetableActorsInDecision(caster, this.IncludeEnemies(), this.IncludeAllies(), false, Ability.ValidateCheckPath.Ignore, true, false, false);
+			return HasTargetableActorsInDecision(caster, IncludeEnemies(), IncludeAllies(), false, ValidateCheckPath.Ignore, true, false);
 		}
 		return base.CustomCanCastValidation(caster);
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		if (this.m_requireTargetingOnActor)
+		if (m_requireTargetingOnActor)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_Standard_Shape_Aoe_Ability.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
-			bool result = false;
-			List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, this.IncludeAllies(), this.IncludeEnemies());
-			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_targeterValidationShape, target, this.m_penetrateLos, caster, relevantTeams, null);
-			using (List<ActorData>.Enumerator enumerator = actorsInShape.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					ActorData targetActor = enumerator.Current;
-					bool flag = base.CanTargetActorInDecision(caster, targetActor, this.IncludeEnemies(), this.IncludeAllies(), false, Ability.ValidateCheckPath.Ignore, true, false, false);
-					if (flag)
-					{
-						return true;
-					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					bool result = false;
+					List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies());
+					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_targeterValidationShape, target, m_penetrateLos, caster, relevantTeams, null);
+					using (List<ActorData>.Enumerator enumerator = actorsInShape.GetEnumerator())
+					{
+						while (enumerator.MoveNext())
+						{
+							ActorData current = enumerator.Current;
+							if (CanTargetActorInDecision(caster, current, IncludeEnemies(), IncludeAllies(), false, ValidateCheckPath.Ignore, true, false))
+							{
+								return true;
+							}
+						}
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								break;
+							default:
+								return result;
+							}
+						}
+					}
+				}
 				}
 			}
-			return result;
 		}
 		return base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		base.AddTokenInt(tokens, "HealAmount", string.Empty, this.m_healAmount, false);
-		base.AddTokenInt(tokens, "TechPointGain", string.Empty, this.m_techPointGain, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_allyHitEffect, "AllyHitEffect", this.m_allyHitEffect, true);
-		base.AddTokenInt(tokens, "DamageAmount", string.Empty, this.m_damageAmount, false);
-		base.AddTokenInt(tokens, "TechPointLoss", string.Empty, this.m_techPointLoss, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffect, "EnemyHitEffect", this.m_enemyHitEffect, true);
-		base.AddTokenInt(tokens, "VisionDuration", string.Empty, this.m_visionDuration, false);
+		AddTokenInt(tokens, "HealAmount", string.Empty, m_healAmount);
+		AddTokenInt(tokens, "TechPointGain", string.Empty, m_techPointGain);
+		AbilityMod.AddToken_EffectInfo(tokens, m_allyHitEffect, "AllyHitEffect", m_allyHitEffect);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, m_damageAmount);
+		AddTokenInt(tokens, "TechPointLoss", string.Empty, m_techPointLoss);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
+		AddTokenInt(tokens, "VisionDuration", string.Empty, m_visionDuration);
 	}
 }

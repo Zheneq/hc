@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class NPCBrain_GotoLocationAndPerformAbility : NPCBrain
@@ -9,9 +8,9 @@ public class NPCBrain_GotoLocationAndPerformAbility : NPCBrain
 
 	public override NPCBrain Create(BotController bot, Transform destination)
 	{
-		NPCBrain_GotoLocationAndPerformAbility npcbrain_GotoLocationAndPerformAbility = bot.gameObject.AddComponent<NPCBrain_GotoLocationAndPerformAbility>();
-		npcbrain_GotoLocationAndPerformAbility.m_abilityId = this.m_abilityId;
-		npcbrain_GotoLocationAndPerformAbility.m_destination = Board.\u000E().\u000E(destination);
-		return npcbrain_GotoLocationAndPerformAbility;
+		NPCBrain_GotoLocationAndPerformAbility nPCBrain_GotoLocationAndPerformAbility = bot.gameObject.AddComponent<NPCBrain_GotoLocationAndPerformAbility>();
+		nPCBrain_GotoLocationAndPerformAbility.m_abilityId = m_abilityId;
+		nPCBrain_GotoLocationAndPerformAbility.m_destination = Board.Get().GetBoardSquare(destination);
+		return nPCBrain_GotoLocationAndPerformAbility;
 	}
 }

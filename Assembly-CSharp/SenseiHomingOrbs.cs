@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ public class SenseiHomingOrbs : Ability
 	[Header("-- Orb Targeting --")]
 	public int m_numHomingOrbs = 4;
 
-	public int m_maxOrbsPerVolley = 0x3E7;
+	public int m_maxOrbsPerVolley = 999;
 
 	public float m_homingRadius = 3f;
 
@@ -18,9 +17,9 @@ public class SenseiHomingOrbs : Ability
 	[Header("-- Orb Hit Stuff --")]
 	public int m_selfHealPerHit;
 
-	public int m_allyHealAmount = 0x19;
+	public int m_allyHealAmount = 25;
 
-	public int m_enemyDamageAmount = 0x19;
+	public int m_enemyDamageAmount = 25;
 
 	public StandardEffectInfo m_allyHitEffect;
 
@@ -29,7 +28,7 @@ public class SenseiHomingOrbs : Ability
 	public int m_orbDuration = 4;
 
 	[Header("-- Animation --")]
-	public int m_orbLaunchAnimIndex = 0xB;
+	public int m_orbLaunchAnimIndex = 11;
 
 	[Header("-- Sequences --")]
 	public GameObject m_castSequencePrefab;
@@ -44,132 +43,93 @@ public class SenseiHomingOrbs : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHomingOrbs.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Sensei Homing Orbs";
+			m_abilityName = "Sensei Homing Orbs";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		this.SetCachedFields();
-		AbilityUtil_Targeter_AoE_Smooth abilityUtil_Targeter_AoE_Smooth = new AbilityUtil_Targeter_AoE_Smooth(this, this.GetHomingRadius(), false, this.CanHitEnemies(), this.CanHitAllies(), Mathf.Min(this.GetNumHomingOrbs(), this.GetMaxOrbsPerVolley()));
-		abilityUtil_Targeter_AoE_Smooth.SetAffectedGroups(this.CanHitEnemies(), this.CanHitAllies(), this.GetSelfHealPerHit() > 0);
-		abilityUtil_Targeter_AoE_Smooth.m_affectCasterDelegate = new AbilityUtil_Targeter_AoE_Smooth.IsAffectingCasterDelegate(this.TargeterAddCasterDelegate);
+		SetCachedFields();
+		AbilityUtil_Targeter_AoE_Smooth abilityUtil_Targeter_AoE_Smooth = new AbilityUtil_Targeter_AoE_Smooth(this, GetHomingRadius(), false, CanHitEnemies(), CanHitAllies(), Mathf.Min(GetNumHomingOrbs(), GetMaxOrbsPerVolley()));
+		abilityUtil_Targeter_AoE_Smooth.SetAffectedGroups(CanHitEnemies(), CanHitAllies(), GetSelfHealPerHit() > 0);
+		abilityUtil_Targeter_AoE_Smooth.m_affectCasterDelegate = TargeterAddCasterDelegate;
 		base.Targeter = abilityUtil_Targeter_AoE_Smooth;
 		base.Targeter.ShowArcToShape = false;
 	}
 
 	private bool TargeterAddCasterDelegate(ActorData caster, List<ActorData> addedSoFar)
 	{
-		bool result;
-		if (this.GetSelfHealPerHit() > 0)
+		int result;
+		if (GetSelfHealPerHit() > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHomingOrbs.TargeterAddCasterDelegate(ActorData, List<ActorData>)).MethodHandle;
-			}
-			result = (addedSoFar.Count > 0);
+			result = ((addedSoFar.Count > 0) ? 1 : 0);
 		}
 		else
 		{
-			result = false;
+			result = 0;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedAllyHitEffect = this.m_allyHitEffect;
-		this.m_cachedEnemyHitEffect = this.m_enemyHitEffect;
+		m_cachedAllyHitEffect = m_allyHitEffect;
+		m_cachedEnemyHitEffect = m_enemyHitEffect;
 	}
 
 	public int GetNumHomingOrbs()
 	{
-		return this.m_numHomingOrbs;
+		return m_numHomingOrbs;
 	}
 
 	public int GetMaxOrbsPerVolley()
 	{
-		return this.m_maxOrbsPerVolley;
+		return m_maxOrbsPerVolley;
 	}
 
 	public float GetHomingRadius()
 	{
-		return this.m_homingRadius;
+		return m_homingRadius;
 	}
 
 	public bool CanHitAllies()
 	{
-		return this.m_canHitAllies;
+		return m_canHitAllies;
 	}
 
 	public bool CanHitEnemies()
 	{
-		return this.m_canHitEnemies;
+		return m_canHitEnemies;
 	}
 
 	public int GetSelfHealPerHit()
 	{
-		return this.m_selfHealPerHit;
+		return m_selfHealPerHit;
 	}
 
 	public int GetAllyHealAmount()
 	{
-		return this.m_allyHealAmount;
+		return m_allyHealAmount;
 	}
 
 	public int GetEnemyDamageAmount()
 	{
-		return this.m_enemyDamageAmount;
+		return m_enemyDamageAmount;
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedAllyHitEffect != null)
+		if (m_cachedAllyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHomingOrbs.GetAllyHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedAllyHitEffect;
+			result = m_cachedAllyHitEffect;
 		}
 		else
 		{
-			result = this.m_allyHitEffect;
+			result = m_allyHitEffect;
 		}
 		return result;
 	}
@@ -177,76 +137,41 @@ public class SenseiHomingOrbs : Ability
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		StandardEffectInfo result;
-		if (this.m_cachedEnemyHitEffect != null)
+		if (m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHomingOrbs.GetEnemyHitEffect()).MethodHandle;
-			}
-			result = this.m_cachedEnemyHitEffect;
+			result = m_cachedEnemyHitEffect;
 		}
 		else
 		{
-			result = this.m_enemyHitEffect;
+			result = m_enemyHitEffect;
 		}
 		return result;
 	}
 
 	public int GetOrbDuration()
 	{
-		return this.m_orbDuration;
+		return m_orbDuration;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetEnemyDamageAmount());
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, this.GetAllyHealAmount());
-		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.GetSelfHealPerHit());
-		this.GetAllyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetEnemyDamageAmount());
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, GetAllyHealAmount());
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, GetSelfHealPerHit());
+		GetAllyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+		return numbers;
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (this.GetSelfHealPerHit() > 0)
+		if (GetSelfHealPerHit() > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHomingOrbs.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 				int visibleActorsCountByTooltipSubject2 = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
-				results.m_healing = (visibleActorsCountByTooltipSubject + visibleActorsCountByTooltipSubject2) * this.GetSelfHealPerHit();
+				results.m_healing = (visibleActorsCountByTooltipSubject + visibleActorsCountByTooltipSubject2) * GetSelfHealPerHit();
 			}
 		}
 		return true;
@@ -255,38 +180,25 @@ public class SenseiHomingOrbs : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
-		base.AddTokenInt(tokens, "NumHomingOrbs", string.Empty, this.m_numHomingOrbs, false);
-		base.AddTokenInt(tokens, "SelfHealPerReactHit", string.Empty, this.m_selfHealPerHit, false);
-		base.AddTokenInt(tokens, "AllyHealAmount", string.Empty, this.m_allyHealAmount, false);
-		base.AddTokenInt(tokens, "EnemyDamageAmount", string.Empty, this.m_enemyDamageAmount, false);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_allyHitEffect, "AllyHitEffect", this.m_allyHitEffect, true);
-		AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffect, "EnemyHitEffect", this.m_enemyHitEffect, true);
+		AddTokenInt(tokens, "NumHomingOrbs", string.Empty, m_numHomingOrbs);
+		AddTokenInt(tokens, "SelfHealPerReactHit", string.Empty, m_selfHealPerHit);
+		AddTokenInt(tokens, "AllyHealAmount", string.Empty, m_allyHealAmount);
+		AddTokenInt(tokens, "EnemyDamageAmount", string.Empty, m_enemyDamageAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, m_allyHitEffect, "AllyHitEffect", m_allyHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
 	}
 
 	public override bool CanTriggerAnimAtIndexForTaunt(int animIndex)
 	{
-		bool result;
-		if (animIndex != this.m_orbLaunchAnimIndex)
+		int result;
+		if (animIndex != m_orbLaunchAnimIndex)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHomingOrbs.CanTriggerAnimAtIndexForTaunt(int)).MethodHandle;
-			}
-			result = base.CanTriggerAnimAtIndexForTaunt(animIndex);
+			result = (base.CanTriggerAnimAtIndexForTaunt(animIndex) ? 1 : 0);
 		}
 		else
 		{
-			result = true;
+			result = 1;
 		}
-		return result;
+		return (byte)result != 0;
 	}
 }

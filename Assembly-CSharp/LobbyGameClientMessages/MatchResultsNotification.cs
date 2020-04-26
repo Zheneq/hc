@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace LobbyGameClientMessages
@@ -6,7 +6,25 @@ namespace LobbyGameClientMessages
 	[Serializable]
 	public class MatchResultsNotification : WebSocketMessage
 	{
-		public List<MatchResultsNotification.CurrencyReward> CurrencyRewards;
+		[Serializable]
+		public class CurrencyReward
+		{
+			public CurrencyType Type;
+
+			public int BaseGained;
+
+			public int EventGained;
+
+			public int WinGained;
+
+			public int QuestGained;
+
+			public int GGGained;
+
+			public int LevelUpGained;
+		}
+
+		public List<CurrencyReward> CurrencyRewards;
 
 		public int BaseXpGained;
 
@@ -53,23 +71,5 @@ namespace LobbyGameClientMessages
 		public float TotalBadgePoints;
 
 		public int NumCharactersPlayed;
-
-		[Serializable]
-		public class CurrencyReward
-		{
-			public CurrencyType Type;
-
-			public int BaseGained;
-
-			public int EventGained;
-
-			public int WinGained;
-
-			public int QuestGained;
-
-			public int GGGained;
-
-			public int LevelUpGained;
-		}
 	}
 }

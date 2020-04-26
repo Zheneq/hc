@@ -1,8 +1,6 @@
-﻿using System;
-
 public class HttpResponseMessage : WebSocketMessage
 {
-	public int StatusCode = 0xC8;
+	public int StatusCode = 200;
 
 	public string ResponseData = string.Empty;
 

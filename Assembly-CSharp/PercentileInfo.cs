@@ -1,5 +1,5 @@
-﻿using System;
 using Newtonsoft.Json;
+using System;
 
 [Serializable]
 public class PercentileInfo
@@ -25,84 +25,31 @@ public class PercentileInfo
 	{
 		get
 		{
-			if (this.AgainstSameFreelancer == null)
+			int result;
+			if (!AgainstSameFreelancer.HasValue)
 			{
-				for (;;)
+				if (!MedianOfSameFreelancer.HasValue)
 				{
-					switch (7)
+					if (!AgainstRole.HasValue && !MedianOfRole.HasValue)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PercentileInfo.get_HasData()).MethodHandle;
-				}
-				if (this.MedianOfSameFreelancer == null)
-				{
-					for (;;)
-					{
-						switch (6)
+						if (!AgainstAll.HasValue)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.AgainstRole == null && this.MedianOfRole == null)
-					{
-						for (;;)
-						{
-							switch (6)
+							if (!MedianOfAll.HasValue)
 							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.AgainstAll == null)
-						{
-							for (;;)
-							{
-								switch (5)
+								if (!AgainstPeers.HasValue)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (this.MedianOfAll == null)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (this.AgainstPeers == null)
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									return this.MedianOfPeers != null;
+									result = (MedianOfPeers.HasValue ? 1 : 0);
+									goto IL_00c0;
 								}
 							}
 						}
 					}
 				}
 			}
-			return true;
+			result = 1;
+			goto IL_00c0;
+			IL_00c0:
+			return (byte)result != 0;
 		}
 	}
 }

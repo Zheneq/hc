@@ -1,12 +1,11 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AnimEventToVfxContainer
 {
-	public UnityEngine.Object m_persistentVfxStartEvent;
+	public Object m_persistentVfxStartEvent;
 
-	public UnityEngine.Object m_persistentVfxStopEvent;
+	public Object m_persistentVfxStopEvent;
 
 	public List<AttachedActorVFXInfo> m_vfxInstances;
 
@@ -14,145 +13,88 @@ public class AnimEventToVfxContainer
 
 	public bool m_turnOffOnTurnStart = true;
 
-	public AnimEventToVfxContainer(UnityEngine.Object startEvent, UnityEngine.Object stopEvent, List<AdditionalAttachedActorVfx.JointToVfx> vfxPrefabList, GameObject attachToObj)
+	public AnimEventToVfxContainer(Object startEvent, Object stopEvent, List<AdditionalAttachedActorVfx.JointToVfx> vfxPrefabList, GameObject attachToObj)
 	{
-		this.m_persistentVfxStartEvent = startEvent;
-		this.m_persistentVfxStopEvent = stopEvent;
-		this.m_vfxInstances = new List<AttachedActorVFXInfo>();
+		m_persistentVfxStartEvent = startEvent;
+		m_persistentVfxStopEvent = stopEvent;
+		m_vfxInstances = new List<AttachedActorVFXInfo>();
 		for (int i = 0; i < vfxPrefabList.Count; i++)
 		{
 			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(vfxPrefabList[i].m_vfxCommonPrefab, attachToObj, vfxPrefabList[i].m_joint, vfxPrefabList[i].m_alignToRootOrientation, "AttachedVfx_" + vfxPrefabList[i].m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AnimEventToVfxContainer..ctor(UnityEngine.Object, UnityEngine.Object, List<AdditionalAttachedActorVfx.JointToVfx>, GameObject)).MethodHandle;
-				}
-				this.m_vfxInstances.Add(attachedActorVFXInfo);
+				m_vfxInstances.Add(attachedActorVFXInfo);
 			}
 		}
 	}
 
 	public void UpdateVisibilityForSpawnedVfx(bool actorVisible, bool sameTeam)
 	{
-		bool flag;
+		int num;
 		if (actorVisible)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnimEventToVfxContainer.UpdateVisibilityForSpawnedVfx(bool, bool)).MethodHandle;
-			}
-			flag = this.m_shouldShowPersistentVfx;
+			num = (m_shouldShowPersistentVfx ? 1 : 0);
 		}
 		else
 		{
-			flag = false;
+			num = 0;
 		}
-		bool actorVisible2 = flag;
-		for (int i = 0; i < this.m_vfxInstances.Count; i++)
+		bool actorVisible2 = (byte)num != 0;
+		for (int i = 0; i < m_vfxInstances.Count; i++)
 		{
-			this.m_vfxInstances[i].UpdateVisibility(actorVisible2, sameTeam);
+			m_vfxInstances[i].UpdateVisibility(actorVisible2, sameTeam);
 		}
-		for (;;)
+		while (true)
 		{
 			switch (7)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			break;
 		}
 	}
 
-	public void HandleAnimEvent(UnityEngine.Object eventObj, GameObject sourceObj)
+	public void HandleAnimEvent(Object eventObj, GameObject sourceObj)
 	{
-		if (this.m_persistentVfxStartEvent != null)
+		if (m_persistentVfxStartEvent != null)
 		{
-			for (;;)
+			if (eventObj == m_persistentVfxStartEvent)
 			{
-				switch (5)
+				if (!(GameFlowData.Get() != null))
 				{
-				case 0:
-					continue;
+					return;
 				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnimEventToVfxContainer.HandleAnimEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
-			if (eventObj == this.m_persistentVfxStartEvent)
-			{
-				if (GameFlowData.Get() != null)
+				while (true)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get().gameState != GameState.BothTeams_Decision)
 					{
-						for (;;)
+						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
+							m_shouldShowPersistentVfx = true;
+							return;
 						}
-						this.m_shouldShowPersistentVfx = true;
 					}
+					return;
 				}
-				return;
 			}
 		}
-		if (this.m_persistentVfxStopEvent != null)
+		if (!(m_persistentVfxStopEvent != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (eventObj == m_persistentVfxStopEvent)
 			{
-				switch (5)
+				while (true)
 				{
-				case 0:
-					continue;
+					m_shouldShowPersistentVfx = false;
+					return;
 				}
-				break;
 			}
-			if (eventObj == this.m_persistentVfxStopEvent)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_shouldShowPersistentVfx = false;
-			}
+			return;
 		}
 	}
 }

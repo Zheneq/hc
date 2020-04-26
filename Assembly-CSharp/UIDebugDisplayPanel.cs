@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -13,187 +12,83 @@ public class UIDebugDisplayPanel : MonoBehaviour
 
 	private void Start()
 	{
-		if (this.m_fpsDisplay != null)
+		if (m_fpsDisplay != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugDisplayPanel.Start()).MethodHandle;
-			}
-			this.m_fpsDisplay.gameObject.SetActive(false);
+			m_fpsDisplay.gameObject.SetActive(false);
 		}
-		this.ClearDebugDisplay();
+		ClearDebugDisplay();
 	}
 
 	private void Update()
 	{
-		if (this.m_fpsDisplay != null)
+		if (!(m_fpsDisplay != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugDisplayPanel.Update()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.ToggleFPS))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_fpsDisplay.gameObject.SetActive(!this.m_fpsDisplay.gameObject.activeSelf);
+				m_fpsDisplay.gameObject.SetActive(!m_fpsDisplay.gameObject.activeSelf);
 			}
-			if (this.m_fpsDisplay.gameObject.activeSelf)
+			if (m_fpsDisplay.gameObject.activeSelf)
 			{
-				if (this.m_fpsTimer == null)
+				if (m_fpsTimer == null)
 				{
-					this.m_fpsTimer = new FPS(new Action<float>(this.OnFPSTimerChange));
+					m_fpsTimer = new FPS(OnFPSTimerChange);
 				}
-				this.m_fpsTimer.SampleFrame();
+				m_fpsTimer.SampleFrame();
 			}
+			return;
 		}
 	}
 
 	public void SetEntry(string key, string displayStr)
 	{
 		displayStr += "\n\n";
-		if (this.m_debugDisplay.text != displayStr)
+		if (!(m_debugDisplay.text != displayStr))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugDisplayPanel.SetEntry(string, string)).MethodHandle;
-			}
-			this.m_debugDisplay.gameObject.SetActive(true);
-			this.m_debugDisplay.text = displayStr;
+			return;
+		}
+		while (true)
+		{
+			m_debugDisplay.gameObject.SetActive(true);
+			m_debugDisplay.text = displayStr;
+			return;
 		}
 	}
 
 	public void ClearDebugDisplay()
 	{
-		if (this.m_debugDisplay != null)
+		if (!(m_debugDisplay != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugDisplayPanel.ClearDebugDisplay()).MethodHandle;
-			}
-			this.m_debugDisplay.gameObject.SetActive(false);
+			return;
+		}
+		while (true)
+		{
+			m_debugDisplay.gameObject.SetActive(false);
+			return;
 		}
 	}
 
 	private void OnFPSTimerChange(float fps)
 	{
-		string text = string.Format("{0:F2} FPS", fps);
+		string text = $"{fps:F2} FPS";
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugDisplayPanel.OnFPSTimerChange(float)).MethodHandle;
-			}
 			if (!NetworkServer.active && NetworkClient.allClients != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (NetworkClient.allClients[0] != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (NetworkClient.allClients[0].connection != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (NetworkClient.allClients[0].isConnected)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!NetworkClient.allClients[0].isExternalNetworkConnection)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								byte b;
-								int currentRTT = NetworkTransport.GetCurrentRTT(NetworkClient.allClients[0].connection.hostId, NetworkClient.allClients[0].connection.connectionId, out b);
-								string str = string.Format("\n\n {0} ms RTT", currentRTT);
+								byte error;
+								int currentRTT = NetworkTransport.GetCurrentRTT(NetworkClient.allClients[0].connection.hostId, NetworkClient.allClients[0].connection.connectionId, out error);
+								string str = $"\n\n {currentRTT} ms RTT";
 								text += str;
 							}
 						}
@@ -201,36 +96,35 @@ public class UIDebugDisplayPanel : MonoBehaviour
 				}
 			}
 		}
-		this.m_fpsDisplay.text = text;
+		m_fpsDisplay.text = text;
 		if (fps < 10f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_fpsDisplay.color = Color.red;
+					return;
 				}
-				break;
 			}
-			this.m_fpsDisplay.color = Color.red;
 		}
-		else if (fps < 30f)
+		if (fps < 30f)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_fpsDisplay.color = Color.yellow;
+					return;
 				}
-				break;
 			}
-			this.m_fpsDisplay.color = Color.yellow;
 		}
-		else
-		{
-			this.m_fpsDisplay.color = Color.green;
-		}
+		m_fpsDisplay.color = Color.green;
 	}
 }

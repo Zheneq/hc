@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,222 +35,122 @@ public class AbilityMod_TrackerHuntingCrossbow : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		TrackerHuntingCrossbow trackerHuntingCrossbow = targetAbility as TrackerHuntingCrossbow;
-		if (trackerHuntingCrossbow != null)
+		if (!(trackerHuntingCrossbow != null))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_damageOnUntrackedMod, "Damage_Untracked", "damage on untracked targets", trackerHuntingCrossbow.m_laserDamageAmount);
+			AbilityMod.AddToken(tokens, m_damageOnTrackedMod, "Damage_Tracked", "damage on Tracked targets", trackerHuntingCrossbow.m_laserDamageAmount);
+			if (m_damageChangeOnSubsequentTargets != 0)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				tokens.Add(new TooltipTokenInt("DamageChangeOnSubsequent", "damage change after first hit, if piercing", Mathf.Abs(m_damageChangeOnSubsequentTargets)));
 			}
-			if (!true)
+			if (m_extraDamageWhenInBrush > 0)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TrackerHuntingCrossbow.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
+				tokens.Add(new TooltipTokenInt("ExtraDamageIfInBrush", "extra damage on targets in Brush", m_extraDamageWhenInBrush));
 			}
-			AbilityMod.AddToken(tokens, this.m_damageOnUntrackedMod, "Damage_Untracked", "damage on untracked targets", trackerHuntingCrossbow.m_laserDamageAmount, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageOnTrackedMod, "Damage_Tracked", "damage on Tracked targets", trackerHuntingCrossbow.m_laserDamageAmount, true, false);
-			if (this.m_damageChangeOnSubsequentTargets != 0)
+			if (m_additionalEnemyEffectWhenInBrush != null && m_additionalEnemyEffectWhenInBrush.m_applyEffect)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				tokens.Add(new TooltipTokenInt("DamageChangeOnSubsequent", "damage change after first hit, if piercing", Mathf.Abs(this.m_damageChangeOnSubsequentTargets)));
+				AbilityMod.AddToken_EffectInfo(tokens, m_additionalEnemyEffectWhenInBrush, "EffectOnTargetInBrush");
 			}
-			if (this.m_extraDamageWhenInBrush > 0)
-			{
-				tokens.Add(new TooltipTokenInt("ExtraDamageIfInBrush", "extra damage on targets in Brush", this.m_extraDamageWhenInBrush));
-			}
-			if (this.m_additionalEnemyEffectWhenInBrush != null && this.m_additionalEnemyEffectWhenInBrush.m_applyEffect)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				AbilityMod.AddToken_EffectInfo(tokens, this.m_additionalEnemyEffectWhenInBrush, "EffectOnTargetInBrush", null, true);
-			}
-			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", "laser width", trackerHuntingCrossbow.m_laserInfo.width, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserLengthMod, "LaserRange", "laser range", trackerHuntingCrossbow.m_laserInfo.range, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_laserMaxTargetsMod, "LaserMaxTargets", "laser max number of targets hit", trackerHuntingCrossbow.m_laserInfo.maxTargets, true, false);
+			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", "laser width", trackerHuntingCrossbow.m_laserInfo.width);
+			AbilityMod.AddToken(tokens, m_laserLengthMod, "LaserRange", "laser range", trackerHuntingCrossbow.m_laserInfo.range);
+			AbilityMod.AddToken(tokens, m_laserMaxTargetsMod, "LaserMaxTargets", "laser max number of targets hit", trackerHuntingCrossbow.m_laserInfo.maxTargets);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		TrackerHuntingCrossbow trackerHuntingCrossbow = base.GetTargetAbilityOnAbilityData(abilityData) as TrackerHuntingCrossbow;
+		TrackerHuntingCrossbow trackerHuntingCrossbow = GetTargetAbilityOnAbilityData(abilityData) as TrackerHuntingCrossbow;
 		bool flag = trackerHuntingCrossbow != null;
-		string text = string.Empty;
-		string str = text;
-		AbilityModPropertyInt damageOnUntrackedMod = this.m_damageOnUntrackedMod;
-		string prefix = "[Damage on Untracked Target]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		string str = empty;
+		AbilityModPropertyInt damageOnUntrackedMod = m_damageOnUntrackedMod;
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TrackerHuntingCrossbow.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = trackerHuntingCrossbow.m_laserDamageAmount;
 		}
 		else
 		{
 			baseVal = 0;
 		}
-		text = str + AbilityModHelper.GetModPropertyDesc(damageOnUntrackedMod, prefix, showBaseVal, baseVal);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_damageOnTrackedMod, "[Damage on Tracked Target]", flag, (!flag) ? 0 : trackerHuntingCrossbow.m_laserDamageAmount);
-		if (this.m_damageChangeOnSubsequentTargets != 0)
+		empty = str + AbilityModHelper.GetModPropertyDesc(damageOnUntrackedMod, "[Damage on Untracked Target]", flag, baseVal);
+		empty += AbilityModHelper.GetModPropertyDesc(m_damageOnTrackedMod, "[Damage on Tracked Target]", flag, flag ? trackerHuntingCrossbow.m_laserDamageAmount : 0);
+		if (m_damageChangeOnSubsequentTargets != 0)
 		{
-			string text2 = text;
-			text = string.Concat(new object[]
-			{
-				text2,
-				"[Damage Change on Subsequent Targets] = ",
-				this.m_damageChangeOnSubsequentTargets,
-				"\n"
-			});
+			string text = empty;
+			empty = text + "[Damage Change on Subsequent Targets] = " + m_damageChangeOnSubsequentTargets + "\n";
 		}
-		if (this.m_extraDamageWhenInBrush > 0)
+		if (m_extraDamageWhenInBrush > 0)
 		{
-			for (;;)
+			string text = empty;
+			object[] obj = new object[6]
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			string text2 = text;
-			object[] array = new object[6];
-			array[0] = text2;
-			array[1] = "[Extra Damage when in ";
-			int num = 2;
-			object obj;
-			if (this.m_requireFunctioningBrush)
+				text,
+				"[Extra Damage when in ",
+				null,
+				null,
+				null,
+				null
+			};
+			object obj2;
+			if (m_requireFunctioningBrush)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				obj = "Functioning";
+				obj2 = "Functioning";
 			}
 			else
 			{
-				obj = string.Empty;
+				obj2 = string.Empty;
 			}
-			array[num] = obj;
-			array[3] = " Brush] = ";
-			array[4] = this.m_extraDamageWhenInBrush;
-			array[5] = "\n";
-			text = string.Concat(array);
+			obj[2] = obj2;
+			obj[3] = " Brush] = ";
+			obj[4] = m_extraDamageWhenInBrush;
+			obj[5] = "\n";
+			empty = string.Concat(obj);
 		}
-		if (this.m_additionalEnemyEffectWhenInBrush != null && this.m_additionalEnemyEffectWhenInBrush.m_applyEffect)
+		if (m_additionalEnemyEffectWhenInBrush != null && m_additionalEnemyEffectWhenInBrush.m_applyEffect)
 		{
-			for (;;)
+			object obj3;
+			if (m_requireFunctioningBrush)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			string text3;
-			if (this.m_requireFunctioningBrush)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				text3 = "Functioning Brush";
+				obj3 = "Functioning Brush";
 			}
 			else
 			{
-				text3 = "Brush";
+				obj3 = "Brush";
 			}
-			string str2 = text3;
-			text += AbilityModHelper.GetModEffectDataDesc(this.m_additionalEnemyEffectWhenInBrush.m_effectData, "{ Additional Effect on Enemy when in " + str2 + " }", string.Empty, flag, null);
+			string str2 = (string)obj3;
+			empty += AbilityModHelper.GetModEffectDataDesc(m_additionalEnemyEffectWhenInBrush.m_effectData, "{ Additional Effect on Enemy when in " + str2 + " }", string.Empty, flag);
 		}
-		string str3 = text;
-		AbilityModPropertyFloat laserWidthMod = this.m_laserWidthMod;
-		string prefix2 = "[Laser Width]";
-		bool showBaseVal2 = flag;
+		string str3 = empty;
+		AbilityModPropertyFloat laserWidthMod = m_laserWidthMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = trackerHuntingCrossbow.m_laserInfo.width;
 		}
 		else
 		{
 			baseVal2 = 0f;
 		}
-		text = str3 + AbilityModHelper.GetModPropertyDesc(laserWidthMod, prefix2, showBaseVal2, baseVal2);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_laserLengthMod, "[Laser Length]", flag, (!flag) ? 0f : trackerHuntingCrossbow.m_laserInfo.range);
-		text += AbilityModHelper.GetModPropertyDesc(this.m_laserMaxTargetsMod, "[Laser Max Targets]", flag, (!flag) ? 0 : trackerHuntingCrossbow.m_laserInfo.maxTargets);
-		string str4 = text;
-		AbilityModPropertyEffectData huntedEffectDataOverride = this.m_huntedEffectDataOverride;
-		string prefix3 = "{ Hunted/Tracked Effect Override }";
-		bool showBaseVal3 = flag;
-		StandardActorEffectData baseVal3;
+		empty = str3 + AbilityModHelper.GetModPropertyDesc(laserWidthMod, "[Laser Width]", flag, baseVal2);
+		empty += AbilityModHelper.GetModPropertyDesc(m_laserLengthMod, "[Laser Length]", flag, (!flag) ? 0f : trackerHuntingCrossbow.m_laserInfo.range);
+		empty += AbilityModHelper.GetModPropertyDesc(m_laserMaxTargetsMod, "[Laser Max Targets]", flag, flag ? trackerHuntingCrossbow.m_laserInfo.maxTargets : 0);
+		string str4 = empty;
+		AbilityModPropertyEffectData huntedEffectDataOverride = m_huntedEffectDataOverride;
+		object baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = trackerHuntingCrossbow.m_huntedEffectData;
 		}
 		else
 		{
 			baseVal3 = null;
 		}
-		return str4 + base.PropDesc(huntedEffectDataOverride, prefix3, showBaseVal3, baseVal3);
+		return str4 + PropDesc(huntedEffectDataOverride, "{ Hunted/Tracked Effect Override }", flag, (StandardActorEffectData)baseVal3);
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -31,19 +31,6 @@ public class AssetBundleManager : MonoBehaviour
 		string text = Application.dataPath;
 		if (!Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AssetBundleManager.GetScenesInBundle(string)).MethodHandle;
-			}
 			text = text + "/Bundles/scenes/" + bundleName + ".json";
 		}
 		else
@@ -52,15 +39,6 @@ public class AssetBundleManager : MonoBehaviour
 		}
 		if (!File.Exists(text))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return list;
 		}
 		string value = File.ReadAllText(text);
@@ -71,24 +49,8 @@ public class AssetBundleManager : MonoBehaviour
 	public bool SceneExistsInBundle(string bundleName, string sceneName)
 	{
 		IEnumerable<string> scenesInBundle = this.GetScenesInBundle(bundleName);
-		if (AssetBundleManager.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AssetBundleManager.SceneExistsInBundle(string, string)).MethodHandle;
-			}
-			AssetBundleManager.<>f__am$cache0 = ((string s) => s.ToLower());
-		}
-		return scenesInBundle.Select(AssetBundleManager.<>f__am$cache0).Contains(sceneName.ToLower());
+		
+		return scenesInBundle.Select(((string s) => s.ToLower())).Contains(sceneName.ToLower());
 	}
 
 	public bool SceneAssetBundleExists(string bundleName)
@@ -100,19 +62,6 @@ public class AssetBundleManager : MonoBehaviour
 	{
 		if (!Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AssetBundleManager.GetSceneAssetBundlePath(string)).MethodHandle;
-			}
 			return Application.dataPath + "/Bundles/scenes/" + bundleName + ".bundle";
 		}
 		return Application.dataPath + "/../Bundles/scenes/" + bundleName + ".bundle";
@@ -138,19 +87,6 @@ public class AssetBundleManager : MonoBehaviour
 	{
 		yield return this.LoadAssetBundleInternal(operation);
 		yield return this.LoadSceneInternal(operation);
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AssetBundleManager.<LoadSceneAsync>c__Iterator0.MoveNext()).MethodHandle;
-		}
 		yield break;
 	}
 
@@ -158,32 +94,10 @@ public class AssetBundleManager : MonoBehaviour
 	{
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AssetBundleManager.<LoadAssetBundleInternal>c__Iterator1.MoveNext()).MethodHandle;
-			}
 			yield break;
 		}
 		if (operation.bundleName.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			operation.bundleName = operation.sceneName;
 		}
 		string bundlePath = this.GetSceneAssetBundlePath(operation.bundleName);
@@ -195,28 +109,10 @@ public class AssetBundleManager : MonoBehaviour
 			operation.assetBundleOperation.isCanceled = false;
 			if (operation.assetBundleOperation.request.isDone)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				yield return new WaitWhile(() => !operation.assetBundleOperation.request.isDone);
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		else
@@ -239,15 +135,6 @@ public class AssetBundleManager : MonoBehaviour
 			});
 			if (operation.assetBundleOperation.request.assetBundle != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				operation.assetBundleOperation.request.assetBundle.Unload(false);
 			}
 			this.m_postedLoadAssetBundleAsyncOperations.Remove(operation.bundleName);
@@ -256,27 +143,9 @@ public class AssetBundleManager : MonoBehaviour
 		{
 			if (operation.assetBundleOperation.request.assetBundle == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string arg;
 				if (FileSystemUtils.TryRead(bundlePath, out arg))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					arg = "AsyncOperation error";
 				}
 				throw new Exception(string.Format("AssetBundle | <- Failed to load scene asset bundle {0} ({1})", operation.name, arg));
@@ -290,19 +159,6 @@ public class AssetBundleManager : MonoBehaviour
 	{
 		if (HitchDetector.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AssetBundleManager.<LoadSceneInternal>c__Iterator2.MoveNext()).MethodHandle;
-			}
 			HitchDetector.Get().RecordFrameTimeForHitch("Loading scene " + operation.name);
 		}
 		AssetBundleManager.LoadSceneAsyncOperation postedLoadSceneAsyncOperation = this.m_postedLoadSceneAsyncOperations.TryGetValue(operation.sceneName);
@@ -312,15 +168,6 @@ public class AssetBundleManager : MonoBehaviour
 			operation.isCanceled = false;
 			if (operation.sceneOperation.isDone)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -353,15 +200,6 @@ public class AssetBundleManager : MonoBehaviour
 		this.m_postedLoadSceneAsyncOperations.Remove(operation.sceneName);
 		if (HitchDetector.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HitchDetector.Get().RecordFrameTimeForHitch("Loaded scene " + operation.name);
 		}
 		yield break;
@@ -371,19 +209,6 @@ public class AssetBundleManager : MonoBehaviour
 	{
 		if (bundleName.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AssetBundleManager.UnloadScene(string, string)).MethodHandle;
-			}
 			bundleName = sceneName;
 		}
 		this.UnloadAssetBundleInternal(bundleName);
@@ -394,55 +219,15 @@ public class AssetBundleManager : MonoBehaviour
 	{
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AssetBundleManager.UnloadAssetBundleInternal(string)).MethodHandle;
-			}
 			return;
 		}
 		AssetBundleManager.LoadAssetBundleAsyncOperation loadAssetBundleAsyncOperation = this.m_postedLoadAssetBundleAsyncOperations.TryGetValue(bundleName);
 		if (loadAssetBundleAsyncOperation != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (--loadAssetBundleAsyncOperation.referenceCount == 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!loadAssetBundleAsyncOperation.request.isDone)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Info(Log.Category.Loading, "AssetBundle | Cancel loading asset bundle {0} ({1}%, isDone {2}) ...", new object[]
 					{
 						bundleName,
@@ -455,15 +240,6 @@ public class AssetBundleManager : MonoBehaviour
 				{
 					if (loadAssetBundleAsyncOperation.request.assetBundle != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						loadAssetBundleAsyncOperation.request.assetBundle.Unload(false);
 					}
 					this.m_postedLoadAssetBundleAsyncOperations.Remove(bundleName);
@@ -477,30 +253,8 @@ public class AssetBundleManager : MonoBehaviour
 		AssetBundleManager.LoadSceneAsyncOperation loadSceneAsyncOperation = this.m_postedLoadSceneAsyncOperations.TryGetValue(sceneName);
 		if (loadSceneAsyncOperation != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AssetBundleManager.UnloadSceneInternal(string)).MethodHandle;
-			}
 			if (!loadSceneAsyncOperation.isDone)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Info(Log.Category.Loading, "AssetBundle | Cancel loading scene {0} ({1}%, isDone {2}) ...", new object[]
 				{
 					sceneName,
@@ -515,15 +269,6 @@ public class AssetBundleManager : MonoBehaviour
 		{
 			if (SceneManager.GetSceneByName(sceneName).IsValid())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SceneManager.UnloadSceneAsync(sceneName);
 			}
 		}
@@ -551,19 +296,6 @@ public class AssetBundleManager : MonoBehaviour
 				bool result;
 				if (this.request != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AssetBundleManager.LoadAssetBundleAsyncOperation.get_isDone()).MethodHandle;
-					}
 					result = this.request.isDone;
 				}
 				else
@@ -606,19 +338,6 @@ public class AssetBundleManager : MonoBehaviour
 				bool result;
 				if (this.sceneOperation != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AssetBundleManager.LoadSceneAsyncOperation.get_isDone()).MethodHandle;
-					}
 					result = this.sceneOperation.isDone;
 				}
 				else
@@ -636,32 +355,10 @@ public class AssetBundleManager : MonoBehaviour
 				float num = 0f;
 				if (this.assetBundleOperation != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AssetBundleManager.LoadSceneAsyncOperation.get_progress()).MethodHandle;
-					}
 					num += this.assetBundleOperation.request.progress / 2f;
 				}
 				if (this.sceneOperation != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += this.sceneOperation.progress / 2f;
 				}
 				return num;

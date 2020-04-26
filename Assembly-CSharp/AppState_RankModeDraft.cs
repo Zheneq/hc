@@ -1,12 +1,10 @@
-﻿using System;
-
 public class AppState_RankModeDraft : AppState
 {
 	private static AppState_RankModeDraft s_instance;
 
 	public static AppState_RankModeDraft Get()
 	{
-		return AppState_RankModeDraft.s_instance;
+		return s_instance;
 	}
 
 	public static void Create()
@@ -16,59 +14,46 @@ public class AppState_RankModeDraft : AppState
 
 	private void Awake()
 	{
-		AppState_RankModeDraft.s_instance = this;
+		s_instance = this;
 	}
 
 	protected override void OnEnter()
 	{
 		UIRankedModeDraftScreen.Get().SetupRankDraft();
 		AppState_GroupCharacterSelect.Get().NotifyEnteredRankModeDraft();
-		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.RankedModeSelect, false);
-		ClientGameManager.Get().OnDisconnectedFromLobbyServer += this.HandleDisconnectedFromLobbyServer;
+		UIFrontEnd.Get().ShowScreen(FrontEndScreenState.RankedModeSelect);
+		ClientGameManager.Get().OnDisconnectedFromLobbyServer += HandleDisconnectedFromLobbyServer;
 	}
 
 	private void HandleDisconnectedFromLobbyServer(string lastLobbyErrorMessage)
 	{
-		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage, false);
+		AppState_LandingPage.Get().Enter(lastLobbyErrorMessage);
 	}
 
 	protected override void OnLeave()
 	{
 		UIRankedModeDraftScreen.Get().DismantleRankDraft();
-		ClientGameManager.Get().OnDisconnectedFromLobbyServer -= this.HandleDisconnectedFromLobbyServer;
+		ClientGameManager.Get().OnDisconnectedFromLobbyServer -= HandleDisconnectedFromLobbyServer;
 	}
 
 	private void Update()
 	{
 		GameStatus gameStatus = GameManager.Get().GameStatus;
-		if (gameStatus >= GameStatus.Launched)
+		if (gameStatus < GameStatus.Launched)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_RankModeDraft.Update()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (gameStatus != GameStatus.Stopped)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					AppState_GameLoading.Get().Enter(GameManager.Get().GameInfo.GameConfig.GameType);
+					return;
 				}
-				AppState_GameLoading.Get().Enter(GameManager.Get().GameInfo.GameConfig.GameType);
 			}
+			return;
 		}
 	}
 }

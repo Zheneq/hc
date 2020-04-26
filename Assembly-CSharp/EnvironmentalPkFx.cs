@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
@@ -14,22 +13,14 @@ public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
 
 	private void Awake()
 	{
-		if (this.m_randEmitIntervalMax < this.m_randEmitIntervalMin)
+		if (!(m_randEmitIntervalMax < m_randEmitIntervalMin))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EnvironmentalPkFx.Awake()).MethodHandle;
-			}
-			this.m_randEmitIntervalMax = this.m_randEmitIntervalMin;
+			return;
+		}
+		while (true)
+		{
+			m_randEmitIntervalMax = m_randEmitIntervalMin;
+			return;
 		}
 	}
 
@@ -37,22 +28,9 @@ public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
 	{
 		if (GameFlowData.Get() == null)
 		{
-			for (;;)
+			if (m_fx == null)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EnvironmentalPkFx.OnEnable()).MethodHandle;
-			}
-			if (this.m_fx == null)
-			{
-				this.m_fx = base.GetComponent<PKFxFX>();
+				m_fx = GetComponent<PKFxFX>();
 			}
 		}
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.GameCameraCreated);
@@ -65,172 +43,104 @@ public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType == GameEventManager.EventType.GameCameraCreated)
+		if (eventType != GameEventManager.EventType.GameCameraCreated)
 		{
-			if (!(VisualsLoader.Get() == null))
+			return;
+		}
+		if (!(VisualsLoader.Get() == null))
+		{
+			if (!VisualsLoader.Get().LevelLoaded())
 			{
-				for (;;)
+				return;
+			}
+		}
+		if (m_fx == null)
+		{
+			m_fx = GetComponent<PKFxFX>();
+		}
+		if (!(m_fx != null) || !m_fx.enabled)
+		{
+			return;
+		}
+		while (true)
+		{
+			if (m_randEmitIntervalMin <= 0f)
+			{
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(EnvironmentalPkFx.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-				}
-				if (!VisualsLoader.Get().LevelLoaded())
-				{
-					return;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			if (this.m_fx == null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_fx = base.GetComponent<PKFxFX>();
-			}
-			if (this.m_fx != null && this.m_fx.enabled)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_randEmitIntervalMin <= 0f)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						break;
+					default:
+						m_fx.StartEffect();
+						return;
 					}
-					this.m_fx.StartEffect();
-				}
-				else
-				{
-					this.m_timeTillNextEmit = UnityEngine.Random.Range(this.m_randEmitIntervalMin, this.m_randEmitIntervalMax);
 				}
 			}
+			m_timeTillNextEmit = Random.Range(m_randEmitIntervalMin, m_randEmitIntervalMax);
+			return;
 		}
 	}
 
 	public void Update()
 	{
-		if (this.m_randEmitIntervalMin > 0f)
+		if (!(m_randEmitIntervalMin > 0f))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(m_randEmitIntervalMax > 0f))
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EnvironmentalPkFx.Update()).MethodHandle;
-			}
-			if (this.m_randEmitIntervalMax > 0f)
-			{
-				for (;;)
+				if (!(m_fx != null))
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					return;
 				}
-				if (this.m_fx != null)
+				while (true)
 				{
-					for (;;)
+					if (!m_fx.enabled)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						return;
 					}
-					if (this.m_fx.enabled)
+					while (true)
 					{
-						for (;;)
+						if (m_timeTillNextEmit < 0f)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.m_timeTillNextEmit < 0f)
-						{
-							for (;;)
+							while (true)
 							{
 								switch (3)
 								{
 								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_timeTillNextEmit = UnityEngine.Random.Range(this.m_randEmitIntervalMin, this.m_randEmitIntervalMax);
-						}
-						else if (this.m_timeTillNextEmit > 0f)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.m_timeTillNextEmit -= Time.deltaTime;
-							if (this.m_timeTillNextEmit <= 0f)
-							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
 									break;
+								default:
+									m_timeTillNextEmit = Random.Range(m_randEmitIntervalMin, m_randEmitIntervalMax);
+									return;
 								}
-								this.m_fx.TerminateEffect();
-								this.m_fx.StartEffect();
-								this.m_timeTillNextEmit = UnityEngine.Random.Range(this.m_randEmitIntervalMin, this.m_randEmitIntervalMax);
 							}
+						}
+						if (!(m_timeTillNextEmit > 0f))
+						{
+							return;
+						}
+						while (true)
+						{
+							m_timeTillNextEmit -= Time.deltaTime;
+							if (m_timeTillNextEmit <= 0f)
+							{
+								while (true)
+								{
+									m_fx.TerminateEffect();
+									m_fx.StartEffect();
+									m_timeTillNextEmit = Random.Range(m_randEmitIntervalMin, m_randEmitIntervalMax);
+									return;
+								}
+							}
+							return;
 						}
 					}
 				}

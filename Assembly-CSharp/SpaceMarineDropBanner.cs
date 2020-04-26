@@ -1,5 +1,3 @@
-﻿using System;
-
 public class SpaceMarineDropBanner : Ability
 {
 	public int m_duration = 2;
@@ -14,10 +12,10 @@ public class SpaceMarineDropBanner : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Drop Banner";
+			m_abilityName = "Drop Banner";
 		}
-		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, this.m_radius, this.m_penetrateLineOfSight, true, true, -1);
+		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, m_radius, m_penetrateLineOfSight, true, true);
 	}
 }

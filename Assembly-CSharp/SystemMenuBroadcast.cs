@@ -1,4 +1,3 @@
-﻿using System;
 using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
@@ -22,20 +21,20 @@ public class SystemMenuBroadcast : UIScene
 
 	public override void Awake()
 	{
-		SystemMenuBroadcast.s_instance = this;
-		UIManager.SetGameObjectActive(this.m_SystemMessageContainer, false, null);
-		this.m_startDisplaySystemMessage = -1f;
+		s_instance = this;
+		UIManager.SetGameObjectActive(m_SystemMessageContainer, false);
+		m_startDisplaySystemMessage = -1f;
 		base.Awake();
 	}
 
 	public static SystemMenuBroadcast Get()
 	{
-		return SystemMenuBroadcast.s_instance;
+		return s_instance;
 	}
 
 	public void NotifySystemMessageOutDone()
 	{
-		UIManager.SetGameObjectActive(UIMainMenu.Get(), false, null);
+		UIManager.SetGameObjectActive(UIMainMenu.Get(), false);
 	}
 
 	public void DisplaySystemMessage(ChatNotification notification)
@@ -45,24 +44,11 @@ public class SystemMenuBroadcast : UIScene
 		{
 			return;
 		}
-		UIManager.SetGameObjectActive(this.m_SystemMessageContainer, true, null);
-		TMP_Text systemMessageContent = this.m_SystemMessageContent;
+		UIManager.SetGameObjectActive(m_SystemMessageContainer, true);
+		TextMeshProUGUI systemMessageContent = m_SystemMessageContent;
 		string text;
 		if (notification.LocalizedText != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SystemMenuBroadcast.DisplaySystemMessage(ChatNotification)).MethodHandle;
-			}
 			text = notification.LocalizedText.ToString();
 		}
 		else
@@ -70,44 +56,28 @@ public class SystemMenuBroadcast : UIScene
 			text = notification.Text;
 		}
 		systemMessageContent.text = text;
-		this.m_startDisplaySystemMessage = Time.time;
+		m_startDisplaySystemMessage = Time.time;
 		UISounds.GetUISounds().Play("ui/notification/importantmessage_cs");
 	}
 
 	private void Update()
 	{
-		if (this.m_startDisplaySystemMessage > 0f)
+		if (!(m_startDisplaySystemMessage > 0f))
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!(Time.time - m_startDisplaySystemMessage >= 5f))
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			if (m_SystemMessageContainer.GetComponent<Animator>() != null)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SystemMenuBroadcast.Update()).MethodHandle;
+				m_SystemMessageContainer.GetComponent<Animator>().Play("PanelDefaultOUT");
 			}
-			if (Time.time - this.m_startDisplaySystemMessage >= 5f)
-			{
-				if (this.m_SystemMessageContainer.GetComponent<Animator>() != null)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_SystemMessageContainer.GetComponent<Animator>().Play("PanelDefaultOUT");
-				}
-				this.m_startDisplaySystemMessage = -1f;
-			}
+			m_startDisplaySystemMessage = -1f;
+			return;
 		}
 	}
 }

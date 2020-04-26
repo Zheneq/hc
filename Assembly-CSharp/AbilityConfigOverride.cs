@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,24 +15,24 @@ public class AbilityConfigOverride
 
 	public AbilityConfigOverride(CharacterType characterType, int abilityIndex)
 	{
-		this.CharacterType = characterType;
-		this.AbilityIndex = abilityIndex;
+		CharacterType = characterType;
+		AbilityIndex = abilityIndex;
 	}
 
 	public AbilityModConfigOverride GetAbilityModConfig(int index)
 	{
-		AbilityModConfigOverride result = null;
-		this.AbilityModConfigs.TryGetValue(index, out result);
-		return result;
+		AbilityModConfigOverride value = null;
+		AbilityModConfigs.TryGetValue(index, out value);
+		return value;
 	}
 
 	public AbilityTauntConfigOverride GetAbilityTauntConfig(int tauntId)
 	{
-		return this.AbilityTauntConfigs.Values.FirstOrDefault((AbilityTauntConfigOverride taunt) => taunt.AbilityTauntID == tauntId);
+		return AbilityTauntConfigs.Values.FirstOrDefault((AbilityTauntConfigOverride taunt) => taunt.AbilityTauntID == tauntId);
 	}
 
 	public AbilityConfigOverride Clone()
 	{
-		return (AbilityConfigOverride)base.MemberwiseClone();
+		return (AbilityConfigOverride)MemberwiseClone();
 	}
 }

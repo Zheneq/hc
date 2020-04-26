@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,94 +29,41 @@ public class NanoSmithAnvilSlam : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithAnvilSlam.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Anvil Slam";
+			m_abilityName = "Anvil Slam";
 		}
-		NanoSmithBoltInfoComponent component = base.GetComponent<NanoSmithBoltInfoComponent>();
-		if (component)
+		NanoSmithBoltInfoComponent component = GetComponent<NanoSmithBoltInfoComponent>();
+		if ((bool)component)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_boltInfo = component.m_boltInfo.GetShallowCopy();
+			m_boltInfo = component.m_boltInfo.GetShallowCopy();
 			if (component.m_anvilSlamRangeOverride > 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_boltInfo.range = component.m_anvilSlamRangeOverride;
+				m_boltInfo.range = component.m_anvilSlamRangeOverride;
 			}
 		}
 		else
 		{
 			Debug.LogError("No bolt info component found for NanoSmith ability");
-			this.m_boltInfo = new NanoSmithBoltInfo();
+			m_boltInfo = new NanoSmithBoltInfo();
 		}
-		base.ResetTooltipAndTargetingNumbers();
-		base.Targeter = new AbilityUtil_Targeter_AnvilSlam(this, this.m_dashWidth, this.m_dashMaxDistance, this.m_boltCount, this.m_boltAngleRelativeToAim, this.m_boltAngleOffset, this.m_boltInfo);
+		ResetTooltipAndTargetingNumbers();
+		base.Targeter = new AbilityUtil_Targeter_AnvilSlam(this, m_dashWidth, m_dashMaxDistance, m_boltCount, m_boltAngleRelativeToAim, m_boltAngleOffset, m_boltInfo);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_dashDamageAmount);
-		this.m_dashEffectOnHit.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		if (this.m_boltCount > 0)
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_dashDamageAmount);
+		m_dashEffectOnHit.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		if (m_boltCount > 0)
 		{
-			for (;;)
+			if (m_boltInfo != null)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithAnvilSlam.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
-			if (this.m_boltInfo != null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_boltInfo.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary, AbilityTooltipSubject.Ally);
+				m_boltInfo.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
 			}
 		}
-		return result;
+		return numbers;
 	}
 
 	internal override ActorData.MovementType GetMovementType()

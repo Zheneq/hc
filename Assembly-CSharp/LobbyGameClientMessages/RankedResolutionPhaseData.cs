@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace LobbyGameClientMessages
@@ -24,11 +24,16 @@ namespace LobbyGameClientMessages
 
 		public List<int> PlayerIdByImporance;
 
-		public bool \u001D(int \u001D)
+		public bool _001D(int input)
 		{
-			RankedResolutionPhaseData.<IsPlayerOnDeck>c__AnonStorey0 <IsPlayerOnDeck>c__AnonStorey = new RankedResolutionPhaseData.<IsPlayerOnDeck>c__AnonStorey0();
-			<IsPlayerOnDeck>c__AnonStorey.\u001D = \u001D;
-			return this.PlayersOnDeck.Exists(new Predicate<RankedResolutionPlayerState>(<IsPlayerOnDeck>c__AnonStorey.\u000E));
+			return this.PlayersOnDeck.Exists(new Predicate<RankedResolutionPlayerState>(delegate (RankedResolutionPlayerState check)
+			{
+				if (check.PlayerId == input)
+				{
+					return (check.OnDeckness == RankedResolutionPlayerState.ReadyState._0012);
+				}
+				return false;
+			}));
 		}
 	}
 }

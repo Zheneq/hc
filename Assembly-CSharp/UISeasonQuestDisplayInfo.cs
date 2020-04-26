@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 public class UISeasonQuestDisplayInfo : UIBaseQuestDisplayInfo
 {
@@ -15,69 +15,42 @@ public class UISeasonQuestDisplayInfo : UIBaseQuestDisplayInfo
 	public virtual void Setup(int questIndex, int seasonNumber, int chapterId, bool isQuestStatic, DateTime chapterStartDate, DateTime chapterEndDate)
 	{
 		base.Setup(questIndex);
-		this.SeasonId = seasonNumber;
-		this.ChapterId = chapterId;
-		this.IsQuestStatic = isQuestStatic;
-		this.ChapterStartDate = chapterStartDate;
-		this.ChapterEndDate = chapterEndDate;
-		if (!isQuestStatic)
+		SeasonId = seasonNumber;
+		ChapterId = chapterId;
+		IsQuestStatic = isQuestStatic;
+		ChapterStartDate = chapterStartDate;
+		ChapterEndDate = chapterEndDate;
+		if (isQuestStatic)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return;
 			}
-			if (!true)
+			while (true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonQuestDisplayInfo.Setup(int, int, int, bool, DateTime, DateTime)).MethodHandle;
-			}
-			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				QuestComponent questComponent = ClientGameManager.Get().GetPlayerAccountData().QuestComponent;
 				QuestMetaData orCreateQuestMetaData = questComponent.GetOrCreateQuestMetaData(questIndex);
-				if (!orCreateQuestMetaData.UtcCompletedTimes.IsNullOrEmpty<DateTime>())
+				if (!orCreateQuestMetaData.UtcCompletedTimes.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < orCreateQuestMetaData.UtcCompletedTimes.Count; i++)
 					{
-						if (orCreateQuestMetaData.UtcCompletedTimes[i] > chapterStartDate && orCreateQuestMetaData.UtcCompletedTimes[i] <= chapterEndDate)
+						if (!(orCreateQuestMetaData.UtcCompletedTimes[i] > chapterStartDate) || !(orCreateQuestMetaData.UtcCompletedTimes[i] <= chapterEndDate))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.Completed = true;
+							continue;
+						}
+						while (true)
+						{
+							Completed = true;
 							return;
 						}
 					}
 				}
-				this.Completed = false;
+				Completed = false;
+				return;
 			}
 		}
 	}
@@ -86,50 +59,19 @@ public class UISeasonQuestDisplayInfo : UIBaseQuestDisplayInfo
 	{
 		if (obj is UISeasonQuestDisplayInfo)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonQuestDisplayInfo.Equals(object)).MethodHandle;
-			}
 			if (base.Equals(obj))
 			{
-				UISeasonQuestDisplayInfo uiseasonQuestDisplayInfo = obj as UISeasonQuestDisplayInfo;
-				bool result;
-				if (this.SeasonId == uiseasonQuestDisplayInfo.SeasonId)
+				UISeasonQuestDisplayInfo uISeasonQuestDisplayInfo = obj as UISeasonQuestDisplayInfo;
+				int result;
+				if (SeasonId == uISeasonQuestDisplayInfo.SeasonId)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					result = (this.ChapterId == uiseasonQuestDisplayInfo.ChapterId);
+					result = ((ChapterId == uISeasonQuestDisplayInfo.ChapterId) ? 1 : 0);
 				}
 				else
 				{
-					result = false;
+					result = 0;
 				}
-				return result;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return (byte)result != 0;
 			}
 		}
 		return false;
@@ -137,45 +79,23 @@ public class UISeasonQuestDisplayInfo : UIBaseQuestDisplayInfo
 
 	public override int GetHashCode()
 	{
-		int num = this.Completed.GetHashCode() ^ this.SeasonId.GetHashCode() ^ this.ChapterId.GetHashCode();
-		if (this.QuestProgressRef != null)
+		int num = Completed.GetHashCode() ^ SeasonId.GetHashCode() ^ ChapterId.GetHashCode();
+		if (QuestProgressRef != null)
 		{
-			for (;;)
+			if (QuestProgressRef.ObjectiveProgressLastDate != null)
 			{
-				switch (7)
+				if (QuestProgressRef.ObjectiveProgress != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonQuestDisplayInfo.GetHashCode()).MethodHandle;
-			}
-			if (this.QuestProgressRef.ObjectiveProgressLastDate != null)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.QuestProgressRef.ObjectiveProgress != null)
-				{
-					for (;;)
+					while (true)
 					{
 						switch (5)
 						{
 						case 0:
-							continue;
+							break;
+						default:
+							return num ^ QuestProgressRef.ObjectiveProgressLastDate.GetHashCode() ^ QuestProgressRef.ObjectiveProgress.GetHashCode();
 						}
-						break;
 					}
-					return num ^ this.QuestProgressRef.ObjectiveProgressLastDate.GetHashCode() ^ this.QuestProgressRef.ObjectiveProgress.GetHashCode();
 				}
 			}
 		}

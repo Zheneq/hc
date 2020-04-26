@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
@@ -36,154 +36,89 @@ public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
 
 	public override void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
 	{
-		targetSelect.SetTargetSelectMod(this.m_targetSelectMod);
+		targetSelect.SetTargetSelectMod(m_targetSelectMod);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		IceborgNovaOnReact iceborgNovaOnReact = targetAbility as IceborgNovaOnReact;
-		if (iceborgNovaOnReact != null)
+		if (!(iceborgNovaOnReact != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgNovaOnReact.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			base.AddOnHitDataTokens(tokens, this.m_reactOnHitDataMod, iceborgNovaOnReact.m_reactOnHitData);
-			AbilityMod.AddToken(tokens, this.m_reactDurationMod, "ReactDuration", string.Empty, iceborgNovaOnReact.m_reactDuration, true, false);
-			AbilityMod.AddToken(tokens, this.m_energyOnTargetPerReactionMod, "EnergyOnTargetPerReaction", string.Empty, iceborgNovaOnReact.m_energyOnTargetPerReaction, true, false);
-			AbilityMod.AddToken(tokens, this.m_energyOnCasterPerReactionMod, "EnergyOnCasterPerReaction", string.Empty, iceborgNovaOnReact.m_energyOnCasterPerReaction, true, false);
-			AbilityMod.AddToken(tokens, this.m_extraEnergyPerNovaCoreTriggerMod, "ExtraEnergyPerNovaCoreTrigger", string.Empty, iceborgNovaOnReact.m_extraEnergyPerNovaCoreTrigger, true, false);
-			AbilityMod.AddToken(tokens, this.m_damageThreshForInstanceOnSelfMod, "DamageThreshForInstanceOnSelf", string.Empty, iceborgNovaOnReact.m_damageThreshForInstanceOnSelf, true, false);
+			AddOnHitDataTokens(tokens, m_reactOnHitDataMod, iceborgNovaOnReact.m_reactOnHitData);
+			AbilityMod.AddToken(tokens, m_reactDurationMod, "ReactDuration", string.Empty, iceborgNovaOnReact.m_reactDuration);
+			AbilityMod.AddToken(tokens, m_energyOnTargetPerReactionMod, "EnergyOnTargetPerReaction", string.Empty, iceborgNovaOnReact.m_energyOnTargetPerReaction);
+			AbilityMod.AddToken(tokens, m_energyOnCasterPerReactionMod, "EnergyOnCasterPerReaction", string.Empty, iceborgNovaOnReact.m_energyOnCasterPerReaction);
+			AbilityMod.AddToken(tokens, m_extraEnergyPerNovaCoreTriggerMod, "ExtraEnergyPerNovaCoreTrigger", string.Empty, iceborgNovaOnReact.m_extraEnergyPerNovaCoreTrigger);
+			AbilityMod.AddToken(tokens, m_damageThreshForInstanceOnSelfMod, "DamageThreshForInstanceOnSelf", string.Empty, iceborgNovaOnReact.m_damageThreshForInstanceOnSelf);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		IceborgNovaOnReact iceborgNovaOnReact = base.GetTargetAbilityOnAbilityData(abilityData) as IceborgNovaOnReact;
+		IceborgNovaOnReact iceborgNovaOnReact = GetTargetAbilityOnAbilityData(abilityData) as IceborgNovaOnReact;
 		bool flag = iceborgNovaOnReact != null;
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgNovaOnReact != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgNovaOnReact.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
-			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, iceborgNovaOnReact.m_targetSelectComp, "-- Target Select --");
-			text += base.GetOnHitDataDesc(this.m_reactOnHitDataMod, iceborgNovaOnReact.m_reactOnHitData, "-- On Hit Data Mod --");
-			text += base.PropDesc(this.m_reactDurationMod, "[ReactDuration]", flag, (!flag) ? 0 : iceborgNovaOnReact.m_reactDuration);
+			text += GetTargetSelectModDesc(m_targetSelectMod, iceborgNovaOnReact.m_targetSelectComp, "-- Target Select --");
+			text += GetOnHitDataDesc(m_reactOnHitDataMod, iceborgNovaOnReact.m_reactOnHitData);
+			text += PropDesc(m_reactDurationMod, "[ReactDuration]", flag, flag ? iceborgNovaOnReact.m_reactDuration : 0);
 			string str = text;
-			AbilityModPropertyBool reactRequireDamageMod = this.m_reactRequireDamageMod;
-			string prefix = "[ReactRequireDamage]";
-			bool showBaseVal = flag;
-			bool baseVal;
+			AbilityModPropertyBool reactRequireDamageMod = m_reactRequireDamageMod;
+			int baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				baseVal = iceborgNovaOnReact.m_reactRequireDamage;
+				baseVal = (iceborgNovaOnReact.m_reactRequireDamage ? 1 : 0);
 			}
 			else
 			{
-				baseVal = false;
+				baseVal = 0;
 			}
-			text = str + base.PropDesc(reactRequireDamageMod, prefix, showBaseVal, baseVal);
+			text = str + PropDesc(reactRequireDamageMod, "[ReactRequireDamage]", flag, (byte)baseVal != 0);
 			string str2 = text;
-			AbilityModPropertyBool reactEffectEndEarlyIfTriggeredMod = this.m_reactEffectEndEarlyIfTriggeredMod;
-			string prefix2 = "[ReactEffectEndEarlyIfTriggered]";
-			bool showBaseVal2 = flag;
-			bool baseVal2;
+			AbilityModPropertyBool reactEffectEndEarlyIfTriggeredMod = m_reactEffectEndEarlyIfTriggeredMod;
+			int baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				baseVal2 = iceborgNovaOnReact.m_reactEffectEndEarlyIfTriggered;
+				baseVal2 = (iceborgNovaOnReact.m_reactEffectEndEarlyIfTriggered ? 1 : 0);
 			}
 			else
 			{
-				baseVal2 = false;
+				baseVal2 = 0;
 			}
-			text = str2 + base.PropDesc(reactEffectEndEarlyIfTriggeredMod, prefix2, showBaseVal2, baseVal2);
-			text += base.PropDesc(this.m_energyOnTargetPerReactionMod, "[EnergyOnTargetPerReaction]", flag, (!flag) ? 0 : iceborgNovaOnReact.m_energyOnTargetPerReaction);
-			text += base.PropDesc(this.m_energyOnCasterPerReactionMod, "[EnergyOnCasterPerReaction]", flag, (!flag) ? 0 : iceborgNovaOnReact.m_energyOnCasterPerReaction);
+			text = str2 + PropDesc(reactEffectEndEarlyIfTriggeredMod, "[ReactEffectEndEarlyIfTriggered]", flag, (byte)baseVal2 != 0);
+			text += PropDesc(m_energyOnTargetPerReactionMod, "[EnergyOnTargetPerReaction]", flag, flag ? iceborgNovaOnReact.m_energyOnTargetPerReaction : 0);
+			text += PropDesc(m_energyOnCasterPerReactionMod, "[EnergyOnCasterPerReaction]", flag, flag ? iceborgNovaOnReact.m_energyOnCasterPerReaction : 0);
 			string str3 = text;
-			AbilityModPropertyInt extraEnergyPerNovaCoreTriggerMod = this.m_extraEnergyPerNovaCoreTriggerMod;
-			string prefix3 = "[ExtraEnergyPerNovaCoreTrigger]";
-			bool showBaseVal3 = flag;
+			AbilityModPropertyInt extraEnergyPerNovaCoreTriggerMod = m_extraEnergyPerNovaCoreTriggerMod;
 			int baseVal3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = iceborgNovaOnReact.m_extraEnergyPerNovaCoreTrigger;
 			}
 			else
 			{
 				baseVal3 = 0;
 			}
-			text = str3 + base.PropDesc(extraEnergyPerNovaCoreTriggerMod, prefix3, showBaseVal3, baseVal3);
+			text = str3 + PropDesc(extraEnergyPerNovaCoreTriggerMod, "[ExtraEnergyPerNovaCoreTrigger]", flag, baseVal3);
 			string str4 = text;
-			AbilityModPropertyInt damageThreshForInstanceOnSelfMod = this.m_damageThreshForInstanceOnSelfMod;
-			string prefix4 = "[DamageThreshForInstanceOnSelf]";
-			bool showBaseVal4 = flag;
+			AbilityModPropertyInt damageThreshForInstanceOnSelfMod = m_damageThreshForInstanceOnSelfMod;
 			int baseVal4;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal4 = iceborgNovaOnReact.m_damageThreshForInstanceOnSelf;
 			}
 			else
 			{
 				baseVal4 = 0;
 			}
-			text = str4 + base.PropDesc(damageThreshForInstanceOnSelfMod, prefix4, showBaseVal4, baseVal4);
+			text = str4 + PropDesc(damageThreshForInstanceOnSelfMod, "[DamageThreshForInstanceOnSelf]", flag, baseVal4);
 		}
 		return text;
 	}

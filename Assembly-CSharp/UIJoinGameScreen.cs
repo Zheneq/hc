@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,7 +23,7 @@ public class UIJoinGameScreen : UIScene
 
 	public static UIJoinGameScreen Get()
 	{
-		return UIJoinGameScreen.s_instance;
+		return s_instance;
 	}
 
 	public override SceneType GetSceneType()
@@ -34,90 +33,60 @@ public class UIJoinGameScreen : UIScene
 
 	public override void Awake()
 	{
-		UIJoinGameScreen.s_instance = this;
-		this.m_createButton.m_soundToPlay = FrontEndButtonSounds.Generic;
+		s_instance = this;
+		m_createButton.m_soundToPlay = FrontEndButtonSounds.Generic;
 		base.Awake();
 	}
 
 	public void Start()
 	{
-		this.m_cancelButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CancelClicked);
-		this.m_createButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CreateClicked);
-		ClientGameManager.Get().OnLobbyGameplayOverridesChange += this.HandleGameplayOverridesChange;
-		if (GameManager.Get() != null)
+		m_cancelButton.callback = CancelClicked;
+		m_createButton.callback = CreateClicked;
+		ClientGameManager.Get().OnLobbyGameplayOverridesChange += HandleGameplayOverridesChange;
+		if (!(GameManager.Get() != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.Start()).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (GameManager.Get().GameplayOverrides != null)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					HandleGameplayOverridesChange(GameManager.Get().GameplayOverrides);
+					return;
 				}
-				this.HandleGameplayOverridesChange(GameManager.Get().GameplayOverrides);
 			}
+			return;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		if (ClientGameManager.Get() != null)
+		if (!(ClientGameManager.Get() != null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.OnDestroy()).MethodHandle;
-			}
-			ClientGameManager.Get().OnLobbyGameplayOverridesChange -= this.HandleGameplayOverridesChange;
+			return;
+		}
+		while (true)
+		{
+			ClientGameManager.Get().OnLobbyGameplayOverridesChange -= HandleGameplayOverridesChange;
+			return;
 		}
 	}
 
 	public void SetVisible(bool visible)
 	{
-		for (int i = 0; i < this.m_containers.Length; i++)
+		for (int i = 0; i < m_containers.Length; i++)
 		{
-			UIManager.SetGameObjectActive(this.m_containers[i], visible, null);
+			UIManager.SetGameObjectActive(m_containers[i], visible);
 		}
-		for (;;)
+		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			m_cancelButton.ResetMouseState();
+			m_createButton.ResetMouseState();
+			UIManager.Get().SetSceneVisible(GetSceneType(), visible, new SceneVisibilityParameters());
+			return;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.SetVisible(bool)).MethodHandle;
-		}
-		this.m_cancelButton.ResetMouseState();
-		this.m_createButton.ResetMouseState();
-		UIManager.Get().SetSceneVisible(this.GetSceneType(), visible, new SceneVisibilityParameters());
 	}
 
 	public void CancelClicked(BaseEventData data)
@@ -132,176 +101,116 @@ public class UIJoinGameScreen : UIScene
 
 	public void JoinGameClicked(BaseEventData data)
 	{
-		UICustomMatchEntry[] componentsInChildren = this.m_gridLayout.transform.GetComponentsInChildren<UICustomMatchEntry>(true);
-		int i = 0;
-		while (i < componentsInChildren.Length)
+		UICustomMatchEntry[] componentsInChildren = m_gridLayout.transform.GetComponentsInChildren<UICustomMatchEntry>(true);
+		int num = 0;
+		while (num < componentsInChildren.Length)
 		{
-			bool flag = data.selectedObject == componentsInChildren[i].m_joinButton.gameObject;
-			bool flag2 = data.selectedObject == componentsInChildren[i].m_joinAsSpectatorButton.gameObject;
+			bool flag = data.selectedObject == componentsInChildren[num].m_joinButton.gameObject;
+			bool flag2 = data.selectedObject == componentsInChildren[num].m_joinAsSpectatorButton.gameObject;
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.JoinGameClicked(BaseEventData)).MethodHandle;
-				}
 				if (!flag2)
 				{
-					i++;
+					num++;
 					continue;
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
-			LobbyGameInfo lobbyGameInfo;
-			if (this.m_buttonLookup.TryGetValue(componentsInChildren[i], out lobbyGameInfo))
+			if (!m_buttonLookup.TryGetValue(componentsInChildren[num], out LobbyGameInfo value))
 			{
-				if (!AssetBundleManager.Get().SceneExistsInBundle("maps", lobbyGameInfo.GameConfig.Map))
+				return;
+			}
+			if (!AssetBundleManager.Get().SceneExistsInBundle("maps", value.GameConfig.Map))
+			{
+				if (!AssetBundleManager.Get().SceneExistsInBundle("testing", value.GameConfig.Map))
 				{
-					for (;;)
+					while (true)
 					{
-						switch (6)
+						switch (2)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!AssetBundleManager.Get().SceneExistsInBundle("testing", lobbyGameInfo.GameConfig.Map))
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							break;
+						default:
+							UIDialogPopupManager.OpenOneButtonDialog(string.Empty, StringUtil.TR("NoAccessToMap", "Global"), StringUtil.TR("Ok", "Global"));
+							return;
 						}
-						UIDialogPopupManager.OpenOneButtonDialog(string.Empty, StringUtil.TR("NoAccessToMap", "Global"), StringUtil.TR("Ok", "Global"), null, -1, false);
-						return;
 					}
 				}
-				AppState_JoinGame.Get().OnJoinClicked(lobbyGameInfo, flag2);
 			}
+			AppState_JoinGame.Get().OnJoinClicked(value, flag2);
 			return;
 		}
-		for (;;)
+		while (true)
 		{
 			switch (3)
 			{
+			default:
+				return;
 			case 0:
-				continue;
+				break;
 			}
-			return;
 		}
 	}
 
 	public void Setup()
 	{
-		this.m_currentGames = ClientGameManager.Get().CustomGameInfos;
-		this.UpdateServerList(this.m_currentGames);
+		m_currentGames = ClientGameManager.Get().CustomGameInfos;
+		UpdateServerList(m_currentGames);
 	}
 
 	private void AddServerButton(LobbyGameInfo game)
 	{
-		UICustomMatchEntry uicustomMatchEntry = UnityEngine.Object.Instantiate<UICustomMatchEntry>(this.m_entryPrefab);
-		uicustomMatchEntry.transform.SetParent(this.m_gridLayout.transform);
-		uicustomMatchEntry.transform.localPosition = new Vector3(uicustomMatchEntry.transform.localPosition.x, uicustomMatchEntry.transform.localPosition.y, 0f);
-		uicustomMatchEntry.transform.localScale = Vector3.one;
-		uicustomMatchEntry.m_joinButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.JoinGameClicked);
-		uicustomMatchEntry.m_joinAsSpectatorButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.JoinGameClicked);
-		uicustomMatchEntry.Setup(game);
-		this.m_buttonLookup[uicustomMatchEntry] = game;
+		UICustomMatchEntry uICustomMatchEntry = Object.Instantiate(m_entryPrefab);
+		uICustomMatchEntry.transform.SetParent(m_gridLayout.transform);
+		Transform transform = uICustomMatchEntry.transform;
+		Vector3 localPosition = uICustomMatchEntry.transform.localPosition;
+		float x = localPosition.x;
+		Vector3 localPosition2 = uICustomMatchEntry.transform.localPosition;
+		transform.localPosition = new Vector3(x, localPosition2.y, 0f);
+		uICustomMatchEntry.transform.localScale = Vector3.one;
+		uICustomMatchEntry.m_joinButton.callback = JoinGameClicked;
+		uICustomMatchEntry.m_joinAsSpectatorButton.callback = JoinGameClicked;
+		uICustomMatchEntry.Setup(game);
+		m_buttonLookup[uICustomMatchEntry] = game;
 	}
 
 	public void UpdateServerList(List<LobbyGameInfo> gameInfoList)
 	{
-		if (this.m_buttonLookup != null)
+		if (m_buttonLookup != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.UpdateServerList(List<LobbyGameInfo>)).MethodHandle;
-			}
-			using (Dictionary<UICustomMatchEntry, LobbyGameInfo>.KeyCollection.Enumerator enumerator = this.m_buttonLookup.Keys.GetEnumerator())
+			using (Dictionary<UICustomMatchEntry, LobbyGameInfo>.KeyCollection.Enumerator enumerator = m_buttonLookup.Keys.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					UICustomMatchEntry uicustomMatchEntry = enumerator.Current;
-					UnityEngine.Object.Destroy(uicustomMatchEntry.gameObject);
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					UICustomMatchEntry current = enumerator.Current;
+					Object.Destroy(current.gameObject);
 				}
 			}
 		}
-		this.m_buttonLookup = new Dictionary<UICustomMatchEntry, LobbyGameInfo>();
+		m_buttonLookup = new Dictionary<UICustomMatchEntry, LobbyGameInfo>();
 		using (List<LobbyGameInfo>.Enumerator enumerator2 = gameInfoList.GetEnumerator())
 		{
 			while (enumerator2.MoveNext())
 			{
-				LobbyGameInfo lobbyGameInfo = enumerator2.Current;
-				if (lobbyGameInfo.ActivePlayers >= lobbyGameInfo.GameConfig.TotalPlayers)
+				LobbyGameInfo current2 = enumerator2.Current;
+				if (current2.ActivePlayers >= current2.GameConfig.TotalPlayers)
 				{
-					if (lobbyGameInfo.ActiveSpectators >= lobbyGameInfo.GameConfig.Spectators)
+					if (current2.ActiveSpectators >= current2.GameConfig.Spectators)
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-				this.AddServerButton(lobbyGameInfo);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				AddServerButton(current2);
 			}
 		}
 		int count = gameInfoList.Count;
-		float y = (float)count * this.m_gridLayout.cellSize.y + this.m_gridLayout.spacing.y * (float)(count - 1);
-		(this.m_gridLayout.transform as RectTransform).sizeDelta = new Vector2((this.m_gridLayout.transform as RectTransform).sizeDelta.x, y);
+		float num = count;
+		Vector2 cellSize = m_gridLayout.cellSize;
+		float num2 = num * cellSize.y;
+		Vector2 spacing = m_gridLayout.spacing;
+		float y = num2 + spacing.y * (float)(count - 1);
+		RectTransform obj = m_gridLayout.transform as RectTransform;
+		Vector2 sizeDelta = (m_gridLayout.transform as RectTransform).sizeDelta;
+		obj.sizeDelta = new Vector2(sizeDelta.x, y);
 	}
 
 	private bool HasGamesListChanged()
@@ -309,130 +218,82 @@ public class UIJoinGameScreen : UIScene
 		bool result = false;
 		if (ClientGameManager.Get() == null)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				return false;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.HasGamesListChanged()).MethodHandle;
-			}
-			return false;
 		}
 		List<LobbyGameInfo> customGameInfos = ClientGameManager.Get().CustomGameInfos;
 		if (customGameInfos == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = false;
 		}
 		else
 		{
-			if (this.m_currentGames != null)
+			if (m_currentGames != null)
 			{
-				if (customGameInfos.Count != this.m_currentGames.Count)
+				if (customGameInfos.Count == m_currentGames.Count)
 				{
-					for (;;)
+					int num = 0;
+					while (true)
 					{
-						switch (7)
+						if (num < customGameInfos.Count)
 						{
-						case 0:
+							if (m_currentGames[num].UpdateTimestamp != customGameInfos[num].UpdateTimestamp)
+							{
+								result = true;
+								break;
+							}
+							num++;
 							continue;
 						}
 						break;
 					}
-				}
-				else
-				{
-					for (int i = 0; i < customGameInfos.Count; i++)
-					{
-						if (this.m_currentGames[i].UpdateTimestamp != customGameInfos[i].UpdateTimestamp)
-						{
-							return true;
-						}
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						return result;
-					}
+					goto IL_00b8;
 				}
 			}
 			result = true;
 		}
+		goto IL_00b8;
+		IL_00b8:
 		return result;
 	}
 
 	private void HandleGameplayOverridesChange(LobbyGameplayOverrides gameplayOverrides)
 	{
-		this.m_createButton.selectableButton.SetDisabled(gameplayOverrides.DisabledGameTypes.Contains(GameType.Custom));
+		m_createButton.selectableButton.SetDisabled(gameplayOverrides.DisabledGameTypes.Contains(GameType.Custom));
 	}
 
 	private void Update()
 	{
 		if (AppState.GetCurrent() != AppState_JoinGame.Get())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.Update()).MethodHandle;
-			}
-			return;
 		}
-		if (this.HasGamesListChanged())
+		if (HasGamesListChanged())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_currentGames = ClientGameManager.Get().CustomGameInfos;
-			this.UpdateServerList(this.m_currentGames);
+			m_currentGames = ClientGameManager.Get().CustomGameInfos;
+			UpdateServerList(m_currentGames);
 		}
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UIFrontEnd.Get().CanMenuEscape() && !UIFrontEnd.Get().m_frontEndChatConsole.EscapeJustPressed())
 			{
-				this.CancelClicked(null);
+				CancelClicked(null);
 			}
 		}
-		this.m_gridLayout.cellSize = new Vector2((this.m_gridLayout.transform.parent as RectTransform).rect.width, this.m_gridLayout.cellSize.y);
+		GridLayoutGroup gridLayout = m_gridLayout;
+		float width = (m_gridLayout.transform.parent as RectTransform).rect.width;
+		Vector2 cellSize = m_gridLayout.cellSize;
+		gridLayout.cellSize = new Vector2(width, cellSize.y);
 	}
 }

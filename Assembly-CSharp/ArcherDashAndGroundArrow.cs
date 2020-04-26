@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class ArcherDashAndGroundArrow : Ability
@@ -26,24 +25,11 @@ public class ArcherDashAndGroundArrow : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndGroundArrow.Start()).MethodHandle;
-			}
-			this.m_abilityName = "ArcherDashAndGroundArrow";
+			m_abilityName = "ArcherDashAndGroundArrow";
 		}
-		this.Setup();
+		Setup();
 	}
 
 	private void Setup()

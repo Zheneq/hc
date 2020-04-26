@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class UIFrontendTauntMouseoverVideo : UITooltipBase
@@ -8,52 +7,47 @@ public class UIFrontendTauntMouseoverVideo : UITooltipBase
 
 	public void Setup(string movieAssetName)
 	{
-		if (this.m_movieTexturePlayer != null)
+		if (!(m_movieTexturePlayer != null))
 		{
-			if (!movieAssetName.IsNullOrEmpty())
+			return;
+		}
+		if (!movieAssetName.IsNullOrEmpty())
+		{
+			while (true)
 			{
-				for (;;)
+				switch (6)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
+				case 0:
 					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendTauntMouseoverVideo.Setup(string)).MethodHandle;
-				}
-				AudioManager.StandardizeAudioLinkages(this.m_movieTexturePlayer.gameObject);
-				this.m_movieTexturePlayer.Play(movieAssetName, true, false, false);
-				if (!this.m_movieTexturePlayer.gameObject.activeSelf)
-				{
-					for (;;)
+				default:
+					AudioManager.StandardizeAudioLinkages(m_movieTexturePlayer.gameObject);
+					m_movieTexturePlayer.Play(movieAssetName, true, false, false);
+					if (!m_movieTexturePlayer.gameObject.activeSelf)
 					{
-						switch (4)
+						while (true)
 						{
-						case 0:
-							continue;
+							switch (4)
+							{
+							case 0:
+								break;
+							default:
+								UIManager.SetGameObjectActive(m_movieTexturePlayer, true);
+								return;
+							}
 						}
-						break;
 					}
-					UIManager.SetGameObjectActive(this.m_movieTexturePlayer, true, null);
+					return;
 				}
 			}
-			else if (this.m_movieTexturePlayer.gameObject.activeSelf)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_movieTexturePlayer, false, null);
-			}
+		}
+		if (!m_movieTexturePlayer.gameObject.activeSelf)
+		{
+			return;
+		}
+		while (true)
+		{
+			UIManager.SetGameObjectActive(m_movieTexturePlayer, false);
+			return;
 		}
 	}
 }

@@ -1,5 +1,3 @@
-﻿using System;
-
 public class PowerUp_Berzerk_Ability : Ability
 {
 	public int m_duration = 4;
@@ -18,22 +16,14 @@ public class PowerUp_Berzerk_Ability : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (!(m_abilityName == "Base Ability"))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp_Berzerk_Ability.Start()).MethodHandle;
-			}
-			this.m_abilityName = "ANGER JUICE";
+			return;
+		}
+		while (true)
+		{
+			m_abilityName = "ANGER JUICE";
+			return;
 		}
 	}
 }

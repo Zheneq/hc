@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 [Serializable]
 public class GridPosProp
@@ -11,11 +11,10 @@ public class GridPosProp
 
 	public static GridPosProp FromGridPos(GridPos gp)
 	{
-		return new GridPosProp
-		{
-			m_x = gp.x,
-			m_y = gp.y,
-			m_height = gp.height
-		};
+		GridPosProp gridPosProp = new GridPosProp();
+		gridPosProp.m_x = gp.x;
+		gridPosProp.m_y = gp.y;
+		gridPosProp.m_height = gp.height;
+		return gridPosProp;
 	}
 }

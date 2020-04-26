@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.VR;
@@ -86,22 +86,15 @@ public class PKFxCamera : PKFxPackDependent
 
 	private CommandBuffer m_CmdBuf;
 
-	public static short GetUniqueID()
-	{
-		short num = PKFxCamera.g_CameraUID;
-		PKFxCamera.g_CameraUID = num + 1;
-		return num;
-	}
-
 	public int RenderPass
 	{
 		get
 		{
-			return this.m_CameraDescription.RenderPass;
+			return m_CameraDescription.RenderPass;
 		}
 		set
 		{
-			this.m_CameraDescription.RenderPass = value;
+			m_CameraDescription.RenderPass = value;
 		}
 	}
 
@@ -109,940 +102,513 @@ public class PKFxCamera : PKFxPackDependent
 	{
 		get
 		{
-			return this.m_CameraDescription.DepthRT;
+			return m_CameraDescription.DepthRT;
 		}
 		set
 		{
-			this.m_CameraDescription.DepthRT = value;
+			m_CameraDescription.DepthRT = value;
 		}
+	}
+
+	public static short GetUniqueID()
+	{
+		return g_CameraUID++;
 	}
 
 	private void Awake()
 	{
-		this.m_CameraID = PKFxCamera.GetUniqueID();
-		this.m_CurrentCameraID = this.m_CameraID;
+		m_CameraID = GetUniqueID();
+		m_CurrentCameraID = m_CameraID;
 		if (Application.platform != RuntimePlatform.IPhonePlayer)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.Awake()).MethodHandle;
-			}
 			if (VRSettings.enabled && VRDevice.isPresent)
 			{
-				this.m_VRReservedID = PKFxCamera.GetUniqueID();
+				m_VRReservedID = GetUniqueID();
 			}
 		}
-		this.m_Camera = base.GetComponent<Camera>();
-		this.m_CmdBuf = new CommandBuffer();
-		this.m_CmdBuf.name = "PopcornFX Rendering";
-		this.m_Camera.AddCommandBuffer((CameraEvent)PKFxManager.m_GlobalConf.globalEventSetting, this.m_CmdBuf);
+		m_Camera = GetComponent<Camera>();
+		m_CmdBuf = new CommandBuffer();
+		m_CmdBuf.name = "PopcornFX Rendering";
+		m_Camera.AddCommandBuffer((CameraEvent)PKFxManager.m_GlobalConf.globalEventSetting, m_CmdBuf);
 	}
 
 	private static bool ResolveDepthShaderAndTextureFormat()
 	{
-		if (PKFxCamera.g_isDepthResolved)
+		if (g_isDepthResolved)
 		{
 			return false;
 		}
-		PKFxCamera.g_DepthShaderName = "Hidden/PKFx Depth Copy";
-		if (Shader.Find(PKFxCamera.g_DepthShaderName).isSupported)
+		g_DepthShaderName = "Hidden/PKFx Depth Copy";
+		if (Shader.Find(g_DepthShaderName).isSupported)
 		{
-			for (;;)
+			if (SystemInfo.SupportsRenderTextureFormat(g_DepthFormat))
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.ResolveDepthShaderAndTextureFormat()).MethodHandle;
-			}
-			if (SystemInfo.SupportsRenderTextureFormat(PKFxCamera.g_DepthFormat))
-			{
-				goto IL_138;
+				goto IL_0138;
 			}
 		}
-		Debug.LogWarning(string.Concat(new object[]
+		Debug.LogWarning(string.Concat("[PKFX] ", g_DepthShaderName, " shader or ", g_DepthFormat, " texture format not supported."));
+		g_DepthShaderName = "Hidden/PKFx Depth Copy to Color";
+		g_DepthFormat = RenderTextureFormat.RFloat;
+		if (!SystemInfo.SupportsRenderTextureFormat(g_DepthFormat))
 		{
-			"[PKFX] ",
-			PKFxCamera.g_DepthShaderName,
-			" shader or ",
-			PKFxCamera.g_DepthFormat,
-			" texture format not supported."
-		}));
-		PKFxCamera.g_DepthShaderName = "Hidden/PKFx Depth Copy to Color";
-		PKFxCamera.g_DepthFormat = RenderTextureFormat.RFloat;
-		if (!SystemInfo.SupportsRenderTextureFormat(PKFxCamera.g_DepthFormat))
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Debug.LogWarning("[PKFX] " + PKFxCamera.g_DepthFormat + " fallback texture format not supported.");
-			PKFxCamera.g_DepthFormat = RenderTextureFormat.RHalf;
-			Debug.LogWarning("[PKFX] Resorting to " + PKFxCamera.g_DepthFormat + " (may produce artefacts).");
+			Debug.LogWarning(string.Concat("[PKFX] ", g_DepthFormat, " fallback texture format not supported."));
+			g_DepthFormat = RenderTextureFormat.RHalf;
+			Debug.LogWarning(string.Concat("[PKFX] Resorting to ", g_DepthFormat, " (may produce artefacts)."));
 		}
-		Debug.LogWarning(string.Concat(new object[]
-		{
-			"[PKFX] Falling back to ",
-			PKFxCamera.g_DepthShaderName,
-			" shader / ",
-			PKFxCamera.g_DepthFormat,
-			" texture format."
-		}));
-		IL_138:
-		PKFxCamera.g_isDepthResolved = true;
+		Debug.LogWarning(string.Concat("[PKFX] Falling back to ", g_DepthShaderName, " shader / ", g_DepthFormat, " texture format."));
+		goto IL_0138;
+		IL_0138:
+		g_isDepthResolved = true;
 		return true;
 	}
 
 	protected bool SetupDepthGrab()
 	{
-		bool flag = PKFxCamera.ResolveDepthShaderAndTextureFormat();
-		if (this.m_DepthGrabMat == null)
+		bool flag = ResolveDepthShaderAndTextureFormat();
+		if (m_DepthGrabMat == null)
 		{
-			for (;;)
+			if (!SystemInfo.SupportsRenderTextureFormat(g_DepthFormat))
 			{
-				switch (1)
+				while (true)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.SetupDepthGrab()).MethodHandle;
-			}
-			if (!SystemInfo.SupportsRenderTextureFormat(PKFxCamera.g_DepthFormat))
-			{
-				for (;;)
-				{
-					switch (1)
+					if (flag)
 					{
-					case 0:
-						continue;
+						Debug.LogError(string.Concat("[PKFX] ", g_DepthFormat, " texture format not supported."));
+						Debug.LogError("[PKFX] Soft particles/distortion disabled.");
 					}
-					break;
+					m_IsDepthCopyEnabled = false;
+					return false;
 				}
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					Debug.LogError("[PKFX] " + PKFxCamera.g_DepthFormat + " texture format not supported.");
-					Debug.LogError("[PKFX] Soft particles/distortion disabled.");
-				}
-				this.m_IsDepthCopyEnabled = false;
-				return false;
 			}
-			this.m_DepthGrabMat = new Material(Shader.Find(PKFxCamera.g_DepthShaderName));
-			if (this.m_DepthGrabMat == null)
+			m_DepthGrabMat = new Material(Shader.Find(g_DepthShaderName));
+			if (m_DepthGrabMat == null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						if (flag)
+						{
+							Debug.LogError("[PKFX] Depth copy shader not found.");
+							Debug.LogError("[PKFX] Soft particles/distortion disabled.");
+						}
+						m_IsDepthCopyEnabled = false;
+						return false;
 					}
-					break;
 				}
-				if (flag)
-				{
-					Debug.LogError("[PKFX] Depth copy shader not found.");
-					Debug.LogError("[PKFX] Soft particles/distortion disabled.");
-				}
-				this.m_IsDepthCopyEnabled = false;
-				return false;
 			}
 		}
-		if (this.m_DepthRT == null)
+		if (m_DepthRT == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_DepthRT = new RenderTexture(this.m_Camera.pixelWidth, this.m_Camera.pixelHeight, (int)this.m_DepthGrabFormat, PKFxCamera.g_DepthFormat);
+			m_DepthRT = new RenderTexture(m_Camera.pixelWidth, m_Camera.pixelHeight, (int)m_DepthGrabFormat, g_DepthFormat);
 		}
-		if (!this.m_DepthRT.IsCreated())
+		if (!m_DepthRT.IsCreated())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_DepthRT.Create();
+			m_DepthRT.Create();
 		}
-		if (this.m_CmdBufDepthGrabber == null)
+		if (m_CmdBufDepthGrabber == null)
 		{
-			this.m_CmdBufDepthGrabber = new CommandBuffer();
-			this.m_CmdBufDepthGrabber.name = "PopcornFX Depth Grabber";
+			m_CmdBufDepthGrabber = new CommandBuffer();
+			m_CmdBufDepthGrabber.name = "PopcornFX Depth Grabber";
 		}
-		if (this.m_Camera.actualRenderingPath != RenderingPath.DeferredLighting)
+		if (m_Camera.actualRenderingPath != RenderingPath.DeferredLighting)
 		{
-			for (;;)
+			if (m_Camera.actualRenderingPath != RenderingPath.DeferredShading)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_Camera.actualRenderingPath != RenderingPath.DeferredShading)
-			{
-				this.m_Camera.AddCommandBuffer(CameraEvent.AfterForwardOpaque, this.m_CmdBufDepthGrabber);
-				goto IL_1C1;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_Camera.AddCommandBuffer(CameraEvent.AfterForwardOpaque, m_CmdBufDepthGrabber);
+				goto IL_01c1;
 			}
 		}
-		this.m_Camera.AddCommandBuffer(CameraEvent.AfterFinalPass, this.m_CmdBufDepthGrabber);
-		IL_1C1:
-		this.DepthRT = this.m_DepthRT.GetNativeTexturePtr();
-		this.m_Camera.depthTextureMode |= DepthTextureMode.Depth;
-		this.m_IsDepthCopyEnabled = true;
+		m_Camera.AddCommandBuffer(CameraEvent.AfterFinalPass, m_CmdBufDepthGrabber);
+		goto IL_01c1;
+		IL_01c1:
+		DepthRT = m_DepthRT.GetNativeTexturePtr();
+		m_Camera.depthTextureMode |= DepthTextureMode.Depth;
+		m_IsDepthCopyEnabled = true;
 		return true;
 	}
 
 	private void ReleaseDepthGrabResources()
 	{
-		if (this.m_CmdBufDepthGrabber != null)
+		if (m_CmdBufDepthGrabber != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.ReleaseDepthGrabResources()).MethodHandle;
-			}
-			this.m_CmdBufDepthGrabber.Clear();
-			this.m_Camera.RemoveCommandBuffer(CameraEvent.AfterForwardOpaque, this.m_CmdBufDepthGrabber);
-			this.m_Camera.RemoveCommandBuffer(CameraEvent.AfterFinalPass, this.m_CmdBufDepthGrabber);
-			this.m_CmdBufDepthGrabber = null;
+			m_CmdBufDepthGrabber.Clear();
+			m_Camera.RemoveCommandBuffer(CameraEvent.AfterForwardOpaque, m_CmdBufDepthGrabber);
+			m_Camera.RemoveCommandBuffer(CameraEvent.AfterFinalPass, m_CmdBufDepthGrabber);
+			m_CmdBufDepthGrabber = null;
 		}
-		if (this.m_DepthRT != null)
+		if (m_DepthRT != null)
 		{
-			this.m_DepthRT.Release();
-			this.m_DepthRT = null;
+			m_DepthRT.Release();
+			m_DepthRT = null;
 		}
-		this.DepthRT = IntPtr.Zero;
-		this.m_IsDepthCopyEnabled = false;
+		DepthRT = IntPtr.Zero;
+		m_IsDepthCopyEnabled = false;
 	}
 
 	protected bool SetupDistortionPass()
 	{
 		if (SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBFloat))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.SetupDistortionPass()).MethodHandle;
-			}
-			this.m_DistortionRT = new RenderTexture(this.m_Camera.pixelWidth, this.m_Camera.pixelHeight, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.sRGB);
+			m_DistortionRT = new RenderTexture(m_Camera.pixelWidth, m_Camera.pixelHeight, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.sRGB);
 		}
 		else if (SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBHalf))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_DistortionRT = new RenderTexture(this.m_Camera.pixelWidth, this.m_Camera.pixelHeight, 0, RenderTextureFormat.ARGBHalf, RenderTextureReadWrite.sRGB);
+			m_DistortionRT = new RenderTexture(m_Camera.pixelWidth, m_Camera.pixelHeight, 0, RenderTextureFormat.ARGBHalf, RenderTextureReadWrite.sRGB);
 		}
 		else
 		{
 			Debug.LogError("[PKFX] This device does not support ARGBFloat nor ARGBHalf render texture formats...");
 			Debug.LogError("[PKFX] Distortion disabled.");
-			this.m_EnableDistortion = false;
-			this.m_EnableBlur = false;
+			m_EnableDistortion = false;
+			m_EnableBlur = false;
 		}
-		if (this.m_DistortionRT != null)
+		if (m_DistortionRT != null)
 		{
-			for (;;)
+			if (!m_DistortionRT.IsCreated())
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!this.m_DistortionRT.IsCreated())
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_DistortionRT.Create();
+				m_DistortionRT.Create();
 			}
 		}
-		if (this.m_DistortionMat == null)
+		if (m_DistortionMat == null)
 		{
-			for (;;)
+			m_DistortionMat = new Material(Shader.Find("Hidden/PKFx Distortion"));
+			if (m_DistortionMat == null)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_DistortionMat = new Material(Shader.Find("Hidden/PKFx Distortion"));
-			if (this.m_DistortionMat == null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("[PKFX] Failed to load FxDistortionEffect shader...");
 				Debug.LogError("[PKFX] Distortion disabled.");
-				this.m_EnableDistortion = false;
-				this.m_EnableBlur = false;
+				m_EnableDistortion = false;
+				m_EnableBlur = false;
 			}
 		}
-		if (this.m_DistBlurMat == null)
+		if (m_DistBlurMat == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_DistBlurMat = new Material(Shader.Find("Hidden/PKFx Blur Shader for Distortion Pass"));
-			if (this.m_DistBlurMat == null)
+			m_DistBlurMat = new Material(Shader.Find("Hidden/PKFx Blur Shader for Distortion Pass"));
+			if (m_DistBlurMat == null)
 			{
 				Debug.LogError("[PKFX] Failed to load blur shader...");
 				Debug.LogError("[PKFX] Distortion blur disabled.");
-				this.m_EnableBlur = false;
+				m_EnableBlur = false;
 			}
 		}
-		if (this.m_Camera.actualRenderingPath != RenderingPath.Forward)
+		if (m_Camera.actualRenderingPath != RenderingPath.Forward)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_CmdBufDisto = new CommandBuffer();
-			this.m_CmdBufDisto.name = "PopcornFX Distortion Post-Effect";
-			this.m_Camera.AddCommandBuffer(CameraEvent.BeforeImageEffects, this.m_CmdBufDisto);
+			m_CmdBufDisto = new CommandBuffer();
+			m_CmdBufDisto.name = "PopcornFX Distortion Post-Effect";
+			m_Camera.AddCommandBuffer(CameraEvent.BeforeImageEffects, m_CmdBufDisto);
 		}
-		return this.m_EnableDistortion;
+		return m_EnableDistortion;
 	}
 
 	private void ReleaseDistortionResources()
 	{
-		if (this.m_CmdBufDisto != null)
+		if (m_CmdBufDisto != null)
 		{
-			this.m_Camera.RemoveCommandBuffer(CameraEvent.BeforeImageEffects, this.m_CmdBufDisto);
-			this.m_CmdBufDisto = null;
+			m_Camera.RemoveCommandBuffer(CameraEvent.BeforeImageEffects, m_CmdBufDisto);
+			m_CmdBufDisto = null;
 		}
-		if (this.m_DistortionRT != null)
+		if (m_DistortionRT != null)
 		{
-			this.m_DistortionRT.Release();
-			this.m_DistortionRT = null;
+			m_DistortionRT.Release();
+			m_DistortionRT = null;
 		}
-		this.m_EnableDistortion = false;
+		m_EnableDistortion = false;
 	}
 
 	private void SetupRendering()
 	{
-		if (this.m_CmdBufDepthGrabber != null)
+		if (m_CmdBufDepthGrabber != null)
 		{
-			this.m_CmdBufDepthGrabber.Clear();
+			m_CmdBufDepthGrabber.Clear();
 		}
-		if (!this.m_EnableDistortion)
+		if (!m_EnableDistortion)
 		{
-			if (!this.m_EnableSoftParticles)
+			if (!m_EnableSoftParticles)
 			{
-				goto IL_179;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.SetupRendering()).MethodHandle;
+				goto IL_0179;
 			}
 		}
-		if (this.m_CmdBufDepthGrabber == null)
+		if (m_CmdBufDepthGrabber == null)
 		{
-			for (;;)
+			if (!SetupDepthGrab())
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!this.SetupDepthGrab())
-			{
-				goto IL_179;
+				goto IL_0179;
 			}
 		}
-		if (this.m_DepthRT != null && !this.m_DepthRT.IsCreated())
+		if (m_DepthRT != null && !m_DepthRT.IsCreated())
 		{
-			for (;;)
+			m_DepthRT.Release();
+			m_DepthRT = new RenderTexture(m_Camera.pixelWidth, m_Camera.pixelHeight, (int)m_DepthGrabFormat, g_DepthFormat);
+			if (!m_DepthRT.IsCreated())
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				m_DepthRT.Create();
 			}
-			this.m_DepthRT.Release();
-			this.m_DepthRT = new RenderTexture(this.m_Camera.pixelWidth, this.m_Camera.pixelHeight, (int)this.m_DepthGrabFormat, PKFxCamera.g_DepthFormat);
-			if (!this.m_DepthRT.IsCreated())
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_DepthRT.Create();
-			}
-			this.DepthRT = this.m_DepthRT.GetNativeTexturePtr();
+			DepthRT = m_DepthRT.GetNativeTexturePtr();
 		}
 		else
 		{
-			if (this.m_Camera.actualRenderingPath == RenderingPath.Forward)
+			if (m_Camera.actualRenderingPath == RenderingPath.Forward)
 			{
-				for (;;)
+				if (!m_FlipRendering)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.m_FlipRendering)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (SystemInfo.graphicsDeviceVersion.Contains("Direct3D"))
 					{
-						this.m_DepthGrabMat.SetFloat("_Flip", 1f);
+						m_DepthGrabMat.SetFloat("_Flip", 1f);
 					}
 				}
 			}
-			this.m_CmdBufDepthGrabber.Blit(this.m_DepthRT, this.m_DepthRT, this.m_DepthGrabMat);
+			m_CmdBufDepthGrabber.Blit(m_DepthRT, m_DepthRT, m_DepthGrabMat);
 		}
-		goto IL_1CE;
-		IL_179:
-		if (this.m_CmdBufDepthGrabber != null)
+		goto IL_01ce;
+		IL_0302:
+		m_CmdBuf.Clear();
+		m_CmdBuf.SetRenderTarget(BuiltinRenderTextureType.CameraTarget);
+		m_CmdBuf.IssuePluginEvent(PKFxManager.GetRenderEventFunc(), m_CurrentCameraID | 0x5AFE0000);
+		if (m_EnableDistortion)
 		{
-			for (;;)
+			m_CmdBuf.SetRenderTarget(m_DistortionRT);
+			m_CmdBuf.ClearRenderTarget(false, true, Color.black);
+			m_CmdBuf.IssuePluginEvent(PKFxManager.GetRenderEventFunc(), m_CurrentCameraID | 0x5AFE0000 | 0x2000);
+		}
+		m_PrevScreenWidth = m_Camera.pixelWidth;
+		m_PrevScreenHeight = m_Camera.pixelHeight;
+		return;
+		IL_0179:
+		if (m_CmdBufDepthGrabber != null)
+		{
+			m_CmdBufDepthGrabber.Clear();
+			m_Camera.RemoveCommandBuffer(CameraEvent.AfterForwardOpaque, m_CmdBufDepthGrabber);
+			m_Camera.RemoveCommandBuffer(CameraEvent.AfterFinalPass, m_CmdBufDepthGrabber);
+			m_CmdBufDepthGrabber = null;
+			DepthRT = IntPtr.Zero;
+		}
+		goto IL_01ce;
+		IL_023e:
+		int nameID = Shader.PropertyToID("PKFxDistTmp");
+		RenderTargetIdentifier renderTargetIdentifier = new RenderTargetIdentifier(nameID);
+		m_CmdBufDisto.GetTemporaryRT(nameID, -1, -1, -1, FilterMode.Trilinear, RenderTextureFormat.DefaultHDR, RenderTextureReadWrite.Linear);
+		m_DistortionMat.SetTexture("_DistortionTex", m_DistortionRT);
+		m_CmdBufDisto.Blit(BuiltinRenderTextureType.CameraTarget, renderTargetIdentifier, m_DistortionMat);
+		if (m_EnableBlur)
+		{
+			m_DistBlurMat.SetTexture("_DistortionTex", m_DistortionRT);
+			m_DistBlurMat.SetFloat("_BlurFactor", m_BlurFactor);
+			m_CmdBufDisto.Blit(renderTargetIdentifier, BuiltinRenderTextureType.CameraTarget, m_DistBlurMat);
+		}
+		else
+		{
+			m_CmdBufDisto.Blit(renderTargetIdentifier, BuiltinRenderTextureType.CameraTarget);
+		}
+		goto IL_0302;
+		IL_01ce:
+		if (m_CmdBufDisto != null)
+		{
+			m_CmdBufDisto.Clear();
+		}
+		if (m_Camera.actualRenderingPath != RenderingPath.Forward)
+		{
+			if (m_EnableDistortion)
 			{
-				switch (3)
+				if (m_CmdBufDisto != null)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_CmdBufDepthGrabber.Clear();
-			this.m_Camera.RemoveCommandBuffer(CameraEvent.AfterForwardOpaque, this.m_CmdBufDepthGrabber);
-			this.m_Camera.RemoveCommandBuffer(CameraEvent.AfterFinalPass, this.m_CmdBufDepthGrabber);
-			this.m_CmdBufDepthGrabber = null;
-			this.DepthRT = IntPtr.Zero;
-		}
-		IL_1CE:
-		if (this.m_CmdBufDisto != null)
-		{
-			this.m_CmdBufDisto.Clear();
-		}
-		if (this.m_Camera.actualRenderingPath != RenderingPath.Forward)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_EnableDistortion)
-			{
-				if (this.m_CmdBufDisto != null)
-				{
-					if (this.m_DistortionRT != null)
+					if (m_DistortionRT != null)
 					{
-						goto IL_23E;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						goto IL_023e;
 					}
 				}
-				if (!this.SetupDistortionPass())
+				if (SetupDistortionPass())
 				{
-					goto IL_302;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				IL_23E:
-				int nameID = Shader.PropertyToID("PKFxDistTmp");
-				RenderTargetIdentifier renderTargetIdentifier = new RenderTargetIdentifier(nameID);
-				this.m_CmdBufDisto.GetTemporaryRT(nameID, -1, -1, -1, FilterMode.Trilinear, RenderTextureFormat.DefaultHDR, RenderTextureReadWrite.Linear);
-				this.m_DistortionMat.SetTexture("_DistortionTex", this.m_DistortionRT);
-				this.m_CmdBufDisto.Blit(BuiltinRenderTextureType.CameraTarget, renderTargetIdentifier, this.m_DistortionMat);
-				if (this.m_EnableBlur)
-				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_DistBlurMat.SetTexture("_DistortionTex", this.m_DistortionRT);
-					this.m_DistBlurMat.SetFloat("_BlurFactor", this.m_BlurFactor);
-					this.m_CmdBufDisto.Blit(renderTargetIdentifier, BuiltinRenderTextureType.CameraTarget, this.m_DistBlurMat);
-				}
-				else
-				{
-					this.m_CmdBufDisto.Blit(renderTargetIdentifier, BuiltinRenderTextureType.CameraTarget);
+					goto IL_023e;
 				}
 			}
 		}
-		IL_302:
-		this.m_CmdBuf.Clear();
-		this.m_CmdBuf.SetRenderTarget(BuiltinRenderTextureType.CameraTarget);
-		this.m_CmdBuf.IssuePluginEvent(PKFxManager.GetRenderEventFunc(), (int)((uint)this.m_CurrentCameraID | 0x5AFE0000U));
-		if (this.m_EnableDistortion)
-		{
-			this.m_CmdBuf.SetRenderTarget(this.m_DistortionRT);
-			this.m_CmdBuf.ClearRenderTarget(false, true, Color.black);
-			this.m_CmdBuf.IssuePluginEvent(PKFxManager.GetRenderEventFunc(), (int)((uint)this.m_CurrentCameraID | 0x5AFE0000U | 0x2000U));
-		}
-		this.m_PrevScreenWidth = this.m_Camera.pixelWidth;
-		this.m_PrevScreenHeight = this.m_Camera.pixelHeight;
+		goto IL_0302;
 	}
 
 	private void UpdateFrame()
 	{
-		this.m_CameraDescription.DT = Time.smoothDeltaTime;
-		this.m_TimeMultiplier = Mathf.Max(this.m_TimeMultiplier, 0f);
-		this.m_TimeMultiplier = Mathf.Min(this.m_TimeMultiplier, 8f);
-		this.m_CameraDescription.DT = this.m_CameraDescription.DT * this.m_TimeMultiplier;
-		this.m_CameraDescription.NearClip = this.m_Camera.nearClipPlane;
-		this.m_CameraDescription.FarClip = this.m_Camera.farClipPlane;
-		this.m_CameraDescription.LODBias = this.m_TextureLODBias;
-		this.m_CameraDescription.DepthBpp = (int)this.m_DepthGrabFormat;
-		this.m_CameraDescription.Flags = 0;
-		this.m_CameraDescription.Flags = (this.m_CameraDescription.Flags | ((!this.m_UseDepthGrabToZTest) ? 0 : 1));
-		if (this.m_Camera.pixelWidth == this.m_PrevScreenWidth)
+		m_CameraDescription.DT = Time.smoothDeltaTime;
+		m_TimeMultiplier = Mathf.Max(m_TimeMultiplier, 0f);
+		m_TimeMultiplier = Mathf.Min(m_TimeMultiplier, 8f);
+		m_CameraDescription.DT *= m_TimeMultiplier;
+		m_CameraDescription.NearClip = m_Camera.nearClipPlane;
+		m_CameraDescription.FarClip = m_Camera.farClipPlane;
+		m_CameraDescription.LODBias = m_TextureLODBias;
+		m_CameraDescription.DepthBpp = (int)m_DepthGrabFormat;
+		m_CameraDescription.Flags = 0;
+		m_CameraDescription.Flags |= (m_UseDepthGrabToZTest ? 1 : 0);
+		if (m_Camera.pixelWidth == m_PrevScreenWidth)
 		{
-			for (;;)
+			if (m_Camera.pixelHeight == m_PrevScreenHeight)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.UpdateFrame()).MethodHandle;
-			}
-			if (this.m_Camera.pixelHeight == this.m_PrevScreenHeight)
-			{
-				goto IL_2C4;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				goto IL_02c4;
 			}
 		}
-		this.m_CameraDescription.Flags = (this.m_CameraDescription.Flags | 2);
-		if (this.m_CmdBufDepthGrabber != null)
+		m_CameraDescription.Flags |= 2;
+		if (m_CmdBufDepthGrabber != null)
 		{
-			for (;;)
+			if (m_Camera.actualRenderingPath != RenderingPath.DeferredLighting)
 			{
-				switch (5)
+				if (m_Camera.actualRenderingPath != RenderingPath.DeferredShading)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_Camera.actualRenderingPath != RenderingPath.DeferredLighting)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_Camera.actualRenderingPath != RenderingPath.DeferredShading)
-				{
-					this.m_Camera.RemoveCommandBuffer(CameraEvent.AfterForwardOpaque, this.m_CmdBufDepthGrabber);
-					goto IL_199;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					m_Camera.RemoveCommandBuffer(CameraEvent.AfterForwardOpaque, m_CmdBufDepthGrabber);
+					goto IL_0199;
 				}
 			}
-			this.m_Camera.RemoveCommandBuffer(CameraEvent.AfterFinalPass, this.m_CmdBufDepthGrabber);
-			IL_199:
-			this.m_CmdBufDepthGrabber.Clear();
-			this.m_CmdBufDepthGrabber = null;
+			m_Camera.RemoveCommandBuffer(CameraEvent.AfterFinalPass, m_CmdBufDepthGrabber);
+			goto IL_0199;
 		}
-		if (this.m_DepthRT != null)
+		goto IL_01ab;
+		IL_0199:
+		m_CmdBufDepthGrabber.Clear();
+		m_CmdBufDepthGrabber = null;
+		goto IL_01ab;
+		IL_01ab:
+		if (m_DepthRT != null)
 		{
-			this.DepthRT = IntPtr.Zero;
-			this.m_DepthRT.Release();
-			this.m_DepthRT = null;
+			DepthRT = IntPtr.Zero;
+			m_DepthRT.Release();
+			m_DepthRT = null;
 		}
-		if (this.m_DistortionRT != null)
+		if (m_DistortionRT != null)
 		{
-			for (;;)
+			m_DistortionRT.Release();
+			m_DistortionRT = null;
+		}
+		if (m_CmdBufDisto != null)
+		{
+			m_Camera.RemoveCommandBuffer(CameraEvent.BeforeImageEffects, m_CmdBufDisto);
+			m_CmdBufDisto.Clear();
+			m_CmdBufDisto = null;
+		}
+		else if (m_EnableDistortion)
+		{
+			if (m_DistortionRT == null)
 			{
-				switch (4)
+				SetupDistortionPass();
+				if (m_Camera.actualRenderingPath == RenderingPath.Forward)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_DistortionRT.Release();
-			this.m_DistortionRT = null;
-		}
-		if (this.m_CmdBufDisto != null)
-		{
-			this.m_Camera.RemoveCommandBuffer(CameraEvent.BeforeImageEffects, this.m_CmdBufDisto);
-			this.m_CmdBufDisto.Clear();
-			this.m_CmdBufDisto = null;
-		}
-		else if (this.m_EnableDistortion)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_DistortionRT == null)
-			{
-				this.SetupDistortionPass();
-				if (this.m_Camera.actualRenderingPath == RenderingPath.Forward)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					PKFxDistortionEffect component = base.GetComponent<PKFxDistortionEffect>();
+					PKFxDistortionEffect component = GetComponent<PKFxDistortionEffect>();
 					if (component != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						component._DistortionRT = this.m_DistortionRT;
+						component._DistortionRT = m_DistortionRT;
 					}
 				}
 			}
 		}
-		this.m_PrevScreenWidth = this.m_Camera.pixelWidth;
-		this.m_PrevScreenHeight = this.m_Camera.pixelHeight;
-		IL_2C4:
-		PKFxManager.LogicalUpdate(this.m_CameraDescription.DT);
-		if (!this.m_Camera.stereoEnabled)
+		m_PrevScreenWidth = m_Camera.pixelWidth;
+		m_PrevScreenHeight = m_Camera.pixelHeight;
+		goto IL_02c4;
+		IL_02c4:
+		PKFxManager.LogicalUpdate(m_CameraDescription.DT);
+		if (!m_Camera.stereoEnabled)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					UpdateViewMatrix();
+					UpdateProjectionMatrix();
+					m_CurrentCameraID = m_CameraID;
+					PKFxManager.UpdateCamDesc(m_CurrentCameraID, m_CameraDescription, false);
+					return;
 				}
-				break;
 			}
-			this.UpdateViewMatrix(false, Camera.StereoscopicEye.Left);
-			this.UpdateProjectionMatrix(false, Camera.StereoscopicEye.Left);
-			this.m_CurrentCameraID = this.m_CameraID;
-			PKFxManager.UpdateCamDesc((int)this.m_CurrentCameraID, this.m_CameraDescription, false);
 		}
-		else
-		{
-			this.UpdateViewMatrix(true, Camera.StereoscopicEye.Left);
-			this.UpdateProjectionMatrix(true, Camera.StereoscopicEye.Left);
-			this.m_CurrentCameraID = this.m_CameraID;
-			PKFxManager.UpdateCamDesc((int)this.m_CurrentCameraID, this.m_CameraDescription, false);
-			this.UpdateViewMatrix(true, Camera.StereoscopicEye.Right);
-			this.UpdateProjectionMatrix(true, Camera.StereoscopicEye.Right);
-			this.m_CurrentCameraID = this.m_VRReservedID;
-			PKFxManager.UpdateCamDesc((int)this.m_CurrentCameraID, this.m_CameraDescription, false);
-		}
+		UpdateViewMatrix(true);
+		UpdateProjectionMatrix(true);
+		m_CurrentCameraID = m_CameraID;
+		PKFxManager.UpdateCamDesc(m_CurrentCameraID, m_CameraDescription, false);
+		UpdateViewMatrix(true, Camera.StereoscopicEye.Right);
+		UpdateProjectionMatrix(true, Camera.StereoscopicEye.Right);
+		m_CurrentCameraID = m_VRReservedID;
+		PKFxManager.UpdateCamDesc(m_CurrentCameraID, m_CameraDescription, false);
 	}
 
 	private void UpdateViewMatrix(bool isVR = false, Camera.StereoscopicEye eye = Camera.StereoscopicEye.Left)
 	{
 		if (!isVR)
 		{
-			this.m_CameraDescription.ViewMatrix = this.m_Camera.worldToCameraMatrix;
+			m_CameraDescription.ViewMatrix = m_Camera.worldToCameraMatrix;
 		}
 		else
 		{
-			this.m_CameraDescription.ViewMatrix = this.m_Camera.GetStereoViewMatrix(eye);
+			m_CameraDescription.ViewMatrix = m_Camera.GetStereoViewMatrix(eye);
 		}
 	}
 
 	private void UpdateProjectionMatrix(bool isVR = false, Camera.StereoscopicEye eye = Camera.StereoscopicEye.Left)
 	{
-		bool flag;
-		if (!this.m_FlipRendering)
+		int num;
+		if (!m_FlipRendering)
 		{
-			for (;;)
+			if (m_Camera.actualRenderingPath != RenderingPath.DeferredLighting)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.UpdateProjectionMatrix(bool, Camera.StereoscopicEye)).MethodHandle;
-			}
-			if (this.m_Camera.actualRenderingPath != RenderingPath.DeferredLighting)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag = (this.m_Camera.actualRenderingPath == RenderingPath.DeferredShading);
-				goto IL_46;
+				num = ((m_Camera.actualRenderingPath == RenderingPath.DeferredShading) ? 1 : 0);
+				goto IL_0046;
 			}
 		}
-		flag = true;
-		IL_46:
-		bool renderIntoTexture = flag;
-		Matrix4x4 proj;
-		if (!isVR)
-		{
-			proj = this.m_Camera.projectionMatrix;
-		}
-		else
-		{
-			proj = this.m_Camera.GetStereoProjectionMatrix(eye);
-		}
-		this.m_CameraDescription.ProjectionMatrix = GL.GetGPUProjectionMatrix(proj, renderIntoTexture);
+		num = 1;
+		goto IL_0046;
+		IL_0046:
+		bool renderIntoTexture = (byte)num != 0;
+		Matrix4x4 proj = isVR ? m_Camera.GetStereoProjectionMatrix(eye) : m_Camera.projectionMatrix;
+		m_CameraDescription.ProjectionMatrix = GL.GetGPUProjectionMatrix(proj, renderIntoTexture);
 	}
 
 	private void OnPreCull()
 	{
-		this.UpdateFrame();
+		UpdateFrame();
 	}
 
 	private void OnPreRender()
 	{
 		if (!PKFxManager.m_PackLoaded)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.OnPreRender()).MethodHandle;
-			}
-			return;
 		}
-		if (this.m_CurrentFrameID != this.m_LastUpdateFrameID)
+		if (m_CurrentFrameID != m_LastUpdateFrameID)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_CurrentCameraID = this.m_CameraID;
-			this.SetupRendering();
-			this.m_LastUpdateFrameID = this.m_CurrentFrameID;
+			m_CurrentCameraID = m_CameraID;
+			SetupRendering();
+			m_LastUpdateFrameID = m_CurrentFrameID;
 		}
 		else
 		{
-			this.m_CurrentCameraID = this.m_VRReservedID;
-			this.SetupRendering();
+			m_CurrentCameraID = m_VRReservedID;
+			SetupRendering();
 		}
-		if (PKFxCamera.m_LastFrameCount != Time.frameCount)
+		if (m_LastFrameCount != Time.frameCount)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			PKFxManager.UpdateParticles(this.m_CameraDescription);
-			PKFxCamera.m_LastFrameCount = Time.frameCount;
+			PKFxManager.UpdateParticles(m_CameraDescription);
+			m_LastFrameCount = Time.frameCount;
 		}
-		PKFxManager.Render(this.m_CurrentCameraID);
+		PKFxManager.Render(m_CurrentCameraID);
 	}
 
 	private void Update()
 	{
-		this.m_CurrentFrameID += 1U;
+		m_CurrentFrameID++;
 	}
 
 	protected void OnDestroy()
 	{
-		this.ReleaseDepthGrabResources();
-		this.ReleaseDistortionResources();
+		ReleaseDepthGrabResources();
+		ReleaseDistortionResources();
 	}
 }

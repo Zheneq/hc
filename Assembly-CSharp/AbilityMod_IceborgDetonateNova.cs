@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using AbilityContextNamespace;
+using System;
+using System.Collections.Generic;
 
 public class AbilityMod_IceborgDetonateNova : GenericAbility_AbilityMod
 {
@@ -27,141 +27,85 @@ public class AbilityMod_IceborgDetonateNova : GenericAbility_AbilityMod
 
 	public override void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
 	{
-		targetSelect.SetTargetSelectMod(this.m_targetSelectMod);
+		targetSelect.SetTargetSelectMod(m_targetSelectMod);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		IceborgDetonateNova iceborgDetonateNova = targetAbility as IceborgDetonateNova;
-		if (iceborgDetonateNova != null)
+		if (!(iceborgDetonateNova != null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgDetonateNova.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			base.AddOnHitDataTokens(tokens, this.m_empoweredDelayedAoeOnHitDataMod, iceborgDetonateNova.m_empoweredDelayedAoeOnHitData);
-			AbilityMod.AddToken(tokens, this.m_novaOnReactShieldPerDetonateMod, "NovaOnReactShieldPerDetonate", string.Empty, iceborgDetonateNova.m_novaOnReactShieldPerDetonate, true, false);
-			AbilityMod.AddToken(tokens, this.m_shieldOnDetonateDurationMod, "ShieldOnDetonateDuration", string.Empty, iceborgDetonateNova.m_shieldOnDetonateDuration, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrPerKillMod, "CdrPerKill", string.Empty, iceborgDetonateNova.m_cdrPerKill, true, false);
-			AbilityMod.AddToken(tokens, this.m_cdrIfAnyKillMod, "CdrIfAnyKill", string.Empty, iceborgDetonateNova.m_cdrIfAnyKill, true, false);
+			AddOnHitDataTokens(tokens, m_empoweredDelayedAoeOnHitDataMod, iceborgDetonateNova.m_empoweredDelayedAoeOnHitData);
+			AbilityMod.AddToken(tokens, m_novaOnReactShieldPerDetonateMod, "NovaOnReactShieldPerDetonate", string.Empty, iceborgDetonateNova.m_novaOnReactShieldPerDetonate);
+			AbilityMod.AddToken(tokens, m_shieldOnDetonateDurationMod, "ShieldOnDetonateDuration", string.Empty, iceborgDetonateNova.m_shieldOnDetonateDuration);
+			AbilityMod.AddToken(tokens, m_cdrPerKillMod, "CdrPerKill", string.Empty, iceborgDetonateNova.m_cdrPerKill);
+			AbilityMod.AddToken(tokens, m_cdrIfAnyKillMod, "CdrIfAnyKill", string.Empty, iceborgDetonateNova.m_cdrIfAnyKill);
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		IceborgDetonateNova iceborgDetonateNova = base.GetTargetAbilityOnAbilityData(abilityData) as IceborgDetonateNova;
+		IceborgDetonateNova iceborgDetonateNova = GetTargetAbilityOnAbilityData(abilityData) as IceborgDetonateNova;
 		bool flag = iceborgDetonateNova != null;
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgDetonateNova != null)
 		{
-			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, iceborgDetonateNova.m_targetSelectComp, "-- Target Select --");
-			text += base.GetOnHitDataDesc(this.m_empoweredDelayedAoeOnHitDataMod, iceborgDetonateNova.m_empoweredDelayedAoeOnHitData, "-- On Hit Data Mod --");
+			text += GetTargetSelectModDesc(m_targetSelectMod, iceborgDetonateNova.m_targetSelectComp, "-- Target Select --");
+			text += GetOnHitDataDesc(m_empoweredDelayedAoeOnHitDataMod, iceborgDetonateNova.m_empoweredDelayedAoeOnHitData);
 			string str = text;
-			AbilityModPropertyInt novaOnReactShieldPerDetonateMod = this.m_novaOnReactShieldPerDetonateMod;
-			string prefix = "[NovaOnReactShieldPerDetonate]";
-			bool showBaseVal = flag;
+			AbilityModPropertyInt novaOnReactShieldPerDetonateMod = m_novaOnReactShieldPerDetonateMod;
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgDetonateNova.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-				}
 				baseVal = iceborgDetonateNova.m_novaOnReactShieldPerDetonate;
 			}
 			else
 			{
 				baseVal = 0;
 			}
-			text = str + base.PropDesc(novaOnReactShieldPerDetonateMod, prefix, showBaseVal, baseVal);
+			text = str + PropDesc(novaOnReactShieldPerDetonateMod, "[NovaOnReactShieldPerDetonate]", flag, baseVal);
 			string str2 = text;
-			AbilityModPropertyInt shieldOnDetonateDurationMod = this.m_shieldOnDetonateDurationMod;
-			string prefix2 = "[ShieldOnDetonateDuration]";
-			bool showBaseVal2 = flag;
+			AbilityModPropertyInt shieldOnDetonateDurationMod = m_shieldOnDetonateDurationMod;
 			int baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = iceborgDetonateNova.m_shieldOnDetonateDuration;
 			}
 			else
 			{
 				baseVal2 = 0;
 			}
-			text = str2 + base.PropDesc(shieldOnDetonateDurationMod, prefix2, showBaseVal2, baseVal2);
+			text = str2 + PropDesc(shieldOnDetonateDurationMod, "[ShieldOnDetonateDuration]", flag, baseVal2);
 			string str3 = text;
-			AbilityModPropertyInt cdrPerKillMod = this.m_cdrPerKillMod;
-			string prefix3 = "[CdrPerKill]";
-			bool showBaseVal3 = flag;
+			AbilityModPropertyInt cdrPerKillMod = m_cdrPerKillMod;
 			int baseVal3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = iceborgDetonateNova.m_cdrPerKill;
 			}
 			else
 			{
 				baseVal3 = 0;
 			}
-			text = str3 + base.PropDesc(cdrPerKillMod, prefix3, showBaseVal3, baseVal3);
+			text = str3 + PropDesc(cdrPerKillMod, "[CdrPerKill]", flag, baseVal3);
 			string str4 = text;
-			AbilityModPropertyInt cdrIfAnyKillMod = this.m_cdrIfAnyKillMod;
-			string prefix4 = "[CdrIfAnyKill]";
-			bool showBaseVal4 = flag;
+			AbilityModPropertyInt cdrIfAnyKillMod = m_cdrIfAnyKillMod;
 			int baseVal4;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal4 = iceborgDetonateNova.m_cdrIfAnyKill;
 			}
 			else
 			{
 				baseVal4 = 0;
 			}
-			text = str4 + base.PropDesc(cdrIfAnyKillMod, prefix4, showBaseVal4, baseVal4);
+			text = str4 + PropDesc(cdrIfAnyKillMod, "[CdrIfAnyKill]", flag, baseVal4);
 		}
 		return text;
 	}

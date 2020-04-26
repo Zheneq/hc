@@ -1,4 +1,3 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -70,219 +69,146 @@ public class UIAbilityButton : MonoBehaviour
 
 	public void Awake()
 	{
-		UIManager.SetGameObjectActive(this.m_borderGlow, false, null);
-		UIManager.SetGameObjectActive(this.m_ToggleAbility, false, null);
-		UIManager.SetGameObjectActive(this.m_tutorialTip, false, null);
-		this.m_hitbox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, new TooltipPopulateCall(this.ShowTooltip), null);
+		UIManager.SetGameObjectActive(m_borderGlow, false);
+		UIManager.SetGameObjectActive(m_ToggleAbility, false);
+		UIManager.SetGameObjectActive(m_tutorialTip, false);
+		m_hitbox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, ShowTooltip);
 	}
 
 	public void Start()
 	{
-		if (this.m_hitbox != null)
+		if (m_hitbox != null)
 		{
-			UIEventTriggerUtils.AddListener(this.m_hitbox.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnAbilityButtonClick));
-			UIEventTriggerUtils.AddListener(this.m_hitbox.gameObject, EventTriggerType.PointerDown, new UIEventTriggerUtils.EventDelegate(this.OnAbilityButtonDown));
-			UIEventTriggerUtils.AddListener(this.m_hitbox.gameObject, EventTriggerType.PointerUp, new UIEventTriggerUtils.EventDelegate(this.OnAbilityButtonUp));
-			UIEventTriggerUtils.AddListener(this.m_hitbox.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnPointerEnter));
-			UIEventTriggerUtils.AddListener(this.m_hitbox.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.OnPointerExit));
-			this.m_hitbox.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.4f;
+			UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerClick, OnAbilityButtonClick);
+			UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerDown, OnAbilityButtonDown);
+			UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerUp, OnAbilityButtonUp);
+			UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerEnter, OnPointerEnter);
+			UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerExit, OnPointerExit);
+			m_hitbox.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.4f;
 		}
-		UIManager.SetGameObjectActive(this.m_background, true, null);
-		if (this.m_ultimateBorder != null)
+		UIManager.SetGameObjectActive(m_background, true);
+		if (m_ultimateBorder != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.Start()).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.m_ultimateBorder, false, null);
+			UIManager.SetGameObjectActive(m_ultimateBorder, false);
 		}
-		if (this.m_persistentAuraBorder != null)
+		if (!(m_persistentAuraBorder != null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_persistentAuraBorder, false, null);
+			return;
+		}
+		while (true)
+		{
+			UIManager.SetGameObjectActive(m_persistentAuraBorder, false);
+			return;
 		}
 	}
 
 	public void Setup(AbilityData.AbilityEntry abilityEntry, AbilityData.ActionType actionType, AbilityData abilityData)
 	{
 		bool doActive = false;
-		this.m_abilityEntry = abilityEntry;
-		this.m_actionType = actionType;
-		this.m_abilityData = abilityData;
-		ActorData actorData;
-		if (this.m_abilityData != null)
+		m_abilityEntry = abilityEntry;
+		m_actionType = actionType;
+		m_abilityData = abilityData;
+		object actorData;
+		if (m_abilityData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.Setup(AbilityData.AbilityEntry, AbilityData.ActionType, AbilityData)).MethodHandle;
-			}
-			actorData = this.m_abilityData.GetComponent<ActorData>();
+			actorData = m_abilityData.GetComponent<ActorData>();
 		}
 		else
 		{
 			actorData = null;
 		}
-		this.m_actorData = actorData;
-		this.m_turnSM = this.m_abilityData.GetComponent<ActorTurnSM>();
-		if (this.m_abilityEntry != null)
+		m_actorData = (ActorData)actorData;
+		m_turnSM = m_abilityData.GetComponent<ActorTurnSM>();
+		if (m_abilityEntry != null)
 		{
-			for (;;)
+			if (m_abilityEntry.ability != null)
 			{
-				switch (3)
+				UIManager.SetGameObjectActive(m_charIcon, true);
+				m_charIcon.sprite = m_abilityEntry.ability.sprite;
+				m_hotkeyLabel.text = m_abilityEntry.hotkey;
+				doActive = m_abilityEntry.ability.IsFreeAction();
+				int num = UIBaseButton.PhaseIndexForUIPhase(UIQueueListPanel.GetUIPhaseFromAbilityPriority(m_abilityEntry.ability.RunPriority));
+				for (int i = 0; i < m_phaseIndicators.Length; i++)
 				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (this.m_abilityEntry.ability != null)
-			{
-				UIManager.SetGameObjectActive(this.m_charIcon, true, null);
-				this.m_charIcon.sprite = this.m_abilityEntry.ability.sprite;
-				this.m_hotkeyLabel.text = this.m_abilityEntry.hotkey;
-				doActive = this.m_abilityEntry.ability.IsFreeAction();
-				int num = UIBaseButton.PhaseIndexForUIPhase(UIQueueListPanel.GetUIPhaseFromAbilityPriority(this.m_abilityEntry.ability.RunPriority));
-				for (int i = 0; i < this.m_phaseIndicators.Length; i++)
-				{
-					Component component = this.m_phaseIndicators[i];
-					bool doActive2;
+					Image component = m_phaseIndicators[i];
+					int doActive2;
 					if (i == num)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						doActive2 = (num != -1);
+						doActive2 = ((num != -1) ? 1 : 0);
 					}
 					else
 					{
-						doActive2 = false;
+						doActive2 = 0;
 					}
-					UIManager.SetGameObjectActive(component, doActive2, null);
+					UIManager.SetGameObjectActive(component, (byte)doActive2 != 0);
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				goto IL_1B5;
+				goto IL_01b5;
 			}
 		}
-		if (this.m_abilityEntry != null)
+		if (m_abilityEntry != null)
 		{
-			this.m_cooldownLabel.text = string.Empty;
-			UIManager.SetGameObjectActive(this.m_charIcon, false, null);
-			this.m_hitbox.enabled = false;
-			this.m_hotkeyLabel.text = this.m_abilityEntry.hotkey;
+			m_cooldownLabel.text = string.Empty;
+			UIManager.SetGameObjectActive(m_charIcon, false);
+			m_hitbox.enabled = false;
+			m_hotkeyLabel.text = m_abilityEntry.hotkey;
 		}
 		else
 		{
-			this.m_cooldownLabel.text = string.Empty;
-			UIManager.SetGameObjectActive(this.m_charIcon, false, null);
-			this.m_hitbox.enabled = false;
+			m_cooldownLabel.text = string.Empty;
+			UIManager.SetGameObjectActive(m_charIcon, false);
+			m_hitbox.enabled = false;
 		}
-		IL_1B5:
-		UIManager.SetGameObjectActive(this.m_freeactionIcon, doActive, null);
-		this.m_hotkeyLabel.color = Color.white;
+		goto IL_01b5;
+		IL_01b5:
+		UIManager.SetGameObjectActive(m_freeactionIcon, doActive);
+		m_hotkeyLabel.color = Color.white;
 	}
 
 	public void RefreshHotkey()
 	{
-		if (this.m_abilityEntry != null)
+		if (m_abilityEntry != null)
 		{
-			this.m_abilityEntry.InitHotkey();
-			this.m_hotkeyLabel.text = this.m_abilityEntry.hotkey;
+			m_abilityEntry.InitHotkey();
+			m_hotkeyLabel.text = m_abilityEntry.hotkey;
 		}
 	}
 
 	public KeyPreference GetKeyPreference()
 	{
-		if (this.m_abilityEntry != null)
+		if (m_abilityEntry != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return m_abilityEntry.keyPreference;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.GetKeyPreference()).MethodHandle;
-			}
-			return this.m_abilityEntry.keyPreference;
 		}
 		return KeyPreference.NullPreference;
 	}
 
 	private bool ShowTooltip(UITooltipBase tooltip)
 	{
-		UIAbilityTooltip uiabilityTooltip = (UIAbilityTooltip)tooltip;
-		if (this.m_abilityEntry != null)
+		UIAbilityTooltip uIAbilityTooltip = (UIAbilityTooltip)tooltip;
+		if (m_abilityEntry != null)
 		{
-			for (;;)
+			if (m_abilityEntry.ability != null)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.ShowTooltip(UITooltipBase)).MethodHandle;
-			}
-			if (this.m_abilityEntry.ability != null)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (4)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						uIAbilityTooltip.Setup(m_abilityEntry.ability, m_abilityEntry.ability.CurrentAbilityMod);
+						return true;
 					}
-					break;
 				}
-				uiabilityTooltip.Setup(this.m_abilityEntry.ability, this.m_abilityEntry.ability.CurrentAbilityMod);
-				return true;
 			}
 		}
 		return false;
@@ -290,8 +216,8 @@ public class UIAbilityButton : MonoBehaviour
 
 	public void UnqueueAnimationDone()
 	{
-		UIManager.SetGameObjectActive(this.m_selected, false, null);
-		UIManager.SetGameObjectActive(this.m_selectedGlow, false, null);
+		UIManager.SetGameObjectActive(m_selected, false);
+		UIManager.SetGameObjectActive(m_selectedGlow, false);
 	}
 
 	public void HoverOutAnimationDone()
@@ -312,856 +238,449 @@ public class UIAbilityButton : MonoBehaviour
 
 	private void PlayAnimation(string animName)
 	{
-		this.m_AbilityButtonAnimator.Play(animName);
+		m_AbilityButtonAnimator.Play(animName);
 	}
 
 	private void PlayAnimation(string animName, int layer)
 	{
-		this.m_AbilityButtonAnimator.Play(animName, layer);
+		m_AbilityButtonAnimator.Play(animName, layer);
 	}
 
 	public void OnPointerExit(BaseEventData data)
 	{
-		this.m_mouseOver = false;
-		this.m_mouseOverForRangePreview = false;
-		this.m_mouseDown = false;
+		m_mouseOver = false;
+		m_mouseOverForRangePreview = false;
+		m_mouseDown = false;
 	}
 
 	public void OnPointerEnter(BaseEventData data)
 	{
-		if (!this.m_disabled.gameObject.activeSelf)
+		if (!m_disabled.gameObject.activeSelf)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.OnPointerEnter(BaseEventData)).MethodHandle;
-			}
-			this.m_mouseOver = true;
+			m_mouseOver = true;
 		}
-		this.m_mouseOverForRangePreview = true;
+		m_mouseOverForRangePreview = true;
 	}
 
 	public void Update()
 	{
-		if (this.m_abilityEntry != null && this.m_abilityEntry.ability != null)
+		if (m_abilityEntry != null && m_abilityEntry.ability != null)
 		{
-			for (;;)
+			while (true)
 			{
+				ActorTurnSM turnSM;
+				ActorData actorData;
+				bool flag;
+				bool flag2;
+				bool flag3;
+				int num2;
+				bool doActive;
+				bool doActive2;
+				int num3;
 				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.Update()).MethodHandle;
-			}
-			ActorTurnSM turnSM = this.m_turnSM;
-			ActorData actorData = this.m_actorData;
-			bool flag = this.m_abilityData.HasQueuedAction(this.m_actionType);
-			bool flag2;
-			if (this.m_abilityEntry.ability.GetModdedCost() > actorData.TechPoints)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				flag2 = flag;
-			}
-			else
-			{
-				flag2 = true;
-			}
-			bool flag3 = flag2;
-			bool flag4 = this.m_abilityEntry.ability == this.m_abilityData.GetSelectedAbility();
-			bool flag5;
-			if (this.m_abilityEntry.ability.GetModdedCost() > 0)
-			{
-				for (;;)
-				{
-					switch (5)
+				default:
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_abilityEntry.ability.GetModdedCost() <= actorData.TechPoints)
-				{
-					for (;;)
-					{
-						switch (4)
+						turnSM = m_turnSM;
+						actorData = m_actorData;
+						flag = m_abilityData.HasQueuedAction(m_actionType);
+						int num;
+						if (m_abilityEntry.ability.GetModdedCost() > actorData.TechPoints)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag5 = (this.m_abilityData.GetCooldownRemaining(this.m_actionType) <= 0);
-					goto IL_103;
-				}
-			}
-			flag5 = false;
-			IL_103:
-			bool doActive = flag5;
-			bool doActive2 = this.m_abilityEntry.ability.ShouldShowPersistentAuraUI();
-			if (this.m_ultimateBorder != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_ultimateBorder, doActive, null);
-			}
-			if (this.m_persistentAuraBorder != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_persistentAuraBorder, doActive2, null);
-			}
-			int num = UIBaseButton.PhaseIndexForUIPhase(UIQueueListPanel.GetUIPhaseFromAbilityPriority(this.m_abilityEntry.ability.RunPriority));
-			for (int i = 0; i < this.m_phaseIndicators.Length; i++)
-			{
-				UIManager.SetGameObjectActive(this.m_phaseIndicators[i], i == num && num != -1, null);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			string text = string.Empty;
-			if (!this.m_mouseOver)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_mouseDown = false;
-			}
-			bool flag6 = flag4 || this.m_mouseDown;
-			bool flag7 = true;
-			if (this.m_mouseOver)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!flag6)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!flag)
-					{
-						if (!this.m_hover.gameObject.activeSelf)
-						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.PlayAnimation("AbilityButtonHover");
-						}
-						flag7 = false;
-						UIManager.SetGameObjectActive(this.m_hover, true, null);
-						goto IL_267;
-					}
-				}
-			}
-			UIManager.SetGameObjectActive(this.m_hover, false, null);
-			IL_267:
-			if (flag6 && !flag)
-			{
-				if (!this.m_pressed.gameObject.activeSelf)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.PlayAnimation("AbilityButtonSelected");
-					if (this.m_mouseOver)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.PlayAnimation("AbilityButtonSelectedNonLoop", 1);
-					}
-				}
-				flag7 = false;
-				UIManager.SetGameObjectActive(this.m_pressedIdle, true, null);
-				UIManager.SetGameObjectActive(this.m_pressedIdle2, true, null);
-				UIManager.SetGameObjectActive(this.m_pressed, true, null);
-			}
-			else
-			{
-				UIManager.SetGameObjectActive(this.m_pressedIdle, false, null);
-				UIManager.SetGameObjectActive(this.m_pressedIdle2, false, null);
-				UIManager.SetGameObjectActive(this.m_pressed, false, null);
-			}
-			bool flag8 = false;
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!this.m_selected.gameObject.activeSelf)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.PlayAnimation("AbilityButtonBarQueued");
-				}
-				flag7 = false;
-				UIManager.SetGameObjectActive(this.m_selected, true, null);
-				UIManager.SetGameObjectActive(this.m_selectedGlow, true, null);
-			}
-			else
-			{
-				this.PlayAnimation("AbilityButtonBarQueuedExit");
-			}
-			if (flag7)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!flag8)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_AbilityButtonAnimator.GetCurrentAnimatorStateInfo(0).IsName("AbilityButtonBarQueuedExit"))
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-				}
-			}
-			bool flag9;
-			if (this.m_abilityEntry.ability.IsSimpleAction())
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag9 = turnSM.CanQueueSimpleAction();
-			}
-			else
-			{
-				flag9 = turnSM.CanSelectAbility();
-			}
-			bool flag10;
-			if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag10 = this.m_abilityData.ValidateActionIsRequestable(this.m_actionType);
-			}
-			else
-			{
-				flag10 = false;
-			}
-			bool flag11 = flag10;
-			bool flag12;
-			if (turnSM.CurrentState == TurnStateEnum.VALIDATING_ACTION_REQUEST)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!flag11)
-				{
-					flag12 = true;
-					goto IL_48E;
-				}
-			}
-			if (GameFlowData.Get().gameState != GameState.BothTeams_Resolve)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (turnSM.CurrentState != TurnStateEnum.CONFIRMED)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (turnSM.CurrentState != TurnStateEnum.WAITING)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag12 = (turnSM.CurrentState == TurnStateEnum.RESOLVING && GameFlowData.Get().gameState == GameState.BothTeams_Decision);
-						goto IL_48B;
-					}
-				}
-			}
-			flag12 = true;
-			IL_48B:
-			IL_48E:
-			bool flag13 = flag12;
-			if (flag9)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				bool flag14;
-				if (!flag13)
-				{
-					if (!flag11)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag14 = !flag;
-					}
-					else
-					{
-						flag14 = false;
-					}
-				}
-				else
-				{
-					flag14 = true;
-				}
-				flag13 = flag14;
-			}
-			if (flag)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag13 = false;
-			}
-			else
-			{
-				flag13 = (flag13 || !flag11);
-			}
-			if (flag13)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_charIcon.color = HUD_UIResources.Get().m_disabledAbilityButtonIconColor;
-				this.m_hotkeyLabel.color = HUD_UIResources.Get().m_disabledAbilityButtonIconColor;
-				UIManager.SetGameObjectActive(this.m_disabled, true, null);
-				UIManager.SetGameObjectActive(this.m_default, false, null);
-			}
-			else
-			{
-				if (this.m_abilityEntry.ability.UseCustomAbilityIconColor())
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.m_charIcon.color = this.m_abilityEntry.ability.GetCustomAbilityIconColor(actorData);
-				}
-				else
-				{
-					this.m_charIcon.color = Color.white;
-				}
-				this.m_hotkeyLabel.color = Color.white;
-				UIManager.SetGameObjectActive(this.m_disabled, false, null);
-				UIManager.SetGameObjectActive(this.m_default, flag7, null);
-			}
-			bool flag15 = true;
-			if (!actorData.\u000E())
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag15 = this.m_abilityEntry.ability.CustomCanCastValidation(actorData);
-			}
-			if (this.m_abilityEntry.ability.GetModdedMaxStocks() <= 0)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIManager.SetGameObjectActive(this.m_chargeCounterContainer, false, null);
-				if (this.m_abilityEntry.GetCooldownRemaining() == 0 && flag3)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (flag15)
-					{
-						goto IL_6D6;
-					}
-				}
-				if (this.m_abilityEntry.GetCooldownRemaining() > 0)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (actorData.TechPoints + actorData.ReservedTechPoints < actorData.\u0016() || !AbilityUtils.AbilityHasTag(this.m_abilityEntry.ability, AbilityTags.IgnoreCooldownIfFullEnergy))
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						text = this.m_abilityEntry.GetCooldownRemaining().ToString();
-					}
-				}
-				else if (this.m_abilityEntry.GetCooldownRemaining() == -1)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					text = "~";
-				}
-				else if (!flag15)
-				{
-					text = "X";
-				}
-				IL_6D6:;
-			}
-			else
-			{
-				UIManager.SetGameObjectActive(this.m_chargeCounterContainer, true, null);
-				int moddedMaxStocks = this.m_abilityEntry.ability.GetModdedMaxStocks();
-				for (int j = 0; j < this.chargeCounters.Length; j++)
-				{
-					if (j < moddedMaxStocks)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIManager.SetGameObjectActive(this.chargeCounters[j], true, null);
-					}
-					else
-					{
-						UIManager.SetGameObjectActive(this.chargeCounters[j], false, null);
-					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				AbilityData.ActionType actionTypeOfAbility = this.m_abilityData.GetActionTypeOfAbility(this.m_abilityEntry.ability);
-				if (actionTypeOfAbility != AbilityData.ActionType.INVALID_ACTION)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					int consumedStocksCount = this.m_abilityData.GetConsumedStocksCount(actionTypeOfAbility);
-					int stockRefreshCountdown = this.m_abilityData.GetStockRefreshCountdown(actionTypeOfAbility);
-					int moddedStockRefreshDuration = this.m_abilityEntry.ability.GetModdedStockRefreshDuration();
-					int num2 = moddedMaxStocks - consumedStocksCount;
-					int k;
-					for (k = 0; k < num2; k++)
-					{
-						this.chargeCounters[k].SetTick(3);
-					}
-					if (k < this.chargeCounters.Length)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIAbilityChargeCounter uiabilityChargeCounter = this.chargeCounters[k];
-						int tick;
-						if (moddedStockRefreshDuration >= 0)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							tick = 3 - stockRefreshCountdown;
+							num = (flag ? 1 : 0);
 						}
 						else
 						{
-							tick = 0;
+							num = 1;
 						}
-						uiabilityChargeCounter.SetTick(tick);
-						k++;
+						flag2 = ((byte)num != 0);
+						flag3 = (m_abilityEntry.ability == m_abilityData.GetSelectedAbility());
+						if (m_abilityEntry.ability.GetModdedCost() > 0)
+						{
+							if (m_abilityEntry.ability.GetModdedCost() <= actorData.TechPoints)
+							{
+								num2 = ((m_abilityData.GetCooldownRemaining(m_actionType) <= 0) ? 1 : 0);
+								goto IL_0103;
+							}
+						}
+						num2 = 0;
+						goto IL_0103;
 					}
-					while (k < this.chargeCounters.Length)
+					IL_0103:
+					doActive = ((byte)num2 != 0);
+					doActive2 = m_abilityEntry.ability.ShouldShowPersistentAuraUI();
+					if (m_ultimateBorder != null)
 					{
-						this.chargeCounters[k].SetTick(0);
-						k++;
+						UIManager.SetGameObjectActive(m_ultimateBorder, doActive);
 					}
-					for (;;)
+					if (m_persistentAuraBorder != null)
 					{
-						switch (3)
+						UIManager.SetGameObjectActive(m_persistentAuraBorder, doActive2);
+					}
+					num3 = UIBaseButton.PhaseIndexForUIPhase(UIQueueListPanel.GetUIPhaseFromAbilityPriority(m_abilityEntry.ability.RunPriority));
+					for (int i = 0; i < m_phaseIndicators.Length; i++)
+					{
+						UIManager.SetGameObjectActive(m_phaseIndicators[i], i == num3 && num3 != -1);
+					}
+					while (true)
+					{
+						string text;
+						bool flag4;
+						bool flag5;
+						bool flag6;
+						bool flag7;
+						bool flag8;
+						int num4;
+						bool flag9;
+						int num5;
+						bool flag10;
+						bool flag11;
+						switch (2)
 						{
 						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!this.m_abilityData.IsAbilityAllowedByUnlockTurns(actionTypeOfAbility))
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							break;
-						}
-						text = this.m_abilityData.GetTurnsTillUnlock(actionTypeOfAbility).ToString();
-					}
-					else if (stockRefreshCountdown > 0)
-					{
-						if (num2 != 0)
-						{
-							if (!this.m_abilityEntry.ability.RefillAllStockOnRefresh())
+						default:
 							{
-								goto IL_8B8;
-							}
-							for (;;)
-							{
-								switch (6)
+								text = string.Empty;
+								if (!m_mouseOver)
 								{
-								case 0:
-									continue;
+									m_mouseDown = false;
 								}
-								break;
+								flag4 = (flag3 || m_mouseDown);
+								flag5 = true;
+								if (m_mouseOver)
+								{
+									if (!flag4)
+									{
+										if (!flag)
+										{
+											if (!m_hover.gameObject.activeSelf)
+											{
+												PlayAnimation("AbilityButtonHover");
+											}
+											flag5 = false;
+											UIManager.SetGameObjectActive(m_hover, true);
+											goto IL_0267;
+										}
+									}
+								}
+								UIManager.SetGameObjectActive(m_hover, false);
+								goto IL_0267;
 							}
+							IL_08b8:
+							if (m_cooldownLabel.text != text)
+							{
+								m_cooldownLabel.text = text;
+							}
+							flag6 = m_abilityEntry.ability.IsFreeAction();
+							if (m_freeactionIcon != null)
+							{
+								if (m_freeactionIcon.gameObject.activeSelf != flag6)
+								{
+									UIManager.SetGameObjectActive(m_freeactionIcon, flag6);
+								}
+							}
+							HighlightUtils.Get().SetRangeIndicatorMouseOverFlag((int)m_actionType, m_mouseOverForRangePreview);
+							return;
+							IL_0267:
+							if (flag4 && !flag)
+							{
+								if (!m_pressed.gameObject.activeSelf)
+								{
+									PlayAnimation("AbilityButtonSelected");
+									if (m_mouseOver)
+									{
+										PlayAnimation("AbilityButtonSelectedNonLoop", 1);
+									}
+								}
+								flag5 = false;
+								UIManager.SetGameObjectActive(m_pressedIdle, true);
+								UIManager.SetGameObjectActive(m_pressedIdle2, true);
+								UIManager.SetGameObjectActive(m_pressed, true);
+							}
+							else
+							{
+								UIManager.SetGameObjectActive(m_pressedIdle, false);
+								UIManager.SetGameObjectActive(m_pressedIdle2, false);
+								UIManager.SetGameObjectActive(m_pressed, false);
+							}
+							flag7 = false;
+							if (flag)
+							{
+								if (!m_selected.gameObject.activeSelf)
+								{
+									PlayAnimation("AbilityButtonBarQueued");
+								}
+								flag5 = false;
+								UIManager.SetGameObjectActive(m_selected, true);
+								UIManager.SetGameObjectActive(m_selectedGlow, true);
+							}
+							else
+							{
+								PlayAnimation("AbilityButtonBarQueuedExit");
+							}
+							if (flag5)
+							{
+								if (!flag7)
+								{
+									if (!m_AbilityButtonAnimator.GetCurrentAnimatorStateInfo(0).IsName("AbilityButtonBarQueuedExit"))
+									{
+									}
+								}
+							}
+							if (m_abilityEntry.ability.IsSimpleAction())
+							{
+								flag8 = turnSM.CanQueueSimpleAction();
+							}
+							else
+							{
+								flag8 = turnSM.CanSelectAbility();
+							}
+							if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
+							{
+								num4 = (m_abilityData.ValidateActionIsRequestable(m_actionType) ? 1 : 0);
+							}
+							else
+							{
+								num4 = 0;
+							}
+							flag9 = ((byte)num4 != 0);
+							if (turnSM.CurrentState == TurnStateEnum.VALIDATING_ACTION_REQUEST)
+							{
+								if (!flag9)
+								{
+									num5 = 1;
+									goto IL_048e;
+								}
+							}
+							if (GameFlowData.Get().gameState != GameState.BothTeams_Resolve)
+							{
+								if (turnSM.CurrentState != TurnStateEnum.CONFIRMED)
+								{
+									if (turnSM.CurrentState != TurnStateEnum.WAITING)
+									{
+										num5 = ((turnSM.CurrentState == TurnStateEnum.RESOLVING && GameFlowData.Get().gameState == GameState.BothTeams_Decision) ? 1 : 0);
+										goto IL_048e;
+									}
+								}
+							}
+							num5 = 1;
+							goto IL_048e;
+							IL_048e:
+							flag10 = ((byte)num5 != 0);
+							if (flag8)
+							{
+								int num6;
+								if (!flag10)
+								{
+									if (!flag9)
+									{
+										num6 = ((!flag) ? 1 : 0);
+									}
+									else
+									{
+										num6 = 0;
+									}
+								}
+								else
+								{
+									num6 = 1;
+								}
+								flag10 = ((byte)num6 != 0);
+							}
+							if (flag)
+							{
+								flag10 = false;
+							}
+							else
+							{
+								flag10 = (flag10 || !flag9);
+							}
+							if (flag10)
+							{
+								m_charIcon.color = HUD_UIResources.Get().m_disabledAbilityButtonIconColor;
+								m_hotkeyLabel.color = HUD_UIResources.Get().m_disabledAbilityButtonIconColor;
+								UIManager.SetGameObjectActive(m_disabled, true);
+								UIManager.SetGameObjectActive(m_default, false);
+							}
+							else
+							{
+								if (m_abilityEntry.ability.UseCustomAbilityIconColor())
+								{
+									m_charIcon.color = m_abilityEntry.ability.GetCustomAbilityIconColor(actorData);
+								}
+								else
+								{
+									m_charIcon.color = Color.white;
+								}
+								m_hotkeyLabel.color = Color.white;
+								UIManager.SetGameObjectActive(m_disabled, false);
+								UIManager.SetGameObjectActive(m_default, flag5);
+							}
+							flag11 = true;
+							if (!actorData.IsDead())
+							{
+								flag11 = m_abilityEntry.ability.CustomCanCastValidation(actorData);
+							}
+							if (m_abilityEntry.ability.GetModdedMaxStocks() <= 0)
+							{
+								UIManager.SetGameObjectActive(m_chargeCounterContainer, false);
+								if (m_abilityEntry.GetCooldownRemaining() == 0 && flag2)
+								{
+									if (flag11)
+									{
+										goto IL_08b8;
+									}
+								}
+								if (m_abilityEntry.GetCooldownRemaining() > 0)
+								{
+									if (actorData.TechPoints + actorData.ReservedTechPoints < actorData.GetActualMaxTechPoints() || !AbilityUtils.AbilityHasTag(m_abilityEntry.ability, AbilityTags.IgnoreCooldownIfFullEnergy))
+									{
+										text = m_abilityEntry.GetCooldownRemaining().ToString();
+									}
+								}
+								else if (m_abilityEntry.GetCooldownRemaining() == -1)
+								{
+									text = "~";
+								}
+								else if (!flag11)
+								{
+									text = "X";
+								}
+							}
+							else
+							{
+								UIManager.SetGameObjectActive(m_chargeCounterContainer, true);
+								int moddedMaxStocks = m_abilityEntry.ability.GetModdedMaxStocks();
+								for (int j = 0; j < chargeCounters.Length; j++)
+								{
+									if (j < moddedMaxStocks)
+									{
+										UIManager.SetGameObjectActive(chargeCounters[j], true);
+									}
+									else
+									{
+										UIManager.SetGameObjectActive(chargeCounters[j], false);
+									}
+								}
+								AbilityData.ActionType actionTypeOfAbility = m_abilityData.GetActionTypeOfAbility(m_abilityEntry.ability);
+								if (actionTypeOfAbility != AbilityData.ActionType.INVALID_ACTION)
+								{
+									int consumedStocksCount = m_abilityData.GetConsumedStocksCount(actionTypeOfAbility);
+									int stockRefreshCountdown = m_abilityData.GetStockRefreshCountdown(actionTypeOfAbility);
+									int moddedStockRefreshDuration = m_abilityEntry.ability.GetModdedStockRefreshDuration();
+									int num7 = moddedMaxStocks - consumedStocksCount;
+									int k;
+									for (k = 0; k < num7; k++)
+									{
+										chargeCounters[k].SetTick(3);
+									}
+									if (k < chargeCounters.Length)
+									{
+										UIAbilityChargeCounter obj = chargeCounters[k];
+										int tick;
+										if (moddedStockRefreshDuration >= 0)
+										{
+											tick = 3 - stockRefreshCountdown;
+										}
+										else
+										{
+											tick = 0;
+										}
+										obj.SetTick(tick);
+										k++;
+									}
+									for (; k < chargeCounters.Length; k++)
+									{
+										chargeCounters[k].SetTick(0);
+									}
+									if (!m_abilityData.IsAbilityAllowedByUnlockTurns(actionTypeOfAbility))
+									{
+										text = m_abilityData.GetTurnsTillUnlock(actionTypeOfAbility).ToString();
+									}
+									else if (stockRefreshCountdown > 0)
+									{
+										if (num7 != 0)
+										{
+											if (!m_abilityEntry.ability.RefillAllStockOnRefresh())
+											{
+												goto IL_08b8;
+											}
+										}
+										text = stockRefreshCountdown.ToString();
+									}
+								}
+							}
+							goto IL_08b8;
 						}
-						text = stockRefreshCountdown.ToString();
 					}
 				}
 			}
-			IL_8B8:
-			if (this.m_cooldownLabel.text != text)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_cooldownLabel.text = text;
-			}
-			bool flag16 = this.m_abilityEntry.ability.IsFreeAction();
-			if (this.m_freeactionIcon != null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.m_freeactionIcon.gameObject.activeSelf != flag16)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIManager.SetGameObjectActive(this.m_freeactionIcon, flag16, null);
-				}
-			}
-			HighlightUtils.Get().SetRangeIndicatorMouseOverFlag((int)this.m_actionType, this.m_mouseOverForRangePreview);
 		}
-		else if (this.m_ultimateBorder)
+		if (!m_ultimateBorder)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.m_ultimateBorder, false, null);
+			return;
+		}
+		while (true)
+		{
+			UIManager.SetGameObjectActive(m_ultimateBorder, false);
+			return;
 		}
 	}
 
 	private void OnEnable()
 	{
-		this.Update();
+		Update();
 	}
 
 	public void OnAbilityButtonDown(BaseEventData data)
 	{
-		if (this.m_disabled.gameObject.activeSelf)
+		if (m_disabled.gameObject.activeSelf)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.OnAbilityButtonDown(BaseEventData)).MethodHandle;
-			}
-			return;
 		}
-		this.m_mouseDown = true;
+		m_mouseDown = true;
 	}
 
 	public void OnAbilityButtonUp(BaseEventData data)
 	{
-		this.m_mouseDown = false;
+		m_mouseDown = false;
 	}
 
 	public void OnAbilityButtonClick(BaseEventData data)
 	{
-		if (!(this.m_abilityData == null))
+		if (m_abilityData == null)
 		{
-			for (;;)
+			return;
+		}
+		while (true)
+		{
+			if (m_turnSM == null)
 			{
-				switch (6)
+				while (true)
 				{
-				case 0:
-					continue;
+					switch (6)
+					{
+					default:
+						return;
+					case 0:
+						break;
+					}
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.OnAbilityButtonClick(BaseEventData)).MethodHandle;
-			}
-			if (!(this.m_turnSM == null))
-			{
-				this.m_abilityData.AbilityButtonPressed(this.m_actionType, this.m_abilityEntry.ability);
-				return;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
+			m_abilityData.AbilityButtonPressed(m_actionType, m_abilityEntry.ability);
+			return;
 		}
 	}
 }

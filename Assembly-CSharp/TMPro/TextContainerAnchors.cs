@@ -1,5 +1,3 @@
-﻿using System;
-
 namespace TMPro
 {
 	public enum TextContainerAnchors

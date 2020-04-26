@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class AudioListenerController : MonoBehaviour
@@ -7,17 +6,17 @@ public class AudioListenerController : MonoBehaviour
 
 	internal static AudioListenerController Get()
 	{
-		return AudioListenerController.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		AudioListenerController.s_instance = this;
-		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+		s_instance = this;
+		Object.DontDestroyOnLoad(base.gameObject);
 	}
 
 	private void OnDestroy()
 	{
-		AudioListenerController.s_instance = null;
+		s_instance = null;
 	}
 }

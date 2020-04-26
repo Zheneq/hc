@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 public class RuntimeSceneInfo
@@ -19,52 +18,26 @@ public class RuntimeSceneInfo
 
 	public void SetBatchScenesVisible(bool visible)
 	{
-		if (this.RuntimeStaticSceneContainer != null)
+		if (RuntimeStaticSceneContainer != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RuntimeSceneInfo.SetBatchScenesVisible(bool)).MethodHandle;
-			}
-			UIManager.SetGameObjectActive(this.RuntimeStaticSceneContainer, visible, null);
+			UIManager.SetGameObjectActive(RuntimeStaticSceneContainer, visible);
 		}
-		if (this.RuntimeSemiStaticSceneContainer != null)
+		if (RuntimeSemiStaticSceneContainer != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.RuntimeSemiStaticSceneContainer, visible, null);
+			UIManager.SetGameObjectActive(RuntimeSemiStaticSceneContainer, visible);
 		}
-		if (this.RuntimeCameraMovementSceneContainer != null)
+		if (RuntimeCameraMovementSceneContainer != null)
 		{
-			UIManager.SetGameObjectActive(this.RuntimeCameraMovementSceneContainer, visible, null);
+			UIManager.SetGameObjectActive(RuntimeCameraMovementSceneContainer, visible);
 		}
-		if (this.RuntimePerFrameSceneContainer != null)
+		if (!(RuntimePerFrameSceneContainer != null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIManager.SetGameObjectActive(this.RuntimePerFrameSceneContainer, visible, null);
+			return;
+		}
+		while (true)
+		{
+			UIManager.SetGameObjectActive(RuntimePerFrameSceneContainer, visible);
+			return;
 		}
 	}
 }

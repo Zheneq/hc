@@ -1,126 +1,92 @@
-﻿using System;
 using Newtonsoft.Json;
+using System;
 
 [Serializable]
 public class QueueRequirement_TimeOfWeek : QueueRequirement
 {
-	public TimeSpan Start { get; set; }
-
-	public TimeSpan End { get; set; }
-
-	public override QueueRequirement.RequirementType Requirement
+	public TimeSpan Start
 	{
-		get
-		{
-			return QueueRequirement.RequirementType.TimeOfWeek;
-		}
+		get;
+		set;
 	}
 
-	public override bool AnyGroupMember
+	public TimeSpan End
 	{
-		get
-		{
-			return false;
-		}
+		get;
+		set;
 	}
+
+	public override RequirementType Requirement => RequirementType.TimeOfWeek;
+
+	public override bool AnyGroupMember => false;
 
 	public override bool DoesApplicantPass(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType)
 	{
 		DateTime currentUTCTime = systemInfo.GetCurrentUTCTime();
 		DateTime date = currentUTCTime.AddDays(0.0 - (double)currentUTCTime.DayOfWeek).Date;
-		DateTime t = date + this.Start;
+		DateTime t = date + Start;
 		if (currentUTCTime > t)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (3)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_TimeOfWeek.DoesApplicantPass(IQueueRequirementSystemInfo, IQueueRequirementApplicant, GameType, GameSubType)).MethodHandle;
-			}
-			DateTime dateTime = date + this.End;
-			if (dateTime < t)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+				{
+					DateTime dateTime = date + End;
+					if (dateTime < t)
+					{
+						dateTime = dateTime.AddDays(7.0);
+					}
+					return currentUTCTime < dateTime;
 				}
-				dateTime = dateTime.AddDays(7.0);
+				}
 			}
-			return currentUTCTime < dateTime;
 		}
 		return false;
 	}
 
 	public override LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, RequirementMessageContext context)
 	{
-		QueueBlockOutReasonDetails queueBlockOutReasonDetails;
-		return this.GenerateFailure(systemInfo, applicant, context, out queueBlockOutReasonDetails);
+		QueueBlockOutReasonDetails Details;
+		return GenerateFailure(systemInfo, applicant, context, out Details);
 	}
 
-	public unsafe override LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, RequirementMessageContext context, out QueueBlockOutReasonDetails Details)
+	public override LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, RequirementMessageContext context, out QueueBlockOutReasonDetails Details)
 	{
 		Details = new QueueBlockOutReasonDetails();
 		DateTime currentUTCTime = systemInfo.GetCurrentUTCTime();
 		DateTime date = currentUTCTime.AddDays(0.0 - (double)currentUTCTime.DayOfWeek).Date;
-		DateTime dateTime = date + this.Start;
+		DateTime dateTime = date + Start;
 		if (dateTime < currentUTCTime)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_TimeOfWeek.GenerateFailure(IQueueRequirementSystemInfo, IQueueRequirementApplicant, RequirementMessageContext, QueueBlockOutReasonDetails*)).MethodHandle;
-			}
 			dateTime = dateTime.AddDays(7.0);
 		}
 		LocalizationArg_TimeSpan localizationArg_TimeSpan = LocalizationArg_TimeSpan.Create(dateTime - currentUTCTime);
 		if (context == RequirementMessageContext.Generic)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return LocalizationPayload.Create("WillBeEnabledInXTimeSpan", "Requirement", localizationArg_TimeSpan);
 				}
-				break;
 			}
-			return LocalizationPayload.Create("WillBeEnabledInXTimeSpan", "Requirement", new LocalizationArg[]
-			{
-				localizationArg_TimeSpan
-			});
 		}
-		return LocalizationPayload.Create("QueueWillTurnOnLaterInTheWeek", "Matchmaking", new LocalizationArg[]
-		{
-			localizationArg_TimeSpan
-		});
+		return LocalizationPayload.Create("QueueWillTurnOnLaterInTheWeek", "Matchmaking", localizationArg_TimeSpan);
 	}
 
 	public override void WriteToJson(JsonWriter writer)
 	{
 		writer.WritePropertyName("Start");
-		writer.WriteValue(this.Start);
+		writer.WriteValue(Start);
 		writer.WritePropertyName("End");
-		writer.WriteValue(this.End);
+		writer.WriteValue(End);
 	}
 
 	public static QueueRequirement Create(JsonReader reader)
@@ -131,10 +97,9 @@ public class QueueRequirement_TimeOfWeek : QueueRequirement
 		reader.Read();
 		string s2 = reader.Value as string;
 		reader.Read();
-		return new QueueRequirement_TimeOfWeek
-		{
-			Start = TimeSpan.Parse(s),
-			End = TimeSpan.Parse(s2)
-		};
+		QueueRequirement_TimeOfWeek queueRequirement_TimeOfWeek = new QueueRequirement_TimeOfWeek();
+		queueRequirement_TimeOfWeek.Start = TimeSpan.Parse(s);
+		queueRequirement_TimeOfWeek.End = TimeSpan.Parse(s2);
+		return queueRequirement_TimeOfWeek;
 	}
 }

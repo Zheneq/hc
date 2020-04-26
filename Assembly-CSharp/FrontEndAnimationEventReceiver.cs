@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,150 +8,111 @@ public class FrontEndAnimationEventReceiver : MonoBehaviour, IAnimationEvents
 
 	private void Start()
 	{
-		this.m_surfaceFoleyEventNames.Add("SFXTag_RunStepEvent", "fts_sw_surfacetype_run");
-		this.m_surfaceFoleyEventNames.Add("SFXTag_ScuffEvent", "fts_sw_surfacetype_scuff");
-		this.m_surfaceFoleyEventNames.Add("SFXTag_BodyFallEvent", "fts_sw_surfacetype_bodyfall");
-		this.m_surfaceFoleyEventNames.Add("SFXTag_JumpLandEvent", "fts_sw_surfacetype_jumpland");
-		this.m_surfaceFoleyEventNames.Add("SFXTag_HighJumpLandEvent", "ablty/bazookagirl/rocketjump_land");
+		m_surfaceFoleyEventNames.Add("SFXTag_RunStepEvent", "fts_sw_surfacetype_run");
+		m_surfaceFoleyEventNames.Add("SFXTag_ScuffEvent", "fts_sw_surfacetype_scuff");
+		m_surfaceFoleyEventNames.Add("SFXTag_BodyFallEvent", "fts_sw_surfacetype_bodyfall");
+		m_surfaceFoleyEventNames.Add("SFXTag_JumpLandEvent", "fts_sw_surfacetype_jumpland");
+		m_surfaceFoleyEventNames.Add("SFXTag_HighJumpLandEvent", "ablty/bazookagirl/rocketjump_land");
 	}
 
 	public void NewEvent(UnityEngine.Object eventObject)
 	{
-		this.ProcessAnimationEvent(eventObject, base.gameObject);
+		ProcessAnimationEvent(eventObject, base.gameObject);
 	}
 
 	public void VFXEvent(UnityEngine.Object eventObject)
 	{
-		this.NewEvent(eventObject);
+		NewEvent(eventObject);
 	}
 
 	public void GameplayEvent(UnityEngine.Object eventObject)
 	{
-		this.NewEvent(eventObject);
+		NewEvent(eventObject);
 	}
 
 	private void ProcessAnimationEvent(UnityEngine.Object eventObject, GameObject sourceObject)
 	{
 		if (eventObject == null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndAnimationEventReceiver.ProcessAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
-			if (Application.isEditor)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					break;
+				default:
+					if (Application.isEditor)
+					{
+						while (true)
+						{
+							switch (4)
+							{
+							case 0:
+								break;
+							default:
+								Log.Error("Animation event on {0} is missing an Object in  the Unity Editor window for an animation event.  Please set the Object field to one of the scripts in the EventObjects folder, or change  the function name to AudioEvent, if the string field has an audio event name.", base.gameObject.name);
+								return;
+							}
+						}
+					}
+					return;
 				}
-				Log.Error("Animation event on {0} is missing an Object in  the Unity Editor window for an animation event.  Please set the Object field to one of the scripts in the EventObjects folder, or change  the function name to AudioEvent, if the string field has an audio event name.", new object[]
-				{
-					base.gameObject.name
-				});
 			}
+		}
+		if (!m_surfaceFoleyEventNames.ContainsKey(eventObject.name))
+		{
 			return;
 		}
-		if (this.m_surfaceFoleyEventNames.ContainsKey(eventObject.name))
+		while (true)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			AudioManager.PostEvent("sw_surfacetype", AudioManager.EventAction.SetSwitch, "metal", null);
-			AudioManager.PostEvent(this.m_surfaceFoleyEventNames[eventObject.name], base.gameObject);
+			AudioManager.PostEvent("sw_surfacetype", AudioManager.EventAction.SetSwitch, "metal");
+			AudioManager.PostEvent(m_surfaceFoleyEventNames[eventObject.name], base.gameObject);
+			return;
 		}
 	}
 
 	public void AudioEvent(string eventName)
 	{
-		if (eventName != null)
+		if (eventName == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndAnimationEventReceiver.AudioEvent(string)).MethodHandle;
-			}
+			return;
+		}
+		while (true)
+		{
 			if (!eventName.StartsWith("fol/"))
 			{
-				for (;;)
+				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					AudioManager.PostEvent(eventName, base.gameObject);
+					return;
 				}
-				AudioManager.PostEvent(eventName, base.gameObject);
 			}
+			return;
 		}
 	}
 
 	public void SubtitleEvent(string eventName)
 	{
-		if (UITutorialPanel.Get())
+		if (!UITutorialPanel.Get())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndAnimationEventReceiver.SubtitleEvent(string)).MethodHandle;
-			}
-			string[] array = eventName.Split(new char[]
-			{
-				','
-			});
+			return;
+		}
+		while (true)
+		{
+			string[] array = eventName.Split(',');
 			if (array.Length == 3)
 			{
-				for (;;)
+				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					string subtitleText = array[0];
+					float result = 0f;
+					float.TryParse(array[1], out result);
+					CharacterType characterType = (CharacterType)Enum.Parse(typeof(CharacterType), array[2]);
+					UITutorialPanel.Get().QueueDialogue(subtitleText, null, result, characterType);
+					return;
 				}
-				string subtitleText = array[0];
-				float timeToDisplay = 0f;
-				float.TryParse(array[1], out timeToDisplay);
-				CharacterType characterType = (CharacterType)Enum.Parse(typeof(CharacterType), array[2]);
-				UITutorialPanel.Get().QueueDialogue(subtitleText, null, timeToDisplay, characterType);
 			}
+			return;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,324 +57,182 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		MantaDashThroughWall mantaDashThroughWall = targetAbility as MantaDashThroughWall;
-		if (mantaDashThroughWall != null)
+		if (!(mantaDashThroughWall != null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaDashThroughWall.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
-			AbilityMod.AddToken(tokens, this.m_aoeConeWidthMod, "AoeConeWidth", string.Empty, mantaDashThroughWall.m_aoeConeWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_aoeConeLengthMod, "AoeConeLength", string.Empty, mantaDashThroughWall.m_aoeConeLength, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_aoeThroughWallConeWidthMod, "AoeThroughWallConeWidth", string.Empty, mantaDashThroughWall.m_aoeThroughWallConeWidth, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_aoeThroughWallConeLengthMod, "AoeThroughWallConeLength", string.Empty, mantaDashThroughWall.m_aoeThroughWallConeLength, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_widthMod, "Width", string.Empty, mantaDashThroughWall.m_width, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxRangeMod, "MaxRange", string.Empty, mantaDashThroughWall.m_maxRange, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_maxWidthOfWallMod, "MaxWidthOfWall", string.Empty, mantaDashThroughWall.m_maxWidthOfWall, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_extraTotalDistanceIfThroughWallsMod, "ExtraTotalDistanceIfThroughWalls", string.Empty, mantaDashThroughWall.m_extraTotalDistanceIfThroughWalls, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, mantaDashThroughWall.m_coneBackwardOffset, true, false, false);
-			AbilityMod.AddToken(tokens, this.m_directHitDamageMod, "DirectHitDamage", string.Empty, mantaDashThroughWall.m_directHitDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_directEnemyHitEffectMod, "DirectEnemyHitEffect", mantaDashThroughWall.m_directEnemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_aoeDamageMod, "AoeDamage", string.Empty, mantaDashThroughWall.m_aoeDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_aoeEnemyHitEffectMod, "AoeEnemyHitEffect", mantaDashThroughWall.m_aoeEnemyHitEffect, true);
-			AbilityMod.AddToken(tokens, this.m_aoeThroughWallsDamageMod, "AoeThroughWallsDamage", string.Empty, mantaDashThroughWall.m_aoeThroughWallsDamage, true, false);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_aoeThroughWallsEffectMod, "AoeThroughWallsEffect", mantaDashThroughWall.m_aoeThroughWallsEffect, true);
-			AbilityMod.AddToken_EffectMod(tokens, this.m_additionalDirtyFightingExplosionEffect, "ExtraDirtyFightingExplosionEffect", null, true);
-			this.m_cooldownReductionsWhenNoHits.AddTooltipTokens(tokens, "CooldownReductionOnMiss");
+			return;
+		}
+		while (true)
+		{
+			AbilityMod.AddToken(tokens, m_aoeConeWidthMod, "AoeConeWidth", string.Empty, mantaDashThroughWall.m_aoeConeWidth);
+			AbilityMod.AddToken(tokens, m_aoeConeLengthMod, "AoeConeLength", string.Empty, mantaDashThroughWall.m_aoeConeLength);
+			AbilityMod.AddToken(tokens, m_aoeThroughWallConeWidthMod, "AoeThroughWallConeWidth", string.Empty, mantaDashThroughWall.m_aoeThroughWallConeWidth);
+			AbilityMod.AddToken(tokens, m_aoeThroughWallConeLengthMod, "AoeThroughWallConeLength", string.Empty, mantaDashThroughWall.m_aoeThroughWallConeLength);
+			AbilityMod.AddToken(tokens, m_widthMod, "Width", string.Empty, mantaDashThroughWall.m_width);
+			AbilityMod.AddToken(tokens, m_maxRangeMod, "MaxRange", string.Empty, mantaDashThroughWall.m_maxRange);
+			AbilityMod.AddToken(tokens, m_maxWidthOfWallMod, "MaxWidthOfWall", string.Empty, mantaDashThroughWall.m_maxWidthOfWall);
+			AbilityMod.AddToken(tokens, m_extraTotalDistanceIfThroughWallsMod, "ExtraTotalDistanceIfThroughWalls", string.Empty, mantaDashThroughWall.m_extraTotalDistanceIfThroughWalls);
+			AbilityMod.AddToken(tokens, m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, mantaDashThroughWall.m_coneBackwardOffset);
+			AbilityMod.AddToken(tokens, m_directHitDamageMod, "DirectHitDamage", string.Empty, mantaDashThroughWall.m_directHitDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_directEnemyHitEffectMod, "DirectEnemyHitEffect", mantaDashThroughWall.m_directEnemyHitEffect);
+			AbilityMod.AddToken(tokens, m_aoeDamageMod, "AoeDamage", string.Empty, mantaDashThroughWall.m_aoeDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_aoeEnemyHitEffectMod, "AoeEnemyHitEffect", mantaDashThroughWall.m_aoeEnemyHitEffect);
+			AbilityMod.AddToken(tokens, m_aoeThroughWallsDamageMod, "AoeThroughWallsDamage", string.Empty, mantaDashThroughWall.m_aoeThroughWallsDamage);
+			AbilityMod.AddToken_EffectMod(tokens, m_aoeThroughWallsEffectMod, "AoeThroughWallsEffect", mantaDashThroughWall.m_aoeThroughWallsEffect);
+			AbilityMod.AddToken_EffectMod(tokens, m_additionalDirtyFightingExplosionEffect, "ExtraDirtyFightingExplosionEffect");
+			m_cooldownReductionsWhenNoHits.AddTooltipTokens(tokens, "CooldownReductionOnMiss");
+			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		MantaDashThroughWall mantaDashThroughWall = base.GetTargetAbilityOnAbilityData(abilityData) as MantaDashThroughWall;
+		MantaDashThroughWall mantaDashThroughWall = GetTargetAbilityOnAbilityData(abilityData) as MantaDashThroughWall;
 		bool flag = mantaDashThroughWall != null;
-		string text = string.Empty;
-		text += base.PropDesc(this.m_aoeConeWidthMod, "[AoeConeWidth]", flag, (!flag) ? 0f : mantaDashThroughWall.m_aoeConeWidth);
-		string str = text;
-		AbilityModPropertyFloat aoeConeLengthMod = this.m_aoeConeLengthMod;
-		string prefix = "[AoeConeLength]";
-		bool showBaseVal = flag;
+		string empty = string.Empty;
+		empty += PropDesc(m_aoeConeWidthMod, "[AoeConeWidth]", flag, (!flag) ? 0f : mantaDashThroughWall.m_aoeConeWidth);
+		string str = empty;
+		AbilityModPropertyFloat aoeConeLengthMod = m_aoeConeLengthMod;
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaDashThroughWall.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = mantaDashThroughWall.m_aoeConeLength;
 		}
 		else
 		{
 			baseVal = 0f;
 		}
-		text = str + base.PropDesc(aoeConeLengthMod, prefix, showBaseVal, baseVal);
-		text += base.PropDesc(this.m_aoeThroughWallConeWidthMod, "[AoeThroughWallConeWidth]", flag, (!flag) ? 0f : mantaDashThroughWall.m_aoeThroughWallConeWidth);
-		string str2 = text;
-		AbilityModPropertyFloat aoeThroughWallConeLengthMod = this.m_aoeThroughWallConeLengthMod;
-		string prefix2 = "[AoeThroughWallConeLength]";
-		bool showBaseVal2 = flag;
+		empty = str + PropDesc(aoeConeLengthMod, "[AoeConeLength]", flag, baseVal);
+		empty += PropDesc(m_aoeThroughWallConeWidthMod, "[AoeThroughWallConeWidth]", flag, (!flag) ? 0f : mantaDashThroughWall.m_aoeThroughWallConeWidth);
+		string str2 = empty;
+		AbilityModPropertyFloat aoeThroughWallConeLengthMod = m_aoeThroughWallConeLengthMod;
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = mantaDashThroughWall.m_aoeThroughWallConeLength;
 		}
 		else
 		{
 			baseVal2 = 0f;
 		}
-		text = str2 + base.PropDesc(aoeThroughWallConeLengthMod, prefix2, showBaseVal2, baseVal2);
-		text += base.PropDesc(this.m_widthMod, "[Width]", flag, (!flag) ? 0f : mantaDashThroughWall.m_width);
-		string str3 = text;
-		AbilityModPropertyFloat maxRangeMod = this.m_maxRangeMod;
-		string prefix3 = "[MaxRange]";
-		bool showBaseVal3 = flag;
+		empty = str2 + PropDesc(aoeThroughWallConeLengthMod, "[AoeThroughWallConeLength]", flag, baseVal2);
+		empty += PropDesc(m_widthMod, "[Width]", flag, (!flag) ? 0f : mantaDashThroughWall.m_width);
+		string str3 = empty;
+		AbilityModPropertyFloat maxRangeMod = m_maxRangeMod;
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = mantaDashThroughWall.m_maxRange;
 		}
 		else
 		{
 			baseVal3 = 0f;
 		}
-		text = str3 + base.PropDesc(maxRangeMod, prefix3, showBaseVal3, baseVal3);
-		string str4 = text;
-		AbilityModPropertyFloat maxWidthOfWallMod = this.m_maxWidthOfWallMod;
-		string prefix4 = "[MaxWidthOfWall]";
-		bool showBaseVal4 = flag;
+		empty = str3 + PropDesc(maxRangeMod, "[MaxRange]", flag, baseVal3);
+		string str4 = empty;
+		AbilityModPropertyFloat maxWidthOfWallMod = m_maxWidthOfWallMod;
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = mantaDashThroughWall.m_maxWidthOfWall;
 		}
 		else
 		{
 			baseVal4 = 0f;
 		}
-		text = str4 + base.PropDesc(maxWidthOfWallMod, prefix4, showBaseVal4, baseVal4);
-		string str5 = text;
-		AbilityModPropertyFloat extraTotalDistanceIfThroughWallsMod = this.m_extraTotalDistanceIfThroughWallsMod;
-		string prefix5 = "[ExtraTotalDistanceIfThroughWalls]";
-		bool showBaseVal5 = flag;
+		empty = str4 + PropDesc(maxWidthOfWallMod, "[MaxWidthOfWall]", flag, baseVal4);
+		string str5 = empty;
+		AbilityModPropertyFloat extraTotalDistanceIfThroughWallsMod = m_extraTotalDistanceIfThroughWallsMod;
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = mantaDashThroughWall.m_extraTotalDistanceIfThroughWalls;
 		}
 		else
 		{
 			baseVal5 = 0f;
 		}
-		text = str5 + base.PropDesc(extraTotalDistanceIfThroughWallsMod, prefix5, showBaseVal5, baseVal5);
-		string str6 = text;
-		AbilityModPropertyBool clampConeToWallMod = this.m_clampConeToWallMod;
-		string prefix6 = "[ClampConeToWall]";
-		bool showBaseVal6 = flag;
-		bool baseVal6;
+		empty = str5 + PropDesc(extraTotalDistanceIfThroughWallsMod, "[ExtraTotalDistanceIfThroughWalls]", flag, baseVal5);
+		string str6 = empty;
+		AbilityModPropertyBool clampConeToWallMod = m_clampConeToWallMod;
+		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal6 = mantaDashThroughWall.m_clampConeToWall;
+			baseVal6 = (mantaDashThroughWall.m_clampConeToWall ? 1 : 0);
 		}
 		else
 		{
-			baseVal6 = false;
+			baseVal6 = 0;
 		}
-		text = str6 + base.PropDesc(clampConeToWallMod, prefix6, showBaseVal6, baseVal6);
-		string str7 = text;
-		AbilityModPropertyBool aoeWithMissMod = this.m_aoeWithMissMod;
-		string prefix7 = "[AoeWithMiss]";
-		bool showBaseVal7 = flag;
-		bool baseVal7;
+		empty = str6 + PropDesc(clampConeToWallMod, "[ClampConeToWall]", flag, (byte)baseVal6 != 0);
+		string str7 = empty;
+		AbilityModPropertyBool aoeWithMissMod = m_aoeWithMissMod;
+		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal7 = mantaDashThroughWall.m_aoeWithMiss;
+			baseVal7 = (mantaDashThroughWall.m_aoeWithMiss ? 1 : 0);
 		}
 		else
 		{
-			baseVal7 = false;
+			baseVal7 = 0;
 		}
-		text = str7 + base.PropDesc(aoeWithMissMod, prefix7, showBaseVal7, baseVal7);
-		string str8 = text;
-		AbilityModPropertyFloat coneBackwardOffsetMod = this.m_coneBackwardOffsetMod;
-		string prefix8 = "[ConeBackwardOffset]";
-		bool showBaseVal8 = flag;
+		empty = str7 + PropDesc(aoeWithMissMod, "[AoeWithMiss]", flag, (byte)baseVal7 != 0);
+		string str8 = empty;
+		AbilityModPropertyFloat coneBackwardOffsetMod = m_coneBackwardOffsetMod;
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = mantaDashThroughWall.m_coneBackwardOffset;
 		}
 		else
 		{
 			baseVal8 = 0f;
 		}
-		text = str8 + base.PropDesc(coneBackwardOffsetMod, prefix8, showBaseVal8, baseVal8);
-		string str9 = text;
-		AbilityModPropertyInt directHitDamageMod = this.m_directHitDamageMod;
-		string prefix9 = "[DirectHitDamage]";
-		bool showBaseVal9 = flag;
+		empty = str8 + PropDesc(coneBackwardOffsetMod, "[ConeBackwardOffset]", flag, baseVal8);
+		string str9 = empty;
+		AbilityModPropertyInt directHitDamageMod = m_directHitDamageMod;
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = mantaDashThroughWall.m_directHitDamage;
 		}
 		else
 		{
 			baseVal9 = 0;
 		}
-		text = str9 + base.PropDesc(directHitDamageMod, prefix9, showBaseVal9, baseVal9);
-		text += base.PropDesc(this.m_directEnemyHitEffectMod, "[DirectEnemyHitEffect]", flag, (!flag) ? null : mantaDashThroughWall.m_directEnemyHitEffect);
-		string str10 = text;
-		AbilityModPropertyBool directHitIgnoreCoverMod = this.m_directHitIgnoreCoverMod;
-		string prefix10 = "[DirectHitIgnoreCover]";
-		bool showBaseVal10 = flag;
-		bool baseVal10;
+		empty = str9 + PropDesc(directHitDamageMod, "[DirectHitDamage]", flag, baseVal9);
+		empty += PropDesc(m_directEnemyHitEffectMod, "[DirectEnemyHitEffect]", flag, (!flag) ? null : mantaDashThroughWall.m_directEnemyHitEffect);
+		string str10 = empty;
+		AbilityModPropertyBool directHitIgnoreCoverMod = m_directHitIgnoreCoverMod;
+		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			baseVal10 = mantaDashThroughWall.m_directHitIgnoreCover;
+			baseVal10 = (mantaDashThroughWall.m_directHitIgnoreCover ? 1 : 0);
 		}
 		else
 		{
-			baseVal10 = false;
+			baseVal10 = 0;
 		}
-		text = str10 + base.PropDesc(directHitIgnoreCoverMod, prefix10, showBaseVal10, baseVal10);
-		string str11 = text;
-		AbilityModPropertyInt aoeDamageMod = this.m_aoeDamageMod;
-		string prefix11 = "[AoeDamage]";
-		bool showBaseVal11 = flag;
+		empty = str10 + PropDesc(directHitIgnoreCoverMod, "[DirectHitIgnoreCover]", flag, (byte)baseVal10 != 0);
+		string str11 = empty;
+		AbilityModPropertyInt aoeDamageMod = m_aoeDamageMod;
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = mantaDashThroughWall.m_aoeDamage;
 		}
 		else
 		{
 			baseVal11 = 0;
 		}
-		text = str11 + base.PropDesc(aoeDamageMod, prefix11, showBaseVal11, baseVal11);
-		text += base.PropDesc(this.m_aoeEnemyHitEffectMod, "[AoeEnemyHitEffect]", flag, (!flag) ? null : mantaDashThroughWall.m_aoeEnemyHitEffect);
-		text += base.PropDesc(this.m_aoeThroughWallsDamageMod, "[AoeThroughWallsDamage]", flag, (!flag) ? 0 : mantaDashThroughWall.m_aoeThroughWallsDamage);
-		text += base.PropDesc(this.m_aoeThroughWallsEffectMod, "[AoeThroughWallsEffect]", flag, (!flag) ? null : mantaDashThroughWall.m_aoeThroughWallsEffect);
-		text += base.PropDesc(this.m_additionalDirtyFightingExplosionEffect, "[ExtraDirtyFightingExplosionEffect]", flag, null);
-		if (this.m_cooldownReductionsWhenNoHits.HasCooldownReduction())
+		empty = str11 + PropDesc(aoeDamageMod, "[AoeDamage]", flag, baseVal11);
+		empty += PropDesc(m_aoeEnemyHitEffectMod, "[AoeEnemyHitEffect]", flag, (!flag) ? null : mantaDashThroughWall.m_aoeEnemyHitEffect);
+		empty += PropDesc(m_aoeThroughWallsDamageMod, "[AoeThroughWallsDamage]", flag, flag ? mantaDashThroughWall.m_aoeThroughWallsDamage : 0);
+		empty += PropDesc(m_aoeThroughWallsEffectMod, "[AoeThroughWallsEffect]", flag, (!flag) ? null : mantaDashThroughWall.m_aoeThroughWallsEffect);
+		empty += PropDesc(m_additionalDirtyFightingExplosionEffect, "[ExtraDirtyFightingExplosionEffect]", flag);
+		if (m_cooldownReductionsWhenNoHits.HasCooldownReduction())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text += this.m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
+			empty += m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
 		}
-		return text;
+		return empty;
 	}
 }

@@ -1,5 +1,3 @@
-﻿using System;
-
 public enum ConsoleMessageType
 {
 	GlobalChat,
@@ -14,5 +12,5 @@ public enum ConsoleMessageType
 	BroadcastMessage,
 	PingChat,
 	ScriptedChat,
-	\u001D
+	_001D
 }

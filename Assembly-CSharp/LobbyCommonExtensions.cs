@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 public static class LobbyCommonExtensions
 {
@@ -6,17 +6,18 @@ public static class LobbyCommonExtensions
 	{
 		switch (type)
 		{
-		case CurrencyType.ISO:
-			return StringUtil.TR("ISO", "Rewards");
-		case CurrencyType.GGPack:
-			return StringUtil.TR("GGBoost", "Rewards");
 		case CurrencyType.Experience:
 			return StringUtil.TR("Experience", "Inventory");
-		case CurrencyType.RankedCurrency:
-			return StringUtil.TR("RankedCurrency", "Global");
 		case CurrencyType.FreelancerCurrency:
 			return StringUtil.TR("FreelancerCurrency", "Global");
+		case CurrencyType.GGPack:
+			return StringUtil.TR("GGBoost", "Rewards");
+		case CurrencyType.ISO:
+			return StringUtil.TR("ISO", "Rewards");
+		case CurrencyType.RankedCurrency:
+			return StringUtil.TR("RankedCurrency", "Global");
+		default:
+			throw new Exception($"No string for {type}");
 		}
-		throw new Exception(string.Format("No string for {0}", type));
 	}
 }

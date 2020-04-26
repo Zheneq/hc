@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,12 +23,12 @@ public class ClaymoreKnockbackLaser : Ability
 	public float m_knockbackDistance = 2f;
 
 	[Header("-- Middle Hit Damage/Effect")]
-	public int m_middleHitDamage = 0x14;
+	public int m_middleHitDamage = 20;
 
 	public StandardEffectInfo m_middleEnemyHitEffect;
 
 	[Header("-- Knockback Hit Damage/Effect")]
-	public int m_knockbackDamage = 0xA;
+	public int m_knockbackDamage = 10;
 
 	public StandardEffectInfo m_knockbackEnemyHitEffect;
 
@@ -38,83 +37,70 @@ public class ClaymoreKnockbackLaser : Ability
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreKnockbackLaser.Start()).MethodHandle;
-			}
-			this.m_abilityName = "Way of the Waste";
+			m_abilityName = "Way of the Waste";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_ClaymoreKnockbackLaser(this, this.GetLaserFullWidth(), this.GetLaserRange(), this.m_penetrateLos, this.m_lengthIgnoreWorldGeo, 0, this.GetLaserMiddleWidth(), this.GetKnockbackDistance(), this.m_knockbackType);
+		base.Targeter = new AbilityUtil_Targeter_ClaymoreKnockbackLaser(this, GetLaserFullWidth(), GetLaserRange(), m_penetrateLos, m_lengthIgnoreWorldGeo, 0, GetLaserMiddleWidth(), GetKnockbackDistance(), m_knockbackType);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_middleHitDamage);
-		this.m_middleEnemyHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
-		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.m_knockbackDamage);
-		this.m_knockbackEnemyHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary);
-		return result;
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_middleHitDamage);
+		m_middleEnemyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_knockbackDamage);
+		m_knockbackEnemyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
+		return numbers;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return !this.m_onlyAsIndicatorForPassive;
+		return !m_onlyAsIndicatorForPassive;
 	}
 
 	private float GetLaserRange()
 	{
-		return this.m_laserRange;
+		return m_laserRange;
 	}
 
 	private float GetLaserFullWidth()
 	{
-		return this.m_laserFullWidth;
+		return m_laserFullWidth;
 	}
 
 	private float GetLaserMiddleWidth()
 	{
-		return this.m_laserMiddleWidth;
+		return m_laserMiddleWidth;
 	}
 
 	private float GetKnockbackDistance()
 	{
-		return this.m_knockbackDistance;
+		return m_knockbackDistance;
 	}
 
 	private int GetMiddleHitDamage()
 	{
-		return this.m_middleHitDamage;
+		return m_middleHitDamage;
 	}
 
 	private StandardEffectInfo GetMiddleEnemyHitEffect()
 	{
-		return this.m_middleEnemyHitEffect;
+		return m_middleEnemyHitEffect;
 	}
 
 	private int GetKnockbackDamage()
 	{
-		return this.m_knockbackDamage;
+		return m_knockbackDamage;
 	}
 
 	private StandardEffectInfo GetKnockbackEnemyHieEffect()
 	{
-		return this.m_knockbackEnemyHitEffect;
+		return m_knockbackEnemyHitEffect;
 	}
 }

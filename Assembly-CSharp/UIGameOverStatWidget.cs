@@ -1,9 +1,16 @@
-﻿using System;
+using System;
 using TMPro;
 using UnityEngine;
 
 public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOverStatTooltipDataProvider
 {
+	public enum StatDisplayType
+	{
+		None,
+		GeneralStat,
+		FreelancerStat
+	}
+
 	public Animator m_Animator;
 
 	public TextMeshProUGUI m_StatName;
@@ -52,131 +59,147 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 
 	private string FreelancerStatDescription;
 
+	public CharacterType? CharacterType => m_characterType;
+
+	public CharacterRole? CharacterRole => m_characterRole;
+
+	public bool HighlightDone
+	{
+		get;
+		private set;
+	}
+
+	public StatDisplayType DisplayStatType
+	{
+		get;
+		private set;
+	}
+
+	public StatDisplaySettings.StatType GeneralStatType
+	{
+		get;
+		private set;
+	}
+
+	public int FreelancerStat
+	{
+		get;
+		private set;
+	}
+
+	public IPersistedGameplayStat PreviousStats
+	{
+		get;
+		private set;
+	}
+
+	private bool StatLowerIsBetter
+	{
+		get
+		{
+			if (DisplayStatType == StatDisplayType.GeneralStat)
+			{
+				GameResultBadgeData.StatDescription statDescription = GameResultBadgeData.Get().GetStatDescription(GeneralStatType);
+				if (statDescription != null)
+				{
+					return statDescription.LowerIsBetter;
+				}
+			}
+			return false;
+		}
+	}
+
 	public string GetStatName()
 	{
-		if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat)
+		if (DisplayStatType == StatDisplayType.FreelancerStat)
 		{
-			for (;;)
+			if (!FreelancerStatName.IsNullOrEmpty())
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.GetStatName()).MethodHandle;
-			}
-			if (!this.FreelancerStatName.IsNullOrEmpty())
-			{
-				return this.FreelancerStatName;
+				return FreelancerStatName;
 			}
 		}
-		if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
+		if (DisplayStatType == StatDisplayType.GeneralStat)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return StatDisplaySettings.GetLocalizedName(GeneralStatType);
 				}
-				break;
 			}
-			return StatDisplaySettings.GetLocalizedName(this.GeneralStatType);
 		}
 		return "Needs to be authored";
 	}
 
 	public string GetStatDescription()
 	{
-		if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat && !this.FreelancerStatDescription.IsNullOrEmpty())
+		if (DisplayStatType == StatDisplayType.FreelancerStat && !FreelancerStatDescription.IsNullOrEmpty())
 		{
-			for (;;)
+			while (true)
 			{
 				switch (7)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return FreelancerStatDescription;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.GetStatDescription()).MethodHandle;
-			}
-			return this.FreelancerStatDescription;
 		}
-		if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
+		if (DisplayStatType == StatDisplayType.GeneralStat)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return StatDisplaySettings.GetLocalizedDescription(GeneralStatType);
 				}
-				break;
 			}
-			return StatDisplaySettings.GetLocalizedDescription(this.GeneralStatType);
 		}
 		return "Needs to be authored";
 	}
 
 	public float? GetPersonalAverage()
 	{
-		if (this.HasPersonalAverage)
+		if (HasPersonalAverage)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return (float)StatAverage;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.GetPersonalAverage()).MethodHandle;
-			}
-			return new float?((float)this.StatAverage);
 		}
 		return null;
 	}
 
 	public bool? IsStatLowerBetter()
 	{
-		bool value;
-		if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
+		int value;
+		if (DisplayStatType == StatDisplayType.GeneralStat)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.IsStatLowerBetter()).MethodHandle;
-			}
-			value = GameResultBadgeData.Get().IsStatLowerBetter(this.GeneralStatType);
+			value = (GameResultBadgeData.Get().IsStatLowerBetter(GeneralStatType) ? 1 : 0);
 		}
 		else
 		{
-			value = false;
+			value = 0;
 		}
-		return new bool?(value);
+		return (byte)value != 0;
 	}
 
-	public UIGameOverStatWidget.StatDisplayType GetStatDisplayType()
+	public StatDisplayType GetStatDisplayType()
 	{
-		return this.DisplayStatType;
+		return DisplayStatType;
 	}
 
 	public float? GetPreviousSeasonAverage()
@@ -191,42 +214,42 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 
 	public float? GetFreelancerMedian()
 	{
-		return this.m_medianOfFreelancer;
+		return m_medianOfFreelancer;
 	}
 
 	public float? GetPeerMedian()
 	{
-		return this.m_medianOfPeers;
+		return m_medianOfPeers;
 	}
 
 	public float? GetRoleMedian()
 	{
-		return this.m_medianOfRole;
+		return m_medianOfRole;
 	}
 
 	public float? GetWorldMedian()
 	{
-		return this.m_medianOfAll;
+		return m_medianOfAll;
 	}
 
 	public int? GetAgainstAllPercentile()
 	{
-		return this.m_againstAllPercentile;
+		return m_againstAllPercentile;
 	}
 
 	public int? GetAgainstFreelancerPercentile()
 	{
-		return this.m_againstFreelancerPercentile;
+		return m_againstFreelancerPercentile;
 	}
 
 	public int? GetAgainstPeersPercentile()
 	{
-		return this.m_againstPeersPercentile;
+		return m_againstPeersPercentile;
 	}
 
 	public int? GetAgainstRolePercentile()
 	{
-		return this.m_againstRolePercentile;
+		return m_againstRolePercentile;
 	}
 
 	public int? GetNumTurns()
@@ -236,7 +259,7 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			ActorData playersOriginalActorData = UIGameOverScreen.GetPlayersOriginalActorData();
 			if (playersOriginalActorData != null)
 			{
-				return new int?(playersOriginalActorData.\u000E().totalPlayerTurns);
+				return playersOriginalActorData.GetActorBehavior().totalPlayerTurns;
 			}
 		}
 		return null;
@@ -246,32 +269,19 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (AppState.IsInGame())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.GetNumLives()).MethodHandle;
-			}
 			ActorData playersOriginalActorData = UIGameOverScreen.GetPlayersOriginalActorData();
 			if (playersOriginalActorData != null)
 			{
-				for (;;)
+				while (true)
 				{
 					switch (2)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return playersOriginalActorData.GetActorBehavior().totalDeaths + 1;
 					}
-					break;
 				}
-				return new int?(playersOriginalActorData.\u000E().totalDeaths + 1);
 			}
 		}
 		return null;
@@ -281,31 +291,18 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (AppState.IsInGame())
 		{
-			for (;;)
+			if (DisplayStatType == StatDisplayType.GeneralStat)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.GetCurrentGameValue()).MethodHandle;
-			}
-			if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (3)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+						return CurrentStat;
 					}
-					break;
 				}
-				return new float?(this.CurrentStat);
 			}
 		}
 		return null;
@@ -315,105 +312,62 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (AppState.IsInGame())
 		{
-			for (;;)
+			if (DisplayStatType == StatDisplayType.GeneralStat)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.GetStatUnitType()).MethodHandle;
-			}
-			if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
-			{
-				for (;;)
+				while (true)
 				{
 					switch (7)
 					{
 					case 0:
-						continue;
+						break;
+					default:
+					{
+						GameResultBadgeData.StatDescription statDescription = GameResultBadgeData.Get().GetStatDescription(GeneralStatType);
+						return statDescription.StatUnit;
 					}
-					break;
+					}
 				}
-				GameResultBadgeData.StatDescription statDescription = GameResultBadgeData.Get().GetStatDescription(this.GeneralStatType);
-				return new GameResultBadgeData.StatDescription.StatUnitType?(statDescription.StatUnit);
 			}
 		}
 		return null;
-	}
-
-	public CharacterType? CharacterType
-	{
-		get
-		{
-			return this.m_characterType;
-		}
-	}
-
-	public CharacterRole? CharacterRole
-	{
-		get
-		{
-			return this.m_characterRole;
-		}
 	}
 
 	public void UpdatePercentiles(PercentileInfo info)
 	{
 		if (info != null)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_againstAllPercentile = info.AgainstAll;
+					m_againstFreelancerPercentile = info.AgainstSameFreelancer;
+					m_againstPeersPercentile = info.AgainstPeers;
+					m_againstRolePercentile = info.AgainstRole;
+					m_medianOfAll = info.MedianOfAll;
+					m_medianOfFreelancer = info.MedianOfSameFreelancer;
+					m_medianOfPeers = info.MedianOfPeers;
+					m_medianOfRole = info.MedianOfRole;
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.UpdatePercentiles(PercentileInfo)).MethodHandle;
-			}
-			this.m_againstAllPercentile = info.AgainstAll;
-			this.m_againstFreelancerPercentile = info.AgainstSameFreelancer;
-			this.m_againstPeersPercentile = info.AgainstPeers;
-			this.m_againstRolePercentile = info.AgainstRole;
-			this.m_medianOfAll = info.MedianOfAll;
-			this.m_medianOfFreelancer = info.MedianOfSameFreelancer;
-			this.m_medianOfPeers = info.MedianOfPeers;
-			this.m_medianOfRole = info.MedianOfRole;
 		}
-		else
-		{
-			this.m_againstAllPercentile = null;
-			this.m_againstFreelancerPercentile = null;
-			this.m_againstPeersPercentile = null;
-			this.m_againstRolePercentile = null;
-			this.m_medianOfAll = null;
-			this.m_medianOfFreelancer = null;
-			this.m_medianOfPeers = null;
-			this.m_medianOfRole = null;
-		}
+		m_againstAllPercentile = null;
+		m_againstFreelancerPercentile = null;
+		m_againstPeersPercentile = null;
+		m_againstRolePercentile = null;
+		m_medianOfAll = null;
+		m_medianOfFreelancer = null;
+		m_medianOfPeers = null;
+		m_medianOfRole = null;
 	}
-
-	public bool HighlightDone { get; private set; }
-
-	public UIGameOverStatWidget.StatDisplayType DisplayStatType { get; private set; }
-
-	public StatDisplaySettings.StatType GeneralStatType { get; private set; }
-
-	public int FreelancerStat { get; private set; }
-
-	public IPersistedGameplayStat PreviousStats { get; private set; }
 
 	private void Awake()
 	{
-		this.m_TooltipObject.Setup(TooltipType.GameStatTooltip, delegate(UITooltipBase tooltip)
+		m_TooltipObject.Setup(TooltipType.GameStatTooltip, delegate(UITooltipBase tooltip)
 		{
 			GameOverStatTooltip gameOverStatTooltip = tooltip as GameOverStatTooltip;
 			if (gameOverStatTooltip != null)
@@ -423,963 +377,649 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 				gameOverStatTooltip.Refresh();
 			}
 			return true;
-		}, null);
+		});
 	}
 
 	public void SetBadgeHighlight(bool doHighlight, bool isOn)
 	{
 		if (doHighlight)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetBadgeHighlight(bool, bool)).MethodHandle;
-			}
-			if (isOn)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					break;
-				}
-				base.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
-				base.gameObject.GetComponent<_SelectableBtn>().spriteController.SetAlwaysHoverState(true);
-			}
-			else
-			{
-				base.gameObject.GetComponent<_SelectableBtn>().spriteController.SetAlwaysHoverState(false);
-				base.gameObject.GetComponent<CanvasGroup>().alpha = 0.5f;
-			}
-		}
-		else
-		{
-			base.gameObject.GetComponent<_SelectableBtn>().spriteController.SetAlwaysHoverState(false);
-			base.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
-		}
-	}
-
-	private bool StatLowerIsBetter
-	{
-		get
-		{
-			if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
-			{
-				for (;;)
-				{
-					switch (6)
+				default:
+					if (isOn)
 					{
-					case 0:
-						continue;
+						while (true)
+						{
+							switch (5)
+							{
+							case 0:
+								break;
+							default:
+								base.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+								base.gameObject.GetComponent<_SelectableBtn>().spriteController.SetAlwaysHoverState(true);
+								return;
+							}
+						}
 					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.get_StatLowerIsBetter()).MethodHandle;
-				}
-				GameResultBadgeData.StatDescription statDescription = GameResultBadgeData.Get().GetStatDescription(this.GeneralStatType);
-				if (statDescription != null)
-				{
-					return statDescription.LowerIsBetter;
+					base.gameObject.GetComponent<_SelectableBtn>().spriteController.SetAlwaysHoverState(false);
+					base.gameObject.GetComponent<CanvasGroup>().alpha = 0.5f;
+					return;
 				}
 			}
-			return false;
 		}
+		base.gameObject.GetComponent<_SelectableBtn>().spriteController.SetAlwaysHoverState(false);
+		base.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
 	}
 
 	private void OnEnable()
 	{
-		if (this.HighlightDone)
+		if (!HighlightDone)
 		{
-			if (this.StatLowerIsBetter)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.OnEnable()).MethodHandle;
-				}
-				bool flag;
-				if (this.PreviousStats != null)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.PreviousStats.GetNumGames() == 0)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag = (this.CurrentStat == this.PreviousRecord);
-						goto IL_6B;
-					}
-				}
-				flag = false;
-				IL_6B:
-				bool flag2 = flag;
-				if (this.CurrentStat < this.PreviousRecord || flag2)
-				{
-					UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBestIDLE", null, string.Empty, 1, 0f, true, false, null, null);
-				}
-				else if ((double)this.CurrentStat < this.StatAverage)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemAvgIDLE", null, string.Empty, 1, 0f, true, false, null, null);
-				}
-				else
-				{
-					if (0f < this.CurrentStat)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if ((double)this.CurrentStat >= this.StatAverage)
-						{
-							UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBelowAvgIDLE", null, string.Empty, 1, 0f, true, false, null, null);
-							goto IL_161;
-						}
-					}
-					UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemZeroIDLE", null, string.Empty, 1, 0f, true, false, null, null);
-				}
-				IL_161:;
-			}
-			else if (this.CurrentStat > this.PreviousRecord)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBestIDLE", null, string.Empty, 1, 0f, true, false, null, null);
-			}
-			else if ((double)this.CurrentStat > this.StatAverage)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemAvgIDLE", null, string.Empty, 1, 0f, true, false, null, null);
-			}
-			else
-			{
-				if (0f < this.CurrentStat)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if ((double)this.CurrentStat <= this.StatAverage)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBelowAvgIDLE", null, string.Empty, 1, 0f, true, false, null, null);
-						return;
-					}
-				}
-				UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemZeroIDLE", null, string.Empty, 1, 0f, true, false, null, null);
-			}
+			return;
 		}
-	}
-
-	public void SetHighlight()
-	{
-		if (!this.HighlightDone)
+		if (StatLowerIsBetter)
 		{
-			for (;;)
+			while (true)
 			{
-				switch (5)
+				int num;
+				bool flag;
+				switch (1)
 				{
 				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetHighlight()).MethodHandle;
-			}
-			if (base.gameObject.activeInHierarchy)
-			{
-				this.HighlightDone = true;
-				if (this.StatLowerIsBetter)
-				{
-					for (;;)
+					break;
+				default:
 					{
-						switch (7)
+						if (PreviousStats != null)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					bool flag;
-					if (this.PreviousStats != null)
-					{
-						for (;;)
-						{
-							switch (1)
+							if (PreviousStats.GetNumGames() == 0)
 							{
-							case 0:
-								continue;
+								num = ((CurrentStat == PreviousRecord) ? 1 : 0);
+								goto IL_006b;
 							}
-							break;
 						}
-						if (this.PreviousStats.GetNumGames() == 0)
+						num = 0;
+						goto IL_006b;
+					}
+					IL_006b:
+					flag = ((byte)num != 0);
+					if (CurrentStat < PreviousRecord || flag)
+					{
+						UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemBestIDLE", null, string.Empty, 1);
+					}
+					else
+					{
+						if ((double)CurrentStat < StatAverage)
 						{
-							for (;;)
+							while (true)
 							{
 								switch (5)
 								{
 								case 0:
-									continue;
+									break;
+								default:
+									UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemAvgIDLE", null, string.Empty, 1);
+									return;
 								}
-								break;
 							}
-							flag = (this.CurrentStat == this.PreviousRecord);
-							goto IL_8C;
 						}
+						if (0f < CurrentStat)
+						{
+							if ((double)CurrentStat >= StatAverage)
+							{
+								UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemBelowAvgIDLE", null, string.Empty, 1);
+								return;
+							}
+						}
+						UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemZeroIDLE", null, string.Empty, 1);
 					}
-					flag = false;
-					IL_8C:
-					bool flag2 = flag;
-					if (this.CurrentStat >= this.PreviousRecord)
+					return;
+				}
+			}
+		}
+		if (CurrentStat > PreviousRecord)
+		{
+			while (true)
+			{
+				switch (3)
+				{
+				case 0:
+					break;
+				default:
+					UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemBestIDLE", null, string.Empty, 1);
+					return;
+				}
+			}
+		}
+		if ((double)CurrentStat > StatAverage)
+		{
+			while (true)
+			{
+				switch (7)
+				{
+				case 0:
+					break;
+				default:
+					UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemAvgIDLE", null, string.Empty, 1);
+					return;
+				}
+			}
+		}
+		if (0f < CurrentStat)
+		{
+			if ((double)CurrentStat <= StatAverage)
+			{
+				while (true)
+				{
+					switch (2)
 					{
-						for (;;)
+					case 0:
+						break;
+					default:
+						UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemBelowAvgIDLE", null, string.Empty, 1);
+						return;
+					}
+				}
+			}
+		}
+		UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemZeroIDLE", null, string.Empty, 1);
+	}
+
+	public void SetHighlight()
+	{
+		if (HighlightDone)
+		{
+			return;
+		}
+		while (true)
+		{
+			if (!base.gameObject.activeInHierarchy)
+			{
+				return;
+			}
+			HighlightDone = true;
+			if (StatLowerIsBetter)
+			{
+				while (true)
+				{
+					int num;
+					bool flag;
+					switch (7)
+					{
+					case 0:
+						break;
+					default:
 						{
-							switch (3)
+							if (PreviousStats != null)
 							{
-							case 0:
-								continue;
+								if (PreviousStats.GetNumGames() == 0)
+								{
+									num = ((CurrentStat == PreviousRecord) ? 1 : 0);
+									goto IL_008c;
+								}
 							}
-							break;
+							num = 0;
+							goto IL_008c;
 						}
-						if (flag2)
+						IL_008c:
+						flag = ((byte)num != 0);
+						if (!(CurrentStat < PreviousRecord))
 						{
-							for (;;)
+							if (!flag)
 							{
-								switch (3)
+								if ((double)CurrentStat < StatAverage)
 								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						else
-						{
-							if ((double)this.CurrentStat < this.StatAverage)
-							{
-								for (;;)
-								{
-									switch (1)
+									while (true)
 									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemAvgIN", null, string.Empty, 1, 0f, true, false, null, null);
-								goto IL_1A1;
-							}
-							if (0f < this.CurrentStat)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if ((double)this.CurrentStat >= this.StatAverage)
-								{
-									for (;;)
-									{
-										switch (6)
+										switch (1)
 										{
 										case 0:
-											continue;
+											break;
+										default:
+											UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemAvgIN", null, string.Empty, 1);
+											return;
 										}
-										break;
 									}
-									UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBelowAvgIN", null, string.Empty, 1, 0f, true, false, null, null);
-									goto IL_1A1;
 								}
-							}
-							UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemZeroIN", null, string.Empty, 1, 0f, true, false, null, null);
-							goto IL_1A1;
-						}
-					}
-					UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBestIN", null, string.Empty, 1, 0f, true, false, null, null);
-					IL_1A1:;
-				}
-				else if (this.CurrentStat > this.PreviousRecord)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBestIN", null, string.Empty, 1, 0f, true, false, null, null);
-				}
-				else if ((double)this.CurrentStat > this.StatAverage)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemAvgIN", null, string.Empty, 1, 0f, true, false, null, null);
-				}
-				else
-				{
-					if (0f < this.CurrentStat)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if ((double)this.CurrentStat <= this.StatAverage)
-						{
-							for (;;)
-							{
-								switch (6)
+								if (0f < CurrentStat)
 								{
-								case 0:
-									continue;
+									if ((double)CurrentStat >= StatAverage)
+									{
+										while (true)
+										{
+											switch (6)
+											{
+											case 0:
+												break;
+											default:
+												UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemBelowAvgIN", null, string.Empty, 1);
+												return;
+											}
+										}
+									}
 								}
-								break;
+								UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemZeroIN", null, string.Empty, 1);
+								return;
 							}
-							UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBelowAvgIN", null, string.Empty, 1, 0f, true, false, null, null);
+						}
+						UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemBestIN", null, string.Empty, 1);
+						return;
+					}
+				}
+			}
+			if (CurrentStat > PreviousRecord)
+			{
+				while (true)
+				{
+					switch (7)
+					{
+					case 0:
+						break;
+					default:
+						UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemBestIN", null, string.Empty, 1);
+						return;
+					}
+				}
+			}
+			if ((double)CurrentStat > StatAverage)
+			{
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemAvgIN", null, string.Empty, 1);
+						return;
+					}
+				}
+			}
+			if (0f < CurrentStat)
+			{
+				if ((double)CurrentStat <= StatAverage)
+				{
+					while (true)
+					{
+						switch (6)
+						{
+						case 0:
+							break;
+						default:
+							UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemBelowAvgIN", null, string.Empty, 1);
 							return;
 						}
 					}
-					UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemZeroIN", null, string.Empty, 1, 0f, true, false, null, null);
 				}
 			}
+			UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemZeroIN", null, string.Empty, 1);
+			return;
 		}
 	}
 
 	public bool BeatAverage()
 	{
-		return (double)this.CurrentStat > this.StatAverage;
+		return (double)CurrentStat > StatAverage;
 	}
 
 	public bool BeatRecord()
 	{
-		return this.CurrentStat > this.PreviousRecord;
+		return CurrentStat > PreviousRecord;
 	}
 
 	public void SetupForAStat(PersistedStats StartValueStats, ActorBehavior actorBehavior, StatDisplaySettings.StatType TypeOfStat)
 	{
-		if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.None)
+		if (DisplayStatType != 0)
 		{
-			this.DisplayStatType = UIGameOverStatWidget.StatDisplayType.GeneralStat;
-			this.GeneralStatType = TypeOfStat;
-			this.PreviousStats = StartValueStats.GetGameplayStat(TypeOfStat);
-			GameResultBadgeData.StatDescription statDescription = GameResultBadgeData.Get().GetStatDescription(TypeOfStat);
-			if (this.PreviousStats != null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetupForAStat(PersistedStats, ActorBehavior, StatDisplaySettings.StatType)).MethodHandle;
-				}
-				this.StatAverage = (double)this.PreviousStats.Average();
-				if (statDescription.LowerIsBetter)
-				{
-					this.PreviousRecord = this.PreviousStats.GetMin();
-				}
-				else
-				{
-					this.PreviousRecord = this.PreviousStats.GetMax();
-				}
-			}
-			else
-			{
-				this.StatAverage = 0.0;
-				this.PreviousRecord = 0f;
-			}
-			this.m_characterType = actorBehavior.CharacterType;
-			this.m_characterRole = actorBehavior.CharacterRole;
-			float? stat = actorBehavior.GetStat(TypeOfStat);
-			float currentStat;
-			if (stat != null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				currentStat = stat.Value;
-			}
-			else
-			{
-				currentStat = 0f;
-			}
-			this.CurrentStat = currentStat;
-			if (TypeOfStat == StatDisplaySettings.StatType.TotalBadgePoints)
-			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.CurrentStat = UIGameOverScreen.Get().Results.TotalBadgePoints;
-			}
-			this.FreelancerStatName = null;
-			this.FreelancerStatDescription = null;
-			GameResultBadgeData.StatDescription statDescription2 = GameResultBadgeData.Get().GetStatDescription(TypeOfStat);
-			this.m_StatUnit.text = GameResultBadgeData.StatDescription.GetStatUnit(statDescription2);
-			this.m_StatName.text = StatDisplaySettings.GetLocalizedName(TypeOfStat);
-			if (statDescription2.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.Percentage)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round((double)(this.CurrentStat * 100f)), "0.#");
-				this.m_AverageText.text = string.Format(StringUtil.TR("AverageStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(this.StatAverage * 100.0), "0.#"));
-				this.m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)(this.PreviousRecord * 100f)), "0.#"));
-			}
-			else
-			{
-				this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round((double)this.CurrentStat, 1), "0.#");
-				this.m_AverageText.text = string.Format(StringUtil.TR("AverageStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(this.StatAverage, 1), "0.#"));
-				this.m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)this.PreviousRecord, 1), "0.#"));
-			}
-			UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemZeroIN", null, string.Empty, 1, 0f, true, false, null, null);
+			return;
 		}
+		DisplayStatType = StatDisplayType.GeneralStat;
+		GeneralStatType = TypeOfStat;
+		PreviousStats = StartValueStats.GetGameplayStat(TypeOfStat);
+		GameResultBadgeData.StatDescription statDescription = GameResultBadgeData.Get().GetStatDescription(TypeOfStat);
+		if (PreviousStats != null)
+		{
+			StatAverage = PreviousStats.Average();
+			if (statDescription.LowerIsBetter)
+			{
+				PreviousRecord = PreviousStats.GetMin();
+			}
+			else
+			{
+				PreviousRecord = PreviousStats.GetMax();
+			}
+		}
+		else
+		{
+			StatAverage = 0.0;
+			PreviousRecord = 0f;
+		}
+		m_characterType = actorBehavior.CharacterType;
+		m_characterRole = actorBehavior.CharacterRole;
+		float? stat = actorBehavior.GetStat(TypeOfStat);
+		float currentStat;
+		if (stat.HasValue)
+		{
+			currentStat = stat.Value;
+		}
+		else
+		{
+			currentStat = 0f;
+		}
+		CurrentStat = currentStat;
+		if (TypeOfStat == StatDisplaySettings.StatType.TotalBadgePoints)
+		{
+			CurrentStat = UIGameOverScreen.Get().Results.TotalBadgePoints;
+		}
+		FreelancerStatName = null;
+		FreelancerStatDescription = null;
+		GameResultBadgeData.StatDescription statDescription2 = GameResultBadgeData.Get().GetStatDescription(TypeOfStat);
+		m_StatUnit.text = GameResultBadgeData.StatDescription.GetStatUnit(statDescription2);
+		m_StatName.text = StatDisplaySettings.GetLocalizedName(TypeOfStat);
+		if (statDescription2.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.Percentage)
+		{
+			m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(CurrentStat * 100f), "0.#");
+			m_AverageText.text = string.Format(StringUtil.TR("AverageStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(StatAverage * 100.0), "0.#"));
+			m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(PreviousRecord * 100f), "0.#"));
+		}
+		else
+		{
+			m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(CurrentStat, 1), "0.#");
+			m_AverageText.text = string.Format(StringUtil.TR("AverageStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(StatAverage, 1), "0.#"));
+			m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(PreviousRecord, 1), "0.#"));
+		}
+		UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemZeroIN", null, string.Empty, 1);
 	}
 
 	public void SetupForFreelancerStats(PersistedStats StartValueStats, ActorBehavior actorBehavior, FreelancerStats CurrentGameStats, int FreelancerStatIndex, AbilityData FreelancerAbilityData)
 	{
-		if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.None)
+		if (DisplayStatType != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetupForFreelancerStats(PersistedStats, ActorBehavior, FreelancerStats, int, AbilityData)).MethodHandle;
-			}
-			this.DisplayStatType = UIGameOverStatWidget.StatDisplayType.FreelancerStat;
-			this.FreelancerStat = FreelancerStatIndex;
-			this.FreelancerStatName = null;
-			this.FreelancerStatDescription = null;
-			this.CurrentStat = (float)CurrentGameStats.GetValueOfStat(FreelancerStatIndex);
+			return;
+		}
+		while (true)
+		{
+			DisplayStatType = StatDisplayType.FreelancerStat;
+			FreelancerStat = FreelancerStatIndex;
+			FreelancerStatName = null;
+			FreelancerStatDescription = null;
+			CurrentStat = CurrentGameStats.GetValueOfStat(FreelancerStatIndex);
 			PersistedStatEntry freelancerStat = StartValueStats.GetFreelancerStat(FreelancerStatIndex);
 			if (freelancerStat != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.StatAverage = Math.Round((double)freelancerStat.Average(), 1);
-				this.PreviousRecord = freelancerStat.GetMax();
+				StatAverage = Math.Round(freelancerStat.Average(), 1);
+				PreviousRecord = freelancerStat.GetMax();
 			}
 			else
 			{
-				this.StatAverage = 0.0;
-				this.PreviousRecord = 0f;
+				StatAverage = 0.0;
+				PreviousRecord = 0f;
 			}
-			this.m_characterType = actorBehavior.CharacterType;
-			this.m_characterRole = actorBehavior.CharacterRole;
+			m_characterType = actorBehavior.CharacterType;
+			m_characterRole = actorBehavior.CharacterRole;
 			string displayNameOfStat = CurrentGameStats.GetDisplayNameOfStat(FreelancerStatIndex);
 			string localizedDescriptionOfStat = CurrentGameStats.GetLocalizedDescriptionOfStat(FreelancerStatIndex);
 			if (!displayNameOfStat.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_StatName.text = UIGameOverStatWidget.SubstituteTokens(displayNameOfStat, FreelancerAbilityData);
-				this.FreelancerStatName = this.m_StatName.text;
+				m_StatName.text = SubstituteTokens(displayNameOfStat, FreelancerAbilityData);
+				FreelancerStatName = m_StatName.text;
 			}
 			else
 			{
-				this.m_StatName.text = string.Format("stat name for freelancer needs to be setup", new object[0]);
+				m_StatName.text = $"stat name for freelancer needs to be setup";
 			}
 			if (!localizedDescriptionOfStat.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.FreelancerStatDescription = UIGameOverStatWidget.SubstituteTokens(localizedDescriptionOfStat, FreelancerAbilityData);
+				FreelancerStatDescription = SubstituteTokens(localizedDescriptionOfStat, FreelancerAbilityData);
 			}
-			this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round((double)this.CurrentStat, 1), "0.#");
-			this.m_AverageText.text = string.Format(StringUtil.TR("AverageStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(this.StatAverage, 1), "0.#"));
-			this.m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)this.PreviousRecord, 1), "0.#"));
-			this.m_StatUnit.text = string.Empty;
-			UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemZeroIN", null, string.Empty, 1, 0f, true, false, null, null);
+			m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(CurrentStat, 1), "0.#");
+			m_AverageText.text = string.Format(StringUtil.TR("AverageStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(StatAverage, 1), "0.#"));
+			m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(PreviousRecord, 1), "0.#"));
+			m_StatUnit.text = string.Empty;
+			UIAnimationEventManager.Get().PlayAnimation(m_Animator, "StatSmallItemZeroIN", null, string.Empty, 1);
+			return;
 		}
 	}
 
 	public void SetupTotalledStat(PersistedStats stats, StatDisplaySettings.StatType typeOfStat, CharacterType charType)
 	{
-		this.FreelancerStatName = null;
-		this.FreelancerStatDescription = null;
-		this.DisplayStatType = UIGameOverStatWidget.StatDisplayType.GeneralStat;
-		this.GeneralStatType = typeOfStat;
+		FreelancerStatName = null;
+		FreelancerStatDescription = null;
+		DisplayStatType = StatDisplayType.GeneralStat;
+		GeneralStatType = typeOfStat;
 		IPersistedGameplayStat persistedGameplayStat = null;
-		this.SetupCharAndRole(charType);
+		SetupCharAndRole(charType);
 		if (stats != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetupTotalledStat(PersistedStats, StatDisplaySettings.StatType, global::CharacterType)).MethodHandle;
-			}
 			persistedGameplayStat = stats.GetGameplayStat(typeOfStat);
 		}
 		float num;
 		if (persistedGameplayStat == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.CurrentStat = 0f;
-			this.StatAverage = 0.0;
-			this.PreviousRecord = 0f;
+			CurrentStat = 0f;
+			StatAverage = 0.0;
+			PreviousRecord = 0f;
 			num = 0f;
 		}
 		else
 		{
-			this.CurrentStat = persistedGameplayStat.GetSum();
-			this.StatAverage = (double)persistedGameplayStat.Average();
-			this.PreviousRecord = persistedGameplayStat.GetMax();
+			CurrentStat = persistedGameplayStat.GetSum();
+			StatAverage = persistedGameplayStat.Average();
+			PreviousRecord = persistedGameplayStat.GetMax();
 			num = persistedGameplayStat.GetMin();
 		}
-		this.m_StatName.text = StatDisplaySettings.GetLocalizedName(typeOfStat);
+		m_StatName.text = StatDisplaySettings.GetLocalizedName(typeOfStat);
 		GameResultBadgeData.StatDescription statDescription = GameResultBadgeData.Get().GetStatDescription(typeOfStat);
-		this.m_StatUnit.text = GameResultBadgeData.StatDescription.GetStatUnit(statDescription);
-		UIManager.SetGameObjectActive(this.m_NewBestText, false, null);
-		string animToPlay = (this.CurrentStat != 0f) ? "StatSmallItemBelowAvgIN" : "StatSmallItemZeroIN";
-		UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, animToPlay, null, string.Empty, 1, 0f, true, false, null, null);
+		m_StatUnit.text = GameResultBadgeData.StatDescription.GetStatUnit(statDescription);
+		UIManager.SetGameObjectActive(m_NewBestText, false);
+		string animToPlay = (CurrentStat != 0f) ? "StatSmallItemBelowAvgIN" : "StatSmallItemZeroIN";
+		UIAnimationEventManager.Get().PlayAnimation(m_Animator, animToPlay, null, string.Empty, 1);
 		if (statDescription.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.Percentage)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (1)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(StatAverage * 100.0), "0.#");
+					m_AverageText.text = string.Format(StringUtil.TR("MinStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(num * 100f), "0.#"));
+					m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(PreviousRecord * 100f), "0.#"));
+					return;
 				}
-				break;
 			}
-			this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(this.StatAverage * 100.0), "0.#");
-			this.m_AverageText.text = string.Format(StringUtil.TR("MinStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)(num * 100f)), "0.#"));
-			this.m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)(this.PreviousRecord * 100f)), "0.#"));
 		}
-		else if (statDescription.StatUnit != GameResultBadgeData.StatDescription.StatUnitType.None)
+		if (statDescription.StatUnit != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (5)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(StatAverage, 1), "0.#");
+					m_AverageText.text = string.Format(StringUtil.TR("MinStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(num, 1), "0.#"));
+					m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(PreviousRecord, 1), "0.#"));
+					return;
 				}
-				break;
 			}
-			this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(this.StatAverage, 1), "0.#");
-			this.m_AverageText.text = string.Format(StringUtil.TR("MinStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)num, 1), "0.#"));
-			this.m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)this.PreviousRecord, 1), "0.#"));
 		}
-		else
-		{
-			this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round((double)this.CurrentStat, 1), "0.#");
-			this.m_AverageText.text = string.Format(StringUtil.TR("AverageStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(this.StatAverage, 1), "0.#"));
-			this.m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)this.PreviousRecord, 1), "0.#"));
-		}
+		m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(CurrentStat, 1), "0.#");
+		m_AverageText.text = string.Format(StringUtil.TR("AverageStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(StatAverage, 1), "0.#"));
+		m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(PreviousRecord, 1), "0.#"));
 	}
 
 	public void SetupFreelancerTotalledStats(PersistedStats StartValueStats, string name, string description, int FreelancerStatIndex, AbilityData FreelancerAbilityData, CharacterType charType)
 	{
-		this.FreelancerStatName = name;
-		this.FreelancerStatDescription = description;
-		this.FreelancerStatName = UIGameOverStatWidget.SubstituteTokens(this.FreelancerStatName, FreelancerAbilityData);
-		this.FreelancerStatDescription = UIGameOverStatWidget.SubstituteTokens(this.FreelancerStatDescription, FreelancerAbilityData);
-		this.SetupCharAndRole(charType);
-		this.DisplayStatType = UIGameOverStatWidget.StatDisplayType.FreelancerStat;
-		this.FreelancerStat = FreelancerStatIndex;
+		FreelancerStatName = name;
+		FreelancerStatDescription = description;
+		FreelancerStatName = SubstituteTokens(FreelancerStatName, FreelancerAbilityData);
+		FreelancerStatDescription = SubstituteTokens(FreelancerStatDescription, FreelancerAbilityData);
+		SetupCharAndRole(charType);
+		DisplayStatType = StatDisplayType.FreelancerStat;
+		FreelancerStat = FreelancerStatIndex;
 		PersistedStatEntry persistedStatEntry = null;
 		if (StartValueStats != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetupFreelancerTotalledStats(PersistedStats, string, string, int, AbilityData, global::CharacterType)).MethodHandle;
-			}
 			persistedStatEntry = StartValueStats.GetFreelancerStat(FreelancerStatIndex);
 		}
 		if (persistedStatEntry != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.StatAverage = Math.Round((double)persistedStatEntry.Average(), 1);
-			this.PreviousRecord = persistedStatEntry.GetMax();
-			this.CurrentStat = persistedStatEntry.GetSum();
+			StatAverage = Math.Round(persistedStatEntry.Average(), 1);
+			PreviousRecord = persistedStatEntry.GetMax();
+			CurrentStat = persistedStatEntry.GetSum();
 		}
 		else
 		{
-			this.StatAverage = 0.0;
-			this.PreviousRecord = 0f;
-			this.CurrentStat = 0f;
+			StatAverage = 0.0;
+			PreviousRecord = 0f;
+			CurrentStat = 0f;
 		}
-		this.m_StatName.text = this.FreelancerStatName;
-		if (this.m_StatName.text.IsNullOrEmpty())
+		m_StatName.text = FreelancerStatName;
+		if (m_StatName.text.IsNullOrEmpty())
 		{
-			this.m_StatName.text = string.Format("stat name for freelancer needs to be setup", new object[0]);
+			m_StatName.text = $"stat name for freelancer needs to be setup";
 		}
-		this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round((double)this.CurrentStat, 1), "0.#");
-		this.m_StatUnit.text = string.Empty;
-		this.m_AverageText.text = string.Format(StringUtil.TR("AverageStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(this.StatAverage, 1), "0.#"));
-		this.m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)this.PreviousRecord, 1), "0.#"));
-		UIManager.SetGameObjectActive(this.m_NewBestText, false, null);
-		string animToPlay = (this.CurrentStat != 0f) ? "StatSmallItemBelowAvgIN" : "StatSmallItemZeroIN";
-		UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, animToPlay, null, string.Empty, 1, 0f, true, false, null, null);
+		m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(CurrentStat, 1), "0.#");
+		m_StatUnit.text = string.Empty;
+		m_AverageText.text = string.Format(StringUtil.TR("AverageStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(StatAverage, 1), "0.#"));
+		m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(PreviousRecord, 1), "0.#"));
+		UIManager.SetGameObjectActive(m_NewBestText, false);
+		string animToPlay = (CurrentStat != 0f) ? "StatSmallItemBelowAvgIN" : "StatSmallItemZeroIN";
+		UIAnimationEventManager.Get().PlayAnimation(m_Animator, animToPlay, null, string.Empty, 1);
 	}
 
 	public void SetupReplayStat(MatchFreelancerStats stats, StatDisplaySettings.StatType typeOfStat, CharacterType charType)
 	{
-		if (this.DisplayStatType != UIGameOverStatWidget.StatDisplayType.None)
+		if (DisplayStatType != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (2)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetupReplayStat(MatchFreelancerStats, StatDisplaySettings.StatType, global::CharacterType)).MethodHandle;
-			}
-			return;
 		}
-		this.FreelancerStatName = null;
-		this.FreelancerStatDescription = null;
-		this.DisplayStatType = UIGameOverStatWidget.StatDisplayType.GeneralStat;
-		this.GeneralStatType = typeOfStat;
-		this.SetupCharAndRole(charType);
+		FreelancerStatName = null;
+		FreelancerStatDescription = null;
+		DisplayStatType = StatDisplayType.GeneralStat;
+		GeneralStatType = typeOfStat;
+		SetupCharAndRole(charType);
 		float? num = null;
 		if (stats != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = stats.GetStat(typeOfStat);
 		}
-		if (num != null)
+		if (num.HasValue)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.CurrentStat = num.Value;
+			CurrentStat = num.Value;
 		}
 		else
 		{
-			this.CurrentStat = 0f;
+			CurrentStat = 0f;
 		}
-		this.StatAverage = (double)this.CurrentStat;
-		this.PreviousRecord = this.CurrentStat;
-		this.HasPersonalAverage = false;
-		this.m_StatName.text = StatDisplaySettings.GetLocalizedName(typeOfStat);
+		StatAverage = CurrentStat;
+		PreviousRecord = CurrentStat;
+		HasPersonalAverage = false;
+		m_StatName.text = StatDisplaySettings.GetLocalizedName(typeOfStat);
 		GameResultBadgeData.StatDescription statDescription = GameResultBadgeData.Get().GetStatDescription(typeOfStat);
-		this.m_StatUnit.text = GameResultBadgeData.StatDescription.GetStatUnit(statDescription);
+		m_StatUnit.text = GameResultBadgeData.StatDescription.GetStatUnit(statDescription);
 		if (statDescription.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.Percentage)
 		{
-			this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round((double)(this.CurrentStat * 100f)), "0.#");
+			m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(CurrentStat * 100f), "0.#");
 		}
 		else
 		{
-			this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round((double)this.CurrentStat, 1), "0.#");
+			m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(CurrentStat, 1), "0.#");
 		}
-		UIManager.SetGameObjectActive(this.m_NewBestText, false, null);
-		string animToPlay = (this.CurrentStat != 0f) ? "StatSmallItemBelowAvgIN" : "StatSmallItemZeroIN";
-		UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, animToPlay, null, string.Empty, 1, 0f, true, false, null, null);
-		this.m_AverageText.text = string.Empty;
-		this.m_PreviousBestNumber.text = string.Empty;
+		UIManager.SetGameObjectActive(m_NewBestText, false);
+		string animToPlay = (CurrentStat != 0f) ? "StatSmallItemBelowAvgIN" : "StatSmallItemZeroIN";
+		UIAnimationEventManager.Get().PlayAnimation(m_Animator, animToPlay, null, string.Empty, 1);
+		m_AverageText.text = string.Empty;
+		m_PreviousBestNumber.text = string.Empty;
 	}
 
 	public void SetupReplayFreelancerStat(CharacterType charType, MatchFreelancerStats stats, int statIndex, AbilityData FreelancerAbilityData)
 	{
-		if (this.DisplayStatType != UIGameOverStatWidget.StatDisplayType.None)
+		if (DisplayStatType != 0)
 		{
-			for (;;)
+			while (true)
 			{
 				switch (6)
 				{
 				case 0:
-					continue;
+					break;
+				default:
+					return;
 				}
-				break;
 			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetupReplayFreelancerStat(global::CharacterType, MatchFreelancerStats, int, AbilityData)).MethodHandle;
-			}
-			return;
 		}
-		this.FreelancerStatName = StringUtil.TR_FreelancerStatName(charType.ToString(), statIndex);
-		this.FreelancerStatDescription = StringUtil.TR_FreelancerStatDescription(charType.ToString(), statIndex);
-		this.FreelancerStatName = UIGameOverStatWidget.SubstituteTokens(this.FreelancerStatName, FreelancerAbilityData);
-		this.FreelancerStatDescription = UIGameOverStatWidget.SubstituteTokens(this.FreelancerStatDescription, FreelancerAbilityData);
-		this.DisplayStatType = UIGameOverStatWidget.StatDisplayType.FreelancerStat;
-		this.FreelancerStat = statIndex;
-		this.SetupCharAndRole(charType);
+		FreelancerStatName = StringUtil.TR_FreelancerStatName(charType.ToString(), statIndex);
+		FreelancerStatDescription = StringUtil.TR_FreelancerStatDescription(charType.ToString(), statIndex);
+		FreelancerStatName = SubstituteTokens(FreelancerStatName, FreelancerAbilityData);
+		FreelancerStatDescription = SubstituteTokens(FreelancerStatDescription, FreelancerAbilityData);
+		DisplayStatType = StatDisplayType.FreelancerStat;
+		FreelancerStat = statIndex;
+		SetupCharAndRole(charType);
 		float? num = null;
 		if (stats != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = stats.GetFreelancerStat(statIndex);
 		}
-		if (num != null)
+		if (num.HasValue)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.CurrentStat = num.Value;
+			CurrentStat = num.Value;
 		}
 		else
 		{
-			this.CurrentStat = 0f;
+			CurrentStat = 0f;
 		}
-		this.StatAverage = (double)this.CurrentStat;
-		this.PreviousRecord = this.CurrentStat;
-		this.HasPersonalAverage = false;
-		this.m_StatName.text = this.FreelancerStatName;
-		if (this.m_StatName.text.IsNullOrEmpty())
+		StatAverage = CurrentStat;
+		PreviousRecord = CurrentStat;
+		HasPersonalAverage = false;
+		m_StatName.text = FreelancerStatName;
+		if (m_StatName.text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			this.m_StatName.text = string.Format("stat name for freelancer needs to be setup", new object[0]);
+			m_StatName.text = $"stat name for freelancer needs to be setup";
 		}
-		this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round((double)this.CurrentStat, 1), "0.#");
-		this.m_StatUnit.text = string.Empty;
-		this.m_AverageText.text = string.Empty;
-		this.m_PreviousBestNumber.text = string.Empty;
-		UIManager.SetGameObjectActive(this.m_NewBestText, false, null);
-		string text;
-		if (this.CurrentStat == 0f)
+		m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(CurrentStat, 1), "0.#");
+		m_StatUnit.text = string.Empty;
+		m_AverageText.text = string.Empty;
+		m_PreviousBestNumber.text = string.Empty;
+		UIManager.SetGameObjectActive(m_NewBestText, false);
+		object obj;
+		if (CurrentStat == 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			text = "StatSmallItemZeroIN";
+			obj = "StatSmallItemZeroIN";
 		}
 		else
 		{
-			text = "StatSmallItemBelowAvgIN";
+			obj = "StatSmallItemBelowAvgIN";
 		}
-		string animToPlay = text;
-		UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, animToPlay, null, string.Empty, 1, 0f, true, false, null, null);
+		string animToPlay = (string)obj;
+		UIAnimationEventManager.Get().PlayAnimation(m_Animator, animToPlay, null, string.Empty, 1);
 	}
 
 	private void SetupCharAndRole(CharacterType charType)
 	{
-		this.m_characterType = new CharacterType?(charType);
+		m_characterType = charType;
 		if (charType.IsValidForHumanGameplay())
 		{
-			this.m_characterRole = new CharacterRole?(GameWideData.Get().GetCharacterResourceLink(charType).m_characterRole);
+			m_characterRole = GameWideData.Get().GetCharacterResourceLink(charType).m_characterRole;
 		}
 		else
 		{
-			this.m_characterRole = new CharacterRole?(global::CharacterRole.None);
+			m_characterRole = global::CharacterRole.None;
 		}
 	}
 
@@ -1391,30 +1031,10 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			Ability abilityAtIndex = FreelancerAbilityData.GetAbilityAtIndex(i);
 			if (abilityAtIndex != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SubstituteTokens(string, AbilityData)).MethodHandle;
-				}
 				string substitute = "<color=#FFC000>" + abilityAtIndex.GetNameString() + "</color>";
 				tooltipNow = TooltipTokenEntry.GetStringWithReplacements(tooltipNow, "[ABILITY_" + i + "]", substitute);
 			}
 		}
-		return TooltipTokenEntry.GetTooltipWithSubstitutes(tooltipNow, null, false);
-	}
-
-	public enum StatDisplayType
-	{
-		None,
-		GeneralStat,
-		FreelancerStat
+		return TooltipTokenEntry.GetTooltipWithSubstitutes(tooltipNow, null);
 	}
 }
