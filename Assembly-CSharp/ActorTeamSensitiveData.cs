@@ -974,17 +974,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void ActorTeamSensitiveData::UnqueueActions()' called on client");
-					return;
-				}
-			}
+			Debug.LogWarning("[Server] function 'System.Void ActorTeamSensitiveData::UnqueueActions()' called on client");
+			return;
 		}
 		for (int i = 0; i < m_queuedAbilities.Count; i++)
 		{
