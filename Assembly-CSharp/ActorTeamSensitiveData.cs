@@ -1257,6 +1257,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	private void UNetVersion()
 	{
+		// TODO
 	}
 
 	protected static void InvokeRpcRpcMovement(NetworkBehaviour obj, NetworkReader reader)
@@ -1482,5 +1483,31 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		}
 
 		return initialPos != writer.Position;
+	}
+
+	//------------------------------------------
+
+	public void SetAbilityRequestData(List<ActorTargeting.AbilityRequestData> value)
+	{
+		if (m_abilityRequestData.Equals(value))
+		{
+			return;
+		}
+		m_abilityRequestData = value;
+		MarkAsDirty(DirtyBit.AbilityRequestDataForTargeter);
+	}
+
+	public LineData.LineInstance MovementLine
+	{
+		set
+		{
+			MarkAsDirty(DirtyBit.LineData);
+			m_movementLine = value;
+		}
+		get
+		{
+			MarkAsDirty(DirtyBit.LineData);
+			return m_movementLine;
+		}
 	}
 }
