@@ -687,10 +687,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			short x = reader.ReadInt16();
 			short y = reader.ReadInt16();
 			RespawnPickedSquare = Board.Get().GetBoardSquare(x, y);
-			bool flag = reader.ReadBoolean();
-			if (Actor != null && (RespawnPickedSquare != null || !flag))
+			bool respawningThisTurn = reader.ReadBoolean();
+			if (Actor != null && (RespawnPickedSquare != null || !respawningThisTurn))
 			{
-				Actor.ShowRespawnFlare(RespawnPickedSquare, flag);
+				Actor.ShowRespawnFlare(RespawnPickedSquare, respawningThisTurn);
 			}
 
 			short respawnAvailableSquaresNum = reader.ReadInt16();
@@ -727,8 +727,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			short queuedAbilitiesBitmask = reader.ReadInt16();
 			for (int j = 0; j < 14; j++)
 			{
-				short mask = (short)(1 << j);
-				bool isAbilityQueued = (queuedAbilitiesBitmask & mask) != 0;
+				short flag = (short)(1 << j);
+				bool isAbilityQueued = (queuedAbilitiesBitmask & flag) != 0;
 				if (m_queuedAbilities[j] != isAbilityQueued)
 				{
 					m_queuedAbilities[j] = isAbilityQueued;
@@ -745,8 +745,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			short toggledOnAbilitiesBitmask = reader.ReadInt16();
 			for (int k = 0; k < 14; k++)
 			{
-				short mask = (short)(1 << k);
-				bool isAbilityToggledOn = (toggledOnAbilitiesBitmask & mask) != 0;
+				short flag = (short)(1 << k);
+				bool isAbilityToggledOn = (toggledOnAbilitiesBitmask & flag) != 0;
 				if (m_abilityToggledOn[k] != isAbilityToggledOn)
 				{
 					m_abilityToggledOn[k] = isAbilityToggledOn;
