@@ -759,16 +759,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
 		m_associatedActor = actor;
 		if (m_lastMovementDestination != null)
@@ -788,20 +779,11 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			}
 		}
 		Actor.GetActorMovement().UpdateSquaresCanMoveTo();
-		if (m_typeObservingMe != 0)
+		if (m_typeObservingMe != ObservedBy.Friendlies)
 		{
 			return;
 		}
-		LineData component = Actor.GetComponent<LineData>();
-		if (!(component != null))
-		{
-			return;
-		}
-		while (true)
-		{
-			component.OnDeserializedData(m_movementLine, m_numNodesInSnaredLine);
-			return;
-		}
+		Actor.GetComponent<LineData>()?.OnDeserializedData(m_movementLine, m_numNodesInSnaredLine);
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
@@ -810,15 +792,11 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		{
 			return;
 		}
-		while (true)
+		if (this == Actor.TeamSensitiveData_authority)
 		{
-			if (this == Actor.TeamSensitiveData_authority)
-			{
-				Actor.MoveToBoardSquareLocal(m_lastMovementDestination, m_lastMovementType, m_lastMovementPath, m_disappearingAfterMovement);
-				m_lastMovementPath = null;
-				m_lastMovementWaitForEvent = GameEventManager.EventType.Invalid;
-			}
-			return;
+			Actor.MoveToBoardSquareLocal(m_lastMovementDestination, m_lastMovementType, m_lastMovementPath, m_disappearingAfterMovement);
+			m_lastMovementPath = null;
+			m_lastMovementWaitForEvent = GameEventManager.EventType.Invalid;
 		}
 	}
 
