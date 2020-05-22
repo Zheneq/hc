@@ -25,75 +25,44 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		Hostiles
 	}
 
+	private static int kRpcRpcMovement = 1638998675;
+	private static int kRpcRpcReceivedPingInfo = 1349069861;
+	private static int kRpcRpcReceivedAbilityPingInfo = 315009541;
+
 	public ObservedBy m_typeObservingMe;
-
 	private int m_actorIndex = ActorData.s_invalidActorIndex;
-
 	private ActorData m_associatedActor;
-
 	private Vector3 m_facingDirAfterMovement;
-
 	private BoardSquare m_lastMovementDestination;
-
 	private BoardSquarePathInfo m_lastMovementPath;
-
 	private GameEventManager.EventType m_lastMovementWaitForEvent;
-
 	private ActorData.MovementType m_lastMovementType;
-
 	private BoardSquare m_moveFromBoardSquare;
-
 	private BoardSquare m_initialMoveStartSquare;
-
 	private LineData.LineInstance m_movementLine;
-
 	private sbyte m_numNodesInSnaredLine;
-
 	private Bounds m_movementCameraBounds;
-
 	private List<BoardSquare> m_respawnAvailableSquares = new List<BoardSquare>();
-
 	private BoardSquare m_respawnPickedSquare;
-
 	private List<bool> m_queuedAbilities = new List<bool>();
-
 	private List<bool> m_abilityToggledOn = new List<bool>();
-
 	private bool m_disappearingAfterMovement;
-
 	private bool m_assignedInitialBoardSquare;
-
 	private List<GameObject> m_oldPings = new List<GameObject>();
-
 	private float m_lastPingChatTime;
-
 	private List<ActorTargeting.AbilityRequestData> m_abilityRequestData = new List<ActorTargeting.AbilityRequestData>();
 
-	private static int kRpcRpcMovement;
-
-	private static int kRpcRpcReceivedPingInfo;
-
-	private static int kRpcRpcReceivedAbilityPingInfo;
+	static ActorTeamSensitiveData()
+	{
+		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcMovement, InvokeRpcRpcMovement);
+		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcReceivedPingInfo, InvokeRpcRpcReceivedPingInfo);
+		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcReceivedAbilityPingInfo, InvokeRpcRpcReceivedAbilityPingInfo);
+		NetworkCRC.RegisterBehaviour("ActorTeamSensitiveData", 0);
+	}
 
 	public Team ActorsTeam
 	{
-		get
-		{
-			if (Actor != null)
-			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						return Actor.GetTeam();
-					}
-				}
-			}
-			return Team.Invalid;
-		}
+		get => Actor?.GetTeam() ?? Team.Invalid;
 	}
 
 	public ActorData Actor
@@ -125,16 +94,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		}
 		set
 		{
-			if (!(m_facingDirAfterMovement != value))
+			if (m_facingDirAfterMovement == value)
 			{
 				return;
 			}
-			while (true)
-			{
-				m_facingDirAfterMovement = value;
-				MarkAsDirty(DirtyBit.FacingDirection);
-				return;
-			}
+			m_facingDirAfterMovement = value;
+			MarkAsDirty(DirtyBit.FacingDirection);
 		}
 	}
 
@@ -146,18 +111,14 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		}
 		set
 		{
-			if (!(m_moveFromBoardSquare != value))
+			if (m_moveFromBoardSquare == value)
 			{
 				return;
 			}
-			while (true)
+			m_moveFromBoardSquare = value;
+			if (NetworkServer.active)
 			{
-				m_moveFromBoardSquare = value;
-				if (NetworkServer.active)
-				{
-					MarkAsDirty(DirtyBit.MoveFromBoardSquare);
-				}
-				return;
+				MarkAsDirty(DirtyBit.MoveFromBoardSquare);
 			}
 		}
 	}
@@ -170,22 +131,14 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		}
 		set
 		{
-			if (!(m_initialMoveStartSquare != value))
+			if (m_initialMoveStartSquare == value)
 			{
 				return;
 			}
-			while (true)
+			m_initialMoveStartSquare = value;
+			if (NetworkServer.active)
 			{
-				m_initialMoveStartSquare = value;
-				if (NetworkServer.active)
-				{
-					while (true)
-					{
-						MarkAsDirty(DirtyBit.InitialMoveStartSquare);
-						return;
-					}
-				}
-				return;
+				MarkAsDirty(DirtyBit.InitialMoveStartSquare);
 			}
 		}
 	}
@@ -217,7 +170,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				if (!(ClientActionBuffer.Get() != null) || !(CameraManager.Get() != null))
+				if (ClientActionBuffer.Get() == null || CameraManager.Get() == null)
 				{
 					return;
 				}
@@ -335,17 +288,6 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				return;
 			}
 		}
-	}
-
-	static ActorTeamSensitiveData()
-	{
-		kRpcRpcMovement = 1638998675;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcMovement, InvokeRpcRpcMovement);
-		kRpcRpcReceivedPingInfo = 1349069861;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcReceivedPingInfo, InvokeRpcRpcReceivedPingInfo);
-		kRpcRpcReceivedAbilityPingInfo = 315009541;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcReceivedAbilityPingInfo, InvokeRpcRpcReceivedAbilityPingInfo);
-		NetworkCRC.RegisterBehaviour("ActorTeamSensitiveData", 0);
 	}
 
 	private void SetActorIndex(int actorIndex)
