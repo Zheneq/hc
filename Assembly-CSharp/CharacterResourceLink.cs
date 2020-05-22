@@ -126,7 +126,7 @@ public class CharacterResourceLink : MonoBehaviour
 
 	private const string kTankIcon = "iconTank";
 
-	internal GameObject ActorDataPrefab
+	public GameObject ActorDataPrefab
 	{
 		get
 		{
