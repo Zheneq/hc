@@ -858,19 +858,19 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		{
 			setBits = reader.ReadPackedUInt32();
 		}
-		sbyte b = 0;
-		b = reader.ReadSByte();
-		SetActorIndex(b);
+		sbyte actorIndex = 0;
+		actorIndex = reader.ReadSByte();
+		SetActorIndex(actorIndex);
 		if (IsBitDirty(setBits, DirtyBit.FacingDirection))
 		{
-			short num = reader.ReadInt16();
-			if (num < 0)
+			short angle = reader.ReadInt16();
+			if (angle < 0)
 			{
 				m_facingDirAfterMovement = Vector3.zero;
 			}
 			else
 			{
-				m_facingDirAfterMovement = VectorUtils.AngleDegreesToVector(num);
+				m_facingDirAfterMovement = VectorUtils.AngleDegreesToVector(angle);
 			}
 			if (Actor != null)
 			{
@@ -898,10 +898,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		{
 			short x2 = reader.ReadInt16();
 			short y2 = reader.ReadInt16();
-			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(x2, y2);
-			if (InitialMoveStartSquare != boardSquare2)
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(x2, y2);
+			if (InitialMoveStartSquare != boardSquare)
 			{
-				InitialMoveStartSquare = boardSquare2;
+				InitialMoveStartSquare = boardSquare;
 				if (Actor != null)
 				{
 					if (Actor.GetActorMovement() != null)
@@ -914,8 +914,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		if (IsBitDirty(setBits, DirtyBit.LineData))
 		{
 			byte bitField = reader.ReadByte();
-			ServerClientUtils.GetBoolsFromBitfield(bitField, out bool @out, out bool out2);
-			if (@out)
+			ServerClientUtils.GetBoolsFromBitfield(bitField, out bool movementLineFlag, out bool numNodesInSnaredFlag);
+			if (movementLineFlag)
 			{
 				m_movementLine = LineData.DeSerializeLine(reader);
 			}
@@ -923,7 +923,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			{
 				m_movementLine = null;
 			}
-			if (out2)
+			if (numNodesInSnaredFlag)
 			{
 				m_numNodesInSnaredLine = reader.ReadSByte();
 			}
@@ -942,19 +942,19 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		}
 		if (IsBitDirty(setBits, DirtyBit.MovementCameraBound))
 		{
-			short num2 = reader.ReadInt16();
-			short num3 = reader.ReadInt16();
-			short num4 = reader.ReadInt16();
-			short num5 = reader.ReadInt16();
-			Vector3 center = new Vector3(num2, 1.5f + (float)Board.Get().BaselineHeight, num3);
-			Vector3 size = new Vector3(num4, 3f, num5);
+			short x = reader.ReadInt16();
+			short z = reader.ReadInt16();
+			short w = reader.ReadInt16();
+			short h = reader.ReadInt16();
+			Vector3 center = new Vector3(x, 1.5f + (float)Board.Get().BaselineHeight, z);
+			Vector3 size = new Vector3(w, 3f, h);
 			MovementCameraBounds = new Bounds(center, size);
 		}
 		if (IsBitDirty(setBits, DirtyBit.Respawn))
 		{
 			short x3 = reader.ReadInt16();
 			short y3 = reader.ReadInt16();
-			BoardSquare boardSquare4 = RespawnPickedSquare = Board.Get().GetBoardSquare(x3, y3);
+			RespawnPickedSquare = Board.Get().GetBoardSquare(x3, y3);
 			bool flag = reader.ReadBoolean();
 			if (Actor != null)
 			{
@@ -1047,16 +1047,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					m_abilityToggledOn[k] = flag5;
 				}
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
+			return;
 		}
 		IL_0532:
 		flag2 = IsBitDirty(setBits, DirtyBit.QueuedAbilities);

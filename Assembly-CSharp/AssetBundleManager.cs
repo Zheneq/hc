@@ -107,10 +107,7 @@ public class AssetBundleManager : MonoBehaviour
 			operation.assetBundleOperation = postedAssetBundleAsyncOperation;
 			operation.assetBundleOperation.referenceCount++;
 			operation.assetBundleOperation.isCanceled = false;
-			if (operation.assetBundleOperation.request.isDone)
-			{
-			}
-			else
+			if (!operation.assetBundleOperation.request.isDone)
 			{
 				yield return new WaitWhile(() => !operation.assetBundleOperation.request.isDone);
 			}
@@ -166,10 +163,7 @@ public class AssetBundleManager : MonoBehaviour
 		{
 			operation = postedLoadSceneAsyncOperation;
 			operation.isCanceled = false;
-			if (operation.sceneOperation.isDone)
-			{
-			}
-			else
+			if (!operation.sceneOperation.isDone)
 			{
 				yield return new WaitWhile(() => !operation.sceneOperation.isDone);
 				this.m_postedLoadSceneAsyncOperations.Remove(operation.sceneName);

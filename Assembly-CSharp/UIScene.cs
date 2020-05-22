@@ -54,11 +54,7 @@ public abstract class UIScene : MonoBehaviour, IUIScene
 		{
 			return;
 		}
-		while (true)
-		{
-			UIManager.Get().RegisterUIScene(this);
-			return;
-		}
+		UIManager.Get().RegisterUIScene(this);
 	}
 
 	public virtual Transform[] GetSceneContainers()
