@@ -512,56 +512,43 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	private void HandleRespawnCharacterVisibility(ActorData actor)
 	{
-		if (!(FogOfWar.GetClientFog() != null))
+		if (FogOfWar.GetClientFog() == null || Actor.GetActorVFX() == null)
 		{
 			return;
 		}
-		while (true)
+		Actor.OnRespawnTeleport();
+		Actor.ForceUpdateIsVisibleToClientCache();
+		PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
+		if (localPlayerData == null || SpawnPointManager.Get() == null)
 		{
-			if (!(Actor.GetActorVFX() != null))
+			return;
+		}
+		if (SpawnPointManager.Get().m_spawnInDuringMovement)
+		{
+			ActorModelData actorModelData = Actor.GetActorModelData();
+			if (actorModelData != null)
 			{
-				return;
+				actorModelData.DisableAndHideRenderers();
 			}
-			while (true)
+			if (HighlightUtils.Get().m_recentlySpawnedShader != null)
 			{
-				Actor.OnRespawnTeleport();
-				Actor.ForceUpdateIsVisibleToClientCache();
-				PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
-				if (!(localPlayerData != null) || !(SpawnPointManager.Get() != null))
-				{
-					return;
-				}
-				while (true)
-				{
-					if (SpawnPointManager.Get().m_spawnInDuringMovement)
-					{
-						ActorModelData actorModelData = Actor.GetActorModelData();
-						if (actorModelData != null)
-						{
-							actorModelData.DisableAndHideRenderers();
-						}
-						if (HighlightUtils.Get().m_recentlySpawnedShader != null)
-						{
-							TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(Actor.GetActorModelData(), localPlayerData.GetTeamViewing() == Actor.GetTeam(), 0.5f, HighlightUtils.Get().m_recentlySpawnedShader, false);
-						}
-					}
-					return;
-				}
+				TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(
+					Actor.GetActorModelData(),
+					localPlayerData.GetTeamViewing() == Actor.GetTeam(),
+					0.5f,
+					HighlightUtils.Get().m_recentlySpawnedShader,
+					false);
 			}
 		}
 	}
 
 	public void EncapsulateVisiblePathBound(ref Bounds bound)
 	{
-		if (m_lastMovementWaitForEvent == GameEventManager.EventType.Invalid || m_lastMovementPath == null || !(Actor != null))
+		if (m_lastMovementWaitForEvent == GameEventManager.EventType.Invalid || m_lastMovementPath == null || Actor == null)
 		{
 			return;
 		}
-		while (true)
-		{
-			TheatricsManager.EncapsulatePathInBound(ref bound, m_lastMovementPath, Actor);
-			return;
-		}
+		TheatricsManager.EncapsulatePathInBound(ref bound, m_lastMovementPath, Actor);
 	}
 
 	public void ClearPreviousMovementInfo()
