@@ -168,83 +168,46 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			{
 				return;
 			}
-			while (true)
+			if (ClientActionBuffer.Get() == null || CameraManager.Get() == null)
 			{
-				if (ClientActionBuffer.Get() == null || CameraManager.Get() == null)
-				{
-					return;
-				}
-				while (true)
-				{
-					if (!ClientGameManager.Get().IsSpectator)
-					{
-						object obj;
-						if (GameFlowData.Get() != null)
-						{
-							obj = GameFlowData.Get().activeOwnedActorData;
-						}
-						else
-						{
-							obj = null;
-						}
-						ActorData actorData = (ActorData)obj;
-						if (!(m_associatedActor != null) || !(actorData != null) || m_associatedActor.GetTeam() != actorData.GetTeam())
-						{
-							return;
-						}
-						while (true)
-						{
-							if (currentActionPhase != ActionBufferPhase.AbilitiesWait)
-							{
-								if (currentActionPhase != ActionBufferPhase.Movement)
-								{
-									if (currentActionPhase == ActionBufferPhase.Abilities)
-									{
-										while (true)
-										{
-											CameraManager.Get().SaveMovementCameraBound(m_movementCameraBounds);
-											return;
-										}
-									}
-									return;
-								}
-							}
-							CameraManager.Get().SetTarget(m_movementCameraBounds);
-							return;
-						}
-					}
-					if (!(GameFlowData.Get().LocalPlayerData != null) || !(m_associatedActor != null))
-					{
-						return;
-					}
-					Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-					if (teamViewing != m_associatedActor.GetTeam())
-					{
-						if (teamViewing != Team.Invalid)
-						{
-							return;
-						}
-					}
-					if (currentActionPhase != ActionBufferPhase.AbilitiesWait)
-					{
-						if (currentActionPhase != ActionBufferPhase.Movement)
-						{
-							if (currentActionPhase == ActionBufferPhase.Abilities)
-							{
-								while (true)
-								{
-									CameraManager.Get().SaveMovementCameraBoundForSpectator(m_movementCameraBounds);
-									return;
-								}
-							}
-							return;
-						}
-					}
-					CameraManager.Get().SaveMovementCameraBoundForSpectator(m_movementCameraBounds);
-					CameraManager.Get().SetTargetForMovementIfNeeded();
-					return;
-				}
+				return;
 			}
+			if (!ClientGameManager.Get().IsSpectator)
+			{
+				ActorData actorData = GameFlowData.Get()?.activeOwnedActorData;
+				if (m_associatedActor == null || actorData == null || m_associatedActor.GetTeam() != actorData.GetTeam())
+				{
+					return;
+				}
+				if (currentActionPhase != ActionBufferPhase.AbilitiesWait && currentActionPhase != ActionBufferPhase.Movement)
+				{
+					if (currentActionPhase == ActionBufferPhase.Abilities)
+					{
+						CameraManager.Get().SaveMovementCameraBound(m_movementCameraBounds);
+					}
+					return;
+				}
+				CameraManager.Get().SetTarget(m_movementCameraBounds);
+			}
+			if (GameFlowData.Get().LocalPlayerData == null || m_associatedActor == null)
+			{
+				return;
+			}
+			Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+			if (teamViewing != m_associatedActor.GetTeam() && teamViewing != Team.Invalid)
+			{
+				return;
+			}
+			if (currentActionPhase != ActionBufferPhase.AbilitiesWait && currentActionPhase != ActionBufferPhase.Movement)
+			{
+				if (currentActionPhase == ActionBufferPhase.Abilities)
+				{
+					CameraManager.Get().SaveMovementCameraBoundForSpectator(m_movementCameraBounds);
+				}
+				return;
+			}
+			CameraManager.Get().SaveMovementCameraBoundForSpectator(m_movementCameraBounds);
+			CameraManager.Get().SetTargetForMovementIfNeeded();
 		}
 	}
 
