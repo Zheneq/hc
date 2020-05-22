@@ -627,8 +627,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		{
 			setBits = reader.ReadPackedUInt32();
 		}
-		sbyte actorIndex = 0;
-		actorIndex = reader.ReadSByte();
+		sbyte actorIndex = reader.ReadSByte();
 		SetActorIndex(actorIndex);
 		if (IsBitDirty(setBits, DirtyBit.FacingDirection))
 		{
@@ -654,13 +653,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			if (boardSquare != MoveFromBoardSquare)
 			{
 				MoveFromBoardSquare = boardSquare;
-				if (Actor != null)
-				{
-					if (Actor.GetActorMovement() != null)
-					{
-						Actor.GetActorMovement().UpdateSquaresCanMoveTo();
-					}
-				}
+				Actor?.GetActorMovement()?.UpdateSquaresCanMoveTo();
 			}
 		}
 		if (IsBitDirty(setBits, DirtyBit.InitialMoveStartSquare))
@@ -671,13 +664,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			if (InitialMoveStartSquare != boardSquare)
 			{
 				InitialMoveStartSquare = boardSquare;
-				if (Actor != null)
-				{
-					if (Actor.GetActorMovement() != null)
-					{
-						Actor.GetActorMovement().UpdateSquaresCanMoveTo();
-					}
-				}
+				Actor?.GetActorMovement()?.UpdateSquaresCanMoveTo();
 			}
 		}
 		if (IsBitDirty(setBits, DirtyBit.LineData))
@@ -700,14 +687,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			{
 				m_numNodesInSnaredLine = 0;
 			}
-			if (Actor != null)
-			{
-				LineData component = Actor.GetComponent<LineData>();
-				if (component != null)
-				{
-					component.OnDeserializedData(m_movementLine, m_numNodesInSnaredLine);
-				}
-			}
+			Actor?.GetComponent<LineData>()?.OnDeserializedData(m_movementLine, m_numNodesInSnaredLine);
 		}
 		if (IsBitDirty(setBits, DirtyBit.MovementCameraBound))
 		{
@@ -715,120 +695,81 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			short z = reader.ReadInt16();
 			short w = reader.ReadInt16();
 			short h = reader.ReadInt16();
-			Vector3 center = new Vector3(x, 1.5f + (float)Board.Get().BaselineHeight, z);
+			Vector3 center = new Vector3(x, 1.5f + Board.Get().BaselineHeight, z);
 			Vector3 size = new Vector3(w, 3f, h);
 			MovementCameraBounds = new Bounds(center, size);
 		}
 		if (IsBitDirty(setBits, DirtyBit.Respawn))
 		{
-			short x3 = reader.ReadInt16();
-			short y3 = reader.ReadInt16();
-			RespawnPickedSquare = Board.Get().GetBoardSquare(x3, y3);
+			short x = reader.ReadInt16();
+			short y = reader.ReadInt16();
+			RespawnPickedSquare = Board.Get().GetBoardSquare(x, y);
 			bool flag = reader.ReadBoolean();
-			if (Actor != null)
+			if (Actor != null && (RespawnPickedSquare != null || !flag))
 			{
-				if (!(RespawnPickedSquare != null))
-				{
-					if (flag)
-					{
-						goto IL_03d8;
-					}
-				}
 				Actor.ShowRespawnFlare(RespawnPickedSquare, flag);
 			}
-			goto IL_03d8;
-		}
-		goto IL_0532;
-		IL_03d8:
-		short num6 = reader.ReadInt16();
-		m_respawnAvailableSquares.Clear();
-		for (int i = 0; i < num6; i++)
-		{
-			short x3 = reader.ReadInt16();
-			short y3 = reader.ReadInt16();
-			BoardSquare boardSquare4 = Board.Get().GetBoardSquare(x3, y3);
-			if (boardSquare4 != null)
+
+			short respawnAvailableSquaresNum = reader.ReadInt16();
+			m_respawnAvailableSquares.Clear();
+			for (int i = 0; i < respawnAvailableSquaresNum; i++)
 			{
-				m_respawnAvailableSquares.Add(boardSquare4);
-			}
-			else
-			{
-				Log.Error("Invalid square received for respawn choices {0}, {1}", x3, y3);
-			}
-		}
-		if (m_respawnAvailableSquares.Count > 0 && RespawnPickedSquare == null)
-		{
-			if (Actor != null)
-			{
-				if (GameFlowData.Get() != null)
+				short x3 = reader.ReadInt16();
+				short y3 = reader.ReadInt16();
+				BoardSquare respawnAvailableSquare = Board.Get().GetBoardSquare(x3, y3);
+				if (respawnAvailableSquare != null)
 				{
-					if (Actor == GameFlowData.Get().activeOwnedActorData)
-					{
-						if (Actor.GetActorTurnSM().AmStillDeciding())
-						{
-							Actor.ShowRespawnFlare(m_respawnAvailableSquares[0], false);
-						}
-					}
+					m_respawnAvailableSquares.Add(respawnAvailableSquare);
+				}
+				else
+				{
+					Log.Error("Invalid square received for respawn choices {0}, {1}", x3, y3);
 				}
 			}
+			if (m_respawnAvailableSquares.Count > 0 && RespawnPickedSquare == null &&
+				Actor != null && GameFlowData.Get() != null &&
+				Actor == GameFlowData.Get().activeOwnedActorData &&
+				Actor.GetActorTurnSM().AmStillDeciding())
+			{
+				Actor.ShowRespawnFlare(m_respawnAvailableSquares[0], false);
+			}
 		}
-		goto IL_0532;
-		IL_0564:
-		bool flag2;
-		if (flag2)
+		if (IsBitDirty(setBits, DirtyBit.QueuedAbilities) || IsBitDirty(setBits, DirtyBit.AbilityRequestDataForTargeter))
 		{
-			bool flag3 = false;
-			short num7 = reader.ReadInt16();
+			DeSerializeAbilityRequestData(reader);
+		}
+		if (IsBitDirty(setBits, DirtyBit.QueuedAbilities))
+		{
+			bool changed = false;
+			short queuedAbilitiesBitmask = reader.ReadInt16();
 			for (int j = 0; j < 14; j++)
 			{
-				short num8 = (short)(1 << j);
-				bool flag4 = (num7 & num8) != 0;
-				if (m_queuedAbilities[j] != flag4)
+				short mask = (short)(1 << j);
+				bool isAbilityQueued = (queuedAbilitiesBitmask & mask) != 0;
+				if (m_queuedAbilities[j] != isAbilityQueued)
 				{
-					m_queuedAbilities[j] = flag4;
-					flag3 = true;
+					m_queuedAbilities[j] = isAbilityQueued;
+					changed = true;
 				}
 			}
-			if (flag3)
+			if (changed)
 			{
-				if (Actor != null)
-				{
-					if (Actor.GetAbilityData() != null)
-					{
-						Actor.GetAbilityData().OnQueuedAbilitiesChanged();
-					}
-				}
+				Actor?.GetAbilityData()?.OnQueuedAbilitiesChanged();
 			}
 		}
-		if (!IsBitDirty(setBits, DirtyBit.ToggledOnAbilities))
+		if (IsBitDirty(setBits, DirtyBit.ToggledOnAbilities))
 		{
-			return;
-		}
-		while (true)
-		{
-			short num9 = reader.ReadInt16();
+			short toggledOnAbilitiesBitmask = reader.ReadInt16();
 			for (int k = 0; k < 14; k++)
 			{
-				short num10 = (short)(1 << k);
-				bool flag5 = (num9 & num10) != 0;
-				if (m_abilityToggledOn[k] != flag5)
+				short mask = (short)(1 << k);
+				bool isAbilityToggledOn = (toggledOnAbilitiesBitmask & mask) != 0;
+				if (m_abilityToggledOn[k] != isAbilityToggledOn)
 				{
-					m_abilityToggledOn[k] = flag5;
+					m_abilityToggledOn[k] = isAbilityToggledOn;
 				}
 			}
-			return;
 		}
-		IL_0532:
-		flag2 = IsBitDirty(setBits, DirtyBit.QueuedAbilities);
-		if (!flag2)
-		{
-			if (!IsBitDirty(setBits, DirtyBit.AbilityRequestDataForTargeter))
-			{
-				goto IL_0564;
-			}
-		}
-		DeSerializeAbilityRequestData(reader);
-		goto IL_0564;
 	}
 
 	public void OnClientAssociatedWithActor(ActorData actor)
