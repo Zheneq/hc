@@ -557,14 +557,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		{
 			return;
 		}
-		while (true)
-		{
-			m_lastMovementDestination = null;
-			m_lastMovementPath = null;
-			m_lastMovementType = ActorData.MovementType.None;
-			m_lastMovementWaitForEvent = GameEventManager.EventType.Invalid;
-			return;
-		}
+		m_lastMovementDestination = null;
+		m_lastMovementPath = null;
+		m_lastMovementType = ActorData.MovementType.None;
+		m_lastMovementWaitForEvent = GameEventManager.EventType.Invalid;
 	}
 
 	public void FlushQueuedMovement()
