@@ -220,14 +220,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		set
 		{
 			m_respawnPickedSquare = value;
-			if (!NetworkServer.active)
-			{
-				return;
-			}
-			while (true)
+			if (NetworkServer.active)
 			{
 				MarkAsDirty(DirtyBit.Respawn);
-				return;
 			}
 		}
 	}
@@ -241,89 +236,42 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		set
 		{
 			m_respawnAvailableSquares = value;
-			if (!NetworkServer.active)
-			{
-				return;
-			}
-			while (true)
+			if (NetworkServer.active)
 			{
 				MarkAsDirty(DirtyBit.Respawn);
-				return;
 			}
 		}
 	}
 
 	private void SetActorIndex(int actorIndex)
 	{
-		if (m_actorIndex == actorIndex && !(m_associatedActor == null))
+		if (m_actorIndex == actorIndex && m_associatedActor != null)
 		{
 			return;
 		}
 		m_actorIndex = actorIndex;
-		object associatedActor;
-		if (GameFlowData.Get() != null)
-		{
-			associatedActor = GameFlowData.Get().FindActorByActorIndex(m_actorIndex);
-		}
-		else
-		{
-			associatedActor = null;
-		}
-		m_associatedActor = (ActorData)associatedActor;
+		m_associatedActor = GameFlowData.Get()?.FindActorByActorIndex(m_actorIndex);
 		if (NetworkServer.active)
 		{
 			return;
 		}
 		if (m_associatedActor != null)
 		{
-			while (true)
+			if (m_typeObservingMe == ObservedBy.Friendlies)
 			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					if (m_typeObservingMe == ObservedBy.Friendlies)
-					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								break;
-							default:
-								m_associatedActor.SetClientFriendlyTeamSensitiveData(this);
-								return;
-							}
-						}
-					}
-					if (m_typeObservingMe == ObservedBy.Hostiles)
-					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								break;
-							default:
-								m_associatedActor.SetClientHostileTeamSensitiveData(this);
-								return;
-							}
-						}
-					}
-					return;
-				}
+				m_associatedActor.SetClientFriendlyTeamSensitiveData(this);
 			}
+			else if (m_typeObservingMe == ObservedBy.Hostiles)
+			{
+				m_associatedActor.SetClientHostileTeamSensitiveData(this);
+			}
+			return;
 		}
 		if (m_actorIndex == ActorData.s_invalidActorIndex)
 		{
 			return;
 		}
-		while (true)
-		{
-			TeamSensitiveDataMatchmaker.Get().OnTeamSensitiveDataStarted(this);
-			return;
-		}
+		TeamSensitiveDataMatchmaker.Get().OnTeamSensitiveDataStarted(this);
 	}
 
 	public string GetDebugString()
