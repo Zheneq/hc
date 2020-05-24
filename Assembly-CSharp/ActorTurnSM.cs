@@ -688,31 +688,15 @@ public class ActorTurnSM : NetworkBehaviour
 
 	public void BackToDecidingState()
 	{
-		if (NetworkServer.active)
+		if (NetworkServer.active || (NetworkClient.active && CurrentState == TurnStateEnum.TARGETING_ACTION))
 		{
-			goto IL_003a;
+			OnMessage(TurnMessage.CANCEL_BUTTON_CLICKED, false);
 		}
-		if (NetworkClient.active)
-		{
-			if (CurrentState == TurnStateEnum.TARGETING_ACTION)
-			{
-				goto IL_003a;
-			}
-		}
-		goto IL_0042;
-		IL_0042:
 		if (NetworkServer.active)
 		{
 			return;
 		}
-		while (true)
-		{
-			CallCmdGUITurnMessage(4, 0);
-			return;
-		}
-		IL_003a:
-		OnMessage(TurnMessage.CANCEL_BUTTON_CLICKED, false);
-		goto IL_0042;
+		CallCmdGUITurnMessage(4, 0);
 	}
 
 	private void UpdateCancelKey()
