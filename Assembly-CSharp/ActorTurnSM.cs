@@ -18,6 +18,43 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 	}
 
+
+	public delegate void OnCmdChase(int selectedSquareX, int selectedSquareY);
+	public OnCmdChase OnCmdChaseCallback = null;
+
+	[Command]
+	private void CmdChase(int selectedSquareX, int selectedSquareY)
+	{
+		OnCmdChaseCallback?.Invoke(selectedSquareX, selectedSquareY);
+	}
+
+	public delegate void OnCmdGUITurnMessage(int msgEnum, int extraData);
+	public OnCmdGUITurnMessage OnCmdGUITurnMessageCallback = null;
+
+	[Command]
+	private void CmdGUITurnMessage(int msgEnum, int extraData)
+	{
+		OnCmdGUITurnMessageCallback?.Invoke(msgEnum, extraData);
+	}
+
+	public delegate void OnCmdRequestCancelAction(int action, bool hasIncomingRequest);
+	public OnCmdRequestCancelAction OnCmdRequestCancelActionCallback = null;
+
+	[Command]
+	private void CmdRequestCancelAction(int action, bool hasIncomingRequest)
+	{
+		OnCmdRequestCancelActionCallback?.Invoke(action, hasIncomingRequest);
+	}
+
+	public delegate void OnCmdSetSquare(int x, int y, bool setWaypoint);
+	public OnCmdSetSquare OnCmdSetSquareCallback = null;
+
+	[Command]
+	private void CmdSetSquare(int x, int y, bool setWaypoint)
+	{
+		OnCmdSetSquareCallback?.Invoke(x, y, setWaypoint);
+	}
+
 	private ActorData m_actorData;
 
 	private bool m_firstUpdate;
@@ -1331,16 +1368,6 @@ public class ActorTurnSM : NetworkBehaviour
 		UpdateStates();
 	}
 
-	[Command]
-	private void CmdGUITurnMessage(int msgEnum, int extraData)
-	{
-	}
-
-	[Command]
-	private void CmdRequestCancelAction(int action, bool hasIncomingRequest)
-	{
-	}
-
 	public void OnActionsConfirmed()
 	{
 		if (m_actorData.GetTimeBank() != null)
@@ -1526,11 +1553,6 @@ public class ActorTurnSM : NetworkBehaviour
 		return result;
 	}
 
-	[Command]
-	private void CmdChase(int selectedSquareX, int selectedSquareY)
-	{
-	}
-
 	public void SelectMovementSquareForMovement(BoardSquare selectedSquare)
 	{
 		List<BoardSquare> list = new List<BoardSquare>();
@@ -1640,11 +1662,6 @@ public class ActorTurnSM : NetworkBehaviour
 			Board.Get().MarkForUpdateValidSquares();
 			return;
 		}
-	}
-
-	[Command]
-	private void CmdSetSquare(int x, int y, bool setWaypoint)
-	{
 	}
 
 	[ClientRpc]
