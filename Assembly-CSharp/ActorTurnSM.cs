@@ -600,14 +600,9 @@ public class ActorTurnSM : NetworkBehaviour
 		CheckPingInput();
 		CheckAbilityInputControlPad();
 		DisplayActorState();
-		if (!m_firstUpdate)
-		{
-			return;
-		}
-		while (true)
+		if (m_firstUpdate)
 		{
 			m_firstUpdate = false;
-			return;
 		}
 	}
 
@@ -632,17 +627,8 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Client] function 'System.Void ActorTurnSM::SendCastAbility(AbilityData/ActionType)' called on server");
-					return;
-				}
-			}
+			Debug.LogWarning("[Client] function 'System.Void ActorTurnSM::SendCastAbility(AbilityData/ActionType)' called on server");
+			return;
 		}
 		GameFlow.Get().SendCastAbility(GetComponent<ActorData>(), actionType, GetAbilityTargets());
 	}
@@ -654,66 +640,50 @@ public class ActorTurnSM : NetworkBehaviour
 			return;
 		}
 		bool flag = false;
-		TurnStateEnum currentState = CurrentState;
-		if (currentState == TurnStateEnum.DECIDING_MOVEMENT)
+		if (CurrentState == TurnStateEnum.DECIDING_MOVEMENT)
 		{
-			goto IL_0042;
+			flag = true;
 		}
-		if (currentState != TurnStateEnum.CONFIRMED)
+		else if (CurrentState != TurnStateEnum.CONFIRMED)
 		{
-			if (currentState == TurnStateEnum.DECIDING)
+			if (CurrentState == TurnStateEnum.DECIDING)
 			{
-				goto IL_0042;
+				flag = true;
 			}
-			BackToDecidingState();
+			else
+			{
+				BackToDecidingState();
+			}
 		}
 		else if (m_actorData.GetTimeBank().AllowUnconfirm())
 		{
 			LastConfirmedCancelTurn = GameFlowData.Get().CurrentTurn;
 			m_actorData.GetTimeBank().OnActionsUnconfirmed();
 			BackToDecidingState();
-			if (Options_UI.Get() != null)
+			if (Options_UI.Get()?.ShouldCancelActionWhileConfirmed() ?? false)
 			{
-				if (Options_UI.Get().ShouldCancelActionWhileConfirmed())
-				{
-					flag = true;
-				}
+				flag = true;
 			}
 		}
-		goto IL_00d0;
-		IL_00d0:
-		if (!onlyCancelConfirm)
+		if (!onlyCancelConfirm && flag && m_requestStackForUndo.Count != 0)
 		{
-			if (flag)
+			int index = m_requestStackForUndo.Count - 1;
+			ActionRequestForUndo actionRequestForUndo = m_requestStackForUndo[index];
+			m_requestStackForUndo.RemoveAt(index);
+			m_actorData.OnClientQueuedActionChanged();
+			UndoableRequestType type = actionRequestForUndo.m_type;
+			if (type != UndoableRequestType.MOVEMENT && type == UndoableRequestType.ABILITY_QUEUE)
 			{
-				if (m_requestStackForUndo.Count != 0)
-				{
-					int index = m_requestStackForUndo.Count - 1;
-					ActionRequestForUndo actionRequestForUndo = m_requestStackForUndo[index];
-					m_requestStackForUndo.RemoveAt(index);
-					m_actorData.OnClientQueuedActionChanged();
-					UndoableRequestType type = actionRequestForUndo.m_type;
-					if (type != UndoableRequestType.MOVEMENT)
-					{
-						if (type == UndoableRequestType.ABILITY_QUEUE)
-						{
-							RequestCancelAction(actionRequestForUndo.m_action, false);
-							UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
-						}
-					}
-					else
-					{
-						RequestCancelMovement();
-						UISounds.GetUISounds().Play("ui/ingame/v1/move_undo");
-					}
-				}
+				RequestCancelAction(actionRequestForUndo.m_action, false);
+				UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
+			}
+			else
+			{
+				RequestCancelMovement();
+				UISounds.GetUISounds().Play("ui/ingame/v1/move_undo");
 			}
 		}
 		Board.Get().MarkForUpdateValidSquares();
-		return;
-		IL_0042:
-		flag = true;
-		goto IL_00d0;
 	}
 
 	public void BackToDecidingState()
