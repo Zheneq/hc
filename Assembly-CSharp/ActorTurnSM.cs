@@ -1057,16 +1057,7 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (SinglePlayerManager.IsCancelDisabled())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
 		CancelUndoableAbilityRequest(actionType);
 		CancelAutoQueuedAbilityRequest(actionType);
@@ -1082,7 +1073,7 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		else
 		{
-			CallCmdGUITurnMessage(13, 0);
+			CallCmdGUITurnMessage((int)TurnMessage.MOVE_BUTTON_CLICKED, 0);
 		}
 	}
 
