@@ -32,11 +32,11 @@ public class ActorTurnSM : NetworkBehaviour
 
 	private bool m_abilitySelectorVisible;
 
-	private static Color s_chasingTextColor;
+	private static Color s_chasingTextColor = new Color(0.3f, 0.75f, 0.75f);
 
-	private static Color s_movingTextColor;
+	private static Color s_movingTextColor = new Color(0.4f, 1f, 1f);
 
-	private static Color s_decidingTextColor;
+	private static Color s_decidingTextColor = new Color(0.9f, 0.9f, 0.9f);
 
 	private TurnStateEnum _NextState;
 
@@ -52,17 +52,17 @@ public class ActorTurnSM : NetworkBehaviour
 
 	private List<AbilityTarget> m_targets;
 
-	private static int kCmdCmdGUITurnMessage;
+	private static int kCmdCmdGUITurnMessage = -122150213;
 
-	private static int kCmdCmdRequestCancelAction;
+	private static int kCmdCmdRequestCancelAction = 1831775955;
 
-	private static int kCmdCmdChase;
+	private static int kCmdCmdChase = 1451912258;
 
-	private static int kCmdCmdSetSquare;
+	private static int kCmdCmdSetSquare = -1156253069;
 
-	private static int kRpcRpcTurnMessage;
+	private static int kRpcRpcTurnMessage = -107921272;
 
-	private static int kRpcRpcStoreAutoQueuedAbilityRequest;
+	private static int kRpcRpcStoreAutoQueuedAbilityRequest = 675585254;
 
 	public bool LockInBuffered
 	{
@@ -90,21 +90,16 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		set
 		{
-			if (value >= TurnStateEnum.CONFIRMED)
+			if (value >= TurnStateEnum.CONFIRMED && _NextState < TurnStateEnum.CONFIRMED)
 			{
-				if (_NextState < TurnStateEnum.CONFIRMED)
-				{
-					_LockInTime = DateTime.UtcNow;
-					goto IL_005c;
-				}
+				_LockInTime = DateTime.UtcNow;
+
 			}
-			if (value < TurnStateEnum.CONFIRMED && _NextState >= TurnStateEnum.CONFIRMED)
+			else if (value < TurnStateEnum.CONFIRMED && _NextState >= TurnStateEnum.CONFIRMED)
 			{
 				_TurnStart = DateTime.UtcNow;
 				_LockInTime = DateTime.MinValue;
 			}
-			goto IL_005c;
-			IL_005c:
 			_NextState = value;
 		}
 	}
@@ -121,17 +116,9 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 	}
 
-	public bool HandledSpaceInput
-	{
-		get;
-		set;
-	}
+	public bool HandledSpaceInput;
 
-	public bool HandledMouseInput
-	{
-		get;
-		set;
-	}
+	public bool HandledMouseInput;
 
 	internal int LastConfirmedCancelTurn
 	{
@@ -141,20 +128,11 @@ public class ActorTurnSM : NetworkBehaviour
 
 	static ActorTurnSM()
 	{
-		s_chasingTextColor = new Color(0.3f, 0.75f, 0.75f);
-		s_movingTextColor = new Color(0.4f, 1f, 1f);
-		s_decidingTextColor = new Color(0.9f, 0.9f, 0.9f);
-		kCmdCmdGUITurnMessage = -122150213;
 		NetworkBehaviour.RegisterCommandDelegate(typeof(ActorTurnSM), kCmdCmdGUITurnMessage, InvokeCmdCmdGUITurnMessage);
-		kCmdCmdRequestCancelAction = 1831775955;
 		NetworkBehaviour.RegisterCommandDelegate(typeof(ActorTurnSM), kCmdCmdRequestCancelAction, InvokeCmdCmdRequestCancelAction);
-		kCmdCmdChase = 1451912258;
 		NetworkBehaviour.RegisterCommandDelegate(typeof(ActorTurnSM), kCmdCmdChase, InvokeCmdCmdChase);
-		kCmdCmdSetSquare = -1156253069;
 		NetworkBehaviour.RegisterCommandDelegate(typeof(ActorTurnSM), kCmdCmdSetSquare, InvokeCmdCmdSetSquare);
-		kRpcRpcTurnMessage = -107921272;
 		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTurnSM), kRpcRpcTurnMessage, InvokeRpcRpcTurnMessage);
-		kRpcRpcStoreAutoQueuedAbilityRequest = 675585254;
 		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTurnSM), kRpcRpcStoreAutoQueuedAbilityRequest, InvokeRpcRpcStoreAutoQueuedAbilityRequest);
 		NetworkCRC.RegisterBehaviour("ActorTurnSM", 0);
 	}
@@ -173,8 +151,7 @@ public class ActorTurnSM : NetworkBehaviour
 		m_turnStates[8] = new RespawningState(this);
 		m_turnStates[10] = new PickingRespawnState(this);
 		m_turnStates[9] = new RespawningTakesActionState(this);
-		TurnStateEnum turnStateEnum2 = NextState = TurnStateEnum.WAITING;
-		turnStateEnum2 = (CurrentState = (PreviousState = turnStateEnum2));
+		CurrentState = PreviousState = NextState = TurnStateEnum.WAITING;
 		m_targets = new List<AbilityTarget>();
 		LastConfirmedCancelTurn = -1;
 		m_requestStackForUndo = new List<ActionRequestForUndo>();
@@ -194,86 +171,30 @@ public class ActorTurnSM : NetworkBehaviour
 		ActorData component = GetComponent<ActorData>();
 		if (!SinglePlayerManager.IsAbilitysCurrentAimingAllowed(component))
 		{
-			while (true)
+			return false;
+		}
+		AbilityData abilityData = GetComponent<AbilityData>();
+		Ability selectedAbility = abilityData.GetSelectedAbility();
+		int targetersNum = 0;
+		int expectedTargetersNum = 0;
+		if (selectedAbility)
+		{
+			AbilityTarget abilityTarget = abilityTargetToUse != null
+				? abilityTargetToUse.GetCopy()
+				: AbilityTarget.CreateAbilityTargetFromInterface();
+			AddAbilityTarget(abilityTarget);
+			targetersNum = selectedAbility.GetNumTargets();
+			expectedTargetersNum = selectedAbility.GetExpectedNumberOfTargeters();
+			if (m_targets.Count > targetersNum || m_targets.Count > expectedTargetersNum)
 			{
-				return result;
+				Log.Error("SelectTarget has been called more times than there are targeters for the selected ability. " +
+					"m_targets.Count {0}, numTargets {1}, numExpectedTargets {2}", m_targets.Count, targetersNum, expectedTargetersNum);
 			}
+			selectedAbility.Targeter.AbilityCasted(component.GetGridPosWithIncrementedHeight(), abilityTarget.GridPos);
 		}
-		AbilityData component2 = GetComponent<AbilityData>();
-		Ability selectedAbility = component2.GetSelectedAbility();
-		int num = 0;
-		int num2 = 0;
-		AbilityTarget abilityTarget2;
-		if ((bool)selectedAbility)
+		if ((GetAbilityTargets().Count < targetersNum && GetAbilityTargets().Count < expectedTargetersNum) || targetersNum == 0)
 		{
-			AbilityTarget abilityTarget;
-			if (abilityTargetToUse != null)
-			{
-				abilityTarget = abilityTargetToUse.GetCopy();
-			}
-			else
-			{
-				abilityTarget = AbilityTarget.CreateAbilityTargetFromInterface();
-			}
-			abilityTarget2 = abilityTarget;
-			AddAbilityTarget(abilityTarget2);
-			num = selectedAbility.GetNumTargets();
-			num2 = selectedAbility.GetExpectedNumberOfTargeters();
-			if (m_targets.Count <= num)
-			{
-				if (m_targets.Count <= num2)
-				{
-					goto IL_00f2;
-				}
-			}
-			Log.Error("SelectTarget has been called more times than there are targeters for the selected ability. m_targets.Count {0}, numTargets {1}, numExpectedTargets {2}", m_targets.Count, num, num2);
-			goto IL_00f2;
-		}
-		goto IL_0110;
-		IL_00f2:
-		selectedAbility.Targeter.AbilityCasted(component.GetGridPosWithIncrementedHeight(), abilityTarget2.GridPos);
-		goto IL_0110;
-		IL_02bb:
-		if (Board.Get() != null)
-		{
-			Board.Get().MarkForUpdateValidSquares();
-		}
-		return result;
-		IL_0110:
-		if (GetAbilityTargets().Count < num)
-		{
-			if (GetAbilityTargets().Count < num2)
-			{
-				goto IL_01e5;
-			}
-		}
-		if (num == 0)
-		{
-			goto IL_01e5;
-		}
-		AbilityData.ActionType selectedActionType = component2.GetSelectedActionType();
-		OnQueueAbilityRequest(selectedActionType);
-		result = true;
-		if (NetworkClient.active && onLockIn)
-		{
-			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-			if (selectedAbility != null && activeOwnedActorData != null)
-			{
-				if (activeOwnedActorData == component)
-				{
-					selectedAbility.ResetAbilityTargeters();
-				}
-			}
-		}
-		if (!NetworkServer.active)
-		{
-			SendCastAbility(selectedActionType);
-		}
-		goto IL_02bb;
-		IL_01e5:
-		if (selectedAbility != null)
-		{
-			if (num2 > 1)
+			if (selectedAbility != null && expectedTargetersNum > 1)
 			{
 				List<AbilityTarget> abilityTargets = GetAbilityTargets();
 				for (int i = 0; i < abilityTargets.Count && i < selectedAbility.Targeters.Count; i++)
@@ -290,94 +211,88 @@ public class ActorTurnSM : NetworkBehaviour
 				}
 			}
 		}
-		goto IL_02bb;
+		else
+		{
+			AbilityData.ActionType selectedActionType = abilityData.GetSelectedActionType();
+			OnQueueAbilityRequest(selectedActionType);
+			result = true;
+			if (NetworkClient.active && onLockIn)
+			{
+				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+				if (selectedAbility != null && activeOwnedActorData != null && activeOwnedActorData == component)
+				{
+					selectedAbility.ResetAbilityTargeters();
+				}
+			}
+			if (!NetworkServer.active)
+			{
+				SendCastAbility(selectedActionType);
+			}
+		}
+		Board.Get()?.MarkForUpdateValidSquares();
+		return result;
 	}
 
 	private void CheckAbilityInput()
 	{
-		if (!(HUD_UI.Get() != null))
+		if (HUD_UI.Get() == null ||
+			GameFlowData.Get().activeOwnedActorData != GetComponent<ActorData>() ||
+			!GameFlowData.Get().IsInDecisionState())
 		{
 			return;
 		}
-		while (true)
+
+		if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.RightTrigger) > 0f)
 		{
-			if (!(GameFlowData.Get().activeOwnedActorData == GetComponent<ActorData>()))
+			if (!m_abilitySelectorVisible)
+			{
+				AbilityData abilityData = GetComponent<ActorData>().GetComponent<AbilityData>();
+				if (abilityData != null)
+				{
+					m_abilitySelectorVisible = true;
+					HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel.Init(abilityData);
+					UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel, true);
+				}
+			}
+			if (!m_abilitySelectorVisible)
 			{
 				return;
 			}
-			while (true)
+
+			float lineSize;
+			if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftStickY) == 0f &&
+				ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftStickX) == 0f)
 			{
-				if (!GameFlowData.Get().IsInDecisionState())
-				{
-					return;
-				}
-				while (true)
-				{
-					RectTransform rectTransform;
-					float num;
-					if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.RightTrigger) > 0f)
-					{
-						if (!m_abilitySelectorVisible)
-						{
-							ActorData component = GetComponent<ActorData>();
-							AbilityData component2 = component.GetComponent<AbilityData>();
-							if (component2 != null)
-							{
-								m_abilitySelectorVisible = true;
-								HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel.Init(component2);
-								UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel, true);
-							}
-						}
-						if (!m_abilitySelectorVisible)
-						{
-							return;
-						}
-						rectTransform = (HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel.GetComponent<UIAbilitySelectPanel>().m_line.transform as RectTransform);
-						if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftStickY) == 0f)
-						{
-							if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftStickX) == 0f)
-							{
-								num = 0f;
-								goto IL_016f;
-							}
-						}
-						num = 200f;
-						goto IL_016f;
-					}
-					if (!m_abilitySelectorVisible)
-					{
-						return;
-					}
-					m_abilitySelectorVisible = false;
-					UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel, false);
-					KeyPreference abilityHover = HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel.GetAbilityHover();
-					if (!(HUD_UI.Get() != null))
-					{
-						return;
-					}
-					while (true)
-					{
-						if (abilityHover != 0)
-						{
-							while (true)
-							{
-								UIMainScreenPanel.Get().m_abilityBar.DoAbilityButtonClick(abilityHover);
-								return;
-							}
-						}
-						return;
-					}
-					IL_016f:
-					float num2 = num;
-					rectTransform.sizeDelta = new Vector2(num2, 2f);
-					rectTransform.pivot = new Vector2(0f, 0.5f);
-					rectTransform.anchoredPosition = Vector2.zero;
-					float num3 = Mathf.Atan2(ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftStickY), ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftStickX)) * 57.29578f;
-					rectTransform.rotation = Quaternion.Euler(0f, 0f, num3);
-					HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel.SelectAbilityButtonFromAngle(num3, num2);
-					return;
-				}
+				lineSize = 0f;
 			}
+			else
+			{
+				lineSize = 200f;
+			}
+
+			RectTransform rectTransform = (HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel.GetComponent<UIAbilitySelectPanel>().m_line.transform as RectTransform);
+			rectTransform.sizeDelta = new Vector2(lineSize, 2f);
+			rectTransform.pivot = new Vector2(0f, 0.5f);
+			rectTransform.anchoredPosition = Vector2.zero;
+			float angle = Mathf.Atan2(ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftStickY), ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftStickX)) * 57.29578f;
+			rectTransform.rotation = Quaternion.Euler(0f, 0f, angle);
+			HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel.SelectAbilityButtonFromAngle(angle, lineSize);
+			return;
+		}
+		if (!m_abilitySelectorVisible)
+		{
+			return;
+		}
+		m_abilitySelectorVisible = false;
+		UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel, false);
+		KeyPreference abilityHover = HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel.GetAbilityHover();
+		if (HUD_UI.Get() == null)
+		{
+			return;
+		}
+		if (abilityHover != 0)
+		{
+			UIMainScreenPanel.Get().m_abilityBar.DoAbilityButtonClick(abilityHover);
 		}
 	}
 
