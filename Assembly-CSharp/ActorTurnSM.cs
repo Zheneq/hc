@@ -778,19 +778,11 @@ public class ActorTurnSM : NetworkBehaviour
 
 	public bool CheckStateForEndTurnRequestFromInput()
 	{
-		int result;
-		if (CurrentState == TurnStateEnum.DECIDING)
+		if (CurrentState == TurnStateEnum.DECIDING && NextState == TurnStateEnum.DECIDING)
 		{
-			if (NextState == TurnStateEnum.DECIDING)
-			{
-				result = 1;
-				goto IL_0040;
-			}
+			return true;
 		}
-		result = ((CurrentState == TurnStateEnum.PICKING_RESPAWN) ? 1 : 0);
-		goto IL_0040;
-		IL_0040:
-		return (byte)result != 0;
+		return CurrentState == TurnStateEnum.PICKING_RESPAWN;
 	}
 
 	public void UpdateEndTurnKey()
