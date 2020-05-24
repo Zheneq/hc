@@ -1282,23 +1282,11 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void ActorTurnSM::QueueAutoQueuedAbilityRequest(AbilityData/ActionType)' called on client");
-					return;
-				}
-			}
+			Debug.LogWarning("[Server] function 'System.Void ActorTurnSM::QueueAutoQueuedAbilityRequest(AbilityData/ActionType)' called on client");
+			return;
 		}
-		if (NetworkServer.active)
-		{
-			StoreAutoQueuedAbilityRequest(actionType);
-			CallRpcStoreAutoQueuedAbilityRequest((int)actionType);
-		}
+		StoreAutoQueuedAbilityRequest(actionType);
+		CallRpcStoreAutoQueuedAbilityRequest((int)actionType);
 	}
 
 	private TurnState GetState()
@@ -1334,11 +1322,7 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		if (!NetworkServer.active)
 		{
-			if (!NetworkClient.active)
-			{
-				return;
-			}
-			if (ignoreClient)
+			if (!NetworkClient.active || ignoreClient)
 			{
 				return;
 			}
