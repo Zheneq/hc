@@ -241,12 +241,12 @@ public class AbilityTarget
 		return list;
 	}
 
-	internal static void SerializeAbilityTargetList(List<AbilityTarget> targetList, NetworkWriter stream)
+	public static void SerializeAbilityTargetList(List<AbilityTarget> targetList, NetworkWriter stream)
 	{
 		SerializeAbilityTargetList(targetList, new NetworkWriterAdapter(stream));
 	}
 
-	internal static void SerializeAbilityTargetList(List<AbilityTarget> targetList, IBitStream stream)
+	public static void SerializeAbilityTargetList(List<AbilityTarget> targetList, IBitStream stream)
 	{
 		checked
 		{
@@ -271,12 +271,12 @@ public class AbilityTarget
 		}
 	}
 
-	internal static List<AbilityTarget> DeSerializeAbilityTargetList(NetworkReader stream)
+	public static List<AbilityTarget> DeSerializeAbilityTargetList(NetworkReader stream)
 	{
 		return DeSerializeAbilityTargetList(new NetworkReaderAdapter(stream));
 	}
 
-	internal static List<AbilityTarget> DeSerializeAbilityTargetList(IBitStream stream)
+	public static List<AbilityTarget> DeSerializeAbilityTargetList(IBitStream stream)
 	{
 		List<AbilityTarget> list = new List<AbilityTarget>();
 		byte value = 0;
