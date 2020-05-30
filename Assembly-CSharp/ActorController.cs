@@ -81,6 +81,77 @@ public class ActorController : NetworkBehaviour
 		NetworkCRC.RegisterBehaviour("ActorController", 0);
 	}
 
+	public delegate void OnCmdDebugTeleportRequest(ActorController actorController, int x, int y);
+	public OnCmdDebugTeleportRequest OnCmdDebugTeleportRequestCallback = null;
+
+	[Command]
+	private void CmdDebugTeleportRequest(int x, int y)
+	{
+		OnCmdDebugTeleportRequestCallback?.Invoke(this, x, y);
+	}
+
+	public delegate void OnCmdPickedRespawnRequest(ActorController actorController, int x, int y);
+	public OnCmdPickedRespawnRequest OnCmdPickedRespawnRequestCallback = null;
+
+	[Command]
+	private void CmdPickedRespawnRequest(int x, int y)
+	{
+		OnCmdPickedRespawnRequestCallback?.Invoke(this, x, y);
+	}
+
+	public delegate void OnCmdSendMinimapPing(ActorController actorController, int teamIndex, Vector3 worldPosition, PingType pingType);
+	public OnCmdSendMinimapPing OnCmdSendMinimapPingCallback = null;
+
+	[Command]
+	internal void CmdSendMinimapPing(int teamIndex, Vector3 worldPosition, PingType pingType)
+	{
+		OnCmdSendMinimapPingCallback?.Invoke(this, teamIndex, worldPosition, pingType);
+	}
+
+	public delegate void OnCmdSendAbilityPing(ActorController actorController, int teamIndex, LocalizationArg_AbilityPing localizedPing);
+	public OnCmdSendAbilityPing OnCmdSendAbilityPingCallback = null;
+
+	[Command]
+	internal void CmdSendAbilityPing(int teamIndex, LocalizationArg_AbilityPing localizedPing)
+	{
+		OnCmdSendAbilityPingCallback?.Invoke(this, teamIndex, localizedPing);
+	}
+
+	public delegate void OnCmdSelectAbilityRequest(ActorController actorController, int actionTypeInt);
+	public OnCmdSelectAbilityRequest OnCmdSelectAbilityRequestCallback = null;
+
+	[Command]
+	protected void CmdSelectAbilityRequest(int actionTypeInt)
+	{
+		OnCmdSelectAbilityRequestCallback?.Invoke(this, actionTypeInt);
+	}
+
+	public delegate void OnCmdQueueSimpleActionRequest(ActorController actorController, int actionTypeInt);
+	public OnCmdQueueSimpleActionRequest OnCmdQueueSimpleActionRequestCallback = null;
+
+	[Command]
+	protected void CmdQueueSimpleActionRequest(int actionTypeInt)
+	{
+		OnCmdQueueSimpleActionRequestCallback?.Invoke(this, actionTypeInt);
+	}
+
+	public delegate void OnCmdCustomGamePause(ActorController actorController, bool desiredPause, int requestActorIndex);
+	public OnCmdCustomGamePause OnCmdCustomGamePauseCallback = null;
+
+	[Command]
+	private void CmdCustomGamePause(bool desiredPause, int requestActorIndex)
+	{
+		//HandleCustomGamePauseOnServer(desiredPause, requestActorIndex);
+		OnCmdCustomGamePauseCallback?.Invoke(this, desiredPause, requestActorIndex);
+	}
+
+	public OnCmdCustomGamePause OnCmdCustomGamePauseOnServerCallback = null;
+
+	private void HandleCustomGamePauseOnServer(bool desiredPause, int requestActorIndex)
+	{
+		OnCmdCustomGamePauseOnServerCallback?.Invoke(this, desiredPause, requestActorIndex);
+	}
+
 	private void Awake()
 	{
 		m_actor = GetComponent<ActorData>();
@@ -212,26 +283,6 @@ public class ActorController : NetworkBehaviour
 				}
 			}
 		}
-	}
-
-	[Command]
-	private void CmdDebugTeleportRequest(int x, int y)
-	{
-	}
-
-	[Command]
-	private void CmdPickedRespawnRequest(int x, int y)
-	{
-	}
-
-	[Command]
-	internal void CmdSendMinimapPing(int teamIndex, Vector3 worldPosition, PingType pingType)
-	{
-	}
-
-	[Command]
-	internal void CmdSendAbilityPing(int teamIndex, LocalizationArg_AbilityPing localizedPing)
-	{
 	}
 
 	public void ClearHighlights()
@@ -745,11 +796,6 @@ public class ActorController : NetworkBehaviour
 		}
 	}
 
-	[Command]
-	protected void CmdSelectAbilityRequest(int actionTypeInt)
-	{
-	}
-
 	public void SendQueueSimpleActionRequest(AbilityData.ActionType actionType)
 	{
 		UISounds.GetUISounds().Play("ui/ingame/v1/hud/catalyst_select");
@@ -762,11 +808,6 @@ public class ActorController : NetworkBehaviour
 			}
 		}
 		CallCmdQueueSimpleActionRequest((int)actionType);
-	}
-
-	[Command]
-	protected void CmdQueueSimpleActionRequest(int actionTypeInt)
-	{
 	}
 
 	public void RequestCustomGamePause(bool desiredPause, int requestActorIndex)
@@ -786,16 +827,6 @@ public class ActorController : NetworkBehaviour
 			}
 		}
 		CallCmdCustomGamePause(desiredPause, requestActorIndex);
-	}
-
-	private void HandleCustomGamePauseOnServer(bool desiredPause, int requestActorIndex)
-	{
-	}
-
-	[Command]
-	private void CmdCustomGamePause(bool desiredPause, int requestActorIndex)
-	{
-		HandleCustomGamePauseOnServer(desiredPause, requestActorIndex);
 	}
 
 	[ClientRpc]
