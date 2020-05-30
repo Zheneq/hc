@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 
 public static class MovementUtils
 {
-	internal static void SerializePath(BoardSquarePathInfo path, NetworkWriter writer)
+	public static void SerializePath(BoardSquarePathInfo path, NetworkWriter writer)
 	{
 		bool flag = path != null;
 		float b = 8f;
@@ -88,7 +88,7 @@ public static class MovementUtils
 		}
 	}
 
-	internal static void SerializePath(BoardSquarePathInfo path, IBitStream stream)
+	public static void SerializePath(BoardSquarePathInfo path, IBitStream stream)
 	{
 		if (stream.isReading)
 		{
@@ -186,7 +186,7 @@ public static class MovementUtils
 		}
 	}
 
-	internal static byte[] SerializePath(BoardSquarePathInfo path)
+	public static byte[] SerializePath(BoardSquarePathInfo path)
 	{
 		if (path == null)
 		{
@@ -206,7 +206,7 @@ public static class MovementUtils
 		return networkWriter.ToArray();
 	}
 
-	internal static BoardSquarePathInfo DeSerializePath(IBitStream stream)
+	public static BoardSquarePathInfo DeSerializePath(IBitStream stream)
 	{
 		BoardSquarePathInfo boardSquarePathInfo = new BoardSquarePathInfo();
 		BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo;
@@ -316,7 +316,7 @@ public static class MovementUtils
 		}
 	}
 
-	internal static BoardSquarePathInfo DeSerializePath(NetworkReader reader)
+	public static BoardSquarePathInfo DeSerializePath(NetworkReader reader)
 	{
 		BoardSquarePathInfo boardSquarePathInfo = new BoardSquarePathInfo();
 		BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo;
@@ -425,7 +425,7 @@ public static class MovementUtils
 		}
 	}
 
-	internal static BoardSquarePathInfo DeSerializePath(byte[] data)
+	public static BoardSquarePathInfo DeSerializePath(byte[] data)
 	{
 		if (data == null)
 		{
@@ -444,12 +444,12 @@ public static class MovementUtils
 		return DeSerializePath(reader);
 	}
 
-	internal static void SerializeLightweightPath(BoardSquarePathInfo path, NetworkWriter stream)
+	public static void SerializeLightweightPath(BoardSquarePathInfo path, NetworkWriter stream)
 	{
 		SerializeLightweightPath(path, new NetworkWriterAdapter(stream));
 	}
 
-	internal static void SerializeLightweightPath(BoardSquarePathInfo path, IBitStream stream)
+	public static void SerializeLightweightPath(BoardSquarePathInfo path, IBitStream stream)
 	{
 		if (stream == null)
 		{
@@ -553,7 +553,7 @@ public static class MovementUtils
 		}
 	}
 
-	internal static BoardSquarePathInfo DeSerializeLightweightPath(IBitStream stream)
+	public static BoardSquarePathInfo DeSerializeLightweightPath(IBitStream stream)
 	{
 		if (stream == null)
 		{
