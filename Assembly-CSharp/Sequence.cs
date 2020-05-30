@@ -955,7 +955,7 @@ public abstract class Sequence : MonoBehaviour
 			{
 				if (Board.Get().m_showLOS)
 				{
-					if (!clientFog.IsVisible(Board.Get().GetBoardSquare(GetSequencePos())))
+					if (!clientFog.IsVisible(Board.Get().GetSquare(GetSequencePos())))
 					{
 						goto IL_0085;
 					}
@@ -978,7 +978,7 @@ public abstract class Sequence : MonoBehaviour
 		FogOfWar clientFog = FogOfWar.GetClientFog();
 		if (clientFog != null)
 		{
-			if (clientFog.IsVisible(Board.Get().GetBoardSquare(TargetPos)))
+			if (clientFog.IsVisible(Board.Get().GetSquare(TargetPos)))
 			{
 				result = true;
 			}
@@ -1000,7 +1000,7 @@ public abstract class Sequence : MonoBehaviour
 			{
 				result = true;
 			}
-			else if (clientFog.IsVisible(Board.Get().GetBoardSquare(TargetPos)))
+			else if (clientFog.IsVisible(Board.Get().GetSquare(TargetPos)))
 			{
 				result = true;
 			}
@@ -1022,7 +1022,7 @@ public abstract class Sequence : MonoBehaviour
 			{
 				result = true;
 			}
-			else if (clientFog.IsVisible(Board.Get().GetBoardSquare(TargetPos)))
+			else if (clientFog.IsVisible(Board.Get().GetSquare(TargetPos)))
 			{
 				result = true;
 			}

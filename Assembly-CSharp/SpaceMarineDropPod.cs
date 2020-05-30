@@ -138,7 +138,7 @@ public class SpaceMarineDropPod : Ability
 				if (m_abilityMod.m_groundEffectInfoOnDropPod.m_groundEffectData.damageAmount > 0)
 				{
 					List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
-					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+					BoardSquare boardSquareSafe = Board.Get().GetSquare(base.Targeter.LastUpdatingGridPos);
 					if (tooltipSubjectTypes != null && boardSquareSafe != null)
 					{
 						if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))

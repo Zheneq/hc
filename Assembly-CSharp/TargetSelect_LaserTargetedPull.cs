@@ -124,7 +124,7 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 	{
 		if (targetIndex > 0)
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 			BoardSquare currentBoardSquare = caster.GetCurrentBoardSquare();
 			if (boardSquareSafe == currentBoardSquare)
 			{

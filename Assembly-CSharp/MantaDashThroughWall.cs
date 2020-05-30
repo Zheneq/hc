@@ -458,7 +458,7 @@ public class MantaDashThroughWall : Ability
 			if (boardSquare == null)
 			{
 				vector2D += num * vector;
-				boardSquare = Board.Get().GetBoardSquare(vector2D);
+				boardSquare = Board.Get().GetSquare(vector2D);
 				if (!(boardSquare != null))
 				{
 					continue;
@@ -479,7 +479,7 @@ public class MantaDashThroughWall : Ability
 				goto IL_0113;
 			}
 		}
-		boardSquare = Board.Get().GetBoardSquare(laserEndPoint);
+		boardSquare = Board.Get().GetSquare(laserEndPoint);
 		coneStartPos = endPos;
 		goto IL_0113;
 		IL_0113:

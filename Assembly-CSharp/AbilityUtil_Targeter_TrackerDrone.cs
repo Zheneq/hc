@@ -66,7 +66,7 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		ClearActorsInRange();
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		if (boardSquareSafe == null)
 		{
 			while (true)
@@ -78,7 +78,7 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 		Vector3 vector2 = targetingActor.GetTravelBoardSquareWorldPosition();
 		if (m_droneTrackerComponent != null && m_droneTrackerComponent.DroneIsActive())
 		{
-			BoardSquare boardSquare = Board.Get().GetBoardSquare(m_droneTrackerComponent.BoardX(), m_droneTrackerComponent.BoardY());
+			BoardSquare boardSquare = Board.Get().GetSquare(m_droneTrackerComponent.BoardX(), m_droneTrackerComponent.BoardY());
 			vector2 = boardSquare.ToVector3();
 		}
 		float num;

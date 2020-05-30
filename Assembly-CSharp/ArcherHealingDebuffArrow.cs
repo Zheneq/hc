@@ -57,7 +57,7 @@ public class ArcherHealingDebuffArrow : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (boardSquareSafe != null)
 		{
 			if (boardSquareSafe.OccupantActor != null && CanTargetActorInDecision(caster, boardSquareSafe.OccupantActor, true, false, false, ValidateCheckPath.Ignore, true, false))

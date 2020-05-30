@@ -113,7 +113,7 @@ public struct VisionProviderInfo
 						PersistentSatellite persistentSatellite = (PersistentSatellite)obj;
 						if (persistentSatellite != null && persistentSatellite.IsVisible())
 						{
-							result = Board.Get().GetBoardSquare(persistentSatellite.transform.position);
+							result = Board.Get().GetSquare(persistentSatellite.transform.position);
 						}
 					}
 					return result;
@@ -121,7 +121,7 @@ public struct VisionProviderInfo
 				}
 			}
 		}
-		return Board.Get().GetBoardSquare(m_boardX, m_boardY);
+		return Board.Get().GetSquare(m_boardX, m_boardY);
 	}
 
 	public bool IsEqual(VisionProviderInfo other)

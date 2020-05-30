@@ -89,12 +89,12 @@ public class GrydCycleDash : Ability
 				}
 			}
 		}
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
 			if (boardSquareSafe.IsBaselineHeight())
 			{
-				BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, Board.Get().GetBoardSquareSafe(gridPos), false);
+				BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, Board.Get().GetSquare(gridPos), false);
 				if (boardSquarePathInfo == null)
 				{
 					while (true)

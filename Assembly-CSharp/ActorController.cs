@@ -516,7 +516,7 @@ public class ActorController : NetworkBehaviour
 			if (flag9 && !FirstTurnMovement.ForceShowSprintRange(actor))
 			{
 				Vector3 position = HighlightUtils.Get().MovementMouseOverCursor.transform.position;
-				BoardSquare boardSquareSafe = board.GetBoardSquareSafe(position.x, position.z);
+				BoardSquare boardSquareSafe = board.GetSquareAtPosition(position.x, position.z);
 				if (m_canMoveToWithQueuedAbilityScratch.Contains(boardSquareSafe))
 				{
 					flag9 = false;
@@ -618,7 +618,7 @@ public class ActorController : NetworkBehaviour
 								AbilityUtil_Targeter current3 = enumerator3.Current;
 								if (current3 != null)
 								{
-									BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(current3.LastUpdatingGridPos);
+									BoardSquare boardSquareSafe2 = Board.Get().GetSquare(current3.LastUpdatingGridPos);
 									if (boardSquareSafe2 != null)
 									{
 										hashSet.Add(boardSquareSafe2);

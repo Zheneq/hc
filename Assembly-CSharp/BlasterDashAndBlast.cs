@@ -163,7 +163,7 @@ public class BlasterDashAndBlast : Ability
 					break;
 				default:
 				{
-					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetsSoFar[0].GridPos);
+					BoardSquare boardSquareSafe = Board.Get().GetSquare(targetsSoFar[0].GridPos);
 					overridePos = boardSquareSafe.GetWorldPosition();
 					return true;
 				}
@@ -608,7 +608,7 @@ public class BlasterDashAndBlast : Ability
 		if (targetIndex < GetNumTargets() - 1)
 		{
 			BoardSquare currentBoardSquare = caster.GetCurrentBoardSquare();
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 			if (boardSquareSafe != null)
 			{
 				if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != currentBoardSquare)

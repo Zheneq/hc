@@ -24,7 +24,7 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		ClearActorsInRange();
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		if (m_highlights != null)
 		{
 			if (m_highlights.Count >= 2)

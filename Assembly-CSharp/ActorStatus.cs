@@ -698,8 +698,8 @@ public class ActorStatus : NetworkBehaviour
 							break;
 						}
 						ActorData current = enumerator.Current;
-						BoardSquare boardSquare = Board.Get().GetBoardSquare(actorData.GetTravelBoardSquareWorldPosition());
-						BoardSquare boardSquare2 = Board.Get().GetBoardSquare(current.GetTravelBoardSquareWorldPosition());
+						BoardSquare boardSquare = Board.Get().GetSquare(actorData.GetTravelBoardSquareWorldPosition());
+						BoardSquare boardSquare2 = Board.Get().GetSquare(current.GetTravelBoardSquareWorldPosition());
 						if (!(boardSquare == null))
 						{
 							if (boardSquare2 == null)

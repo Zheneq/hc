@@ -1428,7 +1428,7 @@ public class SinglePlayerManager : NetworkBehaviour
 									while (enumerator.MoveNext())
 									{
 										GridPos current = enumerator.Current;
-										BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(current);
+										BoardSquare boardSquareSafe = Board.Get().GetSquare(current);
 										if (SinglePlayerCoordinator.Get().m_forbiddenSquares.GetSquaresInRegion().Contains(boardSquareSafe))
 										{
 											while (true)
@@ -1497,7 +1497,7 @@ public class SinglePlayerManager : NetworkBehaviour
 			{
 				if (gridPosPath.Count > 0)
 				{
-					item = Board.Get().GetBoardSquareSafe(gridPosPath[gridPosPath.Count - 1]);
+					item = Board.Get().GetSquare(gridPosPath[gridPosPath.Count - 1]);
 				}
 			}
 		}
@@ -1688,12 +1688,12 @@ public class SinglePlayerManager : NetworkBehaviour
 			if (targetingParadigm == Ability.TargetingParadigm.BoardSquare)
 			{
 				AbilityTarget abilityTarget = AbilityTarget.CreateAbilityTargetFromInterface();
-				boardSquare = Board.Get().GetBoardSquareSafe(abilityTarget.GridPos);
+				boardSquare = Board.Get().GetSquare(abilityTarget.GridPos);
 			}
 			else if (targetingParadigm == Ability.TargetingParadigm.Position)
 			{
 				AbilityTarget abilityTarget2 = AbilityTarget.CreateAbilityTargetFromInterface();
-				boardSquare = Board.Get().GetBoardSquare(abilityTarget2.FreePos);
+				boardSquare = Board.Get().GetSquare(abilityTarget2.FreePos);
 			}
 			else
 			{

@@ -230,7 +230,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	public bool CanMoveToBoardSquare(int x, int y)
 	{
 		bool result = false;
-		BoardSquare boardSquare = Board.Get().GetBoardSquare(x, y);
+		BoardSquare boardSquare = Board.Get().GetSquare(x, y);
 		if ((bool)boardSquare)
 		{
 			result = CanMoveToBoardSquare(boardSquare);
@@ -612,7 +612,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 								continue;
 							}
 						}
-						BoardSquare boardSquare = board.GetBoardSquare(x + i, y + j);
+						BoardSquare boardSquare = board.GetSquare(x + i, y + j);
 						if (boardSquare == null)
 						{
 							continue;
@@ -1051,8 +1051,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		return false;
 		IL_00f6:
-		BoardSquare boardSquare = Board.Get().GetBoardSquare(src.x, dest.y);
-		BoardSquare boardSquare2 = Board.Get().GetBoardSquare(dest.x, src.y);
+		BoardSquare boardSquare = Board.Get().GetSquare(src.x, dest.y);
+		BoardSquare boardSquare2 = Board.Get().GetSquare(dest.x, src.y);
 		if (flag)
 		{
 			flag &= CanCrossToAdjacentSingleSquare(src, boardSquare, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);

@@ -543,7 +543,7 @@ public class TricksterCatchMeIfYouCan : Ability
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		bool flag = true;
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
 			if (boardSquareSafe.IsBaselineHeight())
@@ -563,7 +563,7 @@ public class TricksterCatchMeIfYouCan : Ability
 			{
 				for (int i = 0; i < targetIndex; i++)
 				{
-					if (Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos) == boardSquareSafe)
+					if (Board.Get().GetSquare(currentTargets[i].GridPos) == boardSquareSafe)
 					{
 						flag = false;
 					}

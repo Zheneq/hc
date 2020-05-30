@@ -36,7 +36,7 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 
 	protected override bool HandleAddActorInShape(ActorData potentialTarget, ActorData targetingActor, AbilityTarget currentTarget, Vector3 damageOrigin, ActorData bestTarget)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		if (boardSquareSafe != null)
 		{
 			if (boardSquareSafe.occupant != null)

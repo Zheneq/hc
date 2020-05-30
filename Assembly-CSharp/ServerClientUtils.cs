@@ -452,7 +452,7 @@ public static class ServerClientUtils
 			BoardSquare targetSquare;
 			if (m_useTargetSquare)
 			{
-				targetSquare = Board.Get().GetBoardSquare(m_targetSquareX, m_targetSquareY);
+				targetSquare = Board.Get().GetSquare(m_targetSquareX, m_targetSquareY);
 			}
 			else
 			{

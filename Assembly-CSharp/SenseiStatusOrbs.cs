@@ -72,7 +72,7 @@ public class SenseiStatusOrbs : Ability
 	{
 		if (potentialActor != null)
 		{
-			BoardSquare boardSquare = Board.Get().GetBoardSquare(centerPos);
+			BoardSquare boardSquare = Board.Get().GetSquare(centerPos);
 			ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquare, true, true, targetingActor);
 			if (targetableActorOnSquare != null)
 			{

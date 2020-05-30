@@ -48,11 +48,11 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
 		ClearActorsInRange();
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		BoardSquare boardSquare;
 		if (currentTargetIndex > 0)
 		{
-			boardSquare = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
+			boardSquare = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
 		}
 		else
 		{

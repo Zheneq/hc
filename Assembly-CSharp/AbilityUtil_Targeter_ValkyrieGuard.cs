@@ -80,7 +80,7 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 			Vector3 vector = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			if (currentTargetIndex > 0)
 			{
-				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+				BoardSquare boardSquareSafe = Board.Get().GetSquare(targets[0].GridPos);
 				if (boardSquareSafe != null)
 				{
 					vector = boardSquareSafe.ToVector3();

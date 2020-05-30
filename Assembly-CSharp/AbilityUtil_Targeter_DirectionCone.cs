@@ -88,7 +88,7 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 		Vector3 vector2 = currentTarget.AimDirection;
 		if (currentTargetIndex > 0 && targets != null)
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
 			if (boardSquareSafe != null)
 			{
 				if (!m_useCasterLocationForAllMultiTargets)

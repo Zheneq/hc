@@ -272,7 +272,7 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 
 	protected BoardSquare GetGameplayRefSquare(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		return Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		return Board.Get().GetSquare(currentTarget.GridPos);
 	}
 
 	protected Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor)

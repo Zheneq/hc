@@ -255,7 +255,7 @@ public class NekoEnlargeDisc : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (m_syncComp != null)
 		{
 			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
@@ -346,7 +346,7 @@ public class NekoEnlargeDisc : Ability
 
 	public Vector3 ClampToSquareCenter(ActorData caster, AbilityTarget currentTarget)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		return boardSquareSafe.GetWorldPositionForLoS();
 	}
 

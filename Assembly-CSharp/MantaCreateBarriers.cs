@@ -403,7 +403,7 @@ public class MantaCreateBarriers : Ability
 	{
 		if (m_requireCasterInShape && caster.GetCurrentBoardSquare() != null)
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 			if (boardSquareSafe != null)
 			{
 				return AreaEffectUtils.IsSquareInShape(caster.GetCurrentBoardSquare(), GetTargetAreaShape(), target.FreePos, boardSquareSafe, true, caster);

@@ -53,7 +53,7 @@ public class PatrolState : FSMState
 					yield break;
 				}
 				WayPoint wayPoint = this.m_PatrolPath.m_currentWayPoint;
-				BoardSquare boardSquare = Board.Get().GetBoardSquareSafe(wayPoint.transform.position.x, wayPoint.transform.position.z);
+				BoardSquare boardSquare = Board.Get().GetSquareAtPosition(wayPoint.transform.position.x, wayPoint.transform.position.z);
 				BoardSquare currentBoardSquare = component2.GetCurrentBoardSquare();
 				int num = 0xA;
 				float num2 = boardSquare.HorizontalDistanceInSquaresTo(base.MyActorData.GetCurrentBoardSquare());

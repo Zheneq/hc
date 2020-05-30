@@ -114,7 +114,7 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 				default:
 				{
 					Vector3 vector2D = m_customCenterPosDelegate(targetingActor, currentTarget);
-					return Board.Get().GetBoardSquare(vector2D);
+					return Board.Get().GetSquare(vector2D);
 				}
 				}
 			}
@@ -128,7 +128,7 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 		{
 			gridPos = targetingActor.GetGridPosWithIncrementedHeight();
 		}
-		return Board.Get().GetBoardSquareSafe(gridPos);
+		return Board.Get().GetSquare(gridPos);
 	}
 
 	public override void UpdateHighlightPosAfterClick(AbilityTarget target, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)

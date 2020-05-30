@@ -257,7 +257,7 @@ public class TrackerTeslaPrison : TrackerDrone
 				}
 			}
 		}
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		int result;
 		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
@@ -268,7 +268,7 @@ public class TrackerTeslaPrison : TrackerDrone
 				Vector3 b = caster.GetTravelBoardSquareWorldPosition();
 				if (m_droneTracker.DroneIsActive())
 				{
-					BoardSquare boardSquare = Board.Get().GetBoardSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
+					BoardSquare boardSquare = Board.Get().GetSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
 					if (boardSquare != null)
 					{
 						if (boardSquare == boardSquareSafe)

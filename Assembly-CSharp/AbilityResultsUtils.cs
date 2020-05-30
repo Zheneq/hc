@@ -411,7 +411,7 @@ public static class AbilityResultsUtils
 				goto IL_0096;
 			}
 		}
-		square = Board.Get().GetBoardSquare(value5, value6);
+		square = Board.Get().GetSquare(value5, value6);
 		goto IL_0096;
 		IL_0096:
 		ActorData primaryActor = (value3 != ActorData.s_invalidActorIndex) ? GameFlowData.Get().FindActorByActorIndex(value3) : null;

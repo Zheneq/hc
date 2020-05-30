@@ -582,7 +582,7 @@ public class SenseiYingYangDash : Ability
 		bool flag2 = false;
 		if (targetIndex == 0)
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 			if (boardSquareSafe != null)
 			{
 				if (boardSquareSafe.OccupantActor != null)
@@ -598,8 +598,8 @@ public class SenseiYingYangDash : Ability
 		else
 		{
 			flag = true;
-			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
-			BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos);
+			BoardSquare boardSquareSafe3 = Board.Get().GetSquare(target.GridPos);
 			if (boardSquareSafe3 != null && boardSquareSafe3.IsBaselineHeight())
 			{
 				if (boardSquareSafe3 != boardSquareSafe2)

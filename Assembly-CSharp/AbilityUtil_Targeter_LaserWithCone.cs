@@ -196,7 +196,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		}
 		Vector3 vector2 = vector;
 		Vector3 b = currentTarget.FreePos;
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		if (SnapToTargetSquare() && boardSquareSafe != null)
 		{
 			if (boardSquareSafe != targetingActor.GetCurrentBoardSquare())

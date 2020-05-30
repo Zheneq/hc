@@ -81,7 +81,7 @@ public class TrackerFlewTheCoop : Ability
 		bool flag2 = false;
 		if (!caster.IsDead())
 		{
-			BoardSquare boardSquare = Board.Get().GetBoardSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
+			BoardSquare boardSquare = Board.Get().GetSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
 			if (boardSquare != null)
 			{
 				float rangeInSquares = GetRangeInSquares(0);
@@ -116,14 +116,14 @@ public class TrackerFlewTheCoop : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null) && boardSquareSafe.IsBaselineHeight())
 		{
 			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 			{
 				if (m_droneTracker != null)
 				{
-					BoardSquare boardSquare = Board.Get().GetBoardSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
+					BoardSquare boardSquare = Board.Get().GetSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
 					if (boardSquare != null)
 					{
 						if (!m_includeDroneSquare)

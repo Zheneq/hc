@@ -65,7 +65,7 @@ public class RobotAnimalStealth : Ability
 						break;
 					default:
 						{
-							BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+							BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 							if (boardSquareSafe != null)
 							{
 								if (boardSquareSafe.IsBaselineHeight())
@@ -82,8 +82,8 @@ public class RobotAnimalStealth : Ability
 					}
 				}
 			}
-			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos);
-			BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[0].GridPos);
+			BoardSquare boardSquareSafe3 = Board.Get().GetSquare(target.GridPos);
 			if (boardSquareSafe3 != null)
 			{
 				if (boardSquareSafe2 != boardSquareSafe3)

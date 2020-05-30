@@ -122,7 +122,7 @@ public class NPCBrain_Tutorial : NPCBrain
 		ActorData component = GetComponent<ActorData>();
 		ActorMovement component2 = GetComponent<ActorMovement>();
 		ActorTurnSM component3 = GetComponent<ActorTurnSM>();
-		BoardSquare boardSquare = Board.Get().GetBoardSquare(m_destination);
+		BoardSquare boardSquare = Board.Get().GetSquare(m_destination);
 		if (!(component != null))
 		{
 			return;

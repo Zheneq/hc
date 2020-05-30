@@ -737,7 +737,7 @@ public class CTF_Flag : NetworkBehaviour
 		}
 		else
 		{
-			ClientIdleSquare = Board.Get().GetBoardSquare(b2, b3);
+			ClientIdleSquare = Board.Get().GetSquare(b2, b3);
 		}
 		if (clientHolderActor != ClientHolderActor)
 		{

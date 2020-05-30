@@ -228,7 +228,7 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 	{
 		BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
 		bool result = false;
-		BoardSquare boardSquare = Board.Get().GetBoardSquare(chargeEndPos);
+		BoardSquare boardSquare = Board.Get().GetSquare(chargeEndPos);
 		if (boardSquare != null)
 		{
 			result = AreaEffectUtils.SquaresHaveLoSForAbilities(boardSquare, currentBoardSquare, caster, true, nonActorTargetInfo);

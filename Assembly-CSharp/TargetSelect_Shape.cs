@@ -217,7 +217,7 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 		if (RequireTargetingOnActor())
 		{
 			bool result = false;
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 			object obj;
 			if (boardSquareSafe != null)
 			{
@@ -270,7 +270,7 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				}
 			}
 		}
-		return Board.Get().GetBoardSquareSafe(target.GridPos);
+		return Board.Get().GetSquare(target.GridPos);
 	}
 
 	public bool IsMovingShape(ActorData caster)

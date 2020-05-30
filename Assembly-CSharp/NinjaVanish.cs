@@ -375,7 +375,7 @@ public class NinjaVanish : Ability
 			}
 		}
 		bool result = false;
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (boardSquareSafe != null)
 		{
 			if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())

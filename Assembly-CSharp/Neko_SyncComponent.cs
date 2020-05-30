@@ -194,7 +194,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 
 	private BoardSquare GetSquareForDisc(int index)
 	{
-		return Board.Get().GetBoardSquare(m_boardX[index], m_boardY[index]);
+		return Board.Get().GetSquare(m_boardX[index], m_boardY[index]);
 	}
 
 	public bool ShouldForceShowOutline(ActorData forActor)
@@ -362,12 +362,12 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 						List<AbilityTarget> abilityTargetsInRequest = m_actorTargeting.GetAbilityTargetsInRequest(actionTypeOfAbility);
 						if (!abilityTargetsInRequest.IsNullOrEmpty())
 						{
-							boardSquare = Board.Get().GetBoardSquareSafe(abilityTargetsInRequest[abilityTargetsInRequest.Count - 1].GridPos);
+							boardSquare = Board.Get().GetSquare(abilityTargetsInRequest[abilityTargetsInRequest.Count - 1].GridPos);
 						}
 						else if (m_actorData.GetActorTurnSM().GetAbilityTargets().Count == current.ability.GetNumTargets() - 1)
 						{
 							AbilityTarget abilityTargetForTargeterUpdate = AbilityTarget.GetAbilityTargetForTargeterUpdate();
-							boardSquare = Board.Get().GetBoardSquareSafe(abilityTargetForTargeterUpdate.GridPos);
+							boardSquare = Board.Get().GetSquare(abilityTargetForTargeterUpdate.GridPos);
 						}
 					}
 				}

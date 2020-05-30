@@ -20,7 +20,7 @@ public class AbilityUtil_Targeter_Grid : AbilityUtil_Targeter
 	protected BoardSquare GetGameplayRefSquare(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		GridPos gridPos = (GetCurrentRangeInSquares() == 0f) ? targetingActor.GetGridPosWithIncrementedHeight() : currentTarget.GridPos;
-		return Board.Get().GetBoardSquareSafe(gridPos);
+		return Board.Get().GetSquare(gridPos);
 	}
 
 	protected Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor)

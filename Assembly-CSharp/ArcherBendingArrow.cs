@@ -257,7 +257,7 @@ public class ArcherBendingArrow : Ability
 				{
 					if (abilityTargetsInRequest.Count > 0)
 					{
-						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTargetsInRequest[0].GridPos);
+						BoardSquare boardSquareSafe = Board.Get().GetSquare(abilityTargetsInRequest[0].GridPos);
 						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, true, false, base.ActorData);
 						if (targetableActorOnSquare == targetActor)
 						{

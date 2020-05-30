@@ -180,7 +180,7 @@ public class SparkDash : Ability
 	{
 		bool result = false;
 		SparkDash sparkDash = ability as SparkDash;
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(abilityTarget.GridPos);
 		if (sparkDash != null)
 		{
 			if (boardSquareSafe != null)
@@ -450,7 +450,7 @@ public class SparkDash : Ability
 		if (tooltipSubjectTypes != null)
 		{
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(base.Targeter.LastUpdatingGridPos);
 			bool flag = (bool)boardSquareSafe && boardSquareSafe == targetActor.GetCurrentBoardSquare();
 			int age = 0;
 			if (m_beamSyncComp != null)
@@ -630,8 +630,8 @@ public class SparkDash : Ability
 		else
 		{
 			flag = true;
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
-			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos);
+			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(target.GridPos);
 			if (boardSquareSafe2 != null && boardSquareSafe2.IsBaselineHeight())
 			{
 				if (boardSquareSafe2 != boardSquareSafe && boardSquareSafe2 != caster.GetCurrentBoardSquare())

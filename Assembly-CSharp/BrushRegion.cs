@@ -36,9 +36,9 @@ public class BrushRegion : BoardRegion
 				if (!(m_quads[0].m_corner2 == null))
 				{
 					Vector3 position = m_quads[0].m_corner1.position;
-					BoardSquare boardSquareUnsafe = Board.Get().GetBoardSquareUnsafe(position.x, position.z);
+					BoardSquare boardSquareUnsafe = Board.Get().GetClosestSquareToPosition(position.x, position.z);
 					Vector3 position2 = m_quads[0].m_corner2.position;
-					BoardSquare boardSquareUnsafe2 = Board.Get().GetBoardSquareUnsafe(position2.x, position2.z);
+					BoardSquare boardSquareUnsafe2 = Board.Get().GetClosestSquareToPosition(position2.x, position2.z);
 					if (boardSquareUnsafe != null)
 					{
 						if (boardSquareUnsafe2 != null)
@@ -316,10 +316,10 @@ public class BrushRegion : BoardRegion
 
 	private static void MaskSideFlagForSquare(ref byte sideFlags, BoardSquare centerSquare, List<BoardSquare> squaresInSet)
 	{
-		BoardSquare boardSquare = Board.Get().GetBoardSquare(centerSquare.x, centerSquare.y + 1);
-		BoardSquare boardSquare2 = Board.Get().GetBoardSquare(centerSquare.x, centerSquare.y - 1);
-		BoardSquare boardSquare3 = Board.Get().GetBoardSquare(centerSquare.x - 1, centerSquare.y);
-		BoardSquare boardSquare4 = Board.Get().GetBoardSquare(centerSquare.x + 1, centerSquare.y);
+		BoardSquare boardSquare = Board.Get().GetSquare(centerSquare.x, centerSquare.y + 1);
+		BoardSquare boardSquare2 = Board.Get().GetSquare(centerSquare.x, centerSquare.y - 1);
+		BoardSquare boardSquare3 = Board.Get().GetSquare(centerSquare.x - 1, centerSquare.y);
+		BoardSquare boardSquare4 = Board.Get().GetSquare(centerSquare.x + 1, centerSquare.y);
 		ApplyMarkForSide(ref sideFlags, SideFlags.Up, boardSquare, squaresInSet);
 		ApplyMarkForSide(ref sideFlags, SideFlags.Down, boardSquare2, squaresInSet);
 		ApplyMarkForSide(ref sideFlags, SideFlags.Left, boardSquare3, squaresInSet);

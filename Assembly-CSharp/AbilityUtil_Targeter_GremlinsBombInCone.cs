@@ -76,7 +76,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 		{
 			gridPos = targetingActor.GetGridPosWithIncrementedHeight();
 		}
-		return Board.Get().GetBoardSquareSafe(gridPos);
+		return Board.Get().GetSquare(gridPos);
 	}
 
 	protected Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor)

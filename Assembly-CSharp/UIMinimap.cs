@@ -137,7 +137,7 @@ public class UIMinimap : MonoBehaviour
 			GridPos gridPos = default(GridPos);
 			gridPos.x = x;
 			gridPos.y = y;
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(gridPos);
 			if (boardSquareSafe != null)
 			{
 				if (boardSquareSafe.IsBaselineHeight())
@@ -197,11 +197,11 @@ public class UIMinimap : MonoBehaviour
 		GridPos gridPos = default(GridPos);
 		gridPos.x = 0;
 		gridPos.y = 0;
-		Vector3 b = Board.Get().GetBoardSquareSafe(gridPos).ToVector3();
+		Vector3 b = Board.Get().GetSquare(gridPos).ToVector3();
 		Vector3 vector = worldPosition - b;
 		gridPos.x = m_maxX - 1;
 		gridPos.y = m_maxY - 1;
-		Vector3 a = Board.Get().GetBoardSquareSafe(gridPos).ToVector3();
+		Vector3 a = Board.Get().GetSquare(gridPos).ToVector3();
 		Vector3 vector2 = a - b;
 		float num = vector.x / vector2.x;
 		float num2 = vector.z / vector2.z;
@@ -383,7 +383,7 @@ public class UIMinimap : MonoBehaviour
 					GridPos gridPos = default(GridPos);
 					gridPos.x = j;
 					gridPos.y = k;
-					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
+					BoardSquare boardSquareSafe = Board.Get().GetSquare(gridPos);
 					RectTransform rectTransform = UnityEngine.Object.Instantiate(m_tilePrefab);
 					m_tiles[j, k] = rectTransform;
 					rectTransform.transform.SetParent(m_gridLayout.transform, false);
@@ -529,11 +529,11 @@ public class UIMinimap : MonoBehaviour
 		GridPos gridPos = default(GridPos);
 		gridPos.x = 0;
 		gridPos.y = 0;
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(gridPos);
 		GridPos gridPos2 = default(GridPos);
 		gridPos2.x = 0;
 		gridPos2.y = m_maxY - 1;
-		BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(gridPos2);
+		BoardSquare boardSquareSafe2 = Board.Get().GetSquare(gridPos2);
 		Vector3 vector = boardSquareSafe2.gameObject.transform.position - boardSquareSafe.gameObject.transform.position;
 		Vector3 forward = Camera.main.transform.forward;
 		forward.y = 0f;
@@ -597,7 +597,7 @@ public class UIMinimap : MonoBehaviour
 				GridPos gridPos = default(GridPos);
 				gridPos.x = num;
 				gridPos.y = num2;
-				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
+				BoardSquare boardSquareSafe = Board.Get().GetSquare(gridPos);
 				IsometricCamera component = Camera.main.GetComponent<IsometricCamera>();
 				if (!(boardSquareSafe != null))
 				{

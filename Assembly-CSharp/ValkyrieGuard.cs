@@ -278,7 +278,7 @@ public class ValkyrieGuard : Ability
 
 	public override Vector3 GetRotateToTargetPos(List<AbilityTarget> targets, ActorData caster)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(targets[0].GridPos);
 		if (boardSquareSafe != null)
 		{
 			while (true)

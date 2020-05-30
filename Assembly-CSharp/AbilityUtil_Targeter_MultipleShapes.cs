@@ -128,7 +128,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 				}
 			}
 		}
-		return Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		return Board.Get().GetSquare(currentTarget.GridPos);
 	}
 
 	private Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor, AbilityAreaShape shape)

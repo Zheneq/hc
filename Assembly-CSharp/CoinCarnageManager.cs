@@ -231,7 +231,7 @@ public class CoinCarnageManager : NetworkBehaviour
 				CoinSpawnInfo current = enumerator.Current;
 				foreach (Transform spawnLocation in current.m_spawnLocations)
 				{
-					BoardSquare boardSquare = Board.Get().GetBoardSquare(spawnLocation);
+					BoardSquare boardSquare = Board.Get().GetSquare(spawnLocation);
 					if (boardSquare != null)
 					{
 						if (boardSquare.IsBaselineHeight())

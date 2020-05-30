@@ -259,7 +259,7 @@ public class CollectTheCoins : NetworkBehaviour
 				sbyte b7 = reader.ReadSByte();
 				sbyte b8 = reader.ReadSByte();
 				sbyte b9 = reader.ReadSByte();
-				BoardSquare boardSquare = Board.Get().GetBoardSquare(b7, b8);
+				BoardSquare boardSquare = Board.Get().GetSquare(b7, b8);
 				dictionary2.Add(boardSquare, b9);
 			}
 			while (true)

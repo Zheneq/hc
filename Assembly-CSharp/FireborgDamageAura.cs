@@ -178,7 +178,7 @@ public class FireborgDamageAura : GenericAbility_Container
 			}
 			while (true)
 			{
-				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+				BoardSquare boardSquareSafe = Board.Get().GetSquare(base.Targeter.LastUpdatingGridPos);
 				if (!(boardSquareSafe != null))
 				{
 					return;
@@ -210,7 +210,7 @@ public class FireborgDamageAura : GenericAbility_Container
 		}
 		while (true)
 		{
-			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(base.Targeter.LastUpdatingGridPos);
 			if (!(boardSquareSafe2 != null))
 			{
 				return;
@@ -236,7 +236,7 @@ public class FireborgDamageAura : GenericAbility_Container
 		{
 			if (target.GetTeam() != caster.GetTeam())
 			{
-				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+				BoardSquare boardSquareSafe = Board.Get().GetSquare(base.Targeter.LastUpdatingGridPos);
 				if (boardSquareSafe != null)
 				{
 					if (boardSquareSafe == target.GetCurrentBoardSquare())

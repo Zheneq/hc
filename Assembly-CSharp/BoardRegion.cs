@@ -48,8 +48,8 @@ public class BoardRegion
 
 	public virtual void InitializeAsRect(Vector3 worldCorner1, Vector3 worldCorner2)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(worldCorner1.x, worldCorner1.z);
-		BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(worldCorner2.x, worldCorner2.z);
+		BoardSquare boardSquareSafe = Board.Get().GetSquareAtPosition(worldCorner1.x, worldCorner1.z);
+		BoardSquare boardSquareSafe2 = Board.Get().GetSquareAtPosition(worldCorner2.x, worldCorner2.z);
 		m_squaresInRegion = Board.Get().GetSquaresInRect(boardSquareSafe, boardSquareSafe2);
 	}
 
@@ -183,7 +183,7 @@ public class BoardRegion
 	public BoardSquare GetCenterSquare()
 	{
 		Vector3 center = GetCenter();
-		return Board.Get().GetBoardSquare(center);
+		return Board.Get().GetSquare(center);
 	}
 
 	public bool Contains(int x, int y)

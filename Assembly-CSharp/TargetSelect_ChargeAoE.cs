@@ -102,7 +102,7 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 
 	public override bool HandleCustomTargetValidation(Ability ability, ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
 			if (boardSquareSafe != caster.GetCurrentBoardSquare())
@@ -132,7 +132,7 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 
 	public static BoardSquare GetTrimOnHitDestination(AbilityTarget currentTarget, BoardSquare startSquare, float lineHalfWidthInSquares, ActorData caster, List<Team> relevantTeams, bool forServer)
 	{
-		BoardSquare boardSquare = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquare = Board.Get().GetSquare(currentTarget.GridPos);
 		bool collision;
 		Vector3 collisionNormal;
 		Vector3 abilityLineEndpoint = BarrierManager.Get().GetAbilityLineEndpoint(caster, startSquare.ToVector3(), boardSquare.ToVector3(), out collision, out collisionNormal);

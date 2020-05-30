@@ -150,7 +150,7 @@ public class NanoSmithBlastShield : Ability
 		int energyGainOnShieldTarget = GetEnergyGainOnShieldTarget();
 		if (energyGainOnShieldTarget > 0)
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(base.Targeter.LastUpdatingGridPos);
 			if (boardSquareSafe != null)
 			{
 				if (boardSquareSafe.OccupantActor == caster)

@@ -559,7 +559,7 @@ public class RampartDashAndAimShield : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
 			if (boardSquareSafe.IsBaselineHeight())
@@ -589,7 +589,7 @@ public class RampartDashAndAimShield : Ability
 					}
 					else
 					{
-						BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos);
+						BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[0].GridPos);
 						result = (boardSquareSafe2 == boardSquareSafe);
 					}
 					return result;

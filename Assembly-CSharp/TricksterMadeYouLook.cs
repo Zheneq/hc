@@ -216,7 +216,7 @@ public class TricksterMadeYouLook : Ability
 		{
 			return true;
 		}
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
 			if (boardSquareSafe.IsBaselineHeight())
@@ -314,7 +314,7 @@ public class TricksterMadeYouLook : Ability
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
 	{
 		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages(false);
-		BoardSquare boardSquare = Board.Get().GetBoardSquare(targetPos);
+		BoardSquare boardSquare = Board.Get().GetSquare(targetPos);
 		bool flag = validAfterImages.Count > 1;
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 		{

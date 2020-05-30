@@ -113,7 +113,7 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 			if (targets[currentTargetIndex - 1] != null)
 			{
 				AbilityTarget abilityTarget = targets[currentTargetIndex - 1];
-				coneStartSquare = Board.Get().GetBoardSquareSafe(abilityTarget.GridPos);
+				coneStartSquare = Board.Get().GetSquare(abilityTarget.GridPos);
 				goto IL_0066;
 			}
 		}

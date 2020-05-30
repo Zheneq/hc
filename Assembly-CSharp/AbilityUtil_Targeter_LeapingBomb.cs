@@ -52,7 +52,7 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 		float squareSize = Board.Get().squareSize;
 		List<BoardSquare> list = new List<BoardSquare>();
 		List<VectorUtils.LaserCoords> list2 = new List<VectorUtils.LaserCoords>();
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		list.Add(boardSquareSafe);
 		VectorUtils.LaserCoords item = default(VectorUtils.LaserCoords);
 		item.start = targetingActor.GetTravelBoardSquareWorldPosition();

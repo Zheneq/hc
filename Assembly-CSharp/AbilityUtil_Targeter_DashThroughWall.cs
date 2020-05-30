@@ -116,7 +116,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 			}
 			float d = Mathf.Min(0.5f, magnitude / 2f);
 			Vector3 vector2 = chargeEndPoint - vector * d;
-			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(vector2);
+			BoardSquare boardSquare2 = Board.Get().GetSquare(vector2);
 			if (chargeHitActors.Count > 0)
 			{
 				Vector3 travelBoardSquareWorldPosition;
@@ -136,7 +136,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 			else
 			{
 				boardSquare2 = KnockbackUtils.GetLastValidBoardSquareInLine(travelBoardSquareWorldPositionForLos, vector2, true);
-				BoardSquare boardSquare3 = Board.Get().GetBoardSquare(vector2);
+				BoardSquare boardSquare3 = Board.Get().GetSquare(vector2);
 				if (boardSquare3 == null)
 				{
 					flag2 = true;

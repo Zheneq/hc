@@ -1738,7 +1738,7 @@ public class Ability : MonoBehaviour
 			{
 				if (targetData[0].m_targetingParadigm == TargetingParadigm.BoardSquare)
 				{
-					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+					BoardSquare boardSquareSafe = Board.Get().GetSquare(targets[0].GridPos);
 					if (boardSquareSafe != null)
 					{
 						while (true)
@@ -2010,7 +2010,7 @@ public class Ability : MonoBehaviour
 			{
 				if (GetRunPriority() == AbilityPriority.Evasion)
 				{
-					result = Board.Get().GetBoardSquareSafe(targets[targets.Count - 1].GridPos);
+					result = Board.Get().GetSquare(targets[targets.Count - 1].GridPos);
 				}
 			}
 		}

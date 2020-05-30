@@ -11,8 +11,8 @@ public class TeleportPathEnd : PathEnd
 		if (m_arrowPointTo != null)
 		{
 			m_arrowPointTo.SetActive(true);
-			Vector3 worldPosition = Board.Get().GetBoardSquareSafe(startPosition).GetWorldPosition();
-			Vector3 worldPosition2 = Board.Get().GetBoardSquareSafe(endPosition).GetWorldPosition();
+			Vector3 worldPosition = Board.Get().GetSquare(startPosition).GetWorldPosition();
+			Vector3 worldPosition2 = Board.Get().GetSquare(endPosition).GetWorldPosition();
 			Vector3 forward = worldPosition2 - worldPosition;
 			m_arrowPointTo.transform.forward = forward;
 		}

@@ -91,7 +91,7 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 			abilityTarget = targets[0];
 		}
 		AbilityTarget abilityTarget2 = abilityTarget;
-		Vector3 squareWorldPositionForLoS = targetingActor.GetSquareWorldPositionForLoS(Board.Get().GetBoardSquareSafe(abilityTarget2.GridPos));
+		Vector3 squareWorldPositionForLoS = targetingActor.GetSquareWorldPositionForLoS(Board.Get().GetSquare(abilityTarget2.GridPos));
 		Vector3 vector = (!m_aimBackward) ? (squareWorldPositionForLoS - targetingActor.GetTravelBoardSquareWorldPositionForLos()) : (targetingActor.GetTravelBoardSquareWorldPositionForLos() - squareWorldPositionForLoS);
 		if (vector.magnitude > 0.5f)
 		{
@@ -122,7 +122,7 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 			{
 				vector2.Normalize();
 			}
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(targets[0].GridPos);
 			VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
 			laserCoords.start = targetingActor.GetSquareWorldPositionForLoS(boardSquareSafe);
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, vector2, laserRange, m_laserWidth, targetingActor, GetAffectedTeams(), false, m_maxTargets, false, false, out laserCoords.end, null);
@@ -199,11 +199,11 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 			BoardSquare boardSquareSafe2;
 			if (currentTargetIndex == 0)
 			{
-				boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+				boardSquareSafe2 = Board.Get().GetSquare(currentTarget.GridPos);
 			}
 			else
 			{
-				boardSquareSafe2 = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+				boardSquareSafe2 = Board.Get().GetSquare(targets[0].GridPos);
 			}
 			if (boardSquareSafe2 != null)
 			{

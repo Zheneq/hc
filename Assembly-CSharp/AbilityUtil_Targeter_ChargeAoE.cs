@@ -86,7 +86,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
-		BoardSquare boardSquare = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquare = Board.Get().GetSquare(currentTarget.GridPos);
 		ClearActorsInRange();
 		OrderedHitActors.Clear();
 		BoardSquarePathInfo boardSquarePathInfo = null;
@@ -334,7 +334,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 		IL_00c4:
 		if (boardSquare != null)
 		{
-			boardSquare2 = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
+			boardSquare2 = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
 		}
 		goto IL_00fa;
 	}

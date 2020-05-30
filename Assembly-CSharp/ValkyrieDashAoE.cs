@@ -240,7 +240,7 @@ public class ValkyrieDashAoE : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (targetIndex == 0)
 		{
 			if (boardSquareSafe != null)
@@ -508,7 +508,7 @@ public class ValkyrieDashAoE : Ability
 					break;
 				default:
 				{
-					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetsSoFar[0].GridPos);
+					BoardSquare boardSquareSafe = Board.Get().GetSquare(targetsSoFar[0].GridPos);
 					overridePos = boardSquareSafe.ToVector3();
 					return true;
 				}

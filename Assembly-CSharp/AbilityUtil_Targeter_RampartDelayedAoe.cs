@@ -71,7 +71,7 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 
 	private BoardSquare GetTargetSquare(AbilityTarget currentTarget)
 	{
-		return Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		return Board.Get().GetSquare(currentTarget.GridPos);
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)

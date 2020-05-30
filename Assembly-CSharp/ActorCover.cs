@@ -214,7 +214,7 @@ public class ActorCover : NetworkBehaviour
 	public bool HasNonThinCover(BoardSquare currentSquare, int xDelta, int yDelta, bool halfHeight)
 	{
 		bool result = false;
-		BoardSquare boardSquare = Board.Get().GetBoardSquare(currentSquare.x + xDelta, currentSquare.y + yDelta);
+		BoardSquare boardSquare = Board.Get().GetSquare(currentSquare.x + xDelta, currentSquare.y + yDelta);
 		if (boardSquare != null)
 		{
 			int num = boardSquare.height - currentSquare.height;

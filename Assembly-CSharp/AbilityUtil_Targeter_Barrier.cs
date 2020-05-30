@@ -54,7 +54,7 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 				flag = true;
 			}
 			m_lastFreePos = m_barrierCenterPos;
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTarget.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(abilityTarget.GridPos);
 			if (boardSquareSafe != null)
 			{
 				active = true;

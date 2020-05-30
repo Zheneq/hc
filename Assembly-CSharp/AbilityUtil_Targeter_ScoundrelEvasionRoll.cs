@@ -32,7 +32,7 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 		ClearActorsInRange();
 		m_numNodesInPath = 0;
 		BoardSquarePathInfo boardSquarePathInfo = null;
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		if (!(boardSquareSafe != null))
 		{
 			goto IL_007b;
@@ -93,7 +93,7 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 		IL_007b:
 		if (boardSquareSafe != null)
 		{
-			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
+			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
 			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, boardSquareSafe2, false);
 		}
 		goto IL_00b0;
@@ -101,7 +101,7 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 
 	private Vector3 GetTrapwireHighlightPos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		Vector3 vector;
 		if (boardSquareSafe != null)
 		{

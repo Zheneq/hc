@@ -108,7 +108,7 @@ public class PersistentSatelliteActionSequence : Sequence
 				}
 				goto IL_0109;
 				IL_0109:
-				m_lastBoardSquare = Board.Get().GetBoardSquare(m_persistentSatellite.transform.position);
+				m_lastBoardSquare = Board.Get().GetSquare(m_persistentSatellite.transform.position);
 				return;
 			}
 		}
@@ -227,7 +227,7 @@ public class PersistentSatelliteActionSequence : Sequence
 					}
 					while (true)
 					{
-						BoardSquare boardSquare = Board.Get().GetBoardSquare(m_persistentSatellite.transform.position);
+						BoardSquare boardSquare = Board.Get().GetSquare(m_persistentSatellite.transform.position);
 						if (boardSquare != m_lastBoardSquare)
 						{
 							base.Caster.GetFogOfWar().MarkForRecalculateVisibility();

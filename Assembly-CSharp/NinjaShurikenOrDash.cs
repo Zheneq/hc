@@ -396,7 +396,7 @@ public class NinjaShurikenOrDash : Ability
 	{
 		results.m_damage = 0;
 		results.m_healing = 0;
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(base.Targeter.LastUpdatingGridPos);
 		int num;
 		if ((bool)boardSquareSafe)
 		{
@@ -574,7 +574,7 @@ public class NinjaShurikenOrDash : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		bool flag;
 		bool flag2;
 		if (!(boardSquareSafe == null))
@@ -655,8 +655,8 @@ public class NinjaShurikenOrDash : Ability
 				else
 				{
 					flag = true;
-					BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
-					BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
+					BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos);
+					BoardSquare boardSquareSafe3 = Board.Get().GetSquare(target.GridPos);
 					if (boardSquareSafe3 != null)
 					{
 						if (boardSquareSafe3.IsBaselineHeight())

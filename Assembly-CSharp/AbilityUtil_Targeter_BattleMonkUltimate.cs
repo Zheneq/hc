@@ -93,7 +93,7 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 				}
 			}
 		}
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		BoardSquare currentBoardSquare = targetingActor.GetCurrentBoardSquare();
 		BoardSquarePathInfo boardSquarePathInfo = null;
 		if (m_groundBasedMovement)

@@ -624,7 +624,7 @@ namespace Theatrics
 					BoardSquare boardSquare = null;
 					for (int i = 0; i < _000C.Count; i++)
 					{
-						boardSquare = Board.Get().GetBoardSquare(_000C[i], _0014[i]);
+						boardSquare = Board.Get().GetSquare(_000C[i], _0014[i]);
 						if (!(boardSquare != null) || !clientFog.IsVisible(boardSquare))
 						{
 							continue;
@@ -653,7 +653,7 @@ namespace Theatrics
 									}
 									else
 									{
-										boardSquare = Board.Get().GetBoardSquare(key.transform.position);
+										boardSquare = Board.Get().GetSquare(key.transform.position);
 										if (clientFog.IsVisible(boardSquare))
 										{
 											while (true)

@@ -310,7 +310,7 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 				Vector3 vector2 = laserCoords.start;
 				if (currentTargetIndex > 0)
 				{
-					if (Board.Get().GetBoardSquare(vector2) == actorData.GetCurrentBoardSquare())
+					if (Board.Get().GetSquare(vector2) == actorData.GetCurrentBoardSquare())
 					{
 						vector2 = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 					}

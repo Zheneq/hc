@@ -63,11 +63,11 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		{
 			if (currentTargetIndex > 0)
 			{
-				boardSquare = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
+				boardSquare = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
 			}
 			else
 			{
-				boardSquare = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+				boardSquare = Board.Get().GetSquare(currentTarget.GridPos);
 			}
 			if (boardSquare != null)
 			{

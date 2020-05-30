@@ -479,7 +479,7 @@ public class SamuraiSwordDash : Ability
 						{
 							symbolToValue[AbilityTooltipSymbol.Damage] += m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
 						}
-						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+						BoardSquare boardSquareSafe = Board.Get().GetSquare(base.Targeter.LastUpdatingGridPos);
 						BoardSquare currentBoardSquare = base.ActorData.CurrentBoardSquare;
 						symbolToValue[AbilityTooltipSymbol.Damage] += CalcExtraDamageForDashDist(currentBoardSquare, boardSquareSafe);
 					}
@@ -529,7 +529,7 @@ public class SamuraiSwordDash : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
 			if (boardSquareSafe.IsBaselineHeight())

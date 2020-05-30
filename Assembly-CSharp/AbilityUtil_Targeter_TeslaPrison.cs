@@ -56,7 +56,7 @@ public class AbilityUtil_Targeter_TeslaPrison : AbilityUtil_Targeter_TrackerDron
 		{
 			num = 0;
 		}
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		float squareSize = Board.Get().squareSize;
 		if (m_shapeForActorHits > AbilityAreaShape.SingleSquare)
 		{
@@ -75,7 +75,7 @@ public class AbilityUtil_Targeter_TeslaPrison : AbilityUtil_Targeter_TrackerDron
 					break;
 				default:
 				{
-					BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+					BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTarget.GridPos);
 					if (m_squareCornerLength > 0 && m_squareMidsectionLength >= 0)
 					{
 						while (true)

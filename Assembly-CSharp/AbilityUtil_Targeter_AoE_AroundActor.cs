@@ -29,7 +29,7 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 		Vector3 result = base.GetRefPos(currentTarget, targetingActor, range);
 		if (m_lockToGridPos && Board.Get() != null && currentTarget != null)
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 			if (boardSquareSafe != null)
 			{
 				result = boardSquareSafe.ToVector3();
@@ -42,7 +42,7 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
 		m_lastCenterActor = null;
-		BoardSquare boardSquare = Board.Get().GetBoardSquare(GetRefPos(currentTarget, targetingActor, GetCurrentRangeInSquares()));
+		BoardSquare boardSquare = Board.Get().GetSquare(GetRefPos(currentTarget, targetingActor, GetCurrentRangeInSquares()));
 		ActorData occupantActor = boardSquare.OccupantActor;
 		if (!(occupantActor != null))
 		{

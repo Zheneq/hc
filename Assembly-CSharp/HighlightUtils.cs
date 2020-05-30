@@ -239,7 +239,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				{
 					KeyValuePair<BoardSquare, int> current = enumerator.Current;
 					BoardSquare key = current.Key;
-					BoardSquare boardSquare = Board.Get().GetBoardSquare(key.x, key.y + 1);
+					BoardSquare boardSquare = Board.Get().GetSquare(key.x, key.y + 1);
 					int value = current.Value;
 					if (boardSquare != null)
 					{
@@ -287,7 +287,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					AddVerticalConnector(pt9, pt10, pt11, pt12, true);
 					goto IL_0485;
 					IL_067c:
-					BoardSquare boardSquare3 = Board.Get().GetBoardSquare(key.x + 1, key.y);
+					BoardSquare boardSquare3 = Board.Get().GetSquare(key.x + 1, key.y);
 					if (!(boardSquare3 != null))
 					{
 						continue;
@@ -314,7 +314,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					AddVerticalConnector(pt13, pt14, pt15, pt16, true);
 					goto IL_07bd;
 					IL_0485:
-					BoardSquare boardSquare4 = Board.Get().GetBoardSquare(key.x, key.y - 1);
+					BoardSquare boardSquare4 = Board.Get().GetSquare(key.x, key.y - 1);
 					if (boardSquare4 != null)
 					{
 						if (m_borderSquares.ContainsKey(boardSquare4))
@@ -346,7 +346,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					goto IL_067c;
 					IL_026a:
-					boardSquare2 = Board.Get().GetBoardSquare(key.x - 1, key.y);
+					boardSquare2 = Board.Get().GetSquare(key.x - 1, key.y);
 					if (boardSquare2 != null && m_borderSquares.ContainsKey(boardSquare2))
 					{
 						if ((float)(boardSquare2.height - key.height) >= num3)
@@ -2433,11 +2433,11 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 	private void ProcessUpperLeftCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightMesh highlighMesh, bool includeInternalBorders)
 	{
 		Board board = Board.Get();
-		BoardSquare boardSquare = board.GetBoardSquare(square.x, square.y + 1);
+		BoardSquare boardSquare = board.GetSquare(square.x, square.y + 1);
 		bool flag = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
-		boardSquare = board.GetBoardSquare(square.x - 1, square.y);
+		boardSquare = board.GetSquare(square.x - 1, square.y);
 		bool flag2 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
-		boardSquare = board.GetBoardSquare(square.x - 1, square.y + 1);
+		boardSquare = board.GetSquare(square.x - 1, square.y + 1);
 		bool flag3 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
 		if (!flag && !flag2)
 		{
@@ -2508,11 +2508,11 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 	private void ProcessUpperRightCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightMesh highlighMesh, bool includeInternalBorders)
 	{
 		Board board = Board.Get();
-		BoardSquare boardSquare = board.GetBoardSquare(square.x, square.y + 1);
+		BoardSquare boardSquare = board.GetSquare(square.x, square.y + 1);
 		bool flag = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
-		boardSquare = board.GetBoardSquare(square.x + 1, square.y);
+		boardSquare = board.GetSquare(square.x + 1, square.y);
 		bool flag2 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
-		boardSquare = board.GetBoardSquare(square.x + 1, square.y + 1);
+		boardSquare = board.GetSquare(square.x + 1, square.y + 1);
 		bool flag3 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
 		if (!flag)
 		{
@@ -2582,11 +2582,11 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 	private void ProcessLowerLeftCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightMesh highlighMesh, bool includeInternalBorders)
 	{
 		Board board = Board.Get();
-		BoardSquare boardSquare = board.GetBoardSquare(square.x, square.y - 1);
+		BoardSquare boardSquare = board.GetSquare(square.x, square.y - 1);
 		bool flag = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
-		boardSquare = board.GetBoardSquare(square.x - 1, square.y);
+		boardSquare = board.GetSquare(square.x - 1, square.y);
 		bool flag2 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
-		boardSquare = board.GetBoardSquare(square.x - 1, square.y - 1);
+		boardSquare = board.GetSquare(square.x - 1, square.y - 1);
 		bool flag3 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
 		if (!flag)
 		{
@@ -2655,11 +2655,11 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 	private void ProcessLowerRightCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightMesh highlighMesh, bool includeInternalBorders)
 	{
 		Board board = Board.Get();
-		BoardSquare boardSquare = board.GetBoardSquare(square.x, square.y - 1);
+		BoardSquare boardSquare = board.GetSquare(square.x, square.y - 1);
 		bool flag = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
-		boardSquare = board.GetBoardSquare(square.x + 1, square.y);
+		boardSquare = board.GetSquare(square.x + 1, square.y);
 		bool flag2 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
-		boardSquare = board.GetBoardSquare(square.x + 1, square.y - 1);
+		boardSquare = board.GetSquare(square.x + 1, square.y - 1);
 		bool flag3 = IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
 		if (!flag)
 		{
@@ -2761,7 +2761,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	private bool BoardSquareIsInSet(int x, int y, HashSet<BoardSquare> squaresSet)
 	{
-		BoardSquare boardSquare = Board.Get().GetBoardSquare(x, y);
+		BoardSquare boardSquare = Board.Get().GetSquare(x, y);
 		return squaresSet.Contains(boardSquare);
 	}
 
@@ -2831,7 +2831,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		Board board = Board.Get();
 		for (int i = num; i <= num2; i++)
 		{
-			BoardSquare boardSquare = board.GetBoardSquare(i, num3);
+			BoardSquare boardSquare = board.GetSquare(i, num3);
 			if (boardSquare != null)
 			{
 				if (!squaresSet.Contains(boardSquare))
@@ -2839,7 +2839,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					hashSet.Add(boardSquare);
 				}
 			}
-			BoardSquare boardSquare2 = board.GetBoardSquare(i, num4);
+			BoardSquare boardSquare2 = board.GetSquare(i, num4);
 			if (!(boardSquare2 != null))
 			{
 				continue;
@@ -2853,7 +2853,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		{
 			for (int j = num3; j <= num4; j++)
 			{
-				BoardSquare boardSquare3 = board.GetBoardSquare(num, j);
+				BoardSquare boardSquare3 = board.GetSquare(num, j);
 				if (boardSquare3 != null)
 				{
 					if (!squaresSet.Contains(boardSquare3))
@@ -2861,7 +2861,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						hashSet.Add(boardSquare3);
 					}
 				}
-				BoardSquare boardSquare4 = board.GetBoardSquare(num2, j);
+				BoardSquare boardSquare4 = board.GetSquare(num2, j);
 				if (!(boardSquare4 != null))
 				{
 					continue;
@@ -2916,7 +2916,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						{
 							continue;
 						}
-						BoardSquare boardSquare6 = board.GetBoardSquare(num5, num6);
+						BoardSquare boardSquare6 = board.GetSquare(num5, num6);
 						if (!(boardSquare6 != null))
 						{
 							continue;

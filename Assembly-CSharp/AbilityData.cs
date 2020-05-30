@@ -2307,7 +2307,7 @@ public class AbilityData : NetworkBehaviour
 		Ability.TargetingParadigm targetingParadigm = ability.GetTargetingParadigm(targetIndex);
 		if (targetingParadigm == Ability.TargetingParadigm.BoardSquare)
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 			flag |= this.IsTargetSquareInRangeOfAbilityFromSquare(boardSquareSafe, currentBoardSquare, num, num2);
 		}
 		else if (targetingParadigm == Ability.TargetingParadigm.Position)
@@ -2333,7 +2333,7 @@ public class AbilityData : NetworkBehaviour
 			}
 			else
 			{
-				BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
+				BoardSquare boardSquareSafe2 = Board.Get().GetSquare(target.GridPos);
 				flag |= this.IsTargetSquareInRangeOfAbilityFromSquare(boardSquareSafe2, currentBoardSquare, num, num2);
 			}
 		}
@@ -2414,7 +2414,7 @@ public class AbilityData : NetworkBehaviour
 					return result;
 				}
 			}
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 			ReadOnlyCollection<BoardSquare> lineOfSightVisibleExceptionSquares = actor.LineOfSightVisibleExceptionSquares;
 			if (lineOfSightVisibleExceptionSquares.Contains(boardSquareSafe))
 			{
@@ -2490,11 +2490,11 @@ public class AbilityData : NetworkBehaviour
 				goto IL_D8;
 			}
 		}
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		bool flag2;
 		if (boardSquareSafe != null)
 		{
-			flag2 = (ability.AllowInvalidSquareForSquareBasedTarget() || Board.Get().GetBoardSquareSafe(target.GridPos).IsBaselineHeight());
+			flag2 = (ability.AllowInvalidSquareForSquareBasedTarget() || Board.Get().GetSquare(target.GridPos).IsBaselineHeight());
 		}
 		else
 		{
@@ -2530,12 +2530,12 @@ public class AbilityData : NetworkBehaviour
 		bool flag5 = true;
 		if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhereInCoverToCaster))
 		{
-			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(target.GridPos);
 			flag5 = ActorCover.IsInCoverWrt(actor.GetTravelBoardSquareWorldPosition(), boardSquareSafe2, null, null, null);
 		}
 		else if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhereInCover))
 		{
-			BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe3 = Board.Get().GetSquare(target.GridPos);
 			bool[] array;
 			flag5 = ActorCover.CalcCoverLevelGeoOnly(out array, boardSquareSafe3);
 		}

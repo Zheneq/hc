@@ -276,7 +276,7 @@ public static class MovementUtils
 			{
 				stream.Serialize(ref value13);
 			}
-			BoardSquare boardSquare = Board.Get().GetBoardSquare(value, value2);
+			BoardSquare boardSquare = Board.Get().GetSquare(value, value2);
 			if (boardSquare == null)
 			{
 				Log.Error("Failed to find square from index [" + value + ", " + value2 + "] during serialization of path");
@@ -386,7 +386,7 @@ public static class MovementUtils
 			{
 				segmentMovementDuration = reader.ReadSingle();
 			}
-			BoardSquare boardSquare = Board.Get().GetBoardSquare(b, b2);
+			BoardSquare boardSquare = Board.Get().GetSquare(b, b2);
 			if (boardSquare == null)
 			{
 				Log.Error("Failed to find square from index [" + b + ", " + b2 + "] during serialization of path");
@@ -594,7 +594,7 @@ public static class MovementUtils
 					}
 					else
 					{
-						square = Board.Get().GetBoardSquare(value3, value4);
+						square = Board.Get().GetSquare(value3, value4);
 					}
 					boardSquarePathInfo2 = new BoardSquarePathInfo();
 					boardSquarePathInfo2.square = square;
@@ -625,7 +625,7 @@ public static class MovementUtils
 							continue;
 						}
 					}
-					square2 = Board.Get().GetBoardSquare(value5, value6);
+					square2 = Board.Get().GetSquare(value5, value6);
 				}
 			}
 		}
@@ -676,8 +676,8 @@ public static class MovementUtils
 		bool result = false;
 		if (Board.Get()._0015(srcSquare, destSquare))
 		{
-			BoardSquare boardSquare = Board.Get().GetBoardSquare(srcSquare.GetGridPos().x, destSquare.GetGridPos().y);
-			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(destSquare.GetGridPos().x, srcSquare.GetGridPos().y);
+			BoardSquare boardSquare = Board.Get().GetSquare(srcSquare.GetGridPos().x, destSquare.GetGridPos().y);
+			BoardSquare boardSquare2 = Board.Get().GetSquare(destSquare.GetGridPos().x, srcSquare.GetGridPos().y);
 			if (srcSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(srcSquare, boardSquare)) == ThinCover.CoverType.Half)
 			{
 				result = true;
@@ -1064,7 +1064,7 @@ public static class MovementUtils
 						continue;
 					}
 				}
-				BoardSquare boardSquare = Board.Get().GetBoardSquare(currentSquare.x + i, currentSquare.y + j);
+				BoardSquare boardSquare = Board.Get().GetSquare(currentSquare.x + i, currentSquare.y + j);
 				if (!(boardSquare != null))
 				{
 					continue;

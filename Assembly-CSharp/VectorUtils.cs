@@ -68,16 +68,16 @@ public static class VectorUtils
 		switch (direction)
 		{
 		case ActorCover.CoverDirections.X_POS:
-			result = Board.Get().GetBoardSquare(square.x + 1, square.y);
+			result = Board.Get().GetSquare(square.x + 1, square.y);
 			break;
 		case ActorCover.CoverDirections.X_NEG:
-			result = Board.Get().GetBoardSquare(square.x - 1, square.y);
+			result = Board.Get().GetSquare(square.x - 1, square.y);
 			break;
 		case ActorCover.CoverDirections.Y_POS:
-			result = Board.Get().GetBoardSquare(square.x, square.y + 1);
+			result = Board.Get().GetSquare(square.x, square.y + 1);
 			break;
 		case ActorCover.CoverDirections.Y_NEG:
-			result = Board.Get().GetBoardSquare(square.x, square.y - 1);
+			result = Board.Get().GetSquare(square.x, square.y - 1);
 			break;
 		}
 		return result;

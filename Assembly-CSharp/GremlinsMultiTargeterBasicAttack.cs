@@ -254,12 +254,12 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeters[0].LastUpdatingGridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(base.Targeters[0].LastUpdatingGridPos);
 		for (int i = 0; i <= currentTargeterIndex; i++)
 		{
 			if (i > 0)
 			{
-				BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(base.Targeters[i].LastUpdatingGridPos);
+				BoardSquare boardSquareSafe2 = Board.Get().GetSquare(base.Targeters[i].LastUpdatingGridPos);
 				if (boardSquareSafe2 == null)
 				{
 					continue;
@@ -290,7 +290,7 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null) && boardSquareSafe.IsBaselineHeight())
 		{
 			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
@@ -322,7 +322,7 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 						default:
 						{
 							bool flag = true;
-							Vector3 from = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos).ToVector3() - caster.GetTravelBoardSquareWorldPosition();
+							Vector3 from = Board.Get().GetSquare(currentTargets[0].GridPos).ToVector3() - caster.GetTravelBoardSquareWorldPosition();
 							Vector3 to = boardSquareSafe.ToVector3() - caster.GetTravelBoardSquareWorldPosition();
 							if (Mathf.RoundToInt(Vector3.Angle(from, to)) > (int)ModdedMaxAngleWithFirst())
 							{
@@ -333,7 +333,7 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 								float num = GetMinDistBetweenBombs() * Board.Get().squareSize;
 								for (int i = 0; i < targetIndex; i++)
 								{
-									BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos);
+									BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[i].GridPos);
 									if (boardSquareSafe2 == boardSquareSafe)
 									{
 										flag = false;

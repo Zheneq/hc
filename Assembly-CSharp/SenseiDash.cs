@@ -251,7 +251,7 @@ public class SenseiDash : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
 			if (boardSquareSafe.IsBaselineHeight())
@@ -287,7 +287,7 @@ public class SenseiDash : Ability
 						}
 						end_IL_0093:;
 					}
-					BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
+					BoardSquare boardSquareSafe2 = Board.Get().GetSquare(target.GridPos);
 					if (boardSquareSafe2 != null)
 					{
 						if (boardSquareSafe2.IsBaselineHeight())

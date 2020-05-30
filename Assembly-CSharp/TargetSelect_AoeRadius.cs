@@ -46,7 +46,7 @@ public class TargetSelect_AoeRadius : GenericAbility_TargetSelectBase
 	{
 		if (UseSquareCenterPos())
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 			if (boardSquareSafe != null)
 			{
 				while (true)

@@ -27,7 +27,7 @@ public class NanoSmithChargeAndCreateBarrier : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null;
 	}
 

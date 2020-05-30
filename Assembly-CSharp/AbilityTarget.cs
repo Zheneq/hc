@@ -215,7 +215,7 @@ public class AbilityTarget
 			vector2 = Vector3.Cross(Vector3.up, rhs);
 			flag = true;
 		}
-		BoardSquare boardSquareUnsafe = Board.Get().GetBoardSquareUnsafe(vector.x, vector.z);
+		BoardSquare boardSquareUnsafe = Board.Get().GetClosestSquareToPosition(vector.x, vector.z);
 		List<AbilityTarget> list = new List<AbilityTarget>();
 		AbilityTarget item = new AbilityTarget(boardSquareUnsafe.GetGridPos(), vector, vector2);
 		list.Add(item);
@@ -305,7 +305,7 @@ public class AbilityTarget
 	{
 		ActorData result = null;
 		GridPos gridPos = GridPos;
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(gridPos);
 		if (boardSquareSafe != null)
 		{
 			if (boardSquareSafe.occupant != null)

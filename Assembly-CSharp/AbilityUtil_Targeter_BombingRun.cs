@@ -20,7 +20,7 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		ClearActorsInRange();
 		if (boardSquareSafe == null)
 		{
@@ -123,7 +123,7 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		ClearActorsInRange();
 		if (boardSquareSafe == null)
 		{
@@ -178,7 +178,7 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 		}
 		else
 		{
-			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
+			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
 			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, boardSquareSafe2, false);
 		}
 		int num2 = 0;

@@ -193,7 +193,7 @@ public class NekoSuperDisc : Ability
 					case 0:
 						break;
 					default:
-						return Board.Get().GetBoardSquare(m_syncComp.m_superDiscBoardX, m_syncComp.m_superDiscBoardY);
+						return Board.Get().GetSquare(m_syncComp.m_superDiscBoardX, m_syncComp.m_superDiscBoardY);
 					}
 				}
 			}

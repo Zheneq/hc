@@ -4,7 +4,7 @@ public class OffsetVFXTowardsCamera : MonoBehaviour
 {
 	public static Vector3 ProcessOffset(Vector3 position)
 	{
-		BoardSquare boardSquare = Board.Get().GetBoardSquare(position);
+		BoardSquare boardSquare = Board.Get().GetSquare(position);
 		Camera main = Camera.main;
 		if ((bool)main)
 		{

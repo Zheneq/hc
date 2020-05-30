@@ -76,9 +76,9 @@ public class NanoSmithBarrier : Ability
 					break;
 				default:
 				{
-					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+					BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 					bool flag = false;
-					BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos);
+					BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[0].GridPos);
 					return boardSquareSafe2 == boardSquareSafe;
 				}
 				}

@@ -84,7 +84,7 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 		Vector3 laserEndPos;
 		List<ActorData> actors = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, vector2, dist / squareSize, m_widthInSquares, targetingActor, GetAffectedTeams(), m_penetrateLoS, m_maxTargets, m_penetrateLoS, false, out laserEndPos, null);
 		clampedTargeterRange.y = travelBoardSquareWorldPositionForLos.y;
-		BoardSquare boardSquare = Board.Get().GetBoardSquare(clampedTargeterRange);
+		BoardSquare boardSquare = Board.Get().GetSquare(clampedTargeterRange);
 		List<ActorData> list = new List<ActorData>();
 		List<ActorData> list2 = new List<ActorData>();
 		if (boardSquare != null && boardSquare.height <= Board.Get().BaselineHeight)
@@ -135,7 +135,7 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 		}
 		ResetSquareIndicatorIndexToUse();
 		AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(m_indicatorHandler, startPos, endPos, m_widthInSquares, targetingActor, m_penetrateLoS);
-		BoardSquare boardSquare = Board.Get().GetBoardSquare(endPos);
+		BoardSquare boardSquare = Board.Get().GetSquare(endPos);
 		if (boardSquare != null)
 		{
 			if (boardSquare.height <= Board.Get().BaselineHeight && targetingActor.GetCurrentBoardSquare()._0013(boardSquare.x, boardSquare.y))
@@ -151,7 +151,7 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 		{
 			for (int j = minY; j <= maxY; j++)
 			{
-				BoardSquare boardSquare2 = Board.Get().GetBoardSquare(i, j);
+				BoardSquare boardSquare2 = Board.Get().GetSquare(i, j);
 				if (!(boardSquare2 == null) && AreaEffectUtils.IsSquareInBoxByActorRadius(boardSquare2, crossEnd, crossStart, m_widthInSquares))
 				{
 					m_indicatorHandler.OperateOnSquare(boardSquare2, targetingActor, false);

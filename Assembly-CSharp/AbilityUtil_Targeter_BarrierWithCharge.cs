@@ -8,7 +8,7 @@ public class AbilityUtil_Targeter_BarrierWithCharge : AbilityUtil_Targeter_Barri
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		int fromIndex = 0;
 		if (boardSquareSafe != null)
 		{

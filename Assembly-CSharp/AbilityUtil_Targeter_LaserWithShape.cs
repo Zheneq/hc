@@ -158,7 +158,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		}
 		Vector3 dir = vector;
 		Vector3 b = currentTarget.FreePos;
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		if (SnapAimDirection())
 		{
 			if (boardSquareSafe != null)
@@ -264,7 +264,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		if (num3 != 0)
 		{
 			AreaEffectUtils.GetEndPointForValidGameplaySquare(adjustedCoords.start, adjustedCoords.end, out Vector3 adjustedEndPoint);
-			BoardSquare boardSquare = Board.Get().GetBoardSquare(adjustedEndPoint);
+			BoardSquare boardSquare = Board.Get().GetSquare(adjustedEndPoint);
 			Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(m_shape, adjustedEndPoint, boardSquare);
 			List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, centerOfShape2, boardSquare, false, targetingActor, targetingActor.GetOpposingTeam(), null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);

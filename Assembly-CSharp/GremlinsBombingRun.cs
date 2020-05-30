@@ -186,7 +186,7 @@ public class GremlinsBombingRun : Ability
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		bool flag = true;
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
 			if (boardSquareSafe.IsBaselineHeight())
@@ -200,7 +200,7 @@ public class GremlinsBombingRun : Ability
 				{
 					if (targetIndex > 0)
 					{
-						BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
+						BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos);
 						if (boardSquareSafe == boardSquareSafe2)
 						{
 							flag = false;
@@ -210,14 +210,14 @@ public class GremlinsBombingRun : Ability
 							Vector3 vector;
 							if (targetIndex > 1)
 							{
-								vector = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 2].GridPos).ToVector3();
+								vector = Board.Get().GetSquare(currentTargets[targetIndex - 2].GridPos).ToVector3();
 							}
 							else
 							{
 								vector = caster.GetTravelBoardSquareWorldPosition();
 							}
 							Vector3 b = vector;
-							Vector3 a = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos).ToVector3();
+							Vector3 a = Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos).ToVector3();
 							Vector3 from = a - b;
 							from.y = 0f;
 							Vector3 to = boardSquareSafe.ToVector3() - boardSquareSafe2.ToVector3();
@@ -238,7 +238,7 @@ public class GremlinsBombingRun : Ability
 						}
 						else
 						{
-							flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos), false, out numSquaresInPath2);
+							flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos), false, out numSquaresInPath2);
 						}
 						if (flag2)
 						{
@@ -283,7 +283,7 @@ public class GremlinsBombingRun : Ability
 								{
 									if (i < currentTargets.Count)
 									{
-										list.Add(Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos));
+										list.Add(Board.Get().GetSquare(currentTargets[i].GridPos));
 										continue;
 									}
 									break;

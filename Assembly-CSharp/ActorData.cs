@@ -4398,7 +4398,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				goto IL_09b6;
 			}
 		}
-		ServerLastKnownPosSquare = Board.Get().GetBoardSquare(value27, value28);
+		ServerLastKnownPosSquare = Board.Get().GetSquare(value27, value28);
 		goto IL_09b6;
 		IL_0c03:
 		return m_serializeHelper.End(initialState, base.syncVarDirtyBits);
@@ -4871,8 +4871,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			BoardSquare boardSquare = Board.Get().GetBoardSquare(base.transform.position);
-			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(newPos);
+			BoardSquare boardSquare = Board.Get().GetSquare(base.transform.position);
+			BoardSquare boardSquare2 = Board.Get().GetSquare(newPos);
 			if (boardSquare != boardSquare2 && boardSquare != null)
 			{
 				PreviousBoardSquarePosition = boardSquare.ToVector3();

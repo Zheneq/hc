@@ -65,7 +65,7 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 
 	internal bool DroneIsActive()
 	{
-		BoardSquare boardSquare = Board.Get().GetBoardSquare(m_boardX, m_boardY);
+		BoardSquare boardSquare = Board.Get().GetSquare(m_boardX, m_boardY);
 		int result;
 		if (m_droneActive)
 		{
@@ -216,7 +216,7 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 					{
 						satellite.OverrideVisibility(true);
 					}
-					BoardSquare boardSquare = Board.Get().GetBoardSquare(satellite.transform);
+					BoardSquare boardSquare = Board.Get().GetSquare(satellite.transform);
 					if (!(boardSquare == null))
 					{
 						if (boardSquare.x == BoardX())

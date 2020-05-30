@@ -88,7 +88,7 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		{
 			if (targets != null)
 			{
-				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
+				BoardSquare boardSquareSafe = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
 				if (boardSquareSafe != null)
 				{
 					if (!m_useCasterLocationForAllMultiTargets)

@@ -204,7 +204,7 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 		}
 		gameObject.SetActive(false);
 		gameObject2.SetActive(false);
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		if (boardSquareSafe != null)
 		{
 			while (true)

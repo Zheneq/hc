@@ -390,7 +390,7 @@ public class IceborgDamageArea : GenericAbility_Container
 		BoardSquare result = caster.GetCurrentBoardSquare();
 		if (IsMovingShape(caster))
 		{
-			BoardSquare boardSquare = Board.Get().GetBoardSquare(m_syncComp.m_damageAreaCenterX, m_syncComp.m_damageAreaCenterY);
+			BoardSquare boardSquare = Board.Get().GetSquare(m_syncComp.m_damageAreaCenterX, m_syncComp.m_damageAreaCenterY);
 			if (boardSquare != null)
 			{
 				result = boardSquare;
@@ -477,7 +477,7 @@ public class IceborgDamageArea : GenericAbility_Container
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
 			while (true)
@@ -494,7 +494,7 @@ public class IceborgDamageArea : GenericAbility_Container
 					bool flag = TargetingAreaCheckLos();
 					if (CanCastToMoveArea())
 					{
-						BoardSquare boardSquare2 = Board.Get().GetBoardSquare(m_syncComp.m_damageAreaCenterX, m_syncComp.m_damageAreaCenterY);
+						BoardSquare boardSquare2 = Board.Get().GetSquare(m_syncComp.m_damageAreaCenterX, m_syncComp.m_damageAreaCenterY);
 						if (boardSquare2 != null)
 						{
 							if (boardSquareSafe == boardSquare2)

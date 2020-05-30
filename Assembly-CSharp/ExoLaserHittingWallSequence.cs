@@ -117,7 +117,7 @@ public class ExoLaserHittingWallSequence : Sequence
 		{
 			if (m_fxCasterJoint.IsInitialized())
 			{
-				BoardSquare boardSquare = Board.Get().GetBoardSquare(m_hitPosition);
+				BoardSquare boardSquare = Board.Get().GetSquare(m_hitPosition);
 				ref Vector3 hitPosition = ref m_hitPosition;
 				Vector3 position = m_fxCasterJoint.m_jointObject.transform.position;
 				hitPosition.y = position.y;

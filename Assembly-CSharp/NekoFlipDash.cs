@@ -573,7 +573,7 @@ public class NekoFlipDash : Ability
 		bool flag3;
 		if (targetIndex == m_dashTargeterIndex)
 		{
-			boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 			if (CanTargetEnemies())
 			{
 				if (boardSquareSafe != null && boardSquareSafe.OccupantActor != null)
@@ -635,8 +635,8 @@ public class NekoFlipDash : Ability
 				return true;
 			}
 			flag = true;
-			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
-			BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos);
+			BoardSquare boardSquareSafe3 = Board.Get().GetSquare(target.GridPos);
 			if (boardSquareSafe3 != null && boardSquareSafe3.IsBaselineHeight())
 			{
 				if (boardSquareSafe3 != boardSquareSafe2)

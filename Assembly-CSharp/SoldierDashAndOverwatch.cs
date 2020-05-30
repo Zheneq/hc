@@ -446,7 +446,7 @@ public class SoldierDashAndOverwatch : Ability
 					break;
 				default:
 				{
-					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetsSoFar[0].GridPos);
+					BoardSquare boardSquareSafe = Board.Get().GetSquare(targetsSoFar[0].GridPos);
 					overridePos = boardSquareSafe.GetWorldPosition();
 					return true;
 				}
@@ -476,7 +476,7 @@ public class SoldierDashAndOverwatch : Ability
 				{
 					AbilityUtil_Targeter abilityUtil_Targeter = base.Targeters[0];
 					AbilityUtil_Targeter abilityUtil_Targeter2 = base.Targeters[currentTargeterIndex];
-					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityUtil_Targeter.LastUpdatingGridPos);
+					BoardSquare boardSquareSafe = Board.Get().GetSquare(abilityUtil_Targeter.LastUpdatingGridPos);
 					if (abilityUtil_Targeter2.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 					{
 						while (true)
@@ -622,7 +622,7 @@ public class SoldierDashAndOverwatch : Ability
 					break;
 				default:
 				{
-					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+					BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 					if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 					{
 						if (boardSquareSafe != caster.GetCurrentBoardSquare())

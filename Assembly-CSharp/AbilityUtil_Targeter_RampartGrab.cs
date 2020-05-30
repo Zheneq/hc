@@ -74,7 +74,7 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 
 	protected BoardSquare GetSquareFromAbilityTarget(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		return Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		return Board.Get().GetSquare(currentTarget.GridPos);
 	}
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)

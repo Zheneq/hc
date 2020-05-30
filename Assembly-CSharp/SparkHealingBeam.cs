@@ -360,7 +360,7 @@ public class SparkHealingBeam : Ability
 				}
 			}
 		}
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		object obj;
 		if ((bool)boardSquareSafe)
 		{

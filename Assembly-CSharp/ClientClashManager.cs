@@ -215,7 +215,7 @@ public class ClientClashManager : MonoBehaviour
 		{
 			sbyte b2 = reader.ReadSByte();
 			sbyte b3 = reader.ReadSByte();
-			BoardSquare boardSquare = Board.Get().GetBoardSquare(b2, b3);
+			BoardSquare boardSquare = Board.Get().GetSquare(b2, b3);
 			List<ActorData> list = new List<ActorData>();
 			sbyte b4 = reader.ReadSByte();
 			for (int j = 0; j < b4; j++)

@@ -67,7 +67,7 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 		}
 		while (true)
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(targets[0].GridPos);
 			if (!(boardSquareSafe != null))
 			{
 				return;

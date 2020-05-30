@@ -33,7 +33,7 @@ public class AbilityUtil_Targeter_GrydCardinalBomb : AbilityUtil_Targeter
 		ClearActorsInRange();
 		m_actorToHitContext.Clear();
 		List<GrydCardinalSegmentInfo> list = new List<GrydCardinalSegmentInfo>();
-		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		int nextHighlightIndex = 0;
 		if (boardSquareSafe != null)
 		{
