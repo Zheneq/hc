@@ -19,40 +19,40 @@ public class ActorTurnSM : NetworkBehaviour
 	}
 
 
-	public delegate void OnCmdChase(int selectedSquareX, int selectedSquareY);
+	public delegate void OnCmdChase(ActorTurnSM actorTurnSm, int selectedSquareX, int selectedSquareY);
 	public OnCmdChase OnCmdChaseCallback = null;
 
 	[Command]
 	private void CmdChase(int selectedSquareX, int selectedSquareY)
 	{
-		OnCmdChaseCallback?.Invoke(selectedSquareX, selectedSquareY);
+		OnCmdChaseCallback?.Invoke(this, selectedSquareX, selectedSquareY);
 	}
 
-	public delegate void OnCmdGUITurnMessage(int msgEnum, int extraData);
+	public delegate void OnCmdGUITurnMessage(ActorTurnSM actorTurnSm, int msgEnum, int extraData);
 	public OnCmdGUITurnMessage OnCmdGUITurnMessageCallback = null;
 
 	[Command]
 	private void CmdGUITurnMessage(int msgEnum, int extraData)
 	{
-		OnCmdGUITurnMessageCallback?.Invoke(msgEnum, extraData);
+		OnCmdGUITurnMessageCallback?.Invoke(this, msgEnum, extraData);
 	}
 
-	public delegate void OnCmdRequestCancelAction(int action, bool hasIncomingRequest);
+	public delegate void OnCmdRequestCancelAction(ActorTurnSM actorTurnSm, int action, bool hasIncomingRequest);
 	public OnCmdRequestCancelAction OnCmdRequestCancelActionCallback = null;
 
 	[Command]
 	private void CmdRequestCancelAction(int action, bool hasIncomingRequest)
 	{
-		OnCmdRequestCancelActionCallback?.Invoke(action, hasIncomingRequest);
+		OnCmdRequestCancelActionCallback?.Invoke(this, action, hasIncomingRequest);
 	}
 
-	public delegate void OnCmdSetSquare(int x, int y, bool setWaypoint);
+	public delegate void OnCmdSetSquare(ActorTurnSM actorTurnSm, int x, int y, bool setWaypoint);
 	public OnCmdSetSquare OnCmdSetSquareCallback = null;
 
 	[Command]
 	private void CmdSetSquare(int x, int y, bool setWaypoint)
 	{
-		OnCmdSetSquareCallback?.Invoke(x, y, setWaypoint);
+		OnCmdSetSquareCallback?.Invoke(this, x, y, setWaypoint);
 	}
 
 	private ActorData m_actorData;
