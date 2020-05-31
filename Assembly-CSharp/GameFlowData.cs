@@ -1107,7 +1107,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	internal ActorData FindActorByActorIndex(int actorIndex)
+	public ActorData FindActorByActorIndex(int actorIndex)
 	{
 		ActorData actorData = null;
 		for (int i = 0; i < this.m_actors.Count; i++)
