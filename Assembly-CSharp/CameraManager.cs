@@ -1439,7 +1439,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		}
 		if (!(GetFlyThroughCamera() == null))
 		{
-			if (!GetFlyThroughCamera().enabled)
+			if (!this.GetFlyThroughCamera()?.enabled ?? false)
 			{
 				goto IL_012a;
 			}
