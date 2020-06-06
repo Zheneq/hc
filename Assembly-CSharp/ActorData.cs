@@ -2224,17 +2224,17 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		CallRpcCombatText(combatText, logText, CombatTextCategory.Other, BuffIconToDisplay.None);
 	}
 
-	internal void SetHitPoints(int value)
+	public void SetHitPoints(int value)
 	{
 		HitPoints = value;
 	}
 
-	internal void SetAbsorbPoints(int value)
+	public void SetAbsorbPoints(int value)
 	{
 		AbsorbPoints = value;
 	}
 
-	internal bool IsDead()
+	public bool IsDead()
 	{
 		return HitPoints == 0;
 	}
