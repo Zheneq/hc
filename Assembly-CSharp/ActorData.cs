@@ -1662,12 +1662,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return m_actorMovement;
 	}
 
-	internal ActorStats GetActorStats()
+	public ActorStats GetActorStats()
 	{
 		return m_actorStats;
 	}
 
-	internal ActorStatus GetActorStatus()
+	public ActorStatus GetActorStatus()
 	{
 		return m_actorStatus;
 	}
@@ -1677,12 +1677,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return GetComponent<ActorController>();
 	}
 
-	internal ActorTargeting GetActorTargeting()
+	public ActorTargeting GetActorTargeting()
 	{
 		return m_actorTargeting;
 	}
 
-	internal FreelancerStats GetFreelancerStats()
+	public FreelancerStats GetFreelancerStats()
 	{
 		return m_freelancerStats;
 	}
