@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public static class TargeterUtils
 {
@@ -321,6 +322,10 @@ public static class TargeterUtils
 
 	public static void RemoveActorsInvisibleToClient(ref List<ActorData> actors)
 	{
+		if (NetworkServer.active)
+		{
+			return;
+		}
 		for (int num = actors.Count - 1; num >= 0; num--)
 		{
 			if (!actors[num].IsVisibleToClient())
