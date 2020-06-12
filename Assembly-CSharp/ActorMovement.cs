@@ -99,16 +99,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (m_curMoveState != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return m_curMoveState.stateName;
-				}
-			}
+			return m_curMoveState.stateName;
 		}
 		return "None";
 	}
