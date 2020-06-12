@@ -528,7 +528,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	internal int HitPoints
+	public int HitPoints
 	{
 		get
 		{
