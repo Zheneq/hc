@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class ClientBootstrap : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class ClientBootstrap : MonoBehaviour
 	private void Awake()
 	{
 		DontDestroyOnLoad(gameObject);
-		UnityConsoleLog.MinLevel = Log.Level.Warning;
+		UnityConsoleLog.MinLevel = Log.Level.Everything;
 		UnityConsoleLog.Start();
 		m_commandLine = Environment.GetCommandLineArgs();
 		m_asyncPump = new AsyncPump();
