@@ -6,28 +6,18 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 {
 	public delegate bool ShouldAddCasterDelegate(ActorData caster, List<ActorData> actorsSoFar);
 
-	private ConeTargetingInfo m_coneInfo;
-
-	private LaserTargetingInfo m_laserInfo;
-
-	private float m_toConeThreshold;
-
 	private const int c_coneHighlightIndex = 0;
-
 	private const int c_laserHighlightIndex = 1;
-
 	private const int c_threshHighlightIndex = 2;
 
+	private ConeTargetingInfo m_coneInfo;
+	private LaserTargetingInfo m_laserInfo;
+	private float m_toConeThreshold;
 	private TargeterPart_Cone m_conePart;
-
 	private TargeterPart_Laser m_laserPart;
-
 	private OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
-
 	public ShouldAddCasterDelegate m_customShouldAddCasterDelegate;
-
 	public bool m_useCasterLocationForAllMultiTargets;
-
 	public bool m_updatingWithCone;
 
 	public AbilityUtil_Targeter_ConeOrLaser(Ability ability, ConeTargetingInfo coneInfo, LaserTargetingInfo laserInfo, float coneThresholdDist)
@@ -40,16 +30,7 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		m_conePart = new TargeterPart_Cone(m_coneInfo);
 		m_laserPart = new TargeterPart_Laser(m_laserInfo);
 		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
-		int shouldShowActorRadius;
-		if (!GameWideData.Get().UseActorRadiusForLaser())
-		{
-			shouldShowActorRadius = (GameWideData.Get().UseActorRadiusForCone() ? 1 : 0);
-		}
-		else
-		{
-			shouldShowActorRadius = 1;
-		}
-		m_shouldShowActorRadius = ((byte)shouldShowActorRadius != 0);
+		m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser() || GameWideData.Get().UseActorRadiusForCone();
 	}
 
 	public override void StartConfirmedTargeting(AbilityTarget currentTarget, ActorData targetingActor)
@@ -59,17 +40,9 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		{
 			return;
 		}
-		while (true)
+		if (m_highlights.Count >= 3)
 		{
-			if (m_highlights.Count >= 3)
-			{
-				while (true)
-				{
-					m_highlights[2].SetActive(false);
-					return;
-				}
-			}
-			return;
+			m_highlights[2].SetActive(false);
 		}
 	}
 
@@ -82,54 +55,51 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 	{
 		ClearActorsInRange();
 		CreateHighlights();
-		Vector3 vector = targetingActor.GetTravelBoardSquareWorldPositionForLos();
-		Vector3 vector2 = currentTarget.AimDirection;
-		if (currentTargetIndex > 0)
+		Vector3 src = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 aimDirection = currentTarget.AimDirection;
+		if (currentTargetIndex > 0 && targets != null)
 		{
-			if (targets != null)
+			BoardSquare prevTargetSquare = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
+			if (prevTargetSquare != null)
 			{
-				BoardSquare boardSquareSafe = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
-				if (boardSquareSafe != null)
+				if (!m_useCasterLocationForAllMultiTargets)
 				{
-					if (!m_useCasterLocationForAllMultiTargets)
-					{
-						vector = boardSquareSafe.GetWorldPositionForLoS();
-					}
-					vector2 = currentTarget.FreePos - vector;
-					vector2.y = 0f;
-					if (vector2.sqrMagnitude == 0f)
-					{
-						vector2 = Vector3.forward;
-					}
-					else
-					{
-						vector2.Normalize();
-					}
+					src = prevTargetSquare.GetWorldPositionForLoS();
+				}
+				aimDirection = currentTarget.FreePos - src;
+				aimDirection.y = 0f;
+				if (aimDirection.sqrMagnitude == 0f)
+				{
+					aimDirection = Vector3.forward;
+				}
+				else
+				{
+					aimDirection.Normalize();
 				}
 			}
 		}
-		Vector3 vector3 = currentTarget.FreePos - vector;
-		vector3.y = 0f;
-		float magnitude = vector3.magnitude;
-		bool flag = m_updatingWithCone = (magnitude <= m_toConeThreshold);
+		Vector3 aimVector = currentTarget.FreePos - src;
+		aimVector.y = 0f;
+		float aimDistance = aimVector.magnitude;
+		bool updatingWithCone = m_updatingWithCone = (aimDistance <= m_toConeThreshold);
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, m_affectsEnemies);
 		GameObject gameObject = m_highlights[0];
 		GameObject gameObject2 = m_highlights[1];
 		GameObject gameObject3 = m_highlights[2];
 		List<ActorData> actors;
-		if (flag)
+		if (updatingWithCone)
 		{
-			actors = m_conePart.GetHitActors(vector, vector2, targetingActor, relevantTeams);
-			m_conePart.AdjustHighlight(gameObject, vector, vector2);
+			actors = m_conePart.GetHitActors(src, aimDirection, targetingActor, relevantTeams);
+			m_conePart.AdjustHighlight(gameObject, src, aimDirection);
 			gameObject.SetActive(true);
 			gameObject2.SetActive(false);
-			DrawInvalidSquareIndicators_Cone(currentTarget, targetingActor, vector, vector2);
+			DrawInvalidSquareIndicators_Cone(currentTarget, targetingActor, src, aimDirection);
 		}
 		else
 		{
 			VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
-			laserCoords.start = vector;
-			actors = m_laserPart.GetHitActors(laserCoords.start, vector2, targetingActor, relevantTeams, out laserCoords.end);
+			laserCoords.start = src;
+			actors = m_laserPart.GetHitActors(laserCoords.start, aimDirection, targetingActor, relevantTeams, out laserCoords.end);
 			m_laserPart.AdjustHighlight(gameObject2, laserCoords.start, laserCoords.end);
 			gameObject.SetActive(false);
 			gameObject2.SetActive(true);
@@ -137,10 +107,10 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		}
 		if (gameObject3 != null)
 		{
-			Vector3 position = vector;
+			Vector3 position = src;
 			position.y = HighlightUtils.GetHighlightHeight();
 			gameObject3.transform.position = position;
-			gameObject3.transform.rotation = Quaternion.LookRotation(vector2);
+			gameObject3.transform.rotation = Quaternion.LookRotation(aimDirection);
 		}
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
@@ -148,9 +118,9 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 			while (enumerator.MoveNext())
 			{
 				ActorData current = enumerator.Current;
-				Vector3 damageOrigin = vector;
+				Vector3 damageOrigin = src;
 				int subjectType;
-				if (flag)
+				if (updatingWithCone)
 				{
 					subjectType = 1;
 				}
@@ -160,12 +130,12 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 				}
 				AddActorInRange(current, damageOrigin, targetingActor, (AbilityTooltipSubject)subjectType);
 				ActorHitContext actorHitContext = m_actorContextVars[current];
-				float value = VectorUtils.HorizontalPlaneDistInSquares(vector, current.GetTravelBoardSquareWorldPosition());
+				float value = VectorUtils.HorizontalPlaneDistInSquares(src, current.GetTravelBoardSquareWorldPosition());
 				actorHitContext._0015.SetFloat(ContextKeys._0018.GetHash(), value);
 				ContextVars contextVars = actorHitContext._0015;
 				int hash = TargetSelect_ConeOrLaser.s_cvarInCone.GetHash();
 				int value2;
-				if (flag)
+				if (updatingWithCone)
 				{
 					value2 = 1;
 				}
@@ -177,11 +147,11 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 				if (current != targetingActor)
 				{
 					float num = 0f;
-					if (flag)
+					if (updatingWithCone)
 					{
 						Vector3 to = current.GetTravelBoardSquareWorldPosition() - targetingActor.GetTravelBoardSquareWorldPosition();
 						to.y = 0f;
-						num = Vector3.Angle(vector2, to);
+						num = Vector3.Angle(aimDirection, to);
 						actorHitContext._0015.SetFloat(ContextKeys._001D.GetHash(), num);
 					}
 				}
@@ -191,28 +161,18 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		{
 			return;
 		}
-		while (true)
+		if (m_customShouldAddCasterDelegate != null && !m_customShouldAddCasterDelegate(targetingActor, actors))
 		{
-			if (m_customShouldAddCasterDelegate != null)
-			{
-				if (!m_customShouldAddCasterDelegate(targetingActor, actors))
-				{
-					return;
-				}
-			}
-			AddActorInRange(targetingActor, vector, targetingActor, AbilityTooltipSubject.Self);
 			return;
 		}
+		AddActorInRange(targetingActor, src, targetingActor, AbilityTooltipSubject.Self);
 	}
 
 	private void CreateHighlights()
 	{
-		if (m_highlights != null)
+		if (m_highlights != null && m_highlights.Count >= 3)
 		{
-			if (m_highlights.Count >= 3)
-			{
-				return;
-			}
+			return;
 		}
 		m_highlights = new List<GameObject>();
 		GameObject item = m_conePart.CreateHighlightObject(this);
@@ -234,31 +194,23 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 
 	private void DrawInvalidSquareIndicators_Cone(AbilityTarget currentTarget, ActorData targetingActor, Vector3 coneStartPos, Vector3 forwardDirection)
 	{
-		if (!(targetingActor == GameFlowData.Get().activeOwnedActorData))
+		if (targetingActor != GameFlowData.Get().activeOwnedActorData)
 		{
 			return;
 		}
-		while (true)
-		{
-			ResetSquareIndicatorIndexToUse();
-			m_conePart.ShowHiddenSquares(m_indicatorHandler, coneStartPos, VectorUtils.HorizontalAngle_Deg(forwardDirection), targetingActor, m_coneInfo.m_penetrateLos);
-			HideUnusedSquareIndicators();
-			return;
-		}
+		ResetSquareIndicatorIndexToUse();
+		m_conePart.ShowHiddenSquares(m_indicatorHandler, coneStartPos, VectorUtils.HorizontalAngle_Deg(forwardDirection), targetingActor, m_coneInfo.m_penetrateLos);
+		HideUnusedSquareIndicators();
 	}
 
 	private void DrawInvalidSquareIndicators_Laser(AbilityTarget currentTarget, ActorData targetingActor, Vector3 startPos, Vector3 endPos)
 	{
-		if (!(targetingActor == GameFlowData.Get().activeOwnedActorData))
+		if (targetingActor != GameFlowData.Get().activeOwnedActorData)
 		{
 			return;
 		}
-		while (true)
-		{
-			ResetSquareIndicatorIndexToUse();
-			m_laserPart.ShowHiddenSquares(m_indicatorHandler, startPos, endPos, targetingActor, m_laserInfo.penetrateLos);
-			HideUnusedSquareIndicators();
-			return;
-		}
+		ResetSquareIndicatorIndexToUse();
+		m_laserPart.ShowHiddenSquares(m_indicatorHandler, startPos, endPos, targetingActor, m_laserInfo.penetrateLos);
+		HideUnusedSquareIndicators();
 	}
 }
