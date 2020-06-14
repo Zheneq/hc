@@ -14,11 +14,7 @@ public class StandardEffectInfo
 		{
 			return;
 		}
-		while (true)
-		{
-			m_effectData.ReportAbilityTooltipNumbers(ref numbers, subject);
-			return;
-		}
+		m_effectData.ReportAbilityTooltipNumbers(ref numbers, subject);
 	}
 
 	public StandardEffectInfo GetShallowCopy()
