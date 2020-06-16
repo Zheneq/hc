@@ -469,29 +469,11 @@ public class ClericRangedHeal : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		ActorData actorData = base.ActorData;
-		AbilityUtil_Targeter_AoE_AroundActor abilityUtil_Targeter_AoE_AroundActor = base.Targeter as AbilityUtil_Targeter_AoE_AroundActor;
-		if (abilityUtil_Targeter_AoE_AroundActor != null)
+		AbilityUtil_Targeter_AoE_AroundActor targeter = Targeter as AbilityUtil_Targeter_AoE_AroundActor;
+		if (targeter != null && ActorData.GetTeam() == targetActor.GetTeam() && targeter.m_lastCenterActor != null)
 		{
-			if (actorData.GetTeam() == targetActor.GetTeam())
-			{
-				if (abilityUtil_Targeter_AoE_AroundActor.m_lastCenterActor != null)
-				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							break;
-						default:
-						{
-							int num = results.m_healing = CalcFinalHealOnActor(targetActor, actorData, abilityUtil_Targeter_AoE_AroundActor.m_lastCenterActor);
-							return true;
-						}
-						}
-					}
-				}
-			}
+			results.m_healing = CalcFinalHealOnActor(targetActor, ActorData, targeter.m_lastCenterActor);
+			return true;
 		}
 		return false;
 	}
