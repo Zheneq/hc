@@ -388,56 +388,34 @@ public static class AbilityUtils
 
 	public static int CalculateDamageForTargeter(ActorData caster, ActorData target, Ability ability, int baseDamage, bool targetInCover)
 	{
-		int num = baseDamage;
-		bool flag = AbilityIgnoreCover(ability, target);
-		int num2;
-		if (targetInCover)
+		bool isInCover = targetInCover && !AbilityIgnoreCover(ability, target);
+		bool isUnpreventable = ability.IsDamageUnpreventable();
+		ActorStatus tartgetStatus = target.GetActorStatus();
+		if (tartgetStatus.HasStatus(StatusType.DamageImmune) && !isUnpreventable)
 		{
-			num2 = ((!flag) ? 1 : 0);
+			return 0;
 		}
-		else
+		if (tartgetStatus.HasStatus(StatusType.ImmuneToPlayerDamage) && caster.GetIsHumanControlled() && !isUnpreventable)
 		{
-			num2 = 0;
+			return 0;
 		}
-		bool flag2 = (byte)num2 != 0;
-		bool flag3 = ability.IsDamageUnpreventable();
-		ActorStatus actorStatus = target.GetActorStatus();
-		if (actorStatus.HasStatus(StatusType.DamageImmune))
-		{
-			if (!flag3)
-			{
-				return 0;
-			}
-		}
-		if (actorStatus.HasStatus(StatusType.ImmuneToPlayerDamage) && caster.GetIsHumanControlled() && !flag3)
-		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return 0;
-				}
-			}
-		}
-		ActorStats actorStats = caster.GetActorStats();
-		ActorStats actorStats2 = target.GetActorStats();
+		ActorStats casterStats = caster.GetActorStats();
+		ActorStats targetStats = target.GetActorStats();
 		if (GameplayMutators.Get() != null)
 		{
 			baseDamage = Mathf.RoundToInt((float)baseDamage * GameplayMutators.GetDamageMultiplier());
 		}
-		int baseDamage2 = (!AbilityHasTag(ability, AbilityTags.IgnoreOutgoingDamageHealAbsorbBuffsAndDebuffs)) ? actorStats.CalculateOutgoingDamageForTargeter(baseDamage) : baseDamage;
-		int a = actorStats2.CalculateIncomingDamageForTargeter(baseDamage2);
-		int num3 = Mathf.Max(a, 0);
-		int num4 = num3;
-		if (flag2)
+		if (!AbilityHasTag(ability, AbilityTags.IgnoreOutgoingDamageHealAbsorbBuffsAndDebuffs))
+		{
+			baseDamage = casterStats.CalculateOutgoingDamageForTargeter(baseDamage);
+		}
+		int damage = Mathf.Max(targetStats.CalculateIncomingDamageForTargeter(baseDamage), 0);
+		if (isInCover)
 		{
 			bool reducedCoverEffectiveness = AbilityReduceCoverEffectiveness(ability, target);
-			num4 = ApplyCoverDamageReduction(actorStats2, num4, reducedCoverEffectiveness);
+			damage = ApplyCoverDamageReduction(targetStats, damage, reducedCoverEffectiveness);
 		}
-		return num4;
+		return damage;
 	}
 
 	public static int CalculateHealingForTargeter(ActorData caster, ActorData target, Ability ability, int baseHeal)
@@ -445,85 +423,48 @@ public static class AbilityUtils
 		int num = baseHeal;
 		if (target.GetActorStatus().HasStatus(StatusType.HealImmune))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return 0;
-				}
-			}
+			return 0;
 		}
-		if (caster != target)
+		if (caster != target && caster.GetTeam() == target.GetTeam() && target.GetActorStatus().HasStatus(StatusType.CantBeHelpedByTeam))
 		{
-			if (caster.GetTeam() == target.GetTeam())
-			{
-				if (target.GetActorStatus().HasStatus(StatusType.CantBeHelpedByTeam))
-				{
-					return 0;
-				}
-			}
+			return 0;
 		}
-		ActorStats actorStats = caster.GetActorStats();
 		if (GameplayMutators.Get() != null)
 		{
 			baseHeal = Mathf.RoundToInt((float)baseHeal * GameplayMutators.GetHealingMultiplier());
 		}
-		int result;
 		if (AbilityHasTag(ability, AbilityTags.IgnoreOutgoingDamageHealAbsorbBuffsAndDebuffs))
 		{
-			result = baseHeal;
+			return baseHeal;
 		}
 		else
 		{
-			result = actorStats.CalculateOutgoingHealForTargeter(baseHeal);
+			return caster.GetActorStats().CalculateOutgoingHealForTargeter(baseHeal);
 		}
-		return result;
 	}
 
 	public static int CalculateAbsorbForTargeter(ActorData caster, ActorData target, Ability ability, int baseAbsorb)
 	{
-		int num = baseAbsorb;
 		if (target.GetActorStatus().HasStatus(StatusType.BuffImmune))
 		{
 			return 0;
 		}
-		if (caster != target)
+		if (caster != target && caster.GetTeam() == target.GetTeam() && target.GetActorStatus().HasStatus(StatusType.CantBeHelpedByTeam))
 		{
-			if (caster.GetTeam() == target.GetTeam())
-			{
-				if (target.GetActorStatus().HasStatus(StatusType.CantBeHelpedByTeam))
-				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							return 0;
-						}
-					}
-				}
-			}
+			return 0;
 		}
-		ActorStats actorStats = caster.GetActorStats();
 		if (GameplayMutators.Get() != null)
 		{
 			baseAbsorb = Mathf.RoundToInt((float)baseAbsorb * GameplayMutators.GetAbsorbMultiplier());
 		}
-		int result;
 		if (AbilityHasTag(ability, AbilityTags.IgnoreOutgoingDamageHealAbsorbBuffsAndDebuffs))
 		{
-			result = baseAbsorb;
+			return baseAbsorb;
 		}
 		else
 		{
-			result = actorStats.CalculateOutgoingAbsorbForTargeter(baseAbsorb);
+			return caster.GetActorStats().CalculateOutgoingAbsorbForTargeter(baseAbsorb);
 		}
-		return result;
 	}
 
 	public static int CalculateTechPointsForTargeter(ActorData target, Ability ability, int baseGain)
