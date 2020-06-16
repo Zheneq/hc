@@ -363,272 +363,164 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		bool flag = true;
 		if (currentTargeterIndex >= abilityTargeting.Targeters.Count)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
-		bool flag2 = false;
+		bool hasTargetsInRange = false;
 		for (int i = 0; i <= currentTargeterIndex; i++)
 		{
 			if (!abilityTargeting.Targeters[i].IsActorInTargetRange(target, out bool inCover))
 			{
 				continue;
 			}
-			flag2 = true;
-			if (i == 0)
-			{
-				flag = inCover;
-				continue;
-			}
-			int num;
-			if (flag)
-			{
-				num = (inCover ? 1 : 0);
-			}
-			else
-			{
-				num = 0;
-			}
-			flag = ((byte)num != 0);
+			hasTargetsInRange = true;
+			flag = (i == 0 || flag) && inCover;
 		}
-		while (true)
+		if (!hasTargetsInRange)
 		{
-			if (!flag2)
+			return;
+		}
+		HashSet<AbilityTooltipSubject> tooltipSubjectSet = new HashSet<AbilityTooltipSubject>();
+		if (abilityTargeting.GetExpectedNumberOfTargeters() > 1)
+		{
+			for (int j = 0; j <= currentTargeterIndex; j++)
 			{
-				while (true)
+				abilityTargeting.Targeters[j].AppendToTooltipSubjectSet(target, tooltipSubjectSet);
+			}
+		}
+		else
+		{
+			abilityTargeting.Targeter.AppendToTooltipSubjectSet(target, tooltipSubjectSet);
+		}
+		List<AbilityTooltipNumber> nameplateTargetingNumbers = abilityTargeting.GetNameplateTargetingNumbers();
+		bool isIgnoringCover = AbilityUtils.AbilityHasTag(abilityTargeting, AbilityTags.NameplateTargetNumberIgnoreCover) || abilityTargeting.ForceIgnoreCover(target);
+		bool reducedCoverEffectiveness = AbilityUtils.AbilityReduceCoverEffectiveness(abilityTargeting, target);
+		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
+		s_targetingNumberUpdateScratch.ResetForCalc();
+		bool customTargeterNumbers = abilityTargeting.GetCustomTargeterNumbers(target, currentTargeterIndex, s_targetingNumberUpdateScratch);
+		if (customTargeterNumbers && abilityTargeting is GenericAbility_Container)
+		{
+			if (s_targetingNumberUpdateScratch.m_damage > 0)
+			{
+				int value = AbilityUtils.CalculateDamageForTargeter(caster, target, abilityTargeting, s_targetingNumberUpdateScratch.m_damage, flag && !isIgnoringCover);
+				AddSymbolToValuePair(symbolToValueMap, AbilityTooltipSymbol.Damage, value);
+			}
+			if (s_targetingNumberUpdateScratch.m_healing > 0)
+			{
+				int value2 = AbilityUtils.CalculateHealingForTargeter(caster, target, abilityTargeting, s_targetingNumberUpdateScratch.m_healing);
+				AddSymbolToValuePair(symbolToValueMap, AbilityTooltipSymbol.Healing, value2);
+			}
+			if (s_targetingNumberUpdateScratch.m_absorb > 0)
+			{
+				int value3 = AbilityUtils.CalculateAbsorbForTargeter(caster, target, abilityTargeting, s_targetingNumberUpdateScratch.m_absorb);
+				AddSymbolToValuePair(symbolToValueMap, AbilityTooltipSymbol.Absorb, value3);
+			}
+			if (s_targetingNumberUpdateScratch.m_energy > 0 && caster != target)
+			{
+				int value4 = AbilityUtils.CalculateTechPointsForTargeter(target, abilityTargeting, s_targetingNumberUpdateScratch.m_energy);
+				AddSymbolToValuePair(symbolToValueMap, AbilityTooltipSymbol.Energy, value4);
+			}
+			return;
+		}
+		if (!customTargeterNumbers)
+		{
+			dictionary = abilityTargeting.GetCustomNameplateItemTooltipValues(target, currentTargeterIndex);
+		}
+		bool hadDamage = false;
+		bool hadHealing = false;
+		bool hadEnergy = false;
+		bool hadAbsorb = false;
+		foreach (AbilityTooltipSubject tooltipSubject in tooltipSubjectSet)
+		{
+			foreach (AbilityTooltipNumber targetingNumber in nameplateTargetingNumbers)
+			{
+				if (targetingNumber.m_subject != tooltipSubject)
 				{
-					switch (5)
+					continue;
+				}
+				int value = targetingNumber.m_value;
+				if (customTargeterNumbers && s_targetingNumberUpdateScratch.HasOverride(targetingNumber.m_symbol))
+				{
+					value = s_targetingNumberUpdateScratch.GetOverrideValue(targetingNumber.m_symbol);
+				}
+				else if (dictionary != null && dictionary.ContainsKey(targetingNumber.m_symbol))
+				{
+					value = dictionary[targetingNumber.m_symbol];
+				}
+				switch (targetingNumber.m_symbol)
+				{
+				case AbilityTooltipSymbol.Damage:
+					if (hadDamage)
 					{
-					default:
-						return;
-					case 0:
-						break;
+						value = 0;
 					}
-				}
-			}
-			HashSet<AbilityTooltipSubject> hashSet = new HashSet<AbilityTooltipSubject>();
-			if (abilityTargeting.GetExpectedNumberOfTargeters() > 1)
-			{
-				for (int j = 0; j <= currentTargeterIndex; j++)
-				{
-					abilityTargeting.Targeters[j].AppendToTooltipSubjectSet(target, hashSet);
-				}
-			}
-			else
-			{
-				abilityTargeting.Targeter.AppendToTooltipSubjectSet(target, hashSet);
-			}
-			List<AbilityTooltipNumber> nameplateTargetingNumbers = abilityTargeting.GetNameplateTargetingNumbers();
-			int num2;
-			if (!AbilityUtils.AbilityHasTag(abilityTargeting, AbilityTags.NameplateTargetNumberIgnoreCover))
-			{
-				num2 = (abilityTargeting.ForceIgnoreCover(target) ? 1 : 0);
-			}
-			else
-			{
-				num2 = 1;
-			}
-			bool flag3 = (byte)num2 != 0;
-			bool reducedCoverEffectiveness = AbilityUtils.AbilityReduceCoverEffectiveness(abilityTargeting, target);
-			Dictionary<AbilityTooltipSymbol, int> dictionary = null;
-			s_targetingNumberUpdateScratch.ResetForCalc();
-			bool customTargeterNumbers = abilityTargeting.GetCustomTargeterNumbers(target, currentTargeterIndex, s_targetingNumberUpdateScratch);
-			if (customTargeterNumbers)
-			{
-				if (abilityTargeting is GenericAbility_Container)
-				{
-					while (true)
+					if (value > 0)
 					{
-						switch (2)
+						if (m_showStatusAdjustedTargetingNumbers)
 						{
-						case 0:
-							break;
-						default:
-							if (s_targetingNumberUpdateScratch.m_damage > 0)
-							{
-								int value = AbilityUtils.CalculateDamageForTargeter(caster, target, abilityTargeting, s_targetingNumberUpdateScratch.m_damage, flag && !flag3);
-								AddSymbolToValuePair(symbolToValueMap, AbilityTooltipSymbol.Damage, value);
-							}
-							if (s_targetingNumberUpdateScratch.m_healing > 0)
-							{
-								int value2 = AbilityUtils.CalculateHealingForTargeter(caster, target, abilityTargeting, s_targetingNumberUpdateScratch.m_healing);
-								AddSymbolToValuePair(symbolToValueMap, AbilityTooltipSymbol.Healing, value2);
-							}
-							if (s_targetingNumberUpdateScratch.m_absorb > 0)
-							{
-								int value3 = AbilityUtils.CalculateAbsorbForTargeter(caster, target, abilityTargeting, s_targetingNumberUpdateScratch.m_absorb);
-								AddSymbolToValuePair(symbolToValueMap, AbilityTooltipSymbol.Absorb, value3);
-							}
-							if (s_targetingNumberUpdateScratch.m_energy > 0)
-							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										break;
-									default:
-										if (caster != target)
-										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													break;
-												default:
-												{
-													int value4 = AbilityUtils.CalculateTechPointsForTargeter(target, abilityTargeting, s_targetingNumberUpdateScratch.m_energy);
-													AddSymbolToValuePair(symbolToValueMap, AbilityTooltipSymbol.Energy, value4);
-													return;
-												}
-												}
-											}
-										}
-										return;
-									}
-								}
-							}
-							return;
+							value = AbilityUtils.CalculateDamageForTargeter(caster, target, abilityTargeting, value, flag && !isIgnoringCover);
 						}
-					}
-				}
-			}
-			if (!customTargeterNumbers)
-			{
-				dictionary = abilityTargeting.GetCustomNameplateItemTooltipValues(target, currentTargeterIndex);
-			}
-			bool flag4 = false;
-			bool flag5 = false;
-			bool flag6 = false;
-			bool flag7 = false;
-			using (HashSet<AbilityTooltipSubject>.Enumerator enumerator = hashSet.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					AbilityTooltipSubject current = enumerator.Current;
-					using (List<AbilityTooltipNumber>.Enumerator enumerator2 = nameplateTargetingNumbers.GetEnumerator())
-					{
-						while (enumerator2.MoveNext())
+						else if (flag)
 						{
-							AbilityTooltipNumber current2 = enumerator2.Current;
-							if (current2.m_subject != current)
+							if (!isIgnoringCover)
 							{
-								continue;
-							}
-							int num3 = current2.m_value;
-							if (customTargeterNumbers)
-							{
-								if (s_targetingNumberUpdateScratch.HasOverride(current2.m_symbol))
-								{
-									num3 = s_targetingNumberUpdateScratch.GetOverrideValue(current2.m_symbol);
-									goto IL_0358;
-								}
-							}
-							if (dictionary != null && dictionary.ContainsKey(current2.m_symbol))
-							{
-								num3 = dictionary[current2.m_symbol];
-							}
-							goto IL_0358;
-							IL_0358:
-							switch (current2.m_symbol)
-							{
-							case AbilityTooltipSymbol.Damage:
-								if (flag4)
-								{
-									num3 = 0;
-								}
-								if (num3 > 0)
-								{
-									if (m_showStatusAdjustedTargetingNumbers)
-									{
-										num3 = AbilityUtils.CalculateDamageForTargeter(caster, target, abilityTargeting, num3, flag && !flag3);
-									}
-									else if (flag)
-									{
-										if (!flag3)
-										{
-											num3 = AbilityUtils.ApplyCoverDamageReduction(target.GetActorStats(), num3, reducedCoverEffectiveness);
-										}
-									}
-									flag4 = true;
-								}
-								break;
-							case AbilityTooltipSymbol.Healing:
-								if (flag5)
-								{
-									num3 = 0;
-								}
-								if (num3 > 0)
-								{
-									if (m_showStatusAdjustedTargetingNumbers)
-									{
-										num3 = AbilityUtils.CalculateHealingForTargeter(caster, target, abilityTargeting, num3);
-									}
-									flag5 = true;
-								}
-								break;
-							case AbilityTooltipSymbol.Absorb:
-								if (flag7)
-								{
-									num3 = 0;
-								}
-								if (num3 > 0)
-								{
-									if (m_showStatusAdjustedTargetingNumbers)
-									{
-										num3 = AbilityUtils.CalculateAbsorbForTargeter(caster, target, abilityTargeting, num3);
-									}
-									flag7 = true;
-								}
-								break;
-							case AbilityTooltipSymbol.Energy:
-								if (flag6)
-								{
-									num3 = 0;
-								}
-								if (caster != target)
-								{
-									if (num3 > 0)
-									{
-										if (m_showStatusAdjustedTargetingNumbers)
-										{
-											num3 = AbilityUtils.CalculateTechPointsForTargeter(target, abilityTargeting, num3);
-										}
-										flag6 = true;
-									}
-								}
-								break;
-							}
-							if (num3 > 0)
-							{
-								if (!symbolToValueMap.ContainsKey(current2.m_symbol))
-								{
-									symbolToValueMap.Add(current2.m_symbol, num3);
-								}
-								else
-								{
-									symbolToValueMap[current2.m_symbol] += num3;
-								}
+								value = AbilityUtils.ApplyCoverDamageReduction(target.GetActorStats(), value, reducedCoverEffectiveness);
 							}
 						}
+						hadDamage = true;
 					}
-				}
-				while (true)
-				{
-					switch (6)
+					break;
+				case AbilityTooltipSymbol.Healing:
+					if (hadHealing)
 					{
-					default:
-						return;
-					case 0:
-						break;
+						value = 0;
+					}
+					if (value > 0)
+					{
+						if (m_showStatusAdjustedTargetingNumbers)
+						{
+							value = AbilityUtils.CalculateHealingForTargeter(caster, target, abilityTargeting, value);
+						}
+						hadHealing = true;
+					}
+					break;
+				case AbilityTooltipSymbol.Absorb:
+					if (hadAbsorb)
+					{
+						value = 0;
+					}
+					if (value > 0)
+					{
+						if (m_showStatusAdjustedTargetingNumbers)
+						{
+							value = AbilityUtils.CalculateAbsorbForTargeter(caster, target, abilityTargeting, value);
+						}
+						hadAbsorb = true;
+					}
+					break;
+				case AbilityTooltipSymbol.Energy:
+					if (hadEnergy)
+					{
+						value = 0;
+					}
+					if (caster != target && value > 0)
+					{
+						if (m_showStatusAdjustedTargetingNumbers)
+						{
+							value = AbilityUtils.CalculateTechPointsForTargeter(target, abilityTargeting, value);
+						}
+						hadEnergy = true;
+					}
+					break;
+				}
+				if (value > 0)
+				{
+					if (!symbolToValueMap.ContainsKey(targetingNumber.m_symbol))
+					{
+						symbolToValueMap.Add(targetingNumber.m_symbol, value);
+					}
+					else
+					{
+						symbolToValueMap[targetingNumber.m_symbol] += value;
 					}
 				}
 			}
