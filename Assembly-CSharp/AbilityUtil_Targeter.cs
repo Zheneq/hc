@@ -15,11 +15,8 @@ public class AbilityUtil_Targeter
 	public class ActorTarget
 	{
 		public ActorData m_actor;
-
 		public Vector3 m_damageOrigin;
-
 		public bool m_ignoreCoverMinDist;
-
 		public List<AbilityTooltipSubject> m_subjectTypes;
 	}
 
@@ -33,57 +30,8 @@ public class AbilityUtil_Targeter
 	public class ArrowList
 	{
 		public GameObject m_gameObject;
-
 		public BoardSquarePathInfo m_pathInfo;
 	}
-
-	protected Ability m_ability;
-
-	protected bool m_useMultiTargetUpdate;
-
-	protected List<GameObject> m_highlights;
-
-	protected TargeterTemplateFadeContainer m_highlightFadeContainer;
-
-	protected Dictionary<ActorData, ActorHitContext> m_actorContextVars;
-
-	protected ContextVars m_nonActorSpecificContext;
-
-	protected bool m_shouldShowActorRadius;
-
-	private PathStart m_gameObjectOnCaster;
-
-	private PathEnd m_gameObjectOnCastTarget;
-
-	private GameObject m_lineBetweenPath;
-
-	protected bool m_showArcToShape;
-
-	private GameObject m_targetingArcInstance;
-
-	private GameObject m_targetingArcPulseInstance;
-
-	private Vector3 m_arcEnd;
-
-	private float m_arcTraveled;
-
-	private Vector3 m_cameraForward;
-
-	private Vector3 m_cameraPosition;
-
-	private List<ActorTarget> m_actorsInRange = new List<ActorTarget>();
-
-	protected List<ActorData> m_actorsAddedSoFar = new List<ActorData>();
-
-	protected List<ArrowList> m_arrows = new List<ArrowList>();
-
-	protected HighlightUtils.CursorType m_cursorType = HighlightUtils.CursorType.NoCursorType;
-
-	protected bool m_affectsEnemies = true;
-
-	protected bool m_affectsAllies;
-
-	protected bool m_affectsTargetingActor;
 
 	private static readonly int[] materialColorProperties = new int[2]
 	{
@@ -91,33 +39,37 @@ public class AbilityUtil_Targeter
 		Shader.PropertyToID("_TintColor")
 	};
 
+	protected Ability m_ability;
+	protected bool m_useMultiTargetUpdate;
+	protected List<GameObject> m_highlights;
+	protected TargeterTemplateFadeContainer m_highlightFadeContainer;
+	protected Dictionary<ActorData, ActorHitContext> m_actorContextVars;
+	protected ContextVars m_nonActorSpecificContext;
+	protected bool m_shouldShowActorRadius;
+	private PathStart m_gameObjectOnCaster;
+	private PathEnd m_gameObjectOnCastTarget;
+	private GameObject m_lineBetweenPath;
+	protected bool m_showArcToShape;
+	private GameObject m_targetingArcInstance;
+	private GameObject m_targetingArcPulseInstance;
+	private Vector3 m_arcEnd;
+	private float m_arcTraveled;
+	private Vector3 m_cameraForward;
+	private Vector3 m_cameraPosition;
+	private List<ActorTarget> m_actorsInRange = new List<ActorTarget>();
+	protected List<ActorData> m_actorsAddedSoFar = new List<ActorData>();
+	protected List<ArrowList> m_arrows = new List<ArrowList>();
+	protected HighlightUtils.CursorType m_cursorType = HighlightUtils.CursorType.NoCursorType;
+	protected bool m_affectsEnemies = true;
+	protected bool m_affectsAllies;
+	protected bool m_affectsTargetingActor;
 	private float m_lastAllyTargeterChange;
-
 	private float m_confirmedTargetingStartTime;
 
-	public GridPos LastUpdatingGridPos
-	{
-		get;
-		set;
-	}
-
-	public Vector3 LastUpdateFreePos
-	{
-		get;
-		set;
-	}
-
-	public Vector3 LastUpdateAimDir
-	{
-		get;
-		set;
-	}
-
-	public bool MarkedForForceUpdate
-	{
-		get;
-		set;
-	}
+	public GridPos LastUpdatingGridPos { get; set; }
+	public Vector3 LastUpdateFreePos { get; set; }
+	public Vector3 LastUpdateAimDir { get; set; }
+	public bool MarkedForForceUpdate { get; set; }
 
 	public bool ShowArcToShape
 	{
@@ -135,12 +87,9 @@ public class AbilityUtil_Targeter
 	{
 		get
 		{
-			if (m_highlights != null)
+			if (m_highlights != null && m_highlights.Count > 0)
 			{
-				if (m_highlights.Count > 0)
-				{
-					return m_highlights[0];
-				}
+				return m_highlights[0];
 			}
 			return null;
 		}
@@ -186,19 +135,11 @@ public class AbilityUtil_Targeter
 
 	public bool IsCursorStateSameAsLastUpdate(AbilityTarget target)
 	{
-		int result;
-		if (LastUpdatingGridPos.CoordsEqual(target.GridPos))
+		if (LastUpdatingGridPos.CoordsEqual(target.GridPos) && LastUpdateFreePos == target.FreePos)
 		{
-			if (LastUpdateFreePos == target.FreePos)
-			{
-				result = ((LastUpdateAimDir == target.AimDirection) ? 1 : 0);
-				goto IL_0066;
-			}
+			return LastUpdateAimDir == target.AimDirection;
 		}
-		result = 0;
-		goto IL_0066;
-		IL_0066:
-		return (byte)result != 0;
+		return false;
 	}
 
 	public virtual void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
@@ -488,52 +429,17 @@ public class AbilityUtil_Targeter
 
 	public List<AbilityTooltipSubject> GetTooltipSubjectTypes(ActorData actor)
 	{
-		List<AbilityTooltipSubject> result = null;
 		if (actor != null)
 		{
-			while (true)
+			foreach (ActorTarget actorTarget in m_actorsInRange)
 			{
-				switch (6)
+				if (actorTarget.m_actor == actor)
 				{
-				case 0:
-					break;
-				default:
-				{
-					using (List<ActorTarget>.Enumerator enumerator = m_actorsInRange.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							ActorTarget current = enumerator.Current;
-							if (current.m_actor == actor)
-							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										break;
-									default:
-										return current.m_subjectTypes;
-									}
-								}
-							}
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								break;
-							default:
-								return result;
-							}
-						}
-					}
-				}
+					return actorTarget.m_subjectTypes;
 				}
 			}
 		}
-		return result;
+		return null;
 	}
 
 	public void AppendToTooltipSubjectSet(ActorData actor, HashSet<AbilityTooltipSubject> subjectsToAppendTo)
@@ -543,90 +449,46 @@ public class AbilityUtil_Targeter
 		{
 			return;
 		}
-		while (true)
+		foreach (AbilityTooltipSubject current in tooltipSubjectTypes)
 		{
-			using (List<AbilityTooltipSubject>.Enumerator enumerator = tooltipSubjectTypes.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					AbilityTooltipSubject current = enumerator.Current;
-					subjectsToAppendTo.Add(current);
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
-			}
+			subjectsToAppendTo.Add(current);
 		}
 	}
 
 	public virtual bool IsActorInTargetRange(ActorData actor)
 	{
-		bool inCover;
-		return IsActorInTargetRange(actor, out inCover);
+		return IsActorInTargetRange(actor, out var inCover);
 	}
 
 	public virtual bool IsActorInTargetRange(ActorData actor, out bool inCover)
 	{
-		bool result = false;
 		inCover = false;
-		if (actor != null)
+		if (actor == null)
 		{
-			int num = 0;
-			while (true)
+			return false;
+		}
+
+		for (int num = 0; num < m_actorsInRange.Count; num++)
+		{
+			ActorTarget actorTarget = m_actorsInRange[num];
+			if (actorTarget.m_actor == actor)
 			{
-				if (num < m_actorsInRange.Count)
+				ActorCover actorCover = actorTarget.m_actor.GetActorCover();
+				if (actorCover != null)
 				{
-					ActorTarget actorTarget = m_actorsInRange[num];
-					if (actorTarget.m_actor == actor)
-					{
-						result = true;
-						ActorCover actorCover = actorTarget.m_actor.GetActorCover();
-						if (!(actorCover != null))
-						{
-							break;
-						}
-						ActorData pOVActorData = GameFlowData.Get().POVActorData;
-						int num2;
-						if (pOVActorData != null)
-						{
-							num2 = ((pOVActorData.GetTeam() != actor.GetTeam()) ? 1 : 0);
-						}
-						else
-						{
-							num2 = 0;
-						}
-						bool flag = (byte)num2 != 0;
-						bool flag2 = AbilityUtils.AbilityIgnoreCover(m_ability, actorTarget.m_actor);
-						bool flag3 = actor.IsVisibleToClient();
-						bool flag4 = (!actorTarget.m_ignoreCoverMinDist) ? actorCover.IsInCoverWrt(actorTarget.m_damageOrigin) : actorCover.IsInCoverWrtDirectionOnly(actorTarget.m_damageOrigin, actorTarget.m_actor.GetCurrentBoardSquare());
-						if (flag)
-						{
-							if (!flag2 && flag3)
-							{
-								if (flag4)
-								{
-									inCover = true;
-									break;
-								}
-							}
-						}
-						inCover = false;
-						break;
-					}
-					num++;
-					continue;
+					ActorData activeOwnedActorData = GameFlowData.Get().POVActorData;
+					bool isEnemy = activeOwnedActorData != null && activeOwnedActorData.GetTeam() != actor.GetTeam();
+					bool isIgnoringCover = AbilityUtils.AbilityIgnoreCover(m_ability, actorTarget.m_actor);
+					bool isVisibleToClient = actor.IsVisibleToClient();
+					bool hasCover = actorTarget.m_ignoreCoverMinDist
+						? actorCover.IsInCoverWrtDirectionOnly(actorTarget.m_damageOrigin, actorTarget.m_actor.GetCurrentBoardSquare())
+						: actorCover.IsInCoverWrt(actorTarget.m_damageOrigin);
+					inCover = isEnemy && !isIgnoringCover && isVisibleToClient && hasCover;
 				}
-				break;
+				return true;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	public List<ActorTarget> GetActorsInRange()
@@ -772,91 +634,52 @@ public class AbilityUtil_Targeter
 	{
 		if (!IsActorInTargetRange(actor))
 		{
-			while (true)
+			ActorTarget actorTarget = new ActorTarget();
+			actorTarget.m_actor = actor;
+			actorTarget.m_damageOrigin = damageOrigin;
+			actorTarget.m_subjectTypes = new List<AbilityTooltipSubject>();
+			actorTarget.m_subjectTypes.Add(subjectType);
+			if (actor == targetingActor)
 			{
-				switch (1)
+				actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Self);
+			}
+			else if (actor.GetTeam() == targetingActor.GetTeam())
+			{
+				actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Ally);
+			}
+			else
+			{
+				actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Enemy);
+			}
+			for (AbilityTooltipSubject i = AbilityTooltipSubject.FirstOneoffSubject; i <= AbilityTooltipSubject.LastOneoffSubject; i++)
+			{
+				if (DoesTargetActorMatchTooltipSubject(i, actor, damageOrigin, targetingActor))
 				{
-				case 0:
-					break;
-				default:
-				{
-					ActorTarget actorTarget = new ActorTarget();
-					actorTarget.m_actor = actor;
-					actorTarget.m_damageOrigin = damageOrigin;
-					actorTarget.m_subjectTypes = new List<AbilityTooltipSubject>();
-					actorTarget.m_subjectTypes.Add(subjectType);
-					if (actor == targetingActor)
-					{
-						actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Self);
-					}
-					else if (actor.GetTeam() == targetingActor.GetTeam())
-					{
-						actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Ally);
-					}
-					else
-					{
-						actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Enemy);
-					}
-					for (int i = 8; i <= 15; i++)
-					{
-						AbilityTooltipSubject abilityTooltipSubject = (AbilityTooltipSubject)i;
-						if (DoesTargetActorMatchTooltipSubject(abilityTooltipSubject, actor, damageOrigin, targetingActor))
-						{
-							actorTarget.m_subjectTypes.Add(abilityTooltipSubject);
-						}
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							break;
-						default:
-							m_actorsInRange.Add(actorTarget);
-							m_actorsAddedSoFar.Add(actor);
-							if (!m_actorContextVars.ContainsKey(actor))
-							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										break;
-									default:
-									{
-										ActorHitContext actorHitContext = new ActorHitContext();
-										actorHitContext._0012 = true;
-										m_actorContextVars[actor] = actorHitContext;
-										return;
-									}
-									}
-								}
-							}
-							m_actorContextVars[actor]._0012 = true;
-							return;
-						}
-					}
-				}
+					actorTarget.m_subjectTypes.Add(i);
 				}
 			}
+			m_actorsInRange.Add(actorTarget);
+			m_actorsAddedSoFar.Add(actor);
+			if (!m_actorContextVars.ContainsKey(actor))
+			{
+				ActorHitContext actorHitContext = new ActorHitContext();
+				actorHitContext._0012 = true;
+				m_actorContextVars[actor] = actorHitContext;
+				return;
+			}
+			else
+			{
+				m_actorContextVars[actor]._0012 = true;
+			}
 		}
-		if (appendSubjectType)
+		else if (appendSubjectType)
 		{
 			foreach (ActorTarget item in m_actorsInRange)
 			{
 				if (item.m_actor == actor)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							break;
-						default:
-							item.m_subjectTypes.Add(subjectType);
-							return;
-						}
-					}
+					item.m_subjectTypes.Add(subjectType);
+					return;
 				}
 			}
 		}
