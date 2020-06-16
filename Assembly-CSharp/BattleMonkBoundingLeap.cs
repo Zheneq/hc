@@ -207,16 +207,7 @@ public class BattleMonkBoundingLeap : Ability
 		int damageAfterFirstHit = GetDamageAfterFirstHit();
 		if (damageAfterFirstHit > 0 && hitOrder > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return damageAfterFirstHit;
-				}
-			}
+			return damageAfterFirstHit;
 		}
 		return GetDamageAmount();
 	}
@@ -235,27 +226,19 @@ public class BattleMonkBoundingLeap : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
+		if (Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			AbilityUtil_Targeter_BounceActor abilityUtil_Targeter_BounceActor = base.Targeter as AbilityUtil_Targeter_BounceActor;
+			AbilityUtil_Targeter_BounceActor abilityUtil_Targeter_BounceActor = Targeter as AbilityUtil_Targeter_BounceActor;
 			if (abilityUtil_Targeter_BounceActor != null)
 			{
 				List<AbilityUtil_Targeter_BounceActor.HitActorContext> hitActorContext = abilityUtil_Targeter_BounceActor.GetHitActorContext();
-				int num = 0;
-				while (true)
+				for (int i = 0; i < hitActorContext.Count; i++)
 				{
-					if (num < hitActorContext.Count)
+					if (hitActorContext[i].actor == targetActor)
 					{
-						AbilityUtil_Targeter_BounceActor.HitActorContext hitActorContext2 = hitActorContext[num];
-						if (hitActorContext2.actor == targetActor)
-						{
-							results.m_damage = CalcDamageForOrderIndex(num);
-							break;
-						}
-						num++;
-						continue;
+						results.m_damage = CalcDamageForOrderIndex(i);
+						break;
 					}
-					break;
 				}
 				return true;
 			}
