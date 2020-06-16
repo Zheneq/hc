@@ -201,7 +201,7 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 				for (int num6 = actors.Count - 1; num6 >= 0; num6--)
 				{
 					ActorData actor = actors[num6];
-					if (abilityUtil_Targeter.IsActorInTargetRange(actor, out bool _))
+					if (abilityUtil_Targeter.IsActorInTargetRange(actor))
 					{
 						actors.RemoveAt(num6);
 					}
