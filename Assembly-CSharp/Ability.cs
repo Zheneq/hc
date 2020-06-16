@@ -199,19 +199,12 @@ public class Ability : MonoBehaviour
 		{
 			if (m_targeters.Count == 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						m_targeters.Add(value);
-						return;
-					}
-				}
+				m_targeters.Add(value);
 			}
-			m_targeters[0] = value;
+			else
+			{
+				m_targeters[0] = value;
+			}
 		}
 	}
 
@@ -264,12 +257,9 @@ public class Ability : MonoBehaviour
 		{
 			return;
 		}
-		while (true)
-		{
-			ResetAbilityTargeters();
-			Targeters.Clear();
-			return;
-		}
+		ResetAbilityTargeters();
+		Targeters.Clear();
+		
 	}
 
 	public void OverrideActorDataIndex(int actorDataIndex)
@@ -361,12 +351,9 @@ public class Ability : MonoBehaviour
 
 	protected void AddTokenFloat(List<TooltipTokenEntry> tokens, string name, string desc, float val, bool addForNonPositive = false)
 	{
-		if (!addForNonPositive)
+		if (!addForNonPositive && val <= 0f)
 		{
-			if (!(val > 0f))
-			{
-				return;
-			}
+			return;
 		}
 		tokens.Add(new TooltipTokenFloat(name, desc, val));
 	}
@@ -382,12 +369,9 @@ public class Ability : MonoBehaviour
 
 	protected void AddTokenFloatAsPct(List<TooltipTokenEntry> tokens, string name, string desc, float val, bool addForNonPositive = false)
 	{
-		if (!addForNonPositive)
+		if (!addForNonPositive && val <= 0f)
 		{
-			if (!(val > 0f))
-			{
-				return;
-			}
+			return;
 		}
 		int val2 = Mathf.RoundToInt(val * 100f);
 		tokens.Add(new TooltipTokenPct(name, desc, val2));
@@ -395,21 +379,9 @@ public class Ability : MonoBehaviour
 
 	public virtual AbilityPriority GetRunPriority()
 	{
-		if (m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null && m_currentAbilityMod.m_useRunPriorityOverride)
 		{
-			if (m_currentAbilityMod.m_useRunPriorityOverride)
-			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return m_currentAbilityMod.m_runPriorityOverride;
-					}
-				}
-			}
+			return m_currentAbilityMod.m_runPriorityOverride;
 		}
 		return m_runPriority;
 	}
@@ -472,16 +444,7 @@ public class Ability : MonoBehaviour
 	{
 		if (GetBaseCost() > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return $"{GetBaseCost()} energy";
-				}
-			}
+			return $"{GetBaseCost()} energy";
 		}
 		return string.Empty;
 	}
@@ -552,24 +515,9 @@ public class Ability : MonoBehaviour
 		{
 			TargetData targetData2 = targetData[0];
 			float num = Mathf.Max(0f, targetData2.m_range - 0.5f);
-			if (num > 0f)
+			if (num > 0f && num < 15f && targetData2.m_targetingParadigm != TargetingParadigm.Direction)
 			{
-				if (num < 15f)
-				{
-					if (targetData2.m_targetingParadigm != TargetingParadigm.Direction)
-					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								break;
-							default:
-								return true;
-							}
-						}
-					}
-				}
+				return true;
 			}
 		}
 		return false;
@@ -612,15 +560,12 @@ public class Ability : MonoBehaviour
 
 	public int GetModdedCooldown()
 	{
-		int num = GetBaseCooldown();
-		if (num >= 0)
+		int cooldown = GetBaseCooldown();
+		if (cooldown >= 0 && m_currentAbilityMod != null)
 		{
-			if (m_currentAbilityMod != null)
-			{
-				num = Mathf.Max(0, m_currentAbilityMod.m_maxCooldownMod.GetModifiedValue(num));
-			}
+			cooldown = Mathf.Max(0, m_currentAbilityMod.m_maxCooldownMod.GetModifiedValue(cooldown));
 		}
-		return num;
+		return cooldown;
 	}
 
 	public virtual int GetCooldownForUIDisplay()
@@ -641,16 +586,7 @@ public class Ability : MonoBehaviour
 	{
 		if (m_currentAbilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return m_currentAbilityMod.m_effectToTargetAllyOnHit;
-				}
-			}
+			return m_currentAbilityMod.m_effectToTargetAllyOnHit;
 		}
 		return null;
 	}
@@ -666,33 +602,14 @@ public class Ability : MonoBehaviour
 
 	public bool HasSelfEffectFromBaseMod()
 	{
-		StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
-		int result;
-		if (moddedEffectForSelf != null)
-		{
-			result = (moddedEffectForSelf.m_applyEffect ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return GetModdedEffectForSelf()?.m_applyEffect ?? false;
 	}
 
 	public bool GetModdedUseAllyEffectForTargetedCaster()
 	{
 		if (m_currentAbilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return m_currentAbilityMod.m_useAllyEffectForTargetedCaster;
-				}
-			}
+			return m_currentAbilityMod.m_useAllyEffectForTargetedCaster;
 		}
 		return false;
 	}
@@ -701,16 +618,7 @@ public class Ability : MonoBehaviour
 	{
 		if (m_currentAbilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return m_currentAbilityMod.m_effectTriggerChance;
-				}
-			}
+			return m_currentAbilityMod.m_effectTriggerChance;
 		}
 		return 1f;
 	}
@@ -741,16 +649,11 @@ public class Ability : MonoBehaviour
 
 	public bool RefillAllStockOnRefresh()
 	{
-		bool result;
-		if ((bool)m_currentAbilityMod)
+		if (m_currentAbilityMod)
 		{
-			result = m_currentAbilityMod.m_refillAllStockOnRefreshMod.GetModifiedValue(m_refillAllStockOnRefresh);
+			return m_currentAbilityMod.m_refillAllStockOnRefreshMod.GetModifiedValue(m_refillAllStockOnRefresh);
 		}
-		else
-		{
-			result = m_refillAllStockOnRefresh;
-		}
-		return result;
+		return m_refillAllStockOnRefresh;
 	}
 
 	public int GetBaseStockRefreshDuration()
@@ -806,7 +709,7 @@ public class Ability : MonoBehaviour
 
 	protected void AppendTooltipNumbersFromBaseModEffects(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject enemyEffectSubject = AbilityTooltipSubject.Primary, AbilityTooltipSubject allyEffectSubject = AbilityTooltipSubject.Ally, AbilityTooltipSubject selfEffectSubject = AbilityTooltipSubject.Self)
 	{
-		if (!(m_currentAbilityMod != null))
+		if (m_currentAbilityMod == null)
 		{
 			return;
 		}
@@ -820,32 +723,21 @@ public class Ability : MonoBehaviour
 		}
 		StandardEffectInfo moddedEffectForAllies = GetModdedEffectForAllies();
 		StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
-		if (allyEffectSubject != 0)
+		if (allyEffectSubject != 0 && moddedEffectForAllies != null)
 		{
-			if (moddedEffectForAllies != null)
-			{
-				moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, allyEffectSubject);
-			}
+			moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, allyEffectSubject);
 		}
 		if (selfEffectSubject == AbilityTooltipSubject.None)
 		{
 			return;
 		}
-		while (true)
+		if (m_currentAbilityMod.m_useAllyEffectForTargetedCaster && moddedEffectForAllies != null)
 		{
-			if (m_currentAbilityMod.m_useAllyEffectForTargetedCaster && moddedEffectForAllies != null)
-			{
-				moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, selfEffectSubject);
-			}
-			if (moddedEffectForSelf != null)
-			{
-				while (true)
-				{
-					moddedEffectForSelf.ReportAbilityTooltipNumbers(ref numbers, selfEffectSubject);
-					return;
-				}
-			}
-			return;
+			moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, selfEffectSubject);
+		}
+		if (moddedEffectForSelf != null)
+		{
+			moddedEffectForSelf.ReportAbilityTooltipNumbers(ref numbers, selfEffectSubject);
 		}
 	}
 
