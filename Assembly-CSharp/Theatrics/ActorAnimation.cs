@@ -509,7 +509,8 @@ namespace Theatrics
 			StartFinalPlaybackState();
 		}
 
-		internal bool _0002_000E()
+		internal bool _0002_000E() { return IsTauntActivated(); }
+		internal bool IsTauntActivated() // _0002_000E
 		{
 			return tauntNumber > 0;
 		}
@@ -956,7 +957,7 @@ namespace Theatrics
 				{
 					HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.AddNewAbility(GetAbility(), Actor);
 				}
-				if (_0002_000E())
+				if (IsTauntActivated())
 				{
 					ChatterManager.Get().CancelActiveChatter();
 				}

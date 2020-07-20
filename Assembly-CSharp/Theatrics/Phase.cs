@@ -109,7 +109,7 @@ namespace Theatrics
 				ActorAnimation actorAnimation = animations[i];
 				if (!actorAnimation._0006_000E())
 				{
-					float b = actorAnimation._000D_000E(Index == AbilityPriority.Evasion && actorAnimation._0002_000E());
+					float b = actorAnimation._000D_000E(Index == AbilityPriority.Evasion && actorAnimation.IsTauntActivated());
 					maxCamStartDelay = Mathf.Max(maxCamStartDelay, b);
 				}
 				if (_0011 != -1)
@@ -119,16 +119,6 @@ namespace Theatrics
 				if (!actorAnimation.cinematicCamera)
 				{
 					_0011 = actorAnimation.playOrderIndex;
-				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				default:
-					return;
-				case 0:
-					break;
 				}
 			}
 		}
@@ -469,7 +459,7 @@ namespace Theatrics
 					{
 						if (actorAnimation.HitActorsToDeltaHP != null && actorAnimation.playOrderIndex == _001D)
 						{
-							if (actorAnimation._0002_000E())
+							if (actorAnimation.IsTauntActivated())
 							{
 								break;
 							}
@@ -601,6 +591,7 @@ namespace Theatrics
 			return false;
 		}
 
+		// Play
 		internal bool _001C(Turn _001D, ref bool _000E, ref bool _0012)
 		{
 			_0017 += GameTime.deltaTime;
@@ -1152,7 +1143,7 @@ namespace Theatrics
 							int num19;
 							if (Index == AbilityPriority.Evasion)
 							{
-								num19 = (actorAnimation5._0002_000E() ? 1 : 0);
+								num19 = (actorAnimation5.IsTauntActivated() ? 1 : 0);
 							}
 							else
 							{
