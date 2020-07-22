@@ -6,194 +6,184 @@ public static class AbilityResultsUtils
 	public static Dictionary<ActorData, ClientActorHitResults> DeSerializeActorHitResultsDictionaryFromStream(ref IBitStream stream)
 	{
 		Dictionary<ActorData, ClientActorHitResults> dictionary = new Dictionary<ActorData, ClientActorHitResults>();
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		for (int i = 0; i < value; i++)
+		sbyte hitResultNum = 0;
+		stream.Serialize(ref hitResultNum);
+		for (int i = 0; i < hitResultNum; i++)
 		{
-			sbyte value2 = (sbyte)ActorData.s_invalidActorIndex;
-			stream.Serialize(ref value2);
-			ActorData actorData = GameFlowData.Get().FindActorByActorIndex(value2);
-			ClientActorHitResults value3 = new ClientActorHitResults(ref stream);
+			sbyte actorIndex = (sbyte)ActorData.s_invalidActorIndex;
+			stream.Serialize(ref actorIndex);
+			ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
+			ClientActorHitResults hitResults = new ClientActorHitResults(ref stream);
 			if (actorData != null)
 			{
-				dictionary.Add(actorData, value3);
+				dictionary.Add(actorData, hitResults);
 			}
 		}
-		while (true)
-		{
-			return dictionary;
-		}
+		return dictionary;
 	}
 
 	public static Dictionary<Vector3, ClientPositionHitResults> DeSerializePositionHitResultsDictionaryFromStream(ref IBitStream stream)
 	{
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		Dictionary<Vector3, ClientPositionHitResults> dictionary = new Dictionary<Vector3, ClientPositionHitResults>(value);
-		for (int i = 0; i < value; i++)
+		sbyte hitResultNum = 0;
+		stream.Serialize(ref hitResultNum);
+		Dictionary<Vector3, ClientPositionHitResults> dictionary = new Dictionary<Vector3, ClientPositionHitResults>(hitResultNum);
+		for (int i = 0; i < hitResultNum; i++)
 		{
-			Vector3 value2 = Vector3.zero;
-			stream.Serialize(ref value2);
-			ClientPositionHitResults value3 = new ClientPositionHitResults(ref stream);
-			dictionary.Add(value2, value3);
+			Vector3 pos = Vector3.zero;
+			stream.Serialize(ref pos);
+			ClientPositionHitResults hitResults = new ClientPositionHitResults(ref stream);
+			dictionary.Add(pos, hitResults);
 		}
-		while (true)
-		{
-			return dictionary;
-		}
+		return dictionary;
 	}
 
 	public static List<ClientEffectStartData> DeSerializeEffectsToStartFromStream(ref IBitStream stream)
 	{
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		List<ClientEffectStartData> list = new List<ClientEffectStartData>(value);
-		for (int i = 0; i < value; i++)
+		sbyte effectStartNum = 0;
+		stream.Serialize(ref effectStartNum);
+		List<ClientEffectStartData> effectStartList = new List<ClientEffectStartData>(effectStartNum);
+		for (int i = 0; i < effectStartNum; i++)
 		{
-			uint value2 = 0u;
-			stream.Serialize(ref value2);
-			sbyte value3 = 0;
-			stream.Serialize(ref value3);
-			List<ServerClientUtils.SequenceStartData> list2 = new List<ServerClientUtils.SequenceStartData>(value3);
-			for (int j = 0; j < value3; j++)
+			uint effectGUID = 0u;
+			stream.Serialize(ref effectGUID);
+			sbyte seqStartNum = 0;
+			stream.Serialize(ref seqStartNum);
+			List<ServerClientUtils.SequenceStartData> seqStartList = new List<ServerClientUtils.SequenceStartData>(seqStartNum);
+			for (int j = 0; j < seqStartNum; j++)
 			{
-				ServerClientUtils.SequenceStartData item = ServerClientUtils.SequenceStartData.SequenceStartData_DeserializeFromStream(ref stream);
-				list2.Add(item);
+				ServerClientUtils.SequenceStartData seqStart = ServerClientUtils.SequenceStartData.SequenceStartData_DeserializeFromStream(ref stream);
+				seqStartList.Add(seqStart);
 			}
-			sbyte value4 = (sbyte)ActorData.s_invalidActorIndex;
-			stream.Serialize(ref value4);
-			ActorData caster = GameFlowData.Get().FindActorByActorIndex(value4);
-			sbyte value5 = (sbyte)ActorData.s_invalidActorIndex;
-			stream.Serialize(ref value5);
-			ActorData effectTarget = GameFlowData.Get().FindActorByActorIndex(value5);
-			List<StatusType> list3 = new List<StatusType>();
-			List<StatusType> list4 = new List<StatusType>();
-			if (value5 != ActorData.s_invalidActorIndex)
+			sbyte casterActorIndex = (sbyte)ActorData.s_invalidActorIndex;
+			stream.Serialize(ref casterActorIndex);
+			ActorData caster = GameFlowData.Get().FindActorByActorIndex(casterActorIndex);
+			sbyte targetActorIndex = (sbyte)ActorData.s_invalidActorIndex;
+			stream.Serialize(ref targetActorIndex);
+			ActorData effectTarget = GameFlowData.Get().FindActorByActorIndex(targetActorIndex);
+			List<StatusType> statuses = new List<StatusType>();
+			if (targetActorIndex != ActorData.s_invalidActorIndex)
 			{
-				sbyte value6 = 0;
-				stream.Serialize(ref value6);
-				for (int k = 0; k < value6; k++)
+				sbyte statusNum = 0;
+				stream.Serialize(ref statusNum);
+				for (int k = 0; k < statusNum; k++)
 				{
-					byte value7 = 0;
-					stream.Serialize(ref value7);
-					list3.Add((StatusType)value7);
+					byte statusType = 0;
+					stream.Serialize(ref statusType);
+					statuses.Add((StatusType)statusType);
 				}
 			}
-			if (value5 != ActorData.s_invalidActorIndex)
+			List<StatusType> statusesOnTurnStart = new List<StatusType>();
+			if (targetActorIndex != ActorData.s_invalidActorIndex)
 			{
-				sbyte value8 = 0;
-				stream.Serialize(ref value8);
-				for (int l = 0; l < value8; l++)
+				sbyte statusOnTurnStartNum = 0;
+				stream.Serialize(ref statusOnTurnStartNum);
+				for (int l = 0; l < statusOnTurnStartNum; l++)
 				{
-					byte value9 = 0;
-					stream.Serialize(ref value9);
-					list4.Add((StatusType)value9);
+					byte statusType = 0;
+					stream.Serialize(ref statusType);
+					statusesOnTurnStart.Add((StatusType)statusType);
 				}
 			}
-			bool @out = false;
-			bool out2 = false;
-			bool out3 = false;
-			bool out4 = false;
-			bool out5 = false;
-			byte value10 = 0;
-			stream.Serialize(ref value10);
-			ServerClientUtils.GetBoolsFromBitfield(value10, out @out, out out2, out out3, out out4, out out5);
-			short value11 = 0;
-			if (out4)
+			bool isBuff = false;
+			bool isDebuff = false;
+			bool hasMovementDebuff = false;
+			bool hasAbsorb = false;
+			bool hasExpectedHoT = false;
+			byte bitField = 0;
+			stream.Serialize(ref bitField);
+			ServerClientUtils.GetBoolsFromBitfield(bitField, out isBuff, out isDebuff, out hasMovementDebuff, out hasAbsorb, out hasExpectedHoT);
+			short absorb = 0;
+			if (hasAbsorb)
 			{
-				stream.Serialize(ref value11);
+				stream.Serialize(ref absorb);
 			}
-			short value12 = 0;
-			if (out5)
+			short expectedHoT = 0;
+			if (hasExpectedHoT)
 			{
-				stream.Serialize(ref value12);
+				stream.Serialize(ref expectedHoT);
 			}
-			ClientEffectStartData item2 = new ClientEffectStartData((int)value2, list2, effectTarget, caster, list3, list4, value11, value12, @out, out2, out3);
-			list.Add(item2);
+			ClientEffectStartData effectStart = new ClientEffectStartData(
+				(int)effectGUID,
+				seqStartList,
+				effectTarget,
+				caster,
+				statuses,
+				statusesOnTurnStart,
+				absorb,
+				expectedHoT,
+				isBuff,
+				isDebuff,
+				hasMovementDebuff);
+			effectStartList.Add(effectStart);
 		}
-		while (true)
-		{
-			return list;
-		}
+		return effectStartList;
 	}
 
 	public static List<ClientBarrierStartData> DeSerializeBarriersToStartFromStream(ref IBitStream stream)
 	{
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		List<ClientBarrierStartData> list = new List<ClientBarrierStartData>(value);
-		int num = 0;
-		while (num < value)
+		sbyte barrierStartNum = 0;
+		stream.Serialize(ref barrierStartNum);
+		List<ClientBarrierStartData> list = new List<ClientBarrierStartData>(barrierStartNum);
+		
+		for (int num = 0; num < barrierStartNum; num++)
 		{
-			int num2 = -1;
 			BarrierSerializeInfo info = new BarrierSerializeInfo();
 			BarrierSerializeInfo.SerializeBarrierInfo(stream, ref info);
-			num2 = info.m_guid;
-			sbyte value2 = 0;
-			stream.Serialize(ref value2);
-			List<ServerClientUtils.SequenceStartData> list2 = new List<ServerClientUtils.SequenceStartData>(value2);
-			for (int i = 0; i < value2; i++)
+			int barrierGUID = info.m_guid;
+			sbyte seqenceStartNum = 0;
+			stream.Serialize(ref seqenceStartNum);
+			List<ServerClientUtils.SequenceStartData> sequenceStartList = new List<ServerClientUtils.SequenceStartData>(seqenceStartNum);
+			for (int i = 0; i < seqenceStartNum; i++)
 			{
 				ServerClientUtils.SequenceStartData sequenceStartData = ServerClientUtils.SequenceStartData.SequenceStartData_DeserializeFromStream(ref stream);
 				sequenceStartData.SetTargetPos(info.m_center);
-				list2.Add(sequenceStartData);
+				sequenceStartList.Add(sequenceStartData);
 			}
-			while (true)
+			ClientBarrierStartData clientBarrierStartData = new ClientBarrierStartData(barrierGUID, sequenceStartList, info);
+			list.Add(clientBarrierStartData);
+			if (BarrierManager.Get() != null)
 			{
-				ClientBarrierStartData clientBarrierStartData = new ClientBarrierStartData(num2, list2, info);
-				list.Add(clientBarrierStartData);
-				if (BarrierManager.Get() != null)
-				{
-					BarrierManager.Get().AddClientBarrierInfo(clientBarrierStartData.m_barrierGameplayInfo);
-				}
-				num++;
-				goto IL_00ca;
+				BarrierManager.Get().AddClientBarrierInfo(clientBarrierStartData.m_barrierGameplayInfo);
 			}
-			IL_00ca:;
+			
 		}
 		return list;
 	}
 
 	public static List<int> DeSerializeEffectsForRemovalFromStream(ref IBitStream stream)
 	{
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		List<int> list = new List<int>(value);
-		for (int i = 0; i < value; i++)
+		sbyte num = 0;
+		stream.Serialize(ref num);
+		List<int> list = new List<int>(num);
+		for (int i = 0; i < num; i++)
 		{
-			int value2 = -1;
-			stream.Serialize(ref value2);
-			list.Add(value2);
+			int id = -1;
+			stream.Serialize(ref id);
+			list.Add(id);
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	public static List<int> DeSerializeBarriersForRemovalFromStream(ref IBitStream stream)
 	{
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		List<int> list = new List<int>(value);
-		for (int i = 0; i < value; i++)
+		sbyte num = 0;
+		stream.Serialize(ref num);
+		List<int> list = new List<int>(num);
+		for (int i = 0; i < num; i++)
 		{
-			int value2 = -1;
-			stream.Serialize(ref value2);
-			list.Add(value2);
+			int id = -1;
+			stream.Serialize(ref id);
+			list.Add(id);
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	public static List<ServerClientUtils.SequenceStartData> DeSerializeSequenceStartDataListFromStream(ref IBitStream stream)
 	{
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		for (int i = 0; i < value; i++)
+		sbyte seqStartNum = 0;
+		stream.Serialize(ref seqStartNum);
+		for (int i = 0; i < seqStartNum; i++)
 		{
 			ServerClientUtils.SequenceStartData item = ServerClientUtils.SequenceStartData.SequenceStartData_DeserializeFromStream(ref stream);
 			list.Add(item);
@@ -204,68 +194,70 @@ public static class AbilityResultsUtils
 	public static List<ServerClientUtils.SequenceEndData> DeSerializeSequenceEndDataListFromStream(ref IBitStream stream)
 	{
 		List<ServerClientUtils.SequenceEndData> list = new List<ServerClientUtils.SequenceEndData>();
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		for (int i = 0; i < value; i++)
+		sbyte num = 0;
+		stream.Serialize(ref num);
+		for (int i = 0; i < num; i++)
 		{
 			ServerClientUtils.SequenceEndData item = ServerClientUtils.SequenceEndData.SequenceEndData_DeserializeFromStream(ref stream);
 			list.Add(item);
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	public static ClientAbilityResults DeSerializeClientAbilityResultsFromStream(ref IBitStream stream)
 	{
-		sbyte value = (sbyte)ActorData.s_invalidActorIndex;
-		sbyte value2 = -1;
-		stream.Serialize(ref value);
-		stream.Serialize(ref value2);
+		sbyte casterActorIndex = (sbyte)ActorData.s_invalidActorIndex;
+		sbyte abilityAction = -1;
+		stream.Serialize(ref casterActorIndex);
+		stream.Serialize(ref abilityAction);
 		List<ServerClientUtils.SequenceStartData> seqStartDataList = DeSerializeSequenceStartDataListFromStream(ref stream);
 		Dictionary<ActorData, ClientActorHitResults> actorToHitResults = DeSerializeActorHitResultsDictionaryFromStream(ref stream);
 		Dictionary<Vector3, ClientPositionHitResults> posToHitResults = DeSerializePositionHitResultsDictionaryFromStream(ref stream);
-		return new ClientAbilityResults(value, value2, seqStartDataList, actorToHitResults, posToHitResults);
+		return new ClientAbilityResults(casterActorIndex, abilityAction, seqStartDataList, actorToHitResults, posToHitResults);
 	}
 
 	public static ClientEffectResults DeSerializeClientEffectResultsFromStream(ref IBitStream stream)
 	{
-		uint value = 0u;
-		sbyte value2 = (sbyte)ActorData.s_invalidActorIndex;
-		sbyte value3 = -1;
-		stream.Serialize(ref value);
-		stream.Serialize(ref value2);
-		stream.Serialize(ref value3);
+		uint effectGUID = 0u;
+		sbyte casterActorIndex = (sbyte)ActorData.s_invalidActorIndex;
+		sbyte sourceAbilityActionType = -1;
+		stream.Serialize(ref effectGUID);
+		stream.Serialize(ref casterActorIndex);
+		stream.Serialize(ref sourceAbilityActionType);
 		List<ServerClientUtils.SequenceStartData> seqStartDataList = DeSerializeSequenceStartDataListFromStream(ref stream);
 		Dictionary<ActorData, ClientActorHitResults> actorToHitResults = DeSerializeActorHitResultsDictionaryFromStream(ref stream);
 		Dictionary<Vector3, ClientPositionHitResults> posToHitResults = DeSerializePositionHitResultsDictionaryFromStream(ref stream);
-		ActorData effectCaster = GameFlowData.Get().FindActorByActorIndex(value2);
-		AbilityData.ActionType sourceAbilityActionType = (AbilityData.ActionType)value3;
-		return new ClientEffectResults((int)value, effectCaster, sourceAbilityActionType, seqStartDataList, actorToHitResults, posToHitResults);
+		ActorData effectCaster = GameFlowData.Get().FindActorByActorIndex(casterActorIndex);
+		return new ClientEffectResults(
+			(int)effectGUID,
+			effectCaster,
+			(AbilityData.ActionType)sourceAbilityActionType,
+			seqStartDataList,
+			actorToHitResults,
+			posToHitResults);
 	}
 
 	public static ClientBarrierResults DeSerializeClientBarrierResultsFromStream(ref IBitStream stream)
 	{
-		int value = -1;
-		sbyte value2 = (sbyte)ActorData.s_invalidActorIndex;
-		stream.Serialize(ref value);
-		stream.Serialize(ref value2);
+		int barrierGUID = -1;
+		sbyte casterIndex = (sbyte)ActorData.s_invalidActorIndex;
+		stream.Serialize(ref barrierGUID);
+		stream.Serialize(ref casterIndex);
 		Dictionary<ActorData, ClientActorHitResults> actorToHitResults = DeSerializeActorHitResultsDictionaryFromStream(ref stream);
 		Dictionary<Vector3, ClientPositionHitResults> posToHitResults = DeSerializePositionHitResultsDictionaryFromStream(ref stream);
-		ActorData barrierCaster = GameFlowData.Get().FindActorByActorIndex(value2);
-		return new ClientBarrierResults(value, barrierCaster, actorToHitResults, posToHitResults);
+		ActorData barrierCaster = GameFlowData.Get().FindActorByActorIndex(casterIndex);
+		return new ClientBarrierResults(barrierGUID, barrierCaster, actorToHitResults, posToHitResults);
 	}
 
 	public static ClientMovementResults DeSerializeClientMovementResultsFromStream(ref IBitStream stream)
 	{
-		sbyte value = (sbyte)ActorData.s_invalidActorIndex;
-		stream.Serialize(ref value);
+		sbyte triggeringMoverActorIndex = (sbyte)ActorData.s_invalidActorIndex;
+		stream.Serialize(ref triggeringMoverActorIndex);
 		BoardSquarePathInfo triggeringPath = MovementUtils.DeSerializeLightweightPath(stream);
 		List<ServerClientUtils.SequenceStartData> seqStartDataList = DeSerializeSequenceStartDataListFromStream(ref stream);
-		sbyte value2 = 0;
-		stream.Serialize(ref value2);
-		MovementResults_GameplayResponseType movementResults_GameplayResponseType = (MovementResults_GameplayResponseType)value2;
+		sbyte responseType = 0;
+		stream.Serialize(ref responseType);
+		MovementResults_GameplayResponseType movementResults_GameplayResponseType = (MovementResults_GameplayResponseType)responseType;
 		ClientEffectResults effectResults = null;
 		ClientBarrierResults barrierResults = null;
 		ClientAbilityResults powerupResults = null;
@@ -286,80 +278,68 @@ public static class AbilityResultsUtils
 		{
 			gameModeResults = DeSerializeClientAbilityResultsFromStream(ref stream);
 		}
-		ActorData triggeringMover = GameFlowData.Get().FindActorByActorIndex(value);
+		ActorData triggeringMover = GameFlowData.Get().FindActorByActorIndex(triggeringMoverActorIndex);
 		return new ClientMovementResults(triggeringMover, triggeringPath, seqStartDataList, effectResults, barrierResults, powerupResults, gameModeResults);
 	}
 
 	public static List<ClientMovementResults> DeSerializeClientMovementResultsListFromStream(ref IBitStream stream)
 	{
 		List<ClientMovementResults> list = new List<ClientMovementResults>();
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		for (int i = 0; i < value; i++)
+		sbyte num = 0;
+		stream.Serialize(ref num);
+		for (int i = 0; i < num; i++)
 		{
 			ClientMovementResults item = DeSerializeClientMovementResultsFromStream(ref stream);
 			list.Add(item);
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	public static List<ClientReactionResults> DeSerializeClientReactionResultsFromStream(ref IBitStream stream)
 	{
 		List<ClientReactionResults> list = new List<ClientReactionResults>();
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		for (int i = 0; i < value; i++)
+		sbyte num = 0;
+		stream.Serialize(ref num);
+		for (int i = 0; i < num; i++)
 		{
 			List<ServerClientUtils.SequenceStartData> seqStartDataList = DeSerializeSequenceStartDataListFromStream(ref stream);
 			ClientEffectResults effectResults = DeSerializeClientEffectResultsFromStream(ref stream);
-			byte value2 = 0;
-			stream.Serialize(ref value2);
-			ClientReactionResults item = new ClientReactionResults(effectResults, seqStartDataList, value2);
+			byte extraFlags = 0;
+			stream.Serialize(ref extraFlags);
+			ClientReactionResults item = new ClientReactionResults(effectResults, seqStartDataList, extraFlags);
 			list.Add(item);
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	public static List<int> DeSerializePowerupsToRemoveFromStream(ref IBitStream stream)
 	{
 		List<int> list = new List<int>();
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		for (int i = 0; i < value; i++)
+		sbyte num = 0;
+		stream.Serialize(ref num);
+		for (int i = 0; i < num; i++)
 		{
-			int value2 = 0;
-			stream.Serialize(ref value2);
-			list.Add(value2);
+			int id = 0;
+			stream.Serialize(ref id);
+			list.Add(id);
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	public static List<ClientPowerupStealData> DeSerializePowerupsToStealFromStream(ref IBitStream stream)
 	{
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		List<ClientPowerupStealData> list = new List<ClientPowerupStealData>(value);
-		for (int i = 0; i < value; i++)
+		sbyte num = 0;
+		stream.Serialize(ref num);
+		List<ClientPowerupStealData> list = new List<ClientPowerupStealData>(num);
+		for (int i = 0; i < num; i++)
 		{
-			int value2 = -1;
-			stream.Serialize(ref value2);
+			int powerupGUID = -1;
+			stream.Serialize(ref powerupGUID);
 			ClientPowerupResults powerupResults = DeSerializeClientPowerupResultsFromStream(ref stream);
-			ClientPowerupStealData item = new ClientPowerupStealData(value2, powerupResults);
+			ClientPowerupStealData item = new ClientPowerupStealData(powerupGUID, powerupResults);
 			list.Add(item);
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	public static ClientPowerupResults DeSerializeClientPowerupResultsFromStream(ref IBitStream stream)
@@ -372,71 +352,49 @@ public static class AbilityResultsUtils
 	public static List<ClientGameModeEvent> DeSerializeClientGameModeEventListFromStream(ref IBitStream stream)
 	{
 		List<ClientGameModeEvent> list = new List<ClientGameModeEvent>();
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		for (int i = 0; i < value; i++)
+		sbyte num = 0;
+		stream.Serialize(ref num);
+		for (int i = 0; i < num; i++)
 		{
 			ClientGameModeEvent item = DeSerializeClientGameModeEventFromStream(ref stream);
 			list.Add(item);
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	public static ClientGameModeEvent DeSerializeClientGameModeEventFromStream(ref IBitStream stream)
 	{
 		sbyte value = 0;
-		byte value2 = 0;
-		sbyte value3 = 0;
-		sbyte value4 = 0;
-		sbyte value5 = -1;
-		sbyte value6 = -1;
-		int value7 = 0;
+		byte objectGUID = 0;
+		sbyte primaryActorIndex = 0;
+		sbyte secondaryActorIndex = 0;
+		sbyte x = -1;
+		sbyte y = -1;
+		int eventGUID = 0;
 		stream.Serialize(ref value);
-		stream.Serialize(ref value2);
-		stream.Serialize(ref value3);
-		stream.Serialize(ref value4);
-		stream.Serialize(ref value5);
-		stream.Serialize(ref value6);
-		stream.Serialize(ref value7);
+		stream.Serialize(ref objectGUID);
+		stream.Serialize(ref primaryActorIndex);
+		stream.Serialize(ref secondaryActorIndex);
+		stream.Serialize(ref x);
+		stream.Serialize(ref y);
+		stream.Serialize(ref eventGUID);
 		GameModeEventType eventType = (GameModeEventType)value;
-		BoardSquare square;
-		if (value5 == -1)
-		{
-			if (value6 == -1)
-			{
-				square = null;
-				goto IL_0096;
-			}
-		}
-		square = Board.Get().GetSquare(value5, value6);
-		goto IL_0096;
-		IL_0096:
-		ActorData primaryActor = (value3 != ActorData.s_invalidActorIndex) ? GameFlowData.Get().FindActorByActorIndex(value3) : null;
-		ActorData secondaryActor;
-		if (value4 == ActorData.s_invalidActorIndex)
-		{
-			secondaryActor = null;
-		}
-		else
-		{
-			secondaryActor = GameFlowData.Get().FindActorByActorIndex(value4);
-		}
-		return new ClientGameModeEvent(eventType, value2, square, primaryActor, secondaryActor, value7);
+		BoardSquare square = (x == -1 && y == -1) ? null : Board.Get().GetSquare(x, y);
+		ActorData primaryActor = primaryActorIndex != ActorData.s_invalidActorIndex ? GameFlowData.Get().FindActorByActorIndex(primaryActorIndex) : null;
+		ActorData secondaryActor = secondaryActorIndex != ActorData.s_invalidActorIndex ? GameFlowData.Get().FindActorByActorIndex(secondaryActorIndex) : null;
+		return new ClientGameModeEvent(eventType, objectGUID, square, primaryActor, secondaryActor, eventGUID);
 	}
 
 	public static List<int> DeSerializeClientOverconListFromStream(ref IBitStream stream)
 	{
 		List<int> list = new List<int>();
-		sbyte value = 0;
-		stream.Serialize(ref value);
-		for (int i = 0; i < value; i++)
+		sbyte num = 0;
+		stream.Serialize(ref num);
+		for (int i = 0; i < num; i++)
 		{
-			int value2 = -1;
-			stream.Serialize(ref value2);
-			list.Add(value2);
+			int id = -1;
+			stream.Serialize(ref id);
+			list.Add(id);
 		}
 		return list;
 	}
