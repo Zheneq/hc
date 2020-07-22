@@ -19,6 +19,18 @@ public class ClientResolutionAction : IComparable
 		m_effectResults = null;
 	}
 
+	public ClientResolutionAction(
+		ResolutionActionType type,
+		ClientAbilityResults abilityResults,
+		ClientEffectResults effectResults,
+		ClientMovementResults moveResults)
+	{
+		m_type = type;
+		m_abilityResults = abilityResults;
+		m_effectResults = effectResults;
+		m_moveResults = moveResults;
+	}
+
 	public int CompareTo(object obj)
 	{
 		if (obj == null)

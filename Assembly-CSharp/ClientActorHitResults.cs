@@ -111,6 +111,84 @@ public class ClientActorHitResults
 		}
 	}
 
+	public ClientActorHitResults(
+		bool hasDamage,
+		bool hasHealing,
+		bool hasTechPointGain,
+		bool hasTechPointLoss,
+		bool hasTechPointGainOnCaster,
+		bool hasKnockback,
+		ActorData knockbackSourceActor,
+		int finalDamage,
+		int finalHealing,
+		int finalTechPointsGain,
+		int finalTechPointsLoss,
+		int finalTechPointGainOnCaster,
+		bool damageBoosted,
+		bool damageReduced,
+		bool isPartOfHealOverTime,
+		bool updateCasterLastKnownPos,
+		bool updateTargetLastKnownPos,
+		bool triggerCasterVisOnHitVisualOnly,
+		bool updateEffectHolderLastKnownPos,
+		ActorData effectHolderActor,
+		bool updateOtherLastKnownPos,
+		List<ActorData> otherActorsToUpdateVisibility,
+		bool targetInCoverWrtDamage,
+		Vector3 damageHitOrigin,
+		bool canBeReactedTo,
+		bool isCharacterSpecificAbility,
+		List<ClientEffectStartData> effectsToStart,
+		List<int> effectsToRemove,
+		List<ClientBarrierStartData> barriersToAdd,
+		List<int> barriersToRemove,
+		List<ServerClientUtils.SequenceEndData> sequencesToEnd,
+		List<ClientReactionResults> reactions,
+		List<int> powerupsToRemove,
+		List<ClientPowerupStealData> powerupsToSteal,
+		List<ClientMovementResults> directPowerupHits,
+		List<ClientGameModeEvent> gameModeEvents,
+		List<int> overconIds)
+	{
+		m_hasDamage = hasDamage;
+		m_hasHealing = hasHealing;
+		m_hasTechPointGain = hasTechPointGain;
+		m_hasTechPointLoss = hasTechPointLoss;
+		m_hasTechPointGainOnCaster = hasTechPointGainOnCaster;
+		m_hasKnockback = hasKnockback;
+		m_knockbackSourceActor = knockbackSourceActor;
+		m_finalDamage = finalDamage;
+		m_finalHealing = finalHealing;
+		m_finalTechPointsGain = finalTechPointsGain;
+		m_finalTechPointsLoss = finalTechPointsLoss;
+		m_finalTechPointGainOnCaster = finalTechPointGainOnCaster;
+		m_damageBoosted = damageBoosted;
+		m_damageReduced = damageReduced;
+		m_isPartOfHealOverTime = isPartOfHealOverTime;
+		m_updateCasterLastKnownPos = updateCasterLastKnownPos;
+		m_updateTargetLastKnownPos = updateTargetLastKnownPos;
+		m_triggerCasterVisOnHitVisualOnly = triggerCasterVisOnHitVisualOnly;
+		m_updateEffectHolderLastKnownPos = updateEffectHolderLastKnownPos;
+		m_effectHolderActor = effectHolderActor;
+		m_updateOtherLastKnownPos = updateOtherLastKnownPos;
+		m_otherActorsToUpdateVisibility = otherActorsToUpdateVisibility;
+		m_targetInCoverWrtDamage = targetInCoverWrtDamage;
+		m_damageHitOrigin = damageHitOrigin;
+		m_canBeReactedTo = canBeReactedTo;
+		m_isCharacterSpecificAbility = isCharacterSpecificAbility;
+		m_effectsToStart = effectsToStart;
+		m_effectsToRemove = effectsToRemove;
+		m_barriersToAdd = barriersToAdd;
+		m_barriersToRemove = barriersToRemove;
+		m_sequencesToEnd = sequencesToEnd;
+		m_reactions = reactions;
+		m_powerupsToRemove = powerupsToRemove;
+		m_powerupsToSteal = powerupsToSteal;
+		m_directPowerupHits = directPowerupHits;
+		m_gameModeEvents = gameModeEvents;
+		m_overconIds = overconIds;
+	}
+
 	public ClientActorHitResults(ref IBitStream stream)
 	{
 		byte bitField1 = 0;
