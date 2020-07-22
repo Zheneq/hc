@@ -34,53 +34,6 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="UnityEngine">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="Fabric.Core">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\Fabric.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\System.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Core">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\System.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="websocket-sharp">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\websocket-sharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Corale.Colore">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\Corale.Colore.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\System.Xml.dll</HintPath>
-    </Reference>
-    <Reference Include="NetSerializer">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\NetSerializer.dll</HintPath>
-    </Reference>
-    <Reference Include="C5">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\C5.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="ArabicSupport">
-      <HintPath>B:\Artemis\Win64\AtlasReactor_Data\Managed\ArabicSupport.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Ability.cs" />
     <Compile Include="AbilityAreaShape.cs" />
     <Compile Include="AbilityCommon_DualMeetingLasers.cs" />
@@ -2852,6 +2805,52 @@
     <Compile Include="_SelectableBtn.cs" />
     <Compile Include="_ToggleSwap.cs" />
     <Compile Include="_TopPhaseIndicator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ArabicSupport, Version=1.0.5079.40370, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Artemis\Win64\AtlasReactor_Data\Managed\ArabicSupport.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>..\..\..\Artemis\Win64\AtlasReactor_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="C5">
+      <HintPath>..\..\..\Artemis\Win64\AtlasReactor_Data\Managed\C5.dll</HintPath>
+    </Reference>
+    <Reference Include="Corale.Colore">
+      <HintPath>..\..\..\Artemis\Win64\AtlasReactor_Data\Managed\Corale.Colore.dll</HintPath>
+    </Reference>
+    <Reference Include="Fabric.Core">
+      <HintPath>..\..\..\Artemis\Win64\AtlasReactor_Data\Managed\Fabric.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=2.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Artemis\Win64\AtlasReactor_Data\Managed\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="NetSerializer">
+      <HintPath>..\..\..\Artemis\Win64\AtlasReactor_Data\Managed\NetSerializer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Artemis\Win64\AtlasReactor_Data\Managed\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <HintPath>..\..\..\Artemis\Win64\AtlasReactor_Data\Managed\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\Artemis\Win64\AtlasReactor_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>..\..\..\Artemis\Win64\AtlasReactor_Data\Managed\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\Artemis\Win64\AtlasReactor_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="websocket-sharp">
+      <HintPath>..\..\..\Artemis\Win64\AtlasReactor_Data\Managed\websocket-sharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
