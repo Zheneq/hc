@@ -169,55 +169,12 @@ public class ClientResolutionAction : IComparable
 
 	public ActorData GetCaster()
 	{
-		if (m_abilityResults != null)
-		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return m_abilityResults.GetCaster();
-				}
-			}
-		}
-		if (m_effectResults != null)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return m_effectResults.GetCaster();
-				}
-			}
-		}
-		return null;
+		return m_abilityResults?.GetCaster() ?? m_effectResults?.GetCaster() ?? null;
 	}
 
 	public AbilityData.ActionType GetSourceAbilityActionType()
 	{
-		if (m_abilityResults != null)
-		{
-			return m_abilityResults.GetSourceActionType();
-		}
-		if (m_effectResults != null)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return m_effectResults.GetSourceActionType();
-				}
-			}
-		}
-		return AbilityData.ActionType.INVALID_ACTION;
+		return m_abilityResults?.GetSourceActionType() ?? m_effectResults?.GetSourceActionType() ?? AbilityData.ActionType.INVALID_ACTION;
 	}
 
 	public bool IsResolutionActionType(ResolutionActionType testType)
@@ -227,33 +184,7 @@ public class ClientResolutionAction : IComparable
 
 	public bool HasReactionHitByCaster(ActorData caster)
 	{
-		if (m_abilityResults != null)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return m_abilityResults.HasReactionByCaster(caster);
-				}
-			}
-		}
-		if (m_effectResults != null)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return m_effectResults.HasReactionByCaster(caster);
-				}
-			}
-		}
-		return false;
+		return m_abilityResults?.HasReactionByCaster(caster) ?? m_effectResults?.HasReactionByCaster(caster) ?? false;
 	}
 
 	public void GetHitResults(out Dictionary<ActorData, ClientActorHitResults> actorHitResList, out Dictionary<Vector3, ClientPositionHitResults> posHitResList)
@@ -262,24 +193,12 @@ public class ClientResolutionAction : IComparable
 		posHitResList = null;
 		if (m_abilityResults != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					actorHitResList = m_abilityResults.GetActorHitResults();
-					posHitResList = m_abilityResults.GetPosHitResults();
-					return;
-				}
-			}
-		}
-		if (m_effectResults == null)
-		{
+			actorHitResList = m_abilityResults.GetActorHitResults();
+			posHitResList = m_abilityResults.GetPosHitResults();
 			return;
+				
 		}
-		while (true)
+		if (m_effectResults != null)
 		{
 			actorHitResList = m_effectResults.GetActorHitResults();
 			posHitResList = m_effectResults.GetPosHitResults();
@@ -293,23 +212,10 @@ public class ClientResolutionAction : IComparable
 		posHitResList = null;
 		if (m_abilityResults != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityResults.GetReactionHitResultsByCaster(caster, out actorHitResList, out posHitResList);
-					return;
-				}
-			}
-		}
-		if (m_effectResults == null)
-		{
+			m_abilityResults.GetReactionHitResultsByCaster(caster, out actorHitResList, out posHitResList);
 			return;
 		}
-		while (true)
+		if (m_effectResults != null)
 		{
 			m_effectResults.GetReactionHitResultsByCaster(caster, out actorHitResList, out posHitResList);
 			return;
