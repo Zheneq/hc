@@ -113,84 +113,92 @@ public class ClientActorHitResults
 
 	public ClientActorHitResults(ref IBitStream stream)
 	{
-		byte value = 0;
-		stream.Serialize(ref value);
-		ServerClientUtils.GetBoolsFromBitfield(value, out m_hasDamage, out m_hasHealing, out m_hasTechPointGain, out m_hasTechPointLoss, out m_hasTechPointGainOnCaster, out m_hasKnockback, out m_targetInCoverWrtDamage, out m_canBeReactedTo);
-		byte value2 = 0;
-		stream.Serialize(ref value2);
-		ServerClientUtils.GetBoolsFromBitfield(value2, out m_damageBoosted, out m_damageReduced, out m_updateCasterLastKnownPos, out m_updateTargetLastKnownPos, out m_updateEffectHolderLastKnownPos, out m_updateOtherLastKnownPos, out m_isPartOfHealOverTime, out m_triggerCasterVisOnHitVisualOnly);
-		short value3 = 0;
-		short value4 = 0;
-		short value5 = 0;
-		short value6 = 0;
-		short value7 = 0;
+		byte bitField1 = 0;
+		stream.Serialize(ref bitField1);
+		ServerClientUtils.GetBoolsFromBitfield(
+			bitField1,
+			out m_hasDamage,
+			out m_hasHealing,
+			out m_hasTechPointGain,
+			out m_hasTechPointLoss,
+			out m_hasTechPointGainOnCaster,
+			out m_hasKnockback,
+			out m_targetInCoverWrtDamage,
+			out m_canBeReactedTo);
+
+		byte bitField2 = 0;
+		stream.Serialize(ref bitField2);
+		ServerClientUtils.GetBoolsFromBitfield(
+			bitField2,
+			out m_damageBoosted,
+			out m_damageReduced,
+			out m_updateCasterLastKnownPos,
+			out m_updateTargetLastKnownPos,
+			out m_updateEffectHolderLastKnownPos,
+			out m_updateOtherLastKnownPos,
+			out m_isPartOfHealOverTime,
+			out m_triggerCasterVisOnHitVisualOnly);
+
 		if (m_hasDamage)
 		{
-			stream.Serialize(ref value3);
-			m_finalDamage = value3;
+			short finalDamage = 0;
+			stream.Serialize(ref finalDamage);
+			m_finalDamage = finalDamage;
 		}
 		if (m_hasHealing)
 		{
-			stream.Serialize(ref value4);
-			m_finalHealing = value4;
+			short finalHealing = 0;
+			stream.Serialize(ref finalHealing);
+			m_finalHealing = finalHealing;
 		}
 		if (m_hasTechPointGain)
 		{
-			stream.Serialize(ref value5);
-			m_finalTechPointsGain = value5;
+			short finalTechPointsGain = 0;
+			stream.Serialize(ref finalTechPointsGain);
+			m_finalTechPointsGain = finalTechPointsGain;
 		}
 		if (m_hasTechPointLoss)
 		{
-			stream.Serialize(ref value6);
-			m_finalTechPointsLoss = value6;
+			short finalTechPointsLoss = 0;
+			stream.Serialize(ref finalTechPointsLoss);
+			m_finalTechPointsLoss = finalTechPointsLoss;
 		}
 		if (m_hasTechPointGainOnCaster)
 		{
-			stream.Serialize(ref value7);
-			m_finalTechPointGainOnCaster = value7;
+			short finalTechPointGainOnCaster = 0;
+			stream.Serialize(ref finalTechPointGainOnCaster);
+			m_finalTechPointGainOnCaster = finalTechPointGainOnCaster;
 		}
 		if (m_hasKnockback)
 		{
-			short value8 = (short)ActorData.s_invalidActorIndex;
-			stream.Serialize(ref value8);
-			if (value8 != ActorData.s_invalidActorIndex)
+			short actorIndex = (short)ActorData.s_invalidActorIndex;
+			stream.Serialize(ref actorIndex);
+			if (actorIndex != ActorData.s_invalidActorIndex)
 			{
-				m_knockbackSourceActor = GameFlowData.Get().FindActorByActorIndex(value8);
+				m_knockbackSourceActor = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 			}
 			else
 			{
 				m_knockbackSourceActor = null;
 			}
 		}
-		int num;
-		if (m_hasDamage)
+		if (m_hasDamage && m_targetInCoverWrtDamage || m_hasKnockback)
 		{
-			if (m_targetInCoverWrtDamage)
-			{
-				num = 1;
-				goto IL_01cb;
-			}
-		}
-		num = (m_hasKnockback ? 1 : 0);
-		goto IL_01cb;
-		IL_01cb:
-		if (num != 0)
-		{
-			float value9 = 0f;
-			float value10 = 0f;
-			stream.Serialize(ref value9);
-			stream.Serialize(ref value10);
-			m_damageHitOrigin.x = value9;
+			float damageHitOriginX = 0f;
+			float damageHitOriginZ = 0f;
+			stream.Serialize(ref damageHitOriginX);
+			stream.Serialize(ref damageHitOriginZ);
+			m_damageHitOrigin.x = damageHitOriginX;
 			m_damageHitOrigin.y = 0f;
-			m_damageHitOrigin.z = value10;
+			m_damageHitOrigin.z = damageHitOriginZ;
 		}
 		if (m_updateEffectHolderLastKnownPos)
 		{
-			short value11 = (short)ActorData.s_invalidActorIndex;
-			stream.Serialize(ref value11);
-			if (value11 != ActorData.s_invalidActorIndex)
+			short effectHolderActor = (short)ActorData.s_invalidActorIndex;
+			stream.Serialize(ref effectHolderActor);
+			if (effectHolderActor != ActorData.s_invalidActorIndex)
 			{
-				m_effectHolderActor = GameFlowData.Get().FindActorByActorIndex(value11);
+				m_effectHolderActor = GameFlowData.Get().FindActorByActorIndex(effectHolderActor);
 			}
 			else
 			{
@@ -199,16 +207,16 @@ public class ClientActorHitResults
 		}
 		if (m_updateOtherLastKnownPos)
 		{
-			byte value12 = 0;
-			stream.Serialize(ref value12);
-			m_otherActorsToUpdateVisibility = new List<ActorData>(value12);
-			for (int i = 0; i < value12; i++)
+			byte otherActorsToUpdateVisibilityNum = 0;
+			stream.Serialize(ref otherActorsToUpdateVisibilityNum);
+			m_otherActorsToUpdateVisibility = new List<ActorData>(otherActorsToUpdateVisibilityNum);
+			for (int i = 0; i < otherActorsToUpdateVisibilityNum; i++)
 			{
-				short value13 = (short)ActorData.s_invalidActorIndex;
-				stream.Serialize(ref value13);
-				if (value13 != ActorData.s_invalidActorIndex)
+				short actorIndex = (short)ActorData.s_invalidActorIndex;
+				stream.Serialize(ref actorIndex);
+				if (actorIndex != ActorData.s_invalidActorIndex)
 				{
-					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(value13);
+					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 					if (actorData != null)
 					{
 						m_otherActorsToUpdateVisibility.Add(actorData);
@@ -216,108 +224,75 @@ public class ClientActorHitResults
 				}
 			}
 		}
-		bool @out = false;
-		bool out2 = false;
-		bool out3 = false;
-		bool out4 = false;
-		bool out5 = false;
-		bool out6 = false;
-		bool out7 = false;
-		bool out8 = false;
-		bool out9 = false;
-		bool out10 = false;
-		bool out11 = false;
-		bool out12 = false;
-		byte value14 = 0;
-		byte value15 = 0;
-		stream.Serialize(ref value14);
-		stream.Serialize(ref value15);
-		ServerClientUtils.GetBoolsFromBitfield(value14, out @out, out out2, out out4, out out5, out out6, out out7, out out8, out out9);
-		ServerClientUtils.GetBoolsFromBitfield(value15, out out10, out out11, out out3, out out12);
-		List<ClientEffectStartData> effectsToStart;
-		if (@out)
-		{
-			effectsToStart = AbilityResultsUtils.DeSerializeEffectsToStartFromStream(ref stream);
-		}
-		else
-		{
-			effectsToStart = new List<ClientEffectStartData>();
-		}
-		m_effectsToStart = effectsToStart;
-		m_effectsToRemove = ((!out2) ? new List<int>() : AbilityResultsUtils.DeSerializeEffectsForRemovalFromStream(ref stream));
-		List<ClientBarrierStartData> barriersToAdd;
-		if (out3)
-		{
-			barriersToAdd = AbilityResultsUtils.DeSerializeBarriersToStartFromStream(ref stream);
-		}
-		else
-		{
-			barriersToAdd = new List<ClientBarrierStartData>();
-		}
-		m_barriersToAdd = barriersToAdd;
-		List<int> barriersToRemove;
-		if (out4)
-		{
-			barriersToRemove = AbilityResultsUtils.DeSerializeBarriersForRemovalFromStream(ref stream);
-		}
-		else
-		{
-			barriersToRemove = new List<int>();
-		}
-		m_barriersToRemove = barriersToRemove;
-		List<ServerClientUtils.SequenceEndData> sequencesToEnd;
-		if (out5)
-		{
-			sequencesToEnd = AbilityResultsUtils.DeSerializeSequenceEndDataListFromStream(ref stream);
-		}
-		else
-		{
-			sequencesToEnd = new List<ServerClientUtils.SequenceEndData>();
-		}
-		m_sequencesToEnd = sequencesToEnd;
-		List<ClientReactionResults> reactions;
-		if (out6)
-		{
-			reactions = AbilityResultsUtils.DeSerializeClientReactionResultsFromStream(ref stream);
-		}
-		else
-		{
-			reactions = new List<ClientReactionResults>();
-		}
-		m_reactions = reactions;
-		m_powerupsToRemove = ((!out7) ? new List<int>() : AbilityResultsUtils.DeSerializePowerupsToRemoveFromStream(ref stream));
-		List<ClientPowerupStealData> powerupsToSteal;
-		if (out8)
-		{
-			powerupsToSteal = AbilityResultsUtils.DeSerializePowerupsToStealFromStream(ref stream);
-		}
-		else
-		{
-			powerupsToSteal = new List<ClientPowerupStealData>();
-		}
-		m_powerupsToSteal = powerupsToSteal;
-		List<ClientMovementResults> directPowerupHits;
-		if (out9)
-		{
-			directPowerupHits = AbilityResultsUtils.DeSerializeClientMovementResultsListFromStream(ref stream);
-		}
-		else
-		{
-			directPowerupHits = new List<ClientMovementResults>();
-		}
-		m_directPowerupHits = directPowerupHits;
-		List<ClientGameModeEvent> gameModeEvents;
-		if (out10)
-		{
-			gameModeEvents = AbilityResultsUtils.DeSerializeClientGameModeEventListFromStream(ref stream);
-		}
-		else
-		{
-			gameModeEvents = new List<ClientGameModeEvent>();
-		}
-		m_gameModeEvents = gameModeEvents;
-		m_overconIds = ((!out12) ? new List<int>() : AbilityResultsUtils.DeSerializeClientOverconListFromStream(ref stream));
-		m_isCharacterSpecificAbility = out11;
+
+		bool hasEffectsToStart = false;
+		bool hasEffectsToRemove = false;
+		bool hasBarriersToAdd = false;
+		bool hasBarriersToRemove = false;
+		bool hasSequencesToEnd = false;
+		bool hasReactions = false;
+		bool hasPowerupsToRemove = false;
+		bool hasPowerupsToSteal = false;
+		bool hasDirectPowerupHits = false;
+		bool hasGameModeEvents = false;
+		bool isCharacterSpecificAbility = false;
+		bool hasOverconIds = false;
+		byte bitField3 = 0;
+		byte bitField4 = 0;
+		stream.Serialize(ref bitField3);
+		stream.Serialize(ref bitField4);
+		ServerClientUtils.GetBoolsFromBitfield(
+			bitField3,
+			out hasEffectsToStart,
+			out hasEffectsToRemove,
+			out hasBarriersToRemove,
+			out hasSequencesToEnd,
+			out hasReactions,
+			out hasPowerupsToRemove,
+			out hasPowerupsToSteal,
+			out hasDirectPowerupHits);
+		ServerClientUtils.GetBoolsFromBitfield(
+			bitField4,
+			out hasGameModeEvents,
+			out isCharacterSpecificAbility,
+			out hasBarriersToAdd,
+			out hasOverconIds);
+
+		m_effectsToStart = hasEffectsToStart
+			? AbilityResultsUtils.DeSerializeEffectsToStartFromStream(ref stream)
+			: new List<ClientEffectStartData>();
+		m_effectsToRemove = hasEffectsToRemove
+			? AbilityResultsUtils.DeSerializeEffectsForRemovalFromStream(ref stream)
+			: new List<int>();
+		m_barriersToAdd = hasBarriersToAdd
+			? AbilityResultsUtils.DeSerializeBarriersToStartFromStream(ref stream)
+			: new List<ClientBarrierStartData>();
+		m_barriersToRemove = hasBarriersToRemove
+			? AbilityResultsUtils.DeSerializeBarriersForRemovalFromStream(ref stream)
+			: new List<int>();
+		m_sequencesToEnd = hasSequencesToEnd
+			? AbilityResultsUtils.DeSerializeSequenceEndDataListFromStream(ref stream)
+			: new List<ServerClientUtils.SequenceEndData>();
+		m_reactions = hasReactions
+			? AbilityResultsUtils.DeSerializeClientReactionResultsFromStream(ref stream)
+			: new List<ClientReactionResults>();
+		m_powerupsToRemove = hasPowerupsToRemove
+			? AbilityResultsUtils.DeSerializePowerupsToRemoveFromStream(ref stream)
+			: new List<int>();
+		m_powerupsToSteal = hasPowerupsToSteal
+			? AbilityResultsUtils.DeSerializePowerupsToStealFromStream(ref stream)
+			: new List<ClientPowerupStealData>();
+		m_directPowerupHits = hasDirectPowerupHits
+			? AbilityResultsUtils.DeSerializeClientMovementResultsListFromStream(ref stream)
+			: new List<ClientMovementResults>();
+		m_gameModeEvents = hasGameModeEvents
+			? AbilityResultsUtils.DeSerializeClientGameModeEventListFromStream(ref stream)
+			: new List<ClientGameModeEvent>();
+		m_overconIds = hasOverconIds
+			? AbilityResultsUtils.DeSerializeClientOverconListFromStream(ref stream)
+			: new List<int>();
+		m_isCharacterSpecificAbility = isCharacterSpecificAbility;
+
 		IsMovementHit = false;
 		ExecutedHit = false;
 	}
