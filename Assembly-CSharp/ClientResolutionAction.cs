@@ -132,38 +132,26 @@ public class ClientResolutionAction : IComparable
 	public static ClientResolutionAction ClientResolutionAction_DeSerializeFromStream(ref IBitStream stream)
 	{
 		ClientResolutionAction clientResolutionAction = new ClientResolutionAction();
-		sbyte value = -1;
-		stream.Serialize(ref value);
-		ResolutionActionType resolutionActionType = (ResolutionActionType)value;
-		clientResolutionAction.m_type = (ResolutionActionType)value;
-		if (resolutionActionType == ResolutionActionType.AbilityCast)
+		sbyte actionType = -1;
+		stream.Serialize(ref actionType);
+		clientResolutionAction.m_type = (ResolutionActionType)actionType;
+
+		switch (clientResolutionAction.m_type)
 		{
-			clientResolutionAction.m_abilityResults = AbilityResultsUtils.DeSerializeClientAbilityResultsFromStream(ref stream);
+			case ResolutionActionType.AbilityCast:
+				clientResolutionAction.m_abilityResults = AbilityResultsUtils.DeSerializeClientAbilityResultsFromStream(ref stream);
+				break;
+			case ResolutionActionType.EffectAnimation:
+			case ResolutionActionType.EffectPulse:
+				clientResolutionAction.m_effectResults = AbilityResultsUtils.DeSerializeClientEffectResultsFromStream(ref stream);
+				break;
+			case ResolutionActionType.EffectOnMove:
+			case ResolutionActionType.BarrierOnMove:
+			case ResolutionActionType.PowerupOnMove:
+			case ResolutionActionType.GameModeOnMove:
+				clientResolutionAction.m_moveResults = AbilityResultsUtils.DeSerializeClientMovementResultsFromStream(ref stream);
+				break;
 		}
-		else
-		{
-			if (resolutionActionType != ResolutionActionType.EffectAnimation)
-			{
-				if (resolutionActionType != ResolutionActionType.EffectPulse)
-				{
-					if (resolutionActionType != ResolutionActionType.EffectOnMove && resolutionActionType != ResolutionActionType.BarrierOnMove)
-					{
-						if (resolutionActionType != ResolutionActionType.PowerupOnMove)
-						{
-							if (resolutionActionType != ResolutionActionType.GameModeOnMove)
-							{
-								goto IL_009e;
-							}
-						}
-					}
-					clientResolutionAction.m_moveResults = AbilityResultsUtils.DeSerializeClientMovementResultsFromStream(ref stream);
-					goto IL_009e;
-				}
-			}
-			clientResolutionAction.m_effectResults = AbilityResultsUtils.DeSerializeClientEffectResultsFromStream(ref stream);
-		}
-		goto IL_009e;
-		IL_009e:
 		return clientResolutionAction;
 	}
 
