@@ -448,6 +448,108 @@ public static class ServerClientUtils
 			return sequenceStartData;
 		}
 
+		public static void Serialize(ref IBitStream stream, ref SequenceStartData sequenceStartData)
+		{
+			short prefabId = sequenceStartData.m_prefabID;
+			bool useTargetPos = sequenceStartData.m_useTargetPos;
+			Vector3 targetPos = sequenceStartData.m_targetPos;
+			bool useTargetSquare = sequenceStartData.m_useTargetSquare;
+			byte targetSquareX = (byte)sequenceStartData.m_targetSquareX;
+			byte targetSquareY = (byte)sequenceStartData.m_targetSquareY;
+			bool useTargetRotation = sequenceStartData.m_useTargetRotation;
+			Quaternion targetRotation = sequenceStartData.m_targetRotation;
+			byte numTargetActors = sequenceStartData.m_numTargetActors;
+			sbyte casterActorIndex = (sbyte)sequenceStartData.m_casterActorIndex;
+			uint sourceRootId = sequenceStartData.m_sourceRootID;
+			bool sourceRemoveAtEndOfTurn = sequenceStartData.m_sourceRemoveAtEndOfTurn;
+			bool waitForClientEnable = sequenceStartData.m_waitForClientEnable;
+			byte numExtraParams = sequenceStartData.m_numExtraParams;
+
+			List<int> targetActorIndices = new List<int>();
+			List<Sequence.IExtraSequenceParams> extraParams = new List<Sequence.IExtraSequenceParams>();
+
+			stream.Serialize(ref prefabId);
+
+			byte bitField = CreateBitfieldFromBools(
+				useTargetPos,
+				useTargetSquare,
+				useTargetRotation,
+				sourceRemoveAtEndOfTurn,
+				waitForClientEnable,
+				false, false, false);
+			stream.Serialize(ref bitField);
+			GetBoolsFromBitfield(
+				bitField,
+				out useTargetPos,
+				out useTargetSquare,
+				out useTargetRotation,
+				out sourceRemoveAtEndOfTurn,
+				out waitForClientEnable);
+			if (useTargetPos)
+			{
+				stream.Serialize(ref targetPos);
+			}
+			if (useTargetSquare)
+			{
+				stream.Serialize(ref targetSquareX);
+				stream.Serialize(ref targetSquareY);
+			}
+			if (useTargetRotation)
+			{
+				float angleDegrees = VectorUtils.HorizontalAngle_Deg(targetRotation * new Vector3(1f, 0f, 0f)); // TODO recheck
+				stream.Serialize(ref angleDegrees);
+				targetRotation = Quaternion.FromToRotation(new Vector3(1f, 0f, 0f), VectorUtils.AngleDegreesToVector(angleDegrees));
+			}
+			stream.Serialize(ref numTargetActors);
+			for (int i = 0; i < numTargetActors; i++)
+			{
+				sbyte targetActorIndex = (sbyte)sequenceStartData.m_targetActorIndices[i];
+				stream.Serialize(ref targetActorIndex);
+				targetActorIndices.Add(targetActorIndex);
+			}
+			stream.Serialize(ref casterActorIndex);
+			stream.Serialize(ref sourceRootId);
+			stream.Serialize(ref numExtraParams);
+			for (int j = 0; j < numExtraParams; j++)
+			{
+				Sequence.IExtraSequenceParams extraSequenceParams = sequenceStartData.m_extraParams[j];
+				short extraParamType = (short)SequenceLookup.GetEnumOfExtraParam(extraSequenceParams);
+				stream.Serialize(ref extraParamType);
+
+				if (stream.isWriting)
+				{
+					extraSequenceParams.XSP_SerializeToStream(stream);
+				}
+				else
+				{
+					SequenceLookup.SequenceExtraParamEnum paramEnum = (SequenceLookup.SequenceExtraParamEnum)extraParamType;
+					extraSequenceParams = SequenceLookup.Get().CreateExtraParamOfEnum(paramEnum);
+					extraSequenceParams.XSP_DeserializeFromStream(stream);
+				}
+				extraParams.Add(extraSequenceParams);
+			}
+
+			if (stream.isReading)
+			{
+				sequenceStartData.m_prefabID = prefabId;
+				sequenceStartData.m_useTargetPos = useTargetPos;
+				sequenceStartData.m_targetPos = targetPos;
+				sequenceStartData.m_useTargetSquare = useTargetSquare;
+				sequenceStartData.m_targetSquareX = useTargetSquare ? targetSquareX : -1;
+				sequenceStartData.m_targetSquareY = useTargetSquare ? targetSquareY : -1;
+				sequenceStartData.m_useTargetRotation = useTargetRotation;
+				sequenceStartData.m_targetRotation = targetRotation;
+				sequenceStartData.m_numTargetActors = numTargetActors;
+				sequenceStartData.m_targetActorIndices = targetActorIndices.ToArray();
+				sequenceStartData.m_casterActorIndex = casterActorIndex;
+				sequenceStartData.m_sourceRootID = sourceRootId;
+				sequenceStartData.m_sourceRemoveAtEndOfTurn = sourceRemoveAtEndOfTurn;
+				sequenceStartData.m_waitForClientEnable = waitForClientEnable;
+				sequenceStartData.m_numExtraParams = numExtraParams;
+				sequenceStartData.m_extraParams = extraParams.ToArray();
+			}
+		}
+
 		internal Sequence[] CreateSequencesFromData(SequenceSource.ActorDelegate onHitActor, SequenceSource.Vector3Delegate onHitPos)
 		{
 			GameObject prefabOfSequenceId = SequenceLookup.Get().GetPrefabOfSequenceId(m_prefabID);

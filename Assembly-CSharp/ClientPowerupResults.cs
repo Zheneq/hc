@@ -13,6 +13,12 @@ public class ClientPowerupResults
 		m_powerupAbilityResults = clientAbilityResults;
 	}
 
+	public void SerializeToStream(ref IBitStream stream)
+	{
+		AbilityResultsUtils.SerializeSequenceStartDataListToStream(ref stream, m_seqStartDataList);
+		m_powerupAbilityResults.SerializeToStream(ref stream);
+	}
+
 	public bool HasSequencesToStart()
 	{
 		if (m_seqStartDataList == null)
