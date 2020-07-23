@@ -59,7 +59,7 @@ public class ClientActionBuffer : MonoBehaviour
 					}
 				}
 			}
-			if (!ClientAbilityResults.LogMissingSequences)
+			if (!ClientAbilityResults.WarningEnabled)
 			{
 				return;
 			}

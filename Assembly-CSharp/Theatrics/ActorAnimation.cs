@@ -695,7 +695,7 @@ namespace Theatrics
 
 		internal void Play(Turn _001D)
 		{
-			if (ClientAbilityResults.LogMissingSequences || TheatricsManager.DebugLog)
+			if (ClientAbilityResults.WarningEnabled || TheatricsManager.DebugLog)
 			{
 				Log.Warning("<color=cyan>ActorAnimation</color> Play for: " + ToString() + " @time= " + GameTime.time);
 			}

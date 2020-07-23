@@ -425,8 +425,7 @@ public static class AbilityResultsUtils
 			stream.Serialize(ref seqStartNum);
 			for (int j = 0; j < seqStartNum; j++)
 			{
-				ServerClientUtils.SequenceStartData seqStart = seqStartList[j];
-				ServerClientUtils.SequenceStartData.Serialize(ref stream, ref seqStart);
+				seqStartList[j].SequenceStartData_SerializeToStream(ref stream);
 			}
 			sbyte casterActorIndex = (sbyte)(effectStart.m_caster?.ActorIndex ?? ActorData.s_invalidActorIndex);
 			stream.Serialize(ref casterActorIndex);
@@ -489,8 +488,7 @@ public static class AbilityResultsUtils
 			stream.Serialize(ref seqenceStartNum);
 			for (int j = 0; j < seqenceStartNum; j++)
 			{
-				ServerClientUtils.SequenceStartData seqStart = clientBarrierStartData.m_sequenceStartDataList[j];
-				ServerClientUtils.SequenceStartData.Serialize(ref stream, ref seqStart);
+				clientBarrierStartData.m_sequenceStartDataList[j].SequenceStartData_SerializeToStream(ref stream);
 			}
 		}
 	}
@@ -521,8 +519,7 @@ public static class AbilityResultsUtils
 		stream.Serialize(ref seqStartNum);
 		for (int i = 0; i < seqStartNum; i++)
 		{
-			ServerClientUtils.SequenceStartData seqStart = list[i];
-			ServerClientUtils.SequenceStartData.Serialize(ref stream, ref seqStart);
+			list[i].SequenceStartData_SerializeToStream(ref stream);
 		}
 	}
 

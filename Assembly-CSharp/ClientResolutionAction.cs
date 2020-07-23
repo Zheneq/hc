@@ -471,7 +471,7 @@ public class ClientResolutionAction : IComparable
 				if (!current.Value.ExecutedHit)
 				{
 					ActorData key = current.Key;
-					if (ClientAbilityResults.LogMissingSequences)
+					if (ClientAbilityResults.WarningEnabled)
 					{
 						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted actor hit on " + key.GetDebugName() + " from " + caster.GetDebugName());
 					}
@@ -486,7 +486,7 @@ public class ClientResolutionAction : IComparable
 				KeyValuePair<Vector3, ClientPositionHitResults> current2 = enumerator2.Current;
 				if (!current2.Value.ExecutedHit)
 				{
-					if (ClientAbilityResults.LogMissingSequences)
+					if (ClientAbilityResults.WarningEnabled)
 					{
 						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted position hit on " + current2.Key.ToString() + " from " + caster.GetDebugName());
 					}

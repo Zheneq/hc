@@ -27,9 +27,9 @@ public class ClientAbilityResults
 
 	public static string s_clientHitResultHeader = "<color=yellow>ClientHitResults: </color>";
 
-	public static bool LogMissingSequences => false;
+	public static bool WarningEnabled => false;
 
-	public static bool _000E => false;
+	public static bool DebugEnabled => false;
 
 	public ClientAbilityResults(int casterActorIndex, int abilityAction, List<ServerClientUtils.SequenceStartData> seqStartDataList, Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> posToHitResults)
 	{
@@ -195,7 +195,7 @@ public class ClientAbilityResults
 				}
 			}
 		}
-		if (LogMissingSequences)
+		if (WarningEnabled)
 		{
 			Log.Warning(s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
 		}

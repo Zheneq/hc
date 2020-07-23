@@ -355,7 +355,7 @@ public static class ServerClientUtils
 					extraSequenceParams.XSP_SerializeToStream(stream);
 				}
 				uint num = stream.Position - position;
-				if (ClientAbilityResults._000E)
+				if (ClientAbilityResults.DebugEnabled)
 				{
 					Debug.LogWarning("\t\t\t\t\t Serializing Sequence Start Data, using targetPos? " + m_useTargetPos.ToString() + " prefab id " + m_prefabID + ": \n\t\t\t\t\t numBytes: " + num);
 				}
@@ -448,6 +448,7 @@ public static class ServerClientUtils
 			return sequenceStartData;
 		}
 
+		// added accidentally, redundant
 		public static void Serialize(ref IBitStream stream, ref SequenceStartData sequenceStartData)
 		{
 			short prefabId = sequenceStartData.m_prefabID;

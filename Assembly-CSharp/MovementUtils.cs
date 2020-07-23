@@ -547,7 +547,7 @@ public static class MovementUtils
 			}
 		}
 		uint num2 = stream.Position - position;
-		if (ClientAbilityResults._000E)
+		if (ClientAbilityResults.DebugEnabled)
 		{
 			Debug.LogWarning("\t\t\t Serializing Lightweight Movement Path: \n\t\t\t numBytes: " + num2);
 		}
