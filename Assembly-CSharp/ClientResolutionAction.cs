@@ -167,6 +167,29 @@ public class ClientResolutionAction : IComparable
 		return clientResolutionAction;
 	}
 
+	public void ClientResolutionAction_SerializeToStream(ref IBitStream stream)
+	{
+		sbyte actionType = (sbyte)m_type;
+		stream.Serialize(ref actionType);
+
+		switch (m_type)
+		{
+			case ResolutionActionType.AbilityCast:
+				m_abilityResults.SerializeToStream(ref stream);
+				break;
+			case ResolutionActionType.EffectAnimation:
+			case ResolutionActionType.EffectPulse:
+				m_effectResults.SerializeToStream(ref stream);
+				break;
+			case ResolutionActionType.EffectOnMove:
+			case ResolutionActionType.BarrierOnMove:
+			case ResolutionActionType.PowerupOnMove:
+			case ResolutionActionType.GameModeOnMove:
+				m_moveResults.SerializeToStream(ref stream);
+				break;
+		}
+	}
+
 	public ActorData GetCaster()
 	{
 		return m_abilityResults?.GetCaster() ?? m_effectResults?.GetCaster() ?? null;
