@@ -52,6 +52,13 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		return s_instance;
 	}
 
+	public void UpdateTurn(Turn turn, AbilityPriority phaseToUpdate)
+	{
+		m_turn = turn;
+		m_turnToUpdate = turn.TurnID;
+		m_phaseToUpdate = phaseToUpdate;
+	}
+
 	public static float GetRagdollImpactForce()
 	{
 		return s_instance?.m_ragdollImpactForce ?? 15f;

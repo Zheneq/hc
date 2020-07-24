@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace Theatrics
 {
-	internal class Turn
+	public class Turn
 	{
 		internal List<Phase> Phases = new List<Phase>(7);
 		private int CurrentPhase = -1;
