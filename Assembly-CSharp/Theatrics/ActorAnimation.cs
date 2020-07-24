@@ -17,7 +17,7 @@ namespace Theatrics
 			B,
 			C,
 			D,
-			ANIMATION_FINISHED,
+			ANIMATION_FINISHED,  // ANIM_HITS_DONE?
 			F,
 			FINISHED
 		}
@@ -26,9 +26,9 @@ namespace Theatrics
 
 		private short animationIndex;
 
-		private Vector3 _0012;
+		private Vector3 targetPos;
 
-		private bool _0015;
+		private bool _0015;  // knockback?
 
 		private int tauntNumber;
 
@@ -36,15 +36,15 @@ namespace Theatrics
 
 		private bool _0018;
 
-		private bool _0009;
+		private bool _0009_Reveal;
 
-		private AbilityData.ActionType _0019 = AbilityData.ActionType.INVALID_ACTION;
+		private AbilityData.ActionType actionType = AbilityData.ActionType.INVALID_ACTION;
 
-		private bool _0011;
+		private bool IsHanging;
 
-		private bool _001A;
+		private bool StartedPlayingAbilityAnim;
 
-		private bool _0004;
+		private bool TimedOut;
 
 		private Ability ability;
 
@@ -70,11 +70,11 @@ namespace Theatrics
 
 		internal sbyte groupIndex;
 
-		internal Bounds _0020;
+		internal Bounds Bound;
 
-		private List<byte> _000C = new List<byte>();
+		private List<byte> _000C_X = new List<byte>();
 
-		private List<byte> _0014 = new List<byte>();
+		private List<byte> _0014_Z = new List<byte>();
 
 		private bool _0005;
 
@@ -88,11 +88,11 @@ namespace Theatrics
 		[CompilerGenerated]
 		private bool _001F;
 
-		private bool _0010;
+		private bool TravelBoardSquareVisible;
 
 		private float _0007;
 
-		private float _001C;
+		private float CurrentTimePlaying;
 
 		private float _001D_000E;
 
@@ -100,13 +100,13 @@ namespace Theatrics
 
 		private bool _0012_000E;
 
-		private float _0015_000E;
+		private float TimePlayingAbilityAnim;
 
-		private bool _0016_000E;
+		private bool AnimHitsDone;
 
 		internal Bounds _0013_000E;
 
-		private List<string> _0018_000E = new List<string>();
+		private List<string> AnimationEventsSeen = new List<string>();
 
 		private PlaybackState playbackSate;
 
@@ -289,148 +289,131 @@ namespace Theatrics
 			return State == PlaybackState.FINISHED;
 		}
 
-		internal void OnSerializeHelper(IBitStream _001D)
+		internal void OnSerializeHelper(IBitStream stream)
 		{
-			sbyte value = (sbyte)animationIndex;
-			sbyte value2 = (sbyte)_0019;
-			float value3 = _0012.x;
-			float value4 = _0012.z;
-			int s_invalidActorIndex;
-			if (Actor == null)
-			{
-				s_invalidActorIndex = ActorData.s_invalidActorIndex;
-			}
-			else
-			{
-				s_invalidActorIndex = Actor.ActorIndex;
-			}
-			sbyte value5 = (sbyte)s_invalidActorIndex;
-			bool value6 = cinematicCamera;
-			sbyte value7 = (sbyte)tauntNumber;
+			sbyte _animationIndex = (sbyte)animationIndex;
+			sbyte _actionType = (sbyte)actionType;
+			float _targetPosX = targetPos.x;
+			float _targetPosZ = targetPos.z;
+			sbyte _actorIndex = (sbyte)(Actor?.ActorIndex ?? ActorData.s_invalidActorIndex);
+			bool _cinematicCamera = cinematicCamera;
+			sbyte _tauntNumber = (sbyte)tauntNumber;
 			bool value8 = _0013;
 			bool value9 = _0018;
-			bool value10 = _0009;
+			bool _reveal = _0009_Reveal;
 			bool value11 = _0015;
-			sbyte value12 = playOrderIndex;
-			sbyte value13 = groupIndex;
-			Vector3 center = _0020.center;
-			Vector3 size = _0020.size;
-			byte value14 = checked((byte)_000C.Count);
-			_001D.Serialize(ref value);
-			_001D.Serialize(ref value2);
-			_001D.Serialize(ref value3);
-			_001D.Serialize(ref value4);
-			_001D.Serialize(ref value5);
-			_001D.Serialize(ref value6);
-			_001D.Serialize(ref value7);
-			_001D.Serialize(ref value8);
-			_001D.Serialize(ref value9);
-			_001D.Serialize(ref value10);
-			_001D.Serialize(ref value11);
-			_001D.Serialize(ref value12);
-			_001D.Serialize(ref value13);
-			short value15 = (short)Mathf.RoundToInt(center.x);
-			short value16 = (short)Mathf.RoundToInt(center.z);
-			_001D.Serialize(ref value15);
-			_001D.Serialize(ref value16);
-			if (_001D.isReading)
+			sbyte _playOrderIndex = playOrderIndex;
+			sbyte _groupIndex = groupIndex;
+			Vector3 center = Bound.center;
+			Vector3 size = Bound.size;
+			byte value14 = checked((byte)_000C_X.Count);
+			stream.Serialize(ref _animationIndex);
+			stream.Serialize(ref _actionType);
+			stream.Serialize(ref _targetPosX);
+			stream.Serialize(ref _targetPosZ);
+			stream.Serialize(ref _actorIndex);
+			stream.Serialize(ref _cinematicCamera);
+			stream.Serialize(ref _tauntNumber);
+			stream.Serialize(ref value8);
+			stream.Serialize(ref value9);
+			stream.Serialize(ref _reveal);
+			stream.Serialize(ref value11);
+			stream.Serialize(ref _playOrderIndex);
+			stream.Serialize(ref _groupIndex);
+			short _centerX = (short)Mathf.RoundToInt(center.x);
+			short _centerZ = (short)Mathf.RoundToInt(center.z);
+			stream.Serialize(ref _centerX);
+			stream.Serialize(ref _centerZ);
+			if (stream.isReading)
 			{
-				center.x = value15;
+				center.x = _centerX;
 				center.y = 1.5f + (float)Board.Get().BaselineHeight;
-				center.z = value16;
+				center.z = _centerZ;
 			}
-			short value17 = (short)Mathf.CeilToInt(size.x + 0.5f);
-			short value18 = (short)Mathf.CeilToInt(size.z + 0.5f);
-			_001D.Serialize(ref value17);
-			_001D.Serialize(ref value18);
-			if (_001D.isReading)
+			short _sizeX = (short)Mathf.CeilToInt(size.x + 0.5f);
+			short _sizeZ = (short)Mathf.CeilToInt(size.z + 0.5f);
+			stream.Serialize(ref _sizeX);
+			stream.Serialize(ref _sizeZ);
+			if (stream.isReading)
 			{
-				size.x = value17;
+				size.x = _sizeX;
 				size.y = 3f;
-				size.z = value18;
+				size.z = _sizeZ;
 			}
-			_001D.Serialize(ref value14);
-			if (_001D.isReading)
+			stream.Serialize(ref value14);
+			if (stream.isReading)
 			{
 				for (int i = 0; i < value14; i++)
 				{
 					byte value19 = 0;
 					byte value20 = 0;
-					_001D.Serialize(ref value19);
-					_001D.Serialize(ref value20);
-					_000C.Add(value19);
-					_0014.Add(value20);
+					stream.Serialize(ref value19);
+					stream.Serialize(ref value20);
+					_000C_X.Add(value19);
+					_0014_Z.Add(value20);
 				}
 			}
 			else
 			{
 				for (int j = 0; j < value14; j++)
 				{
-					byte value21 = _000C[j];
-					byte value22 = _0014[j];
-					_001D.Serialize(ref value21);
-					_001D.Serialize(ref value22);
+					byte value21 = _000C_X[j];
+					byte value22 = _0014_Z[j];
+					stream.Serialize(ref value21);
+					stream.Serialize(ref value22);
 				}
 			}
-			animationIndex = value;
-			if (_001D.isReading)
+			animationIndex = _animationIndex;
+			if (stream.isReading)
 			{
-				_0012 = new Vector3(value3, Board.Get().BaselineHeight, value4);
+				targetPos = new Vector3(_targetPosX, Board.Get().BaselineHeight, _targetPosZ);
 			}
-			actorIndex = value5;
-			cinematicCamera = value6;
-			tauntNumber = value7;
+			this.actorIndex = _actorIndex;
+			cinematicCamera = _cinematicCamera;
+			tauntNumber = _tauntNumber;
 			_0013 = value8;
 			_0018 = value9;
-			_0009 = value10;
+			_0009_Reveal = _reveal;
 			_0015 = value11;
-			playOrderIndex = value12;
-			groupIndex = value13;
-			_0020 = new Bounds(center, size);
-			_0019 = (AbilityData.ActionType)value2;
-			ability = ((!(Actor == null)) ? Actor.GetAbilityData().GetAbilityOfActionType(_0019) : null);
+			playOrderIndex = _playOrderIndex;
+			groupIndex = _groupIndex;
+			Bound = new Bounds(center, size);
+			actionType = (AbilityData.ActionType)_actionType;
+			ability = ((!(Actor == null)) ? Actor.GetAbilityData().GetAbilityOfActionType(actionType) : null);
 			if (SeqSource == null)
 			{
 				SeqSource = new SequenceSource();
 			}
-			SeqSource.OnSerializeHelper(_001D);
-			if (_001D.isWriting)
+			SeqSource.OnSerializeHelper(stream);
+			if (stream.isWriting)
 			{
 				bool value23 = ParentAbilitySeqSource != null;
-				_001D.Serialize(ref value23);
+				stream.Serialize(ref value23);
 				if (value23)
 				{
-					ParentAbilitySeqSource.OnSerializeHelper(_001D);
+					ParentAbilitySeqSource.OnSerializeHelper(stream);
 				}
 			}
-			if (_001D.isReading)
+			if (stream.isReading)
 			{
 				bool value24 = false;
-				_001D.Serialize(ref value24);
+				stream.Serialize(ref value24);
 				if (value24)
 				{
 					if (ParentAbilitySeqSource == null)
 					{
 						ParentAbilitySeqSource = new SequenceSource();
 					}
-					ParentAbilitySeqSource.OnSerializeHelper(_001D);
+					ParentAbilitySeqSource.OnSerializeHelper(stream);
 				}
 				else
 				{
 					ParentAbilitySeqSource = null;
 				}
 			}
-			int num;
-			if (HitActorsToDeltaHP == null)
-			{
-				num = 0;
-			}
-			else
-			{
-				num = HitActorsToDeltaHP.Count;
-			}
+			int num = HitActorsToDeltaHP?.Count ?? 0;
 			sbyte value25 = checked((sbyte)num);
-			_001D.Serialize(ref value25);
+			stream.Serialize(ref value25);
 			if (value25 > 0)
 			{
 				if (HitActorsToDeltaHP == null)
@@ -438,7 +421,7 @@ namespace Theatrics
 					HitActorsToDeltaHP = new Dictionary<ActorData, int>();
 				}
 			}
-			if (_001D.isWriting)
+			if (stream.isWriting)
 			{
 				if (value25 > 0)
 				{
@@ -468,15 +451,15 @@ namespace Theatrics
 								{
 									value27 = -1;
 								}
-								_001D.Serialize(ref value26);
-								_001D.Serialize(ref value27);
+								stream.Serialize(ref value26);
+								stream.Serialize(ref value27);
 							}
 						}
 					}
 					goto IL_064d;
 				}
 			}
-			if (_001D.isReading)
+			if (stream.isReading)
 			{
 				if (HitActorsToDeltaHP != null)
 				{
@@ -486,8 +469,8 @@ namespace Theatrics
 				{
 					sbyte value28 = (sbyte)ActorData.s_invalidActorIndex;
 					sbyte value29 = 0;
-					_001D.Serialize(ref value28);
-					_001D.Serialize(ref value29);
+					stream.Serialize(ref value28);
+					stream.Serialize(ref value29);
 					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(value28);
 					if (actorData != null)
 					{
@@ -532,32 +515,16 @@ namespace Theatrics
 			return (byte)result != 0;
 		}
 
-		internal bool _0020_000E()
+		internal bool _0020_000E_IsActorVisibleForAbilityCast()
 		{
-			int result;
-			if (!Actor.IsDead())
-			{
-				if (!_0009)
-				{
-					result = (cinematicCamera ? 1 : 0);
-				}
-				else
-				{
-					result = 1;
-				}
-			}
-			else
-			{
-				result = 0;
-			}
-			return (byte)result != 0;
+			return !Actor.IsDead() && (_0009_Reveal || cinematicCamera);
 		}
 
 		internal bool _000C_000E()
 		{
 			FogOfWar clientFog = FogOfWar.GetClientFog();
 			ActorStatus actorStatus = Actor.GetActorStatus();
-			bool flag = _0020_000E();
+			bool flag = _0020_000E_IsActorVisibleForAbilityCast();
 			if (actorStatus != null)
 			{
 				if (actorStatus.HasStatus(StatusType.Revealed))
@@ -613,9 +580,9 @@ namespace Theatrics
 						}
 					}
 					BoardSquare boardSquare = null;
-					for (int i = 0; i < _000C.Count; i++)
+					for (int i = 0; i < _000C_X.Count; i++)
 					{
-						boardSquare = Board.Get().GetSquare(_000C[i], _0014[i]);
+						boardSquare = Board.Get().GetSquare(_000C_X[i], _0014_Z[i]);
 						if (!(boardSquare != null) || !clientFog.IsVisible(boardSquare))
 						{
 							continue;
@@ -807,11 +774,11 @@ namespace Theatrics
 			{
 				if (cinematicCamera)
 				{
-					Actor.TurnToPositionInstant(_0012);
+					Actor.TurnToPositionInstant(targetPos);
 				}
 				else
 				{
-					Actor.TurnToPosition(_0012);
+					Actor.TurnToPosition(targetPos);
 				}
 			}
 			Animator modelAnimator = Actor.GetModelAnimator();
@@ -866,7 +833,7 @@ namespace Theatrics
 			if (animationIndex <= 0)
 			{
 				State = PlaybackState.ANIMATION_FINISHED;
-				_001A = true;
+				StartedPlayingAbilityAnim = true;
 				AnimationFinished = true;
 			}
 			if (NetworkServer.active)
@@ -880,7 +847,7 @@ namespace Theatrics
 			{
 				SequenceManager.Get().DoClientEnable(SeqSource);
 			}
-			if (_0020_000E())
+			if (_0020_000E_IsActorVisibleForAbilityCast())
 			{
 				Actor.CurrentlyVisibleForAbilityCast = true;
 			}
@@ -892,7 +859,7 @@ namespace Theatrics
 			else if (!NetworkClient.active)
 			{
 				State = PlaybackState.ANIMATION_FINISHED;
-				_001A = true;
+				StartedPlayingAbilityAnim = true;
 				AnimationFinished = true;
 				no_op_2();
 				UpdateLastEventTime();
@@ -912,7 +879,7 @@ namespace Theatrics
 				}
 				if (ability != null)
 				{
-					ability.OnAbilityAnimationRequest(Actor, animationIndex, cinematicCamera, _0012);
+					ability.OnAbilityAnimationRequest(Actor, animationIndex, cinematicCamera, targetPos);
 				}
 				if (HUD_UI.Get() != null)
 				{
@@ -922,7 +889,7 @@ namespace Theatrics
 				{
 					ChatterManager.Get().CancelActiveChatter();
 				}
-				CameraManager.Get().OnAbilityAnimationStart(Actor, animationIndex, _0012, cinematicCamera, tauntNumber);
+				CameraManager.Get().OnAbilityAnimationStart(Actor, animationIndex, targetPos, cinematicCamera, tauntNumber);
 				if (Actor != null && cinematicCamera)
 				{
 					if (NetworkClient.active)
@@ -969,181 +936,90 @@ namespace Theatrics
 			return false;
 		}
 
-		internal bool _000D_000E(Turn _001D)
+		internal bool _000D_000E_Tick(Turn turn)
 		{
+			Animator animator = null;
 			if (NetworkClient.active)
 			{
-				if (!(Actor == null))
+				if (Actor == null || Actor.GetActorModelData() == null)
 				{
-					if (!(Actor.GetActorModelData() == null))
-					{
-						goto IL_0054;
-					}
+					State = PlaybackState.FINISHED;
 				}
-				State = PlaybackState.FINISHED;
-			}
-			goto IL_0054;
-			IL_01d9:
-			bool flag = _001C > 15f;
-			if (flag)
-			{
-				if (!_0004)
+				if (State != PlaybackState.FINISHED)
 				{
-					_0004 = true;
-					Log.Error("Theatrics: animation timed out for {0} {1} after {2} seconds.", Actor.DisplayName, (!(ability != null)) ? (" animation index " + animationIndex) : ability.ToString(), _001C);
-				}
-			}
-			bool flag2 = false;
-			bool endingAttack = false;
-			Animator animator;
-			if ((bool)animator)
-			{
-				flag2 = Actor.GetActorModelData().IsPlayingAttackAnim(out endingAttack);
-			}
-			if (flag2)
-			{
-				_001A = true;
-				_0015_000E += GameTime.deltaTime;
-			}
-			int animationFinished;
-			if (_001A)
-			{
-				animationFinished = ((!flag2) ? 1 : 0);
-			}
-			else
-			{
-				animationFinished = 0;
-			}
-			AnimationFinished = ((byte)animationFinished != 0);
-			if (State >= PlaybackState.C)
-			{
-				if (State < PlaybackState.F)
-				{
-					if (_0007 == 0f)
+					animator = Actor.GetModelAnimator();
+					if (animator == null || !animator.enabled && animationIndex > 0)
 					{
-						if (!_0015)
-						{
-							if (!ClientResolutionManager.Get().HitsDoneExecuting(SeqSource))
-							{
-								goto IL_0398;
-							}
-						}
-						_0007 = GameTime.time;
-						if (TheatricsManager.DebugLog)
-						{
-							TheatricsManager.LogForDebugging(ToString() + " hits done");
-						}
+						State = PlaybackState.FINISHED;
 					}
 				}
 			}
-			goto IL_0398;
-			IL_01c5:
-			_001D_000E += GameTime.deltaTime;
-			goto IL_01d9;
-			IL_078f:
-			AnimationFinished = true;
-			State = PlaybackState.F;
-			no_op_1();
-			UpdateLastEventTime();
-			ActorData actorData = Actor;
-			if (ability != null)
+			if (State == PlaybackState.FINISHED)
 			{
-				ability.OnAbilityAnimationReleaseFocus(actorData);
+				return false;
 			}
-			if (_001D._0004_FinishedTheatrics(actorData))
+			ActorMovement actorMovement = Actor.GetActorMovement();
+			bool actorIsNotMoving = !actorMovement.AmMoving();
+			if (State >= PlaybackState.C && State < PlaybackState.F)
 			{
-				actorData.DoVisualDeath(new ActorModelData.ImpulseInfo(actorData.GetTravelBoardSquareWorldPositionForLos(), Vector3.up));
-			}
-			return false;
-			IL_0708:
-			int num;
-			bool flag3 = (byte)num != 0;
-			if (flag2)
-			{
-				if (!_0001)
+				bool isHanging = CurrentTimePlaying > 12f;
+				if (isHanging && !IsHanging)
 				{
-					if (animationIndex > 0)
+					IsHanging = true;
+					DebugLogHung(animator, actorIsNotMoving);
+				}
+				CurrentTimePlaying += GameTime.deltaTime;
+				if (NetworkClient.active && State >= PlaybackState.ANIMATION_FINISHED)
+				{
+					if (!_0012_000E && (_001D_000E >= 7f || isHanging))
 					{
-						goto IL_077e;
+						_000D_000E(animator, actorIsNotMoving);
+					}
+					_001D_000E += GameTime.deltaTime;
+				}
+			}
+			bool timedOut = CurrentTimePlaying > 15f;
+			if (timedOut && !TimedOut)
+			{
+				TimedOut = true;
+				Log.Error("Theatrics: animation timed out for {0} {1} after {2} seconds.",
+					Actor.DisplayName,
+					ability == null ? " animation index " + animationIndex : ability.ToString(),
+					CurrentTimePlaying);
+			}
+			bool isPlayingAttackAnim = animator && Actor.GetActorModelData().IsPlayingAttackAnim(out bool endingAttack);
+			if (isPlayingAttackAnim)
+			{
+				StartedPlayingAbilityAnim = true;
+				TimePlayingAbilityAnim += GameTime.deltaTime;
+			}
+			AnimationFinished = StartedPlayingAbilityAnim && !isPlayingAttackAnim;
+			if (_0007 == 0f && State >= PlaybackState.C && State < PlaybackState.F)
+			{
+				if (_0015 || ClientResolutionManager.Get().HitsDoneExecuting(SeqSource))
+				{
+					_0007 = GameTime.time;
+					if (TheatricsManager.DebugLog)
+					{
+						TheatricsManager.LogForDebugging(ToString() + " hits done");
 					}
 				}
 			}
-			bool flag4;
-			bool flag5;
-			if (CameraManager.Get().ShotSequence == null)
-			{
-				if (flag4)
-				{
-					if (flag5)
-					{
-						if (flag3)
-						{
-							goto IL_078f;
-						}
-					}
-				}
-			}
-			goto IL_077e;
-			IL_064b:
-			if (!_0016_000E && ServerClientUtils.GetCurrentAbilityPhase() == AbilityPriority.Combat_Knockback)
-			{
-				if (ClientKnockbackManager.Get() != null)
-				{
-					if (flag5 && State >= PlaybackState.ANIMATION_FINISHED)
-					{
-						ClientKnockbackManager.Get().NotifyOnActorAnimHitsDone(Actor);
-						_0016_000E = true;
-					}
-				}
-			}
-			if (NetworkClient.active)
-			{
-				if (!(_000E_000E <= 0f))
-				{
-					if (!GetSymbol0013())
-					{
-						num = ((GameTime.time > _000E_000E + 1f) ? 1 : 0);
-						goto IL_0708;
-					}
-				}
-			}
-			num = 1;
-			goto IL_0708;
-			IL_0398:
-			int num2;
-			if (!_0012_000E)
-			{
-				if (_0007 > 0f)
-				{
-					num2 = ((GameTime.time - _0007 >= CalcFrameTimeAfterAllHitsButMine()) ? 1 : 0);
-				}
-				else
-				{
-					num2 = 0;
-				}
-			}
-			else
-			{
-				num2 = 1;
-			}
-			flag5 = ((byte)num2 != 0);
+			bool flag5 = _0012_000E || _0007 > 0f && GameTime.time - _0007 >= CalcFrameTimeAfterAllHitsButMine();
 			switch (State)
 			{
 			case PlaybackState.A:
 				return true;
 			case PlaybackState.C:
-				if (!flag2)
+				if (!isPlayingAttackAnim)
 				{
-					if (_001C < 5f)
+					if (CurrentTimePlaying < 5f)
 					{
-						while (true)
-						{
-							return true;
-						}
+						return true;
 					}
 					State = PlaybackState.ANIMATION_FINISHED;
 					AnimationFinished = true;
-					_000D_000E(animator, flag4);
+					_000D_000E(animator, actorIsNotMoving);
 				}
 				if (animator != null)
 				{
@@ -1167,12 +1043,9 @@ namespace Theatrics
 				}
 				break;
 			case PlaybackState.D:
-				if (flag2)
+				if (isPlayingAttackAnim && !_0001)
 				{
-					if (!_0001)
-					{
-						break;
-					}
+					break;
 				}
 				State = PlaybackState.ANIMATION_FINISHED;
 				UpdateLastEventTime();
@@ -1180,113 +1053,58 @@ namespace Theatrics
 			case PlaybackState.F:
 				return false;
 			}
-			ActorMovement actorMovement;
-			if (!flag4)
+			if (!actorIsNotMoving && !TravelBoardSquareVisible)
 			{
-				if (!_0010)
+				if (actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Charge) ||
+					actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Knockback) ||
+					actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Flight))
 				{
-					if (!actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Charge))
-					{
-						if (!actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Knockback))
-						{
-							if (!actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Flight))
-							{
-								goto IL_064b;
-							}
-						}
-					}
-					int num3;
-					if (FogOfWar.GetClientFog() != null)
-					{
-						num3 = (FogOfWar.GetClientFog().IsVisible(Actor.GetTravelBoardSquare()) ? 1 : 0);
-					}
-					else
-					{
-						num3 = 0;
-					}
-					_0010 = ((byte)num3 != 0);
-					if (_0010)
+					TravelBoardSquareVisible = FogOfWar.GetClientFog()?.IsVisible(Actor.GetTravelBoardSquare()) ?? false;
+					if (TravelBoardSquareVisible)
 					{
 						Bounds bound = CameraManager.Get().GetTarget();
-						if (_001D._0009)
+						if (turn._0009_HasFocusedAction)
 						{
-							bound.Encapsulate(_0020);
+							bound.Encapsulate(Bound);
 						}
 						else
 						{
-							bound = _0020;
+							bound = Bound;
 						}
-						if (Actor.GetActorMovement() != null)
-						{
-							Actor.GetActorMovement().EncapsulatePathInBound(ref bound);
-						}
+						Actor.GetActorMovement()?.EncapsulatePathInBound(ref bound);
 						CameraManager.Get().SetTarget(bound);
-						_001D._0009 = true;
+						turn._0009_HasFocusedAction = true;
 					}
 				}
 			}
-			goto IL_064b;
-			IL_077e:
-			if (flag)
+			if (!AnimHitsDone &&
+				ServerClientUtils.GetCurrentAbilityPhase() == AbilityPriority.Combat_Knockback &&
+				ClientKnockbackManager.Get() != null &&
+				flag5 &&
+				State >= PlaybackState.ANIMATION_FINISHED)
 			{
-				goto IL_078f;
+				ClientKnockbackManager.Get().NotifyOnActorAnimHitsDone(Actor);
+				AnimHitsDone = true;
 			}
-			return _0014_000E_NotFinished();
-			IL_0054:
-			animator = null;
-			if (NetworkClient.active)
+			bool flag3 = !NetworkClient.active || _000E_000E <= 0f || GetSymbol0013() || GameTime.time > _000E_000E + 1f;
+			bool flag42 = !isPlayingAttackAnim || _0001 || animationIndex <= 0;
+			if ((!flag42 || CameraManager.Get().ShotSequence != null || !actorIsNotMoving || !flag5 || !flag3) && !timedOut)
 			{
-				if (State != PlaybackState.FINISHED)
-				{
-					animator = Actor.GetModelAnimator();
-					if (animator == null)
-					{
-						State = PlaybackState.FINISHED;
-					}
-					else if (!animator.enabled && animationIndex > 0)
-					{
-						State = PlaybackState.FINISHED;
-					}
-				}
+				return _0014_000E_NotFinished();
 			}
-			if (State == PlaybackState.FINISHED)
+			AnimationFinished = true;
+			State = PlaybackState.F;
+			no_op_1();
+			UpdateLastEventTime();
+			if (ability != null)
 			{
-				return false;
+				ability.OnAbilityAnimationReleaseFocus(Actor);
 			}
-			actorMovement = Actor.GetActorMovement();
-			flag4 = !actorMovement.AmMoving();
-			if (State >= PlaybackState.C && State < PlaybackState.F)
+			if (turn._0004_FinishedTheatrics(Actor))
 			{
-				bool flag6 = _001C > 12f;
-				if (flag6)
-				{
-					if (!_0011)
-					{
-						_0011 = true;
-						DebugLogHung(animator, flag4);
-					}
-				}
-				_001C += GameTime.deltaTime;
-				if (NetworkClient.active)
-				{
-					if (State >= PlaybackState.ANIMATION_FINISHED)
-					{
-						if (!_0012_000E)
-						{
-							if (!(_001D_000E >= 7f))
-							{
-								if (!flag6)
-								{
-									goto IL_01c5;
-								}
-							}
-							_000D_000E(animator, flag4);
-						}
-						goto IL_01c5;
-					}
-				}
+				Actor.DoVisualDeath(new ActorModelData.ImpulseInfo(Actor.GetTravelBoardSquareWorldPositionForLos(), Vector3.up));
 			}
-			goto IL_01d9;
+			return false;
 		}
 
 		internal void _000D_000E(ActorData _001D, UnityEngine.Object _000E, GameObject _0012)
@@ -1309,7 +1127,7 @@ namespace Theatrics
 			SequenceManager.Get().OnAnimationEvent(_001D, _000E, _0012, SeqSource);
 			goto IL_0098;
 			IL_0098:
-			_0018_000E.Add(_000E.name);
+			AnimationEventsSeen.Add(_000E.name);
 		}
 
 		internal void _0008_000E(ActorData _001D, UnityEngine.Object _000E, GameObject _0012)
@@ -1397,40 +1215,28 @@ namespace Theatrics
 			return true;
 		}
 
-		private void _000D_000E(Animator _001D, bool _000E)
+		private void _000D_000E(Animator animator, bool movementPathDone)
 		{
 			if (_0012_000E || ClientResolutionManager.Get().HitsDoneExecuting(SeqSource))
 			{
 				return;
 			}
-			while (true)
+			string modIdString;
+			if (ability != null && ability.CurrentAbilityMod != null)
 			{
-				string[] array = new string[7];
-				string text;
-				if (ability != null)
-				{
-					if (ability.CurrentAbilityMod != null)
-					{
-						text = "Mod Id: [" + ability.CurrentAbilityMod.m_abilityScopeId + "]\n";
-						goto IL_009b;
-					}
-				}
-				text = string.Empty;
-				goto IL_009b;
-				IL_009b:
-				array[0] = text;
-				array[1] = "Theatrics Entry: ";
-				array[2] = ToString();
-				array[3] = "\n";
-				array[4] = GetDebugStringAnimationEventsSeen();
-				array[5] = GetDebugStringDetails(_001D, _000E);
-				array[6] = "\n";
-				string extraInfo = string.Concat(array);
-				ClientResolutionManager.Get().ExecuteUnexecutedActions(SeqSource, extraInfo);
-				ClientResolutionManager.Get().UpdateLastEventTime();
-				_0012_000E = true;
-				return;
+				modIdString = "Mod Id: [" + ability.CurrentAbilityMod.m_abilityScopeId + "]\n";
 			}
+			else
+			{
+				modIdString = string.Empty;
+			}
+			string extraInfo = string.Concat(
+				modIdString, "Theatrics Entry: ", ToString(), "\n",
+				GetDebugStringAnimationEventsSeen(), GetDebugStringDetails(animator, movementPathDone), "\n");
+			ClientResolutionManager.Get().ExecuteUnexecutedActions(SeqSource, extraInfo);
+			ClientResolutionManager.Get().UpdateLastEventTime();
+			_0012_000E = true;
+
 		}
 
 		private void no_op_1()
@@ -1443,15 +1249,7 @@ namespace Theatrics
 
 		private void UpdateLastEventTime()
 		{
-			if (!(ClientResolutionManager.Get() != null))
-			{
-				return;
-			}
-			while (true)
-			{
-				ClientResolutionManager.Get().UpdateLastEventTime();
-				return;
-			}
+			ClientResolutionManager.Get()?.UpdateLastEventTime();
 		}
 
 		internal float GetCamStartEventDelay(bool useTauntCamAltTime)
@@ -1635,13 +1433,13 @@ namespace Theatrics
 			string result = string.Empty;
 			if (animator != null && Actor.GetActorModelData() != null)
 			{
-				int integer = animator.GetInteger("Attack");
-				bool @bool = animator.GetBool("Cover");
-				float @float = animator.GetFloat("DistToGoal");
-				int integer2 = animator.GetInteger("NextLinkType");
-				int integer3 = animator.GetInteger("CurLinkType");
-				bool bool2 = animator.GetBool("CinematicCam");
-				bool bool3 = animator.GetBool("DecisionPhase");
+				int attack = animator.GetInteger("Attack");
+				bool cover = animator.GetBool("Cover");
+				float distToGoal = animator.GetFloat("DistToGoal");
+				int nextLinkType = animator.GetInteger("NextLinkType");
+				int curLinkType = animator.GetInteger("CurLinkType");
+				bool cinematicCam = animator.GetBool("CinematicCam");
+				bool isDecisionPhase = animator.GetBool("DecisionPhase");
 				if (animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
 				{
 					object[] obj = new object[9]
@@ -1651,7 +1449,7 @@ namespace Theatrics
 						" while Damage flag is set (hit react.). Code error, show Chris. debug info: (state: ",
 						State.ToString(),
 						", Attack: ",
-						integer,
+						attack,
 						", ability: ",
 						null,
 						null
@@ -1675,7 +1473,7 @@ namespace Theatrics
 					array[0] = "\nIn animation state ";
 					array[1] = Actor.GetActorModelData().GetCurrentAnimatorStateName();
 					array[2] = " for ";
-					array[3] = _001C;
+					array[3] = CurrentTimePlaying;
 					array[4] = " sec.\nAfter a request for ability ";
 					object obj3;
 					if (ability == null)
@@ -1688,19 +1486,19 @@ namespace Theatrics
 					}
 					array[5] = obj3;
 					array[6] = ".\nParameters [Attack: ";
-					array[7] = integer;
+					array[7] = attack;
 					array[8] = ", Cover: ";
-					array[9] = @bool;
+					array[9] = cover;
 					array[10] = ", DistToGoal: ";
-					array[11] = @float;
+					array[11] = distToGoal;
 					array[12] = ", NextLinkType: ";
-					array[13] = integer2;
+					array[13] = nextLinkType;
 					array[14] = ", CurLinkType: ";
-					array[15] = integer3;
+					array[15] = curLinkType;
 					array[16] = ", CinematicCam: ";
-					array[17] = bool2;
+					array[17] = cinematicCam;
 					array[18] = ", DecisionPhase: ";
-					array[19] = bool3;
+					array[19] = isDecisionPhase;
 					array[20] = "].\nDetails [state: ";
 					array[21] = State.ToString();
 					array[22] = ", actor state: ";
@@ -1719,7 +1517,7 @@ namespace Theatrics
 					}
 					array[27] = obj4;
 					array[28] = ", ability anim played: ";
-					array[29] = _001A;
+					array[29] = StartedPlayingAbilityAnim;
 					array[30] = ", time: ";
 					array[31] = GameTime.time;
 					array[32] = ", turn: ";
@@ -1766,17 +1564,14 @@ namespace Theatrics
 		public string GetDebugStringAnimationEventsSeen()
 		{
 			string text = "Animation Events Seen:\n";
-			for (int i = 0; i < _0018_000E.Count; i++)
+			for (int i = 0; i < AnimationEventsSeen.Count; i++)
 			{
-				if (_0018_000E[i] != null)
+				if (AnimationEventsSeen[i] != null)
 				{
-					text = text + "    [ " + _0018_000E[i] + " ]\n";
+					text = text + "    [ " + AnimationEventsSeen[i] + " ]\n";
 				}
 			}
-			while (true)
-			{
-				return text;
-			}
+			return text;
 		}
 
 		public override string ToString()

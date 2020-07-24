@@ -12,7 +12,7 @@ namespace Theatrics
 		private int CurrentPhase = -1;
 		internal Bounds _0013;
 		internal int _0018;
-		internal bool _0009;
+		internal bool _0009_HasFocusedAction;
 		private HashSet<int> CompletedPhases = new HashSet<int>();
 
 		internal int TurnID
@@ -44,13 +44,13 @@ namespace Theatrics
 
 		internal void OnSerializeHelper(IBitStream stream) // _0011
 		{
-			int value = TurnID;
-			stream.Serialize(ref value);
-			TurnID = value;
-			sbyte value2 = (sbyte)Phases.Count;
-			stream.Serialize(ref value2);
+			int turnID = TurnID;
+			stream.Serialize(ref turnID);
+			TurnID = turnID;
+			sbyte numPhases = (sbyte)Phases.Count;
+			stream.Serialize(ref numPhases);
 			
-			for (int num = 0; num < value2; num++)
+			for (int num = 0; num < numPhases; num++)
 			{
 				while (num >= Phases.Count)
 				{
@@ -345,7 +345,7 @@ namespace Theatrics
 					{
 						continue;
 					}
-					Bounds bound = actorAnimation._0020;
+					Bounds bound = actorAnimation.Bound;
 					if (_001D.Index == AbilityPriority.Evasion && actorAnimation.Actor != null)
 					{
 						ActorTeamSensitiveData teamSensitiveData_authority = actorAnimation.Actor.TeamSensitiveData_authority;
@@ -475,7 +475,7 @@ namespace Theatrics
 				{
 					if (num >= 0 && num < this.Phases.Count)
 					{
-						if (num == 5 && this.Phases[num]._001D_000E(actor))
+						if (num == 5 && this.Phases[num]._001D_000E_IsKnockedBack(actor))
 						{
 							return false;
 						}
