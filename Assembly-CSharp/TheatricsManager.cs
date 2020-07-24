@@ -503,7 +503,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			for (int i = 0; i < phase.animations.Count; i++)
 			{
 				ActorAnimation actorAnimation = phase.animations[i];
-				if (actorAnimation.State == ActorAnimation.PlaybackState._0013)
+				if (actorAnimation.State == ActorAnimation.PlaybackState.F)
 				{
 					continue;
 				}

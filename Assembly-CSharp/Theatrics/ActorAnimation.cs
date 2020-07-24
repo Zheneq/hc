@@ -13,13 +13,13 @@ namespace Theatrics
 	{
 		internal enum PlaybackState
 		{
-			_001D,
-			_000E,
-			_0012,
-			_0015,
-			_0016,
-			_0013,
-			_0018
+			A,
+			B,
+			C,
+			D,
+			E,
+			F,
+			FINISHED
 		}
 
 		public const float _001D = 3f;
@@ -222,7 +222,7 @@ namespace Theatrics
 				}
 				if (ability != null)
 				{
-					if (value == PlaybackState._0012)
+					if (value == PlaybackState.C)
 					{
 						int techPointRewardForInteraction = AbilityUtils.GetTechPointRewardForInteraction(ability, AbilityInteractionType.Cast, true);
 						techPointRewardForInteraction = AbilityUtils.CalculateTechPointsForTargeter(Actor, ability, techPointRewardForInteraction);
@@ -249,9 +249,9 @@ namespace Theatrics
 				{
 					TheatricsManager.LogForDebugging(string.Concat(ToString(), " PlayState: <color=cyan>", playbackSate, "</color> -> <color=cyan>", value, "</color>"));
 				}
-				if (value != PlaybackState._0013)
+				if (value != PlaybackState.F)
 				{
-					if (value != PlaybackState._0018)
+					if (value != PlaybackState.FINISHED)
 					{
 						goto IL_01c8;
 					}
@@ -266,7 +266,7 @@ namespace Theatrics
 			}
 		}
 
-		internal bool PlaybackState2OrLater_zq => State >= PlaybackState._0012;
+		internal bool PlaybackState2OrLater_zq => State >= PlaybackState.C;
 
 		internal ActorAnimation(Turn turn)
 		{
@@ -282,20 +282,11 @@ namespace Theatrics
 		{
 			if (Actor == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						Log.Error("Theatrics: can't start {0} since the actor can no longer be found. Was the actor destroyed during resolution?", this);
-						State = PlaybackState._0018;
-						return false;
-					}
-				}
+				Log.Error("Theatrics: can't start {0} since the actor can no longer be found. Was the actor destroyed during resolution?", this);
+				State = PlaybackState.FINISHED;
+				return false;
 			}
-			return State == PlaybackState._0018;
+			return State == PlaybackState.FINISHED;
 		}
 
 		internal void OnSerializeHelper(IBitStream _001D)
@@ -716,13 +707,13 @@ namespace Theatrics
 
 		internal bool _0014_000E()
 		{
-			return State != PlaybackState._0018 && State != PlaybackState._0013;
+			return State != PlaybackState.FINISHED && State != PlaybackState.F;
 		}
 
 		internal bool _0005_000E()
 		{
 			int result;
-			if (State >= PlaybackState._0015)
+			if (State >= PlaybackState.D)
 			{
 				if (!_0001)
 				{
@@ -826,7 +817,7 @@ namespace Theatrics
 				Log.Warning("<color=cyan>ActorAnimation</color> Play for: " + ToString() + " @time= " + GameTime.time);
 			}
 			_000E_000E = GameTime.time;
-			if (State == PlaybackState._0018)
+			if (State == PlaybackState.FINISHED)
 			{
 				while (true)
 				{
@@ -904,7 +895,7 @@ namespace Theatrics
 			}
 			if (animationIndex <= 0)
 			{
-				State = PlaybackState._0016;
+				State = PlaybackState.E;
 				_001A = true;
 				AnimationFinished = true;
 			}
@@ -930,7 +921,7 @@ namespace Theatrics
 			}
 			else if (!NetworkClient.active)
 			{
-				State = PlaybackState._0016;
+				State = PlaybackState.E;
 				_001A = true;
 				AnimationFinished = true;
 				no_op_2();
@@ -977,7 +968,7 @@ namespace Theatrics
 				}
 				no_op_1();
 				UpdateLastEventTime();
-				State = PlaybackState._0012;
+				State = PlaybackState.C;
 			}
 			if (!Application.isEditor)
 			{
@@ -1026,7 +1017,7 @@ namespace Theatrics
 						goto IL_0054;
 					}
 				}
-				State = PlaybackState._0018;
+				State = PlaybackState.FINISHED;
 			}
 			goto IL_0054;
 			IL_01d9:
@@ -1061,9 +1052,9 @@ namespace Theatrics
 				animationFinished = 0;
 			}
 			AnimationFinished = ((byte)animationFinished != 0);
-			if (State >= PlaybackState._0012)
+			if (State >= PlaybackState.C)
 			{
-				if (State < PlaybackState._0013)
+				if (State < PlaybackState.F)
 				{
 					if (_0007 == 0f)
 					{
@@ -1088,7 +1079,7 @@ namespace Theatrics
 			goto IL_01d9;
 			IL_078f:
 			AnimationFinished = true;
-			State = PlaybackState._0013;
+			State = PlaybackState.F;
 			no_op_1();
 			UpdateLastEventTime();
 			ActorData actorData = Actor;
@@ -1135,7 +1126,7 @@ namespace Theatrics
 			{
 				if (ClientKnockbackManager.Get() != null)
 				{
-					if (flag5 && State >= PlaybackState._0016)
+					if (flag5 && State >= PlaybackState.E)
 					{
 						ClientKnockbackManager.Get().NotifyOnActorAnimHitsDone(Actor);
 						_0016_000E = true;
@@ -1175,9 +1166,9 @@ namespace Theatrics
 			flag5 = ((byte)num2 != 0);
 			switch (State)
 			{
-			case PlaybackState._001D:
+			case PlaybackState.A:
 				return true;
-			case PlaybackState._0012:
+			case PlaybackState.C:
 				if (!flag2)
 				{
 					if (_001C < 5f)
@@ -1187,7 +1178,7 @@ namespace Theatrics
 							return true;
 						}
 					}
-					State = PlaybackState._0016;
+					State = PlaybackState.E;
 					AnimationFinished = true;
 					_000D_000E(animator, flag4);
 				}
@@ -1200,9 +1191,9 @@ namespace Theatrics
 				{
 					ability.OnAbilityAnimationRequestProcessed(Actor);
 				}
-				if (State < PlaybackState._0016)
+				if (State < PlaybackState.E)
 				{
-					State = PlaybackState._0015;
+					State = PlaybackState.D;
 				}
 				no_op_1();
 				no_op_2();
@@ -1212,7 +1203,7 @@ namespace Theatrics
 					ClientResolutionManager.Get().UpdateLastEventTime();
 				}
 				break;
-			case PlaybackState._0015:
+			case PlaybackState.D:
 				if (flag2)
 				{
 					if (!_0001)
@@ -1220,10 +1211,10 @@ namespace Theatrics
 						break;
 					}
 				}
-				State = PlaybackState._0016;
+				State = PlaybackState.E;
 				UpdateLastEventTime();
 				break;
-			case PlaybackState._0013:
+			case PlaybackState.F:
 				return false;
 			}
 			ActorMovement actorMovement;
@@ -1282,26 +1273,26 @@ namespace Theatrics
 			animator = null;
 			if (NetworkClient.active)
 			{
-				if (State != PlaybackState._0018)
+				if (State != PlaybackState.FINISHED)
 				{
 					animator = Actor.GetModelAnimator();
 					if (animator == null)
 					{
-						State = PlaybackState._0018;
+						State = PlaybackState.FINISHED;
 					}
 					else if (!animator.enabled && animationIndex > 0)
 					{
-						State = PlaybackState._0018;
+						State = PlaybackState.FINISHED;
 					}
 				}
 			}
-			if (State == PlaybackState._0018)
+			if (State == PlaybackState.FINISHED)
 			{
 				return false;
 			}
 			actorMovement = Actor.GetActorMovement();
 			flag4 = !actorMovement.AmMoving();
-			if (State >= PlaybackState._0012 && State < PlaybackState._0013)
+			if (State >= PlaybackState.C && State < PlaybackState.F)
 			{
 				bool flag6 = _001C > 12f;
 				if (flag6)
@@ -1315,7 +1306,7 @@ namespace Theatrics
 				_001C += GameTime.deltaTime;
 				if (NetworkClient.active)
 				{
-					if (State >= PlaybackState._0016)
+					if (State >= PlaybackState.E)
 					{
 						if (!_0012_000E)
 						{

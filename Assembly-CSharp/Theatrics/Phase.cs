@@ -139,7 +139,7 @@ namespace Theatrics
 					{
 						continue;
 					}
-					bool flag = actorAnimation.State >= ActorAnimation.PlaybackState._0016;
+					bool flag = actorAnimation.State >= ActorAnimation.PlaybackState.E;
 					if (ClientResolutionManager.Get().HitsDoneExecuting(actorAnimation.SeqSource))
 					{
 						if (flag)
@@ -193,7 +193,7 @@ namespace Theatrics
 			for (int i = 0; i < animations.Count; i++)
 			{
 				ActorAnimation actorAnimation = animations[i];
-				if (actorAnimation.State != ActorAnimation.PlaybackState._0018 && actorAnimation.State != ActorAnimation.PlaybackState._0013)
+				if (actorAnimation.State != ActorAnimation.PlaybackState.FINISHED && actorAnimation.State != ActorAnimation.PlaybackState.F)
 				{
 					result = true;
 					break;
@@ -929,7 +929,7 @@ namespace Theatrics
 										obj3[10] = integer;
 										obj3[11] = ", animator layer count: ";
 										obj3[12] = ((!(animator == null)) ? animator.layerCount.ToString() : "NULL");
-										obj3[13] = ((actorAnimation3.State == ActorAnimation.PlaybackState._001D) ? (", sequences ready: " + actorAnimation3.IsReadyToPlay_zq(Index, true)) : string.Empty);
+										obj3[13] = ((actorAnimation3.State == ActorAnimation.PlaybackState.A) ? (", sequences ready: " + actorAnimation3.IsReadyToPlay_zq(Index, true)) : string.Empty);
 										Log.Error(string.Concat(obj3));
 									}
 									if (_0017 > 8f)
@@ -1102,7 +1102,7 @@ namespace Theatrics
 							{
 								continue;
 							}
-							if (actorAnimation4.State == ActorAnimation.PlaybackState._001D)
+							if (actorAnimation4.State == ActorAnimation.PlaybackState.A)
 							{
 								if (actorAnimation4.playOrderIndex == playOrderIndex)
 								{

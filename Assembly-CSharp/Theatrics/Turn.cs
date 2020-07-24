@@ -678,11 +678,11 @@ namespace Theatrics
 						{
 							continue;
 						}
-						if (animations[i].State != ActorAnimation.PlaybackState._0012)
+						if (animations[i].State != ActorAnimation.PlaybackState.C)
 						{
-							if (animations[i].State != ActorAnimation.PlaybackState._0015)
+							if (animations[i].State != ActorAnimation.PlaybackState.D)
 							{
-								if (animations[i].State != ActorAnimation.PlaybackState._0016)
+								if (animations[i].State != ActorAnimation.PlaybackState.E)
 								{
 									continue;
 								}
