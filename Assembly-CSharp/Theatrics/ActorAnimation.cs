@@ -17,7 +17,7 @@ namespace Theatrics
 			B,
 			C,
 			D,
-			E,
+			ANIMATION_FINISHED,
 			F,
 			FINISHED
 		}
@@ -500,7 +500,6 @@ namespace Theatrics
 			StartFinalPlaybackState();
 		}
 
-		internal bool _0002_000E() { return IsTauntActivated(); }
 		internal bool IsTauntActivated() // _0002_000E
 		{
 			return tauntNumber > 0;
@@ -675,26 +674,16 @@ namespace Theatrics
 
 		internal bool HasSameSequenceSource(Sequence sequence)
 		{
-			int result;
-			if (sequence != null)
-			{
-				result = ((sequence.Source == SeqSource) ? 1 : 0);
-			}
-			else
-			{
-				result = 0;
-			}
-			return (byte)result != 0;
+			return sequence != null && sequence.Source == SeqSource;
 		}
 
 		internal bool IsReadyToPlay_zq(AbilityPriority abilityPriority, bool logErrorIfNotReady = false)
 		{
-			if (State != 0)
+			if (State != PlaybackState.A)
 			{
 				return false;
 			}
-			bool flag = true;
-			flag = !ClientResolutionManager.Get().IsWaitingForActionMessages(abilityPriority);
+			bool flag = !ClientResolutionManager.Get().IsWaitingForActionMessages(abilityPriority);
 			if (!flag)
 			{
 				if (logErrorIfNotReady)
@@ -705,7 +694,7 @@ namespace Theatrics
 			return flag;
 		}
 
-		internal bool _0014_000E()
+		internal bool _0014_000E_NotFinished()
 		{
 			return State != PlaybackState.FINISHED && State != PlaybackState.F;
 		}
@@ -757,28 +746,12 @@ namespace Theatrics
 			return (byte)result != 0;
 		}
 
-		internal bool _0008_000E(ActorData _001D)
+		internal bool IsPendingHitOn(ActorData actor)
 		{
-			if (HitActorsToDeltaHP != null && HitActorsToDeltaHP.ContainsKey(_001D))
-			{
-				if (HitActorsToDeltaHP[_001D] != 0)
-				{
-					if (!SequenceSource.DidSequenceHit(SeqSource, _001D))
-					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								break;
-							default:
-								return true;
-							}
-						}
-					}
-				}
-			}
-			return false;
+			return HitActorsToDeltaHP != null &&
+				HitActorsToDeltaHP.ContainsKey(actor) &&
+				HitActorsToDeltaHP[actor] != 0 &&
+				!SequenceSource.DidSequenceHit(SeqSource, actor);
 		}
 
 		private int OtherActorsInHitActorsToDeltaHPNum()
@@ -810,7 +783,7 @@ namespace Theatrics
 			return AbilitiesCamera.Get().CalcFrameTimeAfterHit(OtherActorsInHitActorsToDeltaHPNum());
 		}
 
-		internal void method000D000E(Turn _001D)
+		internal void Play(Turn _001D)
 		{
 			if (ClientAbilityResults.LogMissingSequences || TheatricsManager.DebugLog)
 			{
@@ -819,10 +792,7 @@ namespace Theatrics
 			_000E_000E = GameTime.time;
 			if (State == PlaybackState.FINISHED)
 			{
-				while (true)
-				{
-					return;
-				}
+				return;
 			}
 			bool num;
 			if (ability != null)
@@ -895,7 +865,7 @@ namespace Theatrics
 			}
 			if (animationIndex <= 0)
 			{
-				State = PlaybackState.E;
+				State = PlaybackState.ANIMATION_FINISHED;
 				_001A = true;
 				AnimationFinished = true;
 			}
@@ -921,7 +891,7 @@ namespace Theatrics
 			}
 			else if (!NetworkClient.active)
 			{
-				State = PlaybackState.E;
+				State = PlaybackState.ANIMATION_FINISHED;
 				_001A = true;
 				AnimationFinished = true;
 				no_op_2();
@@ -931,7 +901,7 @@ namespace Theatrics
 			{
 				modelAnimator.SetInteger(AttackHash, animationIndex);
 				modelAnimator.SetBool(CinematicCamHash, cinematicCamera);
-				if (_000D_000E(modelAnimator, "TauntNumber"))
+				if (AnimatorHasParameterName(modelAnimator, "TauntNumber"))
 				{
 					modelAnimator.SetInteger(TauntNumberHash, tauntNumber);
 				}
@@ -984,22 +954,15 @@ namespace Theatrics
 			ActorDebugUtils._001D(_0013_000E, Color.green, 3f);
 		}
 
-		internal bool _000D_000E(Animator _001D, string _000E)
+		internal bool AnimatorHasParameterName(Animator animator, string parameterName)
 		{
-			if (_001D != null)
+			if (animator != null && animator.parameters != null)
 			{
-				if (_001D.parameters != null)
+				for (int i = 0; i < animator.parameterCount; i++)
 				{
-					for (int i = 0; i < _001D.parameterCount; i++)
+					if (animator.parameters[i].name == parameterName)
 					{
-						if (!(_001D.parameters[i].name == _000E))
-						{
-							continue;
-						}
-						while (true)
-						{
-							return true;
-						}
+						return true;
 					}
 				}
 			}
@@ -1087,7 +1050,7 @@ namespace Theatrics
 			{
 				ability.OnAbilityAnimationReleaseFocus(actorData);
 			}
-			if (_001D._0004(actorData))
+			if (_001D._0004_FinishedTheatrics(actorData))
 			{
 				actorData.DoVisualDeath(new ActorModelData.ImpulseInfo(actorData.GetTravelBoardSquareWorldPositionForLos(), Vector3.up));
 			}
@@ -1126,7 +1089,7 @@ namespace Theatrics
 			{
 				if (ClientKnockbackManager.Get() != null)
 				{
-					if (flag5 && State >= PlaybackState.E)
+					if (flag5 && State >= PlaybackState.ANIMATION_FINISHED)
 					{
 						ClientKnockbackManager.Get().NotifyOnActorAnimHitsDone(Actor);
 						_0016_000E = true;
@@ -1178,7 +1141,7 @@ namespace Theatrics
 							return true;
 						}
 					}
-					State = PlaybackState.E;
+					State = PlaybackState.ANIMATION_FINISHED;
 					AnimationFinished = true;
 					_000D_000E(animator, flag4);
 				}
@@ -1191,7 +1154,7 @@ namespace Theatrics
 				{
 					ability.OnAbilityAnimationRequestProcessed(Actor);
 				}
-				if (State < PlaybackState.E)
+				if (State < PlaybackState.ANIMATION_FINISHED)
 				{
 					State = PlaybackState.D;
 				}
@@ -1211,7 +1174,7 @@ namespace Theatrics
 						break;
 					}
 				}
-				State = PlaybackState.E;
+				State = PlaybackState.ANIMATION_FINISHED;
 				UpdateLastEventTime();
 				break;
 			case PlaybackState.F:
@@ -1268,7 +1231,7 @@ namespace Theatrics
 			{
 				goto IL_078f;
 			}
-			return _0014_000E();
+			return _0014_000E_NotFinished();
 			IL_0054:
 			animator = null;
 			if (NetworkClient.active)
@@ -1306,7 +1269,7 @@ namespace Theatrics
 				_001C += GameTime.deltaTime;
 				if (NetworkClient.active)
 				{
-					if (State >= PlaybackState.E)
+					if (State >= PlaybackState.ANIMATION_FINISHED)
 					{
 						if (!_0012_000E)
 						{
@@ -1400,7 +1363,7 @@ namespace Theatrics
 				{
 					if (actorModelData.CanPlayDamageReactAnim())
 					{
-						if (turn._001A(_000E))
+						if (turn._001A_AreAnimationsFinishedFor(_000E))
 						{
 							_000E.PlayDamageReactionAnim(_001D.m_customHitReactTriggerName);
 						}
@@ -1408,7 +1371,7 @@ namespace Theatrics
 				}
 				if (_0015 != 0)
 				{
-					if (turn._0004(_000E))
+					if (turn._0004_FinishedTheatrics(_000E))
 					{
 						_000E.DoVisualDeath(_0012);
 						if (_001D.Caster != null)
@@ -1491,14 +1454,14 @@ namespace Theatrics
 			}
 		}
 
-		internal float _000D_000E(bool _001D)
+		internal float GetCamStartEventDelay(bool useTauntCamAltTime)
 		{
 			ActorData actorData = Actor;
 			if (actorData == null || actorData.GetActorModelData() == null)
 			{
 				return 0f;
 			}
-			return actorData.GetActorModelData().GetCamStartEventDelay(animationIndex, _001D);
+			return actorData.GetActorModelData().GetCamStartEventDelay(animationIndex, useTauntCamAltTime);
 		}
 
 		internal int GetAnimationIndex()

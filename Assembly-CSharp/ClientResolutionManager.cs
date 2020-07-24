@@ -980,7 +980,7 @@ public class ClientResolutionManager : MonoBehaviour
 		{
 			ClientResolutionAction clientResolutionAction = m_movementActions[i];
 			ActorData triggeringMovementActor = clientResolutionAction.GetTriggeringMovementActor();
-			if (!(triggeringMovementActor != null))
+			if (triggeringMovementActor == null)
 			{
 				continue;
 			}
@@ -989,9 +989,6 @@ public class ClientResolutionManager : MonoBehaviour
 				list.Add(triggeringMovementActor);
 			}
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 }
