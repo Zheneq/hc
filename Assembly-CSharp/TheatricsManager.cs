@@ -253,7 +253,10 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 
 	private void Update()
 	{
-		UpdateClient();
+		if (NetworkClient.active)
+		{
+			this.UpdateClient();
+		}
 	}
 
 	private void UpdateClient()
