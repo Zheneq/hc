@@ -268,7 +268,7 @@ namespace Theatrics
 
 		internal bool PlaybackState2OrLater_zq => State >= PlaybackState.C;
 
-		internal ActorAnimation(Turn turn)
+		public ActorAnimation(Turn turn)
 		{
 			this.turn = turn;
 		}

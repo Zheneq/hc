@@ -59,7 +59,7 @@ namespace Theatrics
 			}
 		}
 
-		internal Phase(Turn turn)
+		public Phase(Turn turn)
 		{
 			this.Turn = turn;
 		}

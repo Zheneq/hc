@@ -33,7 +33,7 @@ namespace Theatrics
 			private set;
 		}
 
-		internal Turn()
+		public Turn()
 		{
 		}
 
