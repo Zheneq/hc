@@ -24,21 +24,21 @@ namespace Theatrics
 
 		public const float _001D = 3f;
 
-		private short animationIndex;
+		public short animationIndex;
 
-		private Vector3 targetPos;
+		public Vector3 targetPos;
 
-		private bool _0015;  // knockback?
+		public bool _0015;  // knockback?
 
-		private int tauntNumber;
+		public int tauntNumber;
 
-		private bool _0013;
+		public bool _0013;
 
-		private bool _0018;
+		public bool _0018;
 
-		private bool _0009_Reveal;
+		public bool reveal;
 
-		private AbilityData.ActionType actionType = AbilityData.ActionType.INVALID_ACTION;
+		public AbilityData.ActionType actionType = AbilityData.ActionType.INVALID_ACTION;
 
 		private bool IsHanging;
 
@@ -56,25 +56,25 @@ namespace Theatrics
 		[CompilerGenerated]
 		private SequenceSource _000F;
 
-		internal int actorIndex = ActorData.s_invalidActorIndex;
+		public int actorIndex = ActorData.s_invalidActorIndex;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		[CompilerGenerated]
 		private Dictionary<ActorData, int> _000D;
 
-		internal bool cinematicCamera;
+		public bool cinematicCamera;
 
 		internal int tauntAnimIndex;
 
-		internal sbyte playOrderIndex;
+		public sbyte playOrderIndex;
 
-		internal sbyte groupIndex;
+		public sbyte groupIndex;
 
-		internal Bounds Bound;
+		public Bounds bounds;
 
-		private List<byte> _000C_X = new List<byte>();
+		public List<byte> _000C_X = new List<byte>();
 
-		private List<byte> _0014_Z = new List<byte>();
+		public List<byte> _0014_Z = new List<byte>();
 
 		private bool _0005;
 
@@ -126,19 +126,19 @@ namespace Theatrics
 
 		private const float _0017_000E = 1f;
 
-		internal SequenceSource SeqSource
+		public SequenceSource SeqSource
 		{
 			get;
-			private set;
+			set;
 		}
 
-		internal SequenceSource ParentAbilitySeqSource
+		public SequenceSource ParentAbilitySeqSource
 		{
 			get;
-			private set;
+			set;
 		}
 
-		internal ActorData Actor
+		public ActorData Actor
 		{
 			get
 			{
@@ -185,7 +185,7 @@ namespace Theatrics
 			}
 		}
 
-		internal Dictionary<ActorData, int> HitActorsToDeltaHP
+		public Dictionary<ActorData, int> HitActorsToDeltaHP
 		{
 			get;
 			private set;
@@ -300,12 +300,12 @@ namespace Theatrics
 			sbyte _tauntNumber = (sbyte)tauntNumber;
 			bool value8 = _0013;
 			bool value9 = _0018;
-			bool _reveal = _0009_Reveal;
+			bool _reveal = reveal;
 			bool value11 = _0015;
 			sbyte _playOrderIndex = playOrderIndex;
 			sbyte _groupIndex = groupIndex;
-			Vector3 center = Bound.center;
-			Vector3 size = Bound.size;
+			Vector3 center = bounds.center;
+			Vector3 size = bounds.size;
 			byte value14 = checked((byte)_000C_X.Count);
 			stream.Serialize(ref _animationIndex);
 			stream.Serialize(ref _actionType);
@@ -373,11 +373,11 @@ namespace Theatrics
 			tauntNumber = _tauntNumber;
 			_0013 = value8;
 			_0018 = value9;
-			_0009_Reveal = _reveal;
+			reveal = _reveal;
 			_0015 = value11;
 			playOrderIndex = _playOrderIndex;
 			groupIndex = _groupIndex;
-			Bound = new Bounds(center, size);
+			bounds = new Bounds(center, size);
 			actionType = (AbilityData.ActionType)_actionType;
 			ability = ((!(Actor == null)) ? Actor.GetAbilityData().GetAbilityOfActionType(actionType) : null);
 			if (SeqSource == null)
@@ -517,7 +517,7 @@ namespace Theatrics
 
 		internal bool _0020_000E_IsActorVisibleForAbilityCast()
 		{
-			return !Actor.IsDead() && (_0009_Reveal || cinematicCamera);
+			return !Actor.IsDead() && (reveal || cinematicCamera);
 		}
 
 		internal bool _000C_000E()
@@ -1008,11 +1008,11 @@ namespace Theatrics
 						Bounds bound = CameraManager.Get().GetTarget();
 						if (turn._0009_HasFocusedAction)
 						{
-							bound.Encapsulate(Bound);
+							bound.Encapsulate(bounds);
 						}
 						else
 						{
-							bound = Bound;
+							bound = bounds;
 						}
 						Actor.GetActorMovement()?.EncapsulatePathInBound(ref bound);
 						CameraManager.Get().SetTarget(bound);

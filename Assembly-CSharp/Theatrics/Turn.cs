@@ -8,17 +8,17 @@ namespace Theatrics
 {
 	public class Turn
 	{
-		internal List<Phase> Phases = new List<Phase>(7);
+		public List<Phase> Phases = new List<Phase>(7);
 		private int CurrentPhase = -1;
 		internal Bounds _0013;
 		internal int _0018;
 		internal bool _0009_HasFocusedAction;
 		private HashSet<int> CompletedPhases = new HashSet<int>();
 
-		internal int TurnID
+		public int TurnID
 		{
 			get;
-			private set;
+			set;
 		}
 
 		internal float TimeInPhase
@@ -172,9 +172,9 @@ namespace Theatrics
 			{
 				return;
 			}
-			for (int i = 0; i < phase.animations.Count; i++)
+			for (int i = 0; i < phase.Animations.Count; i++)
 			{
-				ActorAnimation actorAnimation = phase.animations[i];
+				ActorAnimation actorAnimation = phase.Animations[i];
 
 				if (actorAnimation.Actor == animatedActor &&
 					actorAnimation.PlaybackState2OrLater_zq &&
@@ -210,9 +210,9 @@ namespace Theatrics
 					int num = 0;
 					while (true)
 					{
-						if (num < phase.animations.Count)
+						if (num < phase.Animations.Count)
 						{
-							ActorAnimation actorAnimation = phase.animations[num];
+							ActorAnimation actorAnimation = phase.Animations[num];
 							if (actorAnimation.Actor == seq.Caster)
 							{
 								if (actorAnimation.HasSameSequenceSource(seq))
@@ -323,9 +323,9 @@ namespace Theatrics
 						continue;
 					}
 				}
-				for (int j = 0; j < phase.animations.Count; j++)
+				for (int j = 0; j < phase.Animations.Count; j++)
 				{
-					ActorAnimation actorAnimation = phase.animations[j];
+					ActorAnimation actorAnimation = phase.Animations[j];
 					if (_000E >= 0)
 					{
 						if (actorAnimation.playOrderIndex != _000E)
@@ -345,7 +345,7 @@ namespace Theatrics
 					{
 						continue;
 					}
-					Bounds bound = actorAnimation.Bound;
+					Bounds bound = actorAnimation.bounds;
 					if (_001D.Index == AbilityPriority.Evasion && actorAnimation.Actor != null)
 					{
 						ActorTeamSensitiveData teamSensitiveData_authority = actorAnimation.Actor.TeamSensitiveData_authority;
@@ -398,7 +398,7 @@ namespace Theatrics
 		{
 			if (phase >= AbilityPriority.Prep_Defense && (int)phase < Phases.Count)
 			{
-				return Phases[(int)phase].animations.Count > 0;
+				return Phases[(int)phase].Animations.Count > 0;
 			}
 			return false;
 		}
@@ -447,7 +447,7 @@ namespace Theatrics
 			}
 			if (CurrentPhase > 0 && CurrentPhase < Phases.Count)
 			{
-				List<ActorAnimation> animations = Phases[CurrentPhase].animations;
+				List<ActorAnimation> animations = Phases[CurrentPhase].Animations;
 				for (int i = 0; i < animations.Count; i++)
 				{
 					ActorAnimation actorAnimation = animations[i];
@@ -479,7 +479,7 @@ namespace Theatrics
 						{
 							return false;
 						}
-						List<ActorAnimation> animations = this.Phases[num].animations;
+						List<ActorAnimation> animations = this.Phases[num].Animations;
 						for (int i = 0; i < animations.Count; i++)
 						{
 							ActorAnimation actorAnimation = animations[i];
@@ -516,7 +516,7 @@ namespace Theatrics
 		{
 			if (CurrentPhase >= 0 && CurrentPhase < Phases.Count)
 			{
-				List<ActorAnimation> animations = Phases[CurrentPhase].animations;
+				List<ActorAnimation> animations = Phases[CurrentPhase].Animations;
 				for (int i = 0; i < animations.Count; i++)
 				{
 					if (animations[i].cinematicCamera &&

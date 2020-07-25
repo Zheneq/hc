@@ -413,9 +413,9 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 
 		Phase phase = m_turn.Phases[phaseToUpdate];
-		for (int i = 0; i < phase.animations.Count; i++)
+		for (int i = 0; i < phase.Animations.Count; i++)
 		{
-			ActorAnimation actorAnimation = phase.animations[i];
+			ActorAnimation actorAnimation = phase.Animations[i];
 			if (actorAnimation.Actor == actor &&
 				actorAnimation.GetAbility() != null &&
 				actorAnimation.GetAbility().GetType() == ability.GetType() &&
@@ -453,9 +453,9 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			return -1;
 		}
 		Phase phase2 = m_turn.Phases[(int)phase];
-		for (int num = 0; num < phase2.animations.Count; num++)
+		for (int num = 0; num < phase2.Animations.Count; num++)
 		{
-			ActorAnimation actorAnimation = phase2.animations[num];
+			ActorAnimation actorAnimation = phase2.Animations[num];
 			if (action.ContainsSequenceSource(actorAnimation.SeqSource))
 			{
 				return actorAnimation.playOrderIndex;
@@ -473,9 +473,9 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 
 		int num = -1;
 		Phase phase2 = m_turn.Phases[(int)phase];
-		for (int i = 0; i < phase2.animations.Count; i++)
+		for (int i = 0; i < phase2.Animations.Count; i++)
 		{
-			ActorAnimation actorAnimation = phase2.animations[i];
+			ActorAnimation actorAnimation = phase2.Animations[i];
 			if (actorAnimation.HitActorsToDeltaHP == null ||
 				!actorAnimation.HitActorsToDeltaHP.ContainsKey(actor) ||
 				actorAnimation.HitActorsToDeltaHP[actor] >= 0 ||
@@ -507,9 +507,9 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		{
 			string lineActorAnimsNotDone = string.Empty;
 			Phase phase = m_turn.Phases[num];
-			for (int i = 0; i < phase.animations.Count; i++)
+			for (int i = 0; i < phase.Animations.Count; i++)
 			{
-				ActorAnimation actorAnimation = phase.animations[i];
+				ActorAnimation actorAnimation = phase.Animations[i];
 				if (actorAnimation.State == ActorAnimation.PlaybackState.F)
 				{
 					continue;

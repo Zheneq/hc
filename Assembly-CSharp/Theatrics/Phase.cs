@@ -8,12 +8,12 @@ using UnityEngine.Networking;
 
 namespace Theatrics
 {
-	internal class Phase
+	public class Phase
 	{
-		internal List<ActorAnimation> animations = new List<ActorAnimation>();
+		public List<ActorAnimation> Animations = new List<ActorAnimation>();
 		private Dictionary<int, int> actorIndexToDeltaHP = new Dictionary<int, int>();
-		private Dictionary<int, int> _0015_ActorIndexToKnockback = new Dictionary<int, int>(); // only matters if it is zero or positive
-		private List<int> participants = new List<int>();
+		public Dictionary<int, int> ActorIndexToKnockback = new Dictionary<int, int>(); // only matters if it is zero or positive
+		public List<int> Participants = new List<int>();
 		private int playOrderIndex = -1;
 		private int _0018 = -1;
 		private bool _0009 = true;
@@ -23,7 +23,7 @@ namespace Theatrics
 		private int _0004 = -1;
 		private float _000B;
 		private float _0003;
-		private Turn turn;
+		public Turn Turn;
 		private float _0017;
 		private float _000D;
 		private bool _0008;
@@ -41,19 +41,19 @@ namespace Theatrics
 		private const float _0010 = 0.3f;
 		private const float _0007 = 0.35f;
 
-		internal AbilityPriority Index
+		public AbilityPriority Index
 		{
 			get;
-			private set;
+			set;
 		}
 
-		internal Dictionary<int, int> ActorIndexToDeltaHP
+		public Dictionary<int, int> ActorIndexToDeltaHP
 		{
 			get
 			{
 				return actorIndexToDeltaHP;
 			}
-			private set
+			set
 			{
 				actorIndexToDeltaHP = value;
 			}
@@ -61,7 +61,7 @@ namespace Theatrics
 
 		internal Phase(Turn turn)
 		{
-			this.turn = turn;
+			this.Turn = turn;
 		}
 
 		public void DoNotSendAnimations()
@@ -71,9 +71,9 @@ namespace Theatrics
 
 		internal void _001D_000E()
 		{
-			for (int i = 0; i < animations.Count; i++)
+			for (int i = 0; i < Animations.Count; i++)
 			{
-				ActorAnimation actorAnimation = animations[i];
+				ActorAnimation actorAnimation = Animations[i];
 				if (!actorAnimation._0006_000E())
 				{
 					float delay = actorAnimation.GetCamStartEventDelay(Index == AbilityPriority.Evasion && actorAnimation.IsTauntActivated());
@@ -89,11 +89,11 @@ namespace Theatrics
 		internal bool _001C(ActorData actor)
 		{
 			bool result = false;
-			if (animations != null)
+			if (Animations != null)
 			{
-				for (int i = 0; i < animations.Count; i++)
+				for (int i = 0; i < Animations.Count; i++)
 				{
-					ActorAnimation actorAnimation = animations[i];
+					ActorAnimation actorAnimation = Animations[i];
 					if (actorAnimation.Actor == actor && !actorAnimation._0006_000E())
 					{
 						if (!ClientResolutionManager.Get().HitsDoneExecuting(actorAnimation.SeqSource) ||
@@ -110,27 +110,27 @@ namespace Theatrics
 
 		internal bool _001D_000E_IsKnockedBack(ActorData actor)
 		{
-			if (_0015_ActorIndexToKnockback != null && _0015_ActorIndexToKnockback.ContainsKey(actor.ActorIndex))
+			if (ActorIndexToKnockback != null && ActorIndexToKnockback.ContainsKey(actor.ActorIndex))
 			{
-				return _0015_ActorIndexToKnockback[actor.ActorIndex] > 0;
+				return ActorIndexToKnockback[actor.ActorIndex] > 0;
 			}
 			return false;
 		}
 
 		internal bool IsParticipant(ActorData actor) // _000E_000E
 		{
-			if (actor != null && participants != null)
+			if (actor != null && Participants != null)
 			{
-				return participants.Contains(actor.ActorIndex);
+				return Participants.Contains(actor.ActorIndex);
 			}
 			return false;
 		}
 
 		internal bool _001C_HasUnfinishedAnimations()
 		{
-			for (int i = 0; i < animations.Count; i++)
+			for (int i = 0; i < Animations.Count; i++)
 			{
-				ActorAnimation actorAnimation = animations[i];
+				ActorAnimation actorAnimation = Animations[i];
 				if (actorAnimation.State != ActorAnimation.PlaybackState.FINISHED && actorAnimation.State != ActorAnimation.PlaybackState.F)
 				{
 					return true;
@@ -144,7 +144,7 @@ namespace Theatrics
 			sbyte phaseIndex = (sbyte)Index;
 			stream.Serialize(ref phaseIndex);
 			Index = (AbilityPriority)phaseIndex;
-			sbyte numAnimations = (sbyte)animations.Count;
+			sbyte numAnimations = (sbyte)Animations.Count;
 			bool dropAnimations = IsNotSendingAnimations || phaseIndex < (sbyte)ServerClientUtils.GetCurrentAbilityPhase();
 			if (stream.isWriting && dropAnimations)
 			{
@@ -153,11 +153,11 @@ namespace Theatrics
 			stream.Serialize(ref numAnimations);
 			for (int i = 0; i < numAnimations; i++)
 			{
-				while (i >= animations.Count)
+				while (i >= Animations.Count)
 				{
-					animations.Add(new ActorAnimation(turn));
+					Animations.Add(new ActorAnimation(Turn));
 				}
-				animations[i].OnSerializeHelper(stream);
+				Animations[i].OnSerializeHelper(stream);
 			}
 			if (stream.isWriting)
 			{
@@ -189,7 +189,7 @@ namespace Theatrics
 			{
 				if (stream.isWriting)
 				{
-					sbyte value9 = (sbyte)_0015_ActorIndexToKnockback.Count;
+					sbyte value9 = (sbyte)ActorIndexToKnockback.Count;
 					if (dropAnimations)
 					{
 						value9 = 0;
@@ -198,7 +198,7 @@ namespace Theatrics
 					else
 					{
 						stream.Serialize(ref value9);
-						foreach (KeyValuePair<int, int> item in _0015_ActorIndexToKnockback)
+						foreach (KeyValuePair<int, int> item in ActorIndexToKnockback)
 						{
 							sbyte value10 = (sbyte)item.Key;
 							sbyte value11 = (sbyte)item.Value;
@@ -211,24 +211,24 @@ namespace Theatrics
 				{
 					sbyte value12 = -1;
 					stream.Serialize(ref value12);
-					_0015_ActorIndexToKnockback = new Dictionary<int, int>();
+					ActorIndexToKnockback = new Dictionary<int, int>();
 					for (int k = 0; k < value12; k++)
 					{
 						sbyte value13 = (sbyte)ActorData.s_invalidActorIndex;
 						sbyte value14 = -1;
 						stream.Serialize(ref value13);
 						stream.Serialize(ref value14);
-						_0015_ActorIndexToKnockback.Add(value13, value14);
+						ActorIndexToKnockback.Add(value13, value14);
 					}
 				}
 			}
 			if (stream.isWriting)
 			{
-				sbyte numParticipants = (sbyte)participants.Count;
+				sbyte numParticipants = (sbyte)Participants.Count;
 				stream.Serialize(ref numParticipants);
 				for (sbyte b = 0; b < numParticipants; b = (sbyte)(b + 1))
 				{
-					sbyte participant = (sbyte)participants[b];
+					sbyte participant = (sbyte)Participants[b];
 					stream.Serialize(ref participant);
 				}
 			}
@@ -236,12 +236,12 @@ namespace Theatrics
 			{
 				sbyte numParticipants = -1;
 				stream.Serialize(ref numParticipants);
-				participants = new List<int>();
+				Participants = new List<int>();
 				for (sbyte b = 0; b < numParticipants; b = (sbyte)(b + 1))
 				{
 					sbyte participant = -1;
 					stream.Serialize(ref participant);
-					participants.Add(participant);
+					Participants.Add(participant);
 				}
 			}
 		}
@@ -288,12 +288,12 @@ namespace Theatrics
 		private ActorData GetActorAtPlayOrderIndex(int playOrderIndex, out bool cinematicCamera)
 		{
 			cinematicCamera = false;
-			for (int i = 0; i < animations.Count; i++)
+			for (int i = 0; i < Animations.Count; i++)
 			{
-				if (animations[i].playOrderIndex == playOrderIndex)
+				if (Animations[i].playOrderIndex == playOrderIndex)
 				{
-					cinematicCamera = animations[i].cinematicCamera;
-					return animations[i].Actor;
+					cinematicCamera = Animations[i].cinematicCamera;
+					return Animations[i].Actor;
 				}
 			}
 			return null;
@@ -303,9 +303,9 @@ namespace Theatrics
 		{
 			bool flag = false;
 			
-			for (int num = 0; num < animations.Count; num++)
+			for (int num = 0; num < Animations.Count; num++)
 			{
-				ActorAnimation actorAnimation = animations[num];
+				ActorAnimation actorAnimation = Animations[num];
 				if (actorAnimation != null && actorAnimation.HitActorsToDeltaHP != null && actorAnimation.playOrderIndex == playOrderIndex)
 				{
 					if (actorAnimation.IsTauntActivated())
@@ -330,7 +330,7 @@ namespace Theatrics
 							}
 							else
 							{
-								if (turn._0004_FinishedTheatrics(hitActor, deltaHP, (int)actorAnimation.SeqSource.RootID))
+								if (Turn._0004_FinishedTheatrics(hitActor, deltaHP, (int)actorAnimation.SeqSource.RootID))
 								{
 									flag = true;
 									if (CameraManager.CamDebugTraceOn)
@@ -398,11 +398,11 @@ namespace Theatrics
 		{
 			_0017 += GameTime.deltaTime;
 			_000D += GameTime.deltaTime;
-			bool flag = ((animations.Count != 0) & (Index == AbilityPriority.Evasion)) && !_0002;
+			bool flag = ((Animations.Count != 0) & (Index == AbilityPriority.Evasion)) && !_0002;
 			bool flag2 = true;
-			for (int i = 0; i < animations.Count; i++)
+			for (int i = 0; i < Animations.Count; i++)
 			{
-				ActorAnimation actorAnimation = animations[i];
+				ActorAnimation actorAnimation = Animations[i];
 				if (!actorAnimation._000D_000E_Tick(_001D))
 				{
 					continue;
@@ -438,9 +438,9 @@ namespace Theatrics
 				}
 				int num4 = int.MaxValue;
 				int num5 = int.MaxValue;
-				for (int j = 0; j < animations.Count; j++)
+				for (int j = 0; j < Animations.Count; j++)
 				{
-					ActorAnimation actorAnimation2 = animations[j];
+					ActorAnimation actorAnimation2 = Animations[j];
 					if (actorAnimation2 != null && actorAnimation2.State == 0 && actorAnimation2.playOrderIndex < num4)
 					{
 						num4 = actorAnimation2.playOrderIndex;
@@ -469,9 +469,9 @@ namespace Theatrics
 						}
 						list = new List<ActorAnimation>();
 						bool flag7 = true;
-						for (int k = 0; k < animations.Count; k++)
+						for (int k = 0; k < Animations.Count; k++)
 						{
-							ActorAnimation actorAnimation3 = animations[k];
+							ActorAnimation actorAnimation3 = Animations[k];
 							object obj;
 							if (actorAnimation3 != null)
 							{
@@ -652,16 +652,16 @@ namespace Theatrics
 								}
 								if (!_00122)
 								{
-									bool flag12 = turn._0018 > 0 && turn._0013 == bounds;
-									if (turn._0018 > 0)
+									bool flag12 = Turn._0018 > 0 && Turn._0013 == bounds;
+									if (Turn._0018 > 0)
 									{
 										if (!flag12)
 										{
 											if (!flag11)
 											{
-												if (AreBoundsMergeable(turn._0013, bounds, abilitiesCamera.m_similarCenterDistThreshold, abilitiesCamera.m_similarBoundSideMaxDiff, abilitiesCamera.m_considerFramingSimilarIfInsidePrevious))
+												if (AreBoundsMergeable(Turn._0013, bounds, abilitiesCamera.m_similarCenterDistThreshold, abilitiesCamera.m_similarBoundSideMaxDiff, abilitiesCamera.m_considerFramingSimilarIfInsidePrevious))
 												{
-													bounds = turn._0013;
+													bounds = Turn._0013;
 												}
 											}
 										}
@@ -677,8 +677,8 @@ namespace Theatrics
 									}
 									bool quickerTransition = (byte)num15 != 0;
 									CameraManager.Get().SetTarget(bounds, quickerTransition, useLowPosition);
-									turn._0009_HasFocusedAction = true;
-									if (turn._0013 == bounds)
+									Turn._0009_HasFocusedAction = true;
+									if (Turn._0013 == bounds)
 									{
 										_0014 = true;
 									}
@@ -686,14 +686,14 @@ namespace Theatrics
 									{
 										_0014 = false;
 									}
-									turn._0013 = bounds;
+									Turn._0013 = bounds;
 									if (flag11)
 									{
-										turn._0018 = 0;
+										Turn._0018 = 0;
 									}
 									else
 									{
-										turn._0018++;
+										Turn._0018++;
 									}
 								}
 								if (num4 == 0)
@@ -712,7 +712,7 @@ namespace Theatrics
 								}
 								if (TheatricsManager.DebugLog)
 								{
-									TheatricsManager.LogForDebugging("Cam set target for player order index " + num4 + " group " + num5 + " group changed " + _0009 + " timeInResolve = " + turn.TimeInResolve + " anticipating CamStartEvent...");
+									TheatricsManager.LogForDebugging("Cam set target for player order index " + num4 + " group " + num5 + " group changed " + _0009 + " timeInResolve = " + Turn.TimeInResolve + " anticipating CamStartEvent...");
 								}
 							}
 						}
@@ -754,9 +754,9 @@ namespace Theatrics
 					}
 					if (playOrderIndex < _0011_somePlayOrderIndex)
 					{
-						for (int l = 0; l < animations.Count; l++)
+						for (int l = 0; l < Animations.Count; l++)
 						{
-							ActorAnimation actorAnimation4 = animations[l];
+							ActorAnimation actorAnimation4 = Animations[l];
 							if (actorAnimation4 == null)
 							{
 								continue;
@@ -784,9 +784,9 @@ namespace Theatrics
 							}
 						}
 						float num18 = evadeStartTime;
-						for (int m = 0; m < animations.Count; m++)
+						for (int m = 0; m < Animations.Count; m++)
 						{
-							ActorAnimation actorAnimation5 = animations[m];
+							ActorAnimation actorAnimation5 = Animations[m];
 							if (actorAnimation5 == null)
 							{
 								continue;
@@ -826,9 +826,9 @@ namespace Theatrics
 						}
 						if (num18 > 0f && num18 <= GameTime.time)
 						{
-							for (int n = 0; n < animations.Count; n++)
+							for (int n = 0; n < Animations.Count; n++)
 							{
-								ActorAnimation actorAnimation6 = animations[n];
+								ActorAnimation actorAnimation6 = Animations[n];
 								if (actorAnimation6.GetAbility() != null)
 								{
 									actorAnimation6.GetAbility().OnEvasionMoveStartEvent(actorAnimation6.Actor);
@@ -860,9 +860,9 @@ namespace Theatrics
 					return true;
 					IL_106f:
 					float num23 = (!(_000B <= 0f)) ? (_000B + num16) : 0f;
-					for (int num24 = 0; num24 < animations.Count; num24++)
+					for (int num24 = 0; num24 < Animations.Count; num24++)
 					{
-						ActorAnimation actorAnimation7 = animations[num24];
+						ActorAnimation actorAnimation7 = Animations[num24];
 						if (actorAnimation7 == null)
 						{
 							continue;
