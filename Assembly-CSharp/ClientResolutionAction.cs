@@ -391,60 +391,25 @@ public class ClientResolutionAction : IComparable
 
 	public static bool DoneHitting(Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> positionHitResults)
 	{
-		bool flag = true;
-		bool flag2 = true;
-		foreach (ClientActorHitResults value in actorToHitResults.Values)
+		bool executedAllActorHits = true;
+		bool executedAllPositionHits = true;
+		foreach (ClientActorHitResults hitResults in actorToHitResults.Values)
 		{
-			if (value.ExecutedHit)
+			if (!hitResults.ExecutedHit || hitResults.HasUnexecutedReactionHits())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						if (!value.HasUnexecutedReactionHits())
-						{
-							goto IL_004b;
-						}
-						goto IL_0047;
-					}
-				}
+				executedAllActorHits = false;
+				break;
 			}
-			goto IL_0047;
-			IL_0047:
-			flag = false;
-			break;
-			IL_004b:;
 		}
-		using (Dictionary<Vector3, ClientPositionHitResults>.ValueCollection.Enumerator enumerator2 = positionHitResults.Values.GetEnumerator())
+		foreach (ClientPositionHitResults hitResults in positionHitResults.Values)
 		{
-			while (true)
+			if (!hitResults.ExecutedHit)
 			{
-				if (!enumerator2.MoveNext())
-				{
-					break;
-				}
-				ClientPositionHitResults current2 = enumerator2.Current;
-				if (!current2.ExecutedHit)
-				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							break;
-						default:
-							flag2 = false;
-							goto end_IL_0077;
-						}
-					}
-				}
+				executedAllPositionHits = false;
+				break;
 			}
-			end_IL_0077:;
 		}
-		return flag && flag2;
+		return executedAllActorHits && executedAllPositionHits;
 	}
 
 	public static bool HasUnexecutedHitOnActor(ActorData targetActor, Dictionary<ActorData, ClientActorHitResults> actorToHitResults)
