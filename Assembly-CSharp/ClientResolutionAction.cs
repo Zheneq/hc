@@ -75,6 +75,7 @@ public class ClientResolutionAction : IComparable
 		{
 			case ResolutionActionType.AbilityCast:
 				clientResolutionAction.m_abilityResults = AbilityResultsUtils.DeSerializeClientAbilityResultsFromStream(ref stream);
+				Log.Info($"Replicated ClientAbilityResults\n{clientResolutionAction.m_abilityResults.Json()}");
 				break;
 			case ResolutionActionType.EffectAnimation:
 			case ResolutionActionType.EffectPulse:

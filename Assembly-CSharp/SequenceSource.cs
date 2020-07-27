@@ -156,6 +156,11 @@ public class SequenceSource
 		OnSerializeHelper(new NetworkWriterAdapter(stream));
 	}
 
+	public string Json()
+	{
+		return $"{{ \"rootID\": {RootID}, \"removeAtEndOfTurn\": {RemoveAtEndOfTurn}, \"waitForClientEnable\": {WaitForClientEnable}}}";
+	}
+
 	internal void OnSerializeHelper(IBitStream stream)
 	{
 		uint value = RootID;

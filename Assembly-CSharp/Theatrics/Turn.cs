@@ -25,6 +25,22 @@ namespace Theatrics
 		{
 			return priority == AbilityPriority.Evasion || priority == AbilityPriority.Combat_Knockback;
 		}
+		
+		public string Json()
+		{
+			string phases = "";
+			if (!Phases.IsNullOrEmpty())
+			{
+				foreach (var e in Phases)
+				{
+					phases += (phases.Length == 0 ? "" : ",\n") + e.Json();
+				}
+			}
+			return $"{{" +
+				$"\"turnID\": {TurnID}," +
+				$"\"phases\": [{phases}]" +
+				$"}}";
+		}
 
 		internal void OnSerializeHelper(IBitStream stream)
 		{

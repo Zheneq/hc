@@ -15,6 +15,35 @@ public class BouncingShotSequence : Sequence
 
 		public ActorData[] destinationHitTargets;
 
+		public override string Json()
+		{
+			string segments = "";
+			if (!segmentPts.IsNullOrEmpty())
+			{
+				foreach (var e in segmentPts)
+				{
+					segments += (segments.Length == 0 ? "" : ", ") + e;
+				}
+			}
+			string targets = "";
+			if (!laserTargets.IsNullOrEmpty())
+			{
+				foreach (var e in laserTargets)
+				{
+					targets += (targets.Length == 0 ? "" : ", ") + $"{{\"{e.Key.DisplayName}\": " +
+						$"{{\"segmentOrigin\": {e.Value.m_segmentOrigin}, \"endpointIndex\": {e.Value.m_endpointIndex}}}}}";
+				}
+			}
+
+			return $"{{" +
+				$"\"doPositionHitOnBounce\": {doPositionHitOnBounce}, " +
+				$"\"useOriginalSegmentStartPos\": {useOriginalSegmentStartPos}, " +
+				$"\"segmentPts\": [{segments}], " +
+				$"\"laserTargets\": [{targets}], " +
+				$"\"destinationHitTargets\": {destinationHitTargets}" +
+				$"}}";
+		}
+
 		public override void XSP_SerializeToStream(IBitStream stream)
 		{
 			stream.Serialize(ref doPositionHitOnBounce);

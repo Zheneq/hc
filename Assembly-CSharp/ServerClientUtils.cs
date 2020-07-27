@@ -24,6 +24,35 @@ public static class ServerClientUtils
 		private bool m_sourceRemoveAtEndOfTurn;
 		private bool m_waitForClientEnable;
 
+		public string Json()
+		{
+			string targetActors = "";
+			for (int i = 0; i < m_numTargetActors; ++i)
+			{
+				targetActors += (targetActors.Length == 0 ? "" : ", ") + $"\"{GameFlowData.Get().FindActorByActorIndex(m_targetActorIndices[i])?.DisplayName ?? "none"}\"";
+			}
+			string extraParams = "";
+			for (int i = 0; i < m_numExtraParams; ++i)
+			{
+				extraParams += (extraParams.Length == 0 ? "" : ", ") + m_extraParams[i].Json();
+			}
+			return $"{{" +
+				$"\"prefabId\": {m_prefabID}, " +
+				$"\"useTargetPos\": \"{m_useTargetPos}\", " +
+				$"\"targetPos\": [{m_targetPos.x}, {m_targetPos.y}, {m_targetPos.z}], " +
+				$"\"useTargetSquare\": \"{m_useTargetSquare}\", " +
+				$"\"targetSquare\": [{m_targetSquareX}, {m_targetSquareY}], " +
+				$"\"useTargetRotation\": \"{m_useTargetRotation}\", " +
+				$"\"targetRotation\": \"{m_targetRotation}\", " +
+				$"\"targetActors\": [{targetActors}], " +
+				$"\"caster\": \"{GameFlowData.Get().FindActorByActorIndex(m_casterActorIndex)?.DisplayName ?? "none"}\", " +
+				$"\"extraParams\": {extraParams}, " +
+				$"\"sourceRootID\": {m_sourceRootID}, " +
+				$"\"sourceRemoveAtEndOfTurn\": {m_sourceRemoveAtEndOfTurn}, " +
+				$"\"waitForClientEnable\": {m_waitForClientEnable}" +
+				$"}}";
+		}
+
 		public SequenceStartData(GameObject prefab, BoardSquare targetSquare, ActorData[] targetActorArray, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams = null)
 		{
 			InitToDefaults();

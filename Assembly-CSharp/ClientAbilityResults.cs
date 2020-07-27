@@ -20,6 +20,45 @@ public class ClientAbilityResults
 	public static bool DebugTraceOn => false;
 	public static bool DebugSerializeSizeOn => false;
 
+
+
+	public string Json()
+	{
+		string seqStarts = "";
+		if (!m_seqStartDataList.IsNullOrEmpty())
+		{
+			foreach (var e in m_seqStartDataList)
+			{
+				seqStarts += (seqStarts.Length == 0 ? "" : ",\n") + e.Json();
+			}
+		}
+		string actorHR = "";
+		if (!m_actorToHitResults.IsNullOrEmpty())
+		{
+			foreach (var e in m_actorToHitResults)
+			{
+				actorHR += (actorHR.Length == 0 ? "" : ", ") + $"[\"{e.Key.DisplayName}\", \"???\"";
+			}
+		}
+		string posHR = "";
+		if (!m_posToHitResults.IsNullOrEmpty())
+		{
+			foreach (var e in m_posToHitResults)
+			{
+				posHR += (posHR.Length == 0 ? "" : ", ") + $"[\"{e.Key}\", \"???\"]";
+			}
+		}
+
+		return $"{{" +
+			$"\"casterActor\": \"{m_casterActor?.DisplayName ?? "none"}\", " +
+			$"\"castedAbility\": \"{m_castedAbility?.m_abilityName ?? "none"}\", " +
+			$"\"actionType\": \"{m_actionType}\", " +
+			$"\"seqStartDataList\": [{seqStarts}], " +
+			$"\"actorToHitResults\": [{actorHR}], " +
+			$"\"posToHitResults\": [{posHR}]" +
+			$"}}";
+	}
+
 	public ClientAbilityResults(int casterActorIndex, int abilityAction, List<ServerClientUtils.SequenceStartData> seqStartDataList, Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> posToHitResults)
 	{
 		m_casterActor = GameFlowData.Get().FindActorByActorIndex(casterActorIndex);
