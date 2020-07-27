@@ -34,13 +34,21 @@ public class BouncingShotSequence : Sequence
 						$"{{\"segmentOrigin\": {e.Value.m_segmentOrigin}, \"endpointIndex\": {e.Value.m_endpointIndex}}}}}";
 				}
 			}
+			string destHit = "";
+			if (!destinationHitTargets.IsNullOrEmpty())
+			{
+				foreach (var e in destinationHitTargets)
+				{
+					destHit += (destHit.Length == 0 ? "" : ", ") + $"\"{e?.DisplayName ?? "none"}\"";
+				}
+			}
 
 			return $"{{" +
 				$"\"doPositionHitOnBounce\": {doPositionHitOnBounce}, " +
 				$"\"useOriginalSegmentStartPos\": {useOriginalSegmentStartPos}, " +
 				$"\"segmentPts\": [{segments}], " +
 				$"\"laserTargets\": [{targets}], " +
-				$"\"destinationHitTargets\": {destinationHitTargets}" +
+				$"\"destinationHitTargets\": [{destHit}]" +
 				$"}}";
 		}
 
