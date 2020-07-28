@@ -21,6 +21,23 @@ public class ClientPositionHitResults
 		private set;
 	}
 
+	public ClientPositionHitResults(
+		List<ClientEffectStartData> effectsToStart,
+		List<ClientBarrierStartData> barriersToStart,
+		List<int> effectsToRemove,
+		List<int> barriersToRemove,
+		List<ServerClientUtils.SequenceEndData> sequencesToEnd,
+		List<ClientMovementResults> reactionsOnPosHit)
+	{
+		m_effectsToStart = effectsToStart;
+		m_barriersToStart = barriersToStart;
+		m_effectsToRemove = effectsToRemove;
+		m_barriersToRemove = barriersToRemove;
+		m_sequencesToEnd = sequencesToEnd;
+		m_reactionsOnPosHit = reactionsOnPosHit;
+		ExecutedHit = false;
+	}
+
 	public ClientPositionHitResults(ref IBitStream stream)
 	{
 		m_effectsToStart = AbilityResultsUtils.DeSerializeEffectsToStartFromStream(ref stream);
