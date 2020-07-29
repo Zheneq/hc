@@ -97,7 +97,7 @@ public class PlayerData : NetworkBehaviour
 			m_fogOfWar = GetComponent<FogOfWar>();
 			if (m_fogOfWar == null)
 			{
-				m_fogOfWar = base.gameObject.AddComponent<FogOfWar>();
+				m_fogOfWar = gameObject.AddComponent<FogOfWar>();
 			}
 		}
 		return m_fogOfWar;

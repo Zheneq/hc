@@ -2420,7 +2420,7 @@ public class AbilityData : NetworkBehaviour
 			{
 				result = true;
 			}
-			else if (actor.GetCurrentBoardSquare()._0013(target.GridPos.x, target.GridPos.y))
+			else if (actor.GetCurrentBoardSquare().LOSDistanceIsOne_zq(target.GridPos.x, target.GridPos.y))
 			{
 				result = true;
 			}
@@ -2444,7 +2444,7 @@ public class AbilityData : NetworkBehaviour
 				}
 				BoardSquare currentBoardSquare = target.GetCurrentBoardSquare();
 				BoardSquare currentBoardSquare2 = actor.GetCurrentBoardSquare();
-				return currentBoardSquare2._0013(currentBoardSquare.x, currentBoardSquare.y);
+				return currentBoardSquare2.LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y);
 			}
 		}
 		return false;
@@ -3217,7 +3217,7 @@ public class AbilityData : NetworkBehaviour
 							BoardSquare boardSquare = enumerator.Current;
 							if (boardSquare.IsBaselineHeight())
 							{
-								if (playerFreeSquare._0013(boardSquare.x, boardSquare.y))
+								if (playerFreeSquare.LOSDistanceIsOne_zq(boardSquare.x, boardSquare.y))
 								{
 									Color white = Color.white;
 									white.a = 0.5f;

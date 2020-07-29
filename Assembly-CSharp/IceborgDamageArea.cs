@@ -524,7 +524,7 @@ public class IceborgDamageArea : GenericAbility_Container
 					{
 						if (flag)
 						{
-							flag3 = boardSquare._0013(boardSquareSafe.x, boardSquareSafe.y);
+							flag3 = boardSquare.LOSDistanceIsOne_zq(boardSquareSafe.x, boardSquareSafe.y);
 						}
 					}
 					int result;

@@ -1153,11 +1153,11 @@ public class Ability : MonoBehaviour
 		{
 			if (ignoreLosSettingOnTargetData)
 			{
-				flag4 = (flag4 && caster.GetCurrentBoardSquare()._0013(currentBoardSquare.x, currentBoardSquare.y));
+				flag4 = (flag4 && caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y));
 			}
 			else
 			{
-				flag4 = (flag4 && (!GetCheckLoS(0) || caster.GetCurrentBoardSquare()._0013(currentBoardSquare.x, currentBoardSquare.y)));
+				flag4 = (flag4 && (!GetCheckLoS(0) || caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y)));
 			}
 		}
 		flag5 = true;

@@ -142,7 +142,7 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 			}
 			if (m_destRequireLosFromCaster)
 			{
-				if (!currentBoardSquare._0013(boardSquareSafe.x, boardSquareSafe.y))
+				if (!currentBoardSquare.LOSDistanceIsOne_zq(boardSquareSafe.x, boardSquareSafe.y))
 				{
 					return false;
 				}

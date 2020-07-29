@@ -213,7 +213,7 @@ public static class AreaEffectUtils
 						for (int num3 = list.Count - 1; num3 >= 0; num3--)
 						{
 							BoardSquare boardSquare = list[num3];
-							if (!center._0013(boardSquare.x, boardSquare.y))
+							if (!center.LOSDistanceIsOne_zq(boardSquare.x, boardSquare.y))
 							{
 								list.RemoveAt(num3);
 							}
@@ -414,7 +414,7 @@ public static class AreaEffectUtils
 				}
 				if (source.IsBaselineHeight())
 				{
-					if (!source._0013(dest.x, dest.y))
+					if (!source.LOSDistanceIsOne_zq(dest.x, dest.y))
 					{
 						return false;
 					}
@@ -2137,7 +2137,7 @@ public static class AreaEffectUtils
 			{
 				if (boardSquare.IsBaselineHeight())
 				{
-					flag3 = boardSquare._0013(testSquare.x, testSquare.y);
+					flag3 = boardSquare.LOSDistanceIsOne_zq(testSquare.x, testSquare.y);
 					if (flag2)
 					{
 						flag2 = HasLosByBarriers(boardSquare, testSquare, caster, VectorUtils.s_laserOffset * Board.SquareSizeStatic, list);

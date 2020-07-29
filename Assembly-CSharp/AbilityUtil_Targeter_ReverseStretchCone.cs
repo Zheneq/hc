@@ -164,7 +164,7 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		if (!m_penetrateLoS)
 		{
 			BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
-			if (!caster.GetCurrentBoardSquare()._0013(currentBoardSquare.x, currentBoardSquare.y))
+			if (!caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y))
 			{
 				result = false;
 			}

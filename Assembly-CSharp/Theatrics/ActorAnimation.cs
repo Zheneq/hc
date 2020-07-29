@@ -524,119 +524,62 @@ namespace Theatrics
 		{
 			FogOfWar clientFog = FogOfWar.GetClientFog();
 			ActorStatus actorStatus = Actor.GetActorStatus();
-			bool flag = _0020_000E_IsActorVisibleForAbilityCast();
-			if (actorStatus != null)
+			bool flag;
+			if (actorStatus != null && actorStatus.HasStatus(StatusType.Revealed))
 			{
-				if (actorStatus.HasStatus(StatusType.Revealed))
-				{
-					goto IL_0078;
-				}
+				flag = true;
 			}
-			int num;
-			if (!Actor.VisibleTillEndOfPhase)
+			else if (!Actor.VisibleTillEndOfPhase && !Actor.CurrentlyVisibleForAbilityCast)
 			{
-				if (!Actor.CurrentlyVisibleForAbilityCast)
-				{
-					num = (flag ? 1 : 0);
-					goto IL_0079;
-				}
+				flag = _0020_000E_IsActorVisibleForAbilityCast();
 			}
-			goto IL_0078;
-			IL_0079:
-			if (num == 0)
+			else
 			{
-				if (!(clientFog == null))
+				flag = true;
+			}
+			if (!flag && clientFog != null)
+			{
+				if (_0018)
 				{
-					if (_0018)
+					return false;
+				}
+				if (NetworkClient.active &&
+					GameFlowData.Get() != null &&
+					GameFlowData.Get().LocalPlayerData != null &&
+					Actor.SomeVisibilityCheckB_zq(GameFlowData.Get().LocalPlayerData))
+				{
+					return true;
+				}
+				for (int i = 0; i < _000C_X.Count; i++)
+				{
+					BoardSquare boardSquare = Board.Get().GetSquare(_000C_X[i], _0014_Z[i]);
+					if (boardSquare != null && clientFog.IsVisible(boardSquare))
 					{
-						while (true)
+						return false;
+					}
+				}
+				ActorMovement actorMovement = Actor.GetActorMovement();
+				if ((bool)actorMovement && actorMovement.FindIsVisibleToClient())
+				{
+					return false;
+				}
+				if (HitActorsToDeltaHP != null && Board.Get() != null)
+				{
+					foreach (ActorData key in HitActorsToDeltaHP.Keys)
+					{
+						if (key != null)
 						{
-							switch (5)
+							BoardSquare boardSquare = Board.Get().GetSquare(key.transform.position);
+							if (clientFog.IsVisible(boardSquare))
 							{
-							case 0:
-								break;
-							default:
 								return false;
 							}
 						}
 					}
-					if (NetworkClient.active && GameFlowData.Get() != null)
-					{
-						if (GameFlowData.Get().LocalPlayerData != null)
-						{
-							if (Actor.SomeVisibilityCheckB_zq(GameFlowData.Get().LocalPlayerData))
-							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										break;
-									default:
-										return true;
-									}
-								}
-							}
-						}
-					}
-					BoardSquare boardSquare = null;
-					for (int i = 0; i < _000C_X.Count; i++)
-					{
-						boardSquare = Board.Get().GetSquare(_000C_X[i], _0014_Z[i]);
-						if (!(boardSquare != null) || !clientFog.IsVisible(boardSquare))
-						{
-							continue;
-						}
-						while (true)
-						{
-							return false;
-						}
-					}
-					ActorMovement actorMovement = Actor.GetActorMovement();
-					if ((bool)actorMovement && actorMovement.FindIsVisibleToClient())
-					{
-						return false;
-					}
-					if (HitActorsToDeltaHP != null)
-					{
-						if (Board.Get() != null)
-						{
-							using (Dictionary<ActorData, int>.Enumerator enumerator = HitActorsToDeltaHP.GetEnumerator())
-							{
-								while (enumerator.MoveNext())
-								{
-									ActorData key = enumerator.Current.Key;
-									if (key == null)
-									{
-									}
-									else
-									{
-										boardSquare = Board.Get().GetSquare(key.transform.position);
-										if (clientFog.IsVisible(boardSquare))
-										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													break;
-												default:
-													return false;
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-					return true;
 				}
+				return true;
 			}
 			return false;
-			IL_0078:
-			num = 1;
-			goto IL_0079;
 		}
 
 		internal bool HasSameSequenceSource(Sequence sequence)

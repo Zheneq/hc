@@ -46,6 +46,6 @@ public class TargetSelect_FanReverseCones : TargetSelect_FanCones
 	protected override bool CustomLoS(ActorData actor, ActorData caster)
 	{
 		BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
-		return caster.GetCurrentBoardSquare()._0013(currentBoardSquare.x, currentBoardSquare.y);
+		return caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y);
 	}
 }

@@ -276,7 +276,7 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 							num2 += 0.5f;
 						}
 					}
-					bool flag = startSquare._0013(boardSquare2.x, boardSquare2.y);
+					bool flag = startSquare.LOSDistanceIsOne_zq(boardSquare2.x, boardSquare2.y);
 					if (!flag && requireLosToStart)
 					{
 						continue;

@@ -413,7 +413,7 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 							num2 += 0.5f;
 						}
 					}
-					if (lastSquare._0013(boardSquare2.x, boardSquare2.y))
+					if (lastSquare.LOSDistanceIsOne_zq(boardSquare2.x, boardSquare2.y))
 					{
 						num2 -= 2f;
 					}

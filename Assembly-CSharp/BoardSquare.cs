@@ -398,23 +398,13 @@ public class BoardSquare : MonoBehaviour
 		return array;
 	}
 
-	public bool _0013(int _001D, int _000E)
+	public bool LOSDistanceIsOne_zq(int xDest, int yDest)
 	{
-		bool result = false;
 		if (Board.Get().m_losLookup != null)
 		{
-			int num;
-			if (Board.Get().m_losLookup.GetLOSDistance(m_pos.x, m_pos.y, _001D, _000E) == 1f)
-			{
-				num = 1;
-			}
-			else
-			{
-				num = 0;
-			}
-			result = ((byte)num != 0);
+			return Board.Get().m_losLookup.GetLOSDistance(m_pos.x, m_pos.y, xDest, yDest) == 1f;
 		}
-		return result;
+		return false;
 	}
 
 	public float GetLOSDistance(int xDest, int yDest)

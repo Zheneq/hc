@@ -1339,16 +1339,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			if (clientFog.IsVisible(boardSquarePathInfo.square))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return true;
-					}
-				}
+				return true;
 			}
 		}
 		return false;

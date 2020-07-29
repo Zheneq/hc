@@ -89,7 +89,7 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 		List<ActorData> list2 = new List<ActorData>();
 		if (boardSquare != null && boardSquare.height <= Board.Get().BaselineHeight)
 		{
-			if (targetingActor.GetCurrentBoardSquare()._0013(boardSquare.x, boardSquare.y))
+			if (targetingActor.GetCurrentBoardSquare().LOSDistanceIsOne_zq(boardSquare.x, boardSquare.y))
 			{
 				BarrierManager.Get().GetAbilityLineEndpoint(targetingActor, travelBoardSquareWorldPositionForLos, clampedTargeterRange, out bool collision, out Vector3 _);
 				if (!collision)
@@ -138,7 +138,7 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 		BoardSquare boardSquare = Board.Get().GetSquare(endPos);
 		if (boardSquare != null)
 		{
-			if (boardSquare.height <= Board.Get().BaselineHeight && targetingActor.GetCurrentBoardSquare()._0013(boardSquare.x, boardSquare.y))
+			if (boardSquare.height <= Board.Get().BaselineHeight && targetingActor.GetCurrentBoardSquare().LOSDistanceIsOne_zq(boardSquare.x, boardSquare.y))
 			{
 				AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(m_indicatorHandler, endPos, crossStart, m_widthInSquares, targetingActor, m_penetrateLoS);
 				AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(m_indicatorHandler, endPos, crossEnd, m_widthInSquares, targetingActor, m_penetrateLoS);

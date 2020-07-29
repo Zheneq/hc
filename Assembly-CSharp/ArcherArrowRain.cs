@@ -117,7 +117,7 @@ public class ArcherArrowRain : Ability
 									{
 										if (!LinePenetrateLoS())
 										{
-											if (!boardSquareSafe._0013(boardSquareSafe2.x, boardSquareSafe2.y))
+											if (!boardSquareSafe.LOSDistanceIsOne_zq(boardSquareSafe2.x, boardSquareSafe2.y))
 											{
 												goto IL_0117;
 											}
