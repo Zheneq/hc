@@ -125,144 +125,112 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 		ClearActorsInRange();
 		m_hitActorContext.Clear();
 		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
-		Vector3 vector;
-		if (currentTarget == null)
-		{
-			vector = targetingActor.transform.forward;
-		}
-		else
-		{
-			vector = currentTarget.AimDirection;
-		}
-		Vector3 forwardDirection = vector;
-		float num = m_maxDistancePerBounce;
-		if (m_extraDistancePerBounceDelegate != null)
-		{
-			num += m_extraDistancePerBounceDelegate();
-		}
-		float num2 = m_maxTotalDistance;
-		if (m_extraTotalDistanceDelegate != null)
-		{
-			num2 += m_extraTotalDistanceDelegate();
-		}
-		int num3 = m_maxBounces;
-		if (m_extraBouncesDelegate != null)
-		{
-			num3 += Mathf.RoundToInt(m_extraBouncesDelegate());
-		}
-		int num4 = m_maxTargetsHit;
+		Vector3 aimDirection = currentTarget?.AimDirection ?? targetingActor.transform.forward;
+		float maxDistancePerBounce = m_maxDistancePerBounce + (m_extraDistancePerBounceDelegate != null ? m_extraDistancePerBounceDelegate() : 0f);
+		float maxTotalDistance = m_maxTotalDistance + (m_extraTotalDistanceDelegate != null ? m_extraTotalDistanceDelegate() : 0f);
+		int maxBounces = m_maxBounces + (m_extraBouncesDelegate != null ? Mathf.RoundToInt(m_extraBouncesDelegate()) : 0);
+		int maxTargetsHit = m_maxTargetsHit;
 		if (m_ability is ScoundrelBouncingLaser && CollectTheCoins.Get() != null)
 		{
-			float bonus_Client = CollectTheCoins.Get().m_bouncingLaserTotalDistance.GetBonus_Client(targetingActor);
-			float bonus_Client2 = CollectTheCoins.Get().m_bouncingLaserBounceDistance.GetBonus_Client(targetingActor);
-			int num5 = Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserBounces.GetBonus_Client(targetingActor));
-			int num6 = Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserPierces.GetBonus_Client(targetingActor));
-			num2 += bonus_Client;
-			num += bonus_Client2;
-			num3 += num5;
-			num4 += num6;
+			maxTotalDistance += CollectTheCoins.Get().m_bouncingLaserTotalDistance.GetBonus_Client(targetingActor);
+			maxDistancePerBounce += CollectTheCoins.Get().m_bouncingLaserBounceDistance.GetBonus_Client(targetingActor);
+			maxBounces += Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserBounces.GetBonus_Client(targetingActor));
+			maxTargetsHit += Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserPierces.GetBonus_Client(targetingActor));
 		}
 		bool penetrateTargetsAndHitCaster = m_penetrateTargetsAndHitCaster;
-		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors;
-		List<ActorData> orderedHitActors;
-		List<Vector3> list = VectorUtils.CalculateBouncingLaserEndpoints(travelBoardSquareWorldPositionForLos, forwardDirection, num, num2, num3, targetingActor, m_width, num4, false, GetAffectedTeams(), m_bounceOnActors, out bounceHitActors, out orderedHitActors, null, penetrateTargetsAndHitCaster);
-		if (penetrateTargetsAndHitCaster)
+		List<Vector3> endpoints = VectorUtils.CalculateBouncingLaserEndpoints(
+			travelBoardSquareWorldPositionForLos,
+			aimDirection,
+			maxDistancePerBounce,
+			maxTotalDistance,
+			maxBounces,
+			targetingActor,
+			m_width,
+			maxTargetsHit,
+			false,
+			GetAffectedTeams(),
+			m_bounceOnActors,
+			out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors,
+			out List<ActorData> orderedHitActors,
+			null,
+			penetrateTargetsAndHitCaster);
+		if (penetrateTargetsAndHitCaster && endpoints.Count > 1)
 		{
-			if (list.Count > 1)
+			float totalMaxDistanceInSquares = maxTotalDistance - (endpoints[0] - travelBoardSquareWorldPositionForLos).magnitude / Board.Get().squareSize;
+			Vector3 normalized = (endpoints[1] - endpoints[0]).normalized;
+			VectorUtils.CalculateBouncingLaserEndpoints(
+				endpoints[0],
+				normalized,
+				maxDistancePerBounce,
+				totalMaxDistanceInSquares,
+				maxBounces,
+				targetingActor,
+				m_width,
+				0,
+				false,
+				targetingActor.GetTeams(),
+				m_bounceOnActors,
+				out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> _,
+				out List<ActorData> orderedHitActors2,
+				null,
+				false,
+				false);
+			if (orderedHitActors2.Contains(targetingActor))
 			{
-				float totalMaxDistanceInSquares = num2 - (list[0] - travelBoardSquareWorldPositionForLos).magnitude / Board.Get().squareSize;
-				Vector3 normalized = (list[1] - list[0]).normalized;
-				VectorUtils.CalculateBouncingLaserEndpoints(list[0], normalized, num, totalMaxDistanceInSquares, num3, targetingActor, m_width, 0, false, targetingActor.GetTeams(), m_bounceOnActors, out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> _, out List<ActorData> orderedHitActors2, null, false, false);
-				if (orderedHitActors2.Contains(targetingActor))
-				{
-					AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Self);
-				}
+				AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Self);
 			}
 		}
-		using (Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>.Enumerator enumerator = bounceHitActors.GetEnumerator())
+		foreach (var hitActor in bounceHitActors)
 		{
-			while (enumerator.MoveNext())
+			AddActorInRange(hitActor.Key, hitActor.Value.m_segmentOrigin, targetingActor);
+			if (hitActor.Value.m_endpointIndex > 0)
 			{
-				KeyValuePair<ActorData, AreaEffectUtils.BouncingLaserInfo> current = enumerator.Current;
-				AreaEffectUtils.BouncingLaserInfo value = current.Value;
-				Vector3 segmentOrigin = value.m_segmentOrigin;
-				AreaEffectUtils.BouncingLaserInfo value2 = current.Value;
-				int endpointIndex = value2.m_endpointIndex;
-				AddActorInRange(current.Key, segmentOrigin, targetingActor);
-				if (endpointIndex > 0)
-				{
-					SetIgnoreCoverMinDist(current.Key, true);
-				}
+				SetIgnoreCoverMinDist(hitActor.Key, true);
 			}
 		}
+		
 		HitActorContext item = default(HitActorContext);
 		for (int i = 0; i < orderedHitActors.Count; i++)
 		{
-			ActorData actorData = orderedHitActors[i];
-			AreaEffectUtils.BouncingLaserInfo bouncingLaserInfo = bounceHitActors[orderedHitActors[i]];
-			int endpointIndex2 = bouncingLaserInfo.m_endpointIndex;
-			item.actor = actorData;
-			item.segmentIndex = endpointIndex2;
+			ActorData hitActor = orderedHitActors[i];
+			AreaEffectUtils.BouncingLaserInfo bouncingLaserInfo = bounceHitActors[hitActor];
+			item.actor = hitActor;
+			item.segmentIndex = bouncingLaserInfo.m_endpointIndex;
 			m_hitActorContext.Add(item);
-			ActorHitContext actorHitContext = m_actorContextVars[actorData];
+			ActorHitContext actorHitContext = m_actorContextVars[hitActor];
 			actorHitContext._001D = targetingActor.GetTravelBoardSquareWorldPositionForLos();
-			actorHitContext._0015.SetInt(TargetSelect_BouncingLaser.s_cvarEndpointIndex.GetHash(), endpointIndex2);
+			actorHitContext._0015.SetInt(TargetSelect_BouncingLaser.s_cvarEndpointIndex.GetHash(), bouncingLaserInfo.m_endpointIndex);
 			actorHitContext._0015.SetInt(TargetSelect_BouncingLaser.s_cvarHitOrder.GetHash(), i);
 		}
-		while (true)
+
+		CreateLaserHighlights(travelBoardSquareWorldPositionForLos, endpoints);
+		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			CreateLaserHighlights(travelBoardSquareWorldPositionForLos, list);
-			if (targetingActor == GameFlowData.Get().activeOwnedActorData)
-			{
-				ResetSquareIndicatorIndexToUse();
-				AreaEffectUtils.OperateOnSquaresInBounceLaser(m_indicatorHandler, travelBoardSquareWorldPositionForLos, list, m_width, targetingActor, false);
-				HideUnusedSquareIndicators();
-			}
-			if (!(m_knockbackDistance > 0f))
-			{
-				return;
-			}
-			while (true)
-			{
-				int num7 = 0;
-				EnableAllMovementArrows();
-				for (int j = 0; j < orderedHitActors.Count; j++)
-				{
-					ActorData actorData2 = orderedHitActors[j];
-					if (actorData2.GetTeam() == targetingActor.GetTeam())
-					{
-						continue;
-					}
-					if (m_maxKnockbackTargets > 0)
-					{
-						if (j >= m_maxKnockbackTargets)
-						{
-							continue;
-						}
-					}
-					float num8;
-					if (m_extraKnockdownDelegate != null)
-					{
-						num8 = m_extraKnockdownDelegate(actorData2);
-					}
-					else
-					{
-						num8 = 0f;
-					}
-					float num9 = num8;
-					AreaEffectUtils.BouncingLaserInfo bouncingLaserInfo2 = bounceHitActors[actorData2];
-					Vector3 segmentOrigin2 = bouncingLaserInfo2.m_segmentOrigin;
-					AreaEffectUtils.BouncingLaserInfo bouncingLaserInfo3 = bounceHitActors[actorData2];
-					Vector3 aimDir = list[bouncingLaserInfo3.m_endpointIndex] - segmentOrigin2;
-					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData2, m_knockbackType, aimDir, segmentOrigin2, m_knockbackDistance + num9);
-					num7 = AddMovementArrowWithPrevious(actorData2, path, TargeterMovementType.Knockback, num7);
-				}
-				while (true)
-				{
-					SetMovementArrowEnabledFromIndex(num7, false);
-					return;
-				}
-			}
+			ResetSquareIndicatorIndexToUse();
+			AreaEffectUtils.OperateOnSquaresInBounceLaser(m_indicatorHandler, travelBoardSquareWorldPositionForLos, endpoints, m_width, targetingActor, false);
+			HideUnusedSquareIndicators();
 		}
+
+		if (m_knockbackDistance > 0f)
+		{
+			int movementArrowIndex = 0;
+			EnableAllMovementArrows();
+			for (int i = 0; i < orderedHitActors.Count; i++)
+			{
+				ActorData hitActor = orderedHitActors[i];
+				if (hitActor.GetTeam() == targetingActor.GetTeam() ||
+					m_maxKnockbackTargets > 0 && i >= m_maxKnockbackTargets)
+				{
+					continue;
+				}
+				float knockbackDistance = m_knockbackDistance + (m_extraKnockdownDelegate != null ? m_extraKnockdownDelegate(hitActor) : 0f);
+				AreaEffectUtils.BouncingLaserInfo bouncingLaserInfo = bounceHitActors[hitActor];
+				Vector3 aimDir = endpoints[bouncingLaserInfo.m_endpointIndex] - bouncingLaserInfo.m_segmentOrigin;
+				BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(hitActor, m_knockbackType, aimDir, bouncingLaserInfo.m_segmentOrigin, knockbackDistance);
+				movementArrowIndex = AddMovementArrowWithPrevious(hitActor, path, TargeterMovementType.Knockback, movementArrowIndex);
+			}
+			SetMovementArrowEnabledFromIndex(movementArrowIndex, false);
+		}
+		
 	}
 }
