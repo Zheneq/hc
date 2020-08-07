@@ -135,6 +135,7 @@ public class BarrierManager : NetworkBehaviour
 		}
 		else
 		{
+			Log.Info($"New barrier: by {barrierToAdd.Caster.DisplayName} at {barrierToAdd.GetCenterPos()} ({barrierToAdd.GetEndPos1()}, {barrierToAdd.GetEndPos2()})");
 			m_barriers.Add(barrierToAdd);
 			if (NetworkServer.active)
 			{
@@ -508,6 +509,7 @@ public class BarrierManager : NetworkBehaviour
 	[ClientRpc]
 	private void RpcUpdateBarriers()
 	{
+		Log.Info("BarrierManager.RpcUpdateBarriers");
 		if (NetworkServer.active)
 		{
 			return;
