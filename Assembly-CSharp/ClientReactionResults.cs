@@ -11,11 +11,11 @@ public class ClientReactionResults
 		TriggerOnFirstDamageOnReactionCaster = 4
 	}
 
-	private ClientEffectResults m_effectResults;
+	public ClientEffectResults m_effectResults;
 
-	private List<ServerClientUtils.SequenceStartData> m_seqStartDataList;
+	public List<ServerClientUtils.SequenceStartData> m_seqStartDataList;
 
-	private byte m_extraFlags;
+	public byte m_extraFlags;
 
 	private bool m_playedReaction;
 

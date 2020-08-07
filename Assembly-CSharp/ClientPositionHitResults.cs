@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class ClientPositionHitResults
 {
-	private List<ClientEffectStartData> m_effectsToStart;
+	public List<ClientEffectStartData> m_effectsToStart;
 
-	private List<ClientBarrierStartData> m_barriersToStart;
+	public List<ClientBarrierStartData> m_barriersToStart;
 
-	private List<int> m_effectsToRemove;
+	public List<int> m_effectsToRemove;
 
-	private List<int> m_barriersToRemove;
+	public List<int> m_barriersToRemove;
 
-	private List<ServerClientUtils.SequenceEndData> m_sequencesToEnd;
+	public List<ServerClientUtils.SequenceEndData> m_sequencesToEnd;
 
-	private List<ClientMovementResults> m_reactionsOnPosHit;
+	public List<ClientMovementResults> m_reactionsOnPosHit;
 
 	public bool ExecutedHit
 	{
@@ -30,59 +30,6 @@ public class ClientPositionHitResults
 		m_sequencesToEnd = AbilityResultsUtils.DeSerializeSequenceEndDataListFromStream(ref stream);
 		m_reactionsOnPosHit = AbilityResultsUtils.DeSerializeClientMovementResultsListFromStream(ref stream);
 		ExecutedHit = false;
-	}
-
-	public string Json()
-	{
-		string effectsTS = "";
-		if (!m_effectsToStart.IsNullOrEmpty())
-		{
-			foreach (var e in m_effectsToStart)
-			{
-				effectsTS += (effectsTS.Length == 0 ? "" : ",\n") + e.Json();
-			}
-		}
-		string barriersTS = "";
-		if (!m_barriersToStart.IsNullOrEmpty())
-		{
-			foreach (var e in m_barriersToStart)
-			{
-				barriersTS += (barriersTS.Length == 0 ? "" : ",\n") + e.Json();
-			}
-		}
-		string effectsTR = "";
-		if (!m_effectsToRemove.IsNullOrEmpty())
-		{
-			foreach (int e in m_effectsToRemove)
-			{
-				effectsTR += (effectsTR.Length == 0 ? "" : ", ") + e;
-			}
-		}
-		string barriersTR = "";
-		if (!m_barriersToRemove.IsNullOrEmpty())
-		{
-			foreach (int e in m_barriersToRemove)
-			{
-				barriersTR += (barriersTR.Length == 0 ? "" : ", ") + e;
-			}
-		}
-		string seqTE = "";
-		if (!m_sequencesToEnd.IsNullOrEmpty())
-		{
-			foreach (var e in m_sequencesToEnd)
-			{
-				seqTE += (seqTE.Length == 0 ? "" : ",\n") + e.Json();
-			}
-		}
-
-		return $"{{" +
-			$"\"m_effectsToStart\": [{effectsTS}], " +
-			$"\"m_barriersToStart\": [{barriersTS}], " +
-			$"\"m_effectsToRemove\": [{effectsTR}], " +
-			$"\"m_barriersToRemove\": [{barriersTR}], " +
-			$"\"m_sequencesToEnd\": [{seqTE}], " +
-			$"\"m_reactionsOnPosHit\": \"???\"" +
-			$"}}";
 	}
 
 	public void ExecutePositionHit()

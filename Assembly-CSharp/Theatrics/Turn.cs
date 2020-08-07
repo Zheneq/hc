@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 
 namespace Theatrics
 {
-	internal class Turn
+	public class Turn
 	{
 		internal List<Phase> m_abilityPhases = new List<Phase>((int)AbilityPriority.NumAbilityPriorities);
 		private int m_phaseIndex = -1;
@@ -41,7 +41,7 @@ namespace Theatrics
 				$"\"phases\": [{phases}]" +
 				$"}}";
 		}
-
+		
 		internal void OnSerializeHelper(IBitStream stream)
 		{
 			int turnID = TurnID;

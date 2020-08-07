@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace Theatrics
 {
-	internal class Phase
+	public class Phase
 	{
 		internal List<ActorAnimation> m_actorAnimations = new List<ActorAnimation>();
 		private Dictionary<int, int> m_hitActorIndexToDeltaHP = new Dictionary<int, int>();
@@ -129,50 +129,6 @@ namespace Theatrics
 				}
 			}
 			return false;
-		}
-
-		public string Json()
-		{
-			string anims = "";
-			if (!animations.IsNullOrEmpty())
-			{
-				foreach (var e in animations)
-				{
-					anims += (anims.Length == 0 ? "" : ",\n") + e.Json();
-				}
-			}
-			string parts = "";
-			if (!participants.IsNullOrEmpty())
-			{
-				foreach (var e in participants)
-				{
-					parts += (parts.Length == 0 ? "" : ", ") + e;
-				}
-			}
-			string delta = "";
-			if (!actorIndexToDeltaHP.IsNullOrEmpty())
-			{
-				foreach (var e in actorIndexToDeltaHP)
-				{
-					delta += (delta.Length == 0 ? "" : ", ") + $"[{e.Key}, {e.Value}]";
-				}
-			}
-			string knockback = "";
-			if (!_0015_ActorIndexToKnockback.IsNullOrEmpty())
-			{
-				foreach (var e in _0015_ActorIndexToKnockback)
-				{
-					knockback += (knockback.Length == 0 ? "" : ", ") + $"[{e.Key}, {e.Value}]";
-				}
-			}
-
-			return $"{{" +
-				$"\"index\": \"{Index}\"," +
-				$"\"participants\": [{parts}]," +
-				$"\"actorIndexToDeltaHP\": [{delta}]," +
-				$"\"actorIndexToKnockback\": [{knockback}]," +
-				$"\"animations\": [{anims}]" +
-				$"}}";
 		}
 
 		internal void OnSerializeHelper(IBitStream stream)

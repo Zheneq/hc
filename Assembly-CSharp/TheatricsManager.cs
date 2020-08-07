@@ -224,7 +224,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 		m_turn.OnSerializeHelper(stream);
 
-		Log.Info($"TheatricsManager replicated. Turn to update: {m_turnToUpdate} ({updatedTurn}), phase to update: {m_phaseToUpdate} ({updatedPhase})\n{m_turn.Json()}");
+		Log.Info($"TheatricsManager replicated. Turn to update: {m_turnToUpdate} ({updatedTurn}), phase to update: {m_phaseToUpdate} ({updatedPhase})\n{DefaultJsonSerializer.Serialize(m_turn)}");
 
 		if (updatedPhase)
 		{

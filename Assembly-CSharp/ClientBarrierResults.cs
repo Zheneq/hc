@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class ClientBarrierResults
 {
-	private int m_barrierGUID;
+	public int m_barrierGUID;
 
-	private ActorData m_barrierCaster;
+	public ActorData m_barrierCaster;
 
-	private Dictionary<ActorData, ClientActorHitResults> m_actorToHitResults;
+	public Dictionary<ActorData, ClientActorHitResults> m_actorToHitResults;
 
-	private Dictionary<Vector3, ClientPositionHitResults> m_posToHitResults;
+	public Dictionary<Vector3, ClientPositionHitResults> m_posToHitResults;
 
 	public ClientBarrierResults(int barrierGUID, ActorData barrierCaster, Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> posToHitResults)
 	{

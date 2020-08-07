@@ -1,82 +1,84 @@
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ClientActorHitResults
 {
-	private bool m_hasDamage;
+	public bool m_hasDamage;
 
-	private bool m_hasHealing;
+	public bool m_hasHealing;
 
-	private bool m_hasTechPointGain;
+	public bool m_hasTechPointGain;
 
-	private bool m_hasTechPointLoss;
+	public bool m_hasTechPointLoss;
 
-	private bool m_hasTechPointGainOnCaster;
+	public bool m_hasTechPointGainOnCaster;
 
 	private bool m_hasKnockback;
 
 	private ActorData m_knockbackSourceActor;
 
-	private int m_finalDamage;
+	public int m_finalDamage;
 
-	private int m_finalHealing;
+	public int m_finalHealing;
 
-	private int m_finalTechPointsGain;
+	public int m_finalTechPointsGain;
 
-	private int m_finalTechPointsLoss;
+	public int m_finalTechPointsLoss;
 
-	private int m_finalTechPointGainOnCaster;
+	public int m_finalTechPointGainOnCaster;
 
-	private bool m_damageBoosted;
+	public bool m_damageBoosted;
 
-	private bool m_damageReduced;
+	public bool m_damageReduced;
 
-	private bool m_isPartOfHealOverTime;
+	public bool m_isPartOfHealOverTime;
 
-	private bool m_updateCasterLastKnownPos;
+	public bool m_updateCasterLastKnownPos;
 
-	private bool m_updateTargetLastKnownPos;
+	public bool m_updateTargetLastKnownPos;
 
-	private bool m_triggerCasterVisOnHitVisualOnly;
+	public bool m_triggerCasterVisOnHitVisualOnly;
 
-	private bool m_updateEffectHolderLastKnownPos;
+	public bool m_updateEffectHolderLastKnownPos;
 
-	private ActorData m_effectHolderActor;
+	public ActorData m_effectHolderActor;
 
-	private bool m_updateOtherLastKnownPos;
+	public bool m_updateOtherLastKnownPos;
 
-	private List<ActorData> m_otherActorsToUpdateVisibility;
+	public List<ActorData> m_otherActorsToUpdateVisibility;
 
-	private bool m_targetInCoverWrtDamage;
+	public bool m_targetInCoverWrtDamage;
 
-	private Vector3 m_damageHitOrigin;
+	public Vector3 m_damageHitOrigin;
 
-	private bool m_canBeReactedTo;
+	public bool m_canBeReactedTo;
 
-	private bool m_isCharacterSpecificAbility;
+	public bool m_isCharacterSpecificAbility;
 
-	private List<ClientEffectStartData> m_effectsToStart;
+	public List<ClientEffectStartData> m_effectsToStart;
 
-	private List<int> m_effectsToRemove;
+	public List<int> m_effectsToRemove;
 
-	private List<ClientBarrierStartData> m_barriersToAdd;
+	public List<ClientBarrierStartData> m_barriersToAdd;
 
-	private List<int> m_barriersToRemove;
+	public List<int> m_barriersToRemove;
 
-	private List<ServerClientUtils.SequenceEndData> m_sequencesToEnd;
+	public List<ServerClientUtils.SequenceEndData> m_sequencesToEnd;
 
-	private List<ClientReactionResults> m_reactions;
+	public List<ClientReactionResults> m_reactions;
 
-	private List<int> m_powerupsToRemove;
+	public List<int> m_powerupsToRemove;
 
-	private List<ClientPowerupStealData> m_powerupsToSteal;
+	public List<ClientPowerupStealData> m_powerupsToSteal;
 
-	private List<ClientMovementResults> m_directPowerupHits;
+	public List<ClientMovementResults> m_directPowerupHits;
 
-	private List<ClientGameModeEvent> m_gameModeEvents;
+	public List<ClientGameModeEvent> m_gameModeEvents;
 
-	private List<int> m_overconIds;
+	public List<int> m_overconIds;
 
+	[JsonIgnore]
 	public bool ExecutedHit
 	{
 		get;

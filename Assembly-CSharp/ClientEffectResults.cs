@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class ClientEffectResults
 {
-	private int m_effectGUID;
+	public int m_effectGUID;
 
-	private ActorData m_effectCaster;
+	public ActorData m_effectCaster;
 
-	private AbilityData.ActionType m_sourceAbilityActionType;
+	public AbilityData.ActionType m_sourceAbilityActionType;
 
-	private List<ServerClientUtils.SequenceStartData> m_seqStartDataList;
+	public List<ServerClientUtils.SequenceStartData> m_seqStartDataList;
 
-	private Dictionary<ActorData, ClientActorHitResults> m_actorToHitResults;
+	public Dictionary<ActorData, ClientActorHitResults> m_actorToHitResults;
 
-	private Dictionary<Vector3, ClientPositionHitResults> m_posToHitResults;
+	public Dictionary<Vector3, ClientPositionHitResults> m_posToHitResults;
 
 	public ClientEffectResults(int effectGUID, ActorData effectCaster, AbilityData.ActionType sourceAbilityActionType, List<ServerClientUtils.SequenceStartData> seqStartDataList, Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> posToHitResults)
 	{

@@ -176,50 +176,6 @@ namespace Theatrics
 			return PlayState == PlaybackState.CantBeStarted;
 		}
 
-		public string Json()
-		{
-			string _000C_X_0014_Z = "";
-			if (!_000C_X.IsNullOrEmpty())
-			{
-				for (int i = 0; i < _000C_X.Count; ++i)
-				{
-					_000C_X_0014_Z += (i == 0 ? "" : ", ") + $"[{_000C_X[i]}, {_0014_Z[i]}]";
-				}
-			}
-			string hitActors = "";
-			if (!HitActorsToDeltaHP.IsNullOrEmpty())
-			{
-				foreach (var e in HitActorsToDeltaHP)
-				{
-					hitActors += (hitActors.Length == 0 ? "" : ", ") + $"[\"{e.Key.DisplayName}\", {e.Value}]";
-				}
-			}
-			GridPos actorSquare = Actor?.CurrentBoardSquare?.GetGridPos() ?? new GridPos(-1, -1, 0);
-			GridPos targetSquare = Board.Get().GetSquare(targetPos)?.GetGridPos() ?? new GridPos(-1, -1, 0);
-			return $"{{" +
-				$"\"animationIndex\": {animationIndex}, " +
-				$"\"actionType\": \"{actionType}\", " +
-				$"\"targetPos\": {targetPos}, " +
-				$"\"actor\": \"{Actor?.DisplayName ?? "none"}\", " +
-				$"\"_actorSquare\": [{actorSquare.x}, {actorSquare.y}], " +
-				$"\"_targetSquare\": [{targetSquare.x}, {targetSquare.y}], " +
-				$"\"actorIndex\": {Actor?.ActorIndex ?? ActorData.s_invalidActorIndex}, " +
-				$"\"cinematicCamera\": {cinematicCamera}, " +
-				$"\"tauntNumber\": {tauntNumber}, " +
-				$"\"_0013\": {_0013}, " +
-				$"\"_0018\": {_0018}, " +
-				$"\"reveal\": {_0009_Reveal}, " +
-				$"\"_0015\": {_0015}, " +
-				$"\"playOrderIndex\": {playOrderIndex}, " +
-				$"\"groupIndex\": {groupIndex}, " +
-				$"\"bounds\": {{\"center\": {Bound.center}, \"size\": {Bound.size}}}, " +
-				$"\"_000C_X_0014_Z\": [{_000C_X_0014_Z}], " +
-				$"\"hitActorsToDeltaHP\": [{hitActors}], " +
-				$"\"seqSource\": {SeqSource?.Json() ?? "none"}, " +
-				$"\"parentAbilitySeqSource\": {ParentAbilitySeqSource?.Json() ?? "none"}" +
-				$"}}";
-		}
-
 		internal void OnSerializeHelper(IBitStream stream)
 		{
 			sbyte _animationIndex = (sbyte)m_animationIndex;

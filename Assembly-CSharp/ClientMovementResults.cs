@@ -11,13 +11,13 @@ public class ClientMovementResults
 
 	private bool m_alreadyReacted;
 
-	private ClientEffectResults m_effectResults;
+	public ClientEffectResults m_effectResults;
 
-	private ClientBarrierResults m_barrierResults;
+	public ClientBarrierResults m_barrierResults;
 
-	private ClientAbilityResults m_powerupResults;
+	public ClientAbilityResults m_powerupResults;
 
-	private ClientAbilityResults m_gameModeResults;
+	public ClientAbilityResults m_gameModeResults;
 
 	public ClientMovementResults(ActorData triggeringMover, BoardSquarePathInfo triggeringPath, List<ServerClientUtils.SequenceStartData> seqStartDataList, ClientEffectResults effectResults, ClientBarrierResults barrierResults, ClientAbilityResults powerupResults, ClientAbilityResults gameModeResults)
 	{

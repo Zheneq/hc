@@ -16,24 +16,6 @@ public class ClientBarrierStartData
 		m_barrierGameplayInfo = gameplayInfo;
 	}
 
-	public string Json()
-	{
-		string seqStarts = "";
-		if (!m_sequenceStartDataList.IsNullOrEmpty())
-		{
-			foreach (var e in m_sequenceStartDataList)
-			{
-				seqStarts += (seqStarts.Length == 0 ? "" : ",\n") + e.Json();
-			}
-		}
-		
-		return $"{{" +
-			$"\"barrierGUID\": {m_barrierGUID}, " +
-			$"\"seqStartDataList\": [{seqStarts}], " +
-			$"\"BarrierSerializeInfo\": \"???\"" +
-			$"}}";
-	}
-
 	public void ExecuteBarrierStart()
 	{
 		using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = m_sequenceStartDataList.GetEnumerator())

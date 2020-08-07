@@ -201,11 +201,6 @@ public abstract class Sequence : MonoBehaviour
 				this
 			};
 		}
-
-		public virtual string Json()
-		{
-			return "???";
-		}
 	}
 
 	public class PhaseTimingExtraParams : IExtraSequenceParams

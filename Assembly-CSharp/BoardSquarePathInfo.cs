@@ -34,8 +34,8 @@ public class BoardSquarePathInfo : IComparable
 	public BoardSquare square;
 	public float moveCost;
 	public float heuristicCost;
-	public BoardSquarePathInfo prev;
-	public BoardSquarePathInfo next;
+	internal BoardSquarePathInfo prev;
+	internal BoardSquarePathInfo next;
 	public bool m_unskippable;
 	public bool m_reverse;
 	public bool m_visibleToEnemies;

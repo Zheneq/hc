@@ -12,7 +12,7 @@ public class SequenceSource
 
 	private static Dictionary<uint, List<SequenceSource>> s_idsToSrcs = new Dictionary<uint, List<SequenceSource>>();
 
-	private uint _rootID;
+	public uint _rootID;
 
 	private ActorDelegate m_onHitActor;
 
@@ -56,13 +56,13 @@ public class SequenceSource
 		}
 	}
 
-	internal bool RemoveAtEndOfTurn
+	public bool RemoveAtEndOfTurn
 	{
 		get;
 		set;
 	}
 
-	internal bool WaitForClientEnable
+	public bool WaitForClientEnable
 	{
 		get;
 		private set;
