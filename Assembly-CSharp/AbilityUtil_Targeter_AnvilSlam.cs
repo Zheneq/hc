@@ -43,7 +43,7 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 		Vector3 vector2 = vector;
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
 		laserCoords.start = travelBoardSquareWorldPositionForLos;
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, vector2, m_dashRangeInSquares, m_dashWidthInSquares, targetingActor, targetingActor.GetOpposingTeams(), false, 1, false, false, out laserCoords.end, null);
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, vector2, m_dashRangeInSquares, m_dashWidthInSquares, targetingActor, targetingActor.GetEnemyTeams(), false, 1, false, false, out laserCoords.end, null);
 		Vector3 a;
 		if (actorsInLaser.Count > 0)
 		{

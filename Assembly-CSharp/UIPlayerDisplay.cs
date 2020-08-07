@@ -456,7 +456,7 @@ public class UIPlayerDisplay : MonoBehaviour
 					}
 				}
 			}
-			playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetOpposingTeam());
+			playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetEnemyTeam());
 			num = 0;
 			using (List<ActorData>.Enumerator enumerator2 = playerAndBotTeamMembers.GetEnumerator())
 			{

@@ -45,7 +45,7 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 		}
 		Vector3 vec = vector;
 		float num = VectorUtils.HorizontalAngle_Deg(vec);
-		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(travelBoardSquareWorldPositionForLos, num, m_coneAngleDegrees, m_coneLengthRadiusInSquares, m_coneBackwardOffsetInSquares, m_conePenetrateLoS, targetingActor, targetingActor.GetOpposingTeam(), null);
+		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(travelBoardSquareWorldPositionForLos, num, m_coneAngleDegrees, m_coneLengthRadiusInSquares, m_coneBackwardOffsetInSquares, m_conePenetrateLoS, targetingActor, targetingActor.GetEnemyTeam(), null);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 		{

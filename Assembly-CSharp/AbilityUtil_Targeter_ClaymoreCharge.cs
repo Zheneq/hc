@@ -75,10 +75,10 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		float magnitude = (laserEndPoint - travelBoardSquareWorldPositionForLos).magnitude;
 		magnitude = ClaymoreCharge.GetMaxPotentialChargeDistance(travelBoardSquareWorldPositionForLos, laserEndPoint, currentTarget.AimDirection, magnitude, targetingActor, out BoardSquare pathEndSquare);
 		BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, pathEndSquare, targetingActor.GetCurrentBoardSquare(), true);
-		List<ActorData> actors = ClaymoreCharge.GetActorsOnPath(path, targetingActor.GetOpposingTeams(), targetingActor);
+		List<ActorData> actors = ClaymoreCharge.GetActorsOnPath(path, targetingActor.GetEnemyTeams(), targetingActor);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		Vector3 laserEndPos;
-		List<ActorData> actors2 = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, m_dashWidthInSquares, targetingActor, targetingActor.GetOpposingTeams(), false, 1, true, false, out laserEndPos, null);
+		List<ActorData> actors2 = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, m_dashWidthInSquares, targetingActor, targetingActor.GetEnemyTeams(), false, 1, true, false, out laserEndPos, null);
 		actors2.AddRange(actors);
 		TargeterUtils.SortActorsByDistanceToPos(ref actors2, travelBoardSquareWorldPositionForLos);
 		BoardSquare boardSquare = null;
@@ -95,7 +95,7 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 			BoardSquare chargeDestination = GetChargeDestination(targetingActor, actors2[0].GetCurrentBoardSquare(), pathToDesired);
 			if (chargeDestination != null)
 			{
-				List<ActorData> actors3 = AreaEffectUtils.GetActorsInShape(m_aoeShape, chargeDestination.ToVector3(), chargeDestination, false, targetingActor, targetingActor.GetOpposingTeam(), null);
+				List<ActorData> actors3 = AreaEffectUtils.GetActorsInShape(m_aoeShape, chargeDestination.ToVector3(), chargeDestination, false, targetingActor, targetingActor.GetEnemyTeam(), null);
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actors3);
 				using (List<ActorData>.Enumerator enumerator = actors3.GetEnumerator())
 				{

@@ -106,7 +106,7 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 			}
 			goto IL_0165;
 			IL_0165:
-			bool flag = targetingActor.TechPoints >= targetingActor.GetActualMaxTechPoints();
+			bool flag = targetingActor.TechPoints >= targetingActor.GetMaxTechPoints();
 			m_highlights[0].SetActive(!flag);
 			m_highlights[1].SetActive(flag);
 			AbilityAreaShape shape = (!flag) ? m_shapeLowEnergy : m_shapeFullEnergy;

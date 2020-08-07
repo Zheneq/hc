@@ -1019,7 +1019,7 @@ public class AbilityData : NetworkBehaviour
 					return;
 				}
 			}
-			LocalizationArg_AbilityPing localizedPing = LocalizationArg_AbilityPing.Create(this.m_actor.m_characterType, ability, selectable, Mathf.Max(this.GetAbilityEntryOfActionType(actionType).GetCooldownRemaining(), this.GetTurnsTillUnlock(actionType)), actionType == AbilityData.ActionType.ABILITY_4, this.m_actor.GetEnergyToDisplay(), this.m_actor.GetActualMaxTechPoints());
+			LocalizationArg_AbilityPing localizedPing = LocalizationArg_AbilityPing.Create(this.m_actor.m_characterType, ability, selectable, Mathf.Max(this.GetAbilityEntryOfActionType(actionType).GetCooldownRemaining(), this.GetTurnsTillUnlock(actionType)), actionType == AbilityData.ActionType.ABILITY_4, this.m_actor.GetEnergyToDisplay(), this.m_actor.GetMaxTechPoints());
 			this.m_actor.SendAbilityPingRequestToServer((int)this.m_actor.GetTeam(), localizedPing);
 			this.m_lastPingSendTime = Time.time;
 		}
@@ -2783,7 +2783,7 @@ public class AbilityData : NetworkBehaviour
 				{
 					if (AbilityUtils.AbilityHasTag(abilityOfActionType, AbilityTags.IgnoreCooldownIfFullEnergy))
 					{
-						flag2 = (actor.TechPoints + actor.ReservedTechPoints >= actor.GetActualMaxTechPoints());
+						flag2 = (actor.TechPoints + actor.ReservedTechPoints >= actor.GetMaxTechPoints());
 					}
 				}
 			}

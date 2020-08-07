@@ -439,7 +439,7 @@ public static class GameplayUtils
 		MatchResultsStatline matchResultsStatline = new MatchResultsStatline();
 		matchResultsStatline.Actor = actorData;
 		matchResultsStatline.PlayerId = lobbyPlayerInfoId;
-		matchResultsStatline.DisplayName = actorData.GetFancyDisplayName();
+		matchResultsStatline.DisplayName = actorData.GetDisplayNameForLog();
 		matchResultsStatline.Character = actorData.m_characterType;
 		matchResultsStatline.IsPerspective = (lobbyPlayerInfoId == perspectivePlayerId);
 		matchResultsStatline.IsAlly = (perspectiveTeam == actorData.GetTeam());
@@ -464,7 +464,7 @@ public static class GameplayUtils
 			humanReplacedByBot = 0;
 		}
 		matchResultsStatline.HumanReplacedByBot = ((byte)humanReplacedByBot != 0);
-		matchResultsStatline.AccountID = actorData.GetAccountIdWithSomeConditionB_zq();
+		matchResultsStatline.AccountID = actorData.GetAccountId();
 		int titleID;
 		if (lobbyPlayerInfo != null)
 		{

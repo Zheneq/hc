@@ -150,7 +150,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 					vector3 = boardSquare2.ToVector3();
 				}
 				float num2 = VectorUtils.HorizontalAngle_Deg(vector);
-				List<ActorData> actors = AreaEffectUtils.GetActorsInCone(vector3, num2, m_coneWidth, m_coneLength, 0f, false, targetingActor, targetingActor.GetOpposingTeam(), null);
+				List<ActorData> actors = AreaEffectUtils.GetActorsInCone(vector3, num2, m_coneWidth, m_coneLength, 0f, false, targetingActor, targetingActor.GetEnemyTeam(), null);
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 				using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 				{
@@ -191,7 +191,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 			if (boardSquare4 != null)
 			{
 				float num3 = VectorUtils.HorizontalAngle_Deg(vector5);
-				List<ActorData> actors2 = AreaEffectUtils.GetActorsInCone(coneStartPos, num3, m_throughWallConeWidth, m_throughWallConeLength, 0f, false, targetingActor, targetingActor.GetOpposingTeam(), null);
+				List<ActorData> actors2 = AreaEffectUtils.GetActorsInCone(coneStartPos, num3, m_throughWallConeWidth, m_throughWallConeLength, 0f, false, targetingActor, targetingActor.GetEnemyTeam(), null);
 				if (actors2 != null)
 				{
 					TargeterUtils.RemoveActorsInvisibleToClient(ref actors2);
@@ -301,7 +301,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 
 	private List<ActorData> GetChargeHitActors(Vector3 aimDir, Vector3 startPos, ActorData caster, out Vector3 chargeEndPoint, out bool traveledFullDistance)
 	{
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(startPos, aimDir, m_dashRangeInSquares, m_dashWidthInSquares, caster, caster.GetOpposingTeams(), false, 1, false, false, out chargeEndPoint, null, null, true);
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(startPos, aimDir, m_dashRangeInSquares, m_dashWidthInSquares, caster, caster.GetEnemyTeams(), false, 1, false, false, out chargeEndPoint, null, null, true);
 		float num = (m_dashRangeInSquares - 0.25f) * Board.Get().squareSize;
 		traveledFullDistance = ((startPos - chargeEndPoint).magnitude >= num);
 		return actorsInLaser;

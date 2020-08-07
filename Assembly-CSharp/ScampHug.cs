@@ -248,14 +248,14 @@ public class ScampHug : Ability
 					laserEndPoint = travelBoardSquareWorldPositionForLos + d * currentTarget.AimDirection;
 					float magnitude = (laserEndPoint - travelBoardSquareWorldPositionForLos).magnitude;
 					Vector3 laserEndPos;
-					List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, knockbackWidth, caster, caster.GetOpposingTeams(), true, 1, true, includeInvisibles, out laserEndPos, null);
+					List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, knockbackWidth, caster, caster.GetEnemyTeams(), true, 1, true, includeInvisibles, out laserEndPos, null);
 					if (actorsInLaser.Count > 0)
 					{
 						firstHitActor = actorsInLaser[0];
 						BoardSquare currentBoardSquare = firstHitActor.GetCurrentBoardSquare();
 						if (currentBoardSquare != null)
 						{
-							aoeHitActors = AreaEffectUtils.GetActorsInShape(aoeShape, currentBoardSquare.ToVector3(), currentBoardSquare, false, caster, caster.GetOpposingTeam(), null);
+							aoeHitActors = AreaEffectUtils.GetActorsInShape(aoeShape, currentBoardSquare.ToVector3(), currentBoardSquare, false, caster, caster.GetEnemyTeam(), null);
 							if (!includeInvisibles)
 							{
 								TargeterUtils.RemoveActorsInvisibleToClient(ref aoeHitActors);
@@ -304,7 +304,7 @@ public class ScampHug : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		if (boardSquareSafe != null)
 		{
-			aoeHitActors = AreaEffectUtils.GetActorsInShape(aoeShape, boardSquareSafe.ToVector3(), boardSquareSafe, false, caster, caster.GetOpposingTeam(), null);
+			aoeHitActors = AreaEffectUtils.GetActorsInShape(aoeShape, boardSquareSafe.ToVector3(), boardSquareSafe, false, caster, caster.GetEnemyTeam(), null);
 			if (!includeInvisibles)
 			{
 				TargeterUtils.RemoveActorsInvisibleToClient(ref aoeHitActors);

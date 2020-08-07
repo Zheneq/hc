@@ -39,7 +39,7 @@ public class NPCBrain_Tutorial : NPCBrain
 	public bool IsPlayerInLoS()
 	{
 		ActorData component = GetComponent<ActorData>();
-		bool flag = component.IsVisibleToOpposingTeam();
+		bool flag = component.IsVisibleToEnemyTeam();
 		ActorData localPlayer = SinglePlayerManager.Get().GetLocalPlayer();
 		if (localPlayer == null)
 		{

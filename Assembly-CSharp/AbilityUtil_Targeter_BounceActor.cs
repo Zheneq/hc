@@ -135,7 +135,7 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 		bool bounceOnActors = (byte)num != 0;
 		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors;
 		List<ActorData> orderedHitActors;
-		List<Vector3> laserAnglePoints = VectorUtils.CalculateBouncingActorEndpoints(travelBoardSquareWorldPositionForLos, forwardDirection, m_maxDistancePerBounce, m_maxTotalDistance, m_maxBounces, targetingActor, bounceOnActors, m_width, targetingActor.GetOpposingTeams(), m_maxTargetsHit, out bounceHitActors, out orderedHitActors, false, null);
+		List<Vector3> laserAnglePoints = VectorUtils.CalculateBouncingActorEndpoints(travelBoardSquareWorldPositionForLos, forwardDirection, m_maxDistancePerBounce, m_maxTotalDistance, m_maxBounces, targetingActor, bounceOnActors, m_width, targetingActor.GetEnemyTeams(), m_maxTargetsHit, out bounceHitActors, out orderedHitActors, false, null);
 		ClearActorsInRange();
 		m_hitActorContext.Clear();
 		using (Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>.Enumerator enumerator = bounceHitActors.GetEnumerator())

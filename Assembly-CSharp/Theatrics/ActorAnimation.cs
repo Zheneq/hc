@@ -546,7 +546,7 @@ namespace Theatrics
 				if (NetworkClient.active &&
 					GameFlowData.Get() != null &&
 					GameFlowData.Get().LocalPlayerData != null &&
-					Actor.SomeVisibilityCheckB_zq(GameFlowData.Get().LocalPlayerData))
+					Actor.IsHidden(GameFlowData.Get().LocalPlayerData))
 				{
 					return true;
 				}

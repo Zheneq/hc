@@ -15,7 +15,7 @@ namespace AbilityContextNamespace
 		{
 			if (m_contextKey == 0)
 			{
-				m_contextKey = ContextVars.GetHash(m_contextName);
+				m_contextKey = ContextVars.GetKey(m_contextName);
 			}
 			return m_contextKey;
 		}

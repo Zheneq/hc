@@ -108,7 +108,7 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 				vector2 = boardSquare.ToVector3();
 				vector3 = AreaEffectUtils.GetCenterOfShape(m_bombInfo.shape, vector2, boardSquare);
 			}
-			List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_bombInfo.shape, vector3, boardSquare, false, targetingActor, targetingActor.GetOpposingTeam(), null);
+			List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_bombInfo.shape, vector3, boardSquare, false, targetingActor, targetingActor.GetEnemyTeam(), null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 			Vector3 damageOrigin = vector3;
 			foreach (ActorData item in actors)

@@ -87,7 +87,7 @@ public class IceborgIcicle : GenericAbility_Container
 							ActorData key = current.Key;
 							if (key.GetTeam() != caster.GetTeam())
 							{
-								if (current.Value._0012)
+								if (current.Value.inRange)
 								{
 									if (m_syncComp.HasNovaCore(key))
 									{

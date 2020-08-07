@@ -138,7 +138,7 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 						flag = true;
 						flag2 = false;
 					}
-					else if (TeamsMatchForCase(GameFlowData.Get().LocalPlayerData.GetTeamViewing(), flagCarrier.GetOpposingTeam()))
+					else if (TeamsMatchForCase(GameFlowData.Get().LocalPlayerData.GetTeamViewing(), flagCarrier.GetEnemyTeam()))
 					{
 						flag = false;
 						flag2 = true;

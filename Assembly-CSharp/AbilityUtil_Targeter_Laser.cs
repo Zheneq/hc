@@ -177,9 +177,9 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 				item.squaresFromCaster = num2;
 				m_hitActorContext.Add(item);
 				ActorHitContext actorHitContext = m_actorContextVars[current];
-				actorHitContext._001D = laserCoords.start;
-				actorHitContext._0015.SetInt(ContextKeys._0011.GetHash(), num);
-				actorHitContext._0015.SetFloat(ContextKeys._0018.GetHash(), num2);
+				actorHitContext.source = laserCoords.start;
+				actorHitContext.context.SetInt(ContextKeys._0011.GetKey(), num);
+				actorHitContext.context.SetFloat(ContextKeys._0018.GetKey(), num2);
 				num++;
 			}
 		}

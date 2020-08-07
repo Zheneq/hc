@@ -258,7 +258,7 @@ public class Board : MonoBehaviour, IGameEventListener
 				PlayerFreePos = ControlpadGameplay.Get().ControllerAimPos;
 			}
 			PlayerFreeSquare = GetSquare(PlayerFreePos);
-			PlayerFreeCornerPos = _000E(PlayerFreePos, PlayerFreeSquare);
+			PlayerFreeCornerPos = SnapToCorner(PlayerFreePos, PlayerFreeSquare);
 			RecalcClampedSelections();
 			HighlightUtils.Get().UpdateCursorPositions();
 			HighlightUtils.Get().UpdateRangeIndicatorHighlight();
@@ -278,31 +278,22 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 	}
 
-	public static Vector3 _000E(Vector3 _001D, BoardSquare _000E)
+	public static Vector3 SnapToCorner(Vector3 pos, BoardSquare square)
 	{
-		float num = SquareSizeStatic / 2f;
+		float half = SquareSizeStatic / 2f;
 		float x;
 		float z;
-		if (_000E == null)
+		if (square == null)
 		{
-			x = _001D.x;
-			z = _001D.z;
+			x = pos.x;
+			z = pos.z;
 		}
 		else
 		{
-			float worldX = _000E.worldX;
-			if (_001D.x > worldX)
-			{
-				x = worldX + num;
-			}
-			else
-			{
-				x = worldX - num;
-			}
-			float worldY = _000E.worldY;
-			z = ((!(_001D.z > worldY)) ? (worldY - num) : (worldY + num));
+			x = (pos.x > square.worldX) ? (square.worldX + half) : (square.worldX - half);
+			z = (pos.z > square.worldY) ? (square.worldY + half) : (square.worldY - half);
 		}
-		return new Vector3(x, _001D.y, z);
+		return new Vector3(x, pos.y, z);
 	}
 
 	public void MarkForUpdateValidSquares(bool value = true)
@@ -359,7 +350,7 @@ public class Board : MonoBehaviour, IGameEventListener
 		IL_021f:
 		PlayerClampedPos = vector;
 		PlayerClampedSquare = boardSquare;
-		PlayerClampedCornerPos = _000E(vector, boardSquare);
+		PlayerClampedCornerPos = SnapToCorner(vector, boardSquare);
 		return;
 		IL_010e:
 		if (squaresToClampTo != null && squaresToClampTo.Count != 0)

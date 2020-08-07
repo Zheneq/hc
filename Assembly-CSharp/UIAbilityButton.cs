@@ -536,7 +536,7 @@ public class UIAbilityButton : MonoBehaviour
 								}
 								if (m_abilityEntry.GetCooldownRemaining() > 0)
 								{
-									if (actorData.TechPoints + actorData.ReservedTechPoints < actorData.GetActualMaxTechPoints() || !AbilityUtils.AbilityHasTag(m_abilityEntry.ability, AbilityTags.IgnoreCooldownIfFullEnergy))
+									if (actorData.TechPoints + actorData.ReservedTechPoints < actorData.GetMaxTechPoints() || !AbilityUtils.AbilityHasTag(m_abilityEntry.ability, AbilityTags.IgnoreCooldownIfFullEnergy))
 									{
 										text = m_abilityEntry.GetCooldownRemaining().ToString();
 									}

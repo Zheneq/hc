@@ -89,7 +89,7 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 		while (true)
 		{
 			laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
-			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[currentTargetIndex - 1].AimDirection, m_laserRange, m_laserWidth, targetingActor, targetingActor.GetOpposingTeams(), m_penetrateLos, m_maxTargets, false, false, out laserCoords.end, null);
+			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[currentTargetIndex - 1].AimDirection, m_laserRange, m_laserWidth, targetingActor, targetingActor.GetEnemyTeams(), m_penetrateLos, m_maxTargets, false, false, out laserCoords.end, null);
 			int num = 0;
 			EnableAllMovementArrows();
 			BoardSquare squareFromAbilityTarget = GetSquareFromAbilityTarget(currentTarget, targetingActor);

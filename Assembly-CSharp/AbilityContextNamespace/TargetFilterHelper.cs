@@ -92,7 +92,7 @@ namespace AbilityContextNamespace
 						int contextKey = numericContextValueCompareCond.GetContextKey();
 						flag2 = false;
 						float num = 0f;
-						ContextVars contextVars = _000E._0015;
+						ContextVars contextVars = _000E.context;
 						if (numericContextValueCompareCond.m_nonActorSpecificContext)
 						{
 							contextVars = _0012;

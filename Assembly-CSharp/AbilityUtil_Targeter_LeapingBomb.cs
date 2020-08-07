@@ -139,7 +139,7 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 					{
 						if (actorData.IsVisibleToClient())
 						{
-							List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, centerOfShape, current, false, targetingActor, targetingActor.GetOpposingTeam(), null);
+							List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, centerOfShape, current, false, targetingActor, targetingActor.GetEnemyTeam(), null);
 							TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 							Vector3 damageOrigin = centerOfShape;
 							using (List<ActorData>.Enumerator enumerator2 = actors.GetEnumerator())

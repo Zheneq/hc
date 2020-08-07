@@ -38,7 +38,7 @@ public class OnHitBarrierField
 				goto IL_003b;
 			}
 		}
-		m_centerPosContextKey = ContextVars.GetHash(m_centerPosContextName);
+		m_centerPosContextKey = ContextVars.GetKey(m_centerPosContextName);
 		goto IL_003b;
 		IL_003b:
 		return m_centerPosContextKey;
@@ -53,7 +53,7 @@ public class OnHitBarrierField
 				goto IL_003b;
 			}
 		}
-		m_facingDirContextKey = ContextVars.GetHash(m_facingDirContextName);
+		m_facingDirContextKey = ContextVars.GetKey(m_facingDirContextName);
 		goto IL_003b;
 		IL_003b:
 		return m_facingDirContextKey;
@@ -68,7 +68,7 @@ public class OnHitBarrierField
 				goto IL_0039;
 			}
 		}
-		m_barrierWidthContextKey = ContextVars.GetHash(m_barrierWidthContextName);
+		m_barrierWidthContextKey = ContextVars.GetKey(m_barrierWidthContextName);
 		goto IL_0039;
 		IL_0039:
 		return m_barrierWidthContextKey;

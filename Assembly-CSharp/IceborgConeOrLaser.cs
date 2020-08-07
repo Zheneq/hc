@@ -183,7 +183,7 @@ public class IceborgConeOrLaser : GenericAbility_Container
 						ActorData key = current.Key;
 						if (key.GetTeam() != caster.GetTeam())
 						{
-							if (current.Value._0012)
+							if (current.Value.inRange)
 							{
 								num++;
 							}

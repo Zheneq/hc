@@ -19,7 +19,9 @@ public class AbilityUtil_Targeter_Grid : AbilityUtil_Targeter
 
 	protected BoardSquare GetGameplayRefSquare(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		GridPos gridPos = (GetCurrentRangeInSquares() == 0f) ? targetingActor.GetGridPosWithIncrementedHeight() : currentTarget.GridPos;
+		GridPos gridPos = (GetCurrentRangeInSquares() == 0f)
+			? targetingActor.GetGridPosWithIncrementedHeight()
+			: currentTarget.GridPos;
 		return Board.Get().GetSquare(gridPos);
 	}
 
@@ -28,21 +30,10 @@ public class AbilityUtil_Targeter_Grid : AbilityUtil_Targeter
 		BoardSquare gameplayRefSquare = GetGameplayRefSquare(currentTarget, targetingActor);
 		if (gameplayRefSquare != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-				{
-					Vector3 centerOfGridPattern = AreaEffectUtils.GetCenterOfGridPattern(m_pattern, currentTarget.FreePos, gameplayRefSquare);
-					Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
-					centerOfGridPattern.y = travelBoardSquareWorldPosition.y + m_heightOffset;
-					return centerOfGridPattern;
-				}
-				}
-			}
+			Vector3 centerOfGridPattern = AreaEffectUtils.GetCenterOfGridPattern(m_pattern, currentTarget.FreePos, gameplayRefSquare);
+			Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+			centerOfGridPattern.y = travelBoardSquareWorldPosition.y + m_heightOffset;
+			return centerOfGridPattern;
 		}
 		return Vector3.zero;
 	}
@@ -50,24 +41,21 @@ public class AbilityUtil_Targeter_Grid : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		BoardSquare gameplayRefSquare = GetGameplayRefSquare(currentTarget, targetingActor);
-		if (!(gameplayRefSquare != null))
+		if (gameplayRefSquare == null)
 		{
 			return;
 		}
-		while (true)
+
+		Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
+		if (Highlight == null)
 		{
-			Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
-			if (base.Highlight == null)
-			{
-				base.Highlight = HighlightUtils.Get().CreateGridPatternHighlight(m_pattern, m_scale);
-				base.Highlight.transform.position = highlightGoalPos;
-			}
-			else
-			{
-				base.Highlight.transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos, base.Highlight, ref m_curSpeed);
-			}
-			base.Highlight.SetActive(true);
-			return;
+			Highlight = HighlightUtils.Get().CreateGridPatternHighlight(m_pattern, m_scale);
+			Highlight.transform.position = highlightGoalPos;
 		}
+		else
+		{
+			Highlight.transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos, Highlight, ref m_curSpeed);
+		}
+		Highlight.SetActive(true);
 	}
 }

@@ -509,7 +509,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				if (m_parentActorData.GetOpposingTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
+				if (m_parentActorData.GetEnemyTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 				{
 					num = 1f;
 					goto IL_0076;
@@ -686,7 +686,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (!(GameFlowData.Get().activeOwnedActorData == null))
 		{
-			if (GameFlowData.Get().activeOwnedActorData.GetOpposingTeam() == m_parentActorData.GetTeam())
+			if (GameFlowData.Get().activeOwnedActorData.GetEnemyTeam() == m_parentActorData.GetTeam())
 			{
 				if (movementType == BoardSquarePathInfo.ConnectionType.Flight)
 				{

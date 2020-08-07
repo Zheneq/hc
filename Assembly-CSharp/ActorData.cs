@@ -831,35 +831,18 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			int result;
-			if (DebugParameters.Get() != null)
+			if (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("InfiniteTP"))
 			{
-				if (DebugParameters.Get().GetParameterAsBool("InfiniteTP"))
-				{
-					result = GetActualMaxTechPoints();
-					goto IL_0049;
-				}
+				return GetMaxTechPoints();
 			}
-			result = m_techPoints;
-			goto IL_0049;
-			IL_0049:
-			return result;
+			return m_techPoints;
 		}
 		private set
 		{
 			if (NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						m_techPoints = Mathf.Clamp(value, 0, GetActualMaxTechPoints());
-						return;
-					}
-				}
+				m_techPoints = Mathf.Clamp(value, 0, GetMaxTechPoints());
+				return;
 			}
 			m_techPoints = value;
 		}
@@ -1278,57 +1261,35 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				return;
 			}
-			while (true)
+			m_trueRespawnPositionSquare = value;
+			if (m_teamSensitiveData_friendly != null)
 			{
-				m_trueRespawnPositionSquare = value;
-				if (m_teamSensitiveData_friendly != null)
+				if (!GameFlowData.Get().IsInDecisionState() && GameFlowData.Get().CurrentTurn != NextRespawnTurn)
 				{
-					if (!GameFlowData.Get().IsInDecisionState())
-					{
-						if (GameFlowData.Get().CurrentTurn != NextRespawnTurn)
-						{
-							m_teamSensitiveData_friendly.RespawnPickedSquare = null;
-							goto IL_008a;
-						}
-					}
+					m_teamSensitiveData_friendly.RespawnPickedSquare = null;
+				}
+				else
+				{
 					m_teamSensitiveData_friendly.RespawnPickedSquare = value;
 				}
-				goto IL_008a;
-				IL_008a:
-				if (!(m_teamSensitiveData_hostile != null))
-				{
-					return;
-				}
+			}
+			if (m_teamSensitiveData_hostile != null)
+			{
 				if (GameFlowData.Get().CurrentTurn == NextRespawnTurn)
 				{
-					while (true)
+					if (ShouldRevealRespawnSquareToEnemy(value))
 					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							if (no_op_return_false(value))
-							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										break;
-									default:
-										m_teamSensitiveData_hostile.RespawnPickedSquare = value;
-										return;
-									}
-								}
-							}
-							m_teamSensitiveData_hostile.RespawnPickedSquare = null;
-							return;
-						}
+						m_teamSensitiveData_hostile.RespawnPickedSquare = value;
+					}
+					else
+					{
+						m_teamSensitiveData_hostile.RespawnPickedSquare = null;
 					}
 				}
-				m_teamSensitiveData_hostile.RespawnPickedSquare = null;
-				return;
+				else
+				{
+					m_teamSensitiveData_hostile.RespawnPickedSquare = null;
+				}
 			}
 		}
 	}
@@ -1673,7 +1634,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return m_faceActorModelData;
 	}
 
-	public Renderer GetActorModelDataRenderer()
+	public Renderer GetModelRenderer()
 	{
 		return m_actorModelData.GetModelRenderer();
 	}
@@ -1783,29 +1744,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return m_passiveData;
 	}
 
-	public string GetFancyDisplayName()
+	public string GetDisplayNameForLog()
 	{
-		if (HasBotController)
+		if (HasBotController &&
+			GetAccountId() == 0 &&
+			m_characterType != CharacterType.None &&
+			!GetPlayerDetails().m_botsMasqueradeAsHumans)
 		{
-			if (GetAccountIdWithSomeConditionB_zq() == 0)
-			{
-				if (m_characterType != 0)
-				{
-					if (!GetPlayerDetails().m_botsMasqueradeAsHumans)
-					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								break;
-							default:
-								return StringUtil.TR_CharacterName(m_characterType.ToString());
-							}
-						}
-					}
-				}
-			}
+			return StringUtil.TR_CharacterName(m_characterType.ToString());
 		}
 		if (m_displayName == "FT")
 		{
@@ -1818,32 +1764,15 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					{
 						int actorIndex = componentsInChildren[i].m_afterImages[j];
 						ActorData x = GameFlowData.Get().FindActorByActorIndex(actorIndex);
-						if (!(x == this))
+						if (x == this)
 						{
-							continue;
+							ActorData component = componentsInChildren[i].GetComponent<ActorData>();
+							if (component.m_displayName != "FT")
+							{
+								return component.GetDisplayNameForLog();
+							}
 						}
-						ActorData component = componentsInChildren[i].GetComponent<ActorData>();
-						if (!(component.m_displayName != "FT"))
-						{
-							continue;
-						}
-						while (true)
-						{
-							return component.GetFancyDisplayName();
-						}
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							break;
-						default:
-							goto end_IL_0136;
-						}
-						continue;
-						end_IL_0136:
-						break;
+						
 					}
 				}
 			}
@@ -1880,7 +1809,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return (Sprite)Resources.Load(m_screenIndicatorBWIconResourceString, typeof(Sprite));
 	}
 
-	public string GetName()
+	public string GetObjectName()
 	{
 		return base.name.Replace("(Clone)", string.Empty);
 	}
@@ -1928,7 +1857,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return (float)hitPoints / (float)maxHitPoints;
 	}
 
-	public int GetActualPassiveHpRegen()
+	public int GetPassiveHpRegen()
 	{
 		int num = 0;
 		ActorStats actorStats = m_actorStats;
@@ -1947,7 +1876,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return num;
 	}
 
-	public int GetActualMaxTechPoints()
+	public int GetMaxTechPoints()
 	{
 		int result = 1;
 		ActorStats actorStats = m_actorStats;
@@ -1973,7 +1902,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				}
 			}
 		}
-		int actualMaxTechPoints = GetActualMaxTechPoints();
+		int actualMaxTechPoints = GetMaxTechPoints();
 		if (actualMaxTechPoints > previousMax)
 		{
 			while (true)
@@ -2008,65 +1937,35 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void TriggerVisibilityForHit(bool movementHit, bool updateClientLastKnownPos = true)
 	{
-		if (movementHit)
-		{
-			m_endVisibilityForHitTime = Time.time + s_visibleTimeAfterMovementHit;
-		}
-		else
-		{
-			m_endVisibilityForHitTime = Time.time + s_visibleTimeAfterHit;
-		}
+		m_endVisibilityForHitTime = Time.time + (movementHit ? s_visibleTimeAfterMovementHit : s_visibleTimeAfterHit);
 		ForceUpdateIsVisibleToClientCache();
-		if (!updateClientLastKnownPos)
+		if (updateClientLastKnownPos && GetCurrentBoardSquare() != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (GetCurrentBoardSquare() != null)
-			{
-				ClientLastKnownPosSquare = GetTravelBoardSquare();
-				m_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
-			}
-			return;
+			ClientLastKnownPosSquare = GetTravelBoardSquare();
+			m_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
 		}
 	}
 
 	private void UpdateClientLastKnownPosSquare()
 	{
-		if (m_shouldUpdateLastVisibleToClientThisFrame)
+		if (m_shouldUpdateLastVisibleToClientThisFrame && ClientLastKnownPosSquare != GetCurrentBoardSquare())
 		{
-			if (ClientLastKnownPosSquare != GetCurrentBoardSquare())
+			Team team = GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null
+				? GameFlowData.Get().activeOwnedActorData.GetTeam()
+				: Team.Invalid;
+			bool isInResolveState = GameFlowData.Get()?.IsInResolveState() ?? false;
+			bool isNotMoving = GetTravelBoardSquare() == GetCurrentBoardSquare() && !GetActorMovement().AmMoving() && !GetActorMovement().IsYetToCompleteGameplayPath();
+			bool isFromAnotherTeam = GetTeam() != team;
+			if (isInResolveState && isNotMoving && isFromAnotherTeam && IsVisibleToClient())
 			{
-				Team team = (!(GameFlowData.Get() != null) || !(GameFlowData.Get().activeOwnedActorData != null)) ? Team.Invalid : GameFlowData.Get().activeOwnedActorData.GetTeam();
-				int num;
-				if (GameFlowData.Get() != null)
+				ForceUpdateIsVisibleToClientCache();
+				if (IsVisibleToClient())
 				{
-					num = (GameFlowData.Get().IsInResolveState() ? 1 : 0);
-				}
-				else
-				{
-					num = 0;
-				}
-				bool flag = (byte)num != 0;
-				bool flag2 = GetTravelBoardSquare() == GetCurrentBoardSquare() && !GetActorMovement().AmMoving() && !GetActorMovement().IsYetToCompleteGameplayPath();
-				bool flag3 = GetTeam() != team;
-				if (flag)
-				{
-					if (flag2)
-					{
-						if (flag3 && IsVisibleToClient())
-						{
-							ForceUpdateIsVisibleToClientCache();
-							if (IsVisibleToClient())
-							{
-								ClientLastKnownPosSquare = GetCurrentBoardSquare();
-								m_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
-							}
-						}
-					}
+					ClientLastKnownPosSquare = GetCurrentBoardSquare();
+					m_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
 				}
 			}
+			
 		}
 		m_shouldUpdateLastVisibleToClientThisFrame = true;
 	}
@@ -2125,7 +2024,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void SetupForRespawnOnReconnect()
 	{
-		if (!ShouldPickRespawn_zq())
+		if (!IsPickingRespawnSquare())
 		{
 			return;
 		}
@@ -2247,7 +2146,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	public int GetActualPassiveEnergyRegen()
+	public int GetPassiveEnergyRegen()
 	{
 		int num = 0;
 		ActorStats actorStats = m_actorStats;
@@ -2262,7 +2161,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return num;
 	}
 
-	public float GetActualSightRange()
+	public float GetSightRange()
 	{
 		float result = 1f;
 		if (m_actorStats != null)
@@ -2281,32 +2180,13 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	internal void SetTechPoints(int value, bool combatText = false, ActorData caster = null, string sourceName = null)
 	{
-		int actualMaxTechPoints = GetActualMaxTechPoints();
-		value = Mathf.Clamp(value, 0, actualMaxTechPoints);
-		int num = value - TechPoints;
+		value = Mathf.Clamp(value, 0, GetMaxTechPoints());
+		int diff = value - TechPoints;
 		TechPoints = value;
-		if (!combatText)
+
+		if (combatText && sourceName != null && diff != 0)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (sourceName == null)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (num != 0)
-				{
-					while (true)
-					{
-						DoTechPointsLogAndCombatText(caster, this, sourceName, num);
-						return;
-					}
-				}
-				return;
-			}
+			DoTechPointsLogAndCombatText(caster, this, sourceName, diff);
 		}
 	}
 
@@ -2359,7 +2239,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return HitPoints == 0;
 	}
 
-	public ActorTeamSensitiveData GetFriendlyOrHostileTeamSensitiveData()
+	public ActorTeamSensitiveData GetTeamSensitiveData()
 	{
 		if (m_teamSensitiveData_friendly != null)
 		{
@@ -2367,16 +2247,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (m_teamSensitiveData_hostile != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return m_teamSensitiveData_hostile;
-				}
-			}
+			return m_teamSensitiveData_hostile;
 		}
 		return null;
 	}
@@ -2395,7 +2266,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	public bool no_op_return_false(BoardSquare square)
+	public bool ShouldRevealRespawnSquareToEnemy(BoardSquare square)
 	{
 		return false;
 	}
@@ -2923,17 +2794,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	internal bool IsModelAnimatorDisabled()
 	{
-		Animator modelAnimator = GetModelAnimator();
-		int result;
-		if (modelAnimator == null)
-		{
-			result = 1;
-		}
-		else
-		{
-			result = ((!modelAnimator.enabled) ? 1 : 0);
-		}
-		return (byte)result != 0;
+		return !(GetModelAnimator()?.enabled ?? false);
 	}
 
 	internal void DoVisualDeath(ActorModelData.ImpulseInfo impulseInfo)
@@ -3025,11 +2886,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	private void EnableRagdoll(bool ragDollOn, ActorModelData.ImpulseInfo impulseInfo = null, bool isDebugRagdoll = false)
 	{
-		if (ragDollOn && GetHitPointsAfterResolution() > 0)
+		if (ragDollOn && GetHitPointsToDisplay() > 0)
 		{
 			if (!isDebugRagdoll)
 			{
-				Log.Error("early_ragdoll: enabling ragdoll on " + GetDebugName() + " with " + HitPoints + " HP,  (HP for display " + GetHitPointsAfterResolution() + ")\n" + Environment.StackTrace);
+				Log.Error("early_ragdoll: enabling ragdoll on " + GetDebugName() + " with " + HitPoints + " HP,  (HP for display " + GetHitPointsToDisplay() + ")\n" + Environment.StackTrace);
 			}
 		}
 		if (m_actorModelData != null)
@@ -3099,24 +2960,13 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		m_lastSpawnTurn = GameFlowData.Get().CurrentTurn;
 	}
 
-	public bool ShouldPickRespawn_zq()
+	public bool IsPickingRespawnSquare()
 	{
-		int result;
-		if (!IsDead())
-		{
-			if (NextRespawnTurn > 0)
-			{
-				if (NextRespawnTurn == GameFlowData.Get().CurrentTurn && SpawnPointManager.Get() != null)
-				{
-					result = (SpawnPointManager.Get().m_spawnInDuringMovement ? 1 : 0);
-					goto IL_0074;
-				}
-			}
-		}
-		result = 0;
-		goto IL_0074;
-		IL_0074:
-		return (byte)result != 0;
+		return !IsDead() &&
+			NextRespawnTurn > 0 &&
+			NextRespawnTurn == GameFlowData.Get().CurrentTurn &&
+			SpawnPointManager.Get() != null &&
+			SpawnPointManager.Get().m_spawnInDuringMovement;
 	}
 
 	private void OnDestroy()
@@ -3254,97 +3104,61 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	private bool CalculateIsActorVisibleToClient()
 	{
-		bool result = false;
-		if (GameFlowData.Get() != null)
+		if (GameFlowData.Get() == null || GameFlowData.Get().LocalPlayerData == null)
 		{
-			if (GameFlowData.Get().LocalPlayerData != null)
-			{
-				PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
-				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-				if (DebugParameters.Get() != null)
-				{
-					if (DebugParameters.Get().GetParameterAsBool("AllCharactersVisible"))
-					{
-						result = true;
-						goto IL_0234;
-					}
-				}
-				if (GameFlowData.Get().gameState == GameState.Deployment)
-				{
-					result = true;
-				}
-				else
-				{
-					if (activeOwnedActorData != null)
-					{
-						if (activeOwnedActorData.GetTeam() == GetTeam())
-						{
-							result = true;
-							goto IL_0234;
-						}
-					}
-					if (activeOwnedActorData == null)
-					{
-						if (localPlayerData.IsViewingTeam(GetTeam()))
-						{
-							result = true;
-							goto IL_0234;
-						}
-					}
-					if (m_endVisibilityForHitTime > Time.time)
-					{
-						result = true;
-					}
-					else
-					{
-						if (m_actorModelData != null)
-						{
-							if (m_actorModelData.IsInCinematicCam())
-							{
-								result = true;
-								goto IL_0234;
-							}
-						}
-						if (CurrentlyVisibleForAbilityCast)
-						{
-							result = true;
-						}
-						else if (m_disappearingAfterCurrentMovement && CurrentBoardSquare == null && !GetActorMovement().AmMoving())
-						{
-							result = false;
-						}
-						else
-						{
-							bool flag = SomeVisibilityCheckA_zq(localPlayerData, false);
-							bool flag2 = SomeVisibilityCheckB_zq(localPlayerData, false);
-							if (flag)
-							{
-								result = true;
-							}
-							else if (flag2)
-							{
-								result = false;
-							}
-							else if (FogOfWar.GetClientFog() == null)
-							{
-								result = false;
-							}
-							else if (FogOfWar.GetClientFog().IsVisible(GetTravelBoardSquare()))
-							{
-								result = true;
-							}
-							else
-							{
-								result = false;
-							}
-						}
-					}
-				}
-			}
+			return false;
 		}
-		goto IL_0234;
-		IL_0234:
-		return result;
+		PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
+		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+		if (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("AllCharactersVisible"))
+		{
+			return true;
+		}
+		if (GameFlowData.Get().gameState == GameState.Deployment)
+		{
+			return true;
+		}
+		if (activeOwnedActorData != null && activeOwnedActorData.GetTeam() == GetTeam())
+		{
+			return true;
+		}
+		if (activeOwnedActorData == null && localPlayerData.IsViewingTeam(GetTeam()))
+		{
+			return true;
+		}
+		if (m_endVisibilityForHitTime > Time.time)
+		{
+			return true;
+		}
+		if (m_actorModelData != null && m_actorModelData.IsInCinematicCam())
+		{
+			return true;
+		}
+		if (CurrentlyVisibleForAbilityCast)
+		{
+			return true;
+		}
+		if (m_disappearingAfterCurrentMovement && CurrentBoardSquare == null && !GetActorMovement().AmMoving())
+		{
+			return false;
+		}
+		if (IsRevealed(localPlayerData, false))
+		{
+			return true;
+		}
+		if (IsHidden(localPlayerData, false))
+		{
+			return false;
+		}
+		if (FogOfWar.GetClientFog() == null)
+		{
+			return false;
+		}
+		if (FogOfWar.GetClientFog().IsVisible(GetTravelBoardSquare()))
+		{
+			return true;
+		}
+		return false;
 	}
 
 	public void ForceUpdateActorModelVisibility()
@@ -3376,302 +3190,134 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return m_isVisibleToClientCache;
 	}
 
-	public bool _0012(ActorData _001D)
+	public bool IsVisibleForChase(ActorData observer)
 	{
-		bool result = false;
-		if (GameFlowData.Get().IsActorDataOwned(this))
-		{
-			if (GetTeam() == _001D.GetTeam())
-			{
-				result = true;
-				goto IL_00c8;
-			}
-		}
-		if (m_endVisibilityForHitTime > Time.time)
-		{
-			result = true;
-		}
-		else
-		{
-			bool flag = SomeVisibilityCheckA_zq(_001D.PlayerData);
-			bool flag2 = SomeVisibilityCheckB_zq(_001D.PlayerData);
-			if (flag)
-			{
-				result = true;
-			}
-			else if (flag2)
-			{
-				result = false;
-			}
-			else if ((bool)_001D.GetFogOfWar())
-			{
-				result = _001D.GetFogOfWar().IsVisible(GetTravelBoardSquare());
-			}
-		}
-		goto IL_00c8;
-		IL_00c8:
-		return result;
-	}
-
-	public bool SomeVisibilityCheckA_zq(PlayerData _001D, bool _000E = true)
-	{
-		bool flag = false;
-		if (_001D == null)
-		{
-			return false;
-		}
-		if (GetActorStatus().HasStatus(StatusType.Revealed, _000E) && GetTeam() != _001D.GetTeamViewing())
+		if (GameFlowData.Get().IsActorDataOwned(this) && GetTeam() == observer.GetTeam())
 		{
 			return true;
 		}
-		if (!NetworkServer.active)
+		if (m_endVisibilityForHitTime > Time.time)
 		{
-			if (CaptureTheFlag.IsActorRevealedByFlag_Client(this))
-			{
-				return true;
-			}
+			return true;
 		}
-		if (VisibleTillEndOfPhase)
+		if (IsRevealed(observer.PlayerData))
 		{
-			if (!MovedForEvade)
-			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						return true;
-					}
-				}
-			}
+			return true;
 		}
-		if (CurrentlyVisibleForAbilityCast)
+		if (IsHidden(observer.PlayerData))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
+			return false;
 		}
-		return IsDead() && IsModelAnimatorDisabled();
-	}
-
-	public bool SomeVisibilityCheckB_zq(PlayerData player, bool flag = true, bool flag2 = false)
-	{
-		Team team = Team.TeamA;
-		if (player != null)
+		if (observer.GetFogOfWar() != null)
 		{
-			if (flag2)
-			{
-				if (player.ActorData != null)
-				{
-					team = player.ActorData.GetTeam();
-					goto IL_005e;
-				}
-			}
-			team = player.GetTeamViewing();
-		}
-		goto IL_005e;
-		IL_005e:
-		if (player == null)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		if (GetActorStatus().IsInvisibleToEnemies(flag))
-		{
-			if (GetTeam() != team)
-			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						if ((bool)player.ActorData)
-						{
-							if (player.ActorData.GetActorStatus().HasStatus(StatusType.SeeInvisible, flag))
-							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										break;
-									default:
-										return false;
-									}
-								}
-							}
-						}
-						return true;
-					}
-				}
-			}
+			return observer.GetFogOfWar().IsVisible(GetTravelBoardSquare());
 		}
 		return false;
 	}
 
-	public bool IsActorVisibleToActor(ActorData _001D, bool _000E = false)
+	public bool IsRevealed(PlayerData observer, bool includePendingStatus = true)
 	{
-		if (this == _001D)
+		if (observer == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
+			return false;
 		}
-		if (!NetworkServer.active && _001D == GameFlowData.Get().activeOwnedActorData)
+		if (GetActorStatus().HasStatus(StatusType.Revealed, includePendingStatus) && GetTeam() != observer.GetTeamViewing())
 		{
-			while (true)
+			return true;
+		}
+		if (!NetworkServer.active && CaptureTheFlag.IsActorRevealedByFlag_Client(this))
+		{
+			return true;
+		}
+		if (VisibleTillEndOfPhase && !MovedForEvade)
+		{
+			return true;
+		}
+		if (CurrentlyVisibleForAbilityCast)
+		{
+			return true;
+		}
+		return IsDead() && IsModelAnimatorDisabled();
+	}
+
+	public bool IsHidden(PlayerData observer, bool includePendingStatus = true, bool forceViewingTeam = false)
+	{
+		if (observer == null)
+		{
+			return false;
+		}
+
+		Team team;
+		if (forceViewingTeam && observer.ActorData != null)
+		{
+			team = observer.ActorData.GetTeam();
+		}
+		else
+		{
+			team = observer.GetTeamViewing();
+		}
+		
+		if (GetActorStatus().IsInvisibleToEnemies(includePendingStatus) && GetTeam() != team)
+		{
+			if ((bool)observer.ActorData && observer.ActorData.GetActorStatus().HasStatus(StatusType.SeeInvisible, includePendingStatus))
 			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return IsVisibleToClient();
-				}
+				return false;
 			}
+			return true;
+		}
+		return false;
+	}
+
+	public bool IsActorVisibleToActor(ActorData observer, bool forceViewingTeam = false)
+	{
+		if (this == observer)
+		{
+			return true;
+		}
+		if (!NetworkServer.active && observer == GameFlowData.Get().activeOwnedActorData)
+		{
+			return IsVisibleToClient();
 		}
 		if (!NetworkServer.active)
 		{
 			Log.Warning("Calling the server-only method ActorData::IsActorVisibleToActor on a client. Clients can only depend on ActorData::IsActorVisibleToClient.");
 		}
-		bool flag = SomeVisibilityCheckA_zq(_001D.PlayerData);
-		bool flag2 = SomeVisibilityCheckB_zq(_001D.PlayerData, true, _000E);
-		if (flag)
+		if (IsRevealed(observer.PlayerData))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
+			return true;
 		}
-		if (flag2)
+		if (IsHidden(observer.PlayerData, true, forceViewingTeam))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
+			return false;
 		}
-		FogOfWar fogOfWar = _001D.GetFogOfWar();
-		return fogOfWar.IsVisible(GetTravelBoardSquare());
+		return observer.GetFogOfWar().IsVisible(GetTravelBoardSquare());
 	}
 
-	public bool IsVisibleToOpposingTeam()
+	public bool IsVisibleToEnemyTeam()
 	{
-		bool result = false;
-		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(GetOpposingTeam());
-		using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
+		List<ActorData> enemyTeamMembers = GameFlowData.Get().GetAllTeamMembers(GetEnemyTeam());
+		foreach (ActorData enemy in enemyTeamMembers)
 		{
-			while (enumerator.MoveNext())
+			if (!enemy.IsDead() && IsActorVisibleToActor(enemy, true))
 			{
-				ActorData current = enumerator.Current;
-				if (!current.IsDead())
-				{
-					if (IsActorVisibleToActor(current, true))
-					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								break;
-							default:
-								return true;
-							}
-						}
-					}
-				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return result;
-				}
+				return true;
 			}
 		}
+		return false;
 	}
 
-	public bool _0015(ActorData _001D)
+	public bool CanBeSeen(ActorData observer)
 	{
-		bool flag = SomeVisibilityCheckA_zq(_001D.PlayerData);
-		bool flag2 = SomeVisibilityCheckB_zq(_001D.PlayerData, true, true);
-		if (flag)
+		if (IsRevealed(observer.PlayerData))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
+			return true;
 		}
-		if (flag2)
+		if (IsHidden(observer.PlayerData, true, true))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
+			return false;
 		}
-		bool flag3 = GetTravelBoardSquareBrushRegion() < 0 || BrushRegion.HasTeamMemberInRegion(GetOpposingTeam(), GetTravelBoardSquareBrushRegion());
-		int result;
-		if (IsHiddenInBrush())
-		{
-			result = (flag3 ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		bool IsBrushRevealed = GetTravelBoardSquareBrushRegion() < 0 || BrushRegion.HasTeamMemberInRegion(GetEnemyTeam(), GetTravelBoardSquareBrushRegion());
+		return !IsHiddenInBrush() || IsBrushRevealed;
 	}
 
 	public void ApplyForceFromPoint(Vector3 pos, float amount, Vector3 overrideDir)
@@ -3777,7 +3423,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return m_actorMovement.transform.position;
 	}
 
-	public int GetHitPointsAfterResolution()
+	public int GetHitPointsToDisplay()
 	{
 		int num = UnresolvedDamage + ClientUnresolvedDamage;
 		int num2 = UnresolvedHealing + ClientUnresolvedHealing;
@@ -3786,7 +3432,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return Mathf.Clamp(HitPoints - num4 + num2, 0, GetMaxHitPoints());
 	}
 
-	public int GetHitPointsAfterResolutionWithDelta(int delta)
+	public int GetHitPointsToDisplayWithDelta(int delta)
 	{
 		int num = UnresolvedDamage + ClientUnresolvedDamage;
 		int num2 = UnresolvedHealing + ClientUnresolvedHealing;
@@ -3807,22 +3453,22 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		int num = UnresolvedTechPointGain + ClientUnresolvedTechPointGain;
 		int num2 = UnresolvedTechPointLoss + ClientUnresolvedTechPointLoss;
-		return Mathf.Clamp(TechPoints + ReservedTechPoints + ClientReservedTechPoints + num - num2, 0, GetActualMaxTechPoints());
+		return Mathf.Clamp(TechPoints + ReservedTechPoints + ClientReservedTechPoints + num - num2, 0, GetMaxTechPoints());
 	}
 
-	public int GetClientUnappliedHoTTotal_ToDisplay_zq()
+	public int GetPendingHoTTotalToDisplay()
 	{
 		return Mathf.Max(0, ExpectedHoTTotal + ClientExpectedHoTTotalAdjust - ClientAppliedHoTThisTurn);
 	}
 
-	public int GetClientUnappliedHoTThisTurn_ToDisplay_zq()
+	public int GetPendingHoTThisTurnToDisplay()
 	{
 		return Mathf.Max(0, ExpectedHoTThisTurn - ClientAppliedHoTThisTurn);
 	}
 
-	public string GetHitPointsAfterResolutionDebugString()
+	public string GetHitPointsToDisplayDebugString()
 	{
-		int hitPointsAfterResolution = GetHitPointsAfterResolution();
+		int hitPointsAfterResolution = GetHitPointsToDisplay();
 		string text = $"{hitPointsAfterResolution}";
 		if (AbsorbPoints > 0)
 		{
@@ -3834,7 +3480,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return text;
 	}
 
-	public int _0004()
+	public int GetAbsorbToDisplay()
 	{
 		int num = UnresolvedDamage + ClientUnresolvedDamage;
 		int num2 = AbsorbPoints + ClientUnresolvedAbsorb;
@@ -3858,109 +3504,47 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return false;
 	}
 
-	public bool _0011()
+	public bool IsBotMasqueradingAsHuman()
 	{
-		if (!GameplayUtils.IsPlayerControlled(this))
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		if (!GameplayUtils.IsBot(this))
+		if (!GameplayUtils.IsPlayerControlled(this) || !GameplayUtils.IsBot(this))
 		{
 			return false;
 		}
-		if (!GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out PlayerDetails value))
+		if (!GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out PlayerDetails playerDetails))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
+			return false;
 		}
-		if (value == null)
+		if (playerDetails == null || !playerDetails.m_botsMasqueradeAsHumans)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		if (!value.m_botsMasqueradeAsHumans)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
+			return false;
 		}
 		return true;
 	}
 
-	public long GetAccountIdWithSomeConditionA_zq()
+	public long GetActualAccountId()
 	{
-		if (!GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out PlayerDetails value))
+		if (!GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out PlayerDetails playerDetails))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return -1L;
-				}
-			}
+			return -1L;
 		}
-		if (!_0011() && !value.IsLoadTestBot && !GetIsHumanControlled())
+		if (!IsBotMasqueradingAsHuman() && !playerDetails.IsLoadTestBot && !GetIsHumanControlled())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return -1L;
-				}
-			}
+			return -1L;
 		}
-		return value.m_accountId;
+		return playerDetails.m_accountId;
 	}
 
-	public long GetAccountIdWithSomeConditionB_zq()
+	public long GetAccountId()
 	{
-		long result = -1L;
-		if (PlayerData != null)
+		if (PlayerData == null)
 		{
-			if (GameFlow.Get().playerDetails.ContainsKey(PlayerData.GetPlayer()))
-			{
-				result = GameFlow.Get().playerDetails[PlayerData.GetPlayer()].m_accountId;
-			}
+			return -1L;
 		}
-		return result;
+		if (!GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out PlayerDetails playerDetails))
+		{
+			return -1L;
+		}
+		return playerDetails.m_accountId;
 	}
 
 	private void OnDisable()
@@ -4614,7 +4198,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	public Vector3 GetFacingDirAfterMovement()
+	public Vector3 GetFacingDirectionAfterMovement()
 	{
 		return m_facingDirAfterMovement;
 	}
@@ -4912,7 +4496,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return CurrentBoardSquare;
 	}
 
-	public BoardSquare GetMostResetDeathSquare()
+	public BoardSquare GetMostRecentDeathSquare()
 	{
 		return m_mostRecentDeathSquare;
 	}
@@ -5050,7 +4634,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return m_team;
 	}
 
-	public Team GetOpposingTeam()
+	public Team GetEnemyTeam()
 	{
 		if (m_team == Team.TeamA)
 		{
@@ -5093,10 +4677,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return list;
 	}
 
-	public List<Team> GetOpposingTeams()
+	public List<Team> GetEnemyTeams()
 	{
 		List<Team> list = new List<Team>();
-		list.Add(GetOpposingTeam());
+		list.Add(GetEnemyTeam());
 		return list;
 	}
 
@@ -5118,9 +4702,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return "Orange";
 	}
 
-	public string GetOpposingTeamColorName()
+	public string GetEnemyTeamColorName()
 	{
-		return (m_team != 0) ? "Blue" : "Orange";
+		return (m_team != Team.TeamA) ? "Blue" : "Orange";
 	}
 
 	public Color GetTeamColor()
@@ -5141,7 +4725,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return s_teamBColor;
 	}
 
-	public Color GetOpposingTeamColor()
+	public Color GetEnemyTeamColor()
 	{
 		if (m_team == Team.TeamA)
 		{
@@ -5229,9 +4813,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			ClientExpectedHoTTotalAdjust = 0;
 			ClientAppliedHoTThisTurn = 0;
 			SynchClientLastKnownPosToServerLastKnownPos();
-			if (GetFriendlyOrHostileTeamSensitiveData() != null)
+			if (GetTeamSensitiveData() != null)
 			{
-				GetFriendlyOrHostileTeamSensitiveData().OnTurnTick();
+				GetTeamSensitiveData().OnTurnTick();
 			}
 			PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
 			if (localPlayerData != null && HighlightUtils.Get().m_recentlySpawnedShader != null)
@@ -5428,10 +5012,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return base.gameObject.transform.position;
 	}
 
-	public Vector3 GetBonePosition(string bone)
+	public Vector3 GetBonePosition(string boneName)
 	{
 		Vector3 zero = Vector3.zero;
-		GameObject gameObject = base.gameObject.FindInChildren(bone);
+		GameObject gameObject = base.gameObject.FindInChildren(boneName);
 		if ((bool)gameObject)
 		{
 			while (true)
@@ -5778,7 +5362,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	public static bool WouldSquareBeChasedByClient(BoardSquare square, bool IgnoreChosenChaseTarget = false)
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		if (!activeOwnedActorData._0012(square))
+		if (!activeOwnedActorData.CanChase(square))
 		{
 			return false;
 		}
@@ -5786,16 +5370,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			if (!activeOwnedActorData.HasQueuedChase())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return true;
-					}
-				}
+				return true;
 			}
 		}
 		if (activeOwnedActorData.HasQueuedChase())
@@ -5816,83 +5391,40 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return true;
 	}
 
-	public bool _0012(BoardSquare square)
+	public bool CanChase(BoardSquare square)
 	{
-		if (!(square == null))
+		if (square == null || square.occupant == null || square.occupant.GetComponent<ActorData>() == null || GameFlowData.Get() == null)
 		{
-			if (!(square.occupant == null))
-			{
-				if (!(square.occupant.GetComponent<ActorData>() == null))
-				{
-					if (!(GameFlowData.Get() == null))
-					{
-						if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
-						{
-							ActorData component = square.occupant.GetComponent<ActorData>();
-							AbilityData component2 = GetComponent<AbilityData>();
-							if (component.IsDead())
-							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										break;
-									default:
-										return false;
-									}
-								}
-							}
-							if (component == this)
-							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										break;
-									default:
-										return false;
-									}
-								}
-							}
-							if (!component._0012(this))
-							{
-								return false;
-							}
-							if (!component2.GetQueuedAbilitiesAllowMovement())
-							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										break;
-									default:
-										return false;
-									}
-								}
-							}
-							if (component.IgnoreForAbilityHits)
-							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										break;
-									default:
-										return false;
-									}
-								}
-							}
-							return true;
-						}
-					}
-					return false;
-				}
-			}
+			return false;
 		}
+
+		if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
+		{
+			ActorData occupant = square.occupant.GetComponent<ActorData>();
+			AbilityData actor = GetComponent<AbilityData>();
+			if (occupant.IsDead())
+			{
+				return false;
+			}
+			if (occupant == this)
+			{
+				return false;
+			}
+			if (!occupant.IsVisibleForChase(this))
+			{
+				return false;
+			}
+			if (!actor.GetQueuedAbilitiesAllowMovement())
+			{
+				return false;
+			}
+			if (occupant.IgnoreForAbilityHits)
+			{
+				return false;
+			}
+			return true;
+		}
+		
 		return false;
 	}
 
@@ -6402,12 +5934,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public override string ToString()
 	{
-		return $"[ActorData: {m_displayName}, {GetName()}, ActorIndex: {m_actorIndex}, {m_team}] {PlayerData}";
+		return $"[ActorData: {m_displayName}, {GetObjectName()}, ActorIndex: {m_actorIndex}, {m_team}] {PlayerData}";
 	}
 
 	public string GetDebugName()
 	{
-		return "[" + GetName() + " (" + DisplayName + "), " + ActorIndex + "]";
+		return "[" + GetObjectName() + " (" + DisplayName + "), " + ActorIndex + "]";
 	}
 
 	public string GetColoredDebugName(string color)
@@ -6420,7 +5952,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		int num = ExpectedHoTTotal + ClientExpectedHoTTotalAdjust;
 		int expectedHoTThisTurn = ExpectedHoTThisTurn;
 		int clientAppliedHoTThisTurn = ClientAppliedHoTThisTurn;
-		return "Max HP: " + GetMaxHitPoints() + "\nHP to Display: " + GetHitPointsAfterResolution() + "\n HP: " + HitPoints + "\n Damage: " + UnresolvedDamage + "\n Healing: " + UnresolvedHealing + "\n Absorb: " + AbsorbPoints + "\n CL Damage: " + ClientUnresolvedDamage + "\n CL Healing: " + ClientUnresolvedHealing + "\n CL Absorb: " + ClientUnresolvedAbsorb + "\n\n Energy to Display: " + GetEnergyToDisplay() + "\n  Energy: " + TechPoints + "\n Reserved Energy: " + ReservedTechPoints + "\n EnergyGain: " + UnresolvedTechPointGain + "\n EnergyLoss: " + UnresolvedTechPointLoss + "\n CL Reserved Energy: " + ClientReservedTechPoints + "\n CL EnergyGain: " + ClientUnresolvedTechPointGain + "\n CL EnergyLoss: " + ClientUnresolvedTechPointLoss + "\n CL Total HoT: " + num + "\n CL HoT This Turn/Applied: " + expectedHoTThisTurn + " / " + clientAppliedHoTThisTurn;
+		return "Max HP: " + GetMaxHitPoints() + "\nHP to Display: " + GetHitPointsToDisplay() + "\n HP: " + HitPoints + "\n Damage: " + UnresolvedDamage + "\n Healing: " + UnresolvedHealing + "\n Absorb: " + AbsorbPoints + "\n CL Damage: " + ClientUnresolvedDamage + "\n CL Healing: " + ClientUnresolvedHealing + "\n CL Absorb: " + ClientUnresolvedAbsorb + "\n\n Energy to Display: " + GetEnergyToDisplay() + "\n  Energy: " + TechPoints + "\n Reserved Energy: " + ReservedTechPoints + "\n EnergyGain: " + UnresolvedTechPointGain + "\n EnergyLoss: " + UnresolvedTechPointLoss + "\n CL Reserved Energy: " + ClientReservedTechPoints + "\n CL EnergyGain: " + ClientUnresolvedTechPointGain + "\n CL EnergyLoss: " + ClientUnresolvedTechPointLoss + "\n CL Total HoT: " + num + "\n CL HoT This Turn/Applied: " + expectedHoTThisTurn + " / " + clientAppliedHoTThisTurn;
 	}
 
 	public string GetActorTurnSMDebugString()

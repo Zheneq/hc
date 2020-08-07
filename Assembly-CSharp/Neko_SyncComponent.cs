@@ -373,9 +373,9 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 				}
 				hasQueuedEvades = (queuedOrAimingAbilitiesForPhase.Count > 0);
 			}
-			else if ((bool)m_actorData.GetMostResetDeathSquare())
+			else if ((bool)m_actorData.GetMostRecentDeathSquare())
 			{
-				boardSquare = m_actorData.GetMostResetDeathSquare();
+				boardSquare = m_actorData.GetMostRecentDeathSquare();
 			}
 			if (boardSquare != null)
 			{
@@ -406,7 +406,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 			BoardSquare boardSquare = actorData.GetCurrentBoardSquare();
 			if (actorData.IsDead())
 			{
-				boardSquare = actorData.GetMostResetDeathSquare();
+				boardSquare = actorData.GetMostRecentDeathSquare();
 			}
 			if (boardSquare != null)
 			{
@@ -772,7 +772,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		{
 			return;
 		}
-		List<Team> opposingTeams = m_actorData.GetOpposingTeams();
+		List<Team> opposingTeams = m_actorData.GetEnemyTeams();
 		if (usingEnlargeDiscAbility)
 		{
 			if (m_enlargeDiscAbility != null)

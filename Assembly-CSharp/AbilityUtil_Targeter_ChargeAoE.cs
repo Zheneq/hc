@@ -295,8 +295,8 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 								}
 							}
 							ActorHitContext actorHitContext = m_actorContextVars[current];
-							ContextVars contextVars = actorHitContext._0015;
-							int hash = ContextKeys._0004.GetHash();
+							ContextVars contextVars = actorHitContext.context;
+							int hash = ContextKeys._0004.GetKey();
 							int value;
 							if (flag4)
 							{

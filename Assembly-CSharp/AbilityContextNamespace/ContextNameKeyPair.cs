@@ -4,17 +4,17 @@ namespace AbilityContextNamespace
 	{
 		private string name;
 
-		private int hash;
+		private int key;
 
 		public ContextNameKeyPair(string name)
 		{
 			this.name = name;
-			hash = ContextVars.GetHash(name);
+			key = ContextVars.GetKey(name);
 		}
 
-		public int GetHash()
+		public int GetKey()
 		{
-			return hash;
+			return key;
 		}
 
 		public string GetName()

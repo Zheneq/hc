@@ -34,7 +34,7 @@ public class TrackingEffectSequence : Sequence
 				Renderer[] array = componentsInChildren;
 				foreach (Renderer renderer in array)
 				{
-					renderer.enabled = base.Target.GetActorModelDataRenderer().enabled;
+					renderer.enabled = base.Target.GetModelRenderer().enabled;
 				}
 				while (true)
 				{

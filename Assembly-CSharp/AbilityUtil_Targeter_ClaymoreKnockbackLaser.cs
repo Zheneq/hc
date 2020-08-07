@@ -49,8 +49,8 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 		ClearActorsInRange();
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
 		laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, m_laserRange, m_laserWidth, targetingActor, targetingActor.GetOpposingTeams(), m_penetrateLos, m_maxTargets, m_lengthIgnoreGeo, false, out laserCoords.end, null);
-		List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, m_laserRange, m_laserMiddleWidth, targetingActor, targetingActor.GetOpposingTeams(), m_penetrateLos, m_maxTargets, m_lengthIgnoreGeo, false, out laserCoords.end, null);
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, m_laserRange, m_laserWidth, targetingActor, targetingActor.GetEnemyTeams(), m_penetrateLos, m_maxTargets, m_lengthIgnoreGeo, false, out laserCoords.end, null);
+		List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, m_laserRange, m_laserMiddleWidth, targetingActor, targetingActor.GetEnemyTeams(), m_penetrateLos, m_maxTargets, m_lengthIgnoreGeo, false, out laserCoords.end, null);
 		VectorUtils.LaserCoords laserCoords2 = laserCoords;
 		using (List<ActorData>.Enumerator enumerator = actorsInLaser2.GetEnumerator())
 		{
@@ -79,7 +79,7 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 			if (!actorsInLaser2.Contains(item))
 			{
 				AddActorInRange(item, laserCoords2.start, targetingActor, AbilityTooltipSubject.Secondary);
-				if (targetingActor.TechPoints + targetingActor.ReservedTechPoints >= targetingActor.GetActualMaxTechPoints())
+				if (targetingActor.TechPoints + targetingActor.ReservedTechPoints >= targetingActor.GetMaxTechPoints())
 				{
 					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(item, m_knockbackType, currentTarget.AimDirection, travelBoardSquareWorldPosition, m_knockbackDistance);
 					num3 = AddMovementArrowWithPrevious(item, path, TargeterMovementType.Knockback, num3);

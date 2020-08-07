@@ -601,7 +601,7 @@ public class ActorStatus : NetworkBehaviour
 			break;
 		case StatusType.Revealed:
 		case StatusType.CantHideInBrush:
-			FogOfWar.CalculateFogOfWarForTeam(actorData.GetOpposingTeam());
+			FogOfWar.CalculateFogOfWarForTeam(actorData.GetEnemyTeam());
 			break;
 		case StatusType.IsolateVisionFromAllies:
 		case StatusType.SeeThroughBrush:
@@ -688,7 +688,7 @@ public class ActorStatus : NetworkBehaviour
 			if (HasStatus(StatusType.ProximityBasedInvisibility, includePendingStatus))
 			{
 				bool flag2 = false;
-				List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(actorData.GetOpposingTeam());
+				List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(actorData.GetEnemyTeam());
 				using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
 				{
 					while (true)

@@ -409,7 +409,7 @@ public class ClericAreaBuff : Ability
 			}
 			if (GetExtraSelfShieldsPerEnemyInShape() != 0)
 			{
-				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(GetShape(), targetActor.GetTravelBoardSquareWorldPosition(), targetActor.GetCurrentBoardSquare(), true, targetActor, targetActor.GetOpposingTeam(), null);
+				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(GetShape(), targetActor.GetTravelBoardSquareWorldPosition(), targetActor.GetCurrentBoardSquare(), true, targetActor, targetActor.GetEnemyTeam(), null);
 				num += actorsInShape.Count * GetExtraSelfShieldsPerEnemyInShape();
 			}
 		}

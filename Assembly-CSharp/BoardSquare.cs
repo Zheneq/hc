@@ -706,7 +706,7 @@ public class BoardSquare : MonoBehaviour
 		return worldPosition;
 	}
 
-	public Vector3 GetBaselineHeight()
+	public Vector3 GetWorldPositionBaseline()
 	{
 		Vector3 result = new Vector3(worldX, height, worldY);
 		if (Board.Get() != null)

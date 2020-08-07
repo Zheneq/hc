@@ -51,13 +51,13 @@ public class AbilityUtil_Targeter_NekoDisc : AbilityUtil_Targeter_Laser
 			m_highlights.Add(HighlightUtils.Get().CreateAoECursor(m_aoeRadiusAtEnd * Board.SquareSizeStatic, targetingActor == GameFlowData.Get().activeOwnedActorData));
 		}
 		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
-		AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, GetDistance(), GetWidth(), targetingActor, targetingActor.GetOpposingTeams(), false, GetMaxTargets(), false, false, out Vector3 laserEndPos, null);
+		AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, GetDistance(), GetWidth(), targetingActor, targetingActor.GetEnemyTeams(), false, GetMaxTargets(), false, false, out Vector3 laserEndPos, null);
 		Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(travelBoardSquareWorldPositionForLos, laserEndPos);
-		List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(laserEndPos, m_aoeRadiusAtEnd, false, targetingActor, targetingActor.GetOpposingTeam(), null, true, coneLosCheckPos);
+		List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(laserEndPos, m_aoeRadiusAtEnd, false, targetingActor, targetingActor.GetEnemyTeam(), null, true, coneLosCheckPos);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		AddActorsInRange(actors, travelBoardSquareWorldPositionForLos, targetingActor);
 		BoardSquare discEndSquare = NekoBoomerangDisc.GetDiscEndSquare(travelBoardSquareWorldPositionForLos, laserEndPos);
-		Vector3 baselineHeight = discEndSquare.GetBaselineHeight();
+		Vector3 baselineHeight = discEndSquare.GetWorldPositionBaseline();
 		baselineHeight.y = HighlightUtils.GetHighlightHeight();
 		m_highlights[1].transform.position = baselineHeight;
 		laserEndPos.y = HighlightUtils.GetHighlightHeight();

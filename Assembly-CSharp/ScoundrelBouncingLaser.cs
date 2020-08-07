@@ -212,37 +212,28 @@ public class ScoundrelBouncingLaser : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		ReadOnlyCollection<AbilityUtil_Targeter_BounceLaser.HitActorContext> hitActorContext = (base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_BounceLaser).GetHitActorContext();
-		for (int i = 0; i < hitActorContext.Count; i++)
+		ReadOnlyCollection<AbilityUtil_Targeter_BounceLaser.HitActorContext> hitActorContexts =
+			(base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_BounceLaser).GetHitActorContext();
+		for (int i = 0; i < hitActorContexts.Count; i++)
 		{
-			AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext2 = hitActorContext[i];
-			if (!(hitActorContext2.actor == targetActor))
+			AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext = hitActorContexts[i];
+			if (hitActorContext.actor == targetActor)
 			{
-				continue;
-			}
-			while (true)
-			{
-				int num = GetBaseDamage();
+				int damage = GetBaseDamage();
 				if (CollectTheCoins.Get() != null)
 				{
-					int num2 = Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserDamage.GetBonus_Client(base.ActorData));
-					num += num2;
+					damage += Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserDamage.GetBonus_Client(base.ActorData));
 				}
-				num += GetDamageChangePerHit() * i;
-				int bonusDamagePerBounce = GetBonusDamagePerBounce();
-				AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext3 = hitActorContext[i];
-				int num3 = bonusDamagePerBounce * hitActorContext3.segmentIndex;
-				num += num3;
-				num = Mathf.Max(GetMinDamage(), num);
-				Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-				dictionary[AbilityTooltipSymbol.Damage] = num;
-				return dictionary;
+				damage += GetDamageChangePerHit() * i;
+				damage += GetBonusDamagePerBounce() * hitActorContext.segmentIndex;
+				damage = Mathf.Max(GetMinDamage(), damage);
+				return new Dictionary<AbilityTooltipSymbol, int>()
+				{
+					{ AbilityTooltipSymbol.Damage, damage }
+				};
 			}
 		}
-		while (true)
-		{
-			return null;
-		}
+		return null;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)

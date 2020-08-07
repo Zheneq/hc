@@ -70,7 +70,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		{
 			if (m_primaryLaserAffectsEnemies)
 			{
-				list.Add(caster.GetOpposingTeam());
+				list.Add(caster.GetEnemyTeam());
 			}
 			if (m_primaryLaserAffectsAllies)
 			{
@@ -87,7 +87,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		{
 			if (m_splitLaserAffectsEnemies)
 			{
-				list.Add(caster.GetOpposingTeam());
+				list.Add(caster.GetEnemyTeam());
 			}
 			if (m_splitLaserAffectsAllies)
 			{

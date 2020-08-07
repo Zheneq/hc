@@ -37,34 +37,26 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
-		AbilityTarget abilityTarget = currentTarget;
-		if (currentTargetIndex > 0)
-		{
-			abilityTarget = targets[0];
-		}
-		m_barrierCenterPos = abilityTarget.FreePos;
+		AbilityTarget firstTarget = currentTargetIndex > 0 ? targets[0] : currentTarget;
+		m_barrierCenterPos = firstTarget.FreePos;
 		Vector3 vector = m_barrierCenterPos - targetingActor.GetTravelBoardSquareWorldPosition();
-		bool flag = false;
+		bool hasCursorMoved = false;
 		bool active = false;
 		Vector3 vector2 = m_barrierCenterPos;
 		if (m_snapToBorder)
 		{
 			if ((m_barrierCenterPos - m_lastFreePos).magnitude > 0.2f)
 			{
-				flag = true;
+				hasCursorMoved = true;
 			}
 			m_lastFreePos = m_barrierCenterPos;
-			BoardSquare boardSquareSafe = Board.Get().GetSquare(abilityTarget.GridPos);
-			if (boardSquareSafe != null)
+			BoardSquare square = Board.Get().GetSquare(firstTarget.GridPos);
+			if (square != null)
 			{
 				active = true;
-				vector2 = boardSquareSafe.ToVector3();
-				Vector3 freePos = abilityTarget.FreePos;
-				if (currentTargetIndex > 0)
-				{
-					freePos = currentTarget.FreePos;
-				}
-				vector = VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquareSafe, freePos, m_allowAimAtDiagonals, out Vector3 offset);
+				vector2 = square.ToVector3();
+				Vector3 freePos = currentTargetIndex > 0 ? currentTarget.FreePos : firstTarget.FreePos;
+				vector = VectorUtils.GetDirectionAndOffsetToClosestSide(square, freePos, m_allowAimAtDiagonals, out Vector3 offset);
 				m_barrierCenterPos = vector2 + offset;
 			}
 		}
@@ -72,41 +64,15 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		vector.Normalize();
 		m_barrierDir = vector;
 		m_barrierOutwardFacing = -vector;
-		float x = m_width * Board.Get().squareSize;
-		if (base.Highlight == null)
+		if (Highlight == null)
 		{
-			base.Highlight = Object.Instantiate(HighlightUtils.Get().m_rectangleCursorPrefab.GetComponent<UIRectangleCursor>().m_endWidthLine);
-			base.Highlight.transform.localScale = new Vector3(x, 1f, 1f);
+			Highlight = Object.Instantiate(HighlightUtils.Get().m_rectangleCursorPrefab.GetComponent<UIRectangleCursor>().m_endWidthLine);
+			Highlight.transform.localScale = new Vector3(m_width * Board.Get().squareSize, 1f, 1f);
 		}
-		float y = 0.1f;
-		base.Highlight.transform.position = m_barrierCenterPos + new Vector3(0f, y, 0f);
-		base.Highlight.transform.rotation = Quaternion.LookRotation(m_barrierOutwardFacing);
-		int num;
-		if (m_hideIfMovingFast)
-		{
-			num = (flag ? 1 : 0);
-		}
-		else
-		{
-			num = 0;
-		}
-		bool flag2 = (byte)num != 0;
-		GameObject highlight = base.Highlight;
-		int active2;
+		Highlight.transform.position = m_barrierCenterPos + new Vector3(0f, 0.1f, 0f);
+		Highlight.transform.rotation = Quaternion.LookRotation(m_barrierOutwardFacing);
+		Highlight.SetActive(!m_snapToBorder || !m_hideIfMovingFast || !hasCursorMoved);
 		if (m_snapToBorder)
-		{
-			active2 = ((!flag2) ? 1 : 0);
-		}
-		else
-		{
-			active2 = 1;
-		}
-		highlight.SetActive((byte)active2 != 0);
-		if (!m_snapToBorder)
-		{
-			return;
-		}
-		while (true)
 		{
 			if (m_highlights.Count < 2)
 			{
@@ -114,7 +80,6 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 			}
 			m_highlights[1].transform.position = vector2;
 			m_highlights[1].SetActive(active);
-			return;
 		}
 	}
 }

@@ -51,7 +51,7 @@ public class AbilityUtil_Targeter_GrydCardinalBomb : AbilityUtil_Targeter
 			{
 				list[i].m_hitActorsMap = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>();
 				list2.Clear();
-				GrydCardinalSegmentInfo.CalculateSegmentInfo(list[i], m_maxTrunkDist, m_maxBranchDist, m_maxNumSplits, m_splitOnWall, m_splitOnActor, m_trunkContinueAfterActorHit, false, 0, targetingActor, targetingActor.GetOpposingTeams(), null, list[i].m_hitActorsMap, list2);
+				GrydCardinalSegmentInfo.CalculateSegmentInfo(list[i], m_maxTrunkDist, m_maxBranchDist, m_maxNumSplits, m_splitOnWall, m_splitOnActor, m_trunkContinueAfterActorHit, false, 0, targetingActor, targetingActor.GetEnemyTeams(), null, list[i].m_hitActorsMap, list2);
 				GrydCardinalSegmentInfo.HandleTargeterHighlights(list[i], false, m_highlights, ref nextHighlightIndex);
 				list[i].TrackActorHitInfo(m_actorToHitContext);
 			}

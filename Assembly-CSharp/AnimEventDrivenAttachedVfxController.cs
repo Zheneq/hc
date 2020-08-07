@@ -75,9 +75,9 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 		{
 			if (actorData.IsVisibleToClient())
 			{
-				if (!(actorData.GetActorModelDataRenderer() == null))
+				if (!(actorData.GetModelRenderer() == null))
 				{
-					num = (actorData.GetActorModelDataRenderer().enabled ? 1 : 0);
+					num = (actorData.GetModelRenderer().enabled ? 1 : 0);
 				}
 				else
 				{

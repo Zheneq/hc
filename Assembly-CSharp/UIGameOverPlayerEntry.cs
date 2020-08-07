@@ -147,9 +147,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		int result;
 		if (m_actor != null)
 		{
-			if (m_actor.GetAccountIdWithSomeConditionB_zq() != -1)
+			if (m_actor.GetAccountId() != -1)
 			{
-				if (m_actor.GetAccountIdWithSomeConditionA_zq() != ClientGameManager.Get().GetPlayerAccountData().AccountId)
+				if (m_actor.GetActualAccountId() != ClientGameManager.Get().GetPlayerAccountData().AccountId)
 				{
 					if (!m_actor.GetIsHumanControlled())
 					{
@@ -396,7 +396,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					if (abilityEntry2.GetCooldownRemaining() > 0)
 					{
 						int num3;
-						if (num >= actorData.GetActualMaxTechPoints())
+						if (num >= actorData.GetMaxTechPoints())
 						{
 							num3 = (AbilityUtils.AbilityHasTag(theAbility, AbilityTags.IgnoreCooldownIfFullEnergy) ? 1 : 0);
 						}

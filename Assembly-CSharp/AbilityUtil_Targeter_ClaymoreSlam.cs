@@ -84,15 +84,15 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 					float value = (current.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
 					AddActorInRange(current, travelBoardSquareWorldPositionForLos, targetingActor);
 					ActorHitContext actorHitContext = m_actorContextVars[current];
-					actorHitContext._001D = laserCoords2.start;
-					actorHitContext._0015.SetInt(ContextKeys._0011.GetHash(), num);
-					actorHitContext._0015.SetFloat(ContextKeys._0018.GetHash(), value);
+					actorHitContext.source = laserCoords2.start;
+					actorHitContext.context.SetInt(ContextKeys._0011.GetKey(), num);
+					actorHitContext.context.SetFloat(ContextKeys._0018.GetKey(), value);
 					num++;
 				}
 			}
 		}
 		float num2 = VectorUtils.HorizontalAngle_Deg(aimDirection);
-		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(travelBoardSquareWorldPositionForLos, num2, m_coneAngleDegrees, m_coneLengthRadius, m_coneBackwardOffsetInSquares, m_penetrateLos, targetingActor, targetingActor.GetOpposingTeam(), null);
+		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(travelBoardSquareWorldPositionForLos, num2, m_coneAngleDegrees, m_coneLengthRadius, m_coneBackwardOffsetInSquares, m_penetrateLos, targetingActor, targetingActor.GetEnemyTeam(), null);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		using (List<ActorData>.Enumerator enumerator2 = actors.GetEnumerator())
 		{
@@ -108,8 +108,8 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 						{
 							float value2 = (current2.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
 							ActorHitContext actorHitContext2 = m_actorContextVars[current2];
-							actorHitContext2._001D = laserCoords2.start;
-							actorHitContext2._0015.SetFloat(ContextKeys._0018.GetHash(), value2);
+							actorHitContext2.source = laserCoords2.start;
+							actorHitContext2.context.SetFloat(ContextKeys._0018.GetKey(), value2);
 						}
 					}
 				}

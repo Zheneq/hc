@@ -13,39 +13,27 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 	}
 
 	public delegate float FloatAccessorDelegate();
-
 	public delegate float ExtraKnockbackDelegate(ActorData hitActor);
 
 	public float m_width = 1f;
-
 	public float m_maxDistancePerBounce = 15f;
-
 	public float m_maxTotalDistance = 50f;
-
 	public int m_maxBounces = 5;
-
 	public int m_maxTargetsHit = 1;
-
-	public int m_maxKnockbackTargets;
-
 	public bool m_bounceOnActors;
 
 	public bool m_penetrateTargetsAndHitCaster;
 
+	public int m_maxKnockbackTargets;
 	public float m_knockbackDistance;
-
 	public KnockbackType m_knockbackType;
 
 	private List<HitActorContext> m_hitActorContext = new List<HitActorContext>();
-
 	private OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
 
 	public FloatAccessorDelegate m_extraTotalDistanceDelegate;
-
 	public FloatAccessorDelegate m_extraDistancePerBounceDelegate;
-
 	public FloatAccessorDelegate m_extraBouncesDelegate;
-
 	public ExtraKnockbackDelegate m_extraKnockdownDelegate;
 
 	public AbilityUtil_Targeter_BounceLaser(Ability ability, float width, float distancePerBounce, float totalDistance, int maxBounces, int maxTargetsHit, bool bounceOnActors)
@@ -93,26 +81,16 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 
 	public void CreateLaserHighlights(Vector3 originalStart, List<Vector3> laserAnglePoints)
 	{
-		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
-		Vector3 vector = originalStart + new Vector3(0f, y, 0f);
-		Vector3 originalStart2 = vector;
-		float num = m_width * Board.Get().squareSize;
-		if (base.Highlight == null)
+		Vector3 start = originalStart + new Vector3(0f, 0.1f - BoardSquare.s_LoSHeightOffset, 0f);
+		float width = m_width * Board.Get().squareSize;
+		if (Highlight == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					base.Highlight = HighlightUtils.Get().CreateBouncingLaserCursor(originalStart2, laserAnglePoints, num);
-					return;
-				}
-			}
+			Highlight = HighlightUtils.Get().CreateBouncingLaserCursor(start, laserAnglePoints, width);
 		}
-		UIBouncingLaserCursor component = base.Highlight.GetComponent<UIBouncingLaserCursor>();
-		component.OnUpdated(originalStart2, laserAnglePoints, num);
+		else
+		{
+			Highlight.GetComponent<UIBouncingLaserCursor>().OnUpdated(start, laserAnglePoints, width);
+		}
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
@@ -198,9 +176,9 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 			item.segmentIndex = bouncingLaserInfo.m_endpointIndex;
 			m_hitActorContext.Add(item);
 			ActorHitContext actorHitContext = m_actorContextVars[hitActor];
-			actorHitContext._001D = targetingActor.GetTravelBoardSquareWorldPositionForLos();
-			actorHitContext._0015.SetInt(TargetSelect_BouncingLaser.s_cvarEndpointIndex.GetHash(), bouncingLaserInfo.m_endpointIndex);
-			actorHitContext._0015.SetInt(TargetSelect_BouncingLaser.s_cvarHitOrder.GetHash(), i);
+			actorHitContext.source = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			actorHitContext.context.SetInt(TargetSelect_BouncingLaser.s_cvarEndpointIndex.GetKey(), bouncingLaserInfo.m_endpointIndex);
+			actorHitContext.context.SetInt(TargetSelect_BouncingLaser.s_cvarHitOrder.GetKey(), i);
 		}
 
 		CreateLaserHighlights(travelBoardSquareWorldPositionForLos, endpoints);

@@ -319,7 +319,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 		foreach (ActorData actor in GameFlowData.Get().GetActors())
 		{
-			if (!actor.ShouldPickRespawn_zq())
+			if (!actor.IsPickingRespawnSquare())
 			{
 				continue;
 			}

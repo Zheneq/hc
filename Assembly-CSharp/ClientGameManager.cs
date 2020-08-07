@@ -2309,71 +2309,34 @@ public class ClientGameManager : MonoBehaviour
 		if (ReplayPlayManager.Get() != null && ReplayPlayManager.Get().IsPlayback())
 		{
 			Log.Info("Leaving replay", new object[0]);
-			this.m_lobbyGameClientInterface.Replay_RemoveFromGame();
+			m_lobbyGameClientInterface.Replay_RemoveFromGame();
 			return;
 		}
-		if (gameManager.GameInfo != null)
+		if (gameManager.GameInfo != null && !gameManager.GameInfo.GameServerProcessCode.IsNullOrEmpty() && m_gameResult == GameResult.NoResult)
 		{
-			if (!gameManager.GameInfo.GameServerProcessCode.IsNullOrEmpty())
+			Log.Info($"Leaving game {(isPermanent ? "permanently" : "temporarily")} with result {gameResult}");
+			m_gameResult = gameResult;
+			m_lobbyGameClientInterface?.LeaveGame(isPermanent, gameResult, delegate(LeaveGameResponse response)
 			{
-				if (this.m_gameResult == GameResult.NoResult)
+				if (!response.Success)
 				{
-					string message = "Leaving game {0} with result {1}";
-					object[] array = new object[2];
-					int num = 0;
-					object obj;
-					if (isPermanent)
-					{
-						obj = "permanently";
-					}
-					else
-					{
-						obj = "temporarily";
-					}
-					array[num] = obj;
-					array[1] = gameResult;
-					Log.Info(message, array);
-					this.m_gameResult = gameResult;
-					if (this.m_lobbyGameClientInterface != null)
-					{
-						this.m_lobbyGameClientInterface.LeaveGame(isPermanent, gameResult, delegate(LeaveGameResponse response)
-						{
-							if (!response.Success)
-							{
-								string text = (gameManager.GameInfo == null) ? string.Empty : gameManager.GameInfo.Name;
-								string text2 = string.Format("Failed to leave game: {0}", response.ErrorMessage);
-								TextConsole.Get().Write(text2, ConsoleMessageType.SystemMessage);
-								Log.Warning("Request to leave game {0} failed: {1}", new object[]
-								{
-									text,
-									response.ErrorMessage
-								});
-							}
-						});
-					}
-					if (NetworkClient.active)
-					{
-						if (this.Client != null)
-						{
-							if (this.Client.isConnected)
-							{
-								if (!NetworkServer.active)
-								{
-									GameManager.LeaveGameNotification leaveGameNotification = new GameManager.LeaveGameNotification();
-									leaveGameNotification.PlayerId = GameManager.Get().PlayerInfo.PlayerId;
-									leaveGameNotification.IsPermanent = isPermanent;
-									leaveGameNotification.GameResult = gameResult;
-									this.Client.SetMaxDelay(0f);
-									if (!this.Client.Send(0x43, leaveGameNotification))
-									{
-										Log.Error("Failed to send LeaveGameNotification", new object[0]);
-									}
-									this.Client.Disconnect();
-								}
-							}
-						}
-					}
+					TextConsole.Get().Write($"Failed to leave game: {response.ErrorMessage}", ConsoleMessageType.SystemMessage);
+					Log.Warning($"Request to leave game {gameManager.GameInfo?.Name ?? string.Empty} failed: {response.ErrorMessage}");
 				}
+			});
+					
+			if (NetworkClient.active && Client != null && Client.isConnected && !NetworkServer.active)
+			{
+				GameManager.LeaveGameNotification leaveGameNotification = new GameManager.LeaveGameNotification();
+				leaveGameNotification.PlayerId = GameManager.Get().PlayerInfo.PlayerId;
+				leaveGameNotification.IsPermanent = isPermanent;
+				leaveGameNotification.GameResult = gameResult;
+				Client.SetMaxDelay(0f);
+				if (!Client.Send(0x43, leaveGameNotification))
+				{
+					Log.Error("Failed to send LeaveGameNotification", new object[0]);
+				}
+				Client.Disconnect();
 			}
 		}
 	}

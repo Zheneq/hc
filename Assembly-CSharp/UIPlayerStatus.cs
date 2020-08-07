@@ -123,7 +123,7 @@ public class UIPlayerStatus : MonoBehaviour
 				Ability current = enumerator.Current;
 				AbilityData.ActionType actionTypeOfAbility = component.GetActionTypeOfAbility(current);
 				bool flag = actionTypeOfAbility == AbilityData.ActionType.ABILITY_0;
-				bool flag2 = actionTypeOfAbility == AbilityData.ActionType.ABILITY_4 && current.GetModdedCost() >= m_actor.GetActualMaxTechPoints();
+				bool flag2 = actionTypeOfAbility == AbilityData.ActionType.ABILITY_4 && current.GetModdedCost() >= m_actor.GetMaxTechPoints();
 				if (!component.HasQueuedAction(actionTypeOfAbility))
 				{
 					if (flag)

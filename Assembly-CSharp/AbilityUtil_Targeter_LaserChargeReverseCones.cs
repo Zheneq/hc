@@ -92,9 +92,9 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 		float magnitude = (laserEndPos - travelBoardSquareWorldPositionForLos).magnitude;
 		magnitude = ClaymoreCharge.GetMaxPotentialChargeDistance(travelBoardSquareWorldPositionForLos, laserEndPos, currentTarget.AimDirection, magnitude, targetingActor, out BoardSquare pathEndSquare);
 		BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, pathEndSquare, targetingActor.GetCurrentBoardSquare(), true);
-		List<ActorData> actors = ClaymoreCharge.GetActorsOnPath(path, targetingActor.GetOpposingTeams(), targetingActor);
+		List<ActorData> actors = ClaymoreCharge.GetActorsOnPath(path, targetingActor.GetEnemyTeams(), targetingActor);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
-		List<ActorData> actors2 = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, m_dashWidthInSquares, targetingActor, targetingActor.GetOpposingTeams(), false, 1, true, false, out laserEndPos, null);
+		List<ActorData> actors2 = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, m_dashWidthInSquares, targetingActor, targetingActor.GetEnemyTeams(), false, 1, true, false, out laserEndPos, null);
 		actors2.AddRange(actors);
 		TargeterUtils.SortActorsByDistanceToPos(ref actors2, travelBoardSquareWorldPositionForLos);
 		ActorData actorData = null;
@@ -108,7 +108,7 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 			Vector3 vector = travelBoardSquareWorldPositionForLos + Vector3.Dot(lhs, currentTarget.AimDirection) * currentTarget.AimDirection;
 			laserEndPos = vector;
 			ActorHitContext actorHitContext = m_actorContextVars[actorData];
-			actorHitContext._0015.SetInt(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.GetHash(), 1);
+			actorHitContext.context.SetInt(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.GetKey(), 1);
 		}
 		m_laserLosChecker.UpdateBoxProperties(travelBoardSquareWorldPositionForLos, laserEndPos, targetingActor);
 		Vector3 a = laserEndPos - travelBoardSquareWorldPositionForLos;
@@ -224,8 +224,8 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 				{
 					KeyValuePair<ActorData, int> current2 = enumerator2.Current;
 					ActorHitContext actorHitContext2 = m_actorContextVars[current2.Key];
-					actorHitContext2._0015.SetInt(ContextKeys._0019.GetHash(), current2.Value);
-					actorHitContext2._0015.SetInt(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.GetHash(), 0);
+					actorHitContext2.context.SetInt(ContextKeys._0019.GetKey(), current2.Value);
+					actorHitContext2.context.SetInt(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.GetKey(), 0);
 				}
 			}
 			if (targetingActor == GameFlowData.Get().activeOwnedActorData)

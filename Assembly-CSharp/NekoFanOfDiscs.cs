@@ -459,7 +459,7 @@ public class NekoFanOfDiscs : Ability
 		{
 			Vector3 vector = targetPosForSequences[i];
 			Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(travelBoardSquareWorldPositionForLos, vector);
-			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(vector, GetAoeRadius(), false, caster, caster.GetOpposingTeam(), nonActorTargetInfo, true, coneLosCheckPos);
+			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(vector, GetAoeRadius(), false, caster, caster.GetEnemyTeam(), nonActorTargetInfo, true, coneLosCheckPos);
 			using (List<ActorData>.Enumerator enumerator = actorsInRadius.GetEnumerator())
 			{
 				while (enumerator.MoveNext())

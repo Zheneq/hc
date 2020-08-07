@@ -4,20 +4,17 @@ namespace AbilityContextNamespace
 {
 	public class ActorHitContext
 	{
-		public Vector3 _001D;
+		public Vector3 source;
+		public bool flag;
+		public bool inRange;
+		public ContextVars context = new ContextVars();
 
-		public bool _000E;
-
-		public bool _0012;
-
-		public ContextVars _0015 = new ContextVars();
-
-		public void _0016()
+		public void Clear()
 		{
-			_001D = Vector3.zero;
-			_0015.Clear();
-			_0012 = false;
-			_000E = false;
+			source = Vector3.zero;
+			context.Clear();
+			inRange = false;
+			flag = false;
 		}
 	}
 }

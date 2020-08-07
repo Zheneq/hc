@@ -232,7 +232,7 @@ public class ActorCover : NetworkBehaviour
 
 	public float CoverRating(BoardSquare square)
 	{
-		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(this.m_owner.GetOpposingTeam());
+		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(this.m_owner.GetEnemyTeam());
 		float num = 0f;
 		foreach (ActorData actorData in allTeamMembers)
 		{

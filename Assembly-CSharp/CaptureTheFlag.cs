@@ -1161,7 +1161,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					if (current.ClientHolderActor == actor)
 					{
 						flag = true;
-						current.OnDropped_Client(actor.GetMostResetDeathSquare(), -1);
+						current.OnDropped_Client(actor.GetMostRecentDeathSquare(), -1);
 					}
 					if (contributorsToKillOnClient.Contains(current.ClientHolderActor))
 					{
@@ -1179,7 +1179,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			if (ObjectivePoints.Get() != null)
 			{
 				ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_flagHoldersTeam.m_pointsPerDeathOfFlagHolder, actor.GetTeam());
-				ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_otherTeam.m_pointsPerDeathOfFlagHolder, actor.GetOpposingTeam());
+				ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_otherTeam.m_pointsPerDeathOfFlagHolder, actor.GetEnemyTeam());
 			}
 		}
 		foreach (ActorData item in list)
@@ -1187,7 +1187,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			if (ObjectivePoints.Get() != null)
 			{
 				ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_flagHoldersTeam.m_pointsPerDeathblowByFlagHolder, item.GetTeam());
-				ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_otherTeam.m_pointsPerDeathblowByFlagHolder, item.GetOpposingTeam());
+				ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_otherTeam.m_pointsPerDeathblowByFlagHolder, item.GetEnemyTeam());
 			}
 		}
 		using (List<ActorData>.Enumerator enumerator3 = list2.GetEnumerator())
@@ -1198,7 +1198,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				if (ObjectivePoints.Get() != null)
 				{
 					ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_flagHoldersTeam.m_pointsPerTakedownByFlagHolder, current3.GetTeam());
-					ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_otherTeam.m_pointsPerTakedownByFlagHolder, current3.GetOpposingTeam());
+					ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_otherTeam.m_pointsPerTakedownByFlagHolder, current3.GetEnemyTeam());
 				}
 			}
 			while (true)
@@ -1547,7 +1547,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			if (actorHitHealthChangeArgs.m_caster != null)
 			{
 				Team team = actorHitHealthChangeArgs.m_caster.GetTeam();
-				Team opposingTeam = actorHitHealthChangeArgs.m_caster.GetOpposingTeam();
+				Team opposingTeam = actorHitHealthChangeArgs.m_caster.GetEnemyTeam();
 				float pointsPerHealthChange = GetPointsPerHealthChange(m_objectivePointsData_flagHoldersTeam, actorHitHealthChangeArgs.m_type, true, fromCharacterSpecificAbility);
 				float pointsPerHealthChange2 = GetPointsPerHealthChange(m_objectivePointsData_otherTeam, actorHitHealthChangeArgs.m_type, true, fromCharacterSpecificAbility);
 				int points = Mathf.RoundToInt(pointsPerHealthChange * (float)actorHitHealthChangeArgs.m_amount);
@@ -1566,7 +1566,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			if (flagsHeldByActor_Client2.Count > 0)
 			{
 				Team team2 = actorHitHealthChangeArgs.m_target.GetTeam();
-				Team opposingTeam2 = actorHitHealthChangeArgs.m_target.GetOpposingTeam();
+				Team opposingTeam2 = actorHitHealthChangeArgs.m_target.GetEnemyTeam();
 				float pointsPerHealthChange3 = GetPointsPerHealthChange(m_objectivePointsData_flagHoldersTeam, actorHitHealthChangeArgs.m_type, false, fromCharacterSpecificAbility);
 				float pointsPerHealthChange4 = GetPointsPerHealthChange(m_objectivePointsData_otherTeam, actorHitHealthChangeArgs.m_type, false, fromCharacterSpecificAbility);
 				int points3 = Mathf.RoundToInt(pointsPerHealthChange3 * (float)actorHitHealthChangeArgs.m_amount);

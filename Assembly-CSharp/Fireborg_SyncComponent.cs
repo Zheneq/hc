@@ -134,7 +134,7 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 	public void SetSuperheatedContextVar(ContextVars abilityContext)
 	{
 		bool flag = InSuperheatMode();
-		abilityContext.SetInt(s_cvarSuperheated.GetHash(), flag ? 1 : 0);
+		abilityContext.SetInt(s_cvarSuperheated.GetKey(), flag ? 1 : 0);
 	}
 
 	public void AddGroundFireTargetingNumber(ActorData target, ActorData caster, TargetingNumberUpdateScratch results)

@@ -41,7 +41,7 @@ public class ConeTargetingInfo
 		List<Team> list = new List<Team>();
 		if (m_affectsEnemies)
 		{
-			list.Add(caster.GetOpposingTeam());
+			list.Add(caster.GetEnemyTeam());
 		}
 		if (m_affectsAllies)
 		{

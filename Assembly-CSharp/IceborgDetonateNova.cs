@@ -186,7 +186,7 @@ public class IceborgDetonateNova : GenericAbility_Container
 		}
 		while (true)
 		{
-			abilityContext.SetInt(s_cvarNumNovaCores.GetHash(), m_syncComp.m_numNovaEffectsOnTurnStart);
+			abilityContext.SetInt(s_cvarNumNovaCores.GetKey(), m_syncComp.m_numNovaEffectsOnTurnStart);
 			return;
 		}
 	}

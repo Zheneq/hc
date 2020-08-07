@@ -241,7 +241,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 	{
 		get
 		{
-			int deathCountOfTeam = GameFlowData.Get().GetDeathCountOfTeam(m_actor.GetOpposingTeam());
+			int deathCountOfTeam = GameFlowData.Get().GetDeathCountOfTeam(m_actor.GetEnemyTeam());
 			if (deathCountOfTeam <= 0)
 			{
 				while (true)

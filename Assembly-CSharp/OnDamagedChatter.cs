@@ -65,7 +65,7 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 		bool flag2;
 		if (m_onSelfDamage && flag && !string.IsNullOrEmpty(m_closeCallAudioEvent))
 		{
-			int hitPointsAfterResolution = actorHitHealthChangeArgs.m_target.GetHitPointsAfterResolution();
+			int hitPointsAfterResolution = actorHitHealthChangeArgs.m_target.GetHitPointsToDisplay();
 			int maxHitPoints = actorHitHealthChangeArgs.m_target.GetMaxHitPoints();
 			flag2 = false;
 			if (hitPointsAfterResolution > 0)

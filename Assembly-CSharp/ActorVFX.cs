@@ -503,9 +503,9 @@ public class ActorVFX : NetworkBehaviour
 			{
 				ActorData actorData = this.m_actorData;
 				bool flag;
-				if (actorData.SomeVisibilityCheckB_zq(localPlayerData, false, false))
+				if (actorData.IsHidden(localPlayerData, false, false))
 				{
-					flag = !actorData.SomeVisibilityCheckA_zq(localPlayerData, false);
+					flag = !actorData.IsRevealed(localPlayerData, false);
 				}
 				else
 				{
@@ -578,7 +578,7 @@ public class ActorVFX : NetworkBehaviour
 		}
 		bool flag4 = flag3;
 		bool flag5 = CaptureTheFlag.IsActorRevealedByFlag_Client(actorData);
-		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(actorData.GetTravelBoardSquareWorldPosition(), GameplayData.Get().m_distanceCanSeeIntoBrush, true, null, actorData.GetOpposingTeam(), null, false, default(Vector3));
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(actorData.GetTravelBoardSquareWorldPosition(), GameplayData.Get().m_distanceCanSeeIntoBrush, true, null, actorData.GetEnemyTeam(), null, false, default(Vector3));
 		bool flag6;
 		if (actorsInRadius.Count > 0)
 		{

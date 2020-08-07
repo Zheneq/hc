@@ -28,16 +28,16 @@ public class SpoilsData : MonoBehaviour
 				{
 					return;
 				}
-				List<BoardSquare> list = SpoilsManager.Get().FindSquaresToSpawnSpoil(desiredSquare, component.GetOpposingTeam(), 1, true, true, 3);
+				List<BoardSquare> list = SpoilsManager.Get().FindSquaresToSpawnSpoil(desiredSquare, component.GetEnemyTeam(), 1, true, true, 3);
 				if (list.Count > 0)
 				{
 					if (m_overrideSpoils != null)
 					{
-						m_spawnedPowerUp = SpoilsManager.Get().SpawnSpoils(list[0], m_overrideSpoils, component.GetOpposingTeam(), false);
+						m_spawnedPowerUp = SpoilsManager.Get().SpawnSpoils(list[0], m_overrideSpoils, component.GetEnemyTeam(), false);
 					}
 					else
 					{
-						m_spawnedPowerUp = SpoilsManager.Get().SpawnSpoils(list[0], m_spoilsType, component.GetOpposingTeam());
+						m_spawnedPowerUp = SpoilsManager.Get().SpawnSpoils(list[0], m_spoilsType, component.GetEnemyTeam());
 					}
 				}
 				if (!m_spawnedPowerUp)

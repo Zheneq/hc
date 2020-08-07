@@ -59,7 +59,7 @@ public class BounceBombInfo
 		float maxDistancePerBounceInSquares = num;
 		float totalMaxDistanceInSquares = (!(maxTotalDistanceOverride > 0f)) ? maxTotalDistance : maxTotalDistanceOverride;
 		List<Team> list = new List<Team>();
-		list.Add(caster.GetOpposingTeam());
+		list.Add(caster.GetEnemyTeam());
 		bounceEndPoints = VectorUtils.CalculateBouncingLaserEndpoints(adjustedStartPosition, aimDirection, maxDistancePerBounceInSquares, totalMaxDistanceInSquares, maxBounces, caster, width, 1, includeInvisibles, list, false, out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors, out List<ActorData> _, nonActorTargetInfoInSegment);
 		Vector3 start = adjustedStartPosition;
 		if (bounceEndPoints.Count > 0)

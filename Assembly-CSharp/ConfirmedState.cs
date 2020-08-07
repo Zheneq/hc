@@ -88,7 +88,7 @@ public class ConfirmedState : TurnState
 					ActorData component2 = m_SM.GetComponent<ActorData>();
 					if (component2.RespawnPickedPositionSquare != null)
 					{
-						if (!component2.ShouldPickRespawn_zq())
+						if (!component2.IsPickingRespawnSquare())
 						{
 							while (true)
 							{

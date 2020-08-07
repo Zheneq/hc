@@ -708,7 +708,7 @@ public class SpawnPointManager : MonoBehaviour
 										{
 											if (onlyAvoidVisibleEnemies)
 											{
-												if (!actorData.IsVisibleToOpposingTeam())
+												if (!actorData.IsVisibleToEnemyTeam())
 												{
 													goto IL_379;
 												}

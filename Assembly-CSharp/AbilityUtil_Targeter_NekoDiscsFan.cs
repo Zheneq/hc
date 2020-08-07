@@ -78,21 +78,21 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 			Vector3 vector2 = m_laserEndPoints[num];
 			Vector3 vector3 = new Vector3(x, highlightHeight, vector2.z);
 			Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(travelBoardSquareWorldPositionForLos, m_laserEndPoints[num]);
-			List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(vector3, m_aoeRadiusAtEnd, false, targetingActor, targetingActor.GetOpposingTeam(), null, true, coneLosCheckPos);
+			List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(vector3, m_aoeRadiusAtEnd, false, targetingActor, targetingActor.GetEnemyTeam(), null, true, coneLosCheckPos);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 			AddActorsInRange(actors, travelBoardSquareWorldPositionForLos, targetingActor);
-			int hash = ContextKeys._001A.GetHash();
+			int hash = ContextKeys._001A.GetKey();
 			for (int i = 0; i < actors.Count; i++)
 			{
 				ActorData key = actors[i];
 				ActorHitContext actorHitContext = m_actorContextVars[key];
-				actorHitContext._001D = travelBoardSquareWorldPositionForLos;
-				actorHitContext._0015.SetInt(hash, 1);
+				actorHitContext.source = travelBoardSquareWorldPositionForLos;
+				actorHitContext.context.SetInt(hash, 1);
 			}
 			while (true)
 			{
 				BoardSquare boardSquare = discSquaresFromEndPositions[num];
-				Vector3 baselineHeight = boardSquare.GetBaselineHeight();
+				Vector3 baselineHeight = boardSquare.GetWorldPositionBaseline();
 				baselineHeight.y = HighlightUtils.GetHighlightHeight();
 				gameObject.transform.position = baselineHeight;
 				gameObject2.transform.position = vector3;

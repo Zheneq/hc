@@ -130,11 +130,11 @@ public class ChargeState : MoveState
 				dir2 = -vector;
 			}
 			float num4 = Board.Get().squareSize * Board.Get().squareSize;
-			if (m_owner.m_actor.GetFacingDirAfterMovement() != Vector3.zero)
+			if (m_owner.m_actor.GetFacingDirectionAfterMovement() != Vector3.zero)
 			{
 				if (m_playedEnd || sqrMagnitude < num4)
 				{
-					dir2 = m_owner.m_actor.GetFacingDirAfterMovement();
+					dir2 = m_owner.m_actor.GetFacingDirectionAfterMovement();
 				}
 			}
 			dir2.y = 0f;
@@ -171,9 +171,9 @@ public class ChargeState : MoveState
 		m_updatePath = true;
 		m_owner.m_actor.SetTransformPositionToVector(worldPosition2);
 		Vector3 dir3 = vector;
-		if (m_owner.m_actor.GetFacingDirAfterMovement() != Vector3.zero)
+		if (m_owner.m_actor.GetFacingDirectionAfterMovement() != Vector3.zero)
 		{
-			dir3 = m_owner.m_actor.GetFacingDirAfterMovement();
+			dir3 = m_owner.m_actor.GetFacingDirectionAfterMovement();
 			dir3.y = 0f;
 			if (dir3.magnitude > 0.01f)
 			{

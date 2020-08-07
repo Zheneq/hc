@@ -77,7 +77,7 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 			BoardSquare gameplayRefSquare = GetGameplayRefSquare(currentTarget, targetingActor);
 			if (gameplayRefSquare != null)
 			{
-				List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_enemyShape, currentTarget.FreePos, gameplayRefSquare, m_enemyShapePenetratesLoS, targetingActor, targetingActor.GetOpposingTeam(), null);
+				List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_enemyShape, currentTarget.FreePos, gameplayRefSquare, m_enemyShapePenetratesLoS, targetingActor, targetingActor.GetEnemyTeam(), null);
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 				Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
 				foreach (ActorData item in actors)

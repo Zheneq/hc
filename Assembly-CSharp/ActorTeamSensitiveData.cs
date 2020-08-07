@@ -1043,21 +1043,21 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						if (boardSquareUnsafe.OccupantActor.GetTeam() != actor.GetTeam())
 						{
 							string arg = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe.OccupantActor.m_characterType + 1}>\u200b</size>";
-							empty = string.Format(StringUtil.TR("AssistEnemy", "Ping"), actor.GetFancyDisplayName(), arg, boardSquareUnsafe.OccupantActor.GetFancyDisplayName());
+							empty = string.Format(StringUtil.TR("AssistEnemy", "Ping"), actor.GetDisplayNameForLog(), arg, boardSquareUnsafe.OccupantActor.GetDisplayNameForLog());
 						}
 						else if (boardSquareUnsafe.OccupantActor != actor)
 						{
 							string arg2 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe.OccupantActor.m_characterType}>\u200b</size>";
-							empty = string.Format(StringUtil.TR("AssistAlly", "Ping"), actor.GetFancyDisplayName(), arg2, boardSquareUnsafe.OccupantActor.GetFancyDisplayName());
+							empty = string.Format(StringUtil.TR("AssistAlly", "Ping"), actor.GetDisplayNameForLog(), arg2, boardSquareUnsafe.OccupantActor.GetDisplayNameForLog());
 						}
 						else
 						{
-							empty = string.Format(StringUtil.TR("Assist", "Ping"), actor.GetFancyDisplayName());
+							empty = string.Format(StringUtil.TR("Assist", "Ping"), actor.GetDisplayNameForLog());
 						}
 					}
 					else
 					{
-						empty = string.Format(StringUtil.TR("Assist", "Ping"), actor.GetFancyDisplayName());
+						empty = string.Format(StringUtil.TR("Assist", "Ping"), actor.GetDisplayNameForLog());
 					}
 				}
 				else if (pingType == ActorController.PingType.Defend)
@@ -1072,21 +1072,21 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							if (boardSquareUnsafe2.OccupantActor.GetTeam() != actor.GetTeam())
 							{
 								string arg3 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe2.OccupantActor.m_characterType + 1}>\u200b</size>";
-								empty = string.Format(StringUtil.TR("DangerEnemy", "Ping"), actor.GetFancyDisplayName(), arg3, boardSquareUnsafe2.OccupantActor.GetFancyDisplayName());
+								empty = string.Format(StringUtil.TR("DangerEnemy", "Ping"), actor.GetDisplayNameForLog(), arg3, boardSquareUnsafe2.OccupantActor.GetDisplayNameForLog());
 							}
 							else if (boardSquareUnsafe2.OccupantActor != actor)
 							{
 								string arg4 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe2.OccupantActor.m_characterType}>\u200b</size>";
-								empty = string.Format(StringUtil.TR("DangerAlly", "Ping"), actor.GetFancyDisplayName(), arg4, boardSquareUnsafe2.OccupantActor.GetFancyDisplayName());
+								empty = string.Format(StringUtil.TR("DangerAlly", "Ping"), actor.GetDisplayNameForLog(), arg4, boardSquareUnsafe2.OccupantActor.GetDisplayNameForLog());
 							}
 							else
 							{
-								empty = string.Format(StringUtil.TR("Danger", "Ping"), actor.GetFancyDisplayName());
+								empty = string.Format(StringUtil.TR("Danger", "Ping"), actor.GetDisplayNameForLog());
 							}
 							goto IL_07f5;
 						}
 					}
-					empty = string.Format(StringUtil.TR("Danger", "Ping"), actor.GetFancyDisplayName());
+					empty = string.Format(StringUtil.TR("Danger", "Ping"), actor.GetDisplayNameForLog());
 				}
 				else if (pingType == ActorController.PingType.Enemy)
 				{
@@ -1100,16 +1100,16 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							if (boardSquareUnsafe3.OccupantActor.GetTeam() != actor.GetTeam())
 							{
 								string arg5 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe3.OccupantActor.m_characterType + 1}>\u200b</size>";
-								empty = string.Format(StringUtil.TR("AttackEnemy", "Ping"), actor.GetFancyDisplayName(), arg5, boardSquareUnsafe3.OccupantActor.GetFancyDisplayName());
+								empty = string.Format(StringUtil.TR("AttackEnemy", "Ping"), actor.GetDisplayNameForLog(), arg5, boardSquareUnsafe3.OccupantActor.GetDisplayNameForLog());
 							}
 							else
 							{
-								empty = string.Format(StringUtil.TR("Attack", "Ping"), actor.GetFancyDisplayName());
+								empty = string.Format(StringUtil.TR("Attack", "Ping"), actor.GetDisplayNameForLog());
 							}
 							goto IL_07f5;
 						}
 					}
-					empty = string.Format(StringUtil.TR("Attack", "Ping"), actor.GetFancyDisplayName());
+					empty = string.Format(StringUtil.TR("Attack", "Ping"), actor.GetDisplayNameForLog());
 				}
 				else if (pingType == ActorController.PingType.Move)
 				{
@@ -1123,21 +1123,21 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							if (boardSquareUnsafe4.OccupantActor.GetTeam() != actor.GetTeam())
 							{
 								string arg6 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe4.OccupantActor.m_characterType + 1}>\u200b</size>";
-								empty = string.Format(StringUtil.TR("MoveEnemy", "Ping"), actor.GetFancyDisplayName(), arg6, boardSquareUnsafe4.OccupantActor.GetFancyDisplayName());
+								empty = string.Format(StringUtil.TR("MoveEnemy", "Ping"), actor.GetDisplayNameForLog(), arg6, boardSquareUnsafe4.OccupantActor.GetDisplayNameForLog());
 							}
 							else if (boardSquareUnsafe4.OccupantActor != actor)
 							{
 								string arg7 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)boardSquareUnsafe4.OccupantActor.m_characterType}>\u200b</size>";
-								empty = string.Format(StringUtil.TR("MoveAlly", "Ping"), actor.GetFancyDisplayName(), arg7, boardSquareUnsafe4.OccupantActor.GetFancyDisplayName());
+								empty = string.Format(StringUtil.TR("MoveAlly", "Ping"), actor.GetDisplayNameForLog(), arg7, boardSquareUnsafe4.OccupantActor.GetDisplayNameForLog());
 							}
 							else
 							{
-								empty = string.Format(StringUtil.TR("Move", "Ping"), actor.GetFancyDisplayName());
+								empty = string.Format(StringUtil.TR("Move", "Ping"), actor.GetDisplayNameForLog());
 							}
 							goto IL_07f5;
 						}
 					}
-					empty = string.Format(StringUtil.TR("Move", "Ping"), actor.GetFancyDisplayName());
+					empty = string.Format(StringUtil.TR("Move", "Ping"), actor.GetDisplayNameForLog());
 				}
 				else
 				{
@@ -1246,7 +1246,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 			}
 		}
-		if (ClientGameManager.Get().FriendList.Friends.TryGetValue(Actor.GetAccountIdWithSomeConditionA_zq(), out FriendInfo value))
+		if (ClientGameManager.Get().FriendList.Friends.TryGetValue(Actor.GetActualAccountId(), out FriendInfo value))
 		{
 			if (value.FriendStatus == FriendStatus.Blocked)
 			{

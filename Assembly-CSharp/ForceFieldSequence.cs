@@ -53,7 +53,7 @@ public class ForceFieldSequence : Sequence
 				Renderer[] array = componentsInChildren;
 				foreach (Renderer renderer in array)
 				{
-					renderer.enabled = base.Target.GetActorModelDataRenderer().enabled;
+					renderer.enabled = base.Target.GetModelRenderer().enabled;
 				}
 				Vector3 bonePosition2 = base.Target.GetBonePosition("upperRoot_JNT");
 				m_forceFieldVFX.position = bonePosition2;

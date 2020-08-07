@@ -11,9 +11,9 @@ namespace AbilityContextNamespace
 
 		public Dictionary<int, Vector3> VectorVars = new Dictionary<int, Vector3>();
 
-		public static int GetHash(string _001D)
+		public static int GetKey(string name)
 		{
-			return Animator.StringToHash(_001D.Trim().ToUpper());
+			return Animator.StringToHash(name.Trim().ToUpper());
 		}
 
 		public void Clear()
@@ -70,44 +70,14 @@ namespace AbilityContextNamespace
 
 		public bool Contains(int index, ContextValueType type)
 		{
-			if (type == ContextValueType.INT)
+			switch (type)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return IntVars.ContainsKey(index);
-					}
-				}
-			}
-			if (type == ContextValueType.FLOAT)
-			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return FloatVars.ContainsKey(index);
-					}
-				}
-			}
-			if (type == ContextValueType.VECTOR)
-			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return VectorVars.ContainsKey(index);
-					}
-				}
+				case ContextValueType.INT:
+					return IntVars.ContainsKey(index);
+				case ContextValueType.FLOAT:
+					return FloatVars.ContainsKey(index);
+				case ContextValueType.VECTOR:
+					return VectorVars.ContainsKey(index);
 			}
 			return false;
 		}

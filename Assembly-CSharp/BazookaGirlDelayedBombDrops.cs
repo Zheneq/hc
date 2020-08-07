@@ -279,7 +279,7 @@ public class BazookaGirlDelayedBombDrops : Ability
 					foreach (BoardSquare item in list)
 					{
 						Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_bombInfo.m_shape, item.ToVector3(), item);
-						List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_bombInfo.m_shape, centerOfShape, item, PenetrateLos(), actorData, actorData.GetOpposingTeam(), null);
+						List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_bombInfo.m_shape, centerOfShape, item, PenetrateLos(), actorData, actorData.GetEnemyTeam(), null);
 						foreach (ActorData item2 in actorsInShape)
 						{
 							if (item2 == targetActor)

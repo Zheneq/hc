@@ -37,7 +37,7 @@ public class LaserTargetingInfo
 		List<Team> list = new List<Team>();
 		if (affectsEnemies)
 		{
-			list.Add(caster.GetOpposingTeam());
+			list.Add(caster.GetEnemyTeam());
 		}
 		if (affectsAllies)
 		{

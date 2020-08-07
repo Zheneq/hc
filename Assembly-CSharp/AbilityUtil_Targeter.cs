@@ -663,13 +663,13 @@ public class AbilityUtil_Targeter
 			if (!m_actorContextVars.ContainsKey(actor))
 			{
 				ActorHitContext actorHitContext = new ActorHitContext();
-				actorHitContext._0012 = true;
+				actorHitContext.inRange = true;
 				m_actorContextVars[actor] = actorHitContext;
 				return;
 			}
 			else
 			{
-				m_actorContextVars[actor]._0012 = true;
+				m_actorContextVars[actor].inRange = true;
 			}
 		}
 		else if (appendSubjectType)
@@ -697,21 +697,14 @@ public class AbilityUtil_Targeter
 
 	protected void SetIgnoreCoverMinDist(ActorData actor, bool ignoreCoverMinDist)
 	{
-		int num = 0;
-		while (true)
+		for (int i = 0; i < m_actorsInRange.Count; i++)
 		{
-			if (num < m_actorsInRange.Count)
+			if (m_actorsInRange[i].m_actor == actor)
 			{
-				if (m_actorsInRange[num].m_actor == actor)
-				{
-					break;
-				}
-				num++;
-				continue;
+				m_actorsInRange[i].m_ignoreCoverMinDist = ignoreCoverMinDist;
+				return;
 			}
-			return;
 		}
-		m_actorsInRange[num].m_ignoreCoverMinDist = ignoreCoverMinDist;
 	}
 
 	protected virtual bool DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject subjectType, ActorData targetActor, Vector3 damageOrigin, ActorData targetingActor)
@@ -725,7 +718,7 @@ public class AbilityUtil_Targeter
 		m_actorsAddedSoFar.Clear();
 		foreach (KeyValuePair<ActorData, ActorHitContext> actorContextVar in m_actorContextVars)
 		{
-			actorContextVar.Value._0012 = false;
+			actorContextVar.Value.inRange = false;
 		}
 	}
 
@@ -1137,7 +1130,7 @@ public class AbilityUtil_Targeter
 			}
 			if (m_affectsEnemies)
 			{
-				list.Add(targeterOwner.GetOpposingTeam());
+				list.Add(targeterOwner.GetEnemyTeam());
 			}
 		}
 		return list;

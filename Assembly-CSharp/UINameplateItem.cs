@@ -2181,8 +2181,8 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		Vector3 position = Camera.main.transform.position;
 		m_distanceFromCamera = (vector - position).sqrMagnitude;
 		OnHitUpdate();
-		int hitPointsAfterResolution = m_actorData.GetHitPointsAfterResolution();
-		int clientUnappliedHoTTotal_ToDisplay_zq = m_actorData.GetClientUnappliedHoTTotal_ToDisplay_zq();
+		int hitPointsAfterResolution = m_actorData.GetHitPointsToDisplay();
+		int clientUnappliedHoTTotal_ToDisplay_zq = m_actorData.GetPendingHoTTotalToDisplay();
 		if (hitPointsAfterResolution == 0)
 		{
 			if (!m_zeroHealthIcon.gameObject.activeSelf)
@@ -2205,11 +2205,11 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				UIManager.SetGameObjectActive(m_healthLabel, m_textVisible);
 			}
 		}
-		if (!object.ReferenceEquals(m_textNameLabel.text, m_actorData.GetFancyDisplayName()))
+		if (!object.ReferenceEquals(m_textNameLabel.text, m_actorData.GetDisplayNameForLog()))
 		{
-			m_textNameLabel.text = m_actorData.GetFancyDisplayName();
+			m_textNameLabel.text = m_actorData.GetDisplayNameForLog();
 		}
-		int num = m_actorData._0004();
+		int num = m_actorData.GetAbsorbToDisplay();
 		if (num > 0)
 		{
 			m_mouseOverHitBoxCanvasGroup.ignoreParentGroups = (m_actorData.GetAbilityData().GetSelectedAbility() == null);
@@ -2257,7 +2257,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 		}
 		int energyToDisplay = m_actorData.GetEnergyToDisplay();
-		int actualMaxTechPoints = m_actorData.GetActualMaxTechPoints();
+		int actualMaxTechPoints = m_actorData.GetMaxTechPoints();
 		if (energyToDisplay != m_previousTP || actualMaxTechPoints != m_previousTPMax)
 		{
 			float endValue = 0f;
@@ -2512,10 +2512,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 
 	private void SnapBarValues()
 	{
-		m_previousHP = m_actorData.GetHitPointsAfterResolution();
+		m_previousHP = m_actorData.GetHitPointsToDisplay();
 		m_previousHPMax = m_actorData.GetMaxHitPoints();
-		m_previousShieldValue = m_actorData._0004();
-		m_previousHPShieldAndHot = m_previousHP + m_previousShieldValue + m_actorData.GetClientUnappliedHoTTotal_ToDisplay_zq();
+		m_previousShieldValue = m_actorData.GetAbsorbToDisplay();
+		m_previousHPShieldAndHot = m_previousHP + m_previousShieldValue + m_actorData.GetPendingHoTTotalToDisplay();
 		SetMaxHPWithShield(m_previousHPMax + m_previousShieldValue);
 		int num = m_previousHPMax + m_previousShieldValue;
 		float duration = 0f;
@@ -2555,10 +2555,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		{
 			return;
 		}
-		int num = m_actorData._0004();
-		int hitPointsAfterResolution = m_actorData.GetHitPointsAfterResolution();
+		int num = m_actorData.GetAbsorbToDisplay();
+		int hitPointsAfterResolution = m_actorData.GetHitPointsToDisplay();
 		int hitPoints = m_actorData.HitPoints;
-		int clientUnappliedHoTTotal_ToDisplay_zq = m_actorData.GetClientUnappliedHoTTotal_ToDisplay_zq();
+		int clientUnappliedHoTTotal_ToDisplay_zq = m_actorData.GetPendingHoTTotalToDisplay();
 		int num2 = hitPointsAfterResolution + num + clientUnappliedHoTTotal_ToDisplay_zq;
 		float num3 = (float)hitPointsAfterResolution / (float)m_maxHPWithShield;
 		float num4 = m_HPEased.EndValue();
@@ -2647,12 +2647,12 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 		}
 		m_lostHealth = false;
-		int num = m_actorData._0004();
-		int hitPointsAfterResolution = m_actorData.GetHitPointsAfterResolution();
+		int num = m_actorData.GetAbsorbToDisplay();
+		int hitPointsAfterResolution = m_actorData.GetHitPointsToDisplay();
 		SetMaxHPWithShield(m_actorData.GetMaxHitPoints() + num);
 		float endValue = (float)hitPointsAfterResolution / (float)m_maxHPWithShield;
 		float num2 = ((float)hitPointsAfterResolution + (float)num) / (float)m_maxHPWithShield;
-		float num3 = (float)m_actorData.GetClientUnappliedHoTTotal_ToDisplay_zq() / (float)m_maxHPWithShield;
+		float num3 = (float)m_actorData.GetPendingHoTTotalToDisplay() / (float)m_maxHPWithShield;
 		m_ShieldEased.EaseTo(num2, 2.5f);
 		m_HPEased.EaseTo(endValue, 2.5f);
 		m_HPGainedEased.EaseTo(num2 + num3, 2.5f);
@@ -2664,7 +2664,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		m_actorData = actorData;
 		ActorData actorData2 = m_actorData;
 		actorData2.m_onResolvedHitPoints = (ActorData.ActorDataDelegate)Delegate.Combine(actorData2.m_onResolvedHitPoints, new ActorData.ActorDataDelegate(OnResolvedHitPoints));
-		m_textNameLabel.text = m_actorData.GetFancyDisplayName();
+		m_textNameLabel.text = m_actorData.GetDisplayNameForLog();
 		SnapBarValues();
 	}
 

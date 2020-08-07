@@ -187,7 +187,7 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 						flag2 = true;
 					}
 				}
-				float num2 = base.Caster.GetActualSightRange();
+				float num2 = base.Caster.GetSightRange();
 				ActorAdditionalVisionProviders actorAdditionalVisionProviders = base.Caster.GetActorAdditionalVisionProviders();
 				if (actorAdditionalVisionProviders != null)
 				{

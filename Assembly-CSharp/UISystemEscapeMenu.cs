@@ -167,87 +167,38 @@ public class UISystemEscapeMenu : UIScene
 	{
 		SetParent(false);
 		LobbyGameInfo gameInfo = GameManager.Get().GameInfo;
-		int num;
-		if (gameInfo.GameConfig.GameType.AllowsReconnect())
+		bool allowsReconnect = gameInfo.GameConfig.GameType.AllowsReconnect() && gameInfo.GameStatus != GameStatus.Stopped;
+		if (ReplayPlayManager.Get() != null && ReplayPlayManager.Get().IsPlayback())
 		{
-			num = ((gameInfo.GameStatus != GameStatus.Stopped) ? 1 : 0);
-		}
-		else
-		{
-			num = 0;
-		}
-		bool allowsReconnect = (byte)num != 0;
-		if (ReplayPlayManager.Get() != null)
-		{
-			if (ReplayPlayManager.Get().IsPlayback())
-			{
-				ClientGameManager.Get().LeaveGame(true, GameResult.ClientLeft);
-				return;
-			}
+			ClientGameManager.Get().LeaveGame(true, GameResult.ClientLeft);
+			return;
 		}
 		string title;
 		string description;
-		if (gameInfo.GameConfig.GameType != GameType.Tutorial)
+		if (gameInfo.GameConfig.GameType != GameType.Tutorial && gameInfo.GameConfig.GameType != GameType.NewPlayerSolo)
 		{
-			if (gameInfo.GameConfig.GameType != GameType.NewPlayerSolo)
+			title = StringUtil.TR("LeaveGame", "Global");
+			bool antiSocial = GameManager.Get()?.GameInfo?.GameConfig?.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial) ?? false;
+			if (ClientGameManager.Get().HasLeavingPenalty(GameManager.Get().GameConfig.GameType) && !antiSocial)
 			{
-				title = StringUtil.TR("LeaveGame", "Global");
-				bool flag = false;
-				if (GameManager.Get() != null)
-				{
-					if (GameManager.Get().GameInfo != null && GameManager.Get().GameInfo.GameConfig != null)
-					{
-						if (GameManager.Get().GameInfo.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
-						{
-							flag = true;
-						}
-					}
-				}
-				if (ClientGameManager.Get().HasLeavingPenalty(GameManager.Get().GameConfig.GameType))
-				{
-					if (!flag)
-					{
-						description = StringUtil.TR("QuitGamePromptWithPenalty", "Global");
-						goto IL_01c2;
-					}
-				}
+				description = StringUtil.TR("QuitGamePromptWithPenalty", "Global");
+			}
+			else
+			{
 				description = StringUtil.TR("LeaveGameConfirmation", "Global");
-				goto IL_01c2;
 			}
 		}
-		title = StringUtil.TR("LeaveTutorial", "Global");
-		description = StringUtil.TR("LeaveTutorialConfirmation", "Global");
-		goto IL_01c2;
-		IL_01c2:
+		else
+		{
+			title = StringUtil.TR("LeaveTutorial", "Global");
+			description = StringUtil.TR("LeaveTutorialConfirmation", "Global");
+		}
 		UIDialogPopupManager.OpenTwoButtonDialog(title, description, StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), delegate
 		{
 			ClientGameManager.Get().LeaveGame(!allowsReconnect, GameResult.ClientLeft);
-			if (UITutorialFullscreenPanel.Get() != null)
+			if (UITutorialFullscreenPanel.Get()?.IsAnyPanelVisible() ?? false)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						if (UITutorialFullscreenPanel.Get().IsAnyPanelVisible())
-						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									break;
-								default:
-									UITutorialFullscreenPanel.Get().ClearAllPanels();
-									return;
-								}
-							}
-						}
-						return;
-					}
-				}
+				UITutorialFullscreenPanel.Get().ClearAllPanels();
 			}
 		});
 	}

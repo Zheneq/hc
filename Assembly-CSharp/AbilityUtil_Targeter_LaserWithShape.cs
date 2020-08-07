@@ -266,7 +266,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 			AreaEffectUtils.GetEndPointForValidGameplaySquare(adjustedCoords.start, adjustedCoords.end, out Vector3 adjustedEndPoint);
 			BoardSquare boardSquare = Board.Get().GetSquare(adjustedEndPoint);
 			Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(m_shape, adjustedEndPoint, boardSquare);
-			List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, centerOfShape2, boardSquare, false, targetingActor, targetingActor.GetOpposingTeam(), null);
+			List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, centerOfShape2, boardSquare, false, targetingActor, targetingActor.GetEnemyTeam(), null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 			using (List<ActorData>.Enumerator enumerator2 = actors.GetEnumerator())
 			{

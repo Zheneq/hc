@@ -153,7 +153,7 @@ public class ScampDelayedAoe : GenericAbility_Container
 			value = m_passive.GetMaxSuitShield() - (int)m_syncComp.m_suitShieldingOnTurnStart;
 			value = Mathf.Max(0, value);
 		}
-		abilityContext.SetInt(s_cvarMissingShields.GetHash(), value);
+		abilityContext.SetInt(s_cvarMissingShields.GetKey(), value);
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)

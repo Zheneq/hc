@@ -368,12 +368,11 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		bool hasTargetsInRange = false;
 		for (int i = 0; i <= currentTargeterIndex; i++)
 		{
-			if (!abilityTargeting.Targeters[i].IsActorInTargetRange(target, out bool inCover))
+			if (abilityTargeting.Targeters[i].IsActorInTargetRange(target, out bool inCover))
 			{
-				continue;
+				hasTargetsInRange = true;
+				flag = (i == 0 || flag) && inCover;
 			}
-			hasTargetsInRange = true;
-			flag = (i == 0 || flag) && inCover;
 		}
 		if (!hasTargetsInRange)
 		{
@@ -768,7 +767,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				{
 					return false;
 				}
-				if (actorData.ShouldPickRespawn_zq())
+				if (actorData.IsPickingRespawnSquare())
 				{
 					while (true)
 					{
@@ -1056,7 +1055,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				s_updatedAbilityCooldownsActors.Add(m_actorData);
 				s_lastTimeAddedAbilityCooldownsActor = Time.time;
 			}
-			int actualMaxTechPoints = m_actorData.GetActualMaxTechPoints();
+			int actualMaxTechPoints = m_actorData.GetMaxTechPoints();
 			List<Ability> abilitiesAsList = abilityData.GetAbilitiesAsList();
 			using (List<Ability>.Enumerator enumerator = abilitiesAsList.GetEnumerator())
 			{

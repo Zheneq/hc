@@ -878,7 +878,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				bool flag3;
 				if (value != null)
 				{
-					flag3 = (value.GetOpposingTeam() == this.m_activeOwnedActorData.GetTeam());
+					flag3 = (value.GetEnemyTeam() == this.m_activeOwnedActorData.GetTeam());
 				}
 				else
 				{
@@ -2010,12 +2010,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				}
 				else if (GameplayData.Get().m_participationlessBountiesGoToTeam)
 				{
-					this.RewardTeam(killedActor.GetOpposingTeam(), num);
+					this.RewardTeam(killedActor.GetEnemyTeam(), num);
 				}
 			}
 			else
 			{
-				this.RewardTeam(killedActor.GetOpposingTeam(), num);
+				this.RewardTeam(killedActor.GetEnemyTeam(), num);
 			}
 		}
 	}
@@ -2049,7 +2049,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	public List<ActorData> GetContributorsToKillOnClient(ActorData killedActor, bool onlyDirectDamagers = false)
 	{
 		List<ActorData> list = new List<ActorData>();
-		List<ActorData> allTeamMembers = this.GetAllTeamMembers(killedActor.GetOpposingTeam());
+		List<ActorData> allTeamMembers = this.GetAllTeamMembers(killedActor.GetEnemyTeam());
 		if (allTeamMembers != null)
 		{
 			ActorBehavior actorBehavior = killedActor.GetActorBehavior();

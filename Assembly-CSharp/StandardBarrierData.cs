@@ -7,17 +7,12 @@ using UnityEngine;
 public class StandardBarrierData
 {
 	public float m_width;
-
 	public bool m_bidirectional;
 
 	public BlockingRules m_blocksVision;
-
 	public BlockingRules m_blocksAbilities;
-
 	public BlockingRules m_blocksMovement;
-
 	public BlockingRules m_blocksMovementOnCrossover;
-
 	public BlockingRules m_blocksPositionTargeting;
 
 	public bool m_considerAsCover;
@@ -30,51 +25,34 @@ public class StandardBarrierData
 
 	[Header("-- Gameplay Responses on Moved-Through --")]
 	public GameplayResponseForActor m_onEnemyMovedThrough;
-
 	public GameplayResponseForActor m_onAllyMovedThrough;
 
 	[Space(5f)]
 	public bool m_removeAtTurnEndIfEnemyMovedThrough;
-
 	public bool m_removeAtTurnEndIfAllyMovedThrough;
 
 	[Space(5f)]
 	public bool m_removeAtPhaseEndIfEnemyMovedThrough;
-
 	public bool m_removeAtPhaseEndIfAllyMovedThrough;
 
 	[Space(5f)]
 	public int m_maxHits = -1;
-
 	public bool m_endOnCasterDeath;
 
 	[Header("-- Gameplay Response on Shot Block --")]
 	public BarrierResponseOnShot m_responseOnShotBlock;
 
-	[CompilerGenerated]
-	private static InEditorDescHelper.GetListEntryStrDelegate<GameObject> _003C_003Ef__mg_0024cache0;
-
 	public void SetupForPattern(AbilityGridPattern pattern)
 	{
 		m_bidirectional = true;
-		if (pattern != AbilityGridPattern.Plus_Two_x_Two)
+		if (pattern == AbilityGridPattern.Plus_Two_x_Two)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					if (pattern == AbilityGridPattern.Plus_Four_x_Four)
-					{
-						m_width = 4f;
-					}
-					return;
-				}
-			}
+			m_width = 2f;
 		}
-		m_width = 2f;
+		else if (pattern == AbilityGridPattern.Plus_Four_x_Four)
+		{
+			m_width = 4f;
+		}
 	}
 
 	public virtual void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers)

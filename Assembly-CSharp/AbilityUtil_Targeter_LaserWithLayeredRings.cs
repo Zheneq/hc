@@ -91,15 +91,15 @@ public class AbilityUtil_Targeter_LaserWithLayeredRings : AbilityUtil_Targeter_L
 				case 0:
 					break;
 				default:
-					actorHitContext._0015.SetInt(ContextKeys._001A.GetHash(), 0);
+					actorHitContext.context.SetInt(ContextKeys._001A.GetKey(), 0);
 					return;
 				}
 			}
 		}
 		RadiusToLayerIndex bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData(m_coneRadiusList, actor.GetCurrentBoardSquare(), damageOrigin, targetingActor, true);
 		float value = VectorUtils.HorizontalPlaneDistInSquares(damageOrigin, actor.GetTravelBoardSquareWorldPosition());
-		actorHitContext._0015.SetInt(ContextKeys._001A.GetHash(), 1);
-		actorHitContext._0015.SetInt(ContextKeys._0003.GetHash(), bestMatchingData.m_index);
-		actorHitContext._0015.SetFloat(ContextKeys._0018.GetHash(), value);
+		actorHitContext.context.SetInt(ContextKeys._001A.GetKey(), 1);
+		actorHitContext.context.SetInt(ContextKeys._0003.GetKey(), bestMatchingData.m_index);
+		actorHitContext.context.SetFloat(ContextKeys._0018.GetKey(), value);
 	}
 }

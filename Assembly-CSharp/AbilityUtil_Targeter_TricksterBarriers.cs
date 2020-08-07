@@ -129,7 +129,7 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 			vector.Normalize();
 			Vector3 vector2 = boardSquare.ToVector3() - vector * num9;
 			Vector3 vector3 = boardSquare2.ToVector3() + vector * num9;
-			List<ActorData> actors = AreaEffectUtils.GetActorsInRadiusOfLine(vector2, vector3, 0f, 0f, m_rangeFromLine, m_penetrateLos, targetingActor, targetingActor.GetOpposingTeam(), null);
+			List<ActorData> actors = AreaEffectUtils.GetActorsInRadiusOfLine(vector2, vector3, 0f, 0f, m_rangeFromLine, m_penetrateLos, targetingActor, targetingActor.GetEnemyTeam(), null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 			using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 			{
@@ -139,7 +139,7 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 					AddActorInRange(current, boardSquare.ToVector3(), targetingActor);
 				}
 			}
-			List<ActorData> actors2 = AreaEffectUtils.GetActorsInRadius(boardSquare.ToVector3(), m_radiusAroundStart, m_penetrateLos, targetingActor, targetingActor.GetOpposingTeam(), null);
+			List<ActorData> actors2 = AreaEffectUtils.GetActorsInRadius(boardSquare.ToVector3(), m_radiusAroundStart, m_penetrateLos, targetingActor, targetingActor.GetEnemyTeam(), null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors2);
 			using (List<ActorData>.Enumerator enumerator2 = actors2.GetEnumerator())
 			{

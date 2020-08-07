@@ -335,7 +335,7 @@ public class FogOfWar : MonoBehaviour
 		if ((bool)m_owner)
 		{
 			bool isDisabled = m_owner.IsDead() || NetworkClient.active && m_owner.IsModelAnimatorDisabled();
-			float radius = isDisabled ? 0f : m_owner.GetActualSightRange();
+			float radius = isDisabled ? 0f : m_owner.GetSightRange();
 			CalcVisibleSquares(m_owner.GetTravelBoardSquare(), radius, false, BoardSquare.VisibilityFlags.Self, false);
 		}
 		bool isInGlobalBlind = GameplayMutators.IsStatusActive(StatusType.Blind, GameFlowData.Get().CurrentTurn);
@@ -410,7 +410,7 @@ public class FogOfWar : MonoBehaviour
 						}
 
 						bool isDisabled = teammate.IsDead() || NetworkClient.active && teammate.IsModelAnimatorDisabled();
-						float radius = isDisabled ? 0f : teammate.GetActualSightRange();
+						float radius = isDisabled ? 0f : teammate.GetSightRange();
 						CalcVisibleSquares(teammate.GetTravelBoardSquare(), radius, false, BoardSquare.VisibilityFlags.Team, false);
 						ActorAdditionalVisionProviders component = teammate.GetComponent<ActorAdditionalVisionProviders>();
 						if (component != null)

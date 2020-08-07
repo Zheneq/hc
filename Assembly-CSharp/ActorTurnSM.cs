@@ -1016,7 +1016,7 @@ public class ActorTurnSM : NetworkBehaviour
 		ActorData component = GetComponent<ActorData>();
 		if (component == GameFlowData.Get().activeOwnedActorData)
 		{
-			if (component.ShouldPickRespawn_zq())
+			if (component.IsPickingRespawnSquare())
 			{
 				if (SpawnPointManager.Get() != null)
 				{
@@ -1502,23 +1502,14 @@ public class ActorTurnSM : NetworkBehaviour
 	public bool SelectMovementSquareForChasing(BoardSquare selectedSquare)
 	{
 		bool result = false;
-		ActorData component = GetComponent<ActorData>();
-		if (component._0012(selectedSquare))
+		ActorData actor = GetComponent<ActorData>();
+		if (actor.CanChase(selectedSquare))
 		{
-			ActorData component2 = selectedSquare.occupant.GetComponent<ActorData>();
+			ActorData occupant = selectedSquare.occupant.GetComponent<ActorData>();
 			result = true;
-			int num;
-			if (m_actorData.HasQueuedChase())
+			if (!m_actorData.HasQueuedChase() || m_actorData.GetQueuedChaseTarget() != occupant)
 			{
-				num = ((m_actorData.GetQueuedChaseTarget() == component2) ? 1 : 0);
-			}
-			else
-			{
-				num = 0;
-			}
-			if (num == 0)
-			{
-				if (component == GameFlowData.Get().activeOwnedActorData)
+				if (actor == GameFlowData.Get().activeOwnedActorData)
 				{
 					UISounds.GetUISounds().Play("ui/ingame/v1/teammember_move");
 				}
@@ -1526,13 +1517,9 @@ public class ActorTurnSM : NetworkBehaviour
 				CallCmdChase(selectedSquare.x, selectedSquare.y);
 				NextState = TurnStateEnum.VALIDATING_MOVE_REQUEST;
 				Log.Info(string.Concat("Setting State to ", NextState, " at ", GameTime.time));
-				if (NetworkClient.active && component == GameFlowData.Get().activeOwnedActorData)
+				if (NetworkClient.active && actor == GameFlowData.Get().activeOwnedActorData)
 				{
-					LineData component3 = component.GetComponent<LineData>();
-					if (component3 != null)
-					{
-						component3.OnClientRequestedMovementChange();
-					}
+					actor.GetComponent<LineData>()?.OnClientRequestedMovementChange();
 				}
 			}
 		}

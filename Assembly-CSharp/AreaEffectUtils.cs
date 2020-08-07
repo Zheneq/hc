@@ -3016,7 +3016,7 @@ public static class AreaEffectUtils
 				}
 			}
 		}
-		Vector3 cornerPos = Board._000E(freePos, centerSquare);
+		Vector3 cornerPos = Board.SnapToCorner(freePos, centerSquare);
 		return GetSquaresInShape_EvenByEven(cornerPos, dimensions, cornersToSubtract, ignoreLoS, caster);
 	}
 
@@ -3142,7 +3142,7 @@ public static class AreaEffectUtils
 				}
 			}
 		}
-		Vector3 cornerPos = Board._000E(freePos, centerSquare);
+		Vector3 cornerPos = Board.SnapToCorner(freePos, centerSquare);
 		OperateOnSquaresInShape_EvenByEven(operationObj, cornerPos, dimensions, cornersToSubtract, ignoreLoS, caster, losCheckOverrides);
 	}
 
@@ -3320,7 +3320,7 @@ public static class AreaEffectUtils
 		{
 			return IsSquareInShape_OddByOdd(testSquare, centerSquare, dimensions, cornersToSubtract, ignoreLoS, caster);
 		}
-		Vector3 cornerPos = Board._000E(freePos, centerSquare);
+		Vector3 cornerPos = Board.SnapToCorner(freePos, centerSquare);
 		return IsSquareInShape_EvenByEven(testSquare, cornerPos, dimensions, cornersToSubtract, ignoreLoS, caster);
 	}
 
@@ -3701,7 +3701,7 @@ public static class AreaEffectUtils
 				}
 			}
 		}
-		return Board._000E(freePos, centerSquare);
+		return Board.SnapToCorner(freePos, centerSquare);
 	}
 
 	public static Vector3 GetCenterOfGridPattern(AbilityGridPattern pattern, AbilityTarget target)
@@ -3712,36 +3712,11 @@ public static class AreaEffectUtils
 
 	public static Vector3 GetCenterOfGridPattern(AbilityGridPattern pattern, Vector3 freePos, BoardSquare centerSquare)
 	{
-		bool flag;
-		if (pattern != AbilityGridPattern.Plus_Two_x_Two)
+		if (pattern != AbilityGridPattern.Plus_Two_x_Two && pattern != AbilityGridPattern.Plus_Four_x_Four)
 		{
-			if (pattern != AbilityGridPattern.Plus_Four_x_Four)
-			{
-				flag = true;
-			}
-			else
-			{
-				flag = false;
-			}
+			return centerSquare.ToVector3();
 		}
-		else
-		{
-			flag = false;
-		}
-		if (flag)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return centerSquare.ToVector3();
-				}
-			}
-		}
-		return Board._000E(freePos, centerSquare);
+		return Board.SnapToCorner(freePos, centerSquare);
 	}
 
 	public static bool HasAdjacentActorOfTeam(ActorData aroundActor, List<Team> teams)

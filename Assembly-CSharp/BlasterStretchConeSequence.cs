@@ -212,7 +212,7 @@ public class BlasterStretchConeSequence : Sequence
 		Vector3 startPos = vector;
 		float laserRangeInSquares = maxDist / Board.Get().squareSize;
 		ActorData caster = base.Caster;
-		List<Team> opposingTeams = base.Caster.GetOpposingTeams();
+		List<Team> opposingTeams = base.Caster.GetEnemyTeams();
 		int maxTargets;
 		if (m_projectilesStopOnEnemy)
 		{

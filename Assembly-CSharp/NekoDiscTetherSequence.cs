@@ -126,9 +126,9 @@ public class NekoDiscTetherSequence : LineSequence
 			{
 				if (base.Caster.IsDead())
 				{
-					if (base.Caster.GetMostResetDeathSquare() != null)
+					if (base.Caster.GetMostRecentDeathSquare() != null)
 					{
-						vector = base.Caster.GetMostResetDeathSquare().ToVector3();
+						vector = base.Caster.GetMostRecentDeathSquare().ToVector3();
 					}
 				}
 				else if (base.Caster.IsModelAnimatorDisabled())

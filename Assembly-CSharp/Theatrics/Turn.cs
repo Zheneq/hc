@@ -82,7 +82,7 @@ namespace Theatrics
 				{
 					ActorData actorData = actors[i];
 					if (actorData != null &&
-						actorData.GetHitPointsAfterResolution() <= 0 &&
+						actorData.GetHitPointsToDisplay() <= 0 &&
 						!actorData.IsModelAnimatorDisabled())
 					{
 						if (GameplayData.Get().m_resolveDamageBetweenAbilityPhases || _0004_FinishedTheatrics(actorData))
@@ -425,7 +425,7 @@ namespace Theatrics
 			}
 			if (phase >= (int)AbilityPriority.NumAbilityPriorities)
 			{
-				return actor.GetHitPointsAfterResolution() <= 0;
+				return actor.GetHitPointsToDisplay() <= 0;
 			}
 			int num = 0;
 			for (int i = 0; i <= phase; i++)
@@ -464,7 +464,7 @@ namespace Theatrics
 
 		internal bool _0004_FinishedTheatrics(ActorData actor, int deltaHP = 0, int seqSourceRootID = -1)
 		{
-			if (actor.GetHitPointsAfterResolution() + deltaHP <= 0 &&
+			if (actor.GetHitPointsToDisplay() + deltaHP <= 0 &&
 				!actor.IsModelAnimatorDisabled() &&
 				IsDeadAtCurrentPhase(actor) &&
 				this.CurrentPhase >= 3)

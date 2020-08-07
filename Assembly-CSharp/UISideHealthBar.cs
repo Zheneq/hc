@@ -213,12 +213,12 @@ public class UISideHealthBar : MonoBehaviour
 			ActorData actor = m_actor;
 			if (actor != null)
 			{
-				int hitPointsAfterResolution = actor.GetHitPointsAfterResolution();
+				int hitPointsAfterResolution = actor.GetHitPointsToDisplay();
 				int maxHitPoints = actor.GetMaxHitPoints();
 				int energyToDisplay = actor.GetEnergyToDisplay();
-				int actualMaxTechPoints = actor.GetActualMaxTechPoints();
-				int num = actor._0004();
-				int clientUnappliedHoTTotal_ToDisplay_zq = actor.GetClientUnappliedHoTTotal_ToDisplay_zq();
+				int actualMaxTechPoints = actor.GetMaxTechPoints();
+				int num = actor.GetAbsorbToDisplay();
+				int clientUnappliedHoTTotal_ToDisplay_zq = actor.GetPendingHoTTotalToDisplay();
 				if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 				{
 					m_pendingHealthText.text = "+" + clientUnappliedHoTTotal_ToDisplay_zq;

@@ -29,7 +29,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 			List<Team> list = new List<Team>();
 			if (m_affectEnemies)
 			{
-				list.Add(caster.GetOpposingTeam());
+				list.Add(caster.GetEnemyTeam());
 			}
 			if (m_affectAllies)
 			{
@@ -330,7 +330,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 		{
 			HitActorContext hitActorContext = m_hitActorContext[k];
 			ActorHitContext actorHitContext = m_actorContextVars[hitActorContext.m_actor];
-			actorHitContext._0015.SetInt(TargetSelect_Shape.s_cvarShapeLayer.GetHash(), hitActorContext.m_hitShapeIndex);
+			actorHitContext.context.SetInt(TargetSelect_Shape.s_cvarShapeLayer.GetKey(), hitActorContext.m_hitShapeIndex);
 		}
 		while (true)
 		{

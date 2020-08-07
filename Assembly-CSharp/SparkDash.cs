@@ -598,7 +598,7 @@ public class SparkDash : Ability
 		if (targetIndex == 0)
 		{
 			List<Team> list = new List<Team>();
-			list.Add(caster.GetOpposingTeam());
+			list.Add(caster.GetEnemyTeam());
 			list.Add(caster.GetTeam());
 			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_targetShape, target, m_targetShapePenetratesLoS, caster, list, null);
 			SparkBeamTrackerComponent component = caster.GetComponent<SparkBeamTrackerComponent>();

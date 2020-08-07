@@ -113,7 +113,7 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 			int num;
 			if (m_actorData.IsVisibleToClient())
 			{
-				num = ((m_actorData.GetActorModelDataRenderer() == null || m_actorData.GetActorModelDataRenderer().enabled) ? 1 : 0);
+				num = ((m_actorData.GetModelRenderer() == null || m_actorData.GetModelRenderer().enabled) ? 1 : 0);
 			}
 			else
 			{

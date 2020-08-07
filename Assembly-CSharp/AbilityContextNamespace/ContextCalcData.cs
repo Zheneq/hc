@@ -5,27 +5,27 @@ namespace AbilityContextNamespace
 {
 	public class ContextCalcData
 	{
-		public ContextVars _001D = new ContextVars();
+		public ContextVars m_contextVars = new ContextVars();
 
-		public Dictionary<ActorData, ActorHitContext> _000E = new Dictionary<ActorData, ActorHitContext>();
+		public Dictionary<ActorData, ActorHitContext> m_actorHitContext = new Dictionary<ActorData, ActorHitContext>();
 
-		public void _0012()
+		public void Clear()
 		{
-			_000E.Clear();
-			_001D.Clear();
+			m_actorHitContext.Clear();
+			m_contextVars.Clear();
 		}
 
-		public void _0012(ActorData _001D, Vector3 _000E, bool _0012 = false)
+		public void Add(ActorData actor, Vector3 source, bool flag = false)
 		{
-			if (_001D == null)
+			if (actor == null)
 			{
 				Log.Error("Trying to add null actor");
 			}
-			if (!this._000E.ContainsKey(_001D))
+			if (!this.m_actorHitContext.ContainsKey(actor))
 			{
-				this._000E.Add(_001D, new ActorHitContext());
-				this._000E[_001D]._001D = _000E;
-				this._000E[_001D]._000E = _0012;
+				this.m_actorHitContext.Add(actor, new ActorHitContext());
+				this.m_actorHitContext[actor].source = source;
+				this.m_actorHitContext[actor].flag = flag;
 			}
 			else
 			{
@@ -33,29 +33,16 @@ namespace AbilityContextNamespace
 				{
 					return;
 				}
-				while (true)
-				{
-					Log.Warning("TargetSelect context: trying to add actor more than once");
-					return;
-				}
+				Log.Warning("TargetSelect context: trying to add actor more than once");
 			}
 		}
 
-		public void _0012(ActorData _001D, int _000E, int _0012)
+		public void Set(ActorData actor, int index, int value)
 		{
-			if (this._000E.ContainsKey(_001D))
+			if (m_actorHitContext.ContainsKey(actor))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						this._000E[_001D]._0015.SetInt(_000E, _0012);
-						return;
-					}
-				}
+				m_actorHitContext[actor].context.SetInt(index, value);
+				return;
 			}
 			if (Application.isEditor)
 			{
@@ -63,57 +50,29 @@ namespace AbilityContextNamespace
 			}
 		}
 
-		public void _0012(ActorData _001D, int _000E, float _0012)
+		public void Set(ActorData actor, int index, float value)
 		{
-			if (this._000E.ContainsKey(_001D))
+			if (m_actorHitContext.ContainsKey(actor))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						this._000E[_001D]._0015.SetFloat(_000E, _0012);
-						return;
-					}
-				}
-			}
-			if (!Application.isEditor)
-			{
+				m_actorHitContext[actor].context.SetFloat(index, value);
 				return;
 			}
-			while (true)
+			if (Application.isEditor)
 			{
 				Log.Warning("Setting context for actor we didn't track");
-				return;
 			}
 		}
 
-		public void _0012(ActorData _001D, int _000E, Vector3 _0012)
+		public void Set(ActorData actor, int index, Vector3 value)
 		{
-			if (this._000E.ContainsKey(_001D))
+			if (m_actorHitContext.ContainsKey(actor))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						this._000E[_001D]._0015.SetVector(_000E, _0012);
-						return;
-					}
-				}
-			}
-			if (!Application.isEditor)
-			{
+				m_actorHitContext[actor].context.SetVector(index, value);
 				return;
 			}
-			while (true)
+			if (Application.isEditor)
 			{
 				Log.Warning("Setting context for actor we didn't track");
-				return;
 			}
 		}
 	}

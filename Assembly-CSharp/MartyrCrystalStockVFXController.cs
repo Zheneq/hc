@@ -142,7 +142,7 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		{
 			if (actorData.IsVisibleToClient())
 			{
-				num = ((actorData.GetActorModelDataRenderer() == null || actorData.GetActorModelDataRenderer().enabled) ? 1 : 0);
+				num = ((actorData.GetModelRenderer() == null || actorData.GetModelRenderer().enabled) ? 1 : 0);
 			}
 			else
 			{

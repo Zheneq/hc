@@ -328,16 +328,6 @@ public static class TargeterUtils
 				actors.RemoveAt(num);
 			}
 		}
-		while (true)
-		{
-			switch (4)
-			{
-			default:
-				return;
-			case 0:
-				break;
-			}
-		}
 	}
 
 	public static void RemoveActorsInvisibleToActor(ref List<ActorData> actors, ActorData observer)
@@ -702,7 +692,7 @@ public static class TargeterUtils
 		}
 		if (includeEnemies)
 		{
-			list.Add(allyActor.GetOpposingTeam());
+			list.Add(allyActor.GetEnemyTeam());
 		}
 		return list;
 	}

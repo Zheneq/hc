@@ -316,8 +316,8 @@ namespace Theatrics
 					{
 						ActorData hitActor = current.Key;
 						int deltaHP = current.Value;
-						int hitPointsAfterResolution = hitActor.GetHitPointsAfterResolution();
-						int hitPointsAfterResolutionWithDelta = hitActor.GetHitPointsAfterResolutionWithDelta(deltaHP);
+						int hitPointsAfterResolution = hitActor.GetHitPointsToDisplay();
+						int hitPointsAfterResolutionWithDelta = hitActor.GetHitPointsToDisplayWithDelta(deltaHP);
 						if (deltaHP < 0 && hitPointsAfterResolution > 0 && hitPointsAfterResolutionWithDelta <= 0)
 						{
 							flag = true;

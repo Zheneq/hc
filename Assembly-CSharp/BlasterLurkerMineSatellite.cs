@@ -56,7 +56,7 @@ public class BlasterLurkerMineSatellite : TempSatellite
 			float num;
 			if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 			{
-				if (owner.GetOpposingTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
+				if (owner.GetEnemyTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 				{
 					num = 1f;
 					goto IL_00a5;

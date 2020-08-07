@@ -26,15 +26,16 @@ public class ScoundrelTrapWire : Ability
 
 	private void SetupTargeter()
 	{
-		if (m_pattern != 0)
+		if (m_pattern == AbilityGridPattern.NoPattern)
 		{
-			AbilityUtil_Targeter_Grid abilityUtil_Targeter_Grid = (AbilityUtil_Targeter_Grid)(base.Targeter = new AbilityUtil_Targeter_Grid(this, m_pattern, ModdedBarrierScale()));
+			Targeter = new AbilityUtil_Targeter_Barrier(this, ModdedBarrierData().m_width * ModdedBarrierScale());
 		}
 		else
 		{
-			base.Targeter = new AbilityUtil_Targeter_Barrier(this, ModdedBarrierData().m_width * ModdedBarrierScale());
+			AbilityUtil_Targeter_Grid abilityUtil_Targeter_Grid = new AbilityUtil_Targeter_Grid(this, m_pattern, ModdedBarrierScale());
+			Targeter = abilityUtil_Targeter_Grid;
 		}
-		base.Targeter.ShowArcToShape = true;
+		Targeter.ShowArcToShape = true;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -51,22 +52,14 @@ public class ScoundrelTrapWire : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_ScoundrelTrapWire))
+		if (abilityMod.GetType() != typeof(AbilityMod_ScoundrelTrapWire))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_ScoundrelTrapWire);
-					SetupTargeter();
-					return;
-				}
-			}
+			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+
+		m_abilityMod = (abilityMod as AbilityMod_ScoundrelTrapWire);
+		SetupTargeter();
 	}
 
 	protected override void OnRemoveAbilityMod()
@@ -79,16 +72,7 @@ public class ScoundrelTrapWire : Ability
 	{
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return m_abilityMod.m_barrierDataMod.GetModifiedValue(m_barrierData);
-				}
-			}
+			return m_abilityMod.m_barrierDataMod.GetModifiedValue(m_barrierData);
 		}
 		return m_barrierData;
 	}
@@ -105,17 +89,10 @@ public class ScoundrelTrapWire : Ability
 
 	public List<GameObject> ModdedBarrierSequencePrefab()
 	{
-		List<GameObject> result = ModdedBarrierData().m_barrierSequencePrefabs;
-		if (m_abilityMod != null)
+		if ((m_abilityMod?.m_barrierSequence?.Count ?? 0) > 0)
 		{
-			if (m_abilityMod.m_barrierSequence != null)
-			{
-				if (m_abilityMod.m_barrierSequence.Count > 0)
-				{
-					result = m_abilityMod.m_barrierSequence;
-				}
-			}
+			return m_abilityMod.m_barrierSequence;
 		}
-		return result;
+		return ModdedBarrierData().m_barrierSequencePrefabs;
 	}
 }

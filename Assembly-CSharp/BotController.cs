@@ -38,63 +38,63 @@ public class BotController : MonoBehaviour
 		this.previousBrainStack = new Stack<NPCBrain>();
 		if (base.GetComponent<NPCBrain>() == null)
 		{
-			if (!(component.GetName() == "Sniper") && !(component.GetName() == "RageBeast") && !(component.GetName() == "Scoundrel"))
+			if (!(component.GetObjectName() == "Sniper") && !(component.GetObjectName() == "RageBeast") && !(component.GetObjectName() == "Scoundrel"))
 			{
-				if (!(component.GetName() == "RobotAnimal"))
+				if (!(component.GetObjectName() == "RobotAnimal"))
 				{
-					if (!(component.GetName() == "NanoSmith"))
+					if (!(component.GetObjectName() == "NanoSmith"))
 					{
-						if (!(component.GetName() == "Thief"))
+						if (!(component.GetObjectName() == "Thief"))
 						{
-							if (!(component.GetName() == "BattleMonk") && !(component.GetName() == "BazookaGirl"))
+							if (!(component.GetObjectName() == "BattleMonk") && !(component.GetObjectName() == "BazookaGirl"))
 							{
-								if (!(component.GetName() == "SpaceMarine"))
+								if (!(component.GetObjectName() == "SpaceMarine"))
 								{
-									if (!(component.GetName() == "Gremlins"))
+									if (!(component.GetObjectName() == "Gremlins"))
 									{
-										if (!(component.GetName() == "Tracker"))
+										if (!(component.GetObjectName() == "Tracker"))
 										{
-											if (!(component.GetName() == "DigitalSorceress"))
+											if (!(component.GetObjectName() == "DigitalSorceress"))
 											{
-												if (!(component.GetName() == "Spark") && !(component.GetName() == "Claymore") && !(component.GetName() == "Rampart"))
+												if (!(component.GetObjectName() == "Spark") && !(component.GetObjectName() == "Claymore") && !(component.GetObjectName() == "Rampart"))
 												{
-													if (!(component.GetName() == "Trickster"))
+													if (!(component.GetObjectName() == "Trickster"))
 													{
-														if (!(component.GetName() == "Blaster"))
+														if (!(component.GetObjectName() == "Blaster"))
 														{
-															if (!(component.GetName() == "FishMan"))
+															if (!(component.GetObjectName() == "FishMan"))
 															{
-																if (!(component.GetName() == "Thief"))
+																if (!(component.GetObjectName() == "Thief"))
 																{
-																	if (!(component.GetName() == "Soldier"))
+																	if (!(component.GetObjectName() == "Soldier"))
 																	{
-																		if (!(component.GetName() == "Exo"))
+																		if (!(component.GetObjectName() == "Exo"))
 																		{
-																			if (!(component.GetName() == "Martyr") && !(component.GetName() == "Sensei"))
+																			if (!(component.GetObjectName() == "Martyr") && !(component.GetObjectName() == "Sensei"))
 																			{
-																				if (!(component.GetName() == "TeleportingNinja") && !(component.GetName() == "Manta"))
+																				if (!(component.GetObjectName() == "TeleportingNinja") && !(component.GetObjectName() == "Manta"))
 																				{
-																					if (!(component.GetName() == "Valkyrie"))
+																					if (!(component.GetObjectName() == "Valkyrie"))
 																					{
-																						if (!(component.GetName() == "Archer"))
+																						if (!(component.GetObjectName() == "Archer"))
 																						{
-																							if (!(component.GetName() == "Samurai"))
+																							if (!(component.GetObjectName() == "Samurai"))
 																							{
-																								if (!(component.GetName() == "Cleric"))
+																								if (!(component.GetObjectName() == "Cleric"))
 																								{
-																									if (!(component.GetName() == "Neko"))
+																									if (!(component.GetObjectName() == "Neko"))
 																									{
-																										if (!(component.GetName() == "Scamp"))
+																										if (!(component.GetObjectName() == "Scamp"))
 																										{
-																											if (!(component.GetName() == "Dino"))
+																											if (!(component.GetObjectName() == "Dino"))
 																											{
-																												if (!(component.GetName() == "Iceborg"))
+																												if (!(component.GetObjectName() == "Iceborg"))
 																												{
-																													if (!(component.GetName() == "Fireborg"))
+																													if (!(component.GetObjectName() == "Fireborg"))
 																													{
 																														Log.Info("Using Generic AI for {0}", new object[]
 																														{
-																															component.GetName()
+																															component.GetObjectName()
 																														});
 																														return;
 																													}
@@ -127,7 +127,7 @@ public class BotController : MonoBehaviour
 			NPCBrain_Adaptive.Create(this, component.transform, botDifficulty, flag);
 			Log.Info("Making Adaptive AI for {0} at difficulty {1}, can taunt: {2}", new object[]
 			{
-				component.GetName(),
+				component.GetObjectName(),
 				botDifficulty.ToString(),
 				flag
 			});
@@ -142,7 +142,7 @@ public class BotController : MonoBehaviour
 	{
 		numEnemiesInRange = 0;
 		ActorData component = base.GetComponent<ActorData>();
-		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(component.GetOpposingTeam());
+		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(component.GetEnemyTeam());
 		BoardSquare currentBoardSquare = component.GetCurrentBoardSquare();
 		BoardSquare boardSquare = null;
 		using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
@@ -192,7 +192,7 @@ public class BotController : MonoBehaviour
 	public BoardSquare GetRetreatSquare()
 	{
 		ActorData component = base.GetComponent<ActorData>();
-		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(component.GetOpposingTeam());
+		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(component.GetEnemyTeam());
 		BoardSquare currentBoardSquare = component.GetCurrentBoardSquare();
 		Vector3 a = new Vector3(0f, 0f, 0f);
 		using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())

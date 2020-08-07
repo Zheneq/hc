@@ -131,9 +131,9 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 				AddActorInRange(current, damageOrigin, targetingActor, (AbilityTooltipSubject)subjectType);
 				ActorHitContext actorHitContext = m_actorContextVars[current];
 				float value = VectorUtils.HorizontalPlaneDistInSquares(src, current.GetTravelBoardSquareWorldPosition());
-				actorHitContext._0015.SetFloat(ContextKeys._0018.GetHash(), value);
-				ContextVars contextVars = actorHitContext._0015;
-				int hash = TargetSelect_ConeOrLaser.s_cvarInCone.GetHash();
+				actorHitContext.context.SetFloat(ContextKeys._0018.GetKey(), value);
+				ContextVars contextVars = actorHitContext.context;
+				int hash = TargetSelect_ConeOrLaser.s_cvarInCone.GetKey();
 				int value2;
 				if (updatingWithCone)
 				{
@@ -152,7 +152,7 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 						Vector3 to = current.GetTravelBoardSquareWorldPosition() - targetingActor.GetTravelBoardSquareWorldPosition();
 						to.y = 0f;
 						num = Vector3.Angle(aimDirection, to);
-						actorHitContext._0015.SetFloat(ContextKeys._001D.GetHash(), num);
+						actorHitContext.context.SetFloat(ContextKeys._001D.GetKey(), num);
 					}
 				}
 			}

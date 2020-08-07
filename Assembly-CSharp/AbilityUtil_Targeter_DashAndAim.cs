@@ -149,7 +149,7 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 			{
 				vector3 = AbilityCommon_LaserWithCone.GetConeLosCheckPos(laserCoords.start, laserCoords.end);
 			}
-			List<ActorData> actors = AreaEffectUtils.GetActorsInCone(end, 0f, 360f, m_aoeRadius, 0f, m_aoePenetratesLoS, targetingActor, targetingActor.GetOpposingTeam(), null, true, vector3);
+			List<ActorData> actors = AreaEffectUtils.GetActorsInCone(end, 0f, 360f, m_aoeRadius, 0f, m_aoePenetratesLoS, targetingActor, targetingActor.GetEnemyTeam(), null, true, vector3);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 			using (List<ActorData>.Enumerator enumerator2 = actors.GetEnumerator())
 			{

@@ -314,7 +314,7 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		else
 		{
-			num2 = (int)activeOwnedActorData.GetOpposingTeam();
+			num2 = (int)activeOwnedActorData.GetEnemyTeam();
 		}
 		Team team2 = (Team)num2;
 		if (activeOwnedActorData != null)
@@ -503,7 +503,7 @@ public class ObjectivePoints : NetworkBehaviour
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		Team team = (!(activeOwnedActorData == null)) ? activeOwnedActorData.GetTeam() : Team.TeamA;
-		Team team2 = (activeOwnedActorData == null) ? Team.TeamB : activeOwnedActorData.GetOpposingTeam();
+		Team team2 = (activeOwnedActorData == null) ? Team.TeamB : activeOwnedActorData.GetEnemyTeam();
 		string text = UIUtils.ColorToNGUIRichTextTag(ActorData.s_friendlyPlayerColor);
 		string text2 = UIUtils.ColorToNGUIRichTextTag(ActorData.s_hostilePlayerColor);
 		string result = string.Empty;

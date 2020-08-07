@@ -728,7 +728,7 @@ public abstract class Sequence : MonoBehaviour
 				{
 					if (!m_canTriggerHitReactOnAllyHit)
 					{
-						result = ((Caster.GetOpposingTeam() == target.GetTeam()) ? 1 : 0);
+						result = ((Caster.GetEnemyTeam() == target.GetTeam()) ? 1 : 0);
 					}
 					else
 					{
@@ -1538,7 +1538,7 @@ public abstract class Sequence : MonoBehaviour
 		}
 		Source.OnSequenceHit(this, TargetPos, impulseInfo);
 		List<Team> list = new List<Team>();
-		list.Add(Caster.GetOpposingTeam());
+		list.Add(Caster.GetEnemyTeam());
 		list.Add(Caster.GetTeam());
 		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(impactPos, num * 3f, false, Caster, list, null);
 		for (int k = 0; k < actorsInRadius.Count; k++)

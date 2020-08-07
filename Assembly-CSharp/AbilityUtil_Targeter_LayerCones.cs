@@ -84,7 +84,7 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 		}
 		Vector3 vector2 = vector;
 		int numActiveLayers = GetNumActiveLayers();
-		m_nonActorSpecificContext.SetInt(ContextKeys._000F.GetHash(), numActiveLayers);
+		m_nonActorSpecificContext.SetInt(ContextKeys._000F.GetKey(), numActiveLayers);
 		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vector2);
 		HandleConeCursorHighlights(travelBoardSquareWorldPositionForLos, vector2, numActiveLayers);
 		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, m_coneWidthAngle, GetMaxConeRadius(), m_coneBackwardOffsetInSquares, m_penetrateLoS, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, m_affectsEnemies), null);
@@ -120,7 +120,7 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 						if (AreaEffectUtils.IsSquareInConeByActorRadius(current.GetCurrentBoardSquare(), travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, m_coneWidthAngle, m_coneRadiusList[i], m_coneBackwardOffsetInSquares, true, targetingActor))
 						{
 							ActorHitContext actorHitContext = m_actorContextVars[current];
-							actorHitContext._0015.SetInt(ContextKeys._0003.GetHash(), i);
+							actorHitContext.context.SetInt(ContextKeys._0003.GetKey(), i);
 							break;
 						}
 					}
