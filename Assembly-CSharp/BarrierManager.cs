@@ -753,21 +753,15 @@ public class BarrierManager : NetworkBehaviour
 		{
 			return;
 		}
-		bool flag = false;
-		int num = 0;
-		while (true)
+		bool hasBarrierCovers = false;
+		
+		for (int num = 0; num < m_barriers.Count; num++)
 		{
-			if (num < m_barriers.Count)
+			if (m_barriers[num].ConsiderAsCover)
 			{
-				if (m_barriers[num].ConsiderAsCover)
-				{
-					flag = true;
-					break;
-				}
-				num++;
-				continue;
+				hasBarrierCovers = true;
+				break;
 			}
-			break;
 		}
 		m_barriers.Clear();
 		if (m_barrierIdSync.Count > 50)
@@ -776,50 +770,25 @@ public class BarrierManager : NetworkBehaviour
 		}
 		for (int i = 0; i < m_barrierIdSync.Count; i++)
 		{
-			using (List<BarrierSerializeInfo>.Enumerator enumerator = m_clientBarrierInfo.GetEnumerator())
+			foreach (BarrierSerializeInfo cached in m_clientBarrierInfo)
 			{
-				while (true)
+				if (cached.m_guid == m_barrierIdSync[i])
 				{
-					if (!enumerator.MoveNext())
+					Barrier barrier = Barrier.CreateBarrierFromSerializeInfo(cached);
+					if (barrier.ConsiderAsCover)
 					{
-						break;
+						hasBarrierCovers = true;
 					}
-					BarrierSerializeInfo current = enumerator.Current;
-					if (current.m_guid == m_barrierIdSync[i])
-					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								break;
-							default:
-							{
-								Barrier barrier = Barrier.CreateBarrierFromSerializeInfo(current);
-								if (barrier.ConsiderAsCover)
-								{
-									flag = true;
-								}
-								AddBarrier(barrier, false, out List<ActorData> _);
-								goto end_IL_00a2;
-							}
-							}
-						}
-					}
+					AddBarrier(barrier, false, out List<ActorData> _);
+					break;
 				}
-				end_IL_00a2:;
 			}
 		}
 		ClientUpdateMovementAndVision();
 		UpdateHasAbilityBlockingBarriers();
-		if (!flag)
-		{
-			return;
-		}
-		while (true)
+		if (hasBarrierCovers)
 		{
 			GameFlowData.Get().UpdateCoverFromBarriersForAllActors();
-			return;
 		}
 	}
 

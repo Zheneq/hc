@@ -546,74 +546,35 @@ public class Barrier
 	public virtual List<ServerClientUtils.SequenceStartData> GetSequenceStartDataList()
 	{
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
-		if (m_barrierSequencePrefabs != null)
+		if (m_barrierSequencePrefabs != null && m_playSequences)
 		{
-			if (m_playSequences)
+			Quaternion targetRotation = Quaternion.LookRotation(m_facingDir);
+			ActorData[] targetActorArray = new ActorData[0];
+			foreach (GameObject prefab in m_barrierSequencePrefabs)
 			{
-				while (true)
+				if (prefab != null)
 				{
-					switch (6)
+					bool requiresExtraParams = false;
+					foreach (Sequence sequence in prefab.GetComponents<Sequence>())
 					{
-					case 0:
-						break;
-					default:
-					{
-						Quaternion targetRotation = Quaternion.LookRotation(m_facingDir);
-						ActorData[] targetActorArray = new ActorData[0];
-						using (List<GameObject>.Enumerator enumerator = m_barrierSequencePrefabs.GetEnumerator())
+						if (sequence is OverwatchScanSequence || sequence is GroundLineSequence || sequence is ExoLaserHittingWallSequence)
 						{
-							while (enumerator.MoveNext())
-							{
-								GameObject current = enumerator.Current;
-								if (current != null)
-								{
-									Sequence[] components = current.GetComponents<Sequence>();
-									bool flag = false;
-									Sequence[] array = components;
-									int num = 0;
-									while (num < array.Length)
-									{
-										Sequence sequence = array[num];
-										if (!(sequence is OverwatchScanSequence))
-										{
-											if (!(sequence is GroundLineSequence))
-											{
-												if (!(sequence is ExoLaserHittingWallSequence))
-												{
-													num++;
-													continue;
-												}
-											}
-										}
-										flag = true;
-										break;
-									}
-									Sequence.IExtraSequenceParams[] array2 = null;
-									if (flag)
-									{
-										array2 = new Sequence.IExtraSequenceParams[1];
-										GroundLineSequence.ExtraParams extraParams = new GroundLineSequence.ExtraParams();
-										extraParams.startPos = m_endpoint2;
-										extraParams.endPos = m_endpoint1;
-										array2[0] = extraParams;
-									}
-									ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(current, null, targetRotation, targetActorArray, m_owner, BarrierSequenceSource, array2);
-									list.Add(item);
-								}
-							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									break;
-								default:
-									return list;
-								}
-							}
+							requiresExtraParams = true;
+							break;
 						}
 					}
+					Sequence.IExtraSequenceParams[] extraParams = null;
+					if (requiresExtraParams)
+					{
+						extraParams = new Sequence.IExtraSequenceParams[1];
+						GroundLineSequence.ExtraParams extraParam = new GroundLineSequence.ExtraParams();
+						extraParam.startPos = m_endpoint2;
+						extraParam.endPos = m_endpoint1;
+						extraParams[0] = extraParam;
 					}
+					ServerClientUtils.SequenceStartData seq = new ServerClientUtils.SequenceStartData(
+						prefab, null, targetRotation, targetActorArray, m_owner, BarrierSequenceSource, extraParams);
+					list.Add(seq);
 				}
 			}
 		}
