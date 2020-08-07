@@ -45,7 +45,7 @@ public class ClientAbilityResults
 		{
 			foreach (var e in m_posToHitResults)
 			{
-				posHR += (posHR.Length == 0 ? "" : ", ") + $"[\"{e.Key}\", \"???\"]";
+				posHR += (posHR.Length == 0 ? "" : ", ") + $"[\n\"{e.Key}\", \n{e.Value.Json()}\n]";
 			}
 		}
 

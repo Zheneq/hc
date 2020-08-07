@@ -479,6 +479,16 @@ public static class ServerClientUtils
 			m_targetPos = targetPos;
 		}
 
+		public string Json()
+		{
+			return $"{{" +
+				$"\"prefabId\": {m_prefabId}, " +
+				$"\"association\": {m_association}, " +
+				$"\"associationType\": \"{m_associationType}\", " +
+				$"\"targetPos\": {m_targetPos}" +
+				$"}}";
+		}
+
 		public void SequenceEndData_SerializeToStream(ref IBitStream stream)
 		{
 			sbyte associationType = (sbyte)m_associationType;

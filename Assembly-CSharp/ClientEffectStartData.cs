@@ -40,6 +40,47 @@ public class ClientEffectStartData
 		m_hasMovementDebuff = hasMovementDebuff;
 	}
 
+	public string Json()
+	{
+		string seqStarts = "";
+		if (!m_sequenceStartDataList.IsNullOrEmpty())
+		{
+			foreach (var e in m_sequenceStartDataList)
+			{
+				seqStarts += (seqStarts.Length == 0 ? "" : ",\n") + e.Json();
+			}
+		}
+		string statuses = "";
+		if (!m_statuses.IsNullOrEmpty())
+		{
+			foreach (var e in m_statuses)
+			{
+				statuses += (statuses.Length == 0 ? "" : ", ") + e;
+			}
+		}
+		string statusesATS = "";
+		if (!m_statusesOnTurnStart.IsNullOrEmpty())
+		{
+			foreach (var e in m_statusesOnTurnStart)
+			{
+				statusesATS += (statusesATS.Length == 0 ? "" : ", ") + e;
+			}
+		}
+		return $"{{" +
+			$"\"effectGUID\": {m_effectGUID}, " +
+			$"\"caster\": \"{m_caster?.DisplayName ?? "none"}\", " +
+			$"\"effectTarget\": \"{m_effectTarget?.DisplayName ?? "none"}\", " +
+			$"\"statuses\": [{statuses}], " +
+			$"\"statusesOnTurnStart\": [{statusesATS}], " +
+			$"\"seqStartDataList\": [{seqStarts}], " +
+			$"\"absorb\": {m_absorb}, " +
+			$"\"expectedHoT\": {m_expectedHoT}, " +
+			$"\"isBuff\": {m_isBuff}, " +
+			$"\"isDebuff\": {m_isDebuff}, " +
+			$"\"hasMovementDebuff\": {m_hasMovementDebuff}" +
+			$"}}";
+	}
+
 	internal void OnClientEffectStartSequenceHitActor(ActorData target)
 	{
 	}

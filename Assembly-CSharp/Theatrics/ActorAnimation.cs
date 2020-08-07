@@ -199,7 +199,7 @@ namespace Theatrics
 			return $"{{" +
 				$"\"animationIndex\": {animationIndex}, " +
 				$"\"actionType\": \"{actionType}\", " +
-				$"\"targetPos\": [{targetPos.x}, {targetPos.z}], " +
+				$"\"targetPos\": {targetPos}, " +
 				$"\"actor\": \"{Actor?.DisplayName ?? "none"}\", " +
 				$"\"_actorSquare\": [{actorSquare.x}, {actorSquare.y}], " +
 				$"\"_targetSquare\": [{targetSquare.x}, {targetSquare.y}], " +
@@ -212,7 +212,7 @@ namespace Theatrics
 				$"\"_0015\": {_0015}, " +
 				$"\"playOrderIndex\": {playOrderIndex}, " +
 				$"\"groupIndex\": {groupIndex}, " +
-				$"\"bounds\": [[{Bound.center.x}, {Bound.center.z}], [{Bound.size.x}, {Bound.size.z}]], " +
+				$"\"bounds\": {{\"center\": {Bound.center}, \"size\": {Bound.size}}}, " +
 				$"\"_000C_X_0014_Z\": [{_000C_X_0014_Z}], " +
 				$"\"hitActorsToDeltaHP\": [{hitActors}], " +
 				$"\"seqSource\": {SeqSource?.Json() ?? "none"}, " +

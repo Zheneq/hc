@@ -32,6 +32,59 @@ public class ClientPositionHitResults
 		ExecutedHit = false;
 	}
 
+	public string Json()
+	{
+		string effectsTS = "";
+		if (!m_effectsToStart.IsNullOrEmpty())
+		{
+			foreach (var e in m_effectsToStart)
+			{
+				effectsTS += (effectsTS.Length == 0 ? "" : ",\n") + e.Json();
+			}
+		}
+		string barriersTS = "";
+		if (!m_barriersToStart.IsNullOrEmpty())
+		{
+			foreach (var e in m_barriersToStart)
+			{
+				barriersTS += (barriersTS.Length == 0 ? "" : ",\n") + e.Json();
+			}
+		}
+		string effectsTR = "";
+		if (!m_effectsToRemove.IsNullOrEmpty())
+		{
+			foreach (int e in m_effectsToRemove)
+			{
+				effectsTR += (effectsTR.Length == 0 ? "" : ", ") + e;
+			}
+		}
+		string barriersTR = "";
+		if (!m_barriersToRemove.IsNullOrEmpty())
+		{
+			foreach (int e in m_barriersToRemove)
+			{
+				barriersTR += (barriersTR.Length == 0 ? "" : ", ") + e;
+			}
+		}
+		string seqTE = "";
+		if (!m_sequencesToEnd.IsNullOrEmpty())
+		{
+			foreach (var e in m_sequencesToEnd)
+			{
+				seqTE += (seqTE.Length == 0 ? "" : ",\n") + e.Json();
+			}
+		}
+
+		return $"{{" +
+			$"\"m_effectsToStart\": [{effectsTS}], " +
+			$"\"m_barriersToStart\": [{barriersTS}], " +
+			$"\"m_effectsToRemove\": [{effectsTR}], " +
+			$"\"m_barriersToRemove\": [{barriersTR}], " +
+			$"\"m_sequencesToEnd\": [{seqTE}], " +
+			$"\"m_reactionsOnPosHit\": \"???\"" +
+			$"}}";
+	}
+
 	public void ExecutePositionHit()
 	{
 		if (ExecutedHit)

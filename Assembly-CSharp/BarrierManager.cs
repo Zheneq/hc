@@ -135,7 +135,7 @@ public class BarrierManager : NetworkBehaviour
 		}
 		else
 		{
-			Log.Info($"New barrier: by {barrierToAdd.Caster.DisplayName} at {barrierToAdd.GetCenterPos()} ({barrierToAdd.GetEndPos1()}, {barrierToAdd.GetEndPos2()})");
+			Log.Info($"Barrier: by {barrierToAdd.Caster.DisplayName} at {barrierToAdd.GetCenterPos()} ({barrierToAdd.GetEndPos1()}, {barrierToAdd.GetEndPos2()})");
 			m_barriers.Add(barrierToAdd);
 			if (NetworkServer.active)
 			{
