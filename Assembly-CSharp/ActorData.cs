@@ -827,7 +827,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		set;
 	}
 
-	internal int TechPoints
+	public int TechPoints
 	{
 		get
 		{
@@ -2178,7 +2178,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return result;
 	}
 
-	internal void SetTechPoints(int value, bool combatText = false, ActorData caster = null, string sourceName = null)
+	public void SetTechPoints(int value, bool combatText = false, ActorData caster = null, string sourceName = null)
 	{
 		value = Mathf.Clamp(value, 0, GetMaxTechPoints());
 		int diff = value - TechPoints;
