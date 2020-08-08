@@ -498,7 +498,7 @@ public class Barrier
 		return m_facingDir;
 	}
 
-	internal static BarrierSerializeInfo BarrierToSerializeInfo(Barrier barrier)
+	public static BarrierSerializeInfo BarrierToSerializeInfo(Barrier barrier)
 	{
 		BarrierSerializeInfo barrierSerializeInfo = new BarrierSerializeInfo();
 		barrierSerializeInfo.m_guid = barrier.m_guid;
@@ -523,7 +523,7 @@ public class Barrier
 		return barrierSerializeInfo;
 	}
 
-	internal static Barrier CreateBarrierFromSerializeInfo(BarrierSerializeInfo info)
+	public static Barrier CreateBarrierFromSerializeInfo(BarrierSerializeInfo info)
 	{
 		BlockingRules blocksVision = (BlockingRules)info.m_blocksVision;
 		BlockingRules blocksAbilities = (BlockingRules)info.m_blocksAbilities;
