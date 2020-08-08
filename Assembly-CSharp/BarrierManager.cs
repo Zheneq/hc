@@ -465,88 +465,42 @@ public class BarrierManager : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void BarrierManager::UpdateMovementStateForTeam(Team)' called on client");
-					return;
-				}
-			}
+			Debug.LogWarning("[Server] function 'System.Void BarrierManager::UpdateMovementStateForTeam(Team)' called on client");
+			return;
 		}
 		if (IsTeamSupported(team))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-				{
-					int syncIndexFromTeam = GetSyncIndexFromTeam(team);
-					int num = m_movementStatesSync[syncIndexFromTeam];
-					int value = num + 1;
-					m_movementStates[team] = value;
-					m_movementStatesSync[syncIndexFromTeam] = value;
-					return;
-				}
-				}
-			}
+			int syncIndexFromTeam = GetSyncIndexFromTeam(team);
+			int num = m_movementStatesSync[syncIndexFromTeam];
+			int value = num + 1;
+			m_movementStates[team] = value;
+			m_movementStatesSync[syncIndexFromTeam] = value;
 		}
-		throw new Exception("BarrierManager does not support this team");
+		else
+		{
+			throw new Exception("BarrierManager does not support this team");
+		}
 	}
 
 	public bool IsPositionTargetingBlocked(ActorData caster, BoardSquare dest)
 	{
 		if (caster == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
+			return true;
 		}
 		BoardSquare currentBoardSquare = caster.GetCurrentBoardSquare();
 		if (currentBoardSquare == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
+			return true;
 		}
-		bool result = false;
-		int num = 0;
-		while (true)
+		foreach (Barrier barrier in m_barriers)
 		{
-			if (num < m_barriers.Count)
+			if (barrier.IsPositionTargetingBlockedFor(caster) && barrier.CrossingBarrier(currentBoardSquare.ToVector3(), dest.ToVector3()))
 			{
-				Barrier barrier = m_barriers[num];
-				if (barrier.IsPositionTargetingBlockedFor(caster) && barrier.CrossingBarrier(currentBoardSquare.ToVector3(), dest.ToVector3()))
-				{
-					result = true;
-					break;
-				}
-				num++;
-				continue;
+				return true;
 			}
-			break;
 		}
-		return result;
+		return false;
 	}
 
 	private void UpdateHasAbilityBlockingBarriers()
@@ -656,60 +610,33 @@ public class BarrierManager : NetworkBehaviour
 				barrier = barrier2;
 			}
 		}
-		while (true)
+		if (barrier != null)
 		{
-			if (barrier != null)
-			{
-			}
-			return vector;
 		}
+		return vector;
 	}
 
 	public void UpdateCachedCoverDirections(ActorData forActor, BoardSquare centerSquare, ref bool[] cachedBarrierDirs)
 	{
-		if (!(centerSquare != null))
+		if (centerSquare == null || forActor == null)
 		{
 			return;
 		}
-		while (true)
+		Vector3 vector = centerSquare.ToVector3();
+		for (int i = 0; i < m_barriers.Count; i++)
 		{
-			if (!(forActor != null))
+			Barrier barrier = m_barriers[i];
+			if (!barrier.ConsiderAsCover || barrier.GetBarrierTeam() != forActor.GetTeam())
 			{
-				return;
+				continue;
 			}
-			while (true)
+			for (int j = 0; j < cachedBarrierDirs.Length; j++)
 			{
-				Vector3 vector = centerSquare.ToVector3();
-				for (int i = 0; i < m_barriers.Count; i++)
+				if (!cachedBarrierDirs[j])
 				{
-					Barrier barrier = m_barriers[i];
-					if (!barrier.ConsiderAsCover)
-					{
-						continue;
-					}
-					if (barrier.GetBarrierTeam() != forActor.GetTeam())
-					{
-						continue;
-					}
-					for (int j = 0; j < cachedBarrierDirs.Length; j++)
-					{
-						if (!cachedBarrierDirs[j])
-						{
-							Vector3 b = 1.5f * ActorCover.GetCoverOffsetStatic((ActorCover.CoverDirections)j);
-							bool flag = barrier.CrossingBarrier(vector + b, vector);
-							cachedBarrierDirs[j] = flag;
-						}
-					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
+					Vector3 b = 1.5f * ActorCover.GetCoverOffsetStatic((ActorCover.CoverDirections)j);
+					bool flag = barrier.CrossingBarrier(vector + b, vector);
+					cachedBarrierDirs[j] = flag;
 				}
 			}
 		}
@@ -808,29 +735,23 @@ public class BarrierManager : NetworkBehaviour
 		if (!NetworkClient.active)
 		{
 			Debug.LogWarning("[Client] function 'System.Void BarrierManager::ClientUpdateMovementAndVision()' called on server");
+			return;
 		}
-		else
+		if (NetworkServer.active)
 		{
-			if (NetworkServer.active)
+			return;
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Team teamFromSyncIndex = GetTeamFromSyncIndex(i);
+			if (m_movementStatesSync[i] != m_movementStates[teamFromSyncIndex])
 			{
-				return;
+				m_clientNeedMovementUpdate = true;
 			}
-			while (true)
+			if (m_visionStatesSync[i] != m_visionStates[teamFromSyncIndex])
 			{
-				for (int i = 0; i < 3; i++)
-				{
-					Team teamFromSyncIndex = GetTeamFromSyncIndex(i);
-					if (m_movementStatesSync[i] != m_movementStates[teamFromSyncIndex])
-					{
-						m_clientNeedMovementUpdate = true;
-					}
-					if (m_visionStatesSync[i] != m_visionStates[teamFromSyncIndex])
-					{
-						m_visionStates[teamFromSyncIndex] = m_visionStatesSync[i];
-						ClientUpdateVisionOnSync(teamFromSyncIndex);
-					}
-				}
-				return;
+				m_visionStates[teamFromSyncIndex] = m_visionStatesSync[i];
+				ClientUpdateVisionOnSync(teamFromSyncIndex);
 			}
 		}
 	}
@@ -840,34 +761,13 @@ public class BarrierManager : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Client] function 'System.Void BarrierManager::ClientUpdateMovementOnSync(Team)' called on server");
-					return;
-				}
-			}
-		}
-		ActorData actorData = (!(GameFlowData.Get() == null)) ? GameFlowData.Get().activeOwnedActorData : null;
-		if (!(actorData != null))
-		{
+			Debug.LogWarning("[Client] function 'System.Void BarrierManager::ClientUpdateMovementOnSync(Team)' called on server");
 			return;
 		}
-		while (true)
+		ActorData actorData = GameFlowData.Get()?.activeOwnedActorData;
+		if (actorData != null && actorData.GetTeam() == team)
 		{
-			if (actorData.GetTeam() == team)
-			{
-				while (true)
-				{
-					actorData.GetActorMovement().UpdateSquaresCanMoveTo();
-					return;
-				}
-			}
-			return;
+			actorData.GetActorMovement().UpdateSquaresCanMoveTo();
 		}
 	}
 
@@ -876,85 +776,25 @@ public class BarrierManager : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Client] function 'System.Void BarrierManager::ClientUpdateVisionOnSync(Team)' called on server");
-					return;
-				}
-			}
-		}
-		object obj;
-		if (GameFlowData.Get() == null)
-		{
-			obj = null;
-		}
-		else
-		{
-			obj = GameFlowData.Get().activeOwnedActorData;
-		}
-		ActorData actorData = (ActorData)obj;
-		if (!(actorData != null))
-		{
+			Debug.LogWarning("[Client] function 'System.Void BarrierManager::ClientUpdateVisionOnSync(Team)' called on server");
 			return;
 		}
-		while (true)
+		ActorData actorData = GameFlowData.Get()?.activeOwnedActorData;
+		if (actorData != null && actorData.GetTeam() == team)
 		{
-			if (actorData.GetTeam() == team)
-			{
-				while (true)
-				{
-					actorData.GetFogOfWar().MarkForRecalculateVisibility();
-					return;
-				}
-			}
-			return;
+			actorData.GetFogOfWar().MarkForRecalculateVisibility();
 		}
 	}
 
 	private void OnDrawGizmos()
 	{
-		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
-		}
-		if (m_barriers == null)
+		if (!CameraManager.ShouldDrawGizmosForCurrentCamera() || m_barriers == null)
 		{
 			return;
 		}
-		while (true)
+		foreach (Barrier barrier in m_barriers)
 		{
-			using (List<Barrier>.Enumerator enumerator = m_barriers.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					Barrier current = enumerator.Current;
-					current.DrawGizmos();
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
-			}
+			barrier.DrawGizmos();
 		}
 	}
 
@@ -978,17 +818,8 @@ public class BarrierManager : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_movementStatesSync called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_movementStatesSync called on server.");
+			return;
 		}
 		((BarrierManager)obj).m_movementStatesSync.HandleMsg(reader);
 	}
@@ -997,17 +828,8 @@ public class BarrierManager : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_visionStatesSync called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_visionStatesSync called on server.");
+			return;
 		}
 		((BarrierManager)obj).m_visionStatesSync.HandleMsg(reader);
 	}
@@ -1028,17 +850,8 @@ public class BarrierManager : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC Function RpcUpdateBarriers called on client.");
-					return;
-				}
-			}
+			Debug.LogError("RPC Function RpcUpdateBarriers called on client.");
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
@@ -1052,19 +865,10 @@ public class BarrierManager : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					SyncListInt.WriteInstance(writer, m_barrierIdSync);
-					SyncListInt.WriteInstance(writer, m_movementStatesSync);
-					SyncListInt.WriteInstance(writer, m_visionStatesSync);
-					return true;
-				}
-			}
+			SyncListInt.WriteInstance(writer, m_barrierIdSync);
+			SyncListInt.WriteInstance(writer, m_movementStatesSync);
+			SyncListInt.WriteInstance(writer, m_visionStatesSync);
+			return true;
 		}
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
@@ -1105,19 +909,10 @@ public class BarrierManager : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					SyncListInt.ReadReference(reader, m_barrierIdSync);
-					SyncListInt.ReadReference(reader, m_movementStatesSync);
-					SyncListInt.ReadReference(reader, m_visionStatesSync);
-					return;
-				}
-			}
+			SyncListInt.ReadReference(reader, m_barrierIdSync);
+			SyncListInt.ReadReference(reader, m_movementStatesSync);
+			SyncListInt.ReadReference(reader, m_visionStatesSync);
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
