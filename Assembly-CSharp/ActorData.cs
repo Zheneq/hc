@@ -50,7 +50,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		Evasion_AdjustToVision,
 		Reappear,
 		Failsafe,
-		_001D,
+		Unused,
 		TricksterAfterImage
 	}
 
@@ -3186,6 +3186,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public bool IsVisibleToClient()
 	{
+		// Added server shortcut
+		// Use IsActorVisibleToActor/IsVisibleToEnemyTeam on server
+		if (NetworkServer.active)
+		{
+			return true;
+		}
 		UpdateIsVisibleToClientCache();
 		return m_isVisibleToClientCache;
 	}
