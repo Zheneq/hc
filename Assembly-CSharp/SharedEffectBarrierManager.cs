@@ -38,25 +38,11 @@ public class SharedEffectBarrierManager : NetworkBehaviour
 		{
 			Log.Error("Remembering more than 100 effects?");
 		}
-		if (!(ClientEffectBarrierManager.Get() != null))
-		{
-			return;
-		}
-		while (true)
+		if (ClientEffectBarrierManager.Get() != null)
 		{
 			for (int i = 0; i < m_endedEffectGuidsSync.Count; i++)
 			{
 				ClientEffectBarrierManager.Get().EndEffect(m_endedEffectGuidsSync[i]);
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
 			}
 		}
 	}
@@ -67,27 +53,13 @@ public class SharedEffectBarrierManager : NetworkBehaviour
 		{
 			Log.Error("Remembering more than 50 barriers?");
 		}
-		if (!(ClientEffectBarrierManager.Get() != null))
-		{
-			return;
-		}
-		while (true)
+		if (ClientEffectBarrierManager.Get() != null)
 		{
 			for (int i = 0; i < m_endedBarrierGuidsSync.Count; i++)
 			{
 				ClientEffectBarrierManager.Get().EndBarrier(m_endedBarrierGuidsSync[i]);
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
-		}
+		}	
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool initialState)
@@ -96,17 +68,8 @@ public class SharedEffectBarrierManager : NetworkBehaviour
 		{
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
-		int num;
-		if (initialState)
-		{
-			num = -1;
-		}
-		else
-		{
-			num = (int)base.syncVarDirtyBits;
-		}
-		uint num2 = (uint)num;
-		if (IsBitDirty(num2, DirtyBit.EndedEffects))
+		uint bitMask = (uint)(initialState ? -1 : (int)base.syncVarDirtyBits);
+		if (IsBitDirty(bitMask, DirtyBit.EndedEffects))
 		{
 			short value = (short)m_endedEffectGuidsSync.Count;
 			writer.Write(value);
@@ -119,7 +82,7 @@ public class SharedEffectBarrierManager : NetworkBehaviour
 				}
 			}
 		}
-		if (IsBitDirty(num2, DirtyBit.EndedBarriers))
+		if (IsBitDirty(bitMask, DirtyBit.EndedBarriers))
 		{
 			short value2 = (short)m_endedBarrierGuidsSync.Count;
 			writer.Write(value2);
@@ -128,7 +91,7 @@ public class SharedEffectBarrierManager : NetworkBehaviour
 				writer.Write(item);
 			}
 		}
-		return num2 != 0;
+		return bitMask != 0;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
