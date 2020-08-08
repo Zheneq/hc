@@ -26,6 +26,8 @@ public class Replay
 	private int m_messageReadIndex;
 	private PersistedCharacterMatchData m_matchData;
 
+	private bool m_messageByMessage = false;
+
 	public void RecordRawNetworkMessage(byte[] data, int dataSize)
 	{
 		if (m_initialMessageTimestamp == 0f)
@@ -114,6 +116,11 @@ public class Replay
 		Message message = m_messages[m_messageReadIndex];
 		byte[] data = message.data;
 		connection.TransportReceive(data, message.data.Length, 0);
+		if (m_messageByMessage)
+		{
+			ReplayPlayManager.Get().Pause();
+			UIChatBox.Get().m_chatBox.AddTextEntry($"Message {m_messageReadIndex}", Color.green, true);
+		}
 		m_messageReadIndex++;
 		if (m_messageReadIndex == m_messages.Count)
 		{
