@@ -25,7 +25,9 @@ public static class DefaultJsonSerializer
 			s_serializer.Converters.Add(new BoundsJsonConverter());
 			s_serializer.Converters.Add(new AbilityJsonConverter());
 			s_serializer.Converters.Add(new GameObjectJsonConverter());
-			s_serializer.Converters.Add(new SpriteJsonConverter()); 
+			s_serializer.Converters.Add(new SpriteJsonConverter());
+			s_serializer.Converters.Add(new BoardSquareJsonConverter());
+			s_serializer.Converters.Add(new BoardSquarePathInfoJsonConverter());
 		}
 		return s_serializer;
 	}
@@ -169,6 +171,43 @@ public static class DefaultJsonSerializer
 		public override bool CanConvert(Type objectType)
 		{
 			return typeof(Sprite) == objectType;
+		}
+	}
+
+	public class BoardSquarePathInfoJsonConverter : JsonWriterConverter
+	{
+		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+		{
+			List<BoardSquarePathInfo> path = new List<BoardSquarePathInfo>();
+
+			for (BoardSquarePathInfo node = (BoardSquarePathInfo)value; node != null; node = node.next)
+			{
+				path.Add(node);
+			}
+
+			JsonSerializer serializer2 = new JsonSerializer();
+			serializer2.NullValueHandling = NullValueHandling.Ignore;
+			serializer2.Converters.Add(new BoardSquareJsonConverter());
+			serializer2.Serialize(writer, path);
+		}
+
+		public override bool CanConvert(Type objectType)
+		{
+			return typeof(BoardSquarePathInfo) == objectType;
+		}
+	}
+
+	public class BoardSquareJsonConverter : JsonWriterConverter
+	{
+		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+		{
+			BoardSquare square = (BoardSquare)value;
+			JToken.FromObject(new int[] { square.x, square.y }).WriteTo(writer);
+		}
+
+		public override bool CanConvert(Type objectType)
+		{
+			return typeof(BoardSquare) == objectType;
 		}
 	}
 

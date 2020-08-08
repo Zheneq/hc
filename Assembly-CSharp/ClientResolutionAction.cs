@@ -75,19 +75,19 @@ public class ClientResolutionAction : IComparable
 		{
 			case ResolutionActionType.AbilityCast:
 				clientResolutionAction.m_abilityResults = AbilityResultsUtils.DeSerializeClientAbilityResultsFromStream(ref stream);
-				Log.Info($"Replicated ClientAbilityResults\n{DefaultJsonSerializer.Serialize(clientResolutionAction.m_abilityResults)}");
+				Log.Info($"Replicated ClientAbilityResults ({clientResolutionAction.m_type}) \n{DefaultJsonSerializer.Serialize(clientResolutionAction.m_abilityResults)}");
 				break;
 			case ResolutionActionType.EffectAnimation:
 			case ResolutionActionType.EffectPulse:
 				clientResolutionAction.m_effectResults = AbilityResultsUtils.DeSerializeClientEffectResultsFromStream(ref stream);
-				Log.Info($"Replicated ClientEffectResults\n{DefaultJsonSerializer.Serialize(clientResolutionAction.m_effectResults)}");
+				Log.Info($"Replicated ClientEffectResults ({clientResolutionAction.m_type})\n{DefaultJsonSerializer.Serialize(clientResolutionAction.m_effectResults)}");
 				break;
 			case ResolutionActionType.EffectOnMove:
 			case ResolutionActionType.BarrierOnMove:
 			case ResolutionActionType.PowerupOnMove:
 			case ResolutionActionType.GameModeOnMove:
 				clientResolutionAction.m_moveResults = AbilityResultsUtils.DeSerializeClientMovementResultsFromStream(ref stream);
-				Log.Info($"Replicated ClientMovementResults\n{DefaultJsonSerializer.Serialize(clientResolutionAction.m_moveResults)}");
+				Log.Info($"Replicated ClientMovementResults ({clientResolutionAction.m_type})\n{DefaultJsonSerializer.Serialize(clientResolutionAction.m_moveResults)}");
 				break;
 		}
 		return clientResolutionAction;

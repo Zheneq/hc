@@ -179,6 +179,7 @@ public class ClientResolutionManager : MonoBehaviour
 		NetworkReader reader = netMsg.reader;
 		uint turnIndex = reader.ReadPackedUInt32();
 		sbyte phaseIndex = reader.ReadSByte();
+		Log.Info($"MsgSingleResolutionAction: turn {turnIndex}, phase {(AbilityPriority)phaseIndex}");
 		IBitStream stream = new NetworkReaderAdapter(reader);
 		ClientResolutionAction action = ClientResolutionAction.ClientResolutionAction_DeSerializeFromStream(ref stream);
 		ClientResolutionActionMessageData item = new ClientResolutionActionMessageData(action, (int)turnIndex, phaseIndex);
@@ -297,6 +298,7 @@ public class ClientResolutionManager : MonoBehaviour
 		IBitStream stream = new NetworkReaderAdapter(reader);
 		List<ClientResolutionAction> list = new List<ClientResolutionAction>(num);
 		for (int i = 0; i < num; i++)
+		Log.Info($"MsgRunResolutionActionsOutsideResolve: {num} actions");
 		{
 			list.Add(ClientResolutionAction.ClientResolutionAction_DeSerializeFromStream(ref stream));
 		}
