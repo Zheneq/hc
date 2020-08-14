@@ -42,6 +42,9 @@ public class Barrier
 
 	private int m_maxHits;
 
+	public GameplayResponseForActor m_onEnemyMovedThrough;
+	public GameplayResponseForActor m_onAllyMovedThrough;
+	public bool m_endOnCasterDeath;
 	public EffectDuration m_time;
 
 	public int m_guid;
@@ -202,6 +205,9 @@ public class Barrier
 			BarrierSequenceSource = new SequenceSource(null, null, false, parentSequenceSource);
 		}
 		m_maxHits = maxHits;
+		m_onEnemyMovedThrough = onEnemyMovedThrough;
+		m_onAllyMovedThrough = onAllyMovedThrough;
+		m_endOnCasterDeath = endOnCasterDeath;
 	}
 
 	public bool CanBeSeenThroughBy(ActorData viewer)
