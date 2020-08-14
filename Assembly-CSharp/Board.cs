@@ -857,74 +857,21 @@ public class Board : MonoBehaviour, IGameEventListener
 			float value = (sq2.worldX - worldX) * (sq2.worldX - worldX) + (sq2.worldY - worldY) * (sq2.worldY - worldY);
 			return num.CompareTo(value);
 		});
-		using (List<BoardSquare>.Enumerator enumerator = result2.GetEnumerator())
+		foreach (BoardSquare current in result2)
 		{
-			while (enumerator.MoveNext())
+			if (current.IsBaselineHeight())
 			{
-				BoardSquare current = enumerator.Current;
-				if (current.IsBaselineHeight())
-				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							break;
-						default:
-							return current;
-						}
-					}
-				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return result;
-				}
+				return current;
 			}
 		}
+		return result;
 	}
 
-	public bool _000E(BoardSquare _001D, BoardSquare _000E)
+	public bool AreAdjacent(BoardSquare a, BoardSquare b)
 	{
-		int num;
-		if (_001D.x == _000E.x)
-		{
-			num = ((_001D.y != _000E.y) ? 1 : 0);
-		}
-		else
-		{
-			num = 1;
-		}
-		bool flag = (byte)num != 0;
-		bool flag2 = _001D.x >= _000E.x - 1 && _001D.x <= _000E.x + 1;
-		int num2;
-		if (_001D.y >= _000E.y - 1)
-		{
-			num2 = ((_001D.y <= _000E.y + 1) ? 1 : 0);
-		}
-		else
-		{
-			num2 = 0;
-		}
-		bool flag3 = (byte)num2 != 0;
-		int result;
-		if (flag)
-		{
-			if (flag2)
-			{
-				result = (flag3 ? 1 : 0);
-				goto IL_00c0;
-			}
-		}
-		result = 0;
-		goto IL_00c0;
-		IL_00c0:
-		return (byte)result != 0;
+		return (a.x != b.x || a.y != b.y) &&
+			a.x >= b.x - 1 && a.x <= b.x + 1 &&
+			a.y >= b.y - 1 && a.y <= b.y + 1;
 	}
 
 	public bool _0012(BoardSquare _001D, BoardSquare _000E)
@@ -958,9 +905,9 @@ public class Board : MonoBehaviour, IGameEventListener
 		return false;
 	}
 
-	public bool _0015(BoardSquare _001D, BoardSquare _000E)
+	public bool AreDiagonallyAdjacent(BoardSquare a, BoardSquare b)
 	{
-		return this._000E(_001D, _000E) && _001D.x != _000E.x && _001D.y != _000E.y;
+		return AreAdjacent(a, b) && a.x != b.x && a.y != b.y;
 	}
 
 	public List<BoardSquare> _000E(Bounds _001D, Func<BoardSquare, bool> _000E = null)

@@ -13,28 +13,19 @@ public class BuildNormalPathNodePool
 
 	public BoardSquarePathInfo GetAllocatedNode()
 	{
+		BoardSquarePathInfo boardSquarePathInfo;
 		if (m_nextEntryIndex < m_allocatedInstances.Count)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-				{
-					BoardSquarePathInfo boardSquarePathInfo = m_allocatedInstances[m_nextEntryIndex];
-					InitNodeValues(boardSquarePathInfo);
-					m_nextEntryIndex++;
-					return boardSquarePathInfo;
-				}
-				}
-			}
+			boardSquarePathInfo = m_allocatedInstances[m_nextEntryIndex];
+			InitNodeValues(boardSquarePathInfo);
 		}
-		BoardSquarePathInfo boardSquarePathInfo2 = new BoardSquarePathInfo();
-		m_allocatedInstances.Add(boardSquarePathInfo2);
+		else
+		{
+			boardSquarePathInfo = new BoardSquarePathInfo();
+			m_allocatedInstances.Add(boardSquarePathInfo);
+		}
 		m_nextEntryIndex++;
-		return boardSquarePathInfo2;
+		return boardSquarePathInfo;
 	}
 
 	private void InitNodeValues(BoardSquarePathInfo node)

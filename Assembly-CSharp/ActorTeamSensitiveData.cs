@@ -826,59 +826,23 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void ActorTeamSensitiveData::SetToggledAction(AbilityData/ActionType,System.Boolean)' called on client");
-					return;
-				}
-			}
-		}
-		if (actionType == AbilityData.ActionType.INVALID_ACTION || AbilityData.IsChain(actionType))
-		{
+			Debug.LogWarning("[Server] function 'System.Void ActorTeamSensitiveData::SetToggledAction(AbilityData/ActionType,System.Boolean)' called on client");
 			return;
 		}
-		while (true)
+		if (actionType != AbilityData.ActionType.INVALID_ACTION && !AbilityData.IsChain(actionType) && m_abilityToggledOn[(int)actionType] != toggledOn)
 		{
-			if (m_abilityToggledOn[(int)actionType] != toggledOn)
-			{
-				while (true)
-				{
-					m_abilityToggledOn[(int)actionType] = toggledOn;
-					MarkAsDirty(DirtyBit.ToggledOnAbilities);
-					return;
-				}
-			}
-			return;
+			m_abilityToggledOn[(int)actionType] = toggledOn;
+			MarkAsDirty(DirtyBit.ToggledOnAbilities);
 		}
 	}
 
 	public bool HasQueuedAction(AbilityData.ActionType actionType)
 	{
 		bool result = false;
-		int num;
 		if (actionType != AbilityData.ActionType.INVALID_ACTION)
 		{
-			if (actionType >= AbilityData.ActionType.ABILITY_0)
-			{
-				if ((int)actionType < m_queuedAbilities.Count)
-				{
-					num = (m_queuedAbilities[(int)actionType] ? 1 : 0);
-					goto IL_0054;
-				}
-			}
-			num = 0;
-			goto IL_0054;
+			return actionType >= AbilityData.ActionType.ABILITY_0 && (int)actionType < m_queuedAbilities.Count && m_queuedAbilities[(int)actionType];
 		}
-		goto IL_0055;
-		IL_0054:
-		result = ((byte)num != 0);
-		goto IL_0055;
-		IL_0055:
 		return result;
 	}
 
@@ -916,34 +880,13 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void ActorTeamSensitiveData::SetQueuedAction(AbilityData/ActionType,System.Boolean)' called on client");
-					return;
-				}
-			}
-		}
-		if (actionType == AbilityData.ActionType.INVALID_ACTION || AbilityData.IsChain(actionType))
-		{
+			Debug.LogWarning("[Server] function 'System.Void ActorTeamSensitiveData::SetQueuedAction(AbilityData/ActionType,System.Boolean)' called on client");
 			return;
 		}
-		while (true)
+		if (actionType != AbilityData.ActionType.INVALID_ACTION && !AbilityData.IsChain(actionType) && HasQueuedAction(actionType) != queued)
 		{
-			if (HasQueuedAction(actionType) != queued)
-			{
-				while (true)
-				{
-					m_queuedAbilities[(int)actionType] = queued;
-					MarkAsDirty(DirtyBit.QueuedAbilities);
-					return;
-				}
-			}
-			return;
+			m_queuedAbilities[(int)actionType] = queued;
+			MarkAsDirty(DirtyBit.QueuedAbilities);
 		}
 	}
 

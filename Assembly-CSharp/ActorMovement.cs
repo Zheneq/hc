@@ -182,19 +182,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float maxMoveDist = m_actor.RemainingHorizontalMovement;
 		float innerMoveDist = m_actor.RemainingMovementWithQueuedAbility;
 		BoardSquare squareToStartFrom = m_actor.MoveFromBoardSquare;
-		int num;
-		if (Options_UI.Get() != null)
-		{
-			if (Options_UI.Get().GetShiftClickForMovementWaypoints() != InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier))
-			{
-				num = 1;
-				goto IL_0097;
-			}
-		}
-		num = ((!FirstTurnMovement.CanWaypoint()) ? 1 : 0);
-		goto IL_0097;
-		IL_0097:
-		if (num != 0)
+		if (Options_UI.Get() != null &&
+			Options_UI.Get().GetShiftClickForMovementWaypoints() != InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier) ||
+			!FirstTurnMovement.CanWaypoint())
 		{
 			if (m_actor == GameFlowData.Get().activeOwnedActorData)
 			{
@@ -204,26 +194,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 		}
 		GetSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, innerMoveDist, out m_squaresCanMoveTo, out m_squareCanMoveToWithQueuedAbility);
-		if (Board.Get() != null)
+		Board.Get()?.MarkForUpdateValidSquares();
+		if (m_actor == GameFlowData.Get().activeOwnedActorData)
 		{
-			Board.Get().MarkForUpdateValidSquares();
-		}
-		if (!(m_actor == GameFlowData.Get().activeOwnedActorData))
-		{
-			return;
-		}
-		while (true)
-		{
-			LineData component = m_actor.GetComponent<LineData>();
-			if (component != null)
-			{
-				while (true)
-				{
-					component.OnCanMoveToSquaresUpdated();
-					return;
-				}
-			}
-			return;
+			m_actor.GetComponent<LineData>()?.OnCanMoveToSquaresUpdated();
 		}
 	}
 
@@ -245,65 +219,23 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	public BoardSquare GetClosestMoveableSquareTo(BoardSquare selectedSquare, bool alwaysIncludeMoverSquare = true)
 	{
-		object obj;
-		if (alwaysIncludeMoverSquare)
-		{
-			obj = m_actor.GetCurrentBoardSquare();
-		}
-		else
-		{
-			obj = null;
-		}
-		BoardSquare boardSquare = (BoardSquare)obj;
-		float num;
-		if (alwaysIncludeMoverSquare)
-		{
-			num = boardSquare.HorizontalDistanceOnBoardTo(selectedSquare);
-		}
-		else
-		{
-			num = 100000f;
-		}
-		float num2 = num;
+		BoardSquare closestSquare = alwaysIncludeMoverSquare ? m_actor.GetCurrentBoardSquare() : null;
+		float minDist = alwaysIncludeMoverSquare ? closestSquare.HorizontalDistanceOnBoardTo(selectedSquare) : 100000f;
 		if (selectedSquare != null)
 		{
-			while (true)
+			foreach (BoardSquare square in m_squaresCanMoveTo)
 			{
-				switch (6)
+				float dist = square.HorizontalDistanceOnBoardTo(selectedSquare);
+				if (dist <= minDist)
 				{
-				case 0:
-					break;
-				default:
-				{
-					using (HashSet<BoardSquare>.Enumerator enumerator = m_squaresCanMoveTo.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							BoardSquare current = enumerator.Current;
-							float num3 = current.HorizontalDistanceOnBoardTo(selectedSquare);
-							if (num3 <= num2)
-							{
-								num2 = num3;
-								boardSquare = current;
-							}
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								break;
-							default:
-								return boardSquare;
-							}
-						}
-					}
-				}
+					minDist = dist;
+					closestSquare = square;
 				}
 			}
+			return closestSquare;
 		}
 		Log.Error("Trying to find the closest moveable square to a null square.  Code error-- tell Danny.");
-		return boardSquare;
+		return closestSquare;
 	}
 
 	public float CalculateMaxHorizontalMovement(bool forcePostAbility = false, bool calculateAsIfSnared = false)
@@ -338,180 +270,97 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	public float GetAdjustedMovementFromBuffAndDebuff(float movement, bool forcePostAbility, bool calculateAsIfSnared = false)
 	{
-		float num = movement;
+		float result = movement;
 		ActorStatus actorStatus = m_actor.GetActorStatus();
 		if (actorStatus.HasStatus(StatusType.RecentlySpawned))
 		{
-			num += (float)GameplayData.Get().m_recentlySpawnedBonusMovement;
+			result += GameplayData.Get().m_recentlySpawnedBonusMovement;
 		}
 		if (actorStatus.HasStatus(StatusType.RecentlyRespawned))
 		{
-			num += (float)GameplayData.Get().m_recentlyRespawnedBonusMovement;
+			result += GameplayData.Get().m_recentlyRespawnedBonusMovement;
 		}
-		List<StatusType> queuedAbilitiesOnRequestStatuses = m_actor.GetAbilityData().GetQueuedAbilitiesOnRequestStatuses();
-		bool flag = actorStatus.HasStatus(StatusType.MovementDebuffSuppression) || queuedAbilitiesOnRequestStatuses.Contains(StatusType.MovementDebuffSuppression);
-		int num2;
-		if (!actorStatus.IsMovementDebuffImmune() && !queuedAbilitiesOnRequestStatuses.Contains(StatusType.MovementDebuffImmunity))
+
+		List<StatusType> queuedStatuses = m_actor.GetAbilityData().GetQueuedAbilitiesOnRequestStatuses();
+		bool debuffSuppressed =
+			actorStatus.HasStatus(StatusType.MovementDebuffSuppression) ||
+			queuedStatuses.Contains(StatusType.MovementDebuffSuppression);
+		bool debuffImmune =
+			actorStatus.IsMovementDebuffImmune() ||
+			queuedStatuses.Contains(StatusType.MovementDebuffImmunity) ||
+			queuedStatuses.Contains(StatusType.Unstoppable);
+		bool debuff = !debuffSuppressed && !debuffImmune;
+		bool cantSprintUnlessUnstoppable =
+			actorStatus.HasStatus(StatusType.CantSprint_UnlessUnstoppable) ||
+			queuedStatuses.Contains(StatusType.CantSprint_UnlessUnstoppable);
+		bool cantSprintAbsolute =
+			actorStatus.HasStatus(StatusType.CantSprint_Absolute) ||
+			queuedStatuses.Contains(StatusType.CantSprint_Absolute);
+		bool cantSprint = cantSprintUnlessUnstoppable && debuff || cantSprintAbsolute;
+
+		if (debuff && actorStatus.HasStatus(StatusType.Rooted))
 		{
-			num2 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.Unstoppable) ? 1 : 0);
-		}
-		else
-		{
-			num2 = 1;
-		}
-		bool flag2 = (byte)num2 != 0;
-		bool flag3 = !flag && !flag2;
-		int num3;
-		if (!actorStatus.HasStatus(StatusType.CantSprint_UnlessUnstoppable))
-		{
-			num3 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.CantSprint_UnlessUnstoppable) ? 1 : 0);
-		}
-		else
-		{
-			num3 = 1;
-		}
-		bool flag4 = (byte)num3 != 0;
-		int num4;
-		if (!actorStatus.HasStatus(StatusType.CantSprint_Absolute))
-		{
-			num4 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.CantSprint_Absolute) ? 1 : 0);
-		}
-		else
-		{
-			num4 = 1;
-		}
-		bool flag5 = (byte)num4 != 0;
-		int num5;
-		if (flag4)
-		{
-			if (flag3)
-			{
-				num5 = 1;
-				goto IL_0129;
-			}
-		}
-		num5 = (flag5 ? 1 : 0);
-		goto IL_0129;
-		IL_0129:
-		bool flag6 = (byte)num5 != 0;
-		if (flag3)
-		{
-			if (actorStatus.HasStatus(StatusType.Rooted))
-			{
-				goto IL_0165;
-			}
+			return 0f;
 		}
 		if (actorStatus.HasStatus(StatusType.AnchoredNoMovement))
 		{
-			goto IL_0165;
+			return 0f;
 		}
-		if (flag3)
+		if (debuff && actorStatus.HasStatus(StatusType.CrippledMovement))
 		{
-			if (actorStatus.HasStatus(StatusType.CrippledMovement))
-			{
-				num = Mathf.Clamp(num, 0f, 1f);
-				goto IL_03df;
-			}
+			return Mathf.Clamp(result, 0f, 1f);
 		}
-		if (flag6 && !forcePostAbility && m_actor.GetAbilityData() != null)
+
+		if (cantSprint && !forcePostAbility && m_actor.GetAbilityData() != null &&
+			m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.FullMovement)
 		{
-			if (m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.FullMovement)
-			{
-				num -= m_actor.GetPostAbilityHorizontalMovementChange();
-			}
+			result -= m_actor.GetPostAbilityHorizontalMovementChange();
 		}
-		int num6;
-		if (!actorStatus.HasStatus(StatusType.Snared))
+
+		bool snared = actorStatus.HasStatus(StatusType.Snared) || queuedStatuses.Contains(StatusType.Snared);
+		bool hasted = actorStatus.HasStatus(StatusType.Hasted) || queuedStatuses.Contains(StatusType.Hasted);
+		if (debuff && snared && !hasted || calculateAsIfSnared)
 		{
-			num6 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.Snared) ? 1 : 0);
-		}
-		else
-		{
-			num6 = 1;
-		}
-		bool flag7 = (byte)num6 != 0;
-		int num7;
-		if (!actorStatus.HasStatus(StatusType.Hasted))
-		{
-			num7 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.Hasted) ? 1 : 0);
-		}
-		else
-		{
-			num7 = 1;
-		}
-		bool flag8 = (byte)num7 != 0;
-		if (flag3)
-		{
-			if (flag7)
-			{
-				if (!flag8)
-				{
-					goto IL_028a;
-				}
-			}
-		}
-		if (calculateAsIfSnared)
-		{
-			goto IL_028a;
-		}
-		if (flag8)
-		{
-			if (flag3)
-			{
-				if (flag7)
-				{
-					goto IL_03df;
-				}
-			}
-			CalcHastedMovementAdjustments(out float mult, out int halfMoveAdjustment, out int fullMoveAdjustment);
+			CalcSnaredMovementAdjustments(out float snaredMult, out int halfMoveAdjust, out int fullMoveAdjust);
 			if (forcePostAbility)
 			{
-				num = Mathf.Clamp(num + (float)halfMoveAdjustment, 0f, 99f);
+				result = Mathf.Clamp(result + halfMoveAdjust, 0f, 99f);
 			}
 			else
 			{
-				int num8 = fullMoveAdjustment;
-				if (m_actor.GetAbilityData() != null)
-				{
-					Ability.MovementAdjustment queuedAbilitiesMovementAdjustType = m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType();
-					if (queuedAbilitiesMovementAdjustType == Ability.MovementAdjustment.ReducedMovement)
-					{
-						num8 = halfMoveAdjustment;
-					}
-				}
-				num = Mathf.Clamp(num + (float)num8, 0f, 99f);
+				int moveAdjust = m_actor.GetAbilityData() != null && m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.ReducedMovement
+					? halfMoveAdjust
+					: fullMoveAdjust;
+				result = Mathf.Clamp(result + moveAdjust, 0f, 99f);
 			}
-			num *= mult;
-			num = MovementUtils.RoundToNearestHalf(num);
-		}
-		goto IL_03df;
-		IL_03df:
-		return num;
-		IL_028a:
-		CalcSnaredMovementAdjustments(out float mult2, out int halfMoveAdjust, out int fullMoveAdjust);
-		if (forcePostAbility)
-		{
-			num = Mathf.Clamp(num + (float)halfMoveAdjust, 0f, 99f);
+			result *= snaredMult;
+			result = MovementUtils.RoundToNearestHalf(result);
 		}
 		else
 		{
-			int num9 = fullMoveAdjust;
-			if (m_actor.GetAbilityData() != null)
+			if (hasted)
 			{
-				Ability.MovementAdjustment queuedAbilitiesMovementAdjustType2 = m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType();
-				if (queuedAbilitiesMovementAdjustType2 == Ability.MovementAdjustment.ReducedMovement)
+				if (debuff && snared)
 				{
-					num9 = halfMoveAdjust;
+					return result;
 				}
+				CalcHastedMovementAdjustments(out float mult, out int halfMoveAdjust, out int fullMoveAdjust);
+				if (forcePostAbility)
+				{
+					result = Mathf.Clamp(result + (float)halfMoveAdjust, 0f, 99f);
+				}
+				else
+				{
+					int moveAdjust = m_actor.GetAbilityData() != null && m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.ReducedMovement
+						? halfMoveAdjust
+						: fullMoveAdjust;
+					result = Mathf.Clamp(result + (float)moveAdjust, 0f, 99f);
+				}
+				result *= mult;
+				result = MovementUtils.RoundToNearestHalf(result);
 			}
-			num = Mathf.Clamp(num + (float)num9, 0f, 99f);
 		}
-		num *= mult2;
-		num = MovementUtils.RoundToNearestHalf(num);
-		goto IL_03df;
-		IL_0165:
-		num = 0f;
-		goto IL_03df;
+		return result;
 	}
 
 	public static void CalcHastedMovementAdjustments(out float mult, out int halfMoveAdjustment, out int fullMoveAdjustment)
@@ -621,7 +470,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						{
 							continue;
 						}
-						bool flag2 = board._0015(square, boardSquare);
+						bool flag2 = board.AreDiagonallyAdjacent(square, boardSquare);
 						float num2;
 						if (flag2)
 						{
@@ -769,7 +618,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				{
 					continue;
 				}
-				bool flag = Board.Get()._0015(square, boardSquare);
+				bool flag = Board.Get().AreDiagonallyAdjacent(square, boardSquare);
 				float num;
 				if (flag)
 				{
@@ -1024,7 +873,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				int num;
 				if (!knownAdjacent)
 				{
-					num = (Board.Get()._000E(src, dest) ? 1 : 0);
+					num = (Board.Get().AreAdjacent(src, dest) ? 1 : 0);
 				}
 				else
 				{
@@ -1041,7 +890,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				}
 				if (diagonalFlag == DiagonalCalcFlag.Unknown)
 				{
-					if (Board.Get()._0015(src, dest))
+					if (Board.Get().AreDiagonallyAdjacent(src, dest))
 					{
 						goto IL_00f6;
 					}
@@ -2096,159 +1945,128 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	public BoardSquarePathInfo BuildPathTo(BoardSquare src, BoardSquare dest, float maxHorizontalMovement, bool ignoreBarriers, List<BoardSquare> claimedSquares)
 	{
-		BoardSquarePathInfo boardSquarePathInfo = null;
-		if (!(src == null))
+
+		if (src == null || dest == null)
 		{
-			if (!(dest == null))
+			return null;
+		}
+
+		BoardSquarePathInfo boardSquarePathInfo = null;
+		BuildNormalPathNodePool normalPathBuildScratchPool = Board.Get().m_normalPathBuildScratchPool;
+		normalPathBuildScratchPool.ResetAvailableNodeIndex();
+		Vector3 tieBreakerDir = dest.ToVector3() - src.ToVector3();
+		Vector3 tieBreakerPos = src.ToVector3();
+		BuildNormalPathHeap normalPathNodeHeap = Board.Get().m_normalPathNodeHeap;
+		normalPathNodeHeap.Clear();
+		normalPathNodeHeap.SetTieBreakerDirAndPos(tieBreakerDir, tieBreakerPos);
+		m_tempClosedSquares.Clear();
+		Dictionary<BoardSquare, BoardSquarePathInfo> tempClosedSquares = m_tempClosedSquares;
+		BoardSquarePathInfo allocatedNode = normalPathBuildScratchPool.GetAllocatedNode();
+		allocatedNode.square = src;
+		normalPathNodeHeap.Insert(allocatedNode);
+		bool diagMovementAllowed = GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled;
+		bool canExceedMaxMovement = GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax;
+		bool destClaimed = claimedSquares?.Contains(dest) ?? false;
+
+		List<BoardSquare> neighbours = new List<BoardSquare>(8);
+		while (!normalPathNodeHeap.IsEmpty())
+		{
+			BoardSquarePathInfo pathNode = normalPathNodeHeap.ExtractTop();
+			if (pathNode.square == dest)
 			{
-				Board board = Board.Get();
-				BuildNormalPathNodePool normalPathBuildScratchPool = board.m_normalPathBuildScratchPool;
-				normalPathBuildScratchPool.ResetAvailableNodeIndex();
-				Vector3 tieBreakerDir = dest.ToVector3() - src.ToVector3();
-				Vector3 tieBreakerPos = src.ToVector3();
-				BuildNormalPathHeap normalPathNodeHeap = board.m_normalPathNodeHeap;
-				normalPathNodeHeap.Clear();
-				normalPathNodeHeap.SetTieBreakerDirAndPos(tieBreakerDir, tieBreakerPos);
-				m_tempClosedSquares.Clear();
-				Dictionary<BoardSquare, BoardSquarePathInfo> tempClosedSquares = m_tempClosedSquares;
-				BoardSquarePathInfo allocatedNode = normalPathBuildScratchPool.GetAllocatedNode();
-				allocatedNode.square = src;
-				normalPathNodeHeap.Insert(allocatedNode);
-				List<BoardSquare> result = new List<BoardSquare>(8);
-				bool flag = GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled;
-				bool flag2 = GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax;
-				int num;
-				if (claimedSquares != null)
+				boardSquarePathInfo = pathNode;
+				break;
+			}
+			tempClosedSquares[pathNode.square] = pathNode;
+			neighbours.Clear();
+			if (!diagMovementAllowed)
+			{
+				Board.Get().GetStraightAdjacentSquares(pathNode.square.x, pathNode.square.y, ref neighbours);
+			}
+			else
+			{
+				Board.Get().GetAllAdjacentSquares(pathNode.square.x, pathNode.square.y, ref neighbours);
+			}
+			foreach (BoardSquare neighbour in neighbours)
+			{
+				bool diag = Board.Get().AreDiagonallyAdjacent(pathNode.square, neighbour);
+				float cost = pathNode.moveCost + (diag ? 1.5f : 1f);
+				bool isLegalMove = canExceedMaxMovement
+					? pathNode.moveCost < maxHorizontalMovement
+					: cost <= maxHorizontalMovement;
+				if (!isLegalMove ||
+					!CanCrossToAdjacentSquare(pathNode.square, neighbour, ignoreBarriers, diag ? DiagonalCalcFlag.IsDiagonal : DiagonalCalcFlag.NotDiagonal) ||
+					!FirstTurnMovement.CanActorMoveToSquare(m_actor, neighbour))
 				{
-					num = (claimedSquares.Contains(dest) ? 1 : 0);
+					continue;
+				}
+
+				BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
+				allocatedNode2.square = neighbour;
+				allocatedNode2.moveCost = cost;
+				if (claimedSquares != null && destClaimed && allocatedNode2.square == dest)
+				{
+					int num3 = 1;
+					BoardSquarePathInfo boardSquarePathInfo3 = pathNode;
+					while (boardSquarePathInfo3 != null)
+					{
+						if (claimedSquares.Contains(boardSquarePathInfo3.square))
+						{
+							num3++;
+							boardSquarePathInfo3 = boardSquarePathInfo3.prev;
+							continue;
+						}
+						break;
+					}
+					allocatedNode2.m_expectedBackupNum = num3;
+				}
+				float squareSize = Board.Get().squareSize;
+				if (!canExceedMaxMovement)
+				{
+					allocatedNode2.heuristicCost = (neighbour.transform.position - dest.transform.position).magnitude / squareSize;
 				}
 				else
 				{
-					num = 0;
+					float num4 = Mathf.Abs(neighbour.x - dest.x);
+					float num5 = Mathf.Abs(neighbour.y - dest.y);
+					float num6 = num4 + num5 - 0.5f * Mathf.Min(num4, num5);
+					allocatedNode2.heuristicCost = Mathf.Max(0f, num6 - 1.01f);
 				}
-				bool flag3 = (byte)num != 0;
-				while (!normalPathNodeHeap.IsEmpty())
+				allocatedNode2.prev = pathNode;
+				bool flag5 = false;
+				if (tempClosedSquares.ContainsKey(allocatedNode2.square))
 				{
-					BoardSquarePathInfo boardSquarePathInfo2 = normalPathNodeHeap.ExtractTop();
-					if (boardSquarePathInfo2.square == dest)
-					{
-						boardSquarePathInfo = boardSquarePathInfo2;
-						break;
-					}
-					tempClosedSquares[boardSquarePathInfo2.square] = boardSquarePathInfo2;
-					result.Clear();
-					if (!flag)
-					{
-						board.GetStraightAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
-					}
-					else
-					{
-						board.GetAllAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
-					}
-					for (int i = 0; i < result.Count; i++)
-					{
-						BoardSquare boardSquare = result[i];
-						bool flag4 = board._0015(boardSquarePathInfo2.square, boardSquare);
-						float num2;
-						if (flag4)
-						{
-							num2 = boardSquarePathInfo2.moveCost + 1.5f;
-						}
-						else
-						{
-							num2 = boardSquarePathInfo2.moveCost + 1f;
-						}
-						if (!(flag2 ? (boardSquarePathInfo2.moveCost < maxHorizontalMovement) : (num2 <= maxHorizontalMovement)))
-						{
-							continue;
-						}
-						BoardSquare square = boardSquarePathInfo2.square;
-						int diagonalFlag;
-						if (flag4)
-						{
-							diagonalFlag = 1;
-						}
-						else
-						{
-							diagonalFlag = 2;
-						}
-						if (!CanCrossToAdjacentSquare(square, boardSquare, ignoreBarriers, (DiagonalCalcFlag)diagonalFlag))
-						{
-							continue;
-						}
-						if (!FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
-						{
-							continue;
-						}
-						BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
-						allocatedNode2.square = boardSquare;
-						allocatedNode2.moveCost = num2;
-						if (claimedSquares != null && flag3 && allocatedNode2.square == dest)
-						{
-							int num3 = 1;
-							BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
-							while (boardSquarePathInfo3 != null)
-							{
-								if (claimedSquares.Contains(boardSquarePathInfo3.square))
-								{
-									num3++;
-									boardSquarePathInfo3 = boardSquarePathInfo3.prev;
-									continue;
-								}
-								break;
-							}
-							allocatedNode2.m_expectedBackupNum = num3;
-						}
-						float squareSize = board.squareSize;
-						if (!flag2)
-						{
-							allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
-						}
-						else
-						{
-							float num4 = Mathf.Abs(boardSquare.x - dest.x);
-							float num5 = Mathf.Abs(boardSquare.y - dest.y);
-							float num6 = num4 + num5 - 0.5f * Mathf.Min(num4, num5);
-							float num7 = allocatedNode2.heuristicCost = Mathf.Max(0f, num6 - 1.01f);
-						}
-						allocatedNode2.prev = boardSquarePathInfo2;
-						bool flag5 = false;
-						if (tempClosedSquares.ContainsKey(allocatedNode2.square))
-						{
-							flag5 = (allocatedNode2.F_cost > tempClosedSquares[allocatedNode2.square].F_cost);
-						}
-						if (flag5)
-						{
-							continue;
-						}
-						bool flag6 = false;
-						BoardSquarePathInfo boardSquarePathInfo4 = normalPathNodeHeap.TryGetNodeInHeapBySquare(allocatedNode2.square);
-						if (boardSquarePathInfo4 != null)
-						{
-							flag6 = true;
-							if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
-							{
-								normalPathNodeHeap.UpdatePriority(allocatedNode2);
-							}
-						}
-						if (!flag6)
-						{
-							normalPathNodeHeap.Insert(allocatedNode2);
-						}
-					}
+					flag5 = (allocatedNode2.F_cost > tempClosedSquares[allocatedNode2.square].F_cost);
 				}
-				if (boardSquarePathInfo != null)
+				if (flag5)
 				{
-					while (boardSquarePathInfo.prev != null)
-					{
-						boardSquarePathInfo.prev.next = boardSquarePathInfo;
-						boardSquarePathInfo = boardSquarePathInfo.prev;
-					}
-					boardSquarePathInfo = boardSquarePathInfo.Clone(null);
-					normalPathBuildScratchPool.ResetAvailableNodeIndex();
+					continue;
 				}
-				return boardSquarePathInfo;
+				bool flag6 = false;
+				BoardSquarePathInfo boardSquarePathInfo4 = normalPathNodeHeap.TryGetNodeInHeapBySquare(allocatedNode2.square);
+				if (boardSquarePathInfo4 != null)
+				{
+					flag6 = true;
+					if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
+					{
+						normalPathNodeHeap.UpdatePriority(allocatedNode2);
+					}
+				}
+				if (!flag6)
+				{
+					normalPathNodeHeap.Insert(allocatedNode2);
+				}
 			}
+		}
+		if (boardSquarePathInfo != null)
+		{
+			while (boardSquarePathInfo.prev != null)
+			{
+				boardSquarePathInfo.prev.next = boardSquarePathInfo;
+				boardSquarePathInfo = boardSquarePathInfo.prev;
+			}
+			boardSquarePathInfo = boardSquarePathInfo.Clone(null);
+			normalPathBuildScratchPool.ResetAvailableNodeIndex();
 		}
 		return boardSquarePathInfo;
 	}
@@ -2332,7 +2150,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						for (int i = 0; i < result.Count; i++)
 						{
 							BoardSquare boardSquare = result[i];
-							bool flag4 = Board.Get()._0015(boardSquarePathInfo2.square, boardSquare);
+							bool flag4 = Board.Get().AreDiagonallyAdjacent(boardSquarePathInfo2.square, boardSquare);
 							float num2;
 							if (flag4)
 							{

@@ -3733,7 +3733,7 @@ public static class AreaEffectUtils
 					{
 						if (IsActorTargetable(current, teams))
 						{
-							if (Board.Get()._000E(aroundActor.GetCurrentBoardSquare(), current.GetCurrentBoardSquare()))
+							if (Board.Get().AreAdjacent(aroundActor.GetCurrentBoardSquare(), current.GetCurrentBoardSquare()))
 							{
 								while (true)
 								{
