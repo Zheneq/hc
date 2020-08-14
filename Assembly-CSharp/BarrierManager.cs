@@ -7,7 +7,7 @@ public class BarrierManager : NetworkBehaviour
 {
 	private static BarrierManager s_instance;
 
-	private List<Barrier> m_barriers = new List<Barrier>();
+	public List<Barrier> m_barriers = new List<Barrier>();
 
 	private Dictionary<Team, int> m_movementStates = new Dictionary<Team, int>();
 
