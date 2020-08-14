@@ -7,51 +7,35 @@ public class Barrier
 	private string m_name;
 
 	private Vector3 m_center;
-
 	private Vector3 m_endpoint1;
-
 	private Vector3 m_endpoint2;
-
 	private Vector3 m_facingDir;
 
 	private bool m_bidirectional;
-
 	private bool m_makeClientGeo;
 
 	private GameObject m_generatedClientGeometry;
 
 	private Team m_team;
-
 	private ActorData m_owner;
 
 	public SpoilsSpawnData m_spoilsSpawnOnEnemyMovedThrough;
-
 	public SpoilsSpawnData m_spoilsSpawnOnAllyMovedThrough;
 
 	public bool m_removeAtTurnEndIfEnemyMovedThrough;
-
 	public bool m_removeAtTurnEndIfAllyMovedThrough;
-
 	public bool m_removeAtPhaseEndIfEnemyMovedThrough;
-
 	public bool m_removeAtPhaseEndIfAllyMovedThrough;
 
 	public AbilityPriority m_customEndPhase = AbilityPriority.INVALID;
 
 	public bool m_removeAtPhaseEndIfCasterKnockedBack;
-
 	private int m_maxHits;
-
 	public EffectDuration m_time;
-
 	public int m_guid;
-
 	public List<Sequence> m_barrierSequences;
-
 	private List<GameObject> m_barrierSequencePrefabs;
-
 	private bool m_playSequences;
-
 	private bool m_considerAsCover;
 
 	public string Name
@@ -126,12 +110,35 @@ public class Barrier
 		}
 	}
 
-	public Barrier(int guid, string name, Vector3 center, Vector3 facingDir, float width, bool bidirectional, BlockingRules blocksVision, BlockingRules blocksAbilities, BlockingRules blocksMovement, BlockingRules blocksPositionTargeting, bool considerAsCover, int maxDuration, ActorData owner, List<GameObject> barrierSequencePrefabs = null, bool playSequences = true, GameplayResponseForActor onEnemyMovedThrough = null, GameplayResponseForActor onAllyMovedThrough = null, int maxHits = -1, bool endOnCasterDeath = false, SequenceSource parentSequenceSource = null, Team barrierTeam = Team.Invalid)
-	{
-		InitBarrier(guid, name, center, facingDir, width, bidirectional, blocksVision, blocksAbilities, blocksMovement, BlockingRules.ForNobody, blocksPositionTargeting, considerAsCover, maxDuration, owner, barrierSequencePrefabs, playSequences, onEnemyMovedThrough, onAllyMovedThrough, maxHits, endOnCasterDeath, parentSequenceSource, barrierTeam);
-	}
+    public Barrier(int guid,
+		string name,
+		Vector3 center,
+		Vector3 facingDir,
+		float width,
+		bool bidirectional,
+		BlockingRules blocksVision,
+		BlockingRules blocksAbilities,
+		BlockingRules blocksMovement,
+		BlockingRules blocksPositionTargeting,
+		bool considerAsCover,
+		int maxDuration,
+		ActorData owner,
+		List<GameObject> barrierSequencePrefabs = null,
+		bool playSequences = true,
+		GameplayResponseForActor onEnemyMovedThrough = null,
+		GameplayResponseForActor onAllyMovedThrough = null,
+		int maxHits = -1,
+		bool endOnCasterDeath = false,
+		SequenceSource parentSequenceSource = null,
+		Team barrierTeam = Team.Invalid)
+    {
+        InitBarrier(guid, name, center, facingDir, width, bidirectional,
+			blocksVision, blocksAbilities, blocksMovement, BlockingRules.ForNobody, blocksPositionTargeting,
+			considerAsCover, maxDuration, owner, barrierSequencePrefabs, playSequences,
+			onEnemyMovedThrough, onAllyMovedThrough, maxHits, endOnCasterDeath, parentSequenceSource, barrierTeam);
+    }
 
-	public Vector3 GetCenterPos()
+    public Vector3 GetCenterPos()
 	{
 		return m_center;
 	}
@@ -156,7 +163,29 @@ public class Barrier
 		return m_maxHits < 0;
 	}
 
-	private void InitBarrier(int guid, string name, Vector3 center, Vector3 facingDir, float width, bool bidirectional, BlockingRules blocksVision, BlockingRules blocksAbilities, BlockingRules blocksMovement, BlockingRules blocksMovementOnCrossover, BlockingRules blocksPositionTargeting, bool considerAsCover, int maxDuration, ActorData owner, List<GameObject> barrierSequencePrefabs, bool playSequences, GameplayResponseForActor onEnemyMovedThrough, GameplayResponseForActor onAllyMovedThrough, int maxHits, bool endOnCasterDeath, SequenceSource parentSequenceSource, Team barrierTeam)
+	private void InitBarrier(
+		int guid,
+		string name,
+		Vector3 center,
+		Vector3 facingDir,
+		float width,
+		bool bidirectional,
+		BlockingRules blocksVision,
+		BlockingRules blocksAbilities,
+		BlockingRules blocksMovement,
+		BlockingRules blocksMovementOnCrossover,
+		BlockingRules blocksPositionTargeting,
+		bool considerAsCover,
+		int maxDuration,
+		ActorData owner,
+		List<GameObject> barrierSequencePrefabs,
+		bool playSequences,
+		GameplayResponseForActor onEnemyMovedThrough,
+		GameplayResponseForActor onAllyMovedThrough,
+		int maxHits,
+		bool endOnCasterDeath,
+		SequenceSource parentSequenceSource,
+		Team barrierTeam)
 	{
 		m_guid = guid;
 		m_name = name;
@@ -175,27 +204,11 @@ public class Barrier
 		BlocksPositionTargeting = blocksPositionTargeting;
 		m_considerAsCover = considerAsCover;
 		m_owner = owner;
-		if (m_owner != null)
-		{
-			m_team = m_owner.GetTeam();
-		}
-		else
-		{
-			m_team = barrierTeam;
-		}
+		m_team = m_owner?.GetTeam() ?? barrierTeam;
 		m_time = new EffectDuration();
 		m_time.duration = maxDuration;
 		m_barrierSequencePrefabs = barrierSequencePrefabs;
-		int playSequences2;
-		if (playSequences)
-		{
-			playSequences2 = ((m_barrierSequencePrefabs != null) ? 1 : 0);
-		}
-		else
-		{
-			playSequences2 = 0;
-		}
-		m_playSequences = ((byte)playSequences2 != 0);
+		m_playSequences = playSequences && m_barrierSequencePrefabs != null;
 		m_barrierSequences = new List<Sequence>();
 		if (m_playSequences)
 		{
