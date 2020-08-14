@@ -877,7 +877,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	}
 
 	[Server]
-	internal void SetQueuedAction(AbilityData.ActionType actionType, bool queued)
+	public void SetQueuedAction(AbilityData.ActionType actionType, bool queued)
 	{
 		if (!NetworkServer.active)
 		{
@@ -892,7 +892,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	}
 
 	[Server]
-	internal void UnqueueActions()
+	public void UnqueueActions()
 	{
 		if (!NetworkServer.active)
 		{
