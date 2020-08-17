@@ -957,4 +957,13 @@ public class ClientActorHitResults
 		m_effectsToStart = other.m_effectsToStart;
 		other.m_effectsToStart = effectsToStart;
 	}
+
+
+	public int Damage => m_finalDamage;
+
+	public int Healing => m_finalHealing;
+
+	public int TechPoints => m_finalTechPointsGain - m_finalTechPointsLoss;
+
+	public int TechPointsOnCaster => m_finalTechPointGainOnCaster;
 }

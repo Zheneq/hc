@@ -29,6 +29,21 @@ public class ClientBarrierResults
 		AbilityResultsUtils.SerializePositionHitResultsDictionaryToStream(ref stream, m_posToHitResults);
 	}
 
+	public Dictionary<ActorData, ClientActorHitResults> GetActorHitResults()
+	{
+		return m_actorToHitResults;
+	}
+
+	public Dictionary<Vector3, ClientPositionHitResults> GetPosHitResults()
+	{
+		return m_posToHitResults;
+	}
+
+	public ActorData GetCaster()
+	{
+		return m_barrierCaster;
+	}
+
 	public void RunClientBarrierHits()
 	{
 		foreach (KeyValuePair<ActorData, ClientActorHitResults> actorToHitResult in m_actorToHitResults)

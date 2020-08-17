@@ -80,6 +80,42 @@ public class ClientMovementResults
 		}
 	}
 
+	public void GetHitResults(out Dictionary<ActorData, ClientActorHitResults> actorHitResList, out Dictionary<Vector3, ClientPositionHitResults> posHitResList)
+	{
+		actorHitResList = null;
+		posHitResList = null;
+		// TODO are these mutually exclusive?
+		if (m_effectResults != null)
+		{
+			actorHitResList = m_effectResults.GetActorHitResults();
+			posHitResList = m_effectResults.GetPosHitResults();
+			return;
+		}
+		if (m_barrierResults != null)
+		{
+			actorHitResList = m_barrierResults.GetActorHitResults();
+			posHitResList = m_barrierResults.GetPosHitResults();
+			return;
+		}
+		if (m_powerupResults != null)
+		{
+			actorHitResList = m_powerupResults.GetActorHitResults();
+			posHitResList = m_powerupResults.GetPosHitResults();
+			return;
+		}
+		if (m_gameModeResults != null)
+		{
+			actorHitResList = m_gameModeResults.GetActorHitResults();
+			posHitResList = m_gameModeResults.GetPosHitResults();
+			return;
+		}
+	}
+
+	public ActorData GetCaster()
+	{
+		return m_effectResults?.GetCaster() ?? m_barrierResults?.GetCaster() ?? m_powerupResults?.GetCaster() ?? m_gameModeResults?.GetCaster();
+	}
+
 	public bool TriggerMatchesMovement(ActorData mover, BoardSquarePathInfo curPath)
 	{
 		if (m_alreadyReacted)
