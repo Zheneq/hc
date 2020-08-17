@@ -40,7 +40,7 @@ public class Barrier
 
 	public bool m_removeAtPhaseEndIfCasterKnockedBack;
 
-	private int m_maxHits;
+	public int m_maxHits;
 
 	public GameplayResponseForActor m_onEnemyMovedThrough;
 	public GameplayResponseForActor m_onAllyMovedThrough;

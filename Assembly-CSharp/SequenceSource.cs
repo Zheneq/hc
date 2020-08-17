@@ -26,7 +26,7 @@ public class SequenceSource
 
 	private AbilityPriority m_hitPhase = AbilityPriority.INVALID;
 
-	internal uint RootID
+	public uint RootID
 	{
 		get
 		{
