@@ -32,24 +32,20 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 		ClearActorsInRange();
 		m_numNodesInPath = 0;
 		BoardSquarePathInfo boardSquarePathInfo = null;
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
-		if (!(boardSquareSafe != null))
+		BoardSquare currentTargetSquare = Board.Get().GetSquare(currentTarget.GridPos);
+
+		if (currentTargetSquare == null || currentTargetIndex != 0 && targets != null && IsUsingMultiTargetUpdate())
 		{
-			goto IL_007b;
-		}
-		if (currentTargetIndex != 0)
-		{
-			if (targets != null)
+			if (currentTargetSquare != null)
 			{
-				if (IsUsingMultiTargetUpdate())
-				{
-					goto IL_007b;
-				}
+				BoardSquare prevSquare = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
+				boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, currentTargetSquare, prevSquare, false);
 			}
 		}
-		boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe);
-		goto IL_00b0;
-		IL_00b0:
+		else
+		{
+			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, currentTargetSquare);
+		}
 		if (boardSquarePathInfo != null)
 		{
 			for (BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo; boardSquarePathInfo2 != null; boardSquarePathInfo2 = boardSquarePathInfo2.next)
@@ -83,20 +79,12 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 			{
 				return;
 			}
-			if (!boardSquareSafe.IsInBrushRegion())
+			if (!currentTargetSquare.IsInBrushRegion())
 			{
 				return;
 			}
 		}
 		AddActorInRange(targetingActor, currentTarget.FreePos, targetingActor, AbilityTooltipSubject.Self);
-		return;
-		IL_007b:
-		if (boardSquareSafe != null)
-		{
-			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
-			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, boardSquareSafe2, false);
-		}
-		goto IL_00b0;
 	}
 
 	private Vector3 GetTrapwireHighlightPos(AbilityTarget currentTarget, ActorData targetingActor)

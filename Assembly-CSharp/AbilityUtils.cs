@@ -254,10 +254,8 @@ public static class AbilityUtils
 		int reward = 0;
 		HashSet<TechPointInteractionType> hashSet = new HashSet<TechPointInteractionType>();
 		TechPointInteraction[] baseTechPointInteractions = ability.GetBaseTechPointInteractions();
-		TechPointInteraction[] array = baseTechPointInteractions;
-		for (int i = 0; i < array.Length; i++)
+		foreach (TechPointInteraction techPointInteraction in baseTechPointInteractions)
 		{
-			TechPointInteraction techPointInteraction = array[i];
 			if (hashSet.Contains(techPointInteraction.m_type))
 			{
 				continue;
@@ -270,119 +268,78 @@ public static class AbilityUtils
 			}
 			AddToRewardAmountForInteraction(ref reward, techPointInteraction.m_type, interaction, num, firstTime, hitOnAlly, hitOnEnemy);
 		}
-		while (true)
+		if (ability.CurrentAbilityMod != null)
 		{
-			if (ability.CurrentAbilityMod != null)
+			TechPointInteractionMod[] techPointInteractionMods = ability.CurrentAbilityMod.m_techPointInteractionMods;
+			foreach (TechPointInteractionMod techPointInteractionMod in techPointInteractionMods)
 			{
-				TechPointInteractionMod[] techPointInteractionMods = ability.CurrentAbilityMod.m_techPointInteractionMods;
-				foreach (TechPointInteractionMod techPointInteractionMod in techPointInteractionMods)
+				if (!hashSet.Contains(techPointInteractionMod.interactionType))
 				{
-					if (!hashSet.Contains(techPointInteractionMod.interactionType))
+					hashSet.Add(techPointInteractionMod.interactionType);
+					int moddedTechPointForInteraction = ability.CurrentAbilityMod.GetModdedTechPointForInteraction(techPointInteractionMod.interactionType, 0);
+					if (moddedTechPointForInteraction > 0)
 					{
-						hashSet.Add(techPointInteractionMod.interactionType);
-						int moddedTechPointForInteraction = ability.CurrentAbilityMod.GetModdedTechPointForInteraction(techPointInteractionMod.interactionType, 0);
-						if (moddedTechPointForInteraction > 0)
-						{
-							AddToRewardAmountForInteraction(ref reward, techPointInteractionMod.interactionType, interaction, moddedTechPointForInteraction, firstTime, hitOnAlly, hitOnEnemy);
-						}
+						AddToRewardAmountForInteraction(ref reward, techPointInteractionMod.interactionType, interaction, moddedTechPointForInteraction, firstTime, hitOnAlly, hitOnEnemy);
 					}
 				}
 			}
-			return reward;
 		}
+		return reward;
 	}
 
 	private static void AddToRewardAmountForInteraction(ref int reward, TechPointInteractionType techInteractionType, AbilityInteractionType interaction, int addAmount, bool firstTime, bool hitOnAlly, bool hitOnEnemy)
 	{
 		switch (techInteractionType)
 		{
-		case TechPointInteractionType.RewardOnCast:
-			if (interaction != 0)
-			{
-				break;
-			}
-			while (true)
-			{
-				reward += addAmount;
-				return;
-			}
-		case TechPointInteractionType.RewardOnDamage_OncePerCast:
-			if (interaction != AbilityInteractionType.Damage || !firstTime)
-			{
-				break;
-			}
-			while (true)
-			{
-				reward += addAmount;
-				return;
-			}
-		case TechPointInteractionType.RewardOnDamage_PerTarget:
-			if (interaction != AbilityInteractionType.Damage)
-			{
-				break;
-			}
-			while (true)
-			{
-				reward += addAmount;
-				return;
-			}
-		case TechPointInteractionType.RewardOnHit_OncePerCast:
-			if (interaction != AbilityInteractionType.Hit)
-			{
-				break;
-			}
-			while (true)
-			{
-				if (firstTime)
-				{
-					while (true)
-					{
-						reward += addAmount;
-						return;
-					}
-				}
-				return;
-			}
-		case TechPointInteractionType.RewardOnHit_PerTarget:
-			if (interaction != AbilityInteractionType.Hit)
-			{
-				break;
-			}
-			while (true)
-			{
-				reward += addAmount;
-				return;
-			}
-		case TechPointInteractionType.RewardOnHit_PerAllyTarget:
-			if (interaction != AbilityInteractionType.Hit)
-			{
-				break;
-			}
-			while (true)
-			{
-				if (hitOnAlly)
-				{
-					while (true)
-					{
-						reward += addAmount;
-						return;
-					}
-				}
-				return;
-			}
-		case TechPointInteractionType.RewardOnHit_PerEnemyTarget:
-			if (interaction != AbilityInteractionType.Hit)
-			{
-				break;
-			}
-			while (true)
-			{
-				if (hitOnEnemy)
+			case TechPointInteractionType.RewardOnCast:
+				if (interaction == AbilityInteractionType.Cast)
 				{
 					reward += addAmount;
 				}
-				return;
-			}
+				break;
+
+			case TechPointInteractionType.RewardOnDamage_OncePerCast:
+				if (interaction == AbilityInteractionType.Damage && firstTime)
+				{
+					reward += addAmount;
+				}
+				break;
+
+			case TechPointInteractionType.RewardOnDamage_PerTarget:
+				if (interaction == AbilityInteractionType.Damage)
+				{
+					reward += addAmount;
+				}
+				break;
+
+			case TechPointInteractionType.RewardOnHit_OncePerCast:
+				if (interaction == AbilityInteractionType.Hit && firstTime)
+				{
+					reward += addAmount;
+				}
+				break;
+
+			case TechPointInteractionType.RewardOnHit_PerTarget:
+				if (interaction == AbilityInteractionType.Hit)
+				{
+					reward += addAmount;
+				}
+				break;
+
+			case TechPointInteractionType.RewardOnHit_PerAllyTarget:
+				if (interaction == AbilityInteractionType.Hit && hitOnAlly)
+				{
+
+					reward += addAmount;
+				}
+				break;
+
+			case TechPointInteractionType.RewardOnHit_PerEnemyTarget:
+				if (interaction == AbilityInteractionType.Hit && hitOnEnemy)
+				{
+					reward += addAmount;
+				}
+				break;
 		}
 	}
 
