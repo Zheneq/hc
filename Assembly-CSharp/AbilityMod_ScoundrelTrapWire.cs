@@ -97,18 +97,9 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ScoundrelTrapWire scoundrelTrapWire = targetAbility as ScoundrelTrapWire;
-		bool flag = scoundrelTrapWire != null;
 		AbilityModPropertyBarrierDataV2 barrierDataMod = m_barrierDataMod;
-		object baseVal;
-		if (flag)
-		{
-			baseVal = scoundrelTrapWire.m_barrierData;
-		}
-		else
-		{
-			baseVal = null;
-		}
-		AbilityMod.AddToken_BarrierMod(tokens, barrierDataMod, "Wall", (StandardBarrierData)baseVal);
+		StandardBarrierData barrierData = scoundrelTrapWire?.m_barrierData;
+		AbilityMod.AddToken_BarrierMod(tokens, barrierDataMod, "Wall", barrierData);
 		m_cooldownReductionsWhenNoHits.AddTooltipTokens(tokens, "CooldownReductionOnMiss");
 	}
 }
