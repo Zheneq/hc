@@ -72,27 +72,16 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		m_surfaceFoleyEventNames.Add("SFXTag_BodyFallEvent", "fts_sw_surfacetype_bodyfall");
 		m_surfaceFoleyEventNames.Add("SFXTag_JumpLandEvent", "fts_sw_surfacetype_jumpland");
 		m_surfaceFoleyEventNames.Add("SFXTag_HighJumpLandEvent", "ablty/bazookagirl/rocketjump_land");
-		int num = 0;
-		Transform child;
-		while (true)
-		{
-			if (num < base.transform.childCount)
+		
+		for (int num = 0; num < transform.childCount; num++)
+        {
+			Transform child = transform.GetChild(num);
+			Rigidbody[] componentsInChildren = child.GetComponentsInChildren<Rigidbody>();
+			if (componentsInChildren != null && componentsInChildren.Length > 0)
 			{
-				child = base.transform.GetChild(num);
-				Rigidbody[] componentsInChildren = child.GetComponentsInChildren<Rigidbody>();
-				if (componentsInChildren != null && componentsInChildren.Length > 0)
-				{
-					break;
-				}
-				num++;
-				continue;
+				m_attachmentsParent = child.gameObject;
+				break;
 			}
-			return;
-		}
-		while (true)
-		{
-			m_attachmentsParent = child.gameObject;
-			return;
 		}
 	}
 
@@ -164,71 +153,40 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 	{
 		if (GetActorData() == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
 		if (eventObject == null)
 		{
-			while (true)
+			if (Application.isEditor)
 			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					if (Application.isEditor)
-					{
-						string text = (!(GetActorData() == null) && !(GetActorData().GetActorModelData() == null)) ? GetActorData().GetActorModelData().GetCurrentAnimatorStateName() : "NULL";
-						string text2 = (!(GetActorData() != null)) ? "UNKNOWN" : GetActorData().GetDebugName();
-						Log.Error("Animation event on {0}'s animation state {1} is missing an Object in  the Unity Editor window for an animation event.  Please set the Object field to one of the scripts in the EventObjects folder, or change  the function name to AudioEvent, if the string field has an audio event name.", text2, text);
-					}
-					return;
-				}
+				string text = (!(GetActorData() == null) && !(GetActorData().GetActorModelData() == null)) ? GetActorData().GetActorModelData().GetCurrentAnimatorStateName() : "NULL";
+				string text2 = (!(GetActorData() != null)) ? "UNKNOWN" : GetActorData().GetDebugName();
+				Log.Error("Animation event on {0}'s animation state {1} is missing an Object in  the Unity Editor window for an animation event.  Please set the Object field to one of the scripts in the EventObjects folder, or change  the function name to AudioEvent, if the string field has an audio event name.", text2, text);
 			}
+			return;
 		}
-		if (ShouldPostAudioEvent())
-		{
-			if (m_surfaceFoleyEventNames.ContainsKey(eventObject.name))
-			{
-				AudioManager.PostEvent("sw_surfacetype", AudioManager.EventAction.SetSwitch, "metal");
-				AudioManager.PostEvent(m_surfaceFoleyEventNames[eventObject.name], GetActorData().gameObject);
-			}
-		}
-		ActorData actorData = GetActorData();
-		if (TheatricsManager.Get() != null)
-		{
-			TheatricsManager.Get().OnAnimationEvent(actorData, eventObject, sourceObject);
-		}
-		if (CameraManager.Get() != null)
-		{
-			CameraManager.Get().OnAnimationEvent(actorData, eventObject);
-		}
+        if (ShouldPostAudioEvent() && m_surfaceFoleyEventNames.ContainsKey(eventObject.name))
+        {
+            AudioManager.PostEvent("sw_surfacetype", AudioManager.EventAction.SetSwitch, "metal");
+            AudioManager.PostEvent(m_surfaceFoleyEventNames[eventObject.name], GetActorData().gameObject);
+        }
+        ActorData actorData = GetActorData();
+		TheatricsManager.Get()?.OnAnimationEvent(actorData, eventObject, sourceObject);
+		CameraManager.Get()?.OnAnimationEvent(actorData, eventObject);
+		
 		actorData.OnAnimEvent(eventObject, sourceObject);
-		if (!(m_attachmentsParent != null))
-		{
-			return;
-		}
-		while (true)
-		{
-			if (eventObject.name == "VFX_ShowAttachments")
-			{
-				m_attachmentsParent.SetActive(true);
-			}
-			else if (eventObject.name == "VFX_HideAttachments")
-			{
-				m_attachmentsParent.SetActive(false);
-			}
-			return;
-		}
-	}
+        if (m_attachmentsParent != null)
+        {
+            if (eventObject.name == "VFX_ShowAttachments")
+            {
+                m_attachmentsParent.SetActive(true);
+            }
+            else if (eventObject.name == "VFX_HideAttachments")
+            {
+                m_attachmentsParent.SetActive(false);
+            }
+        }
+    }
 
 	public void ShowGeometryEvent(string eventName)
 	{
