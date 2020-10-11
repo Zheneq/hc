@@ -1086,112 +1086,46 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	internal bool AllowCameraShake()
 	{
 		DebugCamera debugCamera = GetDebugCamera();
-		if (debugCamera != null)
-		{
-			if (debugCamera.enabled && !debugCamera.AllowCameraShake())
-			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						return false;
-					}
-				}
-			}
-		}
-		IsometricCamera isometricCamera = GetIsometricCamera();
-		if (isometricCamera != null)
-		{
-			if (isometricCamera.enabled)
-			{
-				if (!isometricCamera.AllowCameraShake())
-				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							break;
-						default:
-							return false;
-						}
-					}
-				}
-			}
-		}
-		AbilitiesCamera abilitiesCamera = GetAbilitiesCamera();
-		if (abilitiesCamera != null)
-		{
-			if (abilitiesCamera.enabled && abilitiesCamera.IsMovingAutomatically())
-			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return m_abilityAnimationsBetweenCamEvents > 0;
-					}
-				}
-			}
-		}
-		return true;
+        if (debugCamera != null && debugCamera.enabled && !debugCamera.AllowCameraShake())
+        {
+            return false;
+        }
+        IsometricCamera isometricCamera = GetIsometricCamera();
+        if (isometricCamera != null && isometricCamera.enabled && !isometricCamera.AllowCameraShake())
+        {
+            return false;
+        }
+        AbilitiesCamera abilitiesCamera = GetAbilitiesCamera();
+        if (abilitiesCamera != null && abilitiesCamera.enabled && abilitiesCamera.IsMovingAutomatically())
+        {
+            return m_abilityAnimationsBetweenCamEvents > 0;
+        }
+        return true;
 	}
 
 	public void OnAnimationEvent(ActorData animatedActor, UnityEngine.Object eventObject)
 	{
-		if (eventObject.name == "CameraShakeSmallEvent")
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					PlayCameraShake(CameraShakeIntensity.Small);
-					return;
-				}
-			}
-		}
-		if (eventObject.name == "CameraShakeLargeEvent")
-		{
-			PlayCameraShake(CameraShakeIntensity.Large);
-			return;
-		}
-		if (eventObject.name == "CamStartEvent")
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityAnimationsBetweenCamEvents++;
-					return;
-				}
-			}
-		}
-		if (!(eventObject.name == "CamEndEvent"))
-		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityAnimationsBetweenCamEvents--;
-			if (m_abilityAnimationsBetweenCamEvents < 0)
-			{
-				Log.Warning("Camera manger: ability animation CamStart CamEnd count  mismatch");
-				m_abilityAnimationsBetweenCamEvents = 0;
-			}
-			return;
-		}
-	}
+        switch (eventObject.name)
+        {
+            case "CameraShakeSmallEvent":
+                PlayCameraShake(CameraShakeIntensity.Small);
+                break;
+            case "CameraShakeLargeEvent":
+                PlayCameraShake(CameraShakeIntensity.Large);
+                break;
+            case "CamStartEvent":
+                m_abilityAnimationsBetweenCamEvents++;
+                break;
+            case "CamEndEvent":
+                m_abilityAnimationsBetweenCamEvents--;
+                if (m_abilityAnimationsBetweenCamEvents < 0)
+                {
+                    Log.Warning("Camera manger: ability animation CamStart CamEnd count  mismatch");
+                    m_abilityAnimationsBetweenCamEvents = 0;
+                }
+                break;
+        }
+    }
 
 	public bool OnAbilityAnimationStart(ActorData animatedActor, int animationIndex, Vector3 targetPos, bool requestCinematicCam, int cinematicRequested)
 	{
