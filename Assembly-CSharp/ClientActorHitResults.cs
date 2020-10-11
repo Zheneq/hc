@@ -459,16 +459,7 @@ public class ClientActorHitResults
 	{
 		if (ExecutedHit)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
 		if (ClientAbilityResults.LogMissingSequences)
 		{
