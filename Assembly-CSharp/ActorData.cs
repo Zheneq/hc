@@ -2698,6 +2698,22 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			stream.Serialize(ref _queuedChaseTargetActorIndex);
 			stream.Serialize(ref _HitPoints);
 			stream.Serialize(ref _TechPoints);
+
+
+			string jsonLog = $"[JSON] {{\"playerIndex\": {_playerIndex}" +
+				$",\"actorIndex\": {_actorIndex}" +
+				$",\"displayName\": \"{_displayName}\"" +
+				$",\"team\": {_team}" + 
+				$",\"QueuedMovementAllowsAbility\": {DefaultJsonSerializer.Serialize(_QueuedMovementAllowsAbility)}" +
+				$",\"HasQueuedMovement\": {DefaultJsonSerializer.Serialize(_HasQueuedMovement)}" +
+				$",\"HasQueuedChase\": {DefaultJsonSerializer.Serialize(_HasQueuedChase)}" +
+				$",\"RemainingHorizontalMovement\": {_RemainingHorizontalMovement}" +
+				$",\"RemainingMovementWithQueuedAbility\": {_RemainingMovementWithQueuedAbility}" +
+				$",\"queuedChaseTargetActorIndex\": {_queuedChaseTargetActorIndex}" +
+				$",\"HitPoints\": {_HitPoints}" +
+				$",\"TechPoints\": {_TechPoints}";
+
+
 			stream.Serialize(ref _pointsBitfield);
 			bool _hasUnresolvedDamage = false;
 			bool _hasUnresolvedHealing = false;
@@ -2711,46 +2727,88 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			if (_hasUnresolvedDamage)
 			{
 				stream.Serialize(ref _UnresolvedDamage);
+				jsonLog += $",\"UnresolvedDamage\": {_UnresolvedDamage}";
 			}
 			if (_hasUnresolvedHealing)
 			{
 				stream.Serialize(ref _UnresolvedHealing);
+				jsonLog += $",\"UnresolvedHealing\": {_UnresolvedHealing}";
 			}
 			if (_hasUnresolvedTechPointGain)
 			{
 				stream.Serialize(ref _UnresolvedTechPointGain);
+				jsonLog += $",\"UnresolvedTechPointGain\": {_UnresolvedTechPointGain}";
 			}
 			if (_hasUnresolvedTechPointLoss)
 			{
 				stream.Serialize(ref _UnresolvedTechPointLoss);
+				jsonLog += $",\"UnresolvedTechPointLoss\": {_UnresolvedTechPointLoss}";
 			}
 			if (_hasReservedTechPoints)
 			{
 				stream.Serialize(ref _ReservedTechPoints);
+				jsonLog += $",\"ReservedTechPoints\": {_ReservedTechPoints}";
 			}
 			if (_hasAbsorbPoints)
 			{
 				stream.Serialize(ref _AbsorbPoints);
+				jsonLog += $",\"AbsorbPoints\": {_AbsorbPoints}";
 			}
 			if (_hasMechanicPoints)
 			{
 				stream.Serialize(ref _MechanicPoints);
+				jsonLog += $",\"MechanicPoints\": {_MechanicPoints}";
 			}
 			if (out16)
 			{
 				stream.Serialize(ref _ExpectedHoTTotal);
 				stream.Serialize(ref _ExpectedHoTThisTurn);
+				jsonLog += $",\"ExpectedHoTTotal\": {_ExpectedHoTTotal}";
+				jsonLog += $",\"ExpectedHoTThisTurn\": {_ExpectedHoTThisTurn}";
 			}
 			stream.Serialize(ref _LastDeathTurn);
 			stream.Serialize(ref _lastSpawnTurn);
 			stream.Serialize(ref _NextRespawnTurn);
 			stream.Serialize(ref _SpawnerId);
 			stream.Serialize(ref _UiGameplayBitfield);
+			jsonLog += $",\"LastDeathTurn\": {_LastDeathTurn}";
+			jsonLog += $",\"lastSpawnTurn\": {_lastSpawnTurn}";
+			jsonLog += $",\"NextRespawnTurn\": {_NextRespawnTurn}";
+			jsonLog += $",\"SpawnerId\": {_SpawnerId}";
+
 			ServerClientUtils.GetBoolsFromBitfield(_UiGameplayBitfield, out _HasBotController, out _showInGameHud, out _VisibleTillEndOfPhase, out _ignoreFromAbilityHits, out _alwaysHideNameplate);
+			jsonLog += $",\"HasBotController\": {DefaultJsonSerializer.Serialize(_HasBotController)}";
+			jsonLog += $",\"showInGameHud\": {DefaultJsonSerializer.Serialize(_showInGameHud)}";
+			jsonLog += $",\"VisibleTillEndOfPhase\": {DefaultJsonSerializer.Serialize(_VisibleTillEndOfPhase)}";
+			jsonLog += $",\"ignoreFromAbilityHits\": {DefaultJsonSerializer.Serialize(_ignoreFromAbilityHits)}";
+			jsonLog += $",\"alwaysHideNameplate\": {DefaultJsonSerializer.Serialize(_alwaysHideNameplate)}";
+
 			SerializeCharacterVisualInfo(stream, ref m_visualInfo);
+			jsonLog += $",\"visualInfo\":{{\"skinIndex\": {m_visualInfo.skinIndex}";
+			jsonLog += $",\"patternIndex\": {m_visualInfo.patternIndex}";
+			jsonLog += $",\"colorIndex\": {m_visualInfo.colorIndex}}}";
+
 			SerializeCharacterCardInfo(stream, ref m_selectedCards);
+			jsonLog += $",\"selectedCards\":{{\"PrepCard\": \"{m_selectedCards.PrepCard}\"";
+			jsonLog += $",\"DashCard\": \"{m_selectedCards.DashCard}\"";
+			jsonLog += $",\"CombatCard\": \"{m_selectedCards.CombatCard}\"}}";
+
 			SerializeCharacterModInfo(stream, ref m_selectedMods);
+			jsonLog += $",\"selectedMods\":{{\"ModForAbility0\": {m_selectedMods.ModForAbility0}";
+			jsonLog += $",\"ModForAbility1\": {m_selectedMods.ModForAbility1}";
+			jsonLog += $",\"ModForAbility2\": {m_selectedMods.ModForAbility2}";
+			jsonLog += $",\"ModForAbility3\": {m_selectedMods.ModForAbility3}";
+			jsonLog += $",\"ModForAbility4\": {m_selectedMods.ModForAbility4}";
+			jsonLog += $"}}";
+
 			SerializeCharacterAbilityVfxSwapInfo(stream, ref m_abilityVfxSwapInfo);
+			jsonLog += $",\"abilityVfxSwapInfo\":{{\"VfxSwapForAbility0\": {m_abilityVfxSwapInfo.VfxSwapForAbility0}";
+			jsonLog += $",\"VfxSwapForAbility1\": {m_abilityVfxSwapInfo.VfxSwapForAbility1}";
+			jsonLog += $",\"VfxSwapForAbility2\": {m_abilityVfxSwapInfo.VfxSwapForAbility2}";
+			jsonLog += $",\"VfxSwapForAbility3\": {m_abilityVfxSwapInfo.VfxSwapForAbility3}";
+			jsonLog += $",\"VfxSwapForAbility4\": {m_abilityVfxSwapInfo.VfxSwapForAbility4}";
+			jsonLog += $"}}";
+			
 			PlayerIndex = _playerIndex;
 			ActorIndex = _actorIndex;
 			team = m_team;
@@ -2803,6 +2861,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				TeamSensitiveDataMatchmaker.Get().SetTeamSensitiveDataForActor(this);
 			}
 			stream.Serialize(ref _lineOfSightVisibleExceptionsCount);
+			jsonLog += $",\"lineOfSightVisibleExceptionsCount\": {_lineOfSightVisibleExceptionsCount}";
 			m_lineOfSightVisibleExceptions.Clear();
 			for (int i = 0; i < _lineOfSightVisibleExceptionsCount; i++)
 			{
@@ -2814,7 +2873,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					m_lineOfSightVisibleExceptions.Add(actorData);
 				}
 			}
+			jsonLog += $",\"lineOfSightVisibleExceptions\": {DefaultJsonSerializer.Serialize(m_lineOfSightVisibleExceptions)}";
+
 			stream.Serialize(ref _lastVisibleTurnToClient);
+			jsonLog += $",\"_lastVisibleTurnToClient\": {_lastVisibleTurnToClient}";
 			stream.Serialize(ref _serverLastKnownPosSquare_x);
 			stream.Serialize(ref _serverLastKnownPosSquare_y);
 			if (_lastVisibleTurnToClient > m_lastVisibleTurnToClient)
@@ -2829,6 +2891,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				ServerLastKnownPosSquare = Board.Get().GetSquareFromIndex(_serverLastKnownPosSquare_x, _serverLastKnownPosSquare_y);
 			}
+			jsonLog += $",\"ServerLastKnownPosSquare\": {DefaultJsonSerializer.Serialize(ServerLastKnownPosSquare)}";
 			m_ignoreFromAbilityHits = _ignoreFromAbilityHits;
 			m_alwaysHideNameplate = _alwaysHideNameplate;
 			GetFogOfWar().MarkForRecalculateVisibility();
@@ -2908,6 +2971,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				m_actorMovement.UpdateSquaresCanMoveTo();
 			}
+			jsonLog += "}";
+			Log.Info(jsonLog);
 		}
 		return m_serializeHelper.End(initialState, syncVarDirtyBits);
 	}

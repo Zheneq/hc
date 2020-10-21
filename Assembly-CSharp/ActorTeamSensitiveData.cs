@@ -503,17 +503,17 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		sbyte actorIndex = reader.ReadSByte();
 		SetActorIndex(actorIndex);
 		jsonLog += $"\"actorIndex\": {actorIndex}," +
-			$"\"initialState\": {initialState}," +
+			$"\"initialState\": {DefaultJsonSerializer.Serialize(initialState)}," +
 			"\"dirtyBits\":{" +
-			$"\"FacingDirection\": {IsBitDirty(setBits, DirtyBit.FacingDirection)}," +
-			$"\"MoveFromBoardSquare\": {IsBitDirty(setBits, DirtyBit.MoveFromBoardSquare)}," +
-			$"\"InitialMoveStartSquare\": {IsBitDirty(setBits, DirtyBit.InitialMoveStartSquare)}," +
-			$"\"LineData\": {IsBitDirty(setBits, DirtyBit.LineData)}," +
-			$"\"MovementCameraBound\": {IsBitDirty(setBits, DirtyBit.MovementCameraBound)}," +
-			$"\"Respawn\": {IsBitDirty(setBits, DirtyBit.Respawn)}," +
-			$"\"QueuedAbilities\": {IsBitDirty(setBits, DirtyBit.QueuedAbilities)}," +
-			$"\"AbilityRequestDataForTargeter\": {IsBitDirty(setBits, DirtyBit.AbilityRequestDataForTargeter)}," +
-			$"\"ToggledOnAbilities\": {IsBitDirty(setBits, DirtyBit.ToggledOnAbilities)}" +
+			$"\"FacingDirection\": {DefaultJsonSerializer.Serialize(IsBitDirty(setBits, DirtyBit.FacingDirection))}," +
+			$"\"MoveFromBoardSquare\": {DefaultJsonSerializer.Serialize(IsBitDirty(setBits, DirtyBit.MoveFromBoardSquare))}," +
+			$"\"InitialMoveStartSquare\": {DefaultJsonSerializer.Serialize(IsBitDirty(setBits, DirtyBit.InitialMoveStartSquare))}," +
+			$"\"LineData\": {DefaultJsonSerializer.Serialize(IsBitDirty(setBits, DirtyBit.LineData))}," +
+			$"\"MovementCameraBound\": {DefaultJsonSerializer.Serialize(IsBitDirty(setBits, DirtyBit.MovementCameraBound))}," +
+			$"\"Respawn\": {DefaultJsonSerializer.Serialize(IsBitDirty(setBits, DirtyBit.Respawn))}," +
+			$"\"QueuedAbilities\": {DefaultJsonSerializer.Serialize(IsBitDirty(setBits, DirtyBit.QueuedAbilities))}," +
+			$"\"AbilityRequestDataForTargeter\": {DefaultJsonSerializer.Serialize(IsBitDirty(setBits, DirtyBit.AbilityRequestDataForTargeter))}," +
+			$"\"ToggledOnAbilities\": {DefaultJsonSerializer.Serialize(IsBitDirty(setBits, DirtyBit.ToggledOnAbilities))}" +
 			"}";
 		if (IsBitDirty(setBits, DirtyBit.FacingDirection))
 		{
