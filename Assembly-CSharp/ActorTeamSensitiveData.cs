@@ -336,6 +336,15 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		{
 			return;
 		}
+		Log.Info($"[JSON] {{\"RpcMovement\":{{" +
+			$"\"wait\":{DefaultJsonSerializer.Serialize(wait)}," +
+			$"\"start\":{DefaultJsonSerializer.Serialize(start)}," +
+			$"\"end\":{DefaultJsonSerializer.Serialize(end_grid)}," +
+			$"\"pathBytes\":{DefaultJsonSerializer.Serialize(pathBytes)}," +
+			$"\"type\":{DefaultJsonSerializer.Serialize(type)}," +
+			$"\"disappearAfterMovement\":{DefaultJsonSerializer.Serialize(disappearAfterMovement)}," +
+			$"\"respawning\":{DefaultJsonSerializer.Serialize(respawning)}" +
+			$"}}}}");
 		ProcessMovement(
 			wait,
 			GridPos.FromGridPosProp(start),
@@ -485,6 +494,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
+		string jsonLog = "[JSON] {";
 		uint setBits = uint.MaxValue;
 		if (!initialState)
 		{
@@ -492,6 +502,19 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		}
 		sbyte actorIndex = reader.ReadSByte();
 		SetActorIndex(actorIndex);
+		jsonLog += $"\"actorIndex\": {actorIndex}," +
+			$"\"initialState\": {initialState}," +
+			"\"dirtyBits\":{" +
+			$"\"FacingDirection\": {IsBitDirty(setBits, DirtyBit.FacingDirection)}," +
+			$"\"MoveFromBoardSquare\": {IsBitDirty(setBits, DirtyBit.MoveFromBoardSquare)}," +
+			$"\"InitialMoveStartSquare\": {IsBitDirty(setBits, DirtyBit.InitialMoveStartSquare)}," +
+			$"\"LineData\": {IsBitDirty(setBits, DirtyBit.LineData)}," +
+			$"\"MovementCameraBound\": {IsBitDirty(setBits, DirtyBit.MovementCameraBound)}," +
+			$"\"Respawn\": {IsBitDirty(setBits, DirtyBit.Respawn)}," +
+			$"\"QueuedAbilities\": {IsBitDirty(setBits, DirtyBit.QueuedAbilities)}," +
+			$"\"AbilityRequestDataForTargeter\": {IsBitDirty(setBits, DirtyBit.AbilityRequestDataForTargeter)}," +
+			$"\"ToggledOnAbilities\": {IsBitDirty(setBits, DirtyBit.ToggledOnAbilities)}" +
+			"}";
 		if (IsBitDirty(setBits, DirtyBit.FacingDirection))
 		{
 			short angle = reader.ReadInt16();
@@ -507,6 +530,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			{
 				Actor.SetFacingDirectionAfterMovement(m_facingDirAfterMovement);
 			}
+			jsonLog += $",\"angle\": {angle}";
 		}
 		if (IsBitDirty(setBits, DirtyBit.MoveFromBoardSquare))
 		{
@@ -521,6 +545,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					Actor.GetActorMovement().UpdateSquaresCanMoveTo();
 				}
 			}
+			jsonLog += $",\"MoveFromBoardSquare\": {DefaultJsonSerializer.Serialize(MoveFromBoardSquare)}";
 		}
 		if (IsBitDirty(setBits, DirtyBit.InitialMoveStartSquare))
 		{
@@ -535,6 +560,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					Actor.GetActorMovement().UpdateSquaresCanMoveTo();
 				}
 			}
+			jsonLog += $",\"InitialMoveStartSquare\": {DefaultJsonSerializer.Serialize(InitialMoveStartSquare)}";
 		}
 		if (IsBitDirty(setBits, DirtyBit.LineData))
 		{
@@ -564,6 +590,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					component.OnDeserializedData(m_movementLine, m_numNodesInSnaredLine);
 				}
 			}
+			jsonLog += $",\"movementLine\": {DefaultJsonSerializer.Serialize(m_movementLine)}";
+			jsonLog += $",\"numNodesInSnaredLine\": {m_numNodesInSnaredLine}";
 		}
 		if (IsBitDirty(setBits, DirtyBit.MovementCameraBound))
 		{
@@ -574,6 +602,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			Vector3 center = new Vector3(x, 1.5f + Board.Get().BaselineHeight, z);
 			Vector3 size = new Vector3(w, 3f, h);
 			MovementCameraBounds = new Bounds(center, size);
+			jsonLog += $",\"MovementCameraBounds\": {DefaultJsonSerializer.Serialize(MovementCameraBounds)}";
 		}
 		if (IsBitDirty(setBits, DirtyBit.Respawn))
 		{
@@ -587,6 +616,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			}
 
 			short respawnAvailableSquaresNum = reader.ReadInt16();
+
+			jsonLog += $",\"RespawnPickedSquare\": {DefaultJsonSerializer.Serialize(RespawnPickedSquare)}";
+			jsonLog += $",\"respawningThisTurn\": {respawningThisTurn}";
+			jsonLog += $",\"respawnAvailableSquaresNum\": {respawnAvailableSquaresNum}";
 			m_respawnAvailableSquares.Clear();
 			for (int i = 0; i < respawnAvailableSquaresNum; i++)
 			{
@@ -611,15 +644,18 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			{
 				Actor.ShowRespawnFlare(m_respawnAvailableSquares[0], false);
 			}
+			jsonLog += $",\"respawnAvailableSquares\": {DefaultJsonSerializer.Serialize(m_respawnAvailableSquares)}";
 		}
 		if (IsBitDirty(setBits, DirtyBit.QueuedAbilities) || IsBitDirty(setBits, DirtyBit.AbilityRequestDataForTargeter))
 		{
 			DeSerializeAbilityRequestData(reader);
+			jsonLog += $",\"abilityRequestData\": {DefaultJsonSerializer.Serialize(m_abilityRequestData)}";
 		}
 		if (IsBitDirty(setBits, DirtyBit.QueuedAbilities))
 		{
 			bool changed = false;
 			short queuedAbilitiesBitmask = reader.ReadInt16();
+			jsonLog += $",\"queuedAbilitiesBitmask\": {System.Convert.ToString(queuedAbilitiesBitmask, 2)}";
 			for (int j = 0; j < AbilityData.NUM_ACTIONS; j++)
 			{
 				short flag = (short)(1 << j);
@@ -638,6 +674,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		if (IsBitDirty(setBits, DirtyBit.ToggledOnAbilities))
 		{
 			short toggledOnAbilitiesBitmask = reader.ReadInt16();
+			jsonLog += $",\"toggledOnAbilitiesBitmask\": {System.Convert.ToString(toggledOnAbilitiesBitmask, 2)}";
 			for (int k = 0; k < AbilityData.NUM_ACTIONS; k++)
 			{
 				short flag = (short)(1 << k);
@@ -648,6 +685,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 			}
 		}
+		jsonLog += "}";
+		Log.Info(jsonLog);
 	}
 
 	public void OnClientAssociatedWithActor(ActorData actor)
@@ -786,6 +825,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	[ClientRpc]
 	internal void RpcReceivedPingInfo(int teamIndex, Vector3 worldPosition, ActorController.PingType pingType, bool spam)
 	{
+		Log.Info($"[JSON] {{\"RpcReceivedPingInfo\":{{" +
+			$"\"teamIndex\":{DefaultJsonSerializer.Serialize(teamIndex)}," +
+			$"\"worldPosition\":{DefaultJsonSerializer.Serialize(worldPosition)}," +
+			$"\"pingType\":{DefaultJsonSerializer.Serialize(pingType)}," +
+			$"\"spam\":{DefaultJsonSerializer.Serialize(spam)}" +
+			$"}}}}");
 		if (spam)
 		{
 			if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData == Actor)
@@ -977,6 +1022,11 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	[ClientRpc]
 	internal void RpcReceivedAbilityPingInfo(int teamIndex, LocalizationArg_AbilityPing localizedPing, bool spam)
 	{
+		Log.Info($"[JSON] {{\"RpcReceivedAbilityPingInfo\":{{" +
+			$"\"teamIndex\":{DefaultJsonSerializer.Serialize(teamIndex)}," +
+			$"\"localizedPing\":{DefaultJsonSerializer.Serialize(localizedPing)}," +
+			$"\"spam\":{DefaultJsonSerializer.Serialize(spam)}" +
+			$"}}}}");
 		if (spam)
 		{
 			if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData == Actor)
