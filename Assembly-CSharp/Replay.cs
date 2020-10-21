@@ -108,13 +108,18 @@ public class Replay
 			}
 		});
 		Log.Info("Starting playback of replay, version: {0}", m_versionFull);
+		Debug.logger.logEnabled = true;
+		Debug.logger.filterLogType = LogType.Exception;
+		LogFilter.currentLogLevel = (int)LogFilter.FilterLevel.Developer;
 	}
 
 	private void PlayMessage()
 	{
 		NetworkConnection connection = ClientGameManager.Get().Connection;
+		connection.logNetworkMessages = true;
 		Message message = m_messages[m_messageReadIndex];
 		byte[] data = message.data;
+		Log.Info($"Playing message #{m_messageReadIndex}");
 		connection.TransportReceive(data, message.data.Length, 0);
 		if (m_messageByMessage)
 		{
