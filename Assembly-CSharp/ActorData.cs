@@ -3618,146 +3618,146 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 		}
 		uint position = stream.Position;
-		sbyte value = 0;
-		sbyte value2 = 0;
-		string value3 = m_displayName;
-		float value4 = 0f;
-		float value5 = 0f;
-		sbyte value6 = (sbyte)s_invalidActorIndex;
-		bool @out = true;
-		bool out2 = false;
-		bool out3 = false;
-		byte value7 = 0;
-		sbyte value8 = 0;
-		short value9 = 0;
-		short value10 = 0;
-		short value11 = 0;
-		short value12 = 0;
-		short value13 = 0;
-		short value14 = 0;
-		short value15 = 0;
-		short value16 = 0;
-		short value17 = 0;
-		short value18 = 0;
-		short value19 = 0;
-		byte value20 = 0;
-		int value21 = -1;
-		int value22 = -1;
-		int value23 = -1;
-		sbyte value24 = -1;
-		sbyte value25 = 0;
-		int value26 = 0;
-		short value27 = 0;
-		short value28 = 0;
-		bool out4 = false;
-		bool out5 = true;
-		bool out6 = false;
-		bool out7 = false;
-		bool out8 = false;
-		byte value29 = 0;
+		sbyte _playerIndex = 0;
+		sbyte _actorIndex = 0;
+		string _displayName = m_displayName;
+		float _RemainingHorizontalMovement = 0f;
+		float _RemainingMovementWithQueuedAbility = 0f;
+		sbyte _queuedChaseTargetActorIndex = (sbyte)s_invalidActorIndex;
+		bool _QueuedMovementAllowsAbility = true;
+		bool _HasQueuedMovement = false;
+		bool _HasQueuedChase = false;
+		byte _queuedMovementBitfield = 0;
+		sbyte _team = 0;
+		short _HitPoints = 0;
+		short _UnresolvedDamage = 0;
+		short _UnresolvedHealing = 0;
+		short _TechPoints = 0;
+		short _ReservedTechPoints = 0;
+		short _UnresolvedTechPointGain = 0;
+		short _UnresolvedTechPointLoss = 0;
+		short _AbsorbPoints = 0;
+		short _MechanicPoints = 0;
+		short _ExpectedHoTTotal = 0;
+		short _ExpectedHoTThisTurn = 0;
+		byte _pointsBitfield = 0;
+		int _LastDeathTurn = -1;
+		int _lastSpawnTurn = -1;
+		int _NextRespawnTurn = -1;
+		sbyte _SpawnerId = -1;
+		sbyte _lineOfSightVisibleExceptionsCount = 0;
+		int _lastVisibleTurnToClient = 0;
+		short _serverLastKnownPosSquare_x = 0;
+		short _serverLastKnownPosSquare_y = 0;
+		bool _HasBotController = false;
+		bool _showInGameHud = true;
+		bool _VisibleTillEndOfPhase = false;
+		bool _ignoreFromAbilityHits = false;
+		bool _alwaysHideNameplate = false;
+		byte _UiGameplayBitfield = 0;
 		if (stream.isWriting)
 		{
-			value = (sbyte)PlayerIndex;
-			value2 = (sbyte)ActorIndex;
-			value8 = (sbyte)m_team;
-			value26 = m_lastVisibleTurnToClient;
+			_playerIndex = (sbyte)PlayerIndex;
+			_actorIndex = (sbyte)ActorIndex;
+			_team = (sbyte)m_team;
+			_lastVisibleTurnToClient = m_lastVisibleTurnToClient;
 			if (ServerLastKnownPosSquare != null)
 			{
-				value27 = (short)ServerLastKnownPosSquare.x;
-				value28 = (short)ServerLastKnownPosSquare.y;
+				_serverLastKnownPosSquare_x = (short)ServerLastKnownPosSquare.x;
+				_serverLastKnownPosSquare_y = (short)ServerLastKnownPosSquare.y;
 			}
 			else
 			{
-				value27 = -1;
-				value28 = -1;
+				_serverLastKnownPosSquare_x = -1;
+				_serverLastKnownPosSquare_y = -1;
 			}
-			value4 = RemainingHorizontalMovement;
-			value5 = RemainingMovementWithQueuedAbility;
-			@out = QueuedMovementAllowsAbility;
-			out2 = HasQueuedMovement();
-			out3 = HasQueuedChase();
-			value7 = ServerClientUtils.CreateBitfieldFromBools(@out, out2, out3, false, false, false, false, false);
-			value6 = (sbyte)GameplayUtils.GetActorIndexOfActor(GetQueuedChaseTarget());
-			value9 = (short)HitPoints;
-			value10 = (short)UnresolvedDamage;
-			value11 = (short)UnresolvedHealing;
-			value12 = (short)TechPoints;
-			value13 = (short)ReservedTechPoints;
-			value14 = (short)UnresolvedTechPointGain;
-			value15 = (short)UnresolvedTechPointLoss;
-			value16 = (short)AbsorbPoints;
-			value17 = (short)MechanicPoints;
-			value18 = (short)ExpectedHoTTotal;
-			value19 = (short)ExpectedHoTThisTurn;
-			bool flag = value18 > 0 || value19 > 0;
-			value20 = ServerClientUtils.CreateBitfieldFromBools(value10 > 0, value11 > 0, value14 > 0, value15 > 0, value13 != 0, value16 > 0, value17 > 0, flag);
-			value21 = LastDeathTurn;
-			value22 = m_lastSpawnTurn;
-			value23 = NextRespawnTurn;
-			value24 = (sbyte)SpawnerId;
-			value25 = (sbyte)m_lineOfSightVisibleExceptions.Count;
-			out4 = HasBotController;
-			out5 = m_showInGameHud;
-			out6 = VisibleTillEndOfPhase;
-			out7 = m_ignoreFromAbilityHits;
-			out8 = m_alwaysHideNameplate;
-			value29 = ServerClientUtils.CreateBitfieldFromBools(out4, out5, out6, out7, out8, false, false, false);
-			stream.Serialize(ref value);
-			stream.Serialize(ref value2);
-			stream.Serialize(ref value3);
-			stream.Serialize(ref value8);
-			stream.Serialize(ref value7);
-			stream.Serialize(ref value4);
-			stream.Serialize(ref value5);
-			stream.Serialize(ref value6);
-			stream.Serialize(ref value9);
-			stream.Serialize(ref value12);
-			stream.Serialize(ref value20);
-			if (value10 > 0)
+			_RemainingHorizontalMovement = RemainingHorizontalMovement;
+			_RemainingMovementWithQueuedAbility = RemainingMovementWithQueuedAbility;
+			_QueuedMovementAllowsAbility = QueuedMovementAllowsAbility;
+			_HasQueuedMovement = HasQueuedMovement();
+			_HasQueuedChase = HasQueuedChase();
+			_queuedMovementBitfield = ServerClientUtils.CreateBitfieldFromBools(_QueuedMovementAllowsAbility, _HasQueuedMovement, _HasQueuedChase, false, false, false, false, false);
+			_queuedChaseTargetActorIndex = (sbyte)GameplayUtils.GetActorIndexOfActor(GetQueuedChaseTarget());
+			_HitPoints = (short)HitPoints;
+			_UnresolvedDamage = (short)UnresolvedDamage;
+			_UnresolvedHealing = (short)UnresolvedHealing;
+			_TechPoints = (short)TechPoints;
+			_ReservedTechPoints = (short)ReservedTechPoints;
+			_UnresolvedTechPointGain = (short)UnresolvedTechPointGain;
+			_UnresolvedTechPointLoss = (short)UnresolvedTechPointLoss;
+			_AbsorbPoints = (short)AbsorbPoints;
+			_MechanicPoints = (short)MechanicPoints;
+			_ExpectedHoTTotal = (short)ExpectedHoTTotal;
+			_ExpectedHoTThisTurn = (short)ExpectedHoTThisTurn;
+			bool _hasHoT = _ExpectedHoTTotal > 0 || _ExpectedHoTThisTurn > 0;
+			_pointsBitfield = ServerClientUtils.CreateBitfieldFromBools(_UnresolvedDamage > 0, _UnresolvedHealing > 0, _UnresolvedTechPointGain > 0, _UnresolvedTechPointLoss > 0, _ReservedTechPoints != 0, _AbsorbPoints > 0, _MechanicPoints > 0, _hasHoT);
+			_LastDeathTurn = LastDeathTurn;
+			_lastSpawnTurn = m_lastSpawnTurn;
+			_NextRespawnTurn = NextRespawnTurn;
+			_SpawnerId = (sbyte)SpawnerId;
+			_lineOfSightVisibleExceptionsCount = (sbyte)m_lineOfSightVisibleExceptions.Count;
+			_HasBotController = HasBotController;
+			_showInGameHud = m_showInGameHud;
+			_VisibleTillEndOfPhase = VisibleTillEndOfPhase;
+			_ignoreFromAbilityHits = m_ignoreFromAbilityHits;
+			_alwaysHideNameplate = m_alwaysHideNameplate;
+			_UiGameplayBitfield = ServerClientUtils.CreateBitfieldFromBools(_HasBotController, _showInGameHud, _VisibleTillEndOfPhase, _ignoreFromAbilityHits, _alwaysHideNameplate, false, false, false);
+			stream.Serialize(ref _playerIndex);
+			stream.Serialize(ref _actorIndex);
+			stream.Serialize(ref _displayName);
+			stream.Serialize(ref _team);
+			stream.Serialize(ref _queuedMovementBitfield);
+			stream.Serialize(ref _RemainingHorizontalMovement);
+			stream.Serialize(ref _RemainingMovementWithQueuedAbility);
+			stream.Serialize(ref _queuedChaseTargetActorIndex);
+			stream.Serialize(ref _HitPoints);
+			stream.Serialize(ref _TechPoints);
+			stream.Serialize(ref _pointsBitfield);
+			if (_UnresolvedDamage > 0)
 			{
-				stream.Serialize(ref value10);
+				stream.Serialize(ref _UnresolvedDamage);
 			}
-			if (value11 > 0)
+			if (_UnresolvedHealing > 0)
 			{
-				stream.Serialize(ref value11);
+				stream.Serialize(ref _UnresolvedHealing);
 			}
-			if (value14 > 0)
+			if (_UnresolvedTechPointGain > 0)
 			{
-				stream.Serialize(ref value14);
+				stream.Serialize(ref _UnresolvedTechPointGain);
 			}
-			if (value15 > 0)
+			if (_UnresolvedTechPointLoss > 0)
 			{
-				stream.Serialize(ref value15);
+				stream.Serialize(ref _UnresolvedTechPointLoss);
 			}
-			if (value13 != 0)
+			if (_ReservedTechPoints != 0)
 			{
-				stream.Serialize(ref value13);
+				stream.Serialize(ref _ReservedTechPoints);
 			}
-			if (value16 > 0)
+			if (_AbsorbPoints > 0)
 			{
-				stream.Serialize(ref value16);
+				stream.Serialize(ref _AbsorbPoints);
 			}
-			if (value17 > 0)
+			if (_MechanicPoints > 0)
 			{
-				stream.Serialize(ref value17);
+				stream.Serialize(ref _MechanicPoints);
 			}
-			if (flag)
+			if (_hasHoT)
 			{
-				stream.Serialize(ref value18);
-				stream.Serialize(ref value19);
+				stream.Serialize(ref _ExpectedHoTTotal);
+				stream.Serialize(ref _ExpectedHoTThisTurn);
 			}
-			stream.Serialize(ref value21);
-			stream.Serialize(ref value22);
-			stream.Serialize(ref value23);
-			stream.Serialize(ref value24);
-			stream.Serialize(ref value29);
+			stream.Serialize(ref _LastDeathTurn);
+			stream.Serialize(ref _lastSpawnTurn);
+			stream.Serialize(ref _NextRespawnTurn);
+			stream.Serialize(ref _SpawnerId);
+			stream.Serialize(ref _UiGameplayBitfield);
 			m_debugSerializeSizeBeforeVisualInfo = stream.Position - position;
 			SerializeCharacterVisualInfo(stream, ref m_visualInfo);
 			SerializeCharacterCardInfo(stream, ref m_selectedCards);
 			SerializeCharacterModInfo(stream, ref m_selectedMods);
 			SerializeCharacterAbilityVfxSwapInfo(stream, ref m_abilityVfxSwapInfo);
 			m_debugSerializeSizeBeforeSpawnSquares = stream.Position - position;
-			stream.Serialize(ref value25);
+			stream.Serialize(ref _lineOfSightVisibleExceptionsCount);
 			using (List<ActorData>.Enumerator enumerator = m_lineOfSightVisibleExceptions.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -3767,82 +3767,82 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					stream.Serialize(ref value30);
 				}
 			}
-			stream.Serialize(ref value26);
-			stream.Serialize(ref value27);
-			stream.Serialize(ref value28);
+			stream.Serialize(ref _lastVisibleTurnToClient);
+			stream.Serialize(ref _serverLastKnownPosSquare_x);
+			stream.Serialize(ref _serverLastKnownPosSquare_y);
 		}
 		Team team;
 		if (stream.isReading)
 		{
-			stream.Serialize(ref value);
-			stream.Serialize(ref value2);
-			stream.Serialize(ref value3);
-			stream.Serialize(ref value8);
-			stream.Serialize(ref value7);
-			ServerClientUtils.GetBoolsFromBitfield(value7, out @out, out out2, out out3);
-			stream.Serialize(ref value4);
-			stream.Serialize(ref value5);
-			stream.Serialize(ref value6);
-			stream.Serialize(ref value9);
-			stream.Serialize(ref value12);
-			stream.Serialize(ref value20);
-			bool out9 = false;
-			bool out10 = false;
-			bool out11 = false;
-			bool out12 = false;
-			bool out13 = false;
-			bool out14 = false;
-			bool out15 = false;
+			stream.Serialize(ref _playerIndex);
+			stream.Serialize(ref _actorIndex);
+			stream.Serialize(ref _displayName);
+			stream.Serialize(ref _team);
+			stream.Serialize(ref _queuedMovementBitfield);
+			ServerClientUtils.GetBoolsFromBitfield(_queuedMovementBitfield, out _QueuedMovementAllowsAbility, out _HasQueuedMovement, out _HasQueuedChase);
+			stream.Serialize(ref _RemainingHorizontalMovement);
+			stream.Serialize(ref _RemainingMovementWithQueuedAbility);
+			stream.Serialize(ref _queuedChaseTargetActorIndex);
+			stream.Serialize(ref _HitPoints);
+			stream.Serialize(ref _TechPoints);
+			stream.Serialize(ref _pointsBitfield);
+			bool _hasUnresolvedDamage = false;
+			bool _hasUnresolvedHealing = false;
+			bool _hasUnresolvedTechPointGain = false;
+			bool _hasUnresolvedTechPointLoss = false;
+			bool _hasReservedTechPoints = false;
+			bool _hasAbsorbPoints = false;
+			bool _hasMechanicPoints = false;
 			bool out16 = false;
-			ServerClientUtils.GetBoolsFromBitfield(value20, out out9, out out10, out out11, out out12, out out13, out out14, out out15, out out16);
-			if (out9)
+			ServerClientUtils.GetBoolsFromBitfield(_pointsBitfield, out _hasUnresolvedDamage, out _hasUnresolvedHealing, out _hasUnresolvedTechPointGain, out _hasUnresolvedTechPointLoss, out _hasReservedTechPoints, out _hasAbsorbPoints, out _hasMechanicPoints, out out16);
+			if (_hasUnresolvedDamage)
 			{
-				stream.Serialize(ref value10);
+				stream.Serialize(ref _UnresolvedDamage);
 			}
-			if (out10)
+			if (_hasUnresolvedHealing)
 			{
-				stream.Serialize(ref value11);
+				stream.Serialize(ref _UnresolvedHealing);
 			}
-			if (out11)
+			if (_hasUnresolvedTechPointGain)
 			{
-				stream.Serialize(ref value14);
+				stream.Serialize(ref _UnresolvedTechPointGain);
 			}
-			if (out12)
+			if (_hasUnresolvedTechPointLoss)
 			{
-				stream.Serialize(ref value15);
+				stream.Serialize(ref _UnresolvedTechPointLoss);
 			}
-			if (out13)
+			if (_hasReservedTechPoints)
 			{
-				stream.Serialize(ref value13);
+				stream.Serialize(ref _ReservedTechPoints);
 			}
-			if (out14)
+			if (_hasAbsorbPoints)
 			{
-				stream.Serialize(ref value16);
+				stream.Serialize(ref _AbsorbPoints);
 			}
-			if (out15)
+			if (_hasMechanicPoints)
 			{
-				stream.Serialize(ref value17);
+				stream.Serialize(ref _MechanicPoints);
 			}
 			if (out16)
 			{
-				stream.Serialize(ref value18);
-				stream.Serialize(ref value19);
+				stream.Serialize(ref _ExpectedHoTTotal);
+				stream.Serialize(ref _ExpectedHoTThisTurn);
 			}
-			stream.Serialize(ref value21);
-			stream.Serialize(ref value22);
-			stream.Serialize(ref value23);
-			stream.Serialize(ref value24);
-			stream.Serialize(ref value29);
-			ServerClientUtils.GetBoolsFromBitfield(value29, out out4, out out5, out out6, out out7, out out8);
+			stream.Serialize(ref _LastDeathTurn);
+			stream.Serialize(ref _lastSpawnTurn);
+			stream.Serialize(ref _NextRespawnTurn);
+			stream.Serialize(ref _SpawnerId);
+			stream.Serialize(ref _UiGameplayBitfield);
+			ServerClientUtils.GetBoolsFromBitfield(_UiGameplayBitfield, out _HasBotController, out _showInGameHud, out _VisibleTillEndOfPhase, out _ignoreFromAbilityHits, out _alwaysHideNameplate);
 			SerializeCharacterVisualInfo(stream, ref m_visualInfo);
 			SerializeCharacterCardInfo(stream, ref m_selectedCards);
 			SerializeCharacterModInfo(stream, ref m_selectedMods);
 			SerializeCharacterAbilityVfxSwapInfo(stream, ref m_abilityVfxSwapInfo);
-			PlayerIndex = value;
-			ActorIndex = value2;
+			PlayerIndex = _playerIndex;
+			ActorIndex = _actorIndex;
 			team = m_team;
-			m_team = (Team)value8;
-			SpawnerId = value24;
+			m_team = (Team)_team;
+			SpawnerId = _SpawnerId;
 			if (m_actorSkinPrefabLink != null)
 			{
 				if (!(m_actorModelData == null))
@@ -3860,7 +3860,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				if (NPCCoordinator.Get() != null)
 				{
-					characterResourceLink = NPCCoordinator.Get().GetNpcCharacterResourceLinkBySpawnerId(value24);
+					characterResourceLink = NPCCoordinator.Get().GetNpcCharacterResourceLinkBySpawnerId(_SpawnerId);
 				}
 			}
 			if (characterResourceLink != null)
@@ -3902,44 +3902,44 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		goto IL_0c03;
 		IL_0acc:
-		UnresolvedDamage = value10;
-		UnresolvedHealing = value11;
-		ReservedTechPoints = value13;
-		UnresolvedTechPointGain = value14;
-		UnresolvedTechPointLoss = value15;
-		LastDeathTurn = value21;
-		m_lastSpawnTurn = value22;
-		NextRespawnTurn = value23;
-		HasBotController = out4;
-		AbsorbPoints = value16;
-		TechPoints = value12;
-		HitPoints = value9;
-		MechanicPoints = value17;
-		ExpectedHoTTotal = value18;
-		ExpectedHoTThisTurn = value19;
+		UnresolvedDamage = _UnresolvedDamage;
+		UnresolvedHealing = _UnresolvedHealing;
+		ReservedTechPoints = _ReservedTechPoints;
+		UnresolvedTechPointGain = _UnresolvedTechPointGain;
+		UnresolvedTechPointLoss = _UnresolvedTechPointLoss;
+		LastDeathTurn = _LastDeathTurn;
+		m_lastSpawnTurn = _lastSpawnTurn;
+		NextRespawnTurn = _NextRespawnTurn;
+		HasBotController = _HasBotController;
+		AbsorbPoints = _AbsorbPoints;
+		TechPoints = _TechPoints;
+		HitPoints = _HitPoints;
+		MechanicPoints = _MechanicPoints;
+		ExpectedHoTTotal = _ExpectedHoTTotal;
+		ExpectedHoTThisTurn = _ExpectedHoTThisTurn;
 		bool flag2 = false;
-		if (value4 != RemainingHorizontalMovement)
+		if (_RemainingHorizontalMovement != RemainingHorizontalMovement)
 		{
-			RemainingHorizontalMovement = value4;
+			RemainingHorizontalMovement = _RemainingHorizontalMovement;
 			flag2 = true;
 		}
-		if (value5 != RemainingMovementWithQueuedAbility)
+		if (_RemainingMovementWithQueuedAbility != RemainingMovementWithQueuedAbility)
 		{
-			RemainingMovementWithQueuedAbility = value5;
+			RemainingMovementWithQueuedAbility = _RemainingMovementWithQueuedAbility;
 			flag2 = true;
 		}
-		QueuedMovementAllowsAbility = @out;
-		if (m_queuedMovementRequest != out2)
+		QueuedMovementAllowsAbility = _QueuedMovementAllowsAbility;
+		if (m_queuedMovementRequest != _HasQueuedMovement)
 		{
-			m_queuedMovementRequest = out2;
+			m_queuedMovementRequest = _HasQueuedMovement;
 			flag2 = true;
 		}
-		if (m_queuedChaseRequest != out3)
+		if (m_queuedChaseRequest != _HasQueuedChase)
 		{
-			m_queuedChaseRequest = out3;
+			m_queuedChaseRequest = _HasQueuedChase;
 			flag2 = true;
 		}
-		ActorData actorOfActorIndex = GameplayUtils.GetActorOfActorIndex(value6);
+		ActorData actorOfActorIndex = GameplayUtils.GetActorOfActorIndex(_queuedChaseTargetActorIndex);
 		if (m_queuedChaseTarget != actorOfActorIndex)
 		{
 			m_queuedChaseTarget = actorOfActorIndex;
@@ -3950,14 +3950,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		goto IL_0c03;
 		IL_08b4:
-		m_displayName = value3;
+		m_displayName = _displayName;
 		if (initialState)
 		{
 			TeamSensitiveDataMatchmaker.Get().SetTeamSensitiveDataForActor(this);
 		}
-		stream.Serialize(ref value25);
+		stream.Serialize(ref _lineOfSightVisibleExceptionsCount);
 		m_lineOfSightVisibleExceptions.Clear();
-		for (int i = 0; i < value25; i++)
+		for (int i = 0; i < _lineOfSightVisibleExceptionsCount; i++)
 		{
 			sbyte value31 = 0;
 			stream.Serialize(ref value31);
@@ -3967,31 +3967,31 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				m_lineOfSightVisibleExceptions.Add(actorData);
 			}
 		}
-		stream.Serialize(ref value26);
-		stream.Serialize(ref value27);
-		stream.Serialize(ref value28);
-		if (value26 > m_lastVisibleTurnToClient)
+		stream.Serialize(ref _lastVisibleTurnToClient);
+		stream.Serialize(ref _serverLastKnownPosSquare_x);
+		stream.Serialize(ref _serverLastKnownPosSquare_y);
+		if (_lastVisibleTurnToClient > m_lastVisibleTurnToClient)
 		{
-			m_lastVisibleTurnToClient = value26;
+			m_lastVisibleTurnToClient = _lastVisibleTurnToClient;
 		}
-		if (value27 == -1)
+		if (_serverLastKnownPosSquare_x == -1)
 		{
-			if (value28 == -1)
+			if (_serverLastKnownPosSquare_y == -1)
 			{
 				ServerLastKnownPosSquare = null;
 				goto IL_09b6;
 			}
 		}
-		ServerLastKnownPosSquare = Board.Get().GetSquare(value27, value28);
+		ServerLastKnownPosSquare = Board.Get().GetSquare(_serverLastKnownPosSquare_x, _serverLastKnownPosSquare_y);
 		goto IL_09b6;
 		IL_0c03:
 		return m_serializeHelper.End(initialState, base.syncVarDirtyBits);
 		IL_09b6:
-		m_ignoreFromAbilityHits = out7;
-		m_alwaysHideNameplate = out8;
+		m_ignoreFromAbilityHits = _ignoreFromAbilityHits;
+		m_alwaysHideNameplate = _alwaysHideNameplate;
 		GetFogOfWar().MarkForRecalculateVisibility();
-		m_showInGameHud = out5;
-		VisibleTillEndOfPhase = out6;
+		m_showInGameHud = _showInGameHud;
+		VisibleTillEndOfPhase = _VisibleTillEndOfPhase;
 		if (m_setTeam)
 		{
 			if (team == m_team)
