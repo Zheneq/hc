@@ -126,18 +126,9 @@ public class SharedActionBuffer : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					m_actionPhase = (ActionBufferPhase)reader.ReadInt32();
-					m_abilityPhase = (AbilityPriority)reader.ReadInt32();
-					return;
-				}
-			}
+			m_actionPhase = (ActionBufferPhase)reader.ReadInt32();
+			m_abilityPhase = (AbilityPriority)reader.ReadInt32();
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
