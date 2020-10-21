@@ -3606,16 +3606,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (!initialState && m_serializeHelper.ShouldReturnImmediately(ref stream))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
+			return false;
 		}
 		uint position = stream.Position;
 		sbyte _playerIndex = 0;
@@ -3843,191 +3834,160 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			team = m_team;
 			m_team = (Team)_team;
 			SpawnerId = _SpawnerId;
-			if (m_actorSkinPrefabLink != null)
+            if (m_actorSkinPrefabLink == null || m_actorModelData == null)
+            {
+                PrefabResourceLink prefabResourceLink = null;
+                CharacterResourceLink characterResourceLink = null;
+                if (m_characterType > CharacterType.None)
+                {
+                    characterResourceLink = GameWideData.Get().GetCharacterResourceLink(m_characterType);
+                }
+                if (characterResourceLink == null && NPCCoordinator.Get() != null)
+                {
+                    characterResourceLink = NPCCoordinator.Get().GetNpcCharacterResourceLinkBySpawnerId(_SpawnerId);
+                }
+                if (characterResourceLink != null)
+                {
+                    prefabResourceLink = characterResourceLink.GetHeroPrefabLinkFromSelection(m_visualInfo, out CharacterSkin _);
+                }
+                if (prefabResourceLink != null && !prefabResourceLink.IsEmpty)
+                {
+                    GameObject prefab = prefabResourceLink.GetPrefab(true);
+                    if (prefab == null && !m_visualInfo.IsDefaultSelection())
+                    {
+                        CharacterVisualInfo visualInfo = m_visualInfo;
+                        visualInfo.ResetToDefault();
+                        prefabResourceLink = characterResourceLink.GetHeroPrefabLinkFromSelection(visualInfo, out CharacterSkin _);
+                    }
+                    bool addMasterSkinVfx = false;
+                    if (MasterSkinVfxData.Get() != null && MasterSkinVfxData.Get().m_addMasterSkinVfx && characterResourceLink.IsVisualInfoSelectionValid(m_visualInfo))
+                    {
+                        CharacterColor characterColor = characterResourceLink.GetCharacterColor(m_visualInfo);
+                        addMasterSkinVfx = (characterColor.m_styleLevel == StyleLevelType.Mastery);
+                    }
+                    InitializeModel(prefabResourceLink, addMasterSkinVfx);
+                }
+                else
+                {
+                    Log.Error(string.Concat("Failed to find character resource link for ", m_characterType, " with visual info ", m_visualInfo.ToString()));
+                    GameObject gameObject = GameFlowData.Get().m_availableCharacterResourceLinkPrefabs[0];
+                    CharacterResourceLink component = gameObject.GetComponent<CharacterResourceLink>();
+                    InitializeModel(component.m_skins[0].m_patterns[0].m_colors[0].m_heroPrefab, false);
+                }
+            }
+			m_displayName = _displayName;
+			if (initialState)
 			{
-				if (!(m_actorModelData == null))
+				TeamSensitiveDataMatchmaker.Get().SetTeamSensitiveDataForActor(this);
+			}
+			stream.Serialize(ref _lineOfSightVisibleExceptionsCount);
+			m_lineOfSightVisibleExceptions.Clear();
+			for (int i = 0; i < _lineOfSightVisibleExceptionsCount; i++)
+			{
+				sbyte value31 = 0;
+				stream.Serialize(ref value31);
+				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(value31);
+				if (actorData != null)
 				{
-					goto IL_08b4;
+					m_lineOfSightVisibleExceptions.Add(actorData);
 				}
 			}
-			PrefabResourceLink prefabResourceLink = null;
-			CharacterResourceLink characterResourceLink = null;
-			if (m_characterType > CharacterType.None)
+			stream.Serialize(ref _lastVisibleTurnToClient);
+			stream.Serialize(ref _serverLastKnownPosSquare_x);
+			stream.Serialize(ref _serverLastKnownPosSquare_y);
+			if (_lastVisibleTurnToClient > m_lastVisibleTurnToClient)
 			{
-				characterResourceLink = GameWideData.Get().GetCharacterResourceLink(m_characterType);
+				m_lastVisibleTurnToClient = _lastVisibleTurnToClient;
 			}
-			if (characterResourceLink == null)
-			{
-				if (NPCCoordinator.Get() != null)
-				{
-					characterResourceLink = NPCCoordinator.Get().GetNpcCharacterResourceLinkBySpawnerId(_SpawnerId);
-				}
-			}
-			if (characterResourceLink != null)
-			{
-				prefabResourceLink = characterResourceLink.GetHeroPrefabLinkFromSelection(m_visualInfo, out CharacterSkin _);
-			}
-			if (prefabResourceLink != null)
-			{
-				if (!prefabResourceLink.IsEmpty)
-				{
-					GameObject prefab = prefabResourceLink.GetPrefab(true);
-					if (prefab == null && !m_visualInfo.IsDefaultSelection())
-					{
-						CharacterVisualInfo visualInfo = m_visualInfo;
-						visualInfo.ResetToDefault();
-						prefabResourceLink = characterResourceLink.GetHeroPrefabLinkFromSelection(visualInfo, out CharacterSkin _);
-					}
-					bool addMasterSkinVfx = false;
-					if (MasterSkinVfxData.Get() != null)
-					{
-						if (MasterSkinVfxData.Get().m_addMasterSkinVfx)
-						{
-							if (characterResourceLink.IsVisualInfoSelectionValid(m_visualInfo))
-							{
-								CharacterColor characterColor = characterResourceLink.GetCharacterColor(m_visualInfo);
-								addMasterSkinVfx = (characterColor.m_styleLevel == StyleLevelType.Mastery);
-							}
-						}
-					}
-					InitializeModel(prefabResourceLink, addMasterSkinVfx);
-					goto IL_08b4;
-				}
-			}
-			Log.Error(string.Concat("Failed to find character resource link for ", m_characterType, " with visual info ", m_visualInfo.ToString()));
-			GameObject gameObject = GameFlowData.Get().m_availableCharacterResourceLinkPrefabs[0];
-			CharacterResourceLink component = gameObject.GetComponent<CharacterResourceLink>();
-			InitializeModel(component.m_skins[0].m_patterns[0].m_colors[0].m_heroPrefab, false);
-			goto IL_08b4;
-		}
-		goto IL_0c03;
-		IL_0acc:
-		UnresolvedDamage = _UnresolvedDamage;
-		UnresolvedHealing = _UnresolvedHealing;
-		ReservedTechPoints = _ReservedTechPoints;
-		UnresolvedTechPointGain = _UnresolvedTechPointGain;
-		UnresolvedTechPointLoss = _UnresolvedTechPointLoss;
-		LastDeathTurn = _LastDeathTurn;
-		m_lastSpawnTurn = _lastSpawnTurn;
-		NextRespawnTurn = _NextRespawnTurn;
-		HasBotController = _HasBotController;
-		AbsorbPoints = _AbsorbPoints;
-		TechPoints = _TechPoints;
-		HitPoints = _HitPoints;
-		MechanicPoints = _MechanicPoints;
-		ExpectedHoTTotal = _ExpectedHoTTotal;
-		ExpectedHoTThisTurn = _ExpectedHoTThisTurn;
-		bool flag2 = false;
-		if (_RemainingHorizontalMovement != RemainingHorizontalMovement)
-		{
-			RemainingHorizontalMovement = _RemainingHorizontalMovement;
-			flag2 = true;
-		}
-		if (_RemainingMovementWithQueuedAbility != RemainingMovementWithQueuedAbility)
-		{
-			RemainingMovementWithQueuedAbility = _RemainingMovementWithQueuedAbility;
-			flag2 = true;
-		}
-		QueuedMovementAllowsAbility = _QueuedMovementAllowsAbility;
-		if (m_queuedMovementRequest != _HasQueuedMovement)
-		{
-			m_queuedMovementRequest = _HasQueuedMovement;
-			flag2 = true;
-		}
-		if (m_queuedChaseRequest != _HasQueuedChase)
-		{
-			m_queuedChaseRequest = _HasQueuedChase;
-			flag2 = true;
-		}
-		ActorData actorOfActorIndex = GameplayUtils.GetActorOfActorIndex(_queuedChaseTargetActorIndex);
-		if (m_queuedChaseTarget != actorOfActorIndex)
-		{
-			m_queuedChaseTarget = actorOfActorIndex;
-		}
-		if (flag2)
-		{
-			m_actorMovement.UpdateSquaresCanMoveTo();
-		}
-		goto IL_0c03;
-		IL_08b4:
-		m_displayName = _displayName;
-		if (initialState)
-		{
-			TeamSensitiveDataMatchmaker.Get().SetTeamSensitiveDataForActor(this);
-		}
-		stream.Serialize(ref _lineOfSightVisibleExceptionsCount);
-		m_lineOfSightVisibleExceptions.Clear();
-		for (int i = 0; i < _lineOfSightVisibleExceptionsCount; i++)
-		{
-			sbyte value31 = 0;
-			stream.Serialize(ref value31);
-			ActorData actorData = GameFlowData.Get().FindActorByActorIndex(value31);
-			if (actorData != null)
-			{
-				m_lineOfSightVisibleExceptions.Add(actorData);
-			}
-		}
-		stream.Serialize(ref _lastVisibleTurnToClient);
-		stream.Serialize(ref _serverLastKnownPosSquare_x);
-		stream.Serialize(ref _serverLastKnownPosSquare_y);
-		if (_lastVisibleTurnToClient > m_lastVisibleTurnToClient)
-		{
-			m_lastVisibleTurnToClient = _lastVisibleTurnToClient;
-		}
-		if (_serverLastKnownPosSquare_x == -1)
-		{
-			if (_serverLastKnownPosSquare_y == -1)
+			if (_serverLastKnownPosSquare_x == -1 && _serverLastKnownPosSquare_y == -1)
 			{
 				ServerLastKnownPosSquare = null;
-				goto IL_09b6;
 			}
-		}
-		ServerLastKnownPosSquare = Board.Get().GetSquare(_serverLastKnownPosSquare_x, _serverLastKnownPosSquare_y);
-		goto IL_09b6;
-		IL_0c03:
-		return m_serializeHelper.End(initialState, base.syncVarDirtyBits);
-		IL_09b6:
-		m_ignoreFromAbilityHits = _ignoreFromAbilityHits;
-		m_alwaysHideNameplate = _alwaysHideNameplate;
-		GetFogOfWar().MarkForRecalculateVisibility();
-		m_showInGameHud = _showInGameHud;
-		VisibleTillEndOfPhase = _VisibleTillEndOfPhase;
-		if (m_setTeam)
-		{
-			if (team == m_team)
+			else
 			{
-				goto IL_0acc;
+				ServerLastKnownPosSquare = Board.Get().GetSquare(_serverLastKnownPosSquare_x, _serverLastKnownPosSquare_y);
 			}
-		}
-		if (GameFlowData.Get() != null)
-		{
-			GameFlowData.Get().AddToTeam(this);
-		}
-		else
-		{
-			m_needAddToTeam = true;
-		}
-		if (TeamStatusDisplay.GetTeamStatusDisplay() != null)
-		{
-			TeamStatusDisplay.GetTeamStatusDisplay().RebuildTeamDisplay();
-		}
-		if (GameplayUtils.IsMinion(base.gameObject))
-		{
-			if (MinionManager.Get() != null)
+			m_ignoreFromAbilityHits = _ignoreFromAbilityHits;
+			m_alwaysHideNameplate = _alwaysHideNameplate;
+			GetFogOfWar().MarkForRecalculateVisibility();
+			m_showInGameHud = _showInGameHud;
+			VisibleTillEndOfPhase = _VisibleTillEndOfPhase;
+			if (!m_setTeam || team != m_team)
 			{
-				if (m_setTeam)
+				if (GameFlowData.Get() != null)
 				{
-					MinionManager.Get().RemoveMinion(this);
-					MinionManager.Get().AddMinion(this);
+					GameFlowData.Get().AddToTeam(this);
 				}
 				else
 				{
-					MinionManager.Get().AddMinion(this);
+					m_needAddToTeam = true;
 				}
+				if (TeamStatusDisplay.GetTeamStatusDisplay() != null)
+				{
+					TeamStatusDisplay.GetTeamStatusDisplay().RebuildTeamDisplay();
+				}
+				if (GameplayUtils.IsMinion(base.gameObject) && MinionManager.Get() != null)
+				{
+					if (m_setTeam)
+					{
+						MinionManager.Get().RemoveMinion(this);
+						MinionManager.Get().AddMinion(this);
+					}
+					else
+					{
+						MinionManager.Get().AddMinion(this);
+					}
+				}
+				m_setTeam = true;
+			}
+			UnresolvedDamage = _UnresolvedDamage;
+			UnresolvedHealing = _UnresolvedHealing;
+			ReservedTechPoints = _ReservedTechPoints;
+			UnresolvedTechPointGain = _UnresolvedTechPointGain;
+			UnresolvedTechPointLoss = _UnresolvedTechPointLoss;
+			LastDeathTurn = _LastDeathTurn;
+			m_lastSpawnTurn = _lastSpawnTurn;
+			NextRespawnTurn = _NextRespawnTurn;
+			HasBotController = _HasBotController;
+			AbsorbPoints = _AbsorbPoints;
+			TechPoints = _TechPoints;
+			HitPoints = _HitPoints;
+			MechanicPoints = _MechanicPoints;
+			ExpectedHoTTotal = _ExpectedHoTTotal;
+			ExpectedHoTThisTurn = _ExpectedHoTThisTurn;
+			bool needToUpdateSquarsCanMoveTo = false;
+			if (_RemainingHorizontalMovement != RemainingHorizontalMovement)
+			{
+				RemainingHorizontalMovement = _RemainingHorizontalMovement;
+				needToUpdateSquarsCanMoveTo = true;
+			}
+			if (_RemainingMovementWithQueuedAbility != RemainingMovementWithQueuedAbility)
+			{
+				RemainingMovementWithQueuedAbility = _RemainingMovementWithQueuedAbility;
+				needToUpdateSquarsCanMoveTo = true;
+			}
+			QueuedMovementAllowsAbility = _QueuedMovementAllowsAbility;
+			if (m_queuedMovementRequest != _HasQueuedMovement)
+			{
+				m_queuedMovementRequest = _HasQueuedMovement;
+				needToUpdateSquarsCanMoveTo = true;
+			}
+			if (m_queuedChaseRequest != _HasQueuedChase)
+			{
+				m_queuedChaseRequest = _HasQueuedChase;
+				needToUpdateSquarsCanMoveTo = true;
+			}
+			ActorData actorOfActorIndex = GameplayUtils.GetActorOfActorIndex(_queuedChaseTargetActorIndex);
+			if (m_queuedChaseTarget != actorOfActorIndex)
+			{
+				m_queuedChaseTarget = actorOfActorIndex;
+			}
+			if (needToUpdateSquarsCanMoveTo)
+			{
+				m_actorMovement.UpdateSquaresCanMoveTo();
 			}
 		}
-		m_setTeam = true;
-		goto IL_0acc;
+		return m_serializeHelper.End(initialState, base.syncVarDirtyBits);
 	}
 
 	public static void SerializeCharacterVisualInfo(IBitStream stream, ref CharacterVisualInfo visualInfo)
