@@ -420,27 +420,13 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					GeneratedNetworkCode._ReadStructSyncListVisionProviderInfo_None(reader, m_visionProviders);
-					return;
-				}
-			}
-		}
-		int num = (int)reader.ReadPackedUInt32();
-		if ((num & 1) == 0)
-		{
-			return;
-		}
-		while (true)
-		{
 			GeneratedNetworkCode._ReadStructSyncListVisionProviderInfo_None(reader, m_visionProviders);
 			return;
 		}
-	}
+		int num = (int)reader.ReadPackedUInt32();
+        if ((num & 1) != 0)
+        {
+            GeneratedNetworkCode._ReadStructSyncListVisionProviderInfo_None(reader, m_visionProviders);
+        }
+    }
 }

@@ -40,58 +40,34 @@ public class ItemData : NetworkBehaviour
 		{
 			num = reader.ReadPackedUInt32();
 		}
-		if (num == 0)
-		{
-			return;
-		}
-		while (true)
-		{
-			OnSerializeHelper(new NetworkReaderAdapter(reader));
-			return;
-		}
-	}
+        if (num != 0)
+        {
+            OnSerializeHelper(new NetworkReaderAdapter(reader));
+        }
+    }
 
 	private void OnSerializeHelper(IBitStream stream)
 	{
-		if (NetworkServer.active)
-		{
-			if (stream.isReading)
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
-			}
-		}
-		int value = 0;
-		int value2 = 0;
+        if (NetworkServer.active && stream.isReading)
+        {
+            return;
+        }
+        int _credits = 0;
+		int _creditsSpent = 0;
 		if (stream.isWriting)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					value = m_credits;
-					value2 = m_creditsSpent;
-					stream.Serialize(ref value);
-					stream.Serialize(ref value2);
-					return;
-				}
-			}
+			_credits = m_credits;
+			_creditsSpent = m_creditsSpent;
+			stream.Serialize(ref _credits);
+			stream.Serialize(ref _creditsSpent);
 		}
-		stream.Serialize(ref value);
-		stream.Serialize(ref value2);
-		m_credits = value;
-		m_creditsSpent = value2;
+		else
+        {
+			stream.Serialize(ref _credits);
+			stream.Serialize(ref _creditsSpent);
+			m_credits = _credits;
+			m_creditsSpent = _creditsSpent;
+		}
 	}
 
 	[Server]

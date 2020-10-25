@@ -450,14 +450,9 @@ public class TimeBank : NetworkBehaviour
 		{
 			m_consumablesRemaining = (int)reader.ReadPackedUInt32();
 		}
-		if ((num & 4) == 0)
-		{
-			return;
-		}
-		while (true)
-		{
-			m_resolved = reader.ReadBoolean();
-			return;
-		}
-	}
+        if ((num & 4) != 0)
+        {
+            m_resolved = reader.ReadBoolean();
+        }
+    }
 }

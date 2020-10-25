@@ -38,13 +38,9 @@ namespace Unity
 		{
 			ushort num = reader.ReadUInt16();
 			instance.Clear();
-			for (ushort num2 = 0; num2 < num; num2 = (ushort)(num2 + 1))
+			for (ushort i = 0; i < num; i++)
 			{
 				instance.AddInternal(instance.DeserializeItemPublic(reader));
-			}
-			while (true)
-			{
-				return;
 			}
 		}
 
@@ -66,13 +62,9 @@ namespace Unity
 		{
 			ushort num = reader.ReadUInt16();
 			instance.Clear();
-			for (ushort num2 = 0; num2 < num; num2 = (ushort)(num2 + 1))
+			for (ushort i = 0; i < num; i++)
 			{
 				instance.AddInternal(instance.DeserializeItemPublic(reader));
-			}
-			while (true)
-			{
-				return;
 			}
 		}
 

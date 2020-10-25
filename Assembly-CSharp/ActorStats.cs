@@ -837,15 +837,10 @@ public class ActorStats : NetworkBehaviour
 			SyncListFloat.ReadReference(reader, m_modifiedStats);
 			return;
 		}
-		int num = (int)reader.ReadPackedUInt32();
-		if ((num & 1) == 0)
-		{
-			return;
-		}
-		while (true)
+		int mask = (int)reader.ReadPackedUInt32();
+		if ((mask & 1) != 0)
 		{
 			SyncListFloat.ReadReference(reader, m_modifiedStats);
-			return;
 		}
 	}
 }

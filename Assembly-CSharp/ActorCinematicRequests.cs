@@ -366,19 +366,10 @@ public class ActorCinematicRequests : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					SyncListBool.ReadReference(reader, m_abilityRequested);
-					m_numCinematicRequestsLeft = (int)reader.ReadPackedUInt32();
-					SyncListInt.ReadReference(reader, m_cinematicsPlayedThisMatch);
-					return;
-				}
-			}
+			SyncListBool.ReadReference(reader, m_abilityRequested);
+			m_numCinematicRequestsLeft = (int)reader.ReadPackedUInt32();
+			SyncListInt.ReadReference(reader, m_cinematicsPlayedThisMatch);
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)

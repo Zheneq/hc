@@ -470,27 +470,13 @@ public class FreelancerStats : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					SyncListInt.ReadReference(reader, m_values);
-					return;
-				}
-			}
-		}
-		int num = (int)reader.ReadPackedUInt32();
-		if ((num & 1) == 0)
-		{
-			return;
-		}
-		while (true)
-		{
 			SyncListInt.ReadReference(reader, m_values);
 			return;
 		}
-	}
+		int num = (int)reader.ReadPackedUInt32();
+        if ((num & 1) != 0)
+        {
+            SyncListInt.ReadReference(reader, m_values);
+        }
+    }
 }

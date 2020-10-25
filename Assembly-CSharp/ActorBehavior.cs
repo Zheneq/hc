@@ -1599,46 +1599,37 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					SyncListUInt.ReadReference(reader, m_syncEnemySourcesForDamageOrDebuff);
-					SyncListUInt.ReadReference(reader, m_syncAllySourcesForHealAndBuff);
-					m_totalDeaths = (short)reader.ReadPackedUInt32();
-					m_totalPlayerKills = (short)reader.ReadPackedUInt32();
-					m_totalPlayerAssists = (short)reader.ReadPackedUInt32();
-					m_totalPlayerDamage = (int)reader.ReadPackedUInt32();
-					m_totalPlayerHealing = (int)reader.ReadPackedUInt32();
-					m_totalPlayerHealingFromAbility = (int)reader.ReadPackedUInt32();
-					m_totalPlayerOverheal = (int)reader.ReadPackedUInt32();
-					m_totalPlayerAbsorb = (int)reader.ReadPackedUInt32();
-					m_totalPlayerPotentialAbsorb = (int)reader.ReadPackedUInt32();
-					m_totalEnergyGained = (int)reader.ReadPackedUInt32();
-					m_totalPlayerDamageReceived = (int)reader.ReadPackedUInt32();
-					m_totalPlayerHealingReceived = (int)reader.ReadPackedUInt32();
-					m_totalPlayerAbsorbReceived = (int)reader.ReadPackedUInt32();
-					m_totalPlayerLockInTime = reader.ReadSingle();
-					m_totalPlayerTurns = (int)reader.ReadPackedUInt32();
-					m_damageDodgedByEvades = (int)reader.ReadPackedUInt32();
-					m_damageInterceptedByEvades = (int)reader.ReadPackedUInt32();
-					m_myIncomingDamageReducedByCover = (int)reader.ReadPackedUInt32();
-					m_myOutgoingDamageReducedByCover = (int)reader.ReadPackedUInt32();
-					m_myIncomingOverkillDamageTaken = (int)reader.ReadPackedUInt32();
-					m_myOutgoingOverkillDamageDealt = (int)reader.ReadPackedUInt32();
-					m_myOutgoingExtraDamageFromEmpowered = (int)reader.ReadPackedUInt32();
-					m_myOutgoingDamageReducedFromWeakened = (int)reader.ReadPackedUInt32();
-					m_teamOutgoingDamageIncreasedByEmpoweredFromMe = (int)reader.ReadPackedUInt32();
-					m_teamIncomingDamageReducedByWeakenedFromMe = (int)reader.ReadPackedUInt32();
-					m_teamExtraEnergyGainFromMe = (int)reader.ReadPackedUInt32();
-					m_movementDeniedByMe = reader.ReadSingle();
-					m_totalEnemySighted = (int)reader.ReadPackedUInt32();
-					return;
-				}
-			}
+			SyncListUInt.ReadReference(reader, m_syncEnemySourcesForDamageOrDebuff);
+			SyncListUInt.ReadReference(reader, m_syncAllySourcesForHealAndBuff);
+			m_totalDeaths = (short)reader.ReadPackedUInt32();
+			m_totalPlayerKills = (short)reader.ReadPackedUInt32();
+			m_totalPlayerAssists = (short)reader.ReadPackedUInt32();
+			m_totalPlayerDamage = (int)reader.ReadPackedUInt32();
+			m_totalPlayerHealing = (int)reader.ReadPackedUInt32();
+			m_totalPlayerHealingFromAbility = (int)reader.ReadPackedUInt32();
+			m_totalPlayerOverheal = (int)reader.ReadPackedUInt32();
+			m_totalPlayerAbsorb = (int)reader.ReadPackedUInt32();
+			m_totalPlayerPotentialAbsorb = (int)reader.ReadPackedUInt32();
+			m_totalEnergyGained = (int)reader.ReadPackedUInt32();
+			m_totalPlayerDamageReceived = (int)reader.ReadPackedUInt32();
+			m_totalPlayerHealingReceived = (int)reader.ReadPackedUInt32();
+			m_totalPlayerAbsorbReceived = (int)reader.ReadPackedUInt32();
+			m_totalPlayerLockInTime = reader.ReadSingle();
+			m_totalPlayerTurns = (int)reader.ReadPackedUInt32();
+			m_damageDodgedByEvades = (int)reader.ReadPackedUInt32();
+			m_damageInterceptedByEvades = (int)reader.ReadPackedUInt32();
+			m_myIncomingDamageReducedByCover = (int)reader.ReadPackedUInt32();
+			m_myOutgoingDamageReducedByCover = (int)reader.ReadPackedUInt32();
+			m_myIncomingOverkillDamageTaken = (int)reader.ReadPackedUInt32();
+			m_myOutgoingOverkillDamageDealt = (int)reader.ReadPackedUInt32();
+			m_myOutgoingExtraDamageFromEmpowered = (int)reader.ReadPackedUInt32();
+			m_myOutgoingDamageReducedFromWeakened = (int)reader.ReadPackedUInt32();
+			m_teamOutgoingDamageIncreasedByEmpoweredFromMe = (int)reader.ReadPackedUInt32();
+			m_teamIncomingDamageReducedByWeakenedFromMe = (int)reader.ReadPackedUInt32();
+			m_teamExtraEnergyGainFromMe = (int)reader.ReadPackedUInt32();
+			m_movementDeniedByMe = reader.ReadSingle();
+			m_totalEnemySighted = (int)reader.ReadPackedUInt32();
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
@@ -1757,14 +1748,9 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		{
 			m_movementDeniedByMe = reader.ReadSingle();
 		}
-		if ((num & 0x20000000) == 0)
-		{
-			return;
-		}
-		while (true)
+		if ((num & 0x20000000) != 0)
 		{
 			m_totalEnemySighted = (int)reader.ReadPackedUInt32();
-			return;
 		}
 	}
 }

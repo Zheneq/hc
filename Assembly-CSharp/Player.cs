@@ -78,15 +78,15 @@ public struct Player
 
 	internal void OnSerializeHelper(IBitStream stream)
 	{
-		bool value = m_valid;
-		byte value2 = m_id;
-		sbyte value3 = checked((sbyte)m_connectionId);
-		stream.Serialize(ref value);
-		stream.Serialize(ref value2);
-		stream.Serialize(ref value3);
-		m_valid = value;
-		m_id = value2;
-		m_connectionId = value3;
+		bool _valid = m_valid;
+		byte _id = m_id;
+		sbyte _connectionId = checked((sbyte)m_connectionId);
+		stream.Serialize(ref _valid);
+		stream.Serialize(ref _id);
+		stream.Serialize(ref _connectionId);
+		m_valid = _valid;
+		m_id = _id;
+		m_connectionId = _connectionId;
 	}
 
 	private static void OnGameStateChanged(GameState newState)
