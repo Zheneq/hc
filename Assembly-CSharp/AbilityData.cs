@@ -2696,7 +2696,6 @@ public class AbilityData : NetworkBehaviour
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
-		var jsonLog = new List<string>();
 		if (initialState)
 		{
 			SyncListInt.ReadReference(reader, m_cooldownsSync);
@@ -2704,38 +2703,54 @@ public class AbilityData : NetworkBehaviour
 			SyncListInt.ReadReference(reader, m_stockRefreshCountdowns);
 			SyncListInt.ReadReference(reader, m_currentCardIds);
 			m_selectedActionForTargeting = (ActionType)reader.ReadInt32();
-			jsonLog.Add($"\"cooldownsSync\":{DefaultJsonSerializer.Serialize(m_cooldownsSync)}");
-			jsonLog.Add($"\"consumedStockCount\":{DefaultJsonSerializer.Serialize(m_consumedStockCount)}");
-			jsonLog.Add($"\"stockRefreshCountdowns\":{DefaultJsonSerializer.Serialize(m_stockRefreshCountdowns)}");
-			jsonLog.Add($"\"currentCardIds\":{DefaultJsonSerializer.Serialize(m_currentCardIds)}");
-			jsonLog.Add($"\"selectedActionForTargeting\":\"{m_selectedActionForTargeting}\"");
-			Log.Info($"[JSON] {{\"abilityData\":{{{String.Join(",", jsonLog.ToArray())}}}}}");
+			LogJson();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
 			SyncListInt.ReadReference(reader, m_cooldownsSync);
-			jsonLog.Add($"\"cooldownsSync\":{DefaultJsonSerializer.Serialize(m_cooldownsSync)}");
 		}
 		if ((num & 2) != 0)
 		{
 			SyncListInt.ReadReference(reader, m_consumedStockCount);
-			jsonLog.Add($"\"consumedStockCount\":{DefaultJsonSerializer.Serialize(m_consumedStockCount)}");
 		}
 		if ((num & 4) != 0)
 		{
 			SyncListInt.ReadReference(reader, m_stockRefreshCountdowns);
-			jsonLog.Add($"\"stockRefreshCountdowns\":{DefaultJsonSerializer.Serialize(m_stockRefreshCountdowns)}");
 		}
 		if ((num & 8) != 0)
 		{
 			SyncListInt.ReadReference(reader, m_currentCardIds);
-			jsonLog.Add($"\"currentCardIds\":{DefaultJsonSerializer.Serialize(m_currentCardIds)}");
 		}
 		if ((num & 0x10) != 0)
 		{
 			m_selectedActionForTargeting = (ActionType)reader.ReadInt32();
+		}
+		LogJson(num);
+	}
+
+	private void LogJson(int mask = Int32.MaxValue)
+	{
+		var jsonLog = new List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"cooldownsSync\":{DefaultJsonSerializer.Serialize(m_cooldownsSync)}");
+		}
+		if ((mask & 2) != 0)
+		{
+			jsonLog.Add($"\"consumedStockCount\":{DefaultJsonSerializer.Serialize(m_consumedStockCount)}");
+		}
+		if ((mask & 4) != 0)
+		{
+			jsonLog.Add($"\"stockRefreshCountdowns\":{DefaultJsonSerializer.Serialize(m_stockRefreshCountdowns)}");
+		}
+		if ((mask & 8) != 0)
+		{
+			jsonLog.Add($"\"currentCardIds\":{DefaultJsonSerializer.Serialize(m_currentCardIds)}");
+		}
+		if ((mask & 0x10) != 0)
+		{
 			jsonLog.Add($"\"selectedActionForTargeting\":\"{m_selectedActionForTargeting}\"");
 		}
 		Log.Info($"[JSON] {{\"abilityData\":{{{String.Join(",", jsonLog.ToArray())}}}}}");
