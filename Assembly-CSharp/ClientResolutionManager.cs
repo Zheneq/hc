@@ -187,7 +187,7 @@ public class ClientResolutionManager : MonoBehaviour
 		UpdateLastEventTime();
 		ProcessReceivedMessages();
 
-		Log.Info($"[JSON] {{\"msgSingleResolutionAction\":{{\"turn\":{turnIndex},\"phase\":{DefaultJsonSerializer.Serialize((AbilityPriority)b)},\"action\":{action.json()}}}}}");
+		Log.Info($"[JSON] {{\"msgSingleResolutionAction\":{{\"turn\":{turnIndex},\"phase\":{DefaultJsonSerializer.Serialize((AbilityPriority)b)},\"action\":{DefaultJsonSerializer.Serialize(action)}}}}}");
 	}
 
 	private void ProcessReceivedMessages()
@@ -303,9 +303,8 @@ public class ClientResolutionManager : MonoBehaviour
 		{
 			ClientResolutionAction item = ClientResolutionAction.ClientResolutionAction_DeSerializeFromStream(ref stream);
 			list.Add(item);
-			jsonLog.Add(item.json());
 		}
-		Log.Info($"[JSON] {{\"msgRunResolutionActionsOutsideResolve\":{{\"numActions\":{b},\"actions\":[{System.String.Join(",", jsonLog.ToArray())}]}}}}");
+		Log.Info($"[JSON] {{\"msgRunResolutionActionsOutsideResolve\":{{\"numActions\":{num},\"actions\":[{System.String.Join(",", jsonLog.ToArray())}]}}}}");
 		foreach (ClientResolutionAction current in list)
 		{
 			current.Run_OutsideResolution();

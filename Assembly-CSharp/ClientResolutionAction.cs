@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ClientResolutionAction : IComparable
 {
-	private ResolutionActionType m_type;
-	private ClientAbilityResults m_abilityResults;
-	private ClientEffectResults m_effectResults;
-	private ClientMovementResults m_moveResults;
+	public ResolutionActionType m_type { get; private set; }
+	public ClientAbilityResults m_abilityResults { get; private set; }
+	public ClientEffectResults m_effectResults { get; private set; }
+	public ClientMovementResults m_moveResults { get; private set; }
 
 	public ClientResolutionAction()
 	{
