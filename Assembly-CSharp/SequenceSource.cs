@@ -12,7 +12,7 @@ public class SequenceSource
 
 	private static Dictionary<uint, List<SequenceSource>> s_idsToSrcs = new Dictionary<uint, List<SequenceSource>>();
 
-	public uint _rootID;
+	private uint _rootID;
 
 	private ActorDelegate m_onHitActor;
 
@@ -26,7 +26,7 @@ public class SequenceSource
 
 	private AbilityPriority m_hitPhase = AbilityPriority.INVALID;
 
-	internal uint RootID
+	public uint RootID
 	{
 		get
 		{
@@ -154,11 +154,6 @@ public class SequenceSource
 	internal void OnSerializeHelper(NetworkWriter stream)
 	{
 		OnSerializeHelper(new NetworkWriterAdapter(stream));
-	}
-
-	public string Json()
-	{
-		return $"{{ \"rootID\": {RootID}, \"removeAtEndOfTurn\": {RemoveAtEndOfTurn}, \"waitForClientEnable\": {WaitForClientEnable}}}";
 	}
 
 	internal void OnSerializeHelper(IBitStream stream)

@@ -186,6 +186,8 @@ public class ClientResolutionManager : MonoBehaviour
 		m_receivedMessages.Add(item);
 		UpdateLastEventTime();
 		ProcessReceivedMessages();
+
+		Log.Info($"[JSON] {{\"msgSingleResolutionAction\":{{\"turn\":{turnIndex},\"phase\":{DefaultJsonSerializer.Serialize((AbilityPriority)b)},\"action\":{action.json()}}}}}");
 	}
 
 	private void ProcessReceivedMessages()
@@ -298,10 +300,12 @@ public class ClientResolutionManager : MonoBehaviour
 		IBitStream stream = new NetworkReaderAdapter(reader);
 		List<ClientResolutionAction> list = new List<ClientResolutionAction>(num);
 		for (int i = 0; i < num; i++)
-		Log.Info($"MsgRunResolutionActionsOutsideResolve: {num} actions");
 		{
-			list.Add(ClientResolutionAction.ClientResolutionAction_DeSerializeFromStream(ref stream));
+			ClientResolutionAction item = ClientResolutionAction.ClientResolutionAction_DeSerializeFromStream(ref stream);
+			list.Add(item);
+			jsonLog.Add(item.json());
 		}
+		Log.Info($"[JSON] {{\"msgRunResolutionActionsOutsideResolve\":{{\"numActions\":{b},\"actions\":[{System.String.Join(",", jsonLog.ToArray())}]}}}}");
 		foreach (ClientResolutionAction current in list)
 		{
 			current.Run_OutsideResolution();

@@ -75,22 +75,43 @@ public class ClientResolutionAction : IComparable
 		{
 			case ResolutionActionType.AbilityCast:
 				clientResolutionAction.m_abilityResults = AbilityResultsUtils.DeSerializeClientAbilityResultsFromStream(ref stream);
-				Log.Info($"Replicated ClientAbilityResults ({clientResolutionAction.m_type}) \n{DefaultJsonSerializer.Serialize(clientResolutionAction.m_abilityResults)}");
 				break;
 			case ResolutionActionType.EffectAnimation:
 			case ResolutionActionType.EffectPulse:
 				clientResolutionAction.m_effectResults = AbilityResultsUtils.DeSerializeClientEffectResultsFromStream(ref stream);
-				Log.Info($"Replicated ClientEffectResults ({clientResolutionAction.m_type})\n{DefaultJsonSerializer.Serialize(clientResolutionAction.m_effectResults)}");
 				break;
 			case ResolutionActionType.EffectOnMove:
 			case ResolutionActionType.BarrierOnMove:
 			case ResolutionActionType.PowerupOnMove:
 			case ResolutionActionType.GameModeOnMove:
 				clientResolutionAction.m_moveResults = AbilityResultsUtils.DeSerializeClientMovementResultsFromStream(ref stream);
-				Log.Info($"Replicated ClientMovementResults ({clientResolutionAction.m_type})\n{DefaultJsonSerializer.Serialize(clientResolutionAction.m_moveResults)}");
 				break;
 		}
 		return clientResolutionAction;
+	}
+
+	public string json()
+	{
+		var jsonLog = new List<string>();
+		jsonLog.Add($"\"type\":{DefaultJsonSerializer.Serialize(m_type)}");
+		switch (m_type)
+		{
+			case ResolutionActionType.AbilityCast:
+				jsonLog.Add($"\"abilityResults\":{DefaultJsonSerializer.Serialize(m_abilityResults)}");
+				break;
+			case ResolutionActionType.EffectAnimation:
+			case ResolutionActionType.EffectPulse:
+				jsonLog.Add($"\"effectResults\":{DefaultJsonSerializer.Serialize(m_effectResults)}");
+				break;
+			case ResolutionActionType.EffectOnMove:
+			case ResolutionActionType.BarrierOnMove:
+			case ResolutionActionType.PowerupOnMove:
+			case ResolutionActionType.GameModeOnMove:
+				jsonLog.Add($"\"moveResults\":{DefaultJsonSerializer.Serialize(m_moveResults)}");
+				break;
+		}
+
+		return $"{{{String.Join(",", jsonLog.ToArray())}}}";
 	}
 
 	public ActorData GetCaster()

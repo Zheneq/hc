@@ -110,7 +110,7 @@ public class SharedActionBuffer : NetworkBehaviour
 		{
 			m_actionPhase = (ActionBufferPhase)reader.ReadInt32();
 			m_abilityPhase = (AbilityPriority)reader.ReadInt32();
-			Log.Info($"[JSON] {{\"actionPhase\":\"{m_actionPhase}\",\"abilityPhase\":\"{m_abilityPhase}\"}}");
+			LogJson();
 			return;
 		}
 		int dirtyBits = (int)reader.ReadPackedUInt32();
@@ -122,6 +122,21 @@ public class SharedActionBuffer : NetworkBehaviour
 		{
 			HookSetAbilityPhase((AbilityPriority)reader.ReadInt32());
 		}
-		Log.Info($"[JSON] {{\"actionPhase\":\"{Networkm_actionPhase}\",\"abilityPhase\":\"{Networkm_abilityPhase}\"}}");
+		LogJson(num);
+	}
+
+	private void LogJson(int mask = System.Int32.MaxValue)
+	{
+		var jsonLog = new System.Collections.Generic.List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"actionPhase\":\"{Networkm_actionPhase}\"");
+		}
+		if ((mask & 2) != 0)
+		{
+			jsonLog.Add($"\"abilityPhase\":\"{Networkm_abilityPhase}\"");
+		}
+
+		Log.Info($"[JSON] {{\"sharedActionBuffer\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }
