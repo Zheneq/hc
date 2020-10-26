@@ -267,12 +267,24 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 		if (initialState)
 		{
 			GeneratedNetworkCode._ReadStructSyncListVisionProviderInfo_None(reader, m_visionProviders);
+			LogJson();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
         if ((num & 1) != 0)
         {
             GeneratedNetworkCode._ReadStructSyncListVisionProviderInfo_None(reader, m_visionProviders);
-        }
-    }
+		}
+		LogJson(num);
+	}
+
+	private void LogJson(int mask = System.Int32.MaxValue)
+	{
+		var jsonLog = new System.Collections.Generic.List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"visionProviders\":{DefaultJsonSerializer.Serialize(m_visionProviders)}");
+		}
+		Log.Info($"[JSON] {{\"actorStatus\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
+	}
 }

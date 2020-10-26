@@ -1210,6 +1210,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 			m_teamExtraEnergyGainFromMe = (int)reader.ReadPackedUInt32();
 			m_movementDeniedByMe = reader.ReadSingle();
 			m_totalEnemySighted = (int)reader.ReadPackedUInt32();
+			LogJson();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
@@ -1333,5 +1334,133 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		{
 			m_totalEnemySighted = (int)reader.ReadPackedUInt32();
 		}
+		LogJson(num);
+	}
+
+	private void LogJson(int num = System.Int32.MaxValue)
+	{
+		var jsonLog = new List<string>();
+		if ((num & 1) != 0)
+		{
+			jsonLog.Add($"\"syncEnemySourcesForDamageOrDebuff\":{DefaultJsonSerializer.Serialize(m_syncEnemySourcesForDamageOrDebuff)}");
+		}
+		if ((num & 2) != 0)
+		{
+			jsonLog.Add($"\"syncAllySourcesForHealAndBuff\":{DefaultJsonSerializer.Serialize(m_syncAllySourcesForHealAndBuff)}");
+		}
+		if ((num & 4) != 0)
+		{
+			jsonLog.Add($"\"totalDeaths\":{m_totalDeaths}");
+		}
+		if ((num & 8) != 0)
+		{
+			jsonLog.Add($"\"totalPlayerKills\":{m_totalPlayerKills}");
+		}
+		if ((num & 0x10) != 0)
+		{
+			jsonLog.Add($"\"totalPlayerAssists\":{m_totalPlayerAssists}");
+		}
+		if ((num & 0x20) != 0)
+		{
+			jsonLog.Add($"\"totalPlayerDamage\":{m_totalPlayerDamage}");
+		}
+		if ((num & 0x40) != 0)
+		{
+			jsonLog.Add($"\"totalPlayerHealing\":{m_totalPlayerHealing}");
+		}
+		if ((num & 0x80) != 0)
+		{
+			jsonLog.Add($"\"totalPlayerHealingFromAbility\":{m_totalPlayerHealingFromAbility}");
+		}
+		if ((num & 0x100) != 0)
+		{
+			jsonLog.Add($"\"totalPlayerOverheal\":{m_totalPlayerOverheal}");
+		}
+		if ((num & 0x200) != 0)
+		{
+			jsonLog.Add($"\"totalPlayerAbsorb\":{m_totalPlayerAbsorb}");
+		}
+		if ((num & 0x400) != 0)
+		{
+			jsonLog.Add($"\"totalPlayerPotentialAbsorb\":{m_totalPlayerPotentialAbsorb}");
+		}
+		if ((num & 0x800) != 0)
+		{
+			jsonLog.Add($"\"totalEnergyGained\":{m_totalEnergyGained}");
+		}
+		if ((num & 0x1000) != 0)
+		{
+			jsonLog.Add($"\"totalPlayerDamageReceived\":{m_totalPlayerDamageReceived}");
+		}
+		if ((num & 0x2000) != 0)
+		{
+			jsonLog.Add($"\"totalPlayerHealingReceived\":{m_totalPlayerHealingReceived}");
+		}
+		if ((num & 0x4000) != 0)
+		{
+			jsonLog.Add($"\"totalPlayerAbsorbReceived\":{m_totalPlayerAbsorbReceived}");
+		}
+		if ((num & 0x8000) != 0)
+		{
+			jsonLog.Add($"\"totalPlayerLockInTime\":{m_totalPlayerLockInTime}");
+		}
+		if ((num & 0x10000) != 0)
+		{
+			jsonLog.Add($"\"totalPlayerTurns\":{m_totalPlayerTurns}");
+		}
+		if ((num & 0x20000) != 0)
+		{
+			jsonLog.Add($"\"damageDodgedByEvades\":{m_damageDodgedByEvades}");
+		}
+		if ((num & 0x40000) != 0)
+		{
+			jsonLog.Add($"\"damageInterceptedByEvades\":{m_damageInterceptedByEvades}");
+		}
+		if ((num & 0x80000) != 0)
+		{
+			jsonLog.Add($"\"myIncomingDamageReducedByCover\":{m_myIncomingDamageReducedByCover}");
+		}
+		if ((num & 0x100000) != 0)
+		{
+			jsonLog.Add($"\"myOutgoingDamageReducedByCover\":{myOutgoingDamageReducedByCover}");
+		}
+		if ((num & 0x200000) != 0)
+		{
+			jsonLog.Add($"\"myIncomingOverkillDamageTaken\":{m_myIncomingOverkillDamageTaken}");
+		}
+		if ((num & 0x400000) != 0)
+		{
+			jsonLog.Add($"\"myOutgoingOverkillDamageDealt\":{m_myOutgoingOverkillDamageDealt}");
+		}
+		if ((num & 0x800000) != 0)
+		{
+			jsonLog.Add($"\"myOutgoingExtraDamageFromEmpowered\":{m_myOutgoingExtraDamageFromEmpowered}");
+		}
+		if ((num & 0x1000000) != 0)
+		{
+			jsonLog.Add($"\"myOutgoingDamageReducedFromWeakened\":{m_myOutgoingDamageReducedFromWeakened}");
+		}
+		if ((num & 0x2000000) != 0)
+		{
+			jsonLog.Add($"\"teamOutgoingDamageIncreasedByEmpoweredFromMe\":{m_teamOutgoingDamageIncreasedByEmpoweredFromMe}");
+		}
+		if ((num & 0x4000000) != 0)
+		{
+			jsonLog.Add($"\"teamIncomingDamageReducedByWeakenedFromMe\":{m_teamIncomingDamageReducedByWeakenedFromMe}");
+		}
+		if ((num & 0x8000000) != 0)
+		{
+			jsonLog.Add($"\"teamExtraEnergyGainFromMe\":{m_teamExtraEnergyGainFromMe}");
+		}
+		if ((num & 0x10000000) != 0)
+		{
+			jsonLog.Add($"\"movementDeniedByMe\":{m_movementDeniedByMe}");
+		}
+		if ((num & 0x20000000) != 0)
+		{
+			jsonLog.Add($"\"totalEnemySighted\":{m_totalEnemySighted}");
+		}
+
+		Log.Info($"[JSON] {{\"actorBehavior\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }

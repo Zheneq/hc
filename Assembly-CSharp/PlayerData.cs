@@ -267,6 +267,18 @@ public class PlayerData : NetworkBehaviour
 		networkReaderAdapter.Serialize(ref m_playerHandle);
 		networkReaderAdapter.Serialize(ref m_playerIndex);
 		m_player.OnSerializeHelper(networkReaderAdapter);
+		LogJson();
+	}
+
+	private void LogJson()
+	{
+		Log.Info($"[JSON] {{\"playerData\":{{" +
+			$"\"playerHandle\": \"{m_playerHandle}\"," +
+			$"\"playerIndex\": {m_playerIndex}," +
+			$"\"valid\": {DefaultJsonSerializer.Serialize(m_player.m_valid)}," +
+			$"\"id\": {m_player.m_id}," +
+			$"\"connectionId\": {m_player.m_connectionId}" +
+			$"}}}}");
 	}
 
 	private void RestoreClientLastKnownStateOnReconnect()

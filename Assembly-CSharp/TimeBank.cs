@@ -280,6 +280,7 @@ public class TimeBank : NetworkBehaviour
 			m_reserveRemaining = reader.ReadSingle();
 			m_consumablesRemaining = (int)reader.ReadPackedUInt32();
 			m_resolved = reader.ReadBoolean();
+			LogJson();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
@@ -294,6 +295,26 @@ public class TimeBank : NetworkBehaviour
         if ((num & 4) != 0)
         {
             m_resolved = reader.ReadBoolean();
-        }
-    }
+		}
+		LogJson(num);
+	}
+
+	private void LogJson(int mask = Int32.MaxValue)
+	{
+		var jsonLog = new System.Collections.Generic.List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"reserveRemaining\":{m_reserveRemaining}");
+		}
+		if ((mask & 2) != 0)
+		{
+			jsonLog.Add($"\"consumablesRemaining\":{m_consumablesRemaining}");
+		}
+		if ((mask & 4) != 0)
+		{
+			jsonLog.Add($"\"resolved\":{DefaultJsonSerializer.Serialize(m_resolved)}");
+		}
+
+		Log.Info($"[JSON] {{\"timeBank\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
+	}
 }

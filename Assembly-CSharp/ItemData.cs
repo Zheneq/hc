@@ -67,6 +67,7 @@ public class ItemData : NetworkBehaviour
 			stream.Serialize(ref _creditsSpent);
 			m_credits = _credits;
 			m_creditsSpent = _creditsSpent;
+			Log.Info($"[JSON] {{\"itemData\":{{\"credits\": {m_credits}, \"creditsSpent\": {m_creditsSpent}}}}}");
 		}
 	}
 

@@ -562,6 +562,7 @@ public class ActorStats : NetworkBehaviour
 		if (initialState)
 		{
 			SyncListFloat.ReadReference(reader, m_modifiedStats);
+			LogJson();
 			return;
 		}
 		int mask = (int)reader.ReadPackedUInt32();
@@ -569,5 +570,17 @@ public class ActorStats : NetworkBehaviour
 		{
 			SyncListFloat.ReadReference(reader, m_modifiedStats);
 		}
+		LogJson(mask);
+	}
+
+	private void LogJson(int mask = Int32.MaxValue)
+	{
+		var jsonLog = new List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"modifiedStats\":{DefaultJsonSerializer.Serialize(m_modifiedStats)}");
+		}
+
+		Log.Info($"[JSON] {{\"actorStats\":{{{String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }

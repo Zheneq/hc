@@ -412,6 +412,7 @@ public class FreelancerStats : NetworkBehaviour
 		if (initialState)
 		{
 			SyncListInt.ReadReference(reader, m_values);
+			LogJson();
 			return;
 		}
 		int dirtyBits = (int)reader.ReadPackedUInt32();
@@ -419,5 +420,17 @@ public class FreelancerStats : NetworkBehaviour
 		{
 			SyncListInt.ReadReference(reader, m_values);
 		}
+		LogJson(dirtyBits);
+	}
+
+	private void LogJson(int mask = Int32.MaxValue)
+	{
+		var jsonLog = new List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"values\":{DefaultJsonSerializer.Serialize(m_values)}");
+		}
+
+		Log.Info($"[JSON] {{\"freelancerStats\":{{{String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }

@@ -622,6 +622,7 @@ public class ActorStatus : NetworkBehaviour
 		{
 			SyncListUInt.ReadReference(reader, m_statusCounts);
 			SyncListUInt.ReadReference(reader, m_statusDurations);
+			LogJson();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
@@ -633,5 +634,21 @@ public class ActorStatus : NetworkBehaviour
 		{
 			SyncListUInt.ReadReference(reader, m_statusDurations);
 		}
+		LogJson(num);
+	}
+
+	private void LogJson(int mask = System.Int32.MaxValue)
+	{
+		var jsonLog = new List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"statusCounts\":{DefaultJsonSerializer.Serialize(m_statusCounts)}");
+		}
+		if ((mask & 2) != 0)
+		{
+			jsonLog.Add($"\"statusDurations\":{DefaultJsonSerializer.Serialize(m_statusDurations)}");
+		}
+
+		Log.Info($"[JSON] {{\"actorStatus\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }

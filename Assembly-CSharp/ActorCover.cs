@@ -1452,6 +1452,7 @@ public class ActorCover : NetworkBehaviour
 		if (initialState)
 		{
 			GeneratedNetworkCode._ReadStructSyncListTempCoverInfo_None(reader, this.m_syncTempCoverProviders);
+			LogJson();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
@@ -1459,6 +1460,17 @@ public class ActorCover : NetworkBehaviour
 		{
 			GeneratedNetworkCode._ReadStructSyncListTempCoverInfo_None(reader, this.m_syncTempCoverProviders);
 		}
+		LogJson(num);
+	}
+
+	private void LogJson(int mask = System.Int32.MaxValue)
+	{
+		var jsonLog = new System.Collections.Generic.List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"syncTempCoverProviders\":{DefaultJsonSerializer.Serialize(m_syncTempCoverProviders)}");
+		}
+		Log.Info($"[JSON] {{\"actorCover\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 
 	public enum CoverDirections

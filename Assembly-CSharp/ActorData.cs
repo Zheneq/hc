@@ -2700,7 +2700,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			stream.Serialize(ref _TechPoints);
 
 
-			string jsonLog = $"[JSON] {{\"playerIndex\": {_playerIndex}" +
+			string jsonLog = $"[JSON] {{\"actorData\": {{\"playerIndex\": {_playerIndex}" +
 				$",\"actorIndex\": {_actorIndex}" +
 				$",\"displayName\": \"{_displayName}\"" +
 				$",\"team\": {_team}" + 
@@ -2971,7 +2971,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				m_actorMovement.UpdateSquaresCanMoveTo();
 			}
-			jsonLog += "}";
+			jsonLog += "}}";
 			Log.Info(jsonLog);
 		}
 		return m_serializeHelper.End(initialState, syncVarDirtyBits);

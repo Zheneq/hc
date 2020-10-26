@@ -246,6 +246,7 @@ public class ActorCinematicRequests : NetworkBehaviour
 			SyncListBool.ReadReference(reader, m_abilityRequested);
 			m_numCinematicRequestsLeft = (int)reader.ReadPackedUInt32();
 			SyncListInt.ReadReference(reader, m_cinematicsPlayedThisMatch);
+			LogJson();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
@@ -261,5 +262,25 @@ public class ActorCinematicRequests : NetworkBehaviour
 		{
 			SyncListInt.ReadReference(reader, m_cinematicsPlayedThisMatch);
 		}
+		LogJson(num);
+	}
+
+	private void LogJson(int mask = System.Int32.MaxValue)
+	{
+		var jsonLog = new List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"abilityRequested\":{DefaultJsonSerializer.Serialize(m_abilityRequested)}");
+		}
+		if ((mask & 2) != 0)
+		{
+			jsonLog.Add($"\"numCinematicRequestsLeft\":{m_numCinematicRequestsLeft}");
+		}
+		if ((mask & 4) != 0)
+		{
+			jsonLog.Add($"\"cinematicsPlayedThisMatch\":{DefaultJsonSerializer.Serialize(m_cinematicsPlayedThisMatch)}");
+		}
+
+		Log.Info($"[JSON] {{\"actorCinematicRequests\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }

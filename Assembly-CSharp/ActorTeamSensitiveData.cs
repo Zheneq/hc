@@ -494,7 +494,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
-		string jsonLog = "[JSON] {";
+		string jsonLog = "[JSON] {\"actorTeamSensitiveData\": {";
 		uint setBits = uint.MaxValue;
 		if (!initialState)
 		{
@@ -685,7 +685,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 			}
 		}
-		jsonLog += "}";
+		jsonLog += "}}";
 		Log.Info(jsonLog);
 	}
 
