@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Runtime.CompilerServices;
 using UnityEngine.Networking;
@@ -12,6 +13,7 @@ public struct Player
 
 	public int m_connectionId;
 
+	[JsonIgnore]
 	public long m_accountId;
 
 	[CompilerGenerated]
@@ -20,6 +22,7 @@ public struct Player
 	//[CompilerGenerated]
 	//private static Action<GameState> OnGameStateChanged;
 
+	[JsonIgnore]
 	public bool WasEverHuman => m_accountId > 0;
 
 	internal Player(NetworkConnection connection, long accountId)

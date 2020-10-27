@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -22,6 +23,7 @@ public class PlayerDetails
 	public bool ReplacedWithBots { get; private set; }
 	public bool IsAIControlled => IsNPCBot || IsLoadTestBot || ReplacedWithBots;
 	public bool IsHumanControlled => !IsAIControlled;
+	
 	public bool IsNPCBot
 	{
 		get
@@ -37,6 +39,7 @@ public class PlayerDetails
 		}
 	}
 
+	[JsonIgnore]
 	public bool IsLoadTestBot
 	{
 		get
@@ -52,6 +55,7 @@ public class PlayerDetails
 		}
 	}
 
+	[JsonIgnore]
 	public bool IsSpectator => m_team == Team.Spectator;
 	public bool IsConnected
 	{

@@ -646,6 +646,7 @@ public class BarrierManager : NetworkBehaviour
 			return;
 		}
 		((BarrierManager)obj).m_barrierIdSync.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"barrierIdSync\":{DefaultJsonSerializer.Serialize(((BarrierManager)obj).m_barrierIdSync)}}}");
 	}
 
 	protected static void InvokeSyncListm_movementStatesSync(NetworkBehaviour obj, NetworkReader reader)
@@ -656,6 +657,7 @@ public class BarrierManager : NetworkBehaviour
 			return;
 		}
 		((BarrierManager)obj).m_movementStatesSync.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"movementStatesSync\":{DefaultJsonSerializer.Serialize(((BarrierManager)obj).m_movementStatesSync)}}}");
 	}
 
 	protected static void InvokeSyncListm_visionStatesSync(NetworkBehaviour obj, NetworkReader reader)
@@ -666,6 +668,7 @@ public class BarrierManager : NetworkBehaviour
 			return;
 		}
 		((BarrierManager)obj).m_visionStatesSync.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"visionStatesSync\":{DefaultJsonSerializer.Serialize(((BarrierManager)obj).m_visionStatesSync)}}}");
 	}
 
 	protected static void InvokeRpcRpcUpdateBarriers(NetworkBehaviour obj, NetworkReader reader)
@@ -676,6 +679,7 @@ public class BarrierManager : NetworkBehaviour
 			return;
 		}
 		((BarrierManager)obj).RpcUpdateBarriers();
+		Log.Info($"[JSON] {{\"RpcUpdateBarriers\":{DefaultJsonSerializer.Serialize(null)}}}");
 	}
 
 	public void CallRpcUpdateBarriers()
@@ -744,6 +748,7 @@ public class BarrierManager : NetworkBehaviour
 			SyncListInt.ReadReference(reader, m_barrierIdSync);
 			SyncListInt.ReadReference(reader, m_movementStatesSync);
 			SyncListInt.ReadReference(reader, m_visionStatesSync);
+			LogJson();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
@@ -759,5 +764,25 @@ public class BarrierManager : NetworkBehaviour
 		{
 			SyncListInt.ReadReference(reader, m_visionStatesSync);
 		}
+		LogJson(num);
+	}
+
+	private void LogJson(int mask = Int32.MaxValue)
+	{
+		var jsonLog = new List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"barrierIdSync\":{DefaultJsonSerializer.Serialize(m_barrierIdSync)}");
+		}
+		if ((mask & 2) != 0)
+		{
+			jsonLog.Add($"\"movementStatesSync\":{DefaultJsonSerializer.Serialize(m_movementStatesSync)}");
+		}
+		if ((mask & 4) != 0)
+		{
+			jsonLog.Add($"\"visionStatesSync\":{DefaultJsonSerializer.Serialize(m_visionStatesSync)}");
+		}
+
+		Log.Info($"[JSON] {{\"barrierManager\":{{{String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }

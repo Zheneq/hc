@@ -82,6 +82,7 @@ public class TeamStatusDisplay : NetworkBehaviour
 	[ClientRpc]
 	private void RpcSetTeamStatus(int playerIndex, string status)
 	{
+		Log.Info($"[JSON] {{\"rpcSetTeamStatus\":{{\"playerIndex\":{DefaultJsonSerializer.Serialize(playerIndex)},\"status\":{DefaultJsonSerializer.Serialize(status)}}}}}");
 		ActorData actorData = GameFlowData.Get().FindActorByPlayerIndex(playerIndex);
 		if (!actorData)
 		{

@@ -230,6 +230,7 @@ public class GameFlow : NetworkBehaviour
 	[ClientRpc]
 	private void RpcDisplayConsoleText(DisplayConsoleTextMessage message)
 	{
+		Log.Info($"[JSON] {{\"rpcDisplayConsoleText\":{DefaultJsonSerializer.Serialize(message)}}}");
 		if (message.RestrictVisibiltyToTeam == Team.Invalid
 			|| (GameFlowData.Get().activeOwnedActorData != null
 				&& GameFlowData.Get().activeOwnedActorData.GetTeam() == message.RestrictVisibiltyToTeam))
@@ -261,6 +262,7 @@ public class GameFlow : NetworkBehaviour
 	[ClientRpc]
 	private void RpcSetMatchTime(float timeSinceMatchStart)
 	{
+		Log.Info($"[JSON] {{\"rpcSetMatchTime\":{{\"timeSinceMatchStart\":{DefaultJsonSerializer.Serialize(timeSinceMatchStart)}}}}}");
 		UITimerPanel.Get().SetMatchTime(timeSinceMatchStart);
 	}
 
@@ -298,6 +300,7 @@ public class GameFlow : NetworkBehaviour
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
+		var jsonLog = new List<string>();
 		uint num = uint.MaxValue;
 		if (!initialState)
 		{
@@ -327,7 +330,9 @@ public class GameFlow : NetworkBehaviour
 					GameFlowData.Get().SetLocalPlayerData();
 				}
 			}
+			jsonLog.Add($"\"playerDetails\":{DefaultJsonSerializer.Serialize(m_playerDetails)}");
 		}
+		Log.Info($"[JSON] {{\"gameFlow\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 
 	private void UNetVersion()
