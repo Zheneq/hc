@@ -130,6 +130,7 @@ public class Valkyrie_SyncComponent : NetworkBehaviour
 			m_extraAbsorbForGuard = (int)reader.ReadPackedUInt32();
 			m_skipDamageReductionForNextStab = reader.ReadBoolean();
 			m_extraDamageNextShieldThrow = (int)reader.ReadPackedUInt32();
+			LogJson();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
@@ -149,5 +150,29 @@ public class Valkyrie_SyncComponent : NetworkBehaviour
 		{
 			m_extraDamageNextShieldThrow = (int)reader.ReadPackedUInt32();
 		}
+		LogJson(num);
+	}
+
+	private void LogJson(int mask = System.Int32.MaxValue)
+	{
+		var jsonLog = new System.Collections.Generic.List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"coverDirection\":{DefaultJsonSerializer.Serialize(m_coverDirection)}");
+		}
+		if ((mask & 2) != 0)
+		{
+			jsonLog.Add($"\"extraAbsorbForGuard\":{DefaultJsonSerializer.Serialize(m_extraAbsorbForGuard)}");
+		}
+		if ((mask & 4) != 0)
+		{
+			jsonLog.Add($"\"skipDamageReductionForNextStab\":{DefaultJsonSerializer.Serialize(m_skipDamageReductionForNextStab)}");
+		}
+		if ((mask & 8) != 0)
+		{
+			jsonLog.Add($"\"extraDamageNextShieldThrow\":{DefaultJsonSerializer.Serialize(m_extraDamageNextShieldThrow)}");
+		}
+
+		Log.Info($"[JSON] {{\"valkyrie_SyncComponent\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }
