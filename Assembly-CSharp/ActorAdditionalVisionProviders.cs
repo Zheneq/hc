@@ -285,6 +285,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 		{
 			jsonLog.Add($"\"visionProviders\":{DefaultJsonSerializer.Serialize(m_visionProviders)}");
 		}
-		Log.Info($"[JSON] {{\"actorStatus\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
+		Log.Info($"[JSON] {{\"actorAdditionalVisionProviders\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }

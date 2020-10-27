@@ -43,8 +43,20 @@ public class ItemData : NetworkBehaviour
         if (num != 0)
         {
             OnSerializeHelper(new NetworkReaderAdapter(reader));
-        }
-    }
+		}
+		LogJson(num);
+	}
+
+	private void LogJson(uint mask = System.UInt32.MaxValue)
+	{
+		var jsonLog = new System.Collections.Generic.List<string>();
+		if (mask != 0)
+		{
+			jsonLog.Add($"\"credits\": {m_credits}, \"creditsSpent\": {m_creditsSpent}");
+		}
+
+		Log.Info($"[JSON] {{\"itemData\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
+	}
 
 	private void OnSerializeHelper(IBitStream stream)
 	{
@@ -67,7 +79,6 @@ public class ItemData : NetworkBehaviour
 			stream.Serialize(ref _creditsSpent);
 			m_credits = _credits;
 			m_creditsSpent = _creditsSpent;
-			Log.Info($"[JSON] {{\"itemData\":{{\"credits\": {m_credits}, \"creditsSpent\": {m_creditsSpent}}}}}");
 		}
 	}
 
