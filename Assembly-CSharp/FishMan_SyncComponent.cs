@@ -108,6 +108,7 @@ public class FishMan_SyncComponent : NetworkBehaviour
 			m_lastTurnCanRepositionRoamingShape = (int)reader.ReadPackedUInt32();
 			m_lastBasicAttackEnemyHitCount = (sbyte)reader.ReadPackedUInt32();
 			m_roamingShapeCurPos = reader.ReadVector3();
+			LogJson();
 			return;
 		}
 
@@ -128,5 +129,29 @@ public class FishMan_SyncComponent : NetworkBehaviour
 		{
 			m_roamingShapeCurPos = reader.ReadVector3();
 		}
+		LogJson(num);
+	}
+
+	private void LogJson(int mask = System.Int32.MaxValue)
+	{
+		var jsonLog = new System.Collections.Generic.List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"turnRoamingShapeWasCast\":{DefaultJsonSerializer.Serialize(m_turnRoamingShapeWasCast)}");
+		}
+		if ((mask & 2) != 0)
+		{
+			jsonLog.Add($"\"lastTurnCanRepositionRoamingShape\":{DefaultJsonSerializer.Serialize(m_lastTurnCanRepositionRoamingShape)}");
+		}
+		if ((mask & 4) != 0)
+		{
+			jsonLog.Add($"\"lastBasicAttackEnemyHitCount\":{DefaultJsonSerializer.Serialize(m_lastBasicAttackEnemyHitCount)}");
+		}
+		if ((mask & 8) != 0)
+		{
+			jsonLog.Add($"\"roamingShapeCurPos\":{DefaultJsonSerializer.Serialize(m_roamingShapeCurPos)}");
+		}
+
+		Log.Info($"[JSON] {{\"fishman_SyncComponent\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }
