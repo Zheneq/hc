@@ -200,6 +200,7 @@ public class InterfaceManager : NetworkBehaviour
 			}
 		}
 		DisplayAlertMessage displayAlertMessage = netMsg.ReadMessage<DisplayAlertMessage>();
+		Log.Info($"[JSON] {{\"msgDisplayAlert\":{DefaultJsonSerializer.Serialize(displayAlertMessage)}}}");
 		DisplayAlert(displayAlertMessage.alertText, new Color(displayAlertMessage.r, displayAlertMessage.g, displayAlertMessage.b));
 	}
 
