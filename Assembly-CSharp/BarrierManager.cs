@@ -8,31 +8,21 @@ public class BarrierManager : NetworkBehaviour
 	private static BarrierManager s_instance;
 
 	private List<Barrier> m_barriers = new List<Barrier>();
-
 	private Dictionary<Team, int> m_movementStates = new Dictionary<Team, int>();
-
 	private Dictionary<Team, int> m_visionStates = new Dictionary<Team, int>();
-
 	private List<BarrierSerializeInfo> m_clientBarrierInfo = new List<BarrierSerializeInfo>();
 
 	private SyncListInt m_barrierIdSync = new SyncListInt();
-
 	private SyncListInt m_movementStatesSync = new SyncListInt();
-
 	private SyncListInt m_visionStatesSync = new SyncListInt();
 
 	private bool m_clientNeedMovementUpdate;
-
 	private bool m_suppressingAbilityBlocks;
-
 	private bool m_hasAbilityBlockingBarriers;
 
 	private static int kListm_barrierIdSync;
-
 	private static int kListm_movementStatesSync;
-
 	private static int kListm_visionStatesSync;
-
 	private static int kRpcRpcUpdateBarriers;
 
 	static BarrierManager()
@@ -57,38 +47,24 @@ public class BarrierManager : NetworkBehaviour
 	{
 		if (!m_suppressingAbilityBlocks)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					m_suppressingAbilityBlocks = true;
-					return;
-				}
-			}
+			m_suppressingAbilityBlocks = true;
 		}
-		Debug.LogError("BarrierManager was told to start suppressing barrier ability-blocks, but it already was.  Ignoring...");
+        else
+        {
+			Debug.LogError("BarrierManager was told to start suppressing barrier ability-blocks, but it already was.  Ignoring...");
+		}
 	}
 
 	public void SuppressAbilityBlocks_End()
 	{
 		if (m_suppressingAbilityBlocks)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					m_suppressingAbilityBlocks = false;
-					return;
-				}
-			}
+			m_suppressingAbilityBlocks = false;
 		}
-		Debug.LogError("BarrierManager was told to stop suppressing barrier ability-blocks, but it already wasn't.  Ignoring...");
+		else
+		{
+			Debug.LogError("BarrierManager was told to stop suppressing barrier ability-blocks, but it already wasn't.  Ignoring...");
+		}
 	}
 
 	public bool SuppressingAbilityBlocks()
@@ -117,16 +93,7 @@ public class BarrierManager : NetworkBehaviour
 
 	public bool IsTeamSupported(Team team)
 	{
-		int result;
-		if (team != 0 && team != Team.TeamB)
-		{
-			result = ((team == Team.Objects) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+        return team == Team.TeamA || team == Team.TeamB || team == Team.Objects;
 	}
 
 	public override void OnStartClient()
@@ -142,10 +109,6 @@ public class BarrierManager : NetworkBehaviour
 			m_movementStatesSync.Add(0);
 			m_visionStatesSync.Add(0);
 		}
-		while (true)
-		{
-			return;
-		}
 	}
 
 	private void Update()
@@ -154,30 +117,21 @@ public class BarrierManager : NetworkBehaviour
 		{
 			return;
 		}
-		while (true)
+		if (!m_clientNeedMovementUpdate)
 		{
-			if (!m_clientNeedMovementUpdate)
+			return;
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Team teamFromSyncIndex = GetTeamFromSyncIndex(i);
+			if (m_movementStates[teamFromSyncIndex] != m_movementStatesSync[i])
 			{
-				return;
-			}
-			while (true)
-			{
-				for (int i = 0; i < 3; i++)
-				{
-					Team teamFromSyncIndex = GetTeamFromSyncIndex(i);
-					if (m_movementStates[teamFromSyncIndex] != m_movementStatesSync[i])
-					{
-						m_movementStates[teamFromSyncIndex] = m_movementStatesSync[i];
-						ClientUpdateMovementOnSync(teamFromSyncIndex);
-					}
-				}
-				while (true)
-				{
-					m_clientNeedMovementUpdate = false;
-					return;
-				}
+				m_movementStates[teamFromSyncIndex] = m_movementStatesSync[i];
+				ClientUpdateMovementOnSync(teamFromSyncIndex);
 			}
 		}
+		m_clientNeedMovementUpdate = false;
+		
 	}
 
 	public void AddBarrier(Barrier barrierToAdd, bool delayVisionUpdate, out List<ActorData> visionUpdaters)
@@ -346,16 +300,7 @@ public class BarrierManager : NetworkBehaviour
 		Team team = actor.GetTeam();
 		if (!IsTeamSupported(team))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return -1;
-				}
-			}
+			return -1;
 		}
 		int syncIndexFromTeam = GetSyncIndexFromTeam(team);
 		return m_visionStatesSync[syncIndexFromTeam];
@@ -366,37 +311,17 @@ public class BarrierManager : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void BarrierManager::UpdateVisionStateForTeam(Team)' called on client");
-					return;
-				}
-			}
+			Debug.LogWarning("[Server] function 'System.Void BarrierManager::UpdateVisionStateForTeam(Team)' called on client");
+			return;
 		}
 		if (IsTeamSupported(team))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-				{
-					int syncIndexFromTeam = GetSyncIndexFromTeam(team);
-					int num = m_visionStatesSync[syncIndexFromTeam];
-					int value = num + 1;
-					m_visionStates[team] = value;
-					m_visionStatesSync[syncIndexFromTeam] = value;
-					return;
-				}
-				}
-			}
+			int syncIndexFromTeam = GetSyncIndexFromTeam(team);
+			int num = m_visionStatesSync[syncIndexFromTeam];
+			int value = num + 1;
+			m_visionStates[team] = value;
+			m_visionStatesSync[syncIndexFromTeam] = value;
+			return;
 		}
 		throw new Exception("BarrierManager does not support this team");
 	}

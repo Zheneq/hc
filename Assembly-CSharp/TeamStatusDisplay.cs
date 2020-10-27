@@ -44,25 +44,11 @@ public class TeamStatusDisplay : NetworkBehaviour
 		if ((bool)activeOwnedActorData)
 		{
 			List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetTeam());
-			using (List<ActorData>.Enumerator enumerator = playerAndBotTeamMembers.GetEnumerator())
+			foreach (ActorData current in playerAndBotTeamMembers)
 			{
-				while (enumerator.MoveNext())
-				{
-					ActorData current = enumerator.Current;
-					TeamStatusEntry teamStatusEntry = new TeamStatusEntry();
-					teamStatusEntry.m_text = string.Empty;
-					m_playerIndexToTextMap[current] = teamStatusEntry;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				TeamStatusEntry teamStatusEntry = new TeamStatusEntry();
+				teamStatusEntry.m_text = string.Empty;
+				m_playerIndexToTextMap[current] = teamStatusEntry;
 			}
 		}
 	}
@@ -77,22 +63,9 @@ public class TeamStatusDisplay : NetworkBehaviour
 
 	public void ClearStatusText()
 	{
-		using (Dictionary<ActorData, TeamStatusEntry>.Enumerator enumerator = m_playerIndexToTextMap.GetEnumerator())
+		foreach (var x in m_playerIndexToTextMap)
 		{
-			while (enumerator.MoveNext())
-			{
-				enumerator.Current.Value.m_text = string.Empty;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			x.Value.m_text = string.Empty;
 		}
 	}
 
@@ -114,24 +87,13 @@ public class TeamStatusDisplay : NetworkBehaviour
 		{
 			return;
 		}
-		while (true)
+		if (GameFlowData.Get().activeOwnedActorData == null)
 		{
-			if (!(GameFlowData.Get().activeOwnedActorData != null))
-			{
-				return;
-			}
-			while (true)
-			{
-				if (actorData.GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
-				{
-					while (true)
-					{
-						SetStatusText(actorData, status);
-						return;
-					}
-				}
-				return;
-			}
+			return;
+		}
+		if (actorData.GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
+		{
+			SetStatusText(actorData, status);
 		}
 	}
 
@@ -143,17 +105,8 @@ public class TeamStatusDisplay : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC RpcSetTeamStatus called on server.");
-					return;
-				}
-			}
+			Debug.LogError("RPC RpcSetTeamStatus called on server.");
+			return;
 		}
 		((TeamStatusDisplay)obj).RpcSetTeamStatus((int)reader.ReadPackedUInt32(), reader.ReadString());
 	}

@@ -118,17 +118,8 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Client] function 'System.Void GameFlow::SendCastAbility(ActorData,AbilityData/ActionType,System.Collections.Generic.List`1<AbilityTarget>)' called on server");
-					return;
-				}
-			}
+			Debug.LogWarning("[Client] function 'System.Void GameFlow::SendCastAbility(ActorData,AbilityData/ActionType,System.Collections.Generic.List`1<AbilityTarget>)' called on server");
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.StartMessage(50);
@@ -157,17 +148,9 @@ public class GameFlow : NetworkBehaviour
 		{
 			return;
 		}
-		while (true)
+		if (GameFlowData.Get() != null)
 		{
-			if (GameFlowData.Get() != null)
-			{
-				while (true)
-				{
-					OnGameStateChanged(GameFlowData.Get().gameState);
-					return;
-				}
-			}
-			return;
+			OnGameStateChanged(GameFlowData.Get().gameState);
 		}
 	}
 
@@ -193,52 +176,22 @@ public class GameFlow : NetworkBehaviour
 		{
 			clientFog.MarkForRecalculateVisibility();
 		}
-		if (newState != GameState.BothTeams_Decision)
-		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					if (newState != GameState.BothTeams_Resolve)
-					{
-						while (true)
-						{
-							switch (3)
-							{
-							default:
-								return;
-							case 0:
-								break;
-							}
-						}
-					}
-					AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_resolve");
-					AudioManager.PostEvent("ui_resolution_cam_start");
-					AudioManager.GetMixerSnapshotManager().SetMix_ResolveCam();
-					if (GameEventManager.Get() != null)
-					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								break;
-							default:
-								GameEventManager.Get().FireEvent(GameEventManager.EventType.ClientResolutionStarted, null);
-								return;
-							}
-						}
-					}
-					return;
-				}
-			}
-		}
-		AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_decision");
-		AudioManager.GetMixerSnapshotManager().SetMix_DecisionCam();
-	}
+        if (newState == GameState.BothTeams_Decision)
+        {
+            AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_decision");
+            AudioManager.GetMixerSnapshotManager().SetMix_DecisionCam();
+        }
+        else if (newState == GameState.BothTeams_Resolve)
+        {
+            AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_resolve");
+            AudioManager.PostEvent("ui_resolution_cam_start");
+            AudioManager.GetMixerSnapshotManager().SetMix_ResolveCam();
+            if (GameEventManager.Get() != null)
+            {
+                GameEventManager.Get().FireEvent(GameEventManager.EventType.ClientResolutionStarted, null);
+            }
+        }
+    }
 
 	internal void CheckTutorialAutoselectCharacter()
 	{
@@ -246,13 +199,10 @@ public class GameFlow : NetworkBehaviour
 		{
 			return;
 		}
-		while (true)
+		if (GameFlowData.Get().GetNumAvailableCharacterResourceLinks() != 1)
 		{
-			if (GameFlowData.Get().GetNumAvailableCharacterResourceLinks() != 1)
-			{
-			}
-			return;
 		}
+		return;
 	}
 
 	public Player GetPlayerFromConnectionId(int connectionId)
@@ -268,24 +218,13 @@ public class GameFlow : NetworkBehaviour
 					return current.Key;
 				}
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					goto end_IL_000c;
-				}
-			}
-			end_IL_000c:;
 		}
 		return default(Player);
 	}
 
 	public string GetPlayerHandleFromConnectionId(int connectionId)
 	{
-		string empty = string.Empty;
+		string handle = string.Empty;
 		using (Dictionary<Player, PlayerDetails>.Enumerator enumerator = m_playerDetails.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
@@ -294,34 +233,16 @@ public class GameFlow : NetworkBehaviour
 				Player key = current.Key;
 				if (key.m_connectionId == connectionId)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							return current.Value.m_handle;
-						}
-					}
+					return current.Value.m_handle;
 				}
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return empty;
-				}
-			}
+			return handle;
 		}
 	}
 
 	public string GetPlayerHandleFromAccountId(long accountId)
 	{
-		string empty = string.Empty;
+		string handle = string.Empty;
 		using (Dictionary<Player, PlayerDetails>.Enumerator enumerator = m_playerDetails.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
@@ -330,28 +251,10 @@ public class GameFlow : NetworkBehaviour
 				Player key = current.Key;
 				if (key.m_accountId == accountId)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							break;
-						default:
-							return current.Value.m_handle;
-						}
-					}
+					return current.Value.m_handle;
 				}
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return empty;
-				}
-			}
+			return handle;
 		}
 	}
 
@@ -369,22 +272,22 @@ public class GameFlow : NetworkBehaviour
 				return;
 			}
 		}
-		string empty = string.Empty;
+		string text = string.Empty;
 		if (!message.Unlocalized.IsNullOrEmpty())
 		{
-			empty = message.Unlocalized;
+			text = message.Unlocalized;
 		}
 		else if (message.Token.IsNullOrEmpty())
 		{
-			empty = StringUtil.TR(message.Term, message.Context);
+			text = StringUtil.TR(message.Term, message.Context);
 		}
 		else
 		{
-			empty = string.Format(StringUtil.TR(message.Term, message.Context), message.Token);
+			text = string.Format(StringUtil.TR(message.Term, message.Context), message.Token);
 		}
 		TextConsole.Get().Write(new TextConsole.Message
 		{
-			Text = empty,
+			Text = text,
 			MessageType = message.MessageType,
 			RestrictVisibiltyToTeam = message.RestrictVisibiltyToTeam,
 			SenderHandle = message.SenderHandle,
@@ -402,43 +305,31 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (!initialState)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
-		if (!initialState)
-		{
-			if (base.syncVarDirtyBits == 0)
-			{
-				return false;
-			}
-		}
-		NetworkWriterAdapter networkWriterAdapter = new NetworkWriterAdapter(writer);
+        if (!initialState && syncVarDirtyBits == 0)
+        {
+            return false;
+        }
+        NetworkWriterAdapter networkWriterAdapter = new NetworkWriterAdapter(writer);
 		int value = m_playerDetails.Count;
 		networkWriterAdapter.Serialize(ref value);
-		if (value >= 0)
+        if (value < 0 || value > 20)
+        {
+            Log.Error("Invalid number of players: " + value);
+            value = Mathf.Clamp(value, 0, 20);
+        }
+		foreach (var current in m_playerDetails)
 		{
-			if (value <= 20)
+			Player player = current.Key;
+			PlayerDetails details = current.Value;
+			if (details != null)
 			{
-				goto IL_009f;
+				player.OnSerializeHelper(networkWriterAdapter);
+				details.OnSerializeHelper(networkWriterAdapter);
 			}
 		}
-		Log.Error("Invalid number of players: " + value);
-		value = Mathf.Clamp(value, 0, 20);
-		goto IL_009f;
-		IL_009f:
-		using (Dictionary<Player, PlayerDetails>.Enumerator enumerator = m_playerDetails.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				KeyValuePair<Player, PlayerDetails> current = enumerator.Current;
-				Player key = current.Key;
-				PlayerDetails value2 = current.Value;
-				if (value2 != null)
-				{
-					key.OnSerializeHelper(networkWriterAdapter);
-					value2.OnSerializeHelper(networkWriterAdapter);
-				}
-			}
-		}
+		
 		return true;
 	}
 
@@ -449,26 +340,16 @@ public class GameFlow : NetworkBehaviour
 		{
 			num = reader.ReadPackedUInt32();
 		}
-		if (num == 0)
-		{
-			return;
-		}
-		while (true)
+		if (num != 0)
 		{
 			NetworkReaderAdapter networkReaderAdapter = new NetworkReaderAdapter(reader);
 			int value = m_playerDetails.Count;
 			networkReaderAdapter.Serialize(ref value);
-			if (value >= 0)
+			if (value < 0 || value > 20)
 			{
-				if (value <= 20)
-				{
-					goto IL_0094;
-				}
+				Log.Error("Invalid number of players: " + value);
+				value = Mathf.Clamp(value, 0, 20);
 			}
-			Log.Error("Invalid number of players: " + value);
-			value = Mathf.Clamp(value, 0, 20);
-			goto IL_0094;
-			IL_0094:
 			m_playerDetails.Clear();
 			for (int i = 0; i < value; i++)
 			{
@@ -483,16 +364,6 @@ public class GameFlow : NetworkBehaviour
 					GameFlowData.Get().SetLocalPlayerData();
 				}
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
 		}
 	}
 
@@ -504,17 +375,8 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC RpcDisplayConsoleText called on server.");
-					return;
-				}
-			}
+			Debug.LogError("RPC RpcDisplayConsoleText called on server.");
+			return;
 		}
 		((GameFlow)obj).RpcDisplayConsoleText(GeneratedNetworkCode._ReadDisplayConsoleTextMessage_None(reader));
 	}
@@ -523,17 +385,8 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC RpcSetMatchTime called on server.");
-					return;
-				}
-			}
+			Debug.LogError("RPC RpcSetMatchTime called on server.");
+			return;
 		}
 		((GameFlow)obj).RpcSetMatchTime(reader.ReadSingle());
 	}
@@ -542,17 +395,8 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC Function RpcDisplayConsoleText called on client.");
-					return;
-				}
-			}
+			Debug.LogError("RPC Function RpcDisplayConsoleText called on client.");
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
@@ -567,17 +411,8 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC Function RpcSetMatchTime called on client.");
-					return;
-				}
-			}
+			Debug.LogError("RPC Function RpcSetMatchTime called on client.");
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
