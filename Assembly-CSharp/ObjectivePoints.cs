@@ -624,6 +624,7 @@ public class ObjectivePoints : NetworkBehaviour
 			return;
 		}
 		((ObjectivePoints)obj).m_points.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"points\":{DefaultJsonSerializer.Serialize(((ObjectivePoints)obj).m_points)}}}");
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
@@ -688,6 +689,7 @@ public class ObjectivePoints : NetworkBehaviour
 			m_gameResult = (GameResult)reader.ReadInt32();
 			m_minutesInMatchOnGameEnd = reader.ReadSingle();
 			m_matchState = (MatchState)reader.ReadInt32();
+			LogJson();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
@@ -707,5 +709,29 @@ public class ObjectivePoints : NetworkBehaviour
 		{
 			HookSetMatchState((MatchState)reader.ReadInt32());
 		}
+		LogJson(num);
+	}
+
+	private void LogJson(int mask = System.Int32.MaxValue)
+	{
+		var jsonLog = new List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"points\":{DefaultJsonSerializer.Serialize(m_points)}");
+		}
+		if ((mask & 2) != 0)
+		{
+			jsonLog.Add($"\"gameResult\":{DefaultJsonSerializer.Serialize(m_gameResult)}");
+		}
+		if ((mask & 4) != 0)
+		{
+			jsonLog.Add($"\"minutesInMatchOnGameEnd\":{DefaultJsonSerializer.Serialize(m_minutesInMatchOnGameEnd)}");
+		}
+		if ((mask & 8) != 0)
+		{
+			jsonLog.Add($"\"matchState\":{DefaultJsonSerializer.Serialize(Networkm_matchState)}");
+		}
+
+		Log.Info($"[JSON] {{\"objectivePoints\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }

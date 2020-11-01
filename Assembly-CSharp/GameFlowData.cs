@@ -924,6 +924,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	[ClientRpc]
 	private void RpcUpdateTimeRemaining(float timeRemaining)
 	{
+		Log.Info($"[JSON] {{\"RpcUpdateTimeRemaining\":{{\"timeRemaining\":{DefaultJsonSerializer.Serialize(timeRemaining)}}}}}");
 		if (!NetworkServer.active)
 		{
 			m_timeRemainingInDecision = timeRemaining - 1f;
@@ -2116,5 +2117,64 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			HookSetGameState((GameState)reader.ReadInt32());
 		}
+	}
+
+	private void LogJson(int mask = System.Int32.MaxValue)
+	{
+		var jsonLog = new List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"pause\":{DefaultJsonSerializer.Serialize(m_pause)}");
+		}
+		if ((mask & 2) != 0)
+		{
+			jsonLog.Add($"\"pausedForDebugging\":{DefaultJsonSerializer.Serialize(m_pausedForDebugging)}");
+		}
+		if ((mask & 4) != 0)
+		{
+			jsonLog.Add($"\"pausedByPlayerRequest\":{DefaultJsonSerializer.Serialize(m_pausedByPlayerRequest)}");
+		}
+		if ((mask & 8) != 0)
+		{
+			jsonLog.Add($"\"pausedForSinglePlayer\":{DefaultJsonSerializer.Serialize(m_pausedForSinglePlayer)}");
+		}
+		if ((mask & 0x10) != 0)
+		{
+			jsonLog.Add($"\"resolutionPauseState\":{DefaultJsonSerializer.Serialize(m_resolutionPauseState)}");
+		}
+		if ((mask & 0x20) != 0)
+		{
+			jsonLog.Add($"\"startTime\":{DefaultJsonSerializer.Serialize(Networkm_startTime)}");
+		}
+		if ((mask & 0x40) != 0)
+		{
+			jsonLog.Add($"\"deploymentTime\":{DefaultJsonSerializer.Serialize(Networkm_deploymentTime)}");
+		}
+		if ((mask & 0x80) != 0)
+		{
+			jsonLog.Add($"\"turnTime\":{DefaultJsonSerializer.Serialize(Networkm_turnTime)}");
+		}
+		if ((mask & 0x100) != 0)
+		{
+			jsonLog.Add($"\"maxTurnTime\":{DefaultJsonSerializer.Serialize(Networkm_maxTurnTime)}");
+		}
+		if ((mask & 0x200) != 0)
+		{
+			jsonLog.Add($"\"timeRemainingInDecisionOverflow\":{DefaultJsonSerializer.Serialize(m_timeRemainingInDecisionOverflow)}");
+		}
+		if ((mask & 0x400) != 0)
+		{
+			jsonLog.Add($"\"willEnterTimebankMode\":{DefaultJsonSerializer.Serialize(m_willEnterTimebankMode)}");
+		}
+		if ((mask & 0x800) != 0)
+		{
+			jsonLog.Add($"\"currentTurn\":{DefaultJsonSerializer.Serialize(Networkm_currentTurn)}");
+		}
+		if ((mask & 0x1000) != 0)
+		{
+			jsonLog.Add($"\"gameState\":{DefaultJsonSerializer.Serialize(gameState)}");
+		}
+
+		Log.Info($"[JSON] {{\"gameFlowData\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }
