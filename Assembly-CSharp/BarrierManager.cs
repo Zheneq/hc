@@ -679,7 +679,7 @@ public class BarrierManager : NetworkBehaviour
 			return;
 		}
 		((BarrierManager)obj).RpcUpdateBarriers();
-		Log.Info($"[JSON] {{\"RpcUpdateBarriers\":{DefaultJsonSerializer.Serialize(null)}}}");
+		Log.Info($"[JSON] {{\"RpcUpdateBarriers\":{{}}}}");
 	}
 
 	public void CallRpcUpdateBarriers()
