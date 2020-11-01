@@ -196,23 +196,31 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		{
 			OnSerializeHelper(new NetworkReaderAdapter(reader), initialState);
 		}
+		else
+        {
+			Log.Info($"[JSON] {{\"theatricsManager\":{{}}}}");
+		}
 	}
 
 	private bool OnSerializeHelper(IBitStream stream, bool initialState)
 	{
 		if (!initialState && m_serializeHelper.ShouldReturnImmediately(ref stream))
 		{
+			Log.Info($"[JSON] {{\"theatricsManager\":{{}}}}");
 			return false;
 		}
+		var jsonLog = new List<string>();
 		int turnToUpdate = m_turnToUpdate;
 		stream.Serialize(ref turnToUpdate);
 		bool updatedTurn = turnToUpdate != m_turnToUpdate;
 		m_turnToUpdate = turnToUpdate;
+		jsonLog.Add($"\"turnToUpdate\":{DefaultJsonSerializer.Serialize(m_turnToUpdate)}");
 
 		int phaseToUpdate = (int)m_phaseToUpdate;
 		stream.Serialize(ref phaseToUpdate);
 		bool updatedPhase = m_phaseToUpdate != (AbilityPriority)phaseToUpdate;
 		m_phaseToUpdate = (AbilityPriority)phaseToUpdate;
+		jsonLog.Add($"\"phaseToUpdate\":{DefaultJsonSerializer.Serialize(m_phaseToUpdate)}");
 
 		if (updatedTurn || updatedPhase)
 		{
@@ -223,14 +231,15 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			}
 		}
 		m_turn.OnSerializeHelper(stream);
+		jsonLog.Add($"\"turn\":{DefaultJsonSerializer.Serialize(m_turn)}");
 
 		Log.Info($"TheatricsManager replicated. Turn to update: {m_turnToUpdate} ({updatedTurn}), phase to update: {m_phaseToUpdate} ({updatedPhase})");
-		Log.Info($"[JSON] {{\"theatricsManager\":{DefaultJsonSerializer.Serialize(m_turn)}}}");
 		
 		if (updatedPhase)
 		{
 			m_turn.InitPhase(m_phaseToUpdate);
 		}
+		Log.Info($"[JSON] {{\"theatricsManager\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 		return m_serializeHelper.End(initialState, syncVarDirtyBits);
 	}
 
