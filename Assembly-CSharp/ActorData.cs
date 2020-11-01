@@ -4080,6 +4080,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	[ClientRpc]
 	internal void RpcOnHitPointsResolved(int resolvedHitPoints)
 	{
+		Log.Info($"[JSON] {{\"RpcOnHitPointsResolved\":{{\"resolvedHitPoints\":{DefaultJsonSerializer.Serialize(resolvedHitPoints)}}}}}");
 		if (NetworkServer.active)
 		{
 			return;
@@ -4101,6 +4102,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	[ClientRpc]
 	internal void RpcCombatText(string combatText, string logText, CombatTextCategory category, BuffIconToDisplay icon)
 	{
+		Log.Info($"[JSON] {{\"RpcCombatText\":{{\"combatText\":{DefaultJsonSerializer.Serialize(combatText)}," +
+			$"\"logText\":{DefaultJsonSerializer.Serialize(logText)}," +
+			$"\"category\":{DefaultJsonSerializer.Serialize(category)}," +
+			$"\"icon\":{DefaultJsonSerializer.Serialize(icon)}}}}}");
 		AddCombatText(combatText, logText, category, icon);
 	}
 
@@ -4126,6 +4131,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	[ClientRpc]
 	internal void RpcApplyAbilityModById(int actionTypeInt, int abilityScopeId)
 	{
+		Log.Info($"[JSON] {{\"RpcApplyAbilityModById\":{{\"actionTypeInt\":{DefaultJsonSerializer.Serialize(actionTypeInt)},\"abilityScopeId\":{DefaultJsonSerializer.Serialize(abilityScopeId)}}}}}");
 		if (!NetworkServer.active && NetworkClient.active && abilityScopeId >= 0)
 		{
 			ApplyAbilityModById(actionTypeInt, abilityScopeId);
@@ -4201,6 +4207,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	[ClientRpc]
 	public void RpcMarkForRecalculateClientVisibility()
 	{
+		Log.Info($"[JSON] {{\"RpcMarkForRecalculateClientVisibility\":{{}}}}");
 		if (GetFogOfWar() != null)
 		{
 			GetFogOfWar().MarkForRecalculateVisibility();
@@ -4253,6 +4260,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	[ClientRpc]
 	public void RpcForceLeaveGame(GameResult gameResult)
 	{
+		Log.Info($"[JSON] {{\"RpcForceLeaveGame\":{{\"gameResult\":{DefaultJsonSerializer.Serialize(gameResult)}}}}}");
 		if (GameFlowData.Get().activeOwnedActorData == this && !ClientGameManager.Get().IsFastForward)
 		{
 			ClientGameManager.Get().LeaveGame(false, gameResult);
@@ -4432,7 +4440,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			Debug.LogError("Command CmdSetPausedForDebugging called on client.");
 			return;
 		}
-		((ActorData)obj).CmdSetPausedForDebugging(reader.ReadBoolean());
+		bool pause = reader.ReadBoolean();
+		Log.Info($"[JSON] {{\"CmdSetPausedForDebugging\":{{\"pause\":{DefaultJsonSerializer.Serialize(pause)}}}}}");
+		((ActorData)obj).CmdSetPausedForDebugging(pause);
 	}
 
 	protected static void InvokeCmdCmdSetResolutionSingleStepping(NetworkBehaviour obj, NetworkReader reader)
@@ -4442,7 +4452,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			Debug.LogError("Command CmdSetResolutionSingleStepping called on client.");
 			return;
 		}
-		((ActorData)obj).CmdSetResolutionSingleStepping(reader.ReadBoolean());
+		bool singleStepping = reader.ReadBoolean();
+		Log.Info($"[JSON] {{\"CmdSetResolutionSingleStepping\":{{\"singleStepping\":{DefaultJsonSerializer.Serialize(singleStepping)}}}}}");
+		((ActorData)obj).CmdSetResolutionSingleStepping(singleStepping);
 	}
 
 	protected static void InvokeCmdCmdSetResolutionSingleSteppingAdvance(NetworkBehaviour obj, NetworkReader reader)
@@ -4452,6 +4464,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			Debug.LogError("Command CmdSetResolutionSingleSteppingAdvance called on client.");
 			return;
 		}
+		Log.Info($"[JSON] {{\"CmdSetResolutionSingleSteppingAdvance\":{{}}}}");
 		((ActorData)obj).CmdSetResolutionSingleSteppingAdvance();
 	}
 
@@ -4462,7 +4475,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			Debug.LogError("Command CmdSetDebugToggleParam called on client.");
 			return;
 		}
-		((ActorData)obj).CmdSetDebugToggleParam(reader.ReadString(), reader.ReadBoolean());
+		string name = reader.ReadString();
+		bool value = reader.ReadBoolean();
+		Log.Info($"[JSON] {{\"CmdSetDebugToggleParam\":{{\"name\":{DefaultJsonSerializer.Serialize(name)},\"value\":{DefaultJsonSerializer.Serialize(value)}}}}}");
+		((ActorData)obj).CmdSetDebugToggleParam(name, value);
 	}
 
 	protected static void InvokeCmdCmdDebugReslotCards(NetworkBehaviour obj, NetworkReader reader)
@@ -4472,7 +4488,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			Debug.LogError("Command CmdDebugReslotCards called on client.");
 			return;
 		}
-		((ActorData)obj).CmdDebugReslotCards(reader.ReadBoolean(), (int)reader.ReadPackedUInt32());
+		bool reslotAll = reader.ReadBoolean();
+		int cardTypeInt = (int)reader.ReadPackedUInt32();
+		Log.Info($"[JSON] {{\"CmdDebugReslotCards\":{{\"reslotAll\":{DefaultJsonSerializer.Serialize(reslotAll)},\"cardTypeInt\":{DefaultJsonSerializer.Serialize(cardTypeInt)}}}}}");
+		((ActorData)obj).CmdDebugReslotCards(reslotAll, cardTypeInt);
 	}
 
 	protected static void InvokeCmdCmdDebugSetAbilityMod(NetworkBehaviour obj, NetworkReader reader)
@@ -4482,7 +4501,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			Debug.LogError("Command CmdDebugSetAbilityMod called on client.");
 			return;
 		}
-		((ActorData)obj).CmdDebugSetAbilityMod((int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32());
+		int abilityIndex = (int)reader.ReadPackedUInt32();
+		int modId = (int)reader.ReadPackedUInt32();
+		Log.Info($"[JSON] {{\"CmdDebugSetAbilityMod\":{{\"abilityIndex\":{DefaultJsonSerializer.Serialize(abilityIndex)},\"modId\":{DefaultJsonSerializer.Serialize(modId)}}}}}");
+		((ActorData)obj).CmdDebugSetAbilityMod(abilityIndex, modId);
 	}
 
 	protected static void InvokeCmdCmdDebugReplaceWithBot(NetworkBehaviour obj, NetworkReader reader)
@@ -4492,6 +4514,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			Debug.LogError("Command CmdDebugReplaceWithBot called on client.");
 			return;
 		}
+		Log.Info($"[JSON] {{\"CmdDebugReplaceWithBot\":{{}}}}");
 		((ActorData)obj).CmdDebugReplaceWithBot();
 	}
 
@@ -4502,7 +4525,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			Debug.LogError("Command CmdDebugSetHealthOrEnergy called on client.");
 			return;
 		}
-		((ActorData)obj).CmdDebugSetHealthOrEnergy((int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32());
+		int actorIndex = (int)reader.ReadPackedUInt32();
+		int valueToSet = (int)reader.ReadPackedUInt32();
+		int flag = (int)reader.ReadPackedUInt32();
+		Log.Info($"[JSON] {{\"CmdDebugSetHealthOrEnergy\":{{" +
+			$"\"actorIndex\":{DefaultJsonSerializer.Serialize(actorIndex)}," +
+			$"\"valueToSet\":{DefaultJsonSerializer.Serialize(valueToSet)}," +
+			$"\"flag\":{DefaultJsonSerializer.Serialize(flag)}}}}}");
+		((ActorData)obj).CmdDebugSetHealthOrEnergy(actorIndex, valueToSet, flag);
 	}
 
 	public void CallCmdSetPausedForDebugging(bool pause)
