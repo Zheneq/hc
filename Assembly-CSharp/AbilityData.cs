@@ -2538,6 +2538,7 @@ public class AbilityData : NetworkBehaviour
 			return;
 		}
 		((AbilityData)obj).m_cooldownsSync.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"cooldownsSync\":{DefaultJsonSerializer.Serialize(((AbilityData)obj).m_cooldownsSync)}}}");
 	}
 
 	protected static void InvokeSyncListm_consumedStockCount(NetworkBehaviour obj, NetworkReader reader)
@@ -2548,6 +2549,7 @@ public class AbilityData : NetworkBehaviour
 			return;
 		}
 		((AbilityData)obj).m_consumedStockCount.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"consumedStockCount\":{DefaultJsonSerializer.Serialize(((AbilityData)obj).m_consumedStockCount)}}}");
 	}
 
 	protected static void InvokeSyncListm_stockRefreshCountdowns(NetworkBehaviour obj, NetworkReader reader)
@@ -2558,6 +2560,7 @@ public class AbilityData : NetworkBehaviour
 			return;
 		}
 		((AbilityData)obj).m_stockRefreshCountdowns.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"stockRefreshCountdowns\":{DefaultJsonSerializer.Serialize(((AbilityData)obj).m_stockRefreshCountdowns)}}}");
 	}
 
 	protected static void InvokeSyncListm_currentCardIds(NetworkBehaviour obj, NetworkReader reader)
@@ -2568,10 +2571,12 @@ public class AbilityData : NetworkBehaviour
 			return;
 		}
 		((AbilityData)obj).m_currentCardIds.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"currentCardIds\":{DefaultJsonSerializer.Serialize(((AbilityData)obj).m_currentCardIds)}}}");
 	}
 
 	protected static void InvokeCmdCmdClearCooldowns(NetworkBehaviour obj, NetworkReader reader)
 	{
+		Log.Info($"[JSON] {{\"CmdClearCooldowns\":{{}}}}");
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("Command CmdClearCooldowns called on client.");
@@ -2582,6 +2587,7 @@ public class AbilityData : NetworkBehaviour
 
 	protected static void InvokeCmdCmdRefillStocks(NetworkBehaviour obj, NetworkReader reader)
 	{
+		Log.Info($"[JSON] {{\"CmdRefillStocks\":{{}}}}");
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("Command CmdRefillStocks called on client.");
