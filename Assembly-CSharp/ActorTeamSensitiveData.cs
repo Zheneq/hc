@@ -340,7 +340,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			$"\"wait\":{DefaultJsonSerializer.Serialize(wait)}," +
 			$"\"start\":{DefaultJsonSerializer.Serialize(start)}," +
 			$"\"end\":{DefaultJsonSerializer.Serialize(end_grid)}," +
-			$"\"path\":{DefaultJsonSerializer.Serialize(MovementUtils.DeSerializePath(pathBytes))}," +
+			$"\"pathBytes\":{DefaultJsonSerializer.Serialize(MovementUtils.DeSerializePath(pathBytes))}," +
 			$"\"type\":{DefaultJsonSerializer.Serialize(type)}," +
 			$"\"disappearAfterMovement\":{DefaultJsonSerializer.Serialize(disappearAfterMovement)}," +
 			$"\"respawning\":{DefaultJsonSerializer.Serialize(respawning)}" +
