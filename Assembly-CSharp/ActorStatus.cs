@@ -570,6 +570,7 @@ public class ActorStatus : NetworkBehaviour
 			return;
 		}
 		((ActorStatus)obj).m_statusCounts.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"statusCounts\":{DefaultJsonSerializer.Serialize(((ActorStatus)obj).m_statusCounts)}}}");
 	}
 
 	protected static void InvokeSyncListm_statusDurations(NetworkBehaviour obj, NetworkReader reader)
@@ -580,6 +581,7 @@ public class ActorStatus : NetworkBehaviour
 			return;
 		}
 		((ActorStatus)obj).m_statusDurations.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"statusDurations\":{DefaultJsonSerializer.Serialize(((ActorStatus)obj).m_statusDurations)}}}");
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)

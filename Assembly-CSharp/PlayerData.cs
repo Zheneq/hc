@@ -365,6 +365,10 @@ public class PlayerData : NetworkBehaviour
 	[Command]
 	internal void CmdTheatricsManagerUpdatePhaseEnded(int phaseCompleted, float phaseSeconds, float phaseDeltaSeconds)
 	{
+		Log.Info($"[JSON] {{\"CmdTheatricsManagerUpdatePhaseEnded\":{{" +
+			$"\"phaseCompleted\":{DefaultJsonSerializer.Serialize(phaseCompleted)}," +
+			$"\"phaseSeconds\":{DefaultJsonSerializer.Serialize(phaseSeconds)}," +
+			$"\"phaseDeltaSeconds\":{DefaultJsonSerializer.Serialize(phaseDeltaSeconds)}}}}}");
 		TheatricsManager theatricsManager = TheatricsManager.Get();
 		if (theatricsManager != null)
 		{
@@ -375,6 +379,7 @@ public class PlayerData : NetworkBehaviour
 	[Command]
 	internal void CmdTutorialQueueEmpty()
 	{
+		Log.Info($"[JSON] {{\"CmdTutorialQueueEmpty\":{{}}}}");
 		SinglePlayerManager singlePlayerManager = SinglePlayerManager.Get();
 		if (singlePlayerManager != null)
 		{
@@ -385,6 +390,13 @@ public class PlayerData : NetworkBehaviour
 	[Command]
 	internal void CmdDebugEndGame(GameResult debugResult, int matchSeconds, int ggBoostUsedCount, bool ggBoostUsedToSelf, bool playWithFriendsBonus, bool playedLastTurn)
 	{
+		Log.Info($"[JSON] {{\"CmdDebugEndGame\":{{" +
+			$"\"debugResult\":{DefaultJsonSerializer.Serialize(debugResult)}," +
+			$"\"matchSeconds\":{DefaultJsonSerializer.Serialize(matchSeconds)}," +
+			$"\"ggBoostUsedCount\":{DefaultJsonSerializer.Serialize(ggBoostUsedCount)}," +
+			$"\"ggBoostUsedToSelf\":{DefaultJsonSerializer.Serialize(ggBoostUsedToSelf)}," +
+			$"\"playWithFriendsBonus\":{DefaultJsonSerializer.Serialize(playWithFriendsBonus)}," +
+			$"\"playedLastTurn\":{DefaultJsonSerializer.Serialize(playedLastTurn)}}}}}");
 		if (!HydrogenConfig.Get().AllowDebugCommands)
 		{
 			return;
@@ -402,6 +414,7 @@ public class PlayerData : NetworkBehaviour
 	[Command]
 	internal void CmdSetPausedForDebugging(bool pause)
 	{
+		Log.Info($"[JSON] {{\"CmdSetPausedForDebugging\":{{\"pause\":{DefaultJsonSerializer.Serialize(pause)}}}}}");
 		if (!HydrogenConfig.Get().AllowDebugCommands)
 		{
 			return;

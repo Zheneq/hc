@@ -1421,6 +1421,7 @@ public class ActorCover : NetworkBehaviour
 			return;
 		}
 		((ActorCover)obj).m_syncTempCoverProviders.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"syncTempCoverProviders\":{DefaultJsonSerializer.Serialize(((ActorCover)obj).m_syncTempCoverProviders)}}}");
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)

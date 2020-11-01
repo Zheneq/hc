@@ -951,11 +951,13 @@ public class ActorTurnSM : NetworkBehaviour
 	[Command]
 	private void CmdGUITurnMessage(int msgEnum, int extraData)
 	{
+		Log.Info($"[JSON] {{\"CmdGUITurnMessage\":{{\"msgEnum\":{DefaultJsonSerializer.Serialize(msgEnum)},\"extraData\":{DefaultJsonSerializer.Serialize(extraData)}}}}}");
 	}
 
 	[Command]
 	private void CmdRequestCancelAction(int action, bool hasIncomingRequest)
 	{
+		Log.Info($"[JSON] {{\"CmdRequestCancelAction\":{{\"action\":{DefaultJsonSerializer.Serialize(action)},\"hasIncomingRequest\":{DefaultJsonSerializer.Serialize(hasIncomingRequest)}}}}}");
 	}
 
 	public void OnActionsConfirmed()
@@ -1066,6 +1068,7 @@ public class ActorTurnSM : NetworkBehaviour
 	[Command]
 	private void CmdChase(int selectedSquareX, int selectedSquareY)
 	{
+		Log.Info($"[JSON] {{\"CmdChase\":{{\"selectedSquareX\":{DefaultJsonSerializer.Serialize(selectedSquareX)},\"selectedSquareY\":{DefaultJsonSerializer.Serialize(selectedSquareY)}}}}}");
 	}
 
 	public void SelectMovementSquareForMovement(BoardSquare selectedSquare)
@@ -1133,11 +1136,16 @@ public class ActorTurnSM : NetworkBehaviour
 	[Command]
 	private void CmdSetSquare(int x, int y, bool setWaypoint)
 	{
+		Log.Info($"[JSON] {{\"CmdSetSquare\":{{" +
+			$"\"x\":{DefaultJsonSerializer.Serialize(x)}," +
+			$"\"y\":{DefaultJsonSerializer.Serialize(y)}," +
+			$"\"setWaypoint\":{DefaultJsonSerializer.Serialize(setWaypoint)}}}}}");
 	}
 
 	[ClientRpc]
 	private void RpcTurnMessage(int msgEnum, int extraData)
 	{
+		Log.Info($"[JSON] {{\"RpcTurnMessage\":{{\"msgEnum\":{DefaultJsonSerializer.Serialize((TurnMessage)msgEnum)},\"extraData\":{DefaultJsonSerializer.Serialize(extraData)}}}}}");
 		if (!m_actorData.HasBotController
 			&& m_actorData == GameFlowData.Get().activeOwnedActorData
 			&& !m_actorData.IsDead())
@@ -1181,6 +1189,7 @@ public class ActorTurnSM : NetworkBehaviour
 	[ClientRpc]
 	private void RpcStoreAutoQueuedAbilityRequest(int actionTypeInt)
 	{
+		Log.Info($"[JSON] {{\"RpcStoreAutoQueuedAbilityRequest\":{{\"actionTypeInt\":{DefaultJsonSerializer.Serialize((AbilityData.ActionType)actionTypeInt)}}}}}");
 		if (!NetworkServer.active)
 		{
 			StoreAutoQueuedAbilityRequest((AbilityData.ActionType)actionTypeInt);

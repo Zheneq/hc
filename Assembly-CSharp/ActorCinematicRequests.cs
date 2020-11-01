@@ -134,6 +134,11 @@ public class ActorCinematicRequests : NetworkBehaviour
 	[Command]
 	private void CmdSelectAbilityCinematicRequest(int actionType, bool requested, int animTauntIndex, int tauntId)
 	{
+		Log.Info($"[JSON] {{\"CmdSelectAbilityCinematicRequest\":{{" +
+			$"\"actionType\":{DefaultJsonSerializer.Serialize(actionType)}," +
+			$"\"requested\":{DefaultJsonSerializer.Serialize(requested)}," +
+			$"\"animTauntIndex\":{DefaultJsonSerializer.Serialize(animTauntIndex)}," +
+			$"\"tauntId\":{DefaultJsonSerializer.Serialize(tauntId)}}}}}");
 		ProcessAbilityCinematicRequest((AbilityData.ActionType)actionType, requested, animTauntIndex, tauntId);
 	}
 
@@ -149,6 +154,7 @@ public class ActorCinematicRequests : NetworkBehaviour
 			return;
 		}
 		((ActorCinematicRequests)obj).m_abilityRequested.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"abilityRequested\":{DefaultJsonSerializer.Serialize(((ActorCinematicRequests)obj).m_abilityRequested)}}}");
 	}
 
 	protected static void InvokeSyncListm_cinematicsPlayedThisMatch(NetworkBehaviour obj, NetworkReader reader)
@@ -159,6 +165,7 @@ public class ActorCinematicRequests : NetworkBehaviour
 			return;
 		}
 		((ActorCinematicRequests)obj).m_cinematicsPlayedThisMatch.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"cinematicsPlayedThisMatch\":{DefaultJsonSerializer.Serialize(((ActorCinematicRequests)obj).m_cinematicsPlayedThisMatch)}}}");
 	}
 
 	protected static void InvokeCmdCmdSelectAbilityCinematicRequest(NetworkBehaviour obj, NetworkReader reader)

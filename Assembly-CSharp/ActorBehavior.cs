@@ -850,6 +850,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 			return;
 		}
 		((ActorBehavior)obj).m_syncEnemySourcesForDamageOrDebuff.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"syncEnemySourcesForDamageOrDebuff\":{DefaultJsonSerializer.Serialize(((ActorBehavior)obj).m_syncEnemySourcesForDamageOrDebuff)}}}");
 	}
 
 	protected static void InvokeSyncListm_syncAllySourcesForHealAndBuff(NetworkBehaviour obj, NetworkReader reader)
@@ -860,6 +861,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 			return;
 		}
 		((ActorBehavior)obj).m_syncAllySourcesForHealAndBuff.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"syncAllySourcesForHealAndBuff\":{DefaultJsonSerializer.Serialize(((ActorBehavior)obj).m_syncAllySourcesForHealAndBuff)}}}");
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)

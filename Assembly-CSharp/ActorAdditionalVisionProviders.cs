@@ -231,6 +231,7 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 			return;
 		}
 		((ActorAdditionalVisionProviders)obj).m_visionProviders.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"visionProviders\":{DefaultJsonSerializer.Serialize(((ActorAdditionalVisionProviders)obj).m_visionProviders)}}}");
 	}
 
 	private void Awake()

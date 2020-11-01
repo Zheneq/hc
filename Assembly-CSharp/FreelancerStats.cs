@@ -376,6 +376,7 @@ public class FreelancerStats : NetworkBehaviour
 			return;
 		}
 		((FreelancerStats)obj).m_values.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"values\":{DefaultJsonSerializer.Serialize(((FreelancerStats)obj).m_values)}}}");
 	}
 
 	private void Awake()

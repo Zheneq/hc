@@ -531,6 +531,7 @@ public class ActorStats : NetworkBehaviour
 			return;
 		}
 		((ActorStats)obj).m_modifiedStats.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"modifiedStats\":{DefaultJsonSerializer.Serialize(((ActorStats)obj).m_modifiedStats)}}}");
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
