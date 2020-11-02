@@ -361,6 +361,7 @@ public class PowerUp : NetworkBehaviour
 	[ClientRpc]
 	private void RpcOnPickedUp(int pickedUpByActorIndex)
 	{
+		Log.Info($"[JSON] {{\"RpcOnPickedUp\":{{\"pickedUpByActorIndex\":{DefaultJsonSerializer.Serialize(pickedUpByActorIndex)}}}}}");
 		Client_OnPickedUp(pickedUpByActorIndex);
 	}
 
@@ -387,6 +388,7 @@ public class PowerUp : NetworkBehaviour
 	[ClientRpc]
 	private void RpcOnSteal(int actorIndexFor3DAudio)
 	{
+		Log.Info($"[JSON] {{\"RpcOnSteal\":{{\"actorIndexFor3DAudio\":{DefaultJsonSerializer.Serialize(actorIndexFor3DAudio)}}}}}");
 		Client_OnSteal(actorIndexFor3DAudio);
 	}
 
@@ -576,6 +578,7 @@ public class PowerUp : NetworkBehaviour
 			m_sequenceSourceId = reader.ReadPackedUInt32();
 			m_isSpoil = reader.ReadBoolean();
 			m_ignoreSpawnSplineForSequence = reader.ReadBoolean();
+			LogJson();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
@@ -599,5 +602,33 @@ public class PowerUp : NetworkBehaviour
 		{
 			m_ignoreSpawnSplineForSequence = reader.ReadBoolean();
 		}
+		LogJson(num);
+	}
+
+	private void LogJson(int mask = int.MaxValue)
+	{
+		var jsonLog = new List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"pickupTeam\":{DefaultJsonSerializer.Serialize(m_pickupTeam)}");
+		}
+		if ((mask & 2) != 0)
+		{
+			jsonLog.Add($"\"guid\":{DefaultJsonSerializer.Serialize(Networkm_guid)}");
+		}
+		if ((mask & 4) != 0)
+		{
+			jsonLog.Add($"\"sequenceSourceId\":{DefaultJsonSerializer.Serialize(m_sequenceSourceId)}");
+		}
+		if ((mask & 8) != 0)
+		{
+			jsonLog.Add($"\"isSpoil\":{DefaultJsonSerializer.Serialize(m_isSpoil)}");
+		}
+		if ((mask & 16) != 0)
+		{
+			jsonLog.Add($"\"ignoreSpawnSplineForSequence\":{DefaultJsonSerializer.Serialize(m_ignoreSpawnSplineForSequence)}");
+		}
+
+		Log.Info($"[JSON] {{\"powerUp\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }
