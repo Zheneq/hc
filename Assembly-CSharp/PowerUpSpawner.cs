@@ -494,6 +494,7 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			m_nextPowerupPrefabIndex = (int)reader.ReadPackedUInt32();
 			m_nextSpawnTurn = (int)reader.ReadPackedUInt32();
 			m_spawningEnabled = reader.ReadBoolean();
+			LogJson();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
@@ -513,5 +514,29 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			m_spawningEnabled = reader.ReadBoolean();
 		}
+		LogJson(num);
+	}
+
+	private void LogJson(int mask = Int32.MaxValue)
+	{
+		var jsonLog = new List<string>();
+		if ((mask & 1) != 0)
+		{
+			jsonLog.Add($"\"msequenceSourceId\":{DefaultJsonSerializer.Serialize(m_sequenceSourceId)}");
+		}
+		if ((mask & 2) != 0)
+		{
+			jsonLog.Add($"\"nextPowerupPrefabIndex\":{DefaultJsonSerializer.Serialize(m_nextPowerupPrefabIndex)}");
+		}
+		if ((mask & 4) != 0)
+		{
+			jsonLog.Add($"\"nextSpawnTurn\":{DefaultJsonSerializer.Serialize(Networkm_nextSpawnTurn)}");
+		}
+		if ((mask & 8) != 0)
+		{
+			jsonLog.Add($"\"spawningEnabled\":{DefaultJsonSerializer.Serialize(m_spawningEnabled)}");
+		}
+
+		Log.Info($"[JSON] {{\"powerUpSpawner\":{{{String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 }
