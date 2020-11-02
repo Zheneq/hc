@@ -163,6 +163,7 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	[ClientRpc]
 	public void RpcUpdateClientFog()
 	{
+		Log.Info($"[JSON] {{\"RpcUpdateClientFog\":{{}}}}");
 		if (FogOfWar.GetClientFog() != null)
 		{
 			FogOfWar.GetClientFog().UpdateVisibilityOfSquares();
@@ -355,6 +356,7 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 			return;
 		}
 		((BrushCoordinator)obj).m_regionsLastDisruptionTurn.HandleMsg(reader);
+		Log.Info($"[JSON] {{\"regionsLastDisruptionTurn\":{DefaultJsonSerializer.Serialize(((BrushCoordinator)obj).m_regionsLastDisruptionTurn)}}}");
 	}
 
 	protected static void InvokeRpcRpcUpdateClientFog(NetworkBehaviour obj, NetworkReader reader)
@@ -417,5 +419,17 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
         {
             SyncListInt.ReadReference(reader, m_regionsLastDisruptionTurn);
         }
-    }
+		LogJson(setBits);
+	}
+
+	private void LogJson(int setBits = int.MaxValue)
+	{
+		var jsonLog = new List<string>();
+		if ((setBits & 1) != 0)
+		{
+			jsonLog.Add($"\"regionsLastDisruptionTurn\":{DefaultJsonSerializer.Serialize(m_regionsLastDisruptionTurn)}");
+		}
+
+		Log.Info($"[JSON] {{\"brushCoordinator\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
+	}
 }
