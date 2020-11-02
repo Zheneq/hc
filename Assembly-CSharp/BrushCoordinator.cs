@@ -653,29 +653,14 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
-		if (initialState)
+		int setBits = int.MaxValue;
+		if (!initialState)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					SyncListInt.ReadReference(reader, m_regionsLastDisruptionTurn);
-					return;
-				}
-			}
+			setBits = (int)reader.ReadPackedUInt32();
 		}
-		int num = (int)reader.ReadPackedUInt32();
-		if ((num & 1) == 0)
-		{
-			return;
-		}
-		while (true)
-		{
-			SyncListInt.ReadReference(reader, m_regionsLastDisruptionTurn);
-			return;
-		}
-	}
+        if ((setBits & 1) != 0)
+        {
+            SyncListInt.ReadReference(reader, m_regionsLastDisruptionTurn);
+        }
+    }
 }
