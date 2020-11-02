@@ -791,14 +791,9 @@ public class PowerUp : NetworkBehaviour
 		{
 			m_isSpoil = reader.ReadBoolean();
 		}
-		if ((num & 0x10) == 0)
-		{
-			return;
-		}
-		while (true)
+		if ((num & 0x10) != 0)
 		{
 			m_ignoreSpawnSplineForSequence = reader.ReadBoolean();
-			return;
 		}
 	}
 }
