@@ -115,8 +115,24 @@ public class SharedEffectBarrierManager : NetworkBehaviour
 				m_endedBarrierGuidsSync.Add(effectGuid);
 			}
 		}
+		LogJson(setBits);
 		OnEndedEffectGuidsSync();
 		OnEndedBarrierGuidsSync();
+	}
+
+	private void LogJson(uint setBits = uint.MaxValue)
+	{
+		var jsonLog = new List<string>();
+		if (IsBitDirty(setBits, DirtyBit.EndedEffects))
+		{
+			jsonLog.Add($"\"endedEffectGuidsSync\":{DefaultJsonSerializer.Serialize(m_endedEffectGuidsSync)}");
+		}
+		if (IsBitDirty(setBits, DirtyBit.EndedBarriers))
+		{
+			jsonLog.Add($"\"endedBarrierGuidsSync\":{DefaultJsonSerializer.Serialize(m_endedBarrierGuidsSync)}");
+		}
+
+		Log.Info($"[JSON] {{\"sharedEffectBarrierManager\":{{{System.String.Join(",", jsonLog.ToArray())}}}}}");
 	}
 
 	private void UNetVersion()
