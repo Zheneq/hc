@@ -618,7 +618,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			short respawnAvailableSquaresNum = reader.ReadInt16();
 
 			jsonLog += $",\"RespawnPickedSquare\": {DefaultJsonSerializer.Serialize(RespawnPickedSquare)}";
-			jsonLog += $",\"respawningThisTurn\": {respawningThisTurn}";
+			jsonLog += $",\"respawningThisTurn\": {DefaultJsonSerializer.Serialize(respawningThisTurn)}";
 			jsonLog += $",\"respawnAvailableSquaresNum\": {respawnAvailableSquaresNum}";
 			m_respawnAvailableSquares.Clear();
 			for (int i = 0; i < respawnAvailableSquaresNum; i++)
