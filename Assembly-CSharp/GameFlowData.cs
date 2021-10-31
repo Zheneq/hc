@@ -2494,9 +2494,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write(0);
-		networkWriter.Write((short)((ushort)2));
-		networkWriter.WritePackedUInt32((uint)GameFlowData.kRpcRpcUpdateTimeRemaining);
+		networkWriter.Write((short)0);
+		networkWriter.Write((short)2);
+		networkWriter.WritePackedUInt32((uint)kRpcRpcUpdateTimeRemaining);
 		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
 		networkWriter.Write(timeRemaining);
 		this.SendRPCInternal(networkWriter, 0, "RpcUpdateTimeRemaining");
