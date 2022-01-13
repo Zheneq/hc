@@ -14,7 +14,7 @@ namespace AbilityContextNamespace
 			m_nonActorSpecificContext.ClearData();
 		}
 
-		public void AddHitActor(ActorData actor, Vector3 source, bool flag = false)
+		public void AddHitActor(ActorData actor, Vector3 hitOrigin, bool ignoreMinCoverDist = false)
 		{
 			if (actor == null)
 			{
@@ -23,8 +23,8 @@ namespace AbilityContextNamespace
 			if (!m_actorToHitContext.ContainsKey(actor))
 			{
 				m_actorToHitContext.Add(actor, new ActorHitContext());
-				m_actorToHitContext[actor].m_hitOrigin = source;
-				m_actorToHitContext[actor].m_ignoreMinCoverDist = flag;
+				m_actorToHitContext[actor].m_hitOrigin = hitOrigin;
+				m_actorToHitContext[actor].m_ignoreMinCoverDist = ignoreMinCoverDist;
 			}
 			else if (Application.isEditor)
             {
