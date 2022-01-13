@@ -72,11 +72,11 @@ namespace AbilityContextNamespace
 		{
 			switch (type)
 			{
-				case ContextValueType.INT:
+				case ContextValueType.Int:
 					return IntVars.ContainsKey(index);
-				case ContextValueType.FLOAT:
+				case ContextValueType.Float:
 					return FloatVars.ContainsKey(index);
-				case ContextValueType.VECTOR:
+				case ContextValueType.Vector3:
 					return VectorVars.ContainsKey(index);
 			}
 			return false;

@@ -97,12 +97,12 @@ namespace AbilityContextNamespace
 						{
 							contextVars = _0012;
 						}
-						if (contextVars.Contains(contextKey, ContextValueType.INT))
+						if (contextVars.Contains(contextKey, ContextValueType.Int))
 						{
 							num = contextVars.GetInt(contextKey);
 							flag2 = true;
 						}
-						else if (contextVars.Contains(contextKey, ContextValueType.FLOAT))
+						else if (contextVars.Contains(contextKey, ContextValueType.Float))
 						{
 							num = contextVars.GetFloat(contextKey);
 							flag2 = true;

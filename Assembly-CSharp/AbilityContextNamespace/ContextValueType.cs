@@ -2,8 +2,9 @@ namespace AbilityContextNamespace
 {
 	public enum ContextValueType
 	{
-		INT,
-		FLOAT,
-		VECTOR
+		// NOTE reintroduced enum value names
+		Int,
+		Float,
+		Vector3
 	}
 }
