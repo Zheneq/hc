@@ -27,10 +27,10 @@ namespace AbilityContextNamespace
 				m_actorToHitContext[actor].m_ignoreMinCoverDist = ignoreMinCoverDist;
 			}
 			else if (Application.isEditor)
-            {
-                Log.Warning("TargetSelect context: trying to add actor more than once");
-            }
-        }
+			{
+				Log.Warning("TargetSelect context: trying to add actor more than once");
+			}
+		}
 
 		public void SetActorContext(ActorData actor, int contextKey, int value)
 		{
