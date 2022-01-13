@@ -81,7 +81,7 @@ namespace AbilityContextNamespace
 					if (flag)
 					{
 						numericContextValueCompareCond = _001D[i];
-						if (numericContextValueCompareCond.m_compareOp == ContextCompareOp._001D)
+						if (numericContextValueCompareCond.m_compareOp == ContextCompareOp.Ignore)
 						{
 							continue;
 						}
@@ -111,42 +111,42 @@ namespace AbilityContextNamespace
 						ContextCompareOp compareOp = numericContextValueCompareCond.m_compareOp;
 						if (flag2)
 						{
-							if (compareOp == ContextCompareOp._000E)
+							if (compareOp == ContextCompareOp.Equals)
 							{
 								if (testValue == num)
 								{
 									goto IL_0190;
 								}
 							}
-							if (compareOp == ContextCompareOp._0012)
+							if (compareOp == ContextCompareOp.EqualsRoundToInt)
 							{
 								if (Mathf.RoundToInt(testValue) == Mathf.RoundToInt(num))
 								{
 									goto IL_0190;
 								}
 							}
-							if (compareOp == ContextCompareOp._0018)
+							if (compareOp == ContextCompareOp.GreaterThan)
 							{
 								if (num > testValue)
 								{
 									goto IL_0190;
 								}
 							}
-							if (compareOp == ContextCompareOp._0013)
+							if (compareOp == ContextCompareOp.GreaterThanOrEqual)
 							{
 								if (num >= testValue)
 								{
 									goto IL_0190;
 								}
 							}
-							if (compareOp == ContextCompareOp._0016)
+							if (compareOp == ContextCompareOp.LessThan)
 							{
 								if (num < testValue)
 								{
 									goto IL_0190;
 								}
 							}
-							if (compareOp == ContextCompareOp._0015)
+							if (compareOp == ContextCompareOp.LessThanOrEqual)
 							{
 								num2 = ((num <= testValue) ? 1 : 0);
 							}
