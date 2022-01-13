@@ -133,8 +133,8 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 						SetIgnoreCoverMinDist(current, m_aoeIgnoreMinCoverDist);
 					}
 					ActorHitContext actorHitContext = m_actorContextVars[current];
-					actorHitContext.context.SetFloat(ContextKeys._0013.GetKey(), value);
-					actorHitContext.context.SetInt(ContextKeys._001A.GetKey(), 1);
+					actorHitContext.m_contextVars.SetFloat(ContextKeys._0013.GetKey(), value);
+					actorHitContext.m_contextVars.SetInt(ContextKeys._001A.GetKey(), 1);
 				}
 			}
 			HighlightUtils.Get().AdjustDynamicConeMesh(gameObject, finalRadius, 360f);
@@ -161,8 +161,8 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 					if (!aoeHitActors.Contains(current2))
 					{
 						ActorHitContext actorHitContext2 = m_actorContextVars[current2];
-						actorHitContext2.context.SetFloat(ContextKeys._0013.GetKey(), value);
-						actorHitContext2.context.SetInt(ContextKeys._001A.GetKey(), 0);
+						actorHitContext2.m_contextVars.SetFloat(ContextKeys._0013.GetKey(), value);
+						actorHitContext2.m_contextVars.SetInt(ContextKeys._001A.GetKey(), 0);
 					}
 				}
 			}

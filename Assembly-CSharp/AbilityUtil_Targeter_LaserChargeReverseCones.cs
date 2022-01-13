@@ -108,7 +108,7 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 			Vector3 vector = travelBoardSquareWorldPositionForLos + Vector3.Dot(lhs, currentTarget.AimDirection) * currentTarget.AimDirection;
 			laserEndPos = vector;
 			ActorHitContext actorHitContext = m_actorContextVars[actorData];
-			actorHitContext.context.SetInt(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.GetKey(), 1);
+			actorHitContext.m_contextVars.SetInt(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.GetKey(), 1);
 		}
 		m_laserLosChecker.UpdateBoxProperties(travelBoardSquareWorldPositionForLos, laserEndPos, targetingActor);
 		Vector3 a = laserEndPos - travelBoardSquareWorldPositionForLos;
@@ -224,8 +224,8 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 				{
 					KeyValuePair<ActorData, int> current2 = enumerator2.Current;
 					ActorHitContext actorHitContext2 = m_actorContextVars[current2.Key];
-					actorHitContext2.context.SetInt(ContextKeys._0019.GetKey(), current2.Value);
-					actorHitContext2.context.SetInt(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.GetKey(), 0);
+					actorHitContext2.m_contextVars.SetInt(ContextKeys._0019.GetKey(), current2.Value);
+					actorHitContext2.m_contextVars.SetInt(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.GetKey(), 0);
 				}
 			}
 			if (targetingActor == GameFlowData.Get().activeOwnedActorData)

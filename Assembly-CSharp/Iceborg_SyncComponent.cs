@@ -219,7 +219,7 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		while (true)
 		{
 			bool flag = HasNovaCore(targetActor);
-			ContextVars contextVars = actorHitContext[targetActor].context;
+			ContextVars contextVars = actorHitContext[targetActor].m_contextVars;
 			int hash = s_cvarHasNova.GetKey();
 			int value;
 			if (flag)

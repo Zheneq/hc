@@ -84,9 +84,9 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 					float value = (current.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
 					AddActorInRange(current, travelBoardSquareWorldPositionForLos, targetingActor);
 					ActorHitContext actorHitContext = m_actorContextVars[current];
-					actorHitContext.source = laserCoords2.start;
-					actorHitContext.context.SetInt(ContextKeys._0011.GetKey(), num);
-					actorHitContext.context.SetFloat(ContextKeys._0018.GetKey(), value);
+					actorHitContext.m_hitOrigin = laserCoords2.start;
+					actorHitContext.m_contextVars.SetInt(ContextKeys._0011.GetKey(), num);
+					actorHitContext.m_contextVars.SetFloat(ContextKeys._0018.GetKey(), value);
 					num++;
 				}
 			}
@@ -108,8 +108,8 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 						{
 							float value2 = (current2.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
 							ActorHitContext actorHitContext2 = m_actorContextVars[current2];
-							actorHitContext2.source = laserCoords2.start;
-							actorHitContext2.context.SetFloat(ContextKeys._0018.GetKey(), value2);
+							actorHitContext2.m_hitOrigin = laserCoords2.start;
+							actorHitContext2.m_contextVars.SetFloat(ContextKeys._0018.GetKey(), value2);
 						}
 					}
 				}

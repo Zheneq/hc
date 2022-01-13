@@ -222,7 +222,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 					}
 					AddActorInRange(current, vector2, targetingActor, AbilityTooltipSubject.Primary, true);
 					ActorHitContext actorHitContext = m_actorContextVars[current];
-					actorHitContext.source = vector2;
+					actorHitContext.m_hitOrigin = vector2;
 					if (m_actorToHitCount.ContainsKey(current))
 					{
 						m_actorToHitCount[current]++;
@@ -251,8 +251,8 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 				{
 					KeyValuePair<ActorData, int> current2 = enumerator2.Current;
 					ActorHitContext actorHitContext2 = m_actorContextVars[current2.Key];
-					actorHitContext2.context.SetInt(hash, current2.Value);
-					actorHitContext2.context.SetInt(hash2, 0);
+					actorHitContext2.m_contextVars.SetInt(hash, current2.Value);
+					actorHitContext2.m_contextVars.SetInt(hash2, 0);
 				}
 			}
 			HandlePowerupHighlight(targetingActor, m_count);

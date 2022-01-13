@@ -663,13 +663,13 @@ public class AbilityUtil_Targeter
 			if (!m_actorContextVars.ContainsKey(actor))
 			{
 				ActorHitContext actorHitContext = new ActorHitContext();
-				actorHitContext.inRange = true;
+				actorHitContext.m_inRangeForTargeter = true;
 				m_actorContextVars[actor] = actorHitContext;
 				return;
 			}
 			else
 			{
-				m_actorContextVars[actor].inRange = true;
+				m_actorContextVars[actor].m_inRangeForTargeter = true;
 			}
 		}
 		else if (appendSubjectType)
@@ -718,7 +718,7 @@ public class AbilityUtil_Targeter
 		m_actorsAddedSoFar.Clear();
 		foreach (KeyValuePair<ActorData, ActorHitContext> actorContextVar in m_actorContextVars)
 		{
-			actorContextVar.Value.inRange = false;
+			actorContextVar.Value.m_inRangeForTargeter = false;
 		}
 	}
 

@@ -149,7 +149,7 @@ public class DinoDashOrShield : GenericAbility_Container
 						ActorData key = current.Key;
 						if (key.GetTeam() != caster.GetTeam())
 						{
-							if (current.Value.inRange)
+							if (current.Value.m_inRangeForTargeter)
 							{
 								num++;
 							}

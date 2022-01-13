@@ -268,7 +268,7 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 					AbilityTooltipSubject subjectType = (key3.GetTeam() != targetingActor.GetTeam()) ? AbilityTooltipSubject.Primary : AbilityTooltipSubject.Secondary;
 					AddActorInRange(key3, vector3, targetingActor, subjectType, true);
 					ActorHitContext actorHitContext = m_actorContextVars[key3];
-					actorHitContext.context.SetInt(ContextKeys._0019.GetKey(), m_actorToHitCount[key3]);
+					actorHitContext.m_contextVars.SetInt(ContextKeys._0019.GetKey(), m_actorToHitCount[key3]);
 				}
 			}
 			if (!(targetingActor == GameFlowData.Get().activeOwnedActorData))

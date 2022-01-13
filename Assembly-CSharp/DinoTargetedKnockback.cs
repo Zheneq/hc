@@ -143,7 +143,7 @@ public class DinoTargetedKnockback : GenericAbility_Container
 				{
 					KeyValuePair<ActorData, ActorHitContext> current = enumerator.Current;
 					ActorData key = current.Key;
-					if (current.Value.inRange)
+					if (current.Value.m_inRangeForTargeter)
 					{
 						if (key.GetTeam() != caster.GetTeam())
 						{

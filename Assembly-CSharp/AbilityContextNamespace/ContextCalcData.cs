@@ -24,8 +24,8 @@ namespace AbilityContextNamespace
 			if (!this.m_actorHitContext.ContainsKey(actor))
 			{
 				this.m_actorHitContext.Add(actor, new ActorHitContext());
-				this.m_actorHitContext[actor].source = source;
-				this.m_actorHitContext[actor].flag = flag;
+				this.m_actorHitContext[actor].m_hitOrigin = source;
+				this.m_actorHitContext[actor].m_ignoreMinCoverDist = flag;
 			}
 			else
 			{
@@ -41,7 +41,7 @@ namespace AbilityContextNamespace
 		{
 			if (m_actorHitContext.ContainsKey(actor))
 			{
-				m_actorHitContext[actor].context.SetInt(index, value);
+				m_actorHitContext[actor].m_contextVars.SetInt(index, value);
 				return;
 			}
 			if (Application.isEditor)
@@ -54,7 +54,7 @@ namespace AbilityContextNamespace
 		{
 			if (m_actorHitContext.ContainsKey(actor))
 			{
-				m_actorHitContext[actor].context.SetFloat(index, value);
+				m_actorHitContext[actor].m_contextVars.SetFloat(index, value);
 				return;
 			}
 			if (Application.isEditor)
@@ -67,7 +67,7 @@ namespace AbilityContextNamespace
 		{
 			if (m_actorHitContext.ContainsKey(actor))
 			{
-				m_actorHitContext[actor].context.SetVector(index, value);
+				m_actorHitContext[actor].m_contextVars.SetVector(index, value);
 				return;
 			}
 			if (Application.isEditor)

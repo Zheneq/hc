@@ -176,9 +176,9 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 			item.segmentIndex = bouncingLaserInfo.m_endpointIndex;
 			m_hitActorContext.Add(item);
 			ActorHitContext actorHitContext = m_actorContextVars[hitActor];
-			actorHitContext.source = targetingActor.GetTravelBoardSquareWorldPositionForLos();
-			actorHitContext.context.SetInt(TargetSelect_BouncingLaser.s_cvarEndpointIndex.GetKey(), bouncingLaserInfo.m_endpointIndex);
-			actorHitContext.context.SetInt(TargetSelect_BouncingLaser.s_cvarHitOrder.GetKey(), i);
+			actorHitContext.m_hitOrigin = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			actorHitContext.m_contextVars.SetInt(TargetSelect_BouncingLaser.s_cvarEndpointIndex.GetKey(), bouncingLaserInfo.m_endpointIndex);
+			actorHitContext.m_contextVars.SetInt(TargetSelect_BouncingLaser.s_cvarHitOrder.GetKey(), i);
 		}
 
 		CreateLaserHighlights(travelBoardSquareWorldPositionForLos, endpoints);

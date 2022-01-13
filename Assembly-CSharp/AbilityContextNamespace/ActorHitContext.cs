@@ -4,17 +4,17 @@ namespace AbilityContextNamespace
 {
 	public class ActorHitContext
 	{
-		public Vector3 source;
-		public bool flag;
-		public bool inRange;
-		public ContextVars context = new ContextVars();
+		public Vector3 m_hitOrigin;
+		public bool m_ignoreMinCoverDist;
+		public bool m_inRangeForTargeter;
+		public ContextVars m_contextVars = new ContextVars();
 
 		public void Clear()
 		{
-			source = Vector3.zero;
-			context.Clear();
-			inRange = false;
-			flag = false;
+			m_hitOrigin = Vector3.zero;
+			m_contextVars.Clear();
+			m_inRangeForTargeter = false;
+			m_ignoreMinCoverDist = false;
 		}
 	}
 }

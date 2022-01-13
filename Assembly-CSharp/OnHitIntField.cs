@@ -77,14 +77,14 @@ public class OnHitIntField
 					flag = true;
 				}
 			}
-			else if (hitContext.context.ContainsInt(contextKey))
+			else if (hitContext.m_contextVars.ContainsInt(contextKey))
 			{
-				input = hitContext.context.GetInt(contextKey);
+				input = hitContext.m_contextVars.GetInt(contextKey);
 				flag = true;
 			}
-			else if (hitContext.context.ContaintFloat(contextKey))
+			else if (hitContext.m_contextVars.ContaintFloat(contextKey))
 			{
-				input = hitContext.context.GetFloat(contextKey);
+				input = hitContext.m_contextVars.GetFloat(contextKey);
 				flag = true;
 			}
 			if (!flag)

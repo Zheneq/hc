@@ -120,7 +120,7 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 						if (AreaEffectUtils.IsSquareInConeByActorRadius(current.GetCurrentBoardSquare(), travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, m_coneWidthAngle, m_coneRadiusList[i], m_coneBackwardOffsetInSquares, true, targetingActor))
 						{
 							ActorHitContext actorHitContext = m_actorContextVars[current];
-							actorHitContext.context.SetInt(ContextKeys._0003.GetKey(), i);
+							actorHitContext.m_contextVars.SetInt(ContextKeys._0003.GetKey(), i);
 							break;
 						}
 					}

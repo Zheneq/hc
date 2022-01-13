@@ -60,7 +60,7 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 			{
 				while (true)
 				{
-					actorHitContext[targetActor].context.SetInt(s_cvarInCenter.GetKey(), 1);
+					actorHitContext[targetActor].m_contextVars.SetInt(s_cvarInCenter.GetKey(), 1);
 					return;
 				}
 			}
@@ -99,7 +99,7 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 							KeyValuePair<ActorData, ActorHitContext> current = enumerator.Current;
 							ActorData key = current.Key;
 							ActorHitContext value = current.Value;
-							if (value.inRange)
+							if (value.m_inRangeForTargeter)
 							{
 								if (key.GetTeam() != caster.GetTeam())
 								{
