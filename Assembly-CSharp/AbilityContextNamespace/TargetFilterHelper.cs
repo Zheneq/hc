@@ -97,14 +97,14 @@ namespace AbilityContextNamespace
 						{
 							contextVars = _0012;
 						}
-						if (contextVars.Contains(contextKey, ContextValueType.Int))
+						if (contextVars.HasVar(contextKey, ContextValueType.Int))
 						{
-							num = contextVars.GetInt(contextKey);
+							num = contextVars.GetValueInt(contextKey);
 							flag2 = true;
 						}
-						else if (contextVars.Contains(contextKey, ContextValueType.Float))
+						else if (contextVars.HasVar(contextKey, ContextValueType.Float))
 						{
-							num = contextVars.GetFloat(contextKey);
+							num = contextVars.GetValueFloat(contextKey);
 							flag2 = true;
 						}
 						float testValue = numericContextValueCompareCond.m_testValue;

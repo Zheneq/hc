@@ -27,7 +27,7 @@ public class IceborgIcicle : GenericAbility_Container
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor() + ContextVars.GetDebugString(Iceborg_SyncComponent.s_cvarHasNova.GetName(), "set to 1 if target has nova core on start of turn, 0 otherwise");
+		return base.GetUsageForEditor() + ContextVars.GetContextUsageStr(Iceborg_SyncComponent.s_cvarHasNova.GetName(), "set to 1 if target has nova core on start of turn, 0 otherwise");
 	}
 
 	protected override void SetupTargetersAndCachedVars()

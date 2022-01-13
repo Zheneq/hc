@@ -38,7 +38,7 @@ public class ScampDelayedAoe : GenericAbility_Container
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor() + ContextVars.GetDebugString(s_cvarMissingShields.GetName(), "amount of missing shield on Scamp", false);
+		return base.GetUsageForEditor() + ContextVars.GetContextUsageStr(s_cvarMissingShields.GetName(), "amount of missing shield on Scamp", false);
 	}
 
 	public override List<string> GetContextNamesForEditor()
@@ -153,7 +153,7 @@ public class ScampDelayedAoe : GenericAbility_Container
 			value = m_passive.GetMaxSuitShield() - (int)m_syncComp.m_suitShieldingOnTurnStart;
 			value = Mathf.Max(0, value);
 		}
-		abilityContext.SetInt(s_cvarMissingShields.GetKey(), value);
+		abilityContext.SetValue(s_cvarMissingShields.GetKey(), value);
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)

@@ -251,8 +251,8 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 				{
 					KeyValuePair<ActorData, int> current2 = enumerator2.Current;
 					ActorHitContext actorHitContext2 = m_actorContextVars[current2.Key];
-					actorHitContext2.m_contextVars.SetInt(hash, current2.Value);
-					actorHitContext2.m_contextVars.SetInt(hash2, 0);
+					actorHitContext2.m_contextVars.SetValue(hash, current2.Value);
+					actorHitContext2.m_contextVars.SetValue(hash2, 0);
 				}
 			}
 			HandlePowerupHighlight(targetingActor, m_count);

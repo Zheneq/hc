@@ -11,7 +11,7 @@ namespace AbilityContextNamespace
 		public void ResetContextData()
 		{
 			m_actorToHitContext.Clear();
-			m_nonActorSpecificContext.Clear();
+			m_nonActorSpecificContext.ClearData();
 		}
 
 		public void AddHitActor(ActorData actor, Vector3 source, bool flag = false)
@@ -40,7 +40,7 @@ namespace AbilityContextNamespace
 		{
 			if (m_actorToHitContext.ContainsKey(actor))
 			{
-				m_actorToHitContext[actor].m_contextVars.SetInt(index, value);
+				m_actorToHitContext[actor].m_contextVars.SetValue(index, value);
 				return;
 			}
 			if (Application.isEditor)
@@ -53,7 +53,7 @@ namespace AbilityContextNamespace
 		{
 			if (m_actorToHitContext.ContainsKey(actor))
 			{
-				m_actorToHitContext[actor].m_contextVars.SetFloat(index, value);
+				m_actorToHitContext[actor].m_contextVars.SetValue(index, value);
 				return;
 			}
 			if (Application.isEditor)
@@ -66,7 +66,7 @@ namespace AbilityContextNamespace
 		{
 			if (m_actorToHitContext.ContainsKey(actor))
 			{
-				m_actorToHitContext[actor].m_contextVars.SetVector(index, value);
+				m_actorToHitContext[actor].m_contextVars.SetValue(index, value);
 				return;
 			}
 			if (Application.isEditor)

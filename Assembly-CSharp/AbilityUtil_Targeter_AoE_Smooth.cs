@@ -198,7 +198,7 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 			AddActorInRange(item, GetDamageOrigin(currentTarget, targetingActor, currentRangeInSquares), targetingActor);
 			ActorHitContext actorHitContext = m_actorContextVars[item];
 			float value = VectorUtils.HorizontalPlaneDistInSquares(refPos, item.GetTravelBoardSquareWorldPosition());
-			actorHitContext.m_contextVars.SetFloat(ContextKeys._0018.GetKey(), value);
+			actorHitContext.m_contextVars.SetValue(ContextKeys._0018.GetKey(), value);
 		}
 		if (!m_affectsTargetingActor)
 		{
@@ -217,7 +217,7 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 		AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, flag ? AbilityTooltipSubject.Primary : AbilityTooltipSubject.Self);
 		ActorHitContext actorHitContext2 = m_actorContextVars[targetingActor];
 		float value2 = VectorUtils.HorizontalPlaneDistInSquares(refPos, targetingActor.GetTravelBoardSquareWorldPosition());
-		actorHitContext2.m_contextVars.SetFloat(ContextKeys._0018.GetKey(), value2);
+		actorHitContext2.m_contextVars.SetValue(ContextKeys._0018.GetKey(), value2);
 		goto IL_02a8;
 		IL_02a8:
 		int num2 = 0;

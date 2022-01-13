@@ -27,7 +27,7 @@ public class TargetSelect_AoeRadius : GenericAbility_TargetSelectBase
 
 	public override void Initialize()
 	{
-		m_commonProperties.SetFloat(ContextKeys._000D.GetKey(), GetRadius());
+		m_commonProperties.SetValue(ContextKeys._000D.GetKey(), GetRadius());
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)

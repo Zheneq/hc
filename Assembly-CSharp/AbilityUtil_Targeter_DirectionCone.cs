@@ -145,7 +145,7 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 				AddActorInRange(actorData, vector, targetingActor);
 				ActorHitContext actorHitContext = m_actorContextVars[actorData];
 				float value = VectorUtils.HorizontalPlaneDistInSquares(vector, actorData.GetTravelBoardSquareWorldPosition());
-				actorHitContext.m_contextVars.SetFloat(ContextKeys._0018.GetKey(), value);
+				actorHitContext.m_contextVars.SetValue(ContextKeys._0018.GetKey(), value);
 			}
 		}
 		while (true)

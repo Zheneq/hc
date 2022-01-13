@@ -179,13 +179,13 @@ public class ScampDualLasers : GenericAbility_Container
 			{
 				ActorHitContext actorHitContext2 = actorHitContext[targetActor];
 				int hash = ContextKeys._001A.GetKey();
-				if (!actorHitContext2.m_contextVars.ContainsInt(hash))
+				if (!actorHitContext2.m_contextVars.HasVarInt(hash))
 				{
 					return;
 				}
 				while (true)
 				{
-					if (actorHitContext2.m_contextVars.GetInt(hash) > 0)
+					if (actorHitContext2.m_contextVars.GetValueInt(hash) > 0)
 					{
 						while (true)
 						{

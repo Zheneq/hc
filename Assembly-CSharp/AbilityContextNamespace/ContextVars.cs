@@ -5,101 +5,99 @@ namespace AbilityContextNamespace
 {
 	public class ContextVars
 	{
-		public Dictionary<int, int> IntVars = new Dictionary<int, int>();
+		public Dictionary<int, int> m_intVars = new Dictionary<int, int>();
+		public Dictionary<int, float> m_floatVars = new Dictionary<int, float>();
+		public Dictionary<int, Vector3> m_vec3Vars = new Dictionary<int, Vector3>();
 
-		public Dictionary<int, float> FloatVars = new Dictionary<int, float>();
-
-		public Dictionary<int, Vector3> VectorVars = new Dictionary<int, Vector3>();
-
-		public static int GetKey(string name)
+		public static int ToContextKey(string input)
 		{
-			return Animator.StringToHash(name.Trim().ToUpper());
+			return Animator.StringToHash(input.Trim().ToUpper());
 		}
 
-		public void Clear()
+		public void ClearData()
 		{
-			IntVars.Clear();
-			FloatVars.Clear();
-			VectorVars.Clear();
+			m_intVars.Clear();
+			m_floatVars.Clear();
+			m_vec3Vars.Clear();
 		}
 
-		public void SetInt(int index, int value)
+		public void SetValue(int key, int value)
 		{
-			IntVars[index] = value;
+			m_intVars[key] = value;
 		}
 
-		public void SetFloat(int index, float value)
+		public void SetValue(int key, float value)
 		{
-			FloatVars[index] = value;
+			m_floatVars[key] = value;
 		}
 
-		public void SetVector(int index, Vector3 value)
+		public void SetValue(int key, Vector3 value)
 		{
-			VectorVars[index] = value;
+			m_vec3Vars[key] = value;
 		}
 
-		public int GetInt(int index)
+		public int GetValueInt(int key)
 		{
-			return IntVars[index];
+			return m_intVars[key];
 		}
 
-		public float GetFloat(int index)
+		public float GetValueFloat(int key)
 		{
-			return FloatVars[index];
+			return m_floatVars[key];
 		}
 
-		public Vector3 GetVector(int index)
+		public Vector3 GetValueVec3(int key)
 		{
-			return VectorVars[index];
+			return m_vec3Vars[key];
 		}
 
-		public bool TryGetInt(int index, out int value)
+		public bool TryGetInt(int key, out int value)
 		{
-			return IntVars.TryGetValue(index, out value);
+			return m_intVars.TryGetValue(key, out value);
 		}
 
-		public bool TryGetFloat(int index, out float value)
+		public bool TryGetFloat(int key, out float value)
 		{
-			return FloatVars.TryGetValue(index, out value);
+			return m_floatVars.TryGetValue(key, out value);
 		}
 
-		public bool TryGetVector(int index, out Vector3 value)
+		public bool TryGetVector(int key, out Vector3 value)
 		{
-			return VectorVars.TryGetValue(index, out value);
+			return m_vec3Vars.TryGetValue(key, out value);
 		}
 
-		public bool Contains(int index, ContextValueType type)
+		public bool HasVar(int key, ContextValueType valueType)
 		{
-			switch (type)
+			switch (valueType)
 			{
 				case ContextValueType.Int:
-					return IntVars.ContainsKey(index);
+					return m_intVars.ContainsKey(key);
 				case ContextValueType.Float:
-					return FloatVars.ContainsKey(index);
+					return m_floatVars.ContainsKey(key);
 				case ContextValueType.Vector3:
-					return VectorVars.ContainsKey(index);
+					return m_vec3Vars.ContainsKey(key);
 			}
 			return false;
 		}
 
-		public bool ContainsInt(int index)
+		public bool HasVarInt(int key)
 		{
-			return IntVars.ContainsKey(index);
+			return m_intVars.ContainsKey(key);
 		}
 
-		public bool ContaintFloat(int index)
+		public bool HasVarFloat(int key)
 		{
-			return FloatVars.ContainsKey(index);
+			return m_floatVars.ContainsKey(key);
 		}
 
-		public bool ContainsVector(int index)
+		public bool HasVarVec3(int key)
 		{
-			return VectorVars.ContainsKey(index);
+			return m_vec3Vars.ContainsKey(key);
 		}
 
-		public static string GetDebugString(string name, string value, bool actorContext = true)
+		public static string GetContextUsageStr(string contextName, string usage, bool actorContext = true)
 		{
-			return InEditorDescHelper.ContextVarName(name, actorContext) + " => " + value + "\n";
+			return InEditorDescHelper.ContextVarName(contextName, actorContext) + " => " + usage + "\n";
 		}
 	}
 }

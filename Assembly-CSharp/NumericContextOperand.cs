@@ -19,7 +19,7 @@ public class NumericContextOperand
 	{
 		if (m_contextKey == 0)
 		{
-			m_contextKey = ContextVars.GetKey(m_contextName);
+			m_contextKey = ContextVars.ToContextKey(m_contextName);
 		}
 		return m_contextKey;
 	}

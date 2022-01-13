@@ -33,7 +33,7 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor() + ContextVars.GetDebugString("InCenter", "value set to 1 if delayed hit actor is in center of a shape, not set explicitly otherwise");
+		return base.GetUsageForEditor() + ContextVars.GetContextUsageStr("InCenter", "value set to 1 if delayed hit actor is in center of a shape, not set explicitly otherwise");
 	}
 
 	public override List<string> GetContextNamesForEditor()
@@ -60,7 +60,7 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 			{
 				while (true)
 				{
-					actorHitContext[targetActor].m_contextVars.SetInt(s_cvarInCenter.GetKey(), 1);
+					actorHitContext[targetActor].m_contextVars.SetValue(s_cvarInCenter.GetKey(), 1);
 					return;
 				}
 			}

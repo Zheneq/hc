@@ -87,7 +87,7 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 				ActorData key = actors[i];
 				ActorHitContext actorHitContext = m_actorContextVars[key];
 				actorHitContext.m_hitOrigin = travelBoardSquareWorldPositionForLos;
-				actorHitContext.m_contextVars.SetInt(hash, 1);
+				actorHitContext.m_contextVars.SetValue(hash, 1);
 			}
 			while (true)
 			{

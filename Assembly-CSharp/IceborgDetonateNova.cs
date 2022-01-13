@@ -29,7 +29,7 @@ public class IceborgDetonateNova : GenericAbility_Container
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor() + ContextVars.GetDebugString(s_cvarNumNovaCores.GetName(), "Number of nova cores detonating", false);
+		return base.GetUsageForEditor() + ContextVars.GetContextUsageStr(s_cvarNumNovaCores.GetName(), "Number of nova cores detonating", false);
 	}
 
 	public override string GetOnHitDataDesc()
@@ -186,7 +186,7 @@ public class IceborgDetonateNova : GenericAbility_Container
 		}
 		while (true)
 		{
-			abilityContext.SetInt(s_cvarNumNovaCores.GetKey(), m_syncComp.m_numNovaEffectsOnTurnStart);
+			abilityContext.SetValue(s_cvarNumNovaCores.GetKey(), m_syncComp.m_numNovaEffectsOnTurnStart);
 			return;
 		}
 	}

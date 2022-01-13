@@ -306,7 +306,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 							{
 								value = 0;
 							}
-							contextVars.SetInt(hash, value);
+							contextVars.SetValue(hash, value);
 						}
 					}
 				}

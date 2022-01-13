@@ -92,7 +92,7 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 
 	public static string GetSuperheatedCvarUsage()
 	{
-		return ContextVars.GetDebugString(s_cvarSuperheated.GetName(), "1 if caster is in Superheated mode, 0 otherwise", false);
+		return ContextVars.GetContextUsageStr(s_cvarSuperheated.GetName(), "1 if caster is in Superheated mode, 0 otherwise", false);
 	}
 
 	public bool InSuperheatMode()
@@ -134,7 +134,7 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 	public void SetSuperheatedContextVar(ContextVars abilityContext)
 	{
 		bool flag = InSuperheatMode();
-		abilityContext.SetInt(s_cvarSuperheated.GetKey(), flag ? 1 : 0);
+		abilityContext.SetValue(s_cvarSuperheated.GetKey(), flag ? 1 : 0);
 	}
 
 	public void AddGroundFireTargetingNumber(ActorData target, ActorData caster, TargetingNumberUpdateScratch results)

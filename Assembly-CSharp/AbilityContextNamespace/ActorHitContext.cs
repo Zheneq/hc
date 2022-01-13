@@ -12,7 +12,7 @@ namespace AbilityContextNamespace
 		public void Clear()
 		{
 			m_hitOrigin = Vector3.zero;
-			m_contextVars.Clear();
+			m_contextVars.ClearData();
 			m_inRangeForTargeter = false;
 			m_ignoreMinCoverDist = false;
 		}

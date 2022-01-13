@@ -423,7 +423,7 @@ public class AbilityUtil_Targeter
 		DestroyTeleportEndObjet();
 		m_confirmedTargetingStartTime = 0f;
 		m_actorContextVars.Clear();
-		m_nonActorSpecificContext.Clear();
+		m_nonActorSpecificContext.ClearData();
 		MarkedForForceUpdate = true;
 	}
 

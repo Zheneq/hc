@@ -230,7 +230,7 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 			{
 				value = 0;
 			}
-			contextVars.SetInt(hash, value);
+			contextVars.SetValue(hash, value);
 			return;
 		}
 	}

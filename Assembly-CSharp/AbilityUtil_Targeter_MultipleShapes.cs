@@ -330,7 +330,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 		{
 			HitActorContext hitActorContext = m_hitActorContext[k];
 			ActorHitContext actorHitContext = m_actorContextVars[hitActorContext.m_actor];
-			actorHitContext.m_contextVars.SetInt(TargetSelect_Shape.s_cvarShapeLayer.GetKey(), hitActorContext.m_hitShapeIndex);
+			actorHitContext.m_contextVars.SetValue(TargetSelect_Shape.s_cvarShapeLayer.GetKey(), hitActorContext.m_hitShapeIndex);
 		}
 		while (true)
 		{

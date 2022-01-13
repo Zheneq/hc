@@ -27,8 +27,8 @@ public class IceborgConeOrLaser : GenericAbility_Container
 	public override string GetUsageForEditor()
 	{
 		string usageForEditor = base.GetUsageForEditor();
-		usageForEditor += ContextVars.GetDebugString(s_cvarHasSlow.GetName(), "Set on enemies hit, 1 if has Slow, 0 otherwise");
-		return usageForEditor + ContextVars.GetDebugString(Iceborg_SyncComponent.s_cvarHasNova.GetName(), "set to 1 if target has nova core on start of turn, 0 otherwise");
+		usageForEditor += ContextVars.GetContextUsageStr(s_cvarHasSlow.GetName(), "Set on enemies hit, 1 if has Slow, 0 otherwise");
+		return usageForEditor + ContextVars.GetContextUsageStr(Iceborg_SyncComponent.s_cvarHasNova.GetName(), "set to 1 if target has nova core on start of turn, 0 otherwise");
 	}
 
 	public override List<string> GetContextNamesForEditor()

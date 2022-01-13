@@ -66,25 +66,25 @@ public class OnHitIntField
 			float input = 0f;
 			if (numericContextOperand.m_nonActorSpecificContext)
 			{
-				if (abilityContext.ContainsInt(contextKey))
+				if (abilityContext.HasVarInt(contextKey))
 				{
-					input = abilityContext.GetInt(contextKey);
+					input = abilityContext.GetValueInt(contextKey);
 					flag = true;
 				}
-				else if (abilityContext.ContaintFloat(contextKey))
+				else if (abilityContext.HasVarFloat(contextKey))
 				{
-					input = abilityContext.GetFloat(contextKey);
+					input = abilityContext.GetValueFloat(contextKey);
 					flag = true;
 				}
 			}
-			else if (hitContext.m_contextVars.ContainsInt(contextKey))
+			else if (hitContext.m_contextVars.HasVarInt(contextKey))
 			{
-				input = hitContext.m_contextVars.GetInt(contextKey);
+				input = hitContext.m_contextVars.GetValueInt(contextKey);
 				flag = true;
 			}
-			else if (hitContext.m_contextVars.ContaintFloat(contextKey))
+			else if (hitContext.m_contextVars.HasVarFloat(contextKey))
 			{
-				input = hitContext.m_contextVars.GetFloat(contextKey);
+				input = hitContext.m_contextVars.GetValueFloat(contextKey);
 				flag = true;
 			}
 			if (!flag)

@@ -27,7 +27,7 @@ public class IceborgSelfShield : GenericAbility_Container
 	public override string GetUsageForEditor()
 	{
 		string usageForEditor = base.GetUsageForEditor();
-		return usageForEditor + ContextVars.GetDebugString(ContextKeys._0012.GetName(), "set to 1 if caster is low health, 0 otherwise", false);
+		return usageForEditor + ContextVars.GetContextUsageStr(ContextKeys._0012.GetName(), "set to 1 if caster is low health, 0 otherwise", false);
 	}
 
 	protected override void SetupTargetersAndCachedVars()
