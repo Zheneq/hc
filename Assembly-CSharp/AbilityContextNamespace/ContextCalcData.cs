@@ -5,27 +5,26 @@ namespace AbilityContextNamespace
 {
 	public class ContextCalcData
 	{
-		public ContextVars m_contextVars = new ContextVars();
+		public ContextVars m_nonActorSpecificContext = new ContextVars();
+		public Dictionary<ActorData, ActorHitContext> m_actorToHitContext = new Dictionary<ActorData, ActorHitContext>();
 
-		public Dictionary<ActorData, ActorHitContext> m_actorHitContext = new Dictionary<ActorData, ActorHitContext>();
-
-		public void Clear()
+		public void ResetContextData()
 		{
-			m_actorHitContext.Clear();
-			m_contextVars.Clear();
+			m_actorToHitContext.Clear();
+			m_nonActorSpecificContext.Clear();
 		}
 
-		public void Add(ActorData actor, Vector3 source, bool flag = false)
+		public void AddHitActor(ActorData actor, Vector3 source, bool flag = false)
 		{
 			if (actor == null)
 			{
 				Log.Error("Trying to add null actor");
 			}
-			if (!this.m_actorHitContext.ContainsKey(actor))
+			if (!m_actorToHitContext.ContainsKey(actor))
 			{
-				this.m_actorHitContext.Add(actor, new ActorHitContext());
-				this.m_actorHitContext[actor].m_hitOrigin = source;
-				this.m_actorHitContext[actor].m_ignoreMinCoverDist = flag;
+				m_actorToHitContext.Add(actor, new ActorHitContext());
+				m_actorToHitContext[actor].m_hitOrigin = source;
+				m_actorToHitContext[actor].m_ignoreMinCoverDist = flag;
 			}
 			else
 			{
@@ -37,11 +36,11 @@ namespace AbilityContextNamespace
 			}
 		}
 
-		public void Set(ActorData actor, int index, int value)
+		public void SetActorContext(ActorData actor, int index, int value)
 		{
-			if (m_actorHitContext.ContainsKey(actor))
+			if (m_actorToHitContext.ContainsKey(actor))
 			{
-				m_actorHitContext[actor].m_contextVars.SetInt(index, value);
+				m_actorToHitContext[actor].m_contextVars.SetInt(index, value);
 				return;
 			}
 			if (Application.isEditor)
@@ -50,11 +49,11 @@ namespace AbilityContextNamespace
 			}
 		}
 
-		public void Set(ActorData actor, int index, float value)
+		public void SetActorContext(ActorData actor, int index, float value)
 		{
-			if (m_actorHitContext.ContainsKey(actor))
+			if (m_actorToHitContext.ContainsKey(actor))
 			{
-				m_actorHitContext[actor].m_contextVars.SetFloat(index, value);
+				m_actorToHitContext[actor].m_contextVars.SetFloat(index, value);
 				return;
 			}
 			if (Application.isEditor)
@@ -63,11 +62,11 @@ namespace AbilityContextNamespace
 			}
 		}
 
-		public void Set(ActorData actor, int index, Vector3 value)
+		public void SetActorContext(ActorData actor, int index, Vector3 value)
 		{
-			if (m_actorHitContext.ContainsKey(actor))
+			if (m_actorToHitContext.ContainsKey(actor))
 			{
-				m_actorHitContext[actor].m_contextVars.SetVector(index, value);
+				m_actorToHitContext[actor].m_contextVars.SetVector(index, value);
 				return;
 			}
 			if (Application.isEditor)
