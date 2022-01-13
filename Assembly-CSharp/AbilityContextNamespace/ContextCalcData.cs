@@ -26,21 +26,17 @@ namespace AbilityContextNamespace
 				m_actorToHitContext[actor].m_hitOrigin = source;
 				m_actorToHitContext[actor].m_ignoreMinCoverDist = flag;
 			}
-			else
-			{
-				if (!Application.isEditor)
-				{
-					return;
-				}
-				Log.Warning("TargetSelect context: trying to add actor more than once");
-			}
-		}
+			else if (Application.isEditor)
+            {
+                Log.Warning("TargetSelect context: trying to add actor more than once");
+            }
+        }
 
-		public void SetActorContext(ActorData actor, int index, int value)
+		public void SetActorContext(ActorData actor, int contextKey, int value)
 		{
 			if (m_actorToHitContext.ContainsKey(actor))
 			{
-				m_actorToHitContext[actor].m_contextVars.SetValue(index, value);
+				m_actorToHitContext[actor].m_contextVars.SetValue(contextKey, value);
 				return;
 			}
 			if (Application.isEditor)
@@ -49,11 +45,11 @@ namespace AbilityContextNamespace
 			}
 		}
 
-		public void SetActorContext(ActorData actor, int index, float value)
+		public void SetActorContext(ActorData actor, int contextKey, float value)
 		{
 			if (m_actorToHitContext.ContainsKey(actor))
 			{
-				m_actorToHitContext[actor].m_contextVars.SetValue(index, value);
+				m_actorToHitContext[actor].m_contextVars.SetValue(contextKey, value);
 				return;
 			}
 			if (Application.isEditor)
@@ -62,11 +58,11 @@ namespace AbilityContextNamespace
 			}
 		}
 
-		public void SetActorContext(ActorData actor, int index, Vector3 value)
+		public void SetActorContext(ActorData actor, int contextKey, Vector3 value)
 		{
 			if (m_actorToHitContext.ContainsKey(actor))
 			{
-				m_actorToHitContext[actor].m_contextVars.SetValue(index, value);
+				m_actorToHitContext[actor].m_contextVars.SetValue(contextKey, value);
 				return;
 			}
 			if (Application.isEditor)
