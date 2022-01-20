@@ -152,11 +152,7 @@ public class Ability : MonoBehaviour
 
 	protected const string c_forArtHeader = "<color=cyan>-- For Art --</color>\n";
 
-	public Sprite sprite
-	{
-		get;
-		set;
-	}
+	public Sprite sprite { get; set; }
 
 	protected ActorData ActorData
 	{
@@ -164,7 +160,9 @@ public class Ability : MonoBehaviour
 		{
 			if (m_actorData == null && !m_searchedForActorData)
 			{
-				m_actorData = ((m_overrideActorDataIndex != ActorData.s_invalidActorIndex) ? GameFlowData.Get().FindActorByActorIndex(m_overrideActorDataIndex) : GetComponent<ActorData>());
+				m_actorData = m_overrideActorDataIndex != ActorData.s_invalidActorIndex
+					? GameFlowData.Get().FindActorByActorIndex(m_overrideActorDataIndex)
+					: GetComponent<ActorData>();
 				m_searchedForActorData = true;
 			}
 			return m_actorData;
@@ -253,13 +251,12 @@ public class Ability : MonoBehaviour
 
 	protected void ClearTargeters()
 	{
-		if (Targeters == null)
+		if (Targeters != null)
 		{
-			return;
+			ResetAbilityTargeters();
+			Targeters.Clear();
 		}
-		ResetAbilityTargeters();
-		Targeters.Clear();
-		
+
 	}
 
 	public void OverrideActorDataIndex(int actorDataIndex)
@@ -306,21 +303,18 @@ public class Ability : MonoBehaviour
 	{
 		List<TooltipTokenEntry> list = new List<TooltipTokenEntry>();
 		AddSpecificTooltipTokens(list, mod);
-		if (m_techPointInteractions != null)
+		if (m_techPointInteractions != null && m_techPointInteractions.Length > 0)
 		{
-			if (m_techPointInteractions.Length > 0)
+			TechPointInteraction[] techPointInteractions = m_techPointInteractions;
+			for (int i = 0; i < techPointInteractions.Length; i++)
 			{
-				TechPointInteraction[] techPointInteractions = m_techPointInteractions;
-				for (int i = 0; i < techPointInteractions.Length; i++)
+				TechPointInteraction techPointInteraction = techPointInteractions[i];
+				int num = techPointInteraction.m_amount;
+				if (mod != null)
 				{
-					TechPointInteraction techPointInteraction = techPointInteractions[i];
-					int num = techPointInteraction.m_amount;
-					if (mod != null)
-					{
-						num = mod.GetModdedTechPointForInteraction(techPointInteraction.m_type, num);
-					}
-					list.Add(new TooltipTokenInt(techPointInteraction.m_type.ToString(), "Energy Gain", num));
+					num = mod.GetModdedTechPointForInteraction(techPointInteraction.m_type, num);
 				}
+				list.Add(new TooltipTokenInt(techPointInteraction.m_type.ToString(), "Energy Gain", num));
 			}
 		}
 		if (m_techPointsCost > 0)
@@ -351,11 +345,10 @@ public class Ability : MonoBehaviour
 
 	protected void AddTokenFloat(List<TooltipTokenEntry> tokens, string name, string desc, float val, bool addForNonPositive = false)
 	{
-		if (!addForNonPositive && val <= 0f)
+		if (addForNonPositive || val > 0f)
 		{
-			return;
+			tokens.Add(new TooltipTokenFloat(name, desc, val));
 		}
-		tokens.Add(new TooltipTokenFloat(name, desc, val));
 	}
 
 	protected void AddTokenFloatRounded(List<TooltipTokenEntry> tokens, string name, string desc, float val, bool addForNonPositive = false)
@@ -369,12 +362,11 @@ public class Ability : MonoBehaviour
 
 	protected void AddTokenFloatAsPct(List<TooltipTokenEntry> tokens, string name, string desc, float val, bool addForNonPositive = false)
 	{
-		if (!addForNonPositive && val <= 0f)
+		if (addForNonPositive || val > 0f)
 		{
-			return;
+			int val2 = Mathf.RoundToInt(val * 100f);
+			tokens.Add(new TooltipTokenPct(name, desc, val2));
 		}
-		int val2 = Mathf.RoundToInt(val * 100f);
-		tokens.Add(new TooltipTokenPct(name, desc, val2));
 	}
 
 	public virtual AbilityPriority GetRunPriority()
@@ -402,18 +394,18 @@ public class Ability : MonoBehaviour
 		string result = uIPhaseFromAbilityPriority.ToString();
 		switch (uIPhaseFromAbilityPriority)
 		{
-		case UIQueueListPanel.UIPhase.Combat:
-			result = "Blast";
-			break;
-		case UIQueueListPanel.UIPhase.Evasion:
-			result = "Dash";
-			break;
-		case UIQueueListPanel.UIPhase.Movement:
-			result = "Movement";
-			break;
-		case UIQueueListPanel.UIPhase.Prep:
-			result = "Prep";
-			break;
+			case UIQueueListPanel.UIPhase.Prep:
+				result = "Prep";
+				break;
+			case UIQueueListPanel.UIPhase.Evasion:
+				result = "Dash";
+				break;
+			case UIQueueListPanel.UIPhase.Combat:
+				result = "Blast";
+				break;
+			case UIQueueListPanel.UIPhase.Movement:
+				result = "Movement";
+				break;
 		}
 		return result;
 	}
@@ -424,18 +416,18 @@ public class Ability : MonoBehaviour
 		string result = uIPhaseFromAbilityPriority.ToString();
 		switch (uIPhaseFromAbilityPriority)
 		{
-		case UIQueueListPanel.UIPhase.Combat:
-			result = StringUtil.TR("Blast", "Global");
-			break;
-		case UIQueueListPanel.UIPhase.Evasion:
-			result = StringUtil.TR("Dash", "Global");
-			break;
-		case UIQueueListPanel.UIPhase.Movement:
-			result = StringUtil.TR("Movement", "Global");
-			break;
-		case UIQueueListPanel.UIPhase.Prep:
-			result = StringUtil.TR("Prep", "Global");
-			break;
+			case UIQueueListPanel.UIPhase.Prep:
+				result = StringUtil.TR("Prep", "Global");
+				break;
+			case UIQueueListPanel.UIPhase.Evasion:
+				result = StringUtil.TR("Dash", "Global");
+				break;
+			case UIQueueListPanel.UIPhase.Combat:
+				result = StringUtil.TR("Blast", "Global");
+				break;
+			case UIQueueListPanel.UIPhase.Movement:
+				result = StringUtil.TR("Movement", "Global");
+				break;
 		}
 		return result;
 	}
@@ -451,16 +443,11 @@ public class Ability : MonoBehaviour
 
 	public int GetBaseCost()
 	{
-		int result;
-		if (m_techPointsCost > 0)
+		if (m_techPointsCost <= 0)
 		{
-			result = m_techPointsCost;
+			return 0;
 		}
-		else
-		{
-			result = 0;
-		}
-		return result;
+		return m_techPointsCost;
 	}
 
 	public virtual int GetModdedCost()
@@ -746,27 +733,15 @@ public class Ability : MonoBehaviour
 		return new List<AbilityTooltipNumber>();
 	}
 
-	public virtual List<int> _001D()
+	public virtual List<int> Debug_GetExpectedNumbersInTooltip()
 	{
 		List<int> list = new List<int>();
-		List<AbilityTooltipNumber> list2 = BaseCalculateAbilityTooltipNumbers();
-		if (list2 != null)
+		List<AbilityTooltipNumber> baseNumbers = BaseCalculateAbilityTooltipNumbers();
+		if (baseNumbers != null)
 		{
-			while (true)
+			foreach (AbilityTooltipNumber item in baseNumbers)
 			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					{
-						foreach (AbilityTooltipNumber item in list2)
-						{
-							list.Add(item.m_value);
-						}
-						return list;
-					}
-				}
+				list.Add(item.m_value);
 			}
 		}
 		return list;
@@ -838,75 +813,33 @@ public class Ability : MonoBehaviour
 	public static void AddNameplateValueForSingleHit(ref Dictionary<AbilityTooltipSymbol, int> symbolToValue, AbilityUtil_Targeter targeter, ActorData targetActor, int damageAmount, AbilityTooltipSymbol symbolOfInterest = AbilityTooltipSymbol.Damage, AbilityTooltipSubject targetSubject = AbilityTooltipSubject.Primary)
 	{
 		List<AbilityTooltipSubject> tooltipSubjectTypes = targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes == null)
+		if (tooltipSubjectTypes != null
+			&& tooltipSubjectTypes.Count > 0
+			&& tooltipSubjectTypes.Contains(targetSubject))
 		{
-			return;
-		}
-		while (true)
-		{
-			if (tooltipSubjectTypes.Count <= 0)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (tooltipSubjectTypes.Contains(targetSubject))
-				{
-					while (true)
-					{
-						symbolToValue[symbolOfInterest] = damageAmount;
-						return;
-					}
-				}
-				return;
-			}
+			symbolToValue[symbolOfInterest] = damageAmount;
 		}
 	}
 
 	public static void AddNameplateValueForOverlap(ref Dictionary<AbilityTooltipSymbol, int> symbolToValue, AbilityUtil_Targeter targeter, ActorData targetActor, int currentTargeterIndex, int firstAmount, int subsequentAmount, AbilityTooltipSymbol symbolOfInterest = AbilityTooltipSymbol.Damage, AbilityTooltipSubject targetSubject = AbilityTooltipSubject.Primary)
 	{
 		List<AbilityTooltipSubject> tooltipSubjectTypes = targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes == null)
+		if (tooltipSubjectTypes != null && tooltipSubjectTypes.Count > 0)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (tooltipSubjectTypes.Count > 0)
+			foreach (AbilityTooltipSubject current in tooltipSubjectTypes)
 			{
-				while (true)
+				if (current == targetSubject)
 				{
-					using (List<AbilityTooltipSubject>.Enumerator enumerator = tooltipSubjectTypes.GetEnumerator())
+					if (!symbolToValue.ContainsKey(symbolOfInterest))
 					{
-						while (enumerator.MoveNext())
-						{
-							AbilityTooltipSubject current = enumerator.Current;
-							if (current == targetSubject)
-							{
-								if (!symbolToValue.ContainsKey(symbolOfInterest))
-								{
-									symbolToValue[symbolOfInterest] = firstAmount;
-								}
-								else
-								{
-									symbolToValue[symbolOfInterest] += subsequentAmount;
-								}
-							}
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							default:
-								return;
-							case 0:
-								break;
-							}
-						}
+						symbolToValue[symbolOfInterest] = firstAmount;
+					}
+					else
+					{
+						symbolToValue[symbolOfInterest] += subsequentAmount;
 					}
 				}
 			}
-			return;
 		}
 	}
 
@@ -923,47 +856,78 @@ public class Ability : MonoBehaviour
 
 	private void Update()
 	{
-		bool flag2;
-		bool flag3;
-		if (Targeter != null)
+		if (Targeter != null && IsAbilitySelected())
 		{
-			if (IsAbilitySelected())
+			bool shouldShowAffectedSquares = HighlightUtils.Get() != null && HighlightUtils.Get().m_cachedShouldShowAffectedSquares;
+			bool changedShowAffectedSquares = m_lastUpdateShowingAffectedSquares != shouldShowAffectedSquares;
+			m_lastUpdateShowingAffectedSquares = shouldShowAffectedSquares;
+			bool flag3 = false;
+			if (ActorData == GameFlowData.Get().activeOwnedActorData)
 			{
-				bool flag = HighlightUtils.Get() != null && HighlightUtils.Get().m_cachedShouldShowAffectedSquares;
-				flag2 = (m_lastUpdateShowingAffectedSquares != flag);
-				m_lastUpdateShowingAffectedSquares = flag;
-				flag3 = false;
-				if (ActorData == GameFlowData.Get().activeOwnedActorData)
+				flag3 = true;
+			}
+			if (GameFlowData.Get().activeOwnedActorData == null)
+			{
+				Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+				if (teamViewing == Team.Invalid || teamViewing == ActorData.GetTeam())
 				{
 					flag3 = true;
 				}
-				if (GameFlowData.Get().activeOwnedActorData == null)
+			}
+			if (flag3)
+			{
+				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+				ActorTurnSM actorTurnSM = ActorData.GetActorTurnSM();
+				if (actorTurnSM != null && actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 				{
-					Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-					if (teamViewing != Team.Invalid)
+					AbilityTarget.UpdateAbilityTargetForForTargeterUpdate();
+					AbilityTarget abilityTargetForTargeterUpdate = AbilityTarget.GetAbilityTargetForTargeterUpdate();
+					if (GetExpectedNumberOfTargeters() < 2)
 					{
-						if (teamViewing != ActorData.GetTeam())
+						if (changedShowAffectedSquares || Targeter.MarkedForForceUpdate || !Targeter.IsCursorStateSameAsLastUpdate(abilityTargetForTargeterUpdate))
 						{
-							goto IL_00ed;
+							Targeter.MarkedForForceUpdate = false;
+							Targeter.SetLastUpdateCursorState(abilityTargetForTargeterUpdate);
+							Targeter.UpdateTargeting(abilityTargetForTargeterUpdate, ActorData);
+							Targeter.AdjustOpacityWhileTargeting();
+							Targeter.SetupTargetingArc(activeOwnedActorData, false);
 						}
 					}
-					flag3 = true;
+					else
+					{
+						int count = actorTurnSM.GetAbilityTargets().Count;
+						if (count < Targeters.Count)
+						{
+							AbilityUtil_Targeter targeter = Targeters[count];
+							if (changedShowAffectedSquares
+								|| Targeters[0].MarkedForForceUpdate
+								|| !targeter.IsCursorStateSameAsLastUpdate(abilityTargetForTargeterUpdate))
+							{
+								Targeters[0].MarkedForForceUpdate = false;
+								targeter.SetLastUpdateCursorState(abilityTargetForTargeterUpdate);
+								if (targeter.IsUsingMultiTargetUpdate())
+								{
+									targeter.UpdateTargetingMultiTargets(abilityTargetForTargeterUpdate, ActorData, count, actorTurnSM.GetAbilityTargets());
+								}
+								else
+								{
+									targeter.UpdateTargeting(abilityTargetForTargeterUpdate, ActorData);
+								}
+								targeter.AdjustOpacityWhileTargeting();
+								targeter.SetupTargetingArc(activeOwnedActorData, false);
+							}
+							if (HighlightUtils.Get().GetCurrentCursorType() != targeter.GetCursorType())
+							{
+								HighlightUtils.Get().SetCursorType(targeter.GetCursorType());
+							}
+						}
+					}
+					Targeter.UpdateArrowsForUI();
 				}
-				goto IL_00ed;
 			}
 		}
-		goto IL_033f;
-		IL_033f:
-		if (Targeters == null)
+		if (Targeters != null && ActorData != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!(ActorData != null))
-			{
-				return;
-			}
 			for (int i = 0; i < Targeters.Count; i++)
 			{
 				AbilityUtil_Targeter abilityUtil_Targeter = Targeters[i];
@@ -972,89 +936,7 @@ public class Ability : MonoBehaviour
 					abilityUtil_Targeter.UpdateFadeOutHighlights(ActorData);
 				}
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
 		}
-		IL_0332:
-		Targeter.UpdateArrowsForUI();
-		goto IL_033f;
-		IL_02fa:
-		AbilityUtil_Targeter abilityUtil_Targeter2;
-		if (HighlightUtils.Get().GetCurrentCursorType() != abilityUtil_Targeter2.GetCursorType())
-		{
-			HighlightUtils.Get().SetCursorType(abilityUtil_Targeter2.GetCursorType());
-		}
-		goto IL_0332;
-		IL_00ed:
-		if (flag3)
-		{
-			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-			ActorTurnSM actorTurnSM = ActorData.GetActorTurnSM();
-			if (actorTurnSM != null && actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
-			{
-				AbilityTarget.UpdateAbilityTargetForForTargeterUpdate();
-				AbilityTarget abilityTargetForTargeterUpdate = AbilityTarget.GetAbilityTargetForTargeterUpdate();
-				if (GetExpectedNumberOfTargeters() < 2)
-				{
-					if (!flag2)
-					{
-						if (!Targeter.MarkedForForceUpdate)
-						{
-							if (Targeter.IsCursorStateSameAsLastUpdate(abilityTargetForTargeterUpdate))
-							{
-								goto IL_0332;
-							}
-						}
-					}
-					Targeter.MarkedForForceUpdate = false;
-					Targeter.SetLastUpdateCursorState(abilityTargetForTargeterUpdate);
-					Targeter.UpdateTargeting(abilityTargetForTargeterUpdate, ActorData);
-					Targeter.AdjustOpacityWhileTargeting();
-					Targeter.SetupTargetingArc(activeOwnedActorData, false);
-				}
-				else
-				{
-					int count = actorTurnSM.GetAbilityTargets().Count;
-					if (count < Targeters.Count)
-					{
-						abilityUtil_Targeter2 = Targeters[count];
-						if (!flag2)
-						{
-							if (!Targeters[0].MarkedForForceUpdate)
-							{
-								if (abilityUtil_Targeter2.IsCursorStateSameAsLastUpdate(abilityTargetForTargeterUpdate))
-								{
-									goto IL_02fa;
-								}
-							}
-						}
-						Targeters[0].MarkedForForceUpdate = false;
-						abilityUtil_Targeter2.SetLastUpdateCursorState(abilityTargetForTargeterUpdate);
-						if (abilityUtil_Targeter2.IsUsingMultiTargetUpdate())
-						{
-							abilityUtil_Targeter2.UpdateTargetingMultiTargets(abilityTargetForTargeterUpdate, ActorData, count, actorTurnSM.GetAbilityTargets());
-						}
-						else
-						{
-							abilityUtil_Targeter2.UpdateTargeting(abilityTargetForTargeterUpdate, ActorData);
-						}
-						abilityUtil_Targeter2.AdjustOpacityWhileTargeting();
-						abilityUtil_Targeter2.SetupTargetingArc(activeOwnedActorData, false);
-						goto IL_02fa;
-					}
-				}
-				goto IL_0332;
-			}
-		}
-		goto IL_033f;
 	}
 
 	public virtual bool CustomCanCastValidation(ActorData caster)
@@ -1074,136 +956,61 @@ public class Ability : MonoBehaviour
 
 	public bool CanTargetActorInDecision(ActorData caster, ActorData targetActor, bool allowEnemies, bool allowAllies, bool allowSelf, ValidateCheckPath checkPath, bool checkLineOfSight, bool checkStatusImmunities, bool ignoreLosSettingOnTargetData = false)
 	{
-		BoardSquare currentBoardSquare;
-		bool flag2;
-		if (caster != null)
+		if (caster == null
+			|| caster.IsDead()
+			|| caster.GetCurrentBoardSquare() == null
+			|| targetActor == null
+			|| targetActor.IsDead()
+			|| targetActor.GetCurrentBoardSquare() == null
+			|| targetActor.IgnoreForAbilityHits)
 		{
-			if (!caster.IsDead() && caster.GetCurrentBoardSquare() != null && targetActor != null)
-			{
-				if (!targetActor.IsDead())
-				{
-					if (targetActor.GetCurrentBoardSquare() != null)
-					{
-						if (!targetActor.IgnoreForAbilityHits)
-						{
-							currentBoardSquare = targetActor.GetCurrentBoardSquare();
-							bool flag = (!NetworkClient.active) ? targetActor.IsActorVisibleToActor(caster) : targetActor.IsVisibleToClient();
-							flag2 = (caster.GetTeam() == targetActor.GetTeam());
-							if (flag)
-							{
-								if (flag2)
-								{
-									if (allowAllies)
-									{
-										goto IL_012b;
-									}
-								}
-								if (!flag2)
-								{
-									if (allowEnemies)
-									{
-										goto IL_012b;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+			return false;
 		}
-		goto IL_030b;
-		IL_02a1:
-		bool flag3 = true;
-		bool flag4;
-		bool flag5;
-		if (checkPath != 0)
+
+		BoardSquare currentBoardSquare = targetActor.GetCurrentBoardSquare();
+		bool isVisible = NetworkClient.active ? targetActor.IsVisibleToClient() : targetActor.IsActorVisibleToActor(caster);
+		bool isAlly = caster.GetTeam() == targetActor.GetTeam();
+
+		if (!isVisible
+			|| ((!isAlly || !allowAllies) && (isAlly || !allowEnemies))
+			|| (!allowSelf && caster == targetActor))
 		{
-			if (flag4)
-			{
-				if (flag5)
-				{
-					bool passThroughInvalidSquares = checkPath == ValidateCheckPath.CanBuildPathAllowThroughInvalid;
-					flag3 = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetActor.GetCurrentBoardSquare(), caster.GetCurrentBoardSquare(), passThroughInvalidSquares, out int _);
-				}
-			}
+			return false;
 		}
-		int result;
-		if (flag4)
-		{
-			if (flag5)
-			{
-				result = (flag3 ? 1 : 0);
-				goto IL_030a;
-			}
-		}
-		result = 0;
-		goto IL_030a;
-		IL_012b:
-		if (!allowSelf)
-		{
-			if (!(caster != targetActor))
-			{
-				goto IL_030b;
-			}
-		}
+
 		float currentMinRangeInSquares = AbilityUtils.GetCurrentMinRangeInSquares(this, caster, 0);
 		float currentRangeInSquares = AbilityUtils.GetCurrentRangeInSquares(this, caster, 0);
-		flag4 = caster.GetAbilityData().IsTargetSquareInRangeOfAbilityFromSquare(targetActor.GetCurrentBoardSquare(), caster.GetCurrentBoardSquare(), currentRangeInSquares, currentMinRangeInSquares);
+		bool isInRange = caster.GetAbilityData().IsTargetSquareInRangeOfAbilityFromSquare(targetActor.GetCurrentBoardSquare(), caster.GetCurrentBoardSquare(), currentRangeInSquares, currentMinRangeInSquares);
 		if (checkLineOfSight)
 		{
 			if (ignoreLosSettingOnTargetData)
 			{
-				flag4 = (flag4 && caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y));
+				isInRange = isInRange && caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y);
 			}
 			else
 			{
-				flag4 = (flag4 && (!GetCheckLoS(0) || caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y)));
+				isInRange = isInRange && (!GetCheckLoS(0) || caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y));
 			}
 		}
-		flag5 = true;
+
+		bool isValidTarget = true;
 		ActorStatus actorStatus = targetActor.GetActorStatus();
-		int num;
 		if (checkStatusImmunities && actorStatus != null)
 		{
-			if (flag2)
-			{
-				if (actorStatus.HasStatus(StatusType.CantBeHelpedByTeam))
-				{
-					goto IL_029e;
-				}
-			}
-			if (flag2)
-			{
-				if (actorStatus.HasStatus(StatusType.BuffImmune))
-				{
-					goto IL_029e;
-				}
-			}
-			if (!flag2)
-			{
-				if (actorStatus.HasStatus(StatusType.DebuffImmune))
-				{
-					goto IL_029e;
-				}
-			}
-			if (actorStatus.HasStatus(StatusType.CantBeTargeted))
-			{
-				goto IL_029e;
-			}
-			num = ((!actorStatus.HasStatus(StatusType.EffectImmune)) ? 1 : 0);
-			goto IL_029f;
+			isValidTarget = (!isAlly || !actorStatus.HasStatus(StatusType.CantBeHelpedByTeam))
+				&& (!isAlly || !actorStatus.HasStatus(StatusType.BuffImmune))
+				&& (isAlly || !actorStatus.HasStatus(StatusType.DebuffImmune))
+				&& !actorStatus.HasStatus(StatusType.CantBeTargeted)
+				&& (!actorStatus.HasStatus(StatusType.EffectImmune));
 		}
-		goto IL_02a1;
-		IL_030b:
-		return false;
-		IL_029e:
-		num = 0;
-		goto IL_029f;
-		IL_030a:
-		return (byte)result != 0;
-		IL_029f:
-		flag5 = ((byte)num != 0);
-		goto IL_02a1;
+
+		bool canCharge = true;
+		if (checkPath != ValidateCheckPath.Ignore && isInRange && isValidTarget)
+		{
+			bool passThroughInvalidSquares = checkPath == ValidateCheckPath.CanBuildPathAllowThroughInvalid;
+			canCharge = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetActor.GetCurrentBoardSquare(), caster.GetCurrentBoardSquare(), passThroughInvalidSquares, out int _);
+		}
+		return isInRange && isValidTarget && canCharge;
 	}
 
 	public bool HasTargetableActorsInDecision(ActorData caster, bool allowEnemies, bool allowAllies, bool allowSelf, ValidateCheckPath checkPath, bool checkLineOfSight, bool checkStatusImmunities, bool ignoreLosSettingOnTargetData = false)
@@ -1238,11 +1045,8 @@ public class Ability : MonoBehaviour
 		{
 			return;
 		}
-		while (true)
-		{
-			Targeter.TargeterAbilitySelected();
-			return;
-		}
+
+		Targeter.TargeterAbilitySelected();
 	}
 
 	public void OnAbilityDeselect()
@@ -1251,26 +1055,23 @@ public class Ability : MonoBehaviour
 		{
 			return;
 		}
-		while (true)
+
+		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			if (GetExpectedNumberOfTargeters() < 2)
+			Targeter.TargeterAbilityDeselected(0);
+		}
+		else
+		{
+			for (int i = 0; i < Targeters.Count; i++)
 			{
-				Targeter.TargeterAbilityDeselected(0);
-			}
-			else
-			{
-				for (int i = 0; i < Targeters.Count; i++)
+				if (Targeters[i] != null)
 				{
-					if (Targeters[i] != null)
-					{
-						Targeters[i].TargeterAbilityDeselected(i);
-					}
+					Targeters[i].TargeterAbilityDeselected(i);
 				}
 			}
-			Targeter.HideAllSquareIndicators();
-			DestroyBackupTargetingInfo(true);
-			return;
 		}
+		Targeter.HideAllSquareIndicators();
+		DestroyBackupTargetingInfo(true);
 	}
 
 	public void BackupTargetingForRedo(ActorTurnSM turnSM)
@@ -1279,42 +1080,24 @@ public class Ability : MonoBehaviour
 		List<AbilityTarget> list = new List<AbilityTarget>();
 		for (int i = 0; i < Targeters.Count; i++)
 		{
-			if (i < GetExpectedNumberOfTargeters())
+			if (i >= GetExpectedNumberOfTargeters())
 			{
-				BackupTargeterHighlights.AddRange(Targeters[i].GetHighlightCopies(true));
-				AbilityTarget abilityTarget = AbilityTarget.CreateAbilityTargetFromWorldPos(Vector3.zero, Vector3.forward);
-				abilityTarget.SetPosAndDir(Targeters[i].LastUpdatingGridPos, Targeters[i].LastUpdateFreePos, Targeters[i].LastUpdateAimDir);
-				list.Add(abilityTarget);
-				continue;
+				break;
 			}
-			break;
+			BackupTargeterHighlights.AddRange(Targeters[i].GetHighlightCopies(true));
+			AbilityTarget abilityTarget = AbilityTarget.CreateAbilityTargetFromWorldPos(Vector3.zero, Vector3.forward);
+			abilityTarget.SetPosAndDir(Targeters[i].LastUpdatingGridPos, Targeters[i].LastUpdateFreePos, Targeters[i].LastUpdateAimDir);
+			list.Add(abilityTarget);
 		}
 		if (list.IsNullOrEmpty())
 		{
 			return;
 		}
-		while (true)
+		BackupTargets = new List<AbilityTarget>();
+		foreach (AbilityTarget current in list)
 		{
-			BackupTargets = new List<AbilityTarget>();
-			using (List<AbilityTarget>.Enumerator enumerator = list.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					AbilityTarget current = enumerator.Current;
-					AbilityTarget copy = current.GetCopy();
-					BackupTargets.Add(copy);
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
-			}
+			AbilityTarget copy = current.GetCopy();
+			BackupTargets.Add(copy);
 		}
 	}
 
@@ -1322,15 +1105,11 @@ public class Ability : MonoBehaviour
 	{
 		if (!BackupTargeterHighlights.IsNullOrEmpty())
 		{
-			using (List<GameObject>.Enumerator enumerator = BackupTargeterHighlights.GetEnumerator())
+			foreach (GameObject current in BackupTargeterHighlights)
 			{
-				while (enumerator.MoveNext())
+				if (current != null)
 				{
-					GameObject current = enumerator.Current;
-					if (current != null)
-					{
-						HighlightUtils.DestroyObjectAndMaterials(current);
-					}
+					HighlightUtils.DestroyObjectAndMaterials(current);
 				}
 			}
 		}
@@ -1343,90 +1122,62 @@ public class Ability : MonoBehaviour
 
 	public bool IsAbilitySelected()
 	{
-		object obj;
-		if (ActorData == null)
-		{
-			obj = null;
-		}
-		else
-		{
-			obj = ActorData.GetAbilityData();
-		}
-		AbilityData abilityData = (AbilityData)obj;
-		int result;
-		if (abilityData != null)
-		{
-			result = ((abilityData.GetSelectedAbility() == this) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		AbilityData abilityData = ActorData?.GetAbilityData();
+		return abilityData != null && abilityData.GetSelectedAbility() == this;
 	}
 
 	public bool IsActorInTargetRange(ActorData actor)
 	{
-		bool inCover;
-		return IsActorInTargetRange(actor, out inCover);
+		return IsActorInTargetRange(actor, out bool inCover);
 	}
 
 	public bool IsActorInTargetRange(ActorData actor, out bool inCover)
 	{
-		bool flag = false;
+		bool isInRange = false;
 		inCover = false;
 		if (Targeter != null)
 		{
-			if (GetExpectedNumberOfTargeters() >= 2)
+			if (GetExpectedNumberOfTargeters() >= 2 && Targeters.Count >= 2)
 			{
-				if (Targeters.Count >= 2)
+				inCover = true;
+				for (int i = 0; i < Targeters.Count; i++)
 				{
-					inCover = true;
-					for (int i = 0; i < Targeters.Count; i++)
+					if (isInRange && !inCover)
 					{
-						if (flag)
-						{
-							if (!inCover)
-							{
-								break;
-							}
-						}
-						if (Targeters[i] == null)
-						{
-							continue;
-						}
-						if (!Targeters[i].IsActorInTargetRange(actor, out bool inCover2))
-						{
-							continue;
-						}
-						flag = true;
-						if (i == 0)
-						{
-							inCover = inCover2;
-						}
-						else
-						{
-							inCover = (inCover && inCover2);
-						}
+						break;
 					}
-					if (!flag)
+					if (Targeters[i] == null || !Targeters[i].IsActorInTargetRange(actor, out bool inCover2))
 					{
-						inCover = false;
+						continue;
 					}
-					goto IL_0149;
+
+					isInRange = true;
+					if (i == 0)
+					{
+						inCover = inCover2;
+					}
+					else
+					{
+						inCover = inCover && inCover2;
+					}
+				}
+				if (!isInRange)
+				{
+					inCover = false;
 				}
 			}
-			flag = Targeter.IsActorInTargetRange(actor, out inCover);
+			else
+			{
+				isInRange = Targeter.IsActorInTargetRange(actor, out inCover);
+			}
 		}
 		else
 		{
 			Log.Warning("Ability " + m_abilityName + " has no targeter, but we're checking actors in its range.");
-			flag = (Board.Get().PlayerClampedSquare == actor.GetCurrentBoardSquare());
+			isInRange = Board.Get().PlayerClampedSquare == actor.GetCurrentBoardSquare();
 			inCover = false;
 		}
-		goto IL_0149;
-		IL_0149:
-		return flag;
+		return isInRange;
 	}
 
 	public virtual bool ActorCountTowardsEnergyGain(ActorData target, ActorData caster)
@@ -1449,34 +1200,31 @@ public class Ability : MonoBehaviour
 					break;
 				}
 				List<AbilityUtil_Targeter.ActorTarget> actorsInRange = Targeters[i].GetActorsInRange();
-				using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
+				foreach (AbilityUtil_Targeter.ActorTarget current in actorsInRange)
 				{
-					while (enumerator.MoveNext())
+					if (!ActorCountTowardsEnergyGain(current.m_actor, caster))
 					{
-						AbilityUtil_Targeter.ActorTarget current = enumerator.Current;
-						if (!ActorCountTowardsEnergyGain(current.m_actor, caster))
+						// TODO LOW CHECK suspicious empty if
+					}
+					else if (!hashSet.Contains(current.m_actor.ActorIndex))
+					{
+						hashSet.Add(current.m_actor.ActorIndex);
+						if (!current.m_actor.IgnoreForEnergyOnHit)
 						{
-						}
-						else if (!hashSet.Contains(current.m_actor.ActorIndex))
-						{
-							hashSet.Add(current.m_actor.ActorIndex);
-							if (!current.m_actor.IgnoreForEnergyOnHit)
+							if (caster.GetTeam() == current.m_actor.GetTeam())
 							{
-								if (caster.GetTeam() == current.m_actor.GetTeam())
+								if (caster != current.m_actor)
 								{
-									if (caster != current.m_actor)
-									{
-										numAlliesExcludingSelf++;
-									}
-									else
-									{
-										hittingSelf = true;
-									}
+									numAlliesExcludingSelf++;
 								}
 								else
 								{
-									numEnemies++;
+									hittingSelf = true;
 								}
+							}
+							else
+							{
+								numEnemies++;
 							}
 						}
 					}
@@ -1494,12 +1242,9 @@ public class Ability : MonoBehaviour
 	public virtual TargetData[] GetTargetData()
 	{
 		TargetData[] result = GetBaseTargetData();
-		if (m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null && m_currentAbilityMod.m_useTargetDataOverrides)
 		{
-			if (m_currentAbilityMod.m_useTargetDataOverrides)
-			{
-				result = m_currentAbilityMod.m_targetDataOverrides;
-			}
+			result = m_currentAbilityMod.m_targetDataOverrides;
 		}
 		return result;
 	}
@@ -1507,78 +1252,62 @@ public class Ability : MonoBehaviour
 	public virtual float GetRangeInSquares(int targetIndex)
 	{
 		TargetData[] targetData = GetTargetData();
-		float num = 0f;
-		if (targetData != null)
+		float range = 0f;
+		if (targetData != null && targetData.Length > targetIndex)
 		{
-			if (targetData.Length > targetIndex)
-			{
-				num = targetData[targetIndex].m_range;
-			}
+			range = targetData[targetIndex].m_range;
 		}
 		if (m_currentAbilityMod != null)
 		{
-			num = Mathf.Max(0f, m_currentAbilityMod.m_targetDataMaxRangeMod.GetModifiedValue(num));
+			range = Mathf.Max(0f, m_currentAbilityMod.m_targetDataMaxRangeMod.GetModifiedValue(range));
 		}
-		return num;
+		return range;
 	}
 
 	public float GetMinRangeInSquares(int targetIndex)
 	{
 		TargetData[] targetData = GetTargetData();
-		float num = 0f;
-		if (targetData != null)
+		float minRange = 0f;
+		if (targetData != null && targetData.Length > targetIndex)
 		{
-			if (targetData.Length > targetIndex)
-			{
-				num = targetData[targetIndex].m_minRange;
-			}
+			minRange = targetData[targetIndex].m_minRange;
 		}
 		if (m_currentAbilityMod != null)
 		{
-			num = Mathf.Max(0f, m_currentAbilityMod.m_targetDataMinRangeMod.GetModifiedValue(num));
+			minRange = Mathf.Max(0f, m_currentAbilityMod.m_targetDataMinRangeMod.GetModifiedValue(minRange));
 		}
-		return num;
+		return minRange;
 	}
 
 	public virtual bool GetCheckLoS(int targetIndex)
 	{
 		TargetData[] targetData = GetTargetData();
-		bool flag = true;
+		bool checkLoS = true;
 		if (targetData != null && targetData.Length > targetIndex)
 		{
-			flag = targetData[targetIndex].m_checkLineOfSight;
+			checkLoS = targetData[targetIndex].m_checkLineOfSight;
 			if (m_currentAbilityMod != null)
 			{
-				flag = m_currentAbilityMod.m_targetDataCheckLosMod.GetModifiedValue(flag);
+				checkLoS = m_currentAbilityMod.m_targetDataCheckLosMod.GetModifiedValue(checkLoS);
 			}
 		}
-		return flag;
+		return checkLoS;
 	}
 
 	public string GetTargetDescription(int targetIndex)
 	{
 		TargetData[] targetData = GetTargetData();
-		string result = null;
 		if (targetData != null && targetData.Length > targetIndex)
 		{
-			result = "Select " + targetData[targetIndex].m_description;
+			return "Select " + targetData[targetIndex].m_description;
 		}
-		return result;
+		return null;
 	}
 
 	public bool IsAutoSelect()
 	{
 		TargetData[] targetData = GetTargetData();
-		int result;
-		if (targetData != null)
-		{
-			result = ((targetData.Length == 0) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return targetData == null || targetData.Length == 0;
 	}
 
 	public virtual bool IsFreeAction()
@@ -1593,58 +1322,42 @@ public class Ability : MonoBehaviour
 
 	public virtual bool ShouldRotateToTargetPos()
 	{
-		bool result = !IsSimpleAction();
+		bool shouldRotate = !IsSimpleAction();
 		if (m_rotationVisibilityMode == RotationVisibilityMode.OnAllyClientOnly)
 		{
-			result = true;
+			shouldRotate = true;
 			if (NetworkClient.active)
 			{
 				ActorData actorData = ActorData;
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-				if (activeOwnedActorData != null)
+				if (activeOwnedActorData != null && actorData != null)
 				{
-					if (actorData != null)
-					{
-						result = (activeOwnedActorData.GetTeam() == actorData.GetTeam());
-					}
+					shouldRotate = (activeOwnedActorData.GetTeam() == actorData.GetTeam());
 				}
 			}
 		}
 		else if (m_rotationVisibilityMode == RotationVisibilityMode.Always)
 		{
-			result = true;
+			shouldRotate = true;
 		}
 		else if (m_rotationVisibilityMode == RotationVisibilityMode.Never)
 		{
-			result = false;
+			shouldRotate = false;
 		}
-		return result;
+		return shouldRotate;
 	}
 
 	public virtual Vector3 GetRotateToTargetPos(List<AbilityTarget> targets, ActorData caster)
 	{
 		TargetData[] targetData = GetTargetData();
-		if (targetData != null)
+		if (targetData != null
+			&& targetData.Length > 0
+			&& targetData[0].m_targetingParadigm == TargetingParadigm.BoardSquare)
 		{
-			if (targetData.Length > 0)
+			BoardSquare boardSquareSafe = Board.Get().GetSquare(targets[0].GridPos);
+			if (boardSquareSafe != null)
 			{
-				if (targetData[0].m_targetingParadigm == TargetingParadigm.BoardSquare)
-				{
-					BoardSquare boardSquareSafe = Board.Get().GetSquare(targets[0].GridPos);
-					if (boardSquareSafe != null)
-					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								break;
-							default:
-								return boardSquareSafe.ToVector3();
-							}
-						}
-					}
-				}
+				return boardSquareSafe.ToVector3();
 			}
 		}
 		return targets[0].FreePos;
@@ -1670,12 +1383,9 @@ public class Ability : MonoBehaviour
 	{
 		TargetingParadigm result = TargetingParadigm.Position;
 		TargetData[] targetData = GetTargetData();
-		if (targetData != null)
+		if (targetData != null && targetData.Length > targetIndex)
 		{
-			if (targetData.Length > targetIndex)
-			{
-				result = targetData[targetIndex].m_targetingParadigm;
-			}
+			result = targetData[targetIndex].m_targetingParadigm;
 		}
 		return result;
 	}
@@ -1705,16 +1415,7 @@ public class Ability : MonoBehaviour
 	{
 		if (m_currentAbilityMod != null && m_currentAbilityMod.m_useStatusWhenRequestedOverride)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return m_currentAbilityMod.m_statusWhenRequestedOverride;
-				}
-			}
+			return m_currentAbilityMod.m_statusWhenRequestedOverride;
 		}
 		return m_statusWhenRequested;
 	}
@@ -1751,12 +1452,9 @@ public class Ability : MonoBehaviour
 	public Ability[] GetChainAbilities()
 	{
 		Ability[] result = m_chainAbilities;
-		if (m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null && m_currentAbilityMod.m_useChainAbilityOverrides)
 		{
-			if (m_currentAbilityMod.m_useChainAbilityOverrides)
-			{
-				result = m_currentAbilityMod.m_chainAbilityOverrides;
-			}
+			result = m_currentAbilityMod.m_chainAbilityOverrides;
 		}
 		return result;
 	}
@@ -1764,42 +1462,22 @@ public class Ability : MonoBehaviour
 	public bool HasAbilityAsPartOfChain(Ability ability)
 	{
 		Ability[] chainAbilities = GetChainAbilities();
-		Ability[] array = chainAbilities;
-		foreach (Ability y in array)
+		foreach (Ability y in chainAbilities)
 		{
-			if (!(ability == y))
-			{
-				continue;
-			}
-			while (true)
+			if (ability == y)
 			{
 				return true;
 			}
 		}
-		while (true)
-		{
-			return false;
-		}
+		return false;
 	}
 
 	public virtual bool ShouldAutoQueueIfValid()
 	{
 		bool flag = AbilityUtils.AbilityHasTag(this, AbilityTags.AutoQueueIfValid);
-		if (m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null && m_currentAbilityMod.m_autoQueueIfValidMod.operation != 0)
 		{
-			if (m_currentAbilityMod.m_autoQueueIfValidMod.operation != 0)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return m_currentAbilityMod.m_autoQueueIfValidMod.GetModifiedValue(flag);
-					}
-				}
-			}
+			return m_currentAbilityMod.m_autoQueueIfValidMod.GetModifiedValue(flag);
 		}
 		return flag;
 	}
@@ -1811,21 +1489,9 @@ public class Ability : MonoBehaviour
 
 	public virtual MovementAdjustment GetMovementAdjustment()
 	{
-		if (m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null && m_currentAbilityMod.m_useMovementAdjustmentOverride)
 		{
-			if (m_currentAbilityMod.m_useMovementAdjustmentOverride)
-			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return m_currentAbilityMod.m_movementAdjustmentOverride;
-					}
-				}
-			}
+			return m_currentAbilityMod.m_movementAdjustmentOverride;
 		}
 		return m_movementAdjustment;
 	}
@@ -1857,30 +1523,14 @@ public class Ability : MonoBehaviour
 
 	internal virtual bool IsCharge()
 	{
-		int result;
-		if (GetMovementType() != ActorData.MovementType.Charge)
-		{
-			result = ((GetMovementType() == ActorData.MovementType.WaypointFlight) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return GetMovementType() == ActorData.MovementType.Charge
+			|| GetMovementType() == ActorData.MovementType.WaypointFlight;
 	}
 
 	internal virtual bool IsTeleport()
 	{
-		int result;
-		if (GetMovementType() != ActorData.MovementType.Teleport)
-		{
-			result = ((GetMovementType() == ActorData.MovementType.Flight) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return GetMovementType() == ActorData.MovementType.Teleport
+			|| GetMovementType() == ActorData.MovementType.Flight;
 	}
 
 	internal virtual bool IsEvadeDestinationReserved()
@@ -1895,32 +1545,25 @@ public class Ability : MonoBehaviour
 
 	internal virtual BoardSquare GetEvadeDestinationForTargeter(List<AbilityTarget> targets, ActorData caster)
 	{
-		BoardSquare result = null;
-		if (targets != null)
+		if (targets != null
+			&& targets.Count > 0
+			&& GetRunPriority() == AbilityPriority.Evasion)
 		{
-			if (targets.Count > 0)
-			{
-				if (GetRunPriority() == AbilityPriority.Evasion)
-				{
-					result = Board.Get().GetSquare(targets[targets.Count - 1].GridPos);
-				}
-			}
+			return Board.Get().GetSquare(targets[targets.Count - 1].GridPos);
 		}
-		return result;
+		return null;
 	}
 
 	internal float CalcMovementSpeed(float distance)
 	{
-		float result;
 		if (m_movementDuration > 0f)
 		{
-			result = distance / m_movementDuration;
+			return distance / m_movementDuration;
 		}
 		else
 		{
-			result = m_movementSpeed;
+			return m_movementSpeed;
 		}
-		return result;
 	}
 
 	public string GetTooltipForUI()
@@ -1934,15 +1577,11 @@ public class Ability : MonoBehaviour
 
 	public virtual ActorModelData.ActionAnimationType GetActionAnimType()
 	{
-		ActorModelData.ActionAnimationType result = m_actionAnimType;
-		if (m_currentAbilityMod != null)
+		if (m_currentAbilityMod != null && m_currentAbilityMod.m_useActionAnimTypeOverride)
 		{
-			if (m_currentAbilityMod.m_useActionAnimTypeOverride)
-			{
-				result = m_currentAbilityMod.m_actionAnimTypeOverride;
-			}
+			return m_currentAbilityMod.m_actionAnimTypeOverride;
 		}
-		return result;
+		return m_actionAnimType;
 	}
 
 	public virtual ActorModelData.ActionAnimationType GetActionAnimType(List<AbilityTarget> targets, ActorData caster)
@@ -1952,21 +1591,20 @@ public class Ability : MonoBehaviour
 
 	public virtual bool CanTriggerAnimAtIndexForTaunt(int animIndex)
 	{
-		bool flag = animIndex == (int)GetActionAnimType();
-		if (!flag)
+		bool result = animIndex == (int)GetActionAnimType();
+		if (!result)
 		{
 			Ability[] chainAbilities = GetChainAbilities();
 			for (int i = 0; i < chainAbilities.Length; i++)
 			{
-				if (!flag)
+				if (result)
 				{
-					flag = (animIndex == (int)chainAbilities[i].GetActionAnimType());
-					continue;
+					break;
 				}
-				break;
+				result = animIndex == (int)chainAbilities[i].GetActionAnimType();
 			}
 		}
-		return flag;
+		return result;
 	}
 
 	public virtual bool UseAbilitySequenceSourceForEvadeOrKnockbackTaunt()
@@ -2057,20 +1695,18 @@ public class Ability : MonoBehaviour
 
 	public void ClearAbilityMod(ActorData actor)
 	{
-		if (!(m_currentAbilityMod != null))
+		if (m_currentAbilityMod == null)
 		{
 			return;
 		}
-		while (true)
+
+		m_currentAbilityMod = null;
+		OnRemoveAbilityMod();
+		ResetNameplateTargetingNumbers();
+
+		if (Application.isEditor)
 		{
-			m_currentAbilityMod = null;
-			OnRemoveAbilityMod();
-			ResetNameplateTargetingNumbers();
-			if (Application.isEditor)
-			{
-				Debug.Log("Removing mod from ability " + GetDebugIdentifier("orange"));
-			}
-			return;
+			Debug.Log("Removing mod from ability " + GetDebugIdentifier("orange"));
 		}
 	}
 
@@ -2080,35 +1716,21 @@ public class Ability : MonoBehaviour
 		{
 			return;
 		}
-		while (true)
+
+		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+		if (activeOwnedActorData == null || activeOwnedActorData != ActorData)
 		{
-			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-			if (!(activeOwnedActorData != null))
-			{
-				return;
-			}
-			while (true)
-			{
-				if (!(activeOwnedActorData == ActorData))
-				{
-					return;
-				}
-				while (true)
-				{
-					ActorTurnSM actorTurnSM = activeOwnedActorData.GetActorTurnSM();
-					if (actorTurnSM != null && actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
-					{
-						while (true)
-						{
-							AbilityTarget currentTarget = AbilityTarget.CreateAbilityTargetFromInterface();
-							Targeter.DrawGizmos(currentTarget, activeOwnedActorData);
-							return;
-						}
-					}
-					return;
-				}
-			}
+			return;
 		}
+
+		ActorTurnSM actorTurnSM = activeOwnedActorData.GetActorTurnSM();
+		if (actorTurnSM == null || actorTurnSM.CurrentState != TurnStateEnum.TARGETING_ACTION)
+		{
+			return;
+		}
+
+		AbilityTarget currentTarget = AbilityTarget.CreateAbilityTargetFromInterface();
+		Targeter.DrawGizmos(currentTarget, activeOwnedActorData);
 	}
 
 	public virtual void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
@@ -2129,16 +1751,9 @@ public class Ability : MonoBehaviour
 
 	public virtual bool UseTargeterGridPosForCameraBounds()
 	{
-		int result;
-		if (GetTargetData() != null && GetTargetData().Length > 0)
-		{
-			result = ((GetTargetingParadigm(0) != TargetingParadigm.Direction) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return GetTargetData() != null
+			&& GetTargetData().Length > 0
+			&& GetTargetingParadigm(0) != TargetingParadigm.Direction;
 	}
 
 	public virtual List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
@@ -2168,17 +1783,7 @@ public class Ability : MonoBehaviour
 	{
 		bounds = default(Bounds);
 		List<Vector3> list = CalcPointsOfInterestForCamera(targets, caster);
-		int num;
-		if (list != null)
-		{
-			num = ((list.Count > 0) ? 1 : 0);
-		}
-		else
-		{
-			num = 0;
-		}
-		bool flag = (byte)num != 0;
-		if (flag)
+		if (list != null && list.Count > 0)
 		{
 			bounds.center = list[0];
 			for (int i = 1; i < list.Count; i++)
@@ -2186,76 +1791,35 @@ public class Ability : MonoBehaviour
 				bounds.Encapsulate(list[i]);
 			}
 		}
-		return flag;
+		return list != null && list.Count > 0;
 	}
 
 	protected Passive GetPassiveOfType(Type passiveType)
 	{
-		PassiveData component = GetComponent<PassiveData>();
-		if (component != null)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return component.GetPassiveOfType(passiveType);
-				}
-			}
-		}
-		return null;
+		return GetComponent<PassiveData>()?.GetPassiveOfType(passiveType);
 	}
 
 	protected T GetPassiveOfType<T>() where T : Passive
 	{
-		PassiveData component = GetComponent<PassiveData>();
-		if (component != null)
-		{
-			return component.GetPassiveOfType<T>();
-		}
-		return (T)null;
+		return GetComponent<PassiveData>()?.GetPassiveOfType<T>();
 	}
 
 	protected Ability GetAbilityOfType(Type abilityType)
 	{
-		AbilityData component = GetComponent<AbilityData>();
-		if (component != null)
-		{
-			return component.GetAbilityOfType(abilityType);
-		}
-		return null;
+		return GetComponent<AbilityData>()?.GetAbilityOfType(abilityType);
 	}
 
 	protected T GetAbilityOfType<T>() where T : Ability
 	{
-		AbilityData component = GetComponent<AbilityData>();
-		if (component != null)
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return component.GetAbilityOfType<T>();
-				}
-			}
-		}
-		return (T)null;
+		return GetComponent<AbilityData>()?.GetAbilityOfType<T>();
 	}
 
 	protected AbilityData.ActionType GetActionTypeOfAbility(Ability ability)
 	{
-		AbilityData.ActionType result = AbilityData.ActionType.INVALID_ACTION;
 		AbilityData component = GetComponent<AbilityData>();
-		if (component != null)
-		{
-			result = component.GetActionTypeOfAbility(ability);
-		}
-		return result;
+		return component != null
+			? component.GetActionTypeOfAbility(ability)
+			: AbilityData.ActionType.INVALID_ACTION;
 	}
 
 	public string GetBaseAbilityDesc()
@@ -2306,16 +1870,7 @@ public class Ability : MonoBehaviour
 		string text = "Ability " + m_abilityName + "[ " + GetType().ToString() + " ]";
 		if (colorString.Length > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return "<color=" + colorString + ">" + text + "</color>";
-				}
-			}
+			return "<color=" + colorString + ">" + text + "</color>";
 		}
 		return text;
 	}

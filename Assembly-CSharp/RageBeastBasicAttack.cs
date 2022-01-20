@@ -212,9 +212,9 @@ public class RageBeastBasicAttack : Ability
 		return numbers;
 	}
 
-	public override List<int> _001D()
+	public override List<int> Debug_GetExpectedNumbersInTooltip()
 	{
-		List<int> list = base._001D();
+		List<int> list = base.Debug_GetExpectedNumbersInTooltip();
 		int num = Mathf.Abs(m_damageAmountInner - m_damageAmountOuter);
 		if (num != 0)
 		{

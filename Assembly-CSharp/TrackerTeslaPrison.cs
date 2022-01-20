@@ -302,9 +302,9 @@ public class TrackerTeslaPrison : TrackerDrone
 		return (byte)result != 0;
 	}
 
-	public override List<int> _001D()
+	public override List<int> Debug_GetExpectedNumbersInTooltip()
 	{
-		List<int> list = base._001D();
+		List<int> list = base.Debug_GetExpectedNumbersInTooltip();
 		if (m_prisonBarrierData != null)
 		{
 			list.Add(m_prisonBarrierData.m_onEnemyMovedThrough.m_damage);

@@ -441,9 +441,9 @@ public class SparkHealingBeam : Ability
 		return result;
 	}
 
-	public override List<int> _001D()
+	public override List<int> Debug_GetExpectedNumbersInTooltip()
 	{
-		List<int> list = base._001D();
+		List<int> list = base.Debug_GetExpectedNumbersInTooltip();
 		list.Add(m_laserHitEffect.m_effectData.m_healingPerTurn);
 		return list;
 	}

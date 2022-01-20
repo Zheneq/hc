@@ -77,7 +77,7 @@ public class GremlinsDropMines : Ability
 		return result;
 	}
 
-	public override List<int> _001D()
+	public override List<int> Debug_GetExpectedNumbersInTooltip()
 	{
 		List<int> list = new List<int>();
 		GremlinsLandMineInfoComponent component = GetComponent<GremlinsLandMineInfoComponent>();

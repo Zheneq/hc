@@ -554,9 +554,9 @@ public class SparkEnergized : Ability
 		AddTokenInt(tokens, "BothTetherExtraDamage", string.Empty, m_bothTetherExtraDamage);
 	}
 
-	public override List<int> _001D()
+	public override List<int> Debug_GetExpectedNumbersInTooltip()
 	{
-		List<int> list = base._001D();
+		List<int> list = base.Debug_GetExpectedNumbersInTooltip();
 		SparkBasicAttack component = GetComponent<SparkBasicAttack>();
 		SparkHealingBeam component2 = GetComponent<SparkHealingBeam>();
 		if (component != null)

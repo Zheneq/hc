@@ -53,9 +53,9 @@ public class RageBeastSelfHeal : Ability
 		return dictionary;
 	}
 
-	public override List<int> _001D()
+	public override List<int> Debug_GetExpectedNumbersInTooltip()
 	{
-		List<int> list = base._001D();
+		List<int> list = base.Debug_GetExpectedNumbersInTooltip();
 		list.Add(m_healthThreshold);
 		return list;
 	}
