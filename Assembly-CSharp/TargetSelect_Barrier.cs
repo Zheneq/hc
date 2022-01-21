@@ -22,14 +22,14 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return "For placing a barrier, with optional laser templates in front and back.\n" + GetContextUsageStr(ContextKeys._000E.GetName(), "non-actor specific context, set as width of barrier", false) + GetContextUsageStr(ContextKeys._0015.GetName(), "non-actor specific context, center position of barrier", false) + GetContextUsageStr(ContextKeys._0009.GetName(), "non-actor specific context, facing direction of barrier", false);
+		return "For placing a barrier, with optional laser templates in front and back.\n" + GetContextUsageStr(ContextKeys.s_BarrierWidth.GetName(), "non-actor specific context, set as width of barrier", false) + GetContextUsageStr(ContextKeys.s_CenterPos.GetName(), "non-actor specific context, center position of barrier", false) + GetContextUsageStr(ContextKeys.s_FacingDir.GetName(), "non-actor specific context, facing direction of barrier", false);
 	}
 
 	public override void ListContextNamesForEditor(List<string> keys)
 	{
-		keys.Add(ContextKeys._000E.GetName());
-		keys.Add(ContextKeys._0015.GetName());
-		keys.Add(ContextKeys._0009.GetName());
+		keys.Add(ContextKeys.s_BarrierWidth.GetName());
+		keys.Add(ContextKeys.s_CenterPos.GetName());
+		keys.Add(ContextKeys.s_FacingDir.GetName());
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)

@@ -17,17 +17,17 @@ public class TargetSelect_AoeRadius : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return GetContextUsageStr(ContextKeys._0018.GetName(), "on every hit actor, distance from center of AoE, in squares");
+		return GetContextUsageStr(ContextKeys.s_DistFromStart.GetName(), "on every hit actor, distance from center of AoE, in squares");
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys._0018.GetName());
+		names.Add(ContextKeys.s_DistFromStart.GetName());
 	}
 
 	public override void Initialize()
 	{
-		m_commonProperties.SetValue(ContextKeys._000D.GetKey(), GetRadius());
+		m_commonProperties.SetValue(ContextKeys.s_Radius.GetKey(), GetRadius());
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)

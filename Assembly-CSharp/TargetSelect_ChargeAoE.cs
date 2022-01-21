@@ -24,13 +24,13 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return "Intended for single click charge abilities, with line and AoE on either end.\n" + GetContextUsageStr(ContextKeys._0004.GetName(), "on hit actor, 1 if in AoE near end of laser, 0 otherwise") + GetContextUsageStr(ContextKeys._0016.GetName(), "non-actor specific, charge end position", false);
+		return "Intended for single click charge abilities, with line and AoE on either end.\n" + GetContextUsageStr(ContextKeys.s_InEndAoe.GetName(), "on hit actor, 1 if in AoE near end of laser, 0 otherwise") + GetContextUsageStr(ContextKeys.s_ChargeEndPos.GetName(), "non-actor specific, charge end position", false);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys._0004.GetName());
-		names.Add(ContextKeys._0016.GetName());
+		names.Add(ContextKeys.s_InEndAoe.GetName());
+		names.Add(ContextKeys.s_ChargeEndPos.GetName());
 	}
 
 	public float GetRadiusAroundStart()

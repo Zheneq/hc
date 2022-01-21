@@ -243,8 +243,8 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			int hash = ContextKeys._0019.GetKey();
-			int hash2 = ContextKeys._001A.GetKey();
+			int hash = ContextKeys.s_HitCount.GetKey();
+			int hash2 = ContextKeys.s_InAoe.GetKey();
 			using (Dictionary<ActorData, int>.Enumerator enumerator2 = m_actorToHitCount.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())

@@ -224,7 +224,7 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 				{
 					KeyValuePair<ActorData, int> current2 = enumerator2.Current;
 					ActorHitContext actorHitContext2 = m_actorContextVars[current2.Key];
-					actorHitContext2.m_contextVars.SetValue(ContextKeys._0019.GetKey(), current2.Value);
+					actorHitContext2.m_contextVars.SetValue(ContextKeys.s_HitCount.GetKey(), current2.Value);
 					actorHitContext2.m_contextVars.SetValue(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.GetKey(), 0);
 				}
 			}

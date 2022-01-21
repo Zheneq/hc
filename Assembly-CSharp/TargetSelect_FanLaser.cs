@@ -33,13 +33,13 @@ public class TargetSelect_FanLaser : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return GetContextUsageStr(ContextKeys._0019.GetName(), "on every hit actor, number of laser hits on target") + GetContextUsageStr(ContextKeys._001A.GetName(), "on every hit actor, 1 if in laser end AoE, 0 otherwise");
+		return GetContextUsageStr(ContextKeys.s_HitCount.GetName(), "on every hit actor, number of laser hits on target") + GetContextUsageStr(ContextKeys.s_InAoe.GetName(), "on every hit actor, 1 if in laser end AoE, 0 otherwise");
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys._0019.GetName());
-		names.Add(ContextKeys._001A.GetName());
+		names.Add(ContextKeys.s_HitCount.GetName());
+		names.Add(ContextKeys.s_InAoe.GetName());
 	}
 
 	public override void Initialize()

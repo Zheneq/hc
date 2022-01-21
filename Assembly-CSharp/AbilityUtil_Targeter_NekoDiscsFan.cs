@@ -81,7 +81,7 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 			List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(vector3, m_aoeRadiusAtEnd, false, targetingActor, targetingActor.GetEnemyTeam(), null, true, coneLosCheckPos);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 			AddActorsInRange(actors, travelBoardSquareWorldPositionForLos, targetingActor);
-			int hash = ContextKeys._001A.GetKey();
+			int hash = ContextKeys.s_InAoe.GetKey();
 			for (int i = 0; i < actors.Count; i++)
 			{
 				ActorData key = actors[i];

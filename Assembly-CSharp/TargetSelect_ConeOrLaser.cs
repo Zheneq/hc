@@ -28,14 +28,14 @@ public class TargetSelect_ConeOrLaser : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return GetContextUsageStr(ContextKeys._0018.GetName(), "distance from start of cone position, in squares") + GetContextUsageStr(s_cvarInCone.GetName(), "Whether the target hit is in cone") + GetContextUsageStr(ContextKeys._001D.GetName(), "angle from center of cone");
+		return GetContextUsageStr(ContextKeys.s_DistFromStart.GetName(), "distance from start of cone position, in squares") + GetContextUsageStr(s_cvarInCone.GetName(), "Whether the target hit is in cone") + GetContextUsageStr(ContextKeys.s_AngleFromCenter.GetName(), "angle from center of cone");
 	}
 
 	public override void ListContextNamesForEditor(List<string> keys)
 	{
-		keys.Add(ContextKeys._0018.GetName());
+		keys.Add(ContextKeys.s_DistFromStart.GetName());
 		keys.Add(s_cvarInCone.GetName());
-		keys.Add(ContextKeys._001D.GetName());
+		keys.Add(ContextKeys.s_AngleFromCenter.GetName());
 	}
 
 	public override void Initialize()

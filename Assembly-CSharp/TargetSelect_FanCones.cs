@@ -45,12 +45,12 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return GetContextUsageStr(ContextKeys._0019.GetName(), "on every hit actor, number of cone hits on target");
+		return GetContextUsageStr(ContextKeys.s_HitCount.GetName(), "on every hit actor, number of cone hits on target");
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys._0019.GetName());
+		names.Add(ContextKeys.s_HitCount.GetName());
 	}
 
 	public override void Initialize()
