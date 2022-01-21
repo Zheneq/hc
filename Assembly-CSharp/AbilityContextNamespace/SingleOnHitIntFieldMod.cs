@@ -56,7 +56,7 @@ namespace AbilityContextNamespace
 				if (m_useConditionOverride)
 				{
 					text += "* Using Condition override *\n";
-					text += m_conditionOverride._001D("    ");
+					text += m_conditionOverride.GetInEditorDesc("    ");
 				}
 				text += AbilityModHelper.GetModPropertyDesc(m_baseValueMod, "[BaseValue]", true, baseIntField.m_baseValue);
 				text += AbilityModHelper.GetModPropertyDesc(m_minValueMod, "[MinValue]", true, baseIntField.m_minValue);

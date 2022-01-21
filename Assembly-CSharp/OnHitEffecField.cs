@@ -65,7 +65,7 @@ public class OnHitEffecField
 				{
 					result = result + "Identifier: " + InEditorDescHelper.ColoredString(m_identifier, "white") + "\n";
 				}
-				result = result + "Conditions:\n" + m_conditions._001D("    ");
+				result = result + "Conditions:\n" + m_conditions.GetInEditorDesc("    ");
 				if (m_skipRemainingEffectEntriesIfMatch)
 				{
 					result = result + InEditorDescHelper.ColoredString("    * Skipping later entries if this one applies to target", "white") + "\n";

@@ -148,7 +148,7 @@ public class OnHitIntField
 		{
 			str = str + "Identifier: " + InEditorDescHelper.ColoredString(m_identifier, "white") + "\n";
 		}
-		str = str + "Conditions:\n" + m_conditions._001D("    ");
+		str = str + "Conditions:\n" + m_conditions.GetInEditorDesc("    ");
 		str = str + "BaseValue= " + InEditorDescHelper.ColoredString(m_baseValue) + "\n";
 		if (m_minValue > 0)
 		{
