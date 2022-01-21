@@ -103,7 +103,7 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 	public override bool HandleCustomTargetValidation(Ability ability, ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
+		if (boardSquareSafe != null && boardSquareSafe.IsValidForGameplay())
 		{
 			if (boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
@@ -180,8 +180,8 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 				while (true)
 				{
 					destSquare = chargePath.GetPathEndpoint().square;
-					Vector3 worldPositionForLoS = startSquare.GetWorldPositionForLoS();
-					Vector3 worldPositionForLoS2 = destSquare.GetWorldPositionForLoS();
+					Vector3 worldPositionForLoS = startSquare.GetOccupantLoSPos();
+					Vector3 worldPositionForLoS2 = destSquare.GetOccupantLoSPos();
 					List<ActorData> actors = AreaEffectUtils.GetActorsInBoxByActorRadius(worldPositionForLoS, worldPositionForLoS2, 2f * lineHalfWidthInSquares, false, caster, relevantTeams);
 					actors.Remove(caster);
 					if (forServer)
@@ -214,7 +214,7 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 							float num2 = VectorUtils.HorizontalPlaneDistInWorld(projectionPoint, next.next.square.ToVector3());
 							if (num2 > num)
 							{
-								if (next.square.IsBaselineHeight())
+								if (next.square.IsValidForGameplay())
 								{
 									break;
 								}

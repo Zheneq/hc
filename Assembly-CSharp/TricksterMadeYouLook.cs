@@ -219,7 +219,7 @@ public class TricksterMadeYouLook : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			if (boardSquareSafe.IsBaselineHeight())
+			if (boardSquareSafe.IsValidForGameplay())
 			{
 				using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 				{

@@ -164,7 +164,7 @@ public class BlasterDashAndBlast : Ability
 				default:
 				{
 					BoardSquare boardSquareSafe = Board.Get().GetSquare(targetsSoFar[0].GridPos);
-					overridePos = boardSquareSafe.GetWorldPosition();
+					overridePos = boardSquareSafe.GetOccupantRefPos();
 					return true;
 				}
 				}
@@ -611,7 +611,7 @@ public class BlasterDashAndBlast : Ability
 			BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 			if (boardSquareSafe != null)
 			{
-				if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != currentBoardSquare)
+				if (boardSquareSafe.IsValidForGameplay() && boardSquareSafe != currentBoardSquare)
 				{
 					while (true)
 					{

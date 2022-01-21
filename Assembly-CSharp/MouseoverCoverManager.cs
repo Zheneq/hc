@@ -71,7 +71,7 @@ public class MouseoverCoverManager
 							ActorCover.CoverDirections coverDirection = ActorCover.GetCoverDirection(currentSquare, boardSquare);
 							int num2 = boardSquare.height - currentSquare.height;
 							bool flag = num2 >= 1;
-							bool flag2 = currentSquare.GetCoverInDirection(coverDirection) != ThinCover.CoverType.None;
+							bool flag2 = currentSquare.GetThinCover(coverDirection) != ThinCover.CoverType.None;
 							if (!flag)
 							{
 								if (!flag2)
@@ -228,7 +228,7 @@ public class MouseoverCoverManager
 				{
 					if (!(coverCenterSquare == null))
 					{
-						if (coverCenterSquare.IsBaselineHeight())
+						if (coverCenterSquare.IsValidForGameplay())
 						{
 							ActorTurnSM actorTurnSM = actorData.GetActorTurnSM();
 							if (actorTurnSM != null)

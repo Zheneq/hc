@@ -478,7 +478,7 @@ public class IceborgDamageArea : GenericAbility_Container
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
+		if (boardSquareSafe != null && boardSquareSafe.IsValidForGameplay())
 		{
 			while (true)
 			{

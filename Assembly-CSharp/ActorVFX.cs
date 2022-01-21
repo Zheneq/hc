@@ -708,7 +708,7 @@ public class ActorVFX : NetworkBehaviour
 				if (FogOfWar.GetClientFog() != null)
 				{
 					this.m_vfxObj = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.Get().m_footstepsVFXPrefab);
-					this.m_vfxObj.transform.position = square.GetWorldPosition() + new Vector3(0f, 0.1f, 0f);
+					this.m_vfxObj.transform.position = square.GetOccupantRefPos() + new Vector3(0f, 0.1f, 0f);
 					this.m_vfxObj.transform.rotation = runner.transform.rotation;
 					bool active = FogOfWar.GetClientFog().IsVisible(this.m_square);
 					this.m_vfxObj.SetActive(active);

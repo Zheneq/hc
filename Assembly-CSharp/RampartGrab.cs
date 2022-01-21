@@ -307,7 +307,7 @@ public class RampartGrab : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			if (boardSquareSafe.IsBaselineHeight())
+			if (boardSquareSafe.IsValidForGameplay())
 			{
 				bool result = false;
 				if (boardSquareSafe != caster.GetCurrentBoardSquare())

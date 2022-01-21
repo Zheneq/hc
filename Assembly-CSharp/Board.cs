@@ -828,7 +828,7 @@ public class Board : MonoBehaviour, IGameEventListener
 		if (_001D != null)
 		{
 			bool flag = _001D == _000E;
-			if (!_001D.IsBaselineHeight())
+			if (!_001D.IsValidForGameplay())
 			{
 				goto IL_0066;
 			}
@@ -859,7 +859,7 @@ public class Board : MonoBehaviour, IGameEventListener
 		});
 		foreach (BoardSquare current in result2)
 		{
-			if (current.IsBaselineHeight())
+			if (current.IsValidForGameplay())
 			{
 				return current;
 			}

@@ -296,7 +296,7 @@ public class NinjaMultiAttackSequence : Sequence
 		int result;
 		if (square != null)
 		{
-			if (square.IsBaselineHeight() && square.occupant == null)
+			if (square.IsValidForGameplay() && square.occupant == null)
 			{
 				result = ((!SquareInUseByTempSatellite(square)) ? 1 : 0);
 				goto IL_004d;

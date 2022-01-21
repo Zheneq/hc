@@ -509,7 +509,7 @@ public class NinjaOmnidash : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			if (boardSquareSafe.IsBaselineHeight())
+			if (boardSquareSafe.IsValidForGameplay())
 			{
 				if (boardSquareSafe != caster.GetCurrentBoardSquare())
 				{

@@ -93,7 +93,7 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 			{
 				if (!m_useCasterLocationForAllMultiTargets)
 				{
-					vector = boardSquareSafe.GetWorldPositionForLoS();
+					vector = boardSquareSafe.GetOccupantLoSPos();
 				}
 				vector2 = currentTarget.FreePos - vector;
 				vector2.y = 0f;

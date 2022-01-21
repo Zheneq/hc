@@ -92,7 +92,7 @@ public class GrydCycleDash : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			if (boardSquareSafe.IsBaselineHeight())
+			if (boardSquareSafe.IsValidForGameplay())
 			{
 				BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, Board.Get().GetSquare(gridPos), false);
 				if (boardSquarePathInfo == null)

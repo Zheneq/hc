@@ -579,7 +579,7 @@ public class NinjaShurikenOrDash : Ability
 		bool flag2;
 		if (!(boardSquareSafe == null))
 		{
-			if (boardSquareSafe.IsBaselineHeight())
+			if (boardSquareSafe.IsValidForGameplay())
 			{
 				flag = false;
 				flag2 = false;
@@ -659,7 +659,7 @@ public class NinjaShurikenOrDash : Ability
 					BoardSquare boardSquareSafe3 = Board.Get().GetSquare(target.GridPos);
 					if (boardSquareSafe3 != null)
 					{
-						if (boardSquareSafe3.IsBaselineHeight())
+						if (boardSquareSafe3.IsValidForGameplay())
 						{
 							if (boardSquareSafe3 != boardSquareSafe2)
 							{

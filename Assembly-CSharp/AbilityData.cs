@@ -2494,7 +2494,7 @@ public class AbilityData : NetworkBehaviour
 		bool flag2;
 		if (boardSquareSafe != null)
 		{
-			flag2 = (ability.AllowInvalidSquareForSquareBasedTarget() || Board.Get().GetSquare(target.GridPos).IsBaselineHeight());
+			flag2 = (ability.AllowInvalidSquareForSquareBasedTarget() || Board.Get().GetSquare(target.GridPos).IsValidForGameplay());
 		}
 		else
 		{
@@ -3215,7 +3215,7 @@ public class AbilityData : NetworkBehaviour
 						while (enumerator.MoveNext())
 						{
 							BoardSquare boardSquare = enumerator.Current;
-							if (boardSquare.IsBaselineHeight())
+							if (boardSquare.IsValidForGameplay())
 							{
 								if (playerFreeSquare.LOSDistanceIsOne_zq(boardSquare.x, boardSquare.y))
 								{

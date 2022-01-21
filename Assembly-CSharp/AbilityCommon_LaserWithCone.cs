@@ -6,7 +6,7 @@ public class AbilityCommon_LaserWithCone
 	{
 		AreaEffectUtils.GetEndPointForValidGameplaySquare(startPos, endPos, out Vector3 adjustedEndPoint);
 		BoardSquare boardSquare = Board.Get().GetSquare(adjustedEndPoint);
-		if (boardSquare != null && boardSquare.HasFullCoverFromAnyDirection_zq())
+		if (boardSquare != null && boardSquare.IsNextToFullCover())
 		{
 			Vector3 vector = adjustedEndPoint - startPos;
 			vector.y = 0f;

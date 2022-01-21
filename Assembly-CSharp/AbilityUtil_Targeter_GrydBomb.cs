@@ -34,7 +34,7 @@ public class AbilityUtil_Targeter_GrydBomb : AbilityUtil_Targeter_Shape
 				{
 					ClearActorsInRange();
 					SetShowArcToShape(false);
-					Vector3 worldPositionForLoS = Board.Get().GetSquare(m_bombAbility.GetPlacedBomb()).GetWorldPositionForLoS();
+					Vector3 worldPositionForLoS = Board.Get().GetSquare(m_bombAbility.GetPlacedBomb()).GetOccupantLoSPos();
 					Vector3 vector = currentTarget.FreePos - worldPositionForLoS;
 					if (m_lockToCardinalDirs)
 					{

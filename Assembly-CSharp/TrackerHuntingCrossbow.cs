@@ -99,7 +99,7 @@ public class TrackerHuntingCrossbow : Ability
 						}
 						else
 						{
-							num3 = actorData.GetCurrentBoardSquare().IsInBrushRegion();
+							num3 = actorData.GetCurrentBoardSquare().IsInBrush();
 						}
 						if (num3)
 						{

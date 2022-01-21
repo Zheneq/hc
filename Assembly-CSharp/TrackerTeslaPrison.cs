@@ -259,7 +259,7 @@ public class TrackerTeslaPrison : TrackerDrone
 		}
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		int result;
-		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
+		if (boardSquareSafe != null && boardSquareSafe.IsValidForGameplay())
 		{
 			if (caster.GetCurrentBoardSquare() != null)
 			{

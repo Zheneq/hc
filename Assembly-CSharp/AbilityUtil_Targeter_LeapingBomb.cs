@@ -73,7 +73,7 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 		{
 			if (num3 >= 0)
 			{
-				if (squares[num3].IsBaselineHeight())
+				if (squares[num3].IsValidForGameplay())
 				{
 					boardSquare2 = squares[num3];
 					break;
@@ -91,7 +91,7 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 			{
 				if (boardSquarePathInfo != null)
 				{
-					if (boardSquarePathInfo.square.IsBaselineHeight())
+					if (boardSquarePathInfo.square.IsValidForGameplay())
 					{
 						if (num4 >= m_minSeparationInSquares)
 						{

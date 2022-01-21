@@ -1203,7 +1203,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		List<Vector3> points = new List<Vector3>();
 		for (int i = 0; i < targetSquares.Count; i++)
 		{
-			Vector3 worldPosition = Board.Get().GetSquare(targetSquares[i]).GetWorldPosition();
+			Vector3 worldPosition = Board.Get().GetSquare(targetSquares[i]).GetOccupantRefPos();
 			points.Add(new Vector3(worldPosition.x, worldPosition.y + 0.1f, worldPosition.z));
 		}
 		while (true)

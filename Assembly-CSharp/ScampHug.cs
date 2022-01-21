@@ -109,7 +109,7 @@ public class ScampHug : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			if (boardSquareSafe != caster.GetCurrentBoardSquare() && boardSquareSafe.IsBaselineHeight())
+			if (boardSquareSafe != caster.GetCurrentBoardSquare() && boardSquareSafe.IsValidForGameplay())
 			{
 				while (true)
 				{

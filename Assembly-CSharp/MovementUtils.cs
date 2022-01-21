@@ -678,26 +678,26 @@ public static class MovementUtils
 		{
 			BoardSquare boardSquare = Board.Get().GetSquare(srcSquare.GetGridPos().x, destSquare.GetGridPos().y);
 			BoardSquare boardSquare2 = Board.Get().GetSquare(destSquare.GetGridPos().x, srcSquare.GetGridPos().y);
-			if (srcSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(srcSquare, boardSquare)) == ThinCover.CoverType.Half)
+			if (srcSquare.GetThinCover(VectorUtils.GetCoverDirection(srcSquare, boardSquare)) == ThinCover.CoverType.Half)
 			{
 				result = true;
 			}
-			else if (srcSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(srcSquare, boardSquare2)) == ThinCover.CoverType.Half)
+			else if (srcSquare.GetThinCover(VectorUtils.GetCoverDirection(srcSquare, boardSquare2)) == ThinCover.CoverType.Half)
 			{
 				result = true;
 			}
-			else if (destSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(destSquare, boardSquare)) == ThinCover.CoverType.Half)
+			else if (destSquare.GetThinCover(VectorUtils.GetCoverDirection(destSquare, boardSquare)) == ThinCover.CoverType.Half)
 			{
 				result = true;
 			}
-			else if (destSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(destSquare, boardSquare2)) == ThinCover.CoverType.Half)
+			else if (destSquare.GetThinCover(VectorUtils.GetCoverDirection(destSquare, boardSquare2)) == ThinCover.CoverType.Half)
 			{
 				result = true;
 			}
 		}
 		else
 		{
-			result = (srcSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(srcSquare, destSquare)) == ThinCover.CoverType.Half);
+			result = (srcSquare.GetThinCover(VectorUtils.GetCoverDirection(srcSquare, destSquare)) == ThinCover.CoverType.Half);
 		}
 		return result;
 	}

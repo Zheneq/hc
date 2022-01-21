@@ -315,7 +315,7 @@ public class NekoEnlargeDisc : Ability
 			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Count == 1)
 			{
-				abilityTarget.SetValuesFromBoardSquare(activeDiscSquares[0], activeDiscSquares[0].GetWorldPositionForLoS());
+				abilityTarget.SetValuesFromBoardSquare(activeDiscSquares[0], activeDiscSquares[0].GetOccupantLoSPos());
 			}
 		}
 		return abilityTarget;
@@ -347,7 +347,7 @@ public class NekoEnlargeDisc : Ability
 	public Vector3 ClampToSquareCenter(ActorData caster, AbilityTarget currentTarget)
 	{
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
-		return boardSquareSafe.GetWorldPositionForLoS();
+		return boardSquareSafe.GetOccupantLoSPos();
 	}
 
 	public override int GetTheatricsSortPriority(AbilityData.ActionType actionType)

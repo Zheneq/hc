@@ -119,7 +119,7 @@ public class RunState : MoveState
 	{
 		BoardSquare square = m_pathSquareInfo.square;
 		Vector3 position = m_owner.m_actor.transform.position;
-		Vector3 worldPosition = square.GetWorldPosition();
+		Vector3 worldPosition = square.GetOccupantRefPos();
 		Vector3 vector = worldPosition - position;
 		vector.y = 0f;
 		float sqrMagnitude = vector.sqrMagnitude;

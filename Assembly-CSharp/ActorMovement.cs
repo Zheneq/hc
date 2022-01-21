@@ -851,9 +851,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag;
 		if (!(dest == null))
 		{
-			if (dest.IsBaselineHeight())
+			if (dest.IsValidForGameplay())
 			{
-				if (src.GetCoverInDirection(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
+				if (src.GetThinCover(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
 				{
 					while (true)
 					{
@@ -1407,7 +1407,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	private float GetDistToPathSquare(BoardSquare goalGridSquare)
 	{
 		Vector3 position = m_actor.transform.position;
-		Vector3 worldPosition = goalGridSquare.GetWorldPosition();
+		Vector3 worldPosition = goalGridSquare.GetOccupantRefPos();
 		Vector3 vector = worldPosition - position;
 		vector.y = 0f;
 		return vector.magnitude;
@@ -1423,7 +1423,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				if (m_aestheticPath != null && m_aestheticPath.square != null)
 				{
 					Vector3 position = m_actor.transform.position;
-					Vector3 worldPosition = m_aestheticPath.square.GetWorldPosition();
+					Vector3 worldPosition = m_aestheticPath.square.GetOccupantRefPos();
 					result = worldPosition - position;
 					result.y = 0f;
 					result.Normalize();
@@ -2441,13 +2441,13 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			Gizmos.color = array[(int)boardSquarePathInfo.connectionType];
 			if (boardSquarePathInfo.square != null)
 			{
-				Gizmos.DrawWireSphere(boardSquarePathInfo.square.GetWorldPosition(), num);
+				Gizmos.DrawWireSphere(boardSquarePathInfo.square.GetOccupantRefPos(), num);
 			}
 			if (boardSquarePathInfo.prev != null)
 			{
 				if (boardSquarePathInfo.prev.square != null)
 				{
-					Gizmos.DrawLine(boardSquarePathInfo.square.GetWorldPosition() + Vector3.up * num, boardSquarePathInfo.prev.square.GetWorldPosition() + Vector3.up * num);
+					Gizmos.DrawLine(boardSquarePathInfo.square.GetOccupantRefPos() + Vector3.up * num, boardSquarePathInfo.prev.square.GetOccupantRefPos() + Vector3.up * num);
 				}
 			}
 		}
@@ -2458,13 +2458,13 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			{
 				if (boardSquarePathInfo2.square != null)
 				{
-					Gizmos.DrawSphere(boardSquarePathInfo2.square.GetWorldPosition(), 0.15f);
+					Gizmos.DrawSphere(boardSquarePathInfo2.square.GetOccupantRefPos(), 0.15f);
 				}
 				if (boardSquarePathInfo2.prev != null)
 				{
 					if (boardSquarePathInfo2.prev.square != null)
 					{
-						Gizmos.DrawLine(boardSquarePathInfo2.square.GetWorldPosition(), boardSquarePathInfo2.prev.square.GetWorldPosition());
+						Gizmos.DrawLine(boardSquarePathInfo2.square.GetOccupantRefPos(), boardSquarePathInfo2.prev.square.GetOccupantRefPos());
 					}
 				}
 			}

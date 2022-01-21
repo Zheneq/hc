@@ -172,7 +172,7 @@ public class ActorController : NetworkBehaviour
 		}
 		while (true)
 		{
-			if (!playerFreeSquare.IsBaselineHeight())
+			if (!playerFreeSquare.IsValidForGameplay())
 			{
 				return;
 			}

@@ -637,7 +637,7 @@ public class NekoFlipDash : Ability
 			flag = true;
 			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos);
 			BoardSquare boardSquareSafe3 = Board.Get().GetSquare(target.GridPos);
-			if (boardSquareSafe3 != null && boardSquareSafe3.IsBaselineHeight())
+			if (boardSquareSafe3 != null && boardSquareSafe3.IsValidForGameplay())
 			{
 				if (boardSquareSafe3 != boardSquareSafe2)
 				{

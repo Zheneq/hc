@@ -123,7 +123,7 @@ public class SpawnPointManager : MonoBehaviour
 					{
 						goto IL_17B;
 					}
-					if (!boardSquare.IsBaselineHeight() || boardSquare.IsInBrushRegion() || (float)(boardSquare.height - board.BaselineHeight) >= 0.5f)
+					if (!boardSquare.IsValidForGameplay() || boardSquare.IsInBrush() || (float)(boardSquare.height - board.BaselineHeight) >= 0.5f)
 					{
 						goto IL_17B;
 					}
@@ -237,7 +237,7 @@ public class SpawnPointManager : MonoBehaviour
 			}
 			List<BoardSquare> list2 = list;
 			
-			list2.RemoveAll(((BoardSquare s) => !s.IsBaselineHeight()));
+			list2.RemoveAll(((BoardSquare s) => !s.IsValidForGameplay()));
 		}
 		else if (team == Team.TeamA)
 		{

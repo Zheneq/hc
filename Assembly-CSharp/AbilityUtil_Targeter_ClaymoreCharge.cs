@@ -251,7 +251,7 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 				for (int j = 0; j < squaresInBorderLayer.Count; j++)
 				{
 					BoardSquare boardSquare2 = squaresInBorderLayer[j];
-					if (!boardSquare2.IsBaselineHeight())
+					if (!boardSquare2.IsValidForGameplay())
 					{
 						continue;
 					}

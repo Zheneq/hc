@@ -520,7 +520,7 @@ public class NekoFanOfDiscs : Ability
 									break;
 								}
 								BoardSquare current2 = enumerator2.Current;
-								if (current2.IsBaselineHeight())
+								if (current2.IsValidForGameplay())
 								{
 									if (!list.Contains(current2))
 									{

@@ -92,7 +92,7 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 			while (true)
 			{
 				BoardSquare boardSquare = discSquaresFromEndPositions[num];
-				Vector3 baselineHeight = boardSquare.GetWorldPositionBaseline();
+				Vector3 baselineHeight = boardSquare.GetPosAtBaselineHeight();
 				baselineHeight.y = HighlightUtils.GetHighlightHeight();
 				gameObject.transform.position = baselineHeight;
 				gameObject2.transform.position = vector3;

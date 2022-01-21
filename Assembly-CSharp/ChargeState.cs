@@ -64,7 +64,7 @@ public class ChargeState : MoveState
 			if (m_ownerActorData.GetActorModelData().IsPlayingChargeEnd())
 			{
 				BoardSquare square = m_pathSquareInfo.square;
-				Vector3 worldPosition = square.GetWorldPosition();
+				Vector3 worldPosition = square.GetOccupantRefPos();
 				worldPosition.y = Board.Get().BaselineHeight;
 				m_owner.m_actor.SetTransformPositionToVector(worldPosition);
 				if (m_pathSquareInfo.next != null)
@@ -102,7 +102,7 @@ public class ChargeState : MoveState
 		}
 		BoardSquare square2 = m_pathSquareInfo.square;
 		Vector3 position = m_owner.m_actor.transform.position;
-		Vector3 worldPosition2 = square2.GetWorldPosition();
+		Vector3 worldPosition2 = square2.GetOccupantRefPos();
 		worldPosition2.y = Board.Get().BaselineHeight;
 		Vector3 vector = worldPosition2 - position;
 		vector.y = 0f;

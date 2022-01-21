@@ -57,7 +57,7 @@ public class AbilityUtil_Targeter_NekoDisc : AbilityUtil_Targeter_Laser
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		AddActorsInRange(actors, travelBoardSquareWorldPositionForLos, targetingActor);
 		BoardSquare discEndSquare = NekoBoomerangDisc.GetDiscEndSquare(travelBoardSquareWorldPositionForLos, laserEndPos);
-		Vector3 baselineHeight = discEndSquare.GetWorldPositionBaseline();
+		Vector3 baselineHeight = discEndSquare.GetPosAtBaselineHeight();
 		baselineHeight.y = HighlightUtils.GetHighlightHeight();
 		m_highlights[1].transform.position = baselineHeight;
 		laserEndPos.y = HighlightUtils.GetHighlightHeight();

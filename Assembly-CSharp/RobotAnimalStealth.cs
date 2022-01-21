@@ -68,7 +68,7 @@ public class RobotAnimalStealth : Ability
 							BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 							if (boardSquareSafe != null)
 							{
-								if (boardSquareSafe.IsBaselineHeight())
+								if (boardSquareSafe.IsValidForGameplay())
 								{
 									result = ((KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null) ? 1 : 0);
 									goto IL_0073;
@@ -88,7 +88,7 @@ public class RobotAnimalStealth : Ability
 			{
 				if (boardSquareSafe2 != boardSquareSafe3)
 				{
-					if (boardSquareSafe3.IsBaselineHeight() && KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false) != null)
+					if (boardSquareSafe3.IsValidForGameplay() && KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false) != null)
 					{
 						while (true)
 						{

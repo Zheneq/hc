@@ -70,15 +70,15 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 		private void ApplySlope(PieceType pieceType, ref Vector3[] positions, BoardSquare square)
 		{
-			Vector3 verticesAtCorner_zq = square.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperRight);
+			Vector3 verticesAtCorner_zq = square.GetCornerVertex(BoardSquare.CornerType.UpperRight);
 			float num = verticesAtCorner_zq.y;
-			Vector3 verticesAtCorner_zq2 = square.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperLeft);
+			Vector3 verticesAtCorner_zq2 = square.GetCornerVertex(BoardSquare.CornerType.UpperLeft);
 			float num2 = verticesAtCorner_zq2.y;
-			Vector3 verticesAtCorner_zq3 = square.GetVerticesAtCorner_zq(BoardSquare.CornerType.LowerRight);
+			Vector3 verticesAtCorner_zq3 = square.GetCornerVertex(BoardSquare.CornerType.LowerRight);
 			float num3 = verticesAtCorner_zq3.y;
-			Vector3 verticesAtCorner_zq4 = square.GetVerticesAtCorner_zq(BoardSquare.CornerType.LowerLeft);
+			Vector3 verticesAtCorner_zq4 = square.GetCornerVertex(BoardSquare.CornerType.LowerLeft);
 			float num4 = verticesAtCorner_zq4.y;
-			if (!square.IsBaselineHeight())
+			if (!square.IsValidForGameplay())
 			{
 				float num5 = Board.Get().BaselineHeight;
 				float num6 = num5 + square.GetHighlightOffset();
@@ -2062,7 +2062,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				int num2;
 				if (Board.Get().PlayerClampedSquare != null)
 				{
-					num2 = (Board.Get().PlayerClampedSquare.IsBaselineHeight() ? 1 : 0);
+					num2 = (Board.Get().PlayerClampedSquare.IsValidForGameplay() ? 1 : 0);
 				}
 				else
 				{

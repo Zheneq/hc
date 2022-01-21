@@ -255,7 +255,7 @@ public class SoldierDashAndOverwatch : Ability
 	{
 		if (targetIndex == 1)
 		{
-			overridePos = Board.Get().GetSquare(targetsSoFar[0].GridPos).GetWorldPosition();
+			overridePos = Board.Get().GetSquare(targetsSoFar[0].GridPos).GetOccupantRefPos();
 			return true;
 		}
 		return base.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);
@@ -368,7 +368,7 @@ public class SoldierDashAndOverwatch : Ability
 		}
 
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
+		if (boardSquareSafe != null && boardSquareSafe.IsValidForGameplay() && boardSquareSafe != caster.GetCurrentBoardSquare())
 		{
 			bool isAllowedDashTarget = !OnlyDashNextToCover();
 			if (OnlyDashNextToCover())

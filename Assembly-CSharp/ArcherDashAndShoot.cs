@@ -118,7 +118,7 @@ public class ArcherDashAndShoot : Ability
 				default:
 				{
 					BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-					if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
+					if (boardSquareSafe != null && boardSquareSafe.IsValidForGameplay() && boardSquareSafe != caster.GetCurrentBoardSquare())
 					{
 						while (true)
 						{

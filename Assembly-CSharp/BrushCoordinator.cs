@@ -417,7 +417,7 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				{
 					flag = false;
 				}
-				else if (subjectSquare.IsInBrushRegion())
+				else if (subjectSquare.IsInBrush())
 				{
 					int brushRegion = subjectSquare.BrushRegion;
 					if (IsRegionFunctioning(brushRegion))

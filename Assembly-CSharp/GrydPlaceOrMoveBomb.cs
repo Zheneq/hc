@@ -82,7 +82,7 @@ public class GrydPlaceOrMoveBomb : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			if (boardSquareSafe.IsBaselineHeight())
+			if (boardSquareSafe.IsValidForGameplay())
 			{
 				if (Mathf.Abs(gridPosWithIncrementedHeight.x - target.GridPos.x) > m_placeRange || Mathf.Abs(gridPosWithIncrementedHeight.y - target.GridPos.y) > m_placeRange)
 				{
@@ -174,7 +174,7 @@ public class GrydPlaceOrMoveBomb : Ability
 					{
 						break;
 					}
-					if (!boardSquare2.IsBaselineHeight())
+					if (!boardSquare2.IsValidForGameplay())
 					{
 						break;
 					}
@@ -216,7 +216,7 @@ public class GrydPlaceOrMoveBomb : Ability
 					{
 						break;
 					}
-					if (!boardSquare3.IsBaselineHeight())
+					if (!boardSquare3.IsValidForGameplay())
 					{
 						break;
 					}
@@ -258,7 +258,7 @@ public class GrydPlaceOrMoveBomb : Ability
 					{
 						break;
 					}
-					if (!boardSquare4.IsBaselineHeight())
+					if (!boardSquare4.IsValidForGameplay())
 					{
 						break;
 					}
@@ -293,7 +293,7 @@ public class GrydPlaceOrMoveBomb : Ability
 			for (int num4 = placedBomb.y - 1; num4 >= placedBomb.y - m_moveRange; num4--)
 			{
 				BoardSquare boardSquare5 = Board.Get().GetSquare(placedBomb.x, num4);
-				if (boardSquare5 == null || !boardSquare5.IsBaselineHeight() || !boardSquareSafe.LOSDistanceIsOne_zq(placedBomb.x, num4))
+				if (boardSquare5 == null || !boardSquare5.IsValidForGameplay() || !boardSquareSafe.LOSDistanceIsOne_zq(placedBomb.x, num4))
 				{
 					break;
 				}

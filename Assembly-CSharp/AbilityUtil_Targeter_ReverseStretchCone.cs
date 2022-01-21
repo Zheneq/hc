@@ -58,7 +58,7 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		ClearActorsInRange();
-		Vector3 worldPositionForLoS = targetingActor.GetCurrentBoardSquare().GetWorldPositionForLoS();
+		Vector3 worldPositionForLoS = targetingActor.GetCurrentBoardSquare().GetOccupantLoSPos();
 		Vector3 freePos = currentTarget.FreePos;
 		Vector3 vector = worldPositionForLoS - freePos;
 		vector.y = 0f;

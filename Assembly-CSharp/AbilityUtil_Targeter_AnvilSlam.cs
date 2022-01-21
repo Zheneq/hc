@@ -181,7 +181,7 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 		List<BoardSquare> squaresInBox = AreaEffectUtils.GetSquaresInBox(laserCoordinates.start, laserCoordinates.end, m_dashWidthInSquares / 2f, false, targetingActor);
 		foreach (BoardSquare item in squaresInBox)
 		{
-			if (item.IsBaselineHeight())
+			if (item.IsValidForGameplay())
 			{
 				Gizmos.color = Color.green;
 			}

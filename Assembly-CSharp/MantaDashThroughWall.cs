@@ -463,7 +463,7 @@ public class MantaDashThroughWall : Ability
 				{
 					continue;
 				}
-				if (!boardSquare.IsBaselineHeight())
+				if (!boardSquare.IsValidForGameplay())
 				{
 					boardSquare = null;
 				}
@@ -474,7 +474,7 @@ public class MantaDashThroughWall : Ability
 		while (++num3 <= num2);
 		if (!(boardSquare == null))
 		{
-			if (boardSquare.IsBaselineHeight())
+			if (boardSquare.IsValidForGameplay())
 			{
 				goto IL_0113;
 			}
@@ -485,7 +485,7 @@ public class MantaDashThroughWall : Ability
 		IL_0113:
 		if (boardSquare != null)
 		{
-			Vector3 worldPositionForLoS = boardSquare.GetWorldPositionForLoS();
+			Vector3 worldPositionForLoS = boardSquare.GetOccupantLoSPos();
 			Vector3 normalized = (worldPositionForLoS - startPos).normalized;
 			normalized.y = 0f;
 			if (Mathf.Abs(normalized.x) > 0.3f)

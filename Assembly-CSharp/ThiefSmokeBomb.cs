@@ -309,7 +309,7 @@ public class ThiefSmokeBomb : Ability
 		bool flag;
 		if (!(boardSquareSafe == null))
 		{
-			if (boardSquareSafe.IsBaselineHeight())
+			if (boardSquareSafe.IsValidForGameplay())
 			{
 				if (targetIndex == 0)
 				{
@@ -439,7 +439,7 @@ public class ThiefSmokeBomb : Ability
 						{
 							continue;
 						}
-						if (!boardSquare.IsBaselineHeight())
+						if (!boardSquare.IsValidForGameplay())
 						{
 							continue;
 						}

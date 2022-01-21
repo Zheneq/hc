@@ -253,7 +253,7 @@ public class ActorCover : NetworkBehaviour
 							{
 								goto IL_162;
 							}
-							if (square.GetCoverInDirection(ActorCover.CoverDirections.X_NEG) == ThinCover.CoverType.Half)
+							if (square.GetThinCover(ActorCover.CoverDirections.X_NEG) == ThinCover.CoverType.Half)
 							{
 								goto IL_162;
 							}
@@ -274,7 +274,7 @@ public class ActorCover : NetworkBehaviour
 								{
 									goto IL_162;
 								}
-								if (square.GetCoverInDirection(ActorCover.CoverDirections.X_POS) == ThinCover.CoverType.Half)
+								if (square.GetThinCover(ActorCover.CoverDirections.X_POS) == ThinCover.CoverType.Half)
 								{
 									for (;;)
 									{
@@ -293,7 +293,7 @@ public class ActorCover : NetworkBehaviour
 							}
 							if (!this.HasNonThinCover(square, -1, 0, false))
 							{
-								if (square.GetCoverInDirection(ActorCover.CoverDirections.X_NEG) != ThinCover.CoverType.Full)
+								if (square.GetThinCover(ActorCover.CoverDirections.X_NEG) != ThinCover.CoverType.Full)
 								{
 									for (;;)
 									{
@@ -318,7 +318,7 @@ public class ActorCover : NetworkBehaviour
 							{
 								goto IL_1FB;
 							}
-							if (square.GetCoverInDirection(ActorCover.CoverDirections.X_POS) != ThinCover.CoverType.Full)
+							if (square.GetThinCover(ActorCover.CoverDirections.X_POS) != ThinCover.CoverType.Full)
 							{
 								continue;
 							}
@@ -340,7 +340,7 @@ public class ActorCover : NetworkBehaviour
 							{
 								goto IL_244;
 							}
-							if (!this.HasNonThinCover(square, 0, -1, true) && square.GetCoverInDirection(ActorCover.CoverDirections.Y_NEG) != ThinCover.CoverType.Half)
+							if (!this.HasNonThinCover(square, 0, -1, true) && square.GetThinCover(ActorCover.CoverDirections.Y_NEG) != ThinCover.CoverType.Half)
 							{
 								for (;;)
 								{
@@ -362,7 +362,7 @@ public class ActorCover : NetworkBehaviour
 								{
 									goto IL_280;
 								}
-								if (square.GetCoverInDirection(ActorCover.CoverDirections.Y_POS) == ThinCover.CoverType.Half)
+								if (square.GetThinCover(ActorCover.CoverDirections.Y_POS) == ThinCover.CoverType.Half)
 								{
 									for (;;)
 									{
@@ -381,7 +381,7 @@ public class ActorCover : NetworkBehaviour
 								{
 									goto IL_303;
 								}
-								if (square.GetCoverInDirection(ActorCover.CoverDirections.Y_NEG) == ThinCover.CoverType.Full)
+								if (square.GetThinCover(ActorCover.CoverDirections.Y_NEG) == ThinCover.CoverType.Full)
 								{
 									goto IL_303;
 								}
@@ -392,7 +392,7 @@ public class ActorCover : NetworkBehaviour
 							}
 							if (!this.HasNonThinCover(square, 0, 1, false))
 							{
-								if (square.GetCoverInDirection(ActorCover.CoverDirections.Y_POS) != ThinCover.CoverType.Full)
+								if (square.GetThinCover(ActorCover.CoverDirections.Y_POS) != ThinCover.CoverType.Full)
 								{
 									continue;
 								}
@@ -410,7 +410,7 @@ public class ActorCover : NetworkBehaviour
 	internal void UpdateCoverHighlights(BoardSquare currentSquare)
 	{
 		ActorData owner = this.m_owner;
-		if (currentSquare != null && currentSquare.IsBaselineHeight())
+		if (currentSquare != null && currentSquare.IsValidForGameplay())
 		{
 			ActorTurnSM actorTurnSM = owner.GetActorTurnSM();
 			if (actorTurnSM != null)
@@ -444,7 +444,7 @@ public class ActorCover : NetworkBehaviour
 							{
 								if (num < 1)
 								{
-									if (currentSquare.GetCoverInDirection(coverDirection) == ThinCover.CoverType.None)
+									if (currentSquare.GetThinCover(coverDirection) == ThinCover.CoverType.None)
 									{
 										goto IL_1E5;
 									}
@@ -970,7 +970,7 @@ public class ActorCover : NetworkBehaviour
 				{
 					if (num < 1)
 					{
-						if (square.GetCoverInDirection(coverDirection) == ThinCover.CoverType.None)
+						if (square.GetThinCover(coverDirection) == ThinCover.CoverType.None)
 						{
 							if (tempCoversNormal != null)
 							{

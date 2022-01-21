@@ -245,7 +245,7 @@ public class ValkyrieDashAoE : Ability
 		{
 			if (boardSquareSafe != null)
 			{
-				if (boardSquareSafe.IsBaselineHeight())
+				if (boardSquareSafe.IsValidForGameplay())
 				{
 					if (boardSquareSafe != caster.GetCurrentBoardSquare())
 					{

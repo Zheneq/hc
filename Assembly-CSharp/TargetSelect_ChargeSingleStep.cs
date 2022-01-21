@@ -51,7 +51,7 @@ public class TargetSelect_ChargeSingleStep : GenericAbility_TargetSelectBase
 	public override bool HandleCustomTargetValidation(Ability ability, ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
+		if (boardSquareSafe != null && boardSquareSafe.IsValidForGameplay())
 		{
 			if (boardSquareSafe != caster.GetCurrentBoardSquare())
 			{

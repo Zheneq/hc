@@ -233,7 +233,7 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 				BoardSquare lastValidBoardSquareInLine = KnockbackUtils.GetLastValidBoardSquareInLine(start, end, true);
 				if (!(lastValidBoardSquareInLine == null))
 				{
-					if (lastValidBoardSquareInLine.IsBaselineHeight())
+					if (lastValidBoardSquareInLine.IsValidForGameplay())
 					{
 						break;
 					}
@@ -304,7 +304,7 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 					BoardSquare boardSquare2 = Board.Get().GetSquare(vector4 + b);
 					if (boardSquare2 != null)
 					{
-						if (boardSquare2 != y && boardSquare2.IsBaselineHeight())
+						if (boardSquare2 != y && boardSquare2.IsValidForGameplay())
 						{
 							list.Add(boardSquare2);
 							y = boardSquare2;
@@ -322,12 +322,12 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 				BoardSquare boardSquare3 = Board.Get().GetSquare(endPoints[i] - b);
 				if (boardSquare3 != null)
 				{
-					if (!boardSquare3.IsBaselineHeight())
+					if (!boardSquare3.IsValidForGameplay())
 					{
 						BoardSquare lastValidBoardSquareInLine2 = KnockbackUtils.GetLastValidBoardSquareInLine(vector4, endPoints[i], true);
 						if (lastValidBoardSquareInLine2 != null)
 						{
-							if (lastValidBoardSquareInLine2.IsBaselineHeight())
+							if (lastValidBoardSquareInLine2.IsValidForGameplay())
 							{
 								boardSquare3 = lastValidBoardSquareInLine2;
 							}
@@ -384,7 +384,7 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 				for (int j = 0; j < squaresInBorderLayer.Count; j++)
 				{
 					BoardSquare boardSquare2 = squaresInBorderLayer[j];
-					if (!boardSquare2.IsBaselineHeight())
+					if (!boardSquare2.IsValidForGameplay())
 					{
 						continue;
 					}

@@ -564,7 +564,7 @@ namespace CameraManagerInternal
 							{
 								if (CameraManager.Get().ShouldAutoCameraMove())
 								{
-									vector = aestheticPath.square.GetWorldPosition() + m_targetObjectOffset;
+									vector = aestheticPath.square.GetOccupantRefPos() + m_targetObjectOffset;
 									Vector3 startValue = (vector - m_targetPosition) * Time.deltaTime * m_movementCatchUpMult + m_targetPosition;
 									m_targetPosition = new EasedOutVector3(startValue);
 									flag3 = false;
@@ -574,7 +574,7 @@ namespace CameraManagerInternal
 									BoardSquarePathInfo pathEndpoint = aestheticPath.GetPathEndpoint();
 									if (pathEndpoint != null && pathEndpoint.square != null)
 									{
-										vector = pathEndpoint.square.GetWorldPosition() + m_targetObjectOffset;
+										vector = pathEndpoint.square.GetOccupantRefPos() + m_targetObjectOffset;
 									}
 								}
 							}

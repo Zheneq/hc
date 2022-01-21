@@ -79,7 +79,7 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 			{
 				return;
 			}
-			if (!currentTargetSquare.IsInBrushRegion())
+			if (!currentTargetSquare.IsInBrush())
 			{
 				return;
 			}

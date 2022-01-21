@@ -62,8 +62,8 @@ public class TeleportPathStart : PathStart
 		while (true)
 		{
 			m_arrowPointTo.SetActive(true);
-			Vector3 worldPosition = Board.Get().GetSquare(startPosition).GetWorldPosition();
-			Vector3 worldPosition2 = Board.Get().GetSquare(endPosition).GetWorldPosition();
+			Vector3 worldPosition = Board.Get().GetSquare(startPosition).GetOccupantRefPos();
+			Vector3 worldPosition2 = Board.Get().GetSquare(endPosition).GetOccupantRefPos();
 			Vector3 forward = worldPosition - worldPosition2;
 			m_arrowPointTo.transform.forward = forward;
 			return;

@@ -395,9 +395,9 @@ public class ClaymoreCharge : Ability
 			while (boardSquarePathInfo.next != null)
 			{
 				BoardSquare square = boardSquarePathInfo.next.square;
-				if (boardSquarePathInfo.square._0015())
+				if (boardSquarePathInfo.square.IsValidForKnockbackAndCharge())
 				{
-					if (!square._0015())
+					if (!square.IsValidForKnockbackAndCharge())
 					{
 						if (num > 0)
 						{

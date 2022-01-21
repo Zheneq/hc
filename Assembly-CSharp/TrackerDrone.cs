@@ -154,7 +154,7 @@ public class TrackerDrone : Ability
 		int result;
 		if (boardSquareSafe != null)
 		{
-			if (boardSquareSafe.IsBaselineHeight())
+			if (boardSquareSafe.IsValidForGameplay())
 			{
 				if (caster.GetCurrentBoardSquare() != null)
 				{

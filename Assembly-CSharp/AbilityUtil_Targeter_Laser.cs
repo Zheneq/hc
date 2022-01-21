@@ -250,7 +250,7 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 			while (enumerator.MoveNext())
 			{
 				BoardSquare current = enumerator.Current;
-				if (current.IsBaselineHeight())
+				if (current.IsValidForGameplay())
 				{
 					Gizmos.DrawWireCube(current.ToVector3(), new Vector3(0.5f, 0.5f, 0.5f));
 				}
@@ -272,7 +272,7 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 			while (enumerator2.MoveNext())
 			{
 				BoardSquare current2 = enumerator2.Current;
-				if (current2.IsBaselineHeight())
+				if (current2.IsValidForGameplay())
 				{
 					Gizmos.DrawWireSphere(current2.ToVector3(), 0.2f);
 				}

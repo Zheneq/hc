@@ -130,7 +130,7 @@ public static class AreaEffectUtils
 				{
 					continue;
 				}
-				if (!boardSquare.IsBaselineHeight())
+				if (!boardSquare.IsValidForGameplay())
 				{
 					continue;
 				}
@@ -352,7 +352,7 @@ public static class AreaEffectUtils
 			{
 				Vector3 vector = end + num * a;
 				BoardSquare boardSquare = Board.Get().GetSquare(vector);
-				if (!(boardSquare != null) || !boardSquare.IsBaselineHeight())
+				if (!(boardSquare != null) || !boardSquare.IsValidForGameplay())
 				{
 					continue;
 				}
@@ -363,7 +363,7 @@ public static class AreaEffectUtils
 				}
 			}
 			BoardSquare boardSquare2 = Board.Get().GetSquare(start);
-			if (boardSquare2 != null && boardSquare2.IsBaselineHeight())
+			if (boardSquare2 != null && boardSquare2.IsValidForGameplay())
 			{
 				while (true)
 				{
@@ -383,7 +383,7 @@ public static class AreaEffectUtils
 			BoardSquare boardSquare3 = Board.Get().GetSquare(end);
 			if (boardSquare3 != null)
 			{
-				if (boardSquare3.IsBaselineHeight())
+				if (boardSquare3.IsValidForGameplay())
 				{
 					adjustedEndPoint = end;
 					return true;
@@ -412,7 +412,7 @@ public static class AreaEffectUtils
 						}
 					}
 				}
-				if (source.IsBaselineHeight())
+				if (source.IsValidForGameplay())
 				{
 					if (!source.LOSDistanceIsOne_zq(dest.x, dest.y))
 					{
@@ -1495,7 +1495,7 @@ public static class AreaEffectUtils
 						break;
 					}
 					BoardSquare boardSquare = board.GetSquare(num, i);
-					if (!(boardSquare != null) || !boardSquare.IsBaselineHeight() || !IsSquareInConeByActorRadius(boardSquare, coneStart, coneCenterAngleDegrees, coneWidthDegrees, coneLengthRadiusInSquares, coneBackwardOffsetInSquares, true, caster))
+					if (!(boardSquare != null) || !boardSquare.IsValidForGameplay() || !IsSquareInConeByActorRadius(boardSquare, coneStart, coneCenterAngleDegrees, coneWidthDegrees, coneLengthRadiusInSquares, coneBackwardOffsetInSquares, true, caster))
 					{
 						continue;
 					}
@@ -2135,7 +2135,7 @@ public static class AreaEffectUtils
 		{
 			if (boardSquare != testSquare)
 			{
-				if (boardSquare.IsBaselineHeight())
+				if (boardSquare.IsValidForGameplay())
 				{
 					flag3 = boardSquare.LOSDistanceIsOne_zq(testSquare.x, testSquare.y);
 					if (flag2)
@@ -2717,7 +2717,7 @@ public static class AreaEffectUtils
 				{
 					continue;
 				}
-				if (!boardSquareSafe.IsBaselineHeight())
+				if (!boardSquareSafe.IsValidForGameplay())
 				{
 					continue;
 				}
@@ -2859,7 +2859,7 @@ public static class AreaEffectUtils
 				{
 					continue;
 				}
-				if (!boardSquare.IsBaselineHeight())
+				if (!boardSquare.IsValidForGameplay())
 				{
 					continue;
 				}
@@ -3178,7 +3178,7 @@ public static class AreaEffectUtils
 				{
 					continue;
 				}
-				if (!boardSquareSafe.IsBaselineHeight())
+				if (!boardSquareSafe.IsValidForGameplay())
 				{
 					continue;
 				}
@@ -3272,7 +3272,7 @@ public static class AreaEffectUtils
 				{
 					continue;
 				}
-				if (!boardSquare.IsBaselineHeight())
+				if (!boardSquare.IsValidForGameplay())
 				{
 					continue;
 				}

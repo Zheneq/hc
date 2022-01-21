@@ -39,7 +39,7 @@ public class KnockbackState : MoveState
 		{
 			m_tagHashKnockdownImpact = Animator.StringToHash("KnockdownImpact");
 		}
-		float magnitude = (m_pathSquareInfo.square.GetWorldPosition() - m_owner.m_actor.transform.position).magnitude;
+		float magnitude = (m_pathSquareInfo.square.GetOccupantRefPos() - m_owner.m_actor.transform.position).magnitude;
 		m_travelTime = magnitude / m_ownerActorData.m_knockbackSpeed;
 		if (m_travelTime == 0f)
 		{
@@ -83,7 +83,7 @@ public class KnockbackState : MoveState
 	{
 		BoardSquare square = m_pathSquareInfo.square;
 		Vector3 position = m_owner.m_actor.transform.position;
-		Vector3 worldPosition = square.GetWorldPosition();
+		Vector3 worldPosition = square.GetOccupantRefPos();
 		Vector3 a = worldPosition - position;
 		a.y = 0f;
 		bool flag = false;

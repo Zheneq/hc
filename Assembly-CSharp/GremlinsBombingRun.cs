@@ -189,7 +189,7 @@ public class GremlinsBombingRun : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			if (boardSquareSafe.IsBaselineHeight())
+			if (boardSquareSafe.IsValidForGameplay())
 			{
 				if (m_numSteps < 2)
 				{
@@ -330,7 +330,7 @@ public class GremlinsBombingRun : Ability
 						if (!flag)
 						{
 							BoardSquare boardSquare = squaresInCone[i];
-							if (!boardSquare.IsBaselineHeight())
+							if (!boardSquare.IsValidForGameplay())
 							{
 								continue;
 							}

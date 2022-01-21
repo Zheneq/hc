@@ -49,7 +49,7 @@ public class WanderState : FSMState
 		{
 			if (x.OccupantActor == null)
 			{
-				if (x.IsBaselineHeight())
+				if (x.IsValidForGameplay())
 				{
 					return !minBounds.Contains(x.transform.position);
 				}

@@ -197,7 +197,7 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 					if (num < numToSpawn)
 					{
 						boardSquare = squaresInBorderLayer[j];
-						if (!boardSquare.IsBaselineHeight())
+						if (!boardSquare.IsValidForGameplay())
 						{
 							continue;
 						}

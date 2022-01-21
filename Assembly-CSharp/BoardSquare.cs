@@ -21,65 +21,45 @@ public class BoardSquare : MonoBehaviour
 	}
 
 	private ThinCover.CoverType[] m_thinCoverTypes = new ThinCover.CoverType[4];
-
 	public GridPosProp m_gridPosProp;
-
 	private GridPos m_pos = GridPos.s_invalid;
 
 	[SerializeField]
 	private GameObject m_LOSHighlightObj;
 
 	private Mesh m_LOSHighlightMesh;
-
 	private float m_highlightOffset = 0.05f;
-
 	private GameObject m_occupant;
-
 	private ActorData m_occupantActor;
 
 	[SerializeField]
 	private Vector3[] m_vertices;
 
 	private Bounds? m_internalCameraBounds;
-
 	private Bounds? m_internalWorldBounds;
 
 	public static Color s_LOSHighlightColor = new Color(1f, 1f, 1f, 0.25f);
-
 	public static Color s_mouseOverHighlightColor = new Color(0f, 1f, 0f, 0.5f);
-
 	public static Color s_mouseOverOutOfRangeColor = new Color(0f, 0f, 0f, 0.5f);
-
 	public static Color s_moveableHighlightColor = new Color(0f, 1f, 1f);
-
 	public static Color s_targetableByAbilityHighlightColor = new Color(0.8f, 0.2f, 0f);
-
 	public static Color s_respawnOptionHighlightColor = new Color(0.2f, 0.8f, 0f);
 
 	public static float s_LoSHeightOffset = 1.6f;
-
 	public static int s_boardSquareLayer = 9;
 
 	private static Color s_revealedColor = new Color(0.25f, 0.25f, 0.5f, 0f);
-
 	private static Color s_objectiveColor = new Color(0.5f, 0.75f, 0.5f, 0f);
-
 	private static Color s_visibleBySelfColor = new Color(0f, 0f, 0f, 0f);
-
 	private static Color s_visibleByTeamColor = new Color(0f, 0f, 0f, 0f);
-
 	private static Color s_notVisibleColor = new Color(1f, 1f, 1f, 1f);
 
 	private sbyte m_lastVisibleFlag = -1;
 
 	public int x => m_pos.x;
-
 	public int y => m_pos.y;
-
 	public float worldX => m_pos.worldX;
-
 	public float worldY => m_pos.worldY;
-
 	public int height => m_pos.height;
 
 	public GameObject occupant
@@ -91,14 +71,7 @@ public class BoardSquare : MonoBehaviour
 		set
 		{
 			m_occupant = value;
-			if (m_occupant != null)
-			{
-				m_occupantActor = m_occupant.GetComponent<ActorData>();
-			}
-			else
-			{
-				m_occupantActor = null;
-			}
+			m_occupantActor = m_occupant?.GetComponent<ActorData>();
 		}
 	}
 
@@ -110,53 +83,31 @@ public class BoardSquare : MonoBehaviour
 		}
 		set
 		{
-			if (value == null)
-			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						occupant = null;
-						return;
-					}
-				}
-			}
-			occupant = value.gameObject;
+			occupant = value?.gameObject;
 		}
 	}
 
-	public int BrushRegion
-	{
-		get;
-		set;
-	}
+	public int BrushRegion { get; set; }
 
 	internal Bounds CameraBounds
 	{
 		get
 		{
 			Bounds? internalCameraBounds = m_internalCameraBounds;
-			if (!internalCameraBounds.HasValue)
+			if (!internalCameraBounds.HasValue
+				&& m_vertices != null
+				&& m_vertices.Length > 1)
 			{
-				if (m_vertices != null)
+				Vector3 center = Vector3.zero;
+				foreach (Vector3 vector in m_vertices)
 				{
-					if (m_vertices.Length > 1)
-					{
-						Vector3 zero = Vector3.zero;
-						Vector3[] vertices = m_vertices;
-						foreach (Vector3 vector in vertices)
-						{
-							zero += vector;
-						}
-						zero /= (float)m_vertices.Length;
-						zero += Vector3.up;
-						Vector3 vector2 = 2.5f * (m_vertices[0] - zero);
-						m_internalCameraBounds = new Bounds(size: new Vector3(Mathf.Abs(vector2.x), Mathf.Abs(vector2.y), Mathf.Abs(vector2.z)), center: zero);
-					}
+					center += vector;
 				}
+				center /= m_vertices.Length;
+				center += Vector3.up;
+				Vector3 sizeSgn = 2.5f * (m_vertices[0] - center);
+				Vector3 size = new Vector3(Mathf.Abs(sizeSgn.x), Mathf.Abs(sizeSgn.y), Mathf.Abs(sizeSgn.z));
+				m_internalCameraBounds = new Bounds(center, size);
 			}
 			return m_internalCameraBounds.Value;
 		}
@@ -171,10 +122,10 @@ public class BoardSquare : MonoBehaviour
 			{
 				if (m_vertices != null && m_vertices.Length > 1)
 				{
-					Vector3 vector = (m_vertices[0] + m_vertices[1]) / 2f;
-					Vector3 vector2 = m_vertices[0] - vector;
-					vector2 = new Vector3(Mathf.Abs(vector2.x), Mathf.Abs(vector2.y), Mathf.Abs(vector2.z));
-					Bounds value = new Bounds(vector, vector2);
+					Vector3 center = (m_vertices[0] + m_vertices[1]) / 2f;
+					Vector3 size = m_vertices[0] - center;
+					size = new Vector3(Mathf.Abs(size.x), Mathf.Abs(size.y), Mathf.Abs(size.z));
+					Bounds value = new Bounds(center, size);
 					for (int i = 2; i < m_vertices.Length; i++)
 					{
 						value.Encapsulate(m_vertices[i]);
@@ -186,9 +137,9 @@ public class BoardSquare : MonoBehaviour
 		}
 	}
 
-	public ThinCover.CoverType GetCoverInDirection(ActorCover.CoverDirections direction)
+	public ThinCover.CoverType GetThinCover(ActorCover.CoverDirections squareSide)
 	{
-		return m_thinCoverTypes[(int)direction];
+		return m_thinCoverTypes[(int)squareSide];
 	}
 
 	public void SetThinCover(ActorCover.CoverDirections squareSide, ThinCover.CoverType coverType)
@@ -196,38 +147,28 @@ public class BoardSquare : MonoBehaviour
 		m_thinCoverTypes[(int)squareSide] = coverType;
 	}
 
-	public bool IsExposedFromAnyDirection_zq()
+	public bool IsNextToThinCover()
 	{
 		for (int i = 0; i < m_thinCoverTypes.Length; i++)
 		{
-			if (m_thinCoverTypes[i] != 0)
+			if (m_thinCoverTypes[i] != ThinCover.CoverType.None)
 			{
 				return true;
 			}
 		}
-		while (true)
-		{
-			return false;
-		}
+		return false;
 	}
 
-	public bool HasFullCoverFromAnyDirection_zq()
+	public bool IsNextToFullCover()
 	{
 		for (int i = 0; i < m_thinCoverTypes.Length; i++)
 		{
-			if (m_thinCoverTypes[i] != ThinCover.CoverType.Full)
-			{
-				continue;
-			}
-			while (true)
+			if (m_thinCoverTypes[i] == ThinCover.CoverType.Full)
 			{
 				return true;
 			}
 		}
-		while (true)
-		{
-			return false;
-		}
+		return false;
 	}
 
 	public GridPos GetGridPos()
@@ -235,25 +176,24 @@ public class BoardSquare : MonoBehaviour
 		return m_pos;
 	}
 
-	public bool IsInBrushRegion()
+	public bool IsInBrush()
 	{
 		return BrushRegion != -1;
 	}
 
-	public bool _0015()
+	public bool IsValidForKnockbackAndCharge()
 	{
-		int num = 1;
-		return height <= Board.Get().BaselineHeight + num;
+		return height <= Board.Get().BaselineHeight + 1;
 	}
 
-	public bool IsBaselineHeight()
+	public bool IsValidForGameplay()
 	{
 		return height == Board.BaselineHeightStatic;
 	}
 
-	public Vector3 GetVerticesAtCorner_zq(CornerType corner)
+	public Vector3 GetCornerVertex(CornerType cornerType)
 	{
-		return m_vertices[(uint)corner];
+		return m_vertices[(uint)cornerType];
 	}
 
 	public Vector3 ToVector3()
@@ -266,12 +206,12 @@ public class BoardSquare : MonoBehaviour
 		vertices = new Vector3[4];
 		float squareSize = board.squareSize;
 		float num = 0.5f * squareSize;
-		float num2 = (float)m_pos.x * board.squareSize;
-		float num3 = (float)m_pos.y * board.squareSize;
-		vertices[0] = new Vector3(num2 - num, (float)m_pos.height + m_highlightOffset, num3 - num);
-		vertices[1] = new Vector3(num2 + num, (float)m_pos.height + m_highlightOffset, num3 - num);
-		vertices[2] = new Vector3(num2 + num, (float)m_pos.height + m_highlightOffset, num3 + num);
-		vertices[3] = new Vector3(num2 - num, (float)m_pos.height + m_highlightOffset, num3 + num);
+		float num2 = m_pos.x * board.squareSize;
+		float num3 = m_pos.y * board.squareSize;
+		vertices[0] = new Vector3(num2 - num, m_pos.height + m_highlightOffset, num3 - num);
+		vertices[1] = new Vector3(num2 + num, m_pos.height + m_highlightOffset, num3 - num);
+		vertices[2] = new Vector3(num2 + num, m_pos.height + m_highlightOffset, num3 + num);
+		vertices[3] = new Vector3(num2 - num, m_pos.height + m_highlightOffset, num3 + num);
 	}
 
 	public float GetHighlightOffset()
@@ -281,65 +221,55 @@ public class BoardSquare : MonoBehaviour
 
 	internal Vector3 CalcNearestPositionOnSquareEdge(Vector3 point)
 	{
-		int num = 0;
-		int num2 = 1;
-		float num3 = float.MaxValue;
-		float num4 = float.MaxValue;
+		int min1Idx = 0;
+		int min2Idx = 1;
+		float min1 = float.MaxValue;
+		float min2 = float.MaxValue;
 		for (int i = 0; i < m_vertices.Length; i++)
 		{
 			float sqrMagnitude = (point - m_vertices[i]).sqrMagnitude;
-			if (sqrMagnitude < num3)
+			if (sqrMagnitude < min1)
 			{
-				num4 = num3;
-				num2 = num;
-				num3 = sqrMagnitude;
-				num = i;
+				min2 = min1;
+				min2Idx = min1Idx;
+				min1 = sqrMagnitude;
+				min1Idx = i;
 			}
-			else if (sqrMagnitude < num4)
+			else if (sqrMagnitude < min2)
 			{
-				num4 = sqrMagnitude;
-				num2 = i;
+				min2 = sqrMagnitude;
+				min2Idx = i;
 			}
 		}
-		Vector3 a = m_vertices[num] - m_vertices[num2];
+		Vector3 a = m_vertices[min1Idx] - m_vertices[min2Idx];
 		float magnitude = a.magnitude;
-		Vector3 a2 = Vector3.Project(point - m_vertices[num2], a / magnitude);
+		Vector3 a2 = Vector3.Project(point - m_vertices[min2Idx], a / magnitude);
 		if (a2.sqrMagnitude > magnitude * magnitude)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return m_vertices[num];
-				}
-			}
+			return m_vertices[min1Idx];
 		}
-		return a2 + m_vertices[num2];
+		return a2 + m_vertices[min2Idx];
 	}
 
 	internal Plane CalcSidePlane(SideFlags side)
 	{
-		Plane result = default(Plane);
 		if ((side & SideFlags.Up) != 0)
 		{
-			result = new Plane(Vector3.forward, GetVerticesAtCorner_zq(CornerType.UpperLeft));
+			return new Plane(Vector3.forward, GetCornerVertex(CornerType.UpperLeft));
 		}
-		else if ((side & SideFlags.Down) != 0)
+		if ((side & SideFlags.Down) != 0)
 		{
-			result = new Plane(Vector3.back, GetVerticesAtCorner_zq(CornerType.LowerLeft));
+			return new Plane(Vector3.back, GetCornerVertex(CornerType.LowerLeft));
 		}
-		else if ((side & SideFlags.Left) != 0)
+		if ((side & SideFlags.Left) != 0)
 		{
-			result = new Plane(Vector3.left, GetVerticesAtCorner_zq(CornerType.UpperLeft));
+			return new Plane(Vector3.left, GetCornerVertex(CornerType.UpperLeft));
 		}
-		else if ((side & SideFlags.Right) != 0)
+		if ((side & SideFlags.Right) != 0)
 		{
-			result = new Plane(Vector3.right, GetVerticesAtCorner_zq(CornerType.UpperRight));
+			return new Plane(Vector3.right, GetCornerVertex(CornerType.UpperRight));
 		}
-		return result;
+		return default(Plane);
 	}
 
 	internal Bounds CalcSideBounds(SideFlags side)
@@ -347,19 +277,19 @@ public class BoardSquare : MonoBehaviour
 		Bounds result = default(Bounds);
 		if ((side & SideFlags.Up) != 0)
 		{
-			result.SetMinMax(GetVerticesAtCorner_zq(CornerType.UpperLeft), GetVerticesAtCorner_zq(CornerType.UpperRight) + Vector3.up);
+			result.SetMinMax(GetCornerVertex(CornerType.UpperLeft), GetCornerVertex(CornerType.UpperRight) + Vector3.up);
 		}
 		if ((side & SideFlags.Down) != 0)
 		{
-			result.SetMinMax(GetVerticesAtCorner_zq(CornerType.LowerLeft), GetVerticesAtCorner_zq(CornerType.LowerRight) + Vector3.up);
+			result.SetMinMax(GetCornerVertex(CornerType.LowerLeft), GetCornerVertex(CornerType.LowerRight) + Vector3.up);
 		}
 		if ((side & SideFlags.Left) != 0)
 		{
-			result.SetMinMax(GetVerticesAtCorner_zq(CornerType.LowerLeft), GetVerticesAtCorner_zq(CornerType.UpperLeft) + Vector3.up);
+			result.SetMinMax(GetCornerVertex(CornerType.LowerLeft), GetCornerVertex(CornerType.UpperLeft) + Vector3.up);
 		}
 		if ((side & SideFlags.Right) != 0)
 		{
-			result.SetMinMax(GetVerticesAtCorner_zq(CornerType.LowerRight), GetVerticesAtCorner_zq(CornerType.UpperRight) + Vector3.up);
+			result.SetMinMax(GetCornerVertex(CornerType.LowerRight), GetCornerVertex(CornerType.UpperRight) + Vector3.up);
 		}
 		return result;
 	}
@@ -381,38 +311,26 @@ public class BoardSquare : MonoBehaviour
 					array[i + j * board.GetMaxX()] = VectorUtils.GetLineOfSightPercentDistance(x, y, i, j, board, s_LoSHeightOffset, "LineOfSight");
 				}
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					goto end_IL_009b;
-				}
-				continue;
-				end_IL_009b:
-				break;
-			}
 		}
 		return array;
 	}
 
-	public bool LOSDistanceIsOne_zq(int xDest, int yDest)
+	// TODO
+	public bool LOSDistanceIsOne_zq(int indexX, int indexY)
 	{
 		if (Board.Get().m_losLookup != null)
 		{
-			return Board.Get().m_losLookup.GetLOSDistance(m_pos.x, m_pos.y, xDest, yDest) == 1f;
+			return Board.Get().m_losLookup.GetLOSDistance(m_pos.x, m_pos.y, indexX, indexY) == 1f;
 		}
 		return false;
 	}
 
-	public float GetLOSDistance(int xDest, int yDest)
+	public float GetLOSDistance(int indexX, int indexY)
 	{
 		float result = 0f;
 		if (Board.Get().m_losLookup != null)
 		{
-			result = Board.Get().m_losLookup.GetLOSDistance(m_pos.x, m_pos.y, xDest, yDest);
+			result = Board.Get().m_losLookup.GetLOSDistance(m_pos.x, m_pos.y, indexX, indexY);
 		}
 		return result;
 	}
@@ -425,25 +343,21 @@ public class BoardSquare : MonoBehaviour
 		{
 			return;
 		}
-		while (true)
-		{
-			float x = (float)m_pos.x * board.squareSize;
-			float z = (float)m_pos.y * board.squareSize;
-			m_LOSHighlightObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
-			m_LOSHighlightObj.name = $"highlight{m_pos.x}x{m_pos.y}";
-			Object.DestroyImmediate(m_LOSHighlightObj.GetComponent<MeshCollider>());
-			m_LOSHighlightObj.transform.parent = losHighlightsParent.transform;
-			m_LOSHighlightObj.transform.position = new Vector3(x, (float)m_pos.height + m_highlightOffset, z);
-			m_LOSHighlightObj.transform.Rotate(new Vector3(90f, 0f, 0f));
-			m_LOSHighlightObj.transform.localScale = new Vector3(1.5f, 1.5f, 1f);
-			MeshRenderer component = m_LOSHighlightObj.GetComponent<MeshRenderer>();
-			component.material = meshMaterial;
-			component.enabled = true;
-			component.shadowCastingMode = ShadowCastingMode.Off;
-			component.receiveShadows = false;
-			m_LOSHighlightObj.layer = LayerMask.NameToLayer("FogOfWar");
-			return;
-		}
+		float x = m_pos.x * board.squareSize;
+		float z = m_pos.y * board.squareSize;
+		m_LOSHighlightObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		m_LOSHighlightObj.name = $"highlight{m_pos.x}x{m_pos.y}";
+		DestroyImmediate(m_LOSHighlightObj.GetComponent<MeshCollider>());
+		m_LOSHighlightObj.transform.parent = losHighlightsParent.transform;
+		m_LOSHighlightObj.transform.position = new Vector3(x, m_pos.height + m_highlightOffset, z);
+		m_LOSHighlightObj.transform.Rotate(new Vector3(90f, 0f, 0f));
+		m_LOSHighlightObj.transform.localScale = new Vector3(1.5f, 1.5f, 1f);
+		MeshRenderer component = m_LOSHighlightObj.GetComponent<MeshRenderer>();
+		component.material = meshMaterial;
+		component.enabled = true;
+		component.shadowCastingMode = ShadowCastingMode.Off;
+		component.receiveShadows = false;
+		m_LOSHighlightObj.layer = LayerMask.NameToLayer("FogOfWar");
 	}
 
 	private void Start()
@@ -452,12 +366,8 @@ public class BoardSquare : MonoBehaviour
 		{
 			return;
 		}
-		while (true)
-		{
-			m_LOSHighlightObj.layer = LayerMask.NameToLayer("FogOfWar");
-			m_LOSHighlightMesh = m_LOSHighlightObj.GetComponent<MeshFilter>().mesh;
-			return;
-		}
+		m_LOSHighlightObj.layer = LayerMask.NameToLayer("FogOfWar");
+		m_LOSHighlightMesh = m_LOSHighlightObj.GetComponent<MeshFilter>().mesh;
 	}
 
 	public void ReevaluateSquare()
@@ -474,10 +384,6 @@ public class BoardSquare : MonoBehaviour
 		{
 			m_thinCoverTypes[i] = ThinCover.CoverType.None;
 		}
-		while (true)
-		{
-			return;
-		}
 	}
 
 	private void OnDestroy()
@@ -492,15 +398,9 @@ public class BoardSquare : MonoBehaviour
 		{
 			m_gridPosProp = new GridPosProp();
 		}
-		GridPosProp gridPosProp = m_gridPosProp;
-		Vector3 position = base.transform.position;
-		gridPosProp.m_x = (int)(position.x / squareSize);
-		GridPosProp gridPosProp2 = m_gridPosProp;
-		Vector3 position2 = base.transform.position;
-		gridPosProp2.m_y = (int)(position2.z / squareSize);
-		GridPosProp gridPosProp3 = m_gridPosProp;
-		Vector3 localScale = base.transform.localScale;
-		gridPosProp3.m_height = (int)localScale.y;
+		m_gridPosProp.m_x = (int)(transform.position.x / squareSize);
+		m_gridPosProp.m_y = (int)(transform.position.z / squareSize);
+		m_gridPosProp.m_height = (int)transform.localScale.y;
 		ReevaluateSquare();
 	}
 
@@ -508,9 +408,9 @@ public class BoardSquare : MonoBehaviour
 	{
 		float a = Mathf.Abs(x - other.x);
 		float b = Mathf.Abs(y - other.y);
-		float num = Mathf.Min(a, b);
-		float num2 = Mathf.Max(a, b);
-		return num2 - num + num * 1.5f;
+		float min = Mathf.Min(a, b);
+		float max = Mathf.Max(a, b);
+		return max - min + min * 1.5f;
 	}
 
 	public float HorizontalDistanceInSquaresTo(BoardSquare other)
@@ -529,15 +429,14 @@ public class BoardSquare : MonoBehaviour
 
 	public float HorizontalDistanceInWorldTo(BoardSquare other)
 	{
-		float num = m_pos.worldX - other.m_pos.worldX;
-		float num2 = m_pos.worldY - other.m_pos.worldY;
-		return Mathf.Sqrt(num * num + num2 * num2);
+		float a = m_pos.worldX - other.m_pos.worldX;
+		float b = m_pos.worldY - other.m_pos.worldY;
+		return Mathf.Sqrt(a * a + b * b);
 	}
 
 	public float HorizontalDistanceInSquaresToPos(Vector3 worldPos)
 	{
-		Vector3 b = ToVector3();
-		Vector3 vector = worldPos - b;
+		Vector3 vector = worldPos - ToVector3();
 		vector.y = 0f;
 		float magnitude = vector.magnitude;
 		return magnitude / Board.Get().squareSize;
@@ -550,19 +449,11 @@ public class BoardSquare : MonoBehaviour
 
 	public Color GetLOSHighlightMeshBaseColor()
 	{
-		Color result;
-		if (m_LOSHighlightMesh != null)
+		if (m_LOSHighlightMesh != null && m_LOSHighlightMesh.colors.Length > 0)
 		{
-			if (m_LOSHighlightMesh.colors.Length > 0)
-			{
-				result = m_LOSHighlightMesh.colors[0];
-				goto IL_005e;
-			}
+			return m_LOSHighlightMesh.colors[0];
 		}
-		result = Color.white;
-		goto IL_005e;
-		IL_005e:
-		return result;
+		return Color.white;
 	}
 
 	public void SetVisibleShade(int visibilityFlags, ref bool anySquareShadeChanged)
@@ -571,83 +462,72 @@ public class BoardSquare : MonoBehaviour
 		{
 			return;
 		}
-		while (true)
+		bool isSelf = (visibilityFlags & 1) != 0;
+		bool isTeam = (visibilityFlags & 2) != 0;
+		bool isObjective = (visibilityFlags & 4) != 0;
+		bool isRevealed = (visibilityFlags & 8) != 0;
+		Color result;
+		if (!isRevealed && Board.Get().m_showLOS)
 		{
-			bool flag = (visibilityFlags & 8) != 0;
-			bool flag2 = (visibilityFlags & 4) != 0;
-			bool flag3 = (visibilityFlags & 1) != 0;
-			bool flag4 = (visibilityFlags & 2) != 0;
-			Color lhs;
-			if (!flag)
+			if (isObjective)
 			{
-				if (Board.Get().m_showLOS)
-				{
-					if (flag2)
-					{
-						lhs = s_objectiveColor;
-					}
-					else if (flag3)
-					{
-						lhs = s_visibleBySelfColor;
-					}
-					else if (flag4)
-					{
-						lhs = s_visibleByTeamColor;
-					}
-					else
-					{
-						lhs = s_notVisibleColor;
-					}
-					goto IL_00c2;
-				}
+				result = s_objectiveColor;
 			}
-			lhs = s_revealedColor;
-			goto IL_00c2;
-			IL_00c2:
-			bool flag5 = false;
-			if (!Board.Get().m_showLOS)
+			else if (isSelf)
 			{
-				m_lastVisibleFlag = -1;
-				flag5 = true;
+				result = s_visibleBySelfColor;
 			}
-			bool flag6 = m_lastVisibleFlag != (sbyte)visibilityFlags;
-			if (flag5)
+			else if (isTeam)
 			{
-				flag6 = (lhs != GetLOSHighlightMeshBaseColor());
+				result = s_visibleByTeamColor;
 			}
-			if (!flag6)
+			else
 			{
-				return;
-			}
-			while (true)
-			{
-				if (!flag5)
-				{
-					m_lastVisibleFlag = (sbyte)visibilityFlags;
-				}
-				Mesh lOSHighlightMesh = m_LOSHighlightMesh;
-				Vector3[] vertices = lOSHighlightMesh.vertices;
-				Color32[] array = new Color32[vertices.Length];
-				int i = 0;
-				Color32 color = new Color32((byte)(lhs.r * 255f), (byte)(lhs.g * 255f), (byte)(lhs.b * 255f), (byte)(lhs.a * 255f));
-				for (; i < vertices.Length; i++)
-				{
-					array[i] = color;
-				}
-				lOSHighlightMesh.colors32 = array;
-				anySquareShadeChanged = true;
-				return;
+				result = s_notVisibleColor;
 			}
 		}
+		else
+		{
+			result = s_revealedColor;
+		}
+		bool isNotShowingLoS = false;
+		if (!Board.Get().m_showLOS)
+		{
+			m_lastVisibleFlag = -1;
+			isNotShowingLoS = true;
+		}
+		bool flag6 = m_lastVisibleFlag != (sbyte)visibilityFlags;
+		if (isNotShowingLoS)
+		{
+			flag6 = result != GetLOSHighlightMeshBaseColor();
+		}
+		if (!flag6)
+		{
+			return;
+		}
+		if (!isNotShowingLoS)
+		{
+			m_lastVisibleFlag = (sbyte)visibilityFlags;
+		}
+		Mesh lOSHighlightMesh = m_LOSHighlightMesh;
+		Vector3[] vertices = lOSHighlightMesh.vertices;
+		Color32[] array = new Color32[vertices.Length];
+		Color32 color = new Color32((byte)(result.r * 255f), (byte)(result.g * 255f), (byte)(result.b * 255f), (byte)(result.a * 255f));
+		for (int i = 0; i < vertices.Length; i++)
+		{
+			array[i] = color;
+		}
+		lOSHighlightMesh.colors32 = array;
+		anySquareShadeChanged = true;
 	}
 
-	private Color _001D(int _001D)
+	private Color _001D(int visibilityFlags)
 	{
-		bool flag = (_001D & 8) != 0;
-		bool flag2 = (_001D & 4) != 0;
-		bool flag3 = (_001D & 1) != 0;
-		bool flag4 = (_001D & 2) != 0;
-		InfluenceType influenceType = this._001D(false);
+		bool isSelf = (visibilityFlags & 1) != 0;
+		bool isTeam = (visibilityFlags & 2) != 0;
+		bool isObjective = (visibilityFlags & 4) != 0;
+		bool isRevealed = (visibilityFlags & 8) != 0;
+		InfluenceType influenceType = GetProximityInfluence(false);
 		Color result;
 		if (influenceType == InfluenceType.InfluencedByA)
 		{
@@ -665,48 +545,39 @@ public class BoardSquare : MonoBehaviour
 		{
 			result = new Color(ActorData.s_hostilePlayerColor.r, ActorData.s_hostilePlayerColor.g, ActorData.s_hostilePlayerColor.b);
 		}
-		float num;
-		if (flag3)
+		float intensity;
+		if (isSelf)
 		{
-			num = 1f;
+			intensity = 1f;
+		}
+		else if (!isRevealed && !isObjective && !isTeam)
+		{
+			intensity = 0.25f;
 		}
 		else
 		{
-			if (!flag)
-			{
-				if (!flag2)
-				{
-					if (!flag4)
-					{
-						num = 0.25f;
-						goto IL_0126;
-					}
-				}
-			}
-			num = 0.5f;
+			intensity = 0.5f;
 		}
-		goto IL_0126;
-		IL_0126:
-		result.r *= num;
-		result.g *= num;
-		result.b *= num;
+		result.r *= intensity;
+		result.g *= intensity;
+		result.b *= intensity;
 		result.a = 0.25f;
 		return result;
 	}
 
-	public Vector3 GetWorldPosition()
+	public Vector3 GetOccupantRefPos()
 	{
 		return new Vector3(worldX, height, worldY);
 	}
 
-	public Vector3 GetWorldPositionForLoS()
+	public Vector3 GetOccupantLoSPos()
 	{
-		Vector3 worldPosition = GetWorldPosition();
+		Vector3 worldPosition = GetOccupantRefPos();
 		worldPosition.y += s_LoSHeightOffset;
 		return worldPosition;
 	}
 
-	public Vector3 GetWorldPositionBaseline()
+	public Vector3 GetPosAtBaselineHeight()
 	{
 		Vector3 result = new Vector3(worldX, height, worldY);
 		if (Board.Get() != null)
@@ -716,152 +587,78 @@ public class BoardSquare : MonoBehaviour
 		return result;
 	}
 
-	public InfluenceType _001D(bool _001D)
+	public InfluenceType GetProximityInfluence(bool playersAffectInfluence)
 	{
 		if (occupant != null && occupant.GetComponent<ActorData>() != null)
 		{
-			while (true)
+			ActorData component = occupant.GetComponent<ActorData>();
+			if (component.GetTeam() == Team.TeamA)
 			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-				{
-					ActorData component = occupant.GetComponent<ActorData>();
-					if (component.GetTeam() == Team.TeamA)
-					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								break;
-							default:
-								return InfluenceType.InfluencedByA;
-							}
-						}
-					}
-					if (component.GetTeam() == Team.TeamB)
-					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								break;
-							default:
-								return InfluenceType.InfluencedByB;
-							}
-						}
-					}
-					return InfluenceType.Contested;
-				}
-				}
+				return InfluenceType.InfluencedByA;
+			}
+			if (component.GetTeam() == Team.TeamB)
+			{
+				return InfluenceType.InfluencedByB;
+			}
+			return InfluenceType.Contested;
+		}
+
+		float minA = 1E+08f;
+		float minB = 1E+08f;
+		float limit = 36f;
+		List<ActorData> allTeamMembersA = GameFlowData.Get().GetAllTeamMembers(Team.TeamA);
+		foreach (ActorData actor in allTeamMembersA)
+		{
+			if (!actor.IsDead()
+				&& (!GameplayUtils.IsPlayerControlled(actor) || playersAffectInfluence))
+			{
+				BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
+				float dist = HorizontalDistanceInSquaresTo_Squared(currentBoardSquare);
+				minA = Mathf.Min(minA, dist);
 			}
 		}
-		float num = 1E+08f;
-		float num2 = 1E+08f;
-		float num3 = 36f;
-		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(Team.TeamA);
-		foreach (ActorData item in allTeamMembers)
+		List<ActorData> allTeamMembersB = GameFlowData.Get().GetAllTeamMembers(Team.TeamB);
+		foreach (ActorData actor in allTeamMembersB)
 		{
-			if (item.IsDead())
+			if (!actor.IsDead()
+				&& (!GameplayUtils.IsPlayerControlled(actor) || playersAffectInfluence))
 			{
+				BoardSquare currentBoardSquare2 = actor.GetCurrentBoardSquare();
+				float dist = HorizontalDistanceInSquaresTo_Squared(currentBoardSquare2);
+				minB = Mathf.Min(minB, dist);
+			}
+		}
+		if (minA > limit && minB > limit)
+		{
+			return InfluenceType.NoInfluence;
+		}
+		if (Mathf.Abs(minA - minB) > 0.01f)
+		{
+			if (minA < minB)
+			{
+				return InfluenceType.InfluencedByA;
 			}
 			else
 			{
-				if (GameplayUtils.IsPlayerControlled(item))
-				{
-					if (!_001D)
-					{
-						continue;
-					}
-				}
-				BoardSquare currentBoardSquare = item.GetCurrentBoardSquare();
-				float b = HorizontalDistanceInSquaresTo_Squared(currentBoardSquare);
-				num = Mathf.Min(num, b);
-			}
-		}
-		List<ActorData> allTeamMembers2 = GameFlowData.Get().GetAllTeamMembers(Team.TeamB);
-		using (List<ActorData>.Enumerator enumerator2 = allTeamMembers2.GetEnumerator())
-		{
-			while (enumerator2.MoveNext())
-			{
-				ActorData current2 = enumerator2.Current;
-				if (!current2.IsDead())
-				{
-					if (GameplayUtils.IsPlayerControlled(current2))
-					{
-						if (!_001D)
-						{
-							continue;
-						}
-					}
-					BoardSquare currentBoardSquare2 = current2.GetCurrentBoardSquare();
-					float b2 = HorizontalDistanceInSquaresTo_Squared(currentBoardSquare2);
-					num2 = Mathf.Min(num2, b2);
-				}
-			}
-		}
-		if (num > num3)
-		{
-			if (num2 > num3)
-			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return InfluenceType.NoInfluence;
-					}
-				}
-			}
-		}
-		if (Mathf.Abs(num - num2) > 0.01f)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					if (num < num2)
-					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								break;
-							default:
-								return InfluenceType.InfluencedByA;
-							}
-						}
-					}
-					return InfluenceType.InfluencedByB;
-				}
+				return InfluenceType.InfluencedByB;
 			}
 		}
 		return InfluenceType.Contested;
 	}
 
-	public static string _001D(BoardSquare _001D, bool _000E = false)
+	public static string DebugString(BoardSquare square, bool mentionGameplayValid = false)
 	{
 		string text;
-		if (_001D == null)
+		if (square == null)
 		{
 			text = "(null)";
 		}
 		else
 		{
-			text = _001D.GetGridPos().ToString();
-			if (_000E)
+			text = square.GetGridPos().ToString();
+			if (mentionGameplayValid)
 			{
-				if (_001D.IsBaselineHeight())
+				if (square.IsValidForGameplay())
 				{
 					text += "[valid]";
 				}

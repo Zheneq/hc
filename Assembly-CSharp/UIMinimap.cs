@@ -140,7 +140,7 @@ public class UIMinimap : MonoBehaviour
 			BoardSquare boardSquareSafe = Board.Get().GetSquare(gridPos);
 			if (boardSquareSafe != null)
 			{
-				if (boardSquareSafe.IsBaselineHeight())
+				if (boardSquareSafe.IsValidForGameplay())
 				{
 					if (activeOwnedActorData.GetFogOfWar().IsVisible(boardSquareSafe))
 					{
@@ -392,7 +392,7 @@ public class UIMinimap : MonoBehaviour
 					{
 						rectTransform.gameObject.name = "ControlPoint minimap image";
 					}
-					else if (boardSquareSafe.IsBaselineHeight())
+					else if (boardSquareSafe.IsValidForGameplay())
 					{
 					}
 				}

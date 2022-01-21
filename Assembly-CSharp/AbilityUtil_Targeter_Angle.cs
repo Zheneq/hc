@@ -272,7 +272,7 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 			while (enumerator.MoveNext())
 			{
 				BoardSquare current = enumerator.Current;
-				if (current.IsBaselineHeight())
+				if (current.IsValidForGameplay())
 				{
 					Gizmos.DrawWireCube(current.ToVector3(), new Vector3(0.05f, 0.1f, 0.05f));
 				}

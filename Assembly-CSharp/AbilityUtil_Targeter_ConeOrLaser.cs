@@ -64,7 +64,7 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 			{
 				if (!m_useCasterLocationForAllMultiTargets)
 				{
-					src = prevTargetSquare.GetWorldPositionForLoS();
+					src = prevTargetSquare.GetOccupantLoSPos();
 				}
 				aimDirection = currentTarget.FreePos - src;
 				aimDirection.y = 0f;

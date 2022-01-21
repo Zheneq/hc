@@ -103,7 +103,7 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 			Vector3 vector2 = bounceEndPoints[bounceEndPoints.Count - 1];
 			BoardSquare boardSquare = Board.Get().GetSquare(vector2);
 			Vector3 vector3 = vector2;
-			if (boardSquare != null && boardSquare.IsBaselineHeight())
+			if (boardSquare != null && boardSquare.IsValidForGameplay())
 			{
 				vector2 = boardSquare.ToVector3();
 				vector3 = AreaEffectUtils.GetCenterOfShape(m_bombInfo.shape, vector2, boardSquare);

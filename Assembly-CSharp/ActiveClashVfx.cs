@@ -13,7 +13,7 @@ public class ActiveClashVfx
 	public ActiveClashVfx(BoardSquare square, GameObject vfxPrefab, float timeToExpire, string audioEvent)
 	{
 		m_square = square;
-		m_vfxObj = Object.Instantiate(vfxPrefab, square.GetWorldPosition(), Quaternion.identity);
+		m_vfxObj = Object.Instantiate(vfxPrefab, square.GetOccupantRefPos(), Quaternion.identity);
 		m_timeCreated = Time.time;
 		m_timeToExpire = timeToExpire;
 		if (!(square != null))

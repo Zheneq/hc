@@ -126,7 +126,7 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 	public void UpdateTargetingAsIfFromSquare(AbilityTarget currentTarget, ActorData targetingActor, BoardSquare coneStartSquare)
 	{
 		ClearActorsInRange();
-		Vector3 worldPositionForLoS = coneStartSquare.GetWorldPositionForLoS();
+		Vector3 worldPositionForLoS = coneStartSquare.GetOccupantLoSPos();
 		Vector3 freePos = currentTarget.FreePos;
 		Vector3 vector = freePos - worldPositionForLoS;
 		vector.y = 0f;

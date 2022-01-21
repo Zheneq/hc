@@ -70,7 +70,7 @@ public class BrushRegion : BoardRegion
 			while (enumerator.MoveNext())
 			{
 				BoardSquare current = enumerator.Current;
-				if (current.IsBaselineHeight())
+				if (current.IsValidForGameplay())
 				{
 					Vector3 position4 = current.ToVector3();
 					if (HighlightUtils.Get() != null)
@@ -330,7 +330,7 @@ public class BrushRegion : BoardRegion
 	{
 		if (!(squareToTest == null))
 		{
-			if (squareToTest.IsBaselineHeight())
+			if (squareToTest.IsValidForGameplay())
 			{
 				if (squaresInSet.Contains(squareToTest))
 				{

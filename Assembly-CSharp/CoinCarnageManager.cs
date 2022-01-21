@@ -234,7 +234,7 @@ public class CoinCarnageManager : NetworkBehaviour
 					BoardSquare boardSquare = Board.Get().GetSquare(spawnLocation);
 					if (boardSquare != null)
 					{
-						if (boardSquare.IsBaselineHeight())
+						if (boardSquare.IsValidForGameplay())
 						{
 							m_coinSpawnPointTracking.Add(new CoinSpawnPointTrackingData(current.m_spawnRulePerSquare, boardSquare));
 						}
@@ -406,7 +406,7 @@ public class CoinCarnageManager : NetworkBehaviour
 				{
 					if (num2 < num)
 					{
-						if (squaresInBorderLayer[j].IsBaselineHeight() && !coinOccupiedSquares.Contains(squaresInBorderLayer[j]))
+						if (squaresInBorderLayer[j].IsValidForGameplay() && !coinOccupiedSquares.Contains(squaresInBorderLayer[j]))
 						{
 							SpawnCoinOnSquare(squaresInBorderLayer[j]);
 							num2++;
@@ -1200,7 +1200,7 @@ public class CoinCarnageManager : NetworkBehaviour
 		HashSet<BoardSquare> coinOccupiedSquares = GetCoinOccupiedSquares();
 		if (!(square == null))
 		{
-			if (square.IsBaselineHeight())
+			if (square.IsValidForGameplay())
 			{
 				if (!coinOccupiedSquares.Contains(square))
 				{

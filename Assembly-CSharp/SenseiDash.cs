@@ -254,7 +254,7 @@ public class SenseiDash : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			if (boardSquareSafe.IsBaselineHeight())
+			if (boardSquareSafe.IsValidForGameplay())
 			{
 				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 				{
@@ -290,7 +290,7 @@ public class SenseiDash : Ability
 					BoardSquare boardSquareSafe2 = Board.Get().GetSquare(target.GridPos);
 					if (boardSquareSafe2 != null)
 					{
-						if (boardSquareSafe2.IsBaselineHeight())
+						if (boardSquareSafe2.IsValidForGameplay())
 						{
 							if (boardSquareSafe2 != caster.GetCurrentBoardSquare())
 							{

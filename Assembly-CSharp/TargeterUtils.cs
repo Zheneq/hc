@@ -488,7 +488,7 @@ public static class TargeterUtils
 		bool flag = false;
 		for (int num = squares.Count - 1; num >= 0; squares.RemoveAt(num), num--)
 		{
-			if (squares[num].IsBaselineHeight())
+			if (squares[num].IsValidForGameplay())
 			{
 				break;
 			}
@@ -496,7 +496,7 @@ public static class TargeterUtils
 			{
 				continue;
 			}
-			if (!squares[num - 1].IsBaselineHeight())
+			if (!squares[num - 1].IsValidForGameplay())
 			{
 				continue;
 			}
@@ -576,7 +576,7 @@ public static class TargeterUtils
 			float d = 0.5f * squareSize;
 			a2 = Mathf.Min(magnitude, num3);
 			BoardSquare boardSquare2 = squares[squares.Count - 2];
-			if (boardSquare2.IsBaselineHeight())
+			if (boardSquare2.IsValidForGameplay())
 			{
 				intersecting = false;
 				a = Vector3.zero;

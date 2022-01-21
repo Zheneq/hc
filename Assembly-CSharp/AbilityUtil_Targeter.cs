@@ -250,9 +250,9 @@ public class AbilityUtil_Targeter
 		while (true)
 		{
 			List<Vector3> list = new List<Vector3>();
-			Vector3 worldPosition = Board.Get().GetSquare(caster.GetGridPosWithIncrementedHeight()).GetWorldPosition();
+			Vector3 worldPosition = Board.Get().GetSquare(caster.GetGridPosWithIncrementedHeight()).GetOccupantRefPos();
 			list.Add(worldPosition);
-			Vector3 worldPosition2 = Board.Get().GetSquare(currentTarget.GridPos).GetWorldPosition();
+			Vector3 worldPosition2 = Board.Get().GetSquare(currentTarget.GridPos).GetOccupantRefPos();
 			list.Add(worldPosition2);
 			Vector3 a = list[0] - list[1];
 			Vector3 a2 = list[list.Count - 1] - list[list.Count - 2];
@@ -961,10 +961,10 @@ public class AbilityUtil_Targeter
 	public static GameObject CreateArrowFromGridPosPoints(GridPos start, GridPos end, Color lineColor, bool isChasing, ActorData theActor)
 	{
 		List<Vector3> points = new List<Vector3>();
-		Vector3 worldPosition = Board.Get().GetSquare(start).GetWorldPosition();
+		Vector3 worldPosition = Board.Get().GetSquare(start).GetOccupantRefPos();
 		worldPosition.y += 0.5f;
 		points.Add(worldPosition);
-		Vector3 worldPosition2 = Board.Get().GetSquare(end).GetWorldPosition();
+		Vector3 worldPosition2 = Board.Get().GetSquare(end).GetOccupantRefPos();
 		worldPosition2.y += 0.5f;
 		points.Add(worldPosition2);
 		return Targeting.GetTargeting().CreateFancyArrowMesh(ref points, 0.2f, lineColor, isChasing, theActor, TargeterMovementType.Movement, null, null, false);

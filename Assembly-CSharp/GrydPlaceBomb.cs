@@ -57,7 +57,7 @@ public class GrydPlaceBomb : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			if (boardSquareSafe.IsBaselineHeight())
+			if (boardSquareSafe.IsValidForGameplay())
 			{
 				return base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
 			}

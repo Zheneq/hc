@@ -3062,7 +3062,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		BoardSquare travelBoardSquare = GetTravelBoardSquare();
 		if (travelBoardSquare != null)
 		{
-			if (travelBoardSquare.IsInBrushRegion())
+			if (travelBoardSquare.IsInBrush())
 			{
 				result = travelBoardSquare.BrushRegion;
 			}
@@ -3415,7 +3415,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					return square.GetWorldPosition();
+					return square.GetOccupantRefPos();
 				}
 			}
 		}
@@ -4401,7 +4401,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			Vector3 worldPosition = refSquare.GetWorldPosition();
+			Vector3 worldPosition = refSquare.GetOccupantRefPos();
 			SetTransformPositionToVector(worldPosition);
 			return;
 		}

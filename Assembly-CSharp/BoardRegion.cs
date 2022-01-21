@@ -74,7 +74,7 @@ public class BoardRegion
 			while (enumerator.MoveNext())
 			{
 				BoardSquare current = enumerator.Current;
-				if (current.IsBaselineHeight())
+				if (current.IsValidForGameplay())
 				{
 					float num2 = current.HorizontalDistanceInSquaresTo(centerSquare);
 					if (num2 < num)

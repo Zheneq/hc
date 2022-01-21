@@ -128,7 +128,7 @@ public static class KnockbackUtils
 			int num;
 			if (boardSquarePathInfo2.square != null)
 			{
-				num = (boardSquarePathInfo2.square.IsBaselineHeight() ? 1 : 0);
+				num = (boardSquarePathInfo2.square.IsValidForGameplay() ? 1 : 0);
 			}
 			else
 			{
@@ -146,7 +146,7 @@ public static class KnockbackUtils
 					boardSquarePathInfo2.square = null;
 					boardSquarePathInfo2.prev.next = null;
 					boardSquarePathInfo2 = boardSquarePathInfo2.prev;
-					flag2 = (boardSquarePathInfo2.square != null && boardSquarePathInfo2.square.IsBaselineHeight());
+					flag2 = (boardSquarePathInfo2.square != null && boardSquarePathInfo2.square.IsValidForGameplay());
 				}
 			}
 			boardSquarePathInfo.CalcAndSetMoveCostToEnd();
@@ -163,11 +163,11 @@ public static class KnockbackUtils
 		{
 			if (considerHalfHeightWallValid)
 			{
-				flag = boardSquare._0015();
+				flag = boardSquare.IsValidForKnockbackAndCharge();
 			}
 			else
 			{
-				flag = boardSquare.IsBaselineHeight();
+				flag = boardSquare.IsValidForGameplay();
 			}
 		}
 		if (flag)
@@ -196,7 +196,7 @@ public static class KnockbackUtils
 						break;
 					}
 					currentSquare = closestAdjacentSquareTo;
-					if ((!considerHalfHeightWallValid) ? currentSquare.IsBaselineHeight() : currentSquare._0015())
+					if ((!considerHalfHeightWallValid) ? currentSquare.IsValidForGameplay() : currentSquare.IsValidForKnockbackAndCharge())
 					{
 						result = currentSquare;
 					}
@@ -229,7 +229,7 @@ public static class KnockbackUtils
 		{
 			if (!passThroughInvalidSquares)
 			{
-				if (!destination._0015())
+				if (!destination.IsValidForKnockbackAndCharge())
 				{
 					goto IL_007a;
 				}
@@ -296,7 +296,7 @@ public static class KnockbackUtils
 				{
 					if (!(destination == null))
 					{
-						if (passThroughInvalidSquares || destination._0015())
+						if (passThroughInvalidSquares || destination.IsValidForKnockbackAndCharge())
 						{
 							BoardSquare boardSquare = startSquare;
 							BoardSquare closestAdjacentSquareTo = GetClosestAdjacentSquareTo(boardSquare, startSquare, destination, passThroughInvalidSquares);
@@ -426,7 +426,7 @@ public static class KnockbackUtils
 
 	private static bool CanForceMoveToAdjacentSquare(BoardSquare src, BoardSquare dest)
 	{
-		if (!dest._0015())
+		if (!dest.IsValidForKnockbackAndCharge())
 		{
 			return false;
 		}
@@ -461,7 +461,7 @@ public static class KnockbackUtils
 			}
 			flag = false;
 		}
-		else if (src.GetCoverInDirection(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
+		else if (src.GetThinCover(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
 		{
 			flag2 = false;
 		}

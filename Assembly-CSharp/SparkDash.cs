@@ -632,7 +632,7 @@ public class SparkDash : Ability
 			flag = true;
 			BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos);
 			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(target.GridPos);
-			if (boardSquareSafe2 != null && boardSquareSafe2.IsBaselineHeight())
+			if (boardSquareSafe2 != null && boardSquareSafe2.IsValidForGameplay())
 			{
 				if (boardSquareSafe2 != boardSquareSafe && boardSquareSafe2 != caster.GetCurrentBoardSquare())
 				{
