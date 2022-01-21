@@ -7,7 +7,7 @@ namespace AbilityContextNamespace
 	public class IntFieldOverride
 	{
 		[Header("-- Identifier string to match in base ability")]
-		public string m_targetIdentifier = string.Empty;
+		public string m_targetIdentifier = "";
 
 		public SingleOnHitIntFieldMod m_fieldOverride;
 
