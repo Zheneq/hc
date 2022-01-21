@@ -6,15 +6,10 @@ namespace AbilityContextNamespace
 	public class NumericContextValueCompareCond
 	{
 		public string m_contextName;
-
 		public bool m_nonActorSpecificContext;
-
 		public ContextCompareOp m_compareOp;
-
 		public float m_testValue;
-
 		public bool m_ignoreIfNoContext;
-
 		private int m_contextKey;
 
 		public int GetContextKey()
@@ -26,7 +21,7 @@ namespace AbilityContextNamespace
 			return m_contextKey;
 		}
 
-		public NumericContextValueCompareCond Clone()
+		public NumericContextValueCompareCond GetCopy()
 		{
 			return MemberwiseClone() as NumericContextValueCompareCond;
 		}
