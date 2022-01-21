@@ -11,7 +11,7 @@ namespace AbilityContextNamespace
 
 		public SingleOnHitIntFieldMod m_fieldOverride;
 
-		public string _001D()
+		public string GetIdentifier()
 		{
 			return m_targetIdentifier.Trim();
 		}

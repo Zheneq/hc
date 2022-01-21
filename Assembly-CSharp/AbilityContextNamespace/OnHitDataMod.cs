@@ -19,9 +19,9 @@ namespace AbilityContextNamespace
 		public OnHitAuthoredData _001D(OnHitAuthoredData _001D)
 		{
 			OnHitAuthoredData onHitAuthoredData = new OnHitAuthoredData();
-			onHitAuthoredData.m_enemyHitIntFields = m_enemyIntFieldMods._001D(_001D.m_enemyHitIntFields);
+			onHitAuthoredData.m_enemyHitIntFields = m_enemyIntFieldMods.GetModdedIntFieldList(_001D.m_enemyHitIntFields);
 			onHitAuthoredData.m_enemyHitEffectFields = m_enemyEffectMods.GetModdedEffectFieldList(_001D.m_enemyHitEffectFields);
-			onHitAuthoredData.m_allyHitIntFields = m_allyIntFieldMods._001D(_001D.m_allyHitIntFields);
+			onHitAuthoredData.m_allyHitIntFields = m_allyIntFieldMods.GetModdedIntFieldList(_001D.m_allyHitIntFields);
 			onHitAuthoredData.m_allyHitEffectFields = m_allyEffectMods.GetModdedEffectFieldList(_001D.m_allyHitEffectFields);
 			return onHitAuthoredData;
 		}
@@ -85,7 +85,7 @@ namespace AbilityContextNamespace
 					for (int j = 0; j < _001D.m_overrides.Count; j++)
 					{
 						IntFieldOverride intFieldOverride = _001D.m_overrides[j];
-						string text2 = intFieldOverride._001D();
+						string text2 = intFieldOverride.GetIdentifier();
 						if (string.IsNullOrEmpty(text2))
 						{
 							continue;
@@ -224,7 +224,7 @@ namespace AbilityContextNamespace
 				for (int j = 0; j < _000E.m_overrides.Count; j++)
 				{
 					IntFieldOverride intFieldOverride = _000E.m_overrides[j];
-					string text = intFieldOverride._001D();
+					string text = intFieldOverride.GetIdentifier();
 					if (string.IsNullOrEmpty(text))
 					{
 						continue;
