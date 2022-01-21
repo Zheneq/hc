@@ -16,98 +16,70 @@ namespace AbilityContextNamespace
 
 		public EffectFieldListModData m_allyEffectMods;
 
-		public OnHitAuthoredData _001D(OnHitAuthoredData _001D)
+		public OnHitAuthoredData GetModdedOnHitData(OnHitAuthoredData input)
 		{
-			OnHitAuthoredData onHitAuthoredData = new OnHitAuthoredData();
-			onHitAuthoredData.m_enemyHitIntFields = m_enemyIntFieldMods.GetModdedIntFieldList(_001D.m_enemyHitIntFields);
-			onHitAuthoredData.m_enemyHitEffectFields = m_enemyEffectMods.GetModdedEffectFieldList(_001D.m_enemyHitEffectFields);
-			onHitAuthoredData.m_allyHitIntFields = m_allyIntFieldMods.GetModdedIntFieldList(_001D.m_allyHitIntFields);
-			onHitAuthoredData.m_allyHitEffectFields = m_allyEffectMods.GetModdedEffectFieldList(_001D.m_allyHitEffectFields);
+			OnHitAuthoredData onHitAuthoredData = new OnHitAuthoredData
+			{
+				m_enemyHitIntFields = m_enemyIntFieldMods.GetModdedIntFieldList(input.m_enemyHitIntFields),
+				m_enemyHitEffectFields = m_enemyEffectMods.GetModdedEffectFieldList(input.m_enemyHitEffectFields),
+				m_allyHitIntFields = m_allyIntFieldMods.GetModdedIntFieldList(input.m_allyHitIntFields),
+				m_allyHitEffectFields = m_allyEffectMods.GetModdedEffectFieldList(input.m_allyHitEffectFields)
+			};
 			return onHitAuthoredData;
 		}
 
-		public string _001D(string _001D, OnHitAuthoredData _000E)
+		public string GetInEditorDesc(string header, OnHitAuthoredData baseOnHitData)
 		{
-			string empty = string.Empty;
-			empty += OnHitDataMod._001D(m_enemyIntFieldMods, _000E?.m_enemyHitIntFields, "Enemy Int Field Mods");
-			empty += OnHitDataMod._001D(m_enemyEffectMods, _000E?.m_enemyHitEffectFields, "Enemy Effect Field Mods");
-			string str = empty;
-			IntFieldListModData allyIntFieldMods = m_allyIntFieldMods;
-			object obj;
-			if (_000E != null)
+			string text = "";
+			text += OnHitDataMod.GetIntFieldModDesc(m_enemyIntFieldMods, baseOnHitData?.m_enemyHitIntFields, "Enemy Int Field Mods");
+			text += OnHitDataMod.GetEffectFieldModDesc(m_enemyEffectMods, baseOnHitData?.m_enemyHitEffectFields, "Enemy Effect Field Mods");
+			text += OnHitDataMod.GetIntFieldModDesc(m_allyIntFieldMods, baseOnHitData?.m_allyHitIntFields, "Ally Int Field Mods");
+			text += OnHitDataMod.GetEffectFieldModDesc(m_allyEffectMods, baseOnHitData?.m_allyHitEffectFields, "Ally Effect Field Mods");
+			if (text.Length > 0)
 			{
-				obj = _000E.m_allyHitIntFields;
+				text = InEditorDescHelper.ColoredString(header, "yellow") + "\n" + text + "\n";
 			}
-			else
-			{
-				obj = null;
-			}
-			empty = str + OnHitDataMod._001D(allyIntFieldMods, (List<OnHitIntField>)obj, "Ally Int Field Mods");
-			string str2 = empty;
-			EffectFieldListModData allyEffectMods = m_allyEffectMods;
-			object obj2;
-			if (_000E != null)
-			{
-				obj2 = _000E.m_allyHitEffectFields;
-			}
-			else
-			{
-				obj2 = null;
-			}
-			empty = str2 + OnHitDataMod._001D(allyEffectMods, (List<OnHitEffecField>)obj2, "Ally Effect Field Mods");
-			if (empty.Length > 0)
-			{
-				empty = InEditorDescHelper.ColoredString(_001D, "yellow") + "\n" + empty + "\n";
-			}
-			return empty;
+			return text;
 		}
 
-		public static string _001D(IntFieldListModData _001D, List<OnHitIntField> _000E, string _0012)
+		public static string GetIntFieldModDesc(IntFieldListModData intMods, List<OnHitIntField> baseIntFields, string header)
 		{
-			string text = string.Empty;
-			if (_001D.m_prependIntFields != null)
+			string text = "";
+			if (intMods.m_prependIntFields != null && intMods.m_prependIntFields.Count > 0)
 			{
-				if (_001D.m_prependIntFields.Count > 0)
+				text += "<color=cyan>" + header + ": New entries prepended:</color>\n";
+				for (int i = 0; i < intMods.m_prependIntFields.Count; i++)
 				{
-					text = text + "<color=cyan>" + _0012 + ": New entries prepended:</color>\n";
-					for (int i = 0; i < _001D.m_prependIntFields.Count; i++)
-					{
-						OnHitIntField onHitIntField = _001D.m_prependIntFields[i];
-						text += onHitIntField.GetInEditorDesc();
-					}
+					OnHitIntField onHitIntField = intMods.m_prependIntFields[i];
+					text += onHitIntField.GetInEditorDesc();
 				}
 			}
-			if (_001D.m_overrides != null)
+			if (intMods.m_overrides != null && intMods.m_overrides.Count > 0)
 			{
-				if (_001D.m_overrides.Count > 0)
+				text += "<color=cyan>" + header + ": Override to existing entry:</color>\n";
+				for (int j = 0; j < intMods.m_overrides.Count; j++)
 				{
-					text = text + "<color=cyan>" + _0012 + ": Override to existing entry:</color>\n";
-					for (int j = 0; j < _001D.m_overrides.Count; j++)
+					IntFieldOverride intFieldOverride = intMods.m_overrides[j];
+					string identifier = intFieldOverride.GetIdentifier();
+					if (!string.IsNullOrEmpty(identifier))
 					{
-						IntFieldOverride intFieldOverride = _001D.m_overrides[j];
-						string text2 = intFieldOverride.GetIdentifier();
-						if (string.IsNullOrEmpty(text2))
+						text += "Target Identifier: " + InEditorDescHelper.ColoredString(intFieldOverride.m_targetIdentifier, "white") + "\n";
+						if (baseIntFields != null)
 						{
-							continue;
-						}
-						text = text + "Target Identifier: " + InEditorDescHelper.ColoredString(intFieldOverride.m_targetIdentifier, "white") + "\n";
-						if (_000E == null)
-						{
-							continue;
-						}
-						bool flag = false;
-						foreach (OnHitIntField item in _000E)
-						{
-							if (item.GetIdentifier().Equals(text2, StringComparison.OrdinalIgnoreCase))
+							bool isFound = false;
+							foreach (OnHitIntField item in baseIntFields)
 							{
-								flag = true;
-								text += intFieldOverride.m_fieldOverride.GetDesc(item);
-								break;
+								if (item.GetIdentifier().Equals(identifier, StringComparison.OrdinalIgnoreCase))
+								{
+									isFound = true;
+									text += intFieldOverride.m_fieldOverride.GetDesc(item);
+									break;
+								}
 							}
-						}
-						if (!flag)
-						{
-							text = text + "<color=red>Target Identifier " + text2 + " not found on base on hit data</color>\n";
+							if (!isFound)
+							{
+								text += "<color=red>Target Identifier " + identifier + " not found on base on hit data</color>\n";
+							}
 						}
 					}
 				}
@@ -115,69 +87,44 @@ namespace AbilityContextNamespace
 			return text;
 		}
 
-		public static string _001D(EffectFieldListModData _001D, List<OnHitEffecField> _000E, string _0012)
+		public static string GetEffectFieldModDesc(EffectFieldListModData effectMods, List<OnHitEffecField> baseEffectFields, string header)
 		{
-			string text = string.Empty;
-			if (_001D.m_prependEffectFields != null)
+			string text = "";
+			if (effectMods.m_prependEffectFields != null && effectMods.m_prependEffectFields.Count > 0)
 			{
-				if (_001D.m_prependEffectFields.Count > 0)
+				text += "<color=cyan>" + header + ": New entries prepended:</color>\n";
+				for (int i = 0; i < effectMods.m_prependEffectFields.Count; i++)
 				{
-					text = text + "<color=cyan>" + _0012 + ": New entries prepended:</color>\n";
-					for (int i = 0; i < _001D.m_prependEffectFields.Count; i++)
-					{
-						OnHitEffecField onHitEffecField = _001D.m_prependEffectFields[i];
-						text += onHitEffecField.GetInEditorDesc(false, null);
-					}
+					OnHitEffecField onHitEffecField = effectMods.m_prependEffectFields[i];
+					text += onHitEffecField.GetInEditorDesc(false, null);
 				}
 			}
-			if (_001D.m_overrides != null)
+			if (effectMods.m_overrides != null && effectMods.m_overrides.Count > 0)
 			{
-				if (_001D.m_overrides.Count > 0)
+				text += "<color=cyan>" + header + ": Override to existing entry:</color>\n";
+				for (int j = 0; j < effectMods.m_overrides.Count; j++)
 				{
-					text = text + "<color=cyan>" + _0012 + ": Override to existing entry:</color>\n";
-					for (int j = 0; j < _001D.m_overrides.Count; j++)
+					EffectFieldOverride effectFieldOverride = effectMods.m_overrides[j];
+					string text2 = effectFieldOverride.GetIdentifier();
+					if (!string.IsNullOrEmpty(text2))
 					{
-						EffectFieldOverride effectFieldOverride = _001D.m_overrides[j];
-						string text2 = effectFieldOverride.GetIdentifier();
-						if (string.IsNullOrEmpty(text2))
-						{
-							continue;
-						}
 						OnHitEffecField onHitEffecField2 = null;
-						if (_000E != null)
+						if (baseEffectFields != null)
 						{
-							using (List<OnHitEffecField>.Enumerator enumerator = _000E.GetEnumerator())
+							foreach (OnHitEffecField field in baseEffectFields)
 							{
-								while (true)
+								if (field.GetIdentifier().Equals(text2, StringComparison.OrdinalIgnoreCase))
 								{
-									if (!enumerator.MoveNext())
-									{
-										break;
-									}
-									OnHitEffecField current = enumerator.Current;
-									if (current.GetIdentifier().Equals(text2, StringComparison.OrdinalIgnoreCase))
-									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												break;
-											default:
-												onHitEffecField2 = current;
-												goto end_IL_011b;
-											}
-										}
-									}
+									onHitEffecField2 = field;
+									break;
 								}
-								end_IL_011b:;
 							}
 							if (onHitEffecField2 == null)
 							{
-								text = text + "<color=red>Target Identifier " + text2 + " not found on base on hit data</color>\n";
+								text += "<color=red>Target Identifier " + text2 + " not found on base on hit data</color>\n";
 							}
 						}
-						text = text + "Target Identifier: " + InEditorDescHelper.ColoredString(effectFieldOverride.m_targetIdentifier, "white") + "\n";
+						text += "Target Identifier: " + InEditorDescHelper.ColoredString(effectFieldOverride.m_targetIdentifier, "white") + "\n";
 						text += effectFieldOverride.m_effectOverride.GetInEditorDesc(onHitEffecField2 != null, onHitEffecField2);
 					}
 				}
@@ -185,130 +132,82 @@ namespace AbilityContextNamespace
 			return text;
 		}
 
-		public void _001D(List<TooltipTokenEntry> _001D, OnHitAuthoredData _000E)
+		public void AddTooltipTokens(List<TooltipTokenEntry> tokens, OnHitAuthoredData baseOnHitData)
 		{
-			if (_000E == null || m_enemyIntFieldMods == null)
+			if (baseOnHitData == null || m_enemyIntFieldMods == null)
 			{
 				return;
 			}
-			while (true)
-			{
-				OnHitDataMod._001D(_001D, m_enemyIntFieldMods, _000E.m_enemyHitIntFields);
-				OnHitDataMod._001D(_001D, m_enemyEffectMods, _000E.m_enemyHitEffectFields);
-				OnHitDataMod._001D(_001D, m_allyIntFieldMods, _000E.m_allyHitIntFields);
-				OnHitDataMod._001D(_001D, m_allyEffectMods, _000E.m_allyHitEffectFields);
-				return;
-			}
+			OnHitDataMod.AddTooltipTokens_IntFields(tokens, m_enemyIntFieldMods, baseOnHitData.m_enemyHitIntFields);
+			OnHitDataMod.AddTooltipTokens_EffectFields(tokens, m_enemyEffectMods, baseOnHitData.m_enemyHitEffectFields);
+			OnHitDataMod.AddTooltipTokens_IntFields(tokens, m_allyIntFieldMods, baseOnHitData.m_allyHitIntFields);
+			OnHitDataMod.AddTooltipTokens_EffectFields(tokens, m_allyEffectMods, baseOnHitData.m_allyHitEffectFields);
 		}
 
-		public static void _001D(List<TooltipTokenEntry> _001D, IntFieldListModData _000E, List<OnHitIntField> _0012)
+		public static void AddTooltipTokens_IntFields(List<TooltipTokenEntry> tokens, IntFieldListModData intMods, List<OnHitIntField> baseIntFields)
 		{
-			if (_000E.m_prependIntFields != null)
+			if (intMods.m_prependIntFields != null)
 			{
-				for (int i = 0; i < _000E.m_prependIntFields.Count; i++)
+				for (int i = 0; i < intMods.m_prependIntFields.Count; i++)
 				{
-					OnHitIntField onHitIntField = _000E.m_prependIntFields[i];
-					string identifier = onHitIntField.GetIdentifier();
-					if (!string.IsNullOrEmpty(identifier))
+					OnHitIntField onHitIntField = intMods.m_prependIntFields[i];
+					if (!string.IsNullOrEmpty(onHitIntField.GetIdentifier()))
 					{
-						onHitIntField.AddTooltipTokens(_001D);
+						onHitIntField.AddTooltipTokens(tokens);
 					}
 				}
 			}
-			if (_000E.m_overrides == null)
+			if (intMods.m_overrides != null)
 			{
-				return;
-			}
-			while (true)
-			{
-				for (int j = 0; j < _000E.m_overrides.Count; j++)
+				for (int j = 0; j < intMods.m_overrides.Count; j++)
 				{
-					IntFieldOverride intFieldOverride = _000E.m_overrides[j];
-					string text = intFieldOverride.GetIdentifier();
-					if (string.IsNullOrEmpty(text))
+					IntFieldOverride intFieldOverride = intMods.m_overrides[j];
+					string identifier = intFieldOverride.GetIdentifier();
+					if (!string.IsNullOrEmpty(identifier))
 					{
-						continue;
-					}
-					OnHitIntField onHitIntField2 = null;
-					using (List<OnHitIntField>.Enumerator enumerator = _0012.GetEnumerator())
-					{
-						while (true)
+						OnHitIntField onHitIntField2 = null;
+						foreach (OnHitIntField current in baseIntFields)
 						{
-							if (!enumerator.MoveNext())
-							{
-								break;
-							}
-							OnHitIntField current = enumerator.Current;
 							string identifier2 = current.GetIdentifier();
-							if (text.Equals(identifier2, StringComparison.OrdinalIgnoreCase))
+							if (identifier.Equals(identifier2, StringComparison.OrdinalIgnoreCase))
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										break;
-									default:
-										onHitIntField2 = current;
-										goto end_IL_00b2;
-									}
-								}
+								onHitIntField2 = current;
+								break;
 							}
 						}
-						end_IL_00b2:;
-					}
-					if (onHitIntField2 != null)
-					{
-						intFieldOverride.m_fieldOverride.AddTokens_zq(_001D, onHitIntField2, text);
-					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					default:
-						return;
-					case 0:
-						break;
+						if (onHitIntField2 != null)
+						{
+							intFieldOverride.m_fieldOverride.AddTokens_zq(tokens, onHitIntField2, identifier);
+						}
 					}
 				}
 			}
 		}
 
-		public static void _001D(List<TooltipTokenEntry> _001D, EffectFieldListModData _000E, List<OnHitEffecField> _0012)
+		public static void AddTooltipTokens_EffectFields(List<TooltipTokenEntry> tokens, EffectFieldListModData effectMods, List<OnHitEffecField> baseEffectFields)
 		{
-			if (_000E.m_prependEffectFields != null)
+			if (effectMods.m_prependEffectFields != null)
 			{
-				for (int i = 0; i < _000E.m_prependEffectFields.Count; i++)
+				for (int i = 0; i < effectMods.m_prependEffectFields.Count; i++)
 				{
-					OnHitEffecField onHitEffecField = _000E.m_prependEffectFields[i];
-					string identifier = onHitEffecField.GetIdentifier();
-					if (!string.IsNullOrEmpty(identifier))
+					OnHitEffecField onHitEffecField = effectMods.m_prependEffectFields[i];
+					if (!string.IsNullOrEmpty(onHitEffecField.GetIdentifier()))
 					{
-						onHitEffecField.AddTooltipTokens(_001D, false, null);
+						onHitEffecField.AddTooltipTokens(tokens, false, null);
 					}
 				}
 			}
-			if (_000E.m_overrides == null)
+			if (effectMods.m_overrides != null)
 			{
-				return;
-			}
-			for (int j = 0; j < _000E.m_overrides.Count; j++)
-			{
-				EffectFieldOverride effectFieldOverride = _000E.m_overrides[j];
-				string text = effectFieldOverride.GetIdentifier();
-				if (!string.IsNullOrEmpty(text))
+				for (int j = 0; j < effectMods.m_overrides.Count; j++)
 				{
-					OnHitEffecField onHitEffecField2 = null;
-					using (List<OnHitEffecField>.Enumerator enumerator = _0012.GetEnumerator())
+					EffectFieldOverride effectFieldOverride = effectMods.m_overrides[j];
+					string text = effectFieldOverride.GetIdentifier();
+					if (!string.IsNullOrEmpty(text))
 					{
-						while (true)
+						OnHitEffecField onHitEffecField2 = null;
+						foreach (OnHitEffecField current in baseEffectFields)
 						{
-							if (!enumerator.MoveNext())
-							{
-								break;
-							}
-							OnHitEffecField current = enumerator.Current;
 							string identifier2 = current.GetIdentifier();
 							if (text.Equals(identifier2, StringComparison.OrdinalIgnoreCase))
 							{
@@ -316,10 +215,10 @@ namespace AbilityContextNamespace
 								break;
 							}
 						}
-					}
-					if (onHitEffecField2 != null)
-					{
-						effectFieldOverride.m_effectOverride.AddTooltipTokens(_001D, true, onHitEffecField2, text);
+						if (onHitEffecField2 != null)
+						{
+							effectFieldOverride.m_effectOverride.AddTooltipTokens(tokens, true, onHitEffecField2, text);
+						}
 					}
 				}
 			}

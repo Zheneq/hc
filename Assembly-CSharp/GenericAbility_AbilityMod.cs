@@ -8,7 +8,7 @@ public class GenericAbility_AbilityMod : AbilityMod
 
 	public override OnHitAuthoredData GenModImpl_GetModdedOnHitData(OnHitAuthoredData onHitDataFromBase)
 	{
-		return m_onHitDataMod._001D(onHitDataFromBase);
+		return m_onHitDataMod.GetModdedOnHitData(onHitDataFromBase);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
@@ -35,7 +35,7 @@ public class GenericAbility_AbilityMod : AbilityMod
 		{
 			if (baseData != null)
 			{
-				mod._001D(tokens, baseData);
+				mod.AddTooltipTokens(tokens, baseData);
 			}
 			return;
 		}
@@ -65,7 +65,7 @@ public class GenericAbility_AbilityMod : AbilityMod
 					case 0:
 						break;
 					default:
-						return mod._001D(header, baseData);
+						return mod.GetInEditorDesc(header, baseData);
 					}
 				}
 			}

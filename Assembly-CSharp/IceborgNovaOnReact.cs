@@ -73,7 +73,7 @@ public class IceborgNovaOnReact : GenericAbility_Container
 
 	private void SetCachedFields()
 	{
-		m_cachedReactOnHitData = ((!(m_abilityMod != null)) ? m_reactOnHitData : m_abilityMod.m_reactOnHitDataMod._001D(m_reactOnHitData));
+		m_cachedReactOnHitData = ((!(m_abilityMod != null)) ? m_reactOnHitData : m_abilityMod.m_reactOnHitDataMod.GetModdedOnHitData(m_reactOnHitData));
 	}
 
 	public OnHitAuthoredData GetReactOnHitData()

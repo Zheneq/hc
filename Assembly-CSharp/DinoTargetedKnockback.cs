@@ -35,7 +35,7 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		OnHitAuthoredData cachedKnockbackDestOnHitData;
 		if (m_abilityMod != null)
 		{
-			cachedKnockbackDestOnHitData = m_abilityMod.m_knockbackDestOnHitDataMod._001D(m_knockbackDestOnHitData);
+			cachedKnockbackDestOnHitData = m_abilityMod.m_knockbackDestOnHitDataMod.GetModdedOnHitData(m_knockbackDestOnHitData);
 		}
 		else
 		{

@@ -54,7 +54,7 @@ public class ScampDashAndAoe : GenericAbility_Container
 		base.SetupTargetersAndCachedVars();
 		if (m_abilityMod != null)
 		{
-			m_cachedShieldDownOnHitData = m_abilityMod.m_shieldDownOnHitDataMod._001D(m_shieldDownOnHitData);
+			m_cachedShieldDownOnHitData = m_abilityMod.m_shieldDownOnHitDataMod.GetModdedOnHitData(m_shieldDownOnHitData);
 		}
 		else
 		{

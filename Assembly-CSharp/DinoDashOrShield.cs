@@ -200,7 +200,7 @@ public class DinoDashOrShield : GenericAbility_Container
 		m_cachedShieldEffect = cachedShieldEffect;
 		if (m_abilityMod != null)
 		{
-			m_cachedDashOnHitData = m_abilityMod.m_dashOnHitDataMod._001D(m_dashOnHitData);
+			m_cachedDashOnHitData = m_abilityMod.m_dashOnHitDataMod.GetModdedOnHitData(m_dashOnHitData);
 		}
 		else
 		{

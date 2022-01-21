@@ -147,7 +147,7 @@ public class FireborgReactLasers : GenericAbility_Container
 
 	private void SetCachedFields()
 	{
-		m_cachedOnHitDataForSecondLaser = ((!(m_abilityMod != null)) ? m_onHitDataForSecondLaser : m_abilityMod.m_onHitDataForSecondLaserMod._001D(m_onHitDataForSecondLaser));
+		m_cachedOnHitDataForSecondLaser = ((!(m_abilityMod != null)) ? m_onHitDataForSecondLaser : m_abilityMod.m_onHitDataForSecondLaserMod.GetModdedOnHitData(m_onHitDataForSecondLaser));
 	}
 
 	public OnHitAuthoredData GetOnHitDataForSecondLaser()

@@ -64,7 +64,7 @@ public class IceborgDetonateNova : GenericAbility_Container
 
 	private void SetCachedFields()
 	{
-		m_cachedEmpoweredDelayedAoeOnHitData = ((!(m_abilityMod != null)) ? m_empoweredDelayedAoeOnHitData : m_abilityMod.m_empoweredDelayedAoeOnHitDataMod._001D(m_empoweredDelayedAoeOnHitData));
+		m_cachedEmpoweredDelayedAoeOnHitData = ((!(m_abilityMod != null)) ? m_empoweredDelayedAoeOnHitData : m_abilityMod.m_empoweredDelayedAoeOnHitDataMod.GetModdedOnHitData(m_empoweredDelayedAoeOnHitData));
 	}
 
 	public OnHitAuthoredData GetEmpoweredDelayedAoeOnHitData()

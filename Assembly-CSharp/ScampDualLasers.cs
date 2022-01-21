@@ -40,7 +40,7 @@ public class ScampDualLasers : GenericAbility_Container
 		m_syncComp = GetComponent<Scamp_SyncComponent>();
 		if (m_abilityMod != null)
 		{
-			m_cachedShieldDownOnHitData = m_abilityMod.m_shieldDownOnHitDataMod._001D(m_shieldDownOnHitData);
+			m_cachedShieldDownOnHitData = m_abilityMod.m_shieldDownOnHitDataMod.GetModdedOnHitData(m_shieldDownOnHitData);
 		}
 		else
 		{
