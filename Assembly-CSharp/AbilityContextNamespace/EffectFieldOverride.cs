@@ -11,7 +11,7 @@ namespace AbilityContextNamespace
 
 		public OnHitEffecField m_effectOverride;
 
-		public string _001D()
+		public string GetIdentifier()
 		{
 			return m_targetIdentifier.Trim();
 		}
