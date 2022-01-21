@@ -24,7 +24,7 @@ public class OnHitEffecField
 	public OnHitEffecField GetCopy()
 	{
 		OnHitEffecField onHitEffecField = MemberwiseClone() as OnHitEffecField;
-		onHitEffecField.m_conditions = m_conditions._001D();
+		onHitEffecField.m_conditions = m_conditions.GetCopy();
 		onHitEffecField.m_effect = m_effect.GetShallowCopy();
 		return onHitEffecField;
 	}

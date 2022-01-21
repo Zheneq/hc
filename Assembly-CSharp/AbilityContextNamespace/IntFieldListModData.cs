@@ -27,7 +27,7 @@ namespace AbilityContextNamespace
 				SingleOnHitIntFieldMod singleOnHitIntFieldMod = this.GetOverrideEntry(identifier);
 				if (singleOnHitIntFieldMod != null)
 				{
-					OnHitIntField item = singleOnHitIntFieldMod._001D(onHitIntField);
+					OnHitIntField item = singleOnHitIntFieldMod.GetModdedIntField(onHitIntField);
 					list.Add(item);
 				}
 				else

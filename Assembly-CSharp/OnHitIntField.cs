@@ -41,7 +41,7 @@ public class OnHitIntField
 	public OnHitIntField GetCopy()
 	{
 		OnHitIntField onHitIntField = MemberwiseClone() as OnHitIntField;
-		onHitIntField.m_conditions = m_conditions._001D();
+		onHitIntField.m_conditions = m_conditions.GetCopy();
 		onHitIntField.m_baseAddModifiers = new List<NumericContextOperand>();
 		for (int i = 0; i < m_baseAddModifiers.Count; i++)
 		{

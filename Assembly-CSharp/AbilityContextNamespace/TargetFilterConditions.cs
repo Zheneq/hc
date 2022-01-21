@@ -10,7 +10,7 @@ namespace AbilityContextNamespace
 
 		public List<NumericContextValueCompareCond> m_numCompareConditions = new List<NumericContextValueCompareCond>();
 
-		public TargetFilterConditions _001D()
+		public TargetFilterConditions GetCopy()
 		{
 			TargetFilterConditions targetFilterConditions = MemberwiseClone() as TargetFilterConditions;
 			targetFilterConditions.m_numCompareConditions = new List<NumericContextValueCompareCond>();

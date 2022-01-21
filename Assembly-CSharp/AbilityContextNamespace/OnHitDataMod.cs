@@ -72,7 +72,7 @@ namespace AbilityContextNamespace
 								if (item.GetIdentifier().Equals(identifier, StringComparison.OrdinalIgnoreCase))
 								{
 									isFound = true;
-									text += intFieldOverride.m_fieldOverride.GetDesc(item);
+									text += intFieldOverride.m_fieldOverride.GetInEditorDesc(item);
 									break;
 								}
 							}
@@ -177,7 +177,7 @@ namespace AbilityContextNamespace
 						}
 						if (onHitIntField2 != null)
 						{
-							intFieldOverride.m_fieldOverride.AddTokens_zq(tokens, onHitIntField2, identifier);
+							intFieldOverride.m_fieldOverride.AddTooltipTokens(tokens, onHitIntField2, identifier);
 						}
 					}
 				}
