@@ -6,23 +6,17 @@ using UnityEngine.Networking;
 public class ActorStats : NetworkBehaviour
 {
 	private delegate bool StatModFilterDelegate(StatMod statMod);
-
 	private bool m_shouldUpdateFull;
-
 	private Dictionary<StatType, List<StatMod>> m_statMods;
-
 	private SyncListFloat m_modifiedStats = new SyncListFloat();
-
 	private float[] m_modifiedStatsPrevious;
-
 	private ActorData m_actorData;
 
-	private static int kListm_modifiedStats;
+	private static int kListm_modifiedStats = -1034899976;
 
 	static ActorStats()
 	{
-		kListm_modifiedStats = -1034899976;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(ActorStats), kListm_modifiedStats, InvokeSyncListm_modifiedStats);
+		RegisterSyncListDelegate(typeof(ActorStats), kListm_modifiedStats, InvokeSyncListm_modifiedStats);
 		NetworkCRC.RegisterBehaviour("ActorStats", 0);
 	}
 
@@ -33,10 +27,9 @@ public class ActorStats : NetworkBehaviour
 
 	private void Awake()
 	{
-		
-		Func<StatType, StatType, bool> equals = ((StatType a, StatType b) => a == b);
-		
-		FuncEqualityComparer<StatType> comparer = new FuncEqualityComparer<StatType>(equals, ((StatType a) => (int)a));
+		FuncEqualityComparer<StatType> comparer = new FuncEqualityComparer<StatType>(
+			(StatType a, StatType b) => a == b,
+			(StatType a) => (int)a);
 		m_statMods = new Dictionary<StatType, List<StatMod>>(comparer);
 		for (int i = 0; i < 24; i++)
 		{
@@ -54,24 +47,13 @@ public class ActorStats : NetworkBehaviour
 		{
 			m_modifiedStatsPrevious[i] = GetStatBaseValueFloat((StatType)i);
 		}
-		while (true)
+		if (NetworkServer.active)
 		{
-			if (!NetworkServer.active)
+			for (int j = 0; j < 24; j++)
 			{
-				return;
+				m_modifiedStats.Add(GetStatBaseValueFloat((StatType)j));
 			}
-			while (true)
-			{
-				for (int j = 0; j < 24; j++)
-				{
-					m_modifiedStats.Add(GetStatBaseValueFloat((StatType)j));
-				}
-				while (true)
-				{
-					MarkAllForUpdate();
-					return;
-				}
-			}
+			MarkAllForUpdate();
 		}
 	}
 
@@ -82,15 +64,10 @@ public class ActorStats : NetworkBehaviour
 
 	private void Update()
 	{
-		if (!NetworkServer.active || !m_shouldUpdateFull)
-		{
-			return;
-		}
-		while (true)
+		if (NetworkServer.active && m_shouldUpdateFull)
 		{
 			SendFullUpdateData();
 			m_shouldUpdateFull = false;
-			return;
 		}
 	}
 
@@ -106,11 +83,8 @@ public class ActorStats : NetworkBehaviour
 		{
 			StatType stat = (StatType)i;
 			float modifiedStatFloat = GetModifiedStatFloat(stat);
-			if (modifiedStatFloat == m_modifiedStatsPrevious[i])
-			{
-				continue;
-			}
-			if (m_modifiedStats[i] != modifiedStatFloat)
+			if (modifiedStatFloat != m_modifiedStatsPrevious[i]
+				&& m_modifiedStats[i] != modifiedStatFloat)
 			{
 				m_modifiedStats[i] = modifiedStatFloat;
 				m_modifiedStatsPrevious[i] = modifiedStatFloat;
@@ -120,38 +94,24 @@ public class ActorStats : NetworkBehaviour
 
 	private void SyncListCallbackModifiedStats(SyncList<float>.Operation op, int _incorrectIndexBugIn51And52)
 	{
-		if (!NetworkClient.active)
+		if (!NetworkClient.active || NetworkServer.active)
 		{
 			return;
 		}
-		while (true)
+
+		for (int i = 0; i < m_modifiedStats.Count; i++)
 		{
-			if (NetworkServer.active)
+			if (i >= m_modifiedStatsPrevious.Length)
 			{
 				return;
 			}
-			int num = 0;
-			while (num < m_modifiedStats.Count)
+			if (m_modifiedStats[i] != m_modifiedStatsPrevious[i])
 			{
-				while (true)
-				{
-					if (num >= m_modifiedStatsPrevious.Length)
-					{
-						return;
-					}
-					if (m_modifiedStats[num] != m_modifiedStatsPrevious[num])
-					{
-						StatType stat = (StatType)num;
-						float oldStatValue = m_modifiedStatsPrevious[num];
-						m_modifiedStatsPrevious[num] = m_modifiedStats[num];
-						OnStatModified(stat, oldStatValue, false);
-					}
-					num++;
-					goto IL_007f;
-				}
-				IL_007f:;
+				StatType stat = (StatType)i;
+				float oldStatValue = m_modifiedStatsPrevious[i];
+				m_modifiedStatsPrevious[i] = m_modifiedStats[i];
+				OnStatModified(stat, oldStatValue, false);
 			}
-			return;
 		}
 	}
 
@@ -164,32 +124,15 @@ public class ActorStats : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-				{
-					float modifiedStatFloat = GetModifiedStatFloat(stat);
-					StatMod statMod = new StatMod();
-					statMod.Setup(mod, val);
-					m_statMods[stat].Add(statMod);
-					OnStatModified(stat, modifiedStatFloat, true);
-					return;
-				}
-				}
-			}
+			float modifiedStatFloat = GetModifiedStatFloat(stat);
+			StatMod statMod = new StatMod();
+			statMod.Setup(mod, val);
+			m_statMods[stat].Add(statMod);
+			OnStatModified(stat, modifiedStatFloat, true);
 		}
-		if (!NetworkClient.active)
-		{
-			return;
-		}
-		while (true)
+		else if (NetworkClient.active)
 		{
 			Log.Error("called AddStatMod when server is not active");
-			return;
 		}
 	}
 
@@ -202,65 +145,21 @@ public class ActorStats : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			while (true)
+			List<StatMod> mods = m_statMods[stat];
+			foreach (StatMod current in mods)
 			{
-				switch (2)
+				if (current.mod == mod && current.val == val)
 				{
-				case 0:
-					break;
-				default:
-				{
-					List<StatMod> list = m_statMods[stat];
-					using (List<StatMod>.Enumerator enumerator = list.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							StatMod current = enumerator.Current;
-							if (current.mod == mod)
-							{
-								if (current.val == val)
-								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											break;
-										default:
-										{
-											float modifiedStatFloat = GetModifiedStatFloat(stat);
-											list.Remove(current);
-											OnStatModified(stat, modifiedStatFloat, false);
-											return;
-										}
-										}
-									}
-								}
-							}
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							default:
-								return;
-							case 0:
-								break;
-							}
-						}
-					}
-				}
+					float modifiedStatFloat = GetModifiedStatFloat(stat);
+					mods.Remove(current);
+					OnStatModified(stat, modifiedStatFloat, false);
+					return;
 				}
 			}
 		}
-		if (!NetworkClient.active)
-		{
-			return;
-		}
-		while (true)
+		else if (NetworkClient.active)
 		{
 			Log.Error("called RemoveStat when server is not active");
-			return;
 		}
 	}
 
@@ -287,66 +186,37 @@ public class ActorStats : NetworkBehaviour
 	{
 		switch (statMod.mod)
 		{
-		case ModType.BaseAdd:
-			baseAdd += statMod.val;
-			break;
-		case ModType.BonusAdd:
-			bonusAdd += statMod.val;
-			break;
-		case ModType.PercentAdd:
-			percentAdd += statMod.val;
-			break;
-		case ModType.Multiplier:
-			multipliers *= statMod.val;
-			break;
+			case ModType.BaseAdd:
+				baseAdd += statMod.val;
+				break;
+			case ModType.BonusAdd:
+				bonusAdd += statMod.val;
+				break;
+			case ModType.PercentAdd:
+				percentAdd += statMod.val;
+				break;
+			case ModType.Multiplier:
+				multipliers *= statMod.val;
+				break;
 		}
 	}
 
 	private void CalculateAdjustments(StatType stat, ref float baseAdd, ref float bonusAdd, ref float percentAdd, ref float multipliers)
 	{
-		if (m_statMods == null)
+		if (m_statMods != null && m_statMods.ContainsKey(stat))
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!m_statMods.ContainsKey(stat))
+			List<StatMod> list = m_statMods[stat];
+			for (int i = 0; i < list.Count; i++)
 			{
-				return;
-			}
-			while (true)
-			{
-				List<StatMod> list = m_statMods[stat];
-				for (int i = 0; i < list.Count; i++)
-				{
-					CalculateAdjustmentForStatMod(list[i], ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
+				CalculateAdjustmentForStatMod(list[i], ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
 			}
 		}
 	}
 
 	private void CalculateAdjustments(StatType stat, ref float baseAdd, ref float bonusAdd, ref float percentAdd, ref float multipliers, StatModFilterDelegate filterDelegate)
 	{
-		if (m_statMods == null)
+		if (m_statMods != null && m_statMods.ContainsKey(stat))
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!m_statMods.ContainsKey(stat))
-			{
-				return;
-			}
 			List<StatMod> list = m_statMods[stat];
 			for (int i = 0; i < list.Count; i++)
 			{
@@ -355,67 +225,36 @@ public class ActorStats : NetworkBehaviour
 					CalculateAdjustmentForStatMod(list[i], ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
 				}
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
 		}
 	}
 
 	private float CalculateModifiedStatValue(StatType stat, float baseValue)
 	{
-		if (m_statMods != null)
+		if (m_statMods != null && m_statMods.ContainsKey(stat))
 		{
-			if (m_statMods.ContainsKey(stat))
+			if (NetworkServer.active)
 			{
-				if (NetworkServer.active)
+				float baseAdd = 0f;
+				float bonusAdd = 0f;
+				float percentAdd = 1f;
+				float multipliers = 1f;
+				if (stat == StatType.Movement_Horizontal)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							break;
-						default:
-						{
-							float baseAdd = 0f;
-							float bonusAdd = 0f;
-							float percentAdd = 1f;
-							float multipliers = 1f;
-							if (stat == StatType.Movement_Horizontal)
-							{
-								CalculateAdjustmentsForMovementHorizontal(ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
-							}
-							else
-							{
-								CalculateAdjustments(stat, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
-							}
-							float num = baseValue;
-							num += baseAdd;
-							num *= percentAdd;
-							num *= multipliers;
-							return num + bonusAdd;
-						}
-						}
-					}
-				}
-				float result;
-				if ((int)stat < m_modifiedStats.Count)
-				{
-					result = m_modifiedStats[(int)stat];
+					CalculateAdjustmentsForMovementHorizontal(ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
 				}
 				else
 				{
-					result = m_modifiedStatsPrevious[(int)stat];
+					CalculateAdjustments(stat, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
 				}
-				return result;
+				float num = baseValue;
+				num += baseAdd;
+				num *= percentAdd;
+				num *= multipliers;
+				return num + bonusAdd;
 			}
+			return (int)stat < m_modifiedStats.Count
+				? m_modifiedStats[(int)stat]
+				: m_modifiedStatsPrevious[(int)stat];
 		}
 		return baseValue;
 	}
@@ -431,42 +270,42 @@ public class ActorStats : NetworkBehaviour
 		float result = 0f;
 		switch (stat)
 		{
-		case StatType.Movement_Horizontal:
-			result = GetComponent<ActorData>().m_maxHorizontalMovement;
-			break;
-		case StatType.Movement_Upward:
-			result = GetComponent<ActorData>().m_maxVerticalUpwardMovement;
-			break;
-		case StatType.Movement_Downward:
-			result = GetComponent<ActorData>().m_maxVerticalDownwardMovement;
-			break;
-		case StatType.MaxHitPoints:
-			result = GetComponent<ActorData>().m_maxHitPoints;
-			break;
-		case StatType.HitPointRegen:
-			result = GetComponent<ActorData>().m_hitPointRegen;
-			break;
-		case StatType.HitPointRegenPercentOfMax:
-			result = 0f;
-			break;
-		case StatType.MaxTechPoints:
-			result = GetComponent<ActorData>().m_maxTechPoints;
-			break;
-		case StatType.TechPointRegen:
-			result = GetComponent<ActorData>().m_techPointRegen;
-			break;
-		case StatType.SightRange:
-			result = GetComponent<ActorData>().m_sightRange;
-			break;
-		case StatType.CreditsPerTurn:
-			result = GameplayData.Get().m_creditsPerTurn;
-			break;
-		case StatType.ControlPointCaptureSpeed:
-			result = GameplayData.Get().m_capturePointsPerTurn;
-			break;
-		case StatType.CoverIncomingDamageMultiplier:
-			result = GameplayData.Get().m_coverProtectionDmgMultiplier;
-			break;
+			case StatType.Movement_Horizontal:
+				result = GetComponent<ActorData>().m_maxHorizontalMovement;
+				break;
+			case StatType.Movement_Upward:
+				result = GetComponent<ActorData>().m_maxVerticalUpwardMovement;
+				break;
+			case StatType.Movement_Downward:
+				result = GetComponent<ActorData>().m_maxVerticalDownwardMovement;
+				break;
+			case StatType.MaxHitPoints:
+				result = GetComponent<ActorData>().m_maxHitPoints;
+				break;
+			case StatType.HitPointRegen:
+				result = GetComponent<ActorData>().m_hitPointRegen;
+				break;
+			case StatType.HitPointRegenPercentOfMax:
+				result = 0f;
+				break;
+			case StatType.MaxTechPoints:
+				result = GetComponent<ActorData>().m_maxTechPoints;
+				break;
+			case StatType.TechPointRegen:
+				result = GetComponent<ActorData>().m_techPointRegen;
+				break;
+			case StatType.SightRange:
+				result = GetComponent<ActorData>().m_sightRange;
+				break;
+			case StatType.CreditsPerTurn:
+				result = GameplayData.Get().m_creditsPerTurn;
+				break;
+			case StatType.ControlPointCaptureSpeed:
+				result = GameplayData.Get().m_capturePointsPerTurn;
+				break;
+			case StatType.CoverIncomingDamageMultiplier:
+				result = GameplayData.Get().m_coverProtectionDmgMultiplier;
+				break;
 		}
 		return result;
 	}
@@ -476,30 +315,30 @@ public class ActorStats : NetworkBehaviour
 		ActorData component = GetComponent<ActorData>();
 		switch (stat)
 		{
-		case StatType.MaxHitPoints:
-			if (NetworkServer.active)
-			{
-				component.OnMaxHitPointsChanged((int)oldStatValue);
-			}
-			break;
-		case StatType.MaxTechPoints:
-			if (NetworkServer.active)
-			{
-				component.OnMaxHitPointsChanged((int)oldStatValue);
-			}
-			break;
-		case StatType.Movement_Horizontal:
-			GetComponent<ActorMovement>().UpdateSquaresCanMoveTo();
-			break;
-		case StatType.Movement_Upward:
-			GetComponent<ActorMovement>().UpdateSquaresCanMoveTo();
-			break;
-		case StatType.Movement_Downward:
-			GetComponent<ActorMovement>().UpdateSquaresCanMoveTo();
-			break;
-		case StatType.SightRange:
-			GetComponent<FogOfWar>().MarkForRecalculateVisibility();
-			break;
+			case StatType.MaxHitPoints:
+				if (NetworkServer.active)
+				{
+					component.OnMaxHitPointsChanged((int)oldStatValue);
+				}
+				break;
+			case StatType.MaxTechPoints:
+				if (NetworkServer.active)
+				{
+					component.OnMaxHitPointsChanged((int)oldStatValue);
+				}
+				break;
+			case StatType.Movement_Horizontal:
+				GetComponent<ActorMovement>().UpdateSquaresCanMoveTo();
+				break;
+			case StatType.Movement_Upward:
+				GetComponent<ActorMovement>().UpdateSquaresCanMoveTo();
+				break;
+			case StatType.Movement_Downward:
+				GetComponent<ActorMovement>().UpdateSquaresCanMoveTo();
+				break;
+			case StatType.SightRange:
+				GetComponent<FogOfWar>().MarkForRecalculateVisibility();
+				break;
 		}
 		if (NetworkServer.active)
 		{
@@ -510,231 +349,148 @@ public class ActorStats : NetworkBehaviour
 
 	public int CalculateOutgoingDamageForTargeter(int baseDamage)
 	{
-		int b = baseDamage;
+		int damage = baseDamage;
 		ActorStatus actorStatus = m_actorData.GetActorStatus();
-		int num;
-		if (!actorStatus.HasStatus(StatusType.Empowered))
+		bool isEmpowered = actorStatus.HasStatus(StatusType.Empowered)
+			|| (m_actorData.GetAbilityData() != null
+				&& m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Empowered));
+		bool isWeakened = actorStatus.HasStatus(StatusType.Weakened);
+		if (isEmpowered && !isWeakened)
 		{
-			if (m_actorData.GetAbilityData() != null)
+			AbilityModPropertyInt empoweredOutgoingDamageMod;
+			if (GameplayMutators.Get() != null && GameplayMutators.Get().m_useEmpoweredOverride)
 			{
-				num = (m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Empowered) ? 1 : 0);
+				empoweredOutgoingDamageMod = GameplayMutators.Get().m_empoweredOutgoingDamageMod;
 			}
 			else
 			{
-				num = 0;
-			}
-		}
-		else
-		{
-			num = 1;
-		}
-		bool flag = (byte)num != 0;
-		bool flag2 = actorStatus.HasStatus(StatusType.Weakened);
-		AbilityModPropertyInt empoweredOutgoingDamageMod;
-		if (flag)
-		{
-			if (!flag2)
-			{
-				if (!(GameplayMutators.Get() == null))
-				{
-					if (GameplayMutators.Get().m_useEmpoweredOverride)
-					{
-						empoweredOutgoingDamageMod = GameplayMutators.Get().m_empoweredOutgoingDamageMod;
-						goto IL_00d7;
-					}
-				}
 				empoweredOutgoingDamageMod = GameWideData.Get().m_empoweredOutgoingDamageMod;
-				goto IL_00d7;
 			}
+			damage = empoweredOutgoingDamageMod.GetModifiedValue(baseDamage);
 		}
-		if (!flag)
+		else if (!isEmpowered && isWeakened)
 		{
-			if (flag2)
-			{
-				AbilityModPropertyInt abilityModPropertyInt = (!(GameplayMutators.Get() == null) && GameplayMutators.Get().m_useWeakenedOverride) ? GameplayMutators.Get().m_weakenedOutgoingDamageMod : GameWideData.Get().m_weakenedOutgoingDamageMod;
-				b = abilityModPropertyInt.GetModifiedValue(baseDamage);
-			}
+			AbilityModPropertyInt abilityModPropertyInt = (!(GameplayMutators.Get() == null) && GameplayMutators.Get().m_useWeakenedOverride) ? GameplayMutators.Get().m_weakenedOutgoingDamageMod : GameWideData.Get().m_weakenedOutgoingDamageMod;
+			damage = abilityModPropertyInt.GetModifiedValue(baseDamage);
 		}
-		goto IL_0142;
-		IL_0142:
-		return Mathf.Max(0, b);
-		IL_00d7:
-		b = empoweredOutgoingDamageMod.GetModifiedValue(baseDamage);
-		goto IL_0142;
+		return Mathf.Max(0, damage);
 	}
 
 	public int CalculateOutgoingHealForTargeter(int baseHeal)
 	{
-		int b = baseHeal;
+		int heal = baseHeal;
 		ActorStatus actorStatus = m_actorData.GetActorStatus();
-		int num;
-		if (!actorStatus.HasStatus(StatusType.Empowered))
+		bool isEmpowered = actorStatus.HasStatus(StatusType.Empowered)
+			|| m_actorData.GetAbilityData() != null
+				&& m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Empowered);
+		bool isWeakened = actorStatus.HasStatus(StatusType.Weakened);
+		if (isEmpowered && !isWeakened)
 		{
-			num = ((m_actorData.GetAbilityData() != null && m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Empowered)) ? 1 : 0);
-		}
-		else
-		{
-			num = 1;
-		}
-		bool flag = (byte)num != 0;
-		bool flag2 = actorStatus.HasStatus(StatusType.Weakened);
-		AbilityModPropertyInt empoweredOutgoingHealingMod;
-		if (flag)
-		{
-			if (!flag2)
+			AbilityModPropertyInt empoweredOutgoingHealingMod;
+			if (GameplayMutators.Get() != null && GameplayMutators.Get().m_useEmpoweredOverride)
 			{
-				if (!(GameplayMutators.Get() == null))
-				{
-					if (GameplayMutators.Get().m_useEmpoweredOverride)
-					{
-						empoweredOutgoingHealingMod = GameplayMutators.Get().m_empoweredOutgoingHealingMod;
-						goto IL_00d8;
-					}
-				}
+				empoweredOutgoingHealingMod = GameplayMutators.Get().m_empoweredOutgoingHealingMod;
+			}
+			else
+			{
 				empoweredOutgoingHealingMod = GameWideData.Get().m_empoweredOutgoingHealingMod;
-				goto IL_00d8;
 			}
+			heal = empoweredOutgoingHealingMod.GetModifiedValue(baseHeal);
 		}
-		if (!flag)
+		else if (!isEmpowered && isWeakened)
 		{
-			if (flag2)
-			{
-				AbilityModPropertyInt abilityModPropertyInt = (!(GameplayMutators.Get() == null) && GameplayMutators.Get().m_useWeakenedOverride) ? GameplayMutators.Get().m_weakenedOutgoingHealingMod : GameWideData.Get().m_weakenedOutgoingHealingMod;
-				b = abilityModPropertyInt.GetModifiedValue(baseHeal);
-			}
+			AbilityModPropertyInt abilityModPropertyInt = (!(GameplayMutators.Get() == null) && GameplayMutators.Get().m_useWeakenedOverride) ? GameplayMutators.Get().m_weakenedOutgoingHealingMod : GameWideData.Get().m_weakenedOutgoingHealingMod;
+			heal = abilityModPropertyInt.GetModifiedValue(baseHeal);
 		}
-		goto IL_0139;
-		IL_00d8:
-		b = empoweredOutgoingHealingMod.GetModifiedValue(baseHeal);
-		goto IL_0139;
-		IL_0139:
-		return Mathf.Max(0, b);
+		return Mathf.Max(0, heal);
 	}
 
 	public int CalculateOutgoingAbsorbForTargeter(int baseAbsorb)
 	{
-		int b = baseAbsorb;
+		int absorb = baseAbsorb;
 		ActorStatus actorStatus = m_actorData.GetActorStatus();
-		int num;
-		if (!actorStatus.HasStatus(StatusType.Empowered))
+		bool isEmpowered = actorStatus.HasStatus(StatusType.Empowered)
+			|| (m_actorData.GetAbilityData() != null
+				&& m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Empowered));
+		bool isWeakened = actorStatus.HasStatus(StatusType.Weakened);
+		if (isEmpowered && !isWeakened)
 		{
-			if (m_actorData.GetAbilityData() != null)
+			AbilityModPropertyInt abilityModPropertyInt;
+			if (GameplayMutators.Get() != null && GameplayMutators.Get().m_useEmpoweredOverride)
 			{
-				num = (m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Empowered) ? 1 : 0);
+				abilityModPropertyInt = GameplayMutators.Get().m_empoweredOutgoingAbsorbMod;
 			}
 			else
 			{
-				num = 0;
+				abilityModPropertyInt = GameWideData.Get().m_empoweredOutgoingAbsorbMod;
 			}
+			absorb = abilityModPropertyInt.GetModifiedValue(baseAbsorb);
 		}
-		else
+		else if (!isEmpowered && isWeakened)
 		{
-			num = 1;
-		}
-		bool flag = (byte)num != 0;
-		bool flag2 = actorStatus.HasStatus(StatusType.Weakened);
-		if (flag)
-		{
-			if (!flag2)
+			AbilityModPropertyInt weakenedOutgoingAbsorbMod;
+			if (GameplayMutators.Get() != null && GameplayMutators.Get().m_useWeakenedOverride)
 			{
-				AbilityModPropertyInt abilityModPropertyInt = (!(GameplayMutators.Get() == null) && GameplayMutators.Get().m_useEmpoweredOverride) ? GameplayMutators.Get().m_empoweredOutgoingAbsorbMod : GameWideData.Get().m_empoweredOutgoingAbsorbMod;
-				b = abilityModPropertyInt.GetModifiedValue(baseAbsorb);
-				goto IL_0141;
+				weakenedOutgoingAbsorbMod = GameplayMutators.Get().m_weakenedOutgoingAbsorbMod;
 			}
-		}
-		AbilityModPropertyInt weakenedOutgoingAbsorbMod;
-		if (!flag)
-		{
-			if (flag2)
+			else
 			{
-				if (!(GameplayMutators.Get() == null))
-				{
-					if (GameplayMutators.Get().m_useWeakenedOverride)
-					{
-						weakenedOutgoingAbsorbMod = GameplayMutators.Get().m_weakenedOutgoingAbsorbMod;
-						goto IL_0136;
-					}
-				}
 				weakenedOutgoingAbsorbMod = GameWideData.Get().m_weakenedOutgoingAbsorbMod;
-				goto IL_0136;
 			}
+			absorb = weakenedOutgoingAbsorbMod.GetModifiedValue(baseAbsorb);
 		}
-		goto IL_0141;
-		IL_0141:
-		return Mathf.Max(0, b);
-		IL_0136:
-		b = weakenedOutgoingAbsorbMod.GetModifiedValue(baseAbsorb);
-		goto IL_0141;
+		return Mathf.Max(0, absorb);
 	}
 
 	public int CalculateIncomingDamageForTargeter(int baseDamage)
 	{
-		int num = baseDamage;
+		int damage = baseDamage;
 		ActorStatus component = GetComponent<ActorStatus>();
-		bool flag = component.HasStatus(StatusType.Vulnerable);
-		bool flag2 = component.HasStatus(StatusType.Armored);
-		float vulnerableDamageMultiplier;
-		int vulnerableDamageFlatAdd;
-		if (flag)
+		bool isVulnerable = component.HasStatus(StatusType.Vulnerable);
+		bool isArmored = component.HasStatus(StatusType.Armored);
+		if (isVulnerable && !isArmored)
 		{
-			if (!flag2)
+			float vulnerableDamageMultiplier;
+			int vulnerableDamageFlatAdd;
+			if (GameplayMutators.Get() != null && GameplayMutators.Get().m_useVulnerableOverride)
 			{
-				if (!(GameplayMutators.Get() == null))
-				{
-					if (GameplayMutators.Get().m_useVulnerableOverride)
-					{
-						vulnerableDamageMultiplier = GameplayMutators.Get().m_vulnerableDamageMultiplier;
-						vulnerableDamageFlatAdd = GameplayMutators.Get().m_vulnerableDamageFlatAdd;
-						goto IL_00b1;
-					}
-				}
+				vulnerableDamageMultiplier = GameplayMutators.Get().m_vulnerableDamageMultiplier;
+				vulnerableDamageFlatAdd = GameplayMutators.Get().m_vulnerableDamageFlatAdd;
+			}
+			else
+			{
 				vulnerableDamageMultiplier = GameWideData.Get().m_vulnerableDamageMultiplier;
 				vulnerableDamageFlatAdd = GameWideData.Get().m_vulnerableDamageFlatAdd;
-				goto IL_00b1;
+			}
+			if (vulnerableDamageMultiplier > 0f)
+			{
+				damage = MathUtil.RoundToIntPadded(baseDamage * vulnerableDamageMultiplier);
+			}
+			if (vulnerableDamageFlatAdd > 0 && baseDamage > 0)
+			{
+				damage += vulnerableDamageFlatAdd;
 			}
 		}
-		AbilityModPropertyInt armoredIncomingDamageMod;
-		if (!flag)
+		else if (!isVulnerable && isArmored)
 		{
-			if (flag2)
+			AbilityModPropertyInt armoredIncomingDamageMod;
+			if (GameplayMutators.Get() != null && GameplayMutators.Get().m_useArmoredOverride)
 			{
-				if (!(GameplayMutators.Get() == null))
-				{
-					if (GameplayMutators.Get().m_useArmoredOverride)
-					{
-						armoredIncomingDamageMod = GameplayMutators.Get().m_armoredIncomingDamageMod;
-						goto IL_0140;
-					}
-				}
+				armoredIncomingDamageMod = GameplayMutators.Get().m_armoredIncomingDamageMod;
+			}
+			else
+			{
 				armoredIncomingDamageMod = GameWideData.Get().m_armoredIncomingDamageMod;
-				goto IL_0140;
 			}
+			damage = armoredIncomingDamageMod.GetModifiedValue(baseDamage);
 		}
-		goto IL_014b;
-		IL_014b:
-		return Mathf.Max(0, num);
-		IL_00b1:
-		if (vulnerableDamageMultiplier > 0f)
-		{
-			num = MathUtil.RoundToIntPadded((float)baseDamage * vulnerableDamageMultiplier);
-		}
-		if (vulnerableDamageFlatAdd > 0)
-		{
-			if (baseDamage > 0)
-			{
-				num += vulnerableDamageFlatAdd;
-			}
-		}
-		goto IL_014b;
-		IL_0140:
-		num = armoredIncomingDamageMod.GetModifiedValue(baseDamage);
-		goto IL_014b;
+		return Mathf.Max(0, damage);
 	}
 
 	public int CalculateLifeOnDamage(int finalDamage)
 	{
 		float modifiedStatFloat = GetModifiedStatFloat(StatType.LifestealPerHit);
-		float num = GetModifiedStatFloat(StatType.LifestealPerDamage) * (float)finalDamage;
+		float num = GetModifiedStatFloat(StatType.LifestealPerDamage) * finalDamage;
 		return MathUtil.RoundToIntPadded(modifiedStatFloat + num);
 	}
 
@@ -743,35 +499,17 @@ public class ActorStats : NetworkBehaviour
 		ActorStatus component = GetComponent<ActorStatus>();
 		if (component.HasStatus(StatusType.MovementDebuffSuppression))
 		{
-			while (true)
+			StatModFilterDelegate filterDelegate = delegate (StatMod statMod)
 			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-				{
-					
-					StatModFilterDelegate filterDelegate = delegate(StatMod statMod)
-						{
-							bool flag = false;
-							if (statMod.mod == ModType.Multiplier)
-							{
-								flag = (statMod.val < 1f);
-							}
-							else
-							{
-								flag = (statMod.val < 0f);
-							}
-							return !flag;
-						};
-					CalculateAdjustments(StatType.Movement_Horizontal, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers, filterDelegate);
-					return;
-				}
-				}
-			}
+				return statMod.mod == ModType.Multiplier ? statMod.val >= 1f : statMod.val > 0f;
+			};
+			CalculateAdjustments(StatType.Movement_Horizontal, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers, filterDelegate);
+			return;
 		}
-		CalculateAdjustments(StatType.Movement_Horizontal, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
+		else
+		{
+			CalculateAdjustments(StatType.Movement_Horizontal, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
+		}
 	}
 
 	private void UNetVersion()
@@ -782,17 +520,8 @@ public class ActorStats : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_modifiedStats called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_modifiedStats called on server.");
+			return;
 		}
 		((ActorStats)obj).m_modifiedStats.HandleMsg(reader);
 	}
@@ -801,31 +530,22 @@ public class ActorStats : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					SyncListFloat.WriteInstance(writer, m_modifiedStats);
-					return true;
-				}
-			}
+			SyncListFloat.WriteInstance(writer, m_modifiedStats);
+			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListFloat.WriteInstance(writer, m_modifiedStats);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
