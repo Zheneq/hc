@@ -236,7 +236,7 @@ public class GenericAbility_Container : Ability
 		result.Reset();
 		foreach (OnHitIntField current in intFields)
 		{
-			if (TargetFilterHelper._001D(current.m_conditions, targetActor, caster, actorContext, abilityContext))
+			if (TargetFilterHelper.ActorMeetsConditions(current.m_conditions, targetActor, caster, actorContext, abilityContext))
 			{
 				int num = current.CalcValue(actorContext, abilityContext);
 				if (current.m_hitType == OnHitIntField.HitType.Damage && result.m_damage == 0)
@@ -270,7 +270,7 @@ public class GenericAbility_Container : Ability
 		int num = 0;
 		foreach (OnHitEffecField effectField in effectFields)
 		{
-			if (TargetFilterHelper._001D(effectField.m_conditions, targetActor, caster, actorContext, abilityContext) &&
+			if (TargetFilterHelper.ActorMeetsConditions(effectField.m_conditions, targetActor, caster, actorContext, abilityContext) &&
 				effectField.m_effect.m_applyEffect &&
 				effectField.m_effect.m_effectData.m_absorbAmount > 0)
 			{
