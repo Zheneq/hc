@@ -1642,23 +1642,21 @@ public class Ability : MonoBehaviour
 
 	public void ApplyAbilityMod(AbilityMod abilityMod, ActorData actor)
 	{
-		if (abilityMod.GetTargetAbilityType() == GetType())
-		{
-			ResetAbilityTargeters();
-			ActorTargeting actorTargeting = actor.GetActorTargeting();
-			if (actorTargeting != null)
-			{
-				actorTargeting.MarkForForceRedraw();
-			}
-			ClearAbilityMod(actor);
-			m_currentAbilityMod = abilityMod;
-			OnApplyAbilityMod(abilityMod);
-			ResetNameplateTargetingNumbers();
-		}
-		else
+		if (abilityMod.GetTargetAbilityType() != GetType())
 		{
 			Debug.LogError("Trying to apply mod to wrong ability type. mod_ability_type: " + abilityMod.GetTargetAbilityType().ToString() + " ability_type: " + GetType().ToString());
+			return;
 		}
+		ResetAbilityTargeters();
+		ActorTargeting actorTargeting = actor.GetActorTargeting();
+		if (actorTargeting != null)
+		{
+			actorTargeting.MarkForForceRedraw();
+		}
+		ClearAbilityMod(actor);
+		m_currentAbilityMod = abilityMod;
+		OnApplyAbilityMod(abilityMod);
+		ResetNameplateTargetingNumbers();
 	}
 
 	protected virtual void OnRemoveAbilityMod()
@@ -1755,7 +1753,8 @@ public class Ability : MonoBehaviour
 	{
 		bounds = default(Bounds);
 		List<Vector3> list = CalcPointsOfInterestForCamera(targets, caster);
-		if (list != null && list.Count > 0)
+		bool flag = list != null && list.Count > 0;
+		if (flag)
 		{
 			bounds.center = list[0];
 			for (int i = 1; i < list.Count; i++)
@@ -1763,7 +1762,7 @@ public class Ability : MonoBehaviour
 				bounds.Encapsulate(list[i]);
 			}
 		}
-		return list != null && list.Count > 0;
+		return flag;
 	}
 
 	protected Passive GetPassiveOfType(Type passiveType)
