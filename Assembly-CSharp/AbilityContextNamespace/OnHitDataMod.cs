@@ -18,14 +18,13 @@ namespace AbilityContextNamespace
 
 		public OnHitAuthoredData GetModdedOnHitData(OnHitAuthoredData input)
 		{
-			OnHitAuthoredData onHitAuthoredData = new OnHitAuthoredData
+			return new OnHitAuthoredData
 			{
 				m_enemyHitIntFields = m_enemyIntFieldMods.GetModdedIntFieldList(input.m_enemyHitIntFields),
 				m_enemyHitEffectFields = m_enemyEffectMods.GetModdedEffectFieldList(input.m_enemyHitEffectFields),
 				m_allyHitIntFields = m_allyIntFieldMods.GetModdedIntFieldList(input.m_allyHitIntFields),
 				m_allyHitEffectFields = m_allyEffectMods.GetModdedEffectFieldList(input.m_allyHitEffectFields)
 			};
-			return onHitAuthoredData;
 		}
 
 		public string GetInEditorDesc(string header, OnHitAuthoredData baseOnHitData)
@@ -134,14 +133,13 @@ namespace AbilityContextNamespace
 
 		public void AddTooltipTokens(List<TooltipTokenEntry> tokens, OnHitAuthoredData baseOnHitData)
 		{
-			if (baseOnHitData == null || m_enemyIntFieldMods == null)
+			if (baseOnHitData != null && m_enemyIntFieldMods != null)
 			{
-				return;
+				OnHitDataMod.AddTooltipTokens_IntFields(tokens, m_enemyIntFieldMods, baseOnHitData.m_enemyHitIntFields);
+				OnHitDataMod.AddTooltipTokens_EffectFields(tokens, m_enemyEffectMods, baseOnHitData.m_enemyHitEffectFields);
+				OnHitDataMod.AddTooltipTokens_IntFields(tokens, m_allyIntFieldMods, baseOnHitData.m_allyHitIntFields);
+				OnHitDataMod.AddTooltipTokens_EffectFields(tokens, m_allyEffectMods, baseOnHitData.m_allyHitEffectFields);
 			}
-			OnHitDataMod.AddTooltipTokens_IntFields(tokens, m_enemyIntFieldMods, baseOnHitData.m_enemyHitIntFields);
-			OnHitDataMod.AddTooltipTokens_EffectFields(tokens, m_enemyEffectMods, baseOnHitData.m_enemyHitEffectFields);
-			OnHitDataMod.AddTooltipTokens_IntFields(tokens, m_allyIntFieldMods, baseOnHitData.m_allyHitIntFields);
-			OnHitDataMod.AddTooltipTokens_EffectFields(tokens, m_allyEffectMods, baseOnHitData.m_allyHitEffectFields);
 		}
 
 		public static void AddTooltipTokens_IntFields(List<TooltipTokenEntry> tokens, IntFieldListModData intMods, List<OnHitIntField> baseIntFields)
@@ -202,14 +200,14 @@ namespace AbilityContextNamespace
 				for (int j = 0; j < effectMods.m_overrides.Count; j++)
 				{
 					EffectFieldOverride effectFieldOverride = effectMods.m_overrides[j];
-					string text = effectFieldOverride.GetIdentifier();
-					if (!string.IsNullOrEmpty(text))
+					string identifier = effectFieldOverride.GetIdentifier();
+					if (!string.IsNullOrEmpty(identifier))
 					{
 						OnHitEffecField onHitEffecField2 = null;
 						foreach (OnHitEffecField current in baseEffectFields)
 						{
 							string identifier2 = current.GetIdentifier();
-							if (text.Equals(identifier2, StringComparison.OrdinalIgnoreCase))
+							if (identifier.Equals(identifier2, StringComparison.OrdinalIgnoreCase))
 							{
 								onHitEffecField2 = current;
 								break;
@@ -217,7 +215,7 @@ namespace AbilityContextNamespace
 						}
 						if (onHitEffecField2 != null)
 						{
-							effectFieldOverride.m_effectOverride.AddTooltipTokens(tokens, true, onHitEffecField2, text);
+							effectFieldOverride.m_effectOverride.AddTooltipTokens(tokens, true, onHitEffecField2, identifier);
 						}
 					}
 				}
