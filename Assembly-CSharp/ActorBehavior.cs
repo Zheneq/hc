@@ -6,15 +6,12 @@ using UnityEngine.Networking;
 public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedStatValueSupplier
 {
 	private SyncListUInt m_syncEnemySourcesForDamageOrDebuff = new SyncListUInt();
-
 	private SyncListUInt m_syncAllySourcesForHealAndBuff = new SyncListUInt();
 
 	[SyncVar]
 	private short m_totalDeaths;
-
 	[SyncVar]
 	private short m_totalPlayerKills;
-
 	[SyncVar]
 	private short m_totalPlayerAssists;
 
@@ -22,205 +19,126 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 
 	[SyncVar]
 	private int m_totalPlayerDamage;
-
 	[SyncVar]
 	private int m_totalPlayerHealing;
-
 	[SyncVar]
 	private int m_totalPlayerHealingFromAbility;
-
 	[SyncVar]
 	private int m_totalPlayerOverheal;
-
 	[SyncVar]
 	private int m_totalPlayerAbsorb;
-
 	[SyncVar]
 	private int m_totalPlayerPotentialAbsorb;
-
 	[SyncVar]
 	private int m_totalEnergyGained;
-
 	[SyncVar]
 	private int m_totalPlayerDamageReceived;
-
 	[SyncVar]
 	private int m_totalPlayerHealingReceived;
-
 	[SyncVar]
 	private int m_totalPlayerAbsorbReceived;
-
 	[SyncVar]
 	private float m_totalPlayerLockInTime;
-
 	[SyncVar]
 	private int m_totalPlayerTurns;
-
 	[SyncVar]
 	private int m_damageDodgedByEvades;
-
 	[SyncVar]
 	private int m_damageInterceptedByEvades;
-
 	[SyncVar]
 	private int m_myIncomingDamageReducedByCover;
-
 	[SyncVar]
 	private int m_myOutgoingDamageReducedByCover;
-
 	[SyncVar]
 	private int m_myIncomingOverkillDamageTaken;
-
 	[SyncVar]
 	private int m_myOutgoingOverkillDamageDealt;
-
 	[SyncVar]
 	private int m_myOutgoingExtraDamageFromEmpowered;
-
 	[SyncVar]
 	private int m_myOutgoingDamageReducedFromWeakened;
 
 	private int m_myOutgoingExtraDamageFromTargetsVulnerable;
-
 	private int m_myOutgoingDamageReducedFromTargetsArmored;
-
 	private int m_myIncomingExtraDamageFromCastersEmpowered;
-
 	private int m_myIncomingDamageReducedFromCastersWeakened;
-
 	private int m_myIncomingExtraDamageIncreasedByVulnerable;
-
 	private int m_myIncomingDamageReducedByArmored;
 
 	[SyncVar]
 	private int m_teamOutgoingDamageIncreasedByEmpoweredFromMe;
-
 	[SyncVar]
 	private int m_teamIncomingDamageReducedByWeakenedFromMe;
 
 	private int m_teamIncomingDamageReducedByArmoredFromMe;
-
 	private int m_teamOutgoingDamageIncreasedByVulnerableFromMe;
 
 	[SyncVar]
 	private int m_teamExtraEnergyGainFromMe;
-
 	[SyncVar]
 	private float m_movementDeniedByMe;
-
 	[SyncVar]
 	private int m_totalEnemySighted;
 
 	private List<int> m_clientEffectSourceActors = new List<int>();
-
 	private List<int> m_clientDamageSourceActors = new List<int>();
-
 	private List<int> m_clientHealSourceActors = new List<int>();
 
 	private ActorData m_actor;
-
 	private int m_totalDeathsOnTurnStart;
-
 	private int m_serverIncomingDamageReducedByCoverThisTurn;
 
 	public const string c_debugHeader = "<color=magenta>ActorBehavior: </color>";
 
-	private static int kListm_syncEnemySourcesForDamageOrDebuff;
-
-	private static int kListm_syncAllySourcesForHealAndBuff;
+	private static int kListm_syncEnemySourcesForDamageOrDebuff = -1894796663;
+	private static int kListm_syncAllySourcesForHealAndBuff = 1807084515;
 
 	public int totalDeaths => m_totalDeaths;
-
 	public int totalPlayerKills => m_totalPlayerKills;
-
 	public int totalPlayerAssists => m_totalPlayerAssists;
-
 	public int totalMinionKills => m_totalMinionKills;
-
 	public int totalPlayerContribution => m_totalPlayerDamage + EffectiveHealingFromAbility + m_totalPlayerAbsorb;
-
 	public int totalPlayerDamage => m_totalPlayerDamage;
-
 	public int totalPlayerHealing => m_totalPlayerHealing;
-
 	public int totalPlayerHealingFromAbility => m_totalPlayerHealingFromAbility;
-
 	public int totalPlayerOverheal => m_totalPlayerOverheal;
-
 	public int totalPlayerAbsorb => m_totalPlayerAbsorb;
-
 	public int totalPlayerPotentialAbsorb => m_totalPlayerPotentialAbsorb;
-
 	public int totalEnergyGained => m_totalEnergyGained;
-
 	public int totalPlayerDamageReceived => m_totalPlayerDamageReceived;
-
 	public int totalPlayerHealingReceived => m_totalPlayerHealingReceived;
-
 	public int totalPlayerAbsorbReceived => m_totalPlayerAbsorbReceived;
-
 	public float totalPlayerLockInTime => m_totalPlayerLockInTime;
-
 	public int totalPlayerTurns => m_totalPlayerTurns;
-
 	public int netDamageAvoidedByEvades => Mathf.Max(0, m_damageDodgedByEvades - m_damageInterceptedByEvades);
-
 	public int damageDodgedByEvades => m_damageDodgedByEvades;
-
 	public int damageInterceptedByEvades => m_damageInterceptedByEvades;
-
 	public int myIncomingDamageReducedByCover => m_myIncomingDamageReducedByCover;
-
 	public int myOutgoingDamageReducedByCover => m_myOutgoingDamageReducedByCover;
-
 	public int myIncomingOverkillDamageTaken => m_myIncomingOverkillDamageTaken;
-
 	public int myOutgoingOverkillDamageDealt => m_myOutgoingOverkillDamageDealt;
-
 	public int myOutgoingExtraDamageFromEmpowered => m_myOutgoingExtraDamageFromEmpowered;
-
 	public int myOutgoingReducedDamageFromWeakened => m_myOutgoingDamageReducedFromWeakened;
-
 	public int myOutgoingExtraDamageFromTargetsVulnerable => m_myOutgoingExtraDamageFromTargetsVulnerable;
-
 	public int myOutgoingReducedDamageFromTargetsArmored => m_myOutgoingDamageReducedFromTargetsArmored;
-
 	public int myIncomingDamageReducedByArmored => m_myIncomingDamageReducedByArmored;
-
 	public int myIncomingExtraDamageIncreasedByVulnerable => m_myIncomingExtraDamageIncreasedByVulnerable;
-
 	public int teamOutgoingDamageIncreasedByEmpoweredFromMe => m_teamOutgoingDamageIncreasedByEmpoweredFromMe;
-
 	public int teamIncomingDamageReducedByWeakenedFromMe => m_teamIncomingDamageReducedByWeakenedFromMe;
-
 	public int teamIncomingDamageReducedByArmoredFromMe => m_teamIncomingDamageReducedByArmoredFromMe;
-
 	public int teamOutgoingDamageIncreasedByVulnerableFromMe => m_teamOutgoingDamageIncreasedByVulnerableFromMe;
-
 	public int teamExtraEnergyGainFromMe => m_teamExtraEnergyGainFromMe;
-
 	public float movementDeniedByMe => m_movementDeniedByMe;
-
 	public int totalEnemySighted => m_totalEnemySighted;
-
 	private float NumTurnsForStatCalc => Mathf.Max(1f, m_totalPlayerTurns);
-
-	private float NumLifeForStatCalc => Mathf.Max(1f, (float)m_totalDeaths + 1f);
-
-	public float EnergyGainPerTurn => (float)m_totalEnergyGained / NumTurnsForStatCalc;
-
-	public float DamagePerTurn => (float)m_totalPlayerDamage / NumTurnsForStatCalc;
-
-	public float NumEnemiesSightedPerTurn => (float)m_totalEnemySighted / NumTurnsForStatCalc;
-
-	public float HealAndAbsorbPerTurn => (float)(EffectiveHealingFromAbility + m_totalPlayerAbsorb) / NumTurnsForStatCalc;
-
+	private float NumLifeForStatCalc => Mathf.Max(1f, m_totalDeaths + 1f);
+	public float EnergyGainPerTurn => m_totalEnergyGained / NumTurnsForStatCalc;
+	public float DamagePerTurn => m_totalPlayerDamage / NumTurnsForStatCalc;
+	public float NumEnemiesSightedPerTurn => m_totalEnemySighted / NumTurnsForStatCalc;
+	public float HealAndAbsorbPerTurn => (EffectiveHealingFromAbility + m_totalPlayerAbsorb) / NumTurnsForStatCalc;
 	public float MovementDeniedPerTurn => m_movementDeniedByMe / NumTurnsForStatCalc;
-
-	public float TeamEnergyBoostedByMePerTurn => (float)teamExtraEnergyGainFromMe / NumTurnsForStatCalc;
-
-	public float TeamDamageSwingPerTurn => (float)(m_teamOutgoingDamageIncreasedByEmpoweredFromMe + m_teamIncomingDamageReducedByWeakenedFromMe) / NumTurnsForStatCalc;
-
+	public float TeamEnergyBoostedByMePerTurn => teamExtraEnergyGainFromMe / NumTurnsForStatCalc;
+	public float TeamDamageSwingPerTurn => (m_teamOutgoingDamageIncreasedByEmpoweredFromMe + m_teamIncomingDamageReducedByWeakenedFromMe) / NumTurnsForStatCalc;
 	public int NetBoostedOutgoingDamage => m_myOutgoingExtraDamageFromEmpowered - m_myOutgoingDamageReducedFromWeakened;
 
 	public float DamageEfficiency
@@ -233,7 +151,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 				return 0f;
 			}
 			float num2 = m_totalPlayerDamage - m_myOutgoingOverkillDamageDealt;
-			return Mathf.Clamp(num2 / (float)num, 0f, 1f);
+			return Mathf.Clamp(num2 / num, 0f, 1f);
 		}
 	}
 
@@ -244,31 +162,17 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 			int deathCountOfTeam = GameFlowData.Get().GetDeathCountOfTeam(m_actor.GetEnemyTeam());
 			if (deathCountOfTeam <= 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return 0f;
-					}
-				}
+				return 0f;
 			}
-			return (float)m_totalPlayerAssists / (float)deathCountOfTeam;
+			return m_totalPlayerAssists / (float)deathCountOfTeam;
 		}
 	}
 
 	public int EffectiveHealing => Mathf.Max(0, m_totalPlayerHealing - m_totalPlayerOverheal);
-
 	public int EffectiveHealingFromAbility => Mathf.Max(0, m_totalPlayerHealingFromAbility - m_totalPlayerOverheal);
-
-	public float NetDamageDodgedPerLife => (float)netDamageAvoidedByEvades / NumLifeForStatCalc;
-
-	public float IncomingDamageReducedByCoverPerLife => (float)m_myIncomingDamageReducedByCover / NumLifeForStatCalc;
-
-	public float DamageTakenPerLife => (float)m_totalPlayerDamageReceived / NumLifeForStatCalc;
-
+	public float NetDamageDodgedPerLife => netDamageAvoidedByEvades / NumLifeForStatCalc;
+	public float IncomingDamageReducedByCoverPerLife => m_myIncomingDamageReducedByCover / NumLifeForStatCalc;
+	public float DamageTakenPerLife => m_totalPlayerDamageReceived / NumLifeForStatCalc;
 	public float AvgLifeSpan => NumTurnsForStatCalc / NumLifeForStatCalc;
 
 	public CharacterType? CharacterType
@@ -277,16 +181,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		{
 			if (m_actor != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return m_actor.m_characterType;
-					}
-				}
+				return m_actor.m_characterType;
 			}
 			return null;
 		}
@@ -302,16 +197,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(characterType.Value);
 				if (characterResourceLink != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							break;
-						default:
-							return characterResourceLink.m_characterRole;
-						}
-					}
+					return characterResourceLink.m_characterRole;
 				}
 			}
 			return null;
@@ -319,25 +205,16 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 	}
 
 	public int totalDeathsOnTurnStart => m_totalDeathsOnTurnStart;
-
 	public int serverIncomingDamageReducedByCoverThisTurn => m_serverIncomingDamageReducedByCoverThisTurn;
 
-	public bool _001D
+	// TODO
+	public bool DebugTraceClientContribution
 	{
 		get
 		{
 			if (Application.isEditor)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return false;
-					}
-				}
+				return false;
 			}
 			return false;
 		}
@@ -709,10 +586,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 
 	static ActorBehavior()
 	{
-		kListm_syncEnemySourcesForDamageOrDebuff = -1894796663;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(ActorBehavior), kListm_syncEnemySourcesForDamageOrDebuff, InvokeSyncListm_syncEnemySourcesForDamageOrDebuff);
-		kListm_syncAllySourcesForHealAndBuff = 1807084515;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(ActorBehavior), kListm_syncAllySourcesForHealAndBuff, InvokeSyncListm_syncAllySourcesForHealAndBuff);
+		RegisterSyncListDelegate(typeof(ActorBehavior), kListm_syncEnemySourcesForDamageOrDebuff, InvokeSyncListm_syncEnemySourcesForDamageOrDebuff);
+		RegisterSyncListDelegate(typeof(ActorBehavior), kListm_syncAllySourcesForHealAndBuff, InvokeSyncListm_syncAllySourcesForHealAndBuff);
 		NetworkCRC.RegisterBehaviour("ActorBehavior", 0);
 	}
 
@@ -720,7 +595,21 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 	{
 		int effectiveHealingFromAbility = EffectiveHealingFromAbility;
 		string text = "\n";
-		return string.Format(StringUtil.TR("TotalContribution", "Global"), totalPlayerContribution) + text + string.Format(StringUtil.TR("DamageContribution", "Global"), totalPlayerDamage) + text + string.Format(StringUtil.TR("HealingContribution", "Global"), totalPlayerHealingFromAbility, effectiveHealingFromAbility) + text + string.Format(StringUtil.TR("ShieldingContribution", "Global"), totalPlayerAbsorb, totalPlayerPotentialAbsorb) + text + string.Format(StringUtil.TR("DamageReceivedContribution", "Global"), totalPlayerDamageReceived) + text + string.Format(StringUtil.TR("HealingReceivedContribution", "Global"), totalPlayerHealingReceived) + text + string.Format(StringUtil.TR("ShieldingDamageContribution", "Global"), totalPlayerAbsorbReceived) + text;
+		return
+			string.Format(StringUtil.TR("TotalContribution", "Global"), totalPlayerContribution)
+			+ text
+			+ string.Format(StringUtil.TR("DamageContribution", "Global"), totalPlayerDamage)
+			+ text
+			+ string.Format(StringUtil.TR("HealingContribution", "Global"), totalPlayerHealingFromAbility, effectiveHealingFromAbility)
+			+ text
+			+ string.Format(StringUtil.TR("ShieldingContribution", "Global"), totalPlayerAbsorb, totalPlayerPotentialAbsorb)
+			+ text
+			+ string.Format(StringUtil.TR("DamageReceivedContribution", "Global"), totalPlayerDamageReceived)
+			+ text
+			+ string.Format(StringUtil.TR("HealingReceivedContribution", "Global"), totalPlayerHealingReceived)
+			+ text
+			+ string.Format(StringUtil.TR("ShieldingDamageContribution", "Global"), totalPlayerAbsorbReceived)
+			+ text;
 	}
 
 	private void Awake()
@@ -776,186 +665,45 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 
 	public float? GetStat(StatDisplaySettings.StatType TypeOfStat)
 	{
-		if (TypeOfStat == StatDisplaySettings.StatType.IncomingDamageDodgeByEvade)
+		switch (TypeOfStat)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return NetDamageDodgedPerLife;
-				}
-			}
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.IncomingDamageReducedByCover)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return IncomingDamageReducedByCoverPerLife;
-				}
-			}
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.TotalAssists)
-		{
-			return m_totalPlayerAssists;
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.TotalDeaths)
-		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return m_totalDeaths;
-				}
-			}
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.MovementDenied)
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return MovementDeniedPerTurn;
-				}
-			}
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.EnergyGainPerTurn)
-		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return EnergyGainPerTurn;
-				}
-			}
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.DamagePerTurn)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return DamagePerTurn;
-				}
-			}
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.NetBoostedOutgoingDamage)
-		{
-			return (float)m_myOutgoingExtraDamageFromEmpowered / NumTurnsForStatCalc;
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.DamageEfficiency)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return DamageEfficiency;
-				}
-			}
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.KillParticipation)
-		{
-			return KillParticipation;
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.EffectiveHealAndAbsorb)
-		{
-			return HealAndAbsorbPerTurn;
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.TeamDamageAdjustedByMe)
-		{
-			return TeamDamageSwingPerTurn;
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.TeamExtraEnergyByEnergizedFromMe)
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return TeamEnergyBoostedByMePerTurn;
-				}
-			}
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.DamageTakenPerLife)
-		{
-			return DamageTakenPerLife;
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.EnemiesSightedPerLife)
-		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return NumEnemiesSightedPerTurn;
-				}
-			}
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.TotalTurns)
-		{
-			return m_totalPlayerTurns;
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.TankingPerLife)
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return (float)(m_totalPlayerDamageReceived + netDamageAvoidedByEvades + myIncomingDamageReducedByCover) / NumLifeForStatCalc;
-				}
-			}
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.TotalTeamDamageReceived)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return GameFlowData.Get().GetTotalTeamDamageReceived(m_actor.GetTeam());
-				}
-			}
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.TeamMitigation)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
+			case StatDisplaySettings.StatType.IncomingDamageDodgeByEvade:
+				return NetDamageDodgedPerLife;
+			case StatDisplaySettings.StatType.IncomingDamageReducedByCover:
+				return IncomingDamageReducedByCoverPerLife;
+			case StatDisplaySettings.StatType.TotalAssists:
+				return m_totalPlayerAssists;
+			case StatDisplaySettings.StatType.TotalDeaths:
+				return m_totalDeaths;
+			case StatDisplaySettings.StatType.MovementDenied:
+				return MovementDeniedPerTurn;
+			case StatDisplaySettings.StatType.EnergyGainPerTurn:
+				return EnergyGainPerTurn;
+			case StatDisplaySettings.StatType.DamagePerTurn:
+				return DamagePerTurn;
+			case StatDisplaySettings.StatType.NetBoostedOutgoingDamage:
+				return m_myOutgoingExtraDamageFromEmpowered / NumTurnsForStatCalc;
+			case StatDisplaySettings.StatType.DamageEfficiency:
+				return DamageEfficiency;
+			case StatDisplaySettings.StatType.KillParticipation:
+				return KillParticipation;
+			case StatDisplaySettings.StatType.EffectiveHealAndAbsorb:
+				return HealAndAbsorbPerTurn;
+			case StatDisplaySettings.StatType.TeamDamageAdjustedByMe:
+				return TeamDamageSwingPerTurn;
+			case StatDisplaySettings.StatType.TeamExtraEnergyByEnergizedFromMe:
+				return TeamEnergyBoostedByMePerTurn;
+			case StatDisplaySettings.StatType.DamageTakenPerLife:
+				return DamageTakenPerLife;
+			case StatDisplaySettings.StatType.EnemiesSightedPerLife:
+				return NumEnemiesSightedPerTurn;
+			case StatDisplaySettings.StatType.TotalTurns:
+				return m_totalPlayerTurns;
+			case StatDisplaySettings.StatType.TankingPerLife:
+				return (m_totalPlayerDamageReceived + netDamageAvoidedByEvades + myIncomingDamageReducedByCover) / NumLifeForStatCalc;
+			case StatDisplaySettings.StatType.TotalTeamDamageReceived:
+				return GameFlowData.Get().GetTotalTeamDamageReceived(m_actor.GetTeam());
+			case StatDisplaySettings.StatType.TeamMitigation:
 				{
 					float num = EffectiveHealing + m_totalPlayerAbsorb + teamIncomingDamageReducedByWeakenedFromMe;
 					float num2 = teamIncomingDamageReducedByWeakenedFromMe + GameFlowData.Get().GetTotalTeamDamageReceived(m_actor.GetTeam());
@@ -966,53 +714,25 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 					}
 					return num / num2;
 				}
-				}
-			}
-		}
-		if (TypeOfStat == StatDisplaySettings.StatType.SupportPerTurn)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return HealAndAbsorbPerTurn;
-				}
-			}
-		}
-		switch (TypeOfStat)
-		{
-		case StatDisplaySettings.StatType.DamageDonePerLife:
-			return (float)m_totalPlayerDamage / NumLifeForStatCalc;
-		case StatDisplaySettings.StatType.DamageTakenPerTurn:
-			return (float)m_totalPlayerDamageReceived / NumTurnsForStatCalc;
-		case StatDisplaySettings.StatType.AvgLifeSpan:
-			while (true)
-			{
+			case StatDisplaySettings.StatType.SupportPerTurn:
+				return HealAndAbsorbPerTurn;
+			case StatDisplaySettings.StatType.DamageDonePerLife:
+				return m_totalPlayerDamage / NumLifeForStatCalc;
+			case StatDisplaySettings.StatType.DamageTakenPerTurn:
+				return m_totalPlayerDamageReceived / NumTurnsForStatCalc;
+			case StatDisplaySettings.StatType.AvgLifeSpan:
 				return AvgLifeSpan;
-			}
-		default:
-			return null;
+			default:
+				return null;
 		}
 	}
 
 	public float? GetFreelancerStat(int FreelancerStatIndex)
 	{
-		FreelancerStats component = base.gameObject.GetComponent<FreelancerStats>();
+		FreelancerStats component = gameObject.GetComponent<FreelancerStats>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return component.GetValueOfStat(FreelancerStatIndex);
-				}
-			}
+			return component.GetValueOfStat(FreelancerStatIndex);
 		}
 		return 0f;
 	}
@@ -1023,47 +743,28 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 
 	public string GetGeneralStatDebugString()
 	{
-		string empty = string.Empty;
-		string text = empty;
-		empty = text + "Total Kills = " + totalPlayerKills + "\n";
-		text = empty;
-		empty = text + "Total Assists = " + totalPlayerAssists + "\n";
-		text = empty;
-		empty = text + "Total Deaths = " + totalDeaths + "\n";
-		text = empty;
-		empty = text + "\nTotal Damage = " + totalPlayerDamage + "\n";
-		text = empty;
-		empty = text + "ExtraDamage From Might = " + myOutgoingExtraDamageFromEmpowered + "\n";
-		text = empty;
-		empty = text + "LostDamage Due to Cover = " + myOutgoingDamageReducedByCover + "\n";
-		text = empty;
-		empty = text + "LostDamage due to Weaken = " + myOutgoingReducedDamageFromWeakened + "\n";
-		text = empty;
-		empty = text + "Overkill Damage Dealt = " + myOutgoingOverkillDamageDealt + "\n";
-		text = empty;
-		empty = text + "\nDamage Taken = " + totalPlayerDamageReceived + "\n";
-		text = empty;
-		empty = text + "Net Damage Dodged By Evades = " + netDamageAvoidedByEvades + "\n";
-		text = empty;
-		empty = text + "\nTotal Healing = " + totalPlayerHealing + "\n";
-		text = empty;
-		empty = text + "Overheal = " + totalPlayerOverheal + "\n";
-		text = empty;
-		empty = text + "Shielding Dealt, Effective = " + totalPlayerAbsorb + ", Total = " + totalPlayerPotentialAbsorb + "\n";
-		text = empty;
-		empty = text + "Team Outgoing ExtraDamage from my Mighted = " + teamOutgoingDamageIncreasedByEmpoweredFromMe + "\n";
-		text = empty;
-		empty = text + "Team Incoming LostDamage from my Weakened = " + teamIncomingDamageReducedByWeakenedFromMe + "\n";
-		text = empty;
-		empty = text + "\nEnergy Gain = " + totalEnergyGained + "\n";
-		text = empty;
-		empty = text + "Team Extra Energy from Me (energized + direct) = " + teamExtraEnergyGainFromMe + "\n";
-		text = empty;
-		empty = text + "\nMovement Denied by me = " + movementDeniedByMe + "\n";
-		text = empty;
-		empty = text + "\nNum Enemies Sighted Total = " + totalEnemySighted + "\n";
-		text = empty;
-		return text + "\nAverage Life Span = " + AvgLifeSpan + "\n";
+		string text = "";
+		text += "Total Kills = " + totalPlayerKills + "\n";
+		text += "Total Assists = " + totalPlayerAssists + "\n";
+		text += "Total Deaths = " + totalDeaths + "\n";
+		text += "\nTotal Damage = " + totalPlayerDamage + "\n";
+		text += "ExtraDamage From Might = " + myOutgoingExtraDamageFromEmpowered + "\n";
+		text += "LostDamage Due to Cover = " + myOutgoingDamageReducedByCover + "\n";
+		text += "LostDamage due to Weaken = " + myOutgoingReducedDamageFromWeakened + "\n";
+		text += "Overkill Damage Dealt = " + myOutgoingOverkillDamageDealt + "\n";
+		text += "\nDamage Taken = " + totalPlayerDamageReceived + "\n";
+		text += "Net Damage Dodged By Evades = " + netDamageAvoidedByEvades + "\n";
+		text += "\nTotal Healing = " + totalPlayerHealing + "\n";
+		text += "Overheal = " + totalPlayerOverheal + "\n";
+		text += "Shielding Dealt, Effective = " + totalPlayerAbsorb + ", Total = " + totalPlayerPotentialAbsorb + "\n";
+		text += "Team Outgoing ExtraDamage from my Mighted = " + teamOutgoingDamageIncreasedByEmpoweredFromMe + "\n";
+		text += "Team Incoming LostDamage from my Weakened = " + teamIncomingDamageReducedByWeakenedFromMe + "\n";
+		text += "\nEnergy Gain = " + totalEnergyGained + "\n";
+		text += "Team Extra Energy from Me (energized + direct) = " + teamExtraEnergyGainFromMe + "\n";
+		text += "\nMovement Denied by me = " + movementDeniedByMe + "\n";
+		text += "\nNum Enemies Sighted Total = " + totalEnemySighted + "\n";
+		text += "\nAverage Life Span = " + AvgLifeSpan + "\n";
+		return text;
 	}
 
 	public void Client_ResetKillAssistContribution()
@@ -1075,159 +776,66 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 
 	public void Client_RecordEffectFromActor(ActorData caster)
 	{
-		if (!(caster != null))
+		if (caster != null
+			&& caster.ActorIndex >= 0
+			&& !m_clientEffectSourceActors.Contains(caster.ActorIndex))
 		{
-			return;
-		}
-		while (true)
-		{
-			if (caster.ActorIndex < 0)
+			m_clientEffectSourceActors.Add(caster.ActorIndex);
+			if (DebugTraceClientContribution)
 			{
-				return;
-			}
-			while (true)
-			{
-				if (m_clientEffectSourceActors.Contains(caster.ActorIndex))
-				{
-					return;
-				}
-				while (true)
-				{
-					m_clientEffectSourceActors.Add(caster.ActorIndex);
-					if (_001D)
-					{
-						while (true)
-						{
-							Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.GetColoredDebugName("white") + " recording EFFECT from " + caster.GetColoredDebugName("yellow"));
-							return;
-						}
-					}
-					return;
-				}
+				Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.GetColoredDebugName("white") + " recording EFFECT from " + caster.GetColoredDebugName("yellow"));
 			}
 		}
 	}
 
 	public void Client_RecordDamageFromActor(ActorData caster)
 	{
-		if (!(caster != null))
+		if (caster != null
+			&& caster.ActorIndex >= 0
+			&& caster.GetTeam() != m_actor.GetTeam()
+			&& !m_clientDamageSourceActors.Contains(caster.ActorIndex))
 		{
-			return;
-		}
-		while (true)
-		{
-			if (caster.ActorIndex < 0)
+			m_clientDamageSourceActors.Add(caster.ActorIndex);
+			if (DebugTraceClientContribution)
 			{
-				return;
-			}
-			while (true)
-			{
-				if (caster.GetTeam() == m_actor.GetTeam())
-				{
-					return;
-				}
-				while (true)
-				{
-					if (m_clientDamageSourceActors.Contains(caster.ActorIndex))
-					{
-						return;
-					}
-					while (true)
-					{
-						m_clientDamageSourceActors.Add(caster.ActorIndex);
-						if (_001D)
-						{
-							while (true)
-							{
-								Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.GetColoredDebugName("white") + " recording DAMAGE from " + caster.GetColoredDebugName("yellow"));
-								return;
-							}
-						}
-						return;
-					}
-				}
+				Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.GetColoredDebugName("white") + " recording DAMAGE from " + caster.GetColoredDebugName("yellow"));
 			}
 		}
 	}
 
 	public void Client_RecordHealingFromActor(ActorData caster)
 	{
-		if (!(caster != null))
+		if (caster != null
+			&& caster.ActorIndex >= 0
+			&& caster.GetTeam() == m_actor.GetTeam()
+			&& !m_clientHealSourceActors.Contains(caster.ActorIndex))
 		{
-			return;
-		}
-		while (true)
-		{
-			if (caster.ActorIndex < 0 || caster.GetTeam() != m_actor.GetTeam() || m_clientHealSourceActors.Contains(caster.ActorIndex))
+			m_clientHealSourceActors.Add(caster.ActorIndex);
+			if (DebugTraceClientContribution)
 			{
-				return;
-			}
-			while (true)
-			{
-				m_clientHealSourceActors.Add(caster.ActorIndex);
-				if (_001D)
-				{
-					Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.GetColoredDebugName("white") + " recording HEALING from " + caster.GetColoredDebugName("yellow"));
-				}
-				return;
+				Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.GetColoredDebugName("white") + " recording HEALING from " + caster.GetColoredDebugName("yellow"));
 			}
 		}
 	}
 
 	public bool Client_ActorDamagedOrDebuffedByActor(ActorData caster)
 	{
-		if (caster != null && caster.ActorIndex >= 0)
-		{
-			if (caster.GetTeam() != m_actor.GetTeam())
-			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return m_clientEffectSourceActors.Contains(caster.ActorIndex) || m_clientDamageSourceActors.Contains(caster.ActorIndex) || m_syncEnemySourcesForDamageOrDebuff.Contains((uint)caster.ActorIndex);
-					}
-				}
-			}
-		}
-		return false;
+		return caster != null
+			&& caster.ActorIndex >= 0
+			&& caster.GetTeam() != m_actor.GetTeam()
+			&& (m_clientEffectSourceActors.Contains(caster.ActorIndex)
+				|| m_clientDamageSourceActors.Contains(caster.ActorIndex)
+				|| m_syncEnemySourcesForDamageOrDebuff.Contains((uint)caster.ActorIndex));
 	}
 
 	public bool Client_ActorHealedOrBuffedByActor(ActorData caster)
 	{
-		if (caster != null)
-		{
-			if (caster.ActorIndex >= 0)
-			{
-				if (caster.GetTeam() == m_actor.GetTeam())
-				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							break;
-						default:
-						{
-							int result;
-							if (!m_clientEffectSourceActors.Contains(caster.ActorIndex) && !m_clientHealSourceActors.Contains(caster.ActorIndex))
-							{
-								result = (m_syncAllySourcesForHealAndBuff.Contains((uint)caster.ActorIndex) ? 1 : 0);
-							}
-							else
-							{
-								result = 1;
-							}
-							return (byte)result != 0;
-						}
-						}
-					}
-				}
-			}
-		}
-		return false;
+		return caster != null
+			&& caster.ActorIndex >= 0
+			&& caster.GetTeam() == m_actor.GetTeam()
+			&& (m_clientEffectSourceActors.Contains(caster.ActorIndex)
+				|| m_clientHealSourceActors.Contains(caster.ActorIndex)
+				|| m_syncAllySourcesForHealAndBuff.Contains((uint)caster.ActorIndex));
 	}
 
 	private void UNetVersion()
@@ -1238,17 +846,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_syncEnemySourcesForDamageOrDebuff called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_syncEnemySourcesForDamageOrDebuff called on server.");
+			return;
 		}
 		((ActorBehavior)obj).m_syncEnemySourcesForDamageOrDebuff.HandleMsg(reader);
 	}
@@ -1257,17 +856,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_syncAllySourcesForHealAndBuff called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_syncAllySourcesForHealAndBuff called on server.");
+			return;
 		}
 		((ActorBehavior)obj).m_syncAllySourcesForHealAndBuff.HandleMsg(reader);
 	}
@@ -1276,321 +866,312 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					SyncListUInt.WriteInstance(writer, m_syncEnemySourcesForDamageOrDebuff);
-					SyncListUInt.WriteInstance(writer, m_syncAllySourcesForHealAndBuff);
-					writer.WritePackedUInt32((uint)m_totalDeaths);
-					writer.WritePackedUInt32((uint)m_totalPlayerKills);
-					writer.WritePackedUInt32((uint)m_totalPlayerAssists);
-					writer.WritePackedUInt32((uint)m_totalPlayerDamage);
-					writer.WritePackedUInt32((uint)m_totalPlayerHealing);
-					writer.WritePackedUInt32((uint)m_totalPlayerHealingFromAbility);
-					writer.WritePackedUInt32((uint)m_totalPlayerOverheal);
-					writer.WritePackedUInt32((uint)m_totalPlayerAbsorb);
-					writer.WritePackedUInt32((uint)m_totalPlayerPotentialAbsorb);
-					writer.WritePackedUInt32((uint)m_totalEnergyGained);
-					writer.WritePackedUInt32((uint)m_totalPlayerDamageReceived);
-					writer.WritePackedUInt32((uint)m_totalPlayerHealingReceived);
-					writer.WritePackedUInt32((uint)m_totalPlayerAbsorbReceived);
-					writer.Write(m_totalPlayerLockInTime);
-					writer.WritePackedUInt32((uint)m_totalPlayerTurns);
-					writer.WritePackedUInt32((uint)m_damageDodgedByEvades);
-					writer.WritePackedUInt32((uint)m_damageInterceptedByEvades);
-					writer.WritePackedUInt32((uint)m_myIncomingDamageReducedByCover);
-					writer.WritePackedUInt32((uint)m_myOutgoingDamageReducedByCover);
-					writer.WritePackedUInt32((uint)m_myIncomingOverkillDamageTaken);
-					writer.WritePackedUInt32((uint)m_myOutgoingOverkillDamageDealt);
-					writer.WritePackedUInt32((uint)m_myOutgoingExtraDamageFromEmpowered);
-					writer.WritePackedUInt32((uint)m_myOutgoingDamageReducedFromWeakened);
-					writer.WritePackedUInt32((uint)m_teamOutgoingDamageIncreasedByEmpoweredFromMe);
-					writer.WritePackedUInt32((uint)m_teamIncomingDamageReducedByWeakenedFromMe);
-					writer.WritePackedUInt32((uint)m_teamExtraEnergyGainFromMe);
-					writer.Write(m_movementDeniedByMe);
-					writer.WritePackedUInt32((uint)m_totalEnemySighted);
-					return true;
-				}
-			}
+			SyncListUInt.WriteInstance(writer, m_syncEnemySourcesForDamageOrDebuff);
+			SyncListUInt.WriteInstance(writer, m_syncAllySourcesForHealAndBuff);
+			writer.WritePackedUInt32((uint)m_totalDeaths);
+			writer.WritePackedUInt32((uint)m_totalPlayerKills);
+			writer.WritePackedUInt32((uint)m_totalPlayerAssists);
+			writer.WritePackedUInt32((uint)m_totalPlayerDamage);
+			writer.WritePackedUInt32((uint)m_totalPlayerHealing);
+			writer.WritePackedUInt32((uint)m_totalPlayerHealingFromAbility);
+			writer.WritePackedUInt32((uint)m_totalPlayerOverheal);
+			writer.WritePackedUInt32((uint)m_totalPlayerAbsorb);
+			writer.WritePackedUInt32((uint)m_totalPlayerPotentialAbsorb);
+			writer.WritePackedUInt32((uint)m_totalEnergyGained);
+			writer.WritePackedUInt32((uint)m_totalPlayerDamageReceived);
+			writer.WritePackedUInt32((uint)m_totalPlayerHealingReceived);
+			writer.WritePackedUInt32((uint)m_totalPlayerAbsorbReceived);
+			writer.Write(m_totalPlayerLockInTime);
+			writer.WritePackedUInt32((uint)m_totalPlayerTurns);
+			writer.WritePackedUInt32((uint)m_damageDodgedByEvades);
+			writer.WritePackedUInt32((uint)m_damageInterceptedByEvades);
+			writer.WritePackedUInt32((uint)m_myIncomingDamageReducedByCover);
+			writer.WritePackedUInt32((uint)m_myOutgoingDamageReducedByCover);
+			writer.WritePackedUInt32((uint)m_myIncomingOverkillDamageTaken);
+			writer.WritePackedUInt32((uint)m_myOutgoingOverkillDamageDealt);
+			writer.WritePackedUInt32((uint)m_myOutgoingExtraDamageFromEmpowered);
+			writer.WritePackedUInt32((uint)m_myOutgoingDamageReducedFromWeakened);
+			writer.WritePackedUInt32((uint)m_teamOutgoingDamageIncreasedByEmpoweredFromMe);
+			writer.WritePackedUInt32((uint)m_teamIncomingDamageReducedByWeakenedFromMe);
+			writer.WritePackedUInt32((uint)m_teamExtraEnergyGainFromMe);
+			writer.Write(m_movementDeniedByMe);
+			writer.WritePackedUInt32((uint)m_totalEnemySighted);
+			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListUInt.WriteInstance(writer, m_syncEnemySourcesForDamageOrDebuff);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListUInt.WriteInstance(writer, m_syncAllySourcesForHealAndBuff);
 		}
-		if ((base.syncVarDirtyBits & 4) != 0)
+		if ((syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalDeaths);
 		}
-		if ((base.syncVarDirtyBits & 8) != 0)
+		if ((syncVarDirtyBits & 8) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalPlayerKills);
 		}
-		if ((base.syncVarDirtyBits & 0x10) != 0)
+		if ((syncVarDirtyBits & 0x10) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalPlayerAssists);
 		}
-		if ((base.syncVarDirtyBits & 0x20) != 0)
+		if ((syncVarDirtyBits & 0x20) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalPlayerDamage);
 		}
-		if ((base.syncVarDirtyBits & 0x40) != 0)
+		if ((syncVarDirtyBits & 0x40) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalPlayerHealing);
 		}
-		if ((base.syncVarDirtyBits & 0x80) != 0)
+		if ((syncVarDirtyBits & 0x80) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalPlayerHealingFromAbility);
 		}
-		if ((base.syncVarDirtyBits & 0x100) != 0)
+		if ((syncVarDirtyBits & 0x100) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalPlayerOverheal);
 		}
-		if ((base.syncVarDirtyBits & 0x200) != 0)
+		if ((syncVarDirtyBits & 0x200) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalPlayerAbsorb);
 		}
-		if ((base.syncVarDirtyBits & 0x400) != 0)
+		if ((syncVarDirtyBits & 0x400) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalPlayerPotentialAbsorb);
 		}
-		if ((base.syncVarDirtyBits & 0x800) != 0)
+		if ((syncVarDirtyBits & 0x800) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalEnergyGained);
 		}
-		if ((base.syncVarDirtyBits & 0x1000) != 0)
+		if ((syncVarDirtyBits & 0x1000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalPlayerDamageReceived);
 		}
-		if ((base.syncVarDirtyBits & 0x2000) != 0)
+		if ((syncVarDirtyBits & 0x2000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalPlayerHealingReceived);
 		}
-		if ((base.syncVarDirtyBits & 0x4000) != 0)
+		if ((syncVarDirtyBits & 0x4000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalPlayerAbsorbReceived);
 		}
-		if ((base.syncVarDirtyBits & 0x8000) != 0)
+		if ((syncVarDirtyBits & 0x8000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write(m_totalPlayerLockInTime);
 		}
-		if ((base.syncVarDirtyBits & 0x10000) != 0)
+		if ((syncVarDirtyBits & 0x10000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalPlayerTurns);
 		}
-		if ((base.syncVarDirtyBits & 0x20000) != 0)
+		if ((syncVarDirtyBits & 0x20000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_damageDodgedByEvades);
 		}
-		if ((base.syncVarDirtyBits & 0x40000) != 0)
+		if ((syncVarDirtyBits & 0x40000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_damageInterceptedByEvades);
 		}
-		if ((base.syncVarDirtyBits & 0x80000) != 0)
+		if ((syncVarDirtyBits & 0x80000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_myIncomingDamageReducedByCover);
 		}
-		if ((base.syncVarDirtyBits & 0x100000) != 0)
+		if ((syncVarDirtyBits & 0x100000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_myOutgoingDamageReducedByCover);
 		}
-		if ((base.syncVarDirtyBits & 0x200000) != 0)
+		if ((syncVarDirtyBits & 0x200000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_myIncomingOverkillDamageTaken);
 		}
-		if ((base.syncVarDirtyBits & 0x400000) != 0)
+		if ((syncVarDirtyBits & 0x400000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_myOutgoingOverkillDamageDealt);
 		}
-		if ((base.syncVarDirtyBits & 0x800000) != 0)
+		if ((syncVarDirtyBits & 0x800000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_myOutgoingExtraDamageFromEmpowered);
 		}
-		if ((base.syncVarDirtyBits & 0x1000000) != 0)
+		if ((syncVarDirtyBits & 0x1000000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_myOutgoingDamageReducedFromWeakened);
 		}
-		if ((base.syncVarDirtyBits & 0x2000000) != 0)
+		if ((syncVarDirtyBits & 0x2000000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_teamOutgoingDamageIncreasedByEmpoweredFromMe);
 		}
-		if ((base.syncVarDirtyBits & 0x4000000) != 0)
+		if ((syncVarDirtyBits & 0x4000000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_teamIncomingDamageReducedByWeakenedFromMe);
 		}
-		if ((base.syncVarDirtyBits & 0x8000000) != 0)
+		if ((syncVarDirtyBits & 0x8000000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_teamExtraEnergyGainFromMe);
 		}
-		if ((base.syncVarDirtyBits & 0x10000000) != 0)
+		if ((syncVarDirtyBits & 0x10000000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write(m_movementDeniedByMe);
 		}
-		if ((base.syncVarDirtyBits & 0x20000000) != 0)
+		if ((syncVarDirtyBits & 0x20000000) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_totalEnemySighted);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
