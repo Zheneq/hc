@@ -13,24 +13,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	public class SquaresCanMoveToCacheEntry
 	{
 		public BoardSquare m_squaresCanMoveToOrigin;
-
 		public float m_squaresCanMoveToHorizontalAllowed;
-
 		public int m_squaresCanMoveToSinglePlayerState = -1;
-
 		public int m_squaresCanMoveToBarrierState = -1;
-
 		public FirstTurnMovement.RestrictedMovementState m_squaresCanMoveToFirstTurnState = FirstTurnMovement.RestrictedMovementState.Invalid;
-
 		public HashSet<BoardSquare> m_squaresCanMoveTo;
 	}
 
 	private struct BoardSquareMovementInfo
 	{
 		public BoardSquare square;
-
 		public float cost;
-
 		public float prevCost;
 	}
 
@@ -44,55 +37,35 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	internal ActorData m_actor;
 
 	private float m_moveTimeoutTime;
-
 	private List<SquaresCanMoveToCacheEntry> m_squaresCanMoveToCache;
 
 	private static int s_maxSquaresCanMoveToCacheCount = 4;
 
 	private HashSet<BoardSquare> m_squaresCanMoveTo;
-
 	private HashSet<BoardSquare> m_squareCanMoveToWithQueuedAbility;
-
 	public float m_brushTransitionAnimationSpeed;
-
 	public float m_brushTransitionAnimationSpeedEaseTime = 0.4f;
-
 	private EasedOutFloat m_brushTransitionAnimationSpeedEased = new EasedOutFloat(1f);
 
 	private static int animDistToGoal;
-
 	private static int animDistToWaypoint;
-
 	private static int animNextChargeCycleType;
-
 	private static int animChargeCycleType;
-
 	private static int animChargeEndType;
-
 	private static int animNextLinkType;
-
 	private static int animCurLinkType;
-
 	private static int animTimeInAnim;
-
 	private static int animForceIdle;
-
 	private static int animMoveSegmentStart;
-
 	private static int animDecisionPhase;
-
 	private static int animIdleType;
 
 	private MoveState m_curMoveState;
-
 	private Dictionary<BoardSquare, BoardSquarePathInfo> m_tempClosedSquares = new Dictionary<BoardSquare, BoardSquarePathInfo>();
-
 	private BoardSquarePathInfo m_gameplayPath;
-
 	private BoardSquarePathInfo m_aestheticPath;
 
 	internal HashSet<BoardSquare> SquaresCanMoveTo => m_squaresCanMoveTo;
-
 	internal HashSet<BoardSquare> SquaresCanMoveToWithQueuedAbility => m_squareCanMoveToWithQueuedAbility;
 
 	public string GetCurrentMoveStateStr()
@@ -137,39 +110,22 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	private void Update()
 	{
 		UpdatePosition();
-		if (!NetworkClient.active)
+		if (NetworkClient.active)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_actor != null)
+			if (m_actor != null && m_actor.GetModelAnimator() != null)
 			{
-				if (m_actor.GetModelAnimator() != null)
+				float num = m_brushTransitionAnimationSpeedEased;
+				Animator modelAnimator = m_actor.GetModelAnimator();
+				if (modelAnimator.speed != num)
 				{
-					float num = m_brushTransitionAnimationSpeedEased;
-					Animator modelAnimator = m_actor.GetModelAnimator();
-					if (modelAnimator.speed != num)
-					{
-						modelAnimator.speed = num;
-					}
+					modelAnimator.speed = num;
 				}
 			}
-			if (!(m_actor == GameFlowData.Get().activeOwnedActorData))
+			if (m_actor == GameFlowData.Get().activeOwnedActorData
+				&& (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.MovementWaypointModifier)
+					|| InputManager.Get().IsKeyBindingNewlyReleased(KeyPreference.MovementWaypointModifier)))
 			{
-				return;
-			}
-			while (true)
-			{
-				if (!InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.MovementWaypointModifier))
-				{
-					if (!InputManager.Get().IsKeyBindingNewlyReleased(KeyPreference.MovementWaypointModifier))
-					{
-						return;
-					}
-				}
 				UpdateSquaresCanMoveTo();
-				return;
 			}
 		}
 	}
@@ -183,8 +139,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float innerMoveDist = m_actor.RemainingMovementWithQueuedAbility;
 		BoardSquare squareToStartFrom = m_actor.MoveFromBoardSquare;
 		if (Options_UI.Get() != null &&
-			Options_UI.Get().GetShiftClickForMovementWaypoints() != InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier) ||
-			!FirstTurnMovement.CanWaypoint())
+			Options_UI.Get().GetShiftClickForMovementWaypoints() != InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier)
+				|| !FirstTurnMovement.CanWaypoint())
 		{
 			if (m_actor == GameFlowData.Get().activeOwnedActorData)
 			{
@@ -203,13 +159,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	public bool CanMoveToBoardSquare(int x, int y)
 	{
-		bool result = false;
 		BoardSquare boardSquare = Board.Get().GetSquare(x, y);
-		if ((bool)boardSquare)
+		if (boardSquare)
 		{
-			result = CanMoveToBoardSquare(boardSquare);
+			return CanMoveToBoardSquare(boardSquare);
 		}
-		return result;
+		return false;
 	}
 
 	public bool CanMoveToBoardSquare(BoardSquare dest)
@@ -245,7 +200,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			result = m_actor.GetActorStats().GetModifiedStatInt(StatType.Movement_Horizontal);
 			AbilityData abilityData = m_actor.GetAbilityData();
-			if ((bool)abilityData)
+			if (abilityData)
 			{
 				if (abilityData.GetQueuedAbilitiesAllowMovement())
 				{
@@ -283,19 +238,19 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 		List<StatusType> queuedStatuses = m_actor.GetAbilityData().GetQueuedAbilitiesOnRequestStatuses();
 		bool debuffSuppressed =
-			actorStatus.HasStatus(StatusType.MovementDebuffSuppression) ||
-			queuedStatuses.Contains(StatusType.MovementDebuffSuppression);
+			actorStatus.HasStatus(StatusType.MovementDebuffSuppression)
+			|| queuedStatuses.Contains(StatusType.MovementDebuffSuppression);
 		bool debuffImmune =
-			actorStatus.IsMovementDebuffImmune() ||
-			queuedStatuses.Contains(StatusType.MovementDebuffImmunity) ||
-			queuedStatuses.Contains(StatusType.Unstoppable);
+			actorStatus.IsMovementDebuffImmune()
+			|| queuedStatuses.Contains(StatusType.MovementDebuffImmunity)
+			|| queuedStatuses.Contains(StatusType.Unstoppable);
 		bool debuff = !debuffSuppressed && !debuffImmune;
 		bool cantSprintUnlessUnstoppable =
-			actorStatus.HasStatus(StatusType.CantSprint_UnlessUnstoppable) ||
-			queuedStatuses.Contains(StatusType.CantSprint_UnlessUnstoppable);
+			actorStatus.HasStatus(StatusType.CantSprint_UnlessUnstoppable)
+			|| queuedStatuses.Contains(StatusType.CantSprint_UnlessUnstoppable);
 		bool cantSprintAbsolute =
-			actorStatus.HasStatus(StatusType.CantSprint_Absolute) ||
-			queuedStatuses.Contains(StatusType.CantSprint_Absolute);
+			actorStatus.HasStatus(StatusType.CantSprint_Absolute)
+			|| queuedStatuses.Contains(StatusType.CantSprint_Absolute);
 		bool cantSprint = cantSprintUnlessUnstoppable && debuff || cantSprintAbsolute;
 
 		if (debuff && actorStatus.HasStatus(StatusType.Rooted))
@@ -365,217 +320,149 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	public static void CalcHastedMovementAdjustments(out float mult, out int halfMoveAdjustment, out int fullMoveAdjustment)
 	{
-		if (!(GameplayMutators.Get() == null))
+		if (GameplayMutators.Get() != null && GameplayMutators.Get().m_useHasteOverride)
 		{
-			if (GameplayMutators.Get().m_useHasteOverride)
-			{
-				halfMoveAdjustment = GameplayMutators.Get().m_hasteHalfMovementAdjustAmount;
-				fullMoveAdjustment = GameplayMutators.Get().m_hasteFullMovementAdjustAmount;
-				mult = GameplayMutators.Get().m_hasteMovementMultiplier;
-				return;
-			}
+			halfMoveAdjustment = GameplayMutators.Get().m_hasteHalfMovementAdjustAmount;
+			fullMoveAdjustment = GameplayMutators.Get().m_hasteFullMovementAdjustAmount;
+			mult = GameplayMutators.Get().m_hasteMovementMultiplier;
 		}
-		halfMoveAdjustment = GameWideData.Get().m_hasteHalfMovementAdjustAmount;
-		fullMoveAdjustment = GameWideData.Get().m_hasteFullMovementAdjustAmount;
-		mult = GameWideData.Get().m_hasteMovementMultiplier;
+		else
+		{
+			halfMoveAdjustment = GameWideData.Get().m_hasteHalfMovementAdjustAmount;
+			fullMoveAdjustment = GameWideData.Get().m_hasteFullMovementAdjustAmount;
+			mult = GameWideData.Get().m_hasteMovementMultiplier;
+		}
 	}
 
 	public static void CalcSnaredMovementAdjustments(out float mult, out int halfMoveAdjust, out int fullMoveAdjust)
 	{
-		if (!(GameplayMutators.Get() == null))
+		if (GameplayMutators.Get() != null && GameplayMutators.Get().m_useSlowOverride)
 		{
-			if (GameplayMutators.Get().m_useSlowOverride)
-			{
-				halfMoveAdjust = GameplayMutators.Get().m_slowHalfMovementAdjustAmount;
-				fullMoveAdjust = GameplayMutators.Get().m_slowFullMovementAdjustAmount;
-				mult = GameplayMutators.Get().m_slowMovementMultiplier;
-				return;
-			}
+			halfMoveAdjust = GameplayMutators.Get().m_slowHalfMovementAdjustAmount;
+			fullMoveAdjust = GameplayMutators.Get().m_slowFullMovementAdjustAmount;
+			mult = GameplayMutators.Get().m_slowMovementMultiplier;
 		}
-		halfMoveAdjust = GameWideData.Get().m_slowHalfMovementAdjustAmount;
-		fullMoveAdjust = GameWideData.Get().m_slowFullMovementAdjustAmount;
-		mult = GameWideData.Get().m_slowMovementMultiplier;
+		else
+		{
+			halfMoveAdjust = GameWideData.Get().m_slowHalfMovementAdjustAmount;
+			fullMoveAdjust = GameWideData.Get().m_slowFullMovementAdjustAmount;
+			mult = GameWideData.Get().m_slowMovementMultiplier;
+		}
 	}
 
 	public void BuildSquaresCanMoveTo_InnerOuter(BoardSquare squareToStartFrom, float maxHorizontalMovement, float innerMaxMove, out HashSet<BoardSquare> eligibleSquares, out HashSet<BoardSquare> innerSquares)
 	{
 		eligibleSquares = new HashSet<BoardSquare>();
 		innerSquares = new HashSet<BoardSquare>();
-		if (squareToStartFrom == null)
+		if (squareToStartFrom == null || maxHorizontalMovement == 0f)
 		{
 			return;
 		}
-		BoardSquareMovementInfo value = default(BoardSquareMovementInfo);
-		BoardSquareMovementInfo value3 = default(BoardSquareMovementInfo);
-		while (true)
+
+		eligibleSquares.Add(squareToStartFrom);
+		if (innerMaxMove > 0f)
 		{
-			if (maxHorizontalMovement == 0f)
+			innerSquares.Add(squareToStartFrom);
+		}
+		LinkedList<BoardSquareMovementInfo> linkedList = new LinkedList<BoardSquareMovementInfo>();
+		HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
+		BoardSquareMovementInfo value = new BoardSquareMovementInfo
+		{
+			square = squareToStartFrom,
+			cost = 0f,
+			prevCost = 0f
+		};
+		linkedList.AddLast(value);
+		bool cannotExceedMax = GameplayData.Get() != null
+			&& GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax;
+		Board board = Board.Get();
+		while (linkedList.Count > 0)
+		{
+			BoardSquareMovementInfo value2 = linkedList.First.Value;
+			BoardSquare square = value2.square;
+			int x = square.x;
+			int y = square.y;
+			for (int i = -1; i <= 1; i++)
 			{
-				while (true)
+				for (int j = -1; j <= 1; j++)
 				{
-					switch (3)
+					if (i == 0 && j == 0)
 					{
-					default:
-						return;
-					case 0:
-						break;
+						continue;
 					}
-				}
-			}
-			eligibleSquares.Add(squareToStartFrom);
-			if (innerMaxMove > 0f)
-			{
-				innerSquares.Add(squareToStartFrom);
-			}
-			LinkedList<BoardSquareMovementInfo> linkedList = new LinkedList<BoardSquareMovementInfo>();
-			HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
-			value.square = squareToStartFrom;
-			value.cost = 0f;
-			value.prevCost = 0f;
-			linkedList.AddLast(value);
-			int num;
-			if (GameplayData.Get() != null)
-			{
-				num = ((GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax) ? 1 : 0);
-			}
-			else
-			{
-				num = 0;
-			}
-			bool flag = (byte)num != 0;
-			Board board = Board.Get();
-			while (linkedList.Count > 0)
-			{
-				BoardSquareMovementInfo value2 = linkedList.First.Value;
-				BoardSquare square = value2.square;
-				int x = square.x;
-				int y = square.y;
-				for (int i = -1; i <= 1; i++)
-				{
-					for (int j = -1; j <= 1; j++)
+					BoardSquare boardSquare = board.GetSquare(x + i, y + j);
+					if (boardSquare == null || hashSet.Contains(boardSquare))
 					{
-						if (i == 0)
+						continue;
+					}
+					bool isDiagonalStep = board.AreDiagonallyAdjacent(square, boardSquare);
+					float nextCost = isDiagonalStep
+						? value2.cost + 1.5f
+						: value2.cost + 1f;
+					bool isValidMove = cannotExceedMax
+						? nextCost <= maxHorizontalMovement
+						: value2.cost < maxHorizontalMovement;
+					if (isValidMove)
+					{
+						DiagonalCalcFlag diagonalFlag = isDiagonalStep ? DiagonalCalcFlag.IsDiagonal : DiagonalCalcFlag.NotDiagonal;
+						if (CanCrossToAdjacentSquare(square, boardSquare, false, diagonalFlag))
 						{
-							if (j == 0)
+							BoardSquareMovementInfo value3 = new BoardSquareMovementInfo
 							{
-								continue;
-							}
-						}
-						BoardSquare boardSquare = board.GetSquare(x + i, y + j);
-						if (boardSquare == null)
-						{
-							continue;
-						}
-						if (hashSet.Contains(boardSquare))
-						{
-							continue;
-						}
-						bool flag2 = board.AreDiagonallyAdjacent(square, boardSquare);
-						float num2;
-						if (flag2)
-						{
-							num2 = value2.cost + 1.5f;
-						}
-						else
-						{
-							num2 = value2.cost + 1f;
-						}
-						if (!((!flag) ? (value2.cost < maxHorizontalMovement) : (num2 <= maxHorizontalMovement)))
-						{
-							continue;
-						}
-						int diagonalFlag;
-						if (flag2)
-						{
-							diagonalFlag = 1;
-						}
-						else
-						{
-							diagonalFlag = 2;
-						}
-						if (!CanCrossToAdjacentSquare(square, boardSquare, false, (DiagonalCalcFlag)diagonalFlag))
-						{
-							continue;
-						}
-						value3.square = boardSquare;
-						value3.cost = num2;
-						value3.prevCost = value2.cost;
-						bool flag3 = false;
-						LinkedListNode<BoardSquareMovementInfo> linkedListNode = linkedList.First;
-						while (true)
-						{
-							if (linkedListNode != linkedList.Last)
+								square = boardSquare,
+								cost = nextCost,
+								prevCost = value2.cost
+							};
+							bool flag3 = false;
+
+							for (LinkedListNode<BoardSquareMovementInfo> linkedListNode = linkedList.First; linkedListNode != linkedList.Last; linkedListNode = linkedListNode.Next)
 							{
 								BoardSquareMovementInfo value4 = linkedListNode.Value;
 								if (value4.square == boardSquare)
 								{
 									flag3 = true;
-									if (value4.cost > num2)
+									if (value4.cost > nextCost)
 									{
 										linkedListNode.Value = value3;
 									}
-									else if (value4.cost == num2 && value3.prevCost < value4.prevCost)
+									else if (value4.cost == nextCost && value3.prevCost < value4.prevCost)
 									{
 										linkedListNode.Value = value3;
 									}
 									break;
 								}
-								linkedListNode = linkedListNode.Next;
-								continue;
 							}
-							break;
-						}
-						if (!flag3 && FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
-						{
-							linkedList.AddLast(value3);
+							if (!flag3 && FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
+							{
+								linkedList.AddLast(value3);
+							}
 						}
 					}
 				}
-				while (true)
-				{
-					if (MovementUtils.CanStopOnSquare(square) && SinglePlayerManager.IsDestinationAllowed(m_actor, square))
-					{
-						if (FirstTurnMovement.CanActorMoveToSquare(m_actor, square))
-						{
-							if (!eligibleSquares.Contains(square))
-							{
-								eligibleSquares.Add(square);
-							}
-							if (innerMaxMove > 0f && !innerSquares.Contains(square))
-							{
-								bool flag4 = false;
-								if (flag)
-								{
-									flag4 = (value2.cost <= innerMaxMove);
-								}
-								else
-								{
-									flag4 = (value2.prevCost < innerMaxMove);
-								}
-								if (flag4)
-								{
-									innerSquares.Add(square);
-								}
-							}
-						}
-					}
-					hashSet.Add(square);
-					linkedList.RemoveFirst();
-					goto IL_03e8;
-				}
-				IL_03e8:;
 			}
-			while (true)
+			if (MovementUtils.CanStopOnSquare(square)
+				&& SinglePlayerManager.IsDestinationAllowed(m_actor, square)
+				&& FirstTurnMovement.CanActorMoveToSquare(m_actor, square))
 			{
-				switch (6)
+				if (!eligibleSquares.Contains(square))
 				{
-				default:
-					return;
-				case 0:
-					break;
+					eligibleSquares.Add(square);
+				}
+				if (innerMaxMove > 0f && !innerSquares.Contains(square))
+				{
+					bool isValidMove = cannotExceedMax
+						? value2.cost <= innerMaxMove
+						: value2.prevCost < innerMaxMove;
+					if (isValidMove)
+					{
+						innerSquares.Add(square);
+					}
 				}
 			}
+			hashSet.Add(square);
+			linkedList.RemoveFirst();
 		}
+		return;
 	}
 
 	public HashSet<BoardSquare> BuildSquaresCanMoveTo(BoardSquare squareToStartFrom, float maxHorizontalMovement)
@@ -588,29 +475,27 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		hashSet.Add(squareToStartFrom);
 		LinkedList<BoardSquareMovementInfo> linkedList = new LinkedList<BoardSquareMovementInfo>();
 		HashSet<BoardSquare> hashSet2 = new HashSet<BoardSquare>();
-		BoardSquareMovementInfo value = default(BoardSquareMovementInfo);
-		value.square = squareToStartFrom;
-		value.cost = 0f;
-		value.prevCost = 0f;
+		BoardSquareMovementInfo value = new BoardSquareMovementInfo
+		{
+			square = squareToStartFrom,
+			cost = 0f,
+			prevCost = 0f
+		};
 		linkedList.AddLast(value);
 		List<BoardSquare> result = new List<BoardSquare>(8);
-		BoardSquareMovementInfo value3 = default(BoardSquareMovementInfo);
 		while (linkedList.Count > 0)
 		{
 			BoardSquareMovementInfo value2 = linkedList.First.Value;
 			BoardSquare square = value2.square;
 			result.Clear();
-			if (GameplayData.Get() != null)
+			if (GameplayData.Get() != null && GameplayData.Get().m_diagonalMovement == GameplayData.DiagonalMovement.Disabled)
 			{
-				if (GameplayData.Get().m_diagonalMovement == GameplayData.DiagonalMovement.Disabled)
-				{
-					Board.Get().GetStraightAdjacentSquares(square.x, square.y, ref result);
-					goto IL_00fb;
-				}
+				Board.Get().GetStraightAdjacentSquares(square.x, square.y, ref result);
 			}
-			Board.Get().GetAllAdjacentSquares(square.x, square.y, ref result);
-			goto IL_00fb;
-			IL_00fb:
+			else
+			{
+				Board.Get().GetAllAdjacentSquares(square.x, square.y, ref result);
+			}
 			for (int i = 0; i < result.Count; i++)
 			{
 				BoardSquare boardSquare = result[i];
@@ -618,85 +503,56 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				{
 					continue;
 				}
-				bool flag = Board.Get().AreDiagonallyAdjacent(square, boardSquare);
-				float num;
-				if (flag)
+				bool isDiagonalStep = Board.Get().AreDiagonallyAdjacent(square, boardSquare);
+				float nextCost = isDiagonalStep
+					? value2.cost + 1.5f
+					: value2.cost + 1f;
+				bool cannotExceedMax = GameplayData.Get() != null
+					&& GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax;
+				bool isValidMove = cannotExceedMax
+					? nextCost <= maxHorizontalMovement
+					: value2.cost < maxHorizontalMovement;
+				if (isValidMove)
 				{
-					num = value2.cost + 1.5f;
-				}
-				else
-				{
-					num = value2.cost + 1f;
-				}
-				bool flag2;
-				if (GameplayData.Get() != null)
-				{
-					if (GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax)
+					BoardSquareMovementInfo value3 = new BoardSquareMovementInfo
 					{
-						flag2 = (num <= maxHorizontalMovement);
-						goto IL_01a6;
-					}
-				}
-				flag2 = (value2.cost < maxHorizontalMovement);
-				goto IL_01a6;
-				IL_01a6:
-				if (!flag2)
-				{
-					continue;
-				}
-				value3.square = boardSquare;
-				value3.cost = num;
-				value3.prevCost = value2.cost;
-				bool flag3 = false;
-				LinkedListNode<BoardSquareMovementInfo> linkedListNode = linkedList.First;
-				while (true)
-				{
-					if (linkedListNode != linkedList.Last)
+						square = boardSquare,
+						cost = nextCost,
+						prevCost = value2.cost
+					};
+					bool flag3 = false;
+
+					for (LinkedListNode<BoardSquareMovementInfo> linkedListNode = linkedList.First; linkedListNode != linkedList.Last; linkedListNode = linkedListNode.Next)
 					{
 						BoardSquareMovementInfo value4 = linkedListNode.Value;
 						if (value4.square == boardSquare)
 						{
 							flag3 = true;
-							if (value4.cost > num)
+							if (value4.cost > nextCost)
 							{
 								linkedListNode.Value = value3;
 							}
 							break;
 						}
-						linkedListNode = linkedListNode.Next;
-						continue;
 					}
-					break;
-				}
-				if (flag3)
-				{
-					continue;
-				}
-				if (CanCrossToAdjacentSquare(square, boardSquare, false, flag ? DiagonalCalcFlag.IsDiagonal : DiagonalCalcFlag.NotDiagonal) && FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
-				{
-					linkedList.AddLast(value3);
-				}
-			}
-			while (true)
-			{
-				if (!hashSet.Contains(square))
-				{
-					if (MovementUtils.CanStopOnSquare(square))
+					DiagonalCalcFlag diagonalCalcFlag = isDiagonalStep ? DiagonalCalcFlag.IsDiagonal : DiagonalCalcFlag.NotDiagonal;
+					if (!flag3
+						&& CanCrossToAdjacentSquare(square, boardSquare, false, diagonalCalcFlag)
+						&& FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
 					{
-						if (SinglePlayerManager.IsDestinationAllowed(m_actor, square))
-						{
-							if (FirstTurnMovement.CanActorMoveToSquare(m_actor, square))
-							{
-								hashSet.Add(square);
-							}
-						}
+						linkedList.AddLast(value3);
 					}
 				}
-				hashSet2.Add(square);
-				linkedList.RemoveFirst();
-				goto IL_032c;
 			}
-			IL_032c:;
+			if (!hashSet.Contains(square)
+				&& MovementUtils.CanStopOnSquare(square)
+				&& SinglePlayerManager.IsDestinationAllowed(m_actor, square)
+				&& FirstTurnMovement.CanActorMoveToSquare(m_actor, square))
+			{
+				hashSet.Add(square);
+			}
+			hashSet2.Add(square);
+			linkedList.RemoveFirst();
 		}
 		return hashSet;
 	}
@@ -705,12 +561,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		HashSet<BoardSquare> result = null;
 		int squaresCanMoveToSinglePlayerState = -1;
-		if (SinglePlayerManager.Get() != null)
+		if (SinglePlayerManager.Get() != null && m_actor.SpawnerId == -1)
 		{
-			if (m_actor.SpawnerId == -1)
-			{
-				squaresCanMoveToSinglePlayerState = SinglePlayerManager.Get().GetCurrentScriptIndex();
-			}
+			squaresCanMoveToSinglePlayerState = SinglePlayerManager.Get().GetCurrentScriptIndex();
 		}
 		int squaresCanMoveToBarrierState = -1;
 		if (BarrierManager.Get() != null)
@@ -722,40 +575,31 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			squaresCanMoveToFirstTurnState = FirstTurnMovement.Get().GetRestrictedMovementState();
 		}
-		SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new SquaresCanMoveToCacheEntry();
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin = squareToStartFrom;
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed = maxHorizontalMovement;
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState = squaresCanMoveToSinglePlayerState;
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState = squaresCanMoveToBarrierState;
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState = squaresCanMoveToFirstTurnState;
+		SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new SquaresCanMoveToCacheEntry
+		{
+			m_squaresCanMoveToOrigin = squareToStartFrom,
+			m_squaresCanMoveToHorizontalAllowed = maxHorizontalMovement,
+			m_squaresCanMoveToSinglePlayerState = squaresCanMoveToSinglePlayerState,
+			m_squaresCanMoveToBarrierState = squaresCanMoveToBarrierState,
+			m_squaresCanMoveToFirstTurnState = squaresCanMoveToFirstTurnState
+		};
 		int num = 0;
 		SquaresCanMoveToCacheEntry item = null;
-		int num2 = 0;
-		while (true)
+
+		for (int num2 = 0; num2 < m_squaresCanMoveToCache.Count; num2++)
 		{
-			if (num2 < m_squaresCanMoveToCache.Count)
+			SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry2 = m_squaresCanMoveToCache[num2];
+			if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToOrigin == squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin
+				&& squaresCanMoveToCacheEntry2.m_squaresCanMoveToHorizontalAllowed == squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed
+				&& squaresCanMoveToCacheEntry2.m_squaresCanMoveToSinglePlayerState == squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState
+				&& squaresCanMoveToCacheEntry2.m_squaresCanMoveToBarrierState == squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState
+				&& squaresCanMoveToCacheEntry2.m_squaresCanMoveToFirstTurnState == squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState)
 			{
-				SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry2 = m_squaresCanMoveToCache[num2];
-				if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToOrigin == squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin)
-				{
-					if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToHorizontalAllowed == squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed)
-					{
-						if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToSinglePlayerState == squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState)
-						{
-							if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToBarrierState == squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState && squaresCanMoveToCacheEntry2.m_squaresCanMoveToFirstTurnState == squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState)
-							{
-								result = squaresCanMoveToCacheEntry2.m_squaresCanMoveTo;
-								item = squaresCanMoveToCacheEntry2;
-								num = num2;
-								break;
-							}
-						}
-					}
-				}
-				num2++;
-				continue;
+				result = squaresCanMoveToCacheEntry2.m_squaresCanMoveTo;
+				item = squaresCanMoveToCacheEntry2;
+				num = num2;
+				break;
 			}
-			break;
 		}
 		if (num != 0)
 		{
@@ -782,13 +626,15 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			squaresCanMoveToFirstTurnState = FirstTurnMovement.Get().GetRestrictedMovementState();
 		}
-		SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new SquaresCanMoveToCacheEntry();
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin = squareToStartFrom;
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed = maxHorizontalMovement;
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState = squaresCanMoveToSinglePlayerState;
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState = squaresCanMoveToBarrierState;
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState = squaresCanMoveToFirstTurnState;
-		squaresCanMoveToCacheEntry.m_squaresCanMoveTo = squaresCanMoveTo;
+		SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new SquaresCanMoveToCacheEntry
+		{
+			m_squaresCanMoveToOrigin = squareToStartFrom,
+			m_squaresCanMoveToHorizontalAllowed = maxHorizontalMovement,
+			m_squaresCanMoveToSinglePlayerState = squaresCanMoveToSinglePlayerState,
+			m_squaresCanMoveToBarrierState = squaresCanMoveToBarrierState,
+			m_squaresCanMoveToFirstTurnState = squaresCanMoveToFirstTurnState,
+			m_squaresCanMoveTo = squaresCanMoveTo
+		};
 		if (m_squaresCanMoveToCache.Count >= s_maxSquaresCanMoveToCacheCount)
 		{
 			m_squaresCanMoveToCache.RemoveAt(m_squaresCanMoveToCache.Count - 1);
@@ -801,16 +647,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		HashSet<BoardSquare> hashSet = CheckSquareCanMoveToCache(squareToStartFrom, maxHorizontalMovement);
 		if (hashSet != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return hashSet;
-				}
-			}
+			return hashSet;
 		}
 		hashSet = BuildSquaresCanMoveTo(squareToStartFrom, maxHorizontalMovement);
 		AddToSquareCanMoveToCache(squareToStartFrom, maxHorizontalMovement, hashSet);
@@ -848,92 +685,49 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	private bool CanCrossToAdjacentSingleSquare(BoardSquare src, BoardSquare dest, bool ignoreBarriers, bool knownAdjacent = false, DiagonalCalcFlag diagonalFlag = DiagonalCalcFlag.Unknown)
 	{
-		bool flag;
-		if (!(dest == null))
+		if (dest == null || !dest.IsValidForGameplay())
 		{
-			if (dest.IsValidForGameplay())
+			return false;
+		}
+		if (src.GetThinCover(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
+		{
+			return false;
+		}
+		if (!ignoreBarriers
+			&& BarrierManager.Get() != null
+			&& BarrierManager.Get().IsMovementBlocked(m_actor, src, dest))
+		{
+			return false;
+		}
+		if (!knownAdjacent && !Board.Get().AreAdjacent(src, dest))
+		{
+			return false;
+		}
+		bool result = true;
+		if (diagonalFlag == DiagonalCalcFlag.IsDiagonal ||
+			diagonalFlag == DiagonalCalcFlag.Unknown && Board.Get().AreDiagonallyAdjacent(src, dest))
+		{
+			BoardSquare boardSquare = Board.Get().GetSquare(src.x, dest.y);
+			BoardSquare boardSquare2 = Board.Get().GetSquare(dest.x, src.y);
+			if (result)
 			{
-				if (src.GetThinCover(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
-				{
-					while (true)
-					{
-						return false;
-					}
-				}
-				if (!ignoreBarriers)
-				{
-					if (BarrierManager.Get() != null)
-					{
-						if (BarrierManager.Get().IsMovementBlocked(m_actor, src, dest))
-						{
-							return false;
-						}
-					}
-				}
-				int num;
-				if (!knownAdjacent)
-				{
-					num = (Board.Get().AreAdjacent(src, dest) ? 1 : 0);
-				}
-				else
-				{
-					num = 1;
-				}
-				if (num == 0)
-				{
-					return false;
-				}
-				flag = true;
-				if (diagonalFlag == DiagonalCalcFlag.IsDiagonal)
-				{
-					goto IL_00f6;
-				}
-				if (diagonalFlag == DiagonalCalcFlag.Unknown)
-				{
-					if (Board.Get().AreDiagonallyAdjacent(src, dest))
-					{
-						goto IL_00f6;
-					}
-				}
-				goto IL_018a;
+				result &= CanCrossToAdjacentSingleSquare(src, boardSquare, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
+			}
+			if (result)
+			{
+				result &= CanCrossToAdjacentSingleSquare(src, boardSquare2, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
+			}
+			if (result)
+			{
+				result &= CanCrossToAdjacentSingleSquare(boardSquare, dest, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
+			}
+			if (result)
+			{
+				result &= CanCrossToAdjacentSingleSquare(boardSquare2, dest, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
 			}
 		}
-		return false;
-		IL_00f6:
-		BoardSquare boardSquare = Board.Get().GetSquare(src.x, dest.y);
-		BoardSquare boardSquare2 = Board.Get().GetSquare(dest.x, src.y);
-		if (flag)
-		{
-			flag &= CanCrossToAdjacentSingleSquare(src, boardSquare, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
-		}
-		if (flag)
-		{
-			flag &= CanCrossToAdjacentSingleSquare(src, boardSquare2, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
-		}
-		if (flag)
-		{
-			flag &= CanCrossToAdjacentSingleSquare(boardSquare, dest, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
-		}
-		if (flag)
-		{
-			flag &= CanCrossToAdjacentSingleSquare(boardSquare2, dest, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
-		}
-		goto IL_018a;
-		IL_018a:
-		if (!flag)
-		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		return true;
+
+		return result;
 	}
 
 	public void ClearPath()
@@ -971,44 +765,26 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	public bool ShouldSetForceIdle()
 	{
 		Animator modelAnimator = m_actor.GetModelAnimator();
-		int result;
-		if (!(modelAnimator == null))
+		if (modelAnimator == null || modelAnimator.layerCount < 1)
 		{
-			if (modelAnimator.layerCount >= 1)
-			{
-				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
-				if (!currentAnimatorStateInfo.IsName("Run_Vault"))
-				{
-					if (!currentAnimatorStateInfo.IsName("Run_End"))
-					{
-						if (!currentAnimatorStateInfo.IsTag("Run_End"))
-						{
-							if (!currentAnimatorStateInfo.IsName("KnockbackEnd") && !currentAnimatorStateInfo.IsTag("Knockdown") && !currentAnimatorStateInfo.IsTag("Damage"))
-							{
-								result = ((!m_actor.GetActorModelData().IsPlayingIdleAnim()) ? 1 : 0);
-								goto IL_00f2;
-							}
-						}
-					}
-				}
-				result = 0;
-				goto IL_00f2;
-			}
+			return false;
 		}
-		return false;
-		IL_00f2:
-		return (byte)result != 0;
+		AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
+		return !currentAnimatorStateInfo.IsName("Run_Vault")
+			&& !currentAnimatorStateInfo.IsName("Run_End")
+			&& !currentAnimatorStateInfo.IsTag("Run_End")
+			&& !currentAnimatorStateInfo.IsName("KnockbackEnd")
+			&& !currentAnimatorStateInfo.IsTag("Knockdown")
+			&& !currentAnimatorStateInfo.IsTag("Damage")
+			&& !m_actor.GetActorModelData().IsPlayingIdleAnim();
 	}
 
 	internal void OnGameStateChange(bool decisionState)
 	{
 		Animator modelAnimator = m_actor.GetModelAnimator();
-		if (!decisionState)
+		if (!decisionState && m_brushTransitionAnimationSpeedEased.GetEndValue() != 1f)
 		{
-			if (m_brushTransitionAnimationSpeedEased.GetEndValue() != 1f)
-			{
-				m_brushTransitionAnimationSpeedEased.EaseTo(1f, 0f);
-			}
+			m_brushTransitionAnimationSpeedEased.EaseTo(1f, 0f);
 		}
 		while (m_gameplayPath != null)
 		{
@@ -1023,12 +799,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			m_curMoveState = null;
 			StopMovementAnimator();
 		}
-		if (modelAnimator != null)
+		if (modelAnimator != null && modelAnimator.GetInteger(animIdleType) < 0)
 		{
-			if (modelAnimator.GetInteger(animIdleType) < 0)
-			{
-				modelAnimator.SetInteger(animIdleType, 0);
-			}
+			modelAnimator.SetInteger(animIdleType, 0);
 		}
 		if (ShouldSetForceIdle())
 		{
@@ -1045,71 +818,47 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	public void ResetChargeCycleFlag()
 	{
 		Animator modelAnimator = m_actor.GetModelAnimator();
-		if (!(modelAnimator != null))
-		{
-			return;
-		}
-		while (true)
+		if (modelAnimator != null)
 		{
 			modelAnimator.SetInteger(animNextChargeCycleType, 0);
 			modelAnimator.SetInteger(animChargeCycleType, 0);
 			modelAnimator.SetInteger(animChargeEndType, 4);
 			modelAnimator.SetFloat(animDistToWaypoint, 0f);
-			return;
 		}
 	}
 
 	private void UpdatePath()
 	{
-		bool flag = false;
+		bool skipFogOfWarUpdate = true;
 		if (m_aestheticPath == null)
 		{
-			while (true)
-			{
-				Log.Error($"{m_actor.DisplayName} trying to UpdatePath with a null aesthetic path; exiting.");
-				return;
-			}
+			Log.Error($"{m_actor.DisplayName} trying to UpdatePath with a null aesthetic path; exiting.");
+			return;
 		}
 		if (m_aestheticPath.next == null)
 		{
 			while (m_gameplayPath.next != null)
 			{
 				AdvanceGameplayPath();
-				int num;
-				if (Application.isEditor && DebugParameters.Get() != null)
-				{
-					num = (DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement") ? 1 : 0);
-				}
-				else
-				{
-					num = 0;
-				}
-				bool flag2 = (byte)num != 0;
-				flag = !flag2;
+				skipFogOfWarUpdate = Application.isEditor
+					&& DebugParameters.Get() != null
+					&& DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement");
 			}
 			ActorCover actorCover = m_actor.GetActorCover();
 			actorCover.RecalculateCover();
 		}
-		if (m_aestheticPath != null)
+		if (m_aestheticPath != null && m_aestheticPath.next != null)
 		{
-			if (m_aestheticPath.next != null)
-			{
-				m_aestheticPath = m_aestheticPath.next;
-				goto IL_0108;
-			}
+			m_aestheticPath = m_aestheticPath.next;
 		}
-		m_aestheticPath = null;
-		goto IL_0108;
-		IL_0108:
-		if (!flag)
+		else
 		{
-			return;
+			m_aestheticPath = null;
 		}
-		while (true)
+		if (!skipFogOfWarUpdate)
 		{
 			m_actor.GetFogOfWar().MarkForRecalculateVisibility();
 			UpdateClientFogOfWarIfNeeded();
-			return;
 		}
 	}
 
@@ -1121,38 +870,19 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			if (m_curMoveState is ChargeState)
 			{
 				ChargeState chargeState = m_curMoveState as ChargeState;
-				if (chargeState.DoneMoving())
-				{
-					flag = false;
-				}
-				else
-				{
-					flag = true;
-				}
-			}
-			else if (m_curMoveState.m_done)
-			{
-				flag = false;
+				flag = !chargeState.DoneMoving();
 			}
 			else
 			{
-				flag = true;
+				flag = !m_curMoveState.m_done;
 			}
 		}
 		else
 		{
 			flag = false;
 		}
-		int result;
-		if (flag)
-		{
-			result = ((!ShouldPauseAnimator()) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		bool result = flag && !ShouldPauseAnimator();
+		return result;
 	}
 
 	public bool InChargeState()
@@ -1162,19 +892,11 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	internal float FindDistanceToEnd()
 	{
-		float result;
-		if (AmMoving())
+		if (AmMoving() && m_gameplayPath != null)
 		{
-			if (m_gameplayPath != null)
-			{
-				result = m_gameplayPath.FindDistanceToEnd();
-				goto IL_003f;
-			}
+			return m_gameplayPath.FindDistanceToEnd();
 		}
-		result = 0f;
-		goto IL_003f;
-		IL_003f:
-		return result;
+		return 0f;
 	}
 
 	internal bool FindIsVisibleToClient()
@@ -1196,16 +918,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	internal bool OnPathType(BoardSquarePathInfo.ConnectionType type)
 	{
-		int result;
-		if (m_aestheticPath != null)
-		{
-			result = ((m_aestheticPath.connectionType == type) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_aestheticPath != null && m_aestheticPath.connectionType == type;
 	}
 
 	public void OnMidMovementDeath()
@@ -1232,75 +945,36 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			return;
 		}
-		while (true)
+		BoardSquarePathInfo gameplayPathClosestTo = GetGameplayPathClosestTo(m_actor.transform.position);
+		bool skipFogOfWarUpdate = true;
+		while (m_gameplayPath != gameplayPathClosestTo)
 		{
-			BoardSquarePathInfo gameplayPathClosestTo = GetGameplayPathClosestTo(m_actor.transform.position);
-			bool flag = false;
-			while (m_gameplayPath != gameplayPathClosestTo)
+			AdvanceGameplayPath();
+			skipFogOfWarUpdate = Application.isEditor
+				&& DebugParameters.Get() != null
+				&& DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement");
+		}
+		if (!skipFogOfWarUpdate)
+		{
+			m_actor.GetFogOfWar().MarkForRecalculateVisibility();
+			UpdateClientFogOfWarIfNeeded();
+		}
+		if (!m_actor.IsDead() && !m_actor.IsModelAnimatorDisabled())
+		{
+			bool updatePath = m_curMoveState.m_updatePath;
+			m_curMoveState.Update();
+			UpdateValuesAnimator();
+			if (!updatePath && m_curMoveState.m_updatePath)
 			{
-				AdvanceGameplayPath();
-				int num;
-				if (Application.isEditor && DebugParameters.Get() != null)
-				{
-					num = (DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement") ? 1 : 0);
-				}
-				else
-				{
-					num = 0;
-				}
-				bool flag2 = (byte)num != 0;
-				flag = !flag2;
+				UpdatePath();
 			}
-			while (true)
+			if (m_curMoveState == null || m_curMoveState.m_done)
 			{
-				if (flag)
+				UpdateMovementState();
+				UpdateValuesAnimator();
+				if (m_curMoveState == null)
 				{
-					m_actor.GetFogOfWar().MarkForRecalculateVisibility();
-					UpdateClientFogOfWarIfNeeded();
-				}
-				int num2;
-				if (!m_actor.IsDead())
-				{
-					num2 = ((!m_actor.IsModelAnimatorDisabled()) ? 1 : 0);
-				}
-				else
-				{
-					num2 = 0;
-				}
-				if (num2 == 0)
-				{
-					return;
-				}
-				while (true)
-				{
-					bool updatePath = m_curMoveState.m_updatePath;
-					m_curMoveState.Update();
-					UpdateValuesAnimator();
-					if (!updatePath)
-					{
-						if (m_curMoveState.m_updatePath)
-						{
-							UpdatePath();
-						}
-					}
-					if (m_curMoveState != null)
-					{
-						if (!m_curMoveState.m_done)
-						{
-							return;
-						}
-					}
-					UpdateMovementState();
-					UpdateValuesAnimator();
-					if (m_curMoveState == null)
-					{
-						while (true)
-						{
-							StopMovementAnimator();
-							return;
-						}
-					}
-					return;
+					StopMovementAnimator();
 				}
 			}
 		}
@@ -1308,54 +982,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	private void UpdateClientFogOfWarIfNeeded()
 	{
-		if (!NetworkClient.active)
+		if (NetworkClient.active
+			&& FogOfWar.GetClientFog() != null
+			&& GameFlowData.Get() != null
+			&& GameFlowData.Get().LocalPlayerData != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!(FogOfWar.GetClientFog() != null))
+			Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+			bool isRevealed = m_actor.GetActorStatus() != null && m_actor.GetActorStatus().HasStatus(StatusType.Revealed);
+			bool isRevealedByFlag = CaptureTheFlag.IsActorRevealedByFlag_Client(m_actor);
+			if (m_actor.GetTeam() != teamViewing && (isRevealed || isRevealedByFlag))
 			{
-				return;
-			}
-			while (true)
-			{
-				if (!(GameFlowData.Get() != null))
-				{
-					return;
-				}
-				while (true)
-				{
-					if (!(GameFlowData.Get().LocalPlayerData != null))
-					{
-						return;
-					}
-					Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-					int num;
-					if (m_actor.GetActorStatus() != null)
-					{
-						num = (m_actor.GetActorStatus().HasStatus(StatusType.Revealed) ? 1 : 0);
-					}
-					else
-					{
-						num = 0;
-					}
-					bool flag = (byte)num != 0;
-					bool flag2 = CaptureTheFlag.IsActorRevealedByFlag_Client(m_actor);
-					if (m_actor.GetTeam() == teamViewing)
-					{
-						return;
-					}
-					if (!flag)
-					{
-						if (!flag2)
-						{
-							return;
-						}
-					}
-					FogOfWar.GetClientFog().MarkForRecalculateVisibility();
-					return;
-				}
+				FogOfWar.GetClientFog().MarkForRecalculateVisibility();
 			}
 		}
 	}
@@ -1386,21 +1023,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			modelAnimator.SetFloat(animDistToGoal, 0f);
 			modelAnimator.SetFloat(animTimeInAnim, 0f);
 		}
-		if (!(m_actor != null))
+		if (m_actor != null && m_actor.GetActorModelData() != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_actor.GetActorModelData() != null)
-			{
-				while (true)
-				{
-					m_actor.GetActorModelData().OnMovementAnimatorStop();
-					return;
-				}
-			}
-			return;
+			m_actor.GetActorModelData().OnMovementAnimatorStop();
 		}
 	}
 
@@ -1416,25 +1041,19 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	public Vector3 GetCurrentMovementDir()
 	{
 		Vector3 result;
-		if (m_actor != null)
+		if (m_actor != null
+			&& m_actor.transform != null
+			&& m_aestheticPath != null
+			&& m_aestheticPath.square != null)
 		{
-			if (m_actor.transform != null)
-			{
-				if (m_aestheticPath != null && m_aestheticPath.square != null)
-				{
-					Vector3 position = m_actor.transform.position;
-					Vector3 worldPosition = m_aestheticPath.square.GetOccupantRefPos();
-					result = worldPosition - position;
-					result.y = 0f;
-					result.Normalize();
-					goto IL_00b9;
-				}
-			}
+			Vector3 position = m_actor.transform.position;
+			Vector3 worldPosition = m_aestheticPath.square.GetOccupantRefPos();
+			result = worldPosition - position;
+			result.y = 0f;
+			result.Normalize();
+			return result;
 		}
-		result = Vector3.zero;
-		goto IL_00b9;
-		IL_00b9:
-		return result;
+		return Vector3.zero;
 	}
 
 	private void UpdateValuesAnimator()
@@ -1442,59 +1061,25 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = m_actor.GetModelAnimator();
 		if (modelAnimator == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
-		float num;
-		if (ShouldPauseAnimator())
+		float brushTransitionSpeed = ShouldPauseAnimator() ? m_brushTransitionAnimationSpeed : 1f;
+		if (m_brushTransitionAnimationSpeedEased.GetEndValue() != brushTransitionSpeed)
 		{
-			num = m_brushTransitionAnimationSpeed;
-		}
-		else
-		{
-			num = 1f;
-		}
-		float num2 = num;
-		if (m_brushTransitionAnimationSpeedEased.GetEndValue() != num2)
-		{
-			EasedOutFloat brushTransitionAnimationSpeedEased = m_brushTransitionAnimationSpeedEased;
-			float duration;
-			if (num2 == 1f)
-			{
-				duration = 0f;
-			}
-			else
-			{
-				duration = m_brushTransitionAnimationSpeedEaseTime;
-			}
-			brushTransitionAnimationSpeedEased.EaseTo(num2, duration);
+			float duration = brushTransitionSpeed == 1f ? 0f : m_brushTransitionAnimationSpeedEaseTime;
+			m_brushTransitionAnimationSpeedEased.EaseTo(brushTransitionSpeed, duration);
 		}
 		if (m_curMoveState != null)
 		{
 			modelAnimator.SetFloat(animDistToGoal, GetDistToGoal());
 			modelAnimator.SetFloat(animTimeInAnim, m_curMoveState.m_timeInAnim);
-			if (m_curMoveState.m_forceAnimReset)
+			if (m_curMoveState.m_forceAnimReset && ShouldSetForceIdle())
 			{
-				if (ShouldSetForceIdle())
-				{
-					modelAnimator.SetTrigger(animForceIdle);
-				}
+				modelAnimator.SetTrigger(animForceIdle);
 			}
 		}
 		modelAnimator.SetInteger(animCurLinkType, MovementUtils.GetLinkType(m_aestheticPath));
-		if (m_aestheticPath == null)
-		{
-			return;
-		}
-		while (true)
+		if (m_aestheticPath != null)
 		{
 			modelAnimator.SetInteger(animNextLinkType, MovementUtils.GetLinkType(m_aestheticPath.next));
 			modelAnimator.SetInteger(animChargeCycleType, (int)m_aestheticPath.chargeCycleType);
@@ -1502,63 +1087,35 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			modelAnimator.SetFloat(animDistToWaypoint, GetDistToPathSquare(m_aestheticPath.square));
 			if (m_aestheticPath.next != null)
 			{
-				while (true)
-				{
-					modelAnimator.SetInteger(animNextChargeCycleType, (int)m_aestheticPath.next.chargeCycleType);
-					return;
-				}
+				modelAnimator.SetInteger(animNextChargeCycleType, (int)m_aestheticPath.next.chargeCycleType);
 			}
-			return;
 		}
 	}
 
 	private bool EnemyRunningIntoBrush(BoardSquarePathInfo pathEndInfo)
 	{
-		if (!m_actor.VisibleTillEndOfPhase && !m_actor.CurrentlyVisibleForAbilityCast && !m_actor.GetActorStatus().HasStatus(StatusType.Revealed, false))
-		{
-			if (!CaptureTheFlag.IsActorRevealedByFlag_Client(m_actor))
-			{
-				if (pathEndInfo == null)
-				{
-					if (!m_actor.IsVisibleToClient())
-					{
-						if (m_actor.IsHiddenInBrush())
-						{
-							if (m_actor.GetActorMovement().IsPast2ndToLastSquare())
-							{
-								goto IL_013b;
-							}
-						}
-					}
-				}
-				if (pathEndInfo != null)
-				{
-					if (!pathEndInfo.m_visibleToEnemies)
-					{
-						if (!pathEndInfo.m_moverHasGameplayHitHere && pathEndInfo.square != null)
-						{
-							if (BrushCoordinator.Get() != null && BrushCoordinator.Get().IsRegionFunctioning(pathEndInfo.square.BrushRegion))
-							{
-								goto IL_013b;
-							}
-						}
-					}
-				}
-			}
-		}
-		int result = 0;
-		goto IL_015a;
-		IL_015a:
-		return (byte)result != 0;
-		IL_013b:
-		result = ((ServerClientUtils.GetCurrentActionPhase() >= ActionBufferPhase.Movement || GameFlowData.Get().gameState == GameState.BothTeams_Decision) ? 1 : 0);
-		goto IL_015a;
+		return !m_actor.VisibleTillEndOfPhase
+			&& !m_actor.CurrentlyVisibleForAbilityCast
+			&& !m_actor.GetActorStatus().HasStatus(StatusType.Revealed, false)
+			&& !CaptureTheFlag.IsActorRevealedByFlag_Client(m_actor)
+			&& (pathEndInfo == null
+				&& !m_actor.IsVisibleToClient()
+				&& m_actor.IsHiddenInBrush()
+				&& m_actor.GetActorMovement().IsPast2ndToLastSquare()
+			|| pathEndInfo != null
+				&& !pathEndInfo.m_visibleToEnemies
+				&& !pathEndInfo.m_moverHasGameplayHitHere
+				&& pathEndInfo.square != null
+				&& BrushCoordinator.Get() != null
+				&& BrushCoordinator.Get().IsRegionFunctioning(pathEndInfo.square.BrushRegion))
+			&& (ServerClientUtils.GetCurrentActionPhase() >= ActionBufferPhase.Movement
+				|| GameFlowData.Get().gameState == GameState.BothTeams_Decision);
 	}
 
 	private float GetDistToGoal()
 	{
 		float num = 0f;
-		Vector3 b = base.transform.position;
+		Vector3 b = transform.position;
 		BoardSquarePathInfo boardSquarePathInfo = m_aestheticPath;
 		BoardSquarePathInfo pathEndInfo = m_aestheticPath;
 		while (boardSquarePathInfo != null)
@@ -1603,82 +1160,36 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		if (m_aestheticPath != null)
 		{
-			while (true)
+			if (m_curMoveState == null
+				|| m_curMoveState.m_connectionType != BoardSquarePathInfo.ConnectionType.Run
+				|| m_aestheticPath.connectionType != BoardSquarePathInfo.ConnectionType.Run)
 			{
-				switch (5)
+				Animator modelAnimator = m_actor.GetModelAnimator();
+				if (modelAnimator != null)
 				{
-				case 0:
-					break;
-				default:
-					{
-						if (m_curMoveState != null)
-						{
-							if (m_curMoveState.m_connectionType == BoardSquarePathInfo.ConnectionType.Run)
-							{
-								if (m_aestheticPath.connectionType == BoardSquarePathInfo.ConnectionType.Run)
-								{
-									goto IL_00ca;
-								}
-							}
-						}
-						Animator modelAnimator = m_actor.GetModelAnimator();
-						if (modelAnimator != null)
-						{
-							modelAnimator.SetTrigger(animMoveSegmentStart);
-						}
-						goto IL_00ca;
-					}
-					IL_00ca:
-					switch (m_aestheticPath.connectionType)
-					{
-					case BoardSquarePathInfo.ConnectionType.Charge:
-					case BoardSquarePathInfo.ConnectionType.Flight:
-						m_curMoveState = new ChargeState(this, m_aestheticPath);
-						break;
-					case BoardSquarePathInfo.ConnectionType.Knockback:
-						m_curMoveState = new KnockbackState(this, m_aestheticPath);
-						break;
-					case BoardSquarePathInfo.ConnectionType.Run:
-					case BoardSquarePathInfo.ConnectionType.Vault:
-						m_curMoveState = new RunState(this, m_aestheticPath);
-						break;
-					}
-					if (m_actor != null)
-					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								break;
-							default:
-								if (m_actor.GetActorModelData() != null)
-								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											break;
-										default:
-											m_actor.GetActorModelData().OnMovementAnimatorUpdate(m_aestheticPath.connectionType);
-											return;
-										}
-									}
-								}
-								return;
-							}
-						}
-					}
-					return;
+					modelAnimator.SetTrigger(animMoveSegmentStart);
 				}
 			}
+			switch (m_aestheticPath.connectionType)
+			{
+				case BoardSquarePathInfo.ConnectionType.Charge:
+				case BoardSquarePathInfo.ConnectionType.Flight:
+					m_curMoveState = new ChargeState(this, m_aestheticPath);
+					break;
+				case BoardSquarePathInfo.ConnectionType.Knockback:
+					m_curMoveState = new KnockbackState(this, m_aestheticPath);
+					break;
+				case BoardSquarePathInfo.ConnectionType.Run:
+				case BoardSquarePathInfo.ConnectionType.Vault:
+					m_curMoveState = new RunState(this, m_aestheticPath);
+					break;
+			}
+			if (m_actor != null && m_actor.GetActorModelData() != null)
+			{
+				m_actor.GetActorModelData().OnMovementAnimatorUpdate(m_aestheticPath.connectionType);
+			}
 		}
-		if (m_curMoveState == null)
-		{
-			return;
-		}
-		while (true)
+		else if (m_curMoveState != null)
 		{
 			Animator modelAnimator2 = m_actor.GetModelAnimator();
 			if (modelAnimator2 != null)
@@ -1687,23 +1198,13 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			m_curMoveState = null;
 			StopMovementAnimator();
-			return;
 		}
 	}
 
 	private BoardSquarePathInfo GetGameplayPathClosestTo(Vector3 pos)
 	{
 		Vector3 b = new Vector3(pos.x, 0f, pos.z);
-		object obj;
-		if (m_gameplayPath == null)
-		{
-			obj = null;
-		}
-		else
-		{
-			obj = m_gameplayPath.next;
-		}
-		BoardSquarePathInfo boardSquarePathInfo = (BoardSquarePathInfo)obj;
+		BoardSquarePathInfo boardSquarePathInfo = m_gameplayPath?.next;
 		BoardSquarePathInfo result = m_gameplayPath;
 		if (m_gameplayPath != null)
 		{
@@ -1734,7 +1235,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		m_gameplayPath = m_gameplayPath.next;
 		BoardSquare square = m_gameplayPath.square;
-		bool flag = m_gameplayPath.next == null;
+		bool isEnd = m_gameplayPath.next == null;
 		m_actor.ActorData_OnActorMoved(square, m_gameplayPath.m_visibleToEnemies, m_gameplayPath.m_updateLastKnownPos);
 		ActorVFX actorVFX = m_actor.GetActorVFX();
 		if (actorVFX != null)
@@ -1744,61 +1245,26 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		CameraManager.Get().OnActorMoved(m_actor);
 		ClientClashManager.Get().OnActorMoved_ClientClashManager(m_actor, m_gameplayPath);
 		ClientResolutionManager.Get().OnActorMoved_ClientResolutionManager(m_actor, m_gameplayPath);
-		if (m_actor != null)
+		if (m_actor != null && m_actor.GetActorModelData() != null)
 		{
-			if (m_actor.GetActorModelData() != null)
-			{
-				m_actor.GetActorModelData().OnMovementAnimatorUpdate(m_aestheticPath.connectionType);
-			}
+			m_actor.GetActorModelData().OnMovementAnimatorUpdate(m_aestheticPath.connectionType);
 		}
-		if (!flag)
+		if (isEnd)
 		{
-			return;
-		}
-		m_actor.UpdateFacingAfterMovement();
-		if (GameFlowData.Get().gameState != GameState.BothTeams_Resolve || !(HighlightUtils.Get() != null))
-		{
-			return;
-		}
-		while (true)
-		{
-			if (HighlightUtils.Get().m_coverDirIndicatorTiming != 0 || !HighlightUtils.Get().m_showMoveIntoCoverIndicators)
-			{
-				return;
-			}
-			while (true)
+			m_actor.UpdateFacingAfterMovement();
+			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve
+				&& HighlightUtils.Get() != null
+				&& HighlightUtils.Get().m_coverDirIndicatorTiming == 0
+				&& HighlightUtils.Get().m_showMoveIntoCoverIndicators)
 			{
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-				if (!(activeOwnedActorData != null))
+				if (activeOwnedActorData != null
+					&& activeOwnedActorData == m_actor
+					&& m_actor.GetActorCover() != null
+					&& m_actor.IsVisibleToClient())
 				{
-					return;
-				}
-				while (true)
-				{
-					if (!(activeOwnedActorData == m_actor))
-					{
-						return;
-					}
-					while (true)
-					{
-						if (!(m_actor.GetActorCover() != null))
-						{
-							return;
-						}
-						while (true)
-						{
-							if (m_actor.IsVisibleToClient())
-							{
-								while (true)
-								{
-									m_actor.GetActorCover().RecalculateCover();
-									m_actor.GetActorCover().StartShowMoveIntoCoverIndicator();
-									return;
-								}
-							}
-							return;
-						}
-					}
+					m_actor.GetActorCover().RecalculateCover();
+					m_actor.GetActorCover().StartShowMoveIntoCoverIndicator();
 				}
 			}
 		}
@@ -1823,42 +1289,27 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			switch (boardSquarePathInfo.connectionType)
 			{
-			case BoardSquarePathInfo.ConnectionType.Run:
-			case BoardSquarePathInfo.ConnectionType.Knockback:
-			case BoardSquarePathInfo.ConnectionType.Charge:
-			case BoardSquarePathInfo.ConnectionType.Vault:
-			{
-				if (boardSquarePathInfo.segmentMovementDuration > 0f)
-				{
-					m_moveTimeoutTime += boardSquarePathInfo.segmentMovementDuration * 1.5f + 3f;
-					break;
-				}
-				Vector3 vector = a - boardSquarePathInfo.square.ToVector3();
-				float num;
-				if (boardSquarePathInfo.segmentMovementSpeed > 0f)
-				{
-					num = boardSquarePathInfo.segmentMovementSpeed;
-				}
-				else
-				{
-					num = actor.m_runSpeed;
-				}
-				float num2 = num;
-				m_moveTimeoutTime += vector.magnitude / num2 * 1.5f + 3f;
-				break;
-			}
+				case BoardSquarePathInfo.ConnectionType.Run:
+				case BoardSquarePathInfo.ConnectionType.Knockback:
+				case BoardSquarePathInfo.ConnectionType.Charge:
+				case BoardSquarePathInfo.ConnectionType.Vault:
+					{
+						if (boardSquarePathInfo.segmentMovementDuration > 0f)
+						{
+							m_moveTimeoutTime += boardSquarePathInfo.segmentMovementDuration * 1.5f + 3f;
+						}
+						else
+						{
+							Vector3 vector = a - boardSquarePathInfo.square.ToVector3();
+							float speed = boardSquarePathInfo.segmentMovementSpeed > 0f
+								? boardSquarePathInfo.segmentMovementSpeed
+								: actor.m_runSpeed;
+							m_moveTimeoutTime += vector.magnitude / speed * 1.5f + 3f;
+						}
+						break;
+					}
 			}
 			boardSquarePathInfo = boardSquarePathInfo.next;
-		}
-		while (true)
-		{
-			switch (1)
-			{
-			default:
-				return;
-			case 0:
-				break;
-			}
 		}
 	}
 
@@ -1900,52 +1351,34 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			src = dest;
 		}
-		else if (src != null)
+		else if (src != null && dest == null)
 		{
-			if (dest == null)
-			{
-				dest = src;
-			}
+			dest = src;
 		}
-		if (!(src != null))
+		if (src != null && dest != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (dest != null)
-			{
-				while (true)
-				{
-					m_actor.SetTransformPositionToSquare(src);
-					m_gameplayPath = gameplayPath;
-					m_aestheticPath = m_gameplayPath.Clone(null);
-					MovementUtils.CreateUnskippableAestheticPath(ref m_aestheticPath, movementType);
-					CalculateMoveTimeout();
-					m_actor.SetTransformPositionToSquare(src);
-					UpdateMovementState();
-					return;
-				}
-			}
-			return;
+			m_actor.SetTransformPositionToSquare(src);
+			m_gameplayPath = gameplayPath;
+			m_aestheticPath = m_gameplayPath.Clone(null);
+			MovementUtils.CreateUnskippableAestheticPath(ref m_aestheticPath, movementType);
+			CalculateMoveTimeout();
+			m_actor.SetTransformPositionToSquare(src);
+			UpdateMovementState();
 		}
 	}
 
 	public BoardSquarePathInfo BuildPathTo(BoardSquare src, BoardSquare dest)
 	{
-		float maxHorizontalMovement = CalculateMaxHorizontalMovement();
-		return BuildPathTo(src, dest, maxHorizontalMovement, false, null);
+		return BuildPathTo(src, dest, CalculateMaxHorizontalMovement(), false, null);
 	}
 
 	public BoardSquarePathInfo BuildPathTo_IgnoreBarriers(BoardSquare src, BoardSquare dest)
 	{
-		float maxHorizontalMovement = CalculateMaxHorizontalMovement();
-		return BuildPathTo(src, dest, maxHorizontalMovement, true, null);
+		return BuildPathTo(src, dest, CalculateMaxHorizontalMovement(), true, null);
 	}
 
 	public BoardSquarePathInfo BuildPathTo(BoardSquare src, BoardSquare dest, float maxHorizontalMovement, bool ignoreBarriers, List<BoardSquare> claimedSquares)
 	{
-
 		if (src == null || dest == null)
 		{
 			return null;
@@ -1989,72 +1422,69 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			foreach (BoardSquare neighbour in neighbours)
 			{
-				bool diag = Board.Get().AreDiagonallyAdjacent(pathNode.square, neighbour);
-				float cost = pathNode.moveCost + (diag ? 1.5f : 1f);
-				bool isLegalMove = canExceedMaxMovement
+				bool isDiagonalStep = Board.Get().AreDiagonallyAdjacent(pathNode.square, neighbour);
+				float nextCost = pathNode.moveCost + (isDiagonalStep ? 1.5f : 1f);
+				bool isValidMove = canExceedMaxMovement
 					? pathNode.moveCost < maxHorizontalMovement
-					: cost <= maxHorizontalMovement;
-				if (!isLegalMove ||
-					!CanCrossToAdjacentSquare(pathNode.square, neighbour, ignoreBarriers, diag ? DiagonalCalcFlag.IsDiagonal : DiagonalCalcFlag.NotDiagonal) ||
-					!FirstTurnMovement.CanActorMoveToSquare(m_actor, neighbour))
+					: nextCost <= maxHorizontalMovement;
+				DiagonalCalcFlag diagonalCalcFlag = isDiagonalStep ? DiagonalCalcFlag.IsDiagonal : DiagonalCalcFlag.NotDiagonal;
+				if (isValidMove
+					&& CanCrossToAdjacentSquare(pathNode.square, neighbour, ignoreBarriers, diagonalCalcFlag)
+					&& FirstTurnMovement.CanActorMoveToSquare(m_actor, neighbour))
 				{
-					continue;
-				}
-
-				BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
-				allocatedNode2.square = neighbour;
-				allocatedNode2.moveCost = cost;
-				if (claimedSquares != null && destClaimed && allocatedNode2.square == dest)
-				{
-					int num3 = 1;
-					BoardSquarePathInfo boardSquarePathInfo3 = pathNode;
-					while (boardSquarePathInfo3 != null)
+					BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
+					allocatedNode2.square = neighbour;
+					allocatedNode2.moveCost = nextCost;
+					if (claimedSquares != null && destClaimed && allocatedNode2.square == dest)
 					{
-						if (claimedSquares.Contains(boardSquarePathInfo3.square))
+						int num3 = 1;
+						BoardSquarePathInfo boardSquarePathInfo3 = pathNode;
+						while (boardSquarePathInfo3 != null)
 						{
+							if (!claimedSquares.Contains(boardSquarePathInfo3.square))
+							{
+								break;
+							}
 							num3++;
 							boardSquarePathInfo3 = boardSquarePathInfo3.prev;
-							continue;
 						}
-						break;
+						allocatedNode2.m_expectedBackupNum = num3;
 					}
-					allocatedNode2.m_expectedBackupNum = num3;
-				}
-				float squareSize = Board.Get().squareSize;
-				if (!canExceedMaxMovement)
-				{
-					allocatedNode2.heuristicCost = (neighbour.transform.position - dest.transform.position).magnitude / squareSize;
-				}
-				else
-				{
-					float num4 = Mathf.Abs(neighbour.x - dest.x);
-					float num5 = Mathf.Abs(neighbour.y - dest.y);
-					float num6 = num4 + num5 - 0.5f * Mathf.Min(num4, num5);
-					allocatedNode2.heuristicCost = Mathf.Max(0f, num6 - 1.01f);
-				}
-				allocatedNode2.prev = pathNode;
-				bool flag5 = false;
-				if (tempClosedSquares.ContainsKey(allocatedNode2.square))
-				{
-					flag5 = (allocatedNode2.F_cost > tempClosedSquares[allocatedNode2.square].F_cost);
-				}
-				if (flag5)
-				{
-					continue;
-				}
-				bool flag6 = false;
-				BoardSquarePathInfo boardSquarePathInfo4 = normalPathNodeHeap.TryGetNodeInHeapBySquare(allocatedNode2.square);
-				if (boardSquarePathInfo4 != null)
-				{
-					flag6 = true;
-					if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
+					float squareSize = Board.Get().squareSize;
+					if (!canExceedMaxMovement)
 					{
-						normalPathNodeHeap.UpdatePriority(allocatedNode2);
+						allocatedNode2.heuristicCost = (neighbour.transform.position - dest.transform.position).magnitude / squareSize;
 					}
-				}
-				if (!flag6)
-				{
-					normalPathNodeHeap.Insert(allocatedNode2);
+					else
+					{
+						float num4 = Mathf.Abs(neighbour.x - dest.x);
+						float num5 = Mathf.Abs(neighbour.y - dest.y);
+						float num6 = num4 + num5 - 0.5f * Mathf.Min(num4, num5);
+						allocatedNode2.heuristicCost = Mathf.Max(0f, num6 - 1.01f);
+					}
+					allocatedNode2.prev = pathNode;
+					bool flag5 = false;
+					if (tempClosedSquares.ContainsKey(allocatedNode2.square))
+					{
+						flag5 = (allocatedNode2.F_cost > tempClosedSquares[allocatedNode2.square].F_cost);
+					}
+					if (!flag5)
+					{
+						bool flag6 = false;
+						BoardSquarePathInfo boardSquarePathInfo4 = normalPathNodeHeap.TryGetNodeInHeapBySquare(allocatedNode2.square);
+						if (boardSquarePathInfo4 != null)
+						{
+							flag6 = true;
+							if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
+							{
+								normalPathNodeHeap.UpdatePriority(allocatedNode2);
+							}
+						}
+						if (!flag6)
+						{
+							normalPathNodeHeap.Insert(allocatedNode2);
+						}
+					}
 				}
 			}
 		}
@@ -2074,222 +1504,155 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	public BoardSquarePathInfo BuildPathTo_Orig(BoardSquare src, BoardSquare dest, float maxHorizontalMovement, bool ignoreBarriers, List<BoardSquare> claimedSquares)
 	{
 		BoardSquarePathInfo boardSquarePathInfo = null;
-		if (!(src == null))
+		if (src == null || dest == null)
 		{
-			if (!(dest == null))
+			return null;
+		}
+		Vector3 tieBreakDir = dest.ToVector3() - src.ToVector3();
+		Vector3 tieBreakTestPos = src.ToVector3();
+		BuildNormalPathNodePool normalPathBuildScratchPool = Board.Get().m_normalPathBuildScratchPool;
+		normalPathBuildScratchPool.ResetAvailableNodeIndex();
+		List<BoardSquarePathInfo> list = new List<BoardSquarePathInfo>();
+		Dictionary<BoardSquare, BoardSquarePathInfo> dictionary = new Dictionary<BoardSquare, BoardSquarePathInfo>();
+		BoardSquarePathInfo allocatedNode = normalPathBuildScratchPool.GetAllocatedNode();
+		allocatedNode.square = src;
+		list.Add(allocatedNode);
+		List<BoardSquare> result = new List<BoardSquare>(8);
+		bool isDiagonalEnabled = GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled;
+		bool canExceedMax = GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax;
+		bool isDestClaimed = claimedSquares != null && claimedSquares.Contains(dest);
+		while (list.Count > 0)
+		{
+			list.Sort(delegate (BoardSquarePathInfo p1, BoardSquarePathInfo p2)
 			{
-				Vector3 tieBreakDir = dest.ToVector3() - src.ToVector3();
-				Vector3 tieBreakTestPos = src.ToVector3();
-				BuildNormalPathNodePool normalPathBuildScratchPool = Board.Get().m_normalPathBuildScratchPool;
-				normalPathBuildScratchPool.ResetAvailableNodeIndex();
-				List<BoardSquarePathInfo> list = new List<BoardSquarePathInfo>();
-				Dictionary<BoardSquare, BoardSquarePathInfo> dictionary = new Dictionary<BoardSquare, BoardSquarePathInfo>();
-				BoardSquarePathInfo allocatedNode = normalPathBuildScratchPool.GetAllocatedNode();
-				allocatedNode.square = src;
-				list.Add(allocatedNode);
-				List<BoardSquare> result = new List<BoardSquare>(8);
-				bool flag = GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled;
-				bool flag2 = GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax;
-				int num;
-				if (claimedSquares != null)
+				if (Mathf.Approximately(p1.F_cost, p2.F_cost))
 				{
-					num = (claimedSquares.Contains(dest) ? 1 : 0);
+					Vector3 from = p1.square.ToVector3() - tieBreakTestPos;
+					Vector3 from2 = p2.square.ToVector3() - tieBreakTestPos;
+					return Vector3.Angle(from, tieBreakDir).CompareTo(Vector3.Angle(from2, tieBreakDir));
 				}
-				else
+				return p1.F_cost.CompareTo(p2.F_cost);
+			});
+			BoardSquarePathInfo boardSquarePathInfo2 = list[0];
+			tieBreakTestPos = boardSquarePathInfo2.square.ToVector3();
+			if (boardSquarePathInfo2.prev != null)
+			{
+				tieBreakDir = boardSquarePathInfo2.square.ToVector3() - boardSquarePathInfo2.prev.square.ToVector3();
+			}
+			if (boardSquarePathInfo2.square == dest)
+			{
+				boardSquarePathInfo = boardSquarePathInfo2;
+				break;
+			}
+			dictionary[boardSquarePathInfo2.square] = boardSquarePathInfo2;
+			list.Remove(boardSquarePathInfo2);
+			result.Clear();
+			if (!isDiagonalEnabled)
+			{
+				Board.Get().GetStraightAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
+			}
+			else
+			{
+				Board.Get().GetAllAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
+			}
+			for (int i = 0; i < result.Count; i++)
+			{
+				BoardSquare boardSquare = result[i];
+				bool isDiagonalStep = Board.Get().AreDiagonallyAdjacent(boardSquarePathInfo2.square, boardSquare);
+				float nextCost = isDiagonalStep
+					? boardSquarePathInfo2.moveCost + 1.5f
+					: boardSquarePathInfo2.moveCost + 1f;
+				bool isValidMove = !canExceedMax
+					? nextCost <= maxHorizontalMovement
+					: boardSquarePathInfo2.moveCost < maxHorizontalMovement;
+				if (!isValidMove)
 				{
-					num = 0;
+					continue;
 				}
-				bool flag3 = (byte)num != 0;
-				while (true)
+				BoardSquare square = boardSquarePathInfo2.square;
+				DiagonalCalcFlag diagonalFlag = isDiagonalStep ? DiagonalCalcFlag.IsDiagonal : DiagonalCalcFlag.NotDiagonal;
+				if (CanCrossToAdjacentSquare(square, boardSquare, ignoreBarriers, (DiagonalCalcFlag)diagonalFlag) && FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
 				{
-					if (list.Count > 0)
+					BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
+					allocatedNode2.square = boardSquare;
+					allocatedNode2.moveCost = nextCost;
+					if (claimedSquares != null && isDestClaimed && allocatedNode2.square == dest)
 					{
-						list.Sort(delegate(BoardSquarePathInfo p1, BoardSquarePathInfo p2)
+						int num3 = 1;
+						BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
+						while (boardSquarePathInfo3 != null)
 						{
-							if (Mathf.Approximately(p1.F_cost, p2.F_cost))
+							if (!claimedSquares.Contains(boardSquarePathInfo3.square))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										break;
-									default:
-									{
-										Vector3 from = p1.square.ToVector3() - tieBreakTestPos;
-										Vector3 from2 = p2.square.ToVector3() - tieBreakTestPos;
-										return Vector3.Angle(from, tieBreakDir).CompareTo(Vector3.Angle(from2, tieBreakDir));
-									}
-									}
-								}
-							}
-							return p1.F_cost.CompareTo(p2.F_cost);
-						});
-						BoardSquarePathInfo boardSquarePathInfo2 = list[0];
-						tieBreakTestPos = boardSquarePathInfo2.square.ToVector3();
-						if (boardSquarePathInfo2.prev != null)
-						{
-							tieBreakDir = boardSquarePathInfo2.square.ToVector3() - boardSquarePathInfo2.prev.square.ToVector3();
-						}
-						if (boardSquarePathInfo2.square == dest)
-						{
-							boardSquarePathInfo = boardSquarePathInfo2;
-							break;
-						}
-						dictionary[boardSquarePathInfo2.square] = boardSquarePathInfo2;
-						list.Remove(boardSquarePathInfo2);
-						result.Clear();
-						if (!flag)
-						{
-							Board.Get().GetStraightAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
-						}
-						else
-						{
-							Board.Get().GetAllAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
-						}
-						for (int i = 0; i < result.Count; i++)
-						{
-							BoardSquare boardSquare = result[i];
-							bool flag4 = Board.Get().AreDiagonallyAdjacent(boardSquarePathInfo2.square, boardSquare);
-							float num2;
-							if (flag4)
-							{
-								num2 = boardSquarePathInfo2.moveCost + 1.5f;
-							}
-							else
-							{
-								num2 = boardSquarePathInfo2.moveCost + 1f;
-							}
-							bool flag5;
-							if (!flag2)
-							{
-								flag5 = (num2 <= maxHorizontalMovement);
-							}
-							else
-							{
-								flag5 = (boardSquarePathInfo2.moveCost < maxHorizontalMovement);
-							}
-							if (!flag5)
-							{
-								continue;
-							}
-							BoardSquare square = boardSquarePathInfo2.square;
-							int diagonalFlag;
-							if (flag4)
-							{
-								diagonalFlag = 1;
-							}
-							else
-							{
-								diagonalFlag = 2;
-							}
-							if (!CanCrossToAdjacentSquare(square, boardSquare, ignoreBarriers, (DiagonalCalcFlag)diagonalFlag))
-							{
-								continue;
-							}
-							if (!FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
-							{
-								continue;
-							}
-							BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
-							allocatedNode2.square = boardSquare;
-							allocatedNode2.moveCost = num2;
-							if (claimedSquares != null && flag3)
-							{
-								if (allocatedNode2.square == dest)
-								{
-									int num3 = 1;
-									BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
-									while (boardSquarePathInfo3 != null)
-									{
-										if (claimedSquares.Contains(boardSquarePathInfo3.square))
-										{
-											num3++;
-											boardSquarePathInfo3 = boardSquarePathInfo3.prev;
-											continue;
-										}
-										break;
-									}
-									allocatedNode2.m_expectedBackupNum = num3;
-								}
-							}
-							float squareSize = Board.Get().squareSize;
-							if (!flag2)
-							{
-								allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
-							}
-							else
-							{
-								float num4 = Mathf.Abs(boardSquare.x - dest.x);
-								float num5 = Mathf.Abs(boardSquare.y - dest.y);
-								float num6 = num4 + num5 - 0.5f * Mathf.Min(num4, num5);
-								float num7 = allocatedNode2.heuristicCost = Mathf.Max(0f, num6 - 1.01f);
-							}
-							allocatedNode2.prev = boardSquarePathInfo2;
-							bool flag6 = false;
-							if (dictionary.ContainsKey(allocatedNode2.square))
-							{
-								flag6 = (allocatedNode2.F_cost > dictionary[allocatedNode2.square].F_cost);
-							}
-							if (flag6)
-							{
-								continue;
-							}
-							bool flag7 = false;
-							for (int j = 0; j < list.Count; j++)
-							{
-								BoardSquarePathInfo boardSquarePathInfo4 = list[j];
-								if (!(boardSquarePathInfo4.square == allocatedNode2.square))
-								{
-									continue;
-								}
-								flag7 = true;
-								if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
-								{
-									boardSquarePathInfo4.heuristicCost = allocatedNode2.heuristicCost;
-									boardSquarePathInfo4.moveCost = allocatedNode2.moveCost;
-									boardSquarePathInfo4.prev = allocatedNode2.prev;
-									boardSquarePathInfo4.m_expectedBackupNum = allocatedNode2.m_expectedBackupNum;
-								}
 								break;
 							}
-							if (!flag7)
-							{
-								list.Add(allocatedNode2);
-							}
+							num3++;
+							boardSquarePathInfo3 = boardSquarePathInfo3.prev;
 						}
+						allocatedNode2.m_expectedBackupNum = num3;
+					}
+					float squareSize = Board.Get().squareSize;
+					if (!canExceedMax)
+					{
+						allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
+					}
+					else
+					{
+						float num4 = Mathf.Abs(boardSquare.x - dest.x);
+						float num5 = Mathf.Abs(boardSquare.y - dest.y);
+						float num6 = num4 + num5 - 0.5f * Mathf.Min(num4, num5);
+						float num7 = allocatedNode2.heuristicCost = Mathf.Max(0f, num6 - 1.01f);
+					}
+					allocatedNode2.prev = boardSquarePathInfo2;
+					bool flag6 = false;
+					if (dictionary.ContainsKey(allocatedNode2.square))
+					{
+						flag6 = (allocatedNode2.F_cost > dictionary[allocatedNode2.square].F_cost);
+					}
+					if (flag6)
+					{
 						continue;
 					}
-					break;
-				}
-				if (boardSquarePathInfo != null)
-				{
-					while (boardSquarePathInfo.prev != null)
+					bool flag7 = false;
+					for (int j = 0; j < list.Count; j++)
 					{
-						boardSquarePathInfo.prev.next = boardSquarePathInfo;
-						boardSquarePathInfo = boardSquarePathInfo.prev;
+						BoardSquarePathInfo boardSquarePathInfo4 = list[j];
+						if (boardSquarePathInfo4.square == allocatedNode2.square)
+						{
+							flag7 = true;
+							if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
+							{
+								boardSquarePathInfo4.heuristicCost = allocatedNode2.heuristicCost;
+								boardSquarePathInfo4.moveCost = allocatedNode2.moveCost;
+								boardSquarePathInfo4.prev = allocatedNode2.prev;
+								boardSquarePathInfo4.m_expectedBackupNum = allocatedNode2.m_expectedBackupNum;
+							}
+							break;
+						}
 					}
-					boardSquarePathInfo = boardSquarePathInfo.Clone(null);
-					normalPathBuildScratchPool.ResetAvailableNodeIndex();
+					if (!flag7)
+					{
+						list.Add(allocatedNode2);
+					}
 				}
-				return boardSquarePathInfo;
 			}
+		}
+		if (boardSquarePathInfo != null)
+		{
+			while (boardSquarePathInfo.prev != null)
+			{
+				boardSquarePathInfo.prev.next = boardSquarePathInfo;
+				boardSquarePathInfo = boardSquarePathInfo.prev;
+			}
+			boardSquarePathInfo = boardSquarePathInfo.Clone(null);
+			normalPathBuildScratchPool.ResetAvailableNodeIndex();
 		}
 		return boardSquarePathInfo;
 	}
 
 	public BoardSquarePathInfo GetAestheticPath()
 	{
-		object result;
-		if (m_curMoveState == null)
-		{
-			result = null;
-		}
-		else
-		{
-			result = m_curMoveState.GetAestheticPath();
-		}
-		return (BoardSquarePathInfo)result;
+		return m_curMoveState?.GetAestheticPath();
 	}
 
 	public BoardSquare GetTravelBoardSquare()
@@ -2308,70 +1671,33 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	internal BoardSquarePathInfo GetPreviousTravelBoardSquarePathInfo()
 	{
-		BoardSquarePathInfo result;
-		if (m_gameplayPath != null)
+		if (m_gameplayPath != null && m_gameplayPath.prev != null)
 		{
-			if (m_gameplayPath.prev != null)
-			{
-				result = m_gameplayPath.prev;
-				goto IL_0045;
-			}
+			return m_gameplayPath.prev;
 		}
-		result = m_gameplayPath;
-		goto IL_0045;
-		IL_0045:
-		return result;
+		return m_gameplayPath;
 	}
 
 	internal BoardSquarePathInfo GetNextTravelBoardSquarePathInfo()
 	{
-		BoardSquarePathInfo result;
-		if (m_gameplayPath != null)
+		if (m_gameplayPath != null && m_gameplayPath.next != null)
 		{
-			if (m_gameplayPath.next != null)
-			{
-				result = m_gameplayPath.next;
-				goto IL_003b;
-			}
+			return m_gameplayPath.next;
 		}
-		result = m_gameplayPath;
-		goto IL_003b;
-		IL_003b:
-		return result;
+		return m_gameplayPath;
 	}
 
 	public void EncapsulatePathInBound(ref Bounds bound)
 	{
-		if (m_gameplayPath == null)
+		if (m_gameplayPath != null && m_actor != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_actor != null)
-			{
-				while (true)
-				{
-					TheatricsManager.EncapsulatePathInBound(ref bound, m_gameplayPath, m_actor);
-					return;
-				}
-			}
-			return;
+			TheatricsManager.EncapsulatePathInBound(ref bound, m_gameplayPath, m_actor);
 		}
 	}
 
 	public bool IsOnLastSegment()
 	{
-		int result;
-		if (m_aestheticPath != null)
-		{
-			result = ((m_aestheticPath.next == null) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_aestheticPath != null && m_aestheticPath.next == null;
 	}
 
 	public bool IsYetToCompleteGameplayPath()
@@ -2381,31 +1707,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	internal bool IsPast2ndToLastSquare()
 	{
-		int result;
-		if (m_gameplayPath != null)
-		{
-			result = ((m_gameplayPath.next == null) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return m_gameplayPath == null || m_gameplayPath.next == null;
 	}
 
 	public void OnAssignedToInitialBoardSquare()
 	{
-		Vector3 spawnFacing = SpawnPointManager.Get().GetSpawnFacing(base.transform.position);
+		Vector3 spawnFacing = SpawnPointManager.Get().GetSpawnFacing(transform.position);
 		m_actor.TurnToDirection(spawnFacing);
 		Animator modelAnimator = m_actor.GetModelAnimator();
-		if (!(modelAnimator != null))
-		{
-			return;
-		}
-		while (true)
+		if (modelAnimator != null)
 		{
 			modelAnimator.SetBool(animDecisionPhase, true);
-			return;
 		}
 	}
 
@@ -2413,20 +1725,11 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
 		Gizmos.color = Color.black;
 		Gizmos.DrawWireCube(m_actor.transform.position, new Vector3(1.5f, 2.5f, 1.5f));
-		Color[] array = new Color[6]
+		Color[] array = new Color[]
 		{
 			Color.white,
 			Color.magenta,
@@ -2436,49 +1739,35 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			Color.black
 		};
 		float num = 0.4f;
-		for (BoardSquarePathInfo boardSquarePathInfo = m_aestheticPath; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
+		for (BoardSquarePathInfo pi = m_aestheticPath; pi != null; pi = pi.next)
 		{
-			Gizmos.color = array[(int)boardSquarePathInfo.connectionType];
-			if (boardSquarePathInfo.square != null)
+			Gizmos.color = array[(int)pi.connectionType];
+			if (pi.square != null)
 			{
-				Gizmos.DrawWireSphere(boardSquarePathInfo.square.GetOccupantRefPos(), num);
+				Gizmos.DrawWireSphere(pi.square.GetOccupantRefPos(), num);
 			}
-			if (boardSquarePathInfo.prev != null)
+			if (pi.prev != null && pi.prev.square != null)
 			{
-				if (boardSquarePathInfo.prev.square != null)
-				{
-					Gizmos.DrawLine(boardSquarePathInfo.square.GetOccupantRefPos() + Vector3.up * num, boardSquarePathInfo.prev.square.GetOccupantRefPos() + Vector3.up * num);
-				}
+				Gizmos.DrawLine(pi.square.GetOccupantRefPos() + Vector3.up * num, pi.prev.square.GetOccupantRefPos() + Vector3.up * num);
 			}
 		}
-		while (true)
+		Gizmos.color = Color.black;
+		for (BoardSquarePathInfo pi = m_gameplayPath; pi != null; pi = pi.next)
 		{
-			Gizmos.color = Color.black;
-			for (BoardSquarePathInfo boardSquarePathInfo2 = m_gameplayPath; boardSquarePathInfo2 != null; boardSquarePathInfo2 = boardSquarePathInfo2.next)
+			if (pi.square != null)
 			{
-				if (boardSquarePathInfo2.square != null)
-				{
-					Gizmos.DrawSphere(boardSquarePathInfo2.square.GetOccupantRefPos(), 0.15f);
-				}
-				if (boardSquarePathInfo2.prev != null)
-				{
-					if (boardSquarePathInfo2.prev.square != null)
-					{
-						Gizmos.DrawLine(boardSquarePathInfo2.square.GetOccupantRefPos(), boardSquarePathInfo2.prev.square.GetOccupantRefPos());
-					}
-				}
+				Gizmos.DrawSphere(pi.square.GetOccupantRefPos(), 0.15f);
 			}
-			BoardSquare travelBoardSquare = GetTravelBoardSquare();
-			if (travelBoardSquare != null)
+			if (pi.prev != null && pi.prev.square != null)
 			{
-				while (true)
-				{
-					Gizmos.color = Color.cyan;
-					Gizmos.DrawWireCube(travelBoardSquare.CameraBounds.center, travelBoardSquare.CameraBounds.size);
-					return;
-				}
+				Gizmos.DrawLine(pi.square.GetOccupantRefPos(), pi.prev.square.GetOccupantRefPos());
 			}
-			return;
+		}
+		BoardSquare travelBoardSquare = GetTravelBoardSquare();
+		if (travelBoardSquare != null)
+		{
+			Gizmos.color = Color.cyan;
+			Gizmos.DrawWireCube(travelBoardSquare.CameraBounds.center, travelBoardSquare.CameraBounds.size);
 		}
 	}
 }
