@@ -277,10 +277,8 @@ public class Ability : MonoBehaviour
 		AddSpecificTooltipTokens(list, mod);
 		if (m_techPointInteractions != null && m_techPointInteractions.Length > 0)
 		{
-			TechPointInteraction[] techPointInteractions = m_techPointInteractions;
-			for (int i = 0; i < techPointInteractions.Length; i++)
+			foreach (TechPointInteraction techPointInteraction in m_techPointInteractions)
 			{
-				TechPointInteraction techPointInteraction = techPointInteractions[i];
 				int num = techPointInteraction.m_amount;
 				if (mod != null)
 				{
