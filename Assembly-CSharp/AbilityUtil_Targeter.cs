@@ -218,15 +218,12 @@ public class AbilityUtil_Targeter
 			teleportColor.g *= num;
 			teleportColor.b *= num;
 		}
-		if (m_gameObjectOnCastTarget == null)
+		if (m_gameObjectOnCastTarget == null
+			&& m_ability != null
+			&& AbilityUtils.AbilityHasTag(m_ability, AbilityTags.UseTeleportUIEffect)
+			&& HighlightUtils.Get().m_teleportPrefab != null)
 		{
-			if (m_ability != null)
-			{
-				if (AbilityUtils.AbilityHasTag(m_ability, AbilityTags.UseTeleportUIEffect) && HighlightUtils.Get().m_teleportPrefab != null)
-				{
-					m_gameObjectOnCastTarget = Object.Instantiate(HighlightUtils.Get().m_teleportEndPrefab);
-				}
-			}
+			m_gameObjectOnCastTarget = Object.Instantiate(HighlightUtils.Get().m_teleportEndPrefab);
 		}
 		if (m_gameObjectOnCastTarget != null)
 		{
@@ -825,8 +822,7 @@ public class AbilityUtil_Targeter
 		}
 		if (setOpacity)
 		{
-			HighlightUtils.TargeterOpacityData[] allyTargeterOpacity = HighlightUtils.Get().m_allyTargeterOpacity;
-			float opacityFromTargeterData = GetOpacityFromTargeterData(allyTargeterOpacity, 100f);
+			float opacityFromTargeterData = GetOpacityFromTargeterData(HighlightUtils.Get().m_allyTargeterOpacity, 100f);
 			SetTargeterHighlightOpacity(list, opacityFromTargeterData);
 		}
 		return list;
@@ -1136,7 +1132,7 @@ public class AbilityUtil_Targeter
 	public virtual void UpdateConfirmedTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		float timeSinceChange = Time.time - m_lastAllyTargeterChange;
-		HighlightUtils.TargeterOpacityData[] targeterOpacity = 
+		HighlightUtils.TargeterOpacityData[] targeterOpacity =
 			GameFlowData.Get().activeOwnedActorData == targetingActor
 			? HighlightUtils.Get().m_confirmedTargeterOpacity
 			: HighlightUtils.Get().m_allyTargeterOpacity;
@@ -1320,21 +1316,21 @@ public class AbilityUtil_Targeter
 	private static Mesh CreateRectMesh(float halfWidth, float halfHeight)
 	{
 		Mesh mesh = new Mesh();
-		mesh.vertices = new Vector3[4]
+		mesh.vertices = new Vector3[]
 		{
-			new Vector3(0f - halfWidth, 0f, 0f - halfHeight),
-			new Vector3(halfWidth, 0f, 0f - halfHeight),
+			new Vector3(-halfWidth, 0f, -halfHeight),
+			new Vector3(halfWidth, 0f, -halfHeight),
 			new Vector3(halfWidth, 0f, halfHeight),
-			new Vector3(0f - halfWidth, 0f, halfHeight)
+			new Vector3(-halfWidth, 0f, halfHeight)
 		};
-		mesh.uv = new Vector2[4]
+		mesh.uv = new Vector2[]
 		{
 			new Vector2(0f, 0f),
 			new Vector2(0f, 1f),
 			new Vector2(1f, 1f),
 			new Vector2(1f, 0f)
 		};
-		mesh.triangles = new int[6]
+		mesh.triangles = new int[]
 		{
 			0,
 			1,
