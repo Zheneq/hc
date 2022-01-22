@@ -257,8 +257,7 @@ public class AbilityData : NetworkBehaviour
 			if (m_softTargetedActor != value)
 			{
 				m_softTargetedActor = value;
-				ActorData actor = m_actor;
-				if (actor == GameFlowData.Get().activeOwnedActorData)
+				if (m_actor == GameFlowData.Get().activeOwnedActorData)
 				{
 					CameraManager cameraManager = CameraManager.Get();
 					if (m_softTargetedActor)
@@ -518,7 +517,7 @@ public class AbilityData : NetworkBehaviour
 		if (characterData != null && character.m_characterType != CharacterType.None && actionType != ActionType.INVALID_ACTION)
 		{
 			int count = characterData.CharacterComponent.Taunts.Count;
-			
+
 			for (int i = 0; i < character.m_taunts.Count && i < count; i++)
 			{
 				CharacterTaunt characterTaunt = character.m_taunts[i];
@@ -564,11 +563,12 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			
-			for (int i = 0;  i < NUM_ACTIONS; i++)
+
+			for (int i = 0; i < NUM_ACTIONS; i++)
 			{
 				Ability ability = m_abilities[i].ability;
-				if ((teamSensitiveData_authority.HasQueuedAction(i) || ability != null && ability == GetSelectedAbility())
+				if ((teamSensitiveData_authority.HasQueuedAction(i)
+					|| ability != null && ability == GetSelectedAbility())
 					&& UIQueueListPanel.GetUIPhaseFromAbilityPriority(m_abilities[i].ability.RunPriority) == actionPhase)
 				{
 					list.Add(m_abilities[i]);
@@ -620,7 +620,7 @@ public class AbilityData : NetworkBehaviour
 	public void NextSoftTarget()
 	{
 		ActorTurnSM actorTurnSM = m_actor.GetActorTurnSM();
-		if (actorTurnSM)
+		if (actorTurnSM != null)
 		{
 			int targetSelectionIndex = actorTurnSM.GetTargetSelectionIndex();
 			int numTargets = m_selectedAbility.GetNumTargets();
@@ -1575,7 +1575,7 @@ public class AbilityData : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void AbilityData::SynchronizeCooldownsToSlots()' called on client");
 			return;
 		}
-		
+
 		for (int i = 0; i < m_abilities.Length; i++)
 		{
 			AbilityEntry abilityEntry = m_abilities[i];
@@ -1935,11 +1935,8 @@ public class AbilityData : NetworkBehaviour
 				|| targetingParadigm == Ability.TargetingParadigm.Position)
 			{
 				BoardSquare square = Board.Get().GetSquare(target.GridPos);
-				if (actor.LineOfSightVisibleExceptionSquares.Contains(square))
-				{
-					return true;
-				}
-				else if (actor.GetCurrentBoardSquare().GetLOS(target.GridPos.x, target.GridPos.y))
+				if (actor.LineOfSightVisibleExceptionSquares.Contains(square)
+					|| actor.GetCurrentBoardSquare().GetLOS(target.GridPos.x, target.GridPos.y))
 				{
 					return true;
 				}
@@ -1971,7 +1968,7 @@ public class AbilityData : NetworkBehaviour
 	{
 		bool result = false;
 		ActorTurnSM actorTurnSM = m_actor.GetActorTurnSM();
-		if (actorTurnSM)
+		if (actorTurnSM != null)
 		{
 			List<AbilityTarget> abilityTargets = actorTurnSM.GetAbilityTargets();
 			if (abilityTargets != null)
