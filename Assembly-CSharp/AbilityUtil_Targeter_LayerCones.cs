@@ -72,7 +72,7 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		ClearActorsInRange();
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 vector;
 		if (currentTarget == null)
 		{
@@ -216,7 +216,7 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
 			ResetSquareIndicatorIndexToUse();
-			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 			Vector3 vec = currentTarget?.AimDirection ?? targetingActor.transform.forward;
 			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vec);
 			AreaEffectUtils.OperateOnSquaresInCone(m_indicatorHandler, travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, m_coneWidthAngle, GetMaxConeRadius(), m_coneBackwardOffsetInSquares, targetingActor, m_penetrateLoS);

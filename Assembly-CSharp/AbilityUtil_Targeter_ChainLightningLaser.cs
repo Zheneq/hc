@@ -53,7 +53,7 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 		AllocateHighlights();
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, true);
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
-		laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		laserCoords.start = targetingActor.GetLoSCheckPos();
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, m_distance, m_width, targetingActor, relevantTeams, m_penetrateLos, m_maxTargets, false, false, out laserCoords.end, null);
 		GameObject highlightObj = m_highlights[0];
 		SquareInsideChecker_Box squareInsideChecker_Box = m_squarePosCheckerList[0] as SquareInsideChecker_Box;
@@ -91,7 +91,7 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 					ActorData actorData2 = FindChainHitActor(actorData, targetingActor, list);
 					if (actorData2 != null)
 					{
-						AddActorInRange(actorData2, actorData.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Secondary);
+						AddActorInRange(actorData2, actorData.GetLoSCheckPos(), targetingActor, AbilityTooltipSubject.Secondary);
 						list.Add(actorData2);
 						if (num + 1 < m_highlights.Count)
 						{
@@ -146,7 +146,7 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 	{
 		ActorData result = null;
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, m_affectsAllies, true);
-		Vector3 travelBoardSquareWorldPositionForLos = fromActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = fromActor.GetLoSCheckPos();
 		List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(travelBoardSquareWorldPositionForLos, m_chainRadius, m_penetrateLos, caster, relevantTeams, null);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		TargeterUtils.SortActorsByDistanceToPos(ref actors, travelBoardSquareWorldPositionForLos);

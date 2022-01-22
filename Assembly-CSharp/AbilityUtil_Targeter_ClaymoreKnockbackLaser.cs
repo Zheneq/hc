@@ -48,7 +48,7 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		ClearActorsInRange();
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
-		laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		laserCoords.start = targetingActor.GetLoSCheckPos();
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, m_laserRange, m_laserWidth, targetingActor, targetingActor.GetEnemyTeams(), m_penetrateLos, m_maxTargets, m_lengthIgnoreGeo, false, out laserCoords.end, null);
 		List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, m_laserRange, m_laserMiddleWidth, targetingActor, targetingActor.GetEnemyTeams(), m_penetrateLos, m_maxTargets, m_lengthIgnoreGeo, false, out laserCoords.end, null);
 		VectorUtils.LaserCoords laserCoords2 = laserCoords;

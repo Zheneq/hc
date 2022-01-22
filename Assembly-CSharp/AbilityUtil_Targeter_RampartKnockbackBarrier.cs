@@ -102,7 +102,7 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		Vector3 a2 = vector - 0.5f * num * a;
 		gameObject.transform.position = a2 + new Vector3(0f, 0.1f, 0f);
 		gameObject.transform.rotation = Quaternion.LookRotation(-a);
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 start = (!(boardSquare != null)) ? travelBoardSquareWorldPositionForLos : boardSquare.ToVector3();
 		start.y = travelBoardSquareWorldPositionForLos.y;
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);

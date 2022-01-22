@@ -985,11 +985,11 @@ public class Ability : MonoBehaviour
 		{
 			if (ignoreLosSettingOnTargetData)
 			{
-				isInRange = isInRange && caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y);
+				isInRange = isInRange && caster.GetCurrentBoardSquare().GetLOS(currentBoardSquare.x, currentBoardSquare.y);
 			}
 			else
 			{
-				isInRange = isInRange && (!GetCheckLoS(0) || caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y));
+				isInRange = isInRange && (!GetCheckLoS(0) || caster.GetCurrentBoardSquare().GetLOS(currentBoardSquare.x, currentBoardSquare.y));
 			}
 		}
 

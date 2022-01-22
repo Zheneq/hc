@@ -31,7 +31,7 @@ public class NanoSmithBoltInfo
 		Vector3 start = boltStartPos;
 		if (startTargetingFromCaster)
 		{
-			start = caster.GetTravelBoardSquareWorldPositionForLos();
+			start = caster.GetLoSCheckPos();
 		}
 		VectorUtils.LaserCoords coords = default(VectorUtils.LaserCoords);
 		coords.start = start;

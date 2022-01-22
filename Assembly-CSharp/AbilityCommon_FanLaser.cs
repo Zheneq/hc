@@ -64,7 +64,7 @@ public class AbilityCommon_FanLaser
 		for (int i = 0; i < numLasers; i++)
 		{
 			Vector3 dir = VectorUtils.AngleDegreesToVector(num6 + (float)i * num);
-			laserCoords.start = caster.GetTravelBoardSquareWorldPositionForLos();
+			laserCoords.start = caster.GetLoSCheckPos();
 			List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, laserInfo.affectsAllies, laserInfo.affectsEnemies);
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, dir, laserInfo.range, laserInfo.width, caster, relevantTeams, laserInfo.penetrateLos, maxTargets, false, true, out laserCoords.end, nonActorTargetInfo);
 			if (i == 0)

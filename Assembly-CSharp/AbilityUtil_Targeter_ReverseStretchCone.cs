@@ -68,7 +68,7 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		worldPositionForLoS -= lengthInSquares * Board.Get().squareSize * vector;
 		CreateConeCursorHighlights(worldPositionForLoS, vector, lengthInSquares, angleInDegrees);
 		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(worldPositionForLoS, num, angleInDegrees, lengthInSquares - m_coneBackwardOffsetInSquares, m_coneBackwardOffsetInSquares, true, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, m_includeAllies, m_includeEnemies), null);
-		TargeterUtils.SortActorsByDistanceToPos(ref actors, targetingActor.GetTravelBoardSquareWorldPositionForLos() - vector);
+		TargeterUtils.SortActorsByDistanceToPos(ref actors, targetingActor.GetLoSCheckPos() - vector);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		if (m_includeCaster)
 		{
@@ -87,7 +87,7 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 				continue;
 			}
 			AddActorInRange(actorData, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor);
-			if ((a - actorData.GetTravelBoardSquareWorldPositionForLos()).sqrMagnitude <= num2)
+			if ((a - actorData.GetLoSCheckPos()).sqrMagnitude <= num2)
 			{
 				AddActorInRange(actorData, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Far, true);
 			}
@@ -126,7 +126,7 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		while (true)
 		{
 			m_coneChecker.UpdateConeProperties(coneStartPos, coneWidthDegrees, coneLengthSquares - m_coneBackwardOffsetInSquares, m_coneBackwardOffsetInSquares, forwardDir_degrees, targetingActor);
-			m_coneChecker.SetLosPosOverride(true, targetingActor.GetTravelBoardSquareWorldPositionForLos(), false);
+			m_coneChecker.SetLosPosOverride(true, targetingActor.GetLoSCheckPos(), false);
 			ResetSquareIndicatorIndexToUse();
 			AreaEffectUtils.OperateOnSquaresInCone(m_indicatorHandler, coneStartPos, forwardDir_degrees, coneWidthDegrees, coneLengthSquares - m_coneBackwardOffsetInSquares, m_coneBackwardOffsetInSquares, targetingActor, m_penetrateLoS, m_squarePosCheckerList);
 			HideUnusedSquareIndicators();
@@ -164,7 +164,7 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		if (!m_penetrateLoS)
 		{
 			BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
-			if (!caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y))
+			if (!caster.GetCurrentBoardSquare().GetLOS(currentBoardSquare.x, currentBoardSquare.y))
 			{
 				result = false;
 			}

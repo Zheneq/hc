@@ -42,7 +42,7 @@ public class AbilityUtil_Targeter_LaserMultiple : AbilityUtil_Targeter
 		ClearActorsInRange();
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		float widthInWorld = m_laserInfo.width * Board.Get().squareSize;
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		float num = VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection);
 		float num2 = num - 0.5f * (float)(m_laserCount - 1) * m_angleInBetween;
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);

@@ -354,7 +354,7 @@ public class BlasterStretchConeSequence : Sequence
 			ActorData[] targets = base.Targets;
 			foreach (ActorData actorData in targets)
 			{
-				float num4 = (actorData.GetTravelBoardSquareWorldPositionForLos() - base.Caster.GetTravelBoardSquareWorldPositionForLos()).magnitude;
+				float num4 = (actorData.GetLoSCheckPos() - base.Caster.GetLoSCheckPos()).magnitude;
 				if (GameWideData.Get().UseActorRadiusForCone())
 				{
 					num4 += GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
@@ -404,7 +404,7 @@ public class BlasterStretchConeSequence : Sequence
 			float value;
 			if (m_projectilesCauseHitReacts)
 			{
-				Vector3 lhs = m_fxJoint.m_jointObject.transform.position - base.Caster.GetTravelBoardSquareWorldPositionForLos();
+				Vector3 lhs = m_fxJoint.m_jointObject.transform.position - base.Caster.GetLoSCheckPos();
 				lhs = Vector3.Dot(lhs, vector) * vector.normalized;
 				value = GetProjectileDistanceWithActorCollisions(coneStartPos, vector, m_maxDistInWorld - lhs.magnitude, projectileIndex);
 			}

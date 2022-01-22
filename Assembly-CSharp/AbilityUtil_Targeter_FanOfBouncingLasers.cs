@@ -107,7 +107,7 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 		{
 			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
 		}
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		HitActorContext item = default(HitActorContext);
 		for (int i = 0; i < m_count; i++)
 		{

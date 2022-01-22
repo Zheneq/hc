@@ -229,7 +229,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 			Vector3 damageOrigin;
 			if (m_damageOriginType == DamageOriginType.CasterPos)
 			{
-				damageOrigin = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+				damageOrigin = targetingActor.GetLoSCheckPos();
 			}
 			else
 			{

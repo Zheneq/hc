@@ -89,7 +89,7 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 		list.Add(m_squarePosCheckerList[0] as SquareInsideChecker_Box);
 		list.Add(m_squarePosCheckerList[1] as SquareInsideChecker_Box);
 		SquareInsideChecker_Cone squareInsideChecker_Cone = m_squarePosCheckerList[2] as SquareInsideChecker_Cone;
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		int num = 2;
 		if (m_delegateLaserCount != null)
 		{
@@ -119,7 +119,7 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 		{
 			vector2 = laserEndPosList[0];
 		}
-		float value = AbilityCommon_DualMeetingLasers.CalcMeetingPosDistFromMin(targetingActor.GetTravelBoardSquareWorldPositionForLos(), vector, m_minMeetingDistFromCaster);
+		float value = AbilityCommon_DualMeetingLasers.CalcMeetingPosDistFromMin(targetingActor.GetLoSCheckPos(), vector, m_minMeetingDistFromCaster);
 		if (aoeEndPosIndex >= 0)
 		{
 			using (List<ActorData>.Enumerator enumerator = aoeHitActors.GetEnumerator())

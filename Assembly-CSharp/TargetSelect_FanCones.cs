@@ -231,7 +231,7 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 	public virtual List<Vector3> GetConeOrigins(AbilityTarget currentTarget, Vector3 targeterFreePos, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
 		Vector3 aimDirection = currentTarget.AimDirection;
 		Vector3 normalized = Vector3.Cross(aimDirection, Vector3.up).normalized;
 		int coneCount = GetConeCount();

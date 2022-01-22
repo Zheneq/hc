@@ -77,7 +77,7 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 		{
 			m_highlights[num2].SetActive(false);
 			m_highlights[num2 + 1].SetActive(false);
-			Vector3 vector = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			Vector3 vector = targetingActor.GetLoSCheckPos();
 			if (currentTargetIndex > 0)
 			{
 				BoardSquare boardSquareSafe = Board.Get().GetSquare(targets[0].GridPos);
@@ -111,7 +111,7 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 		}
 		while (true)
 		{
-			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Self);
+			AddActorInRange(targetingActor, targetingActor.GetLoSCheckPos(), targetingActor, AbilityTooltipSubject.Self);
 			return;
 		}
 	}

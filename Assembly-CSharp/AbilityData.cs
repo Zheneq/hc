@@ -9,61 +9,36 @@ using UnityEngine.Networking;
 public class AbilityData : NetworkBehaviour
 {
 	public const int INVALID_ACTION = -1;
-
 	public const int ABILITY_0 = 0;
-
 	public const int ABILITY_1 = 1;
-
 	public const int ABILITY_2 = 2;
-
 	public const int ABILITY_3 = 3;
-
 	public const int ABILITY_4 = 4;
-
 	public const int ABILITY_5 = 5;
-
 	public const int ABILITY_6 = 6;
-
 	public const int CARD_0 = 7;
-
 	public const int CARD_1 = 8;
-
 	public const int CARD_2 = 9;
-
-	public const int CHAIN_0 = 0xA;
-
-	public const int CHAIN_1 = 0xB;
-
-	public const int CHAIN_2 = 0xC;
-
-	public const int CHAIN_3 = 0xD;
-
-	public const int NUM_ACTIONS = 0xE;
+	public const int CHAIN_0 = 10;
+	public const int CHAIN_1 = 11;
+	public const int CHAIN_2 = 12;
+	public const int CHAIN_3 = 13;
+	public const int NUM_ACTIONS = 14;
 
 	public const int NUM_ABILITIES = 7;
-
 	public const int NUM_CARDS = 3;
-
 	public const int LAST_CARD = 9;
 
 	private SyncListInt m_cooldownsSync = new SyncListInt();
-
 	private SyncListInt m_consumedStockCount = new SyncListInt();
-
 	private SyncListInt m_stockRefreshCountdowns = new SyncListInt();
-
 	private SyncListInt m_currentCardIds = new SyncListInt();
 
-	private AbilityData.AbilityEntry[] m_abilities;
-
+	private AbilityEntry[] m_abilities;
 	private List<Ability> m_allChainAbilities;
-
-	private List<AbilityData.ActionType> m_allChainAbilityParentActionTypes;
-
+	private List<ActionType> m_allChainAbilityParentActionTypes;
 	private Dictionary<CardType, Card> m_cardTypeToCardInstance = new Dictionary<CardType, Card>();
-
 	private List<Ability> m_cachedCardAbilities = new List<Ability>();
-
 	private Dictionary<string, int> m_cooldowns;
 
 	[Header("-- Whether to skip for localization for abilities and mods --")]
@@ -71,47 +46,40 @@ public class AbilityData : NetworkBehaviour
 
 	[Header("-- Abilities --")]
 	public Ability m_ability0;
-
 	[AssetFileSelector("", "", "")]
 	public string m_spritePath0;
 
 	[Space(5f)]
 	public Ability m_ability1;
-
 	[AssetFileSelector("", "", "")]
 	public string m_spritePath1;
 
 	[Space(5f)]
 	public Ability m_ability2;
-
 	[AssetFileSelector("", "", "")]
 	public string m_spritePath2;
 
 	[Space(5f)]
 	public Ability m_ability3;
-
 	[AssetFileSelector("", "", "")]
 	public string m_spritePath3;
 
 	[Space(5f)]
 	public Ability m_ability4;
-
 	[AssetFileSelector("", "", "")]
 	public string m_spritePath4;
 
 	[Header("NOTE: Ability 5 and 6 are unused at the moment")]
 	public Ability m_ability5;
-
 	[AssetFileSelector("", "", "")]
 	public string m_spritePath5;
 
 	public Ability m_ability6;
-
 	[AssetFileSelector("", "", "")]
 	public string m_spritePath6;
 
 	[Header("The first matching entry is used for mods. Or the mods marked as 'default'.")]
-	public List<AbilityData.BotAbilityModSet> m_botDifficultyAbilityModSets = new List<AbilityData.BotAbilityModSet>();
+	public List<BotAbilityModSet> m_botDifficultyAbilityModSets = new List<BotAbilityModSet>();
 
 	private List<Ability> m_abilitiesList;
 
@@ -119,75 +87,48 @@ public class AbilityData : NetworkBehaviour
 	public List<Component> m_compsToInspectInAbilityKitInspector;
 
 	[Header("-- Name of directory where sequence prefab is located")]
-	public string m_sequenceDirNameOverride = string.Empty;
+	public string m_sequenceDirNameOverride = "";
 
 	public AbilitySetupNotes m_setupNotes;
-
 	private ActorData m_softTargetedActor;
-
 	private Ability m_selectedAbility;
 
 	[SyncVar]
-	private AbilityData.ActionType m_selectedActionForTargeting = AbilityData.ActionType.INVALID_ACTION;
+	private ActionType m_selectedActionForTargeting = ActionType.INVALID_ACTION;
 
-	private List<AbilityData.ActionType> m_actionsToCancelForTurnRedo;
-
+	private List<ActionType> m_actionsToCancelForTurnRedo;
 	private bool m_loggedErrorForNullAction;
-
 	private bool m_cancelMovementForTurnRedo;
-
-	private AbilityData.ActionType m_actionToSelectWhenEnteringDecisionState = AbilityData.ActionType.INVALID_ACTION;
-
+	private ActionType m_actionToSelectWhenEnteringDecisionState = ActionType.INVALID_ACTION;
 	private bool m_retargetActionWithoutClearingOldAbilities;
-
 	private ActorData m_actor;
-
 	private float m_lastPingSendTime;
-
 	private bool m_abilitySpritesInitialized;
 
 	public static Color s_freeActionTextColor = new Color(0f, 1f, 0f);
-
 	public static float s_heightPerButton = 75f;
-
 	public static float s_heightFromBottom = 75f;
-
 	public static float s_widthPerButton = 64f;
-
 	public static int s_abilityButtonSlots = 8;
-
-	public static float s_widthOfAllButtons = AbilityData.s_widthPerButton * (float)AbilityData.s_abilityButtonSlots;
+	public static float s_widthOfAllButtons = s_widthPerButton * s_abilityButtonSlots;
 
 	private Ability m_lastSelectedAbility;
 
-	[CompilerGenerated]
-	private static Comparison<ActorData> f__mg_cache0;
-
-	private static int kListm_cooldownsSync;
-
-	private static int kListm_consumedStockCount;
-
-	private static int kListm_stockRefreshCountdowns;
-
-	private static int kListm_currentCardIds;
-
+	private static int kListm_cooldownsSync = -0x6512D205;
+	private static int kListm_consumedStockCount = 0x52CC1FC9;
+	private static int kListm_stockRefreshCountdowns = -0x3C9C58B1;
+	private static int kListm_currentCardIds = 0x16E4E7F7;
 	private static int kCmdCmdClearCooldowns = 0x228F4CF;
-
-	private static int kCmdCmdRefillStocks;
+	private static int kCmdCmdRefillStocks = 0x42186527;
 
 	static AbilityData()
 	{
-		NetworkBehaviour.RegisterCommandDelegate(typeof(AbilityData), AbilityData.kCmdCmdClearCooldowns, new NetworkBehaviour.CmdDelegate(AbilityData.InvokeCmdCmdClearCooldowns));
-		AbilityData.kCmdCmdRefillStocks = 0x42186527;
-		NetworkBehaviour.RegisterCommandDelegate(typeof(AbilityData), AbilityData.kCmdCmdRefillStocks, new NetworkBehaviour.CmdDelegate(AbilityData.InvokeCmdCmdRefillStocks));
-		AbilityData.kListm_cooldownsSync = -0x6512D205;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(AbilityData), AbilityData.kListm_cooldownsSync, new NetworkBehaviour.CmdDelegate(AbilityData.InvokeSyncListm_cooldownsSync));
-		AbilityData.kListm_consumedStockCount = 0x52CC1FC9;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(AbilityData), AbilityData.kListm_consumedStockCount, new NetworkBehaviour.CmdDelegate(AbilityData.InvokeSyncListm_consumedStockCount));
-		AbilityData.kListm_stockRefreshCountdowns = -0x3C9C58B1;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(AbilityData), AbilityData.kListm_stockRefreshCountdowns, new NetworkBehaviour.CmdDelegate(AbilityData.InvokeSyncListm_stockRefreshCountdowns));
-		AbilityData.kListm_currentCardIds = 0x16E4E7F7;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(AbilityData), AbilityData.kListm_currentCardIds, new NetworkBehaviour.CmdDelegate(AbilityData.InvokeSyncListm_currentCardIds));
+		RegisterCommandDelegate(typeof(AbilityData), kCmdCmdClearCooldowns, new CmdDelegate(InvokeCmdCmdClearCooldowns));
+		RegisterCommandDelegate(typeof(AbilityData), kCmdCmdRefillStocks, new CmdDelegate(InvokeCmdCmdRefillStocks));
+		RegisterSyncListDelegate(typeof(AbilityData), kListm_cooldownsSync, new CmdDelegate(InvokeSyncListm_cooldownsSync));
+		RegisterSyncListDelegate(typeof(AbilityData), kListm_consumedStockCount, new CmdDelegate(InvokeSyncListm_consumedStockCount));
+		RegisterSyncListDelegate(typeof(AbilityData), kListm_stockRefreshCountdowns, new CmdDelegate(InvokeSyncListm_stockRefreshCountdowns));
+		RegisterSyncListDelegate(typeof(AbilityData), kListm_currentCardIds, new CmdDelegate(InvokeSyncListm_currentCardIds));
 		NetworkCRC.RegisterBehaviour("AbilityData", 0);
 	}
 
@@ -195,15 +136,15 @@ public class AbilityData : NetworkBehaviour
 	{
 		get
 		{
-			return this.m_currentCardIds;
+			return m_currentCardIds;
 		}
 	}
 
-	public AbilityData.AbilityEntry[] abilityEntries
+	public AbilityEntry[] abilityEntries
 	{
 		get
 		{
-			return this.m_abilities;
+			return m_abilities;
 		}
 	}
 
@@ -220,7 +161,7 @@ public class AbilityData : NetworkBehaviour
 	{
 		get
 		{
-			return this.GetSpriteFromPath(this.m_spritePath0);
+			return GetSpriteFromPath(m_spritePath0);
 		}
 	}
 
@@ -228,7 +169,7 @@ public class AbilityData : NetworkBehaviour
 	{
 		get
 		{
-			return this.GetSpriteFromPath(this.m_spritePath1);
+			return GetSpriteFromPath(m_spritePath1);
 		}
 	}
 
@@ -236,7 +177,7 @@ public class AbilityData : NetworkBehaviour
 	{
 		get
 		{
-			return this.GetSpriteFromPath(this.m_spritePath2);
+			return GetSpriteFromPath(m_spritePath2);
 		}
 	}
 
@@ -244,7 +185,7 @@ public class AbilityData : NetworkBehaviour
 	{
 		get
 		{
-			return this.GetSpriteFromPath(this.m_spritePath3);
+			return GetSpriteFromPath(m_spritePath3);
 		}
 	}
 
@@ -252,7 +193,7 @@ public class AbilityData : NetworkBehaviour
 	{
 		get
 		{
-			return this.GetSpriteFromPath(this.m_spritePath4);
+			return GetSpriteFromPath(m_spritePath4);
 		}
 	}
 
@@ -260,7 +201,7 @@ public class AbilityData : NetworkBehaviour
 	{
 		get
 		{
-			return this.GetSpriteFromPath(this.m_spritePath5);
+			return GetSpriteFromPath(m_spritePath5);
 		}
 	}
 
@@ -268,45 +209,40 @@ public class AbilityData : NetworkBehaviour
 	{
 		get
 		{
-			return this.GetSpriteFromPath(this.m_spritePath6);
+			return GetSpriteFromPath(m_spritePath6);
 		}
 	}
 
 	public List<Ability> GetAbilitiesAsList()
 	{
-		if (this.m_abilitiesList != null)
+		if (m_abilitiesList == null || m_abilitiesList.Count == 0)
 		{
-			if (this.m_abilitiesList.Count != 0)
-			{
-				goto IL_88;
-			}
+			m_abilitiesList = new List<Ability>();
+			m_abilitiesList.Add(m_ability0);
+			m_abilitiesList.Add(m_ability1);
+			m_abilitiesList.Add(m_ability2);
+			m_abilitiesList.Add(m_ability3);
+			m_abilitiesList.Add(m_ability4);
 		}
-		this.m_abilitiesList = new List<Ability>();
-		this.m_abilitiesList.Add(this.m_ability0);
-		this.m_abilitiesList.Add(this.m_ability1);
-		this.m_abilitiesList.Add(this.m_ability2);
-		this.m_abilitiesList.Add(this.m_ability3);
-		this.m_abilitiesList.Add(this.m_ability4);
-		IL_88:
-		return this.m_abilitiesList;
+		return m_abilitiesList;
 	}
 
 	public Ability GetAbilityAtIndex(int index)
 	{
 		switch (index)
 		{
-		case 0:
-			return this.m_ability0;
-		case 1:
-			return this.m_ability1;
-		case 2:
-			return this.m_ability2;
-		case 3:
-			return this.m_ability3;
-		case 4:
-			return this.m_ability4;
-		default:
-			return null;
+			case 0:
+				return m_ability0;
+			case 1:
+				return m_ability1;
+			case 2:
+				return m_ability2;
+			case 3:
+				return m_ability3;
+			case 4:
+				return m_ability4;
+			default:
+				return null;
 		}
 	}
 
@@ -314,39 +250,39 @@ public class AbilityData : NetworkBehaviour
 	{
 		get
 		{
-			return this.m_softTargetedActor;
+			return m_softTargetedActor;
 		}
 		set
 		{
-			if (this.m_softTargetedActor != value)
+			if (m_softTargetedActor != value)
 			{
-				this.m_softTargetedActor = value;
-				ActorData actor = this.m_actor;
+				m_softTargetedActor = value;
+				ActorData actor = m_actor;
 				if (actor == GameFlowData.Get().activeOwnedActorData)
 				{
 					CameraManager cameraManager = CameraManager.Get();
-					if (this.m_softTargetedActor)
+					if (m_softTargetedActor)
 					{
-						cameraManager.SetTargetObjectToMouse(this.m_softTargetedActor.gameObject, CameraManager.CameraTargetReason.AbilitySoftTargeting);
+						cameraManager.SetTargetObjectToMouse(m_softTargetedActor.gameObject, CameraManager.CameraTargetReason.AbilitySoftTargeting);
 					}
 					else if (!cameraManager.IsOnMainCamera(GameFlowData.Get().activeOwnedActorData))
 					{
-						cameraManager.SetTargetObject(base.gameObject, CameraManager.CameraTargetReason.AbilitySoftTargeting);
+						cameraManager.SetTargetObject(gameObject, CameraManager.CameraTargetReason.AbilitySoftTargeting);
 					}
 				}
 			}
 		}
 	}
 
-	public AbilityData.ActionType GetSelectedActionTypeForTargeting()
+	public ActionType GetSelectedActionTypeForTargeting()
 	{
-		return this.m_selectedActionForTargeting;
+		return m_selectedActionForTargeting;
 	}
 
-	public bool HasToggledAction(AbilityData.ActionType actionType)
+	public bool HasToggledAction(ActionType actionType)
 	{
 		bool result = false;
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
 			result = teamSensitiveData_authority.HasToggledAction(actionType);
@@ -354,10 +290,10 @@ public class AbilityData : NetworkBehaviour
 		return result;
 	}
 
-	public bool HasQueuedAction(AbilityData.ActionType actionType)
+	public bool HasQueuedAction(ActionType actionType)
 	{
 		bool result = false;
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
 			result = teamSensitiveData_authority.HasQueuedAction(actionType);
@@ -367,14 +303,14 @@ public class AbilityData : NetworkBehaviour
 
 	public bool HasQueuedAbilityOfType(Type abilityType)
 	{
-		AbilityData.ActionType actionTypeOfAbility = this.GetActionTypeOfAbility(this.GetAbilityOfType(abilityType));
-		return this.HasQueuedAction(actionTypeOfAbility);
+		ActionType actionTypeOfAbility = GetActionTypeOfAbility(GetAbilityOfType(abilityType));
+		return HasQueuedAction(actionTypeOfAbility);
 	}
 
 	public bool HasQueuedAbilityInPhase(AbilityPriority phase)
 	{
 		bool result = false;
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
 			result = teamSensitiveData_authority.HasQueuedAbilityInPhase(phase);
@@ -384,68 +320,68 @@ public class AbilityData : NetworkBehaviour
 
 	private void Awake()
 	{
-		this.m_abilities = new AbilityData.AbilityEntry[0xE];
-		for (int i = 0; i < 0xE; i++)
+		m_abilities = new AbilityEntry[NUM_ACTIONS];
+		for (int i = 0; i < NUM_ACTIONS; i++)
 		{
-			this.m_abilities[i] = new AbilityData.AbilityEntry();
+			m_abilities[i] = new AbilityEntry();
 		}
-		this.m_abilities[0].Setup(this.m_ability0, KeyPreference.Ability1);
-		this.m_abilities[1].Setup(this.m_ability1, KeyPreference.Ability2);
-		this.m_abilities[2].Setup(this.m_ability2, KeyPreference.Ability3);
-		this.m_abilities[3].Setup(this.m_ability3, KeyPreference.Ability4);
-		this.m_abilities[4].Setup(this.m_ability4, KeyPreference.Ability5);
-		this.InitAbilitySprites();
-		this.m_allChainAbilities = new List<Ability>();
-		this.m_allChainAbilityParentActionTypes = new List<AbilityData.ActionType>();
-		for (int j = 0; j < this.m_abilities.Length; j++)
+		m_abilities[0].Setup(m_ability0, KeyPreference.Ability1);
+		m_abilities[1].Setup(m_ability1, KeyPreference.Ability2);
+		m_abilities[2].Setup(m_ability2, KeyPreference.Ability3);
+		m_abilities[3].Setup(m_ability3, KeyPreference.Ability4);
+		m_abilities[4].Setup(m_ability4, KeyPreference.Ability5);
+		InitAbilitySprites();
+		m_allChainAbilities = new List<Ability>();
+		m_allChainAbilityParentActionTypes = new List<ActionType>();
+		for (int j = 0; j < m_abilities.Length; j++)
 		{
-			AbilityData.AbilityEntry abilityEntry = this.m_abilities[j];
+			AbilityEntry abilityEntry = m_abilities[j];
 			if (abilityEntry.ability != null)
 			{
 				foreach (Ability ability in abilityEntry.ability.GetChainAbilities())
 				{
 					if (ability != null)
 					{
-						this.AddToAllChainAbilitiesList(ability, (AbilityData.ActionType)j);
+						AddToAllChainAbilitiesList(ability, (ActionType)j);
 					}
 				}
 			}
 		}
-		this.m_cooldowns = new Dictionary<string, int>();
-		this.m_actor = base.GetComponent<ActorData>();
-		for (int l = 0; l < 3; l++)
+		m_cooldowns = new Dictionary<string, int>();
+		m_actor = GetComponent<ActorData>();
+		for (int l = 0; l < NUM_CARDS; l++)
 		{
-			this.m_cachedCardAbilities.Add(null);
+			m_cachedCardAbilities.Add(null);
 		}
-		this.m_cooldownsSync.InitializeBehaviour(this, AbilityData.kListm_cooldownsSync);
-		this.m_consumedStockCount.InitializeBehaviour(this, AbilityData.kListm_consumedStockCount);
-		this.m_stockRefreshCountdowns.InitializeBehaviour(this, AbilityData.kListm_stockRefreshCountdowns);
-		this.m_currentCardIds.InitializeBehaviour(this, AbilityData.kListm_currentCardIds);
+		m_cooldownsSync.InitializeBehaviour(this, kListm_cooldownsSync);
+		m_consumedStockCount.InitializeBehaviour(this, kListm_consumedStockCount);
+		m_stockRefreshCountdowns.InitializeBehaviour(this, kListm_stockRefreshCountdowns);
+		m_currentCardIds.InitializeBehaviour(this, kListm_currentCardIds);
 	}
 
 	public void InitAbilitySprites()
 	{
-		if (!this.m_abilitySpritesInitialized)
+		if (!m_abilitySpritesInitialized)
 		{
-			this.SetSpriteForAbility(this.m_ability0, this.m_sprite0);
-			this.SetSpriteForAbility(this.m_ability1, this.m_sprite1);
-			this.SetSpriteForAbility(this.m_ability2, this.m_sprite2);
-			this.SetSpriteForAbility(this.m_ability3, this.m_sprite3);
-			this.SetSpriteForAbility(this.m_ability4, this.m_sprite4);
-			this.m_abilitySpritesInitialized = true;
+			SetSpriteForAbility(m_ability0, m_sprite0);
+			SetSpriteForAbility(m_ability1, m_sprite1);
+			SetSpriteForAbility(m_ability2, m_sprite2);
+			SetSpriteForAbility(m_ability3, m_sprite3);
+			SetSpriteForAbility(m_ability4, m_sprite4);
+			m_abilitySpritesInitialized = true;
 		}
 	}
 
-	private void AddToAllChainAbilitiesList(Ability aChainAbility, AbilityData.ActionType parentActionType)
+	private void AddToAllChainAbilitiesList(Ability aChainAbility, ActionType parentActionType)
 	{
-		this.m_allChainAbilities.Add(aChainAbility);
-		this.m_allChainAbilityParentActionTypes.Add(parentActionType);
+		m_allChainAbilities.Add(aChainAbility);
+		m_allChainAbilityParentActionTypes.Add(parentActionType);
 	}
 
 	private void ClearAllChainAbilitiesList()
 	{
-		this.m_allChainAbilities.Clear();
-		this.m_allChainAbilityParentActionTypes.Clear();
+		m_allChainAbilities.Clear();
+		m_allChainAbilityParentActionTypes.Clear();
 	}
 
 	private void SetSpriteForAbility(Ability ability, Sprite sprite)
@@ -468,144 +404,87 @@ public class AbilityData : NetworkBehaviour
 
 	public override void OnStartClient()
 	{
-		this.m_cooldownsSync.Callback = new SyncList<int>.SyncListChanged(this.SyncListCallbackCoolDownsSync);
-		this.m_currentCardIds.Callback = new SyncList<int>.SyncListChanged(this.SyncListCallbackCurrentCardsChanged);
+		m_cooldownsSync.Callback = new SyncList<int>.SyncListChanged(SyncListCallbackCoolDownsSync);
+		m_currentCardIds.Callback = new SyncList<int>.SyncListChanged(SyncListCallbackCurrentCardsChanged);
 	}
 
 	public override void OnStartServer()
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < NUM_ACTIONS; i++)
 		{
-			this.m_cooldownsSync.Add(0);
-			this.m_consumedStockCount.Add(0);
-			this.m_stockRefreshCountdowns.Add(0);
+			m_cooldownsSync.Add(0);
+			m_consumedStockCount.Add(0);
+			m_stockRefreshCountdowns.Add(0);
 		}
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < NUM_CARDS; j++)
 		{
-			this.m_currentCardIds.Add(-1);
+			m_currentCardIds.Add(-1);
 		}
 		if (GameplayUtils.IsPlayerControlled(this))
 		{
 			int num = GameplayData.Get().m_turnsAbilitiesUnlock.Length;
-			int k = 0;
-			while (k < num)
+			for (int k = 0; k < num && k < NUM_ABILITIES; k++)
 			{
-				if (k >= 7)
-				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_C0;
-					}
-				}
-				else
-				{
-					this.PlaceInCooldownTillTurn((AbilityData.ActionType)k, GameplayData.Get().m_turnsAbilitiesUnlock[k]);
-					k++;
-				}
+				PlaceInCooldownTillTurn((ActionType)k, GameplayData.Get().m_turnsAbilitiesUnlock[k]);
 			}
 		}
-		IL_C0:
-		this.InitializeStockCounts();
+		InitializeStockCounts();
 	}
 
 	public void ReInitializeChainAbilityList()
 	{
-		this.ClearAllChainAbilitiesList();
-		for (int i = 0; i < this.m_abilities.Length; i++)
+		ClearAllChainAbilitiesList();
+		for (int i = 0; i < m_abilities.Length; i++)
 		{
-			AbilityData.AbilityEntry abilityEntry = this.m_abilities[i];
+			AbilityEntry abilityEntry = m_abilities[i];
 			if (abilityEntry.ability != null)
 			{
 				foreach (Ability ability in abilityEntry.ability.GetChainAbilities())
 				{
 					if (ability != null)
 					{
-						this.AddToAllChainAbilitiesList(ability, (AbilityData.ActionType)i);
+						AddToAllChainAbilitiesList(ability, (ActionType)i);
 					}
 				}
 			}
 		}
 	}
 
-	internal static bool IsCard(AbilityData.ActionType actionType)
+	internal static bool IsCard(ActionType actionType)
 	{
-		bool result;
-		if (actionType >= AbilityData.ActionType.CARD_0)
-		{
-			result = (actionType <= AbilityData.ActionType.CARD_2);
-		}
-		else
-		{
-			result = false;
-		}
-		return result;
+		return actionType >= ActionType.CARD_0 && actionType <= ActionType.CARD_2;
 	}
 
-	internal static bool IsChain(AbilityData.ActionType actionType)
+	internal static bool IsChain(ActionType actionType)
 	{
-		bool result;
-		if (actionType >= AbilityData.ActionType.CHAIN_0)
-		{
-			result = (actionType <= AbilityData.ActionType.CHAIN_2);
-		}
-		else
-		{
-			result = false;
-		}
-		return result;
+		return actionType >= ActionType.CHAIN_0 && actionType <= ActionType.CHAIN_2;
 	}
 
-	internal static bool IsCharacterSpecificAbility(AbilityData.ActionType actionType)
+	internal static bool IsCharacterSpecificAbility(ActionType actionType)
 	{
-		if (actionType == AbilityData.ActionType.INVALID_ACTION)
-		{
-			return false;
-		}
-		if (AbilityData.IsCard(actionType))
-		{
-			return false;
-		}
-		return true;
+		return actionType != ActionType.INVALID_ACTION && !IsCard(actionType);
 	}
 
-	internal List<CameraShotSequence> GetTauntListForActionTypeForPlayer(PersistedCharacterData characterData, CharacterResourceLink character, AbilityData.ActionType actionType)
+	internal List<CameraShotSequence> GetTauntListForActionTypeForPlayer(PersistedCharacterData characterData, CharacterResourceLink character, ActionType actionType)
 	{
 		List<CameraShotSequence> list = new List<CameraShotSequence>();
 		if (characterData != null)
 		{
-			Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
+			Ability abilityOfActionType = GetAbilityOfActionType(actionType);
 			if (abilityOfActionType != null)
 			{
 				for (int i = 0; i < character.m_taunts.Count; i++)
 				{
 					CharacterTaunt characterTaunt = character.m_taunts[i];
-					if (characterTaunt.m_actionForTaunt == actionType)
+					if (characterTaunt.m_actionForTaunt == actionType
+						&& i < characterData.CharacterComponent.Taunts.Count
+						&& characterData.CharacterComponent.Taunts[i].Unlocked)
 					{
-						if (i < characterData.CharacterComponent.Taunts.Count && characterData.CharacterComponent.Taunts[i].Unlocked)
+						TauntCameraSet tauntCamSetData = m_actor.m_tauntCamSetData;
+						CameraShotSequence cameraShotSequence = tauntCamSetData?.GetTauntCam(characterTaunt.m_uniqueID);
+						if (cameraShotSequence != null && abilityOfActionType.CanTriggerAnimAtIndexForTaunt(cameraShotSequence.m_animIndex))
 						{
-							TauntCameraSet tauntCamSetData = this.m_actor.m_tauntCamSetData;
-							CameraShotSequence cameraShotSequence;
-							if (tauntCamSetData != null)
-							{
-								cameraShotSequence = tauntCamSetData.GetTauntCam(characterTaunt.m_uniqueID);
-							}
-							else
-							{
-								cameraShotSequence = null;
-							}
-							CameraShotSequence cameraShotSequence2 = cameraShotSequence;
-							if (cameraShotSequence2 != null)
-							{
-								if (abilityOfActionType.CanTriggerAnimAtIndexForTaunt(cameraShotSequence2.m_animIndex))
-								{
-									list.Add(cameraShotSequence2);
-								}
-							}
+							list.Add(cameraShotSequence);
 						}
 					}
 				}
@@ -614,188 +493,105 @@ public class AbilityData : NetworkBehaviour
 		return list;
 	}
 
-	internal List<CharacterTaunt> GetFullTauntListForActionType(CharacterResourceLink character, AbilityData.ActionType actionType, bool includeHidden = false)
+	internal List<CharacterTaunt> GetFullTauntListForActionType(CharacterResourceLink character, ActionType actionType, bool includeHidden = false)
 	{
 		List<CharacterTaunt> list = new List<CharacterTaunt>();
 		for (int i = 0; i < character.m_taunts.Count; i++)
 		{
 			CharacterTaunt characterTaunt = character.m_taunts[i];
-			if (characterTaunt.m_actionForTaunt == actionType)
+			if (characterTaunt.m_actionForTaunt == actionType
+				&& (includeHidden || !characterTaunt.m_isHidden))
 			{
-				if (!includeHidden)
-				{
-					if (characterTaunt.m_isHidden)
-					{
-						goto IL_5B;
-					}
-				}
 				list.Add(characterTaunt);
 			}
-			IL_5B:;
 		}
 		return list;
 	}
 
-	internal static bool CanTauntForActionTypeForPlayer(PersistedCharacterData characterData, CharacterResourceLink character, AbilityData.ActionType actionType, bool checkTauntUniqueId, int uniqueId)
+	internal static bool CanTauntForActionTypeForPlayer(PersistedCharacterData characterData, CharacterResourceLink character, ActionType actionType, bool checkTauntUniqueId, int uniqueId)
 	{
-		if (CameraManager.Get() != null)
-		{
-			if (CameraManager.Get().m_abilityCinematicState == CameraManager.AbilityCinematicState.Never)
-			{
-				return false;
-			}
-		}
-		if (characterData != null && character.m_characterType != CharacterType.None && actionType != AbilityData.ActionType.INVALID_ACTION)
-		{
-			int count = characterData.CharacterComponent.Taunts.Count;
-			int i = 0;
-			while (i < character.m_taunts.Count)
-			{
-				if (i >= count)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						return false;
-					}
-				}
-				else
-				{
-					CharacterTaunt characterTaunt = character.m_taunts[i];
-					if (characterTaunt != null)
-					{
-						if (characterTaunt.m_actionForTaunt == actionType)
-						{
-							if (checkTauntUniqueId)
-							{
-								if (characterTaunt.m_uniqueID != uniqueId)
-								{
-									goto IL_10A;
-								}
-							}
-							if (characterData.CharacterComponent.Taunts[i].Unlocked && GameManager.Get().GameplayOverrides.IsTauntAllowed(character.m_characterType, (int)actionType, characterTaunt.m_uniqueID))
-							{
-								return true;
-							}
-						}
-					}
-					IL_10A:
-					i++;
-				}
-			}
-		}
-		return false;
-	}
-
-	internal static bool CanTauntApplyToActionType(CharacterResourceLink character, AbilityData.ActionType actionType)
-	{
-		if (CameraManager.Get() != null && CameraManager.Get().m_abilityCinematicState == CameraManager.AbilityCinematicState.Never)
+		if (CameraManager.Get() != null
+			&& CameraManager.Get().m_abilityCinematicState == CameraManager.AbilityCinematicState.Never)
 		{
 			return false;
 		}
-		if (character.m_characterType != CharacterType.None)
+		if (characterData != null && character.m_characterType != CharacterType.None && actionType != ActionType.INVALID_ACTION)
 		{
-			if (actionType != AbilityData.ActionType.INVALID_ACTION)
+			int count = characterData.CharacterComponent.Taunts.Count;
+			
+			for (int i = 0; i < character.m_taunts.Count && i < count; i++)
 			{
-				int num = 0;
-				foreach (CharacterTaunt characterTaunt in character.m_taunts)
+				CharacterTaunt characterTaunt = character.m_taunts[i];
+				if (characterTaunt != null
+					&& characterTaunt.m_actionForTaunt == actionType
+					&& (!checkTauntUniqueId || characterTaunt.m_uniqueID == uniqueId)
+					&& characterData.CharacterComponent.Taunts[i].Unlocked
+					&& GameManager.Get().GameplayOverrides.IsTauntAllowed(character.m_characterType, (int)actionType, characterTaunt.m_uniqueID))
 				{
-					if (characterTaunt.m_actionForTaunt == actionType)
-					{
-						if (GameManager.Get().GameplayOverrides.IsTauntAllowed(character.m_characterType, (int)actionType, characterTaunt.m_uniqueID))
-						{
-							return true;
-						}
-					}
-					num++;
+					return true;
 				}
-				return false;
 			}
 		}
 		return false;
 	}
 
-	public List<AbilityData.AbilityEntry> GetQueuedOrAimingAbilitiesForPhase(UIQueueListPanel.UIPhase actionPhase)
+	internal static bool CanTauntApplyToActionType(CharacterResourceLink character, ActionType actionType)
 	{
-		List<AbilityData.AbilityEntry> list = new List<AbilityData.AbilityEntry>();
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		if (CameraManager.Get() != null
+			&& CameraManager.Get().m_abilityCinematicState == CameraManager.AbilityCinematicState.Never)
+		{
+			return false;
+		}
+		if (character.m_characterType != CharacterType.None && actionType != ActionType.INVALID_ACTION)
+		{
+			int num = 0;
+			foreach (CharacterTaunt characterTaunt in character.m_taunts)
+			{
+				if (characterTaunt.m_actionForTaunt == actionType
+					&& GameManager.Get().GameplayOverrides.IsTauntAllowed(character.m_characterType, (int)actionType, characterTaunt.m_uniqueID))
+				{
+					return true;
+				}
+				num++;
+			}
+		}
+		return false;
+	}
+
+	public List<AbilityEntry> GetQueuedOrAimingAbilitiesForPhase(UIQueueListPanel.UIPhase actionPhase)
+	{
+		List<AbilityEntry> list = new List<AbilityEntry>();
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			int i = 0;
-			while (i < 0xE)
+			
+			for (int i = 0;  i < NUM_ACTIONS; i++)
 			{
-				Ability ability = this.m_abilities[i].ability;
-				if (teamSensitiveData_authority.HasQueuedAction(i))
+				Ability ability = m_abilities[i].ability;
+				if ((teamSensitiveData_authority.HasQueuedAction(i) || ability != null && ability == GetSelectedAbility())
+					&& UIQueueListPanel.GetUIPhaseFromAbilityPriority(m_abilities[i].ability.RunPriority) == actionPhase)
 				{
-					goto IL_8E;
+					list.Add(m_abilities[i]);
 				}
-				if (ability != null)
-				{
-					if (ability == this.GetSelectedAbility())
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_8E;
-						}
-					}
-				}
-				IL_BE:
-				i++;
-				continue;
-				IL_8E:
-				UIQueueListPanel.UIPhase uiphaseFromAbilityPriority = UIQueueListPanel.GetUIPhaseFromAbilityPriority(this.m_abilities[i].ability.RunPriority);
-				if (uiphaseFromAbilityPriority == actionPhase)
-				{
-					list.Add(this.m_abilities[i]);
-					goto IL_BE;
-				}
-				goto IL_BE;
 			}
 		}
 		return list;
 	}
 
-	public List<AbilityData.AbilityEntry> GetQueuedOrAimingAbilities()
+	public List<AbilityEntry> GetQueuedOrAimingAbilities()
 	{
-		List<AbilityData.AbilityEntry> list = new List<AbilityData.AbilityEntry>();
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		List<AbilityEntry> list = new List<AbilityEntry>();
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			int i = 0;
-			while (i < 0xE)
+			for (int i = 0; i < NUM_ACTIONS; i++)
 			{
-				Ability ability = this.m_abilities[i].ability;
-				if (teamSensitiveData_authority.HasQueuedAction(i))
+				Ability ability = m_abilities[i].ability;
+				if (teamSensitiveData_authority.HasQueuedAction(i)
+					|| ability != null && ability == GetSelectedAbility())
 				{
-					goto IL_81;
+					list.Add(m_abilities[i]);
 				}
-				if (ability != null && ability == this.GetSelectedAbility())
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_81;
-					}
-				}
-				IL_8F:
-				i++;
-				continue;
-				IL_81:
-				list.Add(this.m_abilities[i]);
-				goto IL_8F;
 			}
 		}
 		return list;
@@ -810,110 +606,92 @@ public class AbilityData : NetworkBehaviour
 		Vector3 position = GameFlowData.Get().activeOwnedActorData.transform.position;
 		float sqrMagnitude = (position - a.transform.position).sqrMagnitude;
 		float sqrMagnitude2 = (position - b.transform.position).sqrMagnitude;
-		int result;
 		if (sqrMagnitude == sqrMagnitude2)
 		{
-			result = 0;
+			return 0;
 		}
-		else if (sqrMagnitude > sqrMagnitude2)
+		if (sqrMagnitude <= sqrMagnitude2)
 		{
-			result = 1;
+			return -1;
 		}
-		else
-		{
-			result = -1;
-		}
-		return result;
+		return 1;
 	}
 
 	public void NextSoftTarget()
 	{
-		ActorTurnSM actorTurnSM = this.m_actor.GetActorTurnSM();
+		ActorTurnSM actorTurnSM = m_actor.GetActorTurnSM();
 		if (actorTurnSM)
 		{
 			int targetSelectionIndex = actorTurnSM.GetTargetSelectionIndex();
-			int numTargets = this.m_selectedAbility.GetNumTargets();
+			int numTargets = m_selectedAbility.GetNumTargets();
 			if (targetSelectionIndex >= numTargets)
 			{
-				this.SoftTargetedActor = null;
+				SoftTargetedActor = null;
+				return;
 			}
-			else
+
+			List<ActorData> validTargets = GetValidTargets(m_selectedAbility, targetSelectionIndex);
+			if (validTargets.Count > 0)
 			{
-				List<ActorData> validTargets = this.GetValidTargets(this.m_selectedAbility, targetSelectionIndex);
-				if (validTargets.Count > 0)
+				validTargets.Sort(new Comparison<ActorData>(CompareTabTargetsByActiveOwnedActorDistance));
+				if (SoftTargetedActor == null)
 				{
-					List<ActorData> list = validTargets;
-					
-					list.Sort(new Comparison<ActorData>(AbilityData.CompareTabTargetsByActiveOwnedActorDistance));
-					if (this.SoftTargetedActor == null)
-					{
-						this.SoftTargetedActor = validTargets[0];
-					}
-					else
-					{
-						int num = validTargets.FindIndex((ActorData entry) => entry == this.SoftTargetedActor);
-						ActorData softTargetedActor = validTargets[(num + 1) % validTargets.Count];
-						this.SoftTargetedActor = softTargetedActor;
-					}
+					SoftTargetedActor = validTargets[0];
 				}
 				else
 				{
-					this.SoftTargetedActor = null;
+					int num = validTargets.FindIndex((ActorData entry) => entry == SoftTargetedActor);
+					ActorData softTargetedActor = validTargets[(num + 1) % validTargets.Count];
+					SoftTargetedActor = softTargetedActor;
 				}
+			}
+			else
+			{
+				SoftTargetedActor = null;
 			}
 		}
 	}
 
 	private void Update()
 	{
-		if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
+		if (GameFlowData.Get().gameState == GameState.BothTeams_Decision
+			&& GameFlowData.Get().activeOwnedActorData == m_actor)
 		{
-			if (GameFlowData.Get().activeOwnedActorData == this.m_actor)
+			ActorTurnSM actorTurnSM = m_actor.GetActorTurnSM();
+			if (m_actionToSelectWhenEnteringDecisionState != ActionType.INVALID_ACTION
+				&& actorTurnSM.CurrentState == TurnStateEnum.DECIDING)
 			{
-				ActorTurnSM actorTurnSM = this.m_actor.GetActorTurnSM();
-				if (this.m_actionToSelectWhenEnteringDecisionState != AbilityData.ActionType.INVALID_ACTION && actorTurnSM.CurrentState == TurnStateEnum.DECIDING)
+				if (RedoTurn(GetAbilityOfActionType(m_actionToSelectWhenEnteringDecisionState), m_actionToSelectWhenEnteringDecisionState, m_actionsToCancelForTurnRedo, m_cancelMovementForTurnRedo, m_retargetActionWithoutClearingOldAbilities))
 				{
-					if (this.RedoTurn(this.GetAbilityOfActionType(this.m_actionToSelectWhenEnteringDecisionState), this.m_actionToSelectWhenEnteringDecisionState, this.m_actionsToCancelForTurnRedo, this.m_cancelMovementForTurnRedo, this.m_retargetActionWithoutClearingOldAbilities))
-					{
-						this.ClearActionsToCancelOnTargetingComplete();
-					}
-					this.m_actionToSelectWhenEnteringDecisionState = AbilityData.ActionType.INVALID_ACTION;
+					ClearActionsToCancelOnTargetingComplete();
 				}
-				else
+				m_actionToSelectWhenEnteringDecisionState = ActionType.INVALID_ACTION;
+			}
+			else
+			{
+				if (m_actionsToCancelForTurnRedo != null && actorTurnSM.CurrentState == TurnStateEnum.DECIDING)
 				{
-					if (this.m_actionsToCancelForTurnRedo != null)
+					if (RedoTurn(null, ActionType.INVALID_ACTION, m_actionsToCancelForTurnRedo, false, false))
 					{
-						if (actorTurnSM.CurrentState == TurnStateEnum.DECIDING)
-						{
-							if (this.RedoTurn(null, AbilityData.ActionType.INVALID_ACTION, this.m_actionsToCancelForTurnRedo, false, false))
-							{
-								this.ClearActionsToCancelOnTargetingComplete();
-							}
-							return;
-						}
+						ClearActionsToCancelOnTargetingComplete();
 					}
-					if (!actorTurnSM.CanSelectAbility())
+				}
+				else if ((actorTurnSM.CanSelectAbility() || actorTurnSM.CanQueueSimpleAction())
+					&& !m_actor.IsDead())
+				{
+					for (int i = 0; i < m_abilities.Length; i++)
 					{
-						if (!actorTurnSM.CanQueueSimpleAction())
+						AbilityEntry abilityEntry = m_abilities[i];
+						if (abilityEntry != null
+							&& abilityEntry.ability != null
+							&& abilityEntry.keyPreference != KeyPreference.NullPreference
+							&& InputManager.Get().IsKeyBindingNewlyHeld(abilityEntry.keyPreference)
+							&& !UITutorialFullscreenPanel.Get().IsAnyPanelVisible())
 						{
-							return;
-						}
-					}
-					if (!this.m_actor.IsDead())
-					{
-						for (int i = 0; i < this.m_abilities.Length; i++)
-						{
-							AbilityData.AbilityEntry abilityEntry = this.m_abilities[i];
-							if (abilityEntry != null && abilityEntry.ability != null && abilityEntry.keyPreference != KeyPreference.NullPreference && InputManager.Get().IsKeyBindingNewlyHeld(abilityEntry.keyPreference))
+							ActionType actionType = (ActionType)i;
+							if (AbilityButtonPressed(actionType, abilityEntry.ability))
 							{
-								if (!UITutorialFullscreenPanel.Get().IsAnyPanelVisible())
-								{
-									AbilityData.ActionType actionType = (AbilityData.ActionType)i;
-									if (this.AbilityButtonPressed(actionType, abilityEntry.ability))
-									{
-										return;
-									}
-								}
+								break;
 							}
 						}
 					}
@@ -922,269 +700,216 @@ public class AbilityData : NetworkBehaviour
 		}
 	}
 
-	public bool AbilityButtonPressed(AbilityData.ActionType actionType, Ability ability)
+	public bool AbilityButtonPressed(ActionType actionType, Ability ability)
 	{
 		if (ability == null)
 		{
 			return false;
 		}
-		bool flag = InputManager.Get().IsKeyBindingHeld(KeyPreference.MinimapPing);
-		ActorTurnSM actorTurnSM = this.m_actor.GetActorTurnSM();
-		bool flag2 = actorTurnSM.CanSelectAbility();
-		bool flag3 = actorTurnSM.CanQueueSimpleAction();
-		if (!flag2 && !flag3)
+		bool isPing = InputManager.Get().IsKeyBindingHeld(KeyPreference.MinimapPing);
+		ActorTurnSM actorTurnSM = m_actor.GetActorTurnSM();
+		bool canSelectAbility = actorTurnSM.CanSelectAbility();
+		bool canQueueSimpleAction = actorTurnSM.CanQueueSimpleAction();
+		if (!canSelectAbility && !canQueueSimpleAction)
 		{
-			if (flag)
+			if (isPing)
 			{
-				this.SendAbilityPing(false, actionType, ability);
+				SendAbilityPing(false, actionType, ability);
 			}
 			return false;
 		}
-		this.m_cancelMovementForTurnRedo = false;
-		this.m_actionsToCancelForTurnRedo = null;
-		bool flag4 = InputManager.Get().IsKeyBindingHeld(KeyPreference.AbilityRetargetingModifier);
-		if (this.HasQueuedAction(actionType))
+		m_cancelMovementForTurnRedo = false;
+		m_actionsToCancelForTurnRedo = null;
+		bool isRetargeting = InputManager.Get().IsKeyBindingHeld(KeyPreference.AbilityRetargetingModifier);
+		if (HasQueuedAction(actionType) && !isRetargeting)
 		{
-			if (!flag4)
+			if (isPing)
 			{
-				if (flag)
-				{
-					this.SendAbilityPing(true, actionType, ability);
-				}
-				else if (actorTurnSM.CurrentState == TurnStateEnum.CONFIRMED)
-				{
-					actorTurnSM.BackToDecidingState();
-					this.m_actionsToCancelForTurnRedo = new List<AbilityData.ActionType>();
-					this.m_actionsToCancelForTurnRedo.Add(actionType);
-					this.m_retargetActionWithoutClearingOldAbilities = false;
-				}
-				else
-				{
-					actorTurnSM.RequestCancelAction(actionType, false);
-					UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
-				}
-				return false;
+				SendAbilityPing(true, actionType, ability);
 			}
-		}
-		List<AbilityData.ActionType> list;
-		bool flag5;
-		if (this.CanQueueActionByCancelingOthers(ability, actionType, flag3, flag2, out list, out flag5))
-		{
-			if (flag)
+			else if (actorTurnSM.CurrentState == TurnStateEnum.CONFIRMED)
 			{
-				this.SendAbilityPing(true, actionType, ability);
+				actorTurnSM.BackToDecidingState();
+				m_actionsToCancelForTurnRedo = new List<ActionType>();
+				m_actionsToCancelForTurnRedo.Add(actionType);
+				m_retargetActionWithoutClearingOldAbilities = false;
 			}
 			else
 			{
-				this.m_retargetActionWithoutClearingOldAbilities = false;
-				if (actorTurnSM.CurrentState != TurnStateEnum.CONFIRMED)
-				{
-					if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
-					{
-						if (this.GetSelectedActionType() == actionType)
-						{
-							if (!SinglePlayerManager.IsCancelDisabled())
-							{
-								this.ClearSelectedAbility();
-								actorTurnSM.BackToDecidingState();
-								goto IL_1ED;
-							}
-						}
-					}
-					return this.RedoTurn(ability, actionType, list, flag5, flag4);
-				}
-				actorTurnSM.BackToDecidingState();
-				this.m_cancelMovementForTurnRedo = flag5;
-				this.m_actionsToCancelForTurnRedo = list;
-				this.m_actionToSelectWhenEnteringDecisionState = actionType;
-				this.m_retargetActionWithoutClearingOldAbilities = flag4;
+				actorTurnSM.RequestCancelAction(actionType, false);
+				UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
 			}
-			IL_1ED:;
 		}
-		else if (flag)
+		else if (CanQueueActionByCancelingOthers(ability, actionType, canQueueSimpleAction, canSelectAbility, out List<ActionType> actionsToCancel, out bool cancelMovement))
 		{
-			this.SendAbilityPing(false, actionType, ability);
+			if (isPing)
+			{
+				SendAbilityPing(true, actionType, ability);
+			}
+			else
+			{
+				m_retargetActionWithoutClearingOldAbilities = false;
+				if (actorTurnSM.CurrentState == TurnStateEnum.CONFIRMED)
+				{
+					actorTurnSM.BackToDecidingState();
+					m_cancelMovementForTurnRedo = cancelMovement;
+					m_actionsToCancelForTurnRedo = actionsToCancel;
+					m_actionToSelectWhenEnteringDecisionState = actionType;
+					m_retargetActionWithoutClearingOldAbilities = isRetargeting;
+				}
+				else
+				{
+					if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION
+						&& GetSelectedActionType() == actionType
+						&& !SinglePlayerManager.IsCancelDisabled())
+					{
+						ClearSelectedAbility();
+						actorTurnSM.BackToDecidingState();
+					}
+					else
+					{
+						return RedoTurn(ability, actionType, actionsToCancel, cancelMovement, isRetargeting);
+					}
+				}
+			}
+		}
+		else if (isPing)
+		{
+			SendAbilityPing(false, actionType, ability);
 		}
 		return false;
 	}
 
-	private void SendAbilityPing(bool selectable, AbilityData.ActionType actionType, Ability ability)
+	private void SendAbilityPing(bool selectable, ActionType actionType, Ability ability)
 	{
 		if (TextConsole.Get() != null)
 		{
-			if (this.m_lastPingSendTime > 0f)
+			if (m_lastPingSendTime > 0f
+				&& Time.time - m_lastPingSendTime <= HUD_UIResources.Get().m_mapPingCooldown)
 			{
-				if (Time.time - this.m_lastPingSendTime <= HUD_UIResources.Get().m_mapPingCooldown)
-				{
-					return;
-				}
+				return;
 			}
-			LocalizationArg_AbilityPing localizedPing = LocalizationArg_AbilityPing.Create(this.m_actor.m_characterType, ability, selectable, Mathf.Max(this.GetAbilityEntryOfActionType(actionType).GetCooldownRemaining(), this.GetTurnsTillUnlock(actionType)), actionType == AbilityData.ActionType.ABILITY_4, this.m_actor.GetEnergyToDisplay(), this.m_actor.GetMaxTechPoints());
-			this.m_actor.SendAbilityPingRequestToServer((int)this.m_actor.GetTeam(), localizedPing);
-			this.m_lastPingSendTime = Time.time;
+			int remainingCooldown = Mathf.Max(GetAbilityEntryOfActionType(actionType).GetCooldownRemaining(), GetTurnsTillUnlock(actionType));
+			bool isUlt = actionType == ActionType.ABILITY_4;
+			LocalizationArg_AbilityPing localizedPing = LocalizationArg_AbilityPing.Create(
+				m_actor.m_characterType,
+				ability,
+				selectable,
+				remainingCooldown,
+				isUlt,
+				m_actor.GetEnergyToDisplay(),
+				m_actor.GetMaxTechPoints());
+			m_actor.SendAbilityPingRequestToServer((int)m_actor.GetTeam(), localizedPing);
+			m_lastPingSendTime = Time.time;
 		}
 	}
 
-	public bool RedoTurn(Ability ability, AbilityData.ActionType actionType, List<AbilityData.ActionType> actionsToCancel, bool cancelMovement, bool retargetingModifierKeyHeld)
+	public bool RedoTurn(Ability ability, ActionType actionType, List<ActionType> actionsToCancel, bool cancelMovement, bool retargetingModifierKeyHeld)
 	{
-		ActorController actorController;
-		if (this.m_actor != null)
+		ActorController actorController = m_actor?.GetActorController();
+		ActorTurnSM actorTurnSM = m_actor?.GetActorTurnSM();
+		if (ability != null && !ability.IsSimpleAction() && retargetingModifierKeyHeld)
 		{
-			actorController = this.m_actor.GetActorController();
-		}
-		else
-		{
-			actorController = null;
-		}
-		ActorController actorController2 = actorController;
-		ActorTurnSM actorTurnSM;
-		if (this.m_actor != null)
-		{
-			actorTurnSM = this.m_actor.GetActorTurnSM();
-		}
-		else
-		{
-			actorTurnSM = null;
-		}
-		ActorTurnSM actorTurnSM2 = actorTurnSM;
-		if (ability != null && !ability.IsSimpleAction())
-		{
-			if (retargetingModifierKeyHeld)
+			if (!actionsToCancel.IsNullOrEmpty() && actionsToCancel.Contains(actionType))
 			{
-				if (!actionsToCancel.IsNullOrEmpty<AbilityData.ActionType>())
-				{
-					if (actionsToCancel.Contains(actionType))
-					{
-						ability.BackupTargetingForRedo(actorTurnSM2);
-					}
-				}
-				this.SetSelectedAbility(ability);
-				actorController2.SendSelectAbilityRequest();
-				this.m_cancelMovementForTurnRedo = cancelMovement;
-				this.m_actionsToCancelForTurnRedo = actionsToCancel;
-				return false;
+				ability.BackupTargetingForRedo(actorTurnSM);
 			}
+			SetSelectedAbility(ability);
+			actorController.SendSelectAbilityRequest();
+			m_cancelMovementForTurnRedo = cancelMovement;
+			m_actionsToCancelForTurnRedo = actionsToCancel;
+			return false;
 		}
 		if (cancelMovement)
 		{
-			actorTurnSM2.RequestCancelMovement();
+			actorTurnSM.RequestCancelMovement();
 			UISounds.GetUISounds().Play("ui/ingame/v1/move_undo");
 		}
 		if (actionsToCancel != null)
 		{
-			this.m_loggedErrorForNullAction = false;
-			using (List<AbilityData.ActionType>.Enumerator enumerator = actionsToCancel.GetEnumerator())
+			m_loggedErrorForNullAction = false;
+			foreach (ActionType actionType2 in actionsToCancel)
 			{
-				while (enumerator.MoveNext())
-				{
-					AbilityData.ActionType actionType2 = enumerator.Current;
-					actorTurnSM2.RequestCancelAction(actionType2, true);
-					UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
-				}
+				actorTurnSM.RequestCancelAction(actionType2, true);
+				UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
 			}
 		}
-		else if (!this.m_loggedErrorForNullAction)
+		else if (!m_loggedErrorForNullAction)
 		{
-			this.m_loggedErrorForNullAction = true;
+			m_loggedErrorForNullAction = true;
 			Debug.LogError("RedoTurn() - actionsToCancel is null");
 		}
 		if (ability != null)
 		{
 			if (ability.IsSimpleAction())
 			{
-				if (actionsToCancel != null)
+				if (actionsToCancel == null || !actionsToCancel.Contains(actionType))
 				{
-					if (actionsToCancel.Contains(actionType))
+					if (HasQueuedAction(actionType))
 					{
-						goto IL_1E5;
+						actorTurnSM.RequestCancelAction(actionType, true);
+						UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
+					}
+					else
+					{
+						actorTurnSM.OnQueueAbilityRequest(actionType);
+						actorController.SendQueueSimpleActionRequest(actionType);
 					}
 				}
-				if (this.HasQueuedAction(actionType))
-				{
-					actorTurnSM2.RequestCancelAction(actionType, true);
-					UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
-				}
-				else
-				{
-					actorTurnSM2.OnQueueAbilityRequest(actionType);
-					actorController2.SendQueueSimpleActionRequest(actionType);
-				}
-				IL_1E5:;
 			}
 			else
 			{
-				this.SetSelectedAbility(ability);
-				actorController2.SendSelectAbilityRequest();
+				SetSelectedAbility(ability);
+				actorController.SendSelectAbilityRequest();
 			}
 		}
 		return true;
 	}
 
-	public unsafe bool CanQueueActionByCancelingOthers(Ability ability, AbilityData.ActionType actionType, bool canQueueSimpleAction, bool canSelectAbility, out List<AbilityData.ActionType> actionsToCancel, out bool cancelMovement)
+	public unsafe bool CanQueueActionByCancelingOthers(Ability ability, ActionType actionType, bool canQueueSimpleAction, bool canSelectAbility, out List<ActionType> actionsToCancel, out bool cancelMovement)
 	{
 		bool flag = false;
-		actionsToCancel = new List<AbilityData.ActionType>();
+		actionsToCancel = new List<ActionType>();
 		cancelMovement = false;
 		if (ability.IsSimpleAction())
 		{
-			if (canQueueSimpleAction)
-			{
-				if (this.ValidateActionIsRequestableDisregardingQueuedActions(actionType))
-				{
-					flag = true;
-				}
-			}
-		}
-		else if (canSelectAbility)
-		{
-			if (this.ValidateActionIsRequestableDisregardingQueuedActions(actionType))
+			if (canQueueSimpleAction && ValidateActionIsRequestableDisregardingQueuedActions(actionType))
 			{
 				flag = true;
 			}
 		}
+		else if (canSelectAbility && ValidateActionIsRequestableDisregardingQueuedActions(actionType))
+		{
+			flag = true;
+		}
 		if (flag)
 		{
-			if (ability.IsFreeAction())
+			if (!ability.IsFreeAction() || ability.GetRunPriority() == AbilityPriority.Evasion || IsCard(actionType))
 			{
-				if (ability.GetRunPriority() != AbilityPriority.Evasion)
+				for (int i = 0; i < NUM_ACTIONS; i++)
 				{
-					if (!AbilityData.IsCard(actionType))
+					ActionType actionType2 = (ActionType)i;
+					if (HasQueuedAction(actionType2))
 					{
-						if (ability.IsFreeAction() && this.HasQueuedAction(actionType))
+						Ability abilityOfActionType = GetAbilityOfActionType(actionType2);
+						if (abilityOfActionType != null
+							&& (!abilityOfActionType.IsFreeAction() && !ability.IsFreeAction()
+								|| abilityOfActionType.GetRunPriority() == AbilityPriority.Evasion && ability.GetRunPriority() == AbilityPriority.Evasion
+								|| IsCard(GetActionTypeOfAbility(abilityOfActionType)) && IsCard(actionType)))
 						{
-							actionsToCancel.Add(actionType);
-							goto IL_179;
+							actionsToCancel.Add(actionType2);
 						}
-						goto IL_179;
 					}
 				}
 			}
-			for (int i = 0; i < 0xE; i++)
+			else
 			{
-				AbilityData.ActionType actionType2 = (AbilityData.ActionType)i;
-				if (this.HasQueuedAction(actionType2))
+				if (ability.IsFreeAction() && HasQueuedAction(actionType))
 				{
-					Ability abilityOfActionType = this.GetAbilityOfActionType(actionType2);
-					if (abilityOfActionType != null)
-					{
-						if ((abilityOfActionType.IsFreeAction() || ability.IsFreeAction()) && (abilityOfActionType.GetRunPriority() != AbilityPriority.Evasion || ability.GetRunPriority() != AbilityPriority.Evasion))
-						{
-							if (!AbilityData.IsCard(this.GetActionTypeOfAbility(abilityOfActionType)))
-							{
-								goto IL_145;
-							}
-							if (!AbilityData.IsCard(actionType))
-							{
-								goto IL_145;
-							}
-						}
-						actionsToCancel.Add(actionType2);
-					}
+					actionsToCancel.Add(actionType);
 				}
-				IL_145:;
 			}
-			IL_179:
-			if (this.m_actor.HasQueuedMovement())
+			if (m_actor.HasQueuedMovement())
 			{
 				if (ability.GetMovementAdjustment() == Ability.MovementAdjustment.NoMovement)
 				{
@@ -1192,72 +917,52 @@ public class AbilityData : NetworkBehaviour
 				}
 				else if (ability.GetMovementAdjustment() == Ability.MovementAdjustment.ReducedMovement)
 				{
-					cancelMovement = !this.m_actor.QueuedMovementAllowsAbility;
+					cancelMovement = !m_actor.QueuedMovementAllowsAbility;
 				}
 			}
 		}
 		return flag;
 	}
 
-	public unsafe bool GetActionsToCancelOnTargetingComplete(ref List<AbilityData.ActionType> actionsToCancel, ref bool cancelMovement)
+	public unsafe bool GetActionsToCancelOnTargetingComplete(ref List<ActionType> actionsToCancel, ref bool cancelMovement)
 	{
-		if (!this.m_cancelMovementForTurnRedo)
+		if (m_cancelMovementForTurnRedo || !m_actionsToCancelForTurnRedo.IsNullOrEmpty())
 		{
-			if (this.m_actionsToCancelForTurnRedo.IsNullOrEmpty<AbilityData.ActionType>())
-			{
-				return false;
-			}
+			cancelMovement = m_cancelMovementForTurnRedo;
+			actionsToCancel = m_actionsToCancelForTurnRedo;
+			return true;
 		}
-		cancelMovement = this.m_cancelMovementForTurnRedo;
-		actionsToCancel = this.m_actionsToCancelForTurnRedo;
-		return true;
+		return false;
 	}
 
 	public void ClearActionsToCancelOnTargetingComplete()
 	{
-		this.m_cancelMovementForTurnRedo = false;
-		this.m_actionsToCancelForTurnRedo = null;
-		this.m_actionToSelectWhenEnteringDecisionState = AbilityData.ActionType.INVALID_ACTION;
-		if (this.m_lastSelectedAbility != null)
+		m_cancelMovementForTurnRedo = false;
+		m_actionsToCancelForTurnRedo = null;
+		m_actionToSelectWhenEnteringDecisionState = ActionType.INVALID_ACTION;
+		if (m_lastSelectedAbility != null)
 		{
-			this.m_lastSelectedAbility.DestroyBackupTargetingInfo(false);
+			m_lastSelectedAbility.DestroyBackupTargetingInfo(false);
 		}
-		this.m_retargetActionWithoutClearingOldAbilities = false;
+		m_retargetActionWithoutClearingOldAbilities = false;
 	}
 
 	public List<ActorData> GetValidTargets(Ability testAbility, int targetIndex)
 	{
-		ActorData actor = this.m_actor;
-		FogOfWar component = base.GetComponent<FogOfWar>();
+		ActorData actor = m_actor;
+		FogOfWar component = GetComponent<FogOfWar>();
 		if (actor.IsDead())
 		{
 			return new List<ActorData>();
 		}
 		List<ActorData> list = new List<ActorData>();
 		bool checkLoS = testAbility.GetCheckLoS(targetIndex);
-		bool flag = GameplayUtils.IsPlayerControlled(this);
-		using (List<ActorData>.Enumerator enumerator = GameFlowData.Get().GetActors().GetEnumerator())
+		bool isPlayerControlled = GameplayUtils.IsPlayerControlled(this);
+		foreach (ActorData actorData in GameFlowData.Get().GetActors())
 		{
-			while (enumerator.MoveNext())
+			if ((!isPlayerControlled || component.IsVisible(actorData.GetCurrentBoardSquare()))
+				&& (!checkLoS || component.IsVisibleBySelf(actorData.GetCurrentBoardSquare()) || actor.IsLineOfSightVisibleException(actorData)))
 			{
-				ActorData actorData = enumerator.Current;
-				if (flag)
-				{
-					if (!component.IsVisible(actorData.GetCurrentBoardSquare()))
-					{
-						continue;
-					}
-				}
-				if (checkLoS)
-				{
-					if (!component.IsVisibleBySelf(actorData.GetCurrentBoardSquare()))
-					{
-						if (!actor.IsLineOfSightVisibleException(actorData))
-						{
-							continue;
-						}
-					}
-				}
 				list.Add(actorData);
 			}
 		}
@@ -1268,7 +973,7 @@ public class AbilityData : NetworkBehaviour
 			if (!actorData2.IsDead())
 			{
 				AbilityTarget target = AbilityTarget.CreateAbilityTargetFromActor(actorData2, actor);
-				if (this.ValidateAbilityOnTarget(testAbility, target, targetIndex, -1f, -1f))
+				if (ValidateAbilityOnTarget(testAbility, target, targetIndex, -1f, -1f))
 				{
 					list2.Add(actorData2);
 				}
@@ -1281,9 +986,9 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (int i = 0; i < 0xE; i++)
+			for (int i = 0; i < NUM_ACTIONS; i++)
 			{
-				this.m_abilities[i].SetCooldownRemaining(this.m_cooldownsSync[i]);
+				m_abilities[i].SetCooldownRemaining(m_cooldownsSync[i]);
 			}
 		}
 	}
@@ -1294,26 +999,17 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (CardManagerData.Get() != null)
 			{
-				for (int i = 0; i < this.m_currentCardIds.Count; i++)
+				for (int i = 0; i < m_currentCardIds.Count; i++)
 				{
 					Ability useAbility = null;
-					if (this.m_currentCardIds[i] > 0)
+					if (m_currentCardIds[i] > 0)
 					{
-						Card spawnedCardInstance = this.GetSpawnedCardInstance((CardType)this.m_currentCardIds[i]);
-						Ability ability;
-						if (spawnedCardInstance != null)
-						{
-							ability = spawnedCardInstance.m_useAbility;
-						}
-						else
-						{
-							ability = null;
-						}
-						useAbility = ability;
+						Card spawnedCardInstance = GetSpawnedCardInstance((CardType)m_currentCardIds[i]);
+						useAbility = spawnedCardInstance?.m_useAbility;
 					}
-					this.SetupCardAbility(i, useAbility);
+					SetupCardAbility(i, useAbility);
 				}
-				this.UpdateCardBarUI();
+				UpdateCardBarUI();
 			}
 		}
 	}
@@ -1322,66 +1018,48 @@ public class AbilityData : NetworkBehaviour
 	{
 		bool flag = false;
 		bool flag2 = false;
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < NUM_ACTIONS; i++)
 		{
-			AbilityData.ActionType type = (AbilityData.ActionType)i;
-			Ability abilityOfActionType = this.GetAbilityOfActionType(type);
-			if (!flag)
+			ActionType type = (ActionType)i;
+			Ability abilityOfActionType = GetAbilityOfActionType(type);
+			if (!flag && abilityOfActionType != null && abilityOfActionType.GetAffectsMovement())
 			{
-				if (abilityOfActionType != null)
-				{
-					if (abilityOfActionType.GetAffectsMovement())
-					{
-						flag = true;
-					}
-				}
+				flag = true;
 			}
-			if (!flag2)
+			if (!flag2 && abilityOfActionType != null && abilityOfActionType.ShouldUpdateDrawnTargetersOnQueueChange())
 			{
-				if (abilityOfActionType != null)
-				{
-					if (abilityOfActionType.ShouldUpdateDrawnTargetersOnQueueChange())
-					{
-						flag2 = true;
-					}
-				}
+				flag2 = true;
 			}
 		}
-		if (flag)
+		if (flag && !GameplayUtils.IsMinion(this))
 		{
-			if (!GameplayUtils.IsMinion(this))
-			{
-				ActorMovement component = base.GetComponent<ActorMovement>();
-				component.UpdateSquaresCanMoveTo();
-			}
+			ActorMovement component = GetComponent<ActorMovement>();
+			component.UpdateSquaresCanMoveTo();
 		}
-		if (flag2 && this.m_actor.GetActorTargeting() != null)
+		if (flag2 && m_actor.GetActorTargeting() != null)
 		{
-			this.m_actor.GetActorTargeting().MarkForForceRedraw();
+			m_actor.GetActorTargeting().MarkForForceRedraw();
 		}
 	}
 
 	private void OnRespawn()
 	{
-		for (int i = 0; i < this.m_abilities.Length; i++)
+		for (int i = 0; i < m_abilities.Length; i++)
 		{
-			AbilityData.AbilityEntry abilityEntry = this.m_abilities[i];
+			AbilityEntry abilityEntry = m_abilities[i];
 			if (abilityEntry != null)
 			{
-				AbilityData.ActionType action = (AbilityData.ActionType)i;
+				ActionType action = (ActionType)i;
 				Ability ability = abilityEntry.ability;
-				if (ability == null)
-				{
-				}
-				else
+				if (ability != null)
 				{
 					if (AbilityUtils.AbilityHasTag(ability, AbilityTags.TriggerCooldownOnRespawn))
 					{
-						this.TriggerCooldown(action);
+						TriggerCooldown(action);
 					}
 					if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ClearCooldownOnRespawn))
 					{
-						this.ClearCooldown(action);
+						ClearCooldown(action);
 					}
 				}
 			}
@@ -1390,49 +1068,25 @@ public class AbilityData : NetworkBehaviour
 
 	public void SetSelectedAbility(Ability selectedAbility)
 	{
-		ActorTurnSM actorTurnSM;
-		if (this.m_actor == null)
+		ActorTurnSM actorTurnSM = m_actor?.GetActorTurnSM();
+		bool isActiveOwnedActorData = GameFlowData.Get().activeOwnedActorData == m_actor && m_actor != null;
+		if (m_selectedAbility && isActiveOwnedActorData)
 		{
-			actorTurnSM = null;
+			m_selectedAbility.OnAbilityDeselect();
 		}
-		else
+		m_selectedAbility = selectedAbility;
+		Networkm_selectedActionForTargeting = GetActionTypeOfAbility(m_selectedAbility);
+		if (m_selectedAbility && isActiveOwnedActorData)
 		{
-			actorTurnSM = this.m_actor.GetActorTurnSM();
+			m_selectedAbility.OnAbilitySelect();
 		}
-		ActorTurnSM actorTurnSM2 = actorTurnSM;
-		bool flag;
-		if (GameFlowData.Get().activeOwnedActorData == this.m_actor)
+		if (actorTurnSM != null)
 		{
-			flag = (this.m_actor != null);
+			actorTurnSM.OnSelectedAbilityChanged(selectedAbility);
 		}
-		else
+		if (m_actor != null)
 		{
-			flag = false;
-		}
-		bool flag2 = flag;
-		if (this.m_selectedAbility)
-		{
-			if (flag2)
-			{
-				this.m_selectedAbility.OnAbilityDeselect();
-			}
-		}
-		this.m_selectedAbility = selectedAbility;
-		this.Networkm_selectedActionForTargeting = this.GetActionTypeOfAbility(this.m_selectedAbility);
-		if (this.m_selectedAbility)
-		{
-			if (flag2)
-			{
-				this.m_selectedAbility.OnAbilitySelect();
-			}
-		}
-		if (actorTurnSM2 != null)
-		{
-			actorTurnSM2.OnSelectedAbilityChanged(selectedAbility);
-		}
-		if (this.m_actor != null)
-		{
-			this.m_actor.OnSelectedAbilityChanged(selectedAbility);
+			m_actor.OnSelectedAbilityChanged(selectedAbility);
 		}
 		if (CameraManager.Get() != null)
 		{
@@ -1440,151 +1094,144 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (selectedAbility != null)
 		{
-			this.m_lastSelectedAbility = selectedAbility;
+			m_lastSelectedAbility = selectedAbility;
 		}
 		Board.Get().MarkForUpdateValidSquares(true);
 	}
 
 	public Ability GetSelectedAbility()
 	{
-		return this.m_selectedAbility;
+		return m_selectedAbility;
 	}
 
 	public void ClearSelectedAbility()
 	{
-		this.SetSelectedAbility(null);
+		SetSelectedAbility(null);
 	}
 
-	public void SelectAbilityFromActionType(AbilityData.ActionType actionType)
+	public void SelectAbilityFromActionType(ActionType actionType)
 	{
-		this.SetSelectedAbility(this.GetAbilityOfActionType(actionType));
+		SetSelectedAbility(GetAbilityOfActionType(actionType));
 	}
 
-	public AbilityData.ActionType GetSelectedActionType()
+	public ActionType GetSelectedActionType()
 	{
-		return this.GetActionTypeOfAbility(this.m_selectedAbility);
+		return GetActionTypeOfAbility(m_selectedAbility);
 	}
 
 	public void SetLastSelectedAbility(Ability ability)
 	{
-		this.m_lastSelectedAbility = ability;
+		m_lastSelectedAbility = ability;
 	}
 
 	public Ability GetLastSelectedAbility()
 	{
-		return this.m_lastSelectedAbility;
+		return m_lastSelectedAbility;
 	}
 
 	public void ClearLastSelectedAbility()
 	{
-		this.m_lastSelectedAbility = null;
+		m_lastSelectedAbility = null;
 	}
 
-	public AbilityData.ActionType GetActionType(string abilityName)
+	public ActionType GetActionType(string abilityName)
 	{
-		AbilityData.ActionType actionType = AbilityData.ActionType.INVALID_ACTION;
+		ActionType actionType = ActionType.INVALID_ACTION;
 		if (abilityName != null)
 		{
 			for (int i = (int)ActionType.ABILITY_0; i < (int)ActionType.NUM_ACTIONS; i++)
 			{
-				if (this.m_abilities[i] != null && this.m_abilities[i].ability != null && this.m_abilities[i].ability.m_abilityName == abilityName)
+				if (m_abilities[i] != null
+					&& m_abilities[i].ability != null
+					&& m_abilities[i].ability.m_abilityName == abilityName)
 				{
-					actionType = (AbilityData.ActionType)i;
+					actionType = (ActionType)i;
 					break;
 				}
 			}
-			if (actionType != AbilityData.ActionType.INVALID_ACTION)
+			if (actionType == ActionType.INVALID_ACTION)
 			{
-				return actionType;
-			}
-			for (int j = 0; j < this.m_allChainAbilities.Count; j++)
-			{
-				if (this.m_allChainAbilities[j] != null && this.m_allChainAbilities[j].m_abilityName == abilityName)
+				for (int j = 0; j < m_allChainAbilities.Count; j++)
 				{
-					return (AbilityData.ActionType)(j + (int)ActionType.CHAIN_0);
+					if (m_allChainAbilities[j] != null && m_allChainAbilities[j].m_abilityName == abilityName)
+					{
+						return (ActionType)(j + (int)ActionType.CHAIN_0);
+					}
 				}
 			}
-			return actionType;
 		}
 		return actionType;
 	}
 
-	public AbilityData.ActionType GetActionTypeOfAbilityOfType(Type abilityType)
+	public ActionType GetActionTypeOfAbilityOfType(Type abilityType)
 	{
-		Ability abilityOfType = this.GetAbilityOfType(abilityType);
-		return this.GetActionTypeOfAbility(abilityOfType);
+		Ability abilityOfType = GetAbilityOfType(abilityType);
+		return GetActionTypeOfAbility(abilityOfType);
 	}
 
-	public AbilityData.ActionType GetActionTypeOfAbility(Ability ability)
+	public ActionType GetActionTypeOfAbility(Ability ability)
 	{
-		AbilityData.ActionType actionType = AbilityData.ActionType.INVALID_ACTION;
+		ActionType actionType = ActionType.INVALID_ACTION;
 		if (ability != null)
 		{
 			for (int i = (int)ActionType.ABILITY_0; i < (int)ActionType.NUM_ACTIONS; i++)
 			{
-				if (this.m_abilities[i] != null && this.m_abilities[i].ability == ability)
+				if (m_abilities[i] != null && m_abilities[i].ability == ability)
 				{
-					actionType = (AbilityData.ActionType)i;
+					actionType = (ActionType)i;
 					break;
 				}
 			}
-			if (actionType != AbilityData.ActionType.INVALID_ACTION)
+			if (actionType == ActionType.INVALID_ACTION)
 			{
-				return actionType;
-			}
-			for (int j = 0; j < this.m_allChainAbilities.Count; j++)
-			{
-				if (this.m_allChainAbilities[j] != null && this.m_allChainAbilities[j] == ability)
+				for (int j = 0; j < m_allChainAbilities.Count; j++)
 				{
-					return (AbilityData.ActionType)(j + (int)ActionType.CHAIN_0);
+					if (m_allChainAbilities[j] != null && m_allChainAbilities[j] == ability)
+					{
+						return (ActionType)(j + (int)ActionType.CHAIN_0);
+					}
 				}
 			}
-			return actionType;
 		}
 		return actionType;
 	}
 
-	public AbilityData.ActionType GetParentAbilityActionType(Ability ability)
+	public ActionType GetParentAbilityActionType(Ability ability)
 	{
-		AbilityData.ActionType actionTypeOfAbility = this.GetActionTypeOfAbility(ability);
-		if (AbilityData.IsChain(actionTypeOfAbility))
+		ActionType actionTypeOfAbility = GetActionTypeOfAbility(ability);
+		if (IsChain(actionTypeOfAbility))
 		{
-			for (int i = 0; i < this.m_allChainAbilities.Count; i++)
+			for (int i = 0; i < m_allChainAbilities.Count; i++)
 			{
-				if (this.m_allChainAbilities[i] == ability)
+				if (m_allChainAbilities[i] == ability)
 				{
-					return this.m_allChainAbilityParentActionTypes[i];
+					return m_allChainAbilityParentActionTypes[i];
 				}
 			}
 		}
 		return actionTypeOfAbility;
 	}
 
-	public Ability GetAbilityOfActionType(AbilityData.ActionType type)
+	public Ability GetAbilityOfActionType(ActionType type)
 	{
 		Ability result;
-		if (AbilityData.IsChain(type))
+		if (IsChain(type))
 		{
-			int num = type - AbilityData.ActionType.CHAIN_0;
-			if (num >= 0)
+			int num = type - ActionType.CHAIN_0;
+			if (num >= 0 && num < m_allChainAbilities.Count)
 			{
-				if (num < this.m_allChainAbilities.Count)
-				{
-					result = this.m_allChainAbilities[num];
-					goto IL_59;
-				}
+				result = m_allChainAbilities[num];
 			}
-			result = null;
-			IL_59:;
+			else
+			{
+				result = null;
+			}
 		}
 		else
 		{
-			if (type >= AbilityData.ActionType.ABILITY_0)
+			if (type >= ActionType.ABILITY_0 && type < (ActionType)m_abilities.Length)
 			{
-				if (type < (AbilityData.ActionType)this.m_abilities.Length)
-				{
-					return this.m_abilities[(int)type].ability;
-				}
+				return m_abilities[(int)type].ability;
 			}
 			result = null;
 		}
@@ -1593,14 +1240,13 @@ public class AbilityData : NetworkBehaviour
 
 	public Ability GetAbilityOfType(Type abilityType)
 	{
-		foreach (AbilityData.AbilityEntry abilityEntry in this.m_abilities)
+		foreach (AbilityEntry abilityEntry in m_abilities)
 		{
-			if (abilityEntry != null)
+			if (abilityEntry != null
+				&& abilityEntry.ability != null
+				&& abilityEntry.ability.GetType() == abilityType)
 			{
-				if (abilityEntry.ability != null && abilityEntry.ability.GetType() == abilityType)
-				{
-					return abilityEntry.ability;
-				}
+				return abilityEntry.ability;
 			}
 		}
 		return null;
@@ -1608,42 +1254,38 @@ public class AbilityData : NetworkBehaviour
 
 	public T GetAbilityOfType<T>() where T : Ability
 	{
-		foreach (AbilityData.AbilityEntry abilityEntry in this.m_abilities)
+		foreach (AbilityEntry abilityEntry in m_abilities)
 		{
-			if (abilityEntry != null && abilityEntry.ability != null)
+			if (abilityEntry != null
+				&& abilityEntry.ability != null
+				&& abilityEntry.ability.GetType() == typeof(T))
 			{
-				if (abilityEntry.ability.GetType() == typeof(T))
-				{
-					return abilityEntry.ability as T;
-				}
-			}
-		}
-		return (T)((object)null);
-	}
-
-	public AbilityData.AbilityEntry GetAbilityEntryOfActionType(AbilityData.ActionType type)
-	{
-		if (type >= AbilityData.ActionType.ABILITY_0)
-		{
-			if (type < (AbilityData.ActionType)this.m_abilities.Length)
-			{
-				return this.m_abilities[(int)type];
+				return abilityEntry.ability as T;
 			}
 		}
 		return null;
 	}
 
-	public static CardType GetCardTypeByActionType(CharacterCardInfo cardInfo, AbilityData.ActionType actionType)
+	public AbilityEntry GetAbilityEntryOfActionType(ActionType type)
 	{
-		if (actionType == AbilityData.ActionType.CARD_0)
+		if (type >= ActionType.ABILITY_0 && type < (ActionType)m_abilities.Length)
+		{
+			return m_abilities[(int)type];
+		}
+		return null;
+	}
+
+	public static CardType GetCardTypeByActionType(CharacterCardInfo cardInfo, ActionType actionType)
+	{
+		if (actionType == ActionType.CARD_0)
 		{
 			return cardInfo.PrepCard;
 		}
-		if (actionType == AbilityData.ActionType.CARD_1)
+		if (actionType == ActionType.CARD_1)
 		{
 			return cardInfo.DashCard;
 		}
-		if (actionType == AbilityData.ActionType.CARD_2)
+		if (actionType == ActionType.CARD_2)
 		{
 			return cardInfo.CombatCard;
 		}
@@ -1652,83 +1294,68 @@ public class AbilityData : NetworkBehaviour
 
 	public List<Ability> GetCachedCardAbilities()
 	{
-		return this.m_cachedCardAbilities;
+		return m_cachedCardAbilities;
 	}
 
-	public bool IsAbilityAllowedByUnlockTurns(AbilityData.ActionType actionType)
+	public bool IsAbilityAllowedByUnlockTurns(ActionType actionType)
 	{
-		int turnsTillUnlock = this.GetTurnsTillUnlock(actionType);
-		return turnsTillUnlock <= 0;
+		return GetTurnsTillUnlock(actionType) <= 0;
 	}
 
-	public int GetTurnsTillUnlock(AbilityData.ActionType actionType)
+	public int GetTurnsTillUnlock(ActionType actionType)
 	{
 		if (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("NoCooldowns"))
 		{
 			return 0;
 		}
-		int b = 0;
-		if (GameFlowData.Get() != null)
+		int turns = 0;
+		if (GameFlowData.Get() != null && GameplayData.Get() != null)
 		{
-			if (GameplayData.Get() != null)
+			int currentTurn = GameFlowData.Get().CurrentTurn;
+			SpawnPointManager spawnPointManager = SpawnPointManager.Get();
+			if (spawnPointManager != null
+				&& spawnPointManager.m_spawnInDuringMovement
+				&& GameplayData.Get().m_disableAbilitiesOnRespawn
+				&& m_actor.NextRespawnTurn == currentTurn)
 			{
-				int currentTurn = GameFlowData.Get().CurrentTurn;
-				SpawnPointManager spawnPointManager = SpawnPointManager.Get();
-				if (spawnPointManager != null)
+				turns = 1;
+			}
+			else if (IsCard(actionType))
+			{
+				int turnCatalystsUnlock = GameplayData.Get().m_turnCatalystsUnlock;
+				turns = turnCatalystsUnlock - currentTurn;
+			}
+			else
+			{
+				int[] turnsAbilitiesUnlock = GameplayData.Get().m_turnsAbilitiesUnlock;
+				if (actionType < (ActionType)turnsAbilitiesUnlock.Length)
 				{
-					if (spawnPointManager.m_spawnInDuringMovement && GameplayData.Get().m_disableAbilitiesOnRespawn)
-					{
-						if (this.m_actor.NextRespawnTurn == currentTurn)
-						{
-							b = 1;
-							goto IL_116;
-						}
-					}
-				}
-				if (AbilityData.IsCard(actionType))
-				{
-					int turnCatalystsUnlock = GameplayData.Get().m_turnCatalystsUnlock;
-					b = turnCatalystsUnlock - currentTurn;
-				}
-				else
-				{
-					int[] turnsAbilitiesUnlock = GameplayData.Get().m_turnsAbilitiesUnlock;
-					if (actionType < (AbilityData.ActionType)turnsAbilitiesUnlock.Length)
-					{
-						b = turnsAbilitiesUnlock[(int)actionType] - currentTurn;
-					}
+					turns = turnsAbilitiesUnlock[(int)actionType] - currentTurn;
 				}
 			}
 		}
-		IL_116:
-		return Mathf.Max(0, b);
+		return Mathf.Max(0, turns);
 	}
 
-	public int GetCooldownRemaining(AbilityData.ActionType action)
+	public int GetCooldownRemaining(ActionType action)
 	{
-		if (AbilityData.IsChain(action))
+		if (IsChain(action))
 		{
 			return 0;
 		}
-		AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
-		return abilityEntry.GetCooldownRemaining();
+		return m_abilities[(int)action].GetCooldownRemaining();
 	}
 
-	public bool IsActionInCooldown(AbilityData.ActionType action)
+	public bool IsActionInCooldown(ActionType action)
 	{
-		if (AbilityData.IsChain(action))
-		{
-			return false;
-		}
-		AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
-		return abilityEntry.GetCooldownRemaining() != 0;
+		return !IsChain(action) && m_abilities[(int)action].GetCooldownRemaining() != 0;
 	}
 
-	public void TriggerCooldown(AbilityData.ActionType action)
+	public void TriggerCooldown(ActionType action)
 	{
-		if (!AbilityData.IsChain(action))
+		if (!IsChain(action))
 		{
-			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
+			AbilityEntry abilityEntry = m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
 				int moddedCooldown = abilityEntry.ability.GetModdedCooldown();
@@ -1741,146 +1368,122 @@ public class AbilityData : NetworkBehaviour
 						float cooldownMultiplier = GameplayMutators.GetCooldownMultiplier();
 						int num2 = Mathf.RoundToInt((float)(num + cooldownTimeAdjustment) * cooldownMultiplier);
 						num2 = Math.Max(num2, 0);
-						this.m_cooldowns[abilityEntry.ability.m_abilityName] = num2;
+						m_cooldowns[abilityEntry.ability.m_abilityName] = num2;
 					}
 					else
 					{
-						this.m_cooldowns[abilityEntry.ability.m_abilityName] = moddedCooldown + 1;
+						m_cooldowns[abilityEntry.ability.m_abilityName] = moddedCooldown + 1;
 					}
 				}
 				else if (abilityEntry.ability.m_cooldown == -1)
 				{
-					this.m_cooldowns[abilityEntry.ability.m_abilityName] = -1;
+					m_cooldowns[abilityEntry.ability.m_abilityName] = -1;
 				}
-				this.SynchronizeCooldownsToSlots();
+				SynchronizeCooldownsToSlots();
 			}
 		}
 	}
 
-	public void OverrideCooldown(AbilityData.ActionType action, int cooldownRemainingOverride)
+	public void OverrideCooldown(ActionType action, int cooldownRemainingOverride)
 	{
-		if (!AbilityData.IsChain(action))
+		if (!IsChain(action))
 		{
-			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
+			AbilityEntry abilityEntry = m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
-				this.m_cooldowns[abilityEntry.ability.m_abilityName] = cooldownRemainingOverride;
-				this.SynchronizeCooldownsToSlots();
+				m_cooldowns[abilityEntry.ability.m_abilityName] = cooldownRemainingOverride;
+				SynchronizeCooldownsToSlots();
 			}
 		}
 	}
 
-	public void ApplyCooldownReduction(AbilityData.ActionType action, int cooldownReduction)
+	public void ApplyCooldownReduction(ActionType action, int cooldownReduction)
 	{
 		if (cooldownReduction > 0)
 		{
-			int num = this.GetCooldownRemaining(action);
+			int num = GetCooldownRemaining(action);
 			if (num > 0)
 			{
 				num -= cooldownReduction;
 				num = Mathf.Max(0, num);
-				this.OverrideCooldown(action, num);
+				OverrideCooldown(action, num);
 			}
 		}
 	}
 
 	public void ProgressCooldowns()
 	{
-		Dictionary<string, int> dictionary = new Dictionary<string, int>(this.m_cooldowns);
-		using (Dictionary<string, int>.Enumerator enumerator = dictionary.GetEnumerator())
+		Dictionary<string, int> cooldownsCopy = new Dictionary<string, int>(m_cooldowns);
+		foreach (KeyValuePair<string, int> keyValuePair in cooldownsCopy)
 		{
-			while (enumerator.MoveNext())
+			string key = keyValuePair.Key;
+			if (m_cooldowns[key] > 0)
 			{
-				KeyValuePair<string, int> keyValuePair = enumerator.Current;
-				string key = keyValuePair.Key;
-				if (this.m_cooldowns[key] > 0)
+				int num = 1;
+				if (GameplayMutators.Get() != null)
 				{
-					int num = 1;
-					if (GameplayMutators.Get() != null)
-					{
-						num += GameplayMutators.GetCooldownSpeedAdjustment();
-						num = Mathf.Min(num, this.m_cooldowns[key]);
-					}
-					Dictionary<string, int> cooldowns;
-					string key2;
-					(cooldowns = this.m_cooldowns)[key2 = key] = cooldowns[key2] - num;
-					if (this.m_cooldowns[key] == 0)
-					{
-						this.m_cooldowns.Remove(key);
-					}
+					num += GameplayMutators.GetCooldownSpeedAdjustment();
+					num = Mathf.Min(num, m_cooldowns[key]);
+				}
+				m_cooldowns[key] -= num;
+				if (m_cooldowns[key] == 0)
+				{
+					m_cooldowns.Remove(key);
 				}
 			}
 		}
-		this.SynchronizeCooldownsToSlots();
+		SynchronizeCooldownsToSlots();
 	}
 
 	public void ProgressCooldownsOfAbilities(List<Ability> abilities)
 	{
-		Dictionary<string, int> dictionary = new Dictionary<string, int>(this.m_cooldowns);
-		using (Dictionary<string, int>.Enumerator enumerator = dictionary.GetEnumerator())
+		Dictionary<string, int> cooldownsCopy = new Dictionary<string, int>(m_cooldowns);
+		foreach (KeyValuePair<string, int> keyValuePair in cooldownsCopy)
 		{
-			while (enumerator.MoveNext())
+			string key = keyValuePair.Key;
+			if (m_cooldowns[key] > 0)
 			{
-				KeyValuePair<string, int> keyValuePair = enumerator.Current;
-				string key = keyValuePair.Key;
-				if (this.m_cooldowns[key] > 0)
+				bool flag = false;
+				foreach (Ability ability in abilities)
 				{
-					bool flag = false;
-					using (List<Ability>.Enumerator enumerator2 = abilities.GetEnumerator())
+					if (ability.m_abilityName == key)
 					{
-						while (enumerator2.MoveNext())
-						{
-							Ability ability = enumerator2.Current;
-							if (ability.m_abilityName == key)
-							{
-								flag = true;
-								goto IL_B0;
-							}
-						}
+						flag = true;
+						break;
 					}
-					IL_B0:
-					if (flag)
+				}
+				if (flag)
+				{
+					m_cooldowns[key] -= 1;
+					if (m_cooldowns[key] == 0)
 					{
-						Dictionary<string, int> cooldowns;
-						string key2;
-						(cooldowns = this.m_cooldowns)[key2 = key] = cooldowns[key2] - 1;
-						if (this.m_cooldowns[key] == 0)
-						{
-							this.m_cooldowns.Remove(key);
-						}
+						m_cooldowns.Remove(key);
 					}
 				}
 			}
 		}
-		this.SynchronizeCooldownsToSlots();
+		SynchronizeCooldownsToSlots();
 	}
 
 	public void ProgressCharacterAbilityCooldowns()
 	{
-		Dictionary<string, int> dictionary = new Dictionary<string, int>(this.m_cooldowns);
-		using (Dictionary<string, int>.Enumerator enumerator = dictionary.GetEnumerator())
+		Dictionary<string, int> cooldownsCopy = new Dictionary<string, int>(m_cooldowns);
+		foreach (KeyValuePair<string, int> keyValuePair in cooldownsCopy)
 		{
-			while (enumerator.MoveNext())
+			string key = keyValuePair.Key;
+			ActionType actionType = GetActionType(key);
+			if (actionType >= ActionType.ABILITY_0
+				&& actionType <= ActionType.ABILITY_6
+				&& m_cooldowns[key] > 0)
 			{
-				KeyValuePair<string, int> keyValuePair = enumerator.Current;
-				string key = keyValuePair.Key;
-				AbilityData.ActionType actionType = this.GetActionType(key);
-				if (actionType >= AbilityData.ActionType.ABILITY_0 && actionType <= AbilityData.ActionType.ABILITY_6)
+				m_cooldowns[key] -= 1;
+				if (m_cooldowns[key] == 0)
 				{
-					if (this.m_cooldowns[key] > 0)
-					{
-						Dictionary<string, int> cooldowns;
-						string key2;
-						(cooldowns = this.m_cooldowns)[key2 = key] = cooldowns[key2] - 1;
-						if (this.m_cooldowns[key] == 0)
-						{
-							this.m_cooldowns.Remove(key);
-						}
-					}
+					m_cooldowns.Remove(key);
 				}
 			}
 		}
-		this.SynchronizeCooldownsToSlots();
+		SynchronizeCooldownsToSlots();
 	}
 
 	[Command]
@@ -1890,76 +1493,76 @@ public class AbilityData : NetworkBehaviour
 		{
 			return;
 		}
-		this.ClearCooldowns();
+		ClearCooldowns();
 	}
 
 	public void ClearCooldowns()
 	{
-		this.m_cooldowns.Clear();
-		this.SynchronizeCooldownsToSlots();
+		m_cooldowns.Clear();
+		SynchronizeCooldownsToSlots();
 	}
 
 	public void ClearCharacterAbilityCooldowns()
 	{
 		bool flag = false;
-		for (int i = 0; i < 7; i++)
+		for (int i = 0; i < NUM_ABILITIES; i++)
 		{
-			AbilityData.ActionType actionType = (AbilityData.ActionType)i;
-			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)actionType];
+			ActionType actionType = (ActionType)i;
+			AbilityEntry abilityEntry = m_abilities[(int)actionType];
 			if (abilityEntry.ability != null)
 			{
 				string abilityName = abilityEntry.ability.m_abilityName;
-				if (this.m_cooldowns.ContainsKey(abilityName))
+				if (m_cooldowns.ContainsKey(abilityName))
 				{
-					this.m_cooldowns.Remove(abilityName);
+					m_cooldowns.Remove(abilityName);
 					flag = true;
 				}
 			}
 		}
 		if (flag)
 		{
-			this.SynchronizeCooldownsToSlots();
+			SynchronizeCooldownsToSlots();
 		}
 	}
 
-	public void SetCooldown(AbilityData.ActionType action, int cooldown)
+	public void SetCooldown(ActionType action, int cooldown)
 	{
-		AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
+		AbilityEntry abilityEntry = m_abilities[(int)action];
 		if (abilityEntry.ability != null)
 		{
 			string abilityName = abilityEntry.ability.m_abilityName;
-			if (this.m_cooldowns.ContainsKey(abilityName))
+			if (m_cooldowns.ContainsKey(abilityName))
 			{
-				this.m_cooldowns[abilityName] = cooldown;
-				this.SynchronizeCooldownsToSlots();
+				m_cooldowns[abilityName] = cooldown;
+				SynchronizeCooldownsToSlots();
 			}
 		}
 	}
 
-	public void ClearCooldown(AbilityData.ActionType action)
+	public void ClearCooldown(ActionType action)
 	{
-		AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
+		AbilityEntry abilityEntry = m_abilities[(int)action];
 		if (abilityEntry.ability != null)
 		{
 			string abilityName = abilityEntry.ability.m_abilityName;
-			if (this.m_cooldowns.ContainsKey(abilityName))
+			if (m_cooldowns.ContainsKey(abilityName))
 			{
-				this.m_cooldowns.Remove(abilityName);
-				this.SynchronizeCooldownsToSlots();
+				m_cooldowns.Remove(abilityName);
+				SynchronizeCooldownsToSlots();
 			}
 		}
 	}
 
-	public void PlaceInCooldownTillTurn(AbilityData.ActionType action, int turnNumber)
+	public void PlaceInCooldownTillTurn(ActionType action, int turnNumber)
 	{
-		AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
+		AbilityEntry abilityEntry = m_abilities[(int)action];
 		if (abilityEntry.ability != null)
 		{
 			int num = turnNumber - GameFlowData.Get().CurrentTurn;
 			if (num > 0)
 			{
-				this.m_cooldowns[abilityEntry.ability.m_abilityName] = num;
-				this.SynchronizeCooldownsToSlots();
+				m_cooldowns[abilityEntry.ability.m_abilityName] = num;
+				SynchronizeCooldownsToSlots();
 			}
 		}
 	}
@@ -1972,43 +1575,28 @@ public class AbilityData : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void AbilityData::SynchronizeCooldownsToSlots()' called on client");
 			return;
 		}
-		int i = 0;
-		while (i < this.m_abilities.Length)
+		
+		for (int i = 0; i < m_abilities.Length; i++)
 		{
-			AbilityData.AbilityEntry abilityEntry = this.m_abilities[i];
-			string text;
-			if (abilityEntry.ability == null)
+			AbilityEntry abilityEntry = m_abilities[i];
+			string key = abilityEntry.ability?.m_abilityName;
+			int num;
+			if (abilityEntry.ability == null || !m_cooldowns.ContainsKey(key))
 			{
-				text = null;
+				num = 0;
 			}
 			else
 			{
-				text = abilityEntry.ability.m_abilityName;
+				num = m_cooldowns[key];
 			}
-			string key = text;
-			if (!(abilityEntry.ability != null))
-			{
-				goto IL_99;
-			}
-			if (!this.m_cooldowns.ContainsKey(key))
-			{
-				goto IL_99;
-			}
-			int num = this.m_cooldowns[key];
-			IL_9B:
 			if (abilityEntry.GetCooldownRemaining() != num)
 			{
 				abilityEntry.SetCooldownRemaining(num);
-				if (this.m_cooldownsSync[i] != num)
+				if (m_cooldownsSync[i] != num)
 				{
-					this.m_cooldownsSync[i] = num;
+					m_cooldownsSync[i] = num;
 				}
 			}
-			i++;
-			continue;
-			IL_99:
-			num = 0;
-			goto IL_9B;
 		}
 	}
 
@@ -2020,27 +1608,23 @@ public class AbilityData : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void AbilityData::InitializeStockCounts()' called on client");
 			return;
 		}
-		for (int i = 0; i < 7; i++)
+		for (int i = 0; i < NUM_ABILITIES; i++)
 		{
-			AbilityData.ActionType actionType = (AbilityData.ActionType)i;
-			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)actionType];
-			if (abilityEntry.ability != null)
+			ActionType actionType = (ActionType)i;
+			AbilityEntry abilityEntry = m_abilities[(int)actionType];
+			if (abilityEntry.ability != null
+				&& abilityEntry.ability.GetModdedMaxStocks() > 0
+				&& abilityEntry.ability.m_initialStockAmount >= 0)
 			{
-				if (abilityEntry.ability.GetModdedMaxStocks() > 0)
-				{
-					if (abilityEntry.ability.m_initialStockAmount >= 0)
-					{
-						int desiredAmount = Mathf.Min(abilityEntry.ability.GetModdedMaxStocks(), abilityEntry.ability.m_initialStockAmount);
-						this.OverrideStockRemaining(actionType, desiredAmount);
-					}
-				}
+				int desiredAmount = Mathf.Min(abilityEntry.ability.GetModdedMaxStocks(), abilityEntry.ability.m_initialStockAmount);
+				OverrideStockRemaining(actionType, desiredAmount);
 			}
 		}
 	}
 
-	public int GetMaxStocksCount(AbilityData.ActionType actionType)
+	public int GetMaxStocksCount(ActionType actionType)
 	{
-		AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)actionType];
+		AbilityEntry abilityEntry = m_abilities[(int)actionType];
 		if (abilityEntry.ability != null)
 		{
 			return abilityEntry.ability.GetModdedMaxStocks();
@@ -2048,74 +1632,62 @@ public class AbilityData : NetworkBehaviour
 		return 0;
 	}
 
-	public int GetConsumedStocksCount(AbilityData.ActionType actionType)
+	public int GetConsumedStocksCount(ActionType actionType)
 	{
-		return this.m_consumedStockCount[(int)actionType];
+		return m_consumedStockCount[(int)actionType];
 	}
 
-	public int GetStocksRemaining(AbilityData.ActionType actionType)
+	public int GetStocksRemaining(ActionType actionType)
 	{
-		return Mathf.Max(0, this.GetMaxStocksCount(actionType) - this.GetConsumedStocksCount(actionType));
+		return Mathf.Max(0, GetMaxStocksCount(actionType) - GetConsumedStocksCount(actionType));
 	}
 
-	public int GetStockRefreshCountdown(AbilityData.ActionType actionType)
+	public int GetStockRefreshCountdown(ActionType actionType)
 	{
-		return this.m_stockRefreshCountdowns[(int)actionType];
+		return m_stockRefreshCountdowns[(int)actionType];
 	}
 
-	public bool ActionHasEnoughStockToTrigger(AbilityData.ActionType action)
+	public bool ActionHasEnoughStockToTrigger(ActionType action)
 	{
-		if (!AbilityData.IsChain(action))
+		if (IsChain(action))
 		{
-			if (DebugParameters.Get() != null)
-			{
-				if (DebugParameters.Get().GetParameterAsBool("NoCooldowns"))
-				{
-					return true;
-				}
-			}
-			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
-			bool result;
-			if (abilityEntry.ability.m_abilityManagedStockCount)
-			{
-				result = true;
-			}
-			else
-			{
-				int moddedMaxStocks = abilityEntry.ability.GetModdedMaxStocks();
-				result = (moddedMaxStocks <= 0 || this.m_consumedStockCount[(int)action] < moddedMaxStocks);
-			}
-			return result;
+			return true;
 		}
-		return true;
+		if (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("NoCooldowns"))
+		{
+			return true;
+		}
+		AbilityEntry abilityEntry = m_abilities[(int)action];
+		if (abilityEntry.ability.m_abilityManagedStockCount)
+		{
+			return true;
+		}
+		int moddedMaxStocks = abilityEntry.ability.GetModdedMaxStocks();
+		return moddedMaxStocks <= 0 || m_consumedStockCount[(int)action] < moddedMaxStocks;
 	}
 
-	public void ConsumeStock(AbilityData.ActionType action)
+	public void ConsumeStock(ActionType action)
 	{
-		if (!AbilityData.IsChain(action))
+		if (!IsChain(action))
 		{
-			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
+			AbilityEntry abilityEntry = m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
 				int moddedMaxStocks = abilityEntry.ability.GetModdedMaxStocks();
-				if (moddedMaxStocks > 0)
+				if (moddedMaxStocks > 0 && m_consumedStockCount[(int)action] < moddedMaxStocks)
 				{
-					if (this.m_consumedStockCount[(int)action] < moddedMaxStocks)
+					if (m_consumedStockCount[(int)action] == 0)
 					{
-						if (this.m_consumedStockCount[(int)action] == 0)
+						int num = abilityEntry.ability.GetModdedStockRefreshDuration() + 1;
+						if (m_stockRefreshCountdowns[(int)action] != num)
 						{
-							int moddedStockRefreshDuration = abilityEntry.ability.GetModdedStockRefreshDuration();
-							int num = moddedStockRefreshDuration + 1;
-							if (this.m_stockRefreshCountdowns[(int)action] != num)
-							{
-								this.m_stockRefreshCountdowns[(int)action] = num;
-							}
+							m_stockRefreshCountdowns[(int)action] = num;
 						}
-						int num2 = Mathf.Clamp(this.m_consumedStockCount[(int)action] + abilityEntry.ability.m_stockConsumedOnCast, 0, moddedMaxStocks);
-						if (this.m_consumedStockCount[(int)action] != num2)
-						{
-							this.m_consumedStockCount[(int)action] = num2;
-						}
+					}
+					int num2 = Mathf.Clamp(m_consumedStockCount[(int)action] + abilityEntry.ability.m_stockConsumedOnCast, 0, moddedMaxStocks);
+					if (m_consumedStockCount[(int)action] != num2)
+					{
+						m_consumedStockCount[(int)action] = num2;
 					}
 				}
 			}
@@ -2129,110 +1701,97 @@ public class AbilityData : NetworkBehaviour
 		{
 			return;
 		}
-		this.RefillStocks();
+		RefillStocks();
 	}
 
 	public void RefillStocks()
 	{
-		for (int i = 0; i < this.m_consumedStockCount.Count; i++)
+		for (int i = 0; i < m_consumedStockCount.Count; i++)
 		{
-			if (this.m_consumedStockCount[i] != 0)
+			if (m_consumedStockCount[i] != 0)
 			{
-				this.m_consumedStockCount[i] = 0;
+				m_consumedStockCount[i] = 0;
 			}
-			if (this.m_stockRefreshCountdowns[i] != 0)
+			if (m_stockRefreshCountdowns[i] != 0)
 			{
-				this.m_stockRefreshCountdowns[i] = 0;
+				m_stockRefreshCountdowns[i] = 0;
 			}
 		}
 	}
 
 	public void ProgressStockRefreshTimes()
 	{
-		for (int i = 0; i < 0xE; i++)
+		for (int i = 0; i < NUM_ACTIONS; i++)
 		{
-			this.ProgressStockRefreshTimeForAction((AbilityData.ActionType)i, 1);
+			ProgressStockRefreshTimeForAction((ActionType)i, 1);
 		}
 	}
 
-	public void ProgressStockRefreshTimeForAction(AbilityData.ActionType action, int advanceAmount)
+	public void ProgressStockRefreshTimeForAction(ActionType action, int advanceAmount)
 	{
-		if (action < (AbilityData.ActionType)this.m_stockRefreshCountdowns.Count)
+		if (action < (ActionType)m_stockRefreshCountdowns.Count && advanceAmount > 0)
 		{
-			if (advanceAmount > 0)
+			AbilityEntry abilityEntry = m_abilities[(int)action];
+			if ((m_stockRefreshCountdowns[(int)action] > 0 || m_consumedStockCount[(int)action] > 0)
+				&& abilityEntry != null
+				&& abilityEntry.ability != null
+				&& abilityEntry.ability.GetModdedStockRefreshDuration() > 0)
 			{
-				AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
-				bool flag = this.m_stockRefreshCountdowns[(int)action] > 0 || this.m_consumedStockCount[(int)action] > 0;
-				if (flag)
+				int moddedStockRefreshDuration = abilityEntry.ability.GetModdedStockRefreshDuration();
+				int num = advanceAmount / moddedStockRefreshDuration;
+				int num2 = advanceAmount % moddedStockRefreshDuration;
+				int num3 = Mathf.Max(0, m_consumedStockCount[(int)action] - num);
+				if (m_consumedStockCount[(int)action] != num3)
 				{
-					if (abilityEntry != null)
+					m_consumedStockCount[(int)action] = num3;
+				}
+				if (m_stockRefreshCountdowns[(int)action] >= num2)
+				{
+					if (num2 != 0)
 					{
-						if (abilityEntry.ability != null && abilityEntry.ability.GetModdedStockRefreshDuration() > 0)
+						m_stockRefreshCountdowns[(int)action] -= num2;
+					}
+					if (m_stockRefreshCountdowns[(int)action] <= 0 && m_consumedStockCount[(int)action] > 0)
+					{
+						if (abilityEntry.ability.RefillAllStockOnRefresh())
 						{
-							int moddedStockRefreshDuration = abilityEntry.ability.GetModdedStockRefreshDuration();
-							int num = advanceAmount / moddedStockRefreshDuration;
-							int num2 = advanceAmount % moddedStockRefreshDuration;
-							int num3 = Mathf.Max(0, this.m_consumedStockCount[(int)action] - num);
-							if (this.m_consumedStockCount[(int)action] != num3)
+							m_consumedStockCount[(int)action] = 0;
+						}
+						else
+						{
+							m_consumedStockCount[(int)action] -= 1;
+						}
+						if (m_consumedStockCount[(int)action] > 0)
+						{
+							int num4 = moddedStockRefreshDuration;
+							if (m_stockRefreshCountdowns[(int)action] != num4)
 							{
-								this.m_consumedStockCount[(int)action] = num3;
+								m_stockRefreshCountdowns[(int)action] = num4;
 							}
-							if (this.m_stockRefreshCountdowns[(int)action] >= num2)
-							{
-								if (num2 != 0)
-								{
-									SyncListInt syncListInt;
-									(syncListInt = this.m_stockRefreshCountdowns)[(int)action] = syncListInt[(int)action] - num2;
-								}
-								if (this.m_stockRefreshCountdowns[(int)action] <= 0)
-								{
-									if (this.m_consumedStockCount[(int)action] > 0)
-									{
-										if (abilityEntry.ability.RefillAllStockOnRefresh())
-										{
-											this.m_consumedStockCount[(int)action] = 0;
-										}
-										else
-										{
-											SyncListInt syncListInt;
-											(syncListInt = this.m_consumedStockCount)[(int)action] = syncListInt[(int)action] - 1;
-										}
-										if (this.m_consumedStockCount[(int)action] > 0)
-										{
-											int num4 = moddedStockRefreshDuration;
-											if (this.m_stockRefreshCountdowns[(int)action] != num4)
-											{
-												this.m_stockRefreshCountdowns[(int)action] = num4;
-											}
-										}
-										else if (this.m_stockRefreshCountdowns[(int)action] != 0)
-										{
-											this.m_stockRefreshCountdowns[(int)action] = 0;
-										}
-									}
-								}
-							}
-							else
-							{
-								int num5 = num2 - this.m_stockRefreshCountdowns[(int)action];
-								int num6 = moddedStockRefreshDuration - num5;
-								if (this.m_stockRefreshCountdowns[(int)action] != num6)
-								{
-									this.m_stockRefreshCountdowns[(int)action] = num6;
-								}
-								if (this.m_consumedStockCount[(int)action] > 0)
-								{
-									if (abilityEntry.ability.RefillAllStockOnRefresh())
-									{
-										this.m_consumedStockCount[(int)action] = 0;
-									}
-									else
-									{
-										SyncListInt syncListInt;
-										(syncListInt = this.m_consumedStockCount)[(int)action] = syncListInt[(int)action] - 1;
-									}
-								}
-							}
+						}
+						else if (m_stockRefreshCountdowns[(int)action] != 0)
+						{
+							m_stockRefreshCountdowns[(int)action] = 0;
+						}
+					}
+				}
+				else
+				{
+					int num5 = num2 - m_stockRefreshCountdowns[(int)action];
+					int num6 = moddedStockRefreshDuration - num5;
+					if (m_stockRefreshCountdowns[(int)action] != num6)
+					{
+						m_stockRefreshCountdowns[(int)action] = num6;
+					}
+					if (m_consumedStockCount[(int)action] > 0)
+					{
+						if (abilityEntry.ability.RefillAllStockOnRefresh())
+						{
+							m_consumedStockCount[(int)action] = 0;
+						}
+						else
+						{
+							m_consumedStockCount[(int)action] -= 1;
 						}
 					}
 				}
@@ -2240,47 +1799,44 @@ public class AbilityData : NetworkBehaviour
 		}
 	}
 
-	public void OverrideStockRemaining(AbilityData.ActionType action, int desiredAmount)
+	public void OverrideStockRemaining(ActionType action, int desiredAmount)
 	{
-		if (!AbilityData.IsChain(action))
+		if (!IsChain(action))
 		{
-			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
+			AbilityEntry abilityEntry = m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
 				int value = Mathf.Max(0, abilityEntry.ability.GetModdedMaxStocks() - desiredAmount);
-				this.m_consumedStockCount[(int)action] = value;
-				if (this.m_consumedStockCount[(int)action] == 0)
+				m_consumedStockCount[(int)action] = value;
+				if (m_consumedStockCount[(int)action] == 0 && m_stockRefreshCountdowns[(int)action] != 0)
 				{
-					if (this.m_stockRefreshCountdowns[(int)action] != 0)
-					{
-						this.m_stockRefreshCountdowns[(int)action] = 0;
-					}
+					m_stockRefreshCountdowns[(int)action] = 0;
 				}
 			}
 		}
 	}
 
-	public void OverrideStockRefreshCountdown(AbilityData.ActionType action, int desiredCountdown)
+	public void OverrideStockRefreshCountdown(ActionType action, int desiredCountdown)
 	{
-		if (!AbilityData.IsChain(action))
+		if (!IsChain(action))
 		{
-			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
+			AbilityEntry abilityEntry = m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
 				int num = Mathf.Clamp(desiredCountdown, 0, abilityEntry.ability.GetModdedStockRefreshDuration());
-				if (this.m_stockRefreshCountdowns[(int)action] != num)
+				if (m_stockRefreshCountdowns[(int)action] != num)
 				{
-					this.m_stockRefreshCountdowns[(int)action] = num;
+					m_stockRefreshCountdowns[(int)action] = num;
 				}
 			}
 		}
 	}
 
-	public int GetStockRefreshDurationForAbility(AbilityData.ActionType action)
+	public int GetStockRefreshDurationForAbility(ActionType action)
 	{
-		if (!AbilityData.IsChain(action))
+		if (!IsChain(action))
 		{
-			AbilityData.AbilityEntry abilityEntry = this.m_abilities[(int)action];
+			AbilityEntry abilityEntry = m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
 				return abilityEntry.ability.GetModdedStockRefreshDuration();
@@ -2292,7 +1848,7 @@ public class AbilityData : NetworkBehaviour
 	public bool IsAbilityTargetInRange(Ability ability, AbilityTarget target, int targetIndex, float calculatedMinRangeInSquares = -1f, float calculatedMaxRangeInSquares = -1f)
 	{
 		bool flag = false;
-		ActorData actor = this.m_actor;
+		ActorData actor = m_actor;
 		BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
 		float num = calculatedMaxRangeInSquares;
 		float num2 = calculatedMinRangeInSquares;
@@ -2307,34 +1863,25 @@ public class AbilityData : NetworkBehaviour
 		Ability.TargetingParadigm targetingParadigm = ability.GetTargetingParadigm(targetIndex);
 		if (targetingParadigm == Ability.TargetingParadigm.BoardSquare)
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-			flag |= this.IsTargetSquareInRangeOfAbilityFromSquare(boardSquareSafe, currentBoardSquare, num, num2);
+			BoardSquare square = Board.Get().GetSquare(target.GridPos);
+			flag |= IsTargetSquareInRangeOfAbilityFromSquare(square, currentBoardSquare, num, num2);
 		}
 		else if (targetingParadigm == Ability.TargetingParadigm.Position)
 		{
-			Vector3 travelBoardSquareWorldPositionForLos = actor.GetTravelBoardSquareWorldPositionForLos();
+			Vector3 loSCheckPos = actor.GetLoSCheckPos();
 			float num3 = num * Board.Get().squareSize;
 			float num4 = num2 * Board.Get().squareSize;
 			if (GameplayData.Get().m_abilityRangeType == GameplayData.AbilityRangeType.WorldDistToFreePos)
 			{
-				Vector3 vector = target.FreePos - travelBoardSquareWorldPositionForLos;
+				Vector3 vector = target.FreePos - loSCheckPos;
 				vector.y = 0f;
 				float sqrMagnitude = vector.sqrMagnitude;
-				bool flag2;
-				if (sqrMagnitude <= num3 * num3)
-				{
-					flag2 = (sqrMagnitude >= num4 * num4);
-				}
-				else
-				{
-					flag2 = false;
-				}
-				flag = flag2;
+				flag = sqrMagnitude <= num3 * num3 && sqrMagnitude >= num4 * num4;
 			}
 			else
 			{
-				BoardSquare boardSquareSafe2 = Board.Get().GetSquare(target.GridPos);
-				flag |= this.IsTargetSquareInRangeOfAbilityFromSquare(boardSquareSafe2, currentBoardSquare, num, num2);
+				BoardSquare square2 = Board.Get().GetSquare(target.GridPos);
+				flag |= IsTargetSquareInRangeOfAbilityFromSquare(square2, currentBoardSquare, num, num2);
 			}
 		}
 		else if (targetingParadigm == Ability.TargetingParadigm.Direction)
@@ -2343,7 +1890,7 @@ public class AbilityData : NetworkBehaviour
 		}
 		else
 		{
-			Log.Error("Checking range for ability " + ability.m_abilityName + ", but its targeting paradigm is invalid.", new object[0]);
+			Log.Error("Checking range for ability " + ability.m_abilityName + ", but its targeting paradigm is invalid.");
 			flag = false;
 		}
 		return flag;
@@ -2352,123 +1899,85 @@ public class AbilityData : NetworkBehaviour
 	public bool IsTargetSquareInRangeOfAbilityFromSquare(BoardSquare dest, BoardSquare src, float rangeInSquares, float minRangeInSquares)
 	{
 		bool result = true;
-		if (src)
+		if (src && dest)
 		{
-			if (dest)
+			float num;
+			if (GameplayData.Get().m_abilityRangeType == GameplayData.AbilityRangeType.WorldDistToFreePos)
 			{
-				float num;
-				if (GameplayData.Get().m_abilityRangeType == GameplayData.AbilityRangeType.WorldDistToFreePos)
-				{
-					num = src.HorizontalDistanceInSquaresTo(dest);
-				}
-				else
-				{
-					num = src.HorizontalDistanceOnBoardTo(dest);
-				}
-				bool flag;
-				if (rangeInSquares >= 0f)
-				{
-					flag = (num <= rangeInSquares);
-				}
-				else
-				{
-					flag = true;
-				}
-				bool flag2 = flag;
-				bool flag3 = num >= minRangeInSquares;
-				if (flag2)
-				{
-					if (flag3)
-					{
-						return result;
-					}
-				}
-				result = false;
+				num = src.HorizontalDistanceInSquaresTo(dest);
 			}
+			else
+			{
+				num = src.HorizontalDistanceOnBoardTo(dest);
+			}
+			bool flag2 = rangeInSquares < 0f || num <= rangeInSquares;
+			bool flag3 = num >= minRangeInSquares;
+			if (flag2 && flag3)
+			{
+				return result;
+			}
+			result = false;
 		}
 		return result;
 	}
 
 	public bool HasLineOfSightToTarget(Ability specificAbility, AbilityTarget target, int targetIndex)
 	{
-		bool result = false;
-		ActorData actor = this.m_actor;
+		ActorData actor = m_actor;
 		Ability.TargetingParadigm targetingParadigm = specificAbility.GetTargetingParadigm(targetIndex);
 		if (actor.GetCurrentBoardSquare() == null)
 		{
-			result = false;
+			return false;
 		}
 		else
 		{
-			if (targetingParadigm != Ability.TargetingParadigm.BoardSquare)
+			if (targetingParadigm == Ability.TargetingParadigm.BoardSquare
+				|| targetingParadigm == Ability.TargetingParadigm.Position)
 			{
-				if (targetingParadigm == Ability.TargetingParadigm.Position)
+				BoardSquare square = Board.Get().GetSquare(target.GridPos);
+				if (actor.LineOfSightVisibleExceptionSquares.Contains(square))
 				{
+					return true;
 				}
-				else
+				else if (actor.GetCurrentBoardSquare().GetLOS(target.GridPos.x, target.GridPos.y))
 				{
-					if (targetingParadigm == Ability.TargetingParadigm.Direction)
-					{
-						return true;
-					}
-					return result;
+					return true;
 				}
 			}
-			BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-			ReadOnlyCollection<BoardSquare> lineOfSightVisibleExceptionSquares = actor.LineOfSightVisibleExceptionSquares;
-			if (lineOfSightVisibleExceptionSquares.Contains(boardSquareSafe))
+			else if (targetingParadigm == Ability.TargetingParadigm.Direction)
 			{
-				result = true;
-			}
-			else if (actor.GetCurrentBoardSquare().LOSDistanceIsOne_zq(target.GridPos.x, target.GridPos.y))
-			{
-				result = true;
-			}
-		}
-		return result;
-	}
-
-	public bool HasLineOfSightToActor(ActorData target, bool ignoreExceptions = false)
-	{
-		ActorData actor = this.m_actor;
-		if (!(target == null))
-		{
-			if (!(actor == null))
-			{
-				if (!ignoreExceptions)
-				{
-					if (actor.IsLineOfSightVisibleException(target))
-					{
-						return true;
-					}
-				}
-				BoardSquare currentBoardSquare = target.GetCurrentBoardSquare();
-				BoardSquare currentBoardSquare2 = actor.GetCurrentBoardSquare();
-				return currentBoardSquare2.LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y);
+				return true;
 			}
 		}
 		return false;
 	}
 
+	public bool HasLineOfSightToActor(ActorData target, bool ignoreExceptions = false)
+	{
+		ActorData actor = m_actor;
+		if (target == null || actor == null)
+		{
+			return false;
+		}
+		if (!ignoreExceptions && actor.IsLineOfSightVisibleException(target))
+		{
+			return true;
+		}
+		BoardSquare currentBoardSquare = target.GetCurrentBoardSquare();
+		return actor.GetCurrentBoardSquare().GetLOS(currentBoardSquare.x, currentBoardSquare.y);
+	}
+
 	public bool ValidateAbilityOnTarget(Ability ability, AbilityTarget target, int targetIndex, float calculatedMinRangeInSquares = -1f, float calculatedMaxRangeInSquares = -1f)
 	{
 		bool result = false;
-		ActorTurnSM actorTurnSM = this.m_actor.GetActorTurnSM();
+		ActorTurnSM actorTurnSM = m_actor.GetActorTurnSM();
 		if (actorTurnSM)
 		{
 			List<AbilityTarget> abilityTargets = actorTurnSM.GetAbilityTargets();
 			if (abilityTargets != null)
 			{
-				bool flag;
-				if (targetIndex <= abilityTargets.Count)
-				{
-					flag = this.ValidateAbilityOnTarget(ability, target, targetIndex, abilityTargets, calculatedMinRangeInSquares, calculatedMaxRangeInSquares);
-				}
-				else
-				{
-					flag = false;
-				}
-				result = flag;
+				result = targetIndex <= abilityTargets.Count
+					&& ValidateAbilityOnTarget(ability, target, targetIndex, abilityTargets, calculatedMinRangeInSquares, calculatedMaxRangeInSquares);
 			}
 		}
 		return result;
@@ -2480,106 +1989,68 @@ public class AbilityData : NetworkBehaviour
 		{
 			return false;
 		}
-		ActorData actor = this.m_actor;
+		ActorData actor = m_actor;
 		bool flag = true;
 		Ability.TargetingParadigm targetingParadigm = ability.GetTargetingParadigm(targetIndex);
-		if (targetingParadigm != Ability.TargetingParadigm.BoardSquare)
+		if (targetingParadigm == Ability.TargetingParadigm.BoardSquare
+			|| targetingParadigm == Ability.TargetingParadigm.Position)
 		{
-			if (targetingParadigm != Ability.TargetingParadigm.Position)
+			BoardSquare square = Board.Get().GetSquare(target.GridPos);
+			flag = square != null
+				&& (ability.AllowInvalidSquareForSquareBasedTarget()
+					|| Board.Get().GetSquare(target.GridPos).IsValidForGameplay());
+			if (!ability.IsSimpleAction())
 			{
-				goto IL_D8;
+				if (flag && BarrierManager.Get().IsPositionTargetingBlocked(actor, square))
+				{
+					flag = false;
+				}
+				if (!flag)
+				{
+					return false;
+				}
 			}
 		}
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		bool flag2;
-		if (boardSquareSafe != null)
-		{
-			flag2 = (ability.AllowInvalidSquareForSquareBasedTarget() || Board.Get().GetSquare(target.GridPos).IsValidForGameplay());
-		}
-		else
-		{
-			flag2 = false;
-		}
-		flag = flag2;
-		if (!ability.IsSimpleAction())
-		{
-			if (flag && BarrierManager.Get().IsPositionTargetingBlocked(actor, boardSquareSafe))
-			{
-				flag = false;
-			}
-			if (!flag)
-			{
-				return false;
-			}
-		}
-		IL_D8:
-		bool flag3;
-		if (!ability.IsSimpleAction())
-		{
-			flag3 = this.IsAbilityTargetInRange(ability, target, targetIndex, calculatedMinRangeInSquares, calculatedMaxRangeInSquares);
-		}
-		else
-		{
-			flag3 = true;
-		}
-		bool flag4 = flag3;
-		if (!flag4)
+		bool flag2 = ability.IsSimpleAction() || IsAbilityTargetInRange(ability, target, targetIndex, calculatedMinRangeInSquares, calculatedMaxRangeInSquares);
+		if (!flag2)
 		{
 			return false;
 		}
-		bool flag5 = true;
+		bool flag3 = true;
 		if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhereInCoverToCaster))
 		{
-			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(target.GridPos);
-			flag5 = ActorCover.IsInCoverWrt(actor.GetTravelBoardSquareWorldPosition(), boardSquareSafe2, null, null, null);
+			BoardSquare square2 = Board.Get().GetSquare(target.GridPos);
+			flag3 = ActorCover.IsInCoverWrt(actor.GetTravelBoardSquareWorldPosition(), square2, null, null, null);
 		}
 		else if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhereInCover))
 		{
-			BoardSquare boardSquareSafe3 = Board.Get().GetSquare(target.GridPos);
-			bool[] array;
-			flag5 = ActorCover.CalcCoverLevelGeoOnly(out array, boardSquareSafe3);
+			BoardSquare square3 = Board.Get().GetSquare(target.GridPos);
+			flag3 = ActorCover.CalcCoverLevelGeoOnly(out bool[] array, square3);
 		}
-		bool flag6 = true;
+		bool flag4 = true;
 		if (ability.GetCheckLoS(targetIndex) && !ability.IsSimpleAction())
 		{
-			if (flag4)
+			if (flag2)
 			{
-				flag6 = this.HasLineOfSightToTarget(ability, target, targetIndex);
+				flag4 = HasLineOfSightToTarget(ability, target, targetIndex);
 			}
 			else
 			{
-				flag6 = false;
+				flag4 = false;
 			}
 		}
-		bool flag7;
-		if (flag4)
+		if (flag2 && flag && flag3 && flag4 && ValidateAbilityIsCastableDisregardingMovement(ability))
 		{
-			if (flag && flag5)
-			{
-				flag7 = flag6;
-				goto IL_1DE;
-			}
+			return ability.CustomTargetValidation(actor, target, targetIndex, currentTargets);
 		}
-		flag7 = false;
-		IL_1DE:
-		bool flag8 = flag7;
-		bool result;
-		if (flag8 && this.ValidateAbilityIsCastableDisregardingMovement(ability))
-		{
-			result = ability.CustomTargetValidation(actor, target, targetIndex, currentTargets);
-		}
-		else
-		{
-			result = false;
-		}
-		return result;
+		return false;
 	}
 
-	public bool ValidateActionRequest(AbilityData.ActionType actionType, List<AbilityTarget> targets)
+	public bool ValidateActionRequest(ActionType actionType, List<AbilityTarget> targets)
 	{
 		bool result = true;
-		Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
-		if (!this.ValidateActionIsRequestable(actionType))
+		Ability abilityOfActionType = GetAbilityOfActionType(actionType);
+		if (!ValidateActionIsRequestable(actionType))
 		{
 			result = false;
 		}
@@ -2588,7 +2059,7 @@ public class AbilityData : NetworkBehaviour
 			for (int i = 0; i < targets.Count; i++)
 			{
 				AbilityTarget target = targets[i];
-				if (!this.ValidateAbilityOnTarget(abilityOfActionType, target, i, targets, -1f, -1f))
+				if (!ValidateAbilityOnTarget(abilityOfActionType, target, i, targets, -1f, -1f))
 				{
 					return false;
 				}
@@ -2599,220 +2070,88 @@ public class AbilityData : NetworkBehaviour
 
 	public bool ValidateAbilityIsCastable(Ability ability)
 	{
-		if (ability != null)
+		if (ability == null)
 		{
-			bool flag = this.ValidateAbilityIsCastableDisregardingMovement(ability);
-			bool flag2 = ability.GetMovementAdjustment() != Ability.MovementAdjustment.NoMovement || !this.m_actor.HasQueuedMovement();
-			bool flag3;
-			if (!this.m_actor.QueuedMovementAllowsAbility)
-			{
-				flag3 = !ability.GetAffectsMovement();
-			}
-			else
-			{
-				flag3 = true;
-			}
-			bool flag4 = flag3;
-			bool flag5 = ability.RunPriority != AbilityPriority.Evasion || !this.HasQueuedAbilityInPhase(AbilityPriority.Evasion);
-			bool flag6;
-			if (AbilityData.IsCard(this.GetActionTypeOfAbility(ability)))
-			{
-				flag6 = !this.HasQueuedCardAbility();
-			}
-			else
-			{
-				flag6 = true;
-			}
-			bool result = flag6;
-			if (flag)
-			{
-				if (flag2)
-				{
-					if (flag4)
-					{
-						if (flag5)
-						{
-							return result;
-						}
-					}
-				}
-			}
+			Log.Error("Actor " + m_actor.DisplayName + " calling ValidateAbilityIsCastable on a null ability.");
 			return false;
 		}
-		Log.Error("Actor " + this.m_actor.DisplayName + " calling ValidateAbilityIsCastable on a null ability.", new object[0]);
-		return false;
+
+		bool flag = ValidateAbilityIsCastableDisregardingMovement(ability);
+		bool flag2 = ability.GetMovementAdjustment() != Ability.MovementAdjustment.NoMovement || !m_actor.HasQueuedMovement();
+		bool flag3 = m_actor.QueuedMovementAllowsAbility || !ability.GetAffectsMovement();
+		bool flag4 = ability.RunPriority != AbilityPriority.Evasion || !HasQueuedAbilityInPhase(AbilityPriority.Evasion);
+		bool flag5 = !IsCard(GetActionTypeOfAbility(ability)) || !HasQueuedCardAbility();
+		return flag && flag2 && flag3 && flag4 && flag5;
 	}
 
-	public bool ValidateActionIsRequestable(AbilityData.ActionType abilityAction)
+	public bool ValidateActionIsRequestable(ActionType abilityAction)
 	{
-		Ability abilityOfActionType = this.GetAbilityOfActionType(abilityAction);
-		if (abilityOfActionType != null)
+		Ability abilityOfActionType = GetAbilityOfActionType(abilityAction);
+		if (abilityOfActionType == null)
 		{
-			bool flag = this.ValidateActionIsRequestableDisregardingQueuedActions(abilityAction);
-			bool flag2 = !this.HasQueuedAction(abilityAction);
-			bool flag3;
-			if (!abilityOfActionType.IsFreeAction())
-			{
-				flag3 = (this.GetActionCostOfQueuedAbilities(abilityAction) == 0);
-			}
-			else
-			{
-				flag3 = true;
-			}
-			bool flag4 = flag3;
-			bool flag5;
-			if (abilityOfActionType.GetMovementAdjustment() == Ability.MovementAdjustment.NoMovement)
-			{
-				flag5 = !this.m_actor.HasQueuedMovement();
-			}
-			else
-			{
-				flag5 = true;
-			}
-			bool flag6 = flag5;
-			bool flag7 = this.m_actor.QueuedMovementAllowsAbility || !abilityOfActionType.GetAffectsMovement();
-			bool flag8;
-			if (abilityOfActionType.RunPriority == AbilityPriority.Evasion)
-			{
-				flag8 = !this.HasQueuedAbilityInPhase(AbilityPriority.Evasion);
-			}
-			else
-			{
-				flag8 = true;
-			}
-			bool flag9 = flag8;
-			bool result = !AbilityData.IsCard(abilityAction) || !this.HasQueuedCardAbility();
-			if (flag)
-			{
-				if (flag2)
-				{
-					if (flag4)
-					{
-						if (flag6)
-						{
-							if (flag7)
-							{
-								if (flag9)
-								{
-									return result;
-								}
-							}
-						}
-					}
-				}
-			}
+			Log.Error("Actor " + m_actor.DisplayName + " calling ValidateActionIsRequestable on a null ability.");
 			return false;
 		}
-		Log.Error("Actor " + this.m_actor.DisplayName + " calling ValidateActionIsRequestable on a null ability.", new object[0]);
-		return false;
+
+		bool flag = ValidateActionIsRequestableDisregardingQueuedActions(abilityAction);
+		bool flag2 = !HasQueuedAction(abilityAction);
+		bool flag3 = abilityOfActionType.IsFreeAction() || GetActionCostOfQueuedAbilities(abilityAction) == 0;
+		bool flag4 = abilityOfActionType.GetMovementAdjustment() != Ability.MovementAdjustment.NoMovement || !m_actor.HasQueuedMovement();
+		bool flag5 = m_actor.QueuedMovementAllowsAbility || !abilityOfActionType.GetAffectsMovement();
+		bool flag6 = abilityOfActionType.RunPriority != AbilityPriority.Evasion || !HasQueuedAbilityInPhase(AbilityPriority.Evasion);
+		bool flag7 = !IsCard(abilityAction) || !HasQueuedCardAbility();
+		return flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag7;
 	}
 
 	public bool ValidateAbilityIsCastableDisregardingMovement(Ability ability)
 	{
-		ActorData actor = this.m_actor;
-		if (ability != null)
+		if (ability == null)
 		{
-			AbilityData.ActionType actionTypeOfAbility = this.GetActionTypeOfAbility(ability);
-			bool flag = actionTypeOfAbility != AbilityData.ActionType.INVALID_ACTION;
-			bool flag2 = !actor.IsDead();
-			bool flag3 = actor.TechPoints >= ability.GetModdedCost();
-			bool flag4;
-			if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhenOutOfCombat))
-			{
-				flag4 = actor.OutOfCombat;
-			}
-			else
-			{
-				flag4 = true;
-			}
-			bool flag5 = flag4;
-			bool flag6 = !AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhenInCombat) || !actor.OutOfCombat;
-			bool flag7 = !actor.GetActorStatus().IsActionSilenced(actionTypeOfAbility, false);
-			bool flag8;
-			if (flag)
-			{
-				if (flag2)
-				{
-					if (flag3 && flag5)
-					{
-						if (flag6)
-						{
-							flag8 = flag7;
-							goto IL_EB;
-						}
-					}
-				}
-			}
-			flag8 = false;
-			IL_EB:
-			bool flag9 = flag8;
-			bool result;
-			if (flag9)
-			{
-				result = ability.CustomCanCastValidation(actor);
-			}
-			else
-			{
-				result = false;
-			}
-			return result;
-		}
-		Log.Error("Actor " + actor.DisplayName + " calling ValidateAbilityIsCastableDisregardingMovement on a null ability.", new object[0]);
-		return false;
-	}
-
-	public bool ValidateActionIsRequestableDisregardingQueuedActions(AbilityData.ActionType abilityAction)
-	{
-		Ability abilityOfActionType = this.GetAbilityOfActionType(abilityAction);
-		if (abilityOfActionType != null)
-		{
-			ActorData actor = this.m_actor;
-			bool flag;
-			if (this.IsActionInCooldown(abilityAction))
-			{
-				flag = (abilityOfActionType.GetModdedMaxStocks() > 0);
-			}
-			else
-			{
-				flag = true;
-			}
-			bool flag2 = flag;
-			if (!flag2)
-			{
-				if (actor != null)
-				{
-					if (AbilityUtils.AbilityHasTag(abilityOfActionType, AbilityTags.IgnoreCooldownIfFullEnergy))
-					{
-						flag2 = (actor.TechPoints + actor.ReservedTechPoints >= actor.GetMaxTechPoints());
-					}
-				}
-			}
-			bool flag3 = this.ActionHasEnoughStockToTrigger(abilityAction);
-			bool flag4 = this.IsAbilityAllowedByUnlockTurns(abilityAction);
-			bool flag5 = this.ValidateAbilityIsCastableDisregardingMovement(abilityOfActionType);
-			bool result = SinglePlayerManager.IsActionAllowed(actor, abilityAction);
-			if (flag2 && flag3)
-			{
-				if (flag4 && flag5)
-				{
-					return result;
-				}
-			}
+			Log.Error("Actor " + m_actor.DisplayName + " calling ValidateAbilityIsCastableDisregardingMovement on a null ability.");
 			return false;
 		}
-		Log.Error("Actor " + this.m_actor.DisplayName + " calling ValidateActionIsRequestableDisregardingQueuedActions on a null ability.", new object[0]);
-		return false;
+		ActionType actionTypeOfAbility = GetActionTypeOfAbility(ability);
+		bool flag = actionTypeOfAbility != ActionType.INVALID_ACTION;
+		bool flag2 = !m_actor.IsDead();
+		bool flag3 = m_actor.TechPoints >= ability.GetModdedCost();
+		bool flag4 = !AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhenOutOfCombat) || m_actor.OutOfCombat;
+		bool flag5 = !AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhenInCombat) || !m_actor.OutOfCombat;
+		bool flag6 = !m_actor.GetActorStatus().IsActionSilenced(actionTypeOfAbility, false);
+		bool flag7 = ability.CustomCanCastValidation(m_actor);
+		bool result = flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag7;
+		return result;
+	}
+
+	public bool ValidateActionIsRequestableDisregardingQueuedActions(ActionType abilityAction)
+	{
+		Ability abilityOfActionType = GetAbilityOfActionType(abilityAction);
+		if (abilityOfActionType == null)
+		{
+			Log.Error("Actor " + m_actor.DisplayName + " calling ValidateActionIsRequestableDisregardingQueuedActions on a null ability.");
+			return false;
+		}
+
+		ActorData actor = m_actor;
+		bool flag = !IsActionInCooldown(abilityAction) || abilityOfActionType.GetModdedMaxStocks() > 0;
+		if (!flag
+			&& actor != null
+			&& AbilityUtils.AbilityHasTag(abilityOfActionType, AbilityTags.IgnoreCooldownIfFullEnergy))
+		{
+			flag = actor.TechPoints + actor.ReservedTechPoints >= actor.GetMaxTechPoints();
+		}
+		bool flag2 = ActionHasEnoughStockToTrigger(abilityAction);
+		bool flag3 = IsAbilityAllowedByUnlockTurns(abilityAction);
+		bool flag4 = ValidateAbilityIsCastableDisregardingMovement(abilityOfActionType);
+		bool flag5 = SinglePlayerManager.IsActionAllowed(actor, abilityAction);
+		return flag && flag2 && flag3 && flag4 && flag5;
 	}
 
 	public BoardSquare GetAutoSelectTarget()
 	{
 		BoardSquare result = null;
-		if (this.m_selectedAbility)
+		if (m_selectedAbility && m_selectedAbility.IsAutoSelect())
 		{
-			if (this.m_selectedAbility.IsAutoSelect())
-			{
-				result = this.m_actor.GetCurrentBoardSquare();
-			}
+			result = m_actor.GetCurrentBoardSquare();
 		}
 		return result;
 	}
@@ -2820,10 +2159,10 @@ public class AbilityData : NetworkBehaviour
 	public bool HasQueuedAbilities()
 	{
 		bool result = false;
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (int i = 0; i < 0xE; i++)
+			for (int i = 0; i < NUM_ACTIONS; i++)
 			{
 				if (teamSensitiveData_authority.HasQueuedAction(i))
 				{
@@ -2838,17 +2177,14 @@ public class AbilityData : NetworkBehaviour
 	public bool HasQueuedCardAbility()
 	{
 		bool result = false;
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (int i = 0; i < 0xE; i++)
+			for (int i = 0; i < NUM_ACTIONS; i++)
 			{
-				if (teamSensitiveData_authority.HasQueuedAction(i))
+				if (teamSensitiveData_authority.HasQueuedAction(i) && IsCard((ActionType)i))
 				{
-					if (AbilityData.IsCard((AbilityData.ActionType)i))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
 		}
@@ -2858,10 +2194,10 @@ public class AbilityData : NetworkBehaviour
 	public int GetNumQueuedAbilities()
 	{
 		int num = 0;
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (int i = 0; i < 0xE; i++)
+			for (int i = 0; i < NUM_ACTIONS; i++)
 			{
 				if (teamSensitiveData_authority.HasQueuedAction(i))
 				{
@@ -2875,38 +2211,29 @@ public class AbilityData : NetworkBehaviour
 	public Ability.MovementAdjustment GetQueuedAbilitiesMovementAdjustType()
 	{
 		Ability.MovementAdjustment movementAdjustment = Ability.MovementAdjustment.FullMovement;
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (int i = 0; i < 0xE; i++)
+			for (int i = 0; i < NUM_ACTIONS; i++)
 			{
-				AbilityData.ActionType actionType = (AbilityData.ActionType)i;
+				ActionType actionType = (ActionType)i;
 				if (teamSensitiveData_authority.HasQueuedAction(actionType))
 				{
-					Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
-					if (abilityOfActionType != null)
+					Ability abilityOfActionType = GetAbilityOfActionType(actionType);
+					if (abilityOfActionType != null && abilityOfActionType.GetMovementAdjustment() > movementAdjustment)
 					{
-						if (abilityOfActionType.GetMovementAdjustment() > movementAdjustment)
-						{
-							movementAdjustment = abilityOfActionType.GetMovementAdjustment();
-						}
+						movementAdjustment = abilityOfActionType.GetMovementAdjustment();
 					}
 				}
 			}
 		}
 		SpawnPointManager spawnPointManager = SpawnPointManager.Get();
-		if (spawnPointManager != null)
+		if (spawnPointManager != null
+			&& spawnPointManager.m_spawnInDuringMovement
+			&& m_actor.NextRespawnTurn == GameFlowData.Get().CurrentTurn
+			&& GameplayData.Get().m_movementAllowedOnRespawn < movementAdjustment)
 		{
-			if (spawnPointManager.m_spawnInDuringMovement)
-			{
-				if (this.m_actor.NextRespawnTurn == GameFlowData.Get().CurrentTurn)
-				{
-					if (GameplayData.Get().m_movementAllowedOnRespawn < movementAdjustment)
-					{
-						movementAdjustment = GameplayData.Get().m_movementAllowedOnRespawn;
-					}
-				}
-			}
+			movementAdjustment = GameplayData.Get().m_movementAllowedOnRespawn;
 		}
 		return movementAdjustment;
 	}
@@ -2914,10 +2241,9 @@ public class AbilityData : NetworkBehaviour
 	public float GetQueuedAbilitiesMovementAdjust()
 	{
 		float result = 0f;
-		Ability.MovementAdjustment queuedAbilitiesMovementAdjustType = this.GetQueuedAbilitiesMovementAdjustType();
-		if (queuedAbilitiesMovementAdjustType == Ability.MovementAdjustment.ReducedMovement)
+		if (GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.ReducedMovement)
 		{
-			result = -1f * this.m_actor.GetPostAbilityHorizontalMovementChange();
+			result = -1f * m_actor.GetPostAbilityHorizontalMovementChange();
 		}
 		return result;
 	}
@@ -2925,15 +2251,15 @@ public class AbilityData : NetworkBehaviour
 	public List<StatusType> GetQueuedAbilitiesOnRequestStatuses()
 	{
 		List<StatusType> list = new List<StatusType>();
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (int i = 0; i < 0xE; i++)
+			for (int i = 0; i < NUM_ACTIONS; i++)
 			{
-				AbilityData.ActionType actionType = (AbilityData.ActionType)i;
+				ActionType actionType = (ActionType)i;
 				if (teamSensitiveData_authority.HasQueuedAction(actionType))
 				{
-					Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
+					Ability abilityOfActionType = GetAbilityOfActionType(actionType);
 					if (abilityOfActionType != null)
 					{
 						list.AddRange(abilityOfActionType.GetStatusToApplyWhenRequested());
@@ -2946,15 +2272,15 @@ public class AbilityData : NetworkBehaviour
 
 	public bool HasPendingStatusFromQueuedAbilities(StatusType status)
 	{
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (int i = 0; i < 0xE; i++)
+			for (int i = 0; i < NUM_ACTIONS; i++)
 			{
-				AbilityData.ActionType actionType = (AbilityData.ActionType)i;
+				ActionType actionType = (ActionType)i;
 				if (teamSensitiveData_authority.HasQueuedAction(actionType))
 				{
-					Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
+					Ability abilityOfActionType = GetAbilityOfActionType(actionType);
 					if (abilityOfActionType != null && abilityOfActionType.GetStatusToApplyWhenRequested().Contains(status))
 					{
 						return true;
@@ -2969,22 +2295,19 @@ public class AbilityData : NetworkBehaviour
 	public bool GetQueuedAbilitiesAllowSprinting()
 	{
 		bool result = true;
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (int i = 0; i < 0xE; i++)
+			for (int i = 0; i < NUM_ACTIONS; i++)
 			{
-				AbilityData.ActionType actionType = (AbilityData.ActionType)i;
+				ActionType actionType = (ActionType)i;
 				if (teamSensitiveData_authority.HasQueuedAction(actionType))
 				{
-					Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
-					if (abilityOfActionType != null)
+					Ability abilityOfActionType = GetAbilityOfActionType(actionType);
+					if (abilityOfActionType != null && abilityOfActionType.GetAffectsMovement())
 					{
-						if (abilityOfActionType.GetAffectsMovement())
-						{
-							result = false;
-							break;
-						}
+						result = false;
+						break;
 					}
 				}
 			}
@@ -2995,21 +2318,18 @@ public class AbilityData : NetworkBehaviour
 	public bool GetQueuedAbilitiesAllowMovement()
 	{
 		bool result = true;
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (int i = 0; i < 0xE; i++)
+			for (int i = 0; i < NUM_ACTIONS; i++)
 			{
-				AbilityData.ActionType actionType = (AbilityData.ActionType)i;
+				ActionType actionType = (ActionType)i;
 				if (teamSensitiveData_authority.HasQueuedAction(actionType))
 				{
-					Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
-					if (abilityOfActionType != null)
+					Ability abilityOfActionType = GetAbilityOfActionType(actionType);
+					if (abilityOfActionType != null && abilityOfActionType.GetPreventsMovement())
 					{
-						if (abilityOfActionType.GetPreventsMovement())
-						{
-							return false;
-						}
+						return false;
 					}
 				}
 			}
@@ -3017,30 +2337,21 @@ public class AbilityData : NetworkBehaviour
 		return result;
 	}
 
-	public int GetActionCostOfQueuedAbilities(AbilityData.ActionType actionToSkip = AbilityData.ActionType.INVALID_ACTION)
+	public int GetActionCostOfQueuedAbilities(ActionType actionToSkip = ActionType.INVALID_ACTION)
 	{
 		int num = 0;
-		ActorTeamSensitiveData teamSensitiveData_authority = this.m_actor.TeamSensitiveData_authority;
+		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			for (int i = 0; i < 0xE; i++)
+			for (int i = 0; i < NUM_ACTIONS; i++)
 			{
-				AbilityData.ActionType actionType = (AbilityData.ActionType)i;
-				if (teamSensitiveData_authority.HasQueuedAction(actionType))
+				ActionType actionType = (ActionType)i;
+				if (teamSensitiveData_authority.HasQueuedAction(actionType) && actionType != actionToSkip)
 				{
-					if (actionType == actionToSkip)
+					Ability abilityOfActionType = GetAbilityOfActionType(actionType);
+					if (abilityOfActionType != null && !abilityOfActionType.IsFreeAction())
 					{
-					}
-					else
-					{
-						Ability abilityOfActionType = this.GetAbilityOfActionType(actionType);
-						if (abilityOfActionType != null)
-						{
-							if (!abilityOfActionType.IsFreeAction())
-							{
-								num++;
-							}
-						}
+						num++;
 					}
 				}
 			}
@@ -3050,27 +2361,26 @@ public class AbilityData : NetworkBehaviour
 
 	private Card GetSpawnedCardInstance(CardType cardType)
 	{
-		if (this.m_cardTypeToCardInstance.ContainsKey(cardType))
+		if (m_cardTypeToCardInstance.ContainsKey(cardType))
 		{
-			return this.m_cardTypeToCardInstance[cardType];
+			return m_cardTypeToCardInstance[cardType];
 		}
 		GameObject cardPrefab = CardManagerData.Get().GetCardPrefab(cardType);
 		if (cardPrefab != null)
 		{
-			GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(cardPrefab);
+			GameObject gameObject = Instantiate(cardPrefab);
 			Card component = gameObject.GetComponent<Card>();
-			if (component != null)
+			if (component != null && component.m_useAbility != null)
 			{
-				if (component.m_useAbility != null)
-				{
-					gameObject.transform.parent = base.gameObject.transform;
-					this.m_cardTypeToCardInstance[cardType] = component;
-					component.m_useAbility.OverrideActorDataIndex(this.m_actor.ActorIndex);
-					return component;
-				}
+				gameObject.transform.parent = base.gameObject.transform;
+				m_cardTypeToCardInstance[cardType] = component;
+				component.m_useAbility.OverrideActorDataIndex(m_actor.ActorIndex);
 			}
-			Log.Error("Card prefab " + cardPrefab.name + " does not have Card component", new object[0]);
-			UnityEngine.Object.Destroy(gameObject);
+			else
+			{
+				Log.Error("Card prefab " + cardPrefab.name + " does not have Card component");
+				Destroy(gameObject);
+			}
 			return component;
 		}
 		return null;
@@ -3078,7 +2388,7 @@ public class AbilityData : NetworkBehaviour
 
 	public void SetupCardAbility(int cardSlotIndex, Ability useAbility)
 	{
-		int num = 7 + cardSlotIndex;
+		int num = CARD_0 + cardSlotIndex;
 		KeyPreference keyPreference = KeyPreference.Card1;
 		if (cardSlotIndex == 1)
 		{
@@ -3088,14 +2398,14 @@ public class AbilityData : NetworkBehaviour
 		{
 			keyPreference = KeyPreference.Card3;
 		}
-		this.m_abilities[num].Setup(useAbility, keyPreference);
-		if (cardSlotIndex < this.m_cachedCardAbilities.Count)
+		m_abilities[num].Setup(useAbility, keyPreference);
+		if (cardSlotIndex < m_cachedCardAbilities.Count)
 		{
-			this.m_cachedCardAbilities[cardSlotIndex] = useAbility;
+			m_cachedCardAbilities[cardSlotIndex] = useAbility;
 		}
 		if (NetworkServer.active)
 		{
-			this.SynchronizeCooldownsToSlots();
+			SynchronizeCooldownsToSlots();
 		}
 	}
 
@@ -3103,30 +2413,20 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (int i = 0; i < this.m_currentCardIds.Count; i++)
+			for (int i = 0; i < m_currentCardIds.Count; i++)
 			{
-				Card spawnedCardInstance = this.GetSpawnedCardInstance((CardType)this.m_currentCardIds[i]);
-				int cardSlotIndex = i;
-				Ability useAbility;
-				if (spawnedCardInstance != null)
-				{
-					useAbility = spawnedCardInstance.m_useAbility;
-				}
-				else
-				{
-					useAbility = null;
-				}
-				this.SetupCardAbility(cardSlotIndex, useAbility);
+				Card spawnedCardInstance = GetSpawnedCardInstance((CardType)m_currentCardIds[i]);
+				SetupCardAbility(i, spawnedCardInstance?.m_useAbility);
 			}
-			this.UpdateCardBarUI();
+			UpdateCardBarUI();
 		}
 	}
 
 	public IEnumerable<Card> GetActiveCards()
 	{
-		for (int i = 0; i < this.m_currentCardIds.Count; i++)
+		for (int i = 0; i < m_currentCardIds.Count; i++)
 		{
-			yield return this.GetSpawnedCardInstance((CardType)this.m_currentCardIds[i]);
+			yield return GetSpawnedCardInstance((CardType)m_currentCardIds[i]);
 		}
 		yield break;
 	}
@@ -3135,31 +2435,29 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (HUD_UI.Get() != null)
 		{
-			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.UpdateCatalysts(this.m_actor, this.m_cachedCardAbilities);
-			HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.UpdateCatalysts(this.m_actor, this.m_cachedCardAbilities);
+			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.UpdateCatalysts(m_actor, m_cachedCardAbilities);
+			HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.UpdateCatalysts(m_actor, m_cachedCardAbilities);
 		}
 	}
 
 	private void UpdateCardBarUI()
 	{
-		if (NetworkClient.active && this.m_actor == GameFlowData.Get().activeOwnedActorData && HUD_UI.Get() != null)
+		if (NetworkClient.active
+			&& m_actor == GameFlowData.Get().activeOwnedActorData
+			&& HUD_UI.Get() != null)
 		{
 			HUD_UI.Get().m_mainScreenPanel.m_cardBar.Rebuild();
 		}
-		this.UpdateCatalystDisplay();
+		UpdateCatalystDisplay();
 	}
 
 	public float GetTargetableRadius(int actionTypeInt, ActorData caster)
 	{
-		if (actionTypeInt < this.m_abilities.Length)
+		if (actionTypeInt < m_abilities.Length
+			&& m_abilities[actionTypeInt].ability != null
+			&& m_abilities[actionTypeInt].ability.CanShowTargetableRadiusPreview())
 		{
-			if (this.m_abilities[actionTypeInt].ability != null)
-			{
-				if (this.m_abilities[actionTypeInt].ability.CanShowTargetableRadiusPreview())
-				{
-					return this.m_abilities[actionTypeInt].ability.GetTargetableRadiusInSquares(caster);
-				}
-			}
+			return m_abilities[actionTypeInt].ability.GetTargetableRadiusInSquares(caster);
 		}
 		return 0f;
 	}
@@ -3168,36 +2466,27 @@ public class AbilityData : NetworkBehaviour
 	{
 		for (int i = 0; i <= 4; i++)
 		{
-			if (this.m_abilities[i] != null)
+			if (m_abilities[i] != null && m_abilities[i].ability != null)
 			{
-				if (this.m_abilities[i].ability != null)
-				{
-					this.m_abilities[i].ability.OnClientCombatPhasePlayDataReceived(resolutionActions, this.m_actor);
-				}
+				m_abilities[i].ability.OnClientCombatPhasePlayDataReceived(resolutionActions, m_actor);
 			}
 		}
 	}
 
 	private void OnDrawGizmos()
 	{
-		if (CameraManager.ShouldDrawGizmosForCurrentCamera())
+		if (!CameraManager.ShouldDrawGizmosForCurrentCamera() || m_abilities == null)
 		{
-			if (this.m_abilities != null)
+			return;
+		}
+		foreach (AbilityEntry abilityEntry in m_abilities)
+		{
+			if (abilityEntry != null && abilityEntry.ability != null)
 			{
-				foreach (AbilityData.AbilityEntry abilityEntry in this.m_abilities)
-				{
-					if (abilityEntry != null)
-					{
-						if (abilityEntry.ability != null)
-						{
-							abilityEntry.ability.DrawGizmos();
-						}
-					}
-				}
-				this.DrawBoardVisibilityGizmos();
-				return;
+				abilityEntry.ability.DrawGizmos();
 			}
 		}
+		DrawBoardVisibilityGizmos();
 	}
 
 	private void DrawBoardVisibilityGizmos()
@@ -3209,32 +2498,27 @@ public class AbilityData : NetworkBehaviour
 			{
 				for (int i = 0; i < 0xF; i++)
 				{
-					List<BoardSquare> squaresInBorderLayer = AreaEffectUtils.GetSquaresInBorderLayer(playerFreeSquare, i, false);
-					using (List<BoardSquare>.Enumerator enumerator = squaresInBorderLayer.GetEnumerator())
+					foreach (BoardSquare boardSquare in AreaEffectUtils.GetSquaresInBorderLayer(playerFreeSquare, i, false))
 					{
-						while (enumerator.MoveNext())
+						if (boardSquare.IsValidForGameplay())
 						{
-							BoardSquare boardSquare = enumerator.Current;
-							if (boardSquare.IsValidForGameplay())
+							if (playerFreeSquare.GetLOS(boardSquare.x, boardSquare.y))
 							{
-								if (playerFreeSquare.LOSDistanceIsOne_zq(boardSquare.x, boardSquare.y))
-								{
-									Color white = Color.white;
-									white.a = 0.5f;
-									Gizmos.color = white;
-									Vector3 size = 0.05f * Board.Get().squareSize * Vector3.one;
-									size.y = 0.1f;
-									Gizmos.DrawWireCube(boardSquare.ToVector3(), size);
-								}
-								else
-								{
-									Color red = Color.red;
-									red.a = 0.5f;
-									Gizmos.color = red;
-									Vector3 size2 = 0.05f * Board.Get().squareSize * Vector3.one;
-									size2.y = 0.1f;
-									Gizmos.DrawWireCube(boardSquare.ToVector3(), size2);
-								}
+								Color white = Color.white;
+								white.a = 0.5f;
+								Gizmos.color = white;
+								Vector3 size = 0.05f * Board.Get().squareSize * Vector3.one;
+								size.y = 0.1f;
+								Gizmos.DrawWireCube(boardSquare.ToVector3(), size);
+							}
+							else
+							{
+								Color red = Color.red;
+								red.a = 0.5f;
+								Gizmos.color = red;
+								Vector3 size2 = 0.05f * Board.Get().squareSize * Vector3.one;
+								size2.y = 0.1f;
+								Gizmos.DrawWireCube(boardSquare.ToVector3(), size2);
 							}
 						}
 					}
@@ -3247,16 +2531,16 @@ public class AbilityData : NetworkBehaviour
 	{
 	}
 
-	public AbilityData.ActionType Networkm_selectedActionForTargeting
+	public ActionType Networkm_selectedActionForTargeting
 	{
 		get
 		{
-			return this.m_selectedActionForTargeting;
+			return m_selectedActionForTargeting;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<AbilityData.ActionType>(value, ref this.m_selectedActionForTargeting, 0x10U);
+			SetSyncVar(value, ref m_selectedActionForTargeting, 0x10U);
 		}
 	}
 
@@ -3327,17 +2611,17 @@ public class AbilityData : NetworkBehaviour
 			Debug.LogError("Command function CmdClearCooldowns called on server.");
 			return;
 		}
-		if (base.isServer)
+		if (isServer)
 		{
-			this.CmdClearCooldowns();
+			CmdClearCooldowns();
 			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
 		networkWriter.Write((short)((ushort)5));
-		networkWriter.WritePackedUInt32((uint)AbilityData.kCmdCmdClearCooldowns);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
-		base.SendCommandInternal(networkWriter, 0, "CmdClearCooldowns");
+		networkWriter.WritePackedUInt32((uint)kCmdCmdClearCooldowns);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
+		SendCommandInternal(networkWriter, 0, "CmdClearCooldowns");
 	}
 
 	public void CallCmdRefillStocks()
@@ -3347,79 +2631,79 @@ public class AbilityData : NetworkBehaviour
 			Debug.LogError("Command function CmdRefillStocks called on server.");
 			return;
 		}
-		if (base.isServer)
+		if (isServer)
 		{
-			this.CmdRefillStocks();
+			CmdRefillStocks();
 			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
 		networkWriter.Write((short)((ushort)5));
-		networkWriter.WritePackedUInt32((uint)AbilityData.kCmdCmdRefillStocks);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
-		base.SendCommandInternal(networkWriter, 0, "CmdRefillStocks");
+		networkWriter.WritePackedUInt32((uint)kCmdCmdRefillStocks);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
+		SendCommandInternal(networkWriter, 0, "CmdRefillStocks");
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			SyncListInt.WriteInstance(writer, this.m_cooldownsSync);
-			SyncListInt.WriteInstance(writer, this.m_consumedStockCount);
-			SyncListInt.WriteInstance(writer, this.m_stockRefreshCountdowns);
-			SyncListInt.WriteInstance(writer, this.m_currentCardIds);
-			writer.Write((int)this.m_selectedActionForTargeting);
+			SyncListInt.WriteInstance(writer, m_cooldownsSync);
+			SyncListInt.WriteInstance(writer, m_consumedStockCount);
+			SyncListInt.WriteInstance(writer, m_stockRefreshCountdowns);
+			SyncListInt.WriteInstance(writer, m_currentCardIds);
+			writer.Write((int)m_selectedActionForTargeting);
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((syncVarDirtyBits & 1U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListInt.WriteInstance(writer, this.m_cooldownsSync);
+			SyncListInt.WriteInstance(writer, m_cooldownsSync);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((syncVarDirtyBits & 2U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListInt.WriteInstance(writer, this.m_consumedStockCount);
+			SyncListInt.WriteInstance(writer, m_consumedStockCount);
 		}
-		if ((base.syncVarDirtyBits & 4U) != 0U)
+		if ((syncVarDirtyBits & 4U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListInt.WriteInstance(writer, this.m_stockRefreshCountdowns);
+			SyncListInt.WriteInstance(writer, m_stockRefreshCountdowns);
 		}
-		if ((base.syncVarDirtyBits & 8U) != 0U)
+		if ((syncVarDirtyBits & 8U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			SyncListInt.WriteInstance(writer, this.m_currentCardIds);
+			SyncListInt.WriteInstance(writer, m_currentCardIds);
 		}
-		if ((base.syncVarDirtyBits & 0x10U) != 0U)
+		if ((syncVarDirtyBits & 0x10U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write((int)this.m_selectedActionForTargeting);
+			writer.Write((int)m_selectedActionForTargeting);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -3428,33 +2712,33 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			SyncListInt.ReadReference(reader, this.m_cooldownsSync);
-			SyncListInt.ReadReference(reader, this.m_consumedStockCount);
-			SyncListInt.ReadReference(reader, this.m_stockRefreshCountdowns);
-			SyncListInt.ReadReference(reader, this.m_currentCardIds);
-			this.m_selectedActionForTargeting = (AbilityData.ActionType)reader.ReadInt32();
+			SyncListInt.ReadReference(reader, m_cooldownsSync);
+			SyncListInt.ReadReference(reader, m_consumedStockCount);
+			SyncListInt.ReadReference(reader, m_stockRefreshCountdowns);
+			SyncListInt.ReadReference(reader, m_currentCardIds);
+			m_selectedActionForTargeting = (ActionType)reader.ReadInt32();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			SyncListInt.ReadReference(reader, this.m_cooldownsSync);
+			SyncListInt.ReadReference(reader, m_cooldownsSync);
 		}
 		if ((num & 2) != 0)
 		{
-			SyncListInt.ReadReference(reader, this.m_consumedStockCount);
+			SyncListInt.ReadReference(reader, m_consumedStockCount);
 		}
 		if ((num & 4) != 0)
 		{
-			SyncListInt.ReadReference(reader, this.m_stockRefreshCountdowns);
+			SyncListInt.ReadReference(reader, m_stockRefreshCountdowns);
 		}
 		if ((num & 8) != 0)
 		{
-			SyncListInt.ReadReference(reader, this.m_currentCardIds);
+			SyncListInt.ReadReference(reader, m_currentCardIds);
 		}
 		if ((num & 0x10) != 0)
 		{
-			this.m_selectedActionForTargeting = (AbilityData.ActionType)reader.ReadInt32();
+			m_selectedActionForTargeting = (ActionType)reader.ReadInt32();
 		}
 	}
 
@@ -3481,11 +2765,8 @@ public class AbilityData : NetworkBehaviour
 	public class AbilityEntry
 	{
 		public Ability ability;
-
 		public KeyPreference keyPreference;
-
 		public string hotkey;
-
 		private int m_cooldownRemaining;
 
 		public int GetCooldownRemaining()
@@ -3494,14 +2775,14 @@ public class AbilityData : NetworkBehaviour
 			{
 				return 0;
 			}
-			return this.m_cooldownRemaining;
+			return m_cooldownRemaining;
 		}
 
 		public void SetCooldownRemaining(int remaining)
 		{
-			if (this.m_cooldownRemaining != remaining)
+			if (m_cooldownRemaining != remaining)
 			{
-				this.m_cooldownRemaining = remaining;
+				m_cooldownRemaining = remaining;
 			}
 		}
 
@@ -3509,12 +2790,12 @@ public class AbilityData : NetworkBehaviour
 		{
 			this.ability = ability;
 			this.keyPreference = keyPreference;
-			this.InitHotkey();
+			InitHotkey();
 		}
 
 		public void InitHotkey()
 		{
-			this.hotkey = InputManager.Get().GetFullKeyString(this.keyPreference, true, true);
+			hotkey = InputManager.Get().GetFullKeyString(keyPreference, true, true);
 		}
 	}
 
@@ -3522,7 +2803,6 @@ public class AbilityData : NetworkBehaviour
 	public struct BotAbilityModSet
 	{
 		public BotDifficulty m_botDifficulty;
-
 		public int[] m_abilityModIds;
 	}
 }

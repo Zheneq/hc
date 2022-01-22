@@ -202,7 +202,7 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 					while (true)
 					{
 						ActorData actorData = actors[0];
-						Vector3 projectionPoint = VectorUtils.GetProjectionPoint(vector, worldPositionForLoS, actorData.GetTravelBoardSquareWorldPositionForLos());
+						Vector3 projectionPoint = VectorUtils.GetProjectionPoint(vector, worldPositionForLoS, actorData.GetLoSCheckPos());
 						BoardSquarePathInfo next = chargePath.next;
 						float num = VectorUtils.HorizontalPlaneDistInWorld(projectionPoint, next.square.ToVector3());
 						while (true)

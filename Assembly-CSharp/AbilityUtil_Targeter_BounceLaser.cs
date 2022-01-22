@@ -102,7 +102,7 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 	{
 		ClearActorsInRange();
 		m_hitActorContext.Clear();
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 aimDirection = currentTarget?.AimDirection ?? targetingActor.transform.forward;
 		float maxDistancePerBounce = m_maxDistancePerBounce + (m_extraDistancePerBounceDelegate != null ? m_extraDistancePerBounceDelegate() : 0f);
 		float maxTotalDistance = m_maxTotalDistance + (m_extraTotalDistanceDelegate != null ? m_extraTotalDistanceDelegate() : 0f);
@@ -155,7 +155,7 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 				false);
 			if (orderedHitActors2.Contains(targetingActor))
 			{
-				AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Self);
+				AddActorInRange(targetingActor, targetingActor.GetLoSCheckPos(), targetingActor, AbilityTooltipSubject.Self);
 			}
 		}
 		foreach (var hitActor in bounceHitActors)
@@ -176,7 +176,7 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 			item.segmentIndex = bouncingLaserInfo.m_endpointIndex;
 			m_hitActorContext.Add(item);
 			ActorHitContext actorHitContext = m_actorContextVars[hitActor];
-			actorHitContext.m_hitOrigin = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			actorHitContext.m_hitOrigin = targetingActor.GetLoSCheckPos();
 			actorHitContext.m_contextVars.SetValue(TargetSelect_BouncingLaser.s_cvarEndpointIndex.GetKey(), bouncingLaserInfo.m_endpointIndex);
 			actorHitContext.m_contextVars.SetValue(TargetSelect_BouncingLaser.s_cvarHitOrder.GetKey(), i);
 		}

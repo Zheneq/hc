@@ -142,7 +142,7 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 			}
 			if (m_destRequireLosFromCaster)
 			{
-				if (!currentBoardSquare.LOSDistanceIsOne_zq(boardSquareSafe.x, boardSquareSafe.y))
+				if (!currentBoardSquare.GetLOS(boardSquareSafe.x, boardSquareSafe.y))
 				{
 					return false;
 				}
@@ -185,7 +185,7 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 	{
 		targetPosForSequences = new List<Vector3>();
 		Vector3 laserEndPos;
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(caster.GetTravelBoardSquareWorldPositionForLos(), targets[0].AimDirection, GetLaserRange(), GetLaserWidth(), caster, TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies()), false, GetMaxTargets(), false, true, out laserEndPos, nonActorTargetInfo);
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(caster.GetLoSCheckPos(), targets[0].AimDirection, GetLaserRange(), GetLaserWidth(), caster, TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies()), false, GetMaxTargets(), false, true, out laserEndPos, nonActorTargetInfo);
 		targetPosForSequences.Add(laserEndPos);
 		return actorsInLaser;
 	}

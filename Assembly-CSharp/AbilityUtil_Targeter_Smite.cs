@@ -33,7 +33,7 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		ClearActorsInRange();
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 vector;
 		if (currentTarget == null)
 		{

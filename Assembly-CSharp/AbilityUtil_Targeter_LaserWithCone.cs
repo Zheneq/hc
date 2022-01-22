@@ -207,7 +207,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 				b = boardSquareSafe.ToVector3();
 			}
 		}
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		float num = GetDistance();
 		if (m_clampToCursorPos)
 		{
@@ -222,7 +222,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 			num = Mathf.Min(num2, num);
 		}
 		VectorUtils.LaserCoords adjustedCoords = default(VectorUtils.LaserCoords);
-		adjustedCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		adjustedCoords.start = targetingActor.GetLoSCheckPos();
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(adjustedCoords.start, vector2, num, GetWidth(), targetingActor, GetAffectedTeams(), GetPenetrateLoS(), GetLaserMaxTargets(), false, false, out adjustedCoords.end, null);
 		bool flag = AreaEffectUtils.LaserHitWorldGeo(num, adjustedCoords, GetPenetrateLoS(), actorsInLaser);
 		float widthInWorld = GetWidth() * Board.Get().squareSize;

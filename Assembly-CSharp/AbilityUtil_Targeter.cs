@@ -1199,7 +1199,7 @@ public class AbilityUtil_Targeter
 							break;
 						default:
 						{
-							Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+							Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 							Vector3 vector = Camera.main.transform.rotation * Vector3.forward;
 							int num;
 							if (!((vector - m_cameraForward).sqrMagnitude > 0.01f))

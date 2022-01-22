@@ -88,7 +88,7 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
 		while (true)
 		{
-			laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			laserCoords.start = targetingActor.GetLoSCheckPos();
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[currentTargetIndex - 1].AimDirection, m_laserRange, m_laserWidth, targetingActor, targetingActor.GetEnemyTeams(), m_penetrateLos, m_maxTargets, false, false, out laserCoords.end, null);
 			int num = 0;
 			EnableAllMovementArrows();

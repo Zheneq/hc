@@ -443,7 +443,7 @@ public class ThiefSmokeBomb : Ability
 						{
 							continue;
 						}
-						if (!currentBoardSquare.LOSDistanceIsOne_zq(boardSquare.x, boardSquare.y))
+						if (!currentBoardSquare.GetLOS(boardSquare.x, boardSquare.y))
 						{
 							continue;
 						}

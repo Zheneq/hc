@@ -112,7 +112,7 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 vector;
 		if (currentTarget == null)
 		{
@@ -252,7 +252,7 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 		}
 		else
 		{
-			vector2 = caster.GetTravelBoardSquareWorldPositionForLos();
+			vector2 = caster.GetLoSCheckPos();
 		}
 		Vector3 vector3 = vector2;
 		Vector3 a = vector - vector3;
@@ -413,7 +413,7 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 							num2 += 0.5f;
 						}
 					}
-					if (lastSquare.LOSDistanceIsOne_zq(boardSquare2.x, boardSquare2.y))
+					if (lastSquare.GetLOS(boardSquare2.x, boardSquare2.y))
 					{
 						num2 -= 2f;
 					}

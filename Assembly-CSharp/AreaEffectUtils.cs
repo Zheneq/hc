@@ -213,7 +213,7 @@ public static class AreaEffectUtils
 						for (int num3 = list.Count - 1; num3 >= 0; num3--)
 						{
 							BoardSquare boardSquare = list[num3];
-							if (!center.LOSDistanceIsOne_zq(boardSquare.x, boardSquare.y))
+							if (!center.GetLOS(boardSquare.x, boardSquare.y))
 							{
 								list.RemoveAt(num3);
 							}
@@ -414,7 +414,7 @@ public static class AreaEffectUtils
 				}
 				if (source.IsValidForGameplay())
 				{
-					if (!source.LOSDistanceIsOne_zq(dest.x, dest.y))
+					if (!source.GetLOS(dest.x, dest.y))
 					{
 						return false;
 					}
@@ -2098,7 +2098,7 @@ public static class AreaEffectUtils
 		vector.y = 0f;
 		Vector3 normalized = vector.normalized;
 		Vector3 vector2 = testSquare.ToVector3();
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
 		Vector3 vector3 = startSquare.ToVector3();
 		vector3.y = travelBoardSquareWorldPositionForLos.y;
 		Vector3 vector4 = vector2 - vector3;
@@ -2137,7 +2137,7 @@ public static class AreaEffectUtils
 			{
 				if (boardSquare.IsValidForGameplay())
 				{
-					flag3 = boardSquare.LOSDistanceIsOne_zq(testSquare.x, testSquare.y);
+					flag3 = boardSquare.GetLOS(testSquare.x, testSquare.y);
 					if (flag2)
 					{
 						flag2 = HasLosByBarriers(boardSquare, testSquare, caster, VectorUtils.s_laserOffset * Board.SquareSizeStatic, list);

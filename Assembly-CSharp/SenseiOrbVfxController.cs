@@ -218,6 +218,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 				}
 			}
 		}
-		return m_owner.GetTravelBoardSquareWorldPositionForLos();
+		return m_owner.GetLoSCheckPos();
 	}
 }

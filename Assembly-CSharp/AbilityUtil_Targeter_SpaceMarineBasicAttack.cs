@@ -71,7 +71,7 @@ public class AbilityUtil_Targeter_SpaceMarineBasicAttack : AbilityUtil_Targeter
 		IL_0076:
 		GameObject highlightObj = m_highlights[0];
 		GameObject gameObject = m_highlights[1];
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 aimDirection = currentTarget.AimDirection;
 		List<Team> affectedTeams = GetAffectedTeams();
 		m_laserPart.m_lengthIgnoreWorldGeo = LengthIgnoreWorldGeo;
@@ -92,7 +92,7 @@ public class AbilityUtil_Targeter_SpaceMarineBasicAttack : AbilityUtil_Targeter
 				if (AddConeOnFirstLaserHit)
 				{
 					showCone = true;
-					vector = list[0].GetTravelBoardSquareWorldPositionForLos();
+					vector = list[0].GetLoSCheckPos();
 					vector2 = currentTarget.AimDirection;
 					List<ActorData> hitActors = m_conePart.GetHitActors(vector, vector2, targetingActor, affectedTeams);
 					for (int j = 0; j < hitActors.Count; j++)

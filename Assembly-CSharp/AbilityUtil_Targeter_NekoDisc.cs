@@ -50,7 +50,7 @@ public class AbilityUtil_Targeter_NekoDisc : AbilityUtil_Targeter_Laser
 			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
 			m_highlights.Add(HighlightUtils.Get().CreateAoECursor(m_aoeRadiusAtEnd * Board.SquareSizeStatic, targetingActor == GameFlowData.Get().activeOwnedActorData));
 		}
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, GetDistance(), GetWidth(), targetingActor, targetingActor.GetEnemyTeams(), false, GetMaxTargets(), false, false, out Vector3 laserEndPos, null);
 		Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(travelBoardSquareWorldPositionForLos, laserEndPos);
 		List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(laserEndPos, m_aoeRadiusAtEnd, false, targetingActor, targetingActor.GetEnemyTeam(), null, true, coneLosCheckPos);

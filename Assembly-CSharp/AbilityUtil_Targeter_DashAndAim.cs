@@ -92,7 +92,7 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 		}
 		AbilityTarget abilityTarget2 = abilityTarget;
 		Vector3 squareWorldPositionForLoS = targetingActor.GetSquareWorldPositionForLoS(Board.Get().GetSquare(abilityTarget2.GridPos));
-		Vector3 vector = (!m_aimBackward) ? (squareWorldPositionForLoS - targetingActor.GetTravelBoardSquareWorldPositionForLos()) : (targetingActor.GetTravelBoardSquareWorldPositionForLos() - squareWorldPositionForLoS);
+		Vector3 vector = (!m_aimBackward) ? (squareWorldPositionForLoS - targetingActor.GetLoSCheckPos()) : (targetingActor.GetLoSCheckPos() - squareWorldPositionForLoS);
 		if (vector.magnitude > 0.5f)
 		{
 			gameObject.SetActive(true);

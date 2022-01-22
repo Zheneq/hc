@@ -129,7 +129,7 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 			dir.y = 0f;
 			float magnitude = dir.magnitude;
 			dir.Normalize();
-			laserCoords.start = actorData.GetTravelBoardSquareWorldPositionForLos();
+			laserCoords.start = actorData.GetLoSCheckPos();
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, dir, m_distance, m_width, actorData, GetAffectedTeams(), m_penetrateLoS, m_maxTargets, false, false, out laserCoords.end, null);
 			list2.Add(laserCoords);
 			VectorUtils.LaserCoords laserCoords2 = laserCoords;

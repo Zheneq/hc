@@ -116,7 +116,7 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 
 	public virtual Vector3 GetStartLosPos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		return targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		return targetingActor.GetLoSCheckPos();
 	}
 
 	public virtual Vector3 GetAimDirection(AbilityTarget currentTarget, ActorData targetingActor)

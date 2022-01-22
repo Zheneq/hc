@@ -114,7 +114,7 @@ public class TricksterCones : Ability
 		list2.AddRange(m_afterImageSyncComp.GetValidAfterImages());
 		foreach (ActorData item in list2)
 		{
-			list.Add(item.GetTravelBoardSquareWorldPositionForLos());
+			list.Add(item.GetLoSCheckPos());
 		}
 		return list;
 	}

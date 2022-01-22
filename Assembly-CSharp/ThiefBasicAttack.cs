@@ -556,7 +556,7 @@ public class ThiefBasicAttack : Ability
 
 	private List<ActorData> GetHitActorsInDirection(Vector3 direction, ActorData caster, HashSet<PowerUp> powerupsHitPreviously, out VectorUtils.LaserCoords endPoints, out List<PowerUp> powerupsHit, List<NonActorTargetInfo> nonActorTargetInfo)
 	{
-		return ThiefBasicAttack.GetHitActorsInDirectionStatic(caster.GetTravelBoardSquareWorldPositionForLos(), direction, caster, this.GetLaserRange(), this.GetLaserWidth(), this.LaserPenetrateLos(), this.GetLaserMaxTargets(), false, true, true, this.c_maxPowerupPerLaser, true, this.StopOnPowerupHit(), this.IncludeSpoilsPowerups(), this.IgnorePickupTeamRestriction(), powerupsHitPreviously, out endPoints, out powerupsHit, nonActorTargetInfo, false, true);
+		return ThiefBasicAttack.GetHitActorsInDirectionStatic(caster.GetLoSCheckPos(), direction, caster, this.GetLaserRange(), this.GetLaserWidth(), this.LaserPenetrateLos(), this.GetLaserMaxTargets(), false, true, true, this.c_maxPowerupPerLaser, true, this.StopOnPowerupHit(), this.IncludeSpoilsPowerups(), this.IgnorePickupTeamRestriction(), powerupsHitPreviously, out endPoints, out powerupsHit, nonActorTargetInfo, false, true);
 	}
 
 	public unsafe static List<ActorData> GetHitActorsInDirectionStatic(Vector3 startLosCheckPos, Vector3 direction, ActorData caster, float distanceInSquares, float widthInSquares, bool penetrateLos, int maxActorTargets, bool includeAllies, bool includeEnemies, bool includeInvisibles, int maxPowerupsCount, bool shouldIncludePowerups, bool stopOnPowerupHit, bool includeSpoils, bool ignoreTeamRestriction, HashSet<PowerUp> powerupsHitSoFar, out VectorUtils.LaserCoords outEndPoints, out List<PowerUp> outPowerupsHit, List<NonActorTargetInfo> nonActorTargetInfo, bool forClient, bool stopEndPosOnHitActor = true)
@@ -572,7 +572,7 @@ public class ThiefBasicAttack : Ability
 		{
 			if (stopEndPosOnHitActor)
 			{
-				laserCoords.end = actorsInLaser[actorsInLaser.Count - 1].GetTravelBoardSquareWorldPositionForLos();
+				laserCoords.end = actorsInLaser[actorsInLaser.Count - 1].GetLoSCheckPos();
 			}
 		}
 		if (shouldIncludePowerups)
@@ -639,7 +639,7 @@ public class ThiefBasicAttack : Ability
 					float magnitude = (powerUp4.boardSquare.ToVector3() - startLosCheckPos).magnitude;
 					if (list2.Count > 0)
 					{
-						float magnitude2 = (list2[0].GetTravelBoardSquareWorldPositionForLos() - startLosCheckPos).magnitude;
+						float magnitude2 = (list2[0].GetLoSCheckPos() - startLosCheckPos).magnitude;
 						if (magnitude < magnitude2)
 						{
 							list2.Clear();

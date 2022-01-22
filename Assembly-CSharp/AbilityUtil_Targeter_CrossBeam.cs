@@ -80,7 +80,7 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 			}
 		}
 		List<Vector3> laserEndPoints = GetLaserEndPoints(currentTarget, targetingActor);
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 		Vector3 position = travelBoardSquareWorldPosition + new Vector3(0f, 0.1f, 0f);
 		for (int j = 0; j < laserEndPoints.Count; j++)
@@ -135,7 +135,7 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 			}
 			if (m_affectsTargetingActor)
 			{
-				AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor);
+				AddActorInRange(targetingActor, targetingActor.GetLoSCheckPos(), targetingActor);
 			}
 			if (m_knockbackDistance > 0f)
 			{
@@ -220,7 +220,7 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 	private List<Vector3> GetLaserEndPoints(AbilityTarget target, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
 		float maxDistanceInWorld = m_distanceInSquares * Board.Get().squareSize;
 		List<Vector3> laserDirections = GetLaserDirections(target, caster);
 		using (List<Vector3>.Enumerator enumerator = laserDirections.GetEnumerator())

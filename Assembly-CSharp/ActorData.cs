@@ -3371,7 +3371,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return position + b2;
 	}
 
-	public Vector3 GetTravelBoardSquareWorldPositionForLos()
+	public Vector3 GetLoSCheckPos()
 	{
 		return GetSquareWorldPositionForLoS(GetTravelBoardSquare());
 	}
@@ -5591,7 +5591,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				if (!IsModelAnimatorDisabled())
 				{
 					Debug.LogError("Actor " + GetDebugName() + " died on HP resolved; he should have already been ragdolled, but wasn't.");
-					DoVisualDeath(new ActorModelData.ImpulseInfo(GetTravelBoardSquareWorldPositionForLos(), Vector3.up));
+					DoVisualDeath(new ActorModelData.ImpulseInfo(GetLoSCheckPos(), Vector3.up));
 				}
 				return;
 			}

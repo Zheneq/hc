@@ -316,7 +316,7 @@ public class BoardSquare : MonoBehaviour
 	}
 
 	// TODO
-	public bool LOSDistanceIsOne_zq(int indexX, int indexY)
+	public bool GetLOS(int indexX, int indexY)
 	{
 		if (Board.Get().m_losLookup != null)
 		{

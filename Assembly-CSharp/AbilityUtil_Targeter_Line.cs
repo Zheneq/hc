@@ -18,7 +18,7 @@ public class AbilityUtil_Targeter_Line : AbilityUtil_Targeter
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
 		float maxDistanceInWorld = m_lineRange * Board.Get().squareSize;
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(targetingActor.GetTravelBoardSquareWorldPositionForLos(), currentTarget.AimDirection, maxDistanceInWorld, m_linePenetrateLos, targetingActor);
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(targetingActor.GetLoSCheckPos(), currentTarget.AimDirection, maxDistanceInWorld, m_linePenetrateLos, targetingActor);
 		if (m_highlights != null)
 		{
 			if (m_highlights.Count != 0)

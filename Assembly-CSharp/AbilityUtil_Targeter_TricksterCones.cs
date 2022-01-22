@@ -239,7 +239,7 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 								squareInsideChecker_Cone.UpdateConeProperties(vector, m_coneInfo.m_widthAngleDeg, m_coneInfo.m_radiusInSquares, m_coneInfo.m_backwardsOffset, num3, targetingActor);
 								if (m_useCasterPosForLoS)
 								{
-									squareInsideChecker_Cone.SetLosPosOverride(true, targetingActor.GetTravelBoardSquareWorldPositionForLos(), true);
+									squareInsideChecker_Cone.SetLosPosOverride(true, targetingActor.GetLoSCheckPos(), true);
 								}
 							}
 							continue;
@@ -249,7 +249,7 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 					squareInsideChecker_Cone2.UpdateConeProperties(vector, m_coneInfo.m_widthAngleDeg, m_coneInfo.m_radiusInSquares, m_coneInfo.m_backwardsOffset, num3, targetingActor);
 					if (m_useCasterPosForLoS)
 					{
-						squareInsideChecker_Cone2.SetLosPosOverride(true, targetingActor.GetTravelBoardSquareWorldPositionForLos(), true);
+						squareInsideChecker_Cone2.SetLosPosOverride(true, targetingActor.GetLoSCheckPos(), true);
 					}
 					continue;
 				}

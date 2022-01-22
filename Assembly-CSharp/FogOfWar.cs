@@ -143,7 +143,7 @@ public class FogOfWar : MonoBehaviour
 				{
 					continue;
 				}
-				if (!ignoreLOS && !center.LOSDistanceIsOne_zq(x, y))
+				if (!ignoreLOS && !center.GetLOS(x, y))
 				{
 					continue;
 				}

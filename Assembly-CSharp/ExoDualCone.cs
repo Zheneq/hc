@@ -326,13 +326,13 @@ public class ExoDualCone : Ability
 
 	public Vector3 GetFreePosForAim(AbilityTarget currentTarget, ActorData caster)
 	{
-		return caster.GetTravelBoardSquareWorldPositionForLos() + currentTarget.AimDirection.normalized;
+		return caster.GetLoSCheckPos() + currentTarget.AimDirection.normalized;
 	}
 
 	public List<Vector3> GetConeOrigins(AbilityTarget currentTarget, Vector3 targeterFreePos, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
 		Vector3 vector = targeterFreePos - travelBoardSquareWorldPositionForLos;
 		vector.Normalize();
 		Vector3 normalized = Vector3.Cross(vector, Vector3.up).normalized;
@@ -345,7 +345,7 @@ public class ExoDualCone : Ability
 	public List<Vector3> GetConeDirections(AbilityTarget currentTarget, Vector3 targeterFreePos, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
 		Vector3 vector = targeterFreePos - travelBoardSquareWorldPositionForLos;
 		float num = GetLeftConeDegreesFromForward();
 		float num2 = GetRightConeDegreesFromForward();

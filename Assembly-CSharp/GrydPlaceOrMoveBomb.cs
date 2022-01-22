@@ -178,7 +178,7 @@ public class GrydPlaceOrMoveBomb : Ability
 					{
 						break;
 					}
-					if (!boardSquareSafe.LOSDistanceIsOne_zq(num, placedBomb.y))
+					if (!boardSquareSafe.GetLOS(num, placedBomb.y))
 					{
 						break;
 					}
@@ -220,7 +220,7 @@ public class GrydPlaceOrMoveBomb : Ability
 					{
 						break;
 					}
-					if (!boardSquareSafe.LOSDistanceIsOne_zq(num2, placedBomb.y))
+					if (!boardSquareSafe.GetLOS(num2, placedBomb.y))
 					{
 						break;
 					}
@@ -262,7 +262,7 @@ public class GrydPlaceOrMoveBomb : Ability
 					{
 						break;
 					}
-					if (!boardSquareSafe.LOSDistanceIsOne_zq(placedBomb.x, num3))
+					if (!boardSquareSafe.GetLOS(placedBomb.x, num3))
 					{
 						break;
 					}
@@ -293,7 +293,7 @@ public class GrydPlaceOrMoveBomb : Ability
 			for (int num4 = placedBomb.y - 1; num4 >= placedBomb.y - m_moveRange; num4--)
 			{
 				BoardSquare boardSquare5 = Board.Get().GetSquare(placedBomb.x, num4);
-				if (boardSquare5 == null || !boardSquare5.IsValidForGameplay() || !boardSquareSafe.LOSDistanceIsOne_zq(placedBomb.x, num4))
+				if (boardSquare5 == null || !boardSquare5.IsValidForGameplay() || !boardSquareSafe.GetLOS(placedBomb.x, num4))
 				{
 					break;
 				}

@@ -85,7 +85,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 		IL_00c1:
 		GameObject gameObject = m_highlights[0];
 		GameObject gameObject2 = m_highlights[1];
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 chargeEndPoint;
 		bool traveledFullDistance;
 		List<ActorData> chargeHitActors = GetChargeHitActors(currentTarget.AimDirection, travelBoardSquareWorldPositionForLos, targetingActor, out chargeEndPoint, out traveledFullDistance);

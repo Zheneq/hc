@@ -60,7 +60,7 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		List<BoardSquare> discSquaresFromEndPositions = NekoFanOfDiscs.GetDiscSquaresFromEndPositions(m_laserEndPoints, travelBoardSquareWorldPositionForLos);
 		int num = 0;
 		while (num < m_count)

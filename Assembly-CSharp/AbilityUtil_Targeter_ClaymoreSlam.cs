@@ -57,11 +57,11 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 	{
 		ClearActorsInRange();
 		AllocateHighlights();
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 aimDirection = currentTarget.AimDirection;
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, m_affectsEnemies);
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
-		laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		laserCoords.start = targetingActor.GetLoSCheckPos();
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, aimDirection, m_laserRange, m_laserWidth, targetingActor, relevantTeams, m_penetrateLos, m_laserMaxTargets, false, false, out laserCoords.end, null);
 		VectorUtils.LaserCoords laserCoords2 = laserCoords;
 		if (m_affectsTargetingActor)

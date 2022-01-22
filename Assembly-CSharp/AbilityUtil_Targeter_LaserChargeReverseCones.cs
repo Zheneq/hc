@@ -87,7 +87,7 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 		}
 		goto IL_00bf;
 		IL_00bf:
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 laserEndPos = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, m_dashRangeInSquares * Board.Get().squareSize, false, targetingActor);
 		float magnitude = (laserEndPos - travelBoardSquareWorldPositionForLos).magnitude;
 		magnitude = ClaymoreCharge.GetMaxPotentialChargeDistance(travelBoardSquareWorldPositionForLos, laserEndPos, currentTarget.AimDirection, magnitude, targetingActor, out BoardSquare pathEndSquare);

@@ -274,7 +274,7 @@ public class MantaBasicAttack : Ability
 		if (tooltipSubjectTypes != null)
 		{
 			int num = 0;
-			if (!base.ActorData.CurrentBoardSquare.LOSDistanceIsOne_zq(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y))
+			if (!base.ActorData.CurrentBoardSquare.GetLOS(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y))
 			{
 				num += GetExtraDamageNoLoS();
 			}
@@ -390,7 +390,7 @@ public class MantaBasicAttack : Ability
 				return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
 			}
 		}
-		if (targetingActor.CurrentBoardSquare.LOSDistanceIsOne_zq(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y))
+		if (targetingActor.CurrentBoardSquare.GetLOS(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y))
 		{
 			if (InsideNearRadius(targetActor, damageOrigin))
 			{

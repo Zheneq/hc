@@ -105,7 +105,7 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 			{
 				gameObject2.SetActive(true);
 				gameObject.SetActive(false);
-				Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+				Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 				float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection);
 				List<ActorData> actors = AreaEffectUtils.GetActorsInCone(travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, m_coneInfo.m_widthAngleDeg, m_coneInfo.m_radiusInSquares, m_coneInfo.m_backwardsOffset, m_penetrateLoS, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, m_affectsEnemies), null);
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);

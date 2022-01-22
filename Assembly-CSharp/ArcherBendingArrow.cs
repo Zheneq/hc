@@ -138,7 +138,7 @@ public class ArcherBendingArrow : Ability
 
 	private float GetClampedRangeInSquares(ActorData targetingActor, AbilityTarget currentTarget)
 	{
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		float magnitude = (currentTarget.FreePos - travelBoardSquareWorldPositionForLos).magnitude;
 		if (magnitude < GetMinRangeBeforeBend() * Board.Get().squareSize)
 		{
@@ -153,7 +153,7 @@ public class ArcherBendingArrow : Ability
 
 	private float GetDistanceRemaining(ActorData targetingActor, AbilityTarget previousTarget, out Vector3 bendPos)
 	{
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		float clampedRangeInSquares = GetClampedRangeInSquares(targetingActor, previousTarget);
 		bendPos = travelBoardSquareWorldPositionForLos + previousTarget.AimDirection * clampedRangeInSquares * Board.Get().squareSize;
 		return GetMaxTotalRange() - clampedRangeInSquares;
@@ -350,7 +350,7 @@ public class ArcherBendingArrow : Ability
 		if (targetIndex == 1)
 		{
 			AbilityTarget abilityTarget = targetsSoFar[0];
-			Vector3 travelBoardSquareWorldPositionForLos = aimingActor.GetTravelBoardSquareWorldPositionForLos();
+			Vector3 travelBoardSquareWorldPositionForLos = aimingActor.GetLoSCheckPos();
 			float magnitude = (abilityTarget.FreePos - travelBoardSquareWorldPositionForLos).magnitude;
 			float d;
 			if (magnitude < GetMinRangeBeforeBend() * Board.Get().squareSize)

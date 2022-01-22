@@ -13,7 +13,7 @@ public class TargetSelect_FanReverseCones : TargetSelect_FanCones
 	public override List<Vector3> GetConeOrigins(AbilityTarget currentTarget, Vector3 targeterFreePos, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
 		List<Vector3> coneDirections = GetConeDirections(currentTarget, targeterFreePos, caster);
 		Vector3 vector = targeterFreePos - travelBoardSquareWorldPositionForLos;
 		vector.Normalize();
@@ -46,6 +46,6 @@ public class TargetSelect_FanReverseCones : TargetSelect_FanCones
 	protected override bool CustomLoS(ActorData actor, ActorData caster)
 	{
 		BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
-		return caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(currentBoardSquare.x, currentBoardSquare.y);
+		return caster.GetCurrentBoardSquare().GetLOS(currentBoardSquare.x, currentBoardSquare.y);
 	}
 }

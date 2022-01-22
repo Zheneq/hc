@@ -454,7 +454,7 @@ public class NekoFanOfDiscs : Ability
 		targetSquares = new List<BoardSquare>();
 		List<Vector3> targetPosForSequences;
 		Dictionary<ActorData, int> hitActorsAndHitCount = AbilityCommon_FanLaser.GetHitActorsAndHitCount(targets, caster, GetLaserInfo(), GetNumDiscs(), GetMaxAngleForLaserFan() / (float)GetNumDiscs(), true, GetMinAngleForLaserFan(), GetMaxAngleForLaserFan(), GetAngleInterpMinDist(), GetAngleInterpMaxDist(), out actorsForSequence, out targetPosForSequences, out numLasersWithHits, nonActorTargetInfo, false, m_interpStepInSquares);
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
 		for (int i = 0; i < targetPosForSequences.Count; i++)
 		{
 			Vector3 vector = targetPosForSequences[i];
@@ -485,7 +485,7 @@ public class NekoFanOfDiscs : Ability
 		}
 		while (true)
 		{
-			targetSquares = GetDiscSquaresFromEndPositions(targetPosForSequences, caster.GetTravelBoardSquareWorldPositionForLos());
+			targetSquares = GetDiscSquaresFromEndPositions(targetPosForSequences, caster.GetLoSCheckPos());
 			return hitActorsAndHitCount;
 		}
 	}

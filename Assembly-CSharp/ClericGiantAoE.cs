@@ -134,7 +134,7 @@ public class ClericGiantAoE : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		int num = Mathf.RoundToInt((targetActor.GetTravelBoardSquareWorldPositionForLos() - base.ActorData.GetTravelBoardSquareWorldPositionForLos()).magnitude / Board.Get().squareSize);
+		int num = Mathf.RoundToInt((targetActor.GetLoSCheckPos() - base.ActorData.GetLoSCheckPos()).magnitude / Board.Get().squareSize);
 		num = Mathf.Max(0, num - 1);
 		int value = GetDamageAmount() - Mathf.RoundToInt((float)num * GetDamageDecreasePerSquare());
 		int value2 = GetHealAmount() - Mathf.RoundToInt((float)num * GetHealDecreasePerSquare());

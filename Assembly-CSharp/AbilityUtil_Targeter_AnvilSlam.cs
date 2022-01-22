@@ -30,7 +30,7 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		ClearActorsInRange();
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 vector;
 		if (currentTarget == null)
 		{
@@ -88,7 +88,7 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 		{
 			if (m_boltCount > 0)
 			{
-				Vector3 travelBoardSquareWorldPositionForLos2 = actorsInLaser[0].GetTravelBoardSquareWorldPositionForLos();
+				Vector3 travelBoardSquareWorldPositionForLos2 = actorsInLaser[0].GetLoSCheckPos();
 				float num = m_boltAngleOffset;
 				if (m_relativeToAim)
 				{
@@ -156,7 +156,7 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 	{
 		float maxDistanceInWorld = m_dashRangeInSquares * Board.Get().squareSize;
 		float num = m_dashWidthInSquares * Board.Get().squareSize;
-		VectorUtils.LaserCoords laserCoordinates = VectorUtils.GetLaserCoordinates(targetingActor.GetTravelBoardSquareWorldPositionForLos(), currentTarget.AimDirection, maxDistanceInWorld, num, false, targetingActor);
+		VectorUtils.LaserCoords laserCoordinates = VectorUtils.GetLaserCoordinates(targetingActor.GetLoSCheckPos(), currentTarget.AimDirection, maxDistanceInWorld, num, false, targetingActor);
 		float num2 = 0.1f;
 		Vector3 vector = laserCoordinates.start + new Vector3(0f, num2, 0f);
 		Vector3 vector2 = laserCoordinates.end + new Vector3(0f, num2, 0f);

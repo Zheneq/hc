@@ -101,7 +101,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 	{
 		ClearActorsInRange();
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
-		laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		laserCoords.start = targetingActor.GetLoSCheckPos();
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, m_primaryLaserLengthInSquares, m_primaryLaserWidthInSquares, targetingActor, GetPrimaryLaserAffectedTeams(targetingActor), m_primaryLaserPenetratesLoS, m_primaryLaserMaxTargets, false, false, out laserCoords.end, null);
 		List<ActorData> list = new List<ActorData>();
 		List<ActorData> list2 = new List<ActorData>();

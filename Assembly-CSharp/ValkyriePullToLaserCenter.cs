@@ -141,7 +141,7 @@ public class ValkyriePullToLaserCenter : Ability
 		if (extraDamageForCenterHits > 0 && base.Targeter is AbilityUtil_Targeter_KnockbackLaser)
 		{
 			AbilityUtil_Targeter_KnockbackLaser abilityUtil_Targeter_KnockbackLaser = base.Targeter as AbilityUtil_Targeter_KnockbackLaser;
-			if (AreaEffectUtils.IsSquareInBoxByActorRadius(targetActor.GetCurrentBoardSquare(), base.ActorData.GetTravelBoardSquareWorldPositionForLos(), abilityUtil_Targeter_KnockbackLaser.GetLastLaserEndPos(), GetCenterHitWidth()))
+			if (AreaEffectUtils.IsSquareInBoxByActorRadius(targetActor.GetCurrentBoardSquare(), base.ActorData.GetLoSCheckPos(), abilityUtil_Targeter_KnockbackLaser.GetLastLaserEndPos(), GetCenterHitWidth()))
 			{
 				num += extraDamageForCenterHits;
 			}

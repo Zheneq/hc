@@ -173,7 +173,7 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			Vector3 damageOrigin;
 			if (m_damageOriginType == DamageOriginType.CasterPos)
 			{
-				damageOrigin = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+				damageOrigin = targetingActor.GetLoSCheckPos();
 			}
 			else
 			{

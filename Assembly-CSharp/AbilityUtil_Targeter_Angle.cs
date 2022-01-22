@@ -173,7 +173,7 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 
 	public VectorUtils.LaserCoords CurrentLaserCoordinates(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 vector;
 		if (currentTarget == null)
 		{

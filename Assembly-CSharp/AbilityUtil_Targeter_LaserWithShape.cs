@@ -191,7 +191,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		}
 		float widthInWorld = m_laserInfo.width * Board.Get().squareSize;
 		VectorUtils.LaserCoords adjustedCoords = default(VectorUtils.LaserCoords);
-		adjustedCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		adjustedCoords.start = targetingActor.GetLoSCheckPos();
 		List<ActorData> list = m_lastLaserHitActors = AreaEffectUtils.GetActorsInLaser(adjustedCoords.start, dir, num, m_laserInfo.width, targetingActor, GetAffectedTeams(), m_laserInfo.penetrateLos, m_laserInfo.maxTargets, false, false, out adjustedCoords.end, null);
 		bool flag = AreaEffectUtils.LaserHitWorldGeo(num, adjustedCoords, m_laserInfo.penetrateLos, list);
 		foreach (ActorData item in list)

@@ -84,7 +84,7 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
 		ClearActorsInRange();
-		Vector3 vector = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 vector = targetingActor.GetLoSCheckPos();
 		Vector3 vector2 = currentTarget.AimDirection;
 		if (currentTargetIndex > 0 && targets != null)
 		{

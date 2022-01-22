@@ -877,7 +877,7 @@ public static class VectorUtils
 		bool flag2 = false;
 		bool flag3 = false;
 		float maxDistanceInWorld = Board.Get().squareSize * 1.8f;
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
 		laserStartPos.y = travelBoardSquareWorldPositionForLos.y;
 		List<NonActorTargetInfo> list2 = new List<NonActorTargetInfo>();
 		LaserCoords laserCoordinates = GetLaserCoordinates(laserStartPos, forwardDirection, maxDistanceInWorld, 0f, false, caster, list2);

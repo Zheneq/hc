@@ -231,7 +231,7 @@ public class NekoEnlargeDisc : Ability
 						{
 							if (m_targetData[0].m_checkLineOfSight)
 							{
-								num = (caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(current.x, current.y) ? 1 : 0);
+								num = (caster.GetCurrentBoardSquare().GetLOS(current.x, current.y) ? 1 : 0);
 							}
 							else
 							{

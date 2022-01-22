@@ -62,7 +62,7 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		ClearActorsInRange();
-		Vector3 casterPos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 casterPos = targetingActor.GetLoSCheckPos();
 		ActorCover component = targetingActor.GetComponent<ActorCover>();
 		if (m_restrictWithinCover)
 		{
@@ -180,7 +180,7 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 			return;
 		}
 		ResetSquareIndicatorIndexToUse();
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 vector;
 		if (currentTarget == null)
 		{

@@ -196,7 +196,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		for (int j = 0; j < m_count; j++)
 		{
 			Vector3 vector = VectorUtils.AngleDegreesToVector(num6 + (float)j * num);
-			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 			VectorUtils.LaserCoords coords;
 			List<PowerUp> powerupsHit;
 			List<ActorData> laserHitActors = GetLaserHitActors(travelBoardSquareWorldPositionForLos, vector, targetingActor, out coords, out powerupsHit);
@@ -327,7 +327,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 				}
 			}
 		}
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		VectorUtils.LaserCoords coords;
 		List<PowerUp> powerupsHit;
 		List<ActorData> laserHitActors = GetLaserHitActors(travelBoardSquareWorldPositionForLos, vector, targetingActor, out coords, out powerupsHit);

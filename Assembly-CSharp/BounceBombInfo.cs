@@ -21,7 +21,7 @@ public class BounceBombInfo
 
 	public Vector3 GetAdjustedStartPosition(Vector3 aimDirection, ActorData caster)
 	{
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
 		float num = startOffsetDistance * Board.Get().squareSize;
 		if (!startPosIgnoreLos)
 		{

@@ -342,7 +342,7 @@ public class ClericMeleeKnockback : Ability
 				}
 			}
 		}
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		centerPos.y = travelBoardSquareWorldPositionForLos.y;
 		Vector3 vector = centerPos - travelBoardSquareWorldPositionForLos;
 		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, vector.normalized, vector.magnitude, false, targetingActor);

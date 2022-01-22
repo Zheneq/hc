@@ -72,7 +72,7 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 	public static Vector3 GetClampedFreePos(Vector3 freePos, ActorData caster, float minDistInSquares, float maxDistInSquares)
 	{
 		float squareSize = Board.Get().squareSize;
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
 		Vector3 vector = freePos - travelBoardSquareWorldPositionForLos;
 		vector.y = 0f;
 		float magnitude = vector.magnitude;
@@ -114,7 +114,7 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 
 	protected override Vector3 GetDamageOrigin(AbilityTarget currentTarget, ActorData targetingActor, float range)
 	{
-		return targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		return targetingActor.GetLoSCheckPos();
 	}
 
 	public override void CreateHighlightObjectsIfNeeded(float radiusInSquares, ActorData targetingActor)
@@ -162,7 +162,7 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 		Vector3 laserEnd = refPos2;
 		if (m_connectLaserWidth > 0f)
 		{
-			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 			Vector3 laserEndPos = refPos2;
 			laserEndPos.y = travelBoardSquareWorldPositionForLos.y;
 			Vector3 dir = laserEndPos - travelBoardSquareWorldPositionForLos;
@@ -191,7 +191,7 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 				m_highlights[1].SetActiveIfNeeded(false);
 			}
 		}
-		CustomHandleHiddenSquareIndicators(targetingActor, refPos2, targetingActor.GetTravelBoardSquareWorldPositionForLos(), laserEnd);
+		CustomHandleHiddenSquareIndicators(targetingActor, refPos2, targetingActor.GetLoSCheckPos(), laserEnd);
 	}
 
 	protected override void HandleHiddenSquareIndicators(ActorData targetingActor, Vector3 centerPos)

@@ -234,7 +234,7 @@ public class ScampHug : Ability
 					break;
 				default:
 				{
-					Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+					Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
 					Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, knockbackRange * Board.Get().squareSize, false, caster);
 					BoardSquare lastValidBoardSquareInLine = KnockbackUtils.GetLastValidBoardSquareInLine(travelBoardSquareWorldPositionForLos, laserEndPoint);
 					Vector3 vector = lastValidBoardSquareInLine.ToVector3() - travelBoardSquareWorldPositionForLos;

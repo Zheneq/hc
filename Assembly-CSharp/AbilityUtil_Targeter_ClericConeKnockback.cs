@@ -33,7 +33,7 @@ public class AbilityUtil_Targeter_ClericConeKnockback : AbilityUtil_Targeter_Str
 			}
 		}
 		InitKnockbackData(m_knockbackDistanceLastTargeter, m_knockbackTypeLastTargeter, 0f, KnockbackType.AwayFromSource);
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 freePos = targets[currentTargetIndex - 1].FreePos;
 		Vector3 vector = freePos - travelBoardSquareWorldPositionForLos;
 		vector.y = 0f;

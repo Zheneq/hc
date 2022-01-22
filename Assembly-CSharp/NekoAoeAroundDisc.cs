@@ -131,7 +131,7 @@ public class NekoAoeAroundDisc : Ability
 				{
 					if (m_targetData[0].m_checkLineOfSight)
 					{
-						num = (caster.GetCurrentBoardSquare().LOSDistanceIsOne_zq(item.x, item.y) ? 1 : 0);
+						num = (caster.GetCurrentBoardSquare().GetLOS(item.x, item.y) ? 1 : 0);
 					}
 					else
 					{

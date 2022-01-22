@@ -69,7 +69,7 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 
 	private float GetClampedRangeInSquares(ActorData targetingActor, AbilityTarget currentTarget)
 	{
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		float magnitude = (currentTarget.FreePos - travelBoardSquareWorldPositionForLos).magnitude;
 		if (magnitude < m_minDistanceBeforeBend * Board.Get().squareSize)
 		{
@@ -93,7 +93,7 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 
 	private float GetDistanceRemaining(ActorData targetingActor, AbilityTarget previousTarget, out Vector3 bendPos)
 	{
-		Vector3 a = bendPos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 a = bendPos = targetingActor.GetLoSCheckPos();
 		if (m_stoppedShort)
 		{
 			while (true)
@@ -157,7 +157,7 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 		float num4;
 		if (currentTargetIndex == 0)
 		{
-			laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			laserCoords.start = targetingActor.GetLoSCheckPos();
 			num3 = GetClampedRangeInSquares(targetingActor, currentTarget);
 			vector = currentTarget.AimDirection;
 			num4 = GameWideData.Get().m_laserInitialOffsetInSquares;
@@ -312,7 +312,7 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 				{
 					if (Board.Get().GetSquare(vector2) == actorData.GetCurrentBoardSquare())
 					{
-						vector2 = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+						vector2 = targetingActor.GetLoSCheckPos();
 					}
 				}
 				AddActorInRange(actorData, vector2, targetingActor);

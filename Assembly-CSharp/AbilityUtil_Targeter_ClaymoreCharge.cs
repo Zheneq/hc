@@ -70,7 +70,7 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		IL_0092:
 		GameObject highlightObj = m_highlights[0];
 		GameObject gameObject = m_highlights[1];
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, m_dashRangeInSquares * Board.Get().squareSize, false, targetingActor);
 		float magnitude = (laserEndPoint - travelBoardSquareWorldPositionForLos).magnitude;
 		magnitude = ClaymoreCharge.GetMaxPotentialChargeDistance(travelBoardSquareWorldPositionForLos, laserEndPoint, currentTarget.AimDirection, magnitude, targetingActor, out BoardSquare pathEndSquare);
@@ -276,7 +276,7 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 							num2 += 0.5f;
 						}
 					}
-					bool flag = startSquare.LOSDistanceIsOne_zq(boardSquare2.x, boardSquare2.y);
+					bool flag = startSquare.GetLOS(boardSquare2.x, boardSquare2.y);
 					if (!flag && requireLosToStart)
 					{
 						continue;

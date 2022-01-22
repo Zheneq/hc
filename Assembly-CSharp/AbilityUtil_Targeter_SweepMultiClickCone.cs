@@ -99,7 +99,7 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		{
 			if (m_maxTargets > 0)
 			{
-				TargeterUtils.SortActorsByDistanceToPos(ref actors, targetingActor.GetTravelBoardSquareWorldPositionForLos());
+				TargeterUtils.SortActorsByDistanceToPos(ref actors, targetingActor.GetLoSCheckPos());
 				TargeterUtils.LimitActorsToMaxNumber(ref actors, m_maxTargets);
 			}
 			using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
@@ -141,7 +141,7 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		goto IL_00ae;
 		IL_00ae:
 		Vector3 endAimDirection = aimDirection;
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		if (useAngleRestrictions)
 		{
 			list = GetSweepHitActorsAndAngles(sweepStartAimDirection, ref endAimDirection, targetingActor, out m_sweepAngle, out Vector3 coneCenterAngle);
@@ -215,7 +215,7 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		while (true)
 		{
 			ResetSquareIndicatorIndexToUse();
-			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(coneCenterAngle);
 			AreaEffectUtils.OperateOnSquaresInCone(m_indicatorHandler, travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, sweepAngle, m_rangeInSquares, m_coneBackwardOffset, targetingActor, m_penetrateLos);
 			HideUnusedSquareIndicators();

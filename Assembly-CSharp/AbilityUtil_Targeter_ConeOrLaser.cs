@@ -55,7 +55,7 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 	{
 		ClearActorsInRange();
 		CreateHighlights();
-		Vector3 src = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 src = targetingActor.GetLoSCheckPos();
 		Vector3 aimDirection = currentTarget.AimDirection;
 		if (currentTargetIndex > 0 && targets != null)
 		{

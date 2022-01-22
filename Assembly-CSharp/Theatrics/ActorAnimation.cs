@@ -1045,7 +1045,7 @@ namespace Theatrics
 			}
 			if (turn._0004_FinishedTheatrics(Actor))
 			{
-				Actor.DoVisualDeath(new ActorModelData.ImpulseInfo(Actor.GetTravelBoardSquareWorldPositionForLos(), Vector3.up));
+				Actor.DoVisualDeath(new ActorModelData.ImpulseInfo(Actor.GetLoSCheckPos(), Vector3.up));
 			}
 			return false;
 		}

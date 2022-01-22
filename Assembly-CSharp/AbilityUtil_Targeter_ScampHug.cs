@@ -137,7 +137,7 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 						}
 					}
 					gameObject2.SetActive(active);
-					Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+					Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 					Vector3 vector = knockbackDestSquare.ToVector3();
 					Vector3 aimDir = vector - travelBoardSquareWorldPositionForLos;
 					aimDir.y = 0f;
