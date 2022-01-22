@@ -861,7 +861,7 @@ namespace Theatrics
 					return;
 				}
 			}
-			ActorDebugUtils._001D(_0013_000E, Color.green, 3f);
+			ActorDebugUtils.DebugDrawBoundBase(_0013_000E, Color.green, 3f);
 		}
 
 		internal bool AnimatorHasParameterName(Animator animator, string parameterName)
