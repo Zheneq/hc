@@ -769,10 +769,10 @@ public class AbilityMod : MonoBehaviour
 		{
 			float minRange = ability.m_targetData[0].m_minRange;
 			float range = ability.m_targetData[0].m_range;
-			float modifiedValue = m_targetDataMinRangeMod.GetModifiedValue(minRange);
-			float modifiedValue2 = m_targetDataMaxRangeMod.GetModifiedValue(range);
-			int num = Mathf.Abs(Mathf.RoundToInt(minRange - modifiedValue));
-			int num2 = Mathf.Abs(Mathf.RoundToInt(range - modifiedValue2));
+			float modifiedMinRange = m_targetDataMinRangeMod.GetModifiedValue(minRange);
+			float modifiedMaxRange = m_targetDataMaxRangeMod.GetModifiedValue(range);
+			int num = Mathf.Abs(Mathf.RoundToInt(minRange - modifiedMinRange));
+			int num2 = Mathf.Abs(Mathf.RoundToInt(range - modifiedMaxRange));
 			if (num > 0)
 			{
 				numbers.Add(num);
