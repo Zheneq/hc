@@ -341,9 +341,9 @@ public class Ability : MonoBehaviour
 
 	public virtual AbilityPriority GetRunPriority()
 	{
-		if (m_currentAbilityMod != null && m_currentAbilityMod.m_useRunPriorityOverride)
+		if (CurrentAbilityMod != null && CurrentAbilityMod.m_useRunPriorityOverride)
 		{
-			return m_currentAbilityMod.m_runPriorityOverride;
+			return CurrentAbilityMod.m_runPriorityOverride;
 		}
 		return m_runPriority;
 	}
@@ -423,9 +423,9 @@ public class Ability : MonoBehaviour
 	public virtual int GetModdedCost()
 	{
 		int num = GetBaseCost();
-		if (m_currentAbilityMod != null)
+		if (CurrentAbilityMod != null)
 		{
-			num = Mathf.Max(0, m_currentAbilityMod.m_techPointCostMod.GetModifiedValue(num));
+			num = Mathf.Max(0, CurrentAbilityMod.m_techPointCostMod.GetModifiedValue(num));
 		}
 		return num;
 	}
@@ -532,61 +532,54 @@ public class Ability : MonoBehaviour
 
 	public StandardEffectInfo GetModdedEffectForEnemies()
 	{
-		if (m_currentAbilityMod != null)
+		if (CurrentAbilityMod != null)
 		{
-			return m_currentAbilityMod.m_effectToTargetEnemyOnHit;
+			return CurrentAbilityMod.m_effectToTargetEnemyOnHit;
 		}
 		return null;
 	}
 
 	public StandardEffectInfo GetModdedEffectForAllies()
 	{
-		if (m_currentAbilityMod != null)
+		if (CurrentAbilityMod != null)
 		{
-			return m_currentAbilityMod.m_effectToTargetAllyOnHit;
+			return CurrentAbilityMod.m_effectToTargetAllyOnHit;
 		}
 		return null;
 	}
 
 	public StandardEffectInfo GetModdedEffectForSelf()
 	{
-		if (m_currentAbilityMod != null)
+		if (CurrentAbilityMod != null)
 		{
-			return m_currentAbilityMod.m_effectToSelfOnCast;
+			return CurrentAbilityMod.m_effectToSelfOnCast;
 		}
 		return null;
 	}
 
 	public bool HasSelfEffectFromBaseMod()
 	{
-		return GetModdedEffectForSelf()?.m_applyEffect ?? false;
+		StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
+		return moddedEffectForSelf != null && moddedEffectForSelf.m_applyEffect;
 	}
 
 	public bool GetModdedUseAllyEffectForTargetedCaster()
 	{
-		if (m_currentAbilityMod != null)
-		{
-			return m_currentAbilityMod.m_useAllyEffectForTargetedCaster;
-		}
-		return false;
+		return CurrentAbilityMod != null && CurrentAbilityMod.m_useAllyEffectForTargetedCaster;
 	}
 
 	public float GetModdedChanceToTriggerEffects()
 	{
-		if (m_currentAbilityMod != null)
+		if (CurrentAbilityMod != null)
 		{
-			return m_currentAbilityMod.m_effectTriggerChance;
+			return CurrentAbilityMod.m_effectTriggerChance;
 		}
 		return 1f;
 	}
 
 	public bool ModdedChanceToTriggerEffectsIsPerHit()
 	{
-		if (m_currentAbilityMod != null)
-		{
-			return m_currentAbilityMod.m_effectTriggerChanceMultipliedPerHit;
-		}
-		return false;
+		return CurrentAbilityMod != null && CurrentAbilityMod.m_effectTriggerChanceMultipliedPerHit;
 	}
 
 	public int GetBaseMaxStocks()
@@ -597,18 +590,18 @@ public class Ability : MonoBehaviour
 	public int GetModdedMaxStocks()
 	{
 		int num = m_maxStocks;
-		if (m_maxStocks >= 0 && m_currentAbilityMod != null)
+		if (m_maxStocks >= 0 && CurrentAbilityMod != null)
 		{
-			num = Mathf.Max(0, m_currentAbilityMod.m_maxStocksMod.GetModifiedValue(num));
+			num = Mathf.Max(0, CurrentAbilityMod.m_maxStocksMod.GetModifiedValue(num));
 		}
 		return num;
 	}
 
 	public bool RefillAllStockOnRefresh()
 	{
-		if (m_currentAbilityMod)
+		if (CurrentAbilityMod)
 		{
-			return m_currentAbilityMod.m_refillAllStockOnRefreshMod.GetModifiedValue(m_refillAllStockOnRefresh);
+			return CurrentAbilityMod.m_refillAllStockOnRefreshMod.GetModifiedValue(m_refillAllStockOnRefresh);
 		}
 		return m_refillAllStockOnRefresh;
 	}
@@ -621,9 +614,9 @@ public class Ability : MonoBehaviour
 	public int GetModdedStockRefreshDuration()
 	{
 		int num = m_stockRefreshDuration;
-		if (m_currentAbilityMod != null)
+		if (CurrentAbilityMod != null)
 		{
-			num = Mathf.Max(-1, m_currentAbilityMod.m_stockRefreshDurationMod.GetModifiedValue(num));
+			num = Mathf.Max(-1, CurrentAbilityMod.m_stockRefreshDurationMod.GetModifiedValue(num));
 		}
 		return num;
 	}
@@ -666,11 +659,11 @@ public class Ability : MonoBehaviour
 
 	protected void AppendTooltipNumbersFromBaseModEffects(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject enemyEffectSubject = AbilityTooltipSubject.Primary, AbilityTooltipSubject allyEffectSubject = AbilityTooltipSubject.Ally, AbilityTooltipSubject selfEffectSubject = AbilityTooltipSubject.Self)
 	{
-		if (m_currentAbilityMod == null)
+		if (CurrentAbilityMod == null)
 		{
 			return;
 		}
-		if (enemyEffectSubject != 0)
+		if (enemyEffectSubject != AbilityTooltipSubject.None)
 		{
 			StandardEffectInfo moddedEffectForEnemies = GetModdedEffectForEnemies();
 			if (moddedEffectForEnemies != null)
@@ -680,7 +673,7 @@ public class Ability : MonoBehaviour
 		}
 		StandardEffectInfo moddedEffectForAllies = GetModdedEffectForAllies();
 		StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
-		if (allyEffectSubject != 0 && moddedEffectForAllies != null)
+		if (allyEffectSubject != AbilityTooltipSubject.None && moddedEffectForAllies != null)
 		{
 			moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, allyEffectSubject);
 		}
@@ -688,7 +681,7 @@ public class Ability : MonoBehaviour
 		{
 			return;
 		}
-		if (m_currentAbilityMod.m_useAllyEffectForTargetedCaster && moddedEffectForAllies != null)
+		if (CurrentAbilityMod.m_useAllyEffectForTargetedCaster && moddedEffectForAllies != null)
 		{
 			moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, selfEffectSubject);
 		}
@@ -719,12 +712,9 @@ public class Ability : MonoBehaviour
 
 	public virtual List<StatusType> GetStatusTypesForTooltip()
 	{
-		if (m_savedStatusTypesForTooltips != null)
+		if (m_savedStatusTypesForTooltips != null && m_savedStatusTypesForTooltips.Count != 0)
 		{
-			if (m_savedStatusTypesForTooltips.Count != 0)
-			{
-				return m_savedStatusTypesForTooltips;
-			}
+			return m_savedStatusTypesForTooltips;
 		}
 		return TooltipTokenEntry.GetStatusTypesFromTooltip(m_toolTip);
 	}
@@ -819,7 +809,11 @@ public class Ability : MonoBehaviour
 		{
 			for (int i = 0; i < Targeters.Count; i++)
 			{
-				Targeters[i]?.ResetTargeter(true);
+				AbilityUtil_Targeter abilityUtil_Targeter = Targeters[i];
+				if (abilityUtil_Targeter != null)
+				{
+					abilityUtil_Targeter.ResetTargeter(true);
+				}
 			}
 		}
 	}
@@ -987,19 +981,12 @@ public class Ability : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			List<ActorData> actorsVisibleToActor;
-			if (NetworkServer.active)
+			List<ActorData> actorsVisibleToActor = NetworkServer.active
+				? GameFlowData.Get().GetActorsVisibleToActor(caster)
+				: GameFlowData.Get().GetActorsVisibleToActor(GameFlowData.Get().activeOwnedActorData);
+			for (int i = 0; i < actorsVisibleToActor.Count; i++)
 			{
-				actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(caster);
-			}
-			else
-			{
-				actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(GameFlowData.Get().activeOwnedActorData);
-			}
-			List<ActorData> list = actorsVisibleToActor;
-			for (int i = 0; i < list.Count; i++)
-			{
-				ActorData targetActor = list[i];
+				ActorData targetActor = actorsVisibleToActor[i];
 				if (CanTargetActorInDecision(caster, targetActor, allowEnemies, allowAllies, allowSelf, checkPath, checkLineOfSight, checkStatusImmunities, ignoreLosSettingOnTargetData))
 				{
 					return true;
@@ -1011,63 +998,54 @@ public class Ability : MonoBehaviour
 
 	public void OnAbilitySelect()
 	{
-		if (Targeter == null)
+		if (Targeter != null)
 		{
-			return;
+			Targeter.TargeterAbilitySelected();
 		}
-
-		Targeter.TargeterAbilitySelected();
 	}
 
 	public void OnAbilityDeselect()
 	{
-		if (Targeter == null)
+		if (Targeter != null)
 		{
-			return;
-		}
-
-		if (GetExpectedNumberOfTargeters() < 2)
-		{
-			Targeter.TargeterAbilityDeselected(0);
-		}
-		else
-		{
-			for (int i = 0; i < Targeters.Count; i++)
+			if (GetExpectedNumberOfTargeters() < 2)
 			{
-				if (Targeters[i] != null)
+				Targeter.TargeterAbilityDeselected(0);
+			}
+			else
+			{
+				for (int i = 0; i < Targeters.Count; i++)
 				{
-					Targeters[i].TargeterAbilityDeselected(i);
+					if (Targeters[i] != null)
+					{
+						Targeters[i].TargeterAbilityDeselected(i);
+					}
 				}
 			}
+			Targeter.HideAllSquareIndicators();
+			DestroyBackupTargetingInfo(true);
 		}
-		Targeter.HideAllSquareIndicators();
-		DestroyBackupTargetingInfo(true);
 	}
 
 	public void BackupTargetingForRedo(ActorTurnSM turnSM)
 	{
 		BackupTargeterHighlights = new List<GameObject>();
 		List<AbilityTarget> list = new List<AbilityTarget>();
-		for (int i = 0; i < Targeters.Count; i++)
+		for (int i = 0; i < Targeters.Count && i < GetExpectedNumberOfTargeters(); i++)
 		{
-			if (i >= GetExpectedNumberOfTargeters())
-			{
-				break;
-			}
 			BackupTargeterHighlights.AddRange(Targeters[i].GetHighlightCopies(true));
 			AbilityTarget abilityTarget = AbilityTarget.CreateAbilityTargetFromWorldPos(Vector3.zero, Vector3.forward);
 			abilityTarget.SetPosAndDir(Targeters[i].LastUpdatingGridPos, Targeters[i].LastUpdateFreePos, Targeters[i].LastUpdateAimDir);
 			list.Add(abilityTarget);
 		}
-		if (list.IsNullOrEmpty())
+		if (!list.IsNullOrEmpty())
 		{
-			return;
-		}
-		BackupTargets = new List<AbilityTarget>();
-		foreach (AbilityTarget current in list)
-		{
-			AbilityTarget copy = current.GetCopy();
-			BackupTargets.Add(copy);
+			BackupTargets = new List<AbilityTarget>();
+			foreach (AbilityTarget current in list)
+			{
+				AbilityTarget copy = current.GetCopy();
+				BackupTargets.Add(copy);
+			}
 		}
 	}
 
@@ -1163,20 +1141,13 @@ public class Ability : MonoBehaviour
 		HashSet<int> hashSet = new HashSet<int>();
 		if (Targeters != null)
 		{
-			for (int i = 0; i < Targeters.Count; i++)
+
+			for (int i = 0; i < Targeters.Count && i <= upToTargeterIndex; i++)
 			{
-				if (i > upToTargeterIndex)
+				foreach (AbilityUtil_Targeter.ActorTarget current in Targeters[i].GetActorsInRange())
 				{
-					break;
-				}
-				List<AbilityUtil_Targeter.ActorTarget> actorsInRange = Targeters[i].GetActorsInRange();
-				foreach (AbilityUtil_Targeter.ActorTarget current in actorsInRange)
-				{
-					if (!ActorCountTowardsEnergyGain(current.m_actor, caster))
-					{
-						// TODO LOW CHECK suspicious empty if
-					}
-					else if (!hashSet.Contains(current.m_actor.ActorIndex))
+					if (ActorCountTowardsEnergyGain(current.m_actor, caster)
+						&& !hashSet.Contains(current.m_actor.ActorIndex))
 					{
 						hashSet.Add(current.m_actor.ActorIndex);
 						if (!current.m_actor.IgnoreForEnergyOnHit)
@@ -1212,9 +1183,9 @@ public class Ability : MonoBehaviour
 	public virtual TargetData[] GetTargetData()
 	{
 		TargetData[] result = GetBaseTargetData();
-		if (m_currentAbilityMod != null && m_currentAbilityMod.m_useTargetDataOverrides)
+		if (CurrentAbilityMod != null && CurrentAbilityMod.m_useTargetDataOverrides)
 		{
-			result = m_currentAbilityMod.m_targetDataOverrides;
+			result = CurrentAbilityMod.m_targetDataOverrides;
 		}
 		return result;
 	}
@@ -1227,9 +1198,9 @@ public class Ability : MonoBehaviour
 		{
 			range = targetData[targetIndex].m_range;
 		}
-		if (m_currentAbilityMod != null)
+		if (CurrentAbilityMod != null)
 		{
-			range = Mathf.Max(0f, m_currentAbilityMod.m_targetDataMaxRangeMod.GetModifiedValue(range));
+			range = Mathf.Max(0f, CurrentAbilityMod.m_targetDataMaxRangeMod.GetModifiedValue(range));
 		}
 		return range;
 	}
@@ -1242,9 +1213,9 @@ public class Ability : MonoBehaviour
 		{
 			minRange = targetData[targetIndex].m_minRange;
 		}
-		if (m_currentAbilityMod != null)
+		if (CurrentAbilityMod != null)
 		{
-			minRange = Mathf.Max(0f, m_currentAbilityMod.m_targetDataMinRangeMod.GetModifiedValue(minRange));
+			minRange = Mathf.Max(0f, CurrentAbilityMod.m_targetDataMinRangeMod.GetModifiedValue(minRange));
 		}
 		return minRange;
 	}
@@ -1256,9 +1227,9 @@ public class Ability : MonoBehaviour
 		if (targetData != null && targetData.Length > targetIndex)
 		{
 			checkLoS = targetData[targetIndex].m_checkLineOfSight;
-			if (m_currentAbilityMod != null)
+			if (CurrentAbilityMod != null)
 			{
-				checkLoS = m_currentAbilityMod.m_targetDataCheckLosMod.GetModifiedValue(checkLoS);
+				checkLoS = CurrentAbilityMod.m_targetDataCheckLosMod.GetModifiedValue(checkLoS);
 			}
 		}
 		return checkLoS;
@@ -1283,9 +1254,9 @@ public class Ability : MonoBehaviour
 	public virtual bool IsFreeAction()
 	{
 		bool result = m_freeAction;
-		if (m_currentAbilityMod != null)
+		if (CurrentAbilityMod != null)
 		{
-			result = m_currentAbilityMod.m_isFreeActionMod.GetModifiedValue(m_freeAction);
+			result = CurrentAbilityMod.m_isFreeActionMod.GetModifiedValue(m_freeAction);
 		}
 		return result;
 	}
@@ -1335,8 +1306,7 @@ public class Ability : MonoBehaviour
 
 	public bool IsSimpleAction()
 	{
-		TargetData[] targetData = GetTargetData();
-		return targetData.Length == 0;
+		return GetTargetData().Length == 0;
 	}
 
 	public virtual AbilityTarget CreateAbilityTargetForSimpleAction(ActorData caster)
@@ -1383,9 +1353,9 @@ public class Ability : MonoBehaviour
 
 	public virtual List<StatusType> GetStatusToApplyWhenRequested()
 	{
-		if (m_currentAbilityMod != null && m_currentAbilityMod.m_useStatusWhenRequestedOverride)
+		if (CurrentAbilityMod != null && CurrentAbilityMod.m_useStatusWhenRequestedOverride)
 		{
-			return m_currentAbilityMod.m_statusWhenRequestedOverride;
+			return CurrentAbilityMod.m_statusWhenRequestedOverride;
 		}
 		return m_statusWhenRequested;
 	}
@@ -1422,17 +1392,16 @@ public class Ability : MonoBehaviour
 	public Ability[] GetChainAbilities()
 	{
 		Ability[] result = m_chainAbilities;
-		if (m_currentAbilityMod != null && m_currentAbilityMod.m_useChainAbilityOverrides)
+		if (CurrentAbilityMod != null && CurrentAbilityMod.m_useChainAbilityOverrides)
 		{
-			result = m_currentAbilityMod.m_chainAbilityOverrides;
+			result = CurrentAbilityMod.m_chainAbilityOverrides;
 		}
 		return result;
 	}
 
 	public bool HasAbilityAsPartOfChain(Ability ability)
 	{
-		Ability[] chainAbilities = GetChainAbilities();
-		foreach (Ability y in chainAbilities)
+		foreach (Ability y in GetChainAbilities())
 		{
 			if (ability == y)
 			{
@@ -1445,9 +1414,9 @@ public class Ability : MonoBehaviour
 	public virtual bool ShouldAutoQueueIfValid()
 	{
 		bool flag = AbilityUtils.AbilityHasTag(this, AbilityTags.AutoQueueIfValid);
-		if (m_currentAbilityMod != null && m_currentAbilityMod.m_autoQueueIfValidMod.operation != 0)
+		if (CurrentAbilityMod != null && CurrentAbilityMod.m_autoQueueIfValidMod.operation != AbilityModPropertyBool.ModOp.Ignore)
 		{
-			return m_currentAbilityMod.m_autoQueueIfValidMod.GetModifiedValue(flag);
+			return CurrentAbilityMod.m_autoQueueIfValidMod.GetModifiedValue(flag);
 		}
 		return flag;
 	}
@@ -1459,9 +1428,9 @@ public class Ability : MonoBehaviour
 
 	public virtual MovementAdjustment GetMovementAdjustment()
 	{
-		if (m_currentAbilityMod != null && m_currentAbilityMod.m_useMovementAdjustmentOverride)
+		if (CurrentAbilityMod != null && CurrentAbilityMod.m_useMovementAdjustmentOverride)
 		{
-			return m_currentAbilityMod.m_movementAdjustmentOverride;
+			return CurrentAbilityMod.m_movementAdjustmentOverride;
 		}
 		return m_movementAdjustment;
 	}
@@ -1547,9 +1516,9 @@ public class Ability : MonoBehaviour
 
 	public virtual ActorModelData.ActionAnimationType GetActionAnimType()
 	{
-		if (m_currentAbilityMod != null && m_currentAbilityMod.m_useActionAnimTypeOverride)
+		if (CurrentAbilityMod != null && CurrentAbilityMod.m_useActionAnimTypeOverride)
 		{
-			return m_currentAbilityMod.m_actionAnimTypeOverride;
+			return CurrentAbilityMod.m_actionAnimTypeOverride;
 		}
 		return m_actionAnimType;
 	}
@@ -1588,8 +1557,7 @@ public class Ability : MonoBehaviour
 		{
 			m_chainAbilities = new Ability[0];
 		}
-		Ability[] chainAbilities = GetChainAbilities();
-		foreach (Ability ability in chainAbilities)
+		foreach (Ability ability in GetChainAbilities())
 		{
 			string str = "Ability '" + m_abilityName + "'- chain ability '" + ability.m_abilityName + "' ";
 			if (ability.m_techPointsCost != 0)
@@ -1802,8 +1770,7 @@ public class Ability : MonoBehaviour
 			}
 			for (int i = 0; i < m_techPointInteractions.Length; i++)
 			{
-				string text2 = text;
-				text = text2 + "    [" + m_techPointInteractions[i].m_type.ToString() + "] = " + m_techPointInteractions[i].m_amount + "\n";
+				text += "    [" + m_techPointInteractions[i].m_type.ToString() + "] = " + m_techPointInteractions[i].m_amount + "\n";
 			}
 		}
 		if (m_tags != null)
