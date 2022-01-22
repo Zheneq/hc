@@ -53,7 +53,7 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 
 	protected BoardSquare GetGameplayRefSquare(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		GridPos gridPos = (GetCurrentRangeInSquares() == 0f) ? targetingActor.GetGridPosWithIncrementedHeight() : currentTarget.GridPos;
+		GridPos gridPos = (GetCurrentRangeInSquares() == 0f) ? targetingActor.GetGridPos() : currentTarget.GridPos;
 		return Board.Get().GetSquare(gridPos);
 	}
 

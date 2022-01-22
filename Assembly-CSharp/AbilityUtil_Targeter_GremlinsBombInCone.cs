@@ -74,7 +74,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 		}
 		else
 		{
-			gridPos = targetingActor.GetGridPosWithIncrementedHeight();
+			gridPos = targetingActor.GetGridPos();
 		}
 		return Board.Get().GetSquare(gridPos);
 	}

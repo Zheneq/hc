@@ -126,7 +126,7 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 		}
 		else
 		{
-			gridPos = targetingActor.GetGridPosWithIncrementedHeight();
+			gridPos = targetingActor.GetGridPos();
 		}
 		return Board.Get().GetSquare(gridPos);
 	}

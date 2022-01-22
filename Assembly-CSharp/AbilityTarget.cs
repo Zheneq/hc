@@ -143,12 +143,12 @@ public class AbilityTarget
 		{
 			vector.Normalize();
 		}
-		return new AbilityTarget(targetActor.GetGridPosWithIncrementedHeight(), targetActor.GetTravelBoardSquareWorldPosition(), vector);
+		return new AbilityTarget(targetActor.GetGridPos(), targetActor.GetTravelBoardSquareWorldPosition(), vector);
 	}
 
 	public static AbilityTarget CreateSimpleAbilityTarget(ActorData casterActor)
 	{
-		return new AbilityTarget(casterActor.GetGridPosWithIncrementedHeight(), casterActor.GetTravelBoardSquareWorldPosition(), Vector3.zero);
+		return new AbilityTarget(casterActor.GetGridPos(), casterActor.GetTravelBoardSquareWorldPosition(), Vector3.zero);
 	}
 
 	public static AbilityTarget CreateAbilityTargetFromBoardSquare(BoardSquare targetSquare, Vector3 currentWorldPos)

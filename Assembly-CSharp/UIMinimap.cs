@@ -473,7 +473,7 @@ public class UIMinimap : MonoBehaviour
 				item.m_uiPlayerIcon.transform.SetAsLastSibling();
 				item.m_uiPlayerIcon.transform.localEulerAngles = Vector3.zero;
 				item.m_uiPlayerIcon.transform.localScale = Vector3.one;
-				item.m_uiPlayerIcon.transform.position = m_tiles[item2.GetGridPosWithIncrementedHeight().x, item2.GetGridPosWithIncrementedHeight().y].transform.position;
+				item.m_uiPlayerIcon.transform.position = m_tiles[item2.GetGridPos().x, item2.GetGridPos().y].transform.position;
 				item.m_uiPlayerIcon.Setup(item.m_actorData);
 				m_minimapActors.Add(item);
 				m_buttonHitBox.transform.SetAsLastSibling();

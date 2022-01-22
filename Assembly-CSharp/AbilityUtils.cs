@@ -224,10 +224,10 @@ public static class AbilityUtils
 					goto IL_0186;
 				}
 			}
-			int num = Mathf.Max(0, Mathf.FloorToInt((float)caster.GetGridPosWithIncrementedHeight().x - currentRangeInSquares));
-			int num2 = Mathf.Min(board.GetMaxX(), Mathf.CeilToInt((float)caster.GetGridPosWithIncrementedHeight().x + currentRangeInSquares) + 1);
-			int num3 = Mathf.Max(0, Mathf.FloorToInt((float)caster.GetGridPosWithIncrementedHeight().y - currentRangeInSquares));
-			int num4 = Mathf.Min(board.GetMaxY(), Mathf.CeilToInt((float)caster.GetGridPosWithIncrementedHeight().y + currentRangeInSquares) + 1);
+			int num = Mathf.Max(0, Mathf.FloorToInt((float)caster.GetGridPos().x - currentRangeInSquares));
+			int num2 = Mathf.Min(board.GetMaxX(), Mathf.CeilToInt((float)caster.GetGridPos().x + currentRangeInSquares) + 1);
+			int num3 = Mathf.Max(0, Mathf.FloorToInt((float)caster.GetGridPos().y - currentRangeInSquares));
+			int num4 = Mathf.Min(board.GetMaxY(), Mathf.CeilToInt((float)caster.GetGridPos().y + currentRangeInSquares) + 1);
 			float currentMinRangeInSquares = GetCurrentMinRangeInSquares(ability, caster, targetIndex);
 			float currentRangeInSquares2 = GetCurrentRangeInSquares(ability, caster, targetIndex);
 			AbilityTarget abilityTarget = AbilityTarget.CreateSimpleAbilityTarget(caster);

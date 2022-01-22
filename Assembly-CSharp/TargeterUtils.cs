@@ -170,8 +170,8 @@ public static class TargeterUtils
 			float sqrMagnitude2 = (y.GetTravelBoardSquareWorldPosition() - pos).sqrMagnitude;
 			if (sqrMagnitude == sqrMagnitude2)
 			{
-				GridPos gridPosWithIncrementedHeight = x.GetGridPosWithIncrementedHeight();
-				GridPos gridPosWithIncrementedHeight2 = y.GetGridPosWithIncrementedHeight();
+				GridPos gridPosWithIncrementedHeight = x.GetGridPos();
+				GridPos gridPosWithIncrementedHeight2 = y.GetGridPos();
 				if (gridPosWithIncrementedHeight.x != gridPosWithIncrementedHeight2.x)
 				{
 					while (true)

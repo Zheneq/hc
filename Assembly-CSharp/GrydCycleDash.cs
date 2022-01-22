@@ -72,7 +72,7 @@ public class GrydCycleDash : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		GridPos gridPos = (targetIndex != 0) ? currentTargets[targetIndex - 1].GridPos : caster.GetGridPosWithIncrementedHeight();
+		GridPos gridPos = (targetIndex != 0) ? currentTargets[targetIndex - 1].GridPos : caster.GetGridPos();
 		if (m_lockToCardinalDirs)
 		{
 			if (!CardinallyAligned(gridPos, target.GridPos))

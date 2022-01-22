@@ -4100,7 +4100,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	public GridPos GetGridPosWithIncrementedHeight()
+	public GridPos GetGridPos()
 	{
 		GridPos result = default(GridPos);
 		if ((bool)GetCurrentBoardSquare())

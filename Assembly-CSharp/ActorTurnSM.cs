@@ -190,7 +190,7 @@ public class ActorTurnSM : NetworkBehaviour
 				Log.Error("SelectTarget has been called more times than there are targeters for the selected ability. " +
 					"m_targets.Count {0}, numTargets {1}, numExpectedTargets {2}", m_targets.Count, targetersNum, expectedTargetersNum);
 			}
-			selectedAbility.Targeter.AbilityCasted(component.GetGridPosWithIncrementedHeight(), abilityTarget.GridPos);
+			selectedAbility.Targeter.AbilityCasted(component.GetGridPos(), abilityTarget.GridPos);
 		}
 		if ((GetAbilityTargets().Count < targetersNum && GetAbilityTargets().Count < expectedTargetersNum) || targetersNum == 0)
 		{

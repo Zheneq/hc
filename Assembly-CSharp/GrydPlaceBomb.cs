@@ -44,7 +44,7 @@ public class GrydPlaceBomb : Ability
 		GridPos start;
 		if (targetIndex == 0)
 		{
-			start = caster.GetGridPosWithIncrementedHeight();
+			start = caster.GetGridPos();
 		}
 		else
 		{

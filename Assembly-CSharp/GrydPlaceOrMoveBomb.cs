@@ -74,7 +74,7 @@ public class GrydPlaceOrMoveBomb : Ability
 				}
 			}
 		}
-		GridPos gridPosWithIncrementedHeight = caster.GetGridPosWithIncrementedHeight();
+		GridPos gridPosWithIncrementedHeight = caster.GetGridPos();
 		if (m_lockToCardinalDirsForPlace && !CardinallyAligned(gridPosWithIncrementedHeight, target.GridPos))
 		{
 			return false;

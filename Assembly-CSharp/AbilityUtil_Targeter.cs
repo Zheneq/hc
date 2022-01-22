@@ -135,11 +135,9 @@ public class AbilityUtil_Targeter
 
 	public bool IsCursorStateSameAsLastUpdate(AbilityTarget target)
 	{
-		if (LastUpdatingGridPos.CoordsEqual(target.GridPos) && LastUpdateFreePos == target.FreePos)
-		{
-			return LastUpdateAimDir == target.AimDirection;
-		}
-		return false;
+		return LastUpdatingGridPos.CoordsEqual(target.GridPos)
+			&& LastUpdateFreePos == target.FreePos
+			&& LastUpdateAimDir == target.AimDirection;
 	}
 
 	public virtual void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
@@ -178,20 +176,15 @@ public class AbilityUtil_Targeter
 	{
 		HighlightUtils.Get().SetCursorType(m_cursorType);
 		DestroyTeleportStartObject();
-		if (m_ability != null)
+		if (m_ability != null
+			&& AbilityUtils.AbilityHasTag(m_ability, AbilityTags.UseTeleportUIEffect)
+			&& GameFlowData.Get() != null
+			&& GameFlowData.Get().activeOwnedActorData != null
+			&& HighlightUtils.Get().m_teleportPrefab != null)
 		{
-			if (AbilityUtils.AbilityHasTag(m_ability, AbilityTags.UseTeleportUIEffect))
-			{
-				if (GameFlowData.Get() != null)
-				{
-					if (GameFlowData.Get().activeOwnedActorData != null && HighlightUtils.Get().m_teleportPrefab != null)
-					{
-						m_gameObjectOnCaster = Object.Instantiate(HighlightUtils.Get().m_teleportPrefab);
-						m_gameObjectOnCaster.transform.position = GameFlowData.Get().activeOwnedActorData.transform.position;
-						m_gameObjectOnCaster.SetColor(GetTeleportColor());
-					}
-				}
-			}
+			m_gameObjectOnCaster = Object.Instantiate(HighlightUtils.Get().m_teleportPrefab);
+			m_gameObjectOnCaster.transform.position = GameFlowData.Get().activeOwnedActorData.transform.position;
+			m_gameObjectOnCaster.SetColor(GetTeleportColor());
 		}
 		MarkedForForceUpdate = true;
 	}
@@ -208,30 +201,22 @@ public class AbilityUtil_Targeter
 
 	public virtual void AbilityCasted(GridPos startPosition, GridPos endPosition)
 	{
-		if (!(m_gameObjectOnCaster != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_gameObjectOnCaster != null)
 		{
 			m_gameObjectOnCaster.AbilityCasted(startPosition, endPosition);
-			return;
 		}
 	}
 
 	public void UpdateTargetAreaEffect(AbilityTarget currentTarget, ActorData caster)
 	{
 		Color teleportColor = GetTeleportColor();
-		if (GameFlowData.Get() != null)
+		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != caster)
 		{
-			if (GameFlowData.Get().activeOwnedActorData != caster)
-			{
-				float num = 0.5f;
-				teleportColor.a *= num;
-				teleportColor.r *= num;
-				teleportColor.g *= num;
-				teleportColor.b *= num;
-			}
+			float num = 0.5f;
+			teleportColor.a *= num;
+			teleportColor.r *= num;
+			teleportColor.g *= num;
+			teleportColor.b *= num;
 		}
 		if (m_gameObjectOnCastTarget == null)
 		{
@@ -243,17 +228,13 @@ public class AbilityUtil_Targeter
 				}
 			}
 		}
-		if (!(m_gameObjectOnCastTarget != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_gameObjectOnCastTarget != null)
 		{
 			List<Vector3> list = new List<Vector3>();
-			Vector3 worldPosition = Board.Get().GetSquare(caster.GetGridPosWithIncrementedHeight()).GetOccupantRefPos();
-			list.Add(worldPosition);
-			Vector3 worldPosition2 = Board.Get().GetSquare(currentTarget.GridPos).GetOccupantRefPos();
-			list.Add(worldPosition2);
+			Vector3 occupantRefPos = Board.Get().GetSquare(caster.GetGridPos()).GetOccupantRefPos();
+			list.Add(occupantRefPos);
+			Vector3 occupantRefPos2 = Board.Get().GetSquare(currentTarget.GridPos).GetOccupantRefPos();
+			list.Add(occupantRefPos2);
 			Vector3 a = list[0] - list[1];
 			Vector3 a2 = list[list.Count - 1] - list[list.Count - 2];
 			a.Normalize();
@@ -263,73 +244,54 @@ public class AbilityUtil_Targeter
 			DestroyTeleportLine();
 			m_lineBetweenPath = Targeting.GetTargeting().CreateLineMesh(list, 0.2f, teleportColor, true, HighlightUtils.Get().m_ArrowDottedLineMaterial);
 			m_gameObjectOnCastTarget.transform.position = currentTarget.GetWorldGridPos();
-			m_gameObjectOnCastTarget.AbilityCasted(caster.GetGridPosWithIncrementedHeight(), currentTarget.GridPos);
+			m_gameObjectOnCastTarget.AbilityCasted(caster.GetGridPos(), currentTarget.GridPos);
 			m_gameObjectOnCastTarget.SetColor(teleportColor);
 			m_gameObjectOnCastTarget.Setup();
-			return;
 		}
 	}
 
 	public void UpdateEffectOnCaster(AbilityTarget currentTarget, ActorData caster)
 	{
 		Color teleportColor = GetTeleportColor();
-		if (GameFlowData.Get() != null)
+		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != caster)
 		{
-			if (GameFlowData.Get().activeOwnedActorData != caster)
-			{
-				float num = 0.5f;
-				teleportColor.a *= num;
-				teleportColor.r *= num;
-				teleportColor.g *= num;
-				teleportColor.b *= num;
-			}
+			float num = 0.5f;
+			teleportColor.a *= num;
+			teleportColor.r *= num;
+			teleportColor.g *= num;
+			teleportColor.b *= num;
 		}
-		if (m_gameObjectOnCaster == null && m_ability != null)
+		if (m_gameObjectOnCaster == null
+			&& m_ability != null
+			&& AbilityUtils.AbilityHasTag(m_ability, AbilityTags.UseTeleportUIEffect)
+			&& HighlightUtils.Get().m_teleportPrefab != null)
 		{
-			if (AbilityUtils.AbilityHasTag(m_ability, AbilityTags.UseTeleportUIEffect) && HighlightUtils.Get().m_teleportPrefab != null)
-			{
-				m_gameObjectOnCaster = Object.Instantiate(HighlightUtils.Get().m_teleportPrefab);
-			}
+			m_gameObjectOnCaster = Object.Instantiate(HighlightUtils.Get().m_teleportPrefab);
 		}
-		if (!(m_gameObjectOnCaster != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_gameObjectOnCaster != null)
 		{
 			m_gameObjectOnCaster.transform.position = caster.transform.position;
-			m_gameObjectOnCaster.AbilityCasted(caster.GetGridPosWithIncrementedHeight(), currentTarget.GridPos);
+			m_gameObjectOnCaster.AbilityCasted(caster.GetGridPos(), currentTarget.GridPos);
 			m_gameObjectOnCaster.SetColor(teleportColor);
-			return;
 		}
 	}
 
 	private void DestroyTeleportLine()
 	{
-		if (!(m_lineBetweenPath != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_lineBetweenPath != null)
 		{
 			HighlightUtils.DestroyMeshesOnObject(m_lineBetweenPath);
 			DestroyObjectAndMaterials(m_lineBetweenPath);
 			m_lineBetweenPath = null;
-			return;
 		}
 	}
 
 	private void DestroyTeleportStartObject()
 	{
-		if (!(m_gameObjectOnCaster != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_gameObjectOnCaster != null)
 		{
 			DestroyObjectAndMaterials(m_gameObjectOnCaster.gameObject);
 			m_gameObjectOnCaster = null;
-			return;
 		}
 	}
 
@@ -344,24 +306,15 @@ public class AbilityUtil_Targeter
 
 	public void InstantiateTeleportPathUIEffect()
 	{
-		if (m_gameObjectOnCaster == null)
+		if (m_gameObjectOnCaster == null && HighlightUtils.Get().m_teleportPrefab != null)
 		{
-			if (HighlightUtils.Get().m_teleportPrefab != null)
-			{
-				m_gameObjectOnCaster = Object.Instantiate(HighlightUtils.Get().m_teleportPrefab);
-			}
+			m_gameObjectOnCaster = Object.Instantiate(HighlightUtils.Get().m_teleportPrefab);
 		}
-		if (!(m_gameObjectOnCastTarget == null))
+		if (m_gameObjectOnCastTarget == null
+			&& m_ability != null
+			&& HighlightUtils.Get().m_teleportPrefab != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_ability != null && HighlightUtils.Get().m_teleportPrefab != null)
-			{
-				m_gameObjectOnCastTarget = Object.Instantiate(HighlightUtils.Get().m_teleportEndPrefab);
-			}
-			return;
+			m_gameObjectOnCastTarget = Object.Instantiate(HighlightUtils.Get().m_teleportEndPrefab);
 		}
 	}
 
@@ -386,27 +339,23 @@ public class AbilityUtil_Targeter
 			DestroyTeleportLine();
 			DestroyTeleportEndObjet();
 		}
-		if (flag)
+		if (flag
+			&& !m_ability.BackupTargets.IsNullOrEmpty()
+			&& targetIndex < m_ability.BackupTargets.Count)
 		{
-			if (!m_ability.BackupTargets.IsNullOrEmpty())
+			AbilityTarget abilityTarget = m_ability.BackupTargets[targetIndex];
+			ClearHighlightCursors();
+			SetLastUpdateCursorState(abilityTarget);
+			if (IsUsingMultiTargetUpdate())
 			{
-				if (targetIndex < m_ability.BackupTargets.Count)
-				{
-					AbilityTarget abilityTarget = m_ability.BackupTargets[targetIndex];
-					ClearHighlightCursors();
-					SetLastUpdateCursorState(abilityTarget);
-					if (IsUsingMultiTargetUpdate())
-					{
-						UpdateTargetingMultiTargets(abilityTarget, GameFlowData.Get().activeOwnedActorData, targetIndex, m_ability.BackupTargets);
-					}
-					else
-					{
-						UpdateTargeting(abilityTarget, GameFlowData.Get().activeOwnedActorData);
-					}
-					UpdateHighlightPosAfterClick(abilityTarget, GameFlowData.Get().activeOwnedActorData, targetIndex, m_ability.BackupTargets);
-					SetupTargetingArc(GameFlowData.Get().activeOwnedActorData, false);
-				}
+				UpdateTargetingMultiTargets(abilityTarget, GameFlowData.Get().activeOwnedActorData, targetIndex, m_ability.BackupTargets);
 			}
+			else
+			{
+				UpdateTargeting(abilityTarget, GameFlowData.Get().activeOwnedActorData);
+			}
+			UpdateHighlightPosAfterClick(abilityTarget, GameFlowData.Get().activeOwnedActorData, targetIndex, m_ability.BackupTargets);
+			SetupTargetingArc(GameFlowData.Get().activeOwnedActorData, false);
 		}
 		HighlightUtils.Get().SetCursorType(HighlightUtils.CursorType.MouseOverCursorType);
 		MarkedForForceUpdate = true;
@@ -445,13 +394,12 @@ public class AbilityUtil_Targeter
 	public void AppendToTooltipSubjectSet(ActorData actor, HashSet<AbilityTooltipSubject> subjectsToAppendTo)
 	{
 		List<AbilityTooltipSubject> tooltipSubjectTypes = GetTooltipSubjectTypes(actor);
-		if (tooltipSubjectTypes == null)
+		if (tooltipSubjectTypes != null)
 		{
-			return;
-		}
-		foreach (AbilityTooltipSubject current in tooltipSubjectTypes)
-		{
-			subjectsToAppendTo.Add(current);
+			foreach (AbilityTooltipSubject current in tooltipSubjectTypes)
+			{
+				subjectsToAppendTo.Add(current);
+			}
 		}
 	}
 
@@ -504,27 +452,14 @@ public class AbilityUtil_Targeter
 	protected virtual List<ActorData> GetVisibleActorsInRange()
 	{
 		List<ActorData> list = new List<ActorData>();
-		using (List<ActorTarget>.Enumerator enumerator = m_actorsInRange.GetEnumerator())
+		foreach (ActorTarget actorTarget in m_actorsInRange)
 		{
-			while (enumerator.MoveNext())
+			if (actorTarget.m_actor.IsVisibleToClient())
 			{
-				ActorTarget current = enumerator.Current;
-				if (current.m_actor.IsVisibleToClient())
-				{
-					list.Add(current.m_actor);
-				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return list;
-				}
+				list.Add(actorTarget.m_actor);
 			}
 		}
+		return list;
 	}
 
 	public virtual List<ActorData> GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject subject)
@@ -538,10 +473,7 @@ public class AbilityUtil_Targeter
 				list.Add(actorTarget.m_actor);
 			}
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	public int GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject subject)
@@ -550,19 +482,13 @@ public class AbilityUtil_Targeter
 		for (int i = 0; i < m_actorsInRange.Count; i++)
 		{
 			ActorTarget actorTarget = m_actorsInRange[i];
-			if (!actorTarget.m_actor.IsVisibleToClient())
-			{
-				continue;
-			}
-			if (actorTarget.m_subjectTypes.Contains(subject))
+			if (actorTarget.m_actor.IsVisibleToClient()
+				&& actorTarget.m_subjectTypes.Contains(subject))
 			{
 				num++;
 			}
 		}
-		while (true)
-		{
-			return num;
-		}
+		return num;
 	}
 
 	public int GetTooltipSubjectCountOnActor(ActorData actor, AbilityTooltipSubject subject)
@@ -571,22 +497,18 @@ public class AbilityUtil_Targeter
 		for (int i = 0; i < m_actorsInRange.Count; i++)
 		{
 			ActorTarget actorTarget = m_actorsInRange[i];
-			if (!(actorTarget.m_actor == actor))
+			if (actorTarget.m_actor == actor)
 			{
-				continue;
-			}
-			for (int j = 0; j < actorTarget.m_subjectTypes.Count; j++)
-			{
-				if (actorTarget.m_subjectTypes[j] == subject)
+				for (int j = 0; j < actorTarget.m_subjectTypes.Count; j++)
 				{
-					num++;
+					if (actorTarget.m_subjectTypes[j] == subject)
+					{
+						num++;
+					}
 				}
 			}
 		}
-		while (true)
-		{
-			return num;
-		}
+		return num;
 	}
 
 	public int GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject subject)
@@ -602,24 +524,8 @@ public class AbilityUtil_Targeter
 					num++;
 				}
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					goto end_IL_0055;
-				}
-				continue;
-				end_IL_0055:
-				break;
-			}
 		}
-		while (true)
-		{
-			return num;
-		}
+		return num;
 	}
 
 	protected void AddActorsInRange(List<ActorData> actors, Vector3 damageOrigin, ActorData targetingActor, AbilityTooltipSubject subjectType = AbilityTooltipSubject.Primary, bool appendSubjectType = false)
@@ -679,7 +585,7 @@ public class AbilityUtil_Targeter
 				if (item.m_actor == actor)
 				{
 					item.m_subjectTypes.Add(subjectType);
-					return;
+					break;
 				}
 			}
 		}
@@ -727,18 +633,18 @@ public class AbilityUtil_Targeter
 		Color arrowColor;
 		switch (movementType)
 		{
-		case TargeterMovementType.Knockback:
-			arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
-			break;
-		case TargeterMovementType.Movement:
-			arrowColor = HighlightUtils.Get().s_dashMovementLineColor;
-			break;
-		case TargeterMovementType.Attacking:
-			arrowColor = HighlightUtils.Get().s_attackMovementLineColor;
-			break;
-		default:
-			arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
-			break;
+			case TargeterMovementType.Knockback:
+				arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
+				break;
+			case TargeterMovementType.Movement:
+				arrowColor = HighlightUtils.Get().s_dashMovementLineColor;
+				break;
+			case TargeterMovementType.Attacking:
+				arrowColor = HighlightUtils.Get().s_attackMovementLineColor;
+				break;
+			default:
+				arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
+				break;
 		}
 		AddMovementArrow(mover, path, arrowColor, previousLine, isChasing, movementType);
 	}
@@ -758,80 +664,37 @@ public class AbilityUtil_Targeter
 				componentInChildren.SetCharacterMovementPanel(boardSquare);
 			}
 		}
-		while (true)
+		if (!flag && m_arrows.Count > 0)
 		{
-			if (flag)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (m_arrows.Count > 0)
-				{
-					while (true)
-					{
-						m_arrows[0].m_gameObject.GetComponentInChildren<MovementPathStart>().HideCharacterMovementPanel();
-						return;
-					}
-				}
-				return;
-			}
+			m_arrows[0].m_gameObject.GetComponentInChildren<MovementPathStart>().HideCharacterMovementPanel();
 		}
 	}
 
 	protected void AddMovementArrow(ActorData mover, BoardSquarePathInfo path, Color arrowColor, MovementPathStart previousLine, bool isChasing, TargeterMovementType movementType)
 	{
-		if (path == null)
+		if (path != null && mover != null && mover.IsVisibleToClient())
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!(mover != null) || !mover.IsVisibleToClient())
-			{
-				return;
-			}
 			List<Vector3> points = KnockbackUtils.BuildDrawablePath(path, false);
-			if (points.Count < 2)
+			if (points.Count >= 2)
 			{
-				return;
-			}
-			GameObject gameObject = Targeting.GetTargeting().CreateFancyArrowMesh(ref points, 0.2f, arrowColor, isChasing, mover, movementType, null, previousLine, false);
-			bool flag = false;
-			int num = 0;
-			while (true)
-			{
-				if (num < m_arrows.Count)
+				GameObject gameObject = Targeting.GetTargeting().CreateFancyArrowMesh(ref points, 0.2f, arrowColor, isChasing, mover, movementType, null, previousLine, false);
+				bool flag = false;
+				for (int i = 0; i < m_arrows.Count; i++)
 				{
-					if (m_arrows[num].m_gameObject == gameObject)
+					if (m_arrows[i].m_gameObject == gameObject)
 					{
 						flag = true;
-						m_arrows[num].m_pathInfo = path;
+						m_arrows[i].m_pathInfo = path;
 						break;
 					}
-					num++;
-					continue;
 				}
-				break;
-			}
-			if (flag)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (gameObject.GetComponentInChildren<MovementPathStart>() != null)
+				if (!flag && gameObject.GetComponentInChildren<MovementPathStart>() != null)
 				{
-					while (true)
-					{
-						ArrowList arrowList = new ArrowList();
-						arrowList.m_gameObject = gameObject;
-						arrowList.m_pathInfo = path;
-						m_arrows.Add(arrowList);
-						return;
-					}
+					ArrowList arrowList = new ArrowList();
+					arrowList.m_gameObject = gameObject;
+					arrowList.m_pathInfo = path;
+					m_arrows.Add(arrowList);
 				}
-				return;
 			}
 		}
 	}
@@ -841,18 +704,18 @@ public class AbilityUtil_Targeter
 		Color arrowColor;
 		switch (movementType)
 		{
-		case TargeterMovementType.Knockback:
-			arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
-			break;
-		case TargeterMovementType.Movement:
-			arrowColor = HighlightUtils.Get().s_dashMovementLineColor;
-			break;
-		case TargeterMovementType.Attacking:
-			arrowColor = HighlightUtils.Get().s_attackMovementLineColor;
-			break;
-		default:
-			arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
-			break;
+			case TargeterMovementType.Knockback:
+				arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
+				break;
+			case TargeterMovementType.Movement:
+				arrowColor = HighlightUtils.Get().s_dashMovementLineColor;
+				break;
+			case TargeterMovementType.Attacking:
+				arrowColor = HighlightUtils.Get().s_attackMovementLineColor;
+				break;
+			default:
+				arrowColor = HighlightUtils.Get().s_knockbackMovementLineColor;
+				break;
 		}
 		return AddMovementArrowWithPrevious(mover, path, movementType, arrowColor, arrowIndex, isChasing);
 	}
@@ -861,24 +724,13 @@ public class AbilityUtil_Targeter
 	{
 		if (CanCreateMovementArrows(path))
 		{
-			while (true)
+			MovementPathStart previousLine = null;
+			if (m_arrows.Count > arrowIndex)
 			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-				{
-					MovementPathStart previousLine = null;
-					if (m_arrows.Count > arrowIndex)
-					{
-						previousLine = m_arrows[arrowIndex].m_gameObject.GetComponentInChildren<MovementPathStart>();
-					}
-					AddMovementArrow(mover, path, arrowColor, previousLine, isChasing, movementType);
-					return arrowIndex + 1;
-				}
-				}
+				previousLine = m_arrows[arrowIndex].m_gameObject.GetComponentInChildren<MovementPathStart>();
 			}
+			AddMovementArrow(mover, path, arrowColor, previousLine, isChasing, movementType);
+			return arrowIndex + 1;
 		}
 		return arrowIndex;
 	}
@@ -894,10 +746,6 @@ public class AbilityUtil_Targeter
 		{
 			m_arrows[i].m_gameObject.SetActive(enabled);
 		}
-		while (true)
-		{
-			return;
-		}
 	}
 
 	protected bool CanCreateMovementArrows(BoardSquarePathInfo path)
@@ -911,12 +759,9 @@ public class AbilityUtil_Targeter
 		{
 			Vector3 vector = list[0] - list[1];
 			Vector3 vector2 = list[list.Count - 1] - list[list.Count - 2];
-			if (vector.sqrMagnitude > 0f)
+			if (vector.sqrMagnitude > 0f && vector2.sqrMagnitude > 0f)
 			{
-				if (vector2.sqrMagnitude > 0f)
-				{
-					return true;
-				}
+				return true;
 			}
 		}
 		return false;
@@ -924,23 +769,16 @@ public class AbilityUtil_Targeter
 
 	public void ClearArrows()
 	{
-		using (List<ArrowList>.Enumerator enumerator = m_arrows.GetEnumerator())
+		foreach (ArrowList arrowList in m_arrows)
 		{
-			while (enumerator.MoveNext())
+			if (arrowList != null && arrowList.m_gameObject != null)
 			{
-				ArrowList current = enumerator.Current;
-				if (current != null)
+				MovementPathStart componentInChildren = arrowList.m_gameObject.GetComponentInChildren<MovementPathStart>();
+				if (componentInChildren != null)
 				{
-					if (current.m_gameObject != null)
-					{
-						MovementPathStart componentInChildren = current.m_gameObject.GetComponentInChildren<MovementPathStart>();
-						if (componentInChildren != null)
-						{
-							componentInChildren.HideCharacterMovementPanel();
-						}
-						DestroyObjectAndMaterials(current.m_gameObject);
-					}
+					componentInChildren.HideCharacterMovementPanel();
 				}
+				DestroyObjectAndMaterials(arrowList.m_gameObject);
 			}
 		}
 		m_arrows.Clear();
@@ -961,12 +799,12 @@ public class AbilityUtil_Targeter
 	public static GameObject CreateArrowFromGridPosPoints(GridPos start, GridPos end, Color lineColor, bool isChasing, ActorData theActor)
 	{
 		List<Vector3> points = new List<Vector3>();
-		Vector3 worldPosition = Board.Get().GetSquare(start).GetOccupantRefPos();
-		worldPosition.y += 0.5f;
-		points.Add(worldPosition);
-		Vector3 worldPosition2 = Board.Get().GetSquare(end).GetOccupantRefPos();
-		worldPosition2.y += 0.5f;
-		points.Add(worldPosition2);
+		Vector3 occupantRefPos = Board.Get().GetSquare(start).GetOccupantRefPos();
+		occupantRefPos.y += 0.5f;
+		points.Add(occupantRefPos);
+		Vector3 occupantRefPos2 = Board.Get().GetSquare(end).GetOccupantRefPos();
+		occupantRefPos2.y += 0.5f;
+		points.Add(occupantRefPos2);
 		return Targeting.GetTargeting().CreateFancyArrowMesh(ref points, 0.2f, lineColor, isChasing, theActor, TargeterMovementType.Movement, null, null, false);
 	}
 
@@ -985,55 +823,40 @@ public class AbilityUtil_Targeter
 				list.Add(gameObject);
 			}
 		}
-		while (true)
+		if (setOpacity)
 		{
-			if (setOpacity)
-			{
-				HighlightUtils.TargeterOpacityData[] allyTargeterOpacity = HighlightUtils.Get().m_allyTargeterOpacity;
-				float opacityFromTargeterData = GetOpacityFromTargeterData(allyTargeterOpacity, 100f);
-				SetTargeterHighlightOpacity(list, opacityFromTargeterData);
-			}
-			return list;
+			HighlightUtils.TargeterOpacityData[] allyTargeterOpacity = HighlightUtils.Get().m_allyTargeterOpacity;
+			float opacityFromTargeterData = GetOpacityFromTargeterData(allyTargeterOpacity, 100f);
+			SetTargeterHighlightOpacity(list, opacityFromTargeterData);
 		}
+		return list;
 	}
 
 	protected virtual void ClearHighlightCursors(bool clearInstantly = true)
 	{
-		if (!clearInstantly)
+		if (!clearInstantly && NetworkClient.active)
 		{
-			if (NetworkClient.active)
+			if (m_highlights.Count > 0)
 			{
-				if (m_highlights.Count > 0)
-				{
-					m_highlightFadeContainer.TrackHighlights(m_highlights);
-				}
-				goto IL_00a3;
+				m_highlightFadeContainer.TrackHighlights(m_highlights);
 			}
 		}
-		using (List<GameObject>.Enumerator enumerator = m_highlights.GetEnumerator())
+		else
 		{
-			while (enumerator.MoveNext())
+			foreach (GameObject gameObject in m_highlights)
 			{
-				GameObject current = enumerator.Current;
-				if (current != null)
+				if (gameObject != null)
 				{
-					DestroyObjectAndMaterials(current);
+					DestroyObjectAndMaterials(gameObject);
 				}
 			}
 		}
-		goto IL_00a3;
-		IL_00a3:
 		m_highlights.Clear();
 		DestroyTargetingArcMesh();
-		if (!(m_targetingArcPulseInstance != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_targetingArcPulseInstance != null)
 		{
 			Object.Destroy(m_targetingArcPulseInstance);
 			m_targetingArcPulseInstance = null;
-			return;
 		}
 	}
 
@@ -1047,11 +870,7 @@ public class AbilityUtil_Targeter
 
 	protected virtual void DisableHighlightCursors()
 	{
-		if (m_highlights == null)
-		{
-			return;
-		}
-		while (true)
+		if (m_highlights != null)
 		{
 			foreach (GameObject highlight in m_highlights)
 			{
@@ -1060,7 +879,6 @@ public class AbilityUtil_Targeter
 					highlight.SetActive(false);
 				}
 			}
-			return;
 		}
 	}
 
@@ -1087,31 +905,19 @@ public class AbilityUtil_Targeter
 
 	protected bool GetAffectsTarget(ActorData potentialTarget, ActorData targeterOwner)
 	{
-		if (!(potentialTarget == null))
+		if (potentialTarget == null || targeterOwner == null)
 		{
-			if (!(targeterOwner == null))
-			{
-				if (targeterOwner.GetTeam() == potentialTarget.GetTeam())
-				{
-					if (targeterOwner == potentialTarget)
-					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								break;
-							default:
-								return m_affectsTargetingActor;
-							}
-						}
-					}
-					return m_affectsAllies;
-				}
-				return m_affectsEnemies;
-			}
+			return false;
 		}
-		return false;
+		if (targeterOwner.GetTeam() != potentialTarget.GetTeam())
+		{
+			return m_affectsEnemies;
+		}
+		if (targeterOwner == potentialTarget)
+		{
+			return m_affectsTargetingActor;
+		}
+		return m_affectsAllies;
 	}
 
 	protected List<Team> GetAffectedTeams()
@@ -1146,192 +952,121 @@ public class AbilityUtil_Targeter
 	{
 		if (Highlight != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return Highlight.transform.position;
-				}
-			}
+			return Highlight.transform.position;
 		}
-		if (targetingActor != null)
+		if (targetingActor != null && targetingActor.GetCurrentBoardSquare() != null)
 		{
-			if (targetingActor.GetCurrentBoardSquare() != null)
-			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return targetingActor.GetCurrentBoardSquare().ToVector3();
-					}
-				}
-			}
+			return targetingActor.GetCurrentBoardSquare().ToVector3();
 		}
 		return Vector3.zero;
 	}
 
 	public virtual void SetupTargetingArc(ActorData targetingActor, bool activatePulse)
 	{
-		if (m_showArcToShape)
+		if (m_showArcToShape && Highlight == null)
 		{
-			if (Highlight == null)
-			{
-				m_showArcToShape = false;
-			}
+			m_showArcToShape = false;
 		}
-		if (m_showArcToShape)
+		if (m_showArcToShape
+			&& Highlight != null
+			&& (GetTargetingArcEndPosition(targetingActor) - targetingActor.GetCurrentBoardSquare().ToVector3()).magnitude > HighlightUtils.Get().m_minDistForTargetingArc)
 		{
-			if (Highlight != null)
+			Vector3 loSCheckPos = targetingActor.GetLoSCheckPos();
+			Vector3 vector = Camera.main.transform.rotation * Vector3.forward;
+			bool flag = (vector - m_cameraForward).sqrMagnitude > 0.01f
+				|| (Camera.main.transform.position - m_cameraPosition).sqrMagnitude > 0.01f;
+			if (flag)
 			{
-				if ((GetTargetingArcEndPosition(targetingActor) - targetingActor.GetCurrentBoardSquare().ToVector3()).magnitude > HighlightUtils.Get().m_minDistForTargetingArc)
+				m_cameraForward = vector;
+				m_cameraPosition = Camera.main.transform.position;
+			}
+			if (activatePulse)
+			{
+				if (m_targetingArcPulseInstance != null)
 				{
-					while (true)
+					m_targetingArcPulseInstance.SetActive(false);
+					Object.Destroy(m_targetingArcPulseInstance);
+					m_targetingArcPulseInstance = null;
+				}
+				m_targetingArcPulseInstance = Object.Instantiate(HighlightUtils.Get().m_targetingArcForShape);
+				m_targetingArcPulseInstance.SetActive(true);
+				m_targetingArcPulseInstance.transform.position = loSCheckPos;
+				m_arcTraveled = 0f;
+			}
+			Vector3 targetingArcEndPosition = GetTargetingArcEndPosition(targetingActor);
+			if (m_arcTraveled < 1f || flag)
+			{
+				float targetingArcMaxHeight = HighlightUtils.Get().m_targetingArcMaxHeight;
+				float num = 1f + (loSCheckPos.y - targetingArcEndPosition.y) / targetingArcMaxHeight;
+				Vector3 vector2 = targetingArcEndPosition - loSCheckPos;
+				vector2.y = 0f;
+				if (vector2.magnitude <= 0.5f)
+				{
+					vector2 = new Vector3(0.5f * vector.x, 0f, 0.5f * vector.z);
+				}
+				float num2 = 0.5f * vector2.magnitude;
+				float num3 = targetingArcMaxHeight / (num2 * num2);
+				if (m_targetingArcPulseInstance != null)
+				{
+					m_arcTraveled += HighlightUtils.Get().m_targetingArcMovementSpeed * Time.deltaTime;
+					float num4 = m_arcTraveled * vector2.magnitude - num2;
+					float num5 = num3 * num4 * num4;
+					if (num4 > 0f)
 					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-						{
-							Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
-							Vector3 vector = Camera.main.transform.rotation * Vector3.forward;
-							int num;
-							if (!((vector - m_cameraForward).sqrMagnitude > 0.01f))
-							{
-								num = (((Camera.main.transform.position - m_cameraPosition).sqrMagnitude > 0.01f) ? 1 : 0);
-							}
-							else
-							{
-								num = 1;
-							}
-							bool flag = (byte)num != 0;
-							if (flag)
-							{
-								m_cameraForward = vector;
-								m_cameraPosition = Camera.main.transform.position;
-							}
-							if (activatePulse)
-							{
-								if (m_targetingArcPulseInstance != null)
-								{
-									m_targetingArcPulseInstance.SetActive(false);
-									Object.Destroy(m_targetingArcPulseInstance);
-									m_targetingArcPulseInstance = null;
-								}
-								m_targetingArcPulseInstance = Object.Instantiate(HighlightUtils.Get().m_targetingArcForShape);
-								m_targetingArcPulseInstance.SetActive(true);
-								m_targetingArcPulseInstance.transform.position = travelBoardSquareWorldPositionForLos;
-								m_arcTraveled = 0f;
-							}
-							Vector3 targetingArcEndPosition = GetTargetingArcEndPosition(targetingActor);
-							if (!(m_arcTraveled < 1f))
-							{
-								if (!flag)
-								{
-									m_arcTraveled = 0f;
-									if (m_targetingArcPulseInstance != null)
-									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												break;
-											default:
-												m_targetingArcPulseInstance.SetActive(false);
-												Object.Destroy(m_targetingArcPulseInstance);
-												m_targetingArcPulseInstance = null;
-												return;
-											}
-										}
-									}
-									return;
-								}
-							}
-							float targetingArcMaxHeight = HighlightUtils.Get().m_targetingArcMaxHeight;
-							float num2 = 1f + (travelBoardSquareWorldPositionForLos.y - targetingArcEndPosition.y) / targetingArcMaxHeight;
-							Vector3 a = targetingArcEndPosition - travelBoardSquareWorldPositionForLos;
-							a.y = 0f;
-							if (a.magnitude <= 0.5f)
-							{
-								a = new Vector3(0.5f * vector.x, 0f, 0.5f * vector.z);
-							}
-							float num3 = 0.5f * a.magnitude;
-							float num4 = targetingArcMaxHeight / (num3 * num3);
-							if (m_targetingArcPulseInstance != null)
-							{
-								m_arcTraveled += HighlightUtils.Get().m_targetingArcMovementSpeed * Time.deltaTime;
-								float num5 = m_arcTraveled * a.magnitude - num3;
-								float num6 = num4 * num5 * num5;
-								if (num5 > 0f)
-								{
-									num6 *= num2;
-								}
-								Vector3 position = travelBoardSquareWorldPositionForLos + a * m_arcTraveled + Vector3.up * (targetingArcMaxHeight - num6);
-								m_targetingArcPulseInstance.transform.position = position;
-							}
-							bool flag2 = false;
-							if ((m_arcEnd - targetingArcEndPosition).sqrMagnitude > 0.1f)
-							{
-								m_arcEnd = targetingArcEndPosition;
-								flag2 = true;
-							}
-							if (!(m_targetingArcInstance == null) && !flag)
-							{
-								if (!flag2)
-								{
-									return;
-								}
-							}
-							List<Vector3> list = new List<Vector3>();
-							for (int i = 1; i <= HighlightUtils.Get().m_targetingArcNumSegments; i++)
-							{
-								float num7 = (float)i / (float)HighlightUtils.Get().m_targetingArcNumSegments;
-								float num8 = num7 * a.magnitude - num3;
-								float num9 = num4 * num8 * num8;
-								if (num8 > 0f)
-								{
-									num9 *= num2;
-								}
-								Vector3 item = travelBoardSquareWorldPositionForLos + a * num7 + Vector3.up * (targetingArcMaxHeight - num9);
-								list.Add(item);
-							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									break;
-								default:
-								{
-									Color color = HighlightUtils.Get().m_targetingArcColor;
-									if (targetingActor != GameFlowData.Get().activeOwnedActorData)
-									{
-										color = HighlightUtils.Get().m_targetingArcColorAllies;
-									}
-									m_targetingArcInstance = Targeting.GetTargeting().CreateLineMesh(list, 0.2f, color, false, HighlightUtils.Get().m_targetingArcMaterial, m_targetingArcInstance, true);
-									return;
-								}
-								}
-							}
-						}
-						}
+						num5 *= num;
 					}
+					Vector3 position = loSCheckPos + vector2 * m_arcTraveled + Vector3.up * (targetingArcMaxHeight - num5);
+					m_targetingArcPulseInstance.transform.position = position;
+				}
+				bool flag2 = false;
+				if ((m_arcEnd - targetingArcEndPosition).sqrMagnitude > 0.1f)
+				{
+					m_arcEnd = targetingArcEndPosition;
+					flag2 = true;
+				}
+				if (m_targetingArcInstance == null || flag || flag2)
+				{
+					List<Vector3> list = new List<Vector3>();
+					for (int i = 1; i <= HighlightUtils.Get().m_targetingArcNumSegments; i++)
+					{
+						float num6 = (float)i / (float)HighlightUtils.Get().m_targetingArcNumSegments;
+						float num7 = num6 * vector2.magnitude - num2;
+						float num8 = num3 * num7 * num7;
+						if (num7 > 0f)
+						{
+							num8 *= num;
+						}
+						Vector3 item = loSCheckPos + vector2 * num6 + Vector3.up * (targetingArcMaxHeight - num8);
+						list.Add(item);
+					}
+					Color color = HighlightUtils.Get().m_targetingArcColor;
+					if (targetingActor != GameFlowData.Get().activeOwnedActorData)
+					{
+						color = HighlightUtils.Get().m_targetingArcColorAllies;
+					}
+					m_targetingArcInstance = Targeting.GetTargeting().CreateLineMesh(list, 0.2f, color, false, HighlightUtils.Get().m_targetingArcMaterial, m_targetingArcInstance, true);
+				}
+			}
+			else
+			{
+				m_arcTraveled = 0f;
+				if (m_targetingArcPulseInstance != null)
+				{
+					m_targetingArcPulseInstance.SetActive(false);
+					Object.Destroy(m_targetingArcPulseInstance);
+					m_targetingArcPulseInstance = null;
 				}
 			}
 		}
-		DestroyTargetingArcMesh();
-		if (m_targetingArcPulseInstance != null)
+		else
 		{
-			m_targetingArcPulseInstance.SetActive(false);
-			Object.Destroy(m_targetingArcPulseInstance);
-			m_targetingArcPulseInstance = null;
+			DestroyTargetingArcMesh();
+			if (m_targetingArcPulseInstance != null)
+			{
+				m_targetingArcPulseInstance.SetActive(false);
+				Object.Destroy(m_targetingArcPulseInstance);
+				m_targetingArcPulseInstance = null;
+			}
 		}
 	}
 
@@ -1348,40 +1083,18 @@ public class AbilityUtil_Targeter
 
 	public virtual void AdjustOpacityWhileTargeting()
 	{
-		if (!NetworkClient.active || !HighlightUtils.Get().m_setTargeterOpacityWhileTargeting)
-		{
-			return;
-		}
-		while (true)
+		if (NetworkClient.active && HighlightUtils.Get().m_setTargeterOpacityWhileTargeting)
 		{
 			float opacity = Mathf.Clamp(HighlightUtils.Get().m_targeterOpacityWhileTargeting, 0.01f, 1f);
-			using (List<GameObject>.Enumerator enumerator = m_highlights.GetEnumerator())
+			foreach (GameObject gameObject in m_highlights)
 			{
-				while (enumerator.MoveNext())
+				foreach (MeshRenderer meshRenderer in gameObject.GetComponents<MeshRenderer>())
 				{
-					GameObject current = enumerator.Current;
-					MeshRenderer[] components = current.GetComponents<MeshRenderer>();
-					MeshRenderer[] array = components;
-					foreach (MeshRenderer meshRenderer in array)
-					{
-						SetMaterialOpacity(meshRenderer.materials, opacity);
-					}
-					MeshRenderer[] componentsInChildren = current.GetComponentsInChildren<MeshRenderer>();
-					MeshRenderer[] array2 = componentsInChildren;
-					foreach (MeshRenderer meshRenderer2 in array2)
-					{
-						SetMaterialOpacity(meshRenderer2.materials, opacity);
-					}
+					SetMaterialOpacity(meshRenderer.materials, opacity);
 				}
-				while (true)
+				foreach (MeshRenderer meshRenderer in gameObject.GetComponentsInChildren<MeshRenderer>())
 				{
-					switch (1)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
+					SetMaterialOpacity(meshRenderer.materials, opacity);
 				}
 			}
 		}
@@ -1391,75 +1104,31 @@ public class AbilityUtil_Targeter
 	{
 		m_lastAllyTargeterChange = Time.time;
 		m_confirmedTargetingStartTime = Time.time + HUD_UIResources.Get().m_confirmedTargetingDuration;
-		using (List<ArrowList>.Enumerator enumerator = m_arrows.GetEnumerator())
+		foreach (ArrowList arrowList in m_arrows)
 		{
-			while (enumerator.MoveNext())
+			if (arrowList != null && arrowList.m_gameObject.activeSelf)
 			{
-				ArrowList current = enumerator.Current;
-				if (current != null)
+				MovementPathStart componentInChildren = arrowList.m_gameObject.GetComponentInChildren<MovementPathStart>();
+				if (componentInChildren != null)
 				{
-					if (current.m_gameObject.activeSelf)
-					{
-						MovementPathStart componentInChildren = current.m_gameObject.GetComponentInChildren<MovementPathStart>();
-						if (componentInChildren != null)
-						{
-							componentInChildren.SetGlow(true);
-						}
-					}
+					componentInChildren.SetGlow(true);
 				}
 			}
 		}
-		if (GameFlowData.Get().activeOwnedActorData == targetingActor)
+		if (GameFlowData.Get().activeOwnedActorData == targetingActor
+			&& targetingActor.GetActorTurnSM().CurrentState != TurnStateEnum.TARGETING_ACTION)
 		{
-			if (targetingActor.GetActorTurnSM().CurrentState != TurnStateEnum.TARGETING_ACTION)
-			{
-				HideAllSquareIndicators();
-			}
+			HideAllSquareIndicators();
 		}
 		SetupTargetingArc(targetingActor, true);
-		if (!Application.isEditor)
+		if (Application.isEditor && m_highlights != null && m_ability != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_highlights == null)
+			foreach (GameObject gameObject in m_highlights)
 			{
-				return;
-			}
-			while (true)
-			{
-				if (m_ability != null)
+				if (gameObject != null && !gameObject.name.StartsWith("[Targeter]"))
 				{
-					while (true)
-					{
-						using (List<GameObject>.Enumerator enumerator2 = m_highlights.GetEnumerator())
-						{
-							while (enumerator2.MoveNext())
-							{
-								GameObject current2 = enumerator2.Current;
-								if (current2 != null)
-								{
-									if (!current2.name.StartsWith("[Targeter]"))
-									{
-										current2.name = "[Targeter] " + m_ability.GetNameString() + ": " + current2.name;
-									}
-								}
-							}
-							while (true)
-							{
-								switch (7)
-								{
-								default:
-									return;
-								case 0:
-									break;
-								}
-							}
-						}
-					}
+					gameObject.name = "[Targeter] " + m_ability.GetNameString() + ": " + gameObject.name;
 				}
-				return;
 			}
 		}
 	}
@@ -1467,10 +1136,12 @@ public class AbilityUtil_Targeter
 	public virtual void UpdateConfirmedTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		float timeSinceChange = Time.time - m_lastAllyTargeterChange;
-		float num = 0f;
-		HighlightUtils.TargeterOpacityData[] targeterOpacity = (!(GameFlowData.Get().activeOwnedActorData == targetingActor)) ? HighlightUtils.Get().m_allyTargeterOpacity : HighlightUtils.Get().m_confirmedTargeterOpacity;
-		num = GetOpacityFromTargeterData(targeterOpacity, timeSinceChange);
-		SetTargeterHighlightOpacity(m_highlights, num);
+		HighlightUtils.TargeterOpacityData[] targeterOpacity = 
+			GameFlowData.Get().activeOwnedActorData == targetingActor
+			? HighlightUtils.Get().m_confirmedTargeterOpacity
+			: HighlightUtils.Get().m_allyTargeterOpacity;
+		float opacityFromTargeterData = GetOpacityFromTargeterData(targeterOpacity, timeSinceChange);
+		SetTargeterHighlightOpacity(m_highlights, opacityFromTargeterData);
 		SetupTargetingArc(targetingActor, false);
 	}
 
@@ -1483,22 +1154,16 @@ public class AbilityUtil_Targeter
 	{
 		foreach (GameObject highlight in highlights)
 		{
-			MeshRenderer[] components = highlight.GetComponents<MeshRenderer>();
-			MeshRenderer[] array = components;
-			foreach (MeshRenderer meshRenderer in array)
+			foreach (MeshRenderer meshRenderer in highlight.GetComponents<MeshRenderer>())
 			{
 				SetMaterialOpacity(meshRenderer.materials, opacity);
 			}
-			MeshRenderer[] componentsInChildren = highlight.GetComponentsInChildren<MeshRenderer>();
-			MeshRenderer[] array2 = componentsInChildren;
-			foreach (MeshRenderer meshRenderer2 in array2)
+			foreach (MeshRenderer meshRenderer2 in highlight.GetComponentsInChildren<MeshRenderer>())
 			{
 				SetMaterialOpacity(meshRenderer2.materials, opacity);
 			}
 			float opacity2 = Mathf.Clamp(opacity * HighlightUtils.Get().m_targeterParticleSystemOpacityMultiplier, 0f, 1f);
-			ParticleSystemRenderer[] componentsInChildren2 = highlight.GetComponentsInChildren<ParticleSystemRenderer>();
-			ParticleSystemRenderer[] array3 = componentsInChildren2;
-			foreach (ParticleSystemRenderer particleSystemRenderer in array3)
+			foreach (ParticleSystemRenderer particleSystemRenderer in highlight.GetComponentsInChildren<ParticleSystemRenderer>())
 			{
 				SetMaterialOpacity(particleSystemRenderer.materials, opacity2);
 			}
@@ -1507,51 +1172,31 @@ public class AbilityUtil_Targeter
 
 	public static void SetTargeterHighlightColor(List<GameObject> highlights, Color color, bool keepOpacity = true, bool clearColorOverTime = true)
 	{
-		using (List<GameObject>.Enumerator enumerator = highlights.GetEnumerator())
+		foreach (GameObject gameObject in highlights)
 		{
-			while (enumerator.MoveNext())
+			foreach (MeshRenderer meshRenderer in gameObject.GetComponents<MeshRenderer>())
 			{
-				GameObject current = enumerator.Current;
-				MeshRenderer[] components = current.GetComponents<MeshRenderer>();
-				MeshRenderer[] array = components;
-				foreach (MeshRenderer meshRenderer in array)
+				SetMaterialColor(meshRenderer.materials, color, keepOpacity);
+			}
+			foreach (MeshRenderer meshRenderer2 in gameObject.GetComponentsInChildren<MeshRenderer>())
+			{
+				SetMaterialColor(meshRenderer2.materials, color, keepOpacity);
+			}
+			foreach (ParticleSystemRenderer particleSystemRenderer in gameObject.GetComponentsInChildren<ParticleSystemRenderer>())
+			{
+				if (clearColorOverTime)
 				{
-					SetMaterialColor(meshRenderer.materials, color, keepOpacity);
-				}
-				MeshRenderer[] componentsInChildren = current.GetComponentsInChildren<MeshRenderer>();
-				MeshRenderer[] array2 = componentsInChildren;
-				foreach (MeshRenderer meshRenderer2 in array2)
-				{
-					SetMaterialColor(meshRenderer2.materials, color, keepOpacity);
-				}
-				ParticleSystemRenderer[] componentsInChildren2 = current.GetComponentsInChildren<ParticleSystemRenderer>();
-				ParticleSystemRenderer[] array3 = componentsInChildren2;
-				foreach (ParticleSystemRenderer particleSystemRenderer in array3)
-				{
-					if (clearColorOverTime)
+					ParticleSystem component = particleSystemRenderer.GetComponent<ParticleSystem>();
+					if (component != null)
 					{
-						ParticleSystem component = particleSystemRenderer.GetComponent<ParticleSystem>();
-						if (component != null)
+						ParticleSystem.ColorOverLifetimeModule colorOverLifetime = component.colorOverLifetime;
+						if (colorOverLifetime.enabled)
 						{
-							ParticleSystem.ColorOverLifetimeModule colorOverLifetime = component.colorOverLifetime;
-							if (colorOverLifetime.enabled)
-							{
-								colorOverLifetime.enabled = false;
-							}
+							colorOverLifetime.enabled = false;
 						}
 					}
-					SetMaterialColor(particleSystemRenderer.materials, color, keepOpacity);
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
+				SetMaterialColor(particleSystemRenderer.materials, color, keepOpacity);
 			}
 		}
 	}
@@ -1559,30 +1204,21 @@ public class AbilityUtil_Targeter
 	public static float GetOpacityFromTargeterData(HighlightUtils.TargeterOpacityData[] targeterOpacity, float timeSinceChange)
 	{
 		float result = 1f;
-		int num = 0;
-		while (true)
+		for (int i = 0; i < targeterOpacity.Length; i++)
 		{
-			if (num < targeterOpacity.Length)
+			if (i == targeterOpacity.Length - 1)
 			{
-				if (num == targeterOpacity.Length - 1)
-				{
-					result = targeterOpacity[num].m_alpha;
-				}
-				else if (targeterOpacity[num].m_timeSinceConfirmed <= timeSinceChange)
-				{
-					if (timeSinceChange <= targeterOpacity[num + 1].m_timeSinceConfirmed)
-					{
-						float alpha = targeterOpacity[num].m_alpha;
-						float alpha2 = targeterOpacity[num + 1].m_alpha;
-						float num2 = (timeSinceChange - targeterOpacity[num].m_timeSinceConfirmed) / Mathf.Max(0.01f, targeterOpacity[num + 1].m_timeSinceConfirmed - targeterOpacity[num].m_timeSinceConfirmed);
-						result = alpha * (1f - num2) + alpha2 * num2;
-						break;
-					}
-				}
-				num++;
-				continue;
+				result = targeterOpacity[i].m_alpha;
 			}
-			break;
+			else if (targeterOpacity[i].m_timeSinceConfirmed <= timeSinceChange
+				&& timeSinceChange <= targeterOpacity[i + 1].m_timeSinceConfirmed)
+			{
+				float alpha = targeterOpacity[i].m_alpha;
+				float alpha2 = targeterOpacity[i + 1].m_alpha;
+				float num2 = (timeSinceChange - targeterOpacity[i].m_timeSinceConfirmed) / Mathf.Max(0.01f, targeterOpacity[i + 1].m_timeSinceConfirmed - targeterOpacity[i].m_timeSinceConfirmed);
+				result = alpha * (1f - num2) + alpha2 * num2;
+				break;
+			}
 		}
 		return result;
 	}
@@ -1591,8 +1227,7 @@ public class AbilityUtil_Targeter
 	{
 		foreach (Material material in materials)
 		{
-			int[] array = materialColorProperties;
-			foreach (int nameID in array)
+			foreach (int nameID in materialColorProperties)
 			{
 				if (material.HasProperty(nameID))
 				{
@@ -1601,19 +1236,6 @@ public class AbilityUtil_Targeter
 					material.SetColor(nameID, value);
 				}
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					goto end_IL_007a;
-				}
-				continue;
-				end_IL_007a:
-				break;
-			}
 		}
 	}
 
@@ -1621,19 +1243,17 @@ public class AbilityUtil_Targeter
 	{
 		foreach (Material material in materials)
 		{
-			int[] array = materialColorProperties;
-			foreach (int nameID in array)
+			foreach (int nameID in materialColorProperties)
 			{
-				if (!material.HasProperty(nameID))
+				if (material.HasProperty(nameID))
 				{
-					continue;
+					if (keepOpacity)
+					{
+						Color color = material.GetColor(nameID);
+						newColor.a = color.a;
+					}
+					material.SetColor(nameID, newColor);
 				}
-				if (keepOpacity)
-				{
-					Color color = material.GetColor(nameID);
-					newColor.a = color.a;
-				}
-				material.SetColor(nameID, newColor);
 			}
 		}
 	}
@@ -1649,14 +1269,9 @@ public class AbilityUtil_Targeter
 		{
 			HighlightUtils.GetHiddenSquaresContainer().HideAllSquareIndicators();
 		}
-		if (HighlightUtils.GetAffectedSquaresContainer() == null)
-		{
-			return;
-		}
-		while (true)
+		if (HighlightUtils.GetAffectedSquaresContainer() != null)
 		{
 			HighlightUtils.GetAffectedSquaresContainer().HideAllSquareIndicators();
-			return;
 		}
 	}
 
@@ -1678,14 +1293,9 @@ public class AbilityUtil_Targeter
 		{
 			HighlightUtils.GetHiddenSquaresContainer().HideAllSquareIndicators(GetNextHiddenSquareIndicatorIndex());
 		}
-		if (HighlightUtils.GetAffectedSquaresContainer() == null)
-		{
-			return;
-		}
-		while (true)
+		if (HighlightUtils.GetAffectedSquaresContainer() != null)
 		{
 			HighlightUtils.GetAffectedSquaresContainer().HideAllSquareIndicators(GetNextAffectedSquareIndicatorIndex());
-			return;
 		}
 	}
 
@@ -1693,16 +1303,7 @@ public class AbilityUtil_Targeter
 	{
 		if (HighlightUtils.GetHiddenSquaresContainer() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return HighlightUtils.GetHiddenSquaresContainer().GetNextIndicatorIndex();
-				}
-			}
+			return HighlightUtils.GetHiddenSquaresContainer().GetNextIndicatorIndex();
 		}
 		return 0;
 	}
@@ -1750,16 +1351,7 @@ public class AbilityUtil_Targeter
 	{
 		if (HighlightUtils.GetAffectedSquaresContainer() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return HighlightUtils.GetAffectedSquaresContainer().GetNextIndicatorIndex();
-				}
-			}
+			return HighlightUtils.GetAffectedSquaresContainer().GetNextIndicatorIndex();
 		}
 		return 0;
 	}
