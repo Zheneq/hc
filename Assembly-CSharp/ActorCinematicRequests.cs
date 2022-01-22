@@ -11,14 +11,11 @@ public class ActorCinematicRequests : NetworkBehaviour
 	private int m_numCinematicRequestsLeft = 2;
 
 	private SyncListInt m_cinematicsPlayedThisMatch = new SyncListInt();
-
 	private ActorData m_actorData;
 
-	private static int kListm_abilityRequested;
-
-	private static int kListm_cinematicsPlayedThisMatch;
-
-	private static int kCmdCmdSelectAbilityCinematicRequest;
+	private static int kListm_abilityRequested = -88780988;
+	private static int kListm_cinematicsPlayedThisMatch = 782922590;
+	private static int kCmdCmdSelectAbilityCinematicRequest = 1550121236;
 
 	public int Networkm_numCinematicRequestsLeft
 	{
@@ -35,12 +32,9 @@ public class ActorCinematicRequests : NetworkBehaviour
 
 	static ActorCinematicRequests()
 	{
-		kCmdCmdSelectAbilityCinematicRequest = 1550121236;
-		NetworkBehaviour.RegisterCommandDelegate(typeof(ActorCinematicRequests), kCmdCmdSelectAbilityCinematicRequest, InvokeCmdCmdSelectAbilityCinematicRequest);
-		kListm_abilityRequested = -88780988;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(ActorCinematicRequests), kListm_abilityRequested, InvokeSyncListm_abilityRequested);
-		kListm_cinematicsPlayedThisMatch = 782922590;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(ActorCinematicRequests), kListm_cinematicsPlayedThisMatch, InvokeSyncListm_cinematicsPlayedThisMatch);
+		RegisterCommandDelegate(typeof(ActorCinematicRequests), kCmdCmdSelectAbilityCinematicRequest, InvokeCmdCmdSelectAbilityCinematicRequest);
+		RegisterSyncListDelegate(typeof(ActorCinematicRequests), kListm_abilityRequested, InvokeSyncListm_abilityRequested);
+		RegisterSyncListDelegate(typeof(ActorCinematicRequests), kListm_cinematicsPlayedThisMatch, InvokeSyncListm_cinematicsPlayedThisMatch);
 		NetworkCRC.RegisterBehaviour("ActorCinematicRequests", 0);
 	}
 
@@ -57,10 +51,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 		{
 			m_abilityRequested.Add(false);
 		}
-		while (true)
-		{
-			return;
-		}
 	}
 
 	public bool IsAbilityCinematicRequested(AbilityData.ActionType actionType)
@@ -73,17 +63,8 @@ public class ActorCinematicRequests : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void ActorCinematicRequests::OnTurnStart()' called on client");
-					return;
-				}
-			}
+			Debug.LogWarning("[Server] function 'System.Void ActorCinematicRequests::OnTurnStart()' called on client");
+			return;
 		}
 		int num = 0;
 		for (int i = 0; i < m_abilityRequested.Count; i++)
@@ -94,77 +75,42 @@ public class ActorCinematicRequests : NetworkBehaviour
 				m_abilityRequested[i] = false;
 			}
 		}
-		while (true)
-		{
-			Networkm_numCinematicRequestsLeft = m_numCinematicRequestsLeft - num;
-			return;
-		}
+		Networkm_numCinematicRequestsLeft = m_numCinematicRequestsLeft - num;
 	}
 
 	public int NumRequestsLeft(int tauntId)
 	{
-		if (DebugParameters.Get() == null || !DebugParameters.Get().GetParameterAsBool("NoCooldowns"))
+		if (DebugParameters.Get() != null
+			&& DebugParameters.Get().GetParameterAsBool("NoCooldowns") || GameManager.Get().GameConfig.GameType == GameType.Practice)
 		{
-			if (GameManager.Get().GameConfig.GameType != GameType.Practice)
+			return 10;
+		}
+		bool flag = true;
+		foreach (GameObject gameObject in GameFlowData.Get().GetPlayers())
+		{
+			if (gameObject.GetComponent<BotController>() == null)
 			{
-				bool flag = true;
-				using (List<GameObject>.Enumerator enumerator = GameFlowData.Get().GetPlayers().GetEnumerator())
-				{
-					while (true)
-					{
-						if (!enumerator.MoveNext())
-						{
-							break;
-						}
-						GameObject current = enumerator.Current;
-						if (current.GetComponent<BotController>() == null)
-						{
-							flag = false;
-							break;
-						}
-					}
-				}
-				if (flag)
-				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							break;
-						default:
-							return 10;
-						}
-					}
-				}
-				if (m_cinematicsPlayedThisMatch.Contains(tauntId))
-				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							break;
-						default:
-							return 0;
-						}
-					}
-				}
-				int num = m_numCinematicRequestsLeft;
-				for (int i = 0; i < m_abilityRequested.Count; i++)
-				{
-					if (m_abilityRequested[i])
-					{
-						num--;
-					}
-				}
-				while (true)
-				{
-					return num;
-				}
+				flag = false;
+				break;
 			}
 		}
-		return 10;
+		if (flag)
+		{
+			return 10;
+		}
+		if (m_cinematicsPlayedThisMatch.Contains(tauntId))
+		{
+			return 0;
+		}
+		int num = m_numCinematicRequestsLeft;
+		for (int i = 0; i < m_abilityRequested.Count; i++)
+		{
+			if (m_abilityRequested[i])
+			{
+				num--;
+			}
+		}
+		return num;
 	}
 
 	[Server]
@@ -174,28 +120,15 @@ public class ActorCinematicRequests : NetworkBehaviour
 		{
 			return;
 		}
-		while (true)
-		{
-			Debug.LogWarning("[Server] function 'System.Void ActorCinematicRequests::ProcessAbilityCinematicRequest(AbilityData/ActionType,System.Boolean,System.Int32,System.Int32)' called on client");
-			return;
-		}
+		Debug.LogWarning("[Server] function 'System.Void ActorCinematicRequests::ProcessAbilityCinematicRequest(AbilityData/ActionType,System.Boolean,System.Int32,System.Int32)' called on client");
 	}
 
 	public void SendAbilityCinematicRequest(AbilityData.ActionType actionType, bool requested, int animTauntIndex, int tauntId)
 	{
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					ProcessAbilityCinematicRequest(actionType, requested, animTauntIndex, tauntId);
-					return;
-				}
-			}
+			ProcessAbilityCinematicRequest(actionType, requested, animTauntIndex, tauntId);
+			return;
 		}
 		CallCmdSelectAbilityCinematicRequest((int)actionType, requested, animTauntIndex, tauntId);
 	}
@@ -214,17 +147,8 @@ public class ActorCinematicRequests : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_abilityRequested called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_abilityRequested called on server.");
+			return;
 		}
 		((ActorCinematicRequests)obj).m_abilityRequested.HandleMsg(reader);
 	}
@@ -233,17 +157,8 @@ public class ActorCinematicRequests : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_cinematicsPlayedThisMatch called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_cinematicsPlayedThisMatch called on server.");
+			return;
 		}
 		((ActorCinematicRequests)obj).m_cinematicsPlayedThisMatch.HandleMsg(reader);
 	}
@@ -252,17 +167,8 @@ public class ActorCinematicRequests : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("Command CmdSelectAbilityCinematicRequest called on client.");
-					return;
-				}
-			}
+			Debug.LogError("Command CmdSelectAbilityCinematicRequest called on client.");
+			return;
 		}
 		((ActorCinematicRequests)obj).CmdSelectAbilityCinematicRequest((int)reader.ReadPackedUInt32(), reader.ReadBoolean(), (int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32());
 	}
@@ -271,31 +177,13 @@ public class ActorCinematicRequests : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("Command function CmdSelectAbilityCinematicRequest called on server.");
-					return;
-				}
-			}
+			Debug.LogError("Command function CmdSelectAbilityCinematicRequest called on server.");
+			return;
 		}
-		if (base.isServer)
+		if (isServer)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					CmdSelectAbilityCinematicRequest(actionType, requested, animTauntIndex, tauntId);
-					return;
-				}
-			}
+			CmdSelectAbilityCinematicRequest(actionType, requested, animTauntIndex, tauntId);
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
@@ -313,51 +201,42 @@ public class ActorCinematicRequests : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					SyncListBool.WriteInstance(writer, m_abilityRequested);
-					writer.WritePackedUInt32((uint)m_numCinematicRequestsLeft);
-					SyncListInt.WriteInstance(writer, m_cinematicsPlayedThisMatch);
-					return true;
-				}
-			}
+			SyncListBool.WriteInstance(writer, m_abilityRequested);
+			writer.WritePackedUInt32((uint)m_numCinematicRequestsLeft);
+			SyncListInt.WriteInstance(writer, m_cinematicsPlayedThisMatch);
+			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListBool.WriteInstance(writer, m_abilityRequested);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_numCinematicRequestsLeft);
 		}
-		if ((base.syncVarDirtyBits & 4) != 0)
+		if ((syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListInt.WriteInstance(writer, m_cinematicsPlayedThisMatch);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
