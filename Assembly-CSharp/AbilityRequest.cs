@@ -11,15 +11,10 @@ public class AbilityRequest : IComparable
 	}
 
 	public Ability m_ability;
-
 	public AbilityData.ActionType m_actionType;
-
 	public ActorData m_caster;
-
 	public List<AbilityTarget> m_targets;
-
 	public int m_cinematicRequested;
-
 	public AbilityResolveState m_resolveState;
 
 	public AbilityTarget MainTarget
@@ -28,16 +23,7 @@ public class AbilityRequest : IComparable
 		{
 			if (m_targets.Count > 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return m_targets[0];
-					}
-				}
+				return m_targets[0];
 			}
 			return null;
 		}
@@ -78,47 +64,23 @@ public class AbilityRequest : IComparable
 			return 1;
 		}
 		AbilityRequest abilityRequest = obj as AbilityRequest;
-		if (abilityRequest != null)
+		if (abilityRequest == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					if (m_ability != null)
-					{
-						if (abilityRequest.m_ability != null)
-						{
-							if (m_ability.RunPriority == abilityRequest.m_ability.RunPriority)
-							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										break;
-									default:
-										if (!m_ability.IsFreeAction())
-										{
-											if (!abilityRequest.m_ability.IsFreeAction())
-											{
-												return 0;
-											}
-										}
-										return m_ability.IsFreeAction().CompareTo(abilityRequest.m_ability.IsFreeAction());
-									}
-								}
-							}
-							return m_ability.RunPriority.CompareTo(abilityRequest.m_ability.RunPriority);
-						}
-					}
-					return 1;
-				}
-			}
+			throw new ArgumentException("Object is not an AbilityRequest");
 		}
-		throw new ArgumentException("Object is not an AbilityRequest");
+		if (m_ability == null || abilityRequest.m_ability == null)
+		{
+			return 1;
+		}
+		if (m_ability.RunPriority != abilityRequest.m_ability.RunPriority)
+		{
+			return m_ability.RunPriority.CompareTo(abilityRequest.m_ability.RunPriority);
+		}
+		if (m_ability.IsFreeAction() || abilityRequest.m_ability.IsFreeAction())
+		{
+			return m_ability.IsFreeAction().CompareTo(abilityRequest.m_ability.IsFreeAction());
+		}
+		return 0;
 	}
 
 	internal void OnSerializeHelper(IBitStream stream)
@@ -159,6 +121,6 @@ public class AbilityRequest : IComparable
 		m_caster = GameFlowData.Get().FindActorByActorIndex(value2);
 		m_cinematicRequested = value4;
 		m_resolveState = (AbilityResolveState)value3;
-		m_ability = ((!(m_caster == null)) ? m_caster.GetAbilityData().GetAbilityOfActionType(m_actionType) : null);
+		m_ability = m_caster?.GetAbilityData().GetAbilityOfActionType(m_actionType);
 	}
 }
