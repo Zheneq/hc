@@ -41,70 +41,51 @@ public class Ability : MonoBehaviour
 	public string m_toolTip;
 
 	[HideInInspector]
-	public string m_debugUnlocalizedTooltip = string.Empty;
-
+	public string m_debugUnlocalizedTooltip = "";
 	[HideInInspector]
 	public List<StatusType> m_savedStatusTypesForTooltips;
 
 	[TextArea(1, 20, order = 1)]
 	public string m_shortToolTip;
-
 	private string m_toolTipForUI;
-
-	public string m_rewardString = string.Empty;
+	public string m_rewardString = "";
 
 	[Tooltip("Prefab of sequences used to display primary shot fx")]
 	public GameObject m_sequencePrefab;
 
 	private int m_overrideActorDataIndex = ActorData.s_invalidActorIndex;
-
 	private ActorData m_actorData;
-
 	private bool m_searchedForActorData;
-
 	private List<AbilityTooltipNumber> m_abilityTooltipNumbers;
-
 	private List<AbilityTooltipNumber> m_nameplateTargetingNumbers;
-
 	private bool m_lastUpdateShowingAffectedSquares;
 
 	[Space(10f)]
 	public string m_abilityName = "Base Ability";
-
-	public string m_flavorText = string.Empty;
-
+	public string m_flavorText = "";
 	public bool m_ultimate;
-
 	public string m_previewVideo;
 
 	[Header("-- for Sequence prefab naming prefix, optional")]
-	public string m_expectedSequencePrefixForEditor = string.Empty;
+	public string m_expectedSequencePrefixForEditor = "";
 
 	[Separator("Cooldown / Stock (if Max Stock > 0, Cooldown is ignored)", "orange")]
 	public int m_cooldown;
-
 	public int m_maxStocks;
-
 	public int m_stockRefreshDuration;
-
 	public bool m_refillAllStockOnRefresh;
-
 	[Tooltip("-1 => have Max Stocks on start")]
 	public int m_initialStockAmount = -1;
-
 	public int m_stockConsumedOnCast = 1;
-
 	[Tooltip("Ability will manage stock count, will not change based on refresh time")]
-	public bool m_abilityManagedStockCount;
 
+	public bool m_abilityManagedStockCount;
 	[Separator("Run Phase", "orange")]
 	public AbilityPriority m_runPriority = AbilityPriority.Combat_Damage;
-
 	public bool m_freeAction;
 
 	[Separator("Energy Interactions", "orange")]
 	public int m_techPointsCost;
-
 	public TechPointInteraction[] m_techPointInteractions;
 
 	[Separator("Animation Index", "orange")]
@@ -115,19 +96,14 @@ public class Ability : MonoBehaviour
 
 	[Separator("Movement", "orange")]
 	public MovementAdjustment m_movementAdjustment = MovementAdjustment.ReducedMovement;
-
 	[Tooltip("Speed of charge or evasion movement. Ignored if Movement Duration is greater than zero.")]
 	public float m_movementSpeed = 8f;
-
 	[Tooltip("Duration, in seconds, of charge or evasion movement. Ignored if less than or equal to zero.")]
 	public float m_movementDuration;
-
 	[Space(5f)]
 	public float m_cameraBoundsMinHeight = 2.5f;
-
 	[Separator("Target Data for Targeters / Tags", "orange")]
 	public TargetData[] m_targetData;
-
 	[Space(5f)]
 	public List<AbilityTags> m_tags = new List<AbilityTags>();
 
@@ -141,15 +117,11 @@ public class Ability : MonoBehaviour
 	public List<TargeterTemplateSwapData> m_targeterTemplateSwaps;
 
 	private List<AbilityUtil_Targeter> m_targeters = new List<AbilityUtil_Targeter>();
-
 	private List<GameObject> m_backupTargeterHighlights = new List<GameObject>();
-
 	private List<AbilityTarget> m_backupTargets = new List<AbilityTarget>();
-
 	private AbilityMod m_currentAbilityMod;
 
 	protected const string c_forDesignHeader = "<color=cyan>-- For Design --</color>\n";
-
 	protected const string c_forArtHeader = "<color=cyan>-- For Art --</color>\n";
 
 	public Sprite sprite { get; set; }
@@ -438,7 +410,7 @@ public class Ability : MonoBehaviour
 		{
 			return $"{GetBaseCost()} energy";
 		}
-		return string.Empty;
+		return "";
 	}
 
 	public int GetBaseCost()
@@ -1824,7 +1796,7 @@ public class Ability : MonoBehaviour
 
 	public string GetBaseAbilityDesc()
 	{
-		string text = string.Empty;
+		string text = "";
 		if (m_techPointInteractions != null)
 		{
 			if (m_techPointInteractions.Length > 0)
@@ -1857,7 +1829,7 @@ public class Ability : MonoBehaviour
 
 	public virtual string GetSetupNotesForEditor()
 	{
-		return string.Empty;
+		return "";
 	}
 
 	public static string SetupNoteVarName(string input)
