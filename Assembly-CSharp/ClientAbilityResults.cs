@@ -125,13 +125,13 @@ public class ClientAbilityResults
 
 	public void RunClientAbilityHits()
 	{
-		foreach (KeyValuePair<ActorData, ClientActorHitResults> actorToHitResult in m_actorToHitResults)
+		foreach (ActorData target in m_actorToHitResults.Keys)
 		{
-			OnAbilityHitActor(actorToHitResult.Key);
+			OnAbilityHitActor(target);
 		}
-		foreach (KeyValuePair<Vector3, ClientPositionHitResults> posToHitResult in m_posToHitResults)
+		foreach (Vector3 position in m_posToHitResults.Keys)
 		{
-			OnAbilityHitPosition(posToHitResult.Key);
+			OnAbilityHitPosition(position);
 		}
 	}
 
