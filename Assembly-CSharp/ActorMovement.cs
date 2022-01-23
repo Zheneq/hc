@@ -159,7 +159,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	public bool CanMoveToBoardSquare(int x, int y)
 	{
-		BoardSquare boardSquare = Board.Get().GetSquare(x, y);
+		BoardSquare boardSquare = Board.Get().GetSquareFromIndex(x, y);
 		if (boardSquare)
 		{
 			return CanMoveToBoardSquare(boardSquare);
@@ -390,7 +390,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					{
 						continue;
 					}
-					BoardSquare boardSquare = board.GetSquare(x + i, y + j);
+					BoardSquare boardSquare = board.GetSquareFromIndex(x + i, y + j);
 					if (boardSquare == null || hashSet.Contains(boardSquare))
 					{
 						continue;
@@ -490,7 +490,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			result.Clear();
 			if (GameplayData.Get() != null && GameplayData.Get().m_diagonalMovement == GameplayData.DiagonalMovement.Disabled)
 			{
-				Board.Get().GetStraightAdjacentSquares(square.x, square.y, ref result);
+				Board.Get().GetCardinalAdjacentSquares(square.x, square.y, ref result);
 			}
 			else
 			{
@@ -707,8 +707,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		if (diagonalFlag == DiagonalCalcFlag.IsDiagonal ||
 			diagonalFlag == DiagonalCalcFlag.Unknown && Board.Get().AreDiagonallyAdjacent(src, dest))
 		{
-			BoardSquare boardSquare = Board.Get().GetSquare(src.x, dest.y);
-			BoardSquare boardSquare2 = Board.Get().GetSquare(dest.x, src.y);
+			BoardSquare boardSquare = Board.Get().GetSquareFromIndex(src.x, dest.y);
+			BoardSquare boardSquare2 = Board.Get().GetSquareFromIndex(dest.x, src.y);
 			if (result)
 			{
 				result &= CanCrossToAdjacentSingleSquare(src, boardSquare, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
@@ -1414,7 +1414,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			neighbours.Clear();
 			if (!diagMovementAllowed)
 			{
-				Board.Get().GetStraightAdjacentSquares(pathNode.square.x, pathNode.square.y, ref neighbours);
+				Board.Get().GetCardinalAdjacentSquares(pathNode.square.x, pathNode.square.y, ref neighbours);
 			}
 			else
 			{
@@ -1549,7 +1549,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			result.Clear();
 			if (!isDiagonalEnabled)
 			{
-				Board.Get().GetStraightAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
+				Board.Get().GetCardinalAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
 			}
 			else
 			{

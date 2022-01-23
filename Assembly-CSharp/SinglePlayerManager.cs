@@ -1693,7 +1693,7 @@ public class SinglePlayerManager : NetworkBehaviour
 			else if (targetingParadigm == Ability.TargetingParadigm.Position)
 			{
 				AbilityTarget abilityTarget2 = AbilityTarget.CreateAbilityTargetFromInterface();
-				boardSquare = Board.Get().GetSquare(abilityTarget2.FreePos);
+				boardSquare = Board.Get().GetSquareFromVec3(abilityTarget2.FreePos);
 			}
 			else
 			{

@@ -32,7 +32,7 @@ public class NekoDiscBuffNotifySequence : SimpleTimingSequence
 		{
 			if (GameFlowData.Get() != null)
 			{
-				BoardSquare boardSquare = Board.Get().GetSquare(base.TargetPos);
+				BoardSquare boardSquare = Board.Get().GetSquareFromVec3(base.TargetPos);
 				if (boardSquare != null)
 				{
 					m_syncComp.m_clientLastDiscBuffTurn = GameFlowData.Get().CurrentTurn;

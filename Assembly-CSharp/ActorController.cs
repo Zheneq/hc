@@ -386,7 +386,7 @@ public class ActorController : NetworkBehaviour
 			if (flag9 && !FirstTurnMovement.ForceShowSprintRange(m_actor))
 			{
 				Vector3 position = HighlightUtils.Get().MovementMouseOverCursor.transform.position;
-				BoardSquare boardSquareSafe = Board.Get().GetSquareAtPosition(position.x, position.z);
+				BoardSquare boardSquareSafe = Board.Get().GetSquareFromPos(position.x, position.z);
 				if (m_canMoveToWithQueuedAbilityScratch.Contains(boardSquareSafe))
 				{
 					flag9 = false;

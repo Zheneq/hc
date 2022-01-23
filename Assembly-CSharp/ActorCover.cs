@@ -214,7 +214,7 @@ public class ActorCover : NetworkBehaviour
 	public bool HasNonThinCover(BoardSquare currentSquare, int xDelta, int yDelta, bool halfHeight)
 	{
 		bool result = false;
-		BoardSquare boardSquare = Board.Get().GetSquare(currentSquare.x + xDelta, currentSquare.y + yDelta);
+		BoardSquare boardSquare = Board.Get().GetSquareFromIndex(currentSquare.x + xDelta, currentSquare.y + yDelta);
 		if (boardSquare != null)
 		{
 			int num = boardSquare.height - currentSquare.height;
@@ -417,7 +417,7 @@ public class ActorCover : NetworkBehaviour
 			{
 				bool flag = actorTurnSM.AmTargetingAction();
 				List<BoardSquare> list = null;
-				Board.Get().GetStraightAdjacentSquares(currentSquare.x, currentSquare.y, ref list);
+				Board.Get().GetCardinalAdjacentSquares(currentSquare.x, currentSquare.y, ref list);
 				if (list != null)
 				{
 					for (int i = 0; i < list.Count; i++)
@@ -946,7 +946,7 @@ public class ActorCover : NetworkBehaviour
 		if (square != null)
 		{
 			List<BoardSquare> list = null;
-			Board.Get().GetStraightAdjacentSquares(square.x, square.y, ref list);
+			Board.Get().GetCardinalAdjacentSquares(square.x, square.y, ref list);
 			foreach (BoardSquare boardSquare in list)
 			{
 				ActorCover.CoverDirections coverDirection = ActorCover.GetCoverDirection(square, boardSquare);

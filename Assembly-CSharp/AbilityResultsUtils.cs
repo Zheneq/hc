@@ -379,7 +379,7 @@ public static class AbilityResultsUtils
 		stream.Serialize(ref y);
 		stream.Serialize(ref eventGUID);
 		GameModeEventType eventType = (GameModeEventType)value;
-		BoardSquare square = (x == -1 && y == -1) ? null : Board.Get().GetSquare(x, y);
+		BoardSquare square = (x == -1 && y == -1) ? null : Board.Get().GetSquareFromIndex(x, y);
 		ActorData primaryActor = primaryActorIndex != ActorData.s_invalidActorIndex ? GameFlowData.Get().FindActorByActorIndex(primaryActorIndex) : null;
 		ActorData secondaryActor = secondaryActorIndex != ActorData.s_invalidActorIndex ? GameFlowData.Get().FindActorByActorIndex(secondaryActorIndex) : null;
 		return new ClientGameModeEvent(eventType, objectGUID, square, primaryActor, secondaryActor, eventGUID);

@@ -2834,7 +2834,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			else
 			{
-				ServerLastKnownPosSquare = Board.Get().GetSquare(_serverLastKnownPosSquare_x, _serverLastKnownPosSquare_y);
+				ServerLastKnownPosSquare = Board.Get().GetSquareFromIndex(_serverLastKnownPosSquare_x, _serverLastKnownPosSquare_y);
 			}
 			m_ignoreFromAbilityHits = _ignoreFromAbilityHits;
 			m_alwaysHideNameplate = _alwaysHideNameplate;
@@ -3249,8 +3249,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (transform.position != newPos)
 		{
-			BoardSquare boardSquare = Board.Get().GetSquare(transform.position);
-			BoardSquare boardSquare2 = Board.Get().GetSquare(newPos);
+			BoardSquare boardSquare = Board.Get().GetSquareFromVec3(transform.position);
+			BoardSquare boardSquare2 = Board.Get().GetSquareFromVec3(newPos);
 			if (boardSquare != boardSquare2 && boardSquare != null)
 			{
 				PreviousBoardSquarePosition = boardSquare.ToVector3();

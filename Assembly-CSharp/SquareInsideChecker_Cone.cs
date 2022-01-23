@@ -68,12 +68,12 @@ public class SquareInsideChecker_Cone : ISquareInsideChecker
 				Vector3 a = VectorUtils.AngleDegreesToVector(m_coneCenterAngle);
 				float d = m_coneBackwardsOffset * Board.Get().squareSize;
 				Vector3 vector2D = m_coneStart - a * d;
-				BoardSquare boardSquare = Board.Get().GetSquare(vector2D);
+				BoardSquare boardSquare = Board.Get().GetSquareFromVec3(vector2D);
 				Vector3 vector = m_coneStart;
 				if (m_useLosPosOverride)
 				{
 					vector = m_losPosOverride;
-					boardSquare = Board.Get().GetSquare(vector);
+					boardSquare = Board.Get().GetSquareFromVec3(vector);
 				}
 				if (boardSquare != null)
 				{

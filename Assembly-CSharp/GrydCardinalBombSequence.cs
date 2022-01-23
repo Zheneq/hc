@@ -165,8 +165,8 @@ public class GrydCardinalBombSequence : Sequence
 			stream.Serialize(ref value2);
 			stream.Serialize(ref value3);
 			stream.Serialize(ref value4);
-			entry.m_startSquare = Board.Get().GetSquare(value, value2);
-			entry.m_endSquare = Board.Get().GetSquare(value3, value4);
+			entry.m_startSquare = Board.Get().GetSquareFromIndex(value, value2);
+			entry.m_endSquare = Board.Get().GetSquareFromIndex(value3, value4);
 		}
 	}
 

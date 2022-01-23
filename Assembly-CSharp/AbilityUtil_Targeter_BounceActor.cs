@@ -301,7 +301,7 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 				Vector3 b = a2 / 2f;
 				if (i > 0)
 				{
-					BoardSquare boardSquare2 = Board.Get().GetSquare(vector4 + b);
+					BoardSquare boardSquare2 = Board.Get().GetSquareFromVec3(vector4 + b);
 					if (boardSquare2 != null)
 					{
 						if (boardSquare2 != y && boardSquare2.IsValidForGameplay())
@@ -319,7 +319,7 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 					}
 					continue;
 				}
-				BoardSquare boardSquare3 = Board.Get().GetSquare(endPoints[i] - b);
+				BoardSquare boardSquare3 = Board.Get().GetSquareFromVec3(endPoints[i] - b);
 				if (boardSquare3 != null)
 				{
 					if (!boardSquare3.IsValidForGameplay())

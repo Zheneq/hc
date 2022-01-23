@@ -12,7 +12,7 @@ public class Neko_AdditionalFxDiscPoweredUp : AdditionalVfxContainerBase
 		if (parentSequence != null && parentSequence.Caster != null)
 		{
 			m_syncComp = parentSequence.Caster.GetComponent<Neko_SyncComponent>();
-			m_targetSquare = Board.Get().GetSquare(parentSequence.TargetPos);
+			m_targetSquare = Board.Get().GetSquareFromVec3(parentSequence.TargetPos);
 			m_parentSequence = parentSequence;
 		}
 	}

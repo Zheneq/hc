@@ -163,7 +163,7 @@ public class ControlPointCoordinator : MonoBehaviour
 					}
 				}
 				Vector3 center = m_controlPointSpawnInfo[index].m_boardRegion.GetCenter();
-				BoardSquare boardSquareSafe = Board.Get().GetSquareAtPosition(center.x, center.z);
+				BoardSquare boardSquareSafe = Board.Get().GetSquareFromPos(center.x, center.z);
 				GameObject gameObject = UnityEngine.Object.Instantiate(m_controlPointSpawnInfo[index].m_controlPointPrefab, boardSquareSafe.ToVector3(), Quaternion.identity);
 				ControlPoint component = gameObject.GetComponent<ControlPoint>();
 				if (component == null)

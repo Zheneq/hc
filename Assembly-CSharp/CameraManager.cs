@@ -374,7 +374,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 			}
 		}
 		Board board = Board.Get();
-		BoardSquare boardSquare = Board.Get().GetSquare(Board.Get().GetMaxX() / 2, Board.Get().GetMaxY() / 2);
+		BoardSquare boardSquare = Board.Get().GetSquareFromIndex(Board.Get().GetMaxX() / 2, Board.Get().GetMaxY() / 2);
 		if (boardSquare != null)
 		{
 			IsometricCamera isometricCamera = GetIsometricCamera();
@@ -391,8 +391,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 				}
 			}
 		}
-		BoardSquare boardSquare2 = board.GetSquare(0, 0);
-		BoardSquare boardSquare3 = board.GetSquare(board.GetMaxX() - 1, board.GetMaxY() - 1);
+		BoardSquare boardSquare2 = board.GetSquareFromIndex(0, 0);
+		BoardSquare boardSquare3 = board.GetSquareFromIndex(board.GetMaxX() - 1, board.GetMaxY() - 1);
 		Bounds cameraBounds = boardSquare2.CameraBounds;
 		Bounds cameraBounds2 = boardSquare3.CameraBounds;
 		Bounds cameraPositionBounds = cameraBounds;

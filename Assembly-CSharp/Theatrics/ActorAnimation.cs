@@ -552,7 +552,7 @@ namespace Theatrics
 				}
 				for (int i = 0; i < _000C_X.Count; i++)
 				{
-					BoardSquare boardSquare = Board.Get().GetSquare(_000C_X[i], _0014_Z[i]);
+					BoardSquare boardSquare = Board.Get().GetSquareFromIndex(_000C_X[i], _0014_Z[i]);
 					if (boardSquare != null && clientFog.IsVisible(boardSquare))
 					{
 						return false;
@@ -569,7 +569,7 @@ namespace Theatrics
 					{
 						if (key != null)
 						{
-							BoardSquare boardSquare = Board.Get().GetSquare(key.transform.position);
+							BoardSquare boardSquare = Board.Get().GetSquareFromVec3(key.transform.position);
 							if (clientFog.IsVisible(boardSquare))
 							{
 								return false;

@@ -42,7 +42,7 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
 		m_lastCenterActor = null;
-		BoardSquare boardSquare = Board.Get().GetSquare(GetRefPos(currentTarget, targetingActor, GetCurrentRangeInSquares()));
+		BoardSquare boardSquare = Board.Get().GetSquareFromVec3(GetRefPos(currentTarget, targetingActor, GetCurrentRangeInSquares()));
 		ActorData occupantActor = boardSquare.OccupantActor;
 		if (!(occupantActor != null))
 		{

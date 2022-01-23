@@ -307,7 +307,7 @@ namespace Theatrics
 			}
 			goto IL_0087;
 			IL_0087:
-			BoardSquare boardSquare = Board.Get().GetSquare(actorData.transform.position);
+			BoardSquare boardSquare = Board.Get().GetSquareFromVec3(actorData.transform.position);
 			Bounds cameraBounds = boardSquare.CameraBounds;
 			Vector3 center = cameraBounds.center;
 			center.y = 0f;

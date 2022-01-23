@@ -186,7 +186,7 @@ public class NinjaBasicAttackSequence : Sequence
 			{
 				if (num <= i)
 				{
-					BoardSquare boardSquare2 = Board.Get().GetSquare(center.x + num, center.y);
+					BoardSquare boardSquare2 = Board.Get().GetSquareFromIndex(center.x + num, center.y);
 					if (boardSquare2.occupant == null && !SquareInUseByTempSatellite(boardSquare2))
 					{
 						boardSquare = boardSquare2;
@@ -199,7 +199,7 @@ public class NinjaBasicAttackSequence : Sequence
 			}
 			for (int j = -i; j <= i; j += i * 2)
 			{
-				BoardSquare boardSquare3 = Board.Get().GetSquare(center.x, center.y + j);
+				BoardSquare boardSquare3 = Board.Get().GetSquareFromIndex(center.x, center.y + j);
 				if (boardSquare3.occupant == null && !SquareInUseByTempSatellite(boardSquare3))
 				{
 					boardSquare = boardSquare3;

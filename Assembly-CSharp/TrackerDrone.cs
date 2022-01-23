@@ -163,7 +163,7 @@ public class TrackerDrone : Ability
 					Vector3 b = caster.GetTravelBoardSquareWorldPosition();
 					if (m_droneTracker.DroneIsActive())
 					{
-						BoardSquare boardSquare = Board.Get().GetSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
+						BoardSquare boardSquare = Board.Get().GetSquareFromIndex(m_droneTracker.BoardX(), m_droneTracker.BoardY());
 						if (boardSquare != null)
 						{
 							if (boardSquareSafe == boardSquare)

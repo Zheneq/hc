@@ -267,7 +267,7 @@ public class BotController : MonoBehaviour
 			}
 		}
 		Vector3 vector4 = vector + vector2 + vector3;
-		BoardSquare boardSquareUnsafe = Board.Get().GetClosestSquareToPosition(vector4.x, vector4.z);
+		BoardSquare boardSquareUnsafe = Board.Get().GetSquareClosestToPos(vector4.x, vector4.z);
 		return Board.Get()._0018(boardSquareUnsafe, null);
 	}
 

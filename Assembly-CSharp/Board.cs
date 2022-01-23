@@ -257,7 +257,7 @@ public class Board : MonoBehaviour, IGameEventListener
 				PlayerLookDir = ControlpadGameplay.Get().ControllerAimDir;
 				PlayerFreePos = ControlpadGameplay.Get().ControllerAimPos;
 			}
-			PlayerFreeSquare = GetSquare(PlayerFreePos);
+			PlayerFreeSquare = GetSquareFromVec3(PlayerFreePos);
 			PlayerFreeCornerPos = SnapToCorner(PlayerFreePos, PlayerFreeSquare);
 			RecalcClampedSelections();
 			HighlightUtils.Get().UpdateCursorPositions();
@@ -627,7 +627,7 @@ public class Board : MonoBehaviour, IGameEventListener
 		return m_maxY;
 	}
 
-	public BoardSquare GetSquareAtPosition(float x, float y)
+	public BoardSquare GetSquareFromPos(float x, float y)
 	{
 		BoardSquare result = null;
 		int num = Mathf.RoundToInt(x / squareSize);
@@ -645,7 +645,7 @@ public class Board : MonoBehaviour, IGameEventListener
 		return result;
 	}
 
-	public BoardSquare GetClosestSquareToPosition(float x, float y)
+	public BoardSquare GetSquareClosestToPos(float x, float y)
 	{
 		int value = Mathf.RoundToInt(x / squareSize);
 		int value2 = Mathf.RoundToInt(y / squareSize);
@@ -654,17 +654,17 @@ public class Board : MonoBehaviour, IGameEventListener
 		return m_boardSquares[value, value2];
 	}
 
-	public BoardSquare GetSquare(Vector3 vector2D)
+	public BoardSquare GetSquareFromVec3(Vector3 vector2D)
 	{
-		return GetSquareAtPosition(vector2D.x, vector2D.z);
+		return GetSquareFromPos(vector2D.x, vector2D.z);
 	}
 
-	public BoardSquare GetSquare(Vector2 vector)
+	public BoardSquare GetSquareFromVec2(Vector2 vector)
 	{
-		return GetSquareAtPosition(vector.x, vector.y);
+		return GetSquareFromPos(vector.x, vector.y);
 	}
 
-	public BoardSquare GetSquare(Transform transform)
+	public BoardSquare GetSquareFromTransform(Transform transform)
 	{
 		BoardSquare result = null;
 		if (transform != null)
@@ -672,12 +672,12 @@ public class Board : MonoBehaviour, IGameEventListener
 			Vector3 position = transform.position;
 			float x = position.x;
 			Vector3 position2 = transform.position;
-			result = GetSquareAtPosition(x, position2.z);
+			result = GetSquareFromPos(x, position2.z);
 		}
 		return result;
 	}
 
-	public BoardSquare GetSquare(int x, int y)
+	public BoardSquare GetSquareFromIndex(int x, int y)
 	{
 		BoardSquare result = null;
 		if (x >= 0)
@@ -748,60 +748,60 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 	}
 
-	public void GetStraightAdjacentSquares(int x, int y, ref List<BoardSquare> result)
+	public void GetCardinalAdjacentSquares(int x, int y, ref List<BoardSquare> result)
 	{
 		if (result == null)
 		{
 			result = new List<BoardSquare>(4);
 		}
-		if (GetSquare(x + 1, y) != null)
+		if (GetSquareFromIndex(x + 1, y) != null)
 		{
-			result.Add(GetSquare(x + 1, y));
+			result.Add(GetSquareFromIndex(x + 1, y));
 		}
-		if (GetSquare(x - 1, y) != null)
+		if (GetSquareFromIndex(x - 1, y) != null)
 		{
-			result.Add(GetSquare(x - 1, y));
+			result.Add(GetSquareFromIndex(x - 1, y));
 		}
-		if (GetSquare(x, y + 1) != null)
+		if (GetSquareFromIndex(x, y + 1) != null)
 		{
-			result.Add(GetSquare(x, y + 1));
+			result.Add(GetSquareFromIndex(x, y + 1));
 		}
-		if (!(GetSquare(x, y - 1) != null))
+		if (!(GetSquareFromIndex(x, y - 1) != null))
 		{
 			return;
 		}
 		while (true)
 		{
-			result.Add(GetSquare(x, y - 1));
+			result.Add(GetSquareFromIndex(x, y - 1));
 			return;
 		}
 	}
 
-	public void GetDiagonallyAdjacentSquares(int x, int y, ref List<BoardSquare> result)
+	public void GetDiagonalAdjacentSquares(int x, int y, ref List<BoardSquare> result)
 	{
 		if (result == null)
 		{
 			result = new List<BoardSquare>(4);
 		}
-		if (GetSquare(x + 1, y + 1) != null)
+		if (GetSquareFromIndex(x + 1, y + 1) != null)
 		{
-			result.Add(GetSquare(x + 1, y + 1));
+			result.Add(GetSquareFromIndex(x + 1, y + 1));
 		}
-		if (GetSquare(x + 1, y - 1) != null)
+		if (GetSquareFromIndex(x + 1, y - 1) != null)
 		{
-			result.Add(GetSquare(x + 1, y - 1));
+			result.Add(GetSquareFromIndex(x + 1, y - 1));
 		}
-		if (GetSquare(x - 1, y + 1) != null)
+		if (GetSquareFromIndex(x - 1, y + 1) != null)
 		{
-			result.Add(GetSquare(x - 1, y + 1));
+			result.Add(GetSquareFromIndex(x - 1, y + 1));
 		}
-		if (!(GetSquare(x - 1, y - 1) != null))
+		if (!(GetSquareFromIndex(x - 1, y - 1) != null))
 		{
 			return;
 		}
 		while (true)
 		{
-			result.Add(GetSquare(x - 1, y - 1));
+			result.Add(GetSquareFromIndex(x - 1, y - 1));
 			return;
 		}
 	}
@@ -812,13 +812,13 @@ public class Board : MonoBehaviour, IGameEventListener
 		{
 			result = new List<BoardSquare>(8);
 		}
-		GetStraightAdjacentSquares(x, y, ref result);
-		GetDiagonallyAdjacentSquares(x, y, ref result);
+		GetCardinalAdjacentSquares(x, y, ref result);
+		GetDiagonalAdjacentSquares(x, y, ref result);
 	}
 
 	public BoardSquare _0013(float _001D, float _000E)
 	{
-		BoardSquare boardSquareSafe = GetSquareAtPosition(_001D, _000E);
+		BoardSquare boardSquareSafe = GetSquareFromPos(_001D, _000E);
 		return _0018(boardSquareSafe);
 	}
 
@@ -930,7 +930,7 @@ public class Board : MonoBehaviour, IGameEventListener
 		{
 			for (int j = num2; j < num4; j++)
 			{
-				BoardSquare boardSquare = Get().GetSquare(i, j);
+				BoardSquare boardSquare = Get().GetSquareFromIndex(i, j);
 				Vector3 point = new Vector3(boardSquare.worldX, 0f, boardSquare.worldY);
 				if (!_001D.Contains(point))
 				{
@@ -980,7 +980,7 @@ public class Board : MonoBehaviour, IGameEventListener
 				{
 					for (int j = num; j <= num2; j++)
 					{
-						BoardSquare boardSquare = Get().GetSquare(j, i);
+						BoardSquare boardSquare = Get().GetSquareFromIndex(j, i);
 						list.Add(boardSquare);
 					}
 				}
@@ -1031,7 +1031,7 @@ public class Board : MonoBehaviour, IGameEventListener
 				Color white = Color.white;
 				white.a = 0.3f;
 				Gizmos.color = white;
-				BoardSquare boardSquare = Get().GetSquare(m_maxX / 2, m_maxY / 2);
+				BoardSquare boardSquare = Get().GetSquareFromIndex(m_maxX / 2, m_maxY / 2);
 				if (!(boardSquare != null))
 				{
 					return;

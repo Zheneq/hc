@@ -657,7 +657,7 @@ public class AbilityUtil_Targeter
 				List<Vector3> list = KnockbackUtils.BuildDrawablePath(m_arrows[i].m_pathInfo, false);
 				MovementPathStart componentInChildren = m_arrows[i].m_gameObject.GetComponentInChildren<MovementPathStart>();
 				Vector3 vector2D = list[list.Count - 1];
-				BoardSquare boardSquare = Board.Get().GetSquare(vector2D);
+				BoardSquare boardSquare = Board.Get().GetSquareFromVec3(vector2D);
 				componentInChildren.SetCharacterMovementPanel(boardSquare);
 			}
 		}

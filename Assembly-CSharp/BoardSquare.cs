@@ -301,7 +301,7 @@ public class BoardSquare : MonoBehaviour
 		{
 			for (int j = 0; j < board.GetMaxY(); j++)
 			{
-				BoardSquare boardSquare = board.GetSquare(i, j);
+				BoardSquare boardSquare = board.GetSquareFromIndex(i, j);
 				if (boardSquare == this)
 				{
 					array[i + j * board.GetMaxX()] = 1f;

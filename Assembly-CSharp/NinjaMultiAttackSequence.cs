@@ -252,7 +252,7 @@ public class NinjaMultiAttackSequence : Sequence
 			{
 				if (num <= i)
 				{
-					BoardSquare boardSquare2 = Board.Get().GetSquare(center.x + num, center.y);
+					BoardSquare boardSquare2 = Board.Get().GetSquareFromIndex(center.x + num, center.y);
 					if (CanUseSquareForTempSatellite(boardSquare2))
 					{
 						boardSquare = boardSquare2;
@@ -268,7 +268,7 @@ public class NinjaMultiAttackSequence : Sequence
 			{
 				if (num2 <= i)
 				{
-					BoardSquare boardSquare3 = Board.Get().GetSquare(center.x, center.y + num2);
+					BoardSquare boardSquare3 = Board.Get().GetSquareFromIndex(center.x, center.y + num2);
 					if (CanUseSquareForTempSatellite(boardSquare3))
 					{
 						boardSquare = boardSquare3;

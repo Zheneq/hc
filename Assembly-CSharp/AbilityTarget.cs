@@ -215,7 +215,7 @@ public class AbilityTarget
 			vector2 = Vector3.Cross(Vector3.up, rhs);
 			flag = true;
 		}
-		BoardSquare boardSquareUnsafe = Board.Get().GetClosestSquareToPosition(vector.x, vector.z);
+		BoardSquare boardSquareUnsafe = Board.Get().GetSquareClosestToPos(vector.x, vector.z);
 		List<AbilityTarget> list = new List<AbilityTarget>();
 		AbilityTarget item = new AbilityTarget(boardSquareUnsafe.GetGridPos(), vector, vector2);
 		list.Add(item);

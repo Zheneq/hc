@@ -514,7 +514,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		{
 			short x = reader.ReadInt16();
 			short y = reader.ReadInt16();
-			BoardSquare boardSquare = Board.Get().GetSquare(x, y);
+			BoardSquare boardSquare = Board.Get().GetSquareFromIndex(x, y);
 			if (boardSquare != MoveFromBoardSquare)
 			{
 				MoveFromBoardSquare = boardSquare;
@@ -525,7 +525,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		{
 			short x2 = reader.ReadInt16();
 			short y2 = reader.ReadInt16();
-			BoardSquare boardSquare = Board.Get().GetSquare(x2, y2);
+			BoardSquare boardSquare = Board.Get().GetSquareFromIndex(x2, y2);
 			if (InitialMoveStartSquare != boardSquare)
 			{
 				InitialMoveStartSquare = boardSquare;
@@ -568,7 +568,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		{
 			short x = reader.ReadInt16();
 			short y = reader.ReadInt16();
-			RespawnPickedSquare = Board.Get().GetSquare(x, y);
+			RespawnPickedSquare = Board.Get().GetSquareFromIndex(x, y);
 			bool respawningThisTurn = reader.ReadBoolean();
 			if (Actor != null && (RespawnPickedSquare != null || !respawningThisTurn))
 			{
@@ -581,7 +581,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			{
 				short x3 = reader.ReadInt16();
 				short y3 = reader.ReadInt16();
-				BoardSquare respawnAvailableSquare = Board.Get().GetSquare(x3, y3);
+				BoardSquare respawnAvailableSquare = Board.Get().GetSquareFromIndex(x3, y3);
 				if (respawnAvailableSquare != null)
 				{
 					m_respawnAvailableSquares.Add(respawnAvailableSquare);
@@ -799,7 +799,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			{
 				uIWorldPing = Object.Instantiate(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingAssistPrefab);
 				eventName = "ui/ingame/ping/assist";
-				BoardSquare closestSquare = Board.Get().GetClosestSquareToPosition(vector.x, vector.z);
+				BoardSquare closestSquare = Board.Get().GetSquareClosestToPos(vector.x, vector.z);
 				if (closestSquare.OccupantActor != null && closestSquare.OccupantActor.IsVisibleToClient())
 				{
 					if (closestSquare.OccupantActor.GetTeam() != actor.GetTeam())
@@ -826,7 +826,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			{
 				uIWorldPing = Object.Instantiate(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingDefendPrefab);
 				eventName = "ui/ingame/ping/anger";
-				BoardSquare closestSquare = Board.Get().GetClosestSquareToPosition(vector.x, vector.z);
+				BoardSquare closestSquare = Board.Get().GetSquareClosestToPos(vector.x, vector.z);
 				if (closestSquare.OccupantActor != null && closestSquare.OccupantActor.IsVisibleToClient())
 				{
 					if (closestSquare.OccupantActor.GetTeam() != actor.GetTeam())
@@ -859,7 +859,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			{
 				uIWorldPing = Object.Instantiate(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingEnemyPrefab);
 				eventName = "ui/ingame/ping/attack";
-				BoardSquare closestSquare = Board.Get().GetClosestSquareToPosition(vector.x, vector.z);
+				BoardSquare closestSquare = Board.Get().GetSquareClosestToPos(vector.x, vector.z);
 				if (closestSquare.OccupantActor != null && closestSquare.OccupantActor.IsVisibleToClient())
 				{
 					if (closestSquare.OccupantActor.GetTeam() != actor.GetTeam())
@@ -884,7 +884,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			{
 				uIWorldPing = Object.Instantiate(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingMovePrefab);
 				eventName = "ui/ingame/ping/move";
-				BoardSquare closestSquare = Board.Get().GetClosestSquareToPosition(vector.x, vector.z);
+				BoardSquare closestSquare = Board.Get().GetSquareClosestToPos(vector.x, vector.z);
 				if (closestSquare.OccupantActor != null && closestSquare.OccupantActor.IsVisibleToClient())
 				{
 					if (closestSquare.OccupantActor.GetTeam() != actor.GetTeam())

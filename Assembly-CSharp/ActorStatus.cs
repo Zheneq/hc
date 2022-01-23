@@ -456,8 +456,8 @@ public class ActorStatus : NetworkBehaviour
 			bool isVisibleInProximity = false;
 			foreach (ActorData enemy in GameFlowData.Get().GetAllTeamMembers(actorData.GetEnemyTeam()))
 			{
-				BoardSquare mySquare = Board.Get().GetSquare(actorData.GetTravelBoardSquareWorldPosition());
-				BoardSquare enemySquare = Board.Get().GetSquare(enemy.GetTravelBoardSquareWorldPosition());
+				BoardSquare mySquare = Board.Get().GetSquareFromVec3(actorData.GetTravelBoardSquareWorldPosition());
+				BoardSquare enemySquare = Board.Get().GetSquareFromVec3(enemy.GetTravelBoardSquareWorldPosition());
 				if (mySquare != null && enemySquare != null)
 				{
 					float dist = mySquare.HorizontalDistanceOnBoardTo(enemySquare);

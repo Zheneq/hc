@@ -314,7 +314,7 @@ public class TricksterMadeYouLook : Ability
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
 	{
 		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages(false);
-		BoardSquare boardSquare = Board.Get().GetSquare(targetPos);
+		BoardSquare boardSquare = Board.Get().GetSquareFromVec3(targetPos);
 		bool flag = validAfterImages.Count > 1;
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 		{

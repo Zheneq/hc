@@ -434,7 +434,7 @@ public class ThiefSmokeBomb : Ability
 				{
 					if (!flag)
 					{
-						BoardSquare boardSquare = board.GetSquare(i, j);
+						BoardSquare boardSquare = board.GetSquareFromIndex(i, j);
 						if (!(boardSquare != null))
 						{
 							continue;

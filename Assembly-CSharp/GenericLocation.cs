@@ -12,7 +12,7 @@ public class GenericLocation : MonoBehaviour
 		Vector3 position = base.transform.position;
 		float x = position.x;
 		Vector3 position2 = base.transform.position;
-		m_boardSquare = board.GetSquareAtPosition(x, position2.z);
+		m_boardSquare = board.GetSquareFromPos(x, position2.z);
 	}
 
 	private void OnDrawGizmos()

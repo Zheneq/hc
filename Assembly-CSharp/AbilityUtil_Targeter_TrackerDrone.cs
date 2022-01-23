@@ -78,7 +78,7 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 		Vector3 vector2 = targetingActor.GetTravelBoardSquareWorldPosition();
 		if (m_droneTrackerComponent != null && m_droneTrackerComponent.DroneIsActive())
 		{
-			BoardSquare boardSquare = Board.Get().GetSquare(m_droneTrackerComponent.BoardX(), m_droneTrackerComponent.BoardY());
+			BoardSquare boardSquare = Board.Get().GetSquareFromIndex(m_droneTrackerComponent.BoardX(), m_droneTrackerComponent.BoardY());
 			vector2 = boardSquare.ToVector3();
 		}
 		float num;

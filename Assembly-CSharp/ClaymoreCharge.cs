@@ -362,7 +362,7 @@ public class ClaymoreCharge : Ability
 	{
 		float result = laserMaxDistInWorld;
 		pathEndSquare = KnockbackUtils.GetLastValidBoardSquareInLine(startPos, endPos, false, false, laserMaxDistInWorld + 0.5f);
-		BoardSquare boardSquare = Board.Get().GetSquare(startPos);
+		BoardSquare boardSquare = Board.Get().GetSquareFromVec3(startPos);
 		if (pathEndSquare != null)
 		{
 			if (pathEndSquare != boardSquare)
@@ -432,7 +432,7 @@ public class ClaymoreCharge : Ability
 			{
 				boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(startPos, chargeDestPos, true);
 			}
-			BoardSquare boardSquare2 = Board.Get().GetSquare(startPos);
+			BoardSquare boardSquare2 = Board.Get().GetSquareFromVec3(startPos);
 			BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, boardSquare2, true);
 			if (boardSquarePathInfo != null && trimBeforeFirstInvalid)
 			{

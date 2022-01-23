@@ -114,7 +114,7 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 				default:
 				{
 					Vector3 vector2D = m_customCenterPosDelegate(targetingActor, currentTarget);
-					return Board.Get().GetSquare(vector2D);
+					return Board.Get().GetSquareFromVec3(vector2D);
 				}
 				}
 			}

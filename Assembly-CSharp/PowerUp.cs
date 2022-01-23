@@ -285,7 +285,7 @@ public class PowerUp : NetworkBehaviour
 				Vector3 position = base.transform.position;
 				float x = position.x;
 				Vector3 position2 = base.transform.position;
-				BoardSquare boardSquareSafe = board.GetSquareAtPosition(x, position2.z);
+				BoardSquare boardSquareSafe = board.GetSquareFromPos(x, position2.z);
 				ExtraParams extraParams = new ExtraParams();
 				if (m_restrictPickupByTeam)
 				{
@@ -344,7 +344,7 @@ public class PowerUp : NetworkBehaviour
 		Vector3 position = base.transform.position;
 		float x = position.x;
 		Vector3 position2 = base.transform.position;
-		m_boardSquare = board.GetSquareAtPosition(x, position2.z);
+		m_boardSquare = board.GetSquareFromPos(x, position2.z);
 	}
 
 	public void SetDuration(int duration)

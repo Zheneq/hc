@@ -124,7 +124,7 @@ public class FogOfWar : MonoBehaviour
 		{
 			for (int y = minY; y <= maxY; y++)
 			{
-				BoardSquare square = Board.Get().GetSquare(x, y);
+				BoardSquare square = Board.Get().GetSquareFromIndex(x, y);
 				if (square == null)
 				{
 					continue;
@@ -488,7 +488,7 @@ public class FogOfWar : MonoBehaviour
 		{
 			for (int y = 0; y < Board.Get().GetMaxY(); y++)
 			{
-				BoardSquare square = Board.Get().GetSquare(x, y);
+				BoardSquare square = Board.Get().GetSquareFromIndex(x, y);
 				if (square != null)
 				{
 					if (m_visibleSquares.ContainsKey(square))

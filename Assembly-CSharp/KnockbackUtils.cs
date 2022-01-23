@@ -157,7 +157,7 @@ public static class KnockbackUtils
 	public static BoardSquare GetLastValidBoardSquareInLine(Vector3 start, Vector3 end, bool passThroughInvalidSquares = false, bool considerHalfHeightWallValid = false, float maxDistance = float.MaxValue)
 	{
 		BoardSquare result = null;
-		BoardSquare boardSquare = Board.Get().GetSquare(end);
+		BoardSquare boardSquare = Board.Get().GetSquareFromVec3(end);
 		bool flag = false;
 		if (boardSquare != null)
 		{
@@ -178,7 +178,7 @@ public static class KnockbackUtils
 				goto IL_0136;
 			}
 		}
-		BoardSquare boardSquare2 = Board.Get().GetSquare(start);
+		BoardSquare boardSquare2 = Board.Get().GetSquareFromVec3(start);
 		if (boardSquare2 != null)
 		{
 			result = boardSquare2;
@@ -368,7 +368,7 @@ public static class KnockbackUtils
 						continue;
 					}
 				}
-				BoardSquare boardSquare2 = Board.Get().GetSquare(currentSquare.x + i, currentSquare.y + j);
+				BoardSquare boardSquare2 = Board.Get().GetSquareFromIndex(currentSquare.x + i, currentSquare.y + j);
 				if (boardSquare2 == null)
 				{
 					continue;
@@ -441,8 +441,8 @@ public static class KnockbackUtils
 		bool flag2 = true;
 		if (Board.Get().AreDiagonallyAdjacent(src, dest))
 		{
-			BoardSquare boardSquare = Board.Get().GetSquare(src.x, dest.y);
-			BoardSquare boardSquare2 = Board.Get().GetSquare(dest.x, src.y);
+			BoardSquare boardSquare = Board.Get().GetSquareFromIndex(src.x, dest.y);
+			BoardSquare boardSquare2 = Board.Get().GetSquareFromIndex(dest.x, src.y);
 			if (CanForceMoveToAdjacentSquare(src, boardSquare))
 			{
 				if (CanForceMoveToAdjacentSquare(boardSquare, dest))

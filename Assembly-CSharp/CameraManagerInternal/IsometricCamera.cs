@@ -615,7 +615,7 @@ namespace CameraManagerInternal
 
 		internal void ForceTransformAtDefaultAngle(Vector3 targetPos, float yEuler)
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetSquareAtPosition(targetPos.x, targetPos.z);
+			BoardSquare boardSquareSafe = Board.Get().GetSquareFromPos(targetPos.x, targetPos.z);
 			if (boardSquareSafe != null)
 			{
 				targetPos.y = boardSquareSafe.height;

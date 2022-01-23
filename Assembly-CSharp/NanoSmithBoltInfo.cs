@@ -38,7 +38,7 @@ public class NanoSmithBoltInfo
 		List<ActorData> actorsInRange = AreaEffectUtils.GetActorsInLaser(coords.start, boltDirection, range, width, caster, TargeterUtils.GetRelevantTeams(caster, includeAllies, includeEnemies), penetrateLineOfSight, -1, false, true, out coords.end, nonActorTargetInfo);
 		if (!includeActorAtStartPos)
 		{
-			BoardSquare boardSquare = Board.Get().GetSquare(boltStartPos);
+			BoardSquare boardSquare = Board.Get().GetSquareFromVec3(boltStartPos);
 			if (boardSquare != null)
 			{
 				if (boardSquare.OccupantActor != null)

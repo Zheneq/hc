@@ -235,7 +235,7 @@ public static class AbilityUtils
 			{
 				for (int j = num3; j < num4; j++)
 				{
-					BoardSquare boardSquare = board.GetSquare(i, j);
+					BoardSquare boardSquare = board.GetSquareFromIndex(i, j);
 					abilityTarget.SetValuesFromBoardSquare(boardSquare, caster.GetTravelBoardSquareWorldPosition());
 					if (abilityData.ValidateAbilityOnTarget(ability, abilityTarget, targetIndex, currentMinRangeInSquares, currentRangeInSquares2))
 					{

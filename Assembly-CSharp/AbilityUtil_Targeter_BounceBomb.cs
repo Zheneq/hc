@@ -101,7 +101,7 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 				}
 			}
 			Vector3 vector2 = bounceEndPoints[bounceEndPoints.Count - 1];
-			BoardSquare boardSquare = Board.Get().GetSquare(vector2);
+			BoardSquare boardSquare = Board.Get().GetSquareFromVec3(vector2);
 			Vector3 vector3 = vector2;
 			if (boardSquare != null && boardSquare.IsValidForGameplay())
 			{

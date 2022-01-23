@@ -194,7 +194,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 
 	private BoardSquare GetSquareForDisc(int index)
 	{
-		return Board.Get().GetSquare(m_boardX[index], m_boardY[index]);
+		return Board.Get().GetSquareFromIndex(m_boardX[index], m_boardY[index]);
 	}
 
 	public bool ShouldForceShowOutline(ActorData forActor)

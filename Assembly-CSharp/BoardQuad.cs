@@ -21,13 +21,13 @@ public class BoardQuad
 				BoardSquare a;
 				if (m_corner1.GetComponent<BoardSquare>() == null)
 				{
-					a = Board.Get().GetSquare(m_corner1);
+					a = Board.Get().GetSquareFromTransform(m_corner1);
 				}
 				else
 				{
 					a = m_corner1.GetComponent<BoardSquare>();
 				}
-				BoardSquare b = (!(m_corner2.GetComponent<BoardSquare>() == null)) ? m_corner2.GetComponent<BoardSquare>() : Board.Get().GetSquare(m_corner2);
+				BoardSquare b = (!(m_corner2.GetComponent<BoardSquare>() == null)) ? m_corner2.GetComponent<BoardSquare>() : Board.Get().GetSquareFromTransform(m_corner2);
 				result = Board.Get().GetSquaresInRect(a, b);
 				goto IL_0100;
 			}

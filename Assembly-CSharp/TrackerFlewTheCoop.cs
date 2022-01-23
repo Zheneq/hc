@@ -81,7 +81,7 @@ public class TrackerFlewTheCoop : Ability
 		bool flag2 = false;
 		if (!caster.IsDead())
 		{
-			BoardSquare boardSquare = Board.Get().GetSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
+			BoardSquare boardSquare = Board.Get().GetSquareFromIndex(m_droneTracker.BoardX(), m_droneTracker.BoardY());
 			if (boardSquare != null)
 			{
 				float rangeInSquares = GetRangeInSquares(0);
@@ -123,7 +123,7 @@ public class TrackerFlewTheCoop : Ability
 			{
 				if (m_droneTracker != null)
 				{
-					BoardSquare boardSquare = Board.Get().GetSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
+					BoardSquare boardSquare = Board.Get().GetSquareFromIndex(m_droneTracker.BoardX(), m_droneTracker.BoardY());
 					if (boardSquare != null)
 					{
 						if (!m_includeDroneSquare)

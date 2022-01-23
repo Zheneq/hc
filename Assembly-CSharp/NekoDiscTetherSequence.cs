@@ -35,7 +35,7 @@ public class NekoDiscTetherSequence : LineSequence
 	{
 		base.Initialize(extraParams);
 		m_syncComp = base.Caster.GetComponent<Neko_SyncComponent>();
-		m_targetSquare = Board.Get().GetSquare(base.TargetPos);
+		m_targetSquare = Board.Get().GetSquareFromVec3(base.TargetPos);
 	}
 
 	protected override void SpawnFX()

@@ -159,7 +159,7 @@ public class GrydPlaceOrMoveBomb : Ability
 		BoardSquare boardSquare = null;
 		if (collision)
 		{
-			boardSquare = Board.Get().GetSquare(abilityLineEndpoint);
+			boardSquare = Board.Get().GetSquareFromVec3(abilityLineEndpoint);
 		}
 		GridPos result = placedBomb;
 		if (vector2.x > 0.1f)
@@ -169,7 +169,7 @@ public class GrydPlaceOrMoveBomb : Ability
 			{
 				if (num <= placedBomb.x + m_moveRange)
 				{
-					BoardSquare boardSquare2 = Board.Get().GetSquare(num, placedBomb.y);
+					BoardSquare boardSquare2 = Board.Get().GetSquareFromIndex(num, placedBomb.y);
 					if (boardSquare2 == null)
 					{
 						break;
@@ -211,7 +211,7 @@ public class GrydPlaceOrMoveBomb : Ability
 			{
 				if (num2 >= placedBomb.x - m_moveRange)
 				{
-					BoardSquare boardSquare3 = Board.Get().GetSquare(num2, placedBomb.y);
+					BoardSquare boardSquare3 = Board.Get().GetSquareFromIndex(num2, placedBomb.y);
 					if (boardSquare3 == null)
 					{
 						break;
@@ -253,7 +253,7 @@ public class GrydPlaceOrMoveBomb : Ability
 			{
 				if (num3 <= placedBomb.y + m_moveRange)
 				{
-					BoardSquare boardSquare4 = Board.Get().GetSquare(placedBomb.x, num3);
+					BoardSquare boardSquare4 = Board.Get().GetSquareFromIndex(placedBomb.x, num3);
 					if (boardSquare4 == null)
 					{
 						break;
@@ -292,7 +292,7 @@ public class GrydPlaceOrMoveBomb : Ability
 		{
 			for (int num4 = placedBomb.y - 1; num4 >= placedBomb.y - m_moveRange; num4--)
 			{
-				BoardSquare boardSquare5 = Board.Get().GetSquare(placedBomb.x, num4);
+				BoardSquare boardSquare5 = Board.Get().GetSquareFromIndex(placedBomb.x, num4);
 				if (boardSquare5 == null || !boardSquare5.IsValidForGameplay() || !boardSquareSafe.GetLOS(placedBomb.x, num4))
 				{
 					break;

@@ -118,7 +118,7 @@ public class SpawnPointManager : MonoBehaviour
 					j++;
 					continue;
 					IL_E3:
-					BoardSquare boardSquare = board.GetSquare(i, j);
+					BoardSquare boardSquare = board.GetSquareFromIndex(i, j);
 					if (!(boardSquare != null))
 					{
 						goto IL_17B;
@@ -247,7 +247,7 @@ public class SpawnPointManager : MonoBehaviour
 				{
 					if (this.m_spawnPointsTeamA[i] != null)
 					{
-						BoardSquare boardSquare = Board.Get().GetSquare(this.m_spawnPointsTeamA[i].x, this.m_spawnPointsTeamA[i].y);
+						BoardSquare boardSquare = Board.Get().GetSquareFromIndex(this.m_spawnPointsTeamA[i].x, this.m_spawnPointsTeamA[i].y);
 						list.Add(boardSquare);
 					}
 				}
@@ -259,7 +259,7 @@ public class SpawnPointManager : MonoBehaviour
 			{
 				if (this.m_spawnPointsTeamB[j] != null)
 				{
-					BoardSquare boardSquare2 = Board.Get().GetSquare(this.m_spawnPointsTeamB[j].x, this.m_spawnPointsTeamB[j].y);
+					BoardSquare boardSquare2 = Board.Get().GetSquareFromIndex(this.m_spawnPointsTeamB[j].x, this.m_spawnPointsTeamB[j].y);
 					if (boardSquare2)
 					{
 						list.Add(boardSquare2);
@@ -398,7 +398,7 @@ public class SpawnPointManager : MonoBehaviour
 			{
 				for (int l = 0; l < board.GetMaxY(); l++)
 				{
-					BoardSquare boardSquare3 = board.GetSquare(k, l);
+					BoardSquare boardSquare3 = board.GetSquareFromIndex(k, l);
 					if (this.CanSpawnOnSquare(spawner, boardSquare3, false))
 					{
 						spawnSquaresList.Add(boardSquare3);
@@ -495,7 +495,7 @@ public class SpawnPointManager : MonoBehaviour
 							Board board = Board.Get();
 							int x = GameplayRandom.Range(0, board.GetMaxX());
 							int y = GameplayRandom.Range(0, board.GetMaxY());
-							BoardSquare boardSquare5 = board.GetSquare(x, y);
+							BoardSquare boardSquare5 = board.GetSquareFromIndex(x, y);
 							if (this.CanSpawnOnSquare(spawner, boardSquare5, false))
 							{
 								boardSquare = boardSquare5;
@@ -521,7 +521,7 @@ public class SpawnPointManager : MonoBehaviour
 		{
 			foreach (SpawnPointManager.SpawnPointCoord spawnPointCoord in this.m_spawnPointsTeamA)
 			{
-				BoardSquare boardSquare = (!(Board.Get() == null)) ? Board.Get().GetSquare(spawnPointCoord.x, spawnPointCoord.y) : null;
+				BoardSquare boardSquare = (!(Board.Get() == null)) ? Board.Get().GetSquareFromIndex(spawnPointCoord.x, spawnPointCoord.y) : null;
 				if (boardSquare != null)
 				{
 					Gizmos.DrawWireSphere(boardSquare.ToVector3(), 0.7f);
@@ -540,7 +540,7 @@ public class SpawnPointManager : MonoBehaviour
 				}
 				else
 				{
-					boardSquare2 = Board.Get().GetSquare(spawnPointCoord2.x, spawnPointCoord2.y);
+					boardSquare2 = Board.Get().GetSquareFromIndex(spawnPointCoord2.x, spawnPointCoord2.y);
 				}
 				BoardSquare boardSquare3 = boardSquare2;
 				if (boardSquare3 != null)

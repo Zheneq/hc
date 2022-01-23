@@ -47,7 +47,7 @@ public class MouseoverCoverManager
 					Vector3 from = currentSquare.ToVector3() - m_startSquare.ToVector3();
 					from.y = 0f;
 					List<BoardSquare> result = null;
-					Board.Get().GetStraightAdjacentSquares(currentSquare.x, currentSquare.y, ref result);
+					Board.Get().GetCardinalAdjacentSquares(currentSquare.x, currentSquare.y, ref result);
 					if (result == null)
 					{
 						return;

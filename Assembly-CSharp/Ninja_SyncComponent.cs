@@ -178,7 +178,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 
 	public BoardSquare GetSquareForRewind()
 	{
-		return Board.Get().GetSquare(m_rewindToSquareX, m_rewindToSquareY);
+		return Board.Get().GetSquareFromIndex(m_rewindToSquareX, m_rewindToSquareY);
 	}
 
 	public void ClearSquareForRewind()
