@@ -92,16 +92,16 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 		float magnitude = (laserEndPos - travelBoardSquareWorldPositionForLos).magnitude;
 		magnitude = ClaymoreCharge.GetMaxPotentialChargeDistance(travelBoardSquareWorldPositionForLos, laserEndPos, currentTarget.AimDirection, magnitude, targetingActor, out BoardSquare pathEndSquare);
 		BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, pathEndSquare, targetingActor.GetCurrentBoardSquare(), true);
-		List<ActorData> actors = ClaymoreCharge.GetActorsOnPath(path, targetingActor.GetEnemyTeams(), targetingActor);
+		List<ActorData> actors = ClaymoreCharge.GetActorsOnPath(path, targetingActor.GetEnemyTeamAsList(), targetingActor);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
-		List<ActorData> actors2 = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, m_dashWidthInSquares, targetingActor, targetingActor.GetEnemyTeams(), false, 1, true, false, out laserEndPos, null);
+		List<ActorData> actors2 = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, m_dashWidthInSquares, targetingActor, targetingActor.GetEnemyTeamAsList(), false, 1, true, false, out laserEndPos, null);
 		actors2.AddRange(actors);
 		TargeterUtils.SortActorsByDistanceToPos(ref actors2, travelBoardSquareWorldPositionForLos);
 		ActorData actorData = null;
 		if (actors2.Count > 0)
 		{
 			actorData = actors2[0];
-			Vector3 travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
+			Vector3 travelBoardSquareWorldPosition = actorData.GetFreePos();
 			AddActorInRange(actorData, travelBoardSquareWorldPosition, targetingActor);
 			Vector3 lhs = travelBoardSquareWorldPosition - travelBoardSquareWorldPositionForLos;
 			lhs.y = 0f;
@@ -126,7 +126,7 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 			{
 				if (boardSquare.OccupantActor != targetingActor)
 				{
-					if (boardSquare.OccupantActor.IsVisibleToClient())
+					if (boardSquare.OccupantActor.IsActorVisibleToClient())
 					{
 						BoardSquare chargeDestination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(targetingActor, boardSquare, boardSquarePathInfo);
 						if (chargeDestination != boardSquare)

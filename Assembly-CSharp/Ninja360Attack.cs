@@ -519,7 +519,7 @@ public class Ninja360Attack : Ability
 					default:
 					{
 						ConeTargetingInfo coneInfo = GetConeInfo();
-						return AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.GetCurrentBoardSquare(), caster.GetTravelBoardSquareWorldPosition(), coneForwardAngle, GetInnerConeAngle(), coneInfo.m_radiusInSquares, coneInfo.m_backwardsOffset, PenetrateLineOfSight(), caster);
+						return AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.GetCurrentBoardSquare(), caster.GetFreePos(), coneForwardAngle, GetInnerConeAngle(), coneInfo.m_radiusInSquares, coneInfo.m_backwardsOffset, PenetrateLineOfSight(), caster);
 					}
 					}
 				}

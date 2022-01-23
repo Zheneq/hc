@@ -241,13 +241,13 @@ public class BlasterDelayedLaser : Ability
 					}
 					else
 					{
-						vector = actorData.GetTravelBoardSquareWorldPosition();
+						vector = actorData.GetFreePos();
 					}
 					Vector3 b = vector;
 					if (GetExtraDamageToNearEnemy() > 0 && GetNearDistance() > 0f)
 					{
 						float num2 = GetNearDistance() * Board.Get().squareSize;
-						Vector3 vector2 = targetActor.GetTravelBoardSquareWorldPosition() - b;
+						Vector3 vector2 = targetActor.GetFreePos() - b;
 						vector2.y = 0f;
 						if (vector2.magnitude <= num2)
 						{

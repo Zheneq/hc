@@ -209,13 +209,13 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			{
 				if (!actorMovementEntry.m_doomed)
 				{
-					Debug.LogError("One of the actors claimed to be moving is dead (" + actor.GetDebugName() + "), but the server doesn't consider him doomed.");
+					Debug.LogError("One of the actors claimed to be moving is dead (" + actor.DebugNameString() + "), but the server doesn't consider him doomed.");
 				}
 				flag = true;
 			}
 			else
 			{
-				if (actor.IsModelAnimatorDisabled())
+				if (actor.IsInRagdoll())
 				{
 					if (!actorMovementEntry.m_doomed)
 					{
@@ -226,7 +226,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 								goto IL_0127;
 							}
 						}
-						Debug.LogError("One of the actors claimed to be moving is ragdolled (" + actor.GetDebugName() + "), but the server doesn't consider him doomed.");
+						Debug.LogError("One of the actors claimed to be moving is ragdolled (" + actor.DebugNameString() + "), but the server doesn't consider him doomed.");
 					}
 					goto IL_0127;
 				}
@@ -386,7 +386,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 							obj = "(" + dest.x + ", " + dest.y + ")";
 						}
 						string text = (string)obj;
-						Debug.LogError("Friendly-to-client actor " + mover.GetDebugName() + " started moving to boardsquare " + text + " with MovementType " + actorMovementType.ToString() + ", and ClientMovementManager has him moving, but manager's current movement type is " + m_currentMovementType.ToString() + "  Declaring it done...");
+						Debug.LogError("Friendly-to-client actor " + mover.DebugNameString() + " started moving to boardsquare " + text + " with MovementType " + actorMovementType.ToString() + ", and ClientMovementManager has him moving, but manager's current movement type is " + m_currentMovementType.ToString() + "  Declaring it done...");
 					}
 					actorMovementEntry.m_progressState = ActorMovementEntry.MovementProgressState.FinishedMovement;
 					break;
@@ -488,7 +488,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 					string str = "There were " + m_movedButUnhandledActors.Count + " actor(s) with unhandled movement even after examining new movement.  Unhandled actors:";
 					for (int k = 0; k < m_movedButUnhandledActors.Count; k++)
 					{
-						str = str + "\n\t" + m_movedButUnhandledActors[k].GetDebugName();
+						str = str + "\n\t" + m_movedButUnhandledActors[k].DebugNameString();
 					}
 					while (true)
 					{
@@ -541,7 +541,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			if (actorData != null)
 			{
 				list.Add(actorData);
-				text = text + "\n\t" + actorData.GetDebugName();
+				text = text + "\n\t" + actorData.DebugNameString();
 			}
 		}
 		while (true)

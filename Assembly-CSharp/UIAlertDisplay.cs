@@ -268,7 +268,7 @@ public class UIAlertDisplay : MonoBehaviour
 		{
 			if (activeOwnedActorData.IsDead())
 			{
-				if (activeOwnedActorData.IsModelAnimatorDisabled())
+				if (activeOwnedActorData.IsInRagdoll())
 				{
 					if (GameFlowData.Get().gameState > GameState.StartingGame)
 					{

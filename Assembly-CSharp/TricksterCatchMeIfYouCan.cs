@@ -580,7 +580,7 @@ public class TricksterCatchMeIfYouCan : Ability
 					int num;
 					if (NetworkClient.active)
 					{
-						num = (occupantActor.IsVisibleToClient() ? 1 : 0);
+						num = (occupantActor.IsActorVisibleToClient() ? 1 : 0);
 					}
 					else
 					{

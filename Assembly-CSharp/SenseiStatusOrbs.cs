@@ -76,7 +76,7 @@ public class SenseiStatusOrbs : Ability
 			ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquare, true, true, targetingActor);
 			if (targetableActorOnSquare != null)
 			{
-				if (targetableActorOnSquare.IsVisibleToClient())
+				if (targetableActorOnSquare.IsActorVisibleToClient())
 				{
 					if (potentialActor != targetableActorOnSquare)
 					{

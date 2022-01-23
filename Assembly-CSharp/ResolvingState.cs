@@ -65,7 +65,7 @@ public class ResolvingState : TurnState
 			object str;
 			if (component != null)
 			{
-				str = component.GetDebugName();
+				str = component.DebugNameString();
 			}
 			else
 			{

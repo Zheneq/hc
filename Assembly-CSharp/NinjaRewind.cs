@@ -86,7 +86,7 @@ public class NinjaRewind : Ability
 					case 0:
 						break;
 					default:
-						return AbilityTarget.CreateAbilityTargetFromBoardSquare(squareForRewind, caster.GetTravelBoardSquareWorldPosition());
+						return AbilityTarget.CreateAbilityTargetFromBoardSquare(squareForRewind, caster.GetFreePos());
 					}
 				}
 			}

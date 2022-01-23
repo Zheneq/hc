@@ -22,7 +22,7 @@ public class ActorMovementEntry
 
 	public override string ToString()
 	{
-		string debugName = m_actor.GetDebugName();
+		string debugName = m_actor.DebugNameString();
 		string str = m_progressState.ToString();
 		string str2 = (!m_doomed) ? string.Empty : " (doomed)";
 		return debugName + ": " + str + str2;

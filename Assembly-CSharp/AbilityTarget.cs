@@ -138,17 +138,17 @@ public class AbilityTarget
 
 	public static AbilityTarget CreateAbilityTargetFromActor(ActorData targetActor, ActorData casterActor)
 	{
-		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - casterActor.GetTravelBoardSquareWorldPosition();
+		Vector3 vector = targetActor.GetFreePos() - casterActor.GetFreePos();
 		if (vector != Vector3.zero)
 		{
 			vector.Normalize();
 		}
-		return new AbilityTarget(targetActor.GetGridPos(), targetActor.GetTravelBoardSquareWorldPosition(), vector);
+		return new AbilityTarget(targetActor.GetGridPos(), targetActor.GetFreePos(), vector);
 	}
 
 	public static AbilityTarget CreateSimpleAbilityTarget(ActorData casterActor)
 	{
-		return new AbilityTarget(casterActor.GetGridPos(), casterActor.GetTravelBoardSquareWorldPosition(), Vector3.zero);
+		return new AbilityTarget(casterActor.GetGridPos(), casterActor.GetFreePos(), Vector3.zero);
 	}
 
 	public static AbilityTarget CreateAbilityTargetFromBoardSquare(BoardSquare targetSquare, Vector3 currentWorldPos)
@@ -201,16 +201,16 @@ public class AbilityTarget
 		Vector3 vector = new Vector3(0f, 0f, 0f);
 		foreach (ActorData player in playerList)
 		{
-			vector += player.GetTravelBoardSquareWorldPosition();
+			vector += player.GetFreePos();
 		}
 		vector /= (float)playerList.Count;
-		Vector3 vector2 = vector - casterActor.GetTravelBoardSquareWorldPosition();
+		Vector3 vector2 = vector - casterActor.GetFreePos();
 		vector2.y = 0f;
 		vector2.Normalize();
 		bool flag = false;
 		if (vector2 == Vector3.zero)
 		{
-			Vector3 rhs = playerList[0].GetTravelBoardSquareWorldPosition() - casterActor.GetTravelBoardSquareWorldPosition();
+			Vector3 rhs = playerList[0].GetFreePos() - casterActor.GetFreePos();
 			rhs.Normalize();
 			vector2 = Vector3.Cross(Vector3.up, rhs);
 			flag = true;

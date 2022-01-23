@@ -41,7 +41,7 @@ public class TempSatelliteActionSequence : Sequence
 		int num;
 		if (m_ignoreStartEventIfActorRagdoll)
 		{
-			num = ((base.Caster.IsModelAnimatorDisabled() || base.Caster.IsDead()) ? 1 : 0);
+			num = ((base.Caster.IsInRagdoll() || base.Caster.IsDead()) ? 1 : 0);
 		}
 		else
 		{

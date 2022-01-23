@@ -147,11 +147,11 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		int result;
 		if (m_actor != null)
 		{
-			if (m_actor.GetAccountId() != -1)
+			if (m_actor.GetOriginalAccountId() != -1)
 			{
-				if (m_actor.GetActualAccountId() != ClientGameManager.Get().GetPlayerAccountData().AccountId)
+				if (m_actor.GetAccountId() != ClientGameManager.Get().GetPlayerAccountData().AccountId)
 				{
-					if (!m_actor.GetIsHumanControlled())
+					if (!m_actor.IsHumanControlled())
 					{
 						if (!m_actor.GetPlayerDetails().m_botsMasqueradeAsHumans)
 						{

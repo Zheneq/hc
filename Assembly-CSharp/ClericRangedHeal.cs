@@ -389,7 +389,7 @@ public class ClericRangedHeal : Ability
 		{
 			if (healTarget.HitPoints < healTarget.GetMaxHitPoints())
 			{
-				int num = Mathf.CeilToInt((1f - healTarget.GetHitPointShareOfMax()) * 100f);
+				int num = Mathf.CeilToInt((1f - healTarget.GetHitPointPercent()) * 100f);
 				result = Mathf.RoundToInt(GetHealPerPercentHealthLost() * (float)num);
 			}
 		}

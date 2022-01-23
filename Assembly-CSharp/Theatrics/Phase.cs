@@ -317,7 +317,7 @@ namespace Theatrics
 						ActorData hitActor = current.Key;
 						int deltaHP = current.Value;
 						int hitPointsAfterResolution = hitActor.GetHitPointsToDisplay();
-						int hitPointsAfterResolutionWithDelta = hitActor.GetHitPointsToDisplayWithDelta(deltaHP);
+						int hitPointsAfterResolutionWithDelta = hitActor.GetExpectedClientHpForDisplay(deltaHP);
 						if (deltaHP < 0 && hitPointsAfterResolution > 0 && hitPointsAfterResolutionWithDelta <= 0)
 						{
 							flag = true;
@@ -500,7 +500,7 @@ namespace Theatrics
 							{
 								if (actorAnimation3.GetAnimationIndex() <= 0)
 								{
-									flag8 = actorAnimation3.Actor.IsModelAnimatorDisabled();
+									flag8 = actorAnimation3.Actor.IsInRagdoll();
 								}
 							}
 							if (actorAnimation3 == null)

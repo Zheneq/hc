@@ -547,7 +547,7 @@ public class ClaymoreMultiRadiusCone : Ability
 		}
 		float num = ModdedInnerRadius() * Board.Get().squareSize;
 		float num2 = ModdedMiddleRadius() * Board.Get().squareSize;
-		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - damageOrigin;
+		Vector3 vector = targetActor.GetFreePos() - damageOrigin;
 		vector.y = 0f;
 		float num3 = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())

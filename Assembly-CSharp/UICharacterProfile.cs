@@ -698,10 +698,10 @@ public class UICharacterProfile : MonoBehaviour
 				}
 				int hitPointsAfterResolution = activeOwnedActorData.GetHitPointsToDisplay();
 				int maxHitPoints = activeOwnedActorData.GetMaxHitPoints();
-				int energyToDisplay = activeOwnedActorData.GetEnergyToDisplay();
+				int energyToDisplay = activeOwnedActorData.GetTechPointsToDisplay();
 				int actualMaxTechPoints = activeOwnedActorData.GetMaxTechPoints();
-				int num = activeOwnedActorData.GetAbsorbToDisplay();
-				int clientUnappliedHoTTotal_ToDisplay_zq = activeOwnedActorData.GetPendingHoTTotalToDisplay();
+				int num = activeOwnedActorData.GetShieldPoints();
+				int clientUnappliedHoTTotal_ToDisplay_zq = activeOwnedActorData.GetHoTTotalToDisplay();
 				if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 				{
 					m_pendingHealthText.text = "+" + clientUnappliedHoTTotal_ToDisplay_zq;

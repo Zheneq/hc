@@ -237,7 +237,7 @@ public class ActorController : NetworkBehaviour
 		bool amDecidingMovement = m_actor.GetActorTurnSM().AmDecidingMovement();
 		bool isTargetingAction = m_actor.GetActorTurnSM().CurrentState == TurnStateEnum.TARGETING_ACTION;
 		bool markedForUpdateValidSquares = Board.Get().MarkedForUpdateValidSquares;
-		bool hasPostAbilityMovementChange = m_actor.GetPostAbilityHorizontalMovementChange() > 0f;
+		bool hasPostAbilityMovementChange = m_actor.GetAbilityMovementCost() > 0f;
 		bool hasQueuedMovementAdjust = abilityData.GetQueuedAbilitiesMovementAdjust() < 0f;
 		if (amDecidingMovement)
 		{
@@ -433,7 +433,7 @@ public class ActorController : NetworkBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get()?.activeOwnedActorData;
 		if (m_actor != null
 			&& activeOwnedActorData != null
-			&& m_actor.IsVisibleToClient()
+			&& m_actor.IsActorVisibleToClient()
 			&& HUD_UI.Get() != null
 			&& UIOverconData.Get() != null)
 		{

@@ -488,7 +488,7 @@ public class ClientResolutionManager : MonoBehaviour
 				if (actorData != null)
 				{
 					list.Add(actorData);
-					text = text + "\n\t" + actorData.GetDebugName();
+					text = text + "\n\t" + actorData.DebugNameString();
 				}
 			}
 		}
@@ -890,7 +890,7 @@ public class ClientResolutionManager : MonoBehaviour
 		networkWriter.FinishMessage();
 		if (ClientAbilityResults.LogMissingSequences)
 		{
-			Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader + "Sending <color=white>ResolveKnockbackForActor</color>, Caster: " + sendingPlayer.GetDebugName() + ", KnockedBackActor: " + knockbackedTarget.GetDebugName());
+			Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader + "Sending <color=white>ResolveKnockbackForActor</color>, Caster: " + sendingPlayer.DebugNameString() + ", KnockedBackActor: " + knockbackedTarget.DebugNameString());
 		}
 		ClientGameManager.Get().Client.SendWriter(networkWriter, 0);
 	}

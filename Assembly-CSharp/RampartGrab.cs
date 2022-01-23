@@ -312,11 +312,11 @@ public class RampartGrab : Ability
 				bool result = false;
 				if (boardSquareSafe != caster.GetCurrentBoardSquare())
 				{
-					float num = VectorUtils.HorizontalPlaneDistInSquares(boardSquareSafe.ToVector3(), caster.GetTravelBoardSquareWorldPosition());
+					float num = VectorUtils.HorizontalPlaneDistInSquares(boardSquareSafe.ToVector3(), caster.GetFreePos());
 					if (num <= GetDestinationSelectRange())
 					{
 						Vector3 from = -1f * currentTargets[0].AimDirection;
-						Vector3 to = boardSquareSafe.ToVector3() - caster.GetTravelBoardSquareWorldPosition();
+						Vector3 to = boardSquareSafe.ToVector3() - caster.GetFreePos();
 						from.y = 0f;
 						to.y = 0f;
 						int num2 = Mathf.RoundToInt(Vector3.Angle(from, to));

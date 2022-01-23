@@ -222,7 +222,7 @@ public class SequenceSource
 		IL_00f7:
 		if (SequenceManager.SequenceDebugTraceOn)
 		{
-			Debug.LogWarning(string.Concat("<color=yellow>Sequence Actor Hit: </color><<color=lightblue>", seq.gameObject.name, " | ", seq.GetType(), "</color>> \nhit on: ", target.GetColoredDebugName("white"), " @time= ", Time.time));
+			Debug.LogWarning(string.Concat("<color=yellow>Sequence Actor Hit: </color><<color=lightblue>", seq.gameObject.name, " | ", seq.GetType(), "</color>> \nhit on: ", target.DebugNameString("white"), " @time= ", Time.time));
 		}
 	}
 

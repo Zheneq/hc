@@ -39,7 +39,7 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 	{
 		AbilityTarget firstTarget = currentTargetIndex > 0 ? targets[0] : currentTarget;
 		m_barrierCenterPos = firstTarget.FreePos;
-		Vector3 vector = m_barrierCenterPos - targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 vector = m_barrierCenterPos - targetingActor.GetFreePos();
 		bool hasCursorMoved = false;
 		bool active = false;
 		Vector3 vector2 = m_barrierCenterPos;

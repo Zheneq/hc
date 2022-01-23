@@ -73,7 +73,7 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		int num;
 		if (!(actorData == null))
 		{
-			if (actorData.IsVisibleToClient())
+			if (actorData.IsActorVisibleToClient())
 			{
 				if (!(actorData.GetActorModelData() == null))
 				{
@@ -97,7 +97,7 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		int num2;
 		if (actorData != null)
 		{
-			num2 = (actorData.IsModelAnimatorDisabled() ? 1 : 0);
+			num2 = (actorData.IsInRagdoll() ? 1 : 0);
 		}
 		else
 		{

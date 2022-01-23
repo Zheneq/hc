@@ -461,7 +461,7 @@ public class ClientResolutionAction : IComparable
 					ActorData key = current.Key;
 					if (ClientAbilityResults.LogMissingSequences)
 					{
-						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted actor hit on " + key.GetDebugName() + " from " + caster.GetDebugName());
+						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted actor hit on " + key.DebugNameString() + " from " + caster.DebugNameString());
 					}
 					current.Value.ExecuteActorHit(current.Key, caster);
 				}
@@ -476,7 +476,7 @@ public class ClientResolutionAction : IComparable
 				{
 					if (ClientAbilityResults.LogMissingSequences)
 					{
-						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted position hit on " + current2.Key.ToString() + " from " + caster.GetDebugName());
+						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted position hit on " + current2.Key.ToString() + " from " + caster.DebugNameString());
 					}
 					current2.Value.ExecutePositionHit();
 				}
@@ -768,13 +768,13 @@ public class ClientResolutionAction : IComparable
 				{
 					num++;
 					string text3 = text;
-					text = text3 + "\n\t\t" + num + ". ActorHit on " + key.GetDebugName();
+					text = text3 + "\n\t\t" + num + ". ActorHit on " + key.DebugNameString();
 				}
 				else
 				{
 					num2++;
 					string text3 = text2;
-					text2 = text3 + "\n\t\t" + num2 + ". ActorHit on " + key.GetDebugName();
+					text2 = text3 + "\n\t\t" + num2 + ". ActorHit on " + key.DebugNameString();
 				}
 			}
 			while (true)

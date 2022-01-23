@@ -125,7 +125,7 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 		for (int l = 0; l < list.Count; l++)
 		{
 			ActorData actorData = list[l];
-			Vector3 dir = freePosForAim - list[l].GetTravelBoardSquareWorldPosition();
+			Vector3 dir = freePosForAim - list[l].GetFreePos();
 			dir.y = 0f;
 			float magnitude = dir.magnitude;
 			dir.Normalize();

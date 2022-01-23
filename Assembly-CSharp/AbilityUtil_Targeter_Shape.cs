@@ -94,7 +94,7 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			}
 			Vector3 freePos = vector;
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, freePos, gameplayRefSquare);
-			Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+			Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 			centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
 			return centerOfShape;
 		}
@@ -202,7 +202,7 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			ActorData actorData = currentTarget.GetCurrentBestActorTarget();
 			if (actorData != null)
 			{
-				if (!actorData.IsVisibleToClient())
+				if (!actorData.IsActorVisibleToClient())
 				{
 					actorData = null;
 				}

@@ -228,7 +228,7 @@ public class ExoPunch : Ability
 		if (num > 0f)
 		{
 			ActorData actorData = base.ActorData;
-			Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - actorData.GetTravelBoardSquareWorldPosition();
+			Vector3 vector = targetActor.GetFreePos() - actorData.GetFreePos();
 			vector.y = 0f;
 			if (vector.magnitude < num)
 			{

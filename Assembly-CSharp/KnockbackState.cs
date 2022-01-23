@@ -118,7 +118,7 @@ public class KnockbackState : MoveState
 				{
 					m_updatePath = true;
 				}
-				if (m_owner.m_actor.IsModelAnimatorDisabled())
+				if (m_owner.m_actor.IsInRagdoll())
 				{
 					m_updatePath = true;
 					m_done = true;
@@ -147,7 +147,7 @@ public class KnockbackState : MoveState
 		}
 		Vector3 groundPosition = m_owner.GetGroundPosition(position + a * d);
 		groundPosition.y = (float)Board.Get().m_baselineHeight + num6;
-		if (m_owner.m_actor.IsModelAnimatorDisabled())
+		if (m_owner.m_actor.IsInRagdoll())
 		{
 			m_updatePath = true;
 			m_done = true;
@@ -164,7 +164,7 @@ public class KnockbackState : MoveState
 		}
 		while (true)
 		{
-			if (!m_owner.m_actor.IsModelAnimatorDisabled())
+			if (!m_owner.m_actor.IsInRagdoll())
 			{
 				while (true)
 				{

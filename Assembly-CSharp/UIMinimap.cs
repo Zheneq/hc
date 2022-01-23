@@ -502,7 +502,7 @@ public class UIMinimap : MonoBehaviour
 			for (int j = 0; j < m_minimapActors.Count; j++)
 			{
 				MinimapActor minimapActor4 = m_minimapActors[j];
-				Vector3 minimapPositionFromWorldPosition = GetMinimapPositionFromWorldPosition(minimapActor4.m_actorData.GetNameplatePosition(0f));
+				Vector3 minimapPositionFromWorldPosition = GetMinimapPositionFromWorldPosition(minimapActor4.m_actorData.GetOverheadPosition(0f));
 				if (minimapPositionFromWorldPosition != minimapActor4.m_uiPlayerIcon.transform.position)
 				{
 					minimapActor4.m_uiPlayerIcon.transform.position = minimapPositionFromWorldPosition;

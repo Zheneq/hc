@@ -874,7 +874,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			bool flag2 = false;
 			if (this.m_activeOwnedActorData != null)
 			{
-				this.m_activeOwnedActorData.OnDeselect();
+				this.m_activeOwnedActorData.OnDeselectedAsActiveActor();
 				bool flag3;
 				if (value != null)
 				{
@@ -889,7 +889,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			this.m_activeOwnedActorData = value;
 			if (this.m_activeOwnedActorData != null)
 			{
-				this.m_activeOwnedActorData.OnSelect();
+				this.m_activeOwnedActorData.OnSelectedAsActiveActor();
 			}
 			if (flag)
 			{
@@ -909,7 +909,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.activeOwnedActorData)
 		{
-			return this.activeOwnedActorData.GetDebugName();
+			return this.activeOwnedActorData.DebugNameString();
 		}
 		return "(no owned actor)";
 	}

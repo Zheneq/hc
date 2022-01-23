@@ -40,7 +40,7 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 		IL_00a3:
 		GameObject gameObject = m_highlights[0];
 		GameObject gameObject2 = m_highlights[1];
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 		travelBoardSquareWorldPosition.y = HighlightUtils.GetHighlightHeight();
 		gameObject.transform.position = travelBoardSquareWorldPosition;
 		if (boardSquareSafe != null)
@@ -68,14 +68,14 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 		{
 			SetMovementArrowEnabledFromIndex(0, true);
 		}
-		List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor.GetCurrentBoardSquare(), m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
+		List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, targetingActor.GetFreePos(), targetingActor.GetCurrentBoardSquare(), m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
 				ActorData current = enumerator.Current;
-				Vector3 travelBoardSquareWorldPosition2 = targetingActor.GetTravelBoardSquareWorldPosition();
+				Vector3 travelBoardSquareWorldPosition2 = targetingActor.GetFreePos();
 				int subjectType;
 				if (current.GetTeam() == targetingActor.GetTeam())
 				{
@@ -88,14 +88,14 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 				AddActorInRange(current, travelBoardSquareWorldPosition2, targetingActor, (AbilityTooltipSubject)subjectType);
 				if (m_knockbackDistance != 0f)
 				{
-					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, KnockbackType.AwayFromSource, currentTarget.AimDirection, targetingActor.GetTravelBoardSquareWorldPosition(), m_knockbackDistance);
+					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, KnockbackType.AwayFromSource, currentTarget.AimDirection, targetingActor.GetFreePos(), m_knockbackDistance);
 					num = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num);
 				}
 			}
 		}
 		if (m_affectsTargetingActor)
 		{
-			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
+			AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Self);
 		}
 		SetMovementArrowEnabledFromIndex(num, false);
 	}

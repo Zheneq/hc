@@ -111,7 +111,7 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 		while (true)
 		{
 			int num;
-			if (m_actorData.IsVisibleToClient())
+			if (m_actorData.IsActorVisibleToClient())
 			{
 				num = ((m_actorData.GetModelRenderer() == null || m_actorData.GetModelRenderer().enabled) ? 1 : 0);
 			}
@@ -120,7 +120,7 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 				num = 0;
 			}
 			bool flag = (byte)num != 0;
-			bool flag2 = m_actorData.IsModelAnimatorDisabled();
+			bool flag2 = m_actorData.IsInRagdoll();
 			int num2;
 			if (GameFlowData.Get() != null)
 			{

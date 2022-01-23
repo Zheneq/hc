@@ -233,7 +233,7 @@ public class Sensei_SyncComponent : NetworkBehaviour
 			}
 			while (true)
 			{
-				bool flag = m_owner.IsVisibleToClient();
+				bool flag = m_owner.IsActorVisibleToClient();
 				if (flag)
 				{
 					if (m_owner.GetActorModelData() != null)
@@ -244,7 +244,7 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				int num;
 				if (!m_owner.IsDead())
 				{
-					num = (m_owner.IsModelAnimatorDisabled() ? 1 : 0);
+					num = (m_owner.IsInRagdoll() ? 1 : 0);
 				}
 				else
 				{

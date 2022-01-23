@@ -370,10 +370,10 @@ public class SenseiYingYangDash : Ability
 		int num = GetHealOnAlly();
 		if (allyActor != null)
 		{
-			bool flag = allyActor.GetHitPointShareOfMax() < GetAllyLowHealthThresh();
+			bool flag = allyActor.GetHitPointPercent() < GetAllyLowHealthThresh();
 			if (ReverseHealthThreshForAlly())
 			{
-				flag = (allyActor.GetHitPointShareOfMax() > GetAllyLowHealthThresh());
+				flag = (allyActor.GetHitPointPercent() > GetAllyLowHealthThresh());
 			}
 			if (GetExtraHealOnAllyForLowHealth() > 0 && GetAllyLowHealthThresh() > 0f)
 			{
@@ -395,10 +395,10 @@ public class SenseiYingYangDash : Ability
 		int num = GetDamage();
 		if (enemyActor != null)
 		{
-			bool flag = enemyActor.GetHitPointShareOfMax() < GetEnemyLowHealthThresh();
+			bool flag = enemyActor.GetHitPointPercent() < GetEnemyLowHealthThresh();
 			if (ReverseHealthThreshForEnemy())
 			{
-				flag = (enemyActor.GetHitPointShareOfMax() > GetEnemyLowHealthThresh());
+				flag = (enemyActor.GetHitPointPercent() > GetEnemyLowHealthThresh());
 			}
 			if (GetExtraDamageForLowHealth() > 0)
 			{

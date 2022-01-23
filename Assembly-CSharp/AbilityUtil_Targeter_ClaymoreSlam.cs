@@ -72,7 +72,7 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 			}
 		}
 		int num = 0;
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 		float squareSizeStatic = Board.SquareSizeStatic;
 		using (List<ActorData>.Enumerator enumerator = actorsInLaser.GetEnumerator())
 		{
@@ -81,7 +81,7 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 				ActorData current = enumerator.Current;
 				if (ShouldAddActor(current, targetingActor))
 				{
-					float value = (current.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
+					float value = (current.GetFreePos() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
 					AddActorInRange(current, travelBoardSquareWorldPositionForLos, targetingActor);
 					ActorHitContext actorHitContext = m_actorContextVars[current];
 					actorHitContext.m_hitOrigin = laserCoords2.start;
@@ -106,7 +106,7 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 					{
 						if (current2 != targetingActor)
 						{
-							float value2 = (current2.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
+							float value2 = (current2.GetFreePos() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
 							ActorHitContext actorHitContext2 = m_actorContextVars[current2];
 							actorHitContext2.m_hitOrigin = laserCoords2.start;
 							actorHitContext2.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), value2);

@@ -156,6 +156,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 				}
 			}
 		}
-		return targetingActor.GetTravelBoardSquareWorldPosition();
+		return targetingActor.GetFreePos();
 	}
 }

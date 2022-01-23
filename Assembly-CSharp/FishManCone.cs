@@ -718,7 +718,7 @@ public class FishManCone : Ability
 					{
 						GetTargeterClampedAimDirection(targets[0].AimDirection, targets[targets.Count - 1].AimDirection, out sweepAngle, out coneCenterDegrees);
 					}
-					return caster.GetTravelBoardSquareWorldPosition() + VectorUtils.AngleDegreesToVector(coneCenterDegrees);
+					return caster.GetFreePos() + VectorUtils.AngleDegreesToVector(coneCenterDegrees);
 				}
 				}
 			}

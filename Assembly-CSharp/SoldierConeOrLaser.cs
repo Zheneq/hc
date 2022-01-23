@@ -321,7 +321,7 @@ public class SoldierConeOrLaser : Ability
 					break;
 				default:
 				{
-					Vector3 vector = target.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
+					Vector3 vector = target.GetFreePos() - caster.GetFreePos();
 					vector.y = 0f;
 					return vector.magnitude < GetCloseDistThreshold() * Board.Get().squareSize;
 				}
@@ -549,7 +549,7 @@ public class SoldierConeOrLaser : Ability
 
 	private bool ShouldUseCone(Vector3 freePos, ActorData caster)
 	{
-		Vector3 vector = freePos - caster.GetTravelBoardSquareWorldPosition();
+		Vector3 vector = freePos - caster.GetFreePos();
 		vector.y = 0f;
 		float magnitude = vector.magnitude;
 		return magnitude <= m_coneDistThreshold;

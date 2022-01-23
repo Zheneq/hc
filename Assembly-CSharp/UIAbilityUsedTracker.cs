@@ -20,7 +20,7 @@ public class UIAbilityUsedTracker : MonoBehaviour
 		}
 		while (true)
 		{
-			if (!theOwner.IsVisibleToClient())
+			if (!theOwner.IsActorVisibleToClient())
 			{
 				return;
 			}

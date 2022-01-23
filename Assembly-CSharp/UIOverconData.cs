@@ -261,7 +261,7 @@ public class UIOverconData : MonoBehaviour
 				}
 				while (true)
 				{
-					if (!actorData.IsVisibleToClient())
+					if (!actorData.IsActorVisibleToClient())
 					{
 						return;
 					}

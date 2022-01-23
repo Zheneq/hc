@@ -11,7 +11,7 @@ public static class KnockbackUtils
 	public static Vector2 GetKnockbackDeltaForType(ActorData target, KnockbackType type, Vector3 aimDir, Vector3 sourcePos, float distance)
 	{
 		aimDir.Normalize();
-		Vector3 travelBoardSquareWorldPosition = target.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = target.GetFreePos();
 		Vector3 lhs = travelBoardSquareWorldPosition - sourcePos;
 		Vector3 b = sourcePos + Vector3.Dot(lhs, aimDir) * aimDir;
 		Vector3 vector = travelBoardSquareWorldPosition - b;

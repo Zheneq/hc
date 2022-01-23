@@ -49,8 +49,8 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 		ClearActorsInRange();
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
 		laserCoords.start = targetingActor.GetLoSCheckPos();
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, m_laserRange, m_laserWidth, targetingActor, targetingActor.GetEnemyTeams(), m_penetrateLos, m_maxTargets, m_lengthIgnoreGeo, false, out laserCoords.end, null);
-		List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, m_laserRange, m_laserMiddleWidth, targetingActor, targetingActor.GetEnemyTeams(), m_penetrateLos, m_maxTargets, m_lengthIgnoreGeo, false, out laserCoords.end, null);
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, m_laserRange, m_laserWidth, targetingActor, targetingActor.GetEnemyTeamAsList(), m_penetrateLos, m_maxTargets, m_lengthIgnoreGeo, false, out laserCoords.end, null);
+		List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, m_laserRange, m_laserMiddleWidth, targetingActor, targetingActor.GetEnemyTeamAsList(), m_penetrateLos, m_maxTargets, m_lengthIgnoreGeo, false, out laserCoords.end, null);
 		VectorUtils.LaserCoords laserCoords2 = laserCoords;
 		using (List<ActorData>.Enumerator enumerator = actorsInLaser2.GetEnumerator())
 		{
@@ -73,7 +73,7 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 		}
 		int num3 = 0;
 		EnableAllMovementArrows();
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 		foreach (ActorData item in actorsInLaser)
 		{
 			if (!actorsInLaser2.Contains(item))
@@ -88,7 +88,7 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 		}
 		if (m_affectsTargetingActor)
 		{
-			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
+			AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Self);
 		}
 		SetMovementArrowEnabledFromIndex(num3, false);
 		if (m_highlights != null)

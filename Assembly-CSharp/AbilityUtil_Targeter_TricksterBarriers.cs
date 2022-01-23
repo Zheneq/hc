@@ -187,12 +187,12 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 			}
 			while (true)
 			{
-				Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+				Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 				travelBoardSquareWorldPosition.y = (float)Board.Get().BaselineHeight + 0.1f;
 				TargeterUtils.RefreshCircleHighlight(m_highlights[num8], travelBoardSquareWorldPosition, TargeterUtils.HeightAdjustType.DontAdjustHeight);
 				for (int m = 0; m < validAfterImages.Count; m++)
 				{
-					Vector3 travelBoardSquareWorldPosition2 = validAfterImages[m].GetTravelBoardSquareWorldPosition();
+					Vector3 travelBoardSquareWorldPosition2 = validAfterImages[m].GetFreePos();
 					travelBoardSquareWorldPosition2.y = (float)Board.Get().BaselineHeight + 0.1f;
 					TargeterUtils.RefreshCircleHighlight(m_highlights[num8 + m + 1], travelBoardSquareWorldPosition2, TargeterUtils.HeightAdjustType.DontAdjustHeight);
 				}

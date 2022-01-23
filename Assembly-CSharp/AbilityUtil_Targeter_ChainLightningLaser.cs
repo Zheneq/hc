@@ -96,10 +96,10 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 						if (num + 1 < m_highlights.Count)
 						{
 							GameObject gameObject = m_highlights[1 + num];
-							AdjustLaserHighlight(gameObject, actorData.GetTravelBoardSquareWorldPosition(), actorData2.GetTravelBoardSquareWorldPosition(), m_chainHighlightWidthInSquares);
+							AdjustLaserHighlight(gameObject, actorData.GetFreePos(), actorData2.GetFreePos(), m_chainHighlightWidthInSquares);
 							gameObject.SetActive(true);
 							SquareInsideChecker_Box squareInsideChecker_Box2 = m_squarePosCheckerList[1 + num] as SquareInsideChecker_Box;
-							squareInsideChecker_Box2.UpdateBoxProperties(actorData.GetTravelBoardSquareWorldPosition(), actorData2.GetTravelBoardSquareWorldPosition(), targetingActor);
+							squareInsideChecker_Box2.UpdateBoxProperties(actorData.GetFreePos(), actorData2.GetFreePos(), targetingActor);
 						}
 						num++;
 					}

@@ -271,7 +271,7 @@ public class ArcherDashAndShoot : Ability
 				default:
 				{
 					HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out Vector3 overridePos);
-					Vector3 vec = aimingActor.GetTravelBoardSquareWorldPosition() - overridePos;
+					Vector3 vec = aimingActor.GetFreePos() - overridePos;
 					vec.Normalize();
 					float num = VectorUtils.HorizontalAngle_Deg(vec);
 					min = num - GetMaxAngleForLaser();
@@ -300,7 +300,7 @@ public class ArcherDashAndShoot : Ability
 		if (targetIndex == 1)
 		{
 			AbilityTarget abilityTarget = targetsSoFar[0];
-			overridePos = aimingActor.GetSquareWorldPosition(Board.Get().GetSquare(abilityTarget.GridPos));
+			overridePos = aimingActor.GetFreePos(Board.Get().GetSquare(abilityTarget.GridPos));
 			return true;
 		}
 		return base.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);

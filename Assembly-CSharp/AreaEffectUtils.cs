@@ -2016,7 +2016,7 @@ public static class AreaEffectUtils
 					ActorData current = enumerator.Current;
 					if (IsActorTargetable(current, validTeams))
 					{
-						Vector3 travelBoardSquareWorldPosition = current.GetTravelBoardSquareWorldPosition();
+						Vector3 travelBoardSquareWorldPosition = current.GetFreePos();
 						travelBoardSquareWorldPosition.y = 0f;
 						int num2;
 						if (!PointInBox(travelBoardSquareWorldPosition, startPos, endPos, halfWidth))
@@ -2425,7 +2425,7 @@ public static class AreaEffectUtils
 			if (actors.Count == maxTargets)
 			{
 				ActorData actorData = actors[actors.Count - 1];
-				Vector3 lhs = actorData.GetTravelBoardSquareWorldPosition() - laserCoords.start;
+				Vector3 lhs = actorData.GetFreePos() - laserCoords.start;
 				lhs.y = 0f;
 				Vector3 b2 = Vector3.Dot(lhs, dir) * dir;
 				laserEndPos = laserCoords.start + b2;
@@ -2512,7 +2512,7 @@ public static class AreaEffectUtils
 						ActorData actorData = actors[num4];
 						if (!dictionary.ContainsKey(actorData))
 						{
-							if (!includeInvisibles && !actorData.IsVisibleToClient())
+							if (!includeInvisibles && !actorData.IsActorVisibleToClient())
 							{
 							}
 							else
@@ -2530,7 +2530,7 @@ public static class AreaEffectUtils
 									{
 										num2 = num3;
 										Vector3 normalized = (vector2 - vector).normalized;
-										Vector3 rhs = actorData.GetTravelBoardSquareWorldPosition() - vector;
+										Vector3 rhs = actorData.GetFreePos() - vector;
 										value = vector + Vector3.Dot(normalized, rhs) * normalized;
 										break;
 									}

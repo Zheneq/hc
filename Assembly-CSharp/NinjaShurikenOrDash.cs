@@ -495,7 +495,7 @@ public class NinjaShurikenOrDash : Ability
 						while (enumerator.MoveNext())
 						{
 							ActorData current = enumerator.Current;
-							Vector3 vector = current.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
+							Vector3 vector = current.GetFreePos() - caster.GetFreePos();
 							vector.y = 0f;
 							float magnitude = vector.magnitude;
 							bool flag = IsActorMarked(current);
@@ -592,7 +592,7 @@ public class NinjaShurikenOrDash : Ability
 						{
 							if (AreaEffectUtils.IsActorTargetable(targetableActorOnSquare))
 							{
-								Vector3 vector = targetableActorOnSquare.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
+								Vector3 vector = targetableActorOnSquare.GetFreePos() - caster.GetFreePos();
 								vector.y = 0f;
 								float magnitude = vector.magnitude;
 								bool flag3 = IsActorMarked(targetableActorOnSquare);

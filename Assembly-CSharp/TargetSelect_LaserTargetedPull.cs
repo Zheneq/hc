@@ -148,7 +148,7 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 				}
 			}
 			Vector3 from = -1f * currentTargets[0].AimDirection;
-			Vector3 to = boardSquareSafe.ToVector3() - caster.GetTravelBoardSquareWorldPosition();
+			Vector3 to = boardSquareSafe.ToVector3() - caster.GetFreePos();
 			from.y = 0f;
 			to.y = 0f;
 			int num = Mathf.RoundToInt(Vector3.Angle(from, to));

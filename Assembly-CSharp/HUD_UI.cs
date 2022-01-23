@@ -252,7 +252,7 @@ public class HUD_UI : UIScene
 								{
 									return;
 								}
-								m_tauntPlayerBanner.m_playerName.text = actorData.GetDisplayNameForLog();
+								m_tauntPlayerBanner.m_playerName.text = actorData.GetDisplayName();
 								PlayerDetails playerDetails = GameFlow.Get().playerDetails[playerData.GetPlayer()];
 								if (playerDetails == null)
 								{

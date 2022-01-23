@@ -201,7 +201,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		{
 			if (boardSquareSafe != targetingActor.GetCurrentBoardSquare())
 			{
-				vector2 = boardSquareSafe.ToVector3() - targetingActor.GetTravelBoardSquareWorldPosition();
+				vector2 = boardSquareSafe.ToVector3() - targetingActor.GetFreePos();
 				vector2.y = 0f;
 				vector2.Normalize();
 				b = boardSquareSafe.ToVector3();
@@ -211,7 +211,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		float num = GetDistance();
 		if (m_clampToCursorPos)
 		{
-			float num2 = VectorUtils.HorizontalPlaneDistInSquares(targetingActor.GetTravelBoardSquareWorldPosition(), b);
+			float num2 = VectorUtils.HorizontalPlaneDistInSquares(targetingActor.GetFreePos(), b);
 			if (m_minRangeIfClampToCursor > 0f)
 			{
 				if (num2 < m_minRangeIfClampToCursor)
@@ -247,7 +247,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 				Vector3 vector3;
 				if (m_laserIgnoreCover)
 				{
-					vector3 = item.GetTravelBoardSquareWorldPosition();
+					vector3 = item.GetFreePos();
 				}
 				else
 				{
@@ -295,7 +295,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 						Vector3 vector6;
 						if (m_explosionIgnoreCover)
 						{
-							vector6 = current2.GetTravelBoardSquareWorldPosition();
+							vector6 = current2.GetFreePos();
 						}
 						else
 						{

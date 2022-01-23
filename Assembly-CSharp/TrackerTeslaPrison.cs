@@ -265,7 +265,7 @@ public class TrackerTeslaPrison : TrackerDrone
 			{
 				float num = m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.Get().squareSize;
 				float num2 = m_droneInfoComp.GetTargeterMaxRangeFromCaster(true) * Board.Get().squareSize;
-				Vector3 b = caster.GetTravelBoardSquareWorldPosition();
+				Vector3 b = caster.GetFreePos();
 				if (m_droneTracker.DroneIsActive())
 				{
 					BoardSquare boardSquare = Board.Get().GetSquareFromIndex(m_droneTracker.BoardX(), m_droneTracker.BoardY());

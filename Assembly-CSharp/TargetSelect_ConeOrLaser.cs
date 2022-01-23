@@ -62,7 +62,7 @@ public class TargetSelect_ConeOrLaser : GenericAbility_TargetSelectBase
 
 	public bool ShouldUseCone(Vector3 freePos, ActorData caster)
 	{
-		Vector3 vector = freePos - caster.GetTravelBoardSquareWorldPosition();
+		Vector3 vector = freePos - caster.GetFreePos();
 		vector.y = 0f;
 		float magnitude = vector.magnitude;
 		return magnitude <= GetConeDistThreshold();

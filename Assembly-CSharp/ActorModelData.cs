@@ -698,7 +698,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				}
 			}
 		}
-		bool flag = m_parentActorData.IsHiddenInBrush();
+		bool flag = m_parentActorData.IsInBrush();
 		BoardSquarePathInfo previousTravelBoardSquarePathInfo = m_parentActorData.GetActorMovement().GetPreviousTravelBoardSquarePathInfo();
 		int num;
 		if (previousTravelBoardSquarePathInfo != null)
@@ -1545,7 +1545,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			m_attemptedToCreateBaseCircle = true;
 		}
-		if (!m_parentActorData.IsModelAnimatorDisabled())
+		if (!m_parentActorData.IsInRagdoll())
 		{
 			UpdateFloorBone();
 		}
@@ -2255,7 +2255,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		else
 		{
-			flag = (!m_forceHideRenderers && m_parentActorData.IsVisibleToClient() && m_cameraTransparency > 0f);
+			flag = (!m_forceHideRenderers && m_parentActorData.IsActorVisibleToClient() && m_cameraTransparency > 0f);
 		}
 		if (m_visibleToClient == flag)
 		{
@@ -2415,7 +2415,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			SetMaterialFloat(s_materialPropertyIDStealthBroken, m_stealthBrokenParameter);
 			int propertyID = s_materialPropertyIDVisibleToClient;
 			float value;
-			if (m_parentActorData.IsVisibleToClient())
+			if (m_parentActorData.IsActorVisibleToClient())
 			{
 				value = 1f;
 			}
@@ -2517,7 +2517,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (!flag3)
 			{
-				if (!m_parentActorData.IsHiddenInBrush())
+				if (!m_parentActorData.IsInBrush())
 				{
 					goto IL_05ac;
 				}
@@ -2546,9 +2546,9 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			num4 = 0;
 		}
 		num2 = num4;
-		int travelBoardSquareBrushRegion = m_parentActorData.GetTravelBoardSquareBrushRegion();
+		int travelBoardSquareBrushRegion = m_parentActorData.GetBrushRegion();
 		bool flag5 = travelBoardSquareBrushRegion >= 0;
-		bool flag6 = BrushCoordinator.Get() != null && m_parentActorData.IsHiddenInBrush();
+		bool flag6 = BrushCoordinator.Get() != null && m_parentActorData.IsInBrush();
 		int num5;
 		if (flag5 && BrushCoordinator.Get() != null)
 		{
@@ -2635,7 +2635,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		int result;
 		if (m_stealthShaderEnabled)
 		{
-			if (!m_parentActorData.IsHiddenInBrush() && m_stealthFadeParameter.GetEndValue() == 1f)
+			if (!m_parentActorData.IsInBrush() && m_stealthFadeParameter.GetEndValue() == 1f)
 			{
 				if (!Mathf.Approximately(m_stealthFadeParameter, 1f))
 				{
@@ -2658,7 +2658,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		bool flag = false;
 		bool flag2 = m_parentActorData.IsDead();
-		bool flag3 = m_parentActorData.IsVisibleToClient();
+		bool flag3 = m_parentActorData.IsActorVisibleToClient();
 		bool updatingInConfirm = false;
 		if (flag3)
 		{
@@ -2965,7 +2965,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					{
 						if (TheatricsManager.RagdollOnlyApplyForceAtSingleJoint() && m_cachedRigidbodyForRagdollImpulse != null)
 						{
-							Vector3 a = m_parentActorData.GetHipJointRigidBodyPosition() - impulseInfo.ExplosionCenter;
+							Vector3 a = m_parentActorData.GetHipJointPos() - impulseInfo.ExplosionCenter;
 							a.y = Mathf.Max(0.75f, a.y);
 							float magnitude = a.magnitude;
 							if (magnitude > 0.1f)

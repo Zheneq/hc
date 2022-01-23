@@ -119,7 +119,7 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		IL_038e:
 		List<ActorData> actors = AreaEffectUtils.GetActorsInRadiusOfLine(vector, vector2, m_radiusAroundStart, m_radiusAroundEnd, m_rangeFromLine, m_penetrateLoS, targetingActor, null, null);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
-		TargeterUtils.SortActorsByDistanceToPos(ref actors, targetingActor.GetTravelBoardSquareWorldPosition());
+		TargeterUtils.SortActorsByDistanceToPos(ref actors, targetingActor.GetFreePos());
 		foreach (ActorData item4 in actors)
 		{
 			if (GetAffectsTarget(item4, targetingActor))
@@ -127,7 +127,7 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 				Vector3 damageOrigin = vector;
 				if (UseEndPosAsDamageOriginIfOverlap)
 				{
-					Vector3 travelBoardSquareWorldPosition = item4.GetTravelBoardSquareWorldPosition();
+					Vector3 travelBoardSquareWorldPosition = item4.GetFreePos();
 					travelBoardSquareWorldPosition.y = vector2.y;
 					if ((travelBoardSquareWorldPosition - vector2).sqrMagnitude <= Mathf.Epsilon)
 					{
@@ -137,7 +137,7 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 				AddActorInRange(item4, damageOrigin, targetingActor);
 				if (m_radiusAroundStart > 0f)
 				{
-					float num = VectorUtils.HorizontalPlaneDistInSquares(vector, item4.GetTravelBoardSquareWorldPosition());
+					float num = VectorUtils.HorizontalPlaneDistInSquares(vector, item4.GetFreePos());
 					if (num <= m_radiusAroundStart * Board.Get().squareSize)
 					{
 						AddActorInRange(item4, damageOrigin, targetingActor, AbilityTooltipSubject.Near, true);
@@ -145,7 +145,7 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 				}
 				if (m_radiusAroundEnd > 0f)
 				{
-					float num2 = VectorUtils.HorizontalPlaneDistInSquares(vector2, item4.GetTravelBoardSquareWorldPosition());
+					float num2 = VectorUtils.HorizontalPlaneDistInSquares(vector2, item4.GetFreePos());
 					if (num2 <= m_radiusAroundEnd * Board.Get().squareSize)
 					{
 						AddActorInRange(item4, damageOrigin, targetingActor, AbilityTooltipSubject.Far, true);

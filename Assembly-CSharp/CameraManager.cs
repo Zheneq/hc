@@ -1208,11 +1208,11 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 					ShotSequence.Begin(animatedActor, altCamShotIndex);
 					result = true;
 					HUD_UI.Get().SetHUDVisibility(false, false);
-					if (animatedActor.GetIsHumanControlled())
+					if (animatedActor.IsHumanControlled())
 					{
 						HUD_UI.Get().SetupTauntBanner(animatedActor);
 					}
-					HUD_UI.Get().SetTauntBannerVisibility(animatedActor.GetIsHumanControlled());
+					HUD_UI.Get().SetTauntBannerVisibility(animatedActor.IsHumanControlled());
 				}
 			}
 		}

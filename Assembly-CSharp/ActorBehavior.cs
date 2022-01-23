@@ -783,7 +783,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 			m_clientEffectSourceActors.Add(caster.ActorIndex);
 			if (DebugTraceClientContribution)
 			{
-				Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.GetColoredDebugName("white") + " recording EFFECT from " + caster.GetColoredDebugName("yellow"));
+				Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.DebugNameString("white") + " recording EFFECT from " + caster.DebugNameString("yellow"));
 			}
 		}
 	}
@@ -798,7 +798,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 			m_clientDamageSourceActors.Add(caster.ActorIndex);
 			if (DebugTraceClientContribution)
 			{
-				Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.GetColoredDebugName("white") + " recording DAMAGE from " + caster.GetColoredDebugName("yellow"));
+				Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.DebugNameString("white") + " recording DAMAGE from " + caster.DebugNameString("yellow"));
 			}
 		}
 	}
@@ -813,7 +813,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 			m_clientHealSourceActors.Add(caster.ActorIndex);
 			if (DebugTraceClientContribution)
 			{
-				Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.GetColoredDebugName("white") + " recording HEALING from " + caster.GetColoredDebugName("yellow"));
+				Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.DebugNameString("white") + " recording HEALING from " + caster.DebugNameString("yellow"));
 			}
 		}
 	}

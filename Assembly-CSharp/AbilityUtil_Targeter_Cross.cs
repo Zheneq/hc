@@ -61,7 +61,7 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 			m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(widthInWorld, crossLength));
 		}
 		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 		Vector3 vector = travelBoardSquareWorldPosition + new Vector3(0f, 0.1f, 0f);
 		Vector3 vector2 = currentTarget.AimDirection;
 		if (m_lockToCardinalDirs)

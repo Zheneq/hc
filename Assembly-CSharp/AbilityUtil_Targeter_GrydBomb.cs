@@ -49,7 +49,7 @@ public class AbilityUtil_Targeter_GrydBomb : AbilityUtil_Targeter_Shape
 					m_highlights[0].transform.position = position;
 					m_highlights[0].transform.rotation = Quaternion.LookRotation(vector);
 					Vector3 laserEndPos;
-					List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(worldPositionForLoS, vector, m_bombMoveRange, 0.75f, targetingActor, targetingActor.GetEnemyTeams(), false, 1, false, false, out laserEndPos, null);
+					List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(worldPositionForLoS, vector, m_bombMoveRange, 0.75f, targetingActor, targetingActor.GetEnemyTeamAsList(), false, 1, false, false, out laserEndPos, null);
 					AddActorsInRange(actorsInLaser, worldPositionForLoS, targetingActor);
 					return;
 				}

@@ -39,7 +39,7 @@ public class NPCBrain_Tutorial : NPCBrain
 	public bool IsPlayerInLoS()
 	{
 		ActorData component = GetComponent<ActorData>();
-		bool flag = component.IsVisibleToEnemyTeam();
+		bool flag = component.IsActorVisibleToAnyEnemy();
 		ActorData localPlayer = SinglePlayerManager.Get().GetLocalPlayer();
 		if (localPlayer == null)
 		{
@@ -50,7 +50,7 @@ public class NPCBrain_Tutorial : NPCBrain
 		}
 		ActorStatus component2 = localPlayer.GetComponent<ActorStatus>();
 		int num;
-		if (localPlayer.IsHiddenInBrush())
+		if (localPlayer.IsInBrush())
 		{
 			if (!component2.HasStatus(StatusType.CantHideInBrush))
 			{

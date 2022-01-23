@@ -31,8 +31,8 @@ public class AbilityUtil_Targeter_Line : AbilityUtil_Targeter
 		m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, true));
 		goto IL_00b9;
 		IL_00b9:
-		float magnitude = (laserEndPoint - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude;
-		Vector3 position = targetingActor.GetTravelBoardSquareWorldPosition() + new Vector3(0f, 0.1f, 0f);
+		float magnitude = (laserEndPoint - targetingActor.GetFreePos()).magnitude;
+		Vector3 position = targetingActor.GetFreePos() + new Vector3(0f, 0.1f, 0f);
 		using (List<GameObject>.Enumerator enumerator = m_highlights.GetEnumerator())
 		{
 			while (enumerator.MoveNext())

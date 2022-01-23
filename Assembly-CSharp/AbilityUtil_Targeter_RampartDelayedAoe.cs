@@ -59,7 +59,7 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 				default:
 				{
 					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shapeFullEnergy, currentTarget.FreePos, targetSquare);
-					Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+					Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 					centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
 					return centerOfShape;
 				}

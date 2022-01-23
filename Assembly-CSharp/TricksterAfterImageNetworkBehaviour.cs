@@ -183,7 +183,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 
 	public Vector3 CalcTargetingFreePosCenter(ActorData caster, List<ActorData> allTargetingActors, bool useSquareAtResolveStart)
 	{
-		Vector3 result = caster.GetTravelBoardSquareWorldPosition();
+		Vector3 result = caster.GetFreePos();
 		if (m_targeterFreePosUseAvgPos)
 		{
 			Vector3 zero = Vector3.zero;
@@ -192,7 +192,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				while (enumerator.MoveNext())
 				{
 					ActorData current = enumerator.Current;
-					zero += current.GetTravelBoardSquareWorldPosition();
+					zero += current.GetFreePos();
 				}
 			}
 			zero /= (float)allTargetingActors.Count;

@@ -142,7 +142,7 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 	public override void AddTargetedActor(ActorData actor, Vector3 damageOrigin, ActorData targetingActor, AbilityTooltipSubject subjectType = AbilityTooltipSubject.Primary)
 	{
 		base.AddTargetedActor(actor, damageOrigin, targetingActor, subjectType);
-		Vector3 vector = damageOrigin - actor.GetTravelBoardSquareWorldPosition();
+		Vector3 vector = damageOrigin - actor.GetFreePos();
 		vector.y = 0f;
 		float num = (GetInnerConeRadius() + GameWideData.Get().m_actorTargetingRadiusInSquares) * Board.Get().squareSize;
 		if (!(num < vector.magnitude))

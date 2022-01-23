@@ -90,11 +90,11 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 					Vector3 travelBoardSquareWorldPosition;
 					if (m_damageOriginType == DamageOriginType.CasterPos)
 					{
-						travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+						travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 					}
 					else
 					{
-						travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
+						travelBoardSquareWorldPosition = actorData.GetFreePos();
 					}
 					Vector3 damageOrigin = travelBoardSquareWorldPosition;
 					AddActorInRange(actorData, damageOrigin, targetingActor);

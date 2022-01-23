@@ -56,7 +56,7 @@ public class AbilityUtil_Targeter_KnockbackRingAoE : AbilityUtil_Targeter_Shape
 					{
 						if (Board.Get().AreAdjacent(current.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
 						{
-							Vector3 aimDir = targetingActor.GetTravelBoardSquareWorldPosition() - current.GetTravelBoardSquareWorldPosition();
+							Vector3 aimDir = targetingActor.GetFreePos() - current.GetFreePos();
 							aimDir.y = 0f;
 							float distance = 2f;
 							if (Board.Get().AreDiagonallyAdjacent(current.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))

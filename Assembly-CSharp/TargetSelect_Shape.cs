@@ -324,6 +324,6 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				}
 			}
 		}
-		return caster.GetTravelBoardSquareWorldPosition();
+		return caster.GetFreePos();
 	}
 }

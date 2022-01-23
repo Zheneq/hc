@@ -98,11 +98,11 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 						Vector3 travelBoardSquareWorldPosition;
 						if (m_directHitIgnoreCover)
 						{
-							travelBoardSquareWorldPosition = firstHitActor.GetTravelBoardSquareWorldPosition();
+							travelBoardSquareWorldPosition = firstHitActor.GetFreePos();
 						}
 						else
 						{
-							travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+							travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 						}
 						Vector3 damageOrigin2 = travelBoardSquareWorldPosition;
 						AddActorInRange(firstHitActor, damageOrigin2, targetingActor);
@@ -133,7 +133,7 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 					{
 						if (m_affectCasterDelegate(targetingActor, GetVisibleActorsInRange()))
 						{
-							AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
+							AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Self);
 						}
 					}
 					gameObject2.SetActive(active);
@@ -160,7 +160,7 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 							while (enumerator2.MoveNext())
 							{
 								ActorData current2 = enumerator2.Current;
-								Vector3 aimDir2 = current2.GetTravelBoardSquareWorldPosition() - vector;
+								Vector3 aimDir2 = current2.GetFreePos() - vector;
 								aimDir.y = 0f;
 								if (aimDir.sqrMagnitude > 0f)
 								{

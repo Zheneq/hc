@@ -61,7 +61,7 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 						case 0:
 							break;
 						default:
-							AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, m_allyOccupantSubject);
+							AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, m_allyOccupantSubject);
 							m_lastCenterActor = occupantActor;
 							return;
 						}
@@ -79,7 +79,7 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 						case 0:
 							break;
 						default:
-							AddActorInRange(occupantActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, m_allyOccupantSubject);
+							AddActorInRange(occupantActor, targetingActor.GetFreePos(), targetingActor, m_allyOccupantSubject);
 							m_lastCenterActor = occupantActor;
 							return;
 						}
@@ -90,7 +90,7 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 			{
 				while (true)
 				{
-					AddActorInRange(occupantActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, m_enemyOccupantSubject);
+					AddActorInRange(occupantActor, targetingActor.GetFreePos(), targetingActor, m_enemyOccupantSubject);
 					m_lastCenterActor = occupantActor;
 					return;
 				}

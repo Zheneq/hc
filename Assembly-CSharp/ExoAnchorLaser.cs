@@ -454,11 +454,11 @@ public class ExoAnchorLaser : Ability
 		int totalDamage;
 		if (m_syncComponent != null && m_syncComponent.m_anchored)
 		{
-			totalDamage = GetTotalDamage(actorData.GetTravelBoardSquareWorldPosition(), targetActor.GetTravelBoardSquareWorldPosition(), GetSweepDamageAmount(), true);
+			totalDamage = GetTotalDamage(actorData.GetFreePos(), targetActor.GetFreePos(), GetSweepDamageAmount(), true);
 		}
 		else
 		{
-			totalDamage = GetTotalDamage(actorData.GetTravelBoardSquareWorldPosition(), targetActor.GetTravelBoardSquareWorldPosition(), GetLaserDamageAmount(), false);
+			totalDamage = GetTotalDamage(actorData.GetFreePos(), targetActor.GetFreePos(), GetLaserDamageAmount(), false);
 		}
 		Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, totalDamage);
 		return symbolToValue;

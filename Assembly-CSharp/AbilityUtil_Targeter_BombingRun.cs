@@ -57,7 +57,7 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 				{
 					Vector3 freePos = boardSquarePathInfo2.square.ToVector3();
 					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_explosionShape, freePos, boardSquarePathInfo2.square);
-					List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_explosionShape, freePos, boardSquarePathInfo2.square, false, targetingActor, targetingActor.GetEnemyTeams(), null);
+					List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_explosionShape, freePos, boardSquarePathInfo2.square, false, targetingActor, targetingActor.GetEnemyTeamAsList(), null);
 					TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 					using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 					{
@@ -93,7 +93,7 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 				}
 			}
 		}
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 		BoardSquare currentBoardSquare = targetingActor.GetCurrentBoardSquare();
 		Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(m_explosionShape, travelBoardSquareWorldPosition, currentBoardSquare);
 		List<ActorData> actors2 = AreaEffectUtils.GetActorsInShape(m_explosionShape, travelBoardSquareWorldPosition, currentBoardSquare, false, targetingActor, targetingActor.GetEnemyTeam(), null);
@@ -154,7 +154,7 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 		IL_00cf:
 		if (currentTargetIndex == 0)
 		{
-			Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+			Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 			BoardSquare currentBoardSquare = targetingActor.GetCurrentBoardSquare();
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_explosionShape, travelBoardSquareWorldPosition, currentBoardSquare);
 			List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_explosionShape, travelBoardSquareWorldPosition, currentBoardSquare, false, targetingActor, targetingActor.GetEnemyTeam(), null);

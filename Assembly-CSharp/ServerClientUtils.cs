@@ -296,7 +296,7 @@ public static class ServerClientUtils
 					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(m_targetActorIndices[i]);
 					if (actorData != null)
 					{
-						text = text + " | " + actorData.GetDebugName();
+						text = text + " | " + actorData.DebugNameString();
 					}
 					else
 					{

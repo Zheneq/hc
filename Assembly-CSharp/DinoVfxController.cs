@@ -76,9 +76,9 @@ public class DinoVfxController : CopyableVfxControllerComponent
 		bool flag = true;
 		if (owner != null)
 		{
-			flag = (owner.IsVisibleToClient() && (owner.GetActorModelData() == null || owner.GetActorModelData().IsVisibleToClient()));
+			flag = (owner.IsActorVisibleToClient() && (owner.GetActorModelData() == null || owner.GetActorModelData().IsVisibleToClient()));
 		}
-		bool flag2 = owner != null && owner.IsModelAnimatorDisabled();
+		bool flag2 = owner != null && owner.IsInRagdoll();
 		int num = 0;
 		if (m_syncComp != null)
 		{

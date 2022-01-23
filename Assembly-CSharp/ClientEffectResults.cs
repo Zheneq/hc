@@ -150,7 +150,7 @@ public class ClientEffectResults
 		}
 		else
 		{
-			Debug.LogError("ClientEffectResults error-- Sequence hitting actor " + target.GetDebugName() + ", but that actor isn't in our hit results.");
+			Debug.LogError("ClientEffectResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results.");
 		}
 	}
 
@@ -314,7 +314,7 @@ public class ClientEffectResults
 
 	public string GetDebugDescription()
 	{
-		return m_effectCaster.GetDebugName() + "'s effect, guid = " + m_effectGUID;
+		return m_effectCaster.DebugNameString() + "'s effect, guid = " + m_effectGUID;
 	}
 
 	internal string UnexecutedHitsDebugStr()

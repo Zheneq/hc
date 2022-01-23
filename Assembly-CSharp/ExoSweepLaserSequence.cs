@@ -228,7 +228,7 @@ public class ExoSweepLaserSequence : Sequence
 						while (true)
 						{
 							Animator modelAnimator = base.Caster.GetModelAnimator();
-							modelAnimator.SetFloat(animTimeToRotationGoal, base.Caster.GetRotationTimeRemaining());
+							modelAnimator.SetFloat(animTimeToRotationGoal, base.Caster.GetTurnToPositionTimeRemaining());
 							return;
 						}
 					}

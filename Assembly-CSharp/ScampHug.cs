@@ -248,7 +248,7 @@ public class ScampHug : Ability
 					laserEndPoint = travelBoardSquareWorldPositionForLos + d * currentTarget.AimDirection;
 					float magnitude = (laserEndPoint - travelBoardSquareWorldPositionForLos).magnitude;
 					Vector3 laserEndPos;
-					List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, knockbackWidth, caster, caster.GetEnemyTeams(), true, 1, true, includeInvisibles, out laserEndPos, null);
+					List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, knockbackWidth, caster, caster.GetEnemyTeamAsList(), true, 1, true, includeInvisibles, out laserEndPos, null);
 					if (actorsInLaser.Count > 0)
 					{
 						firstHitActor = actorsInLaser[0];

@@ -212,7 +212,7 @@ public static class GameplayUtils
 		bool result = false;
 		if (actor != null)
 		{
-			result = actor.GetIsHumanControlled();
+			result = actor.IsHumanControlled();
 		}
 		return result;
 	}
@@ -439,7 +439,7 @@ public static class GameplayUtils
 		MatchResultsStatline matchResultsStatline = new MatchResultsStatline();
 		matchResultsStatline.Actor = actorData;
 		matchResultsStatline.PlayerId = lobbyPlayerInfoId;
-		matchResultsStatline.DisplayName = actorData.GetDisplayNameForLog();
+		matchResultsStatline.DisplayName = actorData.GetDisplayName();
 		matchResultsStatline.Character = actorData.m_characterType;
 		matchResultsStatline.IsPerspective = (lobbyPlayerInfoId == perspectivePlayerId);
 		matchResultsStatline.IsAlly = (perspectiveTeam == actorData.GetTeam());
@@ -464,7 +464,7 @@ public static class GameplayUtils
 			humanReplacedByBot = 0;
 		}
 		matchResultsStatline.HumanReplacedByBot = ((byte)humanReplacedByBot != 0);
-		matchResultsStatline.AccountID = actorData.GetAccountId();
+		matchResultsStatline.AccountID = actorData.GetOriginalAccountId();
 		int titleID;
 		if (lobbyPlayerInfo != null)
 		{

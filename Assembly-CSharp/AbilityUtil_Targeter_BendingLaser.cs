@@ -258,7 +258,7 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 		bool flag3 = (byte)num9 != 0;
 		if (flag3)
 		{
-			Vector3 travelBoardSquareWorldPosition = actors[actors.Count - 1].GetTravelBoardSquareWorldPosition();
+			Vector3 travelBoardSquareWorldPosition = actors[actors.Count - 1].GetFreePos();
 			travelBoardSquareWorldPosition.y = laserCoords.start.y;
 			num7 = (travelBoardSquareWorldPosition - laserCoords.start).magnitude;
 			if (m_startFadeAtActorRadius)

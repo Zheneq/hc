@@ -306,7 +306,7 @@ public class SoldierDashAndOverwatch : Ability
 		}
 		if (GetExtraDamageForNearTargets() > 0 && GetNearDistThreshold() > 0f)
 		{
-			Vector3 vector = boardSquareSafe.ToVector3() - targetActor.GetTravelBoardSquareWorldPosition();
+			Vector3 vector = boardSquareSafe.ToVector3() - targetActor.GetFreePos();
 			vector.y = 0f;
 			if (vector.magnitude <= GetNearDistThreshold() * Board.Get().squareSize)
 			{

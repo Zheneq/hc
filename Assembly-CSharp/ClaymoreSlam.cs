@@ -456,7 +456,7 @@ public class ClaymoreSlam : Ability
 			int value = 0;
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				if (targetActor.GetHitPointShareOfMax() < GetLowHealthThreshold())
+				if (targetActor.GetHitPointPercent() < GetLowHealthThreshold())
 				{
 					value = GetExtraDamageOnLowHealthTarget();
 				}

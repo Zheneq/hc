@@ -361,7 +361,7 @@ public class ClaymoreAoeBuffDebuff : Ability
 					if (GetEnemyEnergyLoss() > 0)
 					{
 						int value;
-						if (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeams()))
+						if (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeamAsList()))
 						{
 							value = -1 * GetEnemyEnergyLoss();
 						}
@@ -377,7 +377,7 @@ public class ClaymoreAoeBuffDebuff : Ability
 				{
 					if (GetAllyEnergyGain() > 0)
 					{
-						dictionary[AbilityTooltipSymbol.Energy] = (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeams()) ? GetAllyEnergyGain() : 0);
+						dictionary[AbilityTooltipSymbol.Energy] = (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeamAsList()) ? GetAllyEnergyGain() : 0);
 					}
 				}
 			}

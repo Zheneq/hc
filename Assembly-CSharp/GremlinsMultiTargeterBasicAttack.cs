@@ -297,7 +297,7 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 			{
 				if (UseShapeForDeadzone())
 				{
-					if (AreaEffectUtils.IsSquareInShape(boardSquareSafe, GetDeadzoneShape(), caster.GetTravelBoardSquareWorldPosition(), caster.GetCurrentBoardSquare(), true, caster))
+					if (AreaEffectUtils.IsSquareInShape(boardSquareSafe, GetDeadzoneShape(), caster.GetFreePos(), caster.GetCurrentBoardSquare(), true, caster))
 					{
 						while (true)
 						{
@@ -322,8 +322,8 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 						default:
 						{
 							bool flag = true;
-							Vector3 from = Board.Get().GetSquare(currentTargets[0].GridPos).ToVector3() - caster.GetTravelBoardSquareWorldPosition();
-							Vector3 to = boardSquareSafe.ToVector3() - caster.GetTravelBoardSquareWorldPosition();
+							Vector3 from = Board.Get().GetSquare(currentTargets[0].GridPos).ToVector3() - caster.GetFreePos();
+							Vector3 to = boardSquareSafe.ToVector3() - caster.GetFreePos();
 							if (Mathf.RoundToInt(Vector3.Angle(from, to)) > (int)ModdedMaxAngleWithFirst())
 							{
 								flag = false;

@@ -166,8 +166,8 @@ public static class TargeterUtils
 					}
 				}
 			}
-			float sqrMagnitude = (x.GetTravelBoardSquareWorldPosition() - pos).sqrMagnitude;
-			float sqrMagnitude2 = (y.GetTravelBoardSquareWorldPosition() - pos).sqrMagnitude;
+			float sqrMagnitude = (x.GetFreePos() - pos).sqrMagnitude;
+			float sqrMagnitude2 = (y.GetFreePos() - pos).sqrMagnitude;
 			if (sqrMagnitude == sqrMagnitude2)
 			{
 				GridPos gridPosWithIncrementedHeight = x.GetGridPos();
@@ -237,8 +237,8 @@ public static class TargeterUtils
 					}
 				}
 			}
-			Vector3 to = x.GetTravelBoardSquareWorldPosition() - pos;
-			Vector3 to2 = y.GetTravelBoardSquareWorldPosition() - pos;
+			Vector3 to = x.GetFreePos() - pos;
+			Vector3 to2 = y.GetFreePos() - pos;
 			float sqrMagnitude = to.sqrMagnitude;
 			float sqrMagnitude2 = to2.sqrMagnitude;
 			if (sqrMagnitude == sqrMagnitude2)
@@ -312,9 +312,9 @@ public static class TargeterUtils
 
 	public static float GetSignedDistanceAlongLaser(ActorData actor, Vector3 laserStart, Vector3 laserDir)
 	{
-		Vector3 travelBoardSquareWorldPosition = actor.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = actor.GetFreePos();
 		float x = travelBoardSquareWorldPosition.x - laserStart.x;
-		Vector3 travelBoardSquareWorldPosition2 = actor.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition2 = actor.GetFreePos();
 		Vector3 lhs = new Vector3(x, 0f, travelBoardSquareWorldPosition2.z - laserStart.z);
 		return Vector3.Dot(lhs, laserDir);
 	}
@@ -323,7 +323,7 @@ public static class TargeterUtils
 	{
 		for (int num = actors.Count - 1; num >= 0; num--)
 		{
-			if (!actors[num].IsVisibleToClient())
+			if (!actors[num].IsActorVisibleToClient())
 			{
 				actors.RemoveAt(num);
 			}

@@ -99,7 +99,7 @@ public class AbilityCommon_FanLaser
 			{
 				if (stopEndPosOnHitActor)
 				{
-					targetPosForSequences.Add(actorsForSequence[i][count - 1].GetTravelBoardSquareWorldPosition());
+					targetPosForSequences.Add(actorsForSequence[i][count - 1].GetFreePos());
 					continue;
 				}
 			}
@@ -112,7 +112,7 @@ public class AbilityCommon_FanLaser
 	{
 		minAngle = Mathf.Max(minAngle, 0f);
 		maxAngle = Mathf.Max(maxAngle, 1f);
-		float value = (currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude / Board.Get().squareSize;
+		float value = (currentTarget.FreePos - targetingActor.GetFreePos()).magnitude / Board.Get().squareSize;
 		float num = Mathf.Clamp(value, minInterpDist, maxInterpDist) - minInterpDist;
 		if (interpStep > 0f)
 		{

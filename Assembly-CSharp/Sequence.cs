@@ -1132,7 +1132,7 @@ public abstract class Sequence : MonoBehaviour
 		int result;
 		if (actor != null)
 		{
-			if (actor.IsVisibleToClient())
+			if (actor.IsActorVisibleToClient())
 			{
 				if (!(actor.GetActorModelData() == null))
 				{
@@ -1806,7 +1806,7 @@ public abstract class Sequence : MonoBehaviour
 
 	public bool ShouldHideForActorIfAttached(ActorData actor)
 	{
-		return actor != null && actor.IsModelAnimatorDisabled();
+		return actor != null && actor.IsInRagdoll();
 	}
 
 	protected void InitializeFXStorage()

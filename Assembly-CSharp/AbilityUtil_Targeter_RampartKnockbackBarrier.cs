@@ -55,7 +55,7 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 	{
 		ClearActorsInRange();
 		Vector3 vector = currentTarget.FreePos;
-		Vector3 vector2 = vector - targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 vector2 = vector - targetingActor.GetFreePos();
 		bool active = false;
 		Vector3 vector3 = vector;
 		BoardSquare boardSquare = null;
@@ -157,7 +157,7 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		SetMovementArrowEnabledFromIndex(num5, false);
 		if (m_affectsTargetingActor)
 		{
-			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
+			AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Self);
 		}
 		if (m_snapToBorder)
 		{

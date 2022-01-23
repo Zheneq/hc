@@ -209,7 +209,7 @@ public class SniperPenetratingRound : Ability
 				{
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					int num;
-					if (targetActor.GetHitPointShareOfMax() < GetLowHealthThreshold())
+					if (targetActor.GetHitPointPercent() < GetLowHealthThreshold())
 					{
 						num = GetAdditionalDamageOnLowHealthTarget();
 					}

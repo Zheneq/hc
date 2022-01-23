@@ -44,7 +44,7 @@ public class UIActorDebugLabel : MonoBehaviour
 		m_label.text = text;
 		Canvas componentInParent = GetComponentInParent<Canvas>();
 		RectTransform rectTransform = componentInParent.transform as RectTransform;
-		Vector3 nameplatePosition = m_actorData.GetNameplatePosition(-10f);
+		Vector3 nameplatePosition = m_actorData.GetOverheadPosition(-10f);
 		Vector2 vector = Camera.main.WorldToViewportPoint(nameplatePosition);
 		float x = vector.x;
 		Vector2 sizeDelta = rectTransform.sizeDelta;

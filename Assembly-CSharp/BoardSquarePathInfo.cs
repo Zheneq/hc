@@ -633,7 +633,7 @@ public class BoardSquarePathInfo : IComparable
 			text3 = "INVALID DEATH-MOVEMENT: " + text3;
 		}
 		string str = "Invalid BoardSquarePathInfo for gameplay!  Path has:\n\t" + text2 + "\n\t" + text + "\n\t" + text3;
-		str = str + "\nMover: " + mover.GetDebugName();
+		str = str + "\nMover: " + mover.DebugNameString();
 		Debug.LogError(str);
 	}
 

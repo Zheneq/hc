@@ -131,8 +131,8 @@ public class ActorVFX : NetworkBehaviour
 			}
 		}
 		bool flag = actorData.IsDead();
-		bool flag2 = actorData.IsModelAnimatorDisabled();
-		bool flag3 = actorData.IsVisibleToClient();
+		bool flag2 = actorData.IsInRagdoll();
+		bool flag3 = actorData.IsActorVisibleToClient();
 		bool flag4;
 		if (actorData.GetActorMovement() != null)
 		{
@@ -212,14 +212,14 @@ public class ActorVFX : NetworkBehaviour
 		IL_2CC:
 		if (this.m_concealedVFX != null)
 		{
-			if (actorData.IsHiddenInBrush())
+			if (actorData.IsInBrush())
 			{
 				if (!this.CanBeSeenInBrush() && flag3)
 				{
 					if (!flag)
 					{
 						this.m_concealedVFX.SetActive(true);
-						this.m_concealedVFX.transform.position = actorData.GetNameplatePosition(0f);
+						this.m_concealedVFX.transform.position = actorData.GetOverheadPosition(0f);
 						goto IL_3A7;
 					}
 				}
@@ -231,7 +231,7 @@ public class ActorVFX : NetworkBehaviour
 					if (!flag)
 					{
 						this.m_concealedVFX.SetActive(true);
-						this.m_concealedVFX.transform.position = actorData.GetNameplatePosition(0f);
+						this.m_concealedVFX.transform.position = actorData.GetOverheadPosition(0f);
 						goto IL_3A7;
 					}
 				}
@@ -503,9 +503,9 @@ public class ActorVFX : NetworkBehaviour
 			{
 				ActorData actorData = this.m_actorData;
 				bool flag;
-				if (actorData.IsHidden(localPlayerData, false, false))
+				if (actorData.IsNeverVisibleTo(localPlayerData, false, false))
 				{
-					flag = !actorData.IsRevealed(localPlayerData, false);
+					flag = !actorData.IsAlwaysVisibleTo(localPlayerData, false);
 				}
 				else
 				{
@@ -557,9 +557,9 @@ public class ActorVFX : NetworkBehaviour
 	{
 		ActorData actorData = this.m_actorData;
 		bool flag;
-		if (actorData.IsHiddenInBrush())
+		if (actorData.IsInBrush())
 		{
-			flag = !BrushCoordinator.Get().IsRegionFunctioning(actorData.GetTravelBoardSquareBrushRegion());
+			flag = !BrushCoordinator.Get().IsRegionFunctioning(actorData.GetBrushRegion());
 		}
 		else
 		{
@@ -578,7 +578,7 @@ public class ActorVFX : NetworkBehaviour
 		}
 		bool flag4 = flag3;
 		bool flag5 = CaptureTheFlag.IsActorRevealedByFlag_Client(actorData);
-		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(actorData.GetTravelBoardSquareWorldPosition(), GameplayData.Get().m_distanceCanSeeIntoBrush, true, null, actorData.GetEnemyTeam(), null, false, default(Vector3));
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(actorData.GetFreePos(), GameplayData.Get().m_distanceCanSeeIntoBrush, true, null, actorData.GetEnemyTeam(), null, false, default(Vector3));
 		bool flag6;
 		if (actorsInRadius.Count > 0)
 		{
@@ -589,7 +589,7 @@ public class ActorVFX : NetworkBehaviour
 			flag6 = false;
 		}
 		bool flag7 = false;
-		List<ActorData> actorsInBrushRegion = BrushCoordinator.Get().GetActorsInBrushRegion(actorData.GetTravelBoardSquareBrushRegion());
+		List<ActorData> actorsInBrushRegion = BrushCoordinator.Get().GetActorsInBrushRegion(actorData.GetBrushRegion());
 		if (actorsInBrushRegion != null)
 		{
 			foreach (ActorData actorData2 in actorsInBrushRegion)
@@ -636,7 +636,7 @@ public class ActorVFX : NetworkBehaviour
 				{
 					if (caster.GetCurrentBoardSquare() != null)
 					{
-						vector = caster.GetTravelBoardSquareWorldPosition() - actorPos;
+						vector = caster.GetFreePos() - actorPos;
 						vector.y = 0f;
 						vector.Normalize();
 					}
@@ -646,7 +646,7 @@ public class ActorVFX : NetworkBehaviour
 					vector = Vector3.forward;
 				}
 			}
-			container.ShowVfx(this.m_actorData.IsVisibleToClient(), vector);
+			container.ShowVfx(this.m_actorData.IsActorVisibleToClient(), vector);
 		}
 	}
 
@@ -654,7 +654,7 @@ public class ActorVFX : NetworkBehaviour
 	{
 		if (this.m_onDeathVfxContainer != null)
 		{
-			this.m_onDeathVfxContainer.ShowVfxAtPosition(actorPos, this.m_actorData.IsVisibleToClient(), Vector3.zero);
+			this.m_onDeathVfxContainer.ShowVfxAtPosition(actorPos, this.m_actorData.IsActorVisibleToClient(), Vector3.zero);
 		}
 	}
 
@@ -662,7 +662,7 @@ public class ActorVFX : NetworkBehaviour
 	{
 		if (this.m_onRespawnVFXContainer != null)
 		{
-			this.m_onRespawnVFXContainer.ShowVfxAtPosition(this.m_actorData.GetTravelBoardSquareWorldPosition(), true, Vector3.zero);
+			this.m_onRespawnVFXContainer.ShowVfxAtPosition(this.m_actorData.GetFreePos(), true, Vector3.zero);
 			PlayerData playerData;
 			if (GameFlowData.Get() != null)
 			{

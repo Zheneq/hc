@@ -358,7 +358,7 @@ public class SenseiBasicAttack : Ability
 		{
 			if (GetExtraDamageForFarTarget() > 0)
 			{
-				Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
+				Vector3 vector = targetActor.GetFreePos() - caster.GetFreePos();
 				vector.y = 0f;
 				float magnitude = vector.magnitude;
 				if (magnitude >= num2 * Board.Get().squareSize)
@@ -460,7 +460,7 @@ public class SenseiBasicAttack : Ability
 
 	private bool ShouldUseCircle(Vector3 freePos, ActorData caster)
 	{
-		Vector3 vector = freePos - caster.GetTravelBoardSquareWorldPosition();
+		Vector3 vector = freePos - caster.GetFreePos();
 		vector.y = 0f;
 		float magnitude = vector.magnitude;
 		return magnitude <= m_circleDistThreshold;

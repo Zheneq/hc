@@ -79,7 +79,7 @@ public class AbilityUtil_Targeter_SweepSingleClickCone : AbilityUtil_Targeter_Sw
 			while (enumerator.MoveNext())
 			{
 				ActorData current = enumerator.Current;
-				AddActorInRange(current, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Primary, true);
+				AddActorInRange(current, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Primary, true);
 			}
 			while (true)
 			{

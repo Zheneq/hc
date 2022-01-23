@@ -146,7 +146,7 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 				m_width,
 				0,
 				false,
-				targetingActor.GetTeams(),
+				targetingActor.GetTeamAsList(),
 				m_bounceOnActors,
 				out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> _,
 				out List<ActorData> orderedHitActors2,

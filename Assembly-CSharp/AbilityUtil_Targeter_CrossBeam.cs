@@ -81,7 +81,7 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 		}
 		List<Vector3> laserEndPoints = GetLaserEndPoints(currentTarget, targetingActor);
 		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 		Vector3 position = travelBoardSquareWorldPosition + new Vector3(0f, 0.1f, 0f);
 		for (int j = 0; j < laserEndPoints.Count; j++)
 		{
@@ -151,7 +151,7 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 						{
 							if (ActorMeetKnockbackConditions(current3, targetingActor))
 							{
-								BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current3, m_knockbackType, currentTarget.AimDirection, targetingActor.GetTravelBoardSquareWorldPosition(), m_knockbackDistance);
+								BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current3, m_knockbackType, currentTarget.AimDirection, targetingActor.GetFreePos(), m_knockbackDistance);
 								num = AddMovementArrowWithPrevious(current3, path, TargeterMovementType.Knockback, num);
 							}
 						}
@@ -186,7 +186,7 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 					int result;
 					if (!(m_knockbackThresholdDistance <= 0f))
 					{
-						result = ((VectorUtils.HorizontalPlaneDistInSquares(target.GetTravelBoardSquareWorldPosition(), caster.GetTravelBoardSquareWorldPosition()) < m_knockbackThresholdDistance) ? 1 : 0);
+						result = ((VectorUtils.HorizontalPlaneDistInSquares(target.GetFreePos(), caster.GetFreePos()) < m_knockbackThresholdDistance) ? 1 : 0);
 					}
 					else
 					{

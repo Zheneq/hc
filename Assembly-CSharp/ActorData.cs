@@ -287,7 +287,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				{
 					Debug.LogWarning(string.Concat(new string[]
 					{
-							GetDebugName(),
+							DebugNameString(),
 							"----Setting ClientLastKnownPosSquare from ",
 							(!m_clientLastKnownPosSquare) ? "null" : m_clientLastKnownPosSquare.ToString(),
 							" to ",
@@ -316,7 +316,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				Debug.LogWarning(string.Concat(new string[5]
 				{
-						GetDebugName(),
+						DebugNameString(),
 						"=====ServerLastKnownPosSquare from ",
 						m_serverLastKnownPosSquare ? m_serverLastKnownPosSquare.ToString() : "null",
 						" to ",
@@ -859,7 +859,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				if (GameFlowData.Get().CurrentTurn == NextRespawnTurn)
 				{
-					if (ShouldRevealRespawnSquareToEnemy(value))
+					if (IsRespawnLocationVisibleToEnemy(value))
 					{
 						m_teamSensitiveData_hostile.RespawnPickedSquare = value;
 					}
@@ -902,7 +902,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				if (ActorDebugUtils.Get() != null && ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.LastKnownPosition, false))
 				{
-					Debug.LogWarning(GetDebugName() + "Setting visible for ability cast to " + value);
+					Debug.LogWarning(DebugNameString() + "Setting visible for ability cast to " + value);
 				}
 				m_currentlyVisibleForAbilityCast = value;
 			}
@@ -1004,7 +1004,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return m_lastVisibleTurnToClient;
 	}
 
-	public Vector3 GetClientLastKnownPos()
+	public Vector3 GetClientLastKnownPosVec()
 	{
 		if (ClientLastKnownPosSquare)
 		{
@@ -1013,7 +1013,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return Vector3.zero;
 	}
 
-	public Vector3 GetServerLastKnownPos()
+	public Vector3 GetServerLastKnownPosVec()
 	{
 		if (ServerLastKnownPosSquare)
 		{
@@ -1104,7 +1104,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return m_freelancerStats;
 	}
 
-	internal NPCBrain GetEnabledNPCBrain()
+	internal NPCBrain GetNPCBrain()
 	{
 		ActorController actorController = GetActorController();
 		if (actorController != null)
@@ -1145,7 +1145,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return PlayerData.GetFogOfWar();
 	}
 
-	internal ActorAdditionalVisionProviders GetActorAdditionalVisionProviders()
+	internal ActorAdditionalVisionProviders GetAdditionalActorVisionProviders()
 	{
 		return m_additionalVisionProvider;
 	}
@@ -1155,10 +1155,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return m_passiveData;
 	}
 
-	public string GetDisplayNameForLog()
+	public string GetDisplayName()
 	{
 		if (HasBotController
-			&& GetAccountId() == 0
+			&& GetOriginalAccountId() == 0
 			&& m_characterType != CharacterType.None
 			&& !GetPlayerDetails().m_botsMasqueradeAsHumans)
 		{
@@ -1180,7 +1180,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 							ActorData component = componentsInChildren[i].GetComponent<ActorData>();
 							if (component.m_displayName != "FT")
 							{
-								return component.GetDisplayNameForLog();
+								return component.GetDisplayName();
 							}
 						}
 
@@ -1220,12 +1220,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return (Sprite)Resources.Load(m_screenIndicatorBWIconResourceString, typeof(Sprite));
 	}
 
-	public string GetObjectName()
+	public string GetClassName()
 	{
 		return name.Replace("(Clone)", "");
 	}
 
-	public float GetPostAbilityHorizontalMovementChange()
+	public float GetAbilityMovementCost()
 	{
 		return m_maxHorizontalMovement - m_postAbilityHorizontalMovement;
 	}
@@ -1251,14 +1251,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		HitPoints = Mathf.RoundToInt(maxHitPoints * num);
 	}
 
-	public float GetHitPointShareOfMax()
+	public float GetHitPointPercent()
 	{
 		int maxHitPoints = GetMaxHitPoints();
 		int hitPoints = HitPoints;
 		return hitPoints / (float)maxHitPoints;
 	}
 
-	public int GetPassiveHpRegen()
+	public int GetHitPointRegen()
 	{
 		int num = 0;
 		if (m_actorStats != null)
@@ -1329,10 +1329,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			bool isInResolveState = GameFlowData.Get()?.IsInResolveState() ?? false;
 			bool isNotMoving = GetTravelBoardSquare() == GetCurrentBoardSquare() && !GetActorMovement().AmMoving() && !GetActorMovement().IsYetToCompleteGameplayPath();
 			bool isFromAnotherTeam = GetTeam() != team;
-			if (isInResolveState && isNotMoving && isFromAnotherTeam && IsVisibleToClient())
+			if (isInResolveState && isNotMoving && isFromAnotherTeam && IsActorVisibleToClient())
 			{
 				ForceUpdateIsVisibleToClientCache();
-				if (IsVisibleToClient())
+				if (IsActorVisibleToClient())
 				{
 					ClientLastKnownPosSquare = GetCurrentBoardSquare();
 					m_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
@@ -1382,7 +1382,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void SetupForRespawnOnReconnect()
 	{
-		if (IsPickingRespawnSquare()
+		if (IsActorInvisibleForRespawn()
 			&& GameFlowData.Get() != null
 			&& (ServerClientUtils.GetCurrentActionPhase() < ActionBufferPhase.Movement
 				|| ServerClientUtils.GetCurrentActionPhase() > ActionBufferPhase.MovementWait))
@@ -1447,7 +1447,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	public int GetPassiveEnergyRegen()
+	public int GetTechPointRegen()
 	{
 		int num = 0;
 		if (m_actorStats != null)
@@ -1521,7 +1521,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return HitPoints == 0;
 	}
 
-	public ActorTeamSensitiveData GetTeamSensitiveData()
+	public ActorTeamSensitiveData GetTeamSensitiveDataForClient()
 	{
 		if (m_teamSensitiveData_friendly != null)
 		{
@@ -1543,7 +1543,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	public bool ShouldRevealRespawnSquareToEnemy(BoardSquare square)
+	public bool IsRespawnLocationVisibleToEnemy(BoardSquare square)
 	{
 		return false;
 	}
@@ -1645,7 +1645,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.GametimeScaleChange);
 	}
 
-	public void InitializeModel(PrefabResourceLink heroPrefabLink, bool addMasterSkinVfx)
+	public void Initialize(PrefabResourceLink heroPrefabLink, bool addMasterSkinVfx)
 	{
 		if (m_actorSkinPrefabLink.GUID == heroPrefabLink.GUID)
 		{
@@ -1769,9 +1769,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 						if (actor != null
 							&& !actor.IsDead()
 							&& actor.GetActorModelData() != null
-							&& actor.IsModelAnimatorDisabled())
+							&& actor.IsInRagdoll())
 						{
-							Debug.LogError("Unragdolling undead actor on Turn Tick (" + currentTurn + "): " + actor.GetDebugName());
+							Debug.LogError("Unragdolling undead actor on Turn Tick (" + currentTurn + "): " + actor.DebugNameString());
 							actor.EnableRagdoll(false);
 							flag = true;
 						}
@@ -1783,7 +1783,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 							&& !NetworkServer.active
 							&& GameFlowData.Get().LocalPlayerData.IsViewingTeam(actor.GetTeam()))
 						{
-							Debug.LogError("On client, living friendly-to-client actor " + actor.GetDebugName() + " has null square on Turn Tick");
+							Debug.LogError("On client, living friendly-to-client actor " + actor.DebugNameString() + " has null square on Turn Tick");
 							flag = true;
 						}
 					}
@@ -1838,7 +1838,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			if (actorData != null
 				&& actorData.IsDead()
 				&& actorData.LastDeathTurn != GameFlowData.Get().CurrentTurn
-				&& !actorData.IsModelAnimatorDisabled()
+				&& !actorData.IsInRagdoll()
 				&& actorData.NextRespawnTurn != GameFlowData.Get().CurrentTurn)
 			{
 				actorData.DoVisualDeath(Sequence.CreateImpulseInfoWithActorForward(actorData));
@@ -1872,14 +1872,15 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	internal bool IsModelAnimatorDisabled()
+	internal bool IsInRagdoll()
 	{
-		return !(GetModelAnimator()?.enabled ?? false);
+		Animator modelAnimator = GetModelAnimator();
+		return modelAnimator == null || !modelAnimator.enabled;
 	}
 
 	internal void DoVisualDeath(ActorModelData.ImpulseInfo impulseInfo)
 	{
-		if (IsModelAnimatorDisabled())
+		if (IsInRagdoll())
 		{
 			Debug.LogWarning("Already in ragdoll");
 		}
@@ -1943,7 +1944,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (ragDollOn && GetHitPointsToDisplay() > 0 && !isDebugRagdoll)
 		{
-			Log.Error("early_ragdoll: enabling ragdoll on " + GetDebugName() + " with " + HitPoints + " HP,  (HP for display " + GetHitPointsToDisplay() + ")\n" + Environment.StackTrace);
+			Log.Error("early_ragdoll: enabling ragdoll on " + DebugNameString() + " with " + HitPoints + " HP,  (HP for display " + GetHitPointsToDisplay() + ")\n" + Environment.StackTrace);
 		}
 		if (m_actorModelData != null)
 		{
@@ -1992,7 +1993,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		m_lastSpawnTurn = GameFlowData.Get().CurrentTurn;
 	}
 
-	public bool IsPickingRespawnSquare()
+	public bool IsActorInvisibleForRespawn()
 	{
 		return !IsDead() &&
 			NextRespawnTurn > 0 &&
@@ -2030,7 +2031,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (m_callHandleOnSelectInUpdate)
 		{
-			HandleOnSelect();
+			HandleOnSelectedAsActiveActor();
 			m_callHandleOnSelectInUpdate = false;
 		}
 		if (NetworkServer.active)
@@ -2045,13 +2046,13 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	public bool IsHiddenInBrush()
+	public bool IsInBrush()
 	{
-		int travelBoardSquareBrushRegion = GetTravelBoardSquareBrushRegion();
+		int travelBoardSquareBrushRegion = GetBrushRegion();
 		return travelBoardSquareBrushRegion != -1 && BrushCoordinator.Get().IsRegionFunctioning(travelBoardSquareBrushRegion);
 	}
 
-	public int GetTravelBoardSquareBrushRegion()
+	public int GetBrushRegion()
 	{
 		int result = -1;
 		BoardSquare travelBoardSquare = GetTravelBoardSquare();
@@ -2062,13 +2063,13 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return result;
 	}
 
-	public bool ShouldShowNameplate()
+	public bool IsNameplateVisible()
 	{
 		return !m_hideNameplate
 			&& !m_alwaysHideNameplate
 			&& ShowInGameGUI
-			&& IsVisibleToClient()
-			&& !IsModelAnimatorDisabled()
+			&& IsActorVisibleToClient()
+			&& !IsInRagdoll()
 			&& (GetActorModelData() == null || GetActorModelData().IsVisibleToClient());
 	}
 
@@ -2117,11 +2118,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			return false;
 		}
-		if (IsRevealed(localPlayerData, false))
+		if (IsAlwaysVisibleTo(localPlayerData, false))
 		{
 			return true;
 		}
-		if (IsHidden(localPlayerData, false))
+		if (IsNeverVisibleTo(localPlayerData, false))
 		{
 			return false;
 		}
@@ -2159,13 +2160,13 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	public bool IsVisibleToClient()
+	public bool IsActorVisibleToClient()
 	{
 		UpdateIsVisibleToClientCache();
 		return m_isVisibleToClientCache;
 	}
 
-	public bool IsVisibleForChase(ActorData observer)
+	public bool IsActorVisibleToSpecificClient(ActorData observer)
 	{
 		if (GameFlowData.Get().IsActorDataOwned(this) && GetTeam() == observer.GetTeam())
 		{
@@ -2175,11 +2176,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			return true;
 		}
-		if (IsRevealed(observer.PlayerData))
+		if (IsAlwaysVisibleTo(observer.PlayerData))
 		{
 			return true;
 		}
-		if (IsHidden(observer.PlayerData))
+		if (IsNeverVisibleTo(observer.PlayerData))
 		{
 			return false;
 		}
@@ -2190,7 +2191,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return false;
 	}
 
-	public bool IsRevealed(PlayerData observer, bool includePendingStatus = true)
+	public bool IsAlwaysVisibleTo(PlayerData observer, bool includePendingStatus = true)
 	{
 		if (observer == null)
 		{
@@ -2212,10 +2213,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			return true;
 		}
-		return IsDead() && IsModelAnimatorDisabled();
+		return IsDead() && IsInRagdoll();
 	}
 
-	public bool IsHidden(PlayerData observer, bool includePendingStatus = true, bool forceViewingTeam = false)
+	public bool IsNeverVisibleTo(PlayerData observer, bool includePendingStatus = true, bool forceViewingTeam = false)
 	{
 		if (observer == null)
 		{
@@ -2251,24 +2252,24 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (!NetworkServer.active && observer == GameFlowData.Get().activeOwnedActorData)
 		{
-			return IsVisibleToClient();
+			return IsActorVisibleToClient();
 		}
 		if (!NetworkServer.active)
 		{
 			Log.Warning("Calling the server-only method ActorData::IsActorVisibleToActor on a client. Clients can only depend on ActorData::IsActorVisibleToClient.");
 		}
-		if (IsRevealed(observer.PlayerData))
+		if (IsAlwaysVisibleTo(observer.PlayerData))
 		{
 			return true;
 		}
-		if (IsHidden(observer.PlayerData, true, forceViewingTeam))
+		if (IsNeverVisibleTo(observer.PlayerData, true, forceViewingTeam))
 		{
 			return false;
 		}
 		return observer.GetFogOfWar().IsVisible(GetTravelBoardSquare());
 	}
 
-	public bool IsVisibleToEnemyTeam()
+	public bool IsActorVisibleToAnyEnemy()
 	{
 		List<ActorData> enemyTeamMembers = GameFlowData.Get().GetAllTeamMembers(GetEnemyTeam());
 		foreach (ActorData enemy in enemyTeamMembers)
@@ -2281,18 +2282,18 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return false;
 	}
 
-	public bool CanBeSeen(ActorData observer)
+	public bool IsActorVisibleIgnoringFogOfWar(ActorData observer)
 	{
-		if (IsRevealed(observer.PlayerData))
+		if (IsAlwaysVisibleTo(observer.PlayerData))
 		{
 			return true;
 		}
-		if (IsHidden(observer.PlayerData, true, true))
+		if (IsNeverVisibleTo(observer.PlayerData, true, true))
 		{
 			return false;
 		}
-		bool IsBrushRevealed = GetTravelBoardSquareBrushRegion() < 0 || BrushRegion.HasTeamMemberInRegion(GetEnemyTeam(), GetTravelBoardSquareBrushRegion());
-		return !IsHiddenInBrush() || IsBrushRevealed;
+		bool IsBrushRevealed = GetBrushRegion() < 0 || BrushRegion.HasTeamMemberInRegion(GetEnemyTeam(), GetBrushRegion());
+		return !IsInBrush() || IsBrushRevealed;
 	}
 
 	public void ApplyForceFromPoint(Vector3 pos, float amount, Vector3 overrideDir)
@@ -2313,14 +2314,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void ApplyForce(Vector3 dir, float amount)
 	{
-		Rigidbody hipJointRigidBody = GetHipJointRigidBody();
+		Rigidbody hipJointRigidBody = GetHipJoint();
 		if (hipJointRigidBody)
 		{
 			hipJointRigidBody.AddForce(dir * amount, ForceMode.Impulse);
 		}
 	}
 
-	public Vector3 GetNameplatePosition(float offsetInPixels)
+	public Vector3 GetOverheadPosition(float offsetInPixels)
 	{
 		if (Camera.main == null || m_nameplateJoint == null)
 		{
@@ -2338,15 +2339,15 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public Vector3 GetLoSCheckPos()
 	{
-		return GetSquareWorldPositionForLoS(GetTravelBoardSquare());
+		return GetLoSCheckPos(GetTravelBoardSquare());
 	}
 
-	public Vector3 GetTravelBoardSquareWorldPosition()
+	public Vector3 GetFreePos()
 	{
-		return GetSquareWorldPosition(GetTravelBoardSquare());
+		return GetFreePos(GetTravelBoardSquare());
 	}
 
-	public Vector3 GetSquareWorldPositionForLoS(BoardSquare square)
+	public Vector3 GetLoSCheckPos(BoardSquare square)
 	{
 		if (square == null)
 		{
@@ -2354,12 +2355,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			return m_actorMovement.transform.position;
 		}
 
-		Vector3 squareWorldPosition = GetSquareWorldPosition(square);
+		Vector3 squareWorldPosition = GetFreePos(square);
 		squareWorldPosition.y += BoardSquare.s_LoSHeightOffset;
 		return squareWorldPosition;
 	}
 
-	public Vector3 GetSquareWorldPosition(BoardSquare square)
+	public Vector3 GetFreePos(BoardSquare square)
 	{
 		if (square == null)
 		{
@@ -2378,7 +2379,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return Mathf.Clamp(HitPoints - num4 + num2, 0, GetMaxHitPoints());
 	}
 
-	public int GetHitPointsToDisplayWithDelta(int delta)
+	public int GetExpectedClientHpForDisplay(int delta)
 	{
 		int num = UnresolvedDamage + ClientUnresolvedDamage;
 		int num2 = UnresolvedHealing + ClientUnresolvedHealing;
@@ -2395,24 +2396,24 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return Mathf.Clamp(HitPoints - num4 + num2, 0, GetMaxHitPoints());
 	}
 
-	public int GetEnergyToDisplay()
+	public int GetTechPointsToDisplay()
 	{
 		int num = UnresolvedTechPointGain + ClientUnresolvedTechPointGain;
 		int num2 = UnresolvedTechPointLoss + ClientUnresolvedTechPointLoss;
 		return Mathf.Clamp(TechPoints + ReservedTechPoints + ClientReservedTechPoints + num - num2, 0, GetMaxTechPoints());
 	}
 
-	public int GetPendingHoTTotalToDisplay()
+	public int GetHoTTotalToDisplay()
 	{
 		return Mathf.Max(0, ExpectedHoTTotal + ClientExpectedHoTTotalAdjust - ClientAppliedHoTThisTurn);
 	}
 
-	public int GetPendingHoTThisTurnToDisplay()
+	public int GetPendingHoTToDisplay()
 	{
 		return Mathf.Max(0, ExpectedHoTThisTurn - ClientAppliedHoTThisTurn);
 	}
 
-	public string GetHitPointsToDisplayDebugString()
+	public string GetHealthString()
 	{
 		string text = $"{GetHitPointsToDisplay()}";
 		if (AbsorbPoints > 0)
@@ -2425,14 +2426,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return text;
 	}
 
-	public int GetAbsorbToDisplay()
+	public int GetShieldPoints()
 	{
 		int num = UnresolvedDamage + ClientUnresolvedDamage;
 		int num2 = AbsorbPoints + ClientUnresolvedAbsorb;
 		return Mathf.Max(0, num2 - num);
 	}
 
-	public bool GetIsHumanControlled()
+	public bool IsHumanControlled()
 	{
 		if (GameFlow.Get() == null || GameFlow.Get().playerDetails == null)
 		{
@@ -2463,11 +2464,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return true;
 	}
 
-	public long GetActualAccountId()
+	public long GetAccountId()
 	{
 		if (GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out PlayerDetails playerDetails))
 		{
-			if (IsBotMasqueradingAsHuman() || playerDetails.IsLoadTestBot || GetIsHumanControlled())
+			if (IsBotMasqueradingAsHuman() || playerDetails.IsLoadTestBot || IsHumanControlled())
 			{
 				return playerDetails.m_accountId;
 			}
@@ -2475,7 +2476,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return -1L;
 	}
 
-	public long GetAccountId()
+	public long GetOriginalAccountId()
 	{
 		if (PlayerData != null)
 		{
@@ -2794,14 +2795,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 						CharacterColor characterColor = characterResourceLink.GetCharacterColor(m_visualInfo);
 						addMasterSkinVfx = characterColor.m_styleLevel == StyleLevelType.Mastery;
 					}
-					InitializeModel(prefabResourceLink, addMasterSkinVfx);
+					Initialize(prefabResourceLink, addMasterSkinVfx);
 				}
 				else
 				{
 					Log.Error(string.Concat("Failed to find character resource link for ", m_characterType, " with visual info ", m_visualInfo.ToString()));
 					GameObject gameObject = GameFlowData.Get().m_availableCharacterResourceLinkPrefabs[0];
 					CharacterResourceLink component = gameObject.GetComponent<CharacterResourceLink>();
-					InitializeModel(component.m_skins[0].m_patterns[0].m_colors[0].m_heroPrefab, false);
+					Initialize(component.m_skins[0].m_patterns[0].m_colors[0].m_heroPrefab, false);
 				}
 			}
 			m_displayName = _displayName;
@@ -3069,7 +3070,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void OnMovementWhileDisappeared(MovementType movementType)
 	{
-		Debug.Log(GetDebugName() + ": calling OnMovementWhileDisappeared.");
+		Debug.Log(DebugNameString() + ": calling OnMovementWhileDisappeared.");
 		if (ClientMovementManager.Get() != null)
 		{
 			ClientMovementManager.Get().OnActorMoveStart_Disappeared(this, movementType);
@@ -3342,7 +3343,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (m_teamSensitiveData_friendly != friendlyTSD)
 		{
-			Log.Info("Setting Friendly TeamSensitiveData for " + GetDebugName());
+			Log.Info("Setting Friendly TeamSensitiveData for " + DebugNameString());
 			m_teamSensitiveData_friendly = friendlyTSD;
 			m_teamSensitiveData_friendly.OnClientAssociatedWithActor(this);
 		}
@@ -3352,7 +3353,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (m_teamSensitiveData_hostile != hostileTSD)
 		{
-			Log.Info("Setting Hostile TeamSensitiveData for " + GetDebugName());
+			Log.Info("Setting Hostile TeamSensitiveData for " + DebugNameString());
 			m_teamSensitiveData_hostile = hostileTSD;
 			m_teamSensitiveData_hostile.OnClientAssociatedWithActor(this);
 		}
@@ -3400,7 +3401,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return GameplayUtils.GetOtherTeamsThan(m_team);
 	}
 
-	public List<Team> GetTeams()
+	public List<Team> GetTeamAsList()
 	{
 		return new List<Team>
 		{
@@ -3408,7 +3409,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		};
 	}
 
-	public List<Team> GetEnemyTeams()
+	public List<Team> GetEnemyTeamAsList()
 	{
 		return new List<Team>
 		{
@@ -3416,17 +3417,17 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		};
 	}
 
-	public string GetTeamColorName()
+	public string GetAllyTeamName()
 	{
 		return m_team == Team.TeamA ? "Blue" : "Orange";
 	}
 
-	public string GetEnemyTeamColorName()
+	public string GetEnemyTeamName()
 	{
 		return m_team == Team.TeamA ? "Orange" : "Blue";
 	}
 
-	public Color GetTeamColor()
+	public Color GetAllyTeamColor()
 	{
 		return m_team == Team.TeamA ? s_teamAColor : s_teamBColor;
 	}
@@ -3436,7 +3437,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return m_team == Team.TeamA ? s_teamBColor : s_teamAColor;
 	}
 
-	public Color GetColorForTeam(Team observingTeam)
+	public Color GetRelativeColor(Team observingTeam)
 	{
 		return observingTeam == GetTeam() ? s_friendlyPlayerColor : s_hostilePlayerColor;
 	}
@@ -3468,12 +3469,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			if (ClientUnresolvedDamage != 0)
 			{
-				Log.Error("ClientUnresolvedDamage not cleared on TurnTick for " + GetDebugName());
+				Log.Error("ClientUnresolvedDamage not cleared on TurnTick for " + DebugNameString());
 				ClientUnresolvedDamage = 0;
 			}
 			if (ClientUnresolvedHealing != 0)
 			{
-				Log.Error("ClientUnresolvedHealing not cleared on TurnTick for " + GetDebugName());
+				Log.Error("ClientUnresolvedHealing not cleared on TurnTick for " + DebugNameString());
 				ClientUnresolvedHealing = 0;
 			}
 			if (ClientUnresolvedTechPointGain != 0)
@@ -3490,15 +3491,15 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			if (ClientUnresolvedAbsorb != 0)
 			{
-				Log.Error("ClientUnresolvedAbsorb not cleared on TurnTick for " + GetDebugName());
+				Log.Error("ClientUnresolvedAbsorb not cleared on TurnTick for " + DebugNameString());
 				ClientUnresolvedAbsorb = 0;
 			}
 			ClientExpectedHoTTotalAdjust = 0;
 			ClientAppliedHoTThisTurn = 0;
 			SynchClientLastKnownPosToServerLastKnownPos();
-			if (GetTeamSensitiveData() != null)
+			if (GetTeamSensitiveDataForClient() != null)
 			{
-				GetTeamSensitiveData().OnTurnTick();
+				GetTeamSensitiveDataForClient().OnTurnTick();
 			}
 			PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
 			if (localPlayerData != null && HighlightUtils.Get().m_recentlySpawnedShader != null)
@@ -3532,7 +3533,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				&& HighlightUtils.Get().m_showMoveIntoCoverIndicators)
 			{
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-				if (activeOwnedActorData != null && activeOwnedActorData == this && IsVisibleToClient())
+				if (activeOwnedActorData != null && activeOwnedActorData == this && IsActorVisibleToClient())
 				{
 					GetActorCover().StartShowMoveIntoCoverIndicator();
 				}
@@ -3582,7 +3583,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	public float GetRotationTimeRemaining()
+	public float GetTurnToPositionTimeRemaining()
 	{
 		return m_targetRotation.CalcTimeRemaining();
 	}
@@ -3615,7 +3616,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return result;
 	}
 
-	public Rigidbody GetHipJointRigidBody()
+	public Rigidbody GetHipJoint()
 	{
 		if (m_cachedHipJoint == null)
 		{
@@ -3624,9 +3625,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return m_cachedHipJoint;
 	}
 
-	public Vector3 GetHipJointRigidBodyPosition()
+	public Vector3 GetHipJointPos()
 	{
-		Rigidbody hipJointRigidBody = GetHipJointRigidBody();
+		Rigidbody hipJointRigidBody = GetHipJoint();
 		if (hipJointRigidBody != null)
 		{
 			return hipJointRigidBody.transform.position;
@@ -3655,7 +3656,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return base.gameObject.transform.rotation;
 	}
 
-	public void OnDeselect()
+	public void OnDeselectedAsActiveActor()
 	{
 		if (GetActorController() != null)
 		{
@@ -3665,12 +3666,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		RespawnPickedPositionSquare = RespawnPickedPositionSquare;
 	}
 
-	public void OnSelect()
+	public void OnSelectedAsActiveActor()
 	{
 		m_callHandleOnSelectInUpdate = true;
 	}
 
-	private void HandleOnSelect()
+	private void HandleOnSelectedAsActiveActor()
 	{
 		if (HUD_UI.Get() != null)
 		{
@@ -3859,7 +3860,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	public static bool WouldSquareBeChasedByClient(BoardSquare square, bool IgnoreChosenChaseTarget = false)
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		if (!activeOwnedActorData.CanChase(square))
+		if (!activeOwnedActorData.IsSquareChaseableByClient(square))
 		{
 			return false;
 		}
@@ -3878,7 +3879,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return false;
 	}
 
-	public bool CanChase(BoardSquare square)
+	public bool IsSquareChaseableByClient(BoardSquare square)
 	{
 		if (square == null
 			|| square.occupant == null
@@ -3894,7 +3895,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			AbilityData actor = GetComponent<AbilityData>();
 			return !occupant.IsDead()
 				&& occupant != this
-				&& occupant.IsVisibleForChase(this)
+				&& occupant.IsActorVisibleToSpecificClient(this)
 				&& actor.GetQueuedAbilitiesAllowMovement()
 				&& !occupant.IgnoreForAbilityHits;
 		}
@@ -3906,7 +3907,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (!IsDead() && m_actorVFX != null)
 		{
-			m_actorVFX.ShowHitWhileInCoverVfx(GetTravelBoardSquareWorldPosition(), hitOrigin, caster);
+			m_actorVFX.ShowHitWhileInCoverVfx(GetFreePos(), hitOrigin, caster);
 			AudioManager.PostEvent("ablty/generic/feedback/behind_cover_hit", gameObject);
 		}
 	}
@@ -3915,7 +3916,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (!IsDead() && m_actorVFX != null)
 		{
-			m_actorVFX.ShowKnockbackWhileUnstoppableVfx(GetTravelBoardSquareWorldPosition(), hitOrigin, caster);
+			m_actorVFX.ShowKnockbackWhileUnstoppableVfx(GetFreePos(), hitOrigin, caster);
 			AudioManager.PostEvent("ablty/generic/feedback/unstoppable", gameObject);
 		}
 	}
@@ -4044,9 +4045,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		ClientUnresolvedHealing = 0;
 		ClientUnresolvedAbsorb = 0;
 		SetHitPoints(resolvedHitPoints);
-		if (!wasDead && IsDead() && !IsModelAnimatorDisabled())
+		if (!wasDead && IsDead() && !IsInRagdoll())
 		{
-			Debug.LogError("Actor " + GetDebugName() + " died on HP resolved; he should have already been ragdolled, but wasn't.");
+			Debug.LogError("Actor " + DebugNameString() + " died on HP resolved; he should have already been ragdolled, but wasn't.");
 			DoVisualDeath(new ActorModelData.ImpulseInfo(GetLoSCheckPos(), Vector3.up));
 		}
 	}
@@ -4229,20 +4230,20 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public override string ToString()
 	{
-		return $"[ActorData: {m_displayName}, {GetObjectName()}, ActorIndex: {m_actorIndex}, {m_team}] {PlayerData}";
+		return $"[ActorData: {m_displayName}, {GetClassName()}, ActorIndex: {m_actorIndex}, {m_team}] {PlayerData}";
 	}
 
-	public string GetDebugName()
+	public string DebugNameString()
 	{
-		return "[" + GetObjectName() + " (" + DisplayName + "), " + ActorIndex + "]";
+		return "[" + GetClassName() + " (" + DisplayName + "), " + ActorIndex + "]";
 	}
 
-	public string GetColoredDebugName(string color)
+	public string DebugNameString(string color)
 	{
-		return "<color=" + color + ">" + GetDebugName() + "</color>";
+		return "<color=" + color + ">" + DebugNameString() + "</color>";
 	}
 
-	public string GetPointsDebugString()
+	public string DebugHpEnergyString()
 	{
 		int num = ExpectedHoTTotal + ClientExpectedHoTTotalAdjust;
 		int expectedHoTThisTurn = ExpectedHoTThisTurn;
@@ -4256,7 +4257,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			+ "\n CL Damage: " + ClientUnresolvedDamage
 			+ "\n CL Healing: " + ClientUnresolvedHealing
 			+ "\n CL Absorb: " + ClientUnresolvedAbsorb
-			+ "\n\n Energy to Display: " + GetEnergyToDisplay()
+			+ "\n\n Energy to Display: " + GetTechPointsToDisplay()
 			+ "\n  Energy: " + TechPoints
 			+ "\n Reserved Energy: " + ReservedTechPoints
 			+ "\n EnergyGain: " + UnresolvedTechPointGain
@@ -4268,7 +4269,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			+ "\n CL HoT This Turn/Applied: " + expectedHoTThisTurn + " / " + clientAppliedHoTThisTurn;
 	}
 
-	public string GetActorTurnSMDebugString()
+	public string DebugFSMStateString()
 	{
 		string text = "";
 		if (GetActorTurnSM() != null)

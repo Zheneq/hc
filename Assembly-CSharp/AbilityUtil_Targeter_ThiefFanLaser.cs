@@ -189,7 +189,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		float num6 = num5 - 0.5f * (float)(m_count - 1) * num;
 		if (m_affectsTargetingActor)
 		{
-			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
+			AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Self);
 		}
 		bool flag = false;
 		bool flag2 = false;
@@ -267,7 +267,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 			}
 			if (num7)
 			{
-				AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, true);
+				AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Self, true);
 			}
 			if (ShouldShowHiddenSquareIndicator(targetingActor))
 			{
@@ -350,7 +350,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		}
 		if (num2)
 		{
-			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, true);
+			AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Self, true);
 		}
 		m_hitActorInLaser.Add(laserHitActors.Count > 0);
 		m_hitPowerupInLaser.Add(powerupsHit.Count > 0);
@@ -384,7 +384,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 
 	private float CalculateFanAngleDegrees(AbilityTarget currentTarget, ActorData targetingActor, float interpStep)
 	{
-		float value = (currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude / Board.Get().squareSize;
+		float value = (currentTarget.FreePos - targetingActor.GetFreePos()).magnitude / Board.Get().squareSize;
 		float num = Mathf.Clamp(value, m_interpMinDistanceInSquares, m_interpMaxDistanceInSquares) - m_interpMinDistanceInSquares;
 		if (interpStep > 0f)
 		{

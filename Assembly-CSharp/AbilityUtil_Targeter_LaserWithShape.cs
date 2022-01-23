@@ -176,7 +176,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 						vector2 = boardSquareSafe.ToVector3();
 					}
 					Vector3 vector3 = vector2;
-					dir = vector3 - targetingActor.GetTravelBoardSquareWorldPosition();
+					dir = vector3 - targetingActor.GetFreePos();
 					dir.y = 0f;
 					dir.Normalize();
 					b = vector3;
@@ -186,7 +186,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		float num = m_laserInfo.range;
 		if (m_clampToCursorPos)
 		{
-			float a = VectorUtils.HorizontalPlaneDistInSquares(targetingActor.GetTravelBoardSquareWorldPosition(), b);
+			float a = VectorUtils.HorizontalPlaneDistInSquares(targetingActor.GetFreePos(), b);
 			num = Mathf.Min(a, num);
 		}
 		float widthInWorld = m_laserInfo.width * Board.Get().squareSize;

@@ -221,7 +221,7 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 					int cooldownRemaining = abilityData.GetCooldownRemaining(action);
 					int stocksRemaining = abilityData.GetStocksRemaining(action);
 					int stockRefreshCountdown = abilityData.GetStockRefreshCountdown(action);
-					bool flag6 = ability.GetModdedCost() <= actor.GetEnergyToDisplay();
+					bool flag6 = ability.GetModdedCost() <= actor.GetTechPointsToDisplay();
 					if (m_ability == ability && m_cachedIsQueued == flag3)
 					{
 						if (m_cachedIsTargeting == flag4 && m_cachedAbilityUseAllowed == flag5)

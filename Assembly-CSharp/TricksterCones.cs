@@ -130,7 +130,7 @@ public class TricksterCones : Ability
 			while (enumerator.MoveNext())
 			{
 				ActorData current = enumerator.Current;
-				list.Add(targeterFreePos - current.GetTravelBoardSquareWorldPosition());
+				list.Add(targeterFreePos - current.GetFreePos());
 			}
 			while (true)
 			{

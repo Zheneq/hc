@@ -145,7 +145,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 				default:
 				{
 					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, currentTarget.FreePos, targetSquare);
-					Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+					Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 					centerOfShape.y = travelBoardSquareWorldPosition.y + 0.1f;
 					return centerOfShape;
 				}
@@ -302,7 +302,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 			{
 				if (!list.Contains(occupantActor))
 				{
-					AddActorInRange(occupantActor, occupantActor.GetTravelBoardSquareWorldPosition(), targetingActor);
+					AddActorInRange(occupantActor, occupantActor.GetFreePos(), targetingActor);
 					list.Add(occupantActor);
 					m_hitActorContext.Add(new HitActorContext(occupantActor, 0));
 				}
@@ -362,7 +362,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 		}
 		goto IL_04e4;
 		IL_0298:
-		AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor);
+		AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor);
 		list.Add(targetingActor);
 		num = Mathf.Max(0, num);
 		m_hitActorContext.Add(new HitActorContext(targetingActor, num));

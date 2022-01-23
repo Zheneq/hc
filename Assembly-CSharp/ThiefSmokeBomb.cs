@@ -324,20 +324,20 @@ public class ThiefSmokeBomb : Ability
 				flag = true;
 				if (targetIndex > 0)
 				{
-					Vector3 to = vector - caster.GetTravelBoardSquareWorldPosition();
+					Vector3 to = vector - caster.GetFreePos();
 					to.y = 0f;
 					bool flag2 = true;
 					if (GetMaxAngleWithFirstSegment() > 0)
 					{
 						BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[0].GridPos);
 						Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, currentTargets[0].FreePos, boardSquareSafe2);
-						Vector3 from = centerOfShape - caster.GetTravelBoardSquareWorldPosition();
+						Vector3 from = centerOfShape - caster.GetFreePos();
 						from.y = 0f;
 						int num = Mathf.RoundToInt(Vector3.Angle(from, to));
 						flag2 = (num <= GetMaxAngleWithFirstSegment());
 					}
 					Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(shape, vector, boardSquareSafe);
-					Vector3 vector2 = centerOfShape2 - caster.GetTravelBoardSquareWorldPosition();
+					Vector3 vector2 = centerOfShape2 - caster.GetFreePos();
 					vector2.y = 0f;
 					float magnitude = vector2.magnitude;
 					int num2;
@@ -416,9 +416,9 @@ public class ThiefSmokeBomb : Ability
 				}
 			}
 		}
-		Vector3 vec = firstSegEndPos - caster.GetTravelBoardSquareWorldPosition();
+		Vector3 vec = firstSegEndPos - caster.GetFreePos();
 		float coneWidthDegrees = Mathf.Min(360f, 2f * (float)GetMaxAngleWithFirstSegment() + 25f);
-		AreaEffectUtils.GetMaxConeBounds(caster.GetTravelBoardSquareWorldPosition(), VectorUtils.HorizontalAngle_Deg(vec), coneWidthDegrees, abilityMaxRange, 0f, out int minX, out int maxX, out int minY, out int maxY);
+		AreaEffectUtils.GetMaxConeBounds(caster.GetFreePos(), VectorUtils.HorizontalAngle_Deg(vec), coneWidthDegrees, abilityMaxRange, 0f, out int minX, out int maxX, out int minY, out int maxY);
 		Board board = Board.Get();
 		AbilityAreaShape shape = GetSmokeFieldInfo().shape;
 		AbilityData abilityData = caster.GetAbilityData();
@@ -461,8 +461,8 @@ public class ThiefSmokeBomb : Ability
 							if (numTargetsFromPlayerInput > 0)
 							{
 								Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, targetEntries[0].FreePos, boardSquareSafe);
-								Vector3 from = centerOfShape - caster.GetTravelBoardSquareWorldPosition();
-								Vector3 to = vector - caster.GetTravelBoardSquareWorldPosition();
+								Vector3 from = centerOfShape - caster.GetFreePos();
+								Vector3 to = vector - caster.GetFreePos();
 								int num = Mathf.RoundToInt(Vector3.Angle(from, to));
 								flag3 = (num <= maxAngleWithFirstSegment);
 							}
@@ -477,8 +477,8 @@ public class ThiefSmokeBomb : Ability
 									Vector3 freePos = boardSquareSafe.ToVector3();
 									freePos += 0.1f * VectorUtils.AngleDegreesToVector(45f + (float)k * 90f);
 									Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(shape, freePos, boardSquareSafe);
-									Vector3 from2 = centerOfShape2 - caster.GetTravelBoardSquareWorldPosition();
-									Vector3 to2 = vector - caster.GetTravelBoardSquareWorldPosition();
+									Vector3 from2 = centerOfShape2 - caster.GetFreePos();
+									Vector3 to2 = vector - caster.GetFreePos();
 									int num2 = Mathf.RoundToInt(Vector3.Angle(from2, to2));
 									int num3;
 									if (flag3)
@@ -494,7 +494,7 @@ public class ThiefSmokeBomb : Ability
 							}
 						}
 						Vector3 centerOfShape3 = AreaEffectUtils.GetCenterOfShape(shape, vector, boardSquare);
-						Vector3 vector2 = centerOfShape3 - caster.GetTravelBoardSquareWorldPosition();
+						Vector3 vector2 = centerOfShape3 - caster.GetFreePos();
 						vector2.y = 0f;
 						float magnitude = vector2.magnitude;
 						int num4;

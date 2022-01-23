@@ -463,7 +463,7 @@ public class ClientActorHitResults
 		}
 		if (ClientAbilityResults.LogMissingSequences)
 		{
-			Debug.LogWarning(ClientAbilityResults.s_executeActorHitHeader + " Target: " + target.GetDebugName() + " Caster: " + caster.GetDebugName());
+			Debug.LogWarning(ClientAbilityResults.s_executeActorHitHeader + " Target: " + target.DebugNameString() + " Caster: " + caster.DebugNameString());
 		}
 		bool flag = ClientResolutionManager.Get().IsInResolutionState();
 		if (m_triggerCasterVisOnHitVisualOnly)

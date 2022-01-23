@@ -261,7 +261,7 @@ public class LineSequence : Sequence
 				{
 					Vector3 result = m_fxTargetJoint.m_jointObject.transform.position;
 					bool flag = false;
-					flag = base.Target.IsModelAnimatorDisabled();
+					flag = base.Target.IsInRagdoll();
 					if (m_useTargetDeathPosIfRagdolled)
 					{
 						if (flag)

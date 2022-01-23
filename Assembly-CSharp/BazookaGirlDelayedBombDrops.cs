@@ -376,7 +376,7 @@ public class BazookaGirlDelayedBombDrops : Ability
 	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
 	{
 		List<Vector3> points = new List<Vector3>();
-		Vector3 travelBoardSquareWorldPosition = caster.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = caster.GetFreePos();
 		if (TargetAllEnemies())
 		{
 			AreaEffectUtils.AddRadiusExtremaToList(ref points, travelBoardSquareWorldPosition, 5f);

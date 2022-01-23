@@ -319,7 +319,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 		foreach (ActorData actor in GameFlowData.Get().GetActors())
 		{
-			if (!actor.IsPickingRespawnSquare())
+			if (!actor.IsActorInvisibleForRespawn())
 			{
 				continue;
 			}
@@ -526,7 +526,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				Animator modelAnimator = actor.GetModelAnimator();
 				if (actorModelData != null && modelAnimator != null)
 				{
-					result += actor.GetDebugName() +
+					result += actor.DebugNameString() +
 						" InIdle=" + actorModelData.IsPlayingIdleAnim() +
 						", DamageAnim=" + actorModelData.IsPlayingDamageAnim() +
 						", AttackParam=" + modelAnimator.GetInteger("Attack") + "\n";

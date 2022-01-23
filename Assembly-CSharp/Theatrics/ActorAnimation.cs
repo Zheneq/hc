@@ -546,7 +546,7 @@ namespace Theatrics
 				if (NetworkClient.active &&
 					GameFlowData.Get() != null &&
 					GameFlowData.Get().LocalPlayerData != null &&
-					Actor.IsHidden(GameFlowData.Get().LocalPlayerData))
+					Actor.IsNeverVisibleTo(GameFlowData.Get().LocalPlayerData))
 				{
 					return true;
 				}
@@ -1139,7 +1139,7 @@ namespace Theatrics
 						{
 							if (_001D.Caster != _000E)
 							{
-								if (!_001D.Caster.IsModelAnimatorDisabled())
+								if (!_001D.Caster.IsInRagdoll())
 								{
 									if (_001D.Caster.GetTeam() != _000E.GetTeam())
 									{
@@ -1388,7 +1388,7 @@ namespace Theatrics
 					object[] obj = new object[9]
 					{
 						"\nIn ability animation state for ",
-						Actor.GetDebugName(),
+						Actor.DebugNameString(),
 						" while Damage flag is set (hit react.). Code error, show Chris. debug info: (state: ",
 						State.ToString(),
 						", Attack: ",
@@ -1476,7 +1476,7 @@ namespace Theatrics
 					object[] obj5 = new object[8]
 					{
 						"\nIn ability animation state for ",
-						Actor.GetDebugName(),
+						Actor.DebugNameString(),
 						", ability: ",
 						null,
 						null,
@@ -1522,7 +1522,7 @@ namespace Theatrics
 			object[] obj = new object[13]
 			{
 				"[ActorAnimation: ",
-				(!(Actor == null)) ? Actor.GetDebugName() : "(NULL caster)",
+				(!(Actor == null)) ? Actor.DebugNameString() : "(NULL caster)",
 				" ",
 				null,
 				null,
@@ -1574,7 +1574,7 @@ namespace Theatrics
 			}
 			else
 			{
-				obj2 = Actor.GetDebugName();
+				obj2 = Actor.DebugNameString();
 			}
 			obj[1] = (string)obj2;
 			obj[2] = ", ";

@@ -266,8 +266,8 @@ public class GremlinsMultiTargeterApocolypse : Ability
 				if (targetIndex > 0)
 				{
 					bool flag = true;
-					Vector3 from = Board.Get().GetSquare(currentTargets[0].GridPos).ToVector3() - caster.GetTravelBoardSquareWorldPosition();
-					Vector3 to = boardSquareSafe.ToVector3() - caster.GetTravelBoardSquareWorldPosition();
+					Vector3 from = Board.Get().GetSquare(currentTargets[0].GridPos).ToVector3() - caster.GetFreePos();
+					Vector3 to = boardSquareSafe.ToVector3() - caster.GetFreePos();
 					if (Mathf.RoundToInt(Vector3.Angle(from, to)) > (int)GetMaxAngleWithFirstSegment())
 					{
 						flag = false;

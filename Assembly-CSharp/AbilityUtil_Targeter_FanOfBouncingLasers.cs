@@ -105,7 +105,7 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 		m_hitActorInLaser.Clear();
 		if (m_affectsTargetingActor)
 		{
-			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
+			AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Self);
 		}
 		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		HitActorContext item = default(HitActorContext);

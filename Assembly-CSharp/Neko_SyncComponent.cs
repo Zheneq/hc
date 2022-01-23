@@ -581,7 +581,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 					int num3;
 					if (actorData2.GetCurrentBoardSquare() != null)
 					{
-						num3 = (actorData2.IsVisibleToClient() ? 1 : 0);
+						num3 = (actorData2.IsActorVisibleToClient() ? 1 : 0);
 					}
 					else
 					{
@@ -772,7 +772,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		{
 			return;
 		}
-		List<Team> opposingTeams = m_actorData.GetEnemyTeams();
+		List<Team> opposingTeams = m_actorData.GetEnemyTeamAsList();
 		if (usingEnlargeDiscAbility)
 		{
 			if (m_enlargeDiscAbility != null)

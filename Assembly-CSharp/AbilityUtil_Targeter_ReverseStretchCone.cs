@@ -86,10 +86,10 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 			{
 				continue;
 			}
-			AddActorInRange(actorData, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor);
+			AddActorInRange(actorData, targetingActor.GetFreePos(), targetingActor);
 			if ((a - actorData.GetLoSCheckPos()).sqrMagnitude <= num2)
 			{
-				AddActorInRange(actorData, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Far, true);
+				AddActorInRange(actorData, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Far, true);
 			}
 		}
 		DrawInvalidSquareIndicators(targetingActor, worldPositionForLoS, num, lengthInSquares, angleInDegrees);

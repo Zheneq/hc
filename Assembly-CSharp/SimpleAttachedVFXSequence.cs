@@ -482,7 +482,7 @@ public class SimpleAttachedVFXSequence : Sequence
 									}
 									if (m_hitAlignedWithCaster)
 									{
-										Vector3 forward = gameObject.transform.position - base.Caster.GetTravelBoardSquareWorldPosition();
+										Vector3 forward = gameObject.transform.position - base.Caster.GetFreePos();
 										forward.y = 0f;
 										if (forward.magnitude > 1E-05f)
 										{

@@ -107,7 +107,7 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 				while (enumerator.MoveNext())
 				{
 					ActorData current = enumerator.Current;
-					AddActorInRange(current, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Primary, true);
+					AddActorInRange(current, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Primary, true);
 				}
 				while (true)
 				{
@@ -137,7 +137,7 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		}
 		m_highlights = new List<GameObject>();
 		m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(1f, 1f));
-		m_highlights[0].transform.position = targetingActor.GetTravelBoardSquareWorldPosition() + new Vector3(0f, y, 0f);
+		m_highlights[0].transform.position = targetingActor.GetFreePos() + new Vector3(0f, y, 0f);
 		goto IL_00ae;
 		IL_00ae:
 		Vector3 endAimDirection = aimDirection;
@@ -149,7 +149,7 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 			{
 				m_highlights.Add(HighlightUtils.Get().CreateDynamicConeMesh(m_rangeInSquares, m_sweepAngle, true));
 				m_highlights[1].SetActive(true);
-				m_highlights[1].transform.position = targetingActor.GetTravelBoardSquareWorldPosition() + new Vector3(0f, y, 0f);
+				m_highlights[1].transform.position = targetingActor.GetFreePos() + new Vector3(0f, y, 0f);
 			}
 			m_highlights[1].transform.rotation = Quaternion.LookRotation(coneCenterAngle);
 			HighlightUtils.Get().AdjustDynamicConeMesh(m_highlights[1], m_rangeInSquares, m_sweepAngle);
@@ -201,7 +201,7 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 			num2 += sweepAngle * 0.5f;
 		}
 		coneCenterAngle = Vector3.RotateTowards(startAimDirection, endAimDirection, (float)Math.PI / 180f * (sweepAngle * 0.5f), 0f);
-		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(caster.GetTravelBoardSquareWorldPosition(), num2, sweepAngle, m_rangeInSquares, m_coneBackwardOffset, m_penetrateLos, caster, GetAffectedTeams(caster), null);
+		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(caster.GetFreePos(), num2, sweepAngle, m_rangeInSquares, m_coneBackwardOffset, m_penetrateLos, caster, GetAffectedTeams(caster), null);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		return actors;
 	}

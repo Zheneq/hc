@@ -50,7 +50,7 @@ public class AbilityUtil_Targeter_KnockbackLaser : AbilityUtil_Targeter_Laser
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 		float knockbackDist = GetKnockbackDist(currentTarget, travelBoardSquareWorldPosition, m_lastCalculatedLaserEndPos);
 		int num = 0;
 		EnableAllMovementArrows();

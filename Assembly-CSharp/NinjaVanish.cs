@@ -388,7 +388,7 @@ public class NinjaVanish : Ability
 
 	private Vector3 GetCenterPosForTargeter(ActorData caster, AbilityTarget currentTarget)
 	{
-		Vector3 result = caster.GetTravelBoardSquareWorldPosition();
+		Vector3 result = caster.GetFreePos();
 		if (caster.GetActorTargeting() != null)
 		{
 			if (GetRunPriority() > AbilityPriority.Evasion)

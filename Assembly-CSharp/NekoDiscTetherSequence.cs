@@ -131,11 +131,11 @@ public class NekoDiscTetherSequence : LineSequence
 						vector = base.Caster.GetMostRecentDeathSquare().ToVector3();
 					}
 				}
-				else if (base.Caster.IsModelAnimatorDisabled())
+				else if (base.Caster.IsInRagdoll())
 				{
 					vector = m_lastStartPos;
 				}
-				else if (!base.Caster.IsVisibleToClient())
+				else if (!base.Caster.IsActorVisibleToClient())
 				{
 					Vector3 lineEndPos = GetLineEndPos();
 					Vector3 a = base.Caster.transform.position - lineEndPos;
@@ -191,7 +191,7 @@ public class NekoDiscTetherSequence : LineSequence
 			{
 				if (!base.Caster.IsDead())
 				{
-					if (!base.Caster.IsVisibleToClient())
+					if (!base.Caster.IsActorVisibleToClient())
 					{
 						flag = false;
 					}

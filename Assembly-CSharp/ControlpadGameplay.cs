@@ -600,7 +600,7 @@ public class ControlpadGameplay : MonoBehaviour
 			ControllerAimPos = vector2;
 			if (activeOwnedActorData != null)
 			{
-				ControllerAimingOriginPos = activeOwnedActorData.GetTravelBoardSquareWorldPosition();
+				ControllerAimingOriginPos = activeOwnedActorData.GetFreePos();
 				Vector3 controllerAimDir = ControllerAimPos - ControllerAimingOriginPos;
 				controllerAimDir.y = 0f;
 				controllerAimDir.Normalize();
@@ -729,7 +729,7 @@ public class ControlpadGameplay : MonoBehaviour
 				goto IL_0330;
 			}
 		}
-		ControllerAimingOriginPos = clientActor.GetTravelBoardSquareWorldPosition();
+		ControllerAimingOriginPos = clientActor.GetFreePos();
 		goto IL_0330;
 		IL_0330:
 		float num5 = VectorUtils.HorizontalAngle_Deg(ControllerAimDir);
@@ -759,7 +759,7 @@ public class ControlpadGameplay : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (cameraActor != activeOwnedActorData)
 		{
-			ControllerAimDir = (cameraActor.GetTravelBoardSquareWorldPosition() - activeOwnedActorData.GetTravelBoardSquareWorldPosition()).normalized;
+			ControllerAimDir = (cameraActor.GetFreePos() - activeOwnedActorData.GetFreePos()).normalized;
 		}
 		if (!(cameraActor != null))
 		{
@@ -767,7 +767,7 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		while (true)
 		{
-			ControllerAimPos = cameraActor.GetTravelBoardSquareWorldPosition();
+			ControllerAimPos = cameraActor.GetFreePos();
 			return;
 		}
 	}
@@ -800,11 +800,11 @@ public class ControlpadGameplay : MonoBehaviour
 			}
 			while (true)
 			{
-				if (activeOwnedActorData.CurrentBoardSquare != null && activeOwnedActorData.IsVisibleToClient())
+				if (activeOwnedActorData.CurrentBoardSquare != null && activeOwnedActorData.IsActorVisibleToClient())
 				{
 					while (true)
 					{
-						ControllerAimPos = activeOwnedActorData.GetTravelBoardSquareWorldPosition();
+						ControllerAimPos = activeOwnedActorData.GetFreePos();
 						return;
 					}
 				}

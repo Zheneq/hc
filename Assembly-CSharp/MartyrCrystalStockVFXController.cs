@@ -140,7 +140,7 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		int num;
 		if (!(actorData == null))
 		{
-			if (actorData.IsVisibleToClient())
+			if (actorData.IsActorVisibleToClient())
 			{
 				num = ((actorData.GetModelRenderer() == null || actorData.GetModelRenderer().enabled) ? 1 : 0);
 			}
@@ -157,7 +157,7 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		int num2;
 		if (actorData != null)
 		{
-			num2 = (actorData.IsModelAnimatorDisabled() ? 1 : 0);
+			num2 = (actorData.IsInRagdoll() ? 1 : 0);
 		}
 		else
 		{
@@ -322,7 +322,7 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 							{
 								if (m_martyrPassive.m_energyToCrystalConversion > 0)
 								{
-									int energyToDisplay = actor.GetEnergyToDisplay();
+									int energyToDisplay = actor.GetTechPointsToDisplay();
 									int num3 = energyToDisplay / m_martyrPassive.m_energyToCrystalConversion;
 									if (num3 > num)
 									{

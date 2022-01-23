@@ -797,7 +797,7 @@ public class AbilityData : NetworkBehaviour
 				selectable,
 				remainingCooldown,
 				isUlt,
-				m_actor.GetEnergyToDisplay(),
+				m_actor.GetTechPointsToDisplay(),
 				m_actor.GetMaxTechPoints());
 			m_actor.SendAbilityPingRequestToServer((int)m_actor.GetTeam(), localizedPing);
 			m_lastPingSendTime = Time.time;
@@ -2017,7 +2017,7 @@ public class AbilityData : NetworkBehaviour
 		if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhereInCoverToCaster))
 		{
 			BoardSquare square2 = Board.Get().GetSquare(target.GridPos);
-			flag3 = ActorCover.IsInCoverWrt(actor.GetTravelBoardSquareWorldPosition(), square2, null, null, null);
+			flag3 = ActorCover.IsInCoverWrt(actor.GetFreePos(), square2, null, null, null);
 		}
 		else if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhereInCover))
 		{
@@ -2240,7 +2240,7 @@ public class AbilityData : NetworkBehaviour
 		float result = 0f;
 		if (GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.ReducedMovement)
 		{
-			result = -1f * m_actor.GetPostAbilityHorizontalMovementChange();
+			result = -1f * m_actor.GetAbilityMovementCost();
 		}
 		return result;
 	}

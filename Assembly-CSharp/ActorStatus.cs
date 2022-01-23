@@ -124,7 +124,7 @@ public class ActorStatus : NetworkBehaviour
 		m_clientStatusCountAdjustments[(int)status] = 0;
 		if (DebugLog)
 		{
-			Log.Warning("<color=cyan>ActorStatus</color>: ADD " + GetColoredStatusName(status, "yellow") + " to " + m_actorData.GetColoredDebugName("white") + ", Count = " + m_statusCounts[(int)status] + ", PrevCount = " + num);
+			Log.Warning("<color=cyan>ActorStatus</color>: ADD " + GetColoredStatusName(status, "yellow") + " to " + m_actorData.DebugNameString("white") + ", Count = " + m_statusCounts[(int)status] + ", PrevCount = " + num);
 		}
 		if (num == 0)
 		{
@@ -148,7 +148,7 @@ public class ActorStatus : NetworkBehaviour
 			m_clientStatusCountAdjustments[(int)status] = 0;
 			if (DebugLog)
 			{
-				Log.Warning("<color=cyan>ActorStatus</color>: REMOVE " + GetColoredStatusName(status, "yellow") + " from " + m_actorData.GetColoredDebugName("white") + ", Count = " + m_statusCounts[(int)status] + ", PrevCount: " + num);
+				Log.Warning("<color=cyan>ActorStatus</color>: REMOVE " + GetColoredStatusName(status, "yellow") + " from " + m_actorData.DebugNameString("white") + ", Count = " + m_statusCounts[(int)status] + ", PrevCount: " + num);
 			}
 			if (num == 1)
 			{
@@ -173,7 +173,7 @@ public class ActorStatus : NetworkBehaviour
 		m_clientStatusCountAdjustments[(int)status] = num + 1;
 		if (DebugLog)
 		{
-			Log.Warning("<color=cyan>ActorStatus</color>: <color=cyan>CLIENT_ADD</color> " + GetColoredStatusName(status, "yellow") + " to " + m_actorData.GetColoredDebugName("white") + ", ClientAdjust = " + m_clientStatusCountAdjustments[(int)status] + ", SyncCount = " + m_statusCounts[(int)status]);
+			Log.Warning("<color=cyan>ActorStatus</color>: <color=cyan>CLIENT_ADD</color> " + GetColoredStatusName(status, "yellow") + " to " + m_actorData.DebugNameString("white") + ", ClientAdjust = " + m_clientStatusCountAdjustments[(int)status] + ", SyncCount = " + m_statusCounts[(int)status]);
 		}
 		if (m_statusCounts[(int)status] + m_clientStatusCountAdjustments[(int)status] == 1)
 		{
@@ -197,7 +197,7 @@ public class ActorStatus : NetworkBehaviour
 		}
 		if (DebugLog)
 		{
-			Log.Warning("<color=cyan>ActorStatus</color>: <color=magenta>CLIENT_REMOVE</color> " + GetColoredStatusName(status, "yellow") + " from " + m_actorData.GetColoredDebugName("white") + ", ClientAdjust = " + m_clientStatusCountAdjustments[(int)status] + ", SyncCount = " + m_statusCounts[(int)status]);
+			Log.Warning("<color=cyan>ActorStatus</color>: <color=magenta>CLIENT_REMOVE</color> " + GetColoredStatusName(status, "yellow") + " from " + m_actorData.DebugNameString("white") + ", ClientAdjust = " + m_clientStatusCountAdjustments[(int)status] + ", SyncCount = " + m_statusCounts[(int)status]);
 		}
 		if (m_statusCounts[(int)status] + m_clientStatusCountAdjustments[(int)status] == 0)
 		{
@@ -327,7 +327,7 @@ public class ActorStatus : NetworkBehaviour
 		}
 		actorData.ForceUpdateIsVisibleToClientCache();
 		if (statusGained
-			&& actorData.IsVisibleToClient()
+			&& actorData.IsActorVisibleToClient()
 			&& (status == StatusType.Snared || status == StatusType.Rooted))
 		{
 			AudioManager.PostEvent("ablty/generic/snare", actorData.gameObject);
@@ -456,8 +456,8 @@ public class ActorStatus : NetworkBehaviour
 			bool isVisibleInProximity = false;
 			foreach (ActorData enemy in GameFlowData.Get().GetAllTeamMembers(actorData.GetEnemyTeam()))
 			{
-				BoardSquare mySquare = Board.Get().GetSquareFromVec3(actorData.GetTravelBoardSquareWorldPosition());
-				BoardSquare enemySquare = Board.Get().GetSquareFromVec3(enemy.GetTravelBoardSquareWorldPosition());
+				BoardSquare mySquare = Board.Get().GetSquareFromVec3(actorData.GetFreePos());
+				BoardSquare enemySquare = Board.Get().GetSquareFromVec3(enemy.GetFreePos());
 				if (mySquare != null && enemySquare != null)
 				{
 					float dist = mySquare.HorizontalDistanceOnBoardTo(enemySquare);

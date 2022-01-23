@@ -652,7 +652,7 @@ public static class VectorUtils
 			if (flag5)
 			{
 				Vector3 normalized = (endPoint - laserStartPos).normalized;
-				Vector3 rhs = orderedHitActors[orderedHitActors.Count - 1].GetTravelBoardSquareWorldPosition() - laserStartPos;
+				Vector3 rhs = orderedHitActors[orderedHitActors.Count - 1].GetFreePos() - laserStartPos;
 				endPoint = laserStartPos + (Vector3.Dot(normalized, rhs) + num) * normalized;
 				if (flag4)
 				{
@@ -803,7 +803,7 @@ public static class VectorUtils
 				if (!hitActorFirst)
 				{
 					ActorData actorData = actors[i];
-					Vector3 vector = actorData.GetTravelBoardSquareWorldPosition() - startPosForBounce;
+					Vector3 vector = actorData.GetFreePos() - startPosForBounce;
 					vector.y = 0f;
 					float magnitude2 = vector.magnitude;
 					Vector3 vector2 = endPoint - startPosForBounce;
@@ -813,7 +813,7 @@ public static class VectorUtils
 					{
 						continue;
 					}
-					Vector3 travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
+					Vector3 travelBoardSquareWorldPosition = actorData.GetFreePos();
 					float num4 = 0.5f * widthInSquares * Board.Get().squareSize;
 					if (GameWideData.Get().UseActorRadiusForLaser())
 					{
@@ -1118,7 +1118,7 @@ public static class VectorUtils
 					break;
 				}
 				ActorData actorData = actors[i];
-				Vector3 vector = actorData.GetTravelBoardSquareWorldPosition() - startPosForBounce;
+				Vector3 vector = actorData.GetFreePos() - startPosForBounce;
 				vector.y = 0f;
 				float magnitude2 = vector.magnitude;
 				Vector3 vector2 = endPoint - startPosForBounce;
@@ -1128,7 +1128,7 @@ public static class VectorUtils
 				{
 					continue;
 				}
-				Vector3 travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
+				Vector3 travelBoardSquareWorldPosition = actorData.GetFreePos();
 				float num3 = 0.5f * bounceTestWidthInSquares * Board.Get().squareSize;
 				if (GameWideData.Get().UseActorRadiusForLaser())
 				{

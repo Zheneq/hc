@@ -99,7 +99,7 @@ public class NinjaSetRotationToTargetSequence : Sequence
 		m_angleToTargetActor.Clear();
 		if (base.Caster != null && base.Targets != null)
 		{
-			Vector3 travelBoardSquareWorldPosition = base.Caster.GetTravelBoardSquareWorldPosition();
+			Vector3 travelBoardSquareWorldPosition = base.Caster.GetFreePos();
 			for (int i = 0; i < base.Targets.Length; i++)
 			{
 				ActorData actorData = base.Targets[i];
@@ -107,7 +107,7 @@ public class NinjaSetRotationToTargetSequence : Sequence
 				{
 					continue;
 				}
-				Vector3 travelBoardSquareWorldPosition2 = actorData.GetTravelBoardSquareWorldPosition();
+				Vector3 travelBoardSquareWorldPosition2 = actorData.GetFreePos();
 				if (actorData != base.Caster)
 				{
 					num++;
@@ -232,7 +232,7 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					m_currRotateTargetIndex++;
 					m_currRotateTargetIndex %= m_angleToTargetActor.Count;
 					ActorData actor = m_angleToTargetActor[m_currRotateTargetIndex].m_actor;
-					base.Caster.TurnToPositionInstant(actor.GetTravelBoardSquareWorldPosition());
+					base.Caster.TurnToPositionInstant(actor.GetFreePos());
 				}
 			}
 			else
@@ -257,7 +257,7 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					if (m_currRotateTargetIndex < m_angleToTargetActor.Count)
 					{
 						ActorData actor2 = m_angleToTargetActor[m_currRotateTargetIndex].m_actor;
-						base.Caster.TurnToPositionInstant(actor2.GetTravelBoardSquareWorldPosition());
+						base.Caster.TurnToPositionInstant(actor2.GetFreePos());
 					}
 				}
 			}

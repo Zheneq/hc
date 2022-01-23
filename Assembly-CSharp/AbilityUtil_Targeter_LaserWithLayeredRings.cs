@@ -97,7 +97,7 @@ public class AbilityUtil_Targeter_LaserWithLayeredRings : AbilityUtil_Targeter_L
 			}
 		}
 		RadiusToLayerIndex bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData(m_coneRadiusList, actor.GetCurrentBoardSquare(), damageOrigin, targetingActor, true);
-		float value = VectorUtils.HorizontalPlaneDistInSquares(damageOrigin, actor.GetTravelBoardSquareWorldPosition());
+		float value = VectorUtils.HorizontalPlaneDistInSquares(damageOrigin, actor.GetFreePos());
 		actorHitContext.m_contextVars.SetValue(ContextKeys.s_InAoe.GetKey(), 1);
 		actorHitContext.m_contextVars.SetValue(ContextKeys.s_Layer.GetKey(), bestMatchingData.m_index);
 		actorHitContext.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), value);

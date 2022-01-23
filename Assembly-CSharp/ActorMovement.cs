@@ -205,7 +205,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				if (abilityData.GetQueuedAbilitiesAllowMovement())
 				{
 					float num = 0f;
-					num = ((!forcePostAbility) ? abilityData.GetQueuedAbilitiesMovementAdjust() : (-1f * m_actor.GetPostAbilityHorizontalMovementChange()));
+					num = ((!forcePostAbility) ? abilityData.GetQueuedAbilitiesMovementAdjust() : (-1f * m_actor.GetAbilityMovementCost()));
 					result += num;
 					result = GetAdjustedMovementFromBuffAndDebuff(result, forcePostAbility, calculateAsIfSnared);
 				}
@@ -269,7 +269,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		if (cantSprint && !forcePostAbility && m_actor.GetAbilityData() != null &&
 			m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.FullMovement)
 		{
-			result -= m_actor.GetPostAbilityHorizontalMovementChange();
+			result -= m_actor.GetAbilityMovementCost();
 		}
 
 		bool snared = actorStatus.HasStatus(StatusType.Snared) || queuedStatuses.Contains(StatusType.Snared);
@@ -959,7 +959,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			m_actor.GetFogOfWar().MarkForRecalculateVisibility();
 			UpdateClientFogOfWarIfNeeded();
 		}
-		if (!m_actor.IsDead() && !m_actor.IsModelAnimatorDisabled())
+		if (!m_actor.IsDead() && !m_actor.IsInRagdoll())
 		{
 			bool updatePath = m_curMoveState.m_updatePath;
 			m_curMoveState.Update();
@@ -1099,8 +1099,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			&& !m_actor.GetActorStatus().HasStatus(StatusType.Revealed, false)
 			&& !CaptureTheFlag.IsActorRevealedByFlag_Client(m_actor)
 			&& (pathEndInfo == null
-				&& !m_actor.IsVisibleToClient()
-				&& m_actor.IsHiddenInBrush()
+				&& !m_actor.IsActorVisibleToClient()
+				&& m_actor.IsInBrush()
 				&& m_actor.GetActorMovement().IsPast2ndToLastSquare()
 			|| pathEndInfo != null
 				&& !pathEndInfo.m_visibleToEnemies
@@ -1154,7 +1154,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			Client_ClearAestheticPath();
 		}
-		if (m_actor.IsModelAnimatorDisabled())
+		if (m_actor.IsInRagdoll())
 		{
 			Client_ClearAestheticPath();
 		}
@@ -1261,7 +1261,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				if (activeOwnedActorData != null
 					&& activeOwnedActorData == m_actor
 					&& m_actor.GetActorCover() != null
-					&& m_actor.IsVisibleToClient())
+					&& m_actor.IsActorVisibleToClient())
 				{
 					m_actor.GetActorCover().RecalculateCover();
 					m_actor.GetActorCover().StartShowMoveIntoCoverIndicator();

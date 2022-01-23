@@ -70,7 +70,7 @@ public class CombatText : MonoBehaviour
 			return;
 		}
 		ActorData component = GetComponent<ActorData>();
-		if (component.IsVisibleToClient())
+		if (component.IsActorVisibleToClient())
 		{
 			if (!ClientGameManager.Get().IsFastForward)
 			{

@@ -143,7 +143,7 @@ public class BattleMonkBuffCharge_Prep : Ability
 					break;
 				default:
 				{
-					List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(caster.GetTravelBoardSquareWorldPosition(), GetAllySelectRadius(), m_buffAoePenetratesLoS, caster, caster.GetTeam(), null);
+					List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(caster.GetFreePos(), GetAllySelectRadius(), m_buffAoePenetratesLoS, caster, caster.GetTeam(), null);
 					actors.Remove(caster);
 					if (NetworkClient.active)
 					{
@@ -168,7 +168,7 @@ public class BattleMonkBuffCharge_Prep : Ability
 				bool result = false;
 				if (GetRequireHitAlly())
 				{
-					List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.GetTravelBoardSquareWorldPosition(), GetAllySelectRadius(), m_buffAoePenetratesLoS, caster, caster.GetTeam(), null);
+					List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.GetFreePos(), GetAllySelectRadius(), m_buffAoePenetratesLoS, caster, caster.GetTeam(), null);
 					actorsInRadius.Remove(caster);
 					int num = 0;
 					while (true)
@@ -179,7 +179,7 @@ public class BattleMonkBuffCharge_Prep : Ability
 							bool num2;
 							if (NetworkClient.active)
 							{
-								num2 = actorData.IsVisibleToClient();
+								num2 = actorData.IsActorVisibleToClient();
 							}
 							else
 							{

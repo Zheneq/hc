@@ -45,7 +45,7 @@ public class ConfirmedState : TurnState
 							case 0:
 								break;
 							default:
-								Log.Error(component.GetDebugName() + " handling TURN_START message in Confirmed state");
+								Log.Error(component.DebugNameString() + " handling TURN_START message in Confirmed state");
 								m_SM.SetupForNewTurn();
 								m_SM.NextState = TurnStateEnum.DECIDING;
 								return;
@@ -88,7 +88,7 @@ public class ConfirmedState : TurnState
 					ActorData component2 = m_SM.GetComponent<ActorData>();
 					if (component2.RespawnPickedPositionSquare != null)
 					{
-						if (!component2.IsPickingRespawnSquare())
+						if (!component2.IsActorInvisibleForRespawn())
 						{
 							while (true)
 							{

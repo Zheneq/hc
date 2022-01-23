@@ -334,7 +334,7 @@ public class FogOfWar : MonoBehaviour
 		m_visibilityPersonalOnly = InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowPersonalVisibility);
 		if ((bool)m_owner)
 		{
-			bool isDisabled = m_owner.IsDead() || NetworkClient.active && m_owner.IsModelAnimatorDisabled();
+			bool isDisabled = m_owner.IsDead() || NetworkClient.active && m_owner.IsInRagdoll();
 			float radius = isDisabled ? 0f : m_owner.GetSightRange();
 			CalcVisibleSquares(m_owner.GetTravelBoardSquare(), radius, false, BoardSquare.VisibilityFlags.Self, false);
 		}
@@ -343,7 +343,7 @@ public class FogOfWar : MonoBehaviour
 		{
 			if ((bool)m_owner)
 			{
-				ActorAdditionalVisionProviders actorAdditionalVisionProviders = m_owner.GetActorAdditionalVisionProviders();
+				ActorAdditionalVisionProviders actorAdditionalVisionProviders = m_owner.GetAdditionalActorVisionProviders();
 				if (actorAdditionalVisionProviders != null)
 				{
 					foreach (VisionProviderInfo visionProvider in actorAdditionalVisionProviders.GetVisionProviders())
@@ -409,7 +409,7 @@ public class FogOfWar : MonoBehaviour
 							continue;
 						}
 
-						bool isDisabled = teammate.IsDead() || NetworkClient.active && teammate.IsModelAnimatorDisabled();
+						bool isDisabled = teammate.IsDead() || NetworkClient.active && teammate.IsInRagdoll();
 						float radius = isDisabled ? 0f : teammate.GetSightRange();
 						CalcVisibleSquares(teammate.GetTravelBoardSquare(), radius, false, BoardSquare.VisibilityFlags.Team, false);
 						ActorAdditionalVisionProviders component = teammate.GetComponent<ActorAdditionalVisionProviders>();
@@ -528,7 +528,7 @@ public class FogOfWar : MonoBehaviour
 			Gizmos.color = Color.white;
 			float num = 1f - Mathf.Clamp((Time.time - m_lastRecalcTime) * 2f, 0f, 1f);
 			Gizmos.color = new Color(0f, num, num, num);
-			Gizmos.DrawSphere(m_owner.GetNameplatePosition(10f), 0.5f);
+			Gizmos.DrawSphere(m_owner.GetOverheadPosition(10f), 0.5f);
 		}
 	}
 }

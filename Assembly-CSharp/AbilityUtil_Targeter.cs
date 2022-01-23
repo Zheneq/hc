@@ -424,7 +424,7 @@ public class AbilityUtil_Targeter
 					ActorData activeOwnedActorData = GameFlowData.Get().POVActorData;
 					bool isEnemy = activeOwnedActorData != null && activeOwnedActorData.GetTeam() != actor.GetTeam();
 					bool isIgnoringCover = AbilityUtils.AbilityIgnoreCover(m_ability, actorTarget.m_actor);
-					bool isVisibleToClient = actor.IsVisibleToClient();
+					bool isVisibleToClient = actor.IsActorVisibleToClient();
 					bool hasCover = actorTarget.m_ignoreCoverMinDist
 						? actorCover.IsInCoverWrtDirectionOnly(actorTarget.m_damageOrigin, actorTarget.m_actor.GetCurrentBoardSquare())
 						: actorCover.IsInCoverWrt(actorTarget.m_damageOrigin);
@@ -451,7 +451,7 @@ public class AbilityUtil_Targeter
 		List<ActorData> list = new List<ActorData>();
 		foreach (ActorTarget actorTarget in m_actorsInRange)
 		{
-			if (actorTarget.m_actor.IsVisibleToClient())
+			if (actorTarget.m_actor.IsActorVisibleToClient())
 			{
 				list.Add(actorTarget.m_actor);
 			}
@@ -465,7 +465,7 @@ public class AbilityUtil_Targeter
 		for (int i = 0; i < m_actorsInRange.Count; i++)
 		{
 			ActorTarget actorTarget = m_actorsInRange[i];
-			if (actorTarget.m_actor.IsVisibleToClient() && actorTarget.m_subjectTypes.Contains(subject))
+			if (actorTarget.m_actor.IsActorVisibleToClient() && actorTarget.m_subjectTypes.Contains(subject))
 			{
 				list.Add(actorTarget.m_actor);
 			}
@@ -479,7 +479,7 @@ public class AbilityUtil_Targeter
 		for (int i = 0; i < m_actorsInRange.Count; i++)
 		{
 			ActorTarget actorTarget = m_actorsInRange[i];
-			if (actorTarget.m_actor.IsVisibleToClient()
+			if (actorTarget.m_actor.IsActorVisibleToClient()
 				&& actorTarget.m_subjectTypes.Contains(subject))
 			{
 				num++;
@@ -669,7 +669,7 @@ public class AbilityUtil_Targeter
 
 	protected void AddMovementArrow(ActorData mover, BoardSquarePathInfo path, Color arrowColor, MovementPathStart previousLine, bool isChasing, TargeterMovementType movementType)
 	{
-		if (path != null && mover != null && mover.IsVisibleToClient())
+		if (path != null && mover != null && mover.IsActorVisibleToClient())
 		{
 			List<Vector3> points = KnockbackUtils.BuildDrawablePath(path, false);
 			if (points.Count >= 2)

@@ -95,7 +95,7 @@ public class TrackerHuntingCrossbow : Ability
 						bool num3;
 						if (m_abilityMod.m_requireFunctioningBrush)
 						{
-							num3 = actorData.IsHiddenInBrush();
+							num3 = actorData.IsInBrush();
 						}
 						else
 						{

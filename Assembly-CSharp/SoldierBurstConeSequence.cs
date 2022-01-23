@@ -299,7 +299,7 @@ public class SoldierBurstConeSequence : Sequence
 			m_aimDirection = base.Caster.transform.forward;
 			m_aimDirection.y = 0f;
 		}
-		Vector3 travelBoardSquareWorldPosition = base.Caster.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = base.Caster.GetFreePos();
 		float num = VectorUtils.HorizontalAngle_Deg(m_aimDirection);
 		float num2 = m_coneAngle / 3f;
 		float num3 = num + num2 * 1f;
@@ -327,7 +327,7 @@ public class SoldierBurstConeSequence : Sequence
 				{
 					if (!(list2[num5].GetCurrentBoardSquare() == null))
 					{
-						num6 = (AreaEffectUtils.IsSquareInConeByActorRadius(list2[num5].GetCurrentBoardSquare(), base.Caster.GetTravelBoardSquareWorldPosition(), num4, num2 + 5f, m_maxProjectileDistInWorld, 0f, true, base.Caster) ? 1 : 0);
+						num6 = (AreaEffectUtils.IsSquareInConeByActorRadius(list2[num5].GetCurrentBoardSquare(), base.Caster.GetFreePos(), num4, num2 + 5f, m_maxProjectileDistInWorld, 0f, true, base.Caster) ? 1 : 0);
 						goto IL_0188;
 					}
 				}

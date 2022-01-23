@@ -75,17 +75,17 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		float magnitude = (laserEndPoint - travelBoardSquareWorldPositionForLos).magnitude;
 		magnitude = ClaymoreCharge.GetMaxPotentialChargeDistance(travelBoardSquareWorldPositionForLos, laserEndPoint, currentTarget.AimDirection, magnitude, targetingActor, out BoardSquare pathEndSquare);
 		BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, pathEndSquare, targetingActor.GetCurrentBoardSquare(), true);
-		List<ActorData> actors = ClaymoreCharge.GetActorsOnPath(path, targetingActor.GetEnemyTeams(), targetingActor);
+		List<ActorData> actors = ClaymoreCharge.GetActorsOnPath(path, targetingActor.GetEnemyTeamAsList(), targetingActor);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		Vector3 laserEndPos;
-		List<ActorData> actors2 = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, m_dashWidthInSquares, targetingActor, targetingActor.GetEnemyTeams(), false, 1, true, false, out laserEndPos, null);
+		List<ActorData> actors2 = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, m_dashWidthInSquares, targetingActor, targetingActor.GetEnemyTeamAsList(), false, 1, true, false, out laserEndPos, null);
 		actors2.AddRange(actors);
 		TargeterUtils.SortActorsByDistanceToPos(ref actors2, travelBoardSquareWorldPositionForLos);
 		BoardSquare boardSquare = null;
 		bool active = false;
 		if (actors2.Count > 0)
 		{
-			Vector3 vector = (!m_directHitIgnoreCover) ? targetingActor.GetTravelBoardSquareWorldPosition() : actors2[0].GetTravelBoardSquareWorldPosition();
+			Vector3 vector = (!m_directHitIgnoreCover) ? targetingActor.GetFreePos() : actors2[0].GetFreePos();
 			AddActorInRange(actors2[0], vector, targetingActor);
 			Vector3 lhs = vector - travelBoardSquareWorldPositionForLos;
 			lhs.y = 0f;
@@ -116,7 +116,7 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		{
 			if (m_affectCasterDelegate(targetingActor, GetVisibleActorsInRange()))
 			{
-				AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
+				AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Self);
 			}
 		}
 		gameObject.SetActive(active);
@@ -152,7 +152,7 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		{
 			if (boardSquare3.OccupantActor != targetingActor)
 			{
-				if (boardSquare3.OccupantActor.IsVisibleToClient())
+				if (boardSquare3.OccupantActor.IsActorVisibleToClient())
 				{
 					boardSquare3 = GetChargeDestination(targetingActor, boardSquare3.OccupantActor.GetCurrentBoardSquare(), boardSquarePathInfo);
 					differentFromInputDest = true;
@@ -226,7 +226,7 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		}
 		BoardSquare boardSquare = null;
 		Vector3 b = desiredDest.ToVector3();
-		Vector3 idealTestVector = caster.GetTravelBoardSquareWorldPosition() - b;
+		Vector3 idealTestVector = caster.GetFreePos() - b;
 		idealTestVector.y = 0f;
 		idealTestVector.Normalize();
 		BoardSquare currentBoardSquare = caster.GetCurrentBoardSquare();
@@ -257,7 +257,7 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 					}
 					if (!(boardSquare2.OccupantActor == null))
 					{
-						if (boardSquare2.OccupantActor.IsVisibleToClient())
+						if (boardSquare2.OccupantActor.IsActorVisibleToClient())
 						{
 							if (!(boardSquare2.OccupantActor == caster))
 							{

@@ -334,7 +334,7 @@ public class TricksterMadeYouLook : Ability
 									continue;
 								}
 							}
-							m_afterImageSyncComp.TurnToPosition(current, caster.GetTravelBoardSquareWorldPosition());
+							m_afterImageSyncComp.TurnToPosition(current, caster.GetFreePos());
 							Animator modelAnimator = current.GetModelAnimator();
 							modelAnimator.SetFloat(animDistToGoal, 10f);
 							modelAnimator.ResetTrigger(animStartDamageReaction);

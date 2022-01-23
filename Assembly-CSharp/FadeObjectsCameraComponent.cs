@@ -180,7 +180,7 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 				ActorData current = enumerator.Current;
 				if (current != null)
 				{
-					if (current.IsVisibleToClient())
+					if (current.IsActorVisibleToClient())
 					{
 						if (!current.IsDead())
 						{

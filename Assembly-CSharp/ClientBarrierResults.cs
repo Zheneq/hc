@@ -60,7 +60,7 @@ public class ClientBarrierResults
 				}
 			}
 		}
-		Debug.LogError("ClientBarrierResults error-- Sequence hitting actor " + target.GetDebugName() + ", but that actor isn't in our hit results.");
+		Debug.LogError("ClientBarrierResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results.");
 	}
 
 	internal void OnBarrierHitPosition(Vector3 position)
@@ -106,7 +106,7 @@ public class ClientBarrierResults
 
 	public string GetDebugDescription()
 	{
-		return m_barrierCaster.GetDebugName() + "'s barrier, guid = " + m_barrierGUID;
+		return m_barrierCaster.DebugNameString() + "'s barrier, guid = " + m_barrierGUID;
 	}
 
 	internal string UnexecutedHitsDebugStr()

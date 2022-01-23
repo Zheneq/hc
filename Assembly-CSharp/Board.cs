@@ -334,7 +334,7 @@ public class Board : MonoBehaviour, IGameEventListener
 					ActorData component2 = PlayerFreeSquare.occupant.GetComponent<ActorData>();
 					if (component2 != null)
 					{
-						if (component2.IsVisibleToClient())
+						if (component2.IsActorVisibleToClient())
 						{
 							flag = true;
 							goto IL_010e;
@@ -531,7 +531,7 @@ public class Board : MonoBehaviour, IGameEventListener
 					ActorData component = item.GetComponent<ActorData>();
 					if ((bool)component)
 					{
-						if (component.IsModelAnimatorDisabled())
+						if (component.IsInRagdoll())
 						{
 							if (applyToAllJoints)
 							{

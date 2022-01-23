@@ -38,63 +38,63 @@ public class BotController : MonoBehaviour
 		this.previousBrainStack = new Stack<NPCBrain>();
 		if (base.GetComponent<NPCBrain>() == null)
 		{
-			if (!(component.GetObjectName() == "Sniper") && !(component.GetObjectName() == "RageBeast") && !(component.GetObjectName() == "Scoundrel"))
+			if (!(component.GetClassName() == "Sniper") && !(component.GetClassName() == "RageBeast") && !(component.GetClassName() == "Scoundrel"))
 			{
-				if (!(component.GetObjectName() == "RobotAnimal"))
+				if (!(component.GetClassName() == "RobotAnimal"))
 				{
-					if (!(component.GetObjectName() == "NanoSmith"))
+					if (!(component.GetClassName() == "NanoSmith"))
 					{
-						if (!(component.GetObjectName() == "Thief"))
+						if (!(component.GetClassName() == "Thief"))
 						{
-							if (!(component.GetObjectName() == "BattleMonk") && !(component.GetObjectName() == "BazookaGirl"))
+							if (!(component.GetClassName() == "BattleMonk") && !(component.GetClassName() == "BazookaGirl"))
 							{
-								if (!(component.GetObjectName() == "SpaceMarine"))
+								if (!(component.GetClassName() == "SpaceMarine"))
 								{
-									if (!(component.GetObjectName() == "Gremlins"))
+									if (!(component.GetClassName() == "Gremlins"))
 									{
-										if (!(component.GetObjectName() == "Tracker"))
+										if (!(component.GetClassName() == "Tracker"))
 										{
-											if (!(component.GetObjectName() == "DigitalSorceress"))
+											if (!(component.GetClassName() == "DigitalSorceress"))
 											{
-												if (!(component.GetObjectName() == "Spark") && !(component.GetObjectName() == "Claymore") && !(component.GetObjectName() == "Rampart"))
+												if (!(component.GetClassName() == "Spark") && !(component.GetClassName() == "Claymore") && !(component.GetClassName() == "Rampart"))
 												{
-													if (!(component.GetObjectName() == "Trickster"))
+													if (!(component.GetClassName() == "Trickster"))
 													{
-														if (!(component.GetObjectName() == "Blaster"))
+														if (!(component.GetClassName() == "Blaster"))
 														{
-															if (!(component.GetObjectName() == "FishMan"))
+															if (!(component.GetClassName() == "FishMan"))
 															{
-																if (!(component.GetObjectName() == "Thief"))
+																if (!(component.GetClassName() == "Thief"))
 																{
-																	if (!(component.GetObjectName() == "Soldier"))
+																	if (!(component.GetClassName() == "Soldier"))
 																	{
-																		if (!(component.GetObjectName() == "Exo"))
+																		if (!(component.GetClassName() == "Exo"))
 																		{
-																			if (!(component.GetObjectName() == "Martyr") && !(component.GetObjectName() == "Sensei"))
+																			if (!(component.GetClassName() == "Martyr") && !(component.GetClassName() == "Sensei"))
 																			{
-																				if (!(component.GetObjectName() == "TeleportingNinja") && !(component.GetObjectName() == "Manta"))
+																				if (!(component.GetClassName() == "TeleportingNinja") && !(component.GetClassName() == "Manta"))
 																				{
-																					if (!(component.GetObjectName() == "Valkyrie"))
+																					if (!(component.GetClassName() == "Valkyrie"))
 																					{
-																						if (!(component.GetObjectName() == "Archer"))
+																						if (!(component.GetClassName() == "Archer"))
 																						{
-																							if (!(component.GetObjectName() == "Samurai"))
+																							if (!(component.GetClassName() == "Samurai"))
 																							{
-																								if (!(component.GetObjectName() == "Cleric"))
+																								if (!(component.GetClassName() == "Cleric"))
 																								{
-																									if (!(component.GetObjectName() == "Neko"))
+																									if (!(component.GetClassName() == "Neko"))
 																									{
-																										if (!(component.GetObjectName() == "Scamp"))
+																										if (!(component.GetClassName() == "Scamp"))
 																										{
-																											if (!(component.GetObjectName() == "Dino"))
+																											if (!(component.GetClassName() == "Dino"))
 																											{
-																												if (!(component.GetObjectName() == "Iceborg"))
+																												if (!(component.GetClassName() == "Iceborg"))
 																												{
-																													if (!(component.GetObjectName() == "Fireborg"))
+																													if (!(component.GetClassName() == "Fireborg"))
 																													{
 																														Log.Info("Using Generic AI for {0}", new object[]
 																														{
-																															component.GetObjectName()
+																															component.GetClassName()
 																														});
 																														return;
 																													}
@@ -127,7 +127,7 @@ public class BotController : MonoBehaviour
 			NPCBrain_Adaptive.Create(this, component.transform, botDifficulty, flag);
 			Log.Info("Making Adaptive AI for {0} at difficulty {1}, can taunt: {2}", new object[]
 			{
-				component.GetObjectName(),
+				component.GetClassName(),
 				botDifficulty.ToString(),
 				flag
 			});

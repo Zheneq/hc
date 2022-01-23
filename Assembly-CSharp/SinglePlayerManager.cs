@@ -465,7 +465,7 @@ public class SinglePlayerManager : NetworkBehaviour
 		{
 			if (actor != null)
 			{
-				if (actor.GetIsHumanControlled())
+				if (actor.IsHumanControlled())
 				{
 					return s_instance.GetCanEndTurnFlag();
 				}
@@ -547,7 +547,7 @@ public class SinglePlayerManager : NetworkBehaviour
 			while (enumerator.MoveNext())
 			{
 				ActorData current = enumerator.Current;
-				if (current.GetIsHumanControlled())
+				if (current.IsHumanControlled())
 				{
 					while (true)
 					{
@@ -921,7 +921,7 @@ public class SinglePlayerManager : NetworkBehaviour
 	public void OnEndTurnRequested(ActorData requestingActor)
 	{
 		RecalcCanEndTurn();
-		if (!requestingActor.GetIsHumanControlled())
+		if (!requestingActor.IsHumanControlled())
 		{
 			return;
 		}
@@ -1124,7 +1124,7 @@ public class SinglePlayerManager : NetworkBehaviour
 				}
 			}
 		}
-		if (!caster.GetIsHumanControlled())
+		if (!caster.IsHumanControlled())
 		{
 			while (true)
 			{
@@ -1278,7 +1278,7 @@ public class SinglePlayerManager : NetworkBehaviour
 				}
 			}
 		}
-		if (!mover.GetIsHumanControlled())
+		if (!mover.IsHumanControlled())
 		{
 			while (true)
 			{
@@ -1619,7 +1619,7 @@ public class SinglePlayerManager : NetworkBehaviour
 				return true;
 			}
 		}
-		if (!aimer.GetIsHumanControlled())
+		if (!aimer.IsHumanControlled())
 		{
 			while (true)
 			{

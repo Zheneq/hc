@@ -122,11 +122,11 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 				Vector3 travelBoardSquareWorldPosition;
 				if (m_directHitIgnoreCover)
 				{
-					travelBoardSquareWorldPosition = chargeHitActors[0].GetTravelBoardSquareWorldPosition();
+					travelBoardSquareWorldPosition = chargeHitActors[0].GetFreePos();
 				}
 				else
 				{
-					travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+					travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 				}
 				Vector3 damageOrigin = travelBoardSquareWorldPosition;
 				AddActorInRange(chargeHitActors[0], damageOrigin, targetingActor);
@@ -254,7 +254,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 			{
 				if (boardSquare4.OccupantActor != targetingActor)
 				{
-					if (boardSquare4.OccupantActor.IsVisibleToClient())
+					if (boardSquare4.OccupantActor.IsActorVisibleToClient())
 					{
 						BoardSquare chargeDestination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(targetingActor, boardSquare4, boardSquarePathInfo);
 						if (chargeDestination != boardSquare4)
@@ -301,7 +301,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 
 	private List<ActorData> GetChargeHitActors(Vector3 aimDir, Vector3 startPos, ActorData caster, out Vector3 chargeEndPoint, out bool traveledFullDistance)
 	{
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(startPos, aimDir, m_dashRangeInSquares, m_dashWidthInSquares, caster, caster.GetEnemyTeams(), false, 1, false, false, out chargeEndPoint, null, null, true);
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(startPos, aimDir, m_dashRangeInSquares, m_dashWidthInSquares, caster, caster.GetEnemyTeamAsList(), false, 1, false, false, out chargeEndPoint, null, null, true);
 		float num = (m_dashRangeInSquares - 0.25f) * Board.Get().squareSize;
 		traveledFullDistance = ((startPos - chargeEndPoint).magnitude >= num);
 		return actorsInLaser;

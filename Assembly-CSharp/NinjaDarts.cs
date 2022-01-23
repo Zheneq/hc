@@ -112,7 +112,7 @@ public class NinjaDarts : Ability
 					case 0:
 						break;
 					default:
-						return potentialActor.GetTravelBoardSquareWorldPosition();
+						return potentialActor.GetFreePos();
 					}
 				}
 			}

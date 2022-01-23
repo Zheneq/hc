@@ -339,7 +339,7 @@ public class RageBeastBasicAttack : Ability
 						{
 							if (visibleActorsOnly)
 							{
-								if (!current.OccupantActor.IsVisibleToClient())
+								if (!current.OccupantActor.IsActorVisibleToClient())
 								{
 									continue;
 								}
@@ -404,7 +404,7 @@ public class RageBeastBasicAttack : Ability
 			}
 		}
 		float num = ModdedInnerRadius() * Board.Get().squareSize;
-		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - damageOrigin;
+		Vector3 vector = targetActor.GetFreePos() - damageOrigin;
 		vector.y = 0f;
 		float num2 = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())

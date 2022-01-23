@@ -180,7 +180,7 @@ public class ArcherShieldingArrow : Ability
 
 	private float CalculateFanAngleDegrees(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		float value = (currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude / Board.Get().squareSize;
+		float value = (currentTarget.FreePos - targetingActor.GetFreePos()).magnitude / Board.Get().squareSize;
 		float num = Mathf.Clamp(value, m_targeterMinInterpDistance, m_targeterMaxInterpDistance) - m_targeterMinInterpDistance;
 		return Mathf.Max(GetTargeterMinAngle(), GetTargeterMaxAngle() * (1f - num / (m_targeterMaxInterpDistance - m_targeterMinInterpDistance)));
 	}

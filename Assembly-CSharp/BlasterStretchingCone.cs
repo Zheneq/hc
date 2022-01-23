@@ -451,7 +451,7 @@ public class BlasterStretchingCone : Ability
 					break;
 				default:
 				{
-					float num = VectorUtils.HorizontalPlaneDistInSquares(caster.GetTravelBoardSquareWorldPosition(), target.GetTravelBoardSquareWorldPosition()) - 1.4f;
+					float num = VectorUtils.HorizontalPlaneDistInSquares(caster.GetFreePos(), target.GetFreePos()) - 1.4f;
 					return Mathf.RoundToInt(GetExtraDamagePerSquareDistanceFromEnemy() * num);
 				}
 				}

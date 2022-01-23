@@ -93,7 +93,7 @@ public class ExoDualCone : Ability
 
 	private Vector3 GetDamageOriginForTargeter(AbilityTarget currentTarget, Vector3 defaultOrigin, ActorData actorToAdd, ActorData caster)
 	{
-		return caster.GetTravelBoardSquareWorldPosition();
+		return caster.GetFreePos();
 	}
 
 	public int GetNumCones()
@@ -377,7 +377,7 @@ public class ExoDualCone : Ability
 					break;
 				default:
 				{
-					Vector3 vector = currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition();
+					Vector3 vector = currentTarget.FreePos - targetingActor.GetFreePos();
 					vector.y = 0f;
 					float value = vector.magnitude / Board.Get().squareSize;
 					float num = Mathf.Clamp(value, interpolateMinDist, interpolateMaxDist) - interpolateMinDist;

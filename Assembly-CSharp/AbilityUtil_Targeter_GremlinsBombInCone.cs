@@ -93,7 +93,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 				default:
 				{
 					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
-					Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+					Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 					centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
 					return centerOfShape;
 				}
@@ -238,7 +238,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 			ActorData occupantActor = gameplayRefSquare.OccupantActor;
 			if (occupantActor != null)
 			{
-				if (MatchesTeam(occupantActor, targetingActor) && occupantActor.IsVisibleToClient())
+				if (MatchesTeam(occupantActor, targetingActor) && occupantActor.IsActorVisibleToClient())
 				{
 					List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, currentTarget.FreePos, gameplayRefSquare, m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
 					TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
@@ -291,7 +291,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 		{
 			GameObject gameObject = m_highlights[2];
 			GameObject gameObject2 = m_highlights[3];
-			Vector3 vec = targetSquare.ToVector3() - targetingActor.GetTravelBoardSquareWorldPosition();
+			Vector3 vec = targetSquare.ToVector3() - targetingActor.GetFreePos();
 			vec.y = 0f;
 			if (vec.magnitude > 0f)
 			{
@@ -300,7 +300,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 				float num2 = VectorUtils.HorizontalAngle_Deg(vec);
 				float angle = num2 + m_angleWithCenter;
 				float angle2 = num2 - m_angleWithCenter;
-				Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+				Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 				travelBoardSquareWorldPosition.y = HighlightUtils.GetHighlightHeight();
 				gameObject.transform.position = travelBoardSquareWorldPosition;
 				gameObject2.transform.position = travelBoardSquareWorldPosition;

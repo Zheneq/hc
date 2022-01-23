@@ -55,13 +55,13 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
 		list.Add(boardSquareSafe);
 		VectorUtils.LaserCoords item = default(VectorUtils.LaserCoords);
-		item.start = targetingActor.GetTravelBoardSquareWorldPosition();
+		item.start = targetingActor.GetFreePos();
 		item.end = boardSquareSafe.ToVector3();
 		list2.Add(item);
 		BoardSquare boardSquare = null;
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
 		laserCoords.start = boardSquareSafe.ToVector3();
-		Vector3 a = laserCoords.start - targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 a = laserCoords.start - targetingActor.GetFreePos();
 		a.y = 0f;
 		a.Normalize();
 		laserCoords.end = laserCoords.start + (float)m_maxSeparationInSquares * 1.45f * squareSize * a;
@@ -137,7 +137,7 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 				{
 					if (actorData.GetTeam() != targetingActor.GetTeam())
 					{
-						if (actorData.IsVisibleToClient())
+						if (actorData.IsActorVisibleToClient())
 						{
 							List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, centerOfShape, current, false, targetingActor, targetingActor.GetEnemyTeam(), null);
 							TargeterUtils.RemoveActorsInvisibleToClient(ref actors);

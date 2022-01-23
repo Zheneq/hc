@@ -65,7 +65,7 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 		if (squareFromAbilityTarget != null)
 		{
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
-			Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+			Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 			centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
 			return centerOfShape;
 		}
@@ -89,7 +89,7 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 		while (true)
 		{
 			laserCoords.start = targetingActor.GetLoSCheckPos();
-			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[currentTargetIndex - 1].AimDirection, m_laserRange, m_laserWidth, targetingActor, targetingActor.GetEnemyTeams(), m_penetrateLos, m_maxTargets, false, false, out laserCoords.end, null);
+			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[currentTargetIndex - 1].AimDirection, m_laserRange, m_laserWidth, targetingActor, targetingActor.GetEnemyTeamAsList(), m_penetrateLos, m_maxTargets, false, false, out laserCoords.end, null);
 			int num = 0;
 			EnableAllMovementArrows();
 			BoardSquare squareFromAbilityTarget = GetSquareFromAbilityTarget(currentTarget, targetingActor);

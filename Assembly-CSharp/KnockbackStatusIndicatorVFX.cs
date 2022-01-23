@@ -42,7 +42,7 @@ public class KnockbackStatusIndicatorVFX : AttachedActorVFXInfo
 						}
 						while (true)
 						{
-							bool flag = m_actor != null && !m_actor.IsModelAnimatorDisabled();
+							bool flag = m_actor != null && !m_actor.IsInRagdoll();
 							bool flag2 = m_actor.GetActorStatus().HasStatus(m_status, false);
 							int num;
 							if (actorVisible)

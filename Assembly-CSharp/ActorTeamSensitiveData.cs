@@ -271,7 +271,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	public string GetDebugString()
 	{
-		string actorDebugName = (Actor != null) ? Actor.GetDebugName() : ("[null] (actor index = " + m_actorIndex + ")");
+		string actorDebugName = (Actor != null) ? Actor.DebugNameString() : ("[null] (actor index = " + m_actorIndex + ")");
 		return "ActorTeamSensitiveData-- team = " + ActorsTeam.ToString() + ", actor = " + actorDebugName + ", observed by = " + m_typeObservingMe;
 	}
 
@@ -800,26 +800,26 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				uIWorldPing = Object.Instantiate(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingAssistPrefab);
 				eventName = "ui/ingame/ping/assist";
 				BoardSquare closestSquare = Board.Get().GetSquareClosestToPos(vector.x, vector.z);
-				if (closestSquare.OccupantActor != null && closestSquare.OccupantActor.IsVisibleToClient())
+				if (closestSquare.OccupantActor != null && closestSquare.OccupantActor.IsActorVisibleToClient())
 				{
 					if (closestSquare.OccupantActor.GetTeam() != actor.GetTeam())
 					{
 						string arg = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType + 1}>\u200b</size>";
-						text = string.Format(StringUtil.TR("AssistEnemy", "Ping"), actor.GetDisplayNameForLog(), arg, closestSquare.OccupantActor.GetDisplayNameForLog());
+						text = string.Format(StringUtil.TR("AssistEnemy", "Ping"), actor.GetDisplayName(), arg, closestSquare.OccupantActor.GetDisplayName());
 					}
 					else if (closestSquare.OccupantActor != actor)
 					{
 						string arg2 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType}>\u200b</size>";
-						text = string.Format(StringUtil.TR("AssistAlly", "Ping"), actor.GetDisplayNameForLog(), arg2, closestSquare.OccupantActor.GetDisplayNameForLog());
+						text = string.Format(StringUtil.TR("AssistAlly", "Ping"), actor.GetDisplayName(), arg2, closestSquare.OccupantActor.GetDisplayName());
 					}
 					else
 					{
-						text = string.Format(StringUtil.TR("Assist", "Ping"), actor.GetDisplayNameForLog());
+						text = string.Format(StringUtil.TR("Assist", "Ping"), actor.GetDisplayName());
 					}
 				}
 				else
 				{
-					text = string.Format(StringUtil.TR("Assist", "Ping"), actor.GetDisplayNameForLog());
+					text = string.Format(StringUtil.TR("Assist", "Ping"), actor.GetDisplayName());
 				}
 			}
 			else if (pingType == ActorController.PingType.Defend)
@@ -827,32 +827,32 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				uIWorldPing = Object.Instantiate(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingDefendPrefab);
 				eventName = "ui/ingame/ping/anger";
 				BoardSquare closestSquare = Board.Get().GetSquareClosestToPos(vector.x, vector.z);
-				if (closestSquare.OccupantActor != null && closestSquare.OccupantActor.IsVisibleToClient())
+				if (closestSquare.OccupantActor != null && closestSquare.OccupantActor.IsActorVisibleToClient())
 				{
 					if (closestSquare.OccupantActor.GetTeam() != actor.GetTeam())
 					{
 						text = string.Format(
 							StringUtil.TR("DangerEnemy", "Ping"),
-							actor.GetDisplayNameForLog(),
+							actor.GetDisplayName(),
 							$"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType + 1}>\u200b</size>",
-							closestSquare.OccupantActor.GetDisplayNameForLog());
+							closestSquare.OccupantActor.GetDisplayName());
 					}
 					else if (closestSquare.OccupantActor != actor)
 					{
 						text = string.Format(
 							StringUtil.TR("DangerAlly", "Ping"),
-							actor.GetDisplayNameForLog(),
+							actor.GetDisplayName(),
 							$"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType}>\u200b</size>",
-							closestSquare.OccupantActor.GetDisplayNameForLog());
+							closestSquare.OccupantActor.GetDisplayName());
 					}
 					else
 					{
-						text = string.Format(StringUtil.TR("Danger", "Ping"), actor.GetDisplayNameForLog());
+						text = string.Format(StringUtil.TR("Danger", "Ping"), actor.GetDisplayName());
 					}
 				}
 				else
 				{
-					text = string.Format(StringUtil.TR("Danger", "Ping"), actor.GetDisplayNameForLog());
+					text = string.Format(StringUtil.TR("Danger", "Ping"), actor.GetDisplayName());
 				}
 			}
 			else if (pingType == ActorController.PingType.Enemy)
@@ -860,24 +860,24 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				uIWorldPing = Object.Instantiate(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingEnemyPrefab);
 				eventName = "ui/ingame/ping/attack";
 				BoardSquare closestSquare = Board.Get().GetSquareClosestToPos(vector.x, vector.z);
-				if (closestSquare.OccupantActor != null && closestSquare.OccupantActor.IsVisibleToClient())
+				if (closestSquare.OccupantActor != null && closestSquare.OccupantActor.IsActorVisibleToClient())
 				{
 					if (closestSquare.OccupantActor.GetTeam() != actor.GetTeam())
 					{
 						text = string.Format(
 							StringUtil.TR("AttackEnemy", "Ping"),
-							actor.GetDisplayNameForLog(),
+							actor.GetDisplayName(),
 							$"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType + 1}>\u200b</size>",
-							closestSquare.OccupantActor.GetDisplayNameForLog());
+							closestSquare.OccupantActor.GetDisplayName());
 					}
 					else
 					{
-						text = string.Format(StringUtil.TR("Attack", "Ping"), actor.GetDisplayNameForLog());
+						text = string.Format(StringUtil.TR("Attack", "Ping"), actor.GetDisplayName());
 					}
 				}
 				else
 				{
-					text = string.Format(StringUtil.TR("Attack", "Ping"), actor.GetDisplayNameForLog());
+					text = string.Format(StringUtil.TR("Attack", "Ping"), actor.GetDisplayName());
 				}
 			}
 			else if (pingType == ActorController.PingType.Move)
@@ -885,31 +885,31 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				uIWorldPing = Object.Instantiate(HUD_UI.Get().m_mainScreenPanel.m_minimap.m_worldPingMovePrefab);
 				eventName = "ui/ingame/ping/move";
 				BoardSquare closestSquare = Board.Get().GetSquareClosestToPos(vector.x, vector.z);
-				if (closestSquare.OccupantActor != null && closestSquare.OccupantActor.IsVisibleToClient())
+				if (closestSquare.OccupantActor != null && closestSquare.OccupantActor.IsActorVisibleToClient())
 				{
 					if (closestSquare.OccupantActor.GetTeam() != actor.GetTeam())
 					{
 						text = string.Format(
 							StringUtil.TR("MoveEnemy", "Ping"),
-							actor.GetDisplayNameForLog(),
+							actor.GetDisplayName(),
 							$"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType + 1}>\u200b</size>",
-							closestSquare.OccupantActor.GetDisplayNameForLog());
+							closestSquare.OccupantActor.GetDisplayName());
 					}
 					else if (closestSquare.OccupantActor != actor)
 					{
 						text = string.Format(StringUtil.TR("MoveAlly", "Ping"),
-							actor.GetDisplayNameForLog(),
+							actor.GetDisplayName(),
 							$"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType}>\u200b</size>",
-							closestSquare.OccupantActor.GetDisplayNameForLog());
+							closestSquare.OccupantActor.GetDisplayName());
 					}
 					else
 					{
-						text = string.Format(StringUtil.TR("Move", "Ping"), actor.GetDisplayNameForLog());
+						text = string.Format(StringUtil.TR("Move", "Ping"), actor.GetDisplayName());
 					}
 				}
 				else
 				{
-					text = string.Format(StringUtil.TR("Move", "Ping"), actor.GetDisplayNameForLog());
+					text = string.Format(StringUtil.TR("Move", "Ping"), actor.GetDisplayName());
 				}
 			}
 			else
@@ -972,7 +972,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				});
 			}
 		}
-		else if (!ClientGameManager.Get().FriendList.Friends.TryGetValue(Actor.GetActualAccountId(), out FriendInfo value) || value.FriendStatus != FriendStatus.Blocked)
+		else if (!ClientGameManager.Get().FriendList.Friends.TryGetValue(Actor.GetAccountId(), out FriendInfo value) || value.FriendStatus != FriendStatus.Blocked)
 		{
 			TextConsole.Get().Write(new TextConsole.Message
 			{

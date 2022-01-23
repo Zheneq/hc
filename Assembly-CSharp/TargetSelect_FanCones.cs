@@ -220,7 +220,7 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 
 	private Vector3 GetDamageOriginForTargeter(AbilityTarget currentTarget, Vector3 defaultOrigin, ActorData actorToAdd, ActorData caster)
 	{
-		return caster.GetTravelBoardSquareWorldPosition();
+		return caster.GetFreePos();
 	}
 
 	public Vector3 GetFreePosForAim(AbilityTarget currentTarget, ActorData caster)

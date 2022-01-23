@@ -711,7 +711,7 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		ActorData component = GetComponent<ActorData>();
 		if (component == GameFlowData.Get().activeOwnedActorData
-			&& component.IsPickingRespawnSquare()
+			&& component.IsActorInvisibleForRespawn()
 			&& SpawnPointManager.Get() != null
 			&& SpawnPointManager.Get().m_spawnInDuringMovement)
 		{
@@ -1045,7 +1045,7 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		bool result = false;
 		ActorData actor = GetComponent<ActorData>();
-		if (actor.CanChase(selectedSquare))
+		if (actor.IsSquareChaseableByClient(selectedSquare))
 		{
 			ActorData occupant = selectedSquare.occupant.GetComponent<ActorData>();
 			result = true;
@@ -1089,7 +1089,7 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		if (SinglePlayerManager.Get() != null
 			&& SinglePlayerManager.Get().GetCurrentState() != null
-			&& actorData.GetIsHumanControlled()
+			&& actorData.IsHumanControlled()
 			&& SinglePlayerManager.Get().GetCurrentState().GetHasTag(SinglePlayerState.SinglePlayerTag.RequireDash))
 		{
 			return;

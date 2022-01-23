@@ -101,7 +101,7 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 				}
 			}
 		}
-		return targetingActor.GetTravelBoardSquareWorldPosition();
+		return targetingActor.GetFreePos();
 	}
 
 	protected virtual Vector3 GetDamageOrigin(AbilityTarget currentTarget, ActorData targetingActor, float range)
@@ -158,7 +158,7 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 		float currentRangeInSquares = GetCurrentRangeInSquares();
 		Vector3 refPos = GetRefPos(currentTarget, targetingActor, currentRangeInSquares);
 		base.Highlight.SetActive(true);
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 		refPos.y = travelBoardSquareWorldPosition.y + m_heightOffset;
 		base.Highlight.transform.position = refPos;
 		m_lastUpdatedCenterPos = refPos;
@@ -197,7 +197,7 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 		{
 			AddActorInRange(item, GetDamageOrigin(currentTarget, targetingActor, currentRangeInSquares), targetingActor);
 			ActorHitContext actorHitContext = m_actorContextVars[item];
-			float value = VectorUtils.HorizontalPlaneDistInSquares(refPos, item.GetTravelBoardSquareWorldPosition());
+			float value = VectorUtils.HorizontalPlaneDistInSquares(refPos, item.GetFreePos());
 			actorHitContext.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), value);
 		}
 		if (!m_affectsTargetingActor)
@@ -214,9 +214,9 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 				goto IL_02a8;
 			}
 		}
-		AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, flag ? AbilityTooltipSubject.Primary : AbilityTooltipSubject.Self);
+		AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, flag ? AbilityTooltipSubject.Primary : AbilityTooltipSubject.Self);
 		ActorHitContext actorHitContext2 = m_actorContextVars[targetingActor];
-		float value2 = VectorUtils.HorizontalPlaneDistInSquares(refPos, targetingActor.GetTravelBoardSquareWorldPosition());
+		float value2 = VectorUtils.HorizontalPlaneDistInSquares(refPos, targetingActor.GetFreePos());
 		actorHitContext2.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), value2);
 		goto IL_02a8;
 		IL_02a8:

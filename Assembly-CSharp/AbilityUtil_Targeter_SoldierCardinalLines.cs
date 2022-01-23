@@ -166,7 +166,7 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 								{
 									m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_aoeShape, targetingActor == GameFlowData.Get().activeOwnedActorData));
 								}
-								Vector3 travelBoardSquareWorldPosition = item2.Key.GetTravelBoardSquareWorldPosition();
+								Vector3 travelBoardSquareWorldPosition = item2.Key.GetFreePos();
 								travelBoardSquareWorldPosition.y = HighlightUtils.GetHighlightHeight();
 								m_highlights[num3].transform.position = travelBoardSquareWorldPosition;
 								m_highlights[num3].SetActive(true);
@@ -283,7 +283,7 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 				while (enumerator.MoveNext())
 				{
 					ActorData current = enumerator.Current;
-					float num3 = AreaEffectUtils.PointToLineDistance2D(current.GetTravelBoardSquareWorldPosition(), vector, vector2);
+					float num3 = AreaEffectUtils.PointToLineDistance2D(current.GetFreePos(), vector, vector2);
 					if (directHitActorToWorldDist.ContainsKey(current))
 					{
 						if (!(directHitActorToWorldDist[current] > num3))
@@ -308,7 +308,7 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 			{
 				foreach (ActorData item in actors)
 				{
-					List<ActorData> actors2 = AreaEffectUtils.GetActorsInShape(m_aoeShape, item.GetTravelBoardSquareWorldPosition(), item.GetCurrentBoardSquare(), m_penetrateLos, caster, relevantTeams, null);
+					List<ActorData> actors2 = AreaEffectUtils.GetActorsInShape(m_aoeShape, item.GetFreePos(), item.GetCurrentBoardSquare(), m_penetrateLos, caster, relevantTeams, null);
 					actors2.Remove(item);
 					TargeterUtils.RemoveActorsInvisibleToClient(ref actors2);
 					using (List<ActorData>.Enumerator enumerator3 = actors2.GetEnumerator())

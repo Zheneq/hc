@@ -17,7 +17,7 @@ public class AbilityUtil_Targeter_SamuraiShowdown : AbilityUtil_Targeter_ChargeA
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
 		base.UpdateTargetingMultiTargets(currentTarget, targetingActor, currentTargetIndex, targets);
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 		Vector3 normalized = (currentTarget.GetWorldGridPos() - travelBoardSquareWorldPosition).normalized;
 		int num = 1;
 		EnableAllMovementArrows();

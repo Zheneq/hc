@@ -48,7 +48,7 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 						{
 							if (ActorMeetKnockbackConditions(current, targetingActor))
 							{
-								float num2 = VectorUtils.HorizontalPlaneDistInSquares(current.GetTravelBoardSquareWorldPosition(), targetingActor.GetTravelBoardSquareWorldPosition());
+								float num2 = VectorUtils.HorizontalPlaneDistInSquares(current.GetFreePos(), targetingActor.GetFreePos());
 								int num3;
 								if (!(m_knockbackThresholdDistance <= 0f))
 								{
@@ -60,7 +60,7 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 								}
 								if (num3 != 0)
 								{
-									BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, currentTarget.AimDirection, targetingActor.GetTravelBoardSquareWorldPosition(), m_knockbackDistance);
+									BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, currentTarget.AimDirection, targetingActor.GetFreePos(), m_knockbackDistance);
 									num = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num);
 								}
 							}
@@ -84,7 +84,7 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 				case 0:
 					break;
 				default:
-					return m_knockbackThresholdDistance <= 0f || VectorUtils.HorizontalPlaneDistInSquares(target.GetTravelBoardSquareWorldPosition(), caster.GetTravelBoardSquareWorldPosition()) < m_knockbackThresholdDistance;
+					return m_knockbackThresholdDistance <= 0f || VectorUtils.HorizontalPlaneDistInSquares(target.GetFreePos(), caster.GetFreePos()) < m_knockbackThresholdDistance;
 				}
 			}
 		}

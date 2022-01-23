@@ -165,7 +165,7 @@ public class GremlinsBigBang : Ability
 		int num = 0;
 		foreach (AbilityUtil_Targeter.ActorTarget item in actorsInRange)
 		{
-			if (item.m_actor.IsVisibleToClient())
+			if (item.m_actor.IsActorVisibleToClient())
 			{
 				num++;
 			}

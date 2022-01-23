@@ -45,7 +45,7 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 		{
 			if (!m_attachedToActor.IsDead())
 			{
-				if (!m_attachedToActor.IsModelAnimatorDisabled())
+				if (!m_attachedToActor.IsInRagdoll())
 				{
 					if (m_attachedToActor.IgnoreForAbilityHits)
 					{
@@ -53,7 +53,7 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 					}
 					else if (!(m_attachedToActor.ClientLastKnownPosSquare == null))
 					{
-						result = ((!m_attachedToActor.IsVisibleToClient()) ? true : false);
+						result = ((!m_attachedToActor.IsActorVisibleToClient()) ? true : false);
 					}
 					else
 					{
@@ -82,7 +82,7 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 
 	protected override Vector2 CalculateScreenPos()
 	{
-		Vector3 clientLastKnownPos = m_attachedToActor.GetClientLastKnownPos();
+		Vector3 clientLastKnownPos = m_attachedToActor.GetClientLastKnownPosVec();
 		return ScreenPosFromWorldPos(clientLastKnownPos);
 	}
 

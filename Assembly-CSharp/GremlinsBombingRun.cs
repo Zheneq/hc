@@ -214,7 +214,7 @@ public class GremlinsBombingRun : Ability
 							}
 							else
 							{
-								vector = caster.GetTravelBoardSquareWorldPosition();
+								vector = caster.GetFreePos();
 							}
 							Vector3 b = vector;
 							Vector3 a = Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos).ToVector3();

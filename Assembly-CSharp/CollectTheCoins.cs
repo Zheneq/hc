@@ -363,7 +363,7 @@ public class CollectTheCoins : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					Debug.LogError($"CollectTheCoins (client)-- trying to assign 0 spawn coins to actor {actor.GetDebugName()}.");
+					Debug.LogError($"CollectTheCoins (client)-- trying to assign 0 spawn coins to actor {actor.DebugNameString()}.");
 					return;
 				}
 			}
@@ -413,7 +413,7 @@ public class CollectTheCoins : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					Debug.LogError($"CollectTheCoins (client)-- actor {actor.GetDebugName()} trying to drop coins on a null square.");
+					Debug.LogError($"CollectTheCoins (client)-- actor {actor.DebugNameString()} trying to drop coins on a null square.");
 					return;
 				}
 			}
@@ -427,7 +427,7 @@ public class CollectTheCoins : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					Debug.LogError($"CollectTheCoins (client)-- actor {actor.GetDebugName()} trying to drop coins on square {BoardSquare.DebugString(square)}, but that actor isn't in m_clientData.m_actorsToCoins_unresolved.");
+					Debug.LogError($"CollectTheCoins (client)-- actor {actor.DebugNameString()} trying to drop coins on square {BoardSquare.DebugString(square)}, but that actor isn't in m_clientData.m_actorsToCoins_unresolved.");
 					return;
 				}
 			}
@@ -444,7 +444,7 @@ public class CollectTheCoins : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					Debug.LogError($"CollectTheCoins (client)-- actor {actor.GetDebugName()} trying to drop coins on square {BoardSquare.DebugString(square)}, but that actor has 0 coins.");
+					Debug.LogError($"CollectTheCoins (client)-- actor {actor.DebugNameString()} trying to drop coins on square {BoardSquare.DebugString(square)}, but that actor has 0 coins.");
 					return;
 				}
 			}

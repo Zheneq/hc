@@ -161,7 +161,7 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 		m_laserPart.AdjustHighlight(base.Highlight, laserCoords.start, laserCoords.end);
 		List<ActorData> list = new List<ActorData>();
 		int num = 0;
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 		float squareSize = Board.Get().squareSize;
 		using (List<ActorData>.Enumerator enumerator = hitActors.GetEnumerator())
 		{
@@ -171,7 +171,7 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 				ActorData current = enumerator.Current;
 				AddActorInRange(current, laserCoords.start, targetingActor);
 				list.Add(current);
-				float num2 = (current.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSize;
+				float num2 = (current.GetFreePos() - travelBoardSquareWorldPosition).magnitude / squareSize;
 				item.actor = current;
 				item.hitOrderIndex = num;
 				item.squaresFromCaster = num2;

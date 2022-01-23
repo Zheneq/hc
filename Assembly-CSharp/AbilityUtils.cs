@@ -236,7 +236,7 @@ public static class AbilityUtils
 				for (int j = num3; j < num4; j++)
 				{
 					BoardSquare boardSquare = board.GetSquareFromIndex(i, j);
-					abilityTarget.SetValuesFromBoardSquare(boardSquare, caster.GetTravelBoardSquareWorldPosition());
+					abilityTarget.SetValuesFromBoardSquare(boardSquare, caster.GetFreePos());
 					if (abilityData.ValidateAbilityOnTarget(ability, abilityTarget, targetIndex, currentMinRangeInSquares, currentRangeInSquares2))
 					{
 						hashSet.Add(boardSquare);
@@ -352,7 +352,7 @@ public static class AbilityUtils
 		{
 			return 0;
 		}
-		if (tartgetStatus.HasStatus(StatusType.ImmuneToPlayerDamage) && caster.GetIsHumanControlled() && !isUnpreventable)
+		if (tartgetStatus.HasStatus(StatusType.ImmuneToPlayerDamage) && caster.IsHumanControlled() && !isUnpreventable)
 		{
 			return 0;
 		}

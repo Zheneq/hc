@@ -83,7 +83,7 @@ namespace Theatrics
 					ActorData actorData = actors[i];
 					if (actorData != null &&
 						actorData.GetHitPointsToDisplay() <= 0 &&
-						!actorData.IsModelAnimatorDisabled())
+						!actorData.IsInRagdoll())
 					{
 						if (GameplayData.Get().m_resolveDamageBetweenAbilityPhases || _0004_FinishedTheatrics(actorData))
 						{
@@ -441,7 +441,7 @@ namespace Theatrics
 
 		internal bool _001A_AreAnimationsFinishedFor(ActorData actor)
 		{
-			if (actor.IsModelAnimatorDisabled())
+			if (actor.IsInRagdoll())
 			{
 				return false;
 			}
@@ -465,7 +465,7 @@ namespace Theatrics
 		internal bool _0004_FinishedTheatrics(ActorData actor, int deltaHP = 0, int seqSourceRootID = -1)
 		{
 			if (actor.GetHitPointsToDisplay() + deltaHP <= 0 &&
-				!actor.IsModelAnimatorDisabled() &&
+				!actor.IsInRagdoll() &&
 				IsDeadAtCurrentPhase(actor) &&
 				this.CurrentPhase >= 3)
 			{

@@ -1867,7 +1867,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		bool result = false;
 		if (m_actorData != null)
 		{
-			Vector3 nameplatePosition = m_actorData.GetNameplatePosition(30f);
+			Vector3 nameplatePosition = m_actorData.GetOverheadPosition(30f);
 			Vector3 vector = Camera.main.WorldToViewportPoint(nameplatePosition);
 			if (vector.z < 0f)
 			{
@@ -1886,7 +1886,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		bool result = false;
 		if (m_actorData != null)
 		{
-			result = (m_actorData.ShouldShowNameplate() && IsInFrontOfCamera());
+			result = (m_actorData.IsNameplateVisible() && IsInFrontOfCamera());
 		}
 		return result;
 	}
@@ -2158,13 +2158,13 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			CanvasRect = (myCanvas.transform as RectTransform);
 		}
 		Vector3 vector;
-		if (m_actorData.ShouldShowNameplate())
+		if (m_actorData.IsNameplateVisible())
 		{
-			vector = m_actorData.GetNameplatePosition(-2f);
+			vector = m_actorData.GetOverheadPosition(-2f);
 		}
 		else if (!m_actorData.IsDead())
 		{
-			vector = (m_actorData.IsVisibleToClient() ? m_actorData.GetNameplatePosition(-2f) : m_actorData.GetClientLastKnownPos());
+			vector = (m_actorData.IsActorVisibleToClient() ? m_actorData.GetOverheadPosition(-2f) : m_actorData.GetClientLastKnownPosVec());
 		}
 		else
 		{
@@ -2182,7 +2182,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		m_distanceFromCamera = (vector - position).sqrMagnitude;
 		OnHitUpdate();
 		int hitPointsAfterResolution = m_actorData.GetHitPointsToDisplay();
-		int clientUnappliedHoTTotal_ToDisplay_zq = m_actorData.GetPendingHoTTotalToDisplay();
+		int clientUnappliedHoTTotal_ToDisplay_zq = m_actorData.GetHoTTotalToDisplay();
 		if (hitPointsAfterResolution == 0)
 		{
 			if (!m_zeroHealthIcon.gameObject.activeSelf)
@@ -2205,11 +2205,11 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				UIManager.SetGameObjectActive(m_healthLabel, m_textVisible);
 			}
 		}
-		if (!object.ReferenceEquals(m_textNameLabel.text, m_actorData.GetDisplayNameForLog()))
+		if (!object.ReferenceEquals(m_textNameLabel.text, m_actorData.GetDisplayName()))
 		{
-			m_textNameLabel.text = m_actorData.GetDisplayNameForLog();
+			m_textNameLabel.text = m_actorData.GetDisplayName();
 		}
-		int num = m_actorData.GetAbsorbToDisplay();
+		int num = m_actorData.GetShieldPoints();
 		if (num > 0)
 		{
 			m_mouseOverHitBoxCanvasGroup.ignoreParentGroups = (m_actorData.GetAbilityData().GetSelectedAbility() == null);
@@ -2256,7 +2256,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				m_healthLabel.text = text2;
 			}
 		}
-		int energyToDisplay = m_actorData.GetEnergyToDisplay();
+		int energyToDisplay = m_actorData.GetTechPointsToDisplay();
 		int actualMaxTechPoints = m_actorData.GetMaxTechPoints();
 		if (energyToDisplay != m_previousTP || actualMaxTechPoints != m_previousTPMax)
 		{
@@ -2514,8 +2514,8 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 	{
 		m_previousHP = m_actorData.GetHitPointsToDisplay();
 		m_previousHPMax = m_actorData.GetMaxHitPoints();
-		m_previousShieldValue = m_actorData.GetAbsorbToDisplay();
-		m_previousHPShieldAndHot = m_previousHP + m_previousShieldValue + m_actorData.GetPendingHoTTotalToDisplay();
+		m_previousShieldValue = m_actorData.GetShieldPoints();
+		m_previousHPShieldAndHot = m_previousHP + m_previousShieldValue + m_actorData.GetHoTTotalToDisplay();
 		SetMaxHPWithShield(m_previousHPMax + m_previousShieldValue);
 		int num = m_previousHPMax + m_previousShieldValue;
 		float duration = 0f;
@@ -2555,10 +2555,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		{
 			return;
 		}
-		int num = m_actorData.GetAbsorbToDisplay();
+		int num = m_actorData.GetShieldPoints();
 		int hitPointsAfterResolution = m_actorData.GetHitPointsToDisplay();
 		int hitPoints = m_actorData.HitPoints;
-		int clientUnappliedHoTTotal_ToDisplay_zq = m_actorData.GetPendingHoTTotalToDisplay();
+		int clientUnappliedHoTTotal_ToDisplay_zq = m_actorData.GetHoTTotalToDisplay();
 		int num2 = hitPointsAfterResolution + num + clientUnappliedHoTTotal_ToDisplay_zq;
 		float num3 = (float)hitPointsAfterResolution / (float)m_maxHPWithShield;
 		float num4 = m_HPEased.EndValue();
@@ -2647,12 +2647,12 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 		}
 		m_lostHealth = false;
-		int num = m_actorData.GetAbsorbToDisplay();
+		int num = m_actorData.GetShieldPoints();
 		int hitPointsAfterResolution = m_actorData.GetHitPointsToDisplay();
 		SetMaxHPWithShield(m_actorData.GetMaxHitPoints() + num);
 		float endValue = (float)hitPointsAfterResolution / (float)m_maxHPWithShield;
 		float num2 = ((float)hitPointsAfterResolution + (float)num) / (float)m_maxHPWithShield;
-		float num3 = (float)m_actorData.GetPendingHoTTotalToDisplay() / (float)m_maxHPWithShield;
+		float num3 = (float)m_actorData.GetHoTTotalToDisplay() / (float)m_maxHPWithShield;
 		m_ShieldEased.EaseTo(num2, 2.5f);
 		m_HPEased.EaseTo(endValue, 2.5f);
 		m_HPGainedEased.EaseTo(num2 + num3, 2.5f);
@@ -2664,7 +2664,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		m_actorData = actorData;
 		ActorData actorData2 = m_actorData;
 		actorData2.m_onResolvedHitPoints = (ActorData.ActorDataDelegate)Delegate.Combine(actorData2.m_onResolvedHitPoints, new ActorData.ActorDataDelegate(OnResolvedHitPoints));
-		m_textNameLabel.text = m_actorData.GetDisplayNameForLog();
+		m_textNameLabel.text = m_actorData.GetDisplayName();
 		SnapBarValues();
 	}
 

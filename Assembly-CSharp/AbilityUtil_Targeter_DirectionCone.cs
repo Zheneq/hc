@@ -144,7 +144,7 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 			{
 				AddActorInRange(actorData, vector, targetingActor);
 				ActorHitContext actorHitContext = m_actorContextVars[actorData];
-				float value = VectorUtils.HorizontalPlaneDistInSquares(vector, actorData.GetTravelBoardSquareWorldPosition());
+				float value = VectorUtils.HorizontalPlaneDistInSquares(vector, actorData.GetFreePos());
 				actorHitContext.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), value);
 			}
 		}
@@ -228,7 +228,7 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 
 	public override void DrawGizmos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 		float num = VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection);
 		Vector3 a = VectorUtils.AngleDegreesToVector(num + 0.5f * m_coneAngleDegrees);
 		Vector3 a2 = VectorUtils.AngleDegreesToVector(num - 0.5f * m_coneAngleDegrees);

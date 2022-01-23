@@ -455,7 +455,7 @@ public class CTF_Flag : NetworkBehaviour
 				}
 			}
 		}
-		if (ClientHolderActor.IsVisibleToClient())
+		if (ClientHolderActor.IsActorVisibleToClient())
 		{
 			while (true)
 			{

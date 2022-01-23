@@ -212,7 +212,7 @@ public class BlasterStretchConeSequence : Sequence
 		Vector3 startPos = vector;
 		float laserRangeInSquares = maxDist / Board.Get().squareSize;
 		ActorData caster = base.Caster;
-		List<Team> opposingTeams = base.Caster.GetEnemyTeams();
+		List<Team> opposingTeams = base.Caster.GetEnemyTeamAsList();
 		int maxTargets;
 		if (m_projectilesStopOnEnemy)
 		{
@@ -280,7 +280,7 @@ public class BlasterStretchConeSequence : Sequence
 		{
 			return m_fxJoint.m_jointObject.transform.position;
 		}
-		return base.Caster.GetTravelBoardSquareWorldPosition();
+		return base.Caster.GetFreePos();
 	}
 
 	private void SpawnFX()

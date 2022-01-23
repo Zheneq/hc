@@ -63,7 +63,7 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 		if (gameplayRefSquare != null)
 		{
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
-			Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+			Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 			centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
 			return centerOfShape;
 		}
@@ -140,7 +140,7 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 			ActorData occupantActor = gameplayRefSquare.OccupantActor;
 			if (occupantActor != null)
 			{
-				if (MatchesTeam(occupantActor, targetingActor) && occupantActor.IsVisibleToClient())
+				if (MatchesTeam(occupantActor, targetingActor) && occupantActor.IsActorVisibleToClient())
 				{
 					List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, currentTarget.FreePos, gameplayRefSquare, m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
 					TargeterUtils.RemoveActorsInvisibleToClient(ref actors);

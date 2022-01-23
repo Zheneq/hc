@@ -188,7 +188,7 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 					}
 				}
 				float num2 = base.Caster.GetSightRange();
-				ActorAdditionalVisionProviders actorAdditionalVisionProviders = base.Caster.GetActorAdditionalVisionProviders();
+				ActorAdditionalVisionProviders actorAdditionalVisionProviders = base.Caster.GetAdditionalActorVisionProviders();
 				if (actorAdditionalVisionProviders != null)
 				{
 					SyncListVisionProviderInfo visionProviders = actorAdditionalVisionProviders.GetVisionProviders();
@@ -222,9 +222,9 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 					int num4;
 					if (!actorData.IsDead() && currentBoardSquare != null)
 					{
-						if (!actorData.IsModelAnimatorDisabled())
+						if (!actorData.IsInRagdoll())
 						{
-							num4 = (actorData.IsVisibleToClient() ? 1 : 0);
+							num4 = (actorData.IsActorVisibleToClient() ? 1 : 0);
 							goto IL_0294;
 						}
 					}

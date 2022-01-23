@@ -490,7 +490,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		{
 			return false;
 		}
-		if (!actorData.IsVisibleToClient())
+		if (!actorData.IsActorVisibleToClient())
 		{
 			return false;
 		}
@@ -507,7 +507,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		{
 			return false;
 		}
-		if (actorData.IsPickingRespawnSquare())
+		if (actorData.IsActorInvisibleForRespawn())
 		{
 			return false;
 		}

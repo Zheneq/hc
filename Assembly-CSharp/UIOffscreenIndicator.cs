@@ -41,7 +41,7 @@ public class UIOffscreenIndicator : UIBaseIndicator
 					int result;
 					if (num == 0)
 					{
-						result = (m_attachedToActor.ShouldShowNameplate() ? 1 : 0);
+						result = (m_attachedToActor.IsNameplateVisible() ? 1 : 0);
 					}
 					else
 					{
@@ -112,7 +112,7 @@ public class UIOffscreenIndicator : UIBaseIndicator
 		Vector3 worldPos = Vector3.zero;
 		if (m_attachedToActor != null)
 		{
-			worldPos = m_attachedToActor.GetNameplatePosition(0f);
+			worldPos = m_attachedToActor.GetOverheadPosition(0f);
 			float num = Board.Get().BaselineHeight;
 			worldPos.y = Mathf.Clamp(worldPos.y, num, num + 2f);
 		}

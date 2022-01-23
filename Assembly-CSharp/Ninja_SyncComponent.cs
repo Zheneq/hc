@@ -224,7 +224,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 					if (activeOwnedActorData != null)
 					{
-						if (m_owner.IsVisibleToClient())
+						if (m_owner.IsActorVisibleToClient())
 						{
 							bool flag = false;
 							if (m_owner.GetTeam() == activeOwnedActorData.GetTeam())
@@ -310,7 +310,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 					{
 						m_rangeIndicatorObj.SetActive(true);
 						HighlightUtils.Get().AdjustDynamicConeMesh(m_rangeIndicatorObj, dashToUnmarkedRange, 360f);
-						Vector3 travelBoardSquareWorldPosition = m_owner.GetTravelBoardSquareWorldPosition();
+						Vector3 travelBoardSquareWorldPosition = m_owner.GetFreePos();
 						travelBoardSquareWorldPosition.y = HighlightUtils.GetHighlightHeight();
 						m_rangeIndicatorObj.transform.position = travelBoardSquareWorldPosition;
 						goto IL_00ee;

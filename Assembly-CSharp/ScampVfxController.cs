@@ -68,7 +68,7 @@ public class ScampVfxController : CopyableVfxControllerComponent
 			int num;
 			if (!(actorData == null))
 			{
-				if (actorData.IsVisibleToClient())
+				if (actorData.IsActorVisibleToClient())
 				{
 					if (!(actorData.GetActorModelData() == null))
 					{

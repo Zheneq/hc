@@ -356,7 +356,7 @@ public class ArcherArrowRain : Ability
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		int num = GetDamage();
-		if (targetActor.GetHitPointShareOfMax() <= GetHealthThresholdForBonusDamage())
+		if (targetActor.GetHitPointPercent() <= GetHealthThresholdForBonusDamage())
 		{
 			num = GetDamageBelowHealthThreshold();
 		}

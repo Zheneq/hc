@@ -182,7 +182,7 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 		int num;
 		if (m_onlyPassAnimEventsIfActorDead)
 		{
-			if (!m_owningSequence.Caster.IsModelAnimatorDisabled())
+			if (!m_owningSequence.Caster.IsInRagdoll())
 			{
 				num = (m_owningSequence.Caster.IsDead() ? 1 : 0);
 				goto IL_0052;

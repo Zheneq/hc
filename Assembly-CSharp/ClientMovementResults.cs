@@ -389,7 +389,7 @@ public class ClientMovementResults
 		{
 			str = m_gameModeResults.GetDebugDescription();
 		}
-		return str + " triggering on " + m_triggeringMover.GetDebugName();
+		return str + " triggering on " + m_triggeringMover.DebugNameString();
 	}
 
 	internal void ExecuteUnexecutedClientHits()
@@ -495,7 +495,7 @@ public class ClientMovementResults
 
 	internal string UnexecutedHitsDebugStr()
 	{
-		string text = "\n\tUnexecuted hits:\n\t\tMovement hit on " + m_triggeringMover.GetDebugName() + "\n";
+		string text = "\n\tUnexecuted hits:\n\t\tMovement hit on " + m_triggeringMover.DebugNameString() + "\n";
 		if (m_effectResults != null)
 		{
 			text += m_effectResults.UnexecutedHitsDebugStr();

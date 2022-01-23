@@ -232,7 +232,7 @@ public class ClientAbilityResults
 				}
 			}
 		}
-		Debug.LogError("ClientAbilityResults error-- Sequence hitting actor " + target.GetDebugName() + ", but that actor isn't in our hit results.");
+		Debug.LogError("ClientAbilityResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results.");
 	}
 
 	internal void OnAbilityHitPosition(Vector3 position)
@@ -358,7 +358,7 @@ public class ClientAbilityResults
 		object obj;
 		if (m_casterActor != null)
 		{
-			obj = m_casterActor.GetDebugName();
+			obj = m_casterActor.DebugNameString();
 		}
 		else
 		{

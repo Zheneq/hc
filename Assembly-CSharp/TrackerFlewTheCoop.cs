@@ -87,7 +87,7 @@ public class TrackerFlewTheCoop : Ability
 				float rangeInSquares = GetRangeInSquares(0);
 				if (rangeInSquares != 0f)
 				{
-					if (!(VectorUtils.HorizontalPlaneDistInSquares(caster.GetTravelBoardSquareWorldPosition(), boardSquare.ToVector3()) <= rangeInSquares))
+					if (!(VectorUtils.HorizontalPlaneDistInSquares(caster.GetFreePos(), boardSquare.ToVector3()) <= rangeInSquares))
 					{
 						goto IL_00ac;
 					}

@@ -178,7 +178,7 @@ public class BrushRegion : BoardRegion
 				while (enumerator.MoveNext())
 				{
 					ActorData current = enumerator.Current;
-					if (current.GetTravelBoardSquareBrushRegion() == regionIndex)
+					if (current.GetBrushRegion() == regionIndex)
 					{
 						while (true)
 						{

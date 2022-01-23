@@ -414,7 +414,7 @@ public class IceborgDamageArea : GenericAbility_Container
 				}
 			}
 		}
-		return caster.GetTravelBoardSquareWorldPosition();
+		return caster.GetFreePos();
 	}
 
 	public bool CanCastToMoveArea()

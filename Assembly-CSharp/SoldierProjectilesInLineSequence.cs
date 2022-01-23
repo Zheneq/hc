@@ -124,7 +124,7 @@ public class SoldierProjectilesInLineSequence : Sequence
 							{
 								continue;
 							}
-							Vector3 rhs = actorData.GetTravelBoardSquareWorldPosition() - vector2;
+							Vector3 rhs = actorData.GetFreePos() - vector2;
 							rhs.y = 0f;
 							if (i != num4)
 							{

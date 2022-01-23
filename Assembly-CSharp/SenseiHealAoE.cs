@@ -117,7 +117,7 @@ public class SenseiHealAoE : Ability
 
 	private Vector3 GetCenterPosForTargeter(ActorData caster, AbilityTarget currentTarget)
 	{
-		Vector3 result = caster.GetTravelBoardSquareWorldPosition();
+		Vector3 result = caster.GetFreePos();
 		if (caster.GetActorTargeting() != null && GetRunPriority() > AbilityPriority.Evasion)
 		{
 			BoardSquare evadeDestinationForTargeter = caster.GetActorTargeting().GetEvadeDestinationForTargeter();
@@ -420,7 +420,7 @@ public class SenseiHealAoE : Ability
 					break;
 				default:
 				{
-					Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - centerPos;
+					Vector3 vector = targetActor.GetFreePos() - centerPos;
 					vector.y = 0f;
 					float num = vector.magnitude;
 					if (GetHealChangeStartDist() > 0f)
@@ -466,7 +466,7 @@ public class SenseiHealAoE : Ability
 		{
 			if (GetAllyLowHealthThresh() > 0f)
 			{
-				if (targetActor.GetHitPointShareOfMax() < GetAllyLowHealthThresh())
+				if (targetActor.GetHitPointPercent() < GetAllyLowHealthThresh())
 				{
 					num += GetExtraAllyHealForLowHealth();
 				}
@@ -483,7 +483,7 @@ public class SenseiHealAoE : Ability
 		{
 			if (GetSelfLowHealthThresh() > 0f)
 			{
-				if (caster.GetHitPointShareOfMax() < GetSelfLowHealthThresh())
+				if (caster.GetHitPointPercent() < GetSelfLowHealthThresh())
 				{
 					selfHeal += GetExtraSelfHealForLowHealth();
 				}

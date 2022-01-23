@@ -244,7 +244,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 				}
 				List<ActorData> actors = AreaEffectUtils.GetActorsInRadiusOfLine(vector, vector2, startRadiusInSquares, endRadiusInSquares, num2, m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
-				TargeterUtils.SortActorsByDistanceToPos(ref actors, targetingActor.GetTravelBoardSquareWorldPosition());
+				TargeterUtils.SortActorsByDistanceToPos(ref actors, targetingActor.GetFreePos());
 				TargeterUtils.LimitActorsToMaxNumber(ref actors, m_maxTargets);
 				using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 				{
@@ -263,7 +263,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 							Vector3 damageOrigin = vector;
 							if (UseEndPosAsDamageOriginIfOverlap)
 							{
-								Vector3 travelBoardSquareWorldPosition = current.GetTravelBoardSquareWorldPosition();
+								Vector3 travelBoardSquareWorldPosition = current.GetFreePos();
 								travelBoardSquareWorldPosition.y = vector2.y;
 								if ((travelBoardSquareWorldPosition - vector2).sqrMagnitude <= Mathf.Epsilon)
 								{
@@ -329,7 +329,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 				return;
 			}
 		}
-		AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
+		AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Self);
 		return;
 		IL_00c4:
 		if (boardSquare != null)

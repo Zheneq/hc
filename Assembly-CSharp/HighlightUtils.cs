@@ -3467,7 +3467,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 									float targetableRadius = abilityData.GetTargetableRadius(selectedActionTypeForTargeting, actorData);
 									if (targetableRadius > 0f)
 									{
-										AdjustAndShowRangeIndicator(actorData.GetTravelBoardSquareWorldPosition(), targetableRadius);
+										AdjustAndShowRangeIndicator(actorData.GetFreePos(), targetableRadius);
 										flag = true;
 									}
 								}
@@ -3489,7 +3489,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 								float targetableRadius2 = abilityData.GetTargetableRadius(i, actorData);
 								if (targetableRadius2 > 0f)
 								{
-									AdjustAndShowRangeIndicator(actorData.GetTravelBoardSquareWorldPosition(), targetableRadius2);
+									AdjustAndShowRangeIndicator(actorData.GetFreePos(), targetableRadius2);
 									flag = true;
 								}
 								break;

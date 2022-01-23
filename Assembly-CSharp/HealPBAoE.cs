@@ -49,6 +49,6 @@ public class HealPBAoE : Ability
 
 	private List<ActorData> GetTargets(List<AbilityTarget> targets, ActorData caster)
 	{
-		return AreaEffectUtils.GetActorsInShape(m_shape, caster.GetTravelBoardSquareWorldPosition(), caster.GetCurrentBoardSquare(), true, caster, caster.GetTeams(), null);
+		return AreaEffectUtils.GetActorsInShape(m_shape, caster.GetFreePos(), caster.GetCurrentBoardSquare(), true, caster, caster.GetTeamAsList(), null);
 	}
 }

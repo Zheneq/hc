@@ -67,7 +67,7 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 		float num2 = m_bombInfo.maxTotalDistance;
 		if (m_clampMaxRangeToFreePos)
 		{
-			float a = (targetingActor.GetTravelBoardSquareWorldPosition() - currentTarget.FreePos).magnitude / Board.Get().squareSize;
+			float a = (targetingActor.GetFreePos() - currentTarget.FreePos).magnitude / Board.Get().squareSize;
 			num2 = Mathf.Min(a, num2);
 		}
 		float num3 = VectorUtils.HorizontalAngle_Deg(vec);

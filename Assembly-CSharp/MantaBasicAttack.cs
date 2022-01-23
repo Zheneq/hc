@@ -361,7 +361,7 @@ public class MantaBasicAttack : Ability
 				case 0:
 					break;
 				default:
-					return DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject.Far, targetActor, base.ActorData.GetTravelBoardSquareWorldPosition(), base.ActorData);
+					return DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject.Far, targetActor, base.ActorData.GetFreePos(), base.ActorData);
 				}
 			}
 		}
@@ -371,7 +371,7 @@ public class MantaBasicAttack : Ability
 	private bool InsideNearRadius(ActorData targetActor, Vector3 damageOrigin)
 	{
 		float num = GetConeLengthInner() * Board.Get().squareSize;
-		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - damageOrigin;
+		Vector3 vector = targetActor.GetFreePos() - damageOrigin;
 		vector.y = 0f;
 		float num2 = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())

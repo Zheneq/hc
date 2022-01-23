@@ -31,7 +31,7 @@ public class AbilityUtil_Targeter_Grid : AbilityUtil_Targeter
 		if (gameplayRefSquare != null)
 		{
 			Vector3 centerOfGridPattern = AreaEffectUtils.GetCenterOfGridPattern(m_pattern, currentTarget.FreePos, gameplayRefSquare);
-			Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+			Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 			centerOfGridPattern.y = travelBoardSquareWorldPosition.y + m_heightOffset;
 			return centerOfGridPattern;
 		}

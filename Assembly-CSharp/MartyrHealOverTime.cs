@@ -336,7 +336,7 @@ public class MartyrHealOverTime : Ability
 			dictionary[AbilityTooltipSymbol.Absorb] = 0;
 			if (GetLowHealthThreshold() > 0f)
 			{
-				if (targetActor.GetHitPointShareOfMax() <= GetLowHealthThreshold())
+				if (targetActor.GetHitPointPercent() <= GetLowHealthThreshold())
 				{
 					StandardEffectInfo extraEffectForLowHealth = GetExtraEffectForLowHealth();
 					if (extraEffectForLowHealth.m_applyEffect)

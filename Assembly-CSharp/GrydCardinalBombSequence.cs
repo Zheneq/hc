@@ -430,7 +430,7 @@ public class GrydCardinalBombSequence : Sequence
 		while (true)
 		{
 			GameObject referenceModel = GetReferenceModel(base.Caster, m_initiatingProjectileInfo.m_jointReferenceType);
-			Vector3 startPos = base.Caster.GetTravelBoardSquareWorldPosition();
+			Vector3 startPos = base.Caster.GetFreePos();
 			Vector3 targetPos = base.TargetPos;
 			if (referenceModel != null)
 			{

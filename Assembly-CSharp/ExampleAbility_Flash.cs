@@ -102,7 +102,7 @@ public class ExampleAbility_Flash : Ability
 					{
 						num = 50f;
 					}
-					List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(caster.GetTravelBoardSquareWorldPosition(), num, true, caster, relevantTeams, null);
+					List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(caster.GetFreePos(), num, true, caster, relevantTeams, null);
 					actors.Remove(caster);
 					if (NetworkClient.active)
 					{
@@ -158,7 +158,7 @@ public class ExampleAbility_Flash : Ability
 								{
 									continue;
 								}
-								bool flag3 = (!NetworkClient.active) ? actorData.IsActorVisibleToActor(caster) : actorData.IsVisibleToClient();
+								bool flag3 = (!NetworkClient.active) ? actorData.IsActorVisibleToActor(caster) : actorData.IsActorVisibleToClient();
 								bool flag4 = actorData.GetTeam() == caster.GetTeam();
 								if (!flag3 || !(actorData != caster))
 								{
@@ -179,7 +179,7 @@ public class ExampleAbility_Flash : Ability
 							}
 							break;
 							IL_01b8:
-							bool flag5 = AreaEffectUtils.IsSquareInConeByActorRadius(boardSquareSafe, actorData.GetTravelBoardSquareWorldPosition(), 0f, 360f, m_dashToOtherRange, 0f, true, caster);
+							bool flag5 = AreaEffectUtils.IsSquareInConeByActorRadius(boardSquareSafe, actorData.GetFreePos(), 0f, 360f, m_dashToOtherRange, 0f, true, caster);
 							flag = (flag || flag5);
 						}
 					}

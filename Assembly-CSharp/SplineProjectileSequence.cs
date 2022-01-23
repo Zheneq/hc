@@ -642,7 +642,7 @@ public abstract class SplineProjectileSequence : Sequence
 					}
 					else
 					{
-						vector = target.GetTravelBoardSquareWorldPosition();
+						vector = target.GetFreePos();
 					}
 					Vector3 position = vector;
 					GameObject gameObject2 = InstantiateFX(m_targetHitFxPrefab, position, m_fx.transform.rotation);

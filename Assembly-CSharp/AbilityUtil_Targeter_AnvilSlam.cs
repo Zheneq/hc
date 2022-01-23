@@ -43,11 +43,11 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 		Vector3 vector2 = vector;
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
 		laserCoords.start = travelBoardSquareWorldPositionForLos;
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, vector2, m_dashRangeInSquares, m_dashWidthInSquares, targetingActor, targetingActor.GetEnemyTeams(), false, 1, false, false, out laserCoords.end, null);
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, vector2, m_dashRangeInSquares, m_dashWidthInSquares, targetingActor, targetingActor.GetEnemyTeamAsList(), false, 1, false, false, out laserCoords.end, null);
 		Vector3 a;
 		if (actorsInLaser.Count > 0)
 		{
-			a = actorsInLaser[0].GetTravelBoardSquareWorldPosition();
+			a = actorsInLaser[0].GetFreePos();
 		}
 		else
 		{
@@ -60,7 +60,7 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 			while (enumerator.MoveNext())
 			{
 				ActorData current = enumerator.Current;
-				AddActorInRange(current, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor);
+				AddActorInRange(current, targetingActor.GetFreePos(), targetingActor);
 			}
 		}
 		if (m_highlights != null)
@@ -78,10 +78,10 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 		}
 		goto IL_01e5;
 		IL_01e5:
-		Vector3 vector3 = a - targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 vector3 = a - targetingActor.GetFreePos();
 		vector3.y = 0f;
 		float magnitude = vector3.magnitude;
-		m_highlights[0].transform.position = targetingActor.GetTravelBoardSquareWorldPosition() + new Vector3(0f, 0.1f, 0f);
+		m_highlights[0].transform.position = targetingActor.GetFreePos() + new Vector3(0f, 0.1f, 0f);
 		m_highlights[0].transform.rotation = Quaternion.LookRotation(vector2);
 		HighlightUtils.Get().ResizeRectangularCursor(m_dashWidthInSquares * Board.Get().squareSize, magnitude, m_highlights[0]);
 		if (actorsInLaser.Count > 0)
@@ -128,7 +128,7 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 					float magnitude2 = (laserCoords2.end - laserCoords2.start).magnitude;
 					int index = j + 1;
 					m_highlights[index].SetActive(true);
-					m_highlights[index].transform.position = actorsInLaser[0].GetTravelBoardSquareWorldPosition() + new Vector3(0f, 0.1f, 0f);
+					m_highlights[index].transform.position = actorsInLaser[0].GetFreePos() + new Vector3(0f, 0.1f, 0f);
 					m_highlights[index].transform.rotation = Quaternion.LookRotation(vector4);
 					HighlightUtils.Get().ResizeRectangularCursor(m_boltInfo.width * squareSize, magnitude2, m_highlights[index]);
 				}

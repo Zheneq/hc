@@ -276,7 +276,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 				}
 			}
 		}
-		float value = (currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude / Board.Get().squareSize;
+		float value = (currentTarget.FreePos - targetingActor.GetFreePos()).magnitude / Board.Get().squareSize;
 		float num2 = Mathf.Clamp(value, m_interpMinDistanceInSquares, m_interpMaxDistanceInSquares) - m_interpMinDistanceInSquares;
 		float num3 = num2 / num;
 		float num4 = 1f - num3;
