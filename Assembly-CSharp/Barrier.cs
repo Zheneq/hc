@@ -62,41 +62,12 @@ public class Barrier
 		}
 	}
 
-	public SequenceSource BarrierSequenceSource
-	{
-		get;
-		protected set;
-	}
-
-	public BlockingRules BlocksVision
-	{
-		get;
-		private set;
-	}
-
-	public BlockingRules BlocksAbilities
-	{
-		get;
-		private set;
-	}
-
-	public BlockingRules BlocksMovement
-	{
-		get;
-		private set;
-	}
-
-	public BlockingRules BlocksMovementOnCrossover
-	{
-		get;
-		private set;
-	}
-
-	public BlockingRules BlocksPositionTargeting
-	{
-		get;
-		private set;
-	}
+	public SequenceSource BarrierSequenceSource { get; protected set; }
+	public BlockingRules BlocksVision { get; private set; }
+	public BlockingRules BlocksAbilities { get; private set; }
+	public BlockingRules BlocksMovement { get; private set; }
+	public BlockingRules BlocksMovementOnCrossover { get; private set; }
+	public BlockingRules BlocksPositionTargeting { get; private set; }
 
 	public bool ConsiderAsCover
 	{
@@ -110,7 +81,8 @@ public class Barrier
 		}
 	}
 
-    public Barrier(int guid,
+	public Barrier(
+		int guid,
 		string name,
 		Vector3 center,
 		Vector3 facingDir,
@@ -131,14 +103,14 @@ public class Barrier
 		bool endOnCasterDeath = false,
 		SequenceSource parentSequenceSource = null,
 		Team barrierTeam = Team.Invalid)
-    {
-        InitBarrier(guid, name, center, facingDir, width, bidirectional,
+	{
+		InitBarrier(guid, name, center, facingDir, width, bidirectional,
 			blocksVision, blocksAbilities, blocksMovement, BlockingRules.ForNobody, blocksPositionTargeting,
 			considerAsCover, maxDuration, owner, barrierSequencePrefabs, playSequences,
 			onEnemyMovedThrough, onAllyMovedThrough, maxHits, endOnCasterDeath, parentSequenceSource, barrierTeam);
-    }
+	}
 
-    public Vector3 GetCenterPos()
+	public Vector3 GetCenterPos()
 	{
 		return m_center;
 	}
@@ -225,33 +197,17 @@ public class Barrier
 
 	public bool CanBeShotThroughBy(ActorData shooter)
 	{
-		if (BarrierManager.Get().SuppressingAbilityBlocks())
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
-		}
-		bool flag = IsBlocked(shooter, BlocksAbilities);
-		return !flag;
+		return BarrierManager.Get().SuppressingAbilityBlocks() || !IsBlocked(shooter, BlocksAbilities);
 	}
 
 	public bool CanBeMovedThroughBy(ActorData mover)
 	{
-		bool flag = IsBlocked(mover, BlocksMovement);
-		return !flag;
+		return !IsBlocked(mover, BlocksMovement);
 	}
 
 	public bool CanMoveThroughAfterCrossoverBy(ActorData mover)
 	{
-		bool flag = IsBlocked(mover, BlocksMovementOnCrossover);
-		return !flag;
+		return !IsBlocked(mover, BlocksMovementOnCrossover);
 	}
 
 	public bool IsPositionTargetingBlockedFor(ActorData caster)
@@ -263,196 +219,94 @@ public class Barrier
 	{
 		switch (rules)
 		{
-		case BlockingRules.ForEverybody:
-			return true;
-		case BlockingRules.ForNobody:
-			return false;
-		case BlockingRules.ForEnemies:
-			if (actor == null)
-			{
+			case BlockingRules.ForEverybody:
 				return true;
-			}
-			return actor.GetTeam() != m_team;
-		default:
-			return false;
+			case BlockingRules.ForNobody:
+				return false;
+			case BlockingRules.ForEnemies:
+				return actor == null || actor.GetTeam() != m_team;
+			default:
+				return false;
 		}
 	}
 
 	public virtual void OnStart(bool delayVisionUpdate, out List<ActorData> visionUpdaters)
 	{
 		visionUpdaters = new List<ActorData>();
-		if (!NetworkClient.active || !m_makeClientGeo)
+		if (NetworkClient.active && m_makeClientGeo)
 		{
-			return;
-		}
-		float squareSize = Board.Get().squareSize;
-		Vector3 a = m_endpoint2 - m_endpoint1;
-		bool flag = Mathf.Abs(a.z) > Mathf.Abs(a.x);
-		Vector3 vector = m_endpoint1 + 0.5f * a;
-		m_generatedClientGeometry = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		m_generatedClientGeometry.transform.position = new Vector3(vector.x, 1.5f * squareSize, vector.z);
-		if (flag)
-		{
-			while (true)
+			float squareSize = Board.Get().squareSize;
+			Vector3 a = m_endpoint2 - m_endpoint1;
+			bool flag = Mathf.Abs(a.z) > Mathf.Abs(a.x);
+			Vector3 vector = m_endpoint1 + 0.5f * a;
+			m_generatedClientGeometry = GameObject.CreatePrimitive(PrimitiveType.Cube);
+			m_generatedClientGeometry.transform.position = new Vector3(vector.x, 1.5f * squareSize, vector.z);
+			if (flag)
 			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					m_generatedClientGeometry.transform.localScale = new Vector3(0.25f, 2f * squareSize, a.magnitude);
-					return;
-				}
+				m_generatedClientGeometry.transform.localScale = new Vector3(0.25f, 2f * squareSize, a.magnitude);
+			}
+			else
+			{
+				m_generatedClientGeometry.transform.localScale = new Vector3(a.magnitude, 2f * squareSize, 0.25f);
 			}
 		}
-		m_generatedClientGeometry.transform.localScale = new Vector3(a.magnitude, 2f * squareSize, 0.25f);
 	}
 
 	public virtual void OnEnd()
 	{
 		if (NetworkServer.active)
 		{
-			using (List<Sequence>.Enumerator enumerator = m_barrierSequences.GetEnumerator())
+			foreach (Sequence current in m_barrierSequences)
 			{
-				while (enumerator.MoveNext())
+				if (current != null)
 				{
-					Sequence current = enumerator.Current;
-					if (current != null)
-					{
-						current.MarkForRemoval();
-					}
+					current.MarkForRemoval();
 				}
 			}
 		}
-		if (!NetworkClient.active)
+		if (NetworkClient.active && m_makeClientGeo)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!m_makeClientGeo)
+			if (m_generatedClientGeometry != null)
 			{
-				return;
+				Object.DestroyObject(m_generatedClientGeometry);
 			}
-			while (true)
-			{
-				if (m_generatedClientGeometry != null)
-				{
-					Object.DestroyObject(m_generatedClientGeometry);
-				}
-				m_generatedClientGeometry = null;
-				return;
-			}
+			m_generatedClientGeometry = null;
 		}
 	}
 
 	public bool CanAffectVision()
 	{
-		int result;
-		if (BlocksVision != BlockingRules.ForEnemies)
-		{
-			result = ((BlocksVision == BlockingRules.ForEverybody) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return BlocksVision == BlockingRules.ForEnemies || BlocksVision == BlockingRules.ForEverybody;
 	}
 
 	public bool CanAffectMovement()
 	{
-		int result;
-		if (BlocksMovement != BlockingRules.ForEnemies)
-		{
-			result = ((BlocksMovement == BlockingRules.ForEverybody) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return BlocksMovement == BlockingRules.ForEnemies || BlocksMovement == BlockingRules.ForEverybody;
 	}
 
 	public bool CrossingBarrier(Vector3 src, Vector3 dest)
 	{
-		bool flag = false;
-		bool flag2 = VectorUtils.IsPointInLaser(src, m_endpoint1, m_endpoint2, 0.001f);
-		bool flag3 = VectorUtils.IsPointInLaser(dest, m_endpoint1, m_endpoint2, 0.001f);
-		if (flag2)
+		bool srcInside = VectorUtils.IsPointInLaser(src, m_endpoint1, m_endpoint2, 0.001f);
+		bool destInside = VectorUtils.IsPointInLaser(dest, m_endpoint1, m_endpoint2, 0.001f);
+		if (srcInside)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
+			return false;
 		}
-		if (!flag3)
+		if (!destInside && VectorUtils.OnSameSideOfLine(src, dest, m_endpoint1, m_endpoint2))
 		{
-			if (VectorUtils.OnSameSideOfLine(src, dest, m_endpoint1, m_endpoint2))
-			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return false;
-					}
-				}
-			}
+			return false;
 		}
-		if (!flag3)
+		if (!destInside && VectorUtils.OnSameSideOfLine(m_endpoint1, m_endpoint2, src, dest))
 		{
-			if (VectorUtils.OnSameSideOfLine(m_endpoint1, m_endpoint2, src, dest))
-			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return false;
-					}
-				}
-			}
+			return false;
 		}
 		if (m_bidirectional)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
+			return true;
 		}
 		Vector3 lhs = src - m_center;
 		float num = Vector3.Dot(lhs, m_facingDir);
-		if (num > 0f)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
-		}
-		return false;
+		return num > 0f;
 	}
 
 	public bool CrossingBarrierForVision(Vector3 src, Vector3 dest)
@@ -487,21 +341,9 @@ public class Barrier
 
 	public Vector3 GetCollisionNormal(Vector3 incomingDir)
 	{
-		if (m_bidirectional)
+		if (m_bidirectional && Vector3.Dot(incomingDir, m_facingDir) > 0f)
 		{
-			if (Vector3.Dot(incomingDir, m_facingDir) > 0f)
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return -m_facingDir;
-					}
-				}
-			}
+			return -m_facingDir;
 		}
 		return m_facingDir;
 	}
