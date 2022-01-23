@@ -191,8 +191,7 @@ public class Barrier
 
 	public bool CanBeSeenThroughBy(ActorData viewer)
 	{
-		bool flag = IsBlocked(viewer, BlocksVision);
-		return !flag;
+		return !IsBlocked(viewer, BlocksVision);
 	}
 
 	public bool CanBeShotThroughBy(ActorData shooter)
