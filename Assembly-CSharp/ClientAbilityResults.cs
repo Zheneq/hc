@@ -4,31 +4,20 @@ using UnityEngine;
 public class ClientAbilityResults
 {
 	private ActorData m_casterActor;
-
 	private Ability m_castedAbility;
-
 	private AbilityData.ActionType m_actionType;
-
 	private List<ServerClientUtils.SequenceStartData> m_seqStartDataList;
-
 	private Dictionary<ActorData, ClientActorHitResults> m_actorToHitResults;
-
 	private Dictionary<Vector3, ClientPositionHitResults> m_posToHitResults;
 
 	public static string s_storeActorHitHeader = "<color=cyan>Storing ClientActorHitResult: </color>";
-
 	public static string s_storePositionHitHeader = "<color=cyan>Storing ClientPositionHitResult: </color>";
-
 	public static string s_executeActorHitHeader = "<color=green>Executing ClientActorHitResult: </color>";
-
 	public static string s_executePositionHitHeader = "<color=green>Executing ClientPositionHitResults: </color>";
-
 	public static string s_clientResolutionNetMsgHeader = "<color=white>ClientResolution NetworkMessage: </color>";
-
 	public static string s_clientHitResultHeader = "<color=yellow>ClientHitResults: </color>";
 
 	public static bool LogMissingSequences => false;
-
 	public static bool _000E => false;
 
 	public ClientAbilityResults(int casterActorIndex, int abilityAction, List<ServerClientUtils.SequenceStartData> seqStartDataList, Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> posToHitResults)
@@ -62,52 +51,13 @@ public class ClientAbilityResults
 
 	public bool HasSequencesToStart()
 	{
-		if (m_seqStartDataList == null)
+		if (m_seqStartDataList != null && m_seqStartDataList.Count != 0)
 		{
-			while (true)
+			foreach (ServerClientUtils.SequenceStartData current in m_seqStartDataList)
 			{
-				switch (1)
+				if (current != null && current.HasSequencePrefab())
 				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		if (m_seqStartDataList.Count == 0)
-		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = m_seqStartDataList.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				ServerClientUtils.SequenceStartData current = enumerator.Current;
-				if (current != null)
-				{
-					if (current.HasSequencePrefab())
-					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								break;
-							default:
-								return true;
-							}
-						}
-					}
+					return true;
 				}
 			}
 		}
@@ -116,33 +66,22 @@ public class ClientAbilityResults
 
 	public bool ContainsSequenceSource(SequenceSource sequenceSource)
 	{
-		int result;
-		if (sequenceSource != null)
-		{
-			result = (ContainsSequenceSourceID(sequenceSource.RootID) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return sequenceSource != null && ContainsSequenceSourceID(sequenceSource.RootID);
 	}
 
 	public bool ContainsSequenceSourceID(uint id)
 	{
-		bool result = false;
 		if (m_seqStartDataList != null)
 		{
-			for (int i = 0; i < m_seqStartDataList.Count; i++)
+			foreach (ServerClientUtils.SequenceStartData ssd in m_seqStartDataList)
 			{
-				if (m_seqStartDataList[i].ContainsSequenceSourceID(id))
+				if (ssd.ContainsSequenceSourceID(id))
 				{
-					result = true;
-					break;
+					return true;
 				}
 			}
 		}
-		return result;
+		return false;
 	}
 
 	public bool HasReactionByCaster(ActorData caster)
@@ -169,26 +108,19 @@ public class ClientAbilityResults
 	{
 		if (HasSequencesToStart())
 		{
-			while (true)
+			foreach (ServerClientUtils.SequenceStartData seqStartData in m_seqStartDataList)
 			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					foreach (ServerClientUtils.SequenceStartData seqStartData in m_seqStartDataList)
-					{
-						seqStartData.CreateSequencesFromData(OnAbilityHitActor, OnAbilityHitPosition);
-					}
-					return;
-				}
+				seqStartData.CreateSequencesFromData(OnAbilityHitActor, OnAbilityHitPosition);
 			}
 		}
-		if (LogMissingSequences)
+		else
 		{
-			Log.Warning(s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
+			if (LogMissingSequences)
+			{
+				Log.Warning(s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
+			}
+			RunClientAbilityHits();
 		}
-		RunClientAbilityHits();
 	}
 
 	public void RunClientAbilityHits()
@@ -197,22 +129,9 @@ public class ClientAbilityResults
 		{
 			OnAbilityHitActor(actorToHitResult.Key);
 		}
-		using (Dictionary<Vector3, ClientPositionHitResults>.Enumerator enumerator2 = m_posToHitResults.GetEnumerator())
+		foreach (KeyValuePair<Vector3, ClientPositionHitResults> posToHitResult in m_posToHitResults)
 		{
-			while (enumerator2.MoveNext())
-			{
-				OnAbilityHitPosition(enumerator2.Current.Key);
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			OnAbilityHitPosition(posToHitResult.Key);
 		}
 	}
 
@@ -220,19 +139,12 @@ public class ClientAbilityResults
 	{
 		if (m_actorToHitResults.ContainsKey(target))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					m_actorToHitResults[target].ExecuteActorHit(target, m_casterActor);
-					return;
-				}
-			}
+			m_actorToHitResults[target].ExecuteActorHit(target, m_casterActor);
 		}
-		Debug.LogError("ClientAbilityResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results.");
+		else
+		{
+			Debug.LogError("ClientAbilityResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results.");
+		}
 	}
 
 	internal void OnAbilityHitPosition(Vector3 position)
@@ -265,23 +177,9 @@ public class ClientAbilityResults
 
 	public void MarkActorHitsAsMovementHits()
 	{
-		using (Dictionary<ActorData, ClientActorHitResults>.ValueCollection.Enumerator enumerator = m_actorToHitResults.Values.GetEnumerator())
+		foreach (ClientActorHitResults current in m_actorToHitResults.Values)
 		{
-			while (enumerator.MoveNext())
-			{
-				ClientActorHitResults current = enumerator.Current;
-				current.IsMovementHit = true;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			current.IsMovementHit = true;
 		}
 	}
 
@@ -292,62 +190,46 @@ public class ClientAbilityResults
 
 	internal string GetSequenceStartDataDebugStr()
 	{
-		string text = string.Empty;
+		string text = "";
 		if (m_seqStartDataList != null)
 		{
 			foreach (ServerClientUtils.SequenceStartData seqStartData in m_seqStartDataList)
 			{
 				if (seqStartData != null)
 				{
-					string text2 = text;
-					text = text2 + "SeqStartData Actors with prefab ID " + seqStartData.GetSequencePrefabId() + ": " + seqStartData.GetTargetActorsString() + "\n";
+					text += "SeqStartData Actors with prefab ID " + seqStartData.GetSequencePrefabId() + ": " + seqStartData.GetTargetActorsString() + "\n";
 				}
 			}
-			return text;
 		}
 		return text;
 	}
 
 	public void AdjustKnockbackCounts_ClientAbilityResults(ref Dictionary<ActorData, int> outgoingKnockbacks, ref Dictionary<ActorData, int> incomingKnockbacks)
 	{
-		using (Dictionary<ActorData, ClientActorHitResults>.Enumerator enumerator = m_actorToHitResults.GetEnumerator())
+		foreach (KeyValuePair<ActorData, ClientActorHitResults> current in m_actorToHitResults)
 		{
-			while (enumerator.MoveNext())
+			ActorData key = current.Key;
+			ClientActorHitResults value = current.Value;
+			if (value.HasKnockback)
 			{
-				KeyValuePair<ActorData, ClientActorHitResults> current = enumerator.Current;
-				ActorData key = current.Key;
-				ClientActorHitResults value = current.Value;
-				if (value.HasKnockback)
+				if (!incomingKnockbacks.ContainsKey(key))
 				{
-					if (!incomingKnockbacks.ContainsKey(key))
+					incomingKnockbacks.Add(key, 1);
+				}
+				else
+				{
+					incomingKnockbacks[key]++;
+				}
+				if (value.KnockbackSourceActor != null)
+				{
+					if (!outgoingKnockbacks.ContainsKey(value.KnockbackSourceActor))
 					{
-						incomingKnockbacks.Add(key, 1);
+						outgoingKnockbacks.Add(value.KnockbackSourceActor, 1);
 					}
 					else
 					{
-						incomingKnockbacks[key]++;
+						outgoingKnockbacks[value.KnockbackSourceActor]++;
 					}
-					if (value.KnockbackSourceActor != null)
-					{
-						if (!outgoingKnockbacks.ContainsKey(value.KnockbackSourceActor))
-						{
-							outgoingKnockbacks.Add(value.KnockbackSourceActor, 1);
-						}
-						else
-						{
-							outgoingKnockbacks[value.KnockbackSourceActor]++;
-						}
-					}
-				}
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return;
 				}
 			}
 		}
@@ -355,26 +237,8 @@ public class ClientAbilityResults
 
 	public string GetDebugDescription()
 	{
-		object obj;
-		if (m_casterActor != null)
-		{
-			obj = m_casterActor.DebugNameString();
-		}
-		else
-		{
-			obj = "(null actor)";
-		}
-		string str = (string)obj;
-		object obj2;
-		if (m_castedAbility != null)
-		{
-			obj2 = m_castedAbility.m_abilityName;
-		}
-		else
-		{
-			obj2 = "(null ability)";
-		}
-		string str2 = (string)obj2;
-		return str + "'s " + str2;
+		string actor = m_casterActor != null ? m_casterActor.DebugNameString() : "(null actor)";
+		string ability = m_castedAbility != null ? m_castedAbility.m_abilityName : "(null ability)";
+		return actor + "'s " + ability;
 	}
 }
