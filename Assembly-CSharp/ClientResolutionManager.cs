@@ -360,9 +360,9 @@ public class ClientResolutionManager : MonoBehaviour
 		{
 			ClientKnockbackManager.Get().InitKnockbacksFromActions(m_resolutionActions);
 		}
-		if (!ClientAbilityResults.LogMissingSequences)
+		if (!ClientAbilityResults.DebugTraceOn)
 		{
-			if (!ClientAbilityResults._000E)
+			if (!ClientAbilityResults.DebugSerializeSizeOn)
 			{
 				goto IL_00dc;
 			}
@@ -858,7 +858,7 @@ public class ClientResolutionManager : MonoBehaviour
 
 	internal void SendResolutionPhaseCompleted(AbilityPriority abilityPhase, bool asFailsafe, bool asResend)
 	{
-		if (ClientAbilityResults.LogMissingSequences)
+		if (ClientAbilityResults.DebugTraceOn)
 		{
 			Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader + "<color=white>ClientResolutionPhaseCompleted</color> message sent for phase " + abilityPhase.ToString() + " (failsafe = " + asFailsafe + ").");
 		}
@@ -888,7 +888,7 @@ public class ClientResolutionManager : MonoBehaviour
 		networkWriter.Write(knockbackedTarget.ActorIndex);
 		networkWriter.Write(sendingPlayer.ActorIndex);
 		networkWriter.FinishMessage();
-		if (ClientAbilityResults.LogMissingSequences)
+		if (ClientAbilityResults.DebugTraceOn)
 		{
 			Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader + "Sending <color=white>ResolveKnockbackForActor</color>, Caster: " + sendingPlayer.DebugNameString() + ", KnockedBackActor: " + knockbackedTarget.DebugNameString());
 		}

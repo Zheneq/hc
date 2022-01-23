@@ -134,7 +134,7 @@ public class ClientMovementResults
 		}
 		else
 		{
-			if (ClientAbilityResults.LogMissingSequences)
+			if (ClientAbilityResults.DebugTraceOn)
 			{
 				Log.Warning(ClientAbilityResults.s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
 			}

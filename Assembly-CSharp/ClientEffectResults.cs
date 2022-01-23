@@ -96,7 +96,7 @@ public class ClientEffectResults
 				}
 			}
 		}
-		if (ClientAbilityResults.LogMissingSequences)
+		if (ClientAbilityResults.DebugTraceOn)
 		{
 			Log.Warning(ClientAbilityResults.s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
 		}

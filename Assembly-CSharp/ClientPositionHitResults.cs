@@ -38,7 +38,7 @@ public class ClientPositionHitResults
 		{
 			return;
 		}
-		if (ClientAbilityResults.LogMissingSequences)
+		if (ClientAbilityResults.DebugTraceOn)
 		{
 			Debug.LogWarning(ClientAbilityResults.s_executePositionHitHeader + " Executing Position Hit");
 		}

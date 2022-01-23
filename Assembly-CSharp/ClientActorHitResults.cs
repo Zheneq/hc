@@ -436,7 +436,7 @@ public class ClientActorHitResults
 			IL_00d0:
 			if (num3 != 0)
 			{
-				if (ClientAbilityResults.LogMissingSequences)
+				if (ClientAbilityResults.DebugTraceOn)
 				{
 					Log.Warning(ClientAbilityResults.s_clientHitResultHeader + clientReactionResults.GetDebugDescription() + " executing reaction hit on first damaging hit");
 				}
@@ -461,7 +461,7 @@ public class ClientActorHitResults
 		{
 			return;
 		}
-		if (ClientAbilityResults.LogMissingSequences)
+		if (ClientAbilityResults.DebugTraceOn)
 		{
 			Debug.LogWarning(ClientAbilityResults.s_executeActorHitHeader + " Target: " + target.DebugNameString() + " Caster: " + caster.DebugNameString());
 		}

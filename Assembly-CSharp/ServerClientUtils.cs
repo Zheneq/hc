@@ -355,7 +355,7 @@ public static class ServerClientUtils
 					extraSequenceParams.XSP_SerializeToStream(stream);
 				}
 				uint num = stream.Position - position;
-				if (ClientAbilityResults._000E)
+				if (ClientAbilityResults.DebugSerializeSizeOn)
 				{
 					Debug.LogWarning("\t\t\t\t\t Serializing Sequence Start Data, using targetPos? " + m_useTargetPos.ToString() + " prefab id " + m_prefabID + ": \n\t\t\t\t\t numBytes: " + num);
 				}

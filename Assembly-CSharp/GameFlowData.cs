@@ -1423,7 +1423,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			ObjectivePoints.Get().OnTurnTick();
 		}
-		if (ClientAbilityResults.LogMissingSequences)
+		if (ClientAbilityResults.DebugTraceOn)
 		{
 			Log.Warning("Turn Start: <color=magenta>" + GameFlowData.Get().CurrentTurn + "</color>", new object[0]);
 		}
