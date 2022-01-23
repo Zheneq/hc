@@ -1,7 +1,6 @@
 public class EffectDuration
 {
 	public int duration;
-
 	public int age;
 
 	public bool ReadyToEnd()
