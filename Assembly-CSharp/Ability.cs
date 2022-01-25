@@ -506,7 +506,7 @@ public class Ability : MonoBehaviour
 
 	public virtual bool HasAimingOriginOverride(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out Vector3 overridePos)
 	{
-		overridePos = aimingActor.GetTravelBoardSquareWorldPosition();
+		overridePos = aimingActor.GetFreePos();
 		return false;
 	}
 
@@ -932,7 +932,7 @@ public class Ability : MonoBehaviour
 		}
 
 		BoardSquare currentBoardSquare = targetActor.GetCurrentBoardSquare();
-		bool isVisible = NetworkClient.active ? targetActor.IsVisibleToClient() : targetActor.IsActorVisibleToActor(caster);
+		bool isVisible = NetworkClient.active ? targetActor.IsActorVisibleToClient() : targetActor.IsActorVisibleToActor(caster);
 		bool isAlly = caster.GetTeam() == targetActor.GetTeam();
 
 		if (!isVisible
