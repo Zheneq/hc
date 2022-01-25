@@ -150,10 +150,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 		}
 		GetSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, innerMoveDist, out m_squaresCanMoveTo, out m_squareCanMoveToWithQueuedAbility);
-		Board.Get()?.MarkForUpdateValidSquares();
+		if (Board.Get() != null)
+		{
+			Board.Get().MarkForUpdateValidSquares();
+		}
 		if (m_actor == GameFlowData.Get().activeOwnedActorData)
 		{
-			m_actor.GetComponent<LineData>()?.OnCanMoveToSquaresUpdated();
+			LineData component = m_actor.GetComponent<LineData>();
+			if (component != null)
+			{
+				component.OnCanMoveToSquaresUpdated();
+			}
 		}
 	}
 
@@ -204,8 +211,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			{
 				if (abilityData.GetQueuedAbilitiesAllowMovement())
 				{
-					float num = 0f;
-					num = ((!forcePostAbility) ? abilityData.GetQueuedAbilitiesMovementAdjust() : (-1f * m_actor.GetAbilityMovementCost()));
+					float num = forcePostAbility
+						? -1f * m_actor.GetAbilityMovementCost()
+						: abilityData.GetQueuedAbilitiesMovementAdjust();
 					result += num;
 					result = GetAdjustedMovementFromBuffAndDebuff(result, forcePostAbility, calculateAsIfSnared);
 				}
@@ -251,7 +259,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool cantSprintAbsolute =
 			actorStatus.HasStatus(StatusType.CantSprint_Absolute)
 			|| queuedStatuses.Contains(StatusType.CantSprint_Absolute);
-		bool cantSprint = cantSprintUnlessUnstoppable && debuff || cantSprintAbsolute;
+		bool cantSprint = (cantSprintUnlessUnstoppable && debuff) || cantSprintAbsolute;
 
 		if (debuff && actorStatus.HasStatus(StatusType.Rooted))
 		{
@@ -266,15 +274,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			return Mathf.Clamp(result, 0f, 1f);
 		}
 
-		if (cantSprint && !forcePostAbility && m_actor.GetAbilityData() != null &&
-			m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.FullMovement)
+		if (cantSprint
+			&& !forcePostAbility
+			&& m_actor.GetAbilityData() != null
+			&& m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.FullMovement)
 		{
 			result -= m_actor.GetAbilityMovementCost();
 		}
 
 		bool snared = actorStatus.HasStatus(StatusType.Snared) || queuedStatuses.Contains(StatusType.Snared);
 		bool hasted = actorStatus.HasStatus(StatusType.Hasted) || queuedStatuses.Contains(StatusType.Hasted);
-		if (debuff && snared && !hasted || calculateAsIfSnared)
+		if ((debuff && snared && !hasted) || calculateAsIfSnared)
 		{
 			CalcSnaredMovementAdjustments(out float snaredMult, out int halfMoveAdjust, out int fullMoveAdjust);
 			if (forcePostAbility)
@@ -283,7 +293,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			else
 			{
-				int moveAdjust = m_actor.GetAbilityData() != null && m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.ReducedMovement
+				int moveAdjust = m_actor.GetAbilityData() != null
+					&& m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.ReducedMovement
 					? halfMoveAdjust
 					: fullMoveAdjust;
 				result = Mathf.Clamp(result + moveAdjust, 0f, 99f);
@@ -291,29 +302,22 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			result *= snaredMult;
 			result = MovementUtils.RoundToNearestHalf(result);
 		}
-		else
+		else if (hasted && (!debuff || !snared))
 		{
-			if (hasted)
+			CalcHastedMovementAdjustments(out float mult, out int halfMoveAdjust, out int fullMoveAdjust);
+			if (forcePostAbility)
 			{
-				if (debuff && snared)
-				{
-					return result;
-				}
-				CalcHastedMovementAdjustments(out float mult, out int halfMoveAdjust, out int fullMoveAdjust);
-				if (forcePostAbility)
-				{
-					result = Mathf.Clamp(result + (float)halfMoveAdjust, 0f, 99f);
-				}
-				else
-				{
-					int moveAdjust = m_actor.GetAbilityData() != null && m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.ReducedMovement
-						? halfMoveAdjust
-						: fullMoveAdjust;
-					result = Mathf.Clamp(result + (float)moveAdjust, 0f, 99f);
-				}
-				result *= mult;
-				result = MovementUtils.RoundToNearestHalf(result);
+				result = Mathf.Clamp(result + (float)halfMoveAdjust, 0f, 99f);
 			}
+			else
+			{
+				int moveAdjust = m_actor.GetAbilityData() != null && m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.ReducedMovement
+					? halfMoveAdjust
+					: fullMoveAdjust;
+				result = Mathf.Clamp(result + (float)moveAdjust, 0f, 99f);
+			}
+			result *= mult;
+			result = MovementUtils.RoundToNearestHalf(result);
 		}
 		return result;
 	}
@@ -462,7 +466,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			hashSet.Add(square);
 			linkedList.RemoveFirst();
 		}
-		return;
 	}
 
 	public HashSet<BoardSquare> BuildSquaresCanMoveTo(BoardSquare squareToStartFrom, float maxHorizontalMovement)
@@ -756,8 +759,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float radius = 0.1f;
 		if (Physics.SphereCast(origin, radius, Vector3.down, out RaycastHit hitInfo, 100f, layerMask))
 		{
-			Vector3 point = hitInfo.point;
-			result.y = point.y;
+			result.y = hitInfo.point.y;
 		}
 		return result;
 	}
@@ -786,12 +788,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			m_brushTransitionAnimationSpeedEased.EaseTo(1f, 0f);
 		}
-		while (m_gameplayPath != null)
+		while (m_gameplayPath != null && m_gameplayPath.next != null && !m_actor.IsDead())
 		{
-			if (m_gameplayPath.next == null || m_actor.IsDead())
-			{
-				break;
-			}
 			AdvanceGameplayPath();
 		}
 		if (m_curMoveState != null)
@@ -829,7 +827,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	private void UpdatePath()
 	{
-		bool skipFogOfWarUpdate = true;
+		bool needFogOfWarUpdate = false;
 		if (m_aestheticPath == null)
 		{
 			Log.Error($"{m_actor.DisplayName} trying to UpdatePath with a null aesthetic path; exiting.");
@@ -840,12 +838,11 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			while (m_gameplayPath.next != null)
 			{
 				AdvanceGameplayPath();
-				skipFogOfWarUpdate = Application.isEditor
-					&& DebugParameters.Get() != null
-					&& DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement");
+				needFogOfWarUpdate = !Application.isEditor
+					|| DebugParameters.Get() == null
+					|| !DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement");
 			}
-			ActorCover actorCover = m_actor.GetActorCover();
-			actorCover.RecalculateCover();
+			m_actor.GetActorCover().RecalculateCover();
 		}
 		if (m_aestheticPath != null && m_aestheticPath.next != null)
 		{
@@ -855,7 +852,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			m_aestheticPath = null;
 		}
-		if (!skipFogOfWarUpdate)
+		if (needFogOfWarUpdate)
 		{
 			m_actor.GetFogOfWar().MarkForRecalculateVisibility();
 			UpdateClientFogOfWarIfNeeded();
@@ -869,8 +866,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			if (m_curMoveState is ChargeState)
 			{
-				ChargeState chargeState = m_curMoveState as ChargeState;
-				flag = !chargeState.DoneMoving();
+				flag = !(m_curMoveState as ChargeState).DoneMoving();
 			}
 			else
 			{
@@ -881,8 +877,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			flag = false;
 		}
-		bool result = flag && !ShouldPauseAnimator();
-		return result;
+		return flag && !ShouldPauseAnimator();
 	}
 
 	public bool InChargeState()
@@ -946,15 +941,15 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			return;
 		}
 		BoardSquarePathInfo gameplayPathClosestTo = GetGameplayPathClosestTo(m_actor.transform.position);
-		bool skipFogOfWarUpdate = true;
+		bool needFogOfWarUpdate = false;
 		while (m_gameplayPath != gameplayPathClosestTo)
 		{
 			AdvanceGameplayPath();
-			skipFogOfWarUpdate = Application.isEditor
-				&& DebugParameters.Get() != null
-				&& DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement");
+			needFogOfWarUpdate = !Application.isEditor
+				|| DebugParameters.Get() == null
+				|| !DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement");
 		}
-		if (!skipFogOfWarUpdate)
+		if (needFogOfWarUpdate)
 		{
 			m_actor.GetFogOfWar().MarkForRecalculateVisibility();
 			UpdateClientFogOfWarIfNeeded();
@@ -1032,8 +1027,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	private float GetDistToPathSquare(BoardSquare goalGridSquare)
 	{
 		Vector3 position = m_actor.transform.position;
-		Vector3 worldPosition = goalGridSquare.GetOccupantRefPos();
-		Vector3 vector = worldPosition - position;
+		Vector3 vector = goalGridSquare.GetOccupantRefPos() - position;
 		vector.y = 0f;
 		return vector.magnitude;
 	}
@@ -1047,8 +1041,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			&& m_aestheticPath.square != null)
 		{
 			Vector3 position = m_actor.transform.position;
-			Vector3 worldPosition = m_aestheticPath.square.GetOccupantRefPos();
-			result = worldPosition - position;
+			result = m_aestheticPath.square.GetOccupantRefPos() - position;
 			result.y = 0f;
 			result.Normalize();
 			return result;
@@ -1094,22 +1087,36 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	private bool EnemyRunningIntoBrush(BoardSquarePathInfo pathEndInfo)
 	{
-		return !m_actor.VisibleTillEndOfPhase
-			&& !m_actor.CurrentlyVisibleForAbilityCast
-			&& !m_actor.GetActorStatus().HasStatus(StatusType.Revealed, false)
-			&& !CaptureTheFlag.IsActorRevealedByFlag_Client(m_actor)
-			&& (pathEndInfo == null
-				&& !m_actor.IsActorVisibleToClient()
-				&& m_actor.IsInBrush()
-				&& m_actor.GetActorMovement().IsPast2ndToLastSquare()
-			|| pathEndInfo != null
-				&& !pathEndInfo.m_visibleToEnemies
-				&& !pathEndInfo.m_moverHasGameplayHitHere
-				&& pathEndInfo.square != null
-				&& BrushCoordinator.Get() != null
-				&& BrushCoordinator.Get().IsRegionFunctioning(pathEndInfo.square.BrushRegion))
-			&& (ServerClientUtils.GetCurrentActionPhase() >= ActionBufferPhase.Movement
-				|| GameFlowData.Get().gameState == GameState.BothTeams_Decision);
+		if (m_actor.VisibleTillEndOfPhase
+			|| m_actor.CurrentlyVisibleForAbilityCast
+			|| m_actor.GetActorStatus().HasStatus(StatusType.Revealed, false)
+			|| CaptureTheFlag.IsActorRevealedByFlag_Client(m_actor))
+		{
+			return false;
+		}
+		if (pathEndInfo == null)
+		{
+			if (m_actor.IsActorVisibleToClient()
+				|| !m_actor.IsInBrush()
+				|| !m_actor.GetActorMovement().IsPast2ndToLastSquare())
+			{
+				return false;
+			}
+
+		}
+		else
+		{
+			if (pathEndInfo.m_visibleToEnemies
+				|| pathEndInfo.m_moverHasGameplayHitHere
+				|| pathEndInfo.square == null
+				|| BrushCoordinator.Get() == null
+				|| !BrushCoordinator.Get().IsRegionFunctioning(pathEndInfo.square.BrushRegion))
+			{
+				return false;
+			}
+		}
+		return ServerClientUtils.GetCurrentActionPhase() >= ActionBufferPhase.Movement
+			|| GameFlowData.Get().gameState == GameState.BothTeams_Decision;
 	}
 
 	private float GetDistToGoal()
@@ -1139,8 +1146,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	private float GetDistToGround()
 	{
 		Vector3 groundPosition = GetGroundPosition(m_actor.transform.position);
-		Vector3 position = m_actor.transform.position;
-		return position.y - groundPosition.y;
+		return m_actor.transform.position.y - groundPosition.y;
 	}
 
 	private void OnDeath()
@@ -1208,17 +1214,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquarePathInfo result = m_gameplayPath;
 		if (m_gameplayPath != null)
 		{
-			Vector3 position = m_gameplayPath.square.transform.position;
-			float x = position.x;
-			Vector3 position2 = m_gameplayPath.square.transform.position;
-			Vector3 a = new Vector3(x, 0f, position2.z);
+			Vector3 a = new Vector3(
+				m_gameplayPath.square.transform.position.x,
+				0f,
+				m_gameplayPath.square.transform.position.z);
 			float num = (a - b).sqrMagnitude;
 			while (boardSquarePathInfo != null)
 			{
-				Vector3 position3 = boardSquarePathInfo.square.transform.position;
-				float x2 = position3.x;
-				Vector3 position4 = boardSquarePathInfo.square.transform.position;
-				Vector3 a2 = new Vector3(x2, 0f, position4.z);
+				Vector3 a2 = new Vector3(
+					boardSquarePathInfo.square.transform.position.x,
+					0f,
+					boardSquarePathInfo.square.transform.position.z);
 				float sqrMagnitude = (a2 - b).sqrMagnitude;
 				if (sqrMagnitude < num)
 				{
@@ -1254,7 +1260,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			m_actor.UpdateFacingAfterMovement();
 			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve
 				&& HighlightUtils.Get() != null
-				&& HighlightUtils.Get().m_coverDirIndicatorTiming == 0
+				&& HighlightUtils.Get().m_coverDirIndicatorTiming == HighlightUtils.MoveIntoCoverIndicatorTiming.ShowOnMoveEnd
 				&& HighlightUtils.Get().m_showMoveIntoCoverIndicators)
 			{
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
@@ -1571,7 +1577,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				}
 				BoardSquare square = boardSquarePathInfo2.square;
 				DiagonalCalcFlag diagonalFlag = isDiagonalStep ? DiagonalCalcFlag.IsDiagonal : DiagonalCalcFlag.NotDiagonal;
-				if (CanCrossToAdjacentSquare(square, boardSquare, ignoreBarriers, (DiagonalCalcFlag)diagonalFlag) && FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
+				if (CanCrossToAdjacentSquare(square, boardSquare, ignoreBarriers, diagonalFlag) && FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
 				{
 					BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
 					allocatedNode2.square = boardSquare;
@@ -1580,12 +1586,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					{
 						int num3 = 1;
 						BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
-						while (boardSquarePathInfo3 != null)
+						while (boardSquarePathInfo3 != null && claimedSquares.Contains(boardSquarePathInfo3.square))
 						{
-							if (!claimedSquares.Contains(boardSquarePathInfo3.square))
-							{
-								break;
-							}
 							num3++;
 							boardSquarePathInfo3 = boardSquarePathInfo3.prev;
 						}
@@ -1601,7 +1603,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						float num4 = Mathf.Abs(boardSquare.x - dest.x);
 						float num5 = Mathf.Abs(boardSquare.y - dest.y);
 						float num6 = num4 + num5 - 0.5f * Mathf.Min(num4, num5);
-						float num7 = allocatedNode2.heuristicCost = Mathf.Max(0f, num6 - 1.01f);
+						allocatedNode2.heuristicCost = Mathf.Max(0f, num6 - 1.01f);
 					}
 					allocatedNode2.prev = boardSquarePathInfo2;
 					bool flag6 = false;
