@@ -8,15 +8,12 @@ using UnityEngine.Networking;
 public class GameFlowData : NetworkBehaviour, IGameEventListener
 {
 	private static GameFlowData s_gameFlowData;
-
-	public static float s_loadingScreenTime;
+	public static float s_loadingScreenTime = 4f;
 
 	[SyncVar]
 	private bool m_pause;
-
 	[SyncVar]
 	private bool m_pausedForDebugging;
-
 	[SyncVar]
 	private bool m_pausedByPlayerRequest;
 
@@ -24,215 +21,71 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	[SyncVar]
 	private bool m_pausedForSinglePlayer;
-
 	[SyncVar]
 	private ResolutionPauseState m_resolutionPauseState;
 
 	internal PlayerData m_localPlayerData;
-
 	private GameObject m_actorRoot;
-
 	private GameObject m_thinCoverRoot;
-
 	private GameObject m_brushRegionBorderRoot;
-
 	private Team m_selectedTeam;
 
 	private List<ActorData> m_teamAPlayerAndBots = new List<ActorData>();
-
 	private List<ActorData> m_teamBPlayerAndBots = new List<ActorData>();
-
 	private List<ActorData> m_teamObjectsPlayerAndBots = new List<ActorData>();
-
 	private List<ActorData> m_teamA = new List<ActorData>();
-
 	private List<ActorData> m_teamB = new List<ActorData>();
-
 	private List<ActorData> m_teamObjects = new List<ActorData>();
-
 	private List<ActorData> m_actors = new List<ActorData>();
-
 	private List<GameObject> m_players = new List<GameObject>();
-
 	public List<ActorData> m_ownedActorDatas = new List<ActorData>();
 
 	private ActorData m_activeOwnedActorData;
-
 	public bool m_oneClassOnTeam = true;
-
 	public GameObject[] m_availableCharacterResourceLinkPrefabs;
 
 	[SyncVar(hook = "HookSetStartTime")]
 	public float m_startTime = 5f;
-
 	[SyncVar(hook = "HookSetDeploymentTime")]
 	public float m_deploymentTime = 7f;
-
 	[SyncVar(hook = "HookSetTurnTime")]
 	public float m_turnTime = 10f;
-
 	[SyncVar(hook = "HookSetMaxTurnTime")]
 	public float m_maxTurnTime = 20f;
 
 	public float m_resolveTimeoutLimit = 112f;
-
 	private float m_matchStartTime;
-
 	private float m_deploymentStartTime;
-
 	private float m_timeRemainingInDecision = 20f;
 
 	[SyncVar]
 	private float m_timeRemainingInDecisionOverflow;
-
 	[SyncVar]
 	private bool m_willEnterTimebankMode;
 
 	private const float c_timeRemainingUpdateInterval = 1f;
-
 	private const float c_latencyCorrectionTime = 1f;
-
 	private float m_timeInState;
-
 	private float m_timeInStateUnscaled;
-
 	private float m_timeInDecision;
 
 	[SyncVar(hook = "HookSetCurrentTurn")]
 	private int m_currentTurn;
-
 	[SyncVar(hook = "HookSetGameState")]
 	private GameState m_gameState;
 
-	private static int kRpcRpcUpdateTimeRemaining;
+	private static int kRpcRpcUpdateTimeRemaining = 0x3800B000;
 
 	static GameFlowData()
 	{
-		GameFlowData.s_onAddActorHolder = delegate(ActorData A_0)
-		{
-		};
-		GameFlowData.s_onRemoveActorHolder = delegate(ActorData A_0)
-		{
-		};
-		GameFlowData.s_onActiveOwnedActorChangeHolder = delegate(ActorData A_0)
-		{
-		};
-		GameFlowData.s_onGameStateChangedHolder = delegate(GameState A_0)
-		{
-		};
-		GameFlowData.s_loadingScreenTime = 4f;
-		GameFlowData.kRpcRpcUpdateTimeRemaining = 0x3800B000;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(GameFlowData), GameFlowData.kRpcRpcUpdateTimeRemaining, new NetworkBehaviour.CmdDelegate(GameFlowData.InvokeRpcRpcUpdateTimeRemaining));
+		RegisterRpcDelegate(typeof(GameFlowData), kRpcRpcUpdateTimeRemaining, new CmdDelegate(InvokeRpcRpcUpdateTimeRemaining));
 		NetworkCRC.RegisterBehaviour("GameFlowData", 0);
 	}
 
-	private static Action<ActorData> s_onAddActorHolder;
-	internal static event Action<ActorData> s_onAddActor
-	{
-		add
-		{
-			Action<ActorData> action = GameFlowData.s_onAddActorHolder;
-			Action<ActorData> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onAddActorHolder, (Action<ActorData>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<ActorData> action = GameFlowData.s_onAddActorHolder;
-			Action<ActorData> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onAddActorHolder, (Action<ActorData>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private static Action<ActorData> s_onRemoveActorHolder;
-	internal static event Action<ActorData> s_onRemoveActor
-	{
-		add
-		{
-			Action<ActorData> action = GameFlowData.s_onRemoveActorHolder;
-			Action<ActorData> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onRemoveActorHolder, (Action<ActorData>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<ActorData> action = GameFlowData.s_onRemoveActorHolder;
-			Action<ActorData> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onRemoveActorHolder, (Action<ActorData>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private static Action<ActorData> s_onActiveOwnedActorChangeHolder;
-	internal static event Action<ActorData> s_onActiveOwnedActorChange
-	{
-		add
-		{
-			Action<ActorData> action = GameFlowData.s_onActiveOwnedActorChangeHolder;
-			Action<ActorData> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onActiveOwnedActorChangeHolder, (Action<ActorData>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<ActorData> action = GameFlowData.s_onActiveOwnedActorChangeHolder;
-			Action<ActorData> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onActiveOwnedActorChangeHolder, (Action<ActorData>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private static Action<GameState> s_onGameStateChangedHolder;
-	internal static event Action<GameState> s_onGameStateChanged
-	{
-		add
-		{
-			Action<GameState> action = GameFlowData.s_onGameStateChangedHolder;
-			Action<GameState> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameState>>(ref GameFlowData.s_onGameStateChangedHolder, (Action<GameState>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<GameState> action = GameFlowData.s_onGameStateChangedHolder;
-			Action<GameState> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameState>>(ref GameFlowData.s_onGameStateChangedHolder, (Action<GameState>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
+	internal static event Action<ActorData> s_onAddActor;
+	internal static event Action<ActorData> s_onRemoveActor;
+	internal static event Action<ActorData> s_onActiveOwnedActorChange;
+	internal static event Action<GameState> s_onGameStateChanged;
 
 	public bool Started { get; private set; }
 
@@ -240,38 +93,36 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_localPlayerData;
+			return m_localPlayerData;
 		}
 	}
 
 	private void Awake()
 	{
-		GameFlowData.s_gameFlowData = this;
+		s_gameFlowData = this;
 		if (ClientGamePrefabInstantiator.Get() != null)
 		{
 			ClientGamePrefabInstantiator.Get().InstantiatePrefabs();
 		}
 		else
 		{
-			Log.Error("ClientGamePrefabInstantiator reference not set on game start", new object[0]);
+			Log.Error("ClientGamePrefabInstantiator reference not set on game start");
 		}
 	}
 
 	private void Start()
 	{
-		this.Started = true;
+		Started = true;
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.GameFlowDataStarted, null);
 		VisualsLoader.FireSceneLoadedEventIfNoVisualLoader();
 		ClientGameManager.Get().DesignSceneStarted = true;
-		if (ClientGameManager.Get().PlayerObjectStartedOnClient)
+		if (ClientGameManager.Get().PlayerObjectStartedOnClient
+			&& AppState.GetCurrent() == AppState_InGameStarting.Get())
 		{
-			if (AppState.GetCurrent() == AppState_InGameStarting.Get())
-			{
-				UIScreenManager.Get().TryLoadAndSetupInGameUI();
-			}
+			UIScreenManager.Get().TryLoadAndSetupInGameUI();
 		}
 		ClientGameManager.Get().CheckAndSendClientPreparedForGameStartNotification();
-		Log.Info("GameFlowData.Start", new object[0]);
+		Log.Info("GameFlowData.Start");
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.GameTeardown);
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.TheatricsAbilityAnimationStart);
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.ServerActionBufferPhaseStart);
@@ -280,41 +131,42 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType != GameEventManager.EventType.GameTeardown)
+		switch (eventType)
 		{
-		}
-		else
-		{
-			UnityEngine.Object.Destroy(this.m_actorRoot);
-			UnityEngine.Object.Destroy(this.m_thinCoverRoot);
-			UnityEngine.Object.Destroy(this.m_brushRegionBorderRoot);
-			CharacterResourceLink.DestroyAudioResources();
+			case GameEventManager.EventType.GameTeardown:
+				Destroy(m_actorRoot);
+				Destroy(m_thinCoverRoot);
+				Destroy(m_brushRegionBorderRoot);
+				CharacterResourceLink.DestroyAudioResources();
+				break;
 		}
 	}
 
 	public override void OnStartServer()
 	{
 		LobbyGameConfig gameConfig = GameManager.Get().GameConfig;
-		this.Networkm_gameState = GameState.Launched;
-		this.Networkm_turnTime = Convert.ToSingle(gameConfig.TurnTime);
-		this.Networkm_maxTurnTime = Convert.ToSingle(gameConfig.TurnTime) + Mathf.Max(GameWideData.Get().m_tbInitial, GameWideData.Get().m_tbRechargeCap) + GameWideData.Get().m_tbConsumableDuration + 1f;
-		this.m_resolveTimeoutLimit = Convert.ToSingle(gameConfig.ResolveTimeoutLimit);
+		Networkm_gameState = GameState.Launched;
+		Networkm_turnTime = Convert.ToSingle(gameConfig.TurnTime);
+		Networkm_maxTurnTime = Convert.ToSingle(gameConfig.TurnTime)
+			+ Mathf.Max(GameWideData.Get().m_tbInitial, GameWideData.Get().m_tbRechargeCap)
+			+ GameWideData.Get().m_tbConsumableDuration + 1f;
+		m_resolveTimeoutLimit = Convert.ToSingle(gameConfig.ResolveTimeoutLimit);
 	}
 
 	public override void OnStartClient()
 	{
-		if (this.CurrentTurn > 0)
+		if (CurrentTurn > 0)
 		{
-			this.NotifyOnTurnTick();
+			NotifyOnTurnTick();
 		}
 	}
 
 	private void OnDestroy()
 	{
-		GameFlowData.s_onActiveOwnedActorChangeHolder = null;
-		GameFlowData.s_onAddActorHolder = null;
-		GameFlowData.s_onRemoveActorHolder = null;
-		GameFlowData.s_onGameStateChangedHolder = null;
+		s_onActiveOwnedActorChange = null;
+		s_onAddActor = null;
+		s_onRemoveActor = null;
+		s_onGameStateChanged = null;
 		if (GameEventManager.Get() != null)
 		{
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GameTeardown);
@@ -322,77 +174,72 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.ServerActionBufferPhaseStart);
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.ServerActionBufferActionsDone);
 		}
-		this.m_ownedActorDatas.Clear();
-		this.m_activeOwnedActorData = null;
-		this.m_actors.Clear();
-		this.m_teamA.Clear();
-		this.m_teamAPlayerAndBots.Clear();
-		this.m_teamB.Clear();
-		this.m_teamBPlayerAndBots.Clear();
-		this.m_teamObjects.Clear();
-		this.m_teamObjectsPlayerAndBots.Clear();
-		GameFlowData.s_gameFlowData = null;
+		m_ownedActorDatas.Clear();
+		m_activeOwnedActorData = null;
+		m_actors.Clear();
+		m_teamA.Clear();
+		m_teamAPlayerAndBots.Clear();
+		m_teamB.Clear();
+		m_teamBPlayerAndBots.Clear();
+		m_teamObjects.Clear();
+		m_teamObjectsPlayerAndBots.Clear();
+		s_gameFlowData = null;
 	}
 
 	public bool GetPause()
 	{
-		return this.m_pause;
+		return m_pause;
 	}
 
 	public bool GetPauseForDialog()
 	{
-		return this.m_pausedForDialog;
+		return m_pausedForDialog;
 	}
 
 	public bool GetPauseForSinglePlayer()
 	{
-		return this.m_pausedForSinglePlayer;
+		return m_pausedForSinglePlayer;
 	}
 
 	public bool GetPauseForDebugging()
 	{
-		return this.m_pausedForDebugging;
+		return m_pausedForDebugging;
 	}
 
 	public bool GetPausedByPlayerRequest()
 	{
-		return this.m_pausedByPlayerRequest;
+		return m_pausedByPlayerRequest;
 	}
 
 	internal void SetPausedForDialog(bool pause)
 	{
-		if (NetworkServer.active)
+		if (NetworkServer.active && m_pausedForDialog != pause)
 		{
-			if (this.m_pausedForDialog != pause)
-			{
-				this.m_pausedForDialog = pause;
-				this.UpdatePause();
-			}
+			m_pausedForDialog = pause;
+			UpdatePause();
 		}
 	}
 
 	internal void SetPausedForSinglePlayer(bool pause)
 	{
-		if (NetworkServer.active)
+		if (NetworkServer.active && m_pausedForSinglePlayer != pause)
 		{
-			if (this.m_pausedForSinglePlayer != pause)
-			{
-				this.Networkm_pausedForSinglePlayer = pause;
-				this.UpdatePause();
-			}
+			Networkm_pausedForSinglePlayer = pause;
+			UpdatePause();
 		}
 	}
 
 	internal void SetPausedForDebugging(bool pause)
 	{
+		// TODO LOW missing code
 	}
 
 	internal void SetPausedForCustomGame(bool pause)
 	{
-		if (NetworkServer.active && this.m_pausedByPlayerRequest != pause)
+		if (NetworkServer.active && m_pausedByPlayerRequest != pause)
 		{
-			this.Networkm_pausedByPlayerRequest = pause;
-			this.UpdatePause();
+			Networkm_pausedByPlayerRequest = pause;
+			UpdatePause();
 		}
 	}
 
@@ -400,59 +247,34 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkServer.active)
 		{
-			bool flag;
-			if (!this.m_pausedForDialog)
+			bool pause = m_pausedForDialog || m_pausedForSinglePlayer || m_pausedForDebugging || m_pausedByPlayerRequest;
+			if (m_pause != pause)
 			{
-				if (!this.m_pausedForSinglePlayer)
-				{
-					if (!this.m_pausedForDebugging)
-					{
-						flag = this.m_pausedByPlayerRequest;
-						goto IL_5B;
-					}
-				}
-			}
-			flag = true;
-			IL_5B:
-			bool flag2 = flag;
-			if (this.m_pause != flag2)
-			{
-				this.Networkm_pause = flag2;
+				Networkm_pause = pause;
 			}
 		}
 	}
 
 	internal bool IsResolutionPaused()
 	{
-		return this.m_resolutionPauseState == ResolutionPauseState.PausedUntilInput;
+		return m_resolutionPauseState == ResolutionPauseState.PausedUntilInput;
 	}
 
 	internal bool GetResolutionSingleStepping()
 	{
-		bool result;
-		if (this.m_resolutionPauseState != ResolutionPauseState.PausedUntilInput)
-		{
-			result = (this.m_resolutionPauseState == ResolutionPauseState.UnpausedUntilNextAbilityOrPhase);
-		}
-		else
-		{
-			result = true;
-		}
-		return result;
+		return m_resolutionPauseState == ResolutionPauseState.PausedUntilInput
+			|| m_resolutionPauseState == ResolutionPauseState.UnpausedUntilNextAbilityOrPhase;
 	}
 
 	internal void SetResolutionSingleStepping(bool singleStepping)
 	{
 		if (NetworkServer.active)
 		{
-			this.HandleSetResolutionSingleStepping(singleStepping);
+			HandleSetResolutionSingleStepping(singleStepping);
 		}
-		else if (GameFlowData.Get() != null)
+		else if (Get() != null && Get().activeOwnedActorData != null)
 		{
-			if (GameFlowData.Get().activeOwnedActorData != null)
-			{
-				GameFlowData.Get().activeOwnedActorData.CallCmdSetResolutionSingleStepping(singleStepping);
-			}
+			Get().activeOwnedActorData.CallCmdSetResolutionSingleStepping(singleStepping);
 		}
 	}
 
@@ -460,14 +282,11 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkServer.active)
 		{
-			this.HandleSetResolutionSingleSteppingAdvance();
+			HandleSetResolutionSingleSteppingAdvance();
 		}
-		else if (GameFlowData.Get() != null)
+		else if (Get() != null && Get().activeOwnedActorData != null)
 		{
-			if (GameFlowData.Get().activeOwnedActorData != null)
-			{
-				GameFlowData.Get().activeOwnedActorData.CallCmdSetResolutionSingleSteppingAdvance();
-			}
+			Get().activeOwnedActorData.CallCmdSetResolutionSingleSteppingAdvance();
 		}
 	}
 
@@ -493,105 +312,93 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public static GameFlowData Get()
 	{
-		return GameFlowData.s_gameFlowData;
+		return s_gameFlowData;
 	}
 
 	public static GameObject FindParentBelowRoot(GameObject child)
 	{
-		GameObject gameObject;
-		if (child.transform.parent == null)
+		GameObject result = child.transform.parent == null ? null : child;
+		GameObject it = child;
+		while (it.transform.parent != null)
 		{
-			gameObject = null;
-		}
-		else
-		{
-			gameObject = child;
-		}
-		GameObject result = gameObject;
-		GameObject gameObject2 = child;
-		while (gameObject2.transform.parent != null)
-		{
-			result = gameObject2;
-			gameObject2 = gameObject2.transform.parent.gameObject;
+			result = it;
+			it = it.transform.parent.gameObject;
 		}
 		return result;
 	}
 
 	public GameObject GetActorRoot()
 	{
-		if (this.m_actorRoot == null)
+		if (m_actorRoot == null)
 		{
-			this.m_actorRoot = new GameObject("ActorRoot");
-			UnityEngine.Object.DontDestroyOnLoad(this.m_actorRoot);
+			m_actorRoot = new GameObject("ActorRoot");
+			DontDestroyOnLoad(m_actorRoot);
 		}
-		return this.m_actorRoot;
+		return m_actorRoot;
 	}
 
 	public GameObject GetThinCoverRoot()
 	{
-		if (this.m_thinCoverRoot == null)
+		if (m_thinCoverRoot == null)
 		{
-			this.m_thinCoverRoot = new GameObject("ThinCoverRoot");
-			UnityEngine.Object.DontDestroyOnLoad(this.m_thinCoverRoot);
+			m_thinCoverRoot = new GameObject("ThinCoverRoot");
+			DontDestroyOnLoad(m_thinCoverRoot);
 		}
-		return this.m_thinCoverRoot;
+		return m_thinCoverRoot;
 	}
 
 	public GameObject GetBrushBordersRoot()
 	{
-		if (this.m_brushRegionBorderRoot == null)
+		if (m_brushRegionBorderRoot == null)
 		{
-			this.m_brushRegionBorderRoot = new GameObject("BrushRegionBorderRoot");
-			UnityEngine.Object.DontDestroyOnLoad(this.m_brushRegionBorderRoot);
+			m_brushRegionBorderRoot = new GameObject("BrushRegionBorderRoot");
+			DontDestroyOnLoad(m_brushRegionBorderRoot);
 		}
-		return this.m_brushRegionBorderRoot;
+		return m_brushRegionBorderRoot;
 	}
 
 	public Team GetSelectedTeam()
 	{
-		return this.m_selectedTeam;
+		return m_selectedTeam;
 	}
 
 	private void HookSetGameState(GameState state)
 	{
-		if (this.m_gameState != state)
+		if (m_gameState != state && !NetworkServer.active)
 		{
-			if (!NetworkServer.active)
-			{
-				this.gameState = state;
-			}
+			gameState = state;
 		}
 	}
 
 	private void HookSetStartTime(float startTime)
 	{
-		if (this.m_startTime != startTime)
+		if (m_startTime != startTime)
 		{
-			this.Networkm_startTime = startTime;
+			Networkm_startTime = startTime;
 		}
 	}
 
 	private void HookSetDeploymentTime(float deploymentTime)
 	{
-		if (this.m_deploymentTime != deploymentTime)
+		if (m_deploymentTime != deploymentTime)
 		{
-			this.Networkm_deploymentTime = deploymentTime;
+			Networkm_deploymentTime = deploymentTime;
 		}
 	}
 
 	private void HookSetTurnTime(float turnTime)
 	{
-		if (this.m_turnTime != turnTime)
+		if (m_turnTime != turnTime)
 		{
-			this.Networkm_turnTime = turnTime;
+			Networkm_turnTime = turnTime;
 		}
 	}
 
 	private void HookSetMaxTurnTime(float maxTurnTime)
 	{
-		if (this.m_maxTurnTime != maxTurnTime)
+		if (m_maxTurnTime != maxTurnTime)
 		{
-			this.Networkm_maxTurnTime = maxTurnTime;
+			Networkm_maxTurnTime = maxTurnTime;
 		}
 	}
 
@@ -599,11 +406,11 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			while (this.m_currentTurn < turn)
+			while (m_currentTurn < turn)
 			{
-				this.IncrementTurn();
+				IncrementTurn();
 			}
-			this.Networkm_currentTurn = turn;
+			Networkm_currentTurn = turn;
 			HUD_UI.Get().m_mainScreenPanel.m_notificationPanel.NotifyTurnCountSet();
 		}
 	}
@@ -611,26 +418,14 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	public int GetClassIndexFromName(string className)
 	{
 		int result = -1;
-		for (int i = 0; i < this.m_availableCharacterResourceLinkPrefabs.Length; i++)
+		for (int i = 0; i < m_availableCharacterResourceLinkPrefabs.Length; i++)
 		{
-			GameObject gameObject = this.m_availableCharacterResourceLinkPrefabs[i];
-			CharacterResourceLink characterResourceLink;
-			if (gameObject == null)
+			GameObject gameObject = m_availableCharacterResourceLinkPrefabs[i];
+			CharacterResourceLink crl = gameObject?.GetComponent<CharacterResourceLink>();
+			if (crl != null && crl.m_displayName == className)
 			{
-				characterResourceLink = null;
-			}
-			else
-			{
-				characterResourceLink = gameObject.GetComponent<CharacterResourceLink>();
-			}
-			CharacterResourceLink characterResourceLink2 = characterResourceLink;
-			if (characterResourceLink2 != null)
-			{
-				if (characterResourceLink2.m_displayName == className)
-				{
-					result = i;
-					break;
-				}
+				result = i;
+				break;
 			}
 		}
 		return result;
@@ -638,175 +433,131 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public void AddOwnedActorData(ActorData actorData)
 	{
-		if (this.m_ownedActorDatas.Contains(actorData))
+		if (m_ownedActorDatas.Contains(actorData))
 		{
 			return;
 		}
-		if (actorData.GetTeam() != Team.TeamA)
+		if (actorData.GetTeam() != Team.TeamA && m_ownedActorDatas.Count != 0)
 		{
-			if (this.m_ownedActorDatas.Count != 0)
-			{
-				this.m_ownedActorDatas.Add(actorData);
-				Log.Info("GameFlowData.AddOwnedActorData {0} {1}", new object[]
-				{
-					this.m_ownedActorDatas.Count,
-					actorData
-				});
-				goto IL_A4;
-			}
+			m_ownedActorDatas.Add(actorData);
+			Log.Info($"GameFlowData.AddOwnedActorData {m_ownedActorDatas.Count} {actorData}");
 		}
-		this.m_ownedActorDatas.Insert(0, actorData);
-		Log.Info("GameFlowData.AddOwnedActorData {0} {1}", new object[]
+		else
 		{
-			0,
-			actorData
-		});
-		IL_A4:
-		if (this.activeOwnedActorData == null)
+			m_ownedActorDatas.Insert(0, actorData);
+			Log.Info($"GameFlowData.AddOwnedActorData {0} {actorData}");
+		}
+		if (activeOwnedActorData == null)
 		{
-			this.activeOwnedActorData = actorData;
+			activeOwnedActorData = actorData;
 		}
 	}
 
 	public void ResetOwnedActorDataToFirst()
 	{
-		if (this.m_ownedActorDatas.Count > 0)
+		if (m_ownedActorDatas.Count > 0)
 		{
-			if (!(SpawnPointManager.Get() == null))
+			if (SpawnPointManager.Get() == null || !SpawnPointManager.Get().m_playersSelectRespawn)
 			{
-				if (SpawnPointManager.Get().m_playersSelectRespawn)
+				foreach (ActorData actorData in m_ownedActorDatas)
 				{
-					goto IL_B4;
+					if (actorData != null && !actorData.IsDead())
+					{
+						activeOwnedActorData = actorData;
+						return;
+					}
 				}
 			}
-			foreach (ActorData actorData in this.m_ownedActorDatas)
-			{
-				if (actorData != null && !actorData.IsDead())
-				{
-					this.activeOwnedActorData = actorData;
-					return;
-				}
-			}
-			IL_B4:
-			this.activeOwnedActorData = this.m_ownedActorDatas[0];
+			activeOwnedActorData = m_ownedActorDatas[0];
 		}
 	}
 
 	public bool IsActorDataOwned(ActorData actorData)
 	{
-		bool result;
-		if (actorData != null)
-		{
-			result = this.m_ownedActorDatas.Contains(actorData);
-		}
-		else
-		{
-			result = false;
-		}
-		return result;
+		return actorData != null && m_ownedActorDatas.Contains(actorData);
 	}
 
 	public ActorData nextOwnedActorData
 	{
 		get
 		{
-			ActorData result = null;
-			if (this.m_ownedActorDatas.Count > 0)
+			if (m_ownedActorDatas.Count > 0)
 			{
-				if (this.activeOwnedActorData == null)
+				if (activeOwnedActorData == null)
 				{
-					result = this.m_ownedActorDatas[0];
+					return m_ownedActorDatas[0];
 				}
 				else
 				{
 					int num = 0;
-					for (int i = 0; i < this.m_ownedActorDatas.Count; i++)
+					for (int i = 0; i < m_ownedActorDatas.Count; i++)
 					{
-						if (this.m_ownedActorDatas[i] == this.activeOwnedActorData)
+						if (m_ownedActorDatas[i] == activeOwnedActorData)
 						{
 							num = i;
 							break;
 						}
 					}
-					return this.m_ownedActorDatas[(num + 1) % this.m_ownedActorDatas.Count];
+					return m_ownedActorDatas[(num + 1) % m_ownedActorDatas.Count];
 				}
 			}
-			return result;
+			return null;
 		}
 	}
 
 	public void SetActiveNextNonConfirmedOwnedActorData()
 	{
-		if (this.activeOwnedActorData == null)
+		if (activeOwnedActorData == null)
 		{
-			this.activeOwnedActorData = this.firstOwnedFriendlyActorData;
+			activeOwnedActorData = firstOwnedFriendlyActorData;
+			return;
 		}
-		else
+		bool isFound = false;
+		int num = 0;
+		for (int i = 0; i < m_ownedActorDatas.Count; i++)
 		{
-			bool flag = false;
-			int num = 0;
-			int i = 0;
-			while (i < this.m_ownedActorDatas.Count)
+			if (m_ownedActorDatas[i] == activeOwnedActorData)
 			{
-				if (this.m_ownedActorDatas[i] == this.activeOwnedActorData)
+				num = i;
+				break;
+			}
+		}
+		for (int i = 0; i < m_ownedActorDatas.Count; i++)
+		{
+			int index = (num + i) % m_ownedActorDatas.Count;
+			ActorData actorData = m_ownedActorDatas[index];
+			if (actorData != activeOwnedActorData
+				&& activeOwnedActorData != null
+				&& actorData.GetTeam() == activeOwnedActorData.GetTeam()
+				&& actorData.GetComponent<ActorTurnSM>().CurrentState != TurnStateEnum.CONFIRMED)
+			{
+				isFound = true;
+				activeOwnedActorData = actorData;
+				break;
+			}
+		}
+		if (!isFound)
+		{
+			for (int i = 0; i < m_ownedActorDatas.Count; i++)
+			{
+				int index = (num + i) % m_ownedActorDatas.Count;
+				ActorData actorData = m_ownedActorDatas[index];
+				if (actorData != activeOwnedActorData
+					&& actorData.GetComponent<ActorTurnSM>().CurrentState != TurnStateEnum.CONFIRMED)
 				{
-					num = i;
+					activeOwnedActorData = actorData;
 					break;
 				}
-				else
-				{
-					i++;
-				}
 			}
-			for (int j = 0; j < this.m_ownedActorDatas.Count; j++)
-			{
-				int index = (num + j) % this.m_ownedActorDatas.Count;
-				ActorData actorData = this.m_ownedActorDatas[index];
-				if (actorData != this.activeOwnedActorData && this.activeOwnedActorData != null && actorData.GetTeam() == this.activeOwnedActorData.GetTeam())
-				{
-					ActorTurnSM component = actorData.GetComponent<ActorTurnSM>();
-					if (component.CurrentState != TurnStateEnum.CONFIRMED)
-					{
-						flag = true;
-						this.activeOwnedActorData = actorData;
-						break;
-					}
-				}
-			}
-			if (!flag)
-			{
-				for (int k = 0; k < this.m_ownedActorDatas.Count; k++)
-				{
-					int index2 = (num + k) % this.m_ownedActorDatas.Count;
-					ActorData actorData2 = this.m_ownedActorDatas[index2];
-					if (actorData2 != this.activeOwnedActorData)
-					{
-						ActorTurnSM component2 = actorData2.GetComponent<ActorTurnSM>();
-						if (component2.CurrentState != TurnStateEnum.CONFIRMED)
-						{
-							this.activeOwnedActorData = actorData2;
-							break;
-						}
-					}
-				}
-				return;
-			}
-			return;
 		}
 	}
 
 	public bool SetActiveOwnedActor_FCFS(ActorData actor)
 	{
-		if (actor != null)
+		if (actor != null && IsActorDataOwned(actor) && activeOwnedActorData != actor)
 		{
-			if (this.IsActorDataOwned(actor))
-			{
-				if (this.activeOwnedActorData != actor)
-				{
-					this.activeOwnedActorData = actor;
-					return true;
-				}
-			}
+			activeOwnedActorData = actor;
+			return true;
 		}
 		return false;
 	}
@@ -815,19 +566,17 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			ActorData result = null;
-			if (this.m_ownedActorDatas.Count > 0 && this.activeOwnedActorData != null)
+			if (m_ownedActorDatas.Count > 0 && activeOwnedActorData != null)
 			{
-				foreach (ActorData actorData in this.m_ownedActorDatas)
+				foreach (ActorData actorData in m_ownedActorDatas)
 				{
-					if (actorData.GetTeam() == this.activeOwnedActorData.GetTeam())
+					if (actorData.GetTeam() == activeOwnedActorData.GetTeam())
 					{
-						result = actorData;
-						break;
+						return actorData;
 					}
 				}
 			}
-			return result;
+			return null;
 		}
 	}
 
@@ -835,22 +584,17 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			ActorData result = null;
-			if (this.activeOwnedActorData != null)
+			if (activeOwnedActorData != null)
 			{
-				using (List<ActorData>.Enumerator enumerator = this.m_ownedActorDatas.GetEnumerator())
+				foreach (ActorData actorData in m_ownedActorDatas)
 				{
-					while (enumerator.MoveNext())
+					if (actorData.GetTeam() != activeOwnedActorData.GetTeam())
 					{
-						ActorData actorData = enumerator.Current;
-						if (actorData.GetTeam() != this.activeOwnedActorData.GetTeam())
-						{
-							return actorData;
-						}
+						return actorData;
 					}
 				}
 			}
-			return result;
+			return null;
 		}
 	}
 
@@ -858,7 +602,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.activeOwnedActorData;
+			return activeOwnedActorData;
 		}
 	}
 
@@ -866,39 +610,27 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_activeOwnedActorData;
+			return m_activeOwnedActorData;
 		}
 		set
 		{
-			bool flag = this.m_activeOwnedActorData != value;
-			bool flag2 = false;
-			if (this.m_activeOwnedActorData != null)
+			bool isChange = m_activeOwnedActorData != value;
+			bool isTeamChange = false;
+			if (m_activeOwnedActorData != null)
 			{
-				this.m_activeOwnedActorData.OnDeselectedAsActiveActor();
-				bool flag3;
-				if (value != null)
-				{
-					flag3 = (value.GetEnemyTeam() == this.m_activeOwnedActorData.GetTeam());
-				}
-				else
-				{
-					flag3 = false;
-				}
-				flag2 = flag3;
+				m_activeOwnedActorData.OnDeselectedAsActiveActor();
+				isTeamChange = value != null && value.GetEnemyTeam() == m_activeOwnedActorData.GetTeam();
 			}
-			this.m_activeOwnedActorData = value;
-			if (this.m_activeOwnedActorData != null)
+			m_activeOwnedActorData = value;
+			if (m_activeOwnedActorData != null)
 			{
-				this.m_activeOwnedActorData.OnSelectedAsActiveActor();
+				m_activeOwnedActorData.OnSelectedAsActiveActor();
 			}
-			if (flag)
+			if (isChange)
 			{
-				if (GameFlowData.s_onActiveOwnedActorChangeHolder != null)
-				{
-					GameFlowData.s_onActiveOwnedActorChangeHolder(value);
-				}
+				s_onActiveOwnedActorChange?.Invoke(value);
 			}
-			if (flag2)
+			if (isTeamChange)
 			{
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.ActiveControlChangedToEnemyTeam, null);
 			}
@@ -907,145 +639,118 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public string GetActiveOwnedActorDataDebugNameString()
 	{
-		if (this.activeOwnedActorData)
+		if (activeOwnedActorData)
 		{
-			return this.activeOwnedActorData.DebugNameString();
+			return activeOwnedActorData.DebugNameString();
 		}
 		return "(no owned actor)";
 	}
 
 	public void RemoveFromTeam(ActorData actorData)
 	{
-		this.m_teamA.Remove(actorData);
-		this.m_teamB.Remove(actorData);
-		this.m_teamObjects.Remove(actorData);
-		this.m_teamAPlayerAndBots.Remove(actorData);
-		this.m_teamBPlayerAndBots.Remove(actorData);
-		this.m_teamObjectsPlayerAndBots.Remove(actorData);
+		m_teamA.Remove(actorData);
+		m_teamB.Remove(actorData);
+		m_teamObjects.Remove(actorData);
+		m_teamAPlayerAndBots.Remove(actorData);
+		m_teamBPlayerAndBots.Remove(actorData);
+		m_teamObjectsPlayerAndBots.Remove(actorData);
 	}
 
 	public void AddToTeam(ActorData actorData)
 	{
 		if (GameplayUtils.IsPlayerControlled(actorData))
 		{
-			if (actorData.GetTeam() == Team.TeamA)
+			if (actorData.GetTeam() == Team.TeamA && !m_teamAPlayerAndBots.Contains(actorData))
 			{
-				if (!this.m_teamAPlayerAndBots.Contains(actorData))
-				{
-					this.m_teamBPlayerAndBots.Remove(actorData);
-					this.m_teamObjectsPlayerAndBots.Remove(actorData);
-					this.m_teamAPlayerAndBots.Add(actorData);
-					goto IL_119;
-				}
+				m_teamBPlayerAndBots.Remove(actorData);
+				m_teamObjectsPlayerAndBots.Remove(actorData);
+				m_teamAPlayerAndBots.Add(actorData);
 			}
-			if (actorData.GetTeam() == Team.TeamB && !this.m_teamBPlayerAndBots.Contains(actorData))
+			else if (actorData.GetTeam() == Team.TeamB && !m_teamBPlayerAndBots.Contains(actorData))
 			{
-				this.m_teamAPlayerAndBots.Remove(actorData);
-				this.m_teamObjectsPlayerAndBots.Remove(actorData);
-				this.m_teamBPlayerAndBots.Add(actorData);
+				m_teamAPlayerAndBots.Remove(actorData);
+				m_teamObjectsPlayerAndBots.Remove(actorData);
+				m_teamBPlayerAndBots.Add(actorData);
 			}
-			else if (actorData.GetTeam() == Team.Objects)
+			else if (actorData.GetTeam() == Team.Objects && !m_teamObjectsPlayerAndBots.Contains(actorData))
 			{
-				if (!this.m_teamObjectsPlayerAndBots.Contains(actorData))
-				{
-					this.m_teamAPlayerAndBots.Remove(actorData);
-					this.m_teamBPlayerAndBots.Remove(actorData);
-					this.m_teamObjectsPlayerAndBots.Add(actorData);
-				}
+				m_teamAPlayerAndBots.Remove(actorData);
+				m_teamBPlayerAndBots.Remove(actorData);
+				m_teamObjectsPlayerAndBots.Add(actorData);
 			}
 		}
-		IL_119:
-		if (actorData.GetTeam() == Team.TeamA)
+		if (actorData.GetTeam() == Team.TeamA && !m_teamA.Contains(actorData))
 		{
-			if (!this.m_teamA.Contains(actorData))
-			{
-				this.m_teamB.Remove(actorData);
-				this.m_teamObjects.Remove(actorData);
-				this.m_teamA.Add(actorData);
-				return;
-			}
+			m_teamB.Remove(actorData);
+			m_teamObjects.Remove(actorData);
+			m_teamA.Add(actorData);
 		}
-		if (actorData.GetTeam() == Team.TeamB && !this.m_teamB.Contains(actorData))
+		else if (actorData.GetTeam() == Team.TeamB && !m_teamB.Contains(actorData))
 		{
-			this.m_teamA.Remove(actorData);
-			this.m_teamObjects.Remove(actorData);
-			this.m_teamB.Add(actorData);
+			m_teamA.Remove(actorData);
+			m_teamObjects.Remove(actorData);
+			m_teamB.Add(actorData);
 		}
-		else if (actorData.GetTeam() == Team.Objects)
+		else if (actorData.GetTeam() == Team.Objects && !m_teamObjects.Contains(actorData))
 		{
-			if (!this.m_teamObjects.Contains(actorData))
-			{
-				this.m_teamA.Remove(actorData);
-				this.m_teamB.Remove(actorData);
-				this.m_teamObjects.Add(actorData);
-			}
+			m_teamA.Remove(actorData);
+			m_teamB.Remove(actorData);
+			m_teamObjects.Add(actorData);
 		}
 	}
 
 	private List<ActorData> GetAllActorsOnTeam(Team team)
 	{
-		List<ActorData> result;
 		switch (team)
 		{
-		case Team.TeamA:
-			result = this.m_teamA;
-			break;
-		case Team.TeamB:
-			result = this.m_teamB;
-			break;
-		case Team.Objects:
-			result = this.m_teamObjects;
-			break;
-		default:
-			result = new List<ActorData>();
-			break;
+			case Team.TeamA:
+				return m_teamA;
+			case Team.TeamB:
+				return m_teamB;
+			case Team.Objects:
+				return m_teamObjects;
+			default:
+				return new List<ActorData>();
 		}
-		return result;
 	}
 
 	private List<ActorData> GetPlayersAndBotsOnTeam(Team team)
 	{
-		List<ActorData> result;
 		switch (team)
 		{
-		case Team.TeamA:
-			result = this.m_teamAPlayerAndBots;
-			break;
-		case Team.TeamB:
-			result = this.m_teamBPlayerAndBots;
-			break;
-		case Team.Objects:
-			result = this.m_teamObjectsPlayerAndBots;
-			break;
-		default:
-			result = new List<ActorData>();
-			break;
+			case Team.TeamA:
+				return m_teamAPlayerAndBots;
+			case Team.TeamB:
+				return m_teamBPlayerAndBots;
+			case Team.Objects:
+				return m_teamObjectsPlayerAndBots;
+			default:
+				return new List<ActorData>();
 		}
-		return result;
 	}
 
 	public List<GameObject> GetPlayers()
 	{
-		return this.m_players;
+		return m_players;
 	}
 
 	public void AddPlayer(GameObject player)
 	{
-		this.m_players.Add(player);
-		this.SetLocalPlayerData();
+		m_players.Add(player);
+		SetLocalPlayerData();
 	}
 
 	public void RemoveExistingPlayer(GameObject player)
 	{
-		if (this.m_players.Contains(player))
+		if (m_players.Contains(player))
 		{
-			this.m_players.Remove(player);
+			m_players.Remove(player);
 		}
 	}
 
 	public List<ActorData> GetActors()
 	{
-		return this.m_actors;
+		return m_actors;
 	}
 
 	public List<ActorData> GetActorsVisibleToActor(ActorData observer, bool targetableOnly = true)
@@ -1053,25 +758,13 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		List<ActorData> list = new List<ActorData>();
 		if (observer != null)
 		{
-			using (List<ActorData>.Enumerator enumerator = this.m_actors.GetEnumerator())
+			foreach (ActorData actorData in m_actors)
 			{
-				while (enumerator.MoveNext())
+				if (!actorData.IsDead()
+					&& actorData.IsActorVisibleToActor(observer, false)
+					&& (!targetableOnly || !actorData.IgnoreForAbilityHits))
 				{
-					ActorData actorData = enumerator.Current;
-					if (!actorData.IsDead())
-					{
-						if (actorData.IsActorVisibleToActor(observer, false))
-						{
-							if (targetableOnly)
-							{
-								if (actorData.IgnoreForAbilityHits)
-								{
-									continue;
-								}
-							}
-							list.Add(actorData);
-						}
-					}
+					list.Add(actorData);
 				}
 			}
 		}
@@ -1081,11 +774,11 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	public List<ActorData> GetAllActorsForPlayer(int playerIndex)
 	{
 		List<ActorData> list = new List<ActorData>();
-		for (int i = 0; i < this.m_actors.Count; i++)
+		for (int i = 0; i < m_actors.Count; i++)
 		{
-			if (this.m_actors[i].PlayerIndex == playerIndex)
+			if (m_actors[i].PlayerIndex == playerIndex)
 			{
-				list.Add(this.m_actors[i]);
+				list.Add(m_actors[i]);
 			}
 		}
 		return list;
@@ -1093,83 +786,59 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public void AddActor(ActorData actor)
 	{
-		Log.Info("Registering actor {0}", new object[]
-		{
-			actor
-		});
-		this.m_actors.Add(actor);
+		Log.Info($"Registering actor {actor}");
+		m_actors.Add(actor);
 		if (NetworkServer.active)
 		{
-			if (GameFlowData.s_onAddActorHolder != null)
-			{
-				GameFlowData.s_onAddActorHolder(actor);
-			}
+			s_onAddActor?.Invoke(actor);
 		}
 	}
 
 	internal ActorData FindActorByActorIndex(int actorIndex)
 	{
-		ActorData actorData = null;
-		for (int i = 0; i < this.m_actors.Count; i++)
+		ActorData result = null;
+		foreach (ActorData actorData in m_actors)
 		{
-			ActorData actorData2 = this.m_actors[i];
-			if (actorData2.ActorIndex == actorIndex)
+			if (actorData.ActorIndex == actorIndex)
 			{
-				actorData = actorData2;
+				result = actorData;
 				break;
 			}
 		}
-		if (actorData == null)
+		if (result == null
+			&& actorIndex > 0
+			&& CurrentTurn > 0
+			&& GameManager.Get() != null
+			&& GameManager.Get().GameConfig != null
+			&& GameManager.Get().GameConfig.GameType != GameType.Tutorial)
 		{
-			if (actorIndex > 0 && this.CurrentTurn > 0)
-			{
-				if (GameManager.Get() != null)
-				{
-					if (GameManager.Get().GameConfig != null)
-					{
-						GameType gameType = GameManager.Get().GameConfig.GameType;
-						if (gameType != GameType.Tutorial)
-						{
-							Log.Warning("Failed to find actor index {0}", new object[]
-							{
-										actorIndex
-							});
-						}
-					}
-				}
-			}
+			Log.Warning($"Failed to find actor index {actorIndex}");
 		}
-		return actorData;
+		return result;
 	}
 
 	internal ActorData FindActorByPlayerIndex(int playerIndex)
 	{
-		for (int i = 0; i < this.m_players.Count; i++)
+		for (int i = 0; i < m_players.Count; i++)
 		{
-			ActorData component = this.m_players[i].GetComponent<ActorData>();
-			if (component != null)
+			ActorData component = m_players[i].GetComponent<ActorData>();
+			if (component != null && component.PlayerIndex == playerIndex)
 			{
-				if (component.PlayerIndex == playerIndex)
-				{
-					return component;
-				}
+				return component;
 			}
 		}
-		Log.Warning("Failed to find player index {0}", new object[]
-		{
-			playerIndex
-		});
+		Log.Warning($"Failed to find player index {playerIndex}");
 		return null;
 	}
 
 	internal ActorData FindActorByPlayer(Player player)
 	{
-		for (int i = 0; i < this.m_actors.Count; i++)
+		for (int i = 0; i < m_actors.Count; i++)
 		{
-			PlayerData playerData = this.m_actors[i].PlayerData;
+			PlayerData playerData = m_actors[i].PlayerData;
 			if (playerData != null && playerData.GetPlayer() == player)
 			{
-				return this.m_actors[i];
+				return m_actors[i];
 			}
 		}
 		return null;
@@ -1177,67 +846,63 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	internal List<ActorData> GetAllTeamMembers(Team team)
 	{
-		return this.GetAllActorsOnTeam(team);
+		return GetAllActorsOnTeam(team);
 	}
 
 	internal List<ActorData> GetPlayerAndBotTeamMembers(Team team)
 	{
-		return this.GetPlayersAndBotsOnTeam(team);
+		return GetPlayersAndBotsOnTeam(team);
 	}
 
 	public void RemoveReferencesToDestroyedActor(ActorData actor)
 	{
-		if (actor != null)
+		if (actor == null)
 		{
-			if (this.m_teamAPlayerAndBots.Contains(actor))
-			{
-				this.m_teamAPlayerAndBots.Remove(actor);
-			}
-			if (this.m_teamBPlayerAndBots.Contains(actor))
-			{
-				this.m_teamBPlayerAndBots.Remove(actor);
-			}
-			if (this.m_teamObjectsPlayerAndBots.Contains(actor))
-			{
-				this.m_teamObjectsPlayerAndBots.Remove(actor);
-			}
-			if (this.m_teamA.Contains(actor))
-			{
-				this.m_teamA.Remove(actor);
-			}
-			if (this.m_teamB.Contains(actor))
-			{
-				this.m_teamB.Remove(actor);
-			}
-			if (this.m_teamObjects.Contains(actor))
-			{
-				this.m_teamObjects.Remove(actor);
-			}
-			if (this.m_players.Contains(actor.gameObject))
-			{
-				this.m_players.Remove(actor.gameObject);
-			}
-			if (this.m_actors.Contains(actor))
-			{
-				this.m_actors.Remove(actor);
-			}
-			this.SetLocalPlayerData();
-			if (GameFlowData.s_onRemoveActorHolder != null)
-			{
-				GameFlowData.s_onRemoveActorHolder(actor);
-			}
+			Log.Error("Trying to destroy a null actor.");
+			return;
 		}
-		else
+
+		if (m_teamAPlayerAndBots.Contains(actor))
 		{
-			Log.Error("Trying to destroy a null actor.", new object[0]);
+			m_teamAPlayerAndBots.Remove(actor);
 		}
+		if (m_teamBPlayerAndBots.Contains(actor))
+		{
+			m_teamBPlayerAndBots.Remove(actor);
+		}
+		if (m_teamObjectsPlayerAndBots.Contains(actor))
+		{
+			m_teamObjectsPlayerAndBots.Remove(actor);
+		}
+		if (m_teamA.Contains(actor))
+		{
+			m_teamA.Remove(actor);
+		}
+		if (m_teamB.Contains(actor))
+		{
+			m_teamB.Remove(actor);
+		}
+		if (m_teamObjects.Contains(actor))
+		{
+			m_teamObjects.Remove(actor);
+		}
+		if (m_players.Contains(actor.gameObject))
+		{
+			m_players.Remove(actor.gameObject);
+		}
+		if (m_actors.Contains(actor))
+		{
+			m_actors.Remove(actor);
+		}
+		SetLocalPlayerData();
+		s_onRemoveActor?.Invoke(actor);
 	}
 
 	public int CurrentTurn
 	{
 		get
 		{
-			return this.m_currentTurn;
+			return m_currentTurn;
 		}
 	}
 
@@ -1245,13 +910,13 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_gameState;
+			return m_gameState;
 		}
 		set
 		{
-			if (this.m_gameState != value)
+			if (m_gameState != value)
 			{
-				this.SetGameState(value);
+				SetGameState(value);
 			}
 		}
 	}
@@ -1261,92 +926,74 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			this.m_timeRemainingInDecision = timeRemaining - 1f;
+			m_timeRemainingInDecision = timeRemaining - 1f;
 		}
 	}
 
 	public float GetTimeRemainingInDecision()
 	{
-		return this.m_timeRemainingInDecision;
+		return m_timeRemainingInDecision;
 	}
 
 	private void SetGameState(GameState value)
 	{
-		this.Networkm_gameState = value;
-		this.m_timeInState = 0f;
-		this.m_timeInStateUnscaled = 0f;
-		Log.Info("Game state: {0}", new object[]
+		Networkm_gameState = value;
+		m_timeInState = 0f;
+		m_timeInStateUnscaled = 0f;
+		Log.Info($"Game state: {value}");
+		switch (m_gameState)
 		{
-			value.ToString()
-		});
-		switch (this.m_gameState)
-		{
-		case GameState.StartingGame:
-			if (HUD_UI.Get() != null)
-			{
-				SinglePlayerManager.ResetUIActivations();
-			}
-			break;
-		case GameState.Deployment:
-			if (SinglePlayerManager.Get() != null)
-			{
-				SinglePlayerManager.Get().OnTurnTick();
-			}
-			this.m_deploymentStartTime = Time.realtimeSinceStartup;
-			break;
-		case GameState.BothTeams_Decision:
-			if (NetworkServer.active)
-			{
-				this.IncrementTurn();
-			}
-			if (this.CurrentTurn == 1)
-			{
-				this.m_matchStartTime = Time.realtimeSinceStartup;
-			}
-			this.ResetOwnedActorDataToFirst();
-			this.m_timeInDecision = 0f;
-			break;
+			case GameState.StartingGame:
+				if (HUD_UI.Get() != null)
+				{
+					SinglePlayerManager.ResetUIActivations();
+				}
+				break;
+			case GameState.Deployment:
+				if (SinglePlayerManager.Get() != null)
+				{
+					SinglePlayerManager.Get().OnTurnTick();
+				}
+				m_deploymentStartTime = Time.realtimeSinceStartup;
+				break;
+			case GameState.BothTeams_Decision:
+				if (NetworkServer.active)
+				{
+					IncrementTurn();
+				}
+				if (CurrentTurn == 1)
+				{
+					m_matchStartTime = Time.realtimeSinceStartup;
+				}
+				ResetOwnedActorDataToFirst();
+				m_timeInDecision = 0f;
+				break;
 		}
-		if (GameFlowData.s_onGameStateChangedHolder != null)
-		{
-			GameFlowData.s_onGameStateChangedHolder(this.m_gameState);
-		}
+		s_onGameStateChanged?.Invoke(m_gameState);
 	}
 
 	public int GetNumAvailableCharacterResourceLinks()
 	{
-		return this.m_availableCharacterResourceLinkPrefabs.Length;
+		return m_availableCharacterResourceLinkPrefabs.Length;
 	}
 
 	public string GetFirstAvailableCharacterResourceLinkName()
 	{
-		GameObject gameObject = this.m_availableCharacterResourceLinkPrefabs[0];
-		CharacterResourceLink characterResourceLink;
-		if (gameObject == null)
+		GameObject gameObject = m_availableCharacterResourceLinkPrefabs[0];
+		CharacterResourceLink crl = gameObject?.GetComponent<CharacterResourceLink>();
+		if (crl != null)
 		{
-			characterResourceLink = null;
+			return crl.m_displayName;
 		}
-		else
-		{
-			characterResourceLink = gameObject.GetComponent<CharacterResourceLink>();
-		}
-		CharacterResourceLink characterResourceLink2 = characterResourceLink;
-		if (characterResourceLink2 != null)
-		{
-			return characterResourceLink2.m_displayName;
-		}
-		return string.Empty;
+		return "";
 	}
 
 	private void IncrementTurn()
 	{
-		this.m_timeInDecision = 0f;
-		this.Networkm_currentTurn = this.m_currentTurn + 1;
-		this.NotifyOnTurnTick();
-		Log.Info("Turn: {0}", new object[]
-		{
-			this.CurrentTurn
-		});
+		m_timeInDecision = 0f;
+		Networkm_currentTurn = m_currentTurn + 1;
+		NotifyOnTurnTick();
+		Log.Info($"Turn: {CurrentTurn}");
 		if (Board.Get() != null)
 		{
 			Board.Get().MarkForUpdateValidSquares(true);
@@ -1360,7 +1007,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			TeamSensitiveDataMatchmaker.Get().SetTeamSensitiveDataForUnhandledActors();
 		}
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.TurnTick, null);
-		this.ShowIntervanStatusNotifications();
+		ShowIntervanStatusNotifications();
 		if (ClientResolutionManager.Get() != null)
 		{
 			ClientResolutionManager.Get().OnTurnStart();
@@ -1371,20 +1018,15 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if (SequenceManager.Get() != null)
 		{
-			SequenceManager.Get().OnTurnStart(this.m_currentTurn);
+			SequenceManager.Get().OnTurnStart(m_currentTurn);
 		}
 		if (InterfaceManager.Get() != null)
 		{
 			InterfaceManager.Get().OnTurnTick();
 		}
-		List<PowerUp.IPowerUpListener> powerUpListeners = PowerUpManager.Get().powerUpListeners;
-		using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = powerUpListeners.GetEnumerator())
+		foreach (PowerUp.IPowerUpListener powerUpListener in PowerUpManager.Get().powerUpListeners)
 		{
-			while (enumerator.MoveNext())
-			{
-				PowerUp.IPowerUpListener powerUpListener = enumerator.Current;
-				powerUpListener.OnTurnTick();
-			}
+			powerUpListener.OnTurnTick();
 		}
 		if (TriggerCoordinator.Get() != null)
 		{
@@ -1414,8 +1056,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			CollectTheCoins.Get().OnTurnTick();
 		}
-		this.m_timeRemainingInDecision = GameFlowData.Get().m_turnTime;
-		foreach (ActorData actorData in this.GetActors())
+		m_timeRemainingInDecision = Get().m_turnTime;
+		foreach (ActorData actorData in GetActors())
 		{
 			actorData.OnTurnTick();
 		}
@@ -1425,7 +1067,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if (ClientAbilityResults.DebugTraceOn)
 		{
-			Log.Warning("Turn Start: <color=magenta>" + GameFlowData.Get().CurrentTurn + "</color>", new object[0]);
+			Log.Warning("Turn Start: <color=magenta>" + Get().CurrentTurn + "</color>");
 		}
 		if (ControlpadGameplay.Get() != null)
 		{
@@ -1435,192 +1077,108 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public bool HasPotentialGameMutatorVisibilityChanges(bool onTurnStart)
 	{
-		bool flag = false;
 		GameplayMutators gameplayMutators = GameplayMutators.Get();
-		if (gameplayMutators != null && this.CurrentTurn > 1)
+		if (gameplayMutators == null || CurrentTurn <= 1)
 		{
-			int i = 0;
-			while (i < gameplayMutators.m_alwaysOnStatuses.Count)
+			return false;
+		}
+		for (int i = 0; i < gameplayMutators.m_alwaysOnStatuses.Count; i++)
+		{
+			GameplayMutators.StatusInterval statusInterval = gameplayMutators.m_alwaysOnStatuses[i];
+			if (statusInterval.m_statusType == StatusType.Blind
+				|| statusInterval.m_statusType == StatusType.InvisibleToEnemies
+				|| statusInterval.m_statusType == StatusType.Revealed)
 			{
-				if (flag)
+				if (onTurnStart
+					&& GameplayMutators.IsStatusActive(statusInterval.m_statusType, CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Default)
+					!= GameplayMutators.IsStatusActive(statusInterval.m_statusType, CurrentTurn - 1, GameplayMutators.ActionPhaseCheckMode.Default))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_13F;
-					}
+					return true;
 				}
-				else
+				else if (!onTurnStart
+					&& GameplayMutators.IsStatusActive(statusInterval.m_statusType, CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Abilities)
+					!= GameplayMutators.IsStatusActive(statusInterval.m_statusType, CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Movement))
 				{
-					GameplayMutators.StatusInterval statusInterval = gameplayMutators.m_alwaysOnStatuses[i];
-					if (statusInterval.m_statusType == StatusType.Blind)
-					{
-						goto IL_8B;
-					}
-					if (statusInterval.m_statusType == StatusType.InvisibleToEnemies)
-					{
-						goto IL_8B;
-					}
-					if (statusInterval.m_statusType == StatusType.Revealed)
-					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_8B;
-						}
-					}
-					IL_111:
-					i++;
-					continue;
-					IL_8B:
-					if (onTurnStart)
-					{
-						if (GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Default) != GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn - 1, GameplayMutators.ActionPhaseCheckMode.Default))
-						{
-							flag = true;
-							goto IL_111;
-						}
-					}
-					if (onTurnStart)
-					{
-						goto IL_111;
-					}
-					if (GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Abilities) != GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Movement))
-					{
-						flag = true;
-						goto IL_111;
-					}
-					goto IL_111;
-				}
-			}
-			IL_13F:
-			int j = 0;
-			while (j < gameplayMutators.m_statusSuppression.Count)
-			{
-				if (flag)
-				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						return flag;
-					}
-				}
-				else
-				{
-					GameplayMutators.StatusInterval statusInterval2 = gameplayMutators.m_statusSuppression[j];
-					if (statusInterval2.m_statusType == StatusType.Blind)
-					{
-						goto IL_18C;
-					}
-					if (statusInterval2.m_statusType == StatusType.InvisibleToEnemies)
-					{
-						goto IL_18C;
-					}
-					if (statusInterval2.m_statusType == StatusType.Revealed)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_18C;
-						}
-					}
-					IL_212:
-					j++;
-					continue;
-					IL_18C:
-					if (onTurnStart)
-					{
-						if (GameplayMutators.IsStatusSuppressed(statusInterval2.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Default) != GameplayMutators.IsStatusSuppressed(statusInterval2.m_statusType, this.CurrentTurn - 1, GameplayMutators.ActionPhaseCheckMode.Default))
-						{
-							flag = true;
-							goto IL_212;
-						}
-					}
-					if (onTurnStart)
-					{
-						goto IL_212;
-					}
-					if (GameplayMutators.IsStatusSuppressed(statusInterval2.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Abilities) != GameplayMutators.IsStatusSuppressed(statusInterval2.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Movement))
-					{
-						flag = true;
-						goto IL_212;
-					}
-					goto IL_212;
+					return true;
 				}
 			}
 		}
-		return flag;
+
+		for (int i = 0; i < gameplayMutators.m_statusSuppression.Count; i++)
+		{
+			GameplayMutators.StatusInterval statusInterval = gameplayMutators.m_statusSuppression[i];
+			if (statusInterval.m_statusType == StatusType.Blind
+				|| statusInterval.m_statusType == StatusType.InvisibleToEnemies
+				|| statusInterval.m_statusType == StatusType.Revealed)
+			{
+				if (onTurnStart
+					&& GameplayMutators.IsStatusSuppressed(statusInterval.m_statusType, CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Default)
+					!= GameplayMutators.IsStatusSuppressed(statusInterval.m_statusType, CurrentTurn - 1, GameplayMutators.ActionPhaseCheckMode.Default))
+				{
+					return true;
+				}
+				else if (!onTurnStart
+					&& GameplayMutators.IsStatusSuppressed(statusInterval.m_statusType, CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Abilities)
+					!= GameplayMutators.IsStatusSuppressed(statusInterval.m_statusType, CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Movement))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private void ShowIntervanStatusNotifications()
 	{
-		if (NetworkClient.active)
+		if (!NetworkClient.active || HUD_UI.Get() == null)
 		{
-			if (!(HUD_UI.Get() == null))
+			return;
+		}
+		GameplayMutators gameplayMutators = GameplayMutators.Get();
+		if (gameplayMutators == null)
+		{
+			return;
+		}
+		for (int i = 0; i < gameplayMutators.m_alwaysOnStatuses.Count; i++)
+		{
+			GameplayMutators.StatusInterval statusInterval = gameplayMutators.m_alwaysOnStatuses[i];
+			if (statusInterval.m_delayTillStartOfMovement)
 			{
-				GameplayMutators gameplayMutators = GameplayMutators.Get();
-				if (gameplayMutators != null)
+				bool isActiveOnAbilityPhase = GameplayMutators.IsStatusActive(statusInterval.m_statusType, CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Abilities);
+				bool isActiveOnMovementPhase = GameplayMutators.IsStatusActive(statusInterval.m_statusType, CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Movement);
+				if (!isActiveOnAbilityPhase
+					&& isActiveOnMovementPhase
+					&& !string.IsNullOrEmpty(statusInterval.m_activateNotificationTurnBefore))
 				{
-					for (int i = 0; i < gameplayMutators.m_alwaysOnStatuses.Count; i++)
-					{
-						GameplayMutators.StatusInterval statusInterval = gameplayMutators.m_alwaysOnStatuses[i];
-						if (statusInterval.m_delayTillStartOfMovement)
-						{
-							bool flag = GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Abilities);
-							bool flag2 = GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Movement);
-							if (!flag && flag2 && !string.IsNullOrEmpty(statusInterval.m_activateNotificationTurnBefore))
-							{
-								InterfaceManager.Get().DisplayAlert(StringUtil.TR_IfHasContext(statusInterval.m_activateNotificationTurnBefore), Color.cyan, 5f, true, 1);
-							}
-							bool flag3 = GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn + 1, GameplayMutators.ActionPhaseCheckMode.Abilities);
-							if (flag2 && !flag3)
-							{
-								if (!string.IsNullOrEmpty(statusInterval.m_offNotificationTurnBefore))
-								{
-									InterfaceManager.Get().DisplayAlert(StringUtil.TR_IfHasContext(statusInterval.m_offNotificationTurnBefore), Color.cyan, 5f, true, 1);
-								}
-							}
-						}
-						else
-						{
-							bool flag4 = GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Any);
-							bool flag5 = GameplayMutators.IsStatusActive(statusInterval.m_statusType, this.CurrentTurn + 1, GameplayMutators.ActionPhaseCheckMode.Any);
-							if (flag4 && !flag5 && !string.IsNullOrEmpty(statusInterval.m_offNotificationTurnBefore))
-							{
-								InterfaceManager.Get().DisplayAlert(StringUtil.TR_IfHasContext(statusInterval.m_offNotificationTurnBefore), Color.cyan, 5f, true, 1);
-							}
-							else if (!flag4)
-							{
-								if (flag5)
-								{
-									if (!string.IsNullOrEmpty(statusInterval.m_activateNotificationTurnBefore))
-									{
-										InterfaceManager.Get().DisplayAlert(StringUtil.TR_IfHasContext(statusInterval.m_activateNotificationTurnBefore), Color.cyan, 5f, true, 1);
-									}
-								}
-							}
-						}
-					}
+					InterfaceManager.Get().DisplayAlert(StringUtil.TR_IfHasContext(statusInterval.m_activateNotificationTurnBefore), Color.cyan, 5f, true, 1);
 				}
-				return;
+				bool isActiveOnNextTurnAbilityPhase = GameplayMutators.IsStatusActive(statusInterval.m_statusType, CurrentTurn + 1, GameplayMutators.ActionPhaseCheckMode.Abilities);
+				if (isActiveOnMovementPhase
+					&& !isActiveOnNextTurnAbilityPhase
+					&& !string.IsNullOrEmpty(statusInterval.m_offNotificationTurnBefore))
+				{
+					InterfaceManager.Get().DisplayAlert(StringUtil.TR_IfHasContext(statusInterval.m_offNotificationTurnBefore), Color.cyan, 5f, true, 1);
+				}
+			}
+			else
+			{
+				bool isActiveThisTurn = GameplayMutators.IsStatusActive(statusInterval.m_statusType, CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Any);
+				bool isActiveNextTurn = GameplayMutators.IsStatusActive(statusInterval.m_statusType, CurrentTurn + 1, GameplayMutators.ActionPhaseCheckMode.Any);
+				if (isActiveThisTurn
+					&& !isActiveNextTurn
+					&& !string.IsNullOrEmpty(statusInterval.m_offNotificationTurnBefore))
+				{
+					InterfaceManager.Get().DisplayAlert(StringUtil.TR_IfHasContext(statusInterval.m_offNotificationTurnBefore), Color.cyan, 5f, true, 1);
+				}
+				else if (!isActiveThisTurn
+					&& isActiveNextTurn
+					&& !string.IsNullOrEmpty(statusInterval.m_activateNotificationTurnBefore))
+				{
+					InterfaceManager.Get().DisplayAlert(StringUtil.TR_IfHasContext(statusInterval.m_activateNotificationTurnBefore), Color.cyan, 5f, true, 1);
+				}
 			}
 		}
+		return;
 	}
 
 	public void NotifyOnActorDeath(ActorData actor)
@@ -1649,25 +1207,25 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public float GetTimeInState()
 	{
-		return this.m_timeInState;
+		return m_timeInState;
 	}
 
 	public float GetTimeInDecision()
 	{
-		return this.m_timeInDecision;
+		return m_timeInDecision;
 	}
 
 	public float GetTimeSinceDeployment()
 	{
-		return Time.realtimeSinceStartup - this.m_deploymentStartTime;
+		return Time.realtimeSinceStartup - m_deploymentStartTime;
 	}
 
 	public float GetTimeLeftInTurn()
 	{
 		float num;
-		if (this.IsInDecisionState())
+		if (IsInDecisionState())
 		{
-			num = this.m_turnTime - this.GetTimeInDecision();
+			num = m_turnTime - GetTimeInDecision();
 			if (num == 0f)
 			{
 				num = 0f;
@@ -1682,42 +1240,41 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public float GetGameTime()
 	{
-		return Time.realtimeSinceStartup - this.m_matchStartTime;
+		return Time.realtimeSinceStartup - m_matchStartTime;
 	}
 
 	private void Update()
 	{
-		this._000E();
-		if (!this.m_pause)
+		DEBUG_DisplayGameInfo();
+		if (!m_pause)
 		{
-			this.m_timeInState += Time.deltaTime;
-			this.m_timeInStateUnscaled += Time.unscaledDeltaTime;
-			this.m_timeInDecision += Time.deltaTime;
+			m_timeInState += Time.deltaTime;
+			m_timeInStateUnscaled += Time.unscaledDeltaTime;
+			m_timeInDecision += Time.deltaTime;
 		}
 		if (AppState.GetCurrent() != AppState_GameTeardown.Get())
 		{
-			this.UpdateTimeRemaining();
+			UpdateTimeRemaining();
 		}
 	}
 
 	private void UpdateTimeRemaining()
 	{
-		bool flag = GameFlowData.Get().IsInDecisionState();
-		if (!this.m_pause && flag)
+		if (!m_pause
+			&& Get().IsInDecisionState()
+			&& m_timeRemainingInDecision >= -m_timeRemainingInDecisionOverflow)
 		{
-			if (this.m_timeRemainingInDecision >= -this.m_timeRemainingInDecisionOverflow)
+			m_timeRemainingInDecision -= Time.deltaTime;
+			if (m_timeRemainingInDecision < -m_timeRemainingInDecisionOverflow)
 			{
-				this.m_timeRemainingInDecision -= Time.deltaTime;
-				if (this.m_timeRemainingInDecision < -this.m_timeRemainingInDecisionOverflow)
-				{
-					this.m_timeRemainingInDecision = -this.m_timeRemainingInDecisionOverflow;
-				}
+				m_timeRemainingInDecision = -m_timeRemainingInDecisionOverflow;
 			}
 		}
 	}
 
-	private void _000E()
+	private void DEBUG_DisplayGameInfo()
 	{
+		// TODO LOW missing debug code
 	}
 
 	public bool IsOwnerTargeting()
@@ -1727,12 +1284,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		if (activeOwnedActorData != null)
 		{
 			ActorTurnSM component = activeOwnedActorData.GetComponent<ActorTurnSM>();
-			if (component)
+			if (component != null && component.CurrentState == TurnStateEnum.TARGETING_ACTION)
 			{
-				if (component.CurrentState == TurnStateEnum.TARGETING_ACTION)
-				{
-					result = true;
-				}
+				result = true;
 			}
 		}
 		return result;
@@ -1740,160 +1294,79 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public bool IsInDecisionState()
 	{
-		GameState gameState = this.m_gameState;
-		bool result;
-		if (gameState != GameState.BothTeams_Decision)
-		{
-			result = false;
-		}
-		else
-		{
-			result = true;
-		}
-		return result;
+		return m_gameState == GameState.BothTeams_Decision;
 	}
 
 	public bool IsTeamsTurn(Team team)
 	{
 		bool flag = false;
-		if (!this.IsTeamADecision())
+		if (IsTeamADecision() || IsTeamAResolving())
 		{
-			if (!this.IsTeamAResolving())
-			{
-				goto IL_3A;
-			}
+			flag |= (team == Team.TeamA);
 		}
-		flag |= (team == Team.TeamA);
-		IL_3A:
-		if (!this.IsTeamBDecision())
+		if (IsTeamBDecision() || IsTeamBResolving())
 		{
-			if (!this.IsTeamBResolving())
-			{
-				return flag;
-			}
+			flag |= (team == Team.TeamB);
 		}
-		flag |= (team == Team.TeamB);
 		return flag;
 	}
 
 	public bool IsOwnedActorsTurn()
 	{
-		bool result = false;
-		if (this.activeOwnedActorData != null)
-		{
-			result = this.IsTeamsTurn(this.activeOwnedActorData.GetTeam());
-		}
-		return result;
+		return activeOwnedActorData != null && IsTeamsTurn(activeOwnedActorData.GetTeam());
 	}
 
 	public bool IsInResolveState()
 	{
-		GameState gameState = this.m_gameState;
-		bool result;
-		if (gameState != GameState.BothTeams_Resolve)
-		{
-			result = false;
-		}
-		else
-		{
-			result = true;
-		}
-		return result;
+		return m_gameState == GameState.BothTeams_Resolve;
 	}
 
 	public bool IsTeamAResolving()
 	{
-		return this.IsInResolveState();
+		return IsInResolveState();
 	}
 
 	public bool IsTeamBResolving()
 	{
-		return this.IsInResolveState();
+		return IsInResolveState();
 	}
 
 	public bool IsTeamADecision()
 	{
-		GameState gameState = this.m_gameState;
-		bool result;
-		if (gameState != GameState.BothTeams_Decision)
-		{
-			result = false;
-		}
-		else
-		{
-			result = true;
-		}
-		return result;
+		return m_gameState == GameState.BothTeams_Decision;
 	}
 
 	public bool IsTeamBDecision()
 	{
-		GameState gameState = this.m_gameState;
-		bool result;
-		if (gameState != GameState.BothTeams_Decision)
-		{
-			result = false;
-		}
-		else
-		{
-			result = true;
-		}
-		return result;
+		return m_gameState == GameState.BothTeams_Decision;
 	}
 
 	public bool IsPhase(int phase)
 	{
-		GameState gameState = this.m_gameState;
-		bool result;
-		if (gameState != GameState.BothTeams_Decision)
-		{
-			result = (gameState == GameState.BothTeams_Resolve && phase == 1);
-		}
-		else
-		{
-			result = (phase == 1);
-		}
-		return result;
+		return (phase == 1)
+			&& (m_gameState == GameState.BothTeams_Decision
+				|| m_gameState == GameState.BothTeams_Resolve);
 	}
 
 	public void SetSelectedTeam(int team)
 	{
-		this.m_selectedTeam = (Team)team;
+		m_selectedTeam = (Team)team;
 	}
 
 	public bool ShouldForceResolveTimeout()
 	{
-		bool flag = this.m_timeInStateUnscaled > this.m_resolveTimeoutLimit;
-		bool flag2;
-		if (DebugParameters.Get() != null)
-		{
-			flag2 = DebugParameters.Get().GetParameterAsBool("DisableResolveFailsafe");
-		}
-		else
-		{
-			flag2 = false;
-		}
-		bool flag3 = flag2;
-		return flag && !flag3;
+		return m_timeInStateUnscaled > m_resolveTimeoutLimit
+			&& (DebugParameters.Get() == null || !DebugParameters.Get().GetParameterAsBool("DisableResolveFailsafe"));
 	}
 
 	public bool PlayersMustUseTimeBank()
 	{
-		bool result;
-		if (this.IsInDecisionState())
-		{
-			result = (this.GetTimeInState() > this.m_turnTime);
-		}
-		else
-		{
-			result = false;
-		}
-		return result;
+		return IsInDecisionState() && GetTimeInState() > m_turnTime;
 	}
 
 	public bool WillEnterTimebankMode()
 	{
-		return this.m_willEnterTimebankMode;
+		return m_willEnterTimebankMode;
 	}
 
 	public bool PreventAutoLockInOnTimeout()
@@ -1912,18 +1385,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			return false;
 		}
-		if (gameType != GameType.Solo)
+		if (gameType != GameType.Solo && gameType != GameType.NewPlayerSolo && gameType != GameType.Tutorial && !gameManager.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 		{
-			if (gameType != GameType.NewPlayerSolo)
-			{
-				if (gameType != GameType.Tutorial)
-				{
-					if (!gameManager.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
-					{
-						return false;
-					}
-				}
-			}
+			return false;
 		}
 		return true;
 	}
@@ -1931,7 +1395,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	public void ClearCooldowns()
 	{
 		AbilityData abilityData = null;
-		GameFlowData gameFlowData = GameFlowData.Get();
+		GameFlowData gameFlowData = Get();
 		if (gameFlowData)
 		{
 			ActorData activeOwnedActorData = gameFlowData.activeOwnedActorData;
@@ -1956,7 +1420,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	public void RefillStocks()
 	{
 		AbilityData abilityData = null;
-		GameFlowData gameFlowData = GameFlowData.Get();
+		GameFlowData gameFlowData = Get();
 		if (gameFlowData)
 		{
 			ActorData activeOwnedActorData = gameFlowData.activeOwnedActorData;
@@ -1980,12 +1444,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public void DistributeRewardForKill(ActorData killedActor)
 	{
-		if (!GameplayUtils.IsPlayerControlled(killedActor))
+		if (!GameplayUtils.IsPlayerControlled(killedActor) && !GameplayUtils.IsMinion(killedActor))
 		{
-			if (!GameplayUtils.IsMinion(killedActor))
-			{
-				return;
-			}
+			return;
 		}
 		int num;
 		bool flag;
@@ -2003,19 +1464,19 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			if (flag)
 			{
-				List<ActorData> contributorsToKill = this.GetContributorsToKill(killedActor, false);
+				List<ActorData> contributorsToKill = GetContributorsToKill(killedActor, false);
 				if (contributorsToKill.Count > 0)
 				{
-					this.RewardContributorsToKill(contributorsToKill, num);
+					RewardContributorsToKill(contributorsToKill, num);
 				}
 				else if (GameplayData.Get().m_participationlessBountiesGoToTeam)
 				{
-					this.RewardTeam(killedActor.GetEnemyTeam(), num);
+					RewardTeam(killedActor.GetEnemyTeam(), num);
 				}
 			}
 			else
 			{
-				this.RewardTeam(killedActor.GetEnemyTeam(), num);
+				RewardTeam(killedActor.GetEnemyTeam(), num);
 			}
 		}
 	}
@@ -2023,7 +1484,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	public int GetTotalDeathsOnTurnStart(Team team)
 	{
 		int num = 0;
-		List<ActorData> allTeamMembers = this.GetAllTeamMembers(team);
+		List<ActorData> allTeamMembers = GetAllTeamMembers(team);
 		if (allTeamMembers != null)
 		{
 			foreach (ActorData actorData in allTeamMembers)
@@ -2048,73 +1509,49 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public List<ActorData> GetContributorsToKillOnClient(ActorData killedActor, bool onlyDirectDamagers = false)
 	{
-		List<ActorData> list = new List<ActorData>();
-		List<ActorData> allTeamMembers = this.GetAllTeamMembers(killedActor.GetEnemyTeam());
-		if (allTeamMembers != null)
+		List<ActorData> result = new List<ActorData>();
+		List<ActorData> allTeamMembers = GetAllTeamMembers(killedActor.GetEnemyTeam());
+		if (allTeamMembers == null)
 		{
-			ActorBehavior actorBehavior = killedActor.GetActorBehavior();
-			foreach (ActorData actorData in allTeamMembers)
+			return result;
+		}
+		ActorBehavior killedActorBehavior = killedActor.GetActorBehavior();
+		foreach (ActorData actorData in allTeamMembers)
+		{
+			if (GameplayUtils.IsPlayerControlled(actorData)
+				&& killedActorBehavior.Client_ActorDamagedOrDebuffedByActor(actorData))
 			{
-				if (!GameplayUtils.IsPlayerControlled(actorData))
-				{
-				}
-				else if (actorBehavior.Client_ActorDamagedOrDebuffedByActor(actorData))
-				{
-					list.Add(actorData);
-					break;
-				}
-			}
-			if (!onlyDirectDamagers)
-			{
-				List<ActorData> list2 = new List<ActorData>();
-				using (List<ActorData>.Enumerator enumerator2 = allTeamMembers.GetEnumerator())
-				{
-					IL_17A:
-					while (enumerator2.MoveNext())
-					{
-						ActorData actorData2 = enumerator2.Current;
-						if (list.Contains(actorData2))
-						{
-						}
-						else if (!GameplayUtils.IsPlayerControlled(actorData2))
-						{
-						}
-						else
-						{
-							using (List<ActorData>.Enumerator enumerator3 = list.GetEnumerator())
-							{
-								while (enumerator3.MoveNext())
-								{
-									ActorData actorData3 = enumerator3.Current;
-									if (list2.Contains(actorData2))
-									{
-									}
-									else
-									{
-										ActorBehavior actorBehavior2 = actorData3.GetActorBehavior();
-										if (!actorBehavior2.Client_ActorHealedOrBuffedByActor(actorData2))
-										{
-											continue;
-										}
-										list2.Add(actorData2);
-									}
-									goto IL_17A;
-								}
-							}
-						}
-					}
-				}
-				using (List<ActorData>.Enumerator enumerator4 = list2.GetEnumerator())
-				{
-					while (enumerator4.MoveNext())
-					{
-						ActorData item = enumerator4.Current;
-						list.Add(item);
-					}
-				}
+				result.Add(actorData);
+				break;
 			}
 		}
-		return list;
+		if (!onlyDirectDamagers)
+		{
+			List<ActorData> supports = new List<ActorData>();
+			foreach (ActorData actorData in allTeamMembers)
+			{
+				if (!result.Contains(actorData) && GameplayUtils.IsPlayerControlled(actorData))
+				{
+					foreach (ActorData killer in result)
+					{
+						if (supports.Contains(actorData))
+						{
+							break;
+						}
+						if (killer.GetActorBehavior().Client_ActorHealedOrBuffedByActor(actorData))
+						{
+							supports.Add(actorData);
+							break;
+						}
+					}
+				}
+			}
+			foreach (ActorData support in supports)
+			{
+				result.Add(support);
+			}
+		}
+		return result;
 	}
 
 	public void RewardContributorsToKill(List<ActorData> participants, int baseCreditsReward)
@@ -2122,18 +1559,14 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		if (participants.Count > 0)
 		{
 			int num = baseCreditsReward / participants.Count;
-			int num2 = Mathf.FloorToInt(GameplayData.Get().m_creditBonusFractionPerExtraPlayer * (float)(participants.Count - 1) * (float)num);
+			int num2 = Mathf.FloorToInt(GameplayData.Get().m_creditBonusFractionPerExtraPlayer * (participants.Count - 1) * num);
 			int numCredits = num + num2;
-			using (List<ActorData>.Enumerator enumerator = participants.GetEnumerator())
+			foreach (ActorData actorData in participants)
 			{
-				while (enumerator.MoveNext())
+				ItemData component = actorData.GetComponent<ItemData>();
+				if (component != null)
 				{
-					ActorData actorData = enumerator.Current;
-					ItemData component = actorData.GetComponent<ItemData>();
-					if (component != null)
-					{
-						component.GiveCredits(numCredits);
-					}
+					component.GiveCredits(numCredits);
 				}
 			}
 		}
@@ -2141,19 +1574,15 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public void RewardTeam(Team teamToReward, int creditsReward)
 	{
-		List<ActorData> allTeamMembers = this.GetAllTeamMembers(teamToReward);
+		List<ActorData> allTeamMembers = GetAllTeamMembers(teamToReward);
 		if (allTeamMembers != null)
 		{
-			using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
+			foreach (ActorData actorData in allTeamMembers)
 			{
-				while (enumerator.MoveNext())
+				ItemData component = actorData.GetComponent<ItemData>();
+				if (component != null)
 				{
-					ActorData actorData = enumerator.Current;
-					ItemData component = actorData.GetComponent<ItemData>();
-					if (component != null)
-					{
-						component.GiveCredits(creditsReward);
-					}
+					component.GiveCredits(creditsReward);
 				}
 			}
 		}
@@ -2162,18 +1591,14 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	public int GetDeathCountOfTeam(Team team)
 	{
 		int num = 0;
-		for (int i = 0; i < this.m_actors.Count; i++)
+		for (int i = 0; i < m_actors.Count; i++)
 		{
-			ActorData actorData = this.m_actors[i];
-			if (actorData != null)
+			ActorData actorData = m_actors[i];
+			if (actorData != null
+				&& actorData.GetTeam() == team
+				&& actorData.GetActorBehavior() != null)
 			{
-				if (actorData.GetTeam() == team)
-				{
-					if (actorData.GetActorBehavior() != null)
-					{
-						num += actorData.GetActorBehavior().totalDeaths;
-					}
-				}
+				num += actorData.GetActorBehavior().totalDeaths;
 			}
 		}
 		return num;
@@ -2182,10 +1607,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	public int GetTotalTeamDamageReceived(Team team)
 	{
 		int num = 0;
-		for (int i = 0; i < this.m_actors.Count; i++)
+		for (int i = 0; i < m_actors.Count; i++)
 		{
-			ActorData actorData = this.m_actors[i];
-			if (actorData != null && actorData.GetTeam() == team && actorData.GetActorBehavior() != null)
+			ActorData actorData = m_actors[i];
+			if (actorData != null
+				&& actorData.GetTeam() == team
+				&& actorData.GetActorBehavior() != null)
 			{
 				num += actorData.GetActorBehavior().totalPlayerDamageReceived;
 			}
@@ -2195,9 +1622,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public void UpdateCoverFromBarriersForAllActors()
 	{
-		for (int i = 0; i < this.m_actors.Count; i++)
+		for (int i = 0; i < m_actors.Count; i++)
 		{
-			ActorData actorData = this.m_actors[i];
+			ActorData actorData = m_actors[i];
 			if (actorData.GetActorCover() != null)
 			{
 				actorData.GetActorCover().UpdateCoverFromBarriers();
@@ -2218,25 +1645,20 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public void SetLocalPlayerData()
 	{
-		this.m_localPlayerData = null;
+		m_localPlayerData = null;
 		if (GameFlow.Get() != null)
 		{
-			foreach (GameObject gameObject in this.m_players)
+			foreach (GameObject gameObject in m_players)
 			{
 				if (gameObject != null)
 				{
 					PlayerData component = gameObject.GetComponent<PlayerData>();
-					if (component != null)
+					if (component != null
+						&& GameFlow.Get().playerDetails.TryGetValue(component.GetPlayer(), out PlayerDetails playerDetails)
+						&& playerDetails.IsLocal())
 					{
-						PlayerDetails playerDetails = null;
-						if (GameFlow.Get().playerDetails.TryGetValue(component.GetPlayer(), out playerDetails))
-						{
-							if (playerDetails.IsLocal())
-							{
-								this.m_localPlayerData = component;
-								break;
-							}
-						}
+						m_localPlayerData = component;
+						break;
 					}
 				}
 			}
@@ -2251,12 +1673,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_pause;
+			return m_pause;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<bool>(value, ref this.m_pause, 1U);
+			SetSyncVar(value, ref m_pause, 1U);
 		}
 	}
 
@@ -2264,12 +1686,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_pausedForDebugging;
+			return m_pausedForDebugging;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<bool>(value, ref this.m_pausedForDebugging, 2U);
+			SetSyncVar(value, ref m_pausedForDebugging, 2U);
 		}
 	}
 
@@ -2277,12 +1699,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_pausedByPlayerRequest;
+			return m_pausedByPlayerRequest;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<bool>(value, ref this.m_pausedByPlayerRequest, 4U);
+			SetSyncVar(value, ref m_pausedByPlayerRequest, 4U);
 		}
 	}
 
@@ -2290,12 +1712,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_pausedForSinglePlayer;
+			return m_pausedForSinglePlayer;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<bool>(value, ref this.m_pausedForSinglePlayer, 8U);
+			SetSyncVar(value, ref m_pausedForSinglePlayer, 8U);
 		}
 	}
 
@@ -2303,12 +1725,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_resolutionPauseState;
+			return m_resolutionPauseState;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<ResolutionPauseState>(value, ref this.m_resolutionPauseState, 0x10U);
+			SetSyncVar(value, ref m_resolutionPauseState, 0x10U);
 		}
 	}
 
@@ -2316,22 +1738,18 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_startTime;
+			return m_startTime;
 		}
 		[param: In]
 		set
 		{
-			uint dirtyBit = 0x20U;
-			if (NetworkServer.localClientActive)
+			if (NetworkServer.localClientActive && !syncVarHookGuard)
 			{
-				if (!base.syncVarHookGuard)
-				{
-					base.syncVarHookGuard = true;
-					this.HookSetStartTime(value);
-					base.syncVarHookGuard = false;
-				}
+				syncVarHookGuard = true;
+				HookSetStartTime(value);
+				syncVarHookGuard = false;
 			}
-			base.SetSyncVar<float>(value, ref this.m_startTime, dirtyBit);
+			SetSyncVar(value, ref m_startTime, 0x20U);
 		}
 	}
 
@@ -2339,22 +1757,18 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_deploymentTime;
+			return m_deploymentTime;
 		}
 		[param: In]
 		set
 		{
-			uint dirtyBit = 0x40U;
-			if (NetworkServer.localClientActive)
+			if (NetworkServer.localClientActive && !syncVarHookGuard)
 			{
-				if (!base.syncVarHookGuard)
-				{
-					base.syncVarHookGuard = true;
-					this.HookSetDeploymentTime(value);
-					base.syncVarHookGuard = false;
-				}
+				syncVarHookGuard = true;
+				HookSetDeploymentTime(value);
+				syncVarHookGuard = false;
 			}
-			base.SetSyncVar<float>(value, ref this.m_deploymentTime, dirtyBit);
+			SetSyncVar(value, ref m_deploymentTime, 0x40U);
 		}
 	}
 
@@ -2362,22 +1776,18 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_turnTime;
+			return m_turnTime;
 		}
 		[param: In]
 		set
 		{
-			uint dirtyBit = 0x80U;
-			if (NetworkServer.localClientActive)
+			if (NetworkServer.localClientActive && !syncVarHookGuard)
 			{
-				if (!base.syncVarHookGuard)
-				{
-					base.syncVarHookGuard = true;
-					this.HookSetTurnTime(value);
-					base.syncVarHookGuard = false;
-				}
+				syncVarHookGuard = true;
+				HookSetTurnTime(value);
+				syncVarHookGuard = false;
 			}
-			base.SetSyncVar<float>(value, ref this.m_turnTime, dirtyBit);
+			SetSyncVar(value, ref m_turnTime, 0x80U);
 		}
 	}
 
@@ -2385,22 +1795,18 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_maxTurnTime;
+			return m_maxTurnTime;
 		}
 		[param: In]
 		set
 		{
-			uint dirtyBit = 0x100U;
-			if (NetworkServer.localClientActive)
+			if (NetworkServer.localClientActive && !syncVarHookGuard)
 			{
-				if (!base.syncVarHookGuard)
-				{
-					base.syncVarHookGuard = true;
-					this.HookSetMaxTurnTime(value);
-					base.syncVarHookGuard = false;
-				}
+				syncVarHookGuard = true;
+				HookSetMaxTurnTime(value);
+				syncVarHookGuard = false;
 			}
-			base.SetSyncVar<float>(value, ref this.m_maxTurnTime, dirtyBit);
+			SetSyncVar(value, ref m_maxTurnTime, 0x100U);
 		}
 	}
 
@@ -2408,12 +1814,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_timeRemainingInDecisionOverflow;
+			return m_timeRemainingInDecisionOverflow;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<float>(value, ref this.m_timeRemainingInDecisionOverflow, 0x200U);
+			SetSyncVar(value, ref m_timeRemainingInDecisionOverflow, 0x200U);
 		}
 	}
 
@@ -2421,12 +1827,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_willEnterTimebankMode;
+			return m_willEnterTimebankMode;
 		}
 		[param: In]
 		set
 		{
-			base.SetSyncVar<bool>(value, ref this.m_willEnterTimebankMode, 0x400U);
+			SetSyncVar(value, ref m_willEnterTimebankMode, 0x400U);
 		}
 	}
 
@@ -2434,22 +1840,18 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_currentTurn;
+			return m_currentTurn;
 		}
 		[param: In]
 		set
 		{
-			uint dirtyBit = 0x800U;
-			if (NetworkServer.localClientActive)
+			if (NetworkServer.localClientActive && !syncVarHookGuard)
 			{
-				if (!base.syncVarHookGuard)
-				{
-					base.syncVarHookGuard = true;
-					this.HookSetCurrentTurn(value);
-					base.syncVarHookGuard = false;
-				}
+				syncVarHookGuard = true;
+				HookSetCurrentTurn(value);
+				syncVarHookGuard = false;
 			}
-			base.SetSyncVar<int>(value, ref this.m_currentTurn, dirtyBit);
+			SetSyncVar(value, ref m_currentTurn, 0x800U);
 		}
 	}
 
@@ -2457,22 +1859,18 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return this.m_gameState;
+			return m_gameState;
 		}
 		[param: In]
 		set
 		{
-			uint dirtyBit = 0x1000U;
-			if (NetworkServer.localClientActive)
+			if (NetworkServer.localClientActive && !syncVarHookGuard)
 			{
-				if (!base.syncVarHookGuard)
-				{
-					base.syncVarHookGuard = true;
-					this.HookSetGameState(value);
-					base.syncVarHookGuard = false;
-				}
+				syncVarHookGuard = true;
+				HookSetGameState(value);
+				syncVarHookGuard = false;
 			}
-			base.SetSyncVar<GameState>(value, ref this.m_gameState, dirtyBit);
+			SetSyncVar(value, ref m_gameState, 0x1000U);
 		}
 	}
 
@@ -2497,151 +1895,151 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		networkWriter.Write((short)0);
 		networkWriter.Write((short)2);
 		networkWriter.WritePackedUInt32((uint)kRpcRpcUpdateTimeRemaining);
-		networkWriter.Write(base.GetComponent<NetworkIdentity>().netId);
+		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.Write(timeRemaining);
-		this.SendRPCInternal(networkWriter, 0, "RpcUpdateTimeRemaining");
+		SendRPCInternal(networkWriter, 0, "RpcUpdateTimeRemaining");
 	}
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
 		{
-			writer.Write(this.m_pause);
-			writer.Write(this.m_pausedForDebugging);
-			writer.Write(this.m_pausedByPlayerRequest);
-			writer.Write(this.m_pausedForSinglePlayer);
-			writer.Write((int)this.m_resolutionPauseState);
-			writer.Write(this.m_startTime);
-			writer.Write(this.m_deploymentTime);
-			writer.Write(this.m_turnTime);
-			writer.Write(this.m_maxTurnTime);
-			writer.Write(this.m_timeRemainingInDecisionOverflow);
-			writer.Write(this.m_willEnterTimebankMode);
-			writer.WritePackedUInt32((uint)this.m_currentTurn);
-			writer.Write((int)this.m_gameState);
+			writer.Write(m_pause);
+			writer.Write(m_pausedForDebugging);
+			writer.Write(m_pausedByPlayerRequest);
+			writer.Write(m_pausedForSinglePlayer);
+			writer.Write((int)m_resolutionPauseState);
+			writer.Write(m_startTime);
+			writer.Write(m_deploymentTime);
+			writer.Write(m_turnTime);
+			writer.Write(m_maxTurnTime);
+			writer.Write(m_timeRemainingInDecisionOverflow);
+			writer.Write(m_willEnterTimebankMode);
+			writer.WritePackedUInt32((uint)m_currentTurn);
+			writer.Write((int)m_gameState);
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1U) != 0U)
+		if ((syncVarDirtyBits & 1U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_pause);
+			writer.Write(m_pause);
 		}
-		if ((base.syncVarDirtyBits & 2U) != 0U)
+		if ((syncVarDirtyBits & 2U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_pausedForDebugging);
+			writer.Write(m_pausedForDebugging);
 		}
-		if ((base.syncVarDirtyBits & 4U) != 0U)
+		if ((syncVarDirtyBits & 4U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_pausedByPlayerRequest);
+			writer.Write(m_pausedByPlayerRequest);
 		}
-		if ((base.syncVarDirtyBits & 8U) != 0U)
+		if ((syncVarDirtyBits & 8U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_pausedForSinglePlayer);
+			writer.Write(m_pausedForSinglePlayer);
 		}
-		if ((base.syncVarDirtyBits & 0x10U) != 0U)
+		if ((syncVarDirtyBits & 0x10U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write((int)this.m_resolutionPauseState);
+			writer.Write((int)m_resolutionPauseState);
 		}
-		if ((base.syncVarDirtyBits & 0x20U) != 0U)
+		if ((syncVarDirtyBits & 0x20U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_startTime);
+			writer.Write(m_startTime);
 		}
-		if ((base.syncVarDirtyBits & 0x40U) != 0U)
+		if ((syncVarDirtyBits & 0x40U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_deploymentTime);
+			writer.Write(m_deploymentTime);
 		}
-		if ((base.syncVarDirtyBits & 0x80U) != 0U)
+		if ((syncVarDirtyBits & 0x80U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_turnTime);
+			writer.Write(m_turnTime);
 		}
-		if ((base.syncVarDirtyBits & 0x100U) != 0U)
+		if ((syncVarDirtyBits & 0x100U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_maxTurnTime);
+			writer.Write(m_maxTurnTime);
 		}
-		if ((base.syncVarDirtyBits & 0x200U) != 0U)
+		if ((syncVarDirtyBits & 0x200U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_timeRemainingInDecisionOverflow);
+			writer.Write(m_timeRemainingInDecisionOverflow);
 		}
-		if ((base.syncVarDirtyBits & 0x400U) != 0U)
+		if ((syncVarDirtyBits & 0x400U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write(this.m_willEnterTimebankMode);
+			writer.Write(m_willEnterTimebankMode);
 		}
-		if ((base.syncVarDirtyBits & 0x800U) != 0U)
+		if ((syncVarDirtyBits & 0x800U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.WritePackedUInt32((uint)this.m_currentTurn);
+			writer.WritePackedUInt32((uint)m_currentTurn);
 		}
-		if ((base.syncVarDirtyBits & 0x1000U) != 0U)
+		if ((syncVarDirtyBits & 0x1000U) != 0U)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
-			writer.Write((int)this.m_gameState);
+			writer.Write((int)m_gameState);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -2650,73 +2048,73 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (initialState)
 		{
-			this.m_pause = reader.ReadBoolean();
-			this.m_pausedForDebugging = reader.ReadBoolean();
-			this.m_pausedByPlayerRequest = reader.ReadBoolean();
-			this.m_pausedForSinglePlayer = reader.ReadBoolean();
-			this.m_resolutionPauseState = (ResolutionPauseState)reader.ReadInt32();
-			this.m_startTime = reader.ReadSingle();
-			this.m_deploymentTime = reader.ReadSingle();
-			this.m_turnTime = reader.ReadSingle();
-			this.m_maxTurnTime = reader.ReadSingle();
-			this.m_timeRemainingInDecisionOverflow = reader.ReadSingle();
-			this.m_willEnterTimebankMode = reader.ReadBoolean();
-			this.m_currentTurn = (int)reader.ReadPackedUInt32();
-			this.m_gameState = (GameState)reader.ReadInt32();
+			m_pause = reader.ReadBoolean();
+			m_pausedForDebugging = reader.ReadBoolean();
+			m_pausedByPlayerRequest = reader.ReadBoolean();
+			m_pausedForSinglePlayer = reader.ReadBoolean();
+			m_resolutionPauseState = (ResolutionPauseState)reader.ReadInt32();
+			m_startTime = reader.ReadSingle();
+			m_deploymentTime = reader.ReadSingle();
+			m_turnTime = reader.ReadSingle();
+			m_maxTurnTime = reader.ReadSingle();
+			m_timeRemainingInDecisionOverflow = reader.ReadSingle();
+			m_willEnterTimebankMode = reader.ReadBoolean();
+			m_currentTurn = (int)reader.ReadPackedUInt32();
+			m_gameState = (GameState)reader.ReadInt32();
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			this.m_pause = reader.ReadBoolean();
+			m_pause = reader.ReadBoolean();
 		}
 		if ((num & 2) != 0)
 		{
-			this.m_pausedForDebugging = reader.ReadBoolean();
+			m_pausedForDebugging = reader.ReadBoolean();
 		}
 		if ((num & 4) != 0)
 		{
-			this.m_pausedByPlayerRequest = reader.ReadBoolean();
+			m_pausedByPlayerRequest = reader.ReadBoolean();
 		}
 		if ((num & 8) != 0)
 		{
-			this.m_pausedForSinglePlayer = reader.ReadBoolean();
+			m_pausedForSinglePlayer = reader.ReadBoolean();
 		}
 		if ((num & 0x10) != 0)
 		{
-			this.m_resolutionPauseState = (ResolutionPauseState)reader.ReadInt32();
+			m_resolutionPauseState = (ResolutionPauseState)reader.ReadInt32();
 		}
 		if ((num & 0x20) != 0)
 		{
-			this.HookSetStartTime(reader.ReadSingle());
+			HookSetStartTime(reader.ReadSingle());
 		}
 		if ((num & 0x40) != 0)
 		{
-			this.HookSetDeploymentTime(reader.ReadSingle());
+			HookSetDeploymentTime(reader.ReadSingle());
 		}
 		if ((num & 0x80) != 0)
 		{
-			this.HookSetTurnTime(reader.ReadSingle());
+			HookSetTurnTime(reader.ReadSingle());
 		}
 		if ((num & 0x100) != 0)
 		{
-			this.HookSetMaxTurnTime(reader.ReadSingle());
+			HookSetMaxTurnTime(reader.ReadSingle());
 		}
 		if ((num & 0x200) != 0)
 		{
-			this.m_timeRemainingInDecisionOverflow = reader.ReadSingle();
+			m_timeRemainingInDecisionOverflow = reader.ReadSingle();
 		}
 		if ((num & 0x400) != 0)
 		{
-			this.m_willEnterTimebankMode = reader.ReadBoolean();
+			m_willEnterTimebankMode = reader.ReadBoolean();
 		}
 		if ((num & 0x800) != 0)
 		{
-			this.HookSetCurrentTurn((int)reader.ReadPackedUInt32());
+			HookSetCurrentTurn((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 0x1000) != 0)
 		{
-			this.HookSetGameState((GameState)reader.ReadInt32());
+			HookSetGameState((GameState)reader.ReadInt32());
 		}
 	}
 }
