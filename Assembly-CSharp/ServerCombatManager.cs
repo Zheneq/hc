@@ -36,19 +36,10 @@ public class ServerCombatManager : MonoBehaviour
 	{
 		if (target == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					throw new ApplicationException("Objective point change requires a target");
-				}
-			}
+			throw new ApplicationException("Objective point change requires a target");
 		}
 		ObjectivePoints objectivePoints = ObjectivePoints.Get();
-		if ((bool)objectivePoints)
+		if (objectivePoints != null)
 		{
 			Team team = target.GetTeam();
 			objectivePoints.AdjustPoints(finalChange, team);
