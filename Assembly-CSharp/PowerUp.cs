@@ -17,22 +17,16 @@ public class PowerUp : NetworkBehaviour
 	public interface IPowerUpListener
 	{
 		void OnPowerUpDestroyed(PowerUp powerUp);
-
 		PowerUp[] GetActivePowerUps();
-
 		void SetSpawningEnabled(bool enabled);
-
 		void OnTurnTick();
-
 		bool IsPowerUpSpawnPoint(BoardSquare square);
-
 		void AddToSquaresToAvoidForRespawn(HashSet<BoardSquare> squaresToAvoid, ActorData forActor);
 	}
 
 	public class ExtraParams : Sequence.IExtraSequenceParams
 	{
 		public int m_pickupTeamAsInt;
-
 		public bool m_ignoreSpawnSpline;
 
 		public override void XSP_SerializeToStream(IBitStream stream)
@@ -52,58 +46,40 @@ public class PowerUp : NetworkBehaviour
 	}
 
 	private static int s_nextPowerupGuid;
-
 	public Ability m_ability;
-
 	public string m_powerUpName;
-
 	public string m_powerUpToolTip;
-
 	[AudioEvent(false)]
 	public string m_audioEventPickUp = "ui_pickup_health";
-
 	public GameObject m_sequencePrefab;
-
 	public bool m_restrictPickupByTeam;
-
 	public PowerUpCategory m_chatterCategory;
 
 	[SyncVar]
 	private Team m_pickupTeam = Team.Objects;
-
 	[SyncVar(hook = "HookSetGuid")]
 	private int m_guid = -1;
-
 	[SyncVar]
 	private uint m_sequenceSourceId;
 
 	private List<int> m_clientSequenceIds = new List<int>();
-
 	private BoardSquare m_boardSquare;
 
 	[SyncVar]
 	public bool m_isSpoil;
-
 	[SyncVar]
 	public bool m_ignoreSpawnSplineForSequence;
 
 	public int m_duration;
-
 	private int m_age;
-
 	private bool m_pickedUp;
-
 	private bool m_stolen;
-
 	private ActorTag m_tags;
-
 	private bool m_markedForRemoval;
-
 	private SequenceSource _sequenceSource;
 
-	private static int kRpcRpcOnPickedUp;
-
-	private static int kRpcRpcOnSteal;
+	private static int kRpcRpcOnPickedUp = -430057904;
+	private static int kRpcRpcOnSteal = 1919536730;
 
 	public int Guid
 	{
@@ -116,11 +92,7 @@ public class PowerUp : NetworkBehaviour
 		}
 	}
 
-	public IPowerUpListener powerUpListener
-	{
-		get;
-		set;
-	}
+	public IPowerUpListener powerUpListener { get; set; }
 
 	public BoardSquare boardSquare => m_boardSquare;
 
@@ -169,17 +141,13 @@ public class PowerUp : NetworkBehaviour
 		[param: In]
 		set
 		{
-			ref int guid = ref m_guid;
-			if (NetworkServer.localClientActive)
+			if (NetworkServer.localClientActive && !syncVarHookGuard)
 			{
-				if (!base.syncVarHookGuard)
-				{
-					base.syncVarHookGuard = true;
-					HookSetGuid(value);
-					base.syncVarHookGuard = false;
-				}
+				syncVarHookGuard = true;
+				HookSetGuid(value);
+				syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref guid, 2u);
+			SetSyncVar(value, ref m_guid, 2u);
 		}
 	}
 
@@ -224,10 +192,8 @@ public class PowerUp : NetworkBehaviour
 
 	static PowerUp()
 	{
-		kRpcRpcOnPickedUp = -430057904;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(PowerUp), kRpcRpcOnPickedUp, InvokeRpcRpcOnPickedUp);
-		kRpcRpcOnSteal = 1919536730;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(PowerUp), kRpcRpcOnSteal, InvokeRpcRpcOnSteal);
+		RegisterRpcDelegate(typeof(PowerUp), kRpcRpcOnPickedUp, InvokeRpcRpcOnPickedUp);
+		RegisterRpcDelegate(typeof(PowerUp), kRpcRpcOnSteal, InvokeRpcRpcOnSteal);
 		NetworkCRC.RegisterBehaviour("PowerUp", 0);
 	}
 
@@ -240,10 +206,10 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (m_tags == null)
 		{
-			m_tags = base.gameObject.GetComponent<ActorTag>();
+			m_tags = gameObject.GetComponent<ActorTag>();
 			if (m_tags == null)
 			{
-				m_tags = base.gameObject.AddComponent<ActorTag>();
+				m_tags = gameObject.AddComponent<ActorTag>();
 			}
 		}
 		m_tags.AddTag(powerupTag);
@@ -251,87 +217,39 @@ public class PowerUp : NetworkBehaviour
 
 	public bool HasTag(string powerupTag)
 	{
-		if (m_tags != null)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return m_tags.HasTag(powerupTag);
-				}
-			}
-		}
-		return false;
+		return m_tags != null && m_tags.HasTag(powerupTag);
 	}
 
 	public void ClientSpawnSequences()
 	{
-		if (!NetworkClient.active)
+		if (NetworkClient.active && m_clientSequenceIds.Count == 0)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_clientSequenceIds.Count != 0)
+			BoardSquare squareFromPos = Board.Get().GetSquareFromPos(transform.position.x, transform.position.z);
+			ExtraParams extraParams = new ExtraParams
 			{
-				return;
+				m_pickupTeamAsInt = m_restrictPickupByTeam ? (int)m_pickupTeam : 2,
+				m_ignoreSpawnSpline = m_ignoreSpawnSplineForSequence
+			};
+			Sequence.IExtraSequenceParams[] extraParams2 = new Sequence.IExtraSequenceParams[]
+			{
+				extraParams
+			};
+			if (_sequenceSource == null)
+			{
+				_sequenceSource = new SequenceSource(null, null, m_sequenceSourceId, false);
 			}
-			while (true)
+			Sequence[] array = SequenceManager.Get().CreateClientSequences(m_sequencePrefab, squareFromPos, null, null, SequenceSource, extraParams2);
+			bool flag = false;
+			if (array != null)
 			{
-				Board board = Board.Get();
-				Vector3 position = base.transform.position;
-				float x = position.x;
-				Vector3 position2 = base.transform.position;
-				BoardSquare boardSquareSafe = board.GetSquareFromPos(x, position2.z);
-				ExtraParams extraParams = new ExtraParams();
-				if (m_restrictPickupByTeam)
-				{
-					extraParams.m_pickupTeamAsInt = (int)m_pickupTeam;
-				}
-				else
-				{
-					extraParams.m_pickupTeamAsInt = 2;
-				}
-				extraParams.m_ignoreSpawnSpline = m_ignoreSpawnSplineForSequence;
-				Sequence.IExtraSequenceParams[] extraParams2 = new Sequence.IExtraSequenceParams[1]
-				{
-					extraParams
-				};
-				if (_sequenceSource == null)
-				{
-					_sequenceSource = new SequenceSource(null, null, m_sequenceSourceId, false);
-				}
-				Sequence[] array = SequenceManager.Get().CreateClientSequences(m_sequencePrefab, boardSquareSafe, null, null, SequenceSource, extraParams2);
-				bool flag = false;
-				if (array == null)
-				{
-					return;
-				}
 				for (int i = 0; i < array.Length; i++)
 				{
 					array[i].RemoveAtTurnEnd = false;
 					m_clientSequenceIds.Add(array[i].Id);
-					if (flag)
-					{
-						continue;
-					}
-					if (PowerUpManager.Get() != null)
+					if (!flag && PowerUpManager.Get() != null)
 					{
 						array[i].transform.parent = PowerUpManager.Get().GetSpawnedPersistentSequencesRoot().transform;
 						flag = true;
-					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					default:
-						return;
-					case 0:
-						break;
 					}
 				}
 			}
@@ -340,11 +258,7 @@ public class PowerUp : NetworkBehaviour
 
 	public void CalculateBoardSquare()
 	{
-		Board board = Board.Get();
-		Vector3 position = base.transform.position;
-		float x = position.x;
-		Vector3 position2 = base.transform.position;
-		m_boardSquare = board.GetSquareFromPos(x, position2.z);
+		m_boardSquare = Board.Get().GetSquareFromPos(transform.position.x, transform.position.z);
 	}
 
 	public void SetDuration(int duration)
@@ -354,16 +268,11 @@ public class PowerUp : NetworkBehaviour
 
 	private void Awake()
 	{
-		if (!NetworkServer.active)
-		{
-			return;
-		}
-		while (true)
+		if (NetworkServer.active)
 		{
 			Networkm_guid = s_nextPowerupGuid++;
 			SequenceSource sequenceSource = SequenceSource;
 			Networkm_sequenceSourceId = sequenceSource.RootID;
-			return;
 		}
 	}
 
@@ -377,35 +286,26 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (m_ability == null)
 		{
-			Log.Error(string.Concat("PowerUp ", this, " needs a valid Ability assigned in the inspector for its prefab"));
+			Log.Error("PowerUp " + this + " needs a valid Ability assigned in the inspector for its prefab");
 		}
-		base.transform.parent = PowerUpManager.Get().GetSpawnedPowerupsRoot().transform;
-		base.tag = "powerup";
-		Transform[] componentsInChildren = GetComponentsInChildren<Transform>();
+		transform.parent = PowerUpManager.Get().GetSpawnedPowerupsRoot().transform;
+		tag = "powerup";
 		int layer = LayerMask.NameToLayer("PowerUp");
-		for (int i = 0; i < componentsInChildren.Length; i++)
+		foreach (Transform t in GetComponentsInChildren<Transform>())
 		{
-			componentsInChildren[i].gameObject.layer = layer;
+			t.gameObject.layer = layer;
 		}
-		while (true)
+		if (m_boardSquare == null)
 		{
-			if (m_boardSquare == null)
+			CalculateBoardSquare();
+		}
+		if (NetworkClient.active)
+		{
+			if (PowerUpManager.Get() != null)
 			{
-				CalculateBoardSquare();
+				PowerUpManager.Get().TrackClientPowerUp(this);
 			}
-			if (!NetworkClient.active)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (PowerUpManager.Get() != null)
-				{
-					PowerUpManager.Get().TrackClientPowerUp(this);
-				}
-				ClientSpawnSequences();
-				return;
-			}
+			ClientSpawnSequences();
 		}
 	}
 
@@ -415,6 +315,7 @@ public class PowerUp : NetworkBehaviour
 		if (!NetworkServer.active)
 		{
 			Debug.LogWarning("[Server] function 'System.Void PowerUp::CheckForPickupOnSpawn()' called on client");
+			return;
 		}
 	}
 
@@ -425,11 +326,7 @@ public class PowerUp : NetworkBehaviour
 	public void MarkSequencesForRemoval()
 	{
 		m_markedForRemoval = true;
-		if (!(SequenceManager.Get() != null))
-		{
-			return;
-		}
-		while (true)
+		if (SequenceManager.Get() != null)
 		{
 			for (int i = 0; i < m_clientSequenceIds.Count; i++)
 			{
@@ -437,16 +334,6 @@ public class PowerUp : NetworkBehaviour
 				if (sequence != null)
 				{
 					sequence.MarkForRemoval();
-				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				default:
-					return;
-				case 0:
-					break;
 				}
 			}
 		}
@@ -462,21 +349,12 @@ public class PowerUp : NetworkBehaviour
 		for (int i = 0; i < m_clientSequenceIds.Count; i++)
 		{
 			Sequence sequence = SequenceManager.Get().FindSequence(m_clientSequenceIds[i]);
-			if (!(sequence != null))
+			if (sequence != null)
 			{
-				continue;
+				sequence.gameObject.transform.localPosition = hide
+					? new Vector3(0f, -100f, 0f)
+					: Vector3.zero;
 			}
-			Transform transform = sequence.gameObject.transform;
-			Vector3 localPosition;
-			if (hide)
-			{
-				localPosition = new Vector3(0f, -100f, 0f);
-			}
-			else
-			{
-				localPosition = Vector3.zero;
-			}
-			transform.localPosition = localPosition;
 		}
 	}
 
@@ -490,38 +368,20 @@ public class PowerUp : NetworkBehaviour
 	{
 		ActorData actorData = GameFlowData.Get().FindActorByActorIndex(pickedUpByActorIndex);
 		FogOfWar clientFog = FogOfWar.GetClientFog();
-		if (clientFog != null)
+		if (clientFog != null && clientFog.IsVisible(boardSquare))
 		{
-			if (clientFog.IsVisible(boardSquare))
-			{
-				string audioEventPickUp = m_audioEventPickUp;
-				GameObject gameObject;
-				if (actorData == null)
-				{
-					gameObject = base.gameObject;
-				}
-				else
-				{
-					gameObject = actorData.gameObject;
-				}
-				AudioManager.PostEvent(audioEventPickUp, gameObject);
-			}
+			AudioManager.PostEvent(m_audioEventPickUp, (actorData == null) ? gameObject : actorData.gameObject);
 		}
-		for (int i = 0; i < base.transform.childCount; i++)
+		for (int i = 0; i < transform.childCount; i++)
 		{
-			Transform child = base.transform.GetChild(i);
-			child.gameObject.SetActive(false);
+			transform.GetChild(i).gameObject.SetActive(false);
 		}
-		while (true)
+		GameEventManager.Get().FireEvent(GameEventManager.EventType.PowerUpActivated, new GameEventManager.PowerUpActivatedArgs
 		{
-			GameEventManager.Get().FireEvent(GameEventManager.EventType.PowerUpActivated, new GameEventManager.PowerUpActivatedArgs
-			{
-				byActor = actorData,
-				powerUp = this
-			});
-			MarkSequencesForRemoval();
-			return;
-		}
+			byActor = actorData,
+			powerUp = this
+		});
+		MarkSequencesForRemoval();
 	}
 
 	[ClientRpc]
@@ -533,23 +393,10 @@ public class PowerUp : NetworkBehaviour
 	public void Client_OnSteal(int actorIndexFor3DAudio)
 	{
 		FogOfWar clientFog = FogOfWar.GetClientFog();
-		if (clientFog != null)
+		if (clientFog != null && clientFog.IsVisible(boardSquare))
 		{
-			if (clientFog.IsVisible(boardSquare))
-			{
-				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndexFor3DAudio);
-				string audioEventPickUp = m_audioEventPickUp;
-				GameObject gameObject;
-				if (actorData == null)
-				{
-					gameObject = base.gameObject;
-				}
-				else
-				{
-					gameObject = actorData.gameObject;
-				}
-				AudioManager.PostEvent(audioEventPickUp, gameObject);
-			}
+			ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndexFor3DAudio);
+			AudioManager.PostEvent(m_audioEventPickUp, (actorData == null) ? gameObject : actorData.gameObject);
 		}
 		MarkSequencesForRemoval();
 	}
@@ -566,7 +413,7 @@ public class PowerUp : NetworkBehaviour
 		{
 			powerUpListener.OnPowerUpDestroyed(this);
 		}
-		NetworkServer.Destroy(base.gameObject);
+		NetworkServer.Destroy(gameObject);
 	}
 
 	private void OnDestroy()
@@ -580,29 +427,15 @@ public class PowerUp : NetworkBehaviour
 			MarkSequencesForRemoval();
 			m_clientSequenceIds.Clear();
 		}
-		if (!(PowerUpManager.Get() != null))
-		{
-			return;
-		}
-		while (true)
+		if (PowerUpManager.Get() != null)
 		{
 			PowerUpManager.Get().OnPowerUpDestroy(this);
-			return;
 		}
 	}
 
 	public bool TeamAllowedForPickUp(Team team)
 	{
-		int result;
-		if (m_restrictPickupByTeam)
-		{
-			result = ((team == PickupTeam) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return !m_restrictPickupByTeam || team == PickupTeam;
 	}
 
 	internal void OnTurnTick()
@@ -623,28 +456,17 @@ public class PowerUp : NetworkBehaviour
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("RPC RpcOnPickedUp called on server.");
+			return;
 		}
-		else
-		{
-			((PowerUp)obj).RpcOnPickedUp((int)reader.ReadPackedUInt32());
-		}
+		((PowerUp)obj).RpcOnPickedUp((int)reader.ReadPackedUInt32());
 	}
 
 	protected static void InvokeRpcRpcOnSteal(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC RpcOnSteal called on server.");
-					return;
-				}
-			}
+			Debug.LogError("RPC RpcOnSteal called on server.");
+			return;
 		}
 		((PowerUp)obj).RpcOnSteal((int)reader.ReadPackedUInt32());
 	}
@@ -653,17 +475,8 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC Function RpcOnPickedUp called on client.");
-					return;
-				}
-			}
+			Debug.LogError("RPC Function RpcOnPickedUp called on client.");
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
@@ -694,71 +507,62 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					writer.Write((int)m_pickupTeam);
-					writer.WritePackedUInt32((uint)m_guid);
-					writer.WritePackedUInt32(m_sequenceSourceId);
-					writer.Write(m_isSpoil);
-					writer.Write(m_ignoreSpawnSplineForSequence);
-					return true;
-				}
-			}
+			writer.Write((int)m_pickupTeam);
+			writer.WritePackedUInt32((uint)m_guid);
+			writer.WritePackedUInt32(m_sequenceSourceId);
+			writer.Write(m_isSpoil);
+			writer.Write(m_ignoreSpawnSplineForSequence);
+			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write((int)m_pickupTeam);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_guid);
 		}
-		if ((base.syncVarDirtyBits & 4) != 0)
+		if ((syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32(m_sequenceSourceId);
 		}
-		if ((base.syncVarDirtyBits & 8) != 0)
+		if ((syncVarDirtyBits & 8) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write(m_isSpoil);
 		}
-		if ((base.syncVarDirtyBits & 0x10) != 0)
+		if ((syncVarDirtyBits & 0x10) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write(m_ignoreSpawnSplineForSequence);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
