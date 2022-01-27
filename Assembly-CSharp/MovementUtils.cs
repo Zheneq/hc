@@ -728,18 +728,18 @@ public static class MovementUtils
 		{
 			switch (info.connectionType)
 			{
-			case BoardSquarePathInfo.ConnectionType.Run:
-				result = MoveState.LinkType.Run;
-				break;
-			case BoardSquarePathInfo.ConnectionType.Charge:
-				result = MoveState.LinkType.Charge;
-				break;
-			case BoardSquarePathInfo.ConnectionType.Knockback:
-				result = MoveState.LinkType.KnockBack;
-				break;
-			case BoardSquarePathInfo.ConnectionType.Vault:
-				result = MoveState.LinkType.Vault;
-				break;
+				case BoardSquarePathInfo.ConnectionType.Run:
+					result = MoveState.LinkType.Run;
+					break;
+				case BoardSquarePathInfo.ConnectionType.Charge:
+					result = MoveState.LinkType.Charge;
+					break;
+				case BoardSquarePathInfo.ConnectionType.Knockback:
+					result = MoveState.LinkType.KnockBack;
+					break;
+				case BoardSquarePathInfo.ConnectionType.Vault:
+					result = MoveState.LinkType.Vault;
+					break;
 			}
 		}
 		return (int)result;
