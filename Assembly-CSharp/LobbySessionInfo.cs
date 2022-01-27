@@ -5,31 +5,18 @@ using System;
 public class LobbySessionInfo
 {
 	public long AccountId;
-
 	public string UserName;
-
 	public string BuildVersion;
-
 	public string ProtocolVersion;
-
 	public long SessionToken;
-
 	public long ReconnectSessionToken;
-
 	public string ProcessCode;
-
 	public ProcessType ProcessType;
-
 	public string ConnectionAddress;
-
 	public string Handle;
-
 	public bool IsBinary;
-
 	public string FakeEntitlements;
-
 	public Region Region;
-
 	public string LanguageCode;
 
 	[JsonIgnore]
@@ -43,29 +30,11 @@ public class LobbySessionInfo
 			}
 			if (SessionToken != 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return $"[{AccountId} {SessionToken:x}]";
-					}
-				}
+				return $"[{AccountId} {SessionToken:x}]";
 			}
 			if (!ProcessCode.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						return ProcessCode;
-					}
-				}
+				return ProcessCode;
 			}
 			return "unknown";
 		}
@@ -78,29 +47,8 @@ public class LobbySessionInfo
 		{
 			if (Handle != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-					{
-						string handle = Handle;
-						int num = handle.LastIndexOf('#');
-						string result;
-						if (num == -1)
-						{
-							result = handle;
-						}
-						else
-						{
-							result = handle.Remove(num);
-						}
-						return result;
-					}
-					}
-				}
+				int num = Handle.LastIndexOf('#');
+				return num == -1 ? Handle : Handle.Remove(num);
 			}
 			return null;
 		}
