@@ -133,7 +133,7 @@ public static class MovementUtils
 			stream.Serialize(ref x);
 			stream.Serialize(ref y);
 			stream.Serialize(ref connectionType);
-			if (boardSquarePathInfo.connectionType != 0
+			if (boardSquarePathInfo.connectionType != BoardSquarePathInfo.ConnectionType.Run
 				&& boardSquarePathInfo.connectionType != BoardSquarePathInfo.ConnectionType.Vault
 				&& boardSquarePathInfo.connectionType != BoardSquarePathInfo.ConnectionType.Knockback)
 			{
@@ -266,10 +266,7 @@ public static class MovementUtils
 		BoardSquarePathInfo start = new BoardSquarePathInfo();
 		BoardSquarePathInfo next = start;
 		BoardSquarePathInfo prev = null;
-		byte x = 0;
-		byte y = 0;
 		float moveCost = 0f;
-		sbyte connectionType = 0;
 		sbyte chargeCycleType = 0;
 		sbyte chargeEndType = 0;
 		float _segmentMovementSpeed = 0f;
@@ -277,8 +274,7 @@ public static class MovementUtils
 		float _moveCost = 0f;
 		bool reverse = false;
 		bool unskippable = false;
-		bool flag = false;
-		flag = reader.ReadBoolean();
+		bool flag = reader.ReadBoolean();
 		if (flag)
 		{
 			_segmentMovementSpeed = reader.ReadSingle();
@@ -291,20 +287,18 @@ public static class MovementUtils
 		bool moverDiesHere = false;
 		bool moverClashesHere = false;
 		bool moverBumpedFromClash = false;
-		byte bitfield1 = 0;
-		byte bitfield2 = 0;
 		while (!isEnd)
 		{
-			x = reader.ReadByte();
-			y = reader.ReadByte();
-			connectionType = reader.ReadSByte();
+			byte x = reader.ReadByte();
+			byte y = reader.ReadByte();
+			sbyte connectionType = reader.ReadSByte();
 			if (connectionType != 0 && connectionType != 3 && connectionType != 1)
 			{
 				chargeCycleType = reader.ReadSByte();
 				chargeEndType = reader.ReadSByte();
 			}
-			bitfield1 = reader.ReadByte();
-			bitfield2 = reader.ReadByte();
+			byte bitfield1 = reader.ReadByte();
+			byte bitfield2 = reader.ReadByte();
 			bool overrideSpeed = false;
 			bool overrideDuration = false;
 			ServerClientUtils.GetBoolsFromBitfield(bitfield1, out reverse, out unskippable, out isEnd, out visibleToEnemies, out updateLastKnownPos, out moverDiesHere, out overrideSpeed, out overrideDuration);
@@ -361,8 +355,7 @@ public static class MovementUtils
 		{
 			return null;
 		}
-		NetworkReader reader = new NetworkReader(data);
-		return DeSerializePath(reader);
+		return DeSerializePath(new NetworkReader(data));
 	}
 
 	internal static void SerializeLightweightPath(BoardSquarePathInfo path, NetworkWriter stream)
@@ -466,68 +459,71 @@ public static class MovementUtils
 		if (stream.isWriting)
 		{
 			Log.Error("Trying to deserialize a (lightweight) path while writing.");
+			return null;
+		}
+		sbyte value = 0;
+		stream.Serialize(ref value);
+		if (value <= 0)
+		{
 			boardSquarePathInfo = null;
 		}
 		else
 		{
-			sbyte value = 0;
-			stream.Serialize(ref value);
-			if (value <= 0)
+			sbyte value2 = 0;
+			stream.Serialize(ref value2);
+			boardSquarePathInfo = null;
+			BoardSquarePathInfo boardSquarePathInfo3 = null;
+			for (int i = 0; i < value; i++)
 			{
-				boardSquarePathInfo = null;
+				short value3 = -1;
+				short value4 = -1;
+				stream.Serialize(ref value3);
+				stream.Serialize(ref value4);
+				BoardSquare square;
+				if (value3 == -1 && value4 == -1)
+				{
+					square = null;
+				}
+				else
+				{
+					square = Board.Get().GetSquareFromIndex(value3, value4);
+				}
+				BoardSquarePathInfo boardSquarePathInfo2 = new BoardSquarePathInfo();
+				boardSquarePathInfo2.square = square;
+				boardSquarePathInfo2.prev = boardSquarePathInfo3;
+				if (boardSquarePathInfo3 != null)
+				{
+					boardSquarePathInfo3.next = boardSquarePathInfo2;
+				}
+				boardSquarePathInfo3 = boardSquarePathInfo2;
+				if (i == 0)
+				{
+					boardSquarePathInfo = boardSquarePathInfo2;
+				}
 			}
-			else
+			BoardSquarePathInfo boardSquarePathInfo4 = boardSquarePathInfo;
+			for (int j = 0; j < value2; j++)
 			{
-				sbyte value2 = 0;
-				stream.Serialize(ref value2);
-				boardSquarePathInfo = null;
-				BoardSquarePathInfo boardSquarePathInfo2 = null;
-				BoardSquarePathInfo boardSquarePathInfo3 = null;
-				for (int i = 0; i < value; i++)
-				{
-					short value3 = -1;
-					short value4 = -1;
-					stream.Serialize(ref value3);
-					stream.Serialize(ref value4);
-					BoardSquare square;
-					if (value3 == -1 && value4 == -1)
-					{
-						square = null;
-					}
-					else
-					{
-						square = Board.Get().GetSquareFromIndex(value3, value4);
-					}
-					boardSquarePathInfo2 = new BoardSquarePathInfo();
-					boardSquarePathInfo2.square = square;
-					boardSquarePathInfo2.prev = boardSquarePathInfo3;
-					if (boardSquarePathInfo3 != null)
-					{
-						boardSquarePathInfo3.next = boardSquarePathInfo2;
-					}
-					boardSquarePathInfo3 = boardSquarePathInfo2;
-					if (i == 0)
-					{
-						boardSquarePathInfo = boardSquarePathInfo2;
-					}
-				}
-				BoardSquarePathInfo boardSquarePathInfo4 = boardSquarePathInfo;
+				short x = -1;
+				short y = -1;
+				stream.Serialize(ref x);
+				stream.Serialize(ref y);
 				BoardSquare square2;
-				for (int j = 0; j < value2; boardSquarePathInfo2 = new BoardSquarePathInfo(), boardSquarePathInfo2.square = square2, boardSquarePathInfo2.next = boardSquarePathInfo4, boardSquarePathInfo4.prev = boardSquarePathInfo2, boardSquarePathInfo4 = boardSquarePathInfo2, j++)
+				if (x != -1 || y != -1)
 				{
-					short x = -1;
-					short y = -1;
-					stream.Serialize(ref x);
-					stream.Serialize(ref y);
-					if (x != -1 || y != -1)
-					{
-						square2 = Board.Get().GetSquareFromIndex(x, y);
-					}
-					else
-					{
-						square2 = null;
-					}
+					square2 = Board.Get().GetSquareFromIndex(x, y);
 				}
+				else
+				{
+					square2 = null;
+				}
+				BoardSquarePathInfo boardSquarePathInfo5 = new BoardSquarePathInfo
+				{
+					square = square2,
+					next = boardSquarePathInfo4
+				};
+				boardSquarePathInfo4.prev = boardSquarePathInfo5;
+				boardSquarePathInfo4 = boardSquarePathInfo5;
 			}
 		}
 		return boardSquarePathInfo;
@@ -625,8 +621,7 @@ public static class MovementUtils
 		LayerMask mask = (1 << LayerMask.NameToLayer("LineOfSight")) | (1 << LayerMask.NameToLayer("DynamicLineOfSight"));
 		Vector3 b = new Vector3(0f, 0.5f, 0f);
 		Vector3 vector = src.ToVector3() + b;
-		Vector3 a = dst.ToVector3() + b;
-		Vector3 vector2 = a - vector;
+		Vector3 vector2 = dst.ToVector3() + b - vector;
 		Vector3 b2 = Vector3.Cross(vector2, new Vector3(0f, 1f, 0f)).normalized * 0.5f;
 		float magnitude = vector2.magnitude;
 		vector2.Normalize();
@@ -784,7 +779,8 @@ public static class MovementUtils
 	private static BoardSquare GetClosestAdjacentSquareTo(BoardSquare currentSquare, BoardSquare originalSquare, BoardSquare destinationSquare)
 	{
 		Vector2 a = new Vector2(destinationSquare.x, destinationSquare.y);
-		float sqrMagnitude = new Vector2(a.x - currentSquare.x, a.y - currentSquare.y).sqrMagnitude;
+		Vector2 a2 = new Vector2(a.x - currentSquare.x, a.y - currentSquare.y);
+		float sqrMagnitude = a2.sqrMagnitude;
 		List<BoardSquare> list = new List<BoardSquare>();
 		for (int i = -1; i <= 1; i++)
 		{
@@ -793,9 +789,13 @@ public static class MovementUtils
 				if (i != 0 || j != 0)
 				{
 					BoardSquare boardSquare = Board.Get().GetSquareFromIndex(currentSquare.x + i, currentSquare.y + j);
-					if (boardSquare != null && new Vector2(a.x - boardSquare.x, a.y - boardSquare.y).sqrMagnitude < sqrMagnitude)
+					if (boardSquare != null)
 					{
-						list.Add(boardSquare);
+						Vector2 vector3 = new Vector2(a.x - boardSquare.x, a.y - boardSquare.y);
+						if (vector3.sqrMagnitude < sqrMagnitude)
+						{
+							list.Add(boardSquare);
+						}
 					}
 				}
 			}
@@ -808,10 +808,8 @@ public static class MovementUtils
 		foreach (BoardSquare current in list)
 		{
 			Vector2 vector3 = new Vector2(current.x, current.y);
-			Vector2 lhs = vector3 - vector;
-			float d = Vector2.Dot(lhs, vector2);
-			Vector2 a2 = vector + vector2 * d;
-			float magnitude = (a2 - vector3).magnitude;
+			float d = Vector2.Dot(vector3 - vector, vector2);
+			float magnitude = (vector + vector2 * d - vector3).magnitude;
 			if (magnitude < num)
 			{
 				num = magnitude;
