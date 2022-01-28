@@ -18,8 +18,8 @@ namespace Theatrics
 			C,
 			D,
 			ANIMATION_FINISHED,  // ANIM_HITS_DONE?
-			F,
-			FINISHED
+			ReleasedFocus,
+			CantBeStarted
 		}
 
 		public const float _001D = 3f;
@@ -249,9 +249,9 @@ namespace Theatrics
 				{
 					TheatricsManager.LogForDebugging(string.Concat(ToString(), " PlayState: <color=cyan>", playbackSate, "</color> -> <color=cyan>", value, "</color>"));
 				}
-				if (value != PlaybackState.F)
+				if (value != PlaybackState.ReleasedFocus)
 				{
-					if (value != PlaybackState.FINISHED)
+					if (value != PlaybackState.CantBeStarted)
 					{
 						goto IL_01c8;
 					}
@@ -283,10 +283,10 @@ namespace Theatrics
 			if (Actor == null)
 			{
 				Log.Error("Theatrics: can't start {0} since the actor can no longer be found. Was the actor destroyed during resolution?", this);
-				State = PlaybackState.FINISHED;
+				State = PlaybackState.CantBeStarted;
 				return false;
 			}
-			return State == PlaybackState.FINISHED;
+			return State == PlaybackState.CantBeStarted;
 		}
 
 		internal void OnSerializeHelper(IBitStream stream)
@@ -483,7 +483,7 @@ namespace Theatrics
 			StartFinalPlaybackState();
 		}
 
-		internal bool IsTauntActivated() // _0002_000E
+		internal bool IsCinematicRequested() // _0002_000E
 		{
 			return tauntNumber > 0;
 		}
@@ -493,7 +493,7 @@ namespace Theatrics
 			return _0013;
 		}
 
-		internal bool _0006_000E()
+		internal bool IsTauntForEvadeOrKnockback()
 		{
 			return _0015;
 		}
@@ -520,7 +520,7 @@ namespace Theatrics
 			return !Actor.IsDead() && (_0009_Reveal || cinematicCamera);
 		}
 
-		internal bool _000C_000E()
+		internal bool NotInLoS()
 		{
 			FogOfWar clientFog = FogOfWar.GetClientFog();
 			ActorStatus actorStatus = Actor.GetActorStatus();
@@ -606,10 +606,10 @@ namespace Theatrics
 
 		internal bool _0014_000E_NotFinished()
 		{
-			return State != PlaybackState.FINISHED && State != PlaybackState.F;
+			return State != PlaybackState.CantBeStarted && State != PlaybackState.ReleasedFocus;
 		}
 
-		internal bool _0005_000E()
+		internal bool ShouldAutoCameraReleaseFocus()
 		{
 			int result;
 			if (State >= PlaybackState.D)
@@ -700,7 +700,7 @@ namespace Theatrics
 				Log.Warning("<color=cyan>ActorAnimation</color> Play for: " + ToString() + " @time= " + GameTime.time);
 			}
 			_000E_000E = GameTime.time;
-			if (State == PlaybackState.FINISHED)
+			if (State == PlaybackState.CantBeStarted)
 			{
 				return;
 			}
@@ -828,7 +828,7 @@ namespace Theatrics
 				{
 					HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.AddNewAbility(GetAbility(), Actor);
 				}
-				if (IsTauntActivated())
+				if (IsCinematicRequested())
 				{
 					ChatterManager.Get().CancelActiveChatter();
 				}
@@ -879,31 +879,31 @@ namespace Theatrics
 			return false;
 		}
 
-		internal bool _000D_000E_Tick(Turn turn)
+		internal bool Update(Turn turn)
 		{
 			Animator animator = null;
 			if (NetworkClient.active)
 			{
 				if (Actor == null || Actor.GetActorModelData() == null)
 				{
-					State = PlaybackState.FINISHED;
+					State = PlaybackState.CantBeStarted;
 				}
-				if (State != PlaybackState.FINISHED)
+				if (State != PlaybackState.CantBeStarted)
 				{
 					animator = Actor.GetModelAnimator();
 					if (animator == null || !animator.enabled && animationIndex > 0)
 					{
-						State = PlaybackState.FINISHED;
+						State = PlaybackState.CantBeStarted;
 					}
 				}
 			}
-			if (State == PlaybackState.FINISHED)
+			if (State == PlaybackState.CantBeStarted)
 			{
 				return false;
 			}
 			ActorMovement actorMovement = Actor.GetActorMovement();
 			bool actorIsNotMoving = !actorMovement.AmMoving();
-			if (State >= PlaybackState.C && State < PlaybackState.F)
+			if (State >= PlaybackState.C && State < PlaybackState.ReleasedFocus)
 			{
 				bool isHanging = CurrentTimePlaying > 12f;
 				if (isHanging && !IsHanging)
@@ -937,7 +937,7 @@ namespace Theatrics
 				TimePlayingAbilityAnim += GameTime.deltaTime;
 			}
 			AnimationFinished = StartedPlayingAbilityAnim && !isPlayingAttackAnim;
-			if (_0007 == 0f && State >= PlaybackState.C && State < PlaybackState.F)
+			if (_0007 == 0f && State >= PlaybackState.C && State < PlaybackState.ReleasedFocus)
 			{
 				if (_0015 || ClientResolutionManager.Get().HitsDoneExecuting(SeqSource))
 				{
@@ -993,7 +993,7 @@ namespace Theatrics
 				State = PlaybackState.ANIMATION_FINISHED;
 				UpdateLastEventTime();
 				break;
-			case PlaybackState.F:
+			case PlaybackState.ReleasedFocus:
 				return false;
 			}
 			if (!actorIsNotMoving && !TravelBoardSquareVisible)
@@ -1036,14 +1036,14 @@ namespace Theatrics
 				return _0014_000E_NotFinished();
 			}
 			AnimationFinished = true;
-			State = PlaybackState.F;
+			State = PlaybackState.ReleasedFocus;
 			no_op_1();
 			UpdateLastEventTime();
 			if (ability != null)
 			{
 				ability.OnAbilityAnimationReleaseFocus(Actor);
 			}
-			if (turn._0004_FinishedTheatrics(Actor))
+			if (turn.IsReadyToRagdoll(Actor))
 			{
 				Actor.DoVisualDeath(new ActorModelData.ImpulseInfo(Actor.GetLoSCheckPos(), Vector3.up));
 			}
@@ -1132,7 +1132,7 @@ namespace Theatrics
 				}
 				if (_0015 != 0)
 				{
-					if (turn._0004_FinishedTheatrics(_000E))
+					if (turn.IsReadyToRagdoll(_000E))
 					{
 						_000E.DoVisualDeath(_0012);
 						if (_001D.Caster != null)

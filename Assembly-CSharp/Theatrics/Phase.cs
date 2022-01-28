@@ -10,128 +10,122 @@ namespace Theatrics
 {
 	internal class Phase
 	{
-		internal List<ActorAnimation> animations = new List<ActorAnimation>();
-		private Dictionary<int, int> actorIndexToDeltaHP = new Dictionary<int, int>();
-		private Dictionary<int, int> _0015_ActorIndexToKnockback = new Dictionary<int, int>(); // only matters if it is zero or positive
-		private List<int> participants = new List<int>();
-		private int playOrderIndex = -1;
-		private int _0018 = -1;
-		private bool _0009 = true;
-		private int _0019 = -1;
-		private int _0011_somePlayOrderIndex = -1;
-		private float maxCamStartDelay;
-		private int _0004 = -1;
-		private float _000B;
-		private float _0003;
-		private Turn turn;
-		private float _0017;
-		private float _000D;
-		private bool _0008;
-		private bool _0002;
-		private float evadeStartTime = -1f;
-		private bool IsNotSendingAnimations;
-		private bool _0020;
-		private bool _000C;
-		private bool _0014;
+		internal List<ActorAnimation> m_actorAnimations = new List<ActorAnimation>();
+		private Dictionary<int, int> m_hitActorIndexToDeltaHP = new Dictionary<int, int>();
+		private Dictionary<int, int> m_actorIndexToKnockbackHitsRemaining = new Dictionary<int, int>(); // only matters if it is zero or positive
+		private List<int> m_hitActorIds = new List<int>();
+
+		private int m_playOrderIndex = -1;
+		private int m_playOrderGroupIndex = -1;
+		private bool m_playOrderGroupChanged = true;
+		private int m_maxPlayOrderIndex = -1;
+		private int m_firstNonCinematicPlayOrderIndex = -1;
+		private float m_maxCamStartDelay;
+		private int m_cameraTargetPlayOrderIndex = -1;
+		private float m_cameraTargetPlayOrderIndexTime;
+		private float m_firstNonCinematicEvadeAbilityPlayedTime;
+
+		private Turn m_turn;
+
+		private float m_timeSinceActorAnimationPlayed;
+		private float m_timeSinceUpdateStart;
+		private bool m_inCinematicCamLastUpdate;
+		private bool m_firedMoveStartEvent;
+		private float m_evasionMoveStartDesiredTime = -1f;
+
+		private bool m_turnActionsDone;
+		private bool m_displayedHungErrorForCurrentActorAnim;
+		private bool m_loggedWarningForInKnockdownAnim;
+		private bool m_cameraBoundsSameAsLast;
 		private bool _0005;
 		private bool _001B;
 		private int _001E = -1;
-		private bool _0001_HasAbilitiesToHighlight;
-		private const float _001F = 0.7f;
-		private const float _0010 = 0.3f;
-		private const float _0007 = 0.35f;
+		private bool m_highlightingActionEntriesNow;
 
-		internal AbilityPriority Index
-		{
-			get;
-			private set;
-		}
+		private const float c_firstEvadeWaitTimeInTurn = 0.7f;
+		private const float c_firstNonEvadeWaitTimeInTurn = 0.3f;
+		private const float c_animlessPlayTimeBeforeEaseInEnd = 0.35f;
+
+		internal AbilityPriority Index { get; private set; }
 
 		internal Dictionary<int, int> ActorIndexToDeltaHP
 		{
 			get
 			{
-				return actorIndexToDeltaHP;
+				return m_hitActorIndexToDeltaHP;
 			}
 			private set
 			{
-				actorIndexToDeltaHP = value;
+				m_hitActorIndexToDeltaHP = value;
 			}
 		}
 
 		internal Phase(Turn turn)
 		{
-			this.turn = turn;
+			this.m_turn = turn;
 		}
 
 		public void DoNotSendAnimations()
 		{
-			IsNotSendingAnimations = true;
+			m_turnActionsDone = true;
 		}
 
-		internal void _001D_000E()
+		internal void Init()
 		{
-			for (int i = 0; i < animations.Count; i++)
+			foreach (ActorAnimation actorAnimation in m_actorAnimations)
 			{
-				ActorAnimation actorAnimation = animations[i];
-				if (!actorAnimation._0006_000E())
+				if (!actorAnimation.IsTauntForEvadeOrKnockback())
 				{
-					float delay = actorAnimation.GetCamStartEventDelay(Index == AbilityPriority.Evasion && actorAnimation.IsTauntActivated());
-					maxCamStartDelay = Mathf.Max(maxCamStartDelay, delay);
+					float camStartEventDelay = actorAnimation.GetCamStartEventDelay(Index == AbilityPriority.Evasion && actorAnimation.IsCinematicRequested());
+					m_maxCamStartDelay = Mathf.Max(m_maxCamStartDelay, camStartEventDelay);
 				}
-				if (_0011_somePlayOrderIndex == -1 && !actorAnimation.cinematicCamera)
+				if (m_firstNonCinematicPlayOrderIndex == -1 && !actorAnimation.cinematicCamera)
 				{
-					_0011_somePlayOrderIndex = actorAnimation.playOrderIndex;
+					m_firstNonCinematicPlayOrderIndex = actorAnimation.playOrderIndex;
 				}
 			}
 		}
 
 		internal bool ClientNeedToWaitBeforeKnockbackMove(ActorData actor)
 		{
-			bool result = false;
-			if (animations != null)
+			if (m_actorAnimations != null)
 			{
-				for (int i = 0; i < animations.Count; i++)
+				for (int i = 0; i < m_actorAnimations.Count; i++)
 				{
-					ActorAnimation actorAnimation = animations[i];
-					if (actorAnimation.Actor == actor && !actorAnimation._0006_000E())
+					ActorAnimation actorAnimation = m_actorAnimations[i];
+					if (actorAnimation.Actor == actor
+						&& !actorAnimation.IsTauntForEvadeOrKnockback()
+						&& (!ClientResolutionManager.Get().HitsDoneExecuting(actorAnimation.SeqSource)
+							|| actorAnimation.State < ActorAnimation.PlaybackState.ANIMATION_FINISHED))
 					{
-						if (!ClientResolutionManager.Get().HitsDoneExecuting(actorAnimation.SeqSource) ||
-							actorAnimation.State < ActorAnimation.PlaybackState.ANIMATION_FINISHED)
-						{
-							result = true;
-							break;
-						}
+						return true;
 					}
 				}
 			}
-			return result;
-		}
-
-		internal bool _001D_000E_IsKnockedBack(ActorData actor)
-		{
-			if (_0015_ActorIndexToKnockback != null && _0015_ActorIndexToKnockback.ContainsKey(actor.ActorIndex))
-			{
-				return _0015_ActorIndexToKnockback[actor.ActorIndex] > 0;
-			}
 			return false;
 		}
 
-		internal bool IsParticipant(ActorData actor) // _000E_000E
+		internal bool HasKnockbackMovementHitsRemaining(ActorData actor)
 		{
-			if (actor != null && participants != null)
-			{
-				return participants.Contains(actor.ActorIndex);
-			}
-			return false;
+			return m_actorIndexToKnockbackHitsRemaining != null
+				&& m_actorIndexToKnockbackHitsRemaining.ContainsKey(actor.ActorIndex)
+				&& m_actorIndexToKnockbackHitsRemaining[actor.ActorIndex] > 0;
 		}
 
-		internal bool _001C_HasUnfinishedAnimations()
+		internal bool HasHitOnActor(ActorData actor)
 		{
-			for (int i = 0; i < animations.Count; i++)
+			return actor != null
+				&& m_hitActorIds != null
+				&& m_hitActorIds.Contains(actor.ActorIndex);
+		}
+
+		internal bool HasUnfinishedActorAnimation()
+		{
+			for (int i = 0; i < m_actorAnimations.Count; i++)
 			{
-				ActorAnimation actorAnimation = animations[i];
-				if (actorAnimation.State != ActorAnimation.PlaybackState.FINISHED && actorAnimation.State != ActorAnimation.PlaybackState.F)
+				ActorAnimation actorAnimation = m_actorAnimations[i];
+				if (actorAnimation.State != ActorAnimation.PlaybackState.CantBeStarted
+					&& actorAnimation.State != ActorAnimation.PlaybackState.ReleasedFocus)
 				{
 					return true;
 				}
@@ -144,8 +138,8 @@ namespace Theatrics
 			sbyte phaseIndex = (sbyte)Index;
 			stream.Serialize(ref phaseIndex);
 			Index = (AbilityPriority)phaseIndex;
-			sbyte numAnimations = (sbyte)animations.Count;
-			bool dropAnimations = IsNotSendingAnimations || phaseIndex < (sbyte)ServerClientUtils.GetCurrentAbilityPhase();
+			sbyte numAnimations = (sbyte)m_actorAnimations.Count;
+			bool dropAnimations = m_turnActionsDone || phaseIndex < (sbyte)ServerClientUtils.GetCurrentAbilityPhase();
 			if (stream.isWriting && dropAnimations)
 			{
 				numAnimations = 0;
@@ -153,17 +147,17 @@ namespace Theatrics
 			stream.Serialize(ref numAnimations);
 			for (int i = 0; i < numAnimations; i++)
 			{
-				while (i >= animations.Count)
+				while (i >= m_actorAnimations.Count)
 				{
-					animations.Add(new ActorAnimation(turn));
+					m_actorAnimations.Add(new ActorAnimation(m_turn));
 				}
-				animations[i].OnSerializeHelper(stream);
+				m_actorAnimations[i].OnSerializeHelper(stream);
 			}
 			if (stream.isWriting)
 			{
-				sbyte numActorIndexToDeltaHP = (sbyte)actorIndexToDeltaHP.Count;
+				sbyte numActorIndexToDeltaHP = (sbyte)m_hitActorIndexToDeltaHP.Count;
 				stream.Serialize(ref numActorIndexToDeltaHP);
-				foreach (var actorIndexAndDeltaHP in actorIndexToDeltaHP)
+				foreach (var actorIndexAndDeltaHP in m_hitActorIndexToDeltaHP)
 				{
 					sbyte actorIndex = (sbyte)actorIndexAndDeltaHP.Key;
 					short deltaHP = (short)actorIndexAndDeltaHP.Value;
@@ -175,21 +169,21 @@ namespace Theatrics
 			{
 				sbyte numActorIndexToDeltaHP = -1;
 				stream.Serialize(ref numActorIndexToDeltaHP);
-				actorIndexToDeltaHP = new Dictionary<int, int>();
+				m_hitActorIndexToDeltaHP = new Dictionary<int, int>();
 				for (int j = 0; j < numActorIndexToDeltaHP; j++)
 				{
 					sbyte actorIndex = (sbyte)ActorData.s_invalidActorIndex;
 					short deltaHP = -1;
 					stream.Serialize(ref actorIndex);
 					stream.Serialize(ref deltaHP);
-					actorIndexToDeltaHP.Add(actorIndex, deltaHP);
+					m_hitActorIndexToDeltaHP.Add(actorIndex, deltaHP);
 				}
 			}
 			if (phaseIndex == (sbyte)AbilityPriority.Combat_Knockback)
 			{
 				if (stream.isWriting)
 				{
-					sbyte value9 = (sbyte)_0015_ActorIndexToKnockback.Count;
+					sbyte value9 = (sbyte)m_actorIndexToKnockbackHitsRemaining.Count;
 					if (dropAnimations)
 					{
 						value9 = 0;
@@ -198,7 +192,7 @@ namespace Theatrics
 					else
 					{
 						stream.Serialize(ref value9);
-						foreach (KeyValuePair<int, int> item in _0015_ActorIndexToKnockback)
+						foreach (KeyValuePair<int, int> item in m_actorIndexToKnockbackHitsRemaining)
 						{
 							sbyte value10 = (sbyte)item.Key;
 							sbyte value11 = (sbyte)item.Value;
@@ -211,24 +205,24 @@ namespace Theatrics
 				{
 					sbyte value12 = -1;
 					stream.Serialize(ref value12);
-					_0015_ActorIndexToKnockback = new Dictionary<int, int>();
+					m_actorIndexToKnockbackHitsRemaining = new Dictionary<int, int>();
 					for (int k = 0; k < value12; k++)
 					{
 						sbyte value13 = (sbyte)ActorData.s_invalidActorIndex;
 						sbyte value14 = -1;
 						stream.Serialize(ref value13);
 						stream.Serialize(ref value14);
-						_0015_ActorIndexToKnockback.Add(value13, value14);
+						m_actorIndexToKnockbackHitsRemaining.Add(value13, value14);
 					}
 				}
 			}
 			if (stream.isWriting)
 			{
-				sbyte numParticipants = (sbyte)participants.Count;
+				sbyte numParticipants = (sbyte)m_hitActorIds.Count;
 				stream.Serialize(ref numParticipants);
 				for (sbyte b = 0; b < numParticipants; b = (sbyte)(b + 1))
 				{
-					sbyte participant = (sbyte)participants[b];
+					sbyte participant = (sbyte)m_hitActorIds[b];
 					stream.Serialize(ref participant);
 				}
 			}
@@ -236,17 +230,17 @@ namespace Theatrics
 			{
 				sbyte numParticipants = -1;
 				stream.Serialize(ref numParticipants);
-				participants = new List<int>();
+				m_hitActorIds = new List<int>();
 				for (sbyte b = 0; b < numParticipants; b = (sbyte)(b + 1))
 				{
 					sbyte participant = -1;
 					stream.Serialize(ref participant);
-					participants.Add(participant);
+					m_hitActorIds.Add(participant);
 				}
 			}
 		}
 
-		private void FireEventTheatricsAbilityHighlightStart(List<ActorAnimation> animations)
+		private void StartAbilityHighlightForAnimEntries(List<ActorAnimation> animations)
 		{
 			if (animations == null || animations.Count <= 0)
 			{
@@ -274,41 +268,41 @@ namespace Theatrics
 				}
 			}
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.TheatricsAbilityHighlightStart, theatricsAbilityHighlightStartArgs);
-			_0001_HasAbilitiesToHighlight = true;
+			m_highlightingActionEntriesNow = true;
 
 		}
 
-		private void FireEventTheatricsAbilityHighlightStart()
+		private void ClearAbilityHighlightForAnimEntries()
 		{
 			GameEventManager.TheatricsAbilityHighlightStartArgs args = new GameEventManager.TheatricsAbilityHighlightStartArgs();
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.TheatricsAbilityHighlightStart, args);
-			_0001_HasAbilitiesToHighlight = false;
+			m_highlightingActionEntriesNow = false;
 		}
 
 		private ActorData GetActorAtPlayOrderIndex(int playOrderIndex, out bool cinematicCamera)
 		{
 			cinematicCamera = false;
-			for (int i = 0; i < animations.Count; i++)
+			for (int i = 0; i < m_actorAnimations.Count; i++)
 			{
-				if (animations[i].playOrderIndex == playOrderIndex)
+				if (m_actorAnimations[i].playOrderIndex == playOrderIndex)
 				{
-					cinematicCamera = animations[i].cinematicCamera;
-					return animations[i].Actor;
+					cinematicCamera = m_actorAnimations[i].cinematicCamera;
+					return m_actorAnimations[i].Actor;
 				}
 			}
 			return null;
 		}
 
-		private bool _001C(int playOrderIndex)
+		private bool ActorAnimContainsKillOrSave(int playOrderIndex)
 		{
 			bool flag = false;
 			
-			for (int num = 0; num < animations.Count; num++)
+			for (int num = 0; num < m_actorAnimations.Count; num++)
 			{
-				ActorAnimation actorAnimation = animations[num];
+				ActorAnimation actorAnimation = m_actorAnimations[num];
 				if (actorAnimation != null && actorAnimation.HitActorsToDeltaHP != null && actorAnimation.playOrderIndex == playOrderIndex)
 				{
-					if (actorAnimation.IsTauntActivated())
+					if (actorAnimation.IsCinematicRequested())
 					{
 						break;
 					}
@@ -330,7 +324,7 @@ namespace Theatrics
 							}
 							else
 							{
-								if (turn._0004_FinishedTheatrics(hitActor, deltaHP, (int)actorAnimation.SeqSource.RootID))
+								if (m_turn.IsReadyToRagdoll(hitActor, deltaHP, (int)actorAnimation.SeqSource.RootID))
 								{
 									flag = true;
 									if (CameraManager.CamDebugTraceOn)
@@ -354,18 +348,18 @@ namespace Theatrics
 			return flag;
 		}
 
-		private bool AreBoundsMergeable(Bounds prevBound, Bounds compareToBound, float maxCenterDistToMerge, float mergeSizeThresh, bool allowInflatedBounds) // _001C
+		private bool CanUseSameBounds(Bounds prev, Bounds bounds, float maxCenterDistDiff, float maxSideDiff, bool canUseInflatedBounds)
 		{
-			float centerDist = VectorUtils.HorizontalPlaneDistInWorld(prevBound.center, compareToBound.center);
-			if (centerDist <= maxCenterDistToMerge)
+			float centerDist = VectorUtils.HorizontalPlaneDistInWorld(prev.center, bounds.center);
+			if (centerDist <= maxCenterDistDiff)
 			{
 				bool usedInflatedBounds = false;
-				bool boundSidesWithinDistance = CameraManager.BoundSidesWithinDistance(prevBound, compareToBound, mergeSizeThresh, out Vector3 maxBoundDiff, out Vector3 minBoundDiff);
-				if (allowInflatedBounds && !boundSidesWithinDistance)
+				bool boundSidesWithinDistance = CameraManager.BoundSidesWithinDistance(prev, bounds, maxSideDiff, out Vector3 maxBoundDiff, out Vector3 minBoundDiff);
+				if (canUseInflatedBounds && !boundSidesWithinDistance)
 				{
-					Bounds bounds = prevBound;
-					bounds.Expand(new Vector3(1.5f, 100f, 1.5f));
-					if (bounds.Contains(compareToBound.center + compareToBound.extents) && bounds.Contains(compareToBound.center - compareToBound.extents))
+					Bounds bounds2 = prev;
+					bounds2.Expand(new Vector3(1.5f, 100f, 1.5f));
+					if (bounds2.Contains(bounds.center + bounds.extents) && bounds2.Contains(bounds.center - bounds.extents))
 					{
 						boundSidesWithinDistance = true;
 						usedInflatedBounds = true;
@@ -380,8 +374,8 @@ namespace Theatrics
 						$"| minBoundsDiff: {minBoundDiff} " +
 						$"| maxBoundsDiff: {maxBoundDiff} " +
 						$"| used inflated bounds: {usedInflatedBounds}" +
-						$"\nPrev Bound: {prevBound}" +
-						$"\nCompare to Bound: {compareToBound}",
+						$"\nPrev Bound: {prev}" +
+						$"\nCompare to Bound: {bounds}",
 						CameraManager.CameraLogType.SimilarBounds);
 				}
 				return boundSidesWithinDistance;
@@ -393,44 +387,41 @@ namespace Theatrics
 			return false;
 		}
 
-		// Play
-		internal bool _001C(Turn _001D, ref bool _000E, ref bool _0012)
+		internal bool Update(Turn turn, ref bool hiddenAction, ref bool nonHiddenAction)
 		{
-			_0017 += GameTime.deltaTime;
-			_000D += GameTime.deltaTime;
-			bool flag = ((animations.Count != 0) & (Index == AbilityPriority.Evasion)) && !_0002;
+			m_timeSinceActorAnimationPlayed += GameTime.deltaTime;
+			m_timeSinceUpdateStart += GameTime.deltaTime;
+			bool flag = ((m_actorAnimations.Count != 0) & (Index == AbilityPriority.Evasion)) && !m_firedMoveStartEvent;
 			bool flag2 = true;
-			for (int i = 0; i < animations.Count; i++)
+			for (int i = 0; i < m_actorAnimations.Count; i++)
 			{
-				ActorAnimation actorAnimation = animations[i];
-				if (!actorAnimation._000D_000E_Tick(_001D))
+				ActorAnimation actorAnimation = m_actorAnimations[i];
+				if (actorAnimation.Update(turn))
 				{
-					continue;
+					flag = true;
+					if (actorAnimation.playOrderIndex <= m_playOrderIndex)
+					{
+						flag2 = flag2 && actorAnimation.ShouldAutoCameraReleaseFocus();
+					}
+					if (actorAnimation.playOrderIndex == m_playOrderIndex)
+					{
+						bool flag3 = actorAnimation.NotInLoS();
+						hiddenAction = hiddenAction || flag3;
+						nonHiddenAction = nonHiddenAction || !flag3;
+					}
 				}
-				flag = true;
-				if (actorAnimation.playOrderIndex <= playOrderIndex)
-				{
-					flag2 = flag2 && actorAnimation._0005_000E();
-				}
-				if (actorAnimation.playOrderIndex != playOrderIndex)
-				{
-					continue;
-				}
-				bool flag3 = actorAnimation._000C_000E();
-				_000E = _000E || flag3;
-				_0012 = _0012 || !flag3;
 			}
 			while (true)
 			{
 				if (CameraManager.Get().IsPlayingShotSequence())
 				{
-					_0008 = true;
+					m_inCinematicCamLastUpdate = true;
 					return true;
 				}
-				if (_0008)
+				if (m_inCinematicCamLastUpdate)
 				{
-					_0017 = 0f;
-					_0008 = false;
+					m_timeSinceActorAnimationPlayed = 0f;
+					m_inCinematicCamLastUpdate = false;
 				}
 				if (!flag)
 				{
@@ -438,9 +429,9 @@ namespace Theatrics
 				}
 				int num4 = int.MaxValue;
 				int num5 = int.MaxValue;
-				for (int j = 0; j < animations.Count; j++)
+				for (int j = 0; j < m_actorAnimations.Count; j++)
 				{
-					ActorAnimation actorAnimation2 = animations[j];
+					ActorAnimation actorAnimation2 = m_actorAnimations[j];
 					if (actorAnimation2 != null && actorAnimation2.State == 0 && actorAnimation2.playOrderIndex < num4)
 					{
 						num4 = actorAnimation2.playOrderIndex;
@@ -452,26 +443,26 @@ namespace Theatrics
 					AbilitiesCamera abilitiesCamera = AbilitiesCamera.Get();
 					List<ActorAnimation> list = null;
 					float num7 = Index == AbilityPriority.Evasion ? 0.7f : 0.3f;
-					bool flag4 = _001D.TimeInResolve >= num7 || _0017 >= num7;
-					bool flag5 = flag4 && flag2 && num4 != playOrderIndex && num4 != int.MaxValue;
+					bool flag4 = turn.TimeInResolve >= num7 || m_timeSinceActorAnimationPlayed >= num7;
+					bool flag5 = flag4 && flag2 && num4 != m_playOrderIndex && num4 != int.MaxValue;
 					bool isResolutionPaused = GameFlowData.Get() == null || GameFlowData.Get().IsResolutionPaused();
 					flag5 = flag5 && !isResolutionPaused;
-					if (!flag5 && _0017 > 20f && !isResolutionPaused)
+					if (!flag5 && m_timeSinceActorAnimationPlayed > 20f && !isResolutionPaused)
 					{
-						Log.Error("Stuck when trying to advance to next actor anim entry, \nplay order release focus: " + flag2.ToString() + "\npast waiting for first action: " + flag4 + "\nminNotStartedPLayOrderIndex: " + num4 + "\nplayOrderIndex: " + playOrderIndex);
+						Log.Error("Stuck when trying to advance to next actor anim entry, \nplay order release focus: " + flag2.ToString() + "\npast waiting for first action: " + flag4 + "\nminNotStartedPLayOrderIndex: " + num4 + "\nplayOrderIndex: " + m_playOrderIndex);
 						flag5 = true;
 					}
 					if (flag5)
 					{
-						if (_0001_HasAbilitiesToHighlight)
+						if (m_highlightingActionEntriesNow)
 						{
-							FireEventTheatricsAbilityHighlightStart();
+							ClearAbilityHighlightForAnimEntries();
 						}
 						list = new List<ActorAnimation>();
 						bool flag7 = true;
-						for (int k = 0; k < animations.Count; k++)
+						for (int k = 0; k < m_actorAnimations.Count; k++)
 						{
-							ActorAnimation actorAnimation3 = animations[k];
+							ActorAnimation actorAnimation3 = m_actorAnimations[k];
 							object obj;
 							if (actorAnimation3 != null)
 							{
@@ -543,11 +534,11 @@ namespace Theatrics
 							IL_0553:
 							if (flag9)
 							{
-								if (_0017 > 1f)
+								if (m_timeSinceActorAnimationPlayed > 1f)
 								{
 									if (actorModelData.IsPlayingKnockdownAnim())
 									{
-										if (!_000C)
+										if (!m_loggedWarningForInKnockdownAnim)
 										{
 											string message = string.Concat(actorAnimation3, " is stuck in knockdown when trying to play animation for ability, forcing idle");
 											if (Application.isEditor)
@@ -558,17 +549,17 @@ namespace Theatrics
 											{
 												Log.Warning(message);
 											}
-											_000C = true;
+											m_loggedWarningForInKnockdownAnim = true;
 										}
 										animator.SetBool("TurnStart", true);
 										animator.SetTrigger("ForceIdle");
 									}
 								}
-								if (_0017 > 5f)
+								if (m_timeSinceActorAnimationPlayed > 5f)
 								{
-									if (!_0020)
+									if (!m_displayedHungErrorForCurrentActorAnim)
 									{
-										_0020 = true;
+										m_displayedHungErrorForCurrentActorAnim = true;
 										bool isPlayingDamageReaction = animator.GetCurrentAnimatorStateInfo(0).IsName("Damage");
 										int attackParam = animator.GetInteger("Attack");
 										string hitActors = string.Empty;
@@ -591,10 +582,10 @@ namespace Theatrics
 											$"{(actorAnimation3.State == ActorAnimation.PlaybackState.A ? (", sequences ready: " + actorAnimation3.IsReadyToPlay_zq(Index, true)) : string.Empty)}");
 
 									}
-									if (_0017 > 8f)
+									if (m_timeSinceActorAnimationPlayed > 8f)
 									{
 										Log.Error(string.Concat(actorAnimation3, " timed out, skipping"));
-										_0020 = false;
+										m_displayedHungErrorForCurrentActorAnim = false;
 										if (ClientResolutionManager.Get() != null)
 										{
 											ClientResolutionManager.Get().UpdateLastEventTime();
@@ -613,13 +604,13 @@ namespace Theatrics
 							num12 = ((animator.GetInteger("Attack") != 0) ? 1 : 0);
 							goto IL_0551;
 						}
-						_0009 = (_0018 != num5);
-						if (_0004 != num4)
+						m_playOrderGroupChanged = (m_playOrderGroupIndex != num5);
+						if (m_cameraTargetPlayOrderIndex != num4)
 						{
 							if (flag2)
 							{
 								bool _00122;
-								Bounds bounds = _001D._0011_CreateAbilitiesBounds(this, num4, out _00122);
+								Bounds bounds = turn._0011_CreateAbilitiesBounds(this, num4, out _00122);
 								int num13;
 								if (Index != AbilityPriority.Evasion)
 								{
@@ -636,7 +627,7 @@ namespace Theatrics
 								int num14 = -1;
 								if (!flag11)
 								{
-									useLowPosition = _001C(num4);
+									useLowPosition = ActorAnimContainsKillOrSave(num4);
 									ActorData actorData = GetActorAtPlayOrderIndex(num4, out _0005);
 									num14 = ((!(actorData != null)) ? (-1) : actorData.ActorIndex);
 									if (_001E > 0)
@@ -652,16 +643,16 @@ namespace Theatrics
 								}
 								if (!_00122)
 								{
-									bool flag12 = turn._0018 > 0 && turn._0013 == bounds;
-									if (turn._0018 > 0)
+									bool flag12 = m_turn._0018 > 0 && m_turn._0013 == bounds;
+									if (m_turn._0018 > 0)
 									{
 										if (!flag12)
 										{
 											if (!flag11)
 											{
-												if (AreBoundsMergeable(turn._0013, bounds, abilitiesCamera.m_similarCenterDistThreshold, abilitiesCamera.m_similarBoundSideMaxDiff, abilitiesCamera.m_considerFramingSimilarIfInsidePrevious))
+												if (CanUseSameBounds(m_turn._0013, bounds, abilitiesCamera.m_similarCenterDistThreshold, abilitiesCamera.m_similarBoundSideMaxDiff, abilitiesCamera.m_considerFramingSimilarIfInsidePrevious))
 												{
-													bounds = turn._0013;
+													bounds = m_turn._0013;
 												}
 											}
 										}
@@ -669,7 +660,7 @@ namespace Theatrics
 									int num15;
 									if (Index != AbilityPriority.Evasion)
 									{
-										num15 = ((!_0009) ? 1 : 0);
+										num15 = ((!m_playOrderGroupChanged) ? 1 : 0);
 									}
 									else
 									{
@@ -677,52 +668,52 @@ namespace Theatrics
 									}
 									bool quickerTransition = (byte)num15 != 0;
 									CameraManager.Get().SetTarget(bounds, quickerTransition, useLowPosition);
-									turn._0009_HasFocusedAction = true;
-									if (turn._0013 == bounds)
+									m_turn._0009_HasFocusedAction = true;
+									if (m_turn._0013 == bounds)
 									{
-										_0014 = true;
+										m_cameraBoundsSameAsLast = true;
 									}
 									else
 									{
-										_0014 = false;
+										m_cameraBoundsSameAsLast = false;
 									}
-									turn._0013 = bounds;
+									m_turn._0013 = bounds;
 									if (flag11)
 									{
-										turn._0018 = 0;
+										m_turn._0018 = 0;
 									}
 									else
 									{
-										turn._0018++;
+										m_turn._0018++;
 									}
 								}
 								if (num4 == 0)
 								{
 									CameraManager.Get().OnActionPhaseChange(ActionBufferPhase.Abilities, true);
 								}
-								_0004 = num4;
-								_000B = GameTime.time;
+								m_cameraTargetPlayOrderIndex = num4;
+								m_cameraTargetPlayOrderIndexTime = GameTime.time;
 								if (flag11)
 								{
-									FireEventTheatricsAbilityHighlightStart(list);
+									StartAbilityHighlightForAnimEntries(list);
 								}
 								else
 								{
-									FireEventTheatricsAbilityHighlightStart();
+									ClearAbilityHighlightForAnimEntries();
 								}
 								if (TheatricsManager.DebugLog)
 								{
-									TheatricsManager.LogForDebugging("Cam set target for player order index " + num4 + " group " + num5 + " group changed " + _0009 + " timeInResolve = " + turn.TimeInResolve + " anticipating CamStartEvent...");
+									TheatricsManager.LogForDebugging("Cam set target for player order index " + num4 + " group " + num5 + " group changed " + m_playOrderGroupChanged + " timeInResolve = " + m_turn.TimeInResolve + " anticipating CamStartEvent...");
 								}
 							}
 						}
 						if (flag7)
 						{
-							playOrderIndex = num4;
-							_0018 = num5;
+							m_playOrderIndex = num4;
+							m_playOrderGroupIndex = num5;
 							flag2 = false;
 							GameEventManager.TheatricsAbilityAnimationStartArgs theatricsAbilityAnimationStartArgs = new GameEventManager.TheatricsAbilityAnimationStartArgs();
-							theatricsAbilityAnimationStartArgs.lastInPhase = (playOrderIndex >= _0019);
+							theatricsAbilityAnimationStartArgs.lastInPhase = (m_playOrderIndex >= m_maxPlayOrderIndex);
 							GameEventManager.Get().FireEvent(GameEventManager.EventType.TheatricsAbilityAnimationStart, theatricsAbilityAnimationStartArgs);
 						}
 					}
@@ -735,58 +726,58 @@ namespace Theatrics
 						{
 							if (_001B)
 							{
-								if (_0014)
+								if (m_cameraBoundsSameAsLast)
 								{
 									num16 = 0f;
 									goto IL_106f;
 								}
 							}
-							if (_0014)
+							if (m_cameraBoundsSameAsLast)
 							{
 								num16 = abilitiesCamera.m_easeInTimeForSimilarBounds;
 							}
-							else if (!_0009)
+							else if (!m_playOrderGroupChanged)
 							{
 								num16 = abilitiesCamera.m_easeInTimeWithinGroup;
 							}
 						}
 						goto IL_106f;
 					}
-					if (playOrderIndex < _0011_somePlayOrderIndex)
+					if (m_playOrderIndex < m_firstNonCinematicPlayOrderIndex)
 					{
-						for (int l = 0; l < animations.Count; l++)
+						for (int l = 0; l < m_actorAnimations.Count; l++)
 						{
-							ActorAnimation actorAnimation4 = animations[l];
+							ActorAnimation actorAnimation4 = m_actorAnimations[l];
 							if (actorAnimation4 == null)
 							{
 								continue;
 							}
 							if (actorAnimation4.State == ActorAnimation.PlaybackState.A)
 							{
-								if (actorAnimation4.playOrderIndex == playOrderIndex)
+								if (actorAnimation4.playOrderIndex == m_playOrderIndex)
 								{
-									actorAnimation4.Play(_001D);
-									_0017 = 0f;
-									_000C = false;
+									actorAnimation4.Play(turn);
+									m_timeSinceActorAnimationPlayed = 0f;
+									m_loggedWarningForInKnockdownAnim = false;
 								}
 							}
 						}
 					}
-					else if (!_0002)
+					else if (!m_firedMoveStartEvent)
 					{
-						float num17 = Mathf.Max(0.8f, maxCamStartDelay);
-						if (evadeStartTime < 0f)
+						float num17 = Mathf.Max(0.8f, m_maxCamStartDelay);
+						if (m_evasionMoveStartDesiredTime < 0f)
 						{
-							evadeStartTime = GameTime.time + num17;
+							m_evasionMoveStartDesiredTime = GameTime.time + num17;
 							if (TheatricsManager.DebugLog)
 							{
-								TheatricsManager.LogForDebugging("Setting evade start time: " + evadeStartTime + " maxEvadeStartDelay: " + num17);
+								TheatricsManager.LogForDebugging("Setting evade start time: " + m_evasionMoveStartDesiredTime + " maxEvadeStartDelay: " + num17);
 							}
 						}
-						float num18 = evadeStartTime;
-						for (int m = 0; m < animations.Count; m++)
+						float num18 = m_evasionMoveStartDesiredTime;
+						for (int m = 0; m < m_actorAnimations.Count; m++)
 						{
-							ActorAnimation actorAnimation5 = animations[m];
+							ActorAnimation actorAnimation5 = m_actorAnimations[m];
 							if (actorAnimation5 == null)
 							{
 								continue;
@@ -795,14 +786,14 @@ namespace Theatrics
 							{
 								continue;
 							}
-							if (actorAnimation5.playOrderIndex != playOrderIndex)
+							if (actorAnimation5.playOrderIndex != m_playOrderIndex)
 							{
 								continue;
 							}
 							int num19;
 							if (Index == AbilityPriority.Evasion)
 							{
-								num19 = (actorAnimation5.IsTauntActivated() ? 1 : 0);
+								num19 = (actorAnimation5.IsCinematicRequested() ? 1 : 0);
 							}
 							else
 							{
@@ -811,12 +802,12 @@ namespace Theatrics
 							bool flag13 = (byte)num19 != 0;
 							if (num18 <= GameTime.time + Mathf.Max(float.Epsilon, GameTime.smoothDeltaTime) + actorAnimation5.GetCamStartEventDelay(flag13))
 							{
-								actorAnimation5.Play(_001D);
-								_0017 = 0f;
-								_000C = false;
-								if (_0003 == 0f)
+								actorAnimation5.Play(turn);
+								m_timeSinceActorAnimationPlayed = 0f;
+								m_loggedWarningForInKnockdownAnim = false;
+								if (m_firstNonCinematicEvadeAbilityPlayedTime == 0f)
 								{
-									_0003 = GameTime.time;
+									m_firstNonCinematicEvadeAbilityPlayedTime = GameTime.time;
 								}
 							}
 							if (actorAnimation5._0020_000E_IsActorVisibleForAbilityCast())
@@ -826,9 +817,9 @@ namespace Theatrics
 						}
 						if (num18 > 0f && num18 <= GameTime.time)
 						{
-							for (int n = 0; n < animations.Count; n++)
+							for (int n = 0; n < m_actorAnimations.Count; n++)
 							{
-								ActorAnimation actorAnimation6 = animations[n];
+								ActorAnimation actorAnimation6 = m_actorAnimations[n];
 								if (actorAnimation6.GetAbility() != null)
 								{
 									actorAnimation6.GetAbility().OnEvasionMoveStartEvent(actorAnimation6.Actor);
@@ -843,7 +834,7 @@ namespace Theatrics
 							{
 								actors[num21].ForceUpdateIsVisibleToClientCache();
 							}
-							_0002 = true;
+							m_firedMoveStartEvent = true;
 							GameEventManager.Get().FireEvent(GameEventManager.EventType.TheatricsEvasionMoveStart, null);
 							for (int num22 = 0; num22 < actors.Count; num22++)
 							{
@@ -851,7 +842,7 @@ namespace Theatrics
 							}
 							if (TheatricsManager.DebugLog)
 							{
-								TheatricsManager.LogForDebugging("Evasion Move Start, MaxCamStartDelay= " + maxCamStartDelay);
+								TheatricsManager.LogForDebugging("Evasion Move Start, MaxCamStartDelay= " + m_maxCamStartDelay);
 							}
 						}
 					}
@@ -859,15 +850,15 @@ namespace Theatrics
 					IL_12cd:
 					return true;
 					IL_106f:
-					float num23 = (!(_000B <= 0f)) ? (_000B + num16) : 0f;
-					for (int num24 = 0; num24 < animations.Count; num24++)
+					float num23 = (!(m_cameraTargetPlayOrderIndexTime <= 0f)) ? (m_cameraTargetPlayOrderIndexTime + num16) : 0f;
+					for (int num24 = 0; num24 < m_actorAnimations.Count; num24++)
 					{
-						ActorAnimation actorAnimation7 = animations[num24];
+						ActorAnimation actorAnimation7 = m_actorAnimations[num24];
 						if (actorAnimation7 == null)
 						{
 							continue;
 						}
-						if (actorAnimation7.State != 0 || actorAnimation7.playOrderIndex != playOrderIndex)
+						if (actorAnimation7.State != 0 || actorAnimation7.playOrderIndex != m_playOrderIndex)
 						{
 							continue;
 						}
@@ -892,11 +883,11 @@ namespace Theatrics
 						}
 						if (TheatricsManager.DebugLog)
 						{
-							TheatricsManager.LogForDebugging(string.Concat("Queued ", actorAnimation7, "\ngroup ", actorAnimation7.groupIndex, " camStartEventDelay: ", num26, " easeInTime: ", num16, " camera bounds similar as last: ", _0014, " phase ", Index.ToString()));
+							TheatricsManager.LogForDebugging(string.Concat("Queued ", actorAnimation7, "\ngroup ", actorAnimation7.groupIndex, " camStartEventDelay: ", num26, " easeInTime: ", num16, " camera bounds similar as last: ", m_cameraBoundsSameAsLast, " phase ", Index.ToString()));
 						}
-						actorAnimation7.Play(_001D);
-						_0017 = 0f;
-						_000C = false;
+						actorAnimation7.Play(turn);
+						m_timeSinceActorAnimationPlayed = 0f;
+						m_loggedWarningForInKnockdownAnim = false;
 						_001E = ((!(actorAnimation7.Actor != null)) ? (-1) : actorAnimation7.Actor.ActorIndex);
 						if (Index == AbilityPriority.Evasion)
 						{
@@ -906,7 +897,7 @@ namespace Theatrics
 						{
 							if (!actorAnimation7.GetSymbol0013())
 							{
-								FireEventTheatricsAbilityHighlightStart(new List<ActorAnimation>
+								StartAbilityHighlightForAnimEntries(new List<ActorAnimation>
 								{
 									actorAnimation7
 								});

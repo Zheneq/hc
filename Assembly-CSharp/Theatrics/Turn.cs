@@ -72,7 +72,7 @@ namespace Theatrics
 			if (CurrentPhase >= 0 && CurrentPhase < Phases.Count)
 			{
 				TheatricsManager.Get().SetAnimatorParamOnAllActors("DecisionPhase", false);
-				Phases[CurrentPhase]._001D_000E();
+				Phases[CurrentPhase].Init();
 					
 			}
 			List<ActorData> actors = GameFlowData.Get().GetActors();
@@ -85,7 +85,7 @@ namespace Theatrics
 						actorData.GetHitPointsToDisplay() <= 0 &&
 						!actorData.IsInRagdoll())
 					{
-						if (GameplayData.Get().m_resolveDamageBetweenAbilityPhases || _0004_FinishedTheatrics(actorData))
+						if (GameplayData.Get().m_resolveDamageBetweenAbilityPhases || IsReadyToRagdoll(actorData))
 						{
 							actorData.DoVisualDeath(Sequence.CreateImpulseInfoWithActorForward(actorData));
 						}
@@ -117,7 +117,7 @@ namespace Theatrics
 				Log.Error("Phase index is negative! Code error.");
 				return true;
 			}
-			flag3 = num < Phases.Count && !Phases[num]._001C(this, ref flag, ref flag2);
+			flag3 = num < Phases.Count && !Phases[num].Update(this, ref flag, ref flag2);
 			bool resolutionTimedOut = TimeInPhase >= GameFlowData.Get().m_resolveTimeoutLimit * 0.8f;
 			if (resolutionTimedOut)
 			{
@@ -172,9 +172,9 @@ namespace Theatrics
 			{
 				return;
 			}
-			for (int i = 0; i < phase.animations.Count; i++)
+			for (int i = 0; i < phase.m_actorAnimations.Count; i++)
 			{
-				ActorAnimation actorAnimation = phase.animations[i];
+				ActorAnimation actorAnimation = phase.m_actorAnimations[i];
 
 				if (actorAnimation.Actor == animatedActor &&
 					actorAnimation.PlaybackState2OrLater_zq &&
@@ -210,9 +210,9 @@ namespace Theatrics
 					int num = 0;
 					while (true)
 					{
-						if (num < phase.animations.Count)
+						if (num < phase.m_actorAnimations.Count)
 						{
-							ActorAnimation actorAnimation = phase.animations[num];
+							ActorAnimation actorAnimation = phase.m_actorAnimations[num];
 							if (actorAnimation.Actor == seq.Caster)
 							{
 								if (actorAnimation.HasSameSequenceSource(seq))
@@ -272,7 +272,7 @@ namespace Theatrics
 					}
 					while (true)
 					{
-						if (_0004_FinishedTheatrics(target))
+						if (IsReadyToRagdoll(target))
 						{
 							while (true)
 							{
@@ -323,9 +323,9 @@ namespace Theatrics
 						continue;
 					}
 				}
-				for (int j = 0; j < phase.animations.Count; j++)
+				for (int j = 0; j < phase.m_actorAnimations.Count; j++)
 				{
-					ActorAnimation actorAnimation = phase.animations[j];
+					ActorAnimation actorAnimation = phase.m_actorAnimations[j];
 					if (_000E >= 0)
 					{
 						if (actorAnimation.playOrderIndex != _000E)
@@ -337,7 +337,7 @@ namespace Theatrics
 					{
 						continue;
 					}
-					if (actorAnimation._000C_000E())
+					if (actorAnimation.NotInLoS())
 					{
 						continue;
 					}
@@ -398,7 +398,7 @@ namespace Theatrics
 		{
 			if (phase >= AbilityPriority.Prep_Defense && (int)phase < Phases.Count)
 			{
-				return Phases[(int)phase].animations.Count > 0;
+				return Phases[(int)phase].m_actorAnimations.Count > 0;
 			}
 			return false;
 		}
@@ -407,7 +407,7 @@ namespace Theatrics
 		{
 			if (phase >= AbilityPriority.Prep_Defense && (int)phase < Phases.Count)
 			{
-				return Phases[(int)phase]._001C_HasUnfinishedAnimations();
+				return Phases[(int)phase].HasUnfinishedActorAnimation();
 			}
 			return false;
 		}
@@ -447,7 +447,7 @@ namespace Theatrics
 			}
 			if (CurrentPhase > 0 && CurrentPhase < Phases.Count)
 			{
-				List<ActorAnimation> animations = Phases[CurrentPhase].animations;
+				List<ActorAnimation> animations = Phases[CurrentPhase].m_actorAnimations;
 				for (int i = 0; i < animations.Count; i++)
 				{
 					ActorAnimation actorAnimation = animations[i];
@@ -462,7 +462,7 @@ namespace Theatrics
 			return true;
 		}
 
-		internal bool _0004_FinishedTheatrics(ActorData actor, int deltaHP = 0, int seqSourceRootID = -1)
+		internal bool IsReadyToRagdoll(ActorData actor, int deltaHP = 0, int seqSourceRootID = -1)
 		{
 			if (actor.GetHitPointsToDisplay() + deltaHP <= 0 &&
 				!actor.IsInRagdoll() &&
@@ -475,11 +475,11 @@ namespace Theatrics
 				{
 					if (num >= 0 && num < this.Phases.Count)
 					{
-						if (num == 5 && this.Phases[num]._001D_000E_IsKnockedBack(actor))
+						if (num == 5 && this.Phases[num].HasKnockbackMovementHitsRemaining(actor))
 						{
 							return false;
 						}
-						List<ActorAnimation> animations = this.Phases[num].animations;
+						List<ActorAnimation> animations = this.Phases[num].m_actorAnimations;
 						for (int i = 0; i < animations.Count; i++)
 						{
 							ActorAnimation actorAnimation = animations[i];
@@ -491,7 +491,7 @@ namespace Theatrics
 								}
 							}
 						}
-						if (num > num2 && this.Phases[num].IsParticipant(actor))
+						if (num > num2 && this.Phases[num].HasHitOnActor(actor))
 						{
 							return false;
 						}
@@ -516,7 +516,7 @@ namespace Theatrics
 		{
 			if (CurrentPhase >= 0 && CurrentPhase < Phases.Count)
 			{
-				List<ActorAnimation> animations = Phases[CurrentPhase].animations;
+				List<ActorAnimation> animations = Phases[CurrentPhase].m_actorAnimations;
 				for (int i = 0; i < animations.Count; i++)
 				{
 					if (animations[i].cinematicCamera &&
