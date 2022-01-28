@@ -86,7 +86,7 @@ namespace Theatrics
 			}
 		}
 
-		internal bool _001C(ActorData actor)
+		internal bool ClientNeedToWaitBeforeKnockbackMove(ActorData actor)
 		{
 			bool result = false;
 			if (animations != null)

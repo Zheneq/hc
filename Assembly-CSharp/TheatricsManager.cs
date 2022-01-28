@@ -8,43 +8,31 @@ using UnityEngine.SceneManagement;
 public class TheatricsManager : NetworkBehaviour, IGameEventListener
 {
 	public bool m_allowAbilityAnimationInterruptHitReaction = true;
-
 	public int m_numClientPhaseTimeoutsUntilForceDisconnect = 3;
 
 	public const float c_timeoutAdvancePhaseSlowClient = 1.3f;
-
 	public const float c_maxPhaseAdvanceTimeoutDuration = 45f;
 
 	[Separator("Ragdoll Force Settings", true)]
 	public float m_ragdollImpactForce = 15f;
-
 	[Header("-- Whether to apply force only to single joint")]
 	public bool m_ragdollApplyForceOnSingleJointOnly;
 
 	private Turn m_turn = new Turn();
-
 	private AbilityPriority m_phaseToUpdate = AbilityPriority.INVALID;
-
 	private int m_turnToUpdate;
-
 	private HashSet<long> m_playerConnectionIdsInUpdatePhase = new HashSet<long>();
-
 	private int m_numConnectionIdsAddedForPhase;
-
 	private float m_phaseStartTime;
-
 	private AbilityPriority m_lastPhaseEnded = AbilityPriority.INVALID;
-
 	private static TheatricsManager s_instance;
 
 	private SerializeHelper m_serializeHelper = new SerializeHelper();
-
-	internal string m_debugSerializationInfoStr = string.Empty;
+	internal string m_debugSerializationInfoStr = "";
 
 	internal const string c_actorAnimDebugHeader = "<color=cyan>Theatrics: </color>";
 
 	internal static bool DebugLog => false;
-
 	internal static bool TraceTheatricsSerialization => false;
 
 	internal static TheatricsManager Get()
@@ -54,12 +42,12 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 
 	public static float GetRagdollImpactForce()
 	{
-		return s_instance?.m_ragdollImpactForce ?? 15f;
+		return s_instance != null ? s_instance.m_ragdollImpactForce : 15f;
 	}
 
 	public static bool RagdollOnlyApplyForceAtSingleJoint()
 	{
-		return s_instance?.m_ragdollApplyForceOnSingleJointOnly ?? false;
+		return s_instance != null && s_instance.m_ragdollApplyForceOnSingleJointOnly;
 	}
 
 	protected void Awake()
@@ -128,16 +116,14 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			{
 				Player key = GameFlow.Get().playerDetails.Keys.ElementAt(i);
 				PlayerDetails playerDetails = GameFlow.Get().playerDetails[key];
-				if (playerDetails.m_disconnected ||
-					playerDetails.m_gameObjects == null ||
-					playerDetails.m_gameObjects.Count <= 0 ||
-					!playerDetails.IsHumanControlled ||
-					playerDetails.IsSpectator)
+				if (!playerDetails.m_disconnected
+					&& playerDetails.m_gameObjects != null
+					&& playerDetails.m_gameObjects.Count > 0
+					&& playerDetails.IsHumanControlled
+					&& !playerDetails.IsSpectator)
 				{
-					continue;
+					m_playerConnectionIdsInUpdatePhase.Add(playerDetails.m_accountId);
 				}
-
-				m_playerConnectionIdsInUpdatePhase.Add(playerDetails.m_accountId);
 			}
 		}
 		else if (GameFlowData.Get().activeOwnedActorData != null)
@@ -164,7 +150,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		int id = (int)AbilityPriority.Combat_Knockback;
 		if (m_turn.Phases.Count > id && m_turn.Phases[id] != null)
 		{
-			return m_turn.Phases[id]._001C(actor);
+			return m_turn.Phases[id].ClientNeedToWaitBeforeKnockbackMove(actor);
 		}
 		return false;
 	}
@@ -218,15 +204,15 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		{
 			return false;
 		}
-		int value = m_turnToUpdate;
-		stream.Serialize(ref value);
-		bool updatedTurn = value != m_turnToUpdate;
-		m_turnToUpdate = value;
+		int turnToUpdate = m_turnToUpdate;
+		stream.Serialize(ref turnToUpdate);
+		bool updatedTurn = turnToUpdate != m_turnToUpdate;
+		m_turnToUpdate = turnToUpdate;
 
-		int value2 = (int)m_phaseToUpdate;
-		stream.Serialize(ref value2);
-		bool updatedPhase = m_phaseToUpdate != (AbilityPriority)value2;
-		m_phaseToUpdate = (AbilityPriority)value2;
+		int phaseToUpdate = (int)m_phaseToUpdate;
+		stream.Serialize(ref phaseToUpdate);
+		bool updatedPhase = m_phaseToUpdate != (AbilityPriority)phaseToUpdate;
+		m_phaseToUpdate = (AbilityPriority)phaseToUpdate;
 
 		if (updatedTurn || updatedPhase)
 		{
@@ -282,25 +268,23 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				for (int i = 0; i < actors.Count; i++)
 				{
 					ActorData actorData = actors[i];
-					if (!actorData.GetActorMovement().AmMoving())
+					if (actorData.GetActorMovement().AmMoving())
 					{
-						continue;
+						bool travelBoardSquareVisible = clientFog.IsVisible(actorData.GetTravelBoardSquare());
+						anyHiddenMovement = anyHiddenMovement || !travelBoardSquareVisible;
+						anyVisibleMovement = anyVisibleMovement || travelBoardSquareVisible;
 					}
-					bool travelBoardSquareVisible = clientFog.IsVisible(actorData.GetTravelBoardSquare());
-					anyHiddenMovement = anyHiddenMovement || !travelBoardSquareVisible;
-					anyVisibleMovement = anyVisibleMovement || travelBoardSquareVisible;
 				}
-				if (anyHiddenMovement && !anyVisibleMovement)
+				if (anyHiddenMovement
+					&& !anyVisibleMovement
+					&& (SinglePlayerManager.Get() == null || SinglePlayerManager.Get().EnableHiddenMovementText()))
 				{
-					if (SinglePlayerManager.Get() == null || SinglePlayerManager.Get().EnableHiddenMovementText())
-					{
-						InterfaceManager.Get().DisplayAlert(StringUtil.TR("HiddenMovement", "Global"), Color.white);
-					}
+					InterfaceManager.Get().DisplayAlert(StringUtil.TR("HiddenMovement", "Global"), Color.white);
 				}
 			}
 		}
-		if (ServerClientUtils.GetCurrentActionPhase() == ActionBufferPhase.Movement ||
-			ServerClientUtils.GetCurrentActionPhase() == ActionBufferPhase.MovementWait)
+		if (ServerClientUtils.GetCurrentActionPhase() == ActionBufferPhase.Movement
+			|| ServerClientUtils.GetCurrentActionPhase() == ActionBufferPhase.MovementWait)
 		{
 			SetAnimatorParamOnAllActors("DecisionPhase", true);
 		}
@@ -319,22 +303,20 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 		foreach (ActorData actor in GameFlowData.Get().GetActors())
 		{
-			if (!actor.IsActorInvisibleForRespawn())
+			if (actor.IsActorInvisibleForRespawn())
 			{
-				continue;
+				ActorModelData actorModelData = actor.GetActorModelData();
+				if (actorModelData != null)
+				{
+					actor.ShowRespawnFlare(null, true);
+					if (localPlayerData.GetTeamViewing() == actor.GetTeam()
+						|| FogOfWar.GetClientFog().IsVisible(actor.CurrentBoardSquare))
+					{
+						actor.GetActorVFX().ShowOnRespawnVfx();
+					}
+					actorModelData.EnableRendererAndUpdateVisibility();
+				}
 			}
-			ActorModelData actorModelData = actor.GetActorModelData();
-			if (actorModelData == null)
-			{
-				continue;
-			}
-			actor.ShowRespawnFlare(null, true);
-			if (localPlayerData.GetTeamViewing() == actor.GetTeam() ||
-				FogOfWar.GetClientFog().IsVisible(actor.CurrentBoardSquare))
-			{
-				actor.GetActorVFX().ShowOnRespawnVfx();
-			}
-			actorModelData.EnableRendererAndUpdateVisibility();
 		}
 	}
 
@@ -344,11 +326,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		for (int i = 0; i < actors.Count; i++)
 		{
 			ActorData actorData = actors[i];
-			if (actorData == null)
-			{
-				continue;
-			}
-			if (actorData.GetModelAnimator() != null)
+			if (actorData != null && actorData.GetModelAnimator() != null)
 			{
 				actorData.GetModelAnimator().SetBool(paramName, value);
 			}
@@ -380,7 +358,10 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 
 	public void OnAnimationEvent(ActorData animatedActor, Object eventObject, GameObject sourceObject)
 	{
-		m_turn?.OnAnimationEvent(animatedActor, eventObject, sourceObject);
+		if (m_turn != null)
+		{
+			m_turn.OnAnimationEvent(animatedActor, eventObject, sourceObject);
+		}
 	}
 
 	internal void ServerLog(string _001D)
@@ -395,12 +376,12 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 	public bool IsCinematicsRequestedInCurrentPhase(ActorData actor, Ability ability)
 	{
 		int phaseToUpdate = (int)m_phaseToUpdate;
-		if (ability == null ||
-			actor == null ||
-			m_turn == null ||
-			m_turn.Phases == null ||
-			phaseToUpdate <= 0 ||
-			phaseToUpdate >= m_turn.Phases.Count)
+		if (ability == null
+			|| actor == null
+			|| m_turn == null
+			|| m_turn.Phases == null
+			|| phaseToUpdate <= 0
+			|| phaseToUpdate >= m_turn.Phases.Count)
 		{
 			return false;
 		}
@@ -409,10 +390,10 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		for (int i = 0; i < phase.animations.Count; i++)
 		{
 			ActorAnimation actorAnimation = phase.animations[i];
-			if (actorAnimation.Actor == actor &&
-				actorAnimation.GetAbility() != null &&
-				actorAnimation.GetAbility().GetType() == ability.GetType() &&
-				actorAnimation.IsTauntActivated())
+			if (actorAnimation.Actor == actor
+				&& actorAnimation.GetAbility() != null
+				&& actorAnimation.GetAbility().GetType() == ability.GetType()
+				&& actorAnimation.IsTauntActivated())
 			{
 				return true;
 			}
@@ -430,9 +411,9 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 		for (BoardSquarePathInfo boardSquarePathInfo = path; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
-			if (activeOwnedActorData == null ||
-				activeOwnedActorData.GetTeam() == mover.GetTeam() ||
-				clientFog.IsVisible(boardSquarePathInfo.square))
+			if (activeOwnedActorData == null
+				|| activeOwnedActorData.GetTeam() == mover.GetTeam()
+				|| clientFog.IsVisible(boardSquarePathInfo.square))
 			{
 				bound.Encapsulate(boardSquarePathInfo.square.CameraBounds);
 			}
@@ -469,16 +450,13 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		for (int i = 0; i < phase2.animations.Count; i++)
 		{
 			ActorAnimation actorAnimation = phase2.animations[i];
-			if (actorAnimation.HitActorsToDeltaHP == null ||
-				!actorAnimation.HitActorsToDeltaHP.ContainsKey(actor) ||
-				actorAnimation.HitActorsToDeltaHP[actor] >= 0 ||
-				num >= 0 && actorAnimation.playOrderIndex >= num)
+			if (actorAnimation.HitActorsToDeltaHP != null
+				&& actorAnimation.HitActorsToDeltaHP.ContainsKey(actor)
+				&& actorAnimation.HitActorsToDeltaHP[actor] < 0
+				&& (num < 0 || actorAnimation.playOrderIndex < num))
 			{
-				continue;
+				num = actorAnimation.playOrderIndex;
 			}
-
-			num = actorAnimation.playOrderIndex;
-			// TODO: Could a return or min be missing here?
 		}
 		return num;
 	}
@@ -498,19 +476,18 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		
 		for (int num = 0; num < m_turn.Phases.Count; num++)
 		{
-			string lineActorAnimsNotDone = string.Empty;
+			string lineActorAnimsNotDone = "";
 			Phase phase = m_turn.Phases[num];
 			for (int i = 0; i < phase.animations.Count; i++)
 			{
 				ActorAnimation actorAnimation = phase.animations[i];
-				if (actorAnimation.State == ActorAnimation.PlaybackState.F)
+				if (actorAnimation.State != ActorAnimation.PlaybackState.F)
 				{
-					continue;
-				}
-				lineActorAnimsNotDone += "\t" + actorAnimation.ToString() + "\n";
-				if (!actorsNotDone.Contains(actorAnimation.Actor))
-				{
-					actorsNotDone.Add(actorAnimation.Actor);
+					lineActorAnimsNotDone += "\t" + actorAnimation.ToString() + "\n";
+					if (!actorsNotDone.Contains(actorAnimation.Actor))
+					{
+						actorsNotDone.Add(actorAnimation.Actor);
+					}
 				}
 			}
 			if (lineActorAnimsNotDone.Length > 0)
