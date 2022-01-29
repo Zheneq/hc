@@ -165,7 +165,7 @@ namespace Theatrics
 			return m_ability;
 		}
 
-		private bool StartFinalPlaybackState()
+		private bool InitNonSerializedData()
 		{
 			if (Caster == null)
 			{
@@ -193,7 +193,7 @@ namespace Theatrics
 			sbyte _groupIndex = m_playOrderGroupIndex;
 			Vector3 center = m_bounds.center;
 			Vector3 size = m_bounds.size;
-			byte value14 = checked((byte)m_squaresOfInterestX.Count);
+			byte _squaresOfInterestNum = checked((byte)m_squaresOfInterestX.Count);
 			stream.Serialize(ref _animationIndex);
 			stream.Serialize(ref _actionType);
 			stream.Serialize(ref _targetPosX);
@@ -227,10 +227,10 @@ namespace Theatrics
 				size.y = 3f;
 				size.z = _sizeZ;
 			}
-			stream.Serialize(ref value14);
+			stream.Serialize(ref _squaresOfInterestNum);
 			if (stream.isReading)
 			{
-				for (int i = 0; i < value14; i++)
+				for (int i = 0; i < _squaresOfInterestNum; i++)
 				{
 					byte value19 = 0;
 					byte value20 = 0;
@@ -242,7 +242,7 @@ namespace Theatrics
 			}
 			else
 			{
-				for (int j = 0; j < value14; j++)
+				for (int j = 0; j < _squaresOfInterestNum; j++)
 				{
 					byte value21 = m_squaresOfInterestX[j];
 					byte value22 = m_squaresOfInterestY[j];
@@ -298,31 +298,20 @@ namespace Theatrics
 					ParentAbilitySeqSource = null;
 				}
 			}
-			int num = HitActorsToDeltaHP?.Count ?? 0;
-			sbyte value25 = checked((sbyte)num);
+			sbyte value25 = checked((sbyte)(HitActorsToDeltaHP?.Count ?? 0));
 			stream.Serialize(ref value25);
-			if (value25 > 0)
+			if (value25 > 0 && HitActorsToDeltaHP == null)
 			{
-				if (HitActorsToDeltaHP == null)
-				{
-					HitActorsToDeltaHP = new Dictionary<ActorData, int>();
-				}
+				HitActorsToDeltaHP = new Dictionary<ActorData, int>();
 			}
 			if (stream.isWriting && value25 > 0)
 			{
 				foreach (KeyValuePair<ActorData, int> current in HitActorsToDeltaHP)
 				{
-					int s_invalidActorIndex2;
-					if (current.Key == null)
-					{
-						s_invalidActorIndex2 = ActorData.s_invalidActorIndex;
-					}
-					else
-					{
-						s_invalidActorIndex2 = current.Key.ActorIndex;
-					}
-					sbyte value26 = (sbyte)s_invalidActorIndex2;
-					if (value26 != ActorData.s_invalidActorIndex)
+					sbyte value26 = (sbyte)((current.Key == null)
+						? ActorData.s_invalidActorIndex
+						: current.Key.ActorIndex);
+					if ((int)value26 != ActorData.s_invalidActorIndex)
 					{
 						sbyte value27 = 0;
 						if (current.Value > 0)
@@ -357,7 +346,7 @@ namespace Theatrics
 					}
 				}
 			}
-			StartFinalPlaybackState();
+			InitNonSerializedData();
 		}
 
 		internal bool IsCinematicRequested()
@@ -759,38 +748,40 @@ namespace Theatrics
 					}
 					break;
 				case PlaybackState.PlayingAnimation:
-					if (isPlayingAttackAnim && !m_camEndEventReceived)
+					if (!isPlayingAttackAnim || m_camEndEventReceived)
 					{
-						break;
+						PlayState = PlaybackState.WaitingForTargetHits;
+						UpdateLastEventTimeForClientResolution();
 					}
-					PlayState = PlaybackState.WaitingForTargetHits;
-					UpdateLastEventTimeForClientResolution();
 					break;
 				case PlaybackState.ReleasedFocus:
 					return false;
 			}
-			if (!pathDone && !m_visibleToClient)
+			if (!pathDone
+				&& !m_visibleToClient
+				&& (actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Charge)
+					|| actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Knockback)
+					|| actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Flight)))
 			{
-				if (actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Charge) ||
-					actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Knockback) ||
-					actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Flight))
+				m_visibleToClient = FogOfWar.GetClientFog() != null
+					&& FogOfWar.GetClientFog().IsVisible(Caster.GetTravelBoardSquare());
+				if (m_visibleToClient)
 				{
-					m_visibleToClient = FogOfWar.GetClientFog()?.IsVisible(Caster.GetTravelBoardSquare()) ?? false;
-					if (m_visibleToClient)
+					Bounds bound = CameraManager.Get().GetTarget();
+					if (turn.m_cameraBoundSetForEvade)
 					{
-						Bounds bound = CameraManager.Get().GetTarget();
-						if (turn.m_cameraBoundSetForEvade)
-						{
-							bound.Encapsulate(m_bounds);
-						}
-						else
-						{
-							bound = m_bounds;
-						}
-						Caster.GetActorMovement()?.EncapsulatePathInBound(ref bound);
-						CameraManager.Get().SetTarget(bound);
-						turn.m_cameraBoundSetForEvade = true;
+						bound.Encapsulate(m_bounds);
 					}
+					else
+					{
+						bound = m_bounds;
+					}
+					if (Caster.GetActorMovement() != null)
+					{
+						Caster.GetActorMovement().EncapsulatePathInBound(ref bound);
+					}
+					CameraManager.Get().SetTarget(bound);
+					turn.m_cameraBoundSetForEvade = true;
 				}
 			}
 			if (!m_notifiedClientKnockbackOnHitsDone
@@ -888,10 +879,11 @@ namespace Theatrics
 						&& !seq.Caster.IsInRagdoll()
 						&& seq.Caster.GetTeam() != target.GetTeam())
 					{
-						GameEventManager.CharacterRagdollHitEventArgs characterRagdollHitEventArgs = new GameEventManager.CharacterRagdollHitEventArgs();
-						characterRagdollHitEventArgs.m_ragdollingActor = target;
-						characterRagdollHitEventArgs.m_triggeringActor = seq.Caster;
-						GameEventManager.CharacterRagdollHitEventArgs args = characterRagdollHitEventArgs;
+						GameEventManager.CharacterRagdollHitEventArgs args = new GameEventManager.CharacterRagdollHitEventArgs
+						{
+							m_ragdollingActor = target,
+							m_triggeringActor = seq.Caster
+						};
 						GameEventManager.Get().FireEvent(GameEventManager.EventType.ClientRagdollTriggerHit, args);
 					}
 				}
@@ -931,7 +923,7 @@ namespace Theatrics
 
 		private void UpdateLastEventTimeForClientResolution()
 		{
-			if (ClientResolutionManager.Get())
+			if (ClientResolutionManager.Get() != null)
 			{
 				ClientResolutionManager.Get().UpdateLastEventTime();
 			}
@@ -954,7 +946,9 @@ namespace Theatrics
 		internal int GetOnlyEnemyTargetActorIndex()
 		{
 			int actorIndex = ActorData.s_invalidActorIndex;
-			if (HitActorsToDeltaHP != null && HitActorsToDeltaHP.Count >= 1 && HitActorsToDeltaHP.Count <= 2)
+			if (HitActorsToDeltaHP != null
+				&& HitActorsToDeltaHP.Count >= 1
+				&& HitActorsToDeltaHP.Count <= 2)
 			{
 				for (int i = 0; i < HitActorsToDeltaHP.Count; i++)
 				{
@@ -1051,7 +1045,7 @@ namespace Theatrics
 			{
 				if (NetworkServer.active && !NetworkClient.active)
 				{
-					return string.Concat(new object[8]
+					return string.Concat(new object[]
 					{
 						"\nIn ability animation state for ",
 						Caster.DebugNameString(),
@@ -1091,7 +1085,8 @@ namespace Theatrics
 			}
 			else
 			{
-				return string.Concat(new object[] {
+				return string.Concat(new object[]
+				{
 						"\nIn animation state ",
 						Caster.GetActorModelData().GetCurrentAnimatorStateName(),
 						" for ",
@@ -1127,7 +1122,7 @@ namespace Theatrics
 						", turn: ",
 						GameFlowData.Get().CurrentTurn,
 						"]"
-					});
+				});
 			}
 		}
 
@@ -1149,7 +1144,7 @@ namespace Theatrics
 			return string.Concat(new object[]
 			{
 				"[ActorAnimation: ",
-				(!(Caster == null)) ? Caster.DebugNameString() : "(NULL caster)",
+				Caster == null ? "(NULL caster)" : Caster.DebugNameString(),
 				" ",
 				m_ability == null ? "(NULL ability)" : m_ability.m_abilityName,
 				", animation index: ",
@@ -1166,7 +1161,7 @@ namespace Theatrics
 
 		public string DebugShortName(string colorStr = "")
 		{
-			string text = string.Concat(new string[5]
+			string text = string.Concat(new string[]
 			{
 				"[ActorAnimation: ",
 				Caster == null ? "(NULL caster)" : Caster.DebugNameString(),
