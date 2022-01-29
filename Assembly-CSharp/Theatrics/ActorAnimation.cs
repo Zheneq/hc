@@ -66,7 +66,7 @@ namespace Theatrics
 
 		internal int tauntAnimIndex;
 
-		internal sbyte playOrderIndex;
+		internal sbyte m_playOrderIndex;
 
 		internal sbyte groupIndex;
 
@@ -138,7 +138,7 @@ namespace Theatrics
 			private set;
 		}
 
-		internal ActorData Actor
+		internal ActorData Caster
 		{
 			get
 			{
@@ -225,22 +225,22 @@ namespace Theatrics
 					if (value == PlaybackState.C)
 					{
 						int techPointRewardForInteraction = AbilityUtils.GetTechPointRewardForInteraction(ability, AbilityInteractionType.Cast, true);
-						techPointRewardForInteraction = AbilityUtils.CalculateTechPointsForTargeter(Actor, ability, techPointRewardForInteraction);
+						techPointRewardForInteraction = AbilityUtils.CalculateTechPointsForTargeter(Caster, ability, techPointRewardForInteraction);
 						if (techPointRewardForInteraction > 0)
 						{
-							Actor.AddCombatText(techPointRewardForInteraction.ToString(), string.Empty, CombatTextCategory.TP_Recovery, BuffIconToDisplay.None);
+							Caster.AddCombatText(techPointRewardForInteraction.ToString(), string.Empty, CombatTextCategory.TP_Recovery, BuffIconToDisplay.None);
 							if (ClientResolutionManager.Get().IsInResolutionState())
 							{
-								Actor.ClientUnresolvedTechPointGain += techPointRewardForInteraction;
+								Caster.ClientUnresolvedTechPointGain += techPointRewardForInteraction;
 							}
 						}
 						if (ability.GetModdedCost() > 0)
 						{
-							if (Actor.ReservedTechPoints > 0)
+							if (Caster.ReservedTechPoints > 0)
 							{
-								int a = Actor.ClientReservedTechPoints - ability.GetModdedCost();
-								a = Mathf.Max(a, -Actor.ReservedTechPoints);
-								Actor.ClientReservedTechPoints = a;
+								int a = Caster.ClientReservedTechPoints - ability.GetModdedCost();
+								a = Mathf.Max(a, -Caster.ReservedTechPoints);
+								Caster.ClientReservedTechPoints = a;
 							}
 						}
 					}
@@ -256,9 +256,9 @@ namespace Theatrics
 						goto IL_01c8;
 					}
 				}
-				if (Actor != null)
+				if (Caster != null)
 				{
-					Actor.CurrentlyVisibleForAbilityCast = false;
+					Caster.CurrentlyVisibleForAbilityCast = false;
 				}
 				goto IL_01c8;
 				IL_01c8:
@@ -266,7 +266,7 @@ namespace Theatrics
 			}
 		}
 
-		internal bool PlaybackState2OrLater_zq => State >= PlaybackState.C;
+		internal bool Played => State >= PlaybackState.C;
 
 		internal ActorAnimation(Turn turn)
 		{
@@ -280,7 +280,7 @@ namespace Theatrics
 
 		private bool StartFinalPlaybackState()
 		{
-			if (Actor == null)
+			if (Caster == null)
 			{
 				Log.Error("Theatrics: can't start {0} since the actor can no longer be found. Was the actor destroyed during resolution?", this);
 				State = PlaybackState.CantBeStarted;
@@ -295,14 +295,14 @@ namespace Theatrics
 			sbyte _actionType = (sbyte)actionType;
 			float _targetPosX = targetPos.x;
 			float _targetPosZ = targetPos.z;
-			sbyte _actorIndex = (sbyte)(Actor?.ActorIndex ?? ActorData.s_invalidActorIndex);
+			sbyte _actorIndex = (sbyte)(Caster?.ActorIndex ?? ActorData.s_invalidActorIndex);
 			bool _cinematicCamera = cinematicCamera;
 			sbyte _tauntNumber = (sbyte)tauntNumber;
 			bool value8 = _0013;
 			bool value9 = _0018;
 			bool _reveal = _0009_Reveal;
 			bool value11 = _0015;
-			sbyte _playOrderIndex = playOrderIndex;
+			sbyte _playOrderIndex = m_playOrderIndex;
 			sbyte _groupIndex = groupIndex;
 			Vector3 center = Bound.center;
 			Vector3 size = Bound.size;
@@ -375,11 +375,11 @@ namespace Theatrics
 			_0018 = value9;
 			_0009_Reveal = _reveal;
 			_0015 = value11;
-			playOrderIndex = _playOrderIndex;
+			m_playOrderIndex = _playOrderIndex;
 			groupIndex = _groupIndex;
 			Bound = new Bounds(center, size);
 			actionType = (AbilityData.ActionType)_actionType;
-			ability = ((!(Actor == null)) ? Actor.GetAbilityData().GetAbilityOfActionType(actionType) : null);
+			ability = ((!(Caster == null)) ? Caster.GetAbilityData().GetAbilityOfActionType(actionType) : null);
 			if (SeqSource == null)
 			{
 				SeqSource = new SequenceSource();
@@ -488,7 +488,7 @@ namespace Theatrics
 			return tauntNumber > 0;
 		}
 
-		internal bool GetSymbol0013()
+		internal bool ShouldIgnoreCameraFraming()
 		{
 			return _0013;
 		}
@@ -517,19 +517,19 @@ namespace Theatrics
 
 		internal bool _0020_000E_IsActorVisibleForAbilityCast()
 		{
-			return !Actor.IsDead() && (_0009_Reveal || cinematicCamera);
+			return !Caster.IsDead() && (_0009_Reveal || cinematicCamera);
 		}
 
 		internal bool NotInLoS()
 		{
 			FogOfWar clientFog = FogOfWar.GetClientFog();
-			ActorStatus actorStatus = Actor.GetActorStatus();
+			ActorStatus actorStatus = Caster.GetActorStatus();
 			bool flag;
 			if (actorStatus != null && actorStatus.HasStatus(StatusType.Revealed))
 			{
 				flag = true;
 			}
-			else if (!Actor.VisibleTillEndOfPhase && !Actor.CurrentlyVisibleForAbilityCast)
+			else if (!Caster.VisibleTillEndOfPhase && !Caster.CurrentlyVisibleForAbilityCast)
 			{
 				flag = _0020_000E_IsActorVisibleForAbilityCast();
 			}
@@ -546,7 +546,7 @@ namespace Theatrics
 				if (NetworkClient.active &&
 					GameFlowData.Get() != null &&
 					GameFlowData.Get().LocalPlayerData != null &&
-					Actor.IsNeverVisibleTo(GameFlowData.Get().LocalPlayerData))
+					Caster.IsNeverVisibleTo(GameFlowData.Get().LocalPlayerData))
 				{
 					return true;
 				}
@@ -558,7 +558,7 @@ namespace Theatrics
 						return false;
 					}
 				}
-				ActorMovement actorMovement = Actor.GetActorMovement();
+				ActorMovement actorMovement = Caster.GetActorMovement();
 				if ((bool)actorMovement && actorMovement.FindIsVisibleToClient())
 				{
 					return false;
@@ -582,7 +582,7 @@ namespace Theatrics
 			return false;
 		}
 
-		internal bool HasSameSequenceSource(Sequence sequence)
+		internal bool TriggeredSequence(Sequence sequence)
 		{
 			return sequence != null && sequence.Source == SeqSource;
 		}
@@ -604,7 +604,7 @@ namespace Theatrics
 			return flag;
 		}
 
-		internal bool _0014_000E_NotFinished()
+		internal bool UpdateNotFinished()
 		{
 			return State != PlaybackState.CantBeStarted && State != PlaybackState.ReleasedFocus;
 		}
@@ -675,7 +675,7 @@ namespace Theatrics
 			{
 				int count = HitActorsToDeltaHP.Count;
 				int num;
-				if (HitActorsToDeltaHP.ContainsKey(Actor))
+				if (HitActorsToDeltaHP.ContainsKey(Caster))
 				{
 					num = 1;
 				}
@@ -717,14 +717,14 @@ namespace Theatrics
 			{
 				if (cinematicCamera)
 				{
-					Actor.TurnToPositionInstant(targetPos);
+					Caster.TurnToPositionInstant(targetPos);
 				}
 				else
 				{
-					Actor.TurnToPosition(targetPos);
+					Caster.TurnToPosition(targetPos);
 				}
 			}
-			Animator modelAnimator = Actor.GetModelAnimator();
+			Animator modelAnimator = Caster.GetModelAnimator();
 			float num2;
 			if (modelAnimator != null)
 			{
@@ -742,7 +742,7 @@ namespace Theatrics
 							goto IL_0177;
 						}
 					}
-					num2 = Actor.GetActorMovement().FindDistanceToEnd();
+					num2 = Caster.GetActorMovement().FindDistanceToEnd();
 				}
 				goto IL_0177;
 			}
@@ -753,16 +753,16 @@ namespace Theatrics
 			modelAnimator.ResetTrigger(StartDamageReactionHash);
 			goto IL_018f;
 			IL_018f:
-			AbilityData.ActionType actionTypeOfAbility = Actor.GetAbilityData().GetActionTypeOfAbility(ability);
+			AbilityData.ActionType actionTypeOfAbility = Caster.GetAbilityData().GetActionTypeOfAbility(ability);
 			if (AbilityData.IsCard(actionTypeOfAbility))
 			{
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.CardUsed, new GameEventManager.CardUsedArgs
 				{
-					userActor = Actor
+					userActor = Caster
 				});
 				if (HUD_UI.Get() != null)
 				{
-					HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.AddNewAbility(GetAbility(), Actor);
+					HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.AddNewAbility(GetAbility(), Caster);
 				}
 			}
 			else if (!_0015)
@@ -770,7 +770,7 @@ namespace Theatrics
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.AbilityUsed, new GameEventManager.AbilityUseArgs
 				{
 					ability = ability,
-					userActor = Actor
+					userActor = Caster
 				});
 			}
 			if (animationIndex <= 0)
@@ -792,7 +792,7 @@ namespace Theatrics
 			}
 			if (_0020_000E_IsActorVisibleForAbilityCast())
 			{
-				Actor.CurrentlyVisibleForAbilityCast = true;
+				Caster.CurrentlyVisibleForAbilityCast = true;
 			}
 			if (animationIndex <= 0)
 			{
@@ -816,28 +816,28 @@ namespace Theatrics
 					modelAnimator.SetInteger(TauntNumberHash, tauntNumber);
 				}
 				modelAnimator.SetTrigger(StartAttackHash);
-				if (Actor.GetActorModelData().HasAnimatorControllerParamater("TauntAnimIndex"))
+				if (Caster.GetActorModelData().HasAnimatorControllerParamater("TauntAnimIndex"))
 				{
 					modelAnimator.SetInteger(TauntAnimIndexHash, tauntAnimIndex);
 				}
 				if (ability != null)
 				{
-					ability.OnAbilityAnimationRequest(Actor, animationIndex, cinematicCamera, targetPos);
+					ability.OnAbilityAnimationRequest(Caster, animationIndex, cinematicCamera, targetPos);
 				}
 				if (HUD_UI.Get() != null)
 				{
-					HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.AddNewAbility(GetAbility(), Actor);
+					HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.AddNewAbility(GetAbility(), Caster);
 				}
 				if (IsCinematicRequested())
 				{
 					ChatterManager.Get().CancelActiveChatter();
 				}
-				CameraManager.Get().OnAbilityAnimationStart(Actor, animationIndex, targetPos, cinematicCamera, tauntNumber);
-				if (Actor != null && cinematicCamera)
+				CameraManager.Get().OnAbilityAnimationStart(Caster, animationIndex, targetPos, cinematicCamera, tauntNumber);
+				if (Caster != null && cinematicCamera)
 				{
 					if (NetworkClient.active)
 					{
-						Actor.ForceUpdateIsVisibleToClientCache();
+						Caster.ForceUpdateIsVisibleToClientCache();
 					}
 				}
 				if (cinematicCamera)
@@ -884,13 +884,13 @@ namespace Theatrics
 			Animator animator = null;
 			if (NetworkClient.active)
 			{
-				if (Actor == null || Actor.GetActorModelData() == null)
+				if (Caster == null || Caster.GetActorModelData() == null)
 				{
 					State = PlaybackState.CantBeStarted;
 				}
 				if (State != PlaybackState.CantBeStarted)
 				{
-					animator = Actor.GetModelAnimator();
+					animator = Caster.GetModelAnimator();
 					if (animator == null || !animator.enabled && animationIndex > 0)
 					{
 						State = PlaybackState.CantBeStarted;
@@ -901,7 +901,7 @@ namespace Theatrics
 			{
 				return false;
 			}
-			ActorMovement actorMovement = Actor.GetActorMovement();
+			ActorMovement actorMovement = Caster.GetActorMovement();
 			bool actorIsNotMoving = !actorMovement.AmMoving();
 			if (State >= PlaybackState.C && State < PlaybackState.ReleasedFocus)
 			{
@@ -926,11 +926,11 @@ namespace Theatrics
 			{
 				TimedOut = true;
 				Log.Error("Theatrics: animation timed out for {0} {1} after {2} seconds.",
-					Actor.DisplayName,
+					Caster.DisplayName,
 					ability == null ? " animation index " + animationIndex : ability.ToString(),
 					CurrentTimePlaying);
 			}
-			bool isPlayingAttackAnim = animator && Actor.GetActorModelData().IsPlayingAttackAnim(out bool endingAttack);
+			bool isPlayingAttackAnim = animator && Caster.GetActorModelData().IsPlayingAttackAnim(out bool endingAttack);
 			if (isPlayingAttackAnim)
 			{
 				StartedPlayingAbilityAnim = true;
@@ -971,7 +971,7 @@ namespace Theatrics
 				}
 				if (ability != null)
 				{
-					ability.OnAbilityAnimationRequestProcessed(Actor);
+					ability.OnAbilityAnimationRequestProcessed(Caster);
 				}
 				if (State < PlaybackState.ANIMATION_FINISHED)
 				{
@@ -981,7 +981,7 @@ namespace Theatrics
 				no_op_2();
 				if (ClientResolutionManager.Get() != null)
 				{
-					ClientResolutionManager.Get().OnAbilityCast(Actor, ability);
+					ClientResolutionManager.Get().OnAbilityCast(Caster, ability);
 					ClientResolutionManager.Get().UpdateLastEventTime();
 				}
 				break;
@@ -1002,11 +1002,11 @@ namespace Theatrics
 					actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Knockback) ||
 					actorMovement.OnPathType(BoardSquarePathInfo.ConnectionType.Flight))
 				{
-					TravelBoardSquareVisible = FogOfWar.GetClientFog()?.IsVisible(Actor.GetTravelBoardSquare()) ?? false;
+					TravelBoardSquareVisible = FogOfWar.GetClientFog()?.IsVisible(Caster.GetTravelBoardSquare()) ?? false;
 					if (TravelBoardSquareVisible)
 					{
 						Bounds bound = CameraManager.Get().GetTarget();
-						if (turn._0009_HasFocusedAction)
+						if (turn.m_cameraBoundSetForEvade)
 						{
 							bound.Encapsulate(Bound);
 						}
@@ -1014,9 +1014,9 @@ namespace Theatrics
 						{
 							bound = Bound;
 						}
-						Actor.GetActorMovement()?.EncapsulatePathInBound(ref bound);
+						Caster.GetActorMovement()?.EncapsulatePathInBound(ref bound);
 						CameraManager.Get().SetTarget(bound);
-						turn._0009_HasFocusedAction = true;
+						turn.m_cameraBoundSetForEvade = true;
 					}
 				}
 			}
@@ -1026,14 +1026,14 @@ namespace Theatrics
 				flag5 &&
 				State >= PlaybackState.ANIMATION_FINISHED)
 			{
-				ClientKnockbackManager.Get().NotifyOnActorAnimHitsDone(Actor);
+				ClientKnockbackManager.Get().NotifyOnActorAnimHitsDone(Caster);
 				AnimHitsDone = true;
 			}
-			bool flag3 = !NetworkClient.active || _000E_000E <= 0f || GetSymbol0013() || GameTime.time > _000E_000E + 1f;
+			bool flag3 = !NetworkClient.active || _000E_000E <= 0f || ShouldIgnoreCameraFraming() || GameTime.time > _000E_000E + 1f;
 			bool flag42 = !isPlayingAttackAnim || _0001 || animationIndex <= 0;
 			if ((!flag42 || CameraManager.Get().ShotSequence != null || !actorIsNotMoving || !flag5 || !flag3) && !timedOut)
 			{
-				return _0014_000E_NotFinished();
+				return UpdateNotFinished();
 			}
 			AnimationFinished = true;
 			State = PlaybackState.ReleasedFocus;
@@ -1041,16 +1041,16 @@ namespace Theatrics
 			UpdateLastEventTime();
 			if (ability != null)
 			{
-				ability.OnAbilityAnimationReleaseFocus(Actor);
+				ability.OnAbilityAnimationReleaseFocus(Caster);
 			}
-			if (turn.IsReadyToRagdoll(Actor))
+			if (turn.IsReadyToRagdoll(Caster))
 			{
-				Actor.DoVisualDeath(new ActorModelData.ImpulseInfo(Actor.GetLoSCheckPos(), Vector3.up));
+				Caster.DoVisualDeath(new ActorModelData.ImpulseInfo(Caster.GetLoSCheckPos(), Vector3.up));
 			}
 			return false;
 		}
 
-		internal void _000D_000E(ActorData _001D, UnityEngine.Object _000E, GameObject _0012)
+		internal void OnAnimationEvent(ActorData _001D, UnityEngine.Object _000E, GameObject _0012)
 		{
 			if (_0012 != null)
 			{
@@ -1073,7 +1073,7 @@ namespace Theatrics
 			AnimationEventsSeen.Add(_000E.name);
 		}
 
-		internal void _0008_000E(ActorData _001D, UnityEngine.Object _000E, GameObject _0012)
+		internal void OnAnimationEventFromChild(ActorData _001D, UnityEngine.Object _000E, GameObject _0012)
 		{
 			if (!(ParentAbilitySeqSource != null))
 			{
@@ -1086,9 +1086,9 @@ namespace Theatrics
 			}
 		}
 
-		internal bool _000D_000E(Sequence _001D, ActorData _000E, ActorModelData.ImpulseInfo _0012, ActorModelData.RagdollActivation _0015)
+		internal bool OnSequenceHit(Sequence _001D, ActorData _000E, ActorModelData.ImpulseInfo _0012, ActorModelData.RagdollActivation _0015)
 		{
-			if (!HasSameSequenceSource(_001D))
+			if (!TriggeredSequence(_001D))
 			{
 				while (true)
 				{
@@ -1124,7 +1124,7 @@ namespace Theatrics
 				{
 					if (actorModelData.CanPlayDamageReactAnim())
 					{
-						if (turn._001A_AreAnimationsFinishedFor(_000E))
+						if (turn.IsReadyForDamageReaction(_000E))
 						{
 							_000E.PlayDamageReactionAnim(_001D.m_customHitReactTriggerName);
 						}
@@ -1197,7 +1197,7 @@ namespace Theatrics
 
 		internal float GetCamStartEventDelay(bool useTauntCamAltTime)
 		{
-			ActorData actorData = Actor;
+			ActorData actorData = Caster;
 			if (actorData == null || actorData.GetActorModelData() == null)
 			{
 				return 0f;
@@ -1226,11 +1226,11 @@ namespace Theatrics
 							{
 								continue;
 							}
-							if (!(Actor != null))
+							if (!(Caster != null))
 							{
 								continue;
 							}
-							if (Actor.GetTeam() != actorData.GetTeam())
+							if (Caster.GetTeam() != actorData.GetTeam())
 							{
 								if (s_invalidActorIndex != ActorData.s_invalidActorIndex)
 								{
@@ -1239,7 +1239,7 @@ namespace Theatrics
 								}
 								s_invalidActorIndex = actorData.ActorIndex;
 							}
-							else if (actorData != Actor)
+							else if (actorData != Caster)
 							{
 								s_invalidActorIndex = ActorData.s_invalidActorIndex;
 								break;
@@ -1269,7 +1269,7 @@ namespace Theatrics
 					{
 						return ability.RunPriority.CompareTo(rhs.ability.RunPriority);
 					}
-					if (playOrderIndex != rhs.playOrderIndex)
+					if (m_playOrderIndex != rhs.m_playOrderIndex)
 					{
 						while (true)
 						{
@@ -1278,12 +1278,12 @@ namespace Theatrics
 							case 0:
 								break;
 							default:
-								return playOrderIndex.CompareTo(rhs.playOrderIndex);
+								return m_playOrderIndex.CompareTo(rhs.m_playOrderIndex);
 							}
 						}
 					}
-					bool flag = GameFlowData.Get().IsActorDataOwned(Actor);
-					bool flag2 = GameFlowData.Get().IsActorDataOwned(rhs.Actor);
+					bool flag = GameFlowData.Get().IsActorDataOwned(Caster);
+					bool flag2 = GameFlowData.Get().IsActorDataOwned(rhs.Caster);
 					if (!ability.IsFreeAction())
 					{
 						if (!rhs.ability.IsFreeAction())
@@ -1301,9 +1301,9 @@ namespace Theatrics
 									}
 								}
 							}
-							if (Actor.ActorIndex != rhs.Actor.ActorIndex)
+							if (Caster.ActorIndex != rhs.Caster.ActorIndex)
 							{
-								return Actor.ActorIndex.CompareTo(rhs.Actor.ActorIndex);
+								return Caster.ActorIndex.CompareTo(rhs.Caster.ActorIndex);
 							}
 							if (animationIndex != rhs.animationIndex)
 							{
@@ -1368,13 +1368,13 @@ namespace Theatrics
 
 		private void DebugLogHung(Animator animator, bool movementPathDone)
 		{
-			Log.Error("Theatrics: {0} {1} is hung", Actor.DisplayName, GetDebugStringDetails(animator, movementPathDone));
+			Log.Error("Theatrics: {0} {1} is hung", Caster.DisplayName, GetDebugStringDetails(animator, movementPathDone));
 		}
 
 		public string GetDebugStringDetails(Animator animator, bool movementPathDone)
 		{
 			string result = string.Empty;
-			if (animator != null && Actor.GetActorModelData() != null)
+			if (animator != null && Caster.GetActorModelData() != null)
 			{
 				int attack = animator.GetInteger("Attack");
 				bool cover = animator.GetBool("Cover");
@@ -1388,7 +1388,7 @@ namespace Theatrics
 					object[] obj = new object[9]
 					{
 						"\nIn ability animation state for ",
-						Actor.DebugNameString(),
+						Caster.DebugNameString(),
 						" while Damage flag is set (hit react.). Code error, show Chris. debug info: (state: ",
 						State.ToString(),
 						", Attack: ",
@@ -1414,7 +1414,7 @@ namespace Theatrics
 				{
 					object[] array = new object[35];
 					array[0] = "\nIn animation state ";
-					array[1] = Actor.GetActorModelData().GetCurrentAnimatorStateName();
+					array[1] = Caster.GetActorModelData().GetCurrentAnimatorStateName();
 					array[2] = " for ";
 					array[3] = CurrentTimePlaying;
 					array[4] = " sec.\nAfter a request for ability ";
@@ -1445,7 +1445,7 @@ namespace Theatrics
 					array[20] = "].\nDetails [state: ";
 					array[21] = State.ToString();
 					array[22] = ", actor state: ";
-					array[23] = Actor.GetActorTurnSM().CurrentState.ToString();
+					array[23] = Caster.GetActorTurnSM().CurrentState.ToString();
 					array[24] = ", movement path done: ";
 					array[25] = movementPathDone;
 					array[26] = ", ability anim: ";
@@ -1476,7 +1476,7 @@ namespace Theatrics
 					object[] obj5 = new object[8]
 					{
 						"\nIn ability animation state for ",
-						Actor.DebugNameString(),
+						Caster.DebugNameString(),
 						", ability: ",
 						null,
 						null,
@@ -1522,7 +1522,7 @@ namespace Theatrics
 			object[] obj = new object[13]
 			{
 				"[ActorAnimation: ",
-				(!(Actor == null)) ? Actor.DebugNameString() : "(NULL caster)",
+				(!(Caster == null)) ? Caster.DebugNameString() : "(NULL caster)",
 				" ",
 				null,
 				null,
@@ -1548,7 +1548,7 @@ namespace Theatrics
 			obj[4] = ", animation index: ";
 			obj[5] = animationIndex;
 			obj[6] = ", play order index: ";
-			obj[7] = playOrderIndex;
+			obj[7] = m_playOrderIndex;
 			obj[8] = ", group index: ";
 			obj[9] = groupIndex;
 			obj[10] = ", state: ";
@@ -1568,13 +1568,13 @@ namespace Theatrics
 				null
 			};
 			object obj2;
-			if (Actor == null)
+			if (Caster == null)
 			{
 				obj2 = "(NULL caster)";
 			}
 			else
 			{
-				obj2 = Actor.DebugNameString();
+				obj2 = Caster.DebugNameString();
 			}
 			obj[1] = (string)obj2;
 			obj[2] = ", ";

@@ -93,7 +93,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 
 	internal bool AbilityPhaseHasNoAnimations()
 	{
-		return m_turn == null || !m_turn.HasAnimations();
+		return m_turn == null || !m_turn.HasAbilityPhaseAnimation();
 	}
 
 	internal AbilityPriority GetPhaseToUpdate()
@@ -110,7 +110,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			return;
 		}
 		m_playerConnectionIdsInUpdatePhase.Clear();
-		if (m_turn.PhaseHasAnimations(phaseIndex))
+		if (m_turn.HasAbilityPhaseAnimation(phaseIndex))
 		{
 			for (int i = 0; i < GameFlow.Get().playerDetails.Count; i++)
 			{
@@ -131,7 +131,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			m_playerConnectionIdsInUpdatePhase.Add(GameFlowData.Get().activeOwnedActorData.GetPlayerDetails().m_accountId);
 		}
 		m_numConnectionIdsAddedForPhase = m_playerConnectionIdsInUpdatePhase.Count;
-		m_turn.GoToPhase(phaseIndex);
+		m_turn.InitPhase(phaseIndex);
 		m_phaseToUpdate = phaseIndex;
 		m_phaseStartTime = Time.time;
 	}
@@ -148,9 +148,9 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 	internal bool ClientNeedToWaitBeforeKnockbackMove(ActorData actor)
 	{
 		int id = (int)AbilityPriority.Combat_Knockback;
-		if (m_turn.Phases.Count > id && m_turn.Phases[id] != null)
+		if (m_turn.m_abilityPhases.Count > id && m_turn.m_abilityPhases[id] != null)
 		{
-			return m_turn.Phases[id].ClientNeedToWaitBeforeKnockbackMove(actor);
+			return m_turn.m_abilityPhases[id].ClientNeedToWaitBeforeKnockbackMove(actor);
 		}
 		return false;
 	}
@@ -225,7 +225,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		m_turn.OnSerializeHelper(stream);
 		if (updatedPhase)
 		{
-			m_turn.GoToPhase(m_phaseToUpdate);
+			m_turn.InitPhase(m_phaseToUpdate);
 		}
 		return m_serializeHelper.End(initialState, syncVarDirtyBits);
 	}
@@ -249,7 +249,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			}
 			return;
 		}
-		if (m_phaseToUpdate != AbilityPriority.INVALID && !m_turn._001A(m_phaseToUpdate))
+		if (m_phaseToUpdate != AbilityPriority.INVALID && !m_turn.UpdatePhase(m_phaseToUpdate))
 		{
 			if (m_lastPhaseEnded != m_phaseToUpdate && GameFlowData.Get().LocalPlayerData != null)
 			{
@@ -379,18 +379,18 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		if (ability == null
 			|| actor == null
 			|| m_turn == null
-			|| m_turn.Phases == null
+			|| m_turn.m_abilityPhases == null
 			|| phaseToUpdate <= 0
-			|| phaseToUpdate >= m_turn.Phases.Count)
+			|| phaseToUpdate >= m_turn.m_abilityPhases.Count)
 		{
 			return false;
 		}
 
-		Phase phase = m_turn.Phases[phaseToUpdate];
+		Phase phase = m_turn.m_abilityPhases[phaseToUpdate];
 		for (int i = 0; i < phase.m_actorAnimations.Count; i++)
 		{
 			ActorAnimation actorAnimation = phase.m_actorAnimations[i];
-			if (actorAnimation.Actor == actor
+			if (actorAnimation.Caster == actor
 				&& actorAnimation.GetAbility() != null
 				&& actorAnimation.GetAbility().GetType() == ability.GetType()
 				&& actorAnimation.IsCinematicRequested())
@@ -422,17 +422,17 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 
 	internal int GetPlayOrderOfClientAction(ClientResolutionAction action, AbilityPriority phase)
 	{
-		if (m_turn == null || (int)phase >= m_turn.Phases.Count)
+		if (m_turn == null || (int)phase >= m_turn.m_abilityPhases.Count)
 		{
 			return -1;
 		}
-		Phase phase2 = m_turn.Phases[(int)phase];
+		Phase phase2 = m_turn.m_abilityPhases[(int)phase];
 		for (int num = 0; num < phase2.m_actorAnimations.Count; num++)
 		{
 			ActorAnimation actorAnimation = phase2.m_actorAnimations[num];
 			if (action.ContainsSequenceSource(actorAnimation.SeqSource))
 			{
-				return actorAnimation.playOrderIndex;
+				return actorAnimation.m_playOrderIndex;
 			}
 		}
 		return -1;
@@ -440,22 +440,22 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 
 	internal int GetPlayOrderOfFirstDamagingHitOnActor(ActorData actor, AbilityPriority phase)
 	{
-		if (m_turn == null || (int)phase >= m_turn.Phases.Count)
+		if (m_turn == null || (int)phase >= m_turn.m_abilityPhases.Count)
 		{
 			return -1;
 		}
 
 		int num = -1;
-		Phase phase2 = m_turn.Phases[(int)phase];
+		Phase phase2 = m_turn.m_abilityPhases[(int)phase];
 		for (int i = 0; i < phase2.m_actorAnimations.Count; i++)
 		{
 			ActorAnimation actorAnimation = phase2.m_actorAnimations[i];
 			if (actorAnimation.HitActorsToDeltaHP != null
 				&& actorAnimation.HitActorsToDeltaHP.ContainsKey(actor)
 				&& actorAnimation.HitActorsToDeltaHP[actor] < 0
-				&& (num < 0 || actorAnimation.playOrderIndex < num))
+				&& (num < 0 || actorAnimation.m_playOrderIndex < num))
 			{
-				num = actorAnimation.playOrderIndex;
+				num = actorAnimation.m_playOrderIndex;
 			}
 		}
 		return num;
@@ -471,22 +471,22 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		string result = "[Theatrics state] Phase to update: " + m_phaseToUpdate.ToString() +
 			", time in phase: " + (Time.time - m_phaseStartTime) +
 			", lastPhaseEnded: " + m_lastPhaseEnded +
-			"\nNum of phases so far: " + m_turn.Phases.Count + "\n";
+			"\nNum of phases so far: " + m_turn.m_abilityPhases.Count + "\n";
 		List<ActorData> actorsNotDone = new List<ActorData>();
 		
-		for (int num = 0; num < m_turn.Phases.Count; num++)
+		for (int num = 0; num < m_turn.m_abilityPhases.Count; num++)
 		{
 			string lineActorAnimsNotDone = "";
-			Phase phase = m_turn.Phases[num];
+			Phase phase = m_turn.m_abilityPhases[num];
 			for (int i = 0; i < phase.m_actorAnimations.Count; i++)
 			{
 				ActorAnimation actorAnimation = phase.m_actorAnimations[i];
 				if (actorAnimation.State != ActorAnimation.PlaybackState.ReleasedFocus)
 				{
 					lineActorAnimsNotDone += "\t" + actorAnimation.ToString() + "\n";
-					if (!actorsNotDone.Contains(actorAnimation.Actor))
+					if (!actorsNotDone.Contains(actorAnimation.Caster))
 					{
-						actorsNotDone.Add(actorAnimation.Actor);
+						actorsNotDone.Add(actorAnimation.Caster);
 					}
 				}
 			}
