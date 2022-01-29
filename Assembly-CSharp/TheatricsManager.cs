@@ -364,13 +364,13 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	internal void ServerLog(string _001D)
+	internal void DebugLog(string str)
 	{
 	}
 
 	public bool IsCinematicPlaying()
 	{
-		return m_turn?.IsCinematicPlaying() ?? false;
+		return m_turn != null && m_turn.IsCinematicPlaying();
 	}
 
 	public bool IsCinematicsRequestedInCurrentPhase(ActorData actor, Ability ability)
