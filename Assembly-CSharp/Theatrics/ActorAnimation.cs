@@ -121,26 +121,23 @@ namespace Theatrics
 				{
 					return;
 				}
-				if (m_ability != null)
+				if (m_ability != null && value == PlaybackState.PlayRequested)
 				{
-					if (value == PlaybackState.PlayRequested)
+					int techPointRewardForInteraction = AbilityUtils.GetTechPointRewardForInteraction(m_ability, AbilityInteractionType.Cast, true);
+					techPointRewardForInteraction = AbilityUtils.CalculateTechPointsForTargeter(Caster, m_ability, techPointRewardForInteraction);
+					if (techPointRewardForInteraction > 0)
 					{
-						int techPointRewardForInteraction = AbilityUtils.GetTechPointRewardForInteraction(m_ability, AbilityInteractionType.Cast, true);
-						techPointRewardForInteraction = AbilityUtils.CalculateTechPointsForTargeter(Caster, m_ability, techPointRewardForInteraction);
-						if (techPointRewardForInteraction > 0)
+						Caster.AddCombatText(techPointRewardForInteraction.ToString(), "", CombatTextCategory.TP_Recovery, BuffIconToDisplay.None);
+						if (ClientResolutionManager.Get().IsInResolutionState())
 						{
-							Caster.AddCombatText(techPointRewardForInteraction.ToString(), "", CombatTextCategory.TP_Recovery, BuffIconToDisplay.None);
-							if (ClientResolutionManager.Get().IsInResolutionState())
-							{
-								Caster.ClientUnresolvedTechPointGain += techPointRewardForInteraction;
-							}
+							Caster.ClientUnresolvedTechPointGain += techPointRewardForInteraction;
 						}
-						if (m_ability.GetModdedCost() > 0 && Caster.ReservedTechPoints > 0)
-						{
-							int a = Caster.ClientReservedTechPoints - m_ability.GetModdedCost();
-							a = Mathf.Max(a, -Caster.ReservedTechPoints);
-							Caster.ClientReservedTechPoints = a;
-						}
+					}
+					if (m_ability.GetModdedCost() > 0 && Caster.ReservedTechPoints > 0)
+					{
+						int a = Caster.ClientReservedTechPoints - m_ability.GetModdedCost();
+						a = Mathf.Max(a, -Caster.ReservedTechPoints);
+						Caster.ClientReservedTechPoints = a;
 					}
 				}
 				if (TheatricsManager.DebugLog)
