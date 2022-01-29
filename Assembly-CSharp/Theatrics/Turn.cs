@@ -261,7 +261,7 @@ namespace Theatrics
 							&& !actorAnimation.NotInLoS()
 							&& !actorAnimation.ShouldIgnoreCameraFraming())
 						{
-							Bounds bound = actorAnimation.Bound;
+							Bounds bound = actorAnimation.m_bounds;
 							if (phase.Index == AbilityPriority.Evasion && actorAnimation.Caster != null)
 							{
 								ActorTeamSensitiveData teamSensitiveData_authority = actorAnimation.Caster.TeamSensitiveData_authority;
@@ -396,7 +396,7 @@ namespace Theatrics
 					{
 						ActorAnimation actorAnimation = animations[i];
 						if ((seqSourceRootID < 0 || actorAnimation.SeqSource.RootID != seqSourceRootID)
-							&& (actorAnimation.Caster == actor && actorAnimation.UpdateNotFinished() || actorAnimation.IsPendingHitOn(actor)))
+							&& (actorAnimation.Caster == actor && actorAnimation.UpdateNotFinished() || actorAnimation.DeltaHPPending(actor)))
 						{
 							return false;
 						}
@@ -423,10 +423,10 @@ namespace Theatrics
 				List<ActorAnimation> animations = m_abilityPhases[m_phaseIndex].m_actorAnimations;
 				for (int i = 0; i < animations.Count; i++)
 				{
-					if (animations[i].cinematicCamera
-						&& (animations[i].State == ActorAnimation.PlaybackState.C
-							|| animations[i].State == ActorAnimation.PlaybackState.D
-							|| animations[i].State == ActorAnimation.PlaybackState.ANIMATION_FINISHED))
+					if (animations[i].m_doCinematicCam
+						&& (animations[i].PlayState == ActorAnimation.PlaybackState.PlayRequested
+							|| animations[i].PlayState == ActorAnimation.PlaybackState.PlayingAnimation
+							|| animations[i].PlayState == ActorAnimation.PlaybackState.WaitingForTargetHits))
 					{
 						return true;
 					}

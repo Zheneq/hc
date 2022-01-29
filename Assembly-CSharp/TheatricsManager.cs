@@ -481,7 +481,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			for (int i = 0; i < phase.m_actorAnimations.Count; i++)
 			{
 				ActorAnimation actorAnimation = phase.m_actorAnimations[i];
-				if (actorAnimation.State != ActorAnimation.PlaybackState.ReleasedFocus)
+				if (actorAnimation.PlayState != ActorAnimation.PlaybackState.ReleasedFocus)
 				{
 					lineActorAnimsNotDone += "\t" + actorAnimation.ToString() + "\n";
 					if (!actorsNotDone.Contains(actorAnimation.Caster))
