@@ -33,7 +33,6 @@ namespace Theatrics
 			TurnID = turnID;
 			sbyte numPhases = (sbyte)m_abilityPhases.Count;
 			stream.Serialize(ref numPhases);
-			
 			for (int num = 0; num < numPhases; num++)
 			{
 				while (num >= m_abilityPhases.Count)
@@ -57,7 +56,6 @@ namespace Theatrics
 			{
 				TheatricsManager.Get().SetAnimatorParamOnAllActors("DecisionPhase", false);
 				m_abilityPhases[m_phaseIndex].Init();
-					
 			}
 			List<ActorData> actors = GameFlowData.Get().GetActors();
 			if (actors != null)
@@ -94,14 +92,13 @@ namespace Theatrics
 			}
 			bool hiddenAction = false;
 			bool nonHiddenAction = false;
-			bool flag3;
 			int num = m_phaseIndex;
 			if (m_phaseIndex < 0)
 			{
 				Log.Error("Phase index is negative! Code error.");
 				return true;
 			}
-			flag3 = num < m_abilityPhases.Count && !m_abilityPhases[num].Update(this, ref hiddenAction, ref nonHiddenAction);
+			bool flag3 = num < m_abilityPhases.Count && !m_abilityPhases[num].Update(this, ref hiddenAction, ref nonHiddenAction);
 			bool resolutionTimedOut = TimeInPhase >= GameFlowData.Get().m_resolveTimeoutLimit * 0.8f;
 			if (resolutionTimedOut)
 			{
@@ -361,7 +358,7 @@ namespace Theatrics
 				foreach (ActorAnimation actorAnimation in animations)
 				{
 					if (actorAnimation.Caster == actor
-						&& actorAnimation.Played 
+						&& actorAnimation.Played
 						&& !actorAnimation.AnimationFinished)
 					{
 						return false;

@@ -473,7 +473,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			", lastPhaseEnded: " + m_lastPhaseEnded +
 			"\nNum of phases so far: " + m_turn.m_abilityPhases.Count + "\n";
 		List<ActorData> actorsNotDone = new List<ActorData>();
-		
 		for (int num = 0; num < m_turn.m_abilityPhases.Count; num++)
 		{
 			string lineActorAnimsNotDone = "";
