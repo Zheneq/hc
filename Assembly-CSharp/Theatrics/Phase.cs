@@ -593,7 +593,7 @@ namespace Theatrics
 					{
 						ClearAbilityHighlightForAnimEntries();
 					}
-					if (TheatricsManager.DebugLog)
+					if (TheatricsManager.DebugTraceExecution)
 					{
 						TheatricsManager.LogForDebugging("Cam set target for player order index " + minPlayOrderIndex + " group " + minPlayOrderGroupIndex + " group changed " + m_playOrderGroupChanged + " timeInResolve = " + m_turn.TimeInResolve + " anticipating CamStartEvent...");
 					}
@@ -652,7 +652,7 @@ namespace Theatrics
 						}
 						if (num25 <= camStartEventDelay)
 						{
-							if (TheatricsManager.DebugLog)
+							if (TheatricsManager.DebugTraceExecution)
 							{
 								TheatricsManager.LogForDebugging(
 									"Queued " + actorAnimation7
@@ -699,7 +699,7 @@ namespace Theatrics
 				if (m_evasionMoveStartDesiredTime < 0f)
 				{
 					m_evasionMoveStartDesiredTime = GameTime.time + maxEvadeStartDelay;
-					if (TheatricsManager.DebugLog)
+					if (TheatricsManager.DebugTraceExecution)
 					{
 						TheatricsManager.LogForDebugging("Setting evade start time: " + m_evasionMoveStartDesiredTime + " maxEvadeStartDelay: " + maxEvadeStartDelay);
 					}
@@ -751,7 +751,7 @@ namespace Theatrics
 					{
 						actor.ForceUpdateIsVisibleToClientCache();
 					}
-					if (TheatricsManager.DebugLog)
+					if (TheatricsManager.DebugTraceExecution)
 					{
 						TheatricsManager.LogForDebugging("Evasion Move Start, MaxCamStartDelay= " + m_maxCamStartDelay);
 					}

@@ -140,7 +140,7 @@ namespace Theatrics
 						Caster.ClientReservedTechPoints = a;
 					}
 				}
-				if (TheatricsManager.DebugLog)
+				if (TheatricsManager.DebugTraceExecution)
 				{
 					TheatricsManager.LogForDebugging(string.Concat(ToString(), " PlayState: <color=cyan>", _playState, "</color> -> <color=cyan>", value, "</color>"));
 				}
@@ -496,7 +496,7 @@ namespace Theatrics
 
 		internal void Play(Turn turn)
 		{
-			if (ClientAbilityResults.DebugTraceOn || TheatricsManager.DebugLog)
+			if (ClientAbilityResults.DebugTraceOn || TheatricsManager.DebugTraceExecution)
 			{
 				Log.Warning("<color=cyan>ActorAnimation</color> Play for: " + ToString() + " @time= " + GameTime.time);
 			}
@@ -630,7 +630,7 @@ namespace Theatrics
 				UpdateLastEventTimeForClientResolution();
 				PlayState = PlaybackState.PlayRequested;
 			}
-			if (Application.isEditor && (CameraManager.CamDebugTraceOn || TheatricsManager.DebugLog))
+			if (Application.isEditor && (CameraManager.CamDebugTraceOn || TheatricsManager.DebugTraceExecution))
 			{
 				ActorDebugUtils.DebugDrawBoundBase(m_originalBounds, Color.green, 3f);
 			}
@@ -715,7 +715,7 @@ namespace Theatrics
 				&& (m_isTauntForEvadeOrKnockback || ClientResolutionManager.Get().HitsDoneExecuting(SeqSource)))
 			{
 				m_hitsDoneExecutingTime = GameTime.time;
-				if (TheatricsManager.DebugLog)
+				if (TheatricsManager.DebugTraceExecution)
 				{
 					TheatricsManager.LogForDebugging(ToString() + " hits done");
 				}
@@ -835,7 +835,7 @@ namespace Theatrics
 				&& eventObject.name == "CamEndEvent")
 			{
 				m_camEndEventReceived = true;
-				if (TheatricsManager.DebugLog)
+				if (TheatricsManager.DebugTraceExecution)
 				{
 					TheatricsManager.LogForDebugging("CamEndEvent received for " + DebugShortName(""));
 				}

@@ -127,7 +127,7 @@ namespace Theatrics
 			else
 			{
 				TheatricsManager.Get().ServerLog("Theatrics: finished timeline index " + m_phaseIndex + " with duration " + TimeInPhase + " @absolute time " + GameTime.time);
-				if (TheatricsManager.DebugLog)
+				if (TheatricsManager.DebugTraceExecution)
 				{
 					TheatricsManager.LogForDebugging("Phase Finished: " + m_phaseIndex);
 				}
