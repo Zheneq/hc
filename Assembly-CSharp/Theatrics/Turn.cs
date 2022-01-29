@@ -337,7 +337,7 @@ namespace Theatrics
 			int num = 0;
 			for (int i = 0; i <= phaseIndex; i++)
 			{
-				Dictionary<int, int> hitActorIndexToDeltaHP = m_abilityPhases[i].ActorIndexToDeltaHP;
+				Dictionary<int, int> hitActorIndexToDeltaHP = m_abilityPhases[i].HitActorIndexToDeltaHP;
 				if (hitActorIndexToDeltaHP != null && hitActorIndexToDeltaHP.ContainsKey(actor.ActorIndex))
 				{
 					num += hitActorIndexToDeltaHP[actor.ActorIndex];

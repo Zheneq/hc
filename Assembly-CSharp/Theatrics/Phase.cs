@@ -48,7 +48,7 @@ namespace Theatrics
 
 		internal AbilityPriority Index { get; private set; }
 
-		internal Dictionary<int, int> ActorIndexToDeltaHP
+		internal Dictionary<int, int> HitActorIndexToDeltaHP
 		{
 			get
 			{
