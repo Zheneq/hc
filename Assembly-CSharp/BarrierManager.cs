@@ -20,21 +20,19 @@ public class BarrierManager : NetworkBehaviour
 	private bool m_suppressingAbilityBlocks;
 	private bool m_hasAbilityBlockingBarriers;
 
-	private static int kListm_barrierIdSync;
-	private static int kListm_movementStatesSync;
-	private static int kListm_visionStatesSync;
-	private static int kRpcRpcUpdateBarriers;
+	private static int kListm_barrierIdSync = 1647649475;
+	private static int kListm_movementStatesSync = -1285657162;
+	private static int kListm_visionStatesSync = -1477195729;
+	private static int kRpcRpcUpdateBarriers = 73930193;
+
+	private const int c_teamNum = 3;
 
 	static BarrierManager()
 	{
-		kRpcRpcUpdateBarriers = 73930193;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(BarrierManager), kRpcRpcUpdateBarriers, InvokeRpcRpcUpdateBarriers);
-		kListm_barrierIdSync = 1647649475;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(BarrierManager), kListm_barrierIdSync, InvokeSyncListm_barrierIdSync);
-		kListm_movementStatesSync = -1285657162;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(BarrierManager), kListm_movementStatesSync, InvokeSyncListm_movementStatesSync);
-		kListm_visionStatesSync = -1477195729;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(BarrierManager), kListm_visionStatesSync, InvokeSyncListm_visionStatesSync);
+		RegisterRpcDelegate(typeof(BarrierManager), kRpcRpcUpdateBarriers, InvokeRpcRpcUpdateBarriers);
+		RegisterSyncListDelegate(typeof(BarrierManager), kListm_barrierIdSync, InvokeSyncListm_barrierIdSync);
+		RegisterSyncListDelegate(typeof(BarrierManager), kListm_movementStatesSync, InvokeSyncListm_movementStatesSync);
+		RegisterSyncListDelegate(typeof(BarrierManager), kListm_visionStatesSync, InvokeSyncListm_visionStatesSync);
 		NetworkCRC.RegisterBehaviour("BarrierManager", 0);
 	}
 
@@ -49,8 +47,8 @@ public class BarrierManager : NetworkBehaviour
 		{
 			m_suppressingAbilityBlocks = true;
 		}
-        else
-        {
+		else
+		{
 			Debug.LogError("BarrierManager was told to start suppressing barrier ability-blocks, but it already was.  Ignoring...");
 		}
 	}
@@ -93,7 +91,7 @@ public class BarrierManager : NetworkBehaviour
 
 	public bool IsTeamSupported(Team team)
 	{
-        return team == Team.TeamA || team == Team.TeamB || team == Team.Objects;
+		return team == Team.TeamA || team == Team.TeamB || team == Team.Objects;
 	}
 
 	public override void OnStartClient()
@@ -104,7 +102,7 @@ public class BarrierManager : NetworkBehaviour
 
 	public override void OnStartServer()
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < c_teamNum; i++)
 		{
 			m_movementStatesSync.Add(0);
 			m_visionStatesSync.Add(0);
@@ -113,25 +111,20 @@ public class BarrierManager : NetworkBehaviour
 
 	private void Update()
 	{
-		if (NetworkServer.active)
+		if (!NetworkServer.active && m_clientNeedMovementUpdate)
 		{
-			return;
-		}
-		if (!m_clientNeedMovementUpdate)
-		{
-			return;
-		}
-		for (int i = 0; i < 3; i++)
-		{
-			Team teamFromSyncIndex = GetTeamFromSyncIndex(i);
-			if (m_movementStates[teamFromSyncIndex] != m_movementStatesSync[i])
+			for (int i = 0; i < c_teamNum; i++)
 			{
-				m_movementStates[teamFromSyncIndex] = m_movementStatesSync[i];
-				ClientUpdateMovementOnSync(teamFromSyncIndex);
+				Team teamFromSyncIndex = GetTeamFromSyncIndex(i);
+				if (m_movementStates[teamFromSyncIndex] != m_movementStatesSync[i])
+				{
+					m_movementStates[teamFromSyncIndex] = m_movementStatesSync[i];
+					ClientUpdateMovementOnSync(teamFromSyncIndex);
+				}
 			}
+			m_clientNeedMovementUpdate = false;
 		}
-		m_clientNeedMovementUpdate = false;
-		
+
 	}
 
 	public void AddBarrier(Barrier barrierToAdd, bool delayVisionUpdate, out List<ActorData> visionUpdaters)
@@ -217,82 +210,54 @@ public class BarrierManager : NetworkBehaviour
 
 	public bool IsVisionBlocked(ActorData viewer, BoardSquare source, BoardSquare dest)
 	{
-		bool flag = false;
-		bool flag2 = false;
-		float num = 0.3f;
-		int num2 = 0;
-		while (true)
+		bool isBlocking1 = false;
+		bool isBlocking2 = false;
+		float traceHalfWidthInSquares = 0.3f;
+
+		int i;
+		for (i = 0; i < m_barriers.Count; i++)
 		{
-			if (num2 < m_barriers.Count)
+			Barrier barrier = m_barriers[i];
+			if (!barrier.CanBeSeenThroughBy(viewer))
 			{
-				Barrier barrier = m_barriers[num2];
-				if (!barrier.CanBeSeenThroughBy(viewer))
-				{
-					break;
-				}
-				num2++;
-				continue;
+				break;
 			}
-			break;
+
 		}
-		if (num2 < m_barriers.Count)
+		if (i >= m_barriers.Count)
 		{
-			Vector3 a = source.ToVector3();
-			Vector3 a2 = dest.ToVector3();
-			Vector3 b;
-			if (Mathf.Abs(source.x - dest.x) <= Mathf.Abs(source.y - dest.y))
+			return false;
+		}
+
+		Vector3 src = source.ToVector3();
+		Vector3 dst = dest.ToVector3();
+		Vector3 shift = Mathf.Abs(source.x - dest.x) <= Mathf.Abs(source.y - dest.y)
+			? new Vector3(Board.Get().squareSize * traceHalfWidthInSquares, 0f, 0f)
+			: new Vector3(0f, 0f, Board.Get().squareSize * traceHalfWidthInSquares);
+		Vector3 src1 = src + shift;
+		Vector3 dest2 = dst + shift;
+		Vector3 src2 = src - shift;
+		Vector3 dest3 = dst - shift;
+		for (int j = i; j < m_barriers.Count; j++)
+		{
+			if (isBlocking1 && isBlocking2)
 			{
-				b = new Vector3(Board.Get().squareSize * num, 0f, 0f);
+				break;
 			}
-			else
+			Barrier barrier = m_barriers[j];
+			if (!barrier.CanBeSeenThroughBy(viewer))
 			{
-				b = new Vector3(0f, 0f, Board.Get().squareSize * num);
-			}
-			Vector3 src = a + b;
-			Vector3 dest2 = a2 + b;
-			Vector3 src2 = a - b;
-			Vector3 dest3 = a2 - b;
-			for (int i = num2; i < m_barriers.Count; i++)
-			{
-				if (flag)
+				if (!isBlocking1 && barrier.CrossingBarrierForVision(src1, dest2))
 				{
-					if (flag2)
-					{
-						break;
-					}
+					isBlocking1 = true;
 				}
-				Barrier barrier2 = m_barriers[i];
-				if (barrier2.CanBeSeenThroughBy(viewer))
+				if (!isBlocking2 && barrier.CrossingBarrierForVision(src2, dest3))
 				{
-					continue;
-				}
-				if (!flag)
-				{
-					if (barrier2.CrossingBarrierForVision(src, dest2))
-					{
-						flag = true;
-					}
-				}
-				if (flag2)
-				{
-					continue;
-				}
-				if (barrier2.CrossingBarrierForVision(src2, dest3))
-				{
-					flag2 = true;
+					isBlocking2 = true;
 				}
 			}
 		}
-		int result;
-		if (flag)
-		{
-			result = (flag2 ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return isBlocking1 && isBlocking2;
 	}
 
 	public int GetVisionStateChangesFor(ActorData actor)
@@ -302,8 +267,7 @@ public class BarrierManager : NetworkBehaviour
 		{
 			return -1;
 		}
-		int syncIndexFromTeam = GetSyncIndexFromTeam(team);
-		return m_visionStatesSync[syncIndexFromTeam];
+		return m_visionStatesSync[GetSyncIndexFromTeam(team)];
 	}
 
 	[Server]
@@ -314,65 +278,46 @@ public class BarrierManager : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void BarrierManager::UpdateVisionStateForTeam(Team)' called on client");
 			return;
 		}
-		if (IsTeamSupported(team))
+		if (!IsTeamSupported(team))
 		{
-			int syncIndexFromTeam = GetSyncIndexFromTeam(team);
-			int num = m_visionStatesSync[syncIndexFromTeam];
-			int value = num + 1;
-			m_visionStates[team] = value;
-			m_visionStatesSync[syncIndexFromTeam] = value;
-			return;
+			throw new Exception("BarrierManager does not support this team");
 		}
-		throw new Exception("BarrierManager does not support this team");
+		int syncIndexFromTeam = GetSyncIndexFromTeam(team);
+		int stateIdx = m_visionStatesSync[syncIndexFromTeam] + 1;
+		m_visionStates[team] = stateIdx;
+		m_visionStatesSync[syncIndexFromTeam] = stateIdx;
 	}
 
 	public bool IsMovementBlocked(ActorData mover, BoardSquare source, BoardSquare dest)
 	{
-		bool result = false;
-		for (int i = 0; i < m_barriers.Count; i++)
+		foreach (Barrier barrier in m_barriers)
 		{
-			Barrier barrier = m_barriers[i];
-			if (!barrier.CanBeMovedThroughBy(mover) && barrier.CrossingBarrier(source.ToVector3(), dest.ToVector3()))
+			if (!barrier.CanBeMovedThroughBy(mover)
+				&& barrier.CrossingBarrier(source.ToVector3(), dest.ToVector3()))
 			{
-				result = true;
-				break;
+				return true;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	public bool IsMovementBlockedOnCrossover(ActorData mover, BoardSquare source, BoardSquare dest)
 	{
-		bool result = false;
-		int num;
-		if (mover.GetActorStatus() != null)
+		if (mover.GetActorStatus() != null
+			&& mover.GetActorStatus().HasStatus(StatusType.Unstoppable))
 		{
-			num = (mover.GetActorStatus().HasStatus(StatusType.Unstoppable) ? 1 : 0);
+			return false;
 		}
-		else
+
+		foreach (Barrier barrier in m_barriers)
 		{
-			num = 0;
-		}
-		if (num == 0)
-		{
-			int num2 = 0;
-			while (true)
+			if (!barrier.CanMoveThroughAfterCrossoverBy(mover)
+				&& barrier.CrossingBarrier(source.ToVector3(), dest.ToVector3()))
 			{
-				if (num2 < m_barriers.Count)
-				{
-					Barrier barrier = m_barriers[num2];
-					if (!barrier.CanMoveThroughAfterCrossoverBy(mover) && barrier.CrossingBarrier(source.ToVector3(), dest.ToVector3()))
-					{
-						result = true;
-						break;
-					}
-					num2++;
-					continue;
-				}
-				break;
+				return true;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	public int GetMovementStateChangesFor(ActorData mover)
@@ -393,18 +338,14 @@ public class BarrierManager : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void BarrierManager::UpdateMovementStateForTeam(Team)' called on client");
 			return;
 		}
-		if (IsTeamSupported(team))
-		{
-			int syncIndexFromTeam = GetSyncIndexFromTeam(team);
-			int num = m_movementStatesSync[syncIndexFromTeam];
-			int value = num + 1;
-			m_movementStates[team] = value;
-			m_movementStatesSync[syncIndexFromTeam] = value;
-		}
-		else
+		if (!IsTeamSupported(team))
 		{
 			throw new Exception("BarrierManager does not support this team");
 		}
+		int syncIndexFromTeam = GetSyncIndexFromTeam(team);
+		int stateIdx = m_movementStatesSync[syncIndexFromTeam] + 1;
+		m_movementStates[team] = stateIdx;
+		m_movementStatesSync[syncIndexFromTeam] = stateIdx;
 	}
 
 	public bool IsPositionTargetingBlocked(ActorData caster, BoardSquare dest)
@@ -413,14 +354,15 @@ public class BarrierManager : NetworkBehaviour
 		{
 			return true;
 		}
-		BoardSquare currentBoardSquare = caster.GetCurrentBoardSquare();
-		if (currentBoardSquare == null)
+		BoardSquare casterSquare = caster.GetCurrentBoardSquare();
+		if (casterSquare == null)
 		{
 			return true;
 		}
 		foreach (Barrier barrier in m_barriers)
 		{
-			if (barrier.IsPositionTargetingBlockedFor(caster) && barrier.CrossingBarrier(currentBoardSquare.ToVector3(), dest.ToVector3()))
+			if (barrier.IsPositionTargetingBlockedFor(caster)
+				&& barrier.CrossingBarrier(casterSquare.ToVector3(), dest.ToVector3()))
 			{
 				return true;
 			}
@@ -431,13 +373,9 @@ public class BarrierManager : NetworkBehaviour
 	private void UpdateHasAbilityBlockingBarriers()
 	{
 		bool hasAbilityBlockingBarriers = false;
-		for (int i = 0; i < m_barriers.Count; i++)
+		foreach (Barrier barrier in m_barriers)
 		{
-			if (m_barriers[i] == null)
-			{
-				continue;
-			}
-			if (m_barriers[i].BlocksAbilities != 0)
+			if (barrier != null && barrier.BlocksAbilities != 0)
 			{
 				hasAbilityBlockingBarriers = true;
 				break;
@@ -453,92 +391,64 @@ public class BarrierManager : NetworkBehaviour
 
 	public bool AreAbilitiesBlocked(ActorData caster, BoardSquare source, BoardSquare dest, List<NonActorTargetInfo> nonActorTargetInfo)
 	{
-		Vector3 startPos = source.ToVector3();
-		Vector3 destPos = dest.ToVector3();
-		return AreAbilitiesBlocked(caster, startPos, destPos, nonActorTargetInfo);
+		return AreAbilitiesBlocked(caster, source.ToVector3(), dest.ToVector3(), nonActorTargetInfo);
 	}
 
 	public bool AreAbilitiesBlocked(ActorData caster, Vector3 startPos, Vector3 destPos, List<NonActorTargetInfo> nonActorTargetInfo)
 	{
-		int num;
-		if (nonActorTargetInfo != null)
+		bool flag = nonActorTargetInfo != null && NetworkServer.active;
+		float dist = 0f;
+		Barrier bar = null;  // TODO missing code regarding bar
+		bool result = false;
+		foreach (Barrier barrier in m_barriers)
 		{
-			num = (NetworkServer.active ? 1 : 0);
-		}
-		else
-		{
-			num = 0;
-		}
-		bool flag = (byte)num != 0;
-		float num2 = 0f;
-		Barrier barrier = null;
-		bool flag2 = false;
-		for (int i = 0; i < m_barriers.Count; i++)
-		{
-			Barrier barrier2 = m_barriers[i];
-			if (barrier2.CanBeShotThroughBy(caster))
+			if (!barrier.CanBeShotThroughBy(caster)
+				&& barrier != null
+				&& barrier.CrossingBarrier(startPos, destPos))
 			{
-				continue;
-			}
-			if (barrier2 == null)
-			{
-				continue;
-			}
-			if (!barrier2.CrossingBarrier(startPos, destPos))
-			{
-				continue;
-			}
-			if (!flag)
-			{
-				flag2 = true;
-				break;
-			}
-			Vector3 intersectionPoint = barrier2.GetIntersectionPoint(startPos, destPos);
-			intersectionPoint.y = startPos.y;
-			float magnitude = (intersectionPoint - startPos).magnitude;
-			if (flag2)
-			{
-				if (!(magnitude < num2))
+				if (!flag)
 				{
-					goto IL_00d2;
+					result = true;
+					break;
 				}
+				Vector3 intersectionPoint = barrier.GetIntersectionPoint(startPos, destPos);
+				intersectionPoint.y = startPos.y;
+				float magnitude = (intersectionPoint - startPos).magnitude;
+				if (!result || magnitude < dist)
+				{
+					dist = magnitude;
+				}
+				result = true;
 			}
-			num2 = magnitude;
-			goto IL_00d2;
-			IL_00d2:
-			flag2 = true;
 		}
-		if (barrier != null)
+		if (bar != null)
 		{
 		}
-		return flag2;
+		return result;
 	}
 
 	public Vector3 GetAbilityLineEndpoint(ActorData caster, Vector3 lineStart, Vector3 currentEnd, out bool collision, out Vector3 collisionNormal, List<NonActorTargetInfo> nonActorTargetInfo = null)
 	{
-		Vector3 vector = currentEnd;
+		Vector3 endpoint = currentEnd;
 		collisionNormal = Vector3.zero;
 		collision = false;
-		Barrier barrier = null;
-		for (int i = 0; i < m_barriers.Count; i++)
+
+		Barrier hitBarrier = null;
+		foreach (Barrier barrier in m_barriers)
 		{
-			Barrier barrier2 = m_barriers[i];
-			if (barrier2.CanBeShotThroughBy(caster))
+			if (!barrier.CanBeShotThroughBy(caster) && barrier.CrossingBarrier(lineStart, endpoint))
 			{
-				continue;
-			}
-			if (barrier2.CrossingBarrier(lineStart, vector))
-			{
-				vector = barrier2.GetIntersectionPoint(lineStart, vector);
+				endpoint = barrier.GetIntersectionPoint(lineStart, endpoint);
 				collision = true;
-				collisionNormal = barrier2.GetCollisionNormal(currentEnd - lineStart);
-				barrier = barrier2;
+				collisionNormal = barrier.GetCollisionNormal(currentEnd - lineStart);
+				hitBarrier = barrier;
 			}
 		}
-		if (barrier != null)
+		// TODO missing code
+		if (hitBarrier != null)
 		{
 		}
-		return vector;
+		return endpoint;
 	}
 
 	public void UpdateCachedCoverDirections(ActorData forActor, BoardSquare centerSquare, ref bool[] cachedBarrierDirs)
@@ -548,20 +458,18 @@ public class BarrierManager : NetworkBehaviour
 			return;
 		}
 		Vector3 vector = centerSquare.ToVector3();
-		for (int i = 0; i < m_barriers.Count; i++)
+		foreach (Barrier barrier in m_barriers)
 		{
-			Barrier barrier = m_barriers[i];
-			if (!barrier.ConsiderAsCover || barrier.GetBarrierTeam() != forActor.GetTeam())
+			if (barrier.ConsiderAsCover && barrier.GetBarrierTeam() == forActor.GetTeam())
 			{
-				continue;
-			}
-			for (int j = 0; j < cachedBarrierDirs.Length; j++)
-			{
-				if (!cachedBarrierDirs[j])
+				for (int i = 0; i < cachedBarrierDirs.Length; i++)
 				{
-					Vector3 b = 1.5f * ActorCover.GetCoverOffsetStatic((ActorCover.CoverDirections)j);
-					bool flag = barrier.CrossingBarrier(vector + b, vector);
-					cachedBarrierDirs[j] = flag;
+					if (!cachedBarrierDirs[i])
+					{
+						Vector3 b = 1.5f * ActorCover.GetCoverOffsetStatic((ActorCover.CoverDirections)i);
+						bool flag = barrier.CrossingBarrier(vector + b, vector);
+						cachedBarrierDirs[i] = flag;
+					}
 				}
 			}
 		}
@@ -571,14 +479,14 @@ public class BarrierManager : NetworkBehaviour
 	{
 		switch (index)
 		{
-		case 0:
-			return Team.TeamA;
-		case 1:
-			return Team.TeamB;
-		case 2:
-			return Team.Objects;
-		default:
-			return Team.Invalid;
+			case 0:
+				return Team.TeamA;
+			case 1:
+				return Team.TeamB;
+			case 2:
+				return Team.Objects;
+			default:
+				return Team.Invalid;
 		}
 	}
 
@@ -586,15 +494,15 @@ public class BarrierManager : NetworkBehaviour
 	{
 		switch (team)
 		{
-		case Team.TeamA:
-			return 0;
-		case Team.TeamB:
-			return 1;
-		case Team.Objects:
-			return 2;
-		default:
-			Debug.LogError("Invalid team passed to GetSyncIndexFromTeam()");
-			return 0;
+			case Team.TeamA:
+				return 0;
+			case Team.TeamB:
+				return 1;
+			case Team.Objects:
+				return 2;
+			default:
+				Debug.LogError("Invalid team passed to GetSyncIndexFromTeam()");
+				return 0;
 		}
 	}
 
@@ -605,26 +513,28 @@ public class BarrierManager : NetworkBehaviour
 		{
 			return;
 		}
+
 		bool hasBarrierCovers = false;
-		
-		for (int num = 0; num < m_barriers.Count; num++)
+		foreach (Barrier barrier in m_barriers)
 		{
-			if (m_barriers[num].ConsiderAsCover)
+			if (barrier.ConsiderAsCover)
 			{
 				hasBarrierCovers = true;
 				break;
 			}
 		}
+
 		m_barriers.Clear();
 		if (m_barrierIdSync.Count > 50)
 		{
 			Debug.LogError("More than 50 barriers active?");
 		}
-		for (int i = 0; i < m_barrierIdSync.Count; i++)
+
+		foreach (int barrierId in m_barrierIdSync)
 		{
 			foreach (BarrierSerializeInfo cached in m_clientBarrierInfo)
 			{
-				if (cached.m_guid == m_barrierIdSync[i])
+				if (cached.m_guid == barrierId)
 				{
 					Barrier barrier = Barrier.CreateBarrierFromSerializeInfo(cached);
 					if (barrier.ConsiderAsCover)
@@ -644,12 +554,12 @@ public class BarrierManager : NetworkBehaviour
 		}
 	}
 
-	private void SyncListCallbackMovementStates(SyncList<int>.Operation op, int _incorrectIndexBugIn51And52)
+	private void SyncListCallbackMovementStates(SyncList<int>.Operation op, int index)
 	{
 		m_clientNeedMovementUpdate = true;
 	}
 
-	private void SyncListCallbackVisionStates(SyncList<int>.Operation op, int _incorrectIndexBugIn51And52)
+	private void SyncListCallbackVisionStates(SyncList<int>.Operation op, int index)
 	{
 		ClientUpdateMovementAndVision();
 	}
@@ -666,7 +576,7 @@ public class BarrierManager : NetworkBehaviour
 		{
 			return;
 		}
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < c_teamNum; i++)
 		{
 			Team teamFromSyncIndex = GetTeamFromSyncIndex(i);
 			if (m_movementStatesSync[i] != m_movementStates[teamFromSyncIndex])
@@ -732,11 +642,9 @@ public class BarrierManager : NetworkBehaviour
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("SyncList m_barrierIdSync called on server.");
+			return;
 		}
-		else
-		{
-			((BarrierManager)obj).m_barrierIdSync.HandleMsg(reader);
-		}
+		((BarrierManager)obj).m_barrierIdSync.HandleMsg(reader);
 	}
 
 	protected static void InvokeSyncListm_movementStatesSync(NetworkBehaviour obj, NetworkReader reader)
@@ -764,11 +672,9 @@ public class BarrierManager : NetworkBehaviour
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("RPC RpcUpdateBarriers called on server.");
+			return;
 		}
-		else
-		{
-			((BarrierManager)obj).RpcUpdateBarriers();
-		}
+		((BarrierManager)obj).RpcUpdateBarriers();
 	}
 
 	public void CallRpcUpdateBarriers()
@@ -796,36 +702,36 @@ public class BarrierManager : NetworkBehaviour
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListInt.WriteInstance(writer, m_barrierIdSync);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListInt.WriteInstance(writer, m_movementStatesSync);
 		}
-		if ((base.syncVarDirtyBits & 4) != 0)
+		if ((syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListInt.WriteInstance(writer, m_visionStatesSync);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
