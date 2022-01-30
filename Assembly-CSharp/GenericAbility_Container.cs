@@ -5,12 +5,9 @@ public class GenericAbility_Container : Ability
 {
 	[Separator("Target Select Component", true)]
 	public GenericAbility_TargetSelectBase m_targetSelectComp;
-
 	[Separator("On Hit Authored Data", "yellow")]
 	public OnHitAuthoredData m_onHitData;
-
 	protected NumericHitResultScratch m_calculatedValuesForTargeter = new NumericHitResultScratch();
-
 	protected OnHitAuthoredData m_cachedOnHitData;
 
 	public virtual string GetUsageForEditor()
@@ -19,7 +16,7 @@ public class GenericAbility_Container : Ability
 		{
 			return m_targetSelectComp.GetUsageForEditor();
 		}
-		return string.Empty;
+		return "";
 	}
 
 	public virtual string GetOnHitDataDesc()
@@ -28,7 +25,7 @@ public class GenericAbility_Container : Ability
 		{
 			return m_onHitData.GetInEditorDesc();
 		}
-		return string.Empty;
+		return "";
 	}
 
 	public virtual List<string> GetContextNamesForEditor()
@@ -79,7 +76,7 @@ public class GenericAbility_Container : Ability
 
 	public virtual OnHitAuthoredData GetOnHitAuthoredData()
 	{
-		return (m_cachedOnHitData == null) ? m_onHitData : m_cachedOnHitData;
+		return m_cachedOnHitData == null ? m_onHitData : m_cachedOnHitData;
 	}
 
 	public virtual GenericAbility_TargetSelectBase GetTargetSelectComp()
@@ -90,7 +87,9 @@ public class GenericAbility_Container : Ability
 	public override TargetData[] GetBaseTargetData()
 	{
 		GenericAbility_TargetSelectBase targetSelectComp = GetTargetSelectComp();
-		if (targetSelectComp != null && targetSelectComp.m_useTargetDataOverride && targetSelectComp.GetTargetDataOverride() != null)
+		if (targetSelectComp != null
+			&& targetSelectComp.m_useTargetDataOverride
+			&& targetSelectComp.GetTargetDataOverride() != null)
 		{
 			return targetSelectComp.GetTargetDataOverride();
 		}
@@ -181,31 +180,32 @@ public class GenericAbility_Container : Ability
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
 		ActorData actorData = ActorData;
-		if (actorData != null)
+		if (actorData == null)
 		{
-			GetHitContextForTargetingNumbers(currentTargeterIndex, out Dictionary<ActorData, ActorHitContext> actorHitContext, out ContextVars abilityContext);
-			if (actorHitContext.ContainsKey(targetActor))
-			{
-				PreProcessTargetingNumbers(targetActor, currentTargeterIndex, actorHitContext, abilityContext);
-				m_calculatedValuesForTargeter.Reset();
-				if (actorData.GetTeam() == targetActor.GetTeam())
-				{
-					CalcIntFieldValues(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_allyHitIntFields, m_calculatedValuesForTargeter);
-					results.m_absorb = CalcAbsorbFromEffectFields(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_allyHitEffectFields);
-				}
-				else
-				{
-					CalcIntFieldValues(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_enemyHitIntFields, m_calculatedValuesForTargeter);
-					results.m_absorb = CalcAbsorbFromEffectFields(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_enemyHitEffectFields);
-				}
-				results.m_damage = m_calculatedValuesForTargeter.m_damage;
-				results.m_healing = m_calculatedValuesForTargeter.m_healing;
-				results.m_energy = m_calculatedValuesForTargeter.m_energyGain;
-				PostProcessTargetingNumbers(targetActor, currentTargeterIndex, actorHitContext, abilityContext, actorData, results);
-				return true;
-			}
+			return false;
 		}
-		return false;
+		GetHitContextForTargetingNumbers(currentTargeterIndex, out Dictionary<ActorData, ActorHitContext> actorHitContext, out ContextVars abilityContext);
+		if (!actorHitContext.ContainsKey(targetActor))
+		{
+			return false;
+		}
+		PreProcessTargetingNumbers(targetActor, currentTargeterIndex, actorHitContext, abilityContext);
+		m_calculatedValuesForTargeter.Reset();
+		if (actorData.GetTeam() == targetActor.GetTeam())
+		{
+			CalcIntFieldValues(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_allyHitIntFields, m_calculatedValuesForTargeter);
+			results.m_absorb = CalcAbsorbFromEffectFields(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_allyHitEffectFields);
+		}
+		else
+		{
+			CalcIntFieldValues(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_enemyHitIntFields, m_calculatedValuesForTargeter);
+			results.m_absorb = CalcAbsorbFromEffectFields(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_enemyHitEffectFields);
+		}
+		results.m_damage = m_calculatedValuesForTargeter.m_damage;
+		results.m_healing = m_calculatedValuesForTargeter.m_healing;
+		results.m_energy = m_calculatedValuesForTargeter.m_energyGain;
+		PostProcessTargetingNumbers(targetActor, currentTargeterIndex, actorHitContext, abilityContext, actorData, results);
+		return true;
 	}
 
 	public virtual void GetHitContextForTargetingNumbers(int currentTargeterIndex, out Dictionary<ActorData, ActorHitContext> actorHitContext, out ContextVars abilityContext)
@@ -270,9 +270,9 @@ public class GenericAbility_Container : Ability
 		int num = 0;
 		foreach (OnHitEffecField effectField in effectFields)
 		{
-			if (TargetFilterHelper.ActorMeetsConditions(effectField.m_conditions, targetActor, caster, actorContext, abilityContext) &&
-				effectField.m_effect.m_applyEffect &&
-				effectField.m_effect.m_effectData.m_absorbAmount > 0)
+			if (TargetFilterHelper.ActorMeetsConditions(effectField.m_conditions, targetActor, caster, actorContext, abilityContext)
+				&& effectField.m_effect.m_applyEffect
+				&& effectField.m_effect.m_effectData.m_absorbAmount > 0)
 			{
 				num += effectField.m_effect.m_effectData.m_absorbAmount;
 			}
