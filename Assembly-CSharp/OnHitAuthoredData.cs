@@ -7,14 +7,10 @@ public class OnHitAuthoredData
 {
 	[Header("-- For Enemy Hits --")]
 	public List<OnHitIntField> m_enemyHitIntFields = new List<OnHitIntField>();
-
 	public List<OnHitEffecField> m_enemyHitEffectFields = new List<OnHitEffecField>();
-
 	[Header("-- For Ally Hits --")]
 	public List<OnHitIntField> m_allyHitIntFields = new List<OnHitIntField>();
-
 	public List<OnHitEffecField> m_allyHitEffectFields = new List<OnHitEffecField>();
-
 	[Header("-- For Barriers --")]
 	public List<OnHitBarrierField> m_barrierSpawnFields = new List<OnHitBarrierField>();
 
@@ -39,37 +35,25 @@ public class OnHitAuthoredData
 
 	public static void AddTooltipTokens_IntList(List<TooltipTokenEntry> tokens, List<OnHitIntField> intFields)
 	{
-		for (int i = 0; i < intFields.Count; i++)
+		foreach (OnHitIntField field in intFields)
 		{
-			intFields[i].AddTooltipTokens(tokens);
-		}
-		while (true)
-		{
-			return;
+			field.AddTooltipTokens(tokens);
 		}
 	}
 
 	public static void AddTooltipTokens_EffectFields(List<TooltipTokenEntry> tokens, List<OnHitEffecField> effectFields)
 	{
-		for (int i = 0; i < effectFields.Count; i++)
+		foreach (OnHitEffecField field in effectFields)
 		{
-			effectFields[i].AddTooltipTokens(tokens, false, null);
-		}
-		while (true)
-		{
-			return;
+			field.AddTooltipTokens(tokens, false, null);
 		}
 	}
 
 	public static void AddTooltipTokens_BarrierFields(List<TooltipTokenEntry> tokens, List<OnHitBarrierField> barrierFields)
 	{
-		for (int i = 0; i < barrierFields.Count; i++)
+		foreach (OnHitBarrierField field in barrierFields)
 		{
-			barrierFields[i].AddTooltipTokens(tokens);
-		}
-		while (true)
-		{
-			return;
+			field.AddTooltipTokens(tokens);
 		}
 	}
 
@@ -79,34 +63,19 @@ public class OnHitAuthoredData
 		if (m_enemyHitIntFields.Count > 0)
 		{
 			text += InEditorDescHelper.ColoredString("==== Enemy Hit Numeric Fields ====\n", "yellow");
-			using (List<OnHitIntField>.Enumerator enumerator = m_enemyHitIntFields.GetEnumerator())
+			foreach (OnHitIntField field in m_enemyHitIntFields)
 			{
-				while (enumerator.MoveNext())
-				{
-					OnHitIntField current = enumerator.Current;
-					text += current.GetInEditorDesc();
-					text += "\n";
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						goto end_IL_0042;
-					}
-				}
-				end_IL_0042:;
+				text += field.GetInEditorDesc();
+				text += "\n";
 			}
 			text += "\n";
 		}
 		if (m_enemyHitEffectFields.Count > 0)
 		{
 			text += InEditorDescHelper.ColoredString("==== Enemy Effects ====\n", "yellow");
-			foreach (OnHitEffecField enemyHitEffectField in m_enemyHitEffectFields)
+			foreach (OnHitEffecField field in m_enemyHitEffectFields)
 			{
-				text += enemyHitEffectField.GetInEditorDesc(false, null);
+				text += field.GetInEditorDesc(false, null);
 				text += "\n";
 			}
 			text += "\n";
@@ -114,42 +83,30 @@ public class OnHitAuthoredData
 		if (m_allyHitIntFields.Count > 0)
 		{
 			text += InEditorDescHelper.ColoredString("==== Ally Hit Numberic Fields ====\n", "yellow");
-			using (List<OnHitIntField>.Enumerator enumerator3 = m_allyHitIntFields.GetEnumerator())
+			foreach (OnHitIntField field in m_allyHitIntFields)
 			{
-				while (enumerator3.MoveNext())
-				{
-					OnHitIntField current3 = enumerator3.Current;
-					text += current3.GetInEditorDesc();
-					text += "\n";
-				}
+				text += field.GetInEditorDesc();
+				text += "\n";
 			}
 			text += "\n";
 		}
 		if (m_allyHitEffectFields.Count > 0)
 		{
 			text += InEditorDescHelper.ColoredString("==== Ally Effects ====\n", "yellow");
-			using (List<OnHitEffecField>.Enumerator enumerator4 = m_allyHitEffectFields.GetEnumerator())
+			foreach (OnHitEffecField field in m_allyHitEffectFields)
 			{
-				while (enumerator4.MoveNext())
-				{
-					OnHitEffecField current4 = enumerator4.Current;
-					text += current4.GetInEditorDesc(false, null);
-					text += "\n";
-				}
+				text += field.GetInEditorDesc(false, null);
+				text += "\n";
 			}
 			text += "\n";
 		}
 		if (m_barrierSpawnFields.Count > 0)
 		{
 			text += InEditorDescHelper.ColoredString("==== Barrier Fields ====\n", "yellow");
-			using (List<OnHitBarrierField>.Enumerator enumerator5 = m_barrierSpawnFields.GetEnumerator())
+			foreach (OnHitBarrierField field in m_barrierSpawnFields)
 			{
-				while (enumerator5.MoveNext())
-				{
-					OnHitBarrierField current5 = enumerator5.Current;
-					text += current5.GetInEditorDesc();
-					text += "\n";
-				}
+				text += field.GetInEditorDesc();
+				text += "\n";
 			}
 			text += "\n";
 		}
