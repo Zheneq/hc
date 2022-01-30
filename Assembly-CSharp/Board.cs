@@ -219,14 +219,7 @@ public class Board : MonoBehaviour, IGameEventListener
 			&& PlayerFreeSquare.occupant != null)
 		{
 			ActorData occupantActorData = PlayerFreeSquare.occupant.GetComponent<ActorData>();
-			if (occupantActorData != null && occupantActorData.IsActorVisibleToClient())
-			{
-				isChase = true;
-			}
-			else
-			{
-				isChase = false;
-			}
+			isChase = occupantActorData != null && occupantActorData.IsActorVisibleToClient();
 		}
 		else
 		{
