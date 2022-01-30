@@ -124,7 +124,6 @@ public class BarrierManager : NetworkBehaviour
 			}
 			m_clientNeedMovementUpdate = false;
 		}
-
 	}
 
 	public void AddBarrier(Barrier barrierToAdd, bool delayVisionUpdate, out List<ActorData> visionUpdaters)
@@ -375,7 +374,7 @@ public class BarrierManager : NetworkBehaviour
 		bool hasAbilityBlockingBarriers = false;
 		foreach (Barrier barrier in m_barriers)
 		{
-			if (barrier != null && barrier.BlocksAbilities != 0)
+			if (barrier != null && barrier.BlocksAbilities != BlockingRules.ForNobody)
 			{
 				hasAbilityBlockingBarriers = true;
 				break;
