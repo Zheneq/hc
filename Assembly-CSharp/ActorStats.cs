@@ -31,25 +31,25 @@ public class ActorStats : NetworkBehaviour
 			(StatType a, StatType b) => a == b,
 			(StatType a) => (int)a);
 		m_statMods = new Dictionary<StatType, List<StatMod>>(comparer);
-		for (int i = 0; i < 24; i++)
+		for (int i = 0; i < (int)StatType.NUM; i++)
 		{
 			List<StatMod> value = new List<StatMod>();
 			m_statMods.Add((StatType)i, value);
 		}
-		m_modifiedStatsPrevious = new float[24];
+		m_modifiedStatsPrevious = new float[(int)StatType.NUM];
 		m_actorData = GetComponent<ActorData>();
 		m_modifiedStats.InitializeBehaviour(this, kListm_modifiedStats);
 	}
 
 	private void Start()
 	{
-		for (int i = 0; i < 24; i++)
+		for (int i = 0; i < (int)StatType.NUM; i++)
 		{
 			m_modifiedStatsPrevious[i] = GetStatBaseValueFloat((StatType)i);
 		}
 		if (NetworkServer.active)
 		{
-			for (int j = 0; j < 24; j++)
+			for (int j = 0; j < (int)StatType.NUM; j++)
 			{
 				m_modifiedStats.Add(GetStatBaseValueFloat((StatType)j));
 			}
@@ -79,7 +79,7 @@ public class ActorStats : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void ActorStats::SendFullUpdateData()' called on client");
 			return;
 		}
-		for (int i = 0; i < 24; i++)
+		for (int i = 0; i < (int)StatType.NUM; i++)
 		{
 			StatType stat = (StatType)i;
 			float modifiedStatFloat = GetModifiedStatFloat(stat);
