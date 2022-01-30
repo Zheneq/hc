@@ -350,7 +350,7 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 			if (regionIndex < m_regions.Length)
 			{
 				BrushRegion brushRegion = m_regions[regionIndex];
-				result = brushRegion.GetOccupantActors();
+				result = brushRegion.GetActorsInRegion();
 			}
 		}
 		return result;

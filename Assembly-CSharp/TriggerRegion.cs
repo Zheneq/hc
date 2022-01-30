@@ -20,7 +20,7 @@ public class TriggerRegion : BoardRegion
 
 	public void OnTurnTick()
 	{
-		List<ActorData> occupantActors = GetOccupantActors();
+		List<ActorData> occupantActors = GetActorsInRegion();
 		using (List<ActorData>.Enumerator enumerator = occupantActors.GetEnumerator())
 		{
 			while (enumerator.MoveNext())

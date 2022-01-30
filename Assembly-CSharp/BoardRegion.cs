@@ -76,7 +76,7 @@ public class BoardRegion
 		return result;
 	}
 
-	public List<ActorData> GetOccupantActors()
+	public List<ActorData> GetActorsInRegion()
 	{
 		List<ActorData> result = new List<ActorData>();
 		foreach (BoardSquare square in GetSquaresInRegion())
@@ -95,9 +95,9 @@ public class BoardRegion
 		{
 			return false;
 		}
-		foreach (BoardSquare current in GetSquaresInRegion())
+		foreach (BoardSquare square in GetSquaresInRegion())
 		{
-			if (current.OccupantActor == actor)
+			if (square.OccupantActor == actor)
 			{
 				return true;
 			}
@@ -190,14 +190,14 @@ public class BoardRegion
 	{
 		Gizmos.color = color;
 		List<BoardSquare> squaresInRegion = GetSquaresInRegion();
-		foreach (BoardSquare item in squaresInRegion)
+		foreach (BoardSquare square in squaresInRegion)
 		{
-			if (item.WorldBounds.HasValue)
+			if (square.WorldBounds.HasValue)
 			{
-				Vector3 center = item.WorldBounds.Value.center;
+				Vector3 center = square.WorldBounds.Value.center;
 				center.y += 0.1f;
-				Gizmos.DrawWireCube(center, item.WorldBounds.Value.extents * 2f);
-				Gizmos.DrawWireCube(center, item.WorldBounds.Value.extents * 1.9f);
+				Gizmos.DrawWireCube(center, square.WorldBounds.Value.extents * 2f);
+				Gizmos.DrawWireCube(center, square.WorldBounds.Value.extents * 1.9f);
 			}
 		}
 	}
@@ -207,7 +207,7 @@ public class BoardRegion
 		return m_quads.Length > 0;
 	}
 
-	public Sprite GetTurnInRegionIcon()
+	public Sprite GetIcon()
 	{
 		if (CaptureTheFlag.Get() != null)
 		{

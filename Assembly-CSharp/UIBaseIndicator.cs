@@ -226,7 +226,7 @@ public abstract class UIBaseIndicator : MonoBehaviour
 				}
 			}
 		}
-		m_characterIcon.sprite = boardRegion.GetTurnInRegionIcon();
+		m_characterIcon.sprite = boardRegion.GetIcon();
 		m_characterIcon.transform.localScale = Vector3.one;
 	}
 
