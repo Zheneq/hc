@@ -5,58 +5,23 @@ using UnityEngine.Networking;
 public class PlayerDetails
 {
 	public Team m_team;
-
 	public bool m_disconnected;
-
 	public string m_handle;
-
 	public long m_accountId;
-
 	public float m_accPrivateElo;
-
 	public float m_charPrivateElo;
-
 	public float m_usedMatchmakingElo;
-
 	public int m_lobbyPlayerInfoId;
-
 	public PlayerGameAccountType m_gameAccountType;
-
 	public bool m_replayGenerator;
-
 	public bool m_botsMasqueradeAsHumans;
-
 	public string m_buildVersion;
-
 	public List<GameObject> m_gameObjects;
-
 	public int m_idleTurns;
 
-	public bool ReplacedWithBots
-	{
-		get;
-		private set;
-	}
-
-	public bool IsAIControlled
-	{
-		get
-		{
-			int result;
-			if (!IsNPCBot && !IsLoadTestBot)
-			{
-				result = (ReplacedWithBots ? 1 : 0);
-			}
-			else
-			{
-				result = 1;
-			}
-			return (byte)result != 0;
-		}
-	}
-
+	public bool ReplacedWithBots { get; private set; }
+	public bool IsAIControlled => IsNPCBot || IsLoadTestBot || ReplacedWithBots;
 	public bool IsHumanControlled => !IsAIControlled;
-
 	public bool IsNPCBot
 	{
 		get
@@ -65,14 +30,9 @@ public class PlayerDetails
 		}
 		set
 		{
-			if (!value)
-			{
-				return;
-			}
-			while (true)
+			if (value)
 			{
 				m_gameAccountType = PlayerGameAccountType.None;
-				return;
 			}
 		}
 	}
@@ -93,7 +53,6 @@ public class PlayerDetails
 	}
 
 	public bool IsSpectator => m_team == Team.Spectator;
-
 	public bool IsConnected
 	{
 		get
@@ -115,48 +74,15 @@ public class PlayerDetails
 
 	internal bool IsLocal()
 	{
-		if ((bool)ClientGameManager.Get())
+		if (ClientGameManager.Get() != null && ClientGameManager.Get().Observer)
 		{
-			if (ClientGameManager.Get().Observer)
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return m_replayGenerator;
-					}
-				}
-			}
+			return m_replayGenerator;
 		}
-		if ((bool)ReplayPlayManager.Get())
+		if (ReplayPlayManager.Get() != null && ReplayPlayManager.Get().IsPlayback())
 		{
-			if (ReplayPlayManager.Get().IsPlayback())
-			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return m_replayGenerator;
-					}
-				}
-			}
+			return m_replayGenerator;
 		}
-		int result;
-		if (m_accountId != 0)
-		{
-			result = ((m_accountId == HydrogenConfig.Get().Ticket.AccountId) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_accountId != 0 && m_accountId == HydrogenConfig.Get().Ticket.AccountId;
 	}
 
 	internal void OnSerializeHelper(NetworkWriter stream)
@@ -166,39 +92,39 @@ public class PlayerDetails
 
 	internal void OnSerializeHelper(IBitStream stream)
 	{
-		sbyte value = checked((sbyte)m_team);
-		bool value2 = m_disconnected;
-		string value3 = m_handle;
-		long value4 = m_accountId;
-		float value5 = m_accPrivateElo;
-		float value6 = m_usedMatchmakingElo;
-		int value7 = m_lobbyPlayerInfoId;
-		float value8 = m_charPrivateElo;
-		int value9 = (int)m_gameAccountType;
-		bool value10 = m_replayGenerator;
-		bool value11 = m_botsMasqueradeAsHumans;
-		stream.Serialize(ref value);
-		stream.Serialize(ref value2);
-		stream.Serialize(ref value3);
-		stream.Serialize(ref value4);
-		stream.Serialize(ref value5);
-		stream.Serialize(ref value6);
-		stream.Serialize(ref value7);
-		stream.Serialize(ref value8);
-		stream.Serialize(ref value9);
-		stream.Serialize(ref value10);
-		stream.Serialize(ref value11);
-		m_team = (Team)value;
-		m_disconnected = value2;
-		m_handle = value3;
-		m_accountId = value4;
-		m_accPrivateElo = value5;
-		m_usedMatchmakingElo = value6;
-		m_lobbyPlayerInfoId = value7;
-		m_charPrivateElo = value8;
-		m_gameAccountType = (PlayerGameAccountType)value9;
-		m_replayGenerator = value10;
-		m_botsMasqueradeAsHumans = value11;
+		sbyte team = checked((sbyte)m_team);
+		bool disconnected = m_disconnected;
+		string handle = m_handle;
+		long accountId = m_accountId;
+		float accPrivateElo = m_accPrivateElo;
+		float usedMatchmakingElo = m_usedMatchmakingElo;
+		int lobbyPlayerInfoId = m_lobbyPlayerInfoId;
+		float charPrivateElo = m_charPrivateElo;
+		int gameAccountType = (int)m_gameAccountType;
+		bool replayGenerator = m_replayGenerator;
+		bool botsMasqueradeAsHumans = m_botsMasqueradeAsHumans;
+		stream.Serialize(ref team);
+		stream.Serialize(ref disconnected);
+		stream.Serialize(ref handle);
+		stream.Serialize(ref accountId);
+		stream.Serialize(ref accPrivateElo);
+		stream.Serialize(ref usedMatchmakingElo);
+		stream.Serialize(ref lobbyPlayerInfoId);
+		stream.Serialize(ref charPrivateElo);
+		stream.Serialize(ref gameAccountType);
+		stream.Serialize(ref replayGenerator);
+		stream.Serialize(ref botsMasqueradeAsHumans);
+		m_team = (Team)team;
+		m_disconnected = disconnected;
+		m_handle = handle;
+		m_accountId = accountId;
+		m_accPrivateElo = accPrivateElo;
+		m_usedMatchmakingElo = usedMatchmakingElo;
+		m_lobbyPlayerInfoId = lobbyPlayerInfoId;
+		m_charPrivateElo = charPrivateElo;
+		m_gameAccountType = (PlayerGameAccountType)gameAccountType;
+		m_replayGenerator = replayGenerator;
+		m_botsMasqueradeAsHumans = botsMasqueradeAsHumans;
 	}
 
 	public override string ToString()
