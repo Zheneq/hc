@@ -189,10 +189,9 @@ public class BoardRegion
 	public void GizmosDrawRegion(Color color)
 	{
 		Gizmos.color = color;
-		List<BoardSquare> squaresInRegion = GetSquaresInRegion();
-		foreach (BoardSquare square in squaresInRegion)
+		foreach (BoardSquare square in GetSquaresInRegion())
 		{
-			if (square.WorldBounds.HasValue)
+			if (square.WorldBounds != null)
 			{
 				Vector3 center = square.WorldBounds.Value.center;
 				center.y += 0.1f;
