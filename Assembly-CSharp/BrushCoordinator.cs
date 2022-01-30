@@ -492,7 +492,7 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		float x = center.x;
 		Vector3 center2 = bounds.center;
 		Bounds bounds2 = new Bounds(new Vector3(x, 0f, center2.z), bounds.size);
-		List<BoardSquare> list2 = Board.Get()._000E(bounds2);
+		List<BoardSquare> list2 = Board.Get().GetSquaresInBox(bounds2);
 		for (int i = 0; i < list2.Count; i++)
 		{
 			BoardSquare boardSquare = list2[i];

@@ -227,8 +227,8 @@ public class BoardSquarePathInfo : IComparable
 		float num = moveCost;
 		for (BoardSquarePathInfo boardSquarePathInfo = next; boardSquarePathInfo != null; boardSquarePathInfo.moveCost = num, boardSquarePathInfo = boardSquarePathInfo.next)
 		{
-			bool flag = Board.Get().AreDiagonallyAdjacent(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
-			bool flag2 = Board.Get()._0012(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
+			bool flag = Board.Get().GetSquaresAreDiagonallyAdjacent(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
+			bool flag2 = Board.Get().GetSquaresAreCardinallyAdjacent(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
 			bool flag3 = boardSquarePathInfo.square == boardSquarePathInfo.prev.square;
 			if (flag)
 			{

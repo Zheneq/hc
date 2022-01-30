@@ -222,7 +222,7 @@ public class BotController : MonoBehaviour
 		Vector3 a2 = -a;
 		a2.Normalize();
 		Vector3 vector = currentBoardSquare.ToVector3() + a2 * this.m_retreatFromRange;
-		return Board.Get()._0013(vector.x, vector.z);
+		return Board.Get().GetClosestValidForGameplaySquareTo(vector.x, vector.z);
 	}
 
 	public BoardSquare GetAdvanceSquare()
@@ -268,7 +268,7 @@ public class BotController : MonoBehaviour
 		}
 		Vector3 vector4 = vector + vector2 + vector3;
 		BoardSquare boardSquareUnsafe = Board.Get().GetSquareClosestToPos(vector4.x, vector4.z);
-		return Board.Get()._0018(boardSquareUnsafe, null);
+		return Board.Get().GetClosestValidForGameplaySquareTo(boardSquareUnsafe, null);
 	}
 
 	public void SelectBotAbilityMods()

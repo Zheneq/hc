@@ -2619,7 +2619,7 @@ public static class AreaEffectUtils
 		float y2 = Mathf.Max(pA.z, Mathf.Max(pB.z, pC.z));
 		BoardSquare boardSquareSafe = Board.Get().GetSquareFromPos(x, y);
 		BoardSquare boardSquareSafe2 = Board.Get().GetSquareFromPos(x2, y2);
-		List<BoardSquare> squaresInRect = Board.Get().GetSquaresInRect(boardSquareSafe, boardSquareSafe2);
+		List<BoardSquare> squaresInRect = Board.Get().GetSquaresBoundedBy(boardSquareSafe, boardSquareSafe2);
 		List<BoardSquare> list = new List<BoardSquare>();
 		BoardSquare boardSquare = Board.Get().GetSquareFromVec3(pA);
 		using (List<BoardSquare>.Enumerator enumerator = squaresInRect.GetEnumerator())
@@ -3016,7 +3016,7 @@ public static class AreaEffectUtils
 				}
 			}
 		}
-		Vector3 cornerPos = Board.SnapToCorner(freePos, centerSquare);
+		Vector3 cornerPos = Board.GetBestCornerPos(freePos, centerSquare);
 		return GetSquaresInShape_EvenByEven(cornerPos, dimensions, cornersToSubtract, ignoreLoS, caster);
 	}
 
@@ -3142,7 +3142,7 @@ public static class AreaEffectUtils
 				}
 			}
 		}
-		Vector3 cornerPos = Board.SnapToCorner(freePos, centerSquare);
+		Vector3 cornerPos = Board.GetBestCornerPos(freePos, centerSquare);
 		OperateOnSquaresInShape_EvenByEven(operationObj, cornerPos, dimensions, cornersToSubtract, ignoreLoS, caster, losCheckOverrides);
 	}
 
@@ -3320,7 +3320,7 @@ public static class AreaEffectUtils
 		{
 			return IsSquareInShape_OddByOdd(testSquare, centerSquare, dimensions, cornersToSubtract, ignoreLoS, caster);
 		}
-		Vector3 cornerPos = Board.SnapToCorner(freePos, centerSquare);
+		Vector3 cornerPos = Board.GetBestCornerPos(freePos, centerSquare);
 		return IsSquareInShape_EvenByEven(testSquare, cornerPos, dimensions, cornersToSubtract, ignoreLoS, caster);
 	}
 
@@ -3701,7 +3701,7 @@ public static class AreaEffectUtils
 				}
 			}
 		}
-		return Board.SnapToCorner(freePos, centerSquare);
+		return Board.GetBestCornerPos(freePos, centerSquare);
 	}
 
 	public static Vector3 GetCenterOfGridPattern(AbilityGridPattern pattern, AbilityTarget target)
@@ -3716,7 +3716,7 @@ public static class AreaEffectUtils
 		{
 			return centerSquare.ToVector3();
 		}
-		return Board.SnapToCorner(freePos, centerSquare);
+		return Board.GetBestCornerPos(freePos, centerSquare);
 	}
 
 	public static bool HasAdjacentActorOfTeam(ActorData aroundActor, List<Team> teams)
@@ -3733,7 +3733,7 @@ public static class AreaEffectUtils
 					{
 						if (IsActorTargetable(current, teams))
 						{
-							if (Board.Get().AreAdjacent(aroundActor.GetCurrentBoardSquare(), current.GetCurrentBoardSquare()))
+							if (Board.Get().GetSquaresAreAdjacent(aroundActor.GetCurrentBoardSquare(), current.GetCurrentBoardSquare()))
 							{
 								while (true)
 								{

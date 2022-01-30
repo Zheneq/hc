@@ -41,7 +41,7 @@ public class BoardRegion
 
 	public virtual void InitializeAsRect(Vector3 worldCorner1, Vector3 worldCorner2)
 	{
-		m_squaresInRegion = Board.Get().GetSquaresInRect(
+		m_squaresInRegion = Board.Get().GetSquaresBoundedBy(
 			Board.Get().GetSquareFromPos(worldCorner1.x, worldCorner1.z),
 			Board.Get().GetSquareFromPos(worldCorner2.x, worldCorner2.z));
 	}

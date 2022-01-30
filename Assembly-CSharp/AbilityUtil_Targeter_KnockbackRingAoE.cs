@@ -54,12 +54,12 @@ public class AbilityUtil_Targeter_KnockbackRingAoE : AbilityUtil_Targeter_Shape
 					boardSquarePathInfo = null;
 					if (m_knockbackType == KnockbackType.PullToSource && m_knockbackAdjacentActorsIfPull)
 					{
-						if (Board.Get().AreAdjacent(current.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
+						if (Board.Get().GetSquaresAreAdjacent(current.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
 						{
 							Vector3 aimDir = targetingActor.GetFreePos() - current.GetFreePos();
 							aimDir.y = 0f;
 							float distance = 2f;
-							if (Board.Get().AreDiagonallyAdjacent(current.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
+							if (Board.Get().GetSquaresAreDiagonallyAdjacent(current.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
 							{
 								distance = 2.82f;
 							}

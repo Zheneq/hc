@@ -28,7 +28,7 @@ public class BoardQuad
 					a = m_corner1.GetComponent<BoardSquare>();
 				}
 				BoardSquare b = (!(m_corner2.GetComponent<BoardSquare>() == null)) ? m_corner2.GetComponent<BoardSquare>() : Board.Get().GetSquareFromTransform(m_corner2);
-				result = Board.Get().GetSquaresInRect(a, b);
+				result = Board.Get().GetSquaresBoundedBy(a, b);
 				goto IL_0100;
 			}
 		}

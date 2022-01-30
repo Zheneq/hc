@@ -180,7 +180,7 @@ public class AbilityTarget
 		{
 			dir.Normalize();
 		}
-		BoardSquare boardSquare = Board.Get()._0013(targetWorldPos.x, targetWorldPos.z);
+		BoardSquare boardSquare = Board.Get().GetClosestValidForGameplaySquareTo(targetWorldPos.x, targetWorldPos.z);
 		GridPos targetPos;
 		if ((bool)boardSquare)
 		{
@@ -294,7 +294,7 @@ public class AbilityTarget
 			GridPos targetPos = default(GridPos);
 			targetPos.x = value2;
 			targetPos.y = value3;
-			targetPos.height = (int)Board.Get().GetSquareHeight(value2, value3);
+			targetPos.height = (int)Board.Get().GetHeightAt(value2, value3);
 			AbilityTarget item = new AbilityTarget(targetPos, value5, value4);
 			list.Add(item);
 		}

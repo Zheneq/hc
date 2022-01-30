@@ -430,7 +430,7 @@ public static class KnockbackUtils
 		{
 			return false;
 		}
-		if (!Board.Get().AreAdjacent(src, dest))
+		if (!Board.Get().GetSquaresAreAdjacent(src, dest))
 		{
 			while (true)
 			{
@@ -439,7 +439,7 @@ public static class KnockbackUtils
 		}
 		bool flag = true;
 		bool flag2 = true;
-		if (Board.Get().AreDiagonallyAdjacent(src, dest))
+		if (Board.Get().GetSquaresAreDiagonallyAdjacent(src, dest))
 		{
 			BoardSquare boardSquare = Board.Get().GetSquareFromIndex(src.x, dest.y);
 			BoardSquare boardSquare2 = Board.Get().GetSquareFromIndex(dest.x, src.y);

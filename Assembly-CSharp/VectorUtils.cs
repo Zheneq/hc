@@ -158,22 +158,22 @@ public static class VectorUtils
 	{
 		float squareSize = board.squareSize;
 		float y;
-		if (board.GetSquareHeight(startX, startY) < 0f)
+		if (board.GetHeightAt(startX, startY) < 0f)
 		{
 			y = heightOffset + (float)board.BaselineHeight;
 		}
 		else
 		{
-			y = heightOffset + board.GetSquareHeight(startX, startY);
+			y = heightOffset + board.GetHeightAt(startX, startY);
 		}
 		float y2;
-		if (board.GetSquareHeight(endX, endY) < 0f)
+		if (board.GetHeightAt(endX, endY) < 0f)
 		{
 			y2 = heightOffset + (float)board.BaselineHeight;
 		}
 		else
 		{
-			y2 = heightOffset + board.GetSquareHeight(endX, endY);
+			y2 = heightOffset + board.GetHeightAt(endX, endY);
 		}
 		Vector3 vector = new Vector3((float)startX * squareSize, y, (float)startY * squareSize);
 		Vector3 vector2 = new Vector3((float)endX * squareSize, y2, (float)endY * squareSize);
@@ -239,22 +239,22 @@ public static class VectorUtils
 	{
 		float squareSize = board.squareSize;
 		float y;
-		if (board.GetSquareHeight(startX, startY) < 0f)
+		if (board.GetHeightAt(startX, startY) < 0f)
 		{
 			y = heightOffset + (float)board.BaselineHeight;
 		}
 		else
 		{
-			y = heightOffset + board.GetSquareHeight(startX, startY);
+			y = heightOffset + board.GetHeightAt(startX, startY);
 		}
 		float y2;
-		if (board.GetSquareHeight(endX, endY) < 0f)
+		if (board.GetHeightAt(endX, endY) < 0f)
 		{
 			y2 = heightOffset + (float)board.BaselineHeight;
 		}
 		else
 		{
-			y2 = heightOffset + board.GetSquareHeight(endX, endY);
+			y2 = heightOffset + board.GetHeightAt(endX, endY);
 		}
 		Vector3 vector = new Vector3((float)startX * squareSize, y, (float)startY * squareSize);
 		Vector3 vector2 = new Vector3((float)endX * squareSize, y2, (float)endY * squareSize);

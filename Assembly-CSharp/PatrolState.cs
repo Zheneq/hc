@@ -77,7 +77,7 @@ public class PatrolState : FSMState
 								{
 									break;
 								}
-								boardSquare = Board.Get()._0018(boardSquare, boardSquare);
+								boardSquare = Board.Get().GetClosestValidForGameplaySquareTo(boardSquare, boardSquare);
 								this.m_PatrolPath.m_AlternateDestination = boardSquare;
 							}
 						}
@@ -116,7 +116,7 @@ public class PatrolState : FSMState
 					GameEventManager.PatrolPointArgs args2 = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.MovingToNextPoint, base.MyActorData, wayPoint, this.m_PatrolPath.mWayPoints.IndexOf(wayPoint), this.m_PatrolPath, this.m_PatrolPath.m_AlternateDestination == null);
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.PatrolPointEvent, args2);
 					this.m_PatrolPath.m_AlternateDestination = null;
-					BoardSquare boardSquare2 = Board.Get()._0013(wayPoint.transform.position.x, wayPoint.transform.position.z);
+					BoardSquare boardSquare2 = Board.Get().GetClosestValidForGameplaySquareTo(wayPoint.transform.position.x, wayPoint.transform.position.z);
 					Debug.Log("Traveling to: " + boardSquare2);
 					component3.SelectMovementSquareForMovement(boardSquare2);
 				}

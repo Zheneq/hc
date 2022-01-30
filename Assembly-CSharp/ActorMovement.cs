@@ -399,7 +399,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					{
 						continue;
 					}
-					bool isDiagonalStep = board.AreDiagonallyAdjacent(square, boardSquare);
+					bool isDiagonalStep = board.GetSquaresAreDiagonallyAdjacent(square, boardSquare);
 					float nextCost = isDiagonalStep
 						? value2.cost + 1.5f
 						: value2.cost + 1f;
@@ -506,7 +506,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				{
 					continue;
 				}
-				bool isDiagonalStep = Board.Get().AreDiagonallyAdjacent(square, boardSquare);
+				bool isDiagonalStep = Board.Get().GetSquaresAreDiagonallyAdjacent(square, boardSquare);
 				float nextCost = isDiagonalStep
 					? value2.cost + 1.5f
 					: value2.cost + 1f;
@@ -702,13 +702,13 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			return false;
 		}
-		if (!knownAdjacent && !Board.Get().AreAdjacent(src, dest))
+		if (!knownAdjacent && !Board.Get().GetSquaresAreAdjacent(src, dest))
 		{
 			return false;
 		}
 		bool result = true;
 		if (diagonalFlag == DiagonalCalcFlag.IsDiagonal ||
-			diagonalFlag == DiagonalCalcFlag.Unknown && Board.Get().AreDiagonallyAdjacent(src, dest))
+			diagonalFlag == DiagonalCalcFlag.Unknown && Board.Get().GetSquaresAreDiagonallyAdjacent(src, dest))
 		{
 			BoardSquare boardSquare = Board.Get().GetSquareFromIndex(src.x, dest.y);
 			BoardSquare boardSquare2 = Board.Get().GetSquareFromIndex(dest.x, src.y);
@@ -1428,7 +1428,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			foreach (BoardSquare neighbour in neighbours)
 			{
-				bool isDiagonalStep = Board.Get().AreDiagonallyAdjacent(pathNode.square, neighbour);
+				bool isDiagonalStep = Board.Get().GetSquaresAreDiagonallyAdjacent(pathNode.square, neighbour);
 				float nextCost = pathNode.moveCost + (isDiagonalStep ? 1.5f : 1f);
 				bool isValidMove = canExceedMaxMovement
 					? pathNode.moveCost < maxHorizontalMovement
@@ -1564,7 +1564,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			for (int i = 0; i < result.Count; i++)
 			{
 				BoardSquare boardSquare = result[i];
-				bool isDiagonalStep = Board.Get().AreDiagonallyAdjacent(boardSquarePathInfo2.square, boardSquare);
+				bool isDiagonalStep = Board.Get().GetSquaresAreDiagonallyAdjacent(boardSquarePathInfo2.square, boardSquare);
 				float nextCost = isDiagonalStep
 					? boardSquarePathInfo2.moveCost + 1.5f
 					: boardSquarePathInfo2.moveCost + 1f;

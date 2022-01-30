@@ -45,7 +45,7 @@ public class WanderState : FSMState
 		position.y = 0f;
 		Bounds minBounds = new Bounds(position, size);
 		Bounds u001D = new Bounds(position, size2);
-		List<BoardSquare> list = Board.Get()._000E(u001D, delegate(BoardSquare x)
+		List<BoardSquare> list = Board.Get().GetSquaresInBox(u001D, delegate(BoardSquare x)
 		{
 			if (x.OccupantActor == null)
 			{

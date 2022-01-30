@@ -655,7 +655,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			GridPos item = default(GridPos);
 			item.x = x;
 			item.y = y;
-			item.height = (int)Board.Get().GetSquareHeight(item.x, item.y);
+			item.height = (int)Board.Get().GetHeightAt(item.x, item.y);
 			lineInstance.m_positions.Add(item);
 		}
 		while (true)

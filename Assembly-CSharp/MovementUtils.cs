@@ -560,7 +560,7 @@ public static class MovementUtils
 
 	public static bool ShouldVault(BoardSquare srcSquare, BoardSquare destSquare)
 	{
-		if (Board.Get().AreDiagonallyAdjacent(srcSquare, destSquare))
+		if (Board.Get().GetSquaresAreDiagonallyAdjacent(srcSquare, destSquare))
 		{
 			BoardSquare boardSquare = Board.Get().GetSquareFromIndex(srcSquare.GetGridPos().x, destSquare.GetGridPos().y);
 			BoardSquare boardSquare2 = Board.Get().GetSquareFromIndex(destSquare.GetGridPos().x, srcSquare.GetGridPos().y);
@@ -606,7 +606,7 @@ public static class MovementUtils
 
 	public static bool MovingOverHole(BoardSquare src, BoardSquare dst)
 	{
-		foreach (BoardSquare current in Board.Get().GetSquaresInRect(src, dst))
+		foreach (BoardSquare current in Board.Get().GetSquaresBoundedBy(src, dst))
 		{
 			if (current.height < Board.Get().BaselineHeight)
 			{
