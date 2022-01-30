@@ -667,32 +667,30 @@ public class AbilityData : NetworkBehaviour
 				}
 				m_actionToSelectWhenEnteringDecisionState = ActionType.INVALID_ACTION;
 			}
-			else
+			else if (m_actionsToCancelForTurnRedo != null
+				&& actorTurnSM.CurrentState == TurnStateEnum.DECIDING)
 			{
 				if (m_actionsToCancelForTurnRedo != null && actorTurnSM.CurrentState == TurnStateEnum.DECIDING)
 				{
-					if (RedoTurn(null, ActionType.INVALID_ACTION, m_actionsToCancelForTurnRedo, false, false))
-					{
-						ClearActionsToCancelOnTargetingComplete();
-					}
+					ClearActionsToCancelOnTargetingComplete();
 				}
-				else if ((actorTurnSM.CanSelectAbility() || actorTurnSM.CanQueueSimpleAction())
-					&& !m_actor.IsDead())
+			}
+			else if ((actorTurnSM.CanSelectAbility() || actorTurnSM.CanQueueSimpleAction())
+				&& !m_actor.IsDead())
+			{
+				for (int i = 0; i < m_abilities.Length; i++)
 				{
-					for (int i = 0; i < m_abilities.Length; i++)
+					AbilityEntry abilityEntry = m_abilities[i];
+					if (abilityEntry != null
+						&& abilityEntry.ability != null
+						&& abilityEntry.keyPreference != KeyPreference.NullPreference
+						&& InputManager.Get().IsKeyBindingNewlyHeld(abilityEntry.keyPreference)
+						&& !UITutorialFullscreenPanel.Get().IsAnyPanelVisible())
 					{
-						AbilityEntry abilityEntry = m_abilities[i];
-						if (abilityEntry != null
-							&& abilityEntry.ability != null
-							&& abilityEntry.keyPreference != KeyPreference.NullPreference
-							&& InputManager.Get().IsKeyBindingNewlyHeld(abilityEntry.keyPreference)
-							&& !UITutorialFullscreenPanel.Get().IsAnyPanelVisible())
+						ActionType actionType = (ActionType)i;
+						if (AbilityButtonPressed(actionType, abilityEntry.ability))
 						{
-							ActionType actionType = (ActionType)i;
-							if (AbilityButtonPressed(actionType, abilityEntry.ability))
-							{
-								break;
-							}
+							break;
 						}
 					}
 				}
@@ -884,7 +882,9 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (flag)
 		{
-			if (!ability.IsFreeAction() || ability.GetRunPriority() == AbilityPriority.Evasion || IsCard(actionType))
+			if (!ability.IsFreeAction()
+				|| ability.GetRunPriority() == AbilityPriority.Evasion
+				|| IsCard(actionType))
 			{
 				for (int i = 0; i < NUM_ACTIONS; i++)
 				{
@@ -902,12 +902,9 @@ public class AbilityData : NetworkBehaviour
 					}
 				}
 			}
-			else
+			else if (ability.IsFreeAction() && HasQueuedAction(actionType))
 			{
-				if (ability.IsFreeAction() && HasQueuedAction(actionType))
-				{
-					actionsToCancel.Add(actionType);
-				}
+				actionsToCancel.Add(actionType);
 			}
 			if (m_actor.HasQueuedMovement())
 			{
@@ -982,7 +979,7 @@ public class AbilityData : NetworkBehaviour
 		return list2;
 	}
 
-	private void SyncListCallbackCoolDownsSync(SyncList<int>.Operation op, int _incorrectIndexBugIn51And52)
+	private void SyncListCallbackCoolDownsSync(SyncList<int>.Operation op, int index)
 	{
 		if (!NetworkServer.active)
 		{
@@ -995,22 +992,19 @@ public class AbilityData : NetworkBehaviour
 
 	private void SyncListCallbackCurrentCardsChanged(SyncList<int>.Operation op, int index)
 	{
-		if (!NetworkServer.active)
+		if (!NetworkServer.active && CardManagerData.Get() != null)
 		{
-			if (CardManagerData.Get() != null)
+			for (int i = 0; i < m_currentCardIds.Count; i++)
 			{
-				for (int i = 0; i < m_currentCardIds.Count; i++)
+				Ability useAbility = null;
+				if (m_currentCardIds[i] > 0)
 				{
-					Ability useAbility = null;
-					if (m_currentCardIds[i] > 0)
-					{
-						Card spawnedCardInstance = GetSpawnedCardInstance((CardType)m_currentCardIds[i]);
-						useAbility = spawnedCardInstance?.m_useAbility;
-					}
-					SetupCardAbility(i, useAbility);
+					Card spawnedCardInstance = GetSpawnedCardInstance((CardType)m_currentCardIds[i]);
+					useAbility = spawnedCardInstance?.m_useAbility;
 				}
-				UpdateCardBarUI();
+				SetupCardAbility(i, useAbility);
 			}
+			UpdateCardBarUI();
 		}
 	}
 
@@ -1322,8 +1316,7 @@ public class AbilityData : NetworkBehaviour
 			}
 			else if (IsCard(actionType))
 			{
-				int turnCatalystsUnlock = GameplayData.Get().m_turnCatalystsUnlock;
-				turns = turnCatalystsUnlock - currentTurn;
+				turns = GameplayData.Get().m_turnCatalystsUnlock - currentTurn;
 			}
 			else
 			{
@@ -1366,7 +1359,7 @@ public class AbilityData : NetworkBehaviour
 						int num = moddedCooldown + 1;
 						int cooldownTimeAdjustment = GameplayMutators.GetCooldownTimeAdjustment();
 						float cooldownMultiplier = GameplayMutators.GetCooldownMultiplier();
-						int num2 = Mathf.RoundToInt((float)(num + cooldownTimeAdjustment) * cooldownMultiplier);
+						int num2 = Mathf.RoundToInt((num + cooldownTimeAdjustment) * cooldownMultiplier);
 						num2 = Math.Max(num2, 0);
 						m_cooldowns[abilityEntry.ability.m_abilityName] = num2;
 					}
@@ -1414,9 +1407,8 @@ public class AbilityData : NetworkBehaviour
 	public void ProgressCooldowns()
 	{
 		Dictionary<string, int> cooldownsCopy = new Dictionary<string, int>(m_cooldowns);
-		foreach (KeyValuePair<string, int> keyValuePair in cooldownsCopy)
+		foreach (string key in cooldownsCopy.Keys)
 		{
-			string key = keyValuePair.Key;
 			if (m_cooldowns[key] > 0)
 			{
 				int num = 1;
@@ -1438,9 +1430,8 @@ public class AbilityData : NetworkBehaviour
 	public void ProgressCooldownsOfAbilities(List<Ability> abilities)
 	{
 		Dictionary<string, int> cooldownsCopy = new Dictionary<string, int>(m_cooldowns);
-		foreach (KeyValuePair<string, int> keyValuePair in cooldownsCopy)
+		foreach (string key in cooldownsCopy.Keys)
 		{
-			string key = keyValuePair.Key;
 			if (m_cooldowns[key] > 0)
 			{
 				bool flag = false;
@@ -1468,9 +1459,8 @@ public class AbilityData : NetworkBehaviour
 	public void ProgressCharacterAbilityCooldowns()
 	{
 		Dictionary<string, int> cooldownsCopy = new Dictionary<string, int>(m_cooldowns);
-		foreach (KeyValuePair<string, int> keyValuePair in cooldownsCopy)
+		foreach (string key in cooldownsCopy.Keys)
 		{
-			string key = keyValuePair.Key;
 			ActionType actionType = GetActionType(key);
 			if (actionType >= ActionType.ABILITY_0
 				&& actionType <= ActionType.ABILITY_6
@@ -1912,13 +1902,12 @@ public class AbilityData : NetworkBehaviour
 			}
 			bool flag2 = rangeInSquares < 0f || num <= rangeInSquares;
 			bool flag3 = num >= minRangeInSquares;
-			if (flag2 && flag3)
+			if (!flag2 || !flag3)
 			{
-				return result;
+				return false;
 			}
-			result = false;
 		}
-		return result;
+		return true;
 	}
 
 	public bool HasLineOfSightToTarget(Ability specificAbility, AbilityTarget target, int targetIndex)
