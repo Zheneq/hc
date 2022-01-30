@@ -734,6 +734,5 @@ public class Board : MonoBehaviour, IGameEventListener
 			Vector3 b2 = dirX * halfMaxDistX;
 			Gizmos.DrawLine(a4 + b2, a4 - b2);
 		}
-		return;
 	}
 }
