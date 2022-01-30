@@ -92,19 +92,15 @@ public class ActorStats : NetworkBehaviour
 		}
 	}
 
-	private void SyncListCallbackModifiedStats(SyncList<float>.Operation op, int _incorrectIndexBugIn51And52)
+	private void SyncListCallbackModifiedStats(SyncList<float>.Operation op, int index)
 	{
 		if (!NetworkClient.active || NetworkServer.active)
 		{
 			return;
 		}
 
-		for (int i = 0; i < m_modifiedStats.Count; i++)
+		for (int i = 0; i < m_modifiedStats.Count && i < m_modifiedStatsPrevious.Length; i++)
 		{
-			if (i >= m_modifiedStatsPrevious.Length)
-			{
-				return;
-			}
 			if (m_modifiedStats[i] != m_modifiedStatsPrevious[i])
 			{
 				StatType stat = (StatType)i;
@@ -177,9 +173,7 @@ public class ActorStats : NetworkBehaviour
 
 	public int GetModifiedStatInt(StatType stat, int baseValue)
 	{
-		float baseValue2 = baseValue;
-		float f = CalculateModifiedStatValue(stat, baseValue2);
-		return Mathf.FloorToInt(f);
+		return Mathf.FloorToInt(CalculateModifiedStatValue(stat, (float)baseValue));
 	}
 
 	private void CalculateAdjustmentForStatMod(StatMod statMod, ref float baseAdd, ref float bonusAdd, ref float percentAdd, ref float multipliers)
@@ -261,8 +255,7 @@ public class ActorStats : NetworkBehaviour
 
 	public int GetStatBaseValueInt(StatType stat)
 	{
-		float statBaseValueFloat = GetStatBaseValueFloat(stat);
-		return Mathf.RoundToInt(statBaseValueFloat);
+		return Mathf.RoundToInt(GetStatBaseValueFloat(stat));
 	}
 
 	public float GetStatBaseValueFloat(StatType stat)
@@ -370,7 +363,15 @@ public class ActorStats : NetworkBehaviour
 		}
 		else if (!isEmpowered && isWeakened)
 		{
-			AbilityModPropertyInt abilityModPropertyInt = (!(GameplayMutators.Get() == null) && GameplayMutators.Get().m_useWeakenedOverride) ? GameplayMutators.Get().m_weakenedOutgoingDamageMod : GameWideData.Get().m_weakenedOutgoingDamageMod;
+			AbilityModPropertyInt abilityModPropertyInt;
+			if (GameplayMutators.Get() != null && GameplayMutators.Get().m_useWeakenedOverride)
+			{
+				abilityModPropertyInt = GameplayMutators.Get().m_weakenedOutgoingDamageMod;
+			}
+			else
+			{
+				abilityModPropertyInt = GameWideData.Get().m_weakenedOutgoingDamageMod;
+			}
 			damage = abilityModPropertyInt.GetModifiedValue(baseDamage);
 		}
 		return Mathf.Max(0, damage);
@@ -399,7 +400,15 @@ public class ActorStats : NetworkBehaviour
 		}
 		else if (!isEmpowered && isWeakened)
 		{
-			AbilityModPropertyInt abilityModPropertyInt = (!(GameplayMutators.Get() == null) && GameplayMutators.Get().m_useWeakenedOverride) ? GameplayMutators.Get().m_weakenedOutgoingHealingMod : GameWideData.Get().m_weakenedOutgoingHealingMod;
+			AbilityModPropertyInt abilityModPropertyInt;
+			if (GameplayMutators.Get() != null && GameplayMutators.Get().m_useWeakenedOverride)
+			{
+				abilityModPropertyInt = GameplayMutators.Get().m_weakenedOutgoingHealingMod;
+			}
+			else
+			{
+				abilityModPropertyInt = GameWideData.Get().m_weakenedOutgoingHealingMod;
+			}
 			heal = abilityModPropertyInt.GetModifiedValue(baseHeal);
 		}
 		return Mathf.Max(0, heal);
@@ -496,15 +505,13 @@ public class ActorStats : NetworkBehaviour
 
 	public void CalculateAdjustmentsForMovementHorizontal(ref float baseAdd, ref float bonusAdd, ref float percentAdd, ref float multipliers)
 	{
-		ActorStatus component = GetComponent<ActorStatus>();
-		if (component.HasStatus(StatusType.MovementDebuffSuppression))
+		if (GetComponent<ActorStatus>().HasStatus(StatusType.MovementDebuffSuppression))
 		{
 			StatModFilterDelegate filterDelegate = delegate (StatMod statMod)
 			{
 				return statMod.mod == ModType.Multiplier ? statMod.val >= 1f : statMod.val > 0f;
 			};
 			CalculateAdjustments(StatType.Movement_Horizontal, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers, filterDelegate);
-			return;
 		}
 		else
 		{
