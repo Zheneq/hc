@@ -6,7 +6,6 @@ using UnityEngine;
 public class BoardRegion
 {
 	public BoardQuad[] m_quads;
-
 	private List<BoardSquare> m_squaresInRegion;
 
 	private void CacheSquaresInRegion()
@@ -16,8 +15,7 @@ public class BoardRegion
 		{
 			return;
 		}
-		BoardQuad[] quads = m_quads;
-		foreach (BoardQuad boardQuad in quads)
+		foreach (BoardQuad boardQuad in m_quads)
 		{
 			if (boardQuad == null)
 			{
@@ -25,16 +23,11 @@ public class BoardRegion
 			}
 			else
 			{
-				List<BoardSquare> squares = boardQuad.GetSquares();
-				using (List<BoardSquare>.Enumerator enumerator = squares.GetEnumerator())
+				foreach (BoardSquare square in boardQuad.GetSquares())
 				{
-					while (enumerator.MoveNext())
+					if (!m_squaresInRegion.Contains(square))
 					{
-						BoardSquare current = enumerator.Current;
-						if (!m_squaresInRegion.Contains(current))
-						{
-							m_squaresInRegion.Add(current);
-						}
+						m_squaresInRegion.Add(square);
 					}
 				}
 			}
@@ -48,9 +41,9 @@ public class BoardRegion
 
 	public virtual void InitializeAsRect(Vector3 worldCorner1, Vector3 worldCorner2)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetSquareFromPos(worldCorner1.x, worldCorner1.z);
-		BoardSquare boardSquareSafe2 = Board.Get().GetSquareFromPos(worldCorner2.x, worldCorner2.z);
-		m_squaresInRegion = Board.Get().GetSquaresInRect(boardSquareSafe, boardSquareSafe2);
+		m_squaresInRegion = Board.Get().GetSquaresInRect(
+			Board.Get().GetSquareFromPos(worldCorner1.x, worldCorner1.z),
+			Board.Get().GetSquareFromPos(worldCorner2.x, worldCorner2.z));
 	}
 
 	public List<BoardSquare> GetSquaresInRegion()
@@ -67,65 +60,33 @@ public class BoardRegion
 	{
 		BoardSquare result = null;
 		BoardSquare centerSquare = GetCenterSquare();
-		List<BoardSquare> squaresInRegion = GetSquaresInRegion();
-		float num = 100000f;
-		using (List<BoardSquare>.Enumerator enumerator = squaresInRegion.GetEnumerator())
+		float minDist = 100000f;
+		foreach (BoardSquare square in GetSquaresInRegion())
 		{
-			while (enumerator.MoveNext())
+			if (square.IsValidForGameplay())
 			{
-				BoardSquare current = enumerator.Current;
-				if (current.IsValidForGameplay())
+				float dist = square.HorizontalDistanceInSquaresTo(centerSquare);
+				if (dist < minDist)
 				{
-					float num2 = current.HorizontalDistanceInSquaresTo(centerSquare);
-					if (num2 < num)
-					{
-						num = num2;
-						result = current;
-					}
-				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return result;
+					minDist = dist;
+					result = square;
 				}
 			}
 		}
+		return result;
 	}
 
 	public List<ActorData> GetOccupantActors()
 	{
-		List<ActorData> list = new List<ActorData>();
-		List<BoardSquare> squaresInRegion = GetSquaresInRegion();
-		using (List<BoardSquare>.Enumerator enumerator = squaresInRegion.GetEnumerator())
+		List<ActorData> result = new List<ActorData>();
+		foreach (BoardSquare square in GetSquaresInRegion())
 		{
-			while (enumerator.MoveNext())
+			if (square.OccupantActor != null && !result.Contains(square.OccupantActor))
 			{
-				BoardSquare current = enumerator.Current;
-				ActorData occupantActor = current.OccupantActor;
-				if (occupantActor != null)
-				{
-					if (!list.Contains(occupantActor))
-					{
-						list.Add(occupantActor);
-					}
-				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return list;
-				}
+				result.Add(square.OccupantActor);
 			}
 		}
+		return result;
 	}
 
 	public bool IsActorInRegion(ActorData actor)
@@ -134,25 +95,11 @@ public class BoardRegion
 		{
 			return false;
 		}
-		List<BoardSquare> squaresInRegion = GetSquaresInRegion();
-		using (List<BoardSquare>.Enumerator enumerator = squaresInRegion.GetEnumerator())
+		foreach (BoardSquare current in GetSquaresInRegion())
 		{
-			while (enumerator.MoveNext())
+			if (current.OccupantActor == actor)
 			{
-				BoardSquare current = enumerator.Current;
-				if (current.OccupantActor == actor)
-				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							return true;
-						}
-					}
-				}
+				return true;
 			}
 		}
 		return false;
@@ -160,11 +107,10 @@ public class BoardRegion
 
 	public Vector3 GetCenter()
 	{
-		Vector3 zero = Vector3.zero;
+		Vector3 result = Vector3.zero;
 		if (m_quads.Length > 0)
 		{
-			BoardQuad[] quads = m_quads;
-			foreach (BoardQuad boardQuad in quads)
+			foreach (BoardQuad boardQuad in m_quads)
 			{
 				if (boardQuad == null)
 				{
@@ -172,109 +118,72 @@ public class BoardRegion
 				}
 				else
 				{
-					zero += (boardQuad.m_corner1.position + boardQuad.m_corner2.position) / 2f;
+					result += (boardQuad.m_corner1.position + boardQuad.m_corner2.position) / 2f;
 				}
 			}
-			zero /= (float)m_quads.Length;
+			result /= m_quads.Length;
 		}
-		return zero;
+		return result;
 	}
 
 	public BoardSquare GetCenterSquare()
 	{
-		Vector3 center = GetCenter();
-		return Board.Get().GetSquareFromVec3(center);
+		return Board.Get().GetSquareFromVec3(GetCenter());
 	}
 
 	public bool Contains(int x, int y)
 	{
-		List<BoardSquare> squaresInRegion = GetSquaresInRegion();
-		foreach (BoardSquare item in squaresInRegion)
+		foreach (BoardSquare square in GetSquaresInRegion())
 		{
-			if (item.x == x)
+			if (square.x == x && square.y == y)
 			{
-				if (item.y == y)
-				{
-					return true;
-				}
+				return true;
 			}
 		}
 		return false;
 	}
 
-	public float _001D(BoardSquare _001D)
+	public float GetShortestDistanceOnBoardTo(BoardSquare dest)
 	{
-		if (_001D == null)
+		if (dest == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return 0f;
-				}
-			}
+			return 0f;
 		}
 		List<BoardSquare> squaresInRegion = GetSquaresInRegion();
-		if (squaresInRegion != null)
+		if (squaresInRegion == null || squaresInRegion.Count == 0)
 		{
-			if (squaresInRegion.Count != 0)
+			return 0f;
+		}
+		BoardSquare closestSquare = null;
+		foreach (BoardSquare square in squaresInRegion)
+		{
+			if (square != null)
 			{
-				BoardSquare boardSquare = null;
-				int num = 0;
-				while (true)
+				if (dest == square)
 				{
-					if (num < squaresInRegion.Count)
-					{
-						BoardSquare boardSquare2 = squaresInRegion[num];
-						if (boardSquare2 == null)
-						{
-						}
-						else
-						{
-							if (_001D == boardSquare2)
-							{
-								boardSquare = _001D;
-								break;
-							}
-							if (boardSquare == null)
-							{
-								boardSquare = boardSquare2;
-							}
-							else
-							{
-								float num2 = boardSquare.HorizontalDistanceOnBoardTo(_001D);
-								float num3 = boardSquare2.HorizontalDistanceOnBoardTo(_001D);
-								if (num3 < num2)
-								{
-									boardSquare = boardSquare2;
-								}
-							}
-						}
-						num++;
-						continue;
-					}
+					closestSquare = dest;
 					break;
 				}
-				if (boardSquare == null)
+				if (closestSquare == null)
 				{
-					while (true)
+					closestSquare = square;
+				}
+				else
+				{
+					float minDist = closestSquare.HorizontalDistanceOnBoardTo(dest);
+					float curDist = square.HorizontalDistanceOnBoardTo(dest);
+					if (curDist < minDist)
 					{
-						switch (4)
-						{
-						case 0:
-							break;
-						default:
-							return 0f;
-						}
+						closestSquare = square;
 					}
 				}
-				return boardSquare.HorizontalDistanceOnBoardTo(_001D);
 			}
 		}
-		return 0f;
+		if (closestSquare == null)
+		{
+			return 0f;
+		}
+		return closestSquare.HorizontalDistanceOnBoardTo(dest);
 	}
 
 	public void GizmosDrawRegion(Color color)
@@ -302,16 +211,7 @@ public class BoardRegion
 	{
 		if (CaptureTheFlag.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return CaptureTheFlag.Get().m_turnInRegionIcon;
-				}
-			}
+			return CaptureTheFlag.Get().m_turnInRegionIcon;
 		}
 		return null;
 	}
