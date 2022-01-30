@@ -4,19 +4,13 @@ using UnityEngine;
 public class PowerUpManager : MonoBehaviour
 {
 	public static List<PowerUp.IPowerUpListener> s_powerUpListenersTemp;
-
 	private static PowerUpManager s_instance;
 
 	private List<PowerUp.IPowerUpListener> m_powerUpListeners;
-
 	private List<PowerUp> m_clientPowerUps = new List<PowerUp>();
-
 	private GameObject m_spawnedPowerupsRoot;
-
 	private GameObject m_powerupSpawnerRoot;
-
 	private GameObject m_powerupSequencesRoot;
-
 	private Dictionary<int, PowerUp> m_guidToPowerupDictionary = new Dictionary<int, PowerUp>();
 
 	public List<PowerUp.IPowerUpListener> powerUpListeners => m_powerUpListeners;
@@ -66,65 +60,20 @@ public class PowerUpManager : MonoBehaviour
 
 	internal PowerUp GetPowerUpOfGuid(int guid)
 	{
-		if (guid < 0)
+		if (guid >= 0 && m_guidToPowerupDictionary != null && m_guidToPowerupDictionary.ContainsKey(guid))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return null;
-				}
-			}
+			return m_guidToPowerupDictionary[guid];
 		}
-		if (m_guidToPowerupDictionary == null)
-		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return null;
-				}
-			}
-		}
-		if (!m_guidToPowerupDictionary.ContainsKey(guid))
-		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return null;
-				}
-			}
-		}
-		return m_guidToPowerupDictionary[guid];
+		return null;
 	}
 
 	internal void SetPowerUpGuid(PowerUp pup, int guid)
 	{
-		if (!m_guidToPowerupDictionary.ContainsKey(guid))
+		if (m_guidToPowerupDictionary.ContainsKey(guid))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					m_guidToPowerupDictionary.Add(guid, pup);
-					return;
-				}
-			}
+			Log.Error("Trying to add powerup guid more than once");
 		}
-		Log.Error("Trying to add powerup guid more than once");
+		m_guidToPowerupDictionary.Add(guid, pup);
 	}
 
 	internal void OnPowerUpDestroy(PowerUp pup)
@@ -141,13 +90,9 @@ public class PowerUpManager : MonoBehaviour
 		m_powerUpListeners = new List<PowerUp.IPowerUpListener>();
 		if (s_powerUpListenersTemp != null)
 		{
-			using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = s_powerUpListenersTemp.GetEnumerator())
+			foreach (PowerUp.IPowerUpListener current in s_powerUpListenersTemp)
 			{
-				while (enumerator.MoveNext())
-				{
-					PowerUp.IPowerUpListener current = enumerator.Current;
-					AddListener(current);
-				}
+				AddListener(current);
 			}
 			s_powerUpListenersTemp.Clear();
 			s_powerUpListenersTemp = null;
@@ -183,73 +128,42 @@ public class PowerUpManager : MonoBehaviour
 
 	public PowerUp GetPowerUpInPos(GridPos gridPos)
 	{
-		PowerUp result = null;
-		using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = powerUpListeners.GetEnumerator())
+		foreach (PowerUp.IPowerUpListener listener in powerUpListeners)
 		{
-			while (enumerator.MoveNext())
+			if (listener != null)
 			{
-				PowerUp.IPowerUpListener current = enumerator.Current;
-				if (current != null)
+				PowerUp[] activePowerUps = listener.GetActivePowerUps();
+				foreach (PowerUp pup in activePowerUps)
 				{
-					PowerUp[] activePowerUps = current.GetActivePowerUps();
-					int num = 0;
-					while (true)
+					if (pup != null && pup.boardSquare != null)
 					{
-						if (num >= activePowerUps.Length)
+						GridPos pupGridPos = pup.boardSquare.GetGridPos();
+						if (pupGridPos.x == gridPos.x && pupGridPos.y == gridPos.y)
 						{
-							break;
+							return pup;
 						}
-						if (activePowerUps[num] != null)
-						{
-							if (activePowerUps[num].boardSquare != null)
-							{
-								GridPos gridPos2 = activePowerUps[num].boardSquare.GetGridPos();
-								if (gridPos2.x == gridPos.x)
-								{
-									if (gridPos2.y == gridPos.y)
-									{
-										result = activePowerUps[num];
-										break;
-									}
-								}
-							}
-						}
-						num++;
 					}
 				}
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return result;
-				}
-			}
 		}
+		return null;
 	}
 
 	public List<PowerUp> GetServerPowerUpsOnSquare(BoardSquare square)
 	{
 		List<PowerUp> list = new List<PowerUp>();
-		foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)
+		foreach (PowerUp.IPowerUpListener listener in powerUpListeners)
 		{
-			if (powerUpListener != null)
+			if (listener != null)
 			{
-				PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
-				for (int i = 0; i < activePowerUps.Length; i++)
+				PowerUp[] activePowerUps = listener.GetActivePowerUps();
+				foreach (PowerUp pup in activePowerUps)
 				{
-					if (activePowerUps[i] != null)
+					if (pup != null
+						&& pup.boardSquare != null
+						&& pup.boardSquare == square)
 					{
-						if (activePowerUps[i].boardSquare != null)
-						{
-							if (activePowerUps[i].boardSquare == square)
-							{
-								list.Add(activePowerUps[i]);
-							}
-						}
+						list.Add(pup);
 					}
 				}
 			}
@@ -259,40 +173,14 @@ public class PowerUpManager : MonoBehaviour
 
 	internal bool IsPowerUpSpawnPoint(BoardSquare square)
 	{
-		bool result = false;
-		using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = powerUpListeners.GetEnumerator())
+		foreach (PowerUp.IPowerUpListener listener in powerUpListeners)
 		{
-			while (enumerator.MoveNext())
+			if (listener != null && listener.IsPowerUpSpawnPoint(square))
 			{
-				PowerUp.IPowerUpListener current = enumerator.Current;
-				if (current != null)
-				{
-					if (current.IsPowerUpSpawnPoint(square))
-					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								break;
-							default:
-								return true;
-							}
-						}
-					}
-				}
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return result;
-				}
+				return true;
 			}
 		}
+		return false;
 	}
 
 	public void TrackClientPowerUp(PowerUp powerUp)
@@ -320,21 +208,11 @@ public class PowerUpManager : MonoBehaviour
 
 	public void SetSpawningEnabled(bool enabled)
 	{
-		using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = powerUpListeners.GetEnumerator())
+		foreach (PowerUp.IPowerUpListener listener in powerUpListeners)
 		{
-			while (enumerator.MoveNext())
+			if (listener != null)
 			{
-				enumerator.Current?.SetSpawningEnabled(enabled);
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
+				listener.SetSpawningEnabled(enabled);
 			}
 		}
 	}
