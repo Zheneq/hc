@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class PlayerData : NetworkBehaviour
 {
 	[HideInInspector]
-	public static int s_invalidPlayerIndex;
+	public static int s_invalidPlayerIndex = -1;
 	internal string m_playerHandle = "";
 	internal bool m_reconnecting;
 	[HideInInspector]
@@ -49,7 +49,6 @@ public class PlayerData : NetworkBehaviour
 
 	static PlayerData()
 	{
-		s_invalidPlayerIndex = -1;
 		RegisterCommandDelegate(typeof(PlayerData), kCmdCmdTheatricsManagerUpdatePhaseEnded, InvokeCmdCmdTheatricsManagerUpdatePhaseEnded);
 		RegisterCommandDelegate(typeof(PlayerData), kCmdCmdTutorialQueueEmpty, InvokeCmdCmdTutorialQueueEmpty);
 		RegisterCommandDelegate(typeof(PlayerData), kCmdCmdDebugEndGame, InvokeCmdCmdDebugEndGame);
@@ -158,8 +157,7 @@ public class PlayerData : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			NetworkIdentity component = GetComponent<NetworkIdentity>();
-			component.RebuildObservers(true);
+			GetComponent<NetworkIdentity>().RebuildObservers(true);
 		}
 		Log.Info("ActorData.OnStartClient: local player");
 		m_isLocal = true;
@@ -273,7 +271,7 @@ public class PlayerData : NetworkBehaviour
 
 	private void RestoreClientLastKnownStateOnReconnect()
 	{
-		Log.Info("restoring reconnected client's last known state {0}", GameFlowData.Get().gameState);
+		Log.Info($"restoring reconnected client's last known state {GameFlowData.Get().gameState}");
 		switch (GameFlowData.Get().gameState)
 		{
 			case GameState.EndingGame:
