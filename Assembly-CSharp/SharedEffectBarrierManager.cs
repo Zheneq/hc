@@ -11,9 +11,7 @@ public class SharedEffectBarrierManager : NetworkBehaviour
 	}
 
 	public int m_numTurnsInMemory = 3;
-
 	private List<int> m_endedEffectGuidsSync;
-
 	private List<int> m_endedBarrierGuidsSync;
 
 	private void Awake()
@@ -40,9 +38,9 @@ public class SharedEffectBarrierManager : NetworkBehaviour
 		}
 		if (ClientEffectBarrierManager.Get() != null)
 		{
-			for (int i = 0; i < m_endedEffectGuidsSync.Count; i++)
+			foreach (int effectGuid in m_endedEffectGuidsSync)
 			{
-				ClientEffectBarrierManager.Get().EndEffect(m_endedEffectGuidsSync[i]);
+				ClientEffectBarrierManager.Get().EndEffect(effectGuid);
 			}
 		}
 	}
@@ -55,9 +53,9 @@ public class SharedEffectBarrierManager : NetworkBehaviour
 		}
 		if (ClientEffectBarrierManager.Get() != null)
 		{
-			for (int i = 0; i < m_endedBarrierGuidsSync.Count; i++)
+			foreach (int effectGuid in m_endedBarrierGuidsSync)
 			{
-				ClientEffectBarrierManager.Get().EndBarrier(m_endedBarrierGuidsSync[i]);
+				ClientEffectBarrierManager.Get().EndBarrier(effectGuid);
 			}
 		}	
 	}
@@ -71,24 +69,20 @@ public class SharedEffectBarrierManager : NetworkBehaviour
 		uint bitMask = (uint)(initialState ? -1 : (int)base.syncVarDirtyBits);
 		if (IsBitDirty(bitMask, DirtyBit.EndedEffects))
 		{
-			short value = (short)m_endedEffectGuidsSync.Count;
-			writer.Write(value);
-			using (List<int>.Enumerator enumerator = m_endedEffectGuidsSync.GetEnumerator())
+			short effectNum = (short)m_endedEffectGuidsSync.Count;
+			writer.Write(effectNum);
+			foreach (int effectGuid in m_endedEffectGuidsSync)
 			{
-				while (enumerator.MoveNext())
-				{
-					int current = enumerator.Current;
-					writer.Write(current);
-				}
+				writer.Write(effectGuid);
 			}
 		}
 		if (IsBitDirty(bitMask, DirtyBit.EndedBarriers))
 		{
-			short value2 = (short)m_endedBarrierGuidsSync.Count;
-			writer.Write(value2);
-			foreach (int item in m_endedBarrierGuidsSync)
+			short effectNum = (short)m_endedBarrierGuidsSync.Count;
+			writer.Write(effectNum);
+			foreach (int effectGuid in m_endedBarrierGuidsSync)
 			{
-				writer.Write(item);
+				writer.Write(effectGuid);
 			}
 		}
 		return bitMask != 0;
@@ -104,21 +98,21 @@ public class SharedEffectBarrierManager : NetworkBehaviour
 		if (IsBitDirty(setBits, DirtyBit.EndedEffects))
 		{
 			m_endedEffectGuidsSync.Clear();
-			short num = reader.ReadInt16();
-			for (short num2 = 0; num2 < num; num2 = (short)(num2 + 1))
+			short effectNum = reader.ReadInt16();
+			for (short i = 0; i < effectNum; i++)
 			{
-				int item = reader.ReadInt32();
-				m_endedEffectGuidsSync.Add(item);
+				int effectGuid = reader.ReadInt32();
+				m_endedEffectGuidsSync.Add(effectGuid);
 			}
 		}
 		if (IsBitDirty(setBits, DirtyBit.EndedBarriers))
 		{
 			m_endedBarrierGuidsSync.Clear();
-			short num3 = reader.ReadInt16();
-			for (short num4 = 0; num4 < num3; num4 = (short)(num4 + 1))
+			short effectNum = reader.ReadInt16();
+			for (short i = 0; i < effectNum; i++)
 			{
-				int item2 = reader.ReadInt32();
-				m_endedBarrierGuidsSync.Add(item2);
+				int effectGuid = reader.ReadInt32();
+				m_endedBarrierGuidsSync.Add(effectGuid);
 			}
 		}
 		OnEndedEffectGuidsSync();
