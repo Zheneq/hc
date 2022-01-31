@@ -431,16 +431,11 @@ public class FogOfWar : MonoBehaviour
 
 	private bool IsClientFog()
 	{
-		if (GameFlowData.Get().activeOwnedActorData != null
-			&& GameFlowData.Get().activeOwnedActorData != m_owner)
+		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			return false;
+			return GameFlowData.Get().activeOwnedActorData == m_owner;
 		}
-		else if (m_ownerPlayer != GameFlowData.Get().LocalPlayerData)
-		{
-			return false;
-		}
-		return true;
+		return m_ownerPlayer == GameFlowData.Get().LocalPlayerData;
 	}
 
 	public void SetVisibleShadeOfAllSquares()
