@@ -54,16 +54,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	static ActorTeamSensitiveData()
 	{
-		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcMovement, InvokeRpcRpcMovement);
-		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcReceivedPingInfo, InvokeRpcRpcReceivedPingInfo);
-		NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcReceivedAbilityPingInfo, InvokeRpcRpcReceivedAbilityPingInfo);
+		RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcMovement, InvokeRpcRpcMovement);
+		RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcReceivedPingInfo, InvokeRpcRpcReceivedPingInfo);
+		RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcReceivedAbilityPingInfo, InvokeRpcRpcReceivedAbilityPingInfo);
 		NetworkCRC.RegisterBehaviour("ActorTeamSensitiveData", 0);
 	}
-
-	public Team ActorsTeam
-	{
-		get => Actor?.GetTeam() ?? Team.Invalid;
-	}
+	public Team ActorsTeam => Actor != null ? Actor.GetTeam() : Team.Invalid;
 
 	public ActorData Actor
 	{
@@ -195,16 +191,16 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			{
 				return;
 			}
-			if (currentActionPhase != ActionBufferPhase.AbilitiesWait && currentActionPhase != ActionBufferPhase.Movement)
+			if (currentActionPhase == ActionBufferPhase.AbilitiesWait
+				|| currentActionPhase == ActionBufferPhase.Movement)
 			{
-				if (currentActionPhase == ActionBufferPhase.Abilities)
-				{
-					CameraManager.Get().SaveMovementCameraBoundForSpectator(m_movementCameraBounds);
-				}
-				return;
+				CameraManager.Get().SaveMovementCameraBoundForSpectator(m_movementCameraBounds);
+				CameraManager.Get().SetTargetForMovementIfNeeded();
 			}
-			CameraManager.Get().SaveMovementCameraBoundForSpectator(m_movementCameraBounds);
-			CameraManager.Get().SetTargetForMovementIfNeeded();
+			else if (currentActionPhase == ActionBufferPhase.Abilities)
+			{
+				CameraManager.Get().SaveMovementCameraBoundForSpectator(m_movementCameraBounds);
+			}
 		}
 	}
 
@@ -248,36 +244,37 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		}
 		m_actorIndex = actorIndex;
 		m_associatedActor = GameFlowData.Get()?.FindActorByActorIndex(m_actorIndex);
-		if (NetworkServer.active)
+		if (!NetworkServer.active)
 		{
-			return;
-		}
-		if (m_associatedActor != null)
-		{
-			if (m_typeObservingMe == ObservedBy.Friendlies)
+			if (m_associatedActor != null)
 			{
-				m_associatedActor.SetClientFriendlyTeamSensitiveData(this);
+				if (m_typeObservingMe == ObservedBy.Friendlies)
+				{
+					m_associatedActor.SetClientFriendlyTeamSensitiveData(this);
+				}
+				else if (m_typeObservingMe == ObservedBy.Hostiles)
+				{
+					m_associatedActor.SetClientHostileTeamSensitiveData(this);
+				}
 			}
-			else if (m_typeObservingMe == ObservedBy.Hostiles)
+			else if (m_actorIndex != ActorData.s_invalidActorIndex)
 			{
-				m_associatedActor.SetClientHostileTeamSensitiveData(this);
+				TeamSensitiveDataMatchmaker.Get().OnTeamSensitiveDataStarted(this);
 			}
-		}
-		else if (m_actorIndex != ActorData.s_invalidActorIndex)
-		{
-			TeamSensitiveDataMatchmaker.Get().OnTeamSensitiveDataStarted(this);
 		}
 	}
 
 	public string GetDebugString()
 	{
-		string actorDebugName = (Actor != null) ? Actor.DebugNameString() : ("[null] (actor index = " + m_actorIndex + ")");
+		string actorDebugName = Actor != null
+			? Actor.DebugNameString()
+			: "[null] (actor index = " + m_actorIndex + ")";
 		return "ActorTeamSensitiveData-- team = " + ActorsTeam.ToString() + ", actor = " + actorDebugName + ", observed by = " + m_typeObservingMe;
 	}
 
 	private void Awake()
 	{
-		for (int i = 0; i < 14; i++)
+		for (int i = 0; i < AbilityData.NUM_ACTIONS; i++)
 		{
 			m_queuedAbilities.Add(false);
 			m_abilityToggledOn.Add(false);
@@ -291,7 +288,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	private void OnDestroy()
 	{
-		GameEventManager.Get()?.RemoveListener(this, GameEventManager.EventType.TheatricsEvasionMoveStart);
+		if (GameEventManager.Get() != null)
+		{
+			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.TheatricsEvasionMoveStart);
+		}
 	}
 
 	private void Update()
@@ -351,7 +351,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		FlushQueuedMovement();
 		bool doesDestExist = end != null;
 		bool isDestChanged = doesDestExist && m_lastMovementDestination != end;
-		bool isOnValidSquare = Actor?.CurrentBoardSquare == null;
+		bool isOnValidSquare = Actor == null || Actor.CurrentBoardSquare == null;
 		bool flag4 = doesDestExist && !isDestChanged && !isOnValidSquare && path != null && path.GetPathEndpoint().square == Actor.CurrentBoardSquare;
 		m_lastMovementDestination = end;
 		m_lastMovementPath = path;
@@ -399,15 +399,15 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			}
 		}
 		else if (!amMoving
-			&& wait != 0
+			&& wait != GameEventManager.EventType.Invalid
 			&& Actor != null
 			&& Actor.LastDeathTurn != currentTurn
 			&& (!Actor.IsDead() || respawning))
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetSquare(start);
-			if (boardSquareSafe != null && boardSquareSafe != Actor.CurrentBoardSquare)
+			BoardSquare square = Board.Get().GetSquare(start);
+			if (square != null && square != Actor.CurrentBoardSquare)
 			{
-				Actor.AppearAtBoardSquare(boardSquareSafe);
+				Actor.AppearAtBoardSquare(square);
 			}
 		}
 		else if (Actor != null && respawning)
@@ -470,15 +470,13 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkClient.active)
 		{
-			if (Actor != null)
+			if (Actor != null
+				&& !Actor.IsDead()
+				&& m_lastMovementDestination != null
+				&& Actor.CurrentBoardSquare != m_lastMovementDestination
+				&& (Actor.CurrentBoardSquare != null || !Actor.DisappearingAfterCurrentMovement))
 			{
-				if (!Actor.IsDead()
-					&& m_lastMovementDestination != null
-					&& Actor.CurrentBoardSquare != m_lastMovementDestination
-					&& (Actor.CurrentBoardSquare != null || !Actor.DisappearingAfterCurrentMovement))
-				{
-					Actor.MoveToBoardSquareLocal(m_lastMovementDestination, ActorData.MovementType.Teleport, null, m_disappearingAfterMovement);
-				}
+				Actor.MoveToBoardSquareLocal(m_lastMovementDestination, ActorData.MovementType.Teleport, null, m_disappearingAfterMovement);
 			}
 			m_lastMovementPath = null;
 			m_lastMovementWaitForEvent = GameEventManager.EventType.Invalid;
@@ -518,7 +516,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			if (boardSquare != MoveFromBoardSquare)
 			{
 				MoveFromBoardSquare = boardSquare;
-				Actor?.GetActorMovement()?.UpdateSquaresCanMoveTo();
+				if (Actor != null && Actor.GetActorMovement() != null)
+				{
+					Actor.GetActorMovement().UpdateSquaresCanMoveTo();
+				}
 			}
 		}
 		if (IsBitDirty(setBits, DirtyBit.InitialMoveStartSquare))
@@ -529,7 +530,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			if (InitialMoveStartSquare != boardSquare)
 			{
 				InitialMoveStartSquare = boardSquare;
-				Actor?.GetActorMovement()?.UpdateSquaresCanMoveTo();
+				if (Actor != null && Actor.GetActorMovement() != null)
+				{
+					Actor.GetActorMovement().UpdateSquaresCanMoveTo();
+				}
 			}
 		}
 		if (IsBitDirty(setBits, DirtyBit.LineData))
@@ -552,7 +556,14 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			{
 				m_numNodesInSnaredLine = 0;
 			}
-			Actor?.GetComponent<LineData>()?.OnDeserializedData(m_movementLine, m_numNodesInSnaredLine);
+			if (Actor != null)
+			{
+				LineData component = Actor.GetComponent<LineData>();
+				if (component != null)
+				{
+					component.OnDeserializedData(m_movementLine, m_numNodesInSnaredLine);
+				}
+			}
 		}
 		if (IsBitDirty(setBits, DirtyBit.MovementCameraBound))
 		{
@@ -591,10 +602,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					Log.Error("Invalid square received for respawn choices {0}, {1}", x3, y3);
 				}
 			}
-			if (m_respawnAvailableSquares.Count > 0 && RespawnPickedSquare == null &&
-				Actor != null && GameFlowData.Get() != null &&
-				Actor == GameFlowData.Get().activeOwnedActorData &&
-				Actor.GetActorTurnSM().AmStillDeciding())
+			if (m_respawnAvailableSquares.Count > 0
+				&& RespawnPickedSquare == null
+				&& Actor != null
+				&& GameFlowData.Get() != null
+				&& Actor == GameFlowData.Get().activeOwnedActorData
+				&& Actor.GetActorTurnSM().AmStillDeciding())
 			{
 				Actor.ShowRespawnFlare(m_respawnAvailableSquares[0], false);
 			}
@@ -607,7 +620,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		{
 			bool changed = false;
 			short queuedAbilitiesBitmask = reader.ReadInt16();
-			for (int j = 0; j < 14; j++)
+			for (int j = 0; j < AbilityData.NUM_ACTIONS; j++)
 			{
 				short flag = (short)(1 << j);
 				bool isAbilityQueued = (queuedAbilitiesBitmask & flag) != 0;
@@ -617,15 +630,15 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 					changed = true;
 				}
 			}
-			if (changed)
+			if (changed && Actor != null && Actor.GetAbilityData() != null)
 			{
-				Actor?.GetAbilityData()?.OnQueuedAbilitiesChanged();
+				Actor.GetAbilityData().OnQueuedAbilitiesChanged();
 			}
 		}
 		if (IsBitDirty(setBits, DirtyBit.ToggledOnAbilities))
 		{
 			short toggledOnAbilitiesBitmask = reader.ReadInt16();
-			for (int k = 0; k < 14; k++)
+			for (int k = 0; k < AbilityData.NUM_ACTIONS; k++)
 			{
 				short flag = (short)(1 << k);
 				bool isAbilityToggledOn = (toggledOnAbilitiesBitmask & flag) != 0;
@@ -639,31 +652,34 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	public void OnClientAssociatedWithActor(ActorData actor)
 	{
-		if (NetworkServer.active)
+		if (!NetworkServer.active)
 		{
-			return;
-		}
-		m_associatedActor = actor;
-		if (m_lastMovementDestination != null)
-		{
-			if (m_lastMovementPath == null && m_lastMovementType != ActorData.MovementType.Teleport)
+			m_associatedActor = actor;
+			if (m_lastMovementDestination != null)
 			{
-				Actor.MoveToBoardSquareLocal(m_lastMovementDestination, ActorData.MovementType.Teleport, m_lastMovementPath, m_disappearingAfterMovement);
+				if (m_lastMovementPath == null && m_lastMovementType != ActorData.MovementType.Teleport)
+				{
+					Actor.MoveToBoardSquareLocal(m_lastMovementDestination, ActorData.MovementType.Teleport, m_lastMovementPath, m_disappearingAfterMovement);
+				}
+				else
+				{
+					Actor.MoveToBoardSquareLocal(m_lastMovementDestination, m_lastMovementType, m_lastMovementPath, m_disappearingAfterMovement);
+				}
+				if (!m_assignedInitialBoardSquare)
+				{
+					Actor.gameObject.SendMessage("OnAssignedToInitialBoardSquare", SendMessageOptions.DontRequireReceiver);
+					m_assignedInitialBoardSquare = true;
+				}
 			}
-			else
+			Actor.GetActorMovement().UpdateSquaresCanMoveTo();
+			if (m_typeObservingMe == ObservedBy.Friendlies)
 			{
-				Actor.MoveToBoardSquareLocal(m_lastMovementDestination, m_lastMovementType, m_lastMovementPath, m_disappearingAfterMovement);
+				LineData component = Actor.GetComponent<LineData>();
+				if (component != null)
+				{
+					component.OnDeserializedData(m_movementLine, m_numNodesInSnaredLine);
+				}
 			}
-			if (!m_assignedInitialBoardSquare)
-			{
-				Actor.gameObject.SendMessage("OnAssignedToInitialBoardSquare", SendMessageOptions.DontRequireReceiver);
-				m_assignedInitialBoardSquare = true;
-			}
-		}
-		Actor.GetActorMovement().UpdateSquaresCanMoveTo();
-		if (m_typeObservingMe == ObservedBy.Friendlies)
-		{
-			Actor.GetComponent<LineData>()?.OnDeserializedData(m_movementLine, m_numNodesInSnaredLine);
 		}
 	}
 
@@ -1005,9 +1021,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		byte b = reader.ReadByte();
 		for (int i = 0; i < b; i++)
 		{
-			sbyte b2 = reader.ReadSByte();
+			AbilityData.ActionType actionType = (AbilityData.ActionType)reader.ReadSByte();
 			List<AbilityTarget> targets = AbilityTarget.DeSerializeAbilityTargetList(reader);
-			AbilityData.ActionType actionType = (AbilityData.ActionType)b2;
 			m_abilityRequestData.Add(new ActorTargeting.AbilityRequestData(actionType, targets));
 		}
 		if (Actor != null && Actor.GetActorTargeting() != null)
