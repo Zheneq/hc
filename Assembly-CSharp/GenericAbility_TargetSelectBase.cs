@@ -6,27 +6,17 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 {
 	[TextArea(1, 5)]
 	public string m_notes;
-
 	[Separator("Target Data Override, override ability's base Target Data (before mod)", true)]
 	public bool m_useTargetDataOverride;
-
 	public TargetData[] m_targetDataOverride;
-
 	[Separator("Targeting - Team Filters, LOS. (Overrides fields in ConeTargetingInfo and LaserTargetingInfo)", true)]
 	public bool m_includeEnemies = true;
-
 	public bool m_includeAllies;
-
 	public bool m_includeCaster;
-
 	public bool m_ignoreLos;
-
 	internal ContextCalcData m_contextCalcData;
-
 	internal ContextVars m_commonProperties;
-
 	protected ActorData m_owner;
-
 	private TargetSelectModBase m_currentTargetSelectMod;
 
 	private void Awake()
@@ -62,7 +52,7 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 
 	public virtual string GetUsageForEditor()
 	{
-		return string.Empty;
+		return "";
 	}
 
 	public string GetContextUsageStr(string contextName, string usage, bool actorSpecific = true)
@@ -83,17 +73,12 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 	{
 		if (targetData.Length > 0)
 		{
-			TargetData targetData2 = targetData[0];
-			float num = Mathf.Max(0f, targetData2.m_range - 0.5f);
-			if (num > 0f)
+			float num = Mathf.Max(0f, targetData[0].m_range - 0.5f);
+			if (num > 0f
+				&& num < 15f
+				&& targetData[0].m_targetingParadigm != Ability.TargetingParadigm.Direction)
 			{
-				if (num < 15f)
-				{
-					if (targetData2.m_targetingParadigm != Ability.TargetingParadigm.Direction)
-					{
-						return true;
-					}
-				}
+				return true;
 			}
 		}
 		return false;
@@ -106,35 +91,21 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 
 	public void SetTargetSelectMod(TargetSelectModBase modBase)
 	{
-		if (modBase != null)
+		if (modBase == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					m_currentTargetSelectMod = modBase;
-					OnTargetSelModApplied(modBase);
-					return;
-				}
-			}
+			Log.Error("Trying to apply null for target select mod");
+			return;
 		}
-		Log.Error("Trying to apply null for target select mod");
+		m_currentTargetSelectMod = modBase;
+		OnTargetSelModApplied(modBase);
 	}
 
 	public void ClearTargetSelectMod()
 	{
-		if (m_currentTargetSelectMod == null)
-		{
-			return;
-		}
-		while (true)
+		if (m_currentTargetSelectMod != null)
 		{
 			m_currentTargetSelectMod = null;
 			OnTargetSelModRemoved();
-			return;
 		}
 	}
 
@@ -150,30 +121,20 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 
 	public bool IncludeEnemies()
 	{
-		bool result;
 		if (m_currentTargetSelectMod != null)
 		{
-			result = m_currentTargetSelectMod.m_includeEnemiesMod.GetModifiedValue(m_includeEnemies);
+			return m_currentTargetSelectMod.m_includeEnemiesMod.GetModifiedValue(m_includeEnemies);
 		}
-		else
-		{
-			result = m_includeEnemies;
-		}
-		return result;
+		return m_includeEnemies;
 	}
 
 	public bool IncludeAllies()
 	{
-		bool result;
 		if (m_currentTargetSelectMod != null)
 		{
-			result = m_currentTargetSelectMod.m_includeAlliesMod.GetModifiedValue(m_includeAllies);
+			return m_currentTargetSelectMod.m_includeAlliesMod.GetModifiedValue(m_includeAllies);
 		}
-		else
-		{
-			result = m_includeAllies;
-		}
-		return result;
+		return m_includeAllies;
 	}
 
 	public bool IncludeCaster()
@@ -183,35 +144,18 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 
 	public bool IgnoreLos()
 	{
-		bool result;
 		if (m_currentTargetSelectMod != null)
 		{
-			result = m_currentTargetSelectMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos);
+			return m_currentTargetSelectMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos);
 		}
-		else
-		{
-			result = m_ignoreLos;
-		}
-		return result;
+		return m_ignoreLos;
 	}
 
 	public TargetData[] GetTargetDataOverride()
 	{
-		if (m_currentTargetSelectMod != null)
+		if (m_currentTargetSelectMod != null && m_currentTargetSelectMod.m_overrideTargetDataOnTargetSelect)
 		{
-			if (m_currentTargetSelectMod.m_overrideTargetDataOnTargetSelect)
-			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return m_currentTargetSelectMod.m_targetDataOverride;
-					}
-				}
-			}
+			return m_currentTargetSelectMod.m_targetDataOverride;
 		}
 		return m_targetDataOverride;
 	}
