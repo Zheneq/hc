@@ -19,19 +19,18 @@ public class FogOfWar : MonoBehaviour
 
 	public static FogOfWar GetClientFog()
 	{
-		FogOfWar result = null;
 		if (GameFlowData.Get() != null)
 		{
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				result = GameFlowData.Get().activeOwnedActorData.GetFogOfWar();
+				return GameFlowData.Get().activeOwnedActorData.GetFogOfWar();
 			}
 			else if (GameFlowData.Get().LocalPlayerData != null)
 			{
-				result = GameFlowData.Get().LocalPlayerData.GetFogOfWar();
+				return GameFlowData.Get().LocalPlayerData.GetFogOfWar();
 			}
 		}
-		return result;
+		return null;
 	}
 
 	private void Awake()
@@ -53,20 +52,14 @@ public class FogOfWar : MonoBehaviour
 			{
 				Team localTeamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 				Team ownerTeamViewing = m_ownerPlayer.GetTeamViewing();
-				if (localTeamViewing == Team.Invalid || localTeamViewing == ownerTeamViewing)
+				if ((localTeamViewing == Team.Invalid || localTeamViewing == ownerTeamViewing)
+					&& m_ownerPlayer.PlayerIndex != PlayerData.s_invalidPlayerIndex)
 				{
-					if (m_ownerPlayer.PlayerIndex != PlayerData.s_invalidPlayerIndex)
-					{
-						return true;
-					}
+					return true;
 				}
 			}
 		}
-		if (m_visibilityPersonalOnly != InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowPersonalVisibility))
-		{
-			return true;
-		}
-		return false;
+		return m_visibilityPersonalOnly != InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowPersonalVisibility);
 	}
 
 	private bool ShouldUpdateClientActorVisibility()
@@ -125,54 +118,42 @@ public class FogOfWar : MonoBehaviour
 			for (int y = minY; y <= maxY; y++)
 			{
 				BoardSquare square = Board.Get().GetSquareFromIndex(x, y);
-				if (square == null)
+				if (square != null
+					&& (!m_visibleSquares.TryGetValue(square, out VisibleSquareEntry value)
+						|| GetVisTypePriority(flag) > GetHighestVisTypePriority(value.m_visibleFlags)))
 				{
-					continue;
-				}
-				if (m_visibleSquares.TryGetValue(square, out VisibleSquareEntry value))
-				{
-					if (GetVisTypePriority(flag) <= GetHighestVisTypePriority(value.m_visibleFlags))
+					float distance = radiusAsStraightLineDist
+						? square.HorizontalDistanceInSquaresTo(center)
+						: CalcHorizontalDistanceOnBoardTo(centerX, centerY, x, y);
+					if (distance <= radius && (ignoreLOS || center.GetLOS(x, y)))
 					{
-						continue;
+						bool isSquareHidden;
+						if ((!m_owner || !isSeeingThrougBrush) && BrushCoordinator.Get() != null)
+						{
+							if (brushRevealType == VisionProviderInfo.BrushRevealType.Never && square.BrushRegion >= 0)
+							{
+								isSquareHidden = BrushCoordinator.Get().IsRegionFunctioning(square.BrushRegion);
+							}
+							else if (brushRevealType == VisionProviderInfo.BrushRevealType.Always && square.BrushRegion >= 0)
+							{
+								isSquareHidden = false;
+							}
+							else
+							{
+								isSquareHidden = BrushCoordinator.Get().IsSquareHiddenFrom(square, center);
+							}
+						}
+						else
+						{
+							isSquareHidden = false;
+						}
+						bool isVisionBlocked = m_owner && (BarrierManager.Get()?.IsVisionBlocked(m_owner, center, square) ?? false);
+						if (!isSquareHidden && !isVisionBlocked)
+						{
+							value.m_visibleFlags |= (int)flag;
+							m_visibleSquares[square] = value;
+						}
 					}
-				}
-				float distance = radiusAsStraightLineDist
-					? square.HorizontalDistanceInSquaresTo(center)
-					: CalcHorizontalDistanceOnBoardTo(centerX, centerY, x, y);
-				if (distance > radius)
-				{
-					continue;
-				}
-				if (!ignoreLOS && !center.GetLOS(x, y))
-				{
-					continue;
-				}
-				bool isSquareHidden;
-				if (m_owner && isSeeingThrougBrush ||
-					BrushCoordinator.Get() == null)
-				{
-					isSquareHidden = false;
-				}
-				else
-				{
-					if (brushRevealType == VisionProviderInfo.BrushRevealType.Never && square.BrushRegion >= 0)
-					{
-						isSquareHidden = BrushCoordinator.Get().IsRegionFunctioning(square.BrushRegion);
-					}
-					else if (brushRevealType == VisionProviderInfo.BrushRevealType.Always && square.BrushRegion >= 0)
-					{
-						isSquareHidden = false;
-					}
-					else
-					{
-						isSquareHidden = BrushCoordinator.Get().IsSquareHiddenFrom(square, center);
-					}
-				}
-				bool isVisionBlocked = m_owner && (BarrierManager.Get()?.IsVisionBlocked(m_owner, center, square) ?? false);
-				if (!isSquareHidden && !isVisionBlocked)
-				{
-					value.m_visibleFlags |= (int)flag;
-					m_visibleSquares[square] = value;
 				}
 			}
 		}
@@ -182,20 +163,19 @@ public class FogOfWar : MonoBehaviour
 	{
 		foreach (BoardSquare square in squares)
 		{
-			if (square == null)
+			if (square != null)
 			{
-				continue;
-			}
-			bool isSquareHidden = false;
-			if (!seeThroughBrush && BrushCoordinator.Get() != null && square.BrushRegion > 0)
-			{
-				isSquareHidden = BrushCoordinator.Get().IsRegionFunctioning(square.BrushRegion);
-			}
-			if (!isSquareHidden)
-			{
-				m_visibleSquares.TryGetValue(square, out VisibleSquareEntry value);
-				value.m_visibleFlags |= (int)flag;
-				m_visibleSquares[square] = value;
+				bool isSquareHidden = false;
+				if (!seeThroughBrush && BrushCoordinator.Get() != null && square.BrushRegion > 0)
+				{
+					isSquareHidden = BrushCoordinator.Get().IsRegionFunctioning(square.BrushRegion);
+				}
+				if (!isSquareHidden)
+				{
+					m_visibleSquares.TryGetValue(square, out VisibleSquareEntry value);
+					value.m_visibleFlags |= (int)flag;
+					m_visibleSquares[square] = value;
+				}
 			}
 		}
 	}
@@ -218,19 +198,19 @@ public class FogOfWar : MonoBehaviour
 
 	private int GetHighestVisTypePriority(int flags)
 	{
-		if ((flags & 8) != 0)
+		if ((flags & (int)BoardSquare.VisibilityFlags.Revealed) != 0)
 		{
 			return 4;
 		}
-		if ((flags & 4) != 0)
+		if ((flags & (int)BoardSquare.VisibilityFlags.Objective) != 0)
 		{
 			return 3;
 		}
-		if ((flags & 1) != 0)
+		if ((flags & (int)BoardSquare.VisibilityFlags.Self) != 0)
 		{
 			return 2;
 		}
-		if ((flags & 2) != 0)
+		if ((flags & (int)BoardSquare.VisibilityFlags.Team) != 0)
 		{
 			return 1;
 		}
@@ -257,11 +237,11 @@ public class FogOfWar : MonoBehaviour
 		{
 			Log.Warning("Calling FogOfWar::IsVisible(BoardSquare square) on a client for not-the-client actor.");
 		}
-		if (square == null)
+		if (square != null)
 		{
-			return false;
+			return m_visibleSquares.ContainsKey(square);
 		}
-		return m_visibleSquares.ContainsKey(square);
+		return false;
 	}
 
 	public bool IsVisibleBySelf(BoardSquare square)
@@ -332,7 +312,7 @@ public class FogOfWar : MonoBehaviour
 	{
 		m_visibleSquares.Clear();
 		m_visibilityPersonalOnly = InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowPersonalVisibility);
-		if ((bool)m_owner)
+		if (m_owner != null)
 		{
 			bool isDisabled = m_owner.IsDead() || NetworkClient.active && m_owner.IsInRagdoll();
 			float radius = isDisabled ? 0f : m_owner.GetSightRange();
@@ -341,18 +321,15 @@ public class FogOfWar : MonoBehaviour
 		bool isInGlobalBlind = GameplayMutators.IsStatusActive(StatusType.Blind, GameFlowData.Get().CurrentTurn);
 		if (!m_visibilityPersonalOnly)
 		{
-			if ((bool)m_owner)
+			if (m_owner != null)
 			{
 				ActorAdditionalVisionProviders actorAdditionalVisionProviders = m_owner.GetAdditionalActorVisionProviders();
 				if (actorAdditionalVisionProviders != null)
 				{
 					foreach (VisionProviderInfo visionProvider in actorAdditionalVisionProviders.GetVisionProviders())
 					{
-						if (isInGlobalBlind && !visionProvider.m_canFunctionInGlobalBlind)
-						{
-							continue;
-						}
-						if (visionProvider.GetBoardSquare() != null)
+						if ((!isInGlobalBlind || visionProvider.m_canFunctionInGlobalBlind)
+							&& visionProvider.GetBoardSquare() != null)
 						{
 							CalcVisibleSquares(
 								visionProvider.GetBoardSquare(),
@@ -367,9 +344,8 @@ public class FogOfWar : MonoBehaviour
 				List<ControlPoint> allControlPoints = ControlPoint.GetAllControlPoints();
 				if (allControlPoints != null)
 				{
-					for (int i = 0; i < allControlPoints.Count; i++)
+					foreach (ControlPoint controlPoint in allControlPoints)
 					{
-						ControlPoint controlPoint = allControlPoints[i];
 						if (controlPoint.IsGrantingVisionForTeam(m_owner.GetTeam()))
 						{
 							AppendToVisibleSquares(controlPoint.GetSquaresForVision(), BoardSquare.VisibilityFlags.Team, controlPoint.m_visionSeeThroughBrush);
@@ -397,18 +373,11 @@ public class FogOfWar : MonoBehaviour
 			{
 				foreach (ActorData teammate in teammates)
 				{
-					if (teammate == null ||
-						m_owner != null && m_owner == teammate)
+					if (teammate != null
+						&& (m_owner == null || m_owner != teammate)
+						&& teammate.GetTravelBoardSquare() != null
+						&& !teammate.GetActorStatus().HasStatus(StatusType.IsolateVisionFromAllies))
 					{
-						continue;
-					}
-					if ((bool)teammate.GetTravelBoardSquare())
-					{
-						if (teammate.GetActorStatus().HasStatus(StatusType.IsolateVisionFromAllies))
-						{
-							continue;
-						}
-
 						bool isDisabled = teammate.IsDead() || NetworkClient.active && teammate.IsInRagdoll();
 						float radius = isDisabled ? 0f : teammate.GetSightRange();
 						CalcVisibleSquares(teammate.GetTravelBoardSquare(), radius, false, BoardSquare.VisibilityFlags.Team, false);
@@ -417,11 +386,8 @@ public class FogOfWar : MonoBehaviour
 						{
 							foreach (VisionProviderInfo visionProvider in component.GetVisionProviders())
 							{
-								if (isInGlobalBlind && !visionProvider.m_canFunctionInGlobalBlind)
-								{
-									continue;
-								}
-								if (visionProvider.GetBoardSquare() != null)
+								if ((!isInGlobalBlind || visionProvider.m_canFunctionInGlobalBlind)
+									&& visionProvider.GetBoardSquare() != null)
 								{
 									CalcVisibleSquares(
 										visionProvider.GetBoardSquare(),
@@ -438,22 +404,21 @@ public class FogOfWar : MonoBehaviour
 			}
 			foreach (ActorData opponent in opponents)
 			{
-				if (opponent == null)
+				if (opponent != null)
 				{
-					continue;
-				}
-				BoardSquare travelBoardSquare = opponent.GetTravelBoardSquare();
-				bool isRevealed = opponent.GetActorStatus()?.HasStatus(StatusType.Revealed) ?? false;
-				bool isRevealedByFlagOnClient = !NetworkServer.active && CaptureTheFlag.IsActorRevealedByFlag_Client(opponent);
-				if (travelBoardSquare && (isRevealed || isRevealedByFlagOnClient))
-				{
-					CalcVisibleSquares(opponent.GetTravelBoardSquare(), 0.1f, false, BoardSquare.VisibilityFlags.Revealed, true);
-				}
-				if (travelBoardSquare && m_owner && m_owner.IsLineOfSightVisibleException(opponent))
-				{
-					m_visibleSquares.TryGetValue(travelBoardSquare, out VisibleSquareEntry value);
-					value.m_visibleFlags |= (int)BoardSquare.VisibilityFlags.Revealed;
-					m_visibleSquares[travelBoardSquare] = value;
+					BoardSquare travelBoardSquare = opponent.GetTravelBoardSquare();
+					bool isRevealed = opponent.GetActorStatus()?.HasStatus(StatusType.Revealed) ?? false;
+					bool isRevealedByFlagOnClient = !NetworkServer.active && CaptureTheFlag.IsActorRevealedByFlag_Client(opponent);
+					if (travelBoardSquare && (isRevealed || isRevealedByFlagOnClient))
+					{
+						CalcVisibleSquares(opponent.GetTravelBoardSquare(), 0.1f, false, BoardSquare.VisibilityFlags.Revealed, true);
+					}
+					if (travelBoardSquare && m_owner && m_owner.IsLineOfSightVisibleException(opponent))
+					{
+						m_visibleSquares.TryGetValue(travelBoardSquare, out VisibleSquareEntry value);
+						value.m_visibleFlags |= (int)BoardSquare.VisibilityFlags.Revealed;
+						m_visibleSquares[travelBoardSquare] = value;
+					}
 				}
 			}
 		}
@@ -466,7 +431,8 @@ public class FogOfWar : MonoBehaviour
 
 	private bool IsClientFog()
 	{
-		if (GameFlowData.Get().activeOwnedActorData != null && GameFlowData.Get().activeOwnedActorData != m_owner)
+		if (GameFlowData.Get().activeOwnedActorData != null
+			&& GameFlowData.Get().activeOwnedActorData != m_owner)
 		{
 			return false;
 		}
@@ -514,11 +480,10 @@ public class FogOfWar : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		if (!CameraManager.ShouldDrawGizmosForCurrentCamera() || GameFlowData.Get() == null || m_owner == null)
-		{
-			return;
-		}
-		if (m_owner == GameFlowData.Get().activeOwnedActorData)
+		if (CameraManager.ShouldDrawGizmosForCurrentCamera()
+			&& GameFlowData.Get() != null
+			&& m_owner != null
+			&& m_owner == GameFlowData.Get().activeOwnedActorData)
 		{
 			foreach (KeyValuePair<BoardSquare, VisibleSquareEntry> current in m_visibleSquares)
 			{
