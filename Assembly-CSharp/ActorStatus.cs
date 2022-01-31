@@ -17,7 +17,7 @@ public class ActorStatus : NetworkBehaviour
 	private static int kListm_statusCounts = -7231791;
 	private static int kListm_statusDurations = 625641650;
 
-	public static bool DebugLog => false;
+	public static bool DebugTraceOn => false;
 
 	static ActorStatus()
 	{
@@ -122,7 +122,7 @@ public class ActorStatus : NetworkBehaviour
 		}
 		prevCount += m_clientStatusCountAdjustments[(int)status];
 		m_clientStatusCountAdjustments[(int)status] = 0;
-		if (DebugLog)
+		if (DebugTraceOn)
 		{
 			Log.Warning("<color=cyan>ActorStatus</color>: ADD " + GetColoredStatusName(status, "yellow")
 				+ " to " + m_actorData.DebugNameString("white") + ", Count = " + m_statusCounts[(int)status]
@@ -148,7 +148,7 @@ public class ActorStatus : NetworkBehaviour
 			m_statusCounts[(int)status] = (uint)Mathf.Max(0, prevCount - 1);
 			prevCount += m_clientStatusCountAdjustments[(int)status];
 			m_clientStatusCountAdjustments[(int)status] = 0;
-			if (DebugLog)
+			if (DebugTraceOn)
 			{
 				Log.Warning("<color=cyan>ActorStatus</color>: REMOVE " + GetColoredStatusName(status, "yellow")
 					+ " from " + m_actorData.DebugNameString("white") + ", Count = " + m_statusCounts[(int)status]
@@ -175,7 +175,7 @@ public class ActorStatus : NetworkBehaviour
 		}
 		int prevCount = m_clientStatusCountAdjustments[(int)status];
 		m_clientStatusCountAdjustments[(int)status] = prevCount + 1;
-		if (DebugLog)
+		if (DebugTraceOn)
 		{
 			Log.Warning("<color=cyan>ActorStatus</color>: <color=cyan>CLIENT_ADD</color> "
 				+ GetColoredStatusName(status, "yellow") + " to " + m_actorData.DebugNameString("white")
@@ -202,7 +202,7 @@ public class ActorStatus : NetworkBehaviour
 		{
 			m_clientStatusCountAdjustments[(int)status] = 0;
 		}
-		if (DebugLog)
+		if (DebugTraceOn)
 		{
 			Log.Warning("<color=cyan>ActorStatus</color>: <color=magenta>CLIENT_REMOVE</color> "
 				+ GetColoredStatusName(status, "yellow") + " from " + m_actorData.DebugNameString("white")
@@ -311,7 +311,7 @@ public class ActorStatus : NetworkBehaviour
 
 	public void OnStatusChanged(StatusType status, bool statusGained)
 	{
-		if (DebugLog)
+		if (DebugTraceOn)
 		{
 			Log.Warning($"<color=cyan>ActorStatus</color>: On Status Changed: <color=yellow>{status}</color>" +
 				$" {(statusGained ? "<color=cyan>Gained" : " < color = magenta > Lost")}</color>");
