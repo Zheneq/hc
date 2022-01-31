@@ -7,39 +7,26 @@ public class PlayerData : NetworkBehaviour
 {
 	[HideInInspector]
 	public static int s_invalidPlayerIndex;
-
-	internal string m_playerHandle = string.Empty;
-
+	internal string m_playerHandle = "";
 	internal bool m_reconnecting;
-
 	[HideInInspector]
 	internal Team m_spectatingTeam;
-
 	private Team m_prevSpectatingTeam;
-
 	[HideInInspector]
 	internal bool m_isLocal;
-
 	[HideInInspector]
 	public ActorData ActorData;
-
 	[HideInInspector]
 	private FogOfWar m_fogOfWar;
-
 	internal Player m_player;
-
 	private int m_playerIndex = s_invalidPlayerIndex;
 
-	private static int kCmdCmdTheatricsManagerUpdatePhaseEnded;
-
-	private static int kCmdCmdTutorialQueueEmpty;
-
-	private static int kCmdCmdDebugEndGame;
-
-	private static int kCmdCmdSetPausedForDebugging;
+	private static int kCmdCmdTheatricsManagerUpdatePhaseEnded = -438226347;
+	private static int kCmdCmdTutorialQueueEmpty = -1356677979;
+	private static int kCmdCmdDebugEndGame = -1295019579;
+	private static int kCmdCmdSetPausedForDebugging = -1571708758;
 
 	internal string PlayerHandle => m_playerHandle;
-
 	public bool IsLocal => m_isLocal;
 
 	public int PlayerIndex
@@ -50,28 +37,12 @@ public class PlayerData : NetworkBehaviour
 		}
 		set
 		{
-			if (m_playerIndex != s_invalidPlayerIndex)
+			if (m_playerIndex == s_invalidPlayerIndex
+				&& value != s_invalidPlayerIndex
+				&& GameFlowData.Get() != null
+				&& MyNetworkManager.Get() != null)
 			{
-				return;
-			}
-			while (true)
-			{
-				if (value == s_invalidPlayerIndex)
-				{
-					return;
-				}
-				while (true)
-				{
-					if (GameFlowData.Get() != null && MyNetworkManager.Get() != null)
-					{
-						while (true)
-						{
-							m_playerIndex = value;
-							return;
-						}
-					}
-					return;
-				}
+				m_playerIndex = value;
 			}
 		}
 	}
@@ -79,14 +50,10 @@ public class PlayerData : NetworkBehaviour
 	static PlayerData()
 	{
 		s_invalidPlayerIndex = -1;
-		kCmdCmdTheatricsManagerUpdatePhaseEnded = -438226347;
-		NetworkBehaviour.RegisterCommandDelegate(typeof(PlayerData), kCmdCmdTheatricsManagerUpdatePhaseEnded, InvokeCmdCmdTheatricsManagerUpdatePhaseEnded);
-		kCmdCmdTutorialQueueEmpty = -1356677979;
-		NetworkBehaviour.RegisterCommandDelegate(typeof(PlayerData), kCmdCmdTutorialQueueEmpty, InvokeCmdCmdTutorialQueueEmpty);
-		kCmdCmdDebugEndGame = -1295019579;
-		NetworkBehaviour.RegisterCommandDelegate(typeof(PlayerData), kCmdCmdDebugEndGame, InvokeCmdCmdDebugEndGame);
-		kCmdCmdSetPausedForDebugging = -1571708758;
-		NetworkBehaviour.RegisterCommandDelegate(typeof(PlayerData), kCmdCmdSetPausedForDebugging, InvokeCmdCmdSetPausedForDebugging);
+		RegisterCommandDelegate(typeof(PlayerData), kCmdCmdTheatricsManagerUpdatePhaseEnded, InvokeCmdCmdTheatricsManagerUpdatePhaseEnded);
+		RegisterCommandDelegate(typeof(PlayerData), kCmdCmdTutorialQueueEmpty, InvokeCmdCmdTutorialQueueEmpty);
+		RegisterCommandDelegate(typeof(PlayerData), kCmdCmdDebugEndGame, InvokeCmdCmdDebugEndGame);
+		RegisterCommandDelegate(typeof(PlayerData), kCmdCmdSetPausedForDebugging, InvokeCmdCmdSetPausedForDebugging);
 		NetworkCRC.RegisterBehaviour("PlayerData", 0);
 	}
 
@@ -111,24 +78,12 @@ public class PlayerData : NetworkBehaviour
 		{
 			component.RebuildObservers(true);
 		}
-		string text;
-		if (GameFlow.Get() != null)
+		string playerHandle = GameFlow.Get() != null
+			? GameFlow.Get().GetPlayerHandleFromConnectionId(m_player.m_connectionId)
+			: "";
+		if (!string.IsNullOrEmpty(playerHandle))
 		{
-			text = GameFlow.Get().GetPlayerHandleFromConnectionId(m_player.m_connectionId);
-		}
-		else
-		{
-			text = string.Empty;
-		}
-		string text2 = text;
-		if (string.IsNullOrEmpty(text2))
-		{
-			return;
-		}
-		while (true)
-		{
-			m_playerHandle = text2;
-			return;
+			m_playerHandle = playerHandle;
 		}
 	}
 
@@ -139,9 +94,8 @@ public class PlayerData : NetworkBehaviour
 
 	public PlayerDetails LookupDetails()
 	{
-		PlayerDetails value = null;
-		GameFlow.Get().playerDetails.TryGetValue(m_player, out value);
-		return value;
+		GameFlow.Get().playerDetails.TryGetValue(m_player, out PlayerDetails details);
+		return details;
 	}
 
 	public void Awake()
@@ -159,14 +113,9 @@ public class PlayerData : NetworkBehaviour
 
 	private void OnDestroy()
 	{
-		if (!(GameFlowData.Get() != null))
-		{
-			return;
-		}
-		while (true)
+		if (GameFlowData.Get() != null)
 		{
 			GameFlowData.Get().RemoveExistingPlayer(base.gameObject);
-			return;
 		}
 	}
 
@@ -177,62 +126,31 @@ public class PlayerData : NetworkBehaviour
 			RestoreClientLastKnownStateOnReconnect();
 			m_reconnecting = false;
 		}
-		if (!m_isLocal)
+		if (m_isLocal
+			&& ActorData == null
+			&& InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.CycleTeam))
 		{
-			return;
-		}
-		while (true)
-		{
-			if ((bool)ActorData)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.CycleTeam))
-				{
-					while (true)
-					{
-						CycleSpectatingTeam();
-						return;
-					}
-				}
-				return;
-			}
+			CycleSpectatingTeam();
 		}
 	}
 
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
-		if (!NetworkClient.active)
+		if (NetworkClient.active
+			&& !NetworkServer.active
+			&& GameFlow.Get().playerDetails.TryGetValue(m_player, out PlayerDetails details)
+			&& details.IsLocal())
 		{
-			return;
-		}
-		while (true)
-		{
-			if (NetworkServer.active)
-			{
-				return;
-			}
-			while (true)
-			{
-				PlayerDetails value = null;
-				if (GameFlow.Get().playerDetails.TryGetValue(m_player, out value) && value.IsLocal())
+			ClientGameManager.Get().Client.Send(
+				(int)MyMsgType.ClientRequestTimeUpdate,
+				new GameManager.PlayerObjectStartedOnClientNotification
 				{
-					while (true)
-					{
-						GameManager.PlayerObjectStartedOnClientNotification playerObjectStartedOnClientNotification = new GameManager.PlayerObjectStartedOnClientNotification();
-						playerObjectStartedOnClientNotification.AccountId = GameManager.Get().PlayerInfo.AccountId;
-						playerObjectStartedOnClientNotification.PlayerId = GameManager.Get().PlayerInfo.PlayerId;
-						ClientGameManager.Get().Client.Send(65, playerObjectStartedOnClientNotification);
-						m_isLocal = true;
-						m_reconnecting = true;
-						return;
-					}
-				}
-				return;
-			}
+					AccountId = GameManager.Get().PlayerInfo.AccountId,
+					PlayerId = GameManager.Get().PlayerInfo.PlayerId
+				});
+			m_isLocal = true;
+			m_reconnecting = true;
 		}
 	}
 
@@ -252,19 +170,12 @@ public class PlayerData : NetworkBehaviour
 			UIScreenManager.Get().TryLoadAndSetupInGameUI();
 		}
 		ClientGameManager.Get().CheckAndSendClientPreparedForGameStartNotification();
-		string text;
-		if (GameFlow.Get() != null)
+		string playerHandle = GameFlow.Get() != null
+			? GameFlow.Get().GetPlayerHandleFromConnectionId(m_player.m_connectionId)
+			: "";
+		if (!string.IsNullOrEmpty(playerHandle))
 		{
-			text = GameFlow.Get().GetPlayerHandleFromConnectionId(m_player.m_connectionId);
-		}
-		else
-		{
-			text = string.Empty;
-		}
-		string text2 = text;
-		if (!string.IsNullOrEmpty(text2))
-		{
-			m_playerHandle = text2;
+			m_playerHandle = playerHandle;
 		}
 		SetupCamera();
 		SetupHUD();
@@ -272,85 +183,58 @@ public class PlayerData : NetworkBehaviour
 
 	private void SetupHUD()
 	{
-		if (!(HUD_UI.Get() != null))
-		{
-			return;
-		}
-		while (true)
+		if (HUD_UI.Get() != null)
 		{
 			HUD_UI.Get().m_mainScreenPanel.m_abilityBar.Setup(ActorData);
 			HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.ProcessTeams();
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.MarkFramesForForceUpdate();
 			if (HUD_UI.Get().m_mainScreenPanel.m_spectatorHUD != null)
 			{
-				while (true)
-				{
-					UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_spectatorHUD, ActorData == null);
-					return;
-				}
+				UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_spectatorHUD, ActorData == null);
 			}
-			return;
 		}
 	}
 
 	private void SetupCamera(bool reconnecting = false)
 	{
-		if (ActorData == null)
+		if (ActorData == null && SpawnPointManager.Get() != null)
 		{
-			if (SpawnPointManager.Get() != null)
+			List<BoardSquare> squaresInRegionA = SpawnPointManager.Get().m_initialSpawnPointsTeamA.GetSquaresInRegion();
+			List<BoardSquare> squaresInRegionB = SpawnPointManager.Get().m_initialSpawnPointsTeamB.GetSquaresInRegion();
+			if (squaresInRegionA.Count > 0 && squaresInRegionB.Count > 0)
 			{
-				List<BoardSquare> squaresInRegion = SpawnPointManager.Get().m_initialSpawnPointsTeamA.GetSquaresInRegion();
-				List<BoardSquare> squaresInRegion2 = SpawnPointManager.Get().m_initialSpawnPointsTeamB.GetSquaresInRegion();
-				if (squaresInRegion.Count > 0 && squaresInRegion2.Count > 0)
+				Vector3 positionA = squaresInRegionA[0].transform.position;
+				Vector3 positionB = squaresInRegionB[0].transform.position;
+				Vector3 lhs = positionA - positionB;
+				lhs.y = 0f;
+				if (Mathf.Abs(lhs.x) > Mathf.Abs(lhs.z))
 				{
-					Vector3 position = squaresInRegion[0].transform.position;
-					Vector3 position2 = squaresInRegion2[0].transform.position;
-					Vector3 lhs = position - position2;
-					lhs.y = 0f;
-					if (Mathf.Abs(lhs.x) > Mathf.Abs(lhs.z))
+					lhs.z = 0f;
+				}
+				else
+				{
+					lhs.x = 0f;
+				}
+				float magnitude = lhs.magnitude;
+				if (magnitude > 0f)
+				{
+					lhs.Normalize();
+					float f = Vector3.Dot(lhs, Vector3.left);
+					float y = Mathf.Acos(f) * 57.29578f;
+					if (CameraControls.Get() != null)
 					{
-						lhs.z = 0f;
-					}
-					else
-					{
-						lhs.x = 0f;
-					}
-					float magnitude = lhs.magnitude;
-					if (magnitude > 0f)
-					{
-						lhs.Normalize();
-						float f = Vector3.Dot(lhs, Vector3.left);
-						float y = Mathf.Acos(f) * 57.29578f;
-						if ((bool)CameraControls.Get())
-						{
-							CameraControls.Get().m_desiredRotationEulerAngles.y = y;
-						}
+						CameraControls.Get().m_desiredRotationEulerAngles.y = y;
 					}
 				}
 			}
 		}
-		if (!reconnecting)
+		if (reconnecting)
 		{
-			return;
-		}
-		object obj;
-		if (CameraManager.Get() != null)
-		{
-			obj = CameraManager.Get().GetIsometricCamera();
-		}
-		else
-		{
-			obj = null;
-		}
-		IsometricCamera isometricCamera = (IsometricCamera)obj;
-		if (!(isometricCamera != null))
-		{
-			return;
-		}
-		while (true)
-		{
-			isometricCamera.OnReconnect();
-			return;
+			IsometricCamera isometricCamera = CameraManager.Get()?.GetIsometricCamera();
+			if (isometricCamera != null)
+			{
+				isometricCamera.OnReconnect();
+			}
 		}
 	}
 
@@ -360,18 +244,13 @@ public class PlayerData : NetworkBehaviour
 		{
 			m_fogOfWar.MarkForRecalculateVisibility();
 		}
-		if (!(HUD_UI.Get() != null))
-		{
-			return;
-		}
-		while (true)
+		if (HUD_UI.Get() != null)
 		{
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.MarkFramesForForceUpdate();
 			if (HUD_UI.Get().m_mainScreenPanel.m_spectatorHUD != null)
 			{
 				HUD_UI.Get().m_mainScreenPanel.m_spectatorHUD.SetTeamViewing(m_spectatingTeam);
 			}
-			return;
 		}
 	}
 
@@ -395,36 +274,16 @@ public class PlayerData : NetworkBehaviour
 	private void RestoreClientLastKnownStateOnReconnect()
 	{
 		Log.Info("restoring reconnected client's last known state {0}", GameFlowData.Get().gameState);
-		if (GameFlowData.Get().gameState == GameState.EndingGame)
+		switch (GameFlowData.Get().gameState)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					AppState_GameTeardown.Get().Enter();
-					return;
-				}
-			}
-		}
-		if (GameFlowData.Get().gameState == GameState.StartingGame)
-		{
-			return;
-		}
-		while (true)
-		{
-			if (GameFlowData.Get().gameState == GameState.SpawningPlayers)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (GameFlowData.Get().gameState == GameState.Deployment)
-				{
-					return;
-				}
+			case GameState.EndingGame:
+				AppState_GameTeardown.Get().Enter();
+				break;
+			case GameState.StartingGame:
+			case GameState.SpawningPlayers:
+			case GameState.Deployment:
+				break;
+			default:
 				UIScreenManager.Get().ClearAllPanels();
 				UIScreenManager.Get().TryLoadAndSetupInGameUI();
 				UIManager.SetGameObjectActive(HUD_UI.Get().m_textConsole, true);
@@ -442,28 +301,16 @@ public class PlayerData : NetworkBehaviour
 				}
 				SetupCamera(true);
 				SetupHUD();
-				return;
-			}
+				break;
 		}
 	}
 
 	public Team GetTeamViewing()
 	{
-		if (GameFlowData.Get().LocalPlayerData == this)
+		if (GameFlowData.Get().LocalPlayerData == this
+			&& GameFlowData.Get().activeOwnedActorData != null)
 		{
-			if (GameFlowData.Get().activeOwnedActorData != null)
-			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return GameFlowData.Get().activeOwnedActorData.GetTeam();
-					}
-				}
-			}
+			return GameFlowData.Get().activeOwnedActorData.GetTeam();
 		}
 		if (ActorData != null)
 		{
@@ -475,39 +322,27 @@ public class PlayerData : NetworkBehaviour
 	public bool IsViewingTeam(Team targetTeam)
 	{
 		Team teamViewing = GetTeamViewing();
-		int result;
-		if (teamViewing != targetTeam)
-		{
-			result = ((teamViewing == Team.Invalid) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return teamViewing == targetTeam || teamViewing == Team.Invalid;
 	}
 
 	public void CycleSpectatingTeam()
 	{
-		if (m_spectatingTeam != 0)
+		if (m_spectatingTeam != Team.TeamA && m_spectatingTeam != Team.TeamB)
 		{
-			if (m_spectatingTeam != Team.TeamB)
+			if (m_prevSpectatingTeam == Team.TeamA)
 			{
-				if (m_prevSpectatingTeam == Team.TeamA)
-				{
-					m_spectatingTeam = Team.TeamB;
-				}
-				else
-				{
-					m_spectatingTeam = Team.TeamA;
-				}
-				goto IL_005b;
+				m_spectatingTeam = Team.TeamB;
+			}
+			else
+			{
+				m_spectatingTeam = Team.TeamA;
 			}
 		}
-		m_prevSpectatingTeam = m_spectatingTeam;
-		m_spectatingTeam = Team.Invalid;
-		goto IL_005b;
-		IL_005b:
+		else
+		{
+			m_prevSpectatingTeam = m_spectatingTeam;
+			m_spectatingTeam = Team.Invalid;
+		}
 		UpdateHUD();
 	}
 
@@ -521,14 +356,9 @@ public class PlayerData : NetworkBehaviour
 	internal void CmdTheatricsManagerUpdatePhaseEnded(int phaseCompleted, float phaseSeconds, float phaseDeltaSeconds)
 	{
 		TheatricsManager theatricsManager = TheatricsManager.Get();
-		if (!(theatricsManager != null))
-		{
-			return;
-		}
-		while (true)
+		if (theatricsManager != null)
 		{
 			theatricsManager.OnUpdatePhaseEnded(m_player.m_accountId, phaseCompleted, phaseSeconds, phaseDeltaSeconds);
-			return;
 		}
 	}
 
@@ -536,14 +366,9 @@ public class PlayerData : NetworkBehaviour
 	internal void CmdTutorialQueueEmpty()
 	{
 		SinglePlayerManager singlePlayerManager = SinglePlayerManager.Get();
-		if (!(singlePlayerManager != null))
-		{
-			return;
-		}
-		while (true)
+		if (singlePlayerManager != null)
 		{
 			singlePlayerManager.OnTutorialQueueEmpty();
-			return;
 		}
 	}
 
@@ -552,32 +377,16 @@ public class PlayerData : NetworkBehaviour
 	{
 		if (!HydrogenConfig.Get().AllowDebugCommands)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
 		if (ObjectivePoints.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					ObjectivePoints.Get()._001D(this, debugResult, matchSeconds, ggBoostUsedCount, ggBoostUsedToSelf, playWithFriendsBonus, playedLastTurn);
-					return;
-				}
-			}
+			ObjectivePoints.Get()._001D(this, debugResult, matchSeconds, ggBoostUsedCount, ggBoostUsedToSelf, playWithFriendsBonus, playedLastTurn);
 		}
-		GameFlowData.Get().gameState = GameState.EndingGame;
+		else
+		{
+			GameFlowData.Get().gameState = GameState.EndingGame;
+		}
 	}
 
 	[Command]
@@ -585,16 +394,7 @@ public class PlayerData : NetworkBehaviour
 	{
 		if (!HydrogenConfig.Get().AllowDebugCommands)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
 		GameFlowData.Get().SetPausedForDebugging(pause);
 	}
@@ -612,17 +412,8 @@ public class PlayerData : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("Command CmdTheatricsManagerUpdatePhaseEnded called on client.");
-					return;
-				}
-			}
+			Debug.LogError("Command CmdTheatricsManagerUpdatePhaseEnded called on client.");
+			return;
 		}
 		((PlayerData)obj).CmdTheatricsManagerUpdatePhaseEnded((int)reader.ReadPackedUInt32(), reader.ReadSingle(), reader.ReadSingle());
 	}
@@ -632,11 +423,9 @@ public class PlayerData : NetworkBehaviour
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("Command CmdTutorialQueueEmpty called on client.");
+			return;
 		}
-		else
-		{
-			((PlayerData)obj).CmdTutorialQueueEmpty();
-		}
+		((PlayerData)obj).CmdTutorialQueueEmpty();
 	}
 
 	protected static void InvokeCmdCmdDebugEndGame(NetworkBehaviour obj, NetworkReader reader)
@@ -644,28 +433,17 @@ public class PlayerData : NetworkBehaviour
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("Command CmdDebugEndGame called on client.");
+			return;
 		}
-		else
-		{
-			((PlayerData)obj).CmdDebugEndGame((GameResult)reader.ReadInt32(), (int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32(), reader.ReadBoolean(), reader.ReadBoolean(), reader.ReadBoolean());
-		}
+		((PlayerData)obj).CmdDebugEndGame((GameResult)reader.ReadInt32(), (int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32(), reader.ReadBoolean(), reader.ReadBoolean(), reader.ReadBoolean());
 	}
 
 	protected static void InvokeCmdCmdSetPausedForDebugging(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("Command CmdSetPausedForDebugging called on client.");
-					return;
-				}
-			}
+			Debug.LogError("Command CmdSetPausedForDebugging called on client.");
+			return;
 		}
 		((PlayerData)obj).CmdSetPausedForDebugging(reader.ReadBoolean());
 	}
@@ -674,32 +452,25 @@ public class PlayerData : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("Command function CmdTheatricsManagerUpdatePhaseEnded called on server.");
-					return;
-				}
-			}
+			Debug.LogError("Command function CmdTheatricsManagerUpdatePhaseEnded called on server.");
+			return;
 		}
 		if (base.isServer)
 		{
 			CmdTheatricsManagerUpdatePhaseEnded(phaseCompleted, phaseSeconds, phaseDeltaSeconds);
-			return;
 		}
-		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write((short)0);
-		networkWriter.Write((short)5);
-		networkWriter.WritePackedUInt32((uint)kCmdCmdTheatricsManagerUpdatePhaseEnded);
-		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
-		networkWriter.WritePackedUInt32((uint)phaseCompleted);
-		networkWriter.Write(phaseSeconds);
-		networkWriter.Write(phaseDeltaSeconds);
-		SendCommandInternal(networkWriter, 0, "CmdTheatricsManagerUpdatePhaseEnded");
+		else
+		{
+			NetworkWriter networkWriter = new NetworkWriter();
+			networkWriter.Write((short)0);
+			networkWriter.Write((short)5);
+			networkWriter.WritePackedUInt32((uint)kCmdCmdTheatricsManagerUpdatePhaseEnded);
+			networkWriter.Write(GetComponent<NetworkIdentity>().netId);
+			networkWriter.WritePackedUInt32((uint)phaseCompleted);
+			networkWriter.Write(phaseSeconds);
+			networkWriter.Write(phaseDeltaSeconds);
+			SendCommandInternal(networkWriter, 0, "CmdTheatricsManagerUpdatePhaseEnded");
+		}
 	}
 
 	public void CallCmdTutorialQueueEmpty()
@@ -711,88 +482,67 @@ public class PlayerData : NetworkBehaviour
 		}
 		if (base.isServer)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					CmdTutorialQueueEmpty();
-					return;
-				}
-			}
+			CmdTutorialQueueEmpty();
 		}
-		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write((short)0);
-		networkWriter.Write((short)5);
-		networkWriter.WritePackedUInt32((uint)kCmdCmdTutorialQueueEmpty);
-		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
-		SendCommandInternal(networkWriter, 0, "CmdTutorialQueueEmpty");
+		else
+		{
+			NetworkWriter networkWriter = new NetworkWriter();
+			networkWriter.Write((short)0);
+			networkWriter.Write((short)5);
+			networkWriter.WritePackedUInt32((uint)kCmdCmdTutorialQueueEmpty);
+			networkWriter.Write(GetComponent<NetworkIdentity>().netId);
+			SendCommandInternal(networkWriter, 0, "CmdTutorialQueueEmpty");
+		}
 	}
 
 	public void CallCmdDebugEndGame(GameResult debugResult, int matchSeconds, int ggBoostUsedCount, bool ggBoostUsedToSelf, bool playWithFriendsBonus, bool playedLastTurn)
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("Command function CmdDebugEndGame called on server.");
-					return;
-				}
-			}
+			Debug.LogError("Command function CmdDebugEndGame called on server.");
+			return;
 		}
 		if (base.isServer)
 		{
 			CmdDebugEndGame(debugResult, matchSeconds, ggBoostUsedCount, ggBoostUsedToSelf, playWithFriendsBonus, playedLastTurn);
-			return;
 		}
-		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write((short)0);
-		networkWriter.Write((short)5);
-		networkWriter.WritePackedUInt32((uint)kCmdCmdDebugEndGame);
-		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
-		networkWriter.Write((int)debugResult);
-		networkWriter.WritePackedUInt32((uint)matchSeconds);
-		networkWriter.WritePackedUInt32((uint)ggBoostUsedCount);
-		networkWriter.Write(ggBoostUsedToSelf);
-		networkWriter.Write(playWithFriendsBonus);
-		networkWriter.Write(playedLastTurn);
-		SendCommandInternal(networkWriter, 0, "CmdDebugEndGame");
+		else
+		{
+			NetworkWriter networkWriter = new NetworkWriter();
+			networkWriter.Write((short)0);
+			networkWriter.Write((short)5);
+			networkWriter.WritePackedUInt32((uint)kCmdCmdDebugEndGame);
+			networkWriter.Write(GetComponent<NetworkIdentity>().netId);
+			networkWriter.Write((int)debugResult);
+			networkWriter.WritePackedUInt32((uint)matchSeconds);
+			networkWriter.WritePackedUInt32((uint)ggBoostUsedCount);
+			networkWriter.Write(ggBoostUsedToSelf);
+			networkWriter.Write(playWithFriendsBonus);
+			networkWriter.Write(playedLastTurn);
+			SendCommandInternal(networkWriter, 0, "CmdDebugEndGame");
+		}
 	}
 
 	public void CallCmdSetPausedForDebugging(bool pause)
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("Command function CmdSetPausedForDebugging called on server.");
-					return;
-				}
-			}
+			Debug.LogError("Command function CmdSetPausedForDebugging called on server.");
+			return;
 		}
 		if (base.isServer)
 		{
 			CmdSetPausedForDebugging(pause);
-			return;
 		}
-		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.Write((short)0);
-		networkWriter.Write((short)5);
-		networkWriter.WritePackedUInt32((uint)kCmdCmdSetPausedForDebugging);
-		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
-		networkWriter.Write(pause);
-		SendCommandInternal(networkWriter, 0, "CmdSetPausedForDebugging");
+		else
+		{
+			NetworkWriter networkWriter = new NetworkWriter();
+			networkWriter.Write((short)0);
+			networkWriter.Write((short)5);
+			networkWriter.WritePackedUInt32((uint)kCmdCmdSetPausedForDebugging);
+			networkWriter.Write(GetComponent<NetworkIdentity>().netId);
+			networkWriter.Write(pause);
+			SendCommandInternal(networkWriter, 0, "CmdSetPausedForDebugging");
+		}
 	}
 }
