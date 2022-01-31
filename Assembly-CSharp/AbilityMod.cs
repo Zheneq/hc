@@ -183,8 +183,7 @@ public class AbilityMod : MonoBehaviour
 
 	public int GetModdedTechPointForInteraction(TechPointInteractionType interactionType, int baseAmount)
 	{
-		TechPointInteractionMod[] techPointInteractionMods = m_techPointInteractionMods;
-		foreach (TechPointInteractionMod techPointInteractionMod in techPointInteractionMods)
+		foreach (TechPointInteractionMod techPointInteractionMod in m_techPointInteractionMods)
 		{
 			if (techPointInteractionMod.interactionType == interactionType)
 			{
@@ -431,7 +430,9 @@ public class AbilityMod : MonoBehaviour
 
 	public static void AddToken_EffectMod(List<TooltipTokenEntry> entries, AbilityModPropertyEffectInfo modProp, string tokenName, StandardEffectInfo baseVal = null, bool compareWithBase = true)
 	{
-		if (modProp != null && modProp.operation != 0 && modProp.effectInfo.m_applyEffect)
+		if (modProp != null
+			&& modProp.operation != AbilityModPropertyEffectInfo.ModOp.Ignore
+			&& modProp.effectInfo.m_applyEffect)
 		{
 			AddToken_EffectInfo(entries, modProp.effectInfo, tokenName, baseVal, compareWithBase);
 		}
@@ -454,8 +455,7 @@ public class AbilityMod : MonoBehaviour
 			&& modProp.operation != AbilityModPropertyBarrierDataV2.ModOp.Ignore
 			&& modProp.barrierModData != null)
 		{
-			StandardBarrierData modifiedCopy = modProp.barrierModData.GetModifiedCopy(baseVal);
-			modifiedCopy.AddTooltipTokens(entries, tokenName, true, baseVal);
+			modProp.barrierModData.GetModifiedCopy(baseVal).AddTooltipTokens(entries, tokenName, true, baseVal);
 		}
 	}
 
@@ -466,8 +466,7 @@ public class AbilityMod : MonoBehaviour
 			&& modProp.operation != AbilityModPropertyGroundEffectField.ModOp.Ignore
 			&& modProp.groundFieldModData != null)
 		{
-			GroundEffectField modifiedCopy = modProp.groundFieldModData.GetModifiedCopy(baseVal);
-			modifiedCopy.AddTooltipTokens(entries, tokenName, true, baseVal);
+			modProp.groundFieldModData.GetModifiedCopy(baseVal).AddTooltipTokens(entries, tokenName, true, baseVal);
 		}
 	}
 
@@ -485,8 +484,8 @@ public class AbilityMod : MonoBehaviour
 		text += PropDesc(m_maxCooldownMod, InEditorDescHelper.ColoredString("[Max Cooldown]", color), flag, flag ? targetAbilityOnAbilityData.m_cooldown : 0);
 		text += PropDesc(m_maxStocksMod, InEditorDescHelper.ColoredString("[Max Stock]", color), flag, flag ? targetAbilityOnAbilityData.m_maxStocks : 0);
 		text += PropDesc(m_stockRefreshDurationMod, InEditorDescHelper.ColoredString("[Stock Refresh Duration]", color), flag, flag ? targetAbilityOnAbilityData.m_stockRefreshDuration : 0);
-		text += PropDesc(m_refillAllStockOnRefreshMod, InEditorDescHelper.ColoredString("[Refill All Stock on Refresh]", color), flag, (byte)(flag ? targetAbilityOnAbilityData.m_refillAllStockOnRefresh ? 1 : 0 : 0) != 0);
-		text += PropDesc(m_isFreeActionMod, InEditorDescHelper.ColoredString("[Free Action Override]", color), flag, (byte)(flag ? targetAbilityOnAbilityData.m_freeAction ? 1 : 0 : 0) != 0);
+		text += PropDesc(m_refillAllStockOnRefreshMod, InEditorDescHelper.ColoredString("[Refill All Stock on Refresh]", color), flag, flag && targetAbilityOnAbilityData.m_refillAllStockOnRefresh);
+		text += PropDesc(m_isFreeActionMod, InEditorDescHelper.ColoredString("[Free Action Override]", color), flag, flag && targetAbilityOnAbilityData.m_freeAction);
 		text += PropDesc(m_autoQueueIfValidMod, InEditorDescHelper.ColoredString("[Auto Queue if Valid]", color));
 		text += PropDesc(m_targetDataMaxRangeMod, InEditorDescHelper.ColoredString("[TargetData Max Range]", color));
 		text += PropDesc(m_targetDataMinRangeMod, InEditorDescHelper.ColoredString("[TargetData Min Range]", color));
@@ -741,7 +740,7 @@ public class AbilityMod : MonoBehaviour
 		}
 		AppendTooltipCheckNumbersFromTargetDataEntresi(ability, list);
 		AppendTooltipCheckNumbersFromTechPointInteractions(ability, list);
-		if (m_maxCooldownMod.operation != 0)
+		if (m_maxCooldownMod.operation != AbilityModPropertyInt.ModOp.Ignore)
 		{
 			int num = (int)Mathf.Abs(m_maxCooldownMod.value);
 			if (num != 0)
