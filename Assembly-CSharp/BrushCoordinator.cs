@@ -7,25 +7,18 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	private static BrushCoordinator s_instance;
 
 	private bool m_setupBrush;
-
 	private bool m_cameraCreated;
-
 	private bool m_brushVisible;
-
 	public BrushRegion[] m_regions;
-
 	private SyncListInt m_regionsLastDisruptionTurn = new SyncListInt();
 
-	private static int kListm_regionsLastDisruptionTurn;
-
-	private static int kRpcRpcUpdateClientFog;
+	private static int kListm_regionsLastDisruptionTurn = 1707345339;
+	private static int kRpcRpcUpdateClientFog = -2062592578;
 
 	static BrushCoordinator()
-	{
-		kRpcRpcUpdateClientFog = -2062592578;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(BrushCoordinator), kRpcRpcUpdateClientFog, InvokeRpcRpcUpdateClientFog);
-		kListm_regionsLastDisruptionTurn = 1707345339;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(BrushCoordinator), kListm_regionsLastDisruptionTurn, InvokeSyncListm_regionsLastDisruptionTurn);
+	{		
+		RegisterRpcDelegate(typeof(BrushCoordinator), kRpcRpcUpdateClientFog, InvokeRpcRpcUpdateClientFog);
+		RegisterSyncListDelegate(typeof(BrushCoordinator), kListm_regionsLastDisruptionTurn, InvokeSyncListm_regionsLastDisruptionTurn);
 		NetworkCRC.RegisterBehaviour("BrushCoordinator", 0);
 	}
 
@@ -46,18 +39,11 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType != GameEventManager.EventType.GameCameraCreated)
+		if (eventType == GameEventManager.EventType.GameCameraCreated
+			&& (VisualsLoader.Get() == null || VisualsLoader.Get().LevelLoaded()))
 		{
-			return;
+			m_cameraCreated = true;
 		}
-		if (!(VisualsLoader.Get() == null))
-		{
-			if (!VisualsLoader.Get().LevelLoaded())
-			{
-				return;
-			}
-		}
-		m_cameraCreated = true;
 	}
 
 	private void Awake()
@@ -83,98 +69,59 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 
 	public bool DisableAllBrush()
 	{
-		int result;
-		if (SinglePlayerManager.Get() != null)
-		{
-			if (!SinglePlayerManager.Get().EnableBrush())
-			{
-				result = 1;
-				goto IL_0066;
-			}
-		}
-		if (DebugParameters.Get() != null)
-		{
-			result = (DebugParameters.Get().GetParameterAsBool("DisableBrush") ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		goto IL_0066;
-		IL_0066:
-		return (byte)result != 0;
+		return (SinglePlayerManager.Get() != null && !SinglePlayerManager.Get().EnableBrush())
+			|| (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("DisableBrush"));
 	}
 
 	private void Start()
 	{
-		for (int i = 0; i < m_regions.Length; i++)
+		foreach (BrushRegion region in m_regions)
 		{
-			m_regions[i].Initialize();
+			region.Initialize();
 			if (NetworkServer.active)
 			{
 				m_regionsLastDisruptionTurn.Add(-1);
 			}
 		}
 		TrySetupBrushSquares();
-		_000E();
+		DebugCheckRegions();
 	}
 
 	private void TrySetupBrushSquares()
 	{
-		if (m_setupBrush)
+		if (!m_setupBrush
+			&& Board.Get() != null
+			&& GameFlowData.Get() != null
+			&& m_cameraCreated)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!(Board.Get() != null))
-			{
-				return;
-			}
-			while (true)
-			{
-				if (GameFlowData.Get() != null && m_cameraCreated)
-				{
-					while (true)
-					{
-						SetupBrushSquares();
-						FogOfWar.CalculateFogOfWarForTeam(Team.TeamA);
-						FogOfWar.CalculateFogOfWarForTeam(Team.TeamB);
-						m_setupBrush = true;
-						return;
-					}
-				}
-				return;
-			}
+			SetupBrushSquares();
+			FogOfWar.CalculateFogOfWarForTeam(Team.TeamA);
+			FogOfWar.CalculateFogOfWarForTeam(Team.TeamB);
+			m_setupBrush = true;
 		}
 	}
 
-	private void _000E()
+	private void DebugCheckRegions()
 	{
-		if (!Application.isEditor)
+		if (Application.isEditor)
 		{
-			return;
-		}
-		for (int i = 0; i < m_regions.Length; i++)
-		{
-			BrushRegion brushRegion = m_regions[i];
-			if (brushRegion == null)
+			for (int i = 0; i < m_regions.Length; i++)
 			{
-				Debug.LogError("Brush Region at index " + i + " is null");
-				continue;
-			}
-			if (brushRegion.m_disruptedVFX != null)
-			{
-				if (brushRegion.m_disruptedVFX.GetComponent<PKFxFX>() == null)
+				BrushRegion brushRegion = m_regions[i];
+				if (brushRegion != null)
 				{
-					Debug.LogError("Brush Region at index " + i + " has Disrupted VFX field set but it doesn't have a PKFxFX component");
+					if (brushRegion.m_disruptedVFX != null && brushRegion.m_disruptedVFX.GetComponent<PKFxFX>() == null)
+					{
+						Debug.LogError("Brush Region at index " + i + " has Disrupted VFX field set but it doesn't have a PKFxFX component");
+					}
+					if (brushRegion.m_functioningVFX != null && brushRegion.m_functioningVFX.GetComponent<PKFxFX>() == null)
+					{
+						Debug.LogError("Brush Region at index " + i + " has Functioning VFX field set but it doesn't have a PKFxFX component");
+					}
 				}
-			}
-			if (brushRegion.m_functioningVFX != null)
-			{
-				if (brushRegion.m_functioningVFX.GetComponent<PKFxFX>() == null)
+				else
 				{
-					Debug.LogError("Brush Region at index " + i + " has Functioning VFX field set but it doesn't have a PKFxFX component");
+					Debug.LogError("Brush Region at index " + i + " is null");
 				}
 			}
 		}
@@ -184,14 +131,9 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		for (int i = 0; i < m_regions.Length; i++)
 		{
-			if (m_regions[i] == null)
+			if (m_regions[i] != null)
 			{
-				Log.Error($"Null brush region ({i}); fix brush coordinator's data.");
-			}
-			else
-			{
-				List<BoardSquare> squaresInRegion = m_regions[i].GetSquaresInRegion();
-				foreach (BoardSquare item in squaresInRegion)
+				foreach (BoardSquare item in m_regions[i].GetSquaresInRegion())
 				{
 					if (item.BrushRegion == -1)
 					{
@@ -203,157 +145,109 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 					}
 				}
 			}
-		}
-		while (true)
-		{
-			switch (5)
+			else
 			{
-			default:
-				return;
-			case 0:
-				break;
+				Log.Error($"Null brush region ({i}); fix brush coordinator's data.");
 			}
 		}
 	}
 
 	private void SyncListCallbackLastDisruptTurn(SyncList<int>.Operation op, int _incorrectIndexBugIn51And52)
 	{
-		if (!(FogOfWar.GetClientFog() != null))
-		{
-			return;
-		}
-		while (true)
+		if (FogOfWar.GetClientFog() != null)
 		{
 			FogOfWar.GetClientFog().MarkForRecalculateVisibility();
-			return;
 		}
 	}
 
 	[ClientRpc]
 	public void RpcUpdateClientFog()
 	{
-		if (!(FogOfWar.GetClientFog() != null))
-		{
-			return;
-		}
-		while (true)
+		if (FogOfWar.GetClientFog() != null)
 		{
 			FogOfWar.GetClientFog().UpdateVisibilityOfSquares();
-			return;
 		}
 	}
 
 	private void Update()
 	{
 		TrySetupBrushSquares();
-		bool flag = !DisableAllBrush();
-		bool flag2 = m_brushVisible && (CameraManager.Get() == null || !CameraManager.Get().ShouldHideBrushVfx());
+		bool areBrushesEnabled = !DisableAllBrush();
+		bool areVfxVisible = m_brushVisible
+			&& (CameraManager.Get() == null || !CameraManager.Get().ShouldHideBrushVfx());
 		if (!m_setupBrush)
 		{
 			return;
 		}
-		BrushRegion brushRegion;
-		bool flag3;
-		for (int i = 0; i < m_regions.Length; brushRegion.UpdateBorderVisibility(flag3), i++)
+		for (int i = 0; i < m_regions.Length; i++)
 		{
-			brushRegion = m_regions[i];
-			flag3 = IsRegionFunctioning(i);
+			BrushRegion brushRegion = m_regions[i];
+			bool isRegionFunctioning = IsRegionFunctioning(i);
 			if (brushRegion.m_disruptedVFX != null)
 			{
-				if (flag)
+				if (areBrushesEnabled && !isRegionFunctioning && areVfxVisible)
 				{
-					if (!flag3)
-					{
-						if (flag2)
-						{
-							brushRegion.m_disruptedVFX.GetComponent<PKFxFX>().StartEffect();
-							goto IL_0144;
-						}
-					}
-				}
-				brushRegion.m_disruptedVFX.GetComponent<PKFxFX>().TerminateEffect();
-			}
-			else
-			{
-				for (int j = 0; j < brushRegion.m_perSquareDisruptedVFX.Count; j++)
-				{
-					GameObject gameObject = brushRegion.m_perSquareDisruptedVFX[j];
-					if (flag && !flag3)
-					{
-						if (flag2)
-						{
-							gameObject.GetComponent<PKFxFX>().StartEffect();
-							continue;
-						}
-					}
-					gameObject.GetComponent<PKFxFX>().TerminateEffect();
-				}
-			}
-			goto IL_0144;
-			IL_0144:
-			if (brushRegion.m_functioningVFX != null)
-			{
-				if (flag3)
-				{
-					if (flag2)
-					{
-						brushRegion.m_functioningVFX.GetComponent<PKFxFX>().StartEffect();
-						continue;
-					}
-				}
-				brushRegion.m_functioningVFX.GetComponent<PKFxFX>().TerminateEffect();
-				continue;
-			}
-			for (int k = 0; k < brushRegion.m_perSquareFunctioningVFX.Count; k++)
-			{
-				GameObject gameObject2 = brushRegion.m_perSquareFunctioningVFX[k];
-				if (flag && flag3 && flag2)
-				{
-					gameObject2.GetComponent<PKFxFX>().StartEffect();
+					brushRegion.m_disruptedVFX.GetComponent<PKFxFX>().StartEffect();
 				}
 				else
 				{
-					gameObject2.GetComponent<PKFxFX>().TerminateEffect();
+					brushRegion.m_disruptedVFX.GetComponent<PKFxFX>().TerminateEffect();
 				}
 			}
-		}
-		while (true)
-		{
-			switch (2)
+			else
 			{
-			default:
-				return;
-			case 0:
-				break;
+				foreach (GameObject vfx in brushRegion.m_perSquareDisruptedVFX)
+				{
+					if (areBrushesEnabled && !isRegionFunctioning && areVfxVisible)
+					{
+						vfx.GetComponent<PKFxFX>().StartEffect();
+					}
+					else
+					{
+						vfx.GetComponent<PKFxFX>().TerminateEffect();
+					}
+				}
 			}
+			if (brushRegion.m_functioningVFX != null)
+			{
+				if (isRegionFunctioning && areVfxVisible)
+				{
+					brushRegion.m_functioningVFX.GetComponent<PKFxFX>().StartEffect();
+				}
+				else
+				{
+					brushRegion.m_functioningVFX.GetComponent<PKFxFX>().TerminateEffect();
+				}
+			}
+			else
+			{
+				foreach (GameObject vfx in brushRegion.m_perSquareFunctioningVFX)
+				{
+					if (areBrushesEnabled && isRegionFunctioning && areVfxVisible)
+					{
+						vfx.GetComponent<PKFxFX>().StartEffect();
+					}
+					else
+					{
+						vfx.GetComponent<PKFxFX>().TerminateEffect();
+					}
+				}
+			}
+			brushRegion.UpdateBorderVisibility(isRegionFunctioning);
 		}
 	}
 
 	public List<ActorData> GetActorsInBrushRegion(int regionIndex)
 	{
-		List<ActorData> result = null;
 		if (DisableAllBrush())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return new List<ActorData>();
-				}
-			}
+			return new List<ActorData>();
 		}
-		if (regionIndex >= 0)
+		if (regionIndex >= 0 && regionIndex < m_regions.Length)
 		{
-			if (regionIndex < m_regions.Length)
-			{
-				BrushRegion brushRegion = m_regions[regionIndex];
-				result = brushRegion.GetActorsInRegion();
-			}
+			return m_regions[regionIndex].GetActorsInRegion();
 		}
-		return result;
+		return null;
 	}
 
 	public bool IsRegionFunctioning(int regionIndex)
@@ -364,36 +258,15 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		}
 		if (regionIndex >= 0 && regionIndex < m_regions.Length)
 		{
-			while (true)
+			int lastDisruptionTurn = m_regionsLastDisruptionTurn[regionIndex];
+			if (lastDisruptionTurn <= 0)
 			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-				{
-					int num = m_regionsLastDisruptionTurn[regionIndex];
-					if (num <= 0)
-					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								break;
-							default:
-								return true;
-							}
-						}
-					}
-					int num2 = GameFlowData.Get().CurrentTurn - num;
-					if (num2 >= GameplayData.Get().m_brushDisruptionTurns)
-					{
-						return true;
-					}
-					return false;
-				}
-				}
+				return true;
+			}
+			int turnsPassed = GameFlowData.Get().CurrentTurn - lastDisruptionTurn;
+			if (turnsPassed >= GameplayData.Get().m_brushDisruptionTurns)
+			{
+				return true;
 			}
 		}
 		return false;
@@ -403,151 +276,69 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (DisableAllBrush())
 		{
-			while (true)
-			{
-				return false;
-			}
+			return false;
 		}
-		bool flag;
-		if (!(subjectSquare == null))
+		bool isHidden = false;
+		if (subjectSquare != null
+			&& observerSquare != null
+			&& subjectSquare.BrushRegion != observerSquare.BrushRegion
+			&& subjectSquare.IsInBrush()
+			&& IsRegionFunctioning(subjectSquare.BrushRegion))
 		{
-			if (!(observerSquare == null))
-			{
-				if (subjectSquare.BrushRegion == observerSquare.BrushRegion)
-				{
-					flag = false;
-				}
-				else if (subjectSquare.IsInBrush())
-				{
-					int brushRegion = subjectSquare.BrushRegion;
-					if (IsRegionFunctioning(brushRegion))
-					{
-						float num = observerSquare.HorizontalDistanceOnBoardTo(subjectSquare);
-						float distanceCanSeeIntoBrush = GameplayData.Get().m_distanceCanSeeIntoBrush;
-						if (num > distanceCanSeeIntoBrush)
-						{
-							flag = true;
-						}
-						else
-						{
-							flag = false;
-						}
-					}
-					else
-					{
-						flag = false;
-					}
-				}
-				else
-				{
-					flag = false;
-				}
-				goto IL_00d1;
-			}
+			float distance = observerSquare.HorizontalDistanceOnBoardTo(subjectSquare);
+			float distanceCanSeeIntoBrush = GameplayData.Get().m_distanceCanSeeIntoBrush;
+			isHidden = distance > distanceCanSeeIntoBrush;
 		}
-		flag = false;
-		goto IL_00d1;
-		IL_0144:
-		int result;
-		bool flag2;
-		if (flag)
-		{
-			result = ((!flag2) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
-		IL_00d1:
-		if (!flag)
+		if (!isHidden)
 		{
 			return false;
 		}
-		if (!(subjectSquare == null))
+		bool isRevealed = false;
+		if (subjectSquare != null && subjectSquare.OccupantActor != null)
 		{
-			if (!(subjectSquare.OccupantActor == null))
-			{
-				ActorStatus actorStatus = subjectSquare.OccupantActor.GetActorStatus();
-				if (!actorStatus.HasStatus(StatusType.Revealed))
-				{
-					if (!actorStatus.HasStatus(StatusType.CantHideInBrush))
-					{
-						flag2 = false;
-						goto IL_0144;
-					}
-				}
-				flag2 = true;
-				goto IL_0144;
-			}
+			ActorStatus actorStatus = subjectSquare.OccupantActor.GetActorStatus();
+			isRevealed = actorStatus.HasStatus(StatusType.Revealed)
+				|| actorStatus.HasStatus(StatusType.CantHideInBrush);
 		}
-		flag2 = false;
-		goto IL_0144;
+		return isHidden && !isRevealed;
 	}
 
 	internal List<Plane> CalcIntersectingBrushSidePlanes(Bounds bounds)
 	{
-		List<Plane> list = new List<Plane>(4);
-		Vector3 center = bounds.center;
-		float x = center.x;
-		Vector3 center2 = bounds.center;
-		Bounds bounds2 = new Bounds(new Vector3(x, 0f, center2.z), bounds.size);
-		List<BoardSquare> list2 = Board.Get().GetSquaresInBox(bounds2);
-		for (int i = 0; i < list2.Count; i++)
+		List<Plane> result = new List<Plane>(4);
+		Bounds bounds2 = new Bounds(new Vector3(bounds.center.x, 0f, bounds.center.z), bounds.size);
+		foreach (BoardSquare boardSquare in Board.Get().GetSquaresInBox(bounds2))
 		{
-			BoardSquare boardSquare = list2[i];
 			byte brushExteriorSideFlags = GetBrushExteriorSideFlags(boardSquare);
-			for (byte b = 0; b < 4; b = (byte)(b + 1))
+			for (byte b = 0; b < 4; b++)
 			{
-				byte b2 = (byte)(1 << (int)b);
-				if ((b2 & brushExteriorSideFlags) != 0)
+				byte mask = (byte)(1 << b);
+				if ((mask & brushExteriorSideFlags) != 0
+					&& boardSquare.CalcSideBounds((SideFlags)mask).Intersects(bounds))
 				{
-					if (boardSquare.CalcSideBounds((SideFlags)b2).Intersects(bounds))
-					{
-						list.Add(boardSquare.CalcSidePlane((SideFlags)b2));
-					}
+					result.Add(boardSquare.CalcSidePlane((SideFlags)mask));
 				}
 			}
 		}
-		while (true)
-		{
-			return list;
-		}
+		return result;
 	}
 
 	internal byte GetBrushExteriorSideFlags(BoardSquare square)
 	{
 		if (IsRegionFunctioning(square.BrushRegion))
 		{
-			BrushRegion brushRegion = m_regions[square.BrushRegion];
-			return brushRegion.GetExteriorSideFlags(square);
+			return m_regions[square.BrushRegion].GetExteriorSideFlags(square);
 		}
 		return 0;
 	}
 
 	private void OnDrawGizmos()
 	{
-		if (!CameraManager.ShouldDrawGizmosForCurrentCamera() || !m_setupBrush)
-		{
-			return;
-		}
-		while (true)
+		if (CameraManager.ShouldDrawGizmosForCurrentCamera() && m_setupBrush)
 		{
 			for (int i = 0; i < m_regions.Length; i++)
 			{
-				BrushRegion brushRegion = m_regions[i];
-				bool functioning = IsRegionFunctioning(i);
-				brushRegion.DrawOutlineGizmos(functioning);
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
+				m_regions[i].DrawOutlineGizmos(IsRegionFunctioning(i));
 			}
 		}
 	}
@@ -560,17 +351,8 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_regionsLastDisruptionTurn called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_regionsLastDisruptionTurn called on server.");
+			return;
 		}
 		((BrushCoordinator)obj).m_regionsLastDisruptionTurn.HandleMsg(reader);
 	}
@@ -579,17 +361,8 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC RpcUpdateClientFog called on server.");
-					return;
-				}
-			}
+			Debug.LogError("RPC RpcUpdateClientFog called on server.");
+			return;
 		}
 		((BrushCoordinator)obj).RpcUpdateClientFog();
 	}
@@ -598,17 +371,8 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC Function RpcUpdateClientFog called on client.");
-					return;
-				}
-			}
+			Debug.LogError("RPC Function RpcUpdateClientFog called on client.");
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
@@ -622,31 +386,22 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					SyncListInt.WriteInstance(writer, m_regionsLastDisruptionTurn);
-					return true;
-				}
-			}
+			SyncListInt.WriteInstance(writer, m_regionsLastDisruptionTurn);
+			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListInt.WriteInstance(writer, m_regionsLastDisruptionTurn);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
