@@ -12,6 +12,7 @@ public class ActorStatus : NetworkBehaviour
 	private List<Ability> m_passivePendingStatusSources = new List<Ability>();
 
 	public const string STATUS_DEBUG_HEADER = "<color=cyan>ActorStatus</color>: ";
+	public const int c_num = 58;
 
 	private static int kListm_statusCounts = -7231791;
 	private static int kListm_statusDurations = 625641650;
@@ -27,8 +28,8 @@ public class ActorStatus : NetworkBehaviour
 
 	private void Awake()
 	{
-		m_statusCountsPrevious = new int[58];
-		m_clientStatusCountAdjustments = new int[58];
+		m_statusCountsPrevious = new int[c_num];
+		m_clientStatusCountAdjustments = new int[c_num];
 		m_actorData = GetComponent<ActorData>();
 		m_statusCounts.InitializeBehaviour(this, kListm_statusCounts);
 		m_statusDurations.InitializeBehaviour(this, kListm_statusDurations);
@@ -47,7 +48,7 @@ public class ActorStatus : NetworkBehaviour
 
 	private void SyncListCallbackStatusDuration(SyncList<uint>.Operation op, int i)
 	{
-		if (NetworkClient.active && i >= 0 && i < 58)
+		if (NetworkClient.active && i >= 0 && i < c_num)
 		{
 			ActorData actorData = m_actorData;
 			if (HUD_UI.Get() != null && actorData != null)
@@ -80,17 +81,16 @@ public class ActorStatus : NetworkBehaviour
 
 	private void SyncListCallbackStatusCounts(SyncList<uint>.Operation op, int i)
 	{
-		if (!NetworkServer.active && i >= 0 && i < 58)
+		if (!NetworkServer.active && i >= 0 && i < c_num)
 		{
-			int num = m_statusCountsPrevious[i];
-			num += m_clientStatusCountAdjustments[i];
+			int statusCount = m_statusCountsPrevious[i] + m_clientStatusCountAdjustments[i];
 			m_clientStatusCountAdjustments[i] = 0;
 			m_statusCountsPrevious[i] = (int)m_statusCounts[i];
-			if (m_statusCounts[i] != num)
+			if (m_statusCounts[i] != statusCount)
 			{
-				bool flag = num > 0;
+				bool hadStatus = statusCount > 0;
 				bool flag2 = HasStatus((StatusType)i);
-				if (flag != flag2)
+				if (hadStatus != flag2)
 				{
 					OnStatusChanged((StatusType)i, flag2);
 				}
@@ -114,19 +114,21 @@ public class ActorStatus : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void ActorStatus::AddStatus(StatusType,System.Int32)' called on client");
 			return;
 		}
-		int num = (int)m_statusCounts[(int)status];
-		m_statusCounts[(int)status] = (uint)(num + 1);
+		int prevCount = (int)m_statusCounts[(int)status];
+		m_statusCounts[(int)status] = (uint)(prevCount + 1);
 		if (duration > m_statusDurations[(int)status])
 		{
 			m_statusDurations[(int)status] = (uint)Mathf.Max(0, duration);
 		}
-		num += m_clientStatusCountAdjustments[(int)status];
+		prevCount += m_clientStatusCountAdjustments[(int)status];
 		m_clientStatusCountAdjustments[(int)status] = 0;
 		if (DebugLog)
 		{
-			Log.Warning("<color=cyan>ActorStatus</color>: ADD " + GetColoredStatusName(status, "yellow") + " to " + m_actorData.DebugNameString("white") + ", Count = " + m_statusCounts[(int)status] + ", PrevCount = " + num);
+			Log.Warning("<color=cyan>ActorStatus</color>: ADD " + GetColoredStatusName(status, "yellow")
+				+ " to " + m_actorData.DebugNameString("white") + ", Count = " + m_statusCounts[(int)status]
+				+ ", PrevCount = " + prevCount);
 		}
-		if (num == 0)
+		if (prevCount == 0)
 		{
 			OnStatusChanged(status, true);
 		}
@@ -140,17 +142,19 @@ public class ActorStatus : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void ActorStatus::RemoveStatus(StatusType)' called on client");
 			return;
 		}
-		int num = (int)m_statusCounts[(int)status];
-		if (num > 0)
+		int prevCount = (int)m_statusCounts[(int)status];
+		if (prevCount > 0)
 		{
-			m_statusCounts[(int)status] = (uint)Mathf.Max(0, num - 1);
-			num += m_clientStatusCountAdjustments[(int)status];
+			m_statusCounts[(int)status] = (uint)Mathf.Max(0, prevCount - 1);
+			prevCount += m_clientStatusCountAdjustments[(int)status];
 			m_clientStatusCountAdjustments[(int)status] = 0;
 			if (DebugLog)
 			{
-				Log.Warning("<color=cyan>ActorStatus</color>: REMOVE " + GetColoredStatusName(status, "yellow") + " from " + m_actorData.DebugNameString("white") + ", Count = " + m_statusCounts[(int)status] + ", PrevCount: " + num);
+				Log.Warning("<color=cyan>ActorStatus</color>: REMOVE " + GetColoredStatusName(status, "yellow")
+					+ " from " + m_actorData.DebugNameString("white") + ", Count = " + m_statusCounts[(int)status]
+					+ ", PrevCount: " + prevCount);
 			}
-			if (num == 1)
+			if (prevCount == 1)
 			{
 				OnStatusChanged(status, false);
 			}
@@ -169,11 +173,14 @@ public class ActorStatus : NetworkBehaviour
 			Debug.LogWarning("[Client] function 'System.Void ActorStatus::ClientAddStatus(StatusType)' called on server");
 			return;
 		}
-		int num = m_clientStatusCountAdjustments[(int)status];
-		m_clientStatusCountAdjustments[(int)status] = num + 1;
+		int prevCount = m_clientStatusCountAdjustments[(int)status];
+		m_clientStatusCountAdjustments[(int)status] = prevCount + 1;
 		if (DebugLog)
 		{
-			Log.Warning("<color=cyan>ActorStatus</color>: <color=cyan>CLIENT_ADD</color> " + GetColoredStatusName(status, "yellow") + " to " + m_actorData.DebugNameString("white") + ", ClientAdjust = " + m_clientStatusCountAdjustments[(int)status] + ", SyncCount = " + m_statusCounts[(int)status]);
+			Log.Warning("<color=cyan>ActorStatus</color>: <color=cyan>CLIENT_ADD</color> "
+				+ GetColoredStatusName(status, "yellow") + " to " + m_actorData.DebugNameString("white")
+				+ ", ClientAdjust = " + m_clientStatusCountAdjustments[(int)status]
+				+ ", SyncCount = " + m_statusCounts[(int)status]);
 		}
 		if (m_statusCounts[(int)status] + m_clientStatusCountAdjustments[(int)status] == 1)
 		{
@@ -189,15 +196,18 @@ public class ActorStatus : NetworkBehaviour
 			Debug.LogWarning("[Client] function 'System.Void ActorStatus::ClientRemoveStatus(StatusType)' called on server");
 			return;
 		}
-		int num = m_clientStatusCountAdjustments[(int)status];
-		m_clientStatusCountAdjustments[(int)status] = num - 1;
+		int prevCount = m_clientStatusCountAdjustments[(int)status];
+		m_clientStatusCountAdjustments[(int)status] = prevCount - 1;
 		if (m_clientStatusCountAdjustments[(int)status] < 0)
 		{
 			m_clientStatusCountAdjustments[(int)status] = 0;
 		}
 		if (DebugLog)
 		{
-			Log.Warning("<color=cyan>ActorStatus</color>: <color=magenta>CLIENT_REMOVE</color> " + GetColoredStatusName(status, "yellow") + " from " + m_actorData.DebugNameString("white") + ", ClientAdjust = " + m_clientStatusCountAdjustments[(int)status] + ", SyncCount = " + m_statusCounts[(int)status]);
+			Log.Warning("<color=cyan>ActorStatus</color>: <color=magenta>CLIENT_REMOVE</color> "
+				+ GetColoredStatusName(status, "yellow") + " from " + m_actorData.DebugNameString("white")
+				+ ", ClientAdjust = " + m_clientStatusCountAdjustments[(int)status]
+				+ ", SyncCount = " + m_statusCounts[(int)status]);
 		}
 		if (m_statusCounts[(int)status] + m_clientStatusCountAdjustments[(int)status] == 0)
 		{
@@ -224,9 +234,9 @@ public class ActorStatus : NetworkBehaviour
 
 	public bool HasStatus(StatusType status, bool includePending = true)
 	{
-		int num = (int)(((int)status < m_statusCounts.Count) ? m_statusCounts[(int)status] : 0);
-		num += m_clientStatusCountAdjustments[(int)status];
-		bool hasStatus = num > 0;
+		int count = ((int)status < m_statusCounts.Count) ? (int)m_statusCounts[(int)status] : 0;
+		count += m_clientStatusCountAdjustments[(int)status];
+		bool hasStatus = count > 0;
 		if (!hasStatus && includePending && m_passivePendingStatusSources.Count > 0)
 		{
 			for (int i = 0; i < m_passivePendingStatusSources.Count; i++)
@@ -303,14 +313,8 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (DebugLog)
 		{
-			Log.Warning(string.Concat(new string[]
-			{
-				"<color=cyan>ActorStatus</color>: On Status Changed: <color=yellow>",
-				status.ToString(),
-				"</color> ",
-				statusGained ? "<color=cyan>Gained" : "<color=magenta>Lost",
-				"</color>"
-			}));
+			Log.Warning($"<color=cyan>ActorStatus</color>: On Status Changed: <color=yellow>{status}</color>" +
+				$" {(statusGained ? "<color=cyan>Gained" : " < color = magenta > Lost")}</color>");
 		}
 		if (!statusGained)
 		{
@@ -542,7 +546,7 @@ public class ActorStatus : NetworkBehaviour
 
 	public static string GetColoredStatusName(StatusType status, string color)
 	{
-		return "<color=" + color + ">[" + status.ToString() + "]</color>";
+		return $"<color={color}>[{status}]</color>";
 	}
 
 	public int DebugGetStatusCount(StatusType status)
@@ -563,11 +567,9 @@ public class ActorStatus : NetworkBehaviour
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("SyncList m_statusCounts called on server.");
+			return;
 		}
-		else
-		{
-			((ActorStatus)obj).m_statusCounts.HandleMsg(reader);
-		}
+		((ActorStatus)obj).m_statusCounts.HandleMsg(reader);
 	}
 
 	protected static void InvokeSyncListm_statusDurations(NetworkBehaviour obj, NetworkReader reader)
