@@ -14,36 +14,23 @@ public class GenericAbility_AbilityMod : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		GenericAbility_Container genericAbility_Container = targetAbility as GenericAbility_Container;
-		if (!(genericAbility_Container != null))
-		{
-			return;
-		}
-		while (true)
+		if (genericAbility_Container != null)
 		{
 			AddOnHitDataTokens(tokens, m_onHitDataMod, genericAbility_Container.m_onHitData);
-			return;
 		}
 	}
 
 	protected void AddOnHitDataTokens(List<TooltipTokenEntry> tokens, OnHitDataMod mod, OnHitAuthoredData baseData)
 	{
-		if (mod == null)
+		if (mod != null && baseData != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (baseData != null)
-			{
-				mod.AddTooltipTokens(tokens, baseData);
-			}
-			return;
+			mod.AddTooltipTokens(tokens, baseData);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		string text = string.Empty;
+		string text = "";
 		GenericAbility_Container genericAbility_Container = GetTargetAbilityOnAbilityData(abilityData) as GenericAbility_Container;
 		if (genericAbility_Container != null)
 		{
@@ -54,34 +41,19 @@ public class GenericAbility_AbilityMod : AbilityMod
 
 	protected string GetOnHitDataDesc(OnHitDataMod mod, OnHitAuthoredData baseData, string header = "-- On Hit Data Mod --")
 	{
-		if (mod != null)
+		if (mod != null && baseData != null)
 		{
-			if (baseData != null)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return mod.GetInEditorDesc(header, baseData);
-					}
-				}
-			}
+			return mod.GetInEditorDesc(header, baseData);
 		}
-		return string.Empty;
+		return "";
 	}
 
 	protected string GetTargetSelectModDesc(TargetSelectModBase mod, GenericAbility_TargetSelectBase baseTargetSelect, string header = "-- Target Select Mod --")
 	{
-		if (mod != null)
+		if (mod != null && baseTargetSelect != null)
 		{
-			if (baseTargetSelect != null)
-			{
-				return mod.GetInEditorDesc(baseTargetSelect, header);
-			}
+			return mod.GetInEditorDesc(baseTargetSelect, header);
 		}
-		return string.Empty;
+		return "";
 	}
 }
