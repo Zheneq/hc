@@ -283,7 +283,7 @@ public static class TargeterUtils
 		List<BoardSquare> squares = AreaEffectUtils.GetSquaresInBox(startPos, laserEndPoint, widthInSquares / 2f, penetrateLos, targetingActor);
 		AreaEffectUtils.SortSquaresByDistanceToPos(ref squares, startPos);
 		bool flag = false;
-		for (int i = squares.Count - 1; i >= 0; squares.RemoveAt(i), i--)
+		for (int i = squares.Count - 1; i >= 0; i--)
 		{
 			if (squares[i].IsValidForGameplay())
 			{
@@ -296,48 +296,32 @@ public static class TargeterUtils
 			{
 				flag = true;
 			}
+			squares.RemoveAt(i);
 		}
-		float magnitude;
-		bool flag2;
-		BoardSquare boardSquare;
-		Vector3 vector;
-		float num3;
-		float num4;
-		Vector3 pointOnSecond;
-		Vector3 right;
-		bool intersecting;
-		Vector3 a;
-		float num5;
-		Vector3 pointOnSecond2;
-		Vector3 forward;
-		float a2;
 		if (squares.Count > 0)
 		{
-			magnitude = (laserEndPoint - startPos).magnitude;
+			float magnitude = (laserEndPoint - startPos).magnitude;
 			float halfSquareSize = 0.5f * squareSize;
-			flag2 = (widthInSquares <= 1f);
-			boardSquare = squares[squares.Count - 1];
-			vector = boardSquare.ToVector3();
+			bool isNarrow = widthInSquares <= 1f;
+			BoardSquare square = squares[squares.Count - 1];
+			Vector3 vector = square.ToVector3();
 			vector.y = startPos.y;
-			Vector3 lhs = vector - startPos;
-			num3 = Vector3.Dot(lhs, normalized);
-			num4 = !flag && flag2 ? squareSize : halfSquareSize;
-			float num6 = num4;
-			num5 = Mathf.Min(magnitude, num3 + num6);
-			if (flag2 && squares.Count > 1)
+			float num3 = Vector3.Dot(vector - startPos, normalized);
+			float num4 = !flag && isNarrow ? squareSize : halfSquareSize;
+			float num5 = Mathf.Min(magnitude, num3 + num4);
+			if (isNarrow && squares.Count > 1)
 			{
 				float d = 0.5f * squareSize;
-				a2 = Mathf.Min(magnitude, num3);
+				float a2 = Mathf.Min(magnitude, num3);
 				BoardSquare boardSquare2 = squares[squares.Count - 2];
 				if (boardSquare2.IsValidForGameplay())
 				{
-					intersecting = false;
-					a = Vector3.zero;
+					bool intersecting = false;
+					Vector3 a = Vector3.zero;
 					float num7 = VectorUtils.HorizontalAngle_Deg(normalized);
-					if (boardSquare2.x == boardSquare.x)
+					if (boardSquare2.x == square.x)
 					{
-						forward = Vector3.forward;
-						pointOnSecond2 = vector;
+						Vector3 pointOnSecond2 = vector;
 						if (num7 >= 90f && num7 <= 270f)
 						{
 							pointOnSecond2 -= d * Vector3.right;
@@ -346,12 +330,11 @@ public static class TargeterUtils
 						{
 							pointOnSecond2 += d * Vector3.right;
 						}
-						a = VectorUtils.GetLineLineIntersection(startPos, normalized, pointOnSecond2, forward, out intersecting);
+						a = VectorUtils.GetLineLineIntersection(startPos, normalized, pointOnSecond2, Vector3.forward, out intersecting);
 					}
-					else if (boardSquare2.y == boardSquare.y)
+					else if (boardSquare2.y == square.y)
 					{
-						right = Vector3.right;
-						pointOnSecond = vector;
+						Vector3 pointOnSecond = vector;
 						if (num7 >= 0f && num7 <= 180f)
 						{
 							pointOnSecond += d * Vector3.forward;
@@ -360,7 +343,7 @@ public static class TargeterUtils
 						{
 							pointOnSecond -= d * Vector3.forward;
 						}
-						a = VectorUtils.GetLineLineIntersection(startPos, normalized, pointOnSecond, right, out intersecting);
+						a = VectorUtils.GetLineLineIntersection(startPos, normalized, pointOnSecond, Vector3.right, out intersecting);
 					}
 					if (intersecting)
 					{
