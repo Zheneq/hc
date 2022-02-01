@@ -15,18 +15,11 @@ public class NPCCoordinator : MonoBehaviour
 	private static NPCCoordinator s_instance;
 
 	public NPCSpawner[] m_spawners;
-
 	public Ability m_startupAbility;
-
 	[HideInInspector]
 	public int m_nextPlayerIndex = 100;
 
-	public LoadingStateEnum LoadingState
-	{
-		get;
-		private set;
-	}
-
+	public LoadingStateEnum LoadingState { get; private set; }
 	public static NPCCoordinator Get()
 	{
 		return s_instance;
@@ -39,12 +32,8 @@ public class NPCCoordinator : MonoBehaviour
 		{
 			m_spawners[i].m_id = i;
 		}
-		while (true)
-		{
-			LoadingState = LoadingStateEnum.WaitingToLoad;
-			LoadNPCs();
-			return;
-		}
+		LoadingState = LoadingStateEnum.WaitingToLoad;
+		LoadNPCs();
 	}
 
 	private void OnDestroy()
@@ -54,14 +43,9 @@ public class NPCCoordinator : MonoBehaviour
 
 	public void SetupForResolve()
 	{
-		NPCSpawner[] spawners = m_spawners;
-		foreach (NPCSpawner nPCSpawner in spawners)
+		foreach (NPCSpawner nPCSpawner in m_spawners)
 		{
 			nPCSpawner.SetupForResolve();
-		}
-		while (true)
-		{
-			return;
 		}
 	}
 
@@ -69,39 +53,19 @@ public class NPCCoordinator : MonoBehaviour
 	{
 		if (s_instance == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
+			return false;
 		}
-		bool result = false;
 		if (actor != null)
 		{
-			NPCSpawner[] spawners = s_instance.m_spawners;
-			int num = 0;
-			while (true)
+			foreach (NPCSpawner nPCSpawner in s_instance.m_spawners)
 			{
-				if (num < spawners.Length)
+				if (nPCSpawner.m_id == actor.SpawnerId)
 				{
-					NPCSpawner nPCSpawner = spawners[num];
-					if (nPCSpawner.m_id == actor.SpawnerId)
-					{
-						result = true;
-						break;
-					}
-					num++;
-					continue;
+					return true;
 				}
-				break;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	public void AddSpawner(NPCSpawner spawner)
@@ -113,44 +77,22 @@ public class NPCCoordinator : MonoBehaviour
 
 	public void OnActorDeath(ActorData actor)
 	{
-		NPCSpawner[] spawners = m_spawners;
-		foreach (NPCSpawner nPCSpawner in spawners)
+		foreach (NPCSpawner nPCSpawner in m_spawners)
 		{
 			if (nPCSpawner.m_id == actor.SpawnerId)
 			{
 				nPCSpawner.OnActorDeath(actor);
 			}
 		}
-		while (true)
-		{
-			switch (1)
-			{
-			default:
-				return;
-			case 0:
-				break;
-			}
-		}
 	}
 
 	public void OnActorSpawn(ActorData actor)
 	{
-		NPCSpawner[] spawners = m_spawners;
-		foreach (NPCSpawner nPCSpawner in spawners)
+		foreach (NPCSpawner nPCSpawner in m_spawners)
 		{
 			if (nPCSpawner.m_id == actor.SpawnerId)
 			{
 				nPCSpawner.OnActorSpawn(actor);
-			}
-		}
-		while (true)
-		{
-			switch (5)
-			{
-			default:
-				return;
-			case 0:
-				break;
 			}
 		}
 	}
@@ -158,41 +100,25 @@ public class NPCCoordinator : MonoBehaviour
 	public List<CharacterResourceLink> GetActorCharacterResourceLinks()
 	{
 		List<CharacterResourceLink> list = new List<CharacterResourceLink>();
-		NPCSpawner[] spawners = m_spawners;
-		foreach (NPCSpawner nPCSpawner in spawners)
+		foreach (NPCSpawner nPCSpawner in m_spawners)
 		{
-			if (nPCSpawner != null)
+			if (nPCSpawner != null
+				&& nPCSpawner.m_actorPrefab != null
+				&& nPCSpawner.m_characterResourceLink != null)
 			{
-				if (nPCSpawner.m_actorPrefab != null && nPCSpawner.m_characterResourceLink != null)
-				{
-					list.Add(nPCSpawner.m_characterResourceLink);
-				}
+				list.Add(nPCSpawner.m_characterResourceLink);
 			}
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	public CharacterResourceLink GetNpcCharacterResourceLinkBySpawnerId(int spawnerId)
 	{
-		for (int i = 0; i < m_spawners.Length; i++)
+		foreach (NPCSpawner nPCSpawner in m_spawners)
 		{
-			NPCSpawner nPCSpawner = m_spawners[i];
-			if (nPCSpawner == null)
-			{
-				continue;
-			}
-			if (nPCSpawner.m_id != spawnerId)
-			{
-				continue;
-			}
-			if (!(nPCSpawner.m_characterResourceLink != null))
-			{
-				continue;
-			}
-			while (true)
+			if (nPCSpawner != null
+				&& nPCSpawner.m_id == spawnerId
+				&& nPCSpawner.m_characterResourceLink != null)
 			{
 				return nPCSpawner.m_characterResourceLink;
 			}
@@ -203,35 +129,25 @@ public class NPCCoordinator : MonoBehaviour
 	public void LoadNPCs()
 	{
 		int num = 0;
-		NPCSpawner[] spawners = Get().m_spawners;
-		foreach (NPCSpawner nPCSpawner in spawners)
+		foreach (NPCSpawner nPCSpawner in Get().m_spawners)
 		{
-			if (nPCSpawner == null)
-			{
-				continue;
-			}
-			if (nPCSpawner.m_actorPrefab != null && nPCSpawner.m_characterResourceLink != null)
+			if (nPCSpawner != null && nPCSpawner.m_actorPrefab != null && nPCSpawner.m_characterResourceLink != null)
 			{
 				num++;
-				CharacterResourceLink characterResourceLink = nPCSpawner.m_characterResourceLink;
 				CharacterVisualInfo linkVisualInfo = new CharacterVisualInfo(nPCSpawner.m_skinIndex, nPCSpawner.m_patternIndex, nPCSpawner.m_colorIndex);
 				if (!NetworkServer.active && ClientGameManager.Get() != null)
 				{
-					ClientGameManager.Get().LoadCharacterResourceLink(characterResourceLink, linkVisualInfo);
+					ClientGameManager.Get().LoadCharacterResourceLink(nPCSpawner.m_characterResourceLink, linkVisualInfo);
 				}
 			}
 		}
-		while (true)
+		if (num > 0)
 		{
-			if (num > 0)
-			{
-				LoadingState = LoadingStateEnum.Loading;
-			}
-			else
-			{
-				LoadingState = LoadingStateEnum.Done;
-			}
-			return;
+			LoadingState = LoadingStateEnum.Loading;
+		}
+		else
+		{
+			LoadingState = LoadingStateEnum.Done;
 		}
 	}
 
@@ -241,40 +157,15 @@ public class NPCCoordinator : MonoBehaviour
 		{
 			return;
 		}
-		while (true)
+		bool isServerDoneLoading = true;
+		bool isClientDoneLoading = true;
+		if (!NetworkServer.active && ClientGameManager.Get() != null)
 		{
-			bool flag = true;
-			bool flag2 = true;
-			if (!NetworkServer.active)
-			{
-				if (ClientGameManager.Get() != null)
-				{
-					if (ClientGameManager.Get().NumCharacterResourcesCurrentlyLoading == 0)
-					{
-						flag2 = true;
-					}
-					else
-					{
-						flag2 = false;
-					}
-				}
-			}
-			if (!flag)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (flag2)
-				{
-					while (true)
-					{
-						LoadingState = LoadingStateEnum.Done;
-						return;
-					}
-				}
-				return;
-			}
+			isClientDoneLoading = ClientGameManager.Get().NumCharacterResourcesCurrentlyLoading == 0;
+		}
+		if (isServerDoneLoading && isClientDoneLoading)
+		{
+			LoadingState = LoadingStateEnum.Done;
 		}
 	}
 }
