@@ -567,7 +567,6 @@ public class AbilityUtil_Targeter
 				ActorHitContext actorHitContext = new ActorHitContext();
 				actorHitContext.m_inRangeForTargeter = true;
 				m_actorContextVars[actor] = actorHitContext;
-				return;
 			}
 			else
 			{
