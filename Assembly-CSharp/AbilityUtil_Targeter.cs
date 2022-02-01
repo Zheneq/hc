@@ -227,11 +227,11 @@ public class AbilityUtil_Targeter
 		}
 		if (m_gameObjectOnCastTarget != null)
 		{
-			List<Vector3> list = new List<Vector3>();
-			Vector3 occupantRefPos = Board.Get().GetSquare(caster.GetGridPos()).GetOccupantRefPos();
-			list.Add(occupantRefPos);
-			Vector3 occupantRefPos2 = Board.Get().GetSquare(currentTarget.GridPos).GetOccupantRefPos();
-			list.Add(occupantRefPos2);
+			List<Vector3> list = new List<Vector3>
+			{
+				Board.Get().GetSquare(caster.GetGridPos()).GetOccupantRefPos(),
+				Board.Get().GetSquare(currentTarget.GridPos).GetOccupantRefPos()
+			};
 			Vector3 a = list[0] - list[1];
 			Vector3 a2 = list[list.Count - 1] - list[list.Count - 2];
 			a.Normalize();
@@ -413,9 +413,8 @@ public class AbilityUtil_Targeter
 			return false;
 		}
 
-		for (int num = 0; num < m_actorsInRange.Count; num++)
+		foreach (ActorTarget actorTarget in m_actorsInRange)
 		{
-			ActorTarget actorTarget = m_actorsInRange[num];
 			if (actorTarget.m_actor == actor)
 			{
 				ActorCover actorCover = actorTarget.m_actor.GetActorCover();
@@ -462,9 +461,8 @@ public class AbilityUtil_Targeter
 	public virtual List<ActorData> GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject subject)
 	{
 		List<ActorData> list = new List<ActorData>();
-		for (int i = 0; i < m_actorsInRange.Count; i++)
+		foreach (ActorTarget actorTarget in m_actorsInRange)
 		{
-			ActorTarget actorTarget = m_actorsInRange[i];
 			if (actorTarget.m_actor.IsActorVisibleToClient() && actorTarget.m_subjectTypes.Contains(subject))
 			{
 				list.Add(actorTarget.m_actor);
@@ -476,9 +474,8 @@ public class AbilityUtil_Targeter
 	public int GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject subject)
 	{
 		int num = 0;
-		for (int i = 0; i < m_actorsInRange.Count; i++)
+		foreach (ActorTarget actorTarget in m_actorsInRange)
 		{
-			ActorTarget actorTarget = m_actorsInRange[i];
 			if (actorTarget.m_actor.IsActorVisibleToClient()
 				&& actorTarget.m_subjectTypes.Contains(subject))
 			{
@@ -491,14 +488,13 @@ public class AbilityUtil_Targeter
 	public int GetTooltipSubjectCountOnActor(ActorData actor, AbilityTooltipSubject subject)
 	{
 		int num = 0;
-		for (int i = 0; i < m_actorsInRange.Count; i++)
+		foreach (ActorTarget actorTarget in m_actorsInRange)
 		{
-			ActorTarget actorTarget = m_actorsInRange[i];
 			if (actorTarget.m_actor == actor)
 			{
-				for (int j = 0; j < actorTarget.m_subjectTypes.Count; j++)
+				foreach (AbilityTooltipSubject subjectType in actorTarget.m_subjectTypes)
 				{
-					if (actorTarget.m_subjectTypes[j] == subject)
+					if (subjectType == subject)
 					{
 						num++;
 					}
@@ -511,12 +507,11 @@ public class AbilityUtil_Targeter
 	public int GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject subject)
 	{
 		int num = 0;
-		for (int i = 0; i < m_actorsInRange.Count; i++)
+		foreach (ActorTarget actorTarget in m_actorsInRange)
 		{
-			ActorTarget actorTarget = m_actorsInRange[i];
-			for (int j = 0; j < actorTarget.m_subjectTypes.Count; j++)
+			foreach (AbilityTooltipSubject subjectType in actorTarget.m_subjectTypes)
 			{
-				if (actorTarget.m_subjectTypes[j] == subject)
+				if (subjectType == subject)
 				{
 					num++;
 				}
@@ -527,9 +522,9 @@ public class AbilityUtil_Targeter
 
 	protected void AddActorsInRange(List<ActorData> actors, Vector3 damageOrigin, ActorData targetingActor, AbilityTooltipSubject subjectType = AbilityTooltipSubject.Primary, bool appendSubjectType = false)
 	{
-		for (int i = 0; i < actors.Count; i++)
+		foreach (ActorData actor in actors)
 		{
-			AddActorInRange(actors[i], damageOrigin, targetingActor, subjectType, appendSubjectType);
+			AddActorInRange(actor, damageOrigin, targetingActor, subjectType, appendSubjectType);
 		}
 	}
 
@@ -537,11 +532,15 @@ public class AbilityUtil_Targeter
 	{
 		if (!IsActorInTargetRange(actor))
 		{
-			ActorTarget actorTarget = new ActorTarget();
-			actorTarget.m_actor = actor;
-			actorTarget.m_damageOrigin = damageOrigin;
-			actorTarget.m_subjectTypes = new List<AbilityTooltipSubject>();
-			actorTarget.m_subjectTypes.Add(subjectType);
+			ActorTarget actorTarget = new ActorTarget
+			{
+				m_actor = actor,
+				m_damageOrigin = damageOrigin,
+				m_subjectTypes = new List<AbilityTooltipSubject>
+				{
+					subjectType
+				}
+			};
 			if (actor == targetingActor)
 			{
 				actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Self);
@@ -600,11 +599,11 @@ public class AbilityUtil_Targeter
 
 	protected void SetIgnoreCoverMinDist(ActorData actor, bool ignoreCoverMinDist)
 	{
-		for (int i = 0; i < m_actorsInRange.Count; i++)
+		foreach (ActorTarget actorTarget in m_actorsInRange)
 		{
-			if (m_actorsInRange[i].m_actor == actor)
+			if (actorTarget.m_actor == actor)
 			{
-				m_actorsInRange[i].m_ignoreCoverMinDist = ignoreCoverMinDist;
+				actorTarget.m_ignoreCoverMinDist = ignoreCoverMinDist;
 				return;
 			}
 		}
@@ -649,13 +648,13 @@ public class AbilityUtil_Targeter
 	public void UpdateArrowsForUI()
 	{
 		bool flag = false;
-		for (int i = 0; i < m_arrows.Count; i++)
+		foreach (ArrowList arrow in m_arrows)
 		{
-			if (m_arrows[i].m_gameObject.activeSelf)
+			if (arrow.m_gameObject.activeSelf)
 			{
 				flag = true;
-				List<Vector3> list = KnockbackUtils.BuildDrawablePath(m_arrows[i].m_pathInfo, false);
-				MovementPathStart componentInChildren = m_arrows[i].m_gameObject.GetComponentInChildren<MovementPathStart>();
+				List<Vector3> list = KnockbackUtils.BuildDrawablePath(arrow.m_pathInfo, false);
+				MovementPathStart componentInChildren = arrow.m_gameObject.GetComponentInChildren<MovementPathStart>();
 				Vector3 vector2D = list[list.Count - 1];
 				BoardSquare boardSquare = Board.Get().GetSquareFromVec3(vector2D);
 				componentInChildren.SetCharacterMovementPanel(boardSquare);
@@ -676,20 +675,22 @@ public class AbilityUtil_Targeter
 			{
 				GameObject gameObject = Targeting.GetTargeting().CreateFancyArrowMesh(ref points, 0.2f, arrowColor, isChasing, mover, movementType, null, previousLine, false);
 				bool flag = false;
-				for (int i = 0; i < m_arrows.Count; i++)
+				foreach (ArrowList arrow in m_arrows)
 				{
-					if (m_arrows[i].m_gameObject == gameObject)
+					if (arrow.m_gameObject == gameObject)
 					{
 						flag = true;
-						m_arrows[i].m_pathInfo = path;
+						arrow.m_pathInfo = path;
 						break;
 					}
 				}
 				if (!flag && gameObject.GetComponentInChildren<MovementPathStart>() != null)
 				{
-					ArrowList arrowList = new ArrowList();
-					arrowList.m_gameObject = gameObject;
-					arrowList.m_pathInfo = path;
+					ArrowList arrowList = new ArrowList
+					{
+						m_gameObject = gameObject,
+						m_pathInfo = path
+					};
 					m_arrows.Add(arrowList);
 				}
 			}
@@ -808,12 +809,12 @@ public class AbilityUtil_Targeter
 	public List<GameObject> GetHighlightCopies(bool setOpacity)
 	{
 		List<GameObject> list = new List<GameObject>();
-		for (int i = 0; i < m_highlights.Count; i++)
+		foreach (GameObject highlight in m_highlights)
 		{
-			if (m_highlights[i] != null)
+			if (highlight != null)
 			{
-				GameObject gameObject = HighlightUtils.Get().CloneTargeterHighlight(m_highlights[i], this);
-				if (!m_highlights[i].activeSelf)
+				GameObject gameObject = HighlightUtils.Get().CloneTargeterHighlight(highlight, this);
+				if (!highlight.activeSelf)
 				{
 					gameObject.SetActive(false);
 				}
@@ -940,8 +941,7 @@ public class AbilityUtil_Targeter
 
 	protected virtual float GetCurrentRangeInSquares()
 	{
-		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		return AbilityUtils.GetCurrentRangeInSquares(m_ability, activeOwnedActorData, 0);
+		return AbilityUtils.GetCurrentRangeInSquares(m_ability, GameFlowData.Get().activeOwnedActorData, 0);
 	}
 
 	protected virtual Vector3 GetTargetingArcEndPosition(ActorData targetingActor)
@@ -1025,7 +1025,7 @@ public class AbilityUtil_Targeter
 					List<Vector3> list = new List<Vector3>();
 					for (int i = 1; i <= HighlightUtils.Get().m_targetingArcNumSegments; i++)
 					{
-						float num6 = (float)i / (float)HighlightUtils.Get().m_targetingArcNumSegments;
+						float num6 = i / (float)HighlightUtils.Get().m_targetingArcNumSegments;
 						float num7 = num6 * vector2.magnitude - num2;
 						float num8 = num3 * num7 * num7;
 						if (num7 > 0f)
@@ -1315,29 +1315,31 @@ public class AbilityUtil_Targeter
 
 	private static Mesh CreateRectMesh(float halfWidth, float halfHeight)
 	{
-		Mesh mesh = new Mesh();
-		mesh.vertices = new Vector3[]
+		Mesh mesh = new Mesh
 		{
-			new Vector3(-halfWidth, 0f, -halfHeight),
-			new Vector3(halfWidth, 0f, -halfHeight),
-			new Vector3(halfWidth, 0f, halfHeight),
-			new Vector3(-halfWidth, 0f, halfHeight)
-		};
-		mesh.uv = new Vector2[]
-		{
-			new Vector2(0f, 0f),
-			new Vector2(0f, 1f),
-			new Vector2(1f, 1f),
-			new Vector2(1f, 0f)
-		};
-		mesh.triangles = new int[]
-		{
-			0,
-			1,
-			2,
-			0,
-			2,
-			3
+			vertices = new Vector3[]
+			{
+				new Vector3(-halfWidth, 0f, -halfHeight),
+				new Vector3(halfWidth, 0f, -halfHeight),
+				new Vector3(halfWidth, 0f, halfHeight),
+				new Vector3(-halfWidth, 0f, halfHeight)
+			},
+			uv = new Vector2[]
+			{
+				new Vector2(0f, 0f),
+				new Vector2(0f, 1f),
+				new Vector2(1f, 1f),
+				new Vector2(1f, 0f)
+			},
+			triangles = new int[]
+			{
+				0,
+				1,
+				2,
+				0,
+				2,
+				3
+			}
 		};
 		mesh.RecalculateNormals();
 		return mesh;
