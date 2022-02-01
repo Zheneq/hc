@@ -617,9 +617,9 @@ public class AbilityUtil_Targeter
 	{
 		m_actorsInRange.Clear();
 		m_actorsAddedSoFar.Clear();
-		foreach (KeyValuePair<ActorData, ActorHitContext> actorContextVar in m_actorContextVars)
+		foreach (ActorHitContext value in m_actorContextVars.Values)
 		{
-			actorContextVar.Value.m_inRangeForTargeter = false;
+			value.m_inRangeForTargeter = false;
 		}
 	}
 
