@@ -83,7 +83,7 @@ public static class TargeterUtils
 
 	public static void SortActorsByDistanceToPos(ref List<ActorData> actors, Vector3 pos)
 	{
-		actors.Sort(delegate(ActorData a, ActorData b)
+		actors.Sort(delegate (ActorData a, ActorData b)
 		{
 			if (a == b)
 			{
@@ -118,7 +118,7 @@ public static class TargeterUtils
 
 	public static void SortActorsByDistanceToPos(ref List<ActorData> actors, Vector3 pos, Vector3 preferredDir)
 	{
-		actors.Sort(delegate(ActorData a, ActorData b)
+		actors.Sort(delegate (ActorData a, ActorData b)
 		{
 			if (a == b)
 			{
@@ -155,7 +155,7 @@ public static class TargeterUtils
 
 	public static void SortActorsByDistanceAlongLaser(ref List<ActorData> actors, Vector3 laserStart, Vector3 laserDir)
 	{
-		actors.Sort(delegate(ActorData a, ActorData b)
+		actors.Sort(delegate (ActorData a, ActorData b)
 		{
 			if (a == b)
 			{
@@ -300,55 +300,53 @@ public static class TargeterUtils
 		}
 		if (squares.Count > 0)
 		{
-			float magnitude = (laserEndPoint - startPos).magnitude;
+			float length = (laserEndPoint - startPos).magnitude;
 			float halfSquareSize = 0.5f * squareSize;
 			bool isNarrow = widthInSquares <= 1f;
-			BoardSquare square = squares[squares.Count - 1];
-			Vector3 vector = square.ToVector3();
-			vector.y = startPos.y;
-			float num3 = Vector3.Dot(vector - startPos, normalized);
+			BoardSquare lastSquare = squares[squares.Count - 1];
+			Vector3 lastSquarePos = lastSquare.ToVector3();
+			lastSquarePos.y = startPos.y;
+			float num3 = Vector3.Dot(lastSquarePos - startPos, normalized);
 			float num4 = !flag && isNarrow ? squareSize : halfSquareSize;
-			float num5 = Mathf.Min(magnitude, num3 + num4);
+			float num5 = Mathf.Min(length, num3 + num4);
 			if (isNarrow && squares.Count > 1)
 			{
-				float d = 0.5f * squareSize;
-				float a2 = Mathf.Min(magnitude, num3);
 				BoardSquare boardSquare2 = squares[squares.Count - 2];
 				if (boardSquare2.IsValidForGameplay())
 				{
 					bool intersecting = false;
 					Vector3 a = Vector3.zero;
 					float num7 = VectorUtils.HorizontalAngle_Deg(normalized);
-					if (boardSquare2.x == square.x)
+					if (boardSquare2.x == lastSquare.x)
 					{
-						Vector3 pointOnSecond2 = vector;
+						Vector3 pointOnSecond2 = lastSquarePos;
 						if (num7 >= 90f && num7 <= 270f)
 						{
-							pointOnSecond2 -= d * Vector3.right;
+							pointOnSecond2 -= halfSquareSize * Vector3.right;
 						}
 						else
 						{
-							pointOnSecond2 += d * Vector3.right;
+							pointOnSecond2 += halfSquareSize * Vector3.right;
 						}
 						a = VectorUtils.GetLineLineIntersection(startPos, normalized, pointOnSecond2, Vector3.forward, out intersecting);
 					}
-					else if (boardSquare2.y == square.y)
+					else if (boardSquare2.y == lastSquare.y)
 					{
-						Vector3 pointOnSecond = vector;
+						Vector3 pointOnSecond = lastSquarePos;
 						if (num7 >= 0f && num7 <= 180f)
 						{
-							pointOnSecond += d * Vector3.forward;
+							pointOnSecond += halfSquareSize * Vector3.forward;
 						}
 						else
 						{
-							pointOnSecond -= d * Vector3.forward;
+							pointOnSecond -= halfSquareSize * Vector3.forward;
 						}
 						a = VectorUtils.GetLineLineIntersection(startPos, normalized, pointOnSecond, Vector3.right, out intersecting);
 					}
 					if (intersecting)
 					{
 						float b = Vector3.Dot(a - startPos, normalized);
-						num5 = Mathf.Max(a2, Mathf.Min(num5, b));
+						num5 = Mathf.Max(Mathf.Min(length, num3), Mathf.Min(num5, b));
 					}
 				}
 			}
