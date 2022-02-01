@@ -1153,9 +1153,9 @@ public class AbilityUtil_Targeter
 			{
 				SetMaterialOpacity(meshRenderer.materials, opacity);
 			}
-			foreach (MeshRenderer meshRenderer2 in highlight.GetComponentsInChildren<MeshRenderer>())
+			foreach (MeshRenderer meshRenderer in highlight.GetComponentsInChildren<MeshRenderer>())
 			{
-				SetMaterialOpacity(meshRenderer2.materials, opacity);
+				SetMaterialOpacity(meshRenderer.materials, opacity);
 			}
 			float opacity2 = Mathf.Clamp(opacity * HighlightUtils.Get().m_targeterParticleSystemOpacityMultiplier, 0f, 1f);
 			foreach (ParticleSystemRenderer particleSystemRenderer in highlight.GetComponentsInChildren<ParticleSystemRenderer>())
