@@ -370,47 +370,42 @@ public static class TargeterUtils
 		}
 
 		float deltaTime = Time.deltaTime;
-		float distSqr = (goalPos - position).sqrMagnitude;
-		bool isFar = distSqr >= s_farDistance;
-		bool isBreaking = distSqr <= s_brakeDistance;
-
-		float num;
+		float distToGoSqr = (goalPos - position).sqrMagnitude;
+		float acc;
 		float min;
 		float max;
-		if (isFar)
+		if (distToGoSqr >= s_farDistance)
 		{
-			num = s_farAcceleration;
+			acc = s_farAcceleration;
 			min = s_farAcceleratingMinSpeed;
 			max = s_farAcceleratingMaxSpeed;
 		}
-		else if (!isBreaking)
+		else if (distToGoSqr > s_brakeDistance)
 		{
-			num = s_nearAcceleration;
+			acc = s_nearAcceleration;
 			min = s_nearAcceleratingMinSpeed;
 			max = s_nearAcceleratingMaxSpeed;
 		}
 		else
 		{
-			num = 0f - s_brakeAcceleration;
+			acc = -s_brakeAcceleration;
 			min = s_brakeMinSpeed;
 			max = s_brakeMaxSpeed;
 		}
-
-		float speed = currentSpeed + num * deltaTime;
-		speed = Mathf.Clamp(speed, min, max);
-		float delta = speed * deltaTime;
-		Vector3 vec = goalPos - position;
-		float dist = vec.magnitude;
-		if (delta >= dist)
+		float newSpeed = Mathf.Clamp(currentSpeed + acc * deltaTime, min, max);
+		float deltaDist = newSpeed * deltaTime;
+		Vector3 vecToGo = goalPos - position;
+		float distToGo = vecToGo.magnitude;
+		if (deltaDist >= distToGo)
 		{
 			currentSpeed = s_nearAcceleratingMinSpeed;
 			return goalPos;
 		}
 		else
 		{
-			vec.Normalize();
-			currentSpeed = speed;
-			return position + vec * delta;
+			vecToGo.Normalize();
+			currentSpeed = newSpeed;
+			return position + vecToGo * deltaDist;
 		}
 	}
 
