@@ -3,11 +3,8 @@ using System.Collections.Generic;
 public class LinkedBarrierData
 {
 	public List<ActorData> m_actorsMovedThrough;
-
 	public List<ActorData> m_actorsMovedThroughThisTurn;
-
 	public int m_hitsOnAllies;
-
 	public int m_hitsOnEnemies;
 
 	public LinkedBarrierData()
