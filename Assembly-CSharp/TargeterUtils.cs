@@ -19,25 +19,15 @@ public static class TargeterUtils
 	}
 
 	private static float s_nearAcceleratingMinSpeed = 20f;
-
 	private static float s_farAcceleratingMinSpeed = 10f;
-
 	private static float s_brakeMinSpeed = 1f;
-
 	private static float s_nearAcceleratingMaxSpeed = 60f;
-
 	private static float s_farAcceleratingMaxSpeed = 99999f;
-
 	private static float s_brakeMaxSpeed = 20f;
-
 	private static float s_nearAcceleration = 40f;
-
 	private static float s_farAcceleration = 1250f;
-
 	private static float s_brakeAcceleration = 40f;
-
 	private static float s_brakeDistance = 1f;
-
 	private static float s_farDistance = 6f;
 
 	public static GameObject CreateLaserBoxHighlight(Vector3 start, Vector3 end, float widthInSquares, HeightAdjustType adjustType)
@@ -70,204 +60,97 @@ public static class TargeterUtils
 
 	public static void RefreshCircleHighlight(GameObject circleHighlight, Vector3 pos, HeightAdjustType adjustType)
 	{
-		float heightAdjustDelta = GetHeightAdjustDelta(adjustType);
-		circleHighlight.transform.position = pos + new Vector3(0f, heightAdjustDelta, 0f);
+		circleHighlight.transform.position = pos + new Vector3(0f, GetHeightAdjustDelta(adjustType), 0f);
 	}
 
 	private static float GetHeightAdjustDelta(HeightAdjustType adjustType)
 	{
-		if (adjustType == HeightAdjustType.DontAdjustHeight)
+		switch (adjustType)
 		{
-			return 0f;
+			case HeightAdjustType.DontAdjustHeight:
+				return 0f;
+			case HeightAdjustType.FromCasterLoS:
+				return 0.1f - BoardSquare.s_LoSHeightOffset;
+			case HeightAdjustType.FromPathArrow:
+				return 0f;
+			case HeightAdjustType.FromBoardSquare:
+				return 0.1f;
+			default:
+				Log.Error("Trying to adjust the height of a laser box with an invalid HeightAdjustType: " + adjustType);
+				return 0f;
 		}
-		if (adjustType == HeightAdjustType.FromCasterLoS)
-		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return 0.1f - BoardSquare.s_LoSHeightOffset;
-				}
-			}
-		}
-		if (adjustType == HeightAdjustType.FromPathArrow)
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return 0f;
-				}
-			}
-		}
-		if (adjustType == HeightAdjustType.FromBoardSquare)
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return 0.1f;
-				}
-			}
-		}
-		Log.Error("Trying to adjust the height of a laser box with an invalid HeightAdjustType: " + adjustType);
-		return 0f;
 	}
 
 	public static void SortActorsByDistanceToPos(ref List<ActorData> actors, Vector3 pos)
 	{
-		actors.Sort(delegate(ActorData x, ActorData y)
+		actors.Sort(delegate(ActorData a, ActorData b)
 		{
-			if (x == y)
+			if (a == b)
 			{
-				while (true)
+				return 0;
+			}
+			if (a == null)
+			{
+				return -1;
+			}
+			if (b == null)
+			{
+				return 1;
+			}
+			float distASqr = (a.GetFreePos() - pos).sqrMagnitude;
+			float distBSqr = (b.GetFreePos() - pos).sqrMagnitude;
+			if (distASqr == distBSqr)
+			{
+				GridPos posA = a.GetGridPos();
+				GridPos posB = b.GetGridPos();
+				if (posA.x != posB.x)
 				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return 0;
-					}
+					return posA.x.CompareTo(posB.x);
+				}
+				if (posA.y != posB.y)
+				{
+					return posA.y.CompareTo(posB.y);
 				}
 			}
-			if (x == null)
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return -1;
-					}
-				}
-			}
-			if (y == null)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return 1;
-					}
-				}
-			}
-			float sqrMagnitude = (x.GetFreePos() - pos).sqrMagnitude;
-			float sqrMagnitude2 = (y.GetFreePos() - pos).sqrMagnitude;
-			if (sqrMagnitude == sqrMagnitude2)
-			{
-				GridPos gridPosWithIncrementedHeight = x.GetGridPos();
-				GridPos gridPosWithIncrementedHeight2 = y.GetGridPos();
-				if (gridPosWithIncrementedHeight.x != gridPosWithIncrementedHeight2.x)
-				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							break;
-						default:
-							return gridPosWithIncrementedHeight.x.CompareTo(gridPosWithIncrementedHeight2.x);
-						}
-					}
-				}
-				if (gridPosWithIncrementedHeight.y != gridPosWithIncrementedHeight2.y)
-				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							return gridPosWithIncrementedHeight.y.CompareTo(gridPosWithIncrementedHeight2.y);
-						}
-					}
-				}
-			}
-			return sqrMagnitude.CompareTo(sqrMagnitude2);
+			return distASqr.CompareTo(distBSqr);
 		});
 	}
 
 	public static void SortActorsByDistanceToPos(ref List<ActorData> actors, Vector3 pos, Vector3 preferredDir)
 	{
-		actors.Sort(delegate(ActorData x, ActorData y)
+		actors.Sort(delegate(ActorData a, ActorData b)
 		{
-			if (x == y)
+			if (a == b)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return 0;
-					}
-				}
+				return 0;
 			}
-			if (x == null)
+			if (a == null)
 			{
 				return -1;
 			}
-			if (y == null)
+			if (b == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return 1;
-					}
-				}
+				return 1;
 			}
-			Vector3 to = x.GetFreePos() - pos;
-			Vector3 to2 = y.GetFreePos() - pos;
-			float sqrMagnitude = to.sqrMagnitude;
-			float sqrMagnitude2 = to2.sqrMagnitude;
-			if (sqrMagnitude == sqrMagnitude2)
+			Vector3 vecA = a.GetFreePos() - pos;
+			Vector3 vecB = b.GetFreePos() - pos;
+			float distASqr = vecA.sqrMagnitude;
+			float distBSqr = vecB.sqrMagnitude;
+			if (distASqr == distBSqr)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-					{
-						float num = Vector3.Angle(preferredDir, to);
-						float value = Vector3.Angle(preferredDir, to2);
-						return num.CompareTo(value);
-					}
-					}
-				}
+				float angleA = Vector3.Angle(preferredDir, vecA);
+				float angleB = Vector3.Angle(preferredDir, vecB);
+				return angleA.CompareTo(angleB);
 			}
-			return sqrMagnitude.CompareTo(sqrMagnitude2);
+			return distASqr.CompareTo(distBSqr);
 		});
 	}
 
 	public static void SortActorsByDistanceAlongLaser(ref List<ActorData> actors, VectorUtils.LaserCoords coords)
 	{
-		Vector3 start = coords.start;
 		Vector3 laserDir = coords.end - coords.start;
 		laserDir.Normalize();
-		SortActorsByDistanceAlongLaser(ref actors, start, laserDir);
+		SortActorsByDistanceAlongLaser(ref actors, coords.start, laserDir);
 	}
 
 	public static void SortActorsByDistanceAlongLaser(ref List<ActorData> actors, Vector3 laserStart, Vector3 laserDir)
@@ -276,16 +159,7 @@ public static class TargeterUtils
 		{
 			if (a == b)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return 0;
-					}
-				}
+				return 0;
 			}
 			if (a == null)
 			{
@@ -293,66 +167,40 @@ public static class TargeterUtils
 			}
 			if (b == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return 1;
-					}
-				}
+				return 1;
 			}
-			float signedDistanceAlongLaser = GetSignedDistanceAlongLaser(a, laserStart, laserDir);
-			float signedDistanceAlongLaser2 = GetSignedDistanceAlongLaser(b, laserStart, laserDir);
-			return signedDistanceAlongLaser.CompareTo(signedDistanceAlongLaser2);
+			float distA = GetSignedDistanceAlongLaser(a, laserStart, laserDir);
+			float distB = GetSignedDistanceAlongLaser(b, laserStart, laserDir);
+			return distA.CompareTo(distB);
 		});
 	}
 
 	public static float GetSignedDistanceAlongLaser(ActorData actor, Vector3 laserStart, Vector3 laserDir)
 	{
-		Vector3 travelBoardSquareWorldPosition = actor.GetFreePos();
-		float x = travelBoardSquareWorldPosition.x - laserStart.x;
-		Vector3 travelBoardSquareWorldPosition2 = actor.GetFreePos();
-		Vector3 lhs = new Vector3(x, 0f, travelBoardSquareWorldPosition2.z - laserStart.z);
-		return Vector3.Dot(lhs, laserDir);
+		Vector3 vec = new Vector3(actor.GetFreePos().x - laserStart.x, 0f, actor.GetFreePos().z - laserStart.z);
+		return Vector3.Dot(vec, laserDir);
 	}
 
 	public static void RemoveActorsInvisibleToClient(ref List<ActorData> actors)
 	{
-		for (int num = actors.Count - 1; num >= 0; num--)
+		for (int i = actors.Count - 1; i >= 0; i--)
 		{
-			if (!actors[num].IsActorVisibleToClient())
+			if (!actors[i].IsActorVisibleToClient())
 			{
-				actors.RemoveAt(num);
+				actors.RemoveAt(i);
 			}
 		}
 	}
 
 	public static void RemoveActorsInvisibleToActor(ref List<ActorData> actors, ActorData observer)
 	{
-		if (actors == null)
+		if (actors != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			for (int num = actors.Count - 1; num >= 0; num--)
+			for (int i = actors.Count - 1; i >= 0; i--)
 			{
-				if (!actors[num].IsActorVisibleToActor(observer))
+				if (!actors[i].IsActorVisibleToActor(observer))
 				{
-					actors.RemoveAt(num);
-				}
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				default:
-					return;
-				case 0:
-					break;
+					actors.RemoveAt(i);
 				}
 			}
 		}
@@ -360,42 +208,16 @@ public static class TargeterUtils
 
 	public static void RemoveActorsWithoutLosToSquare(ref List<ActorData> actors, BoardSquare sourceSquare, ActorData caster)
 	{
-		if (!(sourceSquare != null))
+		if (sourceSquare != null
+			&& actors != null
+			&& caster != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (actors == null)
+			for (int i = actors.Count - 1; i >= 0; i--)
 			{
-				return;
-			}
-			while (true)
-			{
-				if (!(caster != null))
+				BoardSquare square = actors[i].GetCurrentBoardSquare();
+				if (square != null && !AreaEffectUtils.SquaresHaveLoSForAbilities(sourceSquare, square, caster))
 				{
-					return;
-				}
-				while (true)
-				{
-					for (int num = actors.Count - 1; num >= 0; num--)
-					{
-						BoardSquare currentBoardSquare = actors[num].GetCurrentBoardSquare();
-						if (currentBoardSquare != null && !AreaEffectUtils.SquaresHaveLoSForAbilities(sourceSquare, currentBoardSquare, caster))
-						{
-							actors.RemoveAt(num);
-						}
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						default:
-							return;
-						case 0:
-							break;
-						}
-					}
+					actors.RemoveAt(i);
 				}
 			}
 		}
@@ -403,22 +225,9 @@ public static class TargeterUtils
 
 	public static void LimitActorsToMaxNumber(ref List<ActorData> actors, int max)
 	{
-		if (actors.Count <= max)
+		if (actors.Count > max && max > 0)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (max > 0)
-			{
-				while (true)
-				{
-					int count = actors.Count - max;
-					actors.RemoveRange(max, count);
-					return;
-				}
-			}
-			return;
+			actors.RemoveRange(max, actors.Count - max);
 		}
 	}
 
@@ -438,35 +247,26 @@ public static class TargeterUtils
 				end = start + vector * num;
 			}
 		}
-		VectorUtils.LaserCoords result = default(VectorUtils.LaserCoords);
-		result.start = coords.start;
-		result.end = end;
-		return result;
+		return new VectorUtils.LaserCoords
+		{
+			start = coords.start,
+			end = end
+		};
 	}
 
 	public static VectorUtils.LaserCoords TrimTargetsAndGetLaserCoordsToFarthestTarget(ref List<ActorData> actorsInRange, int maxTargets, VectorUtils.LaserCoords coords)
 	{
-		VectorUtils.LaserCoords result = coords;
-		if (actorsInRange.Count > maxTargets)
+		if (actorsInRange.Count > maxTargets && maxTargets > 0)
 		{
-			if (maxTargets > 0)
-			{
-				SortActorsByDistanceAlongLaser(ref actorsInRange, coords);
-				LimitActorsToMaxNumber(ref actorsInRange, maxTargets);
-				result = GetLaserCoordsToFarthestTarget(coords, actorsInRange);
-				goto IL_0077;
-			}
+			SortActorsByDistanceAlongLaser(ref actorsInRange, coords);
+			LimitActorsToMaxNumber(ref actorsInRange, maxTargets);
+			return GetLaserCoordsToFarthestTarget(coords, actorsInRange);
 		}
-		if (actorsInRange.Count == maxTargets)
+		else if (actorsInRange.Count == maxTargets && maxTargets > 0)
 		{
-			if (maxTargets > 0)
-			{
-				result = GetLaserCoordsToFarthestTarget(coords, actorsInRange);
-			}
+			return GetLaserCoordsToFarthestTarget(coords, actorsInRange);
 		}
-		goto IL_0077;
-		IL_0077:
-		return result;
+		return coords;
 	}
 
 	public static Vector3 GetEndPointAndLimitToFurthestSquare(Vector3 startPos, Vector3 endPos, float widthInSquares, float maxDistanceInSquares, bool penetrateLos, ActorData targetingActor, float thresholdInSquares = 0.71f)
@@ -474,10 +274,7 @@ public static class TargeterUtils
 		endPos.y = startPos.y;
 		if (startPos == endPos)
 		{
-			while (true)
-			{
-				return startPos;
-			}
+			return startPos;
 		}
 		float squareSize = Board.Get().squareSize;
 		Vector3 normalized = (endPos - startPos).normalized;
@@ -486,28 +283,19 @@ public static class TargeterUtils
 		List<BoardSquare> squares = AreaEffectUtils.GetSquaresInBox(startPos, laserEndPoint, widthInSquares / 2f, penetrateLos, targetingActor);
 		AreaEffectUtils.SortSquaresByDistanceToPos(ref squares, startPos);
 		bool flag = false;
-		for (int num = squares.Count - 1; num >= 0; squares.RemoveAt(num), num--)
+		for (int i = squares.Count - 1; i >= 0; squares.RemoveAt(i), i--)
 		{
-			if (squares[num].IsValidForGameplay())
+			if (squares[i].IsValidForGameplay())
 			{
 				break;
 			}
-			if (num <= 0)
+			if (i > 0
+				&& squares[i - 1].IsValidForGameplay()
+				&& (squares[i].x == squares[i - 1].x
+					|| squares[i].y == squares[i - 1].y))
 			{
-				continue;
+				flag = true;
 			}
-			if (!squares[num - 1].IsValidForGameplay())
-			{
-				continue;
-			}
-			if (squares[num].x != squares[num - 1].x)
-			{
-				if (squares[num].y != squares[num - 1].y)
-				{
-					continue;
-				}
-			}
-			flag = true;
 		}
 		float magnitude;
 		bool flag2;
@@ -515,106 +303,80 @@ public static class TargeterUtils
 		Vector3 vector;
 		float num3;
 		float num4;
+		Vector3 pointOnSecond;
+		Vector3 right;
+		bool intersecting;
+		Vector3 a;
+		float num5;
+		Vector3 pointOnSecond2;
+		Vector3 forward;
+		float a2;
 		if (squares.Count > 0)
 		{
 			magnitude = (laserEndPoint - startPos).magnitude;
-			float num2 = 0.5f * squareSize;
+			float halfSquareSize = 0.5f * squareSize;
 			flag2 = (widthInSquares <= 1f);
 			boardSquare = squares[squares.Count - 1];
 			vector = boardSquare.ToVector3();
 			vector.y = startPos.y;
 			Vector3 lhs = vector - startPos;
 			num3 = Vector3.Dot(lhs, normalized);
-			if (!flag)
+			num4 = !flag && flag2 ? squareSize : halfSquareSize;
+			float num6 = num4;
+			num5 = Mathf.Min(magnitude, num3 + num6);
+			if (flag2 && squares.Count > 1)
 			{
-				if (flag2)
+				float d = 0.5f * squareSize;
+				a2 = Mathf.Min(magnitude, num3);
+				BoardSquare boardSquare2 = squares[squares.Count - 2];
+				if (boardSquare2.IsValidForGameplay())
 				{
-					num4 = squareSize;
-					goto IL_0208;
-				}
-			}
-			num4 = num2;
-			goto IL_0208;
-		}
-		goto IL_0420;
-		IL_03ae:
-		Vector3 pointOnSecond;
-		Vector3 right;
-		bool intersecting;
-		Vector3 a = VectorUtils.GetLineLineIntersection(startPos, normalized, pointOnSecond, right, out intersecting);
-		goto IL_03bd;
-		IL_03ed:
-		float num5;
-		Vector3 vector2 = startPos + num5 * normalized;
-		float magnitude2 = (laserEndPoint - vector2).magnitude;
-		if (magnitude2 > thresholdInSquares * squareSize)
-		{
-			result = vector2;
-		}
-		goto IL_0420;
-		IL_0310:
-		Vector3 pointOnSecond2;
-		Vector3 forward;
-		a = VectorUtils.GetLineLineIntersection(startPos, normalized, pointOnSecond2, forward, out intersecting);
-		goto IL_03bd;
-		IL_03bd:
-		float a2;
-		if (intersecting)
-		{
-			float b = Vector3.Dot(a - startPos, normalized);
-			num5 = Mathf.Min(num5, b);
-			num5 = Mathf.Max(a2, num5);
-		}
-		goto IL_03ed;
-		IL_0420:
-		return result;
-		IL_0208:
-		float num6 = num4;
-		num5 = Mathf.Min(magnitude, num3 + num6);
-		if (flag2 && squares.Count > 1)
-		{
-			float d = 0.5f * squareSize;
-			a2 = Mathf.Min(magnitude, num3);
-			BoardSquare boardSquare2 = squares[squares.Count - 2];
-			if (boardSquare2.IsValidForGameplay())
-			{
-				intersecting = false;
-				a = Vector3.zero;
-				float num7 = VectorUtils.HorizontalAngle_Deg(normalized);
-				if (boardSquare2.x == boardSquare.x)
-				{
-					forward = Vector3.forward;
-					pointOnSecond2 = vector;
-					if (num7 >= 90f)
+					intersecting = false;
+					a = Vector3.zero;
+					float num7 = VectorUtils.HorizontalAngle_Deg(normalized);
+					if (boardSquare2.x == boardSquare.x)
 					{
-						if (num7 <= 270f)
+						forward = Vector3.forward;
+						pointOnSecond2 = vector;
+						if (num7 >= 90f && num7 <= 270f)
 						{
 							pointOnSecond2 -= d * Vector3.right;
-							goto IL_0310;
 						}
+						else
+						{
+							pointOnSecond2 += d * Vector3.right;
+						}
+						a = VectorUtils.GetLineLineIntersection(startPos, normalized, pointOnSecond2, forward, out intersecting);
 					}
-					pointOnSecond2 += d * Vector3.right;
-					goto IL_0310;
-				}
-				if (boardSquare2.y == boardSquare.y)
-				{
-					right = Vector3.right;
-					pointOnSecond = vector;
-					if (num7 >= 0f)
+					else if (boardSquare2.y == boardSquare.y)
 					{
-						if (num7 <= 180f)
+						right = Vector3.right;
+						pointOnSecond = vector;
+						if (num7 >= 0f && num7 <= 180f)
 						{
 							pointOnSecond += d * Vector3.forward;
-							goto IL_03ae;
 						}
+						else
+						{
+							pointOnSecond -= d * Vector3.forward;
+						}
+						a = VectorUtils.GetLineLineIntersection(startPos, normalized, pointOnSecond, right, out intersecting);
 					}
-					pointOnSecond -= d * Vector3.forward;
-					goto IL_03ae;
+					if (intersecting)
+					{
+						float b = Vector3.Dot(a - startPos, normalized);
+						num5 = Mathf.Max(a2, Mathf.Min(num5, b));
+					}
 				}
-				goto IL_03bd;
+			}
+			Vector3 vector2 = startPos + num5 * normalized;
+			float magnitude2 = (laserEndPoint - vector2).magnitude;
+			if (magnitude2 > thresholdInSquares * squareSize)
+			{
+				result = vector2;
 			}
 		}
-		goto IL_03ed;
+		return result;
 	}
 
 	public static Vector3 MoveHighlightTowards(Vector3 goalPos, GameObject highlight, ref float currentSpeed)
@@ -622,32 +384,25 @@ public static class TargeterUtils
 		Vector3 position = highlight.transform.position;
 		if (position == goalPos)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					currentSpeed = s_nearAcceleratingMinSpeed;
-					return goalPos;
-				}
-			}
+			currentSpeed = s_nearAcceleratingMinSpeed;
+			return goalPos;
 		}
+
 		float deltaTime = Time.deltaTime;
-		float sqrMagnitude = (goalPos - position).sqrMagnitude;
-		bool flag = sqrMagnitude >= s_farDistance;
-		bool flag2 = sqrMagnitude <= s_brakeDistance;
+		float distSqr = (goalPos - position).sqrMagnitude;
+		bool isFar = distSqr >= s_farDistance;
+		bool isBreaking = distSqr <= s_brakeDistance;
+
 		float num;
 		float min;
 		float max;
-		if (flag)
+		if (isFar)
 		{
 			num = s_farAcceleration;
 			min = s_farAcceleratingMinSpeed;
 			max = s_farAcceleratingMaxSpeed;
 		}
-		else if (!flag2)
+		else if (!isBreaking)
 		{
 			num = s_nearAcceleration;
 			min = s_nearAcceleratingMinSpeed;
@@ -659,28 +414,23 @@ public static class TargeterUtils
 			min = s_brakeMinSpeed;
 			max = s_brakeMaxSpeed;
 		}
-		float value = currentSpeed + num * deltaTime;
-		value = Mathf.Clamp(value, min, max);
-		float num2 = value * deltaTime;
-		Vector3 a = goalPos - position;
-		float magnitude = a.magnitude;
-		if (num2 >= magnitude)
+
+		float speed = currentSpeed + num * deltaTime;
+		speed = Mathf.Clamp(speed, min, max);
+		float delta = speed * deltaTime;
+		Vector3 vec = goalPos - position;
+		float dist = vec.magnitude;
+		if (delta >= dist)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					currentSpeed = s_nearAcceleratingMinSpeed;
-					return goalPos;
-				}
-			}
+			currentSpeed = s_nearAcceleratingMinSpeed;
+			return goalPos;
 		}
-		a.Normalize();
-		currentSpeed = value;
-		return position + a * num2;
+		else
+		{
+			vec.Normalize();
+			currentSpeed = speed;
+			return position + vec * delta;
+		}
 	}
 
 	public static List<Team> GetRelevantTeams(ActorData allyActor, bool includeAllies, bool includeEnemies)
@@ -699,54 +449,27 @@ public static class TargeterUtils
 
 	public static void SortPowerupsByDistanceToPos(ref List<PowerUp> powerups, Vector3 pos)
 	{
-		powerups.Sort(delegate(PowerUp x, PowerUp y)
+		powerups.Sort(delegate(PowerUp a, PowerUp b)
 		{
-			if (x == y)
+			if (a == b)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return 0;
-					}
-				}
+				return 0;
 			}
-			if (x == null)
+			if (a == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return -1;
-					}
-				}
+				return -1;
 			}
-			if (y == null)
+			if (b == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return 1;
-					}
-				}
+				return 1;
 			}
-			Vector3 a = x.boardSquare.ToVector3();
-			a.y = pos.y;
-			Vector3 a2 = y.boardSquare.ToVector3();
-			a2.y = pos.y;
-			float sqrMagnitude = (a - pos).sqrMagnitude;
-			float sqrMagnitude2 = (a2 - pos).sqrMagnitude;
-			return sqrMagnitude.CompareTo(sqrMagnitude2);
+			Vector3 posA = a.boardSquare.ToVector3();
+			posA.y = pos.y;
+			Vector3 posB = b.boardSquare.ToVector3();
+			posB.y = pos.y;
+			float distASqr = (posA - pos).sqrMagnitude;
+			float distBSqr = (posB - pos).sqrMagnitude;
+			return distASqr.CompareTo(distBSqr);
 		});
 	}
 
@@ -754,22 +477,21 @@ public static class TargeterUtils
 	{
 		startPos.y = Board.Get().BaselineHeight;
 		endPos.y = Board.Get().BaselineHeight;
-		Vector3 vector = endPos - startPos;
-		float magnitude = vector.magnitude;
-		vector.Normalize();
-		Vector3 a = Vector3.Cross(vector, Vector3.up);
-		Vector3 a2 = (startPos + endPos) * 0.5f;
-		Vector3 b = a * (widthInWorld / 2f);
-		Vector3 b2 = vector * (magnitude / 2f);
-		Vector3 vector2 = a2 - b - b2;
-		Vector3 vector3 = a2 - b + b2;
-		Vector3 vector4 = a2 + b - b2;
-		Vector3 vector5 = a2 + b + b2;
+		Vector3 vec = endPos - startPos;
+		float dist = vec.magnitude;
+		vec.Normalize();
+		Vector3 center = (startPos + endPos) * 0.5f;
+		Vector3 halfWidth = Vector3.Cross(vec, Vector3.up) * (widthInWorld / 2f);
+		Vector3 halfLength = vec * (dist / 2f);
+		Vector3 startA = center - halfWidth - halfLength;
+		Vector3 endA = center - halfWidth + halfLength;
+		Vector3 startB = center + halfWidth - halfLength;
+		Vector3 endB = center + halfWidth + halfLength;
 		Gizmos.color = color;
-		Gizmos.DrawLine(vector2, vector3);
-		Gizmos.DrawLine(vector3, vector5);
-		Gizmos.DrawLine(vector5, vector4);
-		Gizmos.DrawLine(vector4, vector2);
-		Gizmos.DrawLine(a2 - b2, a2 + b2);
+		Gizmos.DrawLine(startA, endA);
+		Gizmos.DrawLine(endA, endB);
+		Gizmos.DrawLine(endB, startB);
+		Gizmos.DrawLine(startB, startA);
+		Gizmos.DrawLine(center - halfLength, center + halfLength);
 	}
 }
