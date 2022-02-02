@@ -94,7 +94,7 @@ public class ClientClashManager : MonoBehaviour
 
 	private void RegisterHandler()
 	{
-		if (m_currentMessageHandlersState == 0
+		if (m_currentMessageHandlersState == MessageHandlersState.NotYetRegistered
 			&& ClientGameManager.Get() != null
 			&& ClientGameManager.Get().Client != null)
 		{
