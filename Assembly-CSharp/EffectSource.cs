@@ -54,11 +54,9 @@ public class EffectSource
 
 	public bool IsCharacterSpecificAbility(ActorData caster)
 	{
-		if (Ability != null && caster != null && caster.GetAbilityData() != null)
-		{
-			AbilityData.ActionType actionTypeOfAbility = caster.GetAbilityData().GetActionTypeOfAbility(Ability);
-			return AbilityData.IsCharacterSpecificAbility(actionTypeOfAbility);
-		}
-		return false;
+		return Ability != null
+			&& caster != null
+			&& caster.GetAbilityData() != null
+			&& AbilityData.IsCharacterSpecificAbility(caster.GetAbilityData().GetActionTypeOfAbility(Ability));
 	}
 }
