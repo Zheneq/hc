@@ -23,31 +23,18 @@ public class ClientResolutionManager : MonoBehaviour
 	private static ClientResolutionManager s_instance;
 
 	private int m_currentTurnIndex;
-
 	private AbilityPriority m_currentAbilityPhase;
-
 	private int m_numResolutionActionsThisPhase;
-
 	private List<ClientResolutionAction> m_resolutionActions;
-
 	private List<ClientResolutionAction> m_movementActions;
-
 	private List<ClientCastAction> m_castActions;
-
 	private List<ClientResolutionActionMessageData> m_receivedMessages;
-
 	private ClientResolutionManagerState m_state = ClientResolutionManagerState.Idle;
-
 	private List<ActorData> m_actorsToKillOnLastHitExecution;
-
 	private float m_timeOfLastEvent;
-
 	private bool m_waitingForAllMessages;
-
 	private MessageHandlersState m_currentMessageHandlersState;
-
 	private MessageHandlersState m_expectedMessageHandlersState;
-
 	private List<ActorData> m_tempCombatPhaseDataReceivedActors = new List<ActorData>();
 
 	public static ClientResolutionManager Get()
@@ -82,168 +69,78 @@ public class ClientResolutionManager : MonoBehaviour
 		{
 			return;
 		}
-		while (true)
+		if (m_expectedMessageHandlersState == MessageHandlersState.Registered)
 		{
-			if (m_expectedMessageHandlersState == MessageHandlersState.Registered)
+			if (m_currentMessageHandlersState == MessageHandlersState.NotYetRegistered)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						if (m_currentMessageHandlersState == MessageHandlersState.NotYetRegistered)
-						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									break;
-								default:
-									Debug.LogError("ClientResolutionManager believes message handlers should be registered, but they aren't yet, as of Update() being called.  Registering them...");
-									RegisterHandler();
-									return;
-								}
-							}
-						}
-						if (m_currentMessageHandlersState == MessageHandlersState.Unregistered)
-						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									break;
-								default:
-									Debug.LogError("ClientResolutionManager believes message handlers should be registered, but they were already unregistered.");
-									m_expectedMessageHandlersState = MessageHandlersState.Unregistered;
-									return;
-								}
-							}
-						}
-						return;
-					}
-				}
+				Debug.LogError("ClientResolutionManager believes message handlers should be registered, but they aren't yet, as of Update() being called.  Registering them...");
+				RegisterHandler();
 			}
-			if (m_expectedMessageHandlersState == MessageHandlersState.Unregistered)
+			else if (m_currentMessageHandlersState == MessageHandlersState.Unregistered)
 			{
-				if (m_currentMessageHandlersState == MessageHandlersState.Registered)
-				{
-					Debug.LogError("ClientResolutionManager believes message handlers should be unregistered, but they are still registered, as of Update() being called.  Unregistering them...");
-					UnregisterHandlers();
-				}
-				else if (m_currentMessageHandlersState == MessageHandlersState.NotYetRegistered)
-				{
-					Debug.LogError("ClientResolutionManager believes message handlers should be unregistered, but they never registered in the first place.");
-					m_currentMessageHandlersState = MessageHandlersState.Unregistered;
-				}
+				Debug.LogError("ClientResolutionManager believes message handlers should be registered, but they were already unregistered.");
+				m_expectedMessageHandlersState = MessageHandlersState.Unregistered;
 			}
-			return;
+		}
+		else if (m_expectedMessageHandlersState == MessageHandlersState.Unregistered)
+		{
+			if (m_currentMessageHandlersState == MessageHandlersState.Registered)
+			{
+				Debug.LogError("ClientResolutionManager believes message handlers should be unregistered, but they are still registered, as of Update() being called.  Unregistering them...");
+				UnregisterHandlers();
+			}
+			else if (m_currentMessageHandlersState == MessageHandlersState.NotYetRegistered)
+			{
+				Debug.LogError("ClientResolutionManager believes message handlers should be unregistered, but they never registered in the first place.");
+				m_currentMessageHandlersState = MessageHandlersState.Unregistered;
+			}
 		}
 	}
 
 	private void RegisterHandler()
 	{
-		if (m_currentMessageHandlersState != 0)
+		if (m_currentMessageHandlersState == MessageHandlersState.NotYetRegistered
+			&& ClientGameManager.Get() != null
+			&& ClientGameManager.Get().Client != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!(ClientGameManager.Get() != null))
-			{
-				return;
-			}
-			while (true)
-			{
-				if (ClientGameManager.Get().Client != null)
-				{
-					while (true)
-					{
-						ClientGameManager.Get().Client.RegisterHandler(58, MsgStartResolutionPhase);
-						ClientGameManager.Get().Client.RegisterHandler(64, MsgSingleResolutionAction);
-						ClientGameManager.Get().Client.RegisterHandler(63, MsgRunResolutionActionsOutsideResolve);
-						ClientGameManager.Get().Client.RegisterHandler(66, MsgFailsafeHurryResolutionPhase);
-						m_currentMessageHandlersState = MessageHandlersState.Registered;
-						return;
-					}
-				}
-				return;
-			}
+			ClientGameManager.Get().Client.RegisterHandler((int)MyMsgType.StartResolutionPhase, MsgStartResolutionPhase);
+			ClientGameManager.Get().Client.RegisterHandler((int)MyMsgType.SingleResolutionAction, MsgSingleResolutionAction);
+			ClientGameManager.Get().Client.RegisterHandler((int)MyMsgType.RunResolutionActionsOutsideResolve, MsgRunResolutionActionsOutsideResolve);
+			ClientGameManager.Get().Client.RegisterHandler((int)MyMsgType.Failsafe_HurryResolutionPhase, MsgFailsafeHurryResolutionPhase);
+			m_currentMessageHandlersState = MessageHandlersState.Registered;
 		}
 	}
 
 	public void UnregisterHandlers()
 	{
-		if (m_currentMessageHandlersState != MessageHandlersState.Registered)
+		if (m_currentMessageHandlersState == MessageHandlersState.Registered
+			&& ClientGameManager.Get() != null
+			&& ClientGameManager.Get().Client != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!(ClientGameManager.Get() != null))
-			{
-				return;
-			}
-			while (true)
-			{
-				if (ClientGameManager.Get().Client != null)
-				{
-					while (true)
-					{
-						ClientGameManager.Get().Client.UnregisterHandler(58);
-						ClientGameManager.Get().Client.UnregisterHandler(64);
-						ClientGameManager.Get().Client.UnregisterHandler(63);
-						ClientGameManager.Get().Client.UnregisterHandler(66);
-						m_currentMessageHandlersState = MessageHandlersState.Unregistered;
-						return;
-					}
-				}
-				return;
-			}
+			ClientGameManager.Get().Client.UnregisterHandler((int)MyMsgType.StartResolutionPhase);
+			ClientGameManager.Get().Client.UnregisterHandler((int)MyMsgType.SingleResolutionAction);
+			ClientGameManager.Get().Client.UnregisterHandler((int)MyMsgType.RunResolutionActionsOutsideResolve);
+			ClientGameManager.Get().Client.UnregisterHandler((int)MyMsgType.Failsafe_HurryResolutionPhase);
+			m_currentMessageHandlersState = MessageHandlersState.Unregistered;
 		}
 	}
 
 	public void OnTurnStart()
 	{
-		if (m_state != ClientResolutionManagerState.Idle)
-		{
-			return;
-		}
-		while (true)
+		if (m_state == ClientResolutionManagerState.Idle)
 		{
 			m_currentAbilityPhase = AbilityPriority.INVALID;
-			return;
 		}
 	}
 
 	public void OnAbilityPhaseStart(AbilityPriority phase)
 	{
 		m_waitingForAllMessages = false;
-		if (phase == m_currentAbilityPhase)
+		if (phase != m_currentAbilityPhase
+			&& m_state != ClientResolutionManagerState.Resolving
+			&& m_state != ClientResolutionManagerState.WaitingForActionMsgs)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_state == ClientResolutionManagerState.Resolving)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (m_state != 0)
-				{
-					while (true)
-					{
-						m_waitingForAllMessages = true;
-						return;
-					}
-				}
-				return;
-			}
+			m_waitingForAllMessages = true;
 		}
 	}
 
@@ -251,15 +148,14 @@ public class ClientResolutionManager : MonoBehaviour
 	{
 		NetworkReader reader = netMsg.reader;
 		m_currentTurnIndex = reader.ReadInt32();
-		sbyte b = reader.ReadSByte();
-		m_currentAbilityPhase = (AbilityPriority)b;
-		sbyte b2 = reader.ReadSByte();
-		m_numResolutionActionsThisPhase = b2;
+		m_currentAbilityPhase = (AbilityPriority)reader.ReadSByte();
+		m_numResolutionActionsThisPhase = reader.ReadSByte();
 		m_castActions = new List<ClientCastAction>();
 		m_timeOfLastEvent = GameTime.time;
 		if (m_state != ClientResolutionManagerState.Idle)
 		{
-			Debug.LogError("Received StartResolutionPhase message for turn " + m_currentTurnIndex + ", phase " + m_currentAbilityPhase.ToString() + ", but ClientResolutionManager's state is " + m_state.ToString() + "!");
+			Debug.LogError($"Received StartResolutionPhase message for turn {m_currentTurnIndex}, " +
+				$"phase {m_currentAbilityPhase}, but ClientResolutionManager's state is {m_state}!");
 		}
 		m_waitingForAllMessages = false;
 		m_state = ClientResolutionManagerState.WaitingForActionMsgs;
@@ -268,27 +164,24 @@ public class ClientResolutionManager : MonoBehaviour
 
 	public List<ClientCastAction> DeSerializeCastActionsFromServer(ref NetworkReader reader)
 	{
-		sbyte b = reader.ReadSByte();
-		List<ClientCastAction> list = new List<ClientCastAction>(b);
-		for (int i = 0; i < b; i++)
+		sbyte num = reader.ReadSByte();
+		List<ClientCastAction> list = new List<ClientCastAction>(num);
+		for (int i = 0; i < num; i++)
 		{
 			ClientCastAction item = ClientCastAction.ClientCastAction_DeSerializeFromReader(ref reader);
 			list.Add(item);
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	private void MsgSingleResolutionAction(NetworkMessage netMsg)
 	{
 		NetworkReader reader = netMsg.reader;
 		uint turnIndex = reader.ReadPackedUInt32();
-		sbyte b = reader.ReadSByte();
+		sbyte phaseIndex = reader.ReadSByte();
 		IBitStream stream = new NetworkReaderAdapter(reader);
 		ClientResolutionAction action = ClientResolutionAction.ClientResolutionAction_DeSerializeFromStream(ref stream);
-		ClientResolutionActionMessageData item = new ClientResolutionActionMessageData(action, (int)turnIndex, b);
+		ClientResolutionActionMessageData item = new ClientResolutionActionMessageData(action, (int)turnIndex, phaseIndex);
 		m_receivedMessages.Add(item);
 		UpdateLastEventTime();
 		ProcessReceivedMessages();
@@ -296,63 +189,53 @@ public class ClientResolutionManager : MonoBehaviour
 
 	private void ProcessReceivedMessages()
 	{
-		if (m_state != 0)
+		if (m_state != ClientResolutionManagerState.WaitingForActionMsgs)
 		{
 			return;
 		}
-		List<ClientResolutionActionMessageData> list = new List<ClientResolutionActionMessageData>();
-		using (List<ClientResolutionActionMessageData>.Enumerator enumerator = m_receivedMessages.GetEnumerator())
+		List<ClientResolutionActionMessageData> messages = new List<ClientResolutionActionMessageData>();
+		foreach (ClientResolutionActionMessageData msg in m_receivedMessages)
 		{
-			while (enumerator.MoveNext())
+			if (msg.m_phase == m_currentAbilityPhase && msg.m_turnIndex == m_currentTurnIndex)
 			{
-				ClientResolutionActionMessageData current = enumerator.Current;
-				if (current.m_phase == m_currentAbilityPhase && current.m_turnIndex == m_currentTurnIndex)
-				{
-					list.Add(current);
-				}
+				messages.Add(msg);
 			}
 		}
-		if (list.Count < m_numResolutionActionsThisPhase)
+		if (messages.Count < m_numResolutionActionsThisPhase)
 		{
 			return;
 		}
-		while (true)
+		if (messages.Count > m_numResolutionActionsThisPhase)
 		{
-			if (list.Count > m_numResolutionActionsThisPhase)
-			{
-				Debug.LogError("Somehow got more matching ClientResolutionActionMessageData messages (" + list.Count + ") than expected (" + m_numResolutionActionsThisPhase + ") for this turn (" + m_currentTurnIndex.ToString() + ") / phase (" + m_currentAbilityPhase.ToString() + ").");
-			}
-			m_resolutionActions.Clear();
-			m_movementActions.Clear();
-			using (List<ClientResolutionActionMessageData>.Enumerator enumerator2 = list.GetEnumerator())
-			{
-				while (enumerator2.MoveNext())
-				{
-					ClientResolutionActionMessageData current2 = enumerator2.Current;
-					ClientResolutionAction action = current2.m_action;
-					m_resolutionActions.Add(action);
-					if (action.ReactsToMovement())
-					{
-						m_movementActions.Add(action);
-					}
-					m_receivedMessages.Remove(current2);
-				}
-			}
-			m_movementActions.Sort();
-			if (m_receivedMessages.Count > 0)
-			{
-				Debug.LogError("Received last resolution action for turn " + m_currentTurnIndex + " / phase " + m_currentAbilityPhase.ToString() + ", but there are still " + m_receivedMessages.Count + " received message(s) left over!  Clearing...");
-				m_receivedMessages.Clear();
-			}
-			OnReceivedLastResolutionAction();
-			return;
+			Debug.LogError($"Somehow got more matching ClientResolutionActionMessageData messages ({messages.Count}) than expected ({m_numResolutionActionsThisPhase}) " +
+				$"for this turn ({m_currentTurnIndex}) / phase ({m_currentAbilityPhase}).");
 		}
+		m_resolutionActions.Clear();
+		m_movementActions.Clear();
+		foreach (ClientResolutionActionMessageData msg in messages)
+		{
+			m_resolutionActions.Add(msg.m_action);
+			if (msg.m_action.ReactsToMovement())
+			{
+				m_movementActions.Add(msg.m_action);
+			}
+			m_receivedMessages.Remove(msg);
+		}
+		m_movementActions.Sort();
+		if (m_receivedMessages.Count > 0)
+		{
+			Debug.LogError($"Received last resolution action for turn {m_currentTurnIndex} / phase {m_currentAbilityPhase}, " +
+				$"but there are still {m_receivedMessages.Count} received message(s) left over!  Clearing...");
+			m_receivedMessages.Clear();
+		}
+		OnReceivedLastResolutionAction();
 	}
 
 	private void OnReceivedLastResolutionAction()
 	{
 		m_timeOfLastEvent = GameTime.time;
-		if (TheatricsManager.Get() != null && TheatricsManager.Get().GetPhaseToUpdate() == AbilityPriority.Combat_Damage)
+		if (TheatricsManager.Get() != null
+			&& TheatricsManager.Get().GetPhaseToUpdate() == AbilityPriority.Combat_Damage)
 		{
 			OnCombatPhasePlayDataReceived();
 		}
@@ -360,69 +243,45 @@ public class ClientResolutionManager : MonoBehaviour
 		{
 			ClientKnockbackManager.Get().InitKnockbacksFromActions(m_resolutionActions);
 		}
-		if (!ClientAbilityResults.DebugTraceOn)
+		if (ClientAbilityResults.DebugTraceOn || ClientAbilityResults.DebugSerializeSizeOn)
 		{
-			if (!ClientAbilityResults.DebugSerializeSizeOn)
-			{
-				goto IL_00dc;
-			}
+			Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader +
+				$"<color=white>OnReceivedLastResolutionAction</color> received for phase {m_currentAbilityPhase}.  {GetActionsDoneExecutingDebugStr()}");
 		}
-		Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader + "<color=white>OnReceivedLastResolutionAction</color> received for phase " + m_currentAbilityPhase.ToString() + ".  " + GetActionsDoneExecutingDebugStr());
-		goto IL_00dc;
-		IL_00dc:
 		m_waitingForAllMessages = false;
 		m_state = ClientResolutionManagerState.Resolving;
-		if ((bool)ClientGameManager.Get())
+		if (ClientGameManager.Get() != null && ClientGameManager.Get().IsFastForward)
 		{
-			if (ClientGameManager.Get().IsFastForward)
+			ExecuteAllUnexecutedActions(false);
+			SendResolutionPhaseCompleted(m_currentAbilityPhase, true, false);
+		}
+		else
+		{
+			foreach (ClientResolutionAction action in m_resolutionActions)
 			{
-				while (true)
+				if (!action.ReactsToMovement())
 				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						ExecuteAllUnexecutedActions(false);
-						SendResolutionPhaseCompleted(m_currentAbilityPhase, true, false);
-						return;
-					}
+					action.RunStartSequences();
 				}
 			}
-		}
-		for (int i = 0; i < m_resolutionActions.Count; i++)
-		{
-			ClientResolutionAction clientResolutionAction = m_resolutionActions[i];
-			if (!clientResolutionAction.ReactsToMovement())
+			if (m_currentAbilityPhase == AbilityPriority.INVALID)
 			{
-				clientResolutionAction.RunStartSequences();
+				GameEventManager.NormalMovementStartAgs normalMovementStartAgs = new GameEventManager.NormalMovementStartAgs();
+				normalMovementStartAgs.m_actorsBeingHitMidMovement = GetActorsWithMovementHits();
+				GameEventManager.Get().FireEvent(GameEventManager.EventType.NormalMovementStart, normalMovementStartAgs);
 			}
-		}
-		if (m_currentAbilityPhase != AbilityPriority.INVALID)
-		{
-			return;
-		}
-		while (true)
-		{
-			GameEventManager.NormalMovementStartAgs normalMovementStartAgs = new GameEventManager.NormalMovementStartAgs();
-			normalMovementStartAgs.m_actorsBeingHitMidMovement = GetActorsWithMovementHits();
-			GameEventManager.Get().FireEvent(GameEventManager.EventType.NormalMovementStart, normalMovementStartAgs);
-			return;
 		}
 	}
 
 	internal void OnCombatPhasePlayDataReceived()
 	{
 		m_tempCombatPhaseDataReceivedActors.Clear();
-		for (int i = 0; i < m_resolutionActions.Count; i++)
+		foreach (ClientResolutionAction action in m_resolutionActions)
 		{
-			ClientResolutionAction clientResolutionAction = m_resolutionActions[i];
-			ActorData caster = clientResolutionAction.GetCaster();
-			if (!(caster != null) || !(caster.GetAbilityData() != null))
-			{
-				continue;
-			}
-			if (!m_tempCombatPhaseDataReceivedActors.Contains(caster))
+			ActorData caster = action.GetCaster();
+			if (caster != null
+				&& caster.GetAbilityData() != null
+				&& !m_tempCombatPhaseDataReceivedActors.Contains(caster))
 			{
 				caster.GetAbilityData().OnClientCombatPhasePlayDataReceived(m_resolutionActions);
 				m_tempCombatPhaseDataReceivedActors.Add(caster);
@@ -434,308 +293,167 @@ public class ClientResolutionManager : MonoBehaviour
 	internal void MsgRunResolutionActionsOutsideResolve(NetworkMessage netMsg)
 	{
 		NetworkReader reader = netMsg.reader;
-		sbyte b = reader.ReadSByte();
+		sbyte num = reader.ReadSByte();
 		IBitStream stream = new NetworkReaderAdapter(reader);
-		List<ClientResolutionAction> list = new List<ClientResolutionAction>(b);
-		for (int i = 0; i < b; i++)
+		List<ClientResolutionAction> list = new List<ClientResolutionAction>(num);
+		for (int i = 0; i < num; i++)
 		{
-			ClientResolutionAction item = ClientResolutionAction.ClientResolutionAction_DeSerializeFromStream(ref stream);
-			list.Add(item);
+			list.Add(ClientResolutionAction.ClientResolutionAction_DeSerializeFromStream(ref stream));
 		}
-		while (true)
+		foreach (ClientResolutionAction current in list)
 		{
-			using (List<ClientResolutionAction>.Enumerator enumerator = list.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					ClientResolutionAction current = enumerator.Current;
-					current.Run_OutsideResolution();
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
-			}
+			current.Run_OutsideResolution();
 		}
 	}
 
 	internal void MsgFailsafeHurryResolutionPhase(NetworkMessage netMsg)
 	{
 		NetworkReader reader = netMsg.reader;
-		int num = reader.ReadInt32();
-		sbyte b = reader.ReadSByte();
-		AbilityPriority abilityPriority = (AbilityPriority)b;
-		sbyte b2 = reader.ReadSByte();
-		List<ActorData> list = new List<ActorData>();
+		int turnIndex = reader.ReadInt32();
+		sbyte abilityPhase = reader.ReadSByte();
+		AbilityPriority abilityPriority = (AbilityPriority)abilityPhase;
+		sbyte num = reader.ReadSByte();
+		List<ActorData> actors = new List<ActorData>();
 		string text = "Actors not done resolving:";
 		if (GameFlowData.Get() == null)
 		{
-			Log.Warning("Server sent 'hurry' failsafe to clients for turn = {0}, phase = {1}, and we're on turn = {2}, phase = {3}. But GameFlowData is null. Doing nothing... ({4})", num, abilityPriority, m_currentTurnIndex, m_currentAbilityPhase, netMsg.conn);
+			Log.Warning("Server sent 'hurry' failsafe to clients for turn = {0}, phase = {1}, and we're on turn = {2}, phase = {3}. But GameFlowData is null. Doing nothing... ({4})", turnIndex, abilityPriority, m_currentTurnIndex, m_currentAbilityPhase, netMsg.conn);
 			return;
 		}
-		for (int i = 0; i < b2; i++)
+		for (int i = 0; i < num; i++)
 		{
-			int num2 = reader.ReadInt32();
-			if (num2 != ActorData.s_invalidActorIndex)
+			int actorIndex = reader.ReadInt32();
+			if (actorIndex != ActorData.s_invalidActorIndex)
 			{
-				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(num2);
+				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 				if (actorData != null)
 				{
-					list.Add(actorData);
+					actors.Add(actorData);
 					text = text + "\n\t" + actorData.DebugNameString();
 				}
 			}
 		}
-		while (true)
+		bool isOwnedActorData = false;
+		foreach (ActorData actor in actors)
 		{
-			bool flag = false;
-			for (int j = 0; j < list.Count; j++)
+			if (GameFlowData.Get().IsActorDataOwned(actor))
 			{
-				if (GameFlowData.Get().IsActorDataOwned(list[j]))
-				{
-					flag = true;
-					break;
-				}
+				isOwnedActorData = true;
+				break;
 			}
-			if (flag)
+		}
+		if (!isOwnedActorData)
+		{
+			Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + turnIndex + ", phase = " + abilityPriority.ToString() + ", but we're not one of the actors-still-resolving." + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nIgnoring failsafe.");
+		}
+		else if (turnIndex == m_currentTurnIndex && abilityPriority == m_currentAbilityPhase)
+		{
+			if (m_state == ClientResolutionManagerState.Idle)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						{
-							if (num == m_currentTurnIndex)
-							{
-								if (abilityPriority == m_currentAbilityPhase)
-								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											break;
-										default:
-											if (m_state == ClientResolutionManagerState.Idle)
-											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														break;
-													default:
-														Debug.Log("Server sent 'hurry' failsafe to clients for turn = " + num + ", phase = " + abilityPriority.ToString() + ", and we ARE included in the list of actors-still-resolving; but our state is Idle, so it doesn't apply to us.\n" + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nIgnoring failsafe.");
-														return;
-													}
-												}
-											}
-											if (m_state == ClientResolutionManagerState.WaitingForActionMsgs)
-											{
-												while (true)
-												{
-													switch (4)
-													{
-													case 0:
-														break;
-													default:
-														Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + num + ", phase = " + abilityPriority.ToString() + ", and we ARE included in the list of actors-still-resolving; but our state is still in WaitingForActionMsgs, so that's very unexpected.\n" + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nIgnoring failsafe... I guess...");
-														return;
-													}
-												}
-											}
-											if (m_state == ClientResolutionManagerState.Resolving)
-											{
-												while (true)
-												{
-													switch (4)
-													{
-													case 0:
-														break;
-													default:
-														Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + num + ", phase = " + abilityPriority.ToString() + ", and we ARE included in the list of actors-still-resolving; the failsafe applies to us.\n" + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nExecuting failsafe...");
-														ExecuteFailsafe();
-														return;
-													}
-												}
-											}
-											return;
-										}
-									}
-								}
-							}
-							if (m_currentTurnIndex <= num)
-							{
-								if (m_currentTurnIndex == num)
-								{
-									if (m_currentAbilityPhase > abilityPriority)
-									{
-										goto IL_0351;
-									}
-								}
-								Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + num + ", phase = " + abilityPriority.ToString() + ", but we're on turn = " + m_currentTurnIndex + ", phase = " + m_currentAbilityPhase.ToString() + ".\n\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nThat's... in the future.  Ignoring failsafe...");
-								return;
-							}
-							goto IL_0351;
-						}
-						IL_0351:
-						Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + num + ", phase = " + abilityPriority.ToString() + ", but we're on turn = " + m_currentTurnIndex + ", phase = " + m_currentAbilityPhase.ToString() + ".\n\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nThat's in the past, unexpectedly.  Doing nothing...");
-						return;
-					}
-				}
+				Debug.Log("Server sent 'hurry' failsafe to clients for turn = " + turnIndex + ", phase = " + abilityPriority.ToString() + ", and we ARE included in the list of actors-still-resolving; but our state is Idle, so it doesn't apply to us.\n" + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nIgnoring failsafe.");
 			}
-			Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + num + ", phase = " + abilityPriority.ToString() + ", but we're not one of the actors-still-resolving." + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nIgnoring failsafe.");
-			return;
+			else if (m_state == ClientResolutionManagerState.WaitingForActionMsgs)
+			{
+				Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + turnIndex + ", phase = " + abilityPriority.ToString() + ", and we ARE included in the list of actors-still-resolving; but our state is still in WaitingForActionMsgs, so that's very unexpected.\n" + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nIgnoring failsafe... I guess...");
+			}
+			else if (m_state == ClientResolutionManagerState.Resolving)
+			{
+				Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + turnIndex + ", phase = " + abilityPriority.ToString() + ", and we ARE included in the list of actors-still-resolving; the failsafe applies to us.\n" + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nExecuting failsafe...");
+				ExecuteFailsafe();
+			}
+		}
+		else if (m_currentTurnIndex <= turnIndex
+			&& (m_currentTurnIndex != turnIndex || m_currentAbilityPhase <= abilityPriority))
+		{
+			Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + turnIndex + ", phase = " + abilityPriority.ToString() + ", but we're on turn = " + m_currentTurnIndex + ", phase = " + m_currentAbilityPhase.ToString() + ".\n\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nThat's... in the future.  Ignoring failsafe...");
+		}
+		else
+		{
+			Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + turnIndex + ", phase = " + abilityPriority.ToString() + ", but we're on turn = " + m_currentTurnIndex + ", phase = " + m_currentAbilityPhase.ToString() + ".\n\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nThat's in the past, unexpectedly.  Doing nothing...");
 		}
 	}
 
 	internal bool HitsDoneExecuting()
 	{
-		bool result = true;
-		using (List<ClientResolutionAction>.Enumerator enumerator = m_resolutionActions.GetEnumerator())
+		foreach (ClientResolutionAction action in m_resolutionActions)
 		{
-			while (enumerator.MoveNext())
+			if (!action.CompletedAction())
 			{
-				ClientResolutionAction current = enumerator.Current;
-				if (!current.CompletedAction())
-				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							break;
-						default:
-							return false;
-						}
-					}
-				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return result;
-				}
+				return false;
 			}
 		}
+		return true;
 	}
 
 	internal bool HitsDoneExecuting(SequenceSource sequenceSource)
 	{
-		bool result = true;
-		int num = 0;
-		while (true)
+		foreach (ClientResolutionAction action in m_resolutionActions)
 		{
-			if (num < m_resolutionActions.Count)
+			if (action.ContainsSequenceSource(sequenceSource))
 			{
-				ClientResolutionAction clientResolutionAction = m_resolutionActions[num];
-				if (clientResolutionAction.ContainsSequenceSource(sequenceSource))
-				{
-					result = clientResolutionAction.CompletedAction();
-					break;
-				}
-				num++;
-				continue;
+				return action.CompletedAction();
 			}
-			break;
 		}
-		return result;
+		return true;
 	}
 
 	internal bool HasUnexecutedHitsOnActor(ActorData targetActor, int sequenceSourceToIgnore = -1)
 	{
-		bool flag = false;
-		for (int i = 0; i < m_resolutionActions.Count; i++)
+		bool result = false;
+		foreach (ClientResolutionAction action in m_resolutionActions)
 		{
-			if (!flag)
+			if (result)
 			{
-				if (sequenceSourceToIgnore >= 0)
-				{
-					if (m_resolutionActions[i].ContainsSequenceSourceID((uint)sequenceSourceToIgnore))
-					{
-						continue;
-					}
-				}
-				flag = m_resolutionActions[i].HasUnexecutedHitOnActor(targetActor);
-				continue;
+				break;
 			}
-			break;
+			if (sequenceSourceToIgnore < 0
+				|| !action.ContainsSequenceSourceID((uint)sequenceSourceToIgnore))
+			{
+				result = action.HasUnexecutedHitOnActor(targetActor);
+			}
 		}
-		return flag;
+		return result;
 	}
 
 	internal void ExecuteUnexecutedActions(SequenceSource sequenceSource, string extraInfo)
 	{
-		for (int i = 0; i < m_resolutionActions.Count; i++)
+		foreach (ClientResolutionAction action in m_resolutionActions)
 		{
-			ClientResolutionAction clientResolutionAction = m_resolutionActions[i];
-			if (!clientResolutionAction.ContainsSequenceSource(sequenceSource))
+			if (action.ContainsSequenceSource(sequenceSource) && !action.CompletedAction())
 			{
-				continue;
-			}
-			if (!clientResolutionAction.CompletedAction())
-			{
-				string message = "Executing Unexecuted Action: " + clientResolutionAction.GetDebugDescription() + clientResolutionAction.GetUnexecutedHitsDebugStr(true) + SequenceManager.Get().GetSequenceHitsSeenDebugString(sequenceSource) + extraInfo;
+				string message = "Executing Unexecuted Action: " + action.GetDebugDescription() + action.GetUnexecutedHitsDebugStr(true)
+					+ SequenceManager.Get().GetSequenceHitsSeenDebugString(sequenceSource) + extraInfo;
 				Log.Error(message);
-				clientResolutionAction.ExecuteUnexecutedClientHitsInAction();
+				action.ExecuteUnexecutedClientHitsInAction();
 			}
 		}
 	}
 
 	internal void ExecuteAllUnexecutedActions(bool showAsError = true)
 	{
-		for (int i = 0; i < m_resolutionActions.Count; i++)
+		foreach (ClientResolutionAction action in m_resolutionActions)
 		{
-			ClientResolutionAction clientResolutionAction = m_resolutionActions[i];
-			if (clientResolutionAction.CompletedAction())
+			if (!action.CompletedAction())
 			{
-				continue;
-			}
-			if (showAsError)
-			{
-				Log.Error("Executing Unexecuted Action: " + clientResolutionAction.GetDebugDescription() + clientResolutionAction.GetUnexecutedHitsDebugStr());
-			}
-			clientResolutionAction.ExecuteUnexecutedClientHitsInAction();
-		}
-		while (true)
-		{
-			switch (5)
-			{
-			default:
-				return;
-			case 0:
-				break;
+				if (showAsError)
+				{
+					Log.Error("Executing Unexecuted Action: " + action.GetDebugDescription() + action.GetUnexecutedHitsDebugStr());
+				}
+				action.ExecuteUnexecutedClientHitsInAction();
 			}
 		}
 	}
 
 	internal string GetActionsDoneExecutingDebugStr()
 	{
-		string text = string.Empty;
+		string text = "";
 		int num = 0;
-		using (List<ClientResolutionAction>.Enumerator enumerator = m_resolutionActions.GetEnumerator())
+		foreach (ClientResolutionAction current in m_resolutionActions)
 		{
-			while (enumerator.MoveNext())
+			if (!current.CompletedAction())
 			{
-				ClientResolutionAction current = enumerator.Current;
-				if (!current.CompletedAction())
-				{
-					num++;
-					string text2 = text;
-					text = text2 + "\n\t" + num + ". " + current.GetDebugDescription() + current.GetUnexecutedHitsDebugStr();
-				}
+				num++;
+				text += "\n\t" + num + ". " + current.GetDebugDescription() + current.GetUnexecutedHitsDebugStr();
 			}
 		}
 		return "Action not done: " + num + text;
@@ -744,58 +462,30 @@ public class ClientResolutionManager : MonoBehaviour
 	private void Update()
 	{
 		VerifyMessageHandlerState();
-		if (m_state != ClientResolutionManagerState.Resolving)
+		if (m_state == ClientResolutionManagerState.Resolving
+			|| m_state == ClientResolutionManagerState.WaitingForActionMsgs)
 		{
-			if (m_state != 0)
+			bool isTimeForFailsafe = GameTime.time - m_timeOfLastEvent > 15f
+				&& (GameFlowData.Get() == null || !GameFlowData.Get().IsResolutionPaused());
+			if (HitsDoneExecuting() && m_state == ClientResolutionManagerState.Resolving
+				|| isTimeForFailsafe)
 			{
-				return;
+				if (isTimeForFailsafe)
+				{
+					ExecuteFailsafe();
+				}
+				else
+				{
+					SendResolutionPhaseCompleted(m_currentAbilityPhase, false, false);
+				}
 			}
-		}
-		bool flag = HitsDoneExecuting();
-		int num;
-		if (GameTime.time - m_timeOfLastEvent > 15f)
-		{
-			if (!(GameFlowData.Get() == null))
-			{
-				num = ((!GameFlowData.Get().IsResolutionPaused()) ? 1 : 0);
-			}
-			else
-			{
-				num = 1;
-			}
-		}
-		else
-		{
-			num = 0;
-		}
-		bool flag2 = (byte)num != 0;
-		if (flag)
-		{
-			if (m_state == ClientResolutionManagerState.Resolving)
-			{
-				goto IL_009f;
-			}
-		}
-		if (!flag2)
-		{
-			return;
-		}
-		goto IL_009f;
-		IL_009f:
-		if (flag2)
-		{
-			ExecuteFailsafe();
-		}
-		else
-		{
-			SendResolutionPhaseCompleted(m_currentAbilityPhase, false, false);
 		}
 	}
 
 	private void ExecuteFailsafe()
 	{
 		bool flag = true;
-		string str = "ClientResolutionManager sending phase completed message due to failsafe.  State = " + m_state.ToString() + ".\n";
+		string str = $"ClientResolutionManager sending phase completed message due to failsafe.  State = {m_state}.\n";
 		if (m_currentAbilityPhase == AbilityPriority.INVALID)
 		{
 			str += "Phase = Normal Movement\n";
@@ -803,7 +493,7 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		else
 		{
-			str = str + "Phase = " + m_currentAbilityPhase.ToString() + "\n";
+			str += "Phase = " + m_currentAbilityPhase.ToString() + "\n";
 		}
 		str += GetActionsDoneExecutingDebugStr();
 		if (flag)
@@ -823,23 +513,9 @@ public class ClientResolutionManager : MonoBehaviour
 			{
 				OnActorWillDie(mover);
 			}
-			using (List<ClientResolutionAction>.Enumerator enumerator = m_movementActions.GetEnumerator())
+			foreach (ClientResolutionAction action in m_movementActions)
 			{
-				while (enumerator.MoveNext())
-				{
-					ClientResolutionAction current = enumerator.Current;
-					current.OnActorMoved_ClientResolutionAction(mover, curPath);
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				action.OnActorMoved_ClientResolutionAction(mover, curPath);
 			}
 		}
 	}
@@ -862,20 +538,16 @@ public class ClientResolutionManager : MonoBehaviour
 		{
 			Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader + "<color=white>ClientResolutionPhaseCompleted</color> message sent for phase " + abilityPhase.ToString() + " (failsafe = " + asFailsafe + ").");
 		}
-		using (List<ActorData>.Enumerator enumerator = GameFlowData.Get().m_ownedActorDatas.GetEnumerator())
+		foreach (ActorData current in GameFlowData.Get().m_ownedActorDatas)
 		{
-			while (enumerator.MoveNext())
-			{
-				ActorData current = enumerator.Current;
-				NetworkWriter networkWriter = new NetworkWriter();
-				networkWriter.StartMessage(59);
-				networkWriter.Write((sbyte)abilityPhase);
-				networkWriter.Write(current.ActorIndex);
-				networkWriter.Write(asFailsafe);
-				networkWriter.Write(asResend);
-				networkWriter.FinishMessage();
-				ClientGameManager.Get().Client.SendWriter(networkWriter, 0);
-			}
+			NetworkWriter networkWriter = new NetworkWriter();
+			networkWriter.StartMessage((int)MyMsgType.ClientResolutionPhaseCompleted);
+			networkWriter.Write((sbyte)abilityPhase);
+			networkWriter.Write(current.ActorIndex);
+			networkWriter.Write(asFailsafe);
+			networkWriter.Write(asResend);
+			networkWriter.FinishMessage();
+			ClientGameManager.Get().Client.SendWriter(networkWriter, 0);
 		}
 		m_waitingForAllMessages = false;
 		m_state = ClientResolutionManagerState.Idle;
@@ -884,7 +556,7 @@ public class ClientResolutionManager : MonoBehaviour
 	internal void SendActorReadyToResolveKnockback(ActorData knockbackedTarget, ActorData sendingPlayer)
 	{
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.StartMessage(60);
+		networkWriter.StartMessage((int)MyMsgType.ResolveKnockbacksForActor);
 		networkWriter.Write(knockbackedTarget.ActorIndex);
 		networkWriter.Write(sendingPlayer.ActorIndex);
 		networkWriter.FinishMessage();
@@ -912,23 +584,8 @@ public class ClientResolutionManager : MonoBehaviour
 
 	public bool IsWaitingForActionMessages(AbilityPriority phase)
 	{
-		int result;
-		if (m_state != 0)
-		{
-			if (m_waitingForAllMessages)
-			{
-				result = ((m_state != ClientResolutionManagerState.Resolving) ? 1 : 0);
-			}
-			else
-			{
-				result = 0;
-			}
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return m_state == ClientResolutionManagerState.WaitingForActionMsgs
+			|| m_waitingForAllMessages && m_state != ClientResolutionManagerState.Resolving;
 	}
 
 	public void OnAbilityCast(ActorData casterActor, Ability ability)
@@ -944,47 +601,29 @@ public class ClientResolutionManager : MonoBehaviour
 	{
 		if (canBeReactedTo)
 		{
-			for (int i = 0; i < m_resolutionActions.Count; i++)
+			foreach (ClientResolutionAction action in m_resolutionActions)
 			{
-				ClientResolutionAction clientResolutionAction = m_resolutionActions[i];
-				clientResolutionAction.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
+				action.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 			}
 		}
-		if (!m_actorsToKillOnLastHitExecution.Contains(targetActor))
+		if (m_actorsToKillOnLastHitExecution.Contains(targetActor) && !HasUnexecutedHitsOnActor(targetActor))
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!HasUnexecutedHitsOnActor(targetActor))
-			{
-				while (true)
-				{
-					m_actorsToKillOnLastHitExecution.Remove(targetActor);
-					Vector3 position = targetActor.transform.position;
-					Vector3 currentMovementDir = targetActor.GetActorMovement().GetCurrentMovementDir();
-					ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(position, currentMovementDir);
-					targetActor.DoVisualDeath(impulseInfo);
-					targetActor.GetActorMovement().OnMidMovementDeath();
-					return;
-				}
-			}
-			return;
+			m_actorsToKillOnLastHitExecution.Remove(targetActor);
+			Vector3 position = targetActor.transform.position;
+			Vector3 currentMovementDir = targetActor.GetActorMovement().GetCurrentMovementDir();
+			ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(position, currentMovementDir);
+			targetActor.DoVisualDeath(impulseInfo);
+			targetActor.GetActorMovement().OnMidMovementDeath();
 		}
 	}
 
 	public List<ActorData> GetActorsWithMovementHits()
 	{
 		List<ActorData> list = new List<ActorData>();
-		for (int i = 0; i < m_movementActions.Count; i++)
+		foreach (ClientResolutionAction action in m_movementActions)
 		{
-			ClientResolutionAction clientResolutionAction = m_movementActions[i];
-			ActorData triggeringMovementActor = clientResolutionAction.GetTriggeringMovementActor();
-			if (triggeringMovementActor == null)
-			{
-				continue;
-			}
-			if (!list.Contains(triggeringMovementActor))
+			ActorData triggeringMovementActor = action.GetTriggeringMovementActor();
+			if (triggeringMovementActor != null && !list.Contains(triggeringMovementActor))
 			{
 				list.Add(triggeringMovementActor);
 			}
