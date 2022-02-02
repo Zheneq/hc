@@ -143,7 +143,6 @@ public class ClientClashManager : MonoBehaviour
 			ClashAtEndOfEvade item = new ClashAtEndOfEvade(list, boardSquare);
 			m_postEvadeClashes.Add(item);
 		}
-		return;
 	}
 
 	private void Update()
