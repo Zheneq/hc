@@ -379,7 +379,7 @@ public class PlayerData : NetworkBehaviour
 		}
 		if (ObjectivePoints.Get() != null)
 		{
-			ObjectivePoints.Get()._001D(this, debugResult, matchSeconds, ggBoostUsedCount, ggBoostUsedToSelf, playWithFriendsBonus, playedLastTurn);
+			ObjectivePoints.Get().DebugEndGame(this, debugResult, matchSeconds, ggBoostUsedCount, ggBoostUsedToSelf, playWithFriendsBonus, playedLastTurn);
 		}
 		else
 		{
