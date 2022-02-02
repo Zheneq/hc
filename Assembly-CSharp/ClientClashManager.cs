@@ -13,22 +13,17 @@ public class ClientClashManager : MonoBehaviour
 
 	[Header("-- Visual --")]
 	public GameObject m_vfxPrefab;
-
 	[Header("-- Timing --")]
 	public float m_timeTillClashExpires = 1f;
-
 	public float m_timeTillNewClashOnSameSquare = 0.2f;
-
 	[AudioEvent(false)]
 	[Header("-- Audio --")]
-	public string m_onClashAudioEvent = string.Empty;
+	public string m_onClashAudioEvent = "";
 
 	private static ClientClashManager s_instance;
 
 	private MessageHandlersState m_currentMessageHandlersState;
-
 	private List<ClashAtEndOfEvade> m_postEvadeClashes;
-
 	private List<ActiveClashVfx> m_activeClashVfxList;
 
 	public static ClientClashManager Get()
@@ -38,73 +33,28 @@ public class ClientClashManager : MonoBehaviour
 
 	public void OnActorMoved_ClientClashManager(ActorData mover, BoardSquarePathInfo curPath)
 	{
-		if (curPath.m_moverClashesHere)
+		if (curPath.m_moverClashesHere && (curPath.next == null || curPath.prev == null))
 		{
-			if (curPath.next != null)
-			{
-				if (curPath.prev != null)
-				{
-					goto IL_0050;
-				}
-			}
 			OnMidMovementClash(curPath.square);
-			return;
 		}
-		goto IL_0050;
-		IL_0050:
-		if (curPath.prev != null)
+		else if (curPath.prev != null && curPath.prev.m_moverClashesHere)
 		{
-			if (curPath.prev.m_moverClashesHere)
+			OnMidMovementClash(curPath.prev.square);
+		}
+		else if (curPath.next == null)
+		{
+			List<ClashAtEndOfEvade> clashes = new List<ClashAtEndOfEvade>();
+			foreach (ClashAtEndOfEvade current in m_postEvadeClashes)
 			{
-				while (true)
+				if (current.m_participants.Contains(mover))
 				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						OnMidMovementClash(curPath.prev.square);
-						return;
-					}
+					clashes.Add(current);
+					OnMidMovementClash(current.m_clashSquare);
 				}
 			}
-		}
-		if (curPath.next != null)
-		{
-			return;
-		}
-		while (true)
-		{
-			List<ClashAtEndOfEvade> list = new List<ClashAtEndOfEvade>();
-			using (List<ClashAtEndOfEvade>.Enumerator enumerator = m_postEvadeClashes.GetEnumerator())
+			foreach (ClashAtEndOfEvade clash in clashes)
 			{
-				while (enumerator.MoveNext())
-				{
-					ClashAtEndOfEvade current = enumerator.Current;
-					if (current.m_participants.Contains(mover))
-					{
-						list.Add(current);
-						OnMidMovementClash(current.m_clashSquare);
-					}
-				}
-			}
-			using (List<ClashAtEndOfEvade>.Enumerator enumerator2 = list.GetEnumerator())
-			{
-				while (enumerator2.MoveNext())
-				{
-					ClashAtEndOfEvade current2 = enumerator2.Current;
-					m_postEvadeClashes.Remove(current2);
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
+				m_postEvadeClashes.Remove(clash);
 			}
 		}
 	}
@@ -112,18 +62,11 @@ public class ClientClashManager : MonoBehaviour
 	public void OnMidMovementClash(BoardSquare clashSquare)
 	{
 		bool flag = true;
-		using (List<ActiveClashVfx>.Enumerator enumerator = m_activeClashVfxList.GetEnumerator())
+		foreach (ActiveClashVfx vfx in m_activeClashVfxList)
 		{
-			while (enumerator.MoveNext())
+			if (vfx.m_square == clashSquare && Time.time < vfx.m_timeCreated + m_timeTillNewClashOnSameSquare)
 			{
-				ActiveClashVfx current = enumerator.Current;
-				if (current.m_square == clashSquare)
-				{
-					if (Time.time < current.m_timeCreated + m_timeTillNewClashOnSameSquare)
-					{
-						flag = false;
-					}
-				}
+				flag = false;
 			}
 		}
 		if (flag)
@@ -151,53 +94,23 @@ public class ClientClashManager : MonoBehaviour
 
 	private void RegisterHandler()
 	{
-		if (m_currentMessageHandlersState != 0)
+		if (m_currentMessageHandlersState == 0
+			&& ClientGameManager.Get() != null
+			&& ClientGameManager.Get().Client != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!(ClientGameManager.Get() != null))
-			{
-				return;
-			}
-			while (true)
-			{
-				if (ClientGameManager.Get().Client != null)
-				{
-					ClientGameManager.Get().Client.RegisterHandler(72, MsgClashesAtEndOfMovement);
-					m_currentMessageHandlersState = MessageHandlersState.Registered;
-				}
-				return;
-			}
+			ClientGameManager.Get().Client.RegisterHandler((int)MyMsgType.ClashesAtEndOfMovement, MsgClashesAtEndOfMovement);
+			m_currentMessageHandlersState = MessageHandlersState.Registered;
 		}
 	}
 
 	public void UnregisterHandlers()
 	{
-		if (m_currentMessageHandlersState != MessageHandlersState.Registered)
+		if (m_currentMessageHandlersState == MessageHandlersState.Registered
+			&& ClientGameManager.Get() != null
+			&& ClientGameManager.Get().Client != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!(ClientGameManager.Get() != null))
-			{
-				return;
-			}
-			while (true)
-			{
-				if (ClientGameManager.Get().Client != null)
-				{
-					while (true)
-					{
-						ClientGameManager.Get().Client.UnregisterHandler(72);
-						m_currentMessageHandlersState = MessageHandlersState.Unregistered;
-						return;
-					}
-				}
-				return;
-			}
+			ClientGameManager.Get().Client.UnregisterHandler((int)MyMsgType.ClashesAtEndOfMovement);
+			m_currentMessageHandlersState = MessageHandlersState.Unregistered;
 		}
 	}
 
@@ -210,93 +123,49 @@ public class ClientClashManager : MonoBehaviour
 	{
 		NetworkReader reader = netMsg.reader;
 		m_postEvadeClashes.Clear();
-		sbyte b = reader.ReadSByte();
-		for (int i = 0; i < b; i++)
+		sbyte num = reader.ReadSByte();
+		for (int i = 0; i < num; i++)
 		{
-			sbyte b2 = reader.ReadSByte();
-			sbyte b3 = reader.ReadSByte();
-			BoardSquare boardSquare = Board.Get().GetSquareFromIndex(b2, b3);
+			sbyte x = reader.ReadSByte();
+			sbyte y = reader.ReadSByte();
+			BoardSquare boardSquare = Board.Get().GetSquareFromIndex(x, y);
 			List<ActorData> list = new List<ActorData>();
-			sbyte b4 = reader.ReadSByte();
-			for (int j = 0; j < b4; j++)
+			sbyte actorNum = reader.ReadSByte();
+			for (int j = 0; j < actorNum; j++)
 			{
-				sbyte b5 = reader.ReadSByte();
-				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(b5);
+				sbyte actorIndex = reader.ReadSByte();
+				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 				if (actorData != null)
 				{
 					list.Add(actorData);
 				}
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					goto end_IL_00ac;
-				}
-				continue;
-				end_IL_00ac:
-				break;
-			}
 			ClashAtEndOfEvade item = new ClashAtEndOfEvade(list, boardSquare);
 			m_postEvadeClashes.Add(item);
 		}
-		while (true)
-		{
-			switch (1)
-			{
-			default:
-				return;
-			case 0:
-				break;
-			}
-		}
+		return;
 	}
 
 	private void Update()
 	{
-		List<ActiveClashVfx> list = null;
-		using (List<ActiveClashVfx>.Enumerator enumerator = m_activeClashVfxList.GetEnumerator())
+		List<ActiveClashVfx> expired = null;
+		foreach (ActiveClashVfx vfx in m_activeClashVfxList)
 		{
-			while (enumerator.MoveNext())
+			if (Time.time > vfx.m_timeCreated + m_timeTillClashExpires)
 			{
-				ActiveClashVfx current = enumerator.Current;
-				if (Time.time > current.m_timeCreated + m_timeTillClashExpires)
+				if (expired == null)
 				{
-					if (list == null)
-					{
-						list = new List<ActiveClashVfx>();
-					}
-					list.Add(current);
+					expired = new List<ActiveClashVfx>();
 				}
+				expired.Add(vfx);
 			}
 		}
-		if (list == null)
+		if (expired != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			using (List<ActiveClashVfx>.Enumerator enumerator2 = list.GetEnumerator())
+			foreach (ActiveClashVfx vfx in expired)
 			{
-				while (enumerator2.MoveNext())
-				{
-					ActiveClashVfx current2 = enumerator2.Current;
-					current2.OnEnd();
-					m_activeClashVfxList.Remove(current2);
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
+				vfx.OnEnd();
+				m_activeClashVfxList.Remove(vfx);
 			}
 		}
 	}
