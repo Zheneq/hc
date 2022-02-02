@@ -280,35 +280,25 @@ public class FreelancerStats : NetworkBehaviour
 
 	[Header("-- Whether to skip for localization for stat descriptions --")]
 	public bool m_ignoreForLocalization;
-
 	public List<string> m_name;
-
 	public List<string> m_descriptions;
-
 	private SyncListInt m_values = new SyncListInt();
-
 	private string m_freelancerTypeStr = "[unset]";
 
-	private static int kListm_values;
+	private static int kListm_values = 86738482;
 
 	static FreelancerStats()
 	{
-		kListm_values = 86738482;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(FreelancerStats), kListm_values, InvokeSyncListm_values);
+		RegisterSyncListDelegate(typeof(FreelancerStats), kListm_values, InvokeSyncListm_values);
 		NetworkCRC.RegisterBehaviour("FreelancerStats", 0);
 	}
 
 	private void Start()
 	{
-		ActorData component = GetComponent<ActorData>();
-		if (!(component != null))
+		ActorData actorData = GetComponent<ActorData>();
+		if (actorData != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			m_freelancerTypeStr = component.m_characterType.ToString();
-			return;
+			m_freelancerTypeStr = actorData.m_characterType.ToString();
 		}
 	}
 
@@ -318,32 +308,16 @@ public class FreelancerStats : NetworkBehaviour
 		{
 			m_values.Add(0);
 		}
-		while (true)
-		{
-			return;
-		}
 	}
 
 	public virtual string GetDisplayNameOfStat(int statIndex)
 	{
-		if (statIndex >= 0)
+		if (statIndex < 0 || statIndex >= m_name.Count)
 		{
-			if (statIndex < m_name.Count)
-			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return StringUtil.TR_FreelancerStatName(m_freelancerTypeStr, statIndex);
-					}
-				}
-			}
+			Log.Warning($"Calling GetDisplayNameOfStat of freelancer {m_freelancerTypeStr} for stat index {statIndex}, but the index is out-of-bounds.");
+			return "";
 		}
-		Log.Warning($"Calling GetDisplayNameOfStat of freelancer {m_freelancerTypeStr} for stat index {statIndex}, but the index is out-of-bounds.");
-		return string.Empty;
+		return StringUtil.TR_FreelancerStatName(m_freelancerTypeStr, statIndex);
 	}
 
 	public virtual string GetDisplayNameOfStat(Enum statEnum)
@@ -353,24 +327,12 @@ public class FreelancerStats : NetworkBehaviour
 
 	public virtual string GetLocalizedDescriptionOfStat(int statIndex)
 	{
-		if (statIndex >= 0)
+		if (statIndex < 0 || statIndex >= m_descriptions.Count)
 		{
-			if (statIndex < m_descriptions.Count)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return StringUtil.TR_FreelancerStatDescription(m_freelancerTypeStr, statIndex);
-					}
-				}
-			}
+			Log.Warning($"Calling GetLocalizedDescriptionOfStat of freelancer {m_freelancerTypeStr} for stat index {statIndex}, but the index is out-of-bounds.");
+			return "";
 		}
-		Log.Warning($"Calling GetLocalizedDescriptionOfStat of freelancer {m_freelancerTypeStr} for stat index {statIndex}, but the index is out-of-bounds.");
-		return string.Empty;
+		return StringUtil.TR_FreelancerStatDescription(m_freelancerTypeStr, statIndex);
 	}
 
 	public virtual string GetLocalizedDescriptionOfStat(Enum statEnum)
@@ -380,24 +342,12 @@ public class FreelancerStats : NetworkBehaviour
 
 	public virtual int GetValueOfStat(int statIndex)
 	{
-		if (statIndex >= 0)
+		if (statIndex < 0 || statIndex >= m_values.Count)
 		{
-			if (statIndex < m_values.Count)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return m_values[statIndex];
-					}
-				}
-			}
+			Debug.LogError($"Calling GetValueOfStat for stat index {statIndex}, but the index is out-of-bounds.");
+			return 0;
 		}
-		Debug.LogError($"Calling GetValueOfStat for stat index {statIndex}, but the index is out-of-bounds.");
-		return 0;
+		return m_values[statIndex];
 	}
 
 	public virtual int GetValueOfStat(Enum statEnum)
@@ -422,17 +372,8 @@ public class FreelancerStats : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_values called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_values called on server.");
+			return;
 		}
 		((FreelancerStats)obj).m_values.HandleMsg(reader);
 	}
@@ -450,18 +391,18 @@ public class FreelancerStats : NetworkBehaviour
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListInt.WriteInstance(writer, m_values);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -473,10 +414,10 @@ public class FreelancerStats : NetworkBehaviour
 			SyncListInt.ReadReference(reader, m_values);
 			return;
 		}
-		int num = (int)reader.ReadPackedUInt32();
-        if ((num & 1) != 0)
-        {
-            SyncListInt.ReadReference(reader, m_values);
-        }
-    }
+		int dirtyBits = (int)reader.ReadPackedUInt32();
+		if ((dirtyBits & 1) != 0)
+		{
+			SyncListInt.ReadReference(reader, m_values);
+		}
+	}
 }
