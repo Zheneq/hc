@@ -6,10 +6,8 @@ using UnityEngine.Networking;
 public class ActorCinematicRequests : NetworkBehaviour
 {
 	internal SyncListBool m_abilityRequested = new SyncListBool();
-
 	[SyncVar]
 	private int m_numCinematicRequestsLeft = 2;
-
 	private SyncListInt m_cinematicsPlayedThisMatch = new SyncListInt();
 	private ActorData m_actorData;
 
@@ -47,7 +45,7 @@ public class ActorCinematicRequests : NetworkBehaviour
 
 	public override void OnStartServer()
 	{
-		for (int i = 0; i < 14; i++)
+		for (int i = 0; i < AbilityData.NUM_ACTIONS; i++)
 		{
 			m_abilityRequested.Add(false);
 		}
