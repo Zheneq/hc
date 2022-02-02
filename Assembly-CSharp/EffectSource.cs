@@ -3,20 +3,10 @@ using UnityEngine;
 public class EffectSource
 {
 	private string m_name;
-
 	private GameObject m_sequencePrefab;
 
-	public Ability Ability
-	{
-		get;
-		private set;
-	}
-
-	public Passive Passive
-	{
-		get;
-		private set;
-	}
+	public Ability Ability { get; private set; }
+	public Passive Passive { get; private set; }
 
 	public EffectSource(Ability source)
 	{
@@ -64,26 +54,10 @@ public class EffectSource
 
 	public bool IsCharacterSpecificAbility(ActorData caster)
 	{
-		if (Ability == null)
+		if (Ability != null && caster != null && caster.GetAbilityData() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		if (!(caster == null))
-		{
-			if (!(caster.GetAbilityData() == null))
-			{
-				AbilityData.ActionType actionTypeOfAbility = caster.GetAbilityData().GetActionTypeOfAbility(Ability);
-				return AbilityData.IsCharacterSpecificAbility(actionTypeOfAbility);
-			}
+			AbilityData.ActionType actionTypeOfAbility = caster.GetAbilityData().GetActionTypeOfAbility(Ability);
+			return AbilityData.IsCharacterSpecificAbility(actionTypeOfAbility);
 		}
 		return false;
 	}
