@@ -3,33 +3,19 @@ using UnityEngine;
 public class BarrierSerializeInfo
 {
 	public int m_guid;
-
 	public Vector3 m_center;
-
 	public float m_widthInWorld;
-
 	public float m_facingHorizontalAngle;
-
 	public bool m_bidirectional;
-
 	public sbyte m_blocksVision;
-
 	public sbyte m_blocksAbilities;
-
 	public sbyte m_blocksMovement;
-
 	public sbyte m_blocksMovementOnCrossover;
-
 	public sbyte m_blocksPositionTargeting;
-
 	public bool m_considerAsCover;
-
 	public sbyte m_team;
-
 	public int m_ownerIndex;
-
 	public bool m_makeClientGeo;
-
 	public bool m_clientSequenceStartAttempted;
 
 	public static void SerializeBarrierInfo(IBitStream stream, ref BarrierSerializeInfo info)
