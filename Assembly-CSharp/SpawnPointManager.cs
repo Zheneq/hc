@@ -262,7 +262,7 @@ public class SpawnPointManager : MonoBehaviour
 			bool canSpawn = CanSpawnOnSquare(spawner, result, false);
 			if (!canSpawn)
 			{
-				Log.Error("Debugging, spawn square already occupied", new object[0]);
+				Log.Error("Debugging, spawn square already occupied");
 				for (int i = 0; i < spawnSquaresList.Count; i++)
 				{
 					if (CanSpawnOnSquare(spawner, spawnSquaresList[i], false))
@@ -275,7 +275,7 @@ public class SpawnPointManager : MonoBehaviour
 			}
 			if (!canSpawn)
 			{
-				Log.Error("Debugging, failed to find respawn square", new object[0]);
+				Log.Error("Debugging, failed to find respawn square");
 			}
 		}
 		else
@@ -320,11 +320,11 @@ public class SpawnPointManager : MonoBehaviour
 		}
 		if (result == null)
 		{
-			Log.Error("Failed to find a spawn square for " + spawner.DisplayName, new object[0]);
+			Log.Error("Failed to find a spawn square for " + spawner.DisplayName);
 		}
 		else if (result.occupant != null)
 		{
-			Log.Error("Debugging, spawn square found is occupied", new object[0]);
+			Log.Error("Debugging, spawn square found is occupied");
 		}
 		return result;
 	}
@@ -353,7 +353,7 @@ public class SpawnPointManager : MonoBehaviour
 			}
 			if (result == null)
 			{
-				Log.Error("Couldn't find an initial spawn square for actor on team " + spawner.GetTeam().ToString() + ", make sure Initial Spawn Points are set up.", new object[0]);
+				Log.Error("Couldn't find an initial spawn square for actor on team " + spawner.GetTeam().ToString() + ", make sure Initial Spawn Points are set up.");
 				foreach (BoardSquare boardSquare3 in squaresInRegion)
 				{
 					List<BoardSquare> list = new List<BoardSquare>(8);
@@ -374,14 +374,10 @@ public class SpawnPointManager : MonoBehaviour
 			}
 			if (result == null)
 			{
-				Log.Error("Couldn't even find a viable spawn square adjacent to any initial spawn squares for actor on team " + spawner.GetTeam().ToString() + ", make sure Initial Spawn Points are set up.", new object[0]);
-				for (int i = 0; i < 0x80; i++)
+				Log.Error("Couldn't even find a viable spawn square adjacent to any initial spawn squares for actor on team " + spawner.GetTeam().ToString() + ", make sure Initial Spawn Points are set up.");
+				for (int i = 0; i < 128; i++)
 				{
-					if (result != null)
-					{
-						return result;
-					}
-					else
+					if (result == null)
 					{
 						int x = GameplayRandom.Range(0, Board.Get().GetMaxX());
 						int y = GameplayRandom.Range(0, Board.Get().GetMaxY());
@@ -390,7 +386,6 @@ public class SpawnPointManager : MonoBehaviour
 						{
 							result = square;
 						}
-
 					}
 				}
 			}
@@ -504,9 +499,10 @@ public class SpawnPointManager : MonoBehaviour
 			foreach (BoardSquare square in spawnSquareList)
 			{
 				Vector3 squarePos = square.ToVector3();
-				m_scores[square] = new ScoreInfo();
-				ScoreInfo scoreInfo = m_scores[square];
-				scoreInfo.m_avoidIfPossible = squaresToAvoid != null && squaresToAvoid.Contains(square);
+				m_scores[square] = new ScoreInfo
+				{
+					m_avoidIfPossible = squaresToAvoid != null && squaresToAvoid.Contains(square)
+				};
 				if (!spawnPointManager.CanSpawnOnSquare(m_actorSpawning, square, allowOccupiedSquares)
 					|| squaresNotAllowed == null
 					|| squaresNotAllowed.Contains(square))
@@ -536,15 +532,15 @@ public class SpawnPointManager : MonoBehaviour
 						&& actorData.GetCurrentBoardSquare() != null)
 					{
 						BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
-						float dist = (currentBoardSquare.ToVector3() - squarePos).sqrMagnitude;
+						float distSqr = (currentBoardSquare.ToVector3() - squarePos).sqrMagnitude;
 						bool isAlly = actorData.GetTeam() == m_actorSpawning.GetTeam();
-						if (isAlly && dist < minDistToFriendSqr)
+						if (isAlly && distSqr < minDistToFriendSqr)
 						{
 							m_scores[square].m_tooCloseToFriendly = true;
 						}
 						if (isAlly)
 						{
-							float distDelta = Mathf.Max(0f, chooseDontCareDist - Mathf.Sqrt(dist));
+							float distDelta = Mathf.Max(0f, chooseDontCareDist - Mathf.Sqrt(distSqr));
 							float proximityWeight = actorData.GetTeam() != m_actorSpawning.GetTeam()
 								? spawnPointManager.m_chooseWeightEnemyProximity
 								: spawnPointManager.m_chooseWeightFriendProximity;
@@ -555,7 +551,7 @@ public class SpawnPointManager : MonoBehaviour
 							}
 							m_scores[square].m_score += score;
 						}
-						else if (dist < minDistToEnemySqr
+						else if (distSqr < minDistToEnemySqr
 								&& (!onlyAvoidVisibleEnemies || actorData.IsActorVisibleToAnyEnemy()))
 						{
 							m_scores[square].m_tooCloseToEnemy = true;
@@ -679,9 +675,9 @@ public class SpawnPointManager : MonoBehaviour
 							flag = true;
 							Debug.DrawRay(square.ToVector3(), new Vector3(0.5f, 1.5f, 0f), 0.5f * (Color.yellow + Color.red), timeToDisplay);
 						}
-						else if (!m_scores[square].m_tooCloseToEnemy && !m_scores[square].m_tooCloseToFriendly)
+						else if (m_scores[square].m_tooCloseToEnemy || m_scores[square].m_tooCloseToFriendly)
 						{
-							Debug.DrawRay(square.ToVector3(), 1.5f * Vector3.up, Color.white, timeToDisplay);
+							Debug.DrawRay(square.ToVector3(), new Vector3(0f, 1.5f, 0.5f), Color.magenta, timeToDisplay);
 							if (flag)
 							{
 								Debug.LogWarning("Respawn: square to avoid not sorted toward end of list");
@@ -689,7 +685,7 @@ public class SpawnPointManager : MonoBehaviour
 						}
 						else
 						{
-							Debug.DrawRay(square.ToVector3(), new Vector3(0f, 1.5f, 0.5f), Color.magenta, timeToDisplay);
+							Debug.DrawRay(square.ToVector3(), 1.5f * Vector3.up, Color.white, timeToDisplay);
 							if (flag)
 							{
 								Debug.LogWarning("Respawn: square to avoid not sorted toward end of list");
