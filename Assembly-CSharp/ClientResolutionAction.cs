@@ -480,12 +480,12 @@ public class ClientResolutionAction : IComparable
 			if (!hitResult.Value.ExecutedHit)
 			{
 				numUnexecuted++;
-				executed += "\n\t\t" + numUnexecuted + ". ActorHit on " + hitResult.Key.DebugNameString();
+				unexecuted += "\n\t\t" + numUnexecuted + ". ActorHit on " + hitResult.Key.DebugNameString();
 			}
 			else
 			{
 				numExecuted++;
-				unexecuted += "\n\t\t" + numExecuted + ". ActorHit on " + hitResult.Key.DebugNameString();
+				executed += "\n\t\t" + numExecuted + ". ActorHit on " + hitResult.Key.DebugNameString();
 			}
 		}
 		foreach (KeyValuePair<Vector3, ClientPositionHitResults> hitResult in positionToHitResults)
@@ -493,18 +493,18 @@ public class ClientResolutionAction : IComparable
 			if (!hitResult.Value.ExecutedHit)
 			{
 				numUnexecuted++;
-				executed += "\n\t\t" + numUnexecuted + ". PositionHit on " + hitResult.Key.ToString();
+				unexecuted += "\n\t\t" + numUnexecuted + ". PositionHit on " + hitResult.Key.ToString();
 			}
 			else
 			{
 				numExecuted++;
-				unexecuted += "\n\t\t" + numExecuted + ". PositionHit on " + hitResult.Key.ToString();
+				executed += "\n\t\t" + numExecuted + ". PositionHit on " + hitResult.Key.ToString();
 			}
 		}
-		string str = "\n\tUnexecuted hits: " + numUnexecuted + executed;
+		string str = "\n\tUnexecuted hits: " + numUnexecuted + unexecuted;
 		if (numExecuted > 0)
 		{
-			str += "\n\tExecuted hits: " + numExecuted + unexecuted;
+			str += "\n\tExecuted hits: " + numExecuted + executed;
 		}
 		return str + "\n";
 	}
