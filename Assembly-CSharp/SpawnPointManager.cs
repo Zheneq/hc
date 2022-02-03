@@ -6,142 +6,88 @@ public class SpawnPointManager : MonoBehaviour
 {
 	[Header("-- RESPAWN MANUAL SELECTION LOCATION --")]
 	public bool m_playersSelectRespawn = true;
-
 	public bool m_spawnInDuringMovement = true;
-
 	public int m_respawnDelay = 2;
-
 	[Tooltip("Used only when Players Select Respawn = true and Respawn Method = RespawnAnywhere")]
 	public float m_respawnInnerRadius;
-
 	[Tooltip("Used only when Players Select Respawn = true and Respawn Method = RespawnAnywhere")]
 	public float m_respawnOuterRadius = 3f;
-
 	[Header("-- RESPAWN AUTOMATIC LOCATION --")]
-	public SpawnPointManager.RespawnMethod m_respawnMethod;
-
-	private SpawnPointManager.SpawnPointCoord[] m_spawnPointsTeamA;
-
-	private SpawnPointManager.SpawnPointCoord[] m_spawnPointsTeamB;
-
+	public RespawnMethod m_respawnMethod;
+	private SpawnPointCoord[] m_spawnPointsTeamA;
+	private SpawnPointCoord[] m_spawnPointsTeamB;
 	[Tooltip("Used if Respawn Method = RespawnInGraveyards")]
 	public BoardRegion m_spawnRegionsTeamA;
-
 	[Tooltip("Used if Respawn Method = RespawnInGraveyards")]
 	public BoardRegion m_spawnRegionsTeamB;
-
 	public BoardRegion m_initialSpawnPointsTeamA;
-
 	public BoardRegion m_initialSpawnPointsTeamB;
-
 	public SpawnLookAtPoint m_initialSpawnLookAtPoint;
-
 	public float m_startMinDistToFriend = 1f;
-
 	public float m_startMinDistToEnemy = 16f;
-
 	public float m_minDistToFriend = 4f;
-
 	public float m_minDistToEnemy = 8f;
-
 	public float m_generatePerimeterSize = 0.15f;
-
 	public bool m_onlyAvoidVisibleEnemies = true;
-
 	public bool m_brushHidesRespawnFlares = true;
-
 	public bool m_respawnActorsCanCollectPowerUps = true;
-
 	public bool m_respawnActorsCanBeHitDuringMovement = true;
-
 	[Tooltip("Algorithm will keep relaxing requirements until more than this many square are valid to pick between")]
 	public int m_minValidRespawnSquaresForPlayerSelection = 2;
-
 	internal float m_chooseWeightFriendProximity = 1f;
-
 	internal float m_chooseWeightEnemyProximity = -2f;
-
 	internal float m_chooseWeightDeathProximity = -1f;
-
 	internal float m_chooseDontCareDistance = 100f;
 
 	private static SpawnPointManager s_instance;
 
 	public static SpawnPointManager Get()
 	{
-		return SpawnPointManager.s_instance;
+		return s_instance;
 	}
 
 	private void Awake()
 	{
-		SpawnPointManager.s_instance = this;
+		s_instance = this;
 	}
 
 	private void OnDestroy()
 	{
-		SpawnPointManager.s_instance = null;
+		s_instance = null;
 	}
 
 	private void Start()
 	{
-		this.m_initialSpawnPointsTeamA.Initialize();
-		this.m_initialSpawnPointsTeamB.Initialize();
-		this.m_spawnRegionsTeamA.Initialize();
-		this.m_spawnRegionsTeamB.Initialize();
-		if (!this.m_playersSelectRespawn && this.m_respawnMethod == SpawnPointManager.RespawnMethod.RespawnAnywhere)
+		m_initialSpawnPointsTeamA.Initialize();
+		m_initialSpawnPointsTeamB.Initialize();
+		m_spawnRegionsTeamA.Initialize();
+		m_spawnRegionsTeamB.Initialize();
+		if (!m_playersSelectRespawn && m_respawnMethod == RespawnMethod.RespawnAnywhere)
 		{
-			this.ClearSpawnPoints();
+			ClearSpawnPoints();
 			Board board = Board.Get();
 			PowerUpManager powerUpManager = PowerUpManager.Get();
-			int num = (int)((float)board.GetMaxX() * this.m_generatePerimeterSize);
-			int num2 = board.GetMaxX() - num;
-			int num3 = (int)((float)board.GetMaxY() * this.m_generatePerimeterSize);
-			int num4 = board.GetMaxY() - num3;
+			int x1 = (int)(board.GetMaxX() * m_generatePerimeterSize);
+			int x2 = board.GetMaxX() - x1;
+			int y1 = (int)(board.GetMaxY() * m_generatePerimeterSize);
+			int y2 = board.GetMaxY() - y1;
 			for (int i = 0; i < board.GetMaxX(); i++)
 			{
-				int j = 0;
-				while (j < board.GetMaxY())
+				for (int j = 0; j < board.GetMaxY(); j++)
 				{
-					if (i < num)
+					if (i < x1 || i > x2 || j < y1 || j > y2)
 					{
-						goto IL_E3;
-					}
-					if (i > num2 || j < num3)
-					{
-						goto IL_E3;
-					}
-					if (j > num4)
-					{
-						goto IL_E3;
-					}
-					IL_17B:
-					j++;
-					continue;
-					IL_E3:
-					BoardSquare boardSquare = board.GetSquareFromIndex(i, j);
-					if (!(boardSquare != null))
-					{
-						goto IL_17B;
-					}
-					if (!boardSquare.IsValidForGameplay() || boardSquare.IsInBrush() || (float)(boardSquare.height - board.BaselineHeight) >= 0.5f)
-					{
-						goto IL_17B;
-					}
-					if (!powerUpManager.IsPowerUpSpawnPoint(boardSquare))
-					{
-						Team team;
-						if ((i + j) % 2 == 0)
+						BoardSquare square = board.GetSquareFromIndex(i, j);
+						if (square != null
+							&& square.IsValidForGameplay()
+							&& !square.IsInBrush()
+							&& square.height - board.BaselineHeight < 0.5f
+							&& !powerUpManager.IsPowerUpSpawnPoint(square))
 						{
-							team = Team.TeamA;
+							Team team = (i + j) % 2 == 0 ? Team.TeamA : Team.TeamB;
+							AddSpawnPoint(team, i, j);
 						}
-						else
-						{
-							team = Team.TeamB;
-						}
-						this.AddSpawnPoint(team, i, j);
-						goto IL_17B;
 					}
-					goto IL_17B;
 				}
 			}
 		}
@@ -150,9 +96,9 @@ public class SpawnPointManager : MonoBehaviour
 	public Vector3 GetSpawnFacing(Vector3 spawnPosition)
 	{
 		Vector3 result = new Vector3(1f, 0f, 0f);
-		if (this.m_initialSpawnLookAtPoint != null)
+		if (m_initialSpawnLookAtPoint != null)
 		{
-			Vector3 vector = this.m_initialSpawnLookAtPoint.transform.position - spawnPosition;
+			Vector3 vector = m_initialSpawnLookAtPoint.transform.position - spawnPosition;
 			vector.y = 0f;
 			if (Mathf.Abs(vector.x) > Mathf.Abs(vector.z))
 			{
@@ -179,90 +125,88 @@ public class SpawnPointManager : MonoBehaviour
 
 	public void ClearSpawnPoints()
 	{
-		Array.Resize<SpawnPointManager.SpawnPointCoord>(ref this.m_spawnPointsTeamA, 0);
-		Array.Resize<SpawnPointManager.SpawnPointCoord>(ref this.m_spawnPointsTeamB, 0);
+		Array.Resize(ref m_spawnPointsTeamA, 0);
+		Array.Resize(ref m_spawnPointsTeamB, 0);
 	}
 
 	public void AddSpawnPoint(Team team, int x, int y)
 	{
 		if (team == Team.TeamA)
 		{
-			if (this.m_spawnPointsTeamA == null)
+			if (m_spawnPointsTeamA == null)
 			{
-				this.m_spawnPointsTeamA = new SpawnPointManager.SpawnPointCoord[1];
+				m_spawnPointsTeamA = new SpawnPointCoord[1];
 			}
 			else
 			{
-				Array.Resize<SpawnPointManager.SpawnPointCoord>(ref this.m_spawnPointsTeamA, this.m_spawnPointsTeamA.Length + 1);
+				Array.Resize(ref m_spawnPointsTeamA, m_spawnPointsTeamA.Length + 1);
 			}
-			this.m_spawnPointsTeamA[this.m_spawnPointsTeamA.Length - 1] = new SpawnPointManager.SpawnPointCoord(x, y);
+			m_spawnPointsTeamA[m_spawnPointsTeamA.Length - 1] = new SpawnPointCoord(x, y);
 		}
 		else if (team == Team.TeamB)
 		{
-			if (this.m_spawnPointsTeamB == null)
+			if (m_spawnPointsTeamB == null)
 			{
-				this.m_spawnPointsTeamB = new SpawnPointManager.SpawnPointCoord[1];
+				m_spawnPointsTeamB = new SpawnPointCoord[1];
 			}
 			else
 			{
-				Array.Resize<SpawnPointManager.SpawnPointCoord>(ref this.m_spawnPointsTeamB, this.m_spawnPointsTeamB.Length + 1);
+				Array.Resize(ref m_spawnPointsTeamB, m_spawnPointsTeamB.Length + 1);
 			}
-			this.m_spawnPointsTeamB[this.m_spawnPointsTeamB.Length - 1] = new SpawnPointManager.SpawnPointCoord(x, y);
+			m_spawnPointsTeamB[m_spawnPointsTeamB.Length - 1] = new SpawnPointCoord(x, y);
 		}
 	}
 
-	internal List<BoardSquare> GetSpawnSquaresList(Team team, SpawnPointManager.RespawnMethod respawnMethod)
+	internal List<BoardSquare> GetSpawnSquaresList(Team team, RespawnMethod respawnMethod)
 	{
 		List<BoardSquare> list = new List<BoardSquare>();
-		if (respawnMethod == SpawnPointManager.RespawnMethod.RespawnOnlyAtInitialSpawnPoints)
+		if (respawnMethod == RespawnMethod.RespawnOnlyAtInitialSpawnPoints)
 		{
 			if (team == Team.TeamA)
 			{
-				list = this.m_initialSpawnPointsTeamA.GetSquaresInRegion();
+				list = m_initialSpawnPointsTeamA.GetSquaresInRegion();
 			}
 			else
 			{
-				list = this.m_initialSpawnPointsTeamB.GetSquaresInRegion();
+				list = m_initialSpawnPointsTeamB.GetSquaresInRegion();
 			}
 		}
-		else if (respawnMethod == SpawnPointManager.RespawnMethod.RespawnInGraveyards)
+		else if (respawnMethod == RespawnMethod.RespawnInGraveyards)
 		{
 			if (team == Team.TeamA)
 			{
-				list = this.m_spawnRegionsTeamA.GetSquaresInRegion();
+				list = m_spawnRegionsTeamA.GetSquaresInRegion();
 			}
 			else
 			{
-				list = this.m_spawnRegionsTeamB.GetSquaresInRegion();
+				list = m_spawnRegionsTeamB.GetSquaresInRegion();
 			}
-			List<BoardSquare> list2 = list;
-			
-			list2.RemoveAll(((BoardSquare s) => !s.IsValidForGameplay()));
+			list.RemoveAll((BoardSquare s) => !s.IsValidForGameplay());
 		}
 		else if (team == Team.TeamA)
 		{
-			if (this.m_spawnPointsTeamA != null)
+			if (m_spawnPointsTeamA != null)
 			{
-				for (int i = 0; i < this.m_spawnPointsTeamA.Length; i++)
+				foreach (SpawnPointCoord point in m_spawnPointsTeamA)
 				{
-					if (this.m_spawnPointsTeamA[i] != null)
+					if (point != null)
 					{
-						BoardSquare boardSquare = Board.Get().GetSquareFromIndex(this.m_spawnPointsTeamA[i].x, this.m_spawnPointsTeamA[i].y);
-						list.Add(boardSquare);
+						BoardSquare square = Board.Get().GetSquareFromIndex(point.x, point.y);
+						list.Add(square);
 					}
 				}
 			}
 		}
-		else if (this.m_spawnPointsTeamB != null)
+		else if (m_spawnPointsTeamB != null)
 		{
-			for (int j = 0; j < this.m_spawnPointsTeamB.Length; j++)
+			foreach (SpawnPointCoord point in m_spawnPointsTeamB)
 			{
-				if (this.m_spawnPointsTeamB[j] != null)
+				if (point != null)
 				{
-					BoardSquare boardSquare2 = Board.Get().GetSquareFromIndex(this.m_spawnPointsTeamB[j].x, this.m_spawnPointsTeamB[j].y);
-					if (boardSquare2)
+					BoardSquare square = Board.Get().GetSquareFromIndex(point.x, point.y);
+					if (square)
 					{
-						list.Add(boardSquare2);
+						list.Add(square);
 					}
 				}
 			}
@@ -272,46 +216,30 @@ public class SpawnPointManager : MonoBehaviour
 
 	public bool CanSpawnOnSquare(ActorData spawner, BoardSquare square, bool allowOccupiedSquares = false)
 	{
-		bool result = false;
-		if (square != null)
-		{
-			if (MovementUtils.CanStopOnSquare(square))
-			{
-				if (!allowOccupiedSquares)
-				{
-					if (!(square.occupant == null))
-					{
-						return result;
-					}
-				}
-				result = true;
-			}
-		}
-		return result;
+		return square != null
+			&& MovementUtils.CanStopOnSquare(square)
+			&& (allowOccupiedSquares || square.occupant == null);
 	}
 
 	private int SortByProximityWeights(List<BoardSquare> spawnSquareList, ActorData actorSpawning, bool avoidLastDeathPosition, List<ActorData> actorsSpawned, HashSet<BoardSquare> squaresToAvoid, HashSet<BoardSquare> squaresNotAllowed, bool onlyAvoidVisibleEnemies, bool allowOccupiedSquares, int minimumFavoredSquares)
 	{
-		BoardSquare boardSquare;
-		if (actorSpawning != null)
+		BoardSquare preferedSpawnLocation;
+		if (actorSpawning != null && m_respawnMethod == RespawnMethod.RespawnOnlyAtInitialSpawnPoints)
 		{
-			if (this.m_respawnMethod == SpawnPointManager.RespawnMethod.RespawnOnlyAtInitialSpawnPoints)
-			{
-				boardSquare = actorSpawning.InitialSpawnSquare;
-				goto IL_38;
-			}
+			preferedSpawnLocation = actorSpawning.InitialSpawnSquare;
 		}
-		boardSquare = null;
-		IL_38:
-		BoardSquare preferedSpawnLocation = boardSquare;
-		SpawnPointManager.SpawnSquareComparer spawnSquareComparer = new SpawnPointManager.SpawnSquareComparer(spawnSquareList, actorSpawning, avoidLastDeathPosition, actorsSpawned, preferedSpawnLocation, squaresToAvoid, squaresNotAllowed, onlyAvoidVisibleEnemies, allowOccupiedSquares);
+		else
+		{
+			preferedSpawnLocation = null;
+		}
+		SpawnSquareComparer spawnSquareComparer = new SpawnSquareComparer(spawnSquareList, actorSpawning, avoidLastDeathPosition, actorsSpawned, preferedSpawnLocation, squaresToAvoid, squaresNotAllowed, onlyAvoidVisibleEnemies, allowOccupiedSquares);
 		spawnSquareList.Sort(spawnSquareComparer);
 		int num = spawnSquareComparer.NumFriendTooCloseSquares + spawnSquareComparer.NumFavoredSquares;
 		int num2 = spawnSquareComparer.NumEnemyTooCloseSquares + num;
 		int result;
 		if (spawnSquareComparer.NumFavoredSquares <= minimumFavoredSquares)
 		{
-			result = ((num > minimumFavoredSquares) ? num : num2);
+			result = num > minimumFavoredSquares ? num : num2;
 		}
 		else
 		{
@@ -322,192 +250,153 @@ public class SpawnPointManager : MonoBehaviour
 
 	internal BoardSquare GetSpawnSquare(ActorData spawner, bool avoidLastDeathPosition = true, List<ActorData> spawnedActors = null, HashSet<BoardSquare> squaresToAvoid = null)
 	{
-		BoardSquare boardSquare = null;
-		List<BoardSquare> spawnSquaresList = this.GetSpawnSquaresList(spawner.GetTeam(), this.m_respawnMethod);
-		int num = this.SortByProximityWeights(spawnSquaresList, spawner, avoidLastDeathPosition, spawnedActors, null, squaresToAvoid, false, false, 0);
+		BoardSquare result = null;
+		List<BoardSquare> spawnSquaresList = GetSpawnSquaresList(spawner.GetTeam(), m_respawnMethod);
+		int num = SortByProximityWeights(spawnSquaresList, spawner, avoidLastDeathPosition, spawnedActors, null, squaresToAvoid, false, false, 0);
 		if (num > 0)
 		{
-			bool flag;
-			if (spawnedActors != null)
-			{
-				flag = (spawnedActors.Count == 0);
-			}
-			else
-			{
-				flag = false;
-			}
-			bool flag2 = flag;
-			int index = (!flag2) ? 0 : GameplayRandom.Range(0, spawnSquaresList.Count);
-			boardSquare = spawnSquaresList[index];
-			bool flag3 = this.CanSpawnOnSquare(spawner, boardSquare, false);
-			if (!flag3)
+			int index = spawnedActors != null && spawnedActors.Count == 0
+				? GameplayRandom.Range(0, spawnSquaresList.Count)
+				: 0;
+			result = spawnSquaresList[index];
+			bool canSpawn = CanSpawnOnSquare(spawner, result, false);
+			if (!canSpawn)
 			{
 				Log.Error("Debugging, spawn square already occupied", new object[0]);
 				for (int i = 0; i < spawnSquaresList.Count; i++)
 				{
-					if (this.CanSpawnOnSquare(spawner, spawnSquaresList[i], false))
+					if (CanSpawnOnSquare(spawner, spawnSquaresList[i], false))
 					{
-						boardSquare = spawnSquaresList[i];
-						flag3 = true;
+						result = spawnSquaresList[i];
+						canSpawn = true;
 						break;
 					}
 				}
 			}
-			if (!flag3)
+			if (!canSpawn)
 			{
 				Log.Error("Debugging, failed to find respawn square", new object[0]);
 			}
 		}
 		else
 		{
-			SpawnPointManager.SpawnPointCoord[] array;
-			if (spawner.GetTeam() == Team.TeamA)
-			{
-				array = this.m_spawnPointsTeamA;
-			}
-			else
-			{
-				array = this.m_spawnPointsTeamB;
-			}
-			foreach (SpawnPointManager.SpawnPointCoord spawnPointCoord in array)
+			SpawnPointCoord[] spawnPoints = spawner.GetTeam() == Team.TeamA ? m_spawnPointsTeamA : m_spawnPointsTeamB;
+			foreach (SpawnPointCoord spawnPointCoord in spawnPoints)
 			{
 				List<BoardSquare> list = new List<BoardSquare>(8);
 				Board.Get().GetAllAdjacentSquares(spawnPointCoord.x, spawnPointCoord.y, ref list);
-				using (List<BoardSquare>.Enumerator enumerator = list.GetEnumerator())
+				foreach (BoardSquare square in list)
 				{
-					while (enumerator.MoveNext())
+					if (CanSpawnOnSquare(spawner, square, false))
 					{
-						BoardSquare boardSquare2 = enumerator.Current;
-						if (this.CanSpawnOnSquare(spawner, boardSquare2, false))
-						{
-							spawnSquaresList.Add(boardSquare2);
-						}
+						spawnSquaresList.Add(square);
 					}
 				}
 			}
-			num = this.SortByProximityWeights(spawnSquaresList, spawner, avoidLastDeathPosition, spawnedActors, squaresToAvoid, null, false, false, 0);
+			num = SortByProximityWeights(spawnSquaresList, spawner, avoidLastDeathPosition, spawnedActors, squaresToAvoid, null, false, false, 0);
 			if (num > 0)
 			{
-				boardSquare = spawnSquaresList[0];
+				result = spawnSquaresList[0];
 			}
 		}
-		if (boardSquare == null)
+		if (result == null)
 		{
-			Board board = Board.Get();
-			for (int k = 0; k < board.GetMaxX(); k++)
+			for (int i = 0; i < Board.Get().GetMaxX(); i++)
 			{
-				for (int l = 0; l < board.GetMaxY(); l++)
+				for (int j = 0; j < Board.Get().GetMaxY(); j++)
 				{
-					BoardSquare boardSquare3 = board.GetSquareFromIndex(k, l);
-					if (this.CanSpawnOnSquare(spawner, boardSquare3, false))
+					BoardSquare square = Board.Get().GetSquareFromIndex(i, j);
+					if (CanSpawnOnSquare(spawner, square, false))
 					{
-						spawnSquaresList.Add(boardSquare3);
+						spawnSquaresList.Add(square);
 					}
 				}
 			}
-			num = this.SortByProximityWeights(spawnSquaresList, spawner, avoidLastDeathPosition, spawnedActors, squaresToAvoid, null, false, false, 0);
+			num = SortByProximityWeights(spawnSquaresList, spawner, avoidLastDeathPosition, spawnedActors, squaresToAvoid, null, false, false, 0);
 			if (num > 0)
 			{
-				boardSquare = spawnSquaresList[0];
+				result = spawnSquaresList[0];
 			}
 		}
-		if (boardSquare == null)
+		if (result == null)
 		{
 			Log.Error("Failed to find a spawn square for " + spawner.DisplayName, new object[0]);
 		}
-		else if (boardSquare.occupant != null)
+		else if (result.occupant != null)
 		{
 			Log.Error("Debugging, spawn square found is occupied", new object[0]);
 		}
-		return boardSquare;
+		return result;
 	}
 
 	internal BoardSquare GetInitialSpawnSquare(ActorData spawner, List<ActorData> spawnedActors)
 	{
-		BoardSquare boardSquare = null;
+		BoardSquare result = null;
 		List<BoardSquare> squaresInRegion;
 		if (spawner.GetTeam() == Team.TeamA)
 		{
-			squaresInRegion = this.m_initialSpawnPointsTeamA.GetSquaresInRegion();
+			squaresInRegion = m_initialSpawnPointsTeamA.GetSquaresInRegion();
 		}
 		else
 		{
-			squaresInRegion = this.m_initialSpawnPointsTeamB.GetSquaresInRegion();
+			squaresInRegion = m_initialSpawnPointsTeamB.GetSquaresInRegion();
 		}
-		if (squaresInRegion != null)
+		if (squaresInRegion != null && squaresInRegion.Count != 0)
 		{
-			if (squaresInRegion.Count != 0)
+			foreach (BoardSquare square in squaresInRegion)
 			{
-				using (List<BoardSquare>.Enumerator enumerator = squaresInRegion.GetEnumerator())
+				if (CanSpawnOnSquare(spawner, square, false))
 				{
-					while (enumerator.MoveNext())
-					{
-						BoardSquare boardSquare2 = enumerator.Current;
-						if (this.CanSpawnOnSquare(spawner, boardSquare2, false))
-						{
-							boardSquare = boardSquare2;
-							goto IL_BC;
-						}
-					}
+					result = square;
+					break;
 				}
-				IL_BC:
-				if (boardSquare == null)
+			}
+			if (result == null)
+			{
+				Log.Error("Couldn't find an initial spawn square for actor on team " + spawner.GetTeam().ToString() + ", make sure Initial Spawn Points are set up.", new object[0]);
+				foreach (BoardSquare boardSquare3 in squaresInRegion)
 				{
-					Log.Error("Couldn't find an initial spawn square for actor on team " + spawner.GetTeam().ToString() + ", make sure Initial Spawn Points are set up.", new object[0]);
-					foreach (BoardSquare boardSquare3 in squaresInRegion)
+					List<BoardSquare> list = new List<BoardSquare>(8);
+					Board.Get().GetAllAdjacentSquares(boardSquare3.x, boardSquare3.y, ref list);
+					foreach (BoardSquare square in list)
 					{
-						List<BoardSquare> list = new List<BoardSquare>(8);
-						Board.Get().GetAllAdjacentSquares(boardSquare3.x, boardSquare3.y, ref list);
-						foreach (BoardSquare boardSquare4 in list)
+						if (CanSpawnOnSquare(spawner, square, false))
 						{
-							if (this.CanSpawnOnSquare(spawner, boardSquare4, false))
-							{
-								boardSquare = boardSquare4;
-								break;
-							}
-						}
-						if (boardSquare != null)
-						{
+							result = square;
 							break;
 						}
 					}
-				}
-				if (boardSquare == null)
-				{
-					Log.Error("Couldn't even find a viable spawn square adjacent to any initial spawn squares for actor on team " + spawner.GetTeam().ToString() + ", make sure Initial Spawn Points are set up.", new object[0]);
-					int i = 0;
-					while (i < 0x80)
+					if (result != null)
 					{
-						if (!(boardSquare == null))
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								return boardSquare;
-							}
-						}
-						else
-						{
-							Board board = Board.Get();
-							int x = GameplayRandom.Range(0, board.GetMaxX());
-							int y = GameplayRandom.Range(0, board.GetMaxY());
-							BoardSquare boardSquare5 = board.GetSquareFromIndex(x, y);
-							if (this.CanSpawnOnSquare(spawner, boardSquare5, false))
-							{
-								boardSquare = boardSquare5;
-							}
-							i++;
-						}
+						break;
 					}
 				}
-				return boardSquare;
 			}
+			if (result == null)
+			{
+				Log.Error("Couldn't even find a viable spawn square adjacent to any initial spawn squares for actor on team " + spawner.GetTeam().ToString() + ", make sure Initial Spawn Points are set up.", new object[0]);
+				for (int i = 0; i < 0x80; i++)
+				{
+					if (result != null)
+					{
+						return result;
+					}
+					else
+					{
+						int x = GameplayRandom.Range(0, Board.Get().GetMaxX());
+						int y = GameplayRandom.Range(0, Board.Get().GetMaxY());
+						BoardSquare square = Board.Get().GetSquareFromIndex(x, y);
+						if (CanSpawnOnSquare(spawner, square, false))
+						{
+							result = square;
+						}
+
+					}
+				}
+			}
+			return result;
 		}
-		return this.GetSpawnSquare(spawner, false, spawnedActors, null);
+		return GetSpawnSquare(spawner, false, spawnedActors, null);
 	}
 
 	private void OnDrawGizmos()
@@ -517,64 +406,51 @@ public class SpawnPointManager : MonoBehaviour
 			return;
 		}
 		Gizmos.color = ActorData.s_teamAColor;
-		if (this.m_spawnPointsTeamA != null)
+		if (m_spawnPointsTeamA != null)
 		{
-			foreach (SpawnPointManager.SpawnPointCoord spawnPointCoord in this.m_spawnPointsTeamA)
+			foreach (SpawnPointCoord spawnPointCoord in m_spawnPointsTeamA)
 			{
-				BoardSquare boardSquare = (!(Board.Get() == null)) ? Board.Get().GetSquareFromIndex(spawnPointCoord.x, spawnPointCoord.y) : null;
-				if (boardSquare != null)
+				BoardSquare square = Board.Get()?.GetSquareFromIndex(spawnPointCoord.x, spawnPointCoord.y);
+				if (square != null)
 				{
-					Gizmos.DrawWireSphere(boardSquare.ToVector3(), 0.7f);
+					Gizmos.DrawWireSphere(square.ToVector3(), 0.7f);
 				}
 			}
 		}
 		Gizmos.color = ActorData.s_teamBColor;
-		if (this.m_spawnPointsTeamB != null)
+		if (m_spawnPointsTeamB != null)
 		{
-			foreach (SpawnPointManager.SpawnPointCoord spawnPointCoord2 in this.m_spawnPointsTeamB)
+			foreach (SpawnPointCoord spawnPointCoord in m_spawnPointsTeamB)
 			{
-				BoardSquare boardSquare2;
-				if (Board.Get() == null)
+				BoardSquare square = Board.Get()?.GetSquareFromIndex(spawnPointCoord.x, spawnPointCoord.y);
+				if (square != null)
 				{
-					boardSquare2 = null;
-				}
-				else
-				{
-					boardSquare2 = Board.Get().GetSquareFromIndex(spawnPointCoord2.x, spawnPointCoord2.y);
-				}
-				BoardSquare boardSquare3 = boardSquare2;
-				if (boardSquare3 != null)
-				{
-					Gizmos.DrawWireSphere(boardSquare3.ToVector3(), 0.7f);
+					Gizmos.DrawWireSphere(square.ToVector3(), 0.7f);
 				}
 			}
 		}
-		if (!(GameFlowData.Get() == null))
+		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 		{
-			if (!(GameFlowData.Get().activeOwnedActorData == null))
+			List<BoardSquare> spawnSquaresList = GetSpawnSquaresList(GameFlowData.Get().activeOwnedActorData.GetTeam(), m_respawnMethod);
+			int num = SortByProximityWeights(spawnSquaresList, GameFlowData.Get().activeOwnedActorData, true, null, null, null, false, false, 0);
+			Gizmos.color = ActorData.s_teamBColor;
+			for (int i = 0; i < spawnSquaresList.Count; i++)
 			{
-				List<BoardSquare> spawnSquaresList = this.GetSpawnSquaresList(GameFlowData.Get().activeOwnedActorData.GetTeam(), this.m_respawnMethod);
-				int num = this.SortByProximityWeights(spawnSquaresList, GameFlowData.Get().activeOwnedActorData, true, null, null, null, false, false, 0);
-				Gizmos.color = ActorData.s_teamBColor;
-				for (int k = 0; k < spawnSquaresList.Count; k++)
+				BoardSquare square = spawnSquaresList[i];
+				if (i == 0)
 				{
-					BoardSquare boardSquare4 = spawnSquaresList[k];
-					if (k == 0)
-					{
-						Gizmos.color = Color.green;
-					}
-					else if (k >= num)
-					{
-						Gizmos.color = Color.black;
-					}
-					else
-					{
-						float num2 = ((float)spawnSquaresList.Count - (float)k) / (float)spawnSquaresList.Count;
-						Gizmos.color = new Color(num2, num2, num2);
-					}
-					Gizmos.DrawSphere(boardSquare4.ToVector3(), 0.3f);
+					Gizmos.color = Color.green;
 				}
-				return;
+				else if (i >= num)
+				{
+					Gizmos.color = Color.black;
+				}
+				else
+				{
+					float num2 = (spawnSquaresList.Count - (float)i) / spawnSquaresList.Count;
+					Gizmos.color = new Color(num2, num2, num2);
+				}
+				Gizmos.DrawSphere(square.ToVector3(), 0.3f);
 			}
 		}
 	}
@@ -583,13 +459,12 @@ public class SpawnPointManager : MonoBehaviour
 	public class SpawnPointCoord
 	{
 		public int x;
-
 		public int y;
 
 		public SpawnPointCoord(int inputX, int inputY)
 		{
-			this.x = inputX;
-			this.y = inputY;
+			x = inputX;
+			y = inputY;
 		}
 	}
 
@@ -602,165 +477,112 @@ public class SpawnPointManager : MonoBehaviour
 
 	private class SpawnSquareComparer : IComparer<BoardSquare>
 	{
-		private Dictionary<BoardSquare, SpawnPointManager.SpawnSquareComparer.ScoreInfo> m_scores;
-
+		private Dictionary<BoardSquare, ScoreInfo> m_scores;
 		private ActorData m_actorSpawning;
-
 		private BoardSquare m_preferedSpawnLocation;
 
 		internal SpawnSquareComparer(List<BoardSquare> spawnSquareList, ActorData actorSpawning, bool avoidLastDeathPosition, List<ActorData> spawnedActors, BoardSquare preferedSpawnLocation, HashSet<BoardSquare> squaresToAvoid, HashSet<BoardSquare> squaresNotAllowed, bool onlyAvoidVisibleEnemies, bool allowOccupiedSquares)
 		{
-			this.m_scores = new Dictionary<BoardSquare, SpawnPointManager.SpawnSquareComparer.ScoreInfo>(spawnSquareList.Count);
-			this.m_actorSpawning = actorSpawning;
-			this.m_preferedSpawnLocation = preferedSpawnLocation;
-			SpawnPointManager spawnPointManager = SpawnPointManager.Get();
-			float chooseWeightEnemyProximity = spawnPointManager.m_chooseWeightEnemyProximity;
-			float chooseWeightFriendProximity = spawnPointManager.m_chooseWeightFriendProximity;
-			float num = spawnPointManager.m_chooseDontCareDistance * Board.Get().squareSize;
-			float num2 = (spawnedActors == null) ? (spawnPointManager.m_minDistToFriend * Board.Get().squareSize) : (spawnPointManager.m_startMinDistToFriend * Board.Get().squareSize);
-			num2 *= num2;
-			float num3;
-			if (spawnedActors != null)
+			m_scores = new Dictionary<BoardSquare, ScoreInfo>(spawnSquareList.Count);
+			m_actorSpawning = actorSpawning;
+			m_preferedSpawnLocation = preferedSpawnLocation;
+
+			SpawnPointManager spawnPointManager = Get();
+			float chooseDontCareDist = spawnPointManager.m_chooseDontCareDistance * Board.Get().squareSize;
+			float minDistToFriend = spawnedActors != null
+				? spawnPointManager.m_startMinDistToFriend * Board.Get().squareSize
+				: spawnPointManager.m_minDistToFriend * Board.Get().squareSize;
+			float minDistToFriendSqr = minDistToFriend * minDistToFriend;
+			float minDistToEnemy = spawnedActors != null
+				? spawnPointManager.m_startMinDistToEnemy * Board.Get().squareSize
+				: spawnPointManager.m_minDistToEnemy * Board.Get().squareSize;
+			float minDistToEnemySqr = minDistToEnemy * minDistToEnemy;
+			List<ActorData> actors = spawnedActors == null
+				? GameFlowData.Get().GetActors()
+				: spawnedActors;
+
+			foreach (BoardSquare square in spawnSquareList)
 			{
-				num3 = spawnPointManager.m_startMinDistToEnemy * Board.Get().squareSize;
-			}
-			else
-			{
-				num3 = spawnPointManager.m_minDistToEnemy * Board.Get().squareSize;
-			}
-			float num4 = num3;
-			num4 *= num4;
-			List<ActorData> list;
-			if (spawnedActors == null)
-			{
-				list = GameFlowData.Get().GetActors();
-			}
-			else
-			{
-				list = spawnedActors;
-			}
-			List<ActorData> list2 = list;
-			int i = 0;
-			while (i < spawnSquareList.Count)
-			{
-				BoardSquare boardSquare = spawnSquareList[i];
-				Vector3 b = boardSquare.ToVector3();
-				this.m_scores[boardSquare] = new SpawnPointManager.SpawnSquareComparer.ScoreInfo();
-				SpawnPointManager.SpawnSquareComparer.ScoreInfo scoreInfo = this.m_scores[boardSquare];
-				bool avoidIfPossible;
-				if (squaresToAvoid != null)
+				Vector3 squarePos = square.ToVector3();
+				m_scores[square] = new ScoreInfo();
+				ScoreInfo scoreInfo = m_scores[square];
+				scoreInfo.m_avoidIfPossible = squaresToAvoid != null && squaresToAvoid.Contains(square);
+				if (!spawnPointManager.CanSpawnOnSquare(m_actorSpawning, square, allowOccupiedSquares)
+					|| squaresNotAllowed == null
+					|| squaresNotAllowed.Contains(square))
 				{
-					avoidIfPossible = squaresToAvoid.Contains(boardSquare);
+					m_scores[square].m_cantSpawn = true;
 				}
-				else
+				else if (avoidLastDeathPosition)
 				{
-					avoidIfPossible = false;
-				}
-				scoreInfo.m_avoidIfPossible = avoidIfPossible;
-				if (!spawnPointManager.CanSpawnOnSquare(this.m_actorSpawning, boardSquare, allowOccupiedSquares))
-				{
-					goto IL_238;
-				}
-				if (squaresNotAllowed == null || squaresNotAllowed.Contains(boardSquare))
-				{
-					goto IL_238;
-				}
-				if (avoidLastDeathPosition)
-				{
-					float sqrMagnitude = (actorSpawning.LastDeathPosition - b).sqrMagnitude;
-					float num5 = Mathf.Max(0f, num - Mathf.Sqrt(sqrMagnitude));
-					float num6 = num5 * spawnPointManager.m_chooseWeightDeathProximity;
-					if (num5 < 0f && num6 > 0f)
+					float distToDeathSqr = (actorSpawning.LastDeathPosition - squarePos).sqrMagnitude;
+					float distDelta = Mathf.Max(0f, chooseDontCareDist - Mathf.Sqrt(distToDeathSqr));
+					float score = distDelta * spawnPointManager.m_chooseWeightDeathProximity;
+					if (distDelta < 0f && score > 0f)
 					{
-						num6 = 0f;
+						score = 0f;
 					}
-					this.m_scores[boardSquare].m_score = num6;
+					m_scores[square].m_score = score;
 				}
 				else
 				{
-					this.m_scores[boardSquare].m_score = 0f;
+					m_scores[square].m_score = 0f;
 				}
-				IL_24D:
-				for (int j = 0; j < list2.Count; j++)
+				foreach (ActorData actorData in actors)
 				{
-					ActorData actorData = list2[j];
-					if (actorData != null)
+					if (actorData != null
+						&& !actorData.IsDead()
+						&& actorData.PlayerIndex != PlayerData.s_invalidPlayerIndex
+						&& actorData.GetCurrentBoardSquare() != null)
 					{
-						if (!actorData.IsDead())
+						BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
+						float dist = (currentBoardSquare.ToVector3() - squarePos).sqrMagnitude;
+						bool isAlly = actorData.GetTeam() == m_actorSpawning.GetTeam();
+						if (isAlly && dist < minDistToFriendSqr)
 						{
-							if (actorData.PlayerIndex != PlayerData.s_invalidPlayerIndex)
+							m_scores[square].m_tooCloseToFriendly = true;
+						}
+						if (isAlly)
+						{
+							float distDelta = Mathf.Max(0f, chooseDontCareDist - Mathf.Sqrt(dist));
+							float proximityWeight = actorData.GetTeam() != m_actorSpawning.GetTeam()
+								? spawnPointManager.m_chooseWeightEnemyProximity
+								: spawnPointManager.m_chooseWeightFriendProximity;
+							float score = distDelta * proximityWeight;
+							if (distDelta < 0f && score > 0f)
 							{
-								if (actorData.GetCurrentBoardSquare() != null)
-								{
-									BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
-									float sqrMagnitude2 = (currentBoardSquare.ToVector3() - b).sqrMagnitude;
-									bool flag = actorData.GetTeam() == this.m_actorSpawning.GetTeam();
-									if (flag)
-									{
-										if (sqrMagnitude2 < num2)
-										{
-											this.m_scores[boardSquare].m_tooCloseToFriendly = true;
-										}
-									}
-									if (!flag)
-									{
-										if (sqrMagnitude2 < num4)
-										{
-											if (onlyAvoidVisibleEnemies)
-											{
-												if (!actorData.IsActorVisibleToAnyEnemy())
-												{
-													goto IL_379;
-												}
-											}
-											this.m_scores[boardSquare].m_tooCloseToEnemy = true;
-										}
-										IL_379:;
-									}
-									else
-									{
-										float num7 = Mathf.Max(0f, num - Mathf.Sqrt(sqrMagnitude2));
-										float num8 = num7 * ((actorData.GetTeam() != this.m_actorSpawning.GetTeam()) ? chooseWeightEnemyProximity : chooseWeightFriendProximity);
-										if (num7 < 0f && num8 > 0f)
-										{
-											num8 = 0f;
-										}
-										this.m_scores[boardSquare].m_score += num8;
-									}
-								}
+								score = 0f;
 							}
+							m_scores[square].m_score += score;
+						}
+						else if (dist < minDistToEnemySqr
+								&& (!onlyAvoidVisibleEnemies || actorData.IsActorVisibleToAnyEnemy()))
+						{
+							m_scores[square].m_tooCloseToEnemy = true;
 						}
 					}
 				}
-				if (!this.m_scores[boardSquare].m_cantSpawn)
+				if (!m_scores[square].m_cantSpawn)
 				{
-					if (this.m_scores[boardSquare].m_tooCloseToEnemy)
+					if (m_scores[square].m_tooCloseToEnemy)
 					{
-						this.NumEnemyTooCloseSquares++;
+						NumEnemyTooCloseSquares++;
 					}
-					else if (this.m_scores[boardSquare].m_tooCloseToFriendly)
+					else if (m_scores[square].m_tooCloseToFriendly)
 					{
-						this.NumFriendTooCloseSquares++;
+						NumFriendTooCloseSquares++;
 					}
-					else if (!this.m_scores[boardSquare].m_avoidIfPossible)
+					else if (!m_scores[square].m_avoidIfPossible)
 					{
-						this.NumFavoredSquares++;
+						NumFavoredSquares++;
 					}
 				}
-				i++;
-				continue;
-				IL_238:
-				this.m_scores[boardSquare].m_cantSpawn = true;
-				goto IL_24D;
 			}
 		}
 
 		internal int NumFavoredSquares { get; private set; }
-
 		internal int NumFriendTooCloseSquares { get; private set; }
-
 		internal int NumEnemyTooCloseSquares { get; private set; }
-
 		public int Compare(BoardSquare x, BoardSquare y)
 		{
 			if (x == null)
@@ -777,130 +599,102 @@ public class SpawnPointManager : MonoBehaviour
 				{
 					return -1;
 				}
-				if (this.m_scores[y].m_cantSpawn != this.m_scores[x].m_cantSpawn)
+				if (m_scores[y].m_cantSpawn != m_scores[x].m_cantSpawn)
 				{
-					int result;
-					if (this.m_scores[x].m_cantSpawn)
+					if (m_scores[x].m_cantSpawn)
 					{
-						result = 1;
+						return 1;
 					}
 					else
 					{
-						result = -1;
+						return -1;
 					}
-					return result;
 				}
-				if (this.m_preferedSpawnLocation != null)
+				if (m_preferedSpawnLocation != null)
 				{
-					if (!(this.m_preferedSpawnLocation == x))
+					if (m_preferedSpawnLocation == x || m_preferedSpawnLocation == y)
 					{
-						if (!(this.m_preferedSpawnLocation == y))
+						if (m_preferedSpawnLocation == x)
 						{
-							goto IL_109;
+							return -1;
+						}
+						else
+						{
+							return 1;
 						}
 					}
-					int result2;
-					if (this.m_preferedSpawnLocation == x)
-					{
-						result2 = -1;
-					}
-					else
-					{
-						result2 = 1;
-					}
-					return result2;
 				}
-				IL_109:
-				if (this.m_scores[y].m_avoidIfPossible != this.m_scores[x].m_avoidIfPossible)
+				if (m_scores[y].m_avoidIfPossible != m_scores[x].m_avoidIfPossible)
 				{
-					int result3;
-					if (this.m_scores[x].m_avoidIfPossible)
+					if (m_scores[x].m_avoidIfPossible)
 					{
-						result3 = 1;
+						return 1;
 					}
 					else
 					{
-						result3 = -1;
+						return -1;
 					}
-					return result3;
 				}
-				if (this.m_scores[y].m_tooCloseToEnemy != this.m_scores[x].m_tooCloseToEnemy)
+				if (m_scores[y].m_tooCloseToEnemy != m_scores[x].m_tooCloseToEnemy)
 				{
-					int result4;
-					if (this.m_scores[x].m_tooCloseToEnemy)
+					if (m_scores[x].m_tooCloseToEnemy)
 					{
-						result4 = 1;
+						return 1;
 					}
 					else
 					{
-						result4 = -1;
+						return -1;
 					}
-					return result4;
 				}
-				if (this.m_scores[y].m_tooCloseToFriendly != this.m_scores[x].m_tooCloseToFriendly)
+				if (m_scores[y].m_tooCloseToFriendly != m_scores[x].m_tooCloseToFriendly)
 				{
-					int result5;
-					if (this.m_scores[x].m_tooCloseToFriendly)
+					if (m_scores[x].m_tooCloseToFriendly)
 					{
-						result5 = 1;
+						return 1;
 					}
 					else
 					{
-						result5 = -1;
+						return -1;
 					}
-					return result5;
 				}
-				return this.m_scores[y].m_score.CompareTo(this.m_scores[x].m_score);
+				return m_scores[y].m_score.CompareTo(m_scores[x].m_score);
 			}
 		}
 
-		public void _001D(List<BoardSquare> _001D, float _000E = 20f)
+		public void Debug_DrawGizmo(List<BoardSquare> spawnSquareList, float timeToDisplay = 20f)
 		{
-			if (_001D != null)
+			if (spawnSquareList != null && m_scores != null)
 			{
-				if (this.m_scores != null)
+				bool flag = false;
+				foreach (BoardSquare square in spawnSquareList)
 				{
-					bool flag = false;
-					for (int i = 0; i < _001D.Count; i++)
+					if (m_scores.ContainsKey(square))
 					{
-						BoardSquare boardSquare = _001D[i];
-						if (this.m_scores.ContainsKey(boardSquare))
+						if (m_scores[square].m_cantSpawn)
 						{
-							if (this.m_scores[boardSquare].m_cantSpawn)
+							Debug.DrawRay(square.ToVector3(), 1.5f * Vector3.up, Color.red, timeToDisplay);
+						}
+						else if (m_scores[square].m_avoidIfPossible)
+						{
+							flag = true;
+							Debug.DrawRay(square.ToVector3(), new Vector3(0.5f, 1.5f, 0f), 0.5f * (Color.yellow + Color.red), timeToDisplay);
+						}
+						else if (!m_scores[square].m_tooCloseToEnemy && !m_scores[square].m_tooCloseToFriendly)
+						{
+							Debug.DrawRay(square.ToVector3(), 1.5f * Vector3.up, Color.white, timeToDisplay);
+							if (flag)
 							{
-								Debug.DrawRay(boardSquare.ToVector3(), 1.5f * Vector3.up, Color.red, _000E);
-							}
-							else if (this.m_scores[boardSquare].m_avoidIfPossible)
-							{
-								flag = true;
-								Debug.DrawRay(boardSquare.ToVector3(), new Vector3(0.5f, 1.5f, 0f), 0.5f * (Color.yellow + Color.red), _000E);
-							}
-							else
-							{
-								if (!this.m_scores[boardSquare].m_tooCloseToEnemy)
-								{
-									if (this.m_scores[boardSquare].m_tooCloseToFriendly)
-									{
-									}
-									else
-									{
-										Debug.DrawRay(boardSquare.ToVector3(), 1.5f * Vector3.up, Color.white, _000E);
-										if (flag)
-										{
-											Debug.LogWarning("Respawn: square to avoid not sorted toward end of list");
-											goto IL_1AA;
-										}
-										goto IL_1AA;
-									}
-								}
-								Debug.DrawRay(boardSquare.ToVector3(), new Vector3(0f, 1.5f, 0.5f), Color.magenta, _000E);
-								if (flag)
-								{
-									Debug.LogWarning("Respawn: square to avoid not sorted toward end of list");
-								}
+								Debug.LogWarning("Respawn: square to avoid not sorted toward end of list");
 							}
 						}
-						IL_1AA:;
+						else
+						{
+							Debug.DrawRay(square.ToVector3(), new Vector3(0f, 1.5f, 0.5f), Color.magenta, timeToDisplay);
+							if (flag)
+							{
+								Debug.LogWarning("Respawn: square to avoid not sorted toward end of list");
+							}
+						}
 					}
 				}
 			}
@@ -909,13 +703,9 @@ public class SpawnPointManager : MonoBehaviour
 		private class ScoreInfo
 		{
 			internal float m_score;
-
 			internal bool m_cantSpawn;
-
 			internal bool m_tooCloseToEnemy;
-
 			internal bool m_tooCloseToFriendly;
-
 			internal bool m_avoidIfPossible;
 		}
 	}
