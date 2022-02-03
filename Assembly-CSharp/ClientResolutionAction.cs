@@ -5,11 +5,8 @@ using UnityEngine;
 public class ClientResolutionAction : IComparable
 {
 	private ResolutionActionType m_type;
-
 	private ClientAbilityResults m_abilityResults;
-
 	private ClientEffectResults m_effectResults;
-
 	private ClientMovementResults m_moveResults;
 
 	public ClientResolutionAction()
@@ -26,107 +23,45 @@ public class ClientResolutionAction : IComparable
 			return 1;
 		}
 		ClientResolutionAction clientResolutionAction = obj as ClientResolutionAction;
-		if (clientResolutionAction != null)
+		if (clientResolutionAction == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-				{
-					if (ReactsToMovement() != clientResolutionAction.ReactsToMovement())
-					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								break;
-							default:
-								return ReactsToMovement().CompareTo(clientResolutionAction.ReactsToMovement());
-							}
-						}
-					}
-					if (!ReactsToMovement())
-					{
-						if (!clientResolutionAction.ReactsToMovement())
-						{
-							return 0;
-						}
-					}
-					float moveCost = m_moveResults.m_triggeringPath.moveCost;
-					float moveCost2 = clientResolutionAction.m_moveResults.m_triggeringPath.moveCost;
-					if (moveCost != moveCost2)
-					{
-						return moveCost.CompareTo(moveCost2);
-					}
-					bool flag = m_moveResults.HasBarrierHitResults();
-					bool flag2 = clientResolutionAction.m_moveResults.HasBarrierHitResults();
-					if (flag)
-					{
-						if (!flag2)
-						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									break;
-								default:
-									return -1;
-								}
-							}
-						}
-					}
-					if (!flag)
-					{
-						if (flag2)
-						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									break;
-								default:
-									return 1;
-								}
-							}
-						}
-					}
-					bool flag3 = m_moveResults.HasGameModeHitResults();
-					bool flag4 = clientResolutionAction.m_moveResults.HasGameModeHitResults();
-					if (flag3)
-					{
-						if (!flag4)
-						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									break;
-								default:
-									return -1;
-								}
-							}
-						}
-					}
-					if (!flag3)
-					{
-						if (flag4)
-						{
-							return 1;
-						}
-					}
-					return 0;
-				}
-				}
-			}
+			throw new ArgumentException("Object is not a ClientResolutionAction");
 		}
-		throw new ArgumentException("Object is not a ClientResolutionAction");
+		if (ReactsToMovement() != clientResolutionAction.ReactsToMovement())
+		{
+			return ReactsToMovement().CompareTo(clientResolutionAction.ReactsToMovement());
+		}
+		if (!ReactsToMovement() && !clientResolutionAction.ReactsToMovement())
+		{
+			return 0;
+		}
+		float moveCost = m_moveResults.m_triggeringPath.moveCost;
+		float moveCost2 = clientResolutionAction.m_moveResults.m_triggeringPath.moveCost;
+		if (moveCost != moveCost2)
+		{
+			return moveCost.CompareTo(moveCost2);
+		}
+		bool hasBarriers = m_moveResults.HasBarrierHitResults();
+		bool hasBarriers2 = clientResolutionAction.m_moveResults.HasBarrierHitResults();
+		if (hasBarriers && !hasBarriers2)
+		{
+			return -1;
+		}
+		if (!hasBarriers && hasBarriers2)
+		{
+			return 1;
+		}
+		bool hasGameMode = m_moveResults.HasGameModeHitResults();
+		bool hasGameMode2 = clientResolutionAction.m_moveResults.HasGameModeHitResults();
+		if (hasGameMode && !hasGameMode2)
+		{
+			return -1;
+		}
+		if (!hasGameMode && hasGameMode2)
+		{
+			return 1;
+		}
+		return 0;
 	}
 
 	public static ClientResolutionAction ClientResolutionAction_DeSerializeFromStream(ref IBitStream stream)
@@ -157,12 +92,16 @@ public class ClientResolutionAction : IComparable
 
 	public ActorData GetCaster()
 	{
-		return m_abilityResults?.GetCaster() ?? m_effectResults?.GetCaster() ?? null;
+		return m_abilityResults?.GetCaster()
+			?? m_effectResults?.GetCaster()
+			?? null;
 	}
 
 	public AbilityData.ActionType GetSourceAbilityActionType()
 	{
-		return m_abilityResults?.GetSourceActionType() ?? m_effectResults?.GetSourceActionType() ?? AbilityData.ActionType.INVALID_ACTION;
+		return m_abilityResults?.GetSourceActionType()
+			?? m_effectResults?.GetSourceActionType()
+			?? AbilityData.ActionType.INVALID_ACTION;
 	}
 
 	public bool IsResolutionActionType(ResolutionActionType testType)
@@ -172,7 +111,9 @@ public class ClientResolutionAction : IComparable
 
 	public bool HasReactionHitByCaster(ActorData caster)
 	{
-		return m_abilityResults?.HasReactionByCaster(caster) ?? m_effectResults?.HasReactionByCaster(caster) ?? false;
+		return m_abilityResults?.HasReactionByCaster(caster)
+			?? m_effectResults?.HasReactionByCaster(caster)
+			?? false;
 	}
 
 	public void GetHitResults(out Dictionary<ActorData, ClientActorHitResults> actorHitResList, out Dictionary<Vector3, ClientPositionHitResults> posHitResList)
@@ -183,14 +124,12 @@ public class ClientResolutionAction : IComparable
 		{
 			actorHitResList = m_abilityResults.GetActorHitResults();
 			posHitResList = m_abilityResults.GetPosHitResults();
-			return;
-				
+
 		}
-		if (m_effectResults != null)
+		else if (m_effectResults != null)
 		{
 			actorHitResList = m_effectResults.GetActorHitResults();
 			posHitResList = m_effectResults.GetPosHitResults();
-			return;
 		}
 	}
 
@@ -201,12 +140,10 @@ public class ClientResolutionAction : IComparable
 		if (m_abilityResults != null)
 		{
 			m_abilityResults.GetReactionHitResultsByCaster(caster, out actorHitResList, out posHitResList);
-			return;
 		}
-		if (m_effectResults != null)
+		else if (m_effectResults != null)
 		{
 			m_effectResults.GetReactionHitResultsByCaster(caster, out actorHitResList, out posHitResList);
-			return;
 		}
 	}
 
@@ -216,14 +153,9 @@ public class ClientResolutionAction : IComparable
 		{
 			m_abilityResults.StartSequences();
 		}
-		if (m_effectResults == null)
-		{
-			return;
-		}
-		while (true)
+		if (m_effectResults != null)
 		{
 			m_effectResults.StartSequences();
-			return;
 		}
 	}
 
@@ -237,156 +169,89 @@ public class ClientResolutionAction : IComparable
 		{
 			m_effectResults.StartSequences();
 		}
-		if (m_moveResults == null)
-		{
-			return;
-		}
-		while (true)
+		if (m_moveResults != null)
 		{
 			m_moveResults.ReactToMovement();
-			return;
 		}
 	}
 
 	public bool CompletedAction()
 	{
-		if (m_type == ResolutionActionType.AbilityCast)
+		switch (m_type)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return m_abilityResults.DoneHitting();
-				}
-			}
-		}
-		if (m_type != ResolutionActionType.EffectAnimation)
-		{
-			if (m_type != ResolutionActionType.EffectPulse)
-			{
-				if (m_type != ResolutionActionType.EffectOnMove)
-				{
-					if (m_type != ResolutionActionType.BarrierOnMove)
-					{
-						if (m_type != ResolutionActionType.PowerupOnMove)
-						{
-							if (m_type != ResolutionActionType.GameModeOnMove)
-							{
-								Debug.LogError("ClientResolutionAction has unknown type: " + (int)m_type + ".  Assuming it's complete...");
-								return true;
-							}
-						}
-					}
-				}
+			case ResolutionActionType.AbilityCast:
+				return m_abilityResults.DoneHitting();
+			case ResolutionActionType.EffectAnimation:
+			case ResolutionActionType.EffectPulse:
+				return m_effectResults.DoneHitting();
+			case ResolutionActionType.EffectOnMove:
+			case ResolutionActionType.BarrierOnMove:
+			case ResolutionActionType.PowerupOnMove:
+			case ResolutionActionType.GameModeOnMove:
 				return m_moveResults.DoneHitting();
-			}
+			default:
+				Debug.LogError("ClientResolutionAction has unknown type: " + (int)m_type + ".  Assuming it's complete...");
+				return true;
 		}
-		return m_effectResults.DoneHitting();
 	}
 
 	public void ExecuteUnexecutedClientHitsInAction()
 	{
-		if (m_type == ResolutionActionType.AbilityCast)
+		switch (m_type)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityResults.ExecuteUnexecutedClientHits();
-					return;
-				}
-			}
-		}
-		if (m_type != ResolutionActionType.EffectAnimation)
-		{
-			if (m_type != ResolutionActionType.EffectPulse)
-			{
-				if (m_type != ResolutionActionType.EffectOnMove)
-				{
-					if (m_type != ResolutionActionType.BarrierOnMove && m_type != ResolutionActionType.PowerupOnMove)
-					{
-						if (m_type != ResolutionActionType.GameModeOnMove)
-						{
-							return;
-						}
-					}
-				}
+			case ResolutionActionType.AbilityCast:
+				m_abilityResults.ExecuteUnexecutedClientHits();
+				break;
+			case ResolutionActionType.EffectAnimation:
+			case ResolutionActionType.EffectPulse:
+				m_effectResults.ExecuteUnexecutedClientHits();
+				break;
+			case ResolutionActionType.EffectOnMove:
+			case ResolutionActionType.BarrierOnMove:
+			case ResolutionActionType.PowerupOnMove:
+			case ResolutionActionType.GameModeOnMove:
 				m_moveResults.ExecuteUnexecutedClientHits();
-				return;
-			}
+				break;
 		}
-		m_effectResults.ExecuteUnexecutedClientHits();
 	}
 
 	public bool HasUnexecutedHitOnActor(ActorData actor)
 	{
-		bool result = false;
-		if (m_type == ResolutionActionType.AbilityCast)
+		switch (m_type)
 		{
-			result = m_abilityResults.HasUnexecutedHitOnActor(actor);
+			case ResolutionActionType.AbilityCast:
+				return m_abilityResults.HasUnexecutedHitOnActor(actor);
+			case ResolutionActionType.EffectAnimation:
+			case ResolutionActionType.EffectPulse:
+				return m_effectResults.HasUnexecutedHitOnActor(actor);
+			case ResolutionActionType.EffectOnMove:
+			case ResolutionActionType.BarrierOnMove:
+			case ResolutionActionType.PowerupOnMove:
+			case ResolutionActionType.GameModeOnMove:
+				return m_moveResults.HasUnexecutedHitOnActor(actor);
+			default:
+				return false;
 		}
-		else
-		{
-			if (m_type != ResolutionActionType.EffectAnimation)
-			{
-				if (m_type != ResolutionActionType.EffectPulse)
-				{
-					if (m_type != ResolutionActionType.EffectOnMove)
-					{
-						if (m_type != ResolutionActionType.BarrierOnMove && m_type != ResolutionActionType.PowerupOnMove)
-						{
-							if (m_type != ResolutionActionType.GameModeOnMove)
-							{
-								goto IL_00a3;
-							}
-						}
-					}
-					result = m_moveResults.HasUnexecutedHitOnActor(actor);
-					goto IL_00a3;
-				}
-			}
-			result = m_effectResults.HasUnexecutedHitOnActor(actor);
-		}
-		goto IL_00a3;
-		IL_00a3:
-		return result;
 	}
 
 	public void ExecuteReactionHitsWithExtraFlagsOnActor(ActorData targetActor, ActorData caster, bool hasDamage, bool hasHealing)
 	{
-		if (m_type == ResolutionActionType.AbilityCast)
+		switch (m_type)
 		{
-			m_abilityResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
-			return;
-		}
-		if (m_type != ResolutionActionType.EffectAnimation)
-		{
-			if (m_type != ResolutionActionType.EffectPulse)
-			{
-				if (m_type != ResolutionActionType.EffectOnMove)
-				{
-					if (m_type != ResolutionActionType.BarrierOnMove)
-					{
-						if (m_type != ResolutionActionType.PowerupOnMove)
-						{
-							if (m_type != ResolutionActionType.GameModeOnMove)
-							{
-								return;
-							}
-						}
-					}
-				}
+			case ResolutionActionType.AbilityCast:
+				m_abilityResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
+				break;
+			case ResolutionActionType.EffectAnimation:
+			case ResolutionActionType.EffectPulse:
+				m_effectResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
+				break;
+			case ResolutionActionType.EffectOnMove:
+			case ResolutionActionType.BarrierOnMove:
+			case ResolutionActionType.PowerupOnMove:
+			case ResolutionActionType.GameModeOnMove:
 				m_moveResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
-				return;
-			}
+				break;
 		}
-		m_effectResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 	}
 
 	public static bool DoneHitting(Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> positionHitResults)
@@ -414,118 +279,64 @@ public class ClientResolutionAction : IComparable
 
 	public static bool HasUnexecutedHitOnActor(ActorData targetActor, Dictionary<ActorData, ClientActorHitResults> actorToHitResults)
 	{
-		bool result = false;
-		using (Dictionary<ActorData, ClientActorHitResults>.Enumerator enumerator = actorToHitResults.GetEnumerator())
+		foreach (KeyValuePair<ActorData, ClientActorHitResults> hitResults in actorToHitResults)
 		{
-			while (enumerator.MoveNext())
+			if (!hitResults.Value.ExecutedHit && hitResults.Key.ActorIndex == targetActor.ActorIndex)
 			{
-				KeyValuePair<ActorData, ClientActorHitResults> current = enumerator.Current;
-				ClientActorHitResults value = current.Value;
-				if (!value.ExecutedHit)
-				{
-					if (current.Key.ActorIndex == targetActor.ActorIndex)
-					{
-						goto IL_006f;
-					}
-				}
-				if (!value.HasUnexecutedReactionOnActor(targetActor))
-				{
-					continue;
-				}
-				goto IL_006f;
-				IL_006f:
 				return true;
 			}
-			while (true)
+			if (hitResults.Value.HasUnexecutedReactionOnActor(targetActor))
 			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return result;
-				}
+				return true;
 			}
 		}
+		return false;
 	}
 
 	public static void ExecuteUnexecutedHits(Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> positionHitResults, ActorData caster)
 	{
-		using (Dictionary<ActorData, ClientActorHitResults>.Enumerator enumerator = actorToHitResults.GetEnumerator())
+		foreach (KeyValuePair<ActorData, ClientActorHitResults> hitResults in actorToHitResults)
 		{
-			while (enumerator.MoveNext())
+			if (!hitResults.Value.ExecutedHit)
 			{
-				KeyValuePair<ActorData, ClientActorHitResults> current = enumerator.Current;
-				if (!current.Value.ExecutedHit)
+				if (ClientAbilityResults.DebugTraceOn)
 				{
-					ActorData key = current.Key;
-					if (ClientAbilityResults.DebugTraceOn)
-					{
-						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted actor hit on " + key.DebugNameString() + " from " + caster.DebugNameString());
-					}
-					current.Value.ExecuteActorHit(current.Key, caster);
+					Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted actor hit on " + hitResults.Key.DebugNameString() + " from " + caster.DebugNameString());
 				}
+				hitResults.Value.ExecuteActorHit(hitResults.Key, caster);
 			}
 		}
-		using (Dictionary<Vector3, ClientPositionHitResults>.Enumerator enumerator2 = positionHitResults.GetEnumerator())
+		foreach (KeyValuePair<Vector3, ClientPositionHitResults> hitResults in positionHitResults)
 		{
-			while (enumerator2.MoveNext())
+			if (!hitResults.Value.ExecutedHit)
 			{
-				KeyValuePair<Vector3, ClientPositionHitResults> current2 = enumerator2.Current;
-				if (!current2.Value.ExecutedHit)
+				if (ClientAbilityResults.DebugTraceOn)
 				{
-					if (ClientAbilityResults.DebugTraceOn)
-					{
-						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted position hit on " + current2.Key.ToString() + " from " + caster.DebugNameString());
-					}
-					current2.Value.ExecutePositionHit();
+					Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted position hit on " + hitResults.Key.ToString() + " from " + caster.DebugNameString());
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
+				hitResults.Value.ExecutePositionHit();
 			}
 		}
 	}
 
 	public static void ExecuteReactionHitsWithExtraFlagsOnActorAux(Dictionary<ActorData, ClientActorHitResults> actorToHitResults, ActorData targetActor, ActorData caster, bool hasDamage, bool hasHealing)
 	{
-		foreach (KeyValuePair<ActorData, ClientActorHitResults> actorToHitResult in actorToHitResults)
+		foreach (KeyValuePair<ActorData, ClientActorHitResults> hitResults in actorToHitResults)
 		{
-			ActorData key = actorToHitResult.Key;
-			ClientActorHitResults value = actorToHitResult.Value;
-			if (!value.ExecutedHit)
+			if (!hitResults.Value.ExecutedHit && hitResults.Key == targetActor)
 			{
-				if (key == targetActor)
-				{
-					value.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
-				}
+				hitResults.Value.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 			}
 		}
 	}
 
 	public static bool HasReactionHitByCaster(ActorData caster, Dictionary<ActorData, ClientActorHitResults> actorHitResults)
 	{
-		foreach (KeyValuePair<ActorData, ClientActorHitResults> actorHitResult in actorHitResults)
+		foreach (KeyValuePair<ActorData, ClientActorHitResults> hitResults in actorHitResults)
 		{
-			if (actorHitResult.Value.HasReactionHitByCaster(caster))
+			if (hitResults.Value.HasReactionHitByCaster(caster))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return true;
-					}
-				}
+				return true;
 			}
 		}
 		return false;
@@ -535,35 +346,12 @@ public class ClientResolutionAction : IComparable
 	{
 		reactionActorHits = null;
 		reactionPosHits = null;
-		using (Dictionary<ActorData, ClientActorHitResults>.Enumerator enumerator = actorHitResults.GetEnumerator())
+		foreach (KeyValuePair<ActorData, ClientActorHitResults> hitResults in actorHitResults)
 		{
-			while (enumerator.MoveNext())
+			if (hitResults.Value.HasReactionHitByCaster(caster))
 			{
-				KeyValuePair<ActorData, ClientActorHitResults> current = enumerator.Current;
-				if (current.Value.HasReactionHitByCaster(caster))
-				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							break;
-						default:
-							current.Value.GetReactionHitResultsByCaster(caster, out reactionActorHits, out reactionPosHits);
-							return;
-						}
-					}
-				}
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
+				hitResults.Value.GetReactionHitResultsByCaster(caster, out reactionActorHits, out reactionPosHits);
+				return;
 			}
 		}
 	}
@@ -575,245 +363,148 @@ public class ClientResolutionAction : IComparable
 
 	public bool ContainsSequenceSourceID(uint id)
 	{
-		if (m_type == ResolutionActionType.AbilityCast)
+		switch (m_type)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return m_abilityResults.ContainsSequenceSourceID(id);
-				}
-			}
-		}
-		if (m_type != ResolutionActionType.EffectAnimation)
-		{
-			if (m_type != ResolutionActionType.EffectPulse)
-			{
-				if (m_type != ResolutionActionType.EffectOnMove)
-				{
-					if (m_type != ResolutionActionType.BarrierOnMove)
-					{
-						if (m_type != ResolutionActionType.PowerupOnMove)
-						{
-							if (m_type != ResolutionActionType.GameModeOnMove)
-							{
-								Debug.LogError("ClientResolutionAction has unknown type: " + (int)m_type + ".  Assuming it does not have a given SequenceSource...");
-								return false;
-							}
-						}
-					}
-				}
+			case ResolutionActionType.AbilityCast:
+				return m_abilityResults.ContainsSequenceSourceID(id);
+			case ResolutionActionType.EffectAnimation:
+			case ResolutionActionType.EffectPulse:
+				return m_effectResults.ContainsSequenceSourceID(id);
+			case ResolutionActionType.EffectOnMove:
+			case ResolutionActionType.BarrierOnMove:
+			case ResolutionActionType.PowerupOnMove:
+			case ResolutionActionType.GameModeOnMove:
 				return m_moveResults.ContainsSequenceSourceID(id);
-			}
+			default:
+				Debug.LogError("ClientResolutionAction has unknown type: " + (int)m_type + ".  Assuming it does not have a given SequenceSource...");
+				return false;
 		}
-		return m_effectResults.ContainsSequenceSourceID(id);
 	}
 
 	public bool ReactsToMovement()
 	{
-		int result;
-		if (m_type != ResolutionActionType.EffectOnMove && m_type != ResolutionActionType.BarrierOnMove)
-		{
-			if (m_type != ResolutionActionType.PowerupOnMove)
-			{
-				result = ((m_type == ResolutionActionType.GameModeOnMove) ? 1 : 0);
-				goto IL_0044;
-			}
-		}
-		result = 1;
-		goto IL_0044;
-		IL_0044:
-		return (byte)result != 0;
+		return m_type == ResolutionActionType.EffectOnMove
+			|| m_type == ResolutionActionType.BarrierOnMove
+			|| m_type == ResolutionActionType.PowerupOnMove
+			|| m_type == ResolutionActionType.GameModeOnMove;
 	}
 
 	public ActorData GetTriggeringMovementActor()
 	{
-		if (m_moveResults == null)
+		if (m_moveResults != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return null;
-				}
-			}
+			return m_moveResults.m_triggeringMover;
 		}
-		return m_moveResults.m_triggeringMover;
+		return null;
 	}
 
 	public void OnActorMoved_ClientResolutionAction(ActorData mover, BoardSquarePathInfo curPath)
 	{
-		if (!m_moveResults.TriggerMatchesMovement(mover, curPath))
-		{
-			return;
-		}
-		while (true)
+		if (m_moveResults.TriggerMatchesMovement(mover, curPath))
 		{
 			m_moveResults.ReactToMovement();
-			return;
 		}
 	}
 
 	public void AdjustKnockbackCounts_ClientResolutionAction(ref Dictionary<ActorData, int> outgoingKnockbacks, ref Dictionary<ActorData, int> incomingKnockbacks)
 	{
-		if (m_type == ResolutionActionType.AbilityCast)
+		switch (m_type)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityResults.AdjustKnockbackCounts_ClientAbilityResults(ref outgoingKnockbacks, ref incomingKnockbacks);
-					return;
-				}
-			}
+			case ResolutionActionType.AbilityCast:
+				m_abilityResults.AdjustKnockbackCounts_ClientAbilityResults(ref outgoingKnockbacks, ref incomingKnockbacks);
+				break;
+			case ResolutionActionType.EffectAnimation:
+			case ResolutionActionType.EffectPulse:
+				m_effectResults.AdjustKnockbackCounts_ClientEffectResults(ref outgoingKnockbacks, ref incomingKnockbacks);
+				break;
 		}
-		if (m_type != ResolutionActionType.EffectAnimation)
-		{
-			if (m_type != ResolutionActionType.EffectPulse)
-			{
-				return;
-			}
-		}
-		m_effectResults.AdjustKnockbackCounts_ClientEffectResults(ref outgoingKnockbacks, ref incomingKnockbacks);
 	}
 
 	public string GetDebugDescription()
 	{
 		string str = m_type.ToString() + ": ";
-		if (m_type == ResolutionActionType.AbilityCast)
+		switch (m_type)
 		{
-			return str + m_abilityResults.GetDebugDescription();
-		}
-		if (m_type != ResolutionActionType.EffectAnimation)
-		{
-			if (m_type != ResolutionActionType.EffectPulse)
-			{
-				if (m_type != ResolutionActionType.EffectOnMove)
-				{
-					if (m_type != ResolutionActionType.BarrierOnMove)
-					{
-						if (m_type != ResolutionActionType.PowerupOnMove)
-						{
-							if (m_type != ResolutionActionType.GameModeOnMove)
-							{
-								return str + "??? (invalid results)";
-							}
-						}
-					}
-				}
+			case ResolutionActionType.AbilityCast:
+				return str + m_abilityResults.GetDebugDescription();
+			case ResolutionActionType.EffectAnimation:
+			case ResolutionActionType.EffectPulse:
+				return str + m_effectResults.GetDebugDescription();
+			case ResolutionActionType.EffectOnMove:
+			case ResolutionActionType.BarrierOnMove:
+			case ResolutionActionType.PowerupOnMove:
+			case ResolutionActionType.GameModeOnMove:
 				return str + m_moveResults.GetDebugDescription();
-			}
+			default:
+				return str + "??? (invalid results)";
 		}
-		return str + m_effectResults.GetDebugDescription();
 	}
 
 	public string GetUnexecutedHitsDebugStr(bool logSequenceDataActors = false)
 	{
 		string text;
-		if (m_type == ResolutionActionType.AbilityCast)
+		switch (m_type)
 		{
-			text = m_abilityResults.UnexecutedHitsDebugStr();
-			if (logSequenceDataActors)
-			{
-				text = text + "\n" + m_abilityResults.GetSequenceStartDataDebugStr() + "\n";
-			}
-		}
-		else if (m_type == ResolutionActionType.EffectAnimation || m_type == ResolutionActionType.EffectPulse)
-		{
-			text = m_effectResults.UnexecutedHitsDebugStr();
-		}
-		else
-		{
-			if (m_type != ResolutionActionType.EffectOnMove)
-			{
-				if (m_type != ResolutionActionType.BarrierOnMove && m_type != ResolutionActionType.PowerupOnMove)
+			case ResolutionActionType.AbilityCast:
+				text = m_abilityResults.UnexecutedHitsDebugStr();
+				if (logSequenceDataActors)
 				{
-					if (m_type != ResolutionActionType.GameModeOnMove)
-					{
-						text = string.Empty;
-						goto IL_00bf;
-					}
+					text = text + "\n" + m_abilityResults.GetSequenceStartDataDebugStr() + "\n";
 				}
-			}
-			text = m_moveResults.UnexecutedHitsDebugStr();
+				break;
+			case ResolutionActionType.EffectAnimation:
+			case ResolutionActionType.EffectPulse:
+				text = m_effectResults.UnexecutedHitsDebugStr();
+				break;
+			case ResolutionActionType.EffectOnMove:
+			case ResolutionActionType.BarrierOnMove:
+			case ResolutionActionType.PowerupOnMove:
+			case ResolutionActionType.GameModeOnMove:
+				text = m_moveResults.UnexecutedHitsDebugStr();
+				break;
+			default:
+				text = "";
+				break;
 		}
-		goto IL_00bf;
-		IL_00bf:
 		return text;
 	}
 
 	public static string AssembleUnexecutedHitsDebugStr(Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> positionToHitResults)
 	{
-		int num = 0;
-		string text = string.Empty;
-		int num2 = 0;
-		string text2 = string.Empty;
-		using (Dictionary<ActorData, ClientActorHitResults>.Enumerator enumerator = actorToHitResults.GetEnumerator())
+		int numUnexecuted = 0;
+		int numExecuted = 0;
+		string unexecuted = "";
+		string executed = "";
+		foreach (KeyValuePair<ActorData, ClientActorHitResults> hitResult in actorToHitResults)
 		{
-			while (enumerator.MoveNext())
+			if (!hitResult.Value.ExecutedHit)
 			{
-				KeyValuePair<ActorData, ClientActorHitResults> current = enumerator.Current;
-				ActorData key = current.Key;
-				ClientActorHitResults value = current.Value;
-				if (!value.ExecutedHit)
-				{
-					num++;
-					string text3 = text;
-					text = text3 + "\n\t\t" + num + ". ActorHit on " + key.DebugNameString();
-				}
-				else
-				{
-					num2++;
-					string text3 = text2;
-					text2 = text3 + "\n\t\t" + num2 + ". ActorHit on " + key.DebugNameString();
-				}
+				numUnexecuted++;
+				executed += "\n\t\t" + numUnexecuted + ". ActorHit on " + hitResult.Key.DebugNameString();
 			}
-			while (true)
+			else
 			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					goto end_IL_001a;
-				}
-			}
-			end_IL_001a:;
-		}
-		using (Dictionary<Vector3, ClientPositionHitResults>.Enumerator enumerator2 = positionToHitResults.GetEnumerator())
-		{
-			while (enumerator2.MoveNext())
-			{
-				KeyValuePair<Vector3, ClientPositionHitResults> current2 = enumerator2.Current;
-				Vector3 key2 = current2.Key;
-				ClientPositionHitResults value2 = current2.Value;
-				if (!value2.ExecutedHit)
-				{
-					num++;
-					string text3 = text;
-					text = text3 + "\n\t\t" + num + ". PositionHit on " + key2.ToString();
-				}
-				else
-				{
-					num2++;
-					string text3 = text2;
-					text2 = text3 + "\n\t\t" + num2 + ". PositionHit on " + key2.ToString();
-				}
+				numExecuted++;
+				unexecuted += "\n\t\t" + numExecuted + ". ActorHit on " + hitResult.Key.DebugNameString();
 			}
 		}
-		string str = "\n\tUnexecuted hits: " + num + text;
-		if (num2 > 0)
+		foreach (KeyValuePair<Vector3, ClientPositionHitResults> hitResult in positionToHitResults)
 		{
-			str = str + "\n\tExecuted hits: " + num2 + text2;
+			if (!hitResult.Value.ExecutedHit)
+			{
+				numUnexecuted++;
+				executed += "\n\t\t" + numUnexecuted + ". PositionHit on " + hitResult.Key.ToString();
+			}
+			else
+			{
+				numExecuted++;
+				unexecuted += "\n\t\t" + numExecuted + ". PositionHit on " + hitResult.Key.ToString();
+			}
+		}
+		string str = "\n\tUnexecuted hits: " + numUnexecuted + executed;
+		if (numExecuted > 0)
+		{
+			str += "\n\tExecuted hits: " + numExecuted + unexecuted;
 		}
 		return str + "\n";
 	}
