@@ -541,7 +541,7 @@ public static class ServerClientUtils
 		{
 			if (bools[i])
 			{
-				bitfield = (byte)(bitfield | (byte)(1 << i));
+				bitfield |= (byte)(1 << i);
 			}
 		}
 		return bitfield;
@@ -555,7 +555,7 @@ public static class ServerClientUtils
 		{
 			if (bools[i])
 			{
-				bitfield = (short)(bitfield | (short)(1 << i));
+				bitfield |= (short)(1 << i);
 			}
 		}
 		return bitfield;
