@@ -391,10 +391,11 @@ public class Barrier
 		}
 		Vector3 facingDir = VectorUtils.AngleDegreesToVector(info.m_facingHorizontalAngle);
 		float width = info.m_widthInWorld / Board.Get().squareSize;
-		Barrier barrier = new Barrier(info.m_guid, string.Empty, info.m_center, facingDir, width, info.m_bidirectional, blocksVision, blocksAbilities, blocksMovement, blocksPositionTargeting, info.m_considerAsCover, -1, owner);
-		barrier.BlocksMovementOnCrossover = blocksMovementOnCrossover;
-		barrier.m_makeClientGeo = info.m_makeClientGeo;
-		return barrier;
+		return new Barrier(info.m_guid, "", info.m_center, facingDir, width, info.m_bidirectional, blocksVision, blocksAbilities, blocksMovement, blocksPositionTargeting, info.m_considerAsCover, -1, owner)
+		{
+			BlocksMovementOnCrossover = blocksMovementOnCrossover,
+			m_makeClientGeo = info.m_makeClientGeo
+		};
 	}
 
 	public virtual List<ServerClientUtils.SequenceStartData> GetSequenceStartDataList()
@@ -420,11 +421,14 @@ public class Barrier
 					Sequence.IExtraSequenceParams[] extraParams = null;
 					if (requiresExtraParams)
 					{
-						extraParams = new Sequence.IExtraSequenceParams[1];
-						GroundLineSequence.ExtraParams extraParam = new GroundLineSequence.ExtraParams();
-						extraParam.startPos = m_endpoint2;
-						extraParam.endPos = m_endpoint1;
-						extraParams[0] = extraParam;
+						extraParams = new Sequence.IExtraSequenceParams[]
+						{
+							new GroundLineSequence.ExtraParams
+							{
+								startPos = m_endpoint2,
+								endPos = m_endpoint1
+							}
+						};
 					}
 					ServerClientUtils.SequenceStartData seq = new ServerClientUtils.SequenceStartData(
 						prefab, null, targetRotation, targetActorArray, m_owner, BarrierSequenceSource, extraParams);
