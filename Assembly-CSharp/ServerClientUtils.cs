@@ -1,4 +1,8 @@
+﻿// ROGUES
+// SERVER
+//using System;
 using System.Collections.Generic;
+//using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -166,6 +170,7 @@ public static class ServerClientUtils
 			}
 		}
 
+		// removed in rogues
 		public List<int> GetTargetActorIndices()
 		{
 			if (m_targetActorIndices != null)
@@ -196,7 +201,7 @@ public static class ServerClientUtils
 			}
 		}
 
-		public void InitExtraParams(Sequence.IExtraSequenceParams[] extraParams)
+		public void InitExtraParams(Sequence.IExtraSequenceParams[] extraParams)  // private in rogues
 		{
 			if (extraParams != null && extraParams.Length > 0)
 			{
@@ -240,6 +245,18 @@ public static class ServerClientUtils
 			return text;
 		}
 
+		// TODO SERIALIZATION check this
+		// custom
+#if SERVER2
+		// NetworkWriter in rogues
+		public void SequenceStartData_SerializeToStream(NetworkWriter writer)
+        {
+			IBitStream stream = new NetworkWriterAdapter(writer);
+			SequenceStartData_SerializeToStream(ref stream);
+		}
+#endif
+
+		// reactor
 		public void SequenceStartData_SerializeToStream(ref IBitStream stream)
 		{
 			uint position = stream.Position;
@@ -286,6 +303,7 @@ public static class ServerClientUtils
 			}
 		}
 
+		// NetworkReader in rogues
 		public static SequenceStartData SequenceStartData_DeserializeFromStream(ref IBitStream stream)
 		{
 			short prefabId = -1;
@@ -426,6 +444,7 @@ public static class ServerClientUtils
 		{
 			EffectGuid,
 			BarrierGuid,
+			// removed in rogues
 			SequenceSourceId
 		}
 
@@ -450,6 +469,18 @@ public static class ServerClientUtils
 			m_targetPos = targetPos;
 		}
 
+		// custom
+		// TODO SERIALIZATION
+		// NetworkWriter in rogues
+#if SERVER2
+		public void SequenceEndData_SerializeToStream(NetworkWriter writer)
+		{
+			IBitStream stream = new NetworkWriterAdapter(writer);
+			SequenceEndData_SerializeToStream(ref stream);
+		}
+#endif
+
+		// reactor
 		public void SequenceEndData_SerializeToStream(ref IBitStream stream)
 		{
 			sbyte associationType = (sbyte)m_associationType;
@@ -464,6 +495,7 @@ public static class ServerClientUtils
 			}
 		}
 
+		// NetworkReader in rogues
 		public static SequenceEndData SequenceEndData_DeserializeFromStream(ref IBitStream stream)
 		{
 			short prefabId = -1;
@@ -492,6 +524,7 @@ public static class ServerClientUtils
 				case AssociationType.BarrierGuid:
 					ClientEffectBarrierManager.Get().EndSequenceOfBarrier(m_prefabId, (int)m_association, m_targetPos);
 					break;
+				// removed in rogues
 				case AssociationType.SequenceSourceId:
 					SequenceManager.Get().MarkSequenceToEndBySourceId(m_prefabId, (int)m_association, m_targetPos);
 					break;
@@ -501,6 +534,7 @@ public static class ServerClientUtils
 
 	public const bool c_sendClientCastActions = false;
 
+	// removed in rogues
 	public static ActionBufferPhase GetCurrentActionPhase()
 	{
 		if (!NetworkServer.active)
@@ -514,21 +548,32 @@ public static class ServerClientUtils
 				Log.Error("Trying to examine current action phase, but ClientActionBuffer does not exist.");
 			}
 		}
+		// TODO server code might be missing
 		return ActionBufferPhase.Done;
 	}
 
 	public static AbilityPriority GetCurrentAbilityPhase()
 	{
-		if (!NetworkServer.active)
+		if (NetworkServer.active)  // server-only
 		{
-			if (ClientActionBuffer.Get() != null)
+#if SERVER
+			if (ServerActionBuffer.Get() != null)
 			{
-				return ClientActionBuffer.Get().AbilityPhase;
+				return ServerActionBuffer.Get().AbilityPhase;
 			}
 			else
 			{
-				Log.Error("Trying to examine current ability phase, but ClientActionBuffer does not exist.");
+				Log.Error("Trying to examine current ability phase, but ServerActionBuffer does not exist.");
 			}
+#endif
+		}
+		else if (ClientActionBuffer.Get() != null)
+		{
+			return ClientActionBuffer.Get().AbilityPhase;
+		}
+		else
+		{
+			Log.Error("Trying to examine current ability phase, but ClientActionBuffer does not exist.");
 		}
 		return AbilityPriority.INVALID;
 	}
@@ -680,4 +725,9 @@ public static class ServerClientUtils
 	{
 		out0 = ((bitField & 0x1) != 0);
 	}
+
+	// rogues
+	//public static void LogNullSequencePrefabs(List<ServerClientUtils.SequenceStartData> seqStartData, string context)
+	//{
+	//}
 }

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -76,6 +78,7 @@ public static class MovementUtils
 		}
 	}
 
+	// removed in rogues
 	internal static void SerializePath(BoardSquarePathInfo path, IBitStream stream)
 	{
 		if (stream.isReading)
@@ -166,6 +169,7 @@ public static class MovementUtils
 		return networkWriter.ToArray();
 	}
 
+	// removed in rogues
 	internal static BoardSquarePathInfo DeSerializePath(IBitStream stream)
 	{
 		BoardSquarePathInfo start = new BoardSquarePathInfo();
@@ -358,11 +362,13 @@ public static class MovementUtils
 		return DeSerializePath(new NetworkReader(data));
 	}
 
+	// slightly refactored in rogues -- leaving reactor version here
 	internal static void SerializeLightweightPath(BoardSquarePathInfo path, NetworkWriter stream)
 	{
 		SerializeLightweightPath(path, new NetworkWriterAdapter(stream));
 	}
 
+	// slightly refactored in rogues -- leaving reactor version here
 	internal static void SerializeLightweightPath(BoardSquarePathInfo path, IBitStream stream)
 	{
 		if (stream == null)
@@ -448,6 +454,7 @@ public static class MovementUtils
 		}
 	}
 
+	// slightly refactored in rogues -- leaving reactor version here
 	internal static BoardSquarePathInfo DeSerializeLightweightPath(IBitStream stream)
 	{
 		if (stream == null)
@@ -630,10 +637,14 @@ public static class MovementUtils
 			&& !Physics.Raycast(vector, vector2, out hitInfo, magnitude, mask)
 			&& !Physics.Raycast(vector - b2, vector2, out hitInfo, magnitude, mask)
 			&& !BarrierManager.Get().IsMovementBlocked(mover, src, dst);
+		// rogues
+		//&& !src.IsThickCover(VectorUtils.GetCoverDirection(src, dst))
+		//&& !dst.IsThickCover(VectorUtils.GetCoverDirection(dst, src));
 	}
 
 	public static void CreateUnskippableAestheticPath(ref BoardSquarePathInfo path, ActorData.MovementType movementType)
 	{
+
 		BoardSquarePathInfo prev = null;
 		BoardSquarePathInfo.ConnectionType connectionType;
 		switch (movementType)
@@ -821,7 +832,10 @@ public static class MovementUtils
 
 	public static bool CanStopOnSquare(BoardSquare square)
 	{
-		return square != null && square.height >= 0;
+		return square != null && square.height >= 0
+			// rogues
+			//&& !square.IsThickCover()
+			;
 	}
 
 	public static bool ArePathSegmentsEquivalent_ForwardAndBackward(BoardSquarePathInfo pathA, BoardSquarePathInfo pathB)
@@ -942,4 +956,32 @@ public static class MovementUtils
 	{
 		return Mathf.Round(val * 2f) / 2f;
 	}
+
+	// server-only
+#if SERVER
+	public static bool IsBetterMovementPathForGameplayThan(MovementInstance movementInstanceForConsideration, float moveCostForConsideration, MovementInstance currentShortestInstance, float currentShortestMoveCost)
+	{
+		if (movementInstanceForConsideration == null)
+		{
+			return false;
+		}
+		else if (currentShortestInstance == null)
+		{
+			return true;
+		}
+		else
+		{
+			bool wasChase = currentShortestInstance.m_wasChase;
+			bool wasChase2 = movementInstanceForConsideration.m_wasChase;
+			if (wasChase != wasChase2)
+			{
+				return wasChase;
+			}
+			else
+			{
+				return currentShortestMoveCost > moveCostForConsideration;
+			}
+		}
+	}
+#endif
 }

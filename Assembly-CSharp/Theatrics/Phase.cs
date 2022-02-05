@@ -1,6 +1,11 @@
-using CameraManagerInternal;
+// ROGUES
+// SERVER
 using System.Collections.Generic;
+//using System.Diagnostics;
 using System.Linq;
+//using System.Runtime.CompilerServices;
+using CameraManagerInternal;
+//using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -35,8 +40,11 @@ namespace Theatrics
 		private bool m_displayedHungErrorForCurrentActorAnim;
 		private bool m_loggedWarningForInKnockdownAnim;
 		private bool m_cameraBoundsSameAsLast;
+		// removed in rogues
 		private bool m_cinematicCamera;
+		// removed in rogues
 		private bool _001B;
+		// removed in rogues
 		private int _001E = -1;
 		private bool m_highlightingActionEntriesNow;
 
@@ -68,6 +76,10 @@ namespace Theatrics
 			m_turnActionsDone = true;
 		}
 
+		// internal Phase(Turn turn, AbilityPriority phaseIndex, List<AbilityRequest> abilityRequests)
+		// public void SetHitActorIds(HashSet<int> hitActorIds)
+		// internal void SetPhaseIndex_FCFS(AbilityPriority index)
+
 		internal void Init()
 		{
 			foreach (ActorAnimation actorAnimation in m_actorAnimations)
@@ -77,12 +89,29 @@ namespace Theatrics
 					float camStartEventDelay = actorAnimation.GetCamStartEventDelay(Index == AbilityPriority.Evasion && actorAnimation.IsCinematicRequested());
 					m_maxCamStartDelay = Mathf.Max(m_maxCamStartDelay, camStartEventDelay);
 				}
+
+				// added in rogues
+#if SERVER
+				if (actorAnimation.IsCinematicRequested() || actorAnimation.IsTauntForEvadeOrKnockback())
+				{
+					actorAnimation.m_doCinematicCam = true;
+					actorAnimation.m_cinematicCamIndex = actorAnimation.CinematicIndex;
+				}
+#endif
+				// end added in rogues
+
 				if (m_firstNonCinematicPlayOrderIndex == -1 && !actorAnimation.m_doCinematicCam)
 				{
 					m_firstNonCinematicPlayOrderIndex = actorAnimation.m_playOrderIndex;
 				}
 			}
 		}
+
+		// internal void PostProcessSortedActorAnimations()
+		// internal void OnKnockbackMovementHitGathered(ActorData actor)
+		// internal void OnKnockbackMovementHitExecuted(ActorData actor)
+		// internal bool NeedToWaitForKnockbackAnimFromActor(ActorData initiator)
+		// internal void InitHitActorsToDeltaHP()
 
 		internal bool ClientNeedToWaitBeforeKnockbackMove(ActorData actor)
 		{
@@ -131,6 +160,7 @@ namespace Theatrics
 			return false;
 		}
 
+		// removed in rogues
 		internal void OnSerializeHelper(IBitStream stream)
 		{
 			sbyte phaseIndex = (sbyte)Index;
@@ -275,6 +305,7 @@ namespace Theatrics
 			m_highlightingActionEntriesNow = false;
 		}
 
+		// removed in rogues
 		private ActorData GetActorAtPlayOrderIndex(int playOrderIndex, out bool cinematicCamera)
 		{
 			cinematicCamera = false;
@@ -429,7 +460,7 @@ namespace Theatrics
 				}
 			}
 			AbilitiesCamera abilitiesCamera = AbilitiesCamera.Get();
-			float num7 = Index == AbilityPriority.Evasion ? 0.7f : 0.3f;
+			float num7 = Index == AbilityPriority.Evasion ? 0.7f : 0.3f;  // ? 0.5f : 0f; in rogues
 			bool isPastWaitingForFirstAction = turn.TimeInResolve >= num7 || m_timeSinceActorAnimationPlayed >= num7;
 			bool flag5 = isPastWaitingForFirstAction
 				&& isPlayOrderReleaseFocus
@@ -460,7 +491,7 @@ namespace Theatrics
 					Animator animator = actorModelData?.GetModelAnimator();
 					bool isCasterAlreadyInRagdoll = actorAnimation3.Caster != null
 						&& actorAnimation3.GetAnimationIndex() <= 0
-						&& actorAnimation3.Caster.IsInRagdoll();
+						&& actorAnimation3.Caster.IsInRagdoll(); // false in rogues
 					if (actorAnimation3 == null
 						|| actorAnimation3.PlayState != ActorAnimation.PlaybackState.NotStarted
 						|| actorAnimation3.m_playOrderIndex != minNotStartedPlayOrderIndex)
@@ -485,6 +516,7 @@ namespace Theatrics
 						{
 							if (!m_loggedWarningForInKnockdownAnim)
 							{
+								// reactor
 								string message = actorAnimation3 + " is stuck in knockdown when trying to play animation for ability, forcing idle";
 								if (Application.isEditor)
 								{
@@ -494,10 +526,12 @@ namespace Theatrics
 								{
 									Log.Warning(message);
 								}
+								// rogues
+								//Log.Warning(actorAnimation3 + " is stuck in knockdown when trying to play animation for ability, setting TurnStart param to true");
 								m_loggedWarningForInKnockdownAnim = true;
 							}
 							animator.SetBool("TurnStart", true);
-							animator.SetTrigger("ForceIdle");
+							animator.SetTrigger("ForceIdle"); // removed in rogues
 						}
 						if (m_timeSinceActorAnimationPlayed > 5f)
 						{
@@ -544,12 +578,14 @@ namespace Theatrics
 				{
 					Bounds bounds = turn.CalcAbilitiesBounds(this, minNotStartedPlayOrderIndex, out bool isDefaultBounds);
 					bool isEvasionOrKnockback = Index == AbilityPriority.Evasion || Index == AbilityPriority.Combat_Knockback;
-					_001B = false;
-					m_cinematicCamera = false;
+					_001B = false;  // removed in rogues
+					m_cinematicCamera = false;  // removed in rogues
 					bool useLowPosition = false;
 					if (!isEvasionOrKnockback)
 					{
 						useLowPosition = ActorAnimContainsKillOrSave(minNotStartedPlayOrderIndex);
+
+						// removed in rogues
 						ActorData actorData = GetActorAtPlayOrderIndex(minNotStartedPlayOrderIndex, out m_cinematicCamera);
 						int actorIndex = actorData != null ? actorData.ActorIndex : -1;
 						if (_001E > 0
@@ -558,10 +594,16 @@ namespace Theatrics
 						{
 							_001B = true;
 						}
+						// end removed in rogues
 					}
 					if (!isDefaultBounds)
 					{
 						bool flag12 = m_turn.m_cameraBoundSetCount > 0 && m_turn.m_lastSetBoundInTurn == bounds;
+						// empty if in rogues
+						//if (m_turn.m_cameraBoundSetCount <= 0 || !flag12)
+						//{
+						//}
+						// removed in rogues
 						if (m_turn.m_cameraBoundSetCount > 0
 							&& !flag12
 							&& !isEvasionOrKnockback
@@ -569,11 +611,38 @@ namespace Theatrics
 						{
 							bounds = m_turn.m_lastSetBoundInTurn;
 						}
-						bool quickerTransition = Index == AbilityPriority.Evasion || !m_playOrderGroupChanged;
-						CameraManager.Get().SetTarget(bounds, quickerTransition, useLowPosition);
+
+						bool flag13 = true;
+
+						// rogues
+						//flag13 = false;
+						//if (GameFlowData.ClientTeamActing)
+						//{
+						//	bool flag14 = GameFlowData.ClientActor.GetActorTurnSM().CurrentState != TurnStateEnum.TARGETING_ACTION;
+						//	bool flag15 = turn.HasActionFromOwnedActor(this, minNotStartedPlayOrderIndex);
+						//	bool flag16 = GameFlowData.Get().HasOwnedActorCanStillActInDecision();
+						//	if (flag14 && (flag15 || flag16))
+						//	{
+						//		flag13 = true;
+						//	}
+						//}
+						//else
+						//{
+						//	flag13 = true;
+						//}
+						// end server- or rogues-only
+
+						if (flag13)
+						{
+							bool quickerTransition = Index == AbilityPriority.Evasion || !m_playOrderGroupChanged;
+							CameraManager.Get().SetTarget(bounds, quickerTransition, useLowPosition);
+						}
 						m_turn.m_cameraBoundSetForEvade = true;
 						m_cameraBoundsSameAsLast = m_turn.m_lastSetBoundInTurn == bounds;
 						m_turn.m_lastSetBoundInTurn = bounds;
+
+
+						// reactor
 						if (isEvasionOrKnockback)
 						{
 							m_turn.m_cameraBoundSetCount = 0;
@@ -582,10 +651,15 @@ namespace Theatrics
 						{
 							m_turn.m_cameraBoundSetCount++;
 						}
+						// rogues
+						//m_turn.m_cameraBoundSetCount++;
 					}
 					if (minNotStartedPlayOrderIndex == 0)
 					{
+						// reactor
 						CameraManager.Get().OnActionPhaseChange(ActionBufferPhase.Abilities, true);
+						// rogues
+						//CameraManager.Get().OnActionPhaseChange(true);
 					}
 					m_cameraTargetPlayOrderIndex = minNotStartedPlayOrderIndex;
 					m_cameraTargetPlayOrderIndexTime = GameTime.time;
@@ -619,9 +693,9 @@ namespace Theatrics
 			if (index != AbilityPriority.Evasion)
 			{
 				float easeInTime = abilitiesCamera.m_easeInTime;
-				if (!m_cinematicCamera)
+				if (!m_cinematicCamera)  // always true in rogues
 				{
-					if (_001B && m_cameraBoundsSameAsLast)
+					if (_001B && m_cameraBoundsSameAsLast)  // always false in rogues
 					{
 						easeInTime = 0f;
 					}
@@ -653,6 +727,12 @@ namespace Theatrics
 						{
 							camStartEventDelay = 0.35f;
 						}
+						// added in rogues
+						//ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+						//if (activeOwnedActorData != null && activeOwnedActorData.GetTeam() == GameFlowData.Get().ActingTeam && actorAnimation7.m_playOrderIndex == 0 && actorAnimation7.m_playOrderGroupIndex == 0)
+						//{
+						//    num25 = 0f;
+						//}
 						if (camStartEventDelay < 0f)
 						{
 							Log.Error("Camera start event delay is negative");
@@ -673,7 +753,7 @@ namespace Theatrics
 							actorAnimation.Play(turn);
 							m_timeSinceActorAnimationPlayed = 0f;
 							m_loggedWarningForInKnockdownAnim = false;
-							_001E = actorAnimation.Caster == null ? -1 : actorAnimation.Caster.ActorIndex;
+							_001E = actorAnimation.Caster == null ? -1 : actorAnimation.Caster.ActorIndex;  // removed in rogues
 							if (Index != AbilityPriority.Evasion
 								&& Index != AbilityPriority.Combat_Knockback
 								&& !actorAnimation.ShouldIgnoreCameraFraming())
@@ -730,6 +810,8 @@ namespace Theatrics
 								m_firstNonCinematicEvadeAbilityPlayedTime = GameTime.time;
 							}
 						}
+
+						// removed in rogues
 						if (actorAnimation5.ForceActorVisibleForAbilityCast())
 						{
 							actorAnimation5.Caster.CurrentlyVisibleForAbilityCast = true;
@@ -746,6 +828,8 @@ namespace Theatrics
 						}
 					}
 					List<ActorData> actors = GameFlowData.Get().GetActors();
+
+					// removed in rogues
 					foreach (ActorData actor in actors)
 					{
 						actor.CurrentlyVisibleForAbilityCast = false;
@@ -768,5 +852,196 @@ namespace Theatrics
 			}
 			return true;
 		}
+
+#if SERVER
+		// server-only
+		internal Phase(Turn turn, AbilityPriority phaseIndex, List<AbilityRequest> abilityRequests)
+		{
+			m_turn = turn;
+			Index = phaseIndex;
+
+			Log.Info($"New phase {Index} of turn {m_turn.TurnID}, {abilityRequests.Count} requests");
+
+			for (int i = 0; i < abilityRequests.Count; i++)
+			{
+				AbilityRequest abilityRequest = abilityRequests[i];
+				if (abilityRequest != null && abilityRequest.m_ability != null && abilityRequest.m_ability.RunPriority == phaseIndex)
+				{
+					if (!abilityRequest.m_additionalData.m_skipTheatricsAnimEntry)
+					{
+						ActorAnimation item = new ActorAnimation(turn, this, abilityRequest, abilityRequest.m_additionalData.m_sequenceSource);
+						m_actorAnimations.Add(item);
+						Log.Info($"Adding animation for {abilityRequest.m_caster.DisplayName}'s {abilityRequest.m_actionType}");
+					}
+					else if (AbilityResults.DebugTraceOn || true)
+					{
+						Debug.LogWarning("Skipping ActorAnimation entry for request: " + abilityRequest.m_ability.GetDebugIdentifier(""));
+					}
+					short animIndex = (short)abilityRequest.m_ability.GetActionAnimType(abilityRequest.m_targets, abilityRequest.m_caster);
+					if (Turn.AnimsStartTogetherInPhase(Index) && abilityRequest.m_cinematicRequested > 0 && CameraManager.Get().DoesAnimIndexTriggerTauntCamera(abilityRequest.m_caster, (int)animIndex, abilityRequest.m_cinematicRequested))
+					{
+						SequenceSource source = abilityRequest.m_ability.UseAbilitySequenceSourceForEvadeOrKnockbackTaunt() ? abilityRequest.m_additionalData.m_sequenceSource : new SequenceSource(null, null, true, null, null);
+						int cinematicRequested = abilityRequest.m_cinematicRequested;
+						ActorAnimation item2 = new ActorAnimation(turn, this, abilityRequest.m_caster, abilityRequest.m_actionType, animIndex, cinematicRequested, abilityRequest.m_targets, source);
+						m_actorAnimations.Add(item2);
+						Log.Info($"Adding animation for {abilityRequest.m_caster.DisplayName}'s {abilityRequest.m_actionType}");
+					}
+				}
+			}
+			List<EffectResults> list = ServerEffectManager.Get().FindEffectsWithCasterAnimations(Index);
+			for (int j = 0; j < list.Count; j++)
+			{
+				m_actorAnimations.Add(new ActorAnimation(turn, this, list[j]));
+				Log.Info($"Adding animation for {list[j].Caster.DisplayName}'s {list[j].Effect.m_effectName}");
+			}
+			if (Index >= AbilityPriority.Combat_Damage)
+			{
+				ServerEffectManager.Get().FindAnimlessEffectsWithHitsForPhase(Index).ForEach(delegate (EffectResults effectResults)
+				{
+					m_actorAnimations.Add(new ActorAnimation(turn, this, effectResults));
+					Log.Info($"Adding animation for {effectResults.Caster.DisplayName}'s {effectResults.Effect.m_effectName}");
+				});
+			}
+			InitHitActorsToDeltaHP();
+		}
+
+		// server-only
+		public void SetHitActorIds(HashSet<int> hitActorIds)
+		{
+			m_hitActorIds = new List<int>(hitActorIds.Count);
+			foreach (int item in hitActorIds)
+			{
+				m_hitActorIds.Add(item);
+			}
+		}
+
+		// server-only
+		internal void SetPhaseIndex_FCFS(AbilityPriority index)
+		{
+			Index = index;
+		}
+
+		// server-only
+		internal void PostProcessSortedActorAnimations()
+		{
+			for (int i = 0; i < m_actorAnimations.Count; i++)
+			{
+				ActorAnimation actorAnimation = m_actorAnimations[i];
+				if (actorAnimation.m_playOrderIndex < 0)
+				{
+					Log.Error(string.Concat(new object[]
+					{
+						actorAnimation,
+						" had unassigned play order index ",
+						actorAnimation.m_playOrderIndex,
+						", defaulting to 0"
+					}));
+					actorAnimation.m_playOrderIndex = 0;
+				}
+				if (actorAnimation.m_playOrderGroupIndex < 0)
+				{
+					Log.Error(string.Concat(new object[]
+					{
+						actorAnimation,
+						" had unassigned play order group index ",
+						actorAnimation.m_playOrderGroupIndex,
+						", defaulting to 0"
+					}));
+					actorAnimation.m_playOrderGroupIndex = 0;
+				}
+				m_maxPlayOrderIndex = Mathf.Max(m_maxPlayOrderIndex, (int)actorAnimation.m_playOrderIndex);
+			}
+		}
+
+		// server-only
+		internal void OnKnockbackMovementHitGathered(ActorData actor)
+		{
+			if (actor != null)
+			{
+				if (m_actorIndexToKnockbackHitsRemaining.ContainsKey(actor.ActorIndex))
+				{
+					Dictionary<int, int> actorIndexToKnockbackHitsRemaining = m_actorIndexToKnockbackHitsRemaining;
+					int actorIndex = actor.ActorIndex;
+					actorIndexToKnockbackHitsRemaining[actorIndex]++;
+					return;
+				}
+				m_actorIndexToKnockbackHitsRemaining[actor.ActorIndex] = 1;
+			}
+		}
+
+		// server-only
+		internal void OnKnockbackMovementHitExecuted(ActorData actor)
+		{
+			if (actor != null && m_actorIndexToKnockbackHitsRemaining.ContainsKey(actor.ActorIndex))
+			{
+				Dictionary<int, int> actorIndexToKnockbackHitsRemaining = m_actorIndexToKnockbackHitsRemaining;
+				int actorIndex = actor.ActorIndex;
+				actorIndexToKnockbackHitsRemaining[actorIndex]--;
+			}
+		}
+
+		// server-only
+		internal bool NeedToWaitForKnockbackAnimFromActor(ActorData initiator)
+		{
+			bool result = false;
+			if (initiator != null)
+			{
+				for (int i = 0; i < m_actorAnimations.Count; i++)
+				{
+					if (m_actorAnimations[i].Caster == initiator)
+					{
+						result = (m_actorAnimations[i].PlayState < ActorAnimation.PlaybackState.PlayingAnimation);
+						break;
+					}
+				}
+			}
+			return result;
+		}
+
+		// server-only
+		internal void InitHitActorsToDeltaHP()
+		{
+			Dictionary<ActorData, int> dictionary = new Dictionary<ActorData, int>();
+			for (int i = 0; i < m_actorAnimations.Count; i++)
+			{
+				Dictionary<ActorData, int> hitActorsToDeltaHP = m_actorAnimations[i].HitActorsToDeltaHP;
+				if (hitActorsToDeltaHP != null)
+				{
+					foreach (KeyValuePair<ActorData, int> keyValuePair in hitActorsToDeltaHP)
+					{
+						if (dictionary.ContainsKey(keyValuePair.Key))
+						{
+							Dictionary<ActorData, int> dictionary2 = dictionary;
+							ActorData key = keyValuePair.Key;
+							dictionary2[key] += keyValuePair.Value;
+						}
+						else
+						{
+							dictionary[keyValuePair.Key] = keyValuePair.Value;
+						}
+					}
+				}
+			}
+			ServerEffectManager.Get().IntegrateHpDeltasForEffects(Index, ref dictionary, true);
+			if (Index == AbilityPriority.Evasion)
+			{
+				BarrierManager.Get().IntegrateMovementDamageResults_Evasion(ref dictionary);
+				ServerEffectManager.Get().IntegrateMovementDamageResults_Evasion(ref dictionary);
+				PowerUpManager.Get().IntegrateMovementDamageResults_Evasion(ref dictionary);
+			}
+			else if (Index == AbilityPriority.Combat_Knockback)
+			{
+				BarrierManager.Get().IntegrateMovementDamageResults_Knockback(ref dictionary);
+				ServerEffectManager.Get().IntegrateMovementDamageResults_Knockback(ref dictionary);
+				PowerUpManager.Get().IntegrateMovementDamageResults_Knockback(ref dictionary);
+			}
+			Dictionary<int, int> dictionary3 = new Dictionary<int, int>();
+			foreach (KeyValuePair<ActorData, int> keyValuePair2 in dictionary)
+			{
+				dictionary3.Add(keyValuePair2.Key.ActorIndex, keyValuePair2.Value);
+			}
+			HitActorIndexToDeltaHP = dictionary3;
+		}
+#endif
 	}
 }

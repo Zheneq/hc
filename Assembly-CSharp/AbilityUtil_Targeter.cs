@@ -1,5 +1,9 @@
-using AbilityContextNamespace;
+﻿// ROGUES
+// SERVER
+//using System;
 using System.Collections.Generic;
+using AbilityContextNamespace;
+//using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -33,6 +37,7 @@ public class AbilityUtil_Targeter
 		public BoardSquarePathInfo m_pathInfo;
 	}
 
+	// removed in rogues
 	private static readonly int[] materialColorProperties = new int[2]
 	{
 		Shader.PropertyToID("_Color"),
@@ -42,6 +47,7 @@ public class AbilityUtil_Targeter
 	protected Ability m_ability;
 	protected bool m_useMultiTargetUpdate;
 	protected List<GameObject> m_highlights;
+	// removed in rogues
 	protected TargeterTemplateFadeContainer m_highlightFadeContainer;
 	protected Dictionary<ActorData, ActorHitContext> m_actorContextVars;
 	protected ContextVars m_nonActorSpecificContext;
@@ -57,6 +63,7 @@ public class AbilityUtil_Targeter
 	private Vector3 m_cameraForward;
 	private Vector3 m_cameraPosition;
 	private List<ActorTarget> m_actorsInRange = new List<ActorTarget>();
+	// removed in rogues
 	protected List<ActorData> m_actorsAddedSoFar = new List<ActorData>();
 	protected List<ArrowList> m_arrows = new List<ArrowList>();
 	protected HighlightUtils.CursorType m_cursorType = HighlightUtils.CursorType.NoCursorType;
@@ -69,6 +76,7 @@ public class AbilityUtil_Targeter
 	public GridPos LastUpdatingGridPos { get; set; }
 	public Vector3 LastUpdateFreePos { get; set; }
 	public Vector3 LastUpdateAimDir { get; set; }
+	// removed in rogues
 	public bool MarkedForForceUpdate { get; set; }
 
 	public bool ShowArcToShape
@@ -115,7 +123,10 @@ public class AbilityUtil_Targeter
 	public AbilityUtil_Targeter(Ability ability)
 	{
 		m_highlights = new List<GameObject>();
+
+		// removed in rogues
 		m_highlightFadeContainer = new TargeterTemplateFadeContainer();
+
 		m_ability = ability;
 		m_actorContextVars = new Dictionary<ActorData, ActorHitContext>();
 		m_nonActorSpecificContext = new ContextVars();
@@ -133,6 +144,7 @@ public class AbilityUtil_Targeter
 		LastUpdateAimDir = target.AimDirection;
 	}
 
+	// removed in rogues
 	public bool IsCursorStateSameAsLastUpdate(AbilityTarget target)
 	{
 		return LastUpdatingGridPos.CoordsEqual(target.GridPos)
@@ -186,6 +198,8 @@ public class AbilityUtil_Targeter
 			m_gameObjectOnCaster.transform.position = GameFlowData.Get().activeOwnedActorData.transform.position;
 			m_gameObjectOnCaster.SetColor(GetTeleportColor());
 		}
+
+		// removed in rogues
 		MarkedForForceUpdate = true;
 	}
 
@@ -323,7 +337,7 @@ public class AbilityUtil_Targeter
 			AbilityData abilityData = GameFlowData.Get().activeOwnedActorData.GetAbilityData();
 			if (abilityData != null)
 			{
-				flag = abilityData.HasQueuedAction(abilityData.GetActionTypeOfAbility(m_ability));
+				flag = abilityData.HasQueuedAction(abilityData.GetActionTypeOfAbility(m_ability));  // , true in rogues
 			}
 		}
 		if (!flag)
@@ -351,14 +365,19 @@ public class AbilityUtil_Targeter
 			{
 				UpdateTargeting(abilityTarget, GameFlowData.Get().activeOwnedActorData);
 			}
+
+			// removed in rogues
 			UpdateHighlightPosAfterClick(abilityTarget, GameFlowData.Get().activeOwnedActorData, targetIndex, m_ability.BackupTargets);
 			SetupTargetingArc(GameFlowData.Get().activeOwnedActorData, false);
+			// end removed
 		}
 		HighlightUtils.Get().SetCursorType(HighlightUtils.CursorType.MouseOverCursorType);
+
+		// removed in rogues
 		MarkedForForceUpdate = true;
 	}
 
-	public virtual void ResetTargeter(bool clearHighlightInstantly)
+	public virtual void ResetTargeter(bool clearHighlightInstantly)  // no param in rogues
 	{
 		ClearActorsInRange();
 		ClearArrows();
@@ -370,6 +389,8 @@ public class AbilityUtil_Targeter
 		m_confirmedTargetingStartTime = 0f;
 		m_actorContextVars.Clear();
 		m_nonActorSpecificContext.ClearData();
+
+		// removed in rogues
 		MarkedForForceUpdate = true;
 	}
 
@@ -402,9 +423,10 @@ public class AbilityUtil_Targeter
 
 	public virtual bool IsActorInTargetRange(ActorData actor)
 	{
-		return IsActorInTargetRange(actor, out var inCover);
+		return IsActorInTargetRange(actor, out var inCover);  // (actor, out HitChanceBracketType hitChanceBracketType) in rogues
 	}
 
+	// reactor
 	public virtual bool IsActorInTargetRange(ActorData actor, out bool inCover)
 	{
 		inCover = false;
@@ -434,6 +456,45 @@ public class AbilityUtil_Targeter
 		}
 		return false;
 	}
+	// rogues
+	//public virtual bool IsActorInTargetRange(ActorData actor, out HitChanceBracketType strongestCover)
+	//{
+	//	bool result = false;
+	//	strongestCover = HitChanceBracketType.Default;
+	//	if (actor != null)
+	//	{
+	//		int i = 0;
+	//		while (i < m_actorsInRange.Count)
+	//		{
+	//			ActorTarget actorTarget = m_actorsInRange[i];
+	//			if (actorTarget.m_actor == actor)
+	//			{
+	//				result = true;
+	//				ActorCover actorCover = actorTarget.m_actor.GetActorCover();
+	//				if (!(actorCover != null))
+	//				{
+	//					break;
+	//				}
+	//				ActorData povactorData = GameFlowData.Get().POVActorData;
+	//				bool flag = povactorData != null && povactorData.GetTeam() != actor.GetTeam();
+	//				bool flag2 = AbilityUtils.AbilityIgnoreCover(m_ability, actorTarget.m_actor);
+	//				bool flag3 = actor.IsActorVisibleToClient();
+	//				bool flag4 = actorTarget.m_ignoreCoverMinDist ? actorCover.IsInCoverWrtDirectionOnly(actorTarget.m_damageOrigin, actorTarget.m_actor.GetCurrentBoardSquare(), out strongestCover) : actorCover.IsInCoverWrt(actorTarget.m_damageOrigin, out strongestCover);
+	//				if (!flag || flag2 || !flag3 || !flag4)
+	//				{
+	//					strongestCover = HitChanceBracketType.Default;
+	//					break;
+	//				}
+	//				break;
+	//			}
+	//			else
+	//			{
+	//				i++;
+	//			}
+	//		}
+	//	}
+	//	return result;
+	//}
 
 	public List<ActorTarget> GetActorsInRange()
 	{
@@ -561,7 +622,10 @@ public class AbilityUtil_Targeter
 				}
 			}
 			m_actorsInRange.Add(actorTarget);
+
+			// removed in rogues
 			m_actorsAddedSoFar.Add(actor);
+
 			if (!m_actorContextVars.ContainsKey(actor))
 			{
 				ActorHitContext actorHitContext = new ActorHitContext();
@@ -572,6 +636,12 @@ public class AbilityUtil_Targeter
 			{
 				m_actorContextVars[actor].m_inRangeForTargeter = true;
 			}
+
+			// added in rogues
+#if SERVER
+			int count = targetingActor.GetActorTurnSM().GetAbilityTargets().Count;
+			m_actorContextVars[actor].m_contextVars.SetValue(ContextKeys.s_TargeterIndex.GetKey(), count);
+#endif
 		}
 		else if (appendSubjectType)
 		{
@@ -616,11 +686,24 @@ public class AbilityUtil_Targeter
 	public void ClearActorsInRange()
 	{
 		m_actorsInRange.Clear();
+
+		// removed in rogues
 		m_actorsAddedSoFar.Clear();
+
 		foreach (ActorHitContext value in m_actorContextVars.Values)
 		{
 			value.m_inRangeForTargeter = false;
+#if SERVER
+			if (GameFlowData.Get() != null && GameFlowData.Get().POVActorData != null)  // no check for GameFlowData.Get().POVActorData != null in rogues
+			{
+				int index = GameFlowData.Get().POVActorData.GetActorTurnSM().GetAbilityTargets().Count - 1;
+				value.m_contextVars.SetValue(ContextKeys.s_TargeterIndex.GetKey(), index);
+			}
+#endif
 		}
+#if SERVER
+		SetMovementArrowEnabledFromIndex(0, false);
+#endif
 	}
 
 	protected void AddMovementArrow(ActorData mover, BoardSquarePathInfo path, TargeterMovementType movementType, MovementPathStart previousLine = null, bool isChasing = false)
@@ -696,7 +779,8 @@ public class AbilityUtil_Targeter
 		}
 	}
 
-	protected int AddMovementArrowWithPrevious(ActorData mover, BoardSquarePathInfo path, TargeterMovementType movementType, int arrowIndex, bool isChasing = false)
+	// TODO LOW check access level change: was protected in reactor
+	public int AddMovementArrowWithPrevious(ActorData mover, BoardSquarePathInfo path, TargeterMovementType movementType, int arrowIndex, bool isChasing = false)  // public in rogues
 	{
 		Color arrowColor;
 		switch (movementType)
@@ -732,12 +816,14 @@ public class AbilityUtil_Targeter
 		return arrowIndex;
 	}
 
-	protected void EnableAllMovementArrows()
+	// TODO LOW check access level change: was protected in reactor
+	public void EnableAllMovementArrows()  // public in rogues
 	{
 		SetMovementArrowEnabledFromIndex(0, true);
 	}
 
-	protected void SetMovementArrowEnabledFromIndex(int fromIndex, bool enabled)
+	// TODO LOW check access level change: was protected in reactor
+	public void SetMovementArrowEnabledFromIndex(int fromIndex, bool enabled)  // public in rogues
 	{
 		for (int i = fromIndex; i < m_arrows.Count; i++)
 		{
@@ -830,7 +916,7 @@ public class AbilityUtil_Targeter
 
 	protected virtual void ClearHighlightCursors(bool clearInstantly = true)
 	{
-		if (!clearInstantly && NetworkClient.active)
+		if (!clearInstantly && NetworkClient.active)  // unconditionally else in rogues
 		{
 			if (m_highlights.Count > 0)
 			{
@@ -932,7 +1018,10 @@ public class AbilityUtil_Targeter
 			}
 			if (m_affectsEnemies)
 			{
+				// reactor
 				list.Add(targeterOwner.GetEnemyTeam());
+				// rogues
+				//list.AddRange(targeterOwner.GetOtherTeams());
 			}
 		}
 		return list;
@@ -1111,6 +1200,7 @@ public class AbilityUtil_Targeter
 			}
 		}
 		if (GameFlowData.Get().activeOwnedActorData == targetingActor
+			// removed in rogues
 			&& targetingActor.GetActorTurnSM().CurrentState != TurnStateEnum.TARGETING_ACTION)
 		{
 			HideAllSquareIndicators();
@@ -1140,6 +1230,7 @@ public class AbilityUtil_Targeter
 		SetupTargetingArc(targetingActor, false);
 	}
 
+	// removed in rogues
 	public void UpdateFadeOutHighlights(ActorData targetingActor)
 	{
 		m_highlightFadeContainer.UpdateFade(targetingActor, m_highlights.Count > 0);
@@ -1165,6 +1256,7 @@ public class AbilityUtil_Targeter
 		}
 	}
 
+	// removed in rogues
 	public static void SetTargeterHighlightColor(List<GameObject> highlights, Color color, bool keepOpacity = true, bool clearColorOverTime = true)
 	{
 		foreach (GameObject gameObject in highlights)
@@ -1264,6 +1356,8 @@ public class AbilityUtil_Targeter
 		{
 			HighlightUtils.GetHiddenSquaresContainer().HideAllSquareIndicators();
 		}
+
+		// removed in rogues
 		if (HighlightUtils.GetAffectedSquaresContainer() != null)
 		{
 			HighlightUtils.GetAffectedSquaresContainer().HideAllSquareIndicators();
@@ -1276,6 +1370,8 @@ public class AbilityUtil_Targeter
 		{
 			HighlightUtils.GetHiddenSquaresContainer().ResetNextIndicatorIndex();
 		}
+
+		// removed in rogues
 		if (HighlightUtils.GetAffectedSquaresContainer() != null)
 		{
 			HighlightUtils.GetAffectedSquaresContainer().ResetNextIndicatorIndex();
@@ -1288,6 +1384,8 @@ public class AbilityUtil_Targeter
 		{
 			HighlightUtils.GetHiddenSquaresContainer().HideAllSquareIndicators(GetNextHiddenSquareIndicatorIndex());
 		}
+
+		// removed in rogues
 		if (HighlightUtils.GetAffectedSquaresContainer() != null)
 		{
 			HighlightUtils.GetAffectedSquaresContainer().HideAllSquareIndicators(GetNextAffectedSquareIndicatorIndex());
@@ -1344,6 +1442,7 @@ public class AbilityUtil_Targeter
 		return mesh;
 	}
 
+	// removed in rogues
 	public int GetNextAffectedSquareIndicatorIndex()
 	{
 		if (HighlightUtils.GetAffectedSquaresContainer() != null)
@@ -1353,6 +1452,7 @@ public class AbilityUtil_Targeter
 		return 0;
 	}
 
+	// removed in rogues
 	public int ShowAffectedSquareIndicatorForSquare(BoardSquare square)
 	{
 		if (HighlightUtils.GetAffectedSquaresContainer() != null)

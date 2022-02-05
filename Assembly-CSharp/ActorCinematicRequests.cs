@@ -1,5 +1,11 @@
+﻿// ROGUES
+// SERVER
+//using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
+//using Mirror;
+//using Talents;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -7,12 +13,15 @@ public class ActorCinematicRequests : NetworkBehaviour
 {
 	internal SyncListBool m_abilityRequested = new SyncListBool();
 	[SyncVar]
-	private int m_numCinematicRequestsLeft = 2;
+	private int m_numCinematicRequestsLeft = 2; // 99 in rogues
 	private SyncListInt m_cinematicsPlayedThisMatch = new SyncListInt();
 	private ActorData m_actorData;
 
+	// removed in rogues
 	private static int kListm_abilityRequested = -88780988;
+	// removed in rogues
 	private static int kListm_cinematicsPlayedThisMatch = 782922590;
+	// removed in rogues
 	private static int kCmdCmdSelectAbilityCinematicRequest = 1550121236;
 
 	public int Networkm_numCinematicRequestsLeft
@@ -24,25 +33,41 @@ public class ActorCinematicRequests : NetworkBehaviour
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref m_numCinematicRequestsLeft, 2u);
+			SetSyncVar(value, ref m_numCinematicRequestsLeft, 2u);  // 1UL in rogues
 		}
 	}
 
 	static ActorCinematicRequests()
 	{
+		// reactor
 		RegisterCommandDelegate(typeof(ActorCinematicRequests), kCmdCmdSelectAbilityCinematicRequest, InvokeCmdCmdSelectAbilityCinematicRequest);
 		RegisterSyncListDelegate(typeof(ActorCinematicRequests), kListm_abilityRequested, InvokeSyncListm_abilityRequested);
 		RegisterSyncListDelegate(typeof(ActorCinematicRequests), kListm_cinematicsPlayedThisMatch, InvokeSyncListm_cinematicsPlayedThisMatch);
 		NetworkCRC.RegisterBehaviour("ActorCinematicRequests", 0);
+		// rogues
+		//RegisterCommandDelegate(typeof(ActorCinematicRequests), "CmdSelectAbilityCinematicRequest", new NetworkBehaviour.CmdDelegate(ActorCinematicRequests.InvokeCmdCmdSelectAbilityCinematicRequest));
+		//RegisterRpcDelegate(typeof(ActorCinematicRequests), "RpcRemoveModForTurnStart", new NetworkBehaviour.CmdDelegate(ActorCinematicRequests.InvokeRpcRpcRemoveModForTurnStart));
 	}
 
 	private void Awake()
 	{
 		m_actorData = GetComponent<ActorData>();
+
+		// removed in rogues
 		m_abilityRequested.InitializeBehaviour(this, kListm_abilityRequested);
 		m_cinematicsPlayedThisMatch.InitializeBehaviour(this, kListm_cinematicsPlayedThisMatch);
+
+		// moved from OnStartServer in rogues
+		//if (NetworkServer.active)
+		//{
+		//	for (int i = 0; i < AbilityData.NUM_ACTIONS; i++)
+		//	{
+		//		m_abilityRequested.Add(false);
+		//	}
+		//}
 	}
 
+	// moved to Awake in rogues
 	public override void OnStartServer()
 	{
 		for (int i = 0; i < AbilityData.NUM_ACTIONS; i++)
@@ -69,6 +94,14 @@ public class ActorCinematicRequests : NetworkBehaviour
 		{
 			if (m_abilityRequested[i])
 			{
+				// rogues?
+				//Ability abilityOfActionType = GetComponent<AbilityData>().GetAbilityOfActionType((AbilityData.ActionType)i);
+				//if (abilityOfActionType != null)
+				//{
+				//	abilityOfActionType.ClearAbilityMod(m_actorData);
+				//	CallRpcRemoveModForTurnStart(i);
+				//}
+
 				num++;
 				m_abilityRequested[i] = false;
 			}
@@ -76,10 +109,21 @@ public class ActorCinematicRequests : NetworkBehaviour
 		Networkm_numCinematicRequestsLeft = m_numCinematicRequestsLeft - num;
 	}
 
+	// rogues
+	//[ClientRpc]
+	//public void RpcRemoveModForTurnStart(int actionType)
+	//{
+	//	Ability abilityOfActionType = base.GetComponent<AbilityData>().GetAbilityOfActionType((AbilityData.ActionType)actionType);
+	//	if (abilityOfActionType != null)
+	//	{
+	//		abilityOfActionType.ClearAbilityMod(m_actorData);
+	//	}
+	//}
+
 	public int NumRequestsLeft(int tauntId)
 	{
 		if (DebugParameters.Get() != null
-			&& DebugParameters.Get().GetParameterAsBool("NoCooldowns") || GameManager.Get().GameConfig.GameType == GameType.Practice)
+			&& DebugParameters.Get().GetParameterAsBool("NoCooldowns") || GameManager.Get().GameConfig.GameType == GameType.Practice)  // practive removed in rogues
 		{
 			return 10;
 		}
@@ -96,10 +140,28 @@ public class ActorCinematicRequests : NetworkBehaviour
 		{
 			return 10;
 		}
+
+		// reactor
 		if (m_cinematicsPlayedThisMatch.Contains(tauntId))
 		{
 			return 0;
 		}
+		// rogues?
+		//m_cinematicsPlayedThisMatch.Contains(tauntId);
+		//CharacterTaunt characterTaunt = m_actorData.GetCharacterResourceLink().m_taunts.Find((CharacterTaunt t) => t.m_uniqueID == tauntId);
+		//if (characterTaunt != null && characterTaunt.m_modToApplyOnTaunt >= 0 && base.GetComponent<AbilityData>().GetAbilityOfActionType(characterTaunt.m_actionForTaunt) != null)
+		//{
+		//	AbilityMod abilityMod = TalentManager.Get().GetAbilityMod(m_actorData.m_characterType, characterTaunt.m_actionForTaunt);
+		//	if (abilityMod != null && abilityMod.m_techPointCostMod.GetModifiedValue(PveGameplayData.Get().m_tauntEnergyCost) > m_actorData.TechPoints)
+		//	{
+		//		return 0;
+		//	}
+		//	if (abilityMod != null && abilityMod.m_maxStocksMod.GetModifiedValue(1) <= m_cinematicsPlayedThisMatch.Count((int id) => id == tauntId))
+		//	{
+		//		return 0;
+		//	}
+		//}
+
 		int num = m_numCinematicRequestsLeft;
 		for (int i = 0; i < m_abilityRequested.Count; i++)
 		{
@@ -119,6 +181,50 @@ public class ActorCinematicRequests : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void ActorCinematicRequests::ProcessAbilityCinematicRequest(AbilityData/ActionType,System.Boolean,System.Int32,System.Int32)' called on client");
 			return;
 		}
+
+		// TODO TAUNTS
+#if SERVER
+		// server-only below
+		ActorData actorData = m_actorData;
+		ActorTurnSM component = base.GetComponent<ActorTurnSM>();
+		Ability abilityOfActionType = base.GetComponent<AbilityData>().GetAbilityOfActionType(actionType);
+
+		// TODO LOW check taunt activation
+		// custom
+		bool flag = false;
+		// rogues
+		//bool flag = component.m_tauntRequestedForNextAbility == (int)actionType || (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("AlwaysTauntAutomatically"));
+
+		if (((GameManager.Get() != null && GameManager.Get().GameplayOverrides.IsTauntAllowed(actorData.m_characterType, (int)actionType, tauntUniqueId)) || flag) && actorData != null && component != null && abilityOfActionType != null && actionType >= AbilityData.ActionType.ABILITY_0 && actionType < (AbilityData.ActionType)m_abilityRequested.Count && requested != m_abilityRequested[(int)actionType] && (NumRequestsLeft(tauntUniqueId) > 0 || !requested))
+		{
+			if (requested)
+			{
+				if (actorData.HasBotController || actorData.m_availableTauntIDs.Contains(tauntUniqueId) || flag)
+				{
+					if (actorData.GetCharacterResourceLink().m_taunts.Find((CharacterTaunt t) => t.m_actionForTaunt == actionType && t.m_uniqueID == tauntUniqueId) == null)
+					{
+						Log.Warning(string.Concat(new object[]
+						{
+							"Taunt entry not found ",
+							animTauntIndex,
+							" uniqueId: ",
+							tauntUniqueId
+						}));
+						return;
+					}
+					if (ServerActionBuffer.Get().AbilityCinematicRequest(actorData, abilityOfActionType, requested, animTauntIndex, tauntUniqueId))
+					{
+						m_abilityRequested[(int)actionType] = requested;
+						return;
+					}
+				}
+			}
+			else if (ServerActionBuffer.Get().AbilityCinematicRequest(actorData, abilityOfActionType, requested, animTauntIndex, tauntUniqueId))
+			{
+				m_abilityRequested[(int)actionType] = requested;
+			}
+		}
+#endif
 	}
 
 	public void SendAbilityCinematicRequest(AbilityData.ActionType actionType, bool requested, int animTauntIndex, int tauntId)
@@ -137,10 +243,23 @@ public class ActorCinematicRequests : NetworkBehaviour
 		ProcessAbilityCinematicRequest((AbilityData.ActionType)actionType, requested, animTauntIndex, tauntId);
 	}
 
+	// removed in rogues
 	private void UNetVersion()
 	{
 	}
 
+	// added in rogues
+#if SERVER
+	public void AddUsedUniqueTauntId(int tauntUniqueId)
+	{
+		if (tauntUniqueId >= 0)
+		{
+			m_cinematicsPlayedThisMatch.Add(tauntUniqueId);
+		}
+	}
+#endif
+
+	// removed in rogues
 	protected static void InvokeSyncListm_abilityRequested(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -151,6 +270,7 @@ public class ActorCinematicRequests : NetworkBehaviour
 		((ActorCinematicRequests)obj).m_abilityRequested.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_cinematicsPlayedThisMatch(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -161,6 +281,18 @@ public class ActorCinematicRequests : NetworkBehaviour
 		((ActorCinematicRequests)obj).m_cinematicsPlayedThisMatch.HandleMsg(reader);
 	}
 
+	// rogues
+	//public ActorCinematicRequests()
+	//{
+	//	base.InitSyncObject(m_abilityRequested);
+	//	base.InitSyncObject(m_cinematicsPlayedThisMatch);
+	//}
+
+	// rogues
+	//private void MirrorProcessed()
+	//{
+	//}
+
 	protected static void InvokeCmdCmdSelectAbilityCinematicRequest(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkServer.active)
@@ -168,11 +300,15 @@ public class ActorCinematicRequests : NetworkBehaviour
 			Debug.LogError("Command CmdSelectAbilityCinematicRequest called on client.");
 			return;
 		}
+		// reactor
 		((ActorCinematicRequests)obj).CmdSelectAbilityCinematicRequest((int)reader.ReadPackedUInt32(), reader.ReadBoolean(), (int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32());
+		// rogues
+		//((ActorCinematicRequests)obj).CmdSelectAbilityCinematicRequest(reader.ReadPackedInt32(), reader.ReadBoolean(), reader.ReadPackedInt32(), reader.ReadPackedInt32());
 	}
 
 	public void CallCmdSelectAbilityCinematicRequest(int actionType, bool requested, int animTauntIndex, int tauntId)
 	{
+		// removed in rogues
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("Command function CmdSelectAbilityCinematicRequest called on server.");
@@ -183,6 +319,8 @@ public class ActorCinematicRequests : NetworkBehaviour
 			CmdSelectAbilityCinematicRequest(actionType, requested, animTauntIndex, tauntId);
 			return;
 		}
+
+		// reactor
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
 		networkWriter.Write((short)5);
@@ -193,8 +331,35 @@ public class ActorCinematicRequests : NetworkBehaviour
 		networkWriter.WritePackedUInt32((uint)animTauntIndex);
 		networkWriter.WritePackedUInt32((uint)tauntId);
 		SendCommandInternal(networkWriter, 0, "CmdSelectAbilityCinematicRequest");
+		// rogues
+		//NetworkWriter networkWriter = new NetworkWriter();
+		//networkWriter.WritePackedInt32(actionType);
+		//networkWriter.Write(requested);
+		//networkWriter.WritePackedInt32(animTauntIndex);
+		//networkWriter.WritePackedInt32(tauntId);
+		//base.SendCommandInternal(typeof(ActorCinematicRequests), "CmdSelectAbilityCinematicRequest", networkWriter, 0);
 	}
 
+	// rogues
+	//protected static void InvokeRpcRpcRemoveModForTurnStart(NetworkBehaviour obj, NetworkReader reader)
+	//{
+	//	if (!NetworkClient.active)
+	//	{
+	//		Debug.LogError("RPC RpcRemoveModForTurnStart called on server.");
+	//		return;
+	//	}
+	//	((ActorCinematicRequests)obj).RpcRemoveModForTurnStart(reader.ReadPackedInt32());
+	//}
+
+	// rogues
+	//public void CallRpcRemoveModForTurnStart(int actionType)
+	//{
+	//	NetworkWriter networkWriter = new NetworkWriter();
+	//	networkWriter.WritePackedInt32(actionType);
+	//	this.SendRPCInternal(typeof(ActorCinematicRequests), "RpcRemoveModForTurnStart", networkWriter, 0);
+	//}
+
+	// reactor
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -239,6 +404,25 @@ public class ActorCinematicRequests : NetworkBehaviour
 		return flag;
 	}
 
+	// rogues
+	//public override bool OnSerialize(NetworkWriter writer, bool forceAll)
+	//{
+	//	bool result = base.OnSerialize(writer, forceAll);
+	//	if (forceAll)
+	//	{
+	//		writer.WritePackedInt32(m_numCinematicRequestsLeft);
+	//		return true;
+	//	}
+	//	writer.WritePackedUInt64(base.syncVarDirtyBits);
+	//	if ((base.syncVarDirtyBits & 1UL) != 0UL)
+	//	{
+	//		writer.WritePackedInt32(m_numCinematicRequestsLeft);
+	//		result = true;
+	//	}
+	//	return result;
+	//}
+
+	// reactor
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)
@@ -262,4 +446,22 @@ public class ActorCinematicRequests : NetworkBehaviour
 			SyncListInt.ReadReference(reader, m_cinematicsPlayedThisMatch);
 		}
 	}
+
+	// rogues
+	//public override void OnDeserialize(NetworkReader reader, bool initialState)
+	//{
+	//	base.OnDeserialize(reader, initialState);
+	//	if (initialState)
+	//	{
+	//		int networkm_numCinematicRequestsLeft = reader.ReadPackedInt32();
+	//		Networkm_numCinematicRequestsLeft = networkm_numCinematicRequestsLeft;
+	//		return;
+	//	}
+	//	long num = (long)reader.ReadPackedUInt64();
+	//	if ((num & 1L) != 0L)
+	//	{
+	//		int networkm_numCinematicRequestsLeft2 = reader.ReadPackedInt32();
+	//		Networkm_numCinematicRequestsLeft = networkm_numCinematicRequestsLeft2;
+	//	}
+	//}
 }

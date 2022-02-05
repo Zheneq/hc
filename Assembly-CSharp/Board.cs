@@ -1,5 +1,6 @@
+﻿// ROGUES
+// SERVER
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -85,6 +86,7 @@ public class Board : MonoBehaviour, IGameEventListener
 	{
 		base.enabled = false;
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.GameFlowDataStarted);
+		// GameEventManager.Get().AddListener(this, GameEventManager.EventType.VisualSceneLoaded);  // added in rogues
 		s_board = this;
 		if (m_LOSHighlightsParent == null)
 		{
@@ -118,6 +120,7 @@ public class Board : MonoBehaviour, IGameEventListener
 		if (GameEventManager.Get() != null)
 		{
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GameFlowDataStarted);
+			// GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.VisualSceneLoaded);  // added in rogues
 		}
 		m_normalPathBuildScratchPool = null;
 		s_board = null;
@@ -129,7 +132,35 @@ public class Board : MonoBehaviour, IGameEventListener
 		{
 			base.enabled = true;
 		}
+		// rogues?
+		//if (eventType == GameEventManager.EventType.VisualSceneLoaded && this.m_losLookup != null)
+		//{
+		//	StartCoroutine(CalculateDynamicLineOfSight(0, GetMaxX(), 0, GetMaxY(), false));
+		//}
 	}
+
+	// rogues?
+	//public IEnumerator CalculateDynamicLineOfSight(int minX, int maxX, int minY, int maxY, bool forceRecalc)
+	//{
+	//    int num;
+	//    for (int testX = minX; testX < maxX; testX = num)
+	//    {
+	//        for (int testY = minY; testY < maxY; testY = num)
+	//        {
+	//            yield return new WaitForFixedUpdate();
+	//            BoardSquare squareFromIndex = this.GetSquareFromIndex(testX, testY);
+	//            if (forceRecalc)
+	//            {
+	//                squareFromIndex.SetNeedsDynamicLOS();
+	//            }
+	//            squareFromIndex.GetLOS(0, 0);
+	//            num = testY + 1;
+	//        }
+	//        num = testX + 1;
+	//    }
+	//    yield return null;
+	//    yield break;
+	//}
 
 	private void Update()
 	{
@@ -158,10 +189,13 @@ public class Board : MonoBehaviour, IGameEventListener
 			PlayerFreeSquare = GetSquareFromVec3(PlayerFreePos);
 			PlayerFreeCornerPos = GetBestCornerPos(PlayerFreePos, PlayerFreeSquare);
 			RecalcClampedSelections();
+			//if (!GameFlowData.Get().GetPause())
+			//{
 			HighlightUtils.Get().UpdateCursorPositions();
 			HighlightUtils.Get().UpdateRangeIndicatorHighlight();
 			HighlightUtils.Get().UpdateMouseoverCoverHighlight();
 			HighlightUtils.Get().UpdateShowAffectedSquareFlag();
+			//}
 		}
 		if (Input.GetMouseButtonUp(2))
 		{
@@ -327,6 +361,7 @@ public class Board : MonoBehaviour, IGameEventListener
 		return m_LOSHighlightsParent;
 	}
 
+	// reactor
 	public void ApplyForceOnDead(BoardSquare square, float amount, Vector3 overrideDir, bool applyToAllJoints)
 	{
 		if (square == null)
@@ -353,6 +388,30 @@ public class Board : MonoBehaviour, IGameEventListener
 			}
 		}
 	}
+	// rogues
+	// NOTE ROGUES iterates over actor datas, not player game objects
+	//public void ApplyForceOnDead(BoardSquare square, float amount, Vector3 overrideDir, bool applyToAllJoints)
+	//{
+	//	if (square == null)
+	//	{
+	//		return;
+	//	}
+	//	foreach (ActorData actorData in GameFlowData.Get().GetActors())
+	//	{
+	//		if (actorData && actorData.IsInRagdoll())
+	//		{
+	//			if (applyToAllJoints && actorData.GetActorModelData() != null)
+	//			{
+	//				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(square.ToVector3() + 0.2f * Vector3.up, overrideDir);
+	//				actorData.GetActorModelData().ApplyImpulseOnRagdoll(impulseInfo, null);
+	//			}
+	//			else
+	//			{
+	//				actorData.ApplyForceFromPoint(square.ToVector3(), amount, overrideDir);
+	//			}
+	//		}
+	//	}
+	//}
 
 	public void SetThinCover(int x, int y, ActorCover.CoverDirections side, ThinCover.CoverType coverType)
 	{

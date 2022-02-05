@@ -1,16 +1,36 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
+//using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class BarrierManager : NetworkBehaviour
 {
+	// server-only
+#if SERVER
+	public static int s_nextBarrierGuid;
+#endif
+
 	private static BarrierManager s_instance;
 
 	private List<Barrier> m_barriers = new List<Barrier>();
 	private Dictionary<Team, int> m_movementStates = new Dictionary<Team, int>();
 	private Dictionary<Team, int> m_visionStates = new Dictionary<Team, int>();
+
+	// rogues
+	//private SyncListBarrierSpawnData m_syncNonAbilityBarrierSpawnInfo = new SyncListBarrierSpawnData();
+
 	private List<BarrierSerializeInfo> m_clientBarrierInfo = new List<BarrierSerializeInfo>();
+
+	// server-only or rogues-only? replaces BarrierSerializeInfo.m_clientSequenceStartAttempted, lookup by guid
+	//#if SERVER
+	//	private Dictionary<int, bool> m_clientSequenceAttempted = new Dictionary<int, bool>();
+	//#endif
+
+	// rogues
+	//private List<PveScriptBarrierSpawner> m_pveBarrierSpawners = new List<PveScriptBarrierSpawner>();
 
 	private SyncListInt m_barrierIdSync = new SyncListInt();
 	private SyncListInt m_movementStatesSync = new SyncListInt();
@@ -20,21 +40,38 @@ public class BarrierManager : NetworkBehaviour
 	private bool m_suppressingAbilityBlocks;
 	private bool m_hasAbilityBlockingBarriers;
 
+	// removed in rogues
 	private static int kListm_barrierIdSync = 1647649475;
+	// removed in rogues
 	private static int kListm_movementStatesSync = -1285657162;
+	// removed in rogues
 	private static int kListm_visionStatesSync = -1477195729;
+	// removed in rogues
 	private static int kRpcRpcUpdateBarriers = 73930193;
 
 	private const int c_teamNum = 3;
 
 	static BarrierManager()
 	{
+		// reactor
 		RegisterRpcDelegate(typeof(BarrierManager), kRpcRpcUpdateBarriers, InvokeRpcRpcUpdateBarriers);
 		RegisterSyncListDelegate(typeof(BarrierManager), kListm_barrierIdSync, InvokeSyncListm_barrierIdSync);
 		RegisterSyncListDelegate(typeof(BarrierManager), kListm_movementStatesSync, InvokeSyncListm_movementStatesSync);
 		RegisterSyncListDelegate(typeof(BarrierManager), kListm_visionStatesSync, InvokeSyncListm_visionStatesSync);
 		NetworkCRC.RegisterBehaviour("BarrierManager", 0);
+		// rogues
+		//NetworkBehaviour.RegisterRpcDelegate(typeof(BarrierManager), "RpcUpdateBarriers", new NetworkBehaviour.CmdDelegate(BarrierManager.InvokeRpcRpcUpdateBarriers));
+		//NetworkBehaviour.RegisterRpcDelegate(typeof(BarrierManager), "RpcOnPveBlockerStateChange", new NetworkBehaviour.CmdDelegate(BarrierManager.InvokeRpcRpcOnPveBlockerStateChange));
 	}
+
+	// added in rogues -- instead of custom serialization?
+	//public BarrierManager()
+	//{
+	//	base.InitSyncObject(m_syncNonAbilityBarrierSpawnInfo);
+	//	base.InitSyncObject(m_barrierIdSync);
+	//	base.InitSyncObject(m_movementStatesSync);
+	//	base.InitSyncObject(m_visionStatesSync);
+	//}
 
 	public static BarrierManager Get()
 	{
@@ -70,6 +107,25 @@ public class BarrierManager : NetworkBehaviour
 		return m_suppressingAbilityBlocks;
 	}
 
+	// rogues
+	//public void RegisterBarrierSpawner(PveScriptBarrierSpawner spawner)
+	//{
+	//	if (spawner != null && !m_pveBarrierSpawners.Contains(spawner))
+	//	{
+	//		m_pveBarrierSpawners.Add(spawner);
+	//		PveLog.DebugLog("Registered barrier spawner " + spawner.gameObject.name, null);
+	//	}
+	//}
+
+	// rogues
+	//public void UnregisterBarrierSpawner(PveScriptBarrierSpawner spawner)
+	//{
+	//	if (spawner != null)
+	//	{
+	//		m_pveBarrierSpawners.Remove(spawner);
+	//	}
+	//}
+
 	private void Awake()
 	{
 		s_instance = this;
@@ -79,9 +135,21 @@ public class BarrierManager : NetworkBehaviour
 		m_visionStates.Add(Team.TeamA, 0);
 		m_visionStates.Add(Team.TeamB, 0);
 		m_visionStates.Add(Team.Objects, 0);
+
+		// removed in rogues
 		m_barrierIdSync.InitializeBehaviour(this, kListm_barrierIdSync);
 		m_movementStatesSync.InitializeBehaviour(this, kListm_movementStatesSync);
 		m_visionStatesSync.InitializeBehaviour(this, kListm_visionStatesSync);
+
+		// moved from OnStartServer in rogues
+		//if (NetworkServer.active)
+		//{
+		//	for (int i = 0; i < 3; i++)
+		//	{
+		//		m_movementStatesSync.Add(0);
+		//		m_visionStatesSync.Add(0);
+		//	}
+		//}
 	}
 
 	private void OnDestroy()
@@ -96,10 +164,16 @@ public class BarrierManager : NetworkBehaviour
 
 	public override void OnStartClient()
 	{
+		// reactor
 		m_movementStatesSync.Callback = SyncListCallbackMovementStates;
 		m_visionStatesSync.Callback = SyncListCallbackVisionStates;
+		// rogues
+		//m_movementStatesSync.Callback += new SyncList<int>.SyncListChanged(SyncListCallbackMovementStates);
+		//m_visionStatesSync.Callback += new SyncList<int>.SyncListChanged(SyncListCallbackVisionStates);
+		//m_syncNonAbilityBarrierSpawnInfo.Callback += new SyncList<BarrierSerializeInfo>.SyncListChanged(SyncListCallbackBarrierSpawnInfo);
 	}
 
+	// moved into awake in rogues
 	public override void OnStartServer()
 	{
 		for (int i = 0; i < c_teamNum; i++)
@@ -126,7 +200,7 @@ public class BarrierManager : NetworkBehaviour
 		}
 	}
 
-	public void AddBarrier(Barrier barrierToAdd, bool delayVisionUpdate, out List<ActorData> visionUpdaters)
+	public void AddBarrier(Barrier barrierToAdd, bool delayVisionUpdate, out List<ActorData> visionUpdaters)  // , bool addToSpawnDataSyncList = false in rogues
 	{
 		visionUpdaters = new List<ActorData>();
 		if (m_barriers.Contains(barrierToAdd))
@@ -139,6 +213,12 @@ public class BarrierManager : NetworkBehaviour
 			if (NetworkServer.active)
 			{
 				m_barrierIdSync.Add(barrierToAdd.m_guid);
+				// rogues
+				//if (addToSpawnDataSyncList)
+				//{
+				//	BarrierSerializeInfo barrierSerializeInfo = Barrier.BarrierToSerializeInfo(barrierToAdd);
+				//	m_syncNonAbilityBarrierSpawnInfo.Add(barrierSerializeInfo);
+				//}
 				CallRpcUpdateBarriers();
 				if (m_barrierIdSync.Count > 120)
 				{
@@ -168,6 +248,15 @@ public class BarrierManager : NetworkBehaviour
 						m_barrierIdSync.RemoveAt(num);
 					}
 				}
+				// rogues
+				//for (int j = 0; j < m_syncNonAbilityBarrierSpawnInfo.Count; j++)
+				//{
+				//	if (m_syncNonAbilityBarrierSpawnInfo[j].m_guid == barrierToRemove.m_guid)
+				//	{
+				//		m_syncNonAbilityBarrierSpawnInfo.RemoveAt(j);
+				//		break;
+				//	}
+				//}
 				if (doRpcUpdate)
 				{
 					CallRpcUpdateBarriers();
@@ -181,11 +270,30 @@ public class BarrierManager : NetworkBehaviour
 	public void AddClientBarrierInfo(BarrierSerializeInfo info)
 	{
 		m_clientBarrierInfo.Add(info);
+		//#if SERVER
+		//		m_clientSequenceAttempted[info.m_guid] = false;  // added in rogues
+		//#endif
 		if (m_clientBarrierInfo.Count > 100)
 		{
 			Debug.LogError("More than 100 client barrier info");
 		}
 	}
+
+	// added in rogues
+	//#if SERVER
+	//	public bool WasClientSequenceAttempted(int guid)
+	//	{
+	//		return m_clientSequenceAttempted.TryGetValue(guid, out bool value) && value;
+	//	}
+	//#endif
+
+	// added in rogues
+	//#if SERVER
+	//	public void NotifyClientSequenceAttempted(int guid)
+	//	{
+	//		m_clientSequenceAttempted[guid] = true;
+	//	}
+	//#endif
 
 	public void RemoveClientBarrierInfo(int guid)
 	{
@@ -194,12 +302,14 @@ public class BarrierManager : NetworkBehaviour
 			if (m_clientBarrierInfo[num].m_guid == guid)
 			{
 				if (!m_clientBarrierInfo[num].m_clientSequenceStartAttempted)
+				//if (!WasClientSequenceAttempted(guid)) // rogues
 				{
 					Log.Error("Client did not attempt to spawn barrier sequences before it is removed");
 				}
 				m_clientBarrierInfo.RemoveAt(num);
 			}
 		}
+		//m_clientSequenceAttempted.Remove(guid);  // added in rogues
 	}
 
 	public bool HasBarrier(Barrier barrierToCheck)
@@ -396,11 +506,13 @@ public class BarrierManager : NetworkBehaviour
 	public bool AreAbilitiesBlocked(ActorData caster, Vector3 startPos, Vector3 destPos, List<NonActorTargetInfo> nonActorTargetInfo)
 	{
 		bool flag = nonActorTargetInfo != null && NetworkServer.active;
+		Vector3 crossPos = Vector3.zero;
 		float dist = 0f;
-		Barrier bar = null;  // TODO missing code regarding bar
+		Barrier bar = null;
 		bool result = false;
 		foreach (Barrier barrier in m_barriers)
 		{
+			// TODO HIGH looks like a bug -- first call, then check for null
 			if (!barrier.CanBeShotThroughBy(caster)
 				&& barrier != null
 				&& barrier.CrossingBarrier(startPos, destPos))
@@ -416,13 +528,26 @@ public class BarrierManager : NetworkBehaviour
 				if (!result || magnitude < dist)
 				{
 					dist = magnitude;
+#if SERVER
+					// added in rogues
+					crossPos = intersectionPoint;
+					bar = barrier;
+#endif
 				}
 				result = true;
 			}
 		}
 		if (bar != null)
 		{
+			// added in rogues -- an empty if in reactor
+#if SERVER
+			if (flag && result)
+			{
+				nonActorTargetInfo.Add(new NonActorTargetInfo_BarrierBlock(bar, crossPos, startPos));
+			}
+#endif
 		}
+
 		return result;
 	}
 
@@ -443,10 +568,17 @@ public class BarrierManager : NetworkBehaviour
 				hitBarrier = barrier;
 			}
 		}
-		// TODO missing code
 		if (hitBarrier != null)
 		{
+			// added in rogues -- an empty if in reactor
+#if SERVER
+			if (nonActorTargetInfo != null)
+			{
+				nonActorTargetInfo.Add(new NonActorTargetInfo_BarrierBlock(hitBarrier, endpoint, lineStart));
+			}
+#endif
 		}
+
 		return endpoint;
 	}
 
@@ -473,6 +605,200 @@ public class BarrierManager : NetworkBehaviour
 			}
 		}
 	}
+
+	// added in rogues
+#if SERVER
+	public void AddNonActorTargetInfoFromPos(ActorData caster, Vector3 lineStart, List<NonActorTargetInfo> nonActorTargetInfo, IPosInsideChecker posChecker, List<Vector3> additionalLosCheckPos = null)
+	{
+		lineStart.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+		List<Vector3> list = new List<Vector3>
+		{
+			lineStart
+		};
+		if (additionalLosCheckPos != null)
+		{
+			for (int i = 0; i < additionalLosCheckPos.Count; i++)
+			{
+				Vector3 item = additionalLosCheckPos[i];
+				item.y = lineStart.y;
+				list.Add(item);
+			}
+		}
+		for (int j = 0; j < m_barriers.Count; j++)
+		{
+			Barrier barrier = m_barriers[j];
+			if (!barrier.CanBeShotThroughBy(caster))
+			{
+				Vector3 facingDir = barrier.GetFacingDir();
+				List<Vector3> list2 = new List<Vector3>(3);
+				Vector3 centerPos = barrier.GetCenterPos();
+				list2.Add(centerPos);
+				Vector3 vector = barrier.GetEndPos1() - centerPos;
+				if (posChecker == null || !posChecker.AddTestPosForBarrier(list2, barrier))
+				{
+					list2.Add(centerPos + 0.9f * vector);
+					list2.Add(centerPos - 0.9f * vector);
+				}
+				bool flag = false;
+				int num = 0;
+				while (num < list2.Count && !flag)
+				{
+					Vector3 vector2 = list2[num];
+					foreach (Vector3 vector3 in list)
+					{
+						Vector3 vector4 = vector2 - vector3;
+						vector4.y = 0f;
+						vector4.Normalize();
+						Vector3 vector5 = 0.1f * facingDir;
+						if ((posChecker == null || (posChecker.IsPositionInside(vector2 + vector5) && posChecker.IsPositionInside(vector2 - vector5))) && barrier.CrossingBarrier(vector3, vector2))
+						{
+							Vector3 dir = vector2 - vector3;
+							dir.y = 0f;
+							float magnitude = dir.magnitude;
+							if (!VectorUtils.RaycastInDirection(vector3, dir, magnitude, out RaycastHit raycastHit))
+							{
+								if (nonActorTargetInfo != null)
+								{
+									nonActorTargetInfo.Add(new NonActorTargetInfo_BarrierBlock(barrier, vector2, vector3));
+								}
+								flag = true;
+								break;
+							}
+						}
+					}
+					num++;
+				}
+			}
+		}
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	public void OnTurnEnd(Team team = Team.Invalid)
+	{
+		List<Barrier> list = new List<Barrier>();
+		for (int i = 0; i < m_barriers.Count; i++)
+		{
+			Barrier barrier = m_barriers[i];
+			bool flag = false;
+			if (team == Team.TeamA)
+			{
+				if (barrier.Caster != null && barrier.Caster.GetTeam() == team)
+				{
+					flag = true;
+				}
+			}
+			else if (team == Team.TeamB)
+			{
+				if (barrier.Caster == null || barrier.Caster.GetTeam() == team)
+				{
+					flag = true;
+				}
+			}
+			else
+			{
+				flag = true;
+			}
+			if (flag)
+			{
+				barrier.m_time.age++;
+				barrier.OnTurnEnd();
+				if (barrier.ShouldEnd())
+				{
+					list.Add(barrier);
+				}
+			}
+		}
+		foreach (Barrier barrierToRemove in list)
+		{
+			RemoveBarrier(barrierToRemove, false);
+		}
+		if (list.Count > 0)
+		{
+			CallRpcUpdateBarriers();
+		}
+	}
+
+	// added in rogues
+	public void OnTurnStart()
+	{
+		List<Barrier> list = new List<Barrier>();
+		for (int i = 0; i < m_barriers.Count; i++)
+		{
+			Barrier barrier = m_barriers[i];
+			barrier.OnTurnStart();
+			if (barrier.ShouldEnd())
+			{
+				list.Add(barrier);
+			}
+		}
+		foreach (Barrier barrierToRemove in list)
+		{
+			RemoveBarrier(barrierToRemove, false);
+		}
+		// rogues?
+		//for (int j = 0; j < m_pveBarrierSpawners.Count; j++)
+		//{
+		//	m_pveBarrierSpawners[j].OnTurnStart_BarrierSpawner();
+		//}
+		CallRpcUpdateBarriers();
+	}
+
+	// added in rogues
+	public void OnAbilityPhaseEnd(AbilityPriority phase)
+	{
+		bool flag = false;
+		for (int i = m_barriers.Count - 1; i >= 0; i--)
+		{
+			Barrier barrier = m_barriers[i];
+			if (barrier.ShouldEndAtEndOfPhase(phase))
+			{
+				RemoveBarrier(barrier, false);
+				flag = true;
+			}
+		}
+		if (flag)
+		{
+			CallRpcUpdateBarriers();
+		}
+	}
+
+	// added in rogues
+	public void ExecuteUnexecutedMovementHitsForAllBarriers(MovementStage movementStage, bool asFailsafe)
+	{
+		foreach (Barrier barrier in new List<Barrier>(m_barriers))
+		{
+			if (barrier != null && HasBarrier(barrier))
+			{
+				barrier.ExecuteUnexecutedMovementResults_Barrier(movementStage, asFailsafe);
+			}
+		}
+		CallRpcUpdateBarriers();
+	}
+
+	// added in rogues
+	public void ExecuteUnexecutedMovementHitsForAllBarriersForDistance(float distance, MovementStage movementStage, bool asFailsafe, out bool stillHasUnexecutedHits, out float nextUnexecutedHitDistance)
+	{
+		stillHasUnexecutedHits = false;
+		nextUnexecutedHitDistance = float.MaxValue;
+		foreach (Barrier barrier in new List<Barrier>(m_barriers))
+		{
+			if (barrier != null && HasBarrier(barrier))
+			{
+				barrier.ExecuteUnexecutedMovementResultsForDistance_Barrier(distance, movementStage, asFailsafe, out bool flag, out float num);
+				if (flag)
+				{
+					stillHasUnexecutedHits |= true;
+					if (num < nextUnexecutedHitDistance)
+					{
+						nextUnexecutedHitDistance = num;
+					}
+				}
+			}
+		}
+	}
+#endif
 
 	private Team GetTeamFromSyncIndex(int index)
 	{
@@ -508,6 +834,11 @@ public class BarrierManager : NetworkBehaviour
 	[ClientRpc]
 	private void RpcUpdateBarriers()
 	{
+		ClientUpdateBarriers();
+	}
+
+	private void ClientUpdateBarriers()
+	{
 		if (NetworkServer.active)
 		{
 			return;
@@ -523,14 +854,32 @@ public class BarrierManager : NetworkBehaviour
 			}
 		}
 
+		// reactor
 		m_barriers.Clear();
+		// rogues
+		//List<int> list = new List<int>();
+		//      for (int j = m_barriers.Count - 1; j >= 0; j--)
+		//      {
+		//          if (!m_barrierIdSync.Contains(m_barriers[j].m_guid))
+		//          {
+		//              m_barriers.RemoveAt(j);
+		//          }
+		//          else
+		//          {
+		//              list.Add(m_barriers[j].m_guid);
+		//          }
+		//      }
+		// end rogues
+
 		if (m_barrierIdSync.Count > 50)
 		{
-			Debug.LogError("More than 50 barriers active?");
+			Debug.LogError("More than 50 barriers active?");  // LogWarning in rogues
 		}
 
 		foreach (int barrierId in m_barrierIdSync)
 		{
+			//if (!list.Contains(barrierId)) // added in rogues -- unconditional in reactor
+			//{
 			foreach (BarrierSerializeInfo cached in m_clientBarrierInfo)
 			{
 				if (cached.m_guid == barrierId)
@@ -544,6 +893,23 @@ public class BarrierManager : NetworkBehaviour
 					break;
 				}
 			}
+
+			// rogues?
+			//foreach (BarrierSerializeInfo barrierSerializeInfo2 in m_syncNonAbilityBarrierSpawnInfo)
+			//{
+			//    if (barrierSerializeInfo2.m_guid == m_barrierIdSync[i])
+			//    {
+			//        Barrier barrier2 = Barrier.CreateBarrierFromSerializeInfo(barrierSerializeInfo2);
+			//        if (barrier2.ConsiderAsCover)
+			//        {
+			//            hasBarrierCovers = true;
+			//        }
+			//        List<ActorData> list3;
+			//        AddBarrier(barrier2, false, out list3, false);
+			//        break;
+			//    }
+			//}
+			//}
 		}
 		ClientUpdateMovementAndVision();
 		UpdateHasAbilityBlockingBarriers();
@@ -553,15 +919,47 @@ public class BarrierManager : NetworkBehaviour
 		}
 	}
 
+	// rogues
+	//   [ClientRpc]
+	//public void RpcOnPveBlockerStateChange(int barrierSpawnerKey, bool activeNow)
+	//{
+	//	for (int i = 0; i < m_pveBarrierSpawners.Count; i++)
+	//	{
+	//		if (m_pveBarrierSpawners[i].GetIdentifier() == barrierSpawnerKey)
+	//		{
+	//			m_pveBarrierSpawners[i].SetVisualObjectState(activeNow);
+	//			return;
+	//		}
+	//	}
+	//}
+
+	// reactor
 	private void SyncListCallbackMovementStates(SyncList<int>.Operation op, int index)
 	{
 		m_clientNeedMovementUpdate = true;
 	}
+	// rogues
+	//private void SyncListCallbackMovementStates(SyncList<int>.Operation op, int index, int item)
+	//{
+	//	m_clientNeedMovementUpdate = true;
+	//}
 
+	// reactor
 	private void SyncListCallbackVisionStates(SyncList<int>.Operation op, int index)
 	{
 		ClientUpdateMovementAndVision();
 	}
+	// rogues
+	//private void SyncListCallbackVisionStates(SyncList<int>.Operation op, int index, int item)
+	//{
+	//	ClientUpdateMovementAndVision();
+	//}
+
+	// rogues
+	//private void SyncListCallbackBarrierSpawnInfo(SyncList<BarrierSerializeInfo>.Operation op, int index, BarrierSerializeInfo item)
+	//{
+	//	ClientUpdateBarriers();
+	//}
 
 	[Client]
 	private void ClientUpdateMovementAndVision()
@@ -620,6 +1018,115 @@ public class BarrierManager : NetworkBehaviour
 		}
 	}
 
+#if SERVER
+	// server-only
+	public void LinkBarriers(List<Barrier> barriers, LinkedBarrierData linkData)
+	{
+		foreach (Barrier barrier in barriers)
+		{
+			foreach (Barrier otherBarrier in barriers)
+			{
+				barrier.LinkWithBarrier(otherBarrier, linkData);
+			}
+		}
+	}
+
+	// server-only
+	public void RemoveBarrierAndLinkedSiblings(Barrier barrier)
+	{
+		if (barrier != null)
+		{
+			foreach (Barrier barrierToRemove in barrier.GetLinkedBarriers())
+			{
+				RemoveBarrier(barrierToRemove, true);
+			}
+			RemoveBarrier(barrier, true);
+		}
+	}
+
+	// server-only
+	public void GatherAllBarrierResultsInResponseToEvades(MovementCollection evadeMovementCollection)
+	{
+		foreach (Barrier barrier in m_barriers)
+		{
+			barrier.GatherResultsInResponseToEvades(evadeMovementCollection);
+		}
+	}
+
+	// server-only
+	public void GatherAllBarrierResultsInResponseToKnockbacks(MovementCollection knockbackCollection)
+	{
+		foreach (Barrier barrier in m_barriers)
+		{
+			barrier.GatherResultsInResponseToKnockbacks(knockbackCollection);
+		}
+	}
+
+	// server-only
+	public void GatherAllBarrierResultsInResponseToMovementSegment(ServerGameplayUtils.MovementGameplayData gameplayData, MovementStage movementStage, ref List<MovementResults> moveResultsForSegment)
+	{
+		foreach (Barrier barrier in m_barriers)
+		{
+			List<MovementResults> list = new List<MovementResults>();
+			barrier.GatherBarrierResultsInResponseToMovementSegment(gameplayData, movementStage, ref list);
+			List<MovementResults> movementResultsForMovementStage = barrier.GetMovementResultsForMovementStage(movementStage);
+			for (int i = 0; i < list.Count; i++)
+			{
+				if (list[i].ShouldMovementHitUpdateTargetLastKnownPos(gameplayData.Actor))
+				{
+					gameplayData.m_currentlyConsideredPath.m_visibleToEnemies = true;
+					gameplayData.m_currentlyConsideredPath.m_updateLastKnownPos = true;
+				}
+				gameplayData.m_currentlyConsideredPath.m_moverHasGameplayHitHere = true;
+				movementResultsForMovementStage.Add(list[i]);
+				moveResultsForSegment.Add(list[i]);
+			}
+		}
+	}
+
+	// server-only
+	public void ClearAllBarrierResultsForNormalMovement()
+	{
+		foreach (Barrier barrier in m_barriers)
+		{
+			barrier.ClearNormalMovementResults();
+		}
+	}
+
+	// server-only
+	public void IntegrateMovementDamageResults_Evasion(ref Dictionary<ActorData, int> actorToDeltaHP)
+	{
+		foreach (Barrier barrier in m_barriers)
+		{
+			barrier.IntegrateDamageResultsForEvasion(ref actorToDeltaHP);
+		}
+	}
+
+	// server-only
+	public void IntegrateMovementDamageResults_Knockback(ref Dictionary<ActorData, int> actorToDeltaHP)
+	{
+		foreach (Barrier barrier in m_barriers)
+		{
+			barrier.IntegrateDamageResultsForKnockback(ref actorToDeltaHP);
+		}
+	}
+
+	// server-only
+	public void GatherGrossDamageResults_Barriers_Evasion(ref Dictionary<ActorData, int> actorToGrossDamage_real, ref Dictionary<ActorData, ServerGameplayUtils.DamageDodgedStats> stats)
+	{
+		foreach (Barrier barrier in m_barriers)
+		{
+			barrier.GatherGrossDamageResults_Barrier_Evasion(ref actorToGrossDamage_real, ref stats);
+		}
+	}
+
+	// server-only
+	public List<Barrier> GetAllBarriers()
+	{
+		return m_barriers;
+	}
+#endif
+
 	private void OnDrawGizmos()
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera() || m_barriers == null)
@@ -632,10 +1139,16 @@ public class BarrierManager : NetworkBehaviour
 		}
 	}
 
+	// reactor
 	private void UNetVersion()
 	{
 	}
+	// rogues
+	//private void MirrorProcessed()
+	//{
+	//}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_barrierIdSync(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -646,6 +1159,7 @@ public class BarrierManager : NetworkBehaviour
 		((BarrierManager)obj).m_barrierIdSync.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_movementStatesSync(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -656,6 +1170,7 @@ public class BarrierManager : NetworkBehaviour
 		((BarrierManager)obj).m_movementStatesSync.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_visionStatesSync(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -676,8 +1191,20 @@ public class BarrierManager : NetworkBehaviour
 		((BarrierManager)obj).RpcUpdateBarriers();
 	}
 
+	// rogues
+	//protected static void InvokeRpcRpcOnPveBlockerStateChange(NetworkBehaviour obj, NetworkReader reader)
+	//{
+	//	if (!NetworkClient.active)
+	//	{
+	//		Debug.LogError("RPC RpcOnPveBlockerStateChange called on server.");
+	//		return;
+	//	}
+	//	((BarrierManager)obj).RpcOnPveBlockerStateChange(reader.ReadPackedInt32(), reader.ReadBoolean());
+	//}
+
 	public void CallRpcUpdateBarriers()
 	{
+		// reactor
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("RPC Function RpcUpdateBarriers called on client.");
@@ -689,8 +1216,21 @@ public class BarrierManager : NetworkBehaviour
 		networkWriter.WritePackedUInt32((uint)kRpcRpcUpdateBarriers);
 		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		SendRPCInternal(networkWriter, 0, "RpcUpdateBarriers");
+		// rogues
+		//NetworkWriter networkWriter = new NetworkWriter();
+		//SendRPCInternal(typeof(BarrierManager), "RpcUpdateBarriers", networkWriter, 0);
 	}
 
+	// rogues
+	//public void CallRpcOnPveBlockerStateChange(int barrierSpawnerKey, bool activeNow)
+	//{
+	//	NetworkWriter networkWriter = new NetworkWriter();
+	//	networkWriter.WritePackedInt32(barrierSpawnerKey);
+	//	networkWriter.Write(activeNow);
+	//	SendRPCInternal(typeof(BarrierManager), "RpcOnPveBlockerStateChange", networkWriter, 0);
+	//}
+
+	// removed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -735,6 +1275,7 @@ public class BarrierManager : NetworkBehaviour
 		return flag;
 	}
 
+	// removed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)

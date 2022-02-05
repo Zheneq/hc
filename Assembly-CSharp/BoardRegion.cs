@@ -1,14 +1,21 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+// rogues version uses a reference to scene
 [Serializable]
 public class BoardRegion
 {
+	// rogues
+	//public Scene scene;
+
 	public BoardQuad[] m_quads;
 	private List<BoardSquare> m_squaresInRegion;
 
-	private void CacheSquaresInRegion()
+	private void CacheSquaresInRegion()  // (Scene scene) in rogues
 	{
 		m_squaresInRegion = new List<BoardSquare>();
 		if (m_quads == null)
@@ -23,7 +30,7 @@ public class BoardRegion
 			}
 			else
 			{
-				foreach (BoardSquare square in boardQuad.GetSquares())
+				foreach (BoardSquare square in boardQuad.GetSquares())  // GetSquares(scene) in rogues
 				{
 					if (!m_squaresInRegion.Contains(square))
 					{
@@ -34,9 +41,9 @@ public class BoardRegion
 		}
 	}
 
-	public virtual void Initialize()
+	public virtual void Initialize()  // (Scene scene) in rogues
 	{
-		CacheSquaresInRegion();
+		CacheSquaresInRegion();  // (scene) in rogues
 	}
 
 	public virtual void InitializeAsRect(Vector3 worldCorner1, Vector3 worldCorner2)
@@ -56,6 +63,7 @@ public class BoardRegion
 		return m_squaresInRegion;
 	}
 
+	// removed in rogues
 	public BoardSquare GetClosestToCenter()
 	{
 		BoardSquare result = null;
@@ -118,7 +126,10 @@ public class BoardRegion
 				}
 				else
 				{
+					// reactor
 					result += (boardQuad.m_corner1.position + boardQuad.m_corner2.position) / 2f;
+					// rogues
+					//result += (boardQuad.Corner1(this.scene).position + boardQuad.Corner2(this.scene).position) / 2f;
 				}
 			}
 			result /= m_quads.Length;

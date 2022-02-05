@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +7,7 @@ public class ClientAbilityResults
 {
 	private ActorData m_casterActor;
 	private Ability m_castedAbility;
+	// removed in rogues
 	private AbilityData.ActionType m_actionType;
 	private List<ServerClientUtils.SequenceStartData> m_seqStartDataList;
 	private Dictionary<ActorData, ClientActorHitResults> m_actorToHitResults;
@@ -27,23 +30,25 @@ public class ClientAbilityResults
 		{
 			Debug.LogError("ClientAbilityResults error: Actor with index " + casterActorIndex + " is null.");
 			m_castedAbility = null;
-			m_actionType = AbilityData.ActionType.INVALID_ACTION;
+			m_actionType = AbilityData.ActionType.INVALID_ACTION; // removed in rogues
 		}
 		else
 		{
 			m_castedAbility = m_casterActor.GetAbilityData().GetAbilityOfActionType((AbilityData.ActionType)abilityAction);
-			m_actionType = (AbilityData.ActionType)abilityAction;
+			m_actionType = (AbilityData.ActionType)abilityAction; // removed in rogues
 		}
 		m_seqStartDataList = seqStartDataList;
 		m_actorToHitResults = actorToHitResults;
 		m_posToHitResults = posToHitResults;
 	}
 
+	// removed in rogues
 	public ActorData GetCaster()
 	{
 		return m_casterActor;
 	}
 
+	// removed in rogues
 	public AbilityData.ActionType GetSourceActionType()
 	{
 		return m_actionType;
@@ -84,21 +89,25 @@ public class ClientAbilityResults
 		return false;
 	}
 
+	// removed in rogues
 	public bool HasReactionByCaster(ActorData caster)
 	{
 		return ClientResolutionAction.HasReactionHitByCaster(caster, m_actorToHitResults);
 	}
 
+	// removed in rogues
 	public void GetReactionHitResultsByCaster(ActorData caster, out Dictionary<ActorData, ClientActorHitResults> reactionActorHits, out Dictionary<Vector3, ClientPositionHitResults> reactionPosHits)
 	{
 		ClientResolutionAction.GetReactionHitResultsByCaster(caster, m_actorToHitResults, out reactionActorHits, out reactionPosHits);
 	}
 
+	// removed in rogues
 	public Dictionary<ActorData, ClientActorHitResults> GetActorHitResults()
 	{
 		return m_actorToHitResults;
 	}
 
+	// removed in rogues
 	public Dictionary<Vector3, ClientPositionHitResults> GetPosHitResults()
 	{
 		return m_posToHitResults;
@@ -159,6 +168,12 @@ public class ClientAbilityResults
 	{
 		return ClientResolutionAction.DoneHitting(m_actorToHitResults, m_posToHitResults);
 	}
+
+	// rogues
+	//internal bool GetHitAccuType(ActorData target, out HitChanceBracket.HitType hitType)
+	//{
+	//	return ClientResolutionAction.GetHitAccuType(m_actorToHitResults, target, out hitType);
+	//}
 
 	internal bool HasUnexecutedHitOnActor(ActorData targetActor)
 	{

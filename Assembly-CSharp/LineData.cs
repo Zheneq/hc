@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -9,7 +11,9 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		public List<GridPos> m_positions;
 		public bool isChasing;
 		public GameObject m_lineObject;
+		// removed in rogues
 		public MovementPathStart m_movePathStart;
+		// removed in rogues
 		public Color m_currentColor;
 
 		public LineInstance()
@@ -17,6 +21,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			m_positions = new List<GridPos>();
 		}
 
+		// removed in rogues
 		public void DestroyLineObject()
 		{
 			m_movePathStart = null;
@@ -65,6 +70,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	public float m_lastAllyMovementChange;
 	private EasedFloatCubic m_alphaEased = new EasedFloatCubic(1f);
 	private bool m_waitingForNextMoveSquaresUpdate;
+	// removed in rogues
 	private float m_lastMoveSquareUpdatedTime = -1f;
 
 	public static bool SpectatorHideMovementLines { get; set; }
@@ -136,6 +142,28 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		return result;
 	}
 
+	// added in rogues
+#if SERVER
+	public LineData.LineInstance MovementLine
+	{
+		get
+		{
+			return m_movementLine;
+		}
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	public LineData.LineInstance MovementSnaredLine
+	{
+		get
+		{
+			return m_movementSnaredLine;
+		}
+	}
+#endif
+
 	private void Awake()
 	{
 		m_actor = GetComponent<ActorData>();
@@ -163,7 +191,10 @@ public class LineData : NetworkBehaviour, IGameEventListener
 
 	private void OnGameStateChanged(GameState newState)
 	{
+		// reactor
 		if (newState == GameState.BothTeams_Decision)
+		// rogues
+		//if (GameFlowData.IsDecisionStateEnum(newState))
 		{
 			m_alphaEased.EaseTo(1f, 0.01f);
 		}
@@ -171,7 +202,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 
 	public void OnClientRequestedMovementChange()
 	{
-		if (Time.time > m_lastMoveSquareUpdatedTime)
+		if (Time.time > m_lastMoveSquareUpdatedTime)  // unconditional in rogues
 		{
 			m_waitingForNextMoveSquaresUpdate = true;
 			ClearMovementPreviewLine();
@@ -181,6 +212,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	public void OnCanMoveToSquaresUpdated()
 	{
 		m_waitingForNextMoveSquaresUpdate = false;
+
+		// removed in rogues
 		m_lastMoveSquareUpdatedTime = Time.time;
 	}
 
@@ -204,11 +237,11 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			&& GameFlowData.Get() != null
 			&& InterfaceManager.Get() != null
 			&& GameFlowData.Get().activeOwnedActorData == m_actor
-			&& (m_actor.GetActorTurnSM().CurrentState != TurnStateEnum.DECIDING_MOVEMENT || m_actor.HasQueuedMovement()))
-		{
-			ClearLine(ref m_potentialMovementLine);
-		}
-		if (m_movementLine != null || m_movementSnaredLine != null || m_potentialMovementLine != null)
+			&& (m_actor.GetActorTurnSM().CurrentState != TurnStateEnum.DECIDING_MOVEMENT || m_actor.HasQueuedMovement())) // removed in rogues
+        {
+            ClearLine(ref m_potentialMovementLine);
+        }
+        if (m_movementLine != null || m_movementSnaredLine != null || m_potentialMovementLine != null)
 		{
 			bool isShowingAllyAbilities = InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowAllyAbilityInfo);
 			if (isShowingAllyAbilities)
@@ -227,8 +260,14 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			}
 		}
 		bool areLinesVisible = MovementLinesCanBeVisible();
+
+		// reactor
 		bool isWaypointing = Options_UI.Get() != null
 			&& Options_UI.Get().GetShiftClickForMovementWaypoints() == InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier);
+		// rogues
+		//bool isWaypointing = InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier);
+
+
 		bool amWaitingForUpdate = m_waitingForNextMoveSquaresUpdate;
 		if (m_actor.GetActorTurnSM() != null
 			&& (m_actor.GetActorTurnSM().CurrentState == TurnStateEnum.VALIDATING_MOVE_REQUEST
@@ -243,71 +282,87 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			&& GameFlowData.Get().activeOwnedActorData == m_actor
 			&& GameFlowData.Get().activeOwnedActorData != null
 			&& !m_actor.IsDead()
+			//&& m_actor.GetActorTurnSM().AmDecidingMovement() // added in rogues
+			//&& m_actor.GetActorTurnSM().CurrentState != TurnStateEnum.EXECUTING_ACTION // added in rogues
 			&& (areLinesVisible || !isWaypointing))
 		{
 			if (Board.Get() != null
 				&& GameFlowData.Get() != null
 				&& Time.time - m_lastPreviewDrawnTime >= 0.1f)
-			{
-				BoardSquare currentBoardSquare = GameFlowData.Get().activeOwnedActorData.CurrentBoardSquare;
-				if (Board.Get().PlayerClampedSquare != null && currentBoardSquare != null)
-				{
-					GridPos currentPos = currentBoardSquare.GetGridPos();
-					GridPos clampedPos = Board.Get().PlayerClampedSquare.GetGridPos();
-					if (m_movementLine != null && isWaypointing)
-					{
-						BoardSquare moveFromBoardSquare = GameFlowData.Get().activeOwnedActorData.MoveFromBoardSquare;
-						GridPos moveFromPos = moveFromBoardSquare.GetGridPos();
-						if (m_lastDrawnStartPreview.x != moveFromPos.x
+            {
+                BoardSquare currentBoardSquare = GameFlowData.Get().activeOwnedActorData.CurrentBoardSquare;
+                if (Board.Get().PlayerClampedSquare != null && currentBoardSquare != null)
+                {
+                    GridPos currentPos = currentBoardSquare.GetGridPos();
+                    GridPos clampedPos = Board.Get().PlayerClampedSquare.GetGridPos();
+                    if (m_movementLine != null && isWaypointing)
+                    {
+                        BoardSquare moveFromBoardSquare = GameFlowData.Get().activeOwnedActorData.MoveFromBoardSquare;
+                        GridPos moveFromPos = moveFromBoardSquare.GetGridPos();
+                        if (m_lastDrawnStartPreview.x != moveFromPos.x
 							|| m_lastDrawnStartPreview.y != moveFromPos.y
 							|| m_lastDrawnEndPreview.x != clampedPos.x
 							|| m_lastDrawnEndPreview.y != clampedPos.y)
-						{
-							if (m_actor.RemainingHorizontalMovement > 0f)
-							{
-								BoardSquare clampedSquare = Board.Get().PlayerClampedSquare;
-								if (!m_actor.CanMoveToBoardSquare(clampedSquare))
-								{
-									clampedSquare = m_actor.GetActorMovement().GetClosestMoveableSquareTo(clampedSquare, false);
-								}
-								BoardSquarePathInfo path2 = m_actor.GetActorMovement().BuildPathTo(moveFromBoardSquare, clampedSquare);
-								SetMouseOverMovementLine(GetGridPosPathForPath(path2, false, null), false, false);
-								ShowLine(m_mousePotentialMovementLine, HighlightUtils.Get().m_movementLinePreviewColor, true, false);
-								m_lastDrawnStartPreview = moveFromPos;
-								m_lastDrawnEndPreview = clampedPos;
-								m_lastPreviewDrawnTime = Time.time;
-							}
+                        {
+                            if (m_actor.RemainingHorizontalMovement > 0f)
+                            {
+                                BoardSquare clampedSquare = Board.Get().PlayerClampedSquare;
+                                if (!m_actor.CanMoveToBoardSquare(clampedSquare))
+                                {
+                                    clampedSquare = m_actor.GetActorMovement().GetClosestMoveableSquareTo(clampedSquare, false);
+                                }
+                                BoardSquarePathInfo path2 = m_actor.GetActorMovement().BuildPathTo(moveFromBoardSquare, clampedSquare);
+                                SetMouseOverMovementLine(GetGridPosPathForPath(path2, false, null), false, false);
+
+								// reactor
+								Color lineColor = HighlightUtils.Get().m_movementLinePreviewColor;
+								// rogues
+								//Color lineColor = (!actor.GetActorMovement().SquaresCanMoveToWithQueuedAbility.Contains(Board.Get().PlayerClampedSquare)) ? HighlightUtils.Get().m_movementLinePreviewColorSprint : HighlightUtils.Get().m_movementLinePreviewColor;
+
+								ShowLine(m_mousePotentialMovementLine, lineColor, true, false);
+                                m_lastDrawnStartPreview = moveFromPos;
+                                m_lastDrawnEndPreview = clampedPos;
+                                m_lastPreviewDrawnTime = Time.time;
+                            }
 							else
 							{
 								ClearLine(ref m_mousePotentialMovementLine);
 							}
-						}
-					}
-					else if (m_lastDrawnStartPreview.x != currentPos.x
-						|| m_lastDrawnStartPreview.y != currentPos.y
-						|| m_lastDrawnEndPreview.x != clampedPos.x
-						|| m_lastDrawnEndPreview.y != clampedPos.y)
-					{
-						BoardSquare boardSquare = Board.Get().PlayerClampedSquare;
-						if (!m_actor.CanMoveToBoardSquare(boardSquare))
-						{
-							boardSquare = m_actor.GetActorMovement().GetClosestMoveableSquareTo(boardSquare, false);
-						}
-						BoardSquare initialMoveStartSquare = GameFlowData.Get().activeOwnedActorData.InitialMoveStartSquare;
-						BoardSquarePathInfo path = m_actor.GetActorMovement().BuildPathTo(initialMoveStartSquare, boardSquare);
-						SetMouseOverMovementLine(GetGridPosPathForPath(path, false, null), false, false);
-						ShowLine(m_mousePotentialMovementLine, HighlightUtils.Get().m_movementLinePreviewColor, true, false);
-						m_lastDrawnStartPreview = initialMoveStartSquare.GetGridPos();
-						m_lastDrawnEndPreview = clampedPos;
-						m_lastPreviewDrawnTime = Time.time;
-					}
-				}
-				else
-				{
-					ClearLine(ref m_mousePotentialMovementLine);
-				}
-			}
-		}
+                        }
+                    }
+                    else if ((m_lastDrawnStartPreview.x != currentPos.x
+							|| m_lastDrawnStartPreview.y != currentPos.y
+							|| m_lastDrawnEndPreview.x != clampedPos.x
+							|| m_lastDrawnEndPreview.y != clampedPos.y)
+						//&& !GameFlowData.Get().GetPause()  // added in rogues
+						)
+                    {
+                        BoardSquare boardSquare = Board.Get().PlayerClampedSquare;
+                        if (!m_actor.CanMoveToBoardSquare(boardSquare))
+                        {
+                            boardSquare = m_actor.GetActorMovement().GetClosestMoveableSquareTo(boardSquare, false);
+                        }
+                        BoardSquare initialMoveStartSquare = GameFlowData.Get().activeOwnedActorData.InitialMoveStartSquare;
+                        BoardSquarePathInfo path = m_actor.GetActorMovement().BuildPathTo(initialMoveStartSquare, boardSquare);
+                        SetMouseOverMovementLine(GetGridPosPathForPath(path, false, null), false, false);
+
+						// readctor
+						Color lineColor = HighlightUtils.Get().m_movementLinePreviewColor;
+						// rogues
+						//Color lineColor = (!actor.GetActorMovement().SquaresCanMoveToWithQueuedAbility.Contains(boardSquare)) ? HighlightUtils.Get().m_movementLinePreviewColorSprint : HighlightUtils.Get().m_movementLinePreviewColor;
+                        
+						ShowLine(m_mousePotentialMovementLine, lineColor, true, false);
+                        m_lastDrawnStartPreview = initialMoveStartSquare.GetGridPos();
+                        m_lastDrawnEndPreview = clampedPos;
+                        m_lastPreviewDrawnTime = Time.time;
+                    }
+                }
+                else
+                {
+                    ClearLine(ref m_mousePotentialMovementLine);
+                }
+            }
+        }
 		else
 		{
 			ClearLine(ref m_mousePotentialMovementLine);
@@ -380,7 +435,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		LineInstance lineInstance = new LineInstance();
 		sbyte num = reader.ReadSByte();
-		lineInstance.isChasing = reader.ReadBoolean();
+        lineInstance.isChasing = reader.ReadBoolean();
 		lineInstance.m_positions.Clear();
 		for (int i = 0; i < num; i++)
 		{
@@ -451,8 +506,15 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// server-only, empty in reactor
 	private void MarkForSerializationUpdate()
 	{
+#if SERVER
+		if (NetworkServer.active && m_actor != null && m_actor.TeamSensitiveData_friendly != null)
+		{
+			m_actor.TeamSensitiveData_friendly.MarkAsDirty(ActorTeamSensitiveData.DirtyBit.LineData);
+		}
+#endif
 	}
 
 	private void GetMovementLineVisibilityFromStatus(float colorMult, out bool fullMovement, out bool snaredMovement, out bool showLostMovement, out Color fullPathColor, out Color snaredColor)
@@ -550,7 +612,11 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			theLine.m_positions.Clear();
 			if (theLine.m_lineObject != null)
 			{
+				// reactor
 				theLine.DestroyLineObject();
+				// rogues
+				//Object.Destroy(theLine.m_lineObject);
+				//theLine.m_lineObject = null;
 			}
 			theLine = null;
 			if (NetworkServer.active)
@@ -629,10 +695,19 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		if (theLine != null && isTeamView)
 		{
 			Color color = GetColor(theLine.isChasing, false, m_actor == GameFlowData.Get().activeOwnedActorData);
-			MovementPathStart previousLine = theLine.m_lineObject != null ? theLine.m_movePathStart : null;
+			MovementPathStart previousLine = theLine.m_lineObject != null
+				// reactor
+				? theLine.m_movePathStart
+				// rogues
+				//? theLine.m_lineObject.GetComponentInChildren<MovementPathStart>(true)
+				: null;
 			theLine.m_lineObject = DrawLine(theLine.m_positions, color, previousLine, theLine.isChasing, m_actor, startOffset);
+
+			// removed in rogues
 			theLine.m_currentColor = color;
 			theLine.m_movePathStart = theLine.m_lineObject?.GetComponentInChildren<MovementPathStart>(true);
+			// end removed in rogues
+
 			if (!MovementLinesCanBeVisible())
 			{
 				HideLine(theLine);
@@ -648,10 +723,18 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			&& GameFlowData.Get().activeOwnedActorData == m_actor)
 		{
 			Color color = GetColor(m_potentialMovementLine.isChasing, true, true);
-			MovementPathStart previousLine = m_potentialMovementLine.m_lineObject != null ? m_potentialMovementLine.m_movePathStart : null;
+			MovementPathStart previousLine = m_potentialMovementLine.m_lineObject != null
+				// reactor
+				? m_potentialMovementLine.m_movePathStart
+				// rogues
+				//? m_potentialMovementLine.m_lineObject.GetComponentInChildren<MovementPathStart>(true)
+				: null;
 			m_potentialMovementLine.m_lineObject = DrawLine(m_potentialMovementLine.m_positions, color, previousLine, m_potentialMovementLine.isChasing, m_actor);
+			// removed in rogues
 			m_potentialMovementLine.m_currentColor = color;
-			m_potentialMovementLine.m_movePathStart = (m_potentialMovementLine.m_lineObject?.GetComponentInChildren<MovementPathStart>(true));
+			m_potentialMovementLine.m_movePathStart = m_potentialMovementLine.m_lineObject?.GetComponentInChildren<MovementPathStart>(true);
+			// end removed in rogues
+
 			if (!MovementLinesCanBeVisible())
 			{
 				HideLine(m_potentialMovementLine);
@@ -703,8 +786,38 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		return list;
 	}
 
+	// server-only, empty in reactor
 	public void OnMovementChanged(List<GridPos> fullPathInfo, List<GridPos> snaredPathInfo, bool isChasing, bool rebuildLine)
 	{
+#if SERVER
+		ActorData actor = m_actor;
+		if (NetworkServer.active && actor)
+		{
+			if (fullPathInfo != null)
+			{
+				SetMovementLine(fullPathInfo, isChasing, rebuildLine);
+			}
+			else
+			{
+				ClearLine(ref m_movementLine);
+			}
+			if (snaredPathInfo != null)
+			{
+				SetMovementSnaredLine(snaredPathInfo, isChasing, rebuildLine);
+			}
+			else
+			{
+				ClearLine(ref m_movementSnaredLine);
+			}
+			int numSnaredNodes = (snaredPathInfo != null) ? snaredPathInfo.Count : 0;
+			if (fullPathInfo != null)
+			{
+				SetMovementLostLine(fullPathInfo, numSnaredNodes, isChasing, rebuildLine);
+				return;
+			}
+			ClearLine(ref m_movementLostLine);
+		}
+#endif
 	}
 
 	public void OnResolveStart()
@@ -713,18 +826,18 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	}
 
 	private void HideAllyMovementLinesIfResolving()
-	{
-		if (GameFlowData.Get() != null
+    {
+        if (GameFlowData.Get() != null
 			&& m_actor != GameFlowData.Get().activeOwnedActorData
 			&& GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
-		{
-			HideLine(m_movementLine);
-			HideLine(m_movementSnaredLine);
-			HideLine(m_movementLostLine);
-		}
-	}
+        {
+            HideLine(m_movementLine);
+            HideLine(m_movementSnaredLine);
+            HideLine(m_movementLostLine);
+        }
+    }
 
-	public void OnDisable()
+    public void OnDisable()
 	{
 		ClearLine(ref m_movementLine);
 		ClearLine(ref m_movementSnaredLine);
@@ -734,9 +847,11 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (theLine != null
 			&& theLine.m_lineObject != null
-			&& theLine.m_currentColor != newColor)
+			 && theLine.m_currentColor != newColor)  // removed in rogues
 		{
+			// removed in rogues
 			theLine.m_currentColor = newColor;
+
 			foreach (MeshRenderer renderer in theLine.m_lineObject.GetComponentsInChildren<MeshRenderer>())
 			{
 				if (renderer.materials.Length > 0)
@@ -751,13 +866,20 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		ChangeLineColor(theLine, lineColor);
 		if (theLine != null
-			&& theLine.m_lineObject != null
-			&& theLine.m_movePathStart != null)
+			&& theLine.m_lineObject != null)
 		{
-			theLine.m_movePathStart.SetGlow(setGlow);
-			if (hideStart)
+			// reactor
+			MovementPathStart movePathStart = theLine.m_movePathStart;
+			// rogues
+			//MovementPathStart movePathStart = theLine.m_lineObject.GetComponentInChildren<MovementPathStart>(true);
+			
+			if (movePathStart != null)
 			{
-				theLine.m_movePathStart.m_movementContainer.SetActive(false);
+				movePathStart.SetGlow(setGlow);
+				if (hideStart)
+				{
+					movePathStart.m_movementContainer.SetActive(false);
+				}
 			}
 		}
 	}
@@ -766,10 +888,17 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		ChangeLineColor(theLine, Color.clear);
 		if (theLine != null
-			&& theLine.m_lineObject != null
-			&& theLine.m_movePathStart != null)
+			&& theLine.m_lineObject != null)
 		{
-			theLine.m_movePathStart.SetGlow(false);
+			// reactor
+			MovementPathStart movePathStart = theLine.m_movePathStart;
+			// rogues
+			//MovementPathStart movePathStart = theLine.m_lineObject.GetComponentInChildren<MovementPathStart>(true);
+			
+			if (movePathStart != null)
+			{
+				movePathStart.SetGlow(false);
+			}
 		}
 	}
 
@@ -777,14 +906,19 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (inst != null
 			&& inst.m_lineObject != null
-			&& inst.m_movePathStart != null
+			 && inst.m_movePathStart != null // removed in rogues
 			&& inst.m_positions.Count > 0)
 		{
+			// reactor
+			MovementPathStart movePathStart = inst.m_movePathStart;
+			// rogues
+			//MovementPathStart movePathStart = inst.m_lineObject.GetComponentInChildren<MovementPathStart>(true);
+			
 			GridPos gridPos = inst.m_positions[inst.m_positions.Count - 1];
 			BoardSquare square = Board.Get().GetSquare(gridPos);
-			if (inst.m_movePathStart != null)
+			if (movePathStart != null)
 			{
-				inst.m_movePathStart.SetCharacterMovementPanel(square);
+				movePathStart.SetCharacterMovementPanel(square);
 			}
 		}
 	}
@@ -792,10 +926,16 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	private void HideMovementDestIndicator(LineInstance inst)
 	{
 		if (inst != null
-			&& inst.m_lineObject != null
-			&& inst.m_movePathStart != null)
+			&& inst.m_lineObject != null)
 		{
-			inst.m_movePathStart.HideCharacterMovementPanel();
+			// reactor
+			MovementPathStart movePathStart = inst.m_movePathStart;
+			// rogues
+			//MovementPathStart movePathStart = inst.m_lineObject.GetComponentInChildren<MovementPathStart>(true);
+			if (movePathStart != null)
+			{
+				movePathStart.HideCharacterMovementPanel();
+			}
 		}
 	}
 
@@ -815,17 +955,26 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			m_movementSnaredLine.isChasing = isChasing;
 			DrawLine(ref m_movementSnaredLine);
 			if (m_movementLine != null
-				&& m_movementLine.m_lineObject != null
-				&& m_movementLine.m_movePathStart != null)
+				&& m_movementLine.m_lineObject != null)
 			{
-				m_movementLine.m_movePathStart.SetGlow(false);
+				// reactor
+				MovementPathStart movePathStart = m_movementLine.m_movePathStart;
+				// rogues
+				//MovementPathStart movePathStart = m_movementLine.m_lineObject.GetComponentInChildren<MovementPathStart>(true);
+				if (movePathStart != null)
+				{
+					movePathStart.SetGlow(false);
+				}
 			}
 		}
 		else if (gridPosPath.Count == 1
 			&& m_movementLine != null
 			&& m_movementLine.m_lineObject != null)
 		{
+			// reactor
 			MovementPathStart movePathStart = m_movementLine.m_movePathStart;
+			// rogues
+			//MovementPathStart movePathStart = m_movementLine.m_lineObject.GetComponentInChildren<MovementPathStart>(true);
 			if (movePathStart != null)
 			{
 				movePathStart.SetGlow(false);
@@ -868,10 +1017,16 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			m_mousePotentialMovementLine.m_positions = gridPosPath;
 			m_mousePotentialMovementLine.isChasing = isChasing;
 			DrawLine(ref m_mousePotentialMovementLine);
-			if (m_mousePotentialMovementLine.m_lineObject != null
-				&& m_mousePotentialMovementLine.m_movePathStart != null)
+			if (m_mousePotentialMovementLine.m_lineObject != null)
 			{
-				m_mousePotentialMovementLine.m_movePathStart.SetGlow(false);
+				// reactor
+				MovementPathStart movePathStart = m_mousePotentialMovementLine.m_movePathStart;
+				// rogues
+				//MovementPathStart movePathStart = m_mousePotentialMovementLine.m_lineObject.GetComponentInChildren<MovementPathStart>(true);
+				if (movePathStart != null)
+				{
+					movePathStart.SetGlow(false);
+				}
 			}
 		}
 		else if (m_mousePotentialMovementLine != null)
@@ -945,15 +1100,22 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		return false;
 	}
 
+	// reactor
 	private void UNetVersion()
 	{
 	}
+	// rogues
+	//private void MirrorProcessed()
+	//{
+	//}
 
+	// removed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		return false;
 	}
 
+	// removed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 	}

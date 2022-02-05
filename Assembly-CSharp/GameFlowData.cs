@@ -1,7 +1,11 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
+//using Escalation;
+//using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -28,6 +32,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	private GameObject m_actorRoot;
 	private GameObject m_thinCoverRoot;
 	private GameObject m_brushRegionBorderRoot;
+	// removed in rogues
 	private Team m_selectedTeam;
 
 	private List<ActorData> m_teamAPlayerAndBots = new List<ActorData>();
@@ -39,6 +44,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	private List<ActorData> m_actors = new List<ActorData>();
 	private List<GameObject> m_players = new List<GameObject>();
 	public List<ActorData> m_ownedActorDatas = new List<ActorData>();
+
+	// added in rogues
+	//private bool m_markedToSwitchToNextActiveActor;
 
 	private ActorData m_activeOwnedActorData;
 	public bool m_oneClassOnTeam = true;
@@ -53,7 +61,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	[SyncVar(hook = "HookSetMaxTurnTime")]
 	public float m_maxTurnTime = 20f;
 
-	public float m_resolveTimeoutLimit = 112f;
+	public float m_resolveTimeoutLimit = 112f; // 160f in rogues
+
+	// rogues
+	//[SyncVar]
+	//public int m_reviveTokens;
+
 	private float m_matchStartTime;
 	private float m_deploymentStartTime;
 	private float m_timeRemainingInDecision = 20f;
@@ -65,6 +78,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	private const float c_timeRemainingUpdateInterval = 1f;
 	private const float c_latencyCorrectionTime = 1f;
+
+	// added in rogues
+#if SERVER
+	private float m_timeForNextTimeRemainingSync = -1f;
+#endif
+
 	private float m_timeInState;
 	private float m_timeInStateUnscaled;
 	private float m_timeInDecision;
@@ -76,16 +95,54 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	private static int kRpcRpcUpdateTimeRemaining = 0x3800B000;
 
+	// rogues
+	//[SyncVar(hook = "HookSetPlayerActionState")]
+	//private PlayerActionStateMachine.StateFlag m_actionsFsmState;
+
+	// rogues
+	//[SyncVar]
+	//private Team m_actingTeam = Team.Invalid;
+
+	// rogues
+	//[SyncVar]
+	//private bool m_isInCombat;
+
+	// added in rogues
+#if SERVER
+	private bool m_displayedTeamTurnNotice;
+#endif
+
+	// added in rogues
+#if SERVER
+	private string c_enemyTeamActingString = "Enemy Turn";
+	private string c_allyTeamActingString = "Ally Turn";
+#endif
+
+
 	static GameFlowData()
 	{
 		RegisterRpcDelegate(typeof(GameFlowData), kRpcRpcUpdateTimeRemaining, new CmdDelegate(InvokeRpcRpcUpdateTimeRemaining));
 		NetworkCRC.RegisterBehaviour("GameFlowData", 0);
+		//RegisterRpcDelegate(typeof(GameFlowData), "RpcSetActingTeam", new NetworkBehaviour.CmdDelegate(InvokeRpcRpcSetActingTeam));
 	}
 
 	internal static event Action<ActorData> s_onAddActor;
 	internal static event Action<ActorData> s_onRemoveActor;
 	internal static event Action<ActorData> s_onActiveOwnedActorChange;
 	internal static event Action<GameState> s_onGameStateChanged;
+
+	// added in rogues
+	//internal static event Action<Team> s_onActingTeamChanged;
+
+	// added in rogues
+#if SERVER
+	internal static event Action<ActorData, BoardSquarePathInfo, BoardSquarePathInfo> s_onServerActorMoved;
+#endif
+
+	// added in rogues
+#if SERVER
+	internal static event Action<ActorData, BoardSquarePathInfo, BoardSquarePathInfo, List<BoardSquare>> s_onServerActorTeleported;
+#endif
 
 	public bool Started { get; private set; }
 
@@ -127,6 +184,11 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.TheatricsAbilityAnimationStart);
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.ServerActionBufferPhaseStart);
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.ServerActionBufferActionsDone);
+		// rogues
+		//if (EscalationProducer.Get() != null)
+		//{
+		//	this.Networkm_reviveTokens = EscalationProducer.Get().ReviveTokens;
+		//}
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
@@ -139,18 +201,60 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				Destroy(m_brushRegionBorderRoot);
 				CharacterResourceLink.DestroyAudioResources();
 				break;
+#if SERVER
+			case GameEventManager.EventType.TheatricsAbilityAnimationStart:
+				if (NetworkServer.active
+					&& m_resolutionPauseState == ResolutionPauseState.UnpausedUntilNextAbilityOrPhase)
+				{
+					GameEventManager.TheatricsAbilityAnimationStartArgs theatricsAbilityAnimationStartArgs = (GameEventManager.TheatricsAbilityAnimationStartArgs)args;
+					AbilityPriority abilityPhase = ServerActionBuffer.Get().AbilityPhase;
+					if (abilityPhase - AbilityPriority.Prep_Offense > 1
+						|| !theatricsAbilityAnimationStartArgs.lastInPhase)
+					{
+						Networkm_resolutionPauseState = ResolutionPauseState.PausedUntilInput;
+					}
+				}
+				break;
+			case GameEventManager.EventType.ServerActionBufferPhaseStart:
+				if (NetworkServer.active && m_resolutionPauseState == ResolutionPauseState.UnpausedUntilNextAbilityOrPhase)
+				{
+					AbilityPriority abilityPhase = ServerActionBuffer.Get().AbilityPhase;
+					if (abilityPhase == AbilityPriority.Prep_Defense
+						|| abilityPhase - AbilityPriority.Evasion <= 1)
+					{
+						Networkm_resolutionPauseState = ResolutionPauseState.PausedUntilInput;
+					}
+				}
+				break;
+			case GameEventManager.EventType.ServerActionBufferActionsDone:
+				if (NetworkServer.active
+					&& m_resolutionPauseState == ResolutionPauseState.UnpausedUntilNextAbilityOrPhase)
+				{
+					Networkm_resolutionPauseState = ResolutionPauseState.PausedUntilInput;
+				}
+				break;
+#endif
 		}
 	}
 
 	public override void OnStartServer()
 	{
+		// reactor
 		LobbyGameConfig gameConfig = GameManager.Get().GameConfig;
+		// rogues
+		//MissionData gameMission = GameManager.Get().GameMission;
 		Networkm_gameState = GameState.Launched;
+
+		// reactor
 		Networkm_turnTime = Convert.ToSingle(gameConfig.TurnTime);
 		Networkm_maxTurnTime = Convert.ToSingle(gameConfig.TurnTime)
 			+ Mathf.Max(GameWideData.Get().m_tbInitial, GameWideData.Get().m_tbRechargeCap)
 			+ GameWideData.Get().m_tbConsumableDuration + 1f;
 		m_resolveTimeoutLimit = Convert.ToSingle(gameConfig.ResolveTimeoutLimit);
+		// rogues
+		//this.Networkm_turnTime = 0f;
+		//this.Networkm_maxTurnTime = 0f;
+		//this.m_resolveTimeoutLimit = 0f;
 	}
 
 	public override void OnStartClient()
@@ -167,6 +271,14 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		s_onAddActor = null;
 		s_onRemoveActor = null;
 		s_onGameStateChanged = null;
+
+		// added in rogues
+#if SERVER
+		//GameFlowData.s_onActingTeamChanged = null;
+		s_onServerActorMoved = null;
+		s_onServerActorTeleported = null;
+#endif
+
 		if (GameEventManager.Get() != null)
 		{
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GameTeardown);
@@ -191,10 +303,19 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		return m_pause;
 	}
 
+	// removed in rogues
 	public bool GetPauseForDialog()
 	{
 		return m_pausedForDialog;
 	}
+
+	// added in rogues
+#if SERVER
+	public bool IsPausedForDialogue()
+	{
+		return m_pausedForDialog;
+	}
+#endif
 
 	public bool GetPauseForSinglePlayer()
 	{
@@ -217,6 +338,13 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			m_pausedForDialog = pause;
 			UpdatePause();
+			// rogues?
+			//UIScreenManager uiscreenManager = UIScreenManager.Get();
+			//if (uiscreenManager)
+			//{
+			//	bool flag = !pause;
+			//	uiscreenManager.SetHUDHide(flag, flag, pause, false);
+			//}
 		}
 	}
 
@@ -298,6 +426,20 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			Debug.LogWarning("[Server] function 'System.Void GameFlowData::HandleSetResolutionSingleStepping(System.Boolean)' called on client");
 			return;
 		}
+
+#if SERVER
+		if (singleStepping
+			&& m_resolutionPauseState == ResolutionPauseState.Unpaused
+			&& GameFlow.Get().FindNumHumanPlayers() == 1U)
+		{
+			Networkm_resolutionPauseState = ResolutionPauseState.PausedUntilInput;
+			return;
+		}
+		if (!singleStepping)
+		{
+			Networkm_resolutionPauseState = ResolutionPauseState.Unpaused;
+		}
+#endif
 	}
 
 	[Server]
@@ -308,6 +450,13 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			Debug.LogWarning("[Server] function 'System.Void GameFlowData::HandleSetResolutionSingleSteppingAdvance()' called on client");
 			return;
 		}
+
+#if SERVER
+		if (m_resolutionPauseState == ResolutionPauseState.PausedUntilInput)
+		{
+			Networkm_resolutionPauseState = ResolutionPauseState.UnpausedUntilNextAbilityOrPhase;
+		}
+#endif
 	}
 
 	public static GameFlowData Get()
@@ -357,6 +506,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		return m_brushRegionBorderRoot;
 	}
 
+	// removed in rogues
 	public Team GetSelectedTeam()
 	{
 		return m_selectedTeam;
@@ -415,6 +565,15 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// added in rogues
+	//private void HookSetPlayerActionState(PlayerActionStateMachine.StateFlag state)
+	//{
+	//	if (!NetworkServer.active)
+	//	{
+	//		this.Networkm_actionsFsmState = state;
+	//	}
+	//}
+
 	public int GetClassIndexFromName(string className)
 	{
 		int result = -1;
@@ -437,20 +596,49 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			return;
 		}
-		if (actorData.GetTeam() != Team.TeamA && m_ownedActorDatas.Count != 0)
+		// rogues
+		//PveLog.DebugLog(string.Concat(new object[]
+		//{
+		//	"Adding Owned actor ",
+		//	actorData.DebugNameString(),
+		//	", Team ",
+		//	actorData.GetTeam()
+		//}), null);
+		if (actorData.GetTeam() != Team.TeamA)
 		{
-			m_ownedActorDatas.Add(actorData);
-			Log.Info($"GameFlowData.AddOwnedActorData {m_ownedActorDatas.Count} {actorData}");
+			// reactor
+			if (m_ownedActorDatas.Count != 0)
+			{
+				m_ownedActorDatas.Add(actorData);
+				Log.Info($"GameFlowData.AddOwnedActorData {m_ownedActorDatas.Count} {actorData}");
+			}
+			// rogues
+			//this.m_ownedActorDatas.Add(actorData);
 		}
 		else
 		{
+			// reactor
 			m_ownedActorDatas.Insert(0, actorData);
 			Log.Info($"GameFlowData.AddOwnedActorData {0} {actorData}");
+			// rogues
+			//int num = -1;
+			//         int num2 = 0;
+			//         while (num2 < this.m_ownedActorDatas.Count && this.m_ownedActorDatas[num2].GetTeam() == Team.TeamA)
+			//         {
+			//             num = num2;
+			//             num2++;
+			//         }
+			//         this.m_ownedActorDatas.Insert(num + 1, actorData);
 		}
 		if (activeOwnedActorData == null)
 		{
 			activeOwnedActorData = actorData;
 		}
+		// added in rogues
+		//if (this.m_ownedActorDatas.Count > 1)
+		//{
+		//	LobbyGameInfo gameInfo = ClientGameManager.Get().GameInfo;
+		//}
 	}
 
 	public void ResetOwnedActorDataToFirst()
@@ -471,6 +659,46 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			activeOwnedActorData = m_ownedActorDatas[0];
 		}
 	}
+
+	// added in rogues
+	//public void ResetOwnedActorDataToFirst_FCFS()
+	//{
+	//	if (this.m_ownedActorDatas.Count > 0)
+	//	{
+	//		if (SpawnPointManager.Get() == null || !SpawnPointManager.Get().m_playersSelectRespawn)
+	//		{
+	//			using (List<ActorData>.Enumerator enumerator = this.m_ownedActorDatas.GetEnumerator())
+	//			{
+	//				while (enumerator.MoveNext())
+	//				{
+	//					ActorData actorData = enumerator.Current;
+	//					if (actorData != null && !actorData.IsDead() && actorData.GetTeam() == this.ActingTeam)
+	//					{
+	//						this.activeOwnedActorData = actorData;
+	//						break;
+	//					}
+	//				}
+	//				return;
+	//			}
+	//		}
+	//		foreach (ActorData actorData2 in this.m_ownedActorDatas)
+	//		{
+	//			if (actorData2 != null && actorData2.GetTeam() == this.ActingTeam && actorData2.GetActorTurnSM().CanStillActInDecision())
+	//			{
+	//				this.activeOwnedActorData = actorData2;
+	//				return;
+	//			}
+	//		}
+	//		foreach (ActorData actorData3 in this.m_ownedActorDatas)
+	//		{
+	//			if (actorData3 != null && actorData3.GetTeam() == this.ActingTeam)
+	//			{
+	//				this.activeOwnedActorData = actorData3;
+	//				break;
+	//			}
+	//		}
+	//	}
+	//}
 
 	public bool IsActorDataOwned(ActorData actorData)
 	{
@@ -552,6 +780,119 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// added in rogues
+	//public void MarkToSwitchToNextActiveActor()
+	//{
+	//	this.m_markedToSwitchToNextActiveActor = true;
+	//}
+
+	// added in rogues
+	//public void SetActiveNextNonConfirmedOwnedActorData_FCFS()
+	//{
+	//	if (this.activeOwnedActorData == null)
+	//	{
+	//		this.activeOwnedActorData = this.firstOwnedFriendlyActorData;
+	//		return;
+	//	}
+	//	int num = this.m_ownedActorDatas.IndexOf(this.activeOwnedActorData);
+	//	for (int i = 1; i < this.m_ownedActorDatas.Count; i++)
+	//	{
+	//		int index = (num + i) % this.m_ownedActorDatas.Count;
+	//		ActorData actorData = this.m_ownedActorDatas[index];
+	//		if (actorData != this.activeOwnedActorData && actorData.GetTeam() == GameFlowData.Get().ActingTeam && actorData.GetActorTurnSM().CanStillActInDecision())
+	//		{
+	//			this.activeOwnedActorData = actorData;
+	//			return;
+	//		}
+	//	}
+	//}
+
+	// added in rogues
+	//public bool HasOwnedActorCanStillActInDecision()
+	//{
+	//	Team actingTeam = GameFlowData.Get().ActingTeam;
+	//	for (int i = 0; i < this.m_ownedActorDatas.Count; i++)
+	//	{
+	//		ActorData actorData = this.m_ownedActorDatas[i];
+	//		if (actorData != null && actorData.GetTeam() == actingTeam && actorData.GetActorTurnSM().CanStillActInDecision())
+	//		{
+	//			return true;
+	//		}
+	//	}
+	//	return false;
+	//}
+
+	// added in rogues
+	//public bool CheckAndRequestEndTurnIfNeeded()
+	//{
+	//	ActorData activeOwnedActorData = this.activeOwnedActorData;
+	//	if (activeOwnedActorData != null && this.m_ownedActorDatas.Count > 0 && activeOwnedActorData.GetTeam() == GameFlowData.Get().ActingTeam)
+	//	{
+	//		bool flag = true;
+	//		int num = 0;
+	//		while (num < this.m_actors.Count && flag)
+	//		{
+	//			ActorData actorData = this.m_actors[num];
+	//			if (actorData != null && actorData.GetTeam() == activeOwnedActorData.GetTeam() && !this.IsActorReadyToAutoEndTurn(actorData))
+	//			{
+	//				flag = false;
+	//			}
+	//			num++;
+	//		}
+	//		if (flag)
+	//		{
+	//			this.EndTurnForOwnedActors(activeOwnedActorData.GetTeam());
+	//			return true;
+	//		}
+	//	}
+	//	return false;
+	//}
+
+	// added in rogues
+	//public bool IsActorReadyToAutoEndTurn(ActorData actor)
+	//{
+	//	if (actor != null)
+	//	{
+	//		ActorTurnSM actorTurnSM = actor.GetActorTurnSM();
+	//		bool flag = actorTurnSM.CurrentState == TurnStateEnum.CONFIRMED || actorTurnSM.CurrentState == TurnStateEnum.WAITING;
+	//		bool flag2 = !actor.IsDead() && actorTurnSM.UsedAllFullActions();
+	//		bool flag3 = actorTurnSM.CurrentState == TurnStateEnum.PICKING_RESPAWN && actorTurnSM.GetNumRespawnPickInputs() > 0;
+	//		return flag || flag2 || flag3;
+	//	}
+	//	return false;
+	//}
+
+	// added in rogues
+	//public bool HasOwnedActorWithUnusedFullAction(Team team)
+	//{
+	//	bool flag = false;
+	//	for (int i = 0; i < this.m_ownedActorDatas.Count; i++)
+	//	{
+	//		ActorData actorData = this.m_ownedActorDatas[i];
+	//		if (actorData != null && !actorData.IsDead() && actorData.GetTeam() == team)
+	//		{
+	//			flag |= !actorData.GetActorTurnSM().UsedAllFullActions();
+	//		}
+	//	}
+	//	return flag;
+	//}
+
+	// added in rogues
+	//public void EndTurnForOwnedActors(Team team)
+	//{
+	//	// rogues
+	//	//PveLog.DebugLog("Trying to end turn for owned actors, team = " + team, null);
+	//	for (int i = 0; i < this.m_ownedActorDatas.Count; i++)
+	//	{
+	//		ActorData actorData = this.m_ownedActorDatas[i];
+	//		if (actorData != null && actorData.GetTeam() == team)
+	//		{
+	//			actorData.GetActorTurnSM().RequestEndTurn(true);
+	//		}
+	//	}
+	//}
+
+	// void in rogues
 	public bool SetActiveOwnedActor_FCFS(ActorData actor)
 	{
 		if (actor != null && IsActorDataOwned(actor) && activeOwnedActorData != actor)
@@ -629,6 +970,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			if (isChange)
 			{
 				s_onActiveOwnedActorChange?.Invoke(value);
+				// rogues
+				//PveLog.DebugLog("Set active actor to " + ((this.m_activeOwnedActorData != null) ? this.m_activeOwnedActorData.DebugNameString() : "NULL"), null);
 			}
 			if (isTeamChange)
 			{
@@ -636,6 +979,27 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			}
 		}
 	}
+
+	// added in rogues
+#if SERVER
+	public static ActorData ClientActor
+	{
+		get
+		{
+			return Get()?.activeOwnedActorData;
+		}
+	}
+#endif
+
+	// added in rogues
+	//public static bool ClientTeamActing
+	//{
+	//	get
+	//	{
+	//		GameFlowData gameFlowData = GameFlowData.Get();
+	//		return gameFlowData != null && gameFlowData.activeOwnedActorData != null && gameFlowData.activeOwnedActorData.GetTeam() == gameFlowData.ActingTeam;
+	//	}
+	//}
 
 	public string GetActiveOwnedActorDataDebugNameString()
 	{
@@ -699,7 +1063,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	private List<ActorData> GetAllActorsOnTeam(Team team)
+	private List<ActorData> GetAllActorsOnTeam(Team team)  // public in rogues
 	{
 		switch (team)
 		{
@@ -740,6 +1104,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		SetLocalPlayerData();
 	}
 
+	// removed in rogues
 	public void RemoveExistingPlayer(GameObject player)
 	{
 		if (m_players.Contains(player))
@@ -805,6 +1170,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				break;
 			}
 		}
+
+		// removed in rogues
 		if (result == null
 			&& actorIndex > 0
 			&& CurrentTurn > 0
@@ -898,6 +1265,29 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		s_onRemoveActor?.Invoke(actor);
 	}
 
+	// added in rogues
+	//public bool UpdateIsInCombatFlag()
+	//{
+	//	bool result = false;
+	//	if (NetworkServer.active)
+	//	{
+	//		bool flag = false;
+	//		foreach (ActorData actorData in this.m_actors)
+	//		{
+	//			if (!actorData.IsDead() && actorData.GetTeam() == Team.TeamB && actorData.Alerted)
+	//			{
+	//				flag = true;
+	//			}
+	//		}
+	//		if (this.IsInCombat != flag)
+	//		{
+	//			this.IsInCombat = flag;
+	//			result = true;
+	//		}
+	//	}
+	//	return result;
+	//}
+
 	public int CurrentTurn
 	{
 		get
@@ -921,6 +1311,89 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// added in rogues
+	//internal PlayerActionStateMachine.StateFlag PlayerActionState
+	//{
+	//	get
+	//	{
+	//		return this.m_actionsFsmState;
+	//	}
+	//	set
+	//	{
+	//		if (!NetworkServer.active)
+	//		{
+	//			Log.Error("Trying to set PlayerActionState without active server");
+	//			return;
+	//		}
+	//		if (this.m_actionsFsmState != value)
+	//		{
+	//			this.Networkm_actionsFsmState = value;
+	//		}
+	//	}
+	//}
+
+	// added in rogues
+	//internal Team ActingTeam
+	//{
+	//	get
+	//	{
+	//		return this.m_actingTeam;
+	//	}
+	//	set
+	//	{
+	//		if (!NetworkServer.active)
+	//		{
+	//			Log.Error("Trying to set ActingTeam without active server");
+	//			return;
+	//		}
+	//		if (this.m_actingTeam != value)
+	//		{
+	//			this.HandleSetActingTeam(value);
+	//			this.CallRpcSetActingTeam((int)value);
+	//		}
+	//	}
+	//}
+
+	// added in rogues
+	//private void HandleSetActingTeam(Team team)
+	//{
+	//	// rogues
+	//	//PveLog.DebugLog("Setting ActingTeam to " + team.ToString(), "orange");
+	//	this.Networkm_actingTeam = team;
+	//	if (GameFlowData.s_onActingTeamChanged != null)
+	//	{
+	//		GameFlowData.s_onActingTeamChanged(this.m_actingTeam);
+	//	}
+	//}
+
+	// added in rogues
+	//internal bool IsInCombat
+	//{
+	//	get
+	//	{
+	//		return this.m_isInCombat;
+	//	}
+	//	set
+	//	{
+	//		if (NetworkServer.active && this.m_isInCombat != value)
+	//		{
+	//			// rogues
+	//			//PveLog.LogEncMsg("Setting IsInCombat = " + value.ToString(), null);
+	//			this.Networkm_isInCombat = value;
+	//		}
+	//	}
+	//}
+
+	// added in rogues
+	//[ClientRpc]
+	//private void RpcSetActingTeam(int teamInt)
+	//{
+	//	if (!NetworkServer.active)
+	//	{
+	//		this.HandleSetActingTeam((Team)teamInt);
+	//	}
+	//}
+
 	[ClientRpc]
 	private void RpcUpdateTimeRemaining(float timeRemaining)
 	{
@@ -937,6 +1410,16 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	private void SetGameState(GameState value)
 	{
+		Log.Info($"GameFlowData::SetGameState {value}");
+		// rogues
+		//PveLog.DebugLog(string.Concat(new object[]
+		//{
+		//	"GameState change from [ ",
+		//	this.m_gameState,
+		//	" ] to [ ",
+		//	value,
+		//	" ]"
+		//}), null);
 		Networkm_gameState = value;
 		m_timeInState = 0f;
 		m_timeInStateUnscaled = 0f;
@@ -967,7 +1450,21 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				}
 				ResetOwnedActorDataToFirst();
 				m_timeInDecision = 0f;
+
+				// TODO ARTEMIS
+				// custom
+				//	GameFlow.Get().OnTurnStart();
 				break;
+				//// custom
+				//case GameState.BothTeams_Resolve:
+				//	TheatricsManager.Get().InitTurn();
+				//	Log.Info($"Initializing turn in theatrics");
+				//	break;
+				//// rogues
+				////case GameState.PVE_TeamActions:
+				////	this.ResetOwnedActorDataToFirst_FCFS();
+				////	this.m_displayedTeamTurnNotice = false;
+				////	break;
 		}
 		s_onGameStateChanged?.Invoke(m_gameState);
 	}
@@ -988,6 +1485,17 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		return "";
 	}
 
+	// server-only
+#if SERVER
+	public void ServerIncrementTurn()
+	{
+		if (NetworkServer.active)
+		{
+			IncrementTurn();
+		}
+	}
+#endif
+
 	private void IncrementTurn()
 	{
 		m_timeInDecision = 0f;
@@ -1002,12 +1510,34 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	private void NotifyOnTurnTick()
 	{
+		// TODO check that all these subsystems are created
 		if (TeamSensitiveDataMatchmaker.Get() != null)
 		{
 			TeamSensitiveDataMatchmaker.Get().SetTeamSensitiveDataForUnhandledActors();
 		}
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.TurnTick, null);
+
+		// removed in rogues
 		ShowIntervanStatusNotifications();
+
+		// added in rogues
+#if SERVER
+		if (ControlPointManager.Get() != null)
+		{
+			ControlPointManager.Get().OnTurnTick();
+		}
+		if (ServerEffectManager.Get() != null)
+		{
+			ServerEffectManager.Get().OnTurnTick();
+		}
+#endif
+
+		// rogues
+		//if (PveScriptManager.Get() != null)
+		//{
+		//	PveScriptManager.Get().OnTurnTick();
+		//}
+
 		if (ClientResolutionManager.Get() != null)
 		{
 			ClientResolutionManager.Get().OnTurnStart();
@@ -1057,6 +1587,29 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			CollectTheCoins.Get().OnTurnTick();
 		}
 		m_timeRemainingInDecision = Get().m_turnTime;
+
+		// added in rogues
+#if SERVER
+		Networkm_timeRemainingInDecisionOverflow = 0f;
+
+		foreach (ActorData actorData in Get().GetActors())
+		{
+			if (actorData != null && actorData.IsHumanControlled())
+			{
+				Networkm_timeRemainingInDecisionOverflow = Mathf.Max(m_timeRemainingInDecisionOverflow, actorData.GetTimeBank().GetPermittedOverflowTime());
+			}
+		}
+		if (NetworkServer.active)
+		{
+			if (!m_pause)
+			{
+				m_timeRemainingInDecision = Get().m_turnTime;
+			}
+			m_timeRemainingInDecision += 1f;
+		}
+		m_timeForNextTimeRemainingSync = -1f;
+#endif
+
 		foreach (ActorData actorData in GetActors())
 		{
 			actorData.OnTurnTick();
@@ -1075,6 +1628,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// removed in rogues
 	public bool HasPotentialGameMutatorVisibilityChanges(bool onTurnStart)
 	{
 		GameplayMutators gameplayMutators = GameplayMutators.Get();
@@ -1128,6 +1682,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		return false;
 	}
 
+	// removed in rogues
 	private void ShowIntervanStatusNotifications()
 	{
 		if (!NetworkClient.active || HUD_UI.Get() == null)
@@ -1181,19 +1736,92 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		return;
 	}
 
+	// added in rogues
+#if SERVER
+	public void OnServerActorMoved(ActorData mover, BoardSquarePathInfo from, BoardSquarePathInfo to)
+	{
+		if (NetworkServer.active)
+		{
+			Action<ActorData, BoardSquarePathInfo, BoardSquarePathInfo> action = s_onServerActorMoved;
+			if (action == null)
+			{
+				return;
+			}
+			action(mover, from, to);
+		}
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	public void OnServerActorTeleported(ActorData mover, BoardSquarePathInfo from, BoardSquarePathInfo to, List<BoardSquare> squaresInLine)
+	{
+		if (NetworkServer.active)
+		{
+			Action<ActorData, BoardSquarePathInfo, BoardSquarePathInfo, List<BoardSquare>> action = s_onServerActorTeleported;
+			if (action == null)
+			{
+				return;
+			}
+			action(mover, from, to, squaresInLine);
+		}
+	}
+#endif
+
+	// rogues
+	//public void NotifyOnActorRevived(ActorData actor)
+	//{
+	//	if (ObjectivePoints.Get() != null)
+	//	{
+	//		ObjectivePoints.Get().Server_OnActorRevived(actor);
+	//	}
+	//}
+
 	public void NotifyOnActorDeath(ActorData actor)
 	{
 		if (NetworkServer.active)
 		{
+#if SERVER
+			if (ServerEffectManager.Get() != null)
+			{
+				ServerEffectManager.Get().OnActorDeath(actor);
+			}
+			if (ObjectivePoints.Get() != null)
+			{
+				ObjectivePoints.Get().Server_OnActorDeath(actor);
+			}
+			// TODO CTF CTC
+			//if (CaptureTheFlag.Get() != null)
+			//{
+			//	CaptureTheFlag.Get().OnActorDeath(actor);
+			//}
+			if (CoinCarnageManager.Get() != null)
+			{
+				CoinCarnageManager.Get().OnActorDeath(actor);
+			}
+			// TODO CTF CTC
+			//if (CollectTheCoins.Get() != null)
+			//{
+			//	CollectTheCoins.Get().OnActorDeath(actor);
+			//}
+			// TODO NPC
+			//if (NPCCoordinator.Get() != null)
+			//{
+			//	NPCCoordinator.Get().OnActorDeath(actor);
+			//}
+#endif
 		}
 		if (SinglePlayerManager.Get() != null)
 		{
 			SinglePlayerManager.Get().OnActorDeath(actor);
 		}
+
+		// removed in rogues
 		if (NPCCoordinator.Get() != null)
 		{
 			NPCCoordinator.Get().OnActorDeath(actor);
 		}
+
 		SatelliteController[] components = actor.GetComponents<SatelliteController>();
 		foreach (SatelliteController satelliteController in components)
 		{
@@ -1204,6 +1832,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			deadCharacter = actor
 		});
 	}
+
+	// rogues
+	//public static bool PauseForPvEPrototype()
+	//{
+	//	return GameWideData.Get() != null;
+	//}
 
 	public float GetTimeInState()
 	{
@@ -1255,11 +1889,35 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		if (AppState.GetCurrent() != AppState_GameTeardown.Get())
 		{
 			UpdateTimeRemaining();
+			// added in rogues
+			//if (InterfaceManager.Get() != null && this.activeOwnedActorData != null && this.ActingTeam != Team.Invalid)
+			//{
+			//	if (Team.TeamA != this.ActingTeam)
+			//	{
+			//		if (!this.m_displayedTeamTurnNotice)
+			//		{
+			//			InterfaceManager.Get().DisplayAlert(this.c_enemyTeamActingString, Color.red, 3f, true, 1);
+			//			this.m_displayedTeamTurnNotice = true;
+			//		}
+			//	}
+			//	else if (!this.m_displayedTeamTurnNotice)
+			//	{
+			//		InterfaceManager.Get().DisplayAlert(this.c_allyTeamActingString, HUD_UIResources.Get().m_allyIndicatorBar, 3f, true, 1);
+			//		this.m_displayedTeamTurnNotice = true;
+			//	}
+			//}
+			//if (this.m_markedToSwitchToNextActiveActor)
+			//{
+			//	this.SetActiveNextNonConfirmedOwnedActorData_FCFS();
+			//	this.m_markedToSwitchToNextActiveActor = false;
+			//}
 		}
 	}
 
 	private void UpdateTimeRemaining()
 	{
+		// rogues
+		// if (!GameFlowData.PauseForPvEPrototype() && ...
 		if (!m_pause
 			&& Get().IsInDecisionState()
 			&& m_timeRemainingInDecision >= -m_timeRemainingInDecisionOverflow)
@@ -1268,7 +1926,88 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			if (m_timeRemainingInDecision < -m_timeRemainingInDecisionOverflow)
 			{
 				m_timeRemainingInDecision = -m_timeRemainingInDecisionOverflow;
+
+				// TODO ARTEMIS
+				// custom
+				//if (NetworkServer.active)
+				//{
+				//	foreach (ActorData actor in GetActors())
+				//	{
+				//		var turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
+				//		turnSm.OnMessage(TurnMessage.BEGIN_RESOLVE);
+				//	}
+				//	ServerActionBuffer.Get().ActionPhase = ActionBufferPhase.Abilities;
+				//	gameState = GameState.BothTeams_Resolve;
+				//}
 			}
+
+			// server-only
+#if SERVER
+			if (NetworkServer.active)
+			{
+				bool syncRequired = m_timeForNextTimeRemainingSync < 0f || Time.time >= m_timeForNextTimeRemainingSync;
+				if (m_timeRemainingInDecision <= 0f)
+				{
+					//Log.Info("Turn time ran out");
+					if (PreventAutoLockInOnTimeout())
+					{
+						ServerGameManager serverGameManager = ServerGameManager.Get();
+						for (int i = 0; i < m_actors.Count; i++)
+						{
+							ActorData actorData = m_actors[i];
+							if (actorData != null
+								&& actorData.IsHumanControlled()
+								&& actorData.GetActorTurnSM() != null
+								&& actorData.GetActorTurnSM().AmStillDeciding()
+								&& -m_timeRemainingInDecision >= actorData.GetTimeBank().GetPermittedOverflowTime()
+								&& serverGameManager.IsAccountReconnecting(actorData.GetAccountId()))
+							{
+								actorData.GetActorTurnSM().OnMessage(TurnMessage.DONE_BUTTON_CLICKED, true);
+								Log.Info("Server {} done button clicked", actorData.DisplayName);
+							}
+						}
+					}
+					else
+					{
+						foreach (ActorData actorData in Get().GetActors())
+						{
+							if (actorData != null
+								&& actorData.IsHumanControlled()
+								&& actorData.GetActorTurnSM() != null
+								&& actorData.GetActorTurnSM().AmStillDeciding()
+								&& -m_timeRemainingInDecision >= actorData.GetTimeBank().GetPermittedOverflowTime())
+							{
+								syncRequired = true;
+								actorData.GetActorTurnSM().OnMessage(TurnMessage.DONE_BUTTON_CLICKED, true);
+								Log.Info("Server {} done button clicked", actorData.DisplayName);
+							}
+						}
+					}
+				}
+				if (syncRequired)
+				{
+					m_timeForNextTimeRemainingSync = Time.time + 1f;
+					Get().CallRpcUpdateTimeRemaining(m_timeRemainingInDecision);
+				}
+			}
+			bool willEnterTimebankMode = false;
+			foreach (ActorData actorData in Get().GetActors())
+			{
+				if ((actorData != null
+						&& actorData.IsHumanControlled()
+						&& actorData.GetActorTurnSM() != null
+						&& actorData.GetTimeBank().GetConsumableUsed())
+					|| (actorData.GetActorTurnSM().AmStillDeciding()
+						&& actorData.GetTimeBank().HasTimeSaved()))
+				{
+					willEnterTimebankMode = true;
+				}
+			}
+			if (willEnterTimebankMode != m_willEnterTimebankMode)
+			{
+				Networkm_willEnterTimebankMode = willEnterTimebankMode;
+			}
+#endif
 		}
 	}
 
@@ -1292,11 +2031,23 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		return result;
 	}
 
+	// added in rogues
+#if SERVER
+	public static bool IsDecisionStateEnum(GameState state)
+	{
+		return state == GameState.BothTeams_Decision;  // rogues || state == GameState.PVE_TeamActions;
+	}
+#endif
+
 	public bool IsInDecisionState()
 	{
+		// reactor
 		return m_gameState == GameState.BothTeams_Decision;
+		// rogues
+		//return IsDecisionStateEnum(gameState);
 	}
 
+	// reactor
 	public bool IsTeamsTurn(Team team)
 	{
 		bool flag = false;
@@ -1311,6 +2062,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		return flag;
 	}
 
+	// rogues
+	//public bool IsTeamsTurn(Team team)
+	//{
+	//	return !this.GetPause() && GameFlowData.Get().ActingTeam == team;
+	//}
+
 	public bool IsOwnedActorsTurn()
 	{
 		return activeOwnedActorData != null && IsTeamsTurn(activeOwnedActorData.GetTeam());
@@ -1321,26 +2078,31 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		return m_gameState == GameState.BothTeams_Resolve;
 	}
 
+	// removed in rogues
 	public bool IsTeamAResolving()
 	{
 		return IsInResolveState();
 	}
 
+	// removed in rogues
 	public bool IsTeamBResolving()
 	{
 		return IsInResolveState();
 	}
 
+	// removed in rogues
 	public bool IsTeamADecision()
 	{
 		return m_gameState == GameState.BothTeams_Decision;
 	}
 
+	// removed in rogues
 	public bool IsTeamBDecision()
 	{
 		return m_gameState == GameState.BothTeams_Decision;
 	}
 
+	// removed in rogues
 	public bool IsPhase(int phase)
 	{
 		return (phase == 1)
@@ -1348,6 +2110,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				|| m_gameState == GameState.BothTeams_Resolve);
 	}
 
+	// removed in rogues
 	public void SetSelectedTeam(int team)
 	{
 		m_selectedTeam = (Team)team;
@@ -1369,8 +2132,13 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		return m_willEnterTimebankMode;
 	}
 
+	// reactor
 	public bool PreventAutoLockInOnTimeout()
 	{
+		// TODO ARTEMIS
+		// TODO for now
+		//return false;
+
 		GameManager gameManager = GameManager.Get();
 		if (gameManager == null)
 		{
@@ -1391,6 +2159,13 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		return true;
 	}
+
+	// rogues
+	//public bool PreventAutoLockInOnTimeout()
+	//{
+	//	GameManager gameManager = GameManager.Get();
+	//	return !(gameManager == null) && gameManager.GameplayOverrides.SoloGameNoAutoLockinOnTimeout;
+	//}
 
 	public void ClearCooldowns()
 	{
@@ -1442,6 +2217,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// removed in rogues
 	public void DistributeRewardForKill(ActorData killedActor)
 	{
 		if (!GameplayUtils.IsPlayerControlled(killedActor) && !GameplayUtils.IsMinion(killedActor))
@@ -1503,6 +2279,61 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		List<ActorData> result = new List<ActorData>();
 		if (NetworkServer.active)
 		{
+#if SERVER
+			List<ActorData> allTeamMembers = GetAllTeamMembers(killedActor.GetEnemyTeam());
+			if (allTeamMembers != null)
+			{
+				ActorBehavior actorBehavior = killedActor.GetActorBehavior();
+				int currentTurn = Get().CurrentTurn;
+				int num = currentTurn - GameWideData.Get().m_killAssistMemory;
+				foreach (ActorData actorData in allTeamMembers)
+				{
+					if (GameplayUtils.IsPlayerControlled(actorData))
+					{
+						for (int i = currentTurn; i >= num; i--)
+						{
+							ActorBehavior.TurnBehavior behaviorOfTurn = actorBehavior.GetBehaviorOfTurn(i);
+							if (behaviorOfTurn != null && (behaviorOfTurn.DamagedByActor(actorData) || behaviorOfTurn.DebuffedByActor(actorData)))
+							{
+								result.Add(actorData);
+								break;
+							}
+						}
+					}
+				}
+				if (!onlyDirectDamagers)
+				{
+					List<ActorData> list2 = new List<ActorData>();
+					foreach (ActorData actorData2 in allTeamMembers)
+					{
+						if (!result.Contains(actorData2) && GameplayUtils.IsPlayerControlled(actorData2))
+						{
+							foreach (ActorData actorData3 in result)
+							{
+								if (list2.Contains(actorData2))
+								{
+									break;
+								}
+								ActorBehavior actorBehavior2 = actorData3.GetActorBehavior();
+								for (int j = currentTurn; j >= num; j--)
+								{
+									ActorBehavior.TurnBehavior behaviorOfTurn2 = actorBehavior2.GetBehaviorOfTurn(j);
+									if (behaviorOfTurn2 != null && (behaviorOfTurn2.HealedByActor(actorData2) || behaviorOfTurn2.BuffedByActor(actorData2)))
+									{
+										list2.Add(actorData2);
+										break;
+									}
+								}
+							}
+						}
+					}
+					foreach (ActorData item in list2)
+					{
+						result.Add(item);
+					}
+				}
+			}
+#endif
 		}
 		return result;
 	}
@@ -1554,6 +2385,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		return result;
 	}
 
+	// removed in rogues
 	public void RewardContributorsToKill(List<ActorData> participants, int baseCreditsReward)
 	{
 		if (participants.Count > 0)
@@ -1572,6 +2404,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// removed in rogues
 	public void RewardTeam(Team teamToReward, int creditsReward)
 	{
 		List<ActorData> allTeamMembers = GetAllTeamMembers(teamToReward);
@@ -1640,6 +2473,50 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkServer.active)
 		{
+#if SERVER
+			List<ActorData> actors = GetActors();
+			string text = "";
+			bool flag = false;
+			foreach (ActorData actorData in actors)
+			{
+				if (actorData != null && actorData.GetActorBehavior() != null)
+				{
+					int currentTurn = Get().CurrentTurn;
+					ActorBehavior.TurnBehavior behaviorOfTurn = actorData.GetActorBehavior().GetBehaviorOfTurn(currentTurn - numTurnsAgo);
+					if (behaviorOfTurn != null)
+					{
+						flag = true;
+						text = string.Concat(new string[]
+						{
+							text,
+							actorData.DebugNameString(),
+							" on Team[",
+							actorData.GetTeam().ToString(),
+							"]: \n",
+							behaviorOfTurn.ToString(),
+							"\n"
+						});
+					}
+					else
+					{
+						flag = true;
+						text = string.Concat(new object[]
+						{
+							text,
+							"Did not find TurnBehavior from ",
+							numTurnsAgo,
+							" turns ago for ",
+							actorData.DebugNameString(),
+							"\n\n"
+						});
+					}
+				}
+			}
+			if (flag)
+			{
+				Debug.LogWarning(text);
+			}
+#endif
 		}
 	}
 
@@ -1665,9 +2542,14 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// reactor
 	private void UNetVersion()
 	{
 	}
+	// rogues
+	//private void MirrorProcessed()
+	//{
+	//}
 
 	public bool Networkm_pause
 	{
@@ -1810,6 +2692,20 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// rogues
+	//public int Networkm_reviveTokens
+	//{
+	//	get
+	//	{
+	//		return this.m_reviveTokens;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<int>(value, ref this.m_reviveTokens, 512UL);
+	//	}
+	//}
+
 	public float Networkm_timeRemainingInDecisionOverflow
 	{
 		get
@@ -1819,7 +2715,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref m_timeRemainingInDecisionOverflow, 0x200U);
+			SetSyncVar(value, ref m_timeRemainingInDecisionOverflow, 0x200U);  // 0x400U in rogues
 		}
 	}
 
@@ -1832,7 +2728,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref m_willEnterTimebankMode, 0x400U);
+			SetSyncVar(value, ref m_willEnterTimebankMode, 0x400U);  // 0x800U in rogues
 		}
 	}
 
@@ -1851,7 +2747,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				HookSetCurrentTurn(value);
 				syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref m_currentTurn, 0x800U);
+			SetSyncVar(value, ref m_currentTurn, 0x800U);  // 0x1000U in rogues
 		}
 	}
 
@@ -1870,9 +2766,68 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				HookSetGameState(value);
 				syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref m_gameState, 0x1000U);
+			SetSyncVar(value, ref m_gameState, 0x1000U);  // 0x2000U in rogues
 		}
 	}
+
+	// rogues
+	//public PlayerActionStateMachine.StateFlag Networkm_actionsFsmState
+	//{
+	//	get
+	//	{
+	//		return this.m_actionsFsmState;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		if (NetworkServer.localClientActive && !base.syncVarHookGuard)
+	//		{
+	//			base.syncVarHookGuard = true;
+	//			this.HookSetPlayerActionState(value);
+	//			base.syncVarHookGuard = false;
+	//		}
+	//		base.SetSyncVar<PlayerActionStateMachine.StateFlag>(value, ref this.m_actionsFsmState, 16384UL);
+	//	}
+	//}
+
+	// rogues
+	//public Team Networkm_actingTeam
+	//{
+	//	get
+	//	{
+	//		return this.m_actingTeam;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<Team>(value, ref this.m_actingTeam, 32768UL);
+	//	}
+	//}
+
+	// rogues
+	//public bool Networkm_isInCombat
+	//{
+	//	get
+	//	{
+	//		return this.m_isInCombat;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<bool>(value, ref this.m_isInCombat, 65536UL);
+	//	}
+	//}
+
+	// rogues
+	//protected static void InvokeRpcRpcSetActingTeam(NetworkBehaviour obj, NetworkReader reader)
+	//{
+	//	if (!NetworkClient.active)
+	//	{
+	//		Debug.LogError("RPC RpcSetActingTeam called on server.");
+	//		return;
+	//	}
+	//	((GameFlowData)obj).RpcSetActingTeam(reader.ReadPackedInt32());
+	//}
 
 	protected static void InvokeRpcRpcUpdateTimeRemaining(NetworkBehaviour obj, NetworkReader reader)
 	{
@@ -1884,6 +2839,15 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		((GameFlowData)obj).RpcUpdateTimeRemaining(reader.ReadSingle());
 	}
 
+	// rogues
+	//public void CallRpcSetActingTeam(int teamInt)
+	//{
+	//	NetworkWriter networkWriter = new NetworkWriter();
+	//	networkWriter.WritePackedInt32(teamInt);
+	//	this.SendRPCInternal(typeof(GameFlowData), "RpcSetActingTeam", networkWriter, 0);
+	//}
+
+	// reactor
 	public void CallRpcUpdateTimeRemaining(float timeRemaining)
 	{
 		if (!NetworkServer.active)
@@ -1900,6 +2864,15 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		SendRPCInternal(networkWriter, 0, "RpcUpdateTimeRemaining");
 	}
 
+	// rogues
+	//public void CallRpcUpdateTimeRemaining(float timeRemaining)
+	//{
+	//	NetworkWriter networkWriter = new NetworkWriter();
+	//	networkWriter.Write(timeRemaining);
+	//	this.SendRPCInternal(typeof(GameFlowData), "RpcUpdateTimeRemaining", networkWriter, 0);
+	//}
+
+	// reactor
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -2044,6 +3017,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		return flag;
 	}
 
+	// reactor
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +17,7 @@ public class AbilityMod : MonoBehaviour
 	public int m_abilityScopeId;
 	public string m_name = "";
 	public bool m_availableInGame = true;
+	// removed in rogues
 	public AbilityModGameTypeReq m_gameTypeReq;
 
 	[Space(5f)]
@@ -111,18 +114,36 @@ public class AbilityMod : MonoBehaviour
 	public bool m_useStatusWhenRequestedOverride;
 	public List<StatusType> m_statusWhenRequestedOverride = new List<StatusType>();
 
+	// rogues
+	//[Separator("Ability Accuracy Adjust", true)]
+	//public AbilityModPropertyInt m_accuracyAdjust;
+	//[Header("-- Ignore accuracy system (can only do normal hits)")]
+	//public AbilityModPropertyBool m_guaranteeHit;
+	//[Header("-- Convert misses to glances")]
+	//public AbilityModPropertyBool m_convertMissToGlance;
+	//public AbilityModPropertyInt m_geometryDamageAmount;
+
 	[Space(25f)]
 	[Separator("End of Base Ability Mod", "orange")]
 	public bool beginningOfModSpecificData;
+
+	// rogues
+	//private static AbilityTooltipTokenContext s_tooltipTokenContext = new AbilityTooltipTokenContext();
 
 	public virtual Type GetTargetAbilityType()
 	{
 		return typeof(Ability);
 	}
 
+	// added in rogues, inlined in reactor (and not virtual, obviously)
+	public virtual string GetTargetAbilityTypeName()
+	{
+		return GetTargetAbilityType().ToString();
+	}
+
 	public string GetName()
 	{
-		string text = StringUtil.TR_AbilityModName(GetTargetAbilityType().ToString(), m_name);
+		string text = StringUtil.TR_AbilityModName(GetTargetAbilityTypeName(), m_name);
 		if (text.Length == 0 && m_name.Length > 0)
 		{
 			text = m_name;
@@ -132,14 +153,24 @@ public class AbilityMod : MonoBehaviour
 
 	public string GetFullTooltip(Ability ability)
 	{
-		string text = StringUtil.TR_AbilityModFinalTooltip(GetTargetAbilityType().ToString(), m_name);
+		string text = StringUtil.TR_AbilityModFinalTooltip(GetTargetAbilityTypeName(), m_name);
 		if (text.Length == 0 && m_tooltip.Length > 0)
 		{
 			text = m_tooltip;
 		}
+
+		// reactor
 		return TooltipTokenEntry.GetTooltipWithSubstitutes(text, GetTooltipTokenEntries(ability));
+		// rogues
+		//s_tooltipTokenContext.ability = ability;
+		//      s_tooltipTokenContext.gearStatData = null;
+		//      s_tooltipTokenContext.m_powerLevel = ability.GetAdjustedPowerLevel(null);
+		//      s_tooltipTokenContext.m_expertise = ability.GetAdjustedExpertise(null);
+		//      s_tooltipTokenContext.m_strength = ability.GetAdjustedStrength(null);
+		//return TooltipTokenEntry.GetTooltipWithSubstitutes(text, GetTooltipTokenEntries(ability), s_tooltipTokenContext, false);
 	}
 
+	// reactor
 	public string GetUnlocalizedFullTooltip(Ability ability)
 	{
 		if (string.IsNullOrEmpty(m_debugUnlocalizedTooltip))
@@ -149,7 +180,22 @@ public class AbilityMod : MonoBehaviour
 		return TooltipTokenEntry.GetTooltipWithSubstitutes(m_debugUnlocalizedTooltip, GetTooltipTokenEntries(ability));
 	}
 
-	public virtual OnHitAuthoredData GenModImpl_GetModdedOnHitData(OnHitAuthoredData onHitDataFromBase)
+	// rogues
+	//public string GetUnlocalizedFullTooltip(Ability ability)
+	//{
+	//	s_tooltipTokenContext.m_powerLevel = ability.GetAdjustedPowerLevel(null);
+	//	s_tooltipTokenContext.m_strength = ability.GetAdjustedStrength(null);
+	//	s_tooltipTokenContext.m_expertise = ability.GetAdjustedExpertise(null);
+	//	s_tooltipTokenContext.ability = ability;
+	//	s_tooltipTokenContext.gearStatData = null;
+	//	if (string.IsNullOrEmpty(m_debugUnlocalizedTooltip))
+	//	{
+	//		return TooltipTokenEntry.GetTooltipWithSubstitutes(m_tooltip, GetTooltipTokenEntries(ability), s_tooltipTokenContext, false);
+	//	}
+	//	return TooltipTokenEntry.GetTooltipWithSubstitutes(m_debugUnlocalizedTooltip, GetTooltipTokenEntries(ability), s_tooltipTokenContext, false);
+	//}
+
+	public virtual OnHitAuthoredData GenModImpl_GetModdedOnHitData(OnHitAuthoredData onHitDataFromBase)  // , GenericAbility_Container targetAbility in rogues
 	{
 		Log.Error("Please implement GenModImpl_GetModdedOnHitData in derived class " + GetType());
 		return onHitDataFromBase;
@@ -193,6 +239,7 @@ public class AbilityMod : MonoBehaviour
 		return baseAmount;
 	}
 
+	// reactor
 	public bool EquippableForGameType()
 	{
 		if (m_gameTypeReq == AbilityModGameTypeReq.ExcludeFromRanked)
@@ -206,6 +253,13 @@ public class AbilityMod : MonoBehaviour
 		return true;
 	}
 
+	// rogues
+	//public bool EquippableForGameType(GameType gameType, GameOptionFlag gameOptionFlag)
+	//{
+	//	return true;
+	//}
+
+	// removed in rogues
 	public static ModStrictness GetRequiredModStrictnessForGameSubType()
 	{
 		if (GameManager.Get().GameConfig != null
@@ -257,7 +311,7 @@ public class AbilityMod : MonoBehaviour
 		}
 		catch (Exception ex)
 		{
-			Debug.LogError("Exception while trying to add mod specific tooltip tokens for " + GetDebugIdentifier("") + " | " + GetTargetAbilityType().ToString() + "\nStackTrace:\n" + ex.StackTrace);
+			Debug.LogError("Exception while trying to add mod specific tooltip tokens for " + GetDebugIdentifier("") + " | " + GetTargetAbilityTypeName() + "\nStackTrace:\n" + ex.StackTrace); // no stacktrace in rogues
 		}
 		if (ability != null)
 		{
@@ -302,10 +356,21 @@ public class AbilityMod : MonoBehaviour
 		return list;
 	}
 
+	// reactor
 	public string AssembleFinalTooltip(Ability targetAbility)
 	{
 		return TooltipTokenEntry.GetTooltipWithSubstitutes(m_tooltip, GetTooltipTokenEntries(targetAbility));
 	}
+	// rogues
+	//public string AssembleFinalTooltip(Ability targetAbility)
+	//{
+	//       s_tooltipTokenContext.m_powerLevel = targetAbility.GetAdjustedPowerLevel(null);
+	//       s_tooltipTokenContext.m_expertise = targetAbility.GetAdjustedExpertise(null);
+	//       s_tooltipTokenContext.m_strength = targetAbility.GetAdjustedStrength(null);
+	//       s_tooltipTokenContext.ability = targetAbility;
+	//       s_tooltipTokenContext.gearStatData = null;
+	//	return TooltipTokenEntry.GetTooltipWithSubstitutes(m_tooltip, GetTooltipTokenEntries(targetAbility), s_tooltipTokenContext, false);
+	//}
 
 	public void SetUnlocalizedTooltipAndStatusTypes(Ability targetAbility)
 	{
@@ -398,6 +463,22 @@ public class AbilityMod : MonoBehaviour
 		}
 	}
 
+	// added in rogues
+#if SERVER
+	public static void AddToken_FloatDiff(List<TooltipTokenEntry> tokens, string name, string desc, float val, bool addDiff, float otherVal)
+	{
+		tokens.Add(new TooltipTokenFloat(name, desc + " | Final Value", val));
+		if (addDiff && otherVal > 0f)
+		{
+			float num = Mathf.Abs(val - otherVal);
+			if (num > 0f)
+			{
+				tokens.Add(new TooltipTokenFloat(name + "_Diff", desc + " | Difference", num));
+			}
+		}
+	}
+#endif
+
 	public static void AddToken_LaserInfo(List<TooltipTokenEntry> tokens, AbilityModPropertyLaserInfo laserInfoMod, string tokenName, LaserTargetingInfo baseLaserInfo = null, bool compareWithBase = true)
 	{
 		if (laserInfoMod != null)
@@ -470,8 +551,9 @@ public class AbilityMod : MonoBehaviour
 		}
 	}
 
-	public string GetAutogenDesc(AbilityData abilityData = null)
+	public string GetAutogenDesc(AbilityData abilityData = null)  // , Ability targetAbilityOnAbilityData = null in rogues
 	{
+		// reactor
 		Ability targetAbilityOnAbilityData = GetTargetAbilityOnAbilityData(abilityData);
 		bool flag = targetAbilityOnAbilityData != null;
 		string text = "";
@@ -628,23 +710,27 @@ public class AbilityMod : MonoBehaviour
 		string str = "";
 		try
 		{
-			str = ModSpecificAutogenDesc(abilityData);
+			str = ModSpecificAutogenDesc(abilityData);  // , targetAbilityOnAbilityData in rogues
 		}
 		catch (Exception ex)
 		{
 			if (Application.isEditor)
 			{
+				// reactor
 				Debug.LogError("Exception while trying to generate mod specific description. StackTrace:\n" + ex.StackTrace);
+				// rogues
+				//Debug.LogError("Exception while trying to generate mod specific description " + ex.Message );
 			}
 		}
 		return text + str;
 	}
 
-	protected virtual string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected virtual string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
 		return "";
 	}
 
+	// removed in rogues
 	protected Ability GetTargetAbilityOnAbilityData(AbilityData abilityData)
 	{
 		if (abilityData != null)

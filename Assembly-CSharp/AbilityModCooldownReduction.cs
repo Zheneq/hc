@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +40,14 @@ public class AbilityModCooldownReduction
 	public int m_refreshProgressBaseValue;
 	public int m_refreshProgressFinalAdd;
 	public bool m_resetRefreshProgress;
+
+	// added in rogues
+#if SERVER
+	public AbilityModCooldownReduction GetCopy()
+	{
+		return MemberwiseClone() as AbilityModCooldownReduction;
+	}
+#endif
 
 	public bool HasCooldownReduction()
 	{
@@ -119,6 +129,45 @@ public class AbilityModCooldownReduction
 		}
 		return result;
 	}
+
+	// added in rogues
+#if SERVER
+	public void AppendCooldownMiscEvents(ActorHitResults hitRes, bool selfHit, int numAllies, int numEnemies)
+	{
+		int num = CalcFinalCooldownReduction(selfHit, numAllies, numEnemies);
+		if (IsValidActionType(m_onAbility))
+		{
+			hitRes.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_onAbility, -1 * num));
+		}
+		foreach (AbilityData.ActionType actionType in m_additionalAbilities)
+		{
+			if (IsValidActionType(actionType))
+			{
+				hitRes.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(actionType, -1 * num));
+			}
+		}
+		int num2 = 0;
+		int num3 = CalcFinalStockRefresh(selfHit, numAllies, numEnemies, out num2);
+		foreach (AbilityData.ActionType actionType2 in m_stockAbilities)
+		{
+			if (IsValidActionType(actionType2))
+			{
+				if (num3 != 0)
+				{
+					hitRes.AddMiscHitEvent(new MiscHitEventData_AddToCasterStock(actionType2, num3));
+				}
+				if (m_resetRefreshProgress)
+				{
+					hitRes.AddMiscHitEvent(new MiscHitEventData_ResetCasterStockRefreshTime(actionType2));
+				}
+				else if (num2 != 0)
+				{
+					hitRes.AddMiscHitEvent(new MiscHitEventData_ProgressCasterStockRefreshTime(actionType2, num2));
+				}
+			}
+		}
+	}
+#endif
 
 	public void AddTooltipTokens(List<TooltipTokenEntry> entries, string name)
 	{

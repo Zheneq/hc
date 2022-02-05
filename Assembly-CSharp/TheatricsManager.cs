@@ -1,5 +1,8 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using System.Linq;
+//using Mirror;
 using Theatrics;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -10,11 +13,17 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 	public bool m_allowAbilityAnimationInterruptHitReaction = true;
 	public int m_numClientPhaseTimeoutsUntilForceDisconnect = 3;
 
+	// reactor
 	public const float c_timeoutAdvancePhaseSlowClient = 1.3f;
+	// rogues
+	//public float m_timeoutAdvancePhaseSlowClient = 5f;
+
 	public const float c_maxPhaseAdvanceTimeoutDuration = 45f;
 
 	[Separator("Ragdoll Force Settings", true)]
 	public float m_ragdollImpactForce = 15f;
+
+	// removed in rogues
 	[Header("-- Whether to apply force only to single joint")]
 	public bool m_ragdollApplyForceOnSingleJointOnly;
 
@@ -25,15 +34,22 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 	private int m_numConnectionIdsAddedForPhase;
 	private float m_phaseStartTime;
 	private AbilityPriority m_lastPhaseEnded = AbilityPriority.INVALID;
+
+	// added in rogues
+	private float m_timeToTimeoutPhase = float.MaxValue;
+	// added in rogues
+	private Dictionary<long, int> m_connectionIdsToNumPhaseTimeouts = new Dictionary<long, int>();
+
 	private static TheatricsManager s_instance;
 
+	// removed in rogues
 	private SerializeHelper m_serializeHelper = new SerializeHelper();
 	internal string m_debugSerializationInfoStr = "";
 
 	internal const string c_actorAnimDebugHeader = "<color=cyan>Theatrics: </color>";
 
-	internal static bool DebugTraceExecution => false;
-	internal static bool TraceTheatricsSerialization => false;
+    internal static bool DebugTraceExecution => false;
+    internal static bool TraceTheatricsSerialization => false;
 
 	internal static TheatricsManager Get()
 	{
@@ -45,10 +61,19 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		return s_instance != null ? s_instance.m_ragdollImpactForce : 15f;
 	}
 
-	public static bool RagdollOnlyApplyForceAtSingleJoint()
+    // removed in rogues
+    public static bool RagdollOnlyApplyForceAtSingleJoint()
 	{
 		return s_instance != null && s_instance.m_ragdollApplyForceOnSingleJointOnly;
 	}
+
+	// added in rogues
+#if SERVER
+	public int GetSetBoundCount()
+	{
+		return m_turn.m_cameraBoundSetCount;
+	}
+#endif
 
 	protected void Awake()
 	{
@@ -74,6 +99,59 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		m_lastPhaseEnded = AbilityPriority.INVALID;
 	}
 
+
+	// server-only
+#if SERVER
+	[Server]
+	internal void InitTurn()
+	{
+		if (!NetworkServer.active)
+		{
+			Debug.LogWarning("[Server] function 'System.Void TheatricsManager::InitTurn()' called on client");
+			return;
+		}
+		m_turnToUpdate = GameFlowData.Get().CurrentTurn;
+		m_turn = new Turn(GameFlowData.Get().CurrentTurn);
+	}
+#endif
+
+	// server-only
+#if SERVER
+	[Server]
+	internal void SetupTurnAbilityPhase(AbilityPriority phasePriority, List<AbilityRequest> abilityRequests, HashSet<int> hitActorIds, bool hasHitsWithoutAnimEntry)
+	{
+		if (!NetworkServer.active)
+		{
+			Debug.LogWarning("[Server] function 'System.Void TheatricsManager::SetupTurnAbilityPhase(AbilityPriority,System.Collections.Generic.List`1<AbilityRequest>,System.Collections.Generic.HashSet`1<System.Int32>,System.Boolean)' called on client");
+			return;
+		}
+		m_turn.SetupAbilityPhase(phasePriority, abilityRequests, hitActorIds, hasHitsWithoutAnimEntry);
+	}
+#endif
+
+	// server-only
+#if SERVER
+	[Server]
+	internal void MarkPhasesOnActionsDone()
+	{
+		if (!NetworkServer.active)
+		{
+			Debug.LogWarning("[Server] function 'System.Void TheatricsManager::MarkPhasesOnActionsDone()' called on client");
+			return;
+		}
+		if (m_turn != null && m_turn.m_abilityPhases != null)
+		{
+			foreach (Phase phase in m_turn.m_abilityPhases)
+			{
+				if (phase != null)
+				{
+					phase.SetTurnActionsDone();
+				}
+			}
+		}
+	}
+#endif
+
 	private void OnEnable()
 	{
 		SceneManager.sceneLoaded += OnSceneLoaded;
@@ -96,7 +174,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		return m_turn == null || !m_turn.HasAbilityPhaseAnimation();
 	}
 
-	internal AbilityPriority GetPhaseToUpdate()
+	internal AbilityPriority GetPhaseToUpdate()  // public in rogues
 	{
 		return m_phaseToUpdate;
 	}
@@ -120,7 +198,12 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 					&& playerDetails.m_gameObjects != null
 					&& playerDetails.m_gameObjects.Count > 0
 					&& playerDetails.IsHumanControlled
-					&& !playerDetails.IsSpectator)
+					&& !playerDetails.IsSpectator
+					// TODO ROGUES conditions below are added in rogues. leaving them for now
+					//&& playerDetails.m_accountId != 0L
+					//&& !playerDetails.IsLoadTestBot
+					//&& !ServerGameManager.Get().IsAccountReconnecting(playerDetails.m_accountId)
+					)
 				{
 					m_playerConnectionIdsInUpdatePhase.Add(playerDetails.m_accountId);
 				}
@@ -131,19 +214,43 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			m_playerConnectionIdsInUpdatePhase.Add(GameFlowData.Get().activeOwnedActorData.GetPlayerDetails().m_accountId);
 		}
 		m_numConnectionIdsAddedForPhase = m_playerConnectionIdsInUpdatePhase.Count;
-		m_turn.InitPhase(phaseIndex);
+		m_turn.InitPhase(phaseIndex);  //, true);  in rogues
 		m_phaseToUpdate = phaseIndex;
 		m_phaseStartTime = Time.time;
 	}
 
+	// added in rogues
+//#if SERVER
+//	internal void InitPhaseClient_FCFS(AbilityPriority phase)
+//	{
+//		Log.Error("InitPhaseClient_FCFS");
+//		m_turn.InitPhase(phase); // , false
+//		m_phaseToUpdate = phase;
+//		m_phaseStartTime = Time.time;
+//	}
+//#endif
+
+	// added in rogues
+//#if SERVER
+//	internal void SetTurn_FCFS(Turn turn)
+//	{
+//		m_turnToUpdate = GameFlowData.Get().CurrentTurn;
+//		m_turn = turn;
+//	}
+//#endif
+
 	internal void OnSequenceHit(
-		Sequence seq,
-		ActorData target,
-		ActorModelData.ImpulseInfo impulseInfo = null,
-		ActorModelData.RagdollActivation ragdollActivation = ActorModelData.RagdollActivation.HealthBased)
+        Sequence seq,
+        ActorData target,
+        ActorModelData.ImpulseInfo impulseInfo = null,
+        ActorModelData.RagdollActivation ragdollActivation = ActorModelData.RagdollActivation.HealthBased)
 	{
 		m_turn.OnSequenceHit(seq, target, impulseInfo, ragdollActivation);
 	}
+
+	// OnKnockbackMovementHitGathered
+	// OnKnockbackMovementHitExecuted
+	// NeedToWaitForKnockbackAnimFromActor
 
 	internal bool ClientNeedToWaitBeforeKnockbackMove(ActorData actor)
 	{
@@ -163,6 +270,15 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			Debug.LogWarning("[Server] function 'System.Void TheatricsManager::OnServerDisconnect(UnityEngine.Networking.NetworkConnection)' called on client");
 			return;
 		}
+		// server-only
+#if SERVER
+		ServerGameManager serverGameManager = ServerGameManager.Get();
+		long playerAccountIdByConnectionId = serverGameManager.GetPlayerAccountIdByConnectionId(conn.connectionId);
+		if (!serverGameManager.IsDisconnectPending(conn))
+		{
+			StopWaitingForConnectionId(playerAccountIdByConnectionId);
+		}
+#endif
 	}
 
 	[Server]
@@ -176,15 +292,33 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		StopWaitingForConnectionId(player.m_accountId);
 	}
 
+	// was empty in reactor
 	public void StopWaitingForConnectionId(long accountId)
 	{
+#if SERVER
+		Log.Info($"Theatrics: stop waiting for accountId {accountId}, " +
+			$"was waiting from this connection?= {m_playerConnectionIdsInUpdatePhase.Contains(accountId)}");
+		m_playerConnectionIdsInUpdatePhase.Remove(accountId);
+		Log.Info($"TheatricsManager OnUpdatePhaseEnded: Removing {accountId} from m_playerConnectionIdsInUpdatePhase");
+		m_connectionIdsToNumPhaseTimeouts.Remove(accountId);
+		if (m_playerConnectionIdsInUpdatePhase.Count == 0)
+		{
+			Log.Info("Theatrics: Marking as not waiting for more clients on disconnect or replace with bots");
+			if (ServerActionBuffer.Get() != null)
+			{
+				ServerActionBuffer.Get().OnPlayPhaseEnded();
+			}
+		}
+#endif
 	}
 
+	// removed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool initialState)
 	{
 		return OnSerializeHelper(new NetworkWriterAdapter(writer), initialState);
 	}
 
+	// removed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		uint num = uint.MaxValue;
@@ -198,6 +332,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// removed in rogues
 	private bool OnSerializeHelper(IBitStream stream, bool initialState)
 	{
 		if (!initialState && m_serializeHelper.ShouldReturnImmediately(ref stream))
@@ -232,9 +367,27 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 
 	private void Update()
 	{
+		// reactor
+		//UpdateClient();
+		// rogues
+		//UpdateServer();
+
+#if SERVER
+		// NOTE custom code
+		if (NetworkServer.active)
+        {
+			UpdateServer();
+		}
+		else if (NetworkClient.active)
+		{
+			UpdateClient();
+		}
+#else
 		UpdateClient();
+#endif
 	}
 
+	// removed in rogues
 	private void UpdateClient()
 	{
 		if (GameFlowData.Get() == null)
@@ -289,6 +442,8 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			SetAnimatorParamOnAllActors("DecisionPhase", true);
 		}
 	}
+
+	// UpdateServer
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
@@ -354,7 +509,109 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			Debug.LogWarning("[Server] function 'System.Void TheatricsManager::OnUpdatePhaseEnded(System.Int64,System.Int32,System.Single,System.Single)' called on client");
 			return;
 		}
+		// server-only below
+#if SERVER
+		GameFlow.Get().GetPlayerHandleFromAccountId(accountId);
+		if (phaseEnded == (int)m_phaseToUpdate)
+		{
+			m_playerConnectionIdsInUpdatePhase.Remove(accountId);
+			Log.Info($"TheatricsManager OnUpdatePhaseEnded: Removing {accountId} from m_playerConnectionIdsInUpdatePhase");
+			m_connectionIdsToNumPhaseTimeouts.Remove(accountId);
+			if (m_playerConnectionIdsInUpdatePhase.Count == 0)
+			{
+				ServerActionBuffer.Get().OnPlayPhaseEnded();
+				return;
+			}
+			bool flag = true;
+			if (m_numConnectionIdsAddedForPhase > 0)
+			{
+				int num = m_numConnectionIdsAddedForPhase - m_playerConnectionIdsInUpdatePhase.Count;
+				if (num > 0 && ((num < 3 && (float)num / (float)m_numConnectionIdsAddedForPhase < 0.49f) || m_turn.HasUnfinishedActorAnimationInPhase(m_phaseToUpdate)))
+				{
+					flag = false;
+				}
+			}
+			if (flag)
+			{
+				// rogues
+				//m_timeToTimeoutPhase = Time.time + m_timeoutAdvancePhaseSlowClient;
+				// custom
+				m_timeToTimeoutPhase = Time.time + c_timeoutAdvancePhaseSlowClient;
+			}
+			else
+			{
+				m_timeToTimeoutPhase = Time.time + 45f;
+			}
+		}
+#endif
 	}
+
+	// server-only
+#if SERVER
+	private void OnUpdatePhaseEndedNoServerPlayer(int phaseEnded)
+	{
+		if (phaseEnded == (int)m_phaseToUpdate && m_playerConnectionIdsInUpdatePhase.Count == 0)
+		{
+			ServerActionBuffer.Get().OnPlayPhaseEnded();
+		}
+	}
+#endif
+
+	// server-only
+#if SERVER
+	private void ForcePhaseAdvance()
+	{
+		foreach (long num in m_playerConnectionIdsInUpdatePhase)
+		{
+			int num2 = (int)num;
+			Player player;
+			PlayerDetails playerDetails = GameFlow.Get().FindHumanPlayerInfoByAccount((long)num2, out player);
+			string text = (playerDetails == null) ? "NULL" : playerDetails.m_handle;
+			int playerConnectionId = ServerGameManager.Get().GetPlayerConnectionId((long)num2);
+			int num3;
+			m_connectionIdsToNumPhaseTimeouts.TryGetValue((long)num2, out num3);
+			num3++;
+			if (num3 >= m_numClientPhaseTimeoutsUntilForceDisconnect)
+			{
+				Log.Warning("Forcing client {0} (connectionId {1}) to disconnect after {2} phase resolution timeouts of {3} seconds each.", new object[]
+				{
+					text,
+					num2,
+					num3,
+					// rogues
+					//m_timeoutAdvancePhaseSlowClient
+					// custom
+					c_timeoutAdvancePhaseSlowClient
+				});
+				ServerGameManager.Get().DisconnectClient(playerConnectionId);
+			}
+			else
+			{
+				m_connectionIdsToNumPhaseTimeouts[(long)num2] = num3;
+				Log.Warning("Forcing unresponsive client {0} (accountId {1}) to advance their resolution of phase {2}. {3} of {4} until they are forced to disconnect.", new object[]
+				{
+					text,
+					num2,
+					m_phaseToUpdate,
+					num3,
+					m_numClientPhaseTimeoutsUntilForceDisconnect
+				});
+				int num4 = (int)CommonServerConfig.Get().GameServerClientLatencyWarningThreshold.TotalMilliseconds;
+				if (ServerGameManager.Get().GetServerConnectionCurrentRtt(playerConnectionId) > num4)
+				{
+					GameFlow.Get().DisplayConsoleText("PlayerConnectionIssues", "Disconnect", text, ConsoleMessageType.Error);
+				}
+				else
+				{
+					GameFlow.Get().DisplayConsoleText("PlayerNotResponding", "Disconnect", text, ConsoleMessageType.Error);
+				}
+			}
+		}
+		m_playerConnectionIdsInUpdatePhase.Clear();
+		Log.Info($"TheatricsManager ForcePhaseAdvance: Clearing m_playerConnectionIdsInUpdatePhase");
+		ServerActionBuffer.Get().OnPlayPhaseEnded();
+	}
+#endif
 
 	public void OnAnimationEvent(ActorData animatedActor, Object eventObject, GameObject sourceObject)
 	{
@@ -420,6 +677,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// removed in rogues
 	internal int GetPlayOrderOfClientAction(ClientResolutionAction action, AbilityPriority phase)
 	{
 		if (m_turn == null || (int)phase >= m_turn.m_abilityPhases.Count)
@@ -438,6 +696,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		return -1;
 	}
 
+	// removed in rogues
 	internal int GetPlayOrderOfFirstDamagingHitOnActor(ActorData actor, AbilityPriority phase)
 	{
 		if (m_turn == null || (int)phase >= m_turn.m_abilityPhases.Count)
@@ -517,7 +776,139 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		Debug.LogWarning("<color=cyan>Theatrics: </color>" + str + "\n@time= " + Time.time);
 	}
 
+	// reactor
 	private void UNetVersion()
 	{
 	}
+	// rogues
+	//private void MirrorProcessed()
+	//{
+	//}
+
+	// server-only
+#if SERVER
+	[Server]
+	internal void OnKnockbackMovementHitGathered(ActorData mover)
+	{
+		if (!NetworkServer.active)
+		{
+			Debug.LogWarning("[Server] function 'System.Void TheatricsManager::OnKnockbackMovementHitGathered(ActorData)' called on client");
+			return;
+		}
+		int num = 5;
+		if (num < m_turn.m_abilityPhases.Count)
+		{
+			m_turn.m_abilityPhases[num].OnKnockbackMovementHitGathered(mover);
+		}
+	}
+#endif
+
+	// server-only
+#if SERVER
+	[Server]
+	internal void OnKnockbackMovementHitExecuted(ActorData mover)
+	{
+		if (!NetworkServer.active)
+		{
+			Debug.LogWarning("[Server] function 'System.Void TheatricsManager::OnKnockbackMovementHitExecuted(ActorData)' called on client");
+			return;
+		}
+		int index = 5;
+		m_turn.m_abilityPhases[index].OnKnockbackMovementHitExecuted(mover);
+	}
+#endif
+
+	// server-only
+#if SERVER
+	[Server]
+	internal bool NeedToWaitForKnockbackAnimFromActor(ActorData initiator)
+	{
+		if (!NetworkServer.active)
+		{
+			Debug.LogWarning("[Server] function 'System.Boolean TheatricsManager::NeedToWaitForKnockbackAnimFromActor(ActorData)' called on client");
+			return false;
+		}
+		bool result = false;
+		int num = 5;
+		if (m_turn.m_abilityPhases.Count > num && m_turn.m_abilityPhases[num] != null)
+		{
+			result = m_turn.m_abilityPhases[num].NeedToWaitForKnockbackAnimFromActor(initiator);
+		}
+		return result;
+	}
+#endif
+
+	// server-only
+	// TODO LOW compare with UpdateClient
+#if SERVER
+	private void UpdateServer()
+	{
+		if (GameFlowData.Get() == null || m_turnToUpdate != GameFlowData.Get().CurrentTurn)
+		{
+			return;
+		}
+		if (m_phaseToUpdate != AbilityPriority.INVALID && !m_turn.UpdatePhase(m_phaseToUpdate))
+		{
+			if (ClientResolutionManager.Get() != null)
+			{
+				ClientResolutionManager.Get().OnTheatricsPhaseUpdateFinished(m_phaseToUpdate);
+			}
+			// TODO LOW check
+			// rogues?
+			//if (HUD_UI.Get() != null && HUD_UI.Get().m_mainScreenPanel != null)
+			//{
+			//	HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.HighlightAllNameplatesForAbility();
+			//}
+			if (NetworkServer.active)
+			{
+				if (GameFlowData.Get().activeOwnedActorData == null)
+				{
+					if (m_playerConnectionIdsInUpdatePhase.Count == 0)
+					{
+						Log.Warning($"OnUpdatePhaseEndedNoServerPlayer");
+						OnUpdatePhaseEndedNoServerPlayer((int)m_phaseToUpdate);
+						m_phaseToUpdate = AbilityPriority.INVALID;
+					}
+					else if (Time.time > m_timeToTimeoutPhase)
+					{
+						Log.Warning($"ForcePhaseAdvance 1");
+						ForcePhaseAdvance();
+						m_phaseToUpdate = AbilityPriority.INVALID;
+					}
+				}
+				else if (m_playerConnectionIdsInUpdatePhase.Count <= 1)
+				{
+					Log.Warning($"OnUpdatePhaseEnded");
+					OnUpdatePhaseEnded(ClientGameManager.Get().AccountId, (int)m_phaseToUpdate, Time.time - m_phaseStartTime, Time.smoothDeltaTime);
+					m_phaseToUpdate = AbilityPriority.INVALID;
+				}
+				else if (Time.time > m_timeToTimeoutPhase)
+				{
+					Log.Warning($"ForcePhaseAdvance 2");
+					ForcePhaseAdvance();
+					m_phaseToUpdate = AbilityPriority.INVALID;
+				}
+				if (m_phaseToUpdate == AbilityPriority.INVALID)
+				{
+					m_timeToTimeoutPhase = float.MaxValue;
+				}
+				else if (m_timeToTimeoutPhase == 3.40282347E+38f && ServerResolutionManager.Get().GetCurrentState() == ServerResolutionManager.ServerResolutionManagerState.WaitingForNextPhase)
+				{
+					m_timeToTimeoutPhase = Time.time + 45f;
+				}
+			}
+			else if (m_lastPhaseEnded != m_phaseToUpdate && GameFlowData.Get().LocalPlayerData != null)
+			{
+				Log.Warning($"CallCmdTheatricsManagerUpdatePhaseEnded");
+				GameFlowData.Get().LocalPlayerData.CallCmdTheatricsManagerUpdatePhaseEnded((int)m_phaseToUpdate, Time.time - m_phaseStartTime, Time.smoothDeltaTime);
+				m_lastPhaseEnded = m_phaseToUpdate;
+				m_phaseToUpdate = AbilityPriority.INVALID;
+			}
+		}
+		if (NetworkServer.active)
+		{
+			base.SetDirtyBit(1U);
+		}
+	}
+#endif
 }

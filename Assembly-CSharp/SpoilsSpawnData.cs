@@ -1,6 +1,7 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [Serializable]
@@ -21,6 +22,13 @@ public class SpoilsSpawnData
 
 	public void SpawnSpoilsAroundSquare(BoardSquare desiredSpawnSquare, Team forTeam, bool ignoreSpawnSplineForSequence = false, int maxBorderSearchLayers = 4)
 	{
+#if SERVER
+		// added in rogues
+		foreach (PowerUp powerUp in SpoilsManager.Get().SpawnSpoilsAroundSquare(desiredSpawnSquare, forTeam, m_numToSpawn, m_powerupPrefabs, m_canSpawnOnEnemyOccupiedSquare, m_canSpawnOnAllyOccupiedSquare, null, ignoreSpawnSplineForSequence, maxBorderSearchLayers))
+		{
+			powerUp.SetDuration(m_duration);
+		}
+#endif
 	}
 
 	public bool HasResponse()
@@ -32,10 +40,19 @@ public class SpoilsSpawnData
 		return false;
 	}
 
+	// added in rogues
+#if SERVER
+	public void AddSpoilsToHitResults(BoardSquare desiredSpawnSquare, Team forTeam, ref ActorHitResults results)
+	{
+		SpoilSpawnDataForAbilityHit spoilSpawnData = new SpoilSpawnDataForAbilityHit(desiredSpawnSquare, forTeam, this);
+		results.AddSpoilSpawnData(spoilSpawnData);
+	}
+#endif
+
 	public string GetInEditorDescription(string header = "Spoils Spawn Data", string indent = "    ", bool diff = false, SpoilsSpawnData other = null)
 	{
 		bool showOther = diff && other != null;
-		string otherSep = "\t        \t | in base  =";
+        string otherSep = "\t        \t | in base  =";
 		string desc = InEditorDescHelper.BoldedStirng(header) + "\n";
 		if (HasResponse())
 		{

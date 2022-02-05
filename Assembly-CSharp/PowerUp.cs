@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -36,6 +38,14 @@ public class PowerUp : NetworkBehaviour
 			stream.Serialize(ref m_ignoreSpawnSpline);
 		}
 
+		// rogues
+		//public override void XSP_SerializeToStream(NetworkWriter writer)
+		//{
+		//	sbyte b = (sbyte)m_pickupTeamAsInt;
+		//	writer.Write(b);
+		//	writer.Write(m_ignoreSpawnSpline);
+		//}
+
 		public override void XSP_DeserializeFromStream(IBitStream stream)
 		{
 			sbyte value = (sbyte)m_pickupTeamAsInt;
@@ -43,7 +53,29 @@ public class PowerUp : NetworkBehaviour
 			m_pickupTeamAsInt = value;
 			stream.Serialize(ref m_ignoreSpawnSpline);
 		}
+
+		// rogues
+		//public override void XSP_DeserializeFromStream(NetworkReader reader)
+		//{
+		//	m_pickupTeamAsInt = (int)reader.ReadSByte();
+		//	m_ignoreSpawnSpline = reader.ReadBoolean();
+		//}
 	}
+
+	// server-only
+#if SERVER
+	private enum PowerupFate
+	{
+		Unclaimed,
+		EvadedOver,
+		StolenInCombat,
+		KnockedBackOver,
+		MovedOver,
+		SpawnedUnderActor,
+		BecameClaimableUnderActor,
+		ActorBecameEligibleOverPowerup
+	}
+#endif
 
 	private static int s_nextPowerupGuid;
 	public Ability m_ability;
@@ -55,8 +87,9 @@ public class PowerUp : NetworkBehaviour
 	public bool m_restrictPickupByTeam;
 	public PowerUpCategory m_chatterCategory;
 
+	[Tooltip("Treats the target as 'ally' for power up ability")]
 	[SyncVar]
-	private Team m_pickupTeam = Team.Objects;
+	private Team m_pickupTeam = Team.Objects;  // public in rogues
 	[SyncVar(hook = "HookSetGuid")]
 	private int m_guid = -1;
 	[SyncVar]
@@ -78,8 +111,25 @@ public class PowerUp : NetworkBehaviour
 	private bool m_markedForRemoval;
 	private SequenceSource _sequenceSource;
 
+	// removed in rogues
 	private static int kRpcRpcOnPickedUp = -430057904;
+	// removed in rogues
 	private static int kRpcRpcOnSteal = 1919536730;
+
+#if SERVER
+	// added in rogues
+	private ActorData m_creator;
+	// added in rogues
+	private Ability m_creatorAbility;
+	// added in rogues
+	protected List<MovementResults> m_evadeResults = new List<MovementResults>();
+	// added in rogues
+	protected List<MovementResults> m_knockbackResults = new List<MovementResults>();
+	// added in rogues
+	protected List<MovementResults> m_normalMovementResults = new List<MovementResults>();
+	// added in rogues
+	private PowerUp.PowerupFate m_fate;
+#endif
 
 	public int Guid
 	{
@@ -104,6 +154,22 @@ public class PowerUp : NetworkBehaviour
 		}
 		set
 		{
+#if SERVER
+			if (NetworkServer.active && m_pickupTeam != value)
+			{
+				SetPickupTeam(value);
+				if (m_boardSquare != null && m_boardSquare.occupant != null)
+				{
+					ActorData component = m_boardSquare.occupant.GetComponent<ActorData>();
+					if (CanBePickedUpByActor(component))
+					{
+						SetFate(PowerupFate.BecameClaimableUnderActor);
+						PickedUpOutsideResolution(component);
+						GameplayMetricHelper.CollectPowerup(component);
+					}
+				}
+			}
+#endif
 		}
 	}
 
@@ -192,9 +258,13 @@ public class PowerUp : NetworkBehaviour
 
 	static PowerUp()
 	{
+		// reactor
 		RegisterRpcDelegate(typeof(PowerUp), kRpcRpcOnPickedUp, InvokeRpcRpcOnPickedUp);
 		RegisterRpcDelegate(typeof(PowerUp), kRpcRpcOnSteal, InvokeRpcRpcOnSteal);
 		NetworkCRC.RegisterBehaviour("PowerUp", 0);
+		// rogues
+		//NetworkBehaviour.RegisterRpcDelegate(typeof(PowerUp), "RpcOnPickedUp", new NetworkBehaviour.CmdDelegate(PowerUp.InvokeRpcRpcOnPickedUp));
+		//NetworkBehaviour.RegisterRpcDelegate(typeof(PowerUp), "RpcOnSteal", new NetworkBehaviour.CmdDelegate(PowerUp.InvokeRpcRpcOnSteal));
 	}
 
 	public void SetPickupTeam(Team value)
@@ -278,8 +348,14 @@ public class PowerUp : NetworkBehaviour
 
 	private void HookSetGuid(int guid)
 	{
+		// reactor
 		Networkm_guid = guid;
 		PowerUpManager.Get().SetPowerUpGuid(this, guid);
+		// rogues
+		//if (guid != m_guid)
+		//{
+		//	PowerUpManager.Get().SetPowerUpGuid(this, guid);
+		//}
 	}
 
 	private void Start()
@@ -317,10 +393,25 @@ public class PowerUp : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void PowerUp::CheckForPickupOnSpawn()' called on client");
 			return;
 		}
+
+#if SERVER
+		if (NetworkServer.active && m_boardSquare != null && m_boardSquare.occupant != null)
+		{
+			ActorData component = m_boardSquare.occupant.GetComponent<ActorData>();
+			if (CanBePickedUpByActor(component))
+			{
+				SetFate(PowerupFate.SpawnedUnderActor);
+				PickedUpOutsideResolution(component);
+				GameplayMetricHelper.CollectPowerup(component);
+			}
+		}
+#endif
 	}
 
+	// removed in rogues, empty in reactor
 	public void CheckForPickupOnTurnStart()
 	{
+		// TODO some server code might have been here
 	}
 
 	public void MarkSequencesForRemoval()
@@ -440,12 +531,459 @@ public class PowerUp : NetworkBehaviour
 
 	internal void OnTurnTick()
 	{
+#if SERVER
+		if (NetworkServer.active)
+		{
+			m_age++;
+			if (m_pickedUp || m_stolen)
+			{
+				Destroy();
+				return;
+			}
+			if (m_duration > 0 && m_age >= m_duration)
+			{
+				Destroy();
+				return;
+			}
+			if (m_fate != PowerupFate.Unclaimed)
+			{
+				Debug.LogError("Powerup ended a turn indicating it should have been claimed: " + m_fate.ToString() + "\nChanging it back to Unclaimed");
+				SetFate(PowerupFate.Unclaimed);
+			}
+		}
+#endif
 	}
 
 	public bool CanBeStolen()
 	{
+#if SERVER
+		return !NetworkServer.active
+			|| m_fate == PowerupFate.Unclaimed
+			|| m_fate == PowerupFate.StolenInCombat;
+#else
 		return true;
+#endif
 	}
+
+	// server-only
+#if SERVER
+	public bool CanBePickedUpByActor(ActorData taker)
+	{
+		return !(taker == null) && !taker.IsDead() && (!(SpawnPointManager.Get() != null) || SpawnPointManager.Get().m_respawnActorsCanCollectPowerUps || !taker.IgnoreForAbilityHits) && m_fate == PowerupFate.Unclaimed && TeamAllowedForPickUp(taker.GetTeam()) && !taker.GetActorStatus().HasStatus(StatusType.CantCollectPowerups, true);
+	}
+#endif
+
+	// server-only
+#if SERVER
+	public void SetCreator(ActorData creator, Ability ability)
+	{
+		m_creator = creator;
+		m_creatorAbility = ability;
+	}
+#endif
+
+	// server-only
+#if SERVER
+	public ActorData GetCreator()
+	{
+		return m_creator;
+	}
+#endif
+
+	// server-only
+#if SERVER
+	public Ability GetCreatorAbility()
+	{
+		return m_creatorAbility;
+	}
+#endif
+
+	// server-only
+#if SERVER
+	private void SetFate(PowerUp.PowerupFate fate)
+	{
+		m_fate = fate;
+	}
+
+	// server-only
+	public void GatherResultsInResponseToEvades(MovementCollection collection)
+	{
+		m_evadeResults.Clear();
+		GatherMovementResults(collection, ref m_evadeResults);
+		foreach (MovementResults movementResults in m_evadeResults)
+		{
+			movementResults.m_triggeringPath.m_moverHasGameplayHitHere = true;
+			movementResults.m_triggeringPath.m_updateLastKnownPos = movementResults.ShouldMovementHitUpdateTargetLastKnownPos(movementResults.m_triggeringMover);
+		}
+	}
+
+	// server-only
+	public void GatherResultsInResponseToKnockbacks(MovementCollection collection)
+	{
+		m_knockbackResults.Clear();
+		GatherMovementResults(collection, ref m_knockbackResults);
+		for (int i = 0; i < m_knockbackResults.Count; i++)
+		{
+			m_knockbackResults[i].m_triggeringPath.m_moverHasGameplayHitHere = true;
+			m_knockbackResults[i].m_triggeringPath.m_updateLastKnownPos = m_knockbackResults[i].ShouldMovementHitUpdateTargetLastKnownPos(m_knockbackResults[i].m_triggeringMover);
+			TheatricsManager.Get().OnKnockbackMovementHitGathered(m_knockbackResults[i].GetTriggeringActor());
+		}
+	}
+
+	// server-only
+	public void ExecuteUnexecutedMovementResults_PowerUp(MovementStage movementStage, bool failsafe)
+	{
+		if (movementStage == MovementStage.Evasion)
+		{
+			MovementResults.ExecuteUnexecutedHits(m_evadeResults, failsafe);
+			return;
+		}
+		if (movementStage == MovementStage.Knockback)
+		{
+			MovementResults.ExecuteUnexecutedHits(m_knockbackResults, failsafe);
+			return;
+		}
+		if (movementStage == MovementStage.Normal)
+		{
+			MovementResults.ExecuteUnexecutedHits(m_normalMovementResults, failsafe);
+		}
+	}
+
+	// server-only
+	public void ExecuteUnexecutedMovementResultsForDistance_PowerUp(float distance, MovementStage movementStage, bool failsafe, out bool stillHasUnexecutedHits, out float nextUnexecutedHitDistance)
+	{
+		stillHasUnexecutedHits = false;
+		nextUnexecutedHitDistance = -1f;
+		if (movementStage == MovementStage.Evasion)
+		{
+			MovementResults.ExecuteUnexecutedHitsForDistance(m_evadeResults, distance, failsafe, out stillHasUnexecutedHits, out nextUnexecutedHitDistance);
+			return;
+		}
+		if (movementStage == MovementStage.Knockback)
+		{
+			MovementResults.ExecuteUnexecutedHitsForDistance(m_knockbackResults, distance, failsafe, out stillHasUnexecutedHits, out nextUnexecutedHitDistance);
+			return;
+		}
+		if (movementStage == MovementStage.Normal)
+		{
+			MovementResults.ExecuteUnexecutedHitsForDistance(m_normalMovementResults, distance, failsafe, out stillHasUnexecutedHits, out nextUnexecutedHitDistance);
+		}
+	}
+
+	// server-only
+	public List<MovementResults> GetMovementResultsForMovementStage(MovementStage movementStage)
+	{
+		if (movementStage == MovementStage.Evasion)
+		{
+			return m_evadeResults;
+		}
+		if (movementStage == MovementStage.Knockback)
+		{
+			return m_knockbackResults;
+		}
+		if (movementStage == MovementStage.Normal)
+		{
+			return m_normalMovementResults;
+		}
+		return null;
+	}
+
+	// server-only
+	public virtual void GatherMovementResults(MovementCollection movement, ref List<MovementResults> movementResultsList)
+	{
+		if (m_fate != PowerupFate.Unclaimed)
+		{
+			return;
+		}
+		MovementInstance movementInstance = null;
+		float currentShortestMoveCost = 0f;
+		BoardSquarePathInfo triggeringPathSegment = null;
+		foreach (MovementInstance movementInstance2 in movement.m_movementInstances)
+		{
+			if (CanBePickedUpByActor(movementInstance2.m_mover))
+			{
+				for (BoardSquarePathInfo boardSquarePathInfo = movementInstance2.m_path; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
+				{
+					if ((movementInstance2.m_groundBased || boardSquarePathInfo.IsPathEndpoint()) && !boardSquarePathInfo.IsPathStartPoint() && !boardSquarePathInfo.m_moverClashesHere && boardSquarePathInfo.square == m_boardSquare && MovementUtils.IsBetterMovementPathForGameplayThan(movementInstance2, boardSquarePathInfo.moveCost, movementInstance, currentShortestMoveCost))
+					{
+						movementInstance = movementInstance2;
+						currentShortestMoveCost = boardSquarePathInfo.moveCost;
+						triggeringPathSegment = boardSquarePathInfo;
+						break;
+					}
+				}
+			}
+		}
+		if (movementInstance != null)
+		{
+			ActorData mover = movementInstance.m_mover;
+			if (m_ability is PowerUp_Standard_Ability)
+			{
+				MovementResults item = BuildPickUpMovementResults(mover, triggeringPathSegment, movement.m_movementStage);
+				movementResultsList.Add(item);
+				if (movement.m_movementStage == MovementStage.Evasion)
+				{
+					SetFate(PowerupFate.EvadedOver);
+					GameplayMetricHelper.CollectPowerup(mover);
+					return;
+				}
+				if (movement.m_movementStage == MovementStage.Knockback)
+				{
+					SetFate(PowerupFate.KnockedBackOver);
+					GameplayMetricHelper.CollectPowerup(mover);
+					return;
+				}
+				if (movement.m_movementStage == MovementStage.Normal)
+				{
+					SetFate(PowerupFate.MovedOver);
+					GameplayMetricHelper.CollectPowerup(mover);
+					return;
+				}
+			}
+			else
+			{
+				Debug.LogError(string.Concat(new string[]
+				{
+					"Powerup ",
+					name,
+					" ",
+					m_powerUpName,
+					" does not have a PowerUp_Standard_Ability.  All powerups need one, now."
+				}));
+			}
+		}
+	}
+
+	// server-only
+	public virtual void GatherMovementResultsFromSegment(ActorData mover, MovementInstance movementInstance, MovementStage movementStage, BoardSquarePathInfo sourcePath, BoardSquarePathInfo destPath, ref List<MovementResults> movementResultsList)
+	{
+		if (m_fate != PowerupFate.Unclaimed)
+		{
+			return;
+		}
+		if (!CanBePickedUpByActor(mover))
+		{
+			return;
+		}
+		if (destPath.square != m_boardSquare)
+		{
+			return;
+		}
+		if (!movementInstance.m_groundBased && !destPath.IsPathEndpoint())
+		{
+			return;
+		}
+		if (m_ability is PowerUp_Standard_Ability)
+		{
+			MovementResults item = BuildPickUpMovementResults(mover, destPath, movementStage);
+			movementResultsList.Add(item);
+			if (movementStage == MovementStage.Evasion)
+			{
+				SetFate(PowerupFate.EvadedOver);
+				GameplayMetricHelper.CollectPowerup(mover);
+				return;
+			}
+			if (movementStage == MovementStage.Knockback)
+			{
+				SetFate(PowerupFate.KnockedBackOver);
+				GameplayMetricHelper.CollectPowerup(mover);
+				return;
+			}
+			if (movementStage == MovementStage.Normal)
+			{
+				SetFate(PowerupFate.MovedOver);
+				GameplayMetricHelper.CollectPowerup(mover);
+			}
+		}
+	}
+
+	// server-only
+	public void IntegrateDamageResultsForEvasion(ref Dictionary<ActorData, int> actorToDeltaHP)
+	{
+		IntegrateDamageResultsForMovement(m_evadeResults, ref actorToDeltaHP);
+	}
+
+	// server-only
+	public void IntegrateDamageResultsForKnockback(ref Dictionary<ActorData, int> actorToDeltaHP)
+	{
+		IntegrateDamageResultsForMovement(m_knockbackResults, ref actorToDeltaHP);
+	}
+
+	// server-only
+	private void IntegrateDamageResultsForMovement(List<MovementResults> results, ref Dictionary<ActorData, int> actorToDeltaHP)
+	{
+		for (int i = 0; i < results.Count; i++)
+		{
+			ServerGameplayUtils.IntegrateHpDeltas(results[i].GetMovementDamageResults(), ref actorToDeltaHP);
+		}
+	}
+
+	// server-only
+	public void GatherGrossDamageResults_PowerUp_Evasion(ref Dictionary<ActorData, int> actorToGrossDamage_real, ref Dictionary<ActorData, ServerGameplayUtils.DamageDodgedStats> stats)
+	{
+		Dictionary<ActorData, int> fakeDamageTaken = new Dictionary<ActorData, int>();
+		foreach (MovementResults movementResults in GetMovementResultsForMovementStage(MovementStage.Evasion))
+		{
+			Dictionary<ActorData, int> movementDamageResults_Gross = movementResults.GetMovementDamageResults_Gross();
+			ServerGameplayUtils.CalcDamageDodgedAndIntercepted(movementDamageResults_Gross, fakeDamageTaken, ref stats);
+			ServerGameplayUtils.IntegrateHpDeltas(movementDamageResults_Gross, ref actorToGrossDamage_real);
+		}
+	}
+
+	// server-only
+	public MovementResults BuildPickUpMovementResults(ActorData mover, BoardSquarePathInfo triggeringPathSegment, MovementStage movementStage)
+	{
+		ActorHitResults actorHitResults = (m_ability as PowerUp_Standard_Ability).CreateActorHitResults(this, mover, m_boardSquare.ToVector3(), null, null, false);
+		actorHitResults.CanBeReactedTo = false;
+		actorHitResults.AddPowerupForRemoval(this);
+		MovementResults movementResults = new MovementResults(movementStage);
+		movementResults.SetupTriggerData(mover, triggeringPathSegment);
+		movementResults.SetupGameplayData(this, actorHitResults);
+		ServerClientUtils.SequenceStartData startData = new ServerClientUtils.SequenceStartData(m_ability.m_sequencePrefab, m_boardSquare, null, mover, SequenceSource, null);
+		movementResults.AddSequenceStartOverride(startData, SequenceSource, true);
+		return movementResults;
+	}
+
+	// server-only
+	public void OnPickedUp(ActorData user)
+	{
+		m_pickedUp = true;
+		CallRpcOnPickedUp(user.ActorIndex);
+		EventLogMessage eventLogMessage = new EventLogMessage("match", "ActorPickup");
+		GameManager gameManager = GameManager.Get();
+		eventLogMessage.AddData("ProcessCode", (HydrogenConfig.Get() != null) ? HydrogenConfig.Get().ProcessCode : "?");
+		eventLogMessage.AddData("BuildVersion", BuildVersion.FullVersionString);
+		eventLogMessage.AddData("Map", gameManager ? gameManager.GameConfig.Map : "?");  // GameMission instead of GameConfig in rogues
+																						 //eventLogMessage.AddData("Encounter", gameManager ? gameManager.GameMission.Encounter : "?");  // rogues
+		eventLogMessage.AddData("Turn", GameFlowData.Get().CurrentTurn);
+		GenerateEventData(eventLogMessage, false);
+		user.GenerateEventData(eventLogMessage, false);
+		eventLogMessage.Write();
+	}
+
+	// server-only
+	public void GenerateEventData(EventLogMessage eventLogMessage, bool condensed = true)
+	{
+		eventLogMessage.AddData("PowerUpName", m_powerUpName);
+		eventLogMessage.AddData("PowerUpAbilityType", m_ability.m_abilityName);
+		if (!condensed && m_boardSquare != null)
+		{
+			eventLogMessage.AddData("PowerUpLocationX", m_boardSquare.GetGridPos().x);
+			eventLogMessage.AddData("PowerUpLocationY", m_boardSquare.GetGridPos().y);
+		}
+	}
+
+	// server-only
+	public void PickedUpOutsideResolution(ActorData user)
+	{
+		MovementResults movementResults = BuildPickUpMovementResults(user, null, MovementStage.INVALID);
+		movementResults.ExecuteUnexecutedMovementHits(false);
+		if (ServerResolutionManager.Get() != null)
+		{
+			ServerResolutionManager.Get().SendNonResolutionActionToClients(movementResults);
+		}
+		OnPickedUp(user);
+		Destroy();
+	}
+
+	// server-only
+	public void ActorBecameAbleToCollectPowerups(ActorData user)
+	{
+		if (CanBePickedUpByActor(user))
+		{
+			SetFate(PowerupFate.ActorBecameEligibleOverPowerup);
+			PickedUpOutsideResolution(user);
+			GameplayMetricHelper.CollectPowerup(user);
+		}
+	}
+
+	// server-only
+	public void OnWillBeStolen(ActorData stealer)
+	{
+		if (m_fate == PowerupFate.Unclaimed || m_fate == PowerupFate.StolenInCombat)
+		{
+			SetFate(PowerupFate.StolenInCombat);
+			GameplayMetricHelper.CollectPowerup(stealer);
+			return;
+		}
+		Debug.LogError(string.Concat(new object[]
+		{
+			"Powerup ",
+			name,
+			" ",
+			m_powerUpName,
+			" is going to be stolen, but its fate is already decided to be ",
+			(int)m_fate,
+			" ('",
+			m_fate.ToString(),
+			"')."
+		}));
+	}
+
+	// server-only
+	public void OnStealingHit(ActorData thief)
+	{
+		if (NetworkServer.active && !m_pickedUp)
+		{
+			m_stolen = true;
+			CallRpcOnSteal(thief.ActorIndex);
+		}
+	}
+
+	// server-only
+	public bool HasBeenPickedUp()
+	{
+		return m_pickedUp;
+	}
+
+	// server-only
+	public ActorHitResults BuildPowerupHitResults(ActorData pickupActor, BoardSquare squareForHitOrigin, StandardPowerUpAbilityModData powerupMod, EffectSource effectSourceOverride, bool isDirectActorHit)
+	{
+		PowerUp_Standard_Ability powerUp_Standard_Ability = m_ability as PowerUp_Standard_Ability;
+		if (powerUp_Standard_Ability != null)
+		{
+			ActorHitResults actorHitResults = powerUp_Standard_Ability.CreateActorHitResults(this, pickupActor, squareForHitOrigin.ToVector3(), powerupMod, effectSourceOverride, isDirectActorHit);
+			actorHitResults.CanBeReactedTo = false;
+			return actorHitResults;
+		}
+		return null;
+	}
+
+	// server-only
+	public AbilityResults_Powerup BuildPowerupResultsForAbilityHit(ActorData pickupActor, StandardPowerUpAbilityModData powerupMod)
+	{
+		ActorHitResults powerupHitResults = BuildPowerupHitResults(pickupActor, m_boardSquare, powerupMod, null, false);
+		return new AbilityResults_Powerup(this, powerupHitResults, m_ability.m_sequencePrefab, m_boardSquare, SequenceSource, null);
+	}
+
+	// server-only
+	public MovementResults BuildDirectPowerupHitResults(ActorData pickupActor, BoardSquare squareForHitOrigin, Ability sourceAbility, ActorData powerupCreator, StandardPowerUpAbilityModData powerupMod)
+	{
+		if (m_ability != null)
+		{
+			SequenceSource parentSequenceSource = new SequenceSource(null, null, true, null, null);
+			MovementResults movementResults = new MovementResults(MovementStage.INVALID);
+			ActorHitResults reactionHitResults = BuildPowerupHitResults(pickupActor, squareForHitOrigin, powerupMod, (sourceAbility != null) ? sourceAbility.AsEffectSource() : null, true);
+			ActorData caster = pickupActor;
+			if (powerupCreator != null)
+			{
+				caster = powerupCreator;
+			}
+			movementResults.SetupTriggerData(pickupActor, null);
+			movementResults.SetupGameplayDataForAbility(sourceAbility, caster);
+			movementResults.AddActorHitResultsForReaction(reactionHitResults);
+			movementResults.SetupSequenceData(m_ability.m_sequencePrefab, pickupActor.GetCurrentBoardSquare(), parentSequenceSource, null, true);
+			return movementResults;
+		}
+		return null;
+	}
+
+	// added in rogues
+	//private void MirrorProcessed()
+	//{
+	//}
+
+#endif
 
 	private void UNetVersion()
 	{
@@ -458,7 +996,8 @@ public class PowerUp : NetworkBehaviour
 			Debug.LogError("RPC RpcOnPickedUp called on server.");
 			return;
 		}
-		((PowerUp)obj).RpcOnPickedUp((int)reader.ReadPackedUInt32());
+		((PowerUp)obj).RpcOnPickedUp((int)reader.ReadPackedUInt32()); // ReadPackedInt32 in rogues
+
 	}
 
 	protected static void InvokeRpcRpcOnSteal(NetworkBehaviour obj, NetworkReader reader)
@@ -468,11 +1007,12 @@ public class PowerUp : NetworkBehaviour
 			Debug.LogError("RPC RpcOnSteal called on server.");
 			return;
 		}
-		((PowerUp)obj).RpcOnSteal((int)reader.ReadPackedUInt32());
+		((PowerUp)obj).RpcOnSteal((int)reader.ReadPackedUInt32()); // ReadPackedInt32 in rogues
 	}
 
 	public void CallRpcOnPickedUp(int pickedUpByActorIndex)
 	{
+		// reactor
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("RPC Function RpcOnPickedUp called on client.");
@@ -485,10 +1025,15 @@ public class PowerUp : NetworkBehaviour
 		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)pickedUpByActorIndex);
 		SendRPCInternal(networkWriter, 0, "RpcOnPickedUp");
+		// rogues
+		//NetworkWriter networkWriter = new NetworkWriter();
+		//networkWriter.WritePackedInt32(pickedUpByActorIndex);
+		//SendRPCInternal(typeof(PowerUp), "RpcOnPickedUp", networkWriter, 0);
 	}
 
 	public void CallRpcOnSteal(int actorIndexFor3DAudio)
 	{
+		// reactor
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("RPC Function RpcOnSteal called on client.");
@@ -501,8 +1046,13 @@ public class PowerUp : NetworkBehaviour
 		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)actorIndexFor3DAudio);
 		SendRPCInternal(networkWriter, 0, "RpcOnSteal");
+		// rogues
+		//NetworkWriter networkWriter = new NetworkWriter();
+		//networkWriter.WritePackedInt32(actorIndexFor3DAudio);
+		//SendRPCInternal(typeof(PowerUp), "RpcOnSteal", networkWriter, 0);
 	}
 
+	// reactor
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -567,6 +1117,49 @@ public class PowerUp : NetworkBehaviour
 		return flag;
 	}
 
+	// rogues
+	//public override bool OnSerialize(NetworkWriter writer, bool forceAll)
+	//{
+	//	bool result = base.OnSerialize(writer, forceAll);
+	//	if (forceAll)
+	//	{
+	//		writer.WritePackedInt32((int)m_pickupTeam);
+	//		writer.WritePackedInt32(m_guid);
+	//		writer.WritePackedUInt32(m_sequenceSourceId);
+	//		writer.Write(m_isSpoil);
+	//		writer.Write(m_ignoreSpawnSplineForSequence);
+	//		return true;
+	//	}
+	//	writer.WritePackedUInt64(base.syncVarDirtyBits);
+	//	if ((base.syncVarDirtyBits & 1UL) != 0UL)
+	//	{
+	//		writer.WritePackedInt32((int)m_pickupTeam);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 2UL) != 0UL)
+	//	{
+	//		writer.WritePackedInt32(m_guid);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 4UL) != 0UL)
+	//	{
+	//		writer.WritePackedUInt32(m_sequenceSourceId);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 8UL) != 0UL)
+	//	{
+	//		writer.Write(m_isSpoil);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 16UL) != 0UL)
+	//	{
+	//		writer.Write(m_ignoreSpawnSplineForSequence);
+	//		result = true;
+	//	}
+	//	return result;
+	//}
+
+	// reactor
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)
@@ -600,4 +1193,52 @@ public class PowerUp : NetworkBehaviour
 			m_ignoreSpawnSplineForSequence = reader.ReadBoolean();
 		}
 	}
+
+	// rogues
+	//public override void OnDeserialize(NetworkReader reader, bool initialState)
+	//{
+	//	base.OnDeserialize(reader, initialState);
+	//	if (initialState)
+	//	{
+	//		Team networkm_pickupTeam = (Team)reader.ReadPackedInt32();
+	//		Networkm_pickupTeam = networkm_pickupTeam;
+	//		int num = reader.ReadPackedInt32();
+	//		HookSetGuid(num);
+	//		Networkm_guid = num;
+	//		uint networkm_sequenceSourceId = reader.ReadPackedUInt32();
+	//		Networkm_sequenceSourceId = networkm_sequenceSourceId;
+	//		bool networkm_isSpoil = reader.ReadBoolean();
+	//		Networkm_isSpoil = networkm_isSpoil;
+	//		bool networkm_ignoreSpawnSplineForSequence = reader.ReadBoolean();
+	//		Networkm_ignoreSpawnSplineForSequence = networkm_ignoreSpawnSplineForSequence;
+	//		return;
+	//	}
+	//	long num2 = (long)reader.ReadPackedUInt64();
+	//	if ((num2 & 1L) != 0L)
+	//	{
+	//		Team networkm_pickupTeam2 = (Team)reader.ReadPackedInt32();
+	//		Networkm_pickupTeam = networkm_pickupTeam2;
+	//	}
+	//	if ((num2 & 2L) != 0L)
+	//	{
+	//		int num3 = reader.ReadPackedInt32();
+	//		HookSetGuid(num3);
+	//		Networkm_guid = num3;
+	//	}
+	//	if ((num2 & 4L) != 0L)
+	//	{
+	//		uint networkm_sequenceSourceId2 = reader.ReadPackedUInt32();
+	//		Networkm_sequenceSourceId = networkm_sequenceSourceId2;
+	//	}
+	//	if ((num2 & 8L) != 0L)
+	//	{
+	//		bool networkm_isSpoil2 = reader.ReadBoolean();
+	//		Networkm_isSpoil = networkm_isSpoil2;
+	//	}
+	//	if ((num2 & 16L) != 0L)
+	//	{
+	//		bool networkm_ignoreSpawnSplineForSequence2 = reader.ReadBoolean();
+	//		Networkm_ignoreSpawnSplineForSequence = networkm_ignoreSpawnSplineForSequence2;
+	//	}
+	//}
 }

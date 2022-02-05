@@ -1,4 +1,8 @@
+﻿// ROGUES
+// SERVER
+//using System;
 using System.Collections.Generic;
+//using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -96,9 +100,13 @@ public class ClientClashManager : MonoBehaviour
 	{
 		if (m_currentMessageHandlersState == MessageHandlersState.NotYetRegistered
 			&& ClientGameManager.Get() != null
-			&& ClientGameManager.Get().Client != null)
+			&& ClientGameManager.Get().Client != null)  // NetworkClient.active in rogues instead
 		{
+			// reactor
 			ClientGameManager.Get().Client.RegisterHandler((int)MyMsgType.ClashesAtEndOfMovement, MsgClashesAtEndOfMovement);
+			// rogues
+			//NetworkClient.RegisterHandler<ClashesAtEndOfMovement>(new Action<NetworkConnection, ClashesAtEndOfMovement>(this.MsgClashesAtEndOfMovement));
+			
 			m_currentMessageHandlersState = MessageHandlersState.Registered;
 		}
 	}
@@ -107,9 +115,13 @@ public class ClientClashManager : MonoBehaviour
 	{
 		if (m_currentMessageHandlersState == MessageHandlersState.Registered
 			&& ClientGameManager.Get() != null
-			&& ClientGameManager.Get().Client != null)
+			&& ClientGameManager.Get().Client != null)  // NetworkClient.active in rogues instead
 		{
+			// reactor
 			ClientGameManager.Get().Client.UnregisterHandler((int)MyMsgType.ClashesAtEndOfMovement);
+			// rogues
+			//NetworkClient.UnregisterHandler<ClashesAtEndOfMovement>();
+
 			m_currentMessageHandlersState = MessageHandlersState.Unregistered;
 		}
 	}
@@ -119,6 +131,7 @@ public class ClientClashManager : MonoBehaviour
 		m_postEvadeClashes.Clear();
 	}
 
+	// reactor
 	internal void MsgClashesAtEndOfMovement(NetworkMessage netMsg)
 	{
 		NetworkReader reader = netMsg.reader;
@@ -144,6 +157,28 @@ public class ClientClashManager : MonoBehaviour
 			m_postEvadeClashes.Add(item);
 		}
 	}
+	// rogues
+	//internal void MsgClashesAtEndOfMovement(NetworkConnection conn, ClashesAtEndOfMovement msg)
+	//{
+	//	m_postEvadeClashes.Clear();
+	//	int num = 0;
+	//	foreach (GridPos gridPos in msg.m_clashes)
+	//	{
+	//		BoardSquare boardSquare = Board.Get().GetSquareFromIndex(gridPos.x, gridPos.y);
+	//		List<ActorData> list = new List<ActorData>(msg.m_participants.Count);
+	//		foreach (sbyte actorIndex in msg.m_participants[num])
+	//		{
+	//			ActorData actorData = GameFlowData.Get().FindActorByActorIndex((int)actorIndex);
+	//			if (actorData != null)
+	//			{
+	//				list.Add(actorData);
+	//			}
+	//		}
+	//		ClashAtEndOfEvade item = new ClashAtEndOfEvade(list, boardSquare);
+	//		m_postEvadeClashes.Add(item);
+	//		num++;
+	//	}
+	//}
 
 	private void Update()
 	{
@@ -168,4 +203,27 @@ public class ClientClashManager : MonoBehaviour
 			}
 		}
 	}
+
+	// added in rogues
+	// TODO rewrite clash broadcast for reactor
+#if SERVER
+	public static void SendClashesAtEndOfMovementMsgToClients(List<ServerClashUtils.MovementClash> clashesAtEndOfMovement)
+	{
+		//ClashesAtEndOfMovement clashesAtEndOfMovement2 = new ClashesAtEndOfMovement();
+		//clashesAtEndOfMovement2.m_clashes = new List<GridPos>(clashesAtEndOfMovement.Count);
+		//clashesAtEndOfMovement2.m_participants = new List<List<sbyte>>(clashesAtEndOfMovement.Count);
+		//for (int i = 0; i < clashesAtEndOfMovement.Count; i++)
+		//{
+		//	clashesAtEndOfMovement2.m_clashes[i] = new GridPos(clashesAtEndOfMovement[i].m_clashSquare.x, clashesAtEndOfMovement[i].m_clashSquare.y, 0);
+		//	List<ServerClashUtils.MovementClashParticipant> allParticipants = clashesAtEndOfMovement[i].GetAllParticipants();
+		//	clashesAtEndOfMovement2.m_participants[i] = new List<sbyte>(allParticipants.Count);
+		//	for (int j = 0; j < allParticipants.Count; j++)
+		//	{
+		//		sbyte value = (sbyte)allParticipants[j].Actor.ActorIndex;
+		//		clashesAtEndOfMovement2.m_participants[i][j] = value;
+		//	}
+		//}
+		//NetworkServer.SendToAll<ClashesAtEndOfMovement>(clashesAtEndOfMovement2, 0);
+	}
+#endif
 }

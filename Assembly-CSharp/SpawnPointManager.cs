@@ -1,5 +1,8 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpawnPointManager : MonoBehaviour
@@ -12,6 +15,8 @@ public class SpawnPointManager : MonoBehaviour
 	public float m_respawnInnerRadius;
 	[Tooltip("Used only when Players Select Respawn = true and Respawn Method = RespawnAnywhere")]
 	public float m_respawnOuterRadius = 3f;
+	// rogues
+	//public AbilityAreaShape m_reviveAllyInputRange = AbilityAreaShape.Three_x_Three;
 	[Header("-- RESPAWN AUTOMATIC LOCATION --")]
 	public RespawnMethod m_respawnMethod;
 	private SpawnPointCoord[] m_spawnPointsTeamA;
@@ -58,10 +63,17 @@ public class SpawnPointManager : MonoBehaviour
 
 	private void Start()
 	{
+		// reactor
 		m_initialSpawnPointsTeamA.Initialize();
 		m_initialSpawnPointsTeamB.Initialize();
 		m_spawnRegionsTeamA.Initialize();
 		m_spawnRegionsTeamB.Initialize();
+		// rogues
+		//this.m_initialSpawnPointsTeamA.Initialize(base.gameObject.scene);
+		//this.m_initialSpawnPointsTeamB.Initialize(base.gameObject.scene);
+		//this.m_spawnRegionsTeamA.Initialize(base.gameObject.scene);
+		//this.m_spawnRegionsTeamB.Initialize(base.gameObject.scene);
+
 		if (!m_playersSelectRespawn && m_respawnMethod == RespawnMethod.RespawnAnywhere)
 		{
 			ClearSpawnPoints();
@@ -92,6 +104,15 @@ public class SpawnPointManager : MonoBehaviour
 			}
 		}
 	}
+
+	// rogues
+	//public bool SpawnInDuringMovement()
+	//{
+	//	// reactor
+	//	return m_spawnInDuringMovement;
+	//	// rogues
+	//	//return false;
+	//}
 
 	public Vector3 GetSpawnFacing(Vector3 spawnPosition)
 	{
@@ -218,6 +239,9 @@ public class SpawnPointManager : MonoBehaviour
 	{
 		return square != null
 			&& MovementUtils.CanStopOnSquare(square)
+#if !PURE_REACTOR
+			&& square.IsValidForGameplay()  // added in rogues
+#endif
 			&& (allowOccupiedSquares || square.occupant == null);
 	}
 
@@ -450,6 +474,189 @@ public class SpawnPointManager : MonoBehaviour
 		}
 	}
 
+	// TODO RESPAWNING
+	// added in rogues
+#if SERVER
+	internal void ProcessRespawns(ObjectivePoints.MatchState matchState, ref HashSet<ActorData> respawningPlayers)
+	{
+		List<BoardSquare> list = null;
+		List<BoardSquare> list2 = null;
+		if (m_playersSelectRespawn)
+		{
+			if (m_respawnMethod != RespawnMethod.RespawnAnywhere)  //  && this.m_respawnMethod != SpawnPointManager.RespawnMethod.RespawnInRadius in rogues
+			{
+				list = GetSpawnSquaresList(Team.TeamA, m_respawnMethod);
+			}
+			else
+			{
+				list = new List<BoardSquare>();
+				foreach (ActorData actorData in GameFlowData.Get().GetPlayerAndBotTeamMembers(Team.TeamA))
+				{
+					if (!actorData.IsDead() && actorData.GetCurrentBoardSquare() != null)
+					{
+						List<BoardSquare> validRespawnSquaresInDonut = AreaEffectUtils.GetValidRespawnSquaresInDonut(actorData.GetCurrentBoardSquare().worldX, actorData.GetCurrentBoardSquare().worldY, m_respawnInnerRadius, m_respawnOuterRadius);
+						list = list.Union(validRespawnSquaresInDonut).ToList();
+					}
+				}
+				if (list.Count == 0)
+				{
+					list = GetSpawnSquaresList(Team.TeamA, RespawnMethod.RespawnOnlyAtInitialSpawnPoints);
+				}
+			}
+			if (m_respawnMethod != RespawnMethod.RespawnAnywhere)
+			{
+				list2 = GetSpawnSquaresList(Team.TeamB, m_respawnMethod);
+			}
+			else
+			{
+				list2 = new List<BoardSquare>();
+				foreach (ActorData actorData2 in GameFlowData.Get().GetPlayerAndBotTeamMembers(Team.TeamB))
+				{
+					if (!actorData2.IsDead() && actorData2.GetCurrentBoardSquare() != null && actorData2.SpawnerId != -1)
+					{
+						List<BoardSquare> validRespawnSquaresInDonut2 = AreaEffectUtils.GetValidRespawnSquaresInDonut(actorData2.GetCurrentBoardSquare().worldX, actorData2.GetCurrentBoardSquare().worldY, m_respawnInnerRadius, m_respawnOuterRadius);
+						list2 = list2.Union(validRespawnSquaresInDonut2).ToList();
+					}
+				}
+				if (list2.Count == 0)
+				{
+					list2 = GetSpawnSquaresList(Team.TeamB, RespawnMethod.RespawnOnlyAtInitialSpawnPoints);
+				}
+			}
+		}
+		List<GameObject> players = GameFlowData.Get().GetPlayers();
+		bool flag = false;
+		foreach (GameObject gameObject in players)
+		{
+			ActorData component = gameObject.GetComponent<ActorData>();
+			if (component != null && component.IsDead())
+			{
+				if (matchState == ObjectivePoints.MatchState.MatchEnd)
+				{
+					gameObject.GetComponent<ServerActorController>().RespawnOnSquare(Board.Get().GetSquareFromVec3(component.LastDeathPosition));
+				}
+				else if (respawningPlayers.Contains(component))
+				{
+					// TODO check
+					if (GameFlowData.Get().CurrentTurn >= component.NextRespawnTurn && component.NextRespawnTurn > 0)  //  && component.GetTeam() == GameFlowData.Get().ActingTeam in rogues
+					{
+						if (m_playersSelectRespawn)
+						{
+							gameObject.GetComponent<ServerActorController>().RespawnOnSquare(component.RespawnPickedPositionSquare);
+							respawningPlayers.Remove(component);
+						}
+						else
+						{
+							HashSet<BoardSquare> other;
+							HashSet<BoardSquare> squaresToAvoidForRespawn = GetSquaresToAvoidForRespawn(component, out other);
+							squaresToAvoidForRespawn.UnionWith(other);
+							gameObject.GetComponent<ServerActorController>().Respawn(squaresToAvoidForRespawn);
+							respawningPlayers.Remove(component);
+						}
+						ServerActionBuffer.Get().ImmediateUpdateAllFogOfWar();
+						flag = true;
+						using (List<ActorData>.Enumerator enumerator = GameFlowData.Get().GetPlayerAndBotTeamMembers(component.GetEnemyTeam()).GetEnumerator())
+						{
+							while (enumerator.MoveNext())
+							{
+								ActorData actorData3 = enumerator.Current;
+								if (actorData3.IsActorVisibleToAnyEnemy())
+								{
+									actorData3.SynchronizeTeamSensitiveData();
+								}
+							}
+							continue;
+						}
+					}
+					// TODO check
+					if (m_playersSelectRespawn && component.respawnSquares.IsNullOrEmpty())  // && component.GetTeam() == GameFlowData.Get().ActingTeam in rogues
+					{
+						if (m_onlyAvoidVisibleEnemies && !flag)
+						{
+							ServerActionBuffer.Get().ImmediateUpdateAllFogOfWar();
+							flag = true;
+						}
+
+						// rogues
+						//if (this.m_respawnMethod == SpawnPointManager.RespawnMethod.RespawnInRadius)
+						//{
+						//    BoardSquare squareFromVec = Board.Get().GetSquareFromVec3(component.LastDeathPosition);
+						//    if (component.GetTeam() == Team.TeamA)
+						//    {
+						//        list = AreaEffectUtils.GetSquaresInRadius(squareFromVec, this.m_respawnOuterRadius, true, null);
+						//    }
+						//    else
+						//    {
+						//        list2 = AreaEffectUtils.GetSquaresInRadius(squareFromVec, this.m_respawnOuterRadius, true, null);
+						//    }
+						//}
+
+						HashSet<BoardSquare> squaresNotAllowed;
+						HashSet<BoardSquare> squaresToAvoidForRespawn2 = GetSquaresToAvoidForRespawn(component, out squaresNotAllowed);
+						List<BoardSquare> list3 = new List<BoardSquare>();
+						if (component.GetTeam() == Team.TeamA)
+						{
+							list3.AddRange(list);
+							int num = SortByProximityWeights(list3, component, false, null, squaresToAvoidForRespawn2, squaresNotAllowed, m_onlyAvoidVisibleEnemies, true, m_minValidRespawnSquaresForPlayerSelection);
+							if (num < list3.Count)
+							{
+								if (num > m_minValidRespawnSquaresForPlayerSelection)
+								{
+									list3.RemoveRange(num, list3.Count - num);
+								}
+								else
+								{
+									Log.Info("All TeamA respawn squares were undesirable, so just allow them all as a fallback.");
+								}
+							}
+						}
+						else
+						{
+							list3.AddRange(list2);
+							int num2 = SortByProximityWeights(list3, component, false, null, squaresToAvoidForRespawn2, squaresNotAllowed, m_onlyAvoidVisibleEnemies, true, m_minValidRespawnSquaresForPlayerSelection);
+							if (num2 < list3.Count)
+							{
+								if (num2 > m_minValidRespawnSquaresForPlayerSelection)
+								{
+									list3.RemoveRange(num2, list3.Count - num2);
+								}
+								else
+								{
+									Log.Info("All TeamB respawn squares were undesirable, so just allow them all as a fallback.");
+								}
+							}
+						}
+						if (list3.IsNullOrEmpty())
+						{
+							Log.Error("respawn locations missing");
+						}
+						gameObject.GetComponent<ServerActorController>().PickRespawn(list3);
+					}
+				}
+			}
+		}
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	internal HashSet<BoardSquare> GetSquaresToAvoidForRespawn(ActorData forActor, out HashSet<BoardSquare> squaresNotAllowed)
+	{
+		HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
+		squaresNotAllowed = new HashSet<BoardSquare>();
+		ServerEffectManager.Get().CollectSquaresToAvoidForRespawn(hashSet, forActor);
+		if (PowerUpManager.Get() != null)
+		{
+			PowerUpManager.Get().CollectSquaresToAvoidForRespawn(squaresNotAllowed, forActor);
+		}
+		if (SpoilsManager.Get() != null)
+		{
+			SpoilsManager.Get().AddToSquaresToAvoidForRespawn(squaresNotAllowed, forActor);
+		}
+		return hashSet;
+	}
+#endif
+
 	[Serializable]
 	public class SpawnPointCoord
 	{
@@ -468,6 +675,7 @@ public class SpawnPointManager : MonoBehaviour
 		RespawnAnywhere,
 		RespawnOnlyAtInitialSpawnPoints,
 		RespawnInGraveyards
+		//RespawnInRadius  // added in rogues
 	}
 
 	private class SpawnSquareComparer : IComparer<BoardSquare>

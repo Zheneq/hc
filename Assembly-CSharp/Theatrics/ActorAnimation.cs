@@ -1,7 +1,12 @@
+// ROGUES
+// SERVER
 using CameraManagerInternal;
 using System;
 using System.Collections.Generic;
+//using System.Diagnostics;
 using System.Linq;
+//using System.Runtime.CompilerServices;
+//using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -27,7 +32,9 @@ namespace Theatrics
 		private bool m_isTauntForEvadeOrKnockback;
 		private int m_cinematicRequested;
 		private bool m_ignoreForCameraFraming;
+		// removed in rogues
 		private bool m_alwaysInLoS;
+		// removed in rogues
 		private bool m_revealOnCast;
 		private AbilityData.ActionType m_abilityActionType = AbilityData.ActionType.INVALID_ACTION;
 		private bool m_displayedHungError;
@@ -56,9 +63,20 @@ namespace Theatrics
 		private bool m_executedUnexecutedHits;
 		private float m_timeAnimating;
 		private bool m_notifiedClientKnockbackOnHitsDone;
+
+		// added in rogues
+#if SERVER
+		private float m_clientKnockbackNotifyTime = -1f;
+#endif
+
 		internal Bounds m_originalBounds;
 		private List<string> m_animEventsSeen = new List<string>();
 		private PlaybackState _playState;
+
+		// added in rogues
+#if SERVER
+		internal EffectResults m_effectResults;
+#endif
 
 		private static readonly int DistToGoalHash = Animator.StringToHash("DistToGoal");
 		private static readonly int StartDamageReactionHash = Animator.StringToHash("StartDamageReaction");
@@ -121,13 +139,37 @@ namespace Theatrics
 				{
 					return;
 				}
+
+#if SERVER
+				if (m_abilityRequest != null
+					&& m_abilityRequest.m_resolveState != AbilityRequest.AbilityResolveState.RESOLVED)
+				{
+					if (value != PlaybackState.ReleasedFocus)
+					{
+						if (value == PlaybackState.CantBeStarted)
+						{
+							Log.Error($"Can't start, cancelling: {this}, request resolve state was: {m_abilityRequest.m_resolveState}");
+							ServerActionBuffer.Get().CancelAbilityRequest(Caster, m_abilityRequest.m_ability, false, true);
+						}
+					}
+					else
+					{
+						if (m_abilityRequest.m_resolveState == AbilityRequest.AbilityResolveState.QUEUED)
+						{
+							ServerActionBuffer.Get().TryRunAbilityRequest(m_abilityRequest);
+						}
+						ServerActionBuffer.Get().ResolveAbilityRequest(m_abilityRequest);
+					}
+				}
+#endif
+
 				if (m_ability != null && value == PlaybackState.PlayRequested)
 				{
 					int techPointRewardForInteraction = AbilityUtils.GetTechPointRewardForInteraction(m_ability, AbilityInteractionType.Cast, true);
 					techPointRewardForInteraction = AbilityUtils.CalculateTechPointsForTargeter(Caster, m_ability, techPointRewardForInteraction);
 					if (techPointRewardForInteraction > 0)
 					{
-						Caster.AddCombatText(techPointRewardForInteraction.ToString(), "", CombatTextCategory.TP_Recovery, BuffIconToDisplay.None);
+						Caster.AddCombatText(techPointRewardForInteraction.ToString(), "", CombatTextCategory.TP_Recovery, BuffIconToDisplay.None);  // , HitChanceBracket.HitType.Normal in rogues
 						if (ClientResolutionManager.Get().IsInResolutionState())
 						{
 							Caster.ClientUnresolvedTechPointGain += techPointRewardForInteraction;
@@ -144,16 +186,30 @@ namespace Theatrics
 				{
 					TheatricsManager.LogForDebugging(string.Concat(ToString(), " PlayState: <color=cyan>", _playState, "</color> -> <color=cyan>", value, "</color>"));
 				}
+
+				// removed in rogues
 				if ((value == PlaybackState.ReleasedFocus || value == PlaybackState.CantBeStarted)
 					&& Caster != null)
 				{
 					Caster.CurrentlyVisibleForAbilityCast = false;
 				}
+				// end removed
 				_playState = value;
 			}
 		}
 
 		internal bool Played => PlayState >= PlaybackState.PlayRequested;
+
+		// server-only or rogues-only?
+#if SERVER
+		internal Effect Effect
+		{
+			get
+			{
+				return m_effectResults?.Effect;
+			}
+		}
+#endif
 
 		internal ActorAnimation(Turn turn)
 		{
@@ -186,7 +242,9 @@ namespace Theatrics
 			bool _cinematicCamera = m_doCinematicCam;
 			sbyte _tauntNumber = (sbyte)m_cinematicRequested;
 			bool value8 = m_ignoreForCameraFraming;
+			// removed in rogues
 			bool value9 = m_alwaysInLoS;
+			// removed in rogues
 			bool _reveal = m_revealOnCast;
 			bool value11 = m_isTauntForEvadeOrKnockback;
 			sbyte _playOrderIndex = m_playOrderIndex;
@@ -202,7 +260,9 @@ namespace Theatrics
 			stream.Serialize(ref _cinematicCamera);
 			stream.Serialize(ref _tauntNumber);
 			stream.Serialize(ref value8);
+			// removed in rogues
 			stream.Serialize(ref value9);
+			// removed in rogues
 			stream.Serialize(ref _reveal);
 			stream.Serialize(ref value11);
 			stream.Serialize(ref _playOrderIndex);
@@ -267,6 +327,15 @@ namespace Theatrics
 			m_bounds = new Bounds(center, size);
 			m_abilityActionType = (AbilityData.ActionType)_actionType;
 			m_ability = Caster?.GetAbilityData().GetAbilityOfActionType(m_abilityActionType);
+
+			// server-only?
+#if SERVER
+			if (m_ability != null)
+			{
+				m_isAbilityOrItem = true;
+			}
+#endif
+
 			if (SeqSource == null)
 			{
 				SeqSource = new SequenceSource();
@@ -354,6 +423,7 @@ namespace Theatrics
 			return m_cinematicRequested > 0;
 		}
 
+
 		internal bool ShouldIgnoreCameraFraming()
 		{
 			return m_ignoreForCameraFraming;
@@ -371,6 +441,7 @@ namespace Theatrics
 				&& HitActorsToDeltaHP[actor] < 0;
 		}
 
+		// removed in rogues
 		internal bool ForceActorVisibleForAbilityCast()
 		{
 			return !Caster.IsDead() && (m_revealOnCast || m_doCinematicCam);
@@ -380,12 +451,30 @@ namespace Theatrics
 		{
 			FogOfWar clientFog = FogOfWar.GetClientFog();
 			ActorStatus actorStatus = Caster.GetActorStatus();
-			if (actorStatus != null && actorStatus.HasStatus(StatusType.Revealed)
-				|| Caster.VisibleTillEndOfPhase
+			if (actorStatus != null && actorStatus.HasStatus(StatusType.Revealed))
+			{
+				return false;
+			}
+
+			// reactor
+			if (Caster.VisibleTillEndOfPhase
 				|| Caster.CurrentlyVisibleForAbilityCast
-				|| ForceActorVisibleForAbilityCast()
-				|| clientFog == null
-				|| m_alwaysInLoS)
+				|| ForceActorVisibleForAbilityCast())
+			{
+				return false;
+			}
+			//rogues
+			//if (Caster.VisibleTillEndOfPhase)
+			//{
+			//	return false;
+			//}
+			if (clientFog == null)
+			{
+				return false;
+			}
+
+			// removed in rogues
+			if (m_alwaysInLoS)
 			{
 				return false;
 			}
@@ -480,7 +569,10 @@ namespace Theatrics
 
 		private float GetTimeToWaitAfterAllHits()
 		{
+			// reactor
 			return AbilitiesCamera.Get().CalcFrameTimeAfterHit(GetNumOtherActorsHit());
+			// rogues
+			//return 0f;
 		}
 
 		internal void Play(Turn turn)
@@ -494,7 +586,18 @@ namespace Theatrics
 			{
 				return;
 			}
+
+			// server-only
+#if SERVER
+			if (Effect != null)
+			{
+				Effect.OnActorAnimEntryPlay();
+			}
+#endif
+			// reactor
 			bool shouldTurnToPosition = m_ability != null ? m_ability.ShouldRotateToTargetPos() : m_animationIndex > 0;
+			// rogues
+			//bool shouldTurnToPosition = (this.m_ability == null || this.m_ability.ShouldRotateToTargetPos()) && this.m_animationIndex > 0;
 			if (shouldTurnToPosition)
 			{
 				if (m_doCinematicCam)
@@ -525,8 +628,12 @@ namespace Theatrics
 						distToGoal = Caster.GetActorMovement().FindDistanceToEnd();
 					}
 				}
+				// reactor
 				modelAnimator.SetFloat(DistToGoalHash, distToGoal);
 				modelAnimator.ResetTrigger(StartDamageReactionHash);
+				// rogues
+				//modelAnimator.SetFloat("DistToGoal", distToGoal);
+				//modelAnimator.ResetTrigger("StartDamageReaction");
 			}
 			if (AbilityData.IsCard(Caster.GetAbilityData().GetActionTypeOfAbility(m_ability)))
 			{
@@ -536,7 +643,10 @@ namespace Theatrics
 				});
 				if (HUD_UI.Get() != null)
 				{
+					// reactor
 					HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.AddNewAbility(GetAbility(), Caster);
+					// rogues
+					//HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.AddUsedActionToNotification(this.GetAbility(), this.Caster);
 				}
 			}
 			else if (!m_isTauntForEvadeOrKnockback)
@@ -564,10 +674,21 @@ namespace Theatrics
 			{
 				SequenceManager.Get().DoClientEnable(SeqSource);
 			}
+
+			// removed in rogues
 			if (ForceActorVisibleForAbilityCast())
 			{
 				Caster.CurrentlyVisibleForAbilityCast = true;
 			}
+
+			// server-only
+#if SERVER
+			if (NetworkServer.active && m_doCinematicCam && Caster.GetActorStatus().IsInvisibleToEnemies())
+			{
+				ServerActionBuffer.Get().MarkVisibleTillEndOfPhase(Caster);
+			}
+#endif
+
 			if (m_animationIndex <= 0)
 			{
 				NotifyKnockbackManagerOnAnimStarted();
@@ -585,14 +706,20 @@ namespace Theatrics
 			{
 				modelAnimator.SetInteger(AttackHash, m_animationIndex);
 				modelAnimator.SetBool(CinematicCamHash, m_doCinematicCam);
+				//modelAnimator.SetInteger("Attack", (int)this.m_animationIndex);
+				//modelAnimator.SetBool("CinematicCam", this.m_doCinematicCam);
+
 				if (AnimatorContainsParameter(modelAnimator, "TauntNumber"))
 				{
 					modelAnimator.SetInteger(TauntNumberHash, m_cinematicRequested);
+					//modelAnimator.SetInteger("TauntNumber", m_cinematicRequested);
 				}
 				modelAnimator.SetTrigger(StartAttackHash);
+				//modelAnimator.SetTrigger("StartAttack");
 				if (Caster.GetActorModelData().HasAnimatorControllerParamater("TauntAnimIndex"))
 				{
 					modelAnimator.SetInteger(TauntAnimIndexHash, m_cinematicCamIndex);
+					//modelAnimator.SetInteger("TauntAnimIndex", this.m_cinematicCamIndex);
 				}
 				if (m_ability != null)
 				{
@@ -600,7 +727,10 @@ namespace Theatrics
 				}
 				if (HUD_UI.Get() != null)
 				{
+					// reactor
 					HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.AddNewAbility(GetAbility(), Caster);
+					// rogues
+					//HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.AddUsedActionToNotification(this.GetAbility(), this.Caster);
 				}
 				if (IsCinematicRequested())
 				{
@@ -730,6 +860,8 @@ namespace Theatrics
 					{
 						animator.SetInteger(AttackHash, 0);
 						animator.SetBool(CinematicCamHash, false);
+						//	animator.SetInteger("Attack", 0);
+						//animator.SetBool("CinematicCam", false);
 					}
 					if (m_ability != null)
 					{
@@ -785,13 +917,21 @@ namespace Theatrics
 				}
 			}
 			if (!m_notifiedClientKnockbackOnHitsDone
-				&& ServerClientUtils.GetCurrentAbilityPhase() == AbilityPriority.Combat_Knockback
+				&& ServerClientUtils.GetCurrentAbilityPhase() == AbilityPriority.Combat_Knockback // in rogues: TheatricsManager.Get().GetPhaseToUpdate() == AbilityPriority.Combat_Knockback
 				&& ClientKnockbackManager.Get() != null
 				&& amNotWaitingForHits
 				&& PlayState >= PlaybackState.WaitingForTargetHits)
 			{
+				// added in rogues
+				//bool flag7 =
 				ClientKnockbackManager.Get().NotifyOnActorAnimHitsDone(Caster);
 				m_notifiedClientKnockbackOnHitsDone = true;
+
+				// added in rogues
+				//if (flag7)
+				//{
+				//	m_clientKnockbackNotifyTime = GameTime.time;
+				//}
 			}
 			bool flag3 = !NetworkClient.active
 				|| m_playRequestedTime <= 0f
@@ -800,7 +940,11 @@ namespace Theatrics
 			bool flag42 = !isPlayingAttackAnim
 				|| m_camEndEventReceived
 				|| m_animationIndex <= 0;
-			if ((!flag42 || CameraManager.Get().ShotSequence != null || !pathDone || !amNotWaitingForHits || !flag3) && !timedOut)
+			// reactor
+			bool flag43 = true;
+			// rogues
+			//bool flag42 = m_clientKnockbackNotifyTime < 0f || GameTime.time - m_clientKnockbackNotifyTime > 1.5f;
+			if ((!flag42 || CameraManager.Get().ShotSequence != null || !pathDone || !amNotWaitingForHits || !flag43 || !flag3) && !timedOut)
 			{
 				return UpdateNotFinished();
 			}
@@ -864,14 +1008,31 @@ namespace Theatrics
 					Log.Warning(this + " has sequence " + seq + " with target " + target + " but the ability did not return that target from GatherResults, skipping hit reaction and ragdoll");
 					return true;
 				}
+
+				// rogues
+				//HitChanceBracket.HitType hitAccuType = ClientResolutionManager.Get().GetHitAccuType(seq.Source, target);
+
 				ActorModelData actorModelData = target.GetActorModelData();
+
+				// reactor
 				if (actorModelData != null
 					&& actorModelData.CanPlayDamageReactAnim()
 					&& m_turn.IsReadyForDamageReaction(target))
 				{
 					target.PlayDamageReactionAnim(seq.m_customHitReactTriggerName);
 				}
-				if (ragdollActivation != 0 && m_turn.IsReadyToRagdoll(target))
+				// rogues
+				//if (actorModelData != null
+				//	// rogues
+				//	//&& hitAccuType != HitChanceBracket.HitType.Miss
+				//	&& (actorModelData.IsPlayingIdleAnim(false) || actorModelData.IsPlayingDamageAnim())
+				//	&& m_turn.IsReadyForDamageReaction(target))
+				//{
+				//	target.PlayDamageReactionAnim(seq.m_customHitReactTriggerName);
+				//}
+
+				if (ragdollActivation != ActorModelData.RagdollActivation.None
+					&& m_turn.IsReadyToRagdoll(target))
 				{
 					target.DoVisualDeath(impulseInfo);
 					if (seq.Caster != null
@@ -915,10 +1076,23 @@ namespace Theatrics
 
 		private void NotifyKnockbackManagerForTauntsProgress()
 		{
+#if SERVER
+			if (NetworkServer.active && m_isTauntForEvadeOrKnockback && TheatricsManager.Get().GetPhaseToUpdate() == AbilityPriority.Combat_Knockback)
+			{
+				ServerKnockbackManager.Get().OnKnockbackTauntProgressed();
+				UpdateLastEventTimeForClientResolution();
+			}
+#endif
 		}
 
 		private void NotifyKnockbackManagerOnAnimStarted()
 		{
+#if SERVER
+			if (NetworkServer.active && TheatricsManager.Get().GetPhaseToUpdate() == AbilityPriority.Combat_Knockback)
+			{
+				ServerKnockbackManager.Get().OnKnockbackAnimStarted(Caster);
+			}
+#endif
 		}
 
 		private void UpdateLastEventTimeForClientResolution()
@@ -928,6 +1102,172 @@ namespace Theatrics
 				ClientResolutionManager.Get().UpdateLastEventTime();
 			}
 		}
+
+
+		// server-only
+#if SERVER
+		private void InitBounds()
+		{
+			if (PlayState == ActorAnimation.PlaybackState.CantBeStarted)
+			{
+				return;
+			}
+			bool flag = m_ability != null && m_ability.GetRunPriority() == AbilityPriority.Evasion;
+			ActorData caster = Caster;
+			BoardSquare squareFromVec = Board.Get().GetSquareFromVec3(GetCurrentPositionForBounds(caster));
+			m_squaresOfInterestX.Clear();
+			m_squaresOfInterestY.Clear();
+			AddToSquaresOfInterest(squareFromVec);
+			m_bounds = squareFromVec.CameraBounds;
+			Bounds bounds = m_bounds;
+			if (m_abilityRequest != null && m_abilityRequest.m_targets != null && m_abilityRequest.m_targets.Count > 0 && m_ability != null && m_ability.UseTargeterGridPosForCameraBounds() && !flag)
+			{
+				for (int i = 0; i < m_abilityRequest.m_targets.Count; i++)
+				{
+					BoardSquare square = Board.Get().GetSquare(m_abilityRequest.m_targets[i].GridPos);
+					if (square != null)
+					{
+						if (!m_bounds.Contains(square.ToVector3()))
+						{
+							AddToSquaresOfInterest(square);
+						}
+						m_bounds.Encapsulate(square.CameraBounds);
+					}
+				}
+			}
+			if (m_ability != null)
+			{
+				List<AbilityTarget> targets = (m_abilityRequest != null && m_abilityRequest.m_targets != null) ? m_abilityRequest.m_targets : new List<AbilityTarget>();
+				Bounds bounds2;
+				if (m_ability.CalcBoundsOfInterestForCamera(out bounds2, targets, Caster))
+				{
+					m_bounds.Encapsulate(bounds2);
+				}
+			}
+			if (Effect != null)
+			{
+				List<Vector3> list = Effect.CalcPointsOfInterestForCamera();
+				if (list != null && list.Count > 0)
+				{
+					Bounds bounds3 = default(Bounds);
+					bounds3.center = list[0];
+					for (int j = 1; j < list.Count; j++)
+					{
+						BoardSquare squareFromVec2 = Board.Get().GetSquareFromVec3(list[j]);
+						if (squareFromVec2 != null && !m_bounds.Contains(squareFromVec2.ToVector3()))
+						{
+							AddToSquaresOfInterest(squareFromVec2);
+						}
+						bounds3.Encapsulate(list[j]);
+					}
+					m_bounds.Encapsulate(bounds3);
+				}
+			}
+			if (HitActorsToDeltaHP != null && Board.Get() != null)
+			{
+				foreach (KeyValuePair<ActorData, int> keyValuePair in HitActorsToDeltaHP)
+				{
+					ActorData key = keyValuePair.Key;
+					if (key == null)
+					{
+						Log.Warning("Theatrics: null target submitted for ability {0}", new object[]
+						{
+							this
+						});
+					}
+					else if (!(key == caster))
+					{
+						Vector3 currentPositionForBounds = GetCurrentPositionForBounds(key);
+						squareFromVec = Board.Get().GetSquareFromVec3(currentPositionForBounds);
+						if (squareFromVec != null)
+						{
+							if (!m_bounds.Contains(currentPositionForBounds))
+							{
+								AddToSquaresOfInterest(squareFromVec);
+							}
+							m_bounds.Encapsulate(squareFromVec.CameraBounds);
+						}
+						BoardSquare incomingKnockbackEndSquare = ServerKnockbackManager.Get().GetIncomingKnockbackEndSquare(key);
+						if (incomingKnockbackEndSquare != null)
+						{
+							if (!m_bounds.Contains(incomingKnockbackEndSquare.ToVector3()))
+							{
+								AddToSquaresOfInterest(incomingKnockbackEndSquare);
+							}
+							m_bounds.Encapsulate(incomingKnockbackEndSquare.CameraBounds);
+						}
+					}
+				}
+			}
+			if (bounds == m_bounds && !flag)
+			{
+				BoardSquare squareFromVec3 = Board.Get().GetSquareFromVec3(m_targetPos);
+				if (squareFromVec3 != null && !m_bounds.Contains(squareFromVec3.ToVector3()))
+				{
+					AddToSquaresOfInterest(squareFromVec3);
+				}
+				m_bounds.Encapsulate(m_targetPos);
+			}
+			float num = 3f;
+			if (m_ability != null && m_ability.m_cameraBoundsMinHeight > num)
+			{
+				num = m_ability.m_cameraBoundsMinHeight;
+			}
+			m_bounds.SetMinMax(new Vector3(m_bounds.min.x, m_bounds.min.y, m_bounds.min.z), new Vector3(m_bounds.max.x, m_bounds.min.y, m_bounds.max.z));
+			m_bounds.center = new Vector3(m_bounds.center.x, 0.5f * num + (float)Board.Get().BaselineHeight, m_bounds.center.z);
+			m_bounds.Expand(new Vector3(0f, num, 0f));
+			m_bounds.Expand(new Vector3(0.75f, 0f, 0.75f));
+			m_originalBounds = new Bounds(m_bounds.center, m_bounds.size);
+		}
+#endif
+
+		// server-only
+#if SERVER
+		private void AddToSquaresOfInterest(BoardSquare square)
+		{
+			if (square != null)
+			{
+				if (square.x <= 255 && square.y <= 255)
+				{
+					if (m_squaresOfInterestX.Count < 255)
+					{
+						m_squaresOfInterestX.Add((byte)square.x);
+						m_squaresOfInterestY.Add((byte)square.y);
+						return;
+					}
+				}
+				else if (Application.isEditor)
+				{
+					Debug.LogWarning("Square index too big for current theatrics serialization code (using byte), please update serialization code to handle larger indices");
+				}
+			}
+		}
+#endif
+
+		// server-only
+#if SERVER
+		private Vector3 GetCurrentPositionForBounds(ActorData actor)
+		{
+			if (!(actor != null))
+			{
+				return Vector3.zero;
+			}
+			BoardSquare travelBoardSquare = actor.GetTravelBoardSquare();
+			if (travelBoardSquare != null)
+			{
+				return travelBoardSquare.ToVector3();
+			}
+			return actor.transform.position;
+		}
+#endif
+
+		// removed in rogues
+#if SERVER
+		private void UpdateLastEventTime()
+		{
+			ClientResolutionManager.Get()?.UpdateLastEventTime();
+		}
+#endif
 
 		internal float GetCamStartEventDelay(bool useTauntCamAltTime)
 		{
@@ -977,6 +1317,14 @@ namespace Theatrics
 			}
 			return actorIndex;
 		}
+
+		// server-only
+#if SERVER
+		internal bool HasFreeActionAbility()
+		{
+			return m_ability != null && m_ability.IsFreeAction();
+		}
+#endif
 
 		public int CompareTo(ActorAnimation rhs)
 		{
@@ -1175,5 +1523,140 @@ namespace Theatrics
 			}
 			return text;
 		}
+
+#if SERVER
+		internal ActorAnimation(Turn turn, Phase phase, AbilityRequest abilityRequest, SequenceSource source)
+		{
+			m_turn = turn;
+			m_isAbilityOrItem = true;
+			m_ability = abilityRequest.m_ability;
+			m_abilityRequest = abilityRequest;
+			m_abilityActionType = abilityRequest.m_actionType;
+			if (m_abilityRequest == null)
+			{
+				Log.Error($"NULL ability request for {this}");
+				PlayState = PlaybackState.CantBeStarted;
+				m_cinematicRequested = -1;
+			}
+			else if (!Turn.AnimsStartTogetherInPhase(abilityRequest.m_ability.m_runPriority))
+			{
+				m_cinematicRequested = abilityRequest.m_cinematicRequested;
+			}
+			if (m_ability == null)
+			{
+				Log.Error($"NULL ability for {this}");
+				PlayState = PlaybackState.CantBeStarted;
+			}
+			SeqSource = source;
+			Caster = abilityRequest.m_caster;
+			m_animationIndex = (short)m_ability.GetActionAnimType(abilityRequest.m_targets, abilityRequest.m_caster);
+			if (abilityRequest.m_targets != null && abilityRequest.m_targets.Count > 0 && m_ability.GetTargetData() != null && m_ability.GetTargetData().Length != 0)
+			{
+				m_targetPos = m_ability.GetRotateToTargetPos(abilityRequest.m_targets, Caster);
+			}
+			else
+			{
+				m_targetPos = abilityRequest.m_caster.GetFreePos();
+			}
+			ParentAbilitySeqSource = m_abilityRequest.m_additionalData.m_parentAbilitySequenceSource;
+			InitHitActorsToDeltaHP(m_ability.GetRunPriority());
+		}
+
+		internal ActorAnimation(Turn turn, Phase phase, EffectResults effectResults)
+		{
+			m_effectResults = effectResults;
+			AbilityPriority phaseIndex = (phase != null) ? phase.Index : Effect.HitPhase;
+			m_turn = turn;
+			m_isAbilityOrItem = false;
+			m_ability = null;
+			m_abilityRequest = null;
+			SeqSource = Effect.SequenceSource;
+			Caster = Effect.GetActorAnimationActor();
+			m_animationIndex = (short)Effect.GetCasterAnimationIndex(phaseIndex);
+			m_cinematicRequested = Effect.GetCinematicRequested(phaseIndex);
+			m_targetPos = Effect.GetRotationTargetPos(phaseIndex);
+			m_ignoreForCameraFraming = Effect.IgnoreCameraFraming();
+			InitHitActorsToDeltaHP(phaseIndex);
+		}
+
+		internal ActorAnimation(Turn turn, Phase phase, ActorData caster, AbilityData.ActionType actionType, short animIndex, int tauntNum, List<AbilityTarget> targeterTargets, SequenceSource source)
+		{
+			m_isTauntForEvadeOrKnockback = true;
+			Caster = caster;
+			m_turn = turn;
+			m_cinematicRequested = tauntNum;
+			m_isAbilityOrItem = false;
+			m_ability = null;
+			m_abilityRequest = null;
+			m_abilityActionType = AbilityData.ActionType.INVALID_ACTION;
+			m_animationIndex = animIndex;
+			if (targeterTargets != null && targeterTargets.Count > 0)
+			{
+				m_targetPos = targeterTargets[0].FreePos;
+			}
+			else
+			{
+				m_targetPos = Caster.GetFreePos();
+			}
+			HitActorsToDeltaHP = new Dictionary<ActorData, int>();
+			SeqSource = source;
+			InitNonSerializedData();
+			InitBounds();
+		}
+
+		internal void SetTurn_FCFS(Turn turn)
+		{
+			m_turn = turn;
+		}
+
+		internal void InitHitActorsToDeltaHP(AbilityPriority phaseIndex)
+		{
+			if (m_isAbilityOrItem)
+			{
+				if (m_abilityRequest == null)
+				{
+					Log.Error("NULL ability request for {0}", new object[]
+					{
+						this
+					});
+					PlayState = ActorAnimation.PlaybackState.CantBeStarted;
+				}
+				else if (m_ability == null)
+				{
+					Log.Error("NULL ability for {0}", new object[]
+					{
+						this
+					});
+					PlayState = ActorAnimation.PlaybackState.CantBeStarted;
+				}
+				else
+				{
+					HitActorsToDeltaHP = m_ability.GatherResults_Base(phaseIndex, m_abilityRequest.m_targets, m_abilityRequest.m_caster, m_abilityRequest.m_additionalData);
+				}
+			}
+			else if (m_effectResults != null)
+			{
+				if (m_effectResults.GatheredResults)
+				{
+					HitActorsToDeltaHP = m_effectResults.DamageResults;
+				}
+				else
+				{
+					HitActorsToDeltaHP = new Dictionary<ActorData, int>();
+				}
+			}
+			else if (m_isTauntForEvadeOrKnockback)
+			{
+				HitActorsToDeltaHP = new Dictionary<ActorData, int>();
+			}
+			else
+			{
+				HitActorsToDeltaHP = new Dictionary<ActorData, int>();
+			}
+			InitNonSerializedData();
+			InitBounds();
+		}
+#endif
 	}
 }
+

@@ -1,4 +1,5 @@
-using System;
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -12,8 +13,10 @@ public class ActorStats : NetworkBehaviour
 	private float[] m_modifiedStatsPrevious;
 	private ActorData m_actorData;
 
+	// removed in rogues
 	private static int kListm_modifiedStats = -1034899976;
 
+	// removed in rogues
 	static ActorStats()
 	{
 		RegisterSyncListDelegate(typeof(ActorStats), kListm_modifiedStats, InvokeSyncListm_modifiedStats);
@@ -38,6 +41,8 @@ public class ActorStats : NetworkBehaviour
 		}
 		m_modifiedStatsPrevious = new float[(int)StatType.NUM];
 		m_actorData = GetComponent<ActorData>();
+
+		// removed in rogues
 		m_modifiedStats.InitializeBehaviour(this, kListm_modifiedStats);
 	}
 
@@ -59,7 +64,10 @@ public class ActorStats : NetworkBehaviour
 
 	public override void OnStartClient()
 	{
+		// reactor
 		m_modifiedStats.Callback = SyncListCallbackModifiedStats;
+		// rogues
+		//m_modifiedStats.Callback += new SyncList<float>.SyncListChanged(this.SyncListCallbackModifiedStats);
 	}
 
 	private void Update()
@@ -92,7 +100,7 @@ public class ActorStats : NetworkBehaviour
 		}
 	}
 
-	private void SyncListCallbackModifiedStats(SyncList<float>.Operation op, int index)
+	private void SyncListCallbackModifiedStats(SyncList<float>.Operation op, int index)  // , float item in rogues
 	{
 		if (!NetworkClient.active || NetworkServer.active)
 		{
@@ -290,7 +298,7 @@ public class ActorStats : NetworkBehaviour
 			case StatType.SightRange:
 				result = GetComponent<ActorData>().m_sightRange;
 				break;
-			case StatType.CreditsPerTurn:
+			case StatType.CreditsPerTurn:  // removed in rogues
 				result = GameplayData.Get().m_creditsPerTurn;
 				break;
 			case StatType.ControlPointCaptureSpeed:
@@ -317,7 +325,8 @@ public class ActorStats : NetworkBehaviour
 			case StatType.MaxTechPoints:
 				if (NetworkServer.active)
 				{
-					component.OnMaxHitPointsChanged((int)oldStatValue);
+					// NOTE CHANGE
+					component.OnMaxTechPointsChanged((int)oldStatValue);  // was bugged in reactor: OnMaxHitPointsChanged was called. Fixed in rogues
 				}
 				break;
 			case StatType.Movement_Horizontal:
@@ -330,7 +339,11 @@ public class ActorStats : NetworkBehaviour
 				GetComponent<ActorMovement>().UpdateSquaresCanMoveTo();
 				break;
 			case StatType.SightRange:
+				// unconditional in reactor
+				//if (NetworkServer.active)
+				//{
 				GetComponent<FogOfWar>().MarkForRecalculateVisibility();
+				//}
 				break;
 		}
 		if (NetworkServer.active)
@@ -451,6 +464,288 @@ public class ActorStats : NetworkBehaviour
 		return Mathf.Max(0, absorb);
 	}
 
+	// added in rogues
+#if SERVER
+	public int CalculateOutgoingDamage(int baseDamage, bool casterInCoverWrtTarget, bool targetInCoverWrtCaster, out int modifiedDamageNormal, out int modifiedDamageEmpowered, out int modifiedDamageWeakened)
+	{
+		if (!NetworkServer.active)
+		{
+			if (NetworkClient.active)
+			{
+				Debug.LogError("Client calling CalculateOutgoingDamage.  Only the server should call this.");
+			}
+			modifiedDamageNormal = baseDamage;
+			modifiedDamageEmpowered = baseDamage;
+			modifiedDamageWeakened = baseDamage;
+			return baseDamage;
+		}
+		AbilityModPropertyInt empoweredOutgoingDamageMod;
+		if (GameplayMutators.Get() == null || !GameplayMutators.Get().m_useEmpoweredOverride)
+		{
+			empoweredOutgoingDamageMod = GameWideData.Get().m_empoweredOutgoingDamageMod;
+		}
+		else
+		{
+			empoweredOutgoingDamageMod = GameplayMutators.Get().m_empoweredOutgoingDamageMod;
+		}
+		AbilityModPropertyInt weakenedOutgoingDamageMod;
+		if (GameplayMutators.Get() == null || !GameplayMutators.Get().m_useWeakenedOverride)
+		{
+			weakenedOutgoingDamageMod = GameWideData.Get().m_weakenedOutgoingDamageMod;
+		}
+		else
+		{
+			weakenedOutgoingDamageMod = GameplayMutators.Get().m_weakenedOutgoingDamageMod;
+		}
+		float num = 0f;
+		float num2 = 0f;
+		float num3 = 1f;
+		float num4 = 1f;
+		CalculateAdjustments(StatType.OutgoingDamage, ref num, ref num2, ref num3, ref num4);
+		if (casterInCoverWrtTarget)
+		{
+			CalculateAdjustments(StatType.OutgoingDamage_FromCover, ref num, ref num2, ref num3, ref num4);
+		}
+		if (targetInCoverWrtCaster)
+		{
+			CalculateAdjustments(StatType.OutgoingDamage_ToCover, ref num, ref num2, ref num3, ref num4);
+		}
+		float num5 = baseDamage;
+		num5 += num;
+		num5 *= num3;
+		num5 *= num4;
+		num5 += num2;
+		modifiedDamageNormal = Mathf.RoundToInt(num5);
+		float num6 = num;
+		float num7 = num4;
+		if (empoweredOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.Add)
+		{
+			num6 += empoweredOutgoingDamageMod.value;
+		}
+		else if (empoweredOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil || empoweredOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor || empoweredOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
+		{
+			num7 *= empoweredOutgoingDamageMod.value;
+		}
+		float num8 = baseDamage;
+		num8 += num6;
+		num8 *= num3;
+		num8 *= num7;
+		num8 += num2;
+		modifiedDamageEmpowered = Mathf.RoundToInt(num8);
+		float num9 = num;
+		float num10 = num4;
+		if (weakenedOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.Add)
+		{
+			num9 += weakenedOutgoingDamageMod.value;
+		}
+		else if (weakenedOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil || weakenedOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor || weakenedOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
+		{
+			num10 *= weakenedOutgoingDamageMod.value;
+		}
+		float num11 = baseDamage;
+		num11 += num9;
+		num11 *= num3;
+		num11 *= num10;
+		num11 += num2;
+		modifiedDamageWeakened = Mathf.RoundToInt(num11);
+		ActorStatus component = GetComponent<ActorStatus>();
+		bool flag = component.HasStatus(StatusType.Empowered, true);
+		bool flag2 = component.HasStatus(StatusType.Weakened, true);
+		if (flag && !flag2)
+		{
+			return modifiedDamageEmpowered;
+		}
+		if (!flag && flag2)
+		{
+			return modifiedDamageWeakened;
+		}
+		return modifiedDamageNormal;
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	public int CalculateOutgoingHealing(int baseHealing, out int modifiedHealingNormal, out int modifiedHealingEmpowered, out int modifiedHealingWeakened)
+	{
+		if (!NetworkServer.active)
+		{
+			if (NetworkClient.active)
+			{
+				Debug.LogError("Client calling CalculateOutgoingHealing.  Only the server should call this.");
+			}
+			modifiedHealingNormal = baseHealing;
+			modifiedHealingEmpowered = baseHealing;
+			modifiedHealingWeakened = baseHealing;
+			return baseHealing;
+		}
+		AbilityModPropertyInt empoweredOutgoingHealingMod;
+		if (GameplayMutators.Get() == null || !GameplayMutators.Get().m_useEmpoweredOverride)
+		{
+			empoweredOutgoingHealingMod = GameWideData.Get().m_empoweredOutgoingHealingMod;
+		}
+		else
+		{
+			empoweredOutgoingHealingMod = GameplayMutators.Get().m_empoweredOutgoingHealingMod;
+		}
+		AbilityModPropertyInt weakenedOutgoingHealingMod;
+		if (GameplayMutators.Get() == null || !GameplayMutators.Get().m_useWeakenedOverride)
+		{
+			weakenedOutgoingHealingMod = GameWideData.Get().m_weakenedOutgoingHealingMod;
+		}
+		else
+		{
+			weakenedOutgoingHealingMod = GameplayMutators.Get().m_weakenedOutgoingHealingMod;
+		}
+		float num = 0f;
+		float num2 = 0f;
+		float num3 = 1f;
+		float num4 = 1f;
+		CalculateAdjustments(StatType.OutgoingHealing, ref num, ref num2, ref num3, ref num4);
+		float num5 = baseHealing;
+		num5 += num;
+		num5 *= num3;
+		num5 *= num4;
+		num5 += num2;
+		modifiedHealingNormal = Mathf.RoundToInt(num5);
+		float num6 = num;
+		float num7 = num4;
+		if (empoweredOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.Add)
+		{
+			num6 += empoweredOutgoingHealingMod.value;
+		}
+		else if (empoweredOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil || empoweredOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor || empoweredOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
+		{
+			num7 *= empoweredOutgoingHealingMod.value;
+		}
+		float num8 = baseHealing;
+		num8 += num6;
+		num8 *= num3;
+		num8 *= num7;
+		num8 += num2;
+		modifiedHealingEmpowered = Mathf.RoundToInt(num8);
+		float num9 = num;
+		float num10 = num4;
+		if (weakenedOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.Add)
+		{
+			num9 += weakenedOutgoingHealingMod.value;
+		}
+		else if (weakenedOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil || weakenedOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor || weakenedOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
+		{
+			num10 *= weakenedOutgoingHealingMod.value;
+		}
+		float num11 = baseHealing;
+		num11 += num9;
+		num11 *= num3;
+		num11 *= num10;
+		num11 += num2;
+		modifiedHealingWeakened = Mathf.RoundToInt(num11);
+		ActorStatus component = GetComponent<ActorStatus>();
+		bool flag = component.HasStatus(StatusType.Empowered, true);
+		bool flag2 = component.HasStatus(StatusType.Weakened, true);
+		if (flag && !flag2)
+		{
+			return modifiedHealingEmpowered;
+		}
+		if (!flag && flag2)
+		{
+			return modifiedHealingWeakened;
+		}
+		return modifiedHealingNormal;
+	}
+#endif
+
+
+	// added in rogues
+#if SERVER
+	public int CalculateOutgoingAbsorb(int baseAbsorb, out int modifiedAbsorbNormal, out int modifiedAbsorbEmpowered, out int modifiedAbsorbWeakened)
+	{
+		if (!NetworkServer.active)
+		{
+			if (NetworkClient.active)
+			{
+				Debug.LogError("Client calling CalculateOutgoingAbsorb.  Only the server should call this.");
+			}
+			modifiedAbsorbNormal = baseAbsorb;
+			modifiedAbsorbEmpowered = baseAbsorb;
+			modifiedAbsorbWeakened = baseAbsorb;
+			return baseAbsorb;
+		}
+		AbilityModPropertyInt empoweredOutgoingAbsorbMod;
+		if (GameplayMutators.Get() == null || !GameplayMutators.Get().m_useEmpoweredOverride)
+		{
+			empoweredOutgoingAbsorbMod = GameWideData.Get().m_empoweredOutgoingAbsorbMod;
+		}
+		else
+		{
+			empoweredOutgoingAbsorbMod = GameplayMutators.Get().m_empoweredOutgoingAbsorbMod;
+		}
+		AbilityModPropertyInt weakenedOutgoingAbsorbMod;
+		if (GameplayMutators.Get() == null || !GameplayMutators.Get().m_useWeakenedOverride)
+		{
+			weakenedOutgoingAbsorbMod = GameWideData.Get().m_weakenedOutgoingAbsorbMod;
+		}
+		else
+		{
+			weakenedOutgoingAbsorbMod = GameplayMutators.Get().m_weakenedOutgoingAbsorbMod;
+		}
+		float num = 0f;
+		float num2 = 0f;
+		float num3 = 1f;
+		float num4 = 1f;
+		CalculateAdjustments(StatType.OutgoingAbsorb, ref num, ref num2, ref num3, ref num4);
+		float num5 = baseAbsorb;
+		num5 += num;
+		num5 *= num3;
+		num5 *= num4;
+		num5 += num2;
+		modifiedAbsorbNormal = Mathf.RoundToInt(num5);
+		float num6 = num;
+		float num7 = num4;
+		if (empoweredOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.Add)
+		{
+			num6 += empoweredOutgoingAbsorbMod.value;
+		}
+		else if (empoweredOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil || empoweredOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor || empoweredOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
+		{
+			num7 *= empoweredOutgoingAbsorbMod.value;
+		}
+		float num8 = baseAbsorb;
+		num8 += num6;
+		num8 *= num3;
+		num8 *= num7;
+		num8 += num2;
+		modifiedAbsorbEmpowered = Mathf.RoundToInt(num8);
+		float num9 = num;
+		float num10 = num4;
+		if (weakenedOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.Add)
+		{
+			num9 += weakenedOutgoingAbsorbMod.value;
+		}
+		else if (weakenedOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil || weakenedOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor || weakenedOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
+		{
+			num10 *= weakenedOutgoingAbsorbMod.value;
+		}
+		float num11 = baseAbsorb;
+		num11 += num9;
+		num11 *= num3;
+		num11 *= num10;
+		num11 += num2;
+		modifiedAbsorbWeakened = Mathf.RoundToInt(num11);
+		ActorStatus component = GetComponent<ActorStatus>();
+		bool flag = component.HasStatus(StatusType.Empowered, true);
+		bool flag2 = component.HasStatus(StatusType.Weakened, true);
+		if (flag && !flag2)
+		{
+			return modifiedAbsorbEmpowered;
+		}
+		if (!flag && flag2)
+		{
+			return modifiedAbsorbWeakened;
+		}
+		return modifiedAbsorbNormal;
+	}
+#endif
+
 	public int CalculateIncomingDamageForTargeter(int baseDamage)
 	{
 		int damage = baseDamage;
@@ -473,7 +768,7 @@ public class ActorStats : NetworkBehaviour
 			}
 			if (vulnerableDamageMultiplier > 0f)
 			{
-				damage = MathUtil.RoundToIntPadded(baseDamage * vulnerableDamageMultiplier);
+				damage = MathUtil.RoundToIntPadded(baseDamage * vulnerableDamageMultiplier);  // Mathf.RoundToInt in rogues
 			}
 			if (vulnerableDamageFlatAdd > 0 && baseDamage > 0)
 			{
@@ -496,11 +791,98 @@ public class ActorStats : NetworkBehaviour
 		return Mathf.Max(0, damage);
 	}
 
-	public int CalculateLifeOnDamage(int finalDamage)
+	// added in rogues
+#if SERVER
+	public int CalculateIncomingDamage(int baseDamage, out int baseDamageAfterStatus, out int modifiedDamageNormal, out int modifiedDamageVulnerable, out int modifiedDamageArmored)
+	{
+		baseDamageAfterStatus = baseDamage;
+		float vulnerableDamageMultiplier = GameWideData.Get().m_vulnerableDamageMultiplier;
+		int vulnerableDamageFlatAdd = GameWideData.Get().m_vulnerableDamageFlatAdd;
+		int num = baseDamage;
+		if (vulnerableDamageMultiplier > 0f)
+		{
+			num = Mathf.RoundToInt(baseDamage * vulnerableDamageMultiplier);
+		}
+		if (vulnerableDamageFlatAdd > 0 && baseDamage > 0)
+		{
+			num += vulnerableDamageFlatAdd;
+		}
+		AbilityModPropertyInt armoredIncomingDamageMod;
+		if (GameplayMutators.Get() == null || !GameplayMutators.Get().m_useArmoredOverride)
+		{
+			armoredIncomingDamageMod = GameWideData.Get().m_armoredIncomingDamageMod;
+		}
+		else
+		{
+			armoredIncomingDamageMod = GameplayMutators.Get().m_armoredIncomingDamageMod;
+		}
+		int modifiedValue = armoredIncomingDamageMod.GetModifiedValue(baseDamage);
+		if (!NetworkServer.active)
+		{
+			if (NetworkClient.active)
+			{
+				Debug.LogError("Client calling CalculateIncomingDamage.  Only the server should call this.");
+			}
+			modifiedDamageNormal = baseDamage;
+			modifiedDamageVulnerable = baseDamage;
+			modifiedDamageArmored = baseDamage;
+			return baseDamage;
+		}
+		ActorStatus component = GetComponent<ActorStatus>();
+		bool flag = component.HasStatus(StatusType.Vulnerable, true);
+		bool flag2 = component.HasStatus(StatusType.Armored, true);
+		if (flag && !flag2)
+		{
+			baseDamageAfterStatus = Mathf.Max(0, num);
+		}
+		else if (!flag && flag2)
+		{
+			baseDamageAfterStatus = Mathf.Max(0, modifiedValue);
+		}
+		else
+		{
+			baseDamageAfterStatus = Mathf.Max(0, baseDamage);
+		}
+		float num2 = 0f;
+		float num3 = 0f;
+		float num4 = 1f;
+		float num5 = 1f;
+		CalculateAdjustments(StatType.IncomingDamage, ref num2, ref num3, ref num4, ref num5);
+		float num6 = baseDamage;
+		num6 += num2;
+		num6 *= num4;
+		num6 *= num5;
+		num6 += num3;
+		modifiedDamageNormal = Mathf.RoundToInt(num6);
+		float num7 = num;
+		num7 += num2;
+		num7 *= num4;
+		num7 *= num5;
+		num7 += num3;
+		modifiedDamageVulnerable = Mathf.RoundToInt(num7);
+		float num8 = modifiedValue;
+		num8 += num2;
+		num8 *= num4;
+		num8 *= num5;
+		num8 += num3;
+		modifiedDamageArmored = Mathf.RoundToInt(num8);
+		if (flag && !flag2)
+		{
+			return Mathf.RoundToInt(modifiedDamageVulnerable);
+		}
+		if (!flag && flag2)
+		{
+			return Mathf.RoundToInt(modifiedDamageArmored);
+		}
+		return Mathf.RoundToInt(modifiedDamageNormal);
+	}
+#endif
+
+	public int CalculateLifeOnDamage(int finalDamage) // , ActorData caster, int abilityIndex in rogues
 	{
 		float modifiedStatFloat = GetModifiedStatFloat(StatType.LifestealPerHit);
 		float num = GetModifiedStatFloat(StatType.LifestealPerDamage) * finalDamage;
-		return MathUtil.RoundToIntPadded(modifiedStatFloat + num);
+		return MathUtil.RoundToIntPadded(modifiedStatFloat + num);  // Mathf.RoundToInt in rogues
 	}
 
 	public void CalculateAdjustmentsForMovementHorizontal(ref float baseAdd, ref float bonusAdd, ref float percentAdd, ref float multipliers)
@@ -519,10 +901,71 @@ public class ActorStats : NetworkBehaviour
 		}
 	}
 
+	// added in rogues
+#if SERVER
+	public int CalculateEnergyGainOnDamage(int damage, ServerGameplayUtils.EnergyStatAdjustments statAdjustments)
+	{
+		float modifiedStatFloat = GetModifiedStatFloat(StatType.EnergyOnDamageTaken);
+		float modifiedStatFloat2 = GetModifiedStatFloat(StatType.EnergyPerDamageTaken);
+		int num = Mathf.RoundToInt(modifiedStatFloat + modifiedStatFloat2 * damage);
+		if (num > 0)
+		{
+			int num2 = num;
+			ActorStatus actorStatus = GetComponent<ActorData>().GetActorStatus();
+			bool flag = actorStatus.HasStatus(StatusType.Energized, true);
+			bool flag2 = actorStatus.HasStatus(StatusType.SlowEnergyGain, true);
+			AbilityModPropertyInt energizedEnergyGainMod;
+			if (GameplayMutators.Get() == null || !GameplayMutators.Get().m_useEnergizedOverride)
+			{
+				energizedEnergyGainMod = GameWideData.Get().m_energizedEnergyGainMod;
+			}
+			else
+			{
+				energizedEnergyGainMod = GameplayMutators.Get().m_energizedEnergyGainMod;
+			}
+			AbilityModPropertyInt slowEnergyGainEnergyGainMod;
+			if (GameplayMutators.Get() == null || !GameplayMutators.Get().m_useSlowEnergyGainOverride)
+			{
+				slowEnergyGainEnergyGainMod = GameWideData.Get().m_slowEnergyGainEnergyGainMod;
+			}
+			else
+			{
+				slowEnergyGainEnergyGainMod = GameplayMutators.Get().m_slowEnergyGainEnergyGainMod;
+			}
+			int modifiedValue = energizedEnergyGainMod.GetModifiedValue(num2);
+			int modifiedValue2 = slowEnergyGainEnergyGainMod.GetModifiedValue(num2);
+			if (flag && !flag2)
+			{
+				num = modifiedValue;
+			}
+			else if (!flag && flag2)
+			{
+				num = modifiedValue2;
+			}
+			if (statAdjustments != null)
+			{
+				statAdjustments.IncrementTotals(num, num2, modifiedValue, modifiedValue2);
+			}
+			return num;
+		}
+		return 0;
+	}
+#endif
+
+	//public ActorStats()
+	//{
+	//	base.InitSyncObject(m_modifiedStats);
+	//}
+
 	private void UNetVersion()
 	{
 	}
 
+	//private void MirrorProcessed()
+	//{
+	//}
+
+	// removed in rogues
 	protected static void InvokeSyncListm_modifiedStats(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -533,6 +976,7 @@ public class ActorStats : NetworkBehaviour
 		((ActorStats)obj).m_modifiedStats.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -557,6 +1001,7 @@ public class ActorStats : NetworkBehaviour
 		return flag;
 	}
 
+	// removed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)

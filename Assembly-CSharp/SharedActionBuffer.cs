@@ -1,13 +1,18 @@
+﻿// ROGUES
+// SERVER
 using System.Runtime.InteropServices;
+//using Mirror;
 using UnityEngine.Networking;
 
 public class SharedActionBuffer : NetworkBehaviour
 {
+	// removed in rogues
 	[SyncVar(hook = "HookSetActionPhase")]
 	private ActionBufferPhase m_actionPhase;
 	[SyncVar(hook = "HookSetAbilityPhase")]
 	private AbilityPriority m_abilityPhase;
 
+	// removed in rogues
 	public ActionBufferPhase Networkm_actionPhase
 	{
 		get
@@ -17,13 +22,13 @@ public class SharedActionBuffer : NetworkBehaviour
 		[param: In]
 		set
 		{
-			if (NetworkServer.localClientActive && !syncVarHookGuard)
-			{
+            if (NetworkServer.localClientActive && !syncVarHookGuard)
+            {
 				syncVarHookGuard = true;
-				HookSetActionPhase(value);
+                HookSetActionPhase(value);
 				syncVarHookGuard = false;
-			}
-			SetSyncVar(value, ref m_actionPhase, 1u);
+            }
+            SetSyncVar(value, ref m_actionPhase, 1u);
 		}
 	}
 
@@ -42,10 +47,20 @@ public class SharedActionBuffer : NetworkBehaviour
 				HookSetAbilityPhase(value);
 				syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref m_abilityPhase, 2u);
+			SetSyncVar(value, ref m_abilityPhase, 2u); // 1UL in rogues
 		}
 	}
 
+	// server-only
+#if SERVER
+	public void SetDataFromServer(ActionBufferPhase actionPhase, AbilityPriority abilityPhase)  // no actionPhase in rogues
+	{
+		Networkm_actionPhase = actionPhase;
+		Networkm_abilityPhase = abilityPhase;
+	}
+#endif
+
+	// removed in rogues
 	private void HookSetActionPhase(ActionBufferPhase value)
 	{
 		Networkm_actionPhase = value;
@@ -62,14 +77,20 @@ public class SharedActionBuffer : NetworkBehaviour
 	{
 		if (ClientActionBuffer.Get() != null)
 		{
-			ClientActionBuffer.Get().SetDataFromShared(m_actionPhase, m_abilityPhase);
+			ClientActionBuffer.Get().SetDataFromShared(m_actionPhase, m_abilityPhase);  // no m_actionPhase in rogues
 		}
 	}
 
+	// reactor
 	private void UNetVersion()
 	{
 	}
+	// rogues
+	//private void MirrorProcessed()
+	//{
+	//}
 
+	// reactor
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -103,7 +124,25 @@ public class SharedActionBuffer : NetworkBehaviour
 		}
 		return flag;
 	}
+	// rogues
+	//public override bool OnSerialize(NetworkWriter writer, bool forceAll)
+	//{
+	//	bool result = base.OnSerialize(writer, forceAll);
+	//	if (forceAll)
+	//	{
+	//		writer.WritePackedInt32((int)this.m_abilityPhase);
+	//		return true;
+	//	}
+	//	writer.WritePackedUInt64(base.syncVarDirtyBits);
+	//	if ((base.syncVarDirtyBits & 1UL) != 0UL)
+	//	{
+	//		writer.WritePackedInt32((int)this.m_abilityPhase);
+	//		result = true;
+	//	}
+	//	return result;
+	//}
 
+	// reactor
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)
@@ -122,4 +161,23 @@ public class SharedActionBuffer : NetworkBehaviour
 			HookSetAbilityPhase((AbilityPriority)reader.ReadInt32());
 		}
 	}
+	// rogues
+	//public override void OnDeserialize(NetworkReader reader, bool initialState)
+	//{
+	//	base.OnDeserialize(reader, initialState);
+	//	if (initialState)
+	//	{
+	//		AbilityPriority abilityPriority = (AbilityPriority)reader.ReadPackedInt32();
+	//		this.HookSetAbilityPhase(abilityPriority);
+	//		this.Networkm_abilityPhase = abilityPriority;
+	//		return;
+	//	}
+	//	long num = (long)reader.ReadPackedUInt64();
+	//	if ((num & 1L) != 0L)
+	//	{
+	//		AbilityPriority abilityPriority2 = (AbilityPriority)reader.ReadPackedInt32();
+	//		this.HookSetAbilityPhase(abilityPriority2);
+	//		this.Networkm_abilityPhase = abilityPriority2;
+	//	}
+	//}
 }

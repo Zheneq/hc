@@ -1,3 +1,6 @@
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -71,7 +74,7 @@ public class PowerUpManager : MonoBehaviour
 	{
 		if (m_guidToPowerupDictionary.ContainsKey(guid))
 		{
-			Log.Error("Trying to add powerup guid more than once");
+			Log.Error($"Trying to add powerup guid more than once {guid}, {pup.name}"); // no params in reactor
 		}
 		m_guidToPowerupDictionary.Add(guid, pup);
 	}
@@ -205,6 +208,262 @@ public class PowerUpManager : MonoBehaviour
 		}
 		return list;
 	}
+
+#if SERVER
+	// added in rogues
+	public void ExecuteUnexecutedMovementHitsForAllPowerups(MovementStage movementStage, bool asFailsafe)
+	{
+		foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)
+		{
+			if (powerUpListener != null)
+			{
+				PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
+				for (int i = 0; i < activePowerUps.Length; i++)
+				{
+					if (activePowerUps[i] != null && activePowerUps[i].boardSquare != null)
+					{
+						activePowerUps[i].ExecuteUnexecutedMovementResults_PowerUp(movementStage, asFailsafe);
+					}
+				}
+			}
+		}
+	}
+
+	// added in rogues
+	public void ExecuteUnexecutedMovementHitsForAllPowerupsForDistance(float distance, MovementStage movementStage, bool asFailsafe, out bool stillHasUnexecutedHits, out float nextUnexecutedHitDistance)
+	{
+		stillHasUnexecutedHits = false;
+		nextUnexecutedHitDistance = float.MaxValue;
+		foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)
+		{
+			if (powerUpListener != null)
+			{
+				PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
+				for (int i = 0; i < activePowerUps.Length; i++)
+				{
+					if (activePowerUps[i] != null && activePowerUps[i].boardSquare != null)
+					{
+						bool flag;
+						float num;
+						activePowerUps[i].ExecuteUnexecutedMovementResultsForDistance_PowerUp(distance, movementStage, asFailsafe, out flag, out num);
+						if (flag)
+						{
+							stillHasUnexecutedHits |= true;
+							if (num < nextUnexecutedHitDistance)
+							{
+								nextUnexecutedHitDistance = num;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// added in rogues
+	public void GatherAllPowerupResultsInResponseToEvades(MovementCollection evadeMovementCollection)
+	{
+		foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)
+		{
+			if (powerUpListener != null)
+			{
+				PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
+				for (int i = 0; i < activePowerUps.Length; i++)
+				{
+					if (activePowerUps[i] != null && activePowerUps[i].boardSquare != null)
+					{
+						activePowerUps[i].GatherResultsInResponseToEvades(evadeMovementCollection);
+					}
+				}
+			}
+		}
+	}
+
+	// added in rogues
+	public void GatherAllPowerupResultsInResponseToKnockbacks(MovementCollection knockbackMovementCollection)
+	{
+		foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)
+		{
+			if (powerUpListener != null)
+			{
+				PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
+				for (int i = 0; i < activePowerUps.Length; i++)
+				{
+					if (activePowerUps[i] != null && activePowerUps[i].boardSquare != null)
+					{
+						activePowerUps[i].GatherResultsInResponseToKnockbacks(knockbackMovementCollection);
+					}
+				}
+			}
+		}
+	}
+
+	// added in rogues
+	public void ClearAllPowerupResultsForNormalMovement()
+	{
+		foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)
+		{
+			if (powerUpListener != null)
+			{
+				PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
+				for (int i = 0; i < activePowerUps.Length; i++)
+				{
+					if (activePowerUps[i] != null && activePowerUps[i].boardSquare != null)
+					{
+						activePowerUps[i].GetMovementResultsForMovementStage(MovementStage.Normal).Clear();
+					}
+				}
+			}
+		}
+	}
+
+	// added in rogues
+	public void GatherAllPowerupResultsInResponseToMovementSegment(ServerGameplayUtils.MovementGameplayData gameplayData, MovementStage movementStage, ref List<MovementResults> moveResultsForSegment)
+	{
+		if (gameplayData.m_currentlyConsideredPath.m_moverClashesHere)
+		{
+			return;
+		}
+		foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)
+		{
+			if (powerUpListener != null)
+			{
+				PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
+				for (int i = 0; i < activePowerUps.Length; i++)
+				{
+					if (activePowerUps[i] != null && activePowerUps[i].boardSquare != null)
+					{
+						List<MovementResults> list = new List<MovementResults>();
+						activePowerUps[i].GatherMovementResultsFromSegment(gameplayData.Actor, gameplayData.m_movementInstance, movementStage, gameplayData.m_currentlyConsideredPath.prev, gameplayData.m_currentlyConsideredPath, ref list);
+						List<MovementResults> movementResultsForMovementStage = activePowerUps[i].GetMovementResultsForMovementStage(movementStage);
+						for (int j = 0; j < list.Count; j++)
+						{
+							if (list[j].ShouldMovementHitUpdateTargetLastKnownPos(gameplayData.Actor))
+							{
+								gameplayData.m_currentlyConsideredPath.m_visibleToEnemies = true;
+								gameplayData.m_currentlyConsideredPath.m_updateLastKnownPos = true;
+							}
+							gameplayData.m_currentlyConsideredPath.m_moverHasGameplayHitHere = true;
+							movementResultsForMovementStage.Add(list[j]);
+							moveResultsForSegment.Add(list[j]);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// added in rogues
+	public void IntegrateMovementDamageResults_Evasion(ref Dictionary<ActorData, int> actorToDeltaHP)
+	{
+		foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)
+		{
+			if (powerUpListener != null)
+			{
+				PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
+				for (int i = 0; i < activePowerUps.Length; i++)
+				{
+					if (activePowerUps[i] != null && activePowerUps[i].boardSquare != null)
+					{
+						activePowerUps[i].IntegrateDamageResultsForEvasion(ref actorToDeltaHP);
+					}
+				}
+			}
+		}
+	}
+
+	// added in rogues
+	public void IntegrateMovementDamageResults_Knockback(ref Dictionary<ActorData, int> actorToDeltaHP)
+	{
+		foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)
+		{
+			if (powerUpListener != null)
+			{
+				PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
+				for (int i = 0; i < activePowerUps.Length; i++)
+				{
+					if (activePowerUps[i] != null && activePowerUps[i].boardSquare != null)
+					{
+						activePowerUps[i].IntegrateDamageResultsForKnockback(ref actorToDeltaHP);
+					}
+				}
+			}
+		}
+	}
+
+	// added in rogues
+	public void GatherGrossDamageResults_PowerUps_Evasion(ref Dictionary<ActorData, int> actorToGrossDamage_real, ref Dictionary<ActorData, ServerGameplayUtils.DamageDodgedStats> stats)
+	{
+		foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)
+		{
+			if (powerUpListener != null)
+			{
+				PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
+				for (int i = 0; i < activePowerUps.Length; i++)
+				{
+					if (activePowerUps[i] != null && activePowerUps[i].boardSquare != null)
+					{
+						activePowerUps[i].GatherGrossDamageResults_PowerUp_Evasion(ref actorToGrossDamage_real, ref stats);
+					}
+				}
+			}
+		}
+	}
+
+	// added in rogues
+	public bool HasPowerup(PowerUp powerup)
+	{
+		bool result = false;
+		if (powerup == null)
+		{
+			result = false;
+		}
+		else
+		{
+			foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)
+			{
+				if (powerUpListener != null)
+				{
+					PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
+					if (Array.Exists<PowerUp>(activePowerUps, (PowerUp p) => p == powerup))
+					{
+						result = true;
+						break;
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	// added in rogues
+	public void UsePowerup(PowerUp powerup, ActorData user)
+	{
+		powerup.OnPickedUp(user);
+	}
+
+	// added in rogues
+	public void ActorBecameAbleToCollectPowerups(ActorData actor)
+	{
+		PowerUp powerUpInPos = GetPowerUpInPos(actor.GetGridPos());
+		if (powerUpInPos != null && powerUpInPos.CanBePickedUpByActor(actor))
+		{
+			powerUpInPos.ActorBecameAbleToCollectPowerups(actor);
+		}
+	}
+
+	// added in rogues
+	public void CollectSquaresToAvoidForRespawn(HashSet<BoardSquare> squaresToAvoid, ActorData forActor)
+	{
+		foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)
+		{
+			if (powerUpListener != null)
+			{
+				powerUpListener.AddToSquaresToAvoidForRespawn(squaresToAvoid, forActor);
+			}
+		}
+	}
+#endif
 
 	public void SetSpawningEnabled(bool enabled)
 	{
