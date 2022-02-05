@@ -1,5 +1,10 @@
+// ROGUES
+// SERVER
+//using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+//using Mirror;
+//using Progression;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -41,8 +46,15 @@ public class ObjectivePoints : NetworkBehaviour
 	public MatchState m_matchState;
 	private float m_gameShutdownTime;
 	private List<int> m_clientNumDeathInTurn = new List<int>();
+
+	// rogues
+//#if SERVER
+//	private bool m_attemptedToSpawnUI;
+//#endif
+
 	private static ObjectivePoints s_instance;
 
+	// removed in rogues
 	private static int kListm_points = 2045097107;
 
 	public GameResult Networkm_gameResult
@@ -54,7 +66,7 @@ public class ObjectivePoints : NetworkBehaviour
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref m_gameResult, 2u);
+			SetSyncVar(value, ref m_gameResult, 2u); // 1UL in rogues
 		}
 	}
 
@@ -67,7 +79,7 @@ public class ObjectivePoints : NetworkBehaviour
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref m_minutesInMatchOnGameEnd, 4u);
+			SetSyncVar(value, ref m_minutesInMatchOnGameEnd, 4u);  // in rogues 2UL
 		}
 	}
 
@@ -86,10 +98,11 @@ public class ObjectivePoints : NetworkBehaviour
 				HookSetMatchState(value);
 				syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref m_matchState, 8u);
+			SetSyncVar(value, ref m_matchState, 8u);  // 4UL in rogues
 		}
 	}
 
+	// removed in rogues
 	static ObjectivePoints()
 	{
 		RegisterSyncListDelegate(typeof(ObjectivePoints), kListm_points, InvokeSyncListm_points);
@@ -110,7 +123,7 @@ public class ObjectivePoints : NetworkBehaviour
 	{
 		s_instance = this;
 		m_skipEndOfGameCheck = false;
-		m_points.InitializeBehaviour(this, kListm_points);
+		m_points.InitializeBehaviour(this, kListm_points); // removed in rogues
 	}
 
 	private void Start()
@@ -124,15 +137,44 @@ public class ObjectivePoints : NetworkBehaviour
 		{
 			m_clientNumDeathInTurn.Add(0);
 		}
-		m_displayedPoints[0] = m_points[0];
-		m_displayedPoints[1] = m_points[1];
+		if (m_points != null && m_points.Count >= 2) // no check in reactor
+		{
+			m_displayedPoints[0] = m_points[0];
+			m_displayedPoints[1] = m_points[1];
+		}
 		m_respawningPlayers = new HashSet<ActorData>();
 		m_inSuddenDeath = false;
 		if (NetworkServer.active)
 		{
 			Networkm_matchState = MatchState.InMatch;
 		}
+		// reactor
 		m_objectives = new List<MatchObjective>(gameObject.GetComponentsInChildren<MatchObjective>());
+		// rogues
+		//m_objectives = new List<MatchObjective>();
+		//MissionData gameMission;
+		//if (!NetworkServer.active)
+		//{
+		//	gameMission = ClientGameManager.Get().GameInfo.GameMission;
+		//}
+		//else
+		//{
+		//	gameMission = GameManager.Get().GameMission;
+		//}
+		//if (gameMission != null)
+		//{
+		//	foreach (MatchObjective matchObjective in base.gameObject.GetComponentsInChildren<MatchObjective>())
+		//	{
+		//		if (matchObjective.enabled && (matchObjective.RequiredMissionTag.IsNullOrEmpty() || gameMission.IsMissionTagActive(matchObjective.RequiredMissionTag)))
+		//		{
+		//			m_objectives.Add(matchObjective);
+		//		}
+		//	}
+		//}
+		//else
+		//      {
+		//	Debug.LogError("ObjectivePoints Start with null missionTags server:" + NetworkServer.active.ToString());
+		//}
 	}
 
 	private void OnDestroy()
@@ -147,7 +189,20 @@ public class ObjectivePoints : NetworkBehaviour
 
 	private void Update()
 	{
-		if (GameFlowData.Get().IsInDecisionState())
+		// added in rogues
+#if SERVER
+		if (m_sendGameSummaryToLobbyServer > 0f)
+		{
+			m_sendGameSummaryToLobbyServer -= Time.deltaTime;
+			if (m_sendGameSummaryToLobbyServer <= 0f)
+			{
+				m_sendGameSummaryToLobbyServer = -1f;
+				ServerGameManager.Get().SendGameSummaryNotification();
+			}
+		}
+#endif
+
+		if (GameFlowData.Get().IsInDecisionState() && m_points != null && m_points.Count > 0) // no m_points validity check in reactor
 		{
 			if (m_displayedPoints[0] != m_points[0])
 			{
@@ -159,18 +214,35 @@ public class ObjectivePoints : NetworkBehaviour
 			}
 		}
 		if (HUD_UI.Get() != null
+			// reactor
 			&& m_objectivePointsPanel == null
+			// rogues
+			//&& !m_attemptedToSpawnUI
 			&& m_gameModePanelPrefab != null)
 		{
+			// rogues
+			//m_attemptedToSpawnUI = true;
 			RectTransform rectTransform = Instantiate(m_gameModePanelPrefab);
 			m_objectivePointsPanel = rectTransform.GetComponent<UIObjectivePointsPanel>();
-			m_objectivePointsPanel.transform.SetParent(HUD_UI.Get().m_mainScreenPanel.m_gameSpecificRectDisplay.transform);
-			m_objectivePointsPanel.transform.localPosition = new Vector3(
-				m_objectivePointsPanel.transform.localPosition.x,
-				m_objectivePointsPanel.transform.localPosition.y,
-				0f);
-			m_objectivePointsPanel.Setup(GetInfoString);
-			m_objectivePointsPanel.transform.localScale = Vector3.one;
+			if (m_objectivePointsPanel != null) // not checking in reactor
+			{
+				m_objectivePointsPanel.transform.SetParent(HUD_UI.Get().m_mainScreenPanel.m_gameSpecificRectDisplay.transform);
+				m_objectivePointsPanel.transform.localPosition = new Vector3(
+					m_objectivePointsPanel.transform.localPosition.x,
+					m_objectivePointsPanel.transform.localPosition.y,
+					0f);
+				m_objectivePointsPanel.Setup(GetInfoString);
+				m_objectivePointsPanel.transform.localScale = Vector3.one;
+			}
+			// added in rogues
+			else
+			{
+				//rectTransform.transform.SetParent(HUD_UI.Get().m_mainScreenPanel.m_gameSpecificRectDisplay.transform);
+				//rectTransform.transform.localPosition = Vector3.zero;
+				//rectTransform.offsetMax = Vector2.zero;
+				//rectTransform.offsetMin = Vector2.zero;
+				//rectTransform.transform.localScale = Vector3.one;
+			}
 		}
 	}
 
@@ -181,7 +253,7 @@ public class ObjectivePoints : NetworkBehaviour
 		{
 			return;
 		}
-		m_gameShutdownTime = Time.time + GameManager.Get().GameConfig.GameServerShutdownTime;
+		m_gameShutdownTime = Time.time + GameManager.Get().GameConfig.GameServerShutdownTime; // + 300f; in rogues
 		Team myTeam = Team.TeamA;
 		Team enemyTeam = Team.TeamB;
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
@@ -194,7 +266,11 @@ public class ObjectivePoints : NetworkBehaviour
 		{
 			result = m_gameResult
 		});
-		UIGameOverScreen.Get().Setup(GameManager.Get().GameConfig.GameType, m_gameResult, m_points[(int)myTeam], m_points[(int)enemyTeam]);
+		UIGameOverScreen.Get().Setup(
+			GameManager.Get().GameConfig.GameType, // GameType.Custom, in rogues
+			m_gameResult,
+			m_points[(int)myTeam],
+			m_points[(int)enemyTeam]);
 	}
 
 	public void SetVisible(bool visible)
@@ -212,14 +288,121 @@ public class ObjectivePoints : NetworkBehaviour
 
 	public void OnTurnTick()
 	{
-		m_displayedPoints[0] = m_points[0];
-		m_displayedPoints[1] = m_points[1];
+		if (m_points != null && m_points.Count >= 2) // no check in reactor
+		{
+			m_displayedPoints[0] = m_points[0];
+			m_displayedPoints[1] = m_points[1];
+		}
 		Log.Info($"Score: Team A: {m_displayedPoints[0]} Team B: {m_displayedPoints[1]}");
 		for (int i = 0; i < m_clientNumDeathInTurn.Count; i++)
 		{
 			m_clientNumDeathInTurn[i] = 0;
 		}
 	}
+
+	// added in rogues
+#if SERVER
+	internal void AddActorForRespawn(ActorData actor)
+    {
+        if (NetworkServer.active)
+        {
+            m_respawningPlayers.Add(actor);
+        }
+    }
+#endif
+
+	// added in rogues
+#if SERVER
+	public void ProcessRespawns()
+    {
+        if (NetworkServer.active)
+        {
+            SpawnPointManager spawnPointManager = SpawnPointManager.Get();
+            if (spawnPointManager != null)
+            {
+                spawnPointManager.ProcessRespawns(m_matchState, ref m_respawningPlayers);
+            }
+        }
+    }
+#endif
+
+	// added in rogues
+#if SERVER
+	public void OnTurnEnd()
+    {
+        if (!NetworkServer.active)
+        {
+            return;
+        }
+        for (int i = 0; i < m_passivePointsForTeamWithCharacter.Count; i++)
+        {
+            PointsForCharacter pointsForCharacter = m_passivePointsForTeamWithCharacter[i];
+            if (pointsForCharacter.m_characterType != CharacterType.None && pointsForCharacter.m_points != 0)
+            {
+                int teamANum = 0;
+                int teamBNum = 0;
+                List<ActorData> actors = GameFlowData.Get().GetActors();
+                for (int j = 0; j < actors.Count; j++)
+                {
+                    ActorData actorData = actors[j];
+                    if (actorData.m_characterType == pointsForCharacter.m_characterType)
+                    {
+                        if (actorData.GetTeam() == Team.TeamA)
+                        {
+                            teamANum++;
+                        }
+                        else if (actorData.GetTeam() == Team.TeamB)
+                        {
+                            teamBNum++;
+                        }
+                    }
+                }
+                int teamAAdjustAmount;
+                if (teamANum == 0)
+                {
+                    teamAAdjustAmount = 0;
+                }
+                else if (pointsForCharacter.m_givePointsFor == PointsForCharacter.CalculationType.AtLeastOneMatchingActor)
+                {
+                    teamAAdjustAmount = pointsForCharacter.m_points;
+                }
+                else if (pointsForCharacter.m_givePointsFor == PointsForCharacter.CalculationType.PerEachMatchingActor)
+                {
+                    teamAAdjustAmount = pointsForCharacter.m_points * teamANum;
+                }
+                else
+                {
+                    teamAAdjustAmount = 0;
+                }
+                int teamBAdjustAmount;
+                if (teamBNum == 0)
+                {
+                    teamBAdjustAmount = 0;
+                }
+                else if (pointsForCharacter.m_givePointsFor == PointsForCharacter.CalculationType.AtLeastOneMatchingActor)
+                {
+                    teamBAdjustAmount = pointsForCharacter.m_points;
+                }
+                else if (pointsForCharacter.m_givePointsFor == PointsForCharacter.CalculationType.PerEachMatchingActor)
+                {
+                    teamBAdjustAmount = pointsForCharacter.m_points * teamANum;
+                }
+                else
+                {
+                    teamBAdjustAmount = 0;
+                }
+                if (teamAAdjustAmount > 0)
+                {
+                    AdjustPoints(teamAAdjustAmount, Team.TeamA);
+                }
+                if (teamBAdjustAmount > 0)
+                {
+                    AdjustPoints(teamBAdjustAmount, Team.TeamB);
+                }
+            }
+        }
+	}
+#endif
 
 	public void SetUpGameUI(UIGameModePanel UIPanel)
 	{
@@ -246,7 +429,7 @@ public class ObjectivePoints : NetworkBehaviour
 				{
 					float turnsLeft = m_timeLimitTurns - GameFlowData.Get().CurrentTurn;
 					victoryConditionString = !m_victoryCondition.IsNullOrEmpty()
-						? string.Format(StringUtil.TR(m_victoryCondition), turnsLeft)
+						? string.Format(StringUtil.TR(m_victoryCondition), turnsLeft)  // TR_IfHasContext in rogues
 						: string.Format(StringUtil.TR("TurnsLeft", "GameModes"), turnsLeft);
 				}
 				else
@@ -257,26 +440,34 @@ public class ObjectivePoints : NetworkBehaviour
 			else if (team == Team.TeamA)
 			{
 				victoryConditionString = !m_teamAVictoryCondition.m_conditionString.IsNullOrEmpty()
-					? StringUtil.TR(m_teamAVictoryCondition.m_conditionString)
+					? StringUtil.TR(m_teamAVictoryCondition.m_conditionString)  // TR_IfHasContext in rogues
 					: "";
 				myTeamLabel = StringUtil.TR(m_teamAVictoryCondition.m_PointName);
 				myEnemyTeamLabel = StringUtil.TR(m_teamBVictoryCondition.m_PointName);
 			}
 			else if (team == Team.TeamB)
 			{
+				// NOTE CHANGE bugfix?
+#if PURE_REACTOR
 				victoryConditionString = !m_teamAVictoryCondition.m_conditionString.IsNullOrEmpty()
 					? StringUtil.TR(m_teamAVictoryCondition.m_conditionString)
 					: "";
+#else
+				victoryConditionString = !m_teamBVictoryCondition.m_conditionString.IsNullOrEmpty()
+					? StringUtil.TR(m_teamBVictoryCondition.m_conditionString)  // TR_IfHasContext in rogues
+					: "";
+#endif
 				myTeamLabel = StringUtil.TR(m_teamBVictoryCondition.m_PointName);
 				myEnemyTeamLabel = StringUtil.TR(m_teamAVictoryCondition.m_PointName);
 			}
 			string phaseName = "";
 			int phaseId = -1;
-			if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
+			if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)  // if (GameFlowData.Get().IsInDecisionState()) in rogues
 			{
 				phaseId = 0;
 				phaseName = StringUtil.TR("Decision", "Global");
 			}
+			// removed in rogues
 			else if (ServerClientUtils.GetCurrentActionPhase() == ActionBufferPhase.Abilities)
 			{
 				UIQueueListPanel.UIPhase uIPhaseFromAbilityPriority = UIQueueListPanel.GetUIPhaseFromAbilityPriority(ServerClientUtils.GetCurrentAbilityPhase());
@@ -302,6 +493,8 @@ public class ObjectivePoints : NetworkBehaviour
 				phaseId = 4;
 				phaseName = StringUtil.TR("Movement", "Global");
 			}
+			// end removed in rogues
+
 			for (int i = 0; i < uIObjectivePointsPanel.PhaseIndicators.Length; i++)
 			{
 				uIObjectivePointsPanel.SetPhaseIndicatorActive(phaseId == i, i);
@@ -342,10 +535,10 @@ public class ObjectivePoints : NetworkBehaviour
 			switch (myTeam)
 			{
 				case Team.TeamA:
-					victoryConditionString = StringUtil.TR(m_teamAVictoryCondition.m_conditionString);
+					victoryConditionString = StringUtil.TR(m_teamAVictoryCondition.m_conditionString);  // TR_IfHasContext in rogues
 					break;
 				case Team.TeamB:
-					victoryConditionString = StringUtil.TR(m_teamAVictoryCondition.m_conditionString);
+					victoryConditionString = StringUtil.TR(m_teamAVictoryCondition.m_conditionString);  // TR_IfHasContext in rogues
 					break;
 				default:
 					victoryConditionString = "";
@@ -374,10 +567,24 @@ public class ObjectivePoints : NetworkBehaviour
 		return result;
 	}
 
+	// TODO check
+	// rogues?
+	//public void Server_OnActorRevived(ActorData actor)
+	//{
+	//	if (NetworkServer.active && m_matchState == MatchState.InMatch)
+	//	{
+	//		foreach (MatchObjective matchObjective in m_objectives)
+	//		{
+	//			matchObjective.Server_OnActorRevived(actor);
+	//		}
+	//	}
+	//}
+
 	public void Server_OnActorDeath(ActorData actor)
 	{
 		if (NetworkServer.active && m_matchState == MatchState.InMatch)
 		{
+			// removed in rogues
 			if (GameplayUtils.IsPlayerControlled(actor))
 			{
 				SpawnPointManager spawnPointManager = SpawnPointManager.Get();
@@ -391,6 +598,8 @@ public class ObjectivePoints : NetworkBehaviour
 				}
 				m_respawningPlayers.Add(actor);
 			}
+			// end removed in rogues
+
 			foreach (MatchObjective objective in m_objectives)
 			{
 				objective.Server_OnActorDeath(actor);
@@ -448,8 +657,8 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		if (m_matchState == MatchState.InMatch
 			&& !m_skipEndOfGameCheck
-			&& !GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.SkipEndOfGameCheck)
-			&& (DebugParameters.Get() == null || !DebugParameters.Get().GetParameterAsBool("DisableGameEndCheck")))
+			&& !GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.SkipEndOfGameCheck)  // removed in rogues
+			&& (DebugParameters.Get() == null || !DebugParameters.Get().GetParameterAsBool("DisableGameEndCheck")))  // removed in rogues
 		{
 			bool isOvertime = m_timeLimitTurns == 0 || GameFlowData.Get().CurrentTurn >= m_timeLimitTurns;
 			int teamAPoints = m_points[0];
@@ -516,7 +725,10 @@ public class ObjectivePoints : NetworkBehaviour
 		if (!NetworkServer.active)
 		{
 			Debug.LogWarning("[Server] function 'System.Void ObjectivePoints::DebugEndGame(PlayerData,GameResult,System.Int32,System.Int32,System.Boolean,System.Boolean,System.Boolean)' called on client");
+			return;
 		}
+		// NOTE CUSTOM
+		EndGame();
 	}
 
 	[Server]
@@ -527,8 +739,44 @@ public class ObjectivePoints : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void ObjectivePoints::EndGame()' called on client");
 			return;
 		}
+
+		// added in rogues
+#if SERVER
+		GameManager.Get().GameSummary.GameResult = m_gameResult;
+		GameManager.Get().GameSummary.GameResultFraction = m_gameResultFraction;
+		GameManager.Get().GameSummary.TimeText = MatchLogger.Get().GetTimeForLogging(true);
+		GameManager.Get().GameSummary.MatchTime = MatchLogger.Get().GetMatchTime();
+		GameManager.Get().GameSummary.NumOfTurns = GameFlowData.Get().CurrentTurn;
+		GameManager.Get().GameSummary.TeamAPoints = GetPointsForTeam(Team.TeamA);
+		GameManager.Get().GameSummary.TeamBPoints = GetPointsForTeam(Team.TeamB);
+		GameplayMetricHelper.CollectGameplayStats(GameFlowData.Get().GetActors());
+		GameplayMetricHelper.CollectFreelancerStats(GameFlowData.Get().GetActors());
+		GameplayMetricHelper.SetPlayerGameResults();
+		GameplayMetricHelper.SetPlayerStats(GameFlowData.Get().GetActors());
+		// rogues
+		//if (m_gameResult == GameResult.TeamAWon && PointOfInterestManager.Get() != null)
+		//{
+		//	int postMissionReviveCost = (from x in GameFlowData.Get().GetActors()
+		//								 where x.GetTeam() == Team.TeamA && x.IsDead()
+		//								 select x).Count<ActorData>();
+		//	PointOfInterestManager.Get().PostMissionReviveCost = postMissionReviveCost;
+		//}
+		Networkm_minutesInMatchOnGameEnd = (float)GameManager.Get().GameSummary.MatchTime.TotalMinutes;
+		if (m_gameResult != GameResult.NoResult)
+		{
+			if (GameManager.IsGameTypeValidForGGPack(GameType.Custom))
+			{
+				m_sendGameSummaryToLobbyServer = GameBalanceVars.Get().GGPackEndGameUsageTimer;
+			}
+			else
+			{
+				m_sendGameSummaryToLobbyServer = 5f;
+			}
+		}
+#endif
+
 		Networkm_matchState = MatchState.MatchEnd;
-		m_gameShutdownTime = Time.time + GameManager.Get().GameConfig.GameServerShutdownTime;
+		m_gameShutdownTime = Time.time + GameManager.Get().GameConfig.GameServerShutdownTime; //  + 300f; in rogues
 		GameFlowData.Get().gameState = GameState.EndingGame;
 	}
 
@@ -551,6 +799,11 @@ public class ObjectivePoints : NetworkBehaviour
 					objective = GameEventManager.MatchObjectiveEventArgs.ObjectiveType.ObjectivePointsGained,
 					team = teamToAdjust
 				});
+
+			// added in rogues
+#if SERVER
+			CheckForEndOfGame();
+#endif
 		}
 	}
 
@@ -612,10 +865,50 @@ public class ObjectivePoints : NetworkBehaviour
 		return 0;
 	}
 
-	private void UNetVersion()
+	// added in rogues
+#if SERVER
+	public string GetVictoryConditionText(Team team)
+    {
+        if (team == Team.TeamA)
+        {
+            if (!m_teamAVictoryCondition.m_conditionString.IsNullOrEmpty())
+            {
+                return StringUtil.TR_IfHasContext(m_teamAVictoryCondition.m_conditionString);
+            }
+            return "";
+        }
+        else
+        {
+            if (team != Team.TeamB)
+            {
+                return "";
+            }
+            if (!m_teamBVictoryCondition.m_conditionString.IsNullOrEmpty())
+            {
+                return StringUtil.TR_IfHasContext(m_teamBVictoryCondition.m_conditionString);
+            }
+            return "";
+        }
+    }
+#endif
+
+    // added in rogues
+    //public ObjectivePoints()
+    //{
+    //	base.InitSyncObject(m_points);
+    //}
+
+    // added in rogues
+    //private void MirrorProcessed()
+    //{
+    //}
+
+    // removed in rogues
+    private void UNetVersion()
 	{
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_points(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -626,6 +919,7 @@ public class ObjectivePoints : NetworkBehaviour
 		((ObjectivePoints)obj).m_points.HandleMsg(reader);
 	}
 
+	// reactor
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -680,6 +974,7 @@ public class ObjectivePoints : NetworkBehaviour
 		return flag;
 	}
 
+	// reactor
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)
@@ -708,4 +1003,68 @@ public class ObjectivePoints : NetworkBehaviour
 			HookSetMatchState((MatchState)reader.ReadInt32());
 		}
 	}
+
+	// rogues
+	//public override bool OnSerialize(NetworkWriter writer, bool forceAll)
+	//{
+	//	bool result = base.OnSerialize(writer, forceAll);
+	//	if (forceAll)
+	//	{
+	//		writer.WritePackedInt32((int)m_gameResult);
+	//		writer.Write(m_minutesInMatchOnGameEnd);
+	//		writer.WritePackedInt32((int)m_matchState);
+	//		return true;
+	//	}
+	//	writer.WritePackedUInt64(base.syncVarDirtyBits);
+	//	if ((base.syncVarDirtyBits & 1UL) != 0UL)
+	//	{
+	//		writer.WritePackedInt32((int)m_gameResult);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 2UL) != 0UL)
+	//	{
+	//		writer.Write(m_minutesInMatchOnGameEnd);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 4UL) != 0UL)
+	//	{
+	//		writer.WritePackedInt32((int)m_matchState);
+	//		result = true;
+	//	}
+	//	return result;
+	//}
+
+	// rogues
+	//public override void OnDeserialize(NetworkReader reader, bool initialState)
+	//{
+	//	base.OnDeserialize(reader, initialState);
+	//	if (initialState)
+	//	{
+	//		GameResult networkm_gameResult = (GameResult)reader.ReadPackedInt32();
+	//		Networkm_gameResult = networkm_gameResult;
+	//		float networkm_minutesInMatchOnGameEnd = reader.ReadSingle();
+	//		Networkm_minutesInMatchOnGameEnd = networkm_minutesInMatchOnGameEnd;
+	//		ObjectivePoints.MatchState matchState = (ObjectivePoints.MatchState)reader.ReadPackedInt32();
+	//		HookSetMatchState(matchState);
+	//		Networkm_matchState = matchState;
+	//		return;
+	//	}
+	//	long num = (long)reader.ReadPackedUInt64();
+	//	if ((num & 1L) != 0L)
+	//	{
+	//		GameResult networkm_gameResult2 = (GameResult)reader.ReadPackedInt32();
+	//		Networkm_gameResult = networkm_gameResult2;
+	//	}
+	//	if ((num & 2L) != 0L)
+	//	{
+	//		float networkm_minutesInMatchOnGameEnd2 = reader.ReadSingle();
+	//		Networkm_minutesInMatchOnGameEnd = networkm_minutesInMatchOnGameEnd2;
+	//	}
+	//	if ((num & 4L) != 0L)
+	//	{
+	//		ObjectivePoints.MatchState matchState2 = (ObjectivePoints.MatchState)reader.ReadPackedInt32();
+	//		HookSetMatchState(matchState2);
+	//		Networkm_matchState = matchState2;
+	//	}
+	//}
 }

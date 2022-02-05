@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 
 public class LinkedBarrierData
@@ -15,10 +17,20 @@ public class LinkedBarrierData
 		m_hitsOnEnemies = 0;
 	}
 
+	// removed in rogues
 	public void OnTurnStart()
 	{
 		m_actorsMovedThroughThisTurn.Clear();
 	}
+
+	// NOTE ROGUES they moved it from OnTurnStart to OnTurnEnd -- might need some adjustments on the calling side too
+	// added in rogues
+#if SERVER
+	public void OnTurnEnd()
+	{
+		//m_actorsMovedThroughThisTurn.Clear();
+	}
+#endif
 
 	public int GetNumHits()
 	{

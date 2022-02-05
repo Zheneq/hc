@@ -1,4 +1,8 @@
+﻿// ROGUES
+// SERVER
+//using System;
 using System.Collections.Generic;
+//using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -47,6 +51,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	public float m_brushTransitionAnimationSpeedEaseTime = 0.4f;
 	private EasedOutFloat m_brushTransitionAnimationSpeedEased = new EasedOutFloat(1f);
 
+	// removed in rogues
 	private static int animDistToGoal;
 	private static int animDistToWaypoint;
 	private static int animNextChargeCycleType;
@@ -59,14 +64,56 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	private static int animMoveSegmentStart;
 	private static int animDecisionPhase;
 	private static int animIdleType;
+	// end removed in rogues
+
+	// rogues?
+#if SERVER
+	private bool m_ignoreCantSprintStatus;
+#endif
+
+	// rogues?
+#if SERVER
+	private float m_moveRangeCompensation;
+#endif
 
 	private MoveState m_curMoveState;
+	// removed in rogues
 	private Dictionary<BoardSquare, BoardSquarePathInfo> m_tempClosedSquares = new Dictionary<BoardSquare, BoardSquarePathInfo>();
 	private BoardSquarePathInfo m_gameplayPath;
 	private BoardSquarePathInfo m_aestheticPath;
 
 	internal HashSet<BoardSquare> SquaresCanMoveTo => m_squaresCanMoveTo;
 	internal HashSet<BoardSquare> SquaresCanMoveToWithQueuedAbility => m_squareCanMoveToWithQueuedAbility;
+
+	// rogues?
+#if SERVER
+	public bool IgnoreCantSprintStatus
+	{
+		get
+		{
+			return m_ignoreCantSprintStatus;
+		}
+		set
+		{
+			m_ignoreCantSprintStatus = value;
+		}
+	}
+#endif
+
+	// rogues?
+#if SERVER
+	public float MoveRangeCompensation
+	{
+		get
+		{
+			return Mathf.Max(0f, m_moveRangeCompensation);
+		}
+		set
+		{
+			m_moveRangeCompensation = value;
+		}
+	}
+#endif
 
 	public string GetCurrentMoveStateStr()
 	{
@@ -83,6 +130,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		m_squaresCanMoveToCache = new List<SquaresCanMoveToCacheEntry>();
 		m_squaresCanMoveTo = new HashSet<BoardSquare>();
 		m_squareCanMoveToWithQueuedAbility = new HashSet<BoardSquare>();
+
+		// removed in rogues
 		animDistToGoal = Animator.StringToHash("DistToGoal");
 		animDistToWaypoint = Animator.StringToHash("DistToWayPoint");
 		animNextChargeCycleType = Animator.StringToHash("NextChargeCycleType");
@@ -132,12 +181,44 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	public void UpdateSquaresCanMoveTo()
 	{
-		if (NetworkServer.active)
+		if (NetworkServer.active)  // server-only
 		{
+#if SERVER
+			float maxMoveDistServer = CalculateMaxHorizontalMovement(false, false);
+			float innerMoveDistServer = Mathf.Min(maxMoveDistServer, CalculateMaxHorizontalMovement(true, false));
+			if (ServerActionBuffer.Get() == null)
+			{
+				return;
+			}
+			ServerActionBuffer.Get().GatherMovementInfo(
+				m_actor, out BoardSquare moveFromBoardSquare, out float queuedMovementAmount, out bool isChasing);
+			if (isChasing)
+			{
+				m_actor.RemainingHorizontalMovement = maxMoveDistServer;
+				m_actor.RemainingMovementWithQueuedAbility = innerMoveDistServer;
+				m_actor.MoveFromBoardSquare = m_actor.InitialMoveStartSquare;
+			}
+			else
+			{
+				// rogues
+				//if (!m_actor.GetActorTurnSM().HasRemainingMovement())
+				//{
+				//	m_actor.RemainingHorizontalMovement = 0f;
+				//	m_actor.RemainingMovementWithQueuedAbility = 0f;
+				//}
+				//else
+				//{
+				m_actor.RemainingHorizontalMovement = Mathf.Max(maxMoveDistServer - queuedMovementAmount, 0f);
+				m_actor.RemainingMovementWithQueuedAbility = Mathf.Max(innerMoveDistServer - queuedMovementAmount, 0f);
+				//}
+				m_actor.MoveFromBoardSquare = moveFromBoardSquare;
+			}
+#endif
 		}
 		float maxMoveDist = m_actor.RemainingHorizontalMovement;
 		float innerMoveDist = m_actor.RemainingMovementWithQueuedAbility;
 		BoardSquare squareToStartFrom = m_actor.MoveFromBoardSquare;
+		// reactor
 		if (Options_UI.Get() != null &&
 			Options_UI.Get().GetShiftClickForMovementWaypoints() != InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier)
 				|| !FirstTurnMovement.CanWaypoint())
@@ -149,6 +230,26 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				squareToStartFrom = m_actor.InitialMoveStartSquare;
 			}
 		}
+		// rogues
+		//if (!InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier)
+		//	&& m_actor == GameFlowData.Get().activeOwnedActorData)
+		//{
+		//	maxMoveDist = this.CalculateMaxHorizontalMovement(false, false);
+		//	innerMoveDist = Mathf.Min(maxMoveDist, this.CalculateMaxHorizontalMovement(true, false));
+		//	float num6 = ActorMovement.CalcMoveAdjustFromExecutedActions(this.m_actor);
+		//	if (!this.m_actor.GetActorTurnSM().HasRemainingMovement())
+		//	{
+		//		maxMoveDist = 0f;
+		//		innerMoveDist = 0f;
+		//	}
+		//	else
+		//	{
+		//		maxMoveDist = Mathf.Max(maxMoveDist - num6, 0f);
+		//		innerMoveDist = Mathf.Max(innerMoveDist - num6, 0f);
+		//	}
+		//	squareToStartFrom = m_actor.InitialMoveStartSquare;
+		//}
+
 		GetSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, innerMoveDist, out m_squaresCanMoveTo, out m_squareCanMoveToWithQueuedAbility);
 		if (Board.Get() != null)
 		{
@@ -163,6 +264,18 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 		}
 	}
+
+	// rogues
+	//public static float CalcMoveAdjustFromExecutedActions(ActorData actor)
+	//{
+	//	float num = (float)actor.GetActorTurnSM().GetPveNumMoveActionsUsed() * actor.GetAbilityMovementCost();
+	//	num = actor.GetActorMovement().GetAdjustedMovementFromBuffAndDebuff(num, false, false);
+	//	if (!actor.GetActorTurnSM().HasRemainingMovement())
+	//	{
+	//		num = 100000f;
+	//	}
+	//	return Mathf.Max(actor.GetActorTurnSM().GetPveMovementCostUsed(), num);
+	//}
 
 	public bool CanMoveToBoardSquare(int x, int y)
 	{
@@ -179,7 +292,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		return m_squaresCanMoveTo.Contains(dest);
 	}
 
-	public BoardSquare GetClosestMoveableSquareTo(BoardSquare selectedSquare, bool alwaysIncludeMoverSquare = true)
+	// reactor
+	public BoardSquare GetClosestMoveableSquareTo(BoardSquare selectedSquare, bool alwaysIncludeMoverSquare = true) //, bool useNonSprintSquares = false, bool excludeDestSquare = false)  in rogues
 	{
 		BoardSquare closestSquare = alwaysIncludeMoverSquare ? m_actor.GetCurrentBoardSquare() : null;
 		float minDist = alwaysIncludeMoverSquare ? closestSquare.HorizontalDistanceOnBoardTo(selectedSquare) : 100000f;
@@ -200,12 +314,57 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		return closestSquare;
 	}
 
+	// rogues
+	// TODO LOW check, might be a bugfix
+	//public BoardSquare GetClosestMoveableSquareTo(BoardSquare selectedSquare, bool alwaysIncludeMoverSquare = true, bool useNonSprintSquares = false, bool excludeDestSquare = false)  // useNonSprintSquares & excludeDestSquare added in rogues
+	//{
+	//    HashSet<BoardSquare> squaresCanMoveTo = useNonSprintSquares
+	//        ? m_squareCanMoveToWithQueuedAbility
+	//        : m_squaresCanMoveTo;
+	//    BoardSquare currentBoardSquare = m_actor.GetCurrentBoardSquare();
+	//    BoardSquare closestSquare = alwaysIncludeMoverSquare ? currentBoardSquare : null;
+	//    float minDist = alwaysIncludeMoverSquare ? closestSquare.HorizontalDistanceOnBoardTo(selectedSquare) : 100000f;
+	//    float minDistInSquares = alwaysIncludeMoverSquare ? closestSquare.HorizontalDistanceInSquaresTo(currentBoardSquare) : 100000f;
+	//    if (selectedSquare != null)
+	//    {
+	//        foreach (BoardSquare square in squaresCanMoveTo)
+	//        {
+	//            if (!excludeDestSquare || selectedSquare != square)
+	//            {
+	//                float dist = square.HorizontalDistanceOnBoardTo(selectedSquare);
+	//                float distInSquares = square.HorizontalDistanceInSquaresTo(currentBoardSquare);
+	//                if (dist < minDist || (dist == minDist && distInSquares < minDistInSquares))
+	//                {
+	//                    minDist = dist;
+	//                    closestSquare = square;
+	//                    minDistInSquares = distInSquares;
+	//                }
+	//            }
+	//        }
+	//        return closestSquare;
+	//    }
+	//    Log.Error("Trying to find the closest moveable square to a null square.  Code error-- tell Danny.");
+	//    return closestSquare;
+	//}
+
 	public float CalculateMaxHorizontalMovement(bool forcePostAbility = false, bool calculateAsIfSnared = false)
 	{
 		float result = 0f;
 		if (!m_actor.IsDead())
 		{
+			// rogues
+			//EquipmentStats equipmentStats = m_actor.GetEquipmentStats();
 			result = m_actor.GetActorStats().GetModifiedStatInt(StatType.Movement_Horizontal);
+			// rogues
+			//result = equipmentStats.GetTotalStatValueForSlot(GearStatType.MovementRangeAdjustment, result, -1, m_actor);
+
+			// rogues?
+#if SERVER
+			if (NetworkServer.active) // server-only
+			{
+				result += MoveRangeCompensation;
+			}
+#endif
 			AbilityData abilityData = m_actor.GetAbilityData();
 			if (abilityData)
 			{
@@ -260,6 +419,14 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			actorStatus.HasStatus(StatusType.CantSprint_Absolute)
 			|| queuedStatuses.Contains(StatusType.CantSprint_Absolute);
 		bool cantSprint = (cantSprintUnlessUnstoppable && debuff) || cantSprintAbsolute;
+
+		// rogues?
+#if SERVER
+		if (NetworkServer.active)
+		{
+			cantSprint = (cantSprint && !IgnoreCantSprintStatus);
+		}
+#endif
 
 		if (debuff && actorStatus.HasStatus(StatusType.Rooted))
 		{
@@ -468,6 +635,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 	}
 
+	// removed in rogues
 	public HashSet<BoardSquare> BuildSquaresCanMoveTo(BoardSquare squareToStartFrom, float maxHorizontalMovement)
 	{
 		HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
@@ -560,6 +728,14 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		return hashSet;
 	}
 
+	// added in rogues
+#if SERVER
+	public void ClearSquaresCanMoveToCache()
+	{
+		m_squaresCanMoveToCache.Clear();
+	}
+#endif
+
 	public HashSet<BoardSquare> CheckSquareCanMoveToCache(BoardSquare squareToStartFrom, float maxHorizontalMovement)
 	{
 		HashSet<BoardSquare> result = null;
@@ -645,6 +821,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		m_squaresCanMoveToCache.Insert(0, squaresCanMoveToCacheEntry);
 	}
 
+	// removed in rogues
 	public HashSet<BoardSquare> GetSquaresCanMoveTo(BoardSquare squareToStartFrom, float maxHorizontalMovement)
 	{
 		HashSet<BoardSquare> hashSet = CheckSquareCanMoveToCache(squareToStartFrom, maxHorizontalMovement);
@@ -692,7 +869,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			return false;
 		}
-		if (src.GetThinCover(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
+		ThinCover.CoverType thinCover = src.GetThinCover(VectorUtils.GetCoverDirection(src, dest));
+		if (thinCover == ThinCover.CoverType.Full
+			// rogues
+			//|| thinCover == ThinCover.CoverType.HalfThick
+			//|| thinCover == ThinCover.CoverType.FullThick
+			)
 		{
 			return false;
 		}
@@ -824,6 +1006,25 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			modelAnimator.SetFloat(animDistToWaypoint, 0f);
 		}
 	}
+
+	// added in rogues
+#if SERVER
+	internal void Server_ForceCompletePath(ref bool movementHappened)
+	{
+		bool flag = false;
+		while (m_gameplayPath != null && m_gameplayPath.next != null)
+		{
+			AdvanceGameplayPath();
+			flag = true;
+		}
+		if (flag)
+		{
+			m_actor.GetActorCover().RecalculateCover();
+			movementHappened = true;
+		}
+		ClearPath();
+	}
+#endif
 
 	private void UpdatePath()
 	{
@@ -1088,7 +1289,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	private bool EnemyRunningIntoBrush(BoardSquarePathInfo pathEndInfo)
 	{
 		if (m_actor.VisibleTillEndOfPhase
-			|| m_actor.CurrentlyVisibleForAbilityCast
+			|| m_actor.CurrentlyVisibleForAbilityCast // removed in rogues
 			|| m_actor.GetActorStatus().HasStatus(StatusType.Revealed, false)
 			|| CaptureTheFlag.IsActorRevealedByFlag_Client(m_actor))
 		{
@@ -1115,8 +1316,11 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				return false;
 			}
 		}
+		// reactor
 		return ServerClientUtils.GetCurrentActionPhase() >= ActionBufferPhase.Movement
 			|| GameFlowData.Get().gameState == GameState.BothTeams_Decision;
+		// rogues
+		//return true;
 	}
 
 	private float GetDistToGoal()
@@ -1240,24 +1444,41 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	private void AdvanceGameplayPath()
 	{
 		m_gameplayPath = m_gameplayPath.next;
+#if SERVER
+		if (NetworkServer.active)  // server-only
+		{
+			GameFlowData.Get().OnServerActorMoved(m_actor, m_gameplayPath.prev, m_gameplayPath);
+			if (m_gameplayPath.connectionType == BoardSquarePathInfo.ConnectionType.Teleport
+				|| m_gameplayPath.connectionType == BoardSquarePathInfo.ConnectionType.Flight)
+			{
+				List<BoardSquare> squaresInBox = AreaEffectUtils.GetSquaresInBox(m_gameplayPath.prev.square.ToVector3(), m_gameplayPath.square.ToVector3(), 0.5f, true, m_actor);
+				GameFlowData.Get().OnServerActorTeleported(m_actor, m_gameplayPath.prev, m_gameplayPath, squaresInBox);
+			}
+		}
+#endif
 		BoardSquare square = m_gameplayPath.square;
 		bool isEnd = m_gameplayPath.next == null;
 		m_actor.ActorData_OnActorMoved(square, m_gameplayPath.m_visibleToEnemies, m_gameplayPath.m_updateLastKnownPos);
 		ActorVFX actorVFX = m_actor.GetActorVFX();
 		if (actorVFX != null)
 		{
+			// reactor
 			actorVFX.OnMove(m_gameplayPath, m_gameplayPath.prev);
+			// rogues
+			//actorVFX.OnMove(square);
 		}
 		CameraManager.Get().OnActorMoved(m_actor);
 		ClientClashManager.Get().OnActorMoved_ClientClashManager(m_actor, m_gameplayPath);
 		ClientResolutionManager.Get().OnActorMoved_ClientResolutionManager(m_actor, m_gameplayPath);
-		if (m_actor != null && m_actor.GetActorModelData() != null)
+		if (m_actor != null && m_actor.GetActorModelData() != null && m_aestheticPath != null) // m_aestheticPath check added in rogues
 		{
 			m_actor.GetActorModelData().OnMovementAnimatorUpdate(m_aestheticPath.connectionType);
 		}
 		if (isEnd)
 		{
 			m_actor.UpdateFacingAfterMovement();
+			// rogues
+			//m_actor.UpdateAllyReviveButtons();
 			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve
 				&& HighlightUtils.Get() != null
 				&& HighlightUtils.Get().m_coverDirIndicatorTiming == HighlightUtils.MoveIntoCoverIndicatorTiming.ShowOnMoveEnd
@@ -1328,6 +1549,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		if (travelBoardSquare != GetTravelBoardSquare())
 		{
 			m_actor.ForceUpdateIsVisibleToClientCache();
+			// removed in rogues
 			m_actor.ForceUpdateActorModelVisibility();
 		}
 		m_aestheticPath = m_gameplayPath.Clone(null);
@@ -1344,9 +1566,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		UpdateMovementState();
 	}
 
-	public void BeginChargeOrKnockback(BoardSquare src, BoardSquare dest, BoardSquarePathInfo gameplayPath, ActorData.MovementType movementType)
+	public void BeginChargeOrKnockback(BoardSquare src, BoardSquare dest, BoardSquarePathInfo gameplayPath, ActorData.MovementType movementType) // BeginKnockback in rogues
 	{
-		if (movementType == ActorData.MovementType.Knockback)
+		if (movementType == ActorData.MovementType.Knockback)  // unconditional in rogues
 		{
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.ActorKnockback, new GameEventManager.ActorKnockback
 			{
@@ -1383,6 +1605,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		return BuildPathTo(src, dest, CalculateMaxHorizontalMovement(), true, null);
 	}
 
+	// removed in rogues
 	public BoardSquarePathInfo BuildPathTo(BoardSquare src, BoardSquare dest, float maxHorizontalMovement, bool ignoreBarriers, List<BoardSquare> claimedSquares)
 	{
 		if (src == null || dest == null)
@@ -1507,7 +1730,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		return boardSquarePathInfo;
 	}
 
-	public BoardSquarePathInfo BuildPathTo_Orig(BoardSquare src, BoardSquare dest, float maxHorizontalMovement, bool ignoreBarriers, List<BoardSquare> claimedSquares)
+	public BoardSquarePathInfo BuildPathTo_Orig(BoardSquare src, BoardSquare dest, float maxHorizontalMovement, bool ignoreBarriers, List<BoardSquare> claimedSquares)  // BuildPathTo in rogues
 	{
 		BoardSquarePathInfo boardSquarePathInfo = null;
 		if (src == null || dest == null)
@@ -1652,6 +1875,67 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		return boardSquarePathInfo;
 	}
 
+	// added in rogues
+#if SERVER
+	public BoardSquarePathInfo BuildCompletePathTo(BoardSquare src, BoardSquare dest, bool ignoreBarriers, List<BoardSquare> claimedSquares)
+	{
+		float maxHorizontalMovement = 12345f;
+		return BuildPathTo(src, dest, maxHorizontalMovement, ignoreBarriers, claimedSquares);
+	}
+#endif
+
+	// server-only
+#if SERVER
+	public bool AppendToPath(BoardSquarePathInfo pathSoFar, BoardSquare destination)
+	{
+		if (pathSoFar == null)
+		{
+			Log.Error("Attempted to AppendToPath with a null pathSoFar");
+			return false;
+		}
+		float num = CalculateMaxHorizontalMovement(false, false);
+		float num2 = pathSoFar.FindMoveCostToEnd();
+		float num3 = num - num2;
+		return num3 > 0f && AppendToPath(pathSoFar, destination, num2, num3);
+	}
+#endif
+
+
+	// server-only
+#if SERVER
+	public bool AppendToPath(BoardSquarePathInfo pathSoFar, BoardSquare destination, float moveCostSoFar, float horizontalMovementRemaining)
+	{
+		if (pathSoFar == null)
+		{
+			Log.Error("Attempted to AppendToPath with a null pathSoFar");
+			return false;
+		}
+		BoardSquarePathInfo pathEndpoint = pathSoFar.GetPathEndpoint();
+		BoardSquarePathInfo boardSquarePathInfo = BuildPathTo(pathEndpoint.square, destination, horizontalMovementRemaining, false, null);
+		if (boardSquarePathInfo != null)
+		{
+			boardSquarePathInfo = boardSquarePathInfo.next;
+		}
+		bool result;
+		if (boardSquarePathInfo != null)
+		{
+			pathEndpoint.next = boardSquarePathInfo;
+			pathEndpoint.next.prev = pathEndpoint;
+			pathEndpoint.m_unskippable = true;
+			for (BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo; boardSquarePathInfo2 != null; boardSquarePathInfo2 = boardSquarePathInfo2.next)
+			{
+				boardSquarePathInfo2.moveCost += moveCostSoFar;
+			}
+			result = true;
+		}
+		else
+		{
+			result = false;
+		}
+		return result;
+	}
+#endif
+
 	public BoardSquarePathInfo GetAestheticPath()
 	{
 		return m_curMoveState?.GetAestheticPath();
@@ -1716,6 +2000,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		Vector3 spawnFacing = SpawnPointManager.Get().GetSpawnFacing(transform.position);
 		m_actor.TurnToDirection(spawnFacing);
+
+		// removed in rogues
 		Animator modelAnimator = m_actor.GetModelAnimator();
 		if (modelAnimator != null)
 		{

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,4 +59,54 @@ public class BarrierResponseOnShot
 		desc += InEditorDescHelper.AssembleFieldWithDiff("[ On Shot Sequence Prefab ]", indent, otherSep, m_onShotSequencePrefab, addDiff, addDiff ? other.m_onShotSequencePrefab : null);
 		return desc + InEditorDescHelper.AssembleFieldWithDiff("[ Use Shooter Pos As Target Pos For Sequence ] = ", indent, otherSep, m_useShooterPosAsReactionSequenceTargetPos, addDiff, addDiff && other.m_useShooterPosAsReactionSequenceTargetPos);
 	}
+
+	// server-only
+#if SERVER
+	public bool HasReactionOnOwner(ActorData shooter, ActorData owner)
+	{
+		return shooter != null
+			&& owner != null
+			&& shooter.GetTeam() != owner.GetTeam()
+			&& (m_healOnOwnerFromEnemyShot > 0 || m_energyGainOnOwnerFromEnemyShot > 0 || m_effectOnOwnerFromEnemyShot.m_applyEffect);
+	}
+#endif
+
+	// server-only
+#if SERVER
+	public bool HasReactionOnShooter(ActorData shooter, ActorData owner)
+	{
+		return shooter != null
+			&& owner != null
+			&& shooter.GetTeam() != owner.GetTeam()
+			&& (m_damageOnEnemyOnShot > 0 || m_energyLossOnEnemyOnShot > 0 || m_effectOnEnemyOnShot.m_applyEffect);
+	}
+#endif
+
+	// server-only
+#if SERVER
+	public void AddToReactionResult(MovementResults reactResults, ActorData shooter, ActorData owner)
+	{
+		if (reactResults != null && shooter != null && owner != null)
+		{
+			if (HasReactionOnOwner(shooter, owner))
+			{
+				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(owner, owner.GetFreePos()));
+				actorHitResults.SetBaseHealing(m_healOnOwnerFromEnemyShot);
+				actorHitResults.SetTechPointGain(m_energyGainOnOwnerFromEnemyShot);
+				actorHitResults.AddStandardEffectInfo(m_effectOnOwnerFromEnemyShot);
+				actorHitResults.SetIgnoreTechpointInteractionForHit(true);
+				reactResults.AddActorHitResultsForReaction(actorHitResults);
+			}
+			if (HasReactionOnShooter(shooter, owner))
+			{
+				ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(shooter, shooter.GetFreePos()));
+				actorHitResults2.SetBaseDamage(m_damageOnEnemyOnShot);
+				actorHitResults2.SetTechPointLoss(m_energyLossOnEnemyOnShot);
+				actorHitResults2.AddStandardEffectInfo(m_effectOnEnemyOnShot);
+				actorHitResults2.SetIgnoreTechpointInteractionForHit(true);
+				reactResults.AddActorHitResultsForReaction(actorHitResults2);
+			}
+		}
+	}
+#endif
 }

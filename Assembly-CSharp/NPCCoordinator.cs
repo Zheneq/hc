@@ -168,4 +168,10 @@ public class NPCCoordinator : MonoBehaviour
 			LoadingState = LoadingStateEnum.Done;
 		}
 	}
+
+	// TODO NPC custom placeholder code
+	public void OnTurnStart()
+	{
+
+	}
 }

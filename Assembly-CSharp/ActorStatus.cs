@@ -1,4 +1,7 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
+//using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -14,11 +17,13 @@ public class ActorStatus : NetworkBehaviour
 	public const string STATUS_DEBUG_HEADER = "<color=cyan>ActorStatus</color>: ";
 	public const int c_num = 58;
 
+	//removed in rogues
 	private static int kListm_statusCounts = -7231791;
 	private static int kListm_statusDurations = 625641650;
 
 	public static bool DebugTraceOn => false;
 
+	//removed in rogues
 	static ActorStatus()
 	{
 		RegisterSyncListDelegate(typeof(ActorStatus), kListm_statusCounts, InvokeSyncListm_statusCounts);
@@ -31,8 +36,28 @@ public class ActorStatus : NetworkBehaviour
 		m_statusCountsPrevious = new int[c_num];
 		m_clientStatusCountAdjustments = new int[c_num];
 		m_actorData = GetComponent<ActorData>();
+
+		//removed in rogues
 		m_statusCounts.InitializeBehaviour(this, kListm_statusCounts);
 		m_statusDurations.InitializeBehaviour(this, kListm_statusDurations);
+
+		// moved from OnStartServer in rogues
+		//if (NetworkServer.active)
+		//{
+		//	for (int i = 0; i < m_statusCountsPrevious.Length; i++)
+		//	{
+		//		m_statusCounts.Add(0U);
+		//		m_statusDurations.Add(0U);
+		//	}
+		//	if (GameplayUtils.IsPlayerControlled(m_actorData))
+		//	{
+		//		int num = GameplayData.Get().m_recentlySpawnedDuration + 1;
+		//		for (int j = 0; j < num; j++)
+		//		{
+		//			AddStatus(StatusType.RecentlySpawned, 1);
+		//		}
+		//	}
+		//}
 	}
 
 	public int GetDurationOfStatus(StatusType status)
@@ -40,28 +65,61 @@ public class ActorStatus : NetworkBehaviour
 		return (int)m_statusDurations[(int)status];
 	}
 
-	public override void OnStartClient()
+	// added in rogues
+#if SERVER
+	public void OnTurnStart()
 	{
-		m_statusCounts.Callback = SyncListCallbackStatusCounts;
-		m_statusDurations.Callback = SyncListCallbackStatusDuration;
-	}
-
-	private void SyncListCallbackStatusDuration(SyncList<uint>.Operation op, int i)
-	{
-		if (NetworkClient.active && i >= 0 && i < c_num)
+		if (NetworkServer.active)
 		{
-			ActorData actorData = m_actorData;
-			if (HUD_UI.Get() != null && actorData != null)
+			for (int i = 0; i < m_statusDurations.Count; i++)
 			{
-				HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.NotifyStatusDurationChange(actorData, (StatusType)i, (int)m_statusDurations[i]);
-				if (actorData == GameFlowData.Get().activeOwnedActorData)
+				if (m_statusDurations[i] > 0U)
 				{
-					HUD_UI.Get().m_mainScreenPanel.m_characterProfile.UpdateStatusDisplay(true);
+					SyncListUInt statusDurations = m_statusDurations;
+					int num = i;
+					uint num2 = statusDurations[num] - 1U;
+					statusDurations[num] = num2;
 				}
 			}
 		}
 	}
+#endif
 
+	public override void OnStartClient()
+	{
+		// reactor
+		m_statusCounts.Callback = SyncListCallbackStatusCounts;
+		m_statusDurations.Callback = SyncListCallbackStatusDuration;
+
+		// rogues
+		//m_statusCounts.Callback += new SyncList<uint>.SyncListChanged(this.SyncListCallbackStatusCounts);
+		//m_statusDurations.Callback += new SyncList<uint>.SyncListChanged(this.SyncListCallbackStatusDuration);
+	}
+
+	private void SyncListCallbackStatusDuration(SyncList<uint>.Operation op, int i)  // , uint item in rogues
+	{
+		if (NetworkClient.active
+			&& i >= 0
+			&& i < c_num
+			&& HUD_UI.Get() != null
+			// reactor
+			&& m_actorData != null
+			// rogues
+			//&& GetComponent<ActorData>() != null
+			//&& GetComponent<ActorData>() == GameFlowData.Get().activeOwnedActorData
+			)
+		{
+			// removed in rogues
+			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.NotifyStatusDurationChange(m_actorData, (StatusType)i, (int)m_statusDurations[i]);
+
+			if (m_actorData == GameFlowData.Get().activeOwnedActorData)
+			{
+				HUD_UI.Get().m_mainScreenPanel.m_characterProfile.UpdateStatusDisplay(true);
+			}
+		}
+	}
+
+	// moved to Awake in rogues
 	public override void OnStartServer()
 	{
 		for (int i = 0; i < m_statusCountsPrevious.Length; i++)
@@ -79,7 +137,7 @@ public class ActorStatus : NetworkBehaviour
 		}
 	}
 
-	private void SyncListCallbackStatusCounts(SyncList<uint>.Operation op, int i)
+	private void SyncListCallbackStatusCounts(SyncList<uint>.Operation op, int i)  // , uint item in rogues
 	{
 		if (!NetworkServer.active && i >= 0 && i < c_num)
 		{
@@ -249,6 +307,8 @@ public class ActorStatus : NetworkBehaviour
 				hasStatus |= ability != null && ability.HasPassivePendingStatus(status, m_actorData);
 			}
 		}
+
+		// reactor
 		if (GameplayMutators.Get() != null)
 		{
 			int currentTurn = GameFlowData.Get().CurrentTurn;
@@ -261,6 +321,12 @@ public class ActorStatus : NetworkBehaviour
 				hasStatus = !GameplayMutators.IsStatusSuppressed(status, currentTurn);
 			}
 		}
+		// rogues
+		//if (!flag && GameplayMutators.Get() != null)
+		//{
+		//	flag |= GameplayMutators.GetAlwaysOnStatuses().Contains(status);
+		//}
+
 		return hasStatus;
 	}
 
@@ -299,6 +365,7 @@ public class ActorStatus : NetworkBehaviour
 		return isImmune;
 	}
 
+	// removed in rogues
 	public bool IsEnergized(bool checkPending = true)
 	{
 		bool isEnergized = HasStatus(StatusType.Energized);
@@ -316,13 +383,16 @@ public class ActorStatus : NetworkBehaviour
 			Log.Warning($"<color=cyan>ActorStatus</color>: On Status Changed: <color=yellow>{status}</color>" +
 				$" {(statusGained ? "<color=cyan>Gained" : " < color = magenta > Lost")}</color>");
 		}
-		if (!statusGained)
+		if (!statusGained
+			//&& NetworkServer.active // rogues
+			)
 		{
 			m_statusDurations[(int)status] = 0u;
 		}
 		ActorData actorData = m_actorData;
 		if (HUD_UI.Get() != null && actorData != null)
 		{
+			// removed in rogues
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.NotifyStatusChange(actorData, status, statusGained);
 			if (actorData == GameFlowData.Get().activeOwnedActorData)
 			{
@@ -360,6 +430,27 @@ public class ActorStatus : NetworkBehaviour
 			case StatusType.Hasted:
 				UpdateMovementForMovementStatus(statusGained);
 				break;
+#if SERVER
+			case StatusType.InvisibleToEnemies:
+			case StatusType.ProximityBasedInvisibility:
+				// server-only
+				if (NetworkServer.active && !statusGained)
+				{
+					FogOfWar.ImmediateUpdateVisibilityForTeam(actorData.GetEnemyTeam());
+					if (actorData.IsActorVisibleToAnyEnemy())
+					{
+						actorData.SynchronizeTeamSensitiveData();
+					}
+				}
+				break;
+			case StatusType.CantCollectPowerups:
+				// server-only
+				if (NetworkServer.active && !statusGained && PowerUpManager.Get() != null)
+				{
+					PowerUpManager.Get().ActorBecameAbleToCollectPowerups(actorData);
+				}
+				break;
+#endif
 			case StatusType.Farsight:
 				if (statusGained)
 				{
@@ -388,6 +479,13 @@ public class ActorStatus : NetworkBehaviour
 				break;
 			case StatusType.Revealed:
 			case StatusType.CantHideInBrush:
+#if SERVER
+				// server-only
+				if (NetworkServer.active && statusGained && actorData.IsActorVisibleToAnyEnemy())
+				{
+					actorData.SynchronizeTeamSensitiveData();
+				}
+#endif
 				FogOfWar.CalculateFogOfWarForTeam(actorData.GetEnemyTeam());
 				break;
 			case StatusType.IsolateVisionFromAllies:
@@ -414,6 +512,19 @@ public class ActorStatus : NetworkBehaviour
 					GetComponent<ActorStats>().RemoveStatMod(StatType.IncomingHealing, ModType.Multiplier, 1.25f);
 				}
 				break;
+//#if SERVER
+				// rogues
+				//case StatusType.ReviveRecovery:
+				//	if (statusGained)
+				//	{
+				//                 GetComponent<ActorStats>().AddStatMod(StatType.ReviveDelay, ModType.BaseAdd, 1f);
+				//	}
+				//	else
+				//	{
+				//                 GetComponent<ActorStats>().RemoveStatMod(StatType.ReviveDelay, ModType.BaseAdd, 1f);
+				//	}
+				//	break;
+//#endif
 		}
 		if (Board.Get() != null)
 		{
@@ -440,10 +551,70 @@ public class ActorStatus : NetworkBehaviour
 				component.OnMovementStatusGained();
 			}
 		}
+#if SERVER
+		// server-only
+		if (NetworkServer.active && ServerActionBuffer.Get() != null && gained)
+		{
+			ServerActionBuffer.Get().RestoreMovementForForceChaseImmunity();
+		}
+#endif
 	}
 
 	private void HandleStatusImmunityChangeForEffects(StatusType status, bool gained)
 	{
+		// server-only, was empty in reactor
+#if SERVER
+		if (NetworkServer.active && gained)
+		{
+			List<Effect> actorEffects = ServerEffectManager.Get().GetActorEffects(m_actorData);
+			List<Effect> list = new List<Effect>();
+			if (status == StatusType.BuffImmune)
+			{
+				using (List<Effect>.Enumerator enumerator = actorEffects.GetEnumerator())
+				{
+					while (enumerator.MoveNext())
+					{
+						Effect effect = enumerator.Current;
+						if (effect.IsBuff() && effect.CanBeDispelledByStatusImmunity() && !list.Contains(effect))
+						{
+							list.Add(effect);
+						}
+					}
+					goto IL_126;
+				}
+			}
+			if (status == StatusType.DebuffImmune)
+			{
+				using (List<Effect>.Enumerator enumerator = actorEffects.GetEnumerator())
+				{
+					while (enumerator.MoveNext())
+					{
+						Effect effect2 = enumerator.Current;
+						if (effect2.IsDebuff() && effect2.CanBeDispelledByStatusImmunity() && !list.Contains(effect2))
+						{
+							list.Add(effect2);
+						}
+					}
+					goto IL_126;
+				}
+			}
+			if (status == StatusType.MovementDebuffImmunity || status == StatusType.Unstoppable)
+			{
+				foreach (Effect effect3 in actorEffects)
+				{
+					if (effect3.HasDispellableMovementDebuff() && effect3.CanBeDispelledByStatusImmunity() && !list.Contains(effect3))
+					{
+						list.Add(effect3);
+					}
+				}
+			}
+			IL_126:
+			if (list.Count > 0)
+			{
+				ServerEffectManager.Get().RemoveEffects(list, actorEffects);
+			}
+		}
+#endif
 	}
 
 	public bool IsImmuneToForcedChase()
@@ -454,11 +625,20 @@ public class ActorStatus : NetworkBehaviour
 	public bool IsInvisibleToEnemies(bool includePendingStatus = true)
 	{
 		bool isInvisible = HasStatus(StatusType.InvisibleToEnemies, includePendingStatus);
+		// reactor
 		ActorData actorData = m_actorData;
 		if (!isInvisible && HasStatus(StatusType.ProximityBasedInvisibility, includePendingStatus))
 		{
+			// rogues
+			//ActorData actorData = GetComponent<ActorData>();
+
 			bool isVisibleInProximity = false;
+
+			// reactor
 			foreach (ActorData enemy in GameFlowData.Get().GetAllTeamMembers(actorData.GetEnemyTeam()))
+			// rogues
+			//foreach (ActorData enemy in actorData.GetOtherTeams().SelectMany((Team otherTeam) => GameFlowData.Get().GetAllTeamMembers(otherTeam)).ToList<ActorData>())
+
 			{
 				BoardSquare mySquare = Board.Get().GetSquareFromVec3(actorData.GetFreePos());
 				BoardSquare enemySquare = Board.Get().GetSquareFromVec3(enemy.GetFreePos());
@@ -480,7 +660,7 @@ public class ActorStatus : NetworkBehaviour
 			}
 		}
 		return isInvisible
-			&& !actorData.ServerSuppressInvisibility
+			&& !actorData.ServerSuppressInvisibility  // removed in rogues
 			&& !HasStatus(StatusType.SuppressInvisibility, includePendingStatus);
 	}
 
@@ -558,10 +738,12 @@ public class ActorStatus : NetworkBehaviour
 		return 0;
 	}
 
+	// reactor
 	private void UNetVersion()
 	{
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_statusCounts(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -572,6 +754,7 @@ public class ActorStatus : NetworkBehaviour
 		((ActorStatus)obj).m_statusCounts.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_statusDurations(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -582,6 +765,17 @@ public class ActorStatus : NetworkBehaviour
 		((ActorStatus)obj).m_statusDurations.HandleMsg(reader);
 	}
 
+	//public ActorStatus()
+	//{
+	//	base.InitSyncObject(m_statusCounts);
+	//	base.InitSyncObject(m_statusDurations);
+	//}
+
+	//private void MirrorProcessed()
+	//{
+	//}
+
+	// removed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -616,6 +810,7 @@ public class ActorStatus : NetworkBehaviour
 		return flag;
 	}
 
+	// removed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)

@@ -1,4 +1,8 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
+//using Mirror;
+using Theatrics;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -25,16 +29,29 @@ public class ClientResolutionManager : MonoBehaviour
 	private int m_currentTurnIndex;
 	private AbilityPriority m_currentAbilityPhase;
 	private int m_numResolutionActionsThisPhase;
+	// added in rogues
+#if SERVER
+	private int m_numAnimEntries;
+#endif
 	private List<ClientResolutionAction> m_resolutionActions;
 	private List<ClientResolutionAction> m_movementActions;
 	private List<ClientCastAction> m_castActions;
 	private List<ClientResolutionActionMessageData> m_receivedMessages;
+	// added in rogues
+#if SERVER
+	private List<ActorAnimation> m_receivedActorAnimEntries;
+#endif
+	// added in rogues
+#if SERVER
+	private bool m_theatricsPhaseUpdateFinished;
+#endif
 	private ClientResolutionManagerState m_state = ClientResolutionManagerState.Idle;
 	private List<ActorData> m_actorsToKillOnLastHitExecution;
 	private float m_timeOfLastEvent;
 	private bool m_waitingForAllMessages;
 	private MessageHandlersState m_currentMessageHandlersState;
 	private MessageHandlersState m_expectedMessageHandlersState;
+	// removed in rogues
 	private List<ActorData> m_tempCombatPhaseDataReceivedActors = new List<ActorData>();
 
 	public static ClientResolutionManager Get()
@@ -53,6 +70,10 @@ public class ClientResolutionManager : MonoBehaviour
 		m_movementActions = new List<ClientResolutionAction>();
 		m_castActions = new List<ClientCastAction>();
 		m_receivedMessages = new List<ClientResolutionActionMessageData>();
+		// added in rogues
+#if SERVER
+		m_receivedActorAnimEntries = new List<ActorAnimation>();
+#endif
 		m_actorsToKillOnLastHitExecution = new List<ActorData>();
 	}
 
@@ -111,6 +132,23 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 	}
 
+	// rogues
+	//private void RegisterHandler()
+	//{
+	//	if (m_currentMessageHandlersState == MessageHandlersState.NotYetRegistered
+	//		&& ClientGameManager.Get() != null
+	//		&& NetworkClient.active)
+	//	{
+	//		NetworkClient.RegisterHandler<StartResolutionPhase>(new Action<NetworkConnection, StartResolutionPhase>(MsgStartResolutionPhase));
+	//		NetworkClient.RegisterHandler<SingleResolutionAction>(new Action<NetworkConnection, SingleResolutionAction>(MsgSingleResolutionAction));
+	//		NetworkClient.RegisterHandler<SingleTheatricsActorAnimation>(new Action<NetworkConnection, SingleTheatricsActorAnimation>(MsgSingleTheatricsAnimEntry));
+	//		NetworkClient.RegisterHandler<RunResolutionActionsOutsideResolve>(new Action<NetworkConnection, RunResolutionActionsOutsideResolve>(MsgRunResolutionActionsOutsideResolve));
+	//		NetworkClient.RegisterHandler<Failsafe_HurryResolutionPhase>(new Action<NetworkConnection, Failsafe_HurryResolutionPhase>(MsgFailsafeHurryResolutionPhase));
+	//		m_currentMessageHandlersState = MessageHandlersState.Registered;
+	//	}
+	//}
+
+	// reactor
 	public void UnregisterHandlers()
 	{
 		if (m_currentMessageHandlersState == MessageHandlersState.Registered
@@ -124,6 +162,21 @@ public class ClientResolutionManager : MonoBehaviour
 			m_currentMessageHandlersState = MessageHandlersState.Unregistered;
 		}
 	}
+
+	// rogues
+	//public void UnregisterHandlers()
+	//{
+	//	if (m_currentMessageHandlersState == MessageHandlersState.Registered
+	//		&& ClientGameManager.Get() != null && NetworkClient.active)
+	//	{
+	//		NetworkClient.UnregisterHandler<StartResolutionPhase>();
+	//		NetworkClient.UnregisterHandler<SingleResolutionAction>();
+	//		NetworkClient.UnregisterHandler<SingleTheatricsActorAnimation>();
+	//		NetworkClient.UnregisterHandler<RunResolutionActionsOutsideResolve>();
+	//		NetworkClient.UnregisterHandler<Failsafe_HurryResolutionPhase>();
+	//		m_currentMessageHandlersState = MessageHandlersState.Unregistered;
+	//	}
+	//}
 
 	public void OnTurnStart()
 	{
@@ -144,12 +197,28 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 	}
 
-	internal void MsgStartResolutionPhase(NetworkMessage netMsg)
+	internal void MsgStartResolutionPhase(NetworkMessage netMsg) // NetworkConnection conn, StartResolutionPhase msg in rogues
 	{
+		// reactor
 		NetworkReader reader = netMsg.reader;
 		m_currentTurnIndex = reader.ReadInt32();
 		m_currentAbilityPhase = (AbilityPriority)reader.ReadSByte();
 		m_numResolutionActionsThisPhase = reader.ReadSByte();
+		// rogues
+		//m_currentTurnIndex = msg.m_currentTurn;
+		//m_currentAbilityPhase = (AbilityPriority)msg.m_currentAbilityPhaseSbyte;
+		//m_numResolutionActionsThisPhase = (int)msg.m_currentResolutionActionsCountSbyte;
+		//m_numAnimEntries = (int)msg.m_numAnimEntries;
+
+		// rogues
+		//if (m_currentAbilityPhase == AbilityPriority.INVALID)
+		//{
+		//	m_theatricsPhaseUpdateFinished = true;
+		//}
+		//else
+		//{
+		//	m_theatricsPhaseUpdateFinished = GameWideData.Get().TheatricsUseOriginalSerialization();
+		//}
 		m_castActions = new List<ClientCastAction>();
 		m_timeOfLastEvent = GameTime.time;
 		if (m_state != ClientResolutionManagerState.Idle)
@@ -174,18 +243,29 @@ public class ClientResolutionManager : MonoBehaviour
 		return list;
 	}
 
-	private void MsgSingleResolutionAction(NetworkMessage netMsg)
+	private void MsgSingleResolutionAction(NetworkMessage netMsg)  // NetworkConnection conn, SingleResolutionAction msg in rogues
 	{
+		// reactor
 		NetworkReader reader = netMsg.reader;
 		uint turnIndex = reader.ReadPackedUInt32();
 		sbyte phaseIndex = reader.ReadSByte();
 		IBitStream stream = new NetworkReaderAdapter(reader);
 		ClientResolutionAction action = ClientResolutionAction.ClientResolutionAction_DeSerializeFromStream(ref stream);
 		ClientResolutionActionMessageData item = new ClientResolutionActionMessageData(action, (int)turnIndex, phaseIndex);
+		// rogues
+		//ClientResolutionActionMessageData item =
+		//	new ClientResolutionActionMessageData(msg.m_actionClient, msg.m_turn, (int)msg.m_abilityPhase);
+		
 		m_receivedMessages.Add(item);
 		UpdateLastEventTime();
 		ProcessReceivedMessages();
 	}
+
+	// rogues
+	//private void MsgSingleTheatricsAnimEntry(NetworkConnection conn, SingleTheatricsActorAnimation msg)
+	//{
+	//	m_receivedActorAnimEntries.Add(msg.m_actorAnimEntry);
+	//}
 
 	private void ProcessReceivedMessages()
 	{
@@ -201,7 +281,10 @@ public class ClientResolutionManager : MonoBehaviour
 				messages.Add(msg);
 			}
 		}
-		if (messages.Count < m_numResolutionActionsThisPhase)
+		if (messages.Count < m_numResolutionActionsThisPhase
+			// added in rogues
+			//&& m_receivedActorAnimEntries.Count < m_numAnimEntries
+			)
 		{
 			return;
 		}
@@ -234,11 +317,14 @@ public class ClientResolutionManager : MonoBehaviour
 	private void OnReceivedLastResolutionAction()
 	{
 		m_timeOfLastEvent = GameTime.time;
+
+		// removed in rogues
 		if (TheatricsManager.Get() != null
 			&& TheatricsManager.Get().GetPhaseToUpdate() == AbilityPriority.Combat_Damage)
 		{
 			OnCombatPhasePlayDataReceived();
 		}
+
 		if (m_currentAbilityPhase == AbilityPriority.Combat_Knockback)
 		{
 			ClientKnockbackManager.Get().InitKnockbacksFromActions(m_resolutionActions);
@@ -250,11 +336,13 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		m_waitingForAllMessages = false;
 		m_state = ClientResolutionManagerState.Resolving;
-		if (ClientGameManager.Get() != null && ClientGameManager.Get().IsFastForward)
-		{
-			ExecuteAllUnexecutedActions(false);
-			SendResolutionPhaseCompleted(m_currentAbilityPhase, true, false);
-		}
+
+        // always else in rogues
+        if (ClientGameManager.Get() != null && ClientGameManager.Get().IsFastForward)
+        {
+            ExecuteAllUnexecutedActions(false);
+            SendResolutionPhaseCompleted(m_currentAbilityPhase, true, false);
+        }
 		else
 		{
 			foreach (ClientResolutionAction action in m_resolutionActions)
@@ -264,6 +352,26 @@ public class ClientResolutionManager : MonoBehaviour
 					action.RunStartSequences();
 				}
 			}
+
+			// added in rogues
+			//if (!GameWideData.Get().TheatricsUseOriginalSerialization() && m_currentAbilityPhase != AbilityPriority.INVALID)
+			//{
+			//	Turn turn = new Turn(GameFlowData.Get().CurrentTurn);
+			//	while (turn.m_abilityPhases.Count <= (int)m_currentAbilityPhase)
+			//	{
+			//		Phase phase = new Phase(turn);
+			//		phase.SetPhaseIndex_FCFS(m_currentAbilityPhase);
+			//		turn.m_abilityPhases.Add(phase);
+			//	}
+			//	foreach (ActorAnimation actorAnimation in m_receivedActorAnimEntries)
+			//	{
+			//		actorAnimation.SetTurn_FCFS(turn);
+			//	}
+			//	turn.m_abilityPhases[(int)m_currentAbilityPhase].m_actorAnimations = new List<ActorAnimation>(m_receivedActorAnimEntries);
+			//	TheatricsManager.Get().SetTurn_FCFS(turn);
+			//	TheatricsManager.Get().InitPhaseClient_FCFS(m_currentAbilityPhase);
+			//}
+
 			if (m_currentAbilityPhase == AbilityPriority.INVALID)
 			{
 				GameEventManager.NormalMovementStartAgs normalMovementStartAgs = new GameEventManager.NormalMovementStartAgs();
@@ -273,6 +381,7 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 	}
 
+	// removed in rogues
 	internal void OnCombatPhasePlayDataReceived()
 	{
 		m_tempCombatPhaseDataReceivedActors.Clear();
@@ -290,8 +399,9 @@ public class ClientResolutionManager : MonoBehaviour
 		m_tempCombatPhaseDataReceivedActors.Clear();
 	}
 
-	internal void MsgRunResolutionActionsOutsideResolve(NetworkMessage netMsg)
+	internal void MsgRunResolutionActionsOutsideResolve(NetworkMessage netMsg) // NetworkConnection conn, RunResolutionActionsOutsideResolve msg in rogues
 	{
+		// reactor
 		NetworkReader reader = netMsg.reader;
 		sbyte num = reader.ReadSByte();
 		IBitStream stream = new NetworkReaderAdapter(reader);
@@ -304,22 +414,41 @@ public class ClientResolutionManager : MonoBehaviour
 		{
 			current.Run_OutsideResolution();
 		}
+		
+		// rogues
+		//foreach (ClientResolutionAction clientResolutionAction in msg.m_actionsClient)
+		//{
+		//	clientResolutionAction.Run_OutsideResolution();
+		//}
 	}
 
-	internal void MsgFailsafeHurryResolutionPhase(NetworkMessage netMsg)
+	internal void MsgFailsafeHurryResolutionPhase(NetworkMessage netMsg) // NetworkConnection conn, Failsafe_HurryResolutionPhase msg in rogues
 	{
+		// reactor
 		NetworkReader reader = netMsg.reader;
 		int turnIndex = reader.ReadInt32();
 		sbyte abilityPhase = reader.ReadSByte();
 		AbilityPriority abilityPriority = (AbilityPriority)abilityPhase;
 		sbyte num = reader.ReadSByte();
 		List<ActorData> actors = new List<ActorData>();
+		// rogues
+		//int currentTurn = msg.m_currentTurn;
+		//AbilityPriority currentAbilityPhaseSbyte = (AbilityPriority)msg.m_currentAbilityPhaseSbyte;
+		//List<ActorData> list = new List<ActorData>(msg.m_playersStillResolving.Count);
+
 		string text = "Actors not done resolving:";
 		if (GameFlowData.Get() == null)
 		{
-			Log.Warning("Server sent 'hurry' failsafe to clients for turn = {0}, phase = {1}, and we're on turn = {2}, phase = {3}. But GameFlowData is null. Doing nothing... ({4})", turnIndex, abilityPriority, m_currentTurnIndex, m_currentAbilityPhase, netMsg.conn);
+			Log.Warning("Server sent 'hurry' failsafe to clients for turn = {0}, phase = {1}, and we're on turn = {2}, phase = {3}. But GameFlowData is null. Doing nothing... ({4})",
+				// reactor
+				turnIndex, abilityPriority, m_currentTurnIndex, m_currentAbilityPhase, netMsg.conn
+				// rogues
+				//currentTurn, currentAbilityPhaseSbyte, m_currentTurnIndex, m_currentAbilityPhase, conn
+			);
 			return;
 		}
+
+		// reactor
 		for (int i = 0; i < num; i++)
 		{
 			int actorIndex = reader.ReadInt32();
@@ -333,6 +462,20 @@ public class ClientResolutionManager : MonoBehaviour
 				}
 			}
 		}
+		// rogues
+		//for (int i = 0; i < msg.m_playersStillResolving.Count; i++)
+		//{
+		//	if (msg.m_playersStillResolving[i] != ActorData.s_invalidActorIndex)
+		//	{
+		//		ActorData actorData = GameFlowData.Get().FindActorByActorIndex(msg.m_playersStillResolving[i]);
+		//		if (actorData != null)
+		//		{
+		//			list.Add(actorData);
+		//			text = text + "\n\t" + actorData.DebugNameString();
+		//		}
+		//	}
+		//}
+
 		bool isOwnedActorData = false;
 		foreach (ActorData actor in actors)
 		{
@@ -363,7 +506,7 @@ public class ClientResolutionManager : MonoBehaviour
 			}
 		}
 		else if (m_currentTurnIndex <= turnIndex
-			&& (m_currentTurnIndex != turnIndex || m_currentAbilityPhase <= abilityPriority))
+				&& (m_currentTurnIndex != turnIndex || m_currentAbilityPhase <= abilityPriority))
 		{
 			Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + turnIndex + ", phase = " + abilityPriority.ToString() + ", but we're on turn = " + m_currentTurnIndex + ", phase = " + m_currentAbilityPhase.ToString() + ".\n\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nThat's... in the future.  Ignoring failsafe...");
 		}
@@ -396,6 +539,21 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		return true;
 	}
+
+	// rogues
+	//internal HitChanceBracket.HitType GetHitAccuType(SequenceSource sequenceSource, ActorData target)
+	//{
+	//	HitChanceBracket.HitType result = HitChanceBracket.HitType.Normal;
+	//	for (int i = 0; i < m_resolutionActions.Count; i++)
+	//	{
+	//		ClientResolutionAction clientResolutionAction = m_resolutionActions[i];
+	//		if (clientResolutionAction.ContainsSequenceSource(sequenceSource) && clientResolutionAction.GetHitAccuTypeOnTarget(target, out result))
+	//		{
+	//			break;
+	//		}
+	//	}
+	//	return result;
+	//}
 
 	internal bool HasUnexecutedHitsOnActor(ActorData targetActor, int sequenceSourceToIgnore = -1)
 	{
@@ -461,13 +619,23 @@ public class ClientResolutionManager : MonoBehaviour
 
 	private void Update()
 	{
+		// TODO ARTEMIS
+		// TODO HACK remove server log spam -- probably CLIENT Res Man shouldn't be active/present
+		//if (NetworkServer.active)
+  //      {
+		//	return;
+  //      }
+
 		VerifyMessageHandlerState();
 		if (m_state == ClientResolutionManagerState.Resolving
 			|| m_state == ClientResolutionManagerState.WaitingForActionMsgs)
 		{
-			bool isTimeForFailsafe = GameTime.time - m_timeOfLastEvent > 15f
+			bool isTimeForFailsafe = GameTime.time - m_timeOfLastEvent > 15f // 4f in rogues
 				&& (GameFlowData.Get() == null || !GameFlowData.Get().IsResolutionPaused());
-			if (HitsDoneExecuting() && m_state == ClientResolutionManagerState.Resolving
+			if (
+					// added in rogues
+					// m_theatricsPhaseUpdateFinished &&
+					HitsDoneExecuting() && m_state == ClientResolutionManagerState.Resolving
 				|| isTimeForFailsafe)
 			{
 				if (isTimeForFailsafe)
@@ -475,7 +643,7 @@ public class ClientResolutionManager : MonoBehaviour
 					ExecuteFailsafe();
 				}
 				else
-				{
+                {
 					SendResolutionPhaseCompleted(m_currentAbilityPhase, false, false);
 				}
 			}
@@ -532,6 +700,18 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 	}
 
+	// added in rogues
+#if SERVER
+	public void OnTheatricsPhaseUpdateFinished(AbilityPriority phase)
+	{
+		if (phase == m_currentAbilityPhase && !m_theatricsPhaseUpdateFinished)
+		{
+			//PveLog.DebugLog("On Theatrics update phase finished for " + phase, null);
+			m_theatricsPhaseUpdateFinished = true;
+		}
+	}
+#endif
+
 	internal void SendResolutionPhaseCompleted(AbilityPriority abilityPhase, bool asFailsafe, bool asResend)
 	{
 		if (ClientAbilityResults.DebugTraceOn)
@@ -540,6 +720,7 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		foreach (ActorData current in GameFlowData.Get().m_ownedActorDatas)
 		{
+			// reactor
 			NetworkWriter networkWriter = new NetworkWriter();
 			networkWriter.StartMessage((int)MyMsgType.ClientResolutionPhaseCompleted);
 			networkWriter.Write((sbyte)abilityPhase);
@@ -548,13 +729,27 @@ public class ClientResolutionManager : MonoBehaviour
 			networkWriter.Write(asResend);
 			networkWriter.FinishMessage();
 			ClientGameManager.Get().Client.SendWriter(networkWriter, 0);
+			// rogues
+			//NetworkClient.Send<ClientResolutionPhaseCompleted>(new ClientResolutionPhaseCompleted
+			//{
+			//	m_abilityPhase = (sbyte)abilityPhase,
+			//	m_actorIndex = current.ActorIndex,
+			//	m_asFailsafe = asFailsafe,
+			//	m_asResend = asResend
+			//});
 		}
 		m_waitingForAllMessages = false;
 		m_state = ClientResolutionManagerState.Idle;
+
+		// added in rogues
+#if SERVER
+		m_receivedActorAnimEntries.Clear();
+#endif
 	}
 
 	internal void SendActorReadyToResolveKnockback(ActorData knockbackedTarget, ActorData sendingPlayer)
 	{
+		//reactor
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.StartMessage((int)MyMsgType.ResolveKnockbacksForActor);
 		networkWriter.Write(knockbackedTarget.ActorIndex);
@@ -565,6 +760,22 @@ public class ClientResolutionManager : MonoBehaviour
 			Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader + "Sending <color=white>ResolveKnockbackForActor</color>, Caster: " + sendingPlayer.DebugNameString() + ", KnockedBackActor: " + knockbackedTarget.DebugNameString());
 		}
 		ClientGameManager.Get().Client.SendWriter(networkWriter, 0);
+		// rogues
+		//ResolveKnockbacksForActor resolveKnockbacksForActor = new ResolveKnockbacksForActor();
+		//resolveKnockbacksForActor.m_targetActorIndex = knockbackedTarget.ActorIndex;
+		//resolveKnockbacksForActor.m_sourceActorIndex = sendingPlayer.ActorIndex;
+		//if (ClientAbilityResults.DebugTraceOn)
+		//{
+		//	Log.Warning(string.Concat(new string[]
+		//	{
+		//		ClientAbilityResults.s_clientResolutionNetMsgHeader,
+		//		"Sending <color=white>ResolveKnockbackForActor</color>, Caster: ",
+		//		sendingPlayer.DebugNameString(),
+		//		", KnockedBackActor: ",
+		//		knockbackedTarget.DebugNameString()
+		//	}));
+		//}
+		//NetworkClient.Send<ResolveKnockbacksForActor>(resolveKnockbacksForActor);
 	}
 
 	public void UpdateLastEventTime()

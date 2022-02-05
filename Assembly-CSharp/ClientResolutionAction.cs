@@ -1,6 +1,10 @@
+// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
+//using Mirror;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class ClientResolutionAction : IComparable
 {
@@ -64,6 +68,18 @@ public class ClientResolutionAction : IComparable
 		return 0;
 	}
 
+	// custom
+	// NetworkReader in rogues
+	// TODO SERIALIZATION
+#if SERVER2
+	public static ClientResolutionAction ClientResolutionAction_DeSerializeFromStream(NetworkReader reader)
+    {
+		IBitStream stream = new NetworkReaderAdapter(reader);
+		return ClientResolutionAction_DeSerializeFromStream(ref stream);
+	}
+#endif
+
+	// reactor
 	public static ClientResolutionAction ClientResolutionAction_DeSerializeFromStream(ref IBitStream stream)
 	{
 		ClientResolutionAction clientResolutionAction = new ClientResolutionAction();
@@ -89,7 +105,35 @@ public class ClientResolutionAction : IComparable
 		}
 		return clientResolutionAction;
 	}
+	// rogues
+	//#if SERVER
+	//	public static ClientResolutionAction ClientResolutionAction_DeSerializeFromStream(NetworkReader reader)
+	//	{
+	//		ClientResolutionAction clientResolutionAction = new ClientResolutionAction();
+	//		sbyte b = reader.ReadSByte();
+	//		ResolutionActionType resolutionActionType = (ResolutionActionType)b;
+	//		clientResolutionAction.m_type = (ResolutionActionType)b;
+	//		switch (resolutionActionType)
+	//		{
+	//			case ResolutionActionType.AbilityCast:
+	//				clientResolutionAction.m_abilityResults = AbilityResultsUtils.DeSerializeClientAbilityResultsFromStream(reader);
+	//				break;
+	//			case ResolutionActionType.EffectAnimation:
+	//			case ResolutionActionType.EffectPulse:
+	//				clientResolutionAction.m_effectResults = AbilityResultsUtils.DeSerializeClientEffectResultsFromStream(reader);
+	//				break;
+	//			case ResolutionActionType.EffectOnMove:
+	//			case ResolutionActionType.BarrierOnMove:
+	//			case ResolutionActionType.PowerupOnMove:
+	//			case ResolutionActionType.GameModeOnMove:
+	//				clientResolutionAction.m_moveResults = AbilityResultsUtils.DeSerializeClientMovementResultsFromStream(reader);
+	//				break;
+	//		}
+	//		return clientResolutionAction;
+	//	}
+	//#endif
 
+	// removed in rogues
 	public ActorData GetCaster()
 	{
 		return m_abilityResults?.GetCaster()
@@ -97,6 +141,7 @@ public class ClientResolutionAction : IComparable
 			?? null;
 	}
 
+	// removed in rogues
 	public AbilityData.ActionType GetSourceAbilityActionType()
 	{
 		return m_abilityResults?.GetSourceActionType()
@@ -104,11 +149,13 @@ public class ClientResolutionAction : IComparable
 			?? AbilityData.ActionType.INVALID_ACTION;
 	}
 
+	// removed in rogues
 	public bool IsResolutionActionType(ResolutionActionType testType)
 	{
 		return m_type == testType;
 	}
 
+	// removed in rogues
 	public bool HasReactionHitByCaster(ActorData caster)
 	{
 		return m_abilityResults?.HasReactionByCaster(caster)
@@ -116,6 +163,7 @@ public class ClientResolutionAction : IComparable
 			?? false;
 	}
 
+	// removed in rogues
 	public void GetHitResults(out Dictionary<ActorData, ClientActorHitResults> actorHitResList, out Dictionary<Vector3, ClientPositionHitResults> posHitResList)
 	{
 		actorHitResList = null;
@@ -133,6 +181,7 @@ public class ClientResolutionAction : IComparable
 		}
 	}
 
+	// removed in rogues
 	public void GetReactionHitResultsByCaster(ActorData caster, out Dictionary<ActorData, ClientActorHitResults> actorHitResList, out Dictionary<Vector3, ClientPositionHitResults> posHitResList)
 	{
 		actorHitResList = null;
@@ -155,6 +204,11 @@ public class ClientResolutionAction : IComparable
 		}
 		if (m_effectResults != null)
 		{
+			// rogues?
+			//if (m_effectResults.HasEffectToStart())
+			//{
+			//	m_effectResults.StartEffect();
+			//}
 			m_effectResults.StartSequences();
 		}
 	}
@@ -167,6 +221,11 @@ public class ClientResolutionAction : IComparable
 		}
 		if (m_effectResults != null)
 		{
+			// rogues?
+			//if (m_effectResults.HasEffectToStart())
+			//{
+			//	m_effectResults.StartEffect();
+			//}
 			m_effectResults.StartSequences();
 		}
 		if (m_moveResults != null)
@@ -194,6 +253,18 @@ public class ClientResolutionAction : IComparable
 				return true;
 		}
 	}
+
+	// rogues
+	//public bool GetHitAccuTypeOnTarget(ActorData target, out HitChanceBracket.HitType hitType)
+	//{
+	//	bool result = false;
+	//	hitType = HitChanceBracket.HitType.Normal;
+	//	if (m_type == ResolutionActionType.AbilityCast)
+	//	{
+	//		result = m_abilityResults.GetHitAccuType(target, out hitType);
+	//	}
+	//	return result;
+	//}
 
 	public void ExecuteUnexecutedClientHitsInAction()
 	{
@@ -277,6 +348,18 @@ public class ClientResolutionAction : IComparable
 		return executedAllActorHits && executedAllPositionHits;
 	}
 
+	// rogues
+	//public static bool GetHitAccuType(Dictionary<ActorData, ClientActorHitResults> actorToHitResults, ActorData target, out HitChanceBracket.HitType hitType)
+	//{
+	//	hitType = HitChanceBracket.HitType.Normal;
+	//	if (actorToHitResults.ContainsKey(target))
+	//	{
+	//		hitType = actorToHitResults[target].GetHitAccuType();
+	//		return true;
+	//	}
+	//	return false;
+	//}
+
 	public static bool HasUnexecutedHitOnActor(ActorData targetActor, Dictionary<ActorData, ClientActorHitResults> actorToHitResults)
 	{
 		foreach (KeyValuePair<ActorData, ClientActorHitResults> hitResults in actorToHitResults)
@@ -330,6 +413,7 @@ public class ClientResolutionAction : IComparable
 		}
 	}
 
+	// removed in rogues
 	public static bool HasReactionHitByCaster(ActorData caster, Dictionary<ActorData, ClientActorHitResults> actorHitResults)
 	{
 		foreach (KeyValuePair<ActorData, ClientActorHitResults> hitResults in actorHitResults)
@@ -342,6 +426,7 @@ public class ClientResolutionAction : IComparable
 		return false;
 	}
 
+	// removed in rogues
 	public static void GetReactionHitResultsByCaster(ActorData caster, Dictionary<ActorData, ClientActorHitResults> actorHitResults, out Dictionary<ActorData, ClientActorHitResults> reactionActorHits, out Dictionary<Vector3, ClientPositionHitResults> reactionPosHits)
 	{
 		reactionActorHits = null;

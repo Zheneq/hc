@@ -1,4 +1,8 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
+using System.Linq;
+//using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,15 +12,25 @@ public class PlayerDetails
 	public bool m_disconnected;
 	public string m_handle;
 	public long m_accountId;
+	// removed in rogues
 	public float m_accPrivateElo;
+	// removed in rogues
 	public float m_charPrivateElo;
+	// removed in rogues
 	public float m_usedMatchmakingElo;
 	public int m_lobbyPlayerInfoId;
 	public PlayerGameAccountType m_gameAccountType;
+	// removed in rogues
 	public bool m_replayGenerator;
 	public bool m_botsMasqueradeAsHumans;
 	public string m_buildVersion;
 	public List<GameObject> m_gameObjects;
+
+	// server-only
+#if SERVER
+	internal ServerPlayerInfo m_serverPlayerInfo;
+#endif
+
 	public int m_idleTurns;
 
 	public bool ReplacedWithBots { get; private set; }
@@ -64,6 +78,21 @@ public class PlayerDetails
 		}
 	}
 
+	// added in rogues
+#if SERVER
+	public PlayerGameOptionFlag GameOptionFlags
+	{
+		get
+		{
+			if (m_serverPlayerInfo != null)
+			{
+				return m_serverPlayerInfo.LobbyPlayerInfo.GameOptionFlags;
+			}
+			return PlayerGameOptionFlag.None;
+		}
+	}
+#endif
+
 	public PlayerDetails(PlayerGameAccountType gameAccountType)
 	{
 		m_disconnected = false;
@@ -72,8 +101,27 @@ public class PlayerDetails
 		m_gameAccountType = gameAccountType;
 	}
 
+	// server-only
+#if SERVER
+	public IEnumerable<ServerPlayerInfo> AllServerPlayerInfos
+	{
+		get
+		{
+			if (m_serverPlayerInfo != null)
+			{
+				return new ServerPlayerInfo[] { m_serverPlayerInfo }
+					.Concat(m_serverPlayerInfo.ProxyPlayerInfos);
+			}
+			return Enumerable.Empty<ServerPlayerInfo>();
+		}
+	}
+#endif
+
 	internal bool IsLocal()
 	{
+		// rogues
+		//return m_accountId != 0L && m_accountId == HydrogenConfig.Get().Ticket.AccountId;
+		// reactor
 		if (ClientGameManager.Get() != null && ClientGameManager.Get().Observer)
 		{
 			return m_replayGenerator;
@@ -85,11 +133,13 @@ public class PlayerDetails
 		return m_accountId != 0 && m_accountId == HydrogenConfig.Get().Ticket.AccountId;
 	}
 
+	// removed in rogues
 	internal void OnSerializeHelper(NetworkWriter stream)
 	{
 		OnSerializeHelper(new NetworkWriterAdapter(stream));
 	}
 
+	// removed in rogues
 	internal void OnSerializeHelper(IBitStream stream)
 	{
 		sbyte team = checked((sbyte)m_team);
@@ -126,6 +176,54 @@ public class PlayerDetails
 		m_replayGenerator = replayGenerator;
 		m_botsMasqueradeAsHumans = botsMasqueradeAsHumans;
 	}
+
+	// added in rogues
+	//internal void OnSerialize(NetworkWriter writer)
+	//{
+	//	sbyte b = checked((sbyte)this.m_team);
+	//	bool disconnected = this.m_disconnected;
+	//	string handle = this.m_handle;
+	//	long accountId = this.m_accountId;
+	//	int lobbyPlayerInfoId = this.m_lobbyPlayerInfoId;
+	//	int gameAccountType = (int)this.m_gameAccountType;
+	//	bool botsMasqueradeAsHumans = this.m_botsMasqueradeAsHumans;
+	//	writer.Write(b);
+	//	writer.Write(disconnected);
+	//	writer.Write(handle);
+	//	writer.Write(accountId);
+	//	writer.Write(lobbyPlayerInfoId);
+	//	writer.Write(gameAccountType);
+	//	writer.Write(botsMasqueradeAsHumans);
+	//}
+
+	// added in rogues
+	//internal void OnDeserialize(NetworkReader reader)
+	//{
+	//	this.m_team = (Team)reader.ReadSByte();
+	//	this.m_disconnected = reader.ReadBoolean();
+	//	this.m_handle = reader.ReadString();
+	//	this.m_accountId = reader.ReadInt64();
+	//	this.m_lobbyPlayerInfoId = reader.ReadInt32();
+	//	this.m_gameAccountType = (PlayerGameAccountType)reader.ReadInt32();
+	//	this.m_botsMasqueradeAsHumans = reader.ReadBoolean();
+	//}
+
+	// server-only
+#if SERVER
+	internal void ReplaceWithBots()
+	{
+		ReplacedWithBots = true;
+	}
+#endif
+
+	// server-only
+#if SERVER
+	internal void ReplaceWithHumans()
+	{
+		m_disconnected = false;
+		ReplacedWithBots = false;
+	}
+#endif
 
 	public override string ToString()
 	{

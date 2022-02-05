@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 
@@ -23,4 +25,16 @@ public class StandardEffectInfo
 			m_effectData = m_effectData.GetShallowCopy()
 		};
 	}
+
+#if SERVER
+	public StandardActorEffect CreateEffect(EffectSource parent, ActorData target, ActorData caster)
+	{
+		StandardActorEffect result = null;
+		if (m_applyEffect)
+		{
+			result = new StandardActorEffect(parent, target.GetCurrentBoardSquare(), target, caster, m_effectData);
+		}
+		return result;
+	}
+#endif
 }

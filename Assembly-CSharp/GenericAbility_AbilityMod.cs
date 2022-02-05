@@ -1,15 +1,34 @@
-using AbilityContextNamespace;
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
+using AbilityContextNamespace;
+using UnityEngine;
 
 public class GenericAbility_AbilityMod : AbilityMod
 {
 	[Separator("On Hit Data Mod", "yellow")]
 	public OnHitDataMod m_onHitDataMod;
 
-	public override OnHitAuthoredData GenModImpl_GetModdedOnHitData(OnHitAuthoredData onHitDataFromBase)
+#if SERVER
+	// rogues
+	//[Header("don't set directly, use the button below!")]
+	//public GenericAbility_TargetSelectBase m_targetSelectOverride;
+
+	// added in rogues
+	public static string s_genericAbilityLocKey = "genericAbility";
+#endif
+
+	public override OnHitAuthoredData GenModImpl_GetModdedOnHitData(OnHitAuthoredData onHitDataFromBase) // , GenericAbility_Container targetAbility in rogues
 	{
 		return m_onHitDataMod.GetModdedOnHitData(onHitDataFromBase);
 	}
+
+	// added in rogues
+#if SERVER
+	public override void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
+	{
+	}
+#endif
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
@@ -28,13 +47,22 @@ public class GenericAbility_AbilityMod : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
 		string text = "";
 		GenericAbility_Container genericAbility_Container = GetTargetAbilityOnAbilityData(abilityData) as GenericAbility_Container;
 		if (genericAbility_Container != null)
 		{
 			text += GetOnHitDataDesc(m_onHitDataMod, genericAbility_Container.m_onHitData);
+
+			// rogues
+//#if SERVER
+//			if (m_targetSelectOverride != null)
+//			{
+//				text += $"Target select {m_targetSelectOverride.GetType()} overriding " +
+//					((genericAbility_Container.m_targetSelectComp != null) ? genericAbility_Container.m_targetSelectComp.GetType().ToString() : "[not found]");
+//			}
+//#endif
 		}
 		return text;
 	}
@@ -56,4 +84,12 @@ public class GenericAbility_AbilityMod : AbilityMod
 		}
 		return "";
 	}
+
+	// added in rogues
+#if SERVER
+	public override string GetTargetAbilityTypeName()
+	{
+		return s_genericAbilityLocKey;
+	}
+#endif
 }

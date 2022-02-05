@@ -1,5 +1,8 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
+//using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -69,6 +72,7 @@ public class FreelancerStats : NetworkBehaviour
 		UltDamagePlusHealing
 	}
 
+	// removed in rogues
 	public enum DinoStats
 	{
 		MarkedAreaAttackDamage,
@@ -85,6 +89,7 @@ public class FreelancerStats : NetworkBehaviour
 		MaxConsecutiveUltSweeps
 	}
 
+	// removed in rogues
 	public enum FireborgStats
 	{
 		IgniteDamage,
@@ -109,6 +114,7 @@ public class FreelancerStats : NetworkBehaviour
 		DamageDoneByUlt
 	}
 
+	// removed in rogues
 	public enum IceborgStats
 	{
 		NumCoresTriggered,
@@ -141,6 +147,7 @@ public class FreelancerStats : NetworkBehaviour
 		PercentageOfTimesShieldedAllyWasDamaged
 	}
 
+	// removed in rogues
 	public enum NekoStats
 	{
 		NormalDiscNumDistinctEnemiesHitByReturn,
@@ -182,6 +189,7 @@ public class FreelancerStats : NetworkBehaviour
 		DamageDealtAndDodged_Ult
 	}
 
+	// removed in rogues
 	public enum ScampStats
 	{
 		DashDamageDoneAndAvoided,
@@ -285,8 +293,10 @@ public class FreelancerStats : NetworkBehaviour
 	private SyncListInt m_values = new SyncListInt();
 	private string m_freelancerTypeStr = "[unset]";
 
+	// removed in rogues
 	private static int kListm_values = 86738482;
 
+	// removed in rogues
 	static FreelancerStats()
 	{
 		RegisterSyncListDelegate(typeof(FreelancerStats), kListm_values, InvokeSyncListm_values);
@@ -300,8 +310,18 @@ public class FreelancerStats : NetworkBehaviour
 		{
 			m_freelancerTypeStr = actorData.m_characterType.ToString();
 		}
+
+		// moved from Start in rogues
+		//if (NetworkServer.active)
+		//{
+		//	while (m_values.Count < 4)
+		//	{
+		//		m_values.Add(0);
+		//	}
+		//}
 	}
 
+	// moved into Start in rogues
 	public override void OnStartServer()
 	{
 		while (m_values.Count < 4)
@@ -355,7 +375,85 @@ public class FreelancerStats : NetworkBehaviour
 		return GetValueOfStat(Convert.ToInt32(statEnum));
 	}
 
-	public virtual int GetNumStats()
+#if SERVER
+	// added in rogues
+	public virtual void IncrementValueOfStat(int statIndex)
+	{
+		if (statIndex < 0 || statIndex >= m_values.Count)
+		{
+			Debug.LogError(string.Format("Calling IncrementValueOfStat for stat index {0}, but the index is out-of-bounds.", statIndex));
+			return;
+		}
+		SyncListInt values = m_values;
+		int num = values[statIndex] + 1;
+		values[statIndex] = num;
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	public virtual void IncrementValueOfStat(Enum statEnum)
+    {
+        IncrementValueOfStat(Convert.ToInt32(statEnum));
+    }
+#endif
+
+	// added in rogues
+#if SERVER
+	public virtual void AddToValueOfStat(int statIndex, int addAmount)
+    {
+        if (statIndex >= 0 && statIndex < m_values.Count)
+        {
+            if (addAmount != 0)
+            {
+                SyncListInt values = m_values;
+                values[statIndex] += addAmount;
+                return;
+            }
+        }
+        else
+        {
+            Debug.LogError(string.Format("Calling AddToValueOfStat for stat index {0}, but the index is out-of-bounds.", statIndex));
+        }
+    }
+#endif
+
+	// added in rogues
+#if SERVER
+	public virtual void AddToValueOfStat(Enum statEnum, int addAmount)
+    {
+        AddToValueOfStat(Convert.ToInt32(statEnum), addAmount);
+    }
+#endif
+
+	// added in rogues
+#if SERVER
+	public virtual void SetValueOfStat(int statIndex, int newVal)
+    {
+        if (statIndex >= 0 && statIndex < m_values.Count)
+        {
+            if (m_values[statIndex] != newVal)
+            {
+                m_values[statIndex] = newVal;
+                return;
+            }
+        }
+        else
+        {
+            Debug.LogError(string.Format("Calling SetValueOfStat for stat index {0}, but the index is out-of-bounds.", statIndex));
+        }
+    }
+#endif
+
+	// added in rogues
+#if SERVER
+	public virtual void SetValueOfStat(Enum statEnum, int newVal)
+    {
+        SetValueOfStat(Convert.ToInt32(statEnum), newVal);
+    }
+#endif
+
+    public virtual int GetNumStats()
 	{
 		if (m_values == null)
 		{
@@ -364,10 +462,22 @@ public class FreelancerStats : NetworkBehaviour
 		return m_values.Count;
 	}
 
+	// rogues
+	//public FreelancerStats()
+	//{
+	//	base.InitSyncObject(m_values);
+	//}
+
+	// reactor
 	private void UNetVersion()
 	{
 	}
+	// rogues
+	//private void MirrorProcessed()
+	//{
+	//}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_values(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -378,11 +488,15 @@ public class FreelancerStats : NetworkBehaviour
 		((FreelancerStats)obj).m_values.HandleMsg(reader);
 	}
 
+
+	// removed in rogues
 	private void Awake()
 	{
 		m_values.InitializeBehaviour(this, kListm_values);
 	}
 
+
+	// removed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -407,6 +521,8 @@ public class FreelancerStats : NetworkBehaviour
 		return flag;
 	}
 
+
+	// removed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)

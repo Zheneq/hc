@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 
@@ -16,6 +18,16 @@ public class AbilityRequest : IComparable
 	public List<AbilityTarget> m_targets;
 	public int m_cinematicRequested;
 	public AbilityResolveState m_resolveState;
+
+	// TODO server-only or rogues-only?
+#if SERVER
+	// added in rogues
+	internal bool m_stillValid; // was public in rogues
+	// added in rogues
+	internal ServerAbilityUtils.AbilityRunData m_additionalData; // was public in rogues
+	// added in rogues
+	internal int m_tauntUniqueId; // was public in rogues
+#endif
 
 	public AbilityTarget MainTarget
 	{
@@ -40,8 +52,15 @@ public class AbilityRequest : IComparable
 		m_targets = new List<AbilityTarget>(targets);
 		m_cinematicRequested = -1;
 		m_resolveState = AbilityResolveState.QUEUED;
+
+		// added in rogues
+#if SERVER
+		m_additionalData = new ServerAbilityUtils.AbilityRunData(this);
+		m_stillValid = true;
+#endif
 	}
 
+	// removed in rogues
 	internal AbilityRequest(IBitStream stream)
 	{
 		OnSerializeHelper(stream);
@@ -50,11 +69,23 @@ public class AbilityRequest : IComparable
 	public void RequestCinematic(int animTauntIndex, int tauntUniqueId)
 	{
 		m_cinematicRequested = animTauntIndex;
+
+		// added in rogues
+#if SERVER
+		m_additionalData.m_abilityResults.CinematicRequested = animTauntIndex;
+		m_tauntUniqueId = tauntUniqueId;
+#endif
 	}
 
 	public void CancelCinematic()
 	{
 		m_cinematicRequested = -1;
+
+		// added in rogues
+#if SERVER
+		m_additionalData.m_abilityResults.CinematicRequested = -1;
+		m_tauntUniqueId = -1;
+#endif
 	}
 
 	public int CompareTo(object obj)
@@ -83,6 +114,7 @@ public class AbilityRequest : IComparable
 		return 0;
 	}
 
+	// removed in rogues
 	internal void OnSerializeHelper(IBitStream stream)
 	{
 		sbyte value;

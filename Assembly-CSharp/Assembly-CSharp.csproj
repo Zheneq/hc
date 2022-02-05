@@ -29,9 +29,24 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>x64</PlatformTarget>
+    <DefineConstants>
+    </DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <PlatformTarget>x64</PlatformTarget>
+    <DefineConstants>
+    </DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Server Release|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Server Release\</OutputPath>
+    <DefineConstants>SERVER SERVER2</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7</LangVersion>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Ability.cs" />
@@ -259,6 +274,8 @@
     <Compile Include="AbilityRequest.cs" />
     <Compile Include="AbilityResults.cs" />
     <Compile Include="AbilityResultsUtils.cs" />
+    <Compile Include="AbilityResults_Powerup.cs" />
+    <Compile Include="AbilityResults_Reaction.cs" />
     <Compile Include="AbilityRunPhase.cs" />
     <Compile Include="AbilitySetupNotes.cs" />
     <Compile Include="AbilityStatMod.cs" />
@@ -364,6 +381,7 @@
     <Compile Include="AbilityUtil_Targeter_TricksterLaser.cs" />
     <Compile Include="AbilityUtil_Targeter_ValkyrieGuard.cs" />
     <Compile Include="AbilityUtil_Targeter_VariableLaser.cs" />
+    <Compile Include="AbsorbData.cs" />
     <Compile Include="AccountComponent.cs" />
     <Compile Include="AccountPreferences.cs" />
     <Compile Include="AccountSchemaChange.cs" />
@@ -383,6 +401,8 @@
     <Compile Include="ActorCover.cs" />
     <Compile Include="ActorData.cs" />
     <Compile Include="ActorDebugUtils.cs" />
+    <Compile Include="ActorHitParameters.cs" />
+    <Compile Include="ActorHitResults.cs" />
     <Compile Include="ActorModelAnimData.cs" />
     <Compile Include="ActorModelData.cs" />
     <Compile Include="ActorMovement.cs" />
@@ -482,6 +502,7 @@
     <Compile Include="BarrierResponseOnShot.cs" />
     <Compile Include="BarrierResults.cs" />
     <Compile Include="BarrierSerializeInfo.cs" />
+    <Compile Include="BarrierSet.cs" />
     <Compile Include="BattleMonkBasicAttack.cs" />
     <Compile Include="BattleMonkBoundingLeap.cs" />
     <Compile Include="BattleMonkBuffCharge_Dash.cs" />
@@ -678,6 +699,7 @@
     <Compile Include="CombatTextCategory.cs" />
     <Compile Include="CombatTextEntry.cs" />
     <Compile Include="CommerceClient.cs" />
+    <Compile Include="CommonServerConfig.cs" />
     <Compile Include="CompilerExtensions.cs" />
     <Compile Include="CompressResult.cs" />
     <Compile Include="ConditionalQuestRewards.cs" />
@@ -792,6 +814,7 @@
     <Compile Include="EasedVector3AnimationCurve.cs" />
     <Compile Include="EasedVector3Quart.cs" />
     <Compile Include="Easing.cs" />
+    <Compile Include="Effect.cs" />
     <Compile Include="EffectDebugConfig.cs" />
     <Compile Include="EffectDuration.cs" />
     <Compile Include="EffectEndTag.cs" />
@@ -818,6 +841,9 @@
     <Compile Include="EnvMapAnimator.cs" />
     <Compile Include="ErrorCheck.cs" />
     <Compile Include="ErrorReportDialog.cs" />
+    <Compile Include="EventLogData.cs" />
+    <Compile Include="EventLogger.cs" />
+    <Compile Include="EventLogMessage.cs" />
     <Compile Include="ExampleAbility_Flash.cs" />
     <Compile Include="ExoAnchorLaser.cs" />
     <Compile Include="ExoChainGunSpray.cs" />
@@ -853,6 +879,7 @@
     <Compile Include="FadeObject.cs" />
     <Compile Include="FadeObjectGroup.cs" />
     <Compile Include="FadeObjectsCameraComponent.cs" />
+    <Compile Include="FileEventLogger.cs" />
     <Compile Include="FileLog.cs" />
     <Compile Include="FileSystemUtils.cs" />
     <Compile Include="FireborgDamageAura.cs" />
@@ -925,6 +952,7 @@
     <Compile Include="GameLoadingState.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="GameMapConfig.cs" />
+    <Compile Include="GameModeEvent.cs" />
     <Compile Include="GameModeEventType.cs" />
     <Compile Include="GameModeGenericAbility.cs" />
     <Compile Include="GameModeUtils.cs" />
@@ -939,6 +967,7 @@
     <Compile Include="GamePackPriceOverride.cs" />
     <Compile Include="GamePackUpgrade.cs" />
     <Compile Include="GameplayData.cs" />
+    <Compile Include="GameplayMetricHelper.cs" />
     <Compile Include="GameplayMutators.cs" />
     <Compile Include="GameplayRandom.cs" />
     <Compile Include="GameplayResponseForActor.cs" />
@@ -1008,9 +1037,11 @@
     <Compile Include="HealPBAoE.cs" />
     <Compile Include="HighlightParent.cs" />
     <Compile Include="HighlightUtils.cs" />
+    <Compile Include="HitActionType.cs" />
     <Compile Include="HitActorGroupOnAnimEventSequence.cs" />
     <Compile Include="HitchDetector.cs" />
     <Compile Include="HitOnAnimationEventSequence.cs" />
+    <Compile Include="HitResultsTags.cs" />
     <Compile Include="HomingProjectileSequence.cs" />
     <Compile Include="HttpRequestMessage.cs" />
     <Compile Include="HttpResponseMessage.cs" />
@@ -1548,18 +1579,57 @@
     <Compile Include="MatchSchemaChange.cs" />
     <Compile Include="MathUtil.cs" />
     <Compile Include="MessageBoxData.cs" />
+    <Compile Include="Messages\Alliance\AllianceMessageBase.cs" />
+    <Compile Include="Messages\Alliance\AllianceResponseBase.cs" />
+    <Compile Include="Messages\Alliance\JoinGameAsObserverRequest.cs" />
+    <Compile Include="Messages\Alliance\JoinGameAsObserverResponse.cs" />
+    <Compile Include="Messages\Alliance\JoinGameServerRequest.cs" />
+    <Compile Include="Messages\Alliance\JoinGameServerResponse.cs" />
+    <Compile Include="Messages\Alliance\LaunchGameRequest.cs" />
+    <Compile Include="Messages\Alliance\LaunchGameResponse.cs" />
+    <Compile Include="Messages\Alliance\ReconnectPlayerRequest.cs" />
+    <Compile Include="Messages\Alliance\ReconnectPlayerResponse.cs" />
+    <Compile Include="Messages\Alliance\ShutdownGameRequest.cs" />
+    <Compile Include="Messages\CastAbility.cs" />
+    <Compile Include="Messages\ClientMovementPhaseCompleted.cs" />
+    <Compile Include="Messages\ClientResolutionPhaseCompleted.cs" />
+    <Compile Include="Messages\Alliance\DisconnectPlayerRequest.cs" />
+    <Compile Include="Messages\Failsafe_HurryMovementPhase.cs" />
+    <Compile Include="Messages\Failsafe_HurryResolutionPhase.cs" />
+    <Compile Include="Messages\ResolveKnockbacksForActor.cs" />
+    <Compile Include="Messages\RunResolutionActionsOutsideResolve.cs" />
+    <Compile Include="Messages\ServerMovementStarting.cs" />
+    <Compile Include="Messages\SingleResolutionAction.cs" />
+    <Compile Include="Messages\StartResolutionPhase.cs" />
     <Compile Include="MinionAttack.cs" />
     <Compile Include="MinionData.cs" />
     <Compile Include="MinionManager.cs" />
+    <Compile Include="MiscHitEventData.cs" />
+    <Compile Include="MiscHitEventData_AddToCasterCooldown.cs" />
+    <Compile Include="MiscHitEventData_AddToCasterStock.cs" />
+    <Compile Include="MiscHitEventData_OverrideCooldown.cs" />
+    <Compile Include="MiscHitEventData_ProgressCasterStockRefreshTime.cs" />
+    <Compile Include="MiscHitEventData_ResetCasterStockRefreshTime.cs" />
+    <Compile Include="MiscHitEventData_UpdateEffect.cs" />
+    <Compile Include="MiscHitEventData_UpdateFreelancerStat.cs" />
+    <Compile Include="MiscHitEventData_UpdatePassive.cs" />
+    <Compile Include="MiscHitEventEffectUpdateParams.cs" />
+    <Compile Include="MiscHitEventPassiveUpdateParams.cs" />
+    <Compile Include="MiscHitEventType.cs" />
     <Compile Include="MissileBarrageSequence.cs" />
     <Compile Include="MixSnapshots.cs" />
     <Compile Include="ModStrictness.cs" />
     <Compile Include="ModType.cs" />
     <Compile Include="MouseoverCoverManager.cs" />
+    <Compile Include="MovementCollection.cs" />
+    <Compile Include="MovementInstance.cs" />
     <Compile Include="MovementPathEnd.cs" />
     <Compile Include="MovementPathParent.cs" />
     <Compile Include="MovementPathStart.cs" />
+    <Compile Include="MovementRequest.cs" />
+    <Compile Include="MovementResults.cs" />
     <Compile Include="MovementResults_GameplayResponseType.cs" />
+    <Compile Include="MovementStage.cs" />
     <Compile Include="MovementUtils.cs" />
     <Compile Include="MoveState.cs" />
     <Compile Include="MultiAreaMeleeAttackSequence.cs" />
@@ -1598,7 +1668,9 @@
     <Compile Include="Neko_SyncComponent.cs" />
     <Compile Include="NetUtil.cs" />
     <Compile Include="NetworkChannelId.cs" />
+    <Compile Include="NetworkDataWriter.cs" />
     <Compile Include="NetworkedSharedGameplayPrefabs.cs" />
+    <Compile Include="NetworkEventLogger.cs" />
     <Compile Include="NetworkGroups.cs" />
     <Compile Include="NetworkReaderAdapter.cs" />
     <Compile Include="NetworkStats.cs" />
@@ -1616,6 +1688,7 @@
     <Compile Include="NinjaVanish.cs" />
     <Compile Include="Ninja_SyncComponent.cs" />
     <Compile Include="NonActorTargetInfo.cs" />
+    <Compile Include="NonActorTargetInfo_BarrierBlock.cs" />
     <Compile Include="NPCBrain.cs" />
     <Compile Include="NPCBrain_Adaptive.cs" />
     <Compile Include="NPCBrain_Dash.cs" />
@@ -1642,8 +1715,10 @@
     <Compile Include="OnHealBuffChatter.cs" />
     <Compile Include="OnHitAuthoredData.cs" />
     <Compile Include="OnHitBarrierField.cs" />
+    <Compile Include="OnHitCooldownReductionField.cs" />
     <Compile Include="OnHitEffecField.cs" />
     <Compile Include="OnHitIntField.cs" />
+    <Compile Include="OnHitKnockbackField.cs" />
     <Compile Include="OnKilledChatter.cs" />
     <Compile Include="OnKillingBlowChatter.cs" />
     <Compile Include="OnKnockbackChatter.cs" />
@@ -1761,6 +1836,8 @@
     <Compile Include="PosInsideChecker_Box.cs" />
     <Compile Include="PosInsideChecker_Cone.cs" />
     <Compile Include="PosInsideChecker_Shape.cs" />
+    <Compile Include="PositionHitParameters.cs" />
+    <Compile Include="PositionHitResults.cs" />
     <Compile Include="PostEffectsCSBase.cs" />
     <Compile Include="PowerUp.cs" />
     <Compile Include="PowerUpCoordinator.cs" />
@@ -1969,14 +2046,20 @@
     <Compile Include="SequenceManager.cs" />
     <Compile Include="SequenceSource.cs" />
     <Compile Include="SerializeHelper.cs" />
+    <Compile Include="ServerAbilityUtils.cs" />
     <Compile Include="ServerActionBuffer.cs" />
     <Compile Include="ServerActorController.cs" />
+    <Compile Include="ServerClashUtils.cs" />
     <Compile Include="ServerClientUtils.cs" />
     <Compile Include="ServerCombatManager.cs" />
     <Compile Include="ServerEffectManager.cs" />
+    <Compile Include="ServerEvadeManager.cs" />
+    <Compile Include="ServerEvadeUtils.cs" />
     <Compile Include="ServerGameManager.cs" />
     <Compile Include="ServerGameMetrics.cs" />
     <Compile Include="ServerGameplayUtils.cs" />
+    <Compile Include="ServerKnockbackManager.cs" />
+    <Compile Include="ServerKnockbackStabilizer.cs" />
     <Compile Include="ServerLibCrashReportUtil.cs" />
     <Compile Include="ServerLockState.cs" />
     <Compile Include="ServerMessage.cs" />
@@ -1985,6 +2068,9 @@
     <Compile Include="ServerMessageOverrides.cs" />
     <Compile Include="ServerMessageType.cs" />
     <Compile Include="ServerMovementManager.cs" />
+    <Compile Include="ServerMovementStabilizer.cs" />
+    <Compile Include="ServerPlayerInfo.cs" />
+    <Compile Include="ServerPlayerState.cs" />
     <Compile Include="ServerRequestFailed.cs" />
     <Compile Include="ServerResolutionManager.cs" />
     <Compile Include="ServerTypeExtensions.cs" />
@@ -2092,6 +2178,7 @@
     <Compile Include="SplineProjectileSequence.cs" />
     <Compile Include="SpoilsData.cs" />
     <Compile Include="SpoilsManager.cs" />
+    <Compile Include="SpoilSpawnDataForAbilityHit.cs" />
     <Compile Include="SpoilsSequence.cs" />
     <Compile Include="SpoilsSpawnData.cs" />
     <Compile Include="SquareIndicators.cs" />
@@ -2101,8 +2188,10 @@
     <Compile Include="SquareInsideChecker_Path.cs" />
     <Compile Include="SquareInsideChecker_Shape.cs" />
     <Compile Include="SslValidator.cs" />
+    <Compile Include="StackingData.cs" />
     <Compile Include="StaggerComponent.cs" />
     <Compile Include="StandaloneInputModuleWithEventDataAccess.cs" />
+    <Compile Include="StandardActorEffect.cs" />
     <Compile Include="StandardActorEffectData.cs" />
     <Compile Include="StandardBarrierData.cs" />
     <Compile Include="StandardBrainState.cs" />
@@ -2198,6 +2287,7 @@
     <Compile Include="TempSatelliteActionSequence.cs" />
     <Compile Include="TempSatelliteAnimationEventReceiver.cs" />
     <Compile Include="TempSatelliteSequence.cs" />
+    <Compile Include="TempSpoilVfxEffect.cs" />
     <Compile Include="TextConsole.cs" />
     <Compile Include="TextMessageNotification.cs" />
     <Compile Include="TextRegion.cs" />
@@ -2206,6 +2296,7 @@
     <Compile Include="Theatrics\ActorAnimation.cs" />
     <Compile Include="Theatrics\OrderIndex.cs" />
     <Compile Include="Theatrics\Phase.cs" />
+    <Compile Include="Theatrics\ServerPlayOrderGroup.cs" />
     <Compile Include="Theatrics\Turn.cs" />
     <Compile Include="ThiefBasicAttack.cs" />
     <Compile Include="ThiefHiddenTrap.cs" />

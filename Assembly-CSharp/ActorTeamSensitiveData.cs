@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using Unity;
 using UnityEngine;
@@ -25,6 +27,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		Hostiles
 	}
 
+	// removed in rogues
 	private static int kRpcRpcMovement = 1638998675;
 	private static int kRpcRpcReceivedPingInfo = 1349069861;
 	private static int kRpcRpcReceivedAbilityPingInfo = 315009541;
@@ -46,6 +49,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	private BoardSquare m_respawnPickedSquare;
 	private List<bool> m_queuedAbilities = new List<bool>();
 	private List<bool> m_abilityToggledOn = new List<bool>();
+
+	// added in rogues
+#if SERVER
+	private bool m_respawning;
+#endif
+
 	private bool m_disappearingAfterMovement;
 	private bool m_assignedInitialBoardSquare;
 	private List<GameObject> m_oldPings = new List<GameObject>();
@@ -54,10 +63,14 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	static ActorTeamSensitiveData()
 	{
+		// reactor
 		RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcMovement, InvokeRpcRpcMovement);
 		RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcReceivedPingInfo, InvokeRpcRpcReceivedPingInfo);
 		RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcReceivedAbilityPingInfo, InvokeRpcRpcReceivedAbilityPingInfo);
 		NetworkCRC.RegisterBehaviour("ActorTeamSensitiveData", 0);
+		// rogues
+		//RegisterRpcDelegate(typeof(ActorTeamSensitiveData), "RpcMovement", new NetworkBehaviour.CmdDelegate(ActorTeamSensitiveData.InvokeRpcRpcMovement));
+		//RegisterRpcDelegate(typeof(ActorTeamSensitiveData), "RpcReceivedPingInfo", new NetworkBehaviour.CmdDelegate(ActorTeamSensitiveData.InvokeRpcRpcReceivedPingInfo));
 	}
 	public Team ActorsTeam => Actor != null ? Actor.GetTeam() : Team.Invalid;
 
@@ -151,6 +164,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			{
 				MarkAsDirty(DirtyBit.MovementCameraBound);
 			}
+
+			// below removed in rogues
 			if (!NetworkClient.active)
 			{
 				return;
@@ -252,6 +267,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				{
 					m_associatedActor.SetClientFriendlyTeamSensitiveData(this);
 				}
+
+				// removed in rogues
 				else if (m_typeObservingMe == ObservedBy.Hostiles)
 				{
 					m_associatedActor.SetClientHostileTeamSensitiveData(this);
@@ -267,7 +284,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	public string GetDebugString()
 	{
 		string actorDebugName = Actor != null
-			? Actor.DebugNameString()
+			? Actor.DebugNameString() // + " netId:" + Actor.GetComponent<NetworkIdentity>().netId   in rogues
 			: "[null] (actor index = " + m_actorIndex + ")";
 		return "ActorTeamSensitiveData-- team = " + ActorsTeam.ToString() + ", actor = " + actorDebugName + ", observed by = " + m_typeObservingMe;
 	}
@@ -308,6 +325,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				{
 					Actor.SetClientFriendlyTeamSensitiveData(this);
 				}
+
+				// removed in rogues
 				else if (m_typeObservingMe == ObservedBy.Hostiles)
 				{
 					Actor.SetClientHostileTeamSensitiveData(this);
@@ -316,18 +335,129 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// added in rogues
+#if SERVER
+	public void InitToActor(ActorData actor)
+	{
+		m_actorIndex = actor.ActorIndex;
+		m_associatedActor = actor;
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	private PlayerDetails GetPlayerDetailsOfObserver(NetworkConnection observer)
+	{
+		PlayerDetails result = null;
+		foreach (Player player in GameFlow.Get().playerDetails.Keys)
+		{
+			if (player.m_connectionId == observer.connectionId)
+			{
+				result = GameFlow.Get().playerDetails[player];
+				break;
+			}
+		}
+		return result;
+	}
+#endif
+
 	public void MarkAsDirty(DirtyBit bit)
 	{
+#if SERVER
+		// server-only
+		if (NetworkServer.active)
+		{
+			base.SetDirtyBit((uint)bit);  // ulong in rogues
+		}
+#endif
 	}
 
-	private bool IsBitDirty(uint setBits, DirtyBit bitToTest)
+	private bool IsBitDirty(uint setBits, DirtyBit bitToTest)  // ulong in rogues
 	{
-		return ((int)setBits & (int)bitToTest) != 0;
+		return ((int)setBits & (int)bitToTest) != 0;  // ulong in rogues
 	}
 
 	public void MarkAsRespawning()
 	{
+#if SERVER
+		// server-only
+		if (NetworkServer.active)
+		{
+			m_respawning = true;
+		}
+#endif
 	}
+
+	// added in rogues
+#if SERVER
+	public bool ShouldAdjustMovementToVisibility(ActorData.MovementType movementType, ActorData.TeleportType teleportType, BoardSquarePathInfo path)
+	{
+		return NetworkServer.active && m_typeObservingMe == ActorTeamSensitiveData.ObservedBy.Hostiles && (movementType == ActorData.MovementType.Normal || movementType == ActorData.MovementType.Teleport) && (movementType != ActorData.MovementType.Teleport || teleportType == ActorData.TeleportType.Evasion_AdjustToVision) && path != null && (!(ServerEffectManager.Get() != null) || !ServerEffectManager.Get().HasEffectRequiringAccuratePositionOnClients(Actor));
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	public void BroadcastMovement(GameEventManager.EventType eventType, GridPos start, BoardSquare dest, ActorData.MovementType movementType, ActorData.TeleportType teleportType, BoardSquarePathInfo path)
+	{
+		if (Actor.TeamSensitiveData_authority == this && eventType == GameEventManager.EventType.Invalid)
+		{
+			Actor.MoveToBoardSquareLocal(dest, movementType, path, false);
+		}
+		bool flag = ShouldAdjustMovementToVisibility(movementType, teleportType, path);
+		m_lastMovementDestination = dest;
+		m_lastMovementPath = path;
+		m_lastMovementWaitForEvent = eventType;
+		m_lastMovementType = movementType;
+		if (flag)
+		{
+			bool flag2 = movementType == ActorData.MovementType.Normal || movementType == ActorData.MovementType.Charge || movementType == ActorData.MovementType.Knockback;
+			BoardSquarePathInfo boardSquarePathInfo = path.Clone(null);
+			BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo;
+			BoardSquarePathInfo boardSquarePathInfo3 = null;
+			while (boardSquarePathInfo2 != null)
+			{
+				if (boardSquarePathInfo2.m_visibleToEnemies || boardSquarePathInfo2.m_updateLastKnownPos || boardSquarePathInfo2.m_moverDiesHere || boardSquarePathInfo2.m_moverHasGameplayHitHere)
+				{
+					boardSquarePathInfo3 = boardSquarePathInfo2;
+				}
+				else if (boardSquarePathInfo2.prev != null && flag2 && (boardSquarePathInfo2.prev.m_visibleToEnemies || boardSquarePathInfo2.prev.m_moverHasGameplayHitHere))
+				{
+					boardSquarePathInfo3 = boardSquarePathInfo2;
+				}
+				if (boardSquarePathInfo2.next == null)
+				{
+					break;
+				}
+				boardSquarePathInfo2 = boardSquarePathInfo2.next;
+			}
+			if (boardSquarePathInfo3 != boardSquarePathInfo2)
+			{
+				FacingDirAfterMovement = Vector3.zero;
+				m_disappearingAfterMovement = true;
+				if (boardSquarePathInfo3 != null)
+				{
+					boardSquarePathInfo3.next = null;
+					PackageRpcMovement(eventType, start, boardSquarePathInfo3.square, boardSquarePathInfo, movementType, true, m_respawning);
+					m_respawning = false;
+					return;
+				}
+				PackageRpcMovement(eventType, GridPos.s_invalid, null, null, movementType, true, m_respawning);
+				m_respawning = false;
+				return;
+			}
+		}
+		PackageRpcMovement(eventType, start, dest, path, movementType, false, m_respawning);
+		m_respawning = false;
+	}
+#endif
+
+#if SERVER
+	private void PackageRpcMovement(GameEventManager.EventType wait, GridPos start, BoardSquare end, BoardSquarePathInfo path, ActorData.MovementType type, bool disappearAfterMovement, bool respawning)
+	{
+		CallRpcMovement(wait, GridPosProp.FromGridPos(start), GridPosProp.FromGridPos((end != null) ? end.GetGridPos() : GridPos.s_invalid), MovementUtils.SerializePath(path), type, disappearAfterMovement, respawning);
+	}
+#endif
 
 	[ClientRpc]
 	private void RpcMovement(GameEventManager.EventType wait, GridPosProp start, GridPosProp end_grid, byte[] pathBytes, ActorData.MovementType type, bool disappearAfterMovement, bool respawning)
@@ -425,7 +555,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
 			if (localPlayerData != null
 				&& SpawnPointManager.Get() != null
+				// reactor
 				&& SpawnPointManager.Get().m_spawnInDuringMovement)
+				// rogues
+				//&& SpawnPointManager.Get().SpawnInDuringMovement())
 			{
 				ActorModelData actorModelData = Actor.GetActorModelData();
 				if (actorModelData != null)
@@ -485,10 +618,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
-		uint setBits = uint.MaxValue;
+		uint setBits = uint.MaxValue;  // ulong in rogues
 		if (!initialState)
 		{
-			setBits = reader.ReadPackedUInt32();
+			setBits = reader.ReadPackedUInt32();  // ReadPackedUInt64 in rogues
 		}
 		sbyte actorIndex = reader.ReadSByte();
 		SetActorIndex(actorIndex);
@@ -612,10 +745,13 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				Actor.ShowRespawnFlare(m_respawnAvailableSquares[0], false);
 			}
 		}
+
+		// removed in rogues
 		if (IsBitDirty(setBits, DirtyBit.QueuedAbilities) || IsBitDirty(setBits, DirtyBit.AbilityRequestDataForTargeter))
 		{
 			DeSerializeAbilityRequestData(reader);
 		}
+
 		if (IsBitDirty(setBits, DirtyBit.QueuedAbilities))
 		{
 			bool changed = false;
@@ -648,6 +784,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 			}
 		}
+
+		// added in rogues
+		//if (IsBitDirty(setBits, DirtyBit.AbilityRequestDataForTargeter))
+		//{
+		//	DeSerializeAbilityRequestData(reader);
+		//}
 	}
 
 	public void OnClientAssociatedWithActor(ActorData actor)
@@ -698,6 +840,32 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		FlushQueuedMovement();
 	}
 
+	// added in rogues
+#if SERVER
+	public void SynchronizeMovementDataTo(ActorTeamSensitiveData other)
+	{
+		if (m_disappearingAfterMovement)
+		{
+			GridPos start;
+			if (m_lastMovementDestination != null)
+			{
+				start = m_lastMovementDestination.GetGridPos();
+			}
+			else
+			{
+				start = GridPos.s_invalid;
+			}
+			m_lastMovementDestination = other.m_lastMovementDestination;
+			FacingDirAfterMovement = other.FacingDirAfterMovement;
+			m_lastMovementType = ActorData.MovementType.Teleport;
+			m_lastMovementPath = null;
+			m_lastMovementWaitForEvent = GameEventManager.EventType.Invalid;
+			m_disappearingAfterMovement = false;
+			BroadcastMovement(m_lastMovementWaitForEvent, start, m_lastMovementDestination, m_lastMovementType, ActorData.TeleportType.Reappear, m_lastMovementPath);
+		}
+	}
+#endif
+
 	public bool HasToggledAction(AbilityData.ActionType actionType)
 	{
 		return actionType != AbilityData.ActionType.INVALID_ACTION
@@ -721,6 +889,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// reactor
 	public bool HasQueuedAction(AbilityData.ActionType actionType)
 	{
 		return actionType != AbilityData.ActionType.INVALID_ACTION
@@ -728,10 +897,26 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			&& (int)actionType < m_queuedAbilities.Count
 			&& m_queuedAbilities[(int)actionType];
 	}
+	// rogues
+	//public bool HasQueuedAction(AbilityData.ActionType actionType, bool checkExecutedForPve)
+	//{
+	//	bool flag = false;
+	//	if (actionType != AbilityData.ActionType.INVALID_ACTION)
+	//	{
+	//		flag = actionType >= AbilityData.ActionType.ABILITY_0
+	//			&& actionType < (AbilityData.ActionType)m_queuedAbilities.Count
+	//			&& m_queuedAbilities[(int)actionType];
+	//		if (!flag && checkExecutedForPve && this.Actor != null && this.Actor.GetActorTurnSM() != null)
+	//		{
+	//			flag = this.Actor.GetActorTurnSM().PveIsAbilityAtIndexUsed((int)actionType);
+	//		}
+	//	}
+	//	return flag;
+	//}
 
-	public bool HasQueuedAction(int actionTypeInt)
+	public bool HasQueuedAction(int actionTypeInt)  // , bool checkExecutedForPve in rogues
 	{
-		return HasQueuedAction((AbilityData.ActionType)actionTypeInt);
+		return HasQueuedAction((AbilityData.ActionType)actionTypeInt);  // , checkExecutedForPve in rogues
 	}
 
 	public bool HasQueuedAbilityInPhase(AbilityPriority phase)
@@ -758,7 +943,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			Debug.LogWarning("[Server] function 'System.Void ActorTeamSensitiveData::SetQueuedAction(AbilityData/ActionType,System.Boolean)' called on client");
 			return;
 		}
-		if (actionType != AbilityData.ActionType.INVALID_ACTION && !AbilityData.IsChain(actionType) && HasQueuedAction(actionType) != queued)
+		if (actionType != AbilityData.ActionType.INVALID_ACTION && !AbilityData.IsChain(actionType) && HasQueuedAction(actionType) != queued)  // HasQueuedAction(actionType, false) != queued in rogues
 		{
 			m_queuedAbilities[(int)actionType] = queued;
 			MarkAsDirty(DirtyBit.QueuedAbilities);
@@ -944,7 +1129,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				}
 				else if (m_oldPings[num].transform.position == vector)
 				{
+					// removed in rogues
 					HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.RemovePing(m_oldPings[num].GetComponent<UIWorldPing>());
+
 					Object.Destroy(m_oldPings[num]);
 					m_oldPings.RemoveAt(num);
 				}
@@ -955,7 +1142,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			}
 			m_oldPings.Add(uIWorldPing.gameObject);
 			AudioManager.PostEvent(eventName, uIWorldPing.gameObject);
+
+			// removed in rogues
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddPing(uIWorldPing, pingType, actor);
+
 			GameEventManager.ActorPingEventArgs actorPingEventArgs = new GameEventManager.ActorPingEventArgs();
 			actorPingEventArgs.byActor = Actor;
 			actorPingEventArgs.pingType = pingType;
@@ -974,6 +1164,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// removed in rogues
 	[ClientRpc]
 	internal void RpcReceivedAbilityPingInfo(int teamIndex, LocalizationArg_AbilityPing localizedPing, bool spam)
 	{
@@ -997,6 +1188,14 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			});
 		}
 	}
+
+	// added in rogues
+#if SERVER
+	public void SetAbilityRequestData(List<ActorTargeting.AbilityRequestData> requestData)
+	{
+		m_abilityRequestData = requestData;
+	}
+#endif
 
 	public List<ActorTargeting.AbilityRequestData> GetAbilityRequestData()
 	{
@@ -1028,13 +1227,20 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		if (Actor != null && Actor.GetActorTargeting() != null)
 		{
 			Actor.GetActorTargeting().OnRequestDataDeserialized();
+
+			// removed in rogues
 			Actor.OnClientQueuedActionChanged();
 		}
 	}
 
+	// reactor
 	private void UNetVersion()
 	{
 	}
+	// rogues
+	//private void MirrorProcessed()
+	//{
+	//}
 
 	protected static void InvokeRpcRpcMovement(NetworkBehaviour obj, NetworkReader reader)
 	{
@@ -1043,7 +1249,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			Debug.LogError("RPC RpcMovement called on server.");
 			return;
 		}
+		// reactor
 		((ActorTeamSensitiveData)obj).RpcMovement((GameEventManager.EventType)reader.ReadInt32(), GeneratedNetworkCode._ReadGridPosProp_None(reader), GeneratedNetworkCode._ReadGridPosProp_None(reader), reader.ReadBytesAndSize(), (ActorData.MovementType)reader.ReadInt32(), reader.ReadBoolean(), reader.ReadBoolean());
+		// rogues
+		//((ActorTeamSensitiveData)obj).RpcMovement((GameEventManager.EventType)reader.ReadPackedInt32(), GeneratedNetworkCode._ReadGridPosProp_None(reader), GeneratedNetworkCode._ReadGridPosProp_None(reader), reader.ReadBytesAndSize(), (ActorData.MovementType)reader.ReadPackedInt32(), reader.ReadBoolean(), reader.ReadBoolean());
 	}
 
 	protected static void InvokeRpcRpcReceivedPingInfo(NetworkBehaviour obj, NetworkReader reader)
@@ -1053,9 +1262,13 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			Debug.LogError("RPC RpcReceivedPingInfo called on server.");
 			return;
 		}
+		// reactor
 		((ActorTeamSensitiveData)obj).RpcReceivedPingInfo((int)reader.ReadPackedUInt32(), reader.ReadVector3(), (ActorController.PingType)reader.ReadInt32(), reader.ReadBoolean());
+		// rogues
+		//((ActorTeamSensitiveData)obj).RpcReceivedPingInfo(reader.ReadPackedInt32(), reader.ReadVector3(), (ActorController.PingType)reader.ReadPackedInt32(), reader.ReadBoolean());
 	}
 
+	// removed in rogues
 	protected static void InvokeRpcRpcReceivedAbilityPingInfo(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -1068,6 +1281,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	public void CallRpcMovement(GameEventManager.EventType wait, GridPosProp start, GridPosProp end_grid, byte[] pathBytes, ActorData.MovementType type, bool disappearAfterMovement, bool respawning)
 	{
+		// reactor
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("RPC Function RpcMovement called on client.");
@@ -1086,10 +1300,21 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		networkWriter.Write(disappearAfterMovement);
 		networkWriter.Write(respawning);
 		SendRPCInternal(networkWriter, 0, "RpcMovement");
+		// rogues
+		//NetworkWriter networkWriter = new NetworkWriter();
+		//networkWriter.WritePackedInt32((int)wait);
+		//GeneratedNetworkCode._WriteGridPosProp_None(networkWriter, start);
+		//GeneratedNetworkCode._WriteGridPosProp_None(networkWriter, end_grid);
+		//networkWriter.WriteBytesAndSize(pathBytes);
+		//networkWriter.WritePackedInt32((int)type);
+		//networkWriter.Write(disappearAfterMovement);
+		//networkWriter.Write(respawning);
+		//this.SendRPCInternal(typeof(ActorTeamSensitiveData), "RpcMovement", networkWriter, 0);
 	}
 
 	public void CallRpcReceivedPingInfo(int teamIndex, Vector3 worldPosition, ActorController.PingType pingType, bool spam)
 	{
+		// reactor
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("RPC Function RpcReceivedPingInfo called on client.");
@@ -1105,8 +1330,16 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		networkWriter.Write((int)pingType);
 		networkWriter.Write(spam);
 		SendRPCInternal(networkWriter, 0, "RpcReceivedPingInfo");
+		// rogues
+		//NetworkWriter networkWriter = new NetworkWriter();
+		//networkWriter.WritePackedInt32(teamIndex);
+		//networkWriter.Write(worldPosition);
+		//networkWriter.WritePackedInt32((int)pingType);
+		//networkWriter.Write(spam);
+		//this.SendRPCInternal(typeof(ActorTeamSensitiveData), "RpcReceivedPingInfo", networkWriter, 0);
 	}
 
+	// removed in rogues
 	public void CallRpcReceivedAbilityPingInfo(int teamIndex, LocalizationArg_AbilityPing localizedPing, bool spam)
 	{
 		if (!NetworkServer.active)
@@ -1125,8 +1358,148 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		SendRPCInternal(networkWriter, 0, "RpcReceivedAbilityPingInfo");
 	}
 
-	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
+	// was empty in reactor
+	// TODO SERIALIZATION recheck
+	public override bool OnSerialize(NetworkWriter writer, bool initialState)
 	{
+#if SERVER
+		if (!initialState)
+		{
+			writer.WritePackedUInt32(base.syncVarDirtyBits);  // WritePackedUInt64 in rogues
+		}
+		uint num = initialState ? uint.MaxValue : base.syncVarDirtyBits;  // ulong in rogues
+		short num2 = -1;
+		sbyte b = (sbyte)m_actorIndex;
+		writer.Write(b);
+		if (m_facingDirAfterMovement.magnitude > 0f)
+		{
+			num2 = (short)Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(m_facingDirAfterMovement));
+		}
+		if (IsBitDirty(num, ActorTeamSensitiveData.DirtyBit.FacingDirection))
+		{
+			writer.Write(num2);
+		}
+		if (IsBitDirty(num, ActorTeamSensitiveData.DirtyBit.MoveFromBoardSquare))
+		{
+			short num3;
+			short num4;
+			if (MoveFromBoardSquare == null)
+			{
+				num3 = -1;
+				num4 = -1;
+			}
+			else
+			{
+				num3 = (short)MoveFromBoardSquare.x;
+				num4 = (short)MoveFromBoardSquare.y;
+			}
+			writer.Write(num3);
+			writer.Write(num4);
+		}
+		if (IsBitDirty(num, ActorTeamSensitiveData.DirtyBit.InitialMoveStartSquare))
+		{
+			short num5;
+			short num6;
+			if (InitialMoveStartSquare == null)
+			{
+				num5 = -1;
+				num6 = -1;
+			}
+			else
+			{
+				num5 = (short)InitialMoveStartSquare.x;
+				num6 = (short)InitialMoveStartSquare.y;
+			}
+			writer.Write(num5);
+			writer.Write(num6);
+		}
+		if (IsBitDirty(num, ActorTeamSensitiveData.DirtyBit.LineData))
+		{
+			LineData component = Actor.GetComponent<LineData>();
+			bool flag = component.MovementLine != null;
+			bool flag2 = component.MovementSnaredLine != null;
+			byte b2 = ServerClientUtils.CreateBitfieldFromBools(flag, flag2, false, false, false, false, false, false);
+			writer.Write(b2);
+			if (flag)
+			{
+				LineData.SerializeLine(component.MovementLine, writer);
+			}
+			if (flag2)
+			{
+				sbyte b3 = (sbyte)component.MovementSnaredLine.m_positions.Count;
+				writer.Write(b3);
+			}
+		}
+		if (IsBitDirty(num, ActorTeamSensitiveData.DirtyBit.MovementCameraBound))
+		{
+			Vector3 center = m_movementCameraBounds.center;
+			Vector3 size = m_movementCameraBounds.size;
+			short num7 = (short)Mathf.RoundToInt(center.x);
+			short num8 = (short)Mathf.RoundToInt(center.z);
+			short num9 = (short)Mathf.CeilToInt((size.x > 0f) ? (size.x + 0.5f) : 0f);
+			short num10 = (short)Mathf.CeilToInt((size.z > 0f) ? (size.z + 0.5f) : 0f);
+			writer.Write(num7);
+			writer.Write(num8);
+			writer.Write(num9);
+			writer.Write(num10);
+		}
+		if (IsBitDirty(num, ActorTeamSensitiveData.DirtyBit.Respawn))
+		{
+			short num11;
+			short num12;
+			if (m_respawnPickedSquare == null)
+			{
+				num11 = -1;
+				num12 = -1;
+			}
+			else
+			{
+				num11 = (short)m_respawnPickedSquare.x;
+				num12 = (short)m_respawnPickedSquare.y;
+			}
+			writer.Write(num11);
+			writer.Write(num12);
+			bool flag3 = Actor.IsActorInvisibleForRespawn();
+			writer.Write(flag3);
+			short num13 = 0;
+			if (m_respawnAvailableSquares != null)
+			{
+				num13 = (short)m_respawnAvailableSquares.Count;
+			}
+			writer.Write(num13);
+			for (int i = 0; i < (int)num13; i++)
+			{
+				writer.Write((short)m_respawnAvailableSquares[i].x);
+				writer.Write((short)m_respawnAvailableSquares[i].y);
+			}
+		}
+
+		// custom
+		if (IsBitDirty(num, DirtyBit.QueuedAbilities) || IsBitDirty(num, ActorTeamSensitiveData.DirtyBit.AbilityRequestDataForTargeter))
+		{
+			SerializeAbilityRequestData(writer);
+		}
+
+		if (IsBitDirty(num, ActorTeamSensitiveData.DirtyBit.QueuedAbilities))
+		{
+			short num14 = ServerClientUtils.CreateBitfieldFromBoolsList_16bit(m_queuedAbilities);
+			writer.Write(num14);
+		}
+		if (IsBitDirty(num, ActorTeamSensitiveData.DirtyBit.ToggledOnAbilities))
+		{
+			short num15 = ServerClientUtils.CreateBitfieldFromBoolsList_16bit(m_abilityToggledOn);
+			writer.Write(num15);
+		}
+
+		// rogues
+		//if (IsBitDirty(num, ActorTeamSensitiveData.DirtyBit.AbilityRequestDataForTargeter))
+		//{
+		//	SerializeAbilityRequestData(writer);
+		//}
+
+		return num > 0UL;
+#else
 		return false;
+#endif
 	}
 }

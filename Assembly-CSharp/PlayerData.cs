@@ -1,5 +1,10 @@
-using CameraManagerInternal;
+﻿// ROGUES
+// SERVER
+//using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using CameraManagerInternal;
+//using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -7,6 +12,7 @@ public class PlayerData : NetworkBehaviour
 {
 	[HideInInspector]
 	public static int s_invalidPlayerIndex = -1;
+	//[SyncVar]
 	internal string m_playerHandle = "";
 	internal bool m_reconnecting;
 	[HideInInspector]
@@ -19,11 +25,16 @@ public class PlayerData : NetworkBehaviour
 	[HideInInspector]
 	private FogOfWar m_fogOfWar;
 	internal Player m_player;
+	//[SyncVar]
 	private int m_playerIndex = s_invalidPlayerIndex;
 
+	// removed in rogues
 	private static int kCmdCmdTheatricsManagerUpdatePhaseEnded = -438226347;
+	// removed in rogues
 	private static int kCmdCmdTutorialQueueEmpty = -1356677979;
+	// removed in rogues
 	private static int kCmdCmdDebugEndGame = -1295019579;
+	// removed in rogues
 	private static int kCmdCmdSetPausedForDebugging = -1571708758;
 
 	internal string PlayerHandle => m_playerHandle;
@@ -42,7 +53,10 @@ public class PlayerData : NetworkBehaviour
 				&& GameFlowData.Get() != null
 				&& MyNetworkManager.Get() != null)
 			{
+				// reactor
 				m_playerIndex = value;
+				// rogues
+				//Networkm_playerIndex = value;
 			}
 		}
 	}
@@ -54,6 +68,11 @@ public class PlayerData : NetworkBehaviour
 		RegisterCommandDelegate(typeof(PlayerData), kCmdCmdDebugEndGame, InvokeCmdCmdDebugEndGame);
 		RegisterCommandDelegate(typeof(PlayerData), kCmdCmdSetPausedForDebugging, InvokeCmdCmdSetPausedForDebugging);
 		NetworkCRC.RegisterBehaviour("PlayerData", 0);
+		// rogues
+		//NetworkBehaviour.RegisterCommandDelegate(typeof(PlayerData), "CmdTheatricsManagerUpdatePhaseEnded", new NetworkBehaviour.CmdDelegate(InvokeCmdCmdTheatricsManagerUpdatePhaseEnded));
+		//NetworkBehaviour.RegisterCommandDelegate(typeof(PlayerData), "CmdTutorialQueueEmpty", new NetworkBehaviour.CmdDelegate(InvokeCmdCmdTutorialQueueEmpty));
+		//NetworkBehaviour.RegisterCommandDelegate(typeof(PlayerData), "CmdDebugEndGame", new NetworkBehaviour.CmdDelegate(InvokeCmdCmdDebugEndGame));
+		//NetworkBehaviour.RegisterCommandDelegate(typeof(PlayerData), "CmdSetPausedForDebugging", new NetworkBehaviour.CmdDelegate(InvokeCmdCmdSetPausedForDebugging));
 	}
 
 	internal FogOfWar GetFogOfWar()
@@ -82,7 +101,10 @@ public class PlayerData : NetworkBehaviour
 			: "";
 		if (!string.IsNullOrEmpty(playerHandle))
 		{
+			// reactor
 			m_playerHandle = playerHandle;
+			// rogues
+			//Networkm_playerHandle = playerHandle;
 		}
 	}
 
@@ -110,6 +132,7 @@ public class PlayerData : NetworkBehaviour
 		GetFogOfWar().MarkForRecalculateVisibility();
 	}
 
+	// removed in rogues
 	private void OnDestroy()
 	{
 		if (GameFlowData.Get() != null)
@@ -136,6 +159,8 @@ public class PlayerData : NetworkBehaviour
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
+
+		// removed in rogues
 		if (NetworkClient.active
 			&& !NetworkServer.active
 			&& GameFlow.Get().playerDetails.TryGetValue(m_player, out PlayerDetails details)
@@ -159,10 +184,10 @@ public class PlayerData : NetworkBehaviour
 		{
 			GetComponent<NetworkIdentity>().RebuildObservers(true);
 		}
-		Log.Info("ActorData.OnStartClient: local player");
+		Log.Info($"ActorData.OnStartClient: local player netId:{GetComponent<NetworkIdentity>().netId} obj:{gameObject.name}"); // log message expanded in rogues
 		m_isLocal = true;
 		ClientGameManager.Get().PlayerObjectStartedOnClient = true;
-		Log.Info("HEALTHBARCHECK: IS STARTED: " + ClientGameManager.Get().DesignSceneStarted);
+		Log.Info("HEALTHBARCHECK: IS STARTED: " + ClientGameManager.Get().DesignSceneStarted); // removed in rogues
 		if (ClientGameManager.Get().DesignSceneStarted)
 		{
 			UIScreenManager.Get().TryLoadAndSetupInGameUI();
@@ -173,9 +198,15 @@ public class PlayerData : NetworkBehaviour
 			: "";
 		if (!string.IsNullOrEmpty(playerHandle))
 		{
+			// reactor
 			m_playerHandle = playerHandle;
+			// rogues
+			//Networkm_playerHandle = playerHandle;
 		}
+		// reactor
 		SetupCamera();
+		// rogues
+		//SetupCamera(true);
 		SetupHUD();
 	}
 
@@ -184,11 +215,14 @@ public class PlayerData : NetworkBehaviour
 		if (HUD_UI.Get() != null)
 		{
 			HUD_UI.Get().m_mainScreenPanel.m_abilityBar.Setup(ActorData);
-			HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.ProcessTeams();
+			HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.ProcessTeams(); // removed in rogues
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.MarkFramesForForceUpdate();
 			if (HUD_UI.Get().m_mainScreenPanel.m_spectatorHUD != null)
 			{
+				// reactor
 				UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_spectatorHUD, ActorData == null);
+				// rogues
+				//HUD_UI.Get().m_mainScreenPanel.m_spectatorHUD.gameObject.SetActive(ActorData == null);
 			}
 		}
 	}
@@ -245,6 +279,7 @@ public class PlayerData : NetworkBehaviour
 		if (HUD_UI.Get() != null)
 		{
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.MarkFramesForForceUpdate();
+			// removed in rogues
 			if (HUD_UI.Get().m_mainScreenPanel.m_spectatorHUD != null)
 			{
 				HUD_UI.Get().m_mainScreenPanel.m_spectatorHUD.SetTeamViewing(m_spectatingTeam);
@@ -252,6 +287,7 @@ public class PlayerData : NetworkBehaviour
 		}
 	}
 
+	// reactor
 	public override bool OnSerialize(NetworkWriter writer, bool initialState)
 	{
 		NetworkWriterAdapter networkWriterAdapter = new NetworkWriterAdapter(writer);
@@ -261,6 +297,7 @@ public class PlayerData : NetworkBehaviour
 		return true;
 	}
 
+	// reactor
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		NetworkReaderAdapter networkReaderAdapter = new NetworkReaderAdapter(reader);
@@ -284,7 +321,13 @@ public class PlayerData : NetworkBehaviour
 			default:
 				UIScreenManager.Get().ClearAllPanels();
 				UIScreenManager.Get().TryLoadAndSetupInGameUI();
-				UIManager.SetGameObjectActive(HUD_UI.Get().m_textConsole, true);
+				if (HUD_UI.Get().m_textConsole != null) // check added in rogues
+				{
+					// reactor
+					UIManager.SetGameObjectActive(HUD_UI.Get().m_textConsole, true);
+					// rogues
+					//HUD_UI.Get().m_textConsole.gameObject.SetActive(true);
+				}
 				AppState_InGameDecision.Get().Enter();
 				ActorData component = GetComponent<ActorData>();
 				if (component != null)
@@ -292,6 +335,8 @@ public class PlayerData : NetworkBehaviour
 					component.GetAbilityData().SpawnAndSetupCardsOnReconnect();
 					component.SetupAbilityModOnReconnect();
 					component.SetupForRespawnOnReconnect();
+					// rogues
+					//component.SetupAbilityGearOnReconnect();
 				}
 				if (TeamSensitiveDataMatchmaker.Get() != null)
 				{
@@ -302,6 +347,19 @@ public class PlayerData : NetworkBehaviour
 				break;
 		}
 	}
+
+	// added in rogues
+#if SERVER
+	public bool IsReconnecting()
+	{
+		if (!m_player.m_valid)
+		{
+			return false;
+		}
+		long accountId = GameFlow.Get().playerDetails[m_player].m_accountId;
+		return ServerGameManager.Get().IsAccountReconnecting(accountId);
+	}
+#endif
 
 	public Team GetTeamViewing()
 	{
@@ -402,9 +460,42 @@ public class PlayerData : NetworkBehaviour
 		return $"[PlayerData: ({m_playerIndex}) {m_playerHandle}] {m_player}";
 	}
 
+	// reactor
 	private void UNetVersion()
 	{
 	}
+	// rogues
+	//private void MirrorProcessed()
+	//{
+	//}
+
+	// added in rogues
+	//public string Networkm_playerHandle
+	//{
+	//	get
+	//	{
+	//		return m_playerHandle;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<string>(value, ref m_playerHandle, 1U);
+	//	}
+	//}
+
+	// added in rogues
+	//public int Networkm_playerIndex
+	//{
+	//	get
+	//	{
+	//		return m_playerIndex;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<int>(value, ref m_playerIndex, 2U);
+	//	}
+	//}
 
 	protected static void InvokeCmdCmdTheatricsManagerUpdatePhaseEnded(NetworkBehaviour obj, NetworkReader reader)
 	{
@@ -413,7 +504,10 @@ public class PlayerData : NetworkBehaviour
 			Debug.LogError("Command CmdTheatricsManagerUpdatePhaseEnded called on client.");
 			return;
 		}
+		// reactor
 		((PlayerData)obj).CmdTheatricsManagerUpdatePhaseEnded((int)reader.ReadPackedUInt32(), reader.ReadSingle(), reader.ReadSingle());
+		// rogues
+		//((PlayerData)obj).CmdTheatricsManagerUpdatePhaseEnded(reader.ReadPackedInt32(), reader.ReadSingle(), reader.ReadSingle());
 	}
 
 	protected static void InvokeCmdCmdTutorialQueueEmpty(NetworkBehaviour obj, NetworkReader reader)
@@ -433,7 +527,10 @@ public class PlayerData : NetworkBehaviour
 			Debug.LogError("Command CmdDebugEndGame called on client.");
 			return;
 		}
+		// reactor
 		((PlayerData)obj).CmdDebugEndGame((GameResult)reader.ReadInt32(), (int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32(), reader.ReadBoolean(), reader.ReadBoolean(), reader.ReadBoolean());
+		// rogues
+		//((PlayerData)obj).CmdDebugEndGame((GameResult)reader.ReadPackedInt32(), reader.ReadPackedInt32(), reader.ReadPackedInt32(), reader.ReadBoolean(), reader.ReadBoolean(), reader.ReadBoolean());
 	}
 
 	protected static void InvokeCmdCmdSetPausedForDebugging(NetworkBehaviour obj, NetworkReader reader)
@@ -448,7 +545,7 @@ public class PlayerData : NetworkBehaviour
 
 	public void CallCmdTheatricsManagerUpdatePhaseEnded(int phaseCompleted, float phaseSeconds, float phaseDeltaSeconds)
 	{
-		if (!NetworkClient.active)
+		if (!NetworkClient.active)  // removed in rogues
 		{
 			Debug.LogError("Command function CmdTheatricsManagerUpdatePhaseEnded called on server.");
 			return;
@@ -459,6 +556,7 @@ public class PlayerData : NetworkBehaviour
 		}
 		else
 		{
+			// reactor
 			NetworkWriter networkWriter = new NetworkWriter();
 			networkWriter.Write((short)0);
 			networkWriter.Write((short)5);
@@ -468,12 +566,18 @@ public class PlayerData : NetworkBehaviour
 			networkWriter.Write(phaseSeconds);
 			networkWriter.Write(phaseDeltaSeconds);
 			SendCommandInternal(networkWriter, 0, "CmdTheatricsManagerUpdatePhaseEnded");
+			// rogues
+			//NetworkWriter networkWriter = new NetworkWriter();
+			//networkWriter.WritePackedInt32(phaseCompleted);
+			//networkWriter.Write(phaseSeconds);
+			//networkWriter.Write(phaseDeltaSeconds);
+			//base.SendCommandInternal(typeof(PlayerData), "CmdTheatricsManagerUpdatePhaseEnded", networkWriter, 0);
 		}
 	}
 
 	public void CallCmdTutorialQueueEmpty()
 	{
-		if (!NetworkClient.active)
+		if (!NetworkClient.active)  // removed in rogues
 		{
 			Debug.LogError("Command function CmdTutorialQueueEmpty called on server.");
 			return;
@@ -484,18 +588,22 @@ public class PlayerData : NetworkBehaviour
 		}
 		else
 		{
+			// reactor
 			NetworkWriter networkWriter = new NetworkWriter();
 			networkWriter.Write((short)0);
 			networkWriter.Write((short)5);
 			networkWriter.WritePackedUInt32((uint)kCmdCmdTutorialQueueEmpty);
 			networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 			SendCommandInternal(networkWriter, 0, "CmdTutorialQueueEmpty");
+			// rogues
+			//NetworkWriter networkWriter = new NetworkWriter();
+			//base.SendCommandInternal(typeof(PlayerData), "CmdTutorialQueueEmpty", networkWriter, 0);
 		}
 	}
 
 	public void CallCmdDebugEndGame(GameResult debugResult, int matchSeconds, int ggBoostUsedCount, bool ggBoostUsedToSelf, bool playWithFriendsBonus, bool playedLastTurn)
 	{
-		if (!NetworkClient.active)
+		if (!NetworkClient.active)  // removed in rogues
 		{
 			Debug.LogError("Command function CmdDebugEndGame called on server.");
 			return;
@@ -506,6 +614,7 @@ public class PlayerData : NetworkBehaviour
 		}
 		else
 		{
+			// reactor
 			NetworkWriter networkWriter = new NetworkWriter();
 			networkWriter.Write((short)0);
 			networkWriter.Write((short)5);
@@ -518,12 +627,21 @@ public class PlayerData : NetworkBehaviour
 			networkWriter.Write(playWithFriendsBonus);
 			networkWriter.Write(playedLastTurn);
 			SendCommandInternal(networkWriter, 0, "CmdDebugEndGame");
+			// rogues
+			//NetworkWriter networkWriter = new NetworkWriter();
+			//networkWriter.WritePackedInt32((int)debugResult);
+			//networkWriter.WritePackedInt32(matchSeconds);
+			//networkWriter.WritePackedInt32(ggBoostUsedCount);
+			//networkWriter.Write(ggBoostUsedToSelf);
+			//networkWriter.Write(playWithFriendsBonus);
+			//networkWriter.Write(playedLastTurn);
+			//base.SendCommandInternal(typeof(PlayerData), "CmdDebugEndGame", networkWriter, 0);
 		}
 	}
 
 	public void CallCmdSetPausedForDebugging(bool pause)
 	{
-		if (!NetworkClient.active)
+		if (!NetworkClient.active)  // removed in rogues
 		{
 			Debug.LogError("Command function CmdSetPausedForDebugging called on server.");
 			return;
@@ -534,6 +652,7 @@ public class PlayerData : NetworkBehaviour
 		}
 		else
 		{
+			// reactor
 			NetworkWriter networkWriter = new NetworkWriter();
 			networkWriter.Write((short)0);
 			networkWriter.Write((short)5);
@@ -541,6 +660,10 @@ public class PlayerData : NetworkBehaviour
 			networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 			networkWriter.Write(pause);
 			SendCommandInternal(networkWriter, 0, "CmdSetPausedForDebugging");
+			// rogues
+			//NetworkWriter networkWriter = new NetworkWriter();
+			//networkWriter.Write(pause);
+			//base.SendCommandInternal(typeof(PlayerData), "CmdSetPausedForDebugging", networkWriter, 0);
 		}
 	}
 }

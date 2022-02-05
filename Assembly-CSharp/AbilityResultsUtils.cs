@@ -1,8 +1,52 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
+// TODO SERIALIZATION verify that server code corresponds to client code
 public static class AbilityResultsUtils
 {
+	// server-only
+#if SERVER
+	public static void SerializeActorHitResultsDictionaryToStream(Dictionary<ActorData, ActorHitResults> actorToHitResults, NetworkWriter writer)
+	{
+		int position = writer.Position;
+		if (actorToHitResults != null)
+		{
+			sbyte b = (sbyte)actorToHitResults.Count;
+			writer.Write(b);
+			using (Dictionary<ActorData, ActorHitResults>.Enumerator enumerator = actorToHitResults.GetEnumerator())
+			{
+				while (enumerator.MoveNext())
+				{
+					KeyValuePair<ActorData, ActorHitResults> keyValuePair = enumerator.Current;
+					sbyte b2 = (sbyte)keyValuePair.Key.ActorIndex;
+					writer.Write(b2);
+					keyValuePair.Value.ActorHitResults_SerializeToStream(writer);
+				}
+				goto IL_73;
+			}
+		}
+		sbyte b3 = 0;
+		writer.Write(b3);
+		IL_73:
+		int num = writer.Position - position;
+		if (ClientAbilityResults.DebugSerializeSizeOn)
+		{
+			Debug.LogWarning("\t\t\t Serializing Actor Hit Results List: \n\t\t\t numBytes: " + num);
+		}
+	}
+
+	// rogues compatibility example
+	//public static Dictionary<ActorData, ClientActorHitResults> DeSerializeActorHitResultsDictionaryFromStream(NetworkReader reader)
+	//{
+	//	IBitStream stream = new NetworkReaderAdapter(reader);
+	//	return DeSerializeActorHitResultsDictionaryFromStream(ref stream);
+	//}
+#endif
+
+	// rogues
 	public static Dictionary<ActorData, ClientActorHitResults> DeSerializeActorHitResultsDictionaryFromStream(ref IBitStream stream)
 	{
 		Dictionary<ActorData, ClientActorHitResults> dictionary = new Dictionary<ActorData, ClientActorHitResults>();
@@ -22,11 +66,43 @@ public static class AbilityResultsUtils
 		return dictionary;
 	}
 
+	// server-only
+#if SERVER
+	public static void SerializePositionHitResultsDictionaryToStream(Dictionary<Vector3, PositionHitResults> positionToHitResults, NetworkWriter writer)
+	{
+		int position = writer.Position;
+		if (positionToHitResults != null)
+		{
+			sbyte b = (sbyte)positionToHitResults.Count;
+			writer.Write(b);
+			using (Dictionary<Vector3, PositionHitResults>.Enumerator enumerator = positionToHitResults.GetEnumerator())
+			{
+				while (enumerator.MoveNext())
+				{
+					KeyValuePair<Vector3, PositionHitResults> keyValuePair = enumerator.Current;
+					Vector3 key = keyValuePair.Key;
+					writer.Write(key);
+					keyValuePair.Value.PositionHitResults_SerializeToStream(writer);
+				}
+				goto IL_6D;
+			}
+		}
+		sbyte b2 = 0;
+		writer.Write(b2);
+		IL_6D:
+		int num = writer.Position - position;
+		if (ClientAbilityResults.DebugSerializeSizeOn)
+		{
+			Debug.LogWarning("\t\t\t Serializing Position Hits: \n\t\t\t numBytes: " + num);
+		}
+	}
+#endif
+
 	public static Dictionary<Vector3, ClientPositionHitResults> DeSerializePositionHitResultsDictionaryFromStream(ref IBitStream stream)
 	{
 		sbyte hitResultNum = 0;
 		stream.Serialize(ref hitResultNum);
-		Dictionary<Vector3, ClientPositionHitResults> dictionary = new Dictionary<Vector3, ClientPositionHitResults>(hitResultNum);
+		Dictionary<Vector3, ClientPositionHitResults> dictionary = new Dictionary<Vector3, ClientPositionHitResults>((int)hitResultNum);
 		for (int i = 0; i < hitResultNum; i++)
 		{
 			Vector3 pos = Vector3.zero;
@@ -37,6 +113,151 @@ public static class AbilityResultsUtils
 		return dictionary;
 	}
 
+	// server-only
+#if SERVER
+	public static void SerializeEffectsToStartToStream(List<global::Effect> effects, NetworkWriter writer)
+	{
+		sbyte b;
+		if (effects != null)
+		{
+			b = (sbyte)effects.Count;
+		}
+		else
+		{
+			b = 0;
+		}
+		writer.Write(b);
+		for (int i = 0; i < (int)b; i++)
+		{
+			int position = writer.Position;
+			global::Effect effect = effects[i];
+			uint guid = (uint)effect.m_guid;
+			// rogues
+			//string text = "";
+			//EffectSystem.Effect effect2;
+			//if ((effect2 = (effect as EffectSystem.Effect)) != null)
+			//{
+			//	text = effect2.EffectTemplate.ShortGUID();
+			//}
+			writer.Write(guid);
+			//writer.Write(text);
+			List<ServerClientUtils.SequenceStartData> effectStartSeqDataList = effect.GetEffectStartSeqDataList();
+			sbyte b2 = (sbyte)effectStartSeqDataList.Count;
+			writer.Write(b2);
+			for (int j = 0; j < (int)b2; j++)
+			{
+				effectStartSeqDataList[j].SequenceStartData_SerializeToStream(writer);
+			}
+			sbyte b3 = (sbyte)effect.CasterActorIndex;
+			writer.Write(b3);
+			sbyte b4;
+			if (effect.Target != null)
+			{
+				b4 = (sbyte)effect.Target.ActorIndex;
+			}
+			else
+			{
+				b4 = (sbyte)ActorData.s_invalidActorIndex;
+			}
+			writer.Write(b4);
+			if ((int)b4 != ActorData.s_invalidActorIndex)
+			{
+				List<StatusType> statuses = effect.GetStatuses();
+				sbyte b5;
+				if (statuses != null)
+				{
+					bool flag = effect.Target.GetActorStatus().IsMovementDebuffImmune(true);
+					for (int k = statuses.Count - 1; k >= 0; k--)
+					{
+						if (statuses[k] < StatusType.Revealed || (flag && ActorStatus.IsDispellableMovementDebuff(statuses[k])))
+						{
+							statuses.RemoveAt(k);
+						}
+					}
+					b5 = (sbyte)statuses.Count;
+				}
+				else
+				{
+					b5 = 0;
+				}
+				writer.Write(b5);
+				for (int l = 0; l < (int)b5; l++)
+				{
+					byte b6 = (byte)statuses[l];
+					writer.Write(b6);
+				}
+			}
+			if ((int)b4 != ActorData.s_invalidActorIndex)
+			{
+				List<StatusType> statusesOnTurnStart = effect.GetStatusesOnTurnStart();
+				sbyte b7;
+				if (statusesOnTurnStart != null)
+				{
+					for (int m = statusesOnTurnStart.Count - 1; m >= 0; m--)
+					{
+						if (statusesOnTurnStart[m] < StatusType.Revealed)
+						{
+							statusesOnTurnStart.RemoveAt(m);
+						}
+					}
+					b7 = (sbyte)statusesOnTurnStart.Count;
+				}
+				else
+				{
+					b7 = 0;
+				}
+				writer.Write(b7);
+				for (int n = 0; n < (int)b7; n++)
+				{
+					byte b8 = (byte)statusesOnTurnStart[n];
+					writer.Write(b8);
+				}
+			}
+			short num = 0;
+			if (effect.Target != null)
+			{
+				num = (short)effect.GetExpectedHealOverTimeTotal();
+			}
+			bool b9 = effect.IsBuff();
+			bool b10 = effect.IsDebuff();
+			bool b11 = effect.HasDispellableMovementDebuff();
+			bool flag2 = effect.CanAbsorb();
+			bool flag3 = num > 0;
+			byte b12 = ServerClientUtils.CreateBitfieldFromBools(b9, b10, b11, flag2, flag3, false, false, false);
+			writer.Write(b12);
+			if (flag2)
+			{
+				short num2 = (short)effect.Absorbtion.m_absorbAmount;
+				writer.Write(num2);
+			}
+			if (flag3)
+			{
+				writer.Write(num);
+			}
+			// rogues
+			//if (effect != null && effect.Parent != null && effect.Parent.Ability != null)
+			//{
+			//	writer.Write((int)effect.Parent.Ability.CachedActionType);
+			//}
+			//else
+			//{
+			//	writer.Write(-1);
+			//}
+			int num3 = writer.Position - position;
+			if (ClientAbilityResults.DebugSerializeSizeOn)
+			{
+				Debug.LogWarning(string.Concat(new object[]
+				{
+					"\t\t\t\t Serializing Starting Effect ",
+					effect.GetDebugIdentifier(),
+					"\n\t\t\t\t numBytes: ",
+					num3
+				}));
+			}
+		}
+	}
+#endif
+
 	public static List<ClientEffectStartData> DeSerializeEffectsToStartFromStream(ref IBitStream stream)
 	{
 		sbyte effectStartNum = 0;
@@ -46,6 +267,8 @@ public static class AbilityResultsUtils
 		{
 			uint effectGUID = 0u;
 			stream.Serialize(ref effectGUID);
+			// rogues
+			//string effectTemplateID = reader.ReadString();
 			sbyte seqStartNum = 0;
 			stream.Serialize(ref seqStartNum);
 			List<ServerClientUtils.SequenceStartData> seqStartList = new List<ServerClientUtils.SequenceStartData>(seqStartNum);
@@ -102,33 +325,83 @@ public static class AbilityResultsUtils
 			{
 				stream.Serialize(ref expectedHoT);
 			}
+			// rogues
+			//AbilityData.ActionType abilityActionType = (AbilityData.ActionType)reader.ReadInt32();
 			ClientEffectStartData effectStart = new ClientEffectStartData(
-				(int)effectGUID,
-				seqStartList,
-				effectTarget,
-				caster,
-				statuses,
-				statusesOnTurnStart,
-				absorb,
-				expectedHoT,
-				isBuff,
-				isDebuff,
-				hasMovementDebuff);
+                (int)effectGUID,
+                //effectTemplateID,  // rogues
+                seqStartList,
+                effectTarget,
+                caster,
+                statuses,
+                statusesOnTurnStart,
+                absorb,
+                expectedHoT,
+                isBuff,
+                isDebuff,
+                hasMovementDebuff
+				//, abilityActionType  // rogues
+				);
 			effectStartList.Add(effectStart);
 		}
 		return effectStartList;
 	}
+
+	// server-only
+#if SERVER
+	public static void SerializeBarriersToStartToStream(List<Barrier> barriers, NetworkWriter writer)
+	{
+		sbyte b;
+		if (barriers != null)
+		{
+			b = (sbyte)barriers.Count;
+		}
+		else
+		{
+			b = 0;
+		}
+		writer.Write(b);
+		for (int i = 0; i < (int)b; i++)
+		{
+			int position = writer.Position;
+			Barrier barrier = barriers[i];
+			BarrierSerializeInfo info = Barrier.BarrierToSerializeInfo(barrier);
+			BarrierSerializeInfo.SerializeBarrierInfo(writer, info);
+			List<ServerClientUtils.SequenceStartData> sequenceStartDataList = barrier.GetSequenceStartDataList();
+			sbyte b2 = (sbyte)sequenceStartDataList.Count;
+			writer.Write(b2);
+			for (int j = 0; j < (int)b2; j++)
+			{
+				sequenceStartDataList[j].SequenceStartData_SerializeToStream(writer);
+			}
+			int num = writer.Position - position;
+			if (ClientAbilityResults.DebugSerializeSizeOn)
+			{
+				Debug.LogWarning(string.Concat(new object[]
+				{
+					"\t\t\t\t Serializing Starting Barrier guid",
+					barrier.m_guid,
+					": \n\t\t\t\t numBytes: ",
+					num
+				}));
+			}
+		}
+	}
+#endif
 
 	public static List<ClientBarrierStartData> DeSerializeBarriersToStartFromStream(ref IBitStream stream)
 	{
 		sbyte barrierStartNum = 0;
 		stream.Serialize(ref barrierStartNum);
 		List<ClientBarrierStartData> list = new List<ClientBarrierStartData>(barrierStartNum);
-		
+
 		for (int num = 0; num < barrierStartNum; num++)
 		{
 			BarrierSerializeInfo info = new BarrierSerializeInfo();
+			// reactor
 			BarrierSerializeInfo.SerializeBarrierInfo(stream, ref info);
+			// rogues
+			//BarrierSerializeInfo.DeserializeBarrierInfo(reader, ref info);
 			int barrierGUID = info.m_guid;
 			sbyte seqenceStartNum = 0;
 			stream.Serialize(ref seqenceStartNum);
@@ -145,10 +418,31 @@ public static class AbilityResultsUtils
 			{
 				BarrierManager.Get().AddClientBarrierInfo(clientBarrierStartData.m_barrierGameplayInfo);
 			}
-			
 		}
 		return list;
 	}
+
+	// server-only
+#if SERVER
+	public static void SerializeEffectsForRemovalToStream(List<ServerAbilityUtils.EffectRemovalData> effectsForRemoval, NetworkWriter writer)
+	{
+		sbyte b;
+		if (effectsForRemoval != null)
+		{
+			b = (sbyte)effectsForRemoval.Count;
+		}
+		else
+		{
+			b = 0;
+		}
+		writer.Write(b);
+		for (int i = 0; i < (int)b; i++)
+		{
+			int guid = effectsForRemoval[i].m_effectToRemove.m_guid;
+			writer.Write(guid);
+		}
+	}
+#endif
 
 	public static List<int> DeSerializeEffectsForRemovalFromStream(ref IBitStream stream)
 	{
@@ -164,6 +458,28 @@ public static class AbilityResultsUtils
 		return list;
 	}
 
+	//server-only
+#if SERVER
+	public static void SerializeBarriersForRemovalToStream(List<ServerAbilityUtils.BarrierRemovalData> barriersForRemoval, NetworkWriter writer)
+	{
+		sbyte b;
+		if (barriersForRemoval != null)
+		{
+			b = (sbyte)barriersForRemoval.Count;
+		}
+		else
+		{
+			b = 0;
+		}
+		writer.Write(b);
+		for (int i = 0; i < (int)b; i++)
+		{
+			int guid = barriersForRemoval[i].m_barrierToRemove.m_guid;
+			writer.Write(guid);
+		}
+	}
+#endif
+
 	public static List<int> DeSerializeBarriersForRemovalFromStream(ref IBitStream stream)
 	{
 		sbyte num = 0;
@@ -178,6 +494,69 @@ public static class AbilityResultsUtils
 		return list;
 	}
 
+	// rogues
+	//public static void SerializeDynamicGeoDamageToStream(Dictionary<BoardSquare, int> dynamicGeoDamage, NetworkWriter writer)
+	//{
+	//	short num = 0;
+	//	if (dynamicGeoDamage != null)
+	//	{
+	//		num = (short)dynamicGeoDamage.Count;
+	//	}
+	//	writer.Write(num);
+	//	if (dynamicGeoDamage != null)
+	//	{
+	//		foreach (KeyValuePair<BoardSquare, int> keyValuePair in dynamicGeoDamage)
+	//		{
+	//			writer.Write((sbyte)keyValuePair.Key.x);
+	//			writer.Write((sbyte)keyValuePair.Key.y);
+	//			writer.Write(keyValuePair.Value);
+	//		}
+	//	}
+	//}
+
+	// rogues
+	//public static Dictionary<BoardSquare, int> DeSerializeDynamicGeoDamageFromStream(NetworkReader reader)
+	//{
+	//	short num = reader.ReadInt16();
+	//	Dictionary<BoardSquare, int> dictionary = new Dictionary<BoardSquare, int>((int)num);
+	//	for (int i = 0; i < (int)num; i++)
+	//	{
+	//		sbyte x = reader.ReadSByte();
+	//		sbyte y = reader.ReadSByte();
+	//		BoardSquare squareFromIndex = Board.Get().GetSquareFromIndex((int)x, (int)y);
+	//		int value = reader.ReadInt32();
+	//		dictionary.Add(squareFromIndex, value);
+	//	}
+	//	return dictionary;
+	//}
+
+	//server-only
+#if SERVER
+	public static void SerializeSequenceStartDataListToStream(List<ServerClientUtils.SequenceStartData> sequenceDataList, NetworkWriter writer)
+	{
+		int position = writer.Position;
+		sbyte b;
+		if (sequenceDataList == null)
+		{
+			b = 0;
+		}
+		else
+		{
+			b = (sbyte)sequenceDataList.Count;
+		}
+		writer.Write(b);
+		for (int i = 0; i < (int)b; i++)
+		{
+			sequenceDataList[i].SequenceStartData_SerializeToStream(writer);
+		}
+		int num = writer.Position - position;
+		if (ClientAbilityResults.DebugSerializeSizeOn)
+		{
+			Debug.LogWarning("\t\t\t Serializing SequenceStartDataList:\n\t\t\t numBytes: " + num);
+		}
+	}
+#endif
+
 	public static List<ServerClientUtils.SequenceStartData> DeSerializeSequenceStartDataListFromStream(ref IBitStream stream)
 	{
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
@@ -190,6 +569,33 @@ public static class AbilityResultsUtils
 		}
 		return list;
 	}
+
+	//server-only
+#if SERVER
+	public static void SerializeSequenceEndDataListToStream(List<ServerClientUtils.SequenceEndData> sequenceEndDataList, NetworkWriter writer)
+	{
+		int position = writer.Position;
+		sbyte b;
+		if (sequenceEndDataList == null)
+		{
+			b = 0;
+		}
+		else
+		{
+			b = (sbyte)sequenceEndDataList.Count;
+		}
+		writer.Write(b);
+		for (int i = 0; i < (int)b; i++)
+		{
+			sequenceEndDataList[i].SequenceEndData_SerializeToStream(writer);
+		}
+		int num = writer.Position - position;
+		if (ClientAbilityResults.DebugSerializeSizeOn)
+		{
+			Debug.LogWarning("\t\t\t Serializing SequenceEndDataList:\n\t\t\t numBytes: " + num);
+		}
+	}
+#endif
 
 	public static List<ServerClientUtils.SequenceEndData> DeSerializeSequenceEndDataListFromStream(ref IBitStream stream)
 	{
@@ -204,6 +610,29 @@ public static class AbilityResultsUtils
 		return list;
 	}
 
+	//server-only
+#if SERVER
+	public static void SerializeServerAbilityResultsToStream(AbilityResults results, bool includeRunSequences, NetworkWriter writer)
+	{
+		sbyte b = (sbyte)results.Caster.ActorIndex;
+		sbyte b2 = (sbyte)results.Caster.GetAbilityData().GetActionTypeOfAbility(results.Ability);
+		List<ServerClientUtils.SequenceStartData> sequenceDataList;
+		if (includeRunSequences)
+		{
+			sequenceDataList = results.AbilityRunSequenceDataList;
+		}
+		else
+		{
+			sequenceDataList = null;
+		}
+		writer.Write(b);
+		writer.Write(b2);
+		AbilityResultsUtils.SerializeSequenceStartDataListToStream(sequenceDataList, writer);
+		AbilityResultsUtils.SerializeActorHitResultsDictionaryToStream(results.m_actorToHitResults, writer);
+		AbilityResultsUtils.SerializePositionHitResultsDictionaryToStream(results.m_positionToHitResults, writer);
+	}
+#endif
+
 	public static ClientAbilityResults DeSerializeClientAbilityResultsFromStream(ref IBitStream stream)
 	{
 		sbyte casterActorIndex = (sbyte)ActorData.s_invalidActorIndex;
@@ -216,18 +645,99 @@ public static class AbilityResultsUtils
 		return new ClientAbilityResults(casterActorIndex, abilityAction, seqStartDataList, actorToHitResults, posToHitResults);
 	}
 
+	//server-only
+#if SERVER
+	public static void SerializeServerEffectResultsToStream(EffectResults results, bool includeHitSequences, NetworkWriter writer)
+	{
+		int position = writer.Position;
+		uint effectGUID = (uint)Mathf.Max(0, results.Effect.m_guid);
+		sbyte casterActorIndex = (sbyte)results.Effect.CasterActorIndex;
+
+		// custom reactor
+		Ability ability = results.Effect.Parent.Ability;
+		// TODO check this
+		AbilityData.ActionType abilityActionType = ability?.GetComponent<AbilityData>()?.GetActionTypeOfAbility(ability) ?? AbilityData.ActionType.INVALID_ACTION;
+		sbyte sourceAbilityActionType = (sbyte)abilityActionType;
+		// rogues
+		//bool isStandalone = results.IsStandalone;
+
+		List<ServerClientUtils.SequenceStartData> list = null;
+		if (includeHitSequences)
+		{
+			list = new List<ServerClientUtils.SequenceStartData>(results.m_sequenceStartData);
+			foreach (ServerClientUtils.SequenceStartData sequenceStartData in results.Effect.GetEffectHitSeqDataList())
+			{
+				if (sequenceStartData != null)
+				{
+					sequenceStartData.SetRemoveAtEndOfTurn(true);
+					list.Add(sequenceStartData);
+				}
+			}
+		}
+		else
+        {
+			list = null;
+		}
+		writer.Write(effectGUID);
+		writer.Write(casterActorIndex);
+		// custom reactor
+		writer.Write(sourceAbilityActionType);
+		// rogues
+		//writer.Write(isStandalone);
+		//if (isStandalone)
+		//{
+		//	AbilityResultsUtils.SerializeEffectsToStartToStream(new List<global::Effect>
+		//	{
+		//		results.Effect
+		//	}, writer);
+		//}
+		AbilityResultsUtils.SerializeSequenceStartDataListToStream(list, writer);
+		AbilityResultsUtils.SerializeActorHitResultsDictionaryToStream(results.m_actorToHitResults, writer);
+		AbilityResultsUtils.SerializePositionHitResultsDictionaryToStream(results.m_positionToHitResults, writer);
+		int num2 = writer.Position - position;
+		if (ClientAbilityResults.DebugSerializeSizeOn)
+		{
+			Debug.LogWarning("\t\t\t Serializing Effect Results: \n\t\t\t numBytes: " + num2);
+		}
+	}
+#endif
+
 	public static ClientEffectResults DeSerializeClientEffectResultsFromStream(ref IBitStream stream)
 	{
 		uint effectGUID = 0u;
 		sbyte casterActorIndex = (sbyte)ActorData.s_invalidActorIndex;
-		sbyte sourceAbilityActionType = -1;
 		stream.Serialize(ref effectGUID);
 		stream.Serialize(ref casterActorIndex);
+
+		// rogues
+		//bool isStandalone = reader.ReadBoolean();
+		// reactor
+		sbyte sourceAbilityActionType = -1;
 		stream.Serialize(ref sourceAbilityActionType);
+
+        ActorData effectCaster = GameFlowData.Get().FindActorByActorIndex((int)casterActorIndex);
+
+		// rogues
+		//ClientEffectResults clientEffectResults = null;
+		//if (isStandalone)
+		//{
+		//	ClientEffectStartData clientEffectStartData = AbilityResultsUtils.DeSerializeEffectsToStartFromStream(reader).FirstOrDefault<ClientEffectStartData>();
+		//	if (clientEffectStartData != null)
+		//	{
+		//		clientEffectResults = new ClientEffectResults(clientEffectStartData);
+		//	}
+		//	else
+		//	{
+		//		Debug.LogError("Server sent an empty effect start list");
+		//		clientEffectResults = null;
+		//	}
+		//}
+
 		List<ServerClientUtils.SequenceStartData> seqStartDataList = DeSerializeSequenceStartDataListFromStream(ref stream);
 		Dictionary<ActorData, ClientActorHitResults> actorToHitResults = DeSerializeActorHitResultsDictionaryFromStream(ref stream);
 		Dictionary<Vector3, ClientPositionHitResults> posToHitResults = DeSerializePositionHitResultsDictionaryFromStream(ref stream);
-		ActorData effectCaster = GameFlowData.Get().FindActorByActorIndex(casterActorIndex);
+		
+		// reactor
 		return new ClientEffectResults(
 			(int)effectGUID,
 			effectCaster,
@@ -235,7 +745,32 @@ public static class AbilityResultsUtils
 			seqStartDataList,
 			actorToHitResults,
 			posToHitResults);
+		// rogues
+		//if (clientEffectResults == null)
+		//{
+		//	clientEffectResults = new ClientEffectResults((int)effectGUID, effectCaster, seqStartDataList, actorToHitResults, posToHitResults);
+		//}
+		//else
+		//{
+		//	clientEffectResults.m_actorToHitResults = actorToHitResults;
+		//	clientEffectResults.m_posToHitResults = posToHitResults;
+		//	clientEffectResults.m_seqStartDataList = seqStartDataList;
+		//}
+		//return clientEffectResults;
 	}
+
+	//server-only
+#if SERVER
+	public static void SerializeServerBarrierResultsToStream(BarrierResults results, NetworkWriter writer)
+	{
+		int guid = results.Barrier.m_guid;
+		sbyte b = (sbyte)((results.Barrier.Caster != null) ? results.Barrier.Caster.ActorIndex : -1);
+		writer.Write(guid);
+		writer.Write(b);
+		AbilityResultsUtils.SerializeActorHitResultsDictionaryToStream(results.m_actorToHitResults, writer);
+		AbilityResultsUtils.SerializePositionHitResultsDictionaryToStream(results.m_positionToHitResults, writer);
+	}
+#endif
 
 	public static ClientBarrierResults DeSerializeClientBarrierResultsFromStream(ref IBitStream stream)
 	{
@@ -245,9 +780,49 @@ public static class AbilityResultsUtils
 		stream.Serialize(ref casterIndex);
 		Dictionary<ActorData, ClientActorHitResults> actorToHitResults = DeSerializeActorHitResultsDictionaryFromStream(ref stream);
 		Dictionary<Vector3, ClientPositionHitResults> posToHitResults = DeSerializePositionHitResultsDictionaryFromStream(ref stream);
-		ActorData barrierCaster = GameFlowData.Get().FindActorByActorIndex(casterIndex);
+		ActorData barrierCaster = (casterIndex < 0) ? null : GameFlowData.Get().FindActorByActorIndex(casterIndex); // check added in rogues
 		return new ClientBarrierResults(barrierGUID, barrierCaster, actorToHitResults, posToHitResults);
 	}
+
+#if SERVER
+	public static void SerializeServerMovementResultsToStream(MovementResults results, NetworkWriter writer)
+	{
+		int position = writer.Position;
+		sbyte b = (sbyte)results.GetTriggeringActor().ActorIndex;
+		List<ServerClientUtils.SequenceStartData> triggerSeqDataList = results.GetTriggerSeqDataList();
+		if (results.m_triggeringPath_endingAtHit == null && results.m_triggeringPath != null)
+		{
+			results.m_triggeringPath_endingAtHit = MovementUtils.CreateClonePathEndingAt(results.m_triggeringPath);
+		}
+		BoardSquarePathInfo triggeringPath_endingAtHit = results.m_triggeringPath_endingAtHit;
+		sbyte b2 = (sbyte)results.m_gameplayResponseType;
+		writer.Write(b);
+		MovementUtils.SerializeLightweightPath(triggeringPath_endingAtHit, writer);
+		SerializeSequenceStartDataListToStream(triggerSeqDataList, writer);
+		writer.Write(b2);
+		if (results.m_gameplayResponseType == MovementResults_GameplayResponseType.Effect)
+		{
+			SerializeServerEffectResultsToStream(results.GetEffectResults(), false, writer);
+		}
+		else if (results.m_gameplayResponseType == MovementResults_GameplayResponseType.Barrier)
+		{
+			SerializeServerBarrierResultsToStream(results.GetBarrierResults(), writer);
+		}
+		else if (results.m_gameplayResponseType == MovementResults_GameplayResponseType.Powerup)
+		{
+			SerializeServerAbilityResultsToStream(results.GetPowerUpResults(), false, writer);
+		}
+		else if (results.m_gameplayResponseType == MovementResults_GameplayResponseType.GameMode)
+		{
+			SerializeServerAbilityResultsToStream(results.GetGameModeResults(), false, writer);
+		}
+		int num = writer.Position - position;
+		if (ClientAbilityResults.DebugSerializeSizeOn)
+		{
+			Debug.LogWarning("\t\t Serialized Movement Results: \n\t\t numBytes: " + num);
+		}
+	}
+#endif
 
 	public static ClientMovementResults DeSerializeClientMovementResultsFromStream(ref IBitStream stream)
 	{
@@ -282,6 +857,27 @@ public static class AbilityResultsUtils
 		return new ClientMovementResults(triggeringMover, triggeringPath, seqStartDataList, effectResults, barrierResults, powerupResults, gameModeResults);
 	}
 
+	// server-only
+#if SERVER
+	public static void SerializeServerMovementResultsListToStream(List<MovementResults> movementResults, NetworkWriter writer)
+	{
+		sbyte b;
+		if (movementResults == null)
+		{
+			b = 0;
+		}
+		else
+		{
+			b = (sbyte)movementResults.Count;
+		}
+		writer.Write(b);
+		for (int i = 0; i < (int)b; i++)
+		{
+			SerializeServerMovementResultsToStream(movementResults[i], writer);
+		}
+	}
+#endif
+
 	public static List<ClientMovementResults> DeSerializeClientMovementResultsListFromStream(ref IBitStream stream)
 	{
 		List<ClientMovementResults> list = new List<ClientMovementResults>();
@@ -294,6 +890,39 @@ public static class AbilityResultsUtils
 		}
 		return list;
 	}
+
+	// server-only
+#if SERVER
+	public static void SerializeServerReactionResultsToStream(List<AbilityResults_Reaction> reactionResultsList, NetworkWriter writer)
+	{
+		int position = writer.Position;
+		sbyte b;
+		if (reactionResultsList == null)
+		{
+			b = 0;
+		}
+		else
+		{
+			b = (sbyte)reactionResultsList.Count;
+		}
+		writer.Write(b);
+		for (int i = 0; i < (int)b; i++)
+		{
+			AbilityResults_Reaction abilityResults_Reaction = reactionResultsList[i];
+			List<ServerClientUtils.SequenceStartData> reactionSeqDataList = abilityResults_Reaction.GetReactionSeqDataList();
+			EffectResults reactionResults = abilityResults_Reaction.GetReactionResults();
+			AbilityResultsUtils.SerializeSequenceStartDataListToStream(reactionSeqDataList, writer);
+			AbilityResultsUtils.SerializeServerEffectResultsToStream(reactionResults, false, writer);
+			byte extraFlags = abilityResults_Reaction.GetExtraFlags();
+			writer.Write(extraFlags);
+		}
+		int num = writer.Position - position;
+		if (ClientAbilityResults.DebugSerializeSizeOn)
+		{
+			Debug.LogWarning("\t\t Serialized Reaction Results: \n\t\t numBytes: " + num);
+		}
+	}
+#endif
 
 	public static List<ClientReactionResults> DeSerializeClientReactionResultsFromStream(ref IBitStream stream)
 	{
@@ -312,6 +941,28 @@ public static class AbilityResultsUtils
 		return list;
 	}
 
+	// server-only
+#if SERVER
+	public static void SerializePowerupsToRemoveToStream(List<ServerAbilityUtils.PowerupRemovalData> powerupsForRemoval, NetworkWriter writer)
+	{
+		sbyte b;
+		if (powerupsForRemoval == null)
+		{
+			b = 0;
+		}
+		else
+		{
+			b = (sbyte)powerupsForRemoval.Count;
+		}
+		writer.Write(b);
+		for (int i = 0; i < (int)b; i++)
+		{
+			int guid = powerupsForRemoval[i].m_powerupToRemove.Guid;
+			writer.Write(guid);
+		}
+	}
+#endif
+
 	public static List<int> DeSerializePowerupsToRemoveFromStream(ref IBitStream stream)
 	{
 		List<int> list = new List<int>();
@@ -325,6 +976,30 @@ public static class AbilityResultsUtils
 		}
 		return list;
 	}
+
+	// server-only
+#if SERVER
+	public static void SerializePowerupsToStealToStream(List<ServerAbilityUtils.PowerUpStealData> powerupsForSteal, NetworkWriter writer)
+	{
+		sbyte b;
+		if (powerupsForSteal == null)
+		{
+			b = 0;
+		}
+		else
+		{
+			b = (sbyte)powerupsForSteal.Count;
+		}
+		writer.Write(b);
+		for (int i = 0; i < (int)b; i++)
+		{
+			int guid = powerupsForSteal[i].m_powerUp.Guid;
+			AbilityResults_Powerup results = powerupsForSteal[i].m_results;
+			writer.Write(guid);
+			AbilityResultsUtils.SerializeServerPowerupResultsToStream(results, writer);
+		}
+	}
+#endif
 
 	public static List<ClientPowerupStealData> DeSerializePowerupsToStealFromStream(ref IBitStream stream)
 	{
@@ -342,12 +1017,44 @@ public static class AbilityResultsUtils
 		return list;
 	}
 
+	// server-only
+#if SERVER
+	public static void SerializeServerPowerupResultsToStream(AbilityResults_Powerup powerupResults, NetworkWriter writer)
+	{
+		List<ServerClientUtils.SequenceStartData> sequenceDataList = powerupResults.BuildAbilityRunSequenceDataList();
+		AbilityResults abilityResults = powerupResults.AbilityResults;
+		AbilityResultsUtils.SerializeSequenceStartDataListToStream(sequenceDataList, writer);
+		AbilityResultsUtils.SerializeServerAbilityResultsToStream(abilityResults, true, writer);
+	}
+#endif
+
 	public static ClientPowerupResults DeSerializeClientPowerupResultsFromStream(ref IBitStream stream)
 	{
 		List<ServerClientUtils.SequenceStartData> seqStartDataList = DeSerializeSequenceStartDataListFromStream(ref stream);
 		ClientAbilityResults clientAbilityResults = DeSerializeClientAbilityResultsFromStream(ref stream);
 		return new ClientPowerupResults(seqStartDataList, clientAbilityResults);
 	}
+
+	// server-only
+#if SERVER
+	public static void SerializeServerGameModeEventListToStream(List<GameModeEvent> gameModeEvents, NetworkWriter writer)
+	{
+		sbyte b;
+		if (gameModeEvents == null)
+		{
+			b = 0;
+		}
+		else
+		{
+			b = (sbyte)gameModeEvents.Count;
+		}
+		writer.Write(b);
+		for (int i = 0; i < (int)b; i++)
+		{
+			AbilityResultsUtils.SerializeServerGameModeEventToStream(gameModeEvents[i], writer);
+		}
+	}
+#endif
 
 	public static List<ClientGameModeEvent> DeSerializeClientGameModeEventListFromStream(ref IBitStream stream)
 	{
@@ -361,6 +1068,53 @@ public static class AbilityResultsUtils
 		}
 		return list;
 	}
+
+	// server-only
+#if SERVER
+	public static void SerializeServerGameModeEventToStream(GameModeEvent gameModeEvent, NetworkWriter writer)
+	{
+		sbyte b = (sbyte)gameModeEvent.m_eventType;
+		byte objectGuid = gameModeEvent.m_objectGuid;
+		sbyte b2;
+		if (gameModeEvent.m_primaryActor == null)
+		{
+			b2 = (sbyte)ActorData.s_invalidActorIndex;
+		}
+		else
+		{
+			b2 = (sbyte)gameModeEvent.m_primaryActor.ActorIndex;
+		}
+		sbyte b3;
+		if (gameModeEvent.m_secondaryActor == null)
+		{
+			b3 = (sbyte)ActorData.s_invalidActorIndex;
+		}
+		else
+		{
+			b3 = (sbyte)gameModeEvent.m_secondaryActor.ActorIndex;
+		}
+		sbyte b4;
+		sbyte b5;
+		if (gameModeEvent.m_square == null)
+		{
+			b4 = -1;
+			b5 = -1;
+		}
+		else
+		{
+			b4 = (sbyte)gameModeEvent.m_square.x;
+			b5 = (sbyte)gameModeEvent.m_square.y;
+		}
+		int eventGuid = gameModeEvent.m_eventGuid;
+		writer.Write(b);
+		writer.Write(objectGuid);
+		writer.Write(b2);
+		writer.Write(b3);
+		writer.Write(b4);
+		writer.Write(b5);
+		writer.Write(eventGuid);
+	}
+#endif
 
 	public static ClientGameModeEvent DeSerializeClientGameModeEventFromStream(ref IBitStream stream)
 	{
@@ -380,10 +1134,32 @@ public static class AbilityResultsUtils
 		stream.Serialize(ref eventGUID);
 		GameModeEventType eventType = (GameModeEventType)value;
 		BoardSquare square = (x == -1 && y == -1) ? null : Board.Get().GetSquareFromIndex(x, y);
-		ActorData primaryActor = primaryActorIndex != ActorData.s_invalidActorIndex ? GameFlowData.Get().FindActorByActorIndex(primaryActorIndex) : null;
-		ActorData secondaryActor = secondaryActorIndex != ActorData.s_invalidActorIndex ? GameFlowData.Get().FindActorByActorIndex(secondaryActorIndex) : null;
-		return new ClientGameModeEvent(eventType, objectGUID, square, primaryActor, secondaryActor, eventGUID);
+        ActorData primaryActor = primaryActorIndex != ActorData.s_invalidActorIndex ? GameFlowData.Get().FindActorByActorIndex(primaryActorIndex) : null;
+        ActorData secondaryActor = secondaryActorIndex != ActorData.s_invalidActorIndex ? GameFlowData.Get().FindActorByActorIndex(secondaryActorIndex) : null;
+        return new ClientGameModeEvent(eventType, objectGUID, square, primaryActor, secondaryActor, eventGUID);
 	}
+
+	// server-only
+#if SERVER
+	public static void SerializeServerOverconListToStream(List<int> overconIds, NetworkWriter writer)
+	{
+		sbyte b;
+		if (overconIds == null)
+		{
+			b = 0;
+		}
+		else
+		{
+			b = (sbyte)overconIds.Count;
+		}
+		writer.Write(b);
+		for (int i = 0; i < overconIds.Count; i++)
+		{
+			int num = overconIds[i];
+			writer.Write(num);
+		}
+	}
+#endif
 
 	public static List<int> DeSerializeClientOverconListFromStream(ref IBitStream stream)
 	{

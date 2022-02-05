@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using UnityEngine;
 
 public class EffectSource
@@ -6,11 +8,28 @@ public class EffectSource
 	private GameObject m_sequencePrefab;
 
 	public Ability Ability { get; private set; }
+
+	// rogues
+	//public GearStatData GearStatData { get; private set; }
+
+	// added in rogues
+	//public AbilityResults AbilityResults { get; private set; }
+
 	public Passive Passive { get; private set; }
 
-	public EffectSource(Ability source)
+	// rogues
+	//public EffectSource(Ability source, GearStatData gearStatData = null)
+	//{
+	//	Ability = source;
+	//	GearStatData = gearStatData;
+	//	m_name = source.m_abilityName;
+	//	m_sequencePrefab = source.m_sequencePrefab;
+	//}
+
+	public EffectSource(Ability source) // , AbilityResults abilityResults in rogues
 	{
 		Ability = source;
+		//AbilityResults = abilityResults;
 		m_name = source.m_abilityName;
 		m_sequencePrefab = source.m_sequencePrefab;
 	}
@@ -21,6 +40,15 @@ public class EffectSource
 		m_name = source.m_passiveName;
 		m_sequencePrefab = source.m_sequencePrefab;
 	}
+
+	// rogues
+	//public EffectSource(Passive source, GearStatData gearStatData = null)
+	//{
+	//	Passive = source;
+	//	m_name = source.m_passiveName;
+	//	m_sequencePrefab = source.m_sequencePrefab;
+	//	GearStatData = gearStatData;
+	//}
 
 	public EffectSource(string name, GameObject sequencePrefab, GameObject secondarySequencePrefab)
 	{

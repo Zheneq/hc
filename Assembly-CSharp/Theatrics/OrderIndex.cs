@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 namespace Theatrics
 {
 	internal enum OrderIndex

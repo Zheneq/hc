@@ -1,4 +1,7 @@
+// ROGUES
+// SERVER
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class BarrierSerializeInfo
 {
@@ -18,6 +21,18 @@ public class BarrierSerializeInfo
 	public bool m_makeClientGeo;
 	public bool m_clientSequenceStartAttempted;
 
+	// custom
+	// TODO SERIALIZATION
+	// NetworkWriter in rogues
+#if SERVER2
+	public static void SerializeBarrierInfo(NetworkWriter writer, BarrierSerializeInfo info)
+	{
+		IBitStream stream = new NetworkWriterAdapter(writer);
+		SerializeBarrierInfo(stream, ref info);
+	}
+#endif
+
+	// reactor
 	public static void SerializeBarrierInfo(IBitStream stream, ref BarrierSerializeInfo info)
 	{
 		if (info == null)
@@ -43,4 +58,44 @@ public class BarrierSerializeInfo
 		stream.Serialize(ref info.m_ownerIndex);
 		stream.Serialize(ref info.m_makeClientGeo);
 	}
+
+	// rogues
+	//public static void SerializeBarrierInfo(NetworkWriter writer, BarrierSerializeInfo info)
+	//{
+	//	writer.Write(info.m_guid);
+	//	writer.Write(info.m_center);
+	//	writer.Write(info.m_widthInWorld);
+	//	writer.Write(info.m_facingHorizontalAngle);
+	//	writer.Write(info.m_bidirectional);
+	//	writer.Write(info.m_blocksVision);
+	//	writer.Write(info.m_blocksAbilities);
+	//	writer.Write(info.m_blocksMovement);
+	//	writer.Write(info.m_blocksMovementOnCrossover);
+	//	writer.Write(info.m_blocksPositionTargeting);
+	//	writer.Write(info.m_considerAsCover);
+	//	writer.Write(info.m_team);
+	//	writer.Write(info.m_ownerIndex);
+	//	writer.Write(info.m_makeClientGeo);
+	//}
+
+	// TODO SERIALIZATION
+#if SERVER
+	public static void DeserializeBarrierInfo(NetworkReader reader, ref BarrierSerializeInfo info)
+	{
+		info.m_guid = reader.ReadInt32();
+		info.m_center = reader.ReadVector3();
+		info.m_widthInWorld = reader.ReadSingle();
+		info.m_facingHorizontalAngle = reader.ReadSingle();
+		info.m_bidirectional = reader.ReadBoolean();
+		info.m_blocksVision = reader.ReadSByte();
+		info.m_blocksAbilities = reader.ReadSByte();
+		info.m_blocksMovement = reader.ReadSByte();
+		info.m_blocksMovementOnCrossover = reader.ReadSByte();
+		info.m_blocksPositionTargeting = reader.ReadSByte();
+		info.m_considerAsCover = reader.ReadBoolean();
+		info.m_team = reader.ReadSByte();
+		info.m_ownerIndex = reader.ReadInt32();
+		info.m_makeClientGeo = reader.ReadBoolean();
+	}
+#endif
 }

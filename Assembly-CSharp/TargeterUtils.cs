@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -418,7 +420,10 @@ public static class TargeterUtils
 		}
 		if (includeEnemies)
 		{
+			// reactor
 			list.Add(allyActor.GetEnemyTeam());
+			// rogues
+			//list.AddRange(allyActor.GetOtherTeams());
 		}
 		return list;
 	}
@@ -448,6 +453,29 @@ public static class TargeterUtils
 			return distASqr.CompareTo(distBSqr);
 		});
 	}
+
+	// added in rogues
+#if SERVER
+	public static Vector3 GetClampedFreePos(Vector3 freePos, ActorData caster, float minDistInSquares, float maxDistInSquares)
+	{
+		float squareSize = Board.Get().squareSize;
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		Vector3 vector = freePos - loSCheckPos;
+		vector.y = 0f;
+		float magnitude = vector.magnitude;
+		float num = minDistInSquares * squareSize;
+		float num2 = maxDistInSquares * squareSize;
+		if (magnitude < num)
+		{
+			return loSCheckPos + vector.normalized * num;
+		}
+		if (magnitude > num2)
+		{
+			return loSCheckPos + vector.normalized * num2;
+		}
+		return freePos;
+	}
+#endif
 
 	public static void DrawGizmo_LaserBox(Vector3 startPos, Vector3 endPos, float widthInWorld, Color color)
 	{
