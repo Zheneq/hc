@@ -8,40 +8,29 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	public struct ActorIndexToTetherAge
 	{
 		public int m_actorIndex;
-
 		public int m_tetherAge;
 	}
 
 	private SyncListInt m_beamActorIndex = new SyncListInt();
-
 	private SyncListSparkTetherAgeInfo m_actorIndexToTetherAge = new SyncListSparkTetherAgeInfo();
 
 	public GameObject m_tetherRangePrefab;
 
 	private GameObject m_tetherRange;
-
 	private ActorData m_actorData;
-
 	private SyncListUInt m_actorsOutOfRangeOnEvade = new SyncListUInt();
 
-	private static int kListm_beamActorIndex;
-
-	private static int kListm_actorIndexToTetherAge;
-
-	private static int kListm_actorsOutOfRangeOnEvade;
-
-	private static int kRpcRpcSetTetherRadiusPosition;
+	private static int kListm_beamActorIndex = -1900463023;
+	private static int kListm_actorIndexToTetherAge = 990815280;
+	private static int kListm_actorsOutOfRangeOnEvade = -98071849;
+	private static int kRpcRpcSetTetherRadiusPosition = -1483599064;
 
 	static SparkBeamTrackerComponent()
-	{
-		kRpcRpcSetTetherRadiusPosition = -1483599064;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(SparkBeamTrackerComponent), kRpcRpcSetTetherRadiusPosition, InvokeRpcRpcSetTetherRadiusPosition);
-		kListm_beamActorIndex = -1900463023;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(SparkBeamTrackerComponent), kListm_beamActorIndex, InvokeSyncListm_beamActorIndex);
-		kListm_actorIndexToTetherAge = 990815280;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(SparkBeamTrackerComponent), kListm_actorIndexToTetherAge, InvokeSyncListm_actorIndexToTetherAge);
-		kListm_actorsOutOfRangeOnEvade = -98071849;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(SparkBeamTrackerComponent), kListm_actorsOutOfRangeOnEvade, InvokeSyncListm_actorsOutOfRangeOnEvade);
+	{		
+		RegisterRpcDelegate(typeof(SparkBeamTrackerComponent), kRpcRpcSetTetherRadiusPosition, InvokeRpcRpcSetTetherRadiusPosition);		
+		RegisterSyncListDelegate(typeof(SparkBeamTrackerComponent), kListm_beamActorIndex, InvokeSyncListm_beamActorIndex);		
+		RegisterSyncListDelegate(typeof(SparkBeamTrackerComponent), kListm_actorIndexToTetherAge, InvokeSyncListm_actorIndexToTetherAge);		
+		RegisterSyncListDelegate(typeof(SparkBeamTrackerComponent), kListm_actorsOutOfRangeOnEvade, InvokeSyncListm_actorsOutOfRangeOnEvade);
 		NetworkCRC.RegisterBehaviour("SparkBeamTrackerComponent", 0);
 	}
 
@@ -49,8 +38,8 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (m_tetherRangePrefab != null)
 		{
-			m_tetherRange = Object.Instantiate(m_tetherRangePrefab);
-			m_tetherRange.transform.parent = base.gameObject.transform;
+			m_tetherRange = Instantiate(m_tetherRangePrefab);
+			m_tetherRange.transform.parent = gameObject.transform;
 			m_tetherRange.transform.localPosition = Vector3.zero;
 			m_tetherRange.SetActive(false);
 		}
@@ -59,24 +48,17 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 
 	internal void SetTetherRadiusPosition(Vector3 tetherRadiusCenter)
 	{
-		if (!NetworkClient.active)
+		if (NetworkClient.active)
 		{
-			while (true)
+			if (m_tetherRange != null)
 			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					CallRpcSetTetherRadiusPosition(tetherRadiusCenter);
-					return;
-				}
+				m_tetherRange.transform.parent = null;
+				m_tetherRange.transform.position = tetherRadiusCenter;
 			}
 		}
-		if (m_tetherRange != null)
+		else
 		{
-			m_tetherRange.transform.parent = null;
-			m_tetherRange.transform.position = tetherRadiusCenter;
+			CallRpcSetTetherRadiusPosition(tetherRadiusCenter);
 		}
 	}
 
@@ -103,92 +85,49 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 
 	internal int GetTetherAgeOnActor(int actorIndex)
 	{
-		for (int i = 0; i < m_actorIndexToTetherAge.Count; i++)
+		foreach (ActorIndexToTetherAge actorIndexToTetherAge in m_actorIndexToTetherAge)
 		{
-			ActorIndexToTetherAge actorIndexToTetherAge = m_actorIndexToTetherAge[i];
-			if (actorIndexToTetherAge.m_actorIndex != actorIndex)
+			if (actorIndexToTetherAge.m_actorIndex == actorIndex)
 			{
-				continue;
-			}
-			while (true)
-			{
-				ActorIndexToTetherAge actorIndexToTetherAge2 = m_actorIndexToTetherAge[i];
-				return actorIndexToTetherAge2.m_tetherAge;
+				return actorIndexToTetherAge.m_tetherAge;
 			}
 		}
-		while (true)
-		{
-			return 0;
-		}
+		return 0;
 	}
 
 	private bool ShouldShowTetherRadius()
 	{
-		bool result = false;
-		if (NetworkClient.active)
+		if (!NetworkClient.active)
 		{
-			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-			if (activeOwnedActorData != null)
+			return false;
+		}
+		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+		if (activeOwnedActorData == null)
+		{
+			return false;
+		}
+		if (m_actorData != activeOwnedActorData)
+		{
+			return (BeamIsActive() && m_beamActorIndex.Contains(activeOwnedActorData.ActorIndex));
+		}
+		if (BeamIsActive())
+		{
+			return true;
+		}
+		if (m_actorData.GetActorTurnSM().CurrentState == TurnStateEnum.TARGETING_ACTION)
+		{
+			Ability ability = m_actorData.GetAbilityData()?.GetLastSelectedAbility();
+			if (ability != null)
 			{
-				if (m_actorData == activeOwnedActorData)
-				{
-					if (BeamIsActive())
-					{
-						result = true;
-					}
-					else
-					{
-						ActorTurnSM actorTurnSM = m_actorData.GetActorTurnSM();
-						if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
-						{
-							AbilityData abilityData = m_actorData.GetAbilityData();
-							object obj;
-							if ((bool)abilityData)
-							{
-								obj = abilityData.GetLastSelectedAbility();
-							}
-							else
-							{
-								obj = null;
-							}
-							Ability ability = (Ability)obj;
-							if (ability != null)
-							{
-								if (!(ability is SparkBasicAttack))
-								{
-									if (!(ability is SparkHealingBeam))
-									{
-										goto IL_0120;
-									}
-								}
-								result = true;
-							}
-						}
-					}
-				}
-				else
-				{
-					result = (BeamIsActive() && m_beamActorIndex.Contains(activeOwnedActorData.ActorIndex));
-				}
+				return ability is SparkBasicAttack || ability is SparkHealingBeam;
 			}
 		}
-		goto IL_0120;
-		IL_0120:
-		return result;
+		return false;
 	}
 
 	internal bool IsActorTracked(ActorData actor)
 	{
-		int result;
-		if (actor != null)
-		{
-			result = (m_beamActorIndex.Contains(actor.ActorIndex) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return actor != null && m_beamActorIndex.Contains(actor.ActorIndex);
 	}
 
 	internal bool IsActorIndexTracked(int actorIndex)
@@ -199,48 +138,11 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	internal List<int> GetBeamActorIndices()
 	{
 		List<int> list = new List<int>();
-		IEnumerator<int> enumerator = m_beamActorIndex.GetEnumerator();
-		try
+		foreach (int beamActorIndex in m_beamActorIndex)
 		{
-			while (enumerator.MoveNext())
-			{
-				int current = enumerator.Current;
-				list.Add(current);
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					if (true)
-					{
-						return list;
-					}
-					/*OpCode not supported: LdMemberToken*/;
-					return list;
-				}
-			}
+			list.Add(beamActorIndex);
 		}
-		finally
-		{
-			if (enumerator != null)
-			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						enumerator.Dispose();
-						goto end_IL_0045;
-					}
-				}
-			}
-			end_IL_0045:;
-		}
+		return list;
 	}
 
 	internal List<ActorData> GetBeamActors()
@@ -259,8 +161,8 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 
 	internal bool HasBothTethers()
 	{
-		bool flag = false;
-		bool flag2 = false;
+		bool hasAlly = false;
+		bool hasEnemy = false;
 		foreach (int beamActorIndex in GetBeamActorIndices())
 		{
 			ActorData actorData = GameFlowData.Get().FindActorByActorIndex(beamActorIndex);
@@ -268,71 +170,34 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 			{
 				if (actorData.GetTeam() == m_actorData.GetTeam())
 				{
-					flag = true;
+					hasAlly = true;
 				}
 				else
 				{
-					flag2 = true;
+					hasEnemy = true;
 				}
 			}
 		}
-		int result;
-		if (flag)
-		{
-			result = (flag2 ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return hasAlly && hasEnemy;
 	}
 
 	private void Update()
 	{
-		if (!(m_tetherRange != null))
+		if (m_tetherRange != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			bool flag = ShouldShowTetherRadius();
+			bool isShowingTetherRadius = ShouldShowTetherRadius();
 			FriendlyEnemyVFXSelector component = m_tetherRange.GetComponent<FriendlyEnemyVFXSelector>();
-			if (component != null)
+			if (component != null && GameFlowData.Get().activeOwnedActorData != null)
 			{
-				if (GameFlowData.Get().activeOwnedActorData != null)
-				{
-					component.Setup(GameFlowData.Get().activeOwnedActorData.GetTeam());
-				}
+				component.Setup(GameFlowData.Get().activeOwnedActorData.GetTeam());
 			}
-			if (flag)
+			if (isShowingTetherRadius && !m_tetherRange.activeSelf)
 			{
-				if (!m_tetherRange.activeSelf)
-				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							break;
-						default:
-							m_tetherRange.SetActive(true);
-							return;
-						}
-					}
-				}
+				m_tetherRange.SetActive(true);
 			}
-			if (flag)
+			else if (!isShowingTetherRadius && m_tetherRange.activeSelf)
 			{
-				return;
-			}
-			while (true)
-			{
-				if (m_tetherRange.activeSelf)
-				{
-					m_tetherRange.SetActive(false);
-				}
-				return;
+				m_tetherRange.SetActive(false);
 			}
 		}
 	}
@@ -341,16 +206,7 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return m_actorsOutOfRangeOnEvade.Contains((uint)actor.ActorIndex);
-				}
-			}
+			return m_actorsOutOfRangeOnEvade.Contains((uint)actor.ActorIndex);
 		}
 		return false;
 	}
@@ -363,17 +219,8 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_beamActorIndex called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_beamActorIndex called on server.");
+			return;
 		}
 		((SparkBeamTrackerComponent)obj).m_beamActorIndex.HandleMsg(reader);
 	}
@@ -383,28 +230,17 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("SyncList m_actorIndexToTetherAge called on server.");
+			return;
 		}
-		else
-		{
-			((SparkBeamTrackerComponent)obj).m_actorIndexToTetherAge.HandleMsg(reader);
-		}
+		((SparkBeamTrackerComponent)obj).m_actorIndexToTetherAge.HandleMsg(reader);
 	}
 
 	protected static void InvokeSyncListm_actorsOutOfRangeOnEvade(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_actorsOutOfRangeOnEvade called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_actorsOutOfRangeOnEvade called on server.");
+			return;
 		}
 		((SparkBeamTrackerComponent)obj).m_actorsOutOfRangeOnEvade.HandleMsg(reader);
 	}
@@ -413,17 +249,8 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC RpcSetTetherRadiusPosition called on server.");
-					return;
-				}
-			}
+			Debug.LogError("RPC RpcSetTetherRadiusPosition called on server.");
+			return;
 		}
 		((SparkBeamTrackerComponent)obj).RpcSetTetherRadiusPosition(reader.ReadVector3());
 	}
@@ -432,17 +259,8 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC Function RpcSetTetherRadiusPosition called on client.");
-					return;
-				}
-			}
+			Debug.LogError("RPC Function RpcSetTetherRadiusPosition called on client.");
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
@@ -464,51 +282,42 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					SyncListInt.WriteInstance(writer, m_beamActorIndex);
-					GeneratedNetworkCode._WriteStructSyncListSparkTetherAgeInfo_None(writer, m_actorIndexToTetherAge);
-					SyncListUInt.WriteInstance(writer, m_actorsOutOfRangeOnEvade);
-					return true;
-				}
-			}
+			SyncListInt.WriteInstance(writer, m_beamActorIndex);
+			GeneratedNetworkCode._WriteStructSyncListSparkTetherAgeInfo_None(writer, m_actorIndexToTetherAge);
+			SyncListUInt.WriteInstance(writer, m_actorsOutOfRangeOnEvade);
+			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListInt.WriteInstance(writer, m_beamActorIndex);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			GeneratedNetworkCode._WriteStructSyncListSparkTetherAgeInfo_None(writer, m_actorIndexToTetherAge);
 		}
-		if ((base.syncVarDirtyBits & 4) != 0)
+		if ((syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListUInt.WriteInstance(writer, m_actorsOutOfRangeOnEvade);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -517,19 +326,10 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					SyncListInt.ReadReference(reader, m_beamActorIndex);
-					GeneratedNetworkCode._ReadStructSyncListSparkTetherAgeInfo_None(reader, m_actorIndexToTetherAge);
-					SyncListUInt.ReadReference(reader, m_actorsOutOfRangeOnEvade);
-					return;
-				}
-			}
+			SyncListInt.ReadReference(reader, m_beamActorIndex);
+			GeneratedNetworkCode._ReadStructSyncListSparkTetherAgeInfo_None(reader, m_actorIndexToTetherAge);
+			SyncListUInt.ReadReference(reader, m_actorsOutOfRangeOnEvade);
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
