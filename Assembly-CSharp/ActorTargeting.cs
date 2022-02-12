@@ -615,7 +615,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 	{
 		ActorData actorData = m_actorData;
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		ActorData y = (!(Board.Get().PlayerFreeSquare != null)) ? null : Board.Get().PlayerFreeSquare.OccupantActor;
+		ActorData occupantActor = Board.Get().PlayerFreeSquare?.OccupantActor;
 		AbilityData abilityData = actorData.GetAbilityData();
 		List<AbilityRequestData> abilityRequestDataForClient = GetAbilityRequestDataForClient();
 		int num = 0;
@@ -629,16 +629,16 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			{
 				if (abilityOfActionType.Targeter != null)
 				{
-					for (int j = 0;
-						j < abilityOfActionType.Targeters.Count
-						&& j < abilityOfActionType.GetExpectedNumberOfTargeters()
-						&& j < abilityRequestData.m_targets.Count;
-						j++)
+					for (int j = 0; j < abilityOfActionType.Targeters.Count; j++)
 					{
+						if (j >= abilityOfActionType.GetExpectedNumberOfTargeters() || j >= abilityRequestData.m_targets.Count)
+						{
+							break;
+						}
 						AbilityUtil_Targeter abilityUtil_Targeter = abilityOfActionType.Targeters[j];
 						if (abilityUtil_Targeter != null)
 						{
-							if (actorData != y && !InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowAllyAbilityInfo))
+							if (actorData != occupantActor && !InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowAllyAbilityInfo))
 							{
 								actorData.ForceDisplayTargetHighlight = false;
 							}
@@ -669,10 +669,9 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 	{
 		AbilityData abilityData = m_actorData.GetAbilityData();
 		AbilityData.ActionType actionTargeting = abilityData.GetSelectedActionTypeForTargeting();
-		bool isHiding = InSpectatorModeAndHideTargeting();
 		bool isShowingTargeting = false;
 		if (actionTargeting != AbilityData.ActionType.INVALID_ACTION
-			&& !isHiding
+			&& !InSpectatorModeAndHideTargeting()
 			&& GameFlowData.Get().LocalPlayerData.IsViewingTeam(m_actorData.GetTeam()))
 		{
 			isShowingTargeting = true;
@@ -692,8 +691,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				s_lastTimeAddedAbilityCooldownsActor = Time.time;
 			}
 			int actualMaxTechPoints = m_actorData.GetMaxTechPoints();
-			List<Ability> abilitiesAsList = abilityData.GetAbilitiesAsList();
-			foreach (Ability current in abilitiesAsList)
+			foreach (Ability current in abilityData.GetAbilitiesAsList())
 			{
 				if (current != null)
 				{
