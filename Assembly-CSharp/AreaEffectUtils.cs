@@ -15,7 +15,6 @@ public static class AreaEffectUtils
 	public struct BouncingLaserInfo
 	{
 		public Vector3 m_segmentOrigin;
-
 		public int m_endpointIndex;
 
 		public BouncingLaserInfo(Vector3 segmentOrigin, int endpointIndex)
@@ -52,54 +51,27 @@ public static class AreaEffectUtils
 
 	public static bool IsActorTargetable(ActorData actor, List<Team> validTeams = null)
 	{
-		int result;
-		if (actor != null)
-		{
-			if (!actor.IsDead() && !actor.IgnoreForAbilityHits)
-			{
-				if (actor.GetCurrentBoardSquare() != null)
-				{
-					result = (IsRelevantTeam(validTeams, actor.GetTeam()) ? 1 : 0);
-					goto IL_0065;
-				}
-			}
-		}
-		result = 0;
-		goto IL_0065;
-		IL_0065:
-		return (byte)result != 0;
+		return actor != null
+			&& !actor.IsDead()
+			&& !actor.IgnoreForAbilityHits
+			&& actor.GetCurrentBoardSquare() != null
+			&& IsRelevantTeam(validTeams, actor.GetTeam());
 	}
 
 	public static bool IsRelevantTeam(List<Team> validTeams, Team team)
 	{
 		if (validTeams == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
+			return true;
 		}
-		for (int i = 0; i < validTeams.Count; i++)
+		foreach (Team validTeam in validTeams)
 		{
-			if (validTeams[i] != team)
-			{
-				continue;
-			}
-			while (true)
+			if (validTeam == team)
 			{
 				return true;
 			}
 		}
-		while (true)
-		{
-			return false;
-		}
+		return false;
 	}
 
 	public static List<BoardSquare> GetValidRespawnSquaresInDonut(float centerX, float centerY, float innerRadius, float outerRadius)
@@ -107,123 +79,90 @@ public static class AreaEffectUtils
 		float squareSize = Board.Get().squareSize;
 		innerRadius *= squareSize;
 		outerRadius *= squareSize;
-		List<BoardSquare> list = new List<BoardSquare>();
+		List<BoardSquare> result = new List<BoardSquare>();
 		Vector3 a = new Vector3(centerX, 0f, centerY);
 		int maxX = Board.Get().GetMaxX();
 		int maxY = Board.Get().GetMaxY();
-		int num = (int)Mathf.Max(0f, (centerX - outerRadius) / squareSize);
-		int num2 = (int)Mathf.Min(maxX, (centerX + outerRadius) / squareSize);
-		int num3 = (int)Mathf.Max(0f, (centerY - outerRadius) / squareSize);
-		int num4 = (int)Mathf.Min(maxY, (centerY + outerRadius) / squareSize);
-		for (int i = num; i < num2; i++)
+		int x1 = (int)Mathf.Max(0f, (centerX - outerRadius) / squareSize);
+		int x2 = (int)Mathf.Min(maxX, (centerX + outerRadius) / squareSize);
+		int y1 = (int)Mathf.Max(0f, (centerY - outerRadius) / squareSize);
+		int y2 = (int)Mathf.Min(maxY, (centerY + outerRadius) / squareSize);
+		for (int i = x1; i < x2; i++)
 		{
-			for (int j = num3; j < num4; j++)
+			for (int j = y1; j < y2; j++)
 			{
-				Vector3 b = new Vector3((float)i * squareSize, 0f, (float)j * squareSize);
+				Vector3 b = new Vector3(i * squareSize, 0f, j * squareSize);
 				float sqrMagnitude = (a - b).sqrMagnitude;
-				if (!(sqrMagnitude < outerRadius * outerRadius) || !(sqrMagnitude > innerRadius * innerRadius))
+				if (sqrMagnitude < outerRadius * outerRadius && sqrMagnitude > innerRadius * innerRadius)
 				{
-					continue;
-				}
-				BoardSquare boardSquare = Board.Get().GetSquareFromIndex(i, j);
-				if (!(boardSquare != null))
-				{
-					continue;
-				}
-				if (!boardSquare.IsValidForGameplay())
-				{
-					continue;
-				}
-				if (boardSquare.OccupantActor == null)
-				{
-					list.Add(boardSquare);
+					BoardSquare boardSquare = Board.Get().GetSquareFromIndex(i, j);
+					if (boardSquare != null && boardSquare.IsValidForGameplay() && boardSquare.OccupantActor == null)
+					{
+						result.Add(boardSquare);
+					}
 				}
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					goto end_IL_0167;
-				}
-				continue;
-				end_IL_0167:
-				break;
-			}
 		}
-		while (true)
-		{
-			return list;
-		}
+		return result;
 	}
 
 	private static void AddSquareAtIndexToListIfValid(int x, int y, List<BoardSquare> list)
 	{
 		BoardSquare boardSquare = Board.Get().GetSquareFromIndex(x, y);
-		if (!(boardSquare != null))
-		{
-			return;
-		}
-		while (true)
+		if (boardSquare != null)
 		{
 			list.Add(boardSquare);
-			return;
 		}
 	}
 
 	public static List<BoardSquare> GetSquaresInBorderLayer(BoardSquare center, int borderLayerNumber, bool requireLosToCenter)
 	{
-		if (!(center == null))
+		if (center == null || borderLayerNumber < 0)
 		{
-			if (borderLayerNumber >= 0)
+			return null;
+		}
+		List<BoardSquare> result = new List<BoardSquare>();
+		if (borderLayerNumber == 0)
+		{
+			result.Add(center);
+		}
+		else
+		{
+			AddSquareAtIndexToListIfValid(center.x + borderLayerNumber, center.y, result);
+			AddSquareAtIndexToListIfValid(center.x - borderLayerNumber, center.y, result);
+			AddSquareAtIndexToListIfValid(center.x, center.y + borderLayerNumber, result);
+			AddSquareAtIndexToListIfValid(center.x, center.y - borderLayerNumber, result);
+			for (int i = 1; i <= borderLayerNumber; i++)
 			{
-				List<BoardSquare> list = new List<BoardSquare>();
-				if (borderLayerNumber == 0)
+				int dx = borderLayerNumber;
+				int dy = i;
+				AddSquareAtIndexToListIfValid(center.x + dx, center.y + dy, result);
+				AddSquareAtIndexToListIfValid(center.x - dx, center.y + dy, result);
+				AddSquareAtIndexToListIfValid(center.x + dx, center.y - dy, result);
+				AddSquareAtIndexToListIfValid(center.x - dx, center.y - dy, result);
+				if (dx != dy)
 				{
-					list.Add(center);
+					dx = i;
+					dy = borderLayerNumber;
+					AddSquareAtIndexToListIfValid(center.x + dx, center.y + dy, result);
+					AddSquareAtIndexToListIfValid(center.x - dx, center.y + dy, result);
+					AddSquareAtIndexToListIfValid(center.x + dx, center.y - dy, result);
+					AddSquareAtIndexToListIfValid(center.x - dx, center.y - dy, result);
 				}
-				else
+			}
+			if (requireLosToCenter)
+			{
+				for (int i = result.Count - 1; i >= 0; i--)
 				{
-					AddSquareAtIndexToListIfValid(center.x + borderLayerNumber, center.y, list);
-					AddSquareAtIndexToListIfValid(center.x - borderLayerNumber, center.y, list);
-					AddSquareAtIndexToListIfValid(center.x, center.y + borderLayerNumber, list);
-					AddSquareAtIndexToListIfValid(center.x, center.y - borderLayerNumber, list);
-					for (int i = 1; i <= borderLayerNumber; i++)
+					BoardSquare boardSquare = result[i];
+					if (!center.GetLOS(boardSquare.x, boardSquare.y))
 					{
-						int num = borderLayerNumber;
-						int num2 = i;
-						AddSquareAtIndexToListIfValid(center.x + num, center.y + num2, list);
-						AddSquareAtIndexToListIfValid(center.x - num, center.y + num2, list);
-						AddSquareAtIndexToListIfValid(center.x + num, center.y - num2, list);
-						AddSquareAtIndexToListIfValid(center.x - num, center.y - num2, list);
-						if (num != num2)
-						{
-							num = i;
-							num2 = borderLayerNumber;
-							AddSquareAtIndexToListIfValid(center.x + num, center.y + num2, list);
-							AddSquareAtIndexToListIfValid(center.x - num, center.y + num2, list);
-							AddSquareAtIndexToListIfValid(center.x + num, center.y - num2, list);
-							AddSquareAtIndexToListIfValid(center.x - num, center.y - num2, list);
-						}
-					}
-					if (requireLosToCenter)
-					{
-						for (int num3 = list.Count - 1; num3 >= 0; num3--)
-						{
-							BoardSquare boardSquare = list[num3];
-							if (!center.GetLOS(boardSquare.x, boardSquare.y))
-							{
-								list.RemoveAt(num3);
-							}
-						}
+						result.RemoveAt(i);
 					}
 				}
-				return list;
 			}
 		}
-		return null;
+		return result;
 	}
 
 	public static float PointToLineDistance(Vector3 testPt, Vector3 pt1, Vector3 pt2)
@@ -256,86 +195,47 @@ public static class AreaEffectUtils
 		float num2 = Vector3.Dot(testPt - pt2, pt1 - pt2);
 		bool flag = num >= 0f;
 		bool flag2 = num2 >= 0f;
-		if (flag != flag2)
+		if (flag != flag2 && PointToLineDistance(testPt, pt1, pt2) < halfWidth)
 		{
-			if (PointToLineDistance(testPt, pt1, pt2) < halfWidth)
-			{
-				result = true;
-			}
+			result = true;
 		}
 		return result;
 	}
 
 	public static void SortSquaresByDistanceToPos(ref List<BoardSquare> squares, Vector3 pos)
 	{
-		squares.Sort(delegate(BoardSquare x, BoardSquare y)
+		squares.Sort(delegate(BoardSquare a, BoardSquare b)
 		{
-			if (x == y)
+			if (a == b)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return 0;
-					}
-				}
+				return 0;
 			}
-			if (x == null)
+			if (a == null)
 			{
 				return -1;
 			}
-			if (y == null)
+			if (b == null)
 			{
-				while (true)
+				return 1;
+			}
+			Vector3 aVec = a.ToVector3();
+			aVec.y = pos.y;
+			Vector3 bVec = b.ToVector3();
+			bVec.y = pos.y;
+			float aDistSqr = (aVec - pos).sqrMagnitude;
+			float bDistSqr = (bVec - pos).sqrMagnitude;
+			if (aDistSqr == bDistSqr)
+			{
+				if (a.x != b.x)
 				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						return 1;
-					}
+					return a.x.CompareTo(b.x);
+				}
+				if (a.y != b.y)
+				{
+					return a.y.CompareTo(b.y);
 				}
 			}
-			Vector3 a = x.ToVector3();
-			a.y = pos.y;
-			Vector3 a2 = y.ToVector3();
-			a2.y = pos.y;
-			float sqrMagnitude = (a - pos).sqrMagnitude;
-			float sqrMagnitude2 = (a2 - pos).sqrMagnitude;
-			if (sqrMagnitude == sqrMagnitude2)
-			{
-				if (x.x != y.x)
-				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							return x.x.CompareTo(y.x);
-						}
-					}
-				}
-				if (x.y != y.y)
-				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							break;
-						default:
-							return x.y.CompareTo(y.y);
-						}
-					}
-				}
-			}
-			return sqrMagnitude.CompareTo(sqrMagnitude2);
+			return aDistSqr.CompareTo(bDistSqr);
 		});
 	}
 
@@ -352,11 +252,7 @@ public static class AreaEffectUtils
 			{
 				Vector3 vector = end + num * a;
 				BoardSquare boardSquare = Board.Get().GetSquareFromVec3(vector);
-				if (!(boardSquare != null) || !boardSquare.IsValidForGameplay())
-				{
-					continue;
-				}
-				while (true)
+				if (boardSquare != null && boardSquare.IsValidForGameplay())
 				{
 					adjustedEndPoint = vector;
 					return true;
@@ -365,29 +261,17 @@ public static class AreaEffectUtils
 			BoardSquare boardSquare2 = Board.Get().GetSquareFromVec3(start);
 			if (boardSquare2 != null && boardSquare2.IsValidForGameplay())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						adjustedEndPoint = start;
-						return true;
-					}
-				}
+				adjustedEndPoint = start;
+				return true;
 			}
 		}
 		else
 		{
-			BoardSquare boardSquare3 = Board.Get().GetSquareFromVec3(end);
-			if (boardSquare3 != null)
+			BoardSquare boardSquare = Board.Get().GetSquareFromVec3(end);
+			if (boardSquare != null && boardSquare.IsValidForGameplay())
 			{
-				if (boardSquare3.IsValidForGameplay())
-				{
-					adjustedEndPoint = end;
-					return true;
-				}
+				adjustedEndPoint = end;
+				return true;
 			}
 		}
 		return false;
@@ -395,153 +279,68 @@ public static class AreaEffectUtils
 
 	public static bool SquaresHaveLoSForAbilities(BoardSquare source, BoardSquare dest, ActorData caster, bool checkBarreirs = true, List<NonActorTargetInfo> nonActorTargetInfo = null)
 	{
-		if (!(source == null))
+		if (source == null || dest == null)
 		{
-			if (!(dest == null))
-			{
-				if (source == dest)
-				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							return true;
-						}
-					}
-				}
-				if (source.IsValidForGameplay())
-				{
-					if (!source.GetLOS(dest.x, dest.y))
-					{
-						return false;
-					}
-				}
-				if (checkBarreirs)
-				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							return HasLosByBarriers(source, dest, caster, VectorUtils.s_laserOffset * Board.SquareSizeStatic, nonActorTargetInfo);
-						}
-					}
-				}
-				return true;
-			}
+			return false;
 		}
-		return false;
+		if (source == dest)
+		{
+			return true;
+		}
+		if (source.IsValidForGameplay() && !source.GetLOS(dest.x, dest.y))
+		{
+			return false;
+		}
+		if (checkBarreirs)
+		{
+			return HasLosByBarriers(source, dest, caster, VectorUtils.s_laserOffset * Board.SquareSizeStatic, nonActorTargetInfo);
+		}
+		return true;
 	}
 
 	public static bool HasLosByBarriers(BoardSquare source, BoardSquare dest, ActorData caster, float offsetToUseInWorld, List<NonActorTargetInfo> nonActorTargetInfo = null)
 	{
-		bool flag = false;
-		int num;
-		if (BarrierManager.Get() != null)
+		bool hasAbilityBlockingBarriers = BarrierManager.Get() != null && BarrierManager.Get().HasAbilityBlockingBarriers();
+		if (caster != null
+			&& BarrierManager.Get() != null
+			&& hasAbilityBlockingBarriers
+			&& offsetToUseInWorld <= 0f
+			&& BarrierManager.Get().AreAbilitiesBlocked(caster, source, dest, nonActorTargetInfo))
 		{
-			num = (BarrierManager.Get().HasAbilityBlockingBarriers() ? 1 : 0);
+			return false;
 		}
-		else
+		bool hasLoS = true;
+		List<NonActorTargetInfo> list = nonActorTargetInfo != null ? new List<NonActorTargetInfo>() : null;
+		if (BarrierManager.Get() != null && hasAbilityBlockingBarriers)
 		{
-			num = 0;
-		}
-		bool flag2 = (byte)num != 0;
-		if (!(caster == null))
-		{
-			if (!(BarrierManager.Get() == null))
+			Vector3 srcVec = source.ToVector3();
+			Vector3 dstVec = dest.ToVector3();
+			Vector3 dir = dstVec - srcVec;
+			dir.y = 0f;
+			float dist = dir.magnitude;
+			dir.Normalize();
+			Vector3 offset = Vector3.Cross(Vector3.up, dir);
+			offset.Normalize();
+			offset *= offsetToUseInWorld;
+			srcVec.y = Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+			dstVec.y = srcVec.y;
+			bool isAbilityBlockedA = BarrierManager.Get().AreAbilitiesBlocked(caster, srcVec + offset, dstVec + offset, list);
+			bool isAbilityBlockedB = BarrierManager.Get().AreAbilitiesBlocked(caster, srcVec - offset, dstVec - offset, list);
+			if (isAbilityBlockedA || isAbilityBlockedB)
 			{
-				if (flag2)
+				bool isLosBlockedA = isAbilityBlockedA || VectorUtils.RaycastInDirection(srcVec + offset, dir, dist, out _);
+				bool isLosBlockedB = isAbilityBlockedB || VectorUtils.RaycastInDirection(srcVec - offset, dir, dist, out _);
+				if (isLosBlockedA && isLosBlockedB)
 				{
-					if (!(offsetToUseInWorld > 0f))
-					{
-						if (BarrierManager.Get().AreAbilitiesBlocked(caster, source, dest, nonActorTargetInfo))
-						{
-							flag = false;
-							goto IL_0252;
-						}
-					}
+					hasLoS = false;
 				}
 			}
-		}
-		flag = true;
-		object obj;
-		if (nonActorTargetInfo != null)
-		{
-			obj = new List<NonActorTargetInfo>();
-		}
-		else
-		{
-			obj = null;
-		}
-		List<NonActorTargetInfo> list = (List<NonActorTargetInfo>)obj;
-		if (BarrierManager.Get() != null)
-		{
-			if (flag2)
+			if (!hasLoS && list != null && nonActorTargetInfo != null)
 			{
-				Vector3 vector = source.ToVector3();
-				Vector3 a = dest.ToVector3();
-				Vector3 vector2 = a - vector;
-				vector2.y = 0f;
-				float magnitude = vector2.magnitude;
-				vector2.Normalize();
-				Vector3 b = Vector3.Cross(Vector3.up, vector2);
-				b.Normalize();
-				b *= offsetToUseInWorld;
-				vector.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
-				a.y = vector.y;
-				bool flag3 = BarrierManager.Get().AreAbilitiesBlocked(caster, vector + b, a + b, list);
-				bool flag4 = BarrierManager.Get().AreAbilitiesBlocked(caster, vector - b, a - b, list);
-				if (flag3 || flag4)
-				{
-					int num2;
-					RaycastHit hit;
-					if (!flag3)
-					{
-						num2 = (VectorUtils.RaycastInDirection(vector + b, vector2, magnitude, out hit) ? 1 : 0);
-					}
-					else
-					{
-						num2 = 1;
-					}
-					bool flag5 = (byte)num2 != 0;
-					int num3;
-					if (!flag4)
-					{
-						num3 = (VectorUtils.RaycastInDirection(vector - b, vector2, magnitude, out hit) ? 1 : 0);
-					}
-					else
-					{
-						num3 = 1;
-					}
-					bool flag6 = (byte)num3 != 0;
-					if (flag5)
-					{
-						if (flag6)
-						{
-							flag = false;
-						}
-					}
-				}
-				if (!flag)
-				{
-					if (list != null)
-					{
-						if (nonActorTargetInfo != null)
-						{
-							nonActorTargetInfo.AddRange(list);
-						}
-					}
-				}
+				nonActorTargetInfo.AddRange(list);
 			}
 		}
-		goto IL_0252;
-		IL_0252:
-		return flag;
+		return hasLoS;
 	}
 
 	public static int GetCircleCircleIntersections(Vector3 centerA, Vector3 centerB, float radiusAInSquares, float radiusBInSquares, out Vector3 intersectP1, out Vector3 intersectP2)
@@ -562,45 +361,15 @@ public static class AreaEffectUtils
 		float magnitude = a.magnitude;
 		if (magnitude > num + num2)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return 0;
-				}
-			}
+			return 0;
 		}
 		if (magnitude < Mathf.Abs(num - num2))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return 0;
-				}
-			}
+			return 0;
 		}
-		if (magnitude == 0f)
+		if (magnitude == 0f && num == num2)
 		{
-			if (num == num2)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return -1;
-					}
-				}
-			}
+			return -1;
 		}
 		int num3;
 		if (Mathf.Abs(magnitude - (num + num2)) < 0.001f)
@@ -624,70 +393,38 @@ public static class AreaEffectUtils
 
 	public static bool SquareHasLosByAreaCheckers(BoardSquare testSquare, List<ISquareInsideChecker> inAreaCheckers)
 	{
-		bool result = false;
 		if (inAreaCheckers != null)
-		{
-			int num = 0;
-			while (true)
+		{			
+			foreach (ISquareInsideChecker squareInsideChecker in inAreaCheckers)
 			{
-				if (num < inAreaCheckers.Count)
+				if (squareInsideChecker.IsSquareInside(testSquare, out bool inLos) && inLos)
 				{
-					ISquareInsideChecker squareInsideChecker = inAreaCheckers[num];
-					if (squareInsideChecker.IsSquareInside(testSquare, out bool inLos))
-					{
-						if (inLos)
-						{
-							result = true;
-							break;
-						}
-					}
-					num++;
-					continue;
+					return true;
 				}
-				break;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	public static ActorData GetTargetableActorOnSquare(BoardSquare square, bool allowEnemy, bool allowAlly, ActorData caster)
 	{
-		ActorData result = null;
-		if (square != null)
+		if (square != null && square.OccupantActor != null && IsActorTargetable(square.OccupantActor))
 		{
-			if (square.OccupantActor != null && IsActorTargetable(square.OccupantActor))
+			Team team = square.OccupantActor.GetTeam();
+			if (caster != null)
 			{
-				Team team = square.OccupantActor.GetTeam();
-				if (caster != null)
+				bool isAlly = team == caster.GetTeam();
+				if (isAlly && allowAlly || !isAlly && allowEnemy)
 				{
-					bool flag = team == caster.GetTeam();
-					if (flag)
-					{
-						if (allowAlly)
-						{
-							goto IL_0097;
-						}
-					}
-					if (!flag)
-					{
-						if (allowEnemy)
-						{
-							goto IL_0097;
-						}
-					}
-				}
-				else
-				{
-					result = square.OccupantActor;
+					return square.OccupantActor;
 				}
 			}
+			else
+			{
+				return square.OccupantActor;
+			}
 		}
-		goto IL_00a9;
-		IL_0097:
-		result = square.OccupantActor;
-		goto IL_00a9;
-		IL_00a9:
-		return result;
+		return null;
 	}
 
 	public static List<BoardSquare> GetSquaresInRadius(BoardSquare centerSquare, float radiusInSquares, bool ignoreLoS, ActorData caster)
@@ -703,16 +440,7 @@ public static class AreaEffectUtils
 		List<BoardSquare> list = new List<BoardSquare>();
 		if (boardSquareSafe == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return list;
-				}
-			}
+			return list;
 		}
 		Vector3 a = new Vector3(centerX, 0f, centerY);
 		int maxX = Board.Get().GetMaxX();
@@ -725,52 +453,36 @@ public static class AreaEffectUtils
 		{
 			for (int j = num4; j < num5; j++)
 			{
-				Vector3 b = new Vector3((float)i * squareSize, 0f, (float)j * squareSize);
+				Vector3 b = new Vector3(i * squareSize, 0f, j * squareSize);
 				float sqrMagnitude = (a - b).sqrMagnitude;
-				if (!(sqrMagnitude < num * num))
+				if (sqrMagnitude < num * num)
 				{
-					continue;
-				}
-				BoardSquare boardSquare = Board.Get().GetSquareFromIndex(i, j);
-				if (!(boardSquare != null))
-				{
-					continue;
-				}
-				if (boardSquare.height <= -Board.Get().BaselineHeight)
-				{
-					continue;
-				}
-				bool flag = true;
-				if (!ignoreLoS)
-				{
-					flag = SquaresHaveLoSForAbilities(boardSquareSafe, boardSquare, caster);
-				}
-				if (flag)
-				{
-					list.Add(boardSquare);
+					BoardSquare boardSquare = Board.Get().GetSquareFromIndex(i, j);
+					if (boardSquare != null && boardSquare.height > -Board.Get().BaselineHeight)
+					{
+						bool flag = true;
+						if (!ignoreLoS)
+						{
+							flag = SquaresHaveLoSForAbilities(boardSquareSafe, boardSquare, caster);
+						}
+						if (flag)
+						{
+							list.Add(boardSquare);
+						}
+					}
 				}
 			}
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
+
+	//-----------------------------------------------------------------------
 
 	public static bool IsSquareInRadius(BoardSquare testSquare, float centerX, float centerY, float radiusInSquares, bool ignoreLoS, ActorData caster)
 	{
 		if (testSquare == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
+			return false;
 		}
 		bool result = false;
 		float squareSize = Board.Get().squareSize;
@@ -780,21 +492,12 @@ public static class AreaEffectUtils
 		BoardSquare boardSquareSafe = Board.Get().GetSquareFromPos(centerX, centerY);
 		if (boardSquareSafe == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
+			return false;
 		}
 		float worldX = boardSquareSafe.worldX;
 		float worldY = boardSquareSafe.worldY;
 		Vector3 a = new Vector3(worldX, 0f, worldY);
-		Vector3 b = new Vector3((float)x * squareSize, 0f, (float)y * squareSize);
+		Vector3 b = new Vector3(x * squareSize, 0f, y * squareSize);
 		float sqrMagnitude = (a - b).sqrMagnitude;
 		if (sqrMagnitude < num * num)
 		{
@@ -907,7 +610,7 @@ public static class AreaEffectUtils
 		bool result = false;
 		testPos.y = 0f;
 		centerPos.y = 0f;
-		float maxAngleWithCenter = 0.5f * (float)value;
+		float maxAngleWithCenter = 0.5f * value;
 		Vector3 vec = testPos - centerPos;
 		if (vec.sqrMagnitude > 0f)
 		{
@@ -1210,7 +913,7 @@ public static class AreaEffectUtils
 						Vector3 b = a3 * d;
 						float d2 = VectorUtils.s_laserOffset * Board.Get().squareSize;
 						Vector3 b2 = a3 * d2;
-						startPos.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+						startPos.y = Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 						a2.y = startPos.y;
 						Vector3 vector2 = startPos + b2;
 						Vector3 vector3 = startPos - b2;
@@ -1373,9 +1076,9 @@ public static class AreaEffectUtils
 				{
 					num8 = 0f;
 				}
-				float num10 = 1f / (float)numWidthDiscreteChanges;
+				float num10 = 1f / numWidthDiscreteChanges;
 				int num11 = Mathf.CeilToInt(num8 / num10);
-				float value2 = (float)num11 * (num2 / (float)numWidthDiscreteChanges);
+				float value2 = num11 * (num2 / numWidthDiscreteChanges);
 				num9 = Mathf.Clamp(value2, 0f, num2);
 			}
 		}
@@ -1434,15 +1137,15 @@ public static class AreaEffectUtils
 		AdjustMinMaxBounds(point2, ref minBounds, ref maxBounds);
 		for (int i = -90; i <= 450; i += 90)
 		{
-			if (!(num5 > (float)i))
+			if (!(num5 > i))
 			{
 				break;
 			}
-			if (!(num4 < (float)i))
+			if (!(num4 < i))
 			{
 				continue;
 			}
-			if ((float)i < num5)
+			if (i < num5)
 			{
 				Vector3 point3 = vector + d2 * VectorUtils.AngleDegreesToVector(i);
 				AdjustMinMaxBounds(point3, ref minBounds, ref maxBounds);
@@ -2694,11 +2397,11 @@ public static class AreaEffectUtils
 			List<BoardSquare> squaresAroundEvenShapeCornerPos = GetSquaresAroundEvenShapeCornerPos(cornerPos);
 			list2 = GetCenterSquaresForEvenShapeLos(squaresAroundEvenShapeCornerPos, caster);
 		}
-		float num2 = cornerPos.x + num - Board.Get().squareSize * (float)(dimensions / 2);
-		float num3 = cornerPos.z + num - Board.Get().squareSize * (float)(dimensions / 2);
+		float num2 = cornerPos.x + num - Board.Get().squareSize * (dimensions / 2);
+		float num3 = cornerPos.z + num - Board.Get().squareSize * (dimensions / 2);
 		for (int i = 0; i < dimensions; i++)
 		{
-			float x = num2 + Board.Get().squareSize * (float)i;
+			float x = num2 + Board.Get().squareSize * i;
 			for (int j = 0; j < dimensions; j++)
 			{
 				if (cornersToSubtract > 0)
@@ -2711,7 +2414,7 @@ public static class AreaEffectUtils
 						continue;
 					}
 				}
-				float y = num3 + Board.Get().squareSize * (float)j;
+				float y = num3 + Board.Get().squareSize * j;
 				BoardSquare boardSquareSafe = Board.Get().GetSquareFromPos(x, y);
 				if (!(boardSquareSafe != null))
 				{
@@ -2766,7 +2469,7 @@ public static class AreaEffectUtils
 		{
 			for (int j = -1; j <= 1; j += 2)
 			{
-				BoardSquare boardSquare = Board.Get().GetSquareFromVec3(cornerPos + new Vector3(num * (float)i, 0f, num * (float)j));
+				BoardSquare boardSquare = Board.Get().GetSquareFromVec3(cornerPos + new Vector3(num * i, 0f, num * j));
 				if (boardSquare != null)
 				{
 					list.Add(boardSquare);
@@ -3155,11 +2858,11 @@ public static class AreaEffectUtils
 			List<BoardSquare> squaresAroundEvenShapeCornerPos = GetSquaresAroundEvenShapeCornerPos(cornerPos);
 			list = GetCenterSquaresForEvenShapeLos(squaresAroundEvenShapeCornerPos, caster);
 		}
-		float num2 = cornerPos.x + num - Board.Get().squareSize * (float)(dimensions / 2);
-		float num3 = cornerPos.z + num - Board.Get().squareSize * (float)(dimensions / 2);
+		float num2 = cornerPos.x + num - Board.Get().squareSize * (dimensions / 2);
+		float num3 = cornerPos.z + num - Board.Get().squareSize * (dimensions / 2);
 		for (int i = 0; i < dimensions; i++)
 		{
-			float x = num2 + Board.Get().squareSize * (float)i;
+			float x = num2 + Board.Get().squareSize * i;
 			for (int j = 0; j < dimensions; j++)
 			{
 				if (cornersToSubtract > 0)
@@ -3172,7 +2875,7 @@ public static class AreaEffectUtils
 						continue;
 					}
 				}
-				float y = num3 + Board.Get().squareSize * (float)j;
+				float y = num3 + Board.Get().squareSize * j;
 				BoardSquare boardSquareSafe = Board.Get().GetSquareFromPos(x, y);
 				if (!(boardSquareSafe != null))
 				{
@@ -3332,7 +3035,7 @@ public static class AreaEffectUtils
 		{
 			for (int j = -1; j <= 1; j += 2)
 			{
-				BoardSquare boardSquare = Board.Get().GetSquareFromVec3(cornerPos + new Vector3(num * (float)i, 0f, num * (float)j));
+				BoardSquare boardSquare = Board.Get().GetSquareFromVec3(cornerPos + new Vector3(num * i, 0f, num * j));
 				if (boardSquare != null)
 				{
 					list.Add(boardSquare);
@@ -3589,14 +3292,14 @@ public static class AreaEffectUtils
 		num4 = Mathf.Max(0f, num4 - num + 0.05f);
 		float num5 = num3 / squareSize;
 		float num6 = num4 / squareSize;
-		if (num5 <= (float)num2)
+		if (num5 <= num2)
 		{
-			if (num6 <= (float)num2)
+			if (num6 <= num2)
 			{
-				float num7 = (float)num2 - num5;
-				float num8 = (float)num2 - num6;
+				float num7 = num2 - num5;
+				float num8 = num2 - num6;
 				float num9 = num7 + num8;
-				if (num9 >= (float)cornersToSubtract)
+				if (num9 >= cornersToSubtract)
 				{
 					result = true;
 				}
