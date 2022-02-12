@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +16,14 @@ public class SparkHealingBeam : Ability
 	[Header("-- Targeting: If Using Laser targeting mode")]
 	public LaserTargetingInfo m_laserInfo;
 	public StandardEffectInfo m_laserHitEffect;
+	// reactor
 	[Separator("-- Tether --", true)]
+	// rogues
+	//[Header("-- Tether --")]
 	public float m_tetherDistance = 5f;
 	public bool m_checkTetherRemovalBetweenPhases;
+	// removed in rogues
+	// TODO GAMEPLAY check this works on server (tether duration mod?)
 	[Header("-- Tether Duration")]
 	public int m_tetherDuration;
 	[Header("-- Healing")]
@@ -64,7 +71,7 @@ public class SparkHealingBeam : Ability
 		}
 		if (Targeter != null)
 		{
-			Targeter.ResetTargeter(true);
+			Targeter.ResetTargeter(true);  // no param in rogues
 		}
 		bool affectsCaster = m_healSelfOnInitialAttach && GetHealOnSelfPerTurn() > 0;
 		if (m_targetingMode == TargetingMode.Laser)
@@ -146,6 +153,7 @@ public class SparkHealingBeam : Ability
 			: m_tetherDistance;
 	}
 
+	// removed in rogues
 	public int GetTetherDuration()
 	{
 		return m_abilityMod != null
@@ -263,7 +271,7 @@ public class SparkHealingBeam : Ability
 		AddTokenInt(tokens, "Heal_AdditionalOnRadiated", "additional damage on radiated", m_additionalEnergizedHealing);
 		AddTokenInt(tokens, "Heal_OnCasterPerTurn", "heal on caster per turn", m_healOnSelfOnTick);
 		AddTokenInt(tokens, "EnergyOnCasterPerTurn", string.Empty, m_energyOnCasterPerTurn);
-		AddTokenInt(tokens, "TetherDuration", string.Empty, m_tetherDuration);
+		AddTokenInt(tokens, "TetherDuration", string.Empty, m_tetherDuration);  // removed in rogues
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -304,4 +312,101 @@ public class SparkHealingBeam : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+
+	// server-only
+#if SERVER
+	public SparkHealingBeamEffect CreateHealTetherEffect(ActorData caster, ActorData hitActor)
+	{
+		StandardActorEffectData allyTetherEffectData = GetAllyTetherEffectData();
+		return new SparkHealingBeamEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), hitActor, caster, allyTetherEffectData, m_healingPhase, GetTetherDistance(), m_checkTetherRemovalBetweenPhases, GetHealOnSelfPerTurn(), GetAdditionalHealOnRadiated(), GetEnergyOnCasterPerTurn(), m_pulseAnimIndex, m_energizedPulseAnimIndex, m_pulseSequence, m_energizedPulseSequence);
+	}
+#endif
+
+	// server-only
+#if SERVER
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		VectorUtils.LaserCoords laserCoords;
+		GetHitActors(targets, caster, out laserCoords, null);
+		return new ServerClientUtils.SequenceStartData(m_castSequence, laserCoords.end, additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource, null);
+	}
+#endif
+
+	// server-only
+#if SERVER
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		VectorUtils.LaserCoords laserCoords;
+		List<ActorData> hitActors = GetHitActors(targets, caster, out laserCoords, nonActorTargetInfo);
+		foreach (ActorData actorData in hitActors)
+		{
+			int healingOnAttach = GetHealingOnAttach();
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			actorHitResults.SetBaseHealing(healingOnAttach);
+			actorHitResults.SetTechPointGainOnCaster(GetEnergyOnCasterPerTurn());
+			SetExistingEffectsForRemoval(caster, actorHitResults);
+			SparkHealingBeamEffect effect = CreateHealTetherEffect(caster, actorData);
+			actorHitResults.AddEffect(effect);
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (hitActors.Count > 0 && m_healSelfOnInitialAttach && GetHealOnSelfPerTurn() > 0)
+		{
+			ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			actorHitResults2.SetBaseHealing(GetHealOnSelfPerTurn());
+			abilityResults.StoreActorHit(actorHitResults2);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
+
+	// server-only
+#if SERVER
+	protected virtual List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, out VectorUtils.LaserCoords endPoints, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> result;
+		if (m_targetingMode == TargetingMode.Laser)
+		{
+			List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, GetLaserInfo().affectsAllies, GetLaserInfo().affectsEnemies);
+			result = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[0].AimDirection, GetLaserInfo().range, GetLaserInfo().width, caster, relevantTeams, GetLaserInfo().penetrateLos, GetLaserInfo().maxTargets, false, true, out laserCoords.end, nonActorTargetInfo, null, false, true);
+		}
+		else
+		{
+			BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+			if (square != null && square.OccupantActor != null && !square.OccupantActor.IgnoreForAbilityHits)
+			{
+				laserCoords.end = square.OccupantActor.GetLoSCheckPos();
+				result = square.OccupantActor.AsList();
+			}
+			else
+			{
+				laserCoords.end = laserCoords.start;
+				result = new List<ActorData>();
+			}
+		}
+		endPoints = laserCoords;
+		return result;
+	}
+#endif
+
+	// server-only
+#if SERVER
+	public void SetExistingEffectsForRemoval(ActorData caster, ActorHitResults hitResult)
+	{
+		foreach (int actorIndex in caster.GetComponent<SparkBeamTrackerComponent>().GetBeamActorIndices())
+		{
+			ActorData actorOfActorIndex = GameplayUtils.GetActorOfActorIndex(actorIndex);
+			if (actorOfActorIndex != null)
+			{
+				foreach (Effect effect in ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorOfActorIndex, caster, typeof(SparkHealingBeamEffect)))
+				{
+					SparkHealingBeamEffect effect2 = effect as SparkHealingBeamEffect;
+					hitResult.AddEffectForRemoval(effect2, ServerEffectManager.Get().GetActorEffects(actorOfActorIndex));
+				}
+			}
+		}
+	}
+#endif
 }

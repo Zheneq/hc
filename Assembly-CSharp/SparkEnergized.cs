@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,25 +14,38 @@ public class SparkEnergized : Ability
 	public int m_healAmtPerBeam;
 	[Header("-- Whether to choose which target to select (need 1 TargetData entry if true, 0 otherwise)")]
 	public bool m_needToSelectTarget = true;
+	// removed in rogues
 	[Separator("Effect and Boosted Heal/Damage when both tethers are attached", true)]
 	public StandardEffectInfo m_bothTetherExtraEffectOnSelf;
+	// removed in rogues
 	public StandardEffectInfo m_bothTetherAllyEffect;
+	// removed in rogues
 	public StandardEffectInfo m_bothTetherEnemyEffect;
+	// removed in rogues
 	[Space(10f)]
 	public int m_bothTetherExtraHeal;
+	// removed in rogues
 	public int m_bothTetherExtraDamage;
 
 	private AbilityMod_SparkEnergized m_abilityMod;
 	private SparkBasicAttack m_damageBeamAbility;
 	private SparkHealingBeam m_healBeamAbility;
 	private SparkBeamTrackerComponent m_beamSyncComp;
+	// removed in rogues
 	private bool m_cachedCanTargetSelf;
+	// removed in rogues
 	private TargetData[] m_emptyTargetData = new TargetData[0];
 	private StandardActorEffectData m_cachedAllyBuffEffect;
 	private StandardActorEffectData m_cachedEnemyDebuffEffect;
+	// removed in rogues
 	private StandardEffectInfo m_cachedBothTetherExtraEffectOnSelf;
+	// removed in rogues
 	private StandardEffectInfo m_cachedBothTetherAllyEffect;
+	// removed in rogues
 	private StandardEffectInfo m_cachedBothTetherEnemyEffect;
+
+	// added in rogues
+	private List<ActorData> m_lastHitActors = new List<ActorData>();
 
 	private void Start()
 	{
@@ -48,6 +63,8 @@ public class SparkEnergized : Ability
 			Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, true, true, AbilityUtil_Targeter.AffectsActor.Always);
 			return;
 		}
+
+		// reactor
 		AbilityUtil_Targeter_AllVisible abilityUtil_Targeter_AllVisible = new AbilityUtil_Targeter_AllVisible(this, true, true, false, AbilityUtil_Targeter_AllVisible.DamageOriginType.TargetPos);
 		abilityUtil_Targeter_AllVisible.SetAffectedGroups(true, true, m_cachedCanTargetSelf);
 		abilityUtil_Targeter_AllVisible.m_shouldAddActorDelegate = delegate (ActorData potentialTarget, ActorData caster)
@@ -63,8 +80,14 @@ public class SparkEnergized : Ability
 			return m_beamSyncComp.IsActorIndexTracked(potentialTarget.ActorIndex);
 		};
 		Targeter = abilityUtil_Targeter_AllVisible;
+		// rogues
+		//      Targeter = new AbilityUtil_Targeter_AllVisible(this, true, true, false, AbilityUtil_Targeter_AllVisible.DamageOriginType.TargetPos)
+		//{
+		//	m_shouldAddActorDelegate = ((ActorData potentialTarget, ActorData caster) => m_beamSyncComp != null && potentialTarget != null && m_beamSyncComp.IsActorIndexTracked(potentialTarget.ActorIndex))
+		//};
 	}
 
+	// removed in rogues
 	public override TargetData[] GetTargetData()
 	{
 		if (NeedToChooseActor())
@@ -166,21 +189,25 @@ public class SparkEnergized : Ability
 			: m_healAmtPerBeam;
 	}
 
+	// removed in rogues
 	public StandardEffectInfo GetBothTetherExtraEffectOnSelf()
 	{
 		return m_cachedBothTetherExtraEffectOnSelf ?? m_bothTetherExtraEffectOnSelf;
 	}
 
+	// removed in rogues
 	public StandardEffectInfo GetBothTetherAllyEffect()
 	{
 		return m_cachedBothTetherAllyEffect ?? m_bothTetherAllyEffect;
 	}
 
+	// removed in rogues
 	public StandardEffectInfo GetBothTetherEnemyEffect()
 	{
 		return m_cachedBothTetherEnemyEffect ?? m_bothTetherEnemyEffect;
 	}
 
+	// removed in rogues
 	public int GetBothTetherExtraHeal()
 	{
 		return m_abilityMod != null
@@ -188,6 +215,7 @@ public class SparkEnergized : Ability
 			: m_bothTetherExtraHeal;
 	}
 
+	// removed in rogues
 	public int GetBothTetherExtraDamage()
 	{
 		return m_abilityMod != null
@@ -256,7 +284,7 @@ public class SparkEnergized : Ability
 		AbilityTooltipHelper.ReportDamage(ref number, AbilityTooltipSubject.Enemy, 1);
 		GetAllyBuffEffect().ReportAbilityTooltipNumbers(ref number, AbilityTooltipSubject.Ally);
 		GetEnemyDebuffEffect().ReportAbilityTooltipNumbers(ref number, AbilityTooltipSubject.Enemy);
-		AppendTooltipNumbersFromBaseModEffects(ref number);
+		AppendTooltipNumbersFromBaseModEffects(ref number); // removed in rogues
 		return number;
 	}
 
@@ -278,10 +306,12 @@ public class SparkEnergized : Ability
 					int perTurnDamage = damageBeamAbility.GetPerTurnDamage();
 					perTurnDamage += CalcAdditonalDamageOnCast(damageBeamAbility.GetAdditionalDamageOnRadiated());
 					perTurnDamage += damageBeamAbility.GetBonusDamageFromTetherAge(tetherAgeOnActor);
+					// removed in rogues
 					if (m_beamSyncComp.HasBothTethers())
 					{
 						perTurnDamage += GetBothTetherExtraDamage();
 					}
+					// end removed
 					dictionary[AbilityTooltipSymbol.Damage] = perTurnDamage;
 				}
 			}
@@ -292,10 +322,12 @@ public class SparkEnergized : Ability
 					int healOnAllyPerTurn = healBeamAbility.GetHealOnAllyPerTurn();
 					healOnAllyPerTurn += CalcAdditionalHealOnCast(healBeamAbility.GetAdditionalHealOnRadiated());
 					healOnAllyPerTurn += healBeamAbility.GetBonusHealFromTetherAge(tetherAgeOnActor);
+					// removed in rogues
 					if (m_beamSyncComp.HasBothTethers())
 					{
 						healOnAllyPerTurn += GetBothTetherExtraHeal();
 					}
+					// end removed
 					dictionary[AbilityTooltipSymbol.Healing] = healOnAllyPerTurn;
 				}
 			}
@@ -340,6 +372,7 @@ public class SparkEnergized : Ability
 			AddTokenInt(tokens, "RadiatedHeal_Total", "", healingBeam.m_laserHealingAmount + healingBeam.m_additionalEnergizedHealing);
 			AddTokenInt(tokens, "RadiatedHeal_Diff", "", healingBeam.m_additionalEnergizedHealing);
 		}
+		// reactor
 		StandardActorEffectData allyBuffEffect = abilityMod_SparkEnergized != null
 			? abilityMod_SparkEnergized.m_allyBuffEffectMod.GetModifiedValue(m_allyBuffEffect)
 			: m_allyBuffEffect;
@@ -350,16 +383,19 @@ public class SparkEnergized : Ability
 			: m_enemyDebuffEffect;
 		enemyDebuffEffect.AddTooltipTokens(tokens, "EnemyDebuffEffect", abilityMod_SparkEnergized != null, m_enemyDebuffEffect);
 
-		int healAmountForBeam = abilityMod_SparkEnergized != null
+		int healAmtPerBeam = abilityMod_SparkEnergized != null
 			? abilityMod_SparkEnergized.m_healAmtPerBeamMod.GetModifiedValue(m_healAmtPerBeam)
 			: m_healAmtPerBeam;
-		AddTokenInt(tokens, "HealAmtPerBeam", "", healAmountForBeam);
-
+		AddTokenInt(tokens, "HealAmtPerBeam", "", healAmtPerBeam);
 		AbilityMod.AddToken_EffectInfo(tokens, m_bothTetherExtraEffectOnSelf, "BothTetherExtraEffectOnSelf", m_bothTetherExtraEffectOnSelf);
 		AbilityMod.AddToken_EffectInfo(tokens, m_bothTetherAllyEffect, "BothTetherAllyEffect", m_bothTetherAllyEffect);
 		AbilityMod.AddToken_EffectInfo(tokens, m_bothTetherEnemyEffect, "BothTetherEnemyEffect", m_bothTetherEnemyEffect);
 		AddTokenInt(tokens, "BothTetherExtraHeal", "", m_bothTetherExtraHeal);
 		AddTokenInt(tokens, "BothTetherExtraDamage", "", m_bothTetherExtraDamage);
+		// rogues
+		//(abilityMod_SparkEnergized ? abilityMod_SparkEnergized.m_allyBuffEffectMod.GetModifiedValue(m_allyBuffEffect) : m_allyBuffEffect).AddTooltipTokens(tokens, "AllyBuffEffect", abilityMod_SparkEnergized != null, m_allyBuffEffect);
+		//(abilityMod_SparkEnergized ? abilityMod_SparkEnergized.m_enemyDebuffEffectMod.GetModifiedValue(m_enemyDebuffEffect) : m_enemyDebuffEffect).AddTooltipTokens(tokens, "EnemyDebuffEffect", abilityMod_SparkEnergized != null, m_enemyDebuffEffect);
+		//      AddTokenInt(tokens, "HealAmtPerBeam", "", abilityMod_SparkEnergized ? abilityMod_SparkEnergized.m_healAmtPerBeamMod.GetModifiedValue(m_healAmtPerBeam) : m_healAmtPerBeam, false);
 	}
 
 	public override List<int> Debug_GetExpectedNumbersInTooltip()
@@ -414,4 +450,117 @@ public class SparkEnergized : Ability
 			}
 		}
 	}
+
+	// added in rogues
+#if SERVER
+	public List<ActorData> GetLastHitActors()
+	{
+		return m_lastHitActors;
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		m_lastHitActors.Clear();
+		foreach (ActorData item in additionalData.m_abilityResults.HitActorList())
+		{
+			m_lastHitActors.Add(item);
+		}
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		GameObject prefab;
+		if (NeedToChooseActor())
+		{
+			ActorData actorData = null;
+			SparkBeamTrackerComponent component = caster.GetComponent<SparkBeamTrackerComponent>();
+			BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+			if (square == null)
+			{
+				Debug.LogError("SparkEnergized is in NeedToChooseActor mode, but when it runs, the targeted square is null.");
+			}
+			else if (square.OccupantActor == null)
+			{
+				Debug.LogError("SparkEnergized is in NeedToChooseActor mode, but when it runs, the targeted square's actor is null.");
+			}
+			else if (!component.IsActorTracked(square.OccupantActor))
+			{
+				Debug.LogError("SparkEnergized is in NeedToChooseActor mode, but when it runs, the targeted square's actor is untracked.");
+			}
+			else
+			{
+				actorData = square.OccupantActor;
+			}
+			if (actorData == null)
+			{
+				prefab = AsEffectSource().GetSequencePrefab();
+			}
+			else if (actorData.GetTeam() == caster.GetTeam())
+			{
+				prefab = m_castOnAllySequence;
+			}
+			else
+			{
+				prefab = m_castOnEnemySequence;
+			}
+		}
+		else
+		{
+			prefab = m_castOnAllSequence;
+		}
+		return new ServerClientUtils.SequenceStartData(prefab, caster.GetFreePos(), additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource, null);
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<ActorData> list = new List<ActorData>();
+		SparkBeamTrackerComponent component = caster.GetComponent<SparkBeamTrackerComponent>();
+		if (NeedToChooseActor())
+		{
+			BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+			if (square != null && square.OccupantActor != null && component.IsActorTracked(square.OccupantActor))
+			{
+				list.Add(square.OccupantActor);
+			}
+		}
+		else
+		{
+			foreach (int actorIndex in component.GetBeamActorIndices())
+			{
+				ActorData actorOfActorIndex = GameplayUtils.GetActorOfActorIndex(actorIndex);
+				if (actorOfActorIndex != null)
+				{
+					list.Add(actorOfActorIndex);
+				}
+			}
+		}
+		foreach (ActorData actorData in list)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			if (actorData.GetTeam() == caster.GetTeam() && GetAllyBuffEffect() != null)
+			{
+				SparkEnergizedEffect effect = new SparkEnergizedEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), actorData, caster, GetAllyBuffEffect(), abilityResults.CinematicRequested);
+				actorHitResults.AddEffect(effect);
+			}
+			else if (actorData.GetTeam() != caster.GetTeam() && GetEnemyDebuffEffect() != null)
+			{
+				SparkEnergizedEffect effect2 = new SparkEnergizedEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), actorData, caster, GetEnemyDebuffEffect(), abilityResults.CinematicRequested);
+				actorHitResults.AddEffect(effect2);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		ActorHitParameters hitParams = new ActorHitParameters(caster, caster.GetFreePos());
+		ActorHitResults hitResults = new ActorHitResults(GetHealAmtPerBeam() * component.GetNumTethers(), HitActionType.Healing, hitParams);
+		abilityResults.StoreActorHit(hitResults);
+	}
+#endif
 }

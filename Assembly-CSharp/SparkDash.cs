@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -363,7 +365,10 @@ public class SparkDash : Ability
 		{
 			List<Team> list = new List<Team>();
 
+			// reactor
 			list.Add(caster.GetEnemyTeam());
+			// rogues
+			//list.AddRange(caster.GetOtherTeams());
 
 			list.Add(caster.GetTeam());
 			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_targetShape, target, m_targetShapePenetratesLoS, caster, list, null);
@@ -410,4 +415,230 @@ public class SparkDash : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+
+#if SERVER
+	// server-only
+	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (ChooseDestinaton())
+		{
+			ServerEvadeUtils.ChargeSegment[] array = new ServerEvadeUtils.ChargeSegment[3];
+			array[0] = new ServerEvadeUtils.ChargeSegment
+			{
+				m_pos = caster.GetCurrentBoardSquare(),
+				m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+				m_end = BoardSquarePathInfo.ChargeEndType.None
+			};
+			array[1] = new ServerEvadeUtils.ChargeSegment
+			{
+				m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+				m_pos = Board.Get().GetSquare(targets[0].GridPos),
+				m_end = BoardSquarePathInfo.ChargeEndType.None
+			};
+			array[2] = new ServerEvadeUtils.ChargeSegment
+			{
+				m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+				m_pos = Board.Get().GetSquare(targets[1].GridPos)
+			};
+			float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(array));
+			array[0].m_segmentMovementSpeed = segmentMovementSpeed;
+			array[1].m_segmentMovementSpeed = segmentMovementSpeed;
+			array[2].m_segmentMovementSpeed = segmentMovementSpeed;
+			return array;
+		}
+		return base.GetChargePath(targets, caster, additionalData);
+	}
+
+	// server-only
+	public override bool GetChargeThroughInvalidSquares()
+	{
+		return true;
+	}
+
+	// server-only
+	public override BoardSquare GetValidChargeTestSourceSquare(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		return chargeSegments[chargeSegments.Length - 1].m_pos;
+	}
+
+	// server-only
+	public override Vector3 GetChargeBestSquareTestVector(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		return ChooseDestinaton()
+			? ServerEvadeUtils.GetChargeBestSquareTestDirection(chargeSegments)
+			: base.GetChargeBestSquareTestVector(chargeSegments);
+	}
+
+	// server-only
+	public override BoardSquare GetIdealDestination(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return ChooseDestinaton()
+			? Board.Get().GetSquare(targets[1].GridPos)
+			: base.GetIdealDestination(targets, caster, additionalData);
+	}
+
+	// server-only
+	private ActorData GetChargeHitActor(List<AbilityTarget> targets, ActorData caster)
+	{
+		ActorData actorData = null;
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_targetShape, targets[0], m_targetShapePenetratesLoS, caster, null, null);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInShape);
+		TargeterUtils.SortActorsByDistanceToPos(ref actorsInShape, targets[0].FreePos);
+		TargeterUtils.LimitActorsToMaxNumber(ref actorsInShape, 1);
+		if (actorsInShape.Count > 0)
+		{
+			actorData = actorsInShape[0];
+		}
+		if (actorData == null && m_healAllyWhoDashedAway)
+		{
+			ActorData actorOnTargetSquareBeforeEvades = GetActorOnTargetSquareBeforeEvades(targets);
+			if (actorOnTargetSquareBeforeEvades != null && actorOnTargetSquareBeforeEvades.GetTeam() == caster.GetTeam())
+			{
+				actorData = actorOnTargetSquareBeforeEvades;
+			}
+		}
+		return actorData;
+	}
+
+	// server-only
+	private ActorData GetActorOnTargetSquareBeforeEvades(List<AbilityTarget> targets)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		return square != null
+			? AreaEffectUtils.GetActorOnSquareOnPhaseStart(square)
+			: (ActorData)null;
+	}
+
+	// server-only
+	private List<ActorData> GetActorsInBetween(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(caster.GetSquareAtPhaseStart().ToVector3(), square.ToVector3(), 0f, 0f, 0.5f * GetChargeWidth(), m_chargeHitPenetrateLos, caster, TargeterUtils.GetRelevantTeams(caster, GetInBetweenAllyEffect().m_applyEffect, GetInBetweenEnemyEffect().m_applyEffect), nonActorTargetInfo);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInRadiusOfLine);
+		return actorsInRadiusOfLine;
+	}
+
+	// server-only
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		ActorData chargeHitActor = GetChargeHitActor(targets, caster);
+		GameObject prefab = m_dashToEnemySequence;
+		if (chargeHitActor != null)
+		{
+			prefab = chargeHitActor.GetTeam() != caster.GetTeam()
+				? m_dashToEnemySequence
+				: m_dashToFriendlySequence;
+		}
+		return new ServerClientUtils.SequenceStartData(prefab, caster.GetFreePos(), additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource, null);
+	}
+
+	// server-only
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorData chargeHitActor = GetChargeHitActor(targets, caster);
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		if (chargeHitActor != null)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(chargeHitActor, caster.GetFreePos());
+			int age = 0;
+			if (m_beamSyncComp != null)
+			{
+				age = m_beamSyncComp.GetTetherAgeOnActor(chargeHitActor.ActorIndex);
+			}
+			ActorHitResults actorHitResults;
+			if (chargeHitActor.GetTeam() == caster.GetTeam())
+			{
+				actorHitResults = new ActorHitResults(hitParams);
+				actorHitResults.AddStandardEffectInfo(GetTargetAllyEffect());
+				if (m_applyTetherEffectToTarget && m_healBeamAbility != null && !ServerEffectManager.Get().HasEffectByCaster(chargeHitActor, caster, typeof(SparkHealingBeamEffect)))
+				{
+					int healOnAlly = GetHealOnAlly();
+					actorHitResults.SetBaseHealing(healOnAlly);
+					m_healBeamAbility.SetExistingEffectsForRemoval(caster, actorHitResults);
+					SparkHealingBeamEffect effect = m_healBeamAbility.CreateHealTetherEffect(caster, chargeHitActor);
+					actorHitResults.AddEffect(effect);
+					if (GetHealOnSelfForAllyHit() > 0)
+					{
+						ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+						actorHitResults2.SetBaseHealing(GetHealOnSelfForAllyHit());
+						abilityResults.StoreActorHit(actorHitResults2);
+					}
+				}
+			}
+			else
+			{
+				int num = GetDamage();
+				if (m_beamSyncComp != null)
+				{
+					num += m_damageBeamAbility.GetBonusDamageFromTetherAge(age);
+				}
+				actorHitResults = new ActorHitResults(num, HitActionType.Damage, hitParams);
+				actorHitResults.AddStandardEffectInfo(GetTargetEnemyEffect());
+				if (m_applyTetherEffectToTarget && m_damageBeamAbility != null)
+				{
+					if (!ServerEffectManager.Get().HasEffectByCaster(chargeHitActor, caster, typeof(SparkBasicAttackEffect)))
+					{
+						m_damageBeamAbility.SetExistingEffectsForRemoval(caster, actorHitResults);
+						SparkBasicAttackEffect effect2 = m_damageBeamAbility.CreateDamageTetherEffect(caster, chargeHitActor);
+						actorHitResults.AddEffect(effect2);
+					}
+					if (GetHealOnSelfForEnemyHit() > 0)
+					{
+						ActorHitResults actorHitResults3 = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+						actorHitResults3.SetBaseHealing(GetHealOnSelfForEnemyHit());
+						abilityResults.StoreActorHit(actorHitResults3);
+					}
+				}
+			}
+			if (ShouldChaseTarget())
+			{
+				actorHitResults.AddMiscHitEvent(new MiscHitEventData(MiscHitEventType.CasterForceChaseTarget));
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (ShouldHitActorsInBetween())
+		{
+			foreach (ActorData actorData in GetActorsInBetween(targets, caster, nonActorTargetInfo))
+			{
+				if (chargeHitActor == null || actorData != chargeHitActor)
+				{
+					ActorHitResults actorHitResults4 = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+					if (actorData.GetTeam() == caster.GetTeam())
+					{
+						if (GetInBetweenAllyEffect().m_applyEffect)
+						{
+							actorHitResults4.AddStandardEffectInfo(GetInBetweenAllyEffect());
+							abilityResults.StoreActorHit(actorHitResults4);
+						}
+					}
+					else if (GetInBetweenEnemyEffect().m_applyEffect)
+					{
+						actorHitResults4.AddStandardEffectInfo(GetInBetweenEnemyEffect());
+						abilityResults.StoreActorHit(actorHitResults4);
+					}
+				}
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// server-only
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SparkStats.DamageDodgedPlusDamageDealtPlusHealingDealtByDash, damageDodged);
+	}
+
+	// server-only
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SparkStats.DamageDodgedPlusDamageDealtPlusHealingDealtByDash, results.FinalDamage);
+		}
+		if (results.FinalHealing > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SparkStats.DamageDodgedPlusDamageDealtPlusHealingDealtByDash, results.FinalHealing);
+		}
+	}
+#endif
 }

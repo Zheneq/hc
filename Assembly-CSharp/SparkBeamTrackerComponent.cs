@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using Unity;
 using UnityEngine;
@@ -20,11 +22,13 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	private ActorData m_actorData;
 	private SyncListUInt m_actorsOutOfRangeOnEvade = new SyncListUInt();
 
+	// removed in rogues
 	private static int kListm_beamActorIndex = -1900463023;
 	private static int kListm_actorIndexToTetherAge = 990815280;
 	private static int kListm_actorsOutOfRangeOnEvade = -98071849;
 	private static int kRpcRpcSetTetherRadiusPosition = -1483599064;
 
+	// removed in rogues
 	static SparkBeamTrackerComponent()
 	{		
 		RegisterRpcDelegate(typeof(SparkBeamTrackerComponent), kRpcRpcSetTetherRadiusPosition, InvokeRpcRpcSetTetherRadiusPosition);		
@@ -159,6 +163,7 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		return list;
 	}
 
+	// removed in rogues
 	internal bool HasBothTethers()
 	{
 		bool hasAlly = false;
@@ -211,10 +216,133 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		return false;
 	}
 
+#if SERVER
+	[Server]
+	internal void RemoveAllActorBeams()
+	{
+		if (!NetworkServer.active)
+		{
+			Debug.LogWarning("[Server] function 'System.Void SparkBeamTrackerComponent::RemoveAllActorBeams()' called on client");
+			return;
+		}
+		m_beamActorIndex.Clear();
+	}
+#endif
+
+#if SERVER
+	[Server]
+	internal void AddBeamActorByIndex(int actorIndex)
+	{
+		if (!NetworkServer.active)
+		{
+			Debug.LogWarning("[Server] function 'System.Void SparkBeamTrackerComponent::AddBeamActorByIndex(System.Int32)' called on client");
+			return;
+		}
+		if (!m_beamActorIndex.Contains(actorIndex))
+		{
+			m_beamActorIndex.Add(actorIndex);
+			for (int i = m_actorIndexToTetherAge.Count - 1; i >= 0; i--)
+			{
+				if (m_actorIndexToTetherAge[i].m_actorIndex == actorIndex)
+				{
+					m_actorIndexToTetherAge.RemoveAt(i);
+					Debug.LogError("Spark sync component, has unexpected actorIndex-to-tetherAge entry when trying to add new one");
+				}
+			}
+			SparkBeamTrackerComponent.ActorIndexToTetherAge actorIndexToTetherAge;
+			actorIndexToTetherAge.m_actorIndex = actorIndex;
+			actorIndexToTetherAge.m_tetherAge = 0;
+			m_actorIndexToTetherAge.Add(actorIndexToTetherAge);
+		}
+	}
+#endif
+
+#if SERVER
+	[Server]
+	internal void RemoveBeamActorByIndex(int actorIndex)
+	{
+		if (!NetworkServer.active)
+		{
+			Debug.LogWarning("[Server] function 'System.Void SparkBeamTrackerComponent::RemoveBeamActorByIndex(System.Int32)' called on client");
+			return;
+		}
+		if (m_beamActorIndex.Contains(actorIndex))
+		{
+			m_beamActorIndex.Remove(actorIndex);
+			for (int i = m_actorIndexToTetherAge.Count - 1; i >= 0; i--)
+			{
+				if (m_actorIndexToTetherAge[i].m_actorIndex == actorIndex)
+				{
+					m_actorIndexToTetherAge.RemoveAt(i);
+				}
+			}
+		}
+	}
+#endif
+
+#if SERVER
+	[Server]
+	internal void UpdateTetherDuration(int actorIndex, int ageNow)
+	{
+		if (!NetworkServer.active)
+		{
+			Debug.LogWarning("[Server] function 'System.Void SparkBeamTrackerComponent::UpdateTetherDuration(System.Int32,System.Int32)' called on client");
+			return;
+		}
+		if (m_beamActorIndex.Contains(actorIndex))
+		{
+			for (int i = 0; i < m_actorIndexToTetherAge.Count; i++)
+			{
+				if (m_actorIndexToTetherAge[i].m_actorIndex == actorIndex)
+				{
+					SparkBeamTrackerComponent.ActorIndexToTetherAge actorIndexToTetherAge;
+					actorIndexToTetherAge.m_actorIndex = actorIndex;
+					actorIndexToTetherAge.m_tetherAge = ageNow;
+					m_actorIndexToTetherAge[i] = actorIndexToTetherAge;
+					return;
+				}
+			}
+		}
+	}
+#endif
+
+#if SERVER
+	internal void ClearActorsOutOfRangeOnEvade()
+	{
+		m_actorsOutOfRangeOnEvade.Clear();
+	}
+#endif
+
+#if SERVER
+	internal void AddActorAsOutOfRangeOnEvade(ActorData actor)
+	{
+		if (actor != null)
+		{
+			m_actorsOutOfRangeOnEvade.Add((uint)actor.ActorIndex);
+		}
+	}
+#endif
+
+	////rogues
+	//public SparkBeamTrackerComponent()
+	//{
+	//    base.InitSyncObject(m_beamActorIndex);
+	//    base.InitSyncObject(m_actorIndexToTetherAge);
+	//    base.InitSyncObject(m_actorsOutOfRangeOnEvade);
+	//}
+
+
+	////rogues
+	//private void MirrorProcessed()
+	//{
+	//}
+
+	// removed in rogues
 	private void UNetVersion()
 	{
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_beamActorIndex(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -225,6 +353,7 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		((SparkBeamTrackerComponent)obj).m_beamActorIndex.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_actorIndexToTetherAge(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -235,6 +364,7 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		((SparkBeamTrackerComponent)obj).m_actorIndexToTetherAge.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_actorsOutOfRangeOnEvade(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -245,6 +375,7 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		((SparkBeamTrackerComponent)obj).m_actorsOutOfRangeOnEvade.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	protected static void InvokeRpcRpcSetTetherRadiusPosition(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -255,6 +386,7 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		((SparkBeamTrackerComponent)obj).RpcSetTetherRadiusPosition(reader.ReadVector3());
 	}
 
+	// reactor
 	public void CallRpcSetTetherRadiusPosition(Vector3 tetherRadiusCenter)
 	{
 		if (!NetworkServer.active)
@@ -271,6 +403,15 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		SendRPCInternal(networkWriter, 0, "RpcSetTetherRadiusPosition");
 	}
 
+	// rogues
+	//public void CallRpcSetTetherRadiusPosition(Vector3 tetherRadiusCenter)
+	//{
+	//	NetworkWriter networkWriter = new NetworkWriter();
+	//	networkWriter.Write(tetherRadiusCenter);
+	//	this.SendRPCInternal(typeof(SparkBeamTrackerComponent), "RpcSetTetherRadiusPosition", networkWriter, 0);
+	//}
+
+	// removed in rogues
 	private void Awake()
 	{
 		m_beamActorIndex.InitializeBehaviour(this, kListm_beamActorIndex);
@@ -278,6 +419,7 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		m_actorsOutOfRangeOnEvade.InitializeBehaviour(this, kListm_actorsOutOfRangeOnEvade);
 	}
 
+	// removed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -322,6 +464,7 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		return flag;
 	}
 
+	// removed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)
@@ -345,4 +488,10 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 			SyncListUInt.ReadReference(reader, m_actorsOutOfRangeOnEvade);
 		}
 	}
+
+	// rogues
+	//	static SparkBeamTrackerComponent()
+	//	{
+	//		NetworkBehaviour.RegisterRpcDelegate(typeof(SparkBeamTrackerComponent), "RpcSetTetherRadiusPosition", new NetworkBehaviour.CmdDelegate(InvokeRpcRpcSetTetherRadiusPosition));
+	//	}
 }

@@ -1,5 +1,8 @@
+// ROGUES
+// SERVER
 using UnityEngine;
 
+// same in reactor & rogues
 public class SparkTetherDistanceMonitor : MonoBehaviour, IGameEventListener
 {
 	private ProjectileWithTetherSequence m_lineFromCasterSequence;

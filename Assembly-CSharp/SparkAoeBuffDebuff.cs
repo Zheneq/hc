@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -137,16 +139,25 @@ public class SparkAoeBuffDebuff : Ability
 
 	public StandardEffectInfo GetSelfHitEffect()
 	{
+		// rogues
+		//return m_cachedSelfHitEffect;
+		// reactor
 		return m_cachedSelfHitEffect ?? m_selfHitEffect;
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
+		// rogues
+		//return m_cachedAllyHitEffect;
+		// reactor
 		return m_cachedAllyHitEffect ?? m_allyHitEffect;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
+		// rogues
+		//return m_cachedEnemyHitEffect;
+		// reactor
 		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
 	}
 
@@ -193,9 +204,14 @@ public class SparkAoeBuffDebuff : Ability
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+		// reactor
 		GetSelfHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		GetAllyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 		GetEnemyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		// rogues
+		//m_allyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
+		//m_enemyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+
 		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, GetBaseSelfHeal(m_abilityMod) + GetSelfHealPerHit(m_abilityMod));
 		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, GetShieldOnSelfPerAllyHit());
 		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, GetAllyHeal(m_abilityMod));
@@ -230,10 +246,13 @@ public class SparkAoeBuffDebuff : Ability
 			result[AbilityTooltipSymbol.Healing] = CalcSelfHealAmountFromHits(allyHits, enemyHits);
 			if (GetShieldOnSelfPerAllyHit() > 0)
 			{
+				// reactor
 				StandardEffectInfo selfHitEffect = GetSelfHitEffect();
 				int absorb = selfHitEffect.m_applyEffect && selfHitEffect.m_effectData.m_absorbAmount > 0
 					? selfHitEffect.m_effectData.m_absorbAmount
 					: 0;
+				// rogues
+				//int absorb = 0;
 				result[AbilityTooltipSymbol.Absorb] = absorb + allyHits * GetShieldOnSelfPerAllyHit();
 			}
 		}
@@ -273,4 +292,141 @@ public class SparkAoeBuffDebuff : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+
+	// server-only
+#if SERVER
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ActorData> list = new List<ActorData>();
+		List<ActorData> list2 = new List<ActorData>();
+		List<ActorData> list3 = new List<ActorData>();
+		foreach (ActorData actorData in additionalData.m_abilityResults.HitActorList())
+		{
+			if (m_sequenceOnAllies != null && actorData.GetTeam() == caster.GetTeam())
+			{
+				list2.Add(actorData);
+			}
+			else if (m_sequenceOnEnemies != null && actorData.GetTeam() != caster.GetTeam())
+			{
+				list3.Add(actorData);
+			}
+			else
+			{
+				list.Add(actorData);
+			}
+		}
+		List<ServerClientUtils.SequenceStartData> list4 = new List<ServerClientUtils.SequenceStartData>();
+		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(m_castSequencePrefab, targets[0].FreePos, list.ToArray(), caster, additionalData.m_sequenceSource, null);
+		list4.Add(item);
+		if (list2.Count > 0)
+		{
+			ServerClientUtils.SequenceStartData item2 = new ServerClientUtils.SequenceStartData(m_sequenceOnAllies, caster.GetFreePos(), list2.ToArray(), caster, additionalData.m_sequenceSource, null);
+			list4.Add(item2);
+		}
+		if (list3.Count > 0)
+		{
+			ServerClientUtils.SequenceStartData item3 = new ServerClientUtils.SequenceStartData(m_sequenceOnEnemies, caster.GetFreePos(), list3.ToArray(), caster, additionalData.m_sequenceSource, null);
+			list4.Add(item3);
+		}
+		return list4;
+	}
+#endif
+
+	// server-only
+#if SERVER
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, nonActorTargetInfo);
+		int num = 0;
+		int num2 = 0;
+		for (int i = 0; i < hitActors.Count; i++)
+		{
+			if (hitActors[i].GetTeam() != caster.GetTeam())
+			{
+				num++;
+			}
+			else if (hitActors[i] != caster)
+			{
+				num2++;
+			}
+		}
+		foreach (ActorData actorData in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			if (actorData == caster)
+			{
+				actorHitResults.AddStandardEffectInfo(GetSelfHitEffect());
+				if (GetSelfHealPerHit(m_abilityMod) > 0 || GetBaseSelfHeal(m_abilityMod) > 0)
+				{
+					int baseHealing = CalcSelfHealAmountFromHits(num2, num);
+					actorHitResults.SetBaseHealing(baseHealing);
+				}
+				if (GetShieldOnSelfPerAllyHit() > 0 && num2 > 0)
+				{
+					int absorbAmount = GetShieldOnSelfPerAllyHit() * num2;
+					StandardActorEffectData standardActorEffectData = new StandardActorEffectData();
+					standardActorEffectData.InitWithDefaultValues();
+					standardActorEffectData.m_absorbAmount = absorbAmount;
+					standardActorEffectData.m_duration = GetShieldOnSelfDuration();
+					StandardActorEffect effect = new StandardActorEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), caster, caster, standardActorEffectData);
+					actorHitResults.AddEffect(effect);
+				}
+			}
+			else if (actorData.GetTeam() == caster.GetTeam())
+			{
+				if (GetAllyHeal(m_abilityMod) > 0)
+				{
+					actorHitResults.AddBaseHealing(GetAllyHeal(m_abilityMod));
+				}
+				actorHitResults.AddStandardEffectInfo(GetAllyHitEffect());
+			}
+			else
+			{
+				if (m_damageAmount > 0)
+				{
+					actorHitResults.AddBaseDamage(m_damageAmount);
+				}
+				actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
+
+	// server-only
+#if SERVER
+	public new List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		if (m_TargetingType == TargetingType.UseShape)
+		{
+			List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies());
+			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(GetHitShape(), targets[0], ShouldIgnoreLos(), caster, relevantTeams, nonActorTargetInfo);
+			if (!IncludeCaster())
+			{
+				actorsInShape.Remove(caster);
+			}
+			return actorsInShape;
+		}
+		List<Team> relevantTeams2 = TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies());
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.GetLoSCheckPos(), GetTargetingRadius(), ShouldIgnoreLos(), caster, relevantTeams2, nonActorTargetInfo);
+		if (!IncludeCaster())
+		{
+			actorsInRadius.Remove(caster);
+		}
+		return actorsInRadius;
+	}
+#endif
+
+	// server-only
+#if SERVER
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalHealing > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SparkStats.HealingFromUlt, results.FinalHealing);
+		}
+	}
+#endif
 }
