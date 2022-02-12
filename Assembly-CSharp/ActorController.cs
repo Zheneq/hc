@@ -1,8 +1,11 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using Unity;
 using UnityEngine;
 using UnityEngine.Networking;
 
+// Note: heavily revorked in rogues
 public class ActorController : NetworkBehaviour
 {
 	public enum PingType
@@ -31,10 +34,19 @@ public class ActorController : NetworkBehaviour
 
 	private bool m_movementLinesVisible = true;
 
+	// removed in rogues
 	private HashSet<BoardSquare> m_canMoveToSquaresScratch = new HashSet<BoardSquare>();
+	// removed in rogues
 	private HashSet<BoardSquare> m_canMoveToWithQueuedAbilityScratch = new HashSet<BoardSquare>();
+	// removed in rogues
 	private HashSet<BoardSquare> m_targetingSquaresScratch = new HashSet<BoardSquare>();
 
+	// added in rogues
+#if SERVER
+	private float[] m_lastPings = new float[5];
+#endif
+
+	// removed in rogues
 	private static int kCmdCmdDebugTeleportRequest = -1583259838;
 	private static int kCmdCmdPickedRespawnRequest = 1763304984;
 	private static int kCmdCmdSendMinimapPing = -810618818;
@@ -43,7 +55,9 @@ public class ActorController : NetworkBehaviour
 	private static int kCmdCmdQueueSimpleActionRequest = -797856057;
 	private static int kCmdCmdCustomGamePause = 983951586;
 	private static int kRpcRpcUpdateRemainingMovement = 64425877;
+	// end removed in rogues
 
+	// removed in rogues
 	static ActorController()
 	{
 		RegisterCommandDelegate(typeof(ActorController), kCmdCmdDebugTeleportRequest, InvokeCmdCmdDebugTeleportRequest);
@@ -87,8 +101,26 @@ public class ActorController : NetworkBehaviour
 			bool flag = actor.respawnSquares.Contains(playerClampedSquare);
 			if (playerClampedSquare != null && flag)
 			{
-				CallCmdPickedRespawnRequest(playerClampedSquare.x, playerClampedSquare.y);
-				actor.ShowRespawnFlare(playerClampedSquare, false);
+#if SERVER
+				// server-only
+				if (NetworkServer.active)
+				{
+					actor.GetComponent<ServerActorController>().ProcessPickedRespawnRequest(playerClampedSquare.x, playerClampedSquare.y);
+				}
+				else
+				{
+#endif
+
+					CallCmdPickedRespawnRequest(playerClampedSquare.x, playerClampedSquare.y);
+					actor.ShowRespawnFlare(playerClampedSquare, false);
+#if SERVER
+				}
+				// rogues?
+				//if (NetworkClient.active)
+				//{
+				//    GameFlowData.Get().MarkToSwitchToNextActiveActor();
+				//}
+#endif
 			}
 		}
 	}
@@ -99,34 +131,71 @@ public class ActorController : NetworkBehaviour
 		if (actor == GameFlowData.Get().activeOwnedActorData)
 		{
 			BoardSquare playerFreeSquare = Board.Get().PlayerFreeSquare;
-			if (playerFreeSquare != null && playerFreeSquare.IsValidForGameplay())
+			if (playerFreeSquare != null
+				&& playerFreeSquare.IsValidForGameplay()
+				&& (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+				&& (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+				&& Input.GetMouseButtonUp(2)
+				&& InterfaceManager.Get().ShouldHandleMouseClick())
 			{
-				bool flag = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-				bool flag2 = Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt);
-				if (flag && flag2 && Input.GetMouseButtonUp(2))
+				// server-only
+#if SERVER
+				if (NetworkServer.active)
 				{
-					if (InterfaceManager.Get().ShouldHandleMouseClick())
-					{
-						CallCmdDebugTeleportRequest(playerFreeSquare.x, playerFreeSquare.y);
-					}
+					GetComponent<ServerActorController>().DebugTeleport(playerFreeSquare);
+					return;
 				}
+#endif
+				CallCmdDebugTeleportRequest(playerFreeSquare.x, playerFreeSquare.y);
 			}
 		}
 	}
 
 	[Command]
+	// was empty in reactor
 	private void CmdDebugTeleportRequest(int x, int y)
 	{
+#if SERVER
+		if (!HydrogenConfig.Get().AllowDebugCommands)
+		{
+			return;
+		}
+		BoardSquare squareFromIndex = Board.Get().GetSquareFromIndex(x, y);
+        GetComponent<ServerActorController>().DebugTeleport(squareFromIndex);
+#endif
 	}
 
 	[Command]
+	// was empty in reactor
 	private void CmdPickedRespawnRequest(int x, int y)
 	{
+#if SERVER
+		GetComponent<ServerActorController>().ProcessPickedRespawnRequest(x, y);
+#endif
 	}
 
 	[Command]
+	// was empty in reactor
 	internal void CmdSendMinimapPing(int teamIndex, Vector3 worldPosition, PingType pingType)
 	{
+#if SERVER
+		int num = -1;
+		for (int i = 0; i < m_lastPings.Length; i++)
+		{
+			if (m_lastPings[i] + 10f < Time.time)
+			{
+				num = i;
+				break;
+			}
+		}
+		if (num == -1)
+		{
+			m_actor.PingOnClient(teamIndex, worldPosition, pingType, true);
+			return;
+		}
+		m_lastPings[num] = Time.time;
+		m_actor.PingOnClient(teamIndex, worldPosition, pingType, false);
+#endif
 	}
 
 	[Command]
@@ -180,7 +249,10 @@ public class ActorController : NetworkBehaviour
 	private void Update()
 	{
 		ActorData actor = m_actor;
-		if (actor == GameFlowData.Get().activeOwnedActorData)
+		if (actor == GameFlowData.Get().activeOwnedActorData
+			// added in rogues
+			//&& !GameFlowData.Get().GetPause()
+			)
 		{
 			ActorTurnSM actorTurnSM = actor.GetActorTurnSM();
 			if (actorTurnSM.CanPickRespawnLocation())
@@ -349,23 +421,23 @@ public class ActorController : NetworkBehaviour
 				CopyOverHashsetValues(m_currentTargetingSquares, m_targetingSquaresScratch);
 			}
 		}
-		bool flag7 = GameFlowData.Get().IsInDecisionState()
+		if (GameFlowData.Get().IsInDecisionState()
 			&& m_actor.IsDead()
 			&& SpawnPointManager.Get() != null
-			&& SpawnPointManager.Get().m_playersSelectRespawn;
-		List<BoardSquare> respawnSquares = m_actor.respawnSquares;
-		if (flag7 && m_actor.IsDead() && !respawnSquares.IsNullOrEmpty())
+			&& SpawnPointManager.Get().m_playersSelectRespawn
+			&& m_actor.IsDead()
+			&& !m_actor.respawnSquares.IsNullOrEmpty())
 		{
-			if (m_currentRespawnSquares.Count != respawnSquares.Count || !respawnSquares.TrueForAll((BoardSquare s) => m_currentRespawnSquares.Contains(s)))
+			if (m_currentRespawnSquares.Count != m_actor.respawnSquares.Count || !m_actor.respawnSquares.TrueForAll((BoardSquare s) => m_currentRespawnSquares.Contains(s)))
 			{
 				ClearRespawnHighlights();
-				m_respawnHighlight = HighlightUtils.Get().CreateBoundaryHighlight(respawnSquares, BoardSquare.s_respawnOptionHighlightColor, true);
+				m_respawnHighlight = HighlightUtils.Get().CreateBoundaryHighlight(m_actor.respawnSquares, BoardSquare.s_respawnOptionHighlightColor, true);
 				if (m_respawnHighlight)
 				{
 					m_respawnHighlight.AddComponent<HighlightParent>();
 				}
 				m_currentRespawnSquares.Clear();
-				m_currentRespawnSquares = new HashSet<BoardSquare>(respawnSquares);
+				m_currentRespawnSquares = new HashSet<BoardSquare>(m_actor.respawnSquares);
 			}
 		}
 		else
@@ -425,6 +497,14 @@ public class ActorController : NetworkBehaviour
 		{
 			actionTypeInt = component.GetSelectedActionType();
 		}
+		// server-only
+#if SERVER
+		if (NetworkServer.active)
+		{
+            GetComponent<ServerActorController>().ProcessSelectAbilityRequest();
+			return;
+		}
+#endif
 		CallCmdSelectAbilityRequest((int)actionTypeInt);
 	}
 
@@ -446,8 +526,15 @@ public class ActorController : NetworkBehaviour
 	}
 
 	[Command]
+	// was empty in reactor
 	protected void CmdSelectAbilityRequest(int actionTypeInt)
 	{
+		//if (taunt)
+		//{
+		//	m_actor.GetActorTurnSM().Networkm_tauntRequestedForNextAbility = actionTypeInt;
+		//}
+		GetComponent<AbilityData>().SelectAbilityFromActionType((AbilityData.ActionType)actionTypeInt);
+		GetComponent<ServerActorController>().ProcessSelectAbilityRequest();
 	}
 
 	public void SendQueueSimpleActionRequest(AbilityData.ActionType actionType)
@@ -458,12 +545,24 @@ public class ActorController : NetworkBehaviour
 		{
 			actor.GetAbilityData().SetLastSelectedAbility(actor.GetAbilityData().GetAbilityOfActionType(actionType));
 		}
+		// server-only
+#if SERVER
+		if (NetworkServer.active)
+		{
+			GetComponent<ServerActorController>().ProcessQueueSimpleActionRequest(actionType, false);
+			return;
+		}
+#endif
 		CallCmdQueueSimpleActionRequest((int)actionType);
 	}
 
 	[Command]
+	// was empty in reactor
 	protected void CmdQueueSimpleActionRequest(int actionTypeInt)
 	{
+#if SERVER
+		GetComponent<ServerActorController>().ProcessQueueSimpleActionRequest((AbilityData.ActionType)actionTypeInt, false);
+#endif
 	}
 
 	public void RequestCustomGamePause(bool desiredPause, int requestActorIndex)
@@ -476,8 +575,40 @@ public class ActorController : NetworkBehaviour
 		CallCmdCustomGamePause(desiredPause, requestActorIndex);
 	}
 
+	// was empty in reactor
 	private void HandleCustomGamePauseOnServer(bool desiredPause, int requestActorIndex)
 	{
+#if SERVER
+		if (NetworkServer.active
+			&& GameManager.Get() != null
+			//&& GameManager.Get().GameMission != null
+			&& GameManager.Get().IsAllowingPlayerRequestedPause())
+		{
+			GameFlowData.Get().SetPausedForCustomGame(desiredPause);
+			string text = "UNKNOWN";
+			ActorData actorData = GameFlowData.Get().FindActorByActorIndex(requestActorIndex);
+			if (actorData != null)
+			{
+				text = actorData.DisplayName;
+			}
+			text = string.Concat(new object[]
+			{
+				text,
+				" (id ",
+				requestActorIndex,
+				")"
+			});
+			if (NetworkServer.active)
+			{
+				if (desiredPause)
+				{
+					ServerGameManager.Get().SendConsoleMessageWithHandle("CustomGamePaused", "CustomGame", text, Team.Invalid, ConsoleMessageType.SystemMessage, null);
+					return;
+				}
+				ServerGameManager.Get().SendConsoleMessageWithHandle("CustomGameUnpaused", "CustomGame", text, Team.Invalid, ConsoleMessageType.SystemMessage, null);
+			}
+		}
+#endif
 	}
 
 	[Command]
@@ -552,7 +683,7 @@ public class ActorController : NetworkBehaviour
 			Debug.LogError("Command CmdSendAbilityPing called on client.");
 			return;
 		}
-			((ActorController)obj).CmdSendAbilityPing((int)reader.ReadPackedUInt32(), GeneratedNetworkCode._ReadLocalizationArg_AbilityPing_None(reader));
+		((ActorController)obj).CmdSendAbilityPing((int)reader.ReadPackedUInt32(), GeneratedNetworkCode._ReadLocalizationArg_AbilityPing_None(reader));
 	}
 
 	protected static void InvokeCmdCmdSelectAbilityRequest(NetworkBehaviour obj, NetworkReader reader)
