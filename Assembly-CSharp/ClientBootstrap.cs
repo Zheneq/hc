@@ -10,26 +10,15 @@ using UnityEngine;
 public class ClientBootstrap : MonoBehaviour
 {
 	private FileLog m_fileLog;
-
 	private string[] m_commandLine;
-
 	private AsyncPump m_asyncPump;
 
-	internal static ClientBootstrap Instance
-	{
-		get;
-		private set;
-	}
-
-	internal static bool LoadTest
-	{
-		get;
-		private set;
-	}
+	internal static ClientBootstrap Instance { get; private set; }
+	internal static bool LoadTest { get; private set; }
 
 	private void Awake()
 	{
-		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+		DontDestroyOnLoad(gameObject);
 		UnityConsoleLog.MinLevel = Log.Level.Warning;
 		UnityConsoleLog.Start();
 		m_commandLine = Environment.GetCommandLineArgs();
@@ -49,9 +38,11 @@ public class ClientBootstrap : MonoBehaviour
 			{
 				hydrogenConfig.LogFilePath = $"{hydrogenConfig.LogFilePath}/AtlasReactor-{hydrogenConfig.ProcessCode}.log";
 			}
-			m_fileLog = new FileLog();
-			m_fileLog.UseDatedFolder = true;
-			m_fileLog.MinLevel = Log.FromString(hydrogenConfig.MinFileLogLevel);
+			m_fileLog = new FileLog
+			{
+				UseDatedFolder = true,
+				MinLevel = Log.FromString(hydrogenConfig.MinFileLogLevel)
+			};
 			m_fileLog.Open(hydrogenConfig.LogFilePath);
 			m_fileLog.Register();
 		}
@@ -102,20 +93,15 @@ public class ClientBootstrap : MonoBehaviour
 		AppState_LandingPage.Create();
 		if (GetComponent<ClientIdleTimer>() == null)
 		{
-			base.gameObject.AddComponent<ClientIdleTimer>();
+			gameObject.AddComponent<ClientIdleTimer>();
 		}
 		CommerceClient.Get();
 		DebugCommands.Instantiate();
 		SlashCommands.Instantiate();
 		TextConsole.Instantiate();
-		if (!LoadTest)
-		{
-			return;
-		}
-		while (true)
+		if (LoadTest)
 		{
 			ClientGameManager.Get().OnConnectedToLobbyServer += HandleConnectedToLobbyServer;
-			return;
 		}
 	}
 
@@ -125,30 +111,21 @@ public class ClientBootstrap : MonoBehaviour
 		{
 			AppState_Startup.Get().Enter();
 		}
-		if (LoadTest)
+		if (LoadTest
+			&& AppState.GetCurrent() == AppState_LandingPage.Get()
+			&& UIFrontEnd.Get() != null)
 		{
-			if (AppState.GetCurrent() == AppState_LandingPage.Get())
-			{
-				if (UIFrontEnd.Get() != null)
-				{
-					AppState_LandingPage.Get().OnQuickPlayClicked();
-					ClientGameManager.Get().GroupInfo.SelectedQueueType = GameType.PvP;
-					AppState_GroupCharacterSelect.Get().UpdateReadyState(true);
-				}
-			}
+			AppState_LandingPage.Get().OnQuickPlayClicked();
+			ClientGameManager.Get().GroupInfo.SelectedQueueType = GameType.PvP;
+			AppState_GroupCharacterSelect.Get().UpdateReadyState(true);
 		}
 		if (m_fileLog != null)
 		{
 			m_fileLog.Update();
 		}
-		if (m_asyncPump == null)
-		{
-			return;
-		}
-		while (true)
+		if (m_asyncPump != null)
 		{
 			m_asyncPump.Run(0);
-			return;
 		}
 	}
 
@@ -158,247 +135,114 @@ public class ClientBootstrap : MonoBehaviour
 		{
 			m_fileLog.Close();
 		}
-		if (!(ClientGameManager.Get() != null))
-		{
-			return;
-		}
-		while (true)
+		if (ClientGameManager.Get() != null)
 		{
 			ClientGameManager.Get().OnConnectedToLobbyServer -= HandleConnectedToLobbyServer;
-			return;
 		}
 	}
 
 	private void ParseCommandLine()
 	{
-		HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
-		string str = string.Join(" ", m_commandLine);
-		Log.Info("Command line: " + str);
-		string text = Application.dataPath + "/../../../Build/AtlasReactor/Config/AtlasReactorConfig.json";
-		string text2 = Application.dataPath + "/../../Config/AtlasReactorConfig.json";
-		string text3 = string.Empty;
+		HydrogenConfig envConfig = HydrogenConfig.Get();
+		Log.Info("Command line: " + string.Join(" ", m_commandLine));
+		string buildConfigPath = Application.dataPath + "/../../../Build/AtlasReactor/Config/AtlasReactorConfig.json";
+		string configPath = Application.dataPath + "/../../Config/AtlasReactorConfig.json";
+		string environment = "";
 		if (Application.isEditor)
 		{
-			text2 = text;
-			text3 = "dev";
+			configPath = buildConfigPath;
+			environment = "dev";
 		}
-		List<string> list = new List<string>();
+		List<string> cliConfig = new List<string>();
 		for (int i = 1; i < m_commandLine.Length; i++)
 		{
-			string a = m_commandLine[i].ToLower();
-			if (!(a == "-o"))
+			string cliItem = m_commandLine[i].ToLower();
+			bool hasNext = i + 1 < m_commandLine.Length;
+			if ((cliItem == "-o" || cliItem == "-option" || cliItem == "--option") && hasNext)
 			{
-				if (!(a == "-option"))
-				{
-					if (!(a == "--option"))
-					{
-						goto IL_018d;
-					}
-				}
-			}
-			if (i + 1 < m_commandLine.Length)
-			{
-				string text4 = m_commandLine[i + 1];
-				string[] array = text4.Split('=');
-				string text5 = array[0];
-				object obj;
-				if (array.Length > 1)
-				{
-					obj = array[1];
-				}
-				else
-				{
-					obj = "True";
-				}
-				string arg = (string)obj;
-				text5 = text5.TrimStart('-');
-				string item = $"{{ \"{text5}\" : \"{arg}\" }}";
-				list.Add(item);
+				string[] optionAndValue = m_commandLine[i + 1].Split('=');
+				string option = optionAndValue[0];
+				string value = optionAndValue.Length > 1 ? optionAndValue[1] : "True";
+				option = option.TrimStart('-');
+				cliConfig.Add($"{{ \"{option}\" : \"{value}\" }}");
 				i++;
-				continue;
 			}
-			goto IL_018d;
-			IL_04ad:
-			if (a == "-loadtest")
+			else if ((cliItem == "-c" || cliItem == "-config" || cliItem == "--config") && hasNext)
+			{
+				configPath = m_commandLine[i + 1];
+				i++;
+			}
+			else if ((cliItem == "-s" || cliItem == "-server" || cliItem == "--server") && hasNext)
+			{
+				cliConfig.Add($"{{ \"DirectoryServerAddress\" : \"{m_commandLine[i + 1]}\" }}");
+				i++;
+			}
+			else if ((cliItem == "-p" || cliItem == "-processcode" || cliItem == "--processcode") && hasNext)
+			{
+				cliConfig.Add($"{{ \"ProcessCode\" : \"{m_commandLine[i + 1]}\" }}");
+				i++;
+			}
+			else if ((cliItem == "-t" || cliItem == "-ticket" || cliItem == "--ticket") && hasNext)
+			{
+				cliConfig.Add($"{{ \"TicketFile\" : \"{m_commandLine[i + 1].Replace('\\', '/')}\" }}");
+				i++;
+			}
+			else if ((cliItem == "-l" || cliItem == "-language" || cliItem == "--language") && hasNext)
+			{
+				cliConfig.Add($"{{ \"Language\" : \"{m_commandLine[i + 1].Replace('\\', '/')}\" }}");
+				i++;
+			}
+			else if ((cliItem == "-e" || cliItem == "-environment" || cliItem == "--environment") && hasNext)
+			{
+				environment = m_commandLine[i + 1];
+				i++;
+			}
+			else if (cliItem == "-loadtest")
 			{
 				LoadTest = true;
 			}
-			continue;
-			IL_01ea:
-			if (!(a == "-s"))
-			{
-				if (!(a == "-server"))
-				{
-					if (!(a == "--server"))
-					{
-						goto IL_0281;
-					}
-				}
-			}
-			if (i + 1 < m_commandLine.Length)
-			{
-				string arg2 = m_commandLine[i + 1];
-				string item2 = $"{{ \"DirectoryServerAddress\" : \"{arg2}\" }}";
-				list.Add(item2);
-				i++;
-				continue;
-			}
-			goto IL_0281;
-			IL_0281:
-			if (!(a == "-p"))
-			{
-				if (!(a == "-processcode"))
-				{
-					if (!(a == "--processcode"))
-					{
-						goto IL_0302;
-					}
-				}
-			}
-			if (i + 1 < m_commandLine.Length)
-			{
-				string arg3 = m_commandLine[i + 1];
-				string item3 = $"{{ \"ProcessCode\" : \"{arg3}\" }}";
-				list.Add(item3);
-				i++;
-				continue;
-			}
-			goto IL_0302;
-			IL_018d:
-			if (!(a == "-c") && !(a == "-config"))
-			{
-				if (!(a == "--config"))
-				{
-					goto IL_01ea;
-				}
-			}
-			if (i + 1 < m_commandLine.Length)
-			{
-				text2 = m_commandLine[i + 1];
-				i++;
-				continue;
-			}
-			goto IL_01ea;
-			IL_0302:
-			if (!(a == "-t") && !(a == "-ticket"))
-			{
-				if (!(a == "--ticket"))
-				{
-					goto IL_039a;
-				}
-			}
-			if (i + 1 < m_commandLine.Length)
-			{
-				string text6 = m_commandLine[i + 1];
-				text6 = text6.Replace('\\', '/');
-				string item4 = $"{{ \"TicketFile\" : \"{text6}\" }}";
-				list.Add(item4);
-				i++;
-				continue;
-			}
-			goto IL_039a;
-			IL_039a:
-			if (!(a == "-l"))
-			{
-				if (!(a == "-language"))
-				{
-					if (!(a == "--language"))
-					{
-						goto IL_0434;
-					}
-				}
-			}
-			if (i + 1 < m_commandLine.Length)
-			{
-				string text7 = m_commandLine[i + 1];
-				text7 = text7.Replace('\\', '/');
-				string item5 = $"{{ \"Language\" : \"{text7}\" }}";
-				list.Add(item5);
-				i++;
-				continue;
-			}
-			goto IL_0434;
-			IL_0434:
-			if (!(a == "-e"))
-			{
-				if (!(a == "-environment"))
-				{
-					if (!(a == "--environment"))
-					{
-						goto IL_04ad;
-					}
-				}
-			}
-			if (i + 1 < m_commandLine.Length)
-			{
-				text3 = m_commandLine[i + 1];
-				i++;
-				continue;
-			}
-			goto IL_04ad;
 		}
-		while (true)
+		if (LoadTest)
 		{
-			if (LoadTest)
-			{
-				Debug.Log("-loadtest");
-			}
-			string fileName = text2.Replace(".json", ".local.json");
-			string fileName2 = text2.Replace(".json", ".salt.json");
-			if (text3.IsNullOrEmpty())
-			{
-				HydrogenConfig hydrogenConfig2 = new HydrogenConfig();
-				hydrogenConfig2.LoadFromFile(fileName2, false);
-				text3 = hydrogenConfig2.EnvironmentName;
-			}
-			if (text3.IsNullOrEmpty())
-			{
-				HydrogenConfig hydrogenConfig3 = new HydrogenConfig();
-				hydrogenConfig3.LoadFromFile(fileName, false);
-				text3 = hydrogenConfig3.EnvironmentName;
-			}
-			Log.Notice("Configured for {0} environment", text3.IsNullOrEmpty() ? "default" : text3);
-			hydrogenConfig.LoadFromFile(text2, false);
-			if (!text3.IsNullOrEmpty())
-			{
-				string newValue = $".{text3}.json";
-				string fileName3 = text2.Replace(".json", newValue);
-				hydrogenConfig.LoadFromFile(fileName3, false);
-			}
-			hydrogenConfig.LoadFromFile(fileName2, false);
-			hydrogenConfig.LoadFromFile(fileName, false);
-			using (List<string>.Enumerator enumerator = list.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					string current = enumerator.Current;
-					hydrogenConfig.Load(current);
-				}
-			}
-			hydrogenConfig.EnvironmentName = text3;
-			return;
+			Debug.Log("-loadtest");
 		}
+		string localConfigPath = configPath.Replace(".json", ".local.json");
+		string saltConfigPath = configPath.Replace(".json", ".salt.json");
+		if (environment.IsNullOrEmpty())
+		{
+			HydrogenConfig saltConfig = new HydrogenConfig();
+			saltConfig.LoadFromFile(saltConfigPath, false);
+			environment = saltConfig.EnvironmentName;
+		}
+		if (environment.IsNullOrEmpty())
+		{
+			HydrogenConfig localConfig = new HydrogenConfig();
+			localConfig.LoadFromFile(localConfigPath, false);
+			environment = localConfig.EnvironmentName;
+		}
+		Log.Notice("Configured for {0} environment", environment.IsNullOrEmpty() ? "default" : environment);
+		envConfig.LoadFromFile(configPath, false);
+		if (!environment.IsNullOrEmpty())
+		{
+			string envConfigPath = configPath.Replace(".json", $".{environment}.json");
+			envConfig.LoadFromFile(envConfigPath, false);
+		}
+		envConfig.LoadFromFile(saltConfigPath, false);
+		envConfig.LoadFromFile(localConfigPath, false);
+		foreach (string param in cliConfig)
+		{
+			envConfig.Load(param);
+		}
+		envConfig.EnvironmentName = environment;
 	}
 
 	public void WriteLine(string format, params object[] args)
 	{
-		if (m_fileLog == null)
+		if (m_fileLog != null && m_fileLog.File != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_fileLog.File != null)
-			{
-				while (true)
-				{
-					m_fileLog.File.Write(DateTime.Now.ToString(Log.TimestampFormat) + " [SYS] ");
-					m_fileLog.File.WriteLine(format, args);
-					m_fileLog.File.Flush();
-					return;
-				}
-			}
-			return;
+			m_fileLog.File.Write(DateTime.Now.ToString(Log.TimestampFormat) + " [SYS] ");
+			m_fileLog.File.WriteLine(format, args);
+			m_fileLog.File.Flush();
 		}
 	}
 
@@ -413,84 +257,43 @@ public class ClientBootstrap : MonoBehaviour
 
 	private void HandlePlayerInfoUpdateResponse(PlayerInfoUpdateResponse response)
 	{
-		object[] array = new object[1];
-		object obj;
-		if (response.Success)
+		string responseStr = response.Success ? "Success" : response.ErrorMessage;
+		Log.Info($"Loadtest lobby ready response: {responseStr}");
+		LobbyGameConfig lobbyGameConfig = new LobbyGameConfig
 		{
-			obj = "Success";
-		}
-		else
-		{
-			obj = response.ErrorMessage;
-		}
-		array[0] = obj;
-		Log.Info("Loadtest lobby ready response: {0}", array);
-		LobbyGameConfig lobbyGameConfig = new LobbyGameConfig();
-		lobbyGameConfig.GameType = GameType.Coop;
+			GameType = GameType.Coop
+		};
 		Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(lobbyGameConfig.GameType);
 		if (!gameTypeSubTypes.IsNullOrEmpty())
 		{
 			lobbyGameConfig.InstanceSubTypeBit = gameTypeSubTypes.First().Key;
 			lobbyGameConfig.SubTypes = gameTypeSubTypes.Values.ToList();
-			using (Dictionary<ushort, GameSubType>.Enumerator enumerator = gameTypeSubTypes.GetEnumerator())
+			foreach (KeyValuePair<ushort, GameSubType> subType in gameTypeSubTypes)
 			{
-				while (true)
+				if (subType.Value.HasMod(GameSubType.SubTypeMods.AntiSocial))
 				{
-					if (!enumerator.MoveNext())
-					{
-						break;
-					}
-					KeyValuePair<ushort, GameSubType> current = enumerator.Current;
-					if (current.Value.HasMod(GameSubType.SubTypeMods.AntiSocial))
-					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								break;
-							default:
-								lobbyGameConfig.InstanceSubTypeBit = current.Key;
-								goto end_IL_009f;
-							}
-						}
-					}
+					lobbyGameConfig.InstanceSubTypeBit = subType.Key;
+					break;
 				}
-				end_IL_009f:;
 			}
 		}
-		BotDifficulty selectedBotSkillTeamA = BotDifficulty.Easy;
-		BotDifficulty selectedBotSkillTeamB = BotDifficulty.Easy;
-		ClientGameManager.Get().CreateGame(lobbyGameConfig, ReadyState.Ready, selectedBotSkillTeamA, selectedBotSkillTeamB, delegate(CreateGameResponse r)
-		{
-			if (!r.Success)
+		ClientGameManager.Get().CreateGame(
+			lobbyGameConfig,
+			ReadyState.Ready,
+			BotDifficulty.Easy,
+			BotDifficulty.Easy,
+			delegate (CreateGameResponse r)
 			{
-				while (true)
+				if (!r.Success)
 				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						Log.Warning("Failed to create game: {0}", r.ErrorMessage);
-						return;
-					}
+					Log.Warning("Failed to create game: {0}", r.ErrorMessage);
+					return;
 				}
-			}
-		});
+			});
 	}
 
 	internal string GetFileLogCurrentPath()
 	{
-		string result;
-		if (m_fileLog == null)
-		{
-			result = string.Empty;
-		}
-		else
-		{
-			result = m_fileLog.CurrentFilePath;
-		}
-		return result;
+		return m_fileLog != null ? m_fileLog.CurrentFilePath : "";
 	}
 }
