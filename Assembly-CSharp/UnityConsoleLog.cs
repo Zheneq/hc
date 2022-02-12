@@ -111,7 +111,7 @@ public static class UnityConsoleLog
 											{
 											case Log.Level.Critical:
 												break;
-											case Log.Level._001D:
+											case Log.Level.Debug:
 											case Log.Level.Info:
 											case Log.Level.Notice:
 												Debug.Log(text);
@@ -189,7 +189,7 @@ public static class UnityConsoleLog
 			flag = true;
 			break;
 		case LogType.Log:
-			level = ((!LogInfoAsDebug) ? Log.Level.Info : Log.Level._001D);
+			level = ((!LogInfoAsDebug) ? Log.Level.Info : Log.Level.Debug);
 			flag = false;
 			break;
 		}

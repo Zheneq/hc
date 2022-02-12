@@ -7,7 +7,7 @@ public static class Log
 	{
 		Unknown,
 		Everything,
-		_001D,
+		Debug,
 		Info,
 		Warning,
 		Error,
@@ -48,55 +48,31 @@ public static class Log
 	public struct Message
 	{
 		public Level level;
-
 		public Category category;
-
 		public string message;
-
 		public string formattedMessage;
-
 		public DateTime timestamp;
-
 		public Exception exception;
-
 		public string file;
-
 		public int line;
-
 		public int repeatCount;
 
 		public static string Format(string message, object[] args)
 		{
 			if (message == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return null;
-					}
-				}
+				return null;
 			}
-			if (args != null)
+			if (args != null && args.Length != 0)
 			{
-				if (args.Length != 0)
+				for (int i = 0; i < args.Length; i++)
 				{
-					for (int i = 0; i < args.Length; i++)
+					if (args[i] is Exception ex)
 					{
-						Exception ex = args[i] as Exception;
-						if (ex != null)
-						{
-							args[i] = ex.ToReadableString();
-						}
-					}
-					while (true)
-					{
-						return string.Format(message, args);
+						args[i] = ex.ToReadableString();
 					}
 				}
+				return string.Format(message, args);
 			}
 			return message;
 		}
@@ -105,16 +81,7 @@ public static class Log
 		{
 			if (repeatCount > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return $"{formattedMessage} (repeated {repeatCount} times)";
-					}
-				}
+				return $"{formattedMessage} (repeated {repeatCount} times)";
 			}
 			return formattedMessage;
 		}
@@ -122,11 +89,7 @@ public static class Log
 
 	public static string TimestampFormat;
 
-	public static LogInstance LogInstance
-	{
-		get;
-		private set;
-	}
+	public static LogInstance LogInstance { get; private set; }
 
 	static Log()
 	{
@@ -145,7 +108,7 @@ public static class Log
 	}
 
 	[Conditional("HYDROGEN_DEBUG")]
-	public static void _001D(Category _001D, string _000E, params object[] _0012)
+	public static void Debug(Log.Category category, string message, params object[] args)
 	{
 	}
 
@@ -165,7 +128,7 @@ public static class Log
 	}
 
 	[Conditional("HYDROGEN_DEBUG")]
-	public static void _001D(string _001D, params object[] _000E)
+	public static void Debug(string message, params object[] args)
 	{
 	}
 
@@ -225,7 +188,7 @@ public static class Log
 		{
 		case Level.Everything:
 			return "Everything";
-		case Level._001D:
+		case Level.Debug:
 			return "Debug";
 		case Level.Info:
 			return "Info";
@@ -248,7 +211,7 @@ public static class Log
 	{
 		switch (level)
 		{
-		case Level._001D:
+		case Level.Debug:
 			return "DBG";
 		case Level.Info:
 			return "INF";
@@ -269,107 +232,35 @@ public static class Log
 	{
 		if (string.Equals(level, ToString(Level.Everything), StringComparison.OrdinalIgnoreCase))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return Level.Everything;
-				}
-			}
+			return Level.Everything;
 		}
-		if (string.Equals(level, ToString(Level._001D), StringComparison.OrdinalIgnoreCase))
+		if (string.Equals(level, ToString(Level.Debug), StringComparison.OrdinalIgnoreCase))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return Level._001D;
-				}
-			}
+			return Level.Debug;
 		}
 		if (string.Equals(level, ToString(Level.Info), StringComparison.OrdinalIgnoreCase))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return Level.Info;
-				}
-			}
+			return Level.Info;
 		}
 		if (string.Equals(level, ToString(Level.Warning), StringComparison.OrdinalIgnoreCase))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return Level.Warning;
-				}
-			}
+			return Level.Warning;
 		}
 		if (string.Equals(level, ToString(Level.Error), StringComparison.OrdinalIgnoreCase))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return Level.Error;
-				}
-			}
+			return Level.Error;
 		}
 		if (string.Equals(level, ToString(Level.Critical), StringComparison.OrdinalIgnoreCase))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return Level.Critical;
-				}
-			}
+			return Level.Critical;
 		}
 		if (string.Equals(level, ToString(Level.Notice), StringComparison.OrdinalIgnoreCase))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return Level.Notice;
-				}
-			}
+			return Level.Notice;
 		}
 		if (string.Equals(level, ToString(Level.Nothing), StringComparison.OrdinalIgnoreCase))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return Level.Nothing;
-				}
-			}
+			return Level.Nothing;
 		}
 		return Level.Unknown;
 	}

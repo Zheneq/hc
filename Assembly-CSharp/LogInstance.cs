@@ -73,7 +73,7 @@ public class LogInstance
 	[Conditional("HYDROGEN_DEBUG")]
 	public void _001D(Log.Category _001D, string _000E, params object[] _0012)
 	{
-		Write(Log.Level._001D, _001D, _000E, _0012);
+		Write(Log.Level.Debug, _001D, _000E, _0012);
 	}
 
 	public void Info(Log.Category category, string message, params object[] args)
@@ -94,7 +94,7 @@ public class LogInstance
 	[Conditional("HYDROGEN_DEBUG")]
 	public void _001D(string _001D, params object[] _000E)
 	{
-		Write(Log.Level._001D, Log.Category.None, _001D, _000E);
+		Write(Log.Level.Debug, Log.Category.None, _001D, _000E);
 	}
 
 	public void Info(string message, params object[] args)

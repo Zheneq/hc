@@ -1048,7 +1048,7 @@ public class WebSocket : IDisposable
 		case Log.Level.Everything:
 			logLevel = LogLevel.Trace;
 			break;
-		case Log.Level._001D:
+		case Log.Level.Debug:
 			logLevel = LogLevel.Debug;
 			break;
 		case Log.Level.Info:
