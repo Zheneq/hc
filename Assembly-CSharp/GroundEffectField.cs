@@ -1,9 +1,17 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
+using AbilityContextNamespace;
 using UnityEngine;
 
+// reactor
 [Serializable]
+// rogues
+//[CreateAssetMenu(fileName = "NewGroundEffectField", menuName = "Design Objects/Ground Effect Field")]
 public class GroundEffectField
+// added in rogues
+//: ScriptableObject
 {
 	public int duration = 2;
 	public int hitDelayTurns;
@@ -14,15 +22,31 @@ public class GroundEffectField
 	public bool endIfHasDoneHits;
 	public bool ignoreNonCasterAllies;
 	[Header("-- For Hits --")]
+	// added in rogues
+	//public List<OnHitAuthoredData> onHitData = new List<OnHitAuthoredData>();
+	//[HideInInspector] // added in rogues
 	public int damageAmount;
+	//[HideInInspector] // added in rogues
 	public int subsequentDamageAmount;
+	//[HideInInspector] // added in rogues
 	public int healAmount;
+	//[HideInInspector] // added in rogues
 	public int subsequentHealAmount;
+	// rogues
+	//[HideInInspector]
+	//public float damageCoeff;
+	// rogues
+	//[HideInInspector]
+	//public float healCoeff;
+	//[HideInInspector] // added in rogues
 	public int energyGain;
+	//[HideInInspector] // added in rogues
 	public int subsequentEnergyGain;
 	public bool stopMovementInField;
 	public bool stopMovementOutOfField;
+	//[HideInInspector] // added in rogues
 	public StandardEffectInfo effectOnEnemies;
+	//[HideInInspector] // added in rogues
 	public StandardEffectInfo effectOnAllies;
 	[Header("-- Sequences --")]
 	public GameObject persistentSequencePrefab;
@@ -33,24 +57,85 @@ public class GroundEffectField
 
 	internal bool penetrateLos => true;
 
+	// added in rogues
+	//   private static bool AffectsEnemies(OnHitAuthoredData data)
+	//{
+	//	return data != null &&
+	//		(
+	//			//data.m_effectTemplateFields.Count > 0 ||  // rogues?
+	//			data.m_enemyHitIntFields.Count > 0
+	//			|| data.m_enemyHitKnockbackFields.Count > 0
+	//			|| data.m_enemyHitCooldownReductionFields.Count > 0
+	//			|| data.m_enemyHitEffectFields.Count > 0
+	//			//|| data.m_enemyHitEffectTemplateFields.Count > 0  // rogues?
+	//			);
+	//}
+
+	// added in rogues
+	//private static bool AffectsAllies(OnHitAuthoredData data)
+	//{
+	//	return data != null && (
+	//			//data.m_effectTemplateFields.Count > 0 ||  // rogues?
+	//			data.m_allyHitIntFields.Count > 0
+	//			|| data.m_allyHitKnockbackFields.Count > 0
+	//			|| data.m_allyHitCooldownReductionFields.Count > 0
+	//			|| data.m_allyHitEffectFields.Count > 0
+	//			//|| data.m_allyHitEffectTemplateFields.Count > 0  // rogues?
+	//			);
+	//}
+
 	public void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject enemySubject, AbilityTooltipSubject allySubject)
 	{
-		effectOnEnemies.ReportAbilityTooltipNumbers(ref numbers, enemySubject);
-		effectOnAllies.ReportAbilityTooltipNumbers(ref numbers, allySubject);
+		if (effectOnEnemies != null)  // check added in rogues
+		{
+			effectOnEnemies.ReportAbilityTooltipNumbers(ref numbers, enemySubject);
+		}
+		if (effectOnAllies != null)  // check added in rogues
+		{
+			effectOnAllies.ReportAbilityTooltipNumbers(ref numbers, allySubject);
+		}
 		AbilityTooltipHelper.ReportDamage(ref numbers, enemySubject, damageAmount);
 		AbilityTooltipHelper.ReportHealing(ref numbers, allySubject, healAmount);
 		AbilityTooltipHelper.ReportEnergy(ref numbers, allySubject, energyGain);
 	}
 
+	// reactor
 	public bool IncludeEnemies()
 	{
 		return damageAmount > 0 || effectOnEnemies.m_applyEffect;
 	}
 
+	// rogues
+	//public bool IncludeEnemies()
+	//{
+	//	for (int i = 0; i < onHitData.Count; i++)
+	//	{
+	//		if (AffectsEnemies(onHitData[i]))
+	//		{
+	//			return true;
+	//		}
+	//	}
+	//	return false;
+	//}
+
+	// reactor
 	public bool IncludeAllies()
 	{
 		return healAmount > 0 || effectOnAllies.m_applyEffect || energyGain > 0;
 	}
+
+	// rogues
+	//public bool IncludeAllies()
+	//{
+	//	for (int i = 0; i < onHitData.Count; i++)
+	//	{
+	//		if (GroundEffectField.AffectsAllies(onHitData[i]))
+	//		{
+	//			return true;
+	//		}
+	//	}
+	//	return false;
+	//}
 
 	public List<Team> GetAffectedTeams(ActorData allyActor)
 	{
@@ -70,12 +155,121 @@ public class GroundEffectField
 		AbilityMod.AddToken_IntDiff(tokens, name + "_SubsequentEnergyGain", "", subsequentEnergyGain, addDiff, addDiff ? other.subsequentEnergyGain : 0);
 		AbilityMod.AddToken_EffectInfo(tokens, effectOnEnemies, "EnemyHitEffect", addDiff ? other.effectOnEnemies : null, addDiff);
 		AbilityMod.AddToken_EffectInfo(tokens, effectOnAllies, "AllyHitEffect", addDiff ? other.effectOnAllies : null, addDiff);
+
+		// rogues?
+		//foreach (OnHitAuthoredData onHitAuthoredData in onHitData)
+		//{
+		//	onHitAuthoredData.AddTooltipTokens(tokens);
+		//}
 	}
 
 	public GroundEffectField GetShallowCopy()
 	{
 		return (GroundEffectField)MemberwiseClone();
 	}
+
+	// added in rogues
+#if SERVER
+	public List<ActorData> GetAffectableActorsInField(AbilityTarget abilityTarget, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		BoardSquare square = Board.Get().GetSquare(abilityTarget.GridPos);
+		return GetAffectableActorsInField(square, abilityTarget.FreePos, caster, nonActorTargetInfo);
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	public List<ActorData> GetAffectableActorsInField(BoardSquare targetSquare, Vector3 freePos, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(shape, freePos, targetSquare, penetrateLos, caster, null, nonActorTargetInfo);
+		List<ActorData> list = new List<ActorData>();
+		foreach (ActorData actorData in actorsInShape)
+		{
+			if (CanBeAffected(actorData, caster))
+			{
+				list.Add(actorData);
+			}
+		}
+		return list;
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	public bool CanBeAffected(ActorData actor, ActorData caster)
+	{
+		bool flag = actor.GetTeam() == caster.GetTeam();
+		return (!flag && IncludeEnemies()) || (flag && IncludeAllies() && (canIncludeCaster || actor != caster) && (!ignoreNonCasterAllies || actor == caster));
+	}
+#endif
+
+	// added in rogues
+#if SERVER
+	public void SetupActorHitResult(ref ActorHitResults hitRes, ActorData caster, BoardSquare targetSquare, int numHits = 1)
+	{
+		ActorData target = hitRes.m_hitParameters.Target;
+		if (numHits > 0)
+		{
+			bool flag = target.GetTeam() == caster.GetTeam();
+			if (!flag)
+			{
+				int num = damageAmount + (numHits - 1) * subsequentDamageAmount;
+				if (num > 0)
+				{
+					hitRes.AddBaseDamage(num);
+				}
+				// rogues
+				//else
+				//{
+				//    hitRes.ModifyDamageCoeff(this.damageCoeff, this.damageCoeff);
+				//}
+				hitRes.AddStandardEffectInfo(effectOnEnemies);
+			}
+			else
+			{
+				int num2 = healAmount + (numHits - 1) * subsequentHealAmount;
+				int addAmount = energyGain + (numHits - 1) * subsequentEnergyGain;
+				if (num2 > 0)
+				{
+					hitRes.AddBaseHealing(num2);
+				}
+				// rogues
+				//else
+				//{
+				//                hitRes.ModifyHealingCoeff(this.healCoeff, this.healCoeff);
+				//            }
+				hitRes.AddTechPointGain(addAmount);
+				hitRes.AddStandardEffectInfo(effectOnAllies);
+			}
+			ActorHitContext actorContext = new ActorHitContext();
+			ContextVars abilityContext = new ContextVars();
+			NumericHitResultScratch numericHitResultScratch = new NumericHitResultScratch();
+
+			// rogues?
+			//foreach (OnHitAuthoredData onHitAuthoredData in onHitData)
+			//         {
+			//             if (flag)
+			//             {
+			//                 GenericAbility_Container.CalcIntFieldValues(target, caster, actorContext, abilityContext, onHitAuthoredData.m_allyHitIntFields, numericHitResultScratch);
+			//                 GenericAbility_Container.SetNumericFieldsOnHitResults(hitRes, numericHitResultScratch);
+			//                 GenericAbility_Container.SetKnockbackFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_allyHitKnockbackFields);
+			//                 GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_allyHitCooldownReductionFields, numHits);
+			//                 GenericAbility_Container.SetEffectFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_allyHitEffectFields);
+			//                 GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_allyHitEffectTemplateFields);
+			//             }
+			//             else
+			//             {
+			//                 GenericAbility_Container.CalcIntFieldValues(target, caster, actorContext, abilityContext, onHitAuthoredData.m_enemyHitIntFields, numericHitResultScratch);
+			//                 GenericAbility_Container.SetNumericFieldsOnHitResults(hitRes, numericHitResultScratch);
+			//                 GenericAbility_Container.SetKnockbackFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_enemyHitKnockbackFields);
+			//                 GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_enemyHitCooldownReductionFields, numHits);
+			//                 GenericAbility_Container.SetEffectFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_enemyHitEffectFields);
+			//                 GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_enemyHitEffectTemplateFields);
+			//             }
+			//         }
+		}
+	}
+#endif
 
 	public string GetInEditorDescription(string header = "GroundEffectField", string indent = "    ", bool diff = false, GroundEffectField other = null)
 	{
