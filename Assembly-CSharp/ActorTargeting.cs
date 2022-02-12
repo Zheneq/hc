@@ -1,10 +1,14 @@
+// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class ActorTargeting : NetworkBehaviour, IGameEventListener
+public class ActorTargeting : NetworkBehaviour,
+	// removed in rogues
+	IGameEventListener
 {
 	public class AbilityRequestData : IComparable
 	{
@@ -52,6 +56,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		m_currentTargetedActors = new Dictionary<ActorData, Dictionary<AbilityTooltipSymbol, int>>();
 	}
 
+	// removed in rogues
 	private void Start()
 	{
 		if (NetworkClient.active)
@@ -60,7 +65,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	private void ResetTargeters(bool clearInstantly)
+	private void ResetTargeters(bool clearInstantly)  // no params in rogues
 	{
 		if (m_actorData == null)
 		{
@@ -81,7 +86,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			{
 				foreach (AbilityUtil_Targeter targeter in abilityOfActionType.Targeters)
 				{
-					targeter?.ResetTargeter(clearInstantly);
+					targeter?.ResetTargeter(clearInstantly);  // no params in rogues
 				}
 			}
 		}
@@ -94,7 +99,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 
 	public void OnRequestDataDeserialized()
 	{
-		ResetTargeters(false);
+		ResetTargeters(false);  // no params in rogues
 		if (ShouldDrawTargeters())
 		{
 			DrawTargeters();
@@ -113,10 +118,17 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 
 	private void Update()
 	{
+		// server-only
+#if SERVER
+		if (NetworkServer.active)
+		{
+			SynchWithActionBuffer();
+		}
+#endif
 		bool flag = ShouldDrawTargeters();
 		if (m_markedForForceRedraw)
 		{
-			ResetTargeters(false);
+			ResetTargeters(false);  // no params in rogues
 			m_targetersBeingDrawn = false;
 			m_markedForForceRedraw = false;
 		}
@@ -127,7 +139,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 		else if (!flag && m_targetersBeingDrawn)
 		{
-			ResetTargeters(false);
+			ResetTargeters(false);  // no params in rogues
 		}
 	}
 
@@ -146,6 +158,62 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			ClearAbilityCooldowns();
 		}
 	}
+
+	// added in rogues
+#if SERVER
+	private void SynchWithActionBuffer()
+	{
+		ActorData actorData = m_actorData;
+		if (actorData == null || actorData.TeamSensitiveData_friendly == null)
+		{
+			return;
+		}
+		List<AbilityRequestData> abilityRequestData = actorData.TeamSensitiveData_friendly.GetAbilityRequestData();
+		List<AbilityRequestData> pendingAbilityRequestsForTargeting = ServerActionBuffer.Get().GetPendingAbilityRequestsForTargeting(actorData);
+		if (pendingAbilityRequestsForTargeting.Count > 1)
+		{
+			pendingAbilityRequestsForTargeting.Sort();
+		}
+		bool flag = false;
+		if (pendingAbilityRequestsForTargeting.Count != abilityRequestData.Count)
+		{
+			flag = true;
+		}
+		else
+		{
+			for (int i = 0; i < pendingAbilityRequestsForTargeting.Count; i++)
+			{
+				AbilityRequestData abilityRequestData2 = abilityRequestData[i];
+				AbilityRequestData abilityRequestData3 = pendingAbilityRequestsForTargeting[i];
+				if (abilityRequestData2.m_actionType != abilityRequestData3.m_actionType || abilityRequestData2.m_targets.Count != abilityRequestData3.m_targets.Count)
+				{
+					flag = true;
+					break;
+				}
+				for (int j = 0; j < abilityRequestData3.m_targets.Count; j++)
+				{
+					AbilityTarget abilityTarget = abilityRequestData[i].m_targets[j];
+					AbilityTarget abilityTarget2 = pendingAbilityRequestsForTargeting[i].m_targets[j];
+					if (abilityTarget.AimDirection != abilityTarget2.AimDirection || abilityTarget.FreePos != abilityTarget2.FreePos || abilityTarget.GridPos.x != abilityTarget2.GridPos.x || abilityTarget.GridPos.y != abilityTarget2.GridPos.y)
+					{
+						flag = true;
+						break;
+					}
+				}
+				if (flag)
+				{
+					break;
+				}
+			}
+		}
+		if (flag)
+		{
+			ResetTargeters(false);  // no params in rogues
+			m_actorData.TeamSensitiveData_friendly.SetAbilityRequestData(pendingAbilityRequestsForTargeting);
+			m_actorData.TeamSensitiveData_friendly.MarkAsDirty(ActorTeamSensitiveData.DirtyBit.AbilityRequestDataForTargeter);
+		}
+	}
+#endif
 
 	public List<AbilityTarget> GetAbilityTargetsInRequest(AbilityData.ActionType actionType)
 	{
@@ -211,6 +279,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// reactor
 	public static void GetNameplateNumbersForTargeter(ActorData caster, ActorData target, Ability abilityTargeting, int currentTargeterIndex, Dictionary<AbilityTooltipSymbol, int> symbolToValueMap)
 	{
 		bool flag = true;
@@ -430,7 +499,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		{
 			return false;
 		}
-		if (ClientGameManager.Get().IsFastForward)
+		if (ClientGameManager.Get().IsFastForward)  // removed in rogues
 		{
 			return false;
 		}
@@ -459,6 +528,11 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		{
 			return false;
 		}
+		// added in rogues
+		//if (actorData.GetActorMovement().AmMoving())
+		//{
+		//	return false;
+		//}
 		return true;
 	}
 
@@ -476,6 +550,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		{
 			return false;
 		}
+		// removed in rogues
 		if (ClientGameManager.Get().IsFastForward)
 		{
 			return false;
@@ -515,6 +590,11 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		{
 			return false;
 		}
+		// added in rogues
+		//if (actorData.GetActorMovement().AmMoving())
+		//{
+		//	return false;
+		//}
 		return true;
 	}
 
@@ -539,14 +619,14 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 					abilityOfActionType.Targeter.UpdateTargetAreaEffect(item.m_targets[0], actorData);
 					abilityOfActionType.Targeter.UpdateTargeting(item.m_targets[0], actorData);
 					abilityOfActionType.Targeter.StartConfirmedTargeting(item.m_targets[0], actorData);
-					abilityOfActionType.Targeter.UpdateFadeOutHighlights(actorData);
+					abilityOfActionType.Targeter.UpdateFadeOutHighlights(actorData);  // removed in rogues
 				}
 				else if (abilityOfActionType.GetExpectedNumberOfTargeters() < 2)
 				{
 					abilityOfActionType.Targeter.SetLastUpdateCursorState(item.m_targets[0]);
 					abilityOfActionType.Targeter.UpdateTargeting(item.m_targets[0], actorData);
 					abilityOfActionType.Targeter.StartConfirmedTargeting(item.m_targets[0], actorData);
-					abilityOfActionType.Targeter.UpdateFadeOutHighlights(actorData);
+					abilityOfActionType.Targeter.UpdateFadeOutHighlights(actorData);  // removed in rogues
 				}
 				else
 				{
@@ -576,7 +656,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 							abilityOfActionType.Targeters[i].UpdateTargeting(item.m_targets[i], actorData);
 						}
 						abilityOfActionType.Targeters[i].StartConfirmedTargeting(item.m_targets[i], actorData);
-						abilityOfActionType.Targeters[i].UpdateFadeOutHighlights(actorData);
+						abilityOfActionType.Targeters[i].UpdateFadeOutHighlights(actorData);  // removed in rogues
 					}
 				}
 				abilityOfActionType.Targeter.UpdateArrowsForUI();
@@ -589,6 +669,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		m_targetersBeingDrawn = true;
 	}
 
+	// removed in rogues
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
 		if (args != null && eventType == GameEventManager.EventType.ReconnectReplayStateChanged)
@@ -598,6 +679,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// removed in rogues
 	private void OnDestroy()
 	{
 		if (NetworkClient.active)
@@ -697,11 +779,24 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				{
 					AbilityData.ActionType abilityAction = abilityData.GetActionTypeOfAbility(current);
 					int moddedCost = current.GetModdedCost();
+
+					// reactor
 					bool isBasicAbility = abilityAction == AbilityData.ActionType.ABILITY_0;
 					bool isImpossibleUlt = abilityAction == AbilityData.ActionType.ABILITY_4 && moddedCost >= actualMaxTechPoints;
-					if (!isBasicAbility
-						&& !isImpossibleUlt
-						&& (!isShowingTargeting || abilityAction != actionTargeting)
+					if (isBasicAbility || isImpossibleUlt)
+					{
+						continue;
+					}
+					// rogues
+					//            if (current.GetModdedCooldown() <= 0
+					//	&& current.GetModdedMaxStocks() <= 0
+					//	&& (moddedCost <= 0 || moddedCost >= actualMaxTechPoints))
+					//{
+					//	continue;
+					//}
+
+
+					if ((!isShowingTargeting || abilityAction != actionTargeting)
 						&& (!GameFlowData.Get().LocalPlayerData.IsViewingTeam(m_actorData.GetTeam())
 							|| showRequestedAbilities
 							|| abilityRequestDataForClient.FirstOrDefault((AbilityRequestData a) => a.m_actionType == abilityAction) == null))
@@ -763,15 +858,18 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		return boardSquare;
 	}
 
+	// removed in rogues
 	private void UNetVersion()
 	{
 	}
 
+	// removed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		return false;
 	}
 
+	// removed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 	}
