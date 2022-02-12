@@ -49,11 +49,9 @@ public class SparkAoeBuffDebuff : Ability
 
 	public float GetTargetingRadius()
 	{
-		if (m_abilityMod != null)
-		{
-			return m_abilityMod.m_radiusMod.GetModifiedValue(m_radius);
-		}
-		return m_radius;
+		return m_abilityMod != null
+			? m_abilityMod.m_radiusMod.GetModifiedValue(m_radius)
+			: m_radius;
 	}
 
 	public AbilityAreaShape GetHitShape()
@@ -63,74 +61,58 @@ public class SparkAoeBuffDebuff : Ability
 
 	public bool ShouldIgnoreLos()
 	{
-		if (m_abilityMod != null)
-		{
-			return m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_penetrateLos);
-		}
-		return m_penetrateLos;
+		return m_abilityMod != null
+			? m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_penetrateLos)
+			: m_penetrateLos;
 	}
 
 	public int GetAllyHeal(AbilityMod_SparkAoeBuffDebuff mod)
 	{
-		if (mod != null)
-		{
-			mod.m_allyHealMod.GetModifiedValue(m_allyHealAmount);
-		}
-		return m_allyHealAmount;
+		return mod != null
+			? mod.m_allyHealMod.GetModifiedValue(m_allyHealAmount)
+			: m_allyHealAmount;
 	}
 
 	public int GetBaseSelfHeal(AbilityMod_SparkAoeBuffDebuff mod)
 	{
-		if (mod != null)
-		{
-			return mod.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal);
-		}
-		return m_baseSelfHeal;
+		return mod != null
+			? mod.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal)
+			: m_baseSelfHeal;
 	}
 
 	public int GetSelfHealPerHit(AbilityMod_SparkAoeBuffDebuff mod)
 	{
-		if (mod != null)
-		{
-			return mod.m_selfHealPerHitMod.GetModifiedValue(m_selfHealAmountPerHit);
-		}
-		return m_selfHealAmountPerHit;
+		return mod != null
+			? mod.m_selfHealPerHitMod.GetModifiedValue(m_selfHealAmountPerHit)
+			: m_selfHealAmountPerHit;
 	}
 
 	public bool SelfHealCountAllyHit()
 	{
-		if (m_abilityMod != null)
-		{
-			return m_abilityMod.m_selfHealHitCountAlly.GetModifiedValue(m_selfHealCountAllyHit);
-		}
-		return m_selfHealCountAllyHit;
+		return m_abilityMod != null
+			? m_abilityMod.m_selfHealHitCountAlly.GetModifiedValue(m_selfHealCountAllyHit)
+			: m_selfHealCountAllyHit;
 	}
 
 	public bool SelfHealCountEnemyHit()
 	{
-		if (m_abilityMod != null)
-		{
-			return m_abilityMod.m_selfHealHitCountEnemy.GetModifiedValue(m_selfHealCountEnemyHit);
-		}
-		return m_selfHealCountEnemyHit;
+		return m_abilityMod != null
+			? m_abilityMod.m_selfHealHitCountEnemy.GetModifiedValue(m_selfHealCountEnemyHit)
+			: m_selfHealCountEnemyHit;
 	}
 
 	public int GetShieldOnSelfPerAllyHit()
 	{
-		if (m_abilityMod != null)
-		{
-			return m_abilityMod.m_shieldOnSelfPerAllyHitMod.GetModifiedValue(0);
-		}
-		return 0;
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldOnSelfPerAllyHitMod.GetModifiedValue(0)
+			: 0;
 	}
 
 	public int GetShieldOnSelfDuration()
 	{
-		if (m_abilityMod != null)
-		{
-			return m_abilityMod.m_shieldOnSelfDuration;
-		}
-		return 1;
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldOnSelfDuration
+			: 1;
 	}
 
 	public bool IncludeCaster()
@@ -155,29 +137,17 @@ public class SparkAoeBuffDebuff : Ability
 
 	public StandardEffectInfo GetSelfHitEffect()
 	{
-		if (m_cachedSelfHitEffect != null)
-		{
-			return m_cachedSelfHitEffect;
-		}
-		return m_selfHitEffect;
+		return m_cachedSelfHitEffect ?? m_selfHitEffect;
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
-		if (m_cachedAllyHitEffect != null)
-		{
-			return m_cachedAllyHitEffect;
-		}
-		return m_allyHitEffect;
+		return m_cachedAllyHitEffect ?? m_allyHitEffect;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
-		if (m_cachedEnemyHitEffect != null)
-		{
-			return m_cachedEnemyHitEffect;
-		}
-		return m_enemyHitEffect;
+		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
 	}
 
 	private void SetCachedFields()
