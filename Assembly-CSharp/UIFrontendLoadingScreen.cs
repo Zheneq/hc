@@ -21,45 +21,28 @@ public class UIFrontendLoadingScreen : UIScene
 	}
 
 	public RectTransform m_Container;
-
 	public string m_frontEndBackgroundScene;
-
 	public Animator m_animator;
-
 	public Image m_backgroundImage;
-
 	public Animator m_bgImageanimator;
-
 	public GameObject m_mainTextBox;
-
 	public GameObject m_subTextBox;
-
 	public GameObject m_subText2Box;
-
 	public _SelectableBtn m_ServerLockedButton;
-
 	public _SelectableBtn m_ShutdownButton;
-
 	public RectTransform m_loadingMapNameInfoContainer;
-
 	public TextMeshProUGUI m_mapNameTitle;
-
 	public TextMeshProUGUI m_mapNameSubTitle;
 
 	private float m_visibleStartTime;
-
 	private int m_screenInitialHeight;
-
 	private int m_screenInitialWidth;
-
 	private bool m_isPlayerAccountDataAvailable;
-
 	private Queue<string> m_movieNames = new Queue<string>();
 
 	private static UIFrontendLoadingScreen s_instance;
 
 	private DisplayStates m_displayState;
-
 	private string m_ServerLockURL = string.Empty;
 
 	private static float m_startLoadTime;
@@ -78,7 +61,7 @@ public class UIFrontendLoadingScreen : UIScene
 		s_instance = this;
 		m_screenInitialHeight = Screen.height;
 		m_screenInitialWidth = Screen.width;
-		Object.DontDestroyOnLoad(gameObject);
+		DontDestroyOnLoad(gameObject);
 		if (Application.isEditor)
 		{
 			Application.runInBackground = true;
@@ -88,11 +71,11 @@ public class UIFrontendLoadingScreen : UIScene
 			m_animator = new Animator();
 		}
 		SetDisplayState(DisplayStates.None);
-		if (!Object.FindObjectOfType<EventSystem>())
+		if (!FindObjectOfType<EventSystem>())
 		{
 			GameObject gameObject = new GameObject("EventSystem", typeof(EventSystem));
 			gameObject.AddComponent<StandaloneInputModule>();
-			Object.DontDestroyOnLoad(gameObject);
+			DontDestroyOnLoad(gameObject);
 		}
 		m_ServerLockedButton.spriteController.callback = ServerLockedButtonClicked;
 		SetServerLockButtonVisible(false);
@@ -121,11 +104,7 @@ public class UIFrontendLoadingScreen : UIScene
 
 	internal void SetVisible(bool visible)
 	{
-		if (m_Container.gameObject.activeSelf == visible)
-		{
-			return;
-		}
-		while (true)
+		if (m_Container.gameObject.activeSelf != visible)
 		{
 			UIManager.SetGameObjectActive(m_loadingMapNameInfoContainer, false);
 			if (visible)
@@ -139,13 +118,13 @@ public class UIFrontendLoadingScreen : UIScene
 				Log.Info(Log.Category.Loading, "F.E. Loading screen displayed for {0} seconds.", (Time.time - m_visibleStartTime).ToString("F1"));
 			}
 			UIManager.SetGameObjectActive(m_Container, visible);
-			return;
 		}
 	}
 
 	public bool IsSameAsInitialResolution()
 	{
-		return m_screenInitialHeight == Screen.height && m_screenInitialWidth == Screen.width;
+		return m_screenInitialHeight == Screen.height
+			&& m_screenInitialWidth == Screen.width;
 	}
 
 	public void SetServerLockButtonVisible(bool visible)
@@ -156,18 +135,14 @@ public class UIFrontendLoadingScreen : UIScene
 	public void UpdateServerLockLabels(ServerMessageOverrides serverMessageOverrides)
 	{
 		string language = HydrogenConfig.Get().Language;
-		TextMeshProUGUI[] componentsInChildren = m_ServerLockedButton.GetComponentsInChildren<TextMeshProUGUI>(true);
-		TextMeshProUGUI[] array = componentsInChildren;
-		foreach (TextMeshProUGUI textMeshProUGUI in array)
+		foreach (TextMeshProUGUI textMeshProUGUI in m_ServerLockedButton.GetComponentsInChildren<TextMeshProUGUI>(true))
 		{
 			textMeshProUGUI.text = serverMessageOverrides.GetValueOrDefault(ServerMessageType.LockScreenButtonText, language);
 		}
-		while (true)
-		{
-			m_ServerLockURL = ((!SteamManager.UsingSteam) ? serverMessageOverrides.FreeUpsellExternalBrowserUrl : serverMessageOverrides.FreeUpsellExternalBrowserSteamUrl);
-			ShowText(StringUtil.TR("SERVERISLOCKED", "LoadingScreen"), serverMessageOverrides.GetValueOrDefault(ServerMessageType.LockScreenText, language));
-			return;
-		}
+		m_ServerLockURL = SteamManager.UsingSteam
+			? serverMessageOverrides.FreeUpsellExternalBrowserSteamUrl
+			: serverMessageOverrides.FreeUpsellExternalBrowserUrl;
+		ShowText(StringUtil.TR("SERVERISLOCKED", "LoadingScreen"), serverMessageOverrides.GetValueOrDefault(ServerMessageType.LockScreenText, language));
 	}
 
 	public void ShutdownButtonClicked(BaseEventData data)
@@ -178,11 +153,10 @@ public class UIFrontendLoadingScreen : UIScene
 	public void ServerLockedButtonClicked(BaseEventData data)
 	{
 		ClientGameManager.Get().SendUIActionNotification("ServerLockedButtonClicked");
-		if (m_ServerLockURL.IsNullOrEmpty())
+		if (!m_ServerLockURL.IsNullOrEmpty())
 		{
-			return;
+			Application.OpenURL(m_ServerLockURL);
 		}
-		Application.OpenURL(m_ServerLockURL);
 	}
 
 	private void OnDestroy()
@@ -209,18 +183,17 @@ public class UIFrontendLoadingScreen : UIScene
 			UIManager.SetGameObjectActive(m_backgroundImage, false);
 			return;
 		}
-		Dictionary<int, bool> unlockedLoadingScreenBackgroundIdsToActivatedState = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.UnlockedLoadingScreenBackgroundIdsToActivatedState;
-		
-		IEnumerable<KeyValuePair<int, bool>> source = unlockedLoadingScreenBackgroundIdsToActivatedState.Where(((KeyValuePair<int, bool> x) => x.Value));
-		
-		int[] array = source.Select(((KeyValuePair<int, bool> x) => x.Key)).ToArray();
-		if (array.Length == 0)
+		Dictionary<int, bool> loadingScreens = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.UnlockedLoadingScreenBackgroundIdsToActivatedState;
+		int[] activatedIDs = loadingScreens
+			.Where((KeyValuePair<int, bool> x) => x.Value)
+			.Select((KeyValuePair<int, bool> x) => x.Key).ToArray();
+		if (activatedIDs.Length == 0)
 		{
 			m_backgroundImage.sprite = null;
 		}
 		else
 		{
-			int loadingScreenID = array[Random.Range(0, array.Length)];
+			int loadingScreenID = activatedIDs[Random.Range(0, activatedIDs.Length)];
 			m_backgroundImage.sprite = Resources.Load<Sprite>(GameBalanceVars.Get().GetLoadingScreenBackground(loadingScreenID).m_resourceString);
 		}
 		UIManager.SetGameObjectActive(m_backgroundImage, m_backgroundImage.sprite != null);
@@ -231,16 +204,17 @@ public class UIFrontendLoadingScreen : UIScene
 		if (MapName.IsNullOrEmpty())
 		{
 			UIManager.SetGameObjectActive(m_loadingMapNameInfoContainer, false);
-			return;
 		}
-		if (gameType == GameType.Tutorial)
+		else if (gameType == GameType.Tutorial)
 		{
 			UIManager.SetGameObjectActive(m_loadingMapNameInfoContainer, true);
 			m_mapNameTitle.text = StringUtil.TR("TutorialName", "Prologue1");
 			m_mapNameSubTitle.text = StringUtil.TR("TutorialDescription", "Prologue1");
-			return;
 		}
-		UIManager.SetGameObjectActive(m_loadingMapNameInfoContainer, false);
+		else
+		{
+			UIManager.SetGameObjectActive(m_loadingMapNameInfoContainer, false);
+		}
 	}
 
 	public void OnDisable()
@@ -253,12 +227,8 @@ public class UIFrontendLoadingScreen : UIScene
 		{
 			return true;
 		}
-		shouldPlayIntroVideo = true;
 		string key = "PlayIntro";
-		if (PlayerPrefs.HasKey(key))
-		{
-			shouldPlayIntroVideo = (PlayerPrefs.GetInt(key) != 1);
-		}
+		shouldPlayIntroVideo = !PlayerPrefs.HasKey(key) || PlayerPrefs.GetInt(key) != 1;
 		PlayerPrefs.SetInt(key, 1);
 		return shouldPlayIntroVideo;
 	}
@@ -287,13 +257,11 @@ public class UIFrontendLoadingScreen : UIScene
 		{
 			SetVisible(false);
 		}
-		if (!gameConfigPresent && (bool)FullScreenMovie.Get() && DoPlayIntroVideo())
+		if (!gameConfigPresent && FullScreenMovie.Get() != null && DoPlayIntroVideo())
 		{
-			if (FullScreenMovie.Get().m_movieTexture.MovieState != 0 && FullScreenMovie.Get().m_movieTexture.MovieState != PlayRawImageMovieTexture.MovieStates.Done && !Input.GetKeyUp(KeyCode.Escape))
-			{
-				// noop
-			}
-			else
+			if (FullScreenMovie.Get().m_movieTexture.MovieState == PlayRawImageMovieTexture.MovieStates.Invalid
+				|| FullScreenMovie.Get().m_movieTexture.MovieState == PlayRawImageMovieTexture.MovieStates.Done
+				|| Input.GetKeyUp(KeyCode.Escape))
 			{
 				if (m_movieNames.Count > 0)
 				{
@@ -311,11 +279,7 @@ public class UIFrontendLoadingScreen : UIScene
 		{
 			Finish();
 		}
-		if (!(m_startLoadTime > 0f))
-		{
-			return;
-		}
-		if (Time.time >= m_startLoadTime)
+		if (m_startLoadTime > 0f && Time.time >= m_startLoadTime)
 		{
 			m_startLoadTime = -1f;
 			StartCoroutine(AssetBundleManager.Get().LoadSceneAsync("ClientEnvironmentSingletons", "frontend", LoadSceneMode.Additive));
@@ -324,11 +288,7 @@ public class UIFrontendLoadingScreen : UIScene
 
 	private void Finish()
 	{
-		if (m_startLoadTime != 0f)
-		{
-			return;
-		}
-		if (m_animator != null)
+		if (m_startLoadTime == 0f && m_animator != null)
 		{
 			SetVisible(true);
 			FullScreenMovie.Get().SetVisible(false);
@@ -340,21 +300,11 @@ public class UIFrontendLoadingScreen : UIScene
 	private void SetDisplayState(DisplayStates state)
 	{
 		m_displayState = state;
-		if (m_displayState != DisplayStates.Error)
-		{
-			if (m_displayState != DisplayStates.ServerLocked)
-			{
-				if (m_displayState != DisplayStates.ServerQueued)
-				{
-					if (m_displayState != 0)
-					{
-						UIManager.SetGameObjectActive(m_ShutdownButton, false);
-						return;
-					}
-				}
-			}
-		}
-		UIManager.SetGameObjectActive(m_ShutdownButton, true);
+		bool showButton = m_displayState == DisplayStates.Error
+			|| m_displayState == DisplayStates.ServerLocked
+			|| m_displayState == DisplayStates.ServerQueued
+			|| m_displayState == DisplayStates.None;
+		UIManager.SetGameObjectActive(m_ShutdownButton, showButton);
 	}
 
 	public void StartDisplayFadeIn()
@@ -396,21 +346,16 @@ public class UIFrontendLoadingScreen : UIScene
 	public void StartDisplayFadeOut()
 	{
 		SetDisplayState(DisplayStates.FadeOut);
-		if (!m_animator.isActiveAndEnabled)
-		{
-			return;
-		}
-		while (true)
+		if (m_animator.isActiveAndEnabled)
 		{
 			m_animator.Play("FrontEndLoadingScreenDefaultOUT");
-			return;
 		}
 	}
 
 	private void ShowText(string text, string subText = null, string subText2 = null)
 	{
 		UIManager.SetGameObjectActive(m_ServerLockedButton, text == StringUtil.TR("SERVERISLOCKED", "LoadingScreen"));
-		if ((bool)m_mainTextBox)
+		if (m_mainTextBox != null)
 		{
 			if (!text.IsNullOrEmpty())
 			{
@@ -422,7 +367,7 @@ public class UIFrontendLoadingScreen : UIScene
 				UIManager.SetGameObjectActive(m_mainTextBox, false);
 			}
 		}
-		if ((bool)m_subTextBox)
+		if (m_subTextBox != null)
 		{
 			if (!subText.IsNullOrEmpty())
 			{
@@ -434,11 +379,7 @@ public class UIFrontendLoadingScreen : UIScene
 				UIManager.SetGameObjectActive(m_subTextBox, false);
 			}
 		}
-		if (!m_subText2Box)
-		{
-			return;
-		}
-		while (true)
+		if (m_subText2Box != null)
 		{
 			if (!subText2.IsNullOrEmpty())
 			{
@@ -449,43 +390,21 @@ public class UIFrontendLoadingScreen : UIScene
 			{
 				UIManager.SetGameObjectActive(m_subText2Box, false);
 			}
-			return;
 		}
 	}
 
 	public bool IsReadyToReveal()
 	{
-		if (m_displayState == DisplayStates.FadeOut)
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
-		}
-		return false;
+		return m_displayState == DisplayStates.FadeOut;
 	}
 
 	private bool IsCurrentAnimationDone()
 	{
-		bool result = false;
-		if (m_animator.isActiveAndEnabled)
+		if (!m_animator.isActiveAndEnabled)
 		{
-			AnimatorStateInfo currentAnimatorStateInfo = m_animator.GetCurrentAnimatorStateInfo(0);
-			if (currentAnimatorStateInfo.normalizedTime >= currentAnimatorStateInfo.length)
-			{
-				result = true;
-			}
+			return true;
 		}
-		else
-		{
-			result = true;
-		}
-		return result;
+		AnimatorStateInfo currentAnimatorStateInfo = m_animator.GetCurrentAnimatorStateInfo(0);
+		return currentAnimatorStateInfo.normalizedTime >= currentAnimatorStateInfo.length;
 	}
 }
