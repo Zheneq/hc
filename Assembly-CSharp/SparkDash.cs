@@ -357,43 +357,43 @@ public class SparkDash : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		bool flag = false;
-		bool canCharge = false;
+		bool isFirstTargetValid = false;
+		bool isSecondTargetValid = false;
 		if (targetIndex == 0)
 		{
-			List<Team> list = new List<Team>
-			{
-				caster.GetEnemyTeam(),
-				caster.GetTeam()
-			};
+			List<Team> list = new List<Team>();
+
+			list.Add(caster.GetEnemyTeam());
+
+			list.Add(caster.GetTeam());
 			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_targetShape, target, m_targetShapePenetratesLoS, caster, list, null);
-			SparkBeamTrackerComponent trackerComponent = caster.GetComponent<SparkBeamTrackerComponent>();
+			SparkBeamTrackerComponent component = caster.GetComponent<SparkBeamTrackerComponent>();
+
 			foreach (ActorData current in actorsInShape)
 			{
 				if (CanTargetActorInDecision(caster, current, true, true, false, ValidateCheckPath.CanBuildPath, true, false)
-					&& (m_canTargetAny || trackerComponent.IsTrackingActor(current.ActorIndex)))
+					&& (m_canTargetAny || component.IsTrackingActor(current.ActorIndex)))
 				{
-					flag = true;
-					canCharge = true;
+					isFirstTargetValid = true;
+					isSecondTargetValid = true;
 					break;
 				}
 			}
 		}
 		else
 		{
-			flag = true;
+			isFirstTargetValid = true;
 			BoardSquare prevTargetSquare = Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos);
 			BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
-			if (targetSquare != null
+
+			isSecondTargetValid = targetSquare != null
 				&& targetSquare.IsValidForGameplay()
 				&& targetSquare != prevTargetSquare
 				&& targetSquare != caster.GetCurrentBoardSquare()
-				&& AreaEffectUtils.IsSquareInShape(targetSquare, GetChooseDestShape(), target.FreePos, prevTargetSquare, false, caster))
-			{
-				canCharge = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, prevTargetSquare, false, out int _);
-			}
+				&& AreaEffectUtils.IsSquareInShape(targetSquare, GetChooseDestShape(), target.FreePos, prevTargetSquare, false, caster)
+				&& KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, prevTargetSquare, false, out int _);
 		}
-		return canCharge && flag;
+		return isSecondTargetValid && isFirstTargetValid;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
