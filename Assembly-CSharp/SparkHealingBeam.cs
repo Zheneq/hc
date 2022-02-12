@@ -11,56 +11,35 @@ public class SparkHealingBeam : Ability
 
 	[Header("-- Targeting")]
 	public TargetingMode m_targetingMode;
-
 	[Header("-- Targeting: If Using Laser targeting mode")]
 	public LaserTargetingInfo m_laserInfo;
-
 	public StandardEffectInfo m_laserHitEffect;
-
 	[Separator("-- Tether --", true)]
 	public float m_tetherDistance = 5f;
-
 	public bool m_checkTetherRemovalBetweenPhases;
-
 	[Header("-- Tether Duration")]
 	public int m_tetherDuration;
-
 	[Header("-- Healing")]
 	public int m_laserHealingAmount;
-
 	public int m_additionalEnergizedHealing = 2;
-
 	public int m_healOnSelfOnTick;
-
 	public bool m_healSelfOnInitialAttach;
-
 	public AbilityPriority m_healingPhase = AbilityPriority.Prep_Offense;
-
 	[Header("-- Energy on Caster Per Turn")]
 	public int m_energyOnCasterPerTurn = 3;
-
 	[Header("-- Animation on Pulse")]
 	public int m_pulseAnimIndex;
-
 	public int m_energizedPulseAnimIndex;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequence;
-
 	public GameObject m_pulseSequence;
-
 	public GameObject m_energizedPulseSequence;
-
 	public GameObject m_beamSequence;
-
 	public GameObject m_targetPersistentSequence;
 
 	private AbilityMod_SparkHealingBeam m_abilityMod;
-
 	private SparkEnergized m_energizedAbility;
-
 	private LaserTargetingInfo m_cachedLaserInfo;
-
 	private StandardActorEffectData m_cachedAllyEffect;
 
 	private void Start()
@@ -77,45 +56,33 @@ public class SparkHealingBeam : Ability
 		SetCachedFields();
 		if (m_energizedAbility == null)
 		{
-			AbilityData component = GetComponent<AbilityData>();
-			if (component != null)
+			AbilityData abilityData = GetComponent<AbilityData>();
+			if (abilityData != null)
 			{
-				m_energizedAbility = (component.GetAbilityOfType(typeof(SparkEnergized)) as SparkEnergized);
+				m_energizedAbility = abilityData.GetAbilityOfType(typeof(SparkEnergized)) as SparkEnergized;
 			}
 		}
-		if (base.Targeter != null)
+		if (Targeter != null)
 		{
-			base.Targeter.ResetTargeter(true);
+			Targeter.ResetTargeter(true);
 		}
-		bool flag = m_healSelfOnInitialAttach && GetHealOnSelfPerTurn() > 0;
+		bool affectsCaster = m_healSelfOnInitialAttach && GetHealOnSelfPerTurn() > 0;
 		if (m_targetingMode == TargetingMode.Laser)
 		{
 			AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = new AbilityUtil_Targeter_Laser(this, GetLaserInfo());
-			abilityUtil_Targeter_Laser.SetAffectedGroups(false, true, flag);
+			abilityUtil_Targeter_Laser.SetAffectedGroups(false, true, affectsCaster);
 			abilityUtil_Targeter_Laser.m_affectCasterDelegate = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
-			base.Targeter = abilityUtil_Targeter_Laser;
+			Targeter = abilityUtil_Targeter_Laser;
 		}
-		if (m_targetingMode != 0)
+		if (m_targetingMode == TargetingMode.BoardSquare)
 		{
-			return;
-		}
-		while (true)
-		{
-			int num;
-			if (flag)
-			{
-				num = 1;
-			}
-			else
-			{
-				num = 0;
-			}
-			AbilityUtil_Targeter.AffectsActor affectsCaster = (AbilityUtil_Targeter.AffectsActor)num;
-			AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, true, affectsCaster);
-			abilityUtil_Targeter_Shape.SetAffectedGroups(false, true, flag);
-			abilityUtil_Targeter_Shape.m_affectCasterDelegate = ((ActorData caster, List<ActorData> actorsSoFar, bool casterInShape) => actorsSoFar.Count > 0);
-			base.Targeter = abilityUtil_Targeter_Shape;
-			return;
+			AbilityUtil_Targeter.AffectsActor affectsCasterEnum = affectsCaster
+				? AbilityUtil_Targeter.AffectsActor.Possible
+				: AbilityUtil_Targeter.AffectsActor.Never;
+			AbilityUtil_Targeter_Shape targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, true, affectsCasterEnum);
+			targeter.SetAffectedGroups(false, true, affectsCaster);
+			targeter.m_affectCasterDelegate = (ActorData caster, List<ActorData> actorsSoFar, bool casterInShape) => actorsSoFar.Count > 0;
+			Targeter = targeter;
 		}
 	}
 
@@ -136,54 +103,35 @@ public class SparkHealingBeam : Ability
 
 	public int GetHealingOnAttach()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_initialHealingMod.GetModifiedValue(m_laserHealingAmount);
-		}
-		else
-		{
-			result = m_laserHealingAmount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_initialHealingMod.GetModifiedValue(m_laserHealingAmount)
+			: m_laserHealingAmount;
 	}
 
 	public int GetAdditionalHealOnRadiated()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_additionalHealOnRadiatedMod.GetModifiedValue(m_additionalEnergizedHealing);
-		}
-		else
-		{
-			result = m_additionalEnergizedHealing;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_additionalHealOnRadiatedMod.GetModifiedValue(m_additionalEnergizedHealing)
+			: m_additionalEnergizedHealing;
 	}
 
 	public int GetEnergyOnCasterPerTurn()
 	{
-		int num;
-		if ((bool)m_abilityMod)
-		{
-			num = m_abilityMod.m_energyOnCasterPerTurnMod.GetModifiedValue(m_energyOnCasterPerTurn);
-		}
-		else
-		{
-			num = m_energyOnCasterPerTurn;
-		}
-		int num2 = num;
+		int num = m_abilityMod != null
+			? m_abilityMod.m_energyOnCasterPerTurnMod.GetModifiedValue(m_energyOnCasterPerTurn)
+			: m_energyOnCasterPerTurn;
 		if (m_energizedAbility != null)
 		{
-			num2 = m_energizedAbility.CalcEnergyOnSelfPerTurn(num2);
+			num = m_energizedAbility.CalcEnergyOnSelfPerTurn(num);
 		}
-		return num2;
+		return num;
 	}
 
 	public int GetHealOnSelfPerTurn()
 	{
-		int num = (!m_abilityMod) ? m_healOnSelfOnTick : m_abilityMod.m_healOnCasterOnTickMod.GetModifiedValue(m_healOnSelfOnTick);
+		int num = m_abilityMod != null
+			? m_abilityMod.m_healOnCasterOnTickMod.GetModifiedValue(m_healOnSelfOnTick)
+			: m_healOnSelfOnTick;
 		if (m_energizedAbility != null)
 		{
 			num = m_energizedAbility.CalcHealOnSelfPerTurn(num);
@@ -193,54 +141,35 @@ public class SparkHealingBeam : Ability
 
 	public float GetTetherDistance()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_tetherDistanceMod.GetModifiedValue(m_tetherDistance);
-		}
-		else
-		{
-			result = m_tetherDistance;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_tetherDistanceMod.GetModifiedValue(m_tetherDistance)
+			: m_tetherDistance;
 	}
 
 	public int GetTetherDuration()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_tetherDurationMod.GetModifiedValue(m_tetherDuration);
-		}
-		else
-		{
-			result = m_tetherDuration;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_tetherDurationMod.GetModifiedValue(m_tetherDuration)
+			: m_tetherDuration;
 	}
 
 	public bool UseBonusHealing()
 	{
-		return (bool)m_abilityMod && m_abilityMod.m_useBonusHealOverTime;
+		return m_abilityMod != null && m_abilityMod.m_useBonusHealOverTime;
 	}
 
 	public int GetBonusHealGrowRate()
 	{
-		return m_abilityMod ? m_abilityMod.m_bonusAllyHealIncreaseRate.GetModifiedValue(0) : 0;
+		return m_abilityMod != null 
+			? m_abilityMod.m_bonusAllyHealIncreaseRate.GetModifiedValue(0)
+			: 0;
 	}
 
 	public int GetMaxBonusHealing()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxAllyBonusHealAmount.GetModifiedValue(0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxAllyBonusHealAmount.GetModifiedValue(0)
+			: 0;
 	}
 
 	public int GetBonusHealFromTetherAge(int age)
@@ -264,51 +193,27 @@ public class SparkHealingBeam : Ability
 
 	public bool ShouldApplyTargetEffectForXDamage()
 	{
-		int result;
-		if (GetXDamageThreshold() > 0)
-		{
-			result = ((GetTargetEffectForXDamage() != null) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return GetXDamageThreshold() > 0 && GetTargetEffectForXDamage() != null;
 	}
 
 	public int GetXDamageThreshold()
 	{
-		return (!m_abilityMod) ? (-1) : m_abilityMod.m_xDamageThreshold;
+		return m_abilityMod != null
+			? m_abilityMod.m_xDamageThreshold
+			: -1;
 	}
 
 	public StandardEffectInfo GetTargetEffectForXDamage()
 	{
-		object result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_effectOnTargetForTakingXDamage;
-		}
-		else
-		{
-			result = null;
-		}
-		return (StandardEffectInfo)result;
+		return m_abilityMod?.m_effectOnTargetForTakingXDamage;
 	}
 
 	private void SetCachedFields()
 	{
-		LaserTargetingInfo laserInfo = m_laserInfo;
-		object mod;
-		if ((bool)m_abilityMod)
-		{
-			mod = m_abilityMod.m_laserInfoMod;
-		}
-		else
-		{
-			mod = null;
-		}
-		m_cachedLaserInfo = laserInfo.GetModifiedCopy((AbilityModPropertyLaserInfo)mod);
-		StandardEffectInfo standardEffectInfo = (!m_abilityMod) ? m_laserHitEffect.GetShallowCopy() : m_abilityMod.m_tetherBaseEffectOverride.GetModifiedValue(m_laserHitEffect);
+		m_cachedLaserInfo = m_laserInfo.GetModifiedCopy(m_abilityMod?.m_laserInfoMod);
+		StandardEffectInfo standardEffectInfo = m_abilityMod != null
+			? m_abilityMod.m_tetherBaseEffectOverride.GetModifiedValue(m_laserHitEffect)
+			: m_laserHitEffect.GetShallowCopy();
 		m_cachedAllyEffect = standardEffectInfo.m_effectData;
 		m_cachedAllyEffect.m_sequencePrefabs = new GameObject[2]
 		{
@@ -319,58 +224,21 @@ public class SparkHealingBeam : Ability
 
 	public StandardActorEffectData GetAllyTetherEffectData()
 	{
-		StandardActorEffectData result;
-		if (m_cachedAllyEffect != null)
-		{
-			result = m_cachedAllyEffect;
-		}
-		else
-		{
-			result = m_laserHitEffect.m_effectData;
-		}
-		return result;
+		return m_cachedAllyEffect ?? m_laserHitEffect.m_effectData;
 	}
 
 	public LaserTargetingInfo GetLaserInfo()
 	{
-		LaserTargetingInfo result;
-		if (m_cachedLaserInfo != null)
-		{
-			result = m_cachedLaserInfo;
-		}
-		else
-		{
-			result = m_laserInfo;
-		}
-		return result;
+		return m_cachedLaserInfo ?? m_laserInfo;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		if (m_targetingMode == TargetingMode.Laser)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
+			return true;
 		}
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		object obj;
-		if ((bool)boardSquareSafe)
-		{
-			obj = boardSquareSafe.OccupantActor;
-		}
-		else
-		{
-			obj = null;
-		}
-		ActorData targetActor = (ActorData)obj;
+		ActorData targetActor = Board.Get().GetSquare(target.GridPos)?.OccupantActor;
 		return CanTargetActorInDecision(caster, targetActor, false, true, false, ValidateCheckPath.Ignore, true, false);
 	}
 
@@ -378,25 +246,12 @@ public class SparkHealingBeam : Ability
 	{
 		if (m_targetingMode == TargetingMode.Laser)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
+			return true;
 		}
-		bool flag = false;
 		TargetingParadigm targetingParadigm = GetTargetingParadigm(0);
-		if (targetingParadigm != TargetingParadigm.BoardSquare)
+		if (targetingParadigm != TargetingParadigm.BoardSquare && targetingParadigm != TargetingParadigm.Position)
 		{
-			if (targetingParadigm != TargetingParadigm.Position)
-			{
-				return true;
-			}
+			return true;
 		}
 		return HasTargetableActorsInDecision(caster, false, true, false, ValidateCheckPath.Ignore, true, false);
 	}
@@ -414,31 +269,18 @@ public class SparkHealingBeam : Ability
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
 		List<AbilityTooltipNumber> number = new List<AbilityTooltipNumber>();
-		int healingOnAttach = GetHealingOnAttach();
-		AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Ally, healingOnAttach);
-		if (m_healSelfOnInitialAttach)
+		AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Ally, GetHealingOnAttach());
+		if (m_healSelfOnInitialAttach && GetHealOnSelfPerTurn() > 0)
 		{
-			if (GetHealOnSelfPerTurn() > 0)
-			{
-				AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Self, GetHealOnSelfPerTurn());
-			}
+			AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Self, GetHealOnSelfPerTurn());
 		}
 		return number;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
-		int result;
-		if (visibleActorsCountByTooltipSubject > 0)
-		{
-			result = GetEnergyOnCasterPerTurn();
-		}
-		else
-		{
-			result = 0;
-		}
-		return result;
+		int visibleActorsCountByTooltipSubject = Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
+		return visibleActorsCountByTooltipSubject > 0 ? GetEnergyOnCasterPerTurn() : 0;
 	}
 
 	public override List<int> Debug_GetExpectedNumbersInTooltip()
@@ -450,15 +292,10 @@ public class SparkHealingBeam : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_SparkHealingBeam))
-		{
-			return;
-		}
-		while (true)
+		if (abilityMod.GetType() == typeof(AbilityMod_SparkHealingBeam))
 		{
 			m_abilityMod = (abilityMod as AbilityMod_SparkHealingBeam);
 			Setup();
-			return;
 		}
 	}
 
