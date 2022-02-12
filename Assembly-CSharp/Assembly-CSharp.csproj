@@ -39,7 +39,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Server Release|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Server Release\</OutputPath>
+    <OutputPath>E:\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\</OutputPath>
     <DefineConstants>SERVER SERVER2</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
@@ -47,6 +47,17 @@
     <PlatformTarget>x64</PlatformTarget>
     <LangVersion>7</LangVersion>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Server Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>E:\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7</LangVersion>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DefineConstants>TRACE;DEBUG;SERVER SERVER2</DefineConstants>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Ability.cs" />
@@ -1125,6 +1136,7 @@
     <Compile Include="ISkinBrowserSelectHandler.cs" />
     <Compile Include="ISquareInsideChecker.cs" />
     <Compile Include="ItemData.cs" />
+    <Compile Include="ItemRarity.cs" />
     <Compile Include="ITransformSortOrder.cs" />
     <Compile Include="IUIDataEntry.cs" />
     <Compile Include="IUIScene.cs" />
@@ -1717,6 +1729,7 @@
     <Compile Include="OnHitBarrierField.cs" />
     <Compile Include="OnHitCooldownReductionField.cs" />
     <Compile Include="OnHitEffecField.cs" />
+    <Compile Include="OnHitGroundEffectField.cs" />
     <Compile Include="OnHitIntField.cs" />
     <Compile Include="OnHitKnockbackField.cs" />
     <Compile Include="OnKilledChatter.cs" />
@@ -1813,6 +1826,10 @@
     <Compile Include="PlatformConfig.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerAbilityVfxSwapData.cs" />
+    <Compile Include="PlayerAction.cs" />
+    <Compile Include="PlayerAction_Ability.cs" />
+    <Compile Include="PlayerAction_Effect.cs" />
+    <Compile Include="PlayerAction_Movement.cs" />
     <Compile Include="PlayerColorData.cs" />
     <Compile Include="PlayerData.cs" />
     <Compile Include="PlayerDetails.cs" />
@@ -1906,6 +1923,7 @@
     <Compile Include="QuestWideData.cs" />
     <Compile Include="QueueBlockOutReasonDetails.cs" />
     <Compile Include="QueueDodgingPenalty.cs" />
+    <Compile Include="QueuedPlayerActionsContainer.cs" />
     <Compile Include="QueuePenalties.cs" />
     <Compile Include="QueueRequirement.cs" />
     <Compile Include="QueueRequirement_AccessLevel.cs" />
@@ -2049,6 +2067,7 @@
     <Compile Include="ServerAbilityUtils.cs" />
     <Compile Include="ServerActionBuffer.cs" />
     <Compile Include="ServerActorController.cs" />
+    <Compile Include="ServerBootstrap.cs" />
     <Compile Include="ServerClashUtils.cs" />
     <Compile Include="ServerClientUtils.cs" />
     <Compile Include="ServerCombatManager.cs" />
@@ -2165,11 +2184,14 @@
     <Compile Include="SpaceMarinePrimaryAttack.cs" />
     <Compile Include="SparkAoeBuffDebuff.cs" />
     <Compile Include="SparkBasicAttack.cs" />
+    <Compile Include="SparkBasicAttackEffect.cs" />
     <Compile Include="SparkBasicAttackSequence.cs" />
     <Compile Include="SparkBeamTrackerComponent.cs" />
     <Compile Include="SparkDash.cs" />
     <Compile Include="SparkEnergized.cs" />
+    <Compile Include="SparkEnergizedEffect.cs" />
     <Compile Include="SparkHealingBeam.cs" />
+    <Compile Include="SparkHealingBeamEffect.cs" />
     <Compile Include="SparkTetherDistanceMonitor.cs" />
     <Compile Include="SpawnLocation.cs" />
     <Compile Include="SpawnLookAtPoint.cs" />
@@ -2196,6 +2218,7 @@
     <Compile Include="StandardBarrierData.cs" />
     <Compile Include="StandardBrainState.cs" />
     <Compile Include="StandardEffectInfo.cs" />
+    <Compile Include="StandardGroundEffect.cs" />
     <Compile Include="StandardGroundEffectInfo.cs" />
     <Compile Include="StandardPowerUpAbilityModData.cs" />
     <Compile Include="StatDisplaySettings.cs" />
@@ -2222,6 +2245,7 @@
     <Compile Include="StylePriceOverride.cs" />
     <Compile Include="StylizedFog.cs" />
     <Compile Include="StylizedFogOverride.cs" />
+    <Compile Include="SyncListBarrierSpawnData.cs" />
     <Compile Include="SyncListSparkTetherAgeInfo.cs" />
     <Compile Include="SyncListTempCoverInfo.cs" />
     <Compile Include="SyncListVisionProviderInfo.cs" />
@@ -2444,6 +2468,7 @@
     <Compile Include="TMPro\_VerticalAlignmentOptions.cs" />
     <Compile Include="TooltipDisableCall.cs" />
     <Compile Include="TooltipPopulateCall.cs" />
+    <Compile Include="TooltipTokenContextData.cs" />
     <Compile Include="TooltipTokenEntry.cs" />
     <Compile Include="TooltipTokenFloat.cs" />
     <Compile Include="TooltipTokenHelper.cs" />
