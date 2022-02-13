@@ -473,30 +473,27 @@ public class ActorTurnSM : NetworkBehaviour
 			return;
 		}
 		bool flag = false;
-		if (CurrentState == TurnStateEnum.DECIDING_MOVEMENT)
+		switch (CurrentState)
 		{
-			flag = true;
-		}
-		else if (CurrentState != TurnStateEnum.CONFIRMED)
-		{
-			if (CurrentState == TurnStateEnum.DECIDING)
-			{
+			case TurnStateEnum.DECIDING_MOVEMENT:
+			case TurnStateEnum.DECIDING:
 				flag = true;
-			}
-			else
-			{
+				break;
+			case TurnStateEnum.CONFIRMED:
+				if (m_actorData.GetTimeBank().AllowUnconfirm())
+				{
+					LastConfirmedCancelTurn = GameFlowData.Get().CurrentTurn;
+					m_actorData.GetTimeBank().OnActionsUnconfirmed();
+					BackToDecidingState();
+					if (Options_UI.Get() != null && Options_UI.Get().ShouldCancelActionWhileConfirmed())
+					{
+						flag = true;
+					}
+				}
+				break;
+			default:
 				BackToDecidingState();
-			}
-		}
-		else if (m_actorData.GetTimeBank().AllowUnconfirm())
-		{
-			LastConfirmedCancelTurn = GameFlowData.Get().CurrentTurn;
-			m_actorData.GetTimeBank().OnActionsUnconfirmed();
-			BackToDecidingState();
-			if (Options_UI.Get() != null && Options_UI.Get().ShouldCancelActionWhileConfirmed())
-			{
-				flag = true;
-			}
+				break;
 		}
 		if (!onlyCancelConfirm && flag && m_requestStackForUndo.Count != 0)
 		{
@@ -527,7 +524,7 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		if (!NetworkServer.active)
 		{
-			CallCmdGUITurnMessage(4, 0);
+			CallCmdGUITurnMessage((int)TurnMessage.CANCEL_BUTTON_CLICKED, 0);
 		}
 	}
 
@@ -684,7 +681,7 @@ public class ActorTurnSM : NetworkBehaviour
 			}
 			else
 			{
-				CallCmdGUITurnMessage(14, 0);
+				CallCmdGUITurnMessage((int)TurnMessage.DONE_BUTTON_CLICKED, 0);
 			}
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.CharacterLocked, null);
 			if (component == GameFlowData.Get().activeOwnedActorData)
@@ -707,7 +704,7 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		else
 		{
-			CallCmdGUITurnMessage(16, 0);
+			CallCmdGUITurnMessage((int)TurnMessage.CANCEL_MOVEMENT, 0);
 		}
 		ActorData component = GetComponent<ActorData>();
 		if (component == GameFlowData.Get().activeOwnedActorData
