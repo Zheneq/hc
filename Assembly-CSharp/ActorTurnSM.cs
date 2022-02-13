@@ -791,7 +791,7 @@ public class ActorTurnSM : NetworkBehaviour
 
 	public bool IsKeyDown(KeyCode keyCode)
 	{
-		return !CameraControls.Get().Enabled || Input.GetKeyDown(keyCode);
+		return CameraControls.Get().Enabled && Input.GetKeyDown(keyCode);
 	}
 
 	public List<AbilityData.ActionType> GetAutoQueuedRequestActionTypes()
