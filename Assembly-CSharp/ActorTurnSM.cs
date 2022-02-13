@@ -852,7 +852,8 @@ public class ActorTurnSM : NetworkBehaviour
 		int num = -1;
 		for (int i = 0; i < m_requestStackForUndo.Count; i++)
 		{
-			if (m_requestStackForUndo[i].m_type == 0 && m_requestStackForUndo[i].m_action == actionType)
+			if (m_requestStackForUndo[i].m_type == UndoableRequestType.ABILITY_QUEUE
+				&& m_requestStackForUndo[i].m_action == actionType)
 			{
 				num = i;
 				break;
