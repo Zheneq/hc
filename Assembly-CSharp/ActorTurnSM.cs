@@ -1003,10 +1003,9 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		if (playerClampedSquare != null && SinglePlayerManager.IsDestinationAllowed(actorData, playerClampedSquare, isWaypoint))
 		{
-			if (!m_actorData.HasQueuedMovement())
+			if (!m_actorData.HasQueuedMovement() && !m_actorData.HasQueuedChase())
 			{
-				if (!m_actorData.HasQueuedChase()
-					&& (isExplicitWaypoint || !SelectMovementSquareForChasing(playerClampedSquare)))
+				if (isExplicitWaypoint || !SelectMovementSquareForChasing(playerClampedSquare))
 				{
 					SelectMovementSquareForMovement(playerClampedSquare);
 				}
