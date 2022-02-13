@@ -1,7 +1,14 @@
+﻿// ROGUES
+// SERVER
 public class EffectDuration
 {
 	public int duration;
 	public int age;
+
+	// rogues
+	//internal Team activeTeamAtApplication;
+	// rogues
+	//internal Termination termination = Termination.ActiveTeamAtApplicationStart;
 
 	public bool ReadyToEnd()
 	{
@@ -29,4 +36,15 @@ public class EffectDuration
 		}
 		return text;
 	}
+
+	// rogues
+	//public enum Termination
+	//{
+	//	CasterTeamStart,
+	//	CasterTeamEnd,
+	//	TargetTeamStart,
+	//	TargetTeamEnd,
+	//	ActiveTeamAtApplicationStart,
+	//	ActiveTeamAtApplicationEnd
+	//}
 }
