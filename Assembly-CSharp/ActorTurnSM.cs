@@ -657,17 +657,15 @@ public class ActorTurnSM : NetworkBehaviour
 		if (AmTargetingAction())
 		{
 			Ability selectedAbility = component.GetAbilityData().GetSelectedAbility();
-			while (true)
+			do
 			{
 				if (SelectTarget(null, true))
 				{
 					NextState = TurnStateEnum.VALIDATING_ACTION_REQUEST;
 				}
-				if (selectedAbility == null || !selectedAbility.ShouldAutoConfirmIfTargetingOnEndTurn() || m_targets.Count >= selectedAbility.GetExpectedNumberOfTargeters())
-				{
-					break;
-				}
-			}
+			} while (selectedAbility != null
+			&& selectedAbility.ShouldAutoConfirmIfTargetingOnEndTurn()
+			&& m_targets.Count < selectedAbility.GetExpectedNumberOfTargeters());
 		}
 		if (SinglePlayerManager.Get() != null)
 		{
