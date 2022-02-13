@@ -493,7 +493,7 @@ public class ActorTurnSM : NetworkBehaviour
 			LastConfirmedCancelTurn = GameFlowData.Get().CurrentTurn;
 			m_actorData.GetTimeBank().OnActionsUnconfirmed();
 			BackToDecidingState();
-			if (Options_UI.Get()?.ShouldCancelActionWhileConfirmed() ?? false)
+			if (Options_UI.Get() != null && Options_UI.Get().ShouldCancelActionWhileConfirmed())
 			{
 				flag = true;
 			}
@@ -505,12 +505,12 @@ public class ActorTurnSM : NetworkBehaviour
 			m_requestStackForUndo.RemoveAt(index);
 			m_actorData.OnClientQueuedActionChanged();
 			UndoableRequestType type = actionRequestForUndo.m_type;
-			if (type != UndoableRequestType.MOVEMENT && type == UndoableRequestType.ABILITY_QUEUE)
+			if (type == UndoableRequestType.ABILITY_QUEUE)
 			{
 				RequestCancelAction(actionRequestForUndo.m_action, false);
 				UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
 			}
-			else
+			else if (type == UndoableRequestType.MOVEMENT)
 			{
 				RequestCancelMovement();
 				UISounds.GetUISounds().Play("ui/ingame/v1/move_undo");
