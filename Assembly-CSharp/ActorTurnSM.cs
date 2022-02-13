@@ -1,3 +1,4 @@
+﻿// ROGUES
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,28 +20,67 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 	}
 
+	// TODO check server logic moved into these classes -- we might have missed something
+	// rogues
+	//private ActorTurnSMInternal m_fsmInternal; // they moved the state machine itself there in rogues
 	private ActorData m_actorData;
 	private bool m_firstUpdate;
+	// removed in rogues
 	private float m_timePingDown;
+	// removed in rogues
 	private Vector3 m_worldPositionPingDown;
+	// removed in rogues
 	private Vector3 m_mousePositionPingDown;
 
+	// removed in rogues
 	private const float c_advancedPingTime = 0.25f;
 
+	// removed in rogues
 	private bool m_abilitySelectorVisible;
 
+	// removed in rogues
 	private static Color s_chasingTextColor = new Color(0.3f, 0.75f, 0.75f);
+	// removed in rogues
 	private static Color s_movingTextColor = new Color(0.4f, 1f, 1f);
+	// removed in rogues
 	private static Color s_decidingTextColor = new Color(0.9f, 0.9f, 0.9f);
 
 	private TurnStateEnum _NextState;
+
+	// rogues
+	//private SyncListBool m_pvePlayedAbilityFlags = new SyncListBool();
+	//[SyncVar]
+	//private float m_pveMoveCostUsedThisTurn;
+	//[SyncVar]
+	//private uint m_pveNumMoveActionsThisTurn;
+	//[SyncVar]
+	//private uint m_pveNumAbilityActionsThisTurn;
+	//[SyncVar]
+	//private uint m_pveNumQuickActionsThisTurn;
+	//[SyncVar]
+	//private uint m_pveNumFreeActionsThisTurn;
+	//[SyncVar]
+	//private uint m_pveMaxNumFreeActionsThisTurn;
+	//[SyncVar]
+	//private uint m_pveNumAbilityActionsPerTurn = 1U;
+	//[SyncVar]
+	//private bool m_hasStoredAbilityRequest;
+	//[SyncVar]
+	//private bool m_hasStoredMoveRequest;
+	//[SyncVar]
+	//private short m_numRespawnPicksThisTurn;
+	//[SyncVar]
+	//public int m_tauntRequestedForNextAbility = -1;
+
 	private DateTime _TurnStart = DateTime.UtcNow;
 	private DateTime _LockInTime = DateTime.MinValue;
 	private List<AbilityData.ActionType> m_autoQueuedRequestActionTypes;
 	private List<ActionRequestForUndo> m_requestStackForUndo;
+	// removed in rogues
 	private TurnState[] m_turnStates;
 	private List<AbilityTarget> m_targets;
 
+	// removed in rogues
 	private static int kCmdCmdGUITurnMessage = -122150213;
 	private static int kCmdCmdRequestCancelAction = 1831775955;
 	private static int kCmdCmdChase = 1451912258;
@@ -48,6 +88,19 @@ public class ActorTurnSM : NetworkBehaviour
 	private static int kRpcRpcTurnMessage = -107921272;
 	private static int kRpcRpcStoreAutoQueuedAbilityRequest = 675585254;
 
+
+	// added in rogues
+#if SERVER
+	public ActorData Owner
+	{
+		get
+		{
+			return m_actorData;
+		}
+	}
+#endif
+
+	// removed in rogues
 	public bool LockInBuffered { get; set; }
 	public TurnStateEnum CurrentState { get; private set; }
 	public TurnStateEnum PreviousState { get; private set; }
@@ -86,13 +139,16 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 	}
 
+	// removed in rogues
 	public bool HandledSpaceInput;
+	// removed in rogues
 	public bool HandledMouseInput;
 
 	internal int LastConfirmedCancelTurn { get; private set; }
 
 	static ActorTurnSM()
 	{
+		// reactor
 		RegisterCommandDelegate(typeof(ActorTurnSM), kCmdCmdGUITurnMessage, InvokeCmdCmdGUITurnMessage);
 		RegisterCommandDelegate(typeof(ActorTurnSM), kCmdCmdRequestCancelAction, InvokeCmdCmdRequestCancelAction);
 		RegisterCommandDelegate(typeof(ActorTurnSM), kCmdCmdChase, InvokeCmdCmdChase);
@@ -100,10 +156,34 @@ public class ActorTurnSM : NetworkBehaviour
 		RegisterRpcDelegate(typeof(ActorTurnSM), kRpcRpcTurnMessage, InvokeRpcRpcTurnMessage);
 		RegisterRpcDelegate(typeof(ActorTurnSM), kRpcRpcStoreAutoQueuedAbilityRequest, InvokeRpcRpcStoreAutoQueuedAbilityRequest);
 		NetworkCRC.RegisterBehaviour("ActorTurnSM", 0);
+		// rogues
+		//NetworkBehaviour.RegisterCommandDelegate(typeof(ActorTurnSM), "CmdGUITurnMessage", new NetworkBehaviour.CmdDelegate(ActorTurnSM.InvokeCmdCmdGUITurnMessage));
+		//NetworkBehaviour.RegisterCommandDelegate(typeof(ActorTurnSM), "CmdRequestCancelAction", new NetworkBehaviour.CmdDelegate(ActorTurnSM.InvokeCmdCmdRequestCancelAction));
+		//NetworkBehaviour.RegisterCommandDelegate(typeof(ActorTurnSM), "CmdLockInRequested", new NetworkBehaviour.CmdDelegate(ActorTurnSM.InvokeCmdCmdLockInRequested));
+		//NetworkBehaviour.RegisterCommandDelegate(typeof(ActorTurnSM), "CmdExecuteQueuedRequests", new NetworkBehaviour.CmdDelegate(ActorTurnSM.InvokeCmdCmdExecuteQueuedRequests));
+		//NetworkBehaviour.RegisterCommandDelegate(typeof(ActorTurnSM), "CmdChase", new NetworkBehaviour.CmdDelegate(ActorTurnSM.InvokeCmdCmdChase));
+		//NetworkBehaviour.RegisterCommandDelegate(typeof(ActorTurnSM), "CmdSetSquare", new NetworkBehaviour.CmdDelegate(ActorTurnSM.InvokeCmdCmdSetSquare));
+		//NetworkBehaviour.RegisterCommandDelegate(typeof(ActorTurnSM), "CmdGroupMoveToSquare", new NetworkBehaviour.CmdDelegate(ActorTurnSM.InvokeCmdCmdGroupMoveToSquare));
+		//NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTurnSM), "RpcTurnMessage", new NetworkBehaviour.CmdDelegate(ActorTurnSM.InvokeRpcRpcTurnMessage));
+		//NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTurnSM), "RpcStoreAutoQueuedAbilityRequest", new NetworkBehaviour.CmdDelegate(ActorTurnSM.InvokeRpcRpcStoreAutoQueuedAbilityRequest));
+		//NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTurnSM), "RpcSetNumRespawnPickInputs", new NetworkBehaviour.CmdDelegate(ActorTurnSM.InvokeRpcRpcSetNumRespawnPickInputs));
+		//NetworkBehaviour.RegisterRpcDelegate(typeof(ActorTurnSM), "RpcResetUsedAbilityAndMoveData", new NetworkBehaviour.CmdDelegate(ActorTurnSM.InvokeRpcRpcResetUsedAbilityAndMoveData));
 	}
 
 	private void Awake()
 	{
+
+		// rogues
+		//if (NetworkServer.active)
+		//{
+		//	for (int i = 0; i <= 9; i++)
+		//	{
+		//		m_pvePlayedAbilityFlags.Add(false);
+		//	}
+		//	Networkm_pveMoveCostUsedThisTurn = 0f;
+		//}
+
+		// reactor
 		m_turnStates = new TurnState[11];
 		m_turnStates[0] = new DecidingState(this);
 		m_turnStates[1] = new ValidatingMoveRequestState(this);
@@ -116,6 +196,9 @@ public class ActorTurnSM : NetworkBehaviour
 		m_turnStates[8] = new RespawningState(this);
 		m_turnStates[10] = new PickingRespawnState(this);
 		m_turnStates[9] = new RespawningTakesActionState(this);
+		// rogues
+		//m_fsmInternal = new ActorTurnSMInternal_FCFS(this);
+
 		CurrentState = PreviousState = NextState = TurnStateEnum.WAITING;
 		m_targets = new List<AbilityTarget>();
 		LastConfirmedCancelTurn = -1;
@@ -125,6 +208,233 @@ public class ActorTurnSM : NetworkBehaviour
 		m_firstUpdate = true;
 	}
 
+	// rogues
+	//public uint NumAbilityActionsPerTurn
+	//{
+	//	get
+	//	{
+	//		return m_pveNumAbilityActionsPerTurn;
+	//	}
+	//	set
+	//	{
+	//		Networkm_pveNumAbilityActionsPerTurn = value;
+	//	}
+	//}
+
+	// rogues
+	//public void MarkPveAbilityFlagAtIndex(int index)
+	//{
+	//	if (index >= 0 && index < m_pvePlayedAbilityFlags.Count)
+	//	{
+	//		m_pvePlayedAbilityFlags[index] = true;
+	//		Ability abilityOfActionType = Owner.GetAbilityData().GetAbilityOfActionType((AbilityData.ActionType)index);
+	//		if (abilityOfActionType != null && !abilityOfActionType.IsFreeAction())
+	//		{
+	//			if (abilityOfActionType.m_quickAction)
+	//			{
+	//				IncrementPveNumQuickActions(1);
+	//				return;
+	//			}
+	//			if (abilityOfActionType.m_freeAction)
+	//			{
+	//				IncrementPveNumFreeActions(1);
+	//				return;
+	//			}
+	//			IncrementPveNumAbilityActions(1);
+	//		}
+	//	}
+	//}
+
+	// rogues
+	//public bool PveIsAbilityAtIndexUsed(int index)
+	//{
+	//	return index >= 0 && index < m_pvePlayedAbilityFlags.Count && m_pvePlayedAbilityFlags[index];
+	//}
+
+	// rogues
+	//public void IncrementPveMoveCostUsed(float increment)
+	//{
+	//	Networkm_pveMoveCostUsedThisTurn = m_pveMoveCostUsedThisTurn + increment;
+	//}
+
+	// rogues
+	//public void IncrementPveNumMoveActions(int increment)
+	//{
+	//	Networkm_pveNumMoveActionsThisTurn = m_pveNumMoveActionsThisTurn + (uint)increment;
+	//}
+
+	// rogues
+	//public void IncrementPveNumQuickActions(int increment)
+	//{
+	//	Networkm_pveNumQuickActionsThisTurn = m_pveNumQuickActionsThisTurn + (uint)increment;
+	//}
+
+	// rogues
+	//public void IncrementPveNumFreeActions(int increment)
+	//{
+	//	Networkm_pveNumFreeActionsThisTurn = m_pveNumFreeActionsThisTurn + (uint)increment;
+	//}
+
+	// rogues
+	//public void IncrementPveNumAbilityActions(int increment)
+	//{
+	//	Networkm_pveNumAbilityActionsThisTurn = m_pveNumAbilityActionsThisTurn + (uint)increment;
+	//}
+
+	// rogues
+	//public float GetPveMovementCostUsed()
+	//{
+	//	return m_pveMoveCostUsedThisTurn;
+	//}
+
+	// rogues
+	//public int GetPveNumMoveActionsUsed()
+	//{
+	//	return (int)m_pveNumMoveActionsThisTurn;
+	//}
+
+	// rogues
+	//public void IncrementRespawnPickInput()
+	//{
+	//	Networkm_numRespawnPicksThisTurn = m_numRespawnPicksThisTurn + 1;
+	//	if (NetworkServer.active)
+	//	{
+	//		CallRpcSetNumRespawnPickInputs((int)m_numRespawnPicksThisTurn);
+	//	}
+	//}
+
+	// rogues
+	//public int GetNumRespawnPickInputs()
+	//{
+	//	return (int)m_numRespawnPicksThisTurn;
+	//}
+
+	// rogues
+	//public void ResetUsedAbilityAndMoveData()
+	//{
+	//       for (int i = 0; i < m_pvePlayedAbilityFlags.Count; i++)
+	//       {
+	//           if (m_pvePlayedAbilityFlags[i])
+	//           {
+	//               m_pvePlayedAbilityFlags[i] = false;
+	//           }
+	//       }
+	//       Networkm_pveNumAbilityActionsThisTurn = 0U;
+	//       Networkm_pveMoveCostUsedThisTurn = 0f;
+	//       Networkm_pveNumMoveActionsThisTurn = 0U;
+	//       Networkm_pveNumQuickActionsThisTurn = 0U;
+	//       Networkm_pveNumFreeActionsThisTurn = 0U;
+	//       Networkm_hasStoredAbilityRequest = false;
+	//	Networkm_hasStoredMoveRequest = false;
+	//	Networkm_numRespawnPicksThisTurn = 0;
+	//	SetMaxFreeActionsThisTurn();
+	//}
+
+	// rogues
+	//public bool UsedAllFullActions()
+	//{
+	//	return !HasRemainingAbilityUse(false) && !HasRemainingMovement() && !HasRemainingFreeActions();
+	//}
+
+	// rogues
+	//public bool HasRemainingFreeActions()
+	//{
+	//	return m_pveNumFreeActionsThisTurn < m_pveMaxNumFreeActionsThisTurn;
+	//}
+
+	// rogues
+	//public bool HasRemainingMovement()
+	//{
+	//	if (m_pveNumMoveActionsThisTurn >= 2U)
+	//	{
+	//		return false;
+	//	}
+	//	if (m_pveNumQuickActionsThisTurn >= 2U)
+	//	{
+	//		return false;
+	//	}
+	//	if (m_pveNumMoveActionsThisTurn >= 1U && m_pveNumAbilityActionsThisTurn >= m_pveNumAbilityActionsPerTurn)
+	//	{
+	//		return false;
+	//	}
+	//	if (m_pveNumMoveActionsThisTurn >= 1U && m_pveNumQuickActionsThisTurn >= 1U)
+	//	{
+	//		return false;
+	//	}
+	//	if (m_pveNumQuickActionsThisTurn >= 1U && m_pveNumAbilityActionsThisTurn >= m_pveNumAbilityActionsPerTurn)
+	//	{
+	//		return false;
+	//	}
+	//	AbilityData abilityData = Owner.GetAbilityData();
+	//	return !(abilityData != null) || !abilityData.DidAnyExecutedAbilitiesUseAllMovement();
+	//}
+
+	// rogues
+	//public bool HasRemainingAbilityUse(bool isQuickAction)
+	//{
+	//	return m_pveNumMoveActionsThisTurn < 2U && m_pveNumQuickActionsThisTurn < 2U && (m_pveNumMoveActionsThisTurn < 1U || m_pveNumQuickActionsThisTurn < 1U) && (m_pveNumAbilityActionsThisTurn < m_pveNumAbilityActionsPerTurn || isQuickAction) && (m_pveNumAbilityActionsThisTurn < m_pveNumAbilityActionsPerTurn || !isQuickAction || m_pveNumMoveActionsThisTurn < 1U);
+	//}
+
+	// rogues
+	//public void UpdateHasStoredAbilityRequestFlag()
+	//{
+	//	if (NetworkServer.active)
+	//	{
+	//		bool flag = ServerActionBuffer.Get().HasPendingAbilityRequest(Owner, true);
+	//		if (m_hasStoredAbilityRequest != flag)
+	//		{
+	//			Networkm_hasStoredAbilityRequest = flag;
+	//		}
+	//	}
+	//}
+
+	// rogues
+	//public void UpdateHasStoredMoveRequestFlag()
+	//{
+	//	if (NetworkServer.active)
+	//	{
+	//		bool flag = ServerActionBuffer.Get().HasPendingMovementRequest(Owner);
+	//		if (m_hasStoredMoveRequest != flag)
+	//		{
+	//			Networkm_hasStoredMoveRequest = flag;
+	//		}
+	//	}
+	//}
+
+	// rogues
+	//public bool HasStoredAbilityOrMoveRequest()
+	//{
+	//	return m_hasStoredAbilityRequest || m_hasStoredMoveRequest;
+	//}
+
+	// rogues
+	//public bool HasStoredAbilityRequest()
+	//{
+	//	return m_hasStoredAbilityRequest;
+	//}
+
+	// rogues
+	//public bool HasStoredMoveRequest()
+	//{
+	//	return m_hasStoredMoveRequest;
+	//}
+
+	// rogues
+	//private void SetMaxFreeActionsThisTurn()
+	//{
+	//	Networkm_pveMaxNumFreeActionsThisTurn = 0U;
+	//	AbilityData abilityData = Owner.GetAbilityData();
+	//	for (AbilityData.ActionType actionType = AbilityData.ActionType.ABILITY_0; actionType < AbilityData.ActionType.ABILITY_4; actionType++)
+	//	{
+	//		Ability abilityOfActionType = abilityData.GetAbilityOfActionType(actionType);
+	//		if (abilityOfActionType != null && abilityOfActionType.m_freeAction && abilityOfActionType.GetRemainingCooldown() == 0)
+	//		{
+	//			Networkm_pveMaxNumFreeActionsThisTurn = m_pveMaxNumFreeActionsThisTurn + 1U;
+	//		}
+	//	}
+	//}
+
+	// removed in rogues
 	public void OnSelect()
 	{
 		HandledSpaceInput = true;
@@ -168,6 +478,8 @@ public class ActorTurnSM : NetworkBehaviour
 					abilityUtil_Targeter.SetLastUpdateCursorState(abilityTargets[i]);
 					abilityUtil_Targeter.UpdateHighlightPosAfterClick(abilityTargets[i], component, i, abilityTargets);
 					abilityUtil_Targeter.SetupTargetingArc(component, false);
+
+					// removed in rogues
 					abilityUtil_Targeter.MarkedForForceUpdate = true;
 					if (component == GameFlowData.Get().activeOwnedActorData)
 					{
@@ -181,6 +493,7 @@ public class ActorTurnSM : NetworkBehaviour
 			AbilityData.ActionType selectedActionType = abilityData.GetSelectedActionType();
 			OnQueueAbilityRequest(selectedActionType);
 			result = true;
+			// reactor
 			if (NetworkClient.active && onLockIn)
 			{
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
@@ -189,15 +502,29 @@ public class ActorTurnSM : NetworkBehaviour
 					selectedAbility.ResetAbilityTargeters();
 				}
 			}
+			// rogues
+			//if (NetworkClient.active && onLockIn && selectedAbility != null && IsClientActor())
+			//{
+			//    selectedAbility.ResetAbilityTargeters();
+			//}
+
 			if (!NetworkServer.active)
 			{
 				SendCastAbility(selectedActionType);
 			}
+#if SERVER
+			else
+			{
+				// added in rogues
+				abilityData.GetComponent<ServerActorController>().ProcessCastAbilityRequest(GetAbilityTargets(), selectedActionType, false);
+			}
+#endif
 		}
 		Board.Get()?.MarkForUpdateValidSquares();
 		return result;
 	}
 
+	// removed in rogues
 	private void CheckAbilityInput()
 	{
 		if (HUD_UI.Get() == null ||
@@ -253,6 +580,7 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 	}
 
+	// removed in rogues
 	private void CheckPingInput()
 	{
 		if (GameFlowData.Get().activeOwnedActorData != m_actorData)
@@ -327,6 +655,7 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 	}
 
+	// removed in rogues
 	private void CheckAbilityInputControlPad()
 	{
 		if (GameFlowData.Get().activeOwnedActorData != GetComponent<ActorData>()
@@ -409,6 +738,8 @@ public class ActorTurnSM : NetworkBehaviour
 	private void Update()
 	{
 		UpdateStates();
+
+		// removed in rogues
 		UpdateCancelKey();
 		if (LockInBuffered)
 		{
@@ -432,6 +763,8 @@ public class ActorTurnSM : NetworkBehaviour
 		CheckAbilityInput();
 		CheckPingInput();
 		CheckAbilityInputControlPad();
+		// end removed in rogues
+
 		DisplayActorState();
 		if (m_firstUpdate)
 		{
@@ -439,6 +772,7 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 	}
 
+	// removed in rogues
 	private void LateUpdate()
 	{
 		HandledSpaceInput = false;
@@ -447,13 +781,28 @@ public class ActorTurnSM : NetworkBehaviour
 
 	private void UpdateStates()
 	{
+#if PURE_REACTOR
+		if (!GameFlowData.Get().GetPause())  // check added in rogues
+		{
+#endif
 		do
 		{
 			SwitchToNewStates();
 			GetState().Update();
 		}
 		while (NextState != CurrentState);
+#if PURE_REACTOR
+		}
+#endif
 	}
+
+	// added in rogues
+#if SERVER
+	public bool IsClientActor()
+	{
+		return Owner != null && Owner == GameFlowData.ClientActor;
+	}
+#endif
 
 	[Client]
 	internal void SendCastAbility(AbilityData.ActionType actionType)
@@ -475,7 +824,7 @@ public class ActorTurnSM : NetworkBehaviour
 		bool flag = false;
 		switch (CurrentState)
 		{
-			case TurnStateEnum.DECIDING_MOVEMENT:
+			case TurnStateEnum.DECIDING_MOVEMENT: // removed in rogues
 			case TurnStateEnum.DECIDING:
 				flag = true;
 				break;
@@ -500,7 +849,7 @@ public class ActorTurnSM : NetworkBehaviour
 			int index = m_requestStackForUndo.Count - 1;
 			ActionRequestForUndo actionRequestForUndo = m_requestStackForUndo[index];
 			m_requestStackForUndo.RemoveAt(index);
-			m_actorData.OnClientQueuedActionChanged();
+			m_actorData.OnClientQueuedActionChanged(); // removed in rogues
 			UndoableRequestType type = actionRequestForUndo.m_type;
 			if (type == UndoableRequestType.ABILITY_QUEUE)
 			{
@@ -524,10 +873,14 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		if (!NetworkServer.active)
 		{
+			// reactor
 			CallCmdGUITurnMessage((int)TurnMessage.CANCEL_BUTTON_CLICKED, 0);
+			// rogues
+			//CallCmdGUITurnMessage(2, 0);  // was 4 in reactor
 		}
 	}
 
+	// removed in rogues
 	private void UpdateCancelKey()
 	{
 		if (!(GameFlowData.Get().activeOwnedActorData == GetComponent<ActorData>()))
@@ -579,6 +932,7 @@ public class ActorTurnSM : NetworkBehaviour
 			|| CurrentState == TurnStateEnum.PICKING_RESPAWN;
 	}
 
+	// removed in rogues
 	public void UpdateEndTurnKey()
 	{
 		if (GameFlowData.Get().activeOwnedActorData == GetComponent<ActorData>()
@@ -608,6 +962,7 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 	}
 
+	// removed in rogues
 	public void GetActionText(out string textStr, out Color textColor)
 	{
 		Ability ability = GetComponent<AbilityData>()?.GetSelectedAbility();
@@ -651,6 +1006,7 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 	}
 
+	// reactor
 	public void RequestEndTurn()
 	{
 		ActorData component = GetComponent<ActorData>();
@@ -690,6 +1046,39 @@ public class ActorTurnSM : NetworkBehaviour
 		Board.Get().MarkForUpdateValidSquares();
 	}
 
+	// rogues
+	//public void RequestEndTurn(bool pveAllDone)
+	//{
+	//	m_fsmInternal.RequestEndTurn(pveAllDone);
+	//}
+
+	// rogues
+	//public void ExecuteQueuedRequests()
+	//{
+	//	m_fsmInternal.ExecuteQueuedRequests();
+	//}
+
+	// added in rogues
+#if SERVER
+	public void FillRemainingTargetDataOnLockIn()
+	{
+		if (AmTargetingAction())
+		{
+			Ability selectedAbility = m_actorData.GetAbilityData().GetSelectedAbility();
+			do
+			{
+				if (SelectTarget(null, true))
+				{
+					NextState = TurnStateEnum.VALIDATING_ACTION_REQUEST;
+				}
+			}
+			while (selectedAbility != null
+			&& selectedAbility.ShouldAutoConfirmIfTargetingOnEndTurn()
+			&& GetAbilityTargets().Count < selectedAbility.GetExpectedNumberOfTargeters());
+		}
+	}
+#endif
+
 	public void RequestCancelMovement()
 	{
 		if (SinglePlayerManager.IsCancelDisabled())
@@ -702,17 +1091,23 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		else
 		{
+			// reactor
 			CallCmdGUITurnMessage((int)TurnMessage.CANCEL_MOVEMENT, 0);
+			// rogues
+			//CallCmdGUITurnMessage(14, 0);  // 16 in reactor
 		}
 		ActorData component = GetComponent<ActorData>();
-		if (component == GameFlowData.Get().activeOwnedActorData
+		if (component == GameFlowData.Get().activeOwnedActorData // IsClientActor() in rogues
 			&& component.IsActorInvisibleForRespawn()
 			&& SpawnPointManager.Get() != null
+			// reactor
 			&& SpawnPointManager.Get().m_spawnInDuringMovement)
+		// rogues
+		//&& SpawnPointManager.Get().SpawnInDuringMovement())
 		{
 			InterfaceManager.Get().DisplayAlert(StringUtil.TR("PostRespawnMovement", "Global"), BoardSquare.s_respawnOptionHighlightColor, 60f, true);
 		}
-		if (NetworkClient.active && component == GameFlowData.Get().activeOwnedActorData)
+		if (NetworkClient.active && component == GameFlowData.Get().activeOwnedActorData) // IsClientActor() in rogues
 		{
 			LineData component2 = component.GetComponent<LineData>();
 			if (component2 != null)
@@ -742,7 +1137,10 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		else
 		{
+			// reactor
 			CallCmdGUITurnMessage((int)TurnMessage.MOVE_BUTTON_CLICKED, 0);
+			// rogues
+			//CallCmdGUITurnMessage(11, 0);  // 13 in reactor
 		}
 	}
 
@@ -759,9 +1157,12 @@ public class ActorTurnSM : NetworkBehaviour
 		GetState().OnExit();
 		PreviousState = CurrentState;
 		CurrentState = NextState;
+		// reactor
 		if (UIMainScreenPanel.Get() != null
 			&& GameFlowData.Get().activeOwnedActorData != null
 			&& GameFlowData.Get().activeOwnedActorData == m_actorData)
+		// rogues
+		//if (UIMainScreenPanel.Get() != null && GameFlowData.ClientActor == m_actorData)
 		{
 			if (CurrentState == TurnStateEnum.TARGETING_ACTION)
 			{
@@ -789,10 +1190,17 @@ public class ActorTurnSM : NetworkBehaviour
 		_TurnStart = DateTime.UtcNow;
 	}
 
+	// removed in rogues
 	public bool IsKeyDown(KeyCode keyCode)
 	{
 		return CameraControls.Get().Enabled && Input.GetKeyDown(keyCode);
 	}
+
+	// rogues
+	//public void OnDeath()
+	//{
+	//	this.OnMessage(TurnMessage.DIED, true);
+	//}
 
 	public List<AbilityData.ActionType> GetAutoQueuedRequestActionTypes()
 	{
@@ -836,13 +1244,13 @@ public class ActorTurnSM : NetworkBehaviour
 		if (!flag)
 		{
 			m_requestStackForUndo.Add(request);
-			m_actorData.OnClientQueuedActionChanged();
+			m_actorData.OnClientQueuedActionChanged();  // removed in rogues
 		}
 	}
 
 	private void CancelUndoableAbilityRequest(AbilityData.ActionType actionType)
 	{
-		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData; // GameFlowData.ClientActor in rogues
 		if (activeOwnedActorData != null
 			&& actionType != AbilityData.ActionType.INVALID_ACTION
 			&& activeOwnedActorData.GetComponent<ActorCinematicRequests>().IsAbilityCinematicRequested(actionType))
@@ -862,7 +1270,7 @@ public class ActorTurnSM : NetworkBehaviour
 		if (num != -1)
 		{
 			m_requestStackForUndo.RemoveAt(num);
-			m_actorData.OnClientQueuedActionChanged();
+			m_actorData.OnClientQueuedActionChanged(); // removed in rogues
 			if (HUD_UI.Get() != null)
 			{
 				HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.CancelAbilityRequest(actionType);
@@ -909,9 +1317,13 @@ public class ActorTurnSM : NetworkBehaviour
 		CallRpcStoreAutoQueuedAbilityRequest((int)actionType);
 	}
 
+	// added in rogues
 	private TurnState GetState()
 	{
+		// reactor
 		return m_turnStates[(int)CurrentState];
+		// rogues
+		//return m_fsmInternal.GetState(CurrentState);
 	}
 
 	public void ClearAbilityTargets()
@@ -943,20 +1355,64 @@ public class ActorTurnSM : NetworkBehaviour
 		if (NetworkServer.active
 			|| NetworkClient.active && !ignoreClient)
 		{
+			// rogues
+			//if (!m_fsmInternal.HandleMsg(msg, extraData))
+			//{
 			GetState().OnMsg(msg, extraData);
+			//}
 			UpdateStates();
 		}
 	}
 
 	[Command]
-	private void CmdGUITurnMessage(int msgEnum, int extraData)
+	private void CmdGUITurnMessage(int msgEnum, int extraData)  // public in rogues
 	{
+#if SERVER
+		if (msgEnum != (int)TurnMessage.MOVEMENT_RESOLVED
+			&& msgEnum != (int)TurnMessage.PICKED_RESPAWN
+			&& msgEnum != (int)TurnMessage.DONE_BUTTON_CLICKED
+			&& msgEnum != (int)TurnMessage.MOVE_BUTTON_CLICKED
+			&& msgEnum != (int)TurnMessage.PICK_RESPAWN)
+		{
+			Debug.LogError(string.Format("HACK ATTEMPT: Client sent invalid TurnMessage enum value for CmdGUITurnMessage - {0}", msgEnum));
+		}
+		OnMessage((TurnMessage)msgEnum, extraData, true);
+#endif
 	}
 
 	[Command]
 	private void CmdRequestCancelAction(int action, bool hasIncomingRequest)
 	{
+		// empty in reactor
+#if SERVER
+		if (NetworkServer.active
+			&& (CurrentState == TurnStateEnum.DECIDING
+				|| CurrentState == TurnStateEnum.TARGETING_ACTION))
+		{
+			base.GetComponent<ServerActorController>().ProcessCancelActionRequest((AbilityData.ActionType)action, hasIncomingRequest);
+		}
+#endif
 	}
+
+	// rogues
+	//[Command]
+	//public void CmdLockInRequested()
+	//{
+	//	if (NetworkServer.active)
+	//	{
+	//		m_fsmInternal.HandleLockInRequestedOnServer();
+	//	}
+	//}
+
+	// rogues
+	//[Command]
+	//public void CmdExecuteQueuedRequests()
+	//{
+	//	if (NetworkServer.active)
+	//	{
+	//		m_fsmInternal.HandleExecuteQueuedRequestsOnServer();
+	//	}
+	//}
 
 	public void OnActionsConfirmed()
 	{
@@ -995,8 +1451,17 @@ public class ActorTurnSM : NetworkBehaviour
 		BoardSquare playerClampedSquare = Board.Get().PlayerClampedSquare;
 		ActorData actorData = GetComponent<ActorData>();
 		BoardSquare boardSquare = actorData?.MoveFromBoardSquare;
+
+		// reactor
 		bool isWaypoint = Options_UI.Get().GetShiftClickForMovementWaypoints() == InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier);
 		bool isExplicitWaypoint = Options_UI.Get().GetShiftClickForMovementWaypoints() && InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier);
+		// rogues
+		//bool isWaypoint = true;
+		//bool isExplicitWaypoint = false;
+
+		// added in rogues
+		//bool forceDelayExecution = InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier);
+
 		if (boardSquare != playerClampedSquare)
 		{
 			InterfaceManager.Get().CancelAlert(StringUtil.TR("PostRespawnMovement", "Global"));
@@ -1007,18 +1472,18 @@ public class ActorTurnSM : NetworkBehaviour
 			{
 				if (isExplicitWaypoint || !SelectMovementSquareForChasing(playerClampedSquare))
 				{
-					SelectMovementSquareForMovement(playerClampedSquare);
+					SelectMovementSquareForMovement(playerClampedSquare);  // , forceDelayExecution in rogues
 				}
 			}
 			else if (m_actorData.HasQueuedChase())
 			{
 				if (playerClampedSquare == m_actorData.GetQueuedChaseTarget().GetCurrentBoardSquare())
 				{
-					SelectMovementSquareForMovement(playerClampedSquare);
+					SelectMovementSquareForMovement(playerClampedSquare);  // , forceDelayExecution in rogues
 				}
 				else if (!SelectMovementSquareForChasing(playerClampedSquare))
 				{
-					SelectMovementSquareForMovement(playerClampedSquare);
+					SelectMovementSquareForMovement(playerClampedSquare);  // , forceDelayExecution in rogues
 				}
 			}
 			else
@@ -1030,7 +1495,7 @@ public class ActorTurnSM : NetworkBehaviour
 				}
 				else
 				{
-					SelectMovementSquareForMovement(playerClampedSquare);
+					SelectMovementSquareForMovement(playerClampedSquare);  // , forceDelayExecution in rogues
 				}
 			}
 		}
@@ -1038,6 +1503,7 @@ public class ActorTurnSM : NetworkBehaviour
 
 	public bool SelectMovementSquareForChasing(BoardSquare selectedSquare)
 	{
+		// reactor
 		bool result = false;
 		ActorData actor = GetComponent<ActorData>();
 		if (actor.IsSquareChaseableByClient(selectedSquare))
@@ -1061,24 +1527,36 @@ public class ActorTurnSM : NetworkBehaviour
 			}
 		}
 		return result;
+		// rogues
+		//return false;
 	}
 
 	[Command]
 	private void CmdChase(int selectedSquareX, int selectedSquareY)
 	{
+		// empty in reactor
+#if SERVER
+		GetComponent<ServerActorController>().ProcessChaseRequest(selectedSquareX, selectedSquareY);
+#endif
 	}
 
-	public void SelectMovementSquareForMovement(BoardSquare selectedSquare)
+	public void SelectMovementSquareForMovement(BoardSquare selectedSquare)  // , bool forceDelayExecution in rogues
 	{
+		// reactor
 		List<BoardSquare> list = new List<BoardSquare>();
 		list.Add(selectedSquare);
 		SelectMovementSquaresForMovement(list);
+		// rogues
+		//SelectMovementSquaresForMovement(new List<BoardSquare>
+		//{
+		//	selectedSquare
+		//}, forceDelayExecution);
 	}
 
-	public void SelectMovementSquaresForMovement(List<BoardSquare> selectedSquares)
+	public void SelectMovementSquaresForMovement(List<BoardSquare> selectedSquares)  // , bool forceDelayExecution in rogues
 	{
 		ActorData actorData = GetComponent<ActorData>();
-		if (GameFlowData.Get() == null || GameFlowData.Get().gameState != GameState.BothTeams_Decision)
+		if (GameFlowData.Get() == null || !GameFlowData.Get().IsInDecisionState())
 		{
 			return;
 		}
@@ -1100,17 +1578,34 @@ public class ActorTurnSM : NetworkBehaviour
 			}
 			if (boardSquare != null)
 			{
-				if (actorData == GameFlowData.Get().activeOwnedActorData
+				if (actorData == GameFlowData.Get().activeOwnedActorData // IsClientActor() in rogues
 					&& num == 0
 					&& actorData.GetActorMovement().SquaresCanMoveTo.Count > 0)
 				{
 					UISounds.GetUISounds().Play("ui/ingame/v1/move");
 				}
+
+				// reactor
 				bool isWaypoint = Options_UI.Get().GetShiftClickForMovementWaypoints() == InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier)
 					&& FirstTurnMovement.CanWaypoint();
+				// rogues
+				//bool isWaypoint = true;
+
 				StoreUndoableActionRequest(new ActionRequestForUndo(UndoableRequestType.MOVEMENT));
+#if SERVER
+				if (NetworkServer.active)
+				{
+					GetComponent<ServerActorController>().ProcessSetSquareRequest(boardSquare.x, boardSquare.y, isWaypoint);  // , forceDelayExecution in rogues
+				}
+				else if (NetworkClient.active)
+				{
+					CallCmdSetSquare(boardSquare.x, boardSquare.y, isWaypoint);  // , forceDelayExecution in rogues
+					flag = true;
+				}
+#else
 				CallCmdSetSquare(boardSquare.x, boardSquare.y, isWaypoint);
 				flag = true;
+#endif
 			}
 			num++;
 		}
@@ -1118,7 +1613,7 @@ public class ActorTurnSM : NetworkBehaviour
 		{
 			NextState = TurnStateEnum.VALIDATING_MOVE_REQUEST;
 			Log.Info(string.Concat("Setting State to ", NextState, " at ", GameTime.time));
-			if (NetworkClient.active && actorData == GameFlowData.Get().activeOwnedActorData)
+			if (NetworkClient.active && actorData == GameFlowData.Get().activeOwnedActorData)  // IsClientActor() in rogues
 			{
 				LineData component2 = actorData.GetComponent<LineData>();
 				if (component2 != null)
@@ -1131,13 +1626,41 @@ public class ActorTurnSM : NetworkBehaviour
 	}
 
 	[Command]
-	private void CmdSetSquare(int x, int y, bool setWaypoint)
+	private void CmdSetSquare(int x, int y, bool setWaypoint) // , bool forceDelayExecution in rogues
 	{
+		// empty in reactor
+#if SERVER
+		GetComponent<ServerActorController>().ProcessSetSquareRequest(x, y, setWaypoint);  // , forceDelayExecution in rogues
+#endif
 	}
+
+	// rogues
+	//public void ProcessGroupMoveRequestForOwnedActors(BoardSquare meetingSquare)
+	//{
+	//	if (meetingSquare != null && meetingSquare.IsValidForGameplay())
+	//	{
+	//		int x = meetingSquare.x;
+	//		int y = meetingSquare.y;
+	//		if (NetworkServer.active)
+	//		{
+	//			base.GetComponent<ServerActorController>().ProcessGroupMoveRequestForOwnedActors(m_actorData.ActorIndex, x, y);
+	//			return;
+	//		}
+	//		CallCmdGroupMoveToSquare(m_actorData.ActorIndex, x, y);
+	//	}
+	//}
+
+	// rogues
+	//[Command]
+	//private void CmdGroupMoveToSquare(int actorIndex, int x, int y)
+	//{
+	//	base.GetComponent<ServerActorController>().ProcessGroupMoveRequestForOwnedActors(actorIndex, x, y);
+	//}
 
 	[ClientRpc]
 	private void RpcTurnMessage(int msgEnum, int extraData)
 	{
+		// reactor
 		if (!m_actorData.HasBotController
 			&& m_actorData == GameFlowData.Get().activeOwnedActorData
 			&& !m_actorData.IsDead())
@@ -1175,6 +1698,12 @@ public class ActorTurnSM : NetworkBehaviour
 			}
 		}
 		GetState().OnMsg((TurnMessage)msgEnum, extraData);
+		// rogues
+		//if (!m_fsmInternal.HandleMsg((TurnMessage)msgEnum, extraData))
+		//{
+		//	GetState().OnMsg((TurnMessage)msgEnum, extraData);
+		//}
+
 		UpdateStates();
 	}
 
@@ -1186,6 +1715,23 @@ public class ActorTurnSM : NetworkBehaviour
 			StoreAutoQueuedAbilityRequest((AbilityData.ActionType)actionTypeInt);
 		}
 	}
+
+	// rogues
+	//[ClientRpc]
+	//private void RpcSetNumRespawnPickInputs(int count)
+	//{
+	//	Networkm_numRespawnPicksThisTurn = (short)count;
+	//}
+
+	// rogues
+	//[ClientRpc]
+	//public void RpcResetUsedAbilityAndMoveData()
+	//{
+	//	if (!NetworkServer.active)
+	//	{
+	//		ResetUsedAbilityAndMoveData();
+	//	}
+	//}
 
 	public int GetTargetSelectionIndex()
 	{
@@ -1203,9 +1749,12 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		Ability.TargetingParadigm result = Ability.TargetingParadigm.Position;
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		if (activeOwnedActorData != null && activeOwnedActorData.GetActorTurnSM() == this)
+		if (activeOwnedActorData != null && activeOwnedActorData.GetActorTurnSM() == this)  // if (IsClientActor()) in rogues
 		{
+			// reactor
 			AbilityData abilityData = activeOwnedActorData.GetAbilityData();
+			// rogues
+			//AbilityData abilityData = Owner.GetAbilityData();
 			Ability selectedAbility = abilityData.GetSelectedAbility();
 			if (selectedAbility != null)
 			{
@@ -1218,34 +1767,46 @@ public class ActorTurnSM : NetworkBehaviour
 
 	public bool CanSelectAbility()
 	{
+		// reactor
 		return CurrentState == TurnStateEnum.DECIDING
 			|| CurrentState == TurnStateEnum.DECIDING_MOVEMENT
 			|| CurrentState == TurnStateEnum.TARGETING_ACTION
 			|| CurrentState == TurnStateEnum.CONFIRMED && m_actorData.GetTimeBank().AllowUnconfirm();
+		// rogues
+		//return m_fsmInternal.CanSelectAbility();
 	}
 
 	public bool CanQueueSimpleAction()
 	{
+		// reactor
 		return CurrentState == TurnStateEnum.DECIDING
 			|| CurrentState == TurnStateEnum.DECIDING_MOVEMENT
 			|| CurrentState == TurnStateEnum.TARGETING_ACTION
 			|| CurrentState == TurnStateEnum.CONFIRMED && m_actorData.GetTimeBank().AllowUnconfirm();
+		// rogues
+		//return m_fsmInternal.CanQueueSimpleAction();
 	}
 
 	public bool CanPickRespawnLocation()
 	{
+		// reactor
 		return CurrentState == TurnStateEnum.PICKING_RESPAWN
-			|| (CurrentState == TurnStateEnum.CONFIRMED && PreviousState == TurnStateEnum.PICKING_RESPAWN);
+			|| CurrentState == TurnStateEnum.CONFIRMED && PreviousState == TurnStateEnum.PICKING_RESPAWN;
+		// rogues
+		//return m_fsmInternal.CanPickRespawnLocation();
 	}
 
 	public bool AmDecidingMovement()
 	{
-
+		// reactor
 		return CurrentState == TurnStateEnum.DECIDING
 			|| CurrentState == TurnStateEnum.DECIDING_MOVEMENT
 			|| CurrentState == TurnStateEnum.CONFIRMED && m_actorData.GetTimeBank().AllowUnconfirm();
+		// rogues
+		//return m_fsmInternal.AmDecidingMovement();
 	}
 
+	// removed in rogues
 	public bool IsAbilityOrPingSelectorVisible()
 	{
 		return m_abilitySelectorVisible || m_timePingDown != 0f;
@@ -1253,35 +1814,45 @@ public class ActorTurnSM : NetworkBehaviour
 
 	public static bool IsClientDecidingMovement()
 	{
-		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
+		// reactor
+		ActorData clientActor = GameFlowData.Get()?.activeOwnedActorData;
+		// rogues
+		//ActorData clientActor = GameFlowData.ClientActor;
+		if (clientActor != null)
 		{
-			ActorTurnSM actorTurnSM = GameFlowData.Get().activeOwnedActorData.GetActorTurnSM();
+			ActorTurnSM actorTurnSM = clientActor.GetActorTurnSM();
 			if (actorTurnSM != null)
 			{
 				return actorTurnSM.AmDecidingMovement();
 			}
-			return false;
 		}
 		return false;
 	}
 
 	public bool AmTargetingAction()
 	{
+		// reactor
 		return CurrentState == TurnStateEnum.TARGETING_ACTION;
+		// rogues
+		//return m_fsmInternal.AmTargetingAction();
 	}
 
 	public bool AmStillDeciding()
 	{
+		// reactor
 		return CurrentState == TurnStateEnum.DECIDING
 			|| CurrentState == TurnStateEnum.DECIDING_MOVEMENT
 			|| CurrentState == TurnStateEnum.VALIDATING_MOVE_REQUEST
 			|| CurrentState == TurnStateEnum.TARGETING_ACTION
 			|| CurrentState == TurnStateEnum.VALIDATING_ACTION_REQUEST
 			|| CurrentState == TurnStateEnum.PICKING_RESPAWN;
+		// rogues
+		//return m_fsmInternal.AmStillDeciding();
 	}
 
 	public bool ShouldShowGUIButtons()
 	{
+		// reactor
 		return CurrentState == TurnStateEnum.DECIDING
 			|| CurrentState == TurnStateEnum.DECIDING_MOVEMENT
 			|| CurrentState == TurnStateEnum.VALIDATING_MOVE_REQUEST
@@ -1289,16 +1860,22 @@ public class ActorTurnSM : NetworkBehaviour
 			|| CurrentState == TurnStateEnum.VALIDATING_ACTION_REQUEST
 			|| CurrentState == TurnStateEnum.CONFIRMED
 			|| CurrentState == TurnStateEnum.PICKING_RESPAWN;
+		// rogues
+		//return m_fsmInternal.ShouldShowGUIButtons();
 	}
 
 	public bool ShouldEnableEndTurnButton()
 	{
+		// reactor
 		return CurrentState == TurnStateEnum.DECIDING
 			|| CurrentState == TurnStateEnum.DECIDING_MOVEMENT
 			|| CurrentState == TurnStateEnum.TARGETING_ACTION
 			|| CurrentState == TurnStateEnum.PICKING_RESPAWN;
+		// rogues
+		//return m_fsmInternal.ShouldEnableEndTurnButton();
 	}
 
+	// removed in rogues
 	public bool ShouldEnableMoveButton()
 	{
 		return CurrentState == TurnStateEnum.DECIDING
@@ -1308,25 +1885,37 @@ public class ActorTurnSM : NetworkBehaviour
 
 	public bool ShouldShowEndTurnButton()
 	{
+		// reactor
 		return ShouldShowGUIButtons() && CurrentState != TurnStateEnum.CONFIRMED;
+		// rogues
+		//return m_fsmInternal.ShouldShowEndTurnButton();
 	}
 
 	public bool ShouldEnableAbilityButton(bool isSimpleAction)
 	{
+		// reactor
 		return CurrentState == TurnStateEnum.DECIDING
 			|| CurrentState == TurnStateEnum.DECIDING_MOVEMENT
 			|| CurrentState == TurnStateEnum.TARGETING_ACTION
 			|| CurrentState == TurnStateEnum.CONFIRMED && isSimpleAction;
+		// rogues
+		//return m_fsmInternal.ShouldEnableAbilityButton(isSimpleAction);
 	}
+
+	// rogues
+	//public bool CanStillActInDecision()
+	//{
+	//       return m_fsmInternal.CanStillActInDecision();
+	//   }
 
 	public void SetupForNewTurn()
 	{
 		ActorData component = GetComponent<ActorData>();
-		if (HUD_UI.Get() != null && component == GameFlowData.Get().activeOwnedActorData)
+		if (HUD_UI.Get() != null && component == GameFlowData.Get().activeOwnedActorData)  // IsClientActor() in rogues
 		{
 			HUD_UI.Get().m_mainScreenPanel.m_notificationPanel.DisplayNotification(UINotificationPanel.GamePhaseDisplay.Decision);
 		}
-		if (component == GameFlowData.Get().activeOwnedActorData)
+		if (component == GameFlowData.Get().activeOwnedActorData)  // IsClientActor() in rogues
 		{
 			HighlightUtils.Get().SetCursorType(HighlightUtils.CursorType.MouseOverCursorType);
 		}
@@ -1337,16 +1926,221 @@ public class ActorTurnSM : NetworkBehaviour
 		if (!NetworkServer.active)
 		{
 			ActorMovement actorMovement = component.GetActorMovement();
-			if (actorMovement && !GameplayUtils.IsMinion(this))
+			if (actorMovement && !GameplayUtils.IsMinion(this))  // IsMinion removed in rogues
 			{
 				actorMovement.UpdateSquaresCanMoveTo();
 			}
 		}
 	}
 
-	private void UNetVersion()
+	// rogues
+	//public string GetUsedActionsDebugString()
+	//{
+	//	string text = "UsedMovement= " + m_pveMoveCostUsedThisTurn + "\n";
+	//	text += "Used Abilities:\n";
+	//	for (int i = 0; i < m_pvePlayedAbilityFlags.Count; i++)
+	//	{
+	//		text = string.Concat(new object[]
+	//		{
+	//			text,
+	//			"\tUsed Ability ",
+	//			i,
+	//			"? ",
+	//			m_pvePlayedAbilityFlags[i].ToString(),
+	//			"\n"
+	//		});
+	//	}
+	//	return text;
+	//}
+
+	// added in rogues
+#if SERVER
+	public static string GetDebugStateName(TurnStateEnum stateEnum)
 	{
+		if (Application.isEditor)
+		{
+			return "<color=white>[ " + stateEnum.ToString() + " ]</color>";
+		}
+		return "[ " + stateEnum.ToString() + " ]";
 	}
+#endif
+
+	// added in rogues
+#if SERVER
+	public static string GetDebugMsgName(TurnMessage msg)
+	{
+		if (Application.isEditor)
+		{
+			return "<color=cyan>( " + msg.ToString() + " )</color>";
+		}
+		return "( " + msg.ToString() + " )";
+	}
+#endif
+
+	// rogues
+	//public ActorTurnSM()
+	//{
+	//	base.InitSyncObject(m_pvePlayedAbilityFlags);
+	//}
+
+	// rogues
+	//private void MirrorProcessed()
+	//{
+	//}
+
+	// rogues
+	//public float Networkm_pveMoveCostUsedThisTurn
+	//{
+	//	get
+	//	{
+	//		return m_pveMoveCostUsedThisTurn;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<float>(value, ref m_pveMoveCostUsedThisTurn, 1UL);
+	//	}
+	//}
+
+	// rogues
+	//public uint Networkm_pveNumMoveActionsThisTurn
+	//{
+	//	get
+	//	{
+	//		return m_pveNumMoveActionsThisTurn;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<uint>(value, ref m_pveNumMoveActionsThisTurn, 2UL);
+	//	}
+	//}
+
+	// rogues
+	//public uint Networkm_pveNumAbilityActionsThisTurn
+	//{
+	//	get
+	//	{
+	//		return m_pveNumAbilityActionsThisTurn;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<uint>(value, ref m_pveNumAbilityActionsThisTurn, 4UL);
+	//	}
+	//}
+
+	// rogues
+	//public uint Networkm_pveNumQuickActionsThisTurn
+	//{
+	//	get
+	//	{
+	//		return m_pveNumQuickActionsThisTurn;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<uint>(value, ref m_pveNumQuickActionsThisTurn, 8UL);
+	//	}
+	//}
+
+	// rogues
+	//public uint Networkm_pveNumFreeActionsThisTurn
+	//{
+	//	get
+	//	{
+	//		return m_pveNumFreeActionsThisTurn;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<uint>(value, ref m_pveNumFreeActionsThisTurn, 16UL);
+	//	}
+	//}
+
+	// rogues
+	//public uint Networkm_pveMaxNumFreeActionsThisTurn
+	//{
+	//	get
+	//	{
+	//		return m_pveMaxNumFreeActionsThisTurn;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<uint>(value, ref m_pveMaxNumFreeActionsThisTurn, 32UL);
+	//	}
+	//}
+
+	// rogues
+	//public uint Networkm_pveNumAbilityActionsPerTurn
+	//{
+	//	get
+	//	{
+	//		return m_pveNumAbilityActionsPerTurn;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<uint>(value, ref m_pveNumAbilityActionsPerTurn, 64UL);
+	//	}
+	//}
+
+	// rogues
+	//public bool Networkm_hasStoredAbilityRequest
+	//{
+	//	get
+	//	{
+	//		return m_hasStoredAbilityRequest;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<bool>(value, ref m_hasStoredAbilityRequest, 128UL);
+	//	}
+	//}
+
+	// rogues
+	//public bool Networkm_hasStoredMoveRequest
+	//{
+	//	get
+	//	{
+	//		return m_hasStoredMoveRequest;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<bool>(value, ref m_hasStoredMoveRequest, 256UL);
+	//	}
+	//}
+
+	// rogues
+	//public short Networkm_numRespawnPicksThisTurn
+	//{
+	//	get
+	//	{
+	//		return m_numRespawnPicksThisTurn;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<short>(value, ref m_numRespawnPicksThisTurn, 512UL);
+	//	}
+	//}
+
+	// rogues
+	//public int Networkm_tauntRequestedForNextAbility
+	//{
+	//	get
+	//	{
+	//		return m_tauntRequestedForNextAbility;
+	//	}
+	//	[param: In]
+	//	set
+	//	{
+	//		base.SetSyncVar<int>(value, ref m_tauntRequestedForNextAbility, 1024UL);
+	//	}
+	//}
 
 	protected static void InvokeCmdCmdGUITurnMessage(NetworkBehaviour obj, NetworkReader reader)
 	{
@@ -1355,7 +2149,10 @@ public class ActorTurnSM : NetworkBehaviour
 			Debug.LogError("Command CmdGUITurnMessage called on client.");
 			return;
 		}
+		// reactor
 		((ActorTurnSM)obj).CmdGUITurnMessage((int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32());
+		// rogues
+		// ((ActorTurnSM)obj).CmdGUITurnMessage(reader.ReadPackedInt32(), reader.ReadPackedInt32());
 	}
 
 	protected static void InvokeCmdCmdRequestCancelAction(NetworkBehaviour obj, NetworkReader reader)
@@ -1365,8 +2162,34 @@ public class ActorTurnSM : NetworkBehaviour
 			Debug.LogError("Command CmdRequestCancelAction called on client.");
 			return;
 		}
+
+		// reactor
 		((ActorTurnSM)obj).CmdRequestCancelAction((int)reader.ReadPackedUInt32(), reader.ReadBoolean());
+		// rogues
+		// ((ActorTurnSM)obj).CmdRequestCancelAction(reader.ReadPackedInt32(), reader.ReadBoolean());
 	}
+
+	// rogues
+	//protected static void InvokeCmdCmdLockInRequested(NetworkBehaviour obj, NetworkReader reader)
+	//{
+	//	if (!NetworkServer.active)
+	//	{
+	//		Debug.LogError("Command CmdLockInRequested called on client.");
+	//		return;
+	//	}
+	//	((ActorTurnSM)obj).CmdLockInRequested();
+	//}
+
+	// rogues
+	//protected static void InvokeCmdCmdExecuteQueuedRequests(NetworkBehaviour obj, NetworkReader reader)
+	//{
+	//	if (!NetworkServer.active)
+	//	{
+	//		Debug.LogError("Command CmdExecuteQueuedRequests called on client.");
+	//		return;
+	//	}
+	//	((ActorTurnSM)obj).CmdExecuteQueuedRequests();
+	//}
 
 	protected static void InvokeCmdCmdChase(NetworkBehaviour obj, NetworkReader reader)
 	{
@@ -1375,7 +2198,11 @@ public class ActorTurnSM : NetworkBehaviour
 			Debug.LogError("Command CmdChase called on client.");
 			return;
 		}
+
+		// reactor
 		((ActorTurnSM)obj).CmdChase((int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32());
+		// rogues
+		// ((ActorTurnSM)obj).CmdChase(reader.ReadPackedInt32(), reader.ReadPackedInt32());
 	}
 
 	protected static void InvokeCmdCmdSetSquare(NetworkBehaviour obj, NetworkReader reader)
@@ -1385,21 +2212,39 @@ public class ActorTurnSM : NetworkBehaviour
 			Debug.LogError("Command CmdSetSquare called on client.");
 			return;
 		}
+
+		// reactor
 		((ActorTurnSM)obj).CmdSetSquare((int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32(), reader.ReadBoolean());
+		// rogues
+		// ((ActorTurnSM)obj).CmdSetSquare(reader.ReadPackedInt32(), reader.ReadPackedInt32(), reader.ReadBoolean(), reader.ReadBoolean());
 	}
+
+	// rogues
+	//protected static void InvokeCmdCmdGroupMoveToSquare(NetworkBehaviour obj, NetworkReader reader)
+	//{
+	//	if (!NetworkServer.active)
+	//	{
+	//		Debug.LogError("Command CmdGroupMoveToSquare called on client.");
+	//		return;
+	//	}
+	//	((ActorTurnSM)obj).CmdGroupMoveToSquare(reader.ReadPackedInt32(), reader.ReadPackedInt32(), reader.ReadPackedInt32());
+	//}
 
 	public void CallCmdGUITurnMessage(int msgEnum, int extraData)
 	{
+		// removed in rogues
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("Command function CmdGUITurnMessage called on server.");
 			return;
 		}
+
 		if (isServer)
 		{
 			CmdGUITurnMessage(msgEnum, extraData);
 			return;
 		}
+		// reactor
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
 		networkWriter.Write((short)5);
@@ -1408,20 +2253,29 @@ public class ActorTurnSM : NetworkBehaviour
 		networkWriter.WritePackedUInt32((uint)msgEnum);
 		networkWriter.WritePackedUInt32((uint)extraData);
 		SendCommandInternal(networkWriter, 0, "CmdGUITurnMessage");
+		// rogues
+		//NetworkWriter networkWriter = new NetworkWriter();
+		//networkWriter.WritePackedInt32(msgEnum);
+		//networkWriter.WritePackedInt32(extraData);
+		//base.SendCommandInternal(typeof(ActorTurnSM), "CmdGUITurnMessage", networkWriter, 0);
 	}
 
 	public void CallCmdRequestCancelAction(int action, bool hasIncomingRequest)
 	{
+		// removed in rogues
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("Command function CmdRequestCancelAction called on server.");
 			return;
 		}
+
 		if (isServer)
 		{
 			CmdRequestCancelAction(action, hasIncomingRequest);
 			return;
 		}
+
+		// reactor
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
 		networkWriter.Write((short)5);
@@ -1430,20 +2284,52 @@ public class ActorTurnSM : NetworkBehaviour
 		networkWriter.WritePackedUInt32((uint)action);
 		networkWriter.Write(hasIncomingRequest);
 		SendCommandInternal(networkWriter, 0, "CmdRequestCancelAction");
+		// rogues
+		//NetworkWriter networkWriter = new NetworkWriter();
+		//networkWriter.WritePackedInt32(action);
+		//networkWriter.Write(hasIncomingRequest);
+		//base.SendCommandInternal(typeof(ActorTurnSM), "CmdRequestCancelAction", networkWriter, 0);
 	}
+
+	// rogues
+	//public void CallCmdLockInRequested()
+	//{
+	//	if (base.isServer)
+	//	{
+	//		CmdLockInRequested();
+	//		return;
+	//	}
+	//	NetworkWriter networkWriter = new NetworkWriter();
+	//	base.SendCommandInternal(typeof(ActorTurnSM), "CmdLockInRequested", networkWriter, 0);
+	//}
+
+	// rogues
+	//public void CallCmdExecuteQueuedRequests()
+	//{
+	//	if (base.isServer)
+	//	{
+	//		CmdExecuteQueuedRequests();
+	//		return;
+	//	}
+	//	NetworkWriter networkWriter = new NetworkWriter();
+	//	base.SendCommandInternal(typeof(ActorTurnSM), "CmdExecuteQueuedRequests", networkWriter, 0);
+	//}
 
 	public void CallCmdChase(int selectedSquareX, int selectedSquareY)
 	{
+		// removed in rogues
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("Command function CmdChase called on server.");
 			return;
 		}
+
 		if (isServer)
 		{
 			CmdChase(selectedSquareX, selectedSquareY);
 			return;
 		}
+		// reactor
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
 		networkWriter.Write((short)5);
@@ -1452,20 +2338,28 @@ public class ActorTurnSM : NetworkBehaviour
 		networkWriter.WritePackedUInt32((uint)selectedSquareX);
 		networkWriter.WritePackedUInt32((uint)selectedSquareY);
 		SendCommandInternal(networkWriter, 0, "CmdChase");
+		// rogues
+		//NetworkWriter networkWriter = new NetworkWriter();
+		//networkWriter.WritePackedInt32(selectedSquareX);
+		//networkWriter.WritePackedInt32(selectedSquareY);
+		//base.SendCommandInternal(typeof(ActorTurnSM), "CmdChase", networkWriter, 0);
 	}
 
-	public void CallCmdSetSquare(int x, int y, bool setWaypoint)
+	public void CallCmdSetSquare(int x, int y, bool setWaypoint) // , bool forceDelayExecution in rogues
 	{
+		// removed in rogues
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("Command function CmdSetSquare called on server.");
 			return;
 		}
+
 		if (isServer)
 		{
-			CmdSetSquare(x, y, setWaypoint);
+			CmdSetSquare(x, y, setWaypoint); // , bool forceDelayExecution in rogues
 			return;
 		}
+		// reactor
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
 		networkWriter.Write((short)5);
@@ -1475,7 +2369,29 @@ public class ActorTurnSM : NetworkBehaviour
 		networkWriter.WritePackedUInt32((uint)y);
 		networkWriter.Write(setWaypoint);
 		SendCommandInternal(networkWriter, 0, "CmdSetSquare");
+		// rogues
+		//NetworkWriter networkWriter = new NetworkWriter();
+		//networkWriter.WritePackedInt32(x);
+		//networkWriter.WritePackedInt32(y);
+		//networkWriter.Write(setWaypoint);
+		//networkWriter.Write(forceDelayExecution);
+		//base.SendCommandInternal(typeof(ActorTurnSM), "CmdSetSquare", networkWriter, 0);
 	}
+
+	// rogues
+	//public void CallCmdGroupMoveToSquare(int actorIndex, int x, int y)
+	//{
+	//	if (base.isServer)
+	//	{
+	//		CmdGroupMoveToSquare(actorIndex, x, y);
+	//		return;
+	//	}
+	//	NetworkWriter networkWriter = new NetworkWriter();
+	//	networkWriter.WritePackedInt32(actorIndex);
+	//	networkWriter.WritePackedInt32(x);
+	//	networkWriter.WritePackedInt32(y);
+	//	base.SendCommandInternal(typeof(ActorTurnSM), "CmdGroupMoveToSquare", networkWriter, 0);
+	//}
 
 	protected static void InvokeRpcRpcTurnMessage(NetworkBehaviour obj, NetworkReader reader)
 	{
@@ -1484,7 +2400,10 @@ public class ActorTurnSM : NetworkBehaviour
 			Debug.LogError("RPC RpcTurnMessage called on server.");
 			return;
 		}
+		// reactor
 		((ActorTurnSM)obj).RpcTurnMessage((int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32());
+		// rogues
+		//((ActorTurnSM)obj).RpcTurnMessage(reader.ReadPackedInt32(), reader.ReadPackedInt32());
 	}
 
 	protected static void InvokeRpcRpcStoreAutoQueuedAbilityRequest(NetworkBehaviour obj, NetworkReader reader)
@@ -1494,11 +2413,37 @@ public class ActorTurnSM : NetworkBehaviour
 			Debug.LogError("RPC RpcStoreAutoQueuedAbilityRequest called on server.");
 			return;
 		}
+		// reactor
 		((ActorTurnSM)obj).RpcStoreAutoQueuedAbilityRequest((int)reader.ReadPackedUInt32());
+		// rogues
+		//((ActorTurnSM)obj).RpcStoreAutoQueuedAbilityRequest(reader.ReadPackedInt32());
 	}
+
+	// rogues
+	//protected static void InvokeRpcRpcSetNumRespawnPickInputs(NetworkBehaviour obj, NetworkReader reader)
+	//{
+	//	if (!NetworkClient.active)
+	//	{
+	//		Debug.LogError("RPC RpcSetNumRespawnPickInputs called on server.");
+	//		return;
+	//	}
+	//	((ActorTurnSM)obj).RpcSetNumRespawnPickInputs(reader.ReadPackedInt32());
+	//}
+
+	// rogues
+	//protected static void InvokeRpcRpcResetUsedAbilityAndMoveData(NetworkBehaviour obj, NetworkReader reader)
+	//{
+	//	if (!NetworkClient.active)
+	//	{
+	//		Debug.LogError("RPC RpcResetUsedAbilityAndMoveData called on server.");
+	//		return;
+	//	}
+	//	((ActorTurnSM)obj).RpcResetUsedAbilityAndMoveData();
+	//}
 
 	public void CallRpcTurnMessage(int msgEnum, int extraData)
 	{
+		// reactor
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("RPC Function RpcTurnMessage called on client.");
@@ -1512,10 +2457,16 @@ public class ActorTurnSM : NetworkBehaviour
 		networkWriter.WritePackedUInt32((uint)msgEnum);
 		networkWriter.WritePackedUInt32((uint)extraData);
 		SendRPCInternal(networkWriter, 0, "RpcTurnMessage");
+		// rogues
+		//NetworkWriter networkWriter = new NetworkWriter();
+		//networkWriter.WritePackedInt32(msgEnum);
+		//networkWriter.WritePackedInt32(extraData);
+		//this.SendRPCInternal(typeof(ActorTurnSM), "RpcTurnMessage", networkWriter, 0);
 	}
 
 	public void CallRpcStoreAutoQueuedAbilityRequest(int actionTypeInt)
 	{
+		// reactor
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("RPC Function RpcStoreAutoQueuedAbilityRequest called on client.");
@@ -1528,14 +2479,200 @@ public class ActorTurnSM : NetworkBehaviour
 		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)actionTypeInt);
 		SendRPCInternal(networkWriter, 0, "RpcStoreAutoQueuedAbilityRequest");
+		// rogues
+		//NetworkWriter networkWriter = new NetworkWriter();
+		//networkWriter.WritePackedInt32(actionTypeInt);
+		//this.SendRPCInternal(typeof(ActorTurnSM), "RpcStoreAutoQueuedAbilityRequest", networkWriter, 0);
 	}
+
+	// rogues
+	//public void CallRpcSetNumRespawnPickInputs(int count)
+	//{
+	//	NetworkWriter networkWriter = new NetworkWriter();
+	//	networkWriter.WritePackedInt32(count);
+	//	this.SendRPCInternal(typeof(ActorTurnSM), "RpcSetNumRespawnPickInputs", networkWriter, 0);
+	//}
+
+	// rogues
+	//public void CallRpcResetUsedAbilityAndMoveData()
+	//{
+	//	NetworkWriter networkWriter = new NetworkWriter();
+	//	this.SendRPCInternal(typeof(ActorTurnSM), "RpcResetUsedAbilityAndMoveData", networkWriter, 0);
+	//}
+
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		return false;
 	}
 
+	// rogues
+	//public override bool OnSerialize(NetworkWriter writer, bool forceAll)
+	//{
+	//	bool result = base.OnSerialize(writer, forceAll);
+	//	if (forceAll)
+	//	{
+	//		writer.Write(m_pveMoveCostUsedThisTurn);
+	//		writer.WritePackedUInt32(m_pveNumMoveActionsThisTurn);
+	//		writer.WritePackedUInt32(m_pveNumAbilityActionsThisTurn);
+	//		writer.WritePackedUInt32(m_pveNumQuickActionsThisTurn);
+	//		writer.WritePackedUInt32(m_pveNumFreeActionsThisTurn);
+	//		writer.WritePackedUInt32(m_pveMaxNumFreeActionsThisTurn);
+	//		writer.WritePackedUInt32(m_pveNumAbilityActionsPerTurn);
+	//		writer.Write(m_hasStoredAbilityRequest);
+	//		writer.Write(m_hasStoredMoveRequest);
+	//		writer.Write(m_numRespawnPicksThisTurn);
+	//		writer.WritePackedInt32(m_tauntRequestedForNextAbility);
+	//		return true;
+	//	}
+	//	writer.WritePackedUInt64(base.syncVarDirtyBits);
+	//	if ((base.syncVarDirtyBits & 1UL) != 0UL)
+	//	{
+	//		writer.Write(m_pveMoveCostUsedThisTurn);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 2UL) != 0UL)
+	//	{
+	//		writer.WritePackedUInt32(m_pveNumMoveActionsThisTurn);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 4UL) != 0UL)
+	//	{
+	//		writer.WritePackedUInt32(m_pveNumAbilityActionsThisTurn);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 8UL) != 0UL)
+	//	{
+	//		writer.WritePackedUInt32(m_pveNumQuickActionsThisTurn);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 16UL) != 0UL)
+	//	{
+	//		writer.WritePackedUInt32(m_pveNumFreeActionsThisTurn);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 32UL) != 0UL)
+	//	{
+	//		writer.WritePackedUInt32(m_pveMaxNumFreeActionsThisTurn);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 64UL) != 0UL)
+	//	{
+	//		writer.WritePackedUInt32(m_pveNumAbilityActionsPerTurn);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 128UL) != 0UL)
+	//	{
+	//		writer.Write(m_hasStoredAbilityRequest);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 256UL) != 0UL)
+	//	{
+	//		writer.Write(m_hasStoredMoveRequest);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 512UL) != 0UL)
+	//	{
+	//		writer.Write(m_numRespawnPicksThisTurn);
+	//		result = true;
+	//	}
+	//	if ((base.syncVarDirtyBits & 1024UL) != 0UL)
+	//	{
+	//		writer.WritePackedInt32(m_tauntRequestedForNextAbility);
+	//		result = true;
+	//	}
+	//	return result;
+	//}
+
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 	}
+
+	// rogues
+	//public override void OnDeserialize(NetworkReader reader, bool initialState)
+	//{
+	//	base.OnDeserialize(reader, initialState);
+	//	if (initialState)
+	//	{
+	//		float networkm_pveMoveCostUsedThisTurn = reader.ReadSingle();
+	//		Networkm_pveMoveCostUsedThisTurn = networkm_pveMoveCostUsedThisTurn;
+	//		uint networkm_pveNumMoveActionsThisTurn = reader.ReadPackedUInt32();
+	//		Networkm_pveNumMoveActionsThisTurn = networkm_pveNumMoveActionsThisTurn;
+	//		uint networkm_pveNumAbilityActionsThisTurn = reader.ReadPackedUInt32();
+	//		Networkm_pveNumAbilityActionsThisTurn = networkm_pveNumAbilityActionsThisTurn;
+	//		uint networkm_pveNumQuickActionsThisTurn = reader.ReadPackedUInt32();
+	//		Networkm_pveNumQuickActionsThisTurn = networkm_pveNumQuickActionsThisTurn;
+	//		uint networkm_pveNumFreeActionsThisTurn = reader.ReadPackedUInt32();
+	//		Networkm_pveNumFreeActionsThisTurn = networkm_pveNumFreeActionsThisTurn;
+	//		uint networkm_pveMaxNumFreeActionsThisTurn = reader.ReadPackedUInt32();
+	//		Networkm_pveMaxNumFreeActionsThisTurn = networkm_pveMaxNumFreeActionsThisTurn;
+	//		uint networkm_pveNumAbilityActionsPerTurn = reader.ReadPackedUInt32();
+	//		Networkm_pveNumAbilityActionsPerTurn = networkm_pveNumAbilityActionsPerTurn;
+	//		bool networkm_hasStoredAbilityRequest = reader.ReadBoolean();
+	//		Networkm_hasStoredAbilityRequest = networkm_hasStoredAbilityRequest;
+	//		bool networkm_hasStoredMoveRequest = reader.ReadBoolean();
+	//		Networkm_hasStoredMoveRequest = networkm_hasStoredMoveRequest;
+	//		short networkm_numRespawnPicksThisTurn = reader.ReadInt16();
+	//		Networkm_numRespawnPicksThisTurn = networkm_numRespawnPicksThisTurn;
+	//		int networkm_tauntRequestedForNextAbility = reader.ReadPackedInt32();
+	//		Networkm_tauntRequestedForNextAbility = networkm_tauntRequestedForNextAbility;
+	//		return;
+	//	}
+	//	long num = (long)reader.ReadPackedUInt64();
+	//	if ((num & 1L) != 0L)
+	//	{
+	//		float networkm_pveMoveCostUsedThisTurn2 = reader.ReadSingle();
+	//		Networkm_pveMoveCostUsedThisTurn = networkm_pveMoveCostUsedThisTurn2;
+	//	}
+	//	if ((num & 2L) != 0L)
+	//	{
+	//		uint networkm_pveNumMoveActionsThisTurn2 = reader.ReadPackedUInt32();
+	//		Networkm_pveNumMoveActionsThisTurn = networkm_pveNumMoveActionsThisTurn2;
+	//	}
+	//	if ((num & 4L) != 0L)
+	//	{
+	//		uint networkm_pveNumAbilityActionsThisTurn2 = reader.ReadPackedUInt32();
+	//		Networkm_pveNumAbilityActionsThisTurn = networkm_pveNumAbilityActionsThisTurn2;
+	//	}
+	//	if ((num & 8L) != 0L)
+	//	{
+	//		uint networkm_pveNumQuickActionsThisTurn2 = reader.ReadPackedUInt32();
+	//		Networkm_pveNumQuickActionsThisTurn = networkm_pveNumQuickActionsThisTurn2;
+	//	}
+	//	if ((num & 16L) != 0L)
+	//	{
+	//		uint networkm_pveNumFreeActionsThisTurn2 = reader.ReadPackedUInt32();
+	//		Networkm_pveNumFreeActionsThisTurn = networkm_pveNumFreeActionsThisTurn2;
+	//	}
+	//	if ((num & 32L) != 0L)
+	//	{
+	//		uint networkm_pveMaxNumFreeActionsThisTurn2 = reader.ReadPackedUInt32();
+	//		Networkm_pveMaxNumFreeActionsThisTurn = networkm_pveMaxNumFreeActionsThisTurn2;
+	//	}
+	//	if ((num & 64L) != 0L)
+	//	{
+	//		uint networkm_pveNumAbilityActionsPerTurn2 = reader.ReadPackedUInt32();
+	//		Networkm_pveNumAbilityActionsPerTurn = networkm_pveNumAbilityActionsPerTurn2;
+	//	}
+	//	if ((num & 128L) != 0L)
+	//	{
+	//		bool networkm_hasStoredAbilityRequest2 = reader.ReadBoolean();
+	//		Networkm_hasStoredAbilityRequest = networkm_hasStoredAbilityRequest2;
+	//	}
+	//	if ((num & 256L) != 0L)
+	//	{
+	//		bool networkm_hasStoredMoveRequest2 = reader.ReadBoolean();
+	//		Networkm_hasStoredMoveRequest = networkm_hasStoredMoveRequest2;
+	//	}
+	//	if ((num & 512L) != 0L)
+	//	{
+	//		short networkm_numRespawnPicksThisTurn2 = reader.ReadInt16();
+	//		Networkm_numRespawnPicksThisTurn = networkm_numRespawnPicksThisTurn2;
+	//	}
+	//	if ((num & 1024L) != 0L)
+	//	{
+	//		int networkm_tauntRequestedForNextAbility2 = reader.ReadPackedInt32();
+	//		Networkm_tauntRequestedForNextAbility = networkm_tauntRequestedForNextAbility2;
+	//	}
+	//}
 }
