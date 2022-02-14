@@ -7,22 +7,18 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 	[Header("-- Targeting")]
 	public AbilityModPropertyFloat m_radiusMod;
 	public AbilityModPropertyBool m_ignoreLosMod;
-
 	[Header("-- For Ally Hit")]
 	public AbilityModPropertyInt m_allyHealMod;
 	public AbilityModPropertyEffectInfo m_allyHitEffectMod;
-
 	[Header("-- For Self Hit")]
 	public AbilityModPropertyInt m_baseSelfHealMod;
 	public AbilityModPropertyInt m_selfHealPerHitMod;
 	public AbilityModPropertyBool m_selfHealHitCountEnemy;
 	public AbilityModPropertyBool m_selfHealHitCountAlly;
 	public AbilityModPropertyEffectInfo m_selfHitEffectMod;
-
 	[Header("-- Shield on Self")]
 	public AbilityModPropertyInt m_shieldOnSelfPerAllyHitMod;
 	public int m_shieldOnSelfDuration = 2;
-
 	[Header("-- For Enemy Hit")]
 	public AbilityModPropertyEffectInfo m_enemyHitEffectMod;
 
@@ -51,24 +47,23 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		SparkAoeBuffDebuff ability = GetTargetAbilityOnAbilityData(abilityData) as SparkAoeBuffDebuff;
-		bool isValid = ability != null;
+		bool isAbilityPresent = ability != null;
 		string desc = "";
-
-		desc += PropDesc(m_radiusMod, "[Targeting Radius]", isValid, isValid ? ability.m_radius : 0f);
-		desc += PropDesc(m_ignoreLosMod, "[Ignore LoS?]", isValid, isValid && ability.m_penetrateLos);
-		desc += PropDesc(m_allyHealMod, "[Ally Heal]", isValid, isValid ? ability.m_allyHealAmount : 0);
-		desc += PropDesc(m_allyHitEffectMod, "{ Ally Hit Effect }", isValid, (StandardEffectInfo)(object)(isValid ? ability.m_allyHitEffect : null));
-		desc += PropDesc(m_baseSelfHealMod, "[Base Self Heal]", isValid, isValid ? ability.m_baseSelfHeal : 0);
-		desc += PropDesc(m_selfHealPerHitMod, "[Self Heal per Hit]", isValid, isValid ? ability.m_selfHealAmountPerHit : 0);
-		desc += PropDesc(m_selfHealHitCountEnemy, "[Self Heal Count Enemy]", isValid, isValid && ability.m_selfHealCountEnemyHit);
-		desc += PropDesc(m_selfHealHitCountAlly, "[Self Heal Count Ally]", isValid, isValid && ability.m_selfHealCountAllyHit);
-		desc += PropDesc(m_selfHitEffectMod, "{ Self Hit Effect }", isValid, isValid ? ability.m_selfHitEffect : null);
+		desc += PropDesc(m_radiusMod, "[Targeting Radius]", isAbilityPresent, isAbilityPresent ? ability.m_radius : 0f);
+		desc += PropDesc(m_ignoreLosMod, "[Ignore LoS?]", isAbilityPresent, isAbilityPresent && ability.m_penetrateLos);
+		desc += PropDesc(m_allyHealMod, "[Ally Heal]", isAbilityPresent, isAbilityPresent ? ability.m_allyHealAmount : 0);
+		desc += PropDesc(m_allyHitEffectMod, "{ Ally Hit Effect }", isAbilityPresent, isAbilityPresent ? ability.m_allyHitEffect : null);
+		desc += PropDesc(m_baseSelfHealMod, "[Base Self Heal]", isAbilityPresent, isAbilityPresent ? ability.m_baseSelfHeal : 0);
+		desc += PropDesc(m_selfHealPerHitMod, "[Self Heal per Hit]", isAbilityPresent, isAbilityPresent ? ability.m_selfHealAmountPerHit : 0);
+		desc += PropDesc(m_selfHealHitCountEnemy, "[Self Heal Count Enemy]", isAbilityPresent, isAbilityPresent && ability.m_selfHealCountEnemyHit);
+		desc += PropDesc(m_selfHealHitCountAlly, "[Self Heal Count Ally]", isAbilityPresent, isAbilityPresent && ability.m_selfHealCountAllyHit);
+		desc += PropDesc(m_selfHitEffectMod, "{ Self Hit Effect }", isAbilityPresent, isAbilityPresent ? ability.m_selfHitEffect : null);
 		desc += PropDesc(m_shieldOnSelfPerAllyHitMod, "[Shield on Self per Hit]");
 		if (m_shieldOnSelfPerAllyHitMod != null && m_shieldOnSelfPerAllyHitMod.GetModifiedValue(0) > 0)
 		{
 			desc += "[Shield Duration (for hit on allies)] " + m_shieldOnSelfDuration + "\n";
 		}
-		desc += PropDesc(m_enemyHitEffectMod, "{ Enemy Hit Effect }", isValid, isValid ? ability.m_enemyHitEffect : null);
+		desc += PropDesc(m_enemyHitEffectMod, "{ Enemy Hit Effect }", isAbilityPresent, isAbilityPresent ? ability.m_enemyHitEffect : null);
 		return desc;
 	}
 }
