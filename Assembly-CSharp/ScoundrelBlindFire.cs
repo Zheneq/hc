@@ -4,19 +4,12 @@ using UnityEngine;
 public class ScoundrelBlindFire : Ability
 {
 	public float m_coneWidthAngle = 90f;
-
 	public float m_coneLength = 10f;
-
 	public float m_coneBackwardOffset;
-
 	public int m_damageAmount = 20;
-
 	public bool m_penetrateLineOfSight;
-
 	public bool m_restrictWithinCover;
-
 	public int m_maxTargets = 2;
-
 	public bool m_includeTargetsInCover = true;
 
 	private AbilityMod_ScoundrelBlindFire m_abilityMod;
@@ -32,7 +25,7 @@ public class ScoundrelBlindFire : Ability
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Blindfire(this, ModdedConeWidthAngle(), m_coneLength, m_coneBackwardOffset, ModdedPenetrateLineOfSight(), m_restrictWithinCover, m_includeTargetsInCover, m_maxTargets);
+		Targeter = new AbilityUtil_Targeter_Blindfire(this, ModdedConeWidthAngle(), m_coneLength, m_coneBackwardOffset, ModdedPenetrateLineOfSight(), m_restrictWithinCover, m_includeTargetsInCover, m_maxTargets);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -49,7 +42,7 @@ public class ScoundrelBlindFire : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ScoundrelBlindFire))
 		{
-			m_abilityMod = (abilityMod as AbilityMod_ScoundrelBlindFire);
+			m_abilityMod = abilityMod as AbilityMod_ScoundrelBlindFire;
 			SetupTargeter();
 		}
 	}
@@ -62,86 +55,64 @@ public class ScoundrelBlindFire : Ability
 
 	public float ModdedConeWidthAngle()
 	{
-		float result = m_coneWidthAngle;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle)
+			: m_coneWidthAngle;
 	}
 
 	public int ModdedDamageAmount()
 	{
-		int result = m_damageAmount;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damageAmount);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public bool ModdedPenetrateLineOfSight()
 	{
-		if (m_abilityMod != null)
-		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return m_abilityMod.m_penetrateLineOfSight.GetModifiedValue(m_penetrateLineOfSight);
-				}
-			}
-		}
-		return m_penetrateLineOfSight;
+		return m_abilityMod != null
+			? m_abilityMod.m_penetrateLineOfSight.GetModifiedValue(m_penetrateLineOfSight)
+			: m_penetrateLineOfSight;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_damageAmount));
-		return list;
+		return new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_damageAmount)
+		};
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null && tooltipSubjectTypes.Count > 0)
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
+		if (tooltipSubjectTypes != null
+			&& tooltipSubjectTypes.Count > 0
+			&& tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 		{
-			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
+			return new Dictionary<AbilityTooltipSymbol, int>
 			{
-				dictionary[AbilityTooltipSymbol.Damage] = ModdedDamageAmount();
-				return dictionary;
-			}
+				[AbilityTooltipSymbol.Damage] = ModdedDamageAmount()
+			};
 		}
 		return null;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		AddTokenInt(tokens, "DamageAmount", string.Empty, m_damageAmount);
-		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
+		AddTokenInt(tokens, "DamageAmount", "", m_damageAmount);
+		AddTokenInt(tokens, "MaxTargets", "", m_maxTargets);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (m_restrictWithinCover)
-		{
-			ActorCover component = caster.GetComponent<ActorCover>();
-			return component.HasAnyCover();
-		}
-		return true;
+		return !m_restrictWithinCover || caster.GetComponent<ActorCover>().HasAnyCover();
 	}
 
 	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
 	{
-		List<Vector3> list = new List<Vector3>();
-		Vector3 aimDirection = targets[0].AimDirection;
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
-		list.Add(travelBoardSquareWorldPositionForLos + m_coneLength * Board.Get().squareSize * aimDirection);
-		return list;
+		return new List<Vector3>
+		{
+			caster.GetLoSCheckPos()+ m_coneLength * Board.Get().squareSize * targets[0].AimDirection
+		};
 	}
 }

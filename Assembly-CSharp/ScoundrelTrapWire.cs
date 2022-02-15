@@ -4,9 +4,7 @@ using UnityEngine;
 public class ScoundrelTrapWire : Ability
 {
 	public AbilityGridPattern m_pattern = AbilityGridPattern.Plus_Two_x_Two;
-
 	public float m_barrierSizeScale = 1f;
-
 	public StandardBarrierData m_barrierData;
 
 	private AbilityMod_ScoundrelTrapWire m_abilityMod;
@@ -17,7 +15,7 @@ public class ScoundrelTrapWire : Ability
 		{
 			m_abilityName = "Trap Wires";
 		}
-		if (m_pattern != 0)
+		if (m_pattern != AbilityGridPattern.NoPattern)
 		{
 			ModdedBarrierData().SetupForPattern(m_pattern);
 		}
@@ -32,8 +30,7 @@ public class ScoundrelTrapWire : Ability
 		}
 		else
 		{
-			AbilityUtil_Targeter_Grid abilityUtil_Targeter_Grid = new AbilityUtil_Targeter_Grid(this, m_pattern, ModdedBarrierScale());
-			Targeter = abilityUtil_Targeter_Grid;
+			Targeter = new AbilityUtil_Targeter_Grid(this, m_pattern, ModdedBarrierScale());
 		}
 		Targeter.ShowArcToShape = true;
 	}
@@ -70,26 +67,26 @@ public class ScoundrelTrapWire : Ability
 
 	public StandardBarrierData ModdedBarrierData()
 	{
-		if (m_abilityMod != null)
-		{
-			return m_abilityMod.m_barrierDataMod.GetModifiedValue(m_barrierData);
-		}
-		return m_barrierData;
+		return m_abilityMod != null
+			? m_abilityMod.m_barrierDataMod.GetModifiedValue(m_barrierData)
+			: m_barrierData;
 	}
 
 	private float ModdedBarrierScale()
 	{
-		float num = m_barrierSizeScale;
+		float scale = m_barrierSizeScale;
 		if (m_abilityMod != null)
 		{
-			num = m_abilityMod.m_barrierScaleMod.GetModifiedValue(num);
+			return m_abilityMod.m_barrierScaleMod.GetModifiedValue(scale);
 		}
-		return num;
+		return scale;
 	}
 
 	public List<GameObject> ModdedBarrierSequencePrefab()
 	{
-		if ((m_abilityMod?.m_barrierSequence?.Count ?? 0) > 0)
+		if (m_abilityMod != null
+			&& m_abilityMod.m_barrierSequence != null
+			&& m_abilityMod.m_barrierSequence.Count > 0)
 		{
 			return m_abilityMod.m_barrierSequence;
 		}

@@ -6,7 +6,6 @@ public class ScoundrelBlindFireSequence : Sequence
 	public class ConeExtraParams : IExtraSequenceParams
 	{
 		public float halfAngleDegrees = -1f;
-
 		public float maxDistInSquares = -1f;
 
 		public override void XSP_SerializeToStream(IBitStream stream)
@@ -24,82 +23,59 @@ public class ScoundrelBlindFireSequence : Sequence
 
 	[Tooltip("Main FX prefab.")]
 	public GameObject m_fxPrefab;
-
 	[Tooltip("FX at point(s) of impact")]
 	public GameObject m_fxImpactPrefab;
-
 	[JointPopup("hit FX attach joint (or start position for projectiles).")]
 	public JointPopupProperty m_hitFxJoint;
-
 	[JointPopup("FX attach joint (or start position for projectiles).")]
 	public JointPopupProperty m_fxJointLeft;
-
 	[JointPopup("FX attach joint (or start position for projectiles).")]
 	public JointPopupProperty m_fxJointRight;
-
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
 	[AnimEventPicker]
 	public Object m_startEventLeft;
-
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
 	[AnimEventPicker]
 	public Object m_startEventRight;
-
 	[AnimEventPicker]
 	public Object m_hitReactEvent;
-
 	[AnimEventPicker]
 	public Object m_lastHitReactEvent;
-
 	[Tooltip("Amount of time to trigger actual impact after hit react event has been received")]
 	public float m_hitImpactDelayTime = -1f;
-
 	public float m_maxDistInSquares = 7f;
-
 	[Header("    (this is half angle, to left and right of center direction)")]
 	public float m_angleRange = 30f;
-
 	[Tooltip("will assume sequence will shoot at least 1 at the moment")]
 	public int m_projectilesPerAnimEvent = 1;
-
 	public bool m_raycastDistanceFromLosHeight = true;
-
 	[Header("    ( if 1 projectile at a time, estimated number of projectiles total )")]
 	public int m_expectedNumProjectilesForEdgeShots = -1;
-
 	[Header("    ( chance to add extra shots at edges beyond guaranteed ones )")]
 	public float m_extraEdgeShotChance;
 
 	private List<GameObject> m_FXs;
-
 	private List<GameObject> m_fxImpacts;
 
 	[AudioEvent(false)]
 	public string m_audioEvent;
-
 	[AudioEvent(false)]
 	public string m_impactAudioEvent;
-
 	[Header("-- Alternative IMpact Audio Events, handled per ability, unused otherwise")]
 	[AudioEvent(false)]
 	public string[] m_alternativeImpactAudioEvents;
 
 	private int m_alternativeAudioIndex = -1;
-
 	private int m_numSpawnAttempts;
-
 	private int m_spawnIndexEdgeMin = -1;
-
 	private int m_spawnIndexEdgeMax = -1;
-
 	private List<SimpleAttachedVFXSequence.DelayedImpact> m_delayedImpacts = new List<SimpleAttachedVFXSequence.DelayedImpact>();
 
 	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			ConeExtraParams coneExtraParams = extraSequenceParams as ConeExtraParams;
-			if (coneExtraParams != null)
+			if (extraSequenceParams is ConeExtraParams coneExtraParams)
 			{
 				if (coneExtraParams.maxDistInSquares > 0f)
 				{
@@ -110,18 +86,16 @@ public class ScoundrelBlindFireSequence : Sequence
 					m_angleRange = coneExtraParams.halfAngleDegrees;
 				}
 			}
-			SimpleAttachedVFXSequence.ImpactDelayParams impactDelayParams = extraSequenceParams as SimpleAttachedVFXSequence.ImpactDelayParams;
-			if (impactDelayParams == null)
+			if (extraSequenceParams is SimpleAttachedVFXSequence.ImpactDelayParams impactDelayParams)
 			{
-				continue;
-			}
-			if (impactDelayParams.impactDelayTime > 0f)
-			{
-				m_hitImpactDelayTime = impactDelayParams.impactDelayTime;
-			}
-			if (impactDelayParams.alternativeImpactAudioIndex >= 0)
-			{
-				m_alternativeAudioIndex = impactDelayParams.alternativeImpactAudioIndex;
+				if (impactDelayParams.impactDelayTime > 0f)
+				{
+					m_hitImpactDelayTime = impactDelayParams.impactDelayTime;
+				}
+				if (impactDelayParams.alternativeImpactAudioIndex >= 0)
+				{
+					m_alternativeAudioIndex = impactDelayParams.alternativeImpactAudioIndex;
+				}
 			}
 		}
 	}
@@ -130,21 +104,11 @@ public class ScoundrelBlindFireSequence : Sequence
 	{
 		m_FXs = new List<GameObject>();
 		m_fxImpacts = new List<GameObject>();
-		if (m_projectilesPerAnimEvent <= 20)
+		if (m_projectilesPerAnimEvent > 20 || m_projectilesPerAnimEvent < 1)
 		{
-			if (m_projectilesPerAnimEvent >= 1)
-			{
-				goto IL_004d;
-			}
+			m_projectilesPerAnimEvent = 1;
 		}
-		m_projectilesPerAnimEvent = 1;
-		goto IL_004d;
-		IL_004d:
-		if (m_projectilesPerAnimEvent > 1)
-		{
-			return;
-		}
-		while (true)
+		if (m_projectilesPerAnimEvent <= 1)
 		{
 			int num = m_expectedNumProjectilesForEdgeShots;
 			if (num <= 0)
@@ -155,13 +119,8 @@ public class ScoundrelBlindFireSequence : Sequence
 			m_spawnIndexEdgeMax = Random.Range(0, num);
 			if (m_spawnIndexEdgeMax == m_spawnIndexEdgeMin)
 			{
-				while (true)
-				{
-					m_spawnIndexEdgeMax = (m_spawnIndexEdgeMax + 1) % num;
-					return;
-				}
+				m_spawnIndexEdgeMax = (m_spawnIndexEdgeMax + 1) % num;
 			}
-			return;
 		}
 	}
 
@@ -170,22 +129,22 @@ public class ScoundrelBlindFireSequence : Sequence
 		Vector3 vector = start;
 		if (m_raycastDistanceFromLosHeight)
 		{
-			vector.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+			vector.y = Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		}
 		else
 		{
 			vector.y += 0.5f;
 		}
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, forward, maxDist, false, base.Caster);
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, forward, maxDist, false, Caster);
 		return (vector - laserEndPoint).magnitude;
 	}
 
 	private void SpawnFX(bool left)
 	{
-		JointPopupProperty jointPopupProperty = (!left) ? m_fxJointRight : m_fxJointLeft;
+		JointPopupProperty jointPopupProperty = left ? m_fxJointLeft : m_fxJointRight;
 		if (!jointPopupProperty.IsInitialized())
 		{
-			jointPopupProperty.Initialize(base.Caster.gameObject);
+			jointPopupProperty.Initialize(Caster.gameObject);
 		}
 		Vector3 forward = jointPopupProperty.m_jointObject.transform.forward;
 		forward.y = 0f;
@@ -241,76 +200,68 @@ public class ScoundrelBlindFireSequence : Sequence
 			GameObject item2 = CreateProjectileFx(forward, angle2, jointPopupProperty);
 			m_FXs.Add(item2);
 		}
-		while (true)
+		if (!string.IsNullOrEmpty(m_audioEvent))
 		{
-			if (!string.IsNullOrEmpty(m_audioEvent))
+			AudioManager.PostEvent(m_audioEvent, Caster.gameObject);
+		}
+		if (m_hitReactEvent == null)
+		{
+			if (m_lastHitReactEvent == null)
 			{
-				AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
-			}
-			if (m_hitReactEvent == null)
-			{
-				if (m_lastHitReactEvent == null)
+				if (m_hitImpactDelayTime > 0f)
 				{
-					if (m_hitImpactDelayTime > 0f)
-					{
-						m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + m_hitImpactDelayTime, true));
-					}
-					else
-					{
-						SpawnImpactFX(true);
-					}
+					m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + m_hitImpactDelayTime, true));
+				}
+				else
+				{
+					SpawnImpactFX(true);
 				}
 			}
-			m_numSpawnAttempts++;
-			return;
 		}
+		m_numSpawnAttempts++;
 	}
 
 	private GameObject CreateProjectileFx(Vector3 forward, float angle, JointPopupProperty fxJoint)
 	{
-		Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
-		Vector3 vector = rotation * forward;
-		GameObject gameObject = InstantiateFX(m_fxPrefab, fxJoint.m_jointObject.transform.position, Quaternion.LookRotation(vector));
-		float projectileDistance = GetProjectileDistance(base.Caster.transform.position, vector, m_maxDistInSquares * 1.5f);
-		Sequence.SetAttribute(gameObject, "projectileDistance", projectileDistance);
-		Debug.DrawRay(fxJoint.m_jointObject.transform.position, projectileDistance * vector, Color.red, 5f);
+		Vector3 dir = Quaternion.AngleAxis(angle, Vector3.up) * forward;
+		GameObject gameObject = InstantiateFX(m_fxPrefab, fxJoint.m_jointObject.transform.position, Quaternion.LookRotation(dir));
+		float projectileDistance = GetProjectileDistance(Caster.transform.position, dir, m_maxDistInSquares * 1.5f);
+		SetAttribute(gameObject, "projectileDistance", projectileDistance);
+		Debug.DrawRay(fxJoint.m_jointObject.transform.position, projectileDistance * dir, Color.red, 5f);
 		return gameObject;
 	}
 
 	private void SpawnImpactFX(bool lastHit)
 	{
-		if (base.Targets != null)
+		if (Targets != null)
 		{
-			for (int i = 0; i < base.Targets.Length; i++)
+			for (int i = 0; i < Targets.Length; i++)
 			{
 				Vector3 targetHitPosition = GetTargetHitPosition(i, m_hitFxJoint);
-				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
+				Vector3 hitDirection = targetHitPosition - Caster.transform.position;
 				hitDirection.y = 0f;
 				hitDirection.Normalize();
 				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, hitDirection);
-				if ((bool)m_fxImpactPrefab)
+				if (m_fxImpactPrefab != null)
 				{
 					m_fxImpacts.Add(InstantiateFX(m_fxImpactPrefab, targetHitPosition, Quaternion.identity));
 				}
 				string text = m_impactAudioEvent;
-				if (m_alternativeAudioIndex >= 0)
+				if (m_alternativeAudioIndex >= 0 && m_alternativeAudioIndex < m_alternativeImpactAudioEvents.Length)
 				{
-					if (m_alternativeAudioIndex < m_alternativeImpactAudioEvents.Length)
-					{
-						text = m_alternativeImpactAudioEvents[m_alternativeAudioIndex];
-					}
+					text = m_alternativeImpactAudioEvents[m_alternativeAudioIndex];
 				}
 				if (!string.IsNullOrEmpty(text))
 				{
-					AudioManager.PostEvent(text, base.Targets[i].gameObject);
+					AudioManager.PostEvent(text, Targets[i].gameObject);
 				}
-				if (base.Targets[i] != null)
+				if (Targets[i] != null)
 				{
-					base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, lastHit ? ActorModelData.RagdollActivation.HealthBased : ActorModelData.RagdollActivation.None);
+					Source.OnSequenceHit(this, Targets[i], impulseInfo, lastHit ? ActorModelData.RagdollActivation.HealthBased : ActorModelData.RagdollActivation.None);
 				}
 			}
 		}
-		base.Source.OnSequenceHit(this, base.TargetPos);
+		Source.OnSequenceHit(this, TargetPos);
 	}
 
 	private bool ImpactsFinished()
@@ -320,57 +271,21 @@ public class ScoundrelBlindFireSequence : Sequence
 		{
 			result = false;
 		}
-		using (List<GameObject>.Enumerator enumerator = m_FXs.GetEnumerator())
+		foreach (GameObject fx in m_FXs)
 		{
-			while (true)
+			if (fx.activeSelf)
 			{
-				if (!enumerator.MoveNext())
-				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							goto end_IL_0021;
-						}
-					}
-				}
-				GameObject current = enumerator.Current;
-				if (current.activeSelf)
-				{
-					result = false;
-					break;
-				}
+				result = false;
+				break;
 			}
-			end_IL_0021:;
 		}
-		using (List<GameObject>.Enumerator enumerator2 = m_fxImpacts.GetEnumerator())
+		foreach (GameObject fxImpact in m_fxImpacts)
 		{
-			while (true)
+			if (fxImpact.activeSelf)
 			{
-				if (!enumerator2.MoveNext())
-				{
-					break;
-				}
-				GameObject current2 = enumerator2.Current;
-				if (current2.activeSelf)
-				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							break;
-						default:
-							result = false;
-							goto end_IL_0076;
-						}
-					}
-				}
+				result = false;
+				break;
 			}
-			end_IL_0076:;
 		}
 		if (m_delayedImpacts.Count > 0)
 		{
@@ -381,30 +296,21 @@ public class ScoundrelBlindFireSequence : Sequence
 
 	private void Update()
 	{
-		if (!m_initialized)
+		if (m_initialized)
 		{
-			return;
-		}
-		for (int num = m_delayedImpacts.Count - 1; num >= 0; num--)
-		{
-			SimpleAttachedVFXSequence.DelayedImpact delayedImpact = m_delayedImpacts[num];
-			if (GameTime.time >= delayedImpact.m_timeToSpawnImpact)
+			for (int i = m_delayedImpacts.Count - 1; i >= 0; i--)
 			{
-				SpawnImpactFX(delayedImpact.m_lastHit);
-				m_delayedImpacts.RemoveAt(num);
-			}
-		}
-		while (true)
-		{
-			if (ImpactsFinished())
-			{
-				while (true)
+				SimpleAttachedVFXSequence.DelayedImpact delayedImpact = m_delayedImpacts[i];
+				if (GameTime.time >= delayedImpact.m_timeToSpawnImpact)
 				{
-					MarkForRemoval();
-					return;
+					SpawnImpactFX(delayedImpact.m_lastHit);
+					m_delayedImpacts.RemoveAt(i);
 				}
 			}
-			return;
+			if (ImpactsFinished())
+			{
+				MarkForRemoval();
+			}
 		}
 	}
 
@@ -412,74 +318,32 @@ public class ScoundrelBlindFireSequence : Sequence
 	{
 		if (parameter == m_startEventLeft)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					SpawnFX(true);
-					return;
-				}
-			}
+			SpawnFX(true);
 		}
-		if (parameter == m_startEventRight)
+		else if (parameter == m_startEventRight)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					SpawnFX(false);
-					return;
-				}
-			}
+			SpawnFX(false);
 		}
-		if (parameter == m_hitReactEvent)
+		else if (parameter == m_hitReactEvent)
 		{
 			if (m_hitImpactDelayTime > 0f)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + m_hitImpactDelayTime, m_lastHitReactEvent == null));
-						return;
-					}
-				}
+				m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + m_hitImpactDelayTime, m_lastHitReactEvent == null));
 			}
-			SpawnImpactFX(m_lastHitReactEvent == null);
+			else
+			{
+				SpawnImpactFX(m_lastHitReactEvent == null);
+			}
 		}
-		else
+		else if (parameter == m_lastHitReactEvent)
 		{
-			if (!(parameter == m_lastHitReactEvent))
+			if (m_hitImpactDelayTime > 0f)
 			{
-				return;
+				m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + m_hitImpactDelayTime, true));
 			}
-			while (true)
+			else
 			{
-				if (m_hitImpactDelayTime > 0f)
-				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + m_hitImpactDelayTime, true));
-							return;
-						}
-					}
-				}
 				SpawnImpactFX(true);
-				return;
 			}
 		}
 	}
@@ -488,25 +352,17 @@ public class ScoundrelBlindFireSequence : Sequence
 	{
 		if (m_FXs != null)
 		{
-			using (List<GameObject>.Enumerator enumerator = m_FXs.GetEnumerator())
+			foreach (GameObject fx in m_FXs)
 			{
-				while (enumerator.MoveNext())
-				{
-					GameObject current = enumerator.Current;
-					Object.Destroy(current.gameObject);
-				}
+				Destroy(fx.gameObject);
 			}
 			m_FXs = null;
 		}
 		if (m_fxImpacts != null)
 		{
-			using (List<GameObject>.Enumerator enumerator2 = m_fxImpacts.GetEnumerator())
+			foreach (GameObject fxImpact in m_fxImpacts)
 			{
-				while (enumerator2.MoveNext())
-				{
-					GameObject current2 = enumerator2.Current;
-					Object.Destroy(current2.gameObject);
-				}
+				Destroy(fxImpact.gameObject);
 			}
 			m_fxImpacts = null;
 		}
