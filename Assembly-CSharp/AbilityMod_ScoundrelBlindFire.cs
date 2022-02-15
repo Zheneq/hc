@@ -6,11 +6,8 @@ public class AbilityMod_ScoundrelBlindFire : AbilityMod
 {
 	[Header("-- Cone Damage and Angle ------------------------")]
 	public AbilityModPropertyInt m_damageMod;
-
 	public AbilityModPropertyFloat m_coneWidthAngleMod;
-
 	public AbilityModPropertyBool m_penetrateLineOfSight;
-
 	[Header("-- Effect to apply on Target hit ----------------")]
 	public StandardEffectInfo m_effectOnTargetsHit;
 
@@ -22,49 +19,22 @@ public class AbilityMod_ScoundrelBlindFire : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ScoundrelBlindFire scoundrelBlindFire = targetAbility as ScoundrelBlindFire;
-		if (!(scoundrelBlindFire != null))
+		if (scoundrelBlindFire != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken(tokens, m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, scoundrelBlindFire.m_coneWidthAngle);
-			AbilityMod.AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, scoundrelBlindFire.m_damageAmount);
-			AbilityMod.AddToken_EffectInfo(tokens, m_effectOnTargetsHit, "EffectOnTargetHit", null, false);
-			return;
+			AddToken(tokens, m_coneWidthAngleMod, "ConeWidthAngle", "", scoundrelBlindFire.m_coneWidthAngle);
+			AddToken(tokens, m_damageMod, "DamageAmount", "", scoundrelBlindFire.m_damageAmount);
+			AddToken_EffectInfo(tokens, m_effectOnTargetsHit, "EffectOnTargetHit", null, false);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		ScoundrelBlindFire scoundrelBlindFire = GetTargetAbilityOnAbilityData(abilityData) as ScoundrelBlindFire;
-		bool flag = scoundrelBlindFire != null;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyInt damageMod = m_damageMod;
-		int baseVal;
-		if (flag)
-		{
-			baseVal = scoundrelBlindFire.m_damageAmount;
-		}
-		else
-		{
-			baseVal = 0;
-		}
-		empty = str + AbilityModHelper.GetModPropertyDesc(damageMod, "[Cone Hit Damage]", flag, baseVal);
-		empty += AbilityModHelper.GetModPropertyDesc(m_coneWidthAngleMod, "[Cone Width Angle]", flag, (!flag) ? 0f : scoundrelBlindFire.m_coneWidthAngle);
-		string str2 = empty;
-		AbilityModPropertyBool penetrateLineOfSight = m_penetrateLineOfSight;
-		int baseVal2;
-		if (flag)
-		{
-			baseVal2 = (scoundrelBlindFire.m_penetrateLineOfSight ? 1 : 0);
-		}
-		else
-		{
-			baseVal2 = 0;
-		}
-		empty = str2 + AbilityModHelper.GetModPropertyDesc(penetrateLineOfSight, "[Penetrate Line Of Sight]", flag, (byte)baseVal2 != 0);
-		return empty + AbilityModHelper.GetModEffectInfoDesc(m_effectOnTargetsHit, "{ Effect on Target Hit }", string.Empty, flag);
+		bool isAbilityPresent = scoundrelBlindFire != null;
+		string desc = "";
+		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Cone Hit Damage]", isAbilityPresent, isAbilityPresent ? scoundrelBlindFire.m_damageAmount : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_coneWidthAngleMod, "[Cone Width Angle]", isAbilityPresent, isAbilityPresent ? scoundrelBlindFire.m_coneWidthAngle : 0f);
+		desc += AbilityModHelper.GetModPropertyDesc(m_penetrateLineOfSight, "[Penetrate Line Of Sight]", isAbilityPresent, isAbilityPresent && scoundrelBlindFire.m_penetrateLineOfSight);
+		return desc + AbilityModHelper.GetModEffectInfoDesc(m_effectOnTargetsHit, "{ Effect on Target Hit }", "", isAbilityPresent);
 	}
 }

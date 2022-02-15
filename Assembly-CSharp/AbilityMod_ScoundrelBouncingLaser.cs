@@ -6,22 +6,14 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 {
 	[Header("-- Laser Properties")]
 	public AbilityModPropertyInt m_maxTargetsMod;
-
 	public AbilityModPropertyInt m_maxBounceMod;
-
 	public AbilityModPropertyFloat m_laserWidthMod;
-
 	public AbilityModPropertyFloat m_distancePerBounceMod;
-
 	public AbilityModPropertyFloat m_maxTotalDistanceMod;
-
 	[Header("-- Damage")]
 	public AbilityModPropertyInt m_baseDamageMod;
-
 	public AbilityModPropertyInt m_minDamageMod;
-
 	public AbilityModPropertyInt m_damageChangePerHitMod;
-
 	public AbilityModPropertyInt m_bonusDamagePerBounceMod;
 
 	public override Type GetTargetAbilityType()
@@ -32,42 +24,25 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ScoundrelBouncingLaser scoundrelBouncingLaser = targetAbility as ScoundrelBouncingLaser;
-		if (!(scoundrelBouncingLaser != null))
+		if (scoundrelBouncingLaser != null)
 		{
-			return;
-		}
-		AbilityMod.AddToken(tokens, m_baseDamageMod, "DamageAmount", string.Empty, scoundrelBouncingLaser.m_damageAmount);
-		AbilityMod.AddToken(tokens, m_minDamageMod, "MinDamageAmount", string.Empty, scoundrelBouncingLaser.m_minDamageAmount);
-		AbilityMod.AddToken(tokens, m_damageChangePerHitMod, "DamageChangePerHit", string.Empty, scoundrelBouncingLaser.m_damageChangePerHit);
-		AbilityMod.AddToken(tokens, m_bonusDamagePerBounceMod, "BonusDamagePerBounce", string.Empty, scoundrelBouncingLaser.m_bonusDamagePerBounce);
-		AbilityMod.AddToken(tokens, m_laserWidthMod, "Width", string.Empty, scoundrelBouncingLaser.m_width);
-		AbilityMod.AddToken(tokens, m_distancePerBounceMod, "MaxDistancePerBounce", string.Empty, scoundrelBouncingLaser.m_maxDistancePerBounce);
-		AbilityMod.AddToken(tokens, m_maxTotalDistanceMod, "MaxTotalDistance", string.Empty, scoundrelBouncingLaser.m_maxTotalDistance);
-		AbilityMod.AddToken(tokens, m_maxBounceMod, "MaxBounces", string.Empty, scoundrelBouncingLaser.m_maxBounces);
-		AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargetsHit", string.Empty, scoundrelBouncingLaser.m_maxTargetsHit);
-		if (m_baseDamageMod == null)
-		{
-			return;
-		}
-		while (true)
-		{
-			if (m_damageChangePerHitMod == null)
+			AddToken(tokens, m_baseDamageMod, "DamageAmount", "", scoundrelBouncingLaser.m_damageAmount);
+			AddToken(tokens, m_minDamageMod, "MinDamageAmount", "", scoundrelBouncingLaser.m_minDamageAmount);
+			AddToken(tokens, m_damageChangePerHitMod, "DamageChangePerHit", "", scoundrelBouncingLaser.m_damageChangePerHit);
+			AddToken(tokens, m_bonusDamagePerBounceMod, "BonusDamagePerBounce", "", scoundrelBouncingLaser.m_bonusDamagePerBounce);
+			AddToken(tokens, m_laserWidthMod, "Width", "", scoundrelBouncingLaser.m_width);
+			AddToken(tokens, m_distancePerBounceMod, "MaxDistancePerBounce", "", scoundrelBouncingLaser.m_maxDistancePerBounce);
+			AddToken(tokens, m_maxTotalDistanceMod, "MaxTotalDistance", "", scoundrelBouncingLaser.m_maxTotalDistance);
+			AddToken(tokens, m_maxBounceMod, "MaxBounces", "", scoundrelBouncingLaser.m_maxBounces);
+			AddToken(tokens, m_maxTargetsMod, "MaxTargetsHit", "", scoundrelBouncingLaser.m_maxTargetsHit);
+			if (m_baseDamageMod != null && m_damageChangePerHitMod != null)
 			{
-				return;
-			}
-			while (true)
-			{
-				int modifiedValue = m_baseDamageMod.GetModifiedValue(scoundrelBouncingLaser.m_damageAmount);
-				int modifiedValue2 = m_damageChangePerHitMod.GetModifiedValue(scoundrelBouncingLaser.m_damageChangePerHit);
-				if (modifiedValue2 != 0)
+				int baseDamage = m_baseDamageMod.GetModifiedValue(scoundrelBouncingLaser.m_damageAmount);
+				int bonusDamage = m_damageChangePerHitMod.GetModifiedValue(scoundrelBouncingLaser.m_damageChangePerHit);
+				if (bonusDamage != 0)
 				{
-					while (true)
-					{
-						AbilityMod.AddToken_IntDiff(tokens, "FirstDamageAfterChange", string.Empty, modifiedValue + modifiedValue2, false, 0);
-						return;
-					}
+					AddToken_IntDiff(tokens, "FirstDamageAfterChange", "", baseDamage + bonusDamage, false, 0);
 				}
-				return;
 			}
 		}
 	}
@@ -75,83 +50,17 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		ScoundrelBouncingLaser scoundrelBouncingLaser = GetTargetAbilityOnAbilityData(abilityData) as ScoundrelBouncingLaser;
-		bool flag = scoundrelBouncingLaser != null;
-		string empty = string.Empty;
-		empty += AbilityModHelper.GetModPropertyDesc(m_maxTargetsMod, "[Max Target Hits]", flag, flag ? scoundrelBouncingLaser.m_maxTargetsHit : 0);
-		string str = empty;
-		AbilityModPropertyInt maxBounceMod = m_maxBounceMod;
-		int baseVal;
-		if (flag)
-		{
-			baseVal = scoundrelBouncingLaser.m_maxBounces;
-		}
-		else
-		{
-			baseVal = 0;
-		}
-		empty = str + AbilityModHelper.GetModPropertyDesc(maxBounceMod, "[Max Bounces]", flag, baseVal);
-		string str2 = empty;
-		AbilityModPropertyFloat laserWidthMod = m_laserWidthMod;
-		float baseVal2;
-		if (flag)
-		{
-			baseVal2 = scoundrelBouncingLaser.m_width;
-		}
-		else
-		{
-			baseVal2 = 0f;
-		}
-		empty = str2 + AbilityModHelper.GetModPropertyDesc(laserWidthMod, "[Laser Width]", flag, baseVal2);
-		string str3 = empty;
-		AbilityModPropertyFloat distancePerBounceMod = m_distancePerBounceMod;
-		float baseVal3;
-		if (flag)
-		{
-			baseVal3 = scoundrelBouncingLaser.m_maxDistancePerBounce;
-		}
-		else
-		{
-			baseVal3 = 0f;
-		}
-		empty = str3 + AbilityModHelper.GetModPropertyDesc(distancePerBounceMod, "[Distance Per Bounce]", flag, baseVal3);
-		string str4 = empty;
-		AbilityModPropertyFloat maxTotalDistanceMod = m_maxTotalDistanceMod;
-		float baseVal4;
-		if (flag)
-		{
-			baseVal4 = scoundrelBouncingLaser.m_maxTotalDistance;
-		}
-		else
-		{
-			baseVal4 = 0f;
-		}
-		empty = str4 + AbilityModHelper.GetModPropertyDesc(maxTotalDistanceMod, "[Max Total Distance]", flag, baseVal4);
-		string str5 = empty;
-		AbilityModPropertyInt baseDamageMod = m_baseDamageMod;
-		int baseVal5;
-		if (flag)
-		{
-			baseVal5 = scoundrelBouncingLaser.m_damageAmount;
-		}
-		else
-		{
-			baseVal5 = 0;
-		}
-		empty = str5 + AbilityModHelper.GetModPropertyDesc(baseDamageMod, "[Base Damage]", flag, baseVal5);
-		empty += AbilityModHelper.GetModPropertyDesc(m_minDamageMod, "[Min Base Damage Mod]", flag, flag ? scoundrelBouncingLaser.m_minDamageAmount : 0);
-		string str6 = empty;
-		AbilityModPropertyInt damageChangePerHitMod = m_damageChangePerHitMod;
-		int baseVal6;
-		if (flag)
-		{
-			baseVal6 = scoundrelBouncingLaser.m_damageChangePerHit;
-		}
-		else
-		{
-			baseVal6 = 0;
-		}
-		empty = str6 + AbilityModHelper.GetModPropertyDesc(damageChangePerHitMod, "[Damage Change Per Hit]", flag, baseVal6);
-		return empty + AbilityModHelper.GetModPropertyDesc(m_bonusDamagePerBounceMod, "[Bonus Damage Per Bounce]", flag, flag ? scoundrelBouncingLaser.m_bonusDamagePerBounce : 0);
+		bool isAbilityPresent = scoundrelBouncingLaser != null;
+		string desc = "";
+		desc += AbilityModHelper.GetModPropertyDesc(m_maxTargetsMod, "[Max Target Hits]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_maxTargetsHit : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_maxBounceMod, "[Max Bounces]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_maxBounces : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_laserWidthMod, "[Laser Width]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_width : 0f);
+		desc += AbilityModHelper.GetModPropertyDesc(m_distancePerBounceMod, "[Distance Per Bounce]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_maxDistancePerBounce : 0f);
+		desc += AbilityModHelper.GetModPropertyDesc(m_maxTotalDistanceMod, "[Max Total Distance]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_maxTotalDistance : 0f);
+		desc += AbilityModHelper.GetModPropertyDesc(m_baseDamageMod, "[Base Damage]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_damageAmount : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_minDamageMod, "[Min Base Damage Mod]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_minDamageAmount : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_damageChangePerHitMod, "[Damage Change Per Hit]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_damageChangePerHit : 0);
+		return desc + AbilityModHelper.GetModPropertyDesc(m_bonusDamagePerBounceMod, "[Bonus Damage Per Bounce]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_bonusDamagePerBounce : 0);
 	}
 
 	protected override void AppendModSpecificTooltipCheckNumbers(Ability abilityAsBase, List<int> numbers)
@@ -159,9 +68,9 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		ScoundrelBouncingLaser scoundrelBouncingLaser = abilityAsBase as ScoundrelBouncingLaser;
 		if (scoundrelBouncingLaser != null)
 		{
-			int modifiedValue = m_baseDamageMod.GetModifiedValue(scoundrelBouncingLaser.m_damageAmount);
-			int modifiedValue2 = m_damageChangePerHitMod.GetModifiedValue(scoundrelBouncingLaser.m_damageChangePerHit);
-			numbers.Add(modifiedValue + modifiedValue2);
+			int baseDamage = m_baseDamageMod.GetModifiedValue(scoundrelBouncingLaser.m_damageAmount);
+			int bonusDamage = m_damageChangePerHitMod.GetModifiedValue(scoundrelBouncingLaser.m_damageChangePerHit);
+			numbers.Add(baseDamage + bonusDamage);
 		}
 	}
 }

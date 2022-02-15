@@ -6,26 +6,17 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 {
 	[Header("-- Energy gain per step")]
 	public AbilityModPropertyInt m_extraEnergyPerStepMod;
-
 	[Header("-- Trap Wire on Start, assuming centered at start square of caster on turn start")]
 	public bool m_dropTrapWireOnStart;
-
 	public AbilityGridPattern m_trapwirePattern = AbilityGridPattern.Plus_Two_x_Two;
-
 	public StandardBarrierData m_trapWireBarrierData;
-
 	public GameObject m_trapwireCastSequencePrefab;
-
 	[Header("-- Effect on Start for Absorb/Health")]
 	public StandardEffectInfo m_additionalEffectOnStart;
-
 	public GameObject m_additionalEffectCastSequencePrefab;
-
 	[Header("-- Energy gained per adjacent ally at destination")]
 	public int m_techPointGainPerAdjacentAlly;
-
 	public int m_techPointGrantedToAdjacentAllies;
-
 	[Header("-- Effect On Self If You End The Dash In Brush")]
 	public StandardEffectInfo m_effectToSelfForLandingInBrush;
 
@@ -37,61 +28,40 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ScoundrelEvasionRoll scoundrelEvasionRoll = targetAbility as ScoundrelEvasionRoll;
-		if (!(scoundrelEvasionRoll != null))
+		if (scoundrelEvasionRoll != null)
 		{
-			return;
-		}
-		AbilityMod.AddToken(tokens, m_extraEnergyPerStepMod, "ExtraEnergyPerStep", string.Empty, scoundrelEvasionRoll.m_extraEnergyPerStep);
-		if (m_dropTrapWireOnStart)
-		{
-			if (m_trapWireBarrierData != null)
+			AddToken(tokens, m_extraEnergyPerStepMod, "ExtraEnergyPerStep", "", scoundrelEvasionRoll.m_extraEnergyPerStep);
+			if (m_dropTrapWireOnStart
+				&& m_trapWireBarrierData != null
+				&& m_trapwirePattern != AbilityGridPattern.NoPattern)
 			{
-				if (m_trapwirePattern != 0)
-				{
-					m_trapWireBarrierData.AddTooltipTokens(tokens, "TrapBarrier");
-				}
+				m_trapWireBarrierData.AddTooltipTokens(tokens, "TrapBarrier");
 			}
+			AddToken_EffectInfo(tokens, m_additionalEffectOnStart, "AdditionalEffectOnStart", null, false);
+			AddToken_EffectInfo(tokens, m_effectToSelfForLandingInBrush, "EffectOnSelfIfLandInBrush", null, false);
 		}
-		AbilityMod.AddToken_EffectInfo(tokens, m_additionalEffectOnStart, "AdditionalEffectOnStart", null, false);
-		AbilityMod.AddToken_EffectInfo(tokens, m_effectToSelfForLandingInBrush, "EffectOnSelfIfLandInBrush", null, false);
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		ScoundrelEvasionRoll scoundrelEvasionRoll = GetTargetAbilityOnAbilityData(abilityData) as ScoundrelEvasionRoll;
-		bool flag = scoundrelEvasionRoll != null;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyInt extraEnergyPerStepMod = m_extraEnergyPerStepMod;
-		int baseVal;
-		if (flag)
+		bool isAbilityPresent = scoundrelEvasionRoll != null;
+		string desc = "";
+		desc += PropDesc(m_extraEnergyPerStepMod, "[ExtraEnergyPerStep]", isAbilityPresent, isAbilityPresent ? scoundrelEvasionRoll.m_extraEnergyPerStep : 0);
+		if (m_dropTrapWireOnStart && m_trapWireBarrierData != null && m_trapwirePattern != 0)
 		{
-			baseVal = scoundrelEvasionRoll.m_extraEnergyPerStep;
+			desc += "Drops TrapWire with Pattern[ " + m_trapwirePattern.ToString() + " ]\n";
+			desc += m_trapWireBarrierData.GetInEditorDescription("{ Barrier Data }", "", isAbilityPresent);
 		}
-		else
-		{
-			baseVal = 0;
-		}
-		empty = str + PropDesc(extraEnergyPerStepMod, "[ExtraEnergyPerStep]", flag, baseVal);
-		if (m_dropTrapWireOnStart && m_trapWireBarrierData != null)
-		{
-			if (m_trapwirePattern != 0)
-			{
-				empty = empty + "Drops TrapWire with Pattern[ " + m_trapwirePattern.ToString() + " ]\n";
-				empty += m_trapWireBarrierData.GetInEditorDescription("{ Barrier Data }", string.Empty, flag);
-			}
-		}
-		empty += AbilityModHelper.GetModEffectInfoDesc(m_additionalEffectOnStart, "{ Additional Effect On Start (can have Absorb/Heal) }", string.Empty, flag);
+		desc += AbilityModHelper.GetModEffectInfoDesc(m_additionalEffectOnStart, "{ Additional Effect On Start (can have Absorb/Heal) }", "", isAbilityPresent);
 		if (m_techPointGainPerAdjacentAlly > 0)
 		{
-			string text = empty;
-			empty = text + "[Tech Point Gain Per Adjacent Ally] = " + m_techPointGainPerAdjacentAlly + "\n";
+			desc += "[Tech Point Gain Per Adjacent Ally] = " + m_techPointGainPerAdjacentAlly + "\n";
 		}
 		if (m_techPointGrantedToAdjacentAllies > 0)
 		{
-			string text = empty;
-			empty = text + "[Tech Point Granted To Adjacent Allies] = " + m_techPointGrantedToAdjacentAllies + "\n";
+			desc += "[Tech Point Granted To Adjacent Allies] = " + m_techPointGrantedToAdjacentAllies + "\n";
 		}
-		return empty + AbilityModHelper.GetModEffectInfoDesc(m_effectToSelfForLandingInBrush, "{ Effect On Self If You Land In Brush }", string.Empty, flag);
+		return desc + AbilityModHelper.GetModEffectInfoDesc(m_effectToSelfForLandingInBrush, "{ Effect On Self If You Land In Brush }", "", isAbilityPresent);
 	}
 }
