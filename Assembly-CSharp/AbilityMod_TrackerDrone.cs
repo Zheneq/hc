@@ -6,27 +6,18 @@ public class AbilityMod_TrackerDrone : AbilityMod
 {
 	[Space(10f)]
 	public AbilityModPropertyBool m_hitInvisibleTargetsMod;
-
 	[Header("-- Whether to apply <Tracked> effect")]
 	public bool m_applyHuntedEffect;
-
 	[Header("-- Damage Mods")]
 	public AbilityModPropertyInt m_trackedHitDamageMod;
-
 	public AbilityModPropertyInt m_untrackedHitDamageMod;
-
 	public int m_extraDamageWhenMovingOnTracked;
-
 	public int m_extraDamageWhenMovingOnUntracked;
-
 	[Header("-- Hit Effect Overrides")]
 	public AbilityModPropertyEffectInfo m_trackedHitEffectOverride;
-
 	public AbilityModPropertyEffectInfo m_untrackedHitEffectOverride;
-
 	[Header("-- Mods on Drone --")]
 	public AbilityModPropertyFloat m_droneTargeterMaxRangeFromCasterMod;
-
 	public AbilityModPropertyFloat m_droneVisionRadiusMod;
 
 	public override Type GetTargetAbilityType()
@@ -37,181 +28,62 @@ public class AbilityMod_TrackerDrone : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		TrackerDrone trackerDrone = targetAbility as TrackerDrone;
-		object obj;
-		if (trackerDrone != null)
+		TrackerDroneInfoComponent trackerDroneInfoComponent = trackerDrone?.GetComponent<TrackerDroneInfoComponent>();
+		if (trackerDroneInfoComponent != null)
 		{
-			obj = trackerDrone.GetComponent<TrackerDroneInfoComponent>();
-		}
-		else
-		{
-			obj = null;
-		}
-		TrackerDroneInfoComponent trackerDroneInfoComponent = (TrackerDroneInfoComponent)obj;
-		if (!(trackerDroneInfoComponent != null))
-		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken(tokens, m_trackedHitDamageMod, "Damage_Tracked", "Tracked damage", trackerDroneInfoComponent.m_droneHitDamageAmount);
-			AbilityMod.AddToken(tokens, m_untrackedHitDamageMod, "Damage_Untracked", "Untracked damage", trackerDroneInfoComponent.m_untrackedDroneHitDamageAmount);
+			AddToken(tokens, m_trackedHitDamageMod, "Damage_Tracked", "Tracked damage", trackerDroneInfoComponent.m_droneHitDamageAmount);
+			AddToken(tokens, m_untrackedHitDamageMod, "Damage_Untracked", "Untracked damage", trackerDroneInfoComponent.m_untrackedDroneHitDamageAmount);
 			if (m_extraDamageWhenMovingOnTracked > 0 && m_trackedHitDamageMod != null)
 			{
-				int modifiedValue = m_trackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent.m_droneHitDamageAmount);
-				int val = modifiedValue + m_extraDamageWhenMovingOnTracked;
-				AbilityMod.AddToken_IntDiff(tokens, "Damage_TrackedWhenMoving", "Total damage for Tracked, when moving", val, true, modifiedValue);
+				int damage = m_trackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent.m_droneHitDamageAmount) + m_extraDamageWhenMovingOnTracked;
+				AddToken_IntDiff(tokens, "Damage_TrackedWhenMoving", "Total damage for Tracked, when moving", damage, true, m_trackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent.m_droneHitDamageAmount));
 			}
 			if (m_extraDamageWhenMovingOnUntracked > 0)
 			{
-				int modifiedValue2 = m_untrackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent.m_untrackedDroneHitDamageAmount);
-				int val2 = modifiedValue2 + m_extraDamageWhenMovingOnUntracked;
-				AbilityMod.AddToken_IntDiff(tokens, "Damage_UntrackedWhenMoving", "Total damage for Untracked, when moving", val2, true, modifiedValue2);
+				int damage = m_untrackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent.m_untrackedDroneHitDamageAmount) + m_extraDamageWhenMovingOnUntracked;
+				AddToken_IntDiff(tokens, "Damage_UntrackedWhenMoving", "Total damage for Untracked, when moving", damage, true, m_untrackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent.m_untrackedDroneHitDamageAmount));
 			}
-			AbilityMod.AddToken_EffectMod(tokens, m_trackedHitEffectOverride, "Effect_TrackedHit", trackerDroneInfoComponent.m_droneHitEffect);
-			AbilityMod.AddToken_EffectMod(tokens, m_untrackedHitEffectOverride, "Effect_TrackedHit", trackerDroneInfoComponent.m_untrackedDroneHitEffect);
-			AbilityMod.AddToken(tokens, m_droneTargeterMaxRangeFromCasterMod, "TargeterMaxRangeFromCaster", string.Empty, trackerDroneInfoComponent.m_targeterMaxRangeFromCaster, trackerDroneInfoComponent);
-			AbilityMod.AddToken(tokens, m_droneVisionRadiusMod, "DroneVisionRadius", string.Empty, trackerDroneInfoComponent.m_droneVisionRadius, trackerDroneInfoComponent);
-			return;
+			AddToken_EffectMod(tokens, m_trackedHitEffectOverride, "Effect_TrackedHit", trackerDroneInfoComponent.m_droneHitEffect);
+			AddToken_EffectMod(tokens, m_untrackedHitEffectOverride, "Effect_TrackedHit", trackerDroneInfoComponent.m_untrackedDroneHitEffect);
+			AddToken(tokens, m_droneTargeterMaxRangeFromCasterMod, "TargeterMaxRangeFromCaster", "", trackerDroneInfoComponent.m_targeterMaxRangeFromCaster, trackerDroneInfoComponent);
+			AddToken(tokens, m_droneVisionRadiusMod, "DroneVisionRadius", "", trackerDroneInfoComponent.m_droneVisionRadius, trackerDroneInfoComponent);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		TrackerDrone trackerDrone = GetTargetAbilityOnAbilityData(abilityData) as TrackerDrone;
-		object obj;
-		if (trackerDrone != null)
-		{
-			obj = trackerDrone.GetComponent<TrackerDroneInfoComponent>();
-		}
-		else
-		{
-			obj = null;
-		}
-		TrackerDroneInfoComponent trackerDroneInfoComponent = (TrackerDroneInfoComponent)obj;
-		int num;
-		if (trackerDroneInfoComponent != null)
-		{
-			num = ((trackerDrone != null) ? 1 : 0);
-		}
-		else
-		{
-			num = 0;
-		}
-		bool flag = (byte)num != 0;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyBool hitInvisibleTargetsMod = m_hitInvisibleTargetsMod;
-		int baseVal;
-		if (flag)
-		{
-			baseVal = (trackerDroneInfoComponent.m_hitInvisibleTargets ? 1 : 0);
-		}
-		else
-		{
-			baseVal = 0;
-		}
-		empty = str + AbilityModHelper.GetModPropertyDesc(hitInvisibleTargetsMod, "[Hit Invisible Targets]", flag, (byte)baseVal != 0);
+		TrackerDroneInfoComponent trackerDroneInfoComponent = trackerDrone?.GetComponent<TrackerDroneInfoComponent>();
+		bool isValid = trackerDroneInfoComponent != null && trackerDrone != null;
+		string desc = "";
+		desc += AbilityModHelper.GetModPropertyDesc(m_hitInvisibleTargetsMod, "[Hit Invisible Targets]", isValid, isValid && trackerDroneInfoComponent.m_hitInvisibleTargets);
 		if (m_applyHuntedEffect)
 		{
-			empty += "Applies Tracked effect to targets hit\n";
+			desc += "Applies Tracked effect to targets hit\n";
 		}
-		string str2 = empty;
-		AbilityModPropertyInt trackedHitDamageMod = m_trackedHitDamageMod;
-		int baseVal2;
-		if (flag)
-		{
-			baseVal2 = trackerDroneInfoComponent.m_droneHitDamageAmount;
-		}
-		else
-		{
-			baseVal2 = 0;
-		}
-		empty = str2 + AbilityModHelper.GetModPropertyDesc(trackedHitDamageMod, "[Damage on Tracked]", flag, baseVal2);
-		string str3 = empty;
-		AbilityModPropertyInt untrackedHitDamageMod = m_untrackedHitDamageMod;
-		int baseVal3;
-		if (flag)
-		{
-			baseVal3 = trackerDroneInfoComponent.m_untrackedDroneHitDamageAmount;
-		}
-		else
-		{
-			baseVal3 = 0;
-		}
-		empty = str3 + AbilityModHelper.GetModPropertyDesc(untrackedHitDamageMod, "[Damage on Untracked]", flag, baseVal3);
+		desc += AbilityModHelper.GetModPropertyDesc(m_trackedHitDamageMod, "[Damage on Tracked]", isValid, isValid ? trackerDroneInfoComponent.m_droneHitDamageAmount : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_untrackedHitDamageMod, "[Damage on Untracked]", isValid, isValid ? trackerDroneInfoComponent.m_untrackedDroneHitDamageAmount : 0);
 		if (m_extraDamageWhenMovingOnTracked > 0)
 		{
-			empty = empty + "[Extra Damage on Tracked] = " + InEditorDescHelper.ColoredString(m_extraDamageWhenMovingOnTracked.ToString()) + "\n";
-			if (flag)
+			desc = desc + "[Extra Damage on Tracked] = " + InEditorDescHelper.ColoredString(m_extraDamageWhenMovingOnTracked.ToString()) + "\n";
+			if (isValid && m_trackedHitDamageMod != null)
 			{
-				if (m_trackedHitDamageMod != null)
-				{
-					int modifiedValue = m_trackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent.m_droneHitDamageAmount);
-					empty = empty + "\tTotal Damage on Tracked = " + InEditorDescHelper.ColoredString((modifiedValue + m_extraDamageWhenMovingOnTracked).ToString()) + "\n";
-				}
+				int modifiedValue = m_trackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent.m_droneHitDamageAmount);
+				desc = desc + "\tTotal Damage on Tracked = " + InEditorDescHelper.ColoredString((modifiedValue + m_extraDamageWhenMovingOnTracked).ToString()) + "\n";
 			}
 		}
 		if (m_extraDamageWhenMovingOnUntracked > 0)
 		{
-			empty = empty + "[Extra Damage on Untracked] = " + InEditorDescHelper.ColoredString(m_extraDamageWhenMovingOnUntracked.ToString()) + "\n";
-			if (flag)
+			desc = desc + "[Extra Damage on Untracked] = " + InEditorDescHelper.ColoredString(m_extraDamageWhenMovingOnUntracked.ToString()) + "\n";
+			if (isValid && m_untrackedHitDamageMod != null)
 			{
-				if (m_untrackedHitDamageMod != null)
-				{
-					int modifiedValue2 = m_untrackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent.m_untrackedDroneHitDamageAmount);
-					empty = empty + "\tTotal Damage on Untracked = " + InEditorDescHelper.ColoredString((modifiedValue2 + m_extraDamageWhenMovingOnUntracked).ToString()) + "\n";
-				}
+				int modifiedValue = m_untrackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent.m_untrackedDroneHitDamageAmount);
+				desc = desc + "\tTotal Damage on Untracked = " + InEditorDescHelper.ColoredString((modifiedValue + m_extraDamageWhenMovingOnUntracked).ToString()) + "\n";
 			}
 		}
-		string str4 = empty;
-		AbilityModPropertyEffectInfo trackedHitEffectOverride = m_trackedHitEffectOverride;
-		object baseVal4;
-		if (flag)
-		{
-			baseVal4 = trackerDroneInfoComponent.m_droneHitEffect;
-		}
-		else
-		{
-			baseVal4 = null;
-		}
-		empty = str4 + AbilityModHelper.GetModPropertyDesc(trackedHitEffectOverride, "{ Tracked Hit Effect Override }", flag, (StandardEffectInfo)baseVal4);
-		string str5 = empty;
-		AbilityModPropertyEffectInfo untrackedHitEffectOverride = m_untrackedHitEffectOverride;
-		object baseVal5;
-		if (flag)
-		{
-			baseVal5 = trackerDroneInfoComponent.m_untrackedDroneHitEffect;
-		}
-		else
-		{
-			baseVal5 = null;
-		}
-		empty = str5 + AbilityModHelper.GetModPropertyDesc(untrackedHitEffectOverride, "{ Untracked Hit Effect Override }", flag, (StandardEffectInfo)baseVal5);
-		string str6 = empty;
-		AbilityModPropertyFloat droneTargeterMaxRangeFromCasterMod = m_droneTargeterMaxRangeFromCasterMod;
-		bool showBaseVal = trackerDroneInfoComponent != null;
-		float baseVal6;
-		if (trackerDroneInfoComponent != null)
-		{
-			baseVal6 = trackerDroneInfoComponent.m_targeterMaxRangeFromCaster;
-		}
-		else
-		{
-			baseVal6 = 0f;
-		}
-		empty = str6 + PropDesc(droneTargeterMaxRangeFromCasterMod, "[DroneTargeterMaxRangeFromCaster]", showBaseVal, baseVal6);
-		string str7 = empty;
-		AbilityModPropertyFloat droneVisionRadiusMod = m_droneVisionRadiusMod;
-		bool showBaseVal2 = trackerDroneInfoComponent != null;
-		float baseVal7;
-		if (trackerDroneInfoComponent != null)
-		{
-			baseVal7 = trackerDroneInfoComponent.m_droneVisionRadius;
-		}
-		else
-		{
-			baseVal7 = 0f;
-		}
-		return str7 + PropDesc(droneVisionRadiusMod, "[DroneVisionRadius]", showBaseVal2, baseVal7);
+		desc += AbilityModHelper.GetModPropertyDesc(m_trackedHitEffectOverride, "{ Tracked Hit Effect Override }", isValid, isValid ? trackerDroneInfoComponent.m_droneHitEffect : null);
+		desc += AbilityModHelper.GetModPropertyDesc(m_untrackedHitEffectOverride, "{ Untracked Hit Effect Override }", isValid, isValid ? trackerDroneInfoComponent.m_untrackedDroneHitEffect : null);
+		desc += PropDesc(m_droneTargeterMaxRangeFromCasterMod, "[DroneTargeterMaxRangeFromCaster]", trackerDroneInfoComponent != null, trackerDroneInfoComponent != null ? trackerDroneInfoComponent.m_targeterMaxRangeFromCaster : 0f);
+		return desc + PropDesc(m_droneVisionRadiusMod, "[DroneVisionRadius]", trackerDroneInfoComponent != null, trackerDroneInfoComponent != null ? trackerDroneInfoComponent.m_droneVisionRadius : 0f);
 	}
 }
