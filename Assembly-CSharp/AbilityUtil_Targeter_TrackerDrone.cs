@@ -4,17 +4,11 @@ using UnityEngine;
 public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 {
 	protected TrackerDroneTrackerComponent m_droneTrackerComponent;
-
 	protected float m_radiusAroundStart = 2f;
-
 	protected float m_radiusAroundEnd = 2f;
-
 	protected float m_rangeFromLine = 2f;
-
 	protected bool m_addTargets = true;
-
 	protected bool m_penetrateLoS;
-
 	protected bool m_hitUntracked;
 
 	protected OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
@@ -31,31 +25,13 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 		m_hitUntracked = hitUntrackedTargets;
 		m_cursorType = HighlightUtils.CursorType.MouseOverCursorType;
 		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
-		int shouldShowActorRadius;
-		if (!GameWideData.Get().UseActorRadiusForLaser())
-		{
-			shouldShowActorRadius = (GameWideData.Get().UseActorRadiusForCone() ? 1 : 0);
-		}
-		else
-		{
-			shouldShowActorRadius = 1;
-		}
-		m_shouldShowActorRadius = ((byte)shouldShowActorRadius != 0);
+		m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser() || GameWideData.Get().UseActorRadiusForCone();
 	}
 
 	protected AbilityUtil_Targeter_TrackerDrone(Ability ability)
 		: base(ability)
 	{
-		int shouldShowActorRadius;
-		if (!GameWideData.Get().UseActorRadiusForLaser())
-		{
-			shouldShowActorRadius = (GameWideData.Get().UseActorRadiusForCone() ? 1 : 0);
-		}
-		else
-		{
-			shouldShowActorRadius = 1;
-		}
-		m_shouldShowActorRadius = ((byte)shouldShowActorRadius != 0);
+		m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser() || GameWideData.Get().UseActorRadiusForCone();
 	}
 
 	public int GetNumHighlights()
@@ -66,136 +42,81 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		ClearActorsInRange();
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
-		if (boardSquareSafe == null)
+		BoardSquare targetSquare = Board.Get().GetSquare(currentTarget.GridPos);
+		if (targetSquare == null)
 		{
-			while (true)
-			{
-				return;
-			}
+			return;
 		}
-		Vector3 vector = boardSquareSafe.ToVector3();
-		Vector3 vector2 = targetingActor.GetFreePos();
+		Vector3 end = targetSquare.ToVector3();
+		Vector3 start = targetingActor.GetFreePos();
 		if (m_droneTrackerComponent != null && m_droneTrackerComponent.DroneIsActive())
 		{
-			BoardSquare boardSquare = Board.Get().GetSquareFromIndex(m_droneTrackerComponent.BoardX(), m_droneTrackerComponent.BoardY());
-			vector2 = boardSquare.ToVector3();
+			BoardSquare droneSquare = Board.Get().GetSquareFromIndex(m_droneTrackerComponent.BoardX(), m_droneTrackerComponent.BoardY());
+			start = droneSquare.ToVector3();
 		}
-		float num;
-		if (m_droneTrackerComponent != null && m_droneTrackerComponent.DroneIsActive())
-		{
-			num = m_radiusAroundStart;
-		}
-		else
-		{
-			num = 0f;
-		}
-		float num2 = num;
+		float startRadius = m_droneTrackerComponent != null && m_droneTrackerComponent.DroneIsActive()
+			? m_radiusAroundStart
+			: 0f;
 		if (m_addTargets)
 		{
-			List<ActorData> actors = AreaEffectUtils.GetActorsInRadiusOfLine(vector2, vector, num2, m_radiusAroundEnd, m_rangeFromLine, m_penetrateLoS, targetingActor, null, null);
+			List<ActorData> actors = AreaEffectUtils.GetActorsInRadiusOfLine(start, end, startRadius, m_radiusAroundEnd, m_rangeFromLine, m_penetrateLoS, targetingActor, null, null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
-			using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
+			foreach (ActorData current in actors)
 			{
-				while (enumerator.MoveNext())
+				bool isPrimaryTarget = m_droneTrackerComponent != null && m_droneTrackerComponent.IsTrackingActor(current.ActorIndex);
+				if (current.GetTeam() != targetingActor.GetTeam()
+					&& (m_hitUntracked || isPrimaryTarget))
 				{
-					ActorData current = enumerator.Current;
-					int num3;
-					if (m_droneTrackerComponent != null)
-					{
-						num3 = (m_droneTrackerComponent.IsTrackingActor(current.ActorIndex) ? 1 : 0);
-					}
-					else
-					{
-						num3 = 0;
-					}
-					bool flag = (byte)num3 != 0;
-					if (current.GetTeam() != targetingActor.GetTeam())
-					{
-						if (!m_hitUntracked)
-						{
-							if (!flag)
-							{
-								continue;
-							}
-						}
-						Vector3 damageOrigin = vector2;
-						int subjectType;
-						if (flag)
-						{
-							subjectType = 1;
-						}
-						else
-						{
-							subjectType = 2;
-						}
-						AddActorInRange(current, damageOrigin, targetingActor, (AbilityTooltipSubject)subjectType);
-					}
+					AddActorInRange(current, start, targetingActor, isPrimaryTarget ? AbilityTooltipSubject.Primary : AbilityTooltipSubject.Secondary);
 				}
 			}
 		}
-		bool flag2 = m_rangeFromLine > 0f;
-		bool flag3 = num2 > 0f;
-		bool flag4 = m_radiusAroundEnd > 0f;
-		int index = 0;
-		int index2 = 1;
-		int index3 = 2;
 		float widthInSquares = m_rangeFromLine * 2f;
-		if (m_highlights != null)
+		if (m_highlights == null || m_highlights.Count < GetNumHighlights())
 		{
-			if (m_highlights.Count >= GetNumHighlights())
+			m_highlights = new List<GameObject>
 			{
-				goto IL_02cc;
-			}
+				TargeterUtils.CreateLaserBoxHighlight(start, end, widthInSquares, TargeterUtils.HeightAdjustType.DontAdjustHeight),
+				TargeterUtils.CreateCircleHighlight(start, m_radiusAroundStart, TargeterUtils.HeightAdjustType.DontAdjustHeight, targetingActor == GameFlowData.Get().activeOwnedActorData),
+				TargeterUtils.CreateCircleHighlight(end, m_radiusAroundEnd, TargeterUtils.HeightAdjustType.DontAdjustHeight, targetingActor == GameFlowData.Get().activeOwnedActorData)
+			};
 		}
-		m_highlights = new List<GameObject>();
-		m_highlights.Add(TargeterUtils.CreateLaserBoxHighlight(vector2, vector, widthInSquares, TargeterUtils.HeightAdjustType.DontAdjustHeight));
-		m_highlights.Add(TargeterUtils.CreateCircleHighlight(vector2, m_radiusAroundStart, TargeterUtils.HeightAdjustType.DontAdjustHeight, targetingActor == GameFlowData.Get().activeOwnedActorData));
-		m_highlights.Add(TargeterUtils.CreateCircleHighlight(vector, m_radiusAroundEnd, TargeterUtils.HeightAdjustType.DontAdjustHeight, targetingActor == GameFlowData.Get().activeOwnedActorData));
-		goto IL_02cc;
-		IL_0354:
-		Vector3 vector3;
-		if (flag3)
+		Vector3 highlightStart = start;
+		highlightStart.y = HighlightUtils.GetHighlightHeight();
+		Vector3 highlightEnd = end;
+		highlightEnd.y = HighlightUtils.GetHighlightHeight();
+		if (m_rangeFromLine > 0f && start != end)
 		{
-			m_highlights[index2].SetActive(true);
-			TargeterUtils.RefreshCircleHighlight(m_highlights[index2], vector3, TargeterUtils.HeightAdjustType.DontAdjustHeight);
-		}
-		else
-		{
-			m_highlights[index2].SetActive(false);
-		}
-		Vector3 vector4;
-		if (flag4)
-		{
-			m_highlights[index3].SetActive(true);
-			TargeterUtils.RefreshCircleHighlight(m_highlights[index3], vector4, TargeterUtils.HeightAdjustType.DontAdjustHeight);
+			m_highlights[0].SetActive(true);
+			TargeterUtils.RefreshLaserBoxHighlight(m_highlights[0], highlightStart, highlightEnd, widthInSquares, TargeterUtils.HeightAdjustType.DontAdjustHeight);
 		}
 		else
 		{
-			m_highlights[index3].SetActive(false);
+			m_highlights[0].SetActive(false);
+		}
+		if (startRadius > 0f)
+		{
+			m_highlights[1].SetActive(true);
+			TargeterUtils.RefreshCircleHighlight(m_highlights[1], highlightStart, TargeterUtils.HeightAdjustType.DontAdjustHeight);
+		}
+		else
+		{
+			m_highlights[1].SetActive(false);
+		}
+		if (m_radiusAroundEnd > 0f)
+		{
+			m_highlights[2].SetActive(true);
+			TargeterUtils.RefreshCircleHighlight(m_highlights[2], highlightEnd, TargeterUtils.HeightAdjustType.DontAdjustHeight);
+		}
+		else
+		{
+			m_highlights[2].SetActive(false);
 		}
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
 			ResetSquareIndicatorIndexToUse();
-			AreaEffectUtils.OperateOnSquaresInRadiusOfLine(m_indicatorHandler, vector2, vector, num2, m_radiusAroundEnd, m_rangeFromLine, m_penetrateLoS, targetingActor);
+			AreaEffectUtils.OperateOnSquaresInRadiusOfLine(m_indicatorHandler, start, end, startRadius, m_radiusAroundEnd, m_rangeFromLine, m_penetrateLoS, targetingActor);
 			HideUnusedSquareIndicators();
 		}
-		return;
-		IL_02cc:
-		vector3 = vector2;
-		vector3.y = HighlightUtils.GetHighlightHeight();
-		vector4 = vector;
-		vector4.y = HighlightUtils.GetHighlightHeight();
-		if (flag2)
-		{
-			if (vector2 != vector)
-			{
-				m_highlights[index].SetActive(true);
-				TargeterUtils.RefreshLaserBoxHighlight(m_highlights[index], vector3, vector4, widthInSquares, TargeterUtils.HeightAdjustType.DontAdjustHeight);
-				goto IL_0354;
-			}
-		}
-		m_highlights[index].SetActive(false);
-		goto IL_0354;
 	}
 }

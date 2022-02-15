@@ -11,38 +11,25 @@ public class TrackerTeslaPrison : TrackerDrone
 
 	[Header("-- Wall Config and Barrier Data")]
 	public PrisonWallSegmentType m_wallSegmentType = PrisonWallSegmentType.SquareMadeOfCornersAndMidsection;
-
 	public bool m_targeterPenetrateLos = true;
-
 	public StandardBarrierData m_prisonBarrierData;
-
 	[Header("-- If Wall Segement Type is Square Made Of Corners and Midsection, Dimentions")]
 	public int m_squareCornerLength = 1;
-
 	public int m_squareMidsectionLength = 1;
-
 	[Header("-- If Wall Segment Type is Regular Polygon")]
 	public int m_prisonSides = 8;
-
 	public float m_prisonRadius = 2f;
-
 	[Header("-- Move Drone")]
 	public bool m_moveDrone = true;
-
 	[Header("-- Additional Effect to enemies in shape --")]
 	public AbilityAreaShape m_additionalEffectShape = AbilityAreaShape.Three_x_Three;
-
 	public StandardEffectInfo m_additionalEffectOnEnemiesInShape;
-
 	[Header("-- Sequences -------------------------------------------------")]
 	public bool m_createCastSequenceIfMovingDrone;
-
 	public GameObject m_castSequencePrefab;
 
 	private AbilityMod_TrackerTeslaPrison m_ultAbilityMod;
-
 	private StandardBarrierData m_cachedBarrierData;
-
 	private StandardEffectInfo m_cachedAdditionalEffectOnEnemiesInShape;
 
 	protected override bool UseAltMovement()
@@ -110,90 +97,50 @@ public class TrackerTeslaPrison : TrackerDrone
 		}
 		if (m_moveDrone)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-				{
-					int num;
-					if (!m_droneInfoComp.GetUntrackedHitEffect().m_applyEffect)
-					{
-						num = ((m_droneInfoComp.GetDamageOnUntracked(true) > 0) ? 1 : 0);
-					}
-					else
-					{
-						num = 1;
-					}
-					bool hitUntrackedTargets = (byte)num != 0;
-					base.Targeter = new AbilityUtil_Targeter_TeslaPrison(this, m_wallSegmentType, m_squareCornerLength, m_squareMidsectionLength, m_prisonSides, m_prisonRadius, m_droneTracker, m_droneInfoComp.m_travelTargeterEndRadius, m_droneInfoComp.m_travelTargeterEndRadius, m_droneInfoComp.m_travelTargeterLineRadius, -1, false, m_droneInfoComp.m_targetingIgnoreLos, m_droneInfoComp.m_droneTravelHitTargets, hitUntrackedTargets);
-					return;
-				}
-				}
-			}
+			bool hitUntrackedTargets = m_droneInfoComp.GetUntrackedHitEffect().m_applyEffect || m_droneInfoComp.GetDamageOnUntracked(true) > 0;
+			Targeter = new AbilityUtil_Targeter_TeslaPrison(
+				this, m_wallSegmentType, m_squareCornerLength, m_squareMidsectionLength, m_prisonSides, m_prisonRadius,
+				m_droneTracker, m_droneInfoComp.m_travelTargeterEndRadius, m_droneInfoComp.m_travelTargeterEndRadius,
+				m_droneInfoComp.m_travelTargeterLineRadius, -1, false, m_droneInfoComp.m_targetingIgnoreLos,
+				m_droneInfoComp.m_droneTravelHitTargets, hitUntrackedTargets);
 		}
-		base.Targeter = new AbilityUtil_Targeter_TeslaPrison(this, m_wallSegmentType, m_squareCornerLength, m_squareMidsectionLength, m_prisonSides, m_prisonRadius);
+		else
+		{
+			Targeter = new AbilityUtil_Targeter_TeslaPrison(this, m_wallSegmentType, m_squareCornerLength, m_squareMidsectionLength, m_prisonSides, m_prisonRadius);
+		}
 	}
 
 	private void SetCachedFields()
 	{
-		StandardBarrierData cachedBarrierData;
-		if ((bool)m_ultAbilityMod)
-		{
-			cachedBarrierData = m_ultAbilityMod.m_barrierDataMod.GetModifiedValue(m_prisonBarrierData);
-		}
-		else
-		{
-			cachedBarrierData = m_prisonBarrierData;
-		}
-		m_cachedBarrierData = cachedBarrierData;
-		StandardEffectInfo cachedAdditionalEffectOnEnemiesInShape;
-		if ((bool)m_ultAbilityMod)
-		{
-			cachedAdditionalEffectOnEnemiesInShape = m_ultAbilityMod.m_additionalEffectOnEnemiesInShapeMod.GetModifiedValue(m_additionalEffectOnEnemiesInShape);
-		}
-		else
-		{
-			cachedAdditionalEffectOnEnemiesInShape = m_additionalEffectOnEnemiesInShape;
-		}
-		m_cachedAdditionalEffectOnEnemiesInShape = cachedAdditionalEffectOnEnemiesInShape;
+		m_cachedBarrierData = m_ultAbilityMod != null
+			? m_ultAbilityMod.m_barrierDataMod.GetModifiedValue(m_prisonBarrierData)
+			: m_prisonBarrierData;
+		m_cachedAdditionalEffectOnEnemiesInShape = m_ultAbilityMod != null
+			? m_ultAbilityMod.m_additionalEffectOnEnemiesInShapeMod.GetModifiedValue(m_additionalEffectOnEnemiesInShape)
+			: m_additionalEffectOnEnemiesInShape;
 	}
 
 	private StandardBarrierData GetPrisonBarrierData()
 	{
-		StandardBarrierData result;
-		if (m_ultAbilityMod == null)
-		{
-			result = m_prisonBarrierData;
-		}
-		else
-		{
-			result = m_cachedBarrierData;
-		}
-		return result;
+		return m_ultAbilityMod == null
+			? m_prisonBarrierData
+			: m_cachedBarrierData;
 	}
 
 	private StandardEffectInfo GetAdditionalEffectOnEnemiesInShape()
 	{
-		return (m_cachedAdditionalEffectOnEnemiesInShape == null) ? m_additionalEffectOnEnemiesInShape : m_cachedAdditionalEffectOnEnemiesInShape;
+		return m_cachedAdditionalEffectOnEnemiesInShape != null
+			? m_cachedAdditionalEffectOnEnemiesInShape
+			: m_additionalEffectOnEnemiesInShape;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		AbilityMod_TrackerTeslaPrison abilityMod_TrackerTeslaPrison = modAsBase as AbilityMod_TrackerTeslaPrison;
-		StandardBarrierData standardBarrierData;
-		if ((bool)abilityMod_TrackerTeslaPrison)
-		{
-			standardBarrierData = abilityMod_TrackerTeslaPrison.m_barrierDataMod.GetModifiedValue(m_prisonBarrierData);
-		}
-		else
-		{
-			standardBarrierData = m_prisonBarrierData;
-		}
-		StandardBarrierData standardBarrierData2 = standardBarrierData;
-		standardBarrierData2.AddTooltipTokens(tokens, "Wall");
+		AbilityMod_TrackerTeslaPrison mod = modAsBase as AbilityMod_TrackerTeslaPrison;
+		StandardBarrierData barrierData = mod != null
+			? mod.m_barrierDataMod.GetModifiedValue(m_prisonBarrierData)
+			: m_prisonBarrierData;
+		barrierData.AddTooltipTokens(tokens, "Wall");
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -201,15 +148,12 @@ public class TrackerTeslaPrison : TrackerDrone
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (m_droneInfoComp != null)
 		{
-			if (m_moveDrone)
+			if (m_moveDrone && m_droneInfoComp != null)
 			{
-				if (m_droneInfoComp != null)
-				{
-					AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_droneInfoComp.GetDamageOnTracked(true));
-					m_droneInfoComp.m_droneHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
-					AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_droneInfoComp.GetDamageOnUntracked(true));
-					m_droneInfoComp.m_untrackedDroneHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
-				}
+				AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_droneInfoComp.GetDamageOnTracked(true));
+				m_droneInfoComp.m_droneHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+				AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_droneInfoComp.GetDamageOnUntracked(true));
+				m_droneInfoComp.m_untrackedDroneHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
 			}
 			m_prisonBarrierData.m_onEnemyMovedThrough.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Quaternary);
 			m_prisonBarrierData.m_onAllyMovedThrough.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
@@ -220,86 +164,53 @@ public class TrackerTeslaPrison : TrackerDrone
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
 		List<AbilityTooltipNumber> list = CalculateAbilityTooltipNumbers();
-		for (int i = 0; i < list.Count; i++)
+		foreach (AbilityTooltipNumber abilityTooltipNumber in list)
 		{
-			AbilityTooltipNumber abilityTooltipNumber = list[i];
-			if (abilityTooltipNumber.m_subject == AbilityTooltipSubject.Primary)
+			if (abilityTooltipNumber.m_subject == AbilityTooltipSubject.Primary
+				&& abilityTooltipNumber.m_symbol == AbilityTooltipSymbol.Damage)
 			{
-				if (abilityTooltipNumber.m_symbol == AbilityTooltipSymbol.Damage)
-				{
-					list[i].m_value = m_droneInfoComp.GetDamageOnTracked(true);
-					continue;
-				}
+				abilityTooltipNumber.m_value = m_droneInfoComp.GetDamageOnTracked(true);
 			}
-			if (abilityTooltipNumber.m_subject == AbilityTooltipSubject.Secondary && abilityTooltipNumber.m_symbol == AbilityTooltipSymbol.Damage)
+			else if (abilityTooltipNumber.m_subject == AbilityTooltipSubject.Secondary
+				&& abilityTooltipNumber.m_symbol == AbilityTooltipSymbol.Damage)
 			{
-				list[i].m_value = m_droneInfoComp.GetDamageOnUntracked(true);
+				abilityTooltipNumber.m_value = m_droneInfoComp.GetDamageOnUntracked(true);
 			}
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		if (!m_moveDrone)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
+			return true;
 		}
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		int result;
-		if (boardSquareSafe != null && boardSquareSafe.IsValidForGameplay())
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		if (targetSquare == null
+			|| !targetSquare.IsValidForGameplay()
+			|| caster.GetCurrentBoardSquare() == null)
 		{
-			if (caster.GetCurrentBoardSquare() != null)
+			return false;
+		}
+		float maxMoveDist = m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.Get().squareSize;
+		float maxDistFromCaster = m_droneInfoComp.GetTargeterMaxRangeFromCaster(true) * Board.Get().squareSize;
+		Vector3 startPos = caster.GetFreePos();
+		if (m_droneTracker.DroneIsActive())
+		{
+			BoardSquare dronePos = Board.Get().GetSquareFromIndex(m_droneTracker.BoardX(), m_droneTracker.BoardY());
+			if (dronePos != null)
 			{
-				float num = m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.Get().squareSize;
-				float num2 = m_droneInfoComp.GetTargeterMaxRangeFromCaster(true) * Board.Get().squareSize;
-				Vector3 b = caster.GetFreePos();
-				if (m_droneTracker.DroneIsActive())
+				if (targetSquare == dronePos)
 				{
-					BoardSquare boardSquare = Board.Get().GetSquareFromIndex(m_droneTracker.BoardX(), m_droneTracker.BoardY());
-					if (boardSquare != null)
-					{
-						if (boardSquare == boardSquareSafe)
-						{
-							return false;
-						}
-						b = boardSquare.ToVector3();
-					}
+					return false;
 				}
-				if (!(num <= 0f))
-				{
-					if (!(Vector3.Distance(boardSquareSafe.ToVector3(), b) <= num))
-					{
-						result = 0;
-						goto IL_016c;
-					}
-				}
-				if (!(num2 <= 0f))
-				{
-					result = ((Vector3.Distance(boardSquareSafe.ToVector3(), caster.GetCurrentBoardSquare().ToVector3()) <= num2) ? 1 : 0);
-				}
-				else
-				{
-					result = 1;
-				}
-				goto IL_016c;
+				startPos = dronePos.ToVector3();
 			}
 		}
-		return false;
-		IL_016c:
-		return (byte)result != 0;
+		Vector3 casterPos = caster.GetCurrentBoardSquare().ToVector3();
+		return (maxMoveDist <= 0f || Vector3.Distance(targetSquare.ToVector3(), startPos) <= maxMoveDist)
+			&& (maxDistFromCaster <= 0f || Vector3.Distance(targetSquare.ToVector3(), casterPos) <= maxDistFromCaster);
 	}
 
 	public override List<int> Debug_GetExpectedNumbersInTooltip()
@@ -314,15 +225,10 @@ public class TrackerTeslaPrison : TrackerDrone
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_TrackerTeslaPrison))
-		{
-			return;
-		}
-		while (true)
+		if (abilityMod.GetType() == typeof(AbilityMod_TrackerTeslaPrison))
 		{
 			m_ultAbilityMod = (abilityMod as AbilityMod_TrackerTeslaPrison);
 			Setup();
-			return;
 		}
 	}
 

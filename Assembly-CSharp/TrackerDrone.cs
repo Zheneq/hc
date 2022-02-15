@@ -4,11 +4,8 @@ using UnityEngine;
 public class TrackerDrone : Ability
 {
 	protected TrackerDroneInfoComponent m_droneInfoComp;
-
 	protected TrackerDroneTrackerComponent m_droneTracker;
-
 	protected ActorAdditionalVisionProviders m_visionProvider;
-
 	protected bool m_droneEffectHandled;
 
 	private AbilityMod_TrackerDrone m_abilityMod;
@@ -62,52 +59,31 @@ public class TrackerDrone : Ability
 			Debug.LogError("No drone tracker component");
 		}
 		bool hitUntrackedTargets = m_droneInfoComp.GetUntrackedHitEffect().m_applyEffect || m_droneInfoComp.GetDamageOnUntracked(true) > 0;
-		base.Targeter = new AbilityUtil_Targeter_TrackerDrone(this, m_droneTracker, m_droneInfoComp.m_travelTargeterEndRadius, m_droneInfoComp.m_travelTargeterEndRadius, m_droneInfoComp.m_travelTargeterLineRadius, -1, false, m_droneInfoComp.m_targetingIgnoreLos, m_droneInfoComp.m_droneTravelHitTargets, hitUntrackedTargets);
+		Targeter = new AbilityUtil_Targeter_TrackerDrone(
+			this, m_droneTracker, m_droneInfoComp.m_travelTargeterEndRadius, m_droneInfoComp.m_travelTargeterEndRadius,
+			m_droneInfoComp.m_travelTargeterLineRadius, -1, false, m_droneInfoComp.m_targetingIgnoreLos,
+			m_droneInfoComp.m_droneTravelHitTargets, hitUntrackedTargets);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_TrackerDrone abilityMod_TrackerDrone = modAsBase as AbilityMod_TrackerDrone;
 		TrackerDroneInfoComponent component = GetComponent<TrackerDroneInfoComponent>();
-		if (!(component != null))
+		if (component != null)
 		{
-			return;
+			tokens.Add(new TooltipTokenInt("DamageOnTracked", "damage on Tracked targets", abilityMod_TrackerDrone != null
+				? abilityMod_TrackerDrone.m_trackedHitDamageMod.GetModifiedValue(component.m_droneHitDamageAmount)
+				: component.m_droneHitDamageAmount));
+			tokens.Add(new TooltipTokenInt("DamageOnUntracked", "damage on Untracked targets", abilityMod_TrackerDrone != null
+				? abilityMod_TrackerDrone.m_untrackedHitDamageMod.GetModifiedValue(component.m_untrackedDroneHitDamageAmount)
+				: component.m_untrackedDroneHitDamageAmount));
+			AbilityMod.AddToken_EffectInfo(tokens, abilityMod_TrackerDrone != null
+				? abilityMod_TrackerDrone.m_trackedHitEffectOverride.GetModifiedValue(component.m_droneHitEffect)
+				: component.m_droneHitEffect, "EffectOnTracked");
+			AbilityMod.AddToken_EffectInfo(tokens, abilityMod_TrackerDrone != null
+				? abilityMod_TrackerDrone.m_untrackedHitEffectOverride.GetModifiedValue(component.m_untrackedDroneHitEffect)
+				: component.m_untrackedDroneHitEffect, "EffectOnUntracked");
 		}
-		int val = (!abilityMod_TrackerDrone) ? component.m_droneHitDamageAmount : abilityMod_TrackerDrone.m_trackedHitDamageMod.GetModifiedValue(component.m_droneHitDamageAmount);
-		int num;
-		if ((bool)abilityMod_TrackerDrone)
-		{
-			num = abilityMod_TrackerDrone.m_untrackedHitDamageMod.GetModifiedValue(component.m_untrackedDroneHitDamageAmount);
-		}
-		else
-		{
-			num = component.m_untrackedDroneHitDamageAmount;
-		}
-		int val2 = num;
-		StandardEffectInfo standardEffectInfo;
-		if ((bool)abilityMod_TrackerDrone)
-		{
-			standardEffectInfo = abilityMod_TrackerDrone.m_trackedHitEffectOverride.GetModifiedValue(component.m_droneHitEffect);
-		}
-		else
-		{
-			standardEffectInfo = component.m_droneHitEffect;
-		}
-		StandardEffectInfo effectInfo = standardEffectInfo;
-		StandardEffectInfo standardEffectInfo2;
-		if ((bool)abilityMod_TrackerDrone)
-		{
-			standardEffectInfo2 = abilityMod_TrackerDrone.m_untrackedHitEffectOverride.GetModifiedValue(component.m_untrackedDroneHitEffect);
-		}
-		else
-		{
-			standardEffectInfo2 = component.m_untrackedDroneHitEffect;
-		}
-		StandardEffectInfo effectInfo2 = standardEffectInfo2;
-		tokens.Add(new TooltipTokenInt("DamageOnTracked", "damage on Tracked targets", val));
-		tokens.Add(new TooltipTokenInt("DamageOnUntracked", "damage on Untracked targets", val2));
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnTracked");
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EffectOnUntracked");
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -150,68 +126,39 @@ public class TrackerDrone : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		int result;
-		if (boardSquareSafe != null)
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		if (targetSquare == null
+			|| !targetSquare.IsValidForGameplay()
+			|| caster.GetCurrentBoardSquare() == null)
 		{
-			if (boardSquareSafe.IsValidForGameplay())
+			return false;
+		}
+		float maxMoveDist = m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.Get().squareSize;
+		float maxDistFromCaster = m_droneInfoComp.GetTargeterMaxRangeFromCaster(false) * Board.Get().squareSize;
+		Vector3 startPos = caster.GetFreePos();
+		if (m_droneTracker.DroneIsActive())
+		{
+			BoardSquare dronePos = Board.Get().GetSquareFromIndex(m_droneTracker.BoardX(), m_droneTracker.BoardY());
+			if (dronePos != null)
 			{
-				if (caster.GetCurrentBoardSquare() != null)
+				if (targetSquare == dronePos)
 				{
-					float num = m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.Get().squareSize;
-					float num2 = m_droneInfoComp.GetTargeterMaxRangeFromCaster(false) * Board.Get().squareSize;
-					Vector3 b = caster.GetFreePos();
-					if (m_droneTracker.DroneIsActive())
-					{
-						BoardSquare boardSquare = Board.Get().GetSquareFromIndex(m_droneTracker.BoardX(), m_droneTracker.BoardY());
-						if (boardSquare != null)
-						{
-							if (boardSquareSafe == boardSquare)
-							{
-								while (true)
-								{
-									return false;
-								}
-							}
-							b = boardSquare.ToVector3();
-						}
-					}
-					if (!(num <= 0f))
-					{
-						if (!(Vector3.Distance(boardSquareSafe.ToVector3(), b) <= num))
-						{
-							result = 0;
-							goto IL_0172;
-						}
-					}
-					if (!(num2 <= 0f))
-					{
-						result = ((Vector3.Distance(boardSquareSafe.ToVector3(), caster.GetCurrentBoardSquare().ToVector3()) <= num2) ? 1 : 0);
-					}
-					else
-					{
-						result = 1;
-					}
-					goto IL_0172;
+					return false;
 				}
+				startPos = dronePos.ToVector3();
 			}
 		}
-		return false;
-		IL_0172:
-		return (byte)result != 0;
+		Vector3 casterPos = caster.GetCurrentBoardSquare().ToVector3();
+		return (maxMoveDist <= 0f || Vector3.Distance(targetSquare.ToVector3(), startPos) <= maxMoveDist)
+			&& (maxDistFromCaster <= 0f || Vector3.Distance(targetSquare.ToVector3(), casterPos) <= maxDistFromCaster);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_TrackerDrone))
-		{
-			return;
-		}
-		while (true)
+		if (abilityMod.GetType() == typeof(AbilityMod_TrackerDrone))
 		{
 			m_abilityMod = (abilityMod as AbilityMod_TrackerDrone);
 			Setup();
-			return;
 		}
 	}
 
