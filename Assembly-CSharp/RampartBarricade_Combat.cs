@@ -14,15 +14,10 @@ public class RampartBarricade_Combat : Ability
 		{
 			m_abilityName = "Barricade - Chain - Knockback";
 		}
-		m_prepAbility = (GetComponent<AbilityData>().GetAbilityOfType(typeof(RampartBarricade_Prep)) as RampartBarricade_Prep);
-		if (!(m_prepAbility == null))
-		{
-			return;
-		}
-		while (true)
+		m_prepAbility = GetComponent<AbilityData>().GetAbilityOfType(typeof(RampartBarricade_Prep)) as RampartBarricade_Prep;
+		if (m_prepAbility == null)
 		{
 			Debug.LogError("Rampart Barricade Chain: did not find parent ability");
-			return;
 		}
 	}
 

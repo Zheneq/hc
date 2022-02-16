@@ -5,40 +5,25 @@ public class RampartAoeBuffDebuff : Ability
 {
 	[Header("-- Targeting")]
 	public AbilityAreaShape m_shape = AbilityAreaShape.Five_x_Five_NoCorners;
-
 	public bool m_penetrateLos;
-
 	[Header("-- Self Heal Per Hit")]
 	public int m_baseSelfHeal;
-
 	public int m_selfHealAmountPerHit;
-
 	public bool m_selfHealCountEnemyHit = true;
-
 	public bool m_selfHealCountAllyHit = true;
-
 	[Header("-- Normal Hit Effects")]
 	public bool m_includeCaster = true;
-
 	public StandardEffectInfo m_selfHitEffect;
-
 	public StandardEffectInfo m_allyHitEffect;
-
 	public StandardEffectInfo m_enemyHitEffect;
-
 	public int m_damageToEnemies;
-
 	public int m_healingToAllies;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
 	private AbilityMod_RampartAoeBuffDebuff m_abilityMod;
-
 	private StandardEffectInfo m_cachedSelfHitEffect;
-
 	private StandardEffectInfo m_cachedAllyHitEffect;
-
 	private StandardEffectInfo m_cachedEnemyHitEffect;
 
 	private void Start()
@@ -58,8 +43,10 @@ public class RampartAoeBuffDebuff : Ability
 		{
 			affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
 		}
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, GetShape(), PenetrateLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, IncludeEnemies(), IncludeAllies(), affectsCaster);
-		base.Targeter.ShowArcToShape = false;
+		Targeter = new AbilityUtil_Targeter_Shape(this, GetShape(), PenetrateLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, IncludeEnemies(), IncludeAllies(), affectsCaster)
+		{
+			ShowArcToShape = false
+		};
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
@@ -79,87 +66,42 @@ public class RampartAoeBuffDebuff : Ability
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedSelfHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedSelfHitEffect = m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect);
-		}
-		else
-		{
-			cachedSelfHitEffect = m_selfHitEffect;
-		}
-		m_cachedSelfHitEffect = cachedSelfHitEffect;
-		m_cachedAllyHitEffect = ((!m_abilityMod) ? m_allyHitEffect : m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect));
-		StandardEffectInfo cachedEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
-		}
-		else
-		{
-			cachedEnemyHitEffect = m_enemyHitEffect;
-		}
-		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		m_cachedSelfHitEffect = m_abilityMod != null
+			? m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect)
+			: m_selfHitEffect;
+		m_cachedAllyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect)
+			: m_allyHitEffect;
+		m_cachedEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
 		AbilityMod_RampartAoeBuffDebuff abilityMod_RampartAoeBuffDebuff = modAsBase as AbilityMod_RampartAoeBuffDebuff;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_RampartAoeBuffDebuff)
-		{
-			val = abilityMod_RampartAoeBuffDebuff.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal);
-		}
-		else
-		{
-			val = m_baseSelfHeal;
-		}
-		AddTokenInt(tokens, "BaseSelfHeal", empty, val);
-		AddTokenInt(tokens, "SelfHealAmountPerHit", string.Empty, (!abilityMod_RampartAoeBuffDebuff) ? m_selfHealAmountPerHit : abilityMod_RampartAoeBuffDebuff.m_selfHealAmountPerHitMod.GetModifiedValue(m_selfHealAmountPerHit));
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_RampartAoeBuffDebuff)
-		{
-			effectInfo = abilityMod_RampartAoeBuffDebuff.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect);
-		}
-		else
-		{
-			effectInfo = m_selfHitEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "SelfHitEffect", m_selfHitEffect);
-		StandardEffectInfo effectInfo2;
-		if ((bool)abilityMod_RampartAoeBuffDebuff)
-		{
-			effectInfo2 = abilityMod_RampartAoeBuffDebuff.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
-		}
-		else
-		{
-			effectInfo2 = m_allyHitEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "AllyHitEffect", m_allyHitEffect);
-		StandardEffectInfo effectInfo3;
-		if ((bool)abilityMod_RampartAoeBuffDebuff)
-		{
-			effectInfo3 = abilityMod_RampartAoeBuffDebuff.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
-		}
-		else
-		{
-			effectInfo3 = m_enemyHitEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "EnemyHitEffect", m_enemyHitEffect);
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)abilityMod_RampartAoeBuffDebuff)
-		{
-			val2 = abilityMod_RampartAoeBuffDebuff.m_damageToEnemiesMod.GetModifiedValue(m_damageToEnemies);
-		}
-		else
-		{
-			val2 = m_damageToEnemies;
-		}
-		AddTokenInt(tokens, "DamageToEnemies", empty2, val2);
-		AddTokenInt(tokens, "HealingToAllies", string.Empty, (!abilityMod_RampartAoeBuffDebuff) ? m_healingToAllies : abilityMod_RampartAoeBuffDebuff.m_healingToAlliesMod.GetModifiedValue(m_healingToAllies));
+		AddTokenInt(tokens, "BaseSelfHeal", "", abilityMod_RampartAoeBuffDebuff != null
+			? abilityMod_RampartAoeBuffDebuff.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal)
+			: m_baseSelfHeal);
+		AddTokenInt(tokens, "SelfHealAmountPerHit", "", abilityMod_RampartAoeBuffDebuff != null
+			? abilityMod_RampartAoeBuffDebuff.m_selfHealAmountPerHitMod.GetModifiedValue(m_selfHealAmountPerHit)
+			: m_selfHealAmountPerHit);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_RampartAoeBuffDebuff != null
+			? abilityMod_RampartAoeBuffDebuff.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect)
+			: m_selfHitEffect, "SelfHitEffect", m_selfHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_RampartAoeBuffDebuff != null
+			? abilityMod_RampartAoeBuffDebuff.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect)
+			: m_allyHitEffect, "AllyHitEffect", m_allyHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_RampartAoeBuffDebuff != null
+			? abilityMod_RampartAoeBuffDebuff.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
+		AddTokenInt(tokens, "DamageToEnemies", "", abilityMod_RampartAoeBuffDebuff != null
+			? abilityMod_RampartAoeBuffDebuff.m_damageToEnemiesMod.GetModifiedValue(m_damageToEnemies)
+			: m_damageToEnemies);
+		AddTokenInt(tokens, "HealingToAllies", "", abilityMod_RampartAoeBuffDebuff != null
+			? abilityMod_RampartAoeBuffDebuff.m_healingToAlliesMod.GetModifiedValue(m_healingToAllies)
+			: m_healingToAllies);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -177,97 +119,57 @@ public class RampartAoeBuffDebuff : Ability
 	{
 		if (GetSelfHealAmountPerHit() <= 0 && GetBaseSelfHeal() <= 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return null;
-				}
-			}
+			return null;
 		}
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null)
+		if (tooltipSubjectTypes != null && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 		{
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
+			List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
+			int enemyHits = 0;
+			int allyHits = 0;
+			foreach (ActorData subject in visibleActorsInRangeByTooltipSubject)
 			{
-				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
-				int num = 0;
-				int num2 = 0;
-				for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
+				if (subject.GetTeam() != targetActor.GetTeam())
 				{
-					if (visibleActorsInRangeByTooltipSubject[i].GetTeam() != targetActor.GetTeam())
-					{
-						num++;
-					}
-					else if (visibleActorsInRangeByTooltipSubject[i] != targetActor)
-					{
-						num2++;
-					}
+					enemyHits++;
 				}
-				int num4 = dictionary[AbilityTooltipSymbol.Healing] = CalcSelfHealAmountFromHits(num2, num);
+				else if (subject != targetActor)
+				{
+					allyHits++;
+				}
 			}
+			dictionary[AbilityTooltipSymbol.Healing] = CalcSelfHealAmountFromHits(allyHits, enemyHits);
 		}
 		return dictionary;
 	}
 
 	private int CalcSelfHealAmountFromHits(int allyHits, int enemyHits)
 	{
-		int result = 0;
-		if (GetSelfHealAmountPerHit() <= 0)
+		if (GetSelfHealAmountPerHit() <= 0 && GetBaseSelfHeal() <= 0)
 		{
-			if (GetBaseSelfHeal() <= 0)
-			{
-				goto IL_0075;
-			}
+			return 0;
 		}
-		int num = 0;
+		int selfHeal = 0;
 		if (SelfHealCountAllyHit())
 		{
-			num += allyHits;
+			selfHeal += allyHits;
 		}
 		if (SelfHealCountEnemyHit())
 		{
-			num += enemyHits;
+			selfHeal += enemyHits;
 		}
-		result = GetBaseSelfHeal() + num * GetSelfHealAmountPerHit();
-		goto IL_0075;
-		IL_0075:
-		return result;
+		return GetBaseSelfHeal() + selfHeal * GetSelfHealAmountPerHit();
 	}
 
 	public bool IncludeCaster()
 	{
-		int result;
-		if (!ModdedIncludeCaster())
-		{
-			if (GetSelfHealAmountPerHit() <= 0)
-			{
-				result = ((GetBaseSelfHeal() > 0) ? 1 : 0);
-				goto IL_003e;
-			}
-		}
-		result = 1;
-		goto IL_003e;
-		IL_003e:
-		return (byte)result != 0;
+		return ModdedIncludeCaster() || GetSelfHealAmountPerHit() > 0 || GetBaseSelfHeal() > 0;
 	}
 
 	public bool IncludeAllies()
 	{
-		int result;
-		if (!GetAllyHitEffect().m_applyEffect)
-		{
-			result = ((GetHealingToAllies() > 0) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return GetAllyHitEffect().m_applyEffect || GetHealingToAllies() > 0;
 	}
 
 	public bool IncludeEnemies()
@@ -277,151 +179,79 @@ public class RampartAoeBuffDebuff : Ability
 
 	public AbilityAreaShape GetShape()
 	{
-		AbilityAreaShape result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_shapeMod.GetModifiedValue(m_shape);
-		}
-		else
-		{
-			result = m_shape;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_shapeMod.GetModifiedValue(m_shape)
+			: m_shape;
 	}
 
 	public bool PenetrateLos()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
-		}
-		else
-		{
-			result = m_penetrateLos;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos)
+			: m_penetrateLos;
 	}
 
 	public int GetBaseSelfHeal()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal);
-		}
-		else
-		{
-			result = m_baseSelfHeal;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal)
+			: m_baseSelfHeal;
 	}
 
 	public int GetSelfHealAmountPerHit()
 	{
-		return (!m_abilityMod) ? m_selfHealAmountPerHit : m_abilityMod.m_selfHealAmountPerHitMod.GetModifiedValue(m_selfHealAmountPerHit);
+		return m_abilityMod != null
+			? m_abilityMod.m_selfHealAmountPerHitMod.GetModifiedValue(m_selfHealAmountPerHit)
+			: m_selfHealAmountPerHit;
 	}
 
 	public bool SelfHealCountEnemyHit()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_selfHealCountEnemyHitMod.GetModifiedValue(m_selfHealCountEnemyHit);
-		}
-		else
-		{
-			result = m_selfHealCountEnemyHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_selfHealCountEnemyHitMod.GetModifiedValue(m_selfHealCountEnemyHit)
+			: m_selfHealCountEnemyHit;
 	}
 
 	public bool SelfHealCountAllyHit()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_selfHealCountAllyHitMod.GetModifiedValue(m_selfHealCountAllyHit);
-		}
-		else
-		{
-			result = m_selfHealCountAllyHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_selfHealCountAllyHitMod.GetModifiedValue(m_selfHealCountAllyHit)
+			: m_selfHealCountAllyHit;
 	}
 
 	public bool ModdedIncludeCaster()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_includeCasterMod.GetModifiedValue(m_includeCaster);
-		}
-		else
-		{
-			result = m_includeCaster;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_includeCasterMod.GetModifiedValue(m_includeCaster)
+			: m_includeCaster;
 	}
 
 	public StandardEffectInfo GetSelfHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedSelfHitEffect != null)
-		{
-			result = m_cachedSelfHitEffect;
-		}
-		else
-		{
-			result = m_selfHitEffect;
-		}
-		return result;
+		return m_cachedSelfHitEffect ?? m_selfHitEffect;
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedAllyHitEffect != null)
-		{
-			result = m_cachedAllyHitEffect;
-		}
-		else
-		{
-			result = m_allyHitEffect;
-		}
-		return result;
+		return m_cachedAllyHitEffect ?? m_allyHitEffect;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
-		return (m_cachedEnemyHitEffect == null) ? m_enemyHitEffect : m_cachedEnemyHitEffect;
+		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
 	}
 
 	public int GetDamageToEnemies()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageToEnemiesMod.GetModifiedValue(m_damageToEnemies);
-		}
-		else
-		{
-			result = m_damageToEnemies;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageToEnemiesMod.GetModifiedValue(m_damageToEnemies)
+			: m_damageToEnemies;
 	}
 
 	public int GetHealingToAllies()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_healingToAlliesMod.GetModifiedValue(m_healingToAllies);
-		}
-		else
-		{
-			result = m_healingToAllies;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healingToAlliesMod.GetModifiedValue(m_healingToAllies)
+			: m_healingToAllies;
 	}
 }

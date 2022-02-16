@@ -5,65 +5,39 @@ public class RampartDashAndAimShield : Ability
 {
 	[Header("-- Charge Size")]
 	public float m_chargeRadius = 2f;
-
 	public float m_radiusAroundStart;
-
 	public float m_radiusAroundEnd;
-
 	public bool m_chargePenetrateLos;
-
 	[Header("-- Hit Damage and Effect (in Charge)")]
 	public int m_damageAmount = 10;
-
 	public StandardEffectInfo m_enemyHitEffect;
-
 	public int m_allyHealAmount;
-
 	public StandardEffectInfo m_allyHitEffect;
-
 	[Header("-- Shield Barrier (Barrier Data specified on Passive)")]
 	public bool m_allowAimAtDiagonals;
-
 	[Header("-- Cooldown by distance, [ Cooldown = Max(minCooldown, distance+cooldownModifierAdd) ], add modifier can be negative")]
 	public bool m_setCooldownByDistance = true;
-
 	public int m_minCooldown = 1;
-
 	public int m_cooldownModifierAdd;
-
 	[Header("-- Distance by Energy")]
 	public bool m_useEnergyForMoveDistance;
-
 	public int m_minEnergyToCast = 30;
-
 	public int m_energyPerMove = 15;
-
 	public bool m_useAllEnergyIfUsedForDistance = true;
-
 	[Header("-- For Hitting In Front of Shield (damage is added to base damage)")]
 	public bool m_hitInFrontOfShield;
-
 	public float m_shieldFrontHitLength = 1.5f;
-
 	public int m_damageForShieldFront;
-
 	public StandardEffectInfo m_shieldFrontEnemyEffect;
-
 	public bool m_shieldFrontLangthIgnoreLos;
-
 	[Header("-- Sequences")]
 	public GameObject m_applyShieldSequencePrefab;
 
 	private bool m_snapToGrid = true;
-
 	private Passive_Rampart m_passive;
-
 	private AbilityMod_RampartDashAndAimShield m_abilityMod;
-
 	private StandardEffectInfo m_cachedEnemyHitEffect;
-
 	private StandardEffectInfo m_cachedShieldFrontEnemyEffect;
-
 	private StandardEffectInfo m_cachedAllyHitEffect;
 
 	private void Start()
@@ -85,25 +59,25 @@ public class RampartDashAndAimShield : Ability
 		SetCachedFields();
 		if (m_passive == null)
 		{
-			m_passive = (GetComponent<PassiveData>().GetPassiveOfType(typeof(Passive_Rampart)) as Passive_Rampart);
+			m_passive = GetComponent<PassiveData>().GetPassiveOfType(typeof(Passive_Rampart)) as Passive_Rampart;
 		}
-		float width = (!(m_passive != null)) ? 3f : m_passive.GetShieldBarrierData().m_width;
+		float width = m_passive != null ? m_passive.GetShieldBarrierData().m_width : 3f;
 		ClearTargeters();
-		AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, GetRadiusAroundStart(), GetRadiusAroundEnd(), GetChargeRadius(), 0, false, ChargePenetrateLos());
-		abilityUtil_Targeter_ChargeAoE.SetAffectedGroups(true, IncludeAllies(), false);
-		base.Targeters.Add(abilityUtil_Targeter_ChargeAoE);
+		AbilityUtil_Targeter_ChargeAoE targeter1 = new AbilityUtil_Targeter_ChargeAoE(this, GetRadiusAroundStart(), GetRadiusAroundEnd(), GetChargeRadius(), 0, false, ChargePenetrateLos());
+		targeter1.SetAffectedGroups(true, IncludeAllies(), false);
+		Targeters.Add(targeter1);
 		if (HitInFrontOfShield())
 		{
-			AbilityUtil_Targeter_RampartKnockbackBarrier abilityUtil_Targeter_RampartKnockbackBarrier = new AbilityUtil_Targeter_RampartKnockbackBarrier(this, width, GetShieldFrontHitLength(), m_shieldFrontLangthIgnoreLos, 0f, KnockbackType.AwayFromSource, false, true, false);
-			abilityUtil_Targeter_RampartKnockbackBarrier.SetUseMultiTargetUpdate(true);
-			abilityUtil_Targeter_RampartKnockbackBarrier.SetTooltipSubjectType(AbilityTooltipSubject.Primary);
-			base.Targeters.Add(abilityUtil_Targeter_RampartKnockbackBarrier);
+			AbilityUtil_Targeter_RampartKnockbackBarrier targeter2 = new AbilityUtil_Targeter_RampartKnockbackBarrier(this, width, GetShieldFrontHitLength(), m_shieldFrontLangthIgnoreLos, 0f, KnockbackType.AwayFromSource, false, true, false);
+			targeter2.SetUseMultiTargetUpdate(true);
+			targeter2.SetTooltipSubjectType(AbilityTooltipSubject.Primary);
+			Targeters.Add(targeter2);
 		}
 		else
 		{
-			AbilityUtil_Targeter_Barrier abilityUtil_Targeter_Barrier = new AbilityUtil_Targeter_Barrier(this, width, m_snapToGrid, AllowAimAtDiagonals(), false);
-			abilityUtil_Targeter_Barrier.SetUseMultiTargetUpdate(true);
-			base.Targeters.Add(abilityUtil_Targeter_Barrier);
+			AbilityUtil_Targeter_Barrier targeter2 = new AbilityUtil_Targeter_Barrier(this, width, m_snapToGrid, AllowAimAtDiagonals(), false);
+			targeter2.SetUseMultiTargetUpdate(true);
+			Targeters.Add(targeter2);
 		}
 	}
 
@@ -119,36 +93,15 @@ public class RampartDashAndAimShield : Ability
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
-		}
-		else
-		{
-			cachedEnemyHitEffect = m_enemyHitEffect;
-		}
-		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
-		StandardEffectInfo cachedShieldFrontEnemyEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedShieldFrontEnemyEffect = m_abilityMod.m_shieldFrontEnemyEffectMod.GetModifiedValue(m_shieldFrontEnemyEffect);
-		}
-		else
-		{
-			cachedShieldFrontEnemyEffect = m_shieldFrontEnemyEffect;
-		}
-		m_cachedShieldFrontEnemyEffect = cachedShieldFrontEnemyEffect;
-		StandardEffectInfo cachedAllyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
-		}
-		else
-		{
-			cachedAllyHitEffect = m_allyHitEffect;
-		}
-		m_cachedAllyHitEffect = cachedAllyHitEffect;
+		m_cachedEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect;
+		m_cachedShieldFrontEnemyEffect = m_abilityMod != null
+			? m_abilityMod.m_shieldFrontEnemyEffectMod.GetModifiedValue(m_shieldFrontEnemyEffect)
+			: m_shieldFrontEnemyEffect;
+		m_cachedAllyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect)
+			: m_allyHitEffect;
 	}
 
 	public bool IncludeAllies()
@@ -158,255 +111,138 @@ public class RampartDashAndAimShield : Ability
 
 	public float GetChargeRadius()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_chargeRadiusMod.GetModifiedValue(m_chargeRadius);
-		}
-		else
-		{
-			result = m_chargeRadius;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_chargeRadiusMod.GetModifiedValue(m_chargeRadius)
+			: m_chargeRadius;
 	}
 
 	public float GetRadiusAroundStart()
 	{
-		return (!m_abilityMod) ? m_radiusAroundStart : m_abilityMod.m_radiusAroundStartMod.GetModifiedValue(m_radiusAroundStart);
+		return m_abilityMod != null
+			? m_abilityMod.m_radiusAroundStartMod.GetModifiedValue(m_radiusAroundStart)
+			: m_radiusAroundStart;
 	}
 
 	public float GetRadiusAroundEnd()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_radiusAroundEndMod.GetModifiedValue(m_radiusAroundEnd);
-		}
-		else
-		{
-			result = m_radiusAroundEnd;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_radiusAroundEndMod.GetModifiedValue(m_radiusAroundEnd)
+			: m_radiusAroundEnd;
 	}
 
 	public bool ChargePenetrateLos()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_chargePenetrateLosMod.GetModifiedValue(m_chargePenetrateLos);
-		}
-		else
-		{
-			result = m_chargePenetrateLos;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_chargePenetrateLosMod.GetModifiedValue(m_chargePenetrateLos)
+			: m_chargePenetrateLos;
 	}
 
 	public int GetDamageAmount()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
-		}
-		else
-		{
-			result = m_damageAmount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyHitEffect != null)
-		{
-			result = m_cachedEnemyHitEffect;
-		}
-		else
-		{
-			result = m_enemyHitEffect;
-		}
-		return result;
+		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
 	}
 
 	public int GetAllyHealAmount()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount);
-		}
-		else
-		{
-			result = m_allyHealAmount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount)
+			: m_allyHealAmount;
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedAllyHitEffect != null)
-		{
-			result = m_cachedAllyHitEffect;
-		}
-		else
-		{
-			result = m_allyHitEffect;
-		}
-		return result;
+		return m_cachedAllyHitEffect ?? m_allyHitEffect;
 	}
 
 	public bool AllowAimAtDiagonals()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_allowAimAtDiagonalsMod.GetModifiedValue(m_allowAimAtDiagonals);
-		}
-		else
-		{
-			result = m_allowAimAtDiagonals;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_allowAimAtDiagonalsMod.GetModifiedValue(m_allowAimAtDiagonals)
+			: m_allowAimAtDiagonals;
 	}
 
 	public bool SetCooldownByDistance()
 	{
-		return (!m_abilityMod) ? m_setCooldownByDistance : m_abilityMod.m_setCooldownByDistanceMod.GetModifiedValue(m_setCooldownByDistance);
+		return m_abilityMod != null
+			? m_abilityMod.m_setCooldownByDistanceMod.GetModifiedValue(m_setCooldownByDistance)
+			: m_setCooldownByDistance;
 	}
 
 	public int GetMinCooldown()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_minCooldownMod.GetModifiedValue(m_minCooldown);
-		}
-		else
-		{
-			result = m_minCooldown;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_minCooldownMod.GetModifiedValue(m_minCooldown)
+			: m_minCooldown;
 	}
 
 	public int GetCooldownModifierAdd()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_cooldownModifierAddMod.GetModifiedValue(m_cooldownModifierAdd);
-		}
-		else
-		{
-			result = m_cooldownModifierAdd;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cooldownModifierAddMod.GetModifiedValue(m_cooldownModifierAdd)
+			: m_cooldownModifierAdd;
 	}
 
 	public bool UseEnergyForMoveDistance()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_useEnergyForMoveDistanceMod.GetModifiedValue(m_useEnergyForMoveDistance);
-		}
-		else
-		{
-			result = m_useEnergyForMoveDistance;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_useEnergyForMoveDistanceMod.GetModifiedValue(m_useEnergyForMoveDistance)
+			: m_useEnergyForMoveDistance;
 	}
 
 	public int GetMinEnergyToCast()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_minEnergyToCastMod.GetModifiedValue(m_minEnergyToCast);
-		}
-		else
-		{
-			result = m_minEnergyToCast;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_minEnergyToCastMod.GetModifiedValue(m_minEnergyToCast)
+			: m_minEnergyToCast;
 	}
 
 	public int GetEnergyPerMove()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_energyPerMoveMod.GetModifiedValue(m_energyPerMove);
-		}
-		else
-		{
-			result = m_energyPerMove;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_energyPerMoveMod.GetModifiedValue(m_energyPerMove)
+			: m_energyPerMove;
 	}
 
 	public bool UseAllEnergyIfUsedForDistance()
 	{
-		return (!m_abilityMod) ? m_useAllEnergyIfUsedForDistance : m_abilityMod.m_useAllEnergyIfUsedForDistanceMod.GetModifiedValue(m_useAllEnergyIfUsedForDistance);
+		return m_abilityMod != null
+			? m_abilityMod.m_useAllEnergyIfUsedForDistanceMod.GetModifiedValue(m_useAllEnergyIfUsedForDistance)
+			: m_useAllEnergyIfUsedForDistance;
 	}
 
 	public bool HitInFrontOfShield()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_hitInFrontOfShieldMod.GetModifiedValue(m_hitInFrontOfShield);
-		}
-		else
-		{
-			result = m_hitInFrontOfShield;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_hitInFrontOfShieldMod.GetModifiedValue(m_hitInFrontOfShield)
+			: m_hitInFrontOfShield;
 	}
 
 	public float GetShieldFrontHitLength()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_shieldFrontHitLengthMod.GetModifiedValue(m_shieldFrontHitLength);
-		}
-		else
-		{
-			result = m_shieldFrontHitLength;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldFrontHitLengthMod.GetModifiedValue(m_shieldFrontHitLength)
+			: m_shieldFrontHitLength;
 	}
 
 	public int GetDamageForShieldFront()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageForShieldFrontMod.GetModifiedValue(m_damageForShieldFront);
-		}
-		else
-		{
-			result = m_damageForShieldFront;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageForShieldFrontMod.GetModifiedValue(m_damageForShieldFront)
+			: m_damageForShieldFront;
 	}
 
 	public StandardEffectInfo GetShieldFrontEnemyEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedShieldFrontEnemyEffect != null)
-		{
-			result = m_cachedShieldFrontEnemyEffect;
-		}
-		else
-		{
-			result = m_shieldFrontEnemyEffect;
-		}
-		return result;
+		return m_cachedShieldFrontEnemyEffect != null
+			? m_cachedShieldFrontEnemyEffect
+			: m_shieldFrontEnemyEffect;
 	}
 
 	public float GetShieldFrontLaserWidth()
@@ -418,93 +254,36 @@ public class RampartDashAndAimShield : Ability
 	{
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
 		AbilityMod_RampartDashAndAimShield abilityMod_RampartDashAndAimShield = modAsBase as AbilityMod_RampartDashAndAimShield;
-		AddTokenInt(tokens, "DamageAmount", string.Empty, (!abilityMod_RampartDashAndAimShield) ? m_damageAmount : abilityMod_RampartDashAndAimShield.m_damageAmountMod.GetModifiedValue(m_damageAmount));
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_RampartDashAndAimShield)
-		{
-			effectInfo = abilityMod_RampartDashAndAimShield.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
-		}
-		else
-		{
-			effectInfo = m_enemyHitEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", m_enemyHitEffect);
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_RampartDashAndAimShield)
-		{
-			val = abilityMod_RampartDashAndAimShield.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount);
-		}
-		else
-		{
-			val = m_allyHealAmount;
-		}
-		AddTokenInt(tokens, "AllyHealAmount", empty, val);
-		StandardEffectInfo effectInfo2;
-		if ((bool)abilityMod_RampartDashAndAimShield)
-		{
-			effectInfo2 = abilityMod_RampartDashAndAimShield.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
-		}
-		else
-		{
-			effectInfo2 = m_allyHitEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "AllyHitEffect", m_allyHitEffect);
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)abilityMod_RampartDashAndAimShield)
-		{
-			val2 = abilityMod_RampartDashAndAimShield.m_minCooldownMod.GetModifiedValue(m_minCooldown);
-		}
-		else
-		{
-			val2 = m_minCooldown;
-		}
-		AddTokenInt(tokens, "MinCooldown", empty2, val2);
-		string empty3 = string.Empty;
-		int val3;
-		if ((bool)abilityMod_RampartDashAndAimShield)
-		{
-			val3 = abilityMod_RampartDashAndAimShield.m_cooldownModifierAddMod.GetModifiedValue(m_cooldownModifierAdd);
-		}
-		else
-		{
-			val3 = m_cooldownModifierAdd;
-		}
-		AddTokenInt(tokens, "CooldownModifierAdd", empty3, val3);
-		string empty4 = string.Empty;
-		int val4;
-		if ((bool)abilityMod_RampartDashAndAimShield)
-		{
-			val4 = abilityMod_RampartDashAndAimShield.m_minEnergyToCastMod.GetModifiedValue(m_minEnergyToCast);
-		}
-		else
-		{
-			val4 = m_minEnergyToCast;
-		}
-		AddTokenInt(tokens, "MinEnergyToCast", empty4, val4);
-		string empty5 = string.Empty;
-		int val5;
-		if ((bool)abilityMod_RampartDashAndAimShield)
-		{
-			val5 = abilityMod_RampartDashAndAimShield.m_energyPerMoveMod.GetModifiedValue(m_energyPerMove);
-		}
-		else
-		{
-			val5 = m_energyPerMove;
-		}
-		AddTokenInt(tokens, "EnergyPerMove", empty5, val5);
-		AddTokenInt(tokens, "DamageForShieldFront", string.Empty, (!abilityMod_RampartDashAndAimShield) ? m_damageForShieldFront : abilityMod_RampartDashAndAimShield.m_damageForShieldFrontMod.GetModifiedValue(m_damageForShieldFront));
-		StandardEffectInfo effectInfo3;
-		if ((bool)abilityMod_RampartDashAndAimShield)
-		{
-			effectInfo3 = abilityMod_RampartDashAndAimShield.m_shieldFrontEnemyEffectMod.GetModifiedValue(m_shieldFrontEnemyEffect);
-		}
-		else
-		{
-			effectInfo3 = m_shieldFrontEnemyEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "ShieldFrontEnemyEffect", m_shieldFrontEnemyEffect);
+		AddTokenInt(tokens, "DamageAmount", "", abilityMod_RampartDashAndAimShield != null
+			? abilityMod_RampartDashAndAimShield.m_damageAmountMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_RampartDashAndAimShield != null
+			? abilityMod_RampartDashAndAimShield.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
+		AddTokenInt(tokens, "AllyHealAmount", "", abilityMod_RampartDashAndAimShield != null
+			? abilityMod_RampartDashAndAimShield.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount)
+			: m_allyHealAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_RampartDashAndAimShield != null
+			? abilityMod_RampartDashAndAimShield.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect)
+			: m_allyHitEffect, "AllyHitEffect", m_allyHitEffect);
+		AddTokenInt(tokens, "MinCooldown", "", abilityMod_RampartDashAndAimShield != null
+			? abilityMod_RampartDashAndAimShield.m_minCooldownMod.GetModifiedValue(m_minCooldown)
+			: m_minCooldown);
+		AddTokenInt(tokens, "CooldownModifierAdd", "", abilityMod_RampartDashAndAimShield != null
+			? abilityMod_RampartDashAndAimShield.m_cooldownModifierAddMod.GetModifiedValue(m_cooldownModifierAdd)
+			: m_cooldownModifierAdd);
+		AddTokenInt(tokens, "MinEnergyToCast", "", abilityMod_RampartDashAndAimShield != null
+			? abilityMod_RampartDashAndAimShield.m_minEnergyToCastMod.GetModifiedValue(m_minEnergyToCast)
+			: m_minEnergyToCast);
+		AddTokenInt(tokens, "EnergyPerMove", "", abilityMod_RampartDashAndAimShield != null
+			? abilityMod_RampartDashAndAimShield.m_energyPerMoveMod.GetModifiedValue(m_energyPerMove)
+			: m_energyPerMove);
+		AddTokenInt(tokens, "DamageForShieldFront", "", abilityMod_RampartDashAndAimShield != null
+			? abilityMod_RampartDashAndAimShield.m_damageForShieldFrontMod.GetModifiedValue(m_damageForShieldFront)
+			: m_damageForShieldFront);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_RampartDashAndAimShield != null
+			? abilityMod_RampartDashAndAimShield.m_shieldFrontEnemyEffectMod.GetModifiedValue(m_shieldFrontEnemyEffect)
+			: m_shieldFrontEnemyEffect, "ShieldFrontEnemyEffect", m_shieldFrontEnemyEffect);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -524,25 +303,20 @@ public class RampartDashAndAimShield : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
-		List<AbilityTooltipSubject> tooltipSubjectTypes2 = base.Targeters[1].GetTooltipSubjectTypes(targetActor);
+		List<AbilityTooltipSubject> tooltipSubjectTypes1 = Targeter.GetTooltipSubjectTypes(targetActor);
+		List<AbilityTooltipSubject> tooltipSubjectTypes2 = Targeters[1].GetTooltipSubjectTypes(targetActor);
 		dictionary[AbilityTooltipSymbol.Damage] = 0;
-		if (tooltipSubjectTypes != null)
+		if (tooltipSubjectTypes1 != null
+			&& tooltipSubjectTypes1.Contains(AbilityTooltipSubject.Enemy)
+			&& tooltipSubjectTypes1.Contains(AbilityTooltipSubject.Primary))
 		{
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy) && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
-			{
-				dictionary[AbilityTooltipSymbol.Damage] += GetDamageAmount();
-			}
+			dictionary[AbilityTooltipSymbol.Damage] += GetDamageAmount();
 		}
-		if (tooltipSubjectTypes2 != null)
+		if (tooltipSubjectTypes2 != null
+			&& tooltipSubjectTypes2.Contains(AbilityTooltipSubject.Enemy)
+			&& tooltipSubjectTypes2.Contains(AbilityTooltipSubject.Primary))
 		{
-			if (tooltipSubjectTypes2.Contains(AbilityTooltipSubject.Enemy))
-			{
-				if (tooltipSubjectTypes2.Contains(AbilityTooltipSubject.Primary))
-				{
-					dictionary[AbilityTooltipSymbol.Damage] += GetDamageForShieldFront();
-				}
-			}
+			dictionary[AbilityTooltipSymbol.Damage] += GetDamageForShieldFront();
 		}
 		return dictionary;
 	}
@@ -552,58 +326,52 @@ public class RampartDashAndAimShield : Ability
 		bool result = true;
 		if (UseEnergyForMoveDistance())
 		{
-			result = (caster.TechPoints >= GetMinEnergyToCast());
+			result = caster.TechPoints >= GetMinEnergyToCast();
 		}
 		return result;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (!(boardSquareSafe == null))
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		if (targetSquare == null
+			|| !targetSquare.IsValidForGameplay()
+			|| targetSquare == caster.GetCurrentBoardSquare())
 		{
-			if (boardSquareSafe.IsValidForGameplay())
-			{
-				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
-				{
-					bool result = false;
-					if (targetIndex == 0)
-					{
-						BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe);
-						if (boardSquarePathInfo != null)
-						{
-							result = true;
-							if (UseEnergyForMoveDistance() && GetEnergyPerMove() > 0)
-							{
-								int num = caster.TechPoints / GetEnergyPerMove();
-								int num2 = 0;
-								BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo;
-								while (boardSquarePathInfo2.next != null)
-								{
-									boardSquarePathInfo2 = boardSquarePathInfo2.next;
-									num2++;
-								}
-								result = (num2 <= num);
-							}
-						}
-					}
-					else
-					{
-						BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[0].GridPos);
-						result = (boardSquareSafe2 == boardSquareSafe);
-					}
-					return result;
-				}
-			}
+			return false;
 		}
-		return false;
+		if (targetIndex == 0)
+		{
+			BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(caster, targetSquare);
+			if (path == null)
+			{
+				return false;
+			}
+			if (!UseEnergyForMoveDistance() || GetEnergyPerMove() <= 0)
+			{
+				return true;
+			}
+			int maxLen = caster.TechPoints / GetEnergyPerMove();
+			int len = 0;
+			BoardSquarePathInfo it = path;
+			while (it.next != null)
+			{
+				it = it.next;
+				len++;
+			}
+			return len <= maxLen;
+		}
+		else
+		{
+			return Board.Get().GetSquare(currentTargets[0].GridPos) == targetSquare;
+		}
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RampartDashAndAimShield))
 		{
-			m_abilityMod = (abilityMod as AbilityMod_RampartDashAndAimShield);
+			m_abilityMod = abilityMod as AbilityMod_RampartDashAndAimShield;
 		}
 		SetupTargeter();
 	}

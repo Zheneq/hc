@@ -4,42 +4,29 @@ using UnityEngine.Networking;
 public class Rampart_SyncComponent : NetworkBehaviour
 {
 	private BoxCollider m_colliderForShield;
-
-	private static readonly int animIdleType;
-
-	private static readonly int animForceIdle;
-
 	private ActorData m_owner;
 
-	private static int kRpcRpcSetIdleType;
-
-	private static int kRpcRpcSetFacingDirection;
+	private static readonly int animIdleType = Animator.StringToHash("IdleType");
+	private static readonly int animForceIdle = Animator.StringToHash("ForceIdle");
+	private static int kRpcRpcSetIdleType = -1213222266;
+	private static int kRpcRpcSetFacingDirection = 1708941421;
 
 	static Rampart_SyncComponent()
 	{
-		animIdleType = Animator.StringToHash("IdleType");
-		animForceIdle = Animator.StringToHash("ForceIdle");
-		kRpcRpcSetIdleType = -1213222266;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(Rampart_SyncComponent), kRpcRpcSetIdleType, InvokeRpcRpcSetIdleType);
-		kRpcRpcSetFacingDirection = 1708941421;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(Rampart_SyncComponent), kRpcRpcSetFacingDirection, InvokeRpcRpcSetFacingDirection);
+		RegisterRpcDelegate(typeof(Rampart_SyncComponent), kRpcRpcSetIdleType, InvokeRpcRpcSetIdleType);
+		RegisterRpcDelegate(typeof(Rampart_SyncComponent), kRpcRpcSetFacingDirection, InvokeRpcRpcSetFacingDirection);
 		NetworkCRC.RegisterBehaviour("Rampart_SyncComponent", 0);
 	}
 
 	private void Start()
 	{
 		ActorData owner = GetOwner();
-		if (!(owner != null) || !(owner.GetActorModelData() != null))
-		{
-			return;
-		}
-		while (true)
+		if (owner != null && owner.GetActorModelData() != null)
 		{
 			m_colliderForShield = owner.GetActorModelData().gameObject.AddComponent<BoxCollider>();
 			m_colliderForShield.center = new Vector3(0f, 0.8f, 1f);
 			m_colliderForShield.size = new Vector3(3.1f * Board.Get().squareSize, 3f, 0.3f);
 			m_colliderForShield.enabled = false;
-			return;
 		}
 	}
 
@@ -60,8 +47,8 @@ public class Rampart_SyncComponent : NetworkBehaviour
 			ActorData owner = GetOwner();
 			if (owner != null && owner.GetModelAnimator() != null)
 			{
-				int integer = owner.GetModelAnimator().GetInteger(animIdleType);
-				if (integer != idleType)
+				int currentIdleType = owner.GetModelAnimator().GetInteger(animIdleType);
+				if (currentIdleType != idleType)
 				{
 					owner.GetModelAnimator().SetInteger(animIdleType, idleType);
 					if (idleType != 0)
@@ -71,36 +58,22 @@ public class Rampart_SyncComponent : NetworkBehaviour
 				}
 			}
 		}
-		if (!NetworkClient.active || !(m_colliderForShield != null))
-		{
-			return;
-		}
-		while (true)
+		if (NetworkClient.active && m_colliderForShield != null)
 		{
 			m_colliderForShield.enabled = (idleType != 0);
-			return;
 		}
 	}
 
 	[ClientRpc]
 	public void RpcSetFacingDirection(Vector3 facing)
 	{
-		if (NetworkServer.active)
-		{
-			return;
-		}
-		while (true)
+		if (!NetworkServer.active)
 		{
 			ActorData owner = GetOwner();
 			if (owner != null)
 			{
-				while (true)
-				{
-					owner.TurnToDirection(facing);
-					return;
-				}
+				owner.TurnToDirection(facing);
 			}
-			return;
 		}
 	}
 
@@ -112,17 +85,8 @@ public class Rampart_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC RpcSetIdleType called on server.");
-					return;
-				}
-			}
+			Debug.LogError("RPC RpcSetIdleType called on server.");
+			return;
 		}
 		((Rampart_SyncComponent)obj).RpcSetIdleType((int)reader.ReadPackedUInt32());
 	}
@@ -132,28 +96,17 @@ public class Rampart_SyncComponent : NetworkBehaviour
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("RPC RpcSetFacingDirection called on server.");
+			return;
 		}
-		else
-		{
-			((Rampart_SyncComponent)obj).RpcSetFacingDirection(reader.ReadVector3());
-		}
+		((Rampart_SyncComponent)obj).RpcSetFacingDirection(reader.ReadVector3());
 	}
 
 	public void CallRpcSetIdleType(int idleType)
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC Function RpcSetIdleType called on client.");
-					return;
-				}
-			}
+			Debug.LogError("RPC Function RpcSetIdleType called on client.");
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
@@ -168,17 +121,8 @@ public class Rampart_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC Function RpcSetFacingDirection called on client.");
-					return;
-				}
-			}
+			Debug.LogError("RPC Function RpcSetFacingDirection called on client.");
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
@@ -191,8 +135,7 @@ public class Rampart_SyncComponent : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result = default(bool);
-		return result;
+		return false;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)

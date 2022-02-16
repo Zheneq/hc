@@ -4,14 +4,10 @@ public class Passive_Rampart : Passive
 {
 	[Header("-- Normal Shield Barrier Info")]
 	public int m_normalShieldDuration = 2;
-
 	public StandardBarrierData m_normalShieldBarrierData;
-
 	[Header("-- Anim")]
 	public int m_unshieldedIdleType;
-
 	public int m_shieldedIdleType = 1;
-
 	[Header("-- Sequences")]
 	public GameObject m_removeShieldWaitSequencePrefab;
 
@@ -19,20 +15,11 @@ public class Passive_Rampart : Passive
 
 	public StandardBarrierData GetShieldBarrierData()
 	{
-		return (m_cachedShieldBarrierData == null) ? m_normalShieldBarrierData : m_cachedShieldBarrierData;
+		return m_cachedShieldBarrierData ?? m_normalShieldBarrierData;
 	}
 
 	public void SetCachedShieldBarrierData(AbilityModPropertyBarrierDataV2 barrierMod)
 	{
-		object cachedShieldBarrierData;
-		if (barrierMod != null)
-		{
-			cachedShieldBarrierData = barrierMod.GetModifiedValue(m_normalShieldBarrierData);
-		}
-		else
-		{
-			cachedShieldBarrierData = null;
-		}
-		m_cachedShieldBarrierData = (StandardBarrierData)cachedShieldBarrierData;
+		m_cachedShieldBarrierData = (barrierMod?.GetModifiedValue(m_normalShieldBarrierData));
 	}
 }
