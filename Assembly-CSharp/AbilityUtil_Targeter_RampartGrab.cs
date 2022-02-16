@@ -10,25 +10,18 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 	}
 
 	private AbilityAreaShape m_shape;
-
 	private float m_knockbackDistance;
-
 	private KnockbackType m_knockbackType;
 
 	public float m_laserRange;
 
 	private float m_laserWidth;
-
 	private bool m_penetrateLos;
-
 	private int m_maxTargets;
-
 	private float m_heightOffset = 0.1f;
-
 	private float m_curSpeed;
 
 	protected AbilityTooltipSubject m_enemyTooltipSubject;
-
 	protected AbilityTooltipSubject m_allyTooltipSubject;
 
 	private GridPos m_currentGridPos = GridPos.s_invalid;
@@ -62,14 +55,14 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 	protected Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		BoardSquare squareFromAbilityTarget = GetSquareFromAbilityTarget(currentTarget, targetingActor);
-		if (squareFromAbilityTarget != null)
+		if (squareFromAbilityTarget == null)
 		{
-			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
-			Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
-			centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
-			return centerOfShape;
+			return Vector3.zero;
 		}
-		return Vector3.zero;
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
+		centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
+		return centerOfShape;
 	}
 
 	protected BoardSquare GetSquareFromAbilityTarget(AbilityTarget currentTarget, ActorData targetingActor)
@@ -81,43 +74,34 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 	{
 		m_currentGridPos = currentTarget.GridPos;
 		ClearActorsInRange();
-		if (currentTargetIndex <= 0)
+		if (currentTargetIndex > 0)
 		{
-			return;
-		}
-		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
-		while (true)
-		{
+			VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
 			laserCoords.start = targetingActor.GetLoSCheckPos();
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[currentTargetIndex - 1].AimDirection, m_laserRange, m_laserWidth, targetingActor, targetingActor.GetEnemyTeamAsList(), m_penetrateLos, m_maxTargets, false, false, out laserCoords.end, null);
-			int num = 0;
+			int arrowIndex = 0;
 			EnableAllMovementArrows();
 			BoardSquare squareFromAbilityTarget = GetSquareFromAbilityTarget(currentTarget, targetingActor);
 			if (squareFromAbilityTarget != null)
 			{
 				Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
-				if (base.Highlight == null)
+				if (Highlight == null)
 				{
-					base.Highlight = HighlightUtils.Get().CreateShapeCursor(m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData);
-					base.Highlight.transform.position = highlightGoalPos;
+					Highlight = HighlightUtils.Get().CreateShapeCursor(m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData);
+					Highlight.transform.position = highlightGoalPos;
 				}
 				else
 				{
-					base.Highlight.transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos, base.Highlight, ref m_curSpeed);
+					Highlight.transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos, Highlight, ref m_curSpeed);
 				}
-				base.Highlight.SetActive(true);
-				using (List<ActorData>.Enumerator enumerator = actorsInLaser.GetEnumerator())
+				Highlight.SetActive(true);
+				foreach (ActorData actor in actorsInLaser)
 				{
-					while (enumerator.MoveNext())
-					{
-						ActorData current = enumerator.Current;
-						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, currentTarget.AimDirection, squareFromAbilityTarget.ToVector3(), m_knockbackDistance);
-						num = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num);
-					}
+					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actor, m_knockbackType, currentTarget.AimDirection, squareFromAbilityTarget.ToVector3(), m_knockbackDistance);
+					arrowIndex = AddMovementArrowWithPrevious(actor, path, TargeterMovementType.Knockback, arrowIndex);
 				}
 			}
-			SetMovementArrowEnabledFromIndex(num, false);
-			return;
+			SetMovementArrowEnabledFromIndex(arrowIndex, false);
 		}
 	}
 }

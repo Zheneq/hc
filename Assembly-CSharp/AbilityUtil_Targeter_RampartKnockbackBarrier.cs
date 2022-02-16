@@ -4,23 +4,14 @@ using UnityEngine;
 public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 {
 	private float m_width;
-
 	private float m_laserRange;
-
 	private bool m_lengthIgnoreLos;
-
 	private float m_knockbackDistance;
-
 	private KnockbackType m_knockbackType;
-
 	private bool m_penetrateLos;
-
 	private bool m_snapToBorder;
-
 	private bool m_allowAimAtDiagonals;
-
 	private AbilityTooltipSubject m_enemySubjectType = AbilityTooltipSubject.Primary;
-
 	private OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
 
 	public AbilityUtil_Targeter_RampartKnockbackBarrier(Ability ability, float width, float laserRange, bool lengthIgnoreLos, float knockbackDistance, KnockbackType knockbackType, bool penetrateLos, bool snapToBorder, bool allowAimAtDiagonals)
@@ -54,107 +45,83 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
 		ClearActorsInRange();
-		Vector3 vector = currentTarget.FreePos;
-		Vector3 vector2 = vector - targetingActor.GetFreePos();
+		Vector3 currentTargetPos = currentTarget.FreePos;
+		Vector3 dir = currentTargetPos - targetingActor.GetFreePos();
 		bool active = false;
-		Vector3 vector3 = vector;
-		BoardSquare boardSquare = null;
+		Vector3 firstTargetPos = currentTargetPos;
+		BoardSquare firstTargetSquare = null;
 		if (m_snapToBorder)
 		{
 			if (currentTargetIndex > 0)
 			{
-				boardSquare = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
+				firstTargetSquare = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
 			}
 			else
 			{
-				boardSquare = Board.Get().GetSquare(currentTarget.GridPos);
+				firstTargetSquare = Board.Get().GetSquare(currentTarget.GridPos);
 			}
-			if (boardSquare != null)
+			if (firstTargetSquare != null)
 			{
 				active = true;
-				vector3 = boardSquare.ToVector3();
-				vector2 = VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquare, currentTarget.FreePos, m_allowAimAtDiagonals, out Vector3 offset);
-				vector = vector3 + offset;
+				firstTargetPos = firstTargetSquare.ToVector3();
+				dir = VectorUtils.GetDirectionAndOffsetToClosestSide(firstTargetSquare, currentTarget.FreePos, m_allowAimAtDiagonals, out Vector3 offset);
+				currentTargetPos = firstTargetPos + offset;
 			}
 		}
-		vector2.y = 0f;
-		vector2.Normalize();
-		float num = m_width * Board.Get().squareSize;
-		float num2 = m_laserRange * Board.Get().squareSize;
-		if (m_highlights != null)
+		dir.y = 0f;
+		dir.Normalize();
+		float widthInWorld = m_width * Board.Get().squareSize;
+		float rangeInWorld = m_laserRange * Board.Get().squareSize;
+		if (m_highlights == null || m_highlights.Count < 2)
 		{
-			if (m_highlights.Count >= 2)
-			{
-				goto IL_01bf;
-			}
+			m_highlights = new List<GameObject>();
+			m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, true));
+			HighlightUtils.Get().ResizeBoundaryLine(m_width, m_highlights[0]);
+			m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(widthInWorld, 1f));
+			HighlightUtils.Get().ResizeRectangularCursor(widthInWorld, rangeInWorld, m_highlights[1]);
 		}
-		m_highlights = new List<GameObject>();
-		m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, true));
-		HighlightUtils.Get().ResizeBoundaryLine(m_width, m_highlights[0]);
-		m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(num, 1f));
-		HighlightUtils.Get().ResizeRectangularCursor(num, num2, m_highlights[1]);
-		goto IL_01bf;
-		IL_01bf:
-		GameObject gameObject = m_highlights[0];
-		GameObject gameObject2 = m_highlights[1];
 		float y = 0.1f;
-		Vector3 a = Vector3.Cross(vector2, Vector3.up);
-		Vector3 a2 = vector - 0.5f * num * a;
-		gameObject.transform.position = a2 + new Vector3(0f, 0.1f, 0f);
-		gameObject.transform.rotation = Quaternion.LookRotation(-a);
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
-		Vector3 start = (!(boardSquare != null)) ? travelBoardSquareWorldPositionForLos : boardSquare.ToVector3();
-		start.y = travelBoardSquareWorldPositionForLos.y;
+		Vector3 left = Vector3.Cross(dir, Vector3.up);
+		m_highlights[0].transform.position = currentTargetPos - 0.5f * widthInWorld * left + new Vector3(0f, 0.1f, 0f);
+		m_highlights[0].transform.rotation = Quaternion.LookRotation(-left);
+		Vector3 losCheckPos = targetingActor.GetLoSCheckPos();
+		Vector3 start = firstTargetSquare != null ? firstTargetSquare.ToVector3() : losCheckPos;
+		start.y = losCheckPos.y;
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
 		laserCoords.start = start;
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, m_affectsEnemies);
-		float laserRange = m_laserRange;
-		float num3;
-		if (m_snapToBorder)
+		float laserRangeInSquares = m_laserRange + (m_snapToBorder ? 0.5f : 0f);
+		List<ActorData> actorsInFront = AreaEffectUtils.GetActorsInLaser(laserCoords.start, dir, laserRangeInSquares, m_width, targetingActor, relevantTeams, m_penetrateLos, -1, m_lengthIgnoreLos, false, out laserCoords.end, null, null, true);
+		if (actorsInFront.Count > 0)
 		{
-			num3 = 0.5f;
-		}
-		else
-		{
-			num3 = 0f;
-		}
-		float laserRangeInSquares = laserRange + num3;
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, vector2, laserRangeInSquares, m_width, targetingActor, relevantTeams, m_penetrateLos, -1, m_lengthIgnoreLos, false, out laserCoords.end, null, null, true);
-		if (actorsInLaser.Count > 0)
-		{
-			Vector3 laserEndPos;
-			List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords.start, -1f * vector2, 2f, m_width, targetingActor, relevantTeams, true, -1, true, true, out laserEndPos, null, null, true);
-			for (int num4 = actorsInLaser.Count - 1; num4 >= 0; num4--)
+			List<ActorData> actorBehind = AreaEffectUtils.GetActorsInLaser(laserCoords.start, -1f * dir, 2f, m_width, targetingActor, relevantTeams, true, -1, true, true, out Vector3 laserEndPos, null, null, true);
+			for (int i = actorsInFront.Count - 1; i >= 0; i--)
 			{
-				if (actorsInLaser2.Contains(actorsInLaser[num4]))
+				if (actorBehind.Contains(actorsInFront[i]))
 				{
-					actorsInLaser.RemoveAt(num4);
+					actorsInFront.RemoveAt(i);
 				}
 			}
 		}
-		float lengthInWorld = num2;
+		float lengthInWorld = rangeInWorld;
 		if (!m_lengthIgnoreLos)
 		{
-			Vector3 vector4 = laserCoords.end - vector;
-			vector4.y = 0f;
-			lengthInWorld = vector4.magnitude;
+			Vector3 vec = laserCoords.end - currentTargetPos;
+			vec.y = 0f;
+			lengthInWorld = vec.magnitude;
 		}
-		gameObject2.transform.position = vector + new Vector3(0f, y, 0f);
-		gameObject2.transform.rotation = Quaternion.LookRotation(vector2);
-		HighlightUtils.Get().ResizeRectangularCursor(num, lengthInWorld, gameObject2);
-		int num5 = 0;
+		m_highlights[1].transform.position = currentTargetPos + new Vector3(0f, y, 0f);
+		m_highlights[1].transform.rotation = Quaternion.LookRotation(dir);
+		HighlightUtils.Get().ResizeRectangularCursor(widthInWorld, lengthInWorld, m_highlights[1]);
+		int arrowIndex = 0;
 		EnableAllMovementArrows();
-		using (List<ActorData>.Enumerator enumerator = actorsInLaser.GetEnumerator())
+		foreach (ActorData actor in actorsInFront)
 		{
-			while (enumerator.MoveNext())
-			{
-				ActorData current = enumerator.Current;
-				AddActorInRange(current, laserCoords.start, targetingActor, m_enemySubjectType);
-				BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, vector2, laserCoords.start, m_knockbackDistance);
-				num5 = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num5);
-			}
+			AddActorInRange(actor, laserCoords.start, targetingActor, m_enemySubjectType);
+			BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actor, m_knockbackType, dir, laserCoords.start, m_knockbackDistance);
+			arrowIndex = AddMovementArrowWithPrevious(actor, path, TargeterMovementType.Knockback, arrowIndex);
 		}
-		SetMovementArrowEnabledFromIndex(num5, false);
+		SetMovementArrowEnabledFromIndex(arrowIndex, false);
 		if (m_affectsTargetingActor)
 		{
 			AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Self);
@@ -165,14 +132,10 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 			{
 				m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
 			}
-			m_highlights[2].transform.position = vector3;
+			m_highlights[2].transform.position = firstTargetPos;
 			m_highlights[2].SetActive(active);
 		}
-		if (!(GameFlowData.Get().activeOwnedActorData == targetingActor))
-		{
-			return;
-		}
-		while (true)
+		if (GameFlowData.Get().activeOwnedActorData == targetingActor)
 		{
 			ResetSquareIndicatorIndexToUse();
 			Vector3 a3 = laserCoords.end - laserCoords.start;
@@ -180,7 +143,6 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 			a3.Normalize();
 			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(m_indicatorHandler, laserCoords.start + 0.49f * Board.SquareSizeStatic * a3, laserCoords.end, m_width, targetingActor, m_penetrateLos, null, null, false);
 			HideUnusedSquareIndicators();
-			return;
 		}
 	}
 }
