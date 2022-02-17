@@ -177,10 +177,10 @@ public class ScoundrelBlindFireSequence : Sequence
 		}
 		for (int i = 0; i < projectilesPerAnimEvent; i++)
 		{
-			float angle = Random.Range(0f - m_angleRange, m_angleRange);
+			float angle = Random.Range(-m_angleRange, m_angleRange);
 			if (i == num)
 			{
-				angle = 0f - m_angleRange;
+				angle = -m_angleRange;
 			}
 			else if (i == num2)
 			{
@@ -188,34 +188,30 @@ public class ScoundrelBlindFireSequence : Sequence
 			}
 			GameObject item = CreateProjectileFx(forward, angle, jointPopupProperty);
 			m_FXs.Add(item);
-			if (!(Random.Range(0f, 1f) < m_extraEdgeShotChance))
+			if (Random.Range(0f, 1f) < m_extraEdgeShotChance)
 			{
-				continue;
+				float angle2 = -m_angleRange;
+				if (Random.Range(0f, 1f) < 0.5f)
+				{
+					angle2 = m_angleRange;
+				}
+				GameObject item2 = CreateProjectileFx(forward, angle2, jointPopupProperty);
+				m_FXs.Add(item2);
 			}
-			float angle2 = 0f - m_angleRange;
-			if (Random.Range(0f, 1f) < 0.5f)
-			{
-				angle2 = m_angleRange;
-			}
-			GameObject item2 = CreateProjectileFx(forward, angle2, jointPopupProperty);
-			m_FXs.Add(item2);
 		}
 		if (!string.IsNullOrEmpty(m_audioEvent))
 		{
 			AudioManager.PostEvent(m_audioEvent, Caster.gameObject);
 		}
-		if (m_hitReactEvent == null)
+		if (m_hitReactEvent == null && m_lastHitReactEvent == null)
 		{
-			if (m_lastHitReactEvent == null)
+			if (m_hitImpactDelayTime > 0f)
 			{
-				if (m_hitImpactDelayTime > 0f)
-				{
-					m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + m_hitImpactDelayTime, true));
-				}
-				else
-				{
-					SpawnImpactFX(true);
-				}
+				m_delayedImpacts.Add(new SimpleAttachedVFXSequence.DelayedImpact(GameTime.time + m_hitImpactDelayTime, true));
+			}
+			else
+			{
+				SpawnImpactFX(true);
 			}
 		}
 		m_numSpawnAttempts++;
