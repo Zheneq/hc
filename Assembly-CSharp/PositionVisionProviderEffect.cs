@@ -11,6 +11,12 @@ public class PositionVisionProviderEffect : Effect
 	private bool m_ignoreLos;
 	private GameObject m_persistentSequencePrefab;
 
+	// TODO LOW probably related to blind mode?
+	// missing in rogues
+	private bool m_canFunctionInGlobalBlind = false;
+	// missing in rogues
+	private bool m_useStraightLineDist = false;
+
 	public PositionVisionProviderEffect(EffectSource parent, BoardSquare targetSquare, ActorData caster, int duration, float visionRadius, VisionProviderInfo.BrushRevealType brushRevealType, bool ignoreLos, GameObject persistentSequence)
 		: base(parent, targetSquare, null, caster)
 	{
@@ -31,7 +37,7 @@ public class PositionVisionProviderEffect : Effect
 	{
 		if (base.Caster.GetAdditionalActorVisionProviders() != null)
 		{
-			base.Caster.GetAdditionalActorVisionProviders().AddVisionProviderOnGridPos(base.TargetSquare.GetGridPos(), this.m_visionRadius, this.m_brushRevealType, this.m_ignoreLos, BoardSquare.VisibilityFlags.Team);
+			base.Caster.GetAdditionalActorVisionProviders().AddVisionProviderOnGridPos(base.TargetSquare.GetGridPos(), this.m_visionRadius, this.m_useStraightLineDist, this.m_brushRevealType, this.m_ignoreLos, this.m_canFunctionInGlobalBlind, BoardSquare.VisibilityFlags.Team);
 		}
 	}
 
@@ -39,7 +45,7 @@ public class PositionVisionProviderEffect : Effect
 	{
 		if (base.Caster.GetAdditionalActorVisionProviders() != null)
 		{
-			base.Caster.GetAdditionalActorVisionProviders().RemoveVisionProviderOnGridPos(base.TargetSquare.GetGridPos(), this.m_visionRadius, this.m_brushRevealType, this.m_ignoreLos, BoardSquare.VisibilityFlags.Team);
+			base.Caster.GetAdditionalActorVisionProviders().RemoveVisionProviderOnGridPos(base.TargetSquare.GetGridPos(), this.m_visionRadius, this.m_useStraightLineDist, this.m_brushRevealType, this.m_ignoreLos, this.m_canFunctionInGlobalBlind, BoardSquare.VisibilityFlags.Team);
 		}
 	}
 }

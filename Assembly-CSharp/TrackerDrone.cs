@@ -205,7 +205,11 @@ public class TrackerDrone : Ability
 		}
 		if (!caster.GetAdditionalActorVisionProviders().HasVisionProviderOnSatellite(caster.ActorIndex, 0))
 		{
-			caster.GetAdditionalActorVisionProviders().AddVisionProviderOnSatellite(caster.ActorIndex, 0, m_droneInfoComp.GetVisionRadius(), m_droneInfoComp.m_brushRevealType, BoardSquare.VisibilityFlags.Team);
+			// TODO GREY drone vision
+			// custom
+			caster.GetAdditionalActorVisionProviders().AddVisionProviderOnSatellite(caster.ActorIndex, 0, m_droneInfoComp.GetVisionRadius(), false, m_droneInfoComp.m_brushRevealType, false, false, BoardSquare.VisibilityFlags.Team);
+			// rogues
+			//caster.GetAdditionalActorVisionProviders().AddVisionProviderOnSatellite(caster.ActorIndex, 0, m_droneInfoComp.GetVisionRadius(), m_droneInfoComp.m_brushRevealType, BoardSquare.VisibilityFlags.Team);
 		}
 	}
 #endif

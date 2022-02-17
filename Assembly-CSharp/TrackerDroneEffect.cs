@@ -56,7 +56,11 @@ public class TrackerDroneEffect : Effect
 			if (m_visionProviders != null)
 			{
 				m_radiusUsedForVisionProvider = m_droneInfoComp.GetVisionRadius();
-				m_visionProviders.AddVisionProviderOnGridPos(TargetSquare.GetGridPos(), m_radiusUsedForVisionProvider, m_droneInfoComp.m_brushRevealType, false, BoardSquare.VisibilityFlags.Team);
+				// TODO GREY drone vision in special modes?
+				// custom
+				m_visionProviders.AddVisionProviderOnGridPos(TargetSquare.GetGridPos(), m_radiusUsedForVisionProvider, false, m_droneInfoComp.m_brushRevealType, false, false, BoardSquare.VisibilityFlags.Team);
+				// rogues
+				//m_visionProviders.AddVisionProviderOnGridPos(TargetSquare.GetGridPos(), m_radiusUsedForVisionProvider, m_droneInfoComp.m_brushRevealType, false, BoardSquare.VisibilityFlags.Team);
 			}
 		}
 	}
@@ -68,7 +72,11 @@ public class TrackerDroneEffect : Effect
 			m_droneTrackerComponent.UpdateDroneActiveFlag(false);
 			if (m_visionProviders != null)
 			{
-				m_visionProviders.RemoveVisionProviderOnGridPos(TargetSquare.GetGridPos(), m_radiusUsedForVisionProvider, m_droneInfoComp.m_brushRevealType, false, BoardSquare.VisibilityFlags.Team);
+				// TODO GREY drone vision in special modes?
+				// custom
+				m_visionProviders.RemoveVisionProviderOnGridPos(TargetSquare.GetGridPos(), m_radiusUsedForVisionProvider, false, m_droneInfoComp.m_brushRevealType, false, false, BoardSquare.VisibilityFlags.Team);
+				// rogues
+				//m_visionProviders.RemoveVisionProviderOnGridPos(TargetSquare.GetGridPos(), m_radiusUsedForVisionProvider, m_droneInfoComp.m_brushRevealType, false, BoardSquare.VisibilityFlags.Team);
 			}
 		}
 	}

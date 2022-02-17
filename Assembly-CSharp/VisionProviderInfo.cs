@@ -1,6 +1,9 @@
+﻿// ROGUES
+// SERVER
 using System;
 using UnityEngine;
 
+// missing a couple of fields in rouges (features were not present at the moment of forking?)
 [Serializable]
 public struct VisionProviderInfo
 {
@@ -16,11 +19,11 @@ public struct VisionProviderInfo
 	public int m_boardX;
 	public int m_boardY;
 	public float m_radius;
-	public bool m_radiusAsStraightLineDist;
+	public bool m_radiusAsStraightLineDist; // removed in rogues
 	public BoardSquare.VisibilityFlags m_flag;
 	public BrushRevealType m_brushRevealType;
 	public bool m_ignoreLos;
-	public bool m_canFunctionInGlobalBlind;
+	public bool m_canFunctionInGlobalBlind; // removed in rogues
 
 	public VisionProviderInfo(GridPos gridPos, float r, bool radiusAsStraightLineDist, BrushRevealType brushRevealType, bool ignoreLos, bool canFunctionInGlobalBlind, BoardSquare.VisibilityFlags f = BoardSquare.VisibilityFlags.Team)
 	{
@@ -29,11 +32,11 @@ public struct VisionProviderInfo
 		m_boardX = gridPos.x;
 		m_boardY = gridPos.y;
 		m_radius = r;
-		m_radiusAsStraightLineDist = radiusAsStraightLineDist;
+		m_radiusAsStraightLineDist = radiusAsStraightLineDist; // removed in rogues
 		m_flag = f;
 		m_brushRevealType = brushRevealType;
 		m_ignoreLos = ignoreLos;
-		m_canFunctionInGlobalBlind = canFunctionInGlobalBlind;
+		m_canFunctionInGlobalBlind = canFunctionInGlobalBlind; // removed in rogues
 	}
 
 	public VisionProviderInfo(int actorIdx, float r, bool radiusAsStraightLineDist, BrushRevealType brushRevealType, bool ignoreLos, bool canFunctionInGlobalBlind, BoardSquare.VisibilityFlags f = BoardSquare.VisibilityFlags.Team)
@@ -43,11 +46,11 @@ public struct VisionProviderInfo
 		m_boardX = -1;
 		m_boardY = -1;
 		m_radius = r;
-		m_radiusAsStraightLineDist = radiusAsStraightLineDist;
+		m_radiusAsStraightLineDist = radiusAsStraightLineDist; // removed in rogues
 		m_flag = f;
 		m_brushRevealType = brushRevealType;
-		m_ignoreLos = ignoreLos;
-		m_canFunctionInGlobalBlind = canFunctionInGlobalBlind;
+		m_ignoreLos = ignoreLos;  // false in rogues
+		m_canFunctionInGlobalBlind = canFunctionInGlobalBlind; // removed in rogues
 	}
 
 	public VisionProviderInfo(int actorIdx, int satelliteIdx, float r, bool radiusAsStraightLineDist, BrushRevealType brushRevealType, bool ignoreLos, bool canFunctionInGlobalBlind, BoardSquare.VisibilityFlags f = BoardSquare.VisibilityFlags.Team)
@@ -57,11 +60,11 @@ public struct VisionProviderInfo
 		m_boardX = -1;
 		m_boardY = -1;
 		m_radius = r;
-		m_radiusAsStraightLineDist = radiusAsStraightLineDist;
+		m_radiusAsStraightLineDist = radiusAsStraightLineDist; // removed in rogues
 		m_flag = f;
 		m_brushRevealType = brushRevealType;
-		m_ignoreLos = ignoreLos;
-		m_canFunctionInGlobalBlind = canFunctionInGlobalBlind;
+		m_ignoreLos = ignoreLos;  // false in rogues
+		m_canFunctionInGlobalBlind = canFunctionInGlobalBlind; // removed in rogues
 	}
 
 	public BoardSquare GetBoardSquare()
@@ -94,6 +97,7 @@ public struct VisionProviderInfo
 		return result;
 	}
 
+	// radiusAsStraightLineDist & canFunctionInGlobalBlind are removed in rogues in methods below
 	public bool IsEqual(VisionProviderInfo other)
 	{
 		return IsEqual(new GridPos(other.m_boardX, other.m_boardY, 0), other.m_radius, other.m_radiusAsStraightLineDist, other.m_brushRevealType, other.m_ignoreLos, other.m_flag, other.m_canFunctionInGlobalBlind);
