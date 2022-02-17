@@ -5,19 +5,13 @@ using System.Collections.Generic;
 public class StandardGroundEffectInfo
 {
 	public bool m_applyGroundEffect;
-
 	public GroundEffectField m_groundEffectData;
 
 	public virtual void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject enemySubject, AbilityTooltipSubject allySubject)
 	{
-		if (!m_applyGroundEffect)
-		{
-			return;
-		}
-		while (true)
+		if (m_applyGroundEffect)
 		{
 			m_groundEffectData.ReportAbilityTooltipNumbers(ref numbers, enemySubject, allySubject);
-			return;
 		}
 	}
 }
