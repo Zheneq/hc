@@ -1,14 +1,19 @@
+﻿// ROGUES
 using Unity;
 using UnityEngine;
 using UnityEngine.Networking;
 
+// bool useSraightLineDist, bool ignoreLos, bool canFunctionInGlobalBlind params are removed in rogues
+// otherwise, the same in reactor and rogues
 public class ActorAdditionalVisionProviders : NetworkBehaviour
 {
 	private SyncListVisionProviderInfo m_visionProviders = new SyncListVisionProviderInfo();
 	private ActorData m_actorData;
 
+	// removed in rogues
 	private static int kListm_visionProviders = -547880216;
 
+	// removed in rogues
 	static ActorAdditionalVisionProviders()
 	{		
 		RegisterSyncListDelegate(typeof(ActorAdditionalVisionProviders), kListm_visionProviders, InvokeSyncListm_visionProviders);
@@ -22,7 +27,10 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 
 	public override void OnStartClient()
 	{
+		// reactor
 		m_visionProviders.Callback = SyncListCallbackVisionProviders;
+		// rogues
+		//m_visionProviders.Callback += new SyncList<VisionProviderInfo>.SyncListChanged(this.SyncListCallbackVisionProviders);
 	}
 
 	public SyncListVisionProviderInfo GetVisionProviders()
@@ -219,10 +227,12 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 		m_visionProviders.Clear();
 	}
 
+	// removed in rogues
 	private void UNetVersion()
 	{
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_visionProviders(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -233,11 +243,13 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 		((ActorAdditionalVisionProviders)obj).m_visionProviders.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	private void Awake()
 	{
 		m_visionProviders.InitializeBehaviour(this, kListm_visionProviders);
 	}
 
+	// removed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -262,6 +274,7 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 		return flag;
 	}
 
+	// removed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)
@@ -275,4 +288,15 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
             GeneratedNetworkCode._ReadStructSyncListVisionProviderInfo_None(reader, m_visionProviders);
         }
     }
+
+	// rogues
+	//public ActorAdditionalVisionProviders()
+	//{
+	//	base.InitSyncObject(m_visionProviders);
+	//}
+
+	// rogues
+	//private void MirrorProcessed()
+	//{
+	//}
 }
