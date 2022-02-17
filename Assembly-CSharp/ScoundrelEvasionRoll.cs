@@ -19,55 +19,33 @@ public class ScoundrelEvasionRoll : Ability
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_ScoundrelEvasionRoll(this, ShouldCreateTrapWire(), GetTrapwirePattern());
+		Targeter = new AbilityUtil_Targeter_ScoundrelEvasionRoll(this, ShouldCreateTrapWire(), GetTrapwirePattern());
 		if (HasAdditionalEffectFromMod())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					(base.Targeter as AbilityUtil_Targeter_ScoundrelEvasionRoll).m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
-					return;
-				}
-			}
+			(Targeter as AbilityUtil_Targeter_ScoundrelEvasionRoll).m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
 		}
-		if (EffectForLandingInBrush() == null)
+		else if (EffectForLandingInBrush() != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			(base.Targeter as AbilityUtil_Targeter_ScoundrelEvasionRoll).m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
-			return;
+			(Targeter as AbilityUtil_Targeter_ScoundrelEvasionRoll).m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 		}
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (boardSquareSafe != null)
-		{
-			if (boardSquareSafe.IsValidForGameplay())
-			{
-				if (boardSquareSafe != caster.GetCurrentBoardSquare())
-				{
-					return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null;
-				}
-			}
-		}
-		return false;
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		return targetSquare != null
+			&& targetSquare.IsValidForGameplay()
+			&& targetSquare != caster.GetCurrentBoardSquare()
+			&& KnockbackUtils.BuildStraightLineChargePath(caster, targetSquare) != null;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
-		StandardEffectInfo standardEffectInfo = EffectForLandingInBrush();
-		if (standardEffectInfo != null)
+		StandardEffectInfo brushEffect = EffectForLandingInBrush();
+		if (brushEffect != null)
 		{
-			standardEffectInfo.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+			brushEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		}
 		if (HasAdditionalEffectFromMod())
 		{
@@ -80,20 +58,10 @@ public class ScoundrelEvasionRoll : Ability
 	{
 		if (GetExtraEnergyPerStep() > 0 && base.Targeter is AbilityUtil_Targeter_ScoundrelEvasionRoll)
 		{
-			AbilityUtil_Targeter_ScoundrelEvasionRoll abilityUtil_Targeter_ScoundrelEvasionRoll = base.Targeter as AbilityUtil_Targeter_ScoundrelEvasionRoll;
-			int numNodesInPath = abilityUtil_Targeter_ScoundrelEvasionRoll.m_numNodesInPath;
-			if (numNodesInPath > 1)
+			AbilityUtil_Targeter_ScoundrelEvasionRoll targeter = Targeter as AbilityUtil_Targeter_ScoundrelEvasionRoll;
+			if (targeter.m_numNodesInPath > 1)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return GetExtraEnergyPerStep() * (numNodesInPath - 1);
-					}
-				}
+				return GetExtraEnergyPerStep() * (targeter.m_numNodesInPath - 1);
 			}
 		}
 		return 0;
@@ -101,22 +69,14 @@ public class ScoundrelEvasionRoll : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_ScoundrelEvasionRoll))
+		if (abilityMod.GetType() != typeof(AbilityMod_ScoundrelEvasionRoll))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_ScoundrelEvasionRoll);
-					SetupTargeter();
-					return;
-				}
-			}
+			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+
+		m_abilityMod = (abilityMod as AbilityMod_ScoundrelEvasionRoll);
+		SetupTargeter();
 	}
 
 	protected override void OnRemoveAbilityMod()
@@ -127,75 +87,52 @@ public class ScoundrelEvasionRoll : Ability
 
 	public int GetExtraEnergyPerStep()
 	{
-		return (!m_abilityMod) ? m_extraEnergyPerStep : m_abilityMod.m_extraEnergyPerStepMod.GetModifiedValue(m_extraEnergyPerStep);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraEnergyPerStepMod.GetModifiedValue(m_extraEnergyPerStep)
+			: m_extraEnergyPerStep;
 	}
 
 	private bool ShouldCreateTrapWire()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			if (m_abilityMod.m_dropTrapWireOnStart)
-			{
-				result = ((m_abilityMod.m_trapwirePattern != AbilityGridPattern.NoPattern) ? 1 : 0);
-				goto IL_004c;
-			}
-		}
-		result = 0;
-		goto IL_004c;
-		IL_004c:
-		return (byte)result != 0;
+		return m_abilityMod != null
+			&& m_abilityMod.m_dropTrapWireOnStart
+			&& m_abilityMod.m_trapwirePattern != AbilityGridPattern.NoPattern;
 	}
 
 	private bool HasAdditionalEffectFromMod()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = (m_abilityMod.m_additionalEffectOnStart.m_applyEffect ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod != null
+			&& m_abilityMod.m_additionalEffectOnStart.m_applyEffect;
 	}
 
 	private AbilityGridPattern GetTrapwirePattern()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_trapwirePattern : AbilityGridPattern.NoPattern;
+		return m_abilityMod != null
+			? m_abilityMod.m_trapwirePattern
+			: AbilityGridPattern.NoPattern;
 	}
 
 	private int TechPointGainPerAdjacentAlly()
 	{
-		return (m_abilityMod != null) ? m_abilityMod.m_techPointGainPerAdjacentAlly : 0;
+		return m_abilityMod != null
+			? m_abilityMod.m_techPointGainPerAdjacentAlly
+			: 0;
 	}
 
 	private int TechPointGrantedToAdjacentAllies()
 	{
-		return (m_abilityMod != null) ? m_abilityMod.m_techPointGrantedToAdjacentAllies : 0;
+		return m_abilityMod != null
+			? m_abilityMod.m_techPointGrantedToAdjacentAllies
+			: 0;
 	}
 
 	private StandardEffectInfo EffectForLandingInBrush()
 	{
-		if (m_abilityMod != null)
+		if (m_abilityMod != null
+			&& m_abilityMod.m_effectToSelfForLandingInBrush != null
+			&& m_abilityMod.m_effectToSelfForLandingInBrush.m_applyEffect)
 		{
-			if (m_abilityMod.m_effectToSelfForLandingInBrush != null)
-			{
-				if (m_abilityMod.m_effectToSelfForLandingInBrush.m_applyEffect)
-				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							break;
-						default:
-							return m_abilityMod.m_effectToSelfForLandingInBrush;
-						}
-					}
-				}
-			}
+			return m_abilityMod.m_effectToSelfForLandingInBrush;
 		}
 		return null;
 	}
@@ -207,32 +144,11 @@ public class ScoundrelEvasionRoll : Ability
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		AbilityMod_ScoundrelEvasionRoll abilityMod_ScoundrelEvasionRoll = modAsBase as AbilityMod_ScoundrelEvasionRoll;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_ScoundrelEvasionRoll)
-		{
-			val = abilityMod_ScoundrelEvasionRoll.m_extraEnergyPerStepMod.GetModifiedValue(m_extraEnergyPerStep);
-		}
-		else
-		{
-			val = m_extraEnergyPerStep;
-		}
-		AddTokenInt(tokens, "ExtraEnergyPerStep", empty, val);
-		Passive_StickAndMove component = GetComponent<Passive_StickAndMove>();
-		string empty2 = string.Empty;
-		int val2;
-		if (component != null)
-		{
-			if (component.m_damageToAdvanceCooldown > 0)
-			{
-				val2 = 1;
-				goto IL_0088;
-			}
-		}
-		val2 = 0;
-		goto IL_0088;
-		IL_0088:
-		AddTokenInt(tokens, "CDR_OnDamageTaken", empty2, val2);
+		AbilityMod_ScoundrelEvasionRoll mod = modAsBase as AbilityMod_ScoundrelEvasionRoll;
+		AddTokenInt(tokens, "ExtraEnergyPerStep", "", mod != null
+			? mod.m_extraEnergyPerStepMod.GetModifiedValue(m_extraEnergyPerStep)
+			: m_extraEnergyPerStep);
+		Passive_StickAndMove stickAndMove = GetComponent<Passive_StickAndMove>();
+		AddTokenInt(tokens, "CDR_OnDamageTaken", "", stickAndMove != null && stickAndMove.m_damageToAdvanceCooldown > 0 ? 1 : 0);
 	}
 }
