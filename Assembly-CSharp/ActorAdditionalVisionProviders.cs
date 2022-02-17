@@ -5,15 +5,13 @@ using UnityEngine.Networking;
 public class ActorAdditionalVisionProviders : NetworkBehaviour
 {
 	private SyncListVisionProviderInfo m_visionProviders = new SyncListVisionProviderInfo();
-
 	private ActorData m_actorData;
 
-	private static int kListm_visionProviders;
+	private static int kListm_visionProviders = -547880216;
 
 	static ActorAdditionalVisionProviders()
-	{
-		kListm_visionProviders = -547880216;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(ActorAdditionalVisionProviders), kListm_visionProviders, InvokeSyncListm_visionProviders);
+	{		
+		RegisterSyncListDelegate(typeof(ActorAdditionalVisionProviders), kListm_visionProviders, InvokeSyncListm_visionProviders);
 		NetworkCRC.RegisterBehaviour("ActorAdditionalVisionProviders", 0);
 	}
 
@@ -34,14 +32,9 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 
 	private void SyncListCallbackVisionProviders(SyncList<VisionProviderInfo>.Operation op, int _incorrectIndexBugIn51And52)
 	{
-		if (!(m_actorData != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_actorData != null)
 		{
 			m_actorData.GetFogOfWar().MarkForRecalculateVisibility();
-			return;
 		}
 	}
 
@@ -50,17 +43,8 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::AddVisionProviderOnGridPos(GridPos,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
-					return;
-				}
-			}
+			Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::AddVisionProviderOnGridPos(GridPos,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
+			return;
 		}
 		m_visionProviders.Add(new VisionProviderInfo(gridPos, radius, useSraightLineDist, brushRevealType, ignoreLos, canFunctionInGlobalBlind, flag));
 		m_actorData.GetFogOfWar().MarkForRecalculateVisibility();
@@ -71,42 +55,21 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnGridPos(GridPos,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
-					return;
-				}
-			}
-		}
-		int num = -1;
-		int num2 = 0;
-		while (true)
-		{
-			if (num2 < m_visionProviders.Count)
-			{
-				if (m_visionProviders[num2].IsEqual(gridPos, radius, useSraightLineDist, brushRevealType, ignoreLos, flag, canFunctionInGlobalBlind))
-				{
-					num = num2;
-					break;
-				}
-				num2++;
-				continue;
-			}
-			break;
-		}
-		if (num < 0)
-		{
+			Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnGridPos(GridPos,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
 			return;
 		}
-		while (true)
+		int index = -1;		
+		for (int i = 0; i < m_visionProviders.Count; i++)
 		{
-			m_visionProviders.RemoveAt(num);
-			return;
+			if (m_visionProviders[i].IsEqual(gridPos, radius, useSraightLineDist, brushRevealType, ignoreLos, flag, canFunctionInGlobalBlind))
+			{
+				index = i;
+				break;
+			}
+		}
+		if (index >= 0)
+		{
+			m_visionProviders.RemoveAt(index);
 		}
 	}
 
@@ -115,17 +78,8 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::AddVisionProviderOnActor(System.Int32,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
-					return;
-				}
-			}
+			Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::AddVisionProviderOnActor(System.Int32,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
+			return;
 		}
 		m_visionProviders.Add(new VisionProviderInfo(actorIndex, radius, useSraightLineDist, brushRevealType, ignoreLos, canFunctionInGlobalBlind, flag));
 		m_actorData.GetFogOfWar().MarkForRecalculateVisibility();
@@ -136,42 +90,22 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnActor(System.Int32,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
-					return;
-				}
-			}
-		}
-		int num = -1;
-		int num2 = 0;
-		while (true)
-		{
-			if (num2 < m_visionProviders.Count)
-			{
-				if (m_visionProviders[num2].IsEqual(actorIndex, radius, useSraightLineDist, brushRevealType, ignoreLos, flag, canFunctionInGlobalBlind))
-				{
-					num = num2;
-					break;
-				}
-				num2++;
-				continue;
-			}
-			break;
-		}
-		if (num < 0)
-		{
+			Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnActor(System.Int32,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
 			return;
 		}
-		while (true)
+		int index = -1;
+		
+		for (int i = 0;  i < m_visionProviders.Count; i++)
 		{
-			m_visionProviders.RemoveAt(num);
-			return;
+			if (m_visionProviders[i].IsEqual(actorIndex, radius, useSraightLineDist, brushRevealType, ignoreLos, flag, canFunctionInGlobalBlind))
+			{
+				index = i;
+				break;
+			}
+		}
+		if (index >= 0)
+		{
+			m_visionProviders.RemoveAt(index);
 		}
 	}
 
@@ -180,38 +114,15 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnActor(System.Int32)' called on client");
-					return;
-				}
-			}
+			Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnActor(System.Int32)' called on client");
+			return;
 		}
-		for (int num = m_visionProviders.Count - 1; num >= 0; num--)
+		for (int i = m_visionProviders.Count - 1; i >= 0; i--)
 		{
-			VisionProviderInfo visionProviderInfo = m_visionProviders[num];
-			if (visionProviderInfo.m_actorIndex == actorIndex)
+			if (m_visionProviders[i].m_actorIndex == actorIndex
+				&& m_visionProviders[i].m_satelliteIndex == -1)
 			{
-				VisionProviderInfo visionProviderInfo2 = m_visionProviders[num];
-				if (visionProviderInfo2.m_satelliteIndex == -1)
-				{
-					m_visionProviders.RemoveAt(num);
-				}
-			}
-		}
-		while (true)
-		{
-			switch (5)
-			{
-			default:
-				return;
-			case 0:
-				break;
+				m_visionProviders.RemoveAt(i);
 			}
 		}
 	}
@@ -233,30 +144,21 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnSatellite(System.Int32,System.Int32,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
-					return;
-				}
-			}
+			Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnSatellite(System.Int32,System.Int32,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
+			return;
 		}
-		int num = -1;
+		int index = -1;
 		for (int i = 0; i < m_visionProviders.Count; i++)
 		{
 			if (m_visionProviders[i].IsEqual(actorIndex, satelliteIndex, radius, useSraightLineDist, brushRevealType, ignoreLos, flag, canFunctionInGlobalBlind))
 			{
-				num = i;
+				index = i;
 				break;
 			}
 		}
-		if (num >= 0)
+		if (index >= 0)
 		{
-			m_visionProviders.RemoveAt(num);
+			m_visionProviders.RemoveAt(index);
 		}
 	}
 
@@ -265,47 +167,25 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnSatellite(System.Int32,System.Int32)' called on client");
-					return;
-				}
-			}
+			Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnSatellite(System.Int32,System.Int32)' called on client");
+			return;
 		}
-		for (int num = m_visionProviders.Count - 1; num >= 0; num--)
+		for (int i = m_visionProviders.Count - 1; i >= 0; i--)
 		{
-			VisionProviderInfo visionProviderInfo = m_visionProviders[num];
-			if (visionProviderInfo.m_actorIndex == actorIndex)
+			if (m_visionProviders[i].m_actorIndex == actorIndex
+				&& m_visionProviders[i].m_satelliteIndex == satelliteIndex)
 			{
-				VisionProviderInfo visionProviderInfo2 = m_visionProviders[num];
-				if (visionProviderInfo2.m_satelliteIndex == satelliteIndex)
-				{
-					m_visionProviders.RemoveAt(num);
-				}
+				m_visionProviders.RemoveAt(i);
 			}
 		}
 	}
 
 	public bool HasVisionProviderOnSatellite(int actorIndex, int satelliteIndex)
 	{
-		for (int i = 0; i < m_visionProviders.Count; i++)
+		foreach (VisionProviderInfo visionProvider in m_visionProviders)
 		{
-			VisionProviderInfo visionProviderInfo = m_visionProviders[i];
-			if (visionProviderInfo.m_actorIndex != actorIndex)
-			{
-				continue;
-			}
-			VisionProviderInfo visionProviderInfo2 = m_visionProviders[i];
-			if (visionProviderInfo2.m_satelliteIndex != satelliteIndex)
-			{
-				continue;
-			}
-			while (true)
+			if (visionProvider.m_actorIndex == actorIndex
+				&& visionProvider.m_satelliteIndex == satelliteIndex)
 			{
 				return true;
 			}
@@ -315,24 +195,17 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 
 	public bool GetVisionProviderInfoOnSatellite(int actorIndex, int satelliteIndex, out VisionProviderInfo visionProviderInfo)
 	{
-		for (int i = 0; i < m_visionProviders.Count; i++)
+		foreach (VisionProviderInfo visionProvider in m_visionProviders)
 		{
-			VisionProviderInfo visionProviderInfo2 = m_visionProviders[i];
-			if (visionProviderInfo2.m_actorIndex == actorIndex)
+			if (visionProvider.m_actorIndex == actorIndex
+				&& visionProvider.m_satelliteIndex == satelliteIndex)
 			{
-				VisionProviderInfo visionProviderInfo3 = m_visionProviders[i];
-				if (visionProviderInfo3.m_satelliteIndex == satelliteIndex)
-				{
-					visionProviderInfo = m_visionProviders[i];
-					return true;
-				}
+				visionProviderInfo = visionProvider;
+				return true;
 			}
 		}
-		while (true)
-		{
-			visionProviderInfo = default(VisionProviderInfo);
-			return false;
-		}
+		visionProviderInfo = default(VisionProviderInfo);
+		return false;
 	}
 
 	[Server]
@@ -340,17 +213,8 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::ClearVisionProviders()' called on client");
-					return;
-				}
-			}
+			Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::ClearVisionProviders()' called on client");
+			return;
 		}
 		m_visionProviders.Clear();
 	}
@@ -363,17 +227,8 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_visionProviders called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_visionProviders called on server.");
+			return;
 		}
 		((ActorAdditionalVisionProviders)obj).m_visionProviders.HandleMsg(reader);
 	}
@@ -387,17 +242,8 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					GeneratedNetworkCode._WriteStructSyncListVisionProviderInfo_None(writer, m_visionProviders);
-					return true;
-				}
-			}
+			GeneratedNetworkCode._WriteStructSyncListVisionProviderInfo_None(writer, m_visionProviders);
+			return true;
 		}
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
