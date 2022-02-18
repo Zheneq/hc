@@ -1,7 +1,10 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// same in reactor and rogues
 public class AbilityMod_TrackerHuntingCrossbow : AbilityMod
 {
 	[Space(10f)]
@@ -48,9 +51,12 @@ public class AbilityMod_TrackerHuntingCrossbow : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		TrackerHuntingCrossbow trackerHuntingCrossbow = GetTargetAbilityOnAbilityData(abilityData) as TrackerHuntingCrossbow;
+		// rogues
+		//TrackerHuntingCrossbow trackerHuntingCrossbow = targetAbility as TrackerHuntingCrossbow;
 		bool isAbilityPresent = trackerHuntingCrossbow != null;
 		string desc = "";
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageOnUntrackedMod, "[Damage on Untracked Target]", isAbilityPresent, isAbilityPresent ? trackerHuntingCrossbow.m_laserDamageAmount : 0);

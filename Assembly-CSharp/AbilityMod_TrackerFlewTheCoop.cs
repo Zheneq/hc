@@ -1,7 +1,10 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// same in reactor and rogues
 public class AbilityMod_TrackerFlewTheCoop : AbilityMod
 {
 	[Space(10f)]
@@ -31,9 +34,12 @@ public class AbilityMod_TrackerFlewTheCoop : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		TrackerFlewTheCoop trackerFlewTheCoop = GetTargetAbilityOnAbilityData(abilityData) as TrackerFlewTheCoop;
+		// rogues
+		//TrackerFlewTheCoop trackerFlewTheCoop = targetAbility as TrackerFlewTheCoop;
 		bool isAbilityPresent = trackerFlewTheCoop != null;
 		string desc = "";
 		desc += AbilityModHelper.GetModPropertyDesc(m_landingShapeMod, "[Landing Shape]", isAbilityPresent, isAbilityPresent ? trackerFlewTheCoop.m_hookshotShape : AbilityAreaShape.SingleSquare);
