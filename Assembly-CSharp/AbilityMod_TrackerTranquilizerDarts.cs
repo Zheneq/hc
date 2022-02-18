@@ -1,7 +1,10 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// same in reactor and rogues
 public class AbilityMod_TrackerTranquilizerDarts : AbilityMod
 {
 	[Space(10f)]
@@ -36,9 +39,12 @@ public class AbilityMod_TrackerTranquilizerDarts : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		TrackerTranquilizerDarts trackerTranquilizerDarts = GetTargetAbilityOnAbilityData(abilityData) as TrackerTranquilizerDarts;
+		// rogues
+		//TrackerTranquilizerDarts trackerTranquilizerDarts = targetAbility as TrackerTranquilizerDarts;
 		bool isAbilityPresent = trackerTranquilizerDarts != null;
 		string desc = "";
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserCountMod, "[Number of Darts]", isAbilityPresent, isAbilityPresent ? trackerTranquilizerDarts.m_laserCount : 0);

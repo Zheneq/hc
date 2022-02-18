@@ -1,7 +1,10 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// same in reactor and rogues
 public class AbilityMod_TrackerDrone : AbilityMod
 {
 	[Space(10f)]
@@ -50,9 +53,12 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility шт кщпгуы
 	{
+		// reactor
 		TrackerDrone trackerDrone = GetTargetAbilityOnAbilityData(abilityData) as TrackerDrone;
+		// rogues
+		//TrackerDrone trackerDrone = targetAbility as TrackerDrone;
 		TrackerDroneInfoComponent trackerDroneInfoComponent = trackerDrone?.GetComponent<TrackerDroneInfoComponent>();
 		bool isValid = trackerDroneInfoComponent != null && trackerDrone != null;
 		string desc = "";

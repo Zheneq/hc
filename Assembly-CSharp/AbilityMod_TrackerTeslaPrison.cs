@@ -1,7 +1,10 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// same in reactor and rogues
 public class AbilityMod_TrackerTeslaPrison : AbilityMod
 {
 	[Header("-- Barrier Data Override")]
@@ -27,9 +30,12 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		AddToken(tokens, m_droneTargeterMaxRangeFromCasterMod, "TargeterMaxRangeFromCaster", "", trackerDroneInfoComponent != null ? trackerDroneInfoComponent.m_targeterMaxRangeFromCaster : 0f, trackerDroneInfoComponent != null);
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues 
 	{
+		// reactor
 		TrackerTeslaPrison trackerTeslaPrison = GetTargetAbilityOnAbilityData(abilityData) as TrackerTeslaPrison;
+		// rogues
+		//TrackerTeslaPrison trackerTeslaPrison = targetAbility as TrackerTeslaPrison;
 		bool isAbilityPresent = trackerTeslaPrison != null;
 		string desc = "";
 		desc += AbilityModHelper.GetModPropertyDesc(m_barrierDataMod, "{ Barrier Data Mod }", isAbilityPresent ? trackerTeslaPrison.m_prisonBarrierData : null);
