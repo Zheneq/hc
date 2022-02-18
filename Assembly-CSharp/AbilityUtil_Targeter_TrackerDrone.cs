@@ -1,6 +1,9 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
+// identical in reactor and rogues
 public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 {
 	protected TrackerDroneTrackerComponent m_droneTrackerComponent;
