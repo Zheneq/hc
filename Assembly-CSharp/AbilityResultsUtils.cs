@@ -131,7 +131,7 @@ public static class AbilityResultsUtils
 		{
 			int position = writer.Position;
 			global::Effect effect = effects[i];
-			uint guid = (uint)effect.m_guid;
+			uint effectGUID = (uint)effect.m_guid;
 			// rogues
 			//string text = "";
 			//EffectSystem.Effect effect2;
@@ -139,7 +139,7 @@ public static class AbilityResultsUtils
 			//{
 			//	text = effect2.EffectTemplate.ShortGUID();
 			//}
-			writer.Write(guid);
+			writer.WritePackedUInt32(effectGUID);
 			//writer.Write(text);
 			List<ServerClientUtils.SequenceStartData> effectStartSeqDataList = effect.GetEffectStartSeqDataList();
 			sbyte b2 = (sbyte)effectStartSeqDataList.Count;
@@ -678,7 +678,7 @@ public static class AbilityResultsUtils
         {
 			list = null;
 		}
-		writer.Write(effectGUID);
+		writer.WritePackedUInt32(effectGUID);
 		writer.Write(casterActorIndex);
 		// custom reactor
 		writer.Write(sourceAbilityActionType);
