@@ -17,7 +17,7 @@ public class ActorStatus : NetworkBehaviour
 	private static int kListm_statusCounts = -7231791;
 	private static int kListm_statusDurations = 625641650;
 
-	public static bool DebugTraceOn => false;
+	public static bool DebugLog => true
 
 	static ActorStatus()
 	{
@@ -79,7 +79,7 @@ public class ActorStatus : NetworkBehaviour
 		}
 	}
 
-	private void SyncListCallbackStatusCounts(SyncList<uint>.Operation op, int i)
+	private void SyncListCallbackStatusCounts(SyncList<uint>.Operation op, int i) // ?
 	{
 		if (!NetworkServer.active && i >= 0 && i < c_num)
 		{

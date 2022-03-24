@@ -134,6 +134,7 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		if (m_effectGuidToData.ContainsKey(effectGuid))
 		{
 			ClientEffectData clientEffectData = m_effectGuidToData[effectGuid];
+			Log.Warning($"EndEffect: {DefaultJsonSerializer.Serialize(clientEffectData)}");
 			List<Sequence> sequences = clientEffectData.m_sequences;
 			foreach (Sequence sequence in sequences)
 			{
@@ -159,6 +160,10 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 			{
 				Log.Warning("<color=green>Effect</color>: CLIENT Effect Remove, GUID [" + effectGuid + "]");
 			}
+		}
+		else
+		{
+			Log.Warning("<color=red>Effect</color>: CLIENT Effect Remove, GUID [" + effectGuid + "] not found!");
 		}
 	}
 

@@ -30,6 +30,7 @@ public static class DefaultJsonSerializer
 			s_serializer.Converters.Add(new SpriteJsonConverter());
 			s_serializer.Converters.Add(new BoardSquareJsonConverter());
 			s_serializer.Converters.Add(new BoardSquarePathInfoJsonConverter());
+			s_serializer.Converters.Add(new ClientEffectDataJsonConverter());
 		}
 		return s_serializer;
 	}
@@ -272,6 +273,24 @@ public static class DefaultJsonSerializer
 		}
 	}
 
+
+	public class ClientEffectDataJsonConverter : JsonWriterConverter
+	{
+		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+		{
+			ClientEffectData v = (ClientEffectData)value;
+			JObject res = new JObject();
+			res.Add("sequences", JToken.FromObject(v.m_sequences.Select((Sequence x) => x.Id)));
+			res.Add("target", JToken.FromObject(v.m_target.GetDebugName()));
+			res.Add("statuses", JToken.FromObject(v.m_statuses.Select((StatusType x) => x.ToString())));
+			res.WriteTo(writer);
+		}
+
+		public override bool CanConvert(Type objectType)
+		{
+			return typeof(ClientEffectData) == objectType;
+		}
+	}
 
 
 
