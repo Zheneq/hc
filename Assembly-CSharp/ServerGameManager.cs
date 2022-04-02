@@ -43,7 +43,7 @@ public class ServerGameManager : MonoBehaviour
 	// monitor
 	//private MonitorGameServerInterface m_monitorGameServerInterface;  // will be null for now
 
-    private const int m_maxPlayers = 32;
+	private const int m_maxPlayers = 32;
 
 	private bool m_loading;
 	private bool m_loadLevelOperationDone;
@@ -68,14 +68,14 @@ public class ServerGameManager : MonoBehaviour
 	public string ListenAddress { get; private set; }
 	public int ListenPort { get; private set; }
 
-    public bool IsConnectedToMonitorServer
-    {
-        get
-        {
+	public bool IsConnectedToMonitorServer
+	{
+		get
+		{
 			// custom
 			return false;
-            //return m_monitorGameServerInterface != null && m_monitorGameServerInterface.isConnected;
-        }
+			//return m_monitorGameServerInterface != null && m_monitorGameServerInterface.isConnected;
+		}
 	}
 
 	protected void Awake()
@@ -109,11 +109,11 @@ public class ServerGameManager : MonoBehaviour
 	protected void Update()
 	{
 		// monitor
-        //if (m_monitorGameServerInterface != null)
-        //{
-        //    m_monitorGameServerInterface.Update();
-        //}
-        CheckConnected();
+		//if (m_monitorGameServerInterface != null)
+		//{
+		//    m_monitorGameServerInterface.Update();
+		//}
+		CheckConnected();
 		CheckLoaded();
 		CheckDisconnected();
 		CheckDisconnecting();
@@ -183,14 +183,14 @@ public class ServerGameManager : MonoBehaviour
 
 	internal void StartServerOrHost()  // async Task in rogues
 	{
-        HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
-        if (hydrogenConfig == null)
-        {
-            throw new Exception("CommonServerConfig must be loaded to run servers or host games");
-        }
-        ListenAddress = "";
-        ListenPort = 0;
-        NetworkManager.singleton.networkAddress = "0.0.0.0";
+		HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
+		if (hydrogenConfig == null)
+		{
+			throw new Exception("CommonServerConfig must be loaded to run servers or host games");
+		}
+		ListenAddress = "";
+		ListenPort = 0;
+		NetworkManager.singleton.networkAddress = "0.0.0.0";
 
 		// new networking lib
 		//TelepathyTransport telepathyTransport = Transport.activeTransport as TelepathyTransport;
@@ -223,9 +223,9 @@ public class ServerGameManager : MonoBehaviour
 		//if (flag)
 
 		MyNetworkManager myNetworkManager = MyNetworkManager.Get();
-        myNetworkManager.m_OnServerError += HandleNetworkError;
-        myNetworkManager.m_OnServerConnect += HandleNetworkConnect;
-        myNetworkManager.m_OnServerDisconnect += HandleNetworkDisconnect;
+		myNetworkManager.m_OnServerError += HandleNetworkError;
+		myNetworkManager.m_OnServerConnect += HandleNetworkConnect;
+		myNetworkManager.m_OnServerDisconnect += HandleNetworkDisconnect;
 
 		// custom
 		NetworkServer.RegisterHandler((short)MyMsgType.LoginRequest, Wrap<GameManager.LoginRequest>(HandleLoginRequest));
@@ -307,18 +307,18 @@ public class ServerGameManager : MonoBehaviour
 		//}
 
 		CommonServerConfig commonServerConfig = CommonServerConfig.Get();
-        ListenAddress = (((commonServerConfig != null) ? commonServerConfig.GameServerListenAddress : null) ?? ListenAddress);
-        Log.Info("Game Server initialized at {0}:{1}", new object[]
-        {
-                ListenAddress,
-                ListenPort
-        });
-        return;
+		ListenAddress = (((commonServerConfig != null) ? commonServerConfig.GameServerListenAddress : null) ?? ListenAddress);
+		Log.Info("Game Server initialized at {0}:{1}", new object[]
+		{
+				ListenAddress,
+				ListenPort
+		});
+		return;
 
-	// new networking lib cont
-	//}
-	//	throw new Exception("Failed to initialize Game Server");
-}
+		// new networking lib cont
+		//}
+		//	throw new Exception("Failed to initialize Game Server");
+	}
 
 	// monitor
 	//internal void ConnectToMonitorServer(string address, short port, long accountId = 0L)
@@ -350,14 +350,14 @@ public class ServerGameManager : MonoBehaviour
 
 	// monitor
 	//public void DisconnectFromMonitorServer()
- //   {
- //       if (m_monitorGameServerInterface != null)
- //       {
- //           m_monitorGameServerInterface.Disconnect();
- //       }
- //   }
+	//   {
+	//       if (m_monitorGameServerInterface != null)
+	//       {
+	//           m_monitorGameServerInterface.Disconnect();
+	//       }
+	//   }
 
-    internal void DisconnectClient(int connectionId)
+	internal void DisconnectClient(int connectionId)
 	{
 		for (int i = 0; i < NetworkServer.connections.Count; i++)
 		{
@@ -396,19 +396,19 @@ public class ServerGameManager : MonoBehaviour
 	{
 		// monitor
 		//if (m_monitorGameServerInterface != null)
-  //      {
-  //          Log.Info("Sending game summary to lobby server");
-  //          m_monitorGameServerInterface.SendGameSummaryNotification(GameManager.Get().GameSummary, GameManager.Get().GameSummaryOverrides);
-  //          m_sentGameSummary = true;
-  //          foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
-  //          {
-  //              if (serverPlayerState.SessionInfo != null && serverPlayerState.PlayerInfo != null && !serverPlayerState.PlayerInfo.IsNPCBot)
-  //              {
-  //                  serverPlayerState.LogGameExit(GameManager.Get().GameSummary.GameResult);
-  //              }
-  //          }
-  //      }
-    }
+		//      {
+		//          Log.Info("Sending game summary to lobby server");
+		//          m_monitorGameServerInterface.SendGameSummaryNotification(GameManager.Get().GameSummary, GameManager.Get().GameSummaryOverrides);
+		//          m_sentGameSummary = true;
+		//          foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
+		//          {
+		//              if (serverPlayerState.SessionInfo != null && serverPlayerState.PlayerInfo != null && !serverPlayerState.PlayerInfo.IsNPCBot)
+		//              {
+		//                  serverPlayerState.LogGameExit(GameManager.Get().GameSummary.GameResult);
+		//              }
+		//          }
+		//      }
+	}
 
 	private void OnDestroy()
 	{
@@ -687,8 +687,8 @@ public class ServerGameManager : MonoBehaviour
 
 	private void HandleLaunchGameRequest(LaunchGameRequest request)  // async in rogues
 	{
-        // custom
-        MatchmakingQueueConfig config = new MatchmakingQueueConfig()
+		// custom
+		MatchmakingQueueConfig config = new MatchmakingQueueConfig()
 		{
 
 		};
@@ -723,7 +723,7 @@ public class ServerGameManager : MonoBehaviour
 				}
 			}
 			AddPlayerState(sessionInfo, lobbyServerPlayerInfo, list3, num--);
-			}
+		}
 		foreach (LobbyServerPlayerInfo primaryPlayerInfo in bots)
 		{
 			AddPlayerState(null, primaryPlayerInfo, new List<LobbyServerPlayerInfo>(), -999);
@@ -996,8 +996,8 @@ public class ServerGameManager : MonoBehaviour
 			return;
 		}
 		foreach (NetworkConnection networkConnection in (from kvp in m_pendingDisconnects
-		where kvp.Value < Time.realtimeSinceStartup
-		select kvp.Key).ToArray())
+														 where kvp.Value < Time.realtimeSinceStartup
+														 select kvp.Key).ToArray())
 		{
 			m_pendingDisconnects.Remove(networkConnection);
 			DisconnectNow(networkConnection);
@@ -1055,7 +1055,7 @@ public class ServerGameManager : MonoBehaviour
 	static private NetworkMessageDelegate Wrap<T>(Action<NetworkConnection, T> handler) where T : MessageBase, new()
 	{
 		return (msg) => handler(msg.conn, msg.ReadMessage<T>());
-    }
+	}
 
 	private void HandleLoginRequest(NetworkConnection conn, GameManager.LoginRequest request)
 	{
@@ -1256,43 +1256,43 @@ public class ServerGameManager : MonoBehaviour
 
 	private void SetClientReady(ServerPlayerState playerState)
 	{
-        if (GameFlowData.Get() != null
-            && (GameFlowData.Get().gameState == GameState.BothTeams_Resolve
-                || GameFlowData.Get().CurrentTurn > 1)
-            && (!GameFlowData.Get().IsInDecisionState()
-                || GameFlowData.Get().GetTimeRemainingInDecision() / GameFlowData.Get().m_turnTime <= 0.8f)
-            && GameFlowData.Get().gameState != GameState.EndingGame)
-        {
-            Log.Info("Delaying spawn message for player {0} until the resolve phase is complete", new object[]
-            {
-            playerState.SessionInfo.Name
-            });
-            m_playersToReadyNextDecisionPhase.Add(playerState);
+		if (GameFlowData.Get() != null
+			&& (GameFlowData.Get().gameState == GameState.BothTeams_Resolve
+				|| GameFlowData.Get().CurrentTurn > 1)
+			&& (!GameFlowData.Get().IsInDecisionState()
+				|| GameFlowData.Get().GetTimeRemainingInDecision() / GameFlowData.Get().m_turnTime <= 0.8f)
+			&& GameFlowData.Get().gameState != GameState.EndingGame)
+		{
+			Log.Info("Delaying spawn message for player {0} until the resolve phase is complete", new object[]
+			{
+			playerState.SessionInfo.Name
+			});
+			m_playersToReadyNextDecisionPhase.Add(playerState);
 			return;
-        }
+		}
 
 		int num = playerState.PlayerInfo.LobbyPlayerInfo.IsSpectator ? 2 : 1;
-        int playerObjectCount = m_serverPlayerStates.Count * (1 + num);
-        int totalObjectCount = NetworkServer.objects.Count; //  int count = NetworkIdentity.spawned.Count; in rogues
-        Log.Info("Sending spawn message for player {0} (playerObjectCount={1} totalObjectCount={2})", new object[]
-        {
-            (playerState.SessionInfo != null) ? playerState.SessionInfo.Name : "(unnamed player)",
-            playerObjectCount,
-            totalObjectCount
-        });
-        GameManager.SpawningObjectsNotification spawningObjectsNotification = new GameManager.SpawningObjectsNotification();
-        spawningObjectsNotification.PlayerId = playerState.PlayerInfo.PlayerId;
-        spawningObjectsNotification.SpawnableObjectCount = totalObjectCount;
+		int playerObjectCount = m_serverPlayerStates.Count * (1 + num);
+		int totalObjectCount = NetworkServer.objects.Count; //  int count = NetworkIdentity.spawned.Count; in rogues
+		Log.Info("Sending spawn message for player {0} (playerObjectCount={1} totalObjectCount={2})", new object[]
+		{
+			(playerState.SessionInfo != null) ? playerState.SessionInfo.Name : "(unnamed player)",
+			playerObjectCount,
+			totalObjectCount
+		});
+		GameManager.SpawningObjectsNotification spawningObjectsNotification = new GameManager.SpawningObjectsNotification();
+		spawningObjectsNotification.PlayerId = playerState.PlayerInfo.PlayerId;
+		spawningObjectsNotification.SpawnableObjectCount = totalObjectCount;
 
-        // TODO LOW check
-        // custom
-        playerState.ConnectionPersistent.Send((short)MyMsgType.SpawningObjectsNotification, spawningObjectsNotification);
+		// TODO LOW check
+		// custom
+		playerState.ConnectionPersistent.Send((short)MyMsgType.SpawningObjectsNotification, spawningObjectsNotification);
 		// rogues
 		//playerState.ConnectionPersistent.Send<GameManager.SpawningObjectsNotification>(spawningObjectsNotification, 0);
 
 		NetworkServer.SetClientReady(playerState.ConnectionPersistent);
-        playerState.ConnectionReady = true;
-        Log.Warning("Not calling SendReconnectData...");
+		playerState.ConnectionReady = true;
+		Log.Warning("Not calling SendReconnectData...");
 	}
 
 	private void HandleClientAssetsLoadingProgressUpdate(NetworkConnection conn, GameManager.AssetsLoadingProgress loadingProgressInfo)
@@ -1302,7 +1302,7 @@ public class ServerGameManager : MonoBehaviour
 			return;
 		}
 
-        ServerPlayerState serverPlayerState = m_serverPlayerStates.TryGetValue(loadingProgressInfo.PlayerId);
+		ServerPlayerState serverPlayerState = m_serverPlayerStates.TryGetValue(loadingProgressInfo.PlayerId);
 		if (serverPlayerState == null || serverPlayerState.SessionInfo == null || serverPlayerState.ConnectionPersistent != conn)
 		{
 			Log.Error("Received invalid assets loading progress from {0} | conn=({1}), playerState={2}, accountId={3}", new object[]
@@ -1521,7 +1521,7 @@ public class ServerGameManager : MonoBehaviour
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(serverPlayerState.PlayerInfo.CharacterType);
 				m_loadingCharacterResources.Add(characterResourceLink);
 				ServerPlayerInfo closureServerPlayerInfo = serverPlayerState.PlayerInfo;
-				characterResourceLink.LoadAsync(serverPlayerState.PlayerInfo.CharacterSkin, delegate(LoadedCharacterSelection loadedCharacter)
+				characterResourceLink.LoadAsync(serverPlayerState.PlayerInfo.CharacterSkin, delegate (LoadedCharacterSelection loadedCharacter)
 				{
 					m_loadingCharacterResources.Remove(loadedCharacter.resourceLink);
 					m_loadedCharacterResourceCount++;
@@ -1532,7 +1532,7 @@ public class ServerGameManager : MonoBehaviour
 					CharacterResourceLink characterResourceLink2 = GameWideData.Get().GetCharacterResourceLink(serverPlayerInfo.CharacterType);
 					m_loadingCharacterResources.Add(characterResourceLink2);
 					ServerPlayerInfo closureProxyPlayerInfo = serverPlayerInfo;
-					characterResourceLink2.LoadAsync(serverPlayerInfo.CharacterSkin, delegate(LoadedCharacterSelection loadedCharacter)
+					characterResourceLink2.LoadAsync(serverPlayerInfo.CharacterSkin, delegate (LoadedCharacterSelection loadedCharacter)
 					{
 						m_loadingCharacterResources.Remove(loadedCharacter.resourceLink);
 						m_loadedCharacterResourceCount++;
@@ -1546,7 +1546,7 @@ public class ServerGameManager : MonoBehaviour
 	public void LoadCharacterResourceLink(CharacterResourceLink characterResourceLink, CharacterVisualInfo linkVisualInfo)  // linkVisualInfo = null in rogues
 	{
 		m_loadingCharacterResources.Add(characterResourceLink);
-		characterResourceLink.LoadAsync(linkVisualInfo, delegate(LoadedCharacterSelection loadedCharacter)
+		characterResourceLink.LoadAsync(linkVisualInfo, delegate (LoadedCharacterSelection loadedCharacter)
 		{
 			m_loadingCharacterResources.Remove(loadedCharacter.resourceLink);
 			m_loadedCharacterResourceCount++;
@@ -1568,8 +1568,8 @@ public class ServerGameManager : MonoBehaviour
 				{
 					int count = ClientScene.spawnableObjects.Count;
 					int num = (from s in ClientScene.spawnableObjects
-					where s.Value.gameObject.activeSelf
-					select s).Count();
+							   where s.Value.gameObject.activeSelf
+							   select s).Count();
 					m_assetsLoadingState.SpawningProgress = ((count > 0) ? Mathf.Clamp((float)num / (float)count, 0f, 1f) : 1f);
 				}
 				else
