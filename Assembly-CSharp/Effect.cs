@@ -1,6 +1,7 @@
 ﻿// ROGUES
 using System;
 using System.Collections.Generic;
+using System.Linq;
 //using EffectSystem;
 using UnityEngine;
 
@@ -795,33 +796,33 @@ public class Effect
 		{
 			int i = 0;
 			int num = currentStackCount;
-			int num2 = stacks;
+			int delta = stacks;
 			while (i < m_stacking.stackCount.Length)
 			{
-				int num3 = (m_stacking.maxStackSizePerTurn < 0) ? int.MaxValue : m_stacking.maxStackSizePerTurn;
-				int num4 = (m_stacking.maxStackSize == 0) ? int.MaxValue : m_stacking.maxStackSize;
-				int num5 = num3 - m_stacking.stackCount[i];
-				if (num5 <= 0)
+				int maxStackSizePerTurn = (m_stacking.maxStackSizePerTurn < 0) ? int.MaxValue : m_stacking.maxStackSizePerTurn;
+				int maxStackSize = (m_stacking.maxStackSize == 0) ? int.MaxValue : m_stacking.maxStackSize;
+				int maxDelta = maxStackSizePerTurn - m_stacking.stackCount[i];
+				if (maxDelta <= 0)
 				{
 					i++;
 				}
 				else
 				{
-					int num6 = Mathf.Min(num5, num2);
-					if (num6 + num > num4)
+					int deltaClamped = Mathf.Min(maxDelta, delta);
+					if (deltaClamped + num > maxStackSize)
 					{
-						num6 = num4 - num;
+						deltaClamped = maxStackSize - num;
 					}
-					if (num6 <= 0)
+					if (deltaClamped <= 0)
 					{
 						break;
 					}
-					m_stacking.stackCount[i] += num6;
-					num += num6;
-					num2 -= num6;
+					m_stacking.stackCount[i] += deltaClamped;
+					num += deltaClamped;
+					delta -= deltaClamped;
 					i++;
 				}
-				if (num2 <= 0)
+				if (delta <= 0)
 				{
 					break;
 				}
