@@ -13,9 +13,9 @@ public class ServerEffectManager : MonoBehaviour
 
 	private SharedEffectBarrierManager m_sharedEffectBarrierManager;
 
-	private Dictionary<ActorData, List<global::Effect>> m_actorEffects = new Dictionary<ActorData, List<global::Effect>>(8);
+	private Dictionary<ActorData, List<Effect>> m_actorEffects = new Dictionary<ActorData, List<Effect>>(8);
 
-	private List<global::Effect> m_worldEffects = new List<global::Effect>();
+	private List<Effect> m_worldEffects = new List<Effect>();
 
 	private List<ActorData> m_actorsAddedThisTurn = new List<ActorData>();
 
@@ -26,7 +26,7 @@ public class ServerEffectManager : MonoBehaviour
 
 	private static ServerEffectManager s_instance;
 
-	public List<global::Effect> WorldEffects
+	public List<Effect> WorldEffects
 	{
 		get
 		{
@@ -111,7 +111,7 @@ public class ServerEffectManager : MonoBehaviour
 		}
 		else
 		{
-			this.m_actorEffects.Add(actorToAdd, new List<global::Effect>());
+			this.m_actorEffects.Add(actorToAdd, new List<Effect>());
 			// rogues?
 			//foreach (EffectTemplate effectTemplate in actorToAdd.m_onInitEffectTemplates)
 			//{
@@ -163,7 +163,7 @@ public class ServerEffectManager : MonoBehaviour
 		//}
 
 		this.m_actorsAddedThisTurn.Add(actorToAdd);
-		foreach (global::Effect effect4 in this.m_actorEffects.SelectMany((KeyValuePair<ActorData, List<global::Effect>> kvp) => kvp.Value).ToList<global::Effect>())
+		foreach (Effect effect4 in this.m_actorEffects.SelectMany((KeyValuePair<ActorData, List<Effect>> kvp) => kvp.Value).ToList())
 		{
 			effect4.OnActorAdded(actorToAdd);
 		}
@@ -196,14 +196,14 @@ public class ServerEffectManager : MonoBehaviour
 
 	private void Update()
 	{
-		foreach (KeyValuePair<ActorData, List<global::Effect>> keyValuePair in this.m_actorEffects)
+		foreach (KeyValuePair<ActorData, List<Effect>> keyValuePair in this.m_actorEffects)
 		{
-			foreach (global::Effect effect in keyValuePair.Value)
+			foreach (Effect effect in keyValuePair.Value)
 			{
 				effect.Update();
 			}
 		}
-		foreach (global::Effect effect2 in this.m_worldEffects)
+		foreach (Effect effect2 in this.m_worldEffects)
 		{
 			effect2.Update();
 		}
@@ -234,9 +234,9 @@ public class ServerEffectManager : MonoBehaviour
 	{
 		if (actor != null)
 		{
-			foreach (List<global::Effect> list in this.m_actorEffects.Values)
+			foreach (List<Effect> list in this.m_actorEffects.Values)
 			{
-				foreach (global::Effect effect in list)
+				foreach (Effect effect in list)
 				{
 					if (effect.Caster == actor && effect.CasterMustHaveAccuratePositionOnClients())
 					{
@@ -292,10 +292,10 @@ public class ServerEffectManager : MonoBehaviour
 	//}
 
 	// added in rogues
-	public global::Effect GetEffect(ActorData target, System.Type effectType)
+	public Effect GetEffect(ActorData target, System.Type effectType)
 	{
-		global::Effect result = null;
-		List<global::Effect> list = null;
+		Effect result = null;
+		List<Effect> list = null;
 		if (target != null && this.m_actorEffects.ContainsKey(target))
 		{
 			list = this.m_actorEffects[target];
@@ -306,7 +306,7 @@ public class ServerEffectManager : MonoBehaviour
 		}
 		if (list != null)
 		{
-			foreach (global::Effect effect in list)
+			foreach (Effect effect in list)
 			{
 				if (effect != null && effect.GetType() == effectType)
 				{
@@ -318,14 +318,14 @@ public class ServerEffectManager : MonoBehaviour
 		return result;
 	}
 
-	public Dictionary<ActorData, List<global::Effect>> GetAllActorEffects()
+	public Dictionary<ActorData, List<Effect>> GetAllActorEffects()
 	{
 		return this.m_actorEffects;
 	}
 
-	public List<global::Effect> GetActorEffects(ActorData actorData)
+	public List<Effect> GetActorEffects(ActorData actorData)
 	{
-		List<global::Effect> result = null;
+		List<Effect> result = null;
 		if (this.m_actorEffects.ContainsKey(actorData))
 		{
 			result = this.m_actorEffects[actorData];
@@ -334,15 +334,15 @@ public class ServerEffectManager : MonoBehaviour
 	}
 
 	// added in rogues
-	public List<global::Effect> GetEffectsOnTargetByCaster(ActorData target, ActorData caster, System.Type effectType)
+	public List<Effect> GetEffectsOnTargetByCaster(ActorData target, ActorData caster, System.Type effectType)
 	{
-		List<global::Effect> list = new List<global::Effect>();
+		List<Effect> list = new List<Effect>();
 		if (target != null && this.m_actorEffects.ContainsKey(target))
 		{
-			List<global::Effect> list2 = this.m_actorEffects[target];
+			List<Effect> list2 = this.m_actorEffects[target];
 			if (list2 != null)
 			{
-				foreach (global::Effect effect in list2)
+				foreach (Effect effect in list2)
 				{
 					if (effect != null && effect.GetType() == effectType && effect.Caster == caster)
 					{
@@ -354,15 +354,15 @@ public class ServerEffectManager : MonoBehaviour
 		return list;
 	}
 
-	public List<global::Effect> GetEffectsOnTargetGrantingStatus(ActorData target, StatusType status)
+	public List<Effect> GetEffectsOnTargetGrantingStatus(ActorData target, StatusType status)
 	{
-		List<global::Effect> list = new List<global::Effect>();
+		List<Effect> list = new List<Effect>();
 		if (target != null && this.m_actorEffects.ContainsKey(target))
 		{
-			List<global::Effect> list2 = this.m_actorEffects[target];
+			List<Effect> list2 = this.m_actorEffects[target];
 			if (list2 != null)
 			{
-				foreach (global::Effect effect in list2)
+				foreach (Effect effect in list2)
 				{
 					if (effect != null)
 					{
@@ -388,10 +388,10 @@ public class ServerEffectManager : MonoBehaviour
 		List<ActorData> list = new List<ActorData>();
 		if (target != null && this.m_actorEffects.ContainsKey(target))
 		{
-			List<global::Effect> list2 = this.m_actorEffects[target];
+			List<Effect> list2 = this.m_actorEffects[target];
 			if (list2 != null)
 			{
-				foreach (global::Effect effect in list2)
+				foreach (Effect effect in list2)
 				{
 					if (effect != null && effect.Caster != null && !list.Contains(effect.Caster))
 					{
@@ -413,9 +413,9 @@ public class ServerEffectManager : MonoBehaviour
 	}
 
 	// added in rogues
-	public List<global::Effect> GetAllActorEffectsByCaster(ActorData caster, System.Type effectType)
+	public List<Effect> GetAllActorEffectsByCaster(ActorData caster, System.Type effectType)
 	{
-		List<global::Effect> list = new List<global::Effect>();
+		List<Effect> list = new List<Effect>();
 		foreach (ActorData target in this.m_actorEffects.Keys)
 		{
 			list.AddRange(this.GetEffectsOnTargetByCaster(target, caster, effectType));
@@ -423,15 +423,15 @@ public class ServerEffectManager : MonoBehaviour
 		return list;
 	}
 
-	public List<global::Effect> GetWorldEffects()
+	public List<Effect> GetWorldEffects()
 	{
 		return this.m_worldEffects;
 	}
 
-	public List<global::Effect> GetWorldEffectsByCaster(ActorData caster)
+	public List<Effect> GetWorldEffectsByCaster(ActorData caster)
 	{
-		List<global::Effect> list = new List<global::Effect>();
-		foreach (global::Effect effect in this.m_worldEffects)
+		List<Effect> list = new List<Effect>();
+		foreach (Effect effect in this.m_worldEffects)
 		{
 			if (effect.Caster == caster)
 			{
@@ -455,12 +455,12 @@ public class ServerEffectManager : MonoBehaviour
 	//	return list;
 	//}
 
-	private global::Effect GetEffectToStackWith(global::Effect newEffect, List<global::Effect> targetEffects)
+	private Effect GetEffectToStackWith(Effect newEffect, List<Effect> targetEffects)
 	{
-		global::Effect result = null;
+		Effect result = null;
 		if (newEffect.CanStack())
 		{
-			foreach (global::Effect effect in targetEffects)
+			foreach (Effect effect in targetEffects)
 			{
 				if (effect.CanStackWith(newEffect))
 				{
@@ -472,153 +472,151 @@ public class ServerEffectManager : MonoBehaviour
 		return result;
 	}
 
-	public void ApplyEffect(global::Effect effect, int stacks = 1)
+	public void ApplyEffect(Effect effect, int stacks = 1)
 	{
-		bool flag = true;
+		bool canApply = true;
 		if (effect.Target != null && effect.Caster != null)
 		{
-			bool flag2 = effect.Target.GetTeam() == effect.Caster.GetTeam();
 			ActorStatus component = effect.Target.GetComponent<ActorStatus>();
 			if (component.HasStatus(StatusType.EffectImmune, true))
 			{
-				flag = false;
+				canApply = false;
 			}
-			else if (effect.Target != effect.Caster && flag2 && component.HasStatus(StatusType.CantBeHelpedByTeam, true))
+			else if (effect.Target != effect.Caster
+				&& effect.Target.GetTeam() == effect.Caster.GetTeam()
+				&& component.HasStatus(StatusType.CantBeHelpedByTeam, true))
 			{
-				flag = false;
+				canApply = false;
 			}
 			else if (component.HasStatus(StatusType.BuffImmune, true) && effect.IsBuff())
 			{
-				flag = false;
+				canApply = false;
 			}
 			else if (component.HasStatus(StatusType.DebuffImmune, true) && effect.IsDebuff())
 			{
-				flag = false;
+				canApply = false;
 			}
 		}
 		// rogues?
 		//EffectSystem.Effect effect2;
 		//if ((effect2 = (effect as EffectSystem.Effect)) != null && !effect2.Evaluate<bool>(effect2.EffectTemplate.ShouldEvaluate, Array.Empty<object>()))
 		//{
-		//	flag = false;
+		//	canApply = false;
 		//}
-		if (!flag)
+		if (!canApply)
 		{
 			this.m_sharedEffectBarrierManager.NotifyEffectEnded(effect.m_guid);
 			if (EffectDebugConfig.TracingAddAndRemove())
 			{
 				Debug.LogWarning("<color=green>Effect</color>: " + effect.GetDebugIdentifier("yellow") + " Skipping SERVER effect application");
 			}
+			return;
 		}
-		if (flag)
+		bool isEffectStart = true;
+		if (effect.Target == null)
 		{
-			bool flag3 = true;
-			if (effect.Target == null)
+			effect.AddToStack(stacks);
+			this.m_worldEffects.Add(effect);
+		}
+		else
+		{
+			if (!m_actorEffects.TryGetValue(effect.Target, out List<Effect> list))
 			{
+				list = new List<Effect>();
+				m_actorEffects.Add(effect.Target, list);
+			}
+			Effect effectToStackWith = this.GetEffectToStackWith(effect, list);
+			if (effectToStackWith == null)
+			{
+				list.Add(effect);
 				effect.AddToStack(stacks);
-				this.m_worldEffects.Add(effect);
+
+				// rogues?
+				//EffectSystem.Effect effect3;
+				//if ((effect3 = (effect as EffectSystem.Effect)) != null)
+				//{
+				//	flag3 = (effect3.EffectLifecycle == EffectLifecycle.Invalid);
+				//}
 			}
 			else
 			{
-				List<global::Effect> list;
-				if (!this.m_actorEffects.TryGetValue(effect.Target, out list))
-				{
-					list = new List<global::Effect>();
-					this.m_actorEffects.Add(effect.Target, list);
-				}
-				global::Effect effectToStackWith = this.GetEffectToStackWith(effect, list);
-				if (effectToStackWith == null)
-				{
-					list.Add(effect);
-					effect.AddToStack(stacks);
+				isEffectStart = false;
+				effectToStackWith.AddToStack(stacks);
 
-					// rogues?
-					//EffectSystem.Effect effect3;
-					//if ((effect3 = (effect as EffectSystem.Effect)) != null)
-					//{
-					//	flag3 = (effect3.EffectLifecycle == EffectLifecycle.Invalid);
-					//}
-				}
-				else
-				{
-					flag3 = false;
-					effectToStackWith.AddToStack(stacks);
+				// rogues?
+				//EffectSystem.Effect effectSystemStackEffect;
+				//if ((effectSystemStackEffect = (effectToStackWith as EffectSystem.Effect)) != null && effectSystemStackEffect.EffectTemplate.ConsolidateEffects)
+				//{
+				//	effectSystemStackEffect.targets.AddRange(from actorData in ((EffectSystem.Effect)effect).targets
+				//	where !effectSystemStackEffect.targets.Contains(actorData)
+				//	select actorData);
+				//}
 
-					// rogues?
-					//EffectSystem.Effect effectSystemStackEffect;
-					//if ((effectSystemStackEffect = (effectToStackWith as EffectSystem.Effect)) != null && effectSystemStackEffect.EffectTemplate.ConsolidateEffects)
-					//{
-					//	effectSystemStackEffect.targets.AddRange(from actorData in ((EffectSystem.Effect)effect).targets
-					//	where !effectSystemStackEffect.targets.Contains(actorData)
-					//	select actorData);
-					//}
+				this.m_sharedEffectBarrierManager.NotifyEffectEnded(effect.m_guid);
+			}
+		}
+		if (isEffectStart)
+		{
+			effect.OnStart();
+		}
+		if (effect.Target != null)
+		{
+			if (effect.CanAbsorb())
+			{
+				this.UpdateAbsorbPoints(effect);
+			}
+			PassiveData component2 = effect.Target.GetComponent<PassiveData>();
+			if (component2 != null)
+			{
+				component2.OnGainingEffect(effect);
+			}
+			ActorBehavior actorBehavior = effect.Target.GetActorBehavior();
+			if (actorBehavior != null && actorBehavior.CurrentTurn != null)
+			{
+				actorBehavior.CurrentTurn.RecordEffectFromActor(effect.Caster);
+			}
+		}
+		if (effect.Caster != null)
+		{
+			if (effect.Caster.GetComponent<PassiveData>())
+			{
+				effect.Caster.GetComponent<PassiveData>().OnAppliedEffectOnOther(effect);
+			}
+			if (effect.Parent.IsAbility() && BrushCoordinator.Get() != null)
+			{
+				BrushCoordinator.Get().OnEffect_HandleConcealment(effect);
+			}
+		}
 
-					this.m_sharedEffectBarrierManager.NotifyEffectEnded(effect.m_guid);
-				}
-			}
-			if (flag3)
-			{
-				effect.OnStart();
-			}
-			if (effect.Target != null)
-			{
-				if (effect.CanAbsorb())
-				{
-					this.UpdateAbsorbPoints(effect);
-				}
-				PassiveData component2 = effect.Target.GetComponent<PassiveData>();
-				if (component2 != null)
-				{
-					component2.OnGainingEffect(effect);
-				}
-				ActorBehavior actorBehavior = effect.Target.GetActorBehavior();
-				if (actorBehavior != null && actorBehavior.CurrentTurn != null)
-				{
-					actorBehavior.CurrentTurn.RecordEffectFromActor(effect.Caster);
-				}
-			}
-			if (effect.Caster != null)
-			{
-				if (effect.Caster.GetComponent<PassiveData>())
-				{
-					effect.Caster.GetComponent<PassiveData>().OnAppliedEffectOnOther(effect);
-				}
-				if (effect.Parent.IsAbility() && BrushCoordinator.Get() != null)
-				{
-					BrushCoordinator.Get().OnEffect_HandleConcealment(effect);
-				}
-			}
+		// rogues
+		//effect.m_time.activeTeamAtApplication = GameFlowData.Get().ActingTeam;
+		//if (effect.m_time.activeTeamAtApplication == Team.Invalid)
+		//{
+		//effect.m_time.activeTeamAtApplication = effect.Caster.GetTeam();
+		//}
 
-			// rogues
-			//effect.m_time.activeTeamAtApplication = GameFlowData.Get().ActingTeam;
-			//if (effect.m_time.activeTeamAtApplication == Team.Invalid)
-			//{
-			//effect.m_time.activeTeamAtApplication = effect.Caster.GetTeam();
-			//}
-
-			this.OnGainingEffect(effect);
-			foreach (ActorData actor in this.m_actorsAddedThisTurn)
+		this.OnGainingEffect(effect);
+		foreach (ActorData actor in this.m_actorsAddedThisTurn)
+		{
+			effect.OnActorAdded(actor);
+		}
+		if (EffectDebugConfig.TracingAddAndRemove())
+		{
+			string text = (effect.Caster != null) ? effect.Caster.DebugNameString("yellow") : "[None]";
+			string text2 = (effect.Target != null) ? effect.Target.DebugNameString("yellow") : "[None]";
+			Log.Warning(string.Concat(new string[]
 			{
-				effect.OnActorAdded(actor);
-			}
-			if (EffectDebugConfig.TracingAddAndRemove())
-			{
-				string text = (effect.Caster != null) ? effect.Caster.DebugNameString("yellow") : "[None]";
-				string text2 = (effect.Target != null) ? effect.Target.DebugNameString("yellow") : "[None]";
-				Log.Warning(string.Concat(new string[]
-				{
 					"<color=green>Effect</color>: ",
 					effect.GetDebugIdentifier("yellow"),
 					" APPLIED\nCaster: ",
 					text,
 					", Target: ",
 					text2
-				}));
-			}
+			}));
 		}
 	}
 
-	public void RemoveEffect(global::Effect effectToRemove, List<global::Effect> effectListToRemoveFrom)
+	public void RemoveEffect(Effect effectToRemove, List<Effect> effectListToRemoveFrom)
 	{
 		effectToRemove.End();
 		effectListToRemoveFrom.Remove(effectToRemove);
@@ -639,9 +637,9 @@ public class ServerEffectManager : MonoBehaviour
 		}
 	}
 
-	public void RemoveEffects(List<global::Effect> effectsToRemove, List<global::Effect> effectListToRemoveFrom)
+	public void RemoveEffects(List<Effect> effectsToRemove, List<Effect> effectListToRemoveFrom)
 	{
-		foreach (global::Effect effect in effectsToRemove)
+		foreach (Effect effect in effectsToRemove)
 		{
 			if (effectListToRemoveFrom.Remove(effect))
 			{
@@ -655,16 +653,16 @@ public class ServerEffectManager : MonoBehaviour
 	{
 		if (actor != null && this.m_actorEffects.ContainsKey(actor))
 		{
-			List<global::Effect> list = new List<global::Effect>();
-			List<global::Effect> list2 = this.m_actorEffects[actor];
+			List<Effect> list = new List<Effect>();
+			List<Effect> list2 = this.m_actorEffects[actor];
 			if (list2 != null)
 			{
-				foreach (global::Effect item in list2)
+				foreach (Effect item in list2)
 				{
 					list.Add(item);
 				}
 			}
-			foreach (global::Effect effectToRemove in list)
+			foreach (Effect effectToRemove in list)
 			{
 				this.RemoveEffect(effectToRemove, list2);
 			}
@@ -683,37 +681,37 @@ public class ServerEffectManager : MonoBehaviour
 	{
 		if (actor != null)
 		{
-			foreach (KeyValuePair<ActorData, List<global::Effect>> keyValuePair in this.m_actorEffects)
+			foreach (KeyValuePair<ActorData, List<Effect>> keyValuePair in this.m_actorEffects)
 			{
-				List<global::Effect> list = new List<global::Effect>();
-				foreach (global::Effect effect in keyValuePair.Value)
+				List<Effect> list = new List<Effect>();
+				foreach (Effect effect in keyValuePair.Value)
 				{
 					if (effect.Caster == actor)
 					{
 						list.Add(effect);
 					}
 				}
-				foreach (global::Effect effectToRemove in list)
+				foreach (Effect effectToRemove in list)
 				{
 					this.RemoveEffect(effectToRemove, keyValuePair.Value);
 				}
 			}
-			List<global::Effect> list2 = new List<global::Effect>();
-			foreach (global::Effect effect2 in this.m_worldEffects)
+			List<Effect> list2 = new List<Effect>();
+			foreach (Effect effect2 in this.m_worldEffects)
 			{
 				if (effect2.Caster == actor)
 				{
 					list2.Add(effect2);
 				}
 			}
-			foreach (global::Effect effectToRemove2 in list2)
+			foreach (Effect effectToRemove2 in list2)
 			{
 				this.RemoveEffect(effectToRemove2, this.m_worldEffects);
 			}
 		}
 	}
 
-	public void NotifyLosingEffect(global::Effect effectRemoved)
+	public void NotifyLosingEffect(Effect effectRemoved)
 	{
 		this.m_sharedEffectBarrierManager.NotifyEffectEnded(effectRemoved.m_guid);
 		if (effectRemoved.Target != null)
@@ -744,17 +742,17 @@ public class ServerEffectManager : MonoBehaviour
 	public void OnTurnStart()
 	{
 		this.ClearAllEffectResults();
-		foreach (List<global::Effect> effectList in this.m_actorEffects.Values)
+		foreach (List<Effect> effectList in this.m_actorEffects.Values)
 		{
 			this.OnTurnStart(effectList);
 		}
 		this.OnTurnStart(this.m_worldEffects);
 	}
 
-	private void OnTurnStart(List<global::Effect> effectList)
+	private void OnTurnStart(List<Effect> effectList)
 	{
-		List<global::Effect> list = new List<global::Effect>();
-		foreach (global::Effect effect in effectList.ToList<global::Effect>())
+		List<Effect> effectsToRemove = new List<Effect>();
+		foreach (Effect effect in effectList.ToList())
 		{
 			bool flag = this.ValidateEffectLifetime(effect, false);
 
@@ -767,7 +765,7 @@ public class ServerEffectManager : MonoBehaviour
 
 			if (effect.ShouldEndEarly() || flag)
 			{
-				list.Add(effect);
+				effectsToRemove.Add(effect);
 			}
 			else
 			{
@@ -781,11 +779,11 @@ public class ServerEffectManager : MonoBehaviour
 
 				if (effect.ShouldEndEarly() || flag)
 				{
-					list.Add(effect);
+					effectsToRemove.Add(effect);
 				}
 			}
 		}
-		foreach (global::Effect effectToRemove in list)
+		foreach (Effect effectToRemove in effectsToRemove)
 		{
 			this.RemoveEffect(effectToRemove, effectList);
 		}
@@ -793,7 +791,7 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void OnTurnEnd()  // Team nextTeam in rogues
 	{
-		foreach (List<global::Effect> effectList in this.m_actorEffects.Values)
+		foreach (List<Effect> effectList in this.m_actorEffects.Values)
 		{
 			this.OnTurnEnd(effectList); // , nextTeam in rogues
 		}
@@ -801,7 +799,7 @@ public class ServerEffectManager : MonoBehaviour
 	}
 
 	// custom
-	private bool ValidateEffectLifetime(global::Effect effect, bool isEnd)
+	private bool ValidateEffectLifetime(Effect effect, bool isEnd)
 	{
 		EffectDuration time = effect.m_time;
 		if (!isEnd)
@@ -860,11 +858,11 @@ public class ServerEffectManager : MonoBehaviour
 	//	return time.ReadyToEnd();
 	//}
 
-	private void OnTurnEnd(List<global::Effect> effectList)  // , Team nextTeam in rogues
+	private void OnTurnEnd(List<Effect> effectList)  // , Team nextTeam in rogues
 	{
 		this.m_actorsAddedThisTurn.Clear();
-		List<global::Effect> list = new List<global::Effect>();
-		foreach (global::Effect effect in effectList.ToList<global::Effect>())
+		List<Effect> list = new List<Effect>();
+		foreach (Effect effect in effectList.ToList())
 		{
 			bool flag = this.ValidateEffectLifetime(effect, true);
 
@@ -895,7 +893,7 @@ public class ServerEffectManager : MonoBehaviour
 				}
 			}
 		}
-		foreach (global::Effect effectToRemove in list)
+		foreach (Effect effectToRemove in list)
 		{
 			this.RemoveEffect(effectToRemove, effectList);
 		}
@@ -904,13 +902,13 @@ public class ServerEffectManager : MonoBehaviour
 	public int AdjustDamage(ActorData target, int damage)
 	{
 		int result = damage;
-		List<global::Effect> list = new List<global::Effect>();
+		List<Effect> list = new List<Effect>();
 		if (this.m_actorEffects.ContainsKey(target))
 		{
-			List<global::Effect> list2 = this.m_actorEffects[target];
+			List<Effect> list2 = this.m_actorEffects[target];
 			if (list2 != null)
 			{
-				foreach (global::Effect effect in list2)
+				foreach (Effect effect in list2)
 				{
 					if (effect.CanAbsorb())
 					{
@@ -919,7 +917,7 @@ public class ServerEffectManager : MonoBehaviour
 				}
 			}
 		}
-		list.Sort(delegate (global::Effect x, global::Effect y)
+		list.Sort(delegate (Effect x, Effect y)
 		{
 			if (x == y)
 			{
@@ -945,14 +943,14 @@ public class ServerEffectManager : MonoBehaviour
 			}
 			return num.CompareTo(value);
 		});
-		foreach (global::Effect effect2 in list)
+		foreach (Effect effect2 in list)
 		{
 			effect2.AbsorbDamage(ref result);
 		}
 		return result;
 	}
 
-	public void UpdateAbsorbPoints(global::Effect effect)
+	public void UpdateAbsorbPoints(Effect effect)
 	{
 		int absorbAmount = effect.Absorbtion.m_absorbAmount;
 		effect.Target.SetAbsorbPoints(this.CountAbsorbPoints(effect.Target));
@@ -965,10 +963,10 @@ public class ServerEffectManager : MonoBehaviour
 		int num = 0;
 		if (this.m_actorEffects.ContainsKey(actor))
 		{
-			List<global::Effect> list = this.m_actorEffects[actor];
+			List<Effect> list = this.m_actorEffects[actor];
 			if (list != null)
 			{
-				foreach (global::Effect effect in list)
+				foreach (Effect effect in list)
 				{
 					if (effect.CanAbsorb())
 					{
@@ -982,11 +980,11 @@ public class ServerEffectManager : MonoBehaviour
 
 	public List<EffectResults> FindEffectsWithCasterAnimations(AbilityPriority phaseIndex)
 	{
-		return (from e in this.m_actorEffects.SelectMany((KeyValuePair<ActorData, List<global::Effect>> kvp) => kvp.Value)
+		return (from e in this.m_actorEffects.SelectMany((KeyValuePair<ActorData, List<Effect>> kvp) => kvp.Value)
 				where e.GetCasterAnimationIndex(phaseIndex) > 0
 				select e).Concat(from e in this.m_worldEffects
 								 where e.GetCasterAnimationIndex(phaseIndex) > 0
-								 select e).SelectMany(delegate (global::Effect e)
+								 select e).SelectMany(delegate (Effect e)
 								 {
 									 // rogues?
 									 //EffectSystem.Effect effect;
@@ -999,16 +997,16 @@ public class ServerEffectManager : MonoBehaviour
 				{
 					e.GetResultsForPhase(phaseIndex, true)
 				};
-								 }).ToList<EffectResults>();
+								 }).ToList();
 	}
 
 	public List<EffectResults> FindAnimlessEffectsWithHitsForPhase(AbilityPriority phaseIndex)
 	{
-		return (from e in this.m_actorEffects.SelectMany((KeyValuePair<ActorData, List<global::Effect>> kvp) => kvp.Value)
+		return (from e in this.m_actorEffects.SelectMany((KeyValuePair<ActorData, List<Effect>> kvp) => kvp.Value)
 				where this.ShouldAddActorAnimEntryAsAnimlessEffect(e, phaseIndex)
 				select e).Concat(from e in this.m_worldEffects
 								 where this.ShouldAddActorAnimEntryAsAnimlessEffect(e, phaseIndex)
-								 select e).SelectMany(delegate (global::Effect e)
+								 select e).SelectMany(delegate (Effect e)
 								 {
 									 // rogues?
 									 //EffectSystem.Effect effect;
@@ -1021,10 +1019,10 @@ public class ServerEffectManager : MonoBehaviour
 				{
 					e.GetResultsForPhase(phaseIndex, true)
 				};
-								 }).ToList<EffectResults>();
+								 }).ToList();
 	}
 
-	private bool ShouldAddActorAnimEntryAsAnimlessEffect(global::Effect effect, AbilityPriority phaseIndex)
+	private bool ShouldAddActorAnimEntryAsAnimlessEffect(Effect effect, AbilityPriority phaseIndex)
 	{
 		EffectResults effectResults = (effect != null) ? effect.GetResultsForPhase(phaseIndex, true) : null;
 		return effectResults != null && effect.GetCasterAnimationIndex(phaseIndex) <= 0 && effect.AddActorAnimEntryIfHasHits(phaseIndex) && (effectResults.m_actorToHitResults.Count > 0 || effectResults.m_positionToHitResults.Count > 0);
@@ -1036,16 +1034,16 @@ public class ServerEffectManager : MonoBehaviour
 		{
 			return;
 		}
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in list)
+			foreach (Effect effect in list)
 			{
 				this.CollectEffectOutgoingHitSummary(effect, phase, caster, summary);
 			}
 		}
 	}
 
-	private void CollectEffectOutgoingHitSummary(global::Effect effect, AbilityPriority phase, ActorData caster, ServerActionBuffer.GatheredOutgoingHitsSummary summary)
+	private void CollectEffectOutgoingHitSummary(Effect effect, AbilityPriority phase, ActorData caster, ServerActionBuffer.GatheredOutgoingHitsSummary summary)
 	{
 		if (effect != null && effect.Caster == caster && effect.HitPhase == phase && effect.GetResultsForPhase(phase, true).GatheredResults)
 		{
@@ -1059,20 +1057,20 @@ public class ServerEffectManager : MonoBehaviour
 	{
 		for (int i = 0; i < this.m_worldEffects.Count; i++)
 		{
-			global::Effect effect = this.m_worldEffects[i];
+			Effect effect = this.m_worldEffects[i];
 			this.CountEffectDamageAndHealing(effect, phase, target, ref damage, ref healing);
 		}
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
 			for (int j = 0; j < list.Count; j++)
 			{
-				global::Effect effect2 = list[j];
+				Effect effect2 = list[j];
 				this.CountEffectDamageAndHealing(effect2, phase, target, ref damage, ref healing);
 			}
 		}
 	}
 
-	private void CountEffectDamageAndHealing(global::Effect effect, AbilityPriority phase, ActorData target, ref int damage, ref int healing)
+	private void CountEffectDamageAndHealing(Effect effect, AbilityPriority phase, ActorData target, ref int damage, ref int healing)
 	{
 		if (effect != null && effect.HitPhase == phase && effect.GetResultsForPhase(phase, true).GatheredResults)
 		{
@@ -1084,20 +1082,20 @@ public class ServerEffectManager : MonoBehaviour
 	{
 		for (int i = 0; i < this.m_worldEffects.Count; i++)
 		{
-			global::Effect effect = this.m_worldEffects[i];
+			Effect effect = this.m_worldEffects[i];
 			this.IntegrateHpDeltasForEffect(effect, phase, ref actorToDeltaHP, ignoreEffectsWithTheatricsEntry);
 		}
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
 			for (int j = 0; j < list.Count; j++)
 			{
-				global::Effect effect2 = list[j];
+				Effect effect2 = list[j];
 				this.IntegrateHpDeltasForEffect(effect2, phase, ref actorToDeltaHP, ignoreEffectsWithTheatricsEntry);
 			}
 		}
 	}
 
-	private void IntegrateHpDeltasForEffect(global::Effect effect, AbilityPriority phase, ref Dictionary<ActorData, int> actorToDeltaHP, bool ignoreEffectsWithTheatricsEntry)
+	private void IntegrateHpDeltasForEffect(Effect effect, AbilityPriority phase, ref Dictionary<ActorData, int> actorToDeltaHP, bool ignoreEffectsWithTheatricsEntry)
 	{
 		if (effect != null && effect.HitPhase == phase && (!ignoreEffectsWithTheatricsEntry || (effect.GetCasterAnimationIndex(phase) == 0 && !effect.AddActorAnimEntryIfHasHits(phase))) && effect.GetResultsForPhase(phase, true).GatheredResults)
 		{
@@ -1111,7 +1109,7 @@ public class ServerEffectManager : MonoBehaviour
 		{
 			this.m_worldEffects[i].IntegrateDamageResultsForEvasion(ref actorToDeltaHP);
 		}
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
 			for (int j = 0; j < list.Count; j++)
 			{
@@ -1126,7 +1124,7 @@ public class ServerEffectManager : MonoBehaviour
 		{
 			this.m_worldEffects[i].IntegrateDamageResultsForKnockback(ref actorToDeltaHP);
 		}
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
 			for (int j = 0; j < list.Count; j++)
 			{
@@ -1139,20 +1137,20 @@ public class ServerEffectManager : MonoBehaviour
 	{
 		for (int i = 0; i < this.m_worldEffects.Count; i++)
 		{
-			global::Effect effect = this.m_worldEffects[i];
+			Effect effect = this.m_worldEffects[i];
 			this.GatherGrossDamageResults_Effect(effect, phase, ref actorToGrossDamage_real, ref actorToGrossDamage_fake, ref stats);
 		}
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
 			for (int j = 0; j < list.Count; j++)
 			{
-				global::Effect effect2 = list[j];
+				Effect effect2 = list[j];
 				this.GatherGrossDamageResults_Effect(effect2, phase, ref actorToGrossDamage_real, ref actorToGrossDamage_fake, ref stats);
 			}
 		}
 	}
 
-	public void GatherGrossDamageResults_Effect(global::Effect effect, AbilityPriority phase, ref Dictionary<ActorData, int> actorToGrossDamage_real, ref Dictionary<ActorData, int> actorToGrossDamage_fake, ref Dictionary<ActorData, ServerGameplayUtils.DamageDodgedStats> stats)
+	public void GatherGrossDamageResults_Effect(Effect effect, AbilityPriority phase, ref Dictionary<ActorData, int> actorToGrossDamage_real, ref Dictionary<ActorData, int> actorToGrossDamage_fake, ref Dictionary<ActorData, ServerGameplayUtils.DamageDodgedStats> stats)
 	{
 		if (effect.HitPhase == phase && effect.GetResultsForPhase(phase, true).GatheredResults && effect.GetResultsForPhase(phase, false).GatheredResults)
 		{
@@ -1168,20 +1166,20 @@ public class ServerEffectManager : MonoBehaviour
 	{
 		for (int i = 0; i < this.m_worldEffects.Count; i++)
 		{
-			global::Effect effect = this.m_worldEffects[i];
+			Effect effect = this.m_worldEffects[i];
 			this.GatherGrossDamageResults_Effect_Evasion(effect, ref actorToGrossDamage_real, ref stats);
 		}
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
 			for (int j = 0; j < list.Count; j++)
 			{
-				global::Effect effect2 = list[j];
+				Effect effect2 = list[j];
 				this.GatherGrossDamageResults_Effect_Evasion(effect2, ref actorToGrossDamage_real, ref stats);
 			}
 		}
 	}
 
-	public void GatherGrossDamageResults_Effect_Evasion(global::Effect effect, ref Dictionary<ActorData, int> actorToGrossDamage_real, ref Dictionary<ActorData, ServerGameplayUtils.DamageDodgedStats> stats)
+	public void GatherGrossDamageResults_Effect_Evasion(Effect effect, ref Dictionary<ActorData, int> actorToGrossDamage_real, ref Dictionary<ActorData, ServerGameplayUtils.DamageDodgedStats> stats)
 	{
 		Dictionary<ActorData, int> fakeDamageTaken = new Dictionary<ActorData, int>();
 		foreach (MovementResults movementResults in effect.GetMovementResultsForMovementStage(MovementStage.Evasion))
@@ -1194,14 +1192,14 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void NotifyBeforeGatherAllEffectResults(AbilityPriority phase)
 	{
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in list)
+			foreach (Effect effect in list)
 			{
 				effect.OnBeforeGatherEffectResults(phase);
 			}
 		}
-		foreach (global::Effect effect2 in this.m_worldEffects)
+		foreach (Effect effect2 in this.m_worldEffects)
 		{
 			effect2.OnBeforeGatherEffectResults(phase);
 		}
@@ -1209,14 +1207,14 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void ClearAllEffectResults()
 	{
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in list)
+			foreach (Effect effect in list)
 			{
 				effect.ClearEffectResults();
 			}
 		}
-		foreach (global::Effect effect2 in this.m_worldEffects)
+		foreach (Effect effect2 in this.m_worldEffects)
 		{
 			effect2.ClearEffectResults();
 		}
@@ -1224,14 +1222,14 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void ClearAllEffectResultsForNormalMovement()
 	{
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in list)
+			foreach (Effect effect in list)
 			{
 				effect.ClearNormalMovementResults();
 			}
 		}
-		foreach (global::Effect effect2 in this.m_worldEffects)
+		foreach (Effect effect2 in this.m_worldEffects)
 		{
 			effect2.ClearNormalMovementResults();
 		}
@@ -1239,14 +1237,14 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void GatherAllEffectResultsInResponseToEvades(MovementCollection evadeMovementCollection)
 	{
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in list)
+			foreach (Effect effect in list)
 			{
 				effect.GatherResultsInResponseToEvades(evadeMovementCollection);
 			}
 		}
-		foreach (global::Effect effect2 in this.m_worldEffects)
+		foreach (Effect effect2 in this.m_worldEffects)
 		{
 			effect2.GatherResultsInResponseToEvades(evadeMovementCollection);
 		}
@@ -1254,14 +1252,14 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void GatherAllEffectResultsInResponseToKnockbacks(MovementCollection knockbackCollection)
 	{
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in list)
+			foreach (Effect effect in list)
 			{
 				effect.GatherResultsInResponseToKnockbacks(knockbackCollection);
 			}
 		}
-		foreach (global::Effect effect2 in this.m_worldEffects)
+		foreach (Effect effect2 in this.m_worldEffects)
 		{
 			effect2.GatherResultsInResponseToKnockbacks(knockbackCollection);
 		}
@@ -1269,9 +1267,9 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void GatherEffectResultsInResponseToMovementSegment(ServerGameplayUtils.MovementGameplayData gameplayData, MovementStage movementStage, ref List<MovementResults> moveResultsForSegment)
 	{
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in list)
+			foreach (Effect effect in list)
 			{
 				List<MovementResults> list2 = new List<MovementResults>();
 				effect.GatherMovementResultsFromSegment(gameplayData.Actor, gameplayData.m_movementInstance, movementStage, gameplayData.m_currentlyConsideredPath.prev, gameplayData.m_currentlyConsideredPath, ref list2);
@@ -1289,7 +1287,7 @@ public class ServerEffectManager : MonoBehaviour
 				}
 			}
 		}
-		foreach (global::Effect effect2 in this.m_worldEffects)
+		foreach (Effect effect2 in this.m_worldEffects)
 		{
 			List<MovementResults> list3 = new List<MovementResults>();
 			effect2.GatherMovementResultsFromSegment(gameplayData.Actor, gameplayData.m_movementInstance, movementStage, gameplayData.m_currentlyConsideredPath.prev, gameplayData.m_currentlyConsideredPath, ref list3);
@@ -1308,25 +1306,25 @@ public class ServerEffectManager : MonoBehaviour
 		}
 	}
 
-	public List<global::Effect.EffectKnockbackTargets> FindKnockbackTargetSets()
+	public List<Effect.EffectKnockbackTargets> FindKnockbackTargetSets()
 	{
-		List<global::Effect.EffectKnockbackTargets> list = new List<global::Effect.EffectKnockbackTargets>();
-		foreach (List<global::Effect> list2 in this.m_actorEffects.Values)
+		List<Effect.EffectKnockbackTargets> list = new List<Effect.EffectKnockbackTargets>();
+		foreach (List<Effect> list2 in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in list2)
+			foreach (Effect effect in list2)
 			{
 				Dictionary<ActorData, Vector2> effectKnockbackTargets = effect.GetEffectKnockbackTargets();
-				global::Effect.EffectKnockbackTargets effectKnockbackTargets2 = new global::Effect.EffectKnockbackTargets(effect.Target, effectKnockbackTargets);
+				Effect.EffectKnockbackTargets effectKnockbackTargets2 = new Effect.EffectKnockbackTargets(effect.Target, effectKnockbackTargets);
 				if (effectKnockbackTargets2 != null && effectKnockbackTargets2.m_sourceActor != null && effectKnockbackTargets2.m_knockbackTargets != null && effectKnockbackTargets2.m_knockbackTargets.Count > 0)
 				{
 					list.Add(effectKnockbackTargets2);
 				}
 			}
 		}
-		foreach (global::Effect effect2 in this.m_worldEffects)
+		foreach (Effect effect2 in this.m_worldEffects)
 		{
 			Dictionary<ActorData, Vector2> effectKnockbackTargets3 = effect2.GetEffectKnockbackTargets();
-			global::Effect.EffectKnockbackTargets effectKnockbackTargets4 = new global::Effect.EffectKnockbackTargets(effect2.Caster, effectKnockbackTargets3);
+			Effect.EffectKnockbackTargets effectKnockbackTargets4 = new Effect.EffectKnockbackTargets(effect2.Caster, effectKnockbackTargets3);
 			if (effectKnockbackTargets4 != null && effectKnockbackTargets4.m_sourceActor != null && effectKnockbackTargets4.m_knockbackTargets != null && effectKnockbackTargets4.m_knockbackTargets.Count > 0)
 			{
 				list.Add(effectKnockbackTargets4);
@@ -1338,9 +1336,9 @@ public class ServerEffectManager : MonoBehaviour
 	public bool HitsDoneExecuting(AbilityPriority phase)
 	{
 		bool result = true;
-		foreach (List<global::Effect> list in this.m_actorEffects.Values)
+		foreach (List<Effect> list in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in list)
+			foreach (Effect effect in list)
 			{
 				if (!this.HitsDoneExecutingForEffect(effect, phase))
 				{
@@ -1349,7 +1347,7 @@ public class ServerEffectManager : MonoBehaviour
 				}
 			}
 		}
-		foreach (global::Effect effect2 in this.m_worldEffects)
+		foreach (Effect effect2 in this.m_worldEffects)
 		{
 			if (!this.HitsDoneExecutingForEffect(effect2, phase))
 			{
@@ -1360,7 +1358,7 @@ public class ServerEffectManager : MonoBehaviour
 		return result;
 	}
 
-	private bool HitsDoneExecutingForEffect(global::Effect effect, AbilityPriority phase)
+	private bool HitsDoneExecutingForEffect(Effect effect, AbilityPriority phase)
 	{
 		// rogues?
 		//EffectSystem.Effect effect2;
@@ -1375,9 +1373,9 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void ExecuteUnexecutedHitsForAllEffects(AbilityPriority phase, bool asFailsafe)
 	{
-		foreach (List<global::Effect> collection in this.m_actorEffects.Values)
+		foreach (List<Effect> collection in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in new List<global::Effect>(collection))
+			foreach (Effect effect in new List<Effect>(collection))
 			{
 				if (!this.HitsDoneExecutingForEffect(effect, phase))
 				{
@@ -1385,7 +1383,7 @@ public class ServerEffectManager : MonoBehaviour
 				}
 			}
 		}
-		foreach (global::Effect effect2 in new List<global::Effect>(this.m_worldEffects))
+		foreach (Effect effect2 in new List<Effect>(this.m_worldEffects))
 		{
 			if (!this.HitsDoneExecutingForEffect(effect2, phase))
 			{
@@ -1394,7 +1392,7 @@ public class ServerEffectManager : MonoBehaviour
 		}
 	}
 
-	private void ExecuteUnexecutedHitsForEffect(global::Effect effect, AbilityPriority phase, bool asFailsafe)
+	private void ExecuteUnexecutedHitsForEffect(Effect effect, AbilityPriority phase, bool asFailsafe)
 	{
 		// rogues?
 		//EffectSystem.Effect effect2;
@@ -1436,14 +1434,14 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void ExecuteUnexecutedMovementHitsForAllEffects(MovementStage stage, bool asFailsafe)
 	{
-		foreach (List<global::Effect> collection in this.m_actorEffects.Values)
+		foreach (List<Effect> collection in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in new List<global::Effect>(collection))
+			foreach (Effect effect in new List<Effect>(collection))
 			{
 				effect.ExecuteUnexecutedMovementResults_Effect(stage, asFailsafe);
 			}
 		}
-		foreach (global::Effect effect2 in new List<global::Effect>(this.m_worldEffects))
+		foreach (Effect effect2 in new List<Effect>(this.m_worldEffects))
 		{
 			effect2.ExecuteUnexecutedMovementResults_Effect(stage, asFailsafe);
 		}
@@ -1453,9 +1451,9 @@ public class ServerEffectManager : MonoBehaviour
 	{
 		stillHasUnexecutedHits = false;
 		nextUnexecutedHitDistance = float.MaxValue;
-		foreach (List<global::Effect> collection in this.m_actorEffects.Values)
+		foreach (List<Effect> collection in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in new List<global::Effect>(collection))
+			foreach (Effect effect in new List<Effect>(collection))
 			{
 				bool flag;
 				float num;
@@ -1470,7 +1468,7 @@ public class ServerEffectManager : MonoBehaviour
 				}
 			}
 		}
-		foreach (global::Effect effect2 in new List<global::Effect>(this.m_worldEffects))
+		foreach (Effect effect2 in new List<Effect>(this.m_worldEffects))
 		{
 			bool flag2;
 			float num2;
@@ -1493,11 +1491,11 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void RemoveEffectsFromActorDeath()
 	{
-		using (List<global::Effect>.Enumerator enumerator = this.m_actorEffects.SelectMany((KeyValuePair<ActorData, List<global::Effect>> kvp) => kvp.Value).ToList<global::Effect>().GetEnumerator())
+		using (List<Effect>.Enumerator enumerator = this.m_actorEffects.SelectMany((KeyValuePair<ActorData, List<Effect>> kvp) => kvp.Value).ToList().GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				global::Effect effect = enumerator.Current;
+				Effect effect = enumerator.Current;
 				this.m_actorsPendingDeath.ForEach(delegate (ActorData actor)
 				{
 					effect.OnActorRemoved(actor);
@@ -1521,11 +1519,11 @@ public class ServerEffectManager : MonoBehaviour
 		ServerCombatManager.DamageType damageType = actorHitResults.DamageType;
 		bool targetInCoverWrtDamage = actorHitResults.TargetInCoverWrtDamage;
 		//HitChanceBracket.HitType hitType = actorHitResults.m_hitType;  // rogues
-		foreach (global::Effect effect in this.GetActorEffects(target).ToList<global::Effect>())
+		foreach (Effect effect in this.GetActorEffects(target).ToList())
 		{
 			effect.OnUnresolvedDamage(target, caster, damageSource, finalDamage, damageType, actorHitResults);
 		}
-		foreach (global::Effect effect2 in this.GetActorEffects(caster).ToList<global::Effect>())
+		foreach (Effect effect2 in this.GetActorEffects(caster).ToList())
 		{
 			effect2.OnDealtUnresolvedDamage(target, caster, damageSource, finalDamage, damageType, actorHitResults);
 		}
@@ -1533,7 +1531,7 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void OnBreakInvisibility(ActorData actor)
 	{
-		foreach (global::Effect effect in this.GetActorEffects(actor))
+		foreach (Effect effect in this.GetActorEffects(actor))
 		{
 			effect.OnBreakInvisibility();
 		}
@@ -1541,14 +1539,14 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void OnDamaged(ActorData target, ActorData caster, DamageSource src, int damageAmount, ActorHitResults actorHitResults)
 	{
-		foreach (List<global::Effect> source in this.m_actorEffects.Values)
+		foreach (List<Effect> source in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in source.ToList<global::Effect>())
+			foreach (Effect effect in source.ToList())
 			{
 				effect.OnDamaged_Base(target, caster, src, damageAmount, actorHitResults);
 			}
 		}
-		foreach (global::Effect effect2 in this.m_worldEffects.ToList<global::Effect>())
+		foreach (Effect effect2 in this.m_worldEffects.ToList())
 		{
 			effect2.OnDamaged_Base(target, caster, src, damageAmount, actorHitResults);
 		}
@@ -1556,29 +1554,29 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void OnHealed(ActorData target, ActorData caster, DamageSource src, int healAmount, ActorHitResults actorHitResults)
 	{
-		foreach (List<global::Effect> source in this.m_actorEffects.Values)
+		foreach (List<Effect> source in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in source.ToList<global::Effect>())
+			foreach (Effect effect in source.ToList())
 			{
 				effect.OnHealed_Base(target, caster, src, healAmount, src, actorHitResults);
 			}
 		}
-		foreach (global::Effect effect2 in this.m_worldEffects.ToList<global::Effect>())
+		foreach (Effect effect2 in this.m_worldEffects.ToList())
 		{
 			effect2.OnHealed_Base(target, caster, src, healAmount, src, actorHitResults);
 		}
 	}
 
-	public void OnGainingEffect(global::Effect newEffect)
+	public void OnGainingEffect(Effect newEffect)
 	{
-		foreach (List<global::Effect> source in this.m_actorEffects.Values)
+		foreach (List<Effect> source in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in source.ToList<global::Effect>())
+			foreach (Effect effect in source.ToList())
 			{
 				effect.OnGainingEffect(newEffect);
 			}
 		}
-		foreach (global::Effect effect2 in this.m_worldEffects.ToList<global::Effect>())
+		foreach (Effect effect2 in this.m_worldEffects.ToList())
 		{
 			effect2.OnGainingEffect(newEffect);
 		}
@@ -1593,16 +1591,16 @@ public class ServerEffectManager : MonoBehaviour
 		//}
 	}
 
-	public void OnLosingEffect(global::Effect oldEffect)
+	public void OnLosingEffect(Effect oldEffect)
 	{
-		foreach (List<global::Effect> source in this.m_actorEffects.Values)
+		foreach (List<Effect> source in this.m_actorEffects.Values)
 		{
-			foreach (global::Effect effect in source.ToList<global::Effect>())
+			foreach (Effect effect in source.ToList())
 			{
 				effect.OnLosingEffect(oldEffect);
 			}
 		}
-		foreach (global::Effect effect2 in this.m_worldEffects.ToList<global::Effect>())
+		foreach (Effect effect2 in this.m_worldEffects.ToList())
 		{
 			effect2.OnLosingEffect(oldEffect);
 		}
@@ -1621,14 +1619,14 @@ public class ServerEffectManager : MonoBehaviour
 	{
 		if (this.m_actorEffects.ContainsKey(hitTarget))
 		{
-			foreach (global::Effect effect in this.m_actorEffects[hitTarget].ToList<global::Effect>())
+			foreach (Effect effect in this.m_actorEffects[hitTarget].ToList())
 			{
 				effect.OnExecutedActorHitOnTarget(hitCaster, hitResults);
 			}
 		}
 		if (this.m_actorEffects.ContainsKey(hitCaster))
 		{
-			foreach (global::Effect effect2 in this.m_actorEffects[hitCaster].ToList<global::Effect>())
+			foreach (Effect effect2 in this.m_actorEffects[hitCaster].ToList())
 			{
 				effect2.OnExecutedActorHitCastByTarget(hitTarget, hitResults);
 			}
@@ -1639,7 +1637,7 @@ public class ServerEffectManager : MonoBehaviour
 	{
 		if (mover.GetActorStatus() != null && !mover.GetActorStatus().HasStatus(StatusType.Unstoppable, true))
 		{
-			using (List<global::Effect>.Enumerator enumerator = this.m_worldEffects.GetEnumerator())
+			using (List<Effect>.Enumerator enumerator = this.m_worldEffects.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
@@ -1658,14 +1656,14 @@ public class ServerEffectManager : MonoBehaviour
 	{
 		if (squaresToAvoid != null)
 		{
-			foreach (List<global::Effect> list in this.m_actorEffects.Values)
+			foreach (List<Effect> list in this.m_actorEffects.Values)
 			{
-				foreach (global::Effect effect in list)
+				foreach (Effect effect in list)
 				{
 					effect.AddToSquaresToAvoidForRespawn(squaresToAvoid, forActor);
 				}
 			}
-			foreach (global::Effect effect2 in this.m_worldEffects)
+			foreach (Effect effect2 in this.m_worldEffects)
 			{
 				effect2.AddToSquaresToAvoidForRespawn(squaresToAvoid, forActor);
 			}
