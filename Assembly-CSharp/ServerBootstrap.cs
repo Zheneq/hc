@@ -57,7 +57,7 @@ public class ServerBootstrap : MonoBehaviour
 				}
 				this.m_debugFileLog = new FileLog();
 				this.m_debugFileLog.UseDatedFolder = true;
-				this.m_debugFileLog.MinLevel = Log.Level.Debug;
+				this.m_debugFileLog.MinLevel = Log.Level.Everything;
 				this.m_debugFileLog.Open(hydrogenConfig.DebugLogFilePath);
 				this.m_debugFileLog.Register();
 			}
@@ -257,7 +257,7 @@ public class ServerBootstrap : MonoBehaviour
 		try
 		{
 			string text2 = Application.dataPath + "/../../../Build/AtlasReactorServer/Config/AtlasReactorServerConfig.json";
-			text = Application.dataPath + "/../Config/AtlasReactorServerConfig.json";
+			text = Application.dataPath + "/../../Config/AtlasReactorServerConfig.json";  // custom (Config folder is different in Rogues)
 			if (Application.isEditor)
 			{
 				text = text2;
