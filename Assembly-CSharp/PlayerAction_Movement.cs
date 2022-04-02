@@ -25,7 +25,7 @@ public class PlayerAction_Movement : PlayerAction
 			MovementRequest movementRequest = m_moveRequests[i];
 			if (movementRequest.m_actor.IsDead())
 			{
-				//ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor, false);
+				ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor, false);
 				m_moveRequests.RemoveAt(i);
 			}
 		}
@@ -78,7 +78,7 @@ public class PlayerAction_Movement : PlayerAction
 			{
 				actorStatus.RemoveStatus(StatusType.KnockedBack);
 			}
-			//float increment = movementRequest.m_path.FindMoveCostToEnd();
+			float increment = movementRequest.m_path.FindMoveCostToEnd();
 			float num = movementRequest.m_actor.GetActorMovement().CalculateMaxHorizontalMovement(true, false);
 			BoardSquarePathInfo boardSquarePathInfo = movementRequest.m_path;
 			bool isRoundingDown = GameplayData.Get() != null && GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax;
@@ -95,8 +95,8 @@ public class PlayerAction_Movement : PlayerAction
 				}
 				boardSquarePathInfo = boardSquarePathInfo.next;
 			}
-			//bool flag3 = !flag2;
 			// rogues
+			//bool flag3 = !flag2;
 			//movementRequest.m_actor.GetActorTurnSM().IncrementPveMoveCostUsed(increment);
 			//movementRequest.m_actor.GetActorTurnSM().IncrementPveNumMoveActions(flag3 ? 2 : 1);
 		}

@@ -33,8 +33,6 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private List<MovementRequest> m_removedMovementRequestsFromForceChase;
 
-	// added in rogues
-	[System.NonSerialized]
 	internal bool m_gatheringFakeResults;
 
 	internal List<BoardSquare> m_tempReservedSquaresForAbilitySpoil = new List<BoardSquare>();

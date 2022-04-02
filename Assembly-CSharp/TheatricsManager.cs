@@ -220,24 +220,24 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 	}
 
 	// added in rogues
-//#if SERVER
-//	internal void InitPhaseClient_FCFS(AbilityPriority phase)
-//	{
-//		Log.Error("InitPhaseClient_FCFS");
-//		m_turn.InitPhase(phase); // , false
-//		m_phaseToUpdate = phase;
-//		m_phaseStartTime = Time.time;
-//	}
-//#endif
+#if SERVER
+	internal void InitPhaseClient_FCFS(AbilityPriority phase)
+	{
+		Log.Warning("InitPhaseClient_FCFS");  // custom
+		m_turn.InitPhase(phase); // , false
+		m_phaseToUpdate = phase;
+		m_phaseStartTime = Time.time;
+	}
+#endif
 
 	// added in rogues
-//#if SERVER
-//	internal void SetTurn_FCFS(Turn turn)
-//	{
-//		m_turnToUpdate = GameFlowData.Get().CurrentTurn;
-//		m_turn = turn;
-//	}
-//#endif
+#if SERVER
+	internal void SetTurn_FCFS(Turn turn)
+	{
+		m_turnToUpdate = GameFlowData.Get().CurrentTurn;
+		m_turn = turn;
+	}
+#endif
 
 	internal void OnSequenceHit(
         Sequence seq,
