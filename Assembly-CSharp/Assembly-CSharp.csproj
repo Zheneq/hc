@@ -1857,6 +1857,7 @@
     <Compile Include="PosInsideChecker_Shape.cs" />
     <Compile Include="PositionHitParameters.cs" />
     <Compile Include="PositionHitResults.cs" />
+    <Compile Include="PositionVisionProviderEffect.cs" />
     <Compile Include="PostEffectsCSBase.cs" />
     <Compile Include="PowerUp.cs" />
     <Compile Include="PowerUpCoordinator.cs" />
@@ -2479,9 +2480,11 @@
     <Compile Include="TooltipType.cs" />
     <Compile Include="TopParticipantSlot.cs" />
     <Compile Include="TrackerDrone.cs" />
+    <Compile Include="TrackerDroneEffect.cs" />
     <Compile Include="TrackerDroneInfoComponent.cs" />
     <Compile Include="TrackerDroneTrackerComponent.cs" />
     <Compile Include="TrackerFlewTheCoop.cs" />
+    <Compile Include="TrackerHuntedEffect.cs" />
     <Compile Include="TrackerHuntingCrossbow.cs" />
     <Compile Include="TrackerTeslaPrison.cs" />
     <Compile Include="TrackerTranquilizerDarts.cs" />

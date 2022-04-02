@@ -1,5 +1,8 @@
+﻿// ROGUES
+// SERVER
 using UnityEngine;
 
+// identical in reactor and rogues
 public class TrackerDroneInfoComponent : MonoBehaviour
 {
 	[Header("-- Where Drone can be moved to. Used if value > 0")]

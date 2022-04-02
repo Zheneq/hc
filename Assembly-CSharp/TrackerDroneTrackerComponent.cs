@@ -1,7 +1,10 @@
+﻿// ROGUES
+// SERVER
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
 
+// same in reactor in rogues (save for networking library)
 public class TrackerDroneTrackerComponent : NetworkBehaviour
 {
 	[SyncVar]
@@ -13,6 +16,7 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 
 	private SyncListInt m_trackedActorIndex = new SyncListInt();
 
+	// removed in rogues
 	private static int kListm_trackedActorIndex = 1611176142;
 
 	public bool Networkm_droneActive
@@ -54,6 +58,7 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		}
 	}
 
+	// removed in rogues
 	static TrackerDroneTrackerComponent()
 	{		
 		RegisterSyncListDelegate(typeof(TrackerDroneTrackerComponent), kListm_trackedActorIndex, InvokeSyncListm_trackedActorIndex);
@@ -164,10 +169,22 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		}
 	}
 
+	// rogues
+	//public TrackerDroneTrackerComponent()
+	//{
+	//	base.InitSyncObject(m_trackedActorIndex);
+	//}
+
+	// reactor
 	private void UNetVersion()
 	{
 	}
-
+	// rogues
+	//private void MirrorProcessed()
+	//{
+	//}
+	
+	// removed in rogues
 	protected static void InvokeSyncListm_trackedActorIndex(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -178,11 +195,14 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		((TrackerDroneTrackerComponent)obj).m_trackedActorIndex.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	private void Awake()
 	{
 		m_trackedActorIndex.InitializeBehaviour(this, kListm_trackedActorIndex);
 	}
 
+	// NOTE ROGUES serialization looks a bit better in rogues
+	// reactor
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -237,6 +257,7 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		return flag;
 	}
 
+	// reactor
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)
