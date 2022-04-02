@@ -228,8 +228,11 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 						case 0:
 							break;
 						default:
-							Log.Error("Design scene file {0} is missing LOSHighlights, Fog of War will not render!", SceneManager.GetActiveScene().name);
-							return;
+								// TODO LOW remove log spam on server
+#if !SERVER
+								Log.Error("Design scene file {0} is missing LOSHighlights, Fog of War will not render!", SceneManager.GetActiveScene().name);
+#endif
+								return;
 						}
 					}
 				}

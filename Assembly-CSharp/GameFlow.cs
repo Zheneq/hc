@@ -189,11 +189,11 @@ public class GameFlow : NetworkBehaviour
 
 	private void OnLoadedLevel()
 	{
-		// TODO ARTEMIS
-		//if (HighlightUtils.Get())
-		//{
-		HighlightUtils.Get().HideCursor = false;
-		//}
+		// TODO HACK custom check
+		if (HighlightUtils.Get())
+		{
+			HighlightUtils.Get().HideCursor = false;
+		}
 	}
 
 	private void OnDestroy()

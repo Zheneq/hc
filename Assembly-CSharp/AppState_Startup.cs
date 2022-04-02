@@ -19,7 +19,7 @@ public class AppState_Startup : AppState
 
 	protected override void OnEnter()
 	{
-		AppState_FrontendLoadingScreen.Get().Enter(null);
+		AppState_FrontendLoadingScreen.Get()?.Enter(null);  // TODO LOW NULL custom check bc it's null on the server
 	}
 
 	protected override void OnLeave()
