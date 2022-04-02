@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Theatrics;
 using Unity;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -533,17 +534,71 @@ public class GameFlow : NetworkBehaviour
 						: AbilityUtils.GetNextAbilityPriority(actionBuffer.AbilityPhase);
 					Log.Info($"Going to next turn ability phase {actionBuffer.AbilityPhase}");
 
+					// from QueuedPlayerActionsContainer::InitEffectsForExecution
+					List<Effect> executingEffects = new List<Effect>();
+					foreach (List<Effect> effectsOnActor in ServerEffectManager.Get().GetAllActorEffects().Values)
+					{
+						foreach (Effect effect in effectsOnActor)
+						{
+							if (effect.HitPhase == actionBuffer.AbilityPhase)
+							{
+								EffectResults resultsForPhase = effect.GetResultsForPhase(actionBuffer.AbilityPhase, true);
+								if (effect.HitPhase == actionBuffer.AbilityPhase && (resultsForPhase == null || !resultsForPhase.GatheredResults))
+								{
+									effect.Resolve();
+									executingEffects.Add(effect);
+								}
+							}
+						}
+					}
+					foreach (Effect effect in ServerEffectManager.Get().GetWorldEffects())
+					{
+						if (effect.HitPhase == actionBuffer.AbilityPhase)
+						{
+							EffectResults resultsForPhase = effect.GetResultsForPhase(actionBuffer.AbilityPhase, true);
+							if (effect.HitPhase == actionBuffer.AbilityPhase && (resultsForPhase == null || !resultsForPhase.GatheredResults))
+							{
+								executingEffects.Add(effect);
+							}
+						}
+					}
+					bool hasActionsThisPhase = false;
+					List<ActorAnimation> anims = new List<ActorAnimation>();
+					if (executingEffects.Count > 0)
+					{
+						Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
+						PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, actionBuffer.AbilityPhase);
+						anims.AddRange(action.PrepareResults());
+						hasActionsThisPhase = true;
+					}
+
+					List<AbilityRequest> requestsThisPhase = actionBuffer.GetAllStoredAbilityRequests().FindAll(r => r?.m_ability?.RunPriority == actionBuffer.AbilityPhase);
+					if (requestsThisPhase.Count > 0)
+					{
+						Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
+						anims.AddRange(new PlayerAction_Ability(requestsThisPhase, actionBuffer.AbilityPhase).PrepareResults());
+						hasActionsThisPhase = true;
+					}
+
 					theatrics.SetupTurnAbilityPhase(
 						actionBuffer.AbilityPhase,
 						actionBuffer.GetAllStoredAbilityRequests(),
 						new HashSet<int>() { },  // TODO
 						false);
 
-					List<AbilityRequest> requestsThisPhase = actionBuffer.GetAllStoredAbilityRequests().FindAll(r => r?.m_ability?.RunPriority == actionBuffer.AbilityPhase);
-					if (requestsThisPhase.Count > 0)
+					if (hasActionsThisPhase)
 					{
-						Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
-						new PlayerAction_Ability(requestsThisPhase, actionBuffer.AbilityPhase).ExecuteAction();
+						//foreach (ActorAnimation actorAnimation in anims)
+						//{
+						//	actorAnimation.SetTurn_FCFS(turn);
+						//}
+						//theatrics.m_turn.m_abilityPhases[(int)currentPhase].m_actorAnimations = new List<ActorAnimation>(animEntries);
+						//TheatricsManager.Get().SetTurn_FCFS(turn);
+						//TheatricsManager.Get().InitPhaseClient_FCFS(currentPhase);
+
+						ServerResolutionManager.Get().SendPhaseResolutionActionsToClients();
+						ServerResolutionManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
+						ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
 						break;
 					}
 					else
@@ -552,8 +607,6 @@ public class GameFlow : NetworkBehaviour
 					}
 				}
 
-				ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
-				ServerResolutionManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
 				theatrics.SetDirtyBit(uint.MaxValue);
 				theatrics.PlayPhase(actionBuffer.AbilityPhase);
 			}
@@ -1372,6 +1425,7 @@ public class GameFlow : NetworkBehaviour
 				case GameState.EndingTurn:
 					if (gameFlowData.GetTimeInState() > 2.0f)
 					{
+						HandleUpdateTurnEnd();
 						gameFlowData.gameState = GameState.BothTeams_Decision;
 					}
 					break;
@@ -1516,7 +1570,20 @@ public class GameFlow : NetworkBehaviour
 	//	}
 	//}
 
-	// added in rogues
+	// custom
+	private void HandleUpdateTurnEnd()
+	{
+		if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
+		{
+			ServerCombatManager.Get().ResolveHitPoints();
+		}
+		if (ServerCombatManager.Get().HasUnresolvedTechPointsEntries())
+		{
+			ServerCombatManager.Get().ResolveTechPoints();
+		}
+		this.OnTurnEnd();
+	}
+	// rogues
 	//private void HandleUpdateTeamTurnEnd_FCFS()
 	//{
 	//	if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
@@ -1532,8 +1599,74 @@ public class GameFlow : NetworkBehaviour
 	//	GameFlowData.Get().gameState = GameState.PVE_TeamTurnStart;
 	//}
 
-	// added in rogues
-	// TODO looks like something like this should be called somewhere
+
+	// custom
+	private void OnTurnEnd()
+	{
+		List<ActorData> actors = GameFlowData.Get().GetActors();
+		foreach (ActorData actorData in actors)
+		{
+			if (actorData != null)
+			{
+				if (actorData.GetActorMovement() != null)
+				{
+					actorData.GetActorMovement().ClearPath();
+				}
+				if (actorData.GetActorBehavior() != null)
+				{
+					actorData.GetActorBehavior().ProcessMovementDeniedStat();
+					actorData.GetActorBehavior().ProcessEnemySightedStat();
+				}
+			}
+		}
+		if (BrushCoordinator.Get() != null)
+		{
+			BrushCoordinator.Get().OnTurnEnd();
+		}
+		ServerEffectManager.Get().OnTurnEnd();
+		BarrierManager.Get().OnTurnEnd();
+		foreach (ActorData actorData in actors)
+		{
+			if (actorData != null && actorData.GetPassiveData() != null)
+			{
+				actorData.GetPassiveData().OnTurnEnd();
+			}
+			// rogues?
+			//if (actorData != null)
+			//{
+			//	actorData.GetActorTurnSM().ResetUsedAbilityAndMoveData();
+			//}
+		}
+		// TODO CTF CTC
+		//if (CaptureTheFlag.Get() != null)
+		//{
+		//	CaptureTheFlag.Get().OnTurnEnd();
+		//}
+		//if (CollectTheCoins.Get() != null)
+		//{
+		//	CollectTheCoins.Get().OnTurnEnd();
+		//}
+		if (ObjectivePoints.Get() != null)
+		{
+			ObjectivePoints.Get().OnTurnEnd();
+		}
+		// TODO BOTS
+		//if (BotManager.Get() != null)
+		//{
+		//	BotManager.Get().OnTurnEnd();
+		//}
+		if (SinglePlayerManager.Get())
+		{
+			SinglePlayerManager.Get().OnResolutionEnd();
+		}
+		// TODO BOTS
+		//if (NPCCoordinator.Get() != null)
+		//{
+		//	NPCCoordinator.Get().OnTurnEnd();
+		//}
+	}
+	// rogues
+	//TODO looks like something like this should be called somewhere
 	//private void OnTeamTurnEnd(bool goingIntoNewTurn)
 	//{
 	//	List<ActorData> actors = GameFlowData.Get().GetActors();
