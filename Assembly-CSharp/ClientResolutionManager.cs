@@ -619,12 +619,13 @@ public class ClientResolutionManager : MonoBehaviour
 
 	private void Update()
 	{
-		// TODO ARTEMIS
 		// TODO HACK remove server log spam -- probably CLIENT Res Man shouldn't be active/present
-		//if (NetworkServer.active)
-  //      {
-		//	return;
-  //      }
+#if SERVER
+		if (NetworkServer.active)
+		{
+			return;
+		}
+#endif
 
 		VerifyMessageHandlerState();
 		if (m_state == ClientResolutionManagerState.Resolving

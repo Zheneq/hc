@@ -210,7 +210,7 @@ public class InterfaceManager : NetworkBehaviour
 
 	internal void CancelAlert(string alertText)
 	{
-		HUD_UI.Get().m_mainScreenPanel.m_alertDisplay.CancelAlert(alertText);
+		HUD_UI.Get()?.m_mainScreenPanel?.m_alertDisplay?.CancelAlert(alertText);  // TODO LOW NULL custom checks bc can be null on server
 	}
 
 	private void UNetVersion()
