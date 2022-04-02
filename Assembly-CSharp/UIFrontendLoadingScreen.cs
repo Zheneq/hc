@@ -282,7 +282,12 @@ public class UIFrontendLoadingScreen : UIScene
 		if (m_startLoadTime > 0f && Time.time >= m_startLoadTime)
 		{
 			m_startLoadTime = -1f;
+			// TODO SERVER what assets are loaded on the server
+#if SERVER
+			StartCoroutine(AssetBundleManager.Get().LoadSceneAsync("DevEnvironmentSingletons", "frontend", LoadSceneMode.Additive));
+#else
 			StartCoroutine(AssetBundleManager.Get().LoadSceneAsync("ClientEnvironmentSingletons", "frontend", LoadSceneMode.Additive));
+#endif
 		}
 	}
 
