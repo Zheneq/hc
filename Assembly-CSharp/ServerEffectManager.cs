@@ -800,28 +800,34 @@ public class ServerEffectManager : MonoBehaviour
 		this.OnTurnEnd(this.m_worldEffects); // , nextTeam in rogues
 	}
 
-	// rogues?
+	// custom
+	private bool ValidateEffectLifetime(global::Effect effect, bool isEnd)
+	{
+		EffectDuration time = effect.m_time;
+		if (!isEnd)
+		{
+			time.age++;
+			return false;
+		}
+		else
+		{
+			return time.ReadyToEnd();
+		}
+	}
+	// rogues
 	//private bool ValidateEffectLifetime(global::Effect effect, bool isEnd)
 	//{
-	//	// TODO recheck ValidateEffectLifetime
-	//	//Team actingTeam = GameFlowData.Get().ActingTeam;
+	//	Team actingTeam = GameFlowData.Get().ActingTeam;
 	//	EffectDuration time = effect.m_time;
 	//	EffectDuration.Termination termination = time.termination;
 	//	bool flag2;
-	//	if ((termination != EffectDuration.Termination.CasterTeamEnd
-	//			//|| effect.Caster.GetTeam() != actingTeam
-	//			|| !isEnd)
-	//		&& (termination != EffectDuration.Termination.CasterTeamStart
-	//		//|| effect.Caster.GetTeam() != actingTeam
-	//		|| isEnd))
+	//	if ((termination != EffectDuration.Termination.CasterTeamEnd || effect.Caster.GetTeam() != actingTeam || !isEnd) && (termination != EffectDuration.Termination.CasterTeamStart || effect.Caster.GetTeam() != actingTeam || isEnd))
 	//	{
 	//		bool flag;
 	//		if (termination == EffectDuration.Termination.TargetTeamEnd)
 	//		{
 	//			ActorData target = effect.Target;
-	//			flag = (target != null
-	//				//&& target.GetTeam() == actingTeam
-	//				);
+	//			flag = (target != null && target.GetTeam() == actingTeam);
 	//		}
 	//		else
 	//		{
@@ -832,20 +838,14 @@ public class ServerEffectManager : MonoBehaviour
 	//			if (termination == EffectDuration.Termination.TargetTeamStart)
 	//			{
 	//				ActorData target2 = effect.Target;
-	//				if (target2 != null
-	//					//&& target2.GetTeam() == actingTeam
-	//					&& !isEnd)
+	//				if (target2 != null && target2.GetTeam() == actingTeam && !isEnd)
 	//				{
 	//					goto IL_BB;
 	//				}
 	//			}
-	//			if (termination != EffectDuration.Termination.ActiveTeamAtApplicationEnd
-	//				//|| effect.m_time.activeTeamAtApplication != actingTeam
-	//				|| !isEnd)
+	//			if (termination != EffectDuration.Termination.ActiveTeamAtApplicationEnd || effect.m_time.activeTeamAtApplication != actingTeam || !isEnd)
 	//			{
-	//				flag2 = (termination == EffectDuration.Termination.ActiveTeamAtApplicationStart
-	//					//&& effect.m_time.activeTeamAtApplication == actingTeam
-	//					&& !isEnd);
+	//				flag2 = (termination == EffectDuration.Termination.ActiveTeamAtApplicationStart && effect.m_time.activeTeamAtApplication == actingTeam && !isEnd);
 	//				goto IL_BC;
 	//			}
 	//		}

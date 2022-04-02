@@ -331,6 +331,26 @@ public class ServerResolutionManager : NetworkBehaviour
 			InitKnockbackActors();
 		}
 		m_resolutionState = ServerResolutionManagerState.WaitingForClients_AbilityPhase;
+
+		// custom
+		ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(phase);
+		//if (!NetworkClient.active)
+		//{
+		//	PlayerAction_Ability.InitializeTheatricsForPhaseActions(phase, list);
+		//}
+		if (phase == AbilityPriority.Evasion)
+		{
+			ServerEvadeManager evadeManager = ServerActionBuffer.Get().GetEvadeManager();
+			ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(AbilityPriority.Evasion);
+			evadeManager.UndoEvaderDestinationsSwap();
+			if (evadeManager.HasEvades())
+			{
+				ServerActionBuffer.Get().ImmediateUpdateAllFogOfWar();
+			}
+			evadeManager.RunEvades();
+		}
+		// end custom
+
 		SendPhaseResolutionActionsToClients();
 
 		// custom
@@ -730,7 +750,7 @@ public class ServerResolutionManager : NetworkBehaviour
 			InitKnockbackActors();
 		}
 		m_resolutionState = ServerResolutionManagerState.WaitingForClients_AbilityPhase;
-		SendPhaseResolutionActionsToClients_FCFS();
+		//SendPhaseResolutionActionsToClients();
 	}
 
 	public void SendEffectActionsToClients_FCFS(List<EffectResults> requests, List<ActorAnimation> animEntries, AbilityPriority phase)
@@ -762,7 +782,7 @@ public class ServerResolutionManager : NetworkBehaviour
 			InitKnockbackActors();
 		}
 		m_resolutionState = ServerResolutionManagerState.WaitingForClients_AbilityPhase;
-		SendPhaseResolutionActionsToClients_FCFS();
+		//SendPhaseResolutionActionsToClients();
 	}
 
 	public List<ResolutionAction> BuildResolutionActionsFromRequests(List<AbilityRequest> requests, AbilityPriority phase)
