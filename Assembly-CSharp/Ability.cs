@@ -325,7 +325,7 @@ public class Ability : MonoBehaviour
 	public void InitializeAbility()
 	{
 		// added in rogues
-		//m_effectSource = new EffectSource(this, null);
+		m_effectSource = new EffectSource(this); // , null in rogues
 
 		RebuildTooltipForUI();
 		ResetNameplateTargetingNumbers();
