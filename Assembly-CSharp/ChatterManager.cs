@@ -202,6 +202,11 @@ public class ChatterManager : MonoBehaviour
 
 	private void PlayChatter(ChatterManager.SubmittedChatter submission)
 	{
+		// TODO HACK
+#if SERVER
+		return; // log fix
+#endif
+
 		if (Options_UI.Get().GetChatterEnabled())
 		{
 			if (this.EnableChatter)
