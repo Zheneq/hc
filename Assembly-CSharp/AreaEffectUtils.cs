@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// added some function from rogues but not all
 public static class AreaEffectUtils
 {
 	public enum StretchConeStyle
@@ -422,6 +423,22 @@ public static class AreaEffectUtils
 			else
 			{
 				return square.OccupantActor;
+			}
+		}
+		return null;
+	}
+
+	// added in rogues
+	public static ActorData GetActorOnSquareOnPhaseStart(BoardSquare square)
+	{
+		if (square != null)
+		{
+			foreach (ActorData actorData in GameFlowData.Get().GetActors())
+			{
+				if (actorData != null && !actorData.IsDead() && !actorData.IgnoreForAbilityHits && actorData.GetSquareAtPhaseStart() != null && actorData.GetSquareAtPhaseStart() == square)
+				{
+					return actorData;
+				}
 			}
 		}
 		return null;
