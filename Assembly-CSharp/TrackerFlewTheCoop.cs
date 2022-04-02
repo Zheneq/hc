@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -149,4 +151,52 @@ public class TrackerFlewTheCoop : Ability
 			? m_abilityMod.m_extraDroneUntrackedDamage.GetModifiedValue(0)
 			: 0;
 	}
+
+#if SERVER
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			targets[0].FreePos,
+			new ActorData[] { caster },
+			caster,
+			additionalData.m_sequenceSource,
+			null);
+	}
+#endif
+
+#if SERVER
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		if (m_abilityMod != null)
+		{
+			actorHitResults.AddStandardEffectInfo(m_abilityMod.m_additionalEffectOnSelf);
+			if (m_abilityMod.m_addVisionAroundStartSquare)
+			{
+				float num = m_abilityMod.m_visionRadius;
+				if (num <= 0f)
+				{
+					num = caster.GetSightRange();
+				}
+				int duration = Mathf.Max(1, m_abilityMod.m_visionDuration);
+				PositionVisionProviderEffect effect = new PositionVisionProviderEffect(AsEffectSource(), caster.GetSquareAtPhaseStart(), caster, duration, num, m_abilityMod.m_brushRevealType, false, null);
+				actorHitResults.AddEffect(effect);
+			}
+		}
+		abilityResults.StoreActorHit(actorHitResults);
+		TrackerDroneInfoComponent component = GetComponent<TrackerDroneInfoComponent>();
+		if (component != null)
+		{
+			component.m_escapeLastTurnCast = GameFlowData.Get().CurrentTurn;
+		}
+	}
+#endif
+
+#if SERVER
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.TrackerStats.DamageDodgedWithEvade, damageDodged);
+	}
+#endif
 }

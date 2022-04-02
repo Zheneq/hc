@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -165,4 +167,92 @@ public class TrackerHuntingCrossbow : Ability
 			? m_abilityMod.m_huntedEffectDataOverride.GetModifiedValue(m_huntedEffectData)
 			: m_huntedEffectData;
 	}
+
+#if SERVER
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 targetPos;
+		ActorData[] targetActorArray;
+		GetSequencePosAndActors(targets, caster, out targetPos, out targetActorArray);
+		return new ServerClientUtils.SequenceStartData(AsEffectSource().GetSequencePrefab(), targetPos, targetActorArray, caster, additionalData.m_sequenceSource, null);
+	}
+#endif
+
+#if SERVER
+	private void GetSequencePosAndActors(List<AbilityTarget> targets, ActorData caster, out Vector3 seqPos, out ActorData[] seqActors)
+	{
+		VectorUtils.LaserCoords laserCoords;
+		List<ActorData> hitActors = GetHitActors(targets, caster, out laserCoords, null);
+		if (hitActors.Count > 1)
+		{
+			ActorData value = hitActors[0];
+			hitActors[0] = hitActors[hitActors.Count - 1];
+			hitActors[hitActors.Count - 1] = value;
+		}
+		seqPos = laserCoords.end;
+		seqActors = hitActors.ToArray();
+	}
+#endif
+
+#if SERVER
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		VectorUtils.LaserCoords laserCoords;
+		List<ActorData> hitActors = GetHitActors(targets, caster, out laserCoords, nonActorTargetInfo);
+		for (int i = 0; i < hitActors.Count; i++)
+		{
+			ActorData actorData = hitActors[i];
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			bool flag = m_droneTracker.IsTrackingActor(actorData.ActorIndex);
+			int num = flag ? GetDamageOnTracked() : GetDamageOnUntracked();
+			if (m_abilityMod != null && (m_abilityMod.m_requireFunctioningBrush ? caster.IsInBrush() : caster.GetCurrentBoardSquare().IsInBrush()))
+			{
+				num += GetExtraDamageWhileInBrush();
+				if (m_abilityMod.m_additionalEnemyEffectWhenInBrush.m_applyEffect)
+				{
+					actorHitResults.AddStandardEffectInfo(m_abilityMod.m_additionalEnemyEffectWhenInBrush);
+				}
+			}
+			if (i > 0)
+			{
+				num += GetDamageChangeAfterFirstHit();
+			}
+			actorHitResults.SetBaseDamage(Mathf.Max(0, num));
+			if (flag)
+			{
+				Effect effect = ServerEffectManager.Get().GetEffect(actorData, typeof(TrackerHuntedEffect));
+				actorHitResults.AddEffectForRefresh(effect, ServerEffectManager.Get().GetActorEffects(actorData));
+			}
+			else
+			{
+				TrackerHuntedEffect effect2 = new TrackerHuntedEffect(AsEffectSource(), actorData.GetCurrentBoardSquare(), actorData, caster, GetHuntedEffect(), m_droneTracker);
+				actorHitResults.AddEffect(effect2);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
+
+#if SERVER
+	private List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, out VectorUtils.LaserCoords endPoints, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[0].AimDirection, GetLaserLength(), GetLaserWidth(), caster, caster.GetOtherTeams(), m_laserInfo.penetrateLos, GetLaserMaxTargets(), false, true, out laserCoords.end, nonActorTargetInfo, null, false, true);
+		endPoints = laserCoords;
+		return actorsInLaser;
+	}
+#endif
+
+#if SERVER
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (caster.GetTeam() != target.GetTeam())
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.TrackerStats.NumTrackingProjectileHits);
+		}
+	}
+#endif
 }

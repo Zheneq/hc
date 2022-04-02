@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -167,4 +169,165 @@ public class TrackerDrone : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+
+#if SERVER
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 startPoint = caster.GetFreePos();
+		TrackerDroneEffect trackerDroneEffect = ServerEffectManager.Get().GetEffect(caster, typeof(TrackerDroneEffect)) as TrackerDroneEffect;
+		if (trackerDroneEffect != null)
+		{
+			startPoint = trackerDroneEffect.TargetSquare.ToVector3();
+		}
+		bool useMonitorRadiusAtStart = trackerDroneEffect != null;
+		List<ActorData> hitActorsInTravel = GetHitActorsInTravel(targets, caster, startPoint, useMonitorRadiusAtStart, out List<ActorData> _, null);
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (!UseAltMovement())
+		{
+			return new ServerClientUtils.SequenceStartData(m_droneInfoComp.m_droneMoveSequence, square, hitActorsInTravel.ToArray(), caster, additionalData.m_sequenceSource, null);
+		}
+		return new ServerClientUtils.SequenceStartData(m_droneInfoComp.m_droneUltimateMoveSequence, square, hitActorsInTravel.ToArray(), caster, additionalData.m_sequenceSource, null);
+	}
+#endif
+
+#if SERVER
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		m_droneEffectHandled = false;
+		if (ServerEffectManager.Get().GetEffect(caster, typeof(TrackerDroneEffect)) is TrackerDroneEffect trackerDroneEffect)
+		{
+			ServerEffectManager.Get().RemoveEffect(trackerDroneEffect, ServerEffectManager.Get().GetActorEffects(caster));
+		}
+		if (caster.GetAdditionalActorVisionProviders().GetVisionProviderInfoOnSatellite(caster.ActorIndex, 0, out VisionProviderInfo visionProviderInfo)
+			&& visionProviderInfo.m_radius != m_droneInfoComp.GetVisionRadius())
+		{
+			caster.GetAdditionalActorVisionProviders().RemoveVisionProviderOnSatellite(caster.ActorIndex, 0);
+		}
+		if (!caster.GetAdditionalActorVisionProviders().HasVisionProviderOnSatellite(caster.ActorIndex, 0))
+		{
+			caster.GetAdditionalActorVisionProviders().AddVisionProviderOnSatellite(caster.ActorIndex, 0, m_droneInfoComp.GetVisionRadius(), m_droneInfoComp.m_brushRevealType, BoardSquare.VisibilityFlags.Team);
+		}
+	}
+#endif
+
+#if SERVER
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		Vector3 vector = caster.GetFreePos();
+		TrackerDroneEffect trackerDroneEffect = ServerEffectManager.Get().GetEffect(caster, typeof(TrackerDroneEffect)) as TrackerDroneEffect;
+		if (trackerDroneEffect != null)
+		{
+			vector = trackerDroneEffect.TargetSquare.ToVector3();
+		}
+		bool useMonitorRadiusAtStart = trackerDroneEffect != null;
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> list;
+		foreach (ActorData actorData in GetHitActorsInTravel(targets, caster, vector, useMonitorRadiusAtStart, out list, nonActorTargetInfo))
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, vector));
+			actorHitResults.CanBeReactedTo = m_droneInfoComp.UseDirectDamageForDrone();
+			if (list.Contains(actorData))
+			{
+				actorHitResults.SetBaseDamage(m_droneInfoComp.GetDamageOnTracked(true));
+				actorHitResults.AddStandardEffectInfo(m_droneInfoComp.GetTrackedHitEffect());
+			}
+			else
+			{
+				actorHitResults.SetBaseDamage(m_droneInfoComp.GetDamageOnUntracked(true));
+				actorHitResults.AddStandardEffectInfo(m_droneInfoComp.GetUntrackedHitEffect());
+			}
+			if (m_droneInfoComp.ShouldAddHuntedEffectFromDrone())
+			{
+				TrackerHuntedEffect effect = new TrackerHuntedEffect(AsEffectSource(), actorData.GetCurrentBoardSquare(), actorData, caster, m_droneInfoComp.GetHuntedEffectData(), m_droneTracker);
+				actorHitResults.AddEffect(effect);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters((square != null) ? square.ToVector3() : targets[0].FreePos));
+		TrackerDrone trackerDrone = caster.GetAbilityData().GetAbilityOfType(typeof(TrackerDrone)) as TrackerDrone;
+		if (trackerDrone != null)
+		{
+			TrackerDroneEffect effect2 = new TrackerDroneEffect(trackerDrone.AsEffectSource(), square, caster, caster, m_droneTracker, m_visionProvider, m_droneInfoComp);
+			positionHitResults.AddEffect(effect2);
+		}
+		abilityResults.StorePositionHit(positionHitResults);
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
+
+#if SERVER
+	private List<ActorData> GetHitActorsInTravel(List<AbilityTarget> targets, ActorData caster, Vector3 startPoint, bool useMonitorRadiusAtStart, out List<ActorData> trackedActors, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<ActorData> list = new List<ActorData>();
+		trackedActors = new List<ActorData>();
+		if (m_droneInfoComp.m_droneTravelHitTargets)
+		{
+			Vector3 endPos = Board.Get().GetSquare(targets[0].GridPos).ToVector3();
+			float startRadiusInSquares = useMonitorRadiusAtStart ? m_droneInfoComp.m_travelTargeterEndRadius : 0f;
+			List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(startPoint, endPos, startRadiusInSquares, m_droneInfoComp.m_travelTargeterEndRadius, m_droneInfoComp.m_travelTargeterLineRadius, m_droneInfoComp.m_targetingIgnoreLos, caster, null, nonActorTargetInfo);
+			bool flag = m_droneInfoComp.GetUntrackedHitEffect().m_applyEffect || m_droneInfoComp.GetDamageOnUntracked(true) > 0;
+			foreach (ActorData actorData in actorsInRadiusOfLine)
+			{
+				if (m_droneInfoComp.CanHitInvisibleActors() || CanHitActorByVisibility(actorData, caster))
+				{
+					bool flag2 = m_droneTracker.IsTrackingActor(actorData.ActorIndex);
+					if (actorData.GetTeam() != caster.GetTeam() && (flag || flag2))
+					{
+						list.Add(actorData);
+						if (flag2)
+						{
+							trackedActors.Add(actorData);
+						}
+					}
+				}
+			}
+		}
+		return list;
+	}
+#endif
+
+#if SERVER
+	private bool CanHitActorByVisibility(ActorData target, ActorData caster)
+	{
+		return target.IsActorVisibleIgnoringFogOfWar(caster);
+	}
+#endif
+
+#if SERVER
+	public override bool ShouldRevealEffectHolderOnHostileEffectHit()
+	{
+		return false;
+	}
+#endif
+
+#if SERVER
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.TrackerStats.DamageDoneByDrone, results.FinalDamage);
+		}
+	}
+#endif
+
+#if SERVER
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.TrackerStats.DamageDoneByDrone, results.FinalDamage);
+		}
+	}
+#endif
+
+#if SERVER
+	public override void OnExecutedActorHit_Barrier(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.TrackerStats.DamageDoneByDrone, results.FinalDamage);
+		}
+	}
+#endif
 }

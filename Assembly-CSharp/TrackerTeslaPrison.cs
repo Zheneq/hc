@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -112,6 +114,13 @@ public class TrackerTeslaPrison : TrackerDrone
 
 	private void SetCachedFields()
 	{
+	// rogues?
+//#if SERVER
+//		if (m_prisonBarrierData == null)
+//		{
+//			m_prisonBarrierData = ScriptableObject.CreateInstance<StandardBarrierData>();
+//		}
+//#endif
 		m_cachedBarrierData = m_ultAbilityMod != null
 			? m_ultAbilityMod.m_barrierDataMod.GetModifiedValue(m_prisonBarrierData)
 			: m_prisonBarrierData;
@@ -237,4 +246,182 @@ public class TrackerTeslaPrison : TrackerDrone
 		m_ultAbilityMod = null;
 		Setup();
 	}
+
+#if SERVER
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> abilityRunSequenceStartDataList = base.GetAbilityRunSequenceStartDataList(targets, caster, additionalData);
+		bool flag = m_ultAbilityMod != null && m_ultAbilityMod.m_groundEffectInfoInCage.m_applyGroundEffect;
+		ActorData[] targetActorArray = null;
+		if (flag)
+		{
+			targetActorArray = new ActorData[]
+			{
+				caster
+			};
+		}
+		if (!m_moveDrone || m_createCastSequenceIfMovingDrone || flag)
+		{
+			abilityRunSequenceStartDataList.Add(new ServerClientUtils.SequenceStartData(m_castSequencePrefab, caster.GetCurrentBoardSquare(), targetActorArray, caster, additionalData.m_sequenceSource, null));
+		}
+		return abilityRunSequenceStartDataList;
+	}
+#endif
+
+#if SERVER
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_moveDrone)
+		{
+			caster.GetAbilityData().ReinitAbilityInteractionData(caster.GetAbilityData().GetAbilityOfType(typeof(TrackerDrone)));
+			base.Run(targets, caster, additionalData);
+		}
+	}
+#endif
+
+#if SERVER
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		if (m_moveDrone)
+		{
+			base.GatherAbilityResults(targets, caster, ref abilityResults);
+		}
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		Vector3 vector = (square != null) ? square.ToVector3() : targets[0].FreePos;
+		float squareSize = Board.Get().squareSize;
+		StandardEffectInfo additionalEffectOnEnemiesInShape = GetAdditionalEffectOnEnemiesInShape();
+		if (additionalEffectOnEnemiesInShape != null && additionalEffectOnEnemiesInShape.m_applyEffect)
+		{
+			foreach (ActorData actorData in abilityResults.m_actorToHitResults.Keys)
+			{
+				if (actorData.GetTeam() != caster.GetTeam() && AreaEffectUtils.IsSquareInShape(actorData.GetCurrentBoardSquare(), m_additionalEffectShape, vector, square, true, caster))
+				{
+					StandardActorEffect effect = new StandardActorEffect(AsEffectSource(), actorData.GetCurrentBoardSquare(), actorData, caster, additionalEffectOnEnemiesInShape.m_effectData);
+					abilityResults.m_actorToHitResults[actorData].AddEffect(effect);
+				}
+			}
+		}
+		PositionHitResults positionHitResults = abilityResults.GetStoredPositionHit(vector);
+		bool flag = false;
+		if (positionHitResults == null)
+		{
+			positionHitResults = new PositionHitResults(new PositionHitParameters(vector));
+			flag = true;
+		}
+		StandardBarrierData prisonBarrierData = GetPrisonBarrierData();
+		List<Barrier> list = new List<Barrier>();
+		if (m_wallSegmentType == PrisonWallSegmentType.SquareMadeOfCornersAndMidsection)
+		{
+			float num = 0.05f;
+			List<List<BarrierPoseInfo>> list2;
+			List<BarrierPoseInfo> list3;
+			BarrierPoseInfo.GetBarrierPosesForSquaresMadeOfCornerAndMidsection(square, (float)m_squareCornerLength - 0.05f, (float)m_squareMidsectionLength, -num, out list2, out list3);
+			float width = prisonBarrierData.m_width;
+			foreach (List<BarrierPoseInfo> list4 in list2)
+			{
+				List<Barrier> list5 = new List<Barrier>();
+				foreach (BarrierPoseInfo barrierPoseInfo in list4)
+				{
+					prisonBarrierData.m_width = barrierPoseInfo.widthInWorld / squareSize;
+					Barrier barrier = new Barrier(m_abilityName, barrierPoseInfo.midpoint, barrierPoseInfo.facingDirection, caster, prisonBarrierData, true, null, Team.Invalid, null);
+					barrier.SetSourceAbility(this);
+					positionHitResults.AddBarrier(barrier);
+					list5.Add(barrier);
+					list.Add(barrier);
+				}
+				LinkedBarrierData linkData = new LinkedBarrierData();
+				BarrierManager.Get().LinkBarriers(list5, linkData);
+			}
+			foreach (BarrierPoseInfo barrierPoseInfo2 in list3)
+			{
+				prisonBarrierData.m_width = barrierPoseInfo2.widthInWorld / squareSize;
+				Barrier barrier2 = new Barrier(m_abilityName, barrierPoseInfo2.midpoint, barrierPoseInfo2.facingDirection, caster, prisonBarrierData, true, null, Team.Invalid, null);
+				barrier2.SetSourceAbility(this);
+				positionHitResults.AddBarrier(barrier2);
+				list.Add(barrier2);
+			}
+			prisonBarrierData.m_width = width;
+		}
+		else
+		{
+			List<BarrierPoseInfo> barrierPosesForRegularPolygon = BarrierPoseInfo.GetBarrierPosesForRegularPolygon(vector, m_prisonSides, m_prisonRadius * squareSize, 0f);
+			if (barrierPosesForRegularPolygon != null)
+			{
+				float width2 = prisonBarrierData.m_width;
+				prisonBarrierData.m_width = barrierPosesForRegularPolygon[0].widthInWorld / squareSize;
+				for (int i = 0; i < barrierPosesForRegularPolygon.Count; i++)
+				{
+					Barrier barrier3 = new Barrier(m_abilityName, barrierPosesForRegularPolygon[i].midpoint, barrierPosesForRegularPolygon[i].facingDirection, caster, prisonBarrierData, true, null, Team.Invalid, null);
+					barrier3.SetSourceAbility(this);
+					positionHitResults.AddBarrier(barrier3);
+					list.Add(barrier3);
+				}
+				prisonBarrierData.m_width = width2;
+			}
+		}
+		if (flag)
+		{
+			abilityResults.StorePositionHit(positionHitResults);
+		}
+		TrackerTeslaPrison.BarrierSet_TrackerTeslaPrison barrierSetHandler = new TrackerTeslaPrison.BarrierSet_TrackerTeslaPrison(list);
+		for (int j = 0; j < list.Count; j++)
+		{
+			list[j].SetBarrierSetHandler(barrierSetHandler);
+		}
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		if (m_ultAbilityMod != null && m_ultAbilityMod.m_groundEffectInfoInCage.m_applyGroundEffect)
+		{
+			List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+			GroundEffectField groundEffectData = m_ultAbilityMod.m_groundEffectInfoInCage.m_groundEffectData;
+			StandardGroundEffect standardGroundEffect = new StandardGroundEffect(AsEffectSource(), square, targets[0].FreePos, null, caster, groundEffectData);
+			List<ActorData> affectableActorsInField = m_ultAbilityMod.m_groundEffectInfoInCage.GetAffectableActorsInField(targets[0], caster, nonActorTargetInfo);
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(groundEffectData.shape, targets[0]);
+			foreach (ActorData actorData2 in affectableActorsInField)
+			{
+				ActorHitResults hitResults = new ActorHitResults(new ActorHitParameters(actorData2, centerOfShape));
+				m_ultAbilityMod.m_groundEffectInfoInCage.SetupActorHitResult(ref hitResults, caster, actorData2.GetCurrentBoardSquare(), 1);
+				abilityResults.StoreActorHit(hitResults);
+			}
+			standardGroundEffect.AddToActorsHitThisTurn(affectableActorsInField);
+			actorHitResults.AddEffect(standardGroundEffect);
+			abilityResults.StoreActorHit(actorHitResults);
+			abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+		}
+	}
+#endif
+
+#if SERVER
+	public class BarrierSet_TrackerTeslaPrison : BarrierSet
+	{
+		private List<Barrier> m_barriers;
+
+		public BarrierSet_TrackerTeslaPrison(List<Barrier> barriers)
+		{
+			m_barriers = new List<Barrier>(barriers);
+		}
+
+		public override bool ShouldAddGameplayHit(Barrier barrier, ActorData mover)
+		{
+			if (m_barriers != null && m_barriers.Contains(barrier))
+			{
+				for (int i = 0; i < m_barriers.Count; i++)
+				{
+					if (barrier != m_barriers[i] && m_barriers[i].ActorMovedThroughThisTurn(mover))
+					{
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+
+		public override void OnBarrierEnd(Barrier endingBarrier)
+		{
+			if (m_barriers != null && m_barriers.Contains(endingBarrier))
+			{
+				m_barriers.Remove(endingBarrier);
+			}
+		}
+	}
+#endif
 }
