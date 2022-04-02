@@ -1451,20 +1451,19 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				ResetOwnedActorDataToFirst();
 				m_timeInDecision = 0f;
 
-				// TODO ARTEMIS
 				// custom
-				//	GameFlow.Get().OnTurnStart();
+				GameFlow.Get().OnTurnStart();
 				break;
-				//// custom
-				//case GameState.BothTeams_Resolve:
-				//	TheatricsManager.Get().InitTurn();
-				//	Log.Info($"Initializing turn in theatrics");
+			// custom
+			case GameState.BothTeams_Resolve:
+				TheatricsManager.Get().InitTurn();
+				Log.Info($"Initializing turn in theatrics");
+				break;
+				// rogues
+				//case GameState.PVE_TeamActions:
+				//	this.ResetOwnedActorDataToFirst_FCFS();
+				//	this.m_displayedTeamTurnNotice = false;
 				//	break;
-				//// rogues
-				////case GameState.PVE_TeamActions:
-				////	this.ResetOwnedActorDataToFirst_FCFS();
-				////	this.m_displayedTeamTurnNotice = false;
-				////	break;
 		}
 		s_onGameStateChanged?.Invoke(m_gameState);
 	}
@@ -1927,18 +1926,17 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			{
 				m_timeRemainingInDecision = -m_timeRemainingInDecisionOverflow;
 
-				// TODO ARTEMIS
 				// custom
-				//if (NetworkServer.active)
-				//{
-				//	foreach (ActorData actor in GetActors())
-				//	{
-				//		var turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
-				//		turnSm.OnMessage(TurnMessage.BEGIN_RESOLVE);
-				//	}
-				//	ServerActionBuffer.Get().ActionPhase = ActionBufferPhase.Abilities;
-				//	gameState = GameState.BothTeams_Resolve;
-				//}
+				if (NetworkServer.active)
+				{
+					foreach (ActorData actor in GetActors())
+					{
+						var turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
+						turnSm.OnMessage(TurnMessage.BEGIN_RESOLVE);
+					}
+					ServerActionBuffer.Get().ActionPhase = ActionBufferPhase.Abilities;
+					gameState = GameState.BothTeams_Resolve;
+				}
 			}
 
 			// server-only
@@ -2135,9 +2133,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	// reactor
 	public bool PreventAutoLockInOnTimeout()
 	{
-		// TODO ARTEMIS
 		// TODO for now
-		//return false;
+		return false;
 
 		GameManager gameManager = GameManager.Get();
 		if (gameManager == null)

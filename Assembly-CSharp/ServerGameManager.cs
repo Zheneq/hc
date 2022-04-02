@@ -14,13 +14,18 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
+using ArtemisServer.BridgeServer;
+using System.Collections;
 
 // server-only -- was empty in reactor
 // TODO fix networking & asyncs
-// TODO ARTEMIS
 public class ServerGameManager : MonoBehaviour
 {
 #if SERVER
+	// artemis
+	public static String s_address = "192.168.1.34";
+	public static int s_port = 6061;
+
 	private static ServerGameManager s_instance;
 	public static readonly string FirewallRuleName = "Atlas Reactor Game Server"; //  "Atlas Rogues Co-Op Game Server" in rogues
 
@@ -78,6 +83,47 @@ public class ServerGameManager : MonoBehaviour
 		}
 	}
 
+	// custom Artemis
+	public static Dictionary<string, GameObject> ResourceNetworkObjects = new Dictionary<string, GameObject>();
+
+	// custom Artemis
+	private GameObject SpawnObject(string name, bool activate = true, bool network = true)
+	{
+		Log.Info($"Spawning {name}");
+		GameObject prefab = ResourceNetworkObjects[name];
+
+		if (prefab == null)
+		{
+			Log.Error($"Not found: {name}");
+			return null;
+		}
+		Log.Info($"Prefab {name}");
+		foreach (var ni in prefab.GetComponents<NetworkIdentity>())
+		{
+			Log.Info($"Prefab {name} - ni {ni.GetType().Name}");
+		}
+		foreach (var nb in prefab.GetComponents<NetworkBehaviour>())
+		{
+			Log.Info($"Prefab {name} - nb {nb.GetType().Name}");
+		}
+
+		GameObject obj = GameObject.Instantiate(prefab);
+		Log.Info($"Instantiated {name}");
+
+		if (activate)
+		{
+			obj.SetActive(true);
+			Log.Info($"Activated {name}");
+		}
+
+		if (network)
+		{
+			NetworkServer.Spawn(obj);
+			Log.Info($"Network spawned {name}");
+		}
+		return obj;
+	}
+
 	protected void Awake()
 	{
 		s_instance = this;
@@ -90,6 +136,72 @@ public class ServerGameManager : MonoBehaviour
 		m_assetsLoadingState = new AssetsLoadingState();
 		m_pendingDisconnects = new Dictionary<NetworkConnection, float>();
 		m_heartBeat = new Stopwatch();
+
+		// TODO HACK
+		GameObject ServerBootstrap = new GameObject("ServerBootstrap");
+		ServerBootstrap.AddComponent<ServerBootstrap>();
+		ServerBootstrap.AddComponent<ClientGamePrefabInstantiator>();
+		ServerBootstrap.AddComponent<MatchLogger>();
+		//ServerBootstrap.AddComponent<GameFlow>();
+		//ServerBootstrap.AddComponent<GameFlowData>();
+		//ServerBootstrap.AddComponent<PowerUpManager>();
+		//ServerBootstrap.AddComponent<ServerEffectManager>();
+		//ServerBootstrap.AddComponent<SequenceManager>();
+		//ServerBootstrap.AddComponent<TriggerCoordinator>();
+		ServerBootstrap.AddComponent<TheatricsManager>();
+
+		ServerBootstrap.AddComponent<TeamStatusDisplay>();
+		//ServerBootstrap.AddComponent<GameplayData>();
+		//ServerBootstrap.AddComponent<SpawnPointManager>(); // should be loaded (probably, when the map is loaded) causes NPE when not properly initialized
+		// end TODO HACK
+
+		// custom
+		SceneManager.sceneLoaded += OnSceneLoaded; // TODO remove callback on destroy
+
+		// TODO HACK Artemis
+		NetworkIdentity[] objects = Resources.FindObjectsOfTypeAll<NetworkIdentity>();
+		foreach (NetworkIdentity netid in objects)
+		{
+			GameObject obj = netid.gameObject;
+			ResourceNetworkObjects.Add(obj.name, obj);
+		}
+		// end TODO HACK Artemis
+	}
+
+	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		Log.Info($"Loaded scene {scene.name}");
+
+		//if (scene.name == "DevEnvironmentSingletons")
+		//{
+		//	// TODO HACK -- trying to get HighlightUtils and stuff
+		//	StartCoroutine(AssetBundleManager.Get().LoadSceneAsync("ServerEnvironmentSingletons", "frontend", LoadSceneMode.Additive));
+		//	return;
+		//}
+
+		foreach (GameObject g in scene.GetRootGameObjects())
+		{
+			foreach (var c in g.GetComponents(typeof(Component)))
+			{
+				if (c)
+				{
+					Log.Info($"Scene {scene.name} - GameObject {g.name} - Component {c.GetType()}");
+
+					if (c.GetType() == typeof(PrefabInstantiator))
+					{
+						String prefabList = String.Join(", ", g.GetComponent<PrefabInstantiator>().m_prefabs.Select(x => "{" + x.name + "}[" + String.Join(", ", x.GetComponents<MonoBehaviour>().Select(y => y.GetType().ToString()).ToArray()) + "]").ToArray());
+						Log.Info($"Prefab instantiator: {prefabList}");
+					}
+
+					if (c.GetType() == typeof(ClientGamePrefabInstantiator))
+					{
+						String prefabList = String.Join(", ", g.GetComponent<ClientGamePrefabInstantiator>().m_prefabs.Select(x => "{" + x.name + "}[" + String.Join(", ", x.GetComponents<MonoBehaviour>().Select(y => y.GetType().ToString()).ToArray()) + "]").ToArray());
+						Log.Info($"Client game prefab instantiator: {prefabList}");
+					}
+				}
+			}
+
+		}
 	}
 
 	protected void Start()
@@ -104,6 +216,9 @@ public class ServerGameManager : MonoBehaviour
 		//{
 		//	m_heartBeatDuration = hydrogenConfig.MonitorHeartbeatCooldown;
 		//}
+
+		// custom artemis
+		ArtemisBridgeServerInterface.Init();
 	}
 
 	protected void Update()
@@ -192,6 +307,13 @@ public class ServerGameManager : MonoBehaviour
 		ListenPort = 0;
 		NetworkManager.singleton.networkAddress = "0.0.0.0";
 
+		// artemis
+		ListenPort = s_port;
+		Log.Info("Starting Server...");
+		UIFrontendLoadingScreen.Get().StartDisplayError("Starting Server...");
+		NetworkManager.singleton.useWebSockets = true;
+		NetworkManager.singleton.networkPort = s_port;
+		NetworkManager.singleton.StartServer();
 		// new networking lib
 		//TelepathyTransport telepathyTransport = Transport.activeTransport as TelepathyTransport;
 		//bool flag = false;
@@ -685,8 +807,29 @@ public class ServerGameManager : MonoBehaviour
 		GameManager.Get().SetGameStatus(gameStatus, GameResult.NoResult, notify);
 	}
 
-	private void HandleLaunchGameRequest(LaunchGameRequest request)  // async in rogues
+	// was private, public for for quick Artemis hook
+	public void HandleLaunchGameRequest(LaunchGameRequest request)  // async in rogues
 	{
+		// TODO HACK
+		var panels = UnityEngine.Object.FindObjectsOfType<UILoadingScreenPanel>();
+		GameObject obj;
+		UILoadingScreenPanel uILoadingScreenPanel;
+		if (panels.IsNullOrEmpty())
+		{
+			obj = new GameObject("UILoadingScreenPanel");
+			uILoadingScreenPanel = obj.AddComponent<UILoadingScreenPanel>();
+		}
+		else
+		{
+			uILoadingScreenPanel = panels[0];
+			obj = uILoadingScreenPanel.gameObject;
+		}
+		RectTransform rectTransform = obj.AddComponent<RectTransform>();
+		rectTransform.offsetMax = new Vector2(500, 500);
+		uILoadingScreenPanel.m_container = rectTransform;
+
+
+		// TODO LOW pass config from lobby server
 		// custom
 		MatchmakingQueueConfig config = new MatchmakingQueueConfig()
 		{
@@ -696,6 +839,7 @@ public class ServerGameManager : MonoBehaviour
 		GameManager gameManager = GameManager.Get();
 		gameManager.SetGameInfo(request.GameInfo);
 		gameManager.SetTeamInfo(LobbyTeamInfo.FromServer(request.TeamInfo, GameBalanceVars.Get().MaxPlayerLevel, config)); // no config in rogues
+		Log.Info("set LobbyTeamInfo & LobbyGameInfo in GameManager");
 		if (request.GameplayOverrides != null)
 		{
 			gameManager.SetGameplayOverrides(request.GameplayOverrides);
@@ -704,6 +848,7 @@ public class ServerGameManager : MonoBehaviour
 		m_serverPlayerStates.Clear();
 		List<LobbyServerPlayerInfo> localPlayers = (from p in request.TeamInfo.TeamPlayerInfo where !p.IsNPCBot && !p.IsRemoteControlled select p).ToList<LobbyServerPlayerInfo>();
 		List<LobbyServerPlayerInfo> bots = (from p in request.TeamInfo.TeamPlayerInfo where p.IsNPCBot select p).ToList<LobbyServerPlayerInfo>();
+		Log.Info($"ServerGameManager::HandleLaunchGameRequest: {localPlayers.Count} local players and {bots.Count} bots");
 		int num = -1;
 		foreach (LobbyServerPlayerInfo lobbyServerPlayerInfo in localPlayers)
 		{
@@ -723,11 +868,70 @@ public class ServerGameManager : MonoBehaviour
 				}
 			}
 			AddPlayerState(sessionInfo, lobbyServerPlayerInfo, list3, num--);
+			Log.Info($"ServerGameManager::HandleLaunchGameRequest: Added local player {lobbyServerPlayerInfo.Handle} {lobbyServerPlayerInfo.CharacterType}");
 		}
 		foreach (LobbyServerPlayerInfo primaryPlayerInfo in bots)
 		{
 			AddPlayerState(null, primaryPlayerInfo, new List<LobbyServerPlayerInfo>(), -999);
+			Log.Info($"ServerGameManager::HandleLaunchGameRequest: Added bot {primaryPlayerInfo.Handle} {primaryPlayerInfo.CharacterType}");
 		}
+
+
+
+		// TODO REMOVE hack -- no monitor server to create server player state ahead of time, so we create it here
+		List<LobbyServerPlayerInfo> remotePlayers = (from p in request.TeamInfo.TeamPlayerInfo where !p.IsNPCBot && p.IsRemoteControlled select p).ToList<LobbyServerPlayerInfo>();
+		Log.Info($"ServerGameManager::HandleLaunchGameRequest: {remotePlayers.Count} remote players");
+		foreach (LobbyServerPlayerInfo remotePlayer in remotePlayers)
+		{
+			int playerId = remotePlayer.PlayerId;
+			long accountId = Convert.ToInt64(remotePlayer.AccountId);
+			HandleJoinGameServerRequest(new JoinGameServerRequest()
+			{
+				OrigRequestId = 0,
+				GameServerProcessCode = "foo",
+				PlayerInfo = remotePlayer,
+				//new LobbyServerPlayerInfo()
+				//{
+				//	PlayerId = playerId,
+				//	ReplacedWithBots = false,
+				//},
+				SessionInfo = new LobbySessionInfo()
+				{
+					AccountId = accountId,
+					UserName = $"player_{accountId}",
+					SessionToken = 0,
+					ReconnectSessionToken = 0,
+				}
+			});
+			//m_serverPlayerStates[playerId].ConnectionPersistent = null;
+			Log.Info($"ServerGameManager::HandleLaunchGameRequest [HACK]: Added player {m_serverPlayerStates[playerId].PlayerInfo.Handle} {m_serverPlayerStates[playerId].PlayerInfo.CharacterType}");
+		}
+		// end todo remove
+
+		// custom
+		//CharacterResourceLink resourceLink = GameWideData.Get().GetCharacterResourceLink(playerInfo.CharacterType);
+
+		//Log.Info($"Add Character {resourceLink.GetDisplayName()} for player {playerInfo.Handle}");
+
+		//GameObject atsdObject = SpawnObject("ActorTeamSensitiveData_Friendly", false);
+		//GameObject character = GameObject.Instantiate(resourceLink.ActorDataPrefab);
+
+		//ActorData actorData = character.GetComponent<ActorData>();
+		//ActorTeamSensitiveData atsd = atsdObject.GetComponent<ActorTeamSensitiveData>();
+		//actorData.SetupAbilityMods(playerInfo.CharacterInfo.CharacterMods); //#
+		//actorData.PlayerIndex = playerInfo.PlayerId;
+		//actorData.ActorIndex = playerInfo.PlayerId;
+		//atsd.SetActorIndex(actorData.ActorIndex); // PATCH private -> public ActorTeamSensitiveData.SetActorIndex
+		//PlayerData playerData = character.GetComponent<PlayerData>();
+		//playerData.PlayerIndex = playerInfo.PlayerId;
+
+		//actorData.SetTeam(playerInfo.TeamId);
+		//actorData.UpdateDisplayName(playerInfo.Handle);
+		//actorData.SetClientFriendlyTeamSensitiveData(atsd);
+		//NetworkServer.Spawn(atsdObject);
+		//NetworkServer.Spawn(character);
+		// end custom
+
 		gameManager.SetGameSummary(new LobbyGameSummary());
 		m_sentGameSummary = false;
 		CommonServerConfig commonServerConfig = CommonServerConfig.Get();
@@ -1063,6 +1267,10 @@ public class ServerGameManager : MonoBehaviour
 		{
 			return;
 		}
+
+		// TODO HACK
+		m_serverPlayerStates[request.PlayerId].SessionInfo.SessionToken = Convert.ToInt64(request.SessionToken);
+
 		long num = Convert.ToInt64(request.AccountId);
 		GameManager.LoginResponse loginResponse = new GameManager.LoginResponse();
 		if (!m_serverPlayerStates.TryGetValue(request.PlayerId, out ServerPlayerState serverPlayerState)
@@ -1271,9 +1479,14 @@ public class ServerGameManager : MonoBehaviour
 			return;
 		}
 
+		// custom Artemis (ReconnectReplayStatus is not user in rogues at all
+		playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = true });
+		// end custom Artemis
+
 		int num = playerState.PlayerInfo.LobbyPlayerInfo.IsSpectator ? 2 : 1;
 		int playerObjectCount = m_serverPlayerStates.Count * (1 + num);
-		int totalObjectCount = NetworkServer.objects.Count; //  int count = NetworkIdentity.spawned.Count; in rogues
+		// TODO LOW check that the number is correct (7 iirc)
+		int totalObjectCount = NetworkServer.objects.Count; //  int count = NetworkIdentity.spawned.Count;
 		Log.Info("Sending spawn message for player {0} (playerObjectCount={1} totalObjectCount={2})", new object[]
 		{
 			(playerState.SessionInfo != null) ? playerState.SessionInfo.Name : "(unnamed player)",
@@ -1289,6 +1502,10 @@ public class ServerGameManager : MonoBehaviour
 		playerState.ConnectionPersistent.Send((short)MyMsgType.SpawningObjectsNotification, spawningObjectsNotification);
 		// rogues
 		//playerState.ConnectionPersistent.Send<GameManager.SpawningObjectsNotification>(spawningObjectsNotification, 0);
+
+		// custom Artemis (ReconnectReplayStatus is not user in rogues at all
+		playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = false });
+		// end custom Artemis
 
 		NetworkServer.SetClientReady(playerState.ConnectionPersistent);
 		playerState.ConnectionReady = true;
@@ -1333,6 +1550,14 @@ public class ServerGameManager : MonoBehaviour
 				// rogues
 				//NetworkServer.SendToClient<GameManager.AssetsLoadingProgress>(serverPlayerState2.ConnectionPersistent.connectionId, loadingProgressInfo);
 			}
+
+			// custom TODO HACK
+			//if (serverPlayerState2.PlayerInfo.IsNPCBot && !serverPlayerState2.PlayerInfo.ReplacedWithBots)
+			//{
+			//	serverPlayerState2.DisconnectAndReplaceWithBots(GameResult.ClientDisconnectedAtLaunch);
+			//             serverPlayerState2.GameLoadingState.IsLoaded = true;
+			//             //SetClientReady(serverPlayerState2);
+			//         }
 		}
 	}
 
@@ -1437,6 +1662,7 @@ public class ServerGameManager : MonoBehaviour
 		bool result = true;
 		foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
 		{
+			//Log.Info($"ClientsPreparedForGameStart {serverPlayerState.PlayerInfo.Handle} connected:{serverPlayerState.ConnectionPersistent != null} bot:{serverPlayerState.PlayerInfo.IsAIControlled} ready:{serverPlayerState.GameLoadingState.IsReady}");
 			if (serverPlayerState.ConnectionPersistent != null && !serverPlayerState.PlayerInfo.IsAIControlled && !serverPlayerState.GameLoadingState.IsReady)
 			{
 				result = false;
@@ -1513,9 +1739,12 @@ public class ServerGameManager : MonoBehaviour
 			loadSceneMode = 0
 		};
 		StartCoroutine(AssetBundleManager.Get().LoadSceneAsync(m_loadLevelOperation));
+		Log.Info($"ServerGameManager::LoadAssets: Loading {m_loadLevelOperation.bundleName}/{m_loadLevelOperation.sceneName}");
 		m_loadingCharacterResources.Clear();
+		Log.Info($"ServerGameManager::LoadAssets: Got {m_serverPlayerStates.Count} player states");
 		foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
 		{
+			Log.Info($"ServerGameManager::LoadAssets: Processing {serverPlayerState.PlayerInfo.Handle}");
 			if (serverPlayerState.PlayerInfo.TeamId == Team.TeamA || serverPlayerState.PlayerInfo.TeamId == Team.TeamB)
 			{
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(serverPlayerState.PlayerInfo.CharacterType);
@@ -1523,10 +1752,12 @@ public class ServerGameManager : MonoBehaviour
 				ServerPlayerInfo closureServerPlayerInfo = serverPlayerState.PlayerInfo;
 				characterResourceLink.LoadAsync(serverPlayerState.PlayerInfo.CharacterSkin, delegate (LoadedCharacterSelection loadedCharacter)
 				{
+					Log.Info($"ServerGameManager::LoadAsync: Done loading {loadedCharacter.resourceLink.m_displayName}");
 					m_loadingCharacterResources.Remove(loadedCharacter.resourceLink);
 					m_loadedCharacterResourceCount++;
 					closureServerPlayerInfo.SelectedCharacter = loadedCharacter;
 				});
+				Log.Info($"ServerGameManager::LoadAssets: Loading {serverPlayerState.PlayerInfo.CharacterType}");
 				foreach (ServerPlayerInfo serverPlayerInfo in closureServerPlayerInfo.ProxyPlayerInfos)
 				{
 					CharacterResourceLink characterResourceLink2 = GameWideData.Get().GetCharacterResourceLink(serverPlayerInfo.CharacterType);
@@ -1534,12 +1765,15 @@ public class ServerGameManager : MonoBehaviour
 					ServerPlayerInfo closureProxyPlayerInfo = serverPlayerInfo;
 					characterResourceLink2.LoadAsync(serverPlayerInfo.CharacterSkin, delegate (LoadedCharacterSelection loadedCharacter)
 					{
+						Log.Info($"ServerGameManager::LoadAsync: Done loading {loadedCharacter.resourceLink.m_displayName}");
 						m_loadingCharacterResources.Remove(loadedCharacter.resourceLink);
 						m_loadedCharacterResourceCount++;
 						closureProxyPlayerInfo.SelectedCharacter = loadedCharacter;
 					});
+					Log.Info($"ServerGameManager::LoadAssets: Loading proxy {serverPlayerInfo.CharacterType}");
 				}
 			}
+			Log.Info($"ServerGameManager::LoadAssets: Finished processing {serverPlayerState.PlayerInfo.Handle}");
 		}
 	}
 
@@ -1624,6 +1858,22 @@ public class ServerGameManager : MonoBehaviour
 				{
 					NetworkServer.SpawnObjects();
 				}
+				else // custom
+				{
+					Log.Error($"Visuals loader failed");
+				}
+
+				// custom artemis
+				NetworkServer.SpawnObjects();
+
+				//List<LobbyPlayerInfo> playerInfoList = GameManager.Get().TeamInfo.TeamPlayerInfo;
+				//foreach(LobbyPlayerInfo playerInfo in playerInfoList)
+				//{
+				//	AddCharacterActor(playerInfo);
+				//}
+
+				ArtemisBridgeServerInterface.ReportGameReady();
+				// end custom artemis
 			}
 			bool flag2 = true;
 			if (NPCCoordinator.Get() != null)
@@ -1716,6 +1966,15 @@ public class ServerGameManager : MonoBehaviour
 			}
 			GameFlow.Get().AddPlayer(serverPlayerState);
 		}
+
+		// custom artemis
+		// seems to be crucial for this to happen before spawning players
+		SpawnObject("ApplicationSingletonsNetId");
+		SpawnObject("GameSceneSingletons");
+
+		//SharedActionBuffer.Get().Networkm_actionPhase = ActionBufferPhase.Done;
+		// end custom artemis
+
 		GameFlowData.Get().gameState = GameState.SpawningPlayers;
 		SetGameStatus(GameStatus.Started, true);
 		SendQueuedConsoleMessages();

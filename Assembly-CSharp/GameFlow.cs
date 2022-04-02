@@ -507,102 +507,101 @@ public class GameFlow : NetworkBehaviour
 	}
 #endif
 
-	// TODO ARTEMIS
 	// custom
-	//private void HandleUpdateResolve()
-	//{
-	//	ServerActionBuffer actionBuffer = ServerActionBuffer.Get();
-	//	TheatricsManager theatrics = TheatricsManager.Get();
-	//	if (actionBuffer.ActionPhase == ActionBufferPhase.Abilities)
-	//	{
-	//		ServerResolutionManager manager = ServerResolutionManager.Get();
+	private void HandleUpdateResolve()
+	{
+		ServerActionBuffer actionBuffer = ServerActionBuffer.Get();
+		TheatricsManager theatrics = TheatricsManager.Get();
+		if (actionBuffer.ActionPhase == ActionBufferPhase.Abilities)
+		{
+			ServerResolutionManager manager = ServerResolutionManager.Get();
 
-	//		if (manager.ActionsDoneResolving())
-	//		{
-	//			while (true)
-	//			{
-	//				if (actionBuffer.AbilityPhase == AbilityUtils.GetLowestAbilityPriority())
-	//				{
-	//					actionBuffer.AbilityPhase = AbilityPriority.INVALID;
-	//					actionBuffer.ActionPhase = ActionBufferPhase.AbilitiesWait;
-	//					Log.Info($"Going to next action phase {actionBuffer.ActionPhase}");
-	//					return;
-	//				}
+			if (manager.ActionsDoneResolving())
+			{
+				while (true)
+				{
+					if (actionBuffer.AbilityPhase == AbilityUtils.GetLowestAbilityPriority())
+					{
+						actionBuffer.AbilityPhase = AbilityPriority.INVALID;
+						actionBuffer.ActionPhase = ActionBufferPhase.AbilitiesWait;
+						Log.Info($"Going to next action phase {actionBuffer.ActionPhase}");
+						return;
+					}
 
-	//				actionBuffer.AbilityPhase = actionBuffer.AbilityPhase == AbilityPriority.INVALID
-	//					? AbilityUtils.GetHighestAbilityPriority()
-	//					: AbilityUtils.GetNextAbilityPriority(actionBuffer.AbilityPhase);
-	//				Log.Info($"Going to next turn ability phase {actionBuffer.AbilityPhase}");
+					actionBuffer.AbilityPhase = actionBuffer.AbilityPhase == AbilityPriority.INVALID
+						? AbilityUtils.GetHighestAbilityPriority()
+						: AbilityUtils.GetNextAbilityPriority(actionBuffer.AbilityPhase);
+					Log.Info($"Going to next turn ability phase {actionBuffer.AbilityPhase}");
 
-	//				theatrics.SetupTurnAbilityPhase(
-	//					actionBuffer.AbilityPhase,
-	//					actionBuffer.GetAllStoredAbilityRequests(),
-	//					new HashSet<int>() { },  // TODO
-	//					false);
+					theatrics.SetupTurnAbilityPhase(
+						actionBuffer.AbilityPhase,
+						actionBuffer.GetAllStoredAbilityRequests(),
+						new HashSet<int>() { },  // TODO
+						false);
 
-	//				List<AbilityRequest> requestsThisPhase = actionBuffer.GetAllStoredAbilityRequests().FindAll(r => r?.m_ability?.RunPriority == actionBuffer.AbilityPhase);
-	//				if (requestsThisPhase.Count > 0)
-	//				{
-	//					Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
-	//					//new PlayerAction_Ability(requestsThisPhase, actionBuffer.AbilityPhase).ExecuteAction();
-	//					break;
-	//				}
-	//				else
-	//				{
-	//					Log.Info($"No requests in this phase, going to the next one");
-	//				}
-	//			}
+					List<AbilityRequest> requestsThisPhase = actionBuffer.GetAllStoredAbilityRequests().FindAll(r => r?.m_ability?.RunPriority == actionBuffer.AbilityPhase);
+					if (requestsThisPhase.Count > 0)
+					{
+						Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
+						new PlayerAction_Ability(requestsThisPhase, actionBuffer.AbilityPhase).ExecuteAction();
+						break;
+					}
+					else
+					{
+						Log.Info($"No requests in this phase, going to the next one");
+					}
+				}
 
-	//			//ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
-	//			ServerResolutionManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
-	//			theatrics.SetDirtyBit(uint.MaxValue);
-	//			theatrics.PlayPhase(actionBuffer.AbilityPhase);
-	//		}
-	//	}
-	//	else if (actionBuffer.ActionPhase == ActionBufferPhase.AbilitiesWait)
-	//	{
-	//		foreach (ActorData actor in GameFlowData.Get().GetActors())
-	//		{
-	//			var turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
-	//			turnSm.OnMessage(TurnMessage.CLIENTS_RESOLVED_ABILITIES);
-	//		}
-	//		new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => !req.IsChasing())).ExecuteAction();
-	//		actionBuffer.ActionPhase = ActionBufferPhase.Movement;
-	//	}
-	//	else if (actionBuffer.ActionPhase == ActionBufferPhase.Movement)
-	//	{
-	//		ServerMovementManager manager = ServerMovementManager.Get();
-	//		if (!manager.WaitingOnClients)
-	//		{
-	//			new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => req.IsChasing())).ExecuteAction();
-	//			actionBuffer.ActionPhase = ActionBufferPhase.MovementChase;
-	//		}
-	//	}
-	//	else if (actionBuffer.ActionPhase == ActionBufferPhase.MovementChase)
-	//	{
-	//		//ServerEvadeManager manager = ServerEvadeManager.Get();
-	//		ServerMovementManager manager = ServerMovementManager.Get();
-	//		if (!manager.WaitingOnClients)
-	//		{
-	//			foreach (ActorData actor in GameFlowData.Get().GetActors())
-	//			{
-	//				var turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
-	//				turnSm.OnMessage(TurnMessage.MOVEMENT_RESOLVED);
-	//			}
-	//			actionBuffer.ActionPhase = ActionBufferPhase.MovementWait;
-	//		}
-	//	}
-	//	else
-	//	{
-	//		theatrics.MarkPhasesOnActionsDone();
-	//		actionBuffer.ActionPhase = ActionBufferPhase.Done;
-	//		ServerCombatManager.Get().ResolveHitPoints();
-	//		ServerCombatManager.Get().ResolveTechPoints();
+				ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
+				ServerResolutionManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
+				theatrics.SetDirtyBit(uint.MaxValue);
+				theatrics.PlayPhase(actionBuffer.AbilityPhase);
+			}
+		}
+		else if (actionBuffer.ActionPhase == ActionBufferPhase.AbilitiesWait)
+		{
+			foreach (ActorData actor in GameFlowData.Get().GetActors())
+			{
+				var turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
+				turnSm.OnMessage(TurnMessage.CLIENTS_RESOLVED_ABILITIES);
+			}
+			new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => !req.IsChasing())).ExecuteAction();
+			actionBuffer.ActionPhase = ActionBufferPhase.Movement;
+		}
+		else if (actionBuffer.ActionPhase == ActionBufferPhase.Movement)
+		{
+			ServerMovementManager manager = ServerMovementManager.Get();
+			if (!manager.WaitingOnClients)
+			{
+				new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => req.IsChasing())).ExecuteAction();
+				actionBuffer.ActionPhase = ActionBufferPhase.MovementChase;
+			}
+		}
+		else if (actionBuffer.ActionPhase == ActionBufferPhase.MovementChase)
+		{
+			//ServerEvadeManager manager = ServerEvadeManager.Get();
+			ServerMovementManager manager = ServerMovementManager.Get();
+			if (!manager.WaitingOnClients)
+			{
+				foreach (ActorData actor in GameFlowData.Get().GetActors())
+				{
+					var turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
+					turnSm.OnMessage(TurnMessage.MOVEMENT_RESOLVED);
+				}
+				actionBuffer.ActionPhase = ActionBufferPhase.MovementWait;
+			}
+		}
+		else
+		{
+			theatrics.MarkPhasesOnActionsDone();
+			actionBuffer.ActionPhase = ActionBufferPhase.Done;
+			ServerCombatManager.Get().ResolveHitPoints();
+			ServerCombatManager.Get().ResolveTechPoints();
 
-	//		// TODO wait a couple seconds here? (cannot wait in ending turn, causes ui artifacts)
-	//		GameFlowData.Get().gameState = GameState.EndingTurn;
-	//	}
-	//}
+			// TODO wait a couple seconds here? (cannot wait in ending turn, causes ui artifacts)
+			GameFlowData.Get().gameState = GameState.EndingTurn;
+		}
+	}
 
 #if SERVER
 	// added in rogues
@@ -831,14 +830,12 @@ public class GameFlow : NetworkBehaviour
 					});
 					continue;
 				}
-				// TODO ARTEMIS
-				//Log.Info($"GameFlow::SpawnCharacters {serverPlayerInfo.CharacterType}");
+				Log.Info($"GameFlow::SpawnCharacters {serverPlayerInfo.CharacterType}");
 				character = UnityEngine.Object.Instantiate<GameObject>(serverPlayerInfo.SelectedCharacter.ActorDataPrefab, Vector3.zero, Quaternion.identity);
 			}
 			else
 			{
-				// TODO ARTEMIS
-				//Log.Info($"GameFlow::SpawnCharacters SPECTATOR");
+				Log.Info($"GameFlow::SpawnCharacters SPECTATOR");
 				character = UnityEngine.Object.Instantiate<GameObject>(GameWideData.Get().SpectatorPrefab, Vector3.zero, Quaternion.identity);
 			}
 			if (character)
@@ -927,8 +924,8 @@ public class GameFlow : NetworkBehaviour
 					actorData.SetTeam(playerInfo.TeamId);
 					//actorData.InitEquipmentStats(); // rogues
 
-					// TODO ARTEMIS
-					//// custom
+					// custom
+					// TODO ARTEMIS actors seem to be not network spawned yet at this point (OnStartServer not called)
 					//actorData.GetAbilityData().SpawnAndSetupCards(new CharacterCardInfo  // TODO get cards from lobby
 					//{
 					//	PrepCard = CardType.NoOverride,
@@ -944,12 +941,12 @@ public class GameFlow : NetworkBehaviour
 					//	ModForAbility4 = 0,
 					//});
 
-					//// TODO probably will break fourlancer
-					//actorData.PlayerIndex = playerInfo.PlayerId;
-					//actorData.ActorIndex = playerInfo.PlayerId;
+					// TODO probably will break fourlancer
+					actorData.PlayerIndex = playerInfo.PlayerId;
+					actorData.ActorIndex = playerInfo.PlayerId;
 
-					//actorData.UpdateDisplayName(playerInfo.Handle);
-					////end custom
+					actorData.UpdateDisplayName(playerInfo.Handle);
+					//end custom
 
 					actorData.InitActorNetworkVisibilityObjects();
 					BoardSquare initialSpawnSquare = SpawnPointManager.Get().GetInitialSpawnSquare(actorData, this.m_spawningActors);
@@ -1229,7 +1226,12 @@ public class GameFlow : NetworkBehaviour
 		ActorData actorData = GameFlowData.Get().FindActorByActorIndex(msg.m_actorIndex);
 		if (actorData != null)
 		{
+			Log.Info($"MsgCastAbility {actorData.DisplayName} - {msg.m_actionType} {msg.m_targets}");
 			actorData.GetComponent<ServerActorController>().ProcessCastAbilityRequest(msg.m_targets, msg.m_actionType, false);
+		}
+		else
+		{
+			Log.Error($"MsgCastAbility NULL actor {msg.m_actorIndex} - {msg.m_actionType} {msg.m_targets}");
 		}
 	}
 
@@ -1363,19 +1365,17 @@ public class GameFlow : NetworkBehaviour
 				case GameState.BothTeams_Decision:
 					break;
 				case GameState.BothTeams_Resolve:
-					// TODO ARTEMIS
-					//// custom
-					//HandleUpdateResolve();
+					// custom
+					HandleUpdateResolve();
 					break;
-				// TODO ARTEMIS
 				// custom
-				//case GameState.EndingTurn:
-				//	if (gameFlowData.GetTimeInState() > 2.0f)
-				//	{
-				//		gameFlowData.gameState = GameState.BothTeams_Decision;
-				//	}
-				//	break;
-				// rogues
+				case GameState.EndingTurn:
+					if (gameFlowData.GetTimeInState() > 2.0f)
+					{
+						gameFlowData.gameState = GameState.BothTeams_Decision;
+					}
+					break;
+				//	rogues
 				//case GameState.PVE_TeamTurnStart:
 				//	this.HandleUpdateTeamTurnStart_FCFS();
 				//	return;
@@ -1394,12 +1394,11 @@ public class GameFlow : NetworkBehaviour
 		}
 	}
 
-	// TODO ARTEMIS
 	// custom
-	//public void OnTurnStart()
-	//{
-	//	HandleUpdateTeamTurnStart_FCFS();
-	//}
+	public void OnTurnStart()
+	{
+		HandleUpdateTeamTurnStart_FCFS();
+	}
 
 	// added in rogues
 	private void HandleUpdateTeamTurnStart_FCFS()
