@@ -1,6 +1,7 @@
 ﻿// ROGUES
 // SERVER
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -133,6 +134,7 @@ public class StandardActorEffect : Effect
 
 	public override void OnStart()
 	{
+		Log.Info("StandardActorEffect::OnStart");
 		m_started = true;
 		if (m_data.m_techPointChangeOnStart > 0)
 		{
@@ -148,10 +150,20 @@ public class StandardActorEffect : Effect
 			int maxAbsorbAmount = GetMaxAbsorbAmount();
 			GameplayMetricHelper.CollectPotentialAbsorbDealt(Caster, maxAbsorbAmount, Parent.Ability);
 		}
+		Log.Info($"StandardActorEffect::OnStart - {GetDebugIdentifier()} - " +
+			$"canStack={Stacking.canStack} " +
+			$"maxStackSize={Stacking.maxStackSize} " +
+			$"maxStackSizePerTurn={Stacking.maxStackSizePerTurn} " +
+			$"stackCount=[{string.Join(", ", Stacking.stackCount.Select(x => x.ToString()).ToArray())}]");
 	}
 
 	public override void OnEnd()
 	{
+		Log.Info($"StandardActorEffect::OnEnd - {GetDebugIdentifier()} - " +
+			$"canStack={Stacking.canStack} " +
+			$"maxStackSize={Stacking.maxStackSize} " +
+			$"maxStackSizePerTurn={Stacking.maxStackSizePerTurn} " +
+			$"stackCount=[{string.Join(", ", Stacking.stackCount.Select(x => x.ToString()).ToArray())}]");
 		if (!Stacking.stackCount.IsNullOrEmpty<int>())
 		{
 			int num = Stacking.stackCount[Stacking.stackCount.Length - 1];
@@ -284,8 +296,10 @@ public class StandardActorEffect : Effect
 
 	private void RemoveMods()
 	{
+		Log.Info("StandardActorEffect::RemoveMods");
 		if (NetworkServer.active)
 		{
+			Log.Info("+ StandardActorEffect::RemoveMods");
 			ActorStats actorStats = Target.GetActorStats();
 			// rogues
 			//EquipmentStats equipmentStats = Target.GetEquipmentStats();
@@ -293,6 +307,7 @@ public class StandardActorEffect : Effect
 			{
 				if (abilityStatMod.stat != StatType.INVALID)
 				{
+					Log.Info($"StandardActorEffect::RemoveMods - removing {abilityStatMod.stat} {abilityStatMod.modType} {abilityStatMod.modValue}");
 					actorStats.RemoveStatMod(abilityStatMod.stat, abilityStatMod.modType, abilityStatMod.modValue);
 				}
 				// rogues
@@ -318,10 +333,12 @@ public class StandardActorEffect : Effect
 			ActorStatus component = Target.GetComponent<ActorStatus>();
 			for (int j = 0; j < m_statusAdded.Count; j++)
 			{
+				Log.Info($"StandardActorEffect::RemoveMods - removing {m_statusAdded[j]}");
 				component.RemoveStatus(m_statusAdded[j]);
 			}
 			if (CanApplyHealOverTime())
 			{
+				Log.Info("StandardActorEffect::RemoveMods removing HealingOverTime");
 				component.RemoveStatus(StatusType.HealingOverTime);
 			}
 		}

@@ -188,6 +188,7 @@ public class PassiveData : MonoBehaviour
 
 	public void OnLosingEffect(Effect effect)
 	{
+		Log.Info($"PassiveData::OnLosingEffect - {effect.GetDebugIdentifier()}");
 		Passive[] passives = m_passives;
 		for (int i = 0; i < passives.Length; i++)
 		{

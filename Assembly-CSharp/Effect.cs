@@ -519,6 +519,7 @@ public class Effect
 
 	public void End()
 	{
+		Log.Info($"Effect::End - {GetDebugIdentifier()}");
 		OnEnd();
 		if (CanAbsorb())
 		{
@@ -793,6 +794,7 @@ public class Effect
 
 	public void AddToStack(int stacks = 1)
 	{
+		Log.Info($"Effect::AddToStack - {GetDebugIdentifier()} + {stacks}");
 		int currentStackCount = GetCurrentStackCount();
 		int age = m_time.age;
 		if (!m_stacking.stackCount.IsNullOrEmpty<int>())
@@ -833,6 +835,7 @@ public class Effect
 		}
 		m_time.age = 0;
 		OnStackCountChanged(currentStackCount, age);
+		Log.Info($"Effect::AddToStack - {GetDebugIdentifier()} stackCount=[{string.Join(", ", Stacking.stackCount.Select(x => x.ToString()).ToArray())}]");
 	}
 
 	public virtual void Refresh()

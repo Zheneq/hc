@@ -474,6 +474,7 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void ApplyEffect(Effect effect, int stacks = 1)
 	{
+		Log.Info($"ServerEffectManager::ApplyEffect - {effect.GetDebugIdentifier()}");
 		bool canApply = true;
 		if (effect.Target != null && effect.Caster != null)
 		{
@@ -515,6 +516,7 @@ public class ServerEffectManager : MonoBehaviour
 		bool isEffectStart = true;
 		if (effect.Target == null)
 		{
+			Log.Info($"ServerEffectManager::ApplyEffect - {effect.GetDebugIdentifier()} has no target");
 			effect.AddToStack(stacks);
 			this.m_worldEffects.Add(effect);
 		}
@@ -618,8 +620,14 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void RemoveEffect(Effect effectToRemove, List<Effect> effectListToRemoveFrom)
 	{
+		Log.Info($"ServerEffectManager::RemoveEffect - {effectToRemove.GetDebugIdentifier()}");
 		effectToRemove.End();
 		effectListToRemoveFrom.Remove(effectToRemove);
+
+		// custom
+		//effectToRemove.Target.GetComponent<ActorStatus>().RemoveStatus
+		// end custom
+
 		this.NotifyLosingEffect(effectToRemove);
 		if (EffectDebugConfig.TracingAddAndRemove())
 		{
@@ -713,6 +721,7 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void NotifyLosingEffect(Effect effectRemoved)
 	{
+		Log.Info($"ServerEffectManager::NotifyLosingEffect - {effectRemoved.GetDebugIdentifier()}");
 		this.m_sharedEffectBarrierManager.NotifyEffectEnded(effectRemoved.m_guid);
 		if (effectRemoved.Target != null)
 		{
@@ -741,6 +750,7 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void OnTurnStart()
 	{
+		Log.Info("ServerEffectManager::OnTurnStart");
 		this.ClearAllEffectResults();
 		foreach (List<Effect> effectList in this.m_actorEffects.Values)
 		{
@@ -765,10 +775,12 @@ public class ServerEffectManager : MonoBehaviour
 
 			if (effect.ShouldEndEarly() || flag)
 			{
+				Log.Info($"ServerEffectManager::OnTurnStart - {effect.GetDebugIdentifier()} ends early");
 				effectsToRemove.Add(effect);
 			}
 			else
 			{
+				Log.Info($"ServerEffectManager::OnTurnStart - {effect.GetDebugIdentifier()} on turn start");
 				effect.OnTurnStart();
 
 				// rogues?
@@ -779,12 +791,14 @@ public class ServerEffectManager : MonoBehaviour
 
 				if (effect.ShouldEndEarly() || flag)
 				{
+					Log.Info($"ServerEffectManager::OnTurnStart - {effect.GetDebugIdentifier()} ends early after all");
 					effectsToRemove.Add(effect);
 				}
 			}
 		}
 		foreach (Effect effectToRemove in effectsToRemove)
 		{
+			Log.Info($"ServerEffectManager::OnTurnStart - removing {effectToRemove.GetDebugIdentifier()}");
 			this.RemoveEffect(effectToRemove, effectList);
 		}
 	}

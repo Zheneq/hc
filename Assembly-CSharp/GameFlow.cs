@@ -1144,6 +1144,7 @@ public class GameFlow : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void GameFlow::NotifyOnTurnStart()' called on client");
 			return;
 		}
+		Log.Info("CameFlow::NotifyOnTurnStart");
 		ServerEffectManager.Get().OnTurnStart();
 		ServerActionBuffer.Get().OnTurnStart();
 		BarrierManager.Get().OnTurnStart();
