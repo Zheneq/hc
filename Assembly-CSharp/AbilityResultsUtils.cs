@@ -14,23 +14,19 @@ public static class AbilityResultsUtils
 		int position = writer.Position;
 		if (actorToHitResults != null)
 		{
-			sbyte b = (sbyte)actorToHitResults.Count;
-			writer.Write(b);
-			using (Dictionary<ActorData, ActorHitResults>.Enumerator enumerator = actorToHitResults.GetEnumerator())
+			sbyte hitResultNum = (sbyte)actorToHitResults.Count;
+			writer.Write(hitResultNum);
+			foreach (KeyValuePair<ActorData, ActorHitResults> keyValuePair in actorToHitResults)
 			{
-				while (enumerator.MoveNext())
-				{
-					KeyValuePair<ActorData, ActorHitResults> keyValuePair = enumerator.Current;
-					sbyte b2 = (sbyte)keyValuePair.Key.ActorIndex;
-					writer.Write(b2);
-					keyValuePair.Value.ActorHitResults_SerializeToStream(writer);
-				}
-				goto IL_73;
+				writer.Write((sbyte)keyValuePair.Key.ActorIndex);
+				keyValuePair.Value.ActorHitResults_SerializeToStream(writer);
 			}
 		}
-		sbyte b3 = 0;
-		writer.Write(b3);
-		IL_73:
+		else
+		{
+			sbyte hitResultNum = 0;
+			writer.Write(hitResultNum);
+		}
 		int num = writer.Position - position;
 		if (ClientAbilityResults.DebugSerializeSizeOn)
 		{
@@ -46,7 +42,7 @@ public static class AbilityResultsUtils
 	//}
 #endif
 
-	// rogues
+	// reactor
 	public static Dictionary<ActorData, ClientActorHitResults> DeSerializeActorHitResultsDictionaryFromStream(ref IBitStream stream)
 	{
 		Dictionary<ActorData, ClientActorHitResults> dictionary = new Dictionary<ActorData, ClientActorHitResults>();
@@ -75,21 +71,18 @@ public static class AbilityResultsUtils
 		{
 			sbyte b = (sbyte)positionToHitResults.Count;
 			writer.Write(b);
-			using (Dictionary<Vector3, PositionHitResults>.Enumerator enumerator = positionToHitResults.GetEnumerator())
+			foreach (KeyValuePair<Vector3, PositionHitResults> keyValuePair in positionToHitResults)
 			{
-				while (enumerator.MoveNext())
-				{
-					KeyValuePair<Vector3, PositionHitResults> keyValuePair = enumerator.Current;
-					Vector3 key = keyValuePair.Key;
-					writer.Write(key);
-					keyValuePair.Value.PositionHitResults_SerializeToStream(writer);
-				}
-				goto IL_6D;
+				Vector3 key = keyValuePair.Key;
+				writer.Write(key);
+				keyValuePair.Value.PositionHitResults_SerializeToStream(writer);
 			}
 		}
-		sbyte b2 = 0;
-		writer.Write(b2);
-		IL_6D:
+		else
+		{
+			sbyte b2 = 0;
+			writer.Write(b2);
+		}
 		int num = writer.Position - position;
 		if (ClientAbilityResults.DebugSerializeSizeOn)
 		{
@@ -117,17 +110,10 @@ public static class AbilityResultsUtils
 #if SERVER
 	public static void SerializeEffectsToStartToStream(List<global::Effect> effects, NetworkWriter writer)
 	{
-		sbyte b;
-		if (effects != null)
-		{
-			b = (sbyte)effects.Count;
-		}
-		else
-		{
-			b = 0;
-		}
-		writer.Write(b);
-		for (int i = 0; i < (int)b; i++)
+		sbyte effectStartNum = effects != null ? (sbyte)effects.Count : (sbyte)0;
+		writer.Write(effectStartNum);
+		Log.Info($"SerializeEffectsToStartToStream:: effectStartNum={effectStartNum}");
+		for (int i = 0; i < effectStartNum; i++)
 		{
 			int position = writer.Position;
 			global::Effect effect = effects[i];
@@ -140,99 +126,99 @@ public static class AbilityResultsUtils
 			//	text = effect2.EffectTemplate.ShortGUID();
 			//}
 			writer.WritePackedUInt32(effectGUID);
+			Log.Info($"SerializeEffectsToStartToStream:: effectGUID={effectGUID}");
 			//writer.Write(text);
 			List<ServerClientUtils.SequenceStartData> effectStartSeqDataList = effect.GetEffectStartSeqDataList();
-			sbyte b2 = (sbyte)effectStartSeqDataList.Count;
-			writer.Write(b2);
-			for (int j = 0; j < (int)b2; j++)
+			sbyte seqStartNum = (sbyte)effectStartSeqDataList.Count;
+			writer.Write(seqStartNum);
+			Log.Info($"SerializeEffectsToStartToStream:: seqStartNum={seqStartNum}");
+			for (int j = 0; j < seqStartNum; j++)
 			{
 				effectStartSeqDataList[j].SequenceStartData_SerializeToStream(writer);
+				Log.Info($"SerializeEffectsToStartToStream:: SequenceStartData_SerializeToStream");
 			}
-			sbyte b3 = (sbyte)effect.CasterActorIndex;
-			writer.Write(b3);
-			sbyte b4;
-			if (effect.Target != null)
-			{
-				b4 = (sbyte)effect.Target.ActorIndex;
-			}
-			else
-			{
-				b4 = (sbyte)ActorData.s_invalidActorIndex;
-			}
-			writer.Write(b4);
-			if ((int)b4 != ActorData.s_invalidActorIndex)
+			writer.Write((sbyte)effect.CasterActorIndex);
+			Log.Info($"SerializeEffectsToStartToStream:: CasterActorIndex={effect.CasterActorIndex}");
+			sbyte targetActorIndex = (sbyte)(effect.Target != null ? effect.Target.ActorIndex : ActorData.s_invalidActorIndex);
+			writer.Write(targetActorIndex);
+			Log.Info($"SerializeEffectsToStartToStream:: targetActorIndex={targetActorIndex}");
+			if (targetActorIndex != ActorData.s_invalidActorIndex)
 			{
 				List<StatusType> statuses = effect.GetStatuses();
-				sbyte b5;
+				sbyte statusNum;
 				if (statuses != null)
 				{
-					bool flag = effect.Target.GetActorStatus().IsMovementDebuffImmune(true);
-					for (int k = statuses.Count - 1; k >= 0; k--)
+					bool isMovementDebuffImmune = effect.Target.GetActorStatus().IsMovementDebuffImmune(true);
+					for (int j = statuses.Count - 1; j >= 0; j--)
 					{
-						if (statuses[k] < StatusType.Revealed || (flag && ActorStatus.IsDispellableMovementDebuff(statuses[k])))
+						if (statuses[j] < StatusType.Revealed || (isMovementDebuffImmune && ActorStatus.IsDispellableMovementDebuff(statuses[j])))
 						{
-							statuses.RemoveAt(k);
+							statuses.RemoveAt(j);
 						}
 					}
-					b5 = (sbyte)statuses.Count;
+					statusNum = (sbyte)statuses.Count;
 				}
 				else
 				{
-					b5 = 0;
+					statusNum = 0;
 				}
-				writer.Write(b5);
-				for (int l = 0; l < (int)b5; l++)
+				writer.Write(statusNum);
+				Log.Info($"SerializeEffectsToStartToStream:: statusNum={statusNum}");
+				for (int j = 0; j < statusNum; j++)
 				{
-					byte b6 = (byte)statuses[l];
-					writer.Write(b6);
+					writer.Write((byte)statuses[j]);
+					Log.Info($"SerializeEffectsToStartToStream:: status={statuses[j]} ({(byte)statuses[j]})");
 				}
 			}
-			if ((int)b4 != ActorData.s_invalidActorIndex)
+			if (targetActorIndex != ActorData.s_invalidActorIndex)
 			{
 				List<StatusType> statusesOnTurnStart = effect.GetStatusesOnTurnStart();
-				sbyte b7;
+				sbyte statusOnTurnStartNum;
 				if (statusesOnTurnStart != null)
 				{
-					for (int m = statusesOnTurnStart.Count - 1; m >= 0; m--)
+					for (int j = statusesOnTurnStart.Count - 1; j >= 0; j--)
 					{
-						if (statusesOnTurnStart[m] < StatusType.Revealed)
+						if (statusesOnTurnStart[j] < StatusType.Revealed)
 						{
-							statusesOnTurnStart.RemoveAt(m);
+							statusesOnTurnStart.RemoveAt(j);
 						}
 					}
-					b7 = (sbyte)statusesOnTurnStart.Count;
+					statusOnTurnStartNum = (sbyte)statusesOnTurnStart.Count;
 				}
 				else
 				{
-					b7 = 0;
+					statusOnTurnStartNum = 0;
 				}
-				writer.Write(b7);
-				for (int n = 0; n < (int)b7; n++)
+				writer.Write(statusOnTurnStartNum);
+				Log.Info($"SerializeEffectsToStartToStream:: statusOnTurnStartNum={statusOnTurnStartNum}");
+				for (int j = 0; j < statusOnTurnStartNum; j++)
 				{
-					byte b8 = (byte)statusesOnTurnStart[n];
-					writer.Write(b8);
+					writer.Write((byte)statusesOnTurnStart[j]);
+					Log.Info($"SerializeEffectsToStartToStream:: statusOnTurnStart={statusesOnTurnStart[j]} ({(byte)statusesOnTurnStart[j]})");
 				}
 			}
-			short num = 0;
+			short expectedHoT = 0;
 			if (effect.Target != null)
 			{
-				num = (short)effect.GetExpectedHealOverTimeTotal();
+				expectedHoT = (short)effect.GetExpectedHealOverTimeTotal();
 			}
-			bool b9 = effect.IsBuff();
-			bool b10 = effect.IsDebuff();
-			bool b11 = effect.HasDispellableMovementDebuff();
-			bool flag2 = effect.CanAbsorb();
-			bool flag3 = num > 0;
-			byte b12 = ServerClientUtils.CreateBitfieldFromBools(b9, b10, b11, flag2, flag3, false, false, false);
-			writer.Write(b12);
-			if (flag2)
+			bool isBuff = effect.IsBuff();
+			bool isDebuff = effect.IsDebuff();
+			bool hasMovementDebuff = effect.HasDispellableMovementDebuff();
+			bool hasAbsorb = effect.CanAbsorb();
+			bool hasExpectedHoT = expectedHoT > 0;
+			byte bitField = ServerClientUtils.CreateBitfieldFromBools(isBuff, isDebuff, hasMovementDebuff, hasAbsorb, hasExpectedHoT, false, false, false);
+			writer.Write(bitField);
+			Log.Info($"SerializeEffectsToStartToStream:: bitField={bitField}");
+			if (hasAbsorb)
 			{
-				short num2 = (short)effect.Absorbtion.m_absorbAmount;
-				writer.Write(num2);
+				writer.Write((short)effect.Absorbtion.m_absorbAmount);
+				Log.Info($"SerializeEffectsToStartToStream:: m_absorbAmount={effect.Absorbtion.m_absorbAmount}");
 			}
-			if (flag3)
+			if (hasExpectedHoT)
 			{
-				writer.Write(num);
+				writer.Write(expectedHoT);
+				Log.Info($"SerializeEffectsToStartToStream:: expectedHoT={expectedHoT}");
 			}
 			// rogues
 			//if (effect != null && effect.Parent != null && effect.Parent.Ability != null)
@@ -351,17 +337,9 @@ public static class AbilityResultsUtils
 #if SERVER
 	public static void SerializeBarriersToStartToStream(List<Barrier> barriers, NetworkWriter writer)
 	{
-		sbyte b;
-		if (barriers != null)
-		{
-			b = (sbyte)barriers.Count;
-		}
-		else
-		{
-			b = 0;
-		}
-		writer.Write(b);
-		for (int i = 0; i < (int)b; i++)
+		sbyte barrierStartNum = (sbyte)(barriers != null ? barriers.Count : 0);
+		writer.Write(barrierStartNum);
+		for (int i = 0; i < barrierStartNum; i++)
 		{
 			int position = writer.Position;
 			Barrier barrier = barriers[i];

@@ -1923,17 +1923,16 @@ public class ActorHitResults
 	public void ActorHitResults_SerializeToStream(NetworkWriter writer)
 	{
 		int position = writer.Position;
-		bool flag = m_baseDamage != 0;
-		bool flag2 = m_baseHealing != 0;
-		bool flag3 = m_baseTechPointsGain != 0 || m_finalTechPointsGain > 0;
-		bool flag4 = m_baseTechPointsLoss != 0;
-		bool flag5 = m_baseTechPointGainOnCaster != 0 || m_finalTechPointGainOnCaster > 0;
-		bool flag6 = m_lifestealHealing > 0;
-		bool hasKnockback = HasKnockback;
-		bool b = false;
-		bool b2 = false;
-		bool flag7 = false;
-		bool flag8 = m_actorsToReveal != null && m_actorsToReveal.Count > 0;
+		bool hasDamage = m_baseDamage != 0;
+		bool hasHealing = m_baseHealing != 0;
+		bool hasTechPointGain = m_baseTechPointsGain != 0 || m_finalTechPointsGain > 0;
+		bool hasTechPointLoss = m_baseTechPointsLoss != 0;
+		bool hasTechPointGainOnCaster = m_baseTechPointGainOnCaster != 0 || m_finalTechPointGainOnCaster > 0;
+		bool triggerCasterVisOnHitVisualOnly = m_lifestealHealing > 0;
+		bool updateCasterLastKnownPos = false;
+		bool updateTargetLastKnownPos = false;
+		bool updateEffectHolderLastKnownPos = false;
+		bool updateOtherLastKnownPos = m_actorsToReveal != null && m_actorsToReveal.Count > 0;
 		Ability relevantAbility = m_hitParameters.GetRelevantAbility();
 		if (relevantAbility != null)
 		{
@@ -1941,77 +1940,57 @@ public class ActorHitResults
 			{
 				if (m_hitParameters.Ability != null)
 				{
-					b = relevantAbility.ShouldRevealCasterOnHostileAbilityHit();
-					b2 = relevantAbility.ShouldRevealTargetOnHostileAbilityHit();
+					updateCasterLastKnownPos = relevantAbility.ShouldRevealCasterOnHostileAbilityHit();
+					updateTargetLastKnownPos = relevantAbility.ShouldRevealTargetOnHostileAbilityHit();
 				}
 				if (m_hitParameters.Effect != null || m_hitParameters.Barrier != null)
 				{
-					b = relevantAbility.ShouldRevealCasterOnHostileEffectOrBarrierHit();
-					b2 = relevantAbility.ShouldRevealTargetOnHostileEffectOrBarrierHit();
+					updateCasterLastKnownPos = relevantAbility.ShouldRevealCasterOnHostileEffectOrBarrierHit();
+					updateTargetLastKnownPos = relevantAbility.ShouldRevealTargetOnHostileEffectOrBarrierHit();
 				}
 			}
 			if (m_hitParameters.Effect != null && m_hitParameters.Effect.Target != null && m_hitParameters.Effect.Target.GetTeam() != m_hitParameters.Target.GetTeam())
 			{
-				flag7 = relevantAbility.ShouldRevealEffectHolderOnHostileEffectHit();
+				updateEffectHolderLastKnownPos = relevantAbility.ShouldRevealEffectHolderOnHostileEffectHit();
 			}
 		}
-		short num = (short)m_finalDamage;
-		short num2 = (short)m_finalHealing;
-		short num3 = (short)m_finalTechPointsGain;
-		short num4 = (short)m_finalTechPointsLoss;
-		short num5 = (short)m_finalTechPointGainOnCaster;
-		short num6 = (short)m_lifestealHealing;
-		byte b3 = ServerClientUtils.CreateBitfieldFromBools(flag, flag2, flag3, flag4, flag5, hasKnockback, m_targetInCoverWrtDamage, CanBeReactedTo);
-		writer.Write(b3);
-		byte b4 = ServerClientUtils.CreateBitfieldFromBools(m_damageBoosted, m_damageReduced, b, b2, flag7, flag8, m_isPartOfHealOverTime, flag6);
-		writer.Write(b4);
-		short num7;
-		if (HasKnockback && KnockbackHitData != null && KnockbackHitData.m_sourceActor != null)
+		byte bitField1 = ServerClientUtils.CreateBitfieldFromBools(hasDamage, hasHealing, hasTechPointGain, hasTechPointLoss, hasTechPointGainOnCaster, HasKnockback, m_targetInCoverWrtDamage, CanBeReactedTo);
+		writer.Write(bitField1);
+		byte bitField2 = ServerClientUtils.CreateBitfieldFromBools(m_damageBoosted, m_damageReduced, updateCasterLastKnownPos, updateTargetLastKnownPos, updateEffectHolderLastKnownPos, updateOtherLastKnownPos, m_isPartOfHealOverTime, triggerCasterVisOnHitVisualOnly);
+		writer.Write(bitField2);
+		if (hasDamage)
 		{
-			num7 = (short)KnockbackHitData.m_sourceActor.ActorIndex;
+			writer.Write((short)m_finalDamage);
 		}
-		else
+		if (hasHealing)
 		{
-			num7 = (short)ActorData.s_invalidActorIndex;
+			writer.Write((short)m_finalHealing);
 		}
-		short num8;
-		if (flag7)
+		if (hasTechPointGain)
 		{
-			num8 = (short)m_hitParameters.Effect.Target.ActorIndex;
+			writer.Write((short)m_finalTechPointsGain);
 		}
-		else
+		if (hasTechPointLoss)
 		{
-			num8 = (short)ActorData.s_invalidActorIndex;
+			writer.Write((short)m_finalTechPointsLoss);
 		}
-		if (flag)
+		if (hasTechPointGainOnCaster)
 		{
-			writer.Write(num);
+			writer.Write((short)m_finalTechPointGainOnCaster);
 		}
-		if (flag2)
+		// rogues
+		//if (triggerCasterVisOnHitVisualOnly)
+		//{
+		//	writer.Write((short)m_lifestealHealing);
+		//}
+		if (HasKnockback)
 		{
-			writer.Write(num2);
+			short actorIndex = HasKnockback && KnockbackHitData != null && KnockbackHitData.m_sourceActor != null
+				? (short)KnockbackHitData.m_sourceActor.ActorIndex
+				: (short)ActorData.s_invalidActorIndex;
+			writer.Write(actorIndex);
 		}
-		if (flag3)
-		{
-			writer.Write(num3);
-		}
-		if (flag4)
-		{
-			writer.Write(num4);
-		}
-		if (flag5)
-		{
-			writer.Write(num5);
-		}
-		if (flag6)
-		{
-			writer.Write(num6);
-		}
-		if (hasKnockback)
-		{
-			writer.Write(num7);
-		}
-		if ((flag && m_targetInCoverWrtDamage) || hasKnockback)
+		if ((hasDamage && m_targetInCoverWrtDamage) || HasKnockback)
 		{
 			Vector3 origin = m_hitParameters.Origin;
 			float x = origin.x;
@@ -2024,84 +2003,86 @@ public class ActorHitResults
 		//sbyte b5 = (sbyte)this.m_hitType;
 		//writer.Write(b5);
 
-		if (flag7)
+		if (updateEffectHolderLastKnownPos)
 		{
-			writer.Write(num8);
+			short effectHolderActor = updateEffectHolderLastKnownPos
+				? (short)m_hitParameters.Effect.Target.ActorIndex
+				: (short)ActorData.s_invalidActorIndex;
+			writer.Write(effectHolderActor);
 		}
-		if (flag8)
+		if (updateOtherLastKnownPos)
 		{
-			byte b6 = (byte)m_actorsToReveal.Count;
-			writer.Write(b6);
+			byte otherActorsToUpdateVisibilityNum = (byte)m_actorsToReveal.Count;
+			writer.Write(otherActorsToUpdateVisibilityNum);
 			for (int i = 0; i < m_actorsToReveal.Count; i++)
 			{
-				short num9 = (short)m_actorsToReveal[i].ActorIndex;
-				writer.Write(num9);
+				short actorIndex = (short)m_actorsToReveal[i].ActorIndex;
+				writer.Write(actorIndex);
 			}
 		}
-		object obj = m_effects != null && m_effects.Count > 0;
-		bool flag9 = m_effectsForRemoval != null && m_effectsForRemoval.Count > 0;
-		bool flag10 = m_barriers != null && m_barriers.Count > 0;
-		bool flag11 = m_barriersForRemoval != null && m_barriersForRemoval.Count > 0;
-		bool flag12 = m_sequencesToEnd != null && m_sequencesToEnd.Count > 0;
-		bool flag13 = m_reactions != null && m_reactions.Count > 0;
-		bool flag14 = m_powerupsForRemoval != null && m_powerupsForRemoval.Count > 0;
-		bool flag15 = m_powerUpsToSteal != null && m_powerUpsToSteal.Count > 0;
-		bool flag16 = m_directSpoilHitResults != null && m_directSpoilHitResults.Count > 0;
-		bool flag17 = m_gameModeEvents != null && m_gameModeEvents.Count > 0;
-		bool b7 = IsCharacterSpecificAbility();
-		bool flag18 = m_overconIds != null && m_overconIds.Count > 0;
+		bool hasEffectsToStart = m_effects != null && m_effects.Count > 0;
+		bool hasEffectsToRemove = m_effectsForRemoval != null && m_effectsForRemoval.Count > 0;
+		bool hasBarriersToAdd = m_barriers != null && m_barriers.Count > 0;
+		bool hasBarriersToRemove = m_barriersForRemoval != null && m_barriersForRemoval.Count > 0;
+		bool hasSequencesToEnd = m_sequencesToEnd != null && m_sequencesToEnd.Count > 0;
+		bool hasReactions = m_reactions != null && m_reactions.Count > 0;
+		bool hasPowerupsToRemove = m_powerupsForRemoval != null && m_powerupsForRemoval.Count > 0;
+		bool hasPowerupsToSteal = m_powerUpsToSteal != null && m_powerUpsToSteal.Count > 0;
+		bool hasDirectPowerupHits = m_directSpoilHitResults != null && m_directSpoilHitResults.Count > 0;
+		bool hasGameModeEvents = m_gameModeEvents != null && m_gameModeEvents.Count > 0;
+		bool isCharacterSpecificAbility = IsCharacterSpecificAbility();
+		bool hasOverconIds = m_overconIds != null && m_overconIds.Count > 0;
 
         // custom
         bool flag19 = false;
         // rogues
         //bool flag19 = m_dynamicGeoForDamage != null && m_dynamicGeoForDamage.Count > 0;
 
-        object obj2 = obj;
-		byte b8 = ServerClientUtils.CreateBitfieldFromBools(obj2 != null, flag9, flag11, flag12, flag13, flag14, flag15, flag16);
-		byte b9 = ServerClientUtils.CreateBitfieldFromBools(flag17, b7, flag10, flag18, flag19, false, false, false);
-		writer.Write(b8);
-		writer.Write(b9);
-		if (obj2 != null)
+		byte bitField3 = ServerClientUtils.CreateBitfieldFromBools(hasEffectsToStart, hasEffectsToRemove, hasBarriersToRemove, hasSequencesToEnd, hasReactions, hasPowerupsToRemove, hasPowerupsToSteal, hasDirectPowerupHits);
+		byte bitField4 = ServerClientUtils.CreateBitfieldFromBools(hasGameModeEvents, isCharacterSpecificAbility, hasBarriersToAdd, hasOverconIds, flag19, false, false, false);
+		writer.Write(bitField3);
+		writer.Write(bitField4);
+		if (hasEffectsToStart)
 		{
 			AbilityResultsUtils.SerializeEffectsToStartToStream(m_effects, writer);
 		}
-		if (flag9)
+		if (hasEffectsToRemove)
 		{
 			AbilityResultsUtils.SerializeEffectsForRemovalToStream(m_effectsForRemoval, writer);
 		}
-		if (flag10)
+		if (hasBarriersToAdd)
 		{
 			AbilityResultsUtils.SerializeBarriersToStartToStream(m_barriers, writer);
 		}
-		if (flag11)
+		if (hasBarriersToRemove)
 		{
 			AbilityResultsUtils.SerializeBarriersForRemovalToStream(m_barriersForRemoval, writer);
 		}
-		if (flag12)
+		if (hasSequencesToEnd)
 		{
 			AbilityResultsUtils.SerializeSequenceEndDataListToStream(m_sequencesToEnd, writer);
 		}
-		if (flag13)
+		if (hasReactions)
 		{
 			AbilityResultsUtils.SerializeServerReactionResultsToStream(m_reactions, writer);
 		}
-		if (flag14)
+		if (hasPowerupsToRemove)
 		{
 			AbilityResultsUtils.SerializePowerupsToRemoveToStream(m_powerupsForRemoval, writer);
 		}
-		if (flag15)
+		if (hasPowerupsToSteal)
 		{
 			AbilityResultsUtils.SerializePowerupsToStealToStream(m_powerUpsToSteal, writer);
 		}
-		if (flag16)
+		if (hasDirectPowerupHits)
 		{
 			AbilityResultsUtils.SerializeServerMovementResultsListToStream(m_directSpoilHitResults, writer);
 		}
-		if (flag17)
+		if (hasGameModeEvents)
 		{
 			AbilityResultsUtils.SerializeServerGameModeEventListToStream(m_gameModeEvents, writer);
 		}
-		if (flag18)
+		if (hasOverconIds)
 		{
 			AbilityResultsUtils.SerializeServerOverconListToStream(m_overconIds, writer);
 		}
