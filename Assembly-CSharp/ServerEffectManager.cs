@@ -122,7 +122,7 @@ public class ServerEffectManager : MonoBehaviour
 			//this.m_actorTriggers.Add(actorToAdd, new List<EffectTrigger>());
 		}
 
-		// rogues?
+		// rogues
 		//foreach (GearStatBlock gearStatBlock in actorToAdd.m_initialGearStatData)
 		//{
 		//	float rating = gearStatBlock.rating;
