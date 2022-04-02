@@ -1,6 +1,7 @@
 ﻿// ROGUES
 // SERVER
 //using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 //using Mirror;
 using UnityEngine;
@@ -10,11 +11,17 @@ using UnityEngine.Networking;
 #if SERVER
 public class PositionHitResults
 {
+	[JsonProperty]  // for logs
 	public PositionHitParameters m_hitParameters;
+	[JsonProperty]  // for logs
 	public List<Effect> m_effects;
+	[JsonProperty]  // for logs
 	private List<ServerAbilityUtils.EffectRemovalData> m_effectsForRemoval;
+	[JsonProperty]  // for logs
 	private List<ServerAbilityUtils.BarrierRemovalData> m_barriersForRemoval;
+	[JsonProperty]  // for logs
 	private List<Barrier> m_barriers;
+	[JsonProperty]  // for logs
 	private List<ServerClientUtils.SequenceEndData> m_sequencesToEnd;
 	// rogues
 	//private Dictionary<BoardSquare, int> m_dynamicGeoForDamage;

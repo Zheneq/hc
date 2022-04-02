@@ -80,6 +80,8 @@ public class Effect
 			return;
 		}
 		CreatedInAbilityPhase = AbilityPriority.INVALID;
+
+		Log.Info($"Created effect by {Caster}'s {Parent}: {GetInEditorDescription()}");
 	}
 
 	private Effect()
@@ -227,6 +229,7 @@ public class Effect
 
 	public void GatherEffectResults_Base(AbilityPriority phase, bool isReal)
 	{
+		Log.Info($"Gathering results for {Target.DisplayName}'s {GetDebugIdentifier()} (from {Caster.DisplayName}'s {Parent.GetName()}) in phase {phase} (real={isReal})");
 		if (phase == HitPhase)
 		{
 			if (m_effectResults.GatheredResults && isReal)

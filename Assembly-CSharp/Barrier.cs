@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using AbilityContextNamespace;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -10,17 +11,25 @@ public class Barrier
 {
 	private string m_name;
 
+	[JsonProperty]  // for logs
 	private Vector3 m_center;
+	[JsonProperty]  // for logs
 	private Vector3 m_endpoint1;
+	[JsonProperty]  // for logs
 	private Vector3 m_endpoint2;
+	[JsonProperty]  // for logs
 	private Vector3 m_facingDir;
 
+	[JsonProperty]  // for logs
 	private bool m_bidirectional;
+	[JsonProperty]  // for logs
 	private bool m_makeClientGeo;
 
 	private GameObject m_generatedClientGeometry;
 
+	[JsonProperty]  // for logs
 	private Team m_team;
+	[JsonProperty]  // for logs
 	private ActorData m_owner;
 
 #if SERVER

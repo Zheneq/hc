@@ -805,10 +805,12 @@ public class ServerEffectManager : MonoBehaviour
 		if (!isEnd)
 		{
 			time.age++;
+			Log.Info($"Updating effect age: {effect.GetDebugIdentifier()} ({time.age})");
 			return false;
 		}
 		else
 		{
+			Log.Info($"Checking effect age: {effect.GetDebugIdentifier()} (readyToEnd={time.ReadyToEnd()})");
 			return time.ReadyToEnd();
 		}
 	}

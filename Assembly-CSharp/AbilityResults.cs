@@ -1,5 +1,6 @@
 ﻿// ROGUES
 // SERVER
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ public class AbilityResults
 	public Dictionary<ActorData, ActorHitResults> m_actorToHitResults;
 	public Dictionary<Vector3, PositionHitResults> m_positionToHitResults;
 	public List<NonActorTargetInfo> m_nonActorTargetInfo;
+	[JsonProperty] // for logs
 	private List<ServerClientUtils.SequenceStartData> m_abilityRunSequenceDataList;
 	private Dictionary<ActorData, int> m_damageResults;
 	private Dictionary<ActorData, int> m_damageResults_gross;

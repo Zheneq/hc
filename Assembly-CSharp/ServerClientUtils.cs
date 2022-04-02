@@ -1,6 +1,7 @@
 ﻿// ROGUES
 // SERVER
 //using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 //using Mirror;
 using UnityEngine;
@@ -448,9 +449,13 @@ public static class ServerClientUtils
 			SequenceSourceId
 		}
 
+		[JsonProperty]  // for logs
 		private short m_prefabId;
+		[JsonProperty]  // for logs
 		private uint m_association;
+		[JsonProperty]  // for logs
 		private AssociationType m_associationType;
+		[JsonProperty]  // for logs
 		private Vector3 m_targetPos;
 
 		public SequenceEndData(int prefabIdToEnd, AssociationType associationType, int guid, Vector3 targetPos)

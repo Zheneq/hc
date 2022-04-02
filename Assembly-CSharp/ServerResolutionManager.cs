@@ -542,6 +542,9 @@ public class ServerResolutionManager : NetworkBehaviour
 			singleResolutionAction.m_turn = GameFlowData.Get().CurrentTurn;
 			singleResolutionAction.m_abilityPhase = m_currentAbilityPhase;
 			singleResolutionAction.m_actionServer = action;
+
+			Log.Info($"SendSinglePhaseResolutionActionToClients: Turn {singleResolutionAction.m_turn}, Phase {singleResolutionAction.m_abilityPhase}, Action {DefaultJsonSerializer.Serialize(action)}");
+
 			if (ClientAbilityResults.DebugTraceOn || ClientAbilityResults.DebugSerializeSizeOn)
 			{
 				Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader + "Sending single actions to clients for phase " + m_currentAbilityPhase.ToString() + ".");
