@@ -14,11 +14,8 @@ public class AbilityResults
 	private bool m_forBotScoring;
 	private int m_cinematicRequested;
 	private bool m_gatheredResults;
-	[System.NonSerialized]
 	public Dictionary<ActorData, ActorHitResults> m_actorToHitResults;
-	[System.NonSerialized]
 	public Dictionary<Vector3, PositionHitResults> m_positionToHitResults;
-	[System.NonSerialized]
 	public List<NonActorTargetInfo> m_nonActorTargetInfo;
 	private List<ServerClientUtils.SequenceStartData> m_abilityRunSequenceDataList;
 	private Dictionary<ActorData, int> m_damageResults;

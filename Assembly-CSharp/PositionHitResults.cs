@@ -16,7 +16,8 @@ public class PositionHitResults
 	private List<ServerAbilityUtils.BarrierRemovalData> m_barriersForRemoval;
 	private List<Barrier> m_barriers;
 	private List<ServerClientUtils.SequenceEndData> m_sequencesToEnd;
-	private Dictionary<BoardSquare, int> m_dynamicGeoForDamage;
+	// rogues
+	//private Dictionary<BoardSquare, int> m_dynamicGeoForDamage;
 	private List<MovementResults> m_reactionsOnPosHit;
 	private HitPosDelegate m_hitDelegate;
 
@@ -112,18 +113,19 @@ public class PositionHitResults
 		m_sequencesToEnd.Add(item);
 	}
 
-	public void AddDynamicMissionGeometryDamage(BoardSquare geoSquare, int damage)
-	{
-		if (m_dynamicGeoForDamage == null)
-		{
-			m_dynamicGeoForDamage = new Dictionary<BoardSquare, int>();
-		}
-		if (m_dynamicGeoForDamage.ContainsKey(geoSquare))
-		{
-			damage += m_dynamicGeoForDamage[geoSquare];
-		}
-		m_dynamicGeoForDamage[geoSquare] = damage;
-	}
+	// rogues
+	//public void AddDynamicMissionGeometryDamage(BoardSquare geoSquare, int damage)
+	//{
+	//	if (m_dynamicGeoForDamage == null)
+	//	{
+	//		m_dynamicGeoForDamage = new Dictionary<BoardSquare, int>();
+	//	}
+	//	if (m_dynamicGeoForDamage.ContainsKey(geoSquare))
+	//	{
+	//		damage += m_dynamicGeoForDamage[geoSquare];
+	//	}
+	//	m_dynamicGeoForDamage[geoSquare] = damage;
+	//}
 
 	public void AddReactionOnPositionHit(MovementResults results)
 	{

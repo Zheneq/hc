@@ -756,10 +756,7 @@ public class ServerEffectManager : MonoBehaviour
 		List<global::Effect> list = new List<global::Effect>();
 		foreach (global::Effect effect in effectList.ToList<global::Effect>())
 		{
-			// rogues?
-			//bool flag = this.ValidateEffectLifetime(effect, false);
-			// custom
-			bool flag = false;
+			bool flag = this.ValidateEffectLifetime(effect, false);
 
 			// rogues?
 			//EffectSystem.Effect effect2 = effect as EffectSystem.Effect;
@@ -794,13 +791,13 @@ public class ServerEffectManager : MonoBehaviour
 		}
 	}
 
-	public void OnTurnEnd(Team nextTeam)
+	public void OnTurnEnd()  // Team nextTeam in rogues
 	{
 		foreach (List<global::Effect> effectList in this.m_actorEffects.Values)
 		{
-			this.OnTurnEnd(effectList, nextTeam);
+			this.OnTurnEnd(effectList); // , nextTeam in rogues
 		}
-		this.OnTurnEnd(this.m_worldEffects, nextTeam);
+		this.OnTurnEnd(this.m_worldEffects); // , nextTeam in rogues
 	}
 
 	// rogues?
@@ -863,16 +860,13 @@ public class ServerEffectManager : MonoBehaviour
 	//	return time.ReadyToEnd();
 	//}
 
-	private void OnTurnEnd(List<global::Effect> effectList, Team nextTeam)
+	private void OnTurnEnd(List<global::Effect> effectList)  // , Team nextTeam in rogues
 	{
 		this.m_actorsAddedThisTurn.Clear();
 		List<global::Effect> list = new List<global::Effect>();
 		foreach (global::Effect effect in effectList.ToList<global::Effect>())
 		{
-			// rogues?
-			//bool flag = this.ValidateEffectLifetime(effect, true);
-			// custom
-			bool flag = false;
+			bool flag = this.ValidateEffectLifetime(effect, true);
 
 			// rogues?
 			//EffectSystem.Effect effect2 = effect as EffectSystem.Effect;
