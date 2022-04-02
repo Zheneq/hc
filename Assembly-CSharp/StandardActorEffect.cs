@@ -160,6 +160,10 @@ public class StandardActorEffect : Effect
 				RemoveMods();
 			}
 		}
+
+		// TODO EFFECTS might break stacking
+		// custom -- statuses don't seem to be removed otherwise
+		RemoveMods();
 	}
 
 	public override void OnStackCountChanged(int previousStackCount, int previousAge)
