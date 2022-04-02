@@ -1,10 +1,12 @@
-using I2.Loc;
+﻿// ROGUES
 using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+//using CoOp;
+using I2.Loc;
 using UnityEngine;
 
 public class ClientBootstrap : MonoBehaviour
@@ -24,19 +26,20 @@ public class ClientBootstrap : MonoBehaviour
 		m_commandLine = Environment.GetCommandLineArgs();
 		m_asyncPump = new AsyncPump();
 		SynchronizationContext.SetSynchronizationContext(m_asyncPump);
+		InitializeServerConfig(); // added in rogues
 		ParseCommandLine();
 		HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
-		hydrogenConfig.ProcessType = ProcessType.AtlasReactor;
+		hydrogenConfig.ProcessType = ProcessType.AtlasReactor;  // ProcessType.AtlasRogues in rogues
 		if (hydrogenConfig.ProcessCode.IsNullOrEmpty())
 		{
-			hydrogenConfig.ProcessCode = ProcessManager.Get().GetNextProcessCode(null, true);
+			hydrogenConfig.ProcessCode = ProcessManager.Get().GetNextProcessCode(null, true);  // .GetNextProcessCode(null, false) in rogues
 		}
 		if (hydrogenConfig.EnableLogging)
 		{
 			UnityConsoleLog.MinLevel = Log.FromString(hydrogenConfig.MinConsoleLogLevel);
 			if (Path.GetFileName(hydrogenConfig.LogFilePath).IsNullOrEmpty())
 			{
-				hydrogenConfig.LogFilePath = $"{hydrogenConfig.LogFilePath}/AtlasReactor-{hydrogenConfig.ProcessCode}.log";
+				hydrogenConfig.LogFilePath = $"{hydrogenConfig.LogFilePath}/AtlasReactor-{hydrogenConfig.ProcessCode}.log";   // AtlasRogues- in rogues
 			}
 			m_fileLog = new FileLog
 			{
@@ -53,23 +56,32 @@ public class ClientBootstrap : MonoBehaviour
 		string buildInfoString = BuildInfo.GetBuildInfoString();
 		Log.Notice("{0}", buildInfoString);
 		Console.WriteLine(buildInfoString);
+
+		// reactor
 		if (!hydrogenConfig.ProcessCode.IsNullOrEmpty())
 		{
 			Log.Notice("Process: AtlasReactor-{0}", hydrogenConfig.ProcessCode);
 		}
+		// rogues
+		//Log.Notice("Process: AtlasRogues-{0}", hydrogenConfig.ProcessCode);
+
+		//hydrogenConfig.DevMode = false;  // added in rogues
+		hydrogenConfig.ServerMode = false;
 		if (hydrogenConfig.Language == null)
 		{
 			hydrogenConfig.Language = "en";
 		}
 		LocalizationManager.SetBootupLanguage(hydrogenConfig.Language);
-		hydrogenConfig.Language = LocalizationManager.CurrentLanguageCode;
-		hydrogenConfig.ServerMode = false;
+		hydrogenConfig.Language = LocalizationManager.CurrentLanguageCode;  // removed in rogues
 		SslValidator.AcceptableSslPolicyErrors = hydrogenConfig.AcceptableSslPolicyErrors;
 		Instance = this;
 	}
 
 	private void Start()
 	{
+		// rogues
+		//HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
+
 		AppState_Startup.Create();
 		AppState_Shutdown.Create();
 		AppState_LandingPage.Create();
@@ -82,6 +94,23 @@ public class ClientBootstrap : MonoBehaviour
 		AppState_FoundGame.Create();
 		AppState_GameTeardown.Create();
 		AppState_FullScreenMovie.Create();
+
+		// rogues
+		//if (hydrogenConfig.UseMissionFrontendFlow)
+		//{
+		//	if (hydrogenConfig.UseMissionSelect)
+		//	{
+		//		AppState_MissionSelect.Create();
+		//		AppState_MissionCharacterSelect.Create();
+		//	}
+		//	else
+		//	{
+		//		AppState_AllstarsTitle.Create();
+		//		AppState_AllstarsMap.Create();
+		//		AppState_AllstarsCharacter.Create();
+		//	}
+		//}
+
 		AppState_InGameDecision.Create();
 		AppState_InGameResolve.Create();
 		AppState_InGameStarting.Create();
@@ -89,14 +118,14 @@ public class ClientBootstrap : MonoBehaviour
 		AppState_InGameEnding.Create();
 		AppState_GameLoading.Create();
 		AppState_GroupCharacterSelect.Create();
-		AppState_RankModeDraft.Create();
-		AppState_LandingPage.Create();
+		AppState_RankModeDraft.Create(); // removed in rogues
+		//AppState_LandingPage.Create(); // duplicate removed in rogues
 		if (GetComponent<ClientIdleTimer>() == null)
 		{
 			gameObject.AddComponent<ClientIdleTimer>();
 		}
 		CommerceClient.Get();
-		DebugCommands.Instantiate();
+		DebugCommands.Instantiate(); // removed in rogues
 		SlashCommands.Instantiate();
 		TextConsole.Instantiate();
 		if (LoadTest)
@@ -111,13 +140,14 @@ public class ClientBootstrap : MonoBehaviour
 		{
 			AppState_Startup.Get().Enter();
 		}
-		if (LoadTest
-			&& AppState.GetCurrent() == AppState_LandingPage.Get()
-			&& UIFrontEnd.Get() != null)
+		if (LoadTest && AppState.GetCurrent() == AppState_LandingPage.Get())
 		{
-			AppState_LandingPage.Get().OnQuickPlayClicked();
-			ClientGameManager.Get().GroupInfo.SelectedQueueType = GameType.PvP;
-			AppState_GroupCharacterSelect.Get().UpdateReadyState(true);
+			if (UIFrontEnd.Get() != null)  // broken code in rogues
+			{
+				AppState_LandingPage.Get().OnQuickPlayClicked();
+				ClientGameManager.Get().GroupInfo.SelectedQueueType = GameType.PvP;
+				AppState_GroupCharacterSelect.Get().UpdateReadyState(true);
+			}
 		}
 		if (m_fileLog != null)
 		{
@@ -141,6 +171,7 @@ public class ClientBootstrap : MonoBehaviour
 		}
 	}
 
+	// reactor
 	private void ParseCommandLine()
 	{
 		HydrogenConfig envConfig = HydrogenConfig.Get();
@@ -236,6 +267,7 @@ public class ClientBootstrap : MonoBehaviour
 		envConfig.EnvironmentName = environment;
 	}
 
+	// removed in rogues
 	public void WriteLine(string format, params object[] args)
 	{
 		if (m_fileLog != null && m_fileLog.File != null)
@@ -246,8 +278,34 @@ public class ClientBootstrap : MonoBehaviour
 		}
 	}
 
+	// added in rogues
+	private void InitializeServerConfig()
+	{
+		string text = "unknown";
+		try
+		{
+			text = Application.dataPath + "/../Config/CommonServerConfig.json";
+			if (Application.isEditor)
+			{
+				text = Application.dataPath + "/../../../Build/AtlasRogues/Config/CommonServerConfig.json";
+			}
+			CommonServerConfig commonServerConfig = new CommonServerConfig();
+			commonServerConfig.Initialize(text);
+			CommonServerConfig.Set(commonServerConfig);
+		}
+		catch (Exception ex)
+		{
+			Log.Warning("Failed to load {0}: {1}", new object[]
+			{
+				text,
+				ex.Message
+			});
+		}
+	}
+
 	private void OnApplicationQuit()
 	{
+		// removed in rogues
 		WriteLine("Quit application");
 	}
 
@@ -259,6 +317,7 @@ public class ClientBootstrap : MonoBehaviour
 	{
 		string responseStr = response.Success ? "Success" : response.ErrorMessage;
 		Log.Info($"Loadtest lobby ready response: {responseStr}");
+		// removed in rogues
 		LobbyGameConfig lobbyGameConfig = new LobbyGameConfig
 		{
 			GameType = GameType.Coop
@@ -278,10 +337,10 @@ public class ClientBootstrap : MonoBehaviour
 			}
 		}
 		ClientGameManager.Get().CreateGame(
-			lobbyGameConfig,
+			lobbyGameConfig,  // null in rogues
 			ReadyState.Ready,
-			BotDifficulty.Easy,
-			BotDifficulty.Easy,
+			BotDifficulty.Easy,  // 0 in rogues
+			BotDifficulty.Easy,  // 0 in rogues
 			delegate (CreateGameResponse r)
 			{
 				if (!r.Success)
