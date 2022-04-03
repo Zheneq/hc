@@ -32,7 +32,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 
 	internal const string c_actorAnimDebugHeader = "<color=cyan>Theatrics: </color>";
 
-	internal static bool DebugTraceExecution => false;
+	internal static bool DebugTraceExecution => true;
 	internal static bool TraceTheatricsSerialization => false;
 
 	internal static TheatricsManager Get()
