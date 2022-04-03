@@ -468,6 +468,7 @@ public class GameEventManager
 
 	public bool FireEvent(EventType eventType, GameEventArgs args)
 	{
+		Log.Info($"GameEventManager::FireEvent {eventType}");
 		return FireEvent(eventType, args, null);
 	}
 
