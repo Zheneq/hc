@@ -279,10 +279,13 @@ public static class DefaultJsonSerializer
 		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
 			ClientEffectData v = (ClientEffectData)value;
-			JObject res = new JObject();
-			res.Add("sequences", JToken.FromObject(v.m_sequences.Select((Sequence x) => x.Id)));
-			res.Add("target", JToken.FromObject(v.m_target.GetDebugName()));
-			res.Add("statuses", JToken.FromObject(v.m_statuses.Select((StatusType x) => x.ToString())));
+
+			JObject res = new JObject
+			{
+				{ "sequences", JToken.FromObject(v.m_sequences.Select((Sequence x) => x.Id)) },
+				{ "target", v.m_target ? JToken.FromObject(v.m_target.DebugNameString()) : null },
+				{ "statuses", JToken.FromObject(v.m_statuses.Select((StatusType x) => x.ToString())) }
+			};
 			res.WriteTo(writer);
 		}
 

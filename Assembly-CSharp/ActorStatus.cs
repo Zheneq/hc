@@ -17,7 +17,7 @@ public class ActorStatus : NetworkBehaviour
 	private static int kListm_statusCounts = -7231791;
 	private static int kListm_statusDurations = 625641650;
 
-	public static bool DebugLog => true
+	public static bool DebugTraceOn => true;
 
 	static ActorStatus()
 	{

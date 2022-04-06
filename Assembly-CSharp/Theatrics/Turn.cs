@@ -29,9 +29,9 @@ namespace Theatrics
 		public string Json()
 		{
 			string phases = "";
-			if (!Phases.IsNullOrEmpty())
+			if (!m_abilityPhases.IsNullOrEmpty())
 			{
-				foreach (var e in Phases)
+				foreach (var e in m_abilityPhases)
 				{
 					phases += (phases.Length == 0 ? "" : ",\n") + e.Json();
 				}

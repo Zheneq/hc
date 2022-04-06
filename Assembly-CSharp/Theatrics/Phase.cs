@@ -68,6 +68,11 @@ namespace Theatrics
 			m_turnActionsDone = true;
 		}
 
+		public string Json()
+		{
+			return $"<Phase with {m_actorAnimations.Count} anims>";
+		}
+
 		internal void Init()
 		{
 			foreach (ActorAnimation actorAnimation in m_actorAnimations)

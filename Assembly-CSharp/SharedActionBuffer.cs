@@ -122,7 +122,7 @@ public class SharedActionBuffer : NetworkBehaviour
 		{
 			HookSetAbilityPhase((AbilityPriority)reader.ReadInt32());
 		}
-		LogJson(num);
+		LogJson(dirtyBits);
 	}
 
 	private void LogJson(int mask = System.Int32.MaxValue)
