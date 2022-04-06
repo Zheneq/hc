@@ -10,9 +10,7 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	public class PowerupSpawnInfo
 	{
 		public PowerUp m_powerupObjectPrefab;
-
 		public GameObject m_baseSeqPrefab;
-
 		public GameObject m_spawnSeqPrefab;
 	}
 
@@ -26,53 +24,35 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 
 	[Separator("Default Prefabs", true)]
 	public PowerUp m_powerUpPrefab;
-
 	public GameObject m_baseSequencePrefab;
-
 	public GameObject m_spawnSequencePrefab;
 
 	[Separator("Additional Prefabs for mixing up powerup to spawn", true)]
 	public ExtraPowerupSelectMode m_extraPowerupSelectMode;
-
 	public List<PowerupSpawnInfo> m_extraPowerupsForMixedSpawn;
-
 	public bool m_useSameFirstPowerupIfRandom = true;
 
 	[Separator("Timing of spawns", true)]
 	public int m_spawnInterval;
-
 	public int m_initialSpawnDelay;
-
 	public Team m_teamRestriction;
-
 	public string[] m_tagsToApplyToPowerup;
 
 	private List<PowerupSpawnInfo> m_finalizedPowerupSpawnInfoList;
-
 	[SyncVar]
 	private uint m_sequenceSourceId;
-
 	private Sequence[] m_baseSequences;
-
 	private Sequence[] m_spawnSequences;
-
 	private int m_lastServerSpawnPrefabIndex = -1;
-
 	private int m_currentBasePrefabIndex = -1;
-
 	[SyncVar]
 	private int m_nextPowerupPrefabIndex;
-
 	[SyncVar(hook = "HookNextSpawnTurn")]
 	private int m_nextSpawnTurn;
-
 	private PowerUp m_powerUpInstance;
-
 	[SyncVar]
 	private bool m_spawningEnabled = true;
-
 	private bool m_initialized;
-
 	private bool m_isReady = true;
 
 	public BoardSquare boardSquare => m_boardSquare;
@@ -81,16 +61,7 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		get
 		{
-			int result;
-			if (m_spawningEnabled)
-			{
-				result = (m_isReady ? 1 : 0);
-			}
-			else
-			{
-				result = 0;
-			}
-			return (byte)result != 0;
+			return m_spawningEnabled && m_isReady;
 		}
 	}
 
@@ -132,11 +103,11 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			ref int nextSpawnTurn = ref m_nextSpawnTurn;
 			if (NetworkServer.localClientActive)
 			{
-				if (!base.syncVarHookGuard)
+				if (!syncVarHookGuard)
 				{
-					base.syncVarHookGuard = true;
+					syncVarHookGuard = true;
 					HookNextSpawnTurn(value);
-					base.syncVarHookGuard = false;
+					syncVarHookGuard = false;
 				}
 			}
 			SetSyncVar(value, ref nextSpawnTurn, 4u);
@@ -158,51 +129,34 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 
 	private int ChooseNextPrefabSpawnIndex(bool isForFirstSpawn = false)
 	{
-		int result = 0;
-		if (m_extraPowerupsForMixedSpawn != null)
+		if (m_extraPowerupsForMixedSpawn == null)
 		{
-			int count = m_finalizedPowerupSpawnInfoList.Count;
-			if (m_extraPowerupSelectMode == ExtraPowerupSelectMode.InOrder)
+			return 0;
+		}
+		if (m_extraPowerupSelectMode == ExtraPowerupSelectMode.InOrder)
+		{
+			if (m_lastServerSpawnPrefabIndex >= 0)
 			{
-				if (m_lastServerSpawnPrefabIndex >= 0)
-				{
-					result = (m_lastServerSpawnPrefabIndex + 1) % count;
-				}
-				else
-				{
-					result = 0;
-				}
-			}
-			else if (m_extraPowerupSelectMode == ExtraPowerupSelectMode.Random)
-			{
-				if (isForFirstSpawn)
-				{
-					if (m_useSameFirstPowerupIfRandom)
-					{
-						result = 0;
-						goto IL_0096;
-					}
-				}
-				result = UnityEngine.Random.Range(0, count);
+				return (m_lastServerSpawnPrefabIndex + 1) % m_finalizedPowerupSpawnInfoList.Count;
 			}
 		}
-		goto IL_0096;
-		IL_0096:
-		return result;
+		else if (m_extraPowerupSelectMode == ExtraPowerupSelectMode.Random)
+		{
+			if (!isForFirstSpawn || !m_useSameFirstPowerupIfRandom)
+			{
+				return UnityEngine.Random.Range(0, m_finalizedPowerupSpawnInfoList.Count);
+			}
+		}
+		return 0;
 	}
 
 	private void HookNextSpawnTurn(int nextSpawnTurn)
 	{
-		bool flag = m_nextSpawnTurn != nextSpawnTurn;
+		bool isChange = m_nextSpawnTurn != nextSpawnTurn;
 		Networkm_nextSpawnTurn = nextSpawnTurn;
-		if (!flag)
-		{
-			return;
-		}
-		while (true)
+		if (isChange)
 		{
 			UpdateTimerController();
-			return;
 		}
 	}
 
@@ -216,71 +170,47 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	public void Awake()
 	{
 		m_finalizedPowerupSpawnInfoList = new List<PowerupSpawnInfo>();
-		PowerupSpawnInfo powerupSpawnInfo = new PowerupSpawnInfo();
-		powerupSpawnInfo.m_powerupObjectPrefab = m_powerUpPrefab;
-		powerupSpawnInfo.m_baseSeqPrefab = m_baseSequencePrefab;
-		powerupSpawnInfo.m_spawnSeqPrefab = m_spawnSequencePrefab;
-		m_finalizedPowerupSpawnInfoList.Add(powerupSpawnInfo);
-		if (m_extraPowerupsForMixedSpawn != null)
+		PowerupSpawnInfo powerupSpawnInfo = new PowerupSpawnInfo
 		{
-			if (m_extraPowerupsForMixedSpawn.Count > 0)
+			m_powerupObjectPrefab = m_powerUpPrefab,
+			m_baseSeqPrefab = m_baseSequencePrefab,
+			m_spawnSeqPrefab = m_spawnSequencePrefab
+		};
+		m_finalizedPowerupSpawnInfoList.Add(powerupSpawnInfo);
+		if (m_extraPowerupsForMixedSpawn != null && m_extraPowerupsForMixedSpawn.Count > 0)
+		{
+			foreach (PowerupSpawnInfo extraPowerupSpawnInfo in m_extraPowerupsForMixedSpawn)
 			{
-				for (int i = 0; i < m_extraPowerupsForMixedSpawn.Count; i++)
+				if (extraPowerupSpawnInfo.m_powerupObjectPrefab != null
+					&& extraPowerupSpawnInfo.m_baseSeqPrefab != null)
 				{
-					PowerupSpawnInfo powerupSpawnInfo2 = m_extraPowerupsForMixedSpawn[i];
-					if (!(powerupSpawnInfo2.m_powerupObjectPrefab != null))
-					{
-						continue;
-					}
-					if (powerupSpawnInfo2.m_baseSeqPrefab != null)
-					{
-						m_finalizedPowerupSpawnInfoList.Add(powerupSpawnInfo2);
-					}
+					m_finalizedPowerupSpawnInfoList.Add(extraPowerupSpawnInfo);
 				}
 			}
 		}
-		if (!NetworkServer.active)
-		{
-			return;
-		}
-		while (true)
+		if (NetworkServer.active)
 		{
 			Networkm_nextPowerupPrefabIndex = ChooseNextPrefabSpawnIndex(true);
-			return;
 		}
 	}
 
 	public void Start()
 	{
-		if (!NetworkClient.active)
-		{
-			return;
-		}
-		while (true)
+		if (NetworkClient.active)
 		{
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.ReplayRestart);
-			return;
 		}
 	}
 
 	private void Initialize()
 	{
-		if (m_initialized)
-		{
-			return;
-		}
-		while (true)
+		if (!m_initialized)
 		{
 			m_initialized = true;
 			PowerUpManager.AddListenerStatic(this);
-			Board board = Board.Get();
-			Vector3 position = base.transform.position;
-			float x = position.x;
-			Vector3 position2 = base.transform.position;
-			m_boardSquare = board.GetSquareFromPos(x, position2.z);
+			m_boardSquare = Board.Get().GetSquareFromPos(transform.position.x, transform.position.z);
 			PlayBaseSequence();
-			base.transform.parent = PowerUpManager.Get().GetSpawnerRoot().transform;
-			return;
+			transform.parent = PowerUpManager.Get().GetSpawnerRoot().transform;
 		}
 	}
 
@@ -290,14 +220,9 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			PowerUpManager.Get().RemoveListener(this);
 		}
-		if (!NetworkClient.active)
-		{
-			return;
-		}
-		while (true)
+		if (NetworkClient.active)
 		{
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.ReplayRestart);
-			return;
 		}
 	}
 
@@ -308,17 +233,12 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			baseSeqPrefab = m_finalizedPowerupSpawnInfoList[m_nextPowerupPrefabIndex].m_baseSeqPrefab;
 		}
-		if (!(baseSeqPrefab != null))
-		{
-			return;
-		}
-		while (true)
+		if (baseSeqPrefab != null)
 		{
 			SequenceSource source = new SequenceSource(null, null, m_sequenceSourceId, false);
 			m_baseSequences = SequenceManager.Get().CreateClientSequences(baseSeqPrefab, m_boardSquare, null, null, source, null);
 			SetSequencesRoot(m_baseSequences);
 			UpdateTimerController();
-			return;
 		}
 	}
 
@@ -338,39 +258,14 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 
 	private void SetSequencesRoot(Sequence[] sequences)
 	{
-		if (sequences == null)
+		if (sequences != null && PowerUpManager.Get() != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!(PowerUpManager.Get() != null))
+			foreach (Sequence sequence in sequences)
 			{
-				return;
-			}
-			while (true)
-			{
-				foreach (Sequence sequence in sequences)
+				if (sequence != null)
 				{
-					if (!(sequence != null))
-					{
-						continue;
-					}
-					while (true)
-					{
-						sequence.transform.parent = PowerUpManager.Get().GetSpawnedPersistentSequencesRoot().transform;
-						return;
-					}
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
+					sequence.transform.parent = PowerUpManager.Get().GetSpawnedPersistentSequencesRoot().transform;
+					return;
 				}
 			}
 		}
@@ -378,11 +273,7 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 
 	private void UpdateTimerController()
 	{
-		if (m_baseSequences == null)
-		{
-			return;
-		}
-		while (true)
+		if (m_baseSequences != null)
 		{
 			for (int i = 0; i < m_baseSequences.Length; i++)
 			{
@@ -395,62 +286,33 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 					m_baseSequences[i].SetTimerController(5);
 				}
 			}
-			return;
 		}
 	}
 
 	private void Update()
 	{
 		UpdateTimerController();
-		if (!m_initialized)
+		if (!m_initialized && (VisualsLoader.Get() == null || VisualsLoader.Get().LevelLoaded()))
 		{
-			if (!(VisualsLoader.Get() == null))
-			{
-				if (!VisualsLoader.Get().LevelLoaded())
-				{
-					goto IL_0050;
-				}
-			}
 			Initialize();
 		}
-		goto IL_0050;
-		IL_0050:
-		if (!m_initialized || !NetworkClient.active)
+		if (m_initialized
+			&& NetworkClient.active
+			&& m_nextPowerupPrefabIndex >= 0
+			&& m_currentBasePrefabIndex != m_nextPowerupPrefabIndex)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_nextPowerupPrefabIndex >= 0 && m_currentBasePrefabIndex != m_nextPowerupPrefabIndex)
-			{
-				while (true)
-				{
-					ClearPreviousBaseSpawnSequences();
-					PlayBaseSequence();
-					m_currentBasePrefabIndex = m_nextPowerupPrefabIndex;
-					return;
-				}
-			}
-			return;
+			ClearPreviousBaseSpawnSequences();
+			PlayBaseSequence();
+			m_currentBasePrefabIndex = m_nextPowerupPrefabIndex;
 		}
 	}
 
 	private void OnDrawGizmos()
 	{
-		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
+		if (CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			Gizmos.DrawIcon(transform.position, "icon_PowerUp.png");
 		}
-		Gizmos.DrawIcon(base.transform.position, "icon_PowerUp.png");
 	}
 
 	void PowerUp.IPowerUpListener.OnPowerUpDestroyed(PowerUp destroyedPowerUp)
@@ -467,7 +329,7 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 
 	PowerUp[] PowerUp.IPowerUpListener.GetActivePowerUps()
 	{
-		return new PowerUp[1]
+		return new PowerUp[]
 		{
 			m_powerUpInstance
 		};
@@ -485,32 +347,20 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 
 	private void ClearPreviousSpawnSequences()
 	{
-		if (m_spawnSequences == null)
-		{
-			return;
-		}
-		while (true)
+		if (m_spawnSequences != null)
 		{
 			Sequence[] spawnSequences = m_spawnSequences;
 			foreach (Sequence sequence in spawnSequences)
 			{
 				sequence.MarkForRemoval();
 			}
-			while (true)
-			{
-				m_spawnSequences = null;
-				return;
-			}
+			m_spawnSequences = null;
 		}
 	}
 
 	private void ClearPreviousBaseSpawnSequences()
 	{
-		if (m_baseSequences == null)
-		{
-			return;
-		}
-		while (true)
+		if (m_baseSequences != null)
 		{
 			Sequence[] baseSequences = m_baseSequences;
 			foreach (Sequence sequence in baseSequences)
@@ -518,7 +368,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 				sequence.MarkForRemoval();
 			}
 			m_baseSequences = null;
-			return;
 		}
 	}
 
@@ -526,12 +375,9 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		UpdateTimerController();
 		ClearPreviousSpawnSequences();
-		if (m_nextSpawnTurn == GameFlowData.Get().CurrentTurn)
+		if (m_nextSpawnTurn == GameFlowData.Get().CurrentTurn && IsEnabled)
 		{
-			if (IsEnabled)
-			{
-				PlaySpawnSequence();
-			}
+			PlaySpawnSequence();
 		}
 		if (NetworkServer.active)
 		{
@@ -547,16 +393,11 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 				m_powerUpInstance.OnTurnTick();
 			}
 		}
-		if (m_nextPowerupPrefabIndex < 0 || m_currentBasePrefabIndex == m_nextPowerupPrefabIndex)
-		{
-			return;
-		}
-		while (true)
+		if (m_nextPowerupPrefabIndex >= 0 && m_currentBasePrefabIndex != m_nextPowerupPrefabIndex)
 		{
 			ClearPreviousBaseSpawnSequences();
 			PlayBaseSequence();
 			m_currentBasePrefabIndex = m_nextPowerupPrefabIndex;
-			return;
 		}
 	}
 
@@ -579,17 +420,8 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void PowerUpSpawner::SpawnPowerUp()' called on client");
-					return;
-				}
-			}
+			Debug.LogWarning("[Server] function 'System.Void PowerUpSpawner::SpawnPowerUp()' called on client");
+			return;
 		}
 		PowerUp powerupObjectPrefab = m_finalizedPowerupSpawnInfoList[0].m_powerupObjectPrefab;
 		m_lastServerSpawnPrefabIndex = 0;
@@ -602,40 +434,19 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			Debug.LogError("Powerup Spawn Index is larger than number of prefabs to choose from");
 		}
-		if (!powerupObjectPrefab)
+		if (powerupObjectPrefab)
 		{
-			return;
-		}
-		while (true)
-		{
-			Vector3 position = boardSquare.ToVector3();
-			m_powerUpInstance = UnityEngine.Object.Instantiate(powerupObjectPrefab, position, Quaternion.identity);
+			m_powerUpInstance = Instantiate(powerupObjectPrefab, boardSquare.ToVector3(), Quaternion.identity);
 			m_powerUpInstance.SetPickupTeam(m_teamRestriction);
-			GameObject gameObject = m_powerUpInstance.gameObject;
 			m_powerUpInstance.powerUpListener = this;
-			NetworkServer.Spawn(gameObject);
+			NetworkServer.Spawn(m_powerUpInstance.gameObject);
 			m_powerUpInstance.CalculateBoardSquare();
 			m_powerUpInstance.CheckForPickupOnSpawn();
-			if (m_tagsToApplyToPowerup == null)
+			if (m_tagsToApplyToPowerup != null)
 			{
-				return;
-			}
-			while (true)
-			{
-				string[] tagsToApplyToPowerup = m_tagsToApplyToPowerup;
-				foreach (string powerupTag in tagsToApplyToPowerup)
+				foreach (string powerupTag in m_tagsToApplyToPowerup)
 				{
 					m_powerUpInstance.AddTag(powerupTag);
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
 				}
 			}
 		}
@@ -660,45 +471,45 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32(m_sequenceSourceId);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_nextPowerupPrefabIndex);
 		}
-		if ((base.syncVarDirtyBits & 4) != 0)
+		if ((syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_nextSpawnTurn);
 		}
-		if ((base.syncVarDirtyBits & 8) != 0)
+		if ((syncVarDirtyBits & 8) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write(m_spawningEnabled);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -707,20 +518,11 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					m_sequenceSourceId = reader.ReadPackedUInt32();
-					m_nextPowerupPrefabIndex = (int)reader.ReadPackedUInt32();
-					m_nextSpawnTurn = (int)reader.ReadPackedUInt32();
-					m_spawningEnabled = reader.ReadBoolean();
-					return;
-				}
-			}
+			m_sequenceSourceId = reader.ReadPackedUInt32();
+			m_nextPowerupPrefabIndex = (int)reader.ReadPackedUInt32();
+			m_nextSpawnTurn = (int)reader.ReadPackedUInt32();
+			m_spawningEnabled = reader.ReadBoolean();
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
@@ -735,14 +537,9 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			HookNextSpawnTurn((int)reader.ReadPackedUInt32());
 		}
-		if ((num & 8) == 0)
-		{
-			return;
-		}
-		while (true)
+		if ((num & 8) != 0)
 		{
 			m_spawningEnabled = reader.ReadBoolean();
-			return;
 		}
 	}
 }
