@@ -5,13 +5,10 @@ public class Valkyrie_SyncComponent : NetworkBehaviour
 {
 	[SyncVar]
 	internal ActorCover.CoverDirections m_coverDirection = ActorCover.CoverDirections.INVALID;
-
 	[SyncVar]
 	internal int m_extraAbsorbForGuard;
-
 	[SyncVar]
 	internal bool m_skipDamageReductionForNextStab;
-
 	[SyncVar]
 	internal int m_extraDamageNextShieldThrow;
 
@@ -82,45 +79,45 @@ public class Valkyrie_SyncComponent : NetworkBehaviour
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write((int)m_coverDirection);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_extraAbsorbForGuard);
 		}
-		if ((base.syncVarDirtyBits & 4) != 0)
+		if ((syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write(m_skipDamageReductionForNextStab);
 		}
-		if ((base.syncVarDirtyBits & 8) != 0)
+		if ((syncVarDirtyBits & 8) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_extraDamageNextShieldThrow);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -129,20 +126,11 @@ public class Valkyrie_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					m_coverDirection = (ActorCover.CoverDirections)reader.ReadInt32();
-					m_extraAbsorbForGuard = (int)reader.ReadPackedUInt32();
-					m_skipDamageReductionForNextStab = reader.ReadBoolean();
-					m_extraDamageNextShieldThrow = (int)reader.ReadPackedUInt32();
-					return;
-				}
-			}
+			m_coverDirection = (ActorCover.CoverDirections)reader.ReadInt32();
+			m_extraAbsorbForGuard = (int)reader.ReadPackedUInt32();
+			m_skipDamageReductionForNextStab = reader.ReadBoolean();
+			m_extraDamageNextShieldThrow = (int)reader.ReadPackedUInt32();
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
