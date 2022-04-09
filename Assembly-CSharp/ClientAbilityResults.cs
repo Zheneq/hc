@@ -17,7 +17,7 @@ public class ClientAbilityResults
 	public static string s_clientResolutionNetMsgHeader = "<color=white>ClientResolution NetworkMessage: </color>";
 	public static string s_clientHitResultHeader = "<color=yellow>ClientHitResults: </color>";
 
-	public static bool DebugTraceOn => false;
+	public static bool DebugTraceOn => true;
 	public static bool DebugSerializeSizeOn => false;
 
 	public ClientAbilityResults(int casterActorIndex, int abilityAction, List<ServerClientUtils.SequenceStartData> seqStartDataList, Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> posToHitResults)
