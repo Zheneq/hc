@@ -90,6 +90,8 @@ public class ServerActionBuffer : NetworkBehaviour
 				}
 				m_abilityPhase = value;
 				SynchronizeSharedData();
+				
+				m_waitingForPlayPhaseEnded = true; // custom
 			}
 			m_lastAbilityPhaseSet = Time.time;
 		}
@@ -111,6 +113,9 @@ public class ServerActionBuffer : NetworkBehaviour
 			}
 		}
 	}
+
+	// custom
+	public bool IsWaitingForPlayPhaseEnded() => m_waitingForPlayPhaseEnded && AbilityPhase != AbilityPriority.INVALID;
 
 	private void Awake()
 	{

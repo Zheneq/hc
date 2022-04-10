@@ -517,7 +517,7 @@ public class GameFlow : NetworkBehaviour
 		{
 			ServerResolutionManager manager = ServerResolutionManager.Get();
 
-			if (manager.ActionsDoneResolving())
+			if (manager.ActionsDoneResolving() && !actionBuffer.IsWaitingForPlayPhaseEnded())
 			{
 				while (true)
 				{
@@ -596,7 +596,6 @@ public class GameFlow : NetworkBehaviour
 						//TheatricsManager.Get().SetTurn_FCFS(turn);
 						//TheatricsManager.Get().InitPhaseClient_FCFS(currentPhase);
 
-						ServerResolutionManager.Get().SendPhaseResolutionActionsToClients();
 						ServerResolutionManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
 						ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
 						break;
