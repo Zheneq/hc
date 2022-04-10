@@ -299,7 +299,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		Log.Info($"Theatrics: stop waiting for accountId {accountId}, " +
 			$"was waiting from this connection?= {m_playerConnectionIdsInUpdatePhase.Contains(accountId)}");
 		m_playerConnectionIdsInUpdatePhase.Remove(accountId);
-		Log.Info($"TheatricsManager OnUpdatePhaseEnded: Removing {accountId} from m_playerConnectionIdsInUpdatePhase");
+		Log.Info($"TheatricsManager StopWaitingForConnectionId: Removing {accountId} from m_playerConnectionIdsInUpdatePhase");
 		m_connectionIdsToNumPhaseTimeouts.Remove(accountId);
 		if (m_playerConnectionIdsInUpdatePhase.Count == 0)
 		{
@@ -515,7 +515,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		if (phaseEnded == (int)m_phaseToUpdate)
 		{
 			m_playerConnectionIdsInUpdatePhase.Remove(accountId);
-			Log.Info($"TheatricsManager OnUpdatePhaseEnded: Removing {accountId} from m_playerConnectionIdsInUpdatePhase");
+			Log.Info($"TheatricsManager OnUpdatePhaseEnded: Removing {accountId} from m_playerConnectionIdsInUpdatePhase, {m_playerConnectionIdsInUpdatePhase.Count} left");
 			m_connectionIdsToNumPhaseTimeouts.Remove(accountId);
 			if (m_playerConnectionIdsInUpdatePhase.Count == 0)
 			{
