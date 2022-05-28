@@ -9,6 +9,18 @@ using Unity;
 using UnityEngine;
 using UnityEngine.Networking;
 
+/// <summary>
+/// Class <c>GameFlow</c> governs the overall flow of the game.
+/// <para>
+/// It creates certain subsystems (<see cref="ControlPointManager" />, <see cref="BarrierManager" />, <see cref="BotManager" />),
+/// spawns players at the beginning of a game, initiates game loop and controls turn resoltion.
+/// Also, it holds <see cref="PlayerDetails" />, receives Cast Ability requests (<see cref="SendCastAbility(ActorData, AbilityData.ActionType, List{AbilityTarget})">SendCastAbility</see>),
+/// and syncronizes match time (<see cref="RpcSetMatchTime(float)">RpcSetMatchTime</see>).
+/// </para>
+/// <para>
+/// Game start is triggered by <see cref="ServerGameManager.StartGame"/>.
+/// </para>
+/// </summary>
 public class GameFlow : NetworkBehaviour
 {
 	public class SetHumanInfoMessage : MessageBase
@@ -148,7 +160,7 @@ public class GameFlow : NetworkBehaviour
 
 		// reactor
 		NetworkWriter networkWriter = new NetworkWriter();
-		networkWriter.StartMessage(50);
+		networkWriter.StartMessage((int)MyMsgType.CastAbility);
 		networkWriter.Write(caster.ActorIndex);
 		networkWriter.Write((int)actionType);
 		AbilityTarget.SerializeAbilityTargetList(targets, networkWriter);
@@ -206,7 +218,7 @@ public class GameFlow : NetworkBehaviour
 		//}
 		// added in rogues
 #if SERVER
-		this.Server_OnDestroy();
+		Server_OnDestroy();
 #endif
 
 		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
@@ -228,6 +240,11 @@ public class GameFlow : NetworkBehaviour
 				{
 					AudioManager.GetMixerSnapshotManager().SetMix_DecisionCam();
 				}
+
+#if SERVER
+				OnTurnStart();
+#endif
+
 				break;
 			case GameState.BothTeams_Resolve:
 				AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_resolve");
@@ -240,6 +257,12 @@ public class GameFlow : NetworkBehaviour
 				{
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.ClientResolutionStarted, null);
 				}
+
+#if SERVER
+				TheatricsManager.Get().InitTurn();
+				Log.Info($"Initializing turn in theatrics");
+#endif
+
 				break;
 				// rogues
 				//case GameState.PVE_TeamTurnStart:
@@ -483,7 +506,7 @@ public class GameFlow : NetworkBehaviour
 		GameFlowData gameFlowData = GameFlowData.Get();
 		if (gameFlowData.GetTimeInState() > gameFlowData.m_startTime)
 		{
-			bool flag = gameFlowData.GetTimeInState() > 120f;
+			bool flag = gameFlowData.GetTimeInState() > c_startWaitTimeoutTime;
 			if (ServerGameManager.Get().ClientsPreparedForGameStart() || flag)
 			{
 				if (flag)
@@ -650,7 +673,7 @@ public class GameFlow : NetworkBehaviour
 			ServerCombatManager.Get().ResolveHitPoints();
 			ServerCombatManager.Get().ResolveTechPoints();
 
-			// TODO wait a couple seconds here? (cannot wait in ending turn, causes ui artifacts)
+			// TODO wait a couple seconds here? (if we wait in ending turn, it can cause ui artifacts)
 			GameFlowData.Get().gameState = GameState.EndingTurn;
 		}
 	}
@@ -873,7 +896,7 @@ public class GameFlow : NetworkBehaviour
 			GameObject character;
 			if (!playerDetails.IsSpectator)
 			{
-				if (!(serverPlayerInfo.SelectedCharacter.ActorDataPrefab != null))
+				if (serverPlayerInfo.SelectedCharacter.ActorDataPrefab == null)
 				{
 					Log.Error("Tried to spawn a character with no ActorDataPrefab: [{0}-{1}]", new object[]
 					{
@@ -1116,8 +1139,9 @@ public class GameFlow : NetworkBehaviour
 		this.SpawnCharacters(networkAgent, playerDetails, playerIndex);
 	}
 
-	// added in rogues
+	// added in rogues, but not used in rogues
 	[Server]
+	// TODO call when going into desicion
 	private void SetupTeamsForDecision()
 	{
 		if (!NetworkServer.active)
@@ -1425,7 +1449,6 @@ public class GameFlow : NetworkBehaviour
 					if (gameFlowData.GetTimeInState() > 2.0f)
 					{
 						HandleUpdateTurnEnd();
-						gameFlowData.gameState = GameState.BothTeams_Decision;
 					}
 					break;
 				//	rogues
@@ -1569,8 +1592,8 @@ public class GameFlow : NetworkBehaviour
 	//	}
 	//}
 
-	// custom
-	private void HandleUpdateTurnEnd()
+	// added in rogues
+	private void HandleUpdateTurnEnd()  // HandleUpdateTeamTurnEnd_FCFS() in rogues
 	{
 		if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
 		{
@@ -1580,32 +1603,23 @@ public class GameFlow : NetworkBehaviour
 		{
 			ServerCombatManager.Get().ResolveTechPoints();
 		}
-		this.OnTurnEnd();
+		//Team nextActingTeam_FCFS = this.GetNextActingTeam_FCFS();
+
+		// custom
+		OnTurnEnd();
+		GameFlowData.Get().gameState = GameState.BothTeams_Decision;
+		// rogues
+		//OnTeamTurnEnd(nextActingTeam_FCFS == Team.TeamA);
+		//GameFlowData.Get().gameState = GameState.PVE_TeamTurnStart;
 	}
-	// rogues
-	//private void HandleUpdateTeamTurnEnd_FCFS()
-	//{
-	//	if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
-	//	{
-	//		ServerCombatManager.Get().ResolveHitPoints();
-	//	}
-	//	if (ServerCombatManager.Get().HasUnresolvedTechPointsEntries())
-	//	{
-	//		ServerCombatManager.Get().ResolveTechPoints();
-	//	}
-	//	Team nextActingTeam_FCFS = this.GetNextActingTeam_FCFS();
-	//	this.OnTeamTurnEnd(nextActingTeam_FCFS == Team.TeamA);
-	//	GameFlowData.Get().gameState = GameState.PVE_TeamTurnStart;
-	//}
 
-
-	// custom
-	private void OnTurnEnd()
+	// added in rogues
+	private void OnTurnEnd()  //  OnTeamTurnEnd(bool goingIntoNewTurn) in rogues
 	{
 		List<ActorData> actors = GameFlowData.Get().GetActors();
 		foreach (ActorData actorData in actors)
 		{
-			if (actorData != null)
+			if (actorData != null)  // && actorData.GetTeam() == GameFlowData.Get().ActingTeam in rogues
 			{
 				if (actorData.GetActorMovement() != null)
 				{
@@ -1618,24 +1632,29 @@ public class GameFlow : NetworkBehaviour
 				}
 			}
 		}
-		if (BrushCoordinator.Get() != null)
+		if (BrushCoordinator.Get() != null)  // goingIntoNewTurn && in rogues
 		{
 			BrushCoordinator.Get().OnTurnEnd();
 		}
-		ServerEffectManager.Get().OnTurnEnd();
-		BarrierManager.Get().OnTurnEnd();
+		//Team nextActingTeam_FCFS = this.GetNextActingTeam_FCFS();  // rogues
+		ServerEffectManager.Get().OnTurnEnd();  // (nextActingTeam_FCFS) in rogues
+		BarrierManager.Get().OnTurnEnd();  // (nextActingTeam_FCFS) in rogues
+
 		foreach (ActorData actorData in actors)
 		{
-			if (actorData != null && actorData.GetPassiveData() != null)
+			if (actorData != null && actorData.GetPassiveData() != null)  //  && actorData.GetTeam() == GameFlowData.Get().ActingTeam in rogues
 			{
 				actorData.GetPassiveData().OnTurnEnd();
 			}
-			// rogues?
+			// rogues
 			//if (actorData != null)
 			//{
 			//	actorData.GetActorTurnSM().ResetUsedAbilityAndMoveData();
 			//}
 		}
+
+		//if (goingIntoNewTurn) // rogues
+		//{
 		// TODO CTF CTC
 		//if (CaptureTheFlag.Get() != null)
 		//{
@@ -1654,6 +1673,7 @@ public class GameFlow : NetworkBehaviour
 		//{
 		//	BotManager.Get().OnTurnEnd();
 		//}
+		//}
 		if (SinglePlayerManager.Get())
 		{
 			SinglePlayerManager.Get().OnResolutionEnd();
@@ -1661,75 +1681,9 @@ public class GameFlow : NetworkBehaviour
 		// TODO BOTS
 		//if (NPCCoordinator.Get() != null)
 		//{
-		//	NPCCoordinator.Get().OnTurnEnd();
+		//	NPCCoordinator.Get().OnTurnEnd();  // goingIntoNewTurn && in rogues
 		//}
 	}
-	// rogues
-	//TODO looks like something like this should be called somewhere
-	//private void OnTeamTurnEnd(bool goingIntoNewTurn)
-	//{
-	//	List<ActorData> actors = GameFlowData.Get().GetActors();
-	//	foreach (ActorData actorData in actors)
-	//	{
-	//		if (actorData != null && actorData.GetTeam() == GameFlowData.Get().ActingTeam)
-	//		{
-	//			if (actorData.GetActorMovement() != null)
-	//			{
-	//				actorData.GetActorMovement().ClearPath();
-	//			}
-	//			if (actorData.GetActorBehavior() != null)
-	//			{
-	//				actorData.GetActorBehavior().ProcessMovementDeniedStat();
-	//				actorData.GetActorBehavior().ProcessEnemySightedStat();
-	//			}
-	//		}
-	//	}
-	//	if (goingIntoNewTurn && BrushCoordinator.Get() != null)
-	//	{
-	//		BrushCoordinator.Get().OnTurnEnd();
-	//	}
-	//	Team nextActingTeam_FCFS = this.GetNextActingTeam_FCFS();
-	//	ServerEffectManager.Get().OnTurnEnd(nextActingTeam_FCFS);
-	//	BarrierManager.Get().OnTurnEnd(nextActingTeam_FCFS);
-	//	foreach (ActorData actorData2 in actors)
-	//	{
-	//		if (actorData2 != null && actorData2.GetTeam() == GameFlowData.Get().ActingTeam && actorData2.GetPassiveData() != null)
-	//		{
-	//			actorData2.GetPassiveData().OnTurnEnd();
-	//		}
-	//		if (actorData2 != null)
-	//		{
-	//			actorData2.GetActorTurnSM().ResetUsedAbilityAndMoveData();
-	//		}
-	//	}
-	//	if (goingIntoNewTurn)
-	//	{
-	//		if (CaptureTheFlag.Get() != null)
-	//		{
-	//			CaptureTheFlag.Get().OnTurnEnd();
-	//		}
-	//		if (CollectTheCoins.Get() != null)
-	//		{
-	//			CollectTheCoins.Get().OnTurnEnd();
-	//		}
-	//		if (ObjectivePoints.Get() != null)
-	//		{
-	//			ObjectivePoints.Get().OnTurnEnd();
-	//		}
-	//		if (BotManager.Get() != null)
-	//		{
-	//			BotManager.Get().OnTurnEnd();
-	//		}
-	//	}
-	//	if (SinglePlayerManager.Get())
-	//	{
-	//		SinglePlayerManager.Get().OnResolutionEnd();
-	//	}
-	//	if (goingIntoNewTurn && NPCCoordinator.Get() != null)
-	//	{
-	//		NPCCoordinator.Get().OnTurnEnd();
-	//	}
-	//}
 #endif
 
 	// rogues

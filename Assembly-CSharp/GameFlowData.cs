@@ -1450,14 +1450,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				}
 				ResetOwnedActorDataToFirst();
 				m_timeInDecision = 0f;
-
-				// custom
-				GameFlow.Get().OnTurnStart();
-				break;
-			// custom
-			case GameState.BothTeams_Resolve:
-				TheatricsManager.Get().InitTurn();
-				Log.Info($"Initializing turn in theatrics");
 				break;
 				// rogues
 				//case GameState.PVE_TeamActions:
