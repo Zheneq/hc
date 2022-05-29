@@ -242,7 +242,8 @@ public class GameFlow : NetworkBehaviour
 				}
 
 #if SERVER
-				OnTurnStart();
+				HandleUpdateTeamTurnStart_FCFS();
+				SetupTeamsForDecision();
 #endif
 
 				break;
@@ -1468,12 +1469,6 @@ public class GameFlow : NetworkBehaviour
 					return;
 			}
 		}
-	}
-
-	// custom
-	public void OnTurnStart()
-	{
-		HandleUpdateTeamTurnStart_FCFS();
 	}
 
 	// added in rogues
