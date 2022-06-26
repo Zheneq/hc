@@ -3,29 +3,19 @@ using UnityEngine;
 public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCone
 {
 	public delegate float CustomFloatValueDelegate();
-
 	public delegate bool CustomBoolValueDelegate();
-
 	public delegate int CustomIntValueDelegate();
 
 	private float m_coneInnerRadius;
-
 	private bool m_coneAffectsCaster;
-
 	private bool m_coneAffectsAllies;
-
 	private bool m_coneAffectsEnemies;
 
 	public CustomFloatValueDelegate m_delegateLaserWidth;
-
 	public CustomFloatValueDelegate m_delegateLaserRange;
-
 	public CustomBoolValueDelegate m_delegatePenetrateLos;
-
 	public CustomIntValueDelegate m_delegateMaxTargets;
-
 	public CustomFloatValueDelegate m_delegateConeRadius;
-
 	public CustomFloatValueDelegate m_delegateInnerConeRadius;
 
 	public AbilityUtil_Targeter_MartyrLaser(Ability ability, float width, float distance, bool penetrateLoS, int maxTargets, bool affectsEnemies, bool affectsAllies, bool affectsCaster, bool clampRangeToCursor, bool explodeOnlyOnLaserHit, float coneRadius, float coneInnerRadius, bool coneAffectsAllies, bool coneAffectsEnemies, bool coneAffectsCaster)
@@ -44,97 +34,43 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 
 	public override float GetWidth()
 	{
-		float result;
-		if (m_delegateLaserWidth != null)
-		{
-			result = m_delegateLaserWidth();
-		}
-		else
-		{
-			result = m_width;
-		}
-		return result;
+		return m_delegateLaserWidth != null ? m_delegateLaserWidth() : m_width;
 	}
 
 	public override float GetDistance()
 	{
-		float result;
-		if (m_delegateLaserRange != null)
-		{
-			result = m_delegateLaserRange();
-		}
-		else
-		{
-			result = m_distance;
-		}
-		return result;
+		return m_delegateLaserRange != null ? m_delegateLaserRange() : m_distance;
 	}
 
 	public override bool GetPenetrateLoS()
 	{
-		return (m_delegatePenetrateLos == null) ? m_penetrateLoS : m_delegatePenetrateLos();
+		return m_delegatePenetrateLos != null ? m_delegatePenetrateLos() : m_penetrateLoS;
 	}
 
 	public override int GetLaserMaxTargets()
 	{
-		int result;
-		if (m_delegateMaxTargets != null)
-		{
-			result = m_delegateMaxTargets();
-		}
-		else
-		{
-			result = m_maxLaserTargets;
-		}
-		return result;
+		return m_delegateMaxTargets != null ? m_delegateMaxTargets() : m_maxLaserTargets;
 	}
 
 	public override float GetConeRadius()
 	{
-		float result;
-		if (m_delegateConeRadius != null)
-		{
-			result = m_delegateConeRadius();
-		}
-		else
-		{
-			result = m_coneLengthRadiusInSquares;
-		}
-		return result;
+		return m_delegateConeRadius != null ? m_delegateConeRadius() : m_coneLengthRadiusInSquares;
 	}
 
 	public float GetInnerConeRadius()
 	{
-		return (m_delegateInnerConeRadius == null) ? m_coneInnerRadius : m_delegateInnerConeRadius();
+		return m_delegateInnerConeRadius != null ? m_delegateInnerConeRadius() : m_coneInnerRadius;
 	}
 
 	public override bool GetConeAffectsTarget(ActorData potentialTarget, ActorData targetingActor)
 	{
 		if (potentialTarget == targetingActor)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return m_coneAffectsCaster;
-				}
-			}
+			return m_coneAffectsCaster;
 		}
 		if (potentialTarget.GetTeam() == targetingActor.GetTeam())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return m_coneAffectsAllies;
-				}
-			}
+			return m_coneAffectsAllies;
 		}
 		return m_coneAffectsEnemies;
 	}
@@ -145,33 +81,20 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 		Vector3 vector = damageOrigin - actor.GetFreePos();
 		vector.y = 0f;
 		float num = (GetInnerConeRadius() + GameWideData.Get().m_actorTargetingRadiusInSquares) * Board.Get().squareSize;
-		if (!(num < vector.magnitude))
-		{
-			return;
-		}
-		while (true)
+		if (num < vector.magnitude)
 		{
 			AddActorInRange(actor, damageOrigin, targetingActor, AbilityTooltipSubject.Tertiary, true);
-			return;
 		}
 	}
 
 	protected override void AllocateConeHighlights()
 	{
-		if (m_highlights.Count != 1)
-		{
-			return;
-		}
-		while (true)
+		if (m_highlights.Count == 1)
 		{
 			float radiusInWorld = (GetConeRadius() + m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 			GameObject item = HighlightUtils.Get().CreateConeCursor(radiusInWorld, GetConeWidthAngle());
 			m_highlights.Add(item);
-			if (!(GetInnerConeRadius() > 0f))
-			{
-				return;
-			}
-			while (true)
+			if (GetInnerConeRadius() > 0f)
 			{
 				float radiusInWorld2 = (GetInnerConeRadius() + m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 				GameObject gameObject = HighlightUtils.Get().CreateConeCursor(radiusInWorld2, GetConeWidthAngle());
@@ -181,7 +104,6 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 					component.SetConeObjectActive(false);
 				}
 				m_highlights.Add(gameObject);
-				return;
 			}
 		}
 	}

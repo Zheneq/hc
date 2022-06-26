@@ -3,7 +3,6 @@ using System.Collections.Generic;
 public class MartyrLaserBase : Ability
 {
 	public float m_additionalWidthPerCrystalSpent;
-
 	public float m_additionalLengthPerCrystalSpent;
 
 	protected virtual Martyr_SyncComponent GetSyncComponent()
@@ -34,18 +33,14 @@ public class MartyrLaserBase : Ability
 	protected MartyrLaserThreshold GetCurrentPowerEntry(ActorData caster)
 	{
 		MartyrLaserThreshold result = null;
-		if (GetSyncComponent() != null)
+		if (GetSyncComponent() != null && GetSyncComponent().IsBonusActive(caster))
 		{
-			if (GetSyncComponent().IsBonusActive(caster))
+			int spentDamageCrystals = GetSyncComponent().SpentDamageCrystals(caster);
+			foreach (MartyrLaserThreshold bonus in GetThresholdBasedCrystalBonusList())
 			{
-				List<MartyrLaserThreshold> thresholdBasedCrystalBonusList = GetThresholdBasedCrystalBonusList();
-				int num = GetSyncComponent().SpentDamageCrystals(caster);
-				for (int i = 0; i < thresholdBasedCrystalBonusList.Count; i++)
+				if (spentDamageCrystals >= bonus.m_crystalThreshold)
 				{
-					if (num >= thresholdBasedCrystalBonusList[i].m_crystalThreshold)
-					{
-						result = thresholdBasedCrystalBonusList[i];
-					}
+					result = bonus;
 				}
 			}
 		}
@@ -54,34 +49,20 @@ public class MartyrLaserBase : Ability
 
 	public float GetCurrentLaserWidth()
 	{
-		MartyrLaserThreshold currentPowerEntry = GetCurrentPowerEntry(base.ActorData);
-		float num;
-		if (currentPowerEntry != null)
-		{
-			num = currentPowerEntry.m_additionalWidth;
-		}
-		else
-		{
-			num = 0f;
-		}
-		float num2 = num;
-		return GetLaserInfo().width + (float)GetSyncComponent().SpentDamageCrystals(base.ActorData) * GetBonusWidthPerCrystalSpent() + num2;
+		MartyrLaserThreshold currentPowerEntry = GetCurrentPowerEntry(ActorData);
+		float additionalWidth = currentPowerEntry != null ? currentPowerEntry.m_additionalWidth : 0f;
+		return GetLaserInfo().width
+			+ GetSyncComponent().SpentDamageCrystals(ActorData) * GetBonusWidthPerCrystalSpent()
+			+ additionalWidth;
 	}
 
 	public float GetCurrentLaserRange()
 	{
-		MartyrLaserThreshold currentPowerEntry = GetCurrentPowerEntry(base.ActorData);
-		float num;
-		if (currentPowerEntry != null)
-		{
-			num = currentPowerEntry.m_additionalLength;
-		}
-		else
-		{
-			num = 0f;
-		}
-		float num2 = num;
-		return GetLaserInfo().range + (float)GetSyncComponent().SpentDamageCrystals(base.ActorData) * GetBonusLengthPerCrystalSpent() + num2;
+		MartyrLaserThreshold currentPowerEntry = GetCurrentPowerEntry(ActorData);
+		float additionalLength = currentPowerEntry != null ? currentPowerEntry.m_additionalLength : 0f;
+		return GetLaserInfo().range
+			+ GetSyncComponent().SpentDamageCrystals(ActorData) * GetBonusLengthPerCrystalSpent()
+			+ additionalLength;
 	}
 
 	public bool GetCurrentLaserPenetrateLoS()
@@ -91,18 +72,9 @@ public class MartyrLaserBase : Ability
 
 	public int GetCurrentLaserMaxTargets()
 	{
-		MartyrLaserThreshold currentPowerEntry = GetCurrentPowerEntry(base.ActorData);
-		int num;
-		if (currentPowerEntry != null)
-		{
-			num = currentPowerEntry.m_additionalTargets;
-		}
-		else
-		{
-			num = 0;
-		}
-		int num2 = num;
-		return GetLaserInfo().maxTargets + num2;
+		MartyrLaserThreshold currentPowerEntry = GetCurrentPowerEntry(ActorData);
+		int additionalTargets = currentPowerEntry != null ? currentPowerEntry.m_additionalTargets : 0;
+		return GetLaserInfo().maxTargets + additionalTargets;
 	}
 
 	public virtual float GetCurrentExplosionRadius()

@@ -6,30 +6,19 @@ public class AbilityMod_MartyrBasicAttack : AbilityMod
 {
 	[Header("-- Targeting")]
 	public AbilityModPropertyLaserInfo m_laserInfoMod;
-
 	public AbilityModPropertyEffectInfo m_laserHitEffectMod;
-
 	public AbilityModPropertyFloat m_explosionRadiusMod;
-
 	[Header("-- Damage & Crystal Bonuses")]
 	public AbilityModPropertyInt m_baseLaserDamageMod;
-
 	public AbilityModPropertyInt m_baseExplosionDamageMod;
-
 	public AbilityModPropertyInt m_additionalDamagePerCrystalSpentMod;
-
 	public AbilityModPropertyFloat m_additionalRadiusPerCrystalSpentMod;
-
 	public AbilityModPropertyInt m_extraDamageIfSingleHitMod;
-
 	[Header("-- Inner Ring Radius and Damage")]
 	public AbilityModPropertyFloat m_innerRingRadiusMod;
-
 	public AbilityModPropertyFloat m_innerRingExtraRadiusPerCrystalMod;
-
 	[Space(5f)]
 	public AbilityModPropertyInt m_innerRingDamageMod;
-
 	public AbilityModPropertyInt m_innerRingDamagePerCrystalMod;
 
 	public override Type GetTargetAbilityType()
@@ -42,136 +31,37 @@ public class AbilityMod_MartyrBasicAttack : AbilityMod
 		MartyrBasicAttack martyrBasicAttack = targetAbility as MartyrBasicAttack;
 		if (martyrBasicAttack != null)
 		{
-			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", martyrBasicAttack.m_laserInfo);
-			AbilityMod.AddToken_EffectMod(tokens, m_laserHitEffectMod, "LaserHitEffect", martyrBasicAttack.m_laserHitEffect);
-			AbilityMod.AddToken(tokens, m_explosionRadiusMod, "ExplosionRadius", string.Empty, martyrBasicAttack.m_explosionRadius);
-			AbilityMod.AddToken(tokens, m_baseLaserDamageMod, "BaseLaserDamage", string.Empty, martyrBasicAttack.m_baseLaserDamage);
-			AbilityMod.AddToken(tokens, m_baseExplosionDamageMod, "BaseExplosionDamage", string.Empty, martyrBasicAttack.m_baseExplosionDamage);
-			AbilityMod.AddToken(tokens, m_additionalDamagePerCrystalSpentMod, "AdditionalDamagePerCrystalSpent", string.Empty, martyrBasicAttack.m_additionalDamagePerCrystalSpent);
-			AbilityMod.AddToken(tokens, m_additionalRadiusPerCrystalSpentMod, "AdditionalRadiusPerCrystalSpent", string.Empty, martyrBasicAttack.m_additionalRadiusPerCrystalSpent, true, true, true);
-			AbilityMod.AddToken(tokens, m_extraDamageIfSingleHitMod, "ExtraDamageIfSingleHit", string.Empty, martyrBasicAttack.m_extraDamageIfSingleHit);
-			AbilityMod.AddToken(tokens, m_innerRingRadiusMod, "InnerRingRadius", string.Empty, martyrBasicAttack.m_innerRingRadius);
-			AbilityMod.AddToken(tokens, m_innerRingExtraRadiusPerCrystalMod, "InnerRingExtraRadiusPerCrystal", string.Empty, martyrBasicAttack.m_innerRingExtraRadiusPerCrystal);
-			AbilityMod.AddToken(tokens, m_innerRingDamageMod, "InnerRingDamage", string.Empty, martyrBasicAttack.m_innerRingDamage);
-			AbilityMod.AddToken(tokens, m_innerRingDamagePerCrystalMod, "InnerRingDamagePerCrystal", string.Empty, martyrBasicAttack.m_innerRingDamagePerCrystal);
+			AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", martyrBasicAttack.m_laserInfo);
+			AddToken_EffectMod(tokens, m_laserHitEffectMod, "LaserHitEffect", martyrBasicAttack.m_laserHitEffect);
+			AddToken(tokens, m_explosionRadiusMod, "ExplosionRadius", "", martyrBasicAttack.m_explosionRadius);
+			AddToken(tokens, m_baseLaserDamageMod, "BaseLaserDamage", "", martyrBasicAttack.m_baseLaserDamage);
+			AddToken(tokens, m_baseExplosionDamageMod, "BaseExplosionDamage", "", martyrBasicAttack.m_baseExplosionDamage);
+			AddToken(tokens, m_additionalDamagePerCrystalSpentMod, "AdditionalDamagePerCrystalSpent", "", martyrBasicAttack.m_additionalDamagePerCrystalSpent);
+			AddToken(tokens, m_additionalRadiusPerCrystalSpentMod, "AdditionalRadiusPerCrystalSpent", "", martyrBasicAttack.m_additionalRadiusPerCrystalSpent, true, true, true);
+			AddToken(tokens, m_extraDamageIfSingleHitMod, "ExtraDamageIfSingleHit", "", martyrBasicAttack.m_extraDamageIfSingleHit);
+			AddToken(tokens, m_innerRingRadiusMod, "InnerRingRadius", "", martyrBasicAttack.m_innerRingRadius);
+			AddToken(tokens, m_innerRingExtraRadiusPerCrystalMod, "InnerRingExtraRadiusPerCrystal", "", martyrBasicAttack.m_innerRingExtraRadiusPerCrystal);
+			AddToken(tokens, m_innerRingDamageMod, "InnerRingDamage", "", martyrBasicAttack.m_innerRingDamage);
+			AddToken(tokens, m_innerRingDamagePerCrystalMod, "InnerRingDamagePerCrystal", "", martyrBasicAttack.m_innerRingDamagePerCrystal);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		MartyrBasicAttack martyrBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as MartyrBasicAttack;
-		bool flag = martyrBasicAttack != null;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyLaserInfo laserInfoMod = m_laserInfoMod;
-		object baseLaserInfo;
-		if (flag)
-		{
-			baseLaserInfo = martyrBasicAttack.m_laserInfo;
-		}
-		else
-		{
-			baseLaserInfo = null;
-		}
-		empty = str + PropDesc(laserInfoMod, "[LaserInfo]", flag, (LaserTargetingInfo)baseLaserInfo);
-		empty += PropDesc(m_laserHitEffectMod, "[LaserHitEffect]", flag, (!flag) ? null : martyrBasicAttack.m_laserHitEffect);
-		empty += PropDesc(m_explosionRadiusMod, "[ExplosionRadius]", flag, (!flag) ? 0f : martyrBasicAttack.m_explosionRadius);
-		string str2 = empty;
-		AbilityModPropertyInt baseLaserDamageMod = m_baseLaserDamageMod;
-		int baseVal;
-		if (flag)
-		{
-			baseVal = martyrBasicAttack.m_baseLaserDamage;
-		}
-		else
-		{
-			baseVal = 0;
-		}
-		empty = str2 + PropDesc(baseLaserDamageMod, "[BaseLaserDamage]", flag, baseVal);
-		string str3 = empty;
-		AbilityModPropertyInt baseExplosionDamageMod = m_baseExplosionDamageMod;
-		int baseVal2;
-		if (flag)
-		{
-			baseVal2 = martyrBasicAttack.m_baseExplosionDamage;
-		}
-		else
-		{
-			baseVal2 = 0;
-		}
-		empty = str3 + PropDesc(baseExplosionDamageMod, "[BaseExplosionDamage]", flag, baseVal2);
-		string str4 = empty;
-		AbilityModPropertyInt additionalDamagePerCrystalSpentMod = m_additionalDamagePerCrystalSpentMod;
-		int baseVal3;
-		if (flag)
-		{
-			baseVal3 = martyrBasicAttack.m_additionalDamagePerCrystalSpent;
-		}
-		else
-		{
-			baseVal3 = 0;
-		}
-		empty = str4 + PropDesc(additionalDamagePerCrystalSpentMod, "[AdditionalDamagePerCrystalSpent]", flag, baseVal3);
-		string str5 = empty;
-		AbilityModPropertyFloat additionalRadiusPerCrystalSpentMod = m_additionalRadiusPerCrystalSpentMod;
-		float baseVal4;
-		if (flag)
-		{
-			baseVal4 = martyrBasicAttack.m_additionalRadiusPerCrystalSpent;
-		}
-		else
-		{
-			baseVal4 = 0f;
-		}
-		empty = str5 + PropDesc(additionalRadiusPerCrystalSpentMod, "[AdditionalRadiusPerCrystalSpent]", flag, baseVal4);
-		string str6 = empty;
-		AbilityModPropertyInt extraDamageIfSingleHitMod = m_extraDamageIfSingleHitMod;
-		int baseVal5;
-		if (flag)
-		{
-			baseVal5 = martyrBasicAttack.m_extraDamageIfSingleHit;
-		}
-		else
-		{
-			baseVal5 = 0;
-		}
-		empty = str6 + PropDesc(extraDamageIfSingleHitMod, "[ExtraDamageIfSingleHit]", flag, baseVal5);
-		string str7 = empty;
-		AbilityModPropertyFloat innerRingRadiusMod = m_innerRingRadiusMod;
-		float baseVal6;
-		if (flag)
-		{
-			baseVal6 = martyrBasicAttack.m_innerRingRadius;
-		}
-		else
-		{
-			baseVal6 = 0f;
-		}
-		empty = str7 + PropDesc(innerRingRadiusMod, "[InnerRingRadius]", flag, baseVal6);
-		string str8 = empty;
-		AbilityModPropertyFloat innerRingExtraRadiusPerCrystalMod = m_innerRingExtraRadiusPerCrystalMod;
-		float baseVal7;
-		if (flag)
-		{
-			baseVal7 = martyrBasicAttack.m_innerRingExtraRadiusPerCrystal;
-		}
-		else
-		{
-			baseVal7 = 0f;
-		}
-		empty = str8 + PropDesc(innerRingExtraRadiusPerCrystalMod, "[InnerRingExtraRadiusPerCrystal]", flag, baseVal7);
-		string str9 = empty;
-		AbilityModPropertyInt innerRingDamageMod = m_innerRingDamageMod;
-		int baseVal8;
-		if (flag)
-		{
-			baseVal8 = martyrBasicAttack.m_innerRingDamage;
-		}
-		else
-		{
-			baseVal8 = 0;
-		}
-		empty = str9 + PropDesc(innerRingDamageMod, "[InnerRingDamage]", flag, baseVal8);
-		return empty + PropDesc(m_innerRingDamagePerCrystalMod, "[InnerRingDamagePerCrystal]", flag, flag ? martyrBasicAttack.m_innerRingDamagePerCrystal : 0);
+		bool isValid = martyrBasicAttack != null;
+		string desc = "";
+		desc += PropDesc(m_laserInfoMod, "[LaserInfo]", isValid, isValid ? martyrBasicAttack.m_laserInfo : null);
+		desc += PropDesc(m_laserHitEffectMod, "[LaserHitEffect]", isValid, isValid ? martyrBasicAttack.m_laserHitEffect : null);
+		desc += PropDesc(m_explosionRadiusMod, "[ExplosionRadius]", isValid, isValid ? martyrBasicAttack.m_explosionRadius : 0f);
+		desc += PropDesc(m_baseLaserDamageMod, "[BaseLaserDamage]", isValid, isValid ? martyrBasicAttack.m_baseLaserDamage : 0);
+		desc += PropDesc(m_baseExplosionDamageMod, "[BaseExplosionDamage]", isValid, isValid ? martyrBasicAttack.m_baseExplosionDamage : 0);
+		desc += PropDesc(m_additionalDamagePerCrystalSpentMod, "[AdditionalDamagePerCrystalSpent]", isValid, isValid ? martyrBasicAttack.m_additionalDamagePerCrystalSpent : 0);
+		desc += PropDesc(m_additionalRadiusPerCrystalSpentMod, "[AdditionalRadiusPerCrystalSpent]", isValid, isValid ? martyrBasicAttack.m_additionalRadiusPerCrystalSpent : 0f);
+		desc += PropDesc(m_extraDamageIfSingleHitMod, "[ExtraDamageIfSingleHit]", isValid, isValid ? martyrBasicAttack.m_extraDamageIfSingleHit : 0);
+		desc += PropDesc(m_innerRingRadiusMod, "[InnerRingRadius]", isValid, isValid ? martyrBasicAttack.m_innerRingRadius : 0f);
+		desc += PropDesc(m_innerRingExtraRadiusPerCrystalMod, "[InnerRingExtraRadiusPerCrystal]", isValid, isValid ? martyrBasicAttack.m_innerRingExtraRadiusPerCrystal : 0f);
+		desc += PropDesc(m_innerRingDamageMod, "[InnerRingDamage]", isValid, isValid ? martyrBasicAttack.m_innerRingDamage : 0);
+		return desc + PropDesc(m_innerRingDamagePerCrystalMod, "[InnerRingDamagePerCrystal]", isValid, isValid ? martyrBasicAttack.m_innerRingDamagePerCrystal : 0);
 	}
 }

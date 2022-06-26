@@ -5,60 +5,37 @@ public class MartyrAoeOnReactHit : Ability
 {
 	[Header("-- Targeting --")]
 	public bool m_canTargetEnemy = true;
-
 	public bool m_canTargetAlly = true;
-
 	public bool m_canTargetSelf = true;
-
 	[Space(10f)]
 	public bool m_targetingIgnoreLos;
-
 	[Header("-- Base Effect Data")]
 	public StandardActorEffectData m_enemyBaseEffectData;
-
 	public StandardActorEffectData m_allyBaseEffectData;
-
 	[Header("-- Extra Shielding for Allies")]
 	public int m_extraAbsorbPerCrystal;
-
 	[Header("-- For React Area --")]
 	public float m_reactBaseRadius = 1.5f;
-
 	public float m_reactRadiusPerCrystal = 0.25f;
-
 	public bool m_reactOnlyOncePerTurn;
-
 	public bool m_reactPenetrateLos;
-
 	public bool m_reactIncludeEffectTarget = true;
-
 	[Header("-- On React Hit --")]
 	public int m_reactAoeDamage = 10;
-
 	public int m_reactDamagePerCrystal = 3;
-
 	public StandardEffectInfo m_reactEnemyHitEffect;
-
 	public int m_reactHealOnTarget;
-
 	public int m_reactEnergyOnCasterPerReact;
-
 	[Header("-- Cooldown reduction if no reacts")]
 	public int m_cdrIfNoReactionTriggered;
-
 	[Header("-- Sequences --")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_onReactTriggerSequencePrefab;
 
 	private Martyr_SyncComponent m_syncComp;
-
 	private AbilityMod_MartyrAoeOnReactHit m_abilityMod;
-
 	private StandardActorEffectData m_cachedEnemyBaseEffectData;
-
 	private StandardActorEffectData m_cachedAllyBaseEffectData;
-
 	private StandardEffectInfo m_cachedReactEnemyHitEffect;
 
 	private void Start()
@@ -77,9 +54,9 @@ public class MartyrAoeOnReactHit : Ability
 			m_syncComp = GetComponent<Martyr_SyncComponent>();
 		}
 		SetCachedFields();
-		AbilityUtil_Targeter_AoE_AroundActor abilityUtil_Targeter_AoE_AroundActor = new AbilityUtil_Targeter_AoE_AroundActor(this, 1f, ReactPenetrateLos(), true, false, -1, CanTargetEnemy(), CanTargetAlly(), CanTargetSelf());
-		abilityUtil_Targeter_AoE_AroundActor.m_customRadiusDelegate = GetRadiusForTargeter;
-		base.Targeter = abilityUtil_Targeter_AoE_AroundActor;
+		AbilityUtil_Targeter_AoE_AroundActor targeter = new AbilityUtil_Targeter_AoE_AroundActor(this, 1f, ReactPenetrateLos(), true, false, -1, CanTargetEnemy(), CanTargetAlly(), CanTargetSelf());
+		targeter.m_customRadiusDelegate = GetRadiusForTargeter;
+		Targeter = targeter;
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
@@ -89,172 +66,88 @@ public class MartyrAoeOnReactHit : Ability
 
 	private void SetCachedFields()
 	{
-		StandardActorEffectData cachedEnemyBaseEffectData;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyBaseEffectData = m_abilityMod.m_enemyBaseEffectDataMod.GetModifiedValue(m_enemyBaseEffectData);
-		}
-		else
-		{
-			cachedEnemyBaseEffectData = m_enemyBaseEffectData;
-		}
-		m_cachedEnemyBaseEffectData = cachedEnemyBaseEffectData;
-		StandardActorEffectData cachedAllyBaseEffectData;
-		if ((bool)m_abilityMod)
-		{
-			cachedAllyBaseEffectData = m_abilityMod.m_allyBaseEffectDataMod.GetModifiedValue(m_allyBaseEffectData);
-		}
-		else
-		{
-			cachedAllyBaseEffectData = m_allyBaseEffectData;
-		}
-		m_cachedAllyBaseEffectData = cachedAllyBaseEffectData;
-		StandardEffectInfo cachedReactEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedReactEnemyHitEffect = m_abilityMod.m_reactEnemyHitEffectMod.GetModifiedValue(m_reactEnemyHitEffect);
-		}
-		else
-		{
-			cachedReactEnemyHitEffect = m_reactEnemyHitEffect;
-		}
-		m_cachedReactEnemyHitEffect = cachedReactEnemyHitEffect;
+		m_cachedEnemyBaseEffectData = m_abilityMod
+			? m_abilityMod.m_enemyBaseEffectDataMod.GetModifiedValue(m_enemyBaseEffectData)
+			: m_enemyBaseEffectData;
+		m_cachedAllyBaseEffectData = m_abilityMod
+			? m_abilityMod.m_allyBaseEffectDataMod.GetModifiedValue(m_allyBaseEffectData)
+			: m_allyBaseEffectData;
+		m_cachedReactEnemyHitEffect = m_abilityMod
+			? m_abilityMod.m_reactEnemyHitEffectMod.GetModifiedValue(m_reactEnemyHitEffect)
+			: m_reactEnemyHitEffect;
 	}
 
 	public bool CanTargetEnemy()
 	{
-		return (!m_abilityMod) ? m_canTargetEnemy : m_abilityMod.m_canTargetEnemyMod.GetModifiedValue(m_canTargetEnemy);
+		return m_abilityMod
+			? m_abilityMod.m_canTargetEnemyMod.GetModifiedValue(m_canTargetEnemy)
+			: m_canTargetEnemy;
 	}
 
 	public bool CanTargetAlly()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_canTargetAllyMod.GetModifiedValue(m_canTargetAlly);
-		}
-		else
-		{
-			result = m_canTargetAlly;
-		}
-		return result;
+		return m_abilityMod
+			? m_abilityMod.m_canTargetAllyMod.GetModifiedValue(m_canTargetAlly)
+			: m_canTargetAlly;
 	}
 
 	public bool CanTargetSelf()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_canTargetSelfMod.GetModifiedValue(m_canTargetSelf);
-		}
-		else
-		{
-			result = m_canTargetSelf;
-		}
-		return result;
+		return m_abilityMod
+			? m_abilityMod.m_canTargetSelfMod.GetModifiedValue(m_canTargetSelf)
+			: m_canTargetSelf;
 	}
 
 	public bool TargetingIgnoreLos()
 	{
-		return (!m_abilityMod) ? m_targetingIgnoreLos : m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(m_targetingIgnoreLos);
+		return m_abilityMod
+			? m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(m_targetingIgnoreLos)
+			: m_targetingIgnoreLos;
 	}
 
 	public StandardActorEffectData GetEnemyBaseEffectData()
 	{
-		StandardActorEffectData result;
-		if (m_cachedEnemyBaseEffectData != null)
-		{
-			result = m_cachedEnemyBaseEffectData;
-		}
-		else
-		{
-			result = m_enemyBaseEffectData;
-		}
-		return result;
+		return m_cachedEnemyBaseEffectData ?? m_enemyBaseEffectData;
 	}
 
 	public StandardActorEffectData GetAllyBaseEffectData()
 	{
-		StandardActorEffectData result;
-		if (m_cachedAllyBaseEffectData != null)
-		{
-			result = m_cachedAllyBaseEffectData;
-		}
-		else
-		{
-			result = m_allyBaseEffectData;
-		}
-		return result;
+		return m_cachedAllyBaseEffectData ?? m_allyBaseEffectData;
 	}
 
 	public int GetExtraAbsorbPerCrystal()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraAbsorbPerCrystalMod.GetModifiedValue(m_extraAbsorbPerCrystal);
-		}
-		else
-		{
-			result = m_extraAbsorbPerCrystal;
-		}
-		return result;
+		return m_abilityMod
+			? m_abilityMod.m_extraAbsorbPerCrystalMod.GetModifiedValue(m_extraAbsorbPerCrystal)
+			: m_extraAbsorbPerCrystal;
 	}
 
 	public float GetReactBaseRadius()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_reactBaseRadiusMod.GetModifiedValue(m_reactBaseRadius);
-		}
-		else
-		{
-			result = m_reactBaseRadius;
-		}
-		return result;
+		return m_abilityMod
+			? m_abilityMod.m_reactBaseRadiusMod.GetModifiedValue(m_reactBaseRadius)
+			: m_reactBaseRadius;
 	}
 
 	public float GetReactRadiusPerCrystal()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_reactRadiusPerCrystalMod.GetModifiedValue(m_reactRadiusPerCrystal);
-		}
-		else
-		{
-			result = m_reactRadiusPerCrystal;
-		}
-		return result;
+		return m_abilityMod
+			? m_abilityMod.m_reactRadiusPerCrystalMod.GetModifiedValue(m_reactRadiusPerCrystal)
+			: m_reactRadiusPerCrystal;
 	}
 
 	public bool ReactOnlyOncePerTurn()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_reactOnlyOncePerTurnMod.GetModifiedValue(m_reactOnlyOncePerTurn);
-		}
-		else
-		{
-			result = m_reactOnlyOncePerTurn;
-		}
-		return result;
+		return m_abilityMod
+			? m_abilityMod.m_reactOnlyOncePerTurnMod.GetModifiedValue(m_reactOnlyOncePerTurn)
+			: m_reactOnlyOncePerTurn;
 	}
 
 	public bool ReactPenetrateLos()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_reactPenetrateLosMod.GetModifiedValue(m_reactPenetrateLos);
-		}
-		else
-		{
-			result = m_reactPenetrateLos;
-		}
-		return result;
+		return m_abilityMod
+			? m_abilityMod.m_reactPenetrateLosMod.GetModifiedValue(m_reactPenetrateLos)
+			: m_reactPenetrateLos;
 	}
 
 	public bool ReactIncludeEffectTarget()
@@ -264,77 +157,42 @@ public class MartyrAoeOnReactHit : Ability
 
 	public int GetReactAoeDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_reactAoeDamageMod.GetModifiedValue(m_reactAoeDamage);
-		}
-		else
-		{
-			result = m_reactAoeDamage;
-		}
-		return result;
+		return m_abilityMod
+			? m_abilityMod.m_reactAoeDamageMod.GetModifiedValue(m_reactAoeDamage)
+			: m_reactAoeDamage;
 	}
 
 	public int GetReactDamagePerCrystal()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_reactDamagePerCrystalMod.GetModifiedValue(m_reactDamagePerCrystal);
-		}
-		else
-		{
-			result = m_reactDamagePerCrystal;
-		}
-		return result;
+		return m_abilityMod
+			? m_abilityMod.m_reactDamagePerCrystalMod.GetModifiedValue(m_reactDamagePerCrystal)
+			: m_reactDamagePerCrystal;
 	}
 
 	public StandardEffectInfo GetReactEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedReactEnemyHitEffect != null)
-		{
-			result = m_cachedReactEnemyHitEffect;
-		}
-		else
-		{
-			result = m_reactEnemyHitEffect;
-		}
-		return result;
+		return m_cachedReactEnemyHitEffect ?? m_reactEnemyHitEffect;
 	}
 
 	public int GetReactHealOnTarget()
 	{
-		return (!m_abilityMod) ? m_reactHealOnTarget : m_abilityMod.m_reactHealOnTargetMod.GetModifiedValue(m_reactHealOnTarget);
+		return m_abilityMod
+			? m_abilityMod.m_reactHealOnTargetMod.GetModifiedValue(m_reactHealOnTarget)
+			: m_reactHealOnTarget;
 	}
 
 	public int GetReactEnergyOnCasterPerReact()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_reactEnergyOnCasterPerReactMod.GetModifiedValue(m_reactEnergyOnCasterPerReact);
-		}
-		else
-		{
-			result = m_reactEnergyOnCasterPerReact;
-		}
-		return result;
+		return m_abilityMod
+			? m_abilityMod.m_reactEnergyOnCasterPerReactMod.GetModifiedValue(m_reactEnergyOnCasterPerReact)
+			: m_reactEnergyOnCasterPerReact;
 	}
 
 	public int GetCdrIfNoReactionTriggered()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_cdrIfNoReactionTriggeredMod.GetModifiedValue(m_cdrIfNoReactionTriggered);
-		}
-		else
-		{
-			result = m_cdrIfNoReactionTriggered;
-		}
-		return result;
+		return m_abilityMod
+			? m_abilityMod.m_cdrIfNoReactionTriggeredMod.GetModifiedValue(m_cdrIfNoReactionTriggered)
+			: m_cdrIfNoReactionTriggered;
 	}
 
 	public float GetRadiusForTargeter(AbilityTarget currentTarget, ActorData targetingActor)
@@ -345,13 +203,9 @@ public class MartyrAoeOnReactHit : Ability
 	public float GetCurrentRadius()
 	{
 		float num = GetReactBaseRadius();
-		if (m_syncComp != null)
+		if (m_syncComp != null && GetReactRadiusPerCrystal() > 0f)
 		{
-			if (GetReactRadiusPerCrystal() > 0f)
-			{
-				int num2 = Mathf.Max(0, m_syncComp.DamageCrystals);
-				num += GetReactRadiusPerCrystal() * (float)num2;
-			}
+			num += GetReactRadiusPerCrystal() * Mathf.Max(0, m_syncComp.DamageCrystals);
 		}
 		return num;
 	}
@@ -359,13 +213,9 @@ public class MartyrAoeOnReactHit : Ability
 	public int GetTotalDamage()
 	{
 		int num = GetReactAoeDamage();
-		if (m_syncComp != null)
+		if (m_syncComp != null && GetReactDamagePerCrystal() > 0)
 		{
-			if (GetReactDamagePerCrystal() > 0)
-			{
-				int num2 = Mathf.Max(0, m_syncComp.DamageCrystals);
-				num += GetReactDamagePerCrystal() * num2;
-			}
+			num += GetReactDamagePerCrystal() * Mathf.Max(0, m_syncComp.DamageCrystals);
 		}
 		return num;
 	}
@@ -373,22 +223,16 @@ public class MartyrAoeOnReactHit : Ability
 	public int GetCurrentExtraAbsorb(ActorData caster)
 	{
 		int num = 0;
-		if (m_syncComp != null)
+		if (m_syncComp != null && GetExtraAbsorbPerCrystal() > 0)
 		{
-			if (GetExtraAbsorbPerCrystal() > 0)
-			{
-				int num2 = m_syncComp.SpentDamageCrystals(caster);
-				num += num2 * GetExtraAbsorbPerCrystal();
-			}
+			num += m_syncComp.SpentDamageCrystals(caster) * GetExtraAbsorbPerCrystal();
 		}
 		return num;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		bool flag = false;
-		ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-		return CanTargetActorInDecision(caster, currentBestActorTarget, CanTargetEnemy(), CanTargetAlly(), CanTargetSelf(), ValidateCheckPath.Ignore, !TargetingIgnoreLos(), true);
+		return CanTargetActorInDecision(caster, target.GetCurrentBestActorTarget(), CanTargetEnemy(), CanTargetAlly(), CanTargetSelf(), ValidateCheckPath.Ignore, !TargetingIgnoreLos(), true);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
@@ -410,138 +254,65 @@ public class MartyrAoeOnReactHit : Ability
 		results.m_absorb = 0;
 		results.m_damage = 0;
 		results.m_healing = 0;
-		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Ally) <= 0)
+		if (Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Ally) > 0
+			|| Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
 		{
-			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) <= 0)
-			{
-				if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
-				{
-					results.m_damage = GetTotalDamage();
-				}
-				goto IL_00a0;
-			}
+			results.m_absorb = GetAllyBaseEffectData().m_absorbAmount + GetCurrentExtraAbsorb(ActorData);
 		}
-		ActorData actorData = base.ActorData;
-		int num = results.m_absorb = GetAllyBaseEffectData().m_absorbAmount + GetCurrentExtraAbsorb(actorData);
-		goto IL_00a0;
-		IL_00a0:
+		else if (Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
+		{
+			results.m_damage = GetTotalDamage();
+		}
 		return true;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_MartyrAoeOnReactHit abilityMod_MartyrAoeOnReactHit = modAsBase as AbilityMod_MartyrAoeOnReactHit;
-		StandardActorEffectData standardActorEffectData;
-		if ((bool)abilityMod_MartyrAoeOnReactHit)
-		{
-			standardActorEffectData = abilityMod_MartyrAoeOnReactHit.m_enemyBaseEffectDataMod.GetModifiedValue(m_enemyBaseEffectData);
-		}
-		else
-		{
-			standardActorEffectData = m_enemyBaseEffectData;
-		}
-		StandardActorEffectData standardActorEffectData2 = standardActorEffectData;
-		standardActorEffectData2.AddTooltipTokens(tokens, "EnemyBaseEffectData", abilityMod_MartyrAoeOnReactHit != null, m_enemyBaseEffectData);
-		StandardActorEffectData standardActorEffectData3;
-		if ((bool)abilityMod_MartyrAoeOnReactHit)
-		{
-			standardActorEffectData3 = abilityMod_MartyrAoeOnReactHit.m_allyBaseEffectDataMod.GetModifiedValue(m_allyBaseEffectData);
-		}
-		else
-		{
-			standardActorEffectData3 = m_allyBaseEffectData;
-		}
-		StandardActorEffectData standardActorEffectData4 = standardActorEffectData3;
-		standardActorEffectData4.AddTooltipTokens(tokens, "AllyBaseEffectData", abilityMod_MartyrAoeOnReactHit != null, m_allyBaseEffectData);
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_MartyrAoeOnReactHit)
-		{
-			val = abilityMod_MartyrAoeOnReactHit.m_extraAbsorbPerCrystalMod.GetModifiedValue(m_extraAbsorbPerCrystal);
-		}
-		else
-		{
-			val = m_extraAbsorbPerCrystal;
-		}
-		AddTokenInt(tokens, "ExtraAbsorbPerCrystal", empty, val);
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)abilityMod_MartyrAoeOnReactHit)
-		{
-			val2 = abilityMod_MartyrAoeOnReactHit.m_reactAoeDamageMod.GetModifiedValue(m_reactAoeDamage);
-		}
-		else
-		{
-			val2 = m_reactAoeDamage;
-		}
-		AddTokenInt(tokens, "ReactAoeDamage", empty2, val2);
-		string empty3 = string.Empty;
-		int val3;
-		if ((bool)abilityMod_MartyrAoeOnReactHit)
-		{
-			val3 = abilityMod_MartyrAoeOnReactHit.m_reactDamagePerCrystalMod.GetModifiedValue(m_reactDamagePerCrystal);
-		}
-		else
-		{
-			val3 = m_reactDamagePerCrystal;
-		}
-		AddTokenInt(tokens, "ReactDamagePerCrystal", empty3, val3);
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_MartyrAoeOnReactHit)
-		{
-			effectInfo = abilityMod_MartyrAoeOnReactHit.m_reactEnemyHitEffectMod.GetModifiedValue(m_reactEnemyHitEffect);
-		}
-		else
-		{
-			effectInfo = m_reactEnemyHitEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "ReactEnemyHitEffect", m_reactEnemyHitEffect);
-		string empty4 = string.Empty;
-		int val4;
-		if ((bool)abilityMod_MartyrAoeOnReactHit)
-		{
-			val4 = abilityMod_MartyrAoeOnReactHit.m_reactHealOnTargetMod.GetModifiedValue(m_reactHealOnTarget);
-		}
-		else
-		{
-			val4 = m_reactHealOnTarget;
-		}
-		AddTokenInt(tokens, "ReactHealOnTarget", empty4, val4);
-		string empty5 = string.Empty;
-		int val5;
-		if ((bool)abilityMod_MartyrAoeOnReactHit)
-		{
-			val5 = abilityMod_MartyrAoeOnReactHit.m_reactEnergyOnCasterPerReactMod.GetModifiedValue(m_reactEnergyOnCasterPerReact);
-		}
-		else
-		{
-			val5 = m_reactEnergyOnCasterPerReact;
-		}
-		AddTokenInt(tokens, "ReactEnergyOnCasterPerReact", empty5, val5);
-		string empty6 = string.Empty;
-		int val6;
-		if ((bool)abilityMod_MartyrAoeOnReactHit)
-		{
-			val6 = abilityMod_MartyrAoeOnReactHit.m_cdrIfNoReactionTriggeredMod.GetModifiedValue(m_cdrIfNoReactionTriggered);
-		}
-		else
-		{
-			val6 = m_cdrIfNoReactionTriggered;
-		}
-		AddTokenInt(tokens, "CdrIfNoReactionTriggered", empty6, val6);
+		StandardActorEffectData enemyEffectData = abilityMod_MartyrAoeOnReactHit
+			? abilityMod_MartyrAoeOnReactHit.m_enemyBaseEffectDataMod.GetModifiedValue(m_enemyBaseEffectData)
+			: m_enemyBaseEffectData;
+		enemyEffectData.AddTooltipTokens(tokens, "EnemyBaseEffectData", abilityMod_MartyrAoeOnReactHit != null, m_enemyBaseEffectData);
+		StandardActorEffectData allayEffectData = abilityMod_MartyrAoeOnReactHit
+			? abilityMod_MartyrAoeOnReactHit.m_allyBaseEffectDataMod.GetModifiedValue(m_allyBaseEffectData)
+			: m_allyBaseEffectData;
+		allayEffectData.AddTooltipTokens(tokens, "AllyBaseEffectData", abilityMod_MartyrAoeOnReactHit != null, m_allyBaseEffectData);
+		int extraAbsorbPerCrystal = abilityMod_MartyrAoeOnReactHit
+			? abilityMod_MartyrAoeOnReactHit.m_extraAbsorbPerCrystalMod.GetModifiedValue(m_extraAbsorbPerCrystal)
+			: m_extraAbsorbPerCrystal;
+		AddTokenInt(tokens, "ExtraAbsorbPerCrystal", "", extraAbsorbPerCrystal);
+		int reactAoeDamage = abilityMod_MartyrAoeOnReactHit
+			? abilityMod_MartyrAoeOnReactHit.m_reactAoeDamageMod.GetModifiedValue(m_reactAoeDamage)
+			: m_reactAoeDamage;
+		AddTokenInt(tokens, "ReactAoeDamage", "", reactAoeDamage);
+		int reactDamagePerCrystal = abilityMod_MartyrAoeOnReactHit
+			? abilityMod_MartyrAoeOnReactHit.m_reactDamagePerCrystalMod.GetModifiedValue(m_reactDamagePerCrystal)
+			: m_reactDamagePerCrystal;
+		AddTokenInt(tokens, "ReactDamagePerCrystal", "", reactDamagePerCrystal);
+		StandardEffectInfo reactEnemyHitEffect = abilityMod_MartyrAoeOnReactHit
+			? abilityMod_MartyrAoeOnReactHit.m_reactEnemyHitEffectMod.GetModifiedValue(m_reactEnemyHitEffect)
+			: m_reactEnemyHitEffect;
+		AbilityMod.AddToken_EffectInfo(tokens, reactEnemyHitEffect, "ReactEnemyHitEffect", m_reactEnemyHitEffect);
+		int reactHealOnTarget = abilityMod_MartyrAoeOnReactHit
+			? abilityMod_MartyrAoeOnReactHit.m_reactHealOnTargetMod.GetModifiedValue(m_reactHealOnTarget)
+			: m_reactHealOnTarget;
+		AddTokenInt(tokens, "ReactHealOnTarget", "", reactHealOnTarget);
+		int reactEnergyOnCasterPerReact = abilityMod_MartyrAoeOnReactHit
+			? abilityMod_MartyrAoeOnReactHit.m_reactEnergyOnCasterPerReactMod.GetModifiedValue(m_reactEnergyOnCasterPerReact)
+			: m_reactEnergyOnCasterPerReact;
+		AddTokenInt(tokens, "ReactEnergyOnCasterPerReact", "", reactEnergyOnCasterPerReact);
+		int cdrIfNoReactionTriggered = abilityMod_MartyrAoeOnReactHit
+			? abilityMod_MartyrAoeOnReactHit.m_cdrIfNoReactionTriggeredMod.GetModifiedValue(m_cdrIfNoReactionTriggered)
+			: m_cdrIfNoReactionTriggered;
+		AddTokenInt(tokens, "CdrIfNoReactionTriggered", "", cdrIfNoReactionTriggered);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_MartyrAoeOnReactHit))
-		{
-			return;
-		}
-		while (true)
+		if (abilityMod.GetType() == typeof(AbilityMod_MartyrAoeOnReactHit))
 		{
 			m_abilityMod = (abilityMod as AbilityMod_MartyrAoeOnReactHit);
 			Setup();
-			return;
 		}
 	}
 

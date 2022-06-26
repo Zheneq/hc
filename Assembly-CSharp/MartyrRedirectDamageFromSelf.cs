@@ -5,39 +5,24 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 {
 	[Header("-- Damage reduction and redirection")]
 	public float m_damageReductionOnCaster = 0.5f;
-
 	public float m_damageRedirectToTarget = 0.5f;
-
 	public int m_techPointGainPerRedirect = 3;
-
 	public StandardEffectInfo m_selfHitEffect;
-
 	public bool m_affectsEnemies = true;
-
 	public bool m_affectsAllies;
-
 	public bool m_penetratesLoS;
-
 	public StandardEffectInfo m_effectOnTarget;
-
 	[Header("-- Self protection")]
 	public int m_baseAbsorb;
-
 	public int m_absorbPerCrystalSpent = 5;
-
 	public List<MartyrProtectAllyThreshold> m_thresholdBasedCrystalBonuses;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequence;
-
 	public GameObject m_projectileSequence;
-
 	public GameObject m_redirectProjectileSequence;
 
 	private Martyr_SyncComponent m_syncComponent;
-
 	private StandardEffectInfo m_cachedSelfHitEffect;
-
 	private StandardEffectInfo m_cachedEffectOnTarget;
 
 	private void Start()
@@ -59,11 +44,12 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 
 	protected void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, GetPenetratesLoS(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, m_affectsEnemies, m_affectsAllies, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Always);
-		(base.Targeter as AbilityUtil_Targeter_Shape).m_affectCasterDelegate = delegate(ActorData caster, List<ActorData> actorsSoFar, bool casterInShape)
+		Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, GetPenetratesLoS(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, m_affectsEnemies, m_affectsAllies, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Always)
 		{
-			int currentAbsorb = GetCurrentAbsorb(caster);
-			return currentAbsorb > 0;
+			m_affectCasterDelegate = delegate (ActorData caster, List<ActorData> actorsSoFar, bool casterInShape)
+			{
+				return GetCurrentAbsorb(caster) > 0;
+			}
 		};
 	}
 
@@ -90,30 +76,12 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 
 	public StandardEffectInfo GetSelfHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedSelfHitEffect != null)
-		{
-			result = m_cachedSelfHitEffect;
-		}
-		else
-		{
-			result = m_selfHitEffect;
-		}
-		return result;
+		return m_cachedSelfHitEffect ?? m_selfHitEffect;
 	}
 
 	public StandardEffectInfo GetEffectOnTarget()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectOnTarget != null)
-		{
-			result = m_cachedEffectOnTarget;
-		}
-		else
-		{
-			result = m_effectOnTarget;
-		}
-		return result;
+		return m_cachedEffectOnTarget ?? m_effectOnTarget;
 	}
 
 	public int GetAbsorbAmountPerCrystalSpent()
@@ -165,10 +133,9 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
-		if (targetActor == base.ActorData)
+		if (targetActor == ActorData)
 		{
-			int currentAbsorb = GetCurrentAbsorb(base.ActorData);
-			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, base.ActorData, currentAbsorb, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
+			AddNameplateValueForSingleHit(ref symbolToValue, Targeter, ActorData, GetCurrentAbsorb(ActorData), AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
 		}
 		return symbolToValue;
 	}
@@ -180,52 +147,25 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		bool flag = false;
-		ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-		return CanTargetActorInDecision(caster, currentBestActorTarget, m_affectsEnemies, m_affectsAllies, false, ValidateCheckPath.Ignore, !GetPenetratesLoS(), false);
+		return CanTargetActorInDecision(caster, target.GetCurrentBestActorTarget(), m_affectsEnemies, m_affectsAllies, false, ValidateCheckPath.Ignore, !GetPenetratesLoS(), false);
 	}
 
 	protected override List<MartyrLaserThreshold> GetThresholdBasedCrystalBonusList()
 	{
 		List<MartyrLaserThreshold> list = new List<MartyrLaserThreshold>();
-		using (List<MartyrProtectAllyThreshold>.Enumerator enumerator = m_thresholdBasedCrystalBonuses.GetEnumerator())
+		foreach (MartyrProtectAllyThreshold bonus in m_thresholdBasedCrystalBonuses)
 		{
-			while (enumerator.MoveNext())
-			{
-				MartyrProtectAllyThreshold current = enumerator.Current;
-				list.Add(current);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					if (true)
-					{
-						return list;
-					}
-					/*OpCode not supported: LdMemberToken*/;
-					return list;
-				}
-			}
+			list.Add(bonus);
 		}
+		return list;
 	}
 
 	private int GetCurrentAbsorb(ActorData caster)
 	{
 		MartyrProtectAllyThreshold martyrProtectAllyThreshold = GetCurrentPowerEntry(caster) as MartyrProtectAllyThreshold;
-		int num;
-		if (martyrProtectAllyThreshold != null)
-		{
-			num = martyrProtectAllyThreshold.m_additionalAbsorb;
-		}
-		else
-		{
-			num = 0;
-		}
-		int num2 = num;
-		return GetBaseAbsorbAmount() + m_syncComponent.SpentDamageCrystals(caster) * GetAbsorbAmountPerCrystalSpent() + num2;
+		int additionalAbsorb = martyrProtectAllyThreshold != null ? martyrProtectAllyThreshold.m_additionalAbsorb : 0;
+		return GetBaseAbsorbAmount()
+			+ m_syncComponent.SpentDamageCrystals(caster) * GetAbsorbAmountPerCrystalSpent()
+			+ additionalAbsorb;
 	}
 }
