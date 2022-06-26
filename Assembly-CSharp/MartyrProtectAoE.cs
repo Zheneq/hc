@@ -5,55 +5,33 @@ public class MartyrProtectAoE : Ability
 {
 	[Header("-- Targeting")]
 	public AbilityAreaShape m_targetingShape = AbilityAreaShape.Five_x_Five_NoCorners;
-
 	public bool m_penetrateLos = true;
-
 	[Header("-- Damage reduction and redirection")]
 	public float m_damageReductionOnTarget = 0.5f;
-
 	public float m_damageRedirectToCaster = 0.5f;
-
 	public int m_techPointGainPerRedirect = 3;
-
 	public StandardEffectInfo m_allyHitEffect;
-
 	[Header("-- Thorns effect on protected ally")]
 	public StandardEffectInfo m_thornsEffect;
-
 	public StandardEffectInfo m_returnEffectOnEnemy;
-
 	public int m_thornsDamagePerHit;
-
 	[Header("-- Absorb & Crystal Bonuses")]
 	public StandardEffectInfo m_effectOnSelf;
-
 	public int m_baseAbsorb;
-
 	public int m_absorbPerCrystalSpent = 5;
-
 	public int m_baseAbsorbOnAlly;
-
 	public int m_absorbOnAllyPerCrystalSpent = 5;
-
 	public List<MartyrProtectAllyThreshold> m_thresholdBasedCrystalBonuses;
-
 	[Header("-- Sequences")]
 	public GameObject m_selfHitSequence;
-
 	public GameObject m_aoeHitSequence;
-
 	public GameObject m_redirectProjectilePrefab;
-
 	public GameObject m_thornsProjectilePrefab;
 
 	private Martyr_SyncComponent m_syncComponent;
-
 	private StandardEffectInfo m_cachedAllyHitEffect;
-
 	private StandardEffectInfo m_cachedEffectOnSelf;
-
 	private StandardEffectInfo m_cachedThornsEffect;
-
 	private StandardEffectInfo m_cachedReturnEffectOnEnemy;
 
 	private void Start()
@@ -70,8 +48,10 @@ public class MartyrProtectAoE : Ability
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, GetTargetingShape(), GetPenetrateLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, true, AbilityUtil_Targeter.AffectsActor.Always);
-		base.Targeter.ShowArcToShape = !m_targetData.IsNullOrEmpty();
+		Targeter = new AbilityUtil_Targeter_Shape(this, GetTargetingShape(), GetPenetrateLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, true, AbilityUtil_Targeter.AffectsActor.Always)
+		{
+			ShowArcToShape = !m_targetData.IsNullOrEmpty()
+		};
 	}
 
 	private void SetCachedFields()
@@ -109,58 +89,22 @@ public class MartyrProtectAoE : Ability
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedAllyHitEffect != null)
-		{
-			result = m_cachedAllyHitEffect;
-		}
-		else
-		{
-			result = m_allyHitEffect;
-		}
-		return result;
+		return m_cachedAllyHitEffect ?? m_allyHitEffect;
 	}
 
 	public StandardEffectInfo GetEffectOnSelf()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectOnSelf != null)
-		{
-			result = m_cachedEffectOnSelf;
-		}
-		else
-		{
-			result = m_effectOnSelf;
-		}
-		return result;
+		return m_cachedEffectOnSelf ?? m_effectOnSelf;
 	}
 
 	public StandardEffectInfo GetThornsEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedThornsEffect != null)
-		{
-			result = m_cachedThornsEffect;
-		}
-		else
-		{
-			result = m_thornsEffect;
-		}
-		return result;
+		return m_cachedThornsEffect ?? m_thornsEffect;
 	}
 
 	public StandardEffectInfo GetReturnEffectOnEnemy()
 	{
-		StandardEffectInfo result;
-		if (m_cachedReturnEffectOnEnemy != null)
-		{
-			result = m_cachedReturnEffectOnEnemy;
-		}
-		else
-		{
-			result = m_returnEffectOnEnemy;
-		}
-		return result;
+		return m_cachedReturnEffectOnEnemy ?? m_returnEffectOnEnemy;
 	}
 
 	public int GetAbsorbAmountPerCrystalSpent()
@@ -220,34 +164,34 @@ public class MartyrProtectAoE : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
-		if (targetActor == base.ActorData)
+		if (targetActor == ActorData)
 		{
-			int currentAbsorb = GetCurrentAbsorb(base.ActorData);
-			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, currentAbsorb, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
+			int currentAbsorb = GetCurrentAbsorb(ActorData);
+			AddNameplateValueForSingleHit(ref symbolToValue, Targeter, targetActor, currentAbsorb, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
 		}
 		else
 		{
-			int currentAbsorbForAlly = GetCurrentAbsorbForAlly(base.ActorData);
-			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, currentAbsorbForAlly, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Ally);
+			int currentAbsorbForAlly = GetCurrentAbsorbForAlly(ActorData);
+			AddNameplateValueForSingleHit(ref symbolToValue, Targeter, targetActor, currentAbsorbForAlly, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Ally);
 		}
 		return symbolToValue;
 	}
 
 	private int GetBonusAbsorbForCurrentThreshold(ActorData caster, bool forAlly)
 	{
-		int result = 0;
-		if (m_syncComponent != null)
+		if (m_syncComponent == null || !m_syncComponent.IsBonusActive(caster))
 		{
-			if (m_syncComponent.IsBonusActive(caster))
+			return 0;
+		}
+		int result = 0;
+		int spentDamageCrystals = m_syncComponent.SpentDamageCrystals(caster);
+		foreach (MartyrProtectAllyThreshold bonus in m_thresholdBasedCrystalBonuses)
+		{
+			if (spentDamageCrystals >= bonus.m_crystalThreshold)
 			{
-				int num = m_syncComponent.SpentDamageCrystals(caster);
-				for (int i = 0; i < m_thresholdBasedCrystalBonuses.Count; i++)
-				{
-					if (num >= m_thresholdBasedCrystalBonuses[i].m_crystalThreshold)
-					{
-						result = ((!forAlly) ? m_thresholdBasedCrystalBonuses[i].m_additionalAbsorb : m_thresholdBasedCrystalBonuses[i].m_additionalAbsorbOnAlly);
-					}
-				}
+				result = forAlly
+					? bonus.m_additionalAbsorbOnAlly
+					: bonus.m_additionalAbsorb;
 			}
 		}
 		return result;
@@ -255,11 +199,15 @@ public class MartyrProtectAoE : Ability
 
 	private int GetCurrentAbsorb(ActorData caster)
 	{
-		return GetBaseAbsorbAmount() + m_syncComponent.SpentDamageCrystals(caster) * GetAbsorbAmountPerCrystalSpent() + GetBonusAbsorbForCurrentThreshold(caster, false);
+		return GetBaseAbsorbAmount()
+			+ m_syncComponent.SpentDamageCrystals(caster) * GetAbsorbAmountPerCrystalSpent()
+			+ GetBonusAbsorbForCurrentThreshold(caster, false);
 	}
 
 	private int GetCurrentAbsorbForAlly(ActorData caster)
 	{
-		return GetBaseAbsorbOnAlly() + m_syncComponent.SpentDamageCrystals(caster) * GetAbsorbOnAllyPerCrystalSpent() + GetBonusAbsorbForCurrentThreshold(caster, true);
+		return GetBaseAbsorbOnAlly()
+			+ m_syncComponent.SpentDamageCrystals(caster) * GetAbsorbOnAllyPerCrystalSpent()
+			+ GetBonusAbsorbForCurrentThreshold(caster, true);
 	}
 }

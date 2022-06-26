@@ -3,19 +3,13 @@ using System.Collections.Generic;
 public class MartyrSlowBeam : MartyrLaserBase
 {
 	public StandardEffectInfo m_laserHitEffect;
-
 	public int m_baseDamage = 15;
-
 	public int m_additionalDamagePerCrystalSpent;
-
 	public List<MartyrBasicAttackThreshold> m_thresholdBasedCrystalBonuses;
-
 	public bool m_penetrateLoS;
-
 	public float m_targetingRadius = 2.5f;
 
 	private Martyr_SyncComponent m_syncComponent;
-
 	private StandardEffectInfo m_cachedLaserHitEffect;
 
 	private void Start()
@@ -36,8 +30,10 @@ public class MartyrSlowBeam : MartyrLaserBase
 
 	protected void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_MartyrSmoothAoE(this, GetCurrentTargetingRadius(), GetPenetrateLoS());
-		base.Targeter.ShowArcToShape = false;
+		Targeter = new AbilityUtil_Targeter_MartyrSmoothAoE(this, GetCurrentTargetingRadius(), GetPenetrateLoS())
+		{
+			ShowArcToShape = false
+		};
 	}
 
 	private void SetCachedFields()
@@ -47,16 +43,7 @@ public class MartyrSlowBeam : MartyrLaserBase
 
 	public StandardEffectInfo GetLaserHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedLaserHitEffect != null)
-		{
-			result = m_cachedLaserHitEffect;
-		}
-		else
-		{
-			result = m_laserHitEffect;
-		}
-		return result;
+		return m_cachedLaserHitEffect ?? m_laserHitEffect;
 	}
 
 	public int GetBaseDamage()
@@ -76,18 +63,11 @@ public class MartyrSlowBeam : MartyrLaserBase
 
 	public float GetCurrentTargetingRadius()
 	{
-		MartyrLaserThreshold currentPowerEntry = GetCurrentPowerEntry(base.ActorData);
-		float num;
-		if (currentPowerEntry != null)
-		{
-			num = currentPowerEntry.m_additionalWidth;
-		}
-		else
-		{
-			num = 0f;
-		}
-		float num2 = num;
-		return m_targetingRadius + (float)m_syncComponent.SpentDamageCrystals(base.ActorData) * GetBonusWidthPerCrystalSpent() + num2;
+		MartyrLaserThreshold currentPowerEntry = GetCurrentPowerEntry(ActorData);
+		float additionalWidth = currentPowerEntry != null ? currentPowerEntry.m_additionalWidth : 0f;
+		return m_targetingRadius
+			+ m_syncComponent.SpentDamageCrystals(ActorData) * GetBonusWidthPerCrystalSpent()
+			+ additionalWidth;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -102,45 +82,20 @@ public class MartyrSlowBeam : MartyrLaserBase
 	protected override List<MartyrLaserThreshold> GetThresholdBasedCrystalBonusList()
 	{
 		List<MartyrLaserThreshold> list = new List<MartyrLaserThreshold>();
-		using (List<MartyrBasicAttackThreshold>.Enumerator enumerator = m_thresholdBasedCrystalBonuses.GetEnumerator())
+		foreach (MartyrBasicAttackThreshold bonus in m_thresholdBasedCrystalBonuses)
 		{
-			while (enumerator.MoveNext())
-			{
-				MartyrBasicAttackThreshold current = enumerator.Current;
-				list.Add(current);
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					if (true)
-					{
-						return list;
-					}
-					/*OpCode not supported: LdMemberToken*/;
-					return list;
-				}
-			}
+			list.Add(bonus);
 		}
+		return list;
 	}
 
 	private int GetCurrentDamage(ActorData caster)
 	{
 		MartyrBasicAttackThreshold martyrBasicAttackThreshold = GetCurrentPowerEntry(caster) as MartyrBasicAttackThreshold;
-		int num;
-		if (martyrBasicAttackThreshold != null)
-		{
-			num = martyrBasicAttackThreshold.m_additionalDamage;
-		}
-		else
-		{
-			num = 0;
-		}
-		int num2 = num;
-		return GetBaseDamage() + m_syncComponent.SpentDamageCrystals(caster) * GetBonusDamagePerCrystalSpent() + num2;
+		int additionalDamage = martyrBasicAttackThreshold != null ? martyrBasicAttackThreshold.m_additionalDamage : 0;
+		return GetBaseDamage()
+			+ m_syncComponent.SpentDamageCrystals(caster) * GetBonusDamagePerCrystalSpent()
+			+ additionalDamage;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -154,7 +109,7 @@ public class MartyrSlowBeam : MartyrLaserBase
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
-		Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, GetCurrentDamage(base.ActorData));
+		AddNameplateValueForSingleHit(ref symbolToValue, Targeter, targetActor, GetCurrentDamage(ActorData));
 		return symbolToValue;
 	}
 }
