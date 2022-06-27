@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,9 +56,13 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		MartyrAoeOnReactHit martyrAoeOnReactHit = GetTargetAbilityOnAbilityData(abilityData) as MartyrAoeOnReactHit;
+		// rogues
+		//MartyrAoeOnReactHit martyrAoeOnReactHit = targetAbility as MartyrAoeOnReactHit;
+
 		bool isValid = martyrAoeOnReactHit != null;
 		string desc = "";
 		desc += PropDesc(m_canTargetEnemyMod, "[CanTargetEnemy]", isValid, isValid && martyrAoeOnReactHit.m_canTargetEnemy);

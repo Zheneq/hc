@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -16,6 +18,7 @@ public class Martyr_SyncComponent : NetworkBehaviour
 	internal int m_clientCrystalAdjustment;
 	internal int m_clientDamageThisTurn;
 
+	// removed in rogues
 	private static int kListm_syncAoeOnReactActors = 1750195272;
 
 	public bool NetworkCrystalsSpentThisTurn
@@ -27,7 +30,7 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref CrystalsSpentThisTurn, 2u);
+			SetSyncVar(value, ref CrystalsSpentThisTurn, 2u);  // 1UL in rogues
 		}
 	}
 
@@ -49,7 +52,7 @@ public class Martyr_SyncComponent : NetworkBehaviour
 					syncVarHookGuard = false;
 				}
 			}
-			SetSyncVar(value, ref DamageCrystals, 4u);
+			SetSyncVar(value, ref DamageCrystals, 4u);  // 2UL in rogues
 		}
 	}
 
@@ -62,10 +65,11 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref m_syncNumTurnsAtFullEnergy, 8u);
+			SetSyncVar(value, ref m_syncNumTurnsAtFullEnergy, 8u);  // 4UL in rogues
 		}
 	}
 
+	// removed in rogues
 	static Martyr_SyncComponent()
 	{
 		RegisterSyncListDelegate(typeof(Martyr_SyncComponent), kListm_syncAoeOnReactActors, InvokeSyncListm_syncAoeOnReactActors);
@@ -86,7 +90,7 @@ public class Martyr_SyncComponent : NetworkBehaviour
 
 	public bool IsBonusActive(ActorData owner)
 	{
-		return CrystalsSpentThisTurn || owner.GetAbilityData().HasQueuedAbilityOfType(typeof(MartyrSpendCrystals));
+		return CrystalsSpentThisTurn || owner.GetAbilityData().HasQueuedAbilityOfType(typeof(MartyrSpendCrystals)); // , true in rogues
 	}
 
 	public int SpentDamageCrystals(ActorData owner)
@@ -123,10 +127,22 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		return false;
 	}
 
+	// rogues
+	//public Martyr_SyncComponent()
+	//{
+	//	base.InitSyncObject(m_syncAoeOnReactActors);
+	//}
+
+	// reactor
 	private void UNetVersion()
 	{
 	}
+	// rogues
+	//private void MirrorProcessed()
+	//{
+	//}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_syncAoeOnReactActors(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -137,11 +153,13 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		((Martyr_SyncComponent)obj).m_syncAoeOnReactActors.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	private void Awake()
 	{
 		m_syncAoeOnReactActors.InitializeBehaviour(this, kListm_syncAoeOnReactActors);
 	}
 
+	// reactor
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -196,6 +214,7 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		return flag;
 	}
 
+	// reactor
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)
@@ -224,4 +243,68 @@ public class Martyr_SyncComponent : NetworkBehaviour
 			m_syncNumTurnsAtFullEnergy = (int)reader.ReadPackedUInt32();
 		}
 	}
+
+	// rogues
+	//public override bool OnSerialize(NetworkWriter writer, bool forceAll)
+	//{
+	//	bool result = base.OnSerialize(writer, forceAll);
+	//	if (forceAll)
+	//	{
+	//		writer.Write(CrystalsSpentThisTurn);
+	//		writer.WritePackedInt32(DamageCrystals);
+	//		writer.WritePackedInt32(m_syncNumTurnsAtFullEnergy);
+	//		return true;
+	//	}
+	//	writer.WritePackedUInt64(syncVarDirtyBits);
+	//	if ((syncVarDirtyBits & 1UL) != 0UL)
+	//	{
+	//		writer.Write(CrystalsSpentThisTurn);
+	//		result = true;
+	//	}
+	//	if ((syncVarDirtyBits & 2UL) != 0UL)
+	//	{
+	//		writer.WritePackedInt32(DamageCrystals);
+	//		result = true;
+	//	}
+	//	if ((syncVarDirtyBits & 4UL) != 0UL)
+	//	{
+	//		writer.WritePackedInt32(m_syncNumTurnsAtFullEnergy);
+	//		result = true;
+	//	}
+	//	return result;
+	//}
+
+	// rogues
+	//public override void OnDeserialize(NetworkReader reader, bool initialState)
+	//{
+	//	base.OnDeserialize(reader, initialState);
+	//	if (initialState)
+	//	{
+	//		bool networkCrystalsSpentThisTurn = reader.ReadBoolean();
+	//		NetworkCrystalsSpentThisTurn = networkCrystalsSpentThisTurn;
+	//		int num = reader.ReadPackedInt32();
+	//		HookSetDamageCrystal(num);
+	//		NetworkDamageCrystals = num;
+	//		int networkm_syncNumTurnsAtFullEnergy = reader.ReadPackedInt32();
+	//		Networkm_syncNumTurnsAtFullEnergy = networkm_syncNumTurnsAtFullEnergy;
+	//		return;
+	//	}
+	//	long num2 = (long)reader.ReadPackedUInt64();
+	//	if ((num2 & 1L) != 0L)
+	//	{
+	//		bool networkCrystalsSpentThisTurn2 = reader.ReadBoolean();
+	//		NetworkCrystalsSpentThisTurn = networkCrystalsSpentThisTurn2;
+	//	}
+	//	if ((num2 & 2L) != 0L)
+	//	{
+	//		int num3 = reader.ReadPackedInt32();
+	//		HookSetDamageCrystal(num3);
+	//		NetworkDamageCrystals = num3;
+	//	}
+	//	if ((num2 & 4L) != 0L)
+	//	{
+	//		int networkm_syncNumTurnsAtFullEnergy2 = reader.ReadPackedInt32();
+	//		Networkm_syncNumTurnsAtFullEnergy = networkm_syncNumTurnsAtFullEnergy2;
+	//	}
+	//}
 }

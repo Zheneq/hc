@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,9 +68,13 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		MartyrSpendCrystals martyrSpendCrystals = GetTargetAbilityOnAbilityData(abilityData) as MartyrSpendCrystals;
+		// rogues
+		//MartyrSpendCrystals martyrSpendCrystals = targetAbility as MartyrSpendCrystals;
+
 		bool isValid = martyrSpendCrystals != null;
 		string desc = "";
 		desc += PropDesc(m_spentCrystalsEffectMod, "[SpentCrystalsEffect]", isValid, isValid ? martyrSpendCrystals.m_spentCrystalsEffect : null);

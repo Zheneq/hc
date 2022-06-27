@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -167,4 +169,61 @@ public class MartyrHealingExplosion : MartyrLaserBase
 		AddNameplateValueForSingleHit(ref symbolToValue, Targeter, targetActor, GetCurrentExplosionHealing(ActorData), AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Secondary);
 		return symbolToValue;
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, null, !m_forceMaxLaserDistance);
+		Sequence.IExtraSequenceParams[] adjustableRingSequenceParams = AbilityCommon_LayeredRings.GetAdjustableRingSequenceParams(GetCurrentExplosionRadius());
+		list.Add(new ServerClientUtils.SequenceStartData(m_projectileSequence, laserCoords.end, additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource, adjustableRingSequenceParams));
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, nonActorTargetInfo, !m_forceMaxLaserDistance);
+		List<ActorData> actorInRadius = new List<ActorData>();
+		if (hitActors.Count > 0 || !m_explodeOnlyOnLaserHit)
+		{
+			actorInRadius = AreaEffectUtils.GetActorsInRadius(laserCoords.end, GetCurrentExplosionRadius(), GetLaserInfo().penetrateLos, caster, caster.GetTeam(), nonActorTargetInfo);
+			if (!m_explosionCanHitCaster && actorInRadius.Contains(caster))
+			{
+				actorInRadius.Remove(caster);
+			}
+		}
+		foreach (ActorData target in hitActors)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+			ActorHitResults hitResults = new ActorHitResults(GetCurrentLaserDamage(caster), HitActionType.Damage, GetLaserHitEffect(), hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+		foreach (ActorData target in actorInRadius)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+			ActorHitResults hitResults = new ActorHitResults(GetCurrentExplosionHealing(caster), HitActionType.Healing, hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, out VectorUtils.LaserCoords endPoints, List<NonActorTargetInfo> nonActorTargetInfo, bool clampToCursorPos = false)
+	{
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, m_laserCanHitAllies, m_laserCanHitEnemies);
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		float laserRangeInSquares = GetCurrentLaserRange();
+		if (clampToCursorPos)
+		{
+			laserRangeInSquares = Mathf.Min(VectorUtils.HorizontalPlaneDistInSquares(caster.GetFreePos(), targets[0].FreePos), laserRangeInSquares);
+		}
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[0].AimDirection, laserRangeInSquares, GetCurrentLaserWidth(), caster, relevantTeams, GetCurrentLaserPenetrateLoS(), GetCurrentLaserMaxTargets(), false, true, out laserCoords.end, nonActorTargetInfo, null, false, true);
+		endPoints = laserCoords;
+		return actorsInLaser;
+	}
+#endif
 }

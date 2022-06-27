@@ -522,6 +522,7 @@
     <Compile Include="BattleMonkBuffCharge_Prep.cs" />
     <Compile Include="BattleMonkHamstring.cs" />
     <Compile Include="BattleMonkSelfBuff.cs" />
+    <Compile Include="BattleMonkThornsEffect.cs" />
     <Compile Include="BattleMonkThrowSwordSequence.cs" />
     <Compile Include="BazookaGirlDelayedBombDrops.cs" />
     <Compile Include="BazookaGirlDelayedMissile.cs" />
@@ -1560,12 +1561,15 @@
     <Compile Include="Manta_SyncComponent.cs" />
     <Compile Include="MapData.cs" />
     <Compile Include="MartyrAoeOnReactHit.cs" />
+    <Compile Include="MartyrAoeOnReactHitEffect.cs" />
     <Compile Include="MartyrBasicAttack.cs" />
     <Compile Include="MartyrBasicAttackThreshold.cs" />
     <Compile Include="MartyrCrystalStockVFXController.cs" />
+    <Compile Include="MartyrDamageRedirectEffect.cs" />
     <Compile Include="MartyrHealingExplosion.cs" />
     <Compile Include="MartyrHealingExplosionThreshold.cs" />
     <Compile Include="MartyrHealOverTime.cs" />
+    <Compile Include="MartyrHealOverTimeEffect.cs" />
     <Compile Include="MartyrLaserBase.cs" />
     <Compile Include="MartyrLaserThreshold.cs" />
     <Compile Include="MartyrProtectAlly.cs" />

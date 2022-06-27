@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -288,4 +290,61 @@ public class MartyrHealOverTime : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> result = new List<ServerClientUtils.SequenceStartData>();
+		List<ActorData> hitActors = additionalData.m_abilityResults.HitActorList();
+		foreach (ActorData hitActor in hitActors)
+		{
+			ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(m_castSequencePrefab, hitActor.GetFreePos(), hitActor.AsArray(), caster, additionalData.m_sequenceSource);
+			result.Add(item);
+		}
+		return result;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(AbilityAreaShape.SingleSquare, targets[0], true, caster, caster.GetTeam(), null);
+		if (actorsInShape.Count > 0)
+		{
+			ActorData actorData = actorsInShape[0];
+			ActorHitResults healTargetResult = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			int heaing = GetCurrentHealing(caster);
+			if (m_syncComponent != null
+				&& m_syncComponent.ActorHasAoeOnReactEffect(actorData)
+				&& GetExtraHealingIfHasAoeOnReact() > 0)
+			{
+				heaing += GetExtraHealingIfHasAoeOnReact();
+			}
+			healTargetResult.SetBaseHealing(heaing);
+			if (GetLowHealthThreshold() > 0f && actorData.GetHitPointPercent() <= GetLowHealthThreshold())
+			{
+				healTargetResult.AddStandardEffectInfo(GetExtraEffectForLowHealth());
+			}
+			float lowHealthThreshold = OnlyAddExtraEffecForFirstTurn() ? 0f : GetLowHealthThreshold();
+			MartyrHealOverTimeEffect healTargetOverTimeEffect = new MartyrHealOverTimeEffect(AsEffectSource(), actorData.GetCurrentBoardSquare(), actorData, caster, GetHealEffectData(), m_syncComponent, GetHealBase(), GetHealPerCrystal(), GetExtraHealingIfHasAoeOnReact(), GetExtraEffectForLowHealth(), lowHealthThreshold);
+			healTargetOverTimeEffect.SetHitPhaseBeforeStart(GetRunPriority());
+			healTargetResult.AddEffect(healTargetOverTimeEffect);
+			abilityResults.StoreActorHit(healTargetResult);
+			if (actorData != caster && HasSelfHitIfTargetingAlly())
+			{
+				ActorHitResults healSelfResult = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+				int selfHealingIfTargetingAlly = GetSelfHealingIfTargetingAlly(caster);
+				healSelfResult.SetBaseHealing(selfHealingIfTargetingAlly);
+				if (AddHealEffectOnSelfIfTargetAlly())
+				{
+					float lowHealthThreshold2 = OnlyAddExtraEffecForFirstTurn() ? 0f : GetLowHealthThreshold();
+					MartyrHealOverTimeEffect healSelfOverTimeEffect = new MartyrHealOverTimeEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), caster, caster, GetHealEffectOnSelfIfTargetAlly(), m_syncComponent, GetBaseSelfHealIfTargetAlly(), GetSelfHealPerCrystalIfTargetAlly(), GetExtraHealingIfHasAoeOnReact(), GetExtraEffectForLowHealth(), lowHealthThreshold2);
+					healSelfOverTimeEffect.SetHitPhaseBeforeStart(GetRunPriority());
+					healSelfResult.AddEffect(healSelfOverTimeEffect);
+				}
+				abilityResults.StoreActorHit(healSelfResult);
+			}
+		}
+	}
+#endif
 }

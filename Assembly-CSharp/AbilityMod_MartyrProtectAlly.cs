@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,9 +58,13 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		MartyrProtectAlly martyrProtectAlly = GetTargetAbilityOnAbilityData(abilityData) as MartyrProtectAlly;
+		// rogues
+		//MartyrProtectAlly martyrProtectAlly = targetAbility as MartyrProtectAlly;
+
 		bool isValid = martyrProtectAlly != null;
 		string desc = "";
 		desc += PropDesc(m_damageReductionOnTargetMod, "[DamageReductionOnTarget]", isValid, isValid ? martyrProtectAlly.m_damageReductionOnTarget : 0f);

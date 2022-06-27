@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,9 +48,12 @@ public class AbilityMod_MartyrBasicAttack : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		MartyrBasicAttack martyrBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as MartyrBasicAttack;
+		// rogues
+		//MartyrBasicAttack martyrBasicAttack = targetAbility as MartyrBasicAttack;
 		bool isValid = martyrBasicAttack != null;
 		string desc = "";
 		desc += PropDesc(m_laserInfoMod, "[LaserInfo]", isValid, isValid ? martyrBasicAttack.m_laserInfo : null);

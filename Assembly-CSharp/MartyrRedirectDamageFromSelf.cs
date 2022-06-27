@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -168,4 +170,70 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 			+ m_syncComponent.SpentDamageCrystals(caster) * GetAbsorbAmountPerCrystalSpent()
 			+ additionalAbsorb;
 	}
+
+#if SERVER
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, nonActorTargetInfo);
+		list.Add(new ServerClientUtils.SequenceStartData(m_projectileSequence, laserCoords.end, hitActors.ToArray(), caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[0]));
+		list.Add(new ServerClientUtils.SequenceStartData(m_castSequence, laserCoords.end, new ActorData[]
+		{
+			caster
+		}, caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[0]));
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, nonActorTargetInfo);
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		StandardActorEffectData selfHitEffect = GetSelfHitEffect().m_effectData.GetShallowCopy();
+		selfHitEffect.m_absorbAmount = GetCurrentAbsorb(caster);
+		foreach (ActorData hitActor in hitActors)
+		{
+			MartyrDamageRedirectEffect effect = new MartyrDamageRedirectEffect(AsEffectSource(), hitActor.GetCurrentBoardSquare(), caster, caster, false, new List<ActorData>
+			{
+				hitActor
+			}, selfHitEffect, GetDamageReductionOnCaster(), GetDamageRedirectToTarget(), GetTechPointGainPerRedirect(), GetMaxRange(), null, m_redirectProjectileSequence);
+			actorHitResults.AddEffect(effect);
+			ActorHitParameters hitParams = new ActorHitParameters(hitActor, caster.GetFreePos());
+			ActorHitResults hitResults;
+			if (GetEffectOnTarget().m_applyEffect)
+			{
+				hitResults = new ActorHitResults(GetEffectOnTarget(), hitParams);
+			}
+			else
+			{
+				hitResults = new ActorHitResults(hitParams);
+			}
+			abilityResults.StoreActorHit(hitResults);
+		}
+		abilityResults.StoreActorHit(actorHitResults);
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	protected List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, out VectorUtils.LaserCoords endPoints, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		endPoints = default(VectorUtils.LaserCoords);
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (square != null
+			&& square.OccupantActor != null
+			&& !square.OccupantActor.IgnoreForAbilityHits
+			&& (m_affectsAllies || square.OccupantActor.GetTeam() != caster.GetTeam()))
+		{
+			return new List<ActorData>
+			{
+				square.OccupantActor
+			};
+		}
+		return new List<ActorData>();
+	}
+#endif
 }

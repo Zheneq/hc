@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -341,4 +343,95 @@ public class MartyrProtectAlly : MartyrLaserBase
 		m_abilityMod = null;
 		Setup();
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, nonActorTargetInfo);
+		list.Add(new ServerClientUtils.SequenceStartData(m_projectileSequence, laserCoords.end, hitActors.ToArray(), caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[0]));
+		if (GetEffectOnSelf().m_applyEffect || GetCurrentAbsorb(caster) > 0)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(m_selfShieldSequence, laserCoords.end, new ActorData[]
+			{
+				caster
+			}, caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[0]));
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, nonActorTargetInfo);
+		foreach (ActorData hitActor in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, caster.GetFreePos()));
+			StandardActorEffectData effectData = GetLaserHitEffect().m_effectData;
+			effectData.m_absorbAmount = 0;
+			MartyrDamageRedirectEffect damageRedirectEffect = new MartyrDamageRedirectEffect(AsEffectSource(), hitActor.GetCurrentBoardSquare(), hitActor, caster, true, new List<ActorData>
+			{
+				caster
+			}, effectData, GetDamageReductionOnTarget(), GetDamageRedirectToCaster(), GetTechPointGainPerRedirect(), 0f, m_allyShieldSequence, m_redirectProjectileSequence);
+			actorHitResults.AddEffect(damageRedirectEffect);
+
+			if (GetCurrentAbsorbForAlly(caster) > 0)
+			{
+				StandardActorEffectData standardActorEffectData = new StandardActorEffectData();
+				standardActorEffectData.SetValues("Martyr Ally Shield", effectData.m_duration, 0, 0, 0, ServerCombatManager.HealingType.Effect, 0, GetCurrentAbsorbForAlly(caster), new AbilityStatMod[0], new StatusType[0], StandardActorEffectData.StatusDelayMode.DefaultBehavior);
+				StandardActorEffect allyShieldEffect = new StandardActorEffect(AsEffectSource(), hitActor.GetCurrentBoardSquare(), hitActor, caster, standardActorEffectData);
+				actorHitResults.AddEffect(allyShieldEffect);
+			}
+
+			StandardEffectInfo thornsEffectInfo = GetThornsEffect();
+			if (thornsEffectInfo != null && thornsEffectInfo.m_applyEffect)
+			{
+				BattleMonkThornsEffect thornsEffect = new BattleMonkThornsEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), hitActor, caster, thornsEffectInfo.m_effectData, GetThornsDamagePerHit(), GetReturnEffectOnEnemy(), m_thornsProjectileSequence);
+				actorHitResults.AddEffect(thornsEffect);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		int currentAbsorb = GetCurrentAbsorb(caster);
+		if (GetEffectOnSelf().m_applyEffect || currentAbsorb > 0)
+		{
+			StandardEffectInfo shallowCopy = GetEffectOnSelf().GetShallowCopy();
+			shallowCopy.m_effectData = shallowCopy.m_effectData.GetShallowCopy();
+			shallowCopy.m_effectData.m_absorbAmount = currentAbsorb;
+			shallowCopy.m_applyEffect = true;
+			ActorHitParameters hitParams = new ActorHitParameters(caster, caster.GetFreePos());
+			ActorHitResults hitResults = new ActorHitResults(shallowCopy, hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	protected List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, out VectorUtils.LaserCoords endPoints, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		endPoints = default(VectorUtils.LaserCoords);
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (square != null
+			&& square.OccupantActor != null
+			&& !square.OccupantActor.IgnoreForAbilityHits
+			&& (AffectsEnemies() || square.OccupantActor.GetTeam() == caster.GetTeam()))
+		{
+			return new List<ActorData>
+			{
+				square.OccupantActor
+			};
+		}
+		return new List<ActorData>();
+	}
+
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		ActorData effectCaster = results.m_hitParameters.Effect.Caster;
+		if (effectCaster == target && results.FinalDamage > 0)
+		{
+			effectCaster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.MartyrStats.DamageRedirected, results.FinalDamage);
+		}
+	}
+#endif
 }

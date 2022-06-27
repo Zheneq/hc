@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,6 +40,11 @@ public class MartyrAoeOnReactHit : Ability
 	private StandardActorEffectData m_cachedAllyBaseEffectData;
 	private StandardEffectInfo m_cachedReactEnemyHitEffect;
 
+	// added in rogues
+#if SERVER
+	private Passive_Martyr m_passive;
+#endif
+
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
@@ -53,6 +60,16 @@ public class MartyrAoeOnReactHit : Ability
 		{
 			m_syncComp = GetComponent<Martyr_SyncComponent>();
 		}
+#if SERVER
+		if (m_passive == null)
+		{
+			PassiveData component = GetComponent<PassiveData>();
+			if (component != null)
+			{
+				m_passive = component.GetPassiveOfType(typeof(Passive_Martyr)) as Passive_Martyr;
+			}
+		}
+#endif
 		SetCachedFields();
 		AbilityUtil_Targeter_AoE_AroundActor targeter = new AbilityUtil_Targeter_AoE_AroundActor(this, 1f, ReactPenetrateLos(), true, false, -1, CanTargetEnemy(), CanTargetAlly(), CanTargetSelf());
 		targeter.m_customRadiusDelegate = GetRadiusForTargeter;
@@ -321,4 +338,64 @@ public class MartyrAoeOnReactHit : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		ActorData hitActor = GetHitActor(targets, caster);
+		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(m_castSequencePrefab, square, (hitActor == null) ? new ActorData[0] : hitActor.AsArray(), caster, additionalData.m_sequenceSource, null);
+		list.Add(item);
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		ActorData hitActor = GetHitActor(targets, caster);
+		if (hitActor != null)
+		{
+			bool isAlly = hitActor.GetTeam() == caster.GetTeam();
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, caster.GetFreePos()));
+			StandardActorEffectData standardActorEffectData = isAlly ? GetAllyBaseEffectData() : GetEnemyBaseEffectData();
+			int currentExtraAbsorb = GetCurrentExtraAbsorb(caster);
+			if (isAlly && currentExtraAbsorb > 0)
+			{
+				standardActorEffectData = GetAllyBaseEffectData().GetShallowCopy();
+				standardActorEffectData.m_absorbAmount += currentExtraAbsorb;
+			}
+			MartyrAoeOnReactHitEffect effect = new MartyrAoeOnReactHitEffect(AsEffectSource(), square, hitActor, caster, standardActorEffectData, m_syncComp, m_passive, GetCurrentRadius(), ReactPenetrateLos(), GetTotalDamage(), GetReactEnemyHitEffect(), GetReactHealOnTarget(), GetReactEnergyOnCasterPerReact(), ReactIncludeEffectTarget(), ReactOnlyOncePerTurn(), m_onReactTriggerSequencePrefab);
+			actorHitResults.AddEffect(effect);
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+	}
+
+	// added in rogues
+	private ActorData GetHitActor(List<AbilityTarget> targets, ActorData caster)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		ActorData actorData = (square != null) ? square.OccupantActor : null;
+		if (actorData != null && !actorData.IgnoreForAbilityHits)
+		{
+			bool flag = actorData.GetTeam() == caster.GetTeam();
+			if ((CanTargetSelf() && actorData == caster) || (CanTargetAlly() && flag) || (CanTargetEnemy() && !flag))
+			{
+				return actorData;
+			}
+		}
+		return null;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.MartyrStats.EnemiesDamagedByAoeOnHitEffect);
+		}
+	}
+#endif
 }

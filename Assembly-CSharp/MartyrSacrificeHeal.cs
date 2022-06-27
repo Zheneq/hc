@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -193,4 +195,89 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 		}
 		return CanTargetActorInDecision(caster, target.GetCurrentBestActorTarget(), m_affectsEnemies, m_affectsAllies, false, ValidateCheckPath.Ignore, !GetPenetratesLoS(), false);
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetShape(), targets[0]);
+		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(m_aoeHitSequence, centerOfShape, additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource, null);
+		list.Add(item);
+		foreach (ActorData actorData in additionalData.m_abilityResults.HitActorsArray())
+		{
+			if (actorData == caster)
+			{
+				item = new ServerClientUtils.SequenceStartData(m_selfHitSequence, actorData.GetCurrentBoardSquare(), new ActorData[]
+				{
+					actorData
+				}, caster, additionalData.m_sequenceSource, null);
+			}
+			else if (actorData.GetTeam() == caster.GetTeam())
+			{
+				item = new ServerClientUtils.SequenceStartData(m_allyHitSequence, actorData.GetCurrentBoardSquare(), new ActorData[]
+				{
+					actorData
+				}, caster, additionalData.m_sequenceSource, null);
+			}
+			else
+			{
+				item = new ServerClientUtils.SequenceStartData(m_enemyHitSequence, actorData.GetCurrentBoardSquare(), new ActorData[]
+				{
+					actorData
+				}, caster, additionalData.m_sequenceSource, null);
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, nonActorTargetInfo);
+		int currentHealingForAlly = GetCurrentHealingForAlly(caster);
+		int currentDamageForEnemy = GetCurrentDamageForEnemy(caster);
+		int currentDamageForSelf = GetCurrentDamageForSelf(caster);
+		foreach (ActorData hitActor in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, caster.GetFreePos()));
+			if (hitActor == caster)
+			{
+				actorHitResults.AddBaseDamage(currentDamageForSelf);
+			}
+			else if (hitActor.GetTeam() == caster.GetTeam())
+			{
+				actorHitResults.AddBaseHealing(currentHealingForAlly);
+			}
+			else
+			{
+				actorHitResults.AddBaseDamage(currentDamageForEnemy);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	protected List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, out VectorUtils.LaserCoords endPoints, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		endPoints = default(VectorUtils.LaserCoords);
+		List<Team> list = new List<Team>();
+		if (m_affectsAllies)
+		{
+			list.Add(caster.GetTeam());
+		}
+		if (m_affectsEnemies)
+		{
+			list.AddRange(caster.GetOtherTeams());
+		}
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(GetShape(), targets[0], GetPenetratesLoS(), caster, list, nonActorTargetInfo);
+		if (!actorsInShape.Contains(caster))
+		{
+			actorsInShape.Add(caster);
+		}
+		return actorsInShape;
+	}
+#endif
 }

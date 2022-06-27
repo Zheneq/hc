@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,9 +47,13 @@ public class AbilityMod_MartyrHealOverTime : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		MartyrHealOverTime martyrHealOverTime = GetTargetAbilityOnAbilityData(abilityData) as MartyrHealOverTime;
+		// rogues
+		//MartyrHealOverTime martyrHealOverTime = targetAbility as MartyrHealOverTime;
+
 		bool isValid = martyrHealOverTime != null;
 		string desc = "";
 		desc += PropDesc(m_canTargetAllyMod, "[CanTargetAlly]", isValid, isValid && martyrHealOverTime.m_canTargetAlly);

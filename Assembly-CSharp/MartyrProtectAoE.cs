@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -210,4 +212,64 @@ public class MartyrProtectAoE : Ability
 			+ m_syncComponent.SpentDamageCrystals(caster) * GetAbsorbOnAllyPerCrystalSpent()
 			+ GetBonusAbsorbForCurrentThreshold(caster, true);
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		List<ActorData> hitActors = GetHitActors(targets, caster);
+		list.Add(new ServerClientUtils.SequenceStartData(m_aoeHitSequence, AreaEffectUtils.GetCenterOfShape(GetTargetingShape(), targets[0]), hitActors.ToArray(), caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[0]));
+		if (GetEffectOnSelf().m_applyEffect || GetCurrentAbsorb(caster) > 0)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(m_selfHitSequence, caster.GetFreePos(), new ActorData[]
+			{
+				caster
+			}, caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[0]));
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<ActorData> hitActors = GetHitActors(targets, caster);
+		foreach (ActorData hitActor in hitActors)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(hitActor, caster.GetFreePos());
+			StandardActorEffectData allyAbsorbEffect = GetAllyHitEffect().m_effectData.GetShallowCopy();
+			allyAbsorbEffect.m_absorbAmount = GetCurrentAbsorbForAlly(caster);
+			ActorHitResults actorHitResults = new ActorHitResults(new MartyrDamageRedirectEffect(AsEffectSource(), hitActor.GetCurrentBoardSquare(), hitActor, caster, true, new List<ActorData>
+			{
+				caster
+			}, allyAbsorbEffect, GetDamageReductionOnTarget(), GetDamageRedirectToCaster(), GetTechPointGainPerRedirect(), 0f, null, m_redirectProjectilePrefab), hitParams);
+			StandardEffectInfo thornsEffect = GetThornsEffect();
+			if (thornsEffect != null && thornsEffect.m_applyEffect)
+			{
+				BattleMonkThornsEffect effect = new BattleMonkThornsEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), hitActor, caster, thornsEffect.m_effectData, GetThornsDamagePerHit(), GetReturnEffectOnEnemy(), m_thornsProjectilePrefab);
+				actorHitResults.AddEffect(effect);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		int currentAbsorb = GetCurrentAbsorb(caster);
+		if (GetEffectOnSelf().m_applyEffect || currentAbsorb > 0)
+		{
+			StandardEffectInfo effectOnSelf = GetEffectOnSelf().GetShallowCopy();
+			effectOnSelf.m_effectData = effectOnSelf.m_effectData.GetShallowCopy();
+			effectOnSelf.m_effectData.m_absorbAmount = currentAbsorb;
+			effectOnSelf.m_applyEffect = true;
+			ActorHitParameters hitParams = new ActorHitParameters(caster, caster.GetFreePos());
+			ActorHitResults hitResults = new ActorHitResults(effectOnSelf, hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster)
+	{
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(GetTargetingShape(), targets[0], GetPenetrateLos(), caster, caster.GetTeam(), null);
+		actorsInShape.Remove(caster);
+		return actorsInShape;
+	}
+#endif
 }

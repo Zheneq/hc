@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using UnityEngine;
 
 public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCone

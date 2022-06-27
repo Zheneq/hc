@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 public class AbilityUtil_Targeter_MartyrSmoothAoE : AbilityUtil_Targeter_AoE_Smooth
 {
 	public AbilityUtil_Targeter_MartyrSmoothAoE(Ability ability, float radius, bool penetrateLoS, bool affectsEnemies = true, bool affectsAllies = false, int maxTargets = -1)

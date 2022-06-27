@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -173,4 +175,76 @@ public class MartyrRedirectDamageFromAlly : MartyrLaserBase
 			+ m_syncComponent.SpentDamageCrystals(caster) * GetAbsorbAmountPerCrystalSpent()
 			+ additionalAbsorb;
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		ActorData targetedAlly = null;
+		foreach (ActorData enemyInRange in GetEnemiesInRange(targets, caster, nonActorTargetInfo, ref targetedAlly))
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(m_enemyHitSequence, targets[0].FreePos, new ActorData[]
+			{
+				enemyInRange
+			}, targetedAlly, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[0]));
+		}
+		list.Add(new ServerClientUtils.SequenceStartData(m_allyHitSequence, targetedAlly.GetFreePos(), new ActorData[]
+		{
+			targetedAlly
+		}, caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[0]));
+		list.Add(new ServerClientUtils.SequenceStartData(m_castSequence, caster.GetFreePos(), new ActorData[]
+		{
+			caster
+		}, caster, additionalData.m_sequenceSource, null));
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorData actorData = null;
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> enemiesInRange = GetEnemiesInRange(targets, caster, nonActorTargetInfo, ref actorData);
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+		StandardActorEffectData allyHitEffect = GetAllyHitEffect().m_effectData.GetShallowCopy();
+		allyHitEffect.m_absorbAmount = GetCurrentAbsorb(caster);
+		MartyrDamageRedirectEffect effect = new MartyrDamageRedirectEffect(AsEffectSource(), actorData.GetCurrentBoardSquare(), actorData, caster, false, enemiesInRange, allyHitEffect, GetDamageReductionOnAlly(), GetDamageRedirectToEnemy(), GetTechPointGainPerRedirect(), GetEnemyHitRadius(), null, m_reactionHitProjectilePrefab);
+		actorHitResults.AddEffect(effect);
+		abilityResults.StoreActorHit(actorHitResults);
+		foreach (ActorData target in enemiesInRange)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+			ActorHitResults targetHitResults;
+			if (GetEnemyHitEffect().m_applyEffect)
+			{
+				targetHitResults = new ActorHitResults(GetEnemyHitEffect(), hitParams);
+			}
+			else
+			{
+				targetHitResults = new ActorHitResults(hitParams);
+			}
+			abilityResults.StoreActorHit(targetHitResults);
+		}
+		ActorHitResults selfHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		abilityResults.StoreActorHit(selfHitResults);
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	protected List<ActorData> GetEnemiesInRange(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo, ref ActorData targetedAlly)
+	{
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(targets[0].FreePos, GetEnemyHitRadius(), GetPenetratesLoS(), caster, caster.GetOtherTeams(), nonActorTargetInfo);
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (square != null
+			&& square.OccupantActor != null
+			&& !square.OccupantActor.IgnoreForAbilityHits
+			&& (m_canTargetEnemies || square.OccupantActor.GetTeam() == caster.GetTeam()))
+		{
+			targetedAlly = square.OccupantActor;
+		}
+		return actorsInRadius;
+	}
+#endif
 }

@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -460,4 +462,109 @@ public class MartyrSpendCrystals : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_syncComponent != null)
+		{
+			m_syncComponent.NetworkCrystalsSpentThisTurn = true;
+		}
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Sequence.IExtraSequenceParams[] adjustableRingSequenceParams = AbilityCommon_LayeredRings.GetAdjustableRingSequenceParams(GetCurrentAoeRadius(caster));
+		return new ServerClientUtils.SequenceStartData(m_castSequence, caster.GetFreePos(), additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource, adjustableRingSequenceParams);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		int numEnemiesHit = 0;
+		if (m_targetingMode == TargetingMode.Aoe)
+		{
+			List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+			List<ActorData> aoeHitActors = GetAoeHitActors(targets, caster, nonActorTargetInfo);
+			foreach (var hitActor in aoeHitActors)
+			{
+				if (hitActor.GetTeam() != caster.GetTeam())
+				{
+					numEnemiesHit++;
+				}
+			}
+			foreach (ActorData actorData in aoeHitActors)
+			{
+				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+				if (actorData.GetTeam() == caster.GetTeam())
+				{
+					actorHitResults.SetBaseHealing(GetCurrentHealingOnAlly(caster, numEnemiesHit));
+					actorHitResults.AddStandardEffectInfo(GetAllyHitEffect());
+				}
+				else
+				{
+					actorHitResults.SetBaseDamage(GetCurrentDamage(caster));
+					actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+				}
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+			abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+		}
+		ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		StandardActorEffectData shallowCopy = GetSpentCrystalsEffect().m_effectData.GetShallowCopy();
+		int currentHealingOnSelf = GetCurrentHealingOnSelf(caster, numEnemiesHit);
+		if (SelfHealIsOverTime() && currentHealingOnSelf > 0)
+		{
+			shallowCopy.m_healingPerTurn = currentHealingOnSelf;
+		}
+		int currentAbsorbOnSelf = GetCurrentAbsorbOnSelf(caster);
+		if (currentAbsorbOnSelf > 0)
+		{
+			shallowCopy.m_absorbAmount = currentAbsorbOnSelf;
+		}
+		StandardActorEffect effect = new StandardActorEffect(AsEffectSource(), null, caster, caster, shallowCopy);
+		actorHitResults2.AddEffect(effect);
+		if (!SelfHealIsOverTime() && currentHealingOnSelf > 0)
+		{
+			actorHitResults2.AddBaseHealing(currentHealingOnSelf);
+		}
+		if (ClearEnergyOnCast())
+		{
+			actorHitResults2.SetTechPointLoss(caster.TechPoints);
+		}
+		if (GetSelfEnergyGainOnCast() > 0)
+		{
+			actorHitResults2.SetTechPointGain(GetSelfEnergyGainOnCast());
+		}
+		if (GetCdrOnProtectAllyAbility() > 0 && m_protectAllyActionType != AbilityData.ActionType.INVALID_ACTION)
+		{
+			actorHitResults2.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_protectAllyActionType, -1 * GetCdrOnProtectAllyAbility()));
+		}
+		abilityResults.StoreActorHit(actorHitResults2);
+	}
+
+	// added in rogues
+	private List<ActorData> GetAoeHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies());
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.GetLoSCheckPos(), GetCurrentAoeRadius(caster), PenetrateLos(), caster, relevantTeams, nonActorTargetInfo);
+		actorsInRadius.Remove(caster);
+		return actorsInRadius;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.MartyrStats.UltDamagePlusHealing, results.FinalDamage);
+		}
+		if (results.FinalHealing > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.MartyrStats.UltDamagePlusHealing, results.FinalHealing);
+		}
+	}
+#endif
 }

@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 
 public class MartyrSlowBeam : MartyrLaserBase
@@ -112,4 +114,37 @@ public class MartyrSlowBeam : MartyrLaserBase
 		AddNameplateValueForSingleHit(ref symbolToValue, Targeter, targetActor, GetCurrentDamage(ActorData));
 		return symbolToValue;
 	}
+
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, nonActorTargetInfo);
+		return new ServerClientUtils.SequenceStartData(AsEffectSource().GetSequencePrefab(), laserCoords.end, hitActors.ToArray(), caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[0]);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, nonActorTargetInfo);
+		foreach (ActorData hitActor in hitActors)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(hitActor, caster.GetFreePos());
+			ActorHitResults hitResults = new ActorHitResults(GetCurrentDamage(caster), HitActionType.Damage, GetLaserHitEffect(), hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	protected List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, out VectorUtils.LaserCoords endPoints, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.GetLoSCheckPos(), GetCurrentTargetingRadius(), GetPenetrateLoS(), caster, caster.GetOtherTeams(), nonActorTargetInfo);
+		actorsInRadius.Remove(caster);
+		endPoints = default(VectorUtils.LaserCoords);
+		return actorsInRadius;
+	}
+#endif
 }
