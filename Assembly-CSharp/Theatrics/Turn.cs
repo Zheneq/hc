@@ -187,7 +187,6 @@ namespace Theatrics
 				//	}
 				//}
 			}
-			//bool flag5 = true;
 			bool flag4 = !flag3 && !resolutionTimedOut;
 			if (flag4)
 			{
@@ -196,18 +195,9 @@ namespace Theatrics
 					if (GameFlowData.Get().activeOwnedActorData != null
 						&& !GameFlowData.Get().activeOwnedActorData.IsDead())
 					{
-						InterfaceManager.Get().DisplayAlert(StringUtil.TR("HiddenAction", "Global"), Color.white);
+						InterfaceManager.Get().DisplayAlert(StringUtil.TR("HiddenAction", "Global"), Color.white);  //  Color.red in rogues
 					}
 				}
-				// rogues
-				//if (hiddenAction && !nonHiddenAction)
-				//{
-				//	if (GameFlowData.Get().activeOwnedActorData != null
-				//		&& !GameFlowData.Get().activeOwnedActorData.IsDead())
-				//	{
-				//		InterfaceManager.Get().DisplayAlert(StringUtil.TR("HiddenAction", "Global"), Color.red);
-				//	}
-				//}
 				else
 				{
 					InterfaceManager.Get().CancelAlert(StringUtil.TR("HiddenAction", "Global"));
