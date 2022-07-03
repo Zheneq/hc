@@ -107,12 +107,13 @@ namespace Theatrics
 			bool flag4 = !flag3 && !resolutionTimedOut;
 			if (flag4)
 			{
-				if (hiddenAction
-					&& !nonHiddenAction
-					&& GameFlowData.Get().activeOwnedActorData != null
-					&& !GameFlowData.Get().activeOwnedActorData.IsDead())
+				if (hiddenAction && !nonHiddenAction)
 				{
-					InterfaceManager.Get().DisplayAlert(StringUtil.TR("HiddenAction", "Global"), Color.white);
+					if (GameFlowData.Get().activeOwnedActorData != null
+						&& !GameFlowData.Get().activeOwnedActorData.IsDead())
+					{
+						InterfaceManager.Get().DisplayAlert(StringUtil.TR("HiddenAction", "Global"), Color.white);
+					}
 				}
 				else
 				{
