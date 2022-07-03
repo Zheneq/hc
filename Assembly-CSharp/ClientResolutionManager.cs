@@ -152,6 +152,7 @@ public class ClientResolutionManager : MonoBehaviour
 		m_numResolutionActionsThisPhase = reader.ReadSByte();
 		m_castActions = new List<ClientCastAction>();
 		m_timeOfLastEvent = GameTime.time;
+		Log.Info($"MsgStartResolutionPhase: turn {m_currentTurnIndex}, phase {m_currentAbilityPhase}, {m_numResolutionActionsThisPhase} actions");
 		if (m_state != ClientResolutionManagerState.Idle)
 		{
 			Debug.LogError($"Received StartResolutionPhase message for turn {m_currentTurnIndex}, " +
