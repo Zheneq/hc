@@ -220,33 +220,18 @@ namespace Theatrics
 			}
 			else
 			{
-				// reactor
+				// rogues
+				// if (NetworkServer.active && NetworkClient.active)
+				// {
 				TheatricsManager.Get().DebugLog("Theatrics: finished timeline index " + m_phaseIndex + " with duration " + TimeInPhase + " @absolute time " + GameTime.time);
 				if (TheatricsManager.DebugTraceExecution)
 				{
 					TheatricsManager.LogForDebugging("Phase Finished: " + m_phaseIndex);
 				}
 				// rogues
-				//flag5 = false;
-				//            if (NetworkServer.active && NetworkClient.active)
-				//            {
-				//                TheatricsManager.Get().DebugLog(string.Concat(new object[]
-				//                {
-				//                    "Theatrics: finished timeline index ",
-				//                    this.m_phaseIndex,
-				//                    " with duration ",
-				//                    this.TimeInPhase,
-				//                    " @absolute time ",
-				//                    GameTime.time
-				//                }));
-				//                if (TheatricsManager.DebugTraceExecution)
-				//                {
-				//                    TheatricsManager.LogForDebugging("Phase Finished: " + this.m_phaseIndex);
-				//                }
-				//            }
+				// }
 			}
 
-			// reactor
 			if (!flag4
 				&& !HasAbilityPhaseAnimationAfter(phaseIndex)
 				&& NetworkClient.active
@@ -256,13 +241,6 @@ namespace Theatrics
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.TheatricsAbilitiesEnd, null);
 			}
 			return flag4;
-			// rogues
-			//if (!flag5 && !this.HasAbilityPhaseAnimationAfter(phaseIndex) && NetworkClient.active && !this.m_clientAbilitiesEndEventFiredPhases.Contains(this.m_phaseIndex))
-			//{
-			//	this.m_clientAbilitiesEndEventFiredPhases.Add(this.m_phaseIndex);
-			//	GameEventManager.Get().FireEvent(GameEventManager.EventType.TheatricsAbilitiesEnd, null);
-			//}
-			//return flag5;
 		}
 
 		internal void OnAnimationEvent(ActorData animatedActor, Object eventObject, GameObject sourceObject)
