@@ -199,7 +199,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 					&& playerDetails.m_gameObjects.Count > 0
 					&& playerDetails.IsHumanControlled
 					&& !playerDetails.IsSpectator
-					// TODO ROGUES conditions below are added in rogues. leaving them for now
+					// TODO ROGUES conditions below are added in rogues
 					//&& playerDetails.m_accountId != 0L
 					//&& !playerDetails.IsLoadTestBot
 					//&& !ServerGameManager.Get().IsAccountReconnecting(playerDetails.m_accountId)
@@ -526,7 +526,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			if (m_numConnectionIdsAddedForPhase > 0)
 			{
 				int num = m_numConnectionIdsAddedForPhase - m_playerConnectionIdsInUpdatePhase.Count;
-				if (num > 0 && ((num < 3 && (float)num / (float)m_numConnectionIdsAddedForPhase < 0.49f) || m_turn.HasUnfinishedActorAnimationInPhase(m_phaseToUpdate)))
+				if (num > 0 && ((num < 3 && num / (float)m_numConnectionIdsAddedForPhase < 0.49f) || m_turn.HasUnfinishedActorAnimationInPhase(m_phaseToUpdate)))
 				{
 					flag = false;
 				}
@@ -563,47 +563,34 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 	{
 		foreach (long num in m_playerConnectionIdsInUpdatePhase)
 		{
-			int num2 = (int)num;
-			Player player;
-			PlayerDetails playerDetails = GameFlow.Get().FindHumanPlayerInfoByAccount((long)num2, out player);
-			string text = (playerDetails == null) ? "NULL" : playerDetails.m_handle;
-			int playerConnectionId = ServerGameManager.Get().GetPlayerConnectionId((long)num2);
-			int num3;
-			m_connectionIdsToNumPhaseTimeouts.TryGetValue((long)num2, out num3);
-			num3++;
-			if (num3 >= m_numClientPhaseTimeoutsUntilForceDisconnect)
+			// rogues
+			//int accountId = (int)num;
+			// custom
+			long accountId = num;
+			PlayerDetails playerDetails = GameFlow.Get().FindHumanPlayerInfoByAccount(accountId, out _);
+			string playerHandle = (playerDetails == null) ? "NULL" : playerDetails.m_handle;
+			int playerConnectionId = ServerGameManager.Get().GetPlayerConnectionId(accountId);
+			m_connectionIdsToNumPhaseTimeouts.TryGetValue(accountId, out int timeoutNum);
+			timeoutNum++;
+			if (timeoutNum >= m_numClientPhaseTimeoutsUntilForceDisconnect)
 			{
-				Log.Warning("Forcing client {0} (connectionId {1}) to disconnect after {2} phase resolution timeouts of {3} seconds each.", new object[]
-				{
-					text,
-					num2,
-					num3,
-					// rogues
-					//m_timeoutAdvancePhaseSlowClient
-					// custom
-					c_timeoutAdvancePhaseSlowClient
-				});
+				Log.Warning($"Forcing client {playerHandle} (connectionId {accountId}) to disconnect " +
+					$"after {timeoutNum} phase resolution timeouts of {c_timeoutAdvancePhaseSlowClient} seconds each.");  // m_timeoutAdvancePhaseSlowClient in rogues
 				ServerGameManager.Get().DisconnectClient(playerConnectionId);
 			}
 			else
 			{
-				m_connectionIdsToNumPhaseTimeouts[(long)num2] = num3;
-				Log.Warning("Forcing unresponsive client {0} (accountId {1}) to advance their resolution of phase {2}. {3} of {4} until they are forced to disconnect.", new object[]
+				m_connectionIdsToNumPhaseTimeouts[accountId] = timeoutNum;
+				Log.Warning($"Forcing unresponsive client {playerHandle} (accountId {accountId}) to advance their resolution of phase {m_phaseToUpdate}. " +
+					$"{timeoutNum} of {m_numClientPhaseTimeoutsUntilForceDisconnect} until they are forced to disconnect.");
+				int latencyWarningThreshold = (int)CommonServerConfig.Get().GameServerClientLatencyWarningThreshold.TotalMilliseconds;
+				if (ServerGameManager.Get().GetServerConnectionCurrentRtt(playerConnectionId) > latencyWarningThreshold)
 				{
-					text,
-					num2,
-					m_phaseToUpdate,
-					num3,
-					m_numClientPhaseTimeoutsUntilForceDisconnect
-				});
-				int num4 = (int)CommonServerConfig.Get().GameServerClientLatencyWarningThreshold.TotalMilliseconds;
-				if (ServerGameManager.Get().GetServerConnectionCurrentRtt(playerConnectionId) > num4)
-				{
-					GameFlow.Get().DisplayConsoleText("PlayerConnectionIssues", "Disconnect", text, ConsoleMessageType.Error);
+					GameFlow.Get().DisplayConsoleText("PlayerConnectionIssues", "Disconnect", playerHandle, ConsoleMessageType.Error);
 				}
 				else
 				{
-					GameFlow.Get().DisplayConsoleText("PlayerNotResponding", "Disconnect", text, ConsoleMessageType.Error);
+					GameFlow.Get().DisplayConsoleText("PlayerNotResponding", "Disconnect", playerHandle, ConsoleMessageType.Error);
 				}
 			}
 		}
@@ -853,8 +840,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			{
 				ClientResolutionManager.Get().OnTheatricsPhaseUpdateFinished(m_phaseToUpdate);
 			}
-			// TODO LOW check
-			// rogues?
+			// rogues
 			//if (HUD_UI.Get() != null && HUD_UI.Get().m_mainScreenPanel != null)
 			//{
 			//	HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.HighlightAllNameplatesForAbility();
@@ -892,7 +878,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				{
 					m_timeToTimeoutPhase = float.MaxValue;
 				}
-				else if (m_timeToTimeoutPhase == 3.40282347E+38f && ServerResolutionManager.Get().GetCurrentState() == ServerResolutionManager.ServerResolutionManagerState.WaitingForNextPhase)
+				else if (m_timeToTimeoutPhase == float.MaxValue && ServerResolutionManager.Get().GetCurrentState() == ServerResolutionManager.ServerResolutionManagerState.WaitingForNextPhase)
 				{
 					m_timeToTimeoutPhase = Time.time + 45f;
 				}
