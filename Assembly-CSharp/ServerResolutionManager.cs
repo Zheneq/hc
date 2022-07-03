@@ -318,13 +318,16 @@ public class ServerResolutionManager : NetworkBehaviour
 		ResetPlayersStillResolving();
 		m_currentResolutionActions = BuildResolutionActionsForAbilityPhase(m_currentAbilityPhase);
 
-        // Test
-        //foreach (ResolutionAction action in m_currentResolutionActions)
-        //{
-        //    action.m_abilityResults.m_positionToHitResults.Add(Vector3.zero, new PositionHitResults(new PositionHitParameters(Vector3.zero)));
-        //}
+		// custom
+		TheatricsManager.Get().ResetTimeToTimeoutPhase();
 
-        m_currentCastActions = new List<CastAction>();
+		// Test
+		//foreach (ResolutionAction action in m_currentResolutionActions)
+		//{
+		//    action.m_abilityResults.m_positionToHitResults.Add(Vector3.zero, new PositionHitResults(new PositionHitParameters(Vector3.zero)));
+		//}
+
+		m_currentCastActions = new List<CastAction>();
 		CurrentActionsDebugStr = BuildDebugStringForActionList(m_currentResolutionActions);
 		if (phase == AbilityPriority.Combat_Knockback)
 		{

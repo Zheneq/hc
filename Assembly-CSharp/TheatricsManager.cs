@@ -910,5 +910,11 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			base.SetDirtyBit(1U);
 		}
 	}
+
+	// custom
+	public void ResetTimeToTimeoutPhase()
+	{
+		m_timeToTimeoutPhase = float.MaxValue;
+	}
 #endif
 }
