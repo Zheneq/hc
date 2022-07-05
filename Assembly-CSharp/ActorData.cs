@@ -7164,7 +7164,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		//}
 
 		// custom code
-		if (NetworkServer.active && (square == null || ServerLastKnownPosSquare.x != square.x || ServerLastKnownPosSquare.y != square.y))
+		if (NetworkServer.active
+		    && (square == null
+		        || ServerLastKnownPosSquare == null
+		        || ServerLastKnownPosSquare.x != square.x
+		        || ServerLastKnownPosSquare.y != square.y))
 		{
 			ServerLastKnownPosSquare = square;
 		}
