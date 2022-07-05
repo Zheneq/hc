@@ -545,6 +545,7 @@ public class GameFlow : NetworkBehaviour
 			{
 				while (true)
 				{
+					ServerEffectManager.Get().OnAbilityPhaseEnd(actionBuffer.AbilityPhase);
 					if (actionBuffer.AbilityPhase == AbilityUtils.GetLowestAbilityPriority())
 					{
 						actionBuffer.AbilityPhase = AbilityPriority.INVALID;
@@ -556,6 +557,7 @@ public class GameFlow : NetworkBehaviour
 					actionBuffer.AbilityPhase = actionBuffer.AbilityPhase == AbilityPriority.INVALID
 						? AbilityUtils.GetHighestAbilityPriority()
 						: AbilityUtils.GetNextAbilityPriority(actionBuffer.AbilityPhase);
+					ServerEffectManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
 					Log.Info($"Going to next turn ability phase {actionBuffer.AbilityPhase}");
 
 					// from QueuedPlayerActionsContainer::InitEffectsForExecution

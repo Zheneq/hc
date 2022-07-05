@@ -544,10 +544,12 @@ public class Effect
 	{
 	}
 
+	// TODO EFFECT call it somewhere
 	public virtual void OnResolvedHpAfterAbilities()
 	{
 	}
 
+	// TODO EFFECT call it somewhere
 	public virtual void OnAbilityAndMovementDone()
 	{
 	}

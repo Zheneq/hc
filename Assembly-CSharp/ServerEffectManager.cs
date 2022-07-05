@@ -899,6 +899,44 @@ public class ServerEffectManager : MonoBehaviour
 		}
 	}
 
+	// custom
+	public void OnAbilityPhaseStart(AbilityPriority phase)
+	{
+		foreach (List<Effect> effectList in m_actorEffects.Values)
+		{
+			OnAbilityPhaseStart(effectList, phase);
+		}
+		OnAbilityPhaseStart(m_worldEffects, phase);
+	}
+
+	// custom
+	private void OnAbilityPhaseStart(List<Effect> effectList, AbilityPriority phase)
+	{
+		foreach (Effect effect in effectList)
+		{
+			effect.OnAbilityPhaseStart(phase);
+		}
+	}
+	
+	// custom
+	public void OnAbilityPhaseEnd(AbilityPriority phase)
+	{
+		foreach (List<Effect> effectList in m_actorEffects.Values)
+		{
+			OnAbilityPhaseEnd(effectList, phase);
+		}
+		OnAbilityPhaseEnd(m_worldEffects, phase);
+	}
+
+	// custom
+	private void OnAbilityPhaseEnd(List<Effect> effectList, AbilityPriority phase)
+	{
+		foreach (Effect effect in effectList)
+		{
+			effect.OnAbilityPhaseEnd(phase);
+		}
+	}
+
 	public int AdjustDamage(ActorData target, int damage)
 	{
 		int result = damage;
