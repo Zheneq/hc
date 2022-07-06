@@ -1267,11 +1267,12 @@ public class ServerGameManager : MonoBehaviour
 		{
 			return;
 		}
+		long num = Convert.ToInt64(request.AccountId);
 
 		// TODO HACK
 		m_serverPlayerStates[request.PlayerId].SessionInfo.SessionToken = Convert.ToInt64(request.SessionToken);
+		m_serverPlayerStates[request.PlayerId].SessionInfo.AccountId = num;
 
-		long num = Convert.ToInt64(request.AccountId);
 		GameManager.LoginResponse loginResponse = new GameManager.LoginResponse();
 		if (!m_serverPlayerStates.TryGetValue(request.PlayerId, out ServerPlayerState serverPlayerState)
 			|| serverPlayerState.SessionInfo == null
