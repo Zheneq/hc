@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class RampartBarricade_Prep : Ability
@@ -40,7 +40,7 @@ public class RampartBarricade_Prep : Ability
 		}
 		if (m_passive != null)
 		{
-			m_passive.SetCachedShieldBarrierData(m_abilityMod?.m_shieldBarrierDataMod);
+			m_passive.SetCachedShieldBarrierData(m_abilityMod != null ? m_abilityMod.m_shieldBarrierDataMod : null);
 		}
 		else
 		{

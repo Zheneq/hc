@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class RampartDashAndAimShield : Ability
@@ -240,9 +240,7 @@ public class RampartDashAndAimShield : Ability
 
 	public StandardEffectInfo GetShieldFrontEnemyEffect()
 	{
-		return m_cachedShieldFrontEnemyEffect != null
-			? m_cachedShieldFrontEnemyEffect
-			: m_shieldFrontEnemyEffect;
+		return m_cachedShieldFrontEnemyEffect ?? m_shieldFrontEnemyEffect;
 	}
 
 	public float GetShieldFrontLaserWidth()
