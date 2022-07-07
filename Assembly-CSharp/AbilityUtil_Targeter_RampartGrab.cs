@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
@@ -77,7 +79,11 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 		{
 			VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
 			laserCoords.start = targetingActor.GetLoSCheckPos();
-			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[currentTargetIndex - 1].AimDirection, m_laserRange, m_laserWidth, targetingActor, targetingActor.GetEnemyTeamAsList(), m_penetrateLos, m_maxTargets, false, false, out laserCoords.end, null);
+			// reactor
+			// List<Team> otherTeams = targetingActor.GetEnemyTeamAsList();
+			// rogues
+			List<Team> otherTeams = targetingActor.GetOtherTeams();
+			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[currentTargetIndex - 1].AimDirection, m_laserRange, m_laserWidth, targetingActor, otherTeams, m_penetrateLos, m_maxTargets, false, false, out laserCoords.end, null);
 			int arrowIndex = 0;
 			EnableAllMovementArrows();
 			BoardSquare squareFromAbilityTarget = GetSquareFromAbilityTarget(currentTarget, targetingActor);

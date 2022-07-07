@@ -1955,8 +1955,11 @@
     <Compile Include="RampartBarricade_Prep.cs" />
     <Compile Include="RampartBuffAndDelayedAoe.cs" />
     <Compile Include="RampartDashAndAimShield.cs" />
+    <Compile Include="RampartDelayedAoeEffect.cs" />
     <Compile Include="RampartGrab.cs" />
     <Compile Include="RampartMeleeBasicAttack.cs" />
+    <Compile Include="RampartShieldIdleSetterEffect.cs" />
+    <Compile Include="RampartUnstoppableEffect.cs" />
     <Compile Include="Rampart_SyncComponent.cs" />
     <Compile Include="RandomControlPointActivateData.cs" />
     <Compile Include="RankedData.cs" />

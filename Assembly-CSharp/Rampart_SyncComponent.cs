@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -6,15 +8,23 @@ public class Rampart_SyncComponent : NetworkBehaviour
 	private BoxCollider m_colliderForShield;
 	private ActorData m_owner;
 
+	// removed in rogues
 	private static readonly int animIdleType = Animator.StringToHash("IdleType");
 	private static readonly int animForceIdle = Animator.StringToHash("ForceIdle");
 	private static int kRpcRpcSetIdleType = -1213222266;
 	private static int kRpcRpcSetFacingDirection = 1708941421;
+	// end removed in rogues
 
 	static Rampart_SyncComponent()
 	{
+		// reactor
 		RegisterRpcDelegate(typeof(Rampart_SyncComponent), kRpcRpcSetIdleType, InvokeRpcRpcSetIdleType);
 		RegisterRpcDelegate(typeof(Rampart_SyncComponent), kRpcRpcSetFacingDirection, InvokeRpcRpcSetFacingDirection);
+		// rogues
+		// RegisterRpcDelegate(typeof(Rampart_SyncComponent), "RpcSetIdleType", new CmdDelegate(InvokeRpcRpcSetIdleType));
+		// RegisterRpcDelegate(typeof(Rampart_SyncComponent), "RpcSetFacingDirection", new CmdDelegate(InvokeRpcRpcSetFacingDirection));
+		
+		// removed in rogues
 		NetworkCRC.RegisterBehaviour("Rampart_SyncComponent", 0);
 	}
 
@@ -77,7 +87,7 @@ public class Rampart_SyncComponent : NetworkBehaviour
 		}
 	}
 
-	private void UNetVersion()
+	private void UNetVersion()  // MirrorProcessed in rogues
 	{
 	}
 
@@ -88,7 +98,7 @@ public class Rampart_SyncComponent : NetworkBehaviour
 			Debug.LogError("RPC RpcSetIdleType called on server.");
 			return;
 		}
-		((Rampart_SyncComponent)obj).RpcSetIdleType((int)reader.ReadPackedUInt32());
+		((Rampart_SyncComponent)obj).RpcSetIdleType((int)reader.ReadPackedUInt32());  // ReadPackedInt32 in rogues
 	}
 
 	protected static void InvokeRpcRpcSetFacingDirection(NetworkBehaviour obj, NetworkReader reader)
@@ -103,6 +113,7 @@ public class Rampart_SyncComponent : NetworkBehaviour
 
 	public void CallRpcSetIdleType(int idleType)
 	{
+		// reactor
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("RPC Function RpcSetIdleType called on client.");
@@ -115,10 +126,15 @@ public class Rampart_SyncComponent : NetworkBehaviour
 		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.WritePackedUInt32((uint)idleType);
 		SendRPCInternal(networkWriter, 0, "RpcSetIdleType");
+		// rogues
+		// NetworkWriter networkWriter = new NetworkWriter();
+		// networkWriter.WritePackedInt32(idleType);
+		// this.SendRPCInternal(typeof(Rampart_SyncComponent), "RpcSetIdleType", networkWriter, 0);
 	}
 
 	public void CallRpcSetFacingDirection(Vector3 facing)
 	{
+		// reactor
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("RPC Function RpcSetFacingDirection called on client.");
@@ -131,13 +147,19 @@ public class Rampart_SyncComponent : NetworkBehaviour
 		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		networkWriter.Write(facing);
 		SendRPCInternal(networkWriter, 0, "RpcSetFacingDirection");
+		// rogues
+		// NetworkWriter networkWriter = new NetworkWriter();
+		// networkWriter.Write(facing);
+		// this.SendRPCInternal(typeof(Rampart_SyncComponent), "RpcSetFacingDirection", networkWriter, 0);
 	}
 
+	// removed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		return false;
 	}
 
+	// removed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 	}

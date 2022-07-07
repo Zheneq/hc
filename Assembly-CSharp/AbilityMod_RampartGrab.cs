@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,9 +41,12 @@ public class AbilityMod_RampartGrab : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RampartGrab rampartGrab = GetTargetAbilityOnAbilityData(abilityData) as RampartGrab;
+		// rogues
+		// RampartGrab rampartGrab = targetAbility as RampartGrab;
 		bool isAbilityPresent = rampartGrab != null;
 		string desc = "";
 		desc += PropDesc(m_damageAmountMod, "[DamageAmount]", isAbilityPresent, isAbilityPresent ? rampartGrab.m_damageAmount : 0);

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RampartDashAndAimShield : Ability
@@ -40,6 +42,11 @@ public class RampartDashAndAimShield : Ability
 	private StandardEffectInfo m_cachedShieldFrontEnemyEffect;
 	private StandardEffectInfo m_cachedAllyHitEffect;
 
+#if SERVER
+	private Barrier m_lastGatheredBarrier;
+	private Vector3 m_lastGatheredBarrierFacing = Vector3.forward;
+#endif
+	
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
@@ -379,4 +386,181 @@ public class RampartDashAndAimShield : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+
+#if SERVER
+	// added in rogues
+	internal override Vector3 GetFacingDirAfterMovement(ServerEvadeUtils.EvadeInfo evade)
+	{
+		GetBarrierPositionAndFacing(evade.m_request.m_targets, evade.GetMover(), out Vector3 _, out Vector3 result);
+		return result;
+	}
+
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_passive != null)
+		{
+			m_passive.SetShieldBarrier(m_lastGatheredBarrier, m_lastGatheredBarrierFacing);
+		}
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		GetBarrierPositionAndFacing(targets, caster, out Vector3 _, out Vector3 vector2);
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		return new ServerClientUtils.SequenceStartData(m_applyShieldSequencePrefab, square.ToVector3(), Quaternion.LookRotation(vector2), additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		GetBarrierPositionAndFacing(targets, caster, out Vector3 center, out Vector3 vector);
+		Barrier barrier = new Barrier(m_abilityName, center, vector, caster, m_passive.GetShieldBarrierData(), true, abilityResults.SequenceSource);
+		barrier.SetSourceAbility(this);
+		PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(Board.Get().GetSquare(targets[0].GridPos).ToVector3()));
+		positionHitResults.AddBarrier(barrier);
+		if (ServerAbilityUtils.CurrentlyGatheringRealResults())
+		{
+			m_lastGatheredBarrier = barrier;
+			m_lastGatheredBarrierFacing = vector;
+		}
+		abilityResults.StorePositionHit(positionHitResults);
+		BoardSquare squareAtPhaseStart = caster.GetSquareAtPhaseStart();
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		if (SetCooldownByDistance() || UseEnergyForMoveDistance())
+		{
+			BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, Board.Get().GetSquare(targets[0].GridPos), squareAtPhaseStart, false);
+			int num = -1;
+			while (boardSquarePathInfo != null)
+			{
+				num++;
+				boardSquarePathInfo = boardSquarePathInfo.next;
+			}
+			if (SetCooldownByDistance())
+			{
+				int num2 = Mathf.Max(m_minCooldown, num + GetCooldownModifierAdd());
+				num2 = Mathf.Max(0, num2);
+				AbilityData.ActionType actionTypeOfAbility = caster.GetAbilityData().GetActionTypeOfAbility(this);
+				actorHitResults.AddMiscHitEvent(new MiscHitEventData_OverrideCooldown(actionTypeOfAbility, num2));
+			}
+			if (UseEnergyForMoveDistance())
+			{
+				int techPointLoss = UseAllEnergyIfUsedForDistance() ? caster.TechPoints : Mathf.Max(0, num * GetEnergyPerMove());
+				actorHitResults.SetTechPointLoss(techPointLoss);
+			}
+		}
+		abilityResults.StoreActorHit(actorHitResults);
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		foreach (ActorData actorData in GetChargeHitActors(targets, caster, out var list, nonActorTargetInfo))
+		{
+			ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(actorData, squareAtPhaseStart.ToVector3()));
+			if (actorData.GetTeam() != caster.GetTeam())
+			{
+				int num3 = GetDamageAmount();
+				if (list.Contains(actorData))
+				{
+					num3 += GetDamageForShieldFront();
+					actorHitResults2.AddStandardEffectInfo(GetShieldFrontEnemyEffect());
+				}
+				actorHitResults2.SetBaseDamage(num3);
+				actorHitResults2.AddStandardEffectInfo(GetEnemyHitEffect());
+			}
+			else
+			{
+				actorHitResults2.SetBaseHealing(GetAllyHealAmount());
+				actorHitResults2.AddStandardEffectInfo(GetAllyHitEffect());
+			}
+			abilityResults.StoreActorHit(actorHitResults2);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private void GetBarrierPositionAndFacing(List<AbilityTarget> targets, ActorData caster, out Vector3 position, out Vector3 facing)
+	{
+		facing = targets[0].AimDirection;
+		position = caster.GetFreePos();
+		if (targets.Count > 1 && m_snapToGrid)
+		{
+			BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+			if (square != null)
+			{
+				facing = VectorUtils.GetDirectionAndOffsetToClosestSide(square, targets[1].FreePos, AllowAimAtDiagonals(), out Vector3 vector);
+				position = caster.GetFreePos() + vector;
+			}
+		}
+	}
+
+	// added in rogues
+	private List<ActorData> GetChargeHitActors(List<AbilityTarget> targets, ActorData caster, out List<ActorData> shieldFrontHitActors, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		shieldFrontHitActors = new List<ActorData>();
+		BoardSquare squareAtPhaseStart = caster.GetSquareAtPhaseStart();
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(squareAtPhaseStart);
+		Vector3 loSCheckPos2 = caster.GetLoSCheckPos(Board.Get().GetSquare(targets[0].GridPos));
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), true);
+		List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(loSCheckPos, loSCheckPos2, GetRadiusAroundStart(), GetRadiusAroundEnd(), GetChargeRadius(), ChargePenetrateLos(), caster, relevantTeams, nonActorTargetInfo);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInRadiusOfLine);
+		if (HitInFrontOfShield())
+		{
+			GetBarrierPositionAndFacing(targets, caster, out Vector3 _, out Vector3 vector2);
+			VectorUtils.LaserCoords laserCoords;
+			laserCoords.start = loSCheckPos2;
+			shieldFrontHitActors = AreaEffectUtils.GetActorsInLaser(laserCoords.start, vector2, GetShieldFrontHitLength() + 0.5f, GetShieldFrontLaserWidth(), caster, caster.GetOtherTeams(), false, -1, m_shieldFrontLangthIgnoreLos, true, out laserCoords.end, nonActorTargetInfo, null, true);
+			ServerAbilityUtils.RemoveEvadersFromHitTargets(ref shieldFrontHitActors);
+			if (shieldFrontHitActors.Count > 0)
+			{
+				List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, -1f * vector2, 2f, GetShieldFrontLaserWidth(), caster, caster.GetOtherTeams(), true, -1, true, true, out Vector3 _, null, null, true);
+				for (int i = shieldFrontHitActors.Count - 1; i >= 0; i--)
+				{
+					ActorData item = shieldFrontHitActors[i];
+					if (actorsInLaser.Contains(item))
+					{
+						shieldFrontHitActors.RemoveAt(i);
+					}
+				}
+			}
+		}
+		foreach (ActorData hitActor in shieldFrontHitActors)
+		{
+			if (!actorsInRadiusOfLine.Contains(hitActor))
+			{
+				actorsInRadiusOfLine.Add(hitActor);
+			}
+		}
+		actorsInRadiusOfLine.Remove(caster);
+		return actorsInRadiusOfLine;
+	}
+
+	// added in rogues
+	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
+	{
+		return new List<Vector3>
+		{
+			targets[0].FreePos
+		};
+	}
+
+	// added in rogues
+	public override bool UseTargeterGridPosForCameraBounds()
+	{
+		return false;
+	}
+
+	// added in rogues
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.RampartStats.UltDamageDealtPlusDodged, damageDodged);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.RampartStats.UltDamageDealtPlusDodged, results.FinalDamage);
+		}
+	}
+#endif
 }

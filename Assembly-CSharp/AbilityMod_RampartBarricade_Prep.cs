@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,9 +40,12 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RampartBarricade_Prep rampartBarricade_Prep = GetTargetAbilityOnAbilityData(abilityData) as RampartBarricade_Prep;
+		// rogues
+		// RampartBarricade_Prep rampartBarricade_Prep = targetAbility as RampartBarricade_Prep;
 		bool isAbilityPresent = rampartBarricade_Prep != null;
 		Passive_Rampart passive_Rampart = abilityData ? abilityData.GetComponent<Passive_Rampart>() : null;
 		string desc = "";

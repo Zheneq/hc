@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RampartAoeBuffDebuff : Ability
@@ -254,4 +256,100 @@ public class RampartAoeBuffDebuff : Ability
 			? m_abilityMod.m_healingToAlliesMod.GetModifiedValue(m_healingToAllies)
 			: m_healingToAllies;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(m_castSequencePrefab, targets[0].FreePos, additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource);
+		list.Add(item);
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, nonActorTargetInfo);
+		int enemyHits = 0;
+		int allyHits = 0;
+		foreach (ActorData hitActor in hitActors)
+		{
+			if (hitActor.GetTeam() != caster.GetTeam())
+			{
+				enemyHits++;
+			}
+			else if (hitActor != caster)
+			{
+				allyHits++;
+			}
+		}
+		foreach (ActorData hitActor in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, caster.GetFreePos()));
+			if (hitActor == caster)
+			{
+				if (GetSelfHitEffect().m_applyEffect)
+				{
+					RampartUnstoppableEffect effect = new RampartUnstoppableEffect(
+						new EffectSource(this),  // , null in rogues
+						hitActor.CurrentBoardSquare, 
+						hitActor, 
+						caster, 
+						GetSelfHitEffect().m_effectData);
+					actorHitResults.AddEffect(effect);
+				}
+				if (GetSelfHealAmountPerHit() > 0 || GetBaseSelfHeal() > 0)
+				{
+					int baseHealing = CalcSelfHealAmountFromHits(allyHits, enemyHits);
+					actorHitResults.SetBaseHealing(baseHealing);
+				}
+			}
+			else if (hitActor.GetTeam() == caster.GetTeam())
+			{
+				if (GetHealingToAllies() > 0)
+				{
+					actorHitResults.AddBaseHealing(GetHealingToAllies());
+				}
+				if (GetAllyHitEffect().m_applyEffect)
+				{
+					RampartUnstoppableEffect effect2 = new RampartUnstoppableEffect(
+						new EffectSource(this),  // , null in rogues
+						hitActor.CurrentBoardSquare, 
+						hitActor, 
+						caster, 
+						GetAllyHitEffect().m_effectData);
+					actorHitResults.AddEffect(effect2);
+				}
+			}
+			else
+			{
+				if (GetDamageToEnemies() > 0)
+				{
+					actorHitResults.AddBaseDamage(GetDamageToEnemies());
+				}
+				actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public new List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies());
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(GetShape(), targets[0], PenetrateLos(), caster, relevantTeams, nonActorTargetInfo);
+		if (!IncludeCaster())
+		{
+			actorsInShape.Remove(caster);
+		}
+		else if (!actorsInShape.Contains(caster))
+		{
+			actorsInShape.Add(caster);
+		}
+		return actorsInShape;
+	}
+#endif
 }

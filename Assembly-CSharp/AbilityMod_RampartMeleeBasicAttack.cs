@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,9 +44,12 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RampartMeleeBasicAttack rampartMeleeBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as RampartMeleeBasicAttack;
+		// rogues
+		// RampartMeleeBasicAttack rampartMeleeBasicAttack = targetAbility as RampartMeleeBasicAttack;
 		bool isAbilityPresent = rampartMeleeBasicAttack != null;
 		string desc = "";
 		desc += PropDesc(m_laserRangeMod, "[LaserRange]", isAbilityPresent, isAbilityPresent ? rampartMeleeBasicAttack.m_laserRange : 0f);

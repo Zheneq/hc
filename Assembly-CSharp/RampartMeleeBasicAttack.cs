@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -201,4 +203,69 @@ public class RampartMeleeBasicAttack : Ability
 			? mod.m_coneEnemyHitEffectMod.GetModifiedValue(m_coneEnemyHitEffect)
 			: m_coneEnemyHitEffect, "ConeEnemyHitEffect", m_coneEnemyHitEffect);
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		Vector3 hitActors = GetHitActors(targets, caster, out var laserHitActors, out var coneHitActors, null);
+		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(m_laserSequencePrefab, hitActors, laserHitActors.ToArray(), caster, additionalData.m_sequenceSource);
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
+		foreach (ActorData actorData in laserHitActors)
+		{
+			if (AreaEffectUtils.IsSquareInCone(actorData.GetCurrentBoardSquare(), caster.GetLoSCheckPos(), coneCenterAngleDegrees, GetConeAngle(), GetConeRange(), 0f, PenetrateLos(), caster) && !coneHitActors.Contains(actorData))
+			{
+				coneHitActors.Add(actorData);
+			}
+		}
+		ServerClientUtils.SequenceStartData item2 = new ServerClientUtils.SequenceStartData(m_coneSequencePrefab, targets[0].FreePos, coneHitActors.ToArray(), caster, additionalData.m_sequenceSource);
+		list.Add(item2);
+		list.Add(item);
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		GetHitActors(targets, caster, out var laserHitActors, out var coneHitActors, nonActorTargetInfo);
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		foreach (ActorData actorData in laserHitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, loSCheckPos));
+			int damage = GetLaserDamage();
+			if (GetBonusDamageForOverlap() > 0 && coneHitActors.Contains(actorData))
+			{
+				damage += GetBonusDamageForOverlap();
+			}
+			actorHitResults.SetBaseDamage(damage);
+			actorHitResults.AddStandardEffectInfo(GetLaserEnemyHitEffect());
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		foreach (ActorData actorData2 in coneHitActors)
+		{
+			if (!laserHitActors.Contains(actorData2))
+			{
+				ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(actorData2, loSCheckPos));
+				actorHitResults2.SetBaseDamage(GetConeDamage());
+				actorHitResults2.AddStandardEffectInfo(GetConeEnemyHitEffect());
+				abilityResults.StoreActorHit(actorHitResults2);
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private Vector3 GetHitActors(List<AbilityTarget> targets, ActorData caster, out List<ActorData> laserHitActors, out List<ActorData> coneHitActors, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		laserHitActors = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[0].AimDirection, GetLaserRange(), GetLaserWidth(), caster, caster.GetOtherTeams(), PenetrateLos(), GetLaserMaxTargets(), false, true, out laserCoords.end, nonActorTargetInfo);
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
+		coneHitActors = AreaEffectUtils.GetActorsInCone(loSCheckPos, coneCenterAngleDegrees, GetConeAngle(), GetConeRange(), 0f, PenetrateLos(), caster, caster.GetOtherTeams(), nonActorTargetInfo);
+		return laserCoords.end;
+	}
+#endif
 }

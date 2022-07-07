@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -246,4 +248,63 @@ public class RampartGrab : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out Vector3 vector, null);
+		TargeterUtils.SortActorsByDistanceToPos(ref hitActors, vector);
+		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(m_castSequencePrefab, vector, hitActors.ToArray(), caster, additionalData.m_sequenceSource);
+		list.Add(item);
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		KnockbackType type = KnockbackType.PullToSourceActor;
+		BoardSquare boardSquare;
+		if (ChooseEndPosition() && targets.Count >= 2)
+		{
+			boardSquare = Board.Get().GetSquare(targets[1].GridPos);
+			type = KnockbackType.PullToSource;
+		}
+		else
+		{
+			boardSquare = caster.GetCurrentBoardSquare();
+		}
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out Vector3 vector, nonActorTargetInfo);
+		for (int i = 0; i < hitActors.Count; i++)
+		{
+			ActorData target = hitActors[i];
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, caster.GetFreePos()));
+			int baseDamage = CalcDamageForOrderIndex(i);
+			actorHitResults.SetBaseDamage(baseDamage);
+			actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+			KnockbackHitData knockbackData = new KnockbackHitData(target, caster, type, targets[0].AimDirection, boardSquare.ToVector3(), m_knockbackDistance);
+			actorHitResults.AddKnockbackData(knockbackData);
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, out Vector3 endPos, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[0].AimDirection, GetLaserRange(), GetLaserWidth(), caster, caster.GetOtherTeams(), PenetrateLos(), GetMaxTargets(), false, true, out laserCoords.end, nonActorTargetInfo);
+		endPos = laserCoords.end;
+		return actorsInLaser;
+	}
+
+	// added in rogues
+	public override void OnAbilityAssistedKill(ActorData caster, ActorData target)
+	{
+		caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.RampartStats.GrabAssists);
+	}
+#endif
 }

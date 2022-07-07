@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -72,9 +74,12 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RampartDashAndAimShield rampartDashAndAimShield = GetTargetAbilityOnAbilityData(abilityData) as RampartDashAndAimShield;
+		// rogues
+		// RampartDashAndAimShield rampartDashAndAimShield = targetAbility as RampartDashAndAimShield;
 		bool isAbilityPresent = rampartDashAndAimShield != null;
 		string desc = "";
 		desc += PropDesc(m_chargeRadiusMod, "[ChargeRadius]", isAbilityPresent, isAbilityPresent ? rampartDashAndAimShield.m_chargeRadius : 0f);

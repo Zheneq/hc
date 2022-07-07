@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,9 +42,13 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RampartAoeBuffDebuff rampartAoeBuffDebuff = GetTargetAbilityOnAbilityData(abilityData) as RampartAoeBuffDebuff;
+		// rogues
+		// RampartAoeBuffDebuff rampartAoeBuffDebuff = targetAbility as RampartAoeBuffDebuff;
+		
 		bool isAbilityPresent = rampartAoeBuffDebuff != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_shapeMod, "[Shape]", isAbilityPresent, isAbilityPresent ? rampartAoeBuffDebuff.m_shape : AbilityAreaShape.SingleSquare);

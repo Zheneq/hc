@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RampartBarricade_Prep : Ability
@@ -22,6 +24,11 @@ public class RampartBarricade_Prep : Ability
 	private Passive_Rampart m_passive;
 	private AbilityMod_RampartBarricade_Prep m_abilityMod;
 	private StandardEffectInfo m_cachedEnemyHitEffect;
+
+#if SERVER
+	private Barrier m_lastGatheredBarrier;
+	private Vector3 m_lastGatheredBarrierFacing = Vector3.forward;
+#endif
 
 	private void Start()
 	{
@@ -181,4 +188,71 @@ public class RampartBarricade_Prep : Ability
 			}
 		}
 	}
+
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_passive != null)
+		{
+			m_passive.SetShieldBarrier(m_lastGatheredBarrier, m_lastGatheredBarrierFacing);
+		}
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		GetBarrierPositionAndFacing(targets, out Vector3 targetPos, out Vector3 vector);
+		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(m_removeShieldSequencePrefab, Vector3.zero, null, caster, additionalData.m_sequenceSource);
+		ServerClientUtils.SequenceStartData item2 = new ServerClientUtils.SequenceStartData(m_applyShieldSequencePrefab, targetPos, Quaternion.LookRotation(vector), null, caster, additionalData.m_sequenceSource);
+		list.Add(item);
+		list.Add(item2);
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		if (m_passive.GetCurrentShieldBarrier() != null)
+		{
+			PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(Vector3.zero));
+			positionHitResults.AddBarrierForRemoval(m_passive.GetCurrentShieldBarrier(), true);
+			abilityResults.StorePositionHit(positionHitResults);
+		}
+
+		GetBarrierPositionAndFacing(targets, out Vector3 vector, out Vector3 vector2);
+		Barrier barrier = new Barrier(m_abilityName, vector, vector2, caster, m_passive.GetShieldBarrierData(), true, abilityResults.SequenceSource);
+		barrier.SetSourceAbility(this);
+		PositionHitResults positionHitResults2 = new PositionHitResults(new PositionHitParameters(vector));
+		positionHitResults2.AddBarrier(barrier);
+		if (ServerAbilityUtils.CurrentlyGatheringRealResults())
+		{
+			m_lastGatheredBarrier = barrier;
+			m_lastGatheredBarrierFacing = vector2;
+		}
+		abilityResults.StorePositionHit(positionHitResults2);
+	}
+
+	// added in rogues
+	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
+	{
+		return null;
+	}
+
+	// added in rogues
+	public override bool UseTargeterGridPosForCameraBounds()
+	{
+		return false;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (caster == target)
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.RampartStats.HitsBlockedByShield);
+		}
+	}
+#endif
 }
