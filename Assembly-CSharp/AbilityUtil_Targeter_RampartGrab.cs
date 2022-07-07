@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
@@ -60,8 +60,7 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 			return Vector3.zero;
 		}
 		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
-		centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
+		centerOfShape.y = targetingActor.GetFreePos().y + m_heightOffset;
 		return centerOfShape;
 	}
 

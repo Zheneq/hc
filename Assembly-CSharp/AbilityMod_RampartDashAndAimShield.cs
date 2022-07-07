@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -77,7 +77,7 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		RampartDashAndAimShield rampartDashAndAimShield = GetTargetAbilityOnAbilityData(abilityData) as RampartDashAndAimShield;
 		bool isAbilityPresent = rampartDashAndAimShield != null;
 		string desc = "";
-		desc += PropDesc(m_chargeRadiusMod, "[ChargeRadius]", isAbilityPresent, !isAbilityPresent ? 0f : rampartDashAndAimShield.m_chargeRadius);
+		desc += PropDesc(m_chargeRadiusMod, "[ChargeRadius]", isAbilityPresent, isAbilityPresent ? rampartDashAndAimShield.m_chargeRadius : 0f);
 		desc += PropDesc(m_radiusAroundStartMod, "[RadiusAroundStart]", isAbilityPresent, isAbilityPresent ? rampartDashAndAimShield.m_radiusAroundStart : 0f);
 		desc += PropDesc(m_radiusAroundEndMod, "[RadiusAroundEnd]", isAbilityPresent, isAbilityPresent ? rampartDashAndAimShield.m_radiusAroundEnd : 0f);
 		desc += PropDesc(m_chargePenetrateLosMod, "[ChargePenetrateLos]", isAbilityPresent, isAbilityPresent && rampartDashAndAimShield.m_chargePenetrateLos);
