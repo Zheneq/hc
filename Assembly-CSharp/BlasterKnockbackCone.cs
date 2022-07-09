@@ -5,58 +5,35 @@ public class BlasterKnockbackCone : Ability
 {
 	[Header("-- Cone Limits")]
 	public float m_minLength;
-
 	public float m_maxLength;
-
 	public float m_minAngle;
-
 	public float m_maxAngle;
-
 	public AreaEffectUtils.StretchConeStyle m_stretchStyle = AreaEffectUtils.StretchConeStyle.DistanceSquared;
-
 	public float m_coneBackwardOffset;
-
 	public bool m_penetrateLineOfSight;
-
 	[Header("-- On Hit")]
 	public int m_damageAmountNormal;
-
 	public bool m_removeOverchargeEffectOnCast;
-
 	public StandardEffectInfo m_enemyEffectNormal;
-
 	public StandardEffectInfo m_enemyEffectOvercharged;
-
 	[Header("-- Knockback on Enemy")]
 	public float m_knockbackDistance;
-
 	public float m_extraKnockbackDistOnOvercharged;
-
 	public KnockbackType m_knockbackType = KnockbackType.AwayFromSource;
-
 	[Header("-- Knockback on Self")]
 	public float m_knockbackDistanceOnSelf;
-
 	public KnockbackType m_knockbackTypeOnSelf = KnockbackType.BackwardAgainstAimDir;
-
 	[Header("-- Set Overcharge as Free Action after cast?")]
 	public bool m_overchargeAsFreeActionAfterCast;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_overchargedCastSequencePrefab;
-
 	public GameObject m_unstoppableSetterSequencePrefab;
 
 	private AbilityMod_BlasterKnockbackCone m_abilityMod;
-
 	private BlasterOvercharge m_overchargeAbility;
-
 	private Blaster_SyncComponent m_syncComp;
-
 	private StandardEffectInfo m_cachedEnemyEffectNormal;
-
 	private StandardEffectInfo m_cachedEnemyEffectOvercharged;
 
 	private void Start()
@@ -72,23 +49,14 @@ public class BlasterKnockbackCone : Ability
 	{
 		m_overchargeAbility = GetAbilityOfType<BlasterOvercharge>();
 		SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_StretchCone(this, GetMinLength(), GetMaxLength(), GetMinAngle(), GetMaxAngle(), m_stretchStyle, GetConeBackwardOffset(), PenetrateLineOfSight());
-		AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = base.Targeter as AbilityUtil_Targeter_StretchCone;
-		abilityUtil_Targeter_StretchCone.InitKnockbackData(GetKnockbackDistance(), m_knockbackType, GetKnockbackDistanceOnSelf(), m_knockbackTypeOnSelf);
-		abilityUtil_Targeter_StretchCone.SetExtraKnockbackDist(GetExtraKnockbackDistOnOvercharged());
-		abilityUtil_Targeter_StretchCone.m_useExtraKnockbackDistDelegate = delegate
+		AbilityUtil_Targeter_StretchCone targeter = new AbilityUtil_Targeter_StretchCone(this, GetMinLength(), GetMaxLength(), GetMinAngle(), GetMaxAngle(), m_stretchStyle, GetConeBackwardOffset(), PenetrateLineOfSight());
+		targeter.InitKnockbackData(GetKnockbackDistance(), m_knockbackType, GetKnockbackDistanceOnSelf(), m_knockbackTypeOnSelf);
+		targeter.SetExtraKnockbackDist(GetExtraKnockbackDistOnOvercharged());
+		targeter.m_useExtraKnockbackDistDelegate = delegate
 		{
-			int result;
-			if (m_syncComp != null)
-			{
-				result = ((m_syncComp.m_overchargeBuffs > 0) ? 1 : 0);
-			}
-			else
-			{
-				result = 0;
-			}
-			return (byte)result != 0;
+			return m_syncComp != null && m_syncComp.m_overchargeBuffs > 0;
 		};
+		Targeter = targeter;
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -103,179 +71,106 @@ public class BlasterKnockbackCone : Ability
 
 	private void SetCachedFields()
 	{
-		m_cachedEnemyEffectNormal = ((!m_abilityMod) ? m_enemyEffectNormal : m_abilityMod.m_enemyEffectNormalMod.GetModifiedValue(m_enemyEffectNormal));
-		StandardEffectInfo cachedEnemyEffectOvercharged;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyEffectOvercharged = m_abilityMod.m_enemyEffectOverchargedMod.GetModifiedValue(m_enemyEffectOvercharged);
-		}
-		else
-		{
-			cachedEnemyEffectOvercharged = m_enemyEffectOvercharged;
-		}
-		m_cachedEnemyEffectOvercharged = cachedEnemyEffectOvercharged;
+		m_cachedEnemyEffectNormal = m_abilityMod != null
+			? m_abilityMod.m_enemyEffectNormalMod.GetModifiedValue(m_enemyEffectNormal)
+			: m_enemyEffectNormal;
+		m_cachedEnemyEffectOvercharged = m_abilityMod != null
+			? m_abilityMod.m_enemyEffectOverchargedMod.GetModifiedValue(m_enemyEffectOvercharged)
+			: m_enemyEffectOvercharged;
 	}
 
 	public float GetMinLength()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_minLengthMod.GetModifiedValue(m_minLength);
-		}
-		else
-		{
-			result = m_minLength;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_minLengthMod.GetModifiedValue(m_minLength) 
+			: m_minLength;
 	}
 
 	public float GetMaxLength()
 	{
-		return (!m_abilityMod) ? m_maxLength : m_abilityMod.m_maxLengthMod.GetModifiedValue(m_maxLength);
+		return m_abilityMod != null 
+			? m_abilityMod.m_maxLengthMod.GetModifiedValue(m_maxLength)
+			: m_maxLength;
 	}
 
 	public float GetMinAngle()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_minAngleMod.GetModifiedValue(m_minAngle);
-		}
-		else
-		{
-			result = m_minAngle;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_minAngleMod.GetModifiedValue(m_minAngle) 
+			: m_minAngle;
 	}
 
 	public float GetMaxAngle()
 	{
-		return (!m_abilityMod) ? m_maxAngle : m_abilityMod.m_maxAngleMod.GetModifiedValue(m_maxAngle);
+		return m_abilityMod != null 
+			? m_abilityMod.m_maxAngleMod.GetModifiedValue(m_maxAngle)
+			: m_maxAngle;
 	}
 
 	public float GetConeBackwardOffset()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
-		}
-		else
-		{
-			result = m_coneBackwardOffset;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset) 
+			: m_coneBackwardOffset;
 	}
 
 	public bool PenetrateLineOfSight()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
-		}
-		else
-		{
-			result = m_penetrateLineOfSight;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight) 
+			: m_penetrateLineOfSight;
 	}
 
 	public int GetDamageAmountNormal()
 	{
-		return (!m_abilityMod) ? m_damageAmountNormal : m_abilityMod.m_damageAmountNormalMod.GetModifiedValue(m_damageAmountNormal);
+		return m_abilityMod != null
+			? m_abilityMod.m_damageAmountNormalMod.GetModifiedValue(m_damageAmountNormal)
+			: m_damageAmountNormal;
 	}
 
 	public StandardEffectInfo GetEnemyEffectNormal()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyEffectNormal != null)
-		{
-			result = m_cachedEnemyEffectNormal;
-		}
-		else
-		{
-			result = m_enemyEffectNormal;
-		}
-		return result;
+		return m_cachedEnemyEffectNormal ?? m_enemyEffectNormal;
 	}
 
 	public StandardEffectInfo GetEnemyEffectOvercharged()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyEffectOvercharged != null)
-		{
-			result = m_cachedEnemyEffectOvercharged;
-		}
-		else
-		{
-			result = m_enemyEffectOvercharged;
-		}
-		return result;
+		return m_cachedEnemyEffectOvercharged ?? m_enemyEffectOvercharged;
 	}
 
 	public float GetKnockbackDistance()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
-		}
-		else
-		{
-			result = m_knockbackDistance;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance) 
+			: m_knockbackDistance;
 	}
 
 	public float GetExtraKnockbackDistOnOvercharged()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraKnockbackDistOnOverchargedMod.GetModifiedValue(m_extraKnockbackDistOnOvercharged);
-		}
-		else
-		{
-			result = m_extraKnockbackDistOnOvercharged;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_extraKnockbackDistOnOverchargedMod.GetModifiedValue(m_extraKnockbackDistOnOvercharged) 
+			: m_extraKnockbackDistOnOvercharged;
 	}
 
 	public float GetKnockbackDistanceOnSelf()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_knockbackDistanceOnSelfMod.GetModifiedValue(m_knockbackDistanceOnSelf);
-		}
-		else
-		{
-			result = m_knockbackDistanceOnSelf;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_knockbackDistanceOnSelfMod.GetModifiedValue(m_knockbackDistanceOnSelf) 
+			: m_knockbackDistanceOnSelf;
 	}
 
 	public bool OverchargeAsFreeActionAfterCast()
 	{
-		return (!m_abilityMod) ? m_overchargeAsFreeActionAfterCast : m_abilityMod.m_overchargeAsFreeActionAfterCastMod.GetModifiedValue(m_overchargeAsFreeActionAfterCast);
+		return m_abilityMod != null
+			? m_abilityMod.m_overchargeAsFreeActionAfterCastMod.GetModifiedValue(m_overchargeAsFreeActionAfterCast)
+			: m_overchargeAsFreeActionAfterCast;
 	}
 
 	public int GetCurrentModdedDamage()
 	{
-		if (AmOvercharged(base.ActorData))
+		if (AmOvercharged(ActorData))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return GetDamageAmountNormal() + m_overchargeAbility.GetExtraDamage() + GetMultiStackOverchargeDamage();
-				}
-			}
+			return GetDamageAmountNormal() + m_overchargeAbility.GetExtraDamage() + GetMultiStackOverchargeDamage();
 		}
 		return GetDamageAmountNormal();
 	}
@@ -283,44 +178,23 @@ public class BlasterKnockbackCone : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_BlasterKnockbackCone abilityMod_BlasterKnockbackCone = modAsBase as AbilityMod_BlasterKnockbackCone;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_BlasterKnockbackCone)
-		{
-			val = abilityMod_BlasterKnockbackCone.m_damageAmountNormalMod.GetModifiedValue(m_damageAmountNormal);
-		}
-		else
-		{
-			val = m_damageAmountNormal;
-		}
-		AddTokenInt(tokens, "Damage", empty, val);
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_BlasterKnockbackCone)
-		{
-			effectInfo = abilityMod_BlasterKnockbackCone.m_enemyEffectNormalMod.GetModifiedValue(m_enemyEffectNormal);
-		}
-		else
-		{
-			effectInfo = m_enemyEffectNormal;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyEffectNormal", m_enemyEffectNormal);
-		StandardEffectInfo effectInfo2;
-		if ((bool)abilityMod_BlasterKnockbackCone)
-		{
-			effectInfo2 = abilityMod_BlasterKnockbackCone.m_enemyEffectOverchargedMod.GetModifiedValue(m_enemyEffectOvercharged);
-		}
-		else
-		{
-			effectInfo2 = m_enemyEffectOvercharged;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EnemyEffectOvercharged", m_enemyEffectOvercharged);
+		AddTokenInt(tokens, "Damage", string.Empty, abilityMod_BlasterKnockbackCone != null
+			? abilityMod_BlasterKnockbackCone.m_damageAmountNormalMod.GetModifiedValue(m_damageAmountNormal)
+			: m_damageAmountNormal);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_BlasterKnockbackCone != null
+			? abilityMod_BlasterKnockbackCone.m_enemyEffectNormalMod.GetModifiedValue(m_enemyEffectNormal)
+			: m_enemyEffectNormal, "EnemyEffectNormal", m_enemyEffectNormal);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_BlasterKnockbackCone != null
+			? abilityMod_BlasterKnockbackCone.m_enemyEffectOverchargedMod.GetModifiedValue(m_enemyEffectOvercharged)
+			: m_enemyEffectOvercharged, "EnemyEffectOvercharged", m_enemyEffectOvercharged);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, GetCurrentModdedDamage()));
-		return list;
+		return new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, GetCurrentModdedDamage())
+		};
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
@@ -333,7 +207,7 @@ public class BlasterKnockbackCone : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
@@ -347,15 +221,10 @@ public class BlasterKnockbackCone : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_BlasterKnockbackCone))
+		if (abilityMod.GetType() == typeof(AbilityMod_BlasterKnockbackCone))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_BlasterKnockbackCone);
+			m_abilityMod = abilityMod as AbilityMod_BlasterKnockbackCone;
 			SetupTargeter();
-			return;
 		}
 	}
 
@@ -367,46 +236,22 @@ public class BlasterKnockbackCone : Ability
 
 	public override MovementAdjustment GetMovementAdjustment()
 	{
-		if (base.ActorData.GetActorStatus().IsKnockbackImmune())
+		if (ActorData.GetActorStatus().IsKnockbackImmune())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return MovementAdjustment.ReducedMovement;
-				}
-			}
+			return MovementAdjustment.ReducedMovement;
 		}
-		AbilityData abilityData = base.ActorData.GetAbilityData();
+		AbilityData abilityData = ActorData.GetAbilityData();
 		List<AbilityData.AbilityEntry> queuedOrAimingAbilities = abilityData.GetQueuedOrAimingAbilities();
-		using (List<AbilityData.AbilityEntry>.Enumerator enumerator = queuedOrAimingAbilities.GetEnumerator())
+		foreach (AbilityData.AbilityEntry current in queuedOrAimingAbilities)
 		{
-			while (enumerator.MoveNext())
+			Card_Standard_Ability card_Standard_Ability = current.ability as Card_Standard_Ability;
+			if (card_Standard_Ability != null && card_Standard_Ability.m_applyEffect)
 			{
-				AbilityData.AbilityEntry current = enumerator.Current;
-				Card_Standard_Ability card_Standard_Ability = current.ability as Card_Standard_Ability;
-				if (card_Standard_Ability != null)
+				foreach (StatusType statusType in card_Standard_Ability.m_effect.m_statusChanges)
 				{
-					if (card_Standard_Ability.m_applyEffect)
+					if (statusType == StatusType.KnockbackImmune || statusType == StatusType.Unstoppable)
 					{
-						StatusType[] statusChanges = card_Standard_Ability.m_effect.m_statusChanges;
-						int num = 0;
-						while (num < statusChanges.Length)
-						{
-							StatusType statusType = statusChanges[num];
-							if (statusType != StatusType.KnockbackImmune)
-							{
-								if (statusType != StatusType.Unstoppable)
-								{
-									num++;
-									continue;
-								}
-							}
-							return MovementAdjustment.ReducedMovement;
-						}
+						return MovementAdjustment.ReducedMovement;
 					}
 				}
 			}
@@ -425,25 +270,11 @@ public class BlasterKnockbackCone : Ability
 
 	private int GetMultiStackOverchargeDamage()
 	{
-		if (m_syncComp != null)
-		{
-			if (m_syncComp.m_overchargeBuffs > 1 && m_overchargeAbility != null)
-			{
-				if (m_overchargeAbility.GetExtraDamageForMultiCast() > 0)
-				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							return m_overchargeAbility.GetExtraDamageForMultiCast();
-						}
-					}
-				}
-			}
-		}
-		return 0;
+		return m_syncComp != null
+		       && m_syncComp.m_overchargeBuffs > 1
+		       && m_overchargeAbility != null
+		       && m_overchargeAbility.GetExtraDamageForMultiCast() > 0
+			? m_overchargeAbility.GetExtraDamageForMultiCast()
+			: 0;
 	}
 }

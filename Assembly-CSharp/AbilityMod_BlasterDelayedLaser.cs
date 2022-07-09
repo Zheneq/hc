@@ -6,23 +6,15 @@ public class AbilityMod_BlasterDelayedLaser : AbilityMod
 {
 	[Header("-- Laser Data")]
 	public AbilityModPropertyBool m_penetrateLineOfSightMod;
-
 	public AbilityModPropertyFloat m_lengthMod;
-
 	public AbilityModPropertyFloat m_widthMod;
-
 	[Space(10f)]
 	public AbilityModPropertyBool m_triggerAimAtBlasterMod;
-
 	[Header("-- On Hit")]
 	public AbilityModPropertyInt m_damageAmountMod;
-
 	public AbilityModPropertyEffectInfo m_effectOnHitMod;
-
 	public AbilityModPropertyInt m_extraDamageToNearEnemyMod;
-
 	public AbilityModPropertyFloat m_nearDistanceMod;
-
 	[Header("-- On Cast Hit Effect")]
 	public AbilityModPropertyEffectInfo m_onCastEnemyHitEffectMod;
 
@@ -34,113 +26,36 @@ public class AbilityMod_BlasterDelayedLaser : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		BlasterDelayedLaser blasterDelayedLaser = targetAbility as BlasterDelayedLaser;
-		if (!(blasterDelayedLaser != null))
+		if (blasterDelayedLaser == null)
 		{
 			return;
 		}
-		AbilityMod.AddToken(tokens, m_lengthMod, "Length", string.Empty, blasterDelayedLaser.m_length);
-		AbilityMod.AddToken(tokens, m_widthMod, "Width", string.Empty, blasterDelayedLaser.m_width);
-		AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, blasterDelayedLaser.m_damageAmount);
-		AbilityMod.AddToken_EffectMod(tokens, m_effectOnHitMod, "EffectOnHit", blasterDelayedLaser.m_effectOnHit);
-		AbilityMod.AddToken(tokens, m_extraDamageToNearEnemyMod, "ExtraDamageToNearEnemy", string.Empty, blasterDelayedLaser.m_extraDamageToNearEnemy);
-		AbilityMod.AddToken(tokens, m_nearDistanceMod, "NearDistance", string.Empty, blasterDelayedLaser.m_nearDistance);
+		AddToken(tokens, m_lengthMod, "Length", string.Empty, blasterDelayedLaser.m_length);
+		AddToken(tokens, m_widthMod, "Width", string.Empty, blasterDelayedLaser.m_width);
+		AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, blasterDelayedLaser.m_damageAmount);
+		AddToken_EffectMod(tokens, m_effectOnHitMod, "EffectOnHit", blasterDelayedLaser.m_effectOnHit);
+		AddToken(tokens, m_extraDamageToNearEnemyMod, "ExtraDamageToNearEnemy", string.Empty, blasterDelayedLaser.m_extraDamageToNearEnemy);
+		AddToken(tokens, m_nearDistanceMod, "NearDistance", string.Empty, blasterDelayedLaser.m_nearDistance);
 		if (m_nearDistanceMod != null)
 		{
-			AbilityMod.AddToken_IntDiff(tokens, "NearDist_MinusOne", string.Empty, Mathf.RoundToInt(m_nearDistanceMod.GetModifiedValue(blasterDelayedLaser.m_nearDistance)) - 1, false, 0);
+			AddToken_IntDiff(tokens, "NearDist_MinusOne", string.Empty, Mathf.RoundToInt(m_nearDistanceMod.GetModifiedValue(blasterDelayedLaser.m_nearDistance)) - 1, false, 0);
 		}
-		AbilityMod.AddToken_EffectMod(tokens, m_onCastEnemyHitEffectMod, "OnCastEnemyHitEffect", blasterDelayedLaser.m_onCastEnemyHitEffect);
+		AddToken_EffectMod(tokens, m_onCastEnemyHitEffectMod, "OnCastEnemyHitEffect", blasterDelayedLaser.m_onCastEnemyHitEffect);
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		BlasterDelayedLaser blasterDelayedLaser = GetTargetAbilityOnAbilityData(abilityData) as BlasterDelayedLaser;
-		bool flag = blasterDelayedLaser != null;
-		string empty = string.Empty;
-		empty += PropDesc(m_penetrateLineOfSightMod, "[PenetrateLineOfSight]", flag, flag && blasterDelayedLaser.m_penetrateLineOfSight);
-		empty += PropDesc(m_lengthMod, "[Length]", flag, (!flag) ? 0f : blasterDelayedLaser.m_length);
-		string str = empty;
-		AbilityModPropertyFloat widthMod = m_widthMod;
-		float baseVal;
-		if (flag)
-		{
-			baseVal = blasterDelayedLaser.m_width;
-		}
-		else
-		{
-			baseVal = 0f;
-		}
-		empty = str + PropDesc(widthMod, "[Width]", flag, baseVal);
-		string str2 = empty;
-		AbilityModPropertyBool triggerAimAtBlasterMod = m_triggerAimAtBlasterMod;
-		int baseVal2;
-		if (flag)
-		{
-			baseVal2 = (blasterDelayedLaser.m_triggerAimAtBlaster ? 1 : 0);
-		}
-		else
-		{
-			baseVal2 = 0;
-		}
-		empty = str2 + PropDesc(triggerAimAtBlasterMod, "[TriggerAimAtBlaster]", flag, (byte)baseVal2 != 0);
-		string str3 = empty;
-		AbilityModPropertyInt damageAmountMod = m_damageAmountMod;
-		int baseVal3;
-		if (flag)
-		{
-			baseVal3 = blasterDelayedLaser.m_damageAmount;
-		}
-		else
-		{
-			baseVal3 = 0;
-		}
-		empty = str3 + PropDesc(damageAmountMod, "[DamageAmount]", flag, baseVal3);
-		string str4 = empty;
-		AbilityModPropertyEffectInfo effectOnHitMod = m_effectOnHitMod;
-		object baseVal4;
-		if (flag)
-		{
-			baseVal4 = blasterDelayedLaser.m_effectOnHit;
-		}
-		else
-		{
-			baseVal4 = null;
-		}
-		empty = str4 + PropDesc(effectOnHitMod, "[EffectOnHit]", flag, (StandardEffectInfo)baseVal4);
-		string str5 = empty;
-		AbilityModPropertyInt extraDamageToNearEnemyMod = m_extraDamageToNearEnemyMod;
-		int baseVal5;
-		if (flag)
-		{
-			baseVal5 = blasterDelayedLaser.m_extraDamageToNearEnemy;
-		}
-		else
-		{
-			baseVal5 = 0;
-		}
-		empty = str5 + PropDesc(extraDamageToNearEnemyMod, "[ExtraDamageToNearEnemy]", flag, baseVal5);
-		string str6 = empty;
-		AbilityModPropertyFloat nearDistanceMod = m_nearDistanceMod;
-		float baseVal6;
-		if (flag)
-		{
-			baseVal6 = blasterDelayedLaser.m_nearDistance;
-		}
-		else
-		{
-			baseVal6 = 0f;
-		}
-		empty = str6 + PropDesc(nearDistanceMod, "[NearDistance]", flag, baseVal6);
-		string str7 = empty;
-		AbilityModPropertyEffectInfo onCastEnemyHitEffectMod = m_onCastEnemyHitEffectMod;
-		object baseVal7;
-		if (flag)
-		{
-			baseVal7 = blasterDelayedLaser.m_onCastEnemyHitEffect;
-		}
-		else
-		{
-			baseVal7 = null;
-		}
-		return str7 + PropDesc(onCastEnemyHitEffectMod, "[OnCastEnemyHitEffect]", flag, (StandardEffectInfo)baseVal7);
+		bool isAbilityPresent = blasterDelayedLaser != null;
+		string desc = string.Empty;
+		desc += PropDesc(m_penetrateLineOfSightMod, "[PenetrateLineOfSight]", isAbilityPresent, isAbilityPresent && blasterDelayedLaser.m_penetrateLineOfSight);
+		desc += PropDesc(m_lengthMod, "[Length]", isAbilityPresent, isAbilityPresent ? blasterDelayedLaser.m_length : 0f);
+		desc += PropDesc(m_widthMod, "[Width]", isAbilityPresent, isAbilityPresent ? blasterDelayedLaser.m_width : 0f);
+		desc += PropDesc(m_triggerAimAtBlasterMod, "[TriggerAimAtBlaster]", isAbilityPresent, isAbilityPresent && blasterDelayedLaser.m_triggerAimAtBlaster);
+		desc += PropDesc(m_damageAmountMod, "[DamageAmount]", isAbilityPresent, isAbilityPresent ? blasterDelayedLaser.m_damageAmount : 0);
+		desc += PropDesc(m_effectOnHitMod, "[EffectOnHit]", isAbilityPresent, isAbilityPresent ? blasterDelayedLaser.m_effectOnHit : null);
+		desc += PropDesc(m_extraDamageToNearEnemyMod, "[ExtraDamageToNearEnemy]", isAbilityPresent, isAbilityPresent ? blasterDelayedLaser.m_extraDamageToNearEnemy : 0);
+		desc += PropDesc(m_nearDistanceMod, "[NearDistance]", isAbilityPresent, isAbilityPresent ? blasterDelayedLaser.m_nearDistance : 0f);
+		return desc + PropDesc(m_onCastEnemyHitEffectMod, "[OnCastEnemyHitEffect]", isAbilityPresent, isAbilityPresent ? blasterDelayedLaser.m_onCastEnemyHitEffect : null);
 	}
 }
