@@ -912,9 +912,19 @@ public class ServerEffectManager : MonoBehaviour
 	// custom
 	private void OnAbilityPhaseStart(List<Effect> effectList, AbilityPriority phase)
 	{
+		List<Effect> effectsToRemove = new List<Effect>();
 		foreach (Effect effect in effectList)
 		{
 			effect.OnAbilityPhaseStart(phase);
+
+			if (effect.ShouldEndEarly())
+			{
+				effectsToRemove.Add(effect);
+			}
+		}
+		foreach (Effect effectToRemove in effectsToRemove)
+		{
+			RemoveEffect(effectToRemove, effectList);
 		}
 	}
 	
@@ -931,9 +941,19 @@ public class ServerEffectManager : MonoBehaviour
 	// custom
 	private void OnAbilityPhaseEnd(List<Effect> effectList, AbilityPriority phase)
 	{
+		List<Effect> effectsToRemove = new List<Effect>();
 		foreach (Effect effect in effectList)
 		{
 			effect.OnAbilityPhaseEnd(phase);
+
+			if (effect.ShouldEndEarly())
+			{
+				effectsToRemove.Add(effect);
+			}
+		}
+		foreach (Effect effectToRemove in effectsToRemove)
+		{
+			RemoveEffect(effectToRemove, effectList);
 		}
 	}
 

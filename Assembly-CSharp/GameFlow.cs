@@ -584,6 +584,7 @@ public class GameFlow : NetworkBehaviour
 							EffectResults resultsForPhase = effect.GetResultsForPhase(actionBuffer.AbilityPhase, true);
 							if (effect.HitPhase == actionBuffer.AbilityPhase && (resultsForPhase == null || !resultsForPhase.GatheredResults))
 							{
+								effect.Resolve();
 								executingEffects.Add(effect);
 							}
 						}
