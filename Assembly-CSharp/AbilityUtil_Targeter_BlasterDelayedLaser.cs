@@ -1,3 +1,5 @@
+﻿// SERVER
+// ROGUES
 using UnityEngine;
 
 public class AbilityUtil_Targeter_BlasterDelayedLaser : AbilityUtil_Targeter_Laser

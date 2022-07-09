@@ -1,3 +1,5 @@
+﻿// SERVER
+// ROGUES
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,9 +45,13 @@ public class AbilityMod_BlasterDelayedLaser : AbilityMod
 		AddToken_EffectMod(tokens, m_onCastEnemyHitEffectMod, "OnCastEnemyHitEffect", blasterDelayedLaser.m_onCastEnemyHitEffect);
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		BlasterDelayedLaser blasterDelayedLaser = GetTargetAbilityOnAbilityData(abilityData) as BlasterDelayedLaser;
+		// rogues
+		// BlasterDelayedLaser blasterDelayedLaser = targetAbility as BlasterDelayedLaser;
+		
 		bool isAbilityPresent = blasterDelayedLaser != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_penetrateLineOfSightMod, "[PenetrateLineOfSight]", isAbilityPresent, isAbilityPresent && blasterDelayedLaser.m_penetrateLineOfSight);

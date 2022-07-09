@@ -1,3 +1,5 @@
+﻿// SERVER
+// ROGUES
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,12 +16,20 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 	[Header("-- Stock based Evade distance")]
 	public AbilityModPropertyBool m_useStockBasedEvadeDistanceMod;
 	public AbilityModPropertyFloat m_distancePerStockMod;
+	
+	// removed in rogues
 	[Header("-- Whether to use square coordinate distance to limit stock-based evade distance")]
 	public AbilityModPropertyBool m_stockBasedDistUseSquareCoordDistMod;
 	[Header("-- If <= 0, dist only limited by stock remaining")]
 	public AbilityModPropertyInt m_stockBasedDistMaxSquareCoordDistMod;
+	// end removed in rogues
+	
 	[Header("-- On Hit")]
 	public AbilityModPropertyInt m_damageAmountNormalMod;
+	
+	// added in rogues
+	// public AbilityModPropertyInt m_damageAmountOverchargedMod;
+
 	public AbilityModPropertyInt m_extraDamageForSingleHitMod;
 	[Space(10f)]
 	public AbilityModPropertyEffectInfo m_enemyEffectNormalMod;
@@ -43,8 +53,16 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 			AddToken(tokens, m_maxAngleMod, "MaxAngle", string.Empty, blasterDashAndBlast.m_maxAngle);
 			AddToken(tokens, m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, blasterDashAndBlast.m_coneBackwardOffset);
 			AddToken(tokens, m_distancePerStockMod, "DistancePerStock", string.Empty, blasterDashAndBlast.m_distancePerStock);
+			
+			// removed in rogues
 			AddToken(tokens, m_stockBasedDistMaxSquareCoordDistMod, "StockBasedDistMaxSquareCoordDist", string.Empty, blasterDashAndBlast.m_stockBasedDistMaxSquareCoordDist);
+			// end removed in rogues
+			
 			AddToken(tokens, m_damageAmountNormalMod, "DamageAmountNormal", string.Empty, blasterDashAndBlast.m_damageAmountNormal);
+			
+			// added in rogues
+			// AddToken(tokens, m_damageAmountOverchargedMod, "DamageAmountOvercharged", string.Empty, blasterDashAndBlast.m_damageAmountOvercharged);
+
 			AddToken(tokens, m_extraDamageForSingleHitMod, "ExtraDamageForSingleHit", string.Empty, blasterDashAndBlast.m_extraDamageForSingleHit);
 			AddToken_EffectMod(tokens, m_enemyEffectNormalMod, "EnemyEffectNormal", blasterDashAndBlast.m_enemyEffectNormal);
 			AddToken_EffectMod(tokens, m_enemyEffectOverchargedMod, "EnemyEffectOvercharged", blasterDashAndBlast.m_enemyEffectOvercharged);
@@ -56,9 +74,13 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		BlasterDashAndBlast blasterDashAndBlast = GetTargetAbilityOnAbilityData(abilityData) as BlasterDashAndBlast;
+		// rogues
+		// BlasterDashAndBlast blasterDashAndBlast = targetAbility as BlasterDashAndBlast;
+		
 		bool isAbilityPresent = blasterDashAndBlast != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_minLengthMod, "[MinLength]", isAbilityPresent, isAbilityPresent ? blasterDashAndBlast.m_minLength : 0f);
@@ -69,9 +91,17 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		desc += PropDesc(m_penetrateLineOfSightMod, "[PenetrateLineOfSight]", isAbilityPresent, isAbilityPresent && blasterDashAndBlast.m_penetrateLineOfSight);
 		desc += PropDesc(m_useStockBasedEvadeDistanceMod, "[UseStockBasedEvadeDistance]", isAbilityPresent, isAbilityPresent && blasterDashAndBlast.m_useStockBasedEvadeDistance);
 		desc += PropDesc(m_distancePerStockMod, "[DistancePerStock]", isAbilityPresent, isAbilityPresent ? blasterDashAndBlast.m_distancePerStock : 0f);
+		
+		// removed in rogues
 		desc += PropDesc(m_stockBasedDistUseSquareCoordDistMod, "[StockBasedDistUseSquareCoordDist]", isAbilityPresent, isAbilityPresent && blasterDashAndBlast.m_stockBasedDistUseSquareCoordDist);
 		desc += PropDesc(m_stockBasedDistMaxSquareCoordDistMod, "[StockBasedDistMaxSquareCoordDist]", isAbilityPresent, isAbilityPresent ? blasterDashAndBlast.m_stockBasedDistMaxSquareCoordDist : 0);
+		// end removed in rogues
+		
 		desc += PropDesc(m_damageAmountNormalMod, "[DamageAmountNormal]", isAbilityPresent, isAbilityPresent ? blasterDashAndBlast.m_damageAmountNormal : 0);
+		
+		// added in rogues
+		// desc += PropDesc(m_damageAmountOverchargedMod, "[DamageAmountOvercharged]", isAbilityPresent, isAbilityPresent ? blasterDashAndBlast.m_damageAmountOvercharged : 0);
+		
 		desc += PropDesc(m_extraDamageForSingleHitMod, "[ExtraDamageForSingleHit]", isAbilityPresent, isAbilityPresent ? blasterDashAndBlast.m_extraDamageForSingleHit : 0);
 		desc += PropDesc(m_enemyEffectNormalMod, "[EnemyEffectNormal]", isAbilityPresent, isAbilityPresent ? blasterDashAndBlast.m_enemyEffectNormal : null);
 		desc += PropDesc(m_enemyEffectOverchargedMod, "[EnemyEffectOvercharged]", isAbilityPresent, isAbilityPresent ? blasterDashAndBlast.m_enemyEffectOvercharged : null);

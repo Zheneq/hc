@@ -1,3 +1,5 @@
+﻿// SERVER
+// ROGUES
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +15,8 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 	public AbilityModPropertyBool m_penetrateLineOfSightMod;
 	[Header("-- On Hit")]
 	public AbilityModPropertyInt m_damageAmountNormalMod;
+	// added in rogues
+	// public AbilityModPropertyInt m_damageAmountOverchargedMod;
 	public AbilityModPropertyEffectInfo m_enemyEffectNormalMod;
 	public AbilityModPropertyEffectInfo m_enemyEffectOverchargedMod;
 	[Header("-- Knockback on Enemy")]
@@ -41,6 +45,8 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 		AddToken(tokens, m_maxAngleMod, "MaxAngle", string.Empty, blasterKnockbackCone.m_maxAngle);
 		AddToken(tokens, m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, blasterKnockbackCone.m_coneBackwardOffset);
 		AddToken(tokens, m_damageAmountNormalMod, "DamageAmountNormal", string.Empty, blasterKnockbackCone.m_damageAmountNormal);
+		// added in rogues
+		// AddToken(tokens, m_damageAmountOverchargedMod, "DamageAmountOvercharged", string.Empty, blasterKnockbackCone.m_damageAmountOvercharged);
 		AddToken_EffectMod(tokens, m_enemyEffectNormalMod, "EnemyEffectNormal", blasterKnockbackCone.m_enemyEffectNormal);
 		AddToken_EffectMod(tokens, m_enemyEffectOverchargedMod, "EnemyEffectOvercharged", blasterKnockbackCone.m_enemyEffectOvercharged);
 		AddToken(tokens, m_knockbackDistanceMod, "KnockbackDistance", string.Empty, blasterKnockbackCone.m_knockbackDistance);
@@ -48,9 +54,13 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 		AddToken(tokens, m_knockbackDistanceOnSelfMod, "KnockbackDistanceOnSelf", string.Empty, blasterKnockbackCone.m_knockbackDistanceOnSelf);
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		BlasterKnockbackCone blasterKnockbackCone = GetTargetAbilityOnAbilityData(abilityData) as BlasterKnockbackCone;
+		// rogues
+		// BlasterKnockbackCone blasterKnockbackCone = targetAbility as BlasterKnockbackCone;
+		
 		bool isAbilityPresent = blasterKnockbackCone != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_minLengthMod, "[MinLength]", isAbilityPresent, isAbilityPresent ? blasterKnockbackCone.m_minLength : 0f);
@@ -60,6 +70,8 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 		desc += PropDesc(m_coneBackwardOffsetMod, "[ConeBackwardOffset]", isAbilityPresent, isAbilityPresent ? blasterKnockbackCone.m_coneBackwardOffset : 0f);
 		desc += PropDesc(m_penetrateLineOfSightMod, "[PenetrateLineOfSight]", isAbilityPresent, isAbilityPresent && blasterKnockbackCone.m_penetrateLineOfSight);
 		desc += PropDesc(m_damageAmountNormalMod, "[DamageAmountNormal]", isAbilityPresent, isAbilityPresent ? blasterKnockbackCone.m_damageAmountNormal : 0);
+		// added in rogues
+		// desc += PropDesc(m_damageAmountOverchargedMod, "[DamageAmountOvercharged]", isAbilityPresent, isAbilityPresent ? blasterKnockbackCone.m_damageAmountOvercharged : 0);
 		desc += PropDesc(m_enemyEffectNormalMod, "[EnemyEffectNormal]", isAbilityPresent, isAbilityPresent ? blasterKnockbackCone.m_enemyEffectNormal : null);
 		desc += PropDesc(m_enemyEffectOverchargedMod, "[EnemyEffectOvercharged]", isAbilityPresent, isAbilityPresent ? blasterKnockbackCone.m_enemyEffectOvercharged : null);
 		desc += PropDesc(m_knockbackDistanceMod, "[KnockbackDistance]", isAbilityPresent, isAbilityPresent ? blasterKnockbackCone.m_knockbackDistance : 0f);

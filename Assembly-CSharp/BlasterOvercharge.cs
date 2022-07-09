@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,19 +9,33 @@ public class BlasterOvercharge : Ability
 	public StandardActorEffectData m_overchargeEffectData;
 	[Header("-- How many stacks are allowed")]
 	public int m_maxCastCount = 1;
+	
+	// removed in rogues
 	[Header("-- Extra damage added for all attacks except Lurker Mine")]
 	public int m_extraDamage = 10;
+	// end removed in rogues
+	
 	[Header("-- Extra Damage for Lurker Mine")]
 	public int m_extraDamageForDelayedLaser;
 	[Header("-- Extra Damage for multiple stacks")]
 	public int m_extraDamageForMultiCast;
+	
+	// removed in rogues
 	[Header("-- Count - Number of times extra damage applies")]
 	public int m_extraDamageCount = 1;
+	// end removed in rogues
+
 	[Header("-- On Cast")]
 	public StandardEffectInfo m_effectOnSelfOnCast;
 	[Header("-- Extra Effects for other abilities")]
+	
+	// reactor
 	public StandardEffectInfo m_extraEffectOnOtherAbilities;
 	public List<AbilityData.ActionType> m_extraEffectActionTypes;
+	// rogues
+	// public StandardEffectInfo m_extraEffectForStretchingCone;
+	// public StandardEffectInfo m_extraEffectForDashAndBlast;
+	
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
@@ -27,7 +43,12 @@ public class BlasterOvercharge : Ability
 	private Blaster_SyncComponent m_syncComp;
 	private BlasterKnockbackCone m_ultAbility;
 	private StandardEffectInfo m_cachedEffectOnSelfOnCast;
+	
+	// reactor
 	private StandardEffectInfo m_cachedExtraEffectOnOtherAbilities;
+	// rogues
+	// private StandardEffectInfo m_cachedExtraEffectForStretchingCone;
+	// private StandardEffectInfo m_cachedExtraEffectForDashAndBlast;
 
 	private void Start()
 	{
@@ -54,9 +75,17 @@ public class BlasterOvercharge : Ability
 		m_cachedEffectOnSelfOnCast = m_abilityMod != null
 			? m_abilityMod.m_effectOnSelfOnCastMod.GetModifiedValue(m_effectOnSelfOnCast)
 			: m_effectOnSelfOnCast;
+		// reactor
 		m_cachedExtraEffectOnOtherAbilities = m_abilityMod != null
 			? m_abilityMod.m_extraEffectOnOtherAbilitiesMod.GetModifiedValue(m_extraEffectOnOtherAbilities)
 			: m_extraEffectOnOtherAbilities;
+		// rogues
+		// m_cachedExtraEffectForStretchingCone = m_abilityMod != null
+		// 	? m_abilityMod.m_extraEffectForStretchingConeMod.GetModifiedValue(m_extraEffectForStretchingCone)
+		// 	: m_extraEffectForStretchingCone;
+		// m_cachedExtraEffectForDashAndBlast = m_abilityMod != null
+		// 	? m_abilityMod.m_extraEffectForDashAndBlastMod.GetModifiedValue(m_extraEffectForDashAndBlast)
+		// 	: m_extraEffectForDashAndBlast;
 	}
 
 	public int GetMaxCastCount()
@@ -66,6 +95,7 @@ public class BlasterOvercharge : Ability
 			: m_maxCastCount;
 	}
 
+	// removed in rogues
 	public int GetExtraDamage()
 	{
 		return m_abilityMod != null 
@@ -87,6 +117,7 @@ public class BlasterOvercharge : Ability
 			: m_extraDamageForMultiCast;
 	}
 
+	// removed in rogues
 	public int GetExtraDamageCount()
 	{
 		return m_abilityMod != null 
@@ -99,6 +130,7 @@ public class BlasterOvercharge : Ability
 		return m_cachedEffectOnSelfOnCast ?? m_effectOnSelfOnCast;
 	}
 
+	// reactor
 	public StandardEffectInfo GetExtraEffectOnOtherAbilities()
 	{
 		return m_cachedExtraEffectOnOtherAbilities ?? m_extraEffectOnOtherAbilities;
@@ -110,6 +142,16 @@ public class BlasterOvercharge : Ability
 			? m_abilityMod.m_extraEffectActionTypesOverride
 			: m_extraEffectActionTypes;
 	}
+	// rogues
+	// public StandardEffectInfo GetExtraEffectForStretchingCone()
+	// {
+	// 	return m_cachedExtraEffectForStretchingCone ?? m_extraEffectForStretchingCone;
+	// }
+	//
+	// public StandardEffectInfo GetExtraEffectForDashAndBlast()
+	// {
+	// 	return m_cachedExtraEffectForDashAndBlast ?? m_extraEffectForDashAndBlast;
+	// }
 
 	public override bool IsFreeAction()
 	{
@@ -135,9 +177,14 @@ public class BlasterOvercharge : Ability
 			return true;
 		}
 		int maxCastCount = GetMaxCastCount();
+		// reactor
 		return maxCastCount > 0
 			? m_syncComp.m_overchargeBuffs < maxCastCount
 			: m_syncComp.m_overchargeBuffs <= 0;
+		// rogues
+		// return maxCastCount > 0
+		// 	? m_syncComp.m_overchargeCount < maxCastCount
+		// 	: m_syncComp.m_overchargeCount <= 0;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -155,10 +202,27 @@ public class BlasterOvercharge : Ability
 		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_BlasterOvercharge != null
 			? abilityMod_BlasterOvercharge.m_effectOnSelfOnCastMod.GetModifiedValue(m_effectOnSelfOnCast)
 			: m_effectOnSelfOnCast, "EffectOnSelfOnCast", m_effectOnSelfOnCast);
+		// reactor
 		AbilityMod.AddToken_EffectInfo(tokens, m_extraEffectOnOtherAbilities, "ExtraEffectOnOtherAbilities", m_extraEffectOnOtherAbilities);
 		AddTokenInt(tokens, "OverchargeExtraDamage", string.Empty, abilityMod_BlasterOvercharge != null
 			? abilityMod_BlasterOvercharge.m_extraDamageMod.GetModifiedValue(m_extraDamage)
 			: m_extraDamage);
+		// rogues
+		// AbilityMod.AddToken_EffectInfo(tokens, abilityMod_BlasterOvercharge != null
+		// 	? abilityMod_BlasterOvercharge.m_extraEffectForStretchingConeMod.GetModifiedValue(m_extraEffectForStretchingCone)
+		// 	: m_extraEffectForStretchingCone, "ExtraEffectForStretchingCone", m_extraEffectForStretchingCone);
+		// AbilityMod.AddToken_EffectInfo(tokens, abilityMod_BlasterOvercharge != null
+		// 	? abilityMod_BlasterOvercharge.m_extraEffectForDashAndBlastMod.GetModifiedValue(m_extraEffectForDashAndBlast)
+		// 	: m_extraEffectForDashAndBlast, "ExtraEffectForDashAndBlast", m_extraEffectForDashAndBlast);
+		// BlasterStretchingCone component = GetComponent<BlasterStretchingCone>();
+		// if (component != null)
+		// {
+		// 	int num = component.m_damageAmountOvercharged - component.m_damageAmountNormal;
+		// 	if (num != 0)
+		// 	{
+		// 		AddTokenInt(tokens, "OverchargeExtraDamage", string.Empty, Mathf.Abs(num));
+		// 	}
+		// }
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
@@ -175,4 +239,44 @@ public class BlasterOvercharge : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_syncComp != null)
+		{
+			m_syncComp.Networkm_lastUltCastTurn = -1;
+		}
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(m_castSequencePrefab, caster.GetFreePos(), additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		StandardActorEffectData overchargeEffectData = m_overchargeEffectData;
+		List<Effect> effectsOnTargetByCaster = ServerEffectManager.Get().GetEffectsOnTargetByCaster(caster, caster, typeof(BlasterOverchargeEffect));
+		if (effectsOnTargetByCaster.Count > 0)
+		{
+			List<MiscHitEventEffectUpdateParams> updateParams = new List<MiscHitEventEffectUpdateParams>
+			{
+				new BlasterOverchargeEffect.CastCountUpdateParam()
+			};
+			actorHitResults.AddMiscHitEvent(new MiscHitEventData_UpdateEffect(effectsOnTargetByCaster[0].GetEffectGuid(), updateParams));
+		}
+		else
+		{
+			BlasterOverchargeEffect effect = new BlasterOverchargeEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), caster, caster, overchargeEffectData);
+			actorHitResults.AddEffect(effect);
+		}
+		actorHitResults.AddStandardEffectInfo(GetEffectOnSelfOnCast());
+		abilityResults.StoreActorHit(actorHitResults);
+	}
+#endif
 }

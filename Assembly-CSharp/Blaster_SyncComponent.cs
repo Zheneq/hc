@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -68,10 +70,17 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 	}
 
+	// reactor
 	[SyncVar]
 	public int m_overchargeBuffs;
+	// renamed in rogues
+	// [SyncVar]
+	// public int m_overchargeCount;
+	
+	// removed in rogues
 	[SyncVar]
 	public int m_overchargeUses;
+	
 	[SyncVar]
 	public bool m_canActivateDelayedLaser;
 	[SyncVar]
@@ -90,6 +99,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 	private BlasterDelayedLaser m_delayedLaserAbility;
 	private HitAreaIndicatorHighlight m_laserRangeMarkerForAlly;
 
+	// reactor
 	public int Networkm_overchargeBuffs
 	{
 		get
@@ -102,7 +112,21 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			SetSyncVar(value, ref m_overchargeBuffs, 1u);
 		}
 	}
+	// rogues
+	// public int Networkm_overchargeCount
+	// {
+	// 	get
+	// 	{
+	// 		return m_overchargeCount;
+	// 	}
+	// 	[param: In]
+	// 	set
+	// 	{
+	// 		SetSyncVar(value, ref m_overchargeCount, 1UL);
+	// 	}
+	// }
 
+	// removed in rogues
 	public int Networkm_overchargeUses
 	{
 		get
@@ -125,7 +149,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref m_canActivateDelayedLaser, 4u);
+			SetSyncVar(value, ref m_canActivateDelayedLaser, 4u);  // 2UL in rogues
 		}
 	}
 
@@ -138,7 +162,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref m_delayedLaserStartPos, 8u);
+			SetSyncVar(value, ref m_delayedLaserStartPos, 8u);  // 4UL in rogues
 		}
 	}
 
@@ -151,7 +175,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref m_delayedLaserAimDir, 16u);
+			SetSyncVar(value, ref m_delayedLaserAimDir, 16u);  // 8UL in rogues
 		}
 	}
 
@@ -164,7 +188,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref m_lastPlacementTurn, 32u);
+			SetSyncVar(value, ref m_lastPlacementTurn, 32u);  // 16UL in rogues
 		}
 	}
 
@@ -177,7 +201,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref m_lastUltCastTurn, 64u);
+			SetSyncVar(value, ref m_lastUltCastTurn, 64u);  // 32UL in rogues
 		}
 	}
 
@@ -186,13 +210,13 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		m_delayedLaserAbility = (GetComponent<AbilityData>().GetAbilityOfType(typeof(BlasterDelayedLaser)) as BlasterDelayedLaser);
 		if (m_delayedLaserAbility != null && NetworkClient.active)
 		{
-			m_laserRangeMarkerForAlly = CreateHitAreaTemplate(m_delayedLaserAbility.GetWidth(), 0.5f * (Color.blue + Color.white), true);
+			m_laserRangeMarkerForAlly = CreateHitAreaTemplate(m_delayedLaserAbility.GetWidth(), 0.5f * (Color.blue + Color.white), true);  // no dotted param in oruges
 			m_laserRangeMarkerForAlly.m_parentObj.SetActive(false);
 		}
 		m_actorData = GetComponent<ActorData>();
 	}
 
-	internal static HitAreaIndicatorHighlight CreateHitAreaTemplate(float widthInSquares, Color color, bool dotted, float lineWidth = 0.1f)
+	internal static HitAreaIndicatorHighlight CreateHitAreaTemplate(float widthInSquares, Color color, bool dotted, float lineWidth = 0.1f)  // dotted = true in rogues
 	{
 		float num = widthInSquares * Board.Get().squareSize;
 		GameObject gameObject = new GameObject("Blaster_RangeIndicator")
@@ -237,7 +261,8 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		    && m_actorData.GetCurrentBoardSquare() != null
 		    && GameFlowData.Get() != null
 		    && GameFlowData.Get().gameState == GameState.BothTeams_Decision
-		    && m_canActivateDelayedLaser)
+		    && m_canActivateDelayedLaser
+		    && m_delayedLaserAbility != null)  // check added in rogues
 		{
 			bool visible = activeOwnedActorData.GetTeam() == m_actorData.GetTeam();
 			Vector3 dir = m_delayedLaserAimDir;
@@ -258,17 +283,20 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			Vector3 dirNormal = endPos - startPos;
 			dirNormal.y = 0f;
 			float magnitude = dirNormal.magnitude;
-			m_laserRangeMarkerForAlly.SetPose(startPos, dir);
-			m_laserRangeMarkerForAlly.AdjustSize(m_delayedLaserAbility.GetWidth(), magnitude / Board.Get().squareSize);
-			m_laserRangeMarkerForAlly.SetVisible(visible);
+			if (m_laserRangeMarkerForAlly != null)  // check added in rogues
+			{
+				m_laserRangeMarkerForAlly.SetPose(startPos, dir);
+				m_laserRangeMarkerForAlly.AdjustSize(m_delayedLaserAbility.GetWidth(), magnitude / Board.Get().squareSize);
+				m_laserRangeMarkerForAlly.SetVisible(visible);
+			}
 		}
-		else
+		else if (m_laserRangeMarkerForAlly != null)  // check added in rogues
 		{
 			m_laserRangeMarkerForAlly.SetVisible(false);
 		}
 	}
 
-	private void UNetVersion()
+	private void UNetVersion()  // MirrorProcessed in rogues
 	{
 	}
 
@@ -356,6 +384,54 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		return flag;
 	}
 
+	// rogues
+	// public override bool OnSerialize(NetworkWriter writer, bool forceAll)
+	// {
+	// 	bool result = base.OnSerialize(writer, forceAll);
+	// 	if (forceAll)
+	// 	{
+	// 		writer.WritePackedInt32(m_overchargeCount);
+	// 		writer.Write(m_canActivateDelayedLaser);
+	// 		writer.Write(m_delayedLaserStartPos);
+	// 		writer.Write(m_delayedLaserAimDir);
+	// 		writer.WritePackedInt32(m_lastPlacementTurn);
+	// 		writer.WritePackedInt32(m_lastUltCastTurn);
+	// 		return true;
+	// 	}
+	// 	writer.WritePackedUInt64(syncVarDirtyBits);
+	// 	if ((syncVarDirtyBits & 1UL) != 0UL)
+	// 	{
+	// 		writer.WritePackedInt32(m_overchargeCount);
+	// 		result = true;
+	// 	}
+	// 	if ((syncVarDirtyBits & 2UL) != 0UL)
+	// 	{
+	// 		writer.Write(m_canActivateDelayedLaser);
+	// 		result = true;
+	// 	}
+	// 	if ((syncVarDirtyBits & 4UL) != 0UL)
+	// 	{
+	// 		writer.Write(m_delayedLaserStartPos);
+	// 		result = true;
+	// 	}
+	// 	if ((syncVarDirtyBits & 8UL) != 0UL)
+	// 	{
+	// 		writer.Write(m_delayedLaserAimDir);
+	// 		result = true;
+	// 	}
+	// 	if ((syncVarDirtyBits & 16UL) != 0UL)
+	// 	{
+	// 		writer.WritePackedInt32(m_lastPlacementTurn);
+	// 		result = true;
+	// 	}
+	// 	if ((syncVarDirtyBits & 32UL) != 0UL)
+	// 	{
+	// 		writer.WritePackedInt32(m_lastUltCastTurn);
+	// 		result = true;
+	// 	}
+	// 	return result;
+	// }
+
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)
@@ -399,4 +475,57 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			m_lastUltCastTurn = (int)reader.ReadPackedUInt32();
 		}
 	}
+
+	// rogues
+	// public override void OnDeserialize(NetworkReader reader, bool initialState)
+	// {
+	// 	base.OnDeserialize(reader, initialState);
+	// 	if (initialState)
+	// 	{
+	// 		int networkm_overchargeCount = reader.ReadPackedInt32();
+	// 		Networkm_overchargeCount = networkm_overchargeCount;
+	// 		bool networkm_canActivateDelayedLaser = reader.ReadBoolean();
+	// 		Networkm_canActivateDelayedLaser = networkm_canActivateDelayedLaser;
+	// 		Vector3 networkm_delayedLaserStartPos = reader.ReadVector3();
+	// 		Networkm_delayedLaserStartPos = networkm_delayedLaserStartPos;
+	// 		Vector3 networkm_delayedLaserAimDir = reader.ReadVector3();
+	// 		Networkm_delayedLaserAimDir = networkm_delayedLaserAimDir;
+	// 		int networkm_lastPlacementTurn = reader.ReadPackedInt32();
+	// 		Networkm_lastPlacementTurn = networkm_lastPlacementTurn;
+	// 		int networkm_lastUltCastTurn = reader.ReadPackedInt32();
+	// 		Networkm_lastUltCastTurn = networkm_lastUltCastTurn;
+	// 		return;
+	// 	}
+	// 	long num = (long)reader.ReadPackedUInt64();
+	// 	if ((num & 1L) != 0L)
+	// 	{
+	// 		int networkm_overchargeCount2 = reader.ReadPackedInt32();
+	// 		Networkm_overchargeCount = networkm_overchargeCount2;
+	// 	}
+	// 	if ((num & 2L) != 0L)
+	// 	{
+	// 		bool networkm_canActivateDelayedLaser2 = reader.ReadBoolean();
+	// 		Networkm_canActivateDelayedLaser = networkm_canActivateDelayedLaser2;
+	// 	}
+	// 	if ((num & 4L) != 0L)
+	// 	{
+	// 		Vector3 networkm_delayedLaserStartPos2 = reader.ReadVector3();
+	// 		Networkm_delayedLaserStartPos = networkm_delayedLaserStartPos2;
+	// 	}
+	// 	if ((num & 8L) != 0L)
+	// 	{
+	// 		Vector3 networkm_delayedLaserAimDir2 = reader.ReadVector3();
+	// 		Networkm_delayedLaserAimDir = networkm_delayedLaserAimDir2;
+	// 	}
+	// 	if ((num & 16L) != 0L)
+	// 	{
+	// 		int networkm_lastPlacementTurn2 = reader.ReadPackedInt32();
+	// 		Networkm_lastPlacementTurn = networkm_lastPlacementTurn2;
+	// 	}
+	// 	if ((num & 32L) != 0L)
+	// 	{
+	// 		int networkm_lastUltCastTurn2 = reader.ReadPackedInt32();
+	// 		Networkm_lastUltCastTurn = networkm_lastUltCastTurn2;
+	// 	}
+	// }
 }

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using UnityEngine;
 
 public class BlasterLurkerMineSatellite : TempSatellite
@@ -25,7 +27,7 @@ public class BlasterLurkerMineSatellite : TempSatellite
 			{
 				foreach (Material material in renderer.materials)
 				{
-					Destroy(material);  // was bugged in reactor (wrong index)
+					Destroy(material);  // was bugged in both reactor and rogues (wrong index)
 				}
 			}
 		}

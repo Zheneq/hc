@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -151,7 +153,10 @@ public class BlasterDelayedLaser : Ability
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			int damage = GetDamageAmount();
 			if (m_syncComponent != null
+			    // reactor
 			    && m_syncComponent.m_overchargeBuffs > 0
+			    // rogues
+			    // && m_syncComponent.m_overchargeCount > 0
 			    && m_overchargeAbility != null
 			    && m_overchargeAbility.GetExtraDamageForDelayedLaser() > 0)
 			{
@@ -250,4 +255,140 @@ public class BlasterDelayedLaser : Ability
 		       && m_syncComponent.m_canActivateDelayedLaser
 		       && animIndex == (int)base.GetActionAnimType();
 	}
+
+#if SERVER
+	// added in rogues
+	public bool CastingToDetonate()
+	{
+		return m_remoteTriggerMode
+		       && m_syncComponent != null
+		       && m_syncComponent.m_canActivateDelayedLaser;
+	}
+
+	// added in rogues
+	public override bool SkipTheatricsAnimationEntry(ActorData caster)
+	{
+		return CastingToDetonate();
+	}
+
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (!CastingToDetonate() && m_syncComponent != null)
+		{
+			m_syncComponent.Networkm_lastPlacementTurn = GameFlowData.Get().CurrentTurn;
+		}
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (CastingToDetonate())
+		{
+			SequenceSource sequenceSource = new SequenceSource(null, null, true, additionalData.m_sequenceSource);
+			sequenceSource.SetWaitForClientEnable(false);
+			return new ServerClientUtils.SequenceStartData(SequenceLookup.Get().GetSimpleHitSequencePrefab(), caster.GetFreePos(), caster.AsArray(), caster, sequenceSource);
+		}
+		else
+		{
+			GetHitActors(targets, caster, out Vector3 endPos, null);
+			HealLaserSequence.ExtraParams extraParams = new HealLaserSequence.ExtraParams
+			{
+				endPos = endPos
+			};
+			return new ServerClientUtils.SequenceStartData(m_castSequencePrefab, caster.GetFreePos(), additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[]
+			{
+				extraParams
+			});
+		}
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, out Vector3 laserEndPos, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		Vector3 startPos = caster.GetLoSCheckPos();
+		Vector3 dir = targets[0].AimDirection;
+		List<Team> otherTeams = caster.GetOtherTeams();
+		return AreaEffectUtils.GetActorsInLaser(startPos, dir, GetLength(), GetWidth(), caster, otherTeams, PenetrateLineOfSight(), -1, false, true, out laserEndPos, nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		if (CastingToDetonate())
+		{
+			GatherAbilityResults_RemoteDetonate(targets, caster, ref abilityResults);
+		}
+		else
+		{
+			GatherAbilityResults_FirstCast(targets, caster, ref abilityResults);
+		}
+	}
+
+	// added in rogues
+	private void GatherAbilityResults_RemoteDetonate(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		BlasterDelayedLaserEffect blasterDelayedLaserEffect = null;
+		List<Effect> worldEffectsByCaster = ServerEffectManager.Get().GetWorldEffectsByCaster(caster);
+		foreach (Effect effect in worldEffectsByCaster)
+		{
+			if (effect is BlasterDelayedLaserEffect)
+			{
+				blasterDelayedLaserEffect = effect as BlasterDelayedLaserEffect;
+				break;
+			}
+		}
+		int num = blasterDelayedLaserEffect == null ? 0 : blasterDelayedLaserEffect.m_time.age;
+		int overrideValue = GetModdedCooldown() - num;
+		MiscHitEventData_OverrideCooldown hitEvent = new MiscHitEventData_OverrideCooldown(caster.GetAbilityData().GetActionTypeOfAbility(this), overrideValue);
+		actorHitResults.AddMiscHitEvent(hitEvent);
+		abilityResults.StoreActorHit(actorHitResults);
+		if (ServerAbilityUtils.CurrentlyGatheringRealResults())
+		{
+			m_syncComponent.m_lastCinematicRequested = abilityResults.CinematicRequested;
+		}
+	}
+
+	// added in rogues
+	private void GatherAbilityResults_FirstCast(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		if (GetOnCastEnemyHitEffect().m_applyEffect)
+		{
+			List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+			foreach (ActorData target in GetHitActors(targets, caster, out Vector3 _, nonActorTargetInfo))
+			{
+				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, caster.GetFreePos()));
+				actorHitResults.AddStandardEffectInfo(GetOnCastEnemyHitEffect());
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+			abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+		}
+		if (m_remoteTriggerMode)
+		{
+			ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			MiscHitEventData_OverrideCooldown hitEvent = new MiscHitEventData_OverrideCooldown(caster.GetAbilityData().GetActionTypeOfAbility(this), 0);
+			actorHitResults2.AddMiscHitEvent(hitEvent);
+			abilityResults.StoreActorHit(actorHitResults2);
+		}
+		PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(caster.GetFreePos()));
+		int overchargeExtraDamage = m_overchargeAbility != null ? m_overchargeAbility.GetExtraDamageForDelayedLaser() : 0;
+		Effect effect = new BlasterDelayedLaserEffect(AsEffectSource(), caster, targets[0], GetLength(), GetWidth(), PenetrateLineOfSight(), TriggerAimAtBlaster(), m_turnsBeforeTriggering, m_remoteTriggerMode, GetDamageAmount(), overchargeExtraDamage, GetExtraDamageToNearEnemy(), GetNearDistance(), GetEffectOnHit(), m_laserGroundSequencePrefab, m_laserTriggerSequencePrefab, m_laserTriggerOnCasterSequencePrefab, m_triggerAnimationIndex, abilityResults.SequenceSource);
+		if (ServerAbilityUtils.CurrentlyGatheringRealResults())
+		{
+			m_syncComponent.m_lastCinematicRequested = -1;
+		}
+		positionHitResults.AddEffect(effect);
+		abilityResults.StorePositionHit(positionHitResults);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.BlasterStats.LurkerDroneDamage, results.FinalDamage);
+		}
+	}
+#endif
 }

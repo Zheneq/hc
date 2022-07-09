@@ -1,3 +1,6 @@
+﻿// ROGUES
+// SERVER
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +25,7 @@ public class BlasterStretchConeSequence : Sequence
 		public bool useStartPosOverride;
 		public Vector3 startPosOverride = Vector3.zero;
 
+		// reactor
 		public override void XSP_SerializeToStream(IBitStream stream)
 		{
 			stream.Serialize(ref angleInDegrees);
@@ -33,7 +37,20 @@ public class BlasterStretchConeSequence : Sequence
 				stream.Serialize(ref startPosOverride);
 			}
 		}
+		// rogues
+		// public override void XSP_SerializeToStream(NetworkWriter writer)
+		// {
+		// 	writer.Write(angleInDegrees);
+		// 	writer.Write(lengthInSquares);
+		// 	writer.Write(forwardAngle);
+		// 	writer.Write(useStartPosOverride);
+		// 	if (useStartPosOverride)
+		// 	{
+		// 		writer.Write(startPosOverride);
+		// 	}
+		// }
 
+		// reactor
 		public override void XSP_DeserializeFromStream(IBitStream stream)
 		{
 			stream.Serialize(ref angleInDegrees);
@@ -45,6 +62,18 @@ public class BlasterStretchConeSequence : Sequence
 				stream.Serialize(ref startPosOverride);
 			}
 		}
+		// rogues
+		// public override void XSP_DeserializeFromStream(NetworkReader reader)
+		// {
+		// 	angleInDegrees = reader.ReadSingle();
+		// 	lengthInSquares = reader.ReadSingle();
+		// 	forwardAngle = reader.ReadSingle();
+		// 	useStartPosOverride = reader.ReadBoolean();
+		// 	if (useStartPosOverride)
+		// 	{
+		// 		startPosOverride = reader.ReadVector3();
+		// 	}
+		// }
 	}
 
 	[Separator("Muzzle flash / cone-covering FX prefab, scales by angle and length.")]
@@ -103,7 +132,9 @@ public class BlasterStretchConeSequence : Sequence
 	private float m_timeForNextStaggeredProjectile = -1f;
 	private List<float> m_projectileAngleOrder = new List<float>();
 	private Dictionary<ActorData, float> m_projectileActorImpacts = new Dictionary<ActorData, float>();
+	// removed in rogues
 	private const string c_angleControl = "angleControl";
+	// removed in rogues
 	private const string c_lengthControl = "lengthControl";
 
 	internal override void Initialize(IExtraSequenceParams[] extraParams)
@@ -124,10 +155,13 @@ public class BlasterStretchConeSequence : Sequence
 
 	public override void FinishSetup()
 	{
+		// removed in rogues
 		if (m_staggeredRateOfFire <= 0f)
 		{
 			m_staggeredRateOfFire = 0.5f;
 		}
+		// end removed in rogues
+		
 		m_projectileFxInstances = new List<GameObject>();
 		m_impactFxInstances = new List<GameObject>();
 		m_projectileActorImpacts = new Dictionary<ActorData, float>();
@@ -147,7 +181,7 @@ public class BlasterStretchConeSequence : Sequence
 		startPos.y = Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		float laserRangeInSquares = maxDist / Board.Get().squareSize;
 		int maxTargets = m_projectilesStopOnEnemy ? 1 : 4;
-		AreaEffectUtils.GetActorsInLaser(startPos, forward, laserRangeInSquares, 0.1f, Caster, Caster.GetEnemyTeamAsList(), false, maxTargets, false, true, out Vector3 laserEndPos, null);
+		AreaEffectUtils.GetActorsInLaser(startPos, forward, laserRangeInSquares, 0.1f, Caster, Caster.GetOtherTeams(), false, maxTargets, false, true, out Vector3 laserEndPos, null);  // Caster.GetEnemyTeamAsList() in reactor
 		return (startPos - laserEndPos).magnitude;
 	}
 
@@ -214,6 +248,7 @@ public class BlasterStretchConeSequence : Sequence
 		if (m_blastFxPrefab != null)
 		{
 			m_blastFxInstance = InstantiateFX(m_blastFxPrefab, GetConeStartPos(), Quaternion.LookRotation(vector));
+			// reactor
 			FriendlyEnemyVFXSelector component = m_blastFxInstance.GetComponent<FriendlyEnemyVFXSelector>();
 			if (component != null)
 			{
@@ -226,14 +261,20 @@ public class BlasterStretchConeSequence : Sequence
 				SetAttribute(m_blastFxInstance, "angleControl", value);
 				SetAttribute(m_blastFxInstance, "lengthControl", m_maxDistInWorld / Board.Get().squareSize);
 			}
+			// rogues
+			// SetAttribute(m_blastFxInstance, "angleControl", value);
+			// SetAttribute(m_blastFxInstance, "lengthControl", m_maxDistInWorld / Board.Get().squareSize);
 		}
 		if (m_staggerProjectiles)
 		{
 			m_projectileAngleOrder.Clear();
 			float angleStart = -0.5f * m_angleRangeDegrees;
+			// reactor
 			float angleStep = m_numProjectilesToSpawn > 1
 				? m_angleRangeDegrees / (m_numProjectilesToSpawn - 1)
 				: 0f;
+			// rogues
+			// float angleStep = m_angleRangeDegrees / (m_numProjectilesToSpawn - 1);
 			for (int i = 0; i < m_numProjectilesToSpawn; i++)
 			{
 				m_projectileAngleOrder.Add(angleStart + angleStep * i);
@@ -320,11 +361,14 @@ public class BlasterStretchConeSequence : Sequence
 							? Quaternion.LookRotation(vector)
 							: Quaternion.identity;
 						GameObject fxObject = InstantiateFX(m_impactFxPrefab, targetHitPosition, rotation);
+						
+						// removed in rogues
 						FriendlyEnemyVFXSelector component = fxObject.GetComponent<FriendlyEnemyVFXSelector>();
 						if (component != null)
 						{
 							component.Setup(Caster.GetTeam());
 						}
+						// end removed in rogues
 
 						m_impactFxInstances.Add(fxObject);
 					}

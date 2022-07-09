@@ -1,3 +1,5 @@
+﻿// SERVER
+// ROGUES
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,8 +15,13 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 	public AbilityModPropertyBool m_penetrateLineOfSightMod;
 	[Header("-- On Hit")]
 	public AbilityModPropertyInt m_damageAmountNormalMod;
+	// added in rogues
+	// public AbilityModPropertyInt m_damageAmountOverchargedMod;
 	public AbilityModPropertyInt m_extraDamageForSingleHitMod;
+	
+	// removed in rogues
 	public AbilityModPropertyFloat m_extraDamagePerSquareDistanceFromEnemyMod;
+	
 	[Header("-- Damage Change by Angle/Distance")]
 	public AbilityModPropertyInt m_anglesPerDamageChangeMod;
 	public AbilityModPropertyFloat m_distPerDamageChangeMod;
@@ -42,8 +49,13 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		AddToken(tokens, m_maxAngleMod, "MaxAngle", string.Empty, blasterStretchingCone.m_maxAngle);
 		AddToken(tokens, m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, blasterStretchingCone.m_coneBackwardOffset);
 		AddToken(tokens, m_damageAmountNormalMod, "DamageAmountNormal", string.Empty, blasterStretchingCone.m_damageAmountNormal);
+		// added in rogues
+		// AddToken(tokens, m_damageAmountOverchargedMod, "DamageAmountOvercharged", string.Empty, blasterStretchingCone.m_damageAmountOvercharged);
 		AddToken(tokens, m_extraDamageForSingleHitMod, "ExtraDamageForSingleHit", string.Empty, blasterStretchingCone.m_extraDamageForSingleHit);
+		
+		// removed in rogues
 		AddToken(tokens, m_extraDamagePerSquareDistanceFromEnemyMod, "ExtraDamagePerSquareDistanceFromEnemy", string.Empty, blasterStretchingCone.m_extraDamagePerSquareDistanceFromEnemy);
+		
 		AddToken(tokens, m_anglesPerDamageChangeMod, "AnglesPerDamageChange", string.Empty, blasterStretchingCone.m_anglesPerDamageChange);
 		AddToken(tokens, m_maxDamageChangeMod, "MaxDamageChange", string.Empty, blasterStretchingCone.m_maxDamageChange);
 		AddToken_EffectMod(tokens, m_normalEnemyEffectMod, "NormalEnemyEffect", blasterStretchingCone.m_normalEnemyEffect);
@@ -51,9 +63,13 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		AddToken_EffectMod(tokens, m_singleEnemyHitEffectMod, "SingleEnemyHitEffect", blasterStretchingCone.m_singleEnemyHitEffect);
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		BlasterStretchingCone blasterStretchingCone = GetTargetAbilityOnAbilityData(abilityData) as BlasterStretchingCone;
+		// rogues
+		// BlasterStretchingCone blasterStretchingCone = targetAbility as BlasterStretchingCone;
+		
 		bool isAbilityPresent = blasterStretchingCone != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_minLengthMod, "[MinLength]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_minLength : 0f);
@@ -63,8 +79,13 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		desc += PropDesc(m_coneBackwardOffsetMod, "[ConeBackwardOffset]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_coneBackwardOffset : 0f);
 		desc += PropDesc(m_penetrateLineOfSightMod, "[PenetrateLineOfSight]", isAbilityPresent, isAbilityPresent && blasterStretchingCone.m_penetrateLineOfSight);
 		desc += PropDesc(m_damageAmountNormalMod, "[DamageAmountNormal]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_damageAmountNormal : 0);
+		// added in rogues
+		// desc += PropDesc(m_damageAmountOverchargedMod, "[DamageAmountOvercharged]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_damageAmountOvercharged : 0);
 		desc += PropDesc(m_extraDamageForSingleHitMod, "[ExtraDamageForSingleHit]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_extraDamageForSingleHit : 0);
+		
+		// removed in rogues
 		desc += PropDesc(m_extraDamagePerSquareDistanceFromEnemyMod, "[ExtraDamagePerSquareDistanceFromEnemy]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_extraDamagePerSquareDistanceFromEnemy : 0f);
+
 		desc += PropDesc(m_anglesPerDamageChangeMod, "[AnglesPerDamageChange]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_anglesPerDamageChange : 0);
 		desc += PropDesc(m_distPerDamageChangeMod, "[DistPerDamageChange]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_distPerDamageChange : 0f);
 		desc += PropDesc(m_maxDamageChangeMod, "[MaxDamageChange]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_maxDamageChange : 0);

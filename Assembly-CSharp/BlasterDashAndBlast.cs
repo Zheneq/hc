@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BlasterDashAndBlast : Ability
@@ -15,13 +17,19 @@ public class BlasterDashAndBlast : Ability
 	[Header("-- Stock based Evade distance")]
 	public bool m_useStockBasedEvadeDistance;
 	public float m_distancePerStock = 1.01f;
+	
+	// removed in rogues
 	[Header("-- Whether to use square coordinate distance to limit stock-based evade distance")]
 	public bool m_stockBasedDistUseSquareCoordDist = true;
 	[Header("-- If <= 0, dist only limited by stock remaining")]
 	public int m_stockBasedDistMaxSquareCoordDist;
+	// end removed in rogues
+	
 	[Header("-- On Hit")]
 	public bool m_useHitParamsFromPrimary = true;
 	public int m_damageAmountNormal;
+	// added in rogues
+	// public int m_damageAmountOvercharged;
 	public int m_extraDamageForSingleHit;
 	public bool m_removeOverchargeEffectOnCast;
 	[Space(10f)]
@@ -224,6 +232,7 @@ public class BlasterDashAndBlast : Ability
 		return Mathf.Max(0.1f, distancePerStock);
 	}
 
+	// removed in rogues
 	public bool StockBasedDistUseSquareCoordDist()
 	{
 		return m_abilityMod != null 
@@ -231,6 +240,7 @@ public class BlasterDashAndBlast : Ability
 			: m_stockBasedDistUseSquareCoordDist;
 	}
 
+	// removed in rogues
 	public int GetStockBasedDistMaxSquareCoordDist()
 	{
 		return m_abilityMod != null
@@ -249,10 +259,22 @@ public class BlasterDashAndBlast : Ability
 			: m_damageAmountNormal;
 	}
 
+	// reactor
 	public int GetDamageAmountOvercharged()
 	{
 		return GetDamageAmountNormal() + m_overchargeAbility.GetExtraDamage() + GetMultiStackOverchargeDamage();
 	}
+	// rogues
+	// public int GetDamageAmountOvercharged()
+	// {
+	// 	if (UseHitPropertyFromPrimary())
+	// 	{
+	// 		return m_primaryAbility.GetDamageAmountOvercharged();
+	// 	}
+	// 	return m_abilityMod != null
+	// 		? m_abilityMod.m_damageAmountOverchargedMod.GetModifiedValue(m_damageAmountOvercharged)
+	// 		: m_damageAmountOvercharged;
+	// }
 
 	public int GetExtraDamageForSingleHit()
 	{
@@ -323,13 +345,19 @@ public class BlasterDashAndBlast : Ability
 		{
 			m_syncComp = GetComponent<Blaster_SyncComponent>();
 		}
+		// reactor
 		return m_syncComp.m_overchargeBuffs > 0;
+		// rogues
+		// return m_syncComp.m_overchargeCount > 0;
 	}
 
 	private int GetMultiStackOverchargeDamage()
 	{
 		if (m_syncComp != null
+		    // reactor
 		    && m_syncComp.m_overchargeBuffs > 1
+		    // rogues
+		    // && m_syncComp.m_overchargeCount > 1
 		    && m_overchargeAbility != null
 		    && m_overchargeAbility.GetExtraDamageForMultiCast() > 0)
 		{
@@ -350,6 +378,7 @@ public class BlasterDashAndBlast : Ability
 		{
 			return false;
 		}
+		// reactor
 		bool isValidTarget = true;
 		if (UseStockBasedEvadeDistance())
 		{
@@ -374,6 +403,16 @@ public class BlasterDashAndBlast : Ability
 		}
 		return isValidTarget
 		       && KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, currentBoardSquare, false, out int _);
+		// rogues
+		// bool isValidTarget = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, caster.GetCurrentBoardSquare(), false, out _);
+		// if (isValidTarget && UseStockBasedEvadeDistance())
+		// {
+		// 	Vector3 vector = targetSquare.ToVector3() - caster.GetCurrentBoardSquare().ToVector3();
+		// 	vector.y = 0f;
+		// 	float maxDistance = caster.GetAbilityData().GetStocksRemaining(m_myActionType) * GetDistancePerStock() * Board.Get().squareSize + 0.05f;
+		// 	return vector.magnitude <= maxDistance;
+		// }
+		// return isValidTarget;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -427,10 +466,17 @@ public class BlasterDashAndBlast : Ability
 		AddTokenInt(tokens, "DamageAmountNormal", string.Empty, abilityMod_BlasterDashAndBlast != null
 			? abilityMod_BlasterDashAndBlast.m_damageAmountNormalMod.GetModifiedValue(m_damageAmountNormal)
 			: m_damageAmountNormal);
+		// added in rogues
+		// AddTokenInt(tokens, "DamageAmountOvercharged", string.Empty, abilityMod_BlasterDashAndBlast != null
+		// 	? abilityMod_BlasterDashAndBlast.m_damageAmountOverchargedMod.GetModifiedValue(m_damageAmountOvercharged)
+		// 	: m_damageAmountOvercharged);
 		AddTokenInt(tokens, "ExtraDamageForSingleHit", string.Empty, abilityMod_BlasterDashAndBlast != null
 			? abilityMod_BlasterDashAndBlast.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit)
 			: m_extraDamageForSingleHit);
+		
+		// removed in rogues
 		AddTokenInt(tokens, "StockBasedDistMaxSquareCoordDist", string.Empty, m_stockBasedDistMaxSquareCoordDist);
+		
 		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_BlasterDashAndBlast != null
 			? abilityMod_BlasterDashAndBlast.m_enemyEffectNormalMod.GetModifiedValue(m_enemyEffectNormal)
 			: m_enemyEffectNormal, "EnemyEffectNormal", m_enemyEffectNormal);
@@ -447,10 +493,226 @@ public class BlasterDashAndBlast : Ability
 		return ActorData.MovementType.Charge;
 	}
 
+	// removed in rogues
 	private int GetMaxCoordDiff(BoardSquare a, BoardSquare b)
 	{
 		int dx = Mathf.Abs(a.x - b.x);
 		int dy = Mathf.Abs(a.y - b.y);
 		return Mathf.Max(dx, dy);
 	}
+
+#if SERVER
+	// added in rogues
+	private GameObject GetConeSequencePrefab(ActorData caster)
+	{
+		if (AmOvercharged(caster))
+		{
+			return m_overchargedConeSequencePrefab;
+		}
+		return m_coneSequencePrefab;
+	}
+
+	// added in rogues
+	internal override Vector3 GetFacingDirAfterMovement(ServerEvadeUtils.EvadeInfo evade)
+	{
+		List<AbilityTarget> targets = evade.m_request.m_targets;
+		if (targets.Count > 1)
+		{
+			AbilityTarget abilityTarget = targets[targets.Count - 1];
+			AbilityTarget abilityTarget2 = targets[targets.Count - 2];
+			BoardSquare square = Board.Get().GetSquare(abilityTarget2.GridPos);
+			Vector3 freePos = abilityTarget.FreePos;
+			Vector3 occupantLoSPos = square.GetOccupantLoSPos();
+			Vector3 result = freePos - occupantLoSPos;
+			result.y = 0f;
+			result.Normalize();
+			return result;
+		}
+		return Vector3.zero;
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		if (targets.Count >= 2)
+		{
+			ServerClientUtils.SequenceStartData dashSequenceStartData = GetDashSequenceStartData(targets, caster, additionalData);
+			if (dashSequenceStartData != null)
+			{
+				list.Add(dashSequenceStartData);
+			}
+			ServerClientUtils.SequenceStartData coneSequenceStartData = GetConeSequenceStartData(targets, caster, additionalData);
+			list.Add(coneSequenceStartData);
+		}
+		return list;
+	}
+
+	// added in rogues
+	private ServerClientUtils.SequenceStartData GetConeSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (targets.Count < 2)
+		{
+			return null;
+		}
+		AbilityTarget abilityTarget = targets[targets.Count - 1];
+		AbilityTarget abilityTarget2 = targets[targets.Count - 2];
+		BoardSquare square = Board.Get().GetSquare(abilityTarget2.GridPos);
+		Vector3 freePos = abilityTarget.FreePos;
+		Vector3 occupantLoSPos = square.GetOccupantLoSPos();
+		Vector3 vec = freePos - occupantLoSPos;
+		vec.y = 0f;
+		vec.Normalize();
+		float forwardAngle = VectorUtils.HorizontalAngle_Deg(vec);
+		float minLength = GetMinLength();
+		float maxLength = GetMaxLength();
+		float minAngle = GetMinAngle();
+		float maxAngle = GetMaxAngle();
+		float lengthInSquares;
+		float angleInDegrees;
+		AreaEffectUtils.GatherStretchConeDimensions(freePos, occupantLoSPos, minLength, maxLength, minAngle, maxAngle, m_stretchStyle, out lengthInSquares, out angleInDegrees);
+		BlasterStretchConeSequence.ExtraParams extraParams = new BlasterStretchConeSequence.ExtraParams();
+		extraParams.angleInDegrees = angleInDegrees;
+		extraParams.lengthInSquares = lengthInSquares;
+		extraParams.forwardAngle = forwardAngle;
+		return new ServerClientUtils.SequenceStartData(GetConeSequencePrefab(caster), square, additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource, extraParams.ToArray());
+	}
+
+	// added in rogues
+	private ServerClientUtils.SequenceStartData GetDashSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (targets.Count < 2)
+		{
+			return null;
+		}
+		if (m_dashSequencePrefab != null)
+		{
+			AbilityTarget abilityTarget = targets[targets.Count - 2];
+			BoardSquare square = Board.Get().GetSquare(abilityTarget.GridPos);
+			return new ServerClientUtils.SequenceStartData(m_dashSequencePrefab, square, null, caster, additionalData.m_sequenceSource);
+		}
+		return null;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		float angleNow;
+		float radiusInSquares;
+		List<ActorData> list = FindHitActors(targets, caster, nonActorTargetInfo, out angleNow, out radiusInSquares);
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		foreach (ActorData target in list)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, loSCheckPos));
+			int num = 0;
+			if (m_primaryAbility != null)
+			{
+				num = m_primaryAbility.GetExtraDamageFromAngle(angleNow) + m_primaryAbility.GetExtraDamageFromRadius(radiusInSquares);
+			}
+			int num2 = GetCurrentModdedDamage() + num;
+			if (list.Count == 1)
+			{
+				num2 += GetExtraDamageForSingleHit();
+				if (UseConeParamFromPrimary())
+				{
+					actorHitResults.AddStandardEffectInfo(m_primaryAbility.GetSingleEnemyHitEffect());
+				}
+			}
+			actorHitResults.SetBaseDamage(num2);
+			if (AmOvercharged(caster))
+			{
+				actorHitResults.AddStandardEffectInfo(GetEnemyEffectOvercharged());
+				if (m_overchargeAbility != null)
+				{
+					// custom
+					actorHitResults.AddStandardEffectInfo(m_overchargeAbility.GetExtraEffectOnOtherAbilities());
+					// rogues
+					// actorHitResults.AddStandardEffectInfo(m_overchargeAbility.GetExtraEffectForDashAndBlast());
+				}
+			}
+			else
+			{
+				actorHitResults.AddStandardEffectInfo(GetEnemyEffectNormal());
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		int num3 = 0;
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (square != null && UseStockBasedEvadeDistance() && GetDistancePerStock() > 0f)
+		{
+			Vector3 vector = square.ToVector3() - caster.GetSquareAtPhaseStart().ToVector3();
+			vector.y = 0f;
+			num3 = Mathf.Min(Mathf.CeilToInt(vector.magnitude / (GetDistancePerStock() * Board.Get().squareSize + 0.05f)), GetModdedMaxStocks()) - m_stockConsumedOnCast;
+		}
+		if ((m_removeOverchargeEffectOnCast && AmOvercharged(caster)) || num3 > 0 || GetSelfEffectOnCast().m_applyEffect)
+		{
+			ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(caster, loSCheckPos));
+			if (num3 > 0)
+			{
+				actorHitResults2.AddMiscHitEvent(new MiscHitEventData_AddToCasterStock(m_myActionType, -1 * num3));
+			}
+			if (m_removeOverchargeEffectOnCast && AmOvercharged(caster))
+			{
+				Effect effect = ServerEffectManager.Get().GetEffect(caster, typeof(BlasterOverchargeEffect));
+				if (effect != null)
+				{
+					actorHitResults2.AddEffectForRemoval(effect, ServerEffectManager.Get().GetActorEffects(caster));
+				}
+			}
+			actorHitResults2.AddStandardEffectInfo(GetSelfEffectOnCast());
+			abilityResults.StoreActorHit(actorHitResults2);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> FindHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo, out float angleNow, out float radiusInSquares)
+	{
+		if (targets.Count < 2)
+		{
+			angleNow = 0f;
+			radiusInSquares = 0f;
+			return new List<ActorData>();
+		}
+		AbilityTarget abilityTarget = targets[targets.Count - 1];
+		AbilityTarget abilityTarget2 = targets[targets.Count - 2];
+		BoardSquare square = Board.Get().GetSquare(abilityTarget2.GridPos);
+		Vector3 freePos = abilityTarget.FreePos;
+		Vector3 occupantLoSPos = square.GetOccupantLoSPos();
+		Vector3 vec = freePos - occupantLoSPos;
+		vec.y = 0f;
+		vec.Normalize();
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vec);
+		float minLength = GetMinLength();
+		float maxLength = GetMaxLength();
+		float minAngle = GetMinAngle();
+		float maxAngle = GetMaxAngle();
+		float num;
+		float num2;
+		AreaEffectUtils.GatherStretchConeDimensions(freePos, occupantLoSPos, minLength, maxLength, minAngle, maxAngle, m_stretchStyle, out num, out num2);
+		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(occupantLoSPos, coneCenterAngleDegrees, num2, num, GetConeBackwardOffset(), PenetrateLineOfSight(), caster, caster.GetOtherTeams(), nonActorTargetInfo);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInCone);
+		angleNow = num2;
+		radiusInSquares = num;
+		return actorsInCone;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0 && (AmOvercharged(caster) || m_syncComp.m_lastOverchargeTurn == GameFlowData.Get().CurrentTurn))
+		{
+			int damageAmountNormal = GetDamageAmountNormal();
+			int addAmount = results.BaseDamage - damageAmountNormal;
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.BlasterStats.DamageAddedFromOvercharge, addAmount);
+		}
+	}
+
+	// added in rogues
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.BlasterStats.DamageDodgedByRoll, damageDodged);
+	}
+#endif
 }

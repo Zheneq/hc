@@ -539,9 +539,11 @@
     <Compile Include="BinaryMessageNotification.cs" />
     <Compile Include="BlasterDashAndBlast.cs" />
     <Compile Include="BlasterDelayedLaser.cs" />
+    <Compile Include="BlasterDelayedLaserEffect.cs" />
     <Compile Include="BlasterKnockbackCone.cs" />
     <Compile Include="BlasterLurkerMineSatellite.cs" />
     <Compile Include="BlasterOvercharge.cs" />
+    <Compile Include="BlasterOverchargeEffect.cs" />
     <Compile Include="BlasterStretchConeSequence.cs" />
     <Compile Include="BlasterStretchingCone.cs" />
     <Compile Include="Blaster_SyncComponent.cs" />

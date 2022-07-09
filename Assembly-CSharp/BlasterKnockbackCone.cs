@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +15,10 @@ public class BlasterKnockbackCone : Ability
 	public bool m_penetrateLineOfSight;
 	[Header("-- On Hit")]
 	public int m_damageAmountNormal;
+	
+	// added in rogues
+	// public int m_damageAmountOvercharged;
+	
 	public bool m_removeOverchargeEffectOnCast;
 	public StandardEffectInfo m_enemyEffectNormal;
 	public StandardEffectInfo m_enemyEffectOvercharged;
@@ -47,15 +53,21 @@ public class BlasterKnockbackCone : Ability
 
 	private void SetupTargeter()
 	{
+		// reactor
 		m_overchargeAbility = GetAbilityOfType<BlasterOvercharge>();
+		// rogues
+		// m_overchargeAbility = GetComponent<AbilityData>().GetAbilityOfType(typeof(BlasterOvercharge)) as BlasterOvercharge;
 		SetCachedFields();
 		AbilityUtil_Targeter_StretchCone targeter = new AbilityUtil_Targeter_StretchCone(this, GetMinLength(), GetMaxLength(), GetMinAngle(), GetMaxAngle(), m_stretchStyle, GetConeBackwardOffset(), PenetrateLineOfSight());
 		targeter.InitKnockbackData(GetKnockbackDistance(), m_knockbackType, GetKnockbackDistanceOnSelf(), m_knockbackTypeOnSelf);
 		targeter.SetExtraKnockbackDist(GetExtraKnockbackDistOnOvercharged());
+		// reactor
 		targeter.m_useExtraKnockbackDistDelegate = delegate
 		{
 			return m_syncComp != null && m_syncComp.m_overchargeBuffs > 0;
 		};
+		// rogues
+		// targeter.m_useExtraKnockbackDistDelegate = caster => m_syncComp != null && m_syncComp.m_overchargeCount > 0;
 		Targeter = targeter;
 	}
 
@@ -128,6 +140,12 @@ public class BlasterKnockbackCone : Ability
 			: m_damageAmountNormal;
 	}
 
+	// added in rogues
+	// public int GetDamageAmountOvercharged()
+	// {
+	// 	return m_abilityMod ? m_abilityMod.m_damageAmountOverchargedMod.GetModifiedValue(m_damageAmountOvercharged) : m_damageAmountOvercharged;
+	// }
+
 	public StandardEffectInfo GetEnemyEffectNormal()
 	{
 		return m_cachedEnemyEffectNormal ?? m_enemyEffectNormal;
@@ -170,7 +188,10 @@ public class BlasterKnockbackCone : Ability
 	{
 		if (AmOvercharged(ActorData))
 		{
+			// reactor
 			return GetDamageAmountNormal() + m_overchargeAbility.GetExtraDamage() + GetMultiStackOverchargeDamage();
+			// rogues
+			// return GetDamageAmountOvercharged() + GetMultiStackOverchargeDamage();
 		}
 		return GetDamageAmountNormal();
 	}
@@ -181,6 +202,10 @@ public class BlasterKnockbackCone : Ability
 		AddTokenInt(tokens, "Damage", string.Empty, abilityMod_BlasterKnockbackCone != null
 			? abilityMod_BlasterKnockbackCone.m_damageAmountNormalMod.GetModifiedValue(m_damageAmountNormal)
 			: m_damageAmountNormal);
+		// added in rogues
+		// AddTokenInt(tokens, "DamageAmountOvercharged", string.Empty, abilityMod_BlasterKnockbackCone
+		// 	? abilityMod_BlasterKnockbackCone.m_damageAmountOverchargedMod.GetModifiedValue(m_damageAmountOvercharged)
+		// 	: m_damageAmountOvercharged);
 		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_BlasterKnockbackCone != null
 			? abilityMod_BlasterKnockbackCone.m_enemyEffectNormalMod.GetModifiedValue(m_enemyEffectNormal)
 			: m_enemyEffectNormal, "EnemyEffectNormal", m_enemyEffectNormal);
@@ -265,16 +290,139 @@ public class BlasterKnockbackCone : Ability
 		{
 			m_syncComp = GetComponent<Blaster_SyncComponent>();
 		}
+		// reactor
 		return m_syncComp.m_overchargeBuffs > 0;
+		// rogues
+		// return m_syncComp.m_overchargeCount > 0;
 	}
 
 	private int GetMultiStackOverchargeDamage()
 	{
 		return m_syncComp != null
+		       // reactor
 		       && m_syncComp.m_overchargeBuffs > 1
+		       // rogues
+		       // && m_syncComp.m_overchargeCount > 1
 		       && m_overchargeAbility != null
 		       && m_overchargeAbility.GetExtraDamageForMultiCast() > 0
 			? m_overchargeAbility.GetExtraDamageForMultiCast()
 			: 0;
 	}
+	
+#if SERVER
+	// added in rogues
+	public GameObject GetCurrentCastSequence(ActorData caster)
+	{
+		if (AmOvercharged(caster))
+		{
+			return m_overchargedCastSequencePrefab;
+		}
+		return m_castSequencePrefab;
+	}
+
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_syncComp != null && GameFlowData.Get() != null && OverchargeAsFreeActionAfterCast())
+		{
+			m_syncComp.Networkm_lastUltCastTurn = GameFlowData.Get().CurrentTurn;
+		}
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(GetCurrentCastSequence(caster), caster.GetCurrentBoardSquare(), additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource);
+		list.Add(item);
+		if (m_unstoppableSetterSequencePrefab != null && caster.GetActorStatus().IsKnockbackImmune())
+		{
+			SequenceSource shallowCopy = additionalData.m_sequenceSource.GetShallowCopy();
+			shallowCopy.SetWaitForClientEnable(false);
+			ServerClientUtils.SequenceStartData item2 = new ServerClientUtils.SequenceStartData(m_unstoppableSetterSequencePrefab, caster.GetCurrentBoardSquare(), caster.AsArray(), caster, shallowCopy);
+			list.Add(item2);
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> list = FindHitActors(targets, caster, nonActorTargetInfo);
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		foreach (ActorData target in list)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, loSCheckPos));
+			int currentModdedDamage = GetCurrentModdedDamage();
+			actorHitResults.SetBaseDamage(currentModdedDamage);
+			float num = GetKnockbackDistance();
+			if (AmOvercharged(caster))
+			{
+				num += GetExtraKnockbackDistOnOvercharged();
+				actorHitResults.AddStandardEffectInfo(GetEnemyEffectOvercharged());
+			}
+			else
+			{
+				actorHitResults.AddStandardEffectInfo(GetEnemyEffectNormal());
+			}
+			if (num > 0f)
+			{
+				KnockbackHitData knockbackData = new KnockbackHitData(target, caster, m_knockbackType, targets[0].AimDirection, caster.GetFreePos(), num);
+				actorHitResults.AddKnockbackData(knockbackData);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if ((m_removeOverchargeEffectOnCast && AmOvercharged(caster)) || GetKnockbackDistanceOnSelf() > 0f)
+		{
+			ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(caster, loSCheckPos));
+			if (m_removeOverchargeEffectOnCast && AmOvercharged(caster))
+			{
+				Effect effect = ServerEffectManager.Get().GetEffect(caster, typeof(BlasterOverchargeEffect));
+				if (effect != null)
+				{
+					actorHitResults2.AddEffectForRemoval(effect, ServerEffectManager.Get().GetActorEffects(caster));
+				}
+			}
+			if (GetKnockbackDistanceOnSelf() > 0f)
+			{
+				KnockbackHitData knockbackData2 = new KnockbackHitData(caster, caster, m_knockbackTypeOnSelf, targets[0].AimDirection, caster.GetFreePos(), GetKnockbackDistanceOnSelf());
+				actorHitResults2.AddKnockbackData(knockbackData2);
+			}
+			abilityResults.StoreActorHit(actorHitResults2);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	private List<ActorData> FindHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		Vector3 aimDirection = targets[0].AimDirection;
+		Vector3 freePos = targets[0].FreePos;
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(aimDirection);
+		float minLength = GetMinLength();
+		float maxLength = GetMaxLength();
+		float minAngle = GetMinAngle();
+		float maxAngle = GetMaxAngle();
+		AreaEffectUtils.GatherStretchConeDimensions(freePos, loSCheckPos, minLength, maxLength, minAngle, maxAngle, m_stretchStyle, out var coneLengthRadiusInSquares, out var coneWidthDegrees);
+		return AreaEffectUtils.GetActorsInCone(loSCheckPos, coneCenterAngleDegrees, coneWidthDegrees, coneLengthRadiusInSquares, GetConeBackwardOffset(), PenetrateLineOfSight(), caster, caster.GetOtherTeams(), nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0 && (AmOvercharged(caster) || m_syncComp.m_lastOverchargeTurn == GameFlowData.Get().CurrentTurn))
+		{
+			int damageAmountNormal = GetDamageAmountNormal();
+			int addAmount = results.BaseDamage - damageAmountNormal;
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.BlasterStats.DamageAddedFromOvercharge, addAmount);
+		}
+	}
+
+	// added in rogues
+	public override void OnAbilityAssistedKill(ActorData caster, ActorData target)
+	{
+		caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.BlasterStats.NumAssistsUsingUlt);
+	}
+#endif
 }
