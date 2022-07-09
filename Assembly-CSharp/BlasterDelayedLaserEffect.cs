@@ -130,7 +130,7 @@ public class BlasterDelayedLaserEffect : Effect
 	public override void GatherEffectResults(ref EffectResults effectResults, bool isReal)
 	{
 		bool amQueuedToRemoteDetonate = AmQueuedToRemoteDetonate();
-		bool flag3 = false;
+		bool cooldownOverrideApplied = false;
 		if (AmDetonatingThisTurn())
 		{
 			List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
@@ -164,15 +164,15 @@ public class BlasterDelayedLaserEffect : Effect
 				if (actorData == Caster && !amQueuedToRemoteDetonate)
 				{
 					AddCooldownOverrideToActorHit(ref actorHitResults);
-					flag3 = true;
+					cooldownOverrideApplied = true;
 				}
 				effectResults.StoreActorHit(actorHitResults);
 			}
 			ActorHitResults hitResults = new ActorHitResults(new ActorHitParameters(Caster, m_laserStartPos));
-			if (!flag3 && !amQueuedToRemoteDetonate)
+			if (!cooldownOverrideApplied && !amQueuedToRemoteDetonate)
 			{
 				AddCooldownOverrideToActorHit(ref hitResults);
-				flag3 = true;
+				cooldownOverrideApplied = true;
 			}
 			effectResults.StoreActorHit(hitResults);
 			PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(m_laserStartPos));
@@ -214,8 +214,10 @@ public class BlasterDelayedLaserEffect : Effect
 
 	public override ServerClientUtils.SequenceStartData GetEffectStartSeqData()
 	{
-		HealLaserSequence.ExtraParams extraParams = new HealLaserSequence.ExtraParams();
-		extraParams.endPos = GetLaserEndPos();
+		HealLaserSequence.ExtraParams extraParams = new HealLaserSequence.ExtraParams
+		{
+			endPos = GetLaserEndPos()
+		};
 		return new ServerClientUtils.SequenceStartData(m_groundSequencePrefab, m_laserStartPos, Quaternion.LookRotation(GetLaserAimDir()), null, Caster, SequenceSource, new Sequence.IExtraSequenceParams[]
 		{
 			extraParams
@@ -227,8 +229,10 @@ public class BlasterDelayedLaserEffect : Effect
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
 		if (AmDetonatingThisTurn())
 		{
-			HealLaserSequence.ExtraParams extraParams = new HealLaserSequence.ExtraParams();
-			extraParams.endPos = GetLaserEndPos();
+			HealLaserSequence.ExtraParams extraParams = new HealLaserSequence.ExtraParams
+			{
+				endPos = GetLaserEndPos()
+			};
 			SequenceSource shallowCopy = SequenceSource.GetShallowCopy();
 			if (GetCasterAnimationIndex(HitPhase) > 0 || AddActorAnimEntryIfHasHits(HitPhase))
 			{
