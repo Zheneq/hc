@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,9 +48,13 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		BazookaGirlDelayedBombDrops bazookaGirlDelayedBombDrops = GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlDelayedBombDrops;
+		// rogues
+		// BazookaGirlDelayedBombDrops bazookaGirlDelayedBombDrops = targetAbility as BazookaGirlDelayedBombDrops;
+		
 		bool isAbilityPresent = bazookaGirlDelayedBombDrops != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isAbilityPresent, isAbilityPresent ? bazookaGirlDelayedBombDrops.m_bombInfo.m_damageAmount : 0);

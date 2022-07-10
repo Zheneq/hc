@@ -525,6 +525,7 @@
     <Compile Include="BattleMonkThornsEffect.cs" />
     <Compile Include="BattleMonkThrowSwordSequence.cs" />
     <Compile Include="BazookaGirlDelayedBombDrops.cs" />
+    <Compile Include="BazookaGirlDelayedBombDropsEffect.cs" />
     <Compile Include="BazookaGirlDelayedMissile.cs" />
     <Compile Include="BazookaGirlDelayedMissileEffectSequence.cs" />
     <Compile Include="BazookaGirlDroppedBombInfo.cs" />
@@ -532,6 +533,7 @@
     <Compile Include="BazookaGirlLockOnEffectSequence.cs" />
     <Compile Include="BazookaGirlRocketJump.cs" />
     <Compile Include="BazookaGirlStickyBomb.cs" />
+    <Compile Include="BazookaGirlStickyBombEffect.cs" />
     <Compile Include="BazookaGirl_SyncComponent.cs" />
     <Compile Include="BestSolutions.cs" />
     <Compile Include="BigPingPanel.cs" />
@@ -788,6 +790,7 @@
     <Compile Include="DecidingMovementState.cs" />
     <Compile Include="DecidingState.cs" />
     <Compile Include="DefaultJsonSerializer.cs" />
+    <Compile Include="DelayedAoeKnockbackEffect.cs" />
     <Compile Include="DepthTextureRenderer.cs" />
     <Compile Include="DialogBoxType.cs" />
     <Compile Include="DinoCounterAttack.cs" />

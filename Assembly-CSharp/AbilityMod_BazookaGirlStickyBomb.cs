@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,16 +22,20 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
+		// reactor
 		BazookaGirlStickyBomb bazookaGirlStickyBomb = targetAbility as BazookaGirlStickyBomb;
 		if (bazookaGirlStickyBomb != null)
 		{
 			AddToken(tokens, m_energyGainOnCastPerEnemyHitMod, "EnergyGainOnCastPerEnemyHit", string.Empty, bazookaGirlStickyBomb.m_energyGainOnCastPerEnemyHit);
 			AddToken_EffectMod(tokens, m_enemyOnCastHitEffectOverride, "EnemyOnCastHitEffect", bazookaGirlStickyBomb.m_enemyOnCastHitEffect);
 		}
+		// broken code in rogues
+		// targetAbility as BazookaGirlStickyBomb != null;
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		BazookaGirlStickyBomb bazookaGirlStickyBomb = GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlStickyBomb;
 		bool isAbilityPresent = bazookaGirlStickyBomb != null;
 		string desc = string.Empty;
@@ -43,5 +49,8 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 			        " by " + Mathf.Abs(m_cooldownAddAmount) + " per explosion";
 		}
 		return desc;
+		// broken code in rogues
+		// targetAbility as BazookaGirlStickyBomb != null;
+		// return "";
 	}
 }

@@ -1,7 +1,11 @@
+// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// empty in rouges
+// TODO ZUKI ability resolution
 public class BazookaGirlDelayedMissile : Ability
 {
 	[Serializable]

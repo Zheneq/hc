@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,6 +35,7 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
+		// reactor
 		BazookaGirlDelayedMissile bazookaGirlDelayedMissile = targetAbility as BazookaGirlDelayedMissile;
 		if (bazookaGirlDelayedMissile != null)
 		{
@@ -44,10 +47,13 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 				m_cooldownReductionsWhenNoHits.AddTooltipTokens(tokens, "OnMiss");
 			}
 		}
+		// broken code in rogues
+		// targetAbility as BazookaGirlDelayedMissile != null;
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		BazookaGirlDelayedMissile bazookaGirlDelayedMissile = GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlDelayedMissile;
 		bool isAbilityPresent = bazookaGirlDelayedMissile != null;
 		string desc = string.Empty;
@@ -77,5 +83,8 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 			desc += "Cooldown Reduction on Miss\n" + m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
 		}
 		return desc + PropDesc(m_useFakeMarkerIndexStartMod, "[UseFakeMarkerIndexStart]", isAbilityPresent, isAbilityPresent ? bazookaGirlDelayedMissile.m_useFakeMarkerIndexStart : 0);
+		// broken code in rogues
+		// targetAbility as BazookaGirlDelayedMissile != null;
+		// return "";
 	}
 }

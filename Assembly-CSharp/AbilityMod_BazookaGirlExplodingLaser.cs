@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +32,7 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
+		// reactor
 		BazookaGirlExplodingLaser bazookaGirlExplodingLaser = targetAbility as BazookaGirlExplodingLaser;
 		if (bazookaGirlExplodingLaser != null)
 		{
@@ -44,11 +47,16 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 			AddToken_EffectMod(tokens, m_explosionEffectOverride, "EffectOnExplosionHitTargets", bazookaGirlExplodingLaser.m_effectOnExplosionHitTargets);
 			AddToken(tokens, m_cdrOnDirectHitMod, "CdrOnDirectHit", string.Empty, bazookaGirlExplodingLaser.m_cdrOnDirectHit);
 		}
+		// broken code in rogues
+		// targetAbility as BazookaGirlExplodingLaser != null;
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		BazookaGirlExplodingLaser bazookaGirlExplodingLaser = GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlExplodingLaser;
+		// rogues
+		// BazookaGirlExplodingLaser bazookaGirlExplodingLaser = targetAbility as BazookaGirlExplodingLaser;
 		bool isAbilityPresent = bazookaGirlExplodingLaser != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_coneWidthAngleMod, "[ConeWidthAngle]", isAbilityPresent, isAbilityPresent ? bazookaGirlExplodingLaser.m_coneWidthAngle : 0f);
@@ -65,5 +73,8 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_explosionIgnoreLosMod, "[Explosion Ignore LoS?]", isAbilityPresent, isAbilityPresent && bazookaGirlExplodingLaser.m_explosionPenetrateLos);
 		desc += AbilityModHelper.GetModPropertyDesc(m_explosionIgnoreCoverMod, "[Explosion Ignore Cover?]", isAbilityPresent, isAbilityPresent && bazookaGirlExplodingLaser.m_explosionIgnoreCover);
 		return desc + AbilityModHelper.GetModPropertyDesc(m_explosionEffectOverride, "{ Explosion Enemy Hit Effect Override }", isAbilityPresent, isAbilityPresent ? bazookaGirlExplodingLaser.m_effectOnExplosionHitTargets : null);
+		// broken code in rogues
+		// targetAbility as BazookaGirlExplodingLaser != null;
+		// return "";
 	}
 }

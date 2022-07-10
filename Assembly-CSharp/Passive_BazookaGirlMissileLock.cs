@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 public class Passive_BazookaGirlMissileLock : Passive
 {
 	public AbilityStatMod[] m_statMods;

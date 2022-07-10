@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -166,7 +168,7 @@ public class BazookaGirlDelayedBombDrops : Ability
 		foreach (BoardSquare item in targetSquares)
 		{
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_bombInfo.m_shape, item.ToVector3(), item);
-			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_bombInfo.m_shape, centerOfShape, item, PenetrateLos(), ActorData, ActorData.GetEnemyTeam(), null);
+			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_bombInfo.m_shape, centerOfShape, item, PenetrateLos(), ActorData, ActorData.GetOtherTeams(), null);  // ActorData.GetEnemyTeam() in reactor
 			foreach (ActorData target in actorsInShape)
 			{
 				if (target != targetActor)
@@ -241,4 +243,85 @@ public class BazookaGirlDelayedBombDrops : Ability
 		}
 		return points;
 	}
+
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(m_castSequencePrefab, caster.GetCurrentBoardSquare().ToVector3(), additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, nonActorTargetInfo);
+		PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(caster.GetCurrentBoardSquare().ToVector3()));
+		foreach (ActorData actorData in hitActors)
+		{
+			if (m_enemyOnAbilityHitEffect.m_applyEffect)
+			{
+				StandardActorEffect effect = new StandardActorEffect(AsEffectSource(), actorData.GetCurrentBoardSquare(), actorData, caster, m_enemyOnAbilityHitEffect.m_effectData);
+				positionHitResults.AddEffect(effect);
+			}
+		}
+		BazookaGirlDroppedBombInfo bombInfo = m_bombInfo.GetShallowCopy();
+		bombInfo.m_damageAmount = GetDamageAmount();
+		BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+		if (targetSquare == null)
+		{
+			targetSquare = caster.GetCurrentBoardSquare();
+		}
+		StandardEffectInfo moddedEffectForEnemies = GetModdedEffectForEnemies();
+		if (moddedEffectForEnemies != null && moddedEffectForEnemies.m_applyEffect)
+		{
+			bombInfo.m_enemyHitEffect = moddedEffectForEnemies;
+		}
+		BazookaGirlDelayedBombDropsEffect effect2 = new BazookaGirlDelayedBombDropsEffect(AsEffectSource(), targetSquare, caster, hitActors, bombInfo, GetMaxNumOfAreasForExtraDamage(), GetExtraDamagePerFewerArea(), caster.GetFreePos(), m_bombDropDelay, m_bombDropPhase, m_bombDropAnimIndexInEffect, m_targetMarkedSequencePrefab, m_bombDropSequencePrefab, abilityResults.CinematicRequested);
+		positionHitResults.AddEffect(effect2);
+		abilityResults.StorePositionHit(positionHitResults);
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private new List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<ActorData> hitActors;
+		if (TargetAllEnemies())
+		{
+			hitActors = new List<ActorData>();
+			foreach (ActorData actorData in GameFlowData.Get().GetActors())
+			{
+				if (actorData.GetTeam() != caster.GetTeam()
+				    && !actorData.IsDead()
+				    && !actorData.IgnoreForAbilityHits)
+				{
+					hitActors.Add(actorData);
+				}
+			}
+		}
+		else if (m_targetingType == TargetingType.Cone)
+		{
+			Vector3 aimDirection = targets[0].AimDirection;
+			Vector3 loSCheckPos = caster.GetLoSCheckPos();
+			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(aimDirection);
+			hitActors = AreaEffectUtils.GetActorsInCone(loSCheckPos, coneCenterAngleDegrees, GetConeAngle(), GetConeLength(), m_coneBackwardOffset, PenetrateLos(), caster, caster.GetOtherTeams(), nonActorTargetInfo);
+		}
+		else if (m_targetingType == TargetingType.Shape)
+		{
+			hitActors = AreaEffectUtils.GetActorsInShape(m_targetingShape, targets[0], PenetrateLos(), caster, caster.GetOtherTeams(), nonActorTargetInfo);
+		}
+		else
+		{
+			hitActors = new List<ActorData>();
+		}
+		return hitActors;
+	}
+
+	// added in rogues
+	public override void OnAbilityHadKillingBlow(ActorData caster, ActorData target)
+	{
+		caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.BazookaGirlStats.UltKills);
+	}
+#endif
 }

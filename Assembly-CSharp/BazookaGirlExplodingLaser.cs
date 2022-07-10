@@ -1,6 +1,10 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
+// empty in rouges
+// TODO ZUKI ability resolution
 public class BazookaGirlExplodingLaser : Ability
 {
 	public enum ExplosionType
