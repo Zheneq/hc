@@ -4,9 +4,7 @@ using UnityEngine;
 public class BazookaGirlRocketJump : Ability
 {
 	public int m_damageAmount = 20;
-
 	public bool m_penetrateLineOfSight;
-
 	public AbilityAreaShape m_shape = AbilityAreaShape.Five_x_Five_NoCorners;
 
 	private AbilityMod_BazookaGirlRocketJump m_abilityMod;
@@ -28,8 +26,10 @@ public class BazookaGirlRocketJump : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
-		numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_damageAmount));
+		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_damageAmount)
+		};
 		AppendTooltipNumbersFromBaseModEffects(ref numbers, AbilityTooltipSubject.Enemy);
 		return numbers;
 	}
@@ -37,19 +37,23 @@ public class BazookaGirlRocketJump : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
+		if (tooltipSubjectTypes == null
+		    || !tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 		{
-			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-			dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmount();
-			return dictionary;
+			return null;
 		}
-		return null;
+		return new Dictionary<AbilityTooltipSymbol, int>
+		{
+			[AbilityTooltipSymbol.Damage] = GetDamageAmount()
+		};
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		AbilityMod_BazookaGirlRocketJump abilityMod_BazookaGirlRocketJump = modAsBase as AbilityMod_BazookaGirlRocketJump;
-		int damage = abilityMod_BazookaGirlRocketJump?.m_damageMod.GetModifiedValue(m_damageAmount) ?? m_damageAmount;
+		AbilityMod_BazookaGirlRocketJump mod = modAsBase as AbilityMod_BazookaGirlRocketJump;
+		int damage = mod != null
+			? mod.m_damageMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 		AddTokenInt(tokens, "DamageAmount", string.Empty, damage);
 	}
 
@@ -65,7 +69,7 @@ public class BazookaGirlRocketJump : Ability
 			Debug.LogError("Trying to apply wrong type of ability mod");
 			return;
 		}
-		m_abilityMod = (abilityMod as AbilityMod_BazookaGirlRocketJump);
+		m_abilityMod = abilityMod as AbilityMod_BazookaGirlRocketJump;
 		SetupTargeter();
 	}
 
@@ -77,7 +81,9 @@ public class BazookaGirlRocketJump : Ability
 
 	public int GetDamageAmount()
 	{
-		return m_abilityMod?.m_damageMod.GetModifiedValue(m_damageAmount) ?? m_damageAmount;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public bool ResetCooldownOnKill()

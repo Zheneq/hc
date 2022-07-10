@@ -4,7 +4,6 @@ using UnityEngine;
 public class AbilityUtil_Targeter_BazookaGirlDelayedMissile : AbilityUtil_Targeter_Shape
 {
 	private bool m_useInnerShape;
-
 	private AbilityAreaShape m_innerShape;
 
 	public AbilityUtil_Targeter_BazookaGirlDelayedMissile(Ability ability, AbilityAreaShape outerShape, bool penetrateLoS, bool useInnerShape, AbilityAreaShape innerShape, DamageOriginType damageOriginType = DamageOriginType.CenterOfShape, bool affectsEnemies = true, bool affectsAllies = false)

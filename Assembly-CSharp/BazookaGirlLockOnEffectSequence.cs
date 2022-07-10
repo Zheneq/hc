@@ -8,63 +8,32 @@ public class BazookaGirlLockOnEffectSequence : Sequence
 
 	[AudioEvent(false)]
 	public string m_audioEventApply;
-
 	[JointPopup("FX attach joint (or start position for projectiles).")]
 	public JointPopupProperty m_fxJoint;
 
 	private void Update()
 	{
-		if (!m_trackingEffectPrefab)
+		if (!m_trackingEffectPrefab || !m_initialized || m_trackingEffectVFX != null || !Target)
 		{
 			return;
 		}
-		while (true)
+		if (!m_fxJoint.IsInitialized())
 		{
-			if (!m_initialized)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (!(m_trackingEffectVFX == null))
-				{
-					return;
-				}
-				while (true)
-				{
-					if (!base.Target)
-					{
-						return;
-					}
-					while (true)
-					{
-						if (!m_fxJoint.IsInitialized())
-						{
-							m_fxJoint.Initialize(base.Target.gameObject);
-						}
-						m_trackingEffectVFX = InstantiateFX(m_trackingEffectPrefab);
-						AttachToBone(m_trackingEffectVFX, m_fxJoint.m_jointObject);
-						m_trackingEffectVFX.transform.localPosition = Vector3.zero;
-						m_trackingEffectVFX.transform.localRotation = Quaternion.identity;
-						AudioManager.PostEvent(m_audioEventApply, m_trackingEffectVFX.gameObject);
-						base.Source.OnSequenceHit(this, base.Target, null);
-						return;
-					}
-				}
-			}
+			m_fxJoint.Initialize(Target.gameObject);
 		}
+		m_trackingEffectVFX = InstantiateFX(m_trackingEffectPrefab);
+		AttachToBone(m_trackingEffectVFX, m_fxJoint.m_jointObject);
+		m_trackingEffectVFX.transform.localPosition = Vector3.zero;
+		m_trackingEffectVFX.transform.localRotation = Quaternion.identity;
+		AudioManager.PostEvent(m_audioEventApply, m_trackingEffectVFX.gameObject);
+		Source.OnSequenceHit(this, Target, null);
 	}
 
 	private void OnDisable()
 	{
-		if (!m_trackingEffectVFX)
+		if (m_trackingEffectVFX)
 		{
-			return;
-		}
-		while (true)
-		{
-			Object.Destroy(m_trackingEffectVFX);
-			return;
+			Destroy(m_trackingEffectVFX);
 		}
 	}
 }

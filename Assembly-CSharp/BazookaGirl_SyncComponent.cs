@@ -5,7 +5,6 @@ public class BazookaGirl_SyncComponent : NetworkBehaviour
 {
 	[SyncVar]
 	public int m_basicAttackLastCastTurn = -1;
-
 	[SyncVar]
 	public int m_basicAttackConsecutiveTurns;
 
@@ -43,41 +42,32 @@ public class BazookaGirl_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					writer.WritePackedUInt32((uint)m_basicAttackLastCastTurn);
-					writer.WritePackedUInt32((uint)m_basicAttackConsecutiveTurns);
-					return true;
-				}
-			}
+			writer.WritePackedUInt32((uint)m_basicAttackLastCastTurn);
+			writer.WritePackedUInt32((uint)m_basicAttackConsecutiveTurns);
+			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_basicAttackLastCastTurn);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_basicAttackConsecutiveTurns);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -86,18 +76,9 @@ public class BazookaGirl_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					m_basicAttackLastCastTurn = (int)reader.ReadPackedUInt32();
-					m_basicAttackConsecutiveTurns = (int)reader.ReadPackedUInt32();
-					return;
-				}
-			}
+			m_basicAttackLastCastTurn = (int)reader.ReadPackedUInt32();
+			m_basicAttackConsecutiveTurns = (int)reader.ReadPackedUInt32();
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)

@@ -6,15 +6,11 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 {
 	[Header("-- On Cast Hit")]
 	public AbilityModPropertyInt m_energyGainOnCastPerEnemyHitMod;
-
 	public AbilityModPropertyEffectInfo m_enemyOnCastHitEffectOverride;
-
 	[Header("-- On Explosion Hit Effect Override")]
 	public AbilityModPropertyEffectInfo m_enemyOnExplosionEffectOverride;
-
 	[Header("-- Cooldown modification on Explosion")]
 	public AbilityData.ActionType m_cooldownModOnAction = AbilityData.ActionType.INVALID_ACTION;
-
 	public int m_cooldownAddAmount;
 
 	public override Type GetTargetAbilityType()
@@ -25,81 +21,27 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		BazookaGirlStickyBomb bazookaGirlStickyBomb = targetAbility as BazookaGirlStickyBomb;
-		if (!(bazookaGirlStickyBomb != null))
+		if (bazookaGirlStickyBomb != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken(tokens, m_energyGainOnCastPerEnemyHitMod, "EnergyGainOnCastPerEnemyHit", string.Empty, bazookaGirlStickyBomb.m_energyGainOnCastPerEnemyHit);
-			AbilityMod.AddToken_EffectMod(tokens, m_enemyOnCastHitEffectOverride, "EnemyOnCastHitEffect", bazookaGirlStickyBomb.m_enemyOnCastHitEffect);
-			return;
+			AddToken(tokens, m_energyGainOnCastPerEnemyHitMod, "EnergyGainOnCastPerEnemyHit", string.Empty, bazookaGirlStickyBomb.m_energyGainOnCastPerEnemyHit);
+			AddToken_EffectMod(tokens, m_enemyOnCastHitEffectOverride, "EnemyOnCastHitEffect", bazookaGirlStickyBomb.m_enemyOnCastHitEffect);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		BazookaGirlStickyBomb bazookaGirlStickyBomb = GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlStickyBomb;
-		bool flag = bazookaGirlStickyBomb != null;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyInt energyGainOnCastPerEnemyHitMod = m_energyGainOnCastPerEnemyHitMod;
-		int baseVal;
-		if (flag)
+		bool isAbilityPresent = bazookaGirlStickyBomb != null;
+		string desc = string.Empty;
+		desc += PropDesc(m_energyGainOnCastPerEnemyHitMod, "[EnergyGainOnCastPerEnemyHit]", isAbilityPresent, isAbilityPresent ? bazookaGirlStickyBomb.m_energyGainOnCastPerEnemyHit : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_enemyOnCastHitEffectOverride, "{ Enemy On Cast Hit Effect }", isAbilityPresent, isAbilityPresent ? bazookaGirlStickyBomb.m_enemyOnCastHitEffect : null);
+		desc += AbilityModHelper.GetModPropertyDesc(m_enemyOnExplosionEffectOverride, "{ Enemy on Explode Effect }", isAbilityPresent, isAbilityPresent ? bazookaGirlStickyBomb.m_bombInfo.onExplodeEffect : null);
+		if (m_cooldownModOnAction != AbilityData.ActionType.INVALID_ACTION && m_cooldownAddAmount != 0)
 		{
-			baseVal = bazookaGirlStickyBomb.m_energyGainOnCastPerEnemyHit;
+			desc += (m_cooldownAddAmount < 0 ? "Reduces" : "Increases") + " cooldown on "
+			        + AbilityModHelper.GetAbilityNameFromActionType(m_cooldownModOnAction, abilityData) +
+			        " by " + Mathf.Abs(m_cooldownAddAmount) + " per explosion";
 		}
-		else
-		{
-			baseVal = 0;
-		}
-		empty = str + PropDesc(energyGainOnCastPerEnemyHitMod, "[EnergyGainOnCastPerEnemyHit]", flag, baseVal);
-		empty += AbilityModHelper.GetModPropertyDesc(m_enemyOnCastHitEffectOverride, "{ Enemy On Cast Hit Effect }", flag, (!flag) ? null : bazookaGirlStickyBomb.m_enemyOnCastHitEffect);
-		string str2 = empty;
-		AbilityModPropertyEffectInfo enemyOnExplosionEffectOverride = m_enemyOnExplosionEffectOverride;
-		object baseVal2;
-		if (flag)
-		{
-			baseVal2 = bazookaGirlStickyBomb.m_bombInfo.onExplodeEffect;
-		}
-		else
-		{
-			baseVal2 = null;
-		}
-		empty = str2 + AbilityModHelper.GetModPropertyDesc(enemyOnExplosionEffectOverride, "{ Enemy on Explode Effect }", flag, (StandardEffectInfo)baseVal2);
-		if (m_cooldownModOnAction != AbilityData.ActionType.INVALID_ACTION)
-		{
-			if (m_cooldownAddAmount != 0)
-			{
-				string text = empty;
-				object[] obj = new object[7]
-				{
-					text,
-					null,
-					null,
-					null,
-					null,
-					null,
-					null
-				};
-				object obj2;
-				if (m_cooldownAddAmount < 0)
-				{
-					obj2 = "Reduces";
-				}
-				else
-				{
-					obj2 = "Increases";
-				}
-				obj[1] = obj2;
-				obj[2] = " cooldown on ";
-				obj[3] = AbilityModHelper.GetAbilityNameFromActionType(m_cooldownModOnAction, abilityData);
-				obj[4] = " by ";
-				obj[5] = Mathf.Abs(m_cooldownAddAmount);
-				obj[6] = " per explosion";
-				empty = string.Concat(obj);
-			}
-		}
-		return empty;
+		return desc;
 	}
 }

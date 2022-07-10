@@ -6,7 +6,6 @@ public class AbilityMod_BazookaGirlRocketJump : AbilityMod
 {
 	[Header("-- Damage Mod")]
 	public AbilityModPropertyInt m_damageMod;
-
 	[Header("-- Reset cooldown on Kill (on beginning of next turn)")]
 	public bool m_resetCooldownOnKill;
 
@@ -20,31 +19,20 @@ public class AbilityMod_BazookaGirlRocketJump : AbilityMod
 		BazookaGirlRocketJump bazookaGirlRocketJump = targetAbility as BazookaGirlRocketJump;
 		if (bazookaGirlRocketJump != null)
 		{
-			AbilityMod.AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, bazookaGirlRocketJump.m_damageAmount);
+			AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, bazookaGirlRocketJump.m_damageAmount);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		BazookaGirlRocketJump bazookaGirlRocketJump = GetTargetAbilityOnAbilityData(abilityData) as BazookaGirlRocketJump;
-		bool flag = bazookaGirlRocketJump != null;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyInt damageMod = m_damageMod;
-		int baseVal;
-		if (flag)
-		{
-			baseVal = bazookaGirlRocketJump.m_damageAmount;
-		}
-		else
-		{
-			baseVal = 0;
-		}
-		empty = str + AbilityModHelper.GetModPropertyDesc(damageMod, "[Damage]", flag, baseVal);
+		bool isAbilityPresent = bazookaGirlRocketJump != null;
+		string desc = string.Empty;
+		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isAbilityPresent, isAbilityPresent ? bazookaGirlRocketJump.m_damageAmount : 0);
 		if (m_resetCooldownOnKill)
 		{
-			empty += "Resets Cooldown on Kill (on beginning of next turn)\n";
+			desc += "Resets Cooldown on Kill (on beginning of next turn)\n";
 		}
-		return empty;
+		return desc;
 	}
 }
