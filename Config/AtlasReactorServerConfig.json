@@ -1,0 +1,8 @@
+{
+    "BasePath": "${CONFIGPATH}/../",
+    "GameServerClientReconnectTimeout": "00:01:00",
+    "AllowReconnectingToGameInstantly" : true,
+    "CoOpSessionHostListenPort": 6090,
+	"MinLogLevel": "Everything",
+	"EnableLogging": true
+}
