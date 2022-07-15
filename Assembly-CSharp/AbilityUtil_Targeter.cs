@@ -1019,9 +1019,9 @@ public class AbilityUtil_Targeter
 			if (m_affectsEnemies)
 			{
 				// reactor
-				list.Add(targeterOwner.GetEnemyTeam());
+				// list.Add(targeterOwner.GetEnemyTeam());
 				// rogues
-				//list.AddRange(targeterOwner.GetOtherTeams());
+				list.AddRange(targeterOwner.GetOtherTeams());
 			}
 		}
 		return list;
