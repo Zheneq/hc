@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 
 // empty in rouges
-// TODO ZUKI ability resolution
 public class BazookaGirlStickyBomb : Ability
 {
 	public enum TargeterType
@@ -194,6 +193,7 @@ public class BazookaGirlStickyBomb : Ability
 		List<ActorData> targetActors = actors.Where(target => target.GetTeam() != caster.GetTeam()).ToList();
 		if (!targetActors.IsNullOrEmpty())
 		{
+			// TODO LOW should effect be created when nobody is hit?
 			BazookaGirlStickyBombEffect effect = new BazookaGirlStickyBombEffect(
 				AsEffectSource(), 
 				targetActors,
@@ -205,11 +205,19 @@ public class BazookaGirlStickyBomb : Ability
 				ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
 				ActorHitResults hitResults = new ActorHitResults(0, HitActionType.Damage, GetEnemyOnCastHitEffect(), hitParams);
 				hitResults.AddTechPointGainOnCaster(GetEnergyGainOnCastPerEnemyHit());
-				hitResults.AddStandardEffectInfo(GetEnemyOnCastHitEffect());
-				hitResults.AddEffect(effect);
+				if (effect != null)
+				{
+					hitResults.AddEffect(effect);
+					effect = null;
+				}
 				abilityResults.StoreActorHit(hitResults);
 			}
 		}
+		
+		ActorHitParameters hitParamsSelf = new ActorHitParameters(caster, caster.GetFreePos());
+		ActorHitResults hitResultsSelf = new ActorHitResults(0, HitActionType.Damage, (StandardEffectInfo) null, hitParamsSelf);
+		abilityResults.StoreActorHit(hitResultsSelf);
+		
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
 #endif
