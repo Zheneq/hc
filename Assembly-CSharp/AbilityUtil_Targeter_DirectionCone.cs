@@ -7,34 +7,34 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 	public delegate Vector3 ClampedAimDirectionDelegate(Vector3 currentAimDir, Vector3 prevAimDir);
 
 	public float m_coneAngleDegrees;
-
 	public float m_coneLengthRadius;
-
 	public bool m_penetrateLoS;
-
 	public float m_coneBackwardOffsetInSquares;
-
 	public bool m_useCursorHighlight = true;
-
 	public bool m_includeEnemies = true;
-
 	public bool m_includeAllies;
-
 	public bool m_includeCaster;
-
 	public int m_maxTargets = -1;
-
 	public bool m_useCasterLocationForAllMultiTargets;
 
 	private List<GameObject> m_coneHighlights;
-
 	private TargeterPart_Cone m_conePart;
-
 	private OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
 
 	public ClampedAimDirectionDelegate m_getClampedAimDirection;
 
-	public AbilityUtil_Targeter_DirectionCone(Ability ability, float coneAngleDegrees, float coneLengthRadius, float coneBackwardOffsetInSquares, bool penetrateLoS, bool useCursorHighlight, bool affectEnemies = true, bool affectAllies = false, bool affectCaster = false, int maxTargets = -1, bool useOnlyCasterLocation = false)
+	public AbilityUtil_Targeter_DirectionCone(
+		Ability ability,
+		float coneAngleDegrees,
+		float coneLengthRadius,
+		float coneBackwardOffsetInSquares,
+		bool penetrateLoS,
+		bool useCursorHighlight,
+		bool affectEnemies = true,
+		bool affectAllies = false,
+		bool affectCaster = false,
+		int maxTargets = -1,
+		bool useOnlyCasterLocation = false)
 		: base(ability)
 	{
 		m_coneAngleDegrees = coneAngleDegrees;
@@ -56,15 +56,11 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 
 	private void ClearConeHighlights()
 	{
-		using (List<GameObject>.Enumerator enumerator = m_coneHighlights.GetEnumerator())
+		foreach (GameObject current in m_coneHighlights)
 		{
-			while (enumerator.MoveNext())
+			if (current != null)
 			{
-				GameObject current = enumerator.Current;
-				if (current != null)
-				{
-					DestroyObjectAndMaterials(current);
-				}
+				DestroyObjectAndMaterials(current);
 			}
 		}
 		m_coneHighlights.Clear();
@@ -105,41 +101,35 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 			}
 		}
 		float aimDir_degrees = VectorUtils.HorizontalAngle_Deg(vector2);
-		if (m_useCursorHighlight)
+		if (!m_useCursorHighlight)
 		{
-			if (m_highlights != null)
-			{
-				if (m_highlights.Count != 0)
-				{
-					goto IL_0133;
-				}
-			}
-			m_highlights = new List<GameObject>();
-			m_highlights.Add(m_conePart.CreateHighlightObject(this));
-			goto IL_0133;
+			CreateConeHighlightsWithLines(vector, aimDir_degrees);
 		}
-		CreateConeHighlightsWithLines(vector, aimDir_degrees);
-		goto IL_0158;
-		IL_0133:
-		m_conePart.AdjustHighlight(m_highlights[0], vector, vector2);
-		goto IL_0158;
-		IL_0158:
-		List<ActorData> actors = m_conePart.GetHitActors(vector, vector2, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, m_affectsEnemies));
+		else
+		{
+			if (m_highlights == null || m_highlights.Count == 0)
+			{
+				m_highlights = new List<GameObject> { m_conePart.CreateHighlightObject(this) };
+			}
+
+			m_conePart.AdjustHighlight(m_highlights[0], vector, vector2);
+		}
+		List<ActorData> actors = m_conePart.GetHitActors(
+			vector, 
+			vector2,
+			targetingActor,
+			TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, m_affectsEnemies));
 		if (m_maxTargets > 0)
 		{
 			TargeterUtils.SortActorsByDistanceToPos(ref actors, vector);
 			TargeterUtils.LimitActorsToMaxNumber(ref actors, m_maxTargets);
 		}
-		if (m_includeCaster)
+		if (m_includeCaster && !actors.Contains(targetingActor))
 		{
-			if (!actors.Contains(targetingActor))
-			{
-				actors.Add(targetingActor);
-			}
+			actors.Add(targetingActor);
 		}
-		for (int i = 0; i < actors.Count; i++)
+		foreach (ActorData actorData in actors)
 		{
-			ActorData actorData = actors[i];
 			if (ShouldAddActor(actorData, targetingActor))
 			{
 				AddActorInRange(actorData, vector, targetingActor);
@@ -148,41 +138,24 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 				actorHitContext.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), value);
 			}
 		}
-		while (true)
-		{
-			DrawInvalidSquareIndicators(currentTarget, targetingActor, vector, vector2);
-			return;
-		}
+		DrawInvalidSquareIndicators(currentTarget, targetingActor, vector, vector2);
 	}
 
 	private bool ShouldAddActor(ActorData actor, ActorData caster)
 	{
-		bool result = false;
 		if (actor == caster)
 		{
-			result = m_includeCaster;
+			return m_includeCaster;
 		}
-		else
+		if (actor.GetTeam() == caster.GetTeam() && m_includeAllies)
 		{
-			if (actor.GetTeam() == caster.GetTeam())
-			{
-				if (m_includeAllies)
-				{
-					result = true;
-					goto IL_008b;
-				}
-			}
-			if (actor.GetTeam() != caster.GetTeam())
-			{
-				if (m_includeEnemies)
-				{
-					result = true;
-				}
-			}
+			return true;
 		}
-		goto IL_008b;
-		IL_008b:
-		return result;
+		if (actor.GetTeam() != caster.GetTeam() && m_includeEnemies)
+		{
+			return true;
+		}
+		return false;
 	}
 
 	public void CreateConeHighlightsWithLines(Vector3 casterPos, float aimDir_degrees)
@@ -212,17 +185,12 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 
 	private void DrawInvalidSquareIndicators(AbilityTarget currentTarget, ActorData targetingActor, Vector3 coneStartPos, Vector3 forwardDirection)
 	{
-		if (!(targetingActor == GameFlowData.Get().activeOwnedActorData))
-		{
-			return;
-		}
-		while (true)
+		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
 			ResetSquareIndicatorIndexToUse();
 			float forwardAngle = VectorUtils.HorizontalAngle_Deg(forwardDirection);
 			m_conePart.ShowHiddenSquares(m_indicatorHandler, coneStartPos, forwardAngle, targetingActor, m_penetrateLoS);
 			HideUnusedSquareIndicators();
-			return;
 		}
 	}
 
