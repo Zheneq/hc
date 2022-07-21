@@ -1,13 +1,20 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class ClientAbilityResults
 {
+	[JsonProperty]
 	private ActorData m_casterActor;
+	[JsonProperty]
 	private Ability m_castedAbility;
+	[JsonProperty]
 	private AbilityData.ActionType m_actionType;
+	[JsonProperty]
 	private List<ServerClientUtils.SequenceStartData> m_seqStartDataList;
+	[JsonProperty]
 	private Dictionary<ActorData, ClientActorHitResults> m_actorToHitResults;
+	[JsonProperty]
 	private Dictionary<Vector3, ClientPositionHitResults> m_posToHitResults;
 
 	public static string s_storeActorHitHeader = "<color=cyan>Storing ClientActorHitResult: </color>";

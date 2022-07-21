@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -6,22 +7,36 @@ public static class ServerClientUtils
 {
 	public class SequenceStartData
 	{
+		[JsonProperty]
 		private short m_prefabID;
 		private GameObject m_serverOnlyPrefabReference;
+		[JsonProperty]
 		private bool m_useTargetPos;
+		[JsonProperty]
 		private Vector3 m_targetPos;
+		[JsonProperty]
 		private bool m_useTargetSquare;
+		[JsonProperty]
 		private int m_targetSquareX;
+		[JsonProperty]
 		private int m_targetSquareY;
+		[JsonProperty]
 		private bool m_useTargetRotation;
+		[JsonProperty]
 		private Quaternion m_targetRotation;
 		private byte m_numTargetActors;
+		[JsonProperty]
 		private int[] m_targetActorIndices;
+		[JsonProperty]
 		private int m_casterActorIndex;
+		[JsonProperty]
 		private byte m_numExtraParams;
 		private Sequence.IExtraSequenceParams[] m_extraParams;
+		[JsonProperty]
 		private uint m_sourceRootID;
+		[JsonProperty]
 		private bool m_sourceRemoveAtEndOfTurn;
+		[JsonProperty]
 		private bool m_waitForClientEnable;
 
 		public string Json()

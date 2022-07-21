@@ -16,6 +16,7 @@ public class ClientActorHitResults
 
 	private bool m_hasKnockback;
 
+	[JsonProperty]
 	private ActorData m_knockbackSourceActor;
 
 	public int m_finalDamage;
