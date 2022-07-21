@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // empty in rouges
-// TODO ZUKI ability resolution
 public class BazookaGirlExplodingLaser : Ability
 {
 	public enum ExplosionType
@@ -260,4 +259,223 @@ public class BazookaGirlExplodingLaser : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			targets[0].FreePos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+	
+	// custom
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		if (m_explosionType == ExplosionType.Cone)
+		{
+			GatherAbilityResultsLaserWithCone(targets, caster, ref abilityResults);
+		}
+		else
+		{
+			GatherAbilityResultsLaserWithShape(targets, caster, ref abilityResults);
+		}
+	}
+	
+	// custom
+	private void GatherAbilityResultsLaserWithCone(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		Vector3 aimDirection = currentTarget?.AimDirection ?? caster.transform.forward;
+		Vector3 targetPos = currentTarget.FreePos;
+		BoardSquare targetSquare = Board.Get().GetSquare(currentTarget.GridPos);
+		if (m_clampMaxRangeToCursorPos
+		    && m_snapToTargetSquareWhenClampRange
+		    && targetSquare != null
+		    && targetSquare != caster.GetCurrentBoardSquare())
+		{
+			aimDirection = targetSquare.ToVector3() - caster.GetFreePos();
+			aimDirection.y = 0f;
+			aimDirection.Normalize();
+			targetPos = targetSquare.ToVector3();
+		}
+		float distance = GetLaserRange();
+		if (m_clampMaxRangeToCursorPos)
+		{
+			float clampedDistance = VectorUtils.HorizontalPlaneDistInSquares(caster.GetFreePos(), targetPos);
+			distance = Mathf.Min(clampedDistance, distance);
+		}
+		VectorUtils.LaserCoords adjustedCoords = default(VectorUtils.LaserCoords);
+		adjustedCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			adjustedCoords.start, 
+			aimDirection,
+			distance,
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			LaserPenetrateLos(),
+			1,
+			false,
+			true,
+			out adjustedCoords.end,
+			nonActorTargetInfo);
+		bool hitEnv = AreaEffectUtils.LaserHitWorldGeo(distance, adjustedCoords, LaserPenetrateLos(), actorsInLaser);
+		if (GetLaserDamage() > 0)
+		{
+			foreach (ActorData target in actorsInLaser)
+			{
+				ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+				ActorHitResults hitResults = new ActorHitResults(GetLaserDamage(), HitActionType.Damage, GetLaserHitEffect(), hitParams);
+				abilityResults.StoreActorHit(hitResults);
+			}
+		}
+		
+		Vector3 coneStart = adjustedCoords.end;
+		Vector3 losOverridePos = coneStart;
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(aimDirection);
+		if (m_alwaysExplodeOnPathEnd
+		    || hitEnv && m_explodeOnEnvironmentHit
+		    || actorsInLaser.Count > 0)
+		{
+			if (!m_explosionPenetrateLos)
+			{
+				losOverridePos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(adjustedCoords.start, coneStart);
+			}
+			List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(
+				coneStart,
+				coneCenterAngleDegrees,
+				GetConeWidthAngle(),
+				GetConeLength(),
+				GetConeBackwardOffset(),
+				m_explosionPenetrateLos,
+				caster, 
+				null,
+				null,
+				true,
+				losOverridePos);
+			foreach (ActorData target in actorsInCone)
+			{
+				if (target != null && target.GetTeam() != caster.GetTeam())
+				{
+					ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+					ActorHitResults hitResults = new ActorHitResults(GetExplosionDamage(), HitActionType.Damage, GetExplosionHitEffect(), hitParams);
+					abilityResults.StoreActorHit(hitResults);
+				}
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+	
+	// custom
+	private void GatherAbilityResultsLaserWithShape(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		Vector3 aimDirection = currentTarget?.AimDirection ?? caster.transform.forward;
+		Vector3 targetPos = currentTarget.FreePos;
+		BoardSquare targetSquare = Board.Get().GetSquare(currentTarget.GridPos);
+		if (SnapAimDirection()
+		    && targetSquare != null
+		    && targetSquare != caster.GetCurrentBoardSquare())
+		{
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_explosionShape, targetSquare.ToVector3(), targetSquare);
+			Vector3 snapTargetPos = SnapToTargetShapeCenter() ? centerOfShape : targetSquare.ToVector3();
+			aimDirection = snapTargetPos - caster.GetFreePos();
+			aimDirection.y = 0f;
+			aimDirection.Normalize();
+			targetPos = snapTargetPos;
+		}
+		float distance = GetLaserRange();
+		if (m_clampMaxRangeToCursorPos)
+		{
+			float clampedDistance = VectorUtils.HorizontalPlaneDistInSquares(caster.GetFreePos(), targetPos);
+			distance = Mathf.Min(clampedDistance, distance);
+		}
+		VectorUtils.LaserCoords adjustedCoords = default(VectorUtils.LaserCoords);
+		adjustedCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			adjustedCoords.start,
+			aimDirection, 
+			distance,
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			LaserPenetrateLos(),
+			1,
+			false, 
+			true,
+			out adjustedCoords.end,
+			nonActorTargetInfo);
+		bool hitEnv = AreaEffectUtils.LaserHitWorldGeo(distance, adjustedCoords, LaserPenetrateLos(), actorsInLaser);
+		foreach (ActorData target in actorsInLaser)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+			ActorHitResults hitResults = new ActorHitResults(GetLaserDamage(), HitActionType.Damage, GetLaserHitEffect(), hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+		if (m_alwaysExplodeOnPathEnd
+		    || hitEnv && m_explodeOnEnvironmentHit
+		    || actorsInLaser.Count > 0)
+		{
+			AreaEffectUtils.GetEndPointForValidGameplaySquare(adjustedCoords.start, adjustedCoords.end, out Vector3 adjustedEndPoint);
+			BoardSquare endPointSquare = Board.Get().GetSquareFromVec3(adjustedEndPoint);
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_explosionShape, adjustedEndPoint, endPointSquare);
+			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+				m_explosionShape,
+				centerOfShape,
+				endPointSquare, 
+				false,
+				caster,
+				caster.GetOtherTeams(),
+				nonActorTargetInfo);
+			foreach (ActorData target in actorsInShape)
+			{
+				if (!actorsInLaser.Contains(target))
+				{
+					ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+					ActorHitResults hitResults = new ActorHitResults(GetExplosionDamage(), HitActionType.Damage, GetExplosionHitEffect(), hitParams);
+					abilityResults.StoreActorHit(hitResults);
+				}
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// custom
+	private bool SnapAimDirection()
+	{
+		return SnapToTargetSquare() || SnapToTargetShapeCenter();
+	}
+
+	// custom
+	private bool SnapToTargetSquare()
+	{
+		return m_clampMaxRangeToCursorPos
+		       && m_snapToTargetSquareWhenClampRange
+		       && !m_snapToTargetShapeCenterWhenClampRange;
+	}
+
+	// custom
+	private bool SnapToTargetShapeCenter()
+	{
+		return m_clampMaxRangeToCursorPos && m_snapToTargetShapeCenterWhenClampRange;
+	}
+#endif
 }

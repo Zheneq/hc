@@ -2,10 +2,10 @@
 // SERVER
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // empty in rouges
-// TODO ZUKI ability resolution
 public class BazookaGirlDelayedMissile : Ability
 {
 	[Serializable]
@@ -260,4 +260,94 @@ public class BazookaGirlDelayedMissile : Ability
 		}
 		return points;
 	}
+	
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			targets[0].FreePos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+	
+	// custom
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		if (GetExpectedNumberOfTargeters() >= 2)
+		{
+			Log.Error($"Cannot gather ability results for multiple targeters!");
+		}
+		else if (UseAdditionalShapes())
+		{
+			// TODO ZUKI ability resolution
+			Log.Error($"Cannot gather ability results for additional shapes!");
+		}
+		else
+		{
+			GatherAbilityResultsDirectionCone(targets, caster, ref abilityResults);
+		}
+	}
+	
+	// custom
+	private void GatherAbilityResultsDirectionCone(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		BoardSquare targetSquare =  Board.Get().GetSquare(currentTarget.GridPos);
+		if (targetSquare == null)
+		{
+			Log.Error("GatherAbilityResultsDirectionCone: Target square is null");
+			return;
+		}
+		Vector3 freePos = currentTarget.FreePos;
+		Vector3 damageOrigin = AreaEffectUtils.GetCenterOfShape(m_shape, freePos, targetSquare);
+		List<ActorData> actors = AreaEffectUtils.GetActorsInShape(
+			GetShape(),
+			freePos,
+			targetSquare,
+			m_penetrateLineOfSight,
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+		// actors.Remove(caster);
+		// bool isCasterInShape = AreaEffectUtils.IsSquareInShape(
+		// 	caster.GetCurrentBoardSquare(),
+		// 	m_shape,
+		// 	freePos, 
+		// 	gameplayRefSquare,
+		// 	m_penetrateLineOfSight,
+		// 	caster);
+		// if (isCasterInShape)
+		// {
+		// 	actors.Add(caster);
+		// }
+		List<ActorData> targetActors = actors.Where(target => target.GetTeam() != caster.GetTeam()).ToList();
+		if (!targetActors.IsNullOrEmpty()) // TODO add effect if empty
+		{
+			foreach (ActorData targetActor in targetActors)
+			{
+				ActorHitParameters hitParams = new ActorHitParameters(targetActor, damageOrigin);
+				ActorHitResults hitResults = new ActorHitResults(0, HitActionType.Damage, GetOnCastEnemyHitEffect(), hitParams);
+				// TODO ZUKI ability resolution
+				// hitResults.AddEffect(effect);
+				abilityResults.StoreActorHit(hitResults);
+			}
+		}
+		// TODO ZUKI ability resolution
+		// abilityResults.StorePositionHit(positionHitResults);
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }
