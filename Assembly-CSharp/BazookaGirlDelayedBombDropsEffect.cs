@@ -22,7 +22,21 @@ public class BazookaGirlDelayedBombDropsEffect : Effect
 	private bool m_bombDropped;
 	private int m_useCinematics = -1;
 
-	public BazookaGirlDelayedBombDropsEffect(EffectSource parent, BoardSquare targetSquare, ActorData caster, List<ActorData> targetActors, BazookaGirlDroppedBombInfo bombInfo, int maxNumAreasForExtraDamage, int extraDamagePerFewerArea, Vector3 casterPosOnCast, int delayDuration, AbilityPriority bombDropPhase, int bombDropAnimIndexInEffect, GameObject warningSequencePrefab, GameObject bombDropSequencePrefab, int useCinematics)
+	public BazookaGirlDelayedBombDropsEffect(
+		EffectSource parent,
+		BoardSquare targetSquare,
+		ActorData caster,
+		List<ActorData> targetActors,
+		BazookaGirlDroppedBombInfo bombInfo,
+		int maxNumAreasForExtraDamage,
+		int extraDamagePerFewerArea,
+		Vector3 casterPosOnCast,
+		int delayDuration,
+		AbilityPriority bombDropPhase,
+		int bombDropAnimIndexInEffect,
+		GameObject warningSequencePrefab,
+		GameObject bombDropSequencePrefab,
+		int useCinematics)
 		: base(parent, targetSquare, null, caster)
 	{
 		m_effectName = "Zuki- Ult - Delayed Bomb Drops";
