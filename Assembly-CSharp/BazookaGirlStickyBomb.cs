@@ -1,6 +1,7 @@
 // ROGUES
 // SERVER
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // empty in rouges
@@ -128,4 +129,88 @@ public class BazookaGirlStickyBomb : Ability
 	{
 		m_abilityMod = null;
 	}
+	
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			caster.GetFreePos(),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+		
+		// TODO is this sequence supposed to be added automatically?
+		// new ServerClientUtils.SequenceStartData(
+		// 	5,
+		// 	caster.GetCurrentBoardSquare(),
+		// 	new[]{ caster },
+		// 	caster,
+		// 	additionalData.m_sequenceSource)
+	}
+	
+	// custom
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		switch (m_targeterType)
+		{
+			case TargeterType.Cone:
+				GatherAbilityResultsDirectionCone(targets, caster, ref abilityResults);
+				break;
+			case TargeterType.Laser:
+			case TargeterType.Shape:
+			default:
+				Log.Error($"Cannot gather ability results for {m_targeterType}!");
+				break;
+		}
+	}
+	
+	// custom
+	private void GatherAbilityResultsDirectionCone(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection);
+		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(
+			caster.GetLoSCheckPos(),
+			coneCenterAngleDegrees,
+			m_coneWidthAngle,
+			m_coneLength, 
+			0f,
+			m_targeterPenetrateLos,
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+		List<ActorData> targetActors = actors.Where(target => target.GetTeam() != caster.GetTeam()).ToList();
+		if (!targetActors.IsNullOrEmpty())
+		{
+			BazookaGirlStickyBombEffect effect = new BazookaGirlStickyBombEffect(
+				AsEffectSource(), 
+				targetActors,
+				caster,
+				m_bombInfo,
+				m_spoilSpawnOnExplosion);
+			foreach (ActorData target in targetActors)
+			{
+				ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+				ActorHitResults hitResults = new ActorHitResults(0, HitActionType.Damage, GetEnemyOnCastHitEffect(), hitParams);
+				hitResults.AddTechPointGainOnCaster(GetEnergyGainOnCastPerEnemyHit());
+				hitResults.AddStandardEffectInfo(GetEnemyOnCastHitEffect());
+				hitResults.AddEffect(effect);
+				abilityResults.StoreActorHit(hitResults);
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }
