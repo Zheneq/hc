@@ -754,7 +754,7 @@ public class ServerEffectManager : MonoBehaviour
 		List<Effect> effectsToRemove = new List<Effect>();
 		foreach (Effect effect in effectList.ToList())
 		{
-			bool flag = this.ValidateEffectLifetime(effect, false);
+			bool flag = ValidateEffectLifetime(effect);
 
 			// rogues?
 			//EffectSystem.Effect effect2 = effect as EffectSystem.Effect;
@@ -777,7 +777,7 @@ public class ServerEffectManager : MonoBehaviour
 				//	flag = (effect2.EffectLifecycle == EffectLifecycle.OnEnd && !effect2.pendingEffectResults.Any<EffectResults>());
 				//}
 
-				if (effect.ShouldEndEarly() || flag)
+				if (effect.ShouldEndEarly())
 				{
 					effectsToRemove.Add(effect);
 				}
@@ -785,7 +785,7 @@ public class ServerEffectManager : MonoBehaviour
 		}
 		foreach (Effect effectToRemove in effectsToRemove)
 		{
-			this.RemoveEffect(effectToRemove, effectList);
+			RemoveEffect(effectToRemove, effectList);
 		}
 	}
 
@@ -793,24 +793,17 @@ public class ServerEffectManager : MonoBehaviour
 	{
 		foreach (List<Effect> effectList in this.m_actorEffects.Values)
 		{
-			this.OnTurnEnd(effectList); // , nextTeam in rogues
+			OnTurnEnd(effectList); // , nextTeam in rogues
 		}
-		this.OnTurnEnd(this.m_worldEffects); // , nextTeam in rogues
+		OnTurnEnd(m_worldEffects); // , nextTeam in rogues
 	}
 
 	// custom
-	private bool ValidateEffectLifetime(Effect effect, bool isEnd)
+	private bool ValidateEffectLifetime(Effect effect)
 	{
 		EffectDuration time = effect.m_time;
-		if (!isEnd)
-		{
-			time.age++;
-			return false;
-		}
-		else
-		{
-			return time.ReadyToEnd();
-		}
+		time.age++;
+		return time.ReadyToEnd();
 	}
 	// rogues
 	//private bool ValidateEffectLifetime(global::Effect effect, bool isEnd)
@@ -864,8 +857,6 @@ public class ServerEffectManager : MonoBehaviour
 		List<Effect> list = new List<Effect>();
 		foreach (Effect effect in effectList.ToList())
 		{
-			bool flag = this.ValidateEffectLifetime(effect, true);
-
 			// rogues?
 			//EffectSystem.Effect effect2 = effect as EffectSystem.Effect;
 			//if (effect2 != null)
@@ -873,7 +864,7 @@ public class ServerEffectManager : MonoBehaviour
 			//	flag = (effect2.EffectLifecycle == EffectLifecycle.OnEnd && !effect2.pendingEffectResults.Any<EffectResults>());
 			//}
 
-			if (effect.ShouldEndEarly() || flag)
+			if (effect.ShouldEndEarly())
 			{
 				list.Add(effect);
 			}
@@ -887,7 +878,7 @@ public class ServerEffectManager : MonoBehaviour
 				//	flag |= (effect2.EffectLifecycle == EffectLifecycle.OnEnd && !effect2.pendingEffectResults.Any<EffectResults>());
 				//}
 
-				if (effect.ShouldEndEarly() || flag)
+				if (effect.ShouldEndEarly())
 				{
 					list.Add(effect);
 				}
