@@ -4,32 +4,19 @@ using UnityEngine;
 public class SorceressDamageField : Ability
 {
 	public AbilityAreaShape m_shape = AbilityAreaShape.Three_x_Three;
-
 	public bool m_penetrateLineOfSight;
-
 	public int m_duration;
-
 	public int m_damage;
-
 	public int m_healing;
-
 	public StandardEffectInfo m_effectOnEnemies;
-
 	public StandardEffectInfo m_effectOnAllies;
-
 	[Header("-- Sequences")]
 	public GameObject m_hittingEnemyPrefab;
-
 	public GameObject m_hittingAllyPrefab;
-
 	public GameObject m_persistentGroundPrefab;
-
 	public GameObject m_onHitPulsePrefab;
-
 	private AbilityMod_SorceressDamageField m_abilityMod;
-
 	private StandardEffectInfo m_cachedEffectOnEnemies;
-
 	private StandardEffectInfo m_cachedEffectOnAllies;
 
 	private void Start()
@@ -40,29 +27,19 @@ public class SorceressDamageField : Ability
 	private void SetupTargeter()
 	{
 		SetCachedFields();
-		int num;
-		if (GetDamage() <= 0)
-		{
-			num = (GetEnemyHitEffect().m_applyEffect ? 1 : 0);
-		}
-		else
-		{
-			num = 1;
-		}
-		bool affectsEnemies = (byte)num != 0;
-		int num2;
-		if (GetHealing() <= 0)
-		{
-			num2 = (GetAllyHitEffect().m_applyEffect ? 1 : 0);
-		}
-		else
-		{
-			num2 = 1;
-		}
-		bool flag = (byte)num2 != 0;
-		AbilityUtil_Targeter.AffectsActor affectsCaster = flag ? AbilityUtil_Targeter.AffectsActor.Possible : AbilityUtil_Targeter.AffectsActor.Never;
-		AbilityUtil_Targeter_Shape.DamageOriginType damageOriginType = AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape;
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, GetEffectShape(), m_penetrateLineOfSight, damageOriginType, affectsEnemies, flag, affectsCaster);
+		bool affectsEnemies = GetDamage() > 0 || GetEnemyHitEffect().m_applyEffect;
+		bool affectsAllies = GetHealing() > 0 || GetAllyHitEffect().m_applyEffect;
+		AbilityUtil_Targeter.AffectsActor affectsCaster = affectsAllies
+			? AbilityUtil_Targeter.AffectsActor.Possible
+			: AbilityUtil_Targeter.AffectsActor.Never;
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			GetEffectShape(),
+			m_penetrateLineOfSight,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			affectsEnemies,
+			affectsAllies,
+			affectsCaster);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -90,60 +67,32 @@ public class SorceressDamageField : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SorceressDamageField abilityMod_SorceressDamageField = modAsBase as AbilityMod_SorceressDamageField;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_SorceressDamageField)
-		{
-			val = abilityMod_SorceressDamageField.m_durationMod.GetModifiedValue(m_duration);
-		}
-		else
-		{
-			val = m_duration;
-		}
-		AddTokenInt(tokens, "Duration", empty, val);
-		AddTokenInt(tokens, "Damage", string.Empty, (!abilityMod_SorceressDamageField) ? m_damage : abilityMod_SorceressDamageField.m_damageMod.GetModifiedValue(m_damage));
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)abilityMod_SorceressDamageField)
-		{
-			val2 = abilityMod_SorceressDamageField.m_healingMod.GetModifiedValue(m_healing);
-		}
-		else
-		{
-			val2 = m_healing;
-		}
-		AddTokenInt(tokens, "Healing", empty2, val2);
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_SorceressDamageField)
-		{
-			effectInfo = abilityMod_SorceressDamageField.m_onEnemyEffectOverride.GetModifiedValue(m_effectOnEnemies);
-		}
-		else
-		{
-			effectInfo = m_effectOnEnemies;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnEnemies", m_effectOnEnemies);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_SorceressDamageField) ? m_effectOnAllies : abilityMod_SorceressDamageField.m_onAllyEffectOverride.GetModifiedValue(m_effectOnAllies), "EffectOnAllies", m_effectOnAllies);
+		AddTokenInt(tokens, "Duration", string.Empty, abilityMod_SorceressDamageField != null
+			? abilityMod_SorceressDamageField.m_durationMod.GetModifiedValue(m_duration)
+			: m_duration);
+		AddTokenInt(tokens, "Damage", string.Empty, abilityMod_SorceressDamageField != null
+			? abilityMod_SorceressDamageField.m_damageMod.GetModifiedValue(m_damage)
+			: m_damage);
+		AddTokenInt(tokens, "Healing", string.Empty, abilityMod_SorceressDamageField != null
+			? abilityMod_SorceressDamageField.m_healingMod.GetModifiedValue(m_healing)
+			: m_healing);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_SorceressDamageField != null
+			? abilityMod_SorceressDamageField.m_onEnemyEffectOverride.GetModifiedValue(m_effectOnEnemies)
+			: m_effectOnEnemies, "EffectOnEnemies", m_effectOnEnemies);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_SorceressDamageField != null
+			? abilityMod_SorceressDamageField.m_onAllyEffectOverride.GetModifiedValue(m_effectOnAllies)
+			: m_effectOnAllies, "EffectOnAllies", m_effectOnAllies);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_SorceressDamageField))
+		if (abilityMod.GetType() != typeof(AbilityMod_SorceressDamageField))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_SorceressDamageField);
-					SetupTargeter();
-					return;
-				}
-			}
+			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+		m_abilityMod = abilityMod as AbilityMod_SorceressDamageField;
+		SetupTargeter();
 	}
 
 	protected override void OnRemoveAbilityMod()
@@ -154,103 +103,56 @@ public class SorceressDamageField : Ability
 
 	private AbilityAreaShape GetEffectShape()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_shapeOverride.GetModifiedValue(m_shape) : m_shape;
+		return m_abilityMod != null 
+			? m_abilityMod.m_shapeOverride.GetModifiedValue(m_shape)
+			: m_shape;
 	}
 
 	private GameObject GetPersistentSequencePrefab()
 	{
-		if (!(m_abilityMod == null))
-		{
-			if (!(m_abilityMod.m_persistentSequencePrefabOverride == null))
-			{
-				return m_abilityMod.m_persistentSequencePrefabOverride;
-			}
-		}
-		return m_persistentGroundPrefab;
+		return m_abilityMod != null && m_abilityMod.m_persistentSequencePrefabOverride != null
+			? m_abilityMod.m_persistentSequencePrefabOverride
+			: m_persistentGroundPrefab;
 	}
 
 	private int GetDuration()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_durationMod.GetModifiedValue(m_duration) : m_duration;
+		return m_abilityMod != null
+			? m_abilityMod.m_durationMod.GetModifiedValue(m_duration)
+			: m_duration;
 	}
 
 	private int GetDamage()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_damage;
-		}
-		else
-		{
-			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageMod.GetModifiedValue(m_damage)
+			: m_damage;
 	}
 
 	private int GetHealing()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_healing;
-		}
-		else
-		{
-			result = m_abilityMod.m_healingMod.GetModifiedValue(m_healing);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healingMod.GetModifiedValue(m_healing)
+			: m_healing;
 	}
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedEffectOnEnemies;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectOnEnemies = m_abilityMod.m_onEnemyEffectOverride.GetModifiedValue(m_effectOnEnemies);
-		}
-		else
-		{
-			cachedEffectOnEnemies = m_effectOnEnemies;
-		}
-		m_cachedEffectOnEnemies = cachedEffectOnEnemies;
-		StandardEffectInfo cachedEffectOnAllies;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectOnAllies = m_abilityMod.m_onAllyEffectOverride.GetModifiedValue(m_effectOnAllies);
-		}
-		else
-		{
-			cachedEffectOnAllies = m_effectOnAllies;
-		}
-		m_cachedEffectOnAllies = cachedEffectOnAllies;
+		m_cachedEffectOnEnemies = m_abilityMod != null
+			? m_abilityMod.m_onEnemyEffectOverride.GetModifiedValue(m_effectOnEnemies)
+			: m_effectOnEnemies;
+		m_cachedEffectOnAllies = m_abilityMod != null
+			? m_abilityMod.m_onAllyEffectOverride.GetModifiedValue(m_effectOnAllies)
+			: m_effectOnAllies;
 	}
 
 	private StandardEffectInfo GetAllyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectOnAllies != null)
-		{
-			result = m_cachedEffectOnAllies;
-		}
-		else
-		{
-			result = m_effectOnAllies;
-		}
-		return result;
+		return m_cachedEffectOnAllies ?? m_effectOnAllies;
 	}
 
 	private StandardEffectInfo GetEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectOnEnemies != null)
-		{
-			result = m_cachedEffectOnEnemies;
-		}
-		else
-		{
-			result = m_effectOnEnemies;
-		}
-		return result;
+		return m_cachedEffectOnEnemies ?? m_effectOnEnemies;
 	}
 }

@@ -4,18 +4,12 @@ using UnityEngine;
 public class SorceressDebuffLaser : Ability
 {
 	public bool m_penetrateLineOfSight;
-
 	public float m_width = 1f;
-
 	public float m_distance = 15f;
-
 	[Header("-- Hit Effects")]
 	public StandardEffectInfo m_enemyHitEffect;
-
 	public StandardEffectInfo m_allyHitEffect;
-
 	public StandardEffectInfo m_casterHitEffect;
-
 	private AbilityMod_SorceressDebuffLaser m_abilityMod;
 
 	private void Start()
@@ -25,7 +19,14 @@ public class SorceressDebuffLaser : Ability
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Laser(this, GetLaserWidth(), GetLaserRange(), m_penetrateLineOfSight, -1, GetAllyHitEffect().m_applyEffect, GetCasterHitEffect().m_applyEffect);
+		Targeter = new AbilityUtil_Targeter_Laser(
+			this,
+			GetLaserWidth(),
+			GetLaserRange(),
+			m_penetrateLineOfSight,
+			-1,
+			GetAllyHitEffect().m_applyEffect,
+			GetCasterHitEffect().m_applyEffect);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -50,56 +51,26 @@ public class SorceressDebuffLaser : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SorceressDebuffLaser abilityMod_SorceressDebuffLaser = modAsBase as AbilityMod_SorceressDebuffLaser;
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_SorceressDebuffLaser)
-		{
-			effectInfo = abilityMod_SorceressDebuffLaser.m_enemyHitEffectOverride.GetModifiedValue(m_enemyHitEffect);
-		}
-		else
-		{
-			effectInfo = m_enemyHitEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", m_enemyHitEffect);
-		StandardEffectInfo effectInfo2;
-		if ((bool)abilityMod_SorceressDebuffLaser)
-		{
-			effectInfo2 = abilityMod_SorceressDebuffLaser.m_allyHitEffectOverride.GetModifiedValue(m_allyHitEffect);
-		}
-		else
-		{
-			effectInfo2 = m_allyHitEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "AllyHitEffect", m_allyHitEffect);
-		StandardEffectInfo effectInfo3;
-		if ((bool)abilityMod_SorceressDebuffLaser)
-		{
-			effectInfo3 = abilityMod_SorceressDebuffLaser.m_casterHitEffectOverride.GetModifiedValue(m_casterHitEffect);
-		}
-		else
-		{
-			effectInfo3 = m_casterHitEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "CasterHitEffect", m_casterHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_SorceressDebuffLaser != null
+			? abilityMod_SorceressDebuffLaser.m_enemyHitEffectOverride.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_SorceressDebuffLaser != null
+			? abilityMod_SorceressDebuffLaser.m_allyHitEffectOverride.GetModifiedValue(m_allyHitEffect)
+			: m_allyHitEffect, "AllyHitEffect", m_allyHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_SorceressDebuffLaser != null
+			? abilityMod_SorceressDebuffLaser.m_casterHitEffectOverride.GetModifiedValue(m_casterHitEffect)
+			: m_casterHitEffect, "CasterHitEffect", m_casterHitEffect);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_SorceressDebuffLaser))
+		if (abilityMod.GetType() != typeof(AbilityMod_SorceressDebuffLaser))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_SorceressDebuffLaser);
-					SetupTargeter();
-					return;
-				}
-			}
+			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+		m_abilityMod = abilityMod as AbilityMod_SorceressDebuffLaser;
+		SetupTargeter();
 	}
 
 	protected override void OnRemoveAbilityMod()
@@ -110,72 +81,37 @@ public class SorceressDebuffLaser : Ability
 
 	private float GetLaserWidth()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_width;
-		}
-		else
-		{
-			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_width);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserWidthMod.GetModifiedValue(m_width)
+			: m_width;
 	}
 
 	private float GetLaserRange()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_distance;
-		}
-		else
-		{
-			result = m_abilityMod.m_laserRangeMod.GetModifiedValue(m_distance);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserRangeMod.GetModifiedValue(m_distance)
+			: m_distance;
 	}
 
 	private StandardEffectInfo GetEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_abilityMod == null)
-		{
-			result = m_enemyHitEffect;
-		}
-		else
-		{
-			result = m_abilityMod.m_enemyHitEffectOverride.GetModifiedValue(m_enemyHitEffect);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_enemyHitEffectOverride.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect;
 	}
 
 	private StandardEffectInfo GetAllyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_abilityMod == null)
-		{
-			result = m_allyHitEffect;
-		}
-		else
-		{
-			result = m_abilityMod.m_allyHitEffectOverride.GetModifiedValue(m_allyHitEffect);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_allyHitEffectOverride.GetModifiedValue(m_allyHitEffect)
+			: m_allyHitEffect;
 	}
 
 	private StandardEffectInfo GetCasterHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_abilityMod == null)
-		{
-			result = m_casterHitEffect;
-		}
-		else
-		{
-			result = m_abilityMod.m_casterHitEffectOverride.GetModifiedValue(m_casterHitEffect);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_casterHitEffectOverride.GetModifiedValue(m_casterHitEffect)
+			: m_casterHitEffect;
 	}
 
 	private bool HasAdditionalEffectIfHit()
@@ -185,54 +121,41 @@ public class SorceressDebuffLaser : Ability
 
 	private int GetEnemyEffectDuration()
 	{
-		int result = m_enemyHitEffect.m_effectData.m_duration;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_enemyEffectDurationMod.GetModifiedValue(GetEnemyHitEffect().m_effectData.m_duration);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_enemyEffectDurationMod.GetModifiedValue(GetEnemyHitEffect().m_effectData.m_duration)
+			: m_enemyHitEffect.m_effectData.m_duration;
 	}
 
 	private int GetAllyEffectDuration()
 	{
-		int result = m_allyHitEffect.m_effectData.m_duration;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_allyEffectDurationMod.GetModifiedValue(GetAllyHitEffect().m_effectData.m_duration);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_allyEffectDurationMod.GetModifiedValue(GetAllyHitEffect().m_effectData.m_duration)
+			: m_allyHitEffect.m_effectData.m_duration;
 	}
 
 	private int GetCasterEffectDuration()
 	{
-		int result = m_casterHitEffect.m_effectData.m_duration;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_casterEffectDurationMod.GetModifiedValue(GetCasterHitEffect().m_effectData.m_duration);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_casterEffectDurationMod.GetModifiedValue(GetCasterHitEffect().m_effectData.m_duration)
+			: m_casterHitEffect.m_effectData.m_duration;
 	}
 
 	private int GetCooldownReduction(int numHit)
 	{
-		int result = 0;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_cooldownReductionOnNumHit.GetModifiedValue(numHit);
-			result += m_abilityMod.m_cooldownFlatReduction;
-			result = Mathf.Clamp(result, 0, m_abilityMod.m_maxCooldownReduction);
-		}
-		return result;
+		return m_abilityMod != null
+			? Mathf.Clamp(
+				m_abilityMod.m_cooldownReductionOnNumHit.GetModifiedValue(numHit) + m_abilityMod.m_cooldownFlatReduction,
+				0,
+				m_abilityMod.m_maxCooldownReduction)
+			: 0;
 	}
 
 	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
 	{
 		List<Vector3> points = new List<Vector3>();
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
-		Vector3 aimDirection = targets[0].AimDirection;
 		float maxDistanceInWorld = GetLaserRange() * Board.Get().squareSize;
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, aimDirection, maxDistanceInWorld, m_penetrateLineOfSight, caster);
-		AreaEffectUtils.AddBoxExtremaToList(ref points, travelBoardSquareWorldPositionForLos, laserEndPoint, GetLaserWidth());
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(caster.GetLoSCheckPos(), targets[0].AimDirection, maxDistanceInWorld, m_penetrateLineOfSight, caster);
+		AreaEffectUtils.AddBoxExtremaToList(ref points, caster.GetLoSCheckPos(), laserEndPoint, GetLaserWidth());
 		return points;
 	}
 }
