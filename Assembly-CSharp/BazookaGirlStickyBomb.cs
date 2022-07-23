@@ -217,8 +217,9 @@ public class BazookaGirlStickyBomb : Ability
 		ActorHitParameters hitParamsSelf = new ActorHitParameters(caster, caster.GetFreePos());
 		ActorHitResults hitResultsSelf = new ActorHitResults(0, HitActionType.Damage, (StandardEffectInfo) null, hitParamsSelf);
 		abilityResults.StoreActorHit(hitResultsSelf);
-		
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
+	
+	// TODO ZUKI freelancer stats
 #endif
 }

@@ -10,6 +10,8 @@ namespace ArtemisServer.BridgeServer
 {
 	class ArtemisGamePoller : MonoBehaviour
 	{
+		private static readonly string PATH = @"E:\Atlas Reactor\game.json";
+		
 		private ArtemisBridgeServerInterface ar;
 
 		public void Poll(ArtemisBridgeServerInterface absi)
@@ -21,21 +23,20 @@ namespace ArtemisServer.BridgeServer
 
 		private IEnumerator GameLoop()
 		{
-			var path = @"E:\Atlas Reactor\game.json";
-			while (!File.Exists(path))
+			while (!File.Exists(PATH))
 			{
 				Log.Info("File not found!");
 				yield return new WaitForSeconds(1);
 			}
 			Log.Info("File found, starting game!");
 
-			string json = File.ReadAllText(path);
+			string json = File.ReadAllText(PATH);
 			Log.Info($"File content: {json}");
 
 			ar.StartGame(json);
 
 			Log.Info("Deleting the file!");
-			File.Delete(path);
+			File.Delete(PATH);
 			yield break;
 		}
 	}
