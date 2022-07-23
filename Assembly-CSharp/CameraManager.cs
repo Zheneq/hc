@@ -1567,112 +1567,46 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 
 	private bool ShouldUseAbilitiesCameraOutOfCinematics()
 	{
-		bool flag = false;
+		// TODO HACK
+#if SERVER
+		return false;
+#else
 		if (Camera.main == null)
 		{
 			return false;
 		}
 		AbilitiesCamera abilitiesCamera = GetAbilitiesCamera();
-		if (abilitiesCamera != null)
+		if (abilitiesCamera != null && abilitiesCamera.IsDisabledUntilSetTarget)
 		{
-			if (abilitiesCamera.IsDisabledUntilSetTarget)
-			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return false;
-					}
-				}
-			}
+			return false;
 		}
-		bool flag2 = GameFlowData.Get().gameState == GameState.BothTeams_Resolve;
+		bool isInResolve = GameFlowData.Get().gameState == GameState.BothTeams_Resolve;
 		ActionBufferPhase currentActionPhase = ServerClientUtils.GetCurrentActionPhase();
-		int num;
-		if (currentActionPhase != ActionBufferPhase.AbilitiesWait)
+		bool abilitiesDone = currentActionPhase == ActionBufferPhase.AbilitiesWait
+		             || currentActionPhase == ActionBufferPhase.Movement
+		             || currentActionPhase == ActionBufferPhase.MovementChase;
+		bool hasAnimationsInPhase = !TheatricsManager.Get().AbilityPhaseHasNoAnimations();
+		if (!isInResolve)
 		{
-			if (currentActionPhase != ActionBufferPhase.Movement)
-			{
-				num = ((currentActionPhase == ActionBufferPhase.MovementChase) ? 1 : 0);
-				goto IL_0086;
-			}
+			return false;
 		}
-		num = 1;
-		goto IL_0086;
-		IL_0173:
-		return false;
-		IL_0086:
-		bool flag3 = (byte)num != 0;
-		bool flag4 = !TheatricsManager.Get().AbilityPhaseHasNoAnimations();
-		if (flag2)
+		if (!abilitiesDone && !hasAnimationsInPhase)
 		{
-			if (!flag3)
-			{
-				if (!flag4)
-				{
-					goto IL_0173;
-				}
-			}
-			bool flag5 = GameManager.Get() != null && GameManager.Get().GameConfig.GameType == GameType.Tutorial;
-			if (!ShouldAutoCameraMove())
-			{
-				if (!Get().GetAbilitiesCamera().enabled)
-				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							break;
-						default:
-							return false;
-						}
-					}
-				}
-			}
-			if (flag5)
-			{
-				while (true)
-				{
-					int result;
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						{
-							int num2;
-							if (currentActionPhase != ActionBufferPhase.MovementWait)
-							{
-								num2 = ((currentActionPhase == ActionBufferPhase.Done) ? 1 : 0);
-							}
-							else
-							{
-								num2 = 1;
-							}
-							bool flag6 = (byte)num2 != 0;
-							if (flag4)
-							{
-								if (!flag3)
-								{
-									result = ((!flag6) ? 1 : 0);
-									goto IL_016c;
-								}
-							}
-							result = 0;
-							goto IL_016c;
-						}
-						IL_016c:
-						return (byte)result != 0;
-					}
-				}
-			}
-			return true;
+			return false;
 		}
-		goto IL_0173;
+		bool isTutorial = GameManager.Get() != null && GameManager.Get().GameConfig.GameType == GameType.Tutorial;
+		if (!ShouldAutoCameraMove() && !Get().GetAbilitiesCamera().enabled)
+		{
+			return false;
+		}
+		if (isTutorial)
+		{
+			bool isMovementDone = currentActionPhase == ActionBufferPhase.MovementWait
+			             || currentActionPhase == ActionBufferPhase.Done;
+			return hasAnimationsInPhase && !abilitiesDone && !isMovementDone ;
+		}
+		return true;
+#endif
 	}
 
 	public static bool BoundSidesWithinDistance(Bounds currentBound, Bounds compareToBound, float mergeSizeThresh, out Vector3 maxBoundDiff, out Vector3 minBoundDiff)
