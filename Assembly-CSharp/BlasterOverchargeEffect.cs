@@ -59,5 +59,5 @@ public class BlasterOverchargeEffect : StandardActorEffect
 	public class CastCountUpdateParam : MiscHitEventEffectUpdateParams
 	{
 	}
-#endif
 }
+#endif

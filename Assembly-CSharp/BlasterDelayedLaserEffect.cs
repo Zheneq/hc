@@ -289,5 +289,5 @@ public class BlasterDelayedLaserEffect : Effect
 			squaresToAvoid.UnionWith(squaresInBoxByActorRadius);
 		}
 	}
-#endif
 }
+#endif
