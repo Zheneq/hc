@@ -10,7 +10,7 @@ namespace ArtemisServer.BridgeServer
 {
 	class ArtemisGamePoller : MonoBehaviour
 	{
-		private static readonly string PATH = @"E:\Atlas Reactor\game.json";
+		private static readonly string PATH = Path.GetTempPath() + @"atlas-reactor-hc-server-game.json";
 		
 		private ArtemisBridgeServerInterface ar;
 
@@ -25,7 +25,7 @@ namespace ArtemisServer.BridgeServer
 		{
 			while (!File.Exists(PATH))
 			{
-				Log.Info("File not found!");
+				Log.Info($"File not found at {PATH}!");
 				yield return new WaitForSeconds(1);
 			}
 			Log.Info("File found, starting game!");
