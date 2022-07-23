@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,9 +41,12 @@ public class AbilityMod_SorceressHealingLaser : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SorceressHealingLaser sorceressHealingLaser = GetTargetAbilityOnAbilityData(abilityData) as SorceressHealingLaser;
+		// rogues
+		//SorceressHealingLaser sorceressHealingLaser = targetAbility as SorceressHealingLaser;
 		bool isAbilityPresent = sorceressHealingLaser != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_selfHealMod, "[Self Heal]", isAbilityPresent, isAbilityPresent ? sorceressHealingLaser.m_selfHealAmount : 0);

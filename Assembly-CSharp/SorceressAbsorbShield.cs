@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
+using UnityEngine;
 
 public class SorceressAbsorbShield : Ability
 {
@@ -38,4 +41,38 @@ public class SorceressAbsorbShield : Ability
 			true,
 			true);
 	}
+
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			square,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_shape, targets[0], true, caster, caster.GetTeam(), null);
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, targets[0]);
+		foreach (ActorData actorData in actorsInShape)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(actorData, centerOfShape);
+			SorceressAbsorbShieldEffect effect = new SorceressAbsorbShieldEffect(
+				AsEffectSource(),
+				actorData.GetCurrentBoardSquare(),
+				actorData,
+				caster,
+				m_duration,
+				m_absorbAmount,
+				abilityResults.SequenceSource);
+			abilityResults.StoreActorHit(new ActorHitResults(effect, hitParams));
+		}
+	}
+#endif
 }

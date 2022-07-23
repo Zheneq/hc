@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,9 +36,12 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SorceressHealingKnockback sorceressHealingKnockback = GetTargetAbilityOnAbilityData(abilityData) as SorceressHealingKnockback;
+		// rogues
+		//SorceressHealingKnockback sorceressHealingKnockback = targetAbility as SorceressHealingKnockback;
 		bool isAbilityPresent = sorceressHealingKnockback != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_normalHealingMod, "[Normal Healing]", isAbilityPresent, isAbilityPresent ? sorceressHealingKnockback.m_onCastHealAmount : 0);

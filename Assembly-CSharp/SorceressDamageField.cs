@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -155,4 +157,77 @@ public class SorceressDamageField : Ability
 	{
 		return m_cachedEffectOnEnemies ?? m_effectOnEnemies;
 	}
+
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetEffectShape(), targets[0]);
+		return new ServerClientUtils.SequenceStartData(AsEffectSource().GetSequencePrefab(), centerOfShape, additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetEffectShape(), targets[0]);
+		List<Team> list = new List<Team>
+		{
+			Team.TeamA,
+			Team.TeamB
+		};
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+			GetEffectShape(),
+			targets[0],
+			m_penetrateLineOfSight,
+			caster,
+			list,
+			nonActorTargetInfo);
+		foreach (ActorData actorData in actorsInShape)
+		{
+			if (actorData.GetTeam() != caster.GetTeam())
+			{
+				if (GetDamage() > 0 || GetEnemyHitEffect().m_applyEffect)
+				{
+					ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, centerOfShape));
+					actorHitResults.SetBaseDamage(GetDamage());
+					actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+					abilityResults.StoreActorHit(actorHitResults);
+				}
+			}
+			else
+			{
+				if (GetHealing() > 0 || GetAllyHitEffect().m_applyEffect)
+				{
+					ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(actorData, centerOfShape));
+					actorHitResults2.SetBaseHealing(GetHealing());
+					actorHitResults2.AddStandardEffectInfo(GetAllyHitEffect());
+					abilityResults.StoreActorHit(actorHitResults2);
+				}
+			}
+		}
+		Effect effect = new SorceressDamageFieldEffect(
+			AsEffectSource(),
+			caster,
+			targets[0].GridPos,
+			targets[0].FreePos,
+			GetDuration(),
+			m_penetrateLineOfSight,
+			GetEffectShape(),
+			GetDamage(),
+			GetHealing(),
+			GetEnemyHitEffect(),
+			GetAllyHitEffect(),
+			actorsInShape,
+			m_hittingEnemyPrefab,
+			m_hittingAllyPrefab,
+			GetPersistentSequencePrefab(),
+			m_onHitPulsePrefab,
+			abilityResults.SequenceSource);
+		PositionHitParameters hitParams = new PositionHitParameters(centerOfShape);
+		PositionHitResults hitResults = new PositionHitResults(effect, hitParams);
+		abilityResults.StorePositionHit(hitResults);
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }

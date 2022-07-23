@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -158,4 +160,121 @@ public class SorceressDebuffLaser : Ability
 		AreaEffectUtils.AddBoxExtremaToList(ref points, caster.GetLoSCheckPos(), laserEndPoint, GetLaserWidth());
 		return points;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		Vector3 aimDirection = targets[0].AimDirection;
+		float maxDistanceInWorld = m_distance * Board.Get().squareSize;
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(loSCheckPos, aimDirection, maxDistanceInWorld, m_penetrateLineOfSight, caster);
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			laserEndPoint,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[0]);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> actorsInRange = GetActorsInRange(targets, caster, nonActorTargetInfo);
+		bool flag = false;
+		int numHit = actorsInRange.Contains(caster) ? actorsInRange.Count - 1 : actorsInRange.Count;
+		int cooldownReduction = GetCooldownReduction(numHit);
+		foreach (ActorData actorData in actorsInRange)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			if (actorData == caster)
+			{
+				StandardEffectInfo casterHitEffect = GetCasterHitEffect();
+				if (casterHitEffect.m_applyEffect)
+				{
+					StandardActorEffect effect = casterHitEffect.CreateEffect(AsEffectSource(), actorData, caster);
+					effect.SetDurationBeforeStart(GetCasterEffectDuration());
+					actorHitResults.AddEffect(effect);
+				}
+				if (HasAdditionalEffectIfHit() && actorsInRange.Count > 1)
+				{
+					StandardActorEffect effect = m_abilityMod.m_additionalEffectOnSelfIfHit.CreateEffect(AsEffectSource(), actorData, caster);
+					effect.SetDurationBeforeStart(actorsInRange.Count - 1);
+					actorHitResults.AddEffect(effect);
+					if (!casterHitEffect.m_applyEffect)
+					{
+						actorHitResults.SetIgnoreTechpointInteractionForHit(true);
+					}
+				}
+			}
+			else if (actorData.GetTeam() != caster.GetTeam())
+			{
+				StandardEffectInfo enemyHitEffect = GetEnemyHitEffect();
+				if (enemyHitEffect.m_applyEffect)
+				{
+					StandardActorEffect effect = enemyHitEffect.CreateEffect(AsEffectSource(), actorData, caster);
+					effect.SetDurationBeforeStart(GetEnemyEffectDuration());
+					actorHitResults.AddEffect(effect);
+				}
+			}
+			else
+			{
+				StandardEffectInfo allyHitEffect = GetAllyHitEffect();
+				if (allyHitEffect.m_applyEffect)
+				{
+					StandardActorEffect effect = allyHitEffect.CreateEffect(AsEffectSource(), actorData, caster);
+					effect.SetDurationBeforeStart(GetAllyEffectDuration());
+					actorHitResults.AddEffect(effect);
+				}
+			}
+			if (actorData != caster
+			    && !flag
+			    && cooldownReduction > 0)
+			{
+				int overrideValue = Mathf.Max(0, GetModdedCooldown() - cooldownReduction);
+				AbilityData.ActionType actionTypeOfAbility = caster.GetAbilityData().GetActionTypeOfAbility(this);
+				actorHitResults.AddMiscHitEvent(new MiscHitEventData_OverrideCooldown(actionTypeOfAbility, overrideValue));
+				flag = true;
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public List<ActorData> GetActorsInRange(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, GetAllyHitEffect().m_applyEffect, GetEnemyHitEffect().m_applyEffect);
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			targets[0].AimDirection,
+			GetLaserRange(),
+			GetLaserWidth(),
+			caster,
+			relevantTeams,
+			m_penetrateLineOfSight,
+			-1,
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		actorsInLaser.Remove(caster);
+		if (GetCasterHitEffect().m_applyEffect
+		    || (HasAdditionalEffectIfHit() && actorsInLaser.Count > 0))
+		{
+			actorsInLaser.Add(caster);
+		}
+		return actorsInLaser;
+	}
+
+	// added in rogues
+	public override void OnCalculatedDamageReducedFromWeakenedGrantedByMyEffect(ActorData effectCaster, ActorData weakenedActor, int damageReduced)
+	{
+		effectCaster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.DigitalSorceressStats.MitigationFromDebuffLaser, damageReduced);
+	}
+#endif
 }

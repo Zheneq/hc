@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -115,7 +117,6 @@ public class SorceressHealingLaser : Ability
 				{
 					dictionary[AbilityTooltipSymbol.Healing] = GetHealAmountByHitOrder(i);
 				}
-
 				return dictionary;
 			}
 		}
@@ -248,4 +249,88 @@ public class SorceressHealingLaser : Ability
 			? m_abilityMod.m_allyTechPointGain.GetModifiedValue(0)
 			: 0;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		GetHitActorsExcludingSelfInOrder(targets, caster, out Vector3 endPos, null);
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			null,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[]
+			{
+				new HealLaserSequence.ExtraParams
+				{
+					endPos = endPos
+				}
+			});
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActorsExcludingSelfInOrder(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out Vector3 laserEndPos,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			caster.GetLoSCheckPos(),
+			targets[0].AimDirection,
+			ModdedLaserRange(),
+			ModdedLaserWidth(),
+			caster,
+			TargeterUtils.GetRelevantTeams(caster, m_includeAllies, true),
+			m_penetrateLineOfSight,
+			-1,
+			false,
+			true,
+			out laserEndPos,
+			nonActorTargetInfo);
+		actorsInLaser.Remove(caster);
+		return actorsInLaser;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActorsExcludingSelfInOrder = GetHitActorsExcludingSelfInOrder(targets, caster, out Vector3 vector, nonActorTargetInfo);
+		bool flag = false;
+		for (int i = 0; i < hitActorsExcludingSelfInOrder.Count; i++)
+		{
+			ActorData actorData = hitActorsExcludingSelfInOrder[i];
+			ActorHitResults actorHitResults = MakeActorHitRes(actorData, caster.GetFreePos());
+			if (actorData.GetTeam() == caster.GetTeam())
+			{
+				int healAmountByHitOrder = GetHealAmountByHitOrder(i);
+				actorHitResults.SetBaseHealing(healAmountByHitOrder);
+				if (ModdedAllyTechPointGain() > 0)
+				{
+					actorHitResults.AddTechPointGain(ModdedAllyTechPointGain());
+				}
+			}
+			else
+			{
+				int damageAmountByHitOrder = GetDamageAmountByHitOrder(i);
+				actorHitResults.SetBaseDamage(damageAmountByHitOrder);
+			}
+			if (!flag && hitActorsExcludingSelfInOrder.Count > 1)
+			{
+				actorHitResults.AddMiscHitEvent(new MiscHitEventData_UpdateFreelancerStat(1, 1, caster));
+				flag = true;
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (ModdedBaseHealOnSelf() > 0)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(caster, caster.GetFreePos());
+			abilityResults.StoreActorHit(new ActorHitResults(ModdedBaseHealOnSelf(), HitActionType.Healing, hitParams));
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }

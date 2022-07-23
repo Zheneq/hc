@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,9 +36,12 @@ public class AbilityMod_SorceressDamageField : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SorceressDamageField sorceressDamageField = GetTargetAbilityOnAbilityData(abilityData) as SorceressDamageField;
+		// rogues
+		//SorceressDamageField sorceressDamageField = targetAbility as SorceressDamageField;
 		bool isAbilityPresent = sorceressDamageField != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_shapeOverride, "[Ground Effect Shape]", isAbilityPresent, isAbilityPresent ? sorceressDamageField.m_shape : AbilityAreaShape.SingleSquare);

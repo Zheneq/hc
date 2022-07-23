@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SorceressHealingKnockback : Ability
@@ -187,4 +189,61 @@ public class SorceressHealingKnockback : Ability
 			? m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance)
 			: m_knockbackDistance;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			square,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (square == null || square.OccupantActor == null || square.OccupantActor.IgnoreForAbilityHits)
+		{
+			return;
+		}
+		ActorData occupantActor = square.OccupantActor;
+		if (occupantActor.GetTeam() == caster.GetTeam())
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(occupantActor, square.GetOccupantRefPos()));
+			actorHitResults.SetBaseHealing(GetHealAmount(occupantActor));
+			actorHitResults.SetTechPointGain(GetOnCastAllyEnergyGain());
+			SorceressHealingKnockbackEffect effect = new SorceressHealingKnockbackEffect(
+				AsEffectSource(),
+				square,
+				occupantActor,
+				caster,
+				abilityResults.SequenceSource,
+				GetDamageAmount(),
+				GetOnDetonateEnemyEffect(),
+				GetKnockbackDistance(),
+				m_knockbackType,
+				m_aoeShape,
+				m_penetrateLoS,
+				m_effectSequence,
+				m_detonateSequence,
+				m_detonateGameplayHitSequence);
+			actorHitResults.AddEffect(effect);
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.HasKnockback)
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.DigitalSorceressStats.KnockbacksFromHeal);
+		}
+	}
+#endif
 }

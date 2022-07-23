@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,9 +49,12 @@ public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SorceressHealingCrossBeam sorceressHealingCrossBeam = GetTargetAbilityOnAbilityData(abilityData) as SorceressHealingCrossBeam;
+		// rogues
+		//SorceressHealingCrossBeam sorceressHealingCrossBeam = targetAbility as SorceressHealingCrossBeam;
 		bool isAbilityPresent = sorceressHealingCrossBeam != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserNumberMod, "[Number of Lasers]", isAbilityPresent, isAbilityPresent ? sorceressHealingCrossBeam.m_numLasers : 0);

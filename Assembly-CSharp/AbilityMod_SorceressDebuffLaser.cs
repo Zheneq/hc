@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,9 +50,12 @@ public class AbilityMod_SorceressDebuffLaser : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SorceressDebuffLaser sorceressDebuffLaser = GetTargetAbilityOnAbilityData(abilityData) as SorceressDebuffLaser;
+		// rogues
+		//SorceressDebuffLaser sorceressDebuffLaser = targetAbility as SorceressDebuffLaser;
 		bool isAbilityPresent = sorceressDebuffLaser != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserWidthMod, "[Laser Width]", isAbilityPresent, isAbilityPresent ? sorceressDebuffLaser.m_width : 0f);

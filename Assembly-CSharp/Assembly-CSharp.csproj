@@ -2186,10 +2186,13 @@
     <Compile Include="SoldierStimPack.cs" />
     <Compile Include="Soldier_SyncComponent.cs" />
     <Compile Include="SorceressAbsorbShield.cs" />
+    <Compile Include="SorceressAbsorbShieldEffect.cs" />
     <Compile Include="SorceressDamageField.cs" />
+    <Compile Include="SorceressDamageFieldEffect.cs" />
     <Compile Include="SorceressDebuffLaser.cs" />
     <Compile Include="SorceressHealingCrossBeam.cs" />
     <Compile Include="SorceressHealingKnockback.cs" />
+    <Compile Include="SorceressHealingKnockbackEffect.cs" />
     <Compile Include="SorceressHealingLaser.cs" />
     <Compile Include="SpaceMarineDropBanner.cs" />
     <Compile Include="SpaceMarineDropPod.cs" />
