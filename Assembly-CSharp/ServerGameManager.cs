@@ -23,7 +23,7 @@ public class ServerGameManager : MonoBehaviour
 {
 #if SERVER
 	// artemis
-	public static String s_address = "192.168.1.34";
+	public static String s_address = "127.0.0.1";
 	public static int s_port = 6061;
 
 	private static ServerGameManager s_instance;
