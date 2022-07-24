@@ -4,17 +4,11 @@ using UnityEngine;
 public class GremlinsBigBang : Ability
 {
 	public int m_bombDamageAmount = 5;
-
 	public AbilityAreaShape m_bombShape = AbilityAreaShape.Three_x_Three;
-
 	public bool m_bombPenetrateLineOfSight;
-
 	public KnockbackType m_knockbackType = KnockbackType.AwayFromSource;
-
 	public float m_knockbackDistance = 2f;
-
 	public AbilityAreaShape m_knockbackShape = AbilityAreaShape.Five_x_Five;
-
 	[Header("-- Sequences -----------------------------------")]
 	public GameObject m_castSequencePrefab;
 
@@ -36,27 +30,32 @@ public class GremlinsBigBang : Ability
 
 	protected void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_KnockbackRingAOE_SingleTargetBoost(this, ModdedBombShape(), m_bombPenetrateLineOfSight, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Never, AbilityUtil_Targeter.AffectsActor.Possible, ModdedKnockbackShape(), GetKnockbackDistance(), m_knockbackType, false, true, ModdedKnockbackDistanceForSingleTarget());
+		Targeter = new AbilityUtil_Targeter_KnockbackRingAOE_SingleTargetBoost(
+			this,
+			ModdedBombShape(),
+			m_bombPenetrateLineOfSight,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			true,
+			false,
+			AbilityUtil_Targeter.AffectsActor.Never,
+			AbilityUtil_Targeter.AffectsActor.Possible,
+			ModdedKnockbackShape(),
+			GetKnockbackDistance(),
+			m_knockbackType,
+			false,
+			true,
+			ModdedKnockbackDistanceForSingleTarget());
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_GremlinsBigBang))
+		if (abilityMod.GetType() != typeof(AbilityMod_GremlinsBigBang))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_GremlinsBigBang);
-					SetupTargeter();
-					return;
-				}
-			}
+			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+		m_abilityMod = abilityMod as AbilityMod_GremlinsBigBang;
+		SetupTargeter();
 	}
 
 	protected override void OnRemoveAbilityMod()
@@ -67,88 +66,44 @@ public class GremlinsBigBang : Ability
 
 	private AbilityAreaShape ModdedBombShape()
 	{
-		if (m_abilityMod != null)
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return m_abilityMod.m_bombShape.GetModifiedValue(m_bombShape);
-				}
-			}
-		}
-		return m_bombShape;
+		return m_abilityMod != null
+			? m_abilityMod.m_bombShape.GetModifiedValue(m_bombShape)
+			: m_bombShape;
 	}
 
 	private AbilityAreaShape ModdedKnockbackShape()
 	{
-		if (m_abilityMod != null)
-		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return m_abilityMod.m_knockbackShape.GetModifiedValue(m_knockbackShape);
-				}
-			}
-		}
-		return m_knockbackShape;
+		return m_abilityMod != null
+			? m_abilityMod.m_knockbackShape.GetModifiedValue(m_knockbackShape)
+			: m_knockbackShape;
 	}
 
 	public float GetKnockbackDistance()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
-		}
-		else
-		{
-			result = m_knockbackDistance;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance)
+			: m_knockbackDistance;
 	}
 
 	private int ModdedExtraDamagePerTarget()
 	{
-		if (m_abilityMod != null)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return m_abilityMod.m_extraDamagePerTarget.GetModifiedValue(0);
-				}
-			}
-		}
-		return 0;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamagePerTarget.GetModifiedValue(0)
+			: 0;
 	}
 
 	private int ModdedDamageForSingleTarget()
 	{
-		if (m_abilityMod != null)
-		{
-			return m_abilityMod.m_damageIfSingleTarget.GetModifiedValue(m_bombDamageAmount);
-		}
-		return m_bombDamageAmount;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageIfSingleTarget.GetModifiedValue(m_bombDamageAmount)
+			: m_bombDamageAmount;
 	}
 
 	private float ModdedKnockbackDistanceForSingleTarget()
 	{
-		if (m_abilityMod != null)
-		{
-			return m_abilityMod.m_knockbackDistanceIfSingleTarget.GetModifiedValue(GetKnockbackDistance());
-		}
-		return GetKnockbackDistance();
+		return m_abilityMod != null
+			? m_abilityMod.m_knockbackDistanceIfSingleTarget.GetModifiedValue(GetKnockbackDistance())
+			: GetKnockbackDistance();
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -161,22 +116,22 @@ public class GremlinsBigBang : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
-		List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeter.GetActorsInRange();
-		int num = 0;
-		foreach (AbilityUtil_Targeter.ActorTarget item in actorsInRange)
+		List<AbilityUtil_Targeter.ActorTarget> actorsInRange = Targeter.GetActorsInRange();
+		int numVisibleTargets = 0;
+		foreach (AbilityUtil_Targeter.ActorTarget target in actorsInRange)
 		{
-			if (item.m_actor.IsActorVisibleToClient())
+			if (target.m_actor.IsActorVisibleToClient())
 			{
-				num++;
+				numVisibleTargets++;
 			}
 		}
-		int num2 = (num - 1) * ModdedExtraDamagePerTarget();
-		int num3 = m_bombDamageAmount;
-		if (num == 1)
+		int extraDamage = (numVisibleTargets - 1) * ModdedExtraDamagePerTarget();
+		int baseDamage = m_bombDamageAmount;
+		if (numVisibleTargets == 1)
 		{
-			num3 = ModdedDamageForSingleTarget();
+			baseDamage = ModdedDamageForSingleTarget();
 		}
-		Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, num3 + num2);
+		AddNameplateValueForSingleHit(ref symbolToValue, Targeter, targetActor, baseDamage + extraDamage);
 		return symbolToValue;
 	}
 

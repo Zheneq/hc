@@ -5,26 +5,17 @@ public class GremlinsDropMines : Ability
 {
 	[Header("-- Mine Placement")]
 	public AbilityAreaShape m_minePlaceShape = AbilityAreaShape.Three_x_Three;
-
 	public bool m_placeBombOnCasterSquare;
-
 	public bool m_ignoreLos;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefabNorth;
-
 	public GameObject m_castSequencePrefabSouth;
-
 	public GameObject m_castSequencePrefabEast;
-
 	public GameObject m_castSequencePrefabWest;
-
 	public GameObject m_castSequencePrefabDiag;
 
 	private GremlinsLandMineInfoComponent m_bombInfoComp;
-
 	private AbilityMod_GremlinsDropMines m_abilityMod;
-
 	private StandardEffectInfo m_cachedEnemyHitEffectInfo;
 
 	public AbilityMod_GremlinsDropMines GetMod()
@@ -39,8 +30,15 @@ public class GremlinsDropMines : Ability
 			m_abilityName = "Drop Mines";
 		}
 		m_bombInfoComp = GetComponent<GremlinsLandMineInfoComponent>();
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, m_minePlaceShape, m_ignoreLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Never);
-		base.Targeter.ShowArcToShape = false;
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			m_minePlaceShape,
+			m_ignoreLos,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			true,
+			false,
+			AbilityUtil_Targeter.AffectsActor.Never);
+		Targeter.ShowArcToShape = false;
 		ResetTooltipAndTargetingNumbers();
 	}
 
@@ -71,7 +69,7 @@ public class GremlinsDropMines : Ability
 		int result = 0;
 		if (m_bombInfoComp != null && m_bombInfoComp.GetEnergyOnExplosion() > 0)
 		{
-			List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
+			List<ActorData> visibleActorsInRangeByTooltipSubject = Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 			result = m_bombInfoComp.GetEnergyOnExplosion() * visibleActorsInRangeByTooltipSubject.Count;
 		}
 		return result;
@@ -105,19 +103,14 @@ public class GremlinsDropMines : Ability
 		{
 			return;
 		}
-		m_abilityMod = (abilityMod as AbilityMod_GremlinsDropMines);
+		m_abilityMod = abilityMod as AbilityMod_GremlinsDropMines;
 		if (m_bombInfoComp == null)
 		{
 			m_bombInfoComp = GetComponent<GremlinsLandMineInfoComponent>();
 		}
-		if (!(m_bombInfoComp != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_bombInfoComp != null)
 		{
 			m_cachedEnemyHitEffectInfo = m_bombInfoComp.GetEnemyHitEffectOnMovedOver();
-			return;
 		}
 	}
 
@@ -128,16 +121,9 @@ public class GremlinsDropMines : Ability
 
 	private StandardEffectInfo GetEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_abilityMod == null)
-		{
-			result = m_bombInfoComp.m_enemyHitEffect;
-		}
-		else
-		{
-			result = m_cachedEnemyHitEffectInfo;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_cachedEnemyHitEffectInfo
+			: m_bombInfoComp.m_enemyHitEffect;
 	}
 
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
