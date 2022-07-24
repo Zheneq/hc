@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
@@ -10,30 +10,30 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 	}
 
 	public AbilityAreaShape m_shape;
-
 	public bool m_penetrateLoS;
-
 	public AffectsActor m_affectsCaster;
 
 	private float m_heightOffset = 0.1f;
-
 	private float m_curSpeed;
-
 	private bool m_showAngleIndicators;
-
 	private float m_angleWithCenter = 15f;
-
 	private float m_angleIndicatorLength = 15f;
 
 	protected AbilityTooltipSubject m_enemyTooltipSubject;
-
 	protected AbilityTooltipSubject m_allyTooltipSubject;
 
 	public DamageOriginType m_damageOriginType;
 
 	private GridPos m_currentGridPos = GridPos.s_invalid;
 
-	public AbilityUtil_Targeter_GremlinsBombInCone(Ability ability, AbilityAreaShape shape, bool penetrateLoS, DamageOriginType damageOriginType = DamageOriginType.CenterOfShape, bool affectsEnemies = true, bool affectsAllies = false, AffectsActor affectsCaster = AffectsActor.Possible)
+	public AbilityUtil_Targeter_GremlinsBombInCone(
+		Ability ability,
+		AbilityAreaShape shape,
+		bool penetrateLoS,
+		DamageOriginType damageOriginType = DamageOriginType.CenterOfShape,
+		bool affectsEnemies = true,
+		bool affectsAllies = false,
+		AffectsActor affectsCaster = AffectsActor.Possible)
 		: base(ability)
 	{
 		m_shape = shape;
@@ -59,7 +59,9 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 		m_angleIndicatorLength = indicatorLength;
 	}
 
-	public void SetTooltipSubjectTypes(AbilityTooltipSubject enemySubject = AbilityTooltipSubject.Primary, AbilityTooltipSubject allySubject = AbilityTooltipSubject.Primary)
+	public void SetTooltipSubjectTypes(
+		AbilityTooltipSubject enemySubject = AbilityTooltipSubject.Primary,
+		AbilityTooltipSubject allySubject = AbilityTooltipSubject.Primary)
 	{
 		m_enemyTooltipSubject = enemySubject;
 		m_allyTooltipSubject = allySubject;
@@ -67,61 +69,30 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 
 	protected BoardSquare GetGameplayRefSquare(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		GridPos gridPos;
-		if (GetCurrentRangeInSquares() != 0f)
-		{
-			gridPos = currentTarget.GridPos;
-		}
-		else
-		{
-			gridPos = targetingActor.GetGridPos();
-		}
+		GridPos gridPos = GetCurrentRangeInSquares() != 0f
+			? currentTarget.GridPos
+			: targetingActor.GetGridPos();
 		return Board.Get().GetSquare(gridPos);
 	}
 
 	protected Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		BoardSquare gameplayRefSquare = GetGameplayRefSquare(currentTarget, targetingActor);
-		if (gameplayRefSquare != null)
+		if (gameplayRefSquare == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-				{
-					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
-					Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
-					centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
-					return centerOfShape;
-				}
-				}
-			}
+			return Vector3.zero;
 		}
-		return Vector3.zero;
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
+		centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
+		return centerOfShape;
 	}
 
 	private void SetHighlightPos(Vector3 pos)
 	{
-		using (List<GameObject>.Enumerator enumerator = m_highlights.GetEnumerator())
+		foreach (GameObject highlight in m_highlights)
 		{
-			while (enumerator.MoveNext())
-			{
-				GameObject current = enumerator.Current;
-				current.transform.position = pos;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			highlight.transform.position = pos;
 		}
 	}
 
@@ -133,12 +104,9 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 
 	private bool MatchesTeam(ActorData targetActor, ActorData caster)
 	{
-		if (!(targetActor != caster))
+		if (targetActor == caster && m_affectsCaster == AffectsActor.Never)
 		{
-			if (m_affectsCaster == AffectsActor.Never)
-			{
-				return false;
-			}
+			return false;
 		}
 		if (targetActor.GetTeam() == caster.GetTeam())
 		{
@@ -150,31 +118,21 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 	public override void StartConfirmedTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.StartConfirmedTargeting(currentTarget, targetingActor);
-		if (m_highlights.Count < 4)
-		{
-			return;
-		}
-		while (true)
+		if (m_highlights.Count >= 4)
 		{
 			m_highlights[2].SetActive(false);
 			m_highlights[3].SetActive(false);
-			return;
 		}
 	}
 
 	public override void UpdateHighlightPosAfterClick(AbilityTarget target, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
-		if (m_highlights == null)
-		{
-			return;
-		}
-		while (true)
+		if (m_highlights != null)
 		{
 			Vector3 highlightGoalPos = GetHighlightGoalPos(target, targetingActor);
 			SetHighlightPos(highlightGoalPos);
 			BoardSquare gameplayRefSquare = GetGameplayRefSquare(target, targetingActor);
 			UpdateAngleIndicatorHighlights(target, targetingActor, currentTargetIndex, gameplayRefSquare);
-			return;
 		}
 	}
 
@@ -183,36 +141,23 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 		m_currentGridPos = currentTarget.GridPos;
 		ClearActorsInRange();
 		BoardSquare gameplayRefSquare = GetGameplayRefSquare(currentTarget, targetingActor);
-		if (!(gameplayRefSquare != null))
+		if (gameplayRefSquare == null)
 		{
 			return;
 		}
-		while (true)
+		Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
+		int num = 2;
+		bool flag = m_showAngleIndicators && currentTargetIndex == 0;
+		if (flag)
 		{
-			Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
-			int num = 2;
-			int num2;
-			if (m_showAngleIndicators)
-			{
-				num2 = ((currentTargetIndex == 0) ? 1 : 0);
-			}
-			else
-			{
-				num2 = 0;
-			}
-			bool flag = (byte)num2 != 0;
-			if (flag)
-			{
-				num = 4;
-			}
-			if (m_highlights != null)
-			{
-				if (m_highlights.Count >= num)
-				{
-					MoveHighlightsTowardPos(highlightGoalPos);
-					goto IL_0174;
-				}
-			}
+			num = 4;
+		}
+		if (m_highlights != null && m_highlights.Count >= num)
+		{
+			MoveHighlightsTowardPos(highlightGoalPos);
+		}
+		else
+		{
 			m_highlights = new List<GameObject>();
 			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
 			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
@@ -222,50 +167,43 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 				m_highlights.Add(HighlightUtils.Get().CreateDynamicLineSegmentMesh(m_angleIndicatorLength, 0.2f, true, Color.cyan));
 			}
 			SetHighlightPos(highlightGoalPos);
-			goto IL_0174;
-			IL_0174:
-			GameObject gameObject = m_highlights[0];
-			GameObject gameObject2 = m_highlights[1];
-			Vector3 damageOrigin;
-			if (m_damageOriginType == DamageOriginType.CasterPos)
+		}
+		GameObject gameObject = m_highlights[0];
+		GameObject gameObject2 = m_highlights[1];
+		Vector3 damageOrigin = m_damageOriginType == DamageOriginType.CasterPos
+			? targetingActor.GetLoSCheckPos()
+			: AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
+		ActorData occupantActor = gameplayRefSquare.OccupantActor;
+		if (occupantActor != null
+		    && MatchesTeam(occupantActor, targetingActor)
+		    && occupantActor.IsActorVisibleToClient())
+		{
+			List<ActorData> actors = AreaEffectUtils.GetActorsInShape(
+				m_shape,
+				currentTarget.FreePos,
+				gameplayRefSquare,
+				m_penetrateLoS,
+				targetingActor,
+				GetAffectedTeams(),
+				null);
+			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+			foreach (ActorData potentialTarget in actors)
 			{
-				damageOrigin = targetingActor.GetLoSCheckPos();
+				HandleAddActorInShape(potentialTarget, targetingActor, currentTarget, damageOrigin);
 			}
-			else
-			{
-				damageOrigin = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
-			}
-			ActorData occupantActor = gameplayRefSquare.OccupantActor;
-			if (occupantActor != null)
-			{
-				if (MatchesTeam(occupantActor, targetingActor) && occupantActor.IsActorVisibleToClient())
-				{
-					List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, currentTarget.FreePos, gameplayRefSquare, m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
-					TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
-					using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							ActorData current = enumerator.Current;
-							HandleAddActorInShape(current, targetingActor, currentTarget, damageOrigin);
-						}
-					}
-					gameObject.SetActive(true);
-					gameObject2.SetActive(false);
-					goto IL_02a7;
-				}
-			}
+			gameObject.SetActive(true);
+			gameObject2.SetActive(false);
+		}
+		else
+		{
 			gameObject.SetActive(false);
 			gameObject2.SetActive(true);
-			goto IL_02a7;
-			IL_02a7:
-			if (m_affectsCaster == AffectsActor.Always)
-			{
-				AddActorInRange(targetingActor, damageOrigin, targetingActor, m_allyTooltipSubject);
-			}
-			UpdateAngleIndicatorHighlights(currentTarget, targetingActor, currentTargetIndex, gameplayRefSquare);
-			return;
 		}
+		if (m_affectsCaster == AffectsActor.Always)
+		{
+			AddActorInRange(targetingActor, damageOrigin, targetingActor, m_allyTooltipSubject);
+		}
+		UpdateAngleIndicatorHighlights(currentTarget, targetingActor, currentTargetIndex, gameplayRefSquare);
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
@@ -275,19 +213,9 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 
 	private void UpdateAngleIndicatorHighlights(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, BoardSquare targetSquare)
 	{
-		int num;
-		if (m_showAngleIndicators)
-		{
-			if (currentTargetIndex == 0)
-			{
-				num = ((m_highlights.Count >= 4) ? 1 : 0);
-				goto IL_003e;
-			}
-		}
-		num = 0;
-		goto IL_003e;
-		IL_003e:
-		if (num != 0)
+		if (m_showAngleIndicators
+		    && currentTargetIndex == 0
+		    && m_highlights.Count >= 4)
 		{
 			GameObject gameObject = m_highlights[2];
 			GameObject gameObject2 = m_highlights[3];
@@ -297,9 +225,9 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 			{
 				gameObject.SetActive(true);
 				gameObject2.SetActive(true);
-				float num2 = VectorUtils.HorizontalAngle_Deg(vec);
-				float angle = num2 + m_angleWithCenter;
-				float angle2 = num2 - m_angleWithCenter;
+				float baseAngle = VectorUtils.HorizontalAngle_Deg(vec);
+				float angle = baseAngle + m_angleWithCenter;
+				float angle2 = baseAngle - m_angleWithCenter;
 				Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 				travelBoardSquareWorldPosition.y = HighlightUtils.GetHighlightHeight();
 				gameObject.transform.position = travelBoardSquareWorldPosition;
@@ -317,12 +245,9 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 
 	protected virtual bool HandleAddActorInShape(ActorData potentialTarget, ActorData targetingActor, AbilityTarget currentTarget, Vector3 damageOrigin)
 	{
-		if (!(potentialTarget != targetingActor))
+		if (potentialTarget == targetingActor && m_affectsCaster == AffectsActor.Never)
 		{
-			if (m_affectsCaster == AffectsActor.Never)
-			{
-				return false;
-			}
+			return false;
 		}
 		if (potentialTarget.GetTeam() == targetingActor.GetTeam())
 		{

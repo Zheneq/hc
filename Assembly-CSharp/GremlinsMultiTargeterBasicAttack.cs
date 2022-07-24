@@ -5,29 +5,19 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 {
 	[Header("-- Targeting")]
 	public AbilityAreaShape m_bombShape = AbilityAreaShape.Three_x_Three;
-
 	public bool m_penetrateLos;
-
 	public float m_minDistanceBetweenBombs = 1f;
-
 	public bool m_useShapeForDeadzone;
-
 	public AbilityAreaShape m_deadZoneShape;
-
 	public float m_maxAngleWithFirst = 45f;
-
 	[Header("-- Targeter Angle Indicator Config")]
 	public bool m_useAngleIndicators = true;
-
 	public float m_indicatorLineLength = 8f;
-
 	[Header("-- Sequence -------------------------------")]
 	public GameObject m_firstBombSequencePrefab;
-
 	public GameObject m_subsequentBombSequencePrefab;
 
 	private GremlinsLandMineInfoComponent m_bombInfoComp;
-
 	private AbilityMod_GremlinsMultiTargeterBasicAttack m_abilityMod;
 
 	public AbilityMod_GremlinsMultiTargeterBasicAttack GetMod()
@@ -48,87 +38,55 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 
 	public AbilityAreaShape GetBombShape()
 	{
-		AbilityAreaShape result;
-		if (m_abilityMod == null)
-		{
-			result = m_bombShape;
-		}
-		else
-		{
-			result = m_abilityMod.m_bombShapeMod.GetModifiedValue(m_bombShape);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_bombShapeMod.GetModifiedValue(m_bombShape)
+			: m_bombShape;
 	}
 
 	public float GetMinDistBetweenBombs()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_minDistBetweenBombsMod.GetModifiedValue(m_minDistanceBetweenBombs) : m_minDistanceBetweenBombs;
+		return m_abilityMod != null
+			? m_abilityMod.m_minDistBetweenBombsMod.GetModifiedValue(m_minDistanceBetweenBombs)
+			: m_minDistanceBetweenBombs;
 	}
 
 	public bool UseShapeForDeadzone()
 	{
-		bool result;
-		if (m_abilityMod == null)
-		{
-			result = m_useShapeForDeadzone;
-		}
-		else
-		{
-			result = m_abilityMod.m_useShapeForDeadzoneMod.GetModifiedValue(m_useShapeForDeadzone);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_useShapeForDeadzoneMod.GetModifiedValue(m_useShapeForDeadzone)
+			: m_useShapeForDeadzone;
 	}
 
 	public AbilityAreaShape GetDeadzoneShape()
 	{
-		AbilityAreaShape result;
-		if (m_abilityMod == null)
-		{
-			result = m_deadZoneShape;
-		}
-		else
-		{
-			result = m_abilityMod.m_deadzoneShapeMod.GetModifiedValue(m_deadZoneShape);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_deadzoneShapeMod.GetModifiedValue(m_deadZoneShape)
+			: m_deadZoneShape;
 	}
 
 	private int ModdedDirectHitDamagePerShot(int shotIndex)
 	{
-		if (m_abilityMod != null)
-		{
-			if (m_abilityMod.m_directHitDamagePerShot.Count > shotIndex)
-			{
-				if (shotIndex >= 0)
-				{
-					return m_abilityMod.m_directHitDamagePerShot[shotIndex].GetModifiedValue(m_bombInfoComp.m_directHitDamageAmount);
-				}
-			}
-		}
-		return m_bombInfoComp.m_directHitDamageAmount;
+		return m_abilityMod != null
+		       && m_abilityMod.m_directHitDamagePerShot.Count > shotIndex
+		       && shotIndex >= 0
+			? m_abilityMod.m_directHitDamagePerShot[shotIndex].GetModifiedValue(m_bombInfoComp.m_directHitDamageAmount)
+			: m_bombInfoComp.m_directHitDamageAmount;
 	}
 
 	private float ModdedMaxAngleWithFirst()
 	{
-		if (m_abilityMod != null)
-		{
-			return m_abilityMod.m_maxAngleWithFirst.GetModifiedValue(m_maxAngleWithFirst);
-		}
-		return m_maxAngleWithFirst;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxAngleWithFirst.GetModifiedValue(m_maxAngleWithFirst)
+			: m_maxAngleWithFirst;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_GremlinsMultiTargeterBasicAttack))
+		if (abilityMod.GetType() == typeof(AbilityMod_GremlinsMultiTargeterBasicAttack))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_GremlinsMultiTargeterBasicAttack);
+			m_abilityMod = abilityMod as AbilityMod_GremlinsMultiTargeterBasicAttack;
 			SetupTargeter();
 			ResetTargetingNumbersForMines();
-			return;
 		}
 	}
 
@@ -147,65 +105,38 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 		}
 		if (GetExpectedNumberOfTargeters() > 1)
 		{
-			while (true)
+			ClearTargeters();
+			float num = ModdedMaxAngleWithFirst();
+			for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 			{
-				switch (5)
+				var targeter = new AbilityUtil_Targeter_GremlinsBombInCone(this, GetBombShape(), m_penetrateLos);
+				targeter.SetTooltipSubjectTypes();
+				if (num < 180f && m_useAngleIndicators)
 				{
-				case 0:
-					break;
-				default:
-				{
-					ClearTargeters();
-					float num = ModdedMaxAngleWithFirst();
-					for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
-					{
-						AbilityUtil_Targeter_GremlinsBombInCone abilityUtil_Targeter_GremlinsBombInCone = new AbilityUtil_Targeter_GremlinsBombInCone(this, GetBombShape(), m_penetrateLos);
-						abilityUtil_Targeter_GremlinsBombInCone.SetTooltipSubjectTypes();
-						if (num < 180f)
-						{
-							if (m_useAngleIndicators)
-							{
-								abilityUtil_Targeter_GremlinsBombInCone.SetAngleIndicatorConfig(true, num, m_indicatorLineLength);
-							}
-						}
-						abilityUtil_Targeter_GremlinsBombInCone.SetUseMultiTargetUpdate(true);
-						base.Targeters.Add(abilityUtil_Targeter_GremlinsBombInCone);
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						default:
-							return;
-						case 0:
-							break;
-						}
-					}
+					targeter.SetAngleIndicatorConfig(true, num, m_indicatorLineLength);
 				}
-				}
+				targeter.SetUseMultiTargetUpdate(true);
+				Targeters.Add(targeter);
 			}
 		}
-		AbilityUtil_Targeter_GremlinsBombInCone abilityUtil_Targeter_GremlinsBombInCone2 = new AbilityUtil_Targeter_GremlinsBombInCone(this, GetBombShape(), m_penetrateLos);
-		abilityUtil_Targeter_GremlinsBombInCone2.SetTooltipSubjectTypes();
-		base.Targeter = abilityUtil_Targeter_GremlinsBombInCone2;
+		else
+		{
+			var targeter = new AbilityUtil_Targeter_GremlinsBombInCone(this, GetBombShape(), m_penetrateLos);
+			targeter.SetTooltipSubjectTypes();
+			Targeter = targeter;
+		}
 	}
 
 	private void ResetTargetingNumbersForMines()
 	{
 		AbilityData component = GetComponent<AbilityData>();
-		if (!(component != null))
+		if (component != null)
 		{
-			return;
-		}
-		GremlinsDropMines gremlinsDropMines = component.GetAbilityOfType(typeof(GremlinsDropMines)) as GremlinsDropMines;
-		if (!(gremlinsDropMines != null))
-		{
-			return;
-		}
-		while (true)
-		{
-			gremlinsDropMines.ResetNameplateTargetingNumbers();
-			return;
+			GremlinsDropMines gremlinsDropMines = component.GetAbilityOfType(typeof(GremlinsDropMines)) as GremlinsDropMines;
+			if (gremlinsDropMines != null)
+			{
+				gremlinsDropMines.ResetNameplateTargetingNumbers();
+			}
 		}
 	}
 
@@ -217,9 +148,9 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		for (int i = 0; i < targets.Count; i++)
+		foreach (AbilityTarget target in targets)
 		{
-			list.Add(targets[i].FreePos);
+			list.Add(target.FreePos);
 		}
 		return list;
 	}
@@ -254,27 +185,26 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(base.Targeters[0].LastUpdatingGridPos);
+		BoardSquare firstSquare = Board.Get().GetSquare(Targeters[0].LastUpdatingGridPos);
 		for (int i = 0; i <= currentTargeterIndex; i++)
 		{
 			if (i > 0)
 			{
-				BoardSquare boardSquareSafe2 = Board.Get().GetSquare(base.Targeters[i].LastUpdatingGridPos);
-				if (boardSquareSafe2 == null)
-				{
-					continue;
-				}
-				if (boardSquareSafe2 == boardSquareSafe)
+				BoardSquare curSquare = Board.Get().GetSquare(Targeters[i].LastUpdatingGridPos);
+				if (curSquare == null || curSquare == firstSquare)
 				{
 					continue;
 				}
 			}
-			Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeters[i], targetActor, currentTargeterIndex, ModdedDirectHitDamagePerShot(i), GetSubsequentHitDamage());
+			AddNameplateValueForOverlap(
+				ref symbolToValue,
+				Targeters[i],
+				targetActor,
+				currentTargeterIndex,
+				ModdedDirectHitDamagePerShot(i),
+				GetSubsequentHitDamage());
 		}
-		while (true)
-		{
-			return symbolToValue;
-		}
+		return symbolToValue;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -290,74 +220,54 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (!(boardSquareSafe == null) && boardSquareSafe.IsValidForGameplay())
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		if (targetSquare == null
+		    || !targetSquare.IsValidForGameplay()
+		    || targetSquare == caster.GetCurrentBoardSquare())
 		{
-			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
+			return false;
+		}
+		if (UseShapeForDeadzone())
+		{
+			bool isSquareInDeadzone = AreaEffectUtils.IsSquareInShape(
+				targetSquare,
+				GetDeadzoneShape(),
+				caster.GetFreePos(),
+				caster.GetCurrentBoardSquare(),
+				true,
+				caster);
+			if (isSquareInDeadzone)
 			{
-				if (UseShapeForDeadzone())
-				{
-					if (AreaEffectUtils.IsSquareInShape(boardSquareSafe, GetDeadzoneShape(), caster.GetFreePos(), caster.GetCurrentBoardSquare(), true, caster))
-					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								break;
-							default:
-								return false;
-							}
-						}
-					}
-				}
-				if (targetIndex > 0)
-				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							break;
-						default:
-						{
-							bool flag = true;
-							Vector3 from = Board.Get().GetSquare(currentTargets[0].GridPos).ToVector3() - caster.GetFreePos();
-							Vector3 to = boardSquareSafe.ToVector3() - caster.GetFreePos();
-							if (Mathf.RoundToInt(Vector3.Angle(from, to)) > (int)ModdedMaxAngleWithFirst())
-							{
-								flag = false;
-							}
-							if (flag)
-							{
-								float num = GetMinDistBetweenBombs() * Board.Get().squareSize;
-								for (int i = 0; i < targetIndex; i++)
-								{
-									BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[i].GridPos);
-									if (boardSquareSafe2 == boardSquareSafe)
-									{
-										flag = false;
-										break;
-									}
-									Vector3 vector = boardSquareSafe.ToVector3() - boardSquareSafe2.ToVector3();
-									vector.y = 0f;
-									float magnitude = vector.magnitude;
-									if (magnitude < num)
-									{
-										flag = false;
-										break;
-									}
-								}
-							}
-							return flag;
-						}
-						}
-					}
-				}
-				return true;
+				return false;
 			}
 		}
-		return false;
+		if (targetIndex <= 0)
+		{
+			return true;
+		}
+		Vector3 from = Board.Get().GetSquare(currentTargets[0].GridPos).ToVector3() - caster.GetFreePos();
+		Vector3 to = targetSquare.ToVector3() - caster.GetFreePos();
+		if (Mathf.RoundToInt(Vector3.Angle(from, to)) > (int)ModdedMaxAngleWithFirst())
+		{
+			return false;
+		}
+		float minDist = GetMinDistBetweenBombs() * Board.Get().squareSize;
+		for (int i = 0; i < targetIndex; i++)
+		{
+			BoardSquare curSquare = Board.Get().GetSquare(currentTargets[i].GridPos);
+			if (curSquare == targetSquare)
+			{
+				return false;
+			}
+			Vector3 vector = targetSquare.ToVector3() - curSquare.ToVector3();
+			vector.y = 0f;
+			float magnitude = vector.magnitude;
+			if (magnitude < minDist)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public int GetSubsequentHitDamage()
