@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,9 +46,13 @@ public class AbilityMod_GremlinsMultiTargeterBasicAttack : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		GremlinsMultiTargeterBasicAttack gremlinsMultiTargeterBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as GremlinsMultiTargeterBasicAttack;
+		// rogues
+		//GremlinsMultiTargeterBasicAttack gremlinsMultiTargeterBasicAttack = targetAbility as GremlinsMultiTargeterBasicAttack;
+		
 		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent = gremlinsMultiTargeterBasicAttack != null
 			? gremlinsMultiTargeterBasicAttack.GetComponent<GremlinsLandMineInfoComponent>()
 			: null;

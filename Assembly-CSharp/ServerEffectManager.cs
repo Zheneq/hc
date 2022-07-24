@@ -1,9 +1,11 @@
 ﻿// ROGUES
 // SERVER
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
+using Object = UnityEngine.Object;
 
 // was empty in reactor
 public class ServerEffectManager : MonoBehaviour
@@ -441,19 +443,18 @@ public class ServerEffectManager : MonoBehaviour
 		return list;
 	}
 
-	// rogues? what is Type?
-	//public List<global::Effect> GetWorldEffectsByCaster(ActorData caster, Type type)
-	//{
-	//	List<global::Effect> list = new List<global::Effect>();
-	//	foreach (global::Effect effect in this.m_worldEffects)
-	//	{
-	//		if (effect.Caster == caster && effect.GetType() == type)
-	//		{
-	//			list.Add(effect);
-	//		}
-	//	}
-	//	return list;
-	//}
+	public List<Effect> GetWorldEffectsByCaster(ActorData caster, Type type)
+	{
+		List<Effect> list = new List<Effect>();
+		foreach (Effect effect in m_worldEffects)
+		{
+			if (effect.Caster == caster && effect.GetType() == type)
+			{
+				list.Add(effect);
+			}
+		}
+		return list;
+	}
 
 	private Effect GetEffectToStackWith(Effect newEffect, List<Effect> targetEffects)
 	{

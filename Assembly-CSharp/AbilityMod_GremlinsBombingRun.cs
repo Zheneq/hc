@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,9 +38,13 @@ public class AbilityMod_GremlinsBombingRun : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		GremlinsBombingRun gremlinsBombingRun = GetTargetAbilityOnAbilityData(abilityData) as GremlinsBombingRun;
+		// rogues
+		//GremlinsBombingRun gremlinsBombingRun = targetAbility as GremlinsBombingRun;
+		
 		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent = gremlinsBombingRun != null
 			? gremlinsBombingRun.GetComponent<GremlinsLandMineInfoComponent>()
 			: null;

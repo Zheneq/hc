@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,9 +52,13 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		GremlinsMultiTargeterApocolypse gremlinsMultiTargeterApocolypse = GetTargetAbilityOnAbilityData(abilityData) as GremlinsMultiTargeterApocolypse;
+		// rogues
+		//GremlinsMultiTargeterApocolypse gremlinsMultiTargeterApocolypse = targetAbility as GremlinsMultiTargeterApocolypse;
+		
 		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent = gremlinsMultiTargeterApocolypse != null
 			? gremlinsMultiTargeterApocolypse.GetComponent<GremlinsLandMineInfoComponent>()
 			: null;

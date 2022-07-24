@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter

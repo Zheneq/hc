@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GremlinsMultiTargeterApocolypse : Ability
@@ -266,4 +268,193 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		Dictionary<ActorData, Vector3> dictionary;
+		List<Vector3> list2;
+		List<List<ActorData>> list3;
+		int num;
+		GetBombExplosionHitActorsAndDamage(targets, caster, out dictionary, out list2, out list3, out num, null);
+		if (additionalData.m_abilityResults.HitActorList().Contains(caster))
+		{
+			list3[list3.Count - 1].Add(caster);
+		}
+		for (int i = 0; i < list2.Count; i++)
+		{
+			SimpleAttachedVFXSequence.MultiEventExtraParams multiEventExtraParams = new SimpleAttachedVFXSequence.MultiEventExtraParams();
+			multiEventExtraParams.eventNumberToKeyOffOf = i;
+			SplineProjectileSequence.MultiEventExtraParams multiEventExtraParams2 = new SplineProjectileSequence.MultiEventExtraParams();
+			multiEventExtraParams2.eventNumberToKeyOffOf = i;
+			ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(m_bombSequencePrefab, list2[i], list3[i].ToArray(), caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[]
+			{
+				multiEventExtraParams,
+				multiEventExtraParams2
+			});
+			list.Add(item);
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Dictionary<ActorData, int> bombExplosionHitActorsAndDamage = GetBombExplosionHitActorsAndDamage(
+			targets,
+			caster,
+			out var damageOrigins,
+			out var bombEndPoints,
+			out _,
+			out var numMisses,
+			nonActorTargetInfo);
+		int energyGain = 0;
+		if (GetEnergyGainPerMiss() > 0 && numMisses > 0)
+		{
+			energyGain = numMisses * GetEnergyGainPerMiss();
+		}
+		bool haveAppliedEnergyGain = false;
+		foreach (ActorData actorData in bombExplosionHitActorsAndDamage.Keys)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, damageOrigins[actorData]));
+			actorHitResults.SetBaseDamage(bombExplosionHitActorsAndDamage[actorData]);
+			if (energyGain > 0 && !haveAppliedEnergyGain)
+			{
+				if (m_energyRefundAffectedByBuff)
+				{
+					actorHitResults.SetTechPointGainOnCaster(energyGain);
+				}
+				else
+				{
+					actorHitResults.AddDirectTechPointGainOnCaster(energyGain);
+				}
+				haveAppliedEnergyGain = true;
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (energyGain > 0 && !haveAppliedEnergyGain)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			if (m_energyRefundAffectedByBuff)
+			{
+				actorHitResults.SetTechPointGainOnCaster(energyGain);
+			}
+			else
+			{
+				actorHitResults.AddDirectTechPointGainOnCaster(energyGain);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (ShouldSpawnLandmineAtEmptySquare())
+		{
+			foreach (Vector3 bombEndPoint in bombEndPoints)
+			{
+				BoardSquare bombSquare = Board.Get().GetSquareFromVec3(bombEndPoint);
+				if (bombSquare != null && bombSquare.OccupantActor == null)
+				{
+					PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(bombEndPoint));
+					GremlinsLandMineEffect effect = m_bombInfoComp.CreateLandmineEffect(AsEffectSource(), caster, bombSquare);
+					positionHitResults.AddEffect(effect);
+					List<Effect> oldEffects = ServerEffectManager.Get().GetWorldEffectsByCaster(caster, typeof(GremlinsLandMineEffect));
+					foreach (Effect oldEffect in oldEffects)
+					{
+						if (oldEffect.TargetSquare == bombSquare)
+						{
+							positionHitResults.AddEffectForRemoval(oldEffect, ServerEffectManager.Get().GetWorldEffects());
+						}
+					}
+					abilityResults.StorePositionHit(positionHitResults);
+				}
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private Dictionary<ActorData, int> GetBombExplosionHitActorsAndDamage(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out Dictionary<ActorData, Vector3> damageOrigins,
+		out List<Vector3> bombEndPoints,
+		out List<List<ActorData>> sequenceExplosionHitActors,
+		out int numMisses,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		Dictionary<ActorData, int> dictionary = new Dictionary<ActorData, int>();
+		damageOrigins = new Dictionary<ActorData, Vector3>();
+		bombEndPoints = new List<Vector3>();
+		sequenceExplosionHitActors = new List<List<ActorData>>();
+		numMisses = 0;
+		if (Application.isEditor && targets.Count < GetExpectedNumberOfTargeters())
+		{
+			Debug.LogError(string.Concat("Gremlin ult (GremlinsMulTiTargeterApocolypse) expecting ", GetExpectedNumberOfTargeters(), " AbilityTarget entries, only ", targets.Count, " entries passed in"));
+		}
+		
+		for (int num = 0; num < GetExpectedNumberOfTargeters() && num < targets.Count; num++)
+		{
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetBombShape(), targets[num]);
+			BoardSquare square = Board.Get().GetSquare(targets[num].GridPos);
+			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+				GetBombShape(),
+				centerOfShape,
+				square,
+				false,
+				caster,
+				caster.GetOtherTeams(),
+				nonActorTargetInfo);
+			if (actorsInShape.Count == 0)
+			{
+				numMisses++;
+			}
+			List<ActorData> hitActors = new List<ActorData>();
+			foreach (ActorData actorData in actorsInShape)
+			{
+				if (dictionary.ContainsKey(actorData))
+				{
+					dictionary[actorData] += GetSubsequentDamage();
+				}
+				else
+				{
+					dictionary[actorData] = GetDamage();
+					damageOrigins[actorData] = centerOfShape;
+					hitActors.Add(actorData);
+				}
+			}
+			bombEndPoints.Add(centerOfShape);
+			sequenceExplosionHitActors.Add(hitActors);
+		}
+		return dictionary;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.BaseDamage > 0 && results.IsFromMovement())
+		{
+			if (results.ForMovementStage == MovementStage.Knockback)
+			{
+				Ability abilityOfType = caster.GetAbilityData().GetAbilityOfType(typeof(GremlinsBigBang));
+				int currentTurn = GameFlowData.Get().CurrentTurn;
+				if (abilityOfType.m_actorLastHitTurn != null
+				    && abilityOfType.m_actorLastHitTurn.ContainsKey(target)
+				    && abilityOfType.m_actorLastHitTurn[target] == currentTurn)
+				{
+					caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.GremlinsStats.MinesTriggeredByKnockbacksFromMe);
+				}
+			}
+			else if (results.ForMovementStage == MovementStage.Normal
+			         || results.ForMovementStage == MovementStage.Evasion)
+			{
+				caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.GremlinsStats.MinesTriggeredByMovers);
+			}
+		}
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.GremlinsStats.DamageDoneByUlt, results.FinalDamage);
+		}
+	}
+#endif
 }

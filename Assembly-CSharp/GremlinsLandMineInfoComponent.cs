@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using UnityEngine;
 
 public class GremlinsLandMineInfoComponent : MonoBehaviour
@@ -145,4 +147,23 @@ public class GremlinsLandMineInfoComponent : MonoBehaviour
 		}
 		return energy;
 	}
+	
+#if SERVER
+	public GremlinsLandMineEffect CreateLandmineEffect(EffectSource source, ActorData caster, BoardSquare targetSquare)
+	{
+		return new GremlinsLandMineEffect(
+			source,
+			caster,
+			targetSquare,
+			GetMineDuration(),
+			GetDamageOnMovedOver(),
+			GetEnemyHitEffectOnMovedOver(),
+			GetEnergyOnExplosion(),
+			m_explosionShape,
+			m_detonateOnTimeout,
+			m_penetrateLos,
+			m_persistentSequencePrefab,
+			m_explosionSequencePrefab);
+	}
+#endif
 }

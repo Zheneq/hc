@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,9 +33,13 @@ public class AbilityMod_GremlinsDropMines : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		GremlinsDropMines gremlinsDropMines = GetTargetAbilityOnAbilityData(abilityData) as GremlinsDropMines;
+		// rogues
+		//GremlinsDropMines gremlinsDropMines = targetAbility as GremlinsDropMines;
+
 		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent = gremlinsDropMines != null
 			? gremlinsDropMines.GetComponent<GremlinsLandMineInfoComponent>()
 			: null;

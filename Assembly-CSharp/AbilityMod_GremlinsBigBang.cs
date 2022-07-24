@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,9 +45,13 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		GremlinsBigBang gremlinsBigBang = GetTargetAbilityOnAbilityData(abilityData) as GremlinsBigBang;
+		// rogues
+		//GremlinsBigBang gremlinsBigBang = targetAbility as GremlinsBigBang;
+		
 		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent = gremlinsBigBang != null
 			? gremlinsBigBang.GetComponent<GremlinsLandMineInfoComponent>()
 			: null;

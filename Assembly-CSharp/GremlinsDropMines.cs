@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -130,4 +132,141 @@ public class GremlinsDropMines : Ability
 	{
 		caster.TurnToDirection(new Vector3(0f, 0f, 1f));
 	}
+
+#if SERVER
+	// added in rogues
+	public GameObject GetCastSequenceForSquare(ActorData caster, BoardSquare targetSquare)
+	{
+		Vector3 vector = caster.GetCurrentBoardSquare().ToVector3() - targetSquare.ToVector3();
+		vector.y = 0f;
+		vector.Normalize();
+		if (Vector3.Dot(vector, new Vector3(0f, 0f, -1f)) > 0.9f)
+		{
+			return m_castSequencePrefabNorth;
+		}
+		if (Vector3.Dot(vector, new Vector3(0f, 0f, 1f)) > 0.9f)
+		{
+			return m_castSequencePrefabSouth;
+		}
+		if (Vector3.Dot(vector, new Vector3(-1f, 0f, 0f)) > 0.9f)
+		{
+			return m_castSequencePrefabEast;
+		}
+		if (Vector3.Dot(vector, new Vector3(1f, 0f, 0f)) > 0.9f)
+		{
+			return m_castSequencePrefabWest;
+		}
+		return m_castSequencePrefabDiag;
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		GetHitActorsAndBombEffects(targets, caster, out var hitActors, out var mineSquares);
+		foreach (ActorData actor in hitActors)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				GetCastSequenceForSquare(caster, actor.GetCurrentBoardSquare()),
+				actor.GetCurrentBoardSquare(),
+				actor.AsArray(),
+				caster,
+				additionalData.m_sequenceSource));
+		}
+		foreach (BoardSquare square in mineSquares)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				GetCastSequenceForSquare(caster, square),
+				square,
+				new ActorData[0],
+				caster,
+				additionalData.m_sequenceSource));
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		GetHitActorsAndBombEffects(targets, caster, out var hitActors, out var mineSquares);
+		Vector3 freePos = caster.GetFreePos();
+		foreach (ActorData target in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, freePos));
+			actorHitResults.SetBaseDamage(m_bombInfoComp.GetDamageOnMovedOver());
+			actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+			actorHitResults.SetTechPointGainOnCaster(m_bombInfoComp.GetEnergyOnExplosion());
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		List<Effect> worldEffectsByCaster = ServerEffectManager.Get().GetWorldEffectsByCaster(caster, typeof(GremlinsLandMineEffect));
+		foreach (BoardSquare boardSquare in mineSquares)
+		{
+			PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(boardSquare.ToVector3()));
+			GremlinsLandMineEffect effect = m_bombInfoComp.CreateLandmineEffect(AsEffectSource(), caster, boardSquare);
+			positionHitResults.AddEffect(effect);
+			foreach (Effect oldEffect in worldEffectsByCaster)
+			{
+				if (oldEffect.TargetSquare == boardSquare)
+				{
+					positionHitResults.AddEffectForRemoval(oldEffect, ServerEffectManager.Get().GetWorldEffects());
+				}
+			}
+			abilityResults.StorePositionHit(positionHitResults);
+		}
+	}
+
+	// added in rogues
+	private void GetHitActorsAndBombEffects(List<AbilityTarget> targets, ActorData caster, out List<ActorData> hitActors, out List<BoardSquare> mineSquares)
+	{
+		hitActors = new List<ActorData>();
+		mineSquares = new List<BoardSquare>();
+		List<BoardSquare> squaresInShape = AreaEffectUtils.GetSquaresInShape(
+			m_minePlaceShape,
+			caster.GetFreePos(),
+			caster.GetCurrentBoardSquare(),
+			m_ignoreLos,
+			caster);
+		foreach (BoardSquare boardSquare in squaresInShape)
+		{
+			if (boardSquare.OccupantActor != null
+			    && !boardSquare.OccupantActor.IgnoreForAbilityHits
+			    && boardSquare.OccupantActor.GetTeam() != caster.GetTeam())
+			{
+				hitActors.Add(boardSquare.OccupantActor);
+			}
+			else if (m_placeBombOnCasterSquare
+			         || boardSquare.OccupantActor == null
+			         || boardSquare.OccupantActor != caster)
+			{
+				mineSquares.Add(boardSquare);
+			}
+		}
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.BaseDamage > 0 && results.IsFromMovement())
+		{
+			if (results.ForMovementStage == MovementStage.Knockback)
+			{
+				Ability abilityOfType = caster.GetAbilityData().GetAbilityOfType(typeof(GremlinsBigBang));
+				int currentTurn = GameFlowData.Get().CurrentTurn;
+				if (abilityOfType.m_actorLastHitTurn != null
+				    && abilityOfType.m_actorLastHitTurn.ContainsKey(target)
+				    && abilityOfType.m_actorLastHitTurn[target] == currentTurn)
+				{
+					caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.GremlinsStats.MinesTriggeredByKnockbacksFromMe);
+				}
+			}
+			else if (results.ForMovementStage == MovementStage.Normal || results.ForMovementStage == MovementStage.Evasion)
+			{
+				caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.GremlinsStats.MinesTriggeredByMovers);
+			}
+		}
+	}
+#endif
 }

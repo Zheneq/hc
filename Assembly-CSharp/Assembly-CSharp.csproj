@@ -1024,6 +1024,7 @@
     <Compile Include="GremlinsBigBang.cs" />
     <Compile Include="GremlinsBombingRun.cs" />
     <Compile Include="GremlinsDropMines.cs" />
+    <Compile Include="GremlinsLandMineEffect.cs" />
     <Compile Include="GremlinsLandMineInfoComponent.cs" />
     <Compile Include="GremlinsMultiTargeterApocolypse.cs" />
     <Compile Include="GremlinsMultiTargeterBasicAttack.cs" />

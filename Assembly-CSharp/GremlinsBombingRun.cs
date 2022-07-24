@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GremlinsBombingRun : Ability
@@ -310,4 +312,279 @@ public class GremlinsBombingRun : Ability
 	{
 		return ActorData.MovementType.Charge;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override BoardSquare GetValidChargeTestSourceSquare(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		return chargeSegments[chargeSegments.Length - 1].m_pos;
+	}
+
+	// added in rogues
+	public override Vector3 GetChargeBestSquareTestVector(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		return ServerEvadeUtils.GetChargeBestSquareTestDirection(chargeSegments);
+	}
+
+	// added in rogues
+	public override bool GetChargeThroughInvalidSquares()
+	{
+		return true;
+	}
+
+	// added in rogues
+	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		int numSteps = m_numSteps;
+		if (numSteps < 2)
+		{
+			return base.GetChargePath(targets, caster, additionalData);
+		}
+		ServerEvadeUtils.ChargeSegment[] array = new ServerEvadeUtils.ChargeSegment[numSteps + 1];
+		array[0] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_pos = caster.GetCurrentBoardSquare(),
+			m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+			m_end = BoardSquarePathInfo.ChargeEndType.Pivot
+		};
+		for (int i = 0; i < numSteps; i++)
+		{
+			int num = i + 1;
+			array[num] = new ServerEvadeUtils.ChargeSegment
+			{
+				m_pos = Board.Get().GetSquare(targets[i].GridPos),
+				m_end = BoardSquarePathInfo.ChargeEndType.Pivot
+			};
+		}
+		array[array.Length - 1].m_end = BoardSquarePathInfo.ChargeEndType.Impact;
+		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(array));
+		foreach (ServerEvadeUtils.ChargeSegment segment in array)
+		{
+			if (segment.m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
+			{
+				segment.m_segmentMovementSpeed = segmentMovementSpeed;
+			}
+		}
+		return array;
+	}
+
+	// added in rogues
+	public override BoardSquare GetIdealDestination(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		int numSteps = m_numSteps;
+		if (numSteps < 2)
+		{
+			return base.GetIdealDestination(targets, caster, additionalData);
+		}
+		return Board.Get().GetSquare(targets[numSteps - 1].GridPos);
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		GetHitActors(targets, caster, out var hitTargetsList, out var explosionCenterSquares, null);
+		List<Vector3> list3 = new List<Vector3>();
+		foreach (BoardSquare square in explosionCenterSquares)
+		{
+			list3.Add(square.ToVector3());
+		}
+		HitOnAnimationEventSequence.ExtraParams extraParams = new HitOnAnimationEventSequence.ExtraParams
+		{
+			hitPositionsList = list3,
+			hitTargetsList = hitTargetsList
+		};
+		list.Add(new ServerClientUtils.SequenceStartData(
+			m_animListenerSequencePrefab,
+			Vector3.zero,
+			new ActorData[0],
+			caster,
+			additionalData.m_sequenceSource,
+			extraParams.ToArray()));
+		list.Add(new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			Vector3.zero,
+			new ActorData[0],
+			caster,
+			additionalData.m_sequenceSource));
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<List<NonActorTargetInfo>> nonActorTargetInfoInExplosions = new List<List<NonActorTargetInfo>>();
+		List<Barrier> processedBarriers = new List<Barrier>();
+		GetHitActors(
+			targets,
+			caster,
+			out var sequenceHitActors,
+			out var explosionCenterSquares,
+			nonActorTargetInfoInExplosions);
+		List<ActorData> processedHits = new List<ActorData>();
+		for (int i = 0; i < explosionCenterSquares.Count; i++)
+		{
+			foreach (ActorData actorData in sequenceHitActors[i])
+			{
+				if (!processedHits.Contains(actorData))
+				{
+					ActorHitParameters actorHitParameters = new ActorHitParameters(actorData, explosionCenterSquares[i].ToVector3());
+					ActorHitResults actorHitResults = new ActorHitResults(actorHitParameters);
+					actorHitResults.SetBaseDamage(GetDamageAmount());
+					abilityResults.StoreActorHit(actorHitResults);
+					processedHits.Add(actorData);
+				}
+			}
+			PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(explosionCenterSquares[i].ToVector3()));
+			if (ShouldLeaveMinesAtTouchedSquares())
+			{
+				GremlinsLandMineEffect effect = m_bombInfoComp.CreateLandmineEffect(AsEffectSource(), caster, explosionCenterSquares[i]);
+				positionHitResults.AddEffect(effect);
+				foreach (Effect effect2 in ServerEffectManager.Get().GetWorldEffectsByCaster(caster, typeof(GremlinsLandMineEffect)))
+				{
+					if (effect2.TargetSquare == explosionCenterSquares[i])
+					{
+						positionHitResults.AddEffectForRemoval(effect2, ServerEffectManager.Get().GetWorldEffects());
+					}
+				}
+			}
+			List<NonActorTargetInfo> explosionTargetInfo = nonActorTargetInfoInExplosions[i];
+			for (int j = explosionTargetInfo.Count - 1; j >= 0; j--)
+			{
+				NonActorTargetInfo nonActorTargetInfo = explosionTargetInfo[j];
+				if (nonActorTargetInfo is NonActorTargetInfo_BarrierBlock)
+				{
+					NonActorTargetInfo_BarrierBlock nonActorTargetInfo_BarrierBlock = nonActorTargetInfo as NonActorTargetInfo_BarrierBlock;
+					if (nonActorTargetInfo_BarrierBlock.m_barrier != null
+					    && !processedBarriers.Contains(nonActorTargetInfo_BarrierBlock.m_barrier))
+					{
+						nonActorTargetInfo_BarrierBlock.AddPositionReactionHitToAbilityResults(caster, positionHitResults, abilityResults, false);
+						processedBarriers.Add(nonActorTargetInfo_BarrierBlock.m_barrier);
+					}
+					explosionTargetInfo.RemoveAt(j);
+				}
+			}
+			abilityResults.StorePositionHit(positionHitResults);
+		}
+		foreach (List<NonActorTargetInfo> nonActorTargetInfo2 in nonActorTargetInfoInExplosions)
+		{
+			abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo2);
+		}
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out List<List<ActorData>> sequenceHitActors,
+		out List<BoardSquare> explosionCenterSquares,
+		List<List<NonActorTargetInfo>> nonActorTargetInfoInExplosions)
+	{
+		explosionCenterSquares = new List<BoardSquare>();
+		if (m_numSteps < 2)
+		{
+			BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+			BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(caster, square);
+			if (path != null)
+			{
+				BoardSquarePathInfo step = path;
+				int num = 0;
+				while (step != null)
+				{
+					if (num % GetMinSquaresPerJump() == 0)
+					{
+						explosionCenterSquares.Add(step.square);
+					}
+					step = step.next;
+					num++;
+				}
+			}
+			else
+			{
+				explosionCenterSquares.Add(caster.GetSquareAtPhaseStart());
+			}
+		}
+		else
+		{
+			explosionCenterSquares.Add(caster.GetSquareAtPhaseStart());
+			for (int i = 0; i < m_numSteps; i++)
+			{
+				explosionCenterSquares.Add(Board.Get().GetSquare(targets[i].GridPos));
+			}
+		}
+		return GetHitActorsFromSquares(explosionCenterSquares, caster, out sequenceHitActors, nonActorTargetInfoInExplosions);
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActorsFromSquares(
+		List<BoardSquare> explosionSquares,
+		ActorData caster,
+		out List<List<ActorData>> sequenceHitActors,
+		List<List<NonActorTargetInfo>> nonActorTargetInfoForExplosions)
+	{
+		sequenceHitActors = new List<List<ActorData>>();
+		nonActorTargetInfoForExplosions?.Clear();
+		List<ActorData> list = new List<ActorData>();
+		foreach (BoardSquare square in explosionSquares)
+		{
+			List<NonActorTargetInfo> nonActorTargetInfo = nonActorTargetInfoForExplosions != null
+				? new List<NonActorTargetInfo>()
+				: null;
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetExplosionShape(), square.ToVector3(), square);
+			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+				GetExplosionShape(),
+				centerOfShape,
+				square,
+				false,
+				caster,
+				caster.GetOtherTeams(),
+				nonActorTargetInfo);
+			nonActorTargetInfoForExplosions?.Add(nonActorTargetInfo);
+			ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInShape);
+			sequenceHitActors.Add(actorsInShape);
+			foreach (ActorData item in actorsInShape)
+			{
+				if (!list.Contains(item))
+				{
+					list.Add(item);
+				}
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.BaseDamage <= 0 || !results.IsFromMovement())
+		{
+			return;
+		}
+		if (results.ForMovementStage == MovementStage.Knockback)
+		{
+			Ability abilityOfType = caster.GetAbilityData().GetAbilityOfType(typeof(GremlinsBigBang));
+			int currentTurn = GameFlowData.Get().CurrentTurn;
+			if (abilityOfType.m_actorLastHitTurn != null
+			    && abilityOfType.m_actorLastHitTurn.ContainsKey(target)
+			    && abilityOfType.m_actorLastHitTurn[target] == currentTurn)
+			{
+				caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.GremlinsStats.MinesTriggeredByKnockbacksFromMe);
+			}
+		}
+		else if (results.ForMovementStage == MovementStage.Normal
+		         || results.ForMovementStage == MovementStage.Evasion)
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.GremlinsStats.MinesTriggeredByMovers);
+		}
+	}
+#endif
 }

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -274,4 +276,154 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 	{
 		return Mathf.Max(0, m_bombInfoComp.m_directHitSubsequentDamageAmount);
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		GetBombExplosionHitActorsAndDamage(targets, caster, out _, out var bombEndPoints, out var explosionHitActors, null);
+		for (int i = 0; i < bombEndPoints.Count; i++)
+		{
+			ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(
+				i == 0 ? m_firstBombSequencePrefab : m_subsequentBombSequencePrefab,
+				bombEndPoints[i],
+				explosionHitActors[i].ToArray(),
+				caster,
+				additionalData.m_sequenceSource);
+			list.Add(item);
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Dictionary<ActorData, int> bombExplosionHitActorsAndDamage = GetBombExplosionHitActorsAndDamage(
+			targets,
+			caster,
+			out var dictionary,
+			out var bombEndPoints,
+			out var explosionHitActors,
+			nonActorTargetInfo);
+		bool areAllTargetsPresent = bombExplosionHitActorsAndDamage.Keys.Count == GetExpectedNumberOfTargeters();
+		bool isTagAdded = false;
+		foreach (ActorData actorData in bombExplosionHitActorsAndDamage.Keys)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, dictionary[actorData]));
+			actorHitResults.SetBaseDamage(bombExplosionHitActorsAndDamage[actorData]);
+			if (areAllTargetsPresent && !isTagAdded)
+			{
+				actorHitResults.AddHitResultsTag(HitResultsTags.HittingAllTargets);
+				isTagAdded = true;
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		for (int i = 0; i < bombEndPoints.Count; i++)
+		{
+			if (explosionHitActors[i].Count == 0)
+			{
+				PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(bombEndPoints[i]));
+				BoardSquare hitSquare = Board.Get().GetSquareFromVec3(bombEndPoints[i]);
+				GremlinsLandMineEffect effect = m_bombInfoComp.CreateLandmineEffect(AsEffectSource(), caster, hitSquare);
+				positionHitResults.AddEffect(effect);
+				List<Effect> oldEffects = ServerEffectManager.Get().GetWorldEffectsByCaster(caster, typeof(GremlinsLandMineEffect));
+				foreach (Effect oldEffect in oldEffects)
+				{
+					if (oldEffect.TargetSquare == hitSquare)
+					{
+						positionHitResults.AddEffectForRemoval(oldEffect, ServerEffectManager.Get().GetWorldEffects());
+					}
+				}
+				abilityResults.StorePositionHit(positionHitResults);
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private Dictionary<ActorData, int> GetBombExplosionHitActorsAndDamage(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out Dictionary<ActorData, Vector3> damageOrigins,
+		out List<Vector3> bombEndPoints,
+		out List<List<ActorData>> sequenceExplosionHitActors,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		Dictionary<ActorData, int> dictionary = new Dictionary<ActorData, int>();
+		damageOrigins = new Dictionary<ActorData, Vector3>();
+		bombEndPoints = new List<Vector3>();
+		sequenceExplosionHitActors = new List<List<ActorData>>();
+		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
+		{
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetBombShape(), targets[i]);
+			BoardSquare square = Board.Get().GetSquare(targets[i].GridPos);
+			List<ActorData> hitActors = new List<ActorData>();
+			List<ActorData> actorsInShape = null;
+			if (square.OccupantActor != null
+			    && !square.OccupantActor.IgnoreForAbilityHits
+			    && square.OccupantActor.GetTeam() != caster.GetTeam())
+			{
+				actorsInShape = AreaEffectUtils.GetActorsInShape(
+					GetBombShape(),
+					centerOfShape,
+					square,
+					false,
+					caster,
+					caster.GetOtherTeams(),
+					nonActorTargetInfo);
+			}
+			if (actorsInShape != null)
+			{
+				foreach (ActorData actorData in actorsInShape)
+				{
+					if (dictionary.ContainsKey(actorData))
+					{
+						dictionary[actorData] += GetSubsequentHitDamage();
+					}
+					else
+					{
+						dictionary[actorData] = ModdedDirectHitDamagePerShot(i);
+						damageOrigins[actorData] = centerOfShape;
+						hitActors.Add(actorData);
+					}
+				}
+			}
+			bombEndPoints.Add(centerOfShape);
+			sequenceExplosionHitActors.Add(hitActors);
+		}
+		return dictionary;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.BaseDamage > 0 && results.IsFromMovement())
+		{
+			if (results.ForMovementStage == MovementStage.Knockback)
+			{
+				Ability abilityOfType = caster.GetAbilityData().GetAbilityOfType(typeof(GremlinsBigBang));
+				int currentTurn = GameFlowData.Get().CurrentTurn;
+				if (abilityOfType.m_actorLastHitTurn != null
+				    && abilityOfType.m_actorLastHitTurn.ContainsKey(target)
+				    && abilityOfType.m_actorLastHitTurn[target] == currentTurn)
+				{
+					caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.GremlinsStats.MinesTriggeredByKnockbacksFromMe);
+				}
+			}
+			else if (results.ForMovementStage == MovementStage.Normal
+			         || results.ForMovementStage == MovementStage.Evasion)
+			{
+				caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.GremlinsStats.MinesTriggeredByMovers);
+			}
+		}
+		else if (results.BaseDamage > 0
+		         && !results.IsFromMovement()
+		         && results.HasHitResultsTag(HitResultsTags.HittingAllTargets))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.GremlinsStats.TurnsDirectlyHittingTwoEnemiesWithPrimary);
+		}
+	}
+#endif
 }
