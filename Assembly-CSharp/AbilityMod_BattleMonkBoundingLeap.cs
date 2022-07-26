@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,9 +42,13 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		BattleMonkBoundingLeap battleMonkBoundingLeap = GetTargetAbilityOnAbilityData(abilityData) as BattleMonkBoundingLeap;
+		// rogues
+		//BattleMonkBoundingLeap battleMonkBoundingLeap = targetAbility as BattleMonkBoundingLeap;
+		
 		bool isAbilityPresent = battleMonkBoundingLeap != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isAbilityPresent, isAbilityPresent ? battleMonkBoundingLeap.m_damageAmount : 0);

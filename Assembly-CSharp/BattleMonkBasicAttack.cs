@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -142,4 +144,71 @@ public class BattleMonkBasicAttack : Ability
 			? m_abilityMod.m_healPerTargetHitMod.GetModifiedValue(m_healAmountPerTargetHit)
 			: m_healAmountPerTargetHit;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			caster.GetCurrentBoardSquare(),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> list = FindHitActors(targets, caster, nonActorTargetInfo);
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		int baseDamage = ModdedConeDamage(list.Count);
+		foreach (ActorData target in list)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, loSCheckPos));
+			actorHitResults.SetBaseDamage(baseDamage);
+			if (m_abilityMod != null)
+			{
+				actorHitResults.AddStandardEffectInfo(m_abilityMod.m_enemyHitEffect);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (ModdedHealPerTargetHit() > 0)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			actorHitResults.SetBaseHealing(ModdedHealPerTargetHit() * list.Count);
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> FindHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		Vector3 aimDirection = targets[0].AimDirection;
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		List<ActorData> list = null;
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(aimDirection);
+		list = AreaEffectUtils.GetActorsInCone(
+			loSCheckPos,
+			coneCenterAngleDegrees,
+			ModdedConeAngle(),
+			ModdedConeLength(),
+			m_coneBackwardOffset,
+			m_penetrateLineOfSight,
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+		if (m_maxTargets > 0)
+		{
+			TargeterUtils.SortActorsByDistanceToPos(ref list, loSCheckPos);
+			TargeterUtils.LimitActorsToMaxNumber(ref list, m_maxTargets);
+		}
+		return list ?? new List<ActorData>();
+	}
+#endif
 }

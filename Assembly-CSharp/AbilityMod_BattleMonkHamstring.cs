@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,9 +53,13 @@ public class AbilityMod_BattleMonkHamstring : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		BattleMonkHamstring battleMonkHamstring = GetTargetAbilityOnAbilityData(abilityData) as BattleMonkHamstring;
+		// rogues
+		//BattleMonkHamstring battleMonkHamstring = targetAbility as BattleMonkHamstring;
+		
 		bool isAbilityPresent = battleMonkHamstring != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserDamageMod, "[Laser Damage]", isAbilityPresent, isAbilityPresent ? battleMonkHamstring.m_laserDamageAmount : 0);

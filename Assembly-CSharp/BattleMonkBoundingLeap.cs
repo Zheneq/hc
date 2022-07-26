@@ -1,4 +1,7 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BattleMonkBoundingLeap : Ability
@@ -28,6 +31,9 @@ public class BattleMonkBoundingLeap : Ability
 	private const bool c_penetrateLoS = false;
 
 	private AbilityMod_BattleMonkBoundingLeap m_abilityMod;
+#if SERVER
+	private Passive_BattleMonk m_passive;
+#endif
 
 	private void Start()
 	{
@@ -35,6 +41,13 @@ public class BattleMonkBoundingLeap : Ability
 		{
 			m_abilityName = "Bounding Leap";
 		}
+#if SERVER
+		PassiveData component = GetComponent<PassiveData>();
+		if (component != null)
+		{
+			m_passive = component.GetPassiveOfType(typeof(Passive_BattleMonk)) as Passive_BattleMonk;
+		}
+#endif
 		SetupTargeter();
 	}
 
@@ -204,4 +217,342 @@ public class BattleMonkBoundingLeap : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+
+#if SERVER
+	// added in rogues
+	public override BoardSquare GetValidChargeTestSourceSquare(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		return chargeSegments[chargeSegments.Length - 1].m_pos;
+	}
+
+	// added in rogues
+	public override Vector3 GetChargeBestSquareTestVector(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		return ServerEvadeUtils.GetChargeBestSquareTestDirection(chargeSegments);
+	}
+
+	// added in rogues
+	public override bool GetChargeThroughInvalidSquares()
+	{
+		return true;
+	}
+
+	// added in rogues
+	public override bool CanChargeThroughInvalidSquaresForDestination()
+	{
+		return false;
+	}
+
+	// added in rogues
+	public override ServerEvadeUtils.ChargeSegment[] ProcessChargeDodge(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerEvadeUtils.ChargeInfo charge,
+		List<ServerEvadeUtils.EvadeInfo> evades)
+	{
+		return ServerEvadeUtils.ProcessChargeDodgeForStopOnTargetHit(
+			charge.m_chargeSegments[charge.m_chargeSegments.Length - 2].m_pos,
+			targets,
+			caster,
+			charge,
+			evades);
+	}
+
+	// added in rogues
+	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		BoardSquare pathDestinationAndEndPoints = GetPathDestinationAndEndPoints(targets, caster, out var endPoints);
+		ServerEvadeUtils.ChargeSegment[] chargeSegmentForStopOnTargetHit =
+			ServerEvadeUtils.GetChargeSegmentForStopOnTargetHit(
+				caster,
+				endPoints,
+				pathDestinationAndEndPoints,
+				m_recoveryTime);
+		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(chargeSegmentForStopOnTargetHit));
+		foreach (ServerEvadeUtils.ChargeSegment segment in chargeSegmentForStopOnTargetHit)
+		{
+			if (segment.m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
+			{
+				segment.m_segmentMovementSpeed = segmentMovementSpeed;
+			}
+		}
+		return chargeSegmentForStopOnTargetHit;
+	}
+
+	// added in rogues
+	public override BoardSquare GetIdealDestination(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return GetPathDestinationAndEndPoints(targets, caster, out _);
+	}
+
+	// added in rogues
+	private BoardSquare GetPathDestinationAndEndPoints(List<AbilityTarget> targets, ActorData caster, out List<Vector3> endPoints)
+	{
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+		List<Vector3> bounceEndPoints = GetBounceEndPoints(
+			targets,
+			caster,
+			loSCheckPos,
+			out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bouncingLaserInfos,
+			out List<ActorData> orderedHitActors,
+			null);
+		ServerEvadeUtils.RemoveInvalidChargeEndPositions(ref bounceEndPoints);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref bouncingLaserInfos);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref orderedHitActors);
+		ServerEvadeUtils.GetLastSegmentInfo(loSCheckPos, bounceEndPoints, out Vector3 start, out Vector3 dir, out var length);
+		float num2 = Mathf.Min(0.5f, length / 2f);
+		Vector3 end = bounceEndPoints[bounceEndPoints.Count - 1] - dir * num2;
+		BoardSquare result;
+		if (GetMaxTargets() > 0 && bouncingLaserInfos.Count >= GetMaxTargets())
+		{
+			result = orderedHitActors[orderedHitActors.Count - 1].GetCurrentBoardSquare();
+		}
+		else
+		{
+			result = KnockbackUtils.GetLastValidBoardSquareInLine(start, end, true);
+		}
+		endPoints = bounceEndPoints;
+		return result;
+	}
+
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_passive != null)
+		{
+			m_passive.m_chargeLastCastTurn = GameFlowData.Get().CurrentTurn;
+		}
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors = GetBounceHitActors(
+			targets,
+			loSCheckPos,
+			caster,
+			out var bounceEndPoints,
+			out _,
+			null);
+		BouncingShotSequence.ExtraParams extraParams = new BouncingShotSequence.ExtraParams
+		{
+			laserTargets = bounceHitActors,
+			segmentPts = bounceEndPoints
+		};
+		if (IncludeAlliesInBetween())
+		{
+			Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> alliesInPath = GetAlliesInPath(loSCheckPos, bounceEndPoints, caster);
+			foreach (ActorData key in alliesInPath.Keys)
+			{
+				if (!extraParams.laserTargets.ContainsKey(key))
+				{
+					extraParams.laserTargets.Add(key, alliesInPath[key]);
+				}
+				else
+				{
+					Debug.LogError("BattleMonk Leap: Trying to add actor that already added");
+				}
+			}
+		}
+		list.Add(new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			bounceEndPoints[0],
+			bounceHitActors.Keys.ToArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[]
+			{
+				extraParams
+			}));
+		if (additionalData.m_abilityResults.HitActorList().Contains(caster))
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_sequenceOnCaster,
+				caster.GetFreePos(),
+				caster.AsArray(),
+				caster,
+				additionalData.m_sequenceSource));
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+		List<List<NonActorTargetInfo>> nonActorTargetInfos = new List<List<NonActorTargetInfo>>();
+		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors = GetBounceHitActors(
+			targets,
+			loSCheckPos,
+			caster,
+			out var endPoints,
+			out var orderedHitActors,
+			nonActorTargetInfos);
+		bool flag = false;
+		bool flag2 = false;
+		for (int i = 0; i < orderedHitActors.Count; i++)
+		{
+			ActorData actorData = orderedHitActors[i];
+			bool flag3 = i == orderedHitActors.Count - 1;
+			int amount = CalcDamageForOrderIndex(i);
+			ActorHitParameters hitParams = new ActorHitParameters(actorData, bounceHitActors[actorData].m_segmentOrigin);
+			ActorHitResults actorHitResults = new ActorHitResults(amount, HitActionType.Damage, m_targetEffect, hitParams);
+			if (m_cooldownOnHit >= 0 && !flag)
+			{
+				AbilityData.ActionType actionTypeOfAbility = caster.GetAbilityData().GetActionTypeOfAbility(this);
+				actorHitResults.AddMiscHitEvent(new MiscHitEventData_OverrideCooldown(actionTypeOfAbility, m_cooldownOnHit));
+				flag = true;
+			}
+			if (m_chaseHitActor && flag3)
+			{
+				actorHitResults.AddMiscHitEvent(new MiscHitEventData(MiscHitEventType.CasterForceChaseTarget));
+				ActorHitParameters hitParams2 = new ActorHitParameters(caster, caster.GetFreePos());
+				ActorHitResults hitResults = new ActorHitResults(m_chaserEffect, hitParams2);
+				abilityResults.StoreActorHit(hitResults);
+				flag2 = true;
+			}
+			actorHitResults.SetBounceCount(bounceHitActors[actorData].m_endpointIndex);
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (IncludeAlliesInBetween())
+		{
+			Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> alliesInPath = GetAlliesInPath(loSCheckPos, endPoints, caster);
+			foreach (ActorData actorData2 in alliesInPath.Keys)
+			{
+				ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(actorData2, alliesInPath[actorData2].m_segmentOrigin));
+				actorHitResults2.AddStandardEffectInfo(GetAllyHitEffect());
+				abilityResults.StoreActorHit(actorHitResults2);
+			}
+		}
+		if (!flag2)
+		{
+			StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
+			if (moddedEffectForSelf != null && moddedEffectForSelf.m_applyEffect)
+			{
+				ActorHitResults hitResults2 = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+				abilityResults.StoreActorHit(hitResults2);
+			}
+		}
+		foreach (List<NonActorTargetInfo> nonActorTargetInfo in nonActorTargetInfos)
+		{
+			abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+		}
+	}
+
+	// added in rogues
+	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
+	{
+		List<Vector3> list = new List<Vector3>();
+		Vector3 freePos = caster.GetFreePos(caster.GetSquareAtPhaseStart());
+		GetBounceHitActors(targets, freePos, caster, out var bounceEndPoints, out var orderedHitActors, null);
+		if (bounceEndPoints != null)
+		{
+			list.AddRange(bounceEndPoints);
+		}
+		if (orderedHitActors != null)
+		{
+			foreach (ActorData actorData in orderedHitActors)
+			{
+				list.Add(actorData.GetFreePos());
+			}
+		}
+		foreach (AbilityTarget target in targets)
+		{
+			list.Add(target.FreePos);
+		}
+		return list;
+	}
+
+	// added in rogues
+	private List<Vector3> GetBounceEndPoints(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		Vector3 startPos,
+		out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceTargets,
+		out List<ActorData> orderedHitActors,
+		List<List<NonActorTargetInfo>> nonActorTargetInfoInSegments)
+	{
+		bool bounceOnActors = ShouldBounceOffEnemyActors() && GetMaxTargets() != 1;
+		return VectorUtils.CalculateBouncingActorEndpoints(
+			startPos,
+			targets[0].AimDirection,
+			GetMaxDistancePerBounce(),
+			GetMaxTotalDistance(),
+			GetMaxBounces(),
+			caster,
+			bounceOnActors,
+			m_width,
+			caster.GetOtherTeams(),
+			GetMaxTargets(),
+			out bounceTargets,
+			out orderedHitActors,
+			true,
+			nonActorTargetInfoInSegments);
+	}
+
+	// added in rogues
+	private Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> GetBounceHitActors(
+		List<AbilityTarget> targets,
+		Vector3 startPos,
+		ActorData caster,
+		out List<Vector3> bounceEndPoints,
+		out List<ActorData> orderedHitActors,
+		List<List<NonActorTargetInfo>> nonActorTargetInfoInSegments)
+	{
+		bounceEndPoints = GetBounceEndPoints(
+			targets,
+			caster,
+			startPos,
+			out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> result,
+			out orderedHitActors,
+			nonActorTargetInfoInSegments);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref result);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref orderedHitActors);
+		return result;
+	}
+
+	// added in rogues
+	private Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> GetAlliesInPath(Vector3 startPos, List<Vector3> endPoints, ActorData caster)
+	{
+		List<ActorData> orderedHitActors = new List<ActorData>();
+		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> result = AreaEffectUtils.FindBouncingLaserTargets(
+			startPos,
+			ref endPoints,
+			m_width,
+			caster.GetTeamAsList(),
+			-1,
+			true,
+			caster,
+			orderedHitActors);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref result);
+		return result;
+	}
+
+	// added in rogues
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.BattleMonkStats.DamageDealtPlusDodgedByCharge, damageDodged);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.BattleMonkStats.DamageDealtPlusDodgedByCharge, results.FinalDamage);
+		}
+	}
+#endif
 }

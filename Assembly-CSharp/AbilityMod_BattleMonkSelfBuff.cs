@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,9 +38,13 @@ public class AbilityMod_BattleMonkSelfBuff : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		BattleMonkSelfBuff battleMonkSelfBuff = GetTargetAbilityOnAbilityData(abilityData) as BattleMonkSelfBuff;
+		// rogues
+		//BattleMonkSelfBuff battleMonkSelfBuff = targetAbility as BattleMonkSelfBuff;
+		
 		bool isAbilityPresent = battleMonkSelfBuff != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_absorbMod, "[Absorb]", isAbilityPresent, isAbilityPresent ? battleMonkSelfBuff.m_standardActorEffectData.m_absorbAmount : 0);

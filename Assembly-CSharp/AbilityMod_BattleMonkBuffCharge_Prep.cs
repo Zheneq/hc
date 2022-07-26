@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,9 +55,13 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		BattleMonkBuffCharge_Prep battleMonkBuffCharge_Prep = GetTargetAbilityOnAbilityData(abilityData) as BattleMonkBuffCharge_Prep;
+		// rogues
+		//BattleMonkBuffCharge_Prep battleMonkBuffCharge_Prep = targetAbility as BattleMonkBuffCharge_Prep;
+
 		BattleMonkBuffCharge_Dash battleMonkBuffCharge_Dash = null;
 		if (battleMonkBuffCharge_Prep != null && battleMonkBuffCharge_Prep.m_chainAbilities.Length > 0)
 		{

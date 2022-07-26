@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleMonkBuffCharge_Dash : Ability
@@ -57,4 +59,47 @@ public class BattleMonkBuffCharge_Dash : Ability
 			? m_prepAbility.GetEnemyHitShape()
 			: m_damageEnemiesShape;
 	}
+	
+#if SERVER
+	// added in rogues
+	private List<ActorData> FindHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<ActorData> result = GetModdedDamage() > 0 || m_enemyDebuff.m_applyEffect
+			? AreaEffectUtils.GetActorsInShape(
+				GetEnemyHitShape(),
+				targets[0],
+				m_damageAoePenetratesLoS,
+				caster,
+				caster.GetOtherTeams(),
+				nonActorTargetInfo)
+			: new List<ActorData>();
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref result);
+		return result;
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ActorData> list = FindHitActors(targets, caster, null);
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetEnemyHitShape(), targets[0]);
+		return new ServerClientUtils.SequenceStartData(m_castSequencePrefab, centerOfShape, list.ToArray(), caster, additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> list = FindHitActors(targets, caster, nonActorTargetInfo);
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetEnemyHitShape(), targets[0]);
+		foreach (ActorData target in list)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(target, centerOfShape);
+			abilityResults.StoreActorHit(new ActorHitResults(GetModdedDamage(), HitActionType.Damage, m_enemyDebuff, hitParams));
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }

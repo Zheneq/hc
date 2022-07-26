@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using UnityEngine;
 
 public class BattleMonkThrowSwordSequence : SplineProjectileSequence

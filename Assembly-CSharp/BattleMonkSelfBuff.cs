@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,18 +9,33 @@ public class BattleMonkSelfBuff : Ability
 	public StandardActorEffectData m_standardActorEffectData;
 	[Header("-- Enemy Hit Effect --")]
 	public StandardEffectInfo m_returnEffectOnEnemy;
+	
+	// removed in rogues, seems redundant
 	[Header("-- Whether to ignore LoS when checking for allies, used for mod")]
 	public bool m_ignoreLos;
+	// end removed in rogues
+	
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 	public GameObject m_reactionProjectilePrefab;
 
 	private AbilityMod_BattleMonkSelfBuff m_abilityMod;
 	private StandardEffectInfo m_cachedReturnEffectOnEnemy;
+	
+#if SERVER
+	private Passive_BattleMonk m_passive;
+#endif
 
 	private void Start()
 	{
 		Setup();
+#if SERVER
+		PassiveData component = GetComponent<PassiveData>();
+		if (component != null)
+		{
+			m_passive = component.GetPassiveOfType(typeof(Passive_BattleMonk)) as Passive_BattleMonk;
+		}
+#endif
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -38,7 +55,7 @@ public class BattleMonkSelfBuff : Ability
 		Targeter = new AbilityUtil_Targeter_Shape(
 			this,
 			CanTargetNearbyAllies() ? GetAllyTargetShape() : AbilityAreaShape.SingleSquare,
-			m_ignoreLos,
+			m_ignoreLos,  // true in rogues
 			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
 			false,
 			CanTargetNearbyAllies(),
@@ -138,4 +155,85 @@ public class BattleMonkSelfBuff : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_passive != null)
+		{
+			m_passive.m_buffLastCastTurn = GameFlowData.Get().CurrentTurn;
+		}
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			caster.GetFreePos(),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		if (m_standardActorEffectData != null)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(caster, caster.GetFreePos());
+			StandardActorEffectData shallowCopy = m_standardActorEffectData.GetShallowCopy();
+			shallowCopy.m_absorbAmount = GetAbsorbAmount();
+			BattleMonkThornsEffect effect = new BattleMonkThornsEffect(
+				AsEffectSource(),
+				caster.GetCurrentBoardSquare(),
+				caster,
+				caster,
+				shallowCopy,
+				GetDamagePerHit(),
+				GetReturnEffectOnEnemy(),
+				m_reactionProjectilePrefab);
+			abilityResults.StoreActorHit(new ActorHitResults(effect, hitParams));
+		}
+		if (CanTargetNearbyAllies())
+		{
+			List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+				GetAllyTargetShape(),
+				targets[0],
+				false,
+				caster,
+				caster.GetTeamAsList(),
+				nonActorTargetInfo);
+			if (actorsInShape.Contains(caster))
+			{
+				actorsInShape.Remove(caster);
+			}
+			if (m_abilityMod != null && m_abilityMod.m_effectOnAllyHit.m_applyEffect)
+			{
+				foreach (ActorData target in actorsInShape)
+				{
+					ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, caster.GetFreePos()));
+					actorHitResults.AddStandardEffectInfo(m_abilityMod.m_effectOnAllyHit);
+					abilityResults.StoreActorHit(actorHitResults);
+				}
+			}
+			abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+		}
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		base.OnExecutedActorHit_Effect(caster, target, results);
+		if (caster.GetTeam() != target.GetTeam())
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.BattleMonkStats.DamageReturnedByShield, results.FinalDamage);
+		}
+	}
+#endif
 }

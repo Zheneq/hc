@@ -14,7 +14,16 @@ public class BattleMonkThornsEffect : StandardActorEffect
 	private List<ActorData> m_actorsReactedToThisTurn = new List<ActorData>();
 	private List<ActorData> m_actorsReactedToThisTurnFake = new List<ActorData>();
 
-	public BattleMonkThornsEffect(EffectSource parent, BoardSquare targetSquare, ActorData target, ActorData caster, StandardActorEffectData baseEffectData, int reactionDamage, StandardEffectInfo reactionEffect, GameObject reactionProjectileSequencePrefab) : base(parent, targetSquare, target, caster, baseEffectData)
+	public BattleMonkThornsEffect(
+		EffectSource parent,
+		BoardSquare targetSquare,
+		ActorData target,
+		ActorData caster,
+		StandardActorEffectData baseEffectData,
+		int reactionDamage,
+		StandardEffectInfo reactionEffect,
+		GameObject reactionProjectileSequencePrefab)
+		: base(parent, targetSquare, target, caster, baseEffectData)
 	{
 		m_parentAbility = parent.Ability;
 		m_effectName = m_parentAbility.m_abilityName;
@@ -42,43 +51,45 @@ public class BattleMonkThornsEffect : StandardActorEffect
 
 	public override void GatherResultsInResponseToActorHit(ActorHitResults incomingHit, ref List<AbilityResults_Reaction> reactions, bool isReal)
 	{
-		if (incomingHit.HasDamage)
+		if (!incomingHit.HasDamage)
 		{
-			AbilityResults_Reaction abilityResults_Reaction = new AbilityResults_Reaction();
-			ActorData caster = incomingHit.m_hitParameters.Caster;
-			if (!caster.IsDead())
+			return;
+		}
+		AbilityResults_Reaction abilityResults_Reaction = new AbilityResults_Reaction();
+		ActorData caster = incomingHit.m_hitParameters.Caster;
+		if (caster.IsDead())
+		{
+			return;
+		}
+		bool isGatheringResults = true;
+		if (isReal)
+		{
+			if (m_actorsReactedToThisTurn.Contains(caster))
 			{
-				bool isGatheringResults = true;
-				if (isReal)
-				{
-					if (m_actorsReactedToThisTurn.Contains(caster))
-					{
-						isGatheringResults = false;
-					}
-					else
-					{
-						m_actorsReactedToThisTurn.Add(caster);
-					}
-				}
-				else if (m_actorsReactedToThisTurnFake.Contains(caster))
-				{
-					isGatheringResults = false;
-				}
-				else
-				{
-					m_actorsReactedToThisTurnFake.Add(caster);
-				}
-				if (isGatheringResults)
-				{
-					ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, incomingHit.m_hitParameters.Origin));
-					actorHitResults.SetBaseDamage(m_reactionDamage);
-					actorHitResults.AddStandardEffectInfo(m_reactionEffect);
-					abilityResults_Reaction.SetupGameplayData(this, actorHitResults, incomingHit.m_reactionDepth, null, isReal, incomingHit);
-					abilityResults_Reaction.SetupSequenceData(m_reactionSequencePrefab, caster.GetCurrentBoardSquare(), SequenceSource, null);
-					abilityResults_Reaction.SetExtraFlag(ClientReactionResults.ExtraFlags.TriggerOnFirstDamageIfReactOnAttacker);
-					reactions.Add(abilityResults_Reaction);
-				}
+				isGatheringResults = false;
 			}
+			else
+			{
+				m_actorsReactedToThisTurn.Add(caster);
+			}
+		}
+		else if (m_actorsReactedToThisTurnFake.Contains(caster))
+		{
+			isGatheringResults = false;
+		}
+		else
+		{
+			m_actorsReactedToThisTurnFake.Add(caster);
+		}
+		if (isGatheringResults)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, incomingHit.m_hitParameters.Origin));
+			actorHitResults.SetBaseDamage(m_reactionDamage);
+			actorHitResults.AddStandardEffectInfo(m_reactionEffect);
+			abilityResults_Reaction.SetupGameplayData(this, actorHitResults, incomingHit.m_reactionDepth, null, isReal, incomingHit);
+			abilityResults_Reaction.SetupSequenceData(m_reactionSequencePrefab, caster.GetCurrentBoardSquare(), SequenceSource);
+			abilityResults_Reaction.SetExtraFlag(ClientReactionResults.ExtraFlags.TriggerOnFirstDamageIfReactOnAttacker);
+			reactions.Add(abilityResults_Reaction);
 		}
 	}
 }

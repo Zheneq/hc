@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using UnityEngine;
 
 public class BattleMonkHamstring : Ability
@@ -295,4 +298,224 @@ public class BattleMonkHamstring : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		if (GetMaxBounces() > 0)
+		{
+			List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, m_laserInfo.affectsAllies, m_laserInfo.affectsEnemies);
+			Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> laserTargets = FindBouncingLaserTargets(
+				targets[0],
+				caster,
+				relevantTeams,
+				out var segmentPts,
+				out _,
+				null);
+			list.Add(new ServerClientUtils.SequenceStartData(
+				GetProjectileSequence(),
+				caster.GetCurrentBoardSquare(),
+				laserTargets.Keys.ToArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				new BouncingShotSequence.ExtraParams
+				{
+					laserTargets = laserTargets,
+					segmentPts = segmentPts
+				}.ToArray()));
+		}
+		else
+		{
+			GetLaserHitActors(targets, caster, out VectorUtils.LaserCoords laserCoordinates, null);
+			if (GetMaxTargets() <= 0)
+			{
+				float maxDistanceInWorld = GetLaserRange() * Board.Get().squareSize;
+				float widthInWorld = GetLaserWidth() * Board.Get().squareSize;
+				laserCoordinates = VectorUtils.GetLaserCoordinates(
+					caster.GetLoSCheckPos(),
+					targets[0].AimDirection,
+					maxDistanceInWorld,
+					widthInWorld,
+					m_laserInfo.penetrateLos,
+					caster);
+			}
+
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_projectileSequencePrefab,
+				laserCoordinates.end,
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource));
+		}
+		if (m_castSelfSequencePrefab != null)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_castSelfSequencePrefab,
+				caster.GetCurrentBoardSquare(),
+				new ActorData[0],
+				caster,
+				additionalData.m_sequenceSource));
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> laserHitActors = GetLaserHitActors(targets, caster, out VectorUtils.LaserCoords _, nonActorTargetInfo);
+		for (int i = 0; i < laserHitActors.Count; i++)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(laserHitActors[i], caster.GetFreePos()));
+			int addAmount = CalcDamageForOrderIndex(i);
+			actorHitResults.AddBaseDamage(addAmount);
+			if (m_abilityMod != null && m_abilityMod.m_useLaserHitEffectOverride)
+			{
+				actorHitResults.AddStandardEffectInfo(m_abilityMod.m_laserHitEffectOverride);
+			}
+			else
+			{
+				actorHitResults.AddStandardEffectInfo(m_laserHitEffect);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (laserHitActors.Count > 0 && ShouldExplodeOnActorHit())
+		{
+			ActorData laserHitActor = laserHitActors[laserHitActors.Count - 1];
+			foreach (ActorData explosionHitActor in GetExplosionHitActors(targets, caster, nonActorTargetInfo))
+			{
+				if (!laserHitActors.Contains(explosionHitActor))
+				{
+					ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(explosionHitActor, laserHitActor.GetFreePos()));
+					actorHitResults.SetBaseDamage(GetExplosionDamage());
+					if (m_abilityMod != null && m_abilityMod.m_useExplosionHitEffectOverride)
+					{
+						actorHitResults.AddStandardEffectInfo(m_abilityMod.m_explosionHitEffectOverride);
+					}
+					else
+					{
+						actorHitResults.AddStandardEffectInfo(m_explosionHitEffect);
+					}
+					abilityResults.StoreActorHit(actorHitResults);
+				}
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> GetLaserHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out VectorUtils.LaserCoords endPoints,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, m_laserInfo.affectsAllies, m_laserInfo.affectsEnemies);
+		if (GetMaxBounces() > 0)
+		{
+			List<List<NonActorTargetInfo>> nonActorTargetInfos = new List<List<NonActorTargetInfo>>();
+			FindBouncingLaserTargets(
+				targets[0],
+				caster,
+				relevantTeams,
+				out List<Vector3> laserEndPoints,
+				out List<ActorData> laserHitActors,
+				nonActorTargetInfos);
+			if (nonActorTargetInfo != null)
+			{
+				foreach (List<NonActorTargetInfo> collection in nonActorTargetInfos)
+				{
+					nonActorTargetInfo.AddRange(collection);
+				}
+			}
+			endPoints = default(VectorUtils.LaserCoords);
+			endPoints.start = caster.GetFreePos();
+			if (laserEndPoints.Count > 0)
+			{
+				endPoints.end = laserEndPoints[0];
+			}
+			return laserHitActors;
+		}
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			targets[0].AimDirection,
+			GetLaserRange(),
+			GetLaserWidth(),
+			caster,
+			relevantTeams,
+			m_laserInfo.penetrateLos,
+			GetMaxTargets(),
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		endPoints = laserCoords;
+		return actorsInLaser;
+	}
+
+	// added in rogues
+	private Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> FindBouncingLaserTargets(
+		AbilityTarget targeter,
+		ActorData caster,
+		List<Team> affectedTeams,
+		out List<Vector3> laserEndPoints,
+		out List<ActorData> orderedHitActors,
+		List<List<NonActorTargetInfo>> nonActorTargetInfoInSegments)
+	{
+		laserEndPoints = VectorUtils.CalculateBouncingLaserEndpoints(
+			caster.GetLoSCheckPos(),
+			targeter.AimDirection,
+			GetDistancePerBounce(),
+			GetLaserRange(),
+			GetMaxBounces(),
+			caster,
+			GetLaserWidth(),
+			GetMaxTargets(),
+			true,
+			affectedTeams,
+			false,
+			out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> result,
+			out orderedHitActors,
+			nonActorTargetInfoInSegments);
+		return result;
+	}
+
+	// added in rogues
+	private List<ActorData> GetExplosionHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<ActorData> laserHitActors = GetLaserHitActors(targets, caster, out VectorUtils.LaserCoords _, null);
+		List<ActorData> result;
+		if (laserHitActors.Count > 0)
+		{
+			BoardSquare currentBoardSquare = laserHitActors[laserHitActors.Count - 1].GetCurrentBoardSquare();
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetExplodeShape(), currentBoardSquare.ToVector3(), currentBoardSquare);
+			result = AreaEffectUtils.GetActorsInShape(
+				GetExplodeShape(),
+				centerOfShape,
+				currentBoardSquare,
+				false,
+				caster,
+				caster.GetOtherTeams(),
+				nonActorTargetInfo);
+		}
+		else
+		{
+			result = new List<ActorData>();
+		}
+		return result;
+	}
+
+	// added in rogues
+	public override void OnAbilityAssistedKill(ActorData caster, ActorData target)
+	{
+		caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.BattleMonkStats.AssistsWithRoot);
+	}
+#endif
 }

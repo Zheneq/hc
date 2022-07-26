@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,9 +34,13 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		BattleMonkBasicAttack battleMonkBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as BattleMonkBasicAttack;
+		// rogues
+		//BattleMonkBasicAttack battleMonkBasicAttack = targetAbility as BattleMonkBasicAttack;
+		
 		bool isAbilityPresent = battleMonkBasicAttack != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_coneAngleMod, "[Cone Angle]", isAbilityPresent, isAbilityPresent ? battleMonkBasicAttack.m_coneWidthAngle : 0f);

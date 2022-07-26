@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -81,7 +83,12 @@ public class BattleMonkBuffCharge_Prep : Ability
 		{
 			m_cachedAbsorbOnSelf = selfBuffEffect.m_effectData.m_absorbAmount;
 		}
-		StandardEffectInfo allyBuffEffect = GetSelfBuffEffect(); // TODO GetAllyBuffEffect()
+		
+		// reactor & rogues
+		// StandardEffectInfo allyBuffEffect = GetSelfBuffEffect();
+		// custom 
+		StandardEffectInfo allyBuffEffect = GetAllyBuffEffect();
+		
 		if (allyBuffEffect.m_applyEffect)
 		{
 			m_cachedAbsorbOnAlly = allyBuffEffect.m_effectData.m_absorbAmount;
@@ -311,4 +318,84 @@ public class BattleMonkBuffCharge_Prep : Ability
 		}
 		return result;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 targetPos = AreaEffectUtils.GetCenterOfShape(m_buffAlliesShape, targets[0]) + new Vector3(0f, m_sequenceProjectileGroundOffset, 0f);
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(m_swordThrowSequencePrefab, targetPos, additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource);
+		list.Add(item);
+		if (m_castOnSelfSequencePrefab)
+		{
+			ActorData[] targetActorArray = new ActorData[0];
+			ServerClientUtils.SequenceStartData item2 = new ServerClientUtils.SequenceStartData(m_castOnSelfSequencePrefab, caster.GetCurrentBoardSquare(), targetActorArray, caster, additionalData.m_sequenceSource);
+			list.Add(item2);
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_buffAlliesShape, targets[0]);
+		StandardEffectInfo allyBuffEffect = GetAllyBuffEffect();
+		StandardEffectInfo selfBuffEffect = GetSelfBuffEffect();
+		if (allyBuffEffect.m_applyEffect)
+		{
+			List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+				m_buffAlliesShape,
+				targets[0],
+				m_buffAoePenetratesLoS,
+				caster,
+				caster.GetTeam(),
+				nonActorTargetInfo);
+			foreach (ActorData actorData in actorsInShape)
+			{
+				if (actorData != caster)
+				{
+					ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, centerOfShape));
+					actorHitResults.AddStandardEffectInfo(allyBuffEffect);
+					if (ShouldRemoveAllNegativeStatusFromAllies())
+					{
+						RemoveAllNegativeStatusFromTarget(actorData, actorHitResults);
+					}
+					abilityResults.StoreActorHit(actorHitResults);
+				}
+			}
+			abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+		}
+		if (selfBuffEffect.m_applyEffect)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, centerOfShape));
+			actorHitResults.AddStandardEffectInfo(selfBuffEffect);
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+	}
+
+	// added in rogues
+	private void RemoveAllNegativeStatusFromTarget(ActorData targetActor, ActorHitResults hitRes)
+	{
+		List<Effect> actorEffects = ServerEffectManager.Get().GetActorEffects(targetActor);
+		foreach (Effect effect in actorEffects)
+		{
+			if (effect.IsDebuff() && effect.GetStatuses() != null && effect.GetStatuses().Count > 0)
+			{
+				hitRes.AddEffectForRemoval(effect, actorEffects);
+			}
+		}
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		int appliedAbsorb = results.AppliedAbsorb;
+		if (appliedAbsorb > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.BattleMonkStats.ShieldsGrantedByUlt, appliedAbsorb);
+		}
+	}
+#endif
 }
