@@ -5,19 +5,12 @@ public class BattleMonkBasicAttack : Ability
 {
 	[Space(10f)]
 	public float m_coneWidthAngle = 270f;
-
 	public float m_coneLength = 1.5f;
-
 	public float m_coneBackwardOffset;
-
 	public int m_damageAmount = 20;
-
 	public bool m_penetrateLineOfSight;
-
 	public int m_maxTargets = 2;
-
 	public int m_healAmountPerTargetHit;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
@@ -34,7 +27,16 @@ public class BattleMonkBasicAttack : Ability
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, ModdedConeAngle(), ModdedConeLength(), m_coneBackwardOffset, m_penetrateLineOfSight, true, true, false, ModdedHealPerTargetHit() > 0);
+		Targeter = new AbilityUtil_Targeter_DirectionCone(
+			this,
+			ModdedConeAngle(),
+			ModdedConeLength(),
+			m_coneBackwardOffset,
+			m_penetrateLineOfSight,
+			true,
+			true,
+			false,
+			ModdedHealPerTargetHit() > 0);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -50,15 +52,17 @@ public class BattleMonkBasicAttack : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_BattleMonkBasicAttack abilityMod_BattleMonkBasicAttack = modAsBase as AbilityMod_BattleMonkBasicAttack;
-		int val = (!abilityMod_BattleMonkBasicAttack) ? m_damageAmount : abilityMod_BattleMonkBasicAttack.m_coneDamageMod.GetModifiedValue(m_damageAmount);
-		tokens.Add(new TooltipTokenInt("Damage", "damage to enemies", val));
+		tokens.Add(new TooltipTokenInt("Damage", "damage to enemies", abilityMod_BattleMonkBasicAttack != null
+			? abilityMod_BattleMonkBasicAttack.m_coneDamageMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount));
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damageAmount));
-		return list;
+		return new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damageAmount)
+		};
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
@@ -71,36 +75,34 @@ public class BattleMonkBasicAttack : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null)
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
+		if (tooltipSubjectTypes == null)
 		{
-			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
-			{
-				int num = ModdedHealPerTargetHit() * visibleActorsCountByTooltipSubject;
-				dictionary[AbilityTooltipSymbol.Healing] = Mathf.RoundToInt(num);
-			}
-			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
-			{
-				dictionary[AbilityTooltipSymbol.Damage] = ModdedConeDamage(visibleActorsCountByTooltipSubject);
-			}
+			return null;
+		}
+		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+		int visibleActorsCountByTooltipSubject = Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
+		if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
+		{
+			int healing = ModdedHealPerTargetHit() * visibleActorsCountByTooltipSubject;
+			dictionary[AbilityTooltipSymbol.Healing] = Mathf.RoundToInt(healing);
+		}
+		else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
+		{
+			dictionary[AbilityTooltipSymbol.Damage] = ModdedConeDamage(visibleActorsCountByTooltipSubject);
 		}
 		return dictionary;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_BattleMonkBasicAttack))
-		{
-			m_abilityMod = (abilityMod as AbilityMod_BattleMonkBasicAttack);
-			SetupTargeter();
-		}
-		else
+		if (abilityMod.GetType() != typeof(AbilityMod_BattleMonkBasicAttack))
 		{
 			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
+		m_abilityMod = abilityMod as AbilityMod_BattleMonkBasicAttack;
+		SetupTargeter();
 	}
 
 	protected override void OnRemoveAbilityMod()
@@ -111,54 +113,33 @@ public class BattleMonkBasicAttack : Ability
 
 	public float ModdedConeAngle()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_coneWidthAngle;
-		}
-		else
-		{
-			result = m_abilityMod.m_coneAngleMod.GetModifiedValue(m_coneWidthAngle);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneAngleMod.GetModifiedValue(m_coneWidthAngle)
+			: m_coneWidthAngle;
 	}
 
 	public float ModdedConeLength()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_coneLength;
-		}
-		else
-		{
-			result = m_abilityMod.m_coneLengthMod.GetModifiedValue(m_coneLength);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneLengthMod.GetModifiedValue(m_coneLength)
+			: m_coneLength;
 	}
 
 	public int ModdedConeDamage(int numTargets)
 	{
-		int num = m_damageAmount;
+		int damage = m_damageAmount;
 		if (m_abilityMod != null)
 		{
-			num = m_abilityMod.m_coneDamageMod.GetModifiedValue(num);
-			num += m_abilityMod.m_extraDamagePerTarget.GetModifiedValue(0) * (numTargets - 1);
+			damage = m_abilityMod.m_coneDamageMod.GetModifiedValue(damage);
+			damage += m_abilityMod.m_extraDamagePerTarget.GetModifiedValue(0) * (numTargets - 1);
 		}
-		return num;
+		return damage;
 	}
 
 	public int ModdedHealPerTargetHit()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_healAmountPerTargetHit;
-		}
-		else
-		{
-			result = m_abilityMod.m_healPerTargetHitMod.GetModifiedValue(m_healAmountPerTargetHit);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healPerTargetHitMod.GetModifiedValue(m_healAmountPerTargetHit)
+			: m_healAmountPerTargetHit;
 	}
 }

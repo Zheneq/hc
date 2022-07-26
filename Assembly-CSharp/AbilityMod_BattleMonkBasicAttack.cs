@@ -6,17 +6,12 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 {
 	[Header("-- Cone Size Mod")]
 	public AbilityModPropertyFloat m_coneAngleMod;
-
 	public AbilityModPropertyFloat m_coneLengthMod;
-
 	[Header("-- Damage and Effect on Enemy")]
 	public AbilityModPropertyInt m_coneDamageMod;
-
 	public StandardEffectInfo m_enemyHitEffect;
-
 	[Header("-- Heal on Self per Target Hit")]
 	public AbilityModPropertyInt m_healPerTargetHitMod;
-
 	public AbilityModPropertyInt m_extraDamagePerTarget;
 
 	public override Type GetTargetAbilityType()
@@ -27,64 +22,26 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		BattleMonkBasicAttack battleMonkBasicAttack = targetAbility as BattleMonkBasicAttack;
-		if (!(battleMonkBasicAttack != null))
+		if (battleMonkBasicAttack != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken(tokens, m_coneAngleMod, "ConeWidthAngle", string.Empty, battleMonkBasicAttack.m_coneWidthAngle);
-			AbilityMod.AddToken(tokens, m_coneLengthMod, "ConeLength", string.Empty, battleMonkBasicAttack.m_coneLength);
-			AbilityMod.AddToken(tokens, m_coneDamageMod, "DamageAmount", string.Empty, battleMonkBasicAttack.m_damageAmount);
-			AbilityMod.AddToken(tokens, m_healPerTargetHitMod, "HealAmountPerTargetHit", string.Empty, battleMonkBasicAttack.m_healAmountPerTargetHit);
-			AbilityMod.AddToken(tokens, m_extraDamagePerTarget, "ExtraDamagePerTarget", string.Empty, 0);
-			return;
+			AddToken(tokens, m_coneAngleMod, "ConeWidthAngle", string.Empty, battleMonkBasicAttack.m_coneWidthAngle);
+			AddToken(tokens, m_coneLengthMod, "ConeLength", string.Empty, battleMonkBasicAttack.m_coneLength);
+			AddToken(tokens, m_coneDamageMod, "DamageAmount", string.Empty, battleMonkBasicAttack.m_damageAmount);
+			AddToken(tokens, m_healPerTargetHitMod, "HealAmountPerTargetHit", string.Empty, battleMonkBasicAttack.m_healAmountPerTargetHit);
+			AddToken(tokens, m_extraDamagePerTarget, "ExtraDamagePerTarget", string.Empty, 0);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
-		string empty = string.Empty;
 		BattleMonkBasicAttack battleMonkBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as BattleMonkBasicAttack;
-		bool flag = battleMonkBasicAttack != null;
-		string str = empty;
-		AbilityModPropertyFloat coneAngleMod = m_coneAngleMod;
-		float baseVal;
-		if (flag)
-		{
-			baseVal = battleMonkBasicAttack.m_coneWidthAngle;
-		}
-		else
-		{
-			baseVal = 0f;
-		}
-		empty = str + AbilityModHelper.GetModPropertyDesc(coneAngleMod, "[Cone Angle]", flag, baseVal);
-		string str2 = empty;
-		AbilityModPropertyFloat coneLengthMod = m_coneLengthMod;
-		float baseVal2;
-		if (flag)
-		{
-			baseVal2 = battleMonkBasicAttack.m_coneLength;
-		}
-		else
-		{
-			baseVal2 = 0f;
-		}
-		empty = str2 + AbilityModHelper.GetModPropertyDesc(coneLengthMod, "[Cone Length]", flag, baseVal2);
-		empty += AbilityModHelper.GetModPropertyDesc(m_coneDamageMod, "[Cone Damage]", flag, flag ? battleMonkBasicAttack.m_damageAmount : 0);
-		string str3 = empty;
-		AbilityModPropertyInt healPerTargetHitMod = m_healPerTargetHitMod;
-		int baseVal3;
-		if (flag)
-		{
-			baseVal3 = battleMonkBasicAttack.m_healAmountPerTargetHit;
-		}
-		else
-		{
-			baseVal3 = 0;
-		}
-		empty = str3 + AbilityModHelper.GetModPropertyDesc(healPerTargetHitMod, "[Heal Per Target Hit]", flag, baseVal3);
-		empty += AbilityModHelper.GetModPropertyDesc(m_extraDamagePerTarget, "[Extra Damage Per Target Hit]", flag);
-		return empty + AbilityModHelper.GetModEffectInfoDesc(m_enemyHitEffect, "{ Enemy Hit Effect }", string.Empty, flag);
+		bool isAbilityPresent = battleMonkBasicAttack != null;
+		string desc = string.Empty;
+		desc += AbilityModHelper.GetModPropertyDesc(m_coneAngleMod, "[Cone Angle]", isAbilityPresent, isAbilityPresent ? battleMonkBasicAttack.m_coneWidthAngle : 0f);
+		desc += AbilityModHelper.GetModPropertyDesc(m_coneLengthMod, "[Cone Length]", isAbilityPresent, isAbilityPresent ? battleMonkBasicAttack.m_coneLength : 0f);
+		desc += AbilityModHelper.GetModPropertyDesc(m_coneDamageMod, "[Cone Damage]", isAbilityPresent, isAbilityPresent ? battleMonkBasicAttack.m_damageAmount : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_healPerTargetHitMod, "[Heal Per Target Hit]", isAbilityPresent, isAbilityPresent ? battleMonkBasicAttack.m_healAmountPerTargetHit : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_extraDamagePerTarget, "[Extra Damage Per Target Hit]", isAbilityPresent);
+		return desc + AbilityModHelper.GetModEffectInfoDesc(m_enemyHitEffect, "{ Enemy Hit Effect }", string.Empty, isAbilityPresent);
 	}
 }
