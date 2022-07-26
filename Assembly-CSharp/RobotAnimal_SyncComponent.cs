@@ -5,7 +5,6 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 {
 	[SyncVar]
 	public int m_biteLastCastTurn = -1;
-
 	[SyncVar]
 	public int m_biteLastHitTurn = -1;
 
@@ -43,41 +42,32 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					writer.WritePackedUInt32((uint)m_biteLastCastTurn);
-					writer.WritePackedUInt32((uint)m_biteLastHitTurn);
-					return true;
-				}
-			}
+			writer.WritePackedUInt32((uint)m_biteLastCastTurn);
+			writer.WritePackedUInt32((uint)m_biteLastHitTurn);
+			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_biteLastCastTurn);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_biteLastHitTurn);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}

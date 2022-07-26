@@ -4,21 +4,14 @@ using UnityEngine;
 public class RobotAnimalDrag : Ability
 {
 	public float m_width = 1f;
-
 	public float m_distance = 3f;
-
 	public int m_maxTargets = 1;
-
 	public bool m_penetrateLineOfSight;
-
 	public int m_damage;
-
 	public StandardEffectInfo m_casterEffect;
-
 	public StandardEffectInfo m_targetEffect;
 
 	private AbilityMod_RobotAnimalDrag m_abilityMod;
-
 	private StandardEffectInfo m_cachedCasterEffect;
 
 	private void Start()
@@ -33,7 +26,14 @@ public class RobotAnimalDrag : Ability
 	private void Setup()
 	{
 		SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_Laser(this, GetLaserWidth(), GetLaserDistance(), m_penetrateLineOfSight, m_maxTargets, false, GetCasterEffect().m_applyEffect);
+		Targeter = new AbilityUtil_Targeter_Laser(
+			this,
+			GetLaserWidth(),
+			GetLaserDistance(),
+			m_penetrateLineOfSight,
+			m_maxTargets,
+			false,
+			GetCasterEffect().m_applyEffect);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -48,121 +48,69 @@ public class RobotAnimalDrag : Ability
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedCasterEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedCasterEffect = m_abilityMod.m_casterEffectMod.GetModifiedValue(m_casterEffect);
-		}
-		else
-		{
-			cachedCasterEffect = m_casterEffect;
-		}
-		m_cachedCasterEffect = cachedCasterEffect;
+		m_cachedCasterEffect = m_abilityMod != null
+			? m_abilityMod.m_casterEffectMod.GetModifiedValue(m_casterEffect)
+			: m_casterEffect;
 	}
 
 	public StandardEffectInfo GetCasterEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedCasterEffect != null)
-		{
-			result = m_cachedCasterEffect;
-		}
-		else
-		{
-			result = m_casterEffect;
-		}
-		return result;
+		return m_cachedCasterEffect ?? m_casterEffect;
 	}
 
 	private float GetLaserDistance()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_distance;
-		}
-		else
-		{
-			result = m_abilityMod.m_distanceMod.GetModifiedValue(m_distance);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_distanceMod.GetModifiedValue(m_distance)
+			: m_distance;
 	}
 
 	private float GetLaserWidth()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_widthMod.GetModifiedValue(m_width) : m_width;
+		return m_abilityMod != null
+			? m_abilityMod.m_widthMod.GetModifiedValue(m_width)
+			: m_width;
 	}
 
 	public int GetDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
-		}
-		else
-		{
-			result = m_damage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageMod.GetModifiedValue(m_damage)
+			: m_damage;
 	}
 
 	public bool HasEffectOnNextTurnStart()
 	{
-		int result;
 		if (m_abilityMod == null)
 		{
-			result = 0;
+			return false;
 		}
-		else if (!m_abilityMod.m_enemyEffectOnNextTurnStart.m_applyEffect)
+		if (m_abilityMod.m_enemyEffectOnNextTurnStart.m_applyEffect)
 		{
-			if (m_abilityMod.m_powerUpsToSpawn != null)
-			{
-				result = ((m_abilityMod.m_powerUpsToSpawn.Count > 0) ? 1 : 0);
-			}
-			else
-			{
-				result = 0;
-			}
+			return true;
 		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return m_abilityMod.m_powerUpsToSpawn != null && m_abilityMod.m_powerUpsToSpawn.Count > 0;
 	}
 
 	public StandardEffectInfo EffectInfoOnNextTurnStart()
 	{
-		StandardEffectInfo result;
-		if (m_abilityMod == null)
-		{
-			result = new StandardEffectInfo();
-		}
-		else
-		{
-			result = m_abilityMod.m_enemyEffectOnNextTurnStart;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_enemyEffectOnNextTurnStart
+			: new StandardEffectInfo();
 	}
 
 	public List<PowerUp> GetModdedPowerUpsToSpawn()
 	{
-		object result;
-		if (m_abilityMod == null)
-		{
-			result = null;
-		}
-		else
-		{
-			result = m_abilityMod.m_powerUpsToSpawn;
-		}
-		return (List<PowerUp>)result;
+		return m_abilityMod != null
+			? m_abilityMod.m_powerUpsToSpawn
+			: null;
 	}
 
 	public AbilityAreaShape GetModdedPowerUpsToSpawnShape()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_powerUpsSpawnShape : AbilityAreaShape.SingleSquare;
+		return m_abilityMod != null
+			? m_abilityMod.m_powerUpsSpawnShape 
+			: AbilityAreaShape.SingleSquare;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -179,37 +127,21 @@ public class RobotAnimalDrag : Ability
 		AbilityMod_RobotAnimalDrag abilityMod_RobotAnimalDrag = modAsBase as AbilityMod_RobotAnimalDrag;
 		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
 		AddTokenInt(tokens, "Damage", string.Empty, m_damage);
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_RobotAnimalDrag)
-		{
-			effectInfo = abilityMod_RobotAnimalDrag.m_casterEffectMod.GetModifiedValue(m_casterEffect);
-		}
-		else
-		{
-			effectInfo = m_casterEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "CasterEffect", m_casterEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_RobotAnimalDrag != null
+			? abilityMod_RobotAnimalDrag.m_casterEffectMod.GetModifiedValue(m_casterEffect)
+			: m_casterEffect, "CasterEffect", m_casterEffect);
 		AbilityMod.AddToken_EffectInfo(tokens, m_targetEffect, "TargetEffect", null, false);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_RobotAnimalDrag))
+		if (abilityMod.GetType() != typeof(AbilityMod_RobotAnimalDrag))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_RobotAnimalDrag);
-					Setup();
-					return;
-				}
-			}
+			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+		m_abilityMod = abilityMod as AbilityMod_RobotAnimalDrag;
+		Setup();
 	}
 
 	protected override void OnRemoveAbilityMod()

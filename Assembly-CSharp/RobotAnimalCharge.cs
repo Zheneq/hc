@@ -4,39 +4,23 @@ using UnityEngine;
 public class RobotAnimalCharge : Ability
 {
 	public int m_damageAmount = 20;
-
 	public float m_lifeOnFirstHit;
-
 	public float m_lifePerHit;
-
 	public int m_maxTargetsHit = 1;
-
 	public AbilityAreaShape m_targetShape;
-
 	public bool m_targetShapePenetratesLoS;
-
 	public bool m_chaseTarget = true;
-
 	public StandardEffectInfo m_chaserEffect;
-
 	public StandardEffectInfo m_enemyTargetEffect;
-
 	public StandardEffectInfo m_allyTargetEffect;
-
 	public float m_recoveryTime = 1f;
-
 	[Header("-- Targeting: Whether require dashing at target actor")]
 	public bool m_requireTargetActor = true;
-
 	public bool m_canIncludeEnemy = true;
-
 	public bool m_canIncludeAlly = true;
-
 	[Header("-- Cooldown reduction on hitting target")]
 	public int m_cdrOnHittingAlly;
-
 	public int m_cdrOnHittingEnemy;
-
 	private AbilityMod_RobotAnimalCharge m_abilityMod;
 
 	private void Start()
@@ -50,26 +34,27 @@ public class RobotAnimalCharge : Ability
 
 	private void Setup()
 	{
-		AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge = new AbilityUtil_Targeter_Charge(this, m_targetShape, m_targetShapePenetratesLoS, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, CanIncludeEnemy(), CanIncludeAlly());
-		abilityUtil_Targeter_Charge.m_forceChase = true;
-		if (!(ModdedLifeOnFirstHit() > 0f))
+		AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge = new AbilityUtil_Targeter_Charge(
+			this,
+			m_targetShape,
+			m_targetShapePenetratesLoS,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos,
+			CanIncludeEnemy(),
+			CanIncludeAlly())
 		{
-			if (!(ModdedLifePerHit() > 0f))
-			{
-				goto IL_0073;
-			}
+			m_forceChase = true
+		};
+		if (ModdedLifeOnFirstHit() > 0f || ModdedLifePerHit() > 0f)
+		{
+			abilityUtil_Targeter_Charge.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
+			abilityUtil_Targeter_Charge.m_affectCasterDelegate = TargeterIncludeCaster;
 		}
-		abilityUtil_Targeter_Charge.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
-		abilityUtil_Targeter_Charge.m_affectCasterDelegate = TargeterIncludeCaster;
-		goto IL_0073;
-		IL_0073:
-		base.Targeter = abilityUtil_Targeter_Charge;
+		Targeter = abilityUtil_Targeter_Charge;
 	}
 
 	private bool TargeterIncludeCaster(ActorData caster, List<ActorData> actorsSoFar, bool casterInShape)
 	{
-		int enemyCount = AbilityUtils.GetEnemyCount(actorsSoFar, caster);
-		return enemyCount > 0;
+		return AbilityUtils.GetEnemyCount(actorsSoFar, caster) > 0;
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
@@ -79,228 +64,135 @@ public class RobotAnimalCharge : Ability
 
 	public int ModdedDamage()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_damageAmount;
-		}
-		else
-		{
-			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damageAmount);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public float ModdedLifeOnFirstHit()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_lifeOnFirstHit;
-		}
-		else
-		{
-			result = m_abilityMod.m_lifeOnFirstHitMod.GetModifiedValue(m_lifeOnFirstHit);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_lifeOnFirstHitMod.GetModifiedValue(m_lifeOnFirstHit)
+			: m_lifeOnFirstHit;
 	}
 
 	public float ModdedLifePerHit()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_lifePerHit;
-		}
-		else
-		{
-			result = m_abilityMod.m_lifePerHitMod.GetModifiedValue(m_lifePerHit);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_lifePerHitMod.GetModifiedValue(m_lifePerHit)
+			: m_lifePerHit;
 	}
 
 	public int ModdedHealOnNextTurnStartIfKilledTarget()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = 0;
-		}
-		else
-		{
-			result = m_abilityMod.m_healOnNextTurnStartIfKilledTarget;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healOnNextTurnStartIfKilledTarget
+			: 0;
 	}
 
 	public StandardEffectInfo ModdedEffectForSelfPerAdjacentAlly()
 	{
-		StandardEffectInfo result;
-		if (m_abilityMod == null)
-		{
-			result = new StandardEffectInfo();
-		}
-		else
-		{
-			result = m_abilityMod.m_effectToSelfPerAdjacentAlly;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_effectToSelfPerAdjacentAlly
+			: new StandardEffectInfo();
 	}
 
 	public int ModdedTechPointGainPerAdjacentAlly()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = 0;
-		}
-		else
-		{
-			result = m_abilityMod.m_techPointsPerAdjacentAlly;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_techPointsPerAdjacentAlly
+			: 0;
 	}
 
 	public bool RequireTargetActor()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_requireTargetActorMod.GetModifiedValue(m_requireTargetActor);
-		}
-		else
-		{
-			result = m_requireTargetActor;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_requireTargetActorMod.GetModifiedValue(m_requireTargetActor)
+			: m_requireTargetActor;
 	}
 
 	public bool CanIncludeEnemy()
 	{
-		return (!m_abilityMod) ? m_canIncludeEnemy : m_abilityMod.m_canIncludeEnemyMod.GetModifiedValue(m_canIncludeEnemy);
+		return m_abilityMod != null
+			? m_abilityMod.m_canIncludeEnemyMod.GetModifiedValue(m_canIncludeEnemy)
+			: m_canIncludeEnemy;
 	}
 
 	public bool CanIncludeAlly()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_canIncludeAllyMod.GetModifiedValue(m_canIncludeAlly);
-		}
-		else
-		{
-			result = m_canIncludeAlly;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_canIncludeAllyMod.GetModifiedValue(m_canIncludeAlly)
+			: m_canIncludeAlly;
 	}
 
 	public int GetCdrOnHittingAlly()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_cdrOnHittingAllyMod.GetModifiedValue(m_cdrOnHittingAlly);
-		}
-		else
-		{
-			result = m_cdrOnHittingAlly;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrOnHittingAllyMod.GetModifiedValue(m_cdrOnHittingAlly)
+			: m_cdrOnHittingAlly;
 	}
 
 	public int GetCdrOnHittingEnemy()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_cdrOnHittingEnemyMod.GetModifiedValue(m_cdrOnHittingEnemy);
-		}
-		else
-		{
-			result = m_cdrOnHittingEnemy;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrOnHittingEnemyMod.GetModifiedValue(m_cdrOnHittingEnemy)
+			: m_cdrOnHittingEnemy;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (RequireTargetActor())
+		if (!RequireTargetActor())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return HasTargetableActorsInDecision(caster, CanIncludeEnemy(), CanIncludeAlly(), false, ValidateCheckPath.CanBuildPath, true, false);
-				}
-			}
+			return true;
 		}
-		return true;
+		return HasTargetableActorsInDecision(
+			caster,
+			CanIncludeEnemy(),
+			CanIncludeAlly(),
+			false,
+			ValidateCheckPath.CanBuildPath,
+			true,
+			false);
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		bool result = true;
-		if (RequireTargetActor())
+		if (!RequireTargetActor())
 		{
-			while (true)
+			return true;
+		}
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, CanIncludeAlly(), CanIncludeEnemy());
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+			m_targetShape,
+			target,
+			m_targetShapePenetratesLoS,
+			caster,
+			relevantTeams,
+			null);
+		foreach (ActorData current in actorsInShape)
+		{
+			if (CanTargetActorInDecision(
+				    caster,
+				    current,
+				    CanIncludeEnemy(),
+				    CanIncludeAlly(),
+				    false,
+				    ValidateCheckPath.CanBuildPath,
+				    true,
+				    false))
 			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-				{
-					result = false;
-					List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, CanIncludeAlly(), CanIncludeEnemy());
-					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_targetShape, target, m_targetShapePenetratesLoS, caster, relevantTeams, null);
-					using (List<ActorData>.Enumerator enumerator = actorsInShape.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							ActorData current = enumerator.Current;
-							if (CanTargetActorInDecision(caster, current, CanIncludeEnemy(), CanIncludeAlly(), false, ValidateCheckPath.CanBuildPath, true, false))
-							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										break;
-									default:
-										return true;
-									}
-								}
-							}
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								break;
-							default:
-								return result;
-							}
-						}
-					}
-				}
-				}
+				return true;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, m_damageAmount);
-		int amount = Mathf.RoundToInt(m_lifeOnFirstHit);
-		int amount2 = Mathf.RoundToInt(m_lifePerHit);
-		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Tertiary, amount);
-		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Quaternary, amount2);
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Tertiary, Mathf.RoundToInt(m_lifeOnFirstHit));
+		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Quaternary, Mathf.RoundToInt(m_lifePerHit));
 		return numbers;
 	}
 
@@ -314,49 +206,30 @@ public class RobotAnimalCharge : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null)
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
+		if (tooltipSubjectTypes == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-				{
-					Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-					if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
-					{
-						List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
-						int num = dictionary[AbilityTooltipSymbol.Healing] = GetLifeGainAmount(visibleActorsInRangeByTooltipSubject.Count);
-					}
-					else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
-					{
-						dictionary[AbilityTooltipSymbol.Damage] = ModdedDamage();
-					}
-					return dictionary;
-				}
-				}
-			}
+			return null;
 		}
-		return null;
+		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+		if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
+		{
+			List<ActorData> visibleActorsInRangeByTooltipSubject = Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
+			dictionary[AbilityTooltipSymbol.Healing] = GetLifeGainAmount(visibleActorsInRangeByTooltipSubject.Count);
+		}
+		else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
+		{
+			dictionary[AbilityTooltipSymbol.Damage] = ModdedDamage();
+		}
+		return dictionary;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_RobotAnimalCharge abilityMod_RobotAnimalCharge = modAsBase as AbilityMod_RobotAnimalCharge;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_RobotAnimalCharge)
-		{
-			val = abilityMod_RobotAnimalCharge.m_damageMod.GetModifiedValue(m_damageAmount);
-		}
-		else
-		{
-			val = m_damageAmount;
-		}
-		AddTokenInt(tokens, "DamageAmount", empty, val);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, abilityMod_RobotAnimalCharge != null
+			? abilityMod_RobotAnimalCharge.m_damageMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount);
 		AddTokenInt(tokens, "MaxTargetsHit", string.Empty, m_maxTargetsHit);
 		AbilityMod.AddToken_EffectInfo(tokens, m_chaserEffect, "ChaserEffect", m_chaserEffect);
 		AbilityMod.AddToken_EffectInfo(tokens, m_enemyTargetEffect, "EnemyTargetEffect", m_enemyTargetEffect);
@@ -370,22 +243,13 @@ public class RobotAnimalCharge : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_RobotAnimalCharge))
+		if (abilityMod.GetType() != typeof(AbilityMod_RobotAnimalCharge))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_RobotAnimalCharge);
-					Setup();
-					return;
-				}
-			}
+			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+		m_abilityMod = abilityMod as AbilityMod_RobotAnimalCharge;
+		Setup();
 	}
 
 	protected override void OnRemoveAbilityMod()
@@ -397,16 +261,13 @@ public class RobotAnimalCharge : Ability
 	public int GetLifeGainAmount(int hitCount)
 	{
 		float num = 0f;
-		if (hitCount > 0)
+		if (hitCount > 0 && ModdedLifeOnFirstHit() != 0f)
 		{
-			if (ModdedLifeOnFirstHit() != 0f)
-			{
-				num += ModdedLifeOnFirstHit();
-			}
+			num += ModdedLifeOnFirstHit();
 		}
 		if (ModdedLifePerHit() != 0f)
 		{
-			num += ModdedLifePerHit() * (float)hitCount;
+			num += ModdedLifePerHit() * hitCount;
 		}
 		return Mathf.RoundToInt(num);
 	}

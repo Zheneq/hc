@@ -1,12 +1,10 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class RobotAnimalStealth : Ability
 {
 	public StandardActorEffectData m_selfEffect;
-
 	public bool m_useCharge;
-
 	[TextArea(1, 10)]
 	public string m_notes;
 
@@ -14,33 +12,19 @@ public class RobotAnimalStealth : Ability
 
 	private void Start()
 	{
-		if (m_useCharge)
+		if (m_useCharge && GetNumTargets() == 0)
 		{
-			if (GetNumTargets() == 0)
-			{
-				Debug.LogError("Robot Animal Stealth cannot use charge if there is no targeter targets specified");
-				m_useCharge = false;
-			}
+			Debug.LogError("Robot Animal Stealth cannot use charge if there is no targeter targets specified");
+			m_useCharge = false;
 		}
 		SetupTargeter();
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		if (UseCharge())
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return Mathf.Clamp(GetNumTargets(), 1, 2);
-				}
-			}
-		}
-		return 1;
+		return UseCharge()
+			? Mathf.Clamp(GetNumTargets(), 1, 2)
+			: 1;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -52,60 +36,26 @@ public class RobotAnimalStealth : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		if (UseCharge())
+		if (!UseCharge())
 		{
-			if (targetIndex == 0)
-			{
-				while (true)
-				{
-					int result;
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						{
-							BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-							if (boardSquareSafe != null)
-							{
-								if (boardSquareSafe.IsValidForGameplay())
-								{
-									result = ((KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null) ? 1 : 0);
-									goto IL_0073;
-								}
-							}
-							result = 0;
-							goto IL_0073;
-						}
-						IL_0073:
-						return (byte)result != 0;
-					}
-				}
-			}
-			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[0].GridPos);
-			BoardSquare boardSquareSafe3 = Board.Get().GetSquare(target.GridPos);
-			if (boardSquareSafe3 != null)
-			{
-				if (boardSquareSafe2 != boardSquareSafe3)
-				{
-					if (boardSquareSafe3.IsValidForGameplay() && KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false) != null)
-					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								break;
-							default:
-								return true;
-							}
-						}
-					}
-				}
-			}
-			return false;
+			return true;
 		}
-		return true;
+		if (targetIndex == 0)
+		{
+			BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+			return targetSquare != null
+			       && targetSquare.IsValidForGameplay()
+			       && KnockbackUtils.BuildStraightLineChargePath(caster, targetSquare) != null;
+		}
+		else
+		{
+			BoardSquare firstTargetSquare = Board.Get().GetSquare(currentTargets[0].GridPos);
+			BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+			return targetSquare != null
+			       && firstTargetSquare != targetSquare
+			       && targetSquare.IsValidForGameplay()
+			       && KnockbackUtils.BuildStraightLineChargePath(caster, targetSquare, firstTargetSquare, false) != null;
+		}
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -115,56 +65,56 @@ public class RobotAnimalStealth : Ability
 
 	private void SetupTargeter()
 	{
-		if (UseCharge())
+		if (!UseCharge())
 		{
-			while (true)
+			Targeter = new AbilityUtil_Targeter_Shape(
+				this,
+				AbilityAreaShape.SingleSquare,
+				true,
+				AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+				false,
+				false,
+				AbilityUtil_Targeter.AffectsActor.Always);
+			Targeter.ShowArcToShape = false;
+		}
+		else if (GetExpectedNumberOfTargeters() < 2)
+		{
+			Targeter = new AbilityUtil_Targeter_ChargeAoE(
+				this, 
+				0f,
+				0f, 
+				0f, 
+				-1, 
+				false,
+				false);
+		}
+		else
+		{
+			ClearTargeters();
+			for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-				{
-					if (GetExpectedNumberOfTargeters() < 2)
-					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								break;
-							default:
-								base.Targeter = new AbilityUtil_Targeter_ChargeAoE(this, 0f, 0f, 0f, -1, false, false);
-								return;
-							}
-						}
-					}
-					ClearTargeters();
-					for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
-					{
-						base.Targeters.Add(new AbilityUtil_Targeter_ChargeAoE(this, 0f, 0f, 0f, -1, false, false));
-						base.Targeters[i].SetUseMultiTargetUpdate(true);
-					}
-					return;
-				}
-				}
+				Targeters.Add(new AbilityUtil_Targeter_ChargeAoE(
+					this, 
+					0f,
+					0f, 
+					0f, 
+					-1, 
+					false, 
+					false));
+				Targeters[i].SetUseMultiTargetUpdate(true);
 			}
 		}
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always);
-		base.Targeter.ShowArcToShape = false;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_RobotAnimalStealth))
-		{
-			m_abilityMod = (abilityMod as AbilityMod_RobotAnimalStealth);
-			SetupTargeter();
-		}
-		else
+		if (abilityMod.GetType() != typeof(AbilityMod_RobotAnimalStealth))
 		{
 			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
+		m_abilityMod = abilityMod as AbilityMod_RobotAnimalStealth;
+		SetupTargeter();
 	}
 
 	protected override void OnRemoveAbilityMod()
@@ -175,60 +125,36 @@ public class RobotAnimalStealth : Ability
 
 	public StandardActorEffectData GetModdedStealthEffect()
 	{
-		StandardActorEffectData result;
-		if (!(m_abilityMod == null))
-		{
-			if (m_abilityMod.m_selfEffectOverride.m_applyEffect)
-			{
-				result = m_abilityMod.m_selfEffectOverride.m_effectData;
-				goto IL_004b;
-			}
-		}
-		result = m_selfEffect;
-		goto IL_004b;
-		IL_004b:
-		return result;
+		return m_abilityMod != null && m_abilityMod.m_selfEffectOverride.m_applyEffect
+			? m_abilityMod.m_selfEffectOverride.m_effectData
+			: m_selfEffect;
 	}
 
 	public bool ShouldApplyEffectOnNextDamageAttack()
 	{
-		return !(m_abilityMod == null) && m_abilityMod.m_effectOnNextDamageAttack.m_applyEffect;
+		return m_abilityMod != null && m_abilityMod.m_effectOnNextDamageAttack.m_applyEffect;
 	}
 
 	public StandardEffectInfo GetEffectOnNextDamageAttack()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_effectOnNextDamageAttack : new StandardEffectInfo();
+		return m_abilityMod != null
+			? m_abilityMod.m_effectOnNextDamageAttack
+			: new StandardEffectInfo();
 	}
 
 	public int GetExtraDamageNextAttack()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = 0;
-		}
-		else
-		{
-			result = m_abilityMod.m_extraDamageNextAttack;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageNextAttack
+			: 0;
 	}
 
 	public bool UseCharge()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = (m_useCharge ? 1 : 0);
-		}
-		else if (GetNumTargets() > 0)
-		{
-			result = ((m_abilityMod.m_useChainAbilityOverrides && m_abilityMod.m_chainAbilityOverrides.Length > 0) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod != null
+			? GetNumTargets() > 0
+			  && m_abilityMod.m_useChainAbilityOverrides
+			  && m_abilityMod.m_chainAbilityOverrides.Length > 0
+			: m_useCharge;
 	}
 }
