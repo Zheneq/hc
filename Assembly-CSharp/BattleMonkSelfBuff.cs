@@ -4,22 +4,16 @@ using UnityEngine;
 public class BattleMonkSelfBuff : Ability
 {
 	public int m_damagePerHit = 10;
-
 	public StandardActorEffectData m_standardActorEffectData;
-
 	[Header("-- Enemy Hit Effect --")]
 	public StandardEffectInfo m_returnEffectOnEnemy;
-
 	[Header("-- Whether to ignore LoS when checking for allies, used for mod")]
 	public bool m_ignoreLos;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_reactionProjectilePrefab;
 
 	private AbilityMod_BattleMonkSelfBuff m_abilityMod;
-
 	private StandardEffectInfo m_cachedReturnEffectOnEnemy;
 
 	private void Start()
@@ -30,143 +24,83 @@ public class BattleMonkSelfBuff : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_BattleMonkSelfBuff abilityMod_BattleMonkSelfBuff = modAsBase as AbilityMod_BattleMonkSelfBuff;
-		int num;
-		if ((bool)abilityMod_BattleMonkSelfBuff)
-		{
-			num = abilityMod_BattleMonkSelfBuff.m_damageReturnMod.GetModifiedValue(m_damagePerHit);
-		}
-		else
-		{
-			num = m_damagePerHit;
-		}
-		int val = num;
-		int num2;
-		if ((bool)abilityMod_BattleMonkSelfBuff)
-		{
-			num2 = abilityMod_BattleMonkSelfBuff.m_absorbMod.GetModifiedValue(m_standardActorEffectData.m_absorbAmount);
-		}
-		else
-		{
-			num2 = m_standardActorEffectData.m_absorbAmount;
-		}
-		int val2 = num2;
-		tokens.Add(new TooltipTokenInt("DamageReturn", "damage amount on revenge hit", val));
-		tokens.Add(new TooltipTokenInt("ShieldAmount", "shield amount", val2));
+		tokens.Add(new TooltipTokenInt("DamageReturn", "damage amount on revenge hit", abilityMod_BattleMonkSelfBuff != null
+			? abilityMod_BattleMonkSelfBuff.m_damageReturnMod.GetModifiedValue(m_damagePerHit)
+			: m_damagePerHit));
+		tokens.Add(new TooltipTokenInt("ShieldAmount", "shield amount", abilityMod_BattleMonkSelfBuff != null
+			? abilityMod_BattleMonkSelfBuff.m_absorbMod.GetModifiedValue(m_standardActorEffectData.m_absorbAmount)
+			: m_standardActorEffectData.m_absorbAmount));
 	}
 
 	private void Setup()
 	{
 		SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, CanTargetNearbyAllies() ? GetAllyTargetShape() : AbilityAreaShape.SingleSquare, m_ignoreLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, CanTargetNearbyAllies(), AbilityUtil_Targeter.AffectsActor.Always);
-		base.Targeter.ShowArcToShape = false;
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			CanTargetNearbyAllies() ? GetAllyTargetShape() : AbilityAreaShape.SingleSquare,
+			m_ignoreLos,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			false,
+			CanTargetNearbyAllies(),
+			AbilityUtil_Targeter.AffectsActor.Always);
+		Targeter.ShowArcToShape = false;
 	}
 
 	private void SetCachedFields()
 	{
-		m_cachedReturnEffectOnEnemy = ((!m_abilityMod) ? m_returnEffectOnEnemy : m_abilityMod.m_returnEffectOnEnemyMod.GetModifiedValue(m_returnEffectOnEnemy));
+		m_cachedReturnEffectOnEnemy = m_abilityMod != null
+			? m_abilityMod.m_returnEffectOnEnemyMod.GetModifiedValue(m_returnEffectOnEnemy)
+			: m_returnEffectOnEnemy;
 	}
 
 	public int GetDamagePerHit()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_damagePerHit;
-		}
-		else
-		{
-			result = m_abilityMod.m_damageReturnMod.GetModifiedValue(m_damagePerHit);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageReturnMod.GetModifiedValue(m_damagePerHit)
+			: m_damagePerHit;
 	}
 
 	public StandardEffectInfo GetReturnEffectOnEnemy()
 	{
-		StandardEffectInfo result;
-		if (m_cachedReturnEffectOnEnemy != null)
-		{
-			result = m_cachedReturnEffectOnEnemy;
-		}
-		else
-		{
-			result = m_returnEffectOnEnemy;
-		}
-		return result;
+		return m_cachedReturnEffectOnEnemy ?? m_returnEffectOnEnemy;
 	}
 
 	public int GetAbsorbAmount()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_standardActorEffectData.m_absorbAmount;
-		}
-		else
-		{
-			result = m_abilityMod.m_absorbMod.GetModifiedValue(m_standardActorEffectData.m_absorbAmount);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_absorbMod.GetModifiedValue(m_standardActorEffectData.m_absorbAmount)
+			: m_standardActorEffectData.m_absorbAmount;
 	}
 
 	public bool CanTargetNearbyAllies()
 	{
-		return !(m_abilityMod == null) && m_abilityMod.m_hitNearbyAlliesMod.GetModifiedValue(false);
+		return m_abilityMod != null && m_abilityMod.m_hitNearbyAlliesMod.GetModifiedValue(false);
 	}
 
 	public AbilityAreaShape GetAllyTargetShape()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = 0;
-		}
-		else
-		{
-			result = (int)m_abilityMod.m_allyTargetShapeMod.GetModifiedValue(AbilityAreaShape.SingleSquare);
-		}
-		return (AbilityAreaShape)result;
+		return m_abilityMod != null
+			? m_abilityMod.m_allyTargetShapeMod.GetModifiedValue(AbilityAreaShape.SingleSquare)
+			: AbilityAreaShape.SingleSquare;
 	}
 
 	public StandardEffectInfo GetSelfEffect()
 	{
-		object result;
-		if (m_abilityMod == null)
-		{
-			result = null;
-		}
-		else
-		{
-			result = m_abilityMod.m_effectOnSelfNextTurn;
-		}
-		return (StandardEffectInfo)result;
+		return m_abilityMod != null
+			? m_abilityMod.m_effectOnSelfNextTurn
+			: null;
 	}
 
 	public int GetDurationOfSelfEffect(int numHits)
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = 0;
-		}
-		else
-		{
-			result = m_abilityMod.m_selfEffectDurationPerHit.GetModifiedValue(numHits);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_selfEffectDurationPerHit.GetModifiedValue(numHits)
+			: 0;
 	}
 
 	public bool HasEffectForStartOfNextTurn()
 	{
-		int result;
-		if (GetSelfEffect() != null)
-		{
-			result = (GetSelfEffect().m_applyEffect ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return GetSelfEffect() != null && GetSelfEffect().m_applyEffect;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -180,36 +114,23 @@ public class BattleMonkSelfBuff : Ability
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
-		int absorbAmount = GetAbsorbAmount();
-		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, absorbAmount);
-		if (CanTargetNearbyAllies())
+		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, GetAbsorbAmount());
+		if (CanTargetNearbyAllies() && m_abilityMod.m_effectOnAllyHit.m_applyEffect)
 		{
-			if (m_abilityMod.m_effectOnAllyHit.m_applyEffect)
-			{
-				m_abilityMod.m_effectOnAllyHit.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
-			}
+			m_abilityMod.m_effectOnAllyHit.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 		}
 		return numbers;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_BattleMonkSelfBuff))
+		if (abilityMod.GetType() != typeof(AbilityMod_BattleMonkSelfBuff))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_BattleMonkSelfBuff);
-					Setup();
-					return;
-				}
-			}
+			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+		m_abilityMod = abilityMod as AbilityMod_BattleMonkSelfBuff;
+		Setup();
 	}
 
 	protected override void OnRemoveAbilityMod()

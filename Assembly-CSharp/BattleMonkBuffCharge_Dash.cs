@@ -1,17 +1,13 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleMonkBuffCharge_Dash : Ability
 {
 	[Space(10f)]
 	public AbilityAreaShape m_damageEnemiesShape = AbilityAreaShape.Five_x_Five_NoCorners;
-
 	public bool m_damageAoePenetratesLoS;
-
 	public int m_damage = 20;
-
 	public StandardEffectInfo m_enemyDebuff;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
@@ -20,32 +16,13 @@ public class BattleMonkBuffCharge_Dash : Ability
 	private void Start()
 	{
 		AbilityData component = GetComponent<AbilityData>();
-		if (!(component != null))
+		if (component != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			List<Ability> abilitiesAsList = component.GetAbilitiesAsList();
-			using (List<Ability>.Enumerator enumerator = abilitiesAsList.GetEnumerator())
+			foreach (Ability ability in component.GetAbilitiesAsList())
 			{
-				while (enumerator.MoveNext())
+				if (ability is BattleMonkBuffCharge_Prep prep)
 				{
-					Ability current = enumerator.Current;
-					if (current is BattleMonkBuffCharge_Prep)
-					{
-						m_prepAbility = (current as BattleMonkBuffCharge_Prep);
-					}
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
+					m_prepAbility = prep;
 				}
 			}
 		}
@@ -69,20 +46,15 @@ public class BattleMonkBuffCharge_Dash : Ability
 
 	public int GetModdedDamage()
 	{
-		return (!(m_prepAbility == null)) ? m_prepAbility.GetModdedDamage() : m_damage;
+		return m_prepAbility != null
+			? m_prepAbility.GetModdedDamage()
+			: m_damage;
 	}
 
 	public AbilityAreaShape GetEnemyHitShape()
 	{
-		AbilityAreaShape result;
-		if (m_prepAbility == null)
-		{
-			result = m_damageEnemiesShape;
-		}
-		else
-		{
-			result = m_prepAbility.GetEnemyHitShape();
-		}
-		return result;
+		return m_prepAbility != null
+			? m_prepAbility.GetEnemyHitShape()
+			: m_damageEnemiesShape;
 	}
 }

@@ -4,34 +4,23 @@ using UnityEngine.Networking;
 
 public class BattleMonkBuffCharge_Prep : Ability
 {
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public AbilityAreaShape m_buffAlliesShape = AbilityAreaShape.Three_x_Three;
-
 	[Header("-- How far can ally be to be considered valid target. Range in Target Data should be large")]
 	public float m_allySelectRadius = 8.5f;
-
 	public bool m_mustHitAllies = true;
-
 	public bool m_buffAoePenetratesLoS;
-
-	[Separator("Ally Hit Effect (for Enemy hit see Chain ability)", true)]
+	[Separator("Ally Hit Effect (for Enemy hit see Chain ability)")]
 	public StandardEffectInfo m_allyBuff;
-
 	public StandardEffectInfo m_selfBuff;
-
-	[Separator("Sequence", true)]
+	[Separator("Sequence")]
 	public float m_sequenceProjectileGroundOffset;
-
 	public GameObject m_swordThrowSequencePrefab;
-
 	public GameObject m_castOnSelfSequencePrefab;
 
 	private AbilityMod_BattleMonkBuffCharge_Prep m_abilityMod;
-
 	private BattleMonkBuffCharge_Dash m_dashAbility;
-
 	private int m_cachedAbsorbOnSelf;
-
 	private int m_cachedAbsorbOnAlly;
 
 	internal override ActorData.MovementType GetMovementType()
@@ -46,34 +35,12 @@ public class BattleMonkBuffCharge_Prep : Ability
 		m_selfBuff.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		if (m_chainAbilities.Length > 0)
 		{
-			Ability ability = m_chainAbilities[0];
-			if (ability is BattleMonkBuffCharge_Dash)
+			if (m_chainAbilities[0] is BattleMonkBuffCharge_Dash battleMonkBuffChargeDash)
 			{
-				BattleMonkBuffCharge_Dash battleMonkBuffCharge_Dash = ability as BattleMonkBuffCharge_Dash;
-				battleMonkBuffCharge_Dash.SetTooltip();
-				List<AbilityTooltipNumber> abilityTooltipNumbers = battleMonkBuffCharge_Dash.GetAbilityTooltipNumbers();
-				using (List<AbilityTooltipNumber>.Enumerator enumerator = abilityTooltipNumbers.GetEnumerator())
+				battleMonkBuffChargeDash.SetTooltip();
+				foreach (AbilityTooltipNumber current in battleMonkBuffChargeDash.GetAbilityTooltipNumbers())
 				{
-					while (enumerator.MoveNext())
-					{
-						AbilityTooltipNumber current = enumerator.Current;
-						numbers.Add(current);
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							break;
-						default:
-							if (true)
-							{
-								return numbers;
-							}
-							/*OpCode not supported: LdMemberToken*/;
-							return numbers;
-						}
-					}
+					numbers.Add(current);
 				}
 			}
 		}
@@ -84,10 +51,9 @@ public class BattleMonkBuffCharge_Prep : Ability
 	{
 		if (m_chainAbilities.Length > 0)
 		{
-			Ability ability = m_chainAbilities[0];
-			if (ability is BattleMonkBuffCharge_Dash)
+			if (m_chainAbilities[0] is BattleMonkBuffCharge_Dash dash)
 			{
-				m_dashAbility = (ability as BattleMonkBuffCharge_Dash);
+				m_dashAbility = dash;
 			}
 		}
 		SetupTargeter();
@@ -95,29 +61,30 @@ public class BattleMonkBuffCharge_Prep : Ability
 
 	private void SetupTargeter()
 	{
-		if (m_dashAbility == null)
+		if (m_dashAbility == null
+		    && m_chainAbilities.Length > 0
+		    && m_chainAbilities[0] is BattleMonkBuffCharge_Dash dash)
 		{
-			if (m_chainAbilities.Length > 0)
-			{
-				Ability ability = m_chainAbilities[0];
-				if (ability is BattleMonkBuffCharge_Dash)
-				{
-					m_dashAbility = (ability as BattleMonkBuffCharge_Dash);
-				}
-			}
+			m_dashAbility = dash;
 		}
-		base.Targeter = new AbilityUtil_Targeter_BattleMonkUltimate(this, GetAllyHitShape(), m_buffAoePenetratesLoS, GetEnemyHitShape(), GetDamageAoePenetrateLos(), false);
+		Targeter = new AbilityUtil_Targeter_BattleMonkUltimate(
+			this,
+			GetAllyHitShape(),
+			m_buffAoePenetratesLoS,
+			GetEnemyHitShape(),
+			GetDamageAoePenetrateLos(),
+			false);
 		bool affectsEnemies = GetModdedDamage() > 0 || (m_dashAbility != null && m_dashAbility.m_enemyDebuff.m_applyEffect);
-		base.Targeter.SetAffectedGroups(affectsEnemies, true, true);
+		Targeter.SetAffectedGroups(affectsEnemies, true, true);
 		StandardEffectInfo selfBuffEffect = GetSelfBuffEffect();
 		if (selfBuffEffect.m_applyEffect)
 		{
 			m_cachedAbsorbOnSelf = selfBuffEffect.m_effectData.m_absorbAmount;
 		}
-		StandardEffectInfo selfBuffEffect2 = GetSelfBuffEffect();
-		if (selfBuffEffect2.m_applyEffect)
+		StandardEffectInfo allyBuffEffect = GetSelfBuffEffect(); // TODO GetAllyBuffEffect()
+		if (allyBuffEffect.m_applyEffect)
 		{
-			m_cachedAbsorbOnAlly = selfBuffEffect2.m_effectData.m_absorbAmount;
+			m_cachedAbsorbOnAlly = allyBuffEffect.m_effectData.m_absorbAmount;
 		}
 	}
 
@@ -133,81 +100,69 @@ public class BattleMonkBuffCharge_Prep : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (GetRequireHitAlly())
+		if (!GetRequireHitAlly())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-				{
-					List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(caster.GetFreePos(), GetAllySelectRadius(), m_buffAoePenetratesLoS, caster, caster.GetTeam(), null);
-					actors.Remove(caster);
-					if (NetworkClient.active)
-					{
-						TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
-					}
-					TargeterUtils.RemoveActorsInvisibleToActor(ref actors, caster);
-					return actors.Count > 0;
-				}
-				}
-			}
+			return true;
 		}
-		return true;
+		List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(
+			caster.GetFreePos(),
+			GetAllySelectRadius(),
+			m_buffAoePenetratesLoS,
+			caster,
+			caster.GetTeam(),
+			null);
+		actors.Remove(caster);
+		if (NetworkClient.active)
+		{
+			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+		}
+		TargeterUtils.RemoveActorsInvisibleToActor(ref actors, caster);
+		return actors.Count > 0;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (!(boardSquareSafe == null) && boardSquareSafe.IsValidForGameplay())
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		if (targetSquare == null
+		    || !targetSquare.IsValidForGameplay()
+		    || targetSquare == caster.GetCurrentBoardSquare())
 		{
-			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
+			return false;
+		}
+		if (!GetRequireHitAlly())
+		{
+			return true;
+		}
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(
+			caster.GetFreePos(),
+			GetAllySelectRadius(),
+			m_buffAoePenetratesLoS,
+			caster,
+			caster.GetTeam(),
+			null);
+		actorsInRadius.Remove(caster);
+		foreach (ActorData actorData in actorsInRadius)
+		{
+			bool isVisible = NetworkClient.active
+				? actorData.IsActorVisibleToClient()
+				: actorData.IsActorVisibleToActor(caster);
+			if (isVisible)
 			{
-				bool result = false;
-				if (GetRequireHitAlly())
+				BoardSquare square = actorData.GetCurrentBoardSquare();
+				if (square != null)
 				{
-					List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.GetFreePos(), GetAllySelectRadius(), m_buffAoePenetratesLoS, caster, caster.GetTeam(), null);
-					actorsInRadius.Remove(caster);
-					int num = 0;
-					while (true)
+					bool isSquareInShape = AreaEffectUtils.IsSquareInShape(
+						targetSquare,
+						m_buffAlliesShape,
+						square.ToVector3(),
+						square,
+						m_buffAoePenetratesLoS,
+						caster);
+					if (isSquareInShape)
 					{
-						if (num < actorsInRadius.Count)
-						{
-							ActorData actorData = actorsInRadius[num];
-							bool num2;
-							if (NetworkClient.active)
-							{
-								num2 = actorData.IsActorVisibleToClient();
-							}
-							else
-							{
-								num2 = actorData.IsActorVisibleToActor(caster);
-							}
-							if (num2)
-							{
-								BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
-								if (currentBoardSquare != null)
-								{
-									if (AreaEffectUtils.IsSquareInShape(boardSquareSafe, m_buffAlliesShape, currentBoardSquare.ToVector3(), currentBoardSquare, m_buffAoePenetratesLoS, caster))
-									{
-										result = true;
-										break;
-									}
-								}
-							}
-							num++;
-							continue;
-						}
-						break;
+						return true;
 					}
 				}
-				else
-				{
-					result = true;
-				}
-				return result;
 			}
 		}
 		return false;
@@ -215,98 +170,57 @@ public class BattleMonkBuffCharge_Prep : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null)
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
+		if (tooltipSubjectTypes == null)
 		{
-			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
-			{
-				dictionary[AbilityTooltipSymbol.Damage] = GetModdedDamage();
-			}
-			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
-			{
-				dictionary[AbilityTooltipSymbol.Absorb] = GetModdedAbsorbOnSelf();
-			}
-			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
-			{
-				dictionary[AbilityTooltipSymbol.Absorb] = GetModdedAbsorbOnAlly();
-			}
-			return dictionary;
+			return null;
 		}
-		return null;
+		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+		if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
+		{
+			dictionary[AbilityTooltipSymbol.Damage] = GetModdedDamage();
+		}
+		else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
+		{
+			dictionary[AbilityTooltipSymbol.Absorb] = GetModdedAbsorbOnSelf();
+		}
+		else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
+		{
+			dictionary[AbilityTooltipSymbol.Absorb] = GetModdedAbsorbOnAlly();
+		}
+		return dictionary;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_BattleMonkBuffCharge_Prep abilityMod_BattleMonkBuffCharge_Prep = modAsBase as AbilityMod_BattleMonkBuffCharge_Prep;
-		if (m_chainAbilities.Length <= 0)
-		{
-			return;
-		}
-		while (true)
+		if (m_chainAbilities.Length > 0)
 		{
 			Ability ability = m_chainAbilities[0];
-			if (!(ability is BattleMonkBuffCharge_Dash))
+			if (ability is BattleMonkBuffCharge_Dash battleMonkBuffChargeDash)
 			{
-				return;
-			}
-			while (true)
-			{
-				BattleMonkBuffCharge_Dash battleMonkBuffCharge_Dash = ability as BattleMonkBuffCharge_Dash;
-				string empty = string.Empty;
-				int val;
-				if ((bool)abilityMod_BattleMonkBuffCharge_Prep)
-				{
-					val = abilityMod_BattleMonkBuffCharge_Prep.m_damageMod.GetModifiedValue(battleMonkBuffCharge_Dash.m_damage);
-				}
-				else
-				{
-					val = battleMonkBuffCharge_Dash.m_damage;
-				}
-				AddTokenInt(tokens, "Damage", empty, val);
-				StandardEffectInfo effectInfo;
-				if ((bool)abilityMod_BattleMonkBuffCharge_Prep)
-				{
-					effectInfo = abilityMod_BattleMonkBuffCharge_Prep.m_selfEffectOverride.GetModifiedValue(m_selfBuff);
-				}
-				else
-				{
-					effectInfo = m_selfBuff;
-				}
-				AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "SelfEffect", m_selfBuff);
-				StandardEffectInfo effectInfo2;
-				if ((bool)abilityMod_BattleMonkBuffCharge_Prep)
-				{
-					effectInfo2 = abilityMod_BattleMonkBuffCharge_Prep.m_allyEffectOverride.GetModifiedValue(m_allyBuff);
-				}
-				else
-				{
-					effectInfo2 = m_allyBuff;
-				}
-				AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "AllyEffect", m_allyBuff);
-				return;
+				AddTokenInt(tokens, "Damage", string.Empty, abilityMod_BattleMonkBuffCharge_Prep != null
+					? abilityMod_BattleMonkBuffCharge_Prep.m_damageMod.GetModifiedValue(battleMonkBuffChargeDash.m_damage)
+					: battleMonkBuffChargeDash.m_damage);
+				AbilityMod.AddToken_EffectInfo(tokens, abilityMod_BattleMonkBuffCharge_Prep != null
+					? abilityMod_BattleMonkBuffCharge_Prep.m_selfEffectOverride.GetModifiedValue(m_selfBuff)
+					: m_selfBuff, "SelfEffect", m_selfBuff);
+				AbilityMod.AddToken_EffectInfo(tokens, abilityMod_BattleMonkBuffCharge_Prep != null
+					? abilityMod_BattleMonkBuffCharge_Prep.m_allyEffectOverride.GetModifiedValue(m_allyBuff)
+					: m_allyBuff, "AllyEffect", m_allyBuff);
 			}
 		}
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_BattleMonkBuffCharge_Prep))
+		if (abilityMod.GetType() != typeof(AbilityMod_BattleMonkBuffCharge_Prep))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_BattleMonkBuffCharge_Prep);
-					SetupTargeter();
-					return;
-				}
-			}
+			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+		m_abilityMod = abilityMod as AbilityMod_BattleMonkBuffCharge_Prep;
+		SetupTargeter();
 	}
 
 	protected override void OnRemoveAbilityMod()
@@ -317,82 +231,47 @@ public class BattleMonkBuffCharge_Prep : Ability
 
 	public float GetAllySelectRadius()
 	{
-		return (!m_abilityMod) ? m_allySelectRadius : m_abilityMod.m_allySelectRadiusMod.GetModifiedValue(m_allySelectRadius);
+		return m_abilityMod != null
+			? m_abilityMod.m_allySelectRadiusMod.GetModifiedValue(m_allySelectRadius)
+			: m_allySelectRadius;
 	}
 
 	public bool GetRequireHitAlly()
 	{
-		bool result;
-		if (m_abilityMod == null)
-		{
-			result = m_mustHitAllies;
-		}
-		else
-		{
-			result = m_abilityMod.m_requireHitAlliesMod.GetModifiedValue(m_mustHitAllies);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_requireHitAlliesMod.GetModifiedValue(m_mustHitAllies)
+			: m_mustHitAllies;
 	}
 
 	public AbilityAreaShape GetAllyHitShape()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_allyShapeMod.GetModifiedValue(m_buffAlliesShape) : m_buffAlliesShape;
+		return m_abilityMod != null
+			? m_abilityMod.m_allyShapeMod.GetModifiedValue(m_buffAlliesShape)
+			: m_buffAlliesShape;
 	}
 
 	public bool GetDamageAoePenetrateLos()
 	{
-		int result;
-		if (m_dashAbility == null)
-		{
-			result = 0;
-		}
-		else
-		{
-			result = (m_dashAbility.m_damageAoePenetratesLoS ? 1 : 0);
-		}
-		return (byte)result != 0;
+		return m_dashAbility != null && m_dashAbility.m_damageAoePenetratesLoS;
 	}
 
 	public StandardEffectInfo GetSelfBuffEffect()
 	{
-		StandardEffectInfo result;
-		if (m_abilityMod == null)
-		{
-			result = m_selfBuff;
-		}
-		else
-		{
-			result = m_abilityMod.m_selfEffectOverride.GetModifiedValue(m_selfBuff);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_selfEffectOverride.GetModifiedValue(m_selfBuff)
+			: m_selfBuff;
 	}
 
 	public StandardEffectInfo GetAllyBuffEffect()
 	{
-		StandardEffectInfo result;
-		if (m_abilityMod == null)
-		{
-			result = m_allyBuff;
-		}
-		else
-		{
-			result = m_abilityMod.m_allyEffectOverride.GetModifiedValue(m_allyBuff);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_allyEffectOverride.GetModifiedValue(m_allyBuff)
+			: m_allyBuff;
 	}
 
 	public bool ShouldRemoveAllNegativeStatusFromAllies()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = (m_abilityMod.m_removeAllNegativeStatusFromAllies ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod != null && m_abilityMod.m_removeAllNegativeStatusFromAllies;
 	}
 
 	public int GetModdedAbsorbOnSelf()
@@ -421,15 +300,14 @@ public class BattleMonkBuffCharge_Prep : Ability
 
 	public int GetModdedDamage()
 	{
-		int num = 0;
+		int result = 0;
 		if (m_dashAbility != null)
 		{
-			num = m_dashAbility.m_damage;
+			result = m_dashAbility.m_damage;
 		}
-		int result = num;
 		if (m_abilityMod != null)
 		{
-			result = m_abilityMod.m_damageMod.GetModifiedValue(num);
+			result = m_abilityMod.m_damageMod.GetModifiedValue(result);
 		}
 		return result;
 	}

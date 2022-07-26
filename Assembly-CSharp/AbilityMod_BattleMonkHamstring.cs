@@ -6,36 +6,22 @@ public class AbilityMod_BattleMonkHamstring : AbilityMod
 {
 	[Header("-- Laser Damage and Targeting Mod")]
 	public AbilityModPropertyInt m_laserDamageMod;
-
 	public AbilityModPropertyInt m_damageAfterFirstHitMod;
-
 	[Space(10f)]
 	public AbilityModPropertyFloat m_widthMod;
-
 	public AbilityModPropertyFloat m_rangeMod;
-
 	public AbilityModPropertyInt m_maxTargetMod;
-
 	public bool m_useLaserHitEffectOverride;
-
 	public StandardEffectInfo m_laserHitEffectOverride;
-
 	[Header("-- Laser Explosion, Damage and Effects")]
 	public AbilityModPropertyInt m_explosionDamageMod;
-
 	public AbilityModPropertyBool m_explodeOnActorHitMod;
-
 	public AbilityModPropertyShape m_explodeShapeMod;
-
 	public bool m_useExplosionHitEffectOverride;
-
 	public StandardEffectInfo m_explosionHitEffectOverride;
-
 	[Header("-- Laser Bounce")]
 	public AbilityModPropertyInt m_maxBounces;
-
 	public AbilityModPropertyFloat m_distancePerBounce;
-
 	public AbilityModPropertySequenceOverride m_projectileSequencePrefab;
 
 	public override Type GetTargetAbilityType()
@@ -46,149 +32,61 @@ public class AbilityMod_BattleMonkHamstring : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		BattleMonkHamstring battleMonkHamstring = targetAbility as BattleMonkHamstring;
-		if (!(battleMonkHamstring != null))
+		if (battleMonkHamstring != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken(tokens, m_laserDamageMod, "LaserDamageAmount", string.Empty, battleMonkHamstring.m_laserDamageAmount);
-			AbilityMod.AddToken(tokens, m_damageAfterFirstHitMod, "DamageAfterFirstHit", string.Empty, battleMonkHamstring.m_damageAfterFirstHit);
-			AbilityMod.AddToken(tokens, m_widthMod, "LaserInfo_Width", string.Empty, battleMonkHamstring.m_laserInfo.width);
-			AbilityMod.AddToken(tokens, m_rangeMod, "LaserInfo_Range", string.Empty, battleMonkHamstring.m_laserInfo.range);
-			AbilityMod.AddToken(tokens, m_maxTargetMod, "LaserInfo_MaxTargets", string.Empty, battleMonkHamstring.m_laserInfo.maxTargets);
-			AbilityMod.AddToken(tokens, m_explosionDamageMod, "ExplosionDamageAmount", string.Empty, battleMonkHamstring.m_explosionDamageAmount);
+			AddToken(tokens, m_laserDamageMod, "LaserDamageAmount", string.Empty, battleMonkHamstring.m_laserDamageAmount);
+			AddToken(tokens, m_damageAfterFirstHitMod, "DamageAfterFirstHit", string.Empty, battleMonkHamstring.m_damageAfterFirstHit);
+			AddToken(tokens, m_widthMod, "LaserInfo_Width", string.Empty, battleMonkHamstring.m_laserInfo.width);
+			AddToken(tokens, m_rangeMod, "LaserInfo_Range", string.Empty, battleMonkHamstring.m_laserInfo.range);
+			AddToken(tokens, m_maxTargetMod, "LaserInfo_MaxTargets", string.Empty, battleMonkHamstring.m_laserInfo.maxTargets);
+			AddToken(tokens, m_explosionDamageMod, "ExplosionDamageAmount", string.Empty, battleMonkHamstring.m_explosionDamageAmount);
 			if (m_useLaserHitEffectOverride)
 			{
-				AbilityMod.AddToken_EffectInfo(tokens, m_laserHitEffectOverride, "LaserHitEffect", battleMonkHamstring.m_laserHitEffect);
+				AddToken_EffectInfo(tokens, m_laserHitEffectOverride, "LaserHitEffect", battleMonkHamstring.m_laserHitEffect);
 			}
 			if (m_useExplosionHitEffectOverride)
 			{
-				AbilityMod.AddToken_EffectInfo(tokens, m_explosionHitEffectOverride, "ExplosionHitEffect", battleMonkHamstring.m_explosionHitEffect);
+				AddToken_EffectInfo(tokens, m_explosionHitEffectOverride, "ExplosionHitEffect", battleMonkHamstring.m_explosionHitEffect);
 			}
-			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		BattleMonkHamstring battleMonkHamstring = GetTargetAbilityOnAbilityData(abilityData) as BattleMonkHamstring;
-		bool flag = battleMonkHamstring != null;
-		string empty = string.Empty;
-		empty += AbilityModHelper.GetModPropertyDesc(m_laserDamageMod, "[Laser Damage]", flag, flag ? battleMonkHamstring.m_laserDamageAmount : 0);
-		string str = empty;
-		AbilityModPropertyInt damageAfterFirstHitMod = m_damageAfterFirstHitMod;
-		int baseVal;
-		if (flag)
-		{
-			baseVal = battleMonkHamstring.m_damageAfterFirstHit;
-		}
-		else
-		{
-			baseVal = 0;
-		}
-		empty = str + PropDesc(damageAfterFirstHitMod, "[DamageAfterFirstHit]", flag, baseVal);
+		bool isAbilityPresent = battleMonkHamstring != null;
+		string desc = string.Empty;
+		desc += AbilityModHelper.GetModPropertyDesc(m_laserDamageMod, "[Laser Damage]", isAbilityPresent, isAbilityPresent ? battleMonkHamstring.m_laserDamageAmount : 0);
+		desc += PropDesc(m_damageAfterFirstHitMod, "[DamageAfterFirstHit]", isAbilityPresent, isAbilityPresent ? battleMonkHamstring.m_damageAfterFirstHit : 0);
 		if (m_useLaserHitEffectOverride)
 		{
-			empty += "Overrideing Laser Hit Effect\n";
-			empty += AbilityModHelper.GetModEffectInfoDesc(m_laserHitEffectOverride, "{ Effect Override On Laser Hit }", string.Empty, flag, (!flag) ? null : battleMonkHamstring.m_laserHitEffect);
+			desc += "Overrideing Laser Hit Effect\n";
+			desc += AbilityModHelper.GetModEffectInfoDesc(m_laserHitEffectOverride, "{ Effect Override On Laser Hit }", string.Empty, isAbilityPresent, isAbilityPresent ? battleMonkHamstring.m_laserHitEffect : null);
 		}
-		string str2 = empty;
-		AbilityModPropertyFloat widthMod = m_widthMod;
-		float baseVal2;
-		if (flag)
-		{
-			baseVal2 = battleMonkHamstring.m_laserInfo.width;
-		}
-		else
-		{
-			baseVal2 = 0f;
-		}
-		empty = str2 + AbilityModHelper.GetModPropertyDesc(widthMod, "[Laser Width]", flag, baseVal2);
-		empty += AbilityModHelper.GetModPropertyDesc(m_rangeMod, "[Laser Range]", flag, (!flag) ? 0f : battleMonkHamstring.m_laserInfo.range);
-		string str3 = empty;
-		AbilityModPropertyInt maxTargetMod = m_maxTargetMod;
-		int baseVal3;
-		if (flag)
-		{
-			baseVal3 = battleMonkHamstring.m_laserInfo.maxTargets;
-		}
-		else
-		{
-			baseVal3 = 0;
-		}
-		empty = str3 + AbilityModHelper.GetModPropertyDesc(maxTargetMod, "[Max Targets]", flag, baseVal3);
-		string str4 = empty;
-		AbilityModPropertyBool explodeOnActorHitMod = m_explodeOnActorHitMod;
-		int baseVal4;
-		if (flag)
-		{
-			baseVal4 = (battleMonkHamstring.m_explodeOnActorHit ? 1 : 0);
-		}
-		else
-		{
-			baseVal4 = 0;
-		}
-		empty = str4 + AbilityModHelper.GetModPropertyDesc(explodeOnActorHitMod, "[Should Explode On Actor Hit?]", flag, (byte)baseVal4 != 0);
-		string str5 = empty;
-		AbilityModPropertyInt explosionDamageMod = m_explosionDamageMod;
-		int baseVal5;
-		if (flag)
-		{
-			baseVal5 = battleMonkHamstring.m_explosionDamageAmount;
-		}
-		else
-		{
-			baseVal5 = 0;
-		}
-		empty = str5 + AbilityModHelper.GetModPropertyDesc(explosionDamageMod, "[Explosion Damage]", flag, baseVal5);
+
+		desc += AbilityModHelper.GetModPropertyDesc(m_widthMod, "[Laser Width]", isAbilityPresent, isAbilityPresent ? battleMonkHamstring.m_laserInfo.width : 0f);
+		desc += AbilityModHelper.GetModPropertyDesc(m_rangeMod, "[Laser Range]", isAbilityPresent, isAbilityPresent ? battleMonkHamstring.m_laserInfo.range : 0f);
+		desc += AbilityModHelper.GetModPropertyDesc(m_maxTargetMod, "[Max Targets]", isAbilityPresent, isAbilityPresent ? battleMonkHamstring.m_laserInfo.maxTargets : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_explodeOnActorHitMod, "[Should Explode On Actor Hit?]", isAbilityPresent, isAbilityPresent && battleMonkHamstring.m_explodeOnActorHit);
+		desc += AbilityModHelper.GetModPropertyDesc(m_explosionDamageMod, "[Explosion Damage]", isAbilityPresent, isAbilityPresent ? battleMonkHamstring.m_explosionDamageAmount : 0);
 		if (m_useExplosionHitEffectOverride)
 		{
-			empty += "Overriding Explosion Hit Effect\n";
-			string str6 = empty;
-			StandardEffectInfo explosionHitEffectOverride = m_explosionHitEffectOverride;
-			string empty2 = string.Empty;
-			object baseVal6;
-			if (flag)
-			{
-				baseVal6 = battleMonkHamstring.m_explosionHitEffect;
-			}
-			else
-			{
-				baseVal6 = null;
-			}
-			empty = str6 + AbilityModHelper.GetModEffectInfoDesc(explosionHitEffectOverride, "{ Effect Override on Explosion Hit }", empty2, flag, (StandardEffectInfo)baseVal6);
+			desc += "Overriding Explosion Hit Effect\n";
+			desc += AbilityModHelper.GetModEffectInfoDesc(m_explosionHitEffectOverride, "{ Effect Override on Explosion Hit }", string.Empty, isAbilityPresent, isAbilityPresent ? battleMonkHamstring.m_explosionHitEffect : null);
 		}
-		string str7 = empty;
-		AbilityModPropertyShape explodeShapeMod = m_explodeShapeMod;
-		int baseVal7;
-		if (flag)
+
+		desc += AbilityModHelper.GetModPropertyDesc(m_explodeShapeMod, "[Explode Shape]", isAbilityPresent, isAbilityPresent ? battleMonkHamstring.m_explodeShape : AbilityAreaShape.SingleSquare);
+		desc += PropDesc(m_maxBounces, "[Max Laser Bounces]", isAbilityPresent);
+		desc += PropDesc(m_distancePerBounce, "[Distance Per Bounce]", isAbilityPresent);
+		if (m_projectileSequencePrefab != null && m_projectileSequencePrefab.operation == AbilityModPropertySequenceOverride.ModOp.Override)
 		{
-			baseVal7 = (int)battleMonkHamstring.m_explodeShape;
-		}
-		else
-		{
-			baseVal7 = 0;
-		}
-		empty = str7 + AbilityModHelper.GetModPropertyDesc(explodeShapeMod, "[Explode Shape]", flag, (AbilityAreaShape)baseVal7);
-		empty += PropDesc(m_maxBounces, "[Max Laser Bounces]", flag);
-		empty += PropDesc(m_distancePerBounce, "[Distance Per Bounce]", flag);
-		if (m_projectileSequencePrefab != null)
-		{
-			if (m_projectileSequencePrefab.operation == AbilityModPropertySequenceOverride.ModOp.Override)
+			string text = string.Empty;
+			if (isAbilityPresent && battleMonkHamstring.m_projectileSequencePrefab != null)
 			{
-				string text = string.Empty;
-				if (flag)
-				{
-					if (battleMonkHamstring.m_projectileSequencePrefab != null)
-					{
-						text = " (base was " + battleMonkHamstring.m_projectileSequencePrefab.name + ")";
-					}
-				}
-				string text2 = empty;
-				empty = text2 + "[Projectile Sequence Override] = " + m_projectileSequencePrefab.value.name + text + "\n";
+				text = " (base was " + battleMonkHamstring.m_projectileSequencePrefab.name + ")";
 			}
+			desc += "[Projectile Sequence Override] = " + m_projectileSequencePrefab.value.name + text + "\n";
 		}
-		return empty;
+		return desc;
 	}
 }
