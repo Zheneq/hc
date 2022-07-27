@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,12 +25,32 @@ public class RobotAnimalCharge : Ability
 	public int m_cdrOnHittingEnemy;
 	private AbilityMod_RobotAnimalCharge m_abilityMod;
 
+#if SERVER
+	// added in rogues
+	private Passive_RobotAnimal m_passive;
+	// added in rogues
+	private AbilityData.ActionType m_actionType = AbilityData.ActionType.INVALID_ACTION;
+#endif
+
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
 		{
 			m_abilityName = "Death Snuggle";
 		}
+#if SERVER
+		// added in rogues
+		PassiveData passiveData = GetComponent<PassiveData>();
+		if (passiveData != null)
+		{
+			m_passive = passiveData.GetPassiveOfType(typeof(Passive_RobotAnimal)) as Passive_RobotAnimal;
+		}
+		AbilityData abilityData = GetComponent<AbilityData>();
+		if (abilityData != null)
+		{
+			m_actionType = abilityData.GetActionTypeOfAbility(this);
+		}
+#endif
 		Setup();
 	}
 
@@ -46,12 +68,16 @@ public class RobotAnimalCharge : Ability
 		};
 		if (ModdedLifeOnFirstHit() > 0f || ModdedLifePerHit() > 0f)
 		{
+			// reactor
 			abilityUtil_Targeter_Charge.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 			abilityUtil_Targeter_Charge.m_affectCasterDelegate = TargeterIncludeCaster;
+			// rogues
+			// abilityUtil_Targeter_Charge.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
 		}
 		Targeter = abilityUtil_Targeter_Charge;
 	}
 
+	// removed in rogues
 	private bool TargeterIncludeCaster(ActorData caster, List<ActorData> actorsSoFar, bool casterInShape)
 	{
 		return AbilityUtils.GetEnemyCount(actorsSoFar, caster) > 0;
@@ -214,10 +240,17 @@ public class RobotAnimalCharge : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 		{
+			// reactor
 			List<ActorData> visibleActorsInRangeByTooltipSubject = Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
+			// rogues
+			// List<ActorData> visibleActorsInRangeByTooltipSubject = Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
+			
 			dictionary[AbilityTooltipSymbol.Healing] = GetLifeGainAmount(visibleActorsInRangeByTooltipSubject.Count);
 		}
+		// reactor
 		else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
+		// rogues
+		// else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 		{
 			dictionary[AbilityTooltipSymbol.Damage] = ModdedDamage();
 		}
@@ -271,4 +304,256 @@ public class RobotAnimalCharge : Ability
 		}
 		return Mathf.RoundToInt(num);
 	}
+	
+#if SERVER
+	// added in rogues
+	public override BoardSquare GetValidChargeTestSourceSquare(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		return chargeSegments[chargeSegments.Length - 1].m_pos;
+	}
+
+	// added in rogues
+	public override Vector3 GetChargeBestSquareTestVector(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		return ServerEvadeUtils.GetChargeBestSquareTestDirection(chargeSegments);
+	}
+
+	// added in rogues
+	public override ServerEvadeUtils.ChargeSegment[] ProcessChargeDodge(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerEvadeUtils.ChargeInfo charge,
+		List<ServerEvadeUtils.EvadeInfo> evades)
+	{
+		return ServerEvadeUtils.ProcessChargeDodgeForStopOnTargetHit(
+			Board.Get().GetSquare(targets[0].GridPos),
+			targets,
+			caster,
+			charge,
+			evades);
+	}
+
+	// added in rogues
+	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		ServerEvadeUtils.ChargeSegment[] array;
+		if (targets[0].GetCurrentBestActorTarget() != null)
+		{
+			array = new ServerEvadeUtils.ChargeSegment[3];
+		}
+		else
+		{
+			array = new ServerEvadeUtils.ChargeSegment[2];
+		}
+		array[0] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_pos = caster.GetCurrentBoardSquare()
+		};
+		array[1] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_pos = Board.Get().GetSquare(targets[0].GridPos),
+			m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement
+		};
+		if (targets[0].GetCurrentBestActorTarget() == null)
+		{
+			array[1].m_end = BoardSquarePathInfo.ChargeEndType.Miss;
+		}
+		else
+		{
+			array[1].m_end = BoardSquarePathInfo.ChargeEndType.Impact;
+			array[2] = new ServerEvadeUtils.ChargeSegment
+			{
+				m_reverseFacing = true,
+				m_segmentMovementDuration = m_recoveryTime,
+				m_cycle = BoardSquarePathInfo.ChargeCycleType.Recovery,
+				m_end = BoardSquarePathInfo.ChargeEndType.Recovery,
+				m_pos = Board.Get().GetSquare(targets[0].GridPos)
+			};
+		}
+		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(array));
+		foreach (ServerEvadeUtils.ChargeSegment segment in array)
+		{
+			if (segment.m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
+			{
+				segment.m_segmentMovementSpeed = segmentMovementSpeed;
+			}
+		}
+		return array;
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitTargets(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, CanIncludeAlly(), CanIncludeEnemy());
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+			m_targetShape,
+			targets[0],
+			m_targetShapePenetratesLoS,
+			caster,
+			relevantTeams,
+			null);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInShape);
+		actorsInShape.Remove(caster);
+		if (m_maxTargetsHit > 0)
+		{
+			TargeterUtils.SortActorsByDistanceToPos(ref actorsInShape, targets[0].FreePos);
+			int num = Mathf.Min(m_maxTargetsHit, actorsInShape.Count);
+			int num2 = actorsInShape.Count - num;
+			if (num2 > 0)
+			{
+				int index = actorsInShape.Count - num2;
+				actorsInShape.RemoveRange(index, num2);
+			}
+		}
+		return actorsInShape;
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			caster.GetFreePos(),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ActorData> hitTargets = GetHitTargets(targets, caster, null);
+		if (m_passive != null)
+		{
+			if (hitTargets.Count > 0)
+			{
+				m_passive.m_chargeLastHitTurn = GameFlowData.Get().CurrentTurn;
+			}
+			m_passive.m_chargeHitActors.Clear();
+			foreach (ActorData actorData in hitTargets)
+			{
+				if (actorData.GetTeam() != caster.GetTeam())
+				{
+					m_passive.m_chargeHitActors.Add(actorData);
+				}
+			}
+		}
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitTargets = GetHitTargets(targets, caster, nonActorTargetInfo);
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_targetShape, targets[0]);
+		ActorHitResults actorHitResults = null;
+		int num = 0;
+		for (int i = 0; i < hitTargets.Count; i++)
+		{
+			ActorData actorData = hitTargets[i];
+			ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(actorData, centerOfShape));
+			if (actorData.GetTeam() != caster.GetTeam())
+			{
+				num++;
+				actorHitResults2.SetBaseDamage(ModdedDamage());
+				actorHitResults2.AddStandardEffectInfo(m_enemyTargetEffect);
+				if (m_passive != null && m_passive.m_shouldApplyAdditionalEffectFromStealth && m_passive.HasEffectOnNextDamageAttack())
+				{
+					actorHitResults2.AddStandardEffectInfo(m_passive.GetEffectOnNextDamageAttack());
+				}
+				if (m_passive != null && m_passive.ShouldApplyExtraDamageNextAttack())
+				{
+					actorHitResults2.AddBaseDamage(m_passive.GetExtraDamageNextAttack());
+				}
+				if (GetCdrOnHittingEnemy() > 0)
+				{
+					actorHitResults2.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_actionType, -1 * GetCdrOnHittingEnemy()));
+				}
+			}
+			else
+			{
+				actorHitResults2.AddStandardEffectInfo(m_allyTargetEffect);
+				if (GetCdrOnHittingAlly() > 0)
+				{
+					actorHitResults2.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_actionType, -1 * GetCdrOnHittingAlly()));
+				}
+			}
+			if (m_chaseTarget && i == 0)
+			{
+				actorHitResults = new ActorHitResults(new ActorHitParameters(caster, centerOfShape));
+				actorHitResults.AddStandardEffectInfo(m_chaserEffect);
+				actorHitResults2.AddMiscHitEvent(new MiscHitEventData(MiscHitEventType.CasterForceChaseTarget));
+			}
+			abilityResults.StoreActorHit(actorHitResults2);
+		}
+		int num2 = ModdedTechPointGainPerAdjacentAlly();
+		StandardEffectInfo standardEffectInfo = ModdedEffectForSelfPerAdjacentAlly();
+		if (num2 > 0 || (standardEffectInfo != null && standardEffectInfo.m_applyEffect))
+		{
+			List<BoardSquare> list = new List<BoardSquare>();
+			Board.Get().GetAllAdjacentSquares(caster.GetCurrentBoardSquare().x, caster.GetCurrentBoardSquare().y, ref list);
+			foreach (BoardSquare boardSquare in list)
+			{
+				if (boardSquare.OccupantActor != null && boardSquare.OccupantActor.GetTeam() == caster.GetTeam() && boardSquare.OccupantActor != caster && !boardSquare.OccupantActor.IgnoreForAbilityHits)
+				{
+					if (actorHitResults == null)
+					{
+						actorHitResults = new ActorHitResults(new ActorHitParameters(caster, centerOfShape));
+					}
+					if (standardEffectInfo != null && standardEffectInfo.m_applyEffect)
+					{
+						actorHitResults.AddStandardEffectInfo(standardEffectInfo);
+					}
+					if (num2 > 0)
+					{
+						actorHitResults.AddTechPointGainOnCaster(num2);
+					}
+				}
+			}
+		}
+		if (ServerAbilityUtils.CurrentlyGatheringRealResults() && m_passive != null)
+		{
+			m_passive.m_shouldApplyAdditionalEffectFromStealth = false;
+		}
+		if (num > 0)
+		{
+			int lifeGainAmount = GetLifeGainAmount(num);
+			if (actorHitResults == null)
+			{
+				actorHitResults = new ActorHitResults(new ActorHitParameters(caster, centerOfShape));
+			}
+			actorHitResults.SetBaseHealing(lifeGainAmount);
+			if (m_abilityMod != null && m_abilityMod.m_effectOnSelf.m_applyEffect)
+			{
+				actorHitResults.AddStandardEffectInfo(m_abilityMod.m_effectOnSelf);
+			}
+		}
+		if (actorHitResults != null)
+		{
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.RobotAnimalStats.DamageDonePlusDodgedByPounce, damageDodged);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.RobotAnimalStats.DamageDonePlusDodgedByPounce, results.FinalDamage);
+		}
+	}
+#endif
 }

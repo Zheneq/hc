@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RobotAnimalStealth : Ability
@@ -157,4 +159,42 @@ public class RobotAnimalStealth : Ability
 			  && m_abilityMod.m_chainAbilityOverrides.Length > 0
 			: m_useCharge;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			caster.GetFreePos(),
+			caster.AsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_abilityMod != null)
+		{
+			m_abilityMod.m_cooldownModOnCast.ModifyCooldown(caster.GetAbilityData());
+		}
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitParameters hitParams = new ActorHitParameters(caster, caster.GetFreePos());
+		StandardActorEffect effect = new RobotAnimalStealthEffect(
+			AsEffectSource(),
+			caster.GetCurrentBoardSquare(),
+			caster,
+			caster,
+			GetModdedStealthEffect());
+		abilityResults.StoreActorHit(new ActorHitResults(effect, hitParams));
+	}
+#endif
 }

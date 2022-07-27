@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,9 +45,12 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RobotAnimalCharge robotAnimalCharge = GetTargetAbilityOnAbilityData(abilityData) as RobotAnimalCharge;
+		// rogues
+		//RobotAnimalCharge robotAnimalCharge = targetAbility as RobotAnimalCharge;
 		bool isAbilityPresent = robotAnimalCharge != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isAbilityPresent, isAbilityPresent ? robotAnimalCharge.m_damageAmount : 0);

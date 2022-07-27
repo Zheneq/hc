@@ -1999,6 +1999,7 @@
     <Compile Include="RobotAnimalDrag.cs" />
     <Compile Include="RobotAnimalRoar.cs" />
     <Compile Include="RobotAnimalStealth.cs" />
+    <Compile Include="RobotAnimalStealthEffect.cs" />
     <Compile Include="RobotAnimalStealth_Charge.cs" />
     <Compile Include="RobotAnimal_SyncComponent.cs" />
     <Compile Include="RunState.cs" />

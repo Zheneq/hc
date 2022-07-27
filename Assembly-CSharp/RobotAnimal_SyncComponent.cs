@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Runtime.InteropServices;
 using UnityEngine.Networking;
 
@@ -17,7 +19,7 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref m_biteLastCastTurn, 1u);
+			SetSyncVar(value, ref m_biteLastCastTurn, 1u);  // 1ul in rogues
 		}
 	}
 
@@ -30,14 +32,15 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 		[param: In]
 		set
 		{
-			SetSyncVar(value, ref m_biteLastHitTurn, 2u);
+			SetSyncVar(value, ref m_biteLastHitTurn, 2u);  // 2ul in rogues
 		}
 	}
 
-	private void UNetVersion()
+	private void UNetVersion()  // MirrorProcessed in rogues
 	{
 	}
 
+	// reactor
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -71,7 +74,31 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 		}
 		return flag;
 	}
+	// rogues
+	// public override bool OnSerialize(NetworkWriter writer, bool forceAll)
+	// {
+	// 	bool result = base.OnSerialize(writer, forceAll);
+	// 	if (forceAll)
+	// 	{
+	// 		writer.WritePackedInt32(m_biteLastCastTurn);
+	// 		writer.WritePackedInt32(m_biteLastHitTurn);
+	// 		return true;
+	// 	}
+	// 	writer.WritePackedUInt64(syncVarDirtyBits);
+	// 	if ((syncVarDirtyBits & 1UL) != 0UL)
+	// 	{
+	// 		writer.WritePackedInt32(m_biteLastCastTurn);
+	// 		result = true;
+	// 	}
+	// 	if ((syncVarDirtyBits & 2UL) != 0UL)
+	// 	{
+	// 		writer.WritePackedInt32(m_biteLastHitTurn);
+	// 		result = true;
+	// 	}
+	// 	return result;
+	// }
 
+	// reactor
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)
@@ -90,4 +117,24 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 			m_biteLastHitTurn = (int)reader.ReadPackedUInt32();
 		}
 	}
+	// rogues
+	// public override void OnDeserialize(NetworkReader reader, bool initialState)
+	// {
+	// 	base.OnDeserialize(reader, initialState);
+	// 	if (initialState)
+	// 	{
+	// 		Networkm_biteLastCastTurn = reader.ReadPackedInt32();
+	// 		Networkm_biteLastHitTurn = reader.ReadPackedInt32();
+	// 		return;
+	// 	}
+	// 	long num = (long)reader.ReadPackedUInt64();
+	// 	if ((num & 1L) != 0L)
+	// 	{
+	// 		Networkm_biteLastCastTurn = reader.ReadPackedInt32();
+	// 	}
+	// 	if ((num & 2L) != 0L)
+	// 	{
+	// 		Networkm_biteLastHitTurn = reader.ReadPackedInt32();
+	// 	}
+	// }
 }

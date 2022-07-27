@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,17 +22,22 @@ public class AbilityMod_RobotAnimalStealth : AbilityMod
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
-		RobotAnimalStealth x = targetAbility as RobotAnimalStealth;
 		// broken code in reactor
+		RobotAnimalStealth x = targetAbility as RobotAnimalStealth;
 		if (x == null)
 		{
 			return;
 		}
+		// broken code in rogues
+		// targetAbility as RobotAnimalStealth != null;
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RobotAnimalStealth robotAnimalStealth = GetTargetAbilityOnAbilityData(abilityData) as RobotAnimalStealth;
+		// rogues
+		//RobotAnimalStealth robotAnimalStealth = targetAbility as RobotAnimalStealth;
 		bool isAbilityPresent = robotAnimalStealth != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnNextDamageAttack, "{ Effect on Next Damage Attack }", string.Empty, isAbilityPresent);

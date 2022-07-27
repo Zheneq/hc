@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,9 +30,21 @@ public class RobotAnimalRoar : Ability
 	public int m_innerShapeDamage = -1;
 
 	private AbilityMod_RobotAnimalRoar m_abilityMod;
+#if SERVER
+	// added in rogues
+	private Passive_RobotAnimal m_passive;
+#endif
 
 	private void Start()
 	{
+#if SERVER
+		// added in rogues
+		PassiveData component = GetComponent<PassiveData>();
+		if (component != null)
+		{
+			m_passive = component.GetPassiveOfType(typeof(Passive_RobotAnimal)) as Passive_RobotAnimal;
+		}
+#endif
 		SetupTargeter();
 	}
 
@@ -300,4 +314,193 @@ public class RobotAnimalRoar : Ability
 		       || GetTechPointDamage() > 0
 		       || GetEnemyHitEffectInfo().m_applyEffect;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			caster.GetFreePos(),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> innerShapeActors;
+		List<ActorData> outerShapeActors;
+		if (m_targetingMode == TargetingMode.Shape)
+		{
+			outerShapeActors = GetHitTargets_Shape(targets, caster, out innerShapeActors, nonActorTargetInfo);
+		}
+		else
+		{
+			outerShapeActors = GetHitTargets_Radius(targets, caster, out innerShapeActors, nonActorTargetInfo);
+		}
+		foreach (ActorData actorData in outerShapeActors)
+		{
+			bool isSelf = actorData == caster;
+			bool isEnemy = actorData.GetTeam() != caster.GetTeam();
+			bool isAlly = actorData.GetTeam() == caster.GetTeam() && !isSelf;
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			if (isSelf)
+			{
+				actorHitResults.AddStandardEffectInfo(m_selfEffect);
+			}
+			if (isAlly)
+			{
+				actorHitResults.AddStandardEffectInfo(m_allyEffect_excludingMe);
+				int moddedHealingForAllies = GetModdedHealingForAllies();
+				if (moddedHealingForAllies != 0)
+				{
+					actorHitResults.AddBaseHealing(moddedHealingForAllies);
+				}
+				int moddedTechPointGainForAllies = GetModdedTechPointGainForAllies();
+				if (moddedTechPointGainForAllies != 0)
+				{
+					actorHitResults.AddTechPointGain(moddedTechPointGainForAllies);
+				}
+			}
+			if (isAlly || isSelf)
+			{
+				actorHitResults.AddStandardEffectInfo(m_allyEffect_includingMe);
+			}
+			if (isEnemy)
+			{
+				actorHitResults.AddStandardEffectInfo(GetEnemyHitEffectInfo());
+				actorHitResults.SetTechPointLoss(GetTechPointDamage());
+			}
+			int num = innerShapeActors.Contains(actorData) ? GetInnerShapeDamage() : GetDamageAmount();
+			if (num > 0 && isEnemy)
+			{
+				actorHitResults.SetBaseDamage(num);
+				if (m_passive != null && m_passive.m_shouldApplyAdditionalEffectFromStealth && m_passive.HasEffectOnNextDamageAttack())
+				{
+					actorHitResults.AddStandardEffectInfo(m_passive.GetEffectOnNextDamageAttack());
+				}
+				if (m_passive != null && m_passive.ShouldApplyExtraDamageNextAttack())
+				{
+					actorHitResults.AddBaseDamage(m_passive.GetExtraDamageNextAttack());
+				}
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (ServerAbilityUtils.CurrentlyGatheringRealResults() && m_passive != null)
+		{
+			m_passive.m_shouldApplyAdditionalEffectFromStealth = false;
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitTargets_Shape(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out List<ActorData> innerShapeActors,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		innerShapeActors = new List<ActorData>();
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, AffectAllies(), AffectEnemies());
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+			GetTargetingShape(),
+			targets[0],
+			GetPenetrateLos(),
+			caster,
+			relevantTeams,
+			nonActorTargetInfo);
+		if (m_selfEffect.m_applyEffect)
+		{
+			if (!actorsInShape.Contains(caster))
+			{
+				actorsInShape.Add(caster);
+			}
+		}
+		else if (actorsInShape.Contains(caster))
+		{
+			actorsInShape.Remove(caster);
+		}
+		if (UseInnerShape())
+		{
+			foreach (ActorData actorData in actorsInShape)
+			{
+				if (AreaEffectUtils.IsSquareInShape(
+					    actorData.GetCurrentBoardSquare(),
+					    GetInnerShape(),
+					    targets[0].FreePos,
+					    square,
+					    true,
+					    caster))
+				{
+					innerShapeActors.Add(actorData);
+				}
+			}
+		}
+		return actorsInShape;
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitTargets_Radius(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out List<ActorData> innerShapeActors,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		innerShapeActors = new List<ActorData>();
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, AffectAllies(), AffectEnemies());
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(
+			caster.GetLoSCheckPos(),
+			GetTargetingRadius(),
+			GetPenetrateLos(),
+			caster,
+			relevantTeams,
+			nonActorTargetInfo);
+		if (m_selfEffect.m_applyEffect)
+		{
+			if (!actorsInRadius.Contains(caster))
+			{
+				actorsInRadius.Add(caster);
+			}
+		}
+		else if (actorsInRadius.Contains(caster))
+		{
+			actorsInRadius.Remove(caster);
+		}
+		if (GetInnerRadius() > 0f)
+		{
+			foreach (ActorData actorData in actorsInRadius)
+			{
+				if (AreaEffectUtils.IsSquareInConeByActorRadius(
+					    actorData.GetCurrentBoardSquare(),
+					    caster.GetLoSCheckPos(),
+					    0f,
+					    360f,
+					    GetInnerRadius(),
+					    0f,
+					    GetPenetrateLos(),
+					    caster))
+				{
+					innerShapeActors.Add(actorData);
+				}
+			}
+		}
+		return actorsInRadius;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (caster.GetTeam() != target.GetTeam())
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.RobotAnimalStats.UltHits);
+		}
+	}
+#endif
 }

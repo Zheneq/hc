@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +15,10 @@ public class RobotAnimalDrag : Ability
 
 	private AbilityMod_RobotAnimalDrag m_abilityMod;
 	private StandardEffectInfo m_cachedCasterEffect;
+#if SERVER
+	// added in rogues
+	private Passive_RobotAnimal m_passive;
+#endif
 
 	private void Start()
 	{
@@ -20,6 +26,14 @@ public class RobotAnimalDrag : Ability
 		{
 			m_abilityName = "Death Snuggle";
 		}
+#if SERVER
+		// added in rogues
+		PassiveData component = GetComponent<PassiveData>();
+		if (component != null)
+		{
+			m_passive = component.GetPassiveOfType(typeof(Passive_RobotAnimal)) as Passive_RobotAnimal;
+		}
+#endif
 		Setup();
 	}
 
@@ -149,4 +163,113 @@ public class RobotAnimalDrag : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	private List<ActorData> GetHitTargets(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out Vector3 zoneEndPoint,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			targets[0].AimDirection,
+			GetLaserDistance(),
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			m_penetrateLineOfSight,
+			m_maxTargets,
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		zoneEndPoint = laserCoords.end;
+		return actorsInLaser;
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ActorData> hitTargets = GetHitTargets(targets, caster, out Vector3 position, null);
+		if (hitTargets.Count > 0)
+		{
+			position = hitTargets[0].transform.position;
+		}
+		if (GetCasterEffect().m_applyEffect)
+		{
+			hitTargets.Add(caster);
+		}
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			position,
+			hitTargets.ToArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ActorData> hitTargets = GetHitTargets(targets, caster, out Vector3 vector, null);
+		if (m_passive != null)
+		{
+			m_passive.m_dragLastCastTurn = GameFlowData.Get().CurrentTurn;
+			m_passive.m_dragHitActors.Clear();
+			foreach (ActorData item in hitTargets)
+			{
+				m_passive.m_dragHitActors.Add(item);
+			}
+		}
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitTargets = GetHitTargets(targets, caster, out Vector3 vector, nonActorTargetInfo);
+		Vector3 origin = caster.GetCurrentBoardSquare().ToVector3();
+		foreach (ActorData target in hitTargets)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(target, origin);
+			ActorHitResults actorHitResults = new ActorHitResults(GetDamage(), HitActionType.Damage, m_targetEffect, hitParams);
+			actorHitResults.AddMiscHitEvent(new MiscHitEventData(MiscHitEventType.TargetForceChaseCaster));
+			if (m_abilityMod != null)
+			{
+				actorHitResults.AddStandardEffectInfo(m_abilityMod.m_enemyHitEffectOverride);
+			}
+			if (GetDamage() > 0 && m_passive != null && m_passive.m_shouldApplyAdditionalEffectFromStealth && m_passive.HasEffectOnNextDamageAttack())
+			{
+				actorHitResults.AddStandardEffectInfo(m_passive.GetEffectOnNextDamageAttack());
+			}
+			if (GetDamage() > 0 && m_passive != null && m_passive.ShouldApplyExtraDamageNextAttack())
+			{
+				actorHitResults.AddBaseDamage(m_passive.GetExtraDamageNextAttack());
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (ServerAbilityUtils.CurrentlyGatheringRealResults() && GetDamage() > 0 && m_passive != null)
+		{
+			m_passive.m_shouldApplyAdditionalEffectFromStealth = false;
+		}
+		if (GetCasterEffect().m_applyEffect)
+		{
+			ActorHitParameters hitParams2 = new ActorHitParameters(caster, origin);
+			abilityResults.StoreActorHit(new ActorHitResults(GetCasterEffect(), hitParams2));
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public override void OnAbilityAssistedKill(ActorData caster, ActorData target)
+	{
+		caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.RobotAnimalStats.DragAssists);
+	}
+#endif
 }

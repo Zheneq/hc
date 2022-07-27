@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,9 +40,12 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RobotAnimalDrag robotAnimalDrag = GetTargetAbilityOnAbilityData(abilityData) as RobotAnimalDrag;
+		// rogues
+		//RobotAnimalDrag robotAnimalDrag = targetAbility as RobotAnimalDrag;
 		bool isAbilityPresent = robotAnimalDrag != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_distanceMod, "[Targeting Distance]", isAbilityPresent, isAbilityPresent ? robotAnimalDrag.m_distance : 0f);

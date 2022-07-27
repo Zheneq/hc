@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,9 +48,12 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RobotAnimalBite robotAnimalBite = GetTargetAbilityOnAbilityData(abilityData) as RobotAnimalBite;
+		// rogues
+		//RobotAnimalBite robotAnimalBite = targetAbility as RobotAnimalBite;
 		bool isAbilityPresent = robotAnimalBite != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_lifeOnFirstHitMod, "[Life On First Hit]", isAbilityPresent, isAbilityPresent ? robotAnimalBite.m_lifeOnFirstHit : 0f);

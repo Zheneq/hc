@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,9 +44,12 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RobotAnimalRoar robotAnimalRoar = GetTargetAbilityOnAbilityData(abilityData) as RobotAnimalRoar;
+		// rogues
+		//RobotAnimalRoar robotAnimalRoar = targetAbility as RobotAnimalRoar;
 		bool isAbilityPresent = robotAnimalRoar != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_shapeMod, "[Targeting Shape]", isAbilityPresent, isAbilityPresent ? robotAnimalRoar.m_aoeShape : AbilityAreaShape.SingleSquare);
