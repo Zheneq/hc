@@ -5,33 +5,21 @@ public class ClaymoreKnockbackLaser : Ability
 {
 	[Header("-- Only As Indicator For Passive? (If true, the ability cannot be cast)")]
 	public bool m_onlyAsIndicatorForPassive;
-
 	[Header("-- Laser Targeting")]
 	public float m_laserRange = 4f;
-
 	public float m_laserFullWidth = 5f;
-
 	public float m_laserMiddleWidth = 1f;
-
 	public bool m_penetrateLos;
-
 	public bool m_lengthIgnoreWorldGeo;
-
 	[Header("-- Knockback Params")]
 	public KnockbackType m_knockbackType = KnockbackType.PerpendicularAwayFromAimDir;
-
 	public float m_knockbackDistance = 2f;
-
 	[Header("-- Middle Hit Damage/Effect")]
 	public int m_middleHitDamage = 20;
-
 	public StandardEffectInfo m_middleEnemyHitEffect;
-
 	[Header("-- Knockback Hit Damage/Effect")]
 	public int m_knockbackDamage = 10;
-
 	public StandardEffectInfo m_knockbackEnemyHitEffect;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
@@ -46,7 +34,16 @@ public class ClaymoreKnockbackLaser : Ability
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_ClaymoreKnockbackLaser(this, GetLaserFullWidth(), GetLaserRange(), m_penetrateLos, m_lengthIgnoreWorldGeo, 0, GetLaserMiddleWidth(), GetKnockbackDistance(), m_knockbackType);
+		Targeter = new AbilityUtil_Targeter_ClaymoreKnockbackLaser(
+			this,
+			GetLaserFullWidth(),
+			GetLaserRange(),
+			m_penetrateLos,
+			m_lengthIgnoreWorldGeo,
+			0,
+			GetLaserMiddleWidth(),
+			GetKnockbackDistance(),
+			m_knockbackType);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()

@@ -5,34 +5,22 @@ public class ClaymoreSilenceLaser : Ability
 {
 	[Header("-- Targeting")]
 	public float m_laserRange = 4f;
-
 	public float m_laserWidth = 1f;
-
 	public int m_laserMaxTargets;
-
 	public bool m_penetrateLos;
-
 	[Header("-- Hit Damage/Effects")]
 	public int m_onCastDamageAmount;
-
 	public StandardActorEffectData m_enemyHitEffectData;
-
 	[Header("-- On Reaction Hit/Explosion Triggered")]
 	public int m_effectExplosionDamage = 10;
-
 	public int m_explosionDamageAfterFirstHit;
-
 	public bool m_explosionReduceCooldownOnlyIfHitByAlly;
-
 	public int m_explosionCooldownReduction;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_effectOnExplosionSequencePrefab;
 
 	private AbilityMod_ClaymoreSilenceLaser m_abilityMod;
-
 	private StandardActorEffectData m_cachedEnemyHitEffectData;
 
 	private void Start()
@@ -56,143 +44,82 @@ public class ClaymoreSilenceLaser : Ability
 
 	private void SetCachedFields()
 	{
-		StandardActorEffectData cachedEnemyHitEffectData;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyHitEffectData = m_abilityMod.m_enemyHitEffectDataMod.GetModifiedValue(m_enemyHitEffectData);
-		}
-		else
-		{
-			cachedEnemyHitEffectData = m_enemyHitEffectData;
-		}
-		m_cachedEnemyHitEffectData = cachedEnemyHitEffectData;
+		m_cachedEnemyHitEffectData = m_abilityMod != null
+			? m_abilityMod.m_enemyHitEffectDataMod.GetModifiedValue(m_enemyHitEffectData)
+			: m_enemyHitEffectData;
 	}
 
 	public float GetLaserRange()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange);
-		}
-		else
-		{
-			result = m_laserRange;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange) 
+			: m_laserRange;
 	}
 
 	public float GetLaserWidth()
 	{
-		return (!m_abilityMod) ? m_laserWidth : m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
+		return m_abilityMod != null
+			? m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth)
+			: m_laserWidth;
 	}
 
 	public int GetLaserMaxTargets()
 	{
-		return (!m_abilityMod) ? m_laserMaxTargets : m_abilityMod.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets);
+		return m_abilityMod != null
+			? m_abilityMod.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets)
+			: m_laserMaxTargets;
 	}
 
 	public bool GetPenetrateLos()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
-		}
-		else
-		{
-			result = m_penetrateLos;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos) 
+			: m_penetrateLos;
 	}
 
 	public int GetOnCastDamageAmount()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_onCastDamageAmountMod.GetModifiedValue(m_onCastDamageAmount);
-		}
-		else
-		{
-			result = m_onCastDamageAmount;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_onCastDamageAmountMod.GetModifiedValue(m_onCastDamageAmount) 
+			: m_onCastDamageAmount;
 	}
 
 	public StandardActorEffectData GetEnemyHitEffectData()
 	{
-		StandardActorEffectData result;
-		if (m_cachedEnemyHitEffectData != null)
-		{
-			result = m_cachedEnemyHitEffectData;
-		}
-		else
-		{
-			result = m_enemyHitEffectData;
-		}
-		return result;
+		return m_cachedEnemyHitEffectData ?? m_enemyHitEffectData;
 	}
 
 	public int GetEffectExplosionDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_effectExplosionDamageMod.GetModifiedValue(m_effectExplosionDamage);
-		}
-		else
-		{
-			result = m_effectExplosionDamage;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_effectExplosionDamageMod.GetModifiedValue(m_effectExplosionDamage) 
+			: m_effectExplosionDamage;
 	}
 
 	public int GetExplosionDamageAfterFirstHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_explosionDamageAfterFirstHitMod.GetModifiedValue(m_explosionDamageAfterFirstHit);
-		}
-		else
-		{
-			result = m_explosionDamageAfterFirstHit;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_explosionDamageAfterFirstHitMod.GetModifiedValue(m_explosionDamageAfterFirstHit) 
+			: m_explosionDamageAfterFirstHit;
 	}
 
 	public bool ExplosionReduceCooldownOnlyIfHitByAlly()
 	{
-		return (!m_abilityMod) ? m_explosionReduceCooldownOnlyIfHitByAlly : m_abilityMod.m_explosionReduceCooldownOnlyIfHitByAllyMod.GetModifiedValue(m_explosionReduceCooldownOnlyIfHitByAlly);
+		return m_abilityMod != null
+			? m_abilityMod.m_explosionReduceCooldownOnlyIfHitByAllyMod.GetModifiedValue(m_explosionReduceCooldownOnlyIfHitByAlly)
+			: m_explosionReduceCooldownOnlyIfHitByAlly;
 	}
 
 	public int GetExplosionCooldownReduction()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_explosionCooldownReductionMod.GetModifiedValue(m_explosionCooldownReduction);
-		}
-		else
-		{
-			result = m_explosionCooldownReduction;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_explosionCooldownReductionMod.GetModifiedValue(m_explosionCooldownReduction) 
+			: m_explosionCooldownReduction;
 	}
 
 	public bool CanExplodeOncePerTurn()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = (m_abilityMod.m_canExplodeOncePerTurnMod.GetModifiedValue(false) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod != null && m_abilityMod.m_canExplodeOncePerTurnMod.GetModifiedValue(false);
 	}
 
 	public int CalcExplosionDamageForOrderIndex(int hitOrder)
@@ -208,57 +135,26 @@ public class ClaymoreSilenceLaser : Ability
 	private void SetupTargeter()
 	{
 		SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_Laser(this, GetLaserWidth(), GetLaserRange(), GetPenetrateLos(), GetLaserMaxTargets());
+		Targeter = new AbilityUtil_Targeter_Laser(this, GetLaserWidth(), GetLaserRange(), GetPenetrateLos(), GetLaserMaxTargets());
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_ClaymoreSilenceLaser abilityMod_ClaymoreSilenceLaser = modAsBase as AbilityMod_ClaymoreSilenceLaser;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_ClaymoreSilenceLaser)
-		{
-			val = abilityMod_ClaymoreSilenceLaser.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets);
-		}
-		else
-		{
-			val = m_laserMaxTargets;
-		}
-		AddTokenInt(tokens, "LaserMaxTargets", empty, val);
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)abilityMod_ClaymoreSilenceLaser)
-		{
-			val2 = abilityMod_ClaymoreSilenceLaser.m_onCastDamageAmountMod.GetModifiedValue(m_onCastDamageAmount);
-		}
-		else
-		{
-			val2 = m_onCastDamageAmount;
-		}
-		AddTokenInt(tokens, "OnCastDamageAmount", empty2, val2);
-		string empty3 = string.Empty;
-		int val3;
-		if ((bool)abilityMod_ClaymoreSilenceLaser)
-		{
-			val3 = abilityMod_ClaymoreSilenceLaser.m_effectExplosionDamageMod.GetModifiedValue(m_effectExplosionDamage);
-		}
-		else
-		{
-			val3 = m_effectExplosionDamage;
-		}
-		AddTokenInt(tokens, "EffectExplosionDamage", empty3, val3);
+		AddTokenInt(tokens, "LaserMaxTargets", string.Empty, abilityMod_ClaymoreSilenceLaser != null
+			? abilityMod_ClaymoreSilenceLaser.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets)
+			: m_laserMaxTargets);
+		AddTokenInt(tokens, "OnCastDamageAmount", string.Empty, abilityMod_ClaymoreSilenceLaser != null
+			? abilityMod_ClaymoreSilenceLaser.m_onCastDamageAmountMod.GetModifiedValue(m_onCastDamageAmount)
+			: m_onCastDamageAmount);
+		AddTokenInt(tokens, "EffectExplosionDamage", string.Empty, abilityMod_ClaymoreSilenceLaser != null
+			? abilityMod_ClaymoreSilenceLaser.m_effectExplosionDamageMod.GetModifiedValue(m_effectExplosionDamage)
+			: m_effectExplosionDamage);
 		AddTokenInt(tokens, "ExplosionDamageAfterFirstHit", string.Empty, m_explosionDamageAfterFirstHit);
-		StandardActorEffectData standardActorEffectData;
-		if ((bool)abilityMod_ClaymoreSilenceLaser)
-		{
-			standardActorEffectData = abilityMod_ClaymoreSilenceLaser.m_enemyHitEffectDataMod.GetModifiedValue(m_enemyHitEffectData);
-		}
-		else
-		{
-			standardActorEffectData = m_enemyHitEffectData;
-		}
-		StandardActorEffectData standardActorEffectData2 = standardActorEffectData;
-		standardActorEffectData2.AddTooltipTokens(tokens, "EnemyHitEffectData", abilityMod_ClaymoreSilenceLaser != null, m_enemyHitEffectData);
+		StandardActorEffectData enemyHitEffectData = abilityMod_ClaymoreSilenceLaser != null
+			? abilityMod_ClaymoreSilenceLaser.m_enemyHitEffectDataMod.GetModifiedValue(m_enemyHitEffectData)
+			: m_enemyHitEffectData;
+		enemyHitEffectData.AddTooltipTokens(tokens, "EnemyHitEffectData", abilityMod_ClaymoreSilenceLaser != null, m_enemyHitEffectData);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -278,31 +174,21 @@ public class ClaymoreSilenceLaser : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (GetOnCastDamageAmount() <= 0)
+		if (GetOnCastDamageAmount() > 0
+		    || Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) <= 0
+		    || !(Targeter is AbilityUtil_Targeter_Laser))
 		{
-			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
+			return true;
+		}
+		AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = Targeter as AbilityUtil_Targeter_Laser;
+		List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContexts = abilityUtil_Targeter_Laser.GetHitActorContext();
+		for (int i = 0; i < hitActorContexts.Count; i++)
+		{
+			AbilityUtil_Targeter_Laser.HitActorContext hitActorContext = hitActorContexts[i];
+			if (hitActorContext.actor == targetActor)
 			{
-				if (base.Targeter is AbilityUtil_Targeter_Laser)
-				{
-					AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = base.Targeter as AbilityUtil_Targeter_Laser;
-					List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext = abilityUtil_Targeter_Laser.GetHitActorContext();
-					int num = 0;
-					while (true)
-					{
-						if (num < hitActorContext.Count)
-						{
-							AbilityUtil_Targeter_Laser.HitActorContext hitActorContext2 = hitActorContext[num];
-							if (hitActorContext2.actor == targetActor)
-							{
-								results.m_damage = CalcExplosionDamageForOrderIndex(num);
-								break;
-							}
-							num++;
-							continue;
-						}
-						break;
-					}
-				}
+				results.m_damage = CalcExplosionDamageForOrderIndex(i);
+				break;
 			}
 		}
 		return true;
@@ -310,15 +196,10 @@ public class ClaymoreSilenceLaser : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_ClaymoreSilenceLaser))
+		if (abilityMod.GetType() == typeof(AbilityMod_ClaymoreSilenceLaser))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_ClaymoreSilenceLaser);
+			m_abilityMod = abilityMod as AbilityMod_ClaymoreSilenceLaser;
 			SetupTargeter();
-			return;
 		}
 	}
 

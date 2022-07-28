@@ -5,58 +5,35 @@ public class ClaymoreMultiRadiusCone : Ability
 {
 	[Header("-- Cone Targeting")]
 	public float m_coneWidthAngle = 180f;
-
 	public float m_coneBackwardOffset;
-
 	public float m_coneLengthInner = 1.5f;
-
 	public float m_coneLengthMiddle = 2.5f;
-
 	public float m_coneLengthOuter = 3.5f;
-
 	public bool m_penetrateLineOfSight;
-
 	[Header("-- Base Damage")]
 	public int m_damageAmountInner = 5;
-
 	public int m_damageAmountMiddle = 4;
-
 	public int m_damageAmountOuter = 3;
-
 	[Header("-- Bonus Damage, (threshold value range 0 to 1)")]
 	public int m_bonusDamageIfEnemyLowHealth;
-
 	public float m_enemyHealthThreshForBonus = -1f;
-
 	public int m_bonusDamageIfCasterLowHealth;
-
 	public float m_casterHealthThreshForBonus = -1f;
-
 	[Header("-- Hit Effects")]
 	public StandardEffectInfo m_effectInner;
-
 	public StandardEffectInfo m_effectMiddle;
-
 	public StandardEffectInfo m_effectOuter;
-
 	[Header("-- Energy Gain on Self for Hits")]
 	public int m_tpGainInner;
-
 	public int m_tpGainMiddle;
-
 	public int m_tpGainOuter;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
 	private AbilityMod_ClaymoreMultiRadiusCone m_abilityMod;
-
 	private Claymore_SyncComponent m_syncComp;
-
 	private StandardEffectInfo m_cachedEffectInner;
-
 	private StandardEffectInfo m_cachedEffectMiddle;
-
 	private StandardEffectInfo m_cachedEffectOuter;
 
 	private void Start()
@@ -80,284 +57,140 @@ public class ClaymoreMultiRadiusCone : Ability
 
 	private float ModdedConeAngle()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_coneWidthAngle;
-		}
-		else
-		{
-			result = m_abilityMod.m_coneAngleMod.GetModifiedValue(m_coneWidthAngle);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneAngleMod.GetModifiedValue(m_coneWidthAngle)
+			: m_coneWidthAngle;
 	}
 
 	private float ModdedInnerRadius()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_coneInnerRadiusMod.GetModifiedValue(m_coneLengthInner) : m_coneLengthInner;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneInnerRadiusMod.GetModifiedValue(m_coneLengthInner)
+			: m_coneLengthInner;
 	}
 
 	private float ModdedMiddleRadius()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_coneLengthMiddle;
-		}
-		else
-		{
-			result = m_abilityMod.m_coneMiddleRadiusMod.GetModifiedValue(m_coneLengthMiddle);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneMiddleRadiusMod.GetModifiedValue(m_coneLengthMiddle)
+			: m_coneLengthMiddle;
 	}
 
 	private float ModdedOuterRadius()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_coneLengthOuter;
-		}
-		else
-		{
-			result = m_abilityMod.m_coneOuterRadiusMod.GetModifiedValue(m_coneLengthOuter);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneOuterRadiusMod.GetModifiedValue(m_coneLengthOuter)
+			: m_coneLengthOuter;
 	}
 
 	private bool GetPenetrateLineOfSight()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
-		}
-		else
-		{
-			result = m_penetrateLineOfSight;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight) 
+			: m_penetrateLineOfSight;
 	}
 
 	private int ModdedInnerDamage()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_damageAmountInner;
-		}
-		else
-		{
-			result = m_abilityMod.m_innerDamageMod.GetModifiedValue(m_damageAmountInner);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_innerDamageMod.GetModifiedValue(m_damageAmountInner)
+			: m_damageAmountInner;
 	}
 
 	private int ModdedMiddleDamage()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_damageAmountMiddle;
-		}
-		else
-		{
-			result = m_abilityMod.m_middleDamageMod.GetModifiedValue(m_damageAmountMiddle);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_middleDamageMod.GetModifiedValue(m_damageAmountMiddle)
+			: m_damageAmountMiddle;
 	}
 
 	private int ModdedOuterDamage()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_damageAmountOuter;
-		}
-		else
-		{
-			result = m_abilityMod.m_outerDamageMod.GetModifiedValue(m_damageAmountOuter);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_outerDamageMod.GetModifiedValue(m_damageAmountOuter)
+			: m_damageAmountOuter;
 	}
 
 	private int ModdedInnerTpGain()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_tpGainInner;
-		}
-		else
-		{
-			result = m_abilityMod.m_innerTpGain.GetModifiedValue(m_tpGainInner);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_innerTpGain.GetModifiedValue(m_tpGainInner)
+			: m_tpGainInner;
 	}
 
 	private int ModdedMiddleTpGain()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_tpGainMiddle;
-		}
-		else
-		{
-			result = m_abilityMod.m_middleTpGain.GetModifiedValue(m_tpGainMiddle);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_middleTpGain.GetModifiedValue(m_tpGainMiddle)
+			: m_tpGainMiddle;
 	}
 
 	private int ModdedOuterTpGain()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_tpGainOuter;
-		}
-		else
-		{
-			result = m_abilityMod.m_outerTpGain.GetModifiedValue(m_tpGainOuter);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_outerTpGain.GetModifiedValue(m_tpGainOuter)
+			: m_tpGainOuter;
 	}
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedEffectInner;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectInner = m_abilityMod.m_effectInnerMod.GetModifiedValue(m_effectInner);
-		}
-		else
-		{
-			cachedEffectInner = m_effectInner;
-		}
-		m_cachedEffectInner = cachedEffectInner;
-		StandardEffectInfo cachedEffectMiddle;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectMiddle = m_abilityMod.m_effectMiddleMod.GetModifiedValue(m_effectMiddle);
-		}
-		else
-		{
-			cachedEffectMiddle = m_effectMiddle;
-		}
-		m_cachedEffectMiddle = cachedEffectMiddle;
-		StandardEffectInfo cachedEffectOuter;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectOuter = m_abilityMod.m_effectOuterMod.GetModifiedValue(m_effectOuter);
-		}
-		else
-		{
-			cachedEffectOuter = m_effectOuter;
-		}
-		m_cachedEffectOuter = cachedEffectOuter;
+		m_cachedEffectInner = m_abilityMod != null
+			? m_abilityMod.m_effectInnerMod.GetModifiedValue(m_effectInner)
+			: m_effectInner;
+		m_cachedEffectMiddle = m_abilityMod != null
+			? m_abilityMod.m_effectMiddleMod.GetModifiedValue(m_effectMiddle)
+			: m_effectMiddle;
+		m_cachedEffectOuter = m_abilityMod != null
+			? m_abilityMod.m_effectOuterMod.GetModifiedValue(m_effectOuter)
+			: m_effectOuter;
 	}
 
 	public StandardEffectInfo GetEffectInner()
 	{
-		return (m_cachedEffectInner == null) ? m_effectInner : m_cachedEffectInner;
+		return m_cachedEffectInner ?? m_effectInner;
 	}
 
 	public StandardEffectInfo GetEffectMiddle()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectMiddle != null)
-		{
-			result = m_cachedEffectMiddle;
-		}
-		else
-		{
-			result = m_effectMiddle;
-		}
-		return result;
+		return m_cachedEffectMiddle ?? m_effectMiddle;
 	}
 
 	public StandardEffectInfo GetEffectOuter()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectOuter != null)
-		{
-			result = m_cachedEffectOuter;
-		}
-		else
-		{
-			result = m_effectOuter;
-		}
-		return result;
+		return m_cachedEffectOuter ?? m_effectOuter;
 	}
 
 	public int GetBonusDamageIfEnemyHealthBelow()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_bonusDamageIfEnemyLowHealthMod.GetModifiedValue(m_bonusDamageIfEnemyLowHealth);
-		}
-		else
-		{
-			result = m_bonusDamageIfEnemyLowHealth;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_bonusDamageIfEnemyLowHealthMod.GetModifiedValue(m_bonusDamageIfEnemyLowHealth) 
+			: m_bonusDamageIfEnemyLowHealth;
 	}
 
 	public float GetEnemyHealthThreshForBonus()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_enemyHealthThreshForBonusMod.GetModifiedValue(m_enemyHealthThreshForBonus);
-		}
-		else
-		{
-			result = m_enemyHealthThreshForBonus;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_enemyHealthThreshForBonusMod.GetModifiedValue(m_enemyHealthThreshForBonus) 
+			: m_enemyHealthThreshForBonus;
 	}
 
 	public int GetBonusDamageIfCasterHealthBelow()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_bonusDamageIfCasterLowHealthMod.GetModifiedValue(m_bonusDamageIfCasterLowHealth);
-		}
-		else
-		{
-			result = m_bonusDamageIfCasterLowHealth;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_bonusDamageIfCasterLowHealthMod.GetModifiedValue(m_bonusDamageIfCasterLowHealth) 
+			: m_bonusDamageIfCasterLowHealth;
 	}
 
 	public float GetCasterHealthThreshForBonus()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_casterHealthThreshForBonusMod.GetModifiedValue(m_casterHealthThreshForBonus);
-		}
-		else
-		{
-			result = m_casterHealthThreshForBonus;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_casterHealthThreshForBonusMod.GetModifiedValue(m_casterHealthThreshForBonus) 
+			: m_casterHealthThreshForBonus;
 	}
 
 	public bool ShouldApplyCasterBonusPerThresholdReached()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = (m_abilityMod.m_applyBonusPerThresholdReached ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod != null && m_abilityMod.m_applyBonusPerThresholdReached;
 	}
 
 	private void SetupTargeter()
@@ -365,92 +198,45 @@ public class ClaymoreMultiRadiusCone : Ability
 		m_syncComp = GetComponent<Claymore_SyncComponent>();
 		SetCachedFields();
 		float angle = ModdedConeAngle();
-		List<AbilityUtil_Targeter_MultipleCones.ConeDimensions> list = new List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>();
-		list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(angle, ModdedInnerRadius()));
-		list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(angle, ModdedMiddleRadius()));
-		list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(angle, ModdedOuterRadius()));
-		base.Targeter = new AbilityUtil_Targeter_MultipleCones(this, list, m_coneBackwardOffset, GetPenetrateLineOfSight(), true);
+		List<AbilityUtil_Targeter_MultipleCones.ConeDimensions> list = new List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>
+		{
+			new AbilityUtil_Targeter_MultipleCones.ConeDimensions(angle, ModdedInnerRadius()),
+			new AbilityUtil_Targeter_MultipleCones.ConeDimensions(angle, ModdedMiddleRadius()),
+			new AbilityUtil_Targeter_MultipleCones.ConeDimensions(angle, ModdedOuterRadius())
+		};
+		Targeter = new AbilityUtil_Targeter_MultipleCones(this, list, m_coneBackwardOffset, GetPenetrateLineOfSight(), true);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_ClaymoreMultiRadiusCone abilityMod_ClaymoreMultiRadiusCone = modAsBase as AbilityMod_ClaymoreMultiRadiusCone;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_ClaymoreMultiRadiusCone)
-		{
-			val = abilityMod_ClaymoreMultiRadiusCone.m_innerDamageMod.GetModifiedValue(m_damageAmountInner);
-		}
-		else
-		{
-			val = m_damageAmountInner;
-		}
-		AddTokenInt(tokens, "DamageAmountInner", empty, val);
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)abilityMod_ClaymoreMultiRadiusCone)
-		{
-			val2 = abilityMod_ClaymoreMultiRadiusCone.m_middleDamageMod.GetModifiedValue(m_damageAmountMiddle);
-		}
-		else
-		{
-			val2 = m_damageAmountMiddle;
-		}
-		AddTokenInt(tokens, "DamageAmountMiddle", empty2, val2);
-		string empty3 = string.Empty;
-		int val3;
-		if ((bool)abilityMod_ClaymoreMultiRadiusCone)
-		{
-			val3 = abilityMod_ClaymoreMultiRadiusCone.m_outerDamageMod.GetModifiedValue(m_damageAmountOuter);
-		}
-		else
-		{
-			val3 = m_damageAmountOuter;
-		}
-		AddTokenInt(tokens, "DamageAmountOuter", empty3, val3);
-		string empty4 = string.Empty;
-		int val4;
-		if ((bool)abilityMod_ClaymoreMultiRadiusCone)
-		{
-			val4 = abilityMod_ClaymoreMultiRadiusCone.m_innerTpGain.GetModifiedValue(m_tpGainInner);
-		}
-		else
-		{
-			val4 = m_tpGainInner;
-		}
-		AddTokenInt(tokens, "TpGainInner", empty4, val4);
-		AddTokenInt(tokens, "TpGainMiddle", string.Empty, (!abilityMod_ClaymoreMultiRadiusCone) ? m_tpGainMiddle : abilityMod_ClaymoreMultiRadiusCone.m_middleTpGain.GetModifiedValue(m_tpGainMiddle));
-		AddTokenInt(tokens, "TpGainOuter", string.Empty, (!abilityMod_ClaymoreMultiRadiusCone) ? m_tpGainOuter : abilityMod_ClaymoreMultiRadiusCone.m_outerTpGain.GetModifiedValue(m_tpGainOuter));
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_ClaymoreMultiRadiusCone)
-		{
-			effectInfo = abilityMod_ClaymoreMultiRadiusCone.m_effectInnerMod.GetModifiedValue(m_effectInner);
-		}
-		else
-		{
-			effectInfo = m_effectInner;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectInner", m_effectInner);
-		StandardEffectInfo effectInfo2;
-		if ((bool)abilityMod_ClaymoreMultiRadiusCone)
-		{
-			effectInfo2 = abilityMod_ClaymoreMultiRadiusCone.m_effectMiddleMod.GetModifiedValue(m_effectMiddle);
-		}
-		else
-		{
-			effectInfo2 = m_effectMiddle;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EffectMiddle", m_effectMiddle);
-		StandardEffectInfo effectInfo3;
-		if ((bool)abilityMod_ClaymoreMultiRadiusCone)
-		{
-			effectInfo3 = abilityMod_ClaymoreMultiRadiusCone.m_effectOuterMod.GetModifiedValue(m_effectOuter);
-		}
-		else
-		{
-			effectInfo3 = m_effectOuter;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo3, "EffectOuter", m_effectOuter);
+		AddTokenInt(tokens, "DamageAmountInner", string.Empty, abilityMod_ClaymoreMultiRadiusCone != null
+			? abilityMod_ClaymoreMultiRadiusCone.m_innerDamageMod.GetModifiedValue(m_damageAmountInner)
+			: m_damageAmountInner);
+		AddTokenInt(tokens, "DamageAmountMiddle", string.Empty, abilityMod_ClaymoreMultiRadiusCone != null
+			? abilityMod_ClaymoreMultiRadiusCone.m_middleDamageMod.GetModifiedValue(m_damageAmountMiddle)
+			: m_damageAmountMiddle);
+		AddTokenInt(tokens, "DamageAmountOuter", string.Empty, abilityMod_ClaymoreMultiRadiusCone != null
+			? abilityMod_ClaymoreMultiRadiusCone.m_outerDamageMod.GetModifiedValue(m_damageAmountOuter)
+			: m_damageAmountOuter);
+		AddTokenInt(tokens, "TpGainInner", string.Empty, abilityMod_ClaymoreMultiRadiusCone != null
+			? abilityMod_ClaymoreMultiRadiusCone.m_innerTpGain.GetModifiedValue(m_tpGainInner)
+			: m_tpGainInner);
+		AddTokenInt(tokens, "TpGainMiddle", string.Empty, abilityMod_ClaymoreMultiRadiusCone == null
+			? m_tpGainMiddle
+			: abilityMod_ClaymoreMultiRadiusCone.m_middleTpGain.GetModifiedValue(m_tpGainMiddle));
+		AddTokenInt(tokens, "TpGainOuter", string.Empty, abilityMod_ClaymoreMultiRadiusCone == null
+			? m_tpGainOuter
+			: abilityMod_ClaymoreMultiRadiusCone.m_outerTpGain.GetModifiedValue(m_tpGainOuter));
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_ClaymoreMultiRadiusCone != null
+			? abilityMod_ClaymoreMultiRadiusCone.m_effectInnerMod.GetModifiedValue(m_effectInner)
+			: m_effectInner, "EffectInner", m_effectInner);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_ClaymoreMultiRadiusCone != null
+			? abilityMod_ClaymoreMultiRadiusCone.m_effectMiddleMod.GetModifiedValue(m_effectMiddle)
+			: m_effectMiddle, "EffectMiddle", m_effectMiddle);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_ClaymoreMultiRadiusCone != null
+			? abilityMod_ClaymoreMultiRadiusCone.m_effectOuterMod.GetModifiedValue(m_effectOuter)
+			: m_effectOuter, "EffectOuter", m_effectOuter);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -468,165 +254,119 @@ public class ClaymoreMultiRadiusCone : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null)
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
+		if (tooltipSubjectTypes == null)
 		{
-			ActorData actorData = base.ActorData;
-			int num = 0;
-			if (GetBonusDamageIfCasterHealthBelow() > 0)
+			return dictionary;
+		}
+		ActorData actorData = ActorData;
+		int damage = 0;
+		if (GetBonusDamageIfCasterHealthBelow() > 0 && GetCasterHealthThreshForBonus() > 0f)
+		{
+			float healthPercent = actorData.HitPoints / (float)actorData.GetMaxHitPoints();
+			if (ShouldApplyCasterBonusPerThresholdReached())
 			{
-				if (GetCasterHealthThreshForBonus() > 0f)
-				{
-					float num2 = (float)actorData.HitPoints / (float)actorData.GetMaxHitPoints();
-					if (ShouldApplyCasterBonusPerThresholdReached())
-					{
-						int num3 = Mathf.FloorToInt((1f - num2) / GetCasterHealthThreshForBonus());
-						num += GetBonusDamageIfCasterHealthBelow() * num3;
-					}
-					else if (num2 < GetCasterHealthThreshForBonus())
-					{
-						num += GetBonusDamageIfCasterHealthBelow();
-					}
-				}
+				int numBonus = Mathf.FloorToInt((1f - healthPercent) / GetCasterHealthThreshForBonus());
+				damage += GetBonusDamageIfCasterHealthBelow() * numBonus;
 			}
-			if (GetBonusDamageIfEnemyHealthBelow() > 0 && GetEnemyHealthThreshForBonus() > 0f)
+			else if (healthPercent < GetCasterHealthThreshForBonus())
 			{
-				if ((float)targetActor.HitPoints / (float)targetActor.GetMaxHitPoints() < GetEnemyHealthThreshForBonus())
-				{
-					num += GetBonusDamageIfEnemyHealthBelow();
-				}
+				damage += GetBonusDamageIfCasterHealthBelow();
 			}
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Near))
-			{
-				dictionary[AbilityTooltipSymbol.Damage] = ModdedInnerDamage() + num;
-			}
-			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Midranged))
-			{
-				dictionary[AbilityTooltipSymbol.Damage] = ModdedMiddleDamage() + num;
-			}
-			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Far))
-			{
-				dictionary[AbilityTooltipSymbol.Damage] = ModdedOuterDamage() + num;
-			}
+		}
+		if (GetBonusDamageIfEnemyHealthBelow() > 0
+		    && GetEnemyHealthThreshForBonus() > 0f
+		    && targetActor.HitPoints / (float)targetActor.GetMaxHitPoints() < GetEnemyHealthThreshForBonus())
+		{
+			damage += GetBonusDamageIfEnemyHealthBelow();
+		}
+		if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Near))
+		{
+			dictionary[AbilityTooltipSymbol.Damage] = ModdedInnerDamage() + damage;
+		}
+		else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Midranged))
+		{
+			dictionary[AbilityTooltipSymbol.Damage] = ModdedMiddleDamage() + damage;
+		}
+		else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Far))
+		{
+			dictionary[AbilityTooltipSymbol.Damage] = ModdedOuterDamage() + damage;
 		}
 		return dictionary;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		int num = 0;
+		int energy = 0;
 		if (ModdedInnerTpGain() > 0)
 		{
-			List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Near);
-			num += visibleActorsInRangeByTooltipSubject.Count * ModdedInnerTpGain();
+			List<ActorData> targets = Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Near);
+			energy += targets.Count * ModdedInnerTpGain();
 		}
 		if (ModdedMiddleTpGain() > 0)
 		{
-			List<ActorData> visibleActorsInRangeByTooltipSubject2 = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Midranged);
-			num += visibleActorsInRangeByTooltipSubject2.Count * ModdedMiddleTpGain();
+			List<ActorData> targets = Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Midranged);
+			energy += targets.Count * ModdedMiddleTpGain();
 		}
 		if (ModdedOuterTpGain() > 0)
 		{
-			List<ActorData> visibleActorsInRangeByTooltipSubject3 = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Far);
-			num += visibleActorsInRangeByTooltipSubject3.Count * ModdedOuterTpGain();
+			List<ActorData> targets = Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Far);
+			energy += targets.Count * ModdedOuterTpGain();
 		}
-		return num;
+		return energy;
 	}
 
-	public override bool DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject subjectType, ActorData targetActor, Vector3 damageOrigin, ActorData targetingActor)
+	public override bool DoesTargetActorMatchTooltipSubject(
+		AbilityTooltipSubject subjectType,
+		ActorData targetActor,
+		Vector3 damageOrigin,
+		ActorData targetingActor)
 	{
-		if (subjectType != AbilityTooltipSubject.Near)
+		if (subjectType != AbilityTooltipSubject.Near
+		    && subjectType != AbilityTooltipSubject.Midranged
+		    && subjectType != AbilityTooltipSubject.Far)
 		{
-			if (subjectType != AbilityTooltipSubject.Midranged)
-			{
-				if (subjectType != AbilityTooltipSubject.Far)
-				{
-					return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
-				}
-			}
+			return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
 		}
-		float num = ModdedInnerRadius() * Board.Get().squareSize;
-		float num2 = ModdedMiddleRadius() * Board.Get().squareSize;
+		float innerRadius = ModdedInnerRadius() * Board.Get().squareSize;
+		float middleRadius = ModdedMiddleRadius() * Board.Get().squareSize;
 		Vector3 vector = targetActor.GetFreePos() - damageOrigin;
 		vector.y = 0f;
-		float num3 = vector.magnitude;
+		float dist = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())
 		{
-			num3 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
+			dist -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 		}
-		bool flag = num3 <= num;
-		int num4;
-		if (!flag)
+		bool inInnerRadius = dist <= innerRadius;
+		bool inMiddleRadius = !inInnerRadius && dist <= middleRadius;
+		bool inOuterRadius = !inInnerRadius && !inMiddleRadius;
+		switch (subjectType)
 		{
-			num4 = ((num3 <= num2) ? 1 : 0);
+			case AbilityTooltipSubject.Near:
+				return inInnerRadius;
+			case AbilityTooltipSubject.Midranged:
+				return inMiddleRadius;
+			default:
+				return inOuterRadius;
 		}
-		else
-		{
-			num4 = 0;
-		}
-		bool flag2 = (byte)num4 != 0;
-		int num5;
-		if (!flag)
-		{
-			num5 = ((!flag2) ? 1 : 0);
-		}
-		else
-		{
-			num5 = 0;
-		}
-		bool result = (byte)num5 != 0;
-		if (subjectType == AbilityTooltipSubject.Near)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return flag;
-				}
-			}
-		}
-		if (subjectType == AbilityTooltipSubject.Midranged)
-		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return flag2;
-				}
-			}
-		}
-		return result;
 	}
 
 	public override string GetAccessoryTargeterNumberString(ActorData targetActor, AbilityTooltipSymbol symbolType, int baseValue)
 	{
-		return (!(m_syncComp != null)) ? null : m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
+		return m_syncComp != null
+			? m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, ActorData)
+			: null;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_ClaymoreMultiRadiusCone))
+		if (abilityMod.GetType() != typeof(AbilityMod_ClaymoreMultiRadiusCone))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_ClaymoreMultiRadiusCone);
-					SetupTargeter();
-					return;
-				}
-			}
+			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+		m_abilityMod = abilityMod as AbilityMod_ClaymoreMultiRadiusCone;
+		SetupTargeter();
 	}
 
 	protected override void OnRemoveAbilityMod()
