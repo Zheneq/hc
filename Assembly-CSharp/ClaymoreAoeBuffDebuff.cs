@@ -5,41 +5,26 @@ public class ClaymoreAoeBuffDebuff : Ability
 {
 	[Header("-- Targeting")]
 	public AbilityAreaShape m_shape = AbilityAreaShape.Five_x_Five_NoCorners;
-
 	public bool m_penetrateLos;
-
 	[Header("-- Self Heal Per Hit")]
 	public int m_baseSelfHeal;
-
 	public int m_selfHealAmountPerHit;
-
 	public bool m_selfHealCountEnemyHit = true;
-
 	public bool m_selfHealCountAllyHit = true;
-
 	[Header("-- Normal Hit Effects")]
 	public StandardEffectInfo m_selfHitEffect;
-
 	public StandardEffectInfo m_allyHitEffect;
-
 	public StandardEffectInfo m_enemyHitEffect;
-
 	[Header("-- Energy Gain/Loss for hit actors")]
 	public int m_allyEnergyGain;
-
 	public int m_enemyEnergyLoss;
-
 	public bool m_energyChangeOnlyIfHasAdjacent;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
-
+	
 	private AbilityMod_ClaymoreAoeBuffDebuff m_abilityMod;
-
 	private StandardEffectInfo m_cachedSelfHitEffect;
-
 	private StandardEffectInfo m_cachedAllyHitEffect;
-
 	private StandardEffectInfo m_cachedEnemyHitEffect;
 
 	private void Start()
@@ -53,263 +38,156 @@ public class ClaymoreAoeBuffDebuff : Ability
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedSelfHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedSelfHitEffect = m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect);
-		}
-		else
-		{
-			cachedSelfHitEffect = m_selfHitEffect;
-		}
-		m_cachedSelfHitEffect = cachedSelfHitEffect;
-		StandardEffectInfo cachedAllyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
-		}
-		else
-		{
-			cachedAllyHitEffect = m_allyHitEffect;
-		}
-		m_cachedAllyHitEffect = cachedAllyHitEffect;
-		StandardEffectInfo cachedEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
-		}
-		else
-		{
-			cachedEnemyHitEffect = m_enemyHitEffect;
-		}
-		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		m_cachedSelfHitEffect = m_abilityMod != null
+			? m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect)
+			: m_selfHitEffect;
+		m_cachedAllyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect)
+			: m_allyHitEffect;
+		m_cachedEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect;
 	}
 
 	public AbilityAreaShape GetShape()
 	{
-		return (!m_abilityMod) ? m_shape : m_abilityMod.m_shapeMod.GetModifiedValue(m_shape);
+		return m_abilityMod != null
+			? m_abilityMod.m_shapeMod.GetModifiedValue(m_shape)
+			: m_shape;
 	}
 
 	public bool GetPenetrateLos()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
-		}
-		else
-		{
-			result = m_penetrateLos;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos) 
+			: m_penetrateLos;
 	}
 
 	public int GetBaseSelfHeal()
 	{
-		return (!m_abilityMod) ? m_baseSelfHeal : m_abilityMod.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal);
+		return m_abilityMod != null
+			? m_abilityMod.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal)
+			: m_baseSelfHeal;
 	}
 
 	public int GetSelfHealAmountPerHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_selfHealAmountPerHitMod.GetModifiedValue(m_selfHealAmountPerHit);
-		}
-		else
-		{
-			result = m_selfHealAmountPerHit;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_selfHealAmountPerHitMod.GetModifiedValue(m_selfHealAmountPerHit) 
+			: m_selfHealAmountPerHit;
 	}
 
 	public bool GetSelfHealCountEnemyHit()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_selfHealCountEnemyHitMod.GetModifiedValue(m_selfHealCountEnemyHit);
-		}
-		else
-		{
-			result = m_selfHealCountEnemyHit;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_selfHealCountEnemyHitMod.GetModifiedValue(m_selfHealCountEnemyHit) 
+			: m_selfHealCountEnemyHit;
 	}
 
 	public bool GetSelfHealCountAllyHit()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_selfHealCountAllyHitMod.GetModifiedValue(m_selfHealCountAllyHit);
-		}
-		else
-		{
-			result = m_selfHealCountAllyHit;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_selfHealCountAllyHitMod.GetModifiedValue(m_selfHealCountAllyHit) 
+			: m_selfHealCountAllyHit;
 	}
 
 	public StandardEffectInfo GetSelfHitEffect()
 	{
-		return (m_cachedSelfHitEffect == null) ? m_selfHitEffect : m_cachedSelfHitEffect;
+		return m_cachedSelfHitEffect ?? m_selfHitEffect;
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedAllyHitEffect != null)
-		{
-			result = m_cachedAllyHitEffect;
-		}
-		else
-		{
-			result = m_allyHitEffect;
-		}
-		return result;
+		return m_cachedAllyHitEffect ?? m_allyHitEffect;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyHitEffect != null)
-		{
-			result = m_cachedEnemyHitEffect;
-		}
-		else
-		{
-			result = m_enemyHitEffect;
-		}
-		return result;
+		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
 	}
 
 	public int GetAllyEnergyGain()
 	{
-		return (!m_abilityMod) ? m_allyEnergyGain : m_abilityMod.m_allyEnergyGainMod.GetModifiedValue(m_allyEnergyGain);
+		return m_abilityMod != null
+			? m_abilityMod.m_allyEnergyGainMod.GetModifiedValue(m_allyEnergyGain)
+			: m_allyEnergyGain;
 	}
 
 	public int GetEnemyEnergyLoss()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_enemyEnergyLossMod.GetModifiedValue(m_enemyEnergyLoss);
-		}
-		else
-		{
-			result = m_enemyEnergyLoss;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_enemyEnergyLossMod.GetModifiedValue(m_enemyEnergyLoss) 
+			: m_enemyEnergyLoss;
 	}
 
 	public bool GetEnergyChangeOnlyIfHasAdjacent()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_energyChangeOnlyIfHasAdjacentMod.GetModifiedValue(m_energyChangeOnlyIfHasAdjacent);
-		}
-		else
-		{
-			result = m_energyChangeOnlyIfHasAdjacent;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_energyChangeOnlyIfHasAdjacentMod.GetModifiedValue(m_energyChangeOnlyIfHasAdjacent) 
+			: m_energyChangeOnlyIfHasAdjacent;
 	}
 
 	public bool IncludeCaster()
 	{
-		int result;
-		if (!GetSelfHitEffect().m_applyEffect && GetBaseSelfHeal() <= 0)
-		{
-			result = ((GetSelfHealAmountPerHit() > 0) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return GetSelfHitEffect().m_applyEffect
+		       || GetBaseSelfHeal() > 0
+		       || GetSelfHealAmountPerHit() > 0;
 	}
 
 	public bool IncludeAllies()
 	{
-		int result;
-		if (!GetAllyHitEffect().m_applyEffect)
-		{
-			result = ((GetAllyEnergyGain() > 0) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return GetAllyHitEffect().m_applyEffect
+		       || GetAllyEnergyGain() > 0;
 	}
 
 	public bool IncludeEnemies()
 	{
-		int result;
-		if (!GetEnemyHitEffect().m_applyEffect)
-		{
-			result = ((GetEnemyEnergyLoss() > 0) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return GetEnemyHitEffect().m_applyEffect
+		       || GetEnemyEnergyLoss() > 0;
 	}
 
 	private void SetupTargeter()
 	{
 		SetCachedFields();
-		AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
-		if (!IncludeCaster())
-		{
-			affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
-		}
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, GetShape(), GetPenetrateLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, IncludeEnemies(), IncludeAllies(), affectsCaster);
-		base.Targeter.ShowArcToShape = false;
+		AbilityUtil_Targeter.AffectsActor affectsCaster = IncludeCaster()
+			? AbilityUtil_Targeter.AffectsActor.Possible
+			: AbilityUtil_Targeter.AffectsActor.Never;
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			GetShape(),
+			GetPenetrateLos(),
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			IncludeEnemies(),
+			IncludeAllies(),
+			affectsCaster);
+		Targeter.ShowArcToShape = false;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_ClaymoreAoeBuffDebuff abilityMod_ClaymoreAoeBuffDebuff = modAsBase as AbilityMod_ClaymoreAoeBuffDebuff;
 		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_ClaymoreAoeBuffDebuff)
-		{
-			val = abilityMod_ClaymoreAoeBuffDebuff.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal);
-		}
-		else
-		{
-			val = m_baseSelfHeal;
-		}
-		AddTokenInt(tokens, "BaseSelfHeal", empty, val);
-		AddTokenInt(tokens, "SelfHealAmountPerHit", string.Empty, (!abilityMod_ClaymoreAoeBuffDebuff) ? m_selfHealAmountPerHit : abilityMod_ClaymoreAoeBuffDebuff.m_selfHealAmountPerHitMod.GetModifiedValue(m_selfHealAmountPerHit));
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_ClaymoreAoeBuffDebuff) ? m_selfHitEffect : abilityMod_ClaymoreAoeBuffDebuff.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect), "SelfHitEffect", m_selfHitEffect);
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_ClaymoreAoeBuffDebuff)
-		{
-			effectInfo = abilityMod_ClaymoreAoeBuffDebuff.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
-		}
-		else
-		{
-			effectInfo = m_allyHitEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "AllyHitEffect", m_allyHitEffect);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_ClaymoreAoeBuffDebuff) ? m_enemyHitEffect : abilityMod_ClaymoreAoeBuffDebuff.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect), "EnemyHitEffect", m_enemyHitEffect);
-		AddTokenInt(tokens, "AllyEnergyGain", string.Empty, (!abilityMod_ClaymoreAoeBuffDebuff) ? m_allyEnergyGain : abilityMod_ClaymoreAoeBuffDebuff.m_allyEnergyGainMod.GetModifiedValue(m_allyEnergyGain));
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)abilityMod_ClaymoreAoeBuffDebuff)
-		{
-			val2 = abilityMod_ClaymoreAoeBuffDebuff.m_enemyEnergyLossMod.GetModifiedValue(m_enemyEnergyLoss);
-		}
-		else
-		{
-			val2 = m_enemyEnergyLoss;
-		}
-		AddTokenInt(tokens, "EnemyEnergyLoss", empty2, val2);
+		AddTokenInt(tokens, "BaseSelfHeal", empty, abilityMod_ClaymoreAoeBuffDebuff != null
+			? abilityMod_ClaymoreAoeBuffDebuff.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal)
+			: m_baseSelfHeal);
+		AddTokenInt(tokens, "SelfHealAmountPerHit", string.Empty, abilityMod_ClaymoreAoeBuffDebuff != null
+			? abilityMod_ClaymoreAoeBuffDebuff.m_selfHealAmountPerHitMod.GetModifiedValue(m_selfHealAmountPerHit)
+			: m_selfHealAmountPerHit);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_ClaymoreAoeBuffDebuff != null
+			? abilityMod_ClaymoreAoeBuffDebuff.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect)
+			: m_selfHitEffect, "SelfHitEffect", m_selfHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_ClaymoreAoeBuffDebuff != null
+			? abilityMod_ClaymoreAoeBuffDebuff.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect)
+			: m_allyHitEffect, "AllyHitEffect", m_allyHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_ClaymoreAoeBuffDebuff != null
+			? abilityMod_ClaymoreAoeBuffDebuff.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
+		AddTokenInt(tokens, "AllyEnergyGain", string.Empty, abilityMod_ClaymoreAoeBuffDebuff != null
+			? abilityMod_ClaymoreAoeBuffDebuff.m_allyEnergyGainMod.GetModifiedValue(m_allyEnergyGain)
+			: m_allyEnergyGain);
+		AddTokenInt(tokens, "EnemyEnergyLoss", string.Empty, abilityMod_ClaymoreAoeBuffDebuff != null
+			? abilityMod_ClaymoreAoeBuffDebuff.m_enemyEnergyLossMod.GetModifiedValue(m_enemyEnergyLoss)
+			: m_enemyEnergyLoss);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -325,104 +203,84 @@ public class ClaymoreAoeBuffDebuff : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		if (GetSelfHealAmountPerHit() <= 0)
+		if (GetSelfHealAmountPerHit() <= 0 && GetBaseSelfHeal() <= 0)
 		{
-			if (GetBaseSelfHeal() <= 0)
-			{
-				return null;
-			}
+			return null;
 		}
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null)
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
+		if (tooltipSubjectTypes == null)
 		{
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
+			return dictionary;
+		}
+		if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
+		{
+			List<ActorData> visibleActorsInRangeByTooltipSubject = Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
+			int numAllies = 0;
+			int numEnemies = 0;
+			foreach (ActorData visibleActor in visibleActorsInRangeByTooltipSubject)
 			{
-				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
-				int num = 0;
-				int num2 = 0;
-				for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
+				if (visibleActor.GetTeam() != targetActor.GetTeam())
 				{
-					if (visibleActorsInRangeByTooltipSubject[i].GetTeam() != targetActor.GetTeam())
-					{
-						num++;
-					}
-					else if (visibleActorsInRangeByTooltipSubject[i] != targetActor)
-					{
-						num2++;
-					}
+					numAllies++;
 				}
-				int num4 = dictionary[AbilityTooltipSymbol.Healing] = CalcSelfHealAmountFromHits(num2, num);
+				else if (visibleActor != targetActor)
+				{
+					numEnemies++;
+				}
 			}
-			else if (GetEnergyChangeOnlyIfHasAdjacent())
+			dictionary[AbilityTooltipSymbol.Healing] = CalcSelfHealAmountFromHits(numEnemies, numAllies);
+		}
+		else if (GetEnergyChangeOnlyIfHasAdjacent())
+		{
+			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy)
+			    && GetEnemyEnergyLoss() > 0)
 			{
-				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
+				int enemyEnergyLoss;
+				if (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeamAsList()))
 				{
-					if (GetEnemyEnergyLoss() > 0)
-					{
-						int value;
-						if (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeamAsList()))
-						{
-							value = -1 * GetEnemyEnergyLoss();
-						}
-						else
-						{
-							value = 0;
-						}
-						dictionary[AbilityTooltipSymbol.Energy] = value;
-						goto IL_01ba;
-					}
+					enemyEnergyLoss = -1 * GetEnemyEnergyLoss();
 				}
-				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
+				else
 				{
-					if (GetAllyEnergyGain() > 0)
-					{
-						dictionary[AbilityTooltipSymbol.Energy] = (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeamAsList()) ? GetAllyEnergyGain() : 0);
-					}
+					enemyEnergyLoss = 0;
 				}
+				dictionary[AbilityTooltipSymbol.Energy] = enemyEnergyLoss;
+			}
+			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally)
+			         && GetAllyEnergyGain() > 0)
+			{
+				bool hasAdjacentAlly = AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeamAsList());
+				dictionary[AbilityTooltipSymbol.Energy] = hasAdjacentAlly ? GetAllyEnergyGain() : 0;
 			}
 		}
-		goto IL_01ba;
-		IL_01ba:
 		return dictionary;
 	}
 
 	private int CalcSelfHealAmountFromHits(int allyHits, int enemyHits)
 	{
-		int result = 0;
-		if (GetSelfHealAmountPerHit() <= 0)
+		if (GetSelfHealAmountPerHit() <= 0 && GetBaseSelfHeal() <= 0)
 		{
-			if (GetBaseSelfHeal() <= 0)
-			{
-				goto IL_0077;
-			}
+			return 0;
 		}
-		int num = 0;
+		int numHits = 0;
 		if (GetSelfHealCountAllyHit())
 		{
-			num += allyHits;
+			numHits += allyHits;
 		}
 		if (GetSelfHealCountEnemyHit())
 		{
-			num += enemyHits;
+			numHits += enemyHits;
 		}
-		result = GetBaseSelfHeal() + num * GetSelfHealAmountPerHit();
-		goto IL_0077;
-		IL_0077:
-		return result;
+		return GetBaseSelfHeal() + numHits * GetSelfHealAmountPerHit();
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_ClaymoreAoeBuffDebuff))
+		if (abilityMod.GetType() == typeof(AbilityMod_ClaymoreAoeBuffDebuff))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_ClaymoreAoeBuffDebuff);
+			m_abilityMod = abilityMod as AbilityMod_ClaymoreAoeBuffDebuff;
 			SetupTargeter();
-			return;
 		}
 	}
 

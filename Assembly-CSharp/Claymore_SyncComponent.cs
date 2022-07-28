@@ -4,19 +4,14 @@ using UnityEngine.Networking;
 public class Claymore_SyncComponent : NetworkBehaviour
 {
 	private SyncListUInt m_dirtyFightingActorIndexList = new SyncListUInt();
-
 	private SyncListUInt m_dirtyFightingDamageList = new SyncListUInt();
-
-	private static int kListm_dirtyFightingActorIndexList;
-
-	private static int kListm_dirtyFightingDamageList;
+	private static int kListm_dirtyFightingActorIndexList = -722191822;
+	private static int kListm_dirtyFightingDamageList = 734449732;
 
 	static Claymore_SyncComponent()
 	{
-		kListm_dirtyFightingActorIndexList = -722191822;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(Claymore_SyncComponent), kListm_dirtyFightingActorIndexList, InvokeSyncListm_dirtyFightingActorIndexList);
-		kListm_dirtyFightingDamageList = 734449732;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(Claymore_SyncComponent), kListm_dirtyFightingDamageList, InvokeSyncListm_dirtyFightingDamageList);
+		RegisterSyncListDelegate(typeof(Claymore_SyncComponent), kListm_dirtyFightingActorIndexList, InvokeSyncListm_dirtyFightingActorIndexList);
+		RegisterSyncListDelegate(typeof(Claymore_SyncComponent), kListm_dirtyFightingDamageList, InvokeSyncListm_dirtyFightingDamageList);
 		NetworkCRC.RegisterBehaviour("Claymore_SyncComponent", 0);
 	}
 
@@ -42,20 +37,13 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		int result = 0;
 		uint actorIndex = (uint)target.ActorIndex;
-		int num = 0;
-		while (true)
+		for (int i = 0; i < m_dirtyFightingActorIndexList.Count; i++)
 		{
-			if (num < m_dirtyFightingActorIndexList.Count)
+			if (m_dirtyFightingActorIndexList[i] == actorIndex)
 			{
-				if (m_dirtyFightingActorIndexList[num] == actorIndex)
-				{
-					result = (int)m_dirtyFightingDamageList[num];
-					break;
-				}
-				num++;
-				continue;
+				result = (int)m_dirtyFightingDamageList[i];
+				break;
 			}
-			break;
 		}
 		return result;
 	}
@@ -81,17 +69,8 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_dirtyFightingActorIndexList called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_dirtyFightingActorIndexList called on server.");
+			return;
 		}
 		((Claymore_SyncComponent)obj).m_dirtyFightingActorIndexList.HandleMsg(reader);
 	}
@@ -100,17 +79,8 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_dirtyFightingDamageList called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_dirtyFightingDamageList called on server.");
+			return;
 		}
 		((Claymore_SyncComponent)obj).m_dirtyFightingDamageList.HandleMsg(reader);
 	}
@@ -125,41 +95,32 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					SyncListUInt.WriteInstance(writer, m_dirtyFightingActorIndexList);
-					SyncListUInt.WriteInstance(writer, m_dirtyFightingDamageList);
-					return true;
-				}
-			}
+			SyncListUInt.WriteInstance(writer, m_dirtyFightingActorIndexList);
+			SyncListUInt.WriteInstance(writer, m_dirtyFightingDamageList);
+			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListUInt.WriteInstance(writer, m_dirtyFightingActorIndexList);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListUInt.WriteInstance(writer, m_dirtyFightingDamageList);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -168,18 +129,9 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					SyncListUInt.ReadReference(reader, m_dirtyFightingActorIndexList);
-					SyncListUInt.ReadReference(reader, m_dirtyFightingDamageList);
-					return;
-				}
-			}
+			SyncListUInt.ReadReference(reader, m_dirtyFightingActorIndexList);
+			SyncListUInt.ReadReference(reader, m_dirtyFightingDamageList);
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
