@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,8 +14,12 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 	[Header("-- Hit Damage and Effects")]
 	public AbilityModPropertyInt m_directHitDamageMod;
 	public AbilityModPropertyEffectInfo m_directEnemyHitEffectMod;
+	// added in rogues
+	// public OnHitDataMod m_directHitDataMod;
 	public AbilityModPropertyInt m_aoeDamageMod;
 	public AbilityModPropertyEffectInfo m_aoeEnemyHitEffectMod;
+	// added in rogues
+	// public OnHitDataMod m_aoeHitDataMod;
 	[Header("-- Extra Damage from Charge Path Length")]
 	public AbilityModPropertyInt m_extraDirectHitDamagePerSquareMod;
 	[Header("-- Heal on Self")]
@@ -27,6 +33,7 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		return typeof(ClaymoreCharge);
 	}
 
+	// broken in rogues
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ClaymoreCharge claymoreCharge = targetAbility as ClaymoreCharge;
@@ -44,6 +51,7 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		}
 	}
 
+	// broken in rogues
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		ClaymoreCharge claymoreCharge = GetTargetAbilityOnAbilityData(abilityData) as ClaymoreCharge;

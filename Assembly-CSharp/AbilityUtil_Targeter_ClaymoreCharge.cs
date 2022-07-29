@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// reworked in rogues
 public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 {
 	public delegate bool IsAffectingCasterDelegate(ActorData caster, List<ActorData> actorsSoFar);

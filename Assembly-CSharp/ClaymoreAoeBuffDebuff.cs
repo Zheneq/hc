@@ -1,6 +1,10 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
+// empty in rogues
+// TODO TITUS server part
 public class ClaymoreAoeBuffDebuff : Ability
 {
 	[Header("-- Targeting")]

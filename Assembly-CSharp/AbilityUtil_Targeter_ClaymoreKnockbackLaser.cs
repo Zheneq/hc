@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,7 +59,10 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 			m_laserRange,
 			m_laserWidth,
 			targetingActor,
-			targetingActor.GetEnemyTeamAsList(),
+			// reactor
+			// targetingActor.GetEnemyTeamAsList(),
+			// rogues
+			targetingActor.GetOtherTeams(),
 			m_penetrateLos,
 			m_maxTargets,
 			m_lengthIgnoreGeo,
@@ -70,7 +75,10 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 			m_laserRange,
 			m_laserMiddleWidth,
 			targetingActor,
-			targetingActor.GetEnemyTeamAsList(),
+			// reactor
+			// targetingActor.GetEnemyTeamAsList(),
+			// rogues
+			targetingActor.GetOtherTeams(),
 			m_penetrateLos,
 			m_maxTargets,
 			m_lengthIgnoreGeo,
@@ -80,6 +88,8 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 		foreach (ActorData actor in actorsInMiddleLaser)
 		{
 			AddActorInRange(actor, laserCoords.start, targetingActor);
+			// rogues
+			// m_actorContextVars[actor].m_contextVars.SetValue(TargetSelect_LaserNested.s_InPrimaryRadius.GetKey(), 1);
 		}
 		int arrowIndex = 0;
 		EnableAllMovementArrows();
@@ -89,6 +99,8 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 			if (!actorsInMiddleLaser.Contains(item))
 			{
 				AddActorInRange(item, laserCoords.start, targetingActor, AbilityTooltipSubject.Secondary);
+				// rogues
+				// m_actorContextVars[item].m_contextVars.SetValue(TargetSelect_LaserNested.s_InPrimaryRadius.GetKey(), 0);
 				if (targetingActor.TechPoints + targetingActor.ReservedTechPoints >= targetingActor.GetMaxTechPoints())
 				{
 					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(
@@ -131,7 +143,11 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
 			ResetSquareIndicatorIndexToUse();
+			// reactor
 			float widthInSquares = Mathf.Max(m_laserWidth, m_laserMiddleWidth);
+			// rogues
+			// float widthInSquares = m_laserWidth;
+
 			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(m_indicatorHandler, startPos, endPos, widthInSquares, targetingActor, m_penetrateLos);
 			HideUnusedSquareIndicators();
 		}

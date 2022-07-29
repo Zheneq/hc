@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -100,4 +102,108 @@ public class ClaymoreKnockbackLaser : Ability
 	{
 		return m_knockbackEnemyHitEffect;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targets[0].FreePos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		GetHitActors(targets, caster, out var middleHitActors, out var knockbackHitActors, out Vector3 _, nonActorTargetInfo);
+		foreach (ActorData target in middleHitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, caster.GetFreePos()));
+			actorHitResults.SetBaseDamage(GetMiddleHitDamage());
+			actorHitResults.AddStandardEffectInfo(GetMiddleEnemyHitEffect());
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		foreach (ActorData target in knockbackHitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, caster.GetFreePos()));
+			actorHitResults.SetBaseDamage(GetKnockbackDamage());
+			actorHitResults.AddStandardEffectInfo(GetKnockbackEnemyHieEffect());
+			if (GetKnockbackDistance() > 0f)
+			{
+				KnockbackHitData knockbackData = new KnockbackHitData(target, caster, m_knockbackType, targets[0].AimDirection, caster.GetFreePos(), GetKnockbackDistance());
+				actorHitResults.AddKnockbackData(knockbackData);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private void GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out List<ActorData> middleHitActors,
+		out List<ActorData> knockbackHitActors,
+		out Vector3 laserEndPos,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<Team> otherTeams = caster.GetOtherTeams();
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInFullWidth = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			targets[0].AimDirection,
+			GetLaserRange(),
+			GetLaserFullWidth(),
+			caster,
+			otherTeams,
+			m_penetrateLos,
+			-1,
+			m_lengthIgnoreWorldGeo,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		middleHitActors = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			targets[0].AimDirection,
+			GetLaserRange(),
+			GetLaserMiddleWidth(),
+			caster,
+			otherTeams,
+			m_penetrateLos,
+			-1,
+			m_lengthIgnoreWorldGeo,
+			true,
+			out laserCoords.end,
+			null);
+		knockbackHitActors = new List<ActorData>();
+		foreach (ActorData item in actorsInFullWidth)
+		{
+			if (!AreaEffectUtils.GetActorsInLaser(
+				    laserCoords.start,
+				    targets[0].AimDirection,
+				    GetLaserRange(),
+				    GetLaserMiddleWidth(),
+				    caster,
+				    otherTeams,
+				    m_penetrateLos,
+				    -1,
+				    m_lengthIgnoreWorldGeo,
+				    true,
+				    out laserCoords.end,
+				    null).Contains(item))
+			{
+				knockbackHitActors.Add(item);
+			}
+		}
+		laserEndPos = laserCoords.end;
+	}
+#endif
 }

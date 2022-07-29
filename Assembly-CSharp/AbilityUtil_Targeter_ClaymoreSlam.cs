@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using AbilityContextNamespace;
 using System.Collections.Generic;
 using UnityEngine;
@@ -75,20 +77,30 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 		{
 			AddActorInRange(targetingActor, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Self);
 		}
+		
+		// removed in rogues
 		int num = 0;
 		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
 		float squareSizeStatic = Board.SquareSizeStatic;
+		// end removed in rogues
+		
 		foreach (ActorData current in actorsInLaser)
 		{
 			if (ShouldAddActor(current, targetingActor))
 			{
+				// removed in rogues
 				float value = (current.GetFreePos() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
+				// end removed in rogues
+				
 				AddActorInRange(current, travelBoardSquareWorldPositionForLos, targetingActor);
+				
+				// removed in rogues
 				ActorHitContext actorHitContext = m_actorContextVars[current];
 				actorHitContext.m_hitOrigin = laserCoords2.start;
 				actorHitContext.m_contextVars.SetValue(ContextKeys.s_HitOrder.GetKey(), num);
 				actorHitContext.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), value);
 				num++;
+				// end removed in rogues
 			}
 		}
 		float aimAngle = VectorUtils.HorizontalAngle_Deg(aimDirection);
@@ -100,7 +112,10 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 			m_coneBackwardOffsetInSquares,
 			m_penetrateLos,
 			targetingActor,
-			targetingActor.GetEnemyTeam(),
+			// reactor
+			// targetingActor.GetEnemyTeam(),
+			// rogues
+			targetingActor.GetOtherTeams(),
 			null);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		foreach (ActorData actor in actors)
@@ -113,6 +128,8 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 					targetingActor,
 					AbilityTooltipSubject.Secondary,
 					m_appendTooltipForDuplicates);
+				
+				// removed in rogues
 				if (!actorsInLaser.Contains(actor) && actor != targetingActor)
 				{
 					float value2 = (actor.GetFreePos() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
@@ -120,6 +137,7 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 					actorHitContext2.m_hitOrigin = laserCoords2.start;
 					actorHitContext2.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), value2);
 				}
+				// end removed in rogues
 			}
 		}
 		GameObject gameObject = m_highlights[0];
@@ -140,7 +158,10 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 				m_coneLengthRadius,
 				m_coneBackwardOffsetInSquares,
 				aimAngle,
-				targetingActor);
+				targetingActor
+				// added in rogues
+				// , m_penetrateLos
+				);
 			ResetSquareIndicatorIndexToUse();
 			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(
 				m_indicatorHandler,

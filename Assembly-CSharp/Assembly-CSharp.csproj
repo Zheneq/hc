@@ -655,6 +655,7 @@
     <Compile Include="ClashAtEndOfEvade.cs" />
     <Compile Include="ClaymoreAoeBuffDebuff.cs" />
     <Compile Include="ClaymoreCharge.cs" />
+    <Compile Include="ClaymoreDirtyFightingTargetEffect.cs" />
     <Compile Include="ClaymoreKnockbackLaser.cs" />
     <Compile Include="ClaymoreMultiRadiusCone.cs" />
     <Compile Include="ClaymoreSilenceLaser.cs" />

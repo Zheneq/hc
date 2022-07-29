@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// reworked in rogues
+// TODO TITUS server part
 public class ClaymoreSilenceLaser : Ability
 {
 	[Header("-- Targeting")]
