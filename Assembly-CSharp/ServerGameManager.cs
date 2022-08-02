@@ -364,6 +364,8 @@ public class ServerGameManager : MonoBehaviour
 		//      NetworkServer.RegisterHandler<GameManager.PlayerObjectStartedOnClientNotification>(new Action<NetworkConnection, GameManager.PlayerObjectStartedOnClientNotification>(HandleClientPreparedForGameStartNotification));
 		//      NetworkServer.RegisterHandler<GameManager.FakeActionRequest>(new Action<NetworkConnection, GameManager.FakeActionRequest>(HandleClientFakeActionRequest));
 
+		// custom
+		NetworkServer.RegisterHandler((short)MyMsgType.ClientRequestTimeUpdate, HandleClientRequestTimeUpdate);
 
 		// Firewall and stuff
 		//ListenAddress = NetUtil.GetIPv4Address(hydrogenConfig.HostName).ToString();
