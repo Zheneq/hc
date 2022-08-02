@@ -11,19 +11,13 @@ public class GameValueOverrides
 	}
 
 	public int? InitialTimeBankConsumables;
-
 	public TimeSpan? TurnTimeSpan;
 
 	public void SetIntOverride(OverrideAbleGameValue overrideValueType, int? value)
 	{
-		if (overrideValueType != OverrideAbleGameValue.InitialTimeBankConsumables)
-		{
-			return;
-		}
-		while (true)
+		if (overrideValueType == OverrideAbleGameValue.InitialTimeBankConsumables)
 		{
 			InitialTimeBankConsumables = value;
-			return;
 		}
 	}
 
