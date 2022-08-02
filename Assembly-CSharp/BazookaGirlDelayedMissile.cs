@@ -132,7 +132,12 @@ public class BazookaGirlDelayedMissile : Ability
 		{
 			for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 			{
-				AbilityUtil_Targeter_BazookaGirlDelayedMissile targeter = new AbilityUtil_Targeter_BazookaGirlDelayedMissile(this, GetShape(), m_penetrateLineOfSight, false, AbilityAreaShape.SingleSquare);
+				AbilityUtil_Targeter_BazookaGirlDelayedMissile targeter = new AbilityUtil_Targeter_BazookaGirlDelayedMissile(
+					this,
+					GetShape(),
+					m_penetrateLineOfSight,
+					false,
+					AbilityAreaShape.SingleSquare);
 				if (GetUseFakeMarkerIndexStart() > 0 && i >= GetUseFakeMarkerIndexStart())
 				{
 					targeter.SetTooltipSubjectTypes(AbilityTooltipSubject.Quaternary, AbilityTooltipSubject.Quaternary);
@@ -152,7 +157,12 @@ public class BazookaGirlDelayedMissile : Ability
 		}
 		else
 		{
-			Targeter = new AbilityUtil_Targeter_BazookaGirlDelayedMissile(this, GetShape(), m_penetrateLineOfSight, false, AbilityAreaShape.SingleSquare);
+			Targeter = new AbilityUtil_Targeter_BazookaGirlDelayedMissile(
+				this,
+				GetShape(),
+				m_penetrateLineOfSight,
+				false,
+				AbilityAreaShape.SingleSquare);
 		}
 	}
 
@@ -269,7 +279,7 @@ public class BazookaGirlDelayedMissile : Ability
 		ServerAbilityUtils.AbilityRunData additionalData)
 	{
 		return new ServerClientUtils.SequenceStartData(
-			AsEffectSource().GetSequencePrefab(),
+			m_castSequencePrefab,
 			targets[0].FreePos,
 			additionalData.m_abilityResults.HitActorsArray(),
 			caster,
@@ -288,13 +298,76 @@ public class BazookaGirlDelayedMissile : Ability
 		}
 		else if (UseAdditionalShapes())
 		{
-			// TODO ZUKI ability resolution
-			Log.Error($"Cannot gather ability results for additional shapes!");
+			GatherAbilityResultsAdditionalShapes(targets, caster, ref abilityResults);
 		}
 		else
 		{
 			GatherAbilityResultsDirectionCone(targets, caster, ref abilityResults);
 		}
+	}
+	
+	// custom
+	private void GatherAbilityResultsAdditionalShapes(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		BoardSquare targetSquare =  Board.Get().GetSquare(currentTarget.GridPos);
+		List<ActorData> processedActors = new List<ActorData>();
+		List<ShapeToHitInfo> shapeToHitInfos = new List<ShapeToHitInfo>();
+		ShapeToHitInfo centerHit = new ShapeToHitInfo
+		{
+			m_shape = AbilityAreaShape.SingleSquare,
+			m_damage = GetDamageAmount(),
+			m_onExplosionEffect = GetOnExplosionEffect()
+		};
+		shapeToHitInfos.Add(centerHit);
+		shapeToHitInfos.AddRange(GetShapeToHitInfo());
+		foreach (ShapeToHitInfo shapeToHitInfo in shapeToHitInfos)
+		{
+			List<ActorData> actors = AreaEffectUtils.GetActorsInShape(
+				shapeToHitInfo.m_shape,
+				currentTarget.FreePos,
+				targetSquare,
+				m_penetrateLineOfSight,
+				caster,
+				caster.GetOtherTeams(),
+				nonActorTargetInfo);
+			if (GetOnCastEnemyHitEffect() == null)
+			{
+				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+			}
+			foreach (ActorData targetActor in actors)
+			{
+				if (processedActors.Contains(targetActor))
+				{
+					continue;
+				}
+				if (targetActor.GetTeam() != caster.GetTeam())
+				{
+					ActorHitParameters hitParams = new ActorHitParameters(targetActor, targetSquare.ToVector3());
+					ActorHitResults hitResults = new ActorHitResults(0, HitActionType.Damage, GetOnCastEnemyHitEffect(), hitParams);
+					abilityResults.StoreActorHit(hitResults);
+					processedActors.Add(targetActor);
+				}
+			}
+		}
+		BazookaGirlDelayedMissileEffect effect = new BazookaGirlDelayedMissileEffect(
+			AsEffectSource(),
+			targetSquare,
+			caster,
+			shapeToHitInfos,
+			m_turnsBeforeExploding,
+			GetOnExplosionEffect(),
+			m_markerSequencePrefab,
+			m_impactSequencePrefab,
+			m_explosionAnimationIndex);
+		PositionHitParameters positionHitParams = new PositionHitParameters(targetSquare.ToVector3());
+		PositionHitResults positionHitResults = new PositionHitResults(effect, positionHitParams);
+		abilityResults.StorePositionHit(positionHitResults);
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
 	
 	// custom
@@ -333,20 +406,37 @@ public class BazookaGirlDelayedMissile : Ability
 		// {
 		// 	actors.Add(caster);
 		// }
+		// TODO ZUKI reveal targets if there is an effect and do not reveal otherwise?
 		List<ActorData> targetActors = actors.Where(target => target.GetTeam() != caster.GetTeam()).ToList();
-		if (!targetActors.IsNullOrEmpty()) // TODO add effect if empty
+		foreach (ActorData targetActor in targetActors)
 		{
-			foreach (ActorData targetActor in targetActors)
-			{
-				ActorHitParameters hitParams = new ActorHitParameters(targetActor, damageOrigin);
-				ActorHitResults hitResults = new ActorHitResults(0, HitActionType.Damage, GetOnCastEnemyHitEffect(), hitParams);
-				// TODO ZUKI ability resolution
-				// hitResults.AddEffect(effect);
-				abilityResults.StoreActorHit(hitResults);
-			}
+			ActorHitParameters hitParams = new ActorHitParameters(targetActor, damageOrigin);
+			ActorHitResults hitResults = new ActorHitResults(0, HitActionType.Damage, GetOnCastEnemyHitEffect(), hitParams);
+			abilityResults.StoreActorHit(hitResults);
 		}
-		// TODO ZUKI ability resolution
-		// abilityResults.StorePositionHit(positionHitResults);
+
+		List<ShapeToHitInfo> shapeToHitInfo = new List<ShapeToHitInfo>();
+		ShapeToHitInfo centerHit = new ShapeToHitInfo
+		{
+			m_shape = AbilityAreaShape.SingleSquare,
+			m_damage = GetDamageAmount(),
+			m_onExplosionEffect = GetOnExplosionEffect()
+		};
+		shapeToHitInfo.Add(centerHit);
+		shapeToHitInfo.AddRange(GetShapeToHitInfo());
+		BazookaGirlDelayedMissileEffect effect = new BazookaGirlDelayedMissileEffect(
+			AsEffectSource(),
+			targetSquare,
+			caster,
+			shapeToHitInfo,
+			m_turnsBeforeExploding,
+			GetOnExplosionEffect(),
+			m_markerSequencePrefab,
+			m_impactSequencePrefab,
+			m_explosionAnimationIndex);
+		PositionHitParameters positionHitParams = new PositionHitParameters(targetSquare.ToVector3());
+		PositionHitResults positionHitResults = new PositionHitResults(effect, positionHitParams);
+		abilityResults.StorePositionHit(positionHitResults);
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
 #endif

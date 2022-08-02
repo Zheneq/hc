@@ -13,7 +13,13 @@ public class BazookaGirlStickyBombEffect : Effect
 	private List<MiscHitEventData_AddToCasterCooldown> m_onExplosionCooldownEvents = new List<MiscHitEventData_AddToCasterCooldown>();
 	private List<ActorData> m_hitActors;
 
-	public BazookaGirlStickyBombEffect(EffectSource parent, List<ActorData> hitActors, ActorData caster, ThiefPartingGiftBombInfo bombInfo, SpoilsSpawnData spoilSpawnData) : base(parent, null, null, caster)
+	public BazookaGirlStickyBombEffect(
+		EffectSource parent,
+		List<ActorData> hitActors,
+		ActorData caster,
+		ThiefPartingGiftBombInfo bombInfo,
+		SpoilsSpawnData spoilSpawnData)
+		: base(parent, null, null, caster)
 	{
 		m_bombInfo = bombInfo;
 		m_spoilSpawnOnExplosion = spoilSpawnData;

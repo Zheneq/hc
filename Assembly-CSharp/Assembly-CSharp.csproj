@@ -527,6 +527,7 @@
     <Compile Include="BazookaGirlDelayedBombDrops.cs" />
     <Compile Include="BazookaGirlDelayedBombDropsEffect.cs" />
     <Compile Include="BazookaGirlDelayedMissile.cs" />
+    <Compile Include="BazookaGirlDelayedMissileEffect.cs" />
     <Compile Include="BazookaGirlDelayedMissileEffectSequence.cs" />
     <Compile Include="BazookaGirlDroppedBombInfo.cs" />
     <Compile Include="BazookaGirlExplodingLaser.cs" />
