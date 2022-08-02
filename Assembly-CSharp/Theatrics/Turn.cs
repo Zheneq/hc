@@ -563,7 +563,13 @@ namespace Theatrics
 				}
 			}
 			Phase phase = new Phase(this, phasePriority, abilityRequests);
-			phase.SetHitActorIds(hitActorIds);
+			
+			// TODO HACK
+			// reactor
+			// phase.SetHitActorIds(hitActorIds);
+			// custom
+			phase.SetHitActorIds(new HashSet<int>(phase.HitActorIndexToDeltaHP.Keys));
+			
 			m_abilityPhases.Add(phase);
 			AssignAnimationPlayOrderAndCinematicsForPhase(phasePriority, false, false);
 		}

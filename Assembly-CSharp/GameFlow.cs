@@ -610,7 +610,7 @@ public class GameFlow : NetworkBehaviour
 					theatrics.SetupTurnAbilityPhase(
 						actionBuffer.AbilityPhase,
 						actionBuffer.GetAllStoredAbilityRequests(),
-						new HashSet<int>() { },  // TODO
+						new HashSet<int>() { },  // TODO LOW (hacked inside)
 						false);
 
 					if (hasActionsThisPhase)
