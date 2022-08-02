@@ -51,251 +51,103 @@ public class GameSubType
 	private class CCSTSort : IComparer<GameSubType>
 	{
 		private GameSubType m_original;
-
 		private SubTypeMods? m_pivot;
-
 		private bool m_originalHasPivot;
-
 		private List<string> m_originalMaps;
 
 		internal CCSTSort(GameSubType original, SubTypeMods? pivot)
 		{
 			m_original = original;
 			m_pivot = pivot;
-			int originalHasPivot;
-			if (pivot.HasValue)
-			{
-				originalHasPivot = (m_original.HasMod(pivot.Value) ? 1 : 0);
-			}
-			else
-			{
-				originalHasPivot = 0;
-			}
-			m_originalHasPivot = ((byte)originalHasPivot != 0);
-			List<GameMapConfig> gameMapConfigs = m_original.GameMapConfigs;
-			
-			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(((GameMapConfig p) => p.IsActive));
-			
-			m_originalMaps = source.Select(((GameMapConfig p) => p.Map)).ToList();
+			m_originalHasPivot = pivot.HasValue && m_original.HasMod(pivot.Value);
+			m_originalMaps = m_original.GameMapConfigs
+				.Where(p => p.IsActive)
+				.Select(p => p.Map)
+				.ToList();
 		}
 
 		public int Compare(GameSubType left, GameSubType right)
 		{
 			if (m_pivot.HasValue)
 			{
-				bool flag = m_originalHasPivot == left.HasMod(m_pivot.Value);
-				bool flag2 = m_originalHasPivot == right.HasMod(m_pivot.Value);
-				if (flag != flag2)
+				bool leftSamePivot = m_originalHasPivot == left.HasMod(m_pivot.Value);
+				bool rightSamePivot = m_originalHasPivot == right.HasMod(m_pivot.Value);
+				if (leftSamePivot != rightSamePivot)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-						{
-							int result;
-							if (flag)
-							{
-								result = 1;
-							}
-							else
-							{
-								result = -1;
-							}
-							return result;
-						}
-						}
-					}
+					return leftSamePivot ? 1 : -1;
 				}
 			}
-			bool flag3 = m_original.LocalizedName == left.LocalizedName;
-			bool flag4 = m_original.LocalizedName == right.LocalizedName;
-			if (flag3 != flag4)
+			bool leftSameName = m_original.LocalizedName == left.LocalizedName;
+			bool rightSameName = m_original.LocalizedName == right.LocalizedName;
+			if (leftSameName != rightSameName)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-					{
-						int result2;
-						if (flag3)
-						{
-							result2 = -1;
-						}
-						else
-						{
-							result2 = 1;
-						}
-						return result2;
-					}
-					}
-				}
+				return leftSameName ? -1 : 1;
 			}
-			IEnumerator enumerator = Enum.GetValues(typeof(SubTypeMods)).GetEnumerator();
-			try
+			foreach (SubTypeMods subTypeMods in Enum.GetValues(typeof(SubTypeMods)))
 			{
-				while (enumerator.MoveNext())
+				if (!m_pivot.HasValue || subTypeMods != m_pivot.Value)
 				{
-					SubTypeMods subTypeMods = (SubTypeMods)enumerator.Current;
-					if (m_pivot.HasValue)
+					bool leftHasMod = left.HasMod(subTypeMods);
+					bool rightHasMod = right.HasMod(subTypeMods);
+					if (leftHasMod != rightHasMod)
 					{
-						if (subTypeMods == m_pivot.Value)
-						{
-							continue;
-						}
-					}
-					bool flag5 = left.HasMod(subTypeMods);
-					bool flag6 = right.HasMod(subTypeMods);
-					if (flag5 != flag6)
-					{
-						int result3;
-						if (flag5 == m_original.HasMod(subTypeMods))
-						{
-							result3 = -1;
-						}
-						else
-						{
-							result3 = 1;
-						}
-						return result3;
+						return leftHasMod == m_original.HasMod(subTypeMods) ? -1 : 1;
 					}
 				}
 			}
-			finally
-			{
-				IDisposable disposable;
-				if ((disposable = (enumerator as IDisposable)) != null)
-				{
-					disposable.Dispose();
-				}
-			}
-			List<GameMapConfig> gameMapConfigs = left.GameMapConfigs;
-			
-			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(((GameMapConfig p) => p.IsActive));
-			
-			int num = source.Select(((GameMapConfig p) => p.Map)).ToList().Intersect(m_originalMaps)
+			int leftActiveOriginalMapNum = left.GameMapConfigs
+				.Where(p => p.IsActive)
+				.Select(p => p.Map)
+				.ToList()
+				.Intersect(m_originalMaps)
 				.Count();
-			List<GameMapConfig> gameMapConfigs2 = right.GameMapConfigs;
-			
-			IEnumerable<GameMapConfig> source2 = gameMapConfigs2.Where(((GameMapConfig p) => p.IsActive));
-			
-			int num2 = source2.Select(((GameMapConfig p) => p.Map)).ToList().Intersect(m_originalMaps)
+			int rightActiveOriginalMapNum = right.GameMapConfigs
+				.Where(p => p.IsActive)
+				.Select(p => p.Map)
+				.ToList()
+				.Intersect(m_originalMaps)
 				.Count();
-			if (num != num2)
+			if (leftActiveOriginalMapNum != rightActiveOriginalMapNum)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-					{
-						int result4;
-						if (num > num2)
-						{
-							result4 = -1;
-						}
-						else
-						{
-							result4 = 1;
-						}
-						return result4;
-					}
-					}
-				}
+				return leftActiveOriginalMapNum > rightActiveOriginalMapNum ? -1 : 1;
 			}
 			return 0;
 		}
 	}
 
 	public string LocalizedName;
-
 	public List<GameMapConfig> GameMapConfigs;
-
 	public List<SubTypeMods> Mods;
-
 	public GameLoadScreenInstructions InstructionsToDisplay;
-
 	public RequirementCollection Requirements;
-
 	public Rate MaxMatchesGrantingXP;
-
 	public TeamCompositionRules TeamComposition;
-
 	public GameValueOverrides GameOverrides;
-
 	public int TeamAPlayers = -1;
-
 	public int TeamBPlayers = -1;
-
 	public int TeamABots = -1;
-
 	public int TeamBBots = -1;
-
 	public FreelancerRoleBalancingRuleTypes RoleBalancingRule;
-
 	public FreelancerDuplicationRuleTypes DuplicationRule;
-
 	public FreelancerTieBreakerRuleTypes TiebreakerRule;
-
 	public List<RankedSelectionOrderType> RankedSelectionOrder;
-
 	public PersistedStatBucket PersistedStatBucket;
-
 	public GameBalanceVars.GameRewardBucketType RewardBucket = GameBalanceVars.GameRewardBucketType.NoRewards;
-
 	public TimeSpan LoadoutSelectionTimeoutOverride;
 
-	public bool NeedsPreSelectedFreelancer
-	{
-		get
-		{
-			int num;
-			if (!HasMod(SubTypeMods.OverrideFreelancerSelection))
-			{
-				num = (HasMod(SubTypeMods.RankedFreelancerSelection) ? 1 : 0);
-			}
-			else
-			{
-				num = 1;
-			}
-			return num == 0;
-		}
-	}
+	public bool NeedsPreSelectedFreelancer =>
+		!HasMod(SubTypeMods.OverrideFreelancerSelection)
+		&& !HasMod(SubTypeMods.RankedFreelancerSelection);
 
 	public GameSubType Clone()
 	{
 		GameSubType gameSubType = (GameSubType)MemberwiseClone();
 		gameSubType.GameMapConfigs = new List<GameMapConfig>();
-		using (List<GameMapConfig>.Enumerator enumerator = GameMapConfigs.GetEnumerator())
+		foreach (GameMapConfig config in GameMapConfigs)
 		{
-			while (enumerator.MoveNext())
-			{
-				GameMapConfig current = enumerator.Current;
-				gameSubType.GameMapConfigs.Add(current.Clone());
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					if (true)
-					{
-						return gameSubType;
-					}
-					/*OpCode not supported: LdMemberToken*/;
-					return gameSubType;
-				}
-			}
+			gameSubType.GameMapConfigs.Add(config.Clone());
 		}
+		return gameSubType;
 	}
 
 	public bool HasMod(SubTypeMods mod)
@@ -305,16 +157,10 @@ public class GameSubType
 
 	public LocalizationPayload GetNameAsPayload()
 	{
-		object attedLocIdentifier;
-		if (LocalizedName.IsNullOrEmpty())
-		{
-			attedLocIdentifier = "unknown@unknown";
-		}
-		else
-		{
-			attedLocIdentifier = LocalizedName;
-		}
-		return LocalizationPayload.Create((string)attedLocIdentifier);
+		string attedLocIdentifier = LocalizedName.IsNullOrEmpty()
+			? "unknown@unknown"
+			: LocalizedName;
+		return LocalizationPayload.Create(attedLocIdentifier);
 	}
 
 	public bool IsCharacterAllowed(CharacterType freelancer, IFreelancerSetQueryInterface qi)
@@ -324,32 +170,14 @@ public class GameSubType
 
 	public bool IsCharacterAllowedInSlot(CharacterType freelancer, Team team, int slot, IFreelancerSetQueryInterface qi)
 	{
-		int result;
-		if (TeamComposition != null)
-		{
-			result = (TeamComposition.IsCharacterAllowedInSlot(freelancer, team, slot, qi) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return TeamComposition == null || TeamComposition.IsCharacterAllowedInSlot(freelancer, team, slot, qi);
 	}
 
 	public FreelancerDuplicationRuleTypes GetResolvedDuplicationRule()
 	{
-		if (DuplicationRule != 0)
+		if (DuplicationRule != FreelancerDuplicationRuleTypes.byGameType)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return DuplicationRule;
-				}
-			}
+			return DuplicationRule;
 		}
 		if (HasMod(SubTypeMods.RankedFreelancerSelection))
 		{
@@ -360,15 +188,7 @@ public class GameSubType
 
 	public void ValidateSelf(IFreelancerSetQueryInterface qi, LobbyGameConfig gameConfig)
 	{
-		if (TeamComposition == null)
-		{
-			return;
-		}
-		while (true)
-		{
-			TeamComposition.ValidateSelf(qi, gameConfig, GetResolvedDuplicationRule(), GetNameAsPayload().Term);
-			return;
-		}
+		TeamComposition?.ValidateSelf(qi, gameConfig, GetResolvedDuplicationRule(), GetNameAsPayload().Term);
 	}
 
 	public static TimeSpan ConformTurnTimeSpanFromSeconds(double totalSeconds)
@@ -383,34 +203,16 @@ public class GameSubType
 		ushort num = 1;
 		ushort result = 0;
 		GameSubType gameSubType = null;
-		using (List<GameSubType>.Enumerator enumerator = allSubTypesInOrder.GetEnumerator())
+		foreach (GameSubType subType in allSubTypesInOrder)
 		{
-			while (enumerator.MoveNext())
+			if (gameSubType == null || cCSTSort.Compare(subType, gameSubType) < 0)
 			{
-				GameSubType current = enumerator.Current;
-				if (gameSubType == null)
-				{
-					result = num;
-					gameSubType = current;
-				}
-				else if (cCSTSort.Compare(current, gameSubType) < 0)
-				{
-					result = num;
-					gameSubType = current;
-				}
-				num = (ushort)(num << 1);
+				result = num;
+				gameSubType = subType;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return result;
-				}
-			}
+			num = (ushort)(num << 1);
 		}
+		return result;
 	}
 
 	public static ushort CalculatePivotSubTypes(ushort mask, SubTypeMods pivot, List<GameSubType> allSubTypesInOrder)
@@ -418,45 +220,37 @@ public class GameSubType
 		Dictionary<ushort, GameSubType> dictionary = new Dictionary<ushort, GameSubType>();
 		Dictionary<ushort, GameSubType> dictionary2 = new Dictionary<ushort, GameSubType>();
 		ushort num = 1;
-		using (List<GameSubType>.Enumerator enumerator = allSubTypesInOrder.GetEnumerator())
+		foreach (GameSubType subType in allSubTypesInOrder)
 		{
-			while (enumerator.MoveNext())
+			if ((mask & num) == 0)
 			{
-				GameSubType current = enumerator.Current;
-				if ((mask & num) == 0)
-				{
-					dictionary2.Add(num, current);
-				}
-				else
-				{
-					dictionary.Add(num, current);
-				}
-				num = (ushort)(num << 1);
+				dictionary2.Add(num, subType);
 			}
+			else
+			{
+				dictionary.Add(num, subType);
+			}
+			num = (ushort)(num << 1);
+		}
+		if (dictionary2.IsNullOrEmpty())
+		{
+			return 0;
 		}
 		ushort num2 = 0;
-		if (!dictionary2.IsNullOrEmpty())
+		foreach (KeyValuePair<ushort, GameSubType> item in dictionary)
 		{
-			foreach (KeyValuePair<ushort, GameSubType> item in dictionary)
+			CCSTSort cCSTSort = new CCSTSort(item.Value, pivot);
+			ushort num3 = 0;
+			GameSubType gameSubType = null;
+			foreach (KeyValuePair<ushort, GameSubType> item2 in dictionary2)
 			{
-				CCSTSort cCSTSort = new CCSTSort(item.Value, pivot);
-				ushort num3 = 0;
-				GameSubType gameSubType = null;
-				foreach (KeyValuePair<ushort, GameSubType> item2 in dictionary2)
+				if (gameSubType == null || cCSTSort.Compare(item2.Value, gameSubType) < 0)
 				{
-					if (gameSubType != null)
-					{
-						if (cCSTSort.Compare(item2.Value, gameSubType) >= 0)
-						{
-							continue;
-						}
-					}
 					gameSubType = item2.Value;
 					num3 = item2.Key;
 				}
-				num2 = (ushort)(num2 | num3);
 			}
-			return num2;
+			num2 = (ushort)(num2 | num3);
 		}
 		return num2;
 	}
