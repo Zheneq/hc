@@ -220,20 +220,20 @@ public class ClaymoreAoeBuffDebuff : Ability
 		if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 		{
 			List<ActorData> visibleActorsInRangeByTooltipSubject = Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
-			int numAllies = 0;
-			int numEnemies = 0;
+			int enemyHits = 0;
+			int allyHits = 0;
 			foreach (ActorData visibleActor in visibleActorsInRangeByTooltipSubject)
 			{
 				if (visibleActor.GetTeam() != targetActor.GetTeam())
 				{
-					numAllies++;
+					enemyHits++;
 				}
 				else if (visibleActor != targetActor)
 				{
-					numEnemies++;
+					allyHits++;
 				}
 			}
-			dictionary[AbilityTooltipSymbol.Healing] = CalcSelfHealAmountFromHits(numEnemies, numAllies);
+			dictionary[AbilityTooltipSymbol.Healing] = CalcSelfHealAmountFromHits(allyHits, enemyHits);
 		}
 		else if (GetEnergyChangeOnlyIfHasAdjacent())
 		{
