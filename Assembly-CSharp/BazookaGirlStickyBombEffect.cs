@@ -142,5 +142,33 @@ public class BazookaGirlStickyBombEffect : Effect
 		}
 		return Caster;
 	}
+
+	// custom
+	public override void OnExecutedEffectResults(EffectResults results)
+	{
+		base.OnExecutedEffectResults(results);
+		foreach (KeyValuePair<ActorData,int> resultsDamageResult in results.DamageResults)
+		{
+			ActorData target = resultsDamageResult.Key;
+			int damage = resultsDamageResult.Value;
+			if (damage <= 0)
+			{
+				continue;
+			}
+			int currentTurn = GameFlowData.Get().CurrentTurn;
+			// TODO ZUKI Freelancer stats: Do catalysts count?
+			foreach (Ability abilityOfType in results.Caster.GetAbilityData().GetAbilitiesAsList())
+			{
+				if (abilityOfType != Parent.Ability
+				    && abilityOfType.m_actorLastHitTurn != null
+				    && abilityOfType.m_actorLastHitTurn.ContainsKey(target)
+				    && abilityOfType.m_actorLastHitTurn[target] == currentTurn)
+				{
+					results.Caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.BazookaGirlStats.StickyBombCombos);
+					return;
+				}
+			}
+		}
+	}
 }
 #endif

@@ -1,12 +1,14 @@
 // ROGUES
 // SERVER
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 #if SERVER
 // custom
 public class BazookaGirlDelayedMissileEffect : Effect
 {
+    private AbilityAreaShape m_shape;
     private List<BazookaGirlDelayedMissile.ShapeToHitInfo> m_shapeToHitInfo;
     private GameObject m_impactSequencePrefab;
     private GameObject m_markerSequencePrefab;
@@ -16,11 +18,13 @@ public class BazookaGirlDelayedMissileEffect : Effect
     private int m_explosionAnimationIndex;
     
     private HashSet<BoardSquare> m_affectedSquares;
+    private List<ActorData> m_targetsOnHitTurnStart;
 
     public BazookaGirlDelayedMissileEffect(
         EffectSource parent,
         BoardSquare targetSquare,
         ActorData caster,
+        AbilityAreaShape shape,
         List<BazookaGirlDelayedMissile.ShapeToHitInfo> shapeToHitInfo,
         int turnsBeforeExploding,
         StandardEffectInfo effectOnHit,
@@ -29,6 +33,7 @@ public class BazookaGirlDelayedMissileEffect : Effect
         int explosionAnimationIndex)
         : base(parent, targetSquare, null, caster)
     {
+        m_shape = shape;
         m_shapeToHitInfo = shapeToHitInfo;
         m_markerSequencePrefab = markerSequencePrefab;
         m_impactSequencePrefab = impactSequencePrefab;
@@ -40,6 +45,7 @@ public class BazookaGirlDelayedMissileEffect : Effect
         HitPhase = AbilityPriority.Combat_Damage;
         m_effectName = "Zuki - Delayed Missile";
         m_affectedSquares = new HashSet<BoardSquare>();
+        m_targetsOnHitTurnStart = new List<ActorData>();
     }
 
     public override void OnStart()
@@ -170,6 +176,30 @@ public class BazookaGirlDelayedMissileEffect : Effect
             }
         }
         return Caster;
+    }
+
+    public override void OnTurnStart()
+    {
+        base.OnTurnStart();
+        if (m_time.age < m_turnsBeforeExploding)
+        {
+            return;
+        }
+        m_targetsOnHitTurnStart = AreaEffectUtils.GetActorsInShape(
+            m_shape,
+            m_targetSquare.ToVector3(),
+            m_targetSquare,
+            true,
+            Caster,
+            Caster.GetOtherTeams(),
+            null);
+    }
+
+    public override void OnExecutedEffectResults(EffectResults effectResults)
+    {
+        base.OnExecutedEffectResults(effectResults);
+        int num = m_targetsOnHitTurnStart.Count(ad => !effectResults.StoredHitForActor(ad));
+        effectResults.Caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.BazookaGirlStats.DashesOutOfBigOne, num);
     }
 }
 #endif

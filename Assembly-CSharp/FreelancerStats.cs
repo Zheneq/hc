@@ -67,7 +67,7 @@ public class FreelancerStats : NetworkBehaviour
 	public enum DigitalSorceressStats
 	{
 		KnockbacksFromHeal,
-		TimesPrimaryHitTwoOrMoreTargets,
+		TimesPrimaryHitTwoOrMoreTargets,  // TODO AURORA freelancer stats
 		MitigationFromDebuffLaser,
 		UltDamagePlusHealing
 	}

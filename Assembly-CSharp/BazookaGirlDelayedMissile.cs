@@ -358,6 +358,7 @@ public class BazookaGirlDelayedMissile : Ability
 			AsEffectSource(),
 			targetSquare,
 			caster,
+			m_shape,
 			shapeToHitInfos,
 			m_turnsBeforeExploding,
 			GetOnExplosionEffect(),
@@ -428,6 +429,7 @@ public class BazookaGirlDelayedMissile : Ability
 			AsEffectSource(),
 			targetSquare,
 			caster,
+			m_shape,
 			shapeToHitInfo,
 			m_turnsBeforeExploding,
 			GetOnExplosionEffect(),
@@ -438,6 +440,13 @@ public class BazookaGirlDelayedMissile : Ability
 		PositionHitResults positionHitResults = new PositionHitResults(effect, positionHitParams);
 		abilityResults.StorePositionHit(positionHitResults);
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+	
+	// custom
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		base.OnExecutedActorHit_Effect(caster, target, results);
+		caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.BazookaGirlStats.BigOneHits);
 	}
 #endif
 }

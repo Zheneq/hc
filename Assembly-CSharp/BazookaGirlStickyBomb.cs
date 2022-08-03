@@ -219,7 +219,5 @@ public class BazookaGirlStickyBomb : Ability
 		abilityResults.StoreActorHit(hitResultsSelf);
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
-	
-	// TODO ZUKI freelancer stats
 #endif
 }

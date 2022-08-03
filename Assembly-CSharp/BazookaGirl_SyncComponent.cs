@@ -3,6 +3,7 @@ using UnityEngine.Networking;
 
 public class BazookaGirl_SyncComponent : NetworkBehaviour
 {
+	// TODO ZUKI update sync component
 	[SyncVar]
 	public int m_basicAttackLastCastTurn = -1;
 	[SyncVar]
