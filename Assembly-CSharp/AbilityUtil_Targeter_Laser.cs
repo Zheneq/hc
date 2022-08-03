@@ -1,5 +1,5 @@
-using AbilityContextNamespace;
 using System.Collections.Generic;
+using AbilityContextNamespace;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
@@ -55,7 +55,14 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 		}
 	}
 
-	public AbilityUtil_Targeter_Laser(Ability ability, float width, float distance, bool penetrateLoS, int maxTargets = -1, bool affectsAllies = false, bool affectsCaster = false)
+	public AbilityUtil_Targeter_Laser(
+		Ability ability,
+		float width,
+		float distance,
+		bool penetrateLoS,
+		int maxTargets = -1,
+		bool affectsAllies = false,
+		bool affectsCaster = false)
 		: base(ability)
 	{
 		m_width = width;
@@ -129,7 +136,11 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 		UpdateTargetingMultiTargets(currentTarget, targetingActor, 0, null);
 	}
 
-	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
+	public override void UpdateTargetingMultiTargets(
+		AbilityTarget currentTarget,
+		ActorData targetingActor,
+		int currentTargetIndex,
+		List<AbilityTarget> targets)
 	{
 		ClearActorsInRange();
 		m_hitActorContext.Clear();
@@ -148,59 +159,53 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 		m_laserPart.UpdateDimensions(GetWidth(), GetDistance());
 		m_laserPart.m_maxTargets = maxTargets;
 		m_laserPart.m_lengthIgnoreWorldGeo = LengthIgnoreWorldGeo;
-		List<ActorData> hitActors = m_laserPart.GetHitActors(laserCoords.start, vector, targetingActor, GetAffectedTeams(), out laserCoords.end);
+		List<ActorData> hitActors = m_laserPart.GetHitActors(
+			laserCoords.start,
+			vector,
+			targetingActor,
+			GetAffectedTeams(),
+			out laserCoords.end);
 		m_lastCalculatedLaserEndPos = laserCoords.end;
 		if (hitActors.Contains(targetingActor))
 		{
 			hitActors.Remove(targetingActor);
 		}
-		if (base.Highlight == null)
+		if (Highlight == null)
 		{
-			base.Highlight = m_laserPart.CreateHighlightObject(this);
+			Highlight = m_laserPart.CreateHighlightObject(this);
 		}
-		m_laserPart.AdjustHighlight(base.Highlight, laserCoords.start, laserCoords.end);
+		m_laserPart.AdjustHighlight(Highlight, laserCoords.start, laserCoords.end);
 		List<ActorData> list = new List<ActorData>();
-		int num = 0;
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
-		float squareSize = Board.Get().squareSize;
-		using (List<ActorData>.Enumerator enumerator = hitActors.GetEnumerator())
+		int hitOrderIndex = 0;
+		Vector3 casterPos = targetingActor.GetFreePos();
+		foreach (ActorData hitActor in hitActors)
 		{
-			HitActorContext item = default(HitActorContext);
-			while (enumerator.MoveNext())
+			AddActorInRange(hitActor, laserCoords.start, targetingActor);
+			list.Add(hitActor);
+			float distanceInSquares = (hitActor.GetFreePos() - casterPos).magnitude / Board.Get().squareSize;
+			m_hitActorContext.Add(new HitActorContext
 			{
-				ActorData current = enumerator.Current;
-				AddActorInRange(current, laserCoords.start, targetingActor);
-				list.Add(current);
-				float num2 = (current.GetFreePos() - travelBoardSquareWorldPosition).magnitude / squareSize;
-				item.actor = current;
-				item.hitOrderIndex = num;
-				item.squaresFromCaster = num2;
-				m_hitActorContext.Add(item);
-				ActorHitContext actorHitContext = m_actorContextVars[current];
-				actorHitContext.m_hitOrigin = laserCoords.start;
-				actorHitContext.m_contextVars.SetValue(ContextKeys.s_HitOrder.GetKey(), num);
-				actorHitContext.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), num2);
-				num++;
-			}
+				actor = hitActor,
+				hitOrderIndex = hitOrderIndex,
+				squaresFromCaster = distanceInSquares
+			});
+			ActorHitContext actorHitContext = m_actorContextVars[hitActor];
+			actorHitContext.m_hitOrigin = laserCoords.start;
+			actorHitContext.m_contextVars.SetValue(ContextKeys.s_HitOrder.GetKey(), hitOrderIndex);
+			actorHitContext.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), distanceInSquares);
+			hitOrderIndex++;
 		}
-		if (m_affectsTargetingActor)
+		if (m_affectsTargetingActor
+		    && (m_affectCasterDelegate == null || m_affectCasterDelegate(targetingActor, list)))
 		{
-			if (m_affectCasterDelegate != null)
-			{
-				if (!m_affectCasterDelegate(targetingActor, list))
-				{
-					goto IL_02ed;
-				}
-			}
 			AddActorInRange(targetingActor, laserCoords.start, targetingActor, AbilityTooltipSubject.Secondary);
-			HitActorContext item2 = default(HitActorContext);
-			item2.actor = targetingActor;
-			item2.hitOrderIndex = num;
-			item2.squaresFromCaster = 0f;
-			m_hitActorContext.Add(item2);
+			m_hitActorContext.Add(new HitActorContext
+			{
+				actor = targetingActor,
+				hitOrderIndex = hitOrderIndex,
+				squaresFromCaster = 0f
+			});
 		}
-		goto IL_02ed;
-		IL_02ed:
 		DrawInvalidSquareIndicators(currentTarget, targetingActor, laserCoords.start, laserCoords.end);
 	}
 
