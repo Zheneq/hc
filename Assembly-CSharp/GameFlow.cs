@@ -679,6 +679,19 @@ public class GameFlow : NetworkBehaviour
 
 			// TODO wait a couple seconds here? (if we wait in ending turn, it can cause ui artifacts)
 			GameFlowData.Get().gameState = GameState.EndingTurn;
+			
+			foreach (ActorData actorData in GameFlowData.Get().GetActors())
+			{
+				FreelancerStats freelancerStats = actorData.GetFreelancerStats();
+				if (freelancerStats != null)
+				{
+					for (int i = 0; i < 4; i++)
+					{
+						Log.Info($"Freelancer stats {actorData.m_displayName}:" +
+						         $" {freelancerStats.GetLocalizedDescriptionOfStat(i)} = {freelancerStats.GetValueOfStat(i)}"); 
+					}
+				}
+			}
 		}
 	}
 
