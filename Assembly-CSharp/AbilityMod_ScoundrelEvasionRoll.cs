@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,7 +30,7 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 		ScoundrelEvasionRoll scoundrelEvasionRoll = targetAbility as ScoundrelEvasionRoll;
 		if (scoundrelEvasionRoll != null)
 		{
-			AddToken(tokens, m_extraEnergyPerStepMod, "ExtraEnergyPerStep", "", scoundrelEvasionRoll.m_extraEnergyPerStep);
+			AddToken(tokens, m_extraEnergyPerStepMod, "ExtraEnergyPerStep", string.Empty, scoundrelEvasionRoll.m_extraEnergyPerStep);
 			if (m_dropTrapWireOnStart
 				&& m_trapWireBarrierData != null
 				&& m_trapwirePattern != AbilityGridPattern.NoPattern)
@@ -46,14 +46,14 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 	{
 		ScoundrelEvasionRoll scoundrelEvasionRoll = GetTargetAbilityOnAbilityData(abilityData) as ScoundrelEvasionRoll;
 		bool isAbilityPresent = scoundrelEvasionRoll != null;
-		string desc = "";
+		string desc = string.Empty;
 		desc += PropDesc(m_extraEnergyPerStepMod, "[ExtraEnergyPerStep]", isAbilityPresent, isAbilityPresent ? scoundrelEvasionRoll.m_extraEnergyPerStep : 0);
-		if (m_dropTrapWireOnStart && m_trapWireBarrierData != null && m_trapwirePattern != 0)
+		if (m_dropTrapWireOnStart && m_trapWireBarrierData != null && m_trapwirePattern != AbilityGridPattern.NoPattern)
 		{
-			desc += "Drops TrapWire with Pattern[ " + m_trapwirePattern.ToString() + " ]\n";
-			desc += m_trapWireBarrierData.GetInEditorDescription("{ Barrier Data }", "", isAbilityPresent);
+			desc += "Drops TrapWire with Pattern[ " + m_trapwirePattern + " ]\n";
+			desc += m_trapWireBarrierData.GetInEditorDescription("{ Barrier Data }", string.Empty, isAbilityPresent);
 		}
-		desc += AbilityModHelper.GetModEffectInfoDesc(m_additionalEffectOnStart, "{ Additional Effect On Start (can have Absorb/Heal) }", "", isAbilityPresent);
+		desc += AbilityModHelper.GetModEffectInfoDesc(m_additionalEffectOnStart, "{ Additional Effect On Start (can have Absorb/Heal) }", string.Empty, isAbilityPresent);
 		if (m_techPointGainPerAdjacentAlly > 0)
 		{
 			desc += "[Tech Point Gain Per Adjacent Ally] = " + m_techPointGainPerAdjacentAlly + "\n";
@@ -62,6 +62,6 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 		{
 			desc += "[Tech Point Granted To Adjacent Allies] = " + m_techPointGrantedToAdjacentAllies + "\n";
 		}
-		return desc + AbilityModHelper.GetModEffectInfoDesc(m_effectToSelfForLandingInBrush, "{ Effect On Self If You Land In Brush }", "", isAbilityPresent);
+		return desc + AbilityModHelper.GetModEffectInfoDesc(m_effectToSelfForLandingInBrush, "{ Effect On Self If You Land In Brush }", string.Empty, isAbilityPresent);
 	}
 }

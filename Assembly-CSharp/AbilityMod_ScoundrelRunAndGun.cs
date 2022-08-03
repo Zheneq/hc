@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,8 +23,8 @@ public class AbilityMod_ScoundrelRunAndGun : AbilityMod
 		ScoundrelRunAndGun scoundrelRunAndGun = targetAbility as ScoundrelRunAndGun;
 		if (scoundrelRunAndGun != null)
 		{
-			AddToken(tokens, m_damageMod, "DamageAmount", "", scoundrelRunAndGun.m_damageAmount);
-			AddToken(tokens, m_techPointGainWithNoHits, "EnergyGainIfNoHits", "", 0, false);
+			AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, scoundrelRunAndGun.m_damageAmount);
+			AddToken(tokens, m_techPointGainWithNoHits, "EnergyGainIfNoHits", string.Empty, 0, false);
 		}
 	}
 
@@ -32,7 +32,7 @@ public class AbilityMod_ScoundrelRunAndGun : AbilityMod
 	{
 		ScoundrelRunAndGun scoundrelRunAndGun = GetTargetAbilityOnAbilityData(abilityData) as ScoundrelRunAndGun;
 		bool isAbilityPresent = scoundrelRunAndGun != null;
-		string desc = "";
+		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isAbilityPresent, isAbilityPresent ? scoundrelRunAndGun.m_damageAmount : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_techPointGainWithNoHits, "[Energy Gain With No Hits]", isAbilityPresent);
 		if (m_numTargeters > 1)
