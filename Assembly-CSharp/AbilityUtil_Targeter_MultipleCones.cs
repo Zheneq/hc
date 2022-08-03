@@ -40,7 +40,15 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 
 	public IsAffectingCasterDelegate m_affectCasterDelegate;
 
-	public AbilityUtil_Targeter_MultipleCones(Ability ability, List<ConeDimensions> coneDimensions, float coneBackwardOffsetInSquares, bool penetrateLoS, bool useCursorHighlight, bool affectEnemies = true, bool affectAllies = false, bool affectCaster = false)
+	public AbilityUtil_Targeter_MultipleCones(
+		Ability ability,
+		List<ConeDimensions> coneDimensions,
+		float coneBackwardOffsetInSquares,
+		bool penetrateLoS,
+		bool useCursorHighlight,
+		bool affectEnemies = true,
+		bool affectAllies = false,
+		bool affectCaster = false)
 		: base(ability)
 	{
 		m_coneDimensions = coneDimensions;
@@ -75,44 +83,32 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		ClearActorsInRange();
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
-		Vector3 vector;
-		if (currentTarget == null)
-		{
-			vector = targetingActor.transform.forward;
-		}
-		else
-		{
-			vector = currentTarget.AimDirection;
-		}
-		Vector3 vec = vector;
+		Vector3 casterPos = targetingActor.GetLoSCheckPos();
+		Vector3 vec = currentTarget?.AimDirection ?? targetingActor.transform.forward;
 		float num = VectorUtils.HorizontalAngle_Deg(vec);
-		CreateConeCursorHighlights(travelBoardSquareWorldPositionForLos, num);
-		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(travelBoardSquareWorldPositionForLos, num, m_maxConeAngle, m_maxConeLengthRadius, m_coneBackwardOffsetInSquares, m_penetrateLoS, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, m_affectsEnemies), null);
+		CreateConeCursorHighlights(casterPos, num);
+		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(
+			casterPos,
+			num,
+			m_maxConeAngle,
+			m_maxConeLengthRadius,
+			m_coneBackwardOffsetInSquares,
+			m_penetrateLoS,
+			targetingActor,
+			TargeterUtils.GetRelevantTeams(targetingActor, m_affectsAllies, m_affectsEnemies),
+			null);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		actors.Remove(targetingActor);
-		if (m_includeCaster)
+		if (m_includeCaster
+		    && (m_affectCasterDelegate == null || m_affectCasterDelegate(targetingActor, actors)))
 		{
-			if (m_affectCasterDelegate != null)
-			{
-				if (!m_affectCasterDelegate(targetingActor, actors))
-				{
-					goto IL_00de;
-				}
-			}
 			actors.Add(targetingActor);
 		}
-		goto IL_00de;
-		IL_00de:
-		using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
+		foreach (ActorData actor in actors)
 		{
-			while (enumerator.MoveNext())
+			if (ShouldAddActor(actor, targetingActor))
 			{
-				ActorData current = enumerator.Current;
-				if (ShouldAddActor(current, targetingActor))
-				{
-					AddActorInRange(current, travelBoardSquareWorldPositionForLos, targetingActor);
-				}
+				AddActorInRange(actor, casterPos, targetingActor);
 			}
 		}
 		DrawInvalidSquareIndicators(currentTarget, targetingActor);
@@ -120,29 +116,12 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 
 	private bool ShouldAddActor(ActorData actor, ActorData caster)
 	{
-		bool result = false;
 		if (actor == caster)
 		{
-			result = m_includeCaster;
+			return m_includeCaster;
 		}
-		else
-		{
-			if (actor.GetTeam() == caster.GetTeam())
-			{
-				if (m_includeAllies)
-				{
-					result = true;
-					goto IL_0077;
-				}
-			}
-			if (actor.GetTeam() != caster.GetTeam() && m_includeEnemies)
-			{
-				result = true;
-			}
-		}
-		goto IL_0077;
-		IL_0077:
-		return result;
+		return actor.GetTeam() == caster.GetTeam() && m_includeAllies 
+		       || actor.GetTeam() != caster.GetTeam() && m_includeEnemies;
 	}
 
 	public void CreateConeCursorHighlights(Vector3 casterPos, float aimDir_degrees)
