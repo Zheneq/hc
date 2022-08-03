@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 	{
 		ScoundrelTrapWire scoundrelTrapWire = GetTargetAbilityOnAbilityData(abilityData) as ScoundrelTrapWire;
 		bool isAbilityPresent = scoundrelTrapWire != null;
-		string desc = "";
+		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_barrierScaleMod, "[Barrier Scale]", isAbilityPresent, isAbilityPresent ? scoundrelTrapWire.m_barrierData.m_width : 0f);
 		if (m_barrierSequence != null && m_barrierSequence.Count > 0)
 		{
@@ -41,9 +41,9 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		}
 		if (m_useAllyMovedThroughOverride)
 		{
-			desc += m_allyMovedThroughOverride.GetInEditorDescription("{ Ally Moved Through Override }", "    ", isAbilityPresent, scoundrelTrapWire?.m_barrierData.m_onAllyMovedThrough);
+			desc += m_allyMovedThroughOverride.GetInEditorDescription("{ Ally Moved Through Override }", "    ", isAbilityPresent, isAbilityPresent ? scoundrelTrapWire.m_barrierData.m_onAllyMovedThrough : null);
 		}
-		desc += AbilityModHelper.GetModPropertyDesc(m_barrierDataMod, "{ Barrier Data Mod }", scoundrelTrapWire?.m_barrierData);
+		desc += AbilityModHelper.GetModPropertyDesc(m_barrierDataMod, "{ Barrier Data Mod }", isAbilityPresent ? scoundrelTrapWire.m_barrierData : null);
 		if (m_cooldownReductionsWhenNoHits.HasCooldownReduction())
 		{
 			desc += m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
@@ -54,7 +54,7 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ScoundrelTrapWire scoundrelTrapWire = targetAbility as ScoundrelTrapWire;
-		AddToken_BarrierMod(tokens, m_barrierDataMod, "Wall", scoundrelTrapWire?.m_barrierData);
+		AddToken_BarrierMod(tokens, m_barrierDataMod, "Wall", scoundrelTrapWire != null ? scoundrelTrapWire.m_barrierData : null);
 		m_cooldownReductionsWhenNoHits.AddTooltipTokens(tokens, "CooldownReductionOnMiss");
 	}
 }
