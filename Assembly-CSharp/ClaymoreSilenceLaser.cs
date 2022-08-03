@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // reworked in rogues
-// TODO TITUS server part
 public class ClaymoreSilenceLaser : Ability
 {
 	[Header("-- Targeting")]
@@ -25,6 +24,11 @@ public class ClaymoreSilenceLaser : Ability
 	private AbilityMod_ClaymoreSilenceLaser m_abilityMod;
 	private StandardActorEffectData m_cachedEnemyHitEffectData;
 
+#if SERVER
+	// custom
+	private Claymore_SyncComponent m_syncComp;
+#endif
+	
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
@@ -32,6 +36,11 @@ public class ClaymoreSilenceLaser : Ability
 			m_abilityName = "Dirty Fighting";
 		}
 		SetupTargeter();
+		
+#if SERVER
+		// custom
+		m_syncComp = GetComponent<Claymore_SyncComponent>();
+#endif
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -210,4 +219,72 @@ public class ClaymoreSilenceLaser : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targets[0].FreePos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// custom
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		VectorUtils.LaserCoords laserCoords = new VectorUtils.LaserCoords
+		{
+			start = caster.GetLoSCheckPos()
+		};
+		List<ActorData> hitActors = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			currentTarget.AimDirection,
+			GetLaserRange(),
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			GetPenetrateLos(),
+			GetLaserMaxTargets(),
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		int hitOrderIndex = 0;
+		foreach (ActorData hitActor in hitActors)
+		{
+			int explosionDamage = CalcExplosionDamageForOrderIndex(hitOrderIndex);
+			ClaymoreDirtyFightingTargetEffect effect = new ClaymoreDirtyFightingTargetEffect(
+				AsEffectSource(),
+				hitActor.GetCurrentBoardSquare(),
+				hitActor,
+				caster,
+				GetEnemyHitEffectData(),
+				explosionDamage,
+				m_effectOnExplosionSequencePrefab,
+				CanExplodeOncePerTurn()
+			);
+			ActorHitParameters hitParams = new ActorHitParameters(hitActor, laserCoords.start);
+			ActorHitResults hitResults = new ActorHitResults(GetOnCastDamageAmount(), HitActionType.Damage, effect, hitParams);
+			abilityResults.StoreActorHit(hitResults);
+			hitOrderIndex++;
+
+			m_syncComp.TrackActorToDamage(hitActor, explosionDamage);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+	
+	// custom
+	public override void OnAbilityAssistedKill(ActorData caster, ActorData target)
+	{
+		caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.ClaymoreStats.AssistsWithDagger);
+	}
+#endif
 }

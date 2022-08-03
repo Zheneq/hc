@@ -378,4 +378,93 @@ public class ClaymoreMultiRadiusCone : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			Board.Get().GetSquare(targets[0].GridPos),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// custom
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		Vector3 vec = currentTarget?.AimDirection ?? caster.transform.forward;
+		float num = VectorUtils.HorizontalAngle_Deg(vec);
+		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(
+			casterPos,
+			num,
+			ModdedConeAngle(),
+			ModdedOuterRadius(),
+			m_coneBackwardOffset,
+			GetPenetrateLineOfSight(),
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+		int energy = 0;
+		foreach (ActorData actor in actors)
+		{
+			float innerRadius = ModdedInnerRadius() * Board.Get().squareSize;
+			float middleRadius = ModdedMiddleRadius() * Board.Get().squareSize;
+			Vector3 vector = actor.GetFreePos() - casterPos;
+			vector.y = 0f;
+			float dist = vector.magnitude;
+			if (GameWideData.Get().UseActorRadiusForCone())
+			{
+				dist -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
+			}
+			
+			int damage;
+			StandardEffectInfo effect;
+			if (dist <= innerRadius)
+			{
+				damage = ModdedInnerDamage();
+				effect = GetEffectInner();
+				energy += targets.Count * ModdedInnerTpGain();
+			}
+			else if (dist <= middleRadius)
+			{
+				damage = ModdedMiddleDamage();
+				effect = GetEffectMiddle();
+				energy += targets.Count * ModdedMiddleTpGain();
+			}
+			else
+			{
+				damage = ModdedOuterDamage();
+				effect = GetEffectOuter();
+				energy += targets.Count * ModdedOuterTpGain();
+			}
+			ActorHitParameters hitParams = new ActorHitParameters(actor, casterPos);
+			ActorHitResults hitResults = new ActorHitResults(damage, HitActionType.Damage, effect, hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+		if (energy > 0)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(caster, casterPos);
+			ActorHitResults hitResults = new ActorHitResults(energy, HitActionType.TechPointsGain, (StandardEffectInfo) null, hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+	
+	// custom
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.ClaymoreStats.UltDamage, results.FinalDamage);
+		}
+	}
+#endif
 }

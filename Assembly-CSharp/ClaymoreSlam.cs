@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // empty in rogues
-// TODO TITUS server
 public class ClaymoreSlam : Ability
 {
 	[Header("-- Laser Targeting")]
@@ -303,4 +302,103 @@ public class ClaymoreSlam : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targets[0].FreePos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// custom
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		VectorUtils.LaserCoords laserCoords = new VectorUtils.LaserCoords
+		{
+			start = caster.GetLoSCheckPos()
+		};
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			currentTarget.AimDirection,
+			GetLaserRange(),
+			GetFullLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			GetPenetrateLos(),
+			0,
+			m_laserLengthIgnoreWorldGeo,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		List<ActorData> actorsInMiddleLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			currentTarget.AimDirection,
+			GetLaserRange(),
+			GetMidLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			GetPenetrateLos(),
+			0,
+			m_laserLengthIgnoreWorldGeo,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		List<ActorData> actorsInOuterLaser = new List<ActorData>();
+		foreach (ActorData item in actorsInLaser)
+		{
+			if (!actorsInMiddleLaser.Contains(item))
+			{
+				actorsInOuterLaser.Add(item);
+			}
+		}
+		int numPrimary = actorsInMiddleLaser.Count;
+		int numSecondary = actorsInOuterLaser.Count;
+		foreach (ActorData targetActor in actorsInLaser)
+		{
+			int damage = 0;
+			StandardEffectInfo effect;
+			if (targetActor.GetHitPointPercent() < GetLowHealthThreshold())
+			{
+				damage = GetExtraDamageOnLowHealthTarget();
+			}
+			if (actorsInMiddleLaser.Contains(targetActor))
+			{
+				damage += GetMiddleDamage();
+				effect = GetMiddleEnemyHitEffect();
+			}
+			else
+			{
+				int sideDamage = GetSideDamage();
+				if (GetExtraSideDamagePerMiddleHit() > 0)
+				{
+					sideDamage += numPrimary * GetExtraSideDamagePerMiddleHit();
+				}
+				damage += sideDamage;
+				effect = GetSideEnemyHitEffect();
+			}
+			Vector3 damageOrigin = caster.GetFreePos();
+			ActorHitParameters hitParams = new ActorHitParameters(targetActor, damageOrigin);
+			ActorHitResults hitResults = new ActorHitResults(damage, HitActionType.Damage, effect, hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+		if (GetHealPerMidHit() > 0 || GetHealPerSideHit() > 0)
+		{
+			int healing = GetHealPerMidHit() * numPrimary + GetHealPerSideHit() * numSecondary;
+			ActorHitParameters hitParams = new ActorHitParameters(caster, caster.GetFreePos());
+			ActorHitResults hitResults = new ActorHitResults(healing, HitActionType.Healing, (StandardEffectInfo) null, hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }

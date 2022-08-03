@@ -6,7 +6,7 @@ using UnityEngine;
 #if SERVER
 public class ClaymoreDirtyFightingTargetEffect : StandardActorEffect
 {
-	public float m_damageAmount;
+	public int m_damageAmount;  // float in rogues
 	
 	private bool m_explodeUpToOncePerTurn;
 	private GameObject m_explosionSequencePrefab;
@@ -16,13 +16,16 @@ public class ClaymoreDirtyFightingTargetEffect : StandardActorEffect
 	private bool m_wasHitByNonCasterAllyThisTurn_fake;
 	private bool m_explosionDone;
 
+	// custom
+	private Claymore_SyncComponent m_syncComp;
+
 	public ClaymoreDirtyFightingTargetEffect(
 		EffectSource parent,
 		BoardSquare targetSquare,
 		ActorData target,
 		ActorData caster,
 		StandardActorEffectData effectData,
-		float damageOnDetonation,
+		int damageOnDetonation,  // float in rogues
 		GameObject explosionSequencePrefab,
 		bool explodeUpToOncePerTurn)
 		: base(parent, targetSquare, target, caster, effectData)
@@ -31,6 +34,9 @@ public class ClaymoreDirtyFightingTargetEffect : StandardActorEffect
 		m_damageAmount = damageOnDetonation;
 		m_explodeUpToOncePerTurn = explodeUpToOncePerTurn;
 		m_explosionSequencePrefab = explosionSequencePrefab;
+		
+		// custom
+		m_syncComp = parent.Ability.GetComponent<Claymore_SyncComponent>();
 	}
 
 	public override void OnTurnStart()
@@ -80,7 +86,8 @@ public class ClaymoreDirtyFightingTargetEffect : StandardActorEffect
 		{
 			SetWasHitThisTurn(true, isReal);
 			AbilityResults_Reaction abilityResults_Reaction = new AbilityResults_Reaction();
-			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(Target, Target.GetFreePos()));
+			ActorHitParameters hitParameters = new ActorHitParameters(Target, Target.GetFreePos());
+			ActorHitResults actorHitResults = new ActorHitResults(m_damageAmount, HitActionType.Damage, (StandardEffectInfo) null, hitParameters);
 			actorHitResults.CanBeReactedTo = false;
 			// rogues
 			// actorHitResults.ModifyDamageCoeff(m_damageAmount, m_damageAmount);
@@ -138,6 +145,13 @@ public class ClaymoreDirtyFightingTargetEffect : StandardActorEffect
 		{
 			m_wasHitByNonCasterAllyThisTurn_fake = wasHitByNonCasterAllyThisTurn;
 		}
+	}
+	
+	// custom
+	public override void OnEnd()
+	{
+		base.OnEnd();
+		m_syncComp.ResetDirtyFightingData();  // TODO TITUS Reset self only?
 	}
 }
 #endif

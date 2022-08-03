@@ -1,10 +1,10 @@
 // ROGUES
 // SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 // empty in rogues
-// TODO TITUS server part
 public class ClaymoreAoeBuffDebuff : Ability
 {
 	[Header("-- Targeting")]
@@ -293,4 +293,136 @@ public class ClaymoreAoeBuffDebuff : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targets[0].FreePos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// custom
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		BoardSquare targetSquare = Board.Get().GetSquare(currentTarget.GridPos);
+
+		if (targetSquare == null)
+		{
+			return;
+		}
+		Vector3 freePos = currentTarget.FreePos;
+		Vector3 damageOrigin = AreaEffectUtils.GetCenterOfShape(m_shape, freePos, targetSquare);
+		List<ActorData> actors = AreaEffectUtils.GetActorsInShape(
+			GetShape(),
+			freePos,
+			targetSquare,
+			GetPenetrateLos(),
+			caster,
+			GetAffectedTeams(caster),
+			nonActorTargetInfo);
+		actors.Remove(caster);
+		bool isCasterInShape = AreaEffectUtils.IsSquareInShape(
+			caster.GetCurrentBoardSquare(),
+			GetShape(),
+			freePos, 
+			targetSquare,
+			GetPenetrateLos(),
+			caster);
+		if (IncludeCaster() && isCasterInShape)
+		{
+			actors.Add(caster);
+		}
+
+		int enemyHits = 0;
+		int allyHits = 0;
+		foreach (ActorData target in actors)
+		{
+			if (target.GetTeam() != caster.GetTeam())
+			{
+				enemyHits++;
+			}
+			else if (target != caster)
+			{
+				allyHits++;
+			}
+		}
+		foreach (ActorData target in actors)
+		{
+			if (target == caster)
+			{
+				int healing = CalcSelfHealAmountFromHits(allyHits, enemyHits);
+				if (healing > 0 || GetSelfHitEffect() != null)
+				{
+					ActorHitParameters hitParams = new ActorHitParameters(target, damageOrigin);
+					ActorHitResults hitResults = new ActorHitResults(healing, HitActionType.Healing, GetSelfHitEffect(), hitParams);
+					abilityResults.StoreActorHit(hitResults);
+				}
+			}
+			else if (target.GetTeam() != caster.GetTeam())
+			{
+				int enemyEnergyLoss = !GetEnergyChangeOnlyIfHasAdjacent()
+				                      || AreaEffectUtils.HasAdjacentActorOfTeam(target, target.GetTeamAsList())
+					? GetEnemyEnergyLoss()
+					: 0;
+				if (GetEnemyHitEffect() != null || enemyEnergyLoss > 0)
+				{
+					ActorHitParameters hitParams = new ActorHitParameters(target, damageOrigin);
+					ActorHitResults hitResults = new ActorHitResults(enemyEnergyLoss, HitActionType.TechPointsLoss, GetEnemyHitEffect(), hitParams);
+					abilityResults.StoreActorHit(hitResults);
+				}
+			}
+			else
+			{
+				int allyEnergyGain = !GetEnergyChangeOnlyIfHasAdjacent()
+				                     || AreaEffectUtils.HasAdjacentActorOfTeam(target, target.GetTeamAsList())
+					? GetAllyEnergyGain()
+					: 0;
+				if (GetAllyHitEffect() != null || allyEnergyGain > 0)
+				{
+					ActorHitParameters hitParams = new ActorHitParameters(target, damageOrigin);
+					ActorHitResults hitResults = new ActorHitResults(allyEnergyGain, HitActionType.TechPointsGain, GetAllyHitEffect(), hitParams);
+					abilityResults.StoreActorHit(hitResults);
+				}
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// custom
+	public List<Team> GetAffectedTeams(ActorData caster)
+	{
+		List<Team> list = new List<Team>();
+		if (caster != null)
+		{
+			if (IncludeAllies())
+			{
+				list.Add(caster.GetTeam());
+			}
+			if (IncludeEnemies())
+			{
+				list.AddRange(caster.GetOtherTeams());
+			}
+		}
+		return list;
+	}
+	
+	// custom
+	public override void OnCalculatedDamageReducedFromWeakenedGrantedByMyEffect(
+		ActorData effectCaster,
+		ActorData weakenedActor,
+		int damageReduced)
+	{
+		effectCaster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.ClaymoreStats.DamageMitigatedByShout, damageReduced);
+	}
+#endif
 }
