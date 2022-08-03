@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// reworked in rogues
 public class AbilityMod_ScoundrelBlindFire : AbilityMod
 {
 	[Header("-- Cone Damage and Angle ------------------------")]

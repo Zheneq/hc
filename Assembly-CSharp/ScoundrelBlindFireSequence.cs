@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,17 +10,31 @@ public class ScoundrelBlindFireSequence : Sequence
 		public float halfAngleDegrees = -1f;
 		public float maxDistInSquares = -1f;
 
+		// reactor
 		public override void XSP_SerializeToStream(IBitStream stream)
 		{
 			stream.Serialize(ref halfAngleDegrees);
 			stream.Serialize(ref maxDistInSquares);
 		}
+		// rogues
+		// public override void XSP_SerializeToStream(NetworkWriter writer)
+		// {
+		// 	writer.Write(halfAngleDegrees);
+		// 	writer.Write(maxDistInSquares);
+		// }
 
+		// reactor
 		public override void XSP_DeserializeFromStream(IBitStream stream)
 		{
 			stream.Serialize(ref halfAngleDegrees);
 			stream.Serialize(ref maxDistInSquares);
 		}
+		// rogues
+		// public override void XSP_DeserializeFromStream(NetworkReader reader)
+		// {
+		// 	halfAngleDegrees = reader.ReadSingle();
+		// 	maxDistInSquares = reader.ReadSingle();
+		// }
 	}
 
 	[Tooltip("Main FX prefab.")]

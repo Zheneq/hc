@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,9 +27,12 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		return typeof(ScoundrelTrapWire);
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		ScoundrelTrapWire scoundrelTrapWire = GetTargetAbilityOnAbilityData(abilityData) as ScoundrelTrapWire;
+		// rogues
+		// ScoundrelTrapWire scoundrelTrapWire = targetAbility as ScoundrelTrapWire;
 		bool isAbilityPresent = scoundrelTrapWire != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_barrierScaleMod, "[Barrier Scale]", isAbilityPresent, isAbilityPresent ? scoundrelTrapWire.m_barrierData.m_width : 0f);

@@ -1,6 +1,10 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
+// empty in rogues
+// TODO LOCKWOOD server
 public class ScoundrelBlindFire : Ability
 {
 	public float m_coneWidthAngle = 90f;

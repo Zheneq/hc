@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoundrelRunAndGun : Ability
+// TODO LOCKWOOD server
+// reworked in rogues
+public class ScoundrelRunAndGun : Ability  // GenericAbility_Container in rogues
 {
 	public int m_damageAmount = 20;
 	public float m_damageRadius = 5f;
@@ -159,4 +161,71 @@ public class ScoundrelRunAndGun : Ability
 	{
 		return ActorData.MovementType.Charge;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override BoardSquare GetValidChargeTestSourceSquare(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		if (GetExpectedNumberOfTargeters() < 2)
+		{
+			return base.GetValidChargeTestSourceSquare(chargeSegments);
+		}
+		return chargeSegments[chargeSegments.Length - 1].m_pos;
+	}
+
+	// added in rogues
+	public override Vector3 GetChargeBestSquareTestVector(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		if (GetExpectedNumberOfTargeters() < 2)
+		{
+			return base.GetChargeBestSquareTestVector(chargeSegments);
+		}
+		return ServerEvadeUtils.GetChargeBestSquareTestDirection(chargeSegments);
+	}
+
+	// added in rogues
+	public override bool GetChargeThroughInvalidSquares()
+	{
+		return GetExpectedNumberOfTargeters() > 1;
+	}
+
+	// added in rogues
+	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		int expectedNumberOfTargeters = GetExpectedNumberOfTargeters();
+		ServerEvadeUtils.ChargeSegment[] array = new ServerEvadeUtils.ChargeSegment[expectedNumberOfTargeters + 1];
+		array[0] = new ServerEvadeUtils.ChargeSegment();
+		array[0].m_pos = caster.GetCurrentBoardSquare();
+		array[0].m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement;
+		array[0].m_end = BoardSquarePathInfo.ChargeEndType.Pivot;
+		for (int i = 0; i < expectedNumberOfTargeters; i++)
+		{
+			int num = i + 1;
+			array[num] = new ServerEvadeUtils.ChargeSegment();
+			array[num].m_pos = Board.Get().GetSquare(targets[i].GridPos);
+			array[num].m_end = BoardSquarePathInfo.ChargeEndType.Pivot;
+		}
+		array[array.Length - 1].m_end = BoardSquarePathInfo.ChargeEndType.Impact;
+		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(array));
+		for (int j = 0; j < array.Length; j++)
+		{
+			if (array[j].m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
+			{
+				array[j].m_segmentMovementSpeed = segmentMovementSpeed;
+			}
+		}
+		return array;
+	}
+
+	// added in rogues
+	public override BoardSquare GetIdealDestination(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		int expectedNumberOfTargeters = GetExpectedNumberOfTargeters();
+		if (expectedNumberOfTargeters < 2)
+		{
+			return base.GetIdealDestination(targets, caster, additionalData);
+		}
+		return Board.Get().GetSquare(targets[expectedNumberOfTargeters - 1].GridPos);
+	}
+#endif
 }

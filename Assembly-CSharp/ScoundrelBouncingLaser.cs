@@ -1,7 +1,11 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
 
+// empty in rogues
+// TODO LOCKWOOD server
 public class ScoundrelBouncingLaser : Ability
 {
 	public int m_damageAmount = 20;

@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +20,7 @@ public class AbilityMod_ScoundrelRunAndGun : AbilityMod
 		return typeof(ScoundrelRunAndGun);
 	}
 
+	// removed in rogues
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ScoundrelRunAndGun scoundrelRunAndGun = targetAbility as ScoundrelRunAndGun;
@@ -28,6 +31,7 @@ public class AbilityMod_ScoundrelRunAndGun : AbilityMod
 		}
 	}
 
+	// removed in rogues
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		ScoundrelRunAndGun scoundrelRunAndGun = GetTargetAbilityOnAbilityData(abilityData) as ScoundrelRunAndGun;
