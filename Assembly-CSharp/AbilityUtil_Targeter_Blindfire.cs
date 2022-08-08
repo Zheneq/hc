@@ -21,7 +21,15 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 
 	private OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
 
-	public AbilityUtil_Targeter_Blindfire(Ability ability, float coneAngleDegrees, float coneLengthRadiusInSquares, float coneBackwardOffsetInSquares, bool penetrateLoS, bool restrictWithinCover, bool includeTargetsInCover, int maxTargets)
+	public AbilityUtil_Targeter_Blindfire(
+		Ability ability,
+		float coneAngleDegrees,
+		float coneLengthRadiusInSquares,
+		float coneBackwardOffsetInSquares,
+		bool penetrateLoS,
+		bool restrictWithinCover,
+		bool includeTargetsInCover,
+		int maxTargets)
 		: base(ability)
 	{
 		m_coneAngleDegrees = coneAngleDegrees;
@@ -68,19 +76,10 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 		{
 			CreateBoundsHighlights(casterPos, component);
 		}
-		Vector3 vector;
-		if (currentTarget == null)
+		Vector3 aimDirection = currentTarget?.AimDirection ?? targetingActor.transform.forward;
+		if (component.IsDirInCover(aimDirection) || !m_restrictWithinCover)
 		{
-			vector = targetingActor.transform.forward;
-		}
-		else
-		{
-			vector = currentTarget.AimDirection;
-		}
-		Vector3 vector2 = vector;
-		if (component.IsDirInCover(vector2) || !m_restrictWithinCover)
-		{
-			float num = VectorUtils.HorizontalAngle_Deg(vector2);
+			float num = VectorUtils.HorizontalAngle_Deg(aimDirection);
 			float newDirAngleDegrees;
 			if (m_restrictWithinCover)
 			{
@@ -89,27 +88,24 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 			else
 			{
 				newDirAngleDegrees = num;
-				Vector3 newConeDir = vector2;
+				Vector3 newConeDir = aimDirection;
 			}
 			CreateConeHighlights(casterPos, newDirAngleDegrees);
 			List<Team> affectedTeams = GetAffectedTeams();
-			List<ActorData> actors = AreaEffectUtils.GetActorsInCone(casterPos, newDirAngleDegrees, m_coneAngleDegrees, m_coneLengthRadiusInSquares, m_coneBackwardOffsetInSquares, m_penetrateLoS, targetingActor, affectedTeams, null);
+			List<ActorData> actors = AreaEffectUtils.GetActorsInCone(
+				casterPos,
+				newDirAngleDegrees,
+				m_coneAngleDegrees,
+				m_coneLengthRadiusInSquares,
+				m_coneBackwardOffsetInSquares,
+				m_penetrateLoS,
+				targetingActor,
+				affectedTeams,
+				null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 			if (!m_includeTargetsInCover)
 			{
-				actors.RemoveAll(delegate(ActorData actor)
-				{
-					int result;
-					if (actor.GetActorCover() != null)
-					{
-						result = (actor.GetActorCover().IsInCoverWrt(casterPos) ? 1 : 0);
-					}
-					else
-					{
-						result = 0;
-					}
-					return (byte)result != 0;
-				});
+				actors.RemoveAll(actor => actor.GetActorCover() != null && actor.GetActorCover().IsInCoverWrt(casterPos));
 			}
 			if (m_maxTargets > 0)
 			{
@@ -134,13 +130,13 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 		float d = m_coneBackwardOffsetInSquares * Board.Get().squareSize;
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		Vector3 position = casterPos + new Vector3(0f, y, 0f) - vector * d;
-		if (base.Highlight == null)
+		if (Highlight == null)
 		{
 			float radiusInWorld = (m_coneLengthRadiusInSquares + m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
-			base.Highlight = HighlightUtils.Get().CreateConeCursor(radiusInWorld, m_coneAngleDegrees);
+			Highlight = HighlightUtils.Get().CreateConeCursor(radiusInWorld, m_coneAngleDegrees);
 		}
-		base.Highlight.transform.position = position;
-		base.Highlight.transform.rotation = Quaternion.LookRotation(vector);
+		Highlight.transform.position = position;
+		Highlight.transform.rotation = Quaternion.LookRotation(vector);
 	}
 
 	public void CreateBoundsHighlights(Vector3 casterPos, ActorCover actorCover)

@@ -5,45 +5,14 @@ using UnityEngine.Networking;
 public class AbilityTarget
 {
 	private GridPos m_gridPos;
-
 	private Vector3 m_dir;
-
 	private Vector3 m_freePos;
 
 	private static AbilityTarget s_abilityTargetForTargeterUpdate = new AbilityTarget();
 
-	public Vector3 FreePos
-	{
-		get
-		{
-			return m_freePos;
-		}
-		private set
-		{
-		}
-	}
-
-	public GridPos GridPos
-	{
-		get
-		{
-			return m_gridPos;
-		}
-		private set
-		{
-		}
-	}
-
-	public Vector3 AimDirection
-	{
-		get
-		{
-			return m_dir;
-		}
-		private set
-		{
-		}
-	}
+	public Vector3 FreePos => m_freePos;
+	public GridPos GridPos => m_gridPos;
+	public Vector3 AimDirection => m_dir;
 
 	private AbilityTarget()
 	{
@@ -84,8 +53,7 @@ public class AbilityTarget
 
 	public Vector3 GetWorldGridPos()
 	{
-		Vector3 result = new Vector3(GridPos.worldX, GridPos.height, GridPos.worldY);
-		return result;
+		return new Vector3(GridPos.worldX, GridPos.height, GridPos.worldY);
 	}
 
 	public static AbilityTarget CreateAbilityTargetFromInterface()
@@ -99,10 +67,12 @@ public class AbilityTarget
 		}
 		else
 		{
-			targetPos = default(GridPos);
-			targetPos.x = -1;
-			targetPos.y = -1;
-			targetPos.height = -1;
+			targetPos = new GridPos
+			{
+				x = -1,
+				y = -1,
+				height = -1
+			};
 		}
 		return new AbilityTarget(targetPos, playerClampedPos, playerLookDir);
 	}
@@ -128,10 +98,12 @@ public class AbilityTarget
 		}
 		else
 		{
-			gridPos = default(GridPos);
-			gridPos.x = -1;
-			gridPos.y = -1;
-			gridPos.height = -1;
+			gridPos = new GridPos
+			{
+				x = -1,
+				y = -1,
+				height = -1
+			};
 		}
 		s_abilityTargetForTargeterUpdate.SetPosAndDir(gridPos, playerClampedPos, playerLookDir);
 	}
@@ -165,10 +137,12 @@ public class AbilityTarget
 		Vector3 dir = vector - currentWorldPos;
 		dir.y = 0f;
 		dir.Normalize();
-		GridPos targetPos = default(GridPos);
-		targetPos.x = -1;
-		targetPos.y = -1;
-		targetPos.height = -1;
+		GridPos targetPos = new GridPos
+		{
+			x = -1,
+			y = -1,
+			height = -1
+		};
 		return new AbilityTarget(targetPos, vector, dir);
 	}
 
@@ -182,16 +156,18 @@ public class AbilityTarget
 		}
 		BoardSquare boardSquare = Board.Get().GetClosestValidForGameplaySquareTo(targetWorldPos.x, targetWorldPos.z);
 		GridPos targetPos;
-		if ((bool)boardSquare)
+		if (boardSquare != null)
 		{
 			targetPos = boardSquare.GetGridPos();
 		}
 		else
 		{
-			targetPos = default(GridPos);
-			targetPos.x = -1;
-			targetPos.y = -1;
-			targetPos.height = -1;
+			targetPos = new GridPos
+			{
+				x = -1,
+				y = -1,
+				height = -1
+			};
 		}
 		return new AbilityTarget(targetPos, targetWorldPos, dir);
 	}
@@ -203,7 +179,7 @@ public class AbilityTarget
 		{
 			vector += player.GetFreePos();
 		}
-		vector /= (float)playerList.Count;
+		vector /= playerList.Count;
 		Vector3 vector2 = vector - casterActor.GetFreePos();
 		vector2.y = 0f;
 		vector2.Normalize();
@@ -236,9 +212,7 @@ public class AbilityTarget
 
 	public static List<AbilityTarget> AbilityTargetList(AbilityTarget onlyTarget)
 	{
-		List<AbilityTarget> list = new List<AbilityTarget>();
-		list.Add(onlyTarget);
-		return list;
+		return new List<AbilityTarget> { onlyTarget };
 	}
 
 	internal static void SerializeAbilityTargetList(List<AbilityTarget> targetList, NetworkWriter stream)
@@ -264,10 +238,6 @@ public class AbilityTarget
 				stream.Serialize(ref value4);
 				stream.Serialize(ref value5);
 			}
-			while (true)
-			{
-				return;
-			}
 		}
 	}
 
@@ -291,10 +261,12 @@ public class AbilityTarget
 			stream.Serialize(ref value3);
 			stream.Serialize(ref value4);
 			stream.Serialize(ref value5);
-			GridPos targetPos = default(GridPos);
-			targetPos.x = value2;
-			targetPos.y = value3;
-			targetPos.height = (int)Board.Get().GetHeightAt(value2, value3);
+			GridPos targetPos = new GridPos
+			{
+				x = value2,
+				y = value3,
+				height = (int)Board.Get().GetHeightAt(value2, value3)
+			};
 			AbilityTarget item = new AbilityTarget(targetPos, value5, value4);
 			list.Add(item);
 		}
@@ -306,12 +278,9 @@ public class AbilityTarget
 		ActorData result = null;
 		GridPos gridPos = GridPos;
 		BoardSquare boardSquareSafe = Board.Get().GetSquare(gridPos);
-		if (boardSquareSafe != null)
+		if (boardSquareSafe != null && boardSquareSafe.occupant != null)
 		{
-			if (boardSquareSafe.occupant != null)
-			{
-				result = boardSquareSafe.occupant.GetComponent<ActorData>();
-			}
+			result = boardSquareSafe.occupant.GetComponent<ActorData>();
 		}
 		return result;
 	}

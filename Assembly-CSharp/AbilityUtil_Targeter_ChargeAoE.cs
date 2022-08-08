@@ -42,7 +42,14 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 
 	protected OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
 
-	public AbilityUtil_Targeter_ChargeAoE(Ability ability, float radiusAroundStart, float radiusAroundEnd, float rangeFromDir, int maxTargets, bool ignoreTargetsCover, bool penetrateLoS)
+	public AbilityUtil_Targeter_ChargeAoE(
+		Ability ability,
+		float radiusAroundStart,
+		float radiusAroundEnd,
+		float rangeFromDir,
+		int maxTargets,
+		bool ignoreTargetsCover,
+		bool penetrateLoS)
 		: base(ability)
 	{
 		m_radiusAroundStart = radiusAroundStart;
@@ -51,16 +58,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 		m_penetrateLoS = penetrateLoS;
 		m_maxTargets = maxTargets;
 		m_cursorType = HighlightUtils.CursorType.MouseOverCursorType;
-		int shouldShowActorRadius;
-		if (!GameWideData.Get().UseActorRadiusForLaser())
-		{
-			shouldShowActorRadius = (GameWideData.Get().UseActorRadiusForCone() ? 1 : 0);
-		}
-		else
-		{
-			shouldShowActorRadius = 1;
-		}
-		m_shouldShowActorRadius = ((byte)shouldShowActorRadius != 0);
+		m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser() || GameWideData.Get().UseActorRadiusForCone();
 		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
 	}
 
@@ -86,67 +84,59 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
-		BoardSquare boardSquare = Board.Get().GetSquare(currentTarget.GridPos);
+		BoardSquare targetSquare = Board.Get().GetSquare(currentTarget.GridPos);
 		ClearActorsInRange();
 		OrderedHitActors.Clear();
 		BoardSquarePathInfo boardSquarePathInfo = null;
-		float startRadiusInSquares = (!UseRadiusAroundStart(currentTarget)) ? 0f : m_radiusAroundStart;
-		float num;
-		if (UseRadiusAroundEnd(currentTarget))
+		float startRadiusInSquares = UseRadiusAroundStart(currentTarget) ? m_radiusAroundStart : 0f;
+		float endRadiusInSquares = UseRadiusAroundEnd(currentTarget) ? m_radiusAroundEnd : 0f;
+		float rangeFromLineInSquares = UseRadiusAroundLine(currentTarget) ? m_rangeFromLine : 0f;
+		BoardSquare startSquare = null;
+		if (targetSquare == null
+		    || currentTargetIndex != 0
+			    && targets != null
+			    && IsUsingMultiTargetUpdate())
 		{
-			num = m_radiusAroundEnd;
+			if (targetSquare != null)
+			{
+				startSquare = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
+			}
 		}
 		else
 		{
-			num = 0f;
+			startSquare = targetingActor.GetCurrentBoardSquare();
 		}
-		float endRadiusInSquares = num;
-		float num2 = (!UseRadiusAroundLine(currentTarget)) ? 0f : m_rangeFromLine;
-		BoardSquare boardSquare2 = null;
-		if (!(boardSquare != null))
-		{
-			goto IL_00c4;
-		}
-		if (currentTargetIndex != 0 && targets != null)
-		{
-			if (IsUsingMultiTargetUpdate())
-			{
-				goto IL_00c4;
-			}
-		}
-		boardSquare2 = targetingActor.GetCurrentBoardSquare();
-		goto IL_00fa;
-		IL_00fa:
 		List<Team> affectedTeams = GetAffectedTeams();
-		if (boardSquare2 != null && boardSquare != null)
+		if (startSquare != null && targetSquare != null)
 		{
-			if (TrimPathOnTargetHit)
+			if (TrimPathOnTargetHit && rangeFromLineInSquares > 0f)
 			{
-				if (num2 > 0f)
+				Vector3 abilityLineEndpoint = BarrierManager.Get().GetAbilityLineEndpoint(
+					targetingActor,
+					startSquare.ToVector3(),
+					targetSquare.ToVector3(),
+					out var collision,
+					out Vector3 _);
+				if (collision)
 				{
-					bool collision;
-					Vector3 collisionNormal;
-					Vector3 abilityLineEndpoint = BarrierManager.Get().GetAbilityLineEndpoint(targetingActor, boardSquare2.ToVector3(), boardSquare.ToVector3(), out collision, out collisionNormal);
-					if (collision)
-					{
-						boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(boardSquare2.ToVector3(), abilityLineEndpoint);
-					}
+					targetSquare = KnockbackUtils.GetLastValidBoardSquareInLine(startSquare.ToVector3(), abilityLineEndpoint);
 				}
 			}
-			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, boardSquare2, AllowChargeThroughInvalidSquares);
+			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, targetSquare, startSquare, AllowChargeThroughInvalidSquares);
 		}
-		if (boardSquarePathInfo != null)
+		if (boardSquarePathInfo != null
+		    && boardSquarePathInfo.next != null
+		    && TrimPathOnTargetHit
+		    && rangeFromLineInSquares > 0f)
 		{
-			if (boardSquarePathInfo.next != null)
-			{
-				if (TrimPathOnTargetHit)
-				{
-					if (num2 > 0f)
-					{
-						TargetSelect_ChargeAoE.TrimChargePathOnActorHit(boardSquarePathInfo, boardSquare2, num2, targetingActor, affectedTeams, false, out BoardSquare _);
-					}
-				}
-			}
+			TargetSelect_ChargeAoE.TrimChargePathOnActorHit(
+				boardSquarePathInfo,
+				startSquare,
+				rangeFromLineInSquares,
+				targetingActor,
+				affectedTeams,
+				false,
+				out BoardSquare _);
 		}
 		if (!SkipEvadeMovementLines)
 		{
@@ -165,53 +155,53 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 				AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, TargeterMovementType.Movement, 0);
 			}
 		}
-		List<ActorData> list = null;
+		List<ActorData> hitActors = null;
 		if (m_shouldAddCasterDelegate != null)
 		{
-			list = new List<ActorData>();
+			hitActors = new List<ActorData>();
 		}
 		if (boardSquarePathInfo != null)
 		{
-			List<Vector3> list2 = KnockbackUtils.BuildDrawablePath(boardSquarePathInfo, true);
-			if (list2.Count >= 2)
+			List<Vector3> path = KnockbackUtils.BuildDrawablePath(boardSquarePathInfo, true);
+			if (path.Count >= 2)
 			{
-				Vector3 vector = list2[0];
-				Vector3 vector2 = list2[list2.Count - 1];
-				bool flag = UseRadiusAroundLine(currentTarget);
-				bool flag2 = UseRadiusAroundStart(currentTarget);
-				bool flag3 = UseRadiusAroundEnd(currentTarget);
+				Vector3 start = path[0];
+				Vector3 end = path[path.Count - 1];
 				float widthInSquares = m_rangeFromLine * 2f;
 				if (m_highlights.Count == 0)
 				{
-					GameObject item = TargeterUtils.CreateLaserBoxHighlight(vector, vector2, widthInSquares, TargeterUtils.HeightAdjustType.FromPathArrow);
-					m_highlights.Add(item);
-					GameObject item2 = TargeterUtils.CreateCircleHighlight(vector, m_radiusAroundStart, TargeterUtils.HeightAdjustType.FromPathArrow, targetingActor == GameFlowData.Get().activeOwnedActorData);
-					m_highlights.Add(item2);
-					GameObject item3 = TargeterUtils.CreateCircleHighlight(vector2, m_radiusAroundEnd, TargeterUtils.HeightAdjustType.FromPathArrow, targetingActor == GameFlowData.Get().activeOwnedActorData);
-					m_highlights.Add(item3);
+					m_highlights.Add(TargeterUtils.CreateLaserBoxHighlight(
+						start,
+						end,
+						widthInSquares,
+						TargeterUtils.HeightAdjustType.FromPathArrow));
+					m_highlights.Add(TargeterUtils.CreateCircleHighlight(
+						start,
+						m_radiusAroundStart,
+						TargeterUtils.HeightAdjustType.FromPathArrow,
+						targetingActor == GameFlowData.Get().activeOwnedActorData));
+					m_highlights.Add(TargeterUtils.CreateCircleHighlight(
+						end,
+						m_radiusAroundEnd,
+						TargeterUtils.HeightAdjustType.FromPathArrow,
+						targetingActor == GameFlowData.Get().activeOwnedActorData));
 				}
-				if (flag)
+				if (UseRadiusAroundLine(currentTarget))
 				{
-					if (vector == vector2)
+					if (start == end)
 					{
-						if (m_highlights.Count > 0)
+						if (m_highlights.Count > 0 && m_highlights[0] != null)
 						{
-							if (m_highlights[0] != null)
-							{
-								m_highlights[0].SetActive(false);
-							}
+							m_highlights[0].SetActive(false);
 						}
 					}
 					else
 					{
-						if (m_highlights.Count > 0)
+						if (m_highlights.Count > 0 && m_highlights[0] != null)
 						{
-							if (m_highlights[0] != null)
-							{
-								m_highlights[0].SetActive(true);
-							}
+							m_highlights[0].SetActive(true);
 						}
-						TargeterUtils.RefreshLaserBoxHighlight(m_highlights[0], vector, vector2, widthInSquares, TargeterUtils.HeightAdjustType.FromPathArrow);
+						TargeterUtils.RefreshLaserBoxHighlight(m_highlights[0], start, end, widthInSquares, TargeterUtils.HeightAdjustType.FromPathArrow);
 					}
 				}
 				else if (m_highlights.Count > 0)
@@ -221,19 +211,19 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 						m_highlights[0].SetActive(false);
 					}
 				}
-				if (flag2)
+				if (UseRadiusAroundStart(currentTarget))
 				{
 					m_highlights[1].SetActive(true);
-					TargeterUtils.RefreshCircleHighlight(m_highlights[1], vector, TargeterUtils.HeightAdjustType.FromPathArrow);
+					TargeterUtils.RefreshCircleHighlight(m_highlights[1], start, TargeterUtils.HeightAdjustType.FromPathArrow);
 				}
 				else if (m_highlights.Count > 1 && m_highlights[1] != null)
 				{
 					m_highlights[1].SetActive(false);
 				}
-				if (flag3)
+				if (UseRadiusAroundEnd(currentTarget))
 				{
 					m_highlights[2].SetActive(true);
-					TargeterUtils.RefreshCircleHighlight(m_highlights[2], vector2, TargeterUtils.HeightAdjustType.FromPathArrow);
+					TargeterUtils.RefreshCircleHighlight(m_highlights[2], end, TargeterUtils.HeightAdjustType.FromPathArrow);
 				}
 				else if (m_highlights.Count > 2)
 				{
@@ -242,100 +232,101 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 						m_highlights[2].SetActive(false);
 					}
 				}
-				List<ActorData> actors = AreaEffectUtils.GetActorsInRadiusOfLine(vector, vector2, startRadiusInSquares, endRadiusInSquares, num2, m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
+				List<ActorData> actors = AreaEffectUtils.GetActorsInRadiusOfLine(
+					start,
+					end,
+					startRadiusInSquares,
+					endRadiusInSquares,
+					rangeFromLineInSquares,
+					m_penetrateLoS,
+					targetingActor,
+					GetAffectedTeams(),
+					null);
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 				TargeterUtils.SortActorsByDistanceToPos(ref actors, targetingActor.GetFreePos());
 				TargeterUtils.LimitActorsToMaxNumber(ref actors, m_maxTargets);
-				using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
+				foreach (ActorData current in actors)
 				{
-					while (enumerator.MoveNext())
+					if (GetAffectsTarget(current, targetingActor)
+					    && (m_shouldAddTargetDelegate == null
+					        || m_shouldAddTargetDelegate(current, currentTarget, actors, targetingActor, m_ability)))
 					{
-						ActorData current = enumerator.Current;
-						if (GetAffectsTarget(current, targetingActor))
+						Vector3 damageOrigin = start;
+						if (UseEndPosAsDamageOriginIfOverlap)
 						{
-							if (m_shouldAddTargetDelegate != null)
+							Vector3 travelBoardSquareWorldPosition = current.GetFreePos();
+							travelBoardSquareWorldPosition.y = end.y;
+							if ((travelBoardSquareWorldPosition - end).sqrMagnitude <= Mathf.Epsilon)
 							{
-								if (!m_shouldAddTargetDelegate(current, currentTarget, actors, targetingActor, m_ability))
-								{
-									continue;
-								}
+								damageOrigin = end;
 							}
-							Vector3 damageOrigin = vector;
-							if (UseEndPosAsDamageOriginIfOverlap)
-							{
-								Vector3 travelBoardSquareWorldPosition = current.GetFreePos();
-								travelBoardSquareWorldPosition.y = vector2.y;
-								if ((travelBoardSquareWorldPosition - vector2).sqrMagnitude <= Mathf.Epsilon)
-								{
-									damageOrigin = vector2;
-								}
-							}
-							AddActorInRange(current, damageOrigin, targetingActor);
-							OrderedHitActors.Add(current);
-							if (m_shouldAddCasterDelegate != null)
-							{
-								list.Add(current);
-							}
-							if (UseRadiusAroundStart(currentTarget))
-							{
-								BoardSquare currentBoardSquare = current.GetCurrentBoardSquare();
-								if (AreaEffectUtils.IsSquareInConeByActorRadius(currentBoardSquare, vector, 0f, 360f, m_radiusAroundStart, 0f, m_penetrateLoS, targetingActor))
-								{
-									AddActorInRange(current, damageOrigin, targetingActor, AbilityTooltipSubject.Far, true);
-								}
-							}
-							bool flag4 = false;
-							if (UseRadiusAroundEnd(currentTarget))
-							{
-								BoardSquare currentBoardSquare2 = current.GetCurrentBoardSquare();
-								if (AreaEffectUtils.IsSquareInConeByActorRadius(currentBoardSquare2, vector2, 0f, 360f, m_radiusAroundEnd, 0f, m_penetrateLoS, targetingActor))
-								{
-									AddActorInRange(current, damageOrigin, targetingActor, AbilityTooltipSubject.Far, true);
-									flag4 = true;
-								}
-							}
-							ActorHitContext actorHitContext = m_actorContextVars[current];
-							ContextVars contextVars = actorHitContext.m_contextVars;
-							int hash = ContextKeys.s_InEndAoe.GetKey();
-							int value;
-							if (flag4)
-							{
-								value = 1;
-							}
-							else
-							{
-								value = 0;
-							}
-							contextVars.SetValue(hash, value);
 						}
+						AddActorInRange(current, damageOrigin, targetingActor);
+						OrderedHitActors.Add(current);
+						if (m_shouldAddCasterDelegate != null)
+						{
+							hitActors.Add(current);
+						}
+						if (UseRadiusAroundStart(currentTarget))
+						{
+							BoardSquare targetBoardSquare = current.GetCurrentBoardSquare();
+							bool isInRange = AreaEffectUtils.IsSquareInConeByActorRadius(
+								targetBoardSquare,
+								start,
+								0f,
+								360f,
+								m_radiusAroundStart,
+								0f,
+								m_penetrateLoS,
+								targetingActor);
+							if (isInRange)
+							{
+								AddActorInRange(current, damageOrigin, targetingActor, AbilityTooltipSubject.Far, true);
+							}
+						}
+						bool inEndAoE = false;
+						if (UseRadiusAroundEnd(currentTarget))
+						{
+							BoardSquare targetBoardSquare = current.GetCurrentBoardSquare();
+							bool isInRange = AreaEffectUtils.IsSquareInConeByActorRadius(
+								targetBoardSquare,
+								end,
+								0f,
+								360f,
+								m_radiusAroundEnd,
+								0f,
+								m_penetrateLoS,
+								targetingActor);
+							if (isInRange)
+							{
+								AddActorInRange(current, damageOrigin, targetingActor, AbilityTooltipSubject.Far, true);
+								inEndAoE = true;
+							}
+						}
+						m_actorContextVars[current].m_contextVars.SetValue(ContextKeys.s_InEndAoe.GetKey(), inEndAoE ? 1 : 0);
 					}
 				}
 				if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 				{
 					ResetSquareIndicatorIndexToUse();
-					AreaEffectUtils.OperateOnSquaresInRadiusOfLine(m_indicatorHandler, vector, vector2, startRadiusInSquares, endRadiusInSquares, num2, m_penetrateLoS, targetingActor);
+					AreaEffectUtils.OperateOnSquaresInRadiusOfLine(
+						m_indicatorHandler,
+						start,
+						end,
+						startRadiusInSquares,
+						endRadiusInSquares,
+						rangeFromLineInSquares,
+						m_penetrateLoS,
+						targetingActor);
 					HideUnusedSquareIndicators();
 				}
 			}
 		}
-		if (!ForceAddTargetingActor)
+		if (ForceAddTargetingActor
+		    || (m_shouldAddCasterDelegate != null
+		        && m_shouldAddCasterDelegate(targetingActor, hitActors)))
 		{
-			if (m_shouldAddCasterDelegate == null)
-			{
-				return;
-			}
-			if (!m_shouldAddCasterDelegate(targetingActor, list))
-			{
-				return;
-			}
+			AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Self);
 		}
-		AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, AbilityTooltipSubject.Self);
-		return;
-		IL_00c4:
-		if (boardSquare != null)
-		{
-			boardSquare2 = Board.Get().GetSquare(targets[currentTargetIndex - 1].GridPos);
-		}
-		goto IL_00fa;
 	}
 }
