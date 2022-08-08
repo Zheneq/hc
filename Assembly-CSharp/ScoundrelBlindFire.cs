@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // empty in rogues
-// TODO LOCKWOOD server
 public class ScoundrelBlindFire : Ability
 {
 	public float m_coneWidthAngle = 90f;
@@ -29,7 +28,15 @@ public class ScoundrelBlindFire : Ability
 
 	private void SetupTargeter()
 	{
-		Targeter = new AbilityUtil_Targeter_Blindfire(this, ModdedConeWidthAngle(), m_coneLength, m_coneBackwardOffset, ModdedPenetrateLineOfSight(), m_restrictWithinCover, m_includeTargetsInCover, m_maxTargets);
+		Targeter = new AbilityUtil_Targeter_Blindfire(
+			this,
+			ModdedConeWidthAngle(),
+			m_coneLength,
+			m_coneBackwardOffset,
+			ModdedPenetrateLineOfSight(),
+			m_restrictWithinCover,
+			m_includeTargetsInCover,
+			m_maxTargets);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -119,4 +126,82 @@ public class ScoundrelBlindFire : Ability
 			caster.GetLoSCheckPos()+ m_coneLength * Board.Get().squareSize * targets[0].AimDirection
 		};
 	}
+	
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			targets[0].FreePos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+	
+	// custom
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		Vector3 aimDirection = currentTarget?.AimDirection ?? caster.transform.forward;
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		ActorCover component = caster.GetComponent<ActorCover>();
+		if (component.IsDirInCover(aimDirection) || !m_restrictWithinCover)
+		{
+			float num = VectorUtils.HorizontalAngle_Deg(aimDirection);
+			float newDirAngleDegrees;
+			if (m_restrictWithinCover)
+			{
+				component.ClampConeToValidCover(num, ModdedConeWidthAngle(), out newDirAngleDegrees, out Vector3 _);
+			}
+			else
+			{
+				newDirAngleDegrees = num;
+			}
+			List<ActorData> actors = AreaEffectUtils.GetActorsInCone(
+				casterPos,
+				newDirAngleDegrees,
+				ModdedConeWidthAngle(),
+				m_coneLength,
+				m_coneBackwardOffset,
+				ModdedPenetrateLineOfSight(),
+				caster,
+				caster.GetOtherTeams(),
+				nonActorTargetInfo);
+			if (!m_includeTargetsInCover)
+			{
+				actors.RemoveAll(actor => actor.GetActorCover() != null && actor.GetActorCover().IsInCoverWrt(casterPos));
+			}
+			if (m_maxTargets > 0)
+			{
+				TargeterUtils.SortActorsByDistanceToPos(ref actors, casterPos);
+				TargeterUtils.LimitActorsToMaxNumber(ref actors, m_maxTargets);
+			}
+			int damage = ModdedDamageAmount();
+			foreach (ActorData hitActor in actors)
+			{
+				ActorHitParameters hitParams = new ActorHitParameters(hitActor, casterPos);
+				ActorHitResults hitResults = new ActorHitResults(damage, HitActionType.Damage, hitParams);
+				abilityResults.StoreActorHit(hitResults);
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+	
+	// custom
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (caster.GetTeam() != target.GetTeam())
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.ScoundrelStats.TargetsHitByConeAoe);
+		}
+	}
+#endif
 }

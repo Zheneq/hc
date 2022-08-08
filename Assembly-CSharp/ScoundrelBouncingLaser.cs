@@ -2,10 +2,10 @@
 // SERVER
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using UnityEngine;
 
 // empty in rogues
-// TODO LOCKWOOD server
 public class ScoundrelBouncingLaser : Ability
 {
 	public int m_damageAmount = 20;
@@ -100,13 +100,27 @@ public class ScoundrelBouncingLaser : Ability
 		ClearTargeters();
 		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			Targeter = new AbilityUtil_Targeter_BounceLaser(this, GetLaserWidth(), GetDistancePerBounce(), GetMaxTotalDistance(), GetMaxBounces(), GetMaxTargetHits(), false);
+			Targeter = new AbilityUtil_Targeter_BounceLaser(
+				this,
+				GetLaserWidth(),
+				GetDistancePerBounce(),
+				GetMaxTotalDistance(),
+				GetMaxBounces(),
+				GetMaxTargetHits(),
+				false);
 		}
 		else
 		{
 			for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 			{
-				Targeters.Add(new AbilityUtil_Targeter_BounceLaser(this, GetLaserWidth(), GetDistancePerBounce(), GetMaxTotalDistance(), GetMaxBounces(), GetMaxTargetHits(), false));
+				Targeters.Add(new AbilityUtil_Targeter_BounceLaser(
+					this,
+					GetLaserWidth(),
+					GetDistancePerBounce(),
+					GetMaxTotalDistance(),
+					GetMaxBounces(),
+					GetMaxTargetHits(),
+					false));
 				Targeters[i].SetUseMultiTargetUpdate(true);
 			}
 		}
@@ -165,7 +179,7 @@ public class ScoundrelBouncingLaser : Ability
 				damage += GetDamageChangePerHit() * i;
 				damage += GetBonusDamagePerBounce() * hitActorContext.segmentIndex;
 				damage = Mathf.Max(GetMinDamage(), damage);
-				return new Dictionary<AbilityTooltipSymbol, int>()
+				return new Dictionary<AbilityTooltipSymbol, int>
 				{
 					{ AbilityTooltipSymbol.Damage, damage }
 				};
@@ -209,4 +223,131 @@ public class ScoundrelBouncingLaser : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (GetExpectedNumberOfTargeters() > 1)
+		{
+			Log.Error("Multiple targeters are not supported!");
+		}
+		
+		Vector3 aimDirection = targets[0]?.AimDirection ?? caster.transform.forward;
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		List<Vector3> endpoints = GetHitActors(
+			caster,
+			casterPos,
+			aimDirection,
+			null,
+			out List<ActorData> orderedHitActors,
+			out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors);
+		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> laserTargets = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>();
+		foreach (ActorData hitActor in orderedHitActors)
+		{
+			laserTargets.Add(hitActor, bounceHitActors[hitActor]);
+		}
+		List<Vector3> segmentPts = endpoints.Select(v => new Vector3(v.x, Board.Get().LosCheckHeight, v.z)).ToList();
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			targets[0].FreePos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[]
+			{
+				new BouncingShotSequence.ExtraParams
+				{
+					doPositionHitOnBounce = true,
+					useOriginalSegmentStartPos = false,
+					segmentPts = segmentPts,
+					laserTargets = laserTargets
+				}
+			});
+	}
+	
+	// custom
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		if (GetExpectedNumberOfTargeters() > 1)
+		{
+			Log.Error("Multiple targeters are not supported!");
+		}
+
+		List<List<NonActorTargetInfo>> nonActorTargetInfo = new List<List<NonActorTargetInfo>>();
+		AbilityTarget currentTarget = targets[0];
+		Vector3 aimDirection = currentTarget?.AimDirection ?? caster.transform.forward;
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		
+		int baseDamage = GetBaseDamage();
+		if (CollectTheCoins.Get() != null)
+		{
+			// TODO CTC There must be server-side bonus impl
+			baseDamage += Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserDamage.GetBonus_Client(ActorData));
+		}
+		GetHitActors(
+			caster,
+			casterPos,
+			aimDirection,
+			nonActorTargetInfo,
+			out List<ActorData> orderedHitActors,
+			out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors);
+		for (int i = 0; i < orderedHitActors.Count; i++)
+		{
+			ActorData hitActor = orderedHitActors[i];
+			AreaEffectUtils.BouncingLaserInfo bouncingLaserInfo = bounceHitActors[hitActor];
+			int damage = baseDamage;
+			damage += GetDamageChangePerHit() * i;
+			damage += GetBonusDamagePerBounce() * bouncingLaserInfo.m_endpointIndex;
+			damage = Mathf.Max(GetMinDamage(), damage);
+			ActorHitParameters hitParams = new ActorHitParameters(hitActor, bouncingLaserInfo.m_segmentOrigin);
+			ActorHitResults hitResults = new ActorHitResults(damage, HitActionType.Damage, hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+	}
+
+	// custom
+	private List<Vector3> GetHitActors(
+		ActorData caster,
+		Vector3 casterPos,
+		Vector3 aimDirection,
+		List<List<NonActorTargetInfo>> nonActorTargetInfo,
+		out List<ActorData> orderedHitActors,
+		out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors)
+	{
+		float maxDistancePerBounce = GetDistancePerBounce();
+		float maxTotalDistance = GetMaxTotalDistance();
+		int maxBounces = GetMaxBounces();
+		int maxTargetsHit = GetMaxTargetHits();
+		if (CollectTheCoins.Get() != null)
+		{
+			// TODO CTC There must be server-side bonus impl
+			maxTotalDistance += CollectTheCoins.Get().m_bouncingLaserTotalDistance.GetBonus_Client(caster);
+			maxDistancePerBounce += CollectTheCoins.Get().m_bouncingLaserBounceDistance.GetBonus_Client(caster);
+			maxBounces += Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserBounces.GetBonus_Client(caster));
+			maxTargetsHit += Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserPierces.GetBonus_Client(caster));
+		}
+		return VectorUtils.CalculateBouncingLaserEndpoints(
+			casterPos,
+			aimDirection,
+			maxDistancePerBounce,
+			maxTotalDistance,
+			maxBounces,
+			caster,
+			GetLaserWidth(),
+			maxTargetsHit,
+			true,
+			caster.GetOtherTeams(),
+			false,
+			out bounceHitActors,
+			out orderedHitActors,
+			nonActorTargetInfo);
+	}
+#endif
 }

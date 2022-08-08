@@ -27,12 +27,26 @@ public class ScoundrelRunAndGun : Ability  // GenericAbility_Container in rogues
 		ClearTargeters();
 		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			Targeter = new AbilityUtil_Targeter_ChargeAoE(this, m_damageRadius, m_damageRadius, m_damageRadius, -1, false, m_penetrateLineOfSight);
+			Targeter = new AbilityUtil_Targeter_ChargeAoE(
+				this,
+				m_damageRadius,
+				m_damageRadius,
+				m_damageRadius,
+				-1,
+				false,
+				m_penetrateLineOfSight);
 		}
 		ClearTargeters();
 		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 		{
-			Targeters.Add(new AbilityUtil_Targeter_ChargeAoE(this, m_damageRadius, m_damageRadius, m_damageRadius, -1, false, m_penetrateLineOfSight));
+			Targeters.Add(new AbilityUtil_Targeter_ChargeAoE(
+				this,
+				m_damageRadius,
+				m_damageRadius,
+				m_damageRadius,
+				-1,
+				false,
+				m_penetrateLineOfSight));
 			Targeters[i].SetUseMultiTargetUpdate(true);
 		}
 	}
@@ -79,7 +93,7 @@ public class ScoundrelRunAndGun : Ability  // GenericAbility_Container in rogues
 			return;
 		}
 
-		m_abilityMod = (abilityMod as AbilityMod_ScoundrelRunAndGun);
+		m_abilityMod = abilityMod as AbilityMod_ScoundrelRunAndGun;
 		SetupTargeter();
 	}
 
@@ -193,28 +207,32 @@ public class ScoundrelRunAndGun : Ability  // GenericAbility_Container in rogues
 	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
 	{
 		int expectedNumberOfTargeters = GetExpectedNumberOfTargeters();
-		ServerEvadeUtils.ChargeSegment[] array = new ServerEvadeUtils.ChargeSegment[expectedNumberOfTargeters + 1];
-		array[0] = new ServerEvadeUtils.ChargeSegment();
-		array[0].m_pos = caster.GetCurrentBoardSquare();
-		array[0].m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement;
-		array[0].m_end = BoardSquarePathInfo.ChargeEndType.Pivot;
+		ServerEvadeUtils.ChargeSegment[] segments = new ServerEvadeUtils.ChargeSegment[expectedNumberOfTargeters + 1];
+		segments[0] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_pos = caster.GetCurrentBoardSquare(),
+			m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+			m_end = BoardSquarePathInfo.ChargeEndType.Pivot
+		};
 		for (int i = 0; i < expectedNumberOfTargeters; i++)
 		{
 			int num = i + 1;
-			array[num] = new ServerEvadeUtils.ChargeSegment();
-			array[num].m_pos = Board.Get().GetSquare(targets[i].GridPos);
-			array[num].m_end = BoardSquarePathInfo.ChargeEndType.Pivot;
-		}
-		array[array.Length - 1].m_end = BoardSquarePathInfo.ChargeEndType.Impact;
-		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(array));
-		for (int j = 0; j < array.Length; j++)
-		{
-			if (array[j].m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
+			segments[num] = new ServerEvadeUtils.ChargeSegment
 			{
-				array[j].m_segmentMovementSpeed = segmentMovementSpeed;
+				m_pos = Board.Get().GetSquare(targets[i].GridPos),
+				m_end = BoardSquarePathInfo.ChargeEndType.Pivot
+			};
+		}
+		segments[segments.Length - 1].m_end = BoardSquarePathInfo.ChargeEndType.Impact;
+		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(segments));
+		foreach (ServerEvadeUtils.ChargeSegment segment in segments)
+		{
+			if (segment.m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
+			{
+				segment.m_segmentMovementSpeed = segmentMovementSpeed;
 			}
 		}
-		return array;
+		return segments;
 	}
 
 	// added in rogues
@@ -226,6 +244,68 @@ public class ScoundrelRunAndGun : Ability  // GenericAbility_Container in rogues
 			return base.GetIdealDestination(targets, caster, additionalData);
 		}
 		return Board.Get().GetSquare(targets[expectedNumberOfTargeters - 1].GridPos);
+	}
+	
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_sequencePrefab,
+			Board.Get().GetSquareFromVec3(caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart())),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// custom
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		if (GetExpectedNumberOfTargeters() > 1)
+		{
+			Log.Error("Multiple targeters not supported!");
+		}
+		
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		BoardSquare targetSquare = Board.Get().GetSquare(currentTarget.GridPos);
+		BoardSquare startSquare = caster.GetSquareAtPhaseStart();
+		Vector3 startPos = startSquare.ToVector3();
+		List<ActorData> actors = AreaEffectUtils.GetActorsInRadiusOfLine(
+			startPos,
+			targetSquare.ToVector3(),
+			m_damageRadius,
+			m_damageRadius,
+			m_damageRadius,
+			m_penetrateLineOfSight,
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+		int damage = ModdedDamageAmount();
+		foreach (ActorData hitActor in actors)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(hitActor, startPos);
+			ActorHitResults hitResults = new ActorHitResults(damage, HitActionType.Damage, hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// custom
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.ScoundrelStats.DamageDodgedPlusDealtByUlt, damageDodged);
+	}
+	
+	// custom
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (caster.GetTeam() != target.GetTeam())
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.ScoundrelStats.DamageDodgedPlusDealtByUlt, results.FinalDamage);
+		}
 	}
 #endif
 }
