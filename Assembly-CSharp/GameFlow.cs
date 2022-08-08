@@ -1319,12 +1319,12 @@ public class GameFlow : NetworkBehaviour
 		ActorData actorData = GameFlowData.Get().FindActorByActorIndex(msg.m_actorIndex);
 		if (actorData != null)
 		{
-			Log.Info($"MsgCastAbility {actorData.DisplayName} - {msg.m_actionType} {msg.m_targets}");
+			Log.Info($"MsgCastAbility {actorData.DisplayName} - {msg.m_actionType} {msg.m_targets.Select(e => e.GetDebugString()).ToList().ToJson()}");
 			actorData.GetComponent<ServerActorController>().ProcessCastAbilityRequest(msg.m_targets, msg.m_actionType, false);
 		}
 		else
 		{
-			Log.Error($"MsgCastAbility NULL actor {msg.m_actorIndex} - {msg.m_actionType} {msg.m_targets}");
+			Log.Error($"MsgCastAbility NULL actor {msg.m_actorIndex} - {msg.m_actionType} {msg.m_targets.Select(e => e.GetDebugString()).ToList().ToJson()}");
 		}
 	}
 
