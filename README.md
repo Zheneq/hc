@@ -1,3 +1,3 @@
 # Links
-* [Lobby server repo](https://github.com/MaxtorCoder/EvoS)
+* [Lobby server repo](https://github.com/Zheneq/EvoS)
 * [Discord](https://discord.gg/yrZRHJaAUg)
