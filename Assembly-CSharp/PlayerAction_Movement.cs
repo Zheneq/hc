@@ -1,22 +1,29 @@
 ﻿// ROGUES
 // SERVER
 using System.Collections.Generic;
+using System.Linq;
 
 // rogues-only, missing in reactor
 #if SERVER
 public class PlayerAction_Movement : PlayerAction
 {
 	private List<MovementRequest> m_moveRequests;
+	
+	// custom
+	private bool m_isChase;
 
-	public PlayerAction_Movement(List<MovementRequest> moveRequests)
+	public PlayerAction_Movement(List<MovementRequest> moveRequests, bool isChase = false)
 	{
 		m_moveRequests = moveRequests;
+		m_isChase = isChase;
 	}
 
+	// rogues+custom: no chasing in rogues
 	public override bool ExecuteAction()
 	{
 		if (m_moveRequests == null)
 		{
+			Log.Error("No movement requests");
 			return false;
 		}
 		base.ExecuteAction();
@@ -25,39 +32,43 @@ public class PlayerAction_Movement : PlayerAction
 			MovementRequest movementRequest = m_moveRequests[i];
 			if (movementRequest.m_actor.IsDead())
 			{
+				Log.Info($"Cancelling ${movementRequest.m_actor.m_displayName}'s movement request because they are dead");
 				ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor, false);
 				m_moveRequests.RemoveAt(i);
 			}
 		}
 		if (m_moveRequests.Count == 0)
 		{
+			Log.Info("No movement requests");
 			return false;
 		}
 		List<MovementRequest> validRequests = new List<MovementRequest>();
 		foreach (MovementRequest movementRequest in m_moveRequests)
 		{
 			BoardSquare targetSquare = movementRequest.m_targetSquare;
-			if (movementRequest.m_path != null && movementRequest.m_path.next != null && targetSquare != null)
+			if (movementRequest.m_path != null && movementRequest.m_path.next != null && targetSquare != null || movementRequest.IsChasing())
 			{
 				// rogues
 				//movementRequest.m_actor.GetActorTurnSM().OnMessage(TurnMessage.EXECUTE_ACTION_START, true);
 				validRequests.Add(movementRequest);
 			}
 		}
-		ServerActionBuffer.Get().GetMoveStabilizer().StabilizeMovement(validRequests, false);
+		Log.Info($"{validRequests.Count} valid out of {m_moveRequests.Count} movement requests");
+		ServerActionBuffer.Get().GetMoveStabilizer().StabilizeMovement(validRequests, m_isChase);
 		for (int j = validRequests.Count - 1; j >= 0; j--)
 		{
 			MovementRequest movementRequest = validRequests[j];
 			if (movementRequest.m_path == null || movementRequest.m_path.next == null)
 			{
+				Log.Warning($"{movementRequest.m_actor.m_displayName}'s movement path is null after stabilization");
 				ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor, false);
 				movementRequest.m_actor.GetActorMovement().UpdateSquaresCanMoveTo();
 				validRequests.RemoveAt(j);
 			}
 		}
 		ServerActionBuffer.Get().ClearNormalMovementResults();
-		ServerGameplayUtils.GatherGameplayResultsForNormalMovement(validRequests, false);
-		MovementCollection movementCollection = new MovementCollection(validRequests);
+		ServerGameplayUtils.GatherGameplayResultsForNormalMovement(validRequests, m_isChase);
+		MovementCollection movementCollection = new MovementCollection(validRequests.Where(r => r.WasEverChasing() == m_isChase).ToList());
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
 		{
 			if (actorData.GetPassiveData() != null)
@@ -69,7 +80,9 @@ public class PlayerAction_Movement : PlayerAction
 		}
 		ServerGameplayUtils.SetServerLastKnownPositionsForMovement(movementCollection, out _, out _);
 		ServerResolutionManager.Get().OnNormalMovementStart();
-		ServerMovementManager.Get().ServerMovementManager_OnMovementStart(movementCollection, ServerMovementManager.MovementType.NormalMovement_NonChase);
+		ServerMovementManager.Get().ServerMovementManager_OnMovementStart(movementCollection, m_isChase
+			? ServerMovementManager.MovementType.NormalMovement_Chase
+			: ServerMovementManager.MovementType.NormalMovement_NonChase);
 		foreach (MovementRequest movementRequest in validRequests)
 		{
 			ServerActionBuffer.Get().RunMovementOnRequest(movementRequest);
@@ -78,7 +91,8 @@ public class PlayerAction_Movement : PlayerAction
 			{
 				actorStatus.RemoveStatus(StatusType.KnockedBack);
 			}
-			float increment = movementRequest.m_path.FindMoveCostToEnd();
+			// rogues
+			// float increment = movementRequest.m_path.FindMoveCostToEnd();
 			float num = movementRequest.m_actor.GetActorMovement().CalculateMaxHorizontalMovement(true, false);
 			BoardSquarePathInfo boardSquarePathInfo = movementRequest.m_path;
 			bool isRoundingDown = GameplayData.Get() != null && GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax;

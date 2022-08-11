@@ -533,7 +533,10 @@ public class ServerMovementStabilizer
 			MovementRequest movementRequest = storedMovementRequests[i];
 			ActorData actor = movementRequest.m_actor;
 			ActorData chaseTarget = movementRequest.m_chaseTarget;
-			if (movementRequest.IsChasing() && (!movementRequest.IsBeingDragged() && chaseTarget.IsNeverVisibleTo(actor.PlayerData, true) && !chaseTarget.IsAlwaysVisibleTo(actor.PlayerData, true)))
+			if (movementRequest.IsChasing()
+			    && !movementRequest.IsBeingDragged()
+			    && chaseTarget.IsNeverVisibleTo(actor.PlayerData)
+			    && !chaseTarget.IsAlwaysVisibleTo(actor.PlayerData))
 			{
 				BoardSquare serverLastKnownPosSquare = chaseTarget.ServerLastKnownPosSquare;
 				ConvertChaseToDirectMovement(movementRequest, serverLastKnownPosSquare);

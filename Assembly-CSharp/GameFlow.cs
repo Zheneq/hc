@@ -644,7 +644,9 @@ public class GameFlow : NetworkBehaviour
 				var turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
 				turnSm.OnMessage(TurnMessage.CLIENTS_RESOLVED_ABILITIES);
 			}
-			new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => !req.IsChasing())).ExecuteAction();
+			List<MovementRequest> movementRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => !req.IsChasing());
+			Log.Info($"Running {movementRequests.Count} non-chase movement requests");
+			new PlayerAction_Movement(movementRequests, false).ExecuteAction();
 			actionBuffer.ActionPhase = ActionBufferPhase.Movement;
 		}
 		else if (actionBuffer.ActionPhase == ActionBufferPhase.Movement)
@@ -652,7 +654,16 @@ public class GameFlow : NetworkBehaviour
 			ServerMovementManager manager = ServerMovementManager.Get();
 			if (!manager.WaitingOnClients)
 			{
-				new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => req.IsChasing())).ExecuteAction();
+				int numChaseRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => req.IsChasing()).Count;
+				if (numChaseRequests > 0)
+				{
+					Log.Info($"Running {numChaseRequests} chase movement requests");
+					new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests(), true).ExecuteAction();
+				}
+				else
+				{
+					Log.Info("No chase requests");
+				}
 				actionBuffer.ActionPhase = ActionBufferPhase.MovementChase;
 			}
 		}

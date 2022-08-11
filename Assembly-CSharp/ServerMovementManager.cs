@@ -258,15 +258,17 @@ public class ServerMovementManager : NetworkBehaviour
 	public void SendMovementStartingMessageToClients(MovementCollection movementCollection)
 	{
 		// TODO LOW check serialization is the same as in AR
-		ServerMovementStarting serverMovementStarting = new ServerMovementStarting();
-		serverMovementStarting.m_actorIndices = new List<int>(movementCollection.m_movementInstances.Count);
-		serverMovementStarting.m_doomed = new List<bool>(movementCollection.m_movementInstances.Count);
+		ServerMovementStarting serverMovementStarting = new ServerMovementStarting
+		{
+			m_actorIndices = new List<int>(movementCollection.m_movementInstances.Count),
+			m_doomed = new List<bool>(movementCollection.m_movementInstances.Count)
+		};
 		sbyte currentMovementType = (sbyte)m_currentMovementType;
 		serverMovementStarting.m_currentMovementType = currentMovementType;
-		for (int i = 0; i < movementCollection.m_movementInstances.Count; i++)
+		foreach (MovementInstance move in movementCollection.m_movementInstances)
 		{
-			int actorIndex = movementCollection.m_movementInstances[i].m_mover.ActorIndex;
-			bool item = movementCollection.m_movementInstances[i].m_path.WillDieAtEnd();
+			int actorIndex = move.m_mover.ActorIndex;
+			bool item = move.m_path.WillDieAtEnd();
 			serverMovementStarting.m_actorIndices.Add(actorIndex);
 			serverMovementStarting.m_doomed.Add(item);
 		}

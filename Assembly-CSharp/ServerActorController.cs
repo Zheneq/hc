@@ -93,10 +93,36 @@ public class ServerActorController : MonoBehaviour
 		component3.OnMessage(TurnMessage.MOVEMENT_REJECTED, true);
 	}
 
-	// TODO
+	// custom
 	public virtual void ProcessChaseRequest(int x, int y)
 	{
-		Debug.LogWarning("IMPLEMENT ME");
+		ActorData actorData = GetComponent<ActorData>();
+		ActorMovement actorMovement = GetComponent<ActorMovement>();
+		ActorTurnSM actorTurnSm = GetComponent<ActorTurnSM>();
+		Board board = Board.Get();
+		bool success = false;
+		if (actorData != null
+		    && actorMovement != null
+		    && actorTurnSm != null
+		    && GameFlowData.Get() != null
+		    && ServerActionBuffer.Get() != null
+		    && board != null)
+		{
+			ActorData target = board.GetSquareFromIndex(x, y)?.occupant?.GetComponent<ActorData>();
+			if (actorTurnSm.AmDecidingMovement()
+			    && GameFlowData.Get().IsInDecisionState()
+			    && target != null
+			    && (target.GetTeam() == actorData.GetTeam() || target.IsActorVisibleToAnyEnemy()))
+			{
+				if (ServerActionBuffer.Get().HasPendingMovementRequest(actorData))
+				{
+					ServerActionBuffer.Get().CancelMovementRequests(actorData);
+				}
+				ServerActionBuffer.Get().StoreChaseRequest(target, actorData, false, true);
+				success = true;
+			}
+		}
+		actorTurnSm.OnMessage(success ? TurnMessage.MOVEMENT_ACCEPTED : TurnMessage.MOVEMENT_REJECTED);
 	}
 
 	// rogues ?
