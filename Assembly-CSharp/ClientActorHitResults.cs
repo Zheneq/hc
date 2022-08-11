@@ -460,6 +460,7 @@ public class ClientActorHitResults
 
 	public void ExecuteActorHit(ActorData target, ActorData caster)
 	{
+		Log.Info($"ClientActorHitResults::ExecuteActorHit - target {target.DisplayName} - caster {caster.DisplayName}");
 		if (ExecutedHit)
 		{
 			return;

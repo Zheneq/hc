@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -31,6 +32,7 @@ public static class ServerClientUtils
 		private int m_casterActorIndex;
 		[JsonProperty]
 		private byte m_numExtraParams;
+		[JsonProperty(ItemTypeNameHandling = TypeNameHandling.All)]
 		private Sequence.IExtraSequenceParams[] m_extraParams;
 		[JsonProperty]
 		private uint m_sourceRootID;
@@ -473,9 +475,13 @@ public static class ServerClientUtils
 			SequenceSourceId
 		}
 
+		[JsonProperty]
 		private short m_prefabId;
+		[JsonProperty]
 		private uint m_association;
+		[JsonProperty]
 		private AssociationType m_associationType;
+		[JsonProperty]
 		private Vector3 m_targetPos;
 
 		public SequenceEndData(int prefabIdToEnd, AssociationType associationType, int guid, Vector3 targetPos)

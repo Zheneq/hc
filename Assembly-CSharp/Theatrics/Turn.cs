@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -6,6 +7,7 @@ namespace Theatrics
 {
 	public class Turn
 	{
+		[JsonProperty]
 		internal List<Phase> m_abilityPhases = new List<Phase>((int)AbilityPriority.NumAbilityPriorities);
 		private int m_phaseIndex = -1;
 		internal Bounds m_lastSetBoundInTurn;
@@ -13,6 +15,7 @@ namespace Theatrics
 		internal bool m_cameraBoundSetForEvade;
 		private HashSet<int> m_clientAbilitiesEndEventFiredPhases = new HashSet<int>();
 
+		[JsonProperty]
 		internal int TurnID { get; private set; }
 		internal float TimeInPhase { get; private set; }
 		internal float TimeInResolve { get; private set; }

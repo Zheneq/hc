@@ -1,4 +1,5 @@
 using CameraManagerInternal;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,36 +9,62 @@ namespace Theatrics
 {
 	public class Phase
 	{
+		[JsonProperty]
 		internal List<ActorAnimation> m_actorAnimations = new List<ActorAnimation>();
+		[JsonProperty]
 		private Dictionary<int, int> m_hitActorIndexToDeltaHP = new Dictionary<int, int>();
+		[JsonProperty]
 		private Dictionary<int, int> m_actorIndexToKnockbackHitsRemaining = new Dictionary<int, int>(); // only matters whether it is zero or positive
+		[JsonProperty]
 		private List<int> m_hitActorIds = new List<int>();
 
+		[JsonProperty]
 		private int m_playOrderIndex = -1;
+		[JsonProperty]
 		private int m_playOrderGroupIndex = -1;
+		[JsonProperty]
 		private bool m_playOrderGroupChanged = true;
+		[JsonProperty]
 		private int m_maxPlayOrderIndex = -1;
+		[JsonProperty]
 		private int m_firstNonCinematicPlayOrderIndex = -1;
+		[JsonProperty]
 		private float m_maxCamStartDelay;
+		[JsonProperty]
 		private int m_cameraTargetPlayOrderIndex = -1;
+		[JsonProperty]
 		private float m_cameraTargetPlayOrderIndexTime;
+		[JsonProperty]
 		private float m_firstNonCinematicEvadeAbilityPlayedTime;
 
 		private Turn m_turn;
 
+		[JsonProperty]
 		private float m_timeSinceActorAnimationPlayed;
+		[JsonProperty]
 		private float m_timeSinceUpdateStart;
+		[JsonProperty]
 		private bool m_inCinematicCamLastUpdate;
+		[JsonProperty]
 		private bool m_firedMoveStartEvent;
+		[JsonProperty]
 		private float m_evasionMoveStartDesiredTime = -1f;
 
+		[JsonProperty]
 		private bool m_turnActionsDone;
+		[JsonProperty]
 		private bool m_displayedHungErrorForCurrentActorAnim;
+		[JsonProperty]
 		private bool m_loggedWarningForInKnockdownAnim;
+		[JsonProperty]
 		private bool m_cameraBoundsSameAsLast;
+		[JsonProperty]
 		private bool m_cinematicCamera;
+		[JsonProperty]
 		private bool _001B;
+		[JsonProperty]
 		private int _001E = -1;
+		[JsonProperty]
 		private bool m_highlightingActionEntriesNow;
 
 		private const float c_firstEvadeWaitTimeInTurn = 0.7f;
@@ -386,6 +413,7 @@ namespace Theatrics
 		{
 			m_timeSinceActorAnimationPlayed += GameTime.deltaTime;
 			m_timeSinceUpdateStart += GameTime.deltaTime;
+			bool isEvasionWithMovement = m_actorAnimations.Count != 0 && Index == AbilityPriority.Evasion;
 			bool flag = m_actorAnimations.Count != 0
 				&& Index == AbilityPriority.Evasion
 				&& !m_firedMoveStartEvent;
@@ -621,8 +649,16 @@ namespace Theatrics
 				}
 			}
 			AbilityPriority index = Index;
+			if (isEvasionWithMovement)
+			{
+				Log.Info("Phase::Update 23143");
+			}
 			if (index != AbilityPriority.Evasion)
 			{
+				if (isEvasionWithMovement)
+				{
+					Log.Info("Phase::Update not evasion wtf");
+				}
 				float easeInTime = abilitiesCamera.m_easeInTime;
 				if (!m_cinematicCamera)
 				{
@@ -694,6 +730,10 @@ namespace Theatrics
 			}
 			else if (m_playOrderIndex < m_firstNonCinematicPlayOrderIndex)
 			{
+				if (isEvasionWithMovement)
+				{
+					Log.Info($"Phase::Update m_playOrderIndex={m_playOrderIndex} < m_firstNonCinematicPlayOrderIndex={m_firstNonCinematicPlayOrderIndex}");
+				}
 				foreach (ActorAnimation actorAnimation4 in m_actorAnimations)
 				{
 					if (actorAnimation4 != null
@@ -708,6 +748,10 @@ namespace Theatrics
 			}
 			else if (!m_firedMoveStartEvent)
 			{
+				if (isEvasionWithMovement)
+				{
+					Log.Info("Phase::Update not fired yet");
+				}
 				float camStartDelay = Mathf.Max(0.8f, m_maxCamStartDelay);
 				if (m_evasionMoveStartDesiredTime < 0f)
 				{
@@ -717,6 +761,10 @@ namespace Theatrics
 						TheatricsManager.LogForDebugging("Setting evade start time: "
 							+ m_evasionMoveStartDesiredTime + " maxEvadeStartDelay: " + camStartDelay);
 					}
+				}
+				if (isEvasionWithMovement)
+				{
+					Log.Info($"Phase::Update m_evasionMoveStartDesiredTime={m_evasionMoveStartDesiredTime} (gametime={GameTime.time}, delay={camStartDelay})");
 				}
 				foreach (ActorAnimation actorAnimation5 in m_actorAnimations)
 				{
@@ -741,8 +789,16 @@ namespace Theatrics
 						}
 					}
 				}
+				if (isEvasionWithMovement)
+				{
+					Log.Info($"Phase::Update m_evasionMoveStartDesiredTime={m_evasionMoveStartDesiredTime} ?? GameTime.time={GameTime.time}");
+				}
 				if (m_evasionMoveStartDesiredTime > 0f && m_evasionMoveStartDesiredTime <= GameTime.time)
 				{
+					if (isEvasionWithMovement)
+					{
+						Log.Info($"Phase::Update m_evasionMoveStartDesiredTime={m_evasionMoveStartDesiredTime} <= GameTime.time={GameTime.time}");
+					}
 					foreach (ActorAnimation actorAnimation6 in m_actorAnimations)
 					{
 						if (actorAnimation6.GetAbility() != null)

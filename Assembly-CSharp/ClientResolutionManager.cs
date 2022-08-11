@@ -188,7 +188,7 @@ public class ClientResolutionManager : MonoBehaviour
 		UpdateLastEventTime();
 		ProcessReceivedMessages();
 
-		Log.Info($"[JSON] {{\"msgSingleResolutionAction\":{{\"turn\":{turnIndex},\"phase\":{DefaultJsonSerializer.Serialize((AbilityPriority)phaseIndex)},\"action\":{DefaultJsonSerializer.Serialize(action)}}}}}");
+		Log.Info($"[JSON] {{\"msgSingleResolutionAction\":{{\"turn\":{turnIndex},\"phase\":{DefaultJsonSerializer.Serialize((AbilityPriority)phaseIndex)},\"action\":{action.json()}}}}}");
 	}
 
 	private void ProcessReceivedMessages()
