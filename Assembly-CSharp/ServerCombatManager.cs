@@ -2,9 +2,9 @@
 // SERVER
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 //using System.Linq;
 //using CoOp;
-using UnityEngine;
 
 public class ServerCombatManager : MonoBehaviour
 {
@@ -70,7 +70,7 @@ public class ServerCombatManager : MonoBehaviour
 	}
 
 	// added in rogues
-	public void ExecuteDamage(ActorHitResults actorHitResults, ServerCombatManager.DamageType damageType)
+	public void ExecuteDamage(ActorHitResults actorHitResults, DamageType damageType)
 	{
 		ActorData caster = actorHitResults.m_hitParameters.Caster;
 		ActorData target = actorHitResults.m_hitParameters.Target;
@@ -81,44 +81,72 @@ public class ServerCombatManager : MonoBehaviour
 		//HitChanceBracket.HitType hitType = actorHitResults.m_hitType;
 		ApplyDamage(actorHitResults, damageType);
 		LogDamage(caster, target, damageSource.Name, finalDamage, damageType, inCover); // , hitType in rogues
-		GameEventManager.ActorHitHealthChangeArgs args = new GameEventManager.ActorHitHealthChangeArgs(GameEventManager.ActorHitHealthChangeArgs.ChangeType.Damage, finalDamage, target, caster, damageSource.IsCharacterSpecificAbility(caster));
+		GameEventManager.ActorHitHealthChangeArgs args = new GameEventManager.ActorHitHealthChangeArgs(
+			GameEventManager.ActorHitHealthChangeArgs.ChangeType.Damage,
+			finalDamage,
+			target,
+			caster,
+			damageSource.IsCharacterSpecificAbility(caster));
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.ActorDamaged_Server, args);
 		GameplayMetricHelper.CollectDamageDealt(caster, target, finalDamage, damageSource.Ability);
 		GameplayMetricHelper.CollectDamageReceived(target, finalDamage);
 	}
 
 	// added in rogues
-	public static bool TargetInCover(DamageSource src, ActorData target, Vector3 damageOrigin, bool ignoreCoverMinDist, ServerCombatManager.DamageType damageType, bool isFromMovement) // , out HitChanceBracketType strongestCover in rogues
+	public static bool TargetInCover(
+		DamageSource src,
+		ActorData target,
+		Vector3 damageOrigin,
+		bool ignoreCoverMinDist,
+		DamageType damageType,
+		bool isFromMovement) // , out HitChanceBracketType strongestCover in rogues
 	{
 		ActorCover actorCover = target.GetActorCover();
 		bool flag = isFromMovement || damageType == DamageType.Barrier || damageType == DamageType.Thorns || src.IgnoresCover;
 		// rogues
 		//strongestCover = HitChanceBracketType.Default;
-		bool result = false;
-		if (!flag)
+		if (flag)
 		{
-			if (ignoreCoverMinDist)
-			{
-				result = actorCover.IsInCoverWrtDirectionOnly(damageOrigin, target.GetCurrentBoardSquare());  // , out strongestCover in rogues
-			}
-			else
-			{
-				result = actorCover.IsInCoverWrt(damageOrigin);  // , out strongestCover in rogues
-			}
+			return false;
 		}
-		return result;
+		if (ignoreCoverMinDist)
+		{
+			return actorCover.IsInCoverWrtDirectionOnly(damageOrigin, target.GetCurrentBoardSquare());  // , out strongestCover in rogues
+		}
+		else
+		{
+			return actorCover.IsInCoverWrt(damageOrigin);  // , out strongestCover in rogues
+		}
 	}
 
 	// added in rogues
-	public int CalcDamage(DamageSource src, ActorData caster, ActorData target, int baseDamage, Vector3 damageOrigin, bool ignoreCoverMinDist, ServerCombatManager.DamageType damageType, bool isFromMovement, out int lifeOnDamage, out bool targetInCoverWrtDamage, out bool damageBoosted, out bool damageReduced, out ServerGameplayUtils.DamageStatAdjustments damageStatAdjustments, ActorHitResults.DamageCalcScratch damageCalcScratch, bool log = false)
+	public int CalcDamage(
+		DamageSource src,
+		ActorData caster,
+		ActorData target,
+		int baseDamage,
+		Vector3 damageOrigin,
+		bool ignoreCoverMinDist,
+		DamageType damageType,
+		bool isFromMovement,
+		out int lifeOnDamage,
+		out bool targetInCoverWrtDamage,
+		out bool damageBoosted,
+		out bool damageReduced,
+		out ServerGameplayUtils.DamageStatAdjustments damageStatAdjustments,
+		ActorHitResults.DamageCalcScratch damageCalcScratch,
+		bool log = false)
 	{
-		bool flag = isFromMovement || damageType == DamageType.Barrier || damageType == DamageType.Thorns || src.IgnoresCover;
+		bool ignoresCover = isFromMovement
+		                    || damageType == DamageType.Barrier
+		                    || damageType == DamageType.Thorns
+		                    || src.IgnoresCover;
 		// rogues
 		//HitChanceBracketType hitChanceBracketType;
 		targetInCoverWrtDamage = TargetInCover(src, target, damageOrigin, ignoreCoverMinDist, damageType, isFromMovement);  // , out hitChanceBracketType in rogues
 		bool casterInCoverWrtTarget = caster != null
 			&& caster.GetActorCover().IsInCoverWrt(target.GetFreePos())  // , out hitChanceBracketType in rogues
-			&& !flag;
+			&& !ignoresCover;
 		damageBoosted = false;
 		damageReduced = false;
 		if (DebugParameters.Get() != null)
@@ -146,147 +174,136 @@ public class ServerCombatManager : MonoBehaviour
 		}
 		if (GameplayMutators.Get() != null)
 		{
-			baseDamage = Mathf.RoundToInt((float)baseDamage * GameplayMutators.GetDamageMultiplier());
+			baseDamage = Mathf.RoundToInt(baseDamage * GameplayMutators.GetDamageMultiplier());
 		}
-		bool flag2 = src.IsAbility() && src.Ability.IsDamageUnpreventable();
-		string text = (caster == null) ? "[null]" : caster.DisplayName;
+		bool isDamageUnpreventable = src.IsAbility() && src.Ability.IsDamageUnpreventable();
+		string casterStr = caster == null ? "[null]" : caster.DisplayName;
 		ActorStatus component = target.GetComponent<ActorStatus>();
-		int num;
-		if (component.HasStatus(StatusType.DamageImmune, true) && !flag2)
+		int finalDamage;
+		if (component.HasStatus(StatusType.DamageImmune) && !isDamageUnpreventable)
 		{
-			num = 0;
+			finalDamage = 0;
 			damageStatAdjustments = null;
 			if (log)
 			{
-				MatchLogger.Get().Log(string.Concat(new object[]
-				{
-					text,
-					" hits ",
-					target.DisplayName,
-					" for 0 of ",
-					baseDamage,
-					" due to StatusType.DamageImmune"
-				}));
+				MatchLogger.Get().Log($"{casterStr} hits {target.DisplayName} for 0 of {baseDamage} due to StatusType.DamageImmune");
 			}
 		}
-		else if (component.HasStatus(StatusType.ImmuneToPlayerDamage, true) && caster != null && caster.IsHumanControlled() && !flag2)
+		else if (component.HasStatus(StatusType.ImmuneToPlayerDamage) && caster != null && caster.IsHumanControlled() && !isDamageUnpreventable)
 		{
-			num = 0;
+			finalDamage = 0;
 			damageStatAdjustments = null;
 			if (log)
 			{
-				MatchLogger.Get().Log(string.Concat(new object[]
-				{
-					text,
-					" hits ",
-					target.DisplayName,
-					" for 0 of ",
-					baseDamage,
-					" due to StatusType.ImmuneToPlayerDamage"
-				}));
+				MatchLogger.Get().Log($"{casterStr} hits {target.DisplayName} for 0 of {baseDamage} due to StatusType.ImmuneToPlayerDamage");
 			}
 		}
-		else if (damageType == DamageType.Effect && component.HasStatus(StatusType.EffectImmune, true) && !flag2)
+		else if (damageType == DamageType.Effect && component.HasStatus(StatusType.EffectImmune) && !isDamageUnpreventable)
 		{
-			num = 0;
+			finalDamage = 0;
 			damageStatAdjustments = null;
 			if (log)
 			{
-				MatchLogger.Get().Log(string.Concat(new object[]
-				{
-					text,
-					" hits ",
-					target.DisplayName,
-					" for 0 out of ",
-					baseDamage,
-					" due to StatusType.EffectImmune"
-				}));
+				MatchLogger.Get().Log($"{casterStr} hits {target.DisplayName} for 0 out of {baseDamage} due to StatusType.EffectImmune");
 			}
 		}
 		else
 		{
-			ActorStats component2 = target.GetComponent<ActorStats>();
-			int num2 = baseDamage;
-			int baseDamage2 = baseDamage;
-			int baseDamage3 = baseDamage;
-			int baseDamage4 = baseDamage;
+			ActorStats actorStats = target.GetComponent<ActorStats>();
+			int damageOutgoingModified = baseDamage;
+			int modifiedDamageNormal = baseDamage;
+			int modifiedDamageEmpowered = baseDamage;
+			int modifiedDamageWeakened = baseDamage;
 			if (!src.IgnoreDamageBuffsAndDebuffs() && caster != null)
 			{
-				num2 = caster.GetComponent<ActorStats>().CalculateOutgoingDamage(baseDamage, casterInCoverWrtTarget, false, out baseDamage2, out baseDamage3, out baseDamage4);
+				damageOutgoingModified = caster.GetComponent<ActorStats>().CalculateOutgoingDamage(
+					baseDamage,
+					casterInCoverWrtTarget,
+					false,
+					out modifiedDamageNormal,
+					out modifiedDamageEmpowered,
+					out modifiedDamageWeakened);
 			}
-			damageCalcScratch.m_damageAfterOutgoingMod = num2;
-			int num3 = num2;
-			int num4 = num2;
-			int num5 = num2;
-			int num7;
-			int num6 = component2.CalculateIncomingDamage(num2, out num7, out num3, out num4, out num5);
-			int num9;
-			int num10;
-			int num11;
-			int num12;
-			int num8 = component2.CalculateIncomingDamage(baseDamage2, out num9, out num10, out num11, out num12);
-			int num13 = component2.CalculateIncomingDamage(baseDamage3, out num9, out num10, out num11, out num12);
-			int num14 = component2.CalculateIncomingDamage(baseDamage4, out num9, out num10, out num11, out num12);
-			damageCalcScratch.m_damageAfterIncomingBuffDebuff = num7;
-			damageCalcScratch.m_damageAfterIncomingBuffDebuffWithCover = num7;
-			int num15 = Mathf.Max(num6, 0);
-			damageBoosted = (num15 > baseDamage);
-			damageReduced = (num15 < baseDamage);
-			int num16 = num15;
-			int damage_outgoingNormal = Mathf.Max(num8, 0);
-			int damage_outgoingEmpowered = Mathf.Max(num13, 0);
-			int damage_outgoingWeakened = Mathf.Max(num14, 0);
-			int damage_incomingNormal = Mathf.Max(num3, 0);
-			int damage_incomingVulnerable = Mathf.Max(num4, 0);
-			int damage_incomingArmored = Mathf.Max(num5, 0);
+			damageCalcScratch.m_damageAfterOutgoingMod = damageOutgoingModified;
+			int damageIncomingModified = actorStats.CalculateIncomingDamage(
+				damageOutgoingModified,
+				out var damageAfterIncomingBuffDebuff,
+				out var damageIncomingNormal,
+				out var damageIncomingVulnerable,
+				out var damageIncomingArmored);
+			int damageOutgoingNormal = actorStats.CalculateIncomingDamage(
+				modifiedDamageNormal,
+				out _,
+				out _,
+				out _,
+				out _);
+			int damageOutgoingEmpowered = actorStats.CalculateIncomingDamage(
+				modifiedDamageEmpowered, 
+				out _, 
+				out _, 
+				out _, 
+				out _);
+			int damageOutgoingWeakened = actorStats.CalculateIncomingDamage(
+				modifiedDamageWeakened,
+				out _, 
+				out _, 
+				out _, 
+				out _);
+			damageCalcScratch.m_damageAfterIncomingBuffDebuff = damageAfterIncomingBuffDebuff;
+			damageCalcScratch.m_damageAfterIncomingBuffDebuffWithCover = damageAfterIncomingBuffDebuff;
+			int damage_incomingModified = Mathf.Max(damageIncomingModified, 0);
+			damageBoosted = damage_incomingModified > baseDamage;
+			damageReduced = damage_incomingModified < baseDamage;
+			int damage_actual = damage_incomingModified;
+			int damage_outgoingNormal = Mathf.Max(damageOutgoingNormal, 0);
+			int damage_outgoingEmpowered = Mathf.Max(damageOutgoingEmpowered, 0);
+			int damage_outgoingWeakened = Mathf.Max(damageOutgoingWeakened, 0);
+			int damage_incomingNormal = Mathf.Max(damageIncomingNormal, 0);
+			int damage_incomingVulnerable = Mathf.Max(damageIncomingVulnerable, 0);
+			int damage_incomingArmored = Mathf.Max(damageIncomingArmored, 0);
 			if (ServerActionBuffer.Get() != null && !ServerActionBuffer.Get().GatheringFakeResults)
 			{
-				damageStatAdjustments = new ServerGameplayUtils.DamageStatAdjustments(caster, target, num16, damage_outgoingNormal, damage_outgoingEmpowered, damage_outgoingWeakened, damage_incomingNormal, damage_incomingVulnerable, damage_incomingArmored, num15);
+				damageStatAdjustments = new ServerGameplayUtils.DamageStatAdjustments(
+					caster,
+					target,
+					damage_actual,
+					damage_outgoingNormal,
+					damage_outgoingEmpowered,
+					damage_outgoingWeakened,
+					damage_incomingNormal,
+					damage_incomingVulnerable,
+					damage_incomingArmored,
+					damage_incomingModified);
 			}
 			else
 			{
 				damageStatAdjustments = null;
 			}
-			num = num16;
+			finalDamage = damage_actual;
 			if (log)
 			{
-				MatchLogger.Get().Log(string.Concat(new object[]
-				{
-					text,
-					" hits ",
-					target.DisplayName,
-					" for ",
-					num,
-					" out of (base: ",
-					baseDamage,
-					") (outgoingModified: ",
-					num2,
-					") (incomingModified: ",
-					num6,
-					") (coverModified? ",
-					targetInCoverWrtDamage.ToString(),
-					": ",
-					num16,
-					")"
-				}));
+				MatchLogger.Get().Log($"{casterStr} hits {target.DisplayName} for {finalDamage} out of (base: {baseDamage}) (outgoingModified: {damageOutgoingModified}) (incomingModified: {damageIncomingModified}) (coverModified? {targetInCoverWrtDamage}: {damage_actual})");
 			}
 		}
-		AbilityData.ActionType abilityIndex = AbilityData.ActionType.INVALID_ACTION;
-		if (src.Ability != null)
-		{
-			abilityIndex = src.Ability.CachedActionType;
-		}
-		lifeOnDamage = target.GetActorStats().CalculateLifeOnDamage(num); // , caster, (int)abilityIndex); in rogues
-		return num;
+		// rogues
+		// AbilityData.ActionType abilityIndex = AbilityData.ActionType.INVALID_ACTION;
+		// if (src.Ability != null)
+		// {
+		// 	abilityIndex = src.Ability.CachedActionType;
+		// }
+		lifeOnDamage = target.GetActorStats().CalculateLifeOnDamage(finalDamage); // , caster, (int)abilityIndex); in rogues
+		return finalDamage;
 	}
 
 	// added in rogues
-	private void ApplyDamage(ActorHitResults actorHitResults, ServerCombatManager.DamageType damageType)
+	private void ApplyDamage(ActorHitResults actorHitResults, DamageType damageType)
 	{
 		ActorData caster = actorHitResults.m_hitParameters.Caster;
 		ActorData target = actorHitResults.m_hitParameters.Target;
 		DamageSource damageSource = actorHitResults.m_hitParameters.DamageSource;
-		int num = (damageType == DamageType.Thorns) ? actorHitResults.ThornsDamage : actorHitResults.FinalDamage;
+		int num = damageType == DamageType.Thorns
+			? actorHitResults.ThornsDamage
+			: actorHitResults.FinalDamage;
 		if (num != 0)
 		{
 			target.UnresolvedDamage += num;
@@ -320,14 +337,20 @@ public class ServerCombatManager : MonoBehaviour
 	}
 
 	// added in rogues
-	private void LogDamage(ActorData caster, ActorData target, string sourceName, int appliedDamage, ServerCombatManager.DamageType damageType, bool inCover)  // , HitChanceBracket.HitType hitType in rogues
+	private void LogDamage(
+		ActorData caster,
+		ActorData target,
+		string sourceName,
+		int appliedDamage,
+		DamageType damageType,
+		bool inCover) // , HitChanceBracket.HitType hitType in rogues
 	{
 		if (ServerActionBuffer.c_clientOnlySequences)
 		{
 			return;
 		}
 		string arg = "N";
-		if (target.GetComponent<ActorStatus>().HasStatus(StatusType.DamageImmune, true))
+		if (target.GetComponent<ActorStatus>().HasStatus(StatusType.DamageImmune))
 		{
 			arg = "I";
 		}
@@ -335,18 +358,12 @@ public class ServerCombatManager : MonoBehaviour
 		{
 			arg = "C";
 		}
-		string combatText = string.Format("{0}|{1}", appliedDamage, arg);
-		string text = (caster == null) ? "[null]" : caster.DisplayName;
-		string text2 = string.Format("{0}'s {1} hits {2} for {3}", new object[]
-		{
-			text,
-			sourceName,
-			target.DisplayName,
-			appliedDamage
-		});
+		string combatText = $"{appliedDamage}|{arg}";
+		string text = caster == null ? "[null]" : caster.DisplayName;
+		string text2 = $"{text}'s {sourceName} hits {target.DisplayName} for {appliedDamage}";
 		if (inCover)
 		{
-			text2 += string.Format(" (covered)");
+			text2 += " (covered)";
 		}
 		// rogues
 		//if (damageType == DamageType.Ability)
@@ -363,112 +380,95 @@ public class ServerCombatManager : MonoBehaviour
 		{
 			return;
 		}
-		string combatText = string.Format("{0}", healAmount);
-		string text = (caster == null) ? "[null]" : caster.DisplayName;
-		string logText = string.Format("{0}'s {1} heals {2} for {3}", new object[]
-		{
-			text,
-			sourceName,
-			target.DisplayName,
-			healAmount
-		});
+		string combatText = $"{healAmount}";
+		string casterStr = caster == null ? "[null]" : caster.DisplayName;
+		string logText = $"{casterStr}'s {sourceName} heals {target.DisplayName} for {healAmount}";
 		target.CallRpcCombatText(combatText, logText, CombatTextCategory.Healing, BuffIconToDisplay.None);
 	}
 
 	// added in rogues
-	public UnresolvedHealthChange? Heal(DamageSource src, ActorData caster, ActorData target, int baseHeal, ServerCombatManager.HealingType type)
+	public UnresolvedHealthChange? Heal(DamageSource src, ActorData caster, ActorData target, int baseHeal, HealingType type)
 	{
-		if (!target.IsDead())
+		if (target.IsDead())
 		{
-			int num = CalcHealing(caster, target, baseHeal, src, type);
-			UnresolvedHealthChange? result = ApplyHealing(caster, target, num, src, type);
-			LogHealing(caster, target, src.Name, num);
-			return result;
+			return null;
 		}
-		return null;
+		int num = CalcHealing(caster, target, baseHeal, src, type);
+		UnresolvedHealthChange? result = ApplyHealing(caster, target, num, src, type);
+		LogHealing(caster, target, src.Name, num);
+		return result;
 	}
 
 	// added in rogues
-	public void Heal(Ability src, ActorData caster, ActorData target, int baseHeal, ServerCombatManager.HealingType type)
+	public void Heal(Ability src, ActorData caster, ActorData target, int baseHeal, HealingType type)
 	{
-		DamageSource src2 = new DamageSource(src, caster.GetFreePos());
-		Heal(src2, caster, target, baseHeal, type);
+		DamageSource healSrc = new DamageSource(src, caster.GetFreePos());
+		Heal(healSrc, caster, target, baseHeal, type);
 	}
 
 	// added in rogues
-	public void Heal(Passive src, ActorData caster, ActorData target, int baseHeal, ServerCombatManager.HealingType type)
+	public void Heal(Passive src, ActorData caster, ActorData target, int baseHeal, HealingType type)
 	{
-		DamageSource src2 = new DamageSource(src, caster.GetFreePos());
-		Heal(src2, caster, target, baseHeal, type);
+		DamageSource healSrc = new DamageSource(src, caster.GetFreePos());
+		Heal(healSrc, caster, target, baseHeal, type);
 	}
 
 	// added in rogues
-	public void Heal(EffectSource src, ActorData caster, ActorData target, int baseHeal, ServerCombatManager.HealingType type)
+	public void Heal(EffectSource src, ActorData caster, ActorData target, int baseHeal, HealingType type)
 	{
-		DamageSource src2;
-		if (src.IsAbility())
-		{
-			src2 = new DamageSource(src.Ability, caster.GetFreePos());
-		}
-		else
-		{
-			src2 = new DamageSource(src.Passive, caster.GetFreePos());
-		}
-		Heal(src2, caster, target, baseHeal, type);
+		DamageSource healSrc = src.IsAbility()
+			? new DamageSource(src.Ability, caster.GetFreePos())
+			: new DamageSource(src.Passive, caster.GetFreePos());
+		Heal(healSrc, caster, target, baseHeal, type);
 	}
 
 	// added in rogues
-	public int CalcHealing(ActorData caster, ActorData target, int baseHeal, DamageSource src, ServerCombatManager.HealingType type)
+	public int CalcHealing(ActorData caster, ActorData target, int baseHeal, DamageSource src, HealingType type)
 	{
-		int result;
-		if (target.GetComponent<ActorStatus>().HasStatus(StatusType.HealImmune, true))
+		if (target.GetComponent<ActorStatus>().HasStatus(StatusType.HealImmune))
 		{
-			result = 0;
+			return 0;
 		}
-		else if (caster != target && caster != null && caster.GetTeam() == target.GetTeam() && target.GetComponent<ActorStatus>().HasStatus(StatusType.CantBeHelpedByTeam, true))
+		if (caster != target
+		    && caster != null
+		    && caster.GetTeam() == target.GetTeam()
+		    && target.GetComponent<ActorStatus>().HasStatus(StatusType.CantBeHelpedByTeam))
 		{
-			result = 0;
+			return 0;
 		}
-		else
+		if (GameplayMutators.Get() != null)
 		{
-			if (GameplayMutators.Get() != null)
+			baseHeal = Mathf.RoundToInt(baseHeal * GameplayMutators.GetHealingMultiplier());
+		}
+		ActorStats component = target.GetComponent<ActorStats>();
+		int heal;
+		if (type == HealingType.Ability || type == HealingType.Effect)
+		{
+			if (caster == null)
 			{
-				baseHeal = Mathf.RoundToInt((float)baseHeal * GameplayMutators.GetHealingMultiplier());
-			}
-			ActorStats component = target.GetComponent<ActorStats>();
-			int num;
-			if (type == HealingType.Ability || type == HealingType.Effect)
-			{
-				if (caster == null)
-				{
-					num = baseHeal;
-				}
-				else
-				{
-					ActorStats component2 = caster.GetComponent<ActorStats>();
-					num = component2.GetModifiedStatInt(StatType.OutgoingHealing, baseHeal);
-					if (!src.IgnoreDamageBuffsAndDebuffs())
-					{
-						int num2;
-						int num3;
-						int num4;
-						num = component2.CalculateOutgoingHealing(baseHeal, out num2, out num3, out num4);
-					}
-				}
+				heal = baseHeal;
 			}
 			else
 			{
-				num = baseHeal;
+				ActorStats component2 = caster.GetComponent<ActorStats>();
+				heal = component2.GetModifiedStatInt(StatType.OutgoingHealing, baseHeal);
+				if (!src.IgnoreDamageBuffsAndDebuffs())
+				{
+					heal = component2.CalculateOutgoingHealing(baseHeal, out var num2, out var num3, out var num4);
+				}
 			}
-			// rogues
-			//EquipmentStats equipmentStats = target.GetEquipmentStats();
-			//if (equipmentStats != null)
-			//{
-			//	num = Mathf.RoundToInt((float)num * equipmentStats.GetTotalStatValueForSlot(GearStatType.IncomingHealingAdjustment, (float)target.m_baseIncomingHealingAdjustment, -1, target));
-			//}
-			result = Mathf.Max(component.GetModifiedStatInt(StatType.IncomingHealing, num), 0);
 		}
-		return result;
+		else
+		{
+			heal = baseHeal;
+		}
+		// rogues
+		//EquipmentStats equipmentStats = target.GetEquipmentStats();
+		//if (equipmentStats != null)
+		//{
+		//	num = Mathf.RoundToInt((float)num * equipmentStats.GetTotalStatValueForSlot(GearStatType.IncomingHealingAdjustment, (float)target.m_baseIncomingHealingAdjustment, -1, target));
+		//}
+		return Mathf.Max(component.GetModifiedStatInt(StatType.IncomingHealing, heal), 0);
 	}
 
 	// added in rogues
@@ -476,71 +476,80 @@ public class ServerCombatManager : MonoBehaviour
 	{
 		ActorData caster = actorHitResults.m_hitParameters.Caster;
 		ActorData target = actorHitResults.m_hitParameters.Target;
-		if (finalHealing >= 0)
+		if (finalHealing < 0)
 		{
-			target.UnresolvedHealing += finalHealing;
-			UnresolvedHealthChange item = default(UnresolvedHealthChange);
-			DamageSource damageSource = actorHitResults.m_hitParameters.DamageSource;
-			item.InitAsHealing(caster, damageSource, finalHealing);
-			item.SetActorHitResults(actorHitResults);
-			List<UnresolvedHealthChange> list;
-			if (!m_unresolvedHealthChanges.TryGetValue(target, out list))
-			{
-				list = new List<UnresolvedHealthChange>();
-				m_unresolvedHealthChanges[target] = list;
-			}
-			list.Add(item);
-			if (caster != null)
-			{
-				ActorBehavior actorBehavior = caster.GetActorBehavior();
-				if (actorBehavior == null)
-				{
-					return;
-				}
-				actorBehavior.CurrentTurn.RecordHealingToActor(target, finalHealing, damageSource);
-			}
+			return;
 		}
+		target.UnresolvedHealing += finalHealing;
+		UnresolvedHealthChange item = default(UnresolvedHealthChange);
+		DamageSource damageSource = actorHitResults.m_hitParameters.DamageSource;
+		item.InitAsHealing(caster, damageSource, finalHealing);
+		item.SetActorHitResults(actorHitResults);
+		if (!m_unresolvedHealthChanges.TryGetValue(target, out var list))
+		{
+			list = new List<UnresolvedHealthChange>();
+			m_unresolvedHealthChanges[target] = list;
+		}
+		list.Add(item);
+		if (caster == null)
+		{
+			return;
+		}
+		ActorBehavior actorBehavior = caster.GetActorBehavior();
+		if (actorBehavior == null)
+		{
+			return;
+		}
+		actorBehavior.CurrentTurn.RecordHealingToActor(target, finalHealing, damageSource);
 	}
 
 	// added in rogues
-	private UnresolvedHealthChange? ApplyHealing(ActorData caster, ActorData target, int finalHealing, DamageSource src, ServerCombatManager.HealingType type)
+	private UnresolvedHealthChange? ApplyHealing(ActorData caster, ActorData target, int finalHealing, DamageSource src, HealingType type)
 	{
-		if (finalHealing >= 0)
+		if (finalHealing < 0)
 		{
-			target.UnresolvedHealing += finalHealing;
-			UnresolvedHealthChange unresolvedHealthChange = default(UnresolvedHealthChange);
-			unresolvedHealthChange.InitAsHealing(caster, src, finalHealing);
-			if (!m_unresolvedHealthChanges.ContainsKey(target))
-			{
-				m_unresolvedHealthChanges.Add(target, new List<UnresolvedHealthChange>());
-			}
-			m_unresolvedHealthChanges[target].Add(unresolvedHealthChange);
-			if (caster != null)
-			{
-				ActorBehavior actorBehavior = caster.GetActorBehavior();
-				if (actorBehavior != null)
-				{
-					actorBehavior.CurrentTurn.RecordHealingToActor(target, finalHealing, src);
-				}
-			}
-			return new UnresolvedHealthChange?(unresolvedHealthChange);
+			return null;
 		}
-		return null;
+		target.UnresolvedHealing += finalHealing;
+		UnresolvedHealthChange unresolvedHealthChange = default(UnresolvedHealthChange);
+		unresolvedHealthChange.InitAsHealing(caster, src, finalHealing);
+		if (!m_unresolvedHealthChanges.ContainsKey(target))
+		{
+			m_unresolvedHealthChanges.Add(target, new List<UnresolvedHealthChange>());
+		}
+		m_unresolvedHealthChanges[target].Add(unresolvedHealthChange);
+		if (caster == null)
+		{
+			return unresolvedHealthChange;
+		}
+		ActorBehavior actorBehavior = caster.GetActorBehavior();
+		if (actorBehavior != null)
+		{
+			actorBehavior.CurrentTurn.RecordHealingToActor(target, finalHealing, src);
+		}
+		return unresolvedHealthChange;
 	}
 
 	// added in rogues
-	public void ExecuteHealing(ActorHitResults actorHitResults, ServerCombatManager.HealingType type)
+	public void ExecuteHealing(ActorHitResults actorHitResults, HealingType type)
 	{
-		int num = (type == HealingType.Lifesteal) ? actorHitResults.LifestealHealingOnCaster : actorHitResults.FinalHealing;
+		int heal = type == HealingType.Lifesteal
+			? actorHitResults.LifestealHealingOnCaster
+			: actorHitResults.FinalHealing;
 		ActorData caster = actorHitResults.m_hitParameters.Caster;
 		ActorData target = actorHitResults.m_hitParameters.Target;
 		DamageSource damageSource = actorHitResults.m_hitParameters.DamageSource;
-		ApplyHealing(actorHitResults, num);
-		LogHealing(caster, target, damageSource.Name, num);
-		GameEventManager.ActorHitHealthChangeArgs args = new GameEventManager.ActorHitHealthChangeArgs(GameEventManager.ActorHitHealthChangeArgs.ChangeType.Healing, num, target, caster, damageSource.IsCharacterSpecificAbility(caster));
+		ApplyHealing(actorHitResults, heal);
+		LogHealing(caster, target, damageSource.Name, heal);
+		GameEventManager.ActorHitHealthChangeArgs args = new GameEventManager.ActorHitHealthChangeArgs(
+			GameEventManager.ActorHitHealthChangeArgs.ChangeType.Healing,
+			heal,
+			target,
+			caster,
+			damageSource.IsCharacterSpecificAbility(caster));
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.ActorHealed_Server, args);
-		GameplayMetricHelper.CollectHealingDealt(caster, target, num, damageSource.Ability);
-		GameplayMetricHelper.CollectHealingReceived(target, num);
+		GameplayMetricHelper.CollectHealingDealt(caster, target, heal, damageSource.Ability);
+		GameplayMetricHelper.CollectHealingReceived(target, heal);
 	}
 
 	// added in rogues
@@ -601,38 +610,10 @@ public class ServerCombatManager : MonoBehaviour
 			num3 = Mathf.Clamp(num3, 0, actorData.GetMaxHitPoints());
 			actorData.SetHitPoints(num3);
 			actorData.CallRpcOnHitPointsResolved(num3);
-			MatchLogger.Get().Log(string.Concat(new object[]
-			{
-				actorData.DisplayName,
-				" Resolved HP for Turn ",
-				GameFlowData.Get().CurrentTurn,
-				", phase ",
-				ServerActionBuffer.Get().AbilityPhase.ToString(),
-				" damage before effects ",
-				unresolvedDamage,
-				", healing before effects ",
-				unresolvedHealing,
-				", absorb before damage ",
-				num,
-				", absorb after damage ",
-				actorData.AbsorbPoints,
-				", damage after effects ",
-				actorData.UnresolvedDamage,
-				", healing after effects ",
-				actorData.UnresolvedHealing,
-				", final HitPoints ",
-				actorData.HitPoints
-			}));
+			MatchLogger.Get().Log($"{actorData.DisplayName} Resolved HP for Turn {GameFlowData.Get().CurrentTurn}, phase {ServerActionBuffer.Get().AbilityPhase} damage before effects {unresolvedDamage}, healing before effects {unresolvedHealing}, absorb before damage {num}, absorb after damage {actorData.AbsorbPoints}, damage after effects {actorData.UnresolvedDamage}, healing after effects {actorData.UnresolvedHealing}, final HitPoints {actorData.HitPoints}");
 			if (flag && num3 > 0)
 			{
-				Log.Error(string.Concat(new object[]
-				{
-					"ResolveHitPoints, actor ",
-					actorData.DebugNameString(),
-					" getting ",
-					num3,
-					" hp while dead"
-				}));
+				Log.Error($"ResolveHitPoints, actor {actorData.DebugNameString()} getting {num3} hp while dead");
 			}
 			foreach (UnresolvedHealthChange unresolvedHealthChange in m_unresolvedHealthChanges[actorData])
 			{
@@ -735,8 +716,8 @@ public class ServerCombatManager : MonoBehaviour
 					int unresolvedHealToTarget = actorData.GetActorBehavior().GetUnresolvedHealToTarget(actor);
 					if (unresolvedHealToTarget > 0)
 					{
-						float num = (float)unresolvedHealToTarget / (float)healFromAbilities;
-						int amount = Mathf.RoundToInt((float)overhealAmountTotal * num);
+						float num = unresolvedHealToTarget / (float)healFromAbilities;
+						int amount = Mathf.RoundToInt(overhealAmountTotal * num);
 						actorData.GetActorBehavior().OnOverhealDealt(amount);
 					}
 				}
@@ -756,8 +737,8 @@ public class ServerCombatManager : MonoBehaviour
 					int unresolvedDamageToTarget = actorData.GetActorBehavior().GetUnresolvedDamageToTarget(actor);
 					if (unresolvedDamageToTarget > 0)
 					{
-						float num = (float)unresolvedDamageToTarget / (float)totalUnresolvedDamage;
-						int amount = Mathf.RoundToInt((float)overkillAmountTotal * num);
+						float num = unresolvedDamageToTarget / (float)totalUnresolvedDamage;
+						int amount = Mathf.RoundToInt(overkillAmountTotal * num);
 						actorData.GetActorBehavior().OnOverkillDamageDealt(amount);
 					}
 				}
@@ -817,31 +798,18 @@ public class ServerCombatManager : MonoBehaviour
 			int unresolvedTechPointLoss = actorData.UnresolvedTechPointLoss;
 			actorData.UnresolvedTechPointGain = 0;
 			actorData.UnresolvedTechPointLoss = 0;
-			actorData.SetTechPoints(actorData.TechPoints + unresolvedTechPointGain - unresolvedTechPointLoss, false, null, null);
+			actorData.SetTechPoints(actorData.TechPoints + unresolvedTechPointGain - unresolvedTechPointLoss);
 
 			// rogues
 			//actorData.CallRpcOnTechPointsResolved(actorData.TechPoints);
 
-			MatchLogger.Get().Log(string.Concat(new object[]
-			{
-				actorData.DisplayName,
-				" Resolved TechPoint for Turn ",
-				GameFlowData.Get().CurrentTurn,
-				", phase ",
-				ServerActionBuffer.Get().AbilityPhase.ToString(),
-				", TechPoint gain: ",
-				unresolvedTechPointGain,
-				", TechPoint loss: ",
-				unresolvedTechPointLoss,
-				", final TechPoints ",
-				actorData.TechPoints
-			}));
+			MatchLogger.Get().Log($"{actorData.DisplayName} Resolved TechPoint for Turn {GameFlowData.Get().CurrentTurn}, phase {ServerActionBuffer.Get().AbilityPhase}, TechPoint gain: {unresolvedTechPointGain}, TechPoint loss: {unresolvedTechPointLoss}, final TechPoints {actorData.TechPoints}");
 		}
 		m_unresolvedTechPointChanges.Clear();
 	}
 
 	// added in rogues
-	public void TechPointGain(DamageSource src, ActorData caster, ActorData target, int baseGain, ServerCombatManager.TechPointChangeType type)
+	public void TechPointGain(DamageSource src, ActorData caster, ActorData target, int baseGain, TechPointChangeType type)
 	{
 		if (!target.IsDead())
 		{
@@ -850,21 +818,21 @@ public class ServerCombatManager : MonoBehaviour
 	}
 
 	// added in rogues
-	public void TechPointGain(Ability src, ActorData caster, ActorData target, int baseGain, ServerCombatManager.TechPointChangeType type)
+	public void TechPointGain(Ability src, ActorData caster, ActorData target, int baseGain, TechPointChangeType type)
 	{
 		DamageSource src2 = new DamageSource(src, caster.GetFreePos());
 		TechPointGain(src2, caster, target, baseGain, type);
 	}
 
 	// added in rogues
-	public void TechPointGain(Passive src, ActorData caster, ActorData target, int baseGain, ServerCombatManager.TechPointChangeType type)
+	public void TechPointGain(Passive src, ActorData caster, ActorData target, int baseGain, TechPointChangeType type)
 	{
 		DamageSource src2 = new DamageSource(src, caster.GetFreePos());
 		TechPointGain(src2, caster, target, baseGain, type);
 	}
 
 	// added in rogues
-	public void TechPointGain(EffectSource src, ActorData caster, ActorData target, int baseGain, ServerCombatManager.TechPointChangeType type)
+	public void TechPointGain(EffectSource src, ActorData caster, ActorData target, int baseGain, TechPointChangeType type)
 	{
 		DamageSource src2;
 		if (src.IsAbility())
@@ -879,7 +847,7 @@ public class ServerCombatManager : MonoBehaviour
 	}
 
 	// added in rogues
-	private int ApplyTechPointGain(ActorData caster, ActorData target, int baseGain, DamageSource src, ServerCombatManager.TechPointChangeType type)
+	private int ApplyTechPointGain(ActorData caster, ActorData target, int baseGain, DamageSource src, TechPointChangeType type)
 	{
 		int num = CalcTechPointGain(target, baseGain, AbilityData.ActionType.INVALID_ACTION, null);
 		ExecuteTechPointGain(caster, target, num, src);
@@ -908,8 +876,8 @@ public class ServerCombatManager : MonoBehaviour
 		// rogues
 		//EquipmentStats equipmentStats = actor.GetEquipmentStats();
 		//int num = Mathf.Max(0, Mathf.RoundToInt(equipmentStats.GetTotalStatValueForSlot(GearStatType.TechPointGenerationAdjustment, (float)baseGain, (int)actionType, actor)));
-		bool flag = actorStatus.HasStatus(StatusType.Energized, true);
-		bool flag2 = actorStatus.HasStatus(StatusType.SlowEnergyGain, true);
+		bool flag = actorStatus.HasStatus(StatusType.Energized);
+		bool flag2 = actorStatus.HasStatus(StatusType.SlowEnergyGain);
 		AbilityModPropertyInt energizedEnergyGainMod;
 		if (GameplayMutators.Get() == null || !GameplayMutators.Get().m_useEnergizedOverride)
 		{
@@ -941,10 +909,10 @@ public class ServerCombatManager : MonoBehaviour
 		if (GameplayMutators.Get() != null)
 		{
 			float energyGainMultiplier = GameplayMutators.GetEnergyGainMultiplier();
-			num = Mathf.RoundToInt((float)num * energyGainMultiplier);
-			baseGain = Mathf.RoundToInt((float)baseGain * energyGainMultiplier);
-			num2 = Mathf.RoundToInt((float)num2 * energyGainMultiplier);
-			num3 = Mathf.RoundToInt((float)num3 * energyGainMultiplier);
+			num = Mathf.RoundToInt(num * energyGainMultiplier);
+			baseGain = Mathf.RoundToInt(baseGain * energyGainMultiplier);
+			num2 = Mathf.RoundToInt(num2 * energyGainMultiplier);
+			num3 = Mathf.RoundToInt(num3 * energyGainMultiplier);
 		}
 		num = Mathf.Max(num, 0);
 		if (statAdjustments != null)
@@ -955,7 +923,7 @@ public class ServerCombatManager : MonoBehaviour
 	}
 
 	// added in rogues
-	public void TechPointLoss(DamageSource src, ActorData caster, ActorData target, int baseLoss, ServerCombatManager.TechPointChangeType type)
+	public void TechPointLoss(DamageSource src, ActorData caster, ActorData target, int baseLoss, TechPointChangeType type)
 	{
 		if (!target.IsDead())
 		{
@@ -964,21 +932,21 @@ public class ServerCombatManager : MonoBehaviour
 	}
 
 	// added in rogues
-	public void TechPointLoss(Ability src, ActorData caster, ActorData target, int baseLoss, ServerCombatManager.TechPointChangeType type)
+	public void TechPointLoss(Ability src, ActorData caster, ActorData target, int baseLoss, TechPointChangeType type)
 	{
 		DamageSource src2 = new DamageSource(src, caster.GetFreePos());
 		TechPointLoss(src2, caster, target, baseLoss, type);
 	}
 
 	// added in rogues
-	public void TechPointLoss(Passive src, ActorData caster, ActorData target, int baseLoss, ServerCombatManager.TechPointChangeType type)
+	public void TechPointLoss(Passive src, ActorData caster, ActorData target, int baseLoss, TechPointChangeType type)
 	{
 		DamageSource src2 = new DamageSource(src, caster.GetFreePos());
 		TechPointLoss(src2, caster, target, baseLoss, type);
 	}
 
 	// added in rogues
-	public void TechPointLoss(EffectSource src, ActorData caster, ActorData target, int baseLoss, ServerCombatManager.TechPointChangeType type)
+	public void TechPointLoss(EffectSource src, ActorData caster, ActorData target, int baseLoss, TechPointChangeType type)
 	{
 		DamageSource src2;
 		if (src.IsAbility())
@@ -993,7 +961,7 @@ public class ServerCombatManager : MonoBehaviour
 	}
 
 	// added in rogues
-	private int ApplyTechPointLoss(ActorData caster, ActorData target, int baseLoss, DamageSource src, ServerCombatManager.TechPointChangeType type)
+	private int ApplyTechPointLoss(ActorData caster, ActorData target, int baseLoss, DamageSource src, TechPointChangeType type)
 	{
 		int num = CalcTechPointLoss(caster, target, baseLoss, src, type);
 		ExecuteTechPointLoss(caster, target, num, src);
@@ -1014,7 +982,7 @@ public class ServerCombatManager : MonoBehaviour
 	}
 
 	// added in rogues
-	public int CalcTechPointLoss(ActorData caster, ActorData target, int baseLoss, DamageSource src, ServerCombatManager.TechPointChangeType type)
+	public int CalcTechPointLoss(ActorData caster, ActorData target, int baseLoss, DamageSource src, TechPointChangeType type)
 	{
 		return Mathf.Max(baseLoss, 0);
 	}
