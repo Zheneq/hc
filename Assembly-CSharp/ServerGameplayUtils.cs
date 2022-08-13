@@ -7,18 +7,24 @@ using UnityEngine;
 #if SERVER
 public static class ServerGameplayUtils
 {
-	public static void SetServerLastKnownPositionsForMovement(MovementCollection stabilizedMovement, out List<ActorData> actorsThatWillBeSeenButArentMoving_normal, out List<ActorData> actorsThatWillBeSeenButArentMoving_chase)
+	public static void SetServerLastKnownPositionsForMovement(
+		MovementCollection stabilizedMovement,
+		out List<ActorData> actorsThatWillBeSeenButArentMoving_normal,
+		out List<ActorData> actorsThatWillBeSeenButArentMoving_chase)
 	{
 		Dictionary<ActorData, LastKnownPosData> dictionary = new Dictionary<ActorData, LastKnownPosData>();
 		foreach (MovementInstance movementInstance in stabilizedMovement.m_movementInstances)
 		{
-			LastKnownPosData value = new LastKnownPosData(movementInstance);
-			dictionary.Add(movementInstance.m_mover, value);
+			dictionary.Add(movementInstance.m_mover, new LastKnownPosData(movementInstance));
 			movementInstance.m_mover.OnServerLastKnownPosUpdateBegin();
 		}
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
 		{
-			if (actorData != null && !actorData.IsDead() && actorData.GetCurrentBoardSquare() != null && actorData.ServerLastKnownPosSquare != actorData.GetCurrentBoardSquare() && actorData.IsActorVisibleToAnyEnemy())
+			if (actorData != null
+			    && !actorData.IsDead()
+			    && actorData.GetCurrentBoardSquare() != null
+			    && actorData.ServerLastKnownPosSquare != actorData.GetCurrentBoardSquare()
+			    && actorData.IsActorVisibleToAnyEnemy())
 			{
 				actorData.SetServerLastKnownPosSquare(actorData.CurrentBoardSquare, "SetServerLastKnownPositionsForMovement");
 			}
@@ -29,23 +35,27 @@ public static class ServerGameplayUtils
 		{
 			lastKnownPosData.Actor.SwapBoardSquare(lastKnownPosData.m_actorOriginalBoardSquare);
 		}
-		foreach (ActorData actorData2 in dictionary.Keys)
+		foreach (ActorData actorData in dictionary.Keys)
 		{
-			actorData2.GetFogOfWar().ImmediateUpdateVisibilityOfSquares();
+			actorData.GetFogOfWar().ImmediateUpdateVisibilityOfSquares();
 		}
-		foreach (MovementInstance movementInstance2 in stabilizedMovement.m_movementInstances)
+		foreach (MovementInstance movementInstance in stabilizedMovement.m_movementInstances)
 		{
-			movementInstance2.m_mover.OnServerLastKnownPosUpdateEnd();
+			movementInstance.m_mover.OnServerLastKnownPosUpdateEnd();
 		}
 	}
 
-	private static void IterateOverLastKnownPosData(ref Dictionary<ActorData, LastKnownPosData> moverToLastKnownPosData, out List<ActorData> actorsThatWillBeSeenButArentMoving, MovementCollection stabilizedMovement, bool consideringChasers)
+	private static void IterateOverLastKnownPosData(
+		ref Dictionary<ActorData, LastKnownPosData> moverToLastKnownPosData,
+		out List<ActorData> actorsThatWillBeSeenButArentMoving,
+		MovementCollection stabilizedMovement,
+		bool consideringChasers)
 	{
 		int num = Mathf.RoundToInt(GetDistanceToConsider(stabilizedMovement, consideringChasers) * 2f) + 1;
 		actorsThatWillBeSeenButArentMoving = new List<ActorData>();
 		for (int i = 0; i < num; i++)
 		{
-			float distance = (float)i * 0.5f - 0.01f;
+			float distance = i * 0.5f - 0.01f;
 			foreach (LastKnownPosData lastKnownPosData in moverToLastKnownPosData.Values)
 			{
 				if (lastKnownPosData.WasChase == consideringChasers)
@@ -53,52 +63,57 @@ public static class ServerGameplayUtils
 					lastKnownPosData.UpdateCurrentlyConsideredPathFromDistance(distance);
 				}
 			}
-			bool flag = false;
-			foreach (LastKnownPosData lastKnownPosData2 in moverToLastKnownPosData.Values)
+			bool updateFog = false;
+			foreach (LastKnownPosData lastKnownPosData in moverToLastKnownPosData.Values)
 			{
-				if (lastKnownPosData2.WasChase == consideringChasers && !flag)
+				if (lastKnownPosData.WasChase == consideringChasers && !updateFog)
 				{
-					Object currentBoardSquare = lastKnownPosData2.Actor.CurrentBoardSquare;
-					lastKnownPosData2.Actor.SwapBoardSquare(lastKnownPosData2.m_currentlyConsideredPath.square);
-					if (currentBoardSquare != lastKnownPosData2.Actor.CurrentBoardSquare)
+					BoardSquare currentBoardSquare = lastKnownPosData.Actor.CurrentBoardSquare;
+					lastKnownPosData.Actor.SwapBoardSquare(lastKnownPosData.m_currentlyConsideredPath.square);
+					if (currentBoardSquare != lastKnownPosData.Actor.CurrentBoardSquare)
 					{
-						flag = true;
+						updateFog = true;
 					}
 				}
 			}
-			if (flag)
+			if (updateFog)
 			{
 				foreach (ActorData actorData in moverToLastKnownPosData.Keys)
 				{
 					actorData.GetFogOfWar().ImmediateUpdateVisibilityOfSquares();
 				}
 			}
-			foreach (LastKnownPosData lastKnownPosData3 in moverToLastKnownPosData.Values)
+			foreach (LastKnownPosData lastKnownPosData in moverToLastKnownPosData.Values)
 			{
-				if (lastKnownPosData3.WasChase != consideringChasers)
+				if (lastKnownPosData.WasChase == consideringChasers)
 				{
-					if (!lastKnownPosData3.Actor.IsDead() && lastKnownPosData3.Actor.ServerLastKnownPosSquare != lastKnownPosData3.Actor.GetCurrentBoardSquare() && (lastKnownPosData3.Actor.GetActorStatus().HasStatus(StatusType.Revealed, true) || CaptureTheFlag.IsActorRevealedByFlag_Server(lastKnownPosData3.Actor) || !lastKnownPosData3.m_movementInstance.m_willBeStealthed) && lastKnownPosData3.Actor.IsActorVisibleToAnyEnemy())
+					lastKnownPosData.UpdateLastKnownPath(stabilizedMovement.m_movementStage);
+				}
+				else if (!lastKnownPosData.Actor.IsDead()
+				         && lastKnownPosData.Actor.ServerLastKnownPosSquare != lastKnownPosData.Actor.GetCurrentBoardSquare()
+				         && (lastKnownPosData.Actor.GetActorStatus().HasStatus(StatusType.Revealed)
+				             || CaptureTheFlag.IsActorRevealedByFlag_Server(lastKnownPosData.Actor)
+				             || !lastKnownPosData.m_movementInstance.m_willBeStealthed)
+				         && lastKnownPosData.Actor.IsActorVisibleToAnyEnemy())
+				{
+					lastKnownPosData.Actor.SetServerLastKnownPosSquare(lastKnownPosData.Actor.CurrentBoardSquare, "IterateOverLastKnownPosData (movers)");
+					if (!actorsThatWillBeSeenButArentMoving.Contains(lastKnownPosData.Actor))
 					{
-						lastKnownPosData3.Actor.SetServerLastKnownPosSquare(lastKnownPosData3.Actor.CurrentBoardSquare, "IterateOverLastKnownPosData (movers)");
-						if (!actorsThatWillBeSeenButArentMoving.Contains(lastKnownPosData3.Actor))
-						{
-							actorsThatWillBeSeenButArentMoving.Add(lastKnownPosData3.Actor);
-						}
+						actorsThatWillBeSeenButArentMoving.Add(lastKnownPosData.Actor);
 					}
 				}
-				else
-				{
-					lastKnownPosData3.UpdateLastKnownPath(stabilizedMovement.m_movementStage);
-				}
 			}
-			foreach (ActorData actorData2 in GameFlowData.Get().GetActors())
+			foreach (ActorData actorData in GameFlowData.Get().GetActors())
 			{
-				if (!moverToLastKnownPosData.ContainsKey(actorData2) && !actorData2.IsDead() && actorData2.ServerLastKnownPosSquare != actorData2.GetCurrentBoardSquare() && actorData2.IsActorVisibleToAnyEnemy())
+				if (!moverToLastKnownPosData.ContainsKey(actorData)
+				    && !actorData.IsDead()
+				    && actorData.ServerLastKnownPosSquare != actorData.GetCurrentBoardSquare()
+				    && actorData.IsActorVisibleToAnyEnemy())
 				{
-					actorData2.SetServerLastKnownPosSquare(actorData2.CurrentBoardSquare, "IterateOverLastKnownPosData (non-movers)");
-					if (!actorsThatWillBeSeenButArentMoving.Contains(actorData2))
+					actorData.SetServerLastKnownPosSquare(actorData.CurrentBoardSquare, "IterateOverLastKnownPosData (non-movers)");
+					if (!actorsThatWillBeSeenButArentMoving.Contains(actorData))
 					{
-						actorsThatWillBeSeenButArentMoving.Add(actorData2);
+						actorsThatWillBeSeenButArentMoving.Add(actorData);
 					}
 				}
 			}
@@ -129,59 +144,58 @@ public static class ServerGameplayUtils
 
 	private static float GetDistanceToConsider(MovementCollection stabilizedMovement, bool forChase)
 	{
-		float num = 0f;
+		float res = 0f;
 		foreach (MovementInstance movementInstance in stabilizedMovement.m_movementInstances)
 		{
 			if (movementInstance.m_wasChase == forChase)
 			{
-				float num2 = movementInstance.m_path.FindMoveCostToEnd();
-				if (num2 > num)
+				float cost = movementInstance.m_path.FindMoveCostToEnd();
+				if (cost > res)
 				{
-					num = num2;
+					res = cost;
 				}
 			}
 		}
-		return num;
+		return res;
 	}
 
 	private static float GetDistanceToConsider(MovementCollection stabilizedMovement)
 	{
-		float num = 0f;
+		float res = 0f;
 		foreach (MovementInstance movementInstance in stabilizedMovement.m_movementInstances)
 		{
-			float num2 = movementInstance.m_path.FindMoveCostToEnd();
-			if (num2 > num)
+			float cost = movementInstance.m_path.FindMoveCostToEnd();
+			if (cost > res)
 			{
-				num = num2;
+				res = cost;
 			}
 		}
-		return num;
+		return res;
 	}
 
 	private static List<BoardSquare> FindAllSquaresClaimedByStationaryActors(bool includeAfterImages = true)
 	{
 		List<BoardSquare> list = new List<BoardSquare>();
 		List<ActorData> stationaryActors = ServerActionBuffer.Get().GetStationaryActors();
-		for (int i = 0; i < stationaryActors.Count; i++)
+		foreach (ActorData actorData in stationaryActors)
 		{
-			ActorData actorData = stationaryActors[i];
-			if (actorData != null && !actorData.IsDead())
+			if (actorData == null || actorData.IsDead())
 			{
-				if (GameplayUtils.IsPlayerControlled(actorData) && actorData.CurrentBoardSquare != null)
+				continue;
+			}
+			if (GameplayUtils.IsPlayerControlled(actorData) && actorData.CurrentBoardSquare != null)
+			{
+				list.Add(actorData.CurrentBoardSquare);
+			}
+			if (includeAfterImages)
+			{
+				TricksterAfterImageNetworkBehaviour component = actorData.GetComponent<TricksterAfterImageNetworkBehaviour>();
+				if (component != null)
 				{
-					list.Add(actorData.CurrentBoardSquare);
-				}
-				if (includeAfterImages)
-				{
-					TricksterAfterImageNetworkBehaviour component = actorData.GetComponent<TricksterAfterImageNetworkBehaviour>();
-					if (component != null)
+					List<ActorData> validAfterImages = component.GetValidAfterImages();
+					foreach (ActorData afterImageActorData in validAfterImages)
 					{
-						List<ActorData> validAfterImages = component.GetValidAfterImages(true);
-						for (int j = 0; j < validAfterImages.Count; j++)
-						{
-							ActorData actorData2 = validAfterImages[j];
-							list.Add(actorData2.CurrentBoardSquare);
-						}
+						list.Add(afterImageActorData.CurrentBoardSquare);
 					}
 				}
 			}
@@ -189,14 +203,17 @@ public static class ServerGameplayUtils
 		return list;
 	}
 
-	private static List<BoardSquare> FindAllSquaresClaimedByMovers(bool includeNormalMovers, bool includeChasers, bool includeCurrentSquareOfMovingTricksters = true)
+	private static List<BoardSquare> FindAllSquaresClaimedByMovers(
+		bool includeNormalMovers,
+		bool includeChasers,
+		bool includeCurrentSquareOfMovingTricksters = true)
 	{
 		List<BoardSquare> list = new List<BoardSquare>();
 		List<MovementRequest> allStoredMovementRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests();
-		for (int i = 0; i < allStoredMovementRequests.Count; i++)
+		foreach (MovementRequest movementRequest in allStoredMovementRequests)
 		{
-			MovementRequest movementRequest = allStoredMovementRequests[i];
-			if ((movementRequest.WasEverChasing() && includeChasers) || (!movementRequest.WasEverChasing() && includeNormalMovers))
+			if ((movementRequest.WasEverChasing() && includeChasers)
+			    || (!movementRequest.WasEverChasing() && includeNormalMovers))
 			{
 				list.Add(movementRequest.m_targetSquare);
 				if (includeCurrentSquareOfMovingTricksters && movementRequest.m_actor.GetComponent<TricksterAfterImageNetworkBehaviour>() != null)
@@ -208,14 +225,17 @@ public static class ServerGameplayUtils
 		return list;
 	}
 
-	private static List<BoardSquare> FindAllCurrentSquaresOfMovers(bool includeNormalMovers, bool includeChasers, bool includeCurrentSquaresOfTricksterAfterimages = true)
+	private static List<BoardSquare> FindAllCurrentSquaresOfMovers(
+		bool includeNormalMovers,
+		bool includeChasers,
+		bool includeCurrentSquaresOfTricksterAfterimages = true)
 	{
 		List<BoardSquare> list = new List<BoardSquare>();
 		List<MovementRequest> allStoredMovementRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests();
-		for (int i = 0; i < allStoredMovementRequests.Count; i++)
+		foreach (MovementRequest movementRequest in allStoredMovementRequests)
 		{
-			MovementRequest movementRequest = allStoredMovementRequests[i];
-			if ((movementRequest.WasEverChasing() && includeChasers) || (!movementRequest.WasEverChasing() && includeNormalMovers))
+			if ((movementRequest.WasEverChasing() && includeChasers)
+			    || (!movementRequest.WasEverChasing() && includeNormalMovers))
 			{
 				list.Add(movementRequest.m_actor.CurrentBoardSquare);
 				if (includeCurrentSquaresOfTricksterAfterimages)
@@ -223,11 +243,10 @@ public static class ServerGameplayUtils
 					TricksterAfterImageNetworkBehaviour component = movementRequest.m_actor.GetComponent<TricksterAfterImageNetworkBehaviour>();
 					if (component != null)
 					{
-						List<ActorData> validAfterImages = component.GetValidAfterImages(true);
-						for (int j = 0; j < validAfterImages.Count; j++)
+						List<ActorData> validAfterImages = component.GetValidAfterImages();
+						foreach (ActorData afterImageActorData in validAfterImages)
 						{
-							ActorData actorData = validAfterImages[j];
-							list.Add(actorData.CurrentBoardSquare);
+							list.Add(afterImageActorData.CurrentBoardSquare);
 						}
 					}
 				}
@@ -239,22 +258,17 @@ public static class ServerGameplayUtils
 	public static List<BoardSquare> FindAllClaimedSquaresForNormalMovement()
 	{
 		List<BoardSquare> list = new List<BoardSquare>();
-		List<BoardSquare> collection = FindAllSquaresClaimedByStationaryActors(true);
-		List<BoardSquare> collection2 = FindAllSquaresClaimedByMovers(true, false, true);
-		List<BoardSquare> collection3 = FindAllCurrentSquaresOfMovers(false, true, true);
-		list.AddRange(collection);
-		list.AddRange(collection2);
-		list.AddRange(collection3);
+		list.AddRange(FindAllSquaresClaimedByStationaryActors(true));
+		list.AddRange(FindAllSquaresClaimedByMovers(true, false, true));
+		list.AddRange(FindAllCurrentSquaresOfMovers(false, true, true));
 		return list;
 	}
 
 	public static List<BoardSquare> FindAllClaimedSquaresForChaseMovement()
 	{
 		List<BoardSquare> list = new List<BoardSquare>();
-		List<BoardSquare> collection = FindAllSquaresClaimedByStationaryActors(true);
-		List<BoardSquare> collection2 = FindAllSquaresClaimedByMovers(true, true, true);
-		list.AddRange(collection);
-		list.AddRange(collection2);
+		list.AddRange(FindAllSquaresClaimedByStationaryActors(true));
+		list.AddRange(FindAllSquaresClaimedByMovers(true, true, true));
 		return list;
 	}
 
@@ -324,7 +338,7 @@ public static class ServerGameplayUtils
 		int num = Mathf.RoundToInt(GetDistanceToConsider(stabilizedMovement) * 2f);
 		for (int i = 0; i < num; i++)
 		{
-			float num2 = 1f + (float)i * 0.5f - 0.01f;
+			float num2 = 1f + i * 0.5f - 0.01f;
 			foreach (MovementGameplayData movementGameplayData in moverToGameplayData.Values)
 			{
 				if (!movementGameplayData.WillHaveDiedByNow(num2))
@@ -848,7 +862,17 @@ public static class ServerGameplayUtils
 		public int m_damageMitigatedFromArmored;
 		public int m_damageMitigatedFromCover;
 
-		public DamageStatAdjustments(ActorData caster, ActorData target, int damage_actual, int damage_outgoingNormal, int damage_outgoingEmpowered, int damage_outgoingWeakened, int damage_incomingNormal, int damage_incomingVulnerable, int damage_incomingArmored, int damageBeforeCover)
+		public DamageStatAdjustments(
+			ActorData caster,
+			ActorData target,
+			int damage_actual,
+			int damage_outgoingNormal,
+			int damage_outgoingEmpowered,
+			int damage_outgoingWeakened,
+			int damage_incomingNormal,
+			int damage_incomingVulnerable,
+			int damage_incomingArmored,
+			int damageBeforeCover)
 		{
 			m_caster = caster;
 			m_target = target;
@@ -859,14 +883,14 @@ public static class ServerGameplayUtils
 			if (caster != null && caster.GetActorStatus() != null)
 			{
 				ActorStatus actorStatus = caster.GetActorStatus();
-				isEmpowered = actorStatus.HasStatus(StatusType.Empowered, true);
-				isWeakened = actorStatus.HasStatus(StatusType.Weakened, true);
+				isEmpowered = actorStatus.HasStatus(StatusType.Empowered);
+				isWeakened = actorStatus.HasStatus(StatusType.Weakened);
 			}
 			if (target != null && target.GetActorStatus() != null)
 			{
 				ActorStatus actorStatus2 = target.GetActorStatus();
-				isVulnerable = actorStatus2.HasStatus(StatusType.Vulnerable, true);
-				isArmored = actorStatus2.HasStatus(StatusType.Armored, true);
+				isVulnerable = actorStatus2.HasStatus(StatusType.Vulnerable);
+				isArmored = actorStatus2.HasStatus(StatusType.Armored);
 			}
 			if (isEmpowered)
 			{
