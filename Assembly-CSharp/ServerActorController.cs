@@ -12,85 +12,91 @@ using UnityEngine.Networking;
 public class ServerActorController : MonoBehaviour
 {
 #if SERVER
-	// TODO there is no forceDelayExecution in reactor
-	public virtual void ProcessSetSquareRequest(int x, int y, bool setWaypoint, bool forceDelayExecution = false)
+	// rogues
+	public virtual void ProcessSetSquareRequest(int x, int y, bool setWaypoint, bool forceDelayExecution = false) // there is no forceDelayExecution in reactor
 	{
-		ActorData component = GetComponent<ActorData>();
-		ActorMovement component2 = GetComponent<ActorMovement>();
-		ActorTurnSM component3 = GetComponent<ActorTurnSM>();
-		AbilityData component4 = GetComponent<AbilityData>();
-		GameFlowData gameFlowData = GameFlowData.Get();
-		ServerActionBuffer serverActionBuffer = ServerActionBuffer.Get();
-		Board board = Board.Get();
-		bool flag = false;
-		if (component && component2 && component3 && component4 && gameFlowData && serverActionBuffer && board)
+		ActorData actorData = GetComponent<ActorData>();
+		ActorMovement actorMovement = GetComponent<ActorMovement>();
+		ActorTurnSM actorTurnSm = GetComponent<ActorTurnSM>();
+		AbilityData abilityData = GetComponent<AbilityData>();
+		bool success = false;
+		if (actorData != null
+		    && actorMovement != null
+		    && actorTurnSm != null
+		    && abilityData != null
+		    && GameFlowData.Get() != null
+		    && ServerActionBuffer.Get() != null
+		    && Board.Get() != null)
 		{
-			bool flag2 = component3.AmDecidingMovement();
-			bool flag3 = gameFlowData.IsInDecisionState();
+			bool amDecidingMovement = actorTurnSm.AmDecidingMovement();
+			bool isInDecisionState = GameFlowData.Get().IsInDecisionState();
+			
 			// rogues
-			//bool flag4 = ServerActionBuffer.Get().GetPlayerActionFSM().IsAcceptingInput();
-			//bool flag5 = PlayerActionStateMachine.ExecutePlayerActionImmediately() && !forceDelayExecution && flag4;
-			// custom random
-			bool flag5 = false;
-
-			if (flag2 && flag3)
+			//bool isAcceptingInput = ServerActionBuffer.Get().GetPlayerActionFSM().IsAcceptingInput();
+			//bool executeImmediately = PlayerActionStateMachine.ExecutePlayerActionImmediately() && !forceDelayExecution && isAcceptingInput;
+			// custom
+			bool executeImmediately = false;
+			
+			if (amDecidingMovement && isInDecisionState)
 			{
-				if (ServerActionBuffer.Get().HasPendingMovementRequest(component) && !flag5)
+				if (ServerActionBuffer.Get().HasPendingMovementRequest(actorData) && !executeImmediately)
 				{
 					if (setWaypoint && FirstTurnMovement.CanWaypoint())
 					{
-						if (component.CanMoveToBoardSquare(x, y))
+						if (actorData.CanMoveToBoardSquare(x, y))
 						{
-							ServerActionBuffer.Get().AppendToMovementRequest(x, y, component);
-							flag = true;
+							ServerActionBuffer.Get().AppendToMovementRequest(x, y, actorData);
+							success = true;
 						}
 					}
 					else
 					{
-						float maxMovement = component.GetActorMovement().CalculateMaxHorizontalMovement(false, false);
-						BoardSquare initialMoveStartSquare = component.InitialMoveStartSquare;
-						BoardSquare squareFromIndex = Board.Get().GetSquareFromIndex(x, y);
-						BoardSquarePathInfo boardSquarePathInfo = component.GetActorMovement().BuildCompletePathTo(initialMoveStartSquare, squareFromIndex, false, null);
-						if (boardSquarePathInfo != null && boardSquarePathInfo.IsValidPathForMaxMovement(maxMovement))
+						float maxMovement = actorData.GetActorMovement().CalculateMaxHorizontalMovement();
+						BoardSquarePathInfo path = actorData.GetActorMovement().BuildCompletePathTo(
+							actorData.InitialMoveStartSquare,
+							Board.Get().GetSquareFromIndex(x, y),
+							false,
+							null);
+						if (path != null && path.IsValidPathForMaxMovement(maxMovement))
 						{
-							ServerActionBuffer.Get().CancelMovementRequests(component, false);
-							ServerActionBuffer.Get().StoreMovementRequest(x, y, component, boardSquarePathInfo);
-							flag = true;
+							ServerActionBuffer.Get().CancelMovementRequests(actorData);
+							ServerActionBuffer.Get().StoreMovementRequest(x, y, actorData, path);
+							success = true;
 						}
 					}
 				}
-				else if (component.CanMoveToBoardSquare(x, y))
+				else if (actorData.CanMoveToBoardSquare(x, y))
 				{
-					if (ServerActionBuffer.Get().HasPendingMovementRequest(component))
+					if (ServerActionBuffer.Get().HasPendingMovementRequest(actorData))
 					{
-						ServerActionBuffer.Get().CancelMovementRequests(component, false);
+						ServerActionBuffer.Get().CancelMovementRequests(actorData);
 					}
-					BoardSquare initialMoveStartSquare2 = component.InitialMoveStartSquare;
-					BoardSquare squareFromIndex2 = Board.Get().GetSquareFromIndex(x, y);
-					if (squareFromIndex2.OccupantActor == null || !squareFromIndex2.OccupantActor.IsActorVisibleToActor(component) || !flag5)
+					BoardSquare targetSquare = Board.Get().GetSquareFromIndex(x, y);
+					if (targetSquare.OccupantActor == null
+					    || !targetSquare.OccupantActor.IsActorVisibleToActor(actorData)
+					    || !executeImmediately)
 					{
-						BoardSquarePathInfo boardSquarePathInfo2 = component.GetActorMovement().BuildCompletePathTo(initialMoveStartSquare2, squareFromIndex2, false, null);
-						if (boardSquarePathInfo2 != null)
+						BoardSquarePathInfo path = actorData.GetActorMovement().BuildCompletePathTo(
+							actorData.InitialMoveStartSquare,
+							targetSquare,
+							false,
+							null);
+						if (path != null)
 						{
-							ServerActionBuffer.Get().StoreMovementRequest(squareFromIndex2.x, squareFromIndex2.y, component, boardSquarePathInfo2);
+							ServerActionBuffer.Get().StoreMovementRequest(targetSquare.x, targetSquare.y, actorData, path);
 
 							// rogues
-							//if (flag5)
+							//if (executeImmediately)
 							//{
 							//	ServerActionBuffer.Get().GetPlayerActionFSM().RunQueuedActionsFromActor(component);
 							//}
 						}
-						flag = true;
+						success = true;
 					}
 				}
 			}
 		}
-		if (flag)
-		{
-			component3.OnMessage(TurnMessage.MOVEMENT_ACCEPTED, true);
-			return;
-		}
-		component3.OnMessage(TurnMessage.MOVEMENT_REJECTED, true);
+		actorTurnSm.OnMessage(success ? TurnMessage.MOVEMENT_ACCEPTED : TurnMessage.MOVEMENT_REJECTED);
 	}
 
 	// custom
@@ -151,52 +157,64 @@ public class ServerActorController : MonoBehaviour
 	//	}
 	//}
 
+	// rogues
 	internal virtual void ProcessSelectAbilityRequest()
 	{
-		ActorData actorData = base.GetComponent<ActorData>();
-		ActorTurnSM actorTurnSM = base.GetComponent<ActorTurnSM>();
-		if (actorData && actorTurnSM && actorTurnSM.CanSelectAbility())
+		ActorData actorData = GetComponent<ActorData>();
+		ActorTurnSM actorTurnSM = GetComponent<ActorTurnSM>();
+		if (actorData == null
+		    || actorTurnSM == null
+		    || !actorTurnSM.CanSelectAbility())
 		{
-			BoardSquare boardSquare = null;
-			AbilityData abilityData = base.GetComponent<AbilityData>();
-			if (abilityData != null)
-			{
-				boardSquare = abilityData.GetAutoSelectTarget();
-			}
-			bool isAutoSelect = boardSquare != null;
-			if (SinglePlayerManager.Get())
-			{
-				SinglePlayerManager.Get().OnActorAbilitySelected(actorData);
-			}
-			if (!isAutoSelect)
-			{
-				actorTurnSM.OnMessage(TurnMessage.SELECTED_ABILITY, true);
-				return;
-			}
+			return;
+		}
+		BoardSquare boardSquare = null;
+		AbilityData abilityData = GetComponent<AbilityData>();
+		if (abilityData != null)
+		{
+			boardSquare = abilityData.GetAutoSelectTarget();
+		}
+		bool isAutoSelect = boardSquare != null;
+		if (SinglePlayerManager.Get())
+		{
+			SinglePlayerManager.Get().OnActorAbilitySelected(actorData);
+		}
+		if (isAutoSelect)
+		{
 			List<AbilityTarget> targets = AbilityTarget.AbilityTargetList(AbilityTarget.CreateAbilityTargetFromBoardSquare(boardSquare, actorData.GetFreePos()));
-			this.ProcessCastAbilityRequest(targets, abilityData.GetSelectedActionType(), false);
+			ProcessCastAbilityRequest(targets, abilityData.GetSelectedActionType(), false);
+		}
+		else
+		{
+			actorTurnSM.OnMessage(TurnMessage.SELECTED_ABILITY);
 		}
 	}
 
+	// rogues
 	public virtual void ProcessQueueSimpleActionRequest(AbilityData.ActionType actionType, bool forceDelayExecution)
 	{
-		ActorData component = base.GetComponent<ActorData>();
-		ActorTurnSM actorTurnSM = component.GetActorTurnSM();
-		if (component && actorTurnSM && actorTurnSM.CanQueueSimpleAction())
+		ActorData actorData = GetComponent<ActorData>();
+		ActorTurnSM actorTurnSM = actorData.GetActorTurnSM();
+		if (actorData != null
+		    && actorTurnSM != null
+		    && actorTurnSM.CanQueueSimpleAction())
 		{
-			this.ProcessCastSimpleActionRequest(actionType, forceDelayExecution);
+			ProcessCastSimpleActionRequest(actionType, forceDelayExecution);
 		}
 		if (SinglePlayerManager.Get())
 		{
-			SinglePlayerManager.Get().OnActorAbilitySelected(component);
+			SinglePlayerManager.Get().OnActorAbilitySelected(actorData);
 		}
 	}
 
+	// rogues
 	public virtual void ProcessCancelAbilitySelection()
 	{
-		ActorData actorData = base.GetComponent<ActorData>();
-		ActorTurnSM component = base.GetComponent<ActorTurnSM>();
-		if (actorData && component && component.CurrentState == TurnStateEnum.TARGETING_ACTION)
+		ActorData actorData = GetComponent<ActorData>();
+		ActorTurnSM actorTurnSm = GetComponent<ActorTurnSM>();
+		if (actorData != null
+		    && actorTurnSm != null
+		    && actorTurnSm.CurrentState == TurnStateEnum.TARGETING_ACTION)
 		{
 			Ability ability = null;
 
@@ -211,39 +229,40 @@ public class ServerActorController : MonoBehaviour
             //    }
             //}
 
-            base.GetComponent<AbilityData>().ClearSelectedAbility();
+            GetComponent<AbilityData>().ClearSelectedAbility();
 			if (ability)
 			{
 				ability.ClearAbilityMod(actorData);
 			}
-			this.CheckAndCancelMovementRequestBeyondRange(actorData, false);
+			CheckAndCancelMovementRequestBeyondRange(actorData, false);
 		}
 	}
 
+	// rogues
 	internal virtual void ProcessCastAbilityRequest(List<AbilityTarget> targets, AbilityData.ActionType actionType, bool forceDelayExecution)
 	{
-		ActorData actorData = base.GetComponent<ActorData>();
-		ActorTurnSM actorTurnSM = base.GetComponent<ActorTurnSM>();
+		ActorData actorData = GetComponent<ActorData>();
+		ActorTurnSM actorTurnSM = GetComponent<ActorTurnSM>();
 		bool isAutoSelect = false;
-		AbilityData abilityData = base.GetComponent<AbilityData>();
-		if (abilityData && abilityData.GetAutoSelectTarget() != null)
+		AbilityData abilityData = GetComponent<AbilityData>();
+		if (abilityData != null && abilityData.GetAutoSelectTarget() != null)
 		{
 			isAutoSelect = true;
 		}
 		Ability ability = abilityData.GetAbilityOfActionType(actionType);
-		if (ability && ability.IsSimpleAction())
+		if (ability != null && ability.IsSimpleAction())
 		{
 			Log.Error($"Ability {ability.m_abilityName} is trying to be cast as a non-simple ability, but it's simple.");
 		}
 		if (actionType >= AbilityData.ActionType.CARD_0
 			&& actionType <= AbilityData.ActionType.CARD_2
-			&& ability
+			&& ability != null
 			&& ability.m_actionAnimType != ActorModelData.ActionAnimationType.None)
 		{
 			Log.Warning("Setting Animation Type to None for card ability");
 			ability.m_actionAnimType = ActorModelData.ActionAnimationType.None;
 		}
-		if (actorData && actorTurnSM)
+		if (actorData != null && actorTurnSM != null)
 		{
 			bool isValidState = actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION
 				|| (actorTurnSM.CurrentState == TurnStateEnum.DECIDING && isAutoSelect)
@@ -252,108 +271,122 @@ public class ServerActorController : MonoBehaviour
 			// custom
 			Log.Info($"ProcessCastAbilityRequest isValidState {isValidState}");
 
-			//rogues
-			//bool flag3 = ServerActionBuffer.Get().GetPlayerActionFSM().IsAcceptingInput();
+			// rogues
+			//bool isAcceptingInput = ServerActionBuffer.Get().GetPlayerActionFSM().IsAcceptingInput();
 			// custom random
-			bool flag3 = true;
+			bool isAcceptingInput = true;
 
 			bool isAccepted = false;
 			if (isValidState && abilityData.ValidateActionRequest(actionType, targets))
 			{
-				this.StoreAbilityRequest_FCFS(ability, actionType, targets, actorData, forceDelayExecution || !flag3);
+				StoreAbilityRequest_FCFS(ability, actionType, targets, actorData, forceDelayExecution || !isAcceptingInput);
 				isAccepted = true;
 			}
 			if (!isAccepted)
 			{
-				actorTurnSM.OnMessage(TurnMessage.ABILITY_REQUEST_REJECTED, true);
+				actorTurnSM.OnMessage(TurnMessage.ABILITY_REQUEST_REJECTED);
 			}
 		}
 	}
 
+	// rogues
 	public virtual void ProcessCastSimpleActionRequest(AbilityData.ActionType actionType, bool forceDelayExecution)
 	{
-		ActorData component = base.GetComponent<ActorData>();
-		ActorTurnSM component2 = base.GetComponent<ActorTurnSM>();
-		AbilityData component3 = base.GetComponent<AbilityData>();
-		if (component == null || component2 == null || component3 == null)
+		ActorData actorData = GetComponent<ActorData>();
+		ActorTurnSM actorTurnSm = GetComponent<ActorTurnSM>();
+		AbilityData abilityData = GetComponent<AbilityData>();
+		if (actorData == null || actorTurnSm == null || abilityData == null)
 		{
-			Log.Warning(string.Format("ProcessCastSimpleActionRequest being called with action {0}, but the actor is missing a critial component.", actionType.ToString()));
+			Log.Warning($"ProcessCastSimpleActionRequest being called with action {actionType.ToString()}, " +
+			            $"but the actor is missing a critial component.");
 			return;
 		}
-		Ability abilityOfActionType = component3.GetAbilityOfActionType(actionType);
-		if (abilityOfActionType == null)
+		Ability ability = abilityData.GetAbilityOfActionType(actionType);
+		if (ability == null)
 		{
-			Log.Warning(string.Format("ProcessCastSimpleActionRequest being called with action {0}, but the actor has no ability for that action.  (Actor = {1})", actionType.ToString(), component.DebugNameString()));
+			Log.Warning($"ProcessCastSimpleActionRequest being called with action {actionType.ToString()}, " +
+			            $"but the actor has no ability for that action.  (Actor = {actorData.DebugNameString()})");
 			return;
 		}
-		if (!abilityOfActionType.IsSimpleAction())
+		if (!ability.IsSimpleAction())
 		{
-			Log.Error(string.Format("Ability {0} is trying to be cast as a simple action, but isn't a simple action.", abilityOfActionType.m_abilityName));
+			Log.Error($"Ability {ability.m_abilityName} is trying to be cast as a simple action, " +
+			          $"but isn't a simple action.");
 		}
-		if (actionType >= AbilityData.ActionType.CARD_0 && actionType <= AbilityData.ActionType.CARD_2 && abilityOfActionType && abilityOfActionType.m_actionAnimType != ActorModelData.ActionAnimationType.None)
+		if (actionType >= AbilityData.ActionType.CARD_0
+		    && actionType <= AbilityData.ActionType.CARD_2
+		    && ability != null
+		    && ability.m_actionAnimType != ActorModelData.ActionAnimationType.None)
 		{
 			Log.Warning("Setting Animation Type to None for card ability");
-			abilityOfActionType.m_actionAnimType = ActorModelData.ActionAnimationType.None;
+			ability.m_actionAnimType = ActorModelData.ActionAnimationType.None;
 		}
-		if (component && component2)
+		if (actorData != null && actorTurnSm != null)
 		{
-			List<AbilityTarget> targets = AbilityTarget.AbilityTargetList(abilityOfActionType.CreateAbilityTargetForSimpleAction(component));
-			bool flag = component2.CanQueueSimpleAction();
-			bool flag2 = component3.ValidateActionRequest(actionType, targets);
+			List<AbilityTarget> targets = AbilityTarget.AbilityTargetList(ability.CreateAbilityTargetForSimpleAction(actorData));
+			bool canQueueSimpleAction = actorTurnSm.CanQueueSimpleAction();
+			bool validateActionRequest = abilityData.ValidateActionRequest(actionType, targets);
 
 			// rogues
-			//bool flag3 = ServerActionBuffer.Get().GetPlayerActionFSM().IsAcceptingInput();
+			//bool isAcceptingInput = ServerActionBuffer.Get().GetPlayerActionFSM().IsAcceptingInput();
 			// custom random
-			bool flag3 = true;
+			bool isAcceptingInput = true;
 
-			if (flag && flag2)
+			if (canQueueSimpleAction && validateActionRequest)
 			{
-				this.StoreAbilityRequest_FCFS(abilityOfActionType, actionType, targets, component, forceDelayExecution || !flag3);
+				StoreAbilityRequest_FCFS(ability, actionType, targets, actorData, forceDelayExecution || !isAcceptingInput);
 			}
 		}
 	}
 
+	// rogues
 	public virtual void ProcessCancelActionRequest(AbilityData.ActionType actionType, bool hasPendingStoreRequest)
 	{
-		ActorData component = base.GetComponent<ActorData>();
-		ActorTurnSM component2 = base.GetComponent<ActorTurnSM>();
-		AbilityData abilityData = base.GetComponent<AbilityData>();
-		Ability abilityOfActionType = abilityData.GetAbilityOfActionType(actionType);
-		if (component && component2 && abilityOfActionType && (!abilityOfActionType.ShouldAutoQueueIfValid() || abilityOfActionType.AllowCancelWhenAutoQueued()))
+		ActorData actorData = GetComponent<ActorData>();
+		ActorTurnSM actorTurnSm = GetComponent<ActorTurnSM>();
+		AbilityData abilityData = GetComponent<AbilityData>();
+		Ability ability = abilityData.GetAbilityOfActionType(actionType);
+		if (actorData != null
+		    && actorTurnSm != null
+		    && ability != null
+		    && (!ability.ShouldAutoQueueIfValid() || ability.AllowCancelWhenAutoQueued()))
 		{
 			// rogues?
-			//if (component2.m_tauntRequestedForNextAbility == (int)actionType)
-			//{
-			//	CharacterTaunt characterTaunt = component.GetCharacterResourceLink().m_taunts.Find((CharacterTaunt t) => t.m_actionForTaunt == abilityData.GetSelectedActionType());
-			//	if (characterTaunt != null && characterTaunt.m_modToApplyOnTaunt >= 0)
-			//	{
-			//		abilityOfActionType.ClearAbilityMod(component);
-			//	}
-			//}
+			// if (actorTurnSm.m_tauntRequestedForNextAbility == (int)actionType)
+			// {
+			// 	CharacterTaunt characterTaunt = actorData.GetCharacterResourceLink().m_taunts.Find((CharacterTaunt t) => t.m_actionForTaunt == abilityData.GetSelectedActionType());
+			// 	if (characterTaunt != null && characterTaunt.m_modToApplyOnTaunt >= 0)
+			// 	{
+			// 		abilityOfActionType.ClearAbilityMod(component);
+			// 	}
+			// }
 
-			ServerActionBuffer.Get().CancelAbilityRequest(component, abilityOfActionType, true, false);
-			BoardSquare initialMoveStartSquare = component.InitialMoveStartSquare;
-			if (component.GetServerMoveRequestStartSquare() != initialMoveStartSquare)
+			ServerActionBuffer.Get().CancelAbilityRequest(actorData, ability, true, false);
+			BoardSquare initialMoveStartSquare = actorData.InitialMoveStartSquare;
+			if (actorData.GetServerMoveRequestStartSquare() != initialMoveStartSquare)
 			{
-				component.InitialMoveStartSquare = component.GetServerMoveRequestStartSquare();
-				ServerActionBuffer.Get().CancelMovementRequests(component, false);
+				actorData.InitialMoveStartSquare = actorData.GetServerMoveRequestStartSquare();
+				ServerActionBuffer.Get().CancelMovementRequests(actorData);
 			}
-			if (abilityOfActionType.GetStatusToApplyWhenRequested().Count > 0)
+			if (ability.GetStatusToApplyWhenRequested().Count > 0)
 			{
-				component.GetActorMovement().UpdateSquaresCanMoveTo();
-				if (NetworkServer.active && component.GetActorController() != null)
+				actorData.GetActorMovement().UpdateSquaresCanMoveTo();
+				if (NetworkServer.active && actorData.GetActorController() != null)
 				{
-					component.GetActorController().CallRpcUpdateRemainingMovement(component.RemainingHorizontalMovement, component.RemainingMovementWithQueuedAbility);
+					actorData.GetActorController().CallRpcUpdateRemainingMovement(
+						actorData.RemainingHorizontalMovement,
+						actorData.RemainingMovementWithQueuedAbility);
 				}
-				this.CheckAndCancelMovementRequestBeyondRange(component, hasPendingStoreRequest);
+				CheckAndCancelMovementRequestBeyondRange(actorData, hasPendingStoreRequest);
 			}
 		}
 	}
 
+	// rogues
 	private void StoreAbilityRequest_FCFS(Ability ability, AbilityData.ActionType actionType, List<AbilityTarget> targets, ActorData actorData, bool forceDelayExecution)
 	{
-		ServerActionBuffer.Get().StoreAbilityRequest(ability, actionType, targets, actorData, null, null, false);
-		actorData.GetActorTurnSM().OnMessage(TurnMessage.ABILITY_REQUEST_ACCEPTED, (int)actionType, true);
+		ServerActionBuffer.Get().StoreAbilityRequest(ability, actionType, targets, actorData);
+		actorData.GetActorTurnSM().OnMessage(TurnMessage.ABILITY_REQUEST_ACCEPTED, (int)actionType);
 
 		// rogues
 		//if (PlayerActionStateMachine.ExecutePlayerActionImmediately() && !forceDelayExecution)
@@ -374,20 +407,22 @@ public class ServerActorController : MonoBehaviour
 		{
 			actorData.GetActorController().CallRpcUpdateRemainingMovement(actorData.RemainingHorizontalMovement, actorData.RemainingMovementWithQueuedAbility);
 		}
-		this.CheckAndCancelMovementRequestBeyondRange(actorData, false);
+		CheckAndCancelMovementRequestBeyondRange(actorData, false);
 	}
 
+	// rogues
 	public virtual void CancelActionRequestsForTurnStart()
 	{
-		ActorData component = base.GetComponent<ActorData>();
-		ServerActionBuffer.Get().CancelActionRequests(component, true);
-		AbilityData component2 = base.GetComponent<AbilityData>();
-		if (component2)
+		ActorData actorData = GetComponent<ActorData>();
+		ServerActionBuffer.Get().CancelActionRequests(actorData, true);
+		AbilityData abilityData = GetComponent<AbilityData>();
+		if (abilityData)
 		{
-			component2.ClearSelectedAbility();
+			abilityData.ClearSelectedAbility();
 		}
 	}
 
+	// rogues
 	protected virtual void CheckAndCancelMovementRequestBeyondRange(ActorData actor, bool hasPendingStoreRequest)
 	{
 		// rogues
@@ -396,45 +431,49 @@ public class ServerActorController : MonoBehaviour
 		//	return;
 		//}
 
-		float maxMovement = actor.GetActorMovement().CalculateMaxHorizontalMovement(false, false);
+		float maxMovement = actor.GetActorMovement().CalculateMaxHorizontalMovement();
 		if (ServerActionBuffer.Get().HasNormalMovementRequestOutsideOfRange(actor, maxMovement))
 		{
-			ServerActionBuffer.Get().CancelMovementRequests(actor, false);
+			ServerActionBuffer.Get().CancelMovementRequests(actor);
 			return;
 		}
-		if (ServerActionBuffer.Get().HasPendingMovementRequest(actor) && actor.QueuedMovementAllowsAbility && !hasPendingStoreRequest)
+		if (ServerActionBuffer.Get().HasPendingMovementRequest(actor)
+		    && actor.QueuedMovementAllowsAbility
+		    && !hasPendingStoreRequest)
 		{
-			BoardSquare item;
-			float num;
-			bool flag;
-			ServerActionBuffer.Get().GatherMovementInfo(actor, out item, out num, out flag);
-			if (!flag && !actor.GetActorMovement().SquaresCanMoveToWithQueuedAbility.Contains(item))
+			ServerActionBuffer.Get().GatherMovementInfo(actor, out BoardSquare destination, out _, out bool isChasing);
+			if (!isChasing && !actor.GetActorMovement().SquaresCanMoveToWithQueuedAbility.Contains(destination))
 			{
 				actor.QueuedMovementAllowsAbility = false;
 			}
 		}
 	}
 
+	// rogues
 	public virtual void ProcessCancelMovementRequests()
 	{
 		// rogues
 		//if (ServerActionBuffer.Get().GetPlayerActionFSM().IsAcceptingInput())
 		//{
-			ActorData component = base.GetComponent<ActorData>();
-			ServerActionBuffer.Get().CancelMovementRequests(component, false);
+			ActorData component = GetComponent<ActorData>();
+			ServerActionBuffer.Get().CancelMovementRequests(component);
 		//	return;
 		//}
 		//PveLog.DebugLog("cancel_movement_request ignored, not accepting player input", null);
 	}
 
+	// rogues
 	public virtual void DebugTeleport(BoardSquare destinationSquare)
 	{
-		if (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("AllowTeleport") && destinationSquare != null && destinationSquare.IsValidForGameplay())
+		if (DebugParameters.Get() != null
+		    && DebugParameters.Get().GetParameterAsBool("AllowTeleport")
+		    && destinationSquare != null
+		    && destinationSquare.IsValidForGameplay())
 		{
-			ActorData component = base.GetComponent<ActorData>();
+			ActorData component = GetComponent<ActorData>();
 			if (component != null)
 			{
-				component.TeleportToBoardSquare(destinationSquare, Vector3.zero, ActorData.TeleportType.Debug, null, 20f, ActorData.MovementType.Teleport, GameEventManager.EventType.Invalid, null);
+				component.TeleportToBoardSquare(destinationSquare, Vector3.zero, ActorData.TeleportType.Debug, null);
 			}
 		}
 	}
@@ -489,194 +528,213 @@ public class ServerActorController : MonoBehaviour
 	//	}
 	//}
 
+	// rogues
 	public virtual void PickRespawn(List<BoardSquare> availableSquares)
 	{
 		if (NetworkServer.active)
 		{
-			base.GetComponent<ActorData>().respawnSquares = availableSquares;
+			GetComponent<ActorData>().respawnSquares = availableSquares;
 		}
 	}
 
+	// rogues
 	public virtual void ProcessPickedRespawnRequest(int x, int y)
 	{
-		BoardSquare squareFromIndex = Board.Get().GetSquareFromIndex(x, y);
-		ActorData component = base.GetComponent<ActorData>();
+		BoardSquare square = Board.Get().GetSquareFromIndex(x, y);
+		ActorData actorData = GetComponent<ActorData>();
 		SpawnPointManager spawnPointManager = SpawnPointManager.Get();
-		if (spawnPointManager != null && spawnPointManager.m_playersSelectRespawn)
+		if (spawnPointManager == null || !spawnPointManager.m_playersSelectRespawn)
 		{
-			if (component.respawnSquares.Contains(squareFromIndex))
+			return;
+		}
+		if (actorData.respawnSquares.Contains(square))
+		{
+			actorData.RespawnPickedPositionSquare = square;
+		}
+		else if (actorData.respawnSquares.Count > 0)
+		{
+			Log.Error($"Client for dead actor {actorData.DisplayName} requested an illegal respawn location {x}, {y}");
+			actorData.RespawnPickedPositionSquare = actorData.respawnSquares[0];
+		}
+		else
+		{
+			Log.Error($"Client for dead actor {actorData.DisplayName} requested a respawn location when no locations are available. This is bad.");
+			actorData.RespawnPickedPositionSquare = SpawnPointManager.Get().GetInitialSpawnSquare(actorData, new List<ActorData>());
+		}
+		List<BoardSquare> blocked = new List<BoardSquare>();
+		foreach (GameObject player in GameFlowData.Get().GetPlayers())
+		{
+			ActorData otherActorData = player.GetComponent<ActorData>();
+			if (otherActorData != actorData
+			    && otherActorData != null
+			    && otherActorData.IsDead()
+			    && (otherActorData.GetTeam() == actorData.GetTeam()
+			        || (otherActorData.TeamSensitiveData_authority != null
+			            && otherActorData.TeamSensitiveData_authority.RespawnPickedSquare != null)))
 			{
-				component.RespawnPickedPositionSquare = squareFromIndex;
+				blocked.Add(otherActorData.RespawnPickedPositionSquare);
 			}
-			else if (component.respawnSquares.Count > 0)
+		}
+		ActorData occupantActor = actorData.RespawnPickedPositionSquare.OccupantActor;
+		if ((occupantActor != null && occupantActor.IsActorVisibleToActor(actorData))
+		    || blocked.Contains(actorData.RespawnPickedPositionSquare))
+		{
+			HashSet<BoardSquare> squaresToAvoid = new HashSet<BoardSquare>();
+			if (PowerUpManager.Get() != null)
 			{
-				Log.Error("Client for dead actor {0} requested an illegal respawn location {1}, {2}", new object[]
-				{
-					component.DisplayName,
-					x,
-					y
-				});
-				component.RespawnPickedPositionSquare = component.respawnSquares[0];
+				PowerUpManager.Get().CollectSquaresToAvoidForRespawn(squaresToAvoid, actorData);
 			}
-			else
+			if (SpoilsManager.Get() != null)
 			{
-				Log.Error("Client for dead actor {0} requested a respawn location when no locations are available. This is bad.", new object[]
-				{
-					component.DisplayName
-				});
-				component.RespawnPickedPositionSquare = SpawnPointManager.Get().GetInitialSpawnSquare(component, new List<ActorData>());
+				SpoilsManager.Get().AddToSquaresToAvoidForRespawn(squaresToAvoid, actorData);
 			}
-			List<BoardSquare> list = new List<BoardSquare>();
-			foreach (GameObject gameObject in GameFlowData.Get().GetPlayers())
+			List<BoardSquare> fallbackSquares = new List<BoardSquare>();
+			for (int i = 1; i <= 3; i++)
 			{
-				ActorData component2 = gameObject.GetComponent<ActorData>();
-				if (component2 != component && component2 != null && component2.IsDead() && (component2.GetTeam() == component.GetTeam() || (component2.TeamSensitiveData_authority != null && component2.TeamSensitiveData_authority.RespawnPickedSquare != null)))
+				fallbackSquares.AddRange(AreaEffectUtils.GetSquaresInBorderLayer(actorData.RespawnPickedPositionSquare, i, false));
+			}
+			foreach (BoardSquare boardSquare in fallbackSquares)
+			{
+				if (boardSquare.IsValidForGameplay()
+				    && (boardSquare.OccupantActor == null
+				        || !boardSquare.OccupantActor.IsActorVisibleToActor(actorData))
+				    && !blocked.Contains(boardSquare)
+				    && !squaresToAvoid.Contains(boardSquare))
 				{
-					list.Add(component2.RespawnPickedPositionSquare);
+					Log.Info("Adjusting respawn position during Decision to adjacent square to avoid spawning " +
+					         "on a square that is already claimed by another visible actor or respawn.");
+					actorData.RespawnPickedPositionSquare = boardSquare;
+					break;
 				}
 			}
-			ActorData occupantActor = component.RespawnPickedPositionSquare.OccupantActor;
-			if ((occupantActor != null && occupantActor.IsActorVisibleToActor(component)) || list.Contains(component.RespawnPickedPositionSquare))
+		}
+
+		// rogues?
+		//component.GetActorTurnSM().IncrementRespawnPickInput();
+
+		GetComponent<ActorTurnSM>().OnMessage(TurnMessage.PICK_RESPAWN);
+	}
+
+	// rogues
+	public virtual void RespawnOnSquare(BoardSquare spawnSquare)
+	{
+		if (!NetworkServer.active)
+		{
+			return;
+		}
+		ActorData actorData = GetComponent<ActorData>();
+		if (GameFlowData.Get().CurrentTurn == actorData.LastDeathTurn)
+		{
+			Log.Error("Code error: respawning same turn as death is not currently supported. It may look wrong on clients.");
+		}
+		actorData.ClearRespawnSquares();
+		actorData.SetHitPoints(actorData.GetMaxHitPoints());
+		actorData.UnresolvedDamage = 0;
+		actorData.UnresolvedHealing = 0;
+		if (!GameplayData.Get().m_keepTechPointsOnRespawn)
+		{
+			actorData.SetTechPoints(actorData.m_techPointsOnRespawn);
+		}
+		if (SpawnPointManager.Get() != null && SpawnPointManager.Get().m_spawnInDuringMovement)  // SpawnPointManager.Get().SpawnInDuringMovement() in rogues
+		{
+			actorData.IgnoreForAbilityHits = true;
+		}
+		actorData.ReservedTechPoints = 0;
+		if (spawnSquare)
+		{
+			if (spawnSquare.occupant != null)
 			{
-				HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
+				List<BoardSquare> fallbackSquares = new List<BoardSquare>();
+				for (int i = 1; i <= 3; i++)
+				{
+					fallbackSquares.AddRange(AreaEffectUtils.GetSquaresInBorderLayer(spawnSquare, i, false));
+				}
+				HashSet<BoardSquare> squaresToAvoid = new HashSet<BoardSquare>();
 				if (PowerUpManager.Get() != null)
 				{
-					PowerUpManager.Get().CollectSquaresToAvoidForRespawn(hashSet, component);
+					PowerUpManager.Get().CollectSquaresToAvoidForRespawn(squaresToAvoid, actorData);
 				}
 				if (SpoilsManager.Get() != null)
 				{
-					SpoilsManager.Get().AddToSquaresToAvoidForRespawn(hashSet, component);
+					SpoilsManager.Get().AddToSquaresToAvoidForRespawn(squaresToAvoid, actorData);
 				}
-				List<BoardSquare> list2 = new List<BoardSquare>();
-				for (int i = 1; i <= 3; i++)
+				bool fallbackFound = false;
+				foreach (BoardSquare boardSquare in fallbackSquares)
 				{
-					list2.AddRange(AreaEffectUtils.GetSquaresInBorderLayer(component.RespawnPickedPositionSquare, i, false));
-				}
-				foreach (BoardSquare boardSquare in list2)
-				{
-					if (boardSquare.IsValidForGameplay() && (boardSquare.OccupantActor == null || !boardSquare.OccupantActor.IsActorVisibleToActor(component)) && !list.Contains(boardSquare) && !hashSet.Contains(boardSquare))
+					if (boardSquare.IsValidForGameplay()
+					    && boardSquare.OccupantActor == null
+					    && !squaresToAvoid.Contains(boardSquare))
 					{
-						Log.Info("Adjusting respawn position during Decision to adjacent square to avoid spawning on a square that is already claimed by another visible actor or respawn.");
-						component.RespawnPickedPositionSquare = boardSquare;
+						Log.Info("Adjusting respawn position to adjacent square to avoid spawning on a square that is already occupied");
+						spawnSquare = boardSquare;
+						fallbackFound = true;
 						break;
 					}
 				}
+				if (!fallbackFound)
+				{
+					Debug.LogError("Debugging, trying to respawn on square that is already occupied");
+				}
 			}
-
-			// rogues?
-			//component.GetActorTurnSM().IncrementRespawnPickInput();
-
-			base.GetComponent<ActorTurnSM>().OnMessage(TurnMessage.PICK_RESPAWN, true);
+			actorData.RespawnPickedPositionSquare = spawnSquare;
+			actorData.TeleportToBoardSquare(spawnSquare, Vector3.zero, ActorData.TeleportType.Respawn, null);
 		}
-	}
-
-	public virtual void RespawnOnSquare(BoardSquare spawnSquare)
-	{
-		if (NetworkServer.active)
+		else
 		{
-			ActorData component = base.GetComponent<ActorData>();
-			if (GameFlowData.Get().CurrentTurn == component.LastDeathTurn)
+			Debug.LogError("Debugging, trying to respawn on Null square");
+		}
+		if (actorData == GameFlowData.Get().activeOwnedActorData)
+		{
+			CameraManager.Get().SetTargetObject(actorData.gameObject, CameraManager.CameraTargetReason.ClientActorRespawned);
+		}
+		if (actorData.GetPassiveData() != null)
+		{
+			actorData.GetPassiveData().OnActorRespawn();
+		}
+		if (PowerUpManager.Get() != null)
+		{
+			PowerUpManager.Get().ActorBecameAbleToCollectPowerups(actorData);
+		}
+		GetComponent<ActorTurnSM>().OnMessage(TurnMessage.RESPAWN);
+		if (SpawnPointManager.Get() == null || !SpawnPointManager.Get().m_spawnInDuringMovement) // !SpawnPointManager.Get().SpawnInDuringMovement() in rogues
+		{
+			actorData.RespawnPickedPositionSquare = null;
+		}
+		if (NetworkClient.active
+		    && spawnSquare != null
+		    && FogOfWar.GetClientFog() != null
+		    && actorData.GetActorVFX() != null)
+		{
+			actorData.OnRespawnTeleport();
+			actorData.ForceUpdateIsVisibleToClientCache();
+			PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
+			if (localPlayerData != null
+			    && (localPlayerData.GetTeamViewing() == actorData.GetTeam() || FogOfWar.GetClientFog().IsVisible(spawnSquare))
+			    && SpawnPointManager.Get() != null
+			    && SpawnPointManager.Get().m_spawnInDuringMovement)  // SpawnPointManager.Get().SpawnInDuringMovement() in rogues
 			{
-				Log.Error("Code error: respawning same turn as death is not currently supported. It may look wrong on clients.");
-			}
-			component.ClearRespawnSquares();
-			component.SetHitPoints(component.GetMaxHitPoints());
-			component.UnresolvedDamage = 0;
-			component.UnresolvedHealing = 0;
-			if (!GameplayData.Get().m_keepTechPointsOnRespawn)
-			{
-				component.SetTechPoints(component.m_techPointsOnRespawn, false, null, null);
-			}
-			if (SpawnPointManager.Get() != null && SpawnPointManager.Get().m_spawnInDuringMovement)  // SpawnPointManager.Get().SpawnInDuringMovement() in rogues
-			{
-				component.IgnoreForAbilityHits = true;
-			}
-			component.ReservedTechPoints = 0;
-			if (spawnSquare)
-			{
-				if (spawnSquare.occupant != null)
+				actorData.GetActorModelData().DisableAndHideRenderers();
+				if (HighlightUtils.Get().m_recentlySpawnedShader != null)
 				{
-					List<BoardSquare> list = new List<BoardSquare>();
-					for (int i = 1; i <= 3; i++)
-					{
-						list.AddRange(AreaEffectUtils.GetSquaresInBorderLayer(spawnSquare, i, false));
-					}
-					HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
-					if (PowerUpManager.Get() != null)
-					{
-						PowerUpManager.Get().CollectSquaresToAvoidForRespawn(hashSet, component);
-					}
-					if (SpoilsManager.Get() != null)
-					{
-						SpoilsManager.Get().AddToSquaresToAvoidForRespawn(hashSet, component);
-					}
-					bool flag = false;
-					foreach (BoardSquare boardSquare in list)
-					{
-						if (boardSquare.IsValidForGameplay() && boardSquare.OccupantActor == null && !hashSet.Contains(boardSquare))
-						{
-							Log.Info("Adjusting respawn position to adjacent square to avoid spawning on a square that is already occupied");
-							spawnSquare = boardSquare;
-							flag = true;
-							break;
-						}
-					}
-					if (!flag)
-					{
-						Debug.LogError("Debugging, trying to respawn on square that is already occupied");
-					}
-				}
-				component.RespawnPickedPositionSquare = spawnSquare;
-				component.TeleportToBoardSquare(spawnSquare, Vector3.zero, ActorData.TeleportType.Respawn, null, 20f, ActorData.MovementType.Teleport, GameEventManager.EventType.Invalid, null);
-			}
-			else
-			{
-				Debug.LogError("Debugging, trying to respawn on Null square");
-			}
-			if (component == GameFlowData.Get().activeOwnedActorData)
-			{
-				CameraManager.Get().SetTargetObject(component.gameObject, CameraManager.CameraTargetReason.ClientActorRespawned);
-			}
-			if (component.GetPassiveData() != null)
-			{
-				component.GetPassiveData().OnActorRespawn();
-			}
-			if (PowerUpManager.Get() != null)
-			{
-				PowerUpManager.Get().ActorBecameAbleToCollectPowerups(component);
-			}
-			base.GetComponent<ActorTurnSM>().OnMessage(TurnMessage.RESPAWN, true);
-			if (SpawnPointManager.Get() == null || !SpawnPointManager.Get().m_spawnInDuringMovement) // !SpawnPointManager.Get().SpawnInDuringMovement() in rogues
-			{
-				component.RespawnPickedPositionSquare = null;
-			}
-			if (NetworkClient.active && spawnSquare != null && FogOfWar.GetClientFog() != null && component.GetActorVFX() != null)
-			{
-				component.OnRespawnTeleport();
-				component.ForceUpdateIsVisibleToClientCache();
-				PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
-				if (localPlayerData != null
-					&& (localPlayerData.GetTeamViewing() == component.GetTeam() || FogOfWar.GetClientFog().IsVisible(spawnSquare))
-					&& SpawnPointManager.Get() != null
-					&& SpawnPointManager.Get().m_spawnInDuringMovement)  // SpawnPointManager.Get().SpawnInDuringMovement() in rogues
-				{
-					component.GetActorModelData().DisableAndHideRenderers();
-					if (HighlightUtils.Get().m_recentlySpawnedShader != null)
-					{
-						TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(component.GetActorModelData(), localPlayerData.GetTeamViewing() == component.GetTeam(), 0.5f, HighlightUtils.Get().m_recentlySpawnedShader, false);
-					}
+					TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(
+						actorData.GetActorModelData(),
+						localPlayerData.GetTeamViewing() == actorData.GetTeam(),
+						0.5f,
+						HighlightUtils.Get().m_recentlySpawnedShader,
+						false);
 				}
 			}
 		}
 	}
 
+	// rogues
 	public virtual void Respawn(HashSet<BoardSquare> squaresToAvoid)
 	{
 		if (NetworkServer.active)
 		{
-			ActorData component = base.GetComponent<ActorData>();
-			BoardSquare spawnSquare = SpawnPointManager.Get().GetSpawnSquare(component, true, null, squaresToAvoid);
-			this.RespawnOnSquare(spawnSquare);
+			ActorData actorData = GetComponent<ActorData>();
+			BoardSquare spawnSquare = SpawnPointManager.Get().GetSpawnSquare(actorData, true, null, squaresToAvoid);
+			RespawnOnSquare(spawnSquare);
 		}
 	}
 #endif
