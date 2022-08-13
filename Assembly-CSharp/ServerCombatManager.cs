@@ -249,12 +249,30 @@ public class ServerCombatManager : MonoBehaviour
 				out _, 
 				out _, 
 				out _);
+			// custom
+			int damageIncomingModifiedWithCover = damageIncomingModified;
+			if (targetInCoverWrtDamage)
+			{
+				bool reducedCoverEffectiveness = src.Ability != null && AbilityUtils.AbilityReduceCoverEffectiveness(src.Ability, target);
+				damageIncomingModifiedWithCover = AbilityUtils.ApplyCoverDamageReduction(actorStats, damageIncomingModified, reducedCoverEffectiveness);
+			}
+			// end custom
 			damageCalcScratch.m_damageAfterIncomingBuffDebuff = damageAfterIncomingBuffDebuff;
-			damageCalcScratch.m_damageAfterIncomingBuffDebuffWithCover = damageAfterIncomingBuffDebuff;
+			
+			// custom
+			damageCalcScratch.m_damageAfterIncomingBuffDebuffWithCover = damageIncomingModifiedWithCover;
+			// rogues
+			// damageCalcScratch.m_damageAfterIncomingBuffDebuffWithCover = damageAfterIncomingBuffDebuff;
+			
 			int damage_incomingModified = Mathf.Max(damageIncomingModified, 0);
 			damageBoosted = damage_incomingModified > baseDamage;
 			damageReduced = damage_incomingModified < baseDamage;
-			int damage_actual = damage_incomingModified;
+			
+			// custom
+			int damage_actual = Mathf.Max(damageIncomingModifiedWithCover, 0);
+			// rogues
+			// int damage_actual = damage_incomingModified;
+			
 			int damage_outgoingNormal = Mathf.Max(damageOutgoingNormal, 0);
 			int damage_outgoingEmpowered = Mathf.Max(damageOutgoingEmpowered, 0);
 			int damage_outgoingWeakened = Mathf.Max(damageOutgoingWeakened, 0);
@@ -282,7 +300,11 @@ public class ServerCombatManager : MonoBehaviour
 			finalDamage = damage_actual;
 			if (log)
 			{
-				MatchLogger.Get().Log($"{casterStr} hits {target.DisplayName} for {finalDamage} out of (base: {baseDamage}) (outgoingModified: {damageOutgoingModified}) (incomingModified: {damageIncomingModified}) (coverModified? {targetInCoverWrtDamage}: {damage_actual})");
+				MatchLogger.Get().Log($"{casterStr} hits {target.DisplayName} for {finalDamage} out of " +
+				                      $"(base: {baseDamage}) " +
+				                      $"(outgoingModified: {damageOutgoingModified}) " +
+				                      $"(incomingModified: {damageIncomingModified}) " +
+				                      $"(coverModified? {targetInCoverWrtDamage}: {damage_actual})");
 			}
 		}
 		// rogues

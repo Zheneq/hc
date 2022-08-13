@@ -1255,7 +1255,7 @@ public class ActorHitResults
 		m_healingType = healingType;
 		if (m_baseDamage != 0)
 		{
-			m_finalDamage = ServerCombatManager.Get().CalcDamage(m_hitParameters.DamageSource, m_hitParameters.Caster, m_hitParameters.Target, m_baseDamage, m_hitParameters.Origin, m_coverIgnoreMinDist, damageType, IsFromMovement(), out m_lifestealHealing, out m_targetInCoverWrtDamage, out m_damageBoosted, out m_damageReduced, out m_damageStatAdjustments, m_damageCalcScratch, false);
+			m_finalDamage = ServerCombatManager.Get().CalcDamage(m_hitParameters.DamageSource, m_hitParameters.Caster, m_hitParameters.Target, m_baseDamage, m_hitParameters.Origin, m_coverIgnoreMinDist, damageType, IsFromMovement(), out m_lifestealHealing, out m_targetInCoverWrtDamage, out m_damageBoosted, out m_damageReduced, out m_damageStatAdjustments, m_damageCalcScratch, true);  // log: false in rogues
 		}
 		if (m_overrideAsInCover)
 		{
