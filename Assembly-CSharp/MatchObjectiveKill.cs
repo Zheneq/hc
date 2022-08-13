@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 
@@ -23,7 +25,7 @@ public class MatchObjectiveKill : MatchObjective
 		Actor,
 		NPC,
 		Player,
-		Minion,
+		Minion,  // removed in rogues
 		ActorWithTag,
 		ActorWithoutTag
 	}
@@ -44,7 +46,7 @@ public class MatchObjectiveKill : MatchObjective
 			return !GameplayUtils.IsPlayerControlled(actor);
 		case KillObjectiveType.Player:
 			return GameplayUtils.IsPlayerControlled(actor);
-		case KillObjectiveType.Minion:
+		case KillObjectiveType.Minion:  // removed in rogues
 			return GameplayUtils.IsMinion(actor);
 		case KillObjectiveType.ActorWithTag:
 			return actor.HasTag(m_tag);
@@ -86,6 +88,20 @@ public class MatchObjectiveKill : MatchObjective
 			objectivePoints.AdjustPoints(pointsForKillingTeam, team == Team.TeamA ? Team.TeamB : Team.TeamA);
 		}
 	}
+
+	// rogues
+	// public override void Server_OnActorRevived(ActorData actor)
+	// {
+	// 	Log.Info(Log.Category.Temp, "MatchObjectiveKill.OnActorDeath");
+	// 	ObjectivePoints objectivePoints = ObjectivePoints.Get();
+	// 	if (objectivePoints != null && IsActorRelevant(actor))
+	// 	{
+	// 		GetPointAdjusts(actor, out var num, out var num2);
+	// 		Team team = actor.GetTeam();
+	// 		objectivePoints.AdjustPoints(-num, team);
+	// 		objectivePoints.AdjustPoints(-num2, team == Team.TeamA ? Team.TeamB : Team.TeamA);
+	// 	}
+	// }
 
 	public override void Client_OnActorDeath(ActorData actor)
 	{
