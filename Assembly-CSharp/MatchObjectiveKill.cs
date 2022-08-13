@@ -7,25 +7,14 @@ public class MatchObjectiveKill : MatchObjective
 	public class CharacterKillPointAdjustOverride
 	{
 		public List<CharacterType> m_killedCharacterTypes;
-
 		public int m_pointAdjustOverrideForKillingTeam;
-
 		public int m_pointAdjustOverrideForDyingTeam;
 
 		public bool IsOverrideRelevantForActor(ActorData actor)
 		{
-			if (!(actor == null))
-			{
-				if (!(actor.GetCharacterResourceLink() == null))
-				{
-					if (!m_killedCharacterTypes.Contains(actor.GetCharacterResourceLink().m_characterType))
-					{
-						return false;
-					}
-					return true;
-				}
-			}
-			return false;
+			return actor != null
+			       && actor.GetCharacterResourceLink() != null
+			       && m_killedCharacterTypes.Contains(actor.GetCharacterResourceLink().m_characterType);
 		}
 	}
 
@@ -40,13 +29,9 @@ public class MatchObjectiveKill : MatchObjective
 	}
 
 	public KillObjectiveType killType = KillObjectiveType.Player;
-
 	public string m_tag = string.Empty;
-
 	public int pointAdjustForKillingTeam = 1;
-
 	public int pointAdjustForDyingTeam;
-
 	public List<CharacterKillPointAdjustOverride> m_characterTypeOverrides;
 
 	public bool IsActorRelevant(ActorData actor)
@@ -78,27 +63,13 @@ public class MatchObjectiveKill : MatchObjective
 		{
 			return;
 		}
-		for (int i = 0; i < m_characterTypeOverrides.Count; i++)
+		foreach (CharacterKillPointAdjustOverride adjustOverride in m_characterTypeOverrides)
 		{
-			if (!m_characterTypeOverrides[i].IsOverrideRelevantForActor(actor))
+			if (adjustOverride.IsOverrideRelevantForActor(actor))
 			{
-				continue;
-			}
-			while (true)
-			{
-				pointsForDyingTeam = m_characterTypeOverrides[i].m_pointAdjustOverrideForDyingTeam;
-				pointsForKillingTeam = m_characterTypeOverrides[i].m_pointAdjustOverrideForKillingTeam;
+				pointsForDyingTeam = adjustOverride.m_pointAdjustOverrideForDyingTeam;
+				pointsForKillingTeam = adjustOverride.m_pointAdjustOverrideForKillingTeam;
 				return;
-			}
-		}
-		while (true)
-		{
-			switch (2)
-			{
-			default:
-				return;
-			case 0:
-				break;
 			}
 		}
 	}
@@ -107,51 +78,24 @@ public class MatchObjectiveKill : MatchObjective
 	{
 		Log.Info(Log.Category.Temp, "MatchObjectiveKill.OnActorDeath");
 		ObjectivePoints objectivePoints = ObjectivePoints.Get();
-		if (!(objectivePoints != null))
+		if (objectivePoints != null && IsActorRelevant(actor))
 		{
-			return;
-		}
-		while (true)
-		{
-			if (IsActorRelevant(actor))
-			{
-				while (true)
-				{
-					GetPointAdjusts(actor, out int pointsForDyingTeam, out int pointsForKillingTeam);
-					Team team = actor.GetTeam();
-					objectivePoints.AdjustPoints(pointsForDyingTeam, team);
-					objectivePoints.AdjustPoints(pointsForKillingTeam, (team == Team.TeamA) ? Team.TeamB : Team.TeamA);
-					return;
-				}
-			}
-			return;
+			GetPointAdjusts(actor, out int pointsForDyingTeam, out int pointsForKillingTeam);
+			Team team = actor.GetTeam();
+			objectivePoints.AdjustPoints(pointsForDyingTeam, team);
+			objectivePoints.AdjustPoints(pointsForKillingTeam, team == Team.TeamA ? Team.TeamB : Team.TeamA);
 		}
 	}
 
 	public override void Client_OnActorDeath(ActorData actor)
 	{
 		ObjectivePoints objectivePoints = ObjectivePoints.Get();
-		if (!(objectivePoints != null) || !IsActorRelevant(actor))
-		{
-			return;
-		}
-		while (true)
+		if (objectivePoints != null && IsActorRelevant(actor))
 		{
 			GetPointAdjusts(actor, out int pointsForDyingTeam, out int pointsForKillingTeam);
 			Team team = actor.GetTeam();
 			objectivePoints.AdjustUnresolvedPoints(pointsForDyingTeam, team);
-			int adjustAmount = pointsForKillingTeam;
-			int teamToAdjust;
-			if (team == Team.TeamA)
-			{
-				teamToAdjust = 1;
-			}
-			else
-			{
-				teamToAdjust = 0;
-			}
-			objectivePoints.AdjustUnresolvedPoints(adjustAmount, (Team)teamToAdjust);
-			return;
+			objectivePoints.AdjustUnresolvedPoints(pointsForKillingTeam, team == Team.TeamA ? Team.TeamB : Team.TeamA);
 		}
 	}
 }
