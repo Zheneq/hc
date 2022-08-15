@@ -7,18 +7,14 @@ namespace LobbyGameClientMessages
 	{
 		public enum ActionType
 		{
-			_001D,
-			_000E
+			RerollSeasonQuests,
+			SetSeasonQuest
 		}
 
 		public ActionType Action;
-
 		public int SeasonId;
-
 		public int ChapterId;
-
 		public int SlotNum;
-
 		public int QuestId;
 	}
 }
