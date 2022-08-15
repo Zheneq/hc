@@ -5677,7 +5677,7 @@ public class ClientGameManager : MonoBehaviour
 		{
 			if (this.m_lobbyGameClientInterface.IsConnected)
 			{
-				this.m_lobbyGameClientInterface._001D(symbol_001D, symbol_000E);
+				this.m_lobbyGameClientInterface.DEBUG_AdminSlashCommandExecuted(symbol_001D, symbol_000E);
 			}
 		}
 	}
@@ -5690,7 +5690,7 @@ public class ClientGameManager : MonoBehaviour
 			{
 				LobbyGameClientInterface lobbyGameClientInterface = this.m_lobbyGameClientInterface;
 				
-				lobbyGameClientInterface._001D(delegate(DEBUG_ForceMatchmakingResponse response)
+				lobbyGameClientInterface.DEBUG_ForceMatchmaking(delegate(DEBUG_ForceMatchmakingResponse response)
 					{
 						string text = (!response.Success) ? string.Format("Failed to force queue: {0}", response.ErrorMessage) : string.Format("Forced queue {0}", response.GameType);
 						TextConsole.Get().Write(text, ConsoleMessageType.SystemMessage);
@@ -5715,7 +5715,7 @@ public class ClientGameManager : MonoBehaviour
 			{
 				LobbyGameClientInterface lobbyGameClientInterface = this.m_lobbyGameClientInterface;
 				
-				lobbyGameClientInterface._001D(delegate(DEBUG_TakeSnapshotResponse response)
+				lobbyGameClientInterface.DEBUG_TakeSnapshot(delegate(DEBUG_TakeSnapshotResponse response)
 					{
 						string text;
 						if (response.Success)
