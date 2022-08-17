@@ -477,6 +477,7 @@
     <Compile Include="ArcingProjectileSequence.cs" />
     <Compile Include="AreaEffectUtils.cs" />
     <Compile Include="Artemis\ArtemisBridgeServerInterface.cs" />
+    <Compile Include="Artemis\ArtemisClientBase.cs" />
     <Compile Include="Artemis\ArtemisGamePoller.cs" />
     <Compile Include="AssetBundleManager.cs" />
     <Compile Include="AssetFileSelectorAttribute.cs" />
@@ -1613,8 +1614,16 @@
     <Compile Include="Messages\Alliance\JoinGameServerResponse.cs" />
     <Compile Include="Messages\Alliance\LaunchGameRequest.cs" />
     <Compile Include="Messages\Alliance\LaunchGameResponse.cs" />
+    <Compile Include="Messages\Alliance\MonitorHeartbeatNotification.cs" />
+    <Compile Include="Messages\Alliance\MonitorHeartbeatResponse.cs" />
+    <Compile Include="Messages\Alliance\PlayerDisconnectedNotification.cs" />
     <Compile Include="Messages\Alliance\ReconnectPlayerRequest.cs" />
     <Compile Include="Messages\Alliance\ReconnectPlayerResponse.cs" />
+    <Compile Include="Messages\Alliance\RegisterGameServerRequest.cs" />
+    <Compile Include="Messages\Alliance\RegisterGameServerResponse.cs" />
+    <Compile Include="Messages\Alliance\ServerGameMetricsNotification.cs" />
+    <Compile Include="Messages\Alliance\ServerGameStatusNotification.cs" />
+    <Compile Include="Messages\Alliance\ServerGameSummaryNotification.cs" />
     <Compile Include="Messages\Alliance\ShutdownGameRequest.cs" />
     <Compile Include="Messages\CastAbility.cs" />
     <Compile Include="Messages\ClientMovementPhaseCompleted.cs" />

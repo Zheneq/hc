@@ -21,6 +21,8 @@ public class AllianceMessageBase : MessageBase
 
 	public override void Deserialize(NetworkReader reader)
 	{
+		// custom, was empty in rogues
+		this.ResponseId = reader.ReadInt32();
 	}
 
 	public virtual void DeserializeNested(NetworkReader reader)

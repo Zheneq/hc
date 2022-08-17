@@ -4,18 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
+using ArtemisServer.BridgeServer;
+using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
+using Random = UnityEngine.Random;
+//using System.Net;
 //using System.Threading.Tasks;
 //using CoOp;
 //using Mirror;
 //using Mirror.Websocket;
 //using Open.Nat;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
-
-using ArtemisServer.BridgeServer;
-using System.Collections;
 
 // server-only -- was empty in reactor
 // TODO fix networking & asyncs
@@ -45,8 +45,7 @@ public class ServerGameManager : MonoBehaviour
 	private List<GameObject> m_instancesForGameScenes = new List<GameObject>();
 
 	// TODO LOW look into this if we want to collect events and stats
-	// monitor
-	//private MonitorGameServerInterface m_monitorGameServerInterface;  // will be null for now
+	private ArtemisBridgeServerInterface m_monitorGameServerInterface; // MonitorGameServerInterface in rogues
 
 	private const int m_maxPlayers = 32;
 
@@ -66,22 +65,13 @@ public class ServerGameManager : MonoBehaviour
 		return s_instance;
 	}
 
-	// monitor
-	//public event Action<RegisterGameServerResponse> OnConnectedToMonitorServer = delegate(RegisterGameServerResponse p0) {};
-	//public event Action<string> OnDisconnectedFromMonitorServer = delegate(string p0) {};
+	public event Action<RegisterGameServerResponse> OnConnectedToMonitorServer = delegate { };
+	public event Action<string> OnDisconnectedFromMonitorServer = delegate { };
 
 	public string ListenAddress { get; private set; }
 	public int ListenPort { get; private set; }
 
-	public bool IsConnectedToMonitorServer
-	{
-		get
-		{
-			// custom
-			return false;
-			//return m_monitorGameServerInterface != null && m_monitorGameServerInterface.isConnected;
-		}
-	}
+	public bool IsConnectedToMonitorServer => m_monitorGameServerInterface != null && m_monitorGameServerInterface.isConnected;
 
 	// custom Artemis
 	public static Dictionary<string, GameObject> ResourceNetworkObjects = new Dictionary<string, GameObject>();
@@ -107,7 +97,7 @@ public class ServerGameManager : MonoBehaviour
 			Log.Info($"Prefab {name} - nb {nb.GetType().Name}");
 		}
 
-		GameObject obj = GameObject.Instantiate(prefab);
+		GameObject obj = Instantiate(prefab);
 		Log.Info($"Instantiated {name}");
 
 		if (activate)
@@ -200,7 +190,6 @@ public class ServerGameManager : MonoBehaviour
 					}
 				}
 			}
-
 		}
 	}
 
@@ -210,24 +199,23 @@ public class ServerGameManager : MonoBehaviour
 		GameManager.Get().OnGameStopped += HandleGameStopped;
 		GameManager.Get().OnGameStatusChanged += HandleGameStatusChanged;
 		m_heartBeat.Start();
-		// monitor
-		//HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
-		//if (hydrogenConfig != null && hydrogenConfig.MonitorHeartbeatCooldown.TotalSeconds > 0.0)
-		//{
-		//	m_heartBeatDuration = hydrogenConfig.MonitorHeartbeatCooldown;
-		//}
-
-		// custom artemis
-		ArtemisBridgeServerInterface.Init();
+		// rogues
+		// HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
+		// if (hydrogenConfig != null && hydrogenConfig.MonitorHeartbeatCooldown.TotalSeconds > 0.0)
+		// {
+		// 	m_heartBeatDuration = hydrogenConfig.MonitorHeartbeatCooldown;
+		// }
+		// custom temp
+		m_heartBeatDuration = TimeSpan.FromMinutes(1);
+		ConnectToMonitorServer("ws://127.0.0.1:6060/BridgeServer", 6060);
 	}
 
 	protected void Update()
 	{
-		// monitor
-		//if (m_monitorGameServerInterface != null)
-		//{
-		//    m_monitorGameServerInterface.Update();
-		//}
+		if (m_monitorGameServerInterface != null)
+		{
+			m_monitorGameServerInterface.Update();
+		}
 		CheckConnected();
 		CheckLoaded();
 		CheckDisconnected();
@@ -249,26 +237,18 @@ public class ServerGameManager : MonoBehaviour
 				{
 					try
 					{
-						Log.Info("Allowing reconnecting player {0} ({1}) back in.", new object[]
-						{
-							serverPlayerState.SessionInfo.Handle,
-							serverPlayerState.SessionInfo.AccountId
-						});
+						Log.Info("Allowing reconnecting player {0} ({1}) back in.", serverPlayerState.SessionInfo.Handle, serverPlayerState.SessionInfo.AccountId);
 						NetworkServer.SetClientReady(serverPlayerState.ConnectionPersistent);
 						if (m_reconnectingAccountIds.Contains(serverPlayerState.SessionInfo.AccountId))
 						{
 							m_reconnectingAccountIds.Remove(serverPlayerState.SessionInfo.AccountId);
-							SendConsoleMessageWithHandle("PlayerReconnected", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId, ConsoleMessageType.SystemMessage, null);
+							SendConsoleMessageWithHandle("PlayerReconnected", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId);
 						}
 						serverPlayerState.ConnectionReady = true;
 					}
 					catch (Exception ex)
 					{
-						Log.Warning("Exception during NetworkServer.SetClientReady for {0} | {1}", new object[]
-						{
-							serverPlayerState.ToString(),
-							ex
-						});
+						Log.Warning("Exception during NetworkServer.SetClientReady for {0} | {1}", serverPlayerState.ToString(), ex);
 					}
 				}
 				m_playersToReadyNextDecisionPhase.Clear();
@@ -281,28 +261,27 @@ public class ServerGameManager : MonoBehaviour
 				serverGameMetrics.TeamBPoints = ObjectivePoints.Get().GetPointsForTeam(Team.TeamB);
 				serverGameMetrics.AverageFrameTime = (from f in m_recentFrameTimes where f != 0f select f).Average();
 				Log.Info($"Frame time: {serverGameMetrics.AverageFrameTime * 1000f} ms");
-				// monitor
-				//if (m_monitorGameServerInterface != null)
-				//{
-				//	m_monitorGameServerInterface.SendGameMetricsNotification(serverGameMetrics);
-				//}
+				if (m_monitorGameServerInterface != null)
+				{
+					m_monitorGameServerInterface.SendGameMetricsNotification(serverGameMetrics);
+				}
 			}
 		}
 		if (m_heartBeat.IsRunning && m_heartBeat.Elapsed > m_heartBeatDuration)
 		{
-			// monitor
-			//m_monitorGameServerInterface.SendMonitorHeartbeatNotification();
-			m_heartBeat.Reset();  // m_heartBeat.Restart(); in rogues
+			m_monitorGameServerInterface.SendMonitorHeartbeatNotification();
+			m_heartBeat.Reset(); // m_heartBeat.Restart(); in rogues
 		}
 	}
 
-	internal void StartServerOrHost()  // async Task in rogues
+	internal void StartServerOrHost() // async Task in rogues
 	{
 		HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
 		if (hydrogenConfig == null)
 		{
 			throw new Exception("CommonServerConfig must be loaded to run servers or host games");
 		}
+
 		ListenAddress = "";
 		ListenPort = 0;
 		NetworkManager.singleton.networkAddress = "0.0.0.0";
@@ -431,55 +410,52 @@ public class ServerGameManager : MonoBehaviour
 		//}
 
 		CommonServerConfig commonServerConfig = CommonServerConfig.Get();
-		ListenAddress = (((commonServerConfig != null) ? commonServerConfig.GameServerListenAddress : null) ?? ListenAddress);
-		Log.Info("Game Server initialized at {0}:{1}", new object[]
-		{
-				ListenAddress,
-				ListenPort
-		});
-		return;
+		ListenAddress = (commonServerConfig != null ? commonServerConfig.GameServerListenAddress : null) ?? ListenAddress;
+		Log.Info("Game Server initialized at {0}:{1}", ListenAddress, ListenPort);
 
 		// new networking lib cont
 		//}
 		//	throw new Exception("Failed to initialize Game Server");
 	}
 
-	// monitor
-	//internal void ConnectToMonitorServer(string address, short port, long accountId = 0L)
-	//   {
-	//       if (m_monitorGameServerInterface != null)
-	//       {
-	//           return;
-	//       }
-	//       HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
+	internal void ConnectToMonitorServer(string address, short port, long accountId = 0L)
+	{
+		if (m_monitorGameServerInterface != null)
+		{
+			return;
+		}
 
-	//	WebsocketTransport component = base.GetComponent<WebsocketTransport>();
-	//	component.port = (int)port;
-	//	component.Secure = true;
-	//	component.serverName = "MonitorGameServerSessionManager";
+		HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
 
-	//	m_monitorGameServerInterface = base.gameObject.AddComponent<MonitorGameServerInterface>();
-	//	m_monitorGameServerInterface.Initialize(address, port, hydrogenConfig.ProcessType, hydrogenConfig.ProcessCode, accountId);
-	//	m_monitorGameServerInterface.OnConnectedHandler += HandleConnectedToMonitorServer;
-	//	m_monitorGameServerInterface.OnDisconnectedHandler += HandleDisconnectedFromMonitorServer;
-	//	m_monitorGameServerInterface.OnLaunchGameRequest += HandleLaunchGameRequest;
-	//	m_monitorGameServerInterface.OnJoinGameServerRequest += HandleJoinGameServerRequest;
-	//	m_monitorGameServerInterface.OnJoinGameAsObserverRequest += HandleJoinGameAsObserverRequest;
-	//	m_monitorGameServerInterface.OnShutdownGameRequest += HandleShutdownGameRequest;
-	//	m_monitorGameServerInterface.OnDisconnectPlayerRequest += HandleDisconnectPlayerRequest;
-	//	m_monitorGameServerInterface.OnReconnectPlayerRequest += HandleReconnectPlayerRequest;
-	//	m_monitorGameServerInterface.OnMonitorHeartbeatResponse += HandleMonitorHeartbeatResponse;
-	//	m_monitorGameServerInterface.Reconnect();
-	//}
+		// custom
+		m_monitorGameServerInterface = gameObject.AddComponent<ArtemisBridgeServerInterface>();
+		// rogues
+		// WebsocketTransport component = base.GetComponent<WebsocketTransport>();
+		// component.port = (int)port;
+		// component.Secure = true;
+		// component.serverName = "MonitorGameServerSessionManager";
+		// m_monitorGameServerInterface = base.gameObject.AddComponent<MonitorGameServerInterface>();
 
-	// monitor
-	//public void DisconnectFromMonitorServer()
-	//   {
-	//       if (m_monitorGameServerInterface != null)
-	//       {
-	//           m_monitorGameServerInterface.Disconnect();
-	//       }
-	//   }
+		m_monitorGameServerInterface.Initialize(address, port, hydrogenConfig.ProcessType, hydrogenConfig.ProcessCode, accountId);
+		m_monitorGameServerInterface.OnConnectedHandler += HandleConnectedToMonitorServer;
+		m_monitorGameServerInterface.OnDisconnectedHandler += HandleDisconnectedFromMonitorServer;
+		m_monitorGameServerInterface.OnLaunchGameRequest += HandleLaunchGameRequest;
+		m_monitorGameServerInterface.OnJoinGameServerRequest += HandleJoinGameServerRequest;
+		m_monitorGameServerInterface.OnJoinGameAsObserverRequest += HandleJoinGameAsObserverRequest;
+		m_monitorGameServerInterface.OnShutdownGameRequest += HandleShutdownGameRequest;
+		m_monitorGameServerInterface.OnDisconnectPlayerRequest += HandleDisconnectPlayerRequest;
+		m_monitorGameServerInterface.OnReconnectPlayerRequest += HandleReconnectPlayerRequest;
+		m_monitorGameServerInterface.OnMonitorHeartbeatResponse += HandleMonitorHeartbeatResponse;
+		m_monitorGameServerInterface.Reconnect();
+	}
+
+	public void DisconnectFromMonitorServer()
+	{
+		if (m_monitorGameServerInterface != null)
+		{
+			m_monitorGameServerInterface.Disconnect();
+		}
+	}
 
 	internal void DisconnectClient(int connectionId)
 	{
@@ -518,33 +494,31 @@ public class ServerGameManager : MonoBehaviour
 
 	public void SendGameSummaryNotification()
 	{
-		// monitor
-		//if (m_monitorGameServerInterface != null)
-		//      {
-		//          Log.Info("Sending game summary to lobby server");
-		//          m_monitorGameServerInterface.SendGameSummaryNotification(GameManager.Get().GameSummary, GameManager.Get().GameSummaryOverrides);
-		//          m_sentGameSummary = true;
-		//          foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
-		//          {
-		//              if (serverPlayerState.SessionInfo != null && serverPlayerState.PlayerInfo != null && !serverPlayerState.PlayerInfo.IsNPCBot)
-		//              {
-		//                  serverPlayerState.LogGameExit(GameManager.Get().GameSummary.GameResult);
-		//              }
-		//          }
-		//      }
+		if (m_monitorGameServerInterface != null)
+		{
+			Log.Info("Sending game summary to lobby server");
+			m_monitorGameServerInterface.SendGameSummaryNotification(GameManager.Get().GameSummary, GameManager.Get().GameSummaryOverrides);
+			m_sentGameSummary = true;
+			foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
+			{
+				if (serverPlayerState.SessionInfo != null && serverPlayerState.PlayerInfo != null && !serverPlayerState.PlayerInfo.IsNPCBot)
+				{
+					serverPlayerState.LogGameExit(GameManager.Get().GameSummary.GameResult);
+				}
+			}
+		}
 	}
 
 	private void OnDestroy()
 	{
 		if (GameManager.Get() != null)
 		{
-			GameManager.Get().StopGame(GameResult.NoResult);
+			GameManager.Get().StopGame();
 			GameManager.Get().OnGameLaunched -= HandleGameLaunched;
 			GameManager.Get().OnGameStopped -= HandleGameStopped;
 			GameManager.Get().OnGameStatusChanged -= HandleGameStatusChanged;
 		}
-		// monitor
-		//DisconnectFromMonitorServer();
+		DisconnectFromMonitorServer();
 		DisconnectClients();
 		if (EventLogger.Get() != null)
 		{
@@ -556,25 +530,16 @@ public class ServerGameManager : MonoBehaviour
 		s_instance = null;
 	}
 
-	private void HandleNetworkError(NetworkConnection conn, NetworkError errorCode)  // byte errorCode in rogues
+	private void HandleNetworkError(NetworkConnection conn, NetworkError errorCode) // byte errorCode in rogues
 	{
-		Log.Error("Client network error from {0}: (connectionId {1}) {2}", new object[]
-		{
-			conn.address,
-			conn.connectionId,
-			errorCode.ToString()
-		});
+		Log.Error("Client network error from {0}: (connectionId {1}) {2}", conn.address, conn.connectionId, errorCode.ToString());
 	}
 
 	private void HandleNetworkConnect(NetworkConnection conn)
 	{
 		if (!(conn.address == "localhost") || conn.connectionId <= NetworkManager.singleton.maxConnections)
 		{
-			Log.Info("Client network connected from {0} (connectionId {1})", new object[]
-			{
-				conn.address,
-				conn.connectionId
-			});
+			Log.Info("Client network connected from {0} (connectionId {1})", conn.address, conn.connectionId);
 		}
 	}
 
@@ -595,13 +560,7 @@ public class ServerGameManager : MonoBehaviour
 			ServerPlayerState playerStateByConnectionId = GetPlayerStateByConnectionId(conn.connectionId);
 			LobbyGameInfo gameInfo = GameManager.Get().GameInfo;
 			TimeSpan gameServerClientReconnectTimeout = CommonServerConfig.Get().GameServerClientReconnectTimeout;
-			Log.Info("{0} Connection is queued to disconnect (connectionId {1}) ({2}secs)| {3}", new object[]
-			{
-				playerStateByConnectionId,
-				conn.connectionId,
-				gameServerClientReconnectTimeout.TotalSeconds,
-				gameInfo.Name
-			});
+			Log.Info("{0} Connection is queued to disconnect (connectionId {1}) ({2}secs)| {3}", playerStateByConnectionId, conn.connectionId, gameServerClientReconnectTimeout.TotalSeconds, gameInfo.Name);
 			m_pendingDisconnects.Add(conn, Time.realtimeSinceStartup + (float)gameServerClientReconnectTimeout.TotalSeconds);
 		}
 	}
@@ -625,40 +584,27 @@ public class ServerGameManager : MonoBehaviour
 		}
 		if (serverPlayerState == null)
 		{
-			Log.Info("Unknown player disconnected from {0} (connectionId {1})", new object[]
-			{
-				conn.address,
-				conn.connectionId
-			});
+			Log.Info("Unknown player disconnected from {0} (connectionId {1})", conn.address, conn.connectionId);
 		}
 		else
 		{
-			// monitor
-			//if (m_monitorGameServerInterface != null && serverPlayerState.SessionInfo != null && serverPlayerState.PlayerInfo != null)
-			//{
-			//	m_monitorGameServerInterface.SendPlayerDisconnectedNotification(serverPlayerState.SessionInfo, serverPlayerState.PlayerInfo.LobbyPlayerInfo);
-			//}
+			if (m_monitorGameServerInterface != null && serverPlayerState.SessionInfo != null && serverPlayerState.PlayerInfo != null)
+			{
+				m_monitorGameServerInterface.SendPlayerDisconnectedNotification(serverPlayerState.SessionInfo, serverPlayerState.PlayerInfo.LobbyPlayerInfo);
+			}
+
 			serverPlayerState.ConnectionReady = false;
 			bool flag = GameManager.Get().GameStatus == GameStatus.Stopped || (ObjectivePoints.Get() != null && ObjectivePoints.Get().m_matchState == ObjectivePoints.MatchState.MatchEnd);
 			bool flag2 = serverPlayerState.PlayerInfo != null && serverPlayerState.PlayerInfo.TeamId == Team.Spectator;
-			long accountId = (serverPlayerState.PlayerInfo != null) ? serverPlayerState.PlayerInfo.LobbyPlayerInfo.AccountId : -1L;
+			long accountId = serverPlayerState.PlayerInfo != null ? serverPlayerState.PlayerInfo.LobbyPlayerInfo.AccountId : -1L;
 			GameResult gameResult = GameResult.GameServerNetworkErrorToClient;
 			string empty = string.Empty;
 			serverPlayerState.LogGameExit(gameResult);
 			GameFlow gameFlow = GameFlow.Get();
 			if (!serverPlayerState.IsAIControlled && !flag2 && !flag)
 			{
-				Log.Info("Player {0} [{1}] (connectionId {2}, connectionAddress {3}) has disconnected from game {4} (listenAddress {5}), and will now be controlled by a bot | closeStatusCode= {6}", new object[]
-				{
-					serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle,
-					serverPlayerState.SessionInfo.AccountId,
-					serverPlayerState.ConnectionId,
-					serverPlayerState.ConnectionAddress,
-					serverPlayerState.GameInfo.Name,
-					ListenAddress,
-					empty
-				});
-				SendConsoleMessageWithHandle("PlayerDisconnectedBot", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId, ConsoleMessageType.SystemMessage, null);
+				Log.Info("Player {0} [{1}] (connectionId {2}, connectionAddress {3}) has disconnected from game {4} (listenAddress {5}), and will now be controlled by a bot | closeStatusCode= {6}", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.SessionInfo.AccountId, serverPlayerState.ConnectionId, serverPlayerState.ConnectionAddress, serverPlayerState.GameInfo.Name, ListenAddress, empty);
+				SendConsoleMessageWithHandle("PlayerDisconnectedBot", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId);
 				if (gameFlow != null)
 				{
 					gameFlow.ReplaceWithBots(serverPlayerState.ConnectionPersistent);
@@ -667,17 +613,8 @@ public class ServerGameManager : MonoBehaviour
 			}
 			else
 			{
-				Log.Info("Player {0} [{1}] (connectionId {2}, connectionAddress {3}) has disconnected from game {4} (listenAddress {5}) | closeStatusCode= {6}", new object[]
-				{
-					serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle,
-					serverPlayerState.SessionInfo.AccountId,
-					serverPlayerState.ConnectionId,
-					serverPlayerState.ConnectionAddress,
-					serverPlayerState.GameInfo.Name,
-					ListenAddress,
-					empty
-				});
-				SendConsoleMessageWithHandle("PlayerDisconnected", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId, ConsoleMessageType.SystemMessage, null);
+				Log.Info("Player {0} [{1}] (connectionId {2}, connectionAddress {3}) has disconnected from game {4} (listenAddress {5}) | closeStatusCode= {6}", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.SessionInfo.AccountId, serverPlayerState.ConnectionId, serverPlayerState.ConnectionAddress, serverPlayerState.GameInfo.Name, ListenAddress, empty);
+				SendConsoleMessageWithHandle("PlayerDisconnected", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId);
 				if (gameFlow != null)
 				{
 					gameFlow.FlagPlayerAsDisconnected(serverPlayerState.ConnectionPersistent);
@@ -701,20 +638,19 @@ public class ServerGameManager : MonoBehaviour
 
 	private void HandleGameStatusChanged(GameStatus gameStatus)
 	{
-		if (
-			// monitor
-			//m_monitorGameServerInterface != null && 
-			gameStatus >= GameStatus.LoadoutSelecting)
+		if (m_monitorGameServerInterface != null && gameStatus >= GameStatus.LoadoutSelecting)
 		{
-			if (gameStatus == GameStatus.Stopped && !m_sentGameSummary && GameManager.Get() != null && GameManager.Get().GameSummary != null)
+			if (gameStatus == GameStatus.Stopped
+				&& !m_sentGameSummary
+				&& GameManager.Get() != null
+				&& GameManager.Get().GameSummary != null)
 			{
-				GameManager.Get().GameSummary.TimeText = ((MatchLogger.Get() != null) ? MatchLogger.Get().GetTimeForLogging(true) : "0");
-				GameManager.Get().GameSummary.MatchTime = ((MatchLogger.Get() != null) ? MatchLogger.Get().GetMatchTime() : new TimeSpan(0L));
-				GameManager.Get().GameSummary.NumOfTurns = ((GameFlowData.Get() != null) ? GameFlowData.Get().CurrentTurn : 0);
+				GameManager.Get().GameSummary.TimeText = MatchLogger.Get() != null ? MatchLogger.Get().GetTimeForLogging(true) : "0";
+				GameManager.Get().GameSummary.MatchTime = MatchLogger.Get() != null ? MatchLogger.Get().GetMatchTime() : new TimeSpan(0L);
+				GameManager.Get().GameSummary.NumOfTurns = GameFlowData.Get() != null ? GameFlowData.Get().CurrentTurn : 0;
 				SendGameSummaryNotification();
 			}
-			// monitor
-			//m_monitorGameServerInterface.SendGameStatusNotification(gameStatus);
+			m_monitorGameServerInterface.SendGameStatusNotification(gameStatus);
 		}
 	}
 
@@ -780,29 +716,27 @@ public class ServerGameManager : MonoBehaviour
 		//}
 	}
 
-	// monitor
-	//private void HandleConnectedToMonitorServer(RegisterGameServerResponse response)
-	//{
-	//	if (!response.Success)
-	//	{
-	//		DisconnectFromMonitorServer();
-	//		OnConnectedToMonitorServer(response);
-	//		GameManager.Get().StopGame(GameResult.NoResult);
-	//		return;
-	//	}
-	//	OnConnectedToMonitorServer(response);
-	//}
+	private void HandleConnectedToMonitorServer(RegisterGameServerResponse response)
+	{
+		if (!response.Success)
+		{
+			DisconnectFromMonitorServer();
+			OnConnectedToMonitorServer(response);
+			GameManager.Get().StopGame();
+			return;
+		}
 
-	// monitor
-	//private void HandleDisconnectedFromMonitorServer(string lastLobbyErrorMessage)
-	//{
-	//	Log.Info("Disconnected from Monitor Server");
-	//	// monitor
-	//	//m_monitorGameServerInterface = null;
-	//	GameResult gameResult = GameResult.GameServerNetworkErrorToMonitorServer;
-	//	OnDisconnectedFromMonitorServer(lastLobbyErrorMessage);
-	//	GameManager.Get().StopGame(gameResult);
-	//}
+		OnConnectedToMonitorServer(response);
+	}
+
+	private void HandleDisconnectedFromMonitorServer(string lastLobbyErrorMessage)
+	{
+		Log.Info("Disconnected from Monitor Server");
+		m_monitorGameServerInterface = null;
+		GameResult gameResult = GameResult.GameServerNetworkErrorToMonitorServer;
+		OnDisconnectedFromMonitorServer(lastLobbyErrorMessage);
+		GameManager.Get().StopGame(gameResult);
+	}
 
 	private void SetGameStatus(GameStatus gameStatus, bool notify = true)
 	{
@@ -810,10 +744,10 @@ public class ServerGameManager : MonoBehaviour
 	}
 
 	// was private, public for for quick Artemis hook
-	public void HandleLaunchGameRequest(LaunchGameRequest request)  // async in rogues
+	public void HandleLaunchGameRequest(LaunchGameRequest request) // async in rogues
 	{
 		// TODO HACK
-		var panels = UnityEngine.Object.FindObjectsOfType<UILoadingScreenPanel>();
+		var panels = FindObjectsOfType<UILoadingScreenPanel>();
 		GameObject obj;
 		UILoadingScreenPanel uILoadingScreenPanel;
 		if (panels.IsNullOrEmpty())
@@ -833,10 +767,7 @@ public class ServerGameManager : MonoBehaviour
 
 		// TODO LOW pass config from lobby server
 		// custom
-		MatchmakingQueueConfig config = new MatchmakingQueueConfig()
-		{
-
-		};
+		MatchmakingQueueConfig config = new MatchmakingQueueConfig();
 
 		GameManager gameManager = GameManager.Get();
 		gameManager.SetGameInfo(request.GameInfo);
@@ -848,8 +779,8 @@ public class ServerGameManager : MonoBehaviour
 		}
 		StartServerOrHost(); // await StartServerOrHost(); in rogues
 		m_serverPlayerStates.Clear();
-		List<LobbyServerPlayerInfo> localPlayers = (from p in request.TeamInfo.TeamPlayerInfo where !p.IsNPCBot && !p.IsRemoteControlled select p).ToList<LobbyServerPlayerInfo>();
-		List<LobbyServerPlayerInfo> bots = (from p in request.TeamInfo.TeamPlayerInfo where p.IsNPCBot select p).ToList<LobbyServerPlayerInfo>();
+		List<LobbyServerPlayerInfo> localPlayers = (from p in request.TeamInfo.TeamPlayerInfo where !p.IsNPCBot && !p.IsRemoteControlled select p).ToList();
+		List<LobbyServerPlayerInfo> bots = (from p in request.TeamInfo.TeamPlayerInfo where p.IsNPCBot select p).ToList();
 		Log.Info($"ServerGameManager::HandleLaunchGameRequest: {localPlayers.Count} local players and {bots.Count} bots");
 		int num = -1;
 		foreach (LobbyServerPlayerInfo lobbyServerPlayerInfo in localPlayers)
@@ -861,7 +792,7 @@ public class ServerGameManager : MonoBehaviour
 				while (enumerator2.MoveNext())
 				{
 					int proxyPlayerId = enumerator2.Current;
-					LobbyServerPlayerInfo lobbyServerPlayerInfo2 = (from p in request.TeamInfo.TeamPlayerInfo where p.PlayerId == proxyPlayerId select p).FirstOrDefault<LobbyServerPlayerInfo>();
+					LobbyServerPlayerInfo lobbyServerPlayerInfo2 = (from p in request.TeamInfo.TeamPlayerInfo where p.PlayerId == proxyPlayerId select p).FirstOrDefault();
 					if (lobbyServerPlayerInfo2 != null)
 					{
 						lobbyServerPlayerInfo2.CharacterInfo.CharacterCards = lobbyServerPlayerInfo.CharacterInfo.CharacterCards;
@@ -879,15 +810,14 @@ public class ServerGameManager : MonoBehaviour
 		}
 
 
-
 		// TODO REMOVE hack -- no monitor server to create server player state ahead of time, so we create it here
-		List<LobbyServerPlayerInfo> remotePlayers = (from p in request.TeamInfo.TeamPlayerInfo where !p.IsNPCBot && p.IsRemoteControlled select p).ToList<LobbyServerPlayerInfo>();
+		List<LobbyServerPlayerInfo> remotePlayers = (from p in request.TeamInfo.TeamPlayerInfo where !p.IsNPCBot && p.IsRemoteControlled select p).ToList();
 		Log.Info($"ServerGameManager::HandleLaunchGameRequest: {remotePlayers.Count} remote players");
 		foreach (LobbyServerPlayerInfo remotePlayer in remotePlayers)
 		{
 			int playerId = remotePlayer.PlayerId;
 			long accountId = Convert.ToInt64(remotePlayer.AccountId);
-			HandleJoinGameServerRequest(new JoinGameServerRequest()
+			HandleJoinGameServerRequest(new JoinGameServerRequest
 			{
 				OrigRequestId = 0,
 				GameServerProcessCode = "foo",
@@ -897,7 +827,7 @@ public class ServerGameManager : MonoBehaviour
 				//	PlayerId = playerId,
 				//	ReplacedWithBots = false,
 				//},
-				SessionInfo = new LobbySessionInfo()
+				SessionInfo = new LobbySessionInfo
 				{
 					AccountId = accountId,
 					UserName = $"player_{accountId}",
@@ -939,17 +869,16 @@ public class ServerGameManager : MonoBehaviour
 		CommonServerConfig commonServerConfig = CommonServerConfig.Get();
 		gameManager.GameInfo.GameServerAddress = string.Format("{0}:{1}", ListenAddress, ListenPort);
 		gameManager.GameInfo.GameServerHost = commonServerConfig.PrivateHostName;
-		// monitor
-		//m_monitorGameServerInterface.SendLaunchGameResponse(true, gameManager.GameInfo);
-		SetGameStatus(GameStatus.Launched, true);
-		SetGameStatus(GameStatus.Connecting, true);
+		m_monitorGameServerInterface.SendLaunchGameResponse(true, gameManager.GameInfo);
+		SetGameStatus(GameStatus.Launched);
+		SetGameStatus(GameStatus.Connecting);
 		LoadAssets();
 	}
 
 	private void AddPlayerState(LobbySessionInfo sessionInfo, LobbyServerPlayerInfo primaryPlayerInfo, List<LobbyServerPlayerInfo> proxyPlayerInfos, int connectionTemporaryId)
 	{
 		GameManager gameManager = GameManager.Get();
-		ServerPlayerState serverPlayerState = new ServerPlayerState()
+		ServerPlayerState serverPlayerState = new ServerPlayerState
 		{
 			PlayerInfo = new ServerPlayerInfo(primaryPlayerInfo, proxyPlayerInfos),
 			SessionInfo = sessionInfo,
@@ -957,7 +886,7 @@ public class ServerGameManager : MonoBehaviour
 			ConnectionReady = false,
 			GameLoadingState = new GameLoadingState(),
 		};
-		m_serverPlayerStates.Add((long)primaryPlayerInfo.PlayerId, serverPlayerState);
+		m_serverPlayerStates.Add(primaryPlayerInfo.PlayerId, serverPlayerState);
 		ApplyOverrides(gameManager.GameplayOverrides, serverPlayerState.PlayerInfo);
 		foreach (ServerPlayerInfo playerInfo in serverPlayerState.PlayerInfo.ProxyPlayerInfos)
 		{
@@ -976,11 +905,7 @@ public class ServerGameManager : MonoBehaviour
 		{
 			if (serverPlayerState.IsAIControlled && primaryPlayerInfo.ReplacedWithBots)
 			{
-				Log.Info("Player {0}[{1}] Is AI Controlled and replaced with bots when adding player state", new object[]
-				{
-					serverPlayerState.PlayerInfo.Handle,
-					serverPlayerState.SessionInfo.AccountId
-				});
+				Log.Info("Player {0}[{1}] Is AI Controlled and replaced with bots when adding player state", serverPlayerState.PlayerInfo.Handle, serverPlayerState.SessionInfo.AccountId);
 			}
 			string text = "localhost";
 
@@ -991,8 +916,8 @@ public class ServerGameManager : MonoBehaviour
 
 			if (serverPlayerState != null && serverPlayerState.SessionInfo != null && !text2.IsNullOrEmpty())
 			{
-				UnityEngine.Debug.Log("Expecting connection from client at address " + text2);
-				string[] array = text2.Split(new char[] { ':', '/' });
+				Debug.Log("Expecting connection from client at address " + text2);
+				string[] array = text2.Split(':', '/');
 				if (!array.IsNullOrEmpty())
 				{
 					if (array.Length > 1)
@@ -1026,11 +951,7 @@ public class ServerGameManager : MonoBehaviour
 			//}
 			if (primaryPlayerInfo.ReplacedWithBots)
 			{
-				Log.Info("Player {0}[{1}] is disconnected, and will now be controlled by a bot", new object[]
-				{
-					serverPlayerState.PlayerInfo.Handle,
-					serverPlayerState.SessionInfo.AccountId
-				});
+				Log.Info("Player {0}[{1}] is disconnected, and will now be controlled by a bot", serverPlayerState.PlayerInfo.Handle, serverPlayerState.SessionInfo.AccountId);
 				serverPlayerState.DisconnectAndReplaceWithBots(GameResult.ClientDisconnectedAtLaunch);
 			}
 		}
@@ -1054,6 +975,7 @@ public class ServerGameManager : MonoBehaviour
 				{
 					playerInfo.CharacterCards.DashCard = CardType.None;
 				}
+
 				if (!gameplayOverrides.IsCardAllowed(playerInfo.CharacterCards.CombatCard))
 				{
 					playerInfo.CharacterCards.CombatCard = CardType.None;
@@ -1087,13 +1009,9 @@ public class ServerGameManager : MonoBehaviour
 		try
 		{
 			List<LobbyServerPlayerInfo> proxyPlayerInfos = new List<LobbyServerPlayerInfo>();
-			if (m_serverPlayerStates.ContainsKey((long)request.PlayerInfo.PlayerId))
+			if (m_serverPlayerStates.ContainsKey(request.PlayerInfo.PlayerId))
 			{
-				Log.Error("Player {0} trying to join game server, but ServerPlayerState already exists for this player", new object[]
-				{
-					request.PlayerInfo.Handle,
-					request.PlayerInfo.AccountId
-				});
+				Log.Error("Player {0} trying to join game server, but ServerPlayerState already exists for this player", request.PlayerInfo.Handle, request.PlayerInfo.AccountId);
 				responseText = "Already joined";
 				flag = false;
 			}
@@ -1105,16 +1023,12 @@ public class ServerGameManager : MonoBehaviour
 		catch (Exception exception)
 		{
 			Log.Exception(exception);
-			Log.Error("Player {0} trying to join game server, but exception occurred", new object[]
-			{
-				request.PlayerInfo.Handle,
-				request.PlayerInfo.AccountId
-			});
+			Log.Error("Player {0} trying to join game server, but exception occurred", request.PlayerInfo.Handle, request.PlayerInfo.AccountId);
 			responseText = "Server error";
 			flag = false;
 		}
-		// monitor
-		//m_monitorGameServerInterface.SendJoinGameServerResponse(request.RequestId, flag, responseText, request.OrigRequestId, request.PlayerInfo, request.GameServerProcessCode);
+
+		m_monitorGameServerInterface.SendJoinGameServerResponse(request.RequestId, flag, responseText, request.OrigRequestId, request.PlayerInfo, request.GameServerProcessCode);
 	}
 
 	private void HandleJoinGameAsObserverRequest(JoinGameAsObserverRequest request)
@@ -1132,15 +1046,12 @@ public class ServerGameManager : MonoBehaviour
 		catch (Exception exception)
 		{
 			Log.Exception(exception);
-			Log.Error("Player {0} trying to join game server as observer, but exception occurred", new object[]
-			{
-				request.AccountId
-			});
+			Log.Error("Player {0} trying to join game server as observer, but exception occurred", request.AccountId);
 			responseText = "Server error";
 			success = false;
 		}
-		// monitor
-		//m_monitorGameServerInterface.SendJoinGameAsObserverResponse(request.RequestId, success, responseText, gameplayOverrides, gameInfo, teamInfo, playerInfo);
+
+		m_monitorGameServerInterface.SendJoinGameAsObserverResponse(request.RequestId, success, responseText, gameplayOverrides, gameInfo, teamInfo, playerInfo);
 	}
 
 	private void CheckConnected()
@@ -1162,21 +1073,14 @@ public class ServerGameManager : MonoBehaviour
 					break;
 				}
 			}
-			if (flag && (double)(Time.unscaledTime - gameManager.GameStatusTime) >= commonServerConfig.GameServerClientConnectTimeout.TotalSeconds)
+			if (flag && Time.unscaledTime - gameManager.GameStatusTime >= commonServerConfig.GameServerClientConnectTimeout.TotalSeconds)
 			{
 				foreach (ServerPlayerState serverPlayerState2 in m_serverPlayerStates.Values)
 				{
 					if (serverPlayerState2.PlayerInfo != null && serverPlayerState2.SessionInfo != null && (serverPlayerState2.ConnectionPersistent == null || !serverPlayerState2.ConnectionPersistent.isReady))
 					{
-						Log.Info("Player {0}[{1}] has failed to connect to game {2}, and will now be controlled by a bot | {3}:{4}", new object[]
-						{
-							serverPlayerState2.PlayerInfo.Handle,
-							serverPlayerState2.SessionInfo.AccountId,
-							gameManager.GameInfo.Name,
-							ListenAddress,
-							ListenPort
-						});
-						SendConsoleMessageWithHandle("PlayerFailedToConnect", "Disconnect", serverPlayerState2.PlayerInfo.Handle, Team.Invalid, ConsoleMessageType.SystemMessage, null);
+						Log.Info("Player {0}[{1}] has failed to connect to game {2}, and will now be controlled by a bot | {3}:{4}", serverPlayerState2.PlayerInfo.Handle, serverPlayerState2.SessionInfo.AccountId, gameManager.GameInfo.Name, ListenAddress, ListenPort);
+						SendConsoleMessageWithHandle("PlayerFailedToConnect", "Disconnect", serverPlayerState2.PlayerInfo.Handle);
 						serverPlayerState2.DisconnectAndReplaceWithBots(GameResult.ClientConnectionFailedToGameServer);
 					}
 				}
@@ -1184,9 +1088,9 @@ public class ServerGameManager : MonoBehaviour
 			}
 			if (!flag && gameManager.GameStatus == GameStatus.Connecting)
 			{
-				SetGameStatus(GameStatus.Connected, true);
-				SetGameStatus(GameStatus.Authenticated, true);
-				SetGameStatus(GameStatus.Loading, true);
+				SetGameStatus(GameStatus.Connected);
+				SetGameStatus(GameStatus.Authenticated);
+				SetGameStatus(GameStatus.Loading);
 			}
 		}
 	}
@@ -1202,8 +1106,8 @@ public class ServerGameManager : MonoBehaviour
 			return;
 		}
 		foreach (NetworkConnection networkConnection in (from kvp in m_pendingDisconnects
-														 where kvp.Value < Time.realtimeSinceStartup
-														 select kvp.Key).ToArray())
+					 where kvp.Value < Time.realtimeSinceStartup
+					 select kvp.Key).ToArray())
 		{
 			m_pendingDisconnects.Remove(networkConnection);
 			DisconnectNow(networkConnection);
@@ -1231,18 +1135,12 @@ public class ServerGameManager : MonoBehaviour
 				{
 					if (connectionPersistent == null)
 					{
-						Log.Warning("Reconnecting client has disconnected {0}", new object[]
-						{
-							serverPlayerState
-						});
+						Log.Warning("Reconnecting client has disconnected {0}", serverPlayerState);
 						m_reconnectingAccountIds.Remove(serverPlayerState.SessionInfo.AccountId);
 					}
 					else if (flag)
 					{
-						Log.Warning("Reconnecting client has connected on game ending {0}", new object[]
-						{
-							serverPlayerState
-						});
+						Log.Warning("Reconnecting client has connected on game ending {0}", serverPlayerState);
 						m_reconnectingAccountIds.Remove(serverPlayerState.SessionInfo.AccountId);
 						GameManager.EndGameNotification endGameNotification = new GameManager.EndGameNotification();
 
@@ -1260,7 +1158,7 @@ public class ServerGameManager : MonoBehaviour
 	// custom
 	static private NetworkMessageDelegate Wrap<T>(Action<NetworkConnection, T> handler) where T : MessageBase, new()
 	{
-		return (msg) => handler(msg.conn, msg.ReadMessage<T>());
+		return msg => handler(msg.conn, msg.ReadMessage<T>());
 	}
 
 	private void HandleLoginRequest(NetworkConnection conn, GameManager.LoginRequest request)
@@ -1283,21 +1181,12 @@ public class ServerGameManager : MonoBehaviour
 			loginResponse.Success = false;
 			if (serverPlayerState != null && serverPlayerState.ReplacedWithBots)
 			{
-				Log.Error("Received login request from {0} after they were disconnected and replaced with a bot for timing out.", new object[]
-				{
-					conn.address
-				});
+				Log.Error("Received login request from {0} after they were disconnected and replaced with a bot for timing out.", conn.address);
 				loginResponse.ErrorMessage = "Login denied, your client timed out and was replaced with a bot.";
 			}
 			else
 			{
-				Log.Error("Received invalid login request from {0} | request= {1} {2} {3}", new object[]
-				{
-					conn.address,
-					request.AccountId,
-					request.SessionToken,
-					request.PlayerId
-				});
+				Log.Error("Received invalid login request from {0} | request= {1} {2} {3}", conn.address, request.AccountId, request.SessionToken, request.PlayerId);
 				loginResponse.ErrorMessage = "Invalid login request";
 			}
 
@@ -1308,28 +1197,14 @@ public class ServerGameManager : MonoBehaviour
 			//NetworkServer.SendToClient<GameManager.LoginResponse>(conn.connectionId, loginResponse);
 			return;
 		}
-		Log.Info("LoginRequest from {0} is using type {1} connection", new object[]
-		{
-			serverPlayerState,
-			conn.GetType().ToString()
-		});
+
+		Log.Info("LoginRequest from {0} is using type {1} connection", serverPlayerState, conn.GetType().ToString());
 		bool isReconnecting = false;
 		if (Convert.ToInt64(request.SessionToken) != serverPlayerState.SessionInfo.SessionToken
 			&& (serverPlayerState.SessionInfo.ReconnectSessionToken == 0L
 				|| Convert.ToInt64(request.SessionToken) != serverPlayerState.SessionInfo.ReconnectSessionToken))
 		{
-			Log.Error("Received invalid reconnect request from {0} (connectionId {1}) {2} to game {3} | request= {4} {5} {6} | playerState= {7} {8}", new object[]
-			{
-				conn.address,
-				conn.connectionId,
-				serverPlayerState.SessionInfo.Name,
-				serverPlayerState.GameInfo.GameServerProcessCode,
-				request.AccountId,
-				request.SessionToken,
-				request.PlayerId,
-				serverPlayerState.SessionInfo.SessionToken,
-				serverPlayerState.SessionInfo.ReconnectSessionToken
-			});
+			Log.Error("Received invalid reconnect request from {0} (connectionId {1}) {2} to game {3} | request= {4} {5} {6} | playerState= {7} {8}", conn.address, conn.connectionId, serverPlayerState.SessionInfo.Name, serverPlayerState.GameInfo.GameServerProcessCode, request.AccountId, request.SessionToken, request.PlayerId, serverPlayerState.SessionInfo.SessionToken, serverPlayerState.SessionInfo.ReconnectSessionToken);
 			loginResponse.ErrorMessage = "Invalid reconnect request";
 
 			// TODO LOW check
@@ -1341,15 +1216,7 @@ public class ServerGameManager : MonoBehaviour
 		}
 		if (serverPlayerState.IsAIControlled && !serverPlayerState.IsLoadTestBot)
 		{
-			Log.Info("This is a reconnect request from {0} (connectionId {1}) to game {2}...  {3} | PlayerId {4}, LastReceivedMsgSeqNum {5}", new object[]
-			{
-				conn.address,
-				conn.connectionId,
-				serverPlayerState.GameInfo.GameServerProcessCode,
-				serverPlayerState.SessionInfo.Name,
-				request.PlayerId,
-				request.LastReceivedMsgSeqNum
-			});
+			Log.Info("This is a reconnect request from {0} (connectionId {1}) to game {2}...  {3} | PlayerId {4}, LastReceivedMsgSeqNum {5}", conn.address, conn.connectionId, serverPlayerState.GameInfo.GameServerProcessCode, serverPlayerState.SessionInfo.Name, request.PlayerId, request.LastReceivedMsgSeqNum);
 			m_reconnectingAccountIds.Add(serverPlayerState.SessionInfo.AccountId);
 			isReconnecting = true;
 			serverPlayerState.ConnectionReady = false;
@@ -1359,15 +1226,12 @@ public class ServerGameManager : MonoBehaviour
 			loginResponse.LastReceivedMsgSeqNum = 0U;
 			serverPlayerState.ConnectionReady = false;
 		}
+
 		NetworkConnection connectionPersistent = serverPlayerState.ConnectionPersistent;
 		if (conn == null)
 		{
-			Log.Error("LoginRequest from {0} is using type {1} connection, not ServerExternalConnection", new object[]
-			{
-				serverPlayerState,
-				conn.GetType().ToString()
-			});
-			loginResponse.ErrorMessage = string.Format("{0} is not a ServerExternalConnection", conn.GetType().ToString());
+			Log.Error("LoginRequest from {0} is using type {1} connection, not ServerExternalConnection", serverPlayerState, conn.GetType().ToString());
+			loginResponse.ErrorMessage = string.Format("{0} is not a ServerExternalConnection", conn.GetType());
 
 			// TODO LOW check
 			// custom
@@ -1378,22 +1242,10 @@ public class ServerGameManager : MonoBehaviour
 		}
 		if (connectionPersistent != null && connectionPersistent != conn)
 		{
-			Log.Info("Player {0} already has connection from {1} to game {2}. disconnecting | persistent=({3})", new object[]
-			{
-				serverPlayerState,
-				connectionPersistent.address,
-				serverPlayerState.GameInfo.GameServerProcessCode,
-				connectionPersistent.connectionId
-			});
+			Log.Info("Player {0} already has connection from {1} to game {2}. disconnecting | persistent=({3})", serverPlayerState, connectionPersistent.address, serverPlayerState.GameInfo.GameServerProcessCode, connectionPersistent.connectionId);
 			MyNetworkManager.Get().OnServerDisconnect(connectionPersistent);
 		}
-		Log.Info("Player {0} has authenticated from {1} to game {2} | persistent=({3})", new object[]
-		{
-			serverPlayerState,
-			conn.address,
-			serverPlayerState.GameInfo.GameServerProcessCode,
-			conn.connectionId
-		});
+		Log.Info("Player {0} has authenticated from {1} to game {2} | persistent=({3})", serverPlayerState, conn.address, serverPlayerState.GameInfo.GameServerProcessCode, conn.connectionId);
 		serverPlayerState.ConnectionPersistent = conn;
 		serverPlayerState.ConnectionId = conn.connectionId;
 		serverPlayerState.ConnectionAddress = conn.address;
@@ -1423,22 +1275,10 @@ public class ServerGameManager : MonoBehaviour
 			|| serverPlayerState.SessionInfo == null
 			|| serverPlayerState.ConnectionPersistent != conn)
 		{
-			Log.Error("Received invalid assets loading notification from {0} | conn=({1}), connPersistent=({2}), playerState={3}, accountId={4}", new object[]
-			{
-				conn.address,
-				conn,
-				(serverPlayerState != null) ? serverPlayerState.ConnectionPersistent.ToString() : "(none)",
-				serverPlayerState,
-				notification.AccountId
-			});
+			Log.Error("Received invalid assets loading notification from {0} | conn=({1}), connPersistent=({2}), playerState={3}, accountId={4}", conn.address, conn, serverPlayerState != null ? serverPlayerState.ConnectionPersistent.ToString() : "(none)", serverPlayerState, notification.AccountId);
 			return;
 		}
-		Log.Info("Player {0} has loaded all assets ({1:0.00} secs). {2}", new object[]
-		{
-			serverPlayerState.SessionInfo.Name,
-			Time.unscaledTime - GameManager.Get().GameStatusTime,
-			GameManager.Get().GameInfo.Name
-		});
+		Log.Info("Player {0} has loaded all assets ({1:0.00} secs). {2}", serverPlayerState.SessionInfo.Name, Time.unscaledTime - GameManager.Get().GameStatusTime, GameManager.Get().GameInfo.Name);
 		serverPlayerState.GameLoadingState.IsLoaded = true;
 		SetClientReady(serverPlayerState);
 	}
@@ -1453,13 +1293,11 @@ public class ServerGameManager : MonoBehaviour
 		{
 			return;
 		}
+
 		ServerPlayerState serverPlayerState;
-		if (!m_serverPlayerStates.TryGetValue((long)notification.PlayerId, out serverPlayerState) || serverPlayerState.SessionInfo == null || conn != serverPlayerState.ConnectionPersistent)
+		if (!m_serverPlayerStates.TryGetValue(notification.PlayerId, out serverPlayerState) || serverPlayerState.SessionInfo == null || conn != serverPlayerState.ConnectionPersistent)
 		{
-			Log.Error("Received invalid leave game notification from {0}", new object[]
-			{
-				conn.address
-			});
+			Log.Error("Received invalid leave game notification from {0}", conn.address);
 			return;
 		}
 		serverPlayerState.LogGameExit(notification.GameResult);
@@ -1474,10 +1312,7 @@ public class ServerGameManager : MonoBehaviour
 				|| GameFlowData.Get().GetTimeRemainingInDecision() / GameFlowData.Get().m_turnTime <= 0.8f)
 			&& GameFlowData.Get().gameState != GameState.EndingGame)
 		{
-			Log.Info("Delaying spawn message for player {0} until the resolve phase is complete", new object[]
-			{
-			playerState.SessionInfo.Name
-			});
+			Log.Info("Delaying spawn message for player {0} until the resolve phase is complete", playerState.SessionInfo.Name);
 			m_playersToReadyNextDecisionPhase.Add(playerState);
 			return;
 		}
@@ -1490,12 +1325,7 @@ public class ServerGameManager : MonoBehaviour
 		int playerObjectCount = m_serverPlayerStates.Count * (1 + num);
 		// TODO LOW check that the number is correct (7 iirc)
 		int totalObjectCount = NetworkServer.objects.Count; //  int count = NetworkIdentity.spawned.Count;
-		Log.Info("Sending spawn message for player {0} (playerObjectCount={1} totalObjectCount={2})", new object[]
-		{
-			(playerState.SessionInfo != null) ? playerState.SessionInfo.Name : "(unnamed player)",
-			playerObjectCount,
-			totalObjectCount
-		});
+		Log.Info("Sending spawn message for player {0} (playerObjectCount={1} totalObjectCount={2})", playerState.SessionInfo != null ? playerState.SessionInfo.Name : "(unnamed player)", playerObjectCount, totalObjectCount);
 		GameManager.SpawningObjectsNotification spawningObjectsNotification = new GameManager.SpawningObjectsNotification();
 		spawningObjectsNotification.PlayerId = playerState.PlayerInfo.PlayerId;
 		spawningObjectsNotification.SpawnableObjectCount = totalObjectCount;
@@ -1525,15 +1355,10 @@ public class ServerGameManager : MonoBehaviour
 		ServerPlayerState serverPlayerState = m_serverPlayerStates.TryGetValue(loadingProgressInfo.PlayerId);
 		if (serverPlayerState == null || serverPlayerState.SessionInfo == null || serverPlayerState.ConnectionPersistent != conn)
 		{
-			Log.Error("Received invalid assets loading progress from {0} | conn=({1}), playerState={2}, accountId={3}", new object[]
-			{
-				conn.address,
-				conn,
-				serverPlayerState,
-				loadingProgressInfo.AccountId
-			});
+			Log.Error("Received invalid assets loading progress from {0} | conn=({1}), playerState={2}, accountId={3}", conn.address, conn, serverPlayerState, loadingProgressInfo.AccountId);
 			return;
 		}
+
 		serverPlayerState.GameLoadingState.TotalLoadingProgress = loadingProgressInfo.TotalLoadingProgress;
 		serverPlayerState.GameLoadingState.LevelLoadingProgress = loadingProgressInfo.LevelLoadingProgress;
 		serverPlayerState.GameLoadingState.CharacterLoadingProgress = loadingProgressInfo.CharacterLoadingProgress;
@@ -1541,7 +1366,7 @@ public class ServerGameManager : MonoBehaviour
 		serverPlayerState.GameLoadingState.SpawningProgress = loadingProgressInfo.SpawningProgress;
 		GameLoadingState gameLoadingState = serverPlayerState.GameLoadingState;
 		gameLoadingState.LoadingProgressUpdateCount += 1;
-		float loadingProgress = (float)loadingProgressInfo.TotalLoadingProgress / 100f;
+		float loadingProgress = loadingProgressInfo.TotalLoadingProgress / 100f;
 		UILoadingScreenPanel.Get().SetLoadingProgress(loadingProgressInfo.PlayerId, loadingProgress, false);
 		foreach (ServerPlayerState serverPlayerState2 in m_serverPlayerStates.Values)
 		{
@@ -1558,16 +1383,16 @@ public class ServerGameManager : MonoBehaviour
 			//if (serverPlayerState2.PlayerInfo.IsNPCBot && !serverPlayerState2.PlayerInfo.ReplacedWithBots)
 			//{
 			//	serverPlayerState2.DisconnectAndReplaceWithBots(GameResult.ClientDisconnectedAtLaunch);
-			//             serverPlayerState2.GameLoadingState.IsLoaded = true;
-			//             //SetClientReady(serverPlayerState2);
-			//         }
+			//			 serverPlayerState2.GameLoadingState.IsLoaded = true;
+			//			 //SetClientReady(serverPlayerState2);
+			//		 }
 		}
 	}
 
 	public void ClientPreparedForGameStart(int playerId)
 	{
 		ServerPlayerState serverPlayerState;
-		if (m_serverPlayerStates.TryGetValue((long)playerId, out serverPlayerState))
+		if (m_serverPlayerStates.TryGetValue(playerId, out serverPlayerState))
 		{
 			serverPlayerState.GameLoadingState.IsReady = true;
 		}
@@ -1584,19 +1409,14 @@ public class ServerGameManager : MonoBehaviour
 			return;
 		}
 		ServerPlayerState serverPlayerState;
-		if (!m_serverPlayerStates.TryGetValue((long)notification.PlayerId, out serverPlayerState) || serverPlayerState.SessionInfo == null || conn != serverPlayerState.ConnectionPersistent)
+		if (!m_serverPlayerStates.TryGetValue(notification.PlayerId, out serverPlayerState) || serverPlayerState.SessionInfo == null || conn != serverPlayerState.ConnectionPersistent)
 		{
-			Log.Error("Received invalid PlayerObjectStartedOnClientNotification from {0}", new object[]
-			{
-				conn.address
-			});
+			Log.Error("Received invalid PlayerObjectStartedOnClientNotification from {0}", conn.address);
 			return;
 		}
+
 		serverPlayerState.GameLoadingState.IsReady = true;
-		Log.Info("Player {0} ActorData started on client", new object[]
-		{
-			serverPlayerState.SessionInfo.Name
-		});
+		Log.Info("Player {0} ActorData started on client", serverPlayerState.SessionInfo.Name);
 	}
 
 	private void HandleClientRequestTimeUpdate(NetworkMessage msg)
@@ -1611,12 +1431,9 @@ public class ServerGameManager : MonoBehaviour
 			return;
 		}
 		ServerPlayerState serverPlayerState;
-		if (!m_serverPlayerStates.TryGetValue((long)playerObjectStartedOnClientNotification.PlayerId, out serverPlayerState) || serverPlayerState.SessionInfo == null || msg.conn != serverPlayerState.ConnectionPersistent)
+		if (!m_serverPlayerStates.TryGetValue(playerObjectStartedOnClientNotification.PlayerId, out serverPlayerState) || serverPlayerState.SessionInfo == null || msg.conn != serverPlayerState.ConnectionPersistent)
 		{
-			Log.Error("Received invalid PlayerObjectStartedOnClientNotification from {0}", new object[]
-			{
-				msg.conn.address
-			});
+			Log.Error("Received invalid PlayerObjectStartedOnClientNotification from {0}", msg.conn.address);
 			return;
 		}
 		if (GameFlowData.Get() != null && GameFlowData.Get().CurrentTurn > 1)
@@ -1624,10 +1441,8 @@ public class ServerGameManager : MonoBehaviour
 			float timeSinceMatchStart = MatchLogger.Get().GetTimeSinceMatchStart();
 			GameFlow.Get().SendMatchTime(timeSinceMatchStart);
 		}
-		Log.Info("Player {0} requested time update", new object[]
-		{
-			serverPlayerState.SessionInfo.Name
-		});
+
+		Log.Info("Player {0} requested time update", serverPlayerState.SessionInfo.Name);
 	}
 
 	private void HandleClientFakeActionRequest(NetworkConnection conn, GameManager.FakeActionRequest request)
@@ -1641,16 +1456,13 @@ public class ServerGameManager : MonoBehaviour
 			return;
 		}
 		ServerPlayerState serverPlayerState;
-		if (!m_serverPlayerStates.TryGetValue((long)request.PlayerId, out serverPlayerState) || serverPlayerState.SessionInfo == null || conn != serverPlayerState.ConnectionPersistent)
+		if (!m_serverPlayerStates.TryGetValue(request.PlayerId, out serverPlayerState) || serverPlayerState.SessionInfo == null || conn != serverPlayerState.ConnectionPersistent)
 		{
-			Log.Error("Received invalid FakeActionRequest from {0}", new object[]
-			{
-				conn.address
-			});
+			Log.Error("Received invalid FakeActionRequest from {0}", conn.address);
 			return;
 		}
 		GameManager.FakeActionResponse fakeActionResponse = new GameManager.FakeActionResponse();
-		fakeActionResponse.msgSize = UnityEngine.Random.Range(32, 1500);  // CryptoRandom.RangeInt32(32, 1500) in rogues
+		fakeActionResponse.msgSize = Random.Range(32, 1500); // CryptoRandom.RangeInt32(32, 1500) in rogues
 		fakeActionResponse.msgData = new byte[fakeActionResponse.msgSize];
 
 		// TODO LOW check
@@ -1704,8 +1516,8 @@ public class ServerGameManager : MonoBehaviour
 			GameObject[] prefabsForGameScenes = PrefabsForGameScenes;
 			for (int i = 0; i < prefabsForGameScenes.Length; i++)
 			{
-				GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(prefabsForGameScenes[i]);
-				UnityEngine.Object.DontDestroyOnLoad(gameObject);
+				GameObject gameObject = Instantiate(prefabsForGameScenes[i]);
+				DontDestroyOnLoad(gameObject);
 				m_instancesForGameScenes.Add(gameObject);
 				NetworkServer.Spawn(gameObject);
 			}
@@ -1734,7 +1546,7 @@ public class ServerGameManager : MonoBehaviour
 		{
 			bundleName = "maps";
 		}
-		SetGameStatus(GameStatus.Loading, true);
+		SetGameStatus(GameStatus.Loading);
 		m_loadLevelOperation = new AssetBundleManager.LoadSceneAsyncOperation
 		{
 			sceneName = gameManager.GameConfig.Map,  //  gameManager.GameMission.Map in rogues
@@ -1753,7 +1565,7 @@ public class ServerGameManager : MonoBehaviour
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(serverPlayerState.PlayerInfo.CharacterType);
 				m_loadingCharacterResources.Add(characterResourceLink);
 				ServerPlayerInfo closureServerPlayerInfo = serverPlayerState.PlayerInfo;
-				characterResourceLink.LoadAsync(serverPlayerState.PlayerInfo.CharacterSkin, delegate (LoadedCharacterSelection loadedCharacter)
+				characterResourceLink.LoadAsync(serverPlayerState.PlayerInfo.CharacterSkin, delegate(LoadedCharacterSelection loadedCharacter)
 				{
 					Log.Info($"ServerGameManager::LoadAsync: Done loading {loadedCharacter.resourceLink.m_displayName}");
 					m_loadingCharacterResources.Remove(loadedCharacter.resourceLink);
@@ -1766,7 +1578,7 @@ public class ServerGameManager : MonoBehaviour
 					CharacterResourceLink characterResourceLink2 = GameWideData.Get().GetCharacterResourceLink(serverPlayerInfo.CharacterType);
 					m_loadingCharacterResources.Add(characterResourceLink2);
 					ServerPlayerInfo closureProxyPlayerInfo = serverPlayerInfo;
-					characterResourceLink2.LoadAsync(serverPlayerInfo.CharacterSkin, delegate (LoadedCharacterSelection loadedCharacter)
+					characterResourceLink2.LoadAsync(serverPlayerInfo.CharacterSkin, delegate(LoadedCharacterSelection loadedCharacter)
 					{
 						Log.Info($"ServerGameManager::LoadAsync: Done loading {loadedCharacter.resourceLink.m_displayName}");
 						m_loadingCharacterResources.Remove(loadedCharacter.resourceLink);
@@ -1780,10 +1592,10 @@ public class ServerGameManager : MonoBehaviour
 		}
 	}
 
-	public void LoadCharacterResourceLink(CharacterResourceLink characterResourceLink, CharacterVisualInfo linkVisualInfo)  // linkVisualInfo = null in rogues
+	public void LoadCharacterResourceLink(CharacterResourceLink characterResourceLink, CharacterVisualInfo linkVisualInfo) // linkVisualInfo = null in rogues
 	{
 		m_loadingCharacterResources.Add(characterResourceLink);
-		characterResourceLink.LoadAsync(linkVisualInfo, delegate (LoadedCharacterSelection loadedCharacter)
+		characterResourceLink.LoadAsync(linkVisualInfo, delegate(LoadedCharacterSelection loadedCharacter)
 		{
 			m_loadingCharacterResources.Remove(loadedCharacter.resourceLink);
 			m_loadedCharacterResourceCount++;
@@ -1798,16 +1610,16 @@ public class ServerGameManager : MonoBehaviour
 			GameManager gameManager = GameManager.Get();
 			if (gameManager.PlayerInfo != null && gameManager.TeamInfo != null)
 			{
-				m_assetsLoadingState.LevelLoadProgress = (m_loadLevelOperationDone ? 1f : ((m_loadLevelOperation != null) ? m_loadLevelOperation.progress : 0f));
-				m_assetsLoadingState.CharacterLoadProgress = Mathf.Clamp((float)m_loadedCharacterResourceCount / (float)gameManager.TeamInfo.TotalPlayerCount, 0f, 1f);
-				m_assetsLoadingState.VfxPreloadProgress = ((ClientVFXLoader.Get() != null) ? ClientVFXLoader.Get().Progress : 0f);
+				m_assetsLoadingState.LevelLoadProgress = m_loadLevelOperationDone ? 1f : m_loadLevelOperation != null ? m_loadLevelOperation.progress : 0f;
+				m_assetsLoadingState.CharacterLoadProgress = Mathf.Clamp(m_loadedCharacterResourceCount / (float)gameManager.TeamInfo.TotalPlayerCount, 0f, 1f);
+				m_assetsLoadingState.VfxPreloadProgress = ClientVFXLoader.Get() != null ? ClientVFXLoader.Get().Progress : 0f;
 				if (ClientScene.spawnableObjects != null)
 				{
 					int count = ClientScene.spawnableObjects.Count;
 					int num = (from s in ClientScene.spawnableObjects
-							   where s.Value.gameObject.activeSelf
-							   select s).Count();
-					m_assetsLoadingState.SpawningProgress = ((count > 0) ? Mathf.Clamp((float)num / (float)count, 0f, 1f) : 1f);
+						where s.Value.gameObject.activeSelf
+						select s).Count();
+					m_assetsLoadingState.SpawningProgress = count > 0 ? Mathf.Clamp(num / (float)count, 0f, 1f) : 1f;
 				}
 				else
 				{
@@ -1848,7 +1660,7 @@ public class ServerGameManager : MonoBehaviour
 		bool flag = m_loadLevelOperationDone && (GameFlowData.Get() == null || GameFlowData.Get().gameState < GameState.Deployment);
 		if (m_loading || flag)
 		{
-			UpdateLoadProgress(false);
+			UpdateLoadProgress();
 		}
 		if (gameManager.GameStatus == GameStatus.Loading)
 		{
@@ -1857,13 +1669,13 @@ public class ServerGameManager : MonoBehaviour
 				m_loadLevelOperation = null;
 				m_loadLevelOperationDone = true;
 				VisualsLoader visualsLoader = VisualsLoader.Get();
-				if (visualsLoader != null && visualsLoader.LevelLoaded())  // (visualsLoader != null && visualsLoader.EncounterLoaded()) in rogues, probably can be removed
+				if (visualsLoader != null && visualsLoader.LevelLoaded()) // (visualsLoader != null && visualsLoader.EncounterLoaded()) in rogues, probably can be removed
 				{
 					NetworkServer.SpawnObjects();
 				}
 				else // custom
 				{
-					Log.Error($"Visuals loader failed");
+					Log.Error("Visuals loader failed");
 				}
 
 				// custom artemis
@@ -1874,14 +1686,12 @@ public class ServerGameManager : MonoBehaviour
 				//{
 				//	AddCharacterActor(playerInfo);
 				//}
-
-				ArtemisBridgeServerInterface.ReportGameReady();
 				// end custom artemis
 			}
 			bool flag2 = true;
 			if (NPCCoordinator.Get() != null)
 			{
-				flag2 = (NPCCoordinator.Get().LoadingState == NPCCoordinator.LoadingStateEnum.Done);
+				flag2 = NPCCoordinator.Get().LoadingState == NPCCoordinator.LoadingStateEnum.Done;
 			}
 			if (m_loadLevelOperation == null && m_loadingCharacterResources.Count == 0 && (VisualsLoader.Get() == null || VisualsLoader.Get().LevelLoaded()) && flag2)
 			{
@@ -1908,7 +1718,7 @@ public class ServerGameManager : MonoBehaviour
 					break;
 				}
 				if ((sps.ConnectionPersistent == null
-						|| sps.ConnectionPersistent.connectionId < 0)
+					 || sps.ConnectionPersistent.connectionId < 0)
 					&& !sps.PlayerInfo.IsAIControlled
 					&& !sps.LocalClient)
 				{
@@ -1927,9 +1737,9 @@ public class ServerGameManager : MonoBehaviour
 					{
 						int connectionId = sps?.ConnectionPersistent.connectionId ?? -1;
 						Log.Info($"Player {sps.PlayerInfo.Handle} {sps.SessionInfo.AccountId} (connectionId {connectionId})" +
-							$" has failed to load, and will now be controlled by a bot ({sps.GameLoadingState}). {gameManager.GameInfo.Name}");
+								 $" has failed to load, and will now be controlled by a bot ({sps.GameLoadingState}). {gameManager.GameInfo.Name}");
 
-						SendConsoleMessageWithHandle("PlayerFailedToLoad", "Disconnect", sps.PlayerInfo.Handle, sps.PlayerInfo.TeamId, ConsoleMessageType.SystemMessage, null);
+						SendConsoleMessageWithHandle("PlayerFailedToLoad", "Disconnect", sps.PlayerInfo.Handle, sps.PlayerInfo.TeamId);
 						sps.DisconnectAndReplaceWithBots(GameResult.ClientLoadingTimeout);
 					}
 				}
@@ -1948,7 +1758,7 @@ public class ServerGameManager : MonoBehaviour
 						SetClientReady(sps);
 					}
 				}
-				SetGameStatus(GameStatus.Loaded, true);
+				SetGameStatus(GameStatus.Loaded);
 				StartGame();
 			}
 		}
@@ -1965,7 +1775,7 @@ public class ServerGameManager : MonoBehaviour
 			if (serverPlayerState.PlayerInfo.IsGameOwner && NetworkClient.active)
 			{
 				// TODO check
-				ClientScene.AddPlayer(serverPlayerState.ConnectionPersistent, 0);  // ClientScene.AddPlayer(serverPlayerState.ConnectionPersistent); in rogues
+				ClientScene.AddPlayer(serverPlayerState.ConnectionPersistent, 0); // ClientScene.AddPlayer(serverPlayerState.ConnectionPersistent); in rogues
 			}
 			GameFlow.Get().AddPlayer(serverPlayerState);
 		}
@@ -1979,7 +1789,7 @@ public class ServerGameManager : MonoBehaviour
 		// end custom artemis
 
 		GameFlowData.Get().gameState = GameState.SpawningPlayers;
-		SetGameStatus(GameStatus.Started, true);
+		SetGameStatus(GameStatus.Started);
 		SendQueuedConsoleMessages();
 	}
 
@@ -1997,7 +1807,7 @@ public class ServerGameManager : MonoBehaviour
 			&& !AreClientsConnected())
 		{
 			Log.Notice("All clients have disconnected, stopping game");
-			GameManager.Get().StopGame(GameResult.NoResult);
+			GameManager.Get().StopGame();
 		}
 	}
 
@@ -2016,7 +1826,7 @@ public class ServerGameManager : MonoBehaviour
 	private void HandleDisconnectPlayerRequest(DisconnectPlayerRequest request)
 	{
 		ServerPlayerState serverPlayerState = null;
-		m_serverPlayerStates.TryGetValue((long)request.PlayerInfo.PlayerId, out serverPlayerState);
+		m_serverPlayerStates.TryGetValue(request.PlayerInfo.PlayerId, out serverPlayerState);
 		if (serverPlayerState == null)
 		{
 			return;
@@ -2026,12 +1836,7 @@ public class ServerGameManager : MonoBehaviour
 			return;
 		}
 		serverPlayerState.LogGameExit(request.GameResult);
-		Log.Info("Disconnecting player {0} {1} (connectionId {2})", new object[]
-		{
-			request.SessionInfo.Handle,
-			request.SessionInfo.AccountId,
-			serverPlayerState.ConnectionPersistent.connectionId
-		});
+		Log.Info("Disconnecting player {0} {1} (connectionId {2})", request.SessionInfo.Handle, request.SessionInfo.AccountId, serverPlayerState.ConnectionPersistent.connectionId);
 		serverPlayerState.ConnectionPersistent.Disconnect();
 	}
 
@@ -2044,11 +1849,7 @@ public class ServerGameManager : MonoBehaviour
 		{
 			playerStateByAccountId.SessionInfo.ReconnectSessionToken = request.NewSessionId;
 			reconnectPlayerResponse.Success = true;
-			Log.Info("Lobby gave us a new session token for player {0} {1}", new object[]
-			{
-				playerStateByAccountId.SessionInfo.Name,
-				playerStateByAccountId.SessionInfo.ReconnectSessionToken
-			});
+			Log.Info("Lobby gave us a new session token for player {0} {1}", playerStateByAccountId.SessionInfo.Name, playerStateByAccountId.SessionInfo.ReconnectSessionToken);
 		}
 		else
 		{
@@ -2056,14 +1857,13 @@ public class ServerGameManager : MonoBehaviour
 			reconnectPlayerResponse.Success = false;
 			Log.Warning(reconnectPlayerResponse.ErrorMessage);
 		}
-		// monitor
-		//m_monitorGameServerInterface.Send(reconnectPlayerResponse);
+		m_monitorGameServerInterface.Send(reconnectPlayerResponse);
 	}
 
 	private void HandleShutdownGameRequest(ShutdownGameRequest request)
 	{
 		Log.Info("Received shutdown game request");
-		GameManager.Get().StopGame(GameResult.NoResult);
+		GameManager.Get().StopGame();
 	}
 
 	public bool IsServer()
@@ -2168,7 +1968,6 @@ public class ServerGameManager : MonoBehaviour
 			if (GameFlow.Get() != null)
 			{
 				GameFlow.Get().DisplayConsoleText(term, context, "", "", messageType, team, senderHandle);
-				return;
 			}
 		}
 		else
@@ -2184,7 +1983,6 @@ public class ServerGameManager : MonoBehaviour
 			if (GameFlow.Get() != null)
 			{
 				GameFlow.Get().DisplayConsoleText(term, context, handle, "", messageType, team, senderHandle);
-				return;
 			}
 		}
 		else
@@ -2200,7 +1998,6 @@ public class ServerGameManager : MonoBehaviour
 			if (GameFlow.Get() != null)
 			{
 				GameFlow.Get().DisplayConsoleText("", "", "", message, messageType, team, senderHandle);
-				return;
 			}
 		}
 		else
@@ -2231,9 +2028,7 @@ public class ServerGameManager : MonoBehaviour
 			}
 			return m_loadingCharacterResources.Count;
 		}
-		private set
-		{
-		}
+		private set { }
 	}
 
 	public int NumCharactersInGame
@@ -2258,9 +2053,7 @@ public class ServerGameManager : MonoBehaviour
 			}
 			return num;
 		}
-		private set
-		{
-		}
+		private set { }
 	}
 
 	public int NumHumanControlledCharactersInGame
@@ -2285,15 +2078,12 @@ public class ServerGameManager : MonoBehaviour
 			}
 			return num;
 		}
-		private set
-		{
-		}
+		private set { }
 	}
 
-	// monitor
-	//private void HandleMonitorHeartbeatResponse(MonitorHeartbeatResponse response)
-	//{
-	//}
+	private void HandleMonitorHeartbeatResponse(MonitorHeartbeatResponse response)
+	{
+	}
 
 	private class QueuedConsoleMessage
 	{
